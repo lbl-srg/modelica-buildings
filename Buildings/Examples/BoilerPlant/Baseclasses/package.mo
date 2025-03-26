@@ -5,7 +5,7 @@ package Baseclasses "Package containing baseclasses for example model"
   annotation(Documentation(info="<html>
     <p>
     This package contains the baseclasses for the boiler plant model
-    <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlant\"> 
+    <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlantPrimary\"> 
     Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlant</a> and the simplified 
     thermal zone model
     <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad\">

@@ -17,10 +17,45 @@ model SimplifiedSecondaryLoad
     "Nominal pressure drop across radiator"
     annotation(Dialog(group="Radiator"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPum
+    "Secondary pump enable"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRet
-    "Hot water return temperature" annotation (Placement(transformation(extent=
-            {{-140,-20},{-100,20}}), iconTransformation(extent={{-140,0},{-100,
-            40}})));
+    "Required hot water return temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWat_flow
+    "Required hot water flowrate"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe
+    "Secondary pump speed"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumEna
+    "Pump proven on"
+    annotation (Placement(transformation(extent={{100,10},{140,50}}),
+      iconTransformation(extent={{100,0},{140,40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nReq
+    "Number of requests from end load valve"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+      iconTransformation(extent={{100,40},{140,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dPSec
+    "Differential pressure between secondary loop supply and return"
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe
+    "Measured pump speed"
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = MediumW)
@@ -34,81 +69,76 @@ model SimplifiedSecondaryLoad
     annotation (Placement(transformation(extent={{70,-110},{90,-90}}),
       iconTransformation(extent={{30,-110},{50,-90}})));
 
-  Fluid.HeatExchangers.SensibleCooler_T                    coo(
+  Buildings.Fluid.HeatExchangers.SensibleCooler_T coo(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mRad_flow_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final dp_nominal=dpRad_nominal)
-    "Radiator for zone heating loads"
+    "Ideal cooler for heating loads"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
-  Fluid.Movers.Preconfigured.SpeedControlled_y
-                                           pum(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pum(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final allowFlowReversal=true,
     final addPowerToMedium=true,
     final riseTime=60,
-    m_flow_nominal=mRad_flow_nominal,
-    dp_nominal=dpRad_nominal)   "Hot water secondary pump-1"
+    final m_flow_nominal=mRad_flow_nominal,
+    final dp_nominal=dpRad_nominal)
+    "Hot water secondary pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-20,-40})));
-  Fluid.Actuators.Valves.TwoWayLinear           val(
-    redeclare package Medium = MediumW,
+
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
+    redeclare final package Medium = MediumW,
     final m_flow_nominal=mRad_flow_nominal,
     final dpValve_nominal(displayUnit="Pa") = 0.1*dpRad_nominal,
     final dpFixed_nominal(displayUnit="Pa") = 1000)
     "Minimum flow bypass valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0)));
-  Controls.OBC.CDL.Interfaces.RealInput uHotWat_flow
-    "Zone temperature setpoint" annotation (Placement(transformation(extent={{-140,
-            40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
-  Controls.OBC.CDL.Reals.PID           conPID
-    "Radiator valve controller"
+
+  Buildings.Controls.OBC.CDL.Reals.PID conPID
+    "Cooler valve controller"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=5)
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=5)
     "Multiply number of requests to represent requests from multiple zones"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real signal to required integer format"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Controls.OBC.CDL.Interfaces.IntegerOutput nReq
-    "Number of requests from end load valve" annotation (Placement(
-        transformation(extent={{100,40},{140,80}}), iconTransformation(extent={{100,40},
-            {140,80}})));
-  Controls.OBC.CDL.Interfaces.BooleanInput uPum annotation (Placement(
-        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
-          extent={{-140,-40},{-100,0}})));
-  Controls.OBC.CDL.Interfaces.RealInput uPumSpe annotation (Placement(
-        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Convert enable signal to real"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Controls.OBC.CDL.Reals.Multiply mul
+
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
+    "Operate pump at required speed only when enable signal is true"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumW)
+
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare final package Medium = MediumW)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = MediumW)
+
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
+    redeclare final package Medium = MediumW)
+    "Differential pressure sensor"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Controls.OBC.CDL.Interfaces.RealOutput dPSec annotation (Placement(
-        transformation(extent={{100,-100},{140,-60}}), iconTransformation(
-          extent={{100,-80},{140,-40}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput yPumEna annotation (Placement(
-        transformation(extent={{100,10},{140,50}}),iconTransformation(extent={{100,0},
-            {140,40}})));
-  Controls.OBC.CDL.Reals.Hysteresis hys(uLow=0.05, uHigh=0.1)
+
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
+    final uLow=0.05,
+    final uHigh=0.1)
+    "Determine if pump is proven on"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Controls.OBC.CDL.Interfaces.RealOutput yPumSpe "Measured pump speed"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-        iconTransformation(extent={{100,-40},{140,0}})));
+
 equation
   connect(port_b,coo. port_b) annotation (Line(points={{80,-100},{80,0},{70,0}},
         color={0,127,255}));
-  connect(pum.port_b, val.port_a) annotation (Line(points={{-20,-30},{-20,0},{-10,
-          0}},        color={0,127,255}));
   connect(uHotWat_flow, conPID.u_s)
     annotation (Line(points={{-120,60},{-52,60}}, color={0,0,127}));
   connect(conPID.y, gai.u)
@@ -131,8 +161,6 @@ equation
   connect(THotWatRet, coo.TSet) annotation (Line(points={{-120,0},{-40,0},{-40,-14},
           {46,-14},{46,8},{48,8}},
                           color={0,0,127}));
-  connect(val.port_b, senMasFlo.port_a)
-    annotation (Line(points={{10,0},{20,0}},     color={0,127,255}));
   connect(senMasFlo.port_b, coo.port_a)
     annotation (Line(points={{40,0},{50,0}},     color={0,127,255}));
   connect(senMasFlo.m_flow, conPID.u_m) annotation (Line(points={{30,11},{30,20},
@@ -146,13 +174,18 @@ equation
   connect(yPumEna, hys.y)
     annotation (Line(points={{120,30},{82,30}}, color={255,0,255}));
   connect(pum.y_actual, hys.u)
-    annotation (Line(points={{-27,-29},{-27,30},{58,30}}, color={0,0,127}));
+    annotation (Line(points={{-27,-29},{-27,-24},{-28,-24},{-28,30},{58,30}},
+                                                          color={0,0,127}));
   connect(port_a, pum.port_a)
     annotation (Line(points={{-20,-100},{-20,-50}}, color={0,127,255}));
   connect(pum.y_actual, yPumSpe) annotation (Line(points={{-27,-29},{-27,-24},{-28,
           -24},{-28,30},{50,30},{50,16},{94,16},{94,-20},{120,-20}}, color={0,0,
           127}));
-  annotation (defaultComponentName="zon",
+  connect(val.port_b, senMasFlo.port_a)
+    annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
+  connect(val.port_a, pum.port_b)
+    annotation (Line(points={{-10,0},{-20,0},{-20,-30}}, color={0,127,255}));
+  annotation (defaultComponentName="secLoo",
     Icon(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -172,15 +205,20 @@ equation
         extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
       <p>
-      This is a simplified zone model consisting of a thermal capacitor <code>zonTheCap</code>
-      to represent the termal capacity of the zone. The heating load on the zone is 
-      applied by the ideal source <code>QFlo</code> and is met by the radiator 
-      <code>rad</code>.
+      This is a simplified load model for a boiler plant secondary loop consisting of 
+      a variable speed pump <code>pum</code>, a flow-control valve <code>val</code>
+      and an ideal cooler <code>coo</code>. The heating load on the secondary loop
+      is applied via the inputs for load flowrate <code>uHotWat_flow</code> and
+      return temperature <code>THotWatRet</code>.
+      <br>
+      The flowrate through <code>val</code> is regulated at <code>uHotWat_flow</code>
+      by the PID controller <code>conPID</code>. <code>coo</code> enforces the
+      return temperature <code>THotWatRet</code>.
       </p>
       </html>", revisions="<html>
       <ul>
       <li>
-      November 25, 2022, by Karthik Devaprasad:<br/>
+      March 25, 2025, by Karthik Devaprasad:<br/>
       First implementation.
       </li>
       </ul>

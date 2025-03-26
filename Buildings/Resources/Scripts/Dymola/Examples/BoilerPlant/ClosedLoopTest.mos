@@ -1,20 +1,25 @@
-simulateModel("Buildings.Examples.BoilerPlant.ClosedLoopTest", startTime=518400,tolerance=1e-4, stopTime=691200, outputInterval=60, method="cvode", resultFile="ClosedLoopTest");
+simulateModel("Buildings.Examples.BoilerPlant.ClosedLoopTest", startTime=172800,tolerance=1e-6, stopTime=259200, outputInterval=60, method="cvode", resultFile="ClosedLoopTest");
 removePlots(false);
 
-createPlot(id=1, position={0, 0, 997, 856}, y={"conPID.u_m", "conPID.u_s"}, range={515000.0, 695000.0, 288.0, 296.0}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={0, 0, 997, 282}, y={"boiPlaCon.plaReq"}, range={515000.0, 695000.0, -0.2, 1.2}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 997, 282}, y={"boiPlaCon.yPla"}, range={515000.0, 695000.0, -0.2, 1.2}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1123, 809}, y={"conPumSec1.pumSpeRemDp.conPID[1].u_s", "conPumSec1.pumSpeRemDp.conPID[1].u_m"}, range={86000.0, 174000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=1, position={0, 0, 1123, 809}, y={"conPumSec1.pumSpeRemDp.conPID[1].y"}, range={86000.0, 174000.0, -0.5, 1.5}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={0, 0, 1123, 809}, y={"secLoo1.conPID.u_s", "secLoo1.conPID.u_m"}, range={86000.0, 174000.0, -2.0, 10.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=1, position={0, 0, 1123, 809}, y={"secLoo1.conPID.y"}, range={86000.0, 174000.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
 
-createPlot(id=2, position={0, 0, 1500, 978}, y={"boiPlaCon.yPla"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={0, 0, 1500, 136}, y={"boiPlaCon.TPlaHotWatSupSet", "boiPla.ySupTem"}, range={510000.0, 700000.0, 250.0, 350.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={0, 0, 1500, 135}, y={"boiPlaCon.staSetCon.ySta"}, range={510000.0, 700000.0, -5.0, 5.0}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=2, position={0, 0, 1500, 136}, y={"boiPlaCon.yHotWatIsoVal[1]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
-createPlot(id=2, position={0, 0, 1500, 135}, y={"boiPlaCon.yBoi[1]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});
-createPlot(id=2, position={0, 0, 1500, 136}, y={"boiPlaCon.yHotWatIsoVal[2]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
-createPlot(id=2, position={0, 0, 1500, 135}, y={"boiPlaCon.yBoi[2]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=7, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1123, 809}, y={"conPumSec2.pumSpeRemDp.conPID[1].u_s", "conPumSec2.pumSpeRemDp.conPID[1].u_m"}, range={86000.0, 174000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=2, position={0, 0, 1123, 809}, y={"conPumSec2.pumSpeRemDp.conPID[1].y"}, range={86000.0, 174000.0, -0.5, 1.5}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={0, 0, 1123, 809}, y={"secLoo2.conPID.u_s", "secLoo2.conPID.u_m"}, range={86000.0, 174000.0, -2.0, 10.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=2, position={0, 0, 1123, 809}, y={"secLoo2.conPID.y"}, range={86000.0, 174000.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
 
-createPlot(id=3, position={0, 0, 1500, 939}, y={"boiPlaCon.yPriPum[1]"}, range={510000.0, 700000.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={0, 0, 1500, 184}, y={"boiPlaCon.dpHotWatPri_rem[1]", "boiPlaCon.maxLocDpPri"}, range={510000.0, 700000.0, -50000.0, 150000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-createPlot(id=3, position={0, 0, 1500, 183}, y={"boiPlaCon.yPriPumSpe"}, range={510000.0, 700000.0, 0.0, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=3, position={0, 0, 1500, 184}, y={"boiPlaCon.VHotWatPri_flow", "boiPlaCon.minBoiFloSet.VHotWatMinSet_flow"}, range={510000.0, 700000.0, -0.05, 0.1}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
-createPlot(id=3, position={0, 0, 1500, 184}, y={"boiPlaCon.yBypValPos"}, range={510000.0, 700000.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1500, 978}, y={"conBoiPri.yPla"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1500, 136}, y={"conBoiPri.TPlaHotWatSupSet", "boiPlaPri.ySupTem"}, range={510000.0, 700000.0, 250.0, 350.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1500, 135}, y={"conBoiPri.staSetCon.ySta"}, range={510000.0, 700000.0, -5.0, 5.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1500, 136}, y={"conBoiPri.yHotWatIsoVal[1]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1500, 135}, y={"conBoiPri.yBoi[1]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1500, 136}, y={"conBoiPri.yHotWatIsoVal[2]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1500, 135}, y={"conBoiPri.yBoi[2]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=7, colors={{28,108,200}});
+
+createPlot(id=4, position={0, 0, 1500, 939}, y={"conBoiPri.yPriPum[1]"}, range={510000.0, 700000.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1500, 939}, y={"conBoiPri.yPriPum[2]"}, range={510000.0, 700000.0, -0.5, 1.5},subPlot=2, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1500, 184}, y={"conBoiPri.VHotWatDec_flow"}, range={510000.0, 700000.0, -50000.0, 150000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1500, 183}, y={"conBoiPri.yPriPumSpe"}, range={510000.0, 700000.0, 0.0, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});

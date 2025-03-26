@@ -1,16 +1,9 @@
 within Buildings.Examples.BoilerPlant.Baseclasses;
 model BoilerPlantPrimary
   "Boiler plant primary loop model for closed loop testing"
-  replaceable package MediumA =
-      Buildings.Media.Air;
 
-  replaceable package MediumW =
-      Buildings.Media.Water
-    "Medium model";
-
-  parameter Boolean have_priOnl = false
-    "Is the primary loop primary-only? (Only allowed for condensing boilers)"
-    annotation(Dialog(group="Plant parameters"));
+  replaceable package MediumW = Buildings.Media.Water
+    "Fluid medium model";
 
   parameter Integer nSec(min=0) = 2
     "Number of secondary loops connected to the primary loop"
@@ -219,13 +212,6 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{-360,-20},{-320,20}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValSig(
-    final unit="1",
-    displayUnit="1") if have_priOnl
-    "Bypass valve signal"
-    annotation (Placement(transformation(extent={{-360,-60},{-320,-20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBoiHotWatSupSet[2](
     final unit=fill("K", 2),
     displayUnit=fill("degC", 2),
@@ -280,7 +266,7 @@ model BoilerPlantPrimary
     displayUnit="m3/s",
     final quantity="VolumeFlowRate") "Measured flowrate in primary circuit"
     annotation (Placement(transformation(extent={{320,-50},{360,-10}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[2](
     final unit="1",
@@ -289,25 +275,21 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{320,-170},{360,-130}}),
       iconTransformation(extent={{100,-200},{140,-160}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBypValPos(
-    final unit="1",
-    displayUnit="1") if have_priOnl
-    "Measured bypass valve position"
-    annotation (Placement(transformation(extent={{320,130},{360,170}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a[nSec](
+    redeclare package Medium = MediumW)
+    "HW return port"
+    annotation (Placement(transformation(extent={{30,230},{50,250}}),
+      iconTransformation(extent={{60,130},{80,150}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a[nSec](redeclare package Medium =
-        MediumW) "HW return port"
-                                 annotation (Placement(transformation(extent={{30,
-            230},{50,250}}), iconTransformation(extent={{60,130},{80,150}})));
-
-  Modelica.Fluid.Interfaces.FluidPort_b port_b[nSec](redeclare package Medium =
-        MediumW) "HW supply port" annotation (Placement(transformation(extent={{
-            -50,230},{-30,250}}), iconTransformation(extent={{-80,130},{-60,150}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b[nSec](
+    redeclare package Medium = MediumW)
+    "HW supply port"
+    annotation (Placement(transformation(extent={{-50,230},{-30,250}}),
+      iconTransformation(extent={{-80,130},{-60,150}})));
 
   Buildings.Fluid.Sources.Boundary_pT preSou(
     redeclare package Medium = MediumW,
-    p=100000,
+    final p=100000,
     nPorts=2)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
@@ -316,7 +298,8 @@ model BoilerPlantPrimary
     redeclare package Medium = MediumW,
     allowFlowReversal=true,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    per=perBoi2) "Boiler-2"
+    per=perBoi2)
+    "Boiler-2"
     annotation (Placement(transformation(extent={{110,-220},{90,-200}})));
 
   Buildings.Fluid.Boilers.BoilerTable boi1(
@@ -326,14 +309,13 @@ model BoilerPlantPrimary
     final per=perBoi1) "Boiler-1"
     annotation (Placement(transformation(extent={{110,-160},{90,-140}})));
 
-  Fluid.Movers.Preconfigured.SpeedControlled_y
-                                           pum(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pum1(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final allowFlowReversal=true,
     final addPowerToMedium=false,
     final riseTime=60,
-    m_flow_nominal=mSec_flow_nominal/2,
+    final m_flow_nominal=mSec_flow_nominal/2,
     dp_nominal=70000)
     "Hot water primary pump-1"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -359,14 +341,6 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-30,40})));
-
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
-    redeclare package Medium = MediumW,
-    final m_flow_nominal=mSec_flow_nominal,
-    final dpValve_nominal=dpValve_nominal_value,
-    final dpFixed_nominal=dpFixed_nominal_value) if have_priOnl
-    "Minimum flow bypass valve"
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
 
   Buildings.Fluid.FixedResistances.Junction spl5(
     redeclare package Medium = MediumW,
@@ -409,21 +383,24 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
-    redeclare package Medium = MediumW, final m_flow_nominal=mSec_flow_nominal)
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=mSec_flow_nominal)
     "Volume flow-rate through primary circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-30,-10})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        MediumW, final m_flow_nominal=mSec_flow_nominal)
-    "HW supply temperature sensor" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-30,14})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=mSec_flow_nominal)
+    "HW supply temperature sensor"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-30,14})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1[nSec](redeclare package
-      Medium = MediumW, final m_flow_nominal=mSec_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1[nSec](
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=fill(mSec_flow_nominal, nSec))
     "HW return temperature sensor before water enters return plumbing"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
@@ -432,11 +409,14 @@ model BoilerPlantPrimary
     "Real replicator"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2[2](final uLow=0.05, final
-      uHigh=0.09) "Check if pumps are on"
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2[2](
+    final uLow=fill(0.05, 2),
+    final uHigh=fill(0.09, 2))
+    "Check if pumps are on"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer timPumSta[2](final t=120)
+  Buildings.Controls.OBC.CDL.Logical.Timer timPumSta[2](
+    final t=fill(120, 2))
     "Output pump proven on signal when pump status is enabled for two minutes"
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
 
@@ -523,10 +503,12 @@ model BoilerPlantPrimary
     "Logical pre block"
     annotation (Placement(transformation(extent={{240,-210},{260,-190}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Switch swiPum[2] "Switch for pump"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiPum[2]
+    "Switch for pump"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[2](final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[2](
+    final k=fill(0, 2))
     "Zero output signal"
     annotation (Placement(transformation(extent={{-300,-30},{-280,-10}})));
 
@@ -560,18 +542,19 @@ model BoilerPlantPrimary
     "HW return temperature sensor after water exits return plumbing"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
-  Fluid.FixedResistances.PressureDrop           pipe1(
+  Buildings.Fluid.FixedResistances.PressureDrop pipe1(
     redeclare package Medium = MediumW,
     final allowFlowReversal=false,
     final m_flow_nominal=mSec_flow_nominal,
-    dp_nominal=500)                         if not have_priOnl
+    dp_nominal=500)
     "Pipe element for decoupler leg"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Controls.OBC.CDL.Reals.Multiply mul[2]
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul[2]
     "Supply non-zero setpoint only when boiler is enabled"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y
-                                           pum1(
+
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pum2(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final allowFlowReversal=true,
@@ -579,44 +562,59 @@ model BoilerPlantPrimary
     final riseTime=60,
     m_flow_nominal=mSec_flow_nominal/2,
     dp_nominal=70000)
-    "Hot water primary pump-1"
+    "Hot water primary pump-2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={0,-50})));
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(nout=2)
+
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
+    final nout=2)
     "Replicate pump speed signal into vector"
     annotation (Placement(transformation(extent={{-260,-10},{-240,10}})));
-  Controls.OBC.CDL.Interfaces.RealOutput yPriPumSpe[2](final unit="1",
-      displayUnit="1") if not have_priOnl "Measured primary pump speed"
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPriPumSpe[2](
+    final unit="1",
+    displayUnit="1")
+    "Measured primary pump speed"
     annotation (Placement(transformation(extent={{320,-220},{360,-180}}),
-        iconTransformation(extent={{100,80},{140,120}})));
-  Controls.OBC.CDL.Interfaces.RealOutput VDec_flow(
+      iconTransformation(extent={{100,80},{140,120}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDec_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if not have_priOnl "Measured decoupler flowrate"
-                                  annotation (Placement(transformation(extent={{
-            320,180},{360,220}}), iconTransformation(extent={{100,120},{140,160}})));
-  Controls.OBC.CDL.Interfaces.RealOutput TRetSec(final quantity="ThermodynamicTemperature",
-                                          final unit="K",
-                                          displayUnit = "degC",
-                                          min = 0) "Measured decoupler flowrate"
+    final unit="m3/s")
+    "Measured decoupler flowrate"
+    annotation (Placement(transformation(extent={{320,180},{360,220}}),
+      iconTransformation(extent={{100,120},{140,160}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TRetSec(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit = "degC",
+    min = 0)
+    "Measured decoupler flowrate"
     annotation (Placement(transformation(extent={{320,220},{360,260}}),
-        iconTransformation(extent={{100,160},{140,200}})));
-  Fluid.FixedResistances.CheckValve cheVal(
+      iconTransformation(extent={{100,160},{140,200}})));
+
+  Buildings.Fluid.FixedResistances.CheckValve cheVal1(
     redeclare package Medium = MediumW,
-    m_flow_nominal=mSec_flow_nominal/2,
-    dpValve_nominal=1e-6,
-    l=1e-7)               annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-30,-80})));
-  Fluid.FixedResistances.CheckValve cheVal1(
+    final m_flow_nominal=mSec_flow_nominal/2,
+    final dpValve_nominal=1e-6,
+    final l=1e-7)
+    "Check valve for primary pump-1"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-30,-80})));
+
+  Buildings.Fluid.FixedResistances.CheckValve cheVal2(
     redeclare package Medium = MediumW,
-    m_flow_nominal=mSec_flow_nominal/2,
-    dpValve_nominal=1e-6,
-    l=1e-7)               annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-80})));
+    final m_flow_nominal=mSec_flow_nominal/2,
+    final dpValve_nominal=1e-6,
+    final l=1e-7)
+    "Check valve for primary pump-2"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={0,-80})));
+
 equation
   connect(val1.port_a, spl1.port_3)
     annotation (Line(points={{0,-150},{-20,-150}},    color={0,127,255}));
@@ -662,8 +660,6 @@ equation
     annotation (Line(points={{110,-150},{140,-150}}, color={0,127,255}));
   connect(boi2.port_a, spl6.port_3) annotation (Line(points={{110,-210},{150,-210},
           {150,-160}}, color={0,127,255}));
-  connect(val.y_actual, yBypValPos) annotation (Line(points={{95,47},{120,47},{120,
-          150},{340,150}}, color={0,0,127}));
   connect(pre2.y, lat2.clr) annotation (Line(points={{262,-76},{278,-76}},
                            color={255,0,255}));
   connect(lat2.y, yBoiSta)
@@ -672,15 +668,13 @@ equation
           -76},{238,-76}}, color={255,0,255}));
   connect(TZon, TRoo.T)
     annotation (Line(points={{-340,-70},{-282,-70}}, color={0,0,127}));
-  connect(pum.port_b, senVolFlo.port_a)
+  connect(pum1.port_b, senVolFlo.port_a)
     annotation (Line(points={{-30,-40},{-30,-20}}, color={0,127,255}));
   connect(uPumSta, logSwi.u3) annotation (Line(points={{-340,40},{-308,40},{-308,
           20},{-270,20},{-270,32},{-262,32}}, color={255,0,255}));
   connect(uPumSta, lat.u)
     annotation (Line(points={{-340,40},{-322,40},{-322,40},{-302,40}},
                                                    color={255,0,255}));
-  connect(uBypValSig, val.y) annotation (Line(points={{-340,-40},{-120,-40},{-120,
-          60},{90,60},{90,52}}, color={0,0,127}));
   connect(greThr3.y, pre3.u)
     annotation (Line(points={{202,-200},{238,-200}}, color={255,0,255}));
   connect(pre3.y, lat2.u) annotation (Line(points={{262,-200},{266,-200},{266,-70},
@@ -733,10 +727,6 @@ equation
                        color={0,127,255}));
   connect(spl4.port_3, senVolFlo1.port_a)
     annotation (Line(points={{-20,40},{20,40}}, color={0,127,255}));
-  connect(senVolFlo1.port_b, val.port_a)
-    annotation (Line(points={{40,40},{80,40}}, color={0,127,255}));
-  connect(val.port_b, senTem3.port_a)
-    annotation (Line(points={{100,40},{120,40}}, color={0,127,255}));
   connect(senTem3.port_b, spl5.port_3)
     annotation (Line(points={{140,40},{200,40}}, color={0,127,255}));
   for i in 1:nSec loop
@@ -751,10 +741,10 @@ equation
           120},{210,50}}, color={0,127,255}));
   connect(senTem2.T, yRetTem) annotation (Line(points={{221,-10},{250,-10},{250,
           60},{340,60}}, color={0,0,127}));
-  connect(pipe1.port_a, senVolFlo1.port_b) annotation (Line(points={{80,0},{68,0},
-          {68,40},{40,40}}, color={0,127,255}));
-  connect(pipe1.port_b, senTem3.port_a) annotation (Line(points={{100,0},{112,0},
-          {112,40},{120,40}}, color={0,127,255}));
+  connect(pipe1.port_a, senVolFlo1.port_b) annotation (Line(points={{80,40},{40,
+          40}},             color={0,127,255}));
+  connect(pipe1.port_b, senTem3.port_a) annotation (Line(points={{100,40},{120,40}},
+                              color={0,127,255}));
   connect(TBoiHotWatSupSet, mul.u2) annotation (Line(points={{-340,-110},{-340,-112},
           {-132,-112},{-132,154},{-122,154}}, color={0,0,127}));
   connect(booToRea1.y, mul.u1) annotation (Line(points={{-138,160},{-128,160},{-128,
@@ -767,16 +757,16 @@ equation
           {-28,30},{-30,30}}, color={0,127,255}));
   connect(port_a, senTem1.port_a)
     annotation (Line(points={{40,240},{40,120},{60,120}}, color={0,127,255}));
-  connect(pum1.port_b, senVolFlo.port_a) annotation (Line(points={{0,-40},{0,
+  connect(pum2.port_b, senVolFlo.port_a) annotation (Line(points={{0,-40},{0,
           -28},{-30,-28},{-30,-20}},                color={0,127,255}));
-  connect(swiPum[1].y, pum.y) annotation (Line(points={{-198,-10},{-92,-10},{-92,
+  connect(swiPum[1].y, pum1.y) annotation (Line(points={{-198,-10},{-92,-10},{-92,
           -50},{-42,-50}}, color={0,0,127}));
-  connect(swiPum[2].y, pum1.y) annotation (Line(points={{-198,-10},{-92,-10},{
+  connect(swiPum[2].y,pum2. y) annotation (Line(points={{-198,-10},{-92,-10},{
           -92,-72},{-18,-72},{-18,-50},{-12,-50}},
                                                color={0,0,127}));
-  connect(pum.y_actual, hys2[1].u)
+  connect(pum1.y_actual, hys2[1].u)
     annotation (Line(points={{-37,-39},{-37,-30},{98,-30}}, color={0,0,127}));
-  connect(pum1.y_actual, hys2[2].u)
+  connect(pum2.y_actual, hys2[2].u)
     annotation (Line(points={{-7,-39},{-7,-30},{98,-30}}, color={0,0,127}));
   connect(timPumSta.passed, yPumSta) annotation (Line(points={{162,-38},{230,-38},
           {230,-110},{340,-110}}, color={255,0,255}));
@@ -784,9 +774,10 @@ equation
     annotation (Line(points={{-238,0},{-236,-2},{-222,-2}}, color={0,0,127}));
   connect(uPumSpe, reaScaRep.u)
     annotation (Line(points={{-340,0},{-262,0}}, color={0,0,127}));
-  connect(pum.y_actual, yPriPumSpe[1]) annotation (Line(points={{-37,-39},{-37,-32},
-          {-56,-32},{-56,-236},{308,-236},{308,-205},{340,-205}}, color={0,0,127}));
-  connect(pum1.y_actual, yPriPumSpe[2]) annotation (Line(points={{-7,-39},{-7,
+  connect(pum1.y_actual, yPriPumSpe[1]) annotation (Line(points={{-37,-39},{-37,
+          -32},{-56,-32},{-56,-236},{308,-236},{308,-205},{340,-205}}, color={0,
+          0,127}));
+  connect(pum2.y_actual, yPriPumSpe[2]) annotation (Line(points={{-7,-39},{-7,
           -32},{76,-32},{76,-176},{308,-176},{308,-195},{340,-195}},
                                                                 color={0,0,127}));
   connect(senVolFlo1.V_flow, VDec_flow) annotation (Line(points={{30,51},{30,216},
@@ -797,24 +788,27 @@ equation
   connect(preSou.ports[1], spl1.port_2) annotation (Line(points={{-100,-131},{
           -100,-132},{-60,-132},{-60,-128},{-30,-128},{-30,-140}}, color={0,127,
           255}));
-  connect(cheVal.port_b, pum.port_a)
-    annotation (Line(points={{-30,-70},{-30,-60}}, color={0,127,255}));
   connect(cheVal1.port_b, pum1.port_a)
+    annotation (Line(points={{-30,-70},{-30,-60}}, color={0,127,255}));
+  connect(cheVal2.port_b,pum2. port_a)
     annotation (Line(points={{0,-70},{0,-60}}, color={0,127,255}));
   connect(senRelPre1.port_b, preSou.ports[2]) annotation (Line(points={{-70,-20},
           {-58,-20},{-58,-128},{-44,-128},{-60,-128},{-100,-128},{-100,-129}},
         color={0,127,255}));
   connect(senRelPre1.port_a, spl4.port_1) annotation (Line(points={{-70,0},{-72,
           0},{-72,30},{-30,30}}, color={0,127,255}));
-  connect(spl1.port_2, cheVal.port_a)
+  connect(spl1.port_2, cheVal1.port_a)
     annotation (Line(points={{-30,-140},{-30,-90}}, color={0,127,255}));
-  connect(spl1.port_2, cheVal1.port_a) annotation (Line(points={{-30,-140},{-30,
+  connect(spl1.port_2,cheVal2. port_a) annotation (Line(points={{-30,-140},{-30,
           -100},{0,-100},{0,-90}}, color={0,127,255}));
   annotation (defaultComponentName="boiPlaPri",
     Documentation(info="<html>
       <p>
       This model implements a boiler plant primary loop with 2 condensing boilers,
-      2 variable-speed primary pumps, and a common decoupler leg.
+      2 variable-speed primary pumps, and a common decoupler leg. Additionally,
+      it includes controls to enable the boilers and pumps and hold their enable
+      status until they are proven on. It also includes PID loops to operate the
+      boilers at the required supply temperature setpoint signal.
       </p>
       </html>", revisions="<html>
       <ul>
