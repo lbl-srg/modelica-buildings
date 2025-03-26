@@ -150,6 +150,18 @@
   optimica:
     comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
     translate: false
+- model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
+  openmodelica:
+    comment: 'Error in line 1 when reading numeric data of matrix "tab(532,1)"'
+    simulate: false
+- model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_AirCooled
+  openmodelica:
+    comment: 'Error in line 1 when reading numeric data of matrix "tab(598,1)"'
+    simulate: false
+- model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_HeatRecovery
+  openmodelica:
+    comment: 'Error in line 1 when reading numeric data of matrix "tab(532,1)"'
+    simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -251,6 +263,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDep
+  openmodelica:
+    comment: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed].
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start...'
@@ -332,7 +348,7 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.Components.Chillers.Validation.Compression
+- model_name: Buildings.Templates.Components.Validation.ChillersCompression
   openmodelica:
     comment: Translation failed.
     translate: false

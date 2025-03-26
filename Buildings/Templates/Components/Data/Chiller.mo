@@ -173,22 +173,8 @@ to the rating conditions at which the performance curves <code>per.capFunT</code
 <code>per.EIRFunT</code> and <code>per.EIRFunPLR</code> are calculated.
 </p>
 <p>
-The performance data specified in the sub-record
-<code>per</code> are \"translated\" so that the capacity and cooling <i>COP</i>
-calculated at design conditions match the design values
-<code>cap_nominal</code> and <code>COP_nominal</code>.
-The performance data that result from this translation are stored in
-the sub-record <code>perSca</code> which is ultimately used by the chiller models within
-<a href=\"modelica://Buildings.Templates.Components.Chillers\">
-Buildings.Templates.Components.Chillers</a>.<br/>
-Note that the performance data can be specified either by redeclaring
-the sub-record <code>per</code>, or by simply assigning the performance
-curves <code>per.capFunT</code>, <code>per.EIRFunT</code> and <code>per.EIRFunPLR</code>
-in case these curves were calculated based on the design conditions.
-To support the former, the design conditions are propagated \"down\" to
-the sub-record <code>per</code> but these bindings do not persist
-after redeclaration so that a record at different rating conditions can
-also be used.
+The record allows two different parameterization logics,
+FIXME
 </p>
 </html>"));
 end Chiller;

@@ -18,7 +18,6 @@ record HeatPumpPlant
     final typ=cfg.typ,
     final nHp=cfg.nHp,
     final is_rev=cfg.is_rev,
-    final typMod=cfg.typMod,
     final cpHeaWat_default=cfg.cpHeaWat_default,
     final cpSou_default=cfg.cpSou_default,
     TChiWatSupHp_nominal=ctl.TChiWatSup_nominal,
@@ -208,6 +207,18 @@ Note that those parameter bindings are not final so they may be
 overwritten in case a component is parameterized at nominal
 conditions that differ from the design conditions specified
 in the controller sub-record.
+</p>
+<p>
+Only identical heat pumps are currently supported.
+</p>
+<p>
+The heat pump performance data are provided via the subrecords
+<code>hp.perHeaHp</code> and <code>hp.perCooHp</code> for the
+heating mode and the cooling mode, respectively.
+For the required format of the performance data files, 
+please refer to the documentation of the block
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
 </p>
 </html>"));
 

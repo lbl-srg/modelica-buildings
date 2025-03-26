@@ -3,8 +3,7 @@ model AirToWater
   "Air-to-water heat pump group"
   extends Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialHeatPumpGroup(
     redeclare final package MediumSou=MediumAir,
-    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
-    final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit);
+    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater);
   Buildings.Templates.Components.HeatPumps.AirToWater hp[nHp](
     each final show_T=show_T,
     redeclare each final package MediumHeaWat = MediumHeaWat,
@@ -14,7 +13,8 @@ model AirToWater
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics,
     each final have_dpChiHeaWat=have_dpChiHeaWatHp,
-    each final have_dpSou=have_dpSou) "Heat pump unit"
+    each final have_dpSou=have_dpSou)
+    "Heat pump unit"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 equation
   for i in 1:nHp loop
@@ -36,5 +36,18 @@ equation
 <p>
 This model represents a group of heat pumps.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end AirToWater;
