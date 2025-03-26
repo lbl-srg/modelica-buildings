@@ -42,7 +42,7 @@ block Controller "Chiller plant controller"
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real LIFT_min[nChi](unit=fill("K", nChi))={12,12}
+  parameter Real minChiLif[nChi](unit=fill("K", nChi))={12,12}
     "Minimum LIFT of each chiller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -1116,7 +1116,7 @@ block Controller "Chiller plant controller"
     final minConWatPumSpe=fill(minConWatPumSpe, nChi),
     final minHeaPreValPos=fill(minHeaPreValPos, nChi),
     final controllerType=fill(controllerTypeHeaPre, nChi),
-    final minChiLif=LIFT_min,
+    final minChiLif=minChiLif,
     final k=fill(kHeaPreCon, nChi),
     final Ti=fill(TiHeaPreCon, nChi)) "Chiller head pressure controller"
     annotation (Placement(transformation(extent={{-520,180},{-480,220}})));
@@ -1234,7 +1234,7 @@ block Controller "Chiller plant controller"
     final kWSE=kWSETowFan,
     final TiWSE=TiWSETowFan,
     final TdWSE=TdWSETowFan,
-    final LIFT_min=LIFT_min,
+    final minChiLif=minChiLif,
     final TConWatSup_nominal=TConWatSup_nominal,
     final TConWatRet_nominal=TConWatRet_nominal,
     final TChiWatSupMin=TChiWatSupMin,

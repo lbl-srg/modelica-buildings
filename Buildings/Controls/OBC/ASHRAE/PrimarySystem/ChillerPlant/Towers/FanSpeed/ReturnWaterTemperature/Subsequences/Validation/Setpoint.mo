@@ -5,7 +5,7 @@ model Setpoint
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Setpoint
     conWatRetSet(
     nChi=2,
-    LIFT_min={12,14},
+    minChiLif={12,14},
     TConWatRet_nominal={303.15,305.15})
     "Specify condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));

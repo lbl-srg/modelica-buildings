@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.
 block Setpoint "Calculate condener return water temperature setpoint"
 
   parameter Integer nChi = 2 "Total number of chillers";
-  parameter Real LIFT_min[nChi](
+  parameter Real minChiLif[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("TemperatureDifference",nChi))={12, 12}
       "Minimum LIFT of each chiller"
@@ -78,7 +78,7 @@ protected
     "Maximum chiller LIFT"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLifMin[nChi](
-    final k=LIFT_min)
+    final k=minChiLif)
     "Minimum LIFT of chillers"
     annotation (Placement(transformation(extent={{-280,60},{-260,80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zeoCon[nChi](
@@ -270,31 +270,31 @@ The return water temperature setpoint <code>TConWatRetSet</code> shall be the ou
 of the following equations.
 </p>
 <pre>
-   <code>TConWatRetSet</code> = <code>TChiWatSupSet</code> + LIFT_target
+   <code>TConWatRetSet</code> = <code>TChiWatSupSet</code> + tarChiLif
 </pre>
 <pre>
-   LIFT_target = Max(<code>LIFT_min</code>, Min(LIFT_max, A*<code>plaParLoaRat</code> + B))
+   tarChiLif = Max(<code>minChiLif</code>, Min(maxChiLif, A*<code>plaParLoaRat</code> + B))
 </pre>
 <pre>
-   LIFT_max = <code>TConWatRet_nominal</code> - <code>TChiWatSupMin</code>
+   maxChiLif = <code>TConWatRet_nominal</code> - <code>TChiWatSupMin</code>
 </pre>
 <pre>
-   A = 1.1*(LIFT_max - <code>LIFT_min</code>)
+   A = 1.1*(maxChiLif - <code>minChiLif</code>)
 </pre>
 <pre>
-   B = LIFT_max - A
+   B = maxChiLif - A
 </pre>
 <br/>
 <ul>
 <li>
-Where chillers have different <code>LIFT_min</code> values, the <code>LIFT_min</code>
-in the above equation shall reset dynamically to equal the highest <code>LIFT_min</code>
+Where chillers have different <code>minChiLif</code> values, the <code>minChiLif</code>
+in the above equation shall reset dynamically to equal the highest <code>minChiLif</code>
 of enabled chillers.
 </li>
 <li>
 For plants with parallel chillers only, where chillers have different design
 condenser water return temperature<code>TConWatRet_nominal</code> and minimum
-chilled water supply temperature <code>TChiWatSupMin</code> values, the LIFT_max
+chilled water supply temperature <code>TChiWatSupMin</code> values, the maxChiLif
 shall be calculated for each chiller and the lowest value used in the above logic.
 </li>
 </ul>

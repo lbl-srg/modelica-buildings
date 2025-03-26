@@ -51,7 +51,7 @@ block Controller "Tower fan speed control"
     annotation (Dialog(tab="WSE Enabled", group="WSE-only",
                        enable=have_WSE and (chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                             chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real LIFT_min[nChi](
+  parameter Real minChiLif[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("TemperatureDifference",nChi))={12,12} "Minimum LIFT of each chiller"
       annotation (Dialog(tab="Return temperature control", group="Setpoint"));
@@ -241,7 +241,7 @@ block Controller "Tower fan speed control"
     final closeCoupledPlant=closeCoupledPlant,
     final desCap=desCap,
     final fanSpeMin=fanSpeMin,
-    final LIFT_min=LIFT_min,
+    final minChiLif=minChiLif,
     final TConWatRet_nominal=TConWatRet_nominal,
     final TConWatSup_nominal=TConWatSup_nominal,
     final TChiWatSupMin=TChiWatSupMin,

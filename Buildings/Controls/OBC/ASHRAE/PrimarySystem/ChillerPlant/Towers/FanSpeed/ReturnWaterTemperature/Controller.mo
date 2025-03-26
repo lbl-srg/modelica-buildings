@@ -11,7 +11,7 @@ block Controller
      final unit="W",
      final quantity="HeatFlowRate")= 1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
-  parameter Real LIFT_min[nChi](
+  parameter Real minChiLif[nChi](
     final unit=fill("K",nChi),
     final quantity=fill("TemperatureDifference",nChi))={12,12} "Minimum LIFT of each chiller"
       annotation (Dialog(tab="Setpoint"));
@@ -220,7 +220,7 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Setpoint conWatRetSet(
     final nChi=nChi,
-    final LIFT_min=LIFT_min,
+    final minChiLif=minChiLif,
     final iniPlaTim=iniPlaTim,
     final ramTim=ramTim,
     final TConWatRet_nominal=TConWatRet_nominal,
