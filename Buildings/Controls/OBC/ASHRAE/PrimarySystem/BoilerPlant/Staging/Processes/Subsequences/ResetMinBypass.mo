@@ -158,12 +158,12 @@ equation
   connect(sub2.y, div.u1) annotation (Line(points={{-126,-20},{-110,-20},{-110,-54},
           {-102,-54}}, color={0,0,127}));
   connect(and2.y, and1.u[1]) annotation (Line(points={{-58,80},{32,80},{32,
-          84.6667},{118,84.6667}},
+          77.6667},{118,77.6667}},
                           color={255,0,255}));
   connect(lat.y, and1.u[2]) annotation (Line(points={{102,40},{112,40},{112,80},
           {118,80}}, color={255,0,255}));
   connect(tim.passed, and1.u[3]) annotation (Line(points={{62,-28},{114,-28},{
-          114,72},{118,72},{118,75.3333}},
+          114,72},{118,72},{118,82.3333}},
                                        color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",

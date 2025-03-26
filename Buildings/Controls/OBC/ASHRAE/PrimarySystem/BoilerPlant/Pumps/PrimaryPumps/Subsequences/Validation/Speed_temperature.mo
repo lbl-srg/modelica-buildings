@@ -4,7 +4,6 @@ model Speed_temperature
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature
     hotPumSpe(
-    final primarySecondarySensors=true,
     final nBoi=2,
     final nPum=2,
     final boiDesFlo={0.25,0.5},
@@ -17,7 +16,7 @@ model Speed_temperature
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature
     hotPumSpe1(
-    final primarySecondarySensors=false,
+    use_priSen=false,
     final nBoi=2,
     final nPum=2,
     final boiDesFlo={0.25,0.5},
@@ -76,14 +75,16 @@ equation
           30,-40},{30,0},{38,0}}, color={0,0,127}));
   connect(pumSta.y, hotPumSpe1.uHotWatPum) annotation (Line(points={{-58,40},{28,
           40},{28,8},{38,8}}, color={255,0,255}));
-  connect(TPriSup.y, hotPumSpe1.THotWatBoiSup[1]) annotation (Line(points={{-58,
-          0},{-50,0},{-50,-18},{34,-18},{34,-9},{38,-9}}, color={0,0,127}));
+  connect(TPriSup.y, hotPumSpe1.THotWatBoiSup[1]) annotation (Line(points={{-58,0},
+          {-50,0},{-50,-18},{34,-18},{34,-8.5},{38,-8.5}},color={0,0,127}));
   connect(TBoiSup2.y, hotPumSpe1.THotWatBoiSup[2]) annotation (Line(points={{12,-60},
-          {36,-60},{36,-6},{38,-6},{38,-7}},      color={0,0,127}));
+          {36,-60},{36,-6},{38,-6},{38,-7.5}},    color={0,0,127}));
   connect(pumSta[1].y, hotPumSpe1.uBoiSta[1]) annotation (Line(points={{-58,40},
-          {28,40},{28,-4},{38,-4},{38,-5}}, color={255,0,255}));
-  connect(pumSta1.y, hotPumSpe1.uBoiSta[2]) annotation (Line(points={{12,60},{34,
-          60},{34,-3},{38,-3}}, color={255,0,255}));
+          {28,40},{28,-4},{38,-4},{38,-4.5}},
+                                            color={255,0,255}));
+  connect(pumSta1.y, hotPumSpe1.uBoiSta[2]) annotation (Line(points={{12,60},{
+          34,60},{34,-3.5},{38,-3.5}},
+                                color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

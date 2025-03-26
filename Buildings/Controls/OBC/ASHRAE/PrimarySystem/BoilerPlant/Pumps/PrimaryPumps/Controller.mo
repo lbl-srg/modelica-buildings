@@ -20,13 +20,13 @@ block Controller
      False: Fixed-speed primary pumps"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Boolean use_priSecFloSen
+  parameter Boolean use_priSecFloSen = true
     "True: Use flowrate sensors in primary/secondary loops for speed regulation;
-    False: Flowrate sensor in decoupler leg for spoeed regulation"
+    False: Flowrate sensor in decoupler leg for speed regulation"
     annotation (Dialog(group="Plant parameters",
       enable= speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate));
 
-  parameter Boolean use_priTemSen
+  parameter Boolean use_priTemSen = true
     "True: Use Temperature sensors in primary loop for speed control;
     False: Use temperature sensors in boiler supply for speed control"
     annotation (Dialog(group="Plant parameters",

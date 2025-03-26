@@ -328,12 +328,12 @@ equation
           -200},{-40,-200},{-40,-170},{-58,-170}}, color={255,0,255}));
 
   connect(mulAnd1.y, and5.u[1]) annotation (Line(points={{102,220},{120,220},{
-          120,144.667},{138,144.667}},
+          120,137.667},{138,137.667}},
                                    color={255,0,255}));
   connect(tim.passed, and5.u[2]) annotation (Line(points={{-78,72},{-68,72},{-68,
           140},{138,140}}, color={255,0,255}));
   connect(uUpsDevSta, and5.u[3]) annotation (Line(points={{-180,-140},{-130,
-          -140},{-130,135.333},{138,135.333}},
+          -140},{-130,142.333},{138,142.333}},
                                          color={255,0,255}));
 annotation (
   defaultComponentName="hotWatIsoVal",

@@ -21,14 +21,10 @@ block Controller
     "Total number of secondary hot water pumps"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Integer nPumPri
+  parameter Integer nPumPri=1
     "Total number of primary hot water pumps"
     annotation (Dialog(group="Plant parameters",
       enable=not have_varSecPum));
-
-  parameter Integer nBoi
-    "Total number of boilers"
-    annotation (Dialog(group="Plant parameters"));
 
   parameter Integer nSen
     "Total number of remote differential pressure sensors"
@@ -68,7 +64,7 @@ block Controller
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference",
-    final min=1e-6)
+    final min=1e-6)=1e3
     "Maximum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters", group="DP-based speed regulation",
       enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
@@ -77,7 +73,7 @@ block Controller
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference",
-    final min=1e-6)
+    final min=1e-6)=1e3
     "Minimum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters",
       group="DP-based speed regulation",
@@ -228,6 +224,7 @@ block Controller
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum]
+    if has_leaLag
     "Hot water pump lead-lag order"
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
       iconTransformation(extent={{-140,162},{-100,202}})));
@@ -276,6 +273,13 @@ block Controller
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
+    final unit="1",
+    displayUnit="1") if have_varSecPum and not have_secFloSen
+    "Measured pump speed"
+    annotation (Placement(transformation(extent={{-320,-80},{-280,-40}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatPum[nPum]
     "Hot water pump status"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
@@ -285,9 +289,10 @@ block Controller
     final min=0,
     final max=1,
     final unit="1",
-    displayUnit="1") if have_varSecPum "Hot water pump speed"
+    displayUnit="1") if have_varSecPum
+    "Hot water pump speed"
     annotation (Placement(transformation(extent={{280,-420},{320,-380}}),
-        iconTransformation(extent={{100,-120},{140,-80}})));
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate
     enaLagHotPum(
@@ -334,8 +339,16 @@ protected
   parameter Boolean locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Boolean flag for pump speed control with local differential pressure";
 
+  parameter Boolean has_leaLag=(nPum>1)
+    "Boolean flag to determine if controller needs lead-lag order input";
+
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[1](
+    final k={1}) if not has_leaLag
+    "Constant source for lead-lag order with just one pump"
+    annotation (Placement(transformation(extent={{-192,236},{-172,256}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.ZeroIndexCorrection
     zerStaIndCor
@@ -346,11 +359,6 @@ protected
     zerStaIndCor1
     "Block to resolve zero index errors"
     annotation (Placement(transformation(extent={{-114,-134},{-94,-114}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1) if have_varSecPum and not have_secFloSen
-    "Unit delay for pump speed"
-    annotation (Placement(transformation(extent={{-200,28},{-180,48}})));
 
   Buildings.Controls.OBC.CDL.Reals.Min min if have_varSecPum
     "Ensure pump speed is below maximum speed for condensation control"
@@ -379,6 +387,7 @@ protected
     annotation (Placement(transformation(extent={{-274,190},{-254,210}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum]
+    if has_leaLag
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
 
@@ -624,13 +633,6 @@ equation
   connect(supResReq, enaHeaLeaPum.supResReq) annotation (Line(points={{-300,40},
           {-220,40},{-220,82},{-202,82}}, color={255,127,0}));
 
-  connect(min.y, uniDel.u) annotation (Line(points={{182,-400},{258,-400},{258,
-          -420},{-210,-420},{-210,38},{-202,38}},
-                                            color={0,0,127}));
-
-  connect(uniDel.y, enaLagSecPum.uPumSpe)
-    annotation (Line(points={{-178,38},{-122,38}}, color={0,0,127}));
-
   connect(chaPumSta1.yHotWatPum, chaPumSta4.uHotWatPum) annotation (Line(points={{80,78},
           {100,78},{100,42},{50,42},{50,18},{56,18}},         color={255,0,255}));
 
@@ -750,7 +752,15 @@ equation
           {-44,-128},{-44,-100},{-10,-100}}, color={0,0,127}));
   connect(lasLagPum.y, zerStaIndCor1.uCap) annotation (Line(points={{-58,-100},{
           -50,-100},{-50,-86},{-122,-86},{-122,-128},{-116,-128}}, color={0,0,127}));
-annotation (defaultComponentName="secPumCon",
+  connect(con.y, leaPum.u) annotation (Line(points={{-170,246},{-100,246},{-100,
+          230},{-82,230}}, color={0,0,127}));
+  connect(con.y, nexLagPum.u) annotation (Line(points={{-170,246},{-160,246},{
+          -160,-50},{-82,-50}}, color={0,0,127}));
+  connect(con.y, lasLagPum.u) annotation (Line(points={{-170,246},{-160,246},{
+          -160,-100},{-82,-100}}, color={0,0,127}));
+  connect(uPumSpe, enaLagSecPum.uPumSpe) annotation (Line(points={{-300,-60},{
+          -212,-60},{-212,38},{-122,38}}, color={0,0,127}));
+annotation (defaultComponentName="conPumSec",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-440},{280,260}}),
         graphics={

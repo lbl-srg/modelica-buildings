@@ -18,7 +18,8 @@ block EnableLead
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
+    final t=-1)
     "Check if any hot water requests are being generated"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 

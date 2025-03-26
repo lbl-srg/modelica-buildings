@@ -294,18 +294,19 @@ equation
           180},{0,180},{0,158},{38,158}}, color={0,0,127}));
   connect(and3.y, lat1.u) annotation (Line(points={{302,70},{320,70},{320,220},{
           -120,220},{-120,150},{-82,150}}, color={255,0,255}));
-  connect(not3.y, mulAnd.u[1]) annotation (Line(points={{-258,160},{-240,160},{
-          -240,-74.75},{-162,-74.75}},
+  connect(not3.y, mulAnd.u[1]) annotation (Line(points={{-258,160},{-240,160},{-240,
+          -82.625},{-162,-82.625}},
                                   color={255,0,255}));
   connect(mulAnd.y, and3.u1) annotation (Line(points={{-138,-80},{40,-80},{40,
           70},{278,70}}, color={255,0,255}));
   connect(pre1.y, staChaHol3.u)
     annotation (Line(points={{342,-110},{358,-110}}, color={255,0,255}));
-  connect(not1.y, mulAnd.u[2]) annotation (Line(points={{422,-110},{430,-110},{
-          430,-140},{-200,-140},{-200,-78.25},{-162,-78.25}},
+  connect(not1.y, mulAnd.u[2]) annotation (Line(points={{422,-110},{430,-110},{430,
+          -140},{-200,-140},{-200,-80.875},{-162,-80.875}},
                                                           color={255,0,255}));
   connect(lat2.y, mulAnd.u[3]) annotation (Line(points={{-258,-180},{-166,-180},
-          {-166,-81.75},{-162,-81.75}}, color={255,0,255}));
+          {-166,-79.125},{-162,-79.125}},
+                                        color={255,0,255}));
   connect(pre1.y, lat2.clr) annotation (Line(points={{342,-110},{350,-110},{350,
           -200},{-290,-200},{-290,-186},{-282,-186}}, color={255,0,255}));
   connect(reaToInt.y, cha.u) annotation (Line(points={{382,150},{400,150},{400,130},
@@ -314,8 +315,8 @@ equation
           138}},   color={255,0,255}));
   connect(or2.y, and5.u1)
     annotation (Line(points={{-358,-80},{-322,-80}}, color={255,0,255}));
-  connect(and5.y, mulAnd.u[4]) annotation (Line(points={{-298,-80},{-230,-80},{
-          -230,-85.25},{-162,-85.25}}, color={255,0,255}));
+  connect(and5.y, mulAnd.u[4]) annotation (Line(points={{-298,-80},{-230,-80},{-230,
+          -77.375},{-162,-77.375}},    color={255,0,255}));
   connect(uPla, and5.u2) annotation (Line(points={{-460,160},{-388,160},{-388,
           -20},{-328,-20},{-328,-88},{-322,-88}}, color={255,0,255}));
   connect(uPla, cha1.u) annotation (Line(points={{-460,160},{-388,160},{-388,130},

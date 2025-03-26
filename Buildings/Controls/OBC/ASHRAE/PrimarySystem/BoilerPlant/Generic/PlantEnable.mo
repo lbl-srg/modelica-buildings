@@ -144,15 +144,17 @@ equation
   connect(pre1.y, not4.u) annotation (Line(points={{-38,50},{-30,50},{-30,70},{-22,
   70}}, color={255,0,255}));
   connect(hys.y, mulAnd.u[1]) annotation (Line(points={{-98,-50},{-86,-50},{-86,
-          125.25},{78,125.25}}, color={255,0,255}));
+          117.375},{78,117.375}},
+                                color={255,0,255}));
   connect(intGreThr.y, mulAnd.u[2]) annotation (Line(points={{-98,50},{-80,50},{
-          -80,121.75},{78,121.75}}, color={255,0,255}));
+          -80,119.125},{78,119.125}},
+                                    color={255,0,255}));
   connect(mulAnd.y, lat.u) annotation (Line(points={{102,120},{110,120},{110,0},
           {118,0}}, color={255,0,255}));
   connect(and2.y, lat.clr) annotation (Line(points={{102,-30},{110,-30},{110,-6},
           {118,-6}}, color={255,0,255}));
   connect(not2.y, mulOr.u[1]) annotation (Line(points={{12,-70},{20,-70},{20,
-          -65.3333},{28,-65.3333}},
+          -72.3333},{28,-72.3333}},
                      color={255,0,255}));
   connect(not1.y, mulOr.u[2]) annotation (Line(points={{12,-110},{20,-110},{20,-70},
           {28,-70}},      color={255,0,255}));
@@ -167,11 +169,11 @@ equation
   connect(pre1.y, tim.u) annotation (Line(points={{-38,50},{-30,50},{-30,10},{8,
           10}}, color={255,0,255}));
   connect(tim2.passed, mulAnd.u[3]) annotation (Line(points={{32,62},{40,62},{40,
-          118},{78,118},{78,118.25}}, color={255,0,255}));
+          118},{78,118},{78,120.875}},color={255,0,255}));
   connect(tim.passed, and2.u1) annotation (Line(points={{32,2},{70,2},{70,-30},{
           78,-30}}, color={255,0,255}));
   connect(tim1.passed, mulOr.u[3]) annotation (Line(points={{-18,-38},{20,-38},
-          {20,-74.6667},{28,-74.6667}},color={255,0,255}));
+          {20,-67.6667},{28,-67.6667}},color={255,0,255}));
   connect(addPar.u, gai.y)
     annotation (Line(points={{-122,-20},{-130,-20}}, color={0,0,127}));
   connect(TOut, gai.u)
@@ -179,7 +181,8 @@ equation
   connect(uSchEna, not1.u)
     annotation (Line(points={{-180,-110},{-12,-110}}, color={255,0,255}));
   connect(uSchEna, mulAnd.u[4]) annotation (Line(points={{-180,-110},{-92,-110},
-          {-92,114.75},{78,114.75}}, color={255,0,255}));
+          {-92,122.625},{78,122.625}},
+                                     color={255,0,255}));
   annotation (defaultComponentName = "plaEna",
   Icon(graphics={
         Rectangle(

@@ -35,27 +35,27 @@ block Configurator "Configures boiler staging"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAva[nSta]
     "Stage availability status vector"
     annotation (Placement(transformation(extent={{220,-100},{260,-60}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yTyp[nSta](
     final max=fill(nSta, nSta))
     "Boiler stage types vector"
     annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapDes[nSta](
     final unit=fill("W", nSta),
     final quantity=fill("Power", nSta))
     "Stage design capacities vector"
     annotation (Placement(transformation(extent={{220,0},{260,40}}),
-      iconTransformation(extent={{100,60},{140,100}})));
+      iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapMin[nSta](
     final unit=fill("W", nSta),
     final quantity=fill("Power", nSta))
     "Minimum stage capacities vector"
     annotation (Placement(transformation(extent={{220,-40},{260,0}}),
-      iconTransformation(extent={{100,20},{140,60}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
     final message="The boilers must be tagged in order of design capacity if unequally sized")
