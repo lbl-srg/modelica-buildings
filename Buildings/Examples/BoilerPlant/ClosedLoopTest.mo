@@ -114,7 +114,8 @@ model ClosedLoopTest "Closed loop testing model"
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
     final k=1,
     final Ti=12.5,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP,
+    enaHeaLeaPum(intGreThr(t=-1)))
     "Secondary pump controller-2"
     annotation (Placement(transformation(extent={{-8,40},{12,80}})));
 
@@ -128,7 +129,8 @@ model ClosedLoopTest "Closed loop testing model"
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
     final k=1,
     final Ti=12.5,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP,
+    enaHeaLeaPum(intGreThr(t=-1)))
     "Secondary pump controller-1"
     annotation (Placement(transformation(extent={{-10,128},{10,168}})));
 

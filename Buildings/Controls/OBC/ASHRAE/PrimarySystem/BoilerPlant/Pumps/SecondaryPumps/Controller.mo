@@ -332,6 +332,11 @@ block Controller
     "Enable and disable secondary lag pumps in secondary loop with no flow sensor"
     annotation (Placement(transformation(extent={{-120,28},{-100,48}})));
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.EnableLead
+    enaHeaLeaPum
+    "Enable lead pump of headered pumps"
+    annotation (Placement(transformation(extent={{-200,76},{-180,96}})));
+
 protected
   parameter Boolean remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP)
     "Boolean flag for pump speed control with remote differential pressure";
@@ -363,10 +368,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Min min if have_varSecPum
     "Ensure pump speed is below maximum speed for condensation control"
     annotation (Placement(transformation(extent={{160,-410},{180,-390}})));
-
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.EnableLead
-    enaHeaLeaPum "Enable lead pump of headered pumps"
-    annotation (Placement(transformation(extent={{-200,76},{-180,96}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Speed_remoteDp
     pumSpeRemDp(

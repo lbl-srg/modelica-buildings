@@ -563,6 +563,12 @@ equation
 
   connect(secPumCon2.yHotWatPum, pre3.u)
     annotation (Line(points={{-78,-10},{-42,-10}}, color={255,0,255}));
+  connect(secPumCon2.yPumSpe, secPumCon2.uPumSpe) annotation (Line(points={{-78,
+          -20},{-72,-20},{-72,-40},{-144,-40},{-144,-8},{-102,-8}}, color={0,0,
+          127}));
+  connect(secPumCon3.yPumSpe, secPumCon3.uPumSpe) annotation (Line(points={{222,
+          -40},{228,-40},{228,-60},{156,-60},{156,-28},{198,-28}}, color={0,0,
+          127}));
 annotation (
   experiment(
       StopTime=3600,

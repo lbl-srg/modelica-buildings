@@ -17,12 +17,11 @@ block EnableLead
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final t=-1)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if any hot water requests are being generated"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical And"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
