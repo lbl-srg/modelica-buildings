@@ -749,7 +749,7 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final quantity="PressureDifference",
-    final displayUnit="Pa") if have_locSenChiWatPum
+    final unit="Pa") if have_locSenChiWatPum
     "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-940,490},{-900,530}}),
       iconTransformation(extent={{-140,240},{-100,280}})));
