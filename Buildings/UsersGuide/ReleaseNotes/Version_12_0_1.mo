@@ -12,9 +12,9 @@ Version 12.0.1 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Plants
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package of sequences for chiller and boiler plants
     </td>
     </tr>
 </table>
