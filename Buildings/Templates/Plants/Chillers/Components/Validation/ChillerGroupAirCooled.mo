@@ -68,15 +68,16 @@ model ChillerGroupAirCooled
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
     final capChi_nominal=capChi_nominal,
-    final COPChi_nominal=COPChi_nominal,
     final TChiWatSupChi_nominal=fill(TChiWatSup_nominal, nChi),
     TOut_nominal=Buildings.Templates.Data.Defaults.TOutChi,
-    PLRChi_min=fill(0.15, nChi),
-    redeclare
-      Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Carrier_19XR_742kW_5_42COP_VSD
-      perChi)
-    "Parameter record for air-cooled chiller group";
-
+    perChi(
+      each fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/York_YCAL0033EE_101kW_3_1COP_AirCooled.txt"),
+      each PLRSup={0.1,0.45,0.8,1.,1.15},
+      each devIde="York_YCAL0033EE_101kW_3_1COP_AirCooled",
+      each use_TEvaOutForTab=true,
+      each use_TConOutForTab=false)) "Parameter record for chiller group"
+    annotation (Placement(transformation(extent={{-240,180},{-220,200}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
     redeclare final package Medium=MediumChiWat,
     final nPorts=nChi,
@@ -112,7 +113,6 @@ model ChillerGroupAirCooled
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={40,-100})));
-
   Plants.Chillers.Components.ChillerGroups.Compression chi(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumAir,
@@ -129,7 +129,6 @@ model ChillerGroupAirCooled
     typEco=Buildings.Templates.Plants.Chillers.Types.Economizer.None)
     "Chiller group"
     annotation (Placement(transformation(extent={{-100,-90},{-60,110}})));
-
   Buildings.Templates.Components.Routing.MultipleToSingle inlChiWatChi(
     redeclare final package Medium = MediumChiWat,
     final nPorts=nChi,

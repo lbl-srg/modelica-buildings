@@ -36,7 +36,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=3,
-    y={"chiAirCoo.chi.PLR2", "chiAirCoo.chi.COP", "datChiAirCoo.COP_nominal"},
+    y={"chiAirCoo.chi.PLR", "chiAirCoo.chi.EER", "chiAirCoo.COP_nominal"},
     autoscale=true,
     grid=true
 );
@@ -58,7 +58,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=3,
-    y={"chiWatCoo.chi.PLR2", "chiWatCoo.chi.COP", "datChiWatCoo.COP_nominal"},
+    y={"chiWatCoo.chi.PLR", "chiWatCoo.chi.EER", "chiWatCoo.COP_nominal"},
     autoscale=true,
     grid=true
 );

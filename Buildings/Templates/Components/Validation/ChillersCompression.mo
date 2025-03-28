@@ -17,21 +17,17 @@ model ChillersCompression
     mChiWat_flow_nominal=datChiAirCoo.cap_nominal / abs(datChiAirCoo.TChiWatSup_nominal -
       Buildings.Templates.Data.Defaults.TChiWatRet) / datChiAirCoo.cpChiWat_default,
     cap_nominal=750E3,
-    COP_nominal=Buildings.Templates.Data.Defaults.COPChiAirCoo,
     dpChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    TConEnt_nominal=Buildings.Templates.Data.Defaults.TOutChi,
-    PLR_min=0.15,
+    TCon_nominal=Buildings.Templates.Data.Defaults.TOutChi,
     per(
-      capFunT={0.0, 0.1, - 0.0023814154, 0.0628316481, - 0.0009644649, -
-        0.0011249224},
-      EIRFunT={0.0, 0.0071530312, - 0.0004553574, 0.0188175079, 0.0002623276, -
-        0.0012881189},
-      EIRFunPLR={- 5.497250E-01, 5.035076E-02, - 1.927855E-05, 1.678371E+00, -
-        1.535993E+00, - 4.944902E-02, 0.000000E+00, 1.396972E+00, 0.000000E+00, 0.000000E+00},
-      PLRMax=1.15,
-      etaMotor=1.0))
-    "Air-cooled chiller parameters – Parameterization by direct assignment of performance curves"
+      fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/York_YCAL0033EE_101kW_3_1COP_AirCooled.txt"),
+      PLRSup={0.1,0.45,0.8,1.,1.15},
+      devIde="York_YCAL0033EE_101kW_3_1COP_AirCooled",
+      use_TEvaOutForTab=true,
+      use_TConOutForTab=false))
+    "Air-cooled chiller parameters"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   parameter Buildings.Templates.Components.Data.Chiller datChiWatCoo(
     final typ=chiWatCoo.typ,
@@ -39,13 +35,18 @@ model ChillersCompression
       Buildings.Templates.Data.Defaults.TChiWatRet) / datChiWatCoo.cpChiWat_default,
     mCon_flow_nominal=datChiWatCoo.mChiWat_flow_nominal,
     cap_nominal=750E3,
-    COP_nominal=Buildings.Templates.Data.Defaults.COPChiWatCoo,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    TConEnt_nominal=Buildings.Templates.Data.Defaults.TConWatSup,
+    TCon_nominal=Buildings.Templates.Data.Defaults.TConWatRet,
     dpChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     dpCon_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
-    redeclare Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per)
-    "Water-cooled chiller parameters – Parameterization by redeclaring sub-record per"
+    per(
+      fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/McQuay_WSC_471kW_5_89COP_Vanes.txt"),
+      PLRSup={0.1,0.43,0.75,1.,1.08},
+      devIde="McQuay_WSC_471kW_5_89COP_Vanes",
+      use_TEvaOutForTab=true,
+      use_TConOutForTab=true))
+    "Water-cooled chiller parameters"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=datChiAirCoo.TChiWatSup_nominal,
@@ -83,13 +84,12 @@ model ChillersCompression
     "Boundary condition at distribution system supply"
     annotation (Placement(transformation(extent={{130,10},{110,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
-    amplitude=(datChiAirCoo.TChiWatRet_nominal - datChiAirCoo.TChiWatSup_nominal)
-        /2,
+    amplitude=(chiAirCoo.TChiWatRet_nominal - chiAirCoo.TChiWatSup_nominal)/2,
     freqHz=2 / 3000,
     y(final unit="K",
       displayUnit="degC"),
-    offset=datChiAirCoo.TChiWatSup_nominal +(datChiAirCoo.TChiWatRet_nominal -
-      datChiAirCoo.TChiWatSup_nominal) / 2,
+    offset=chiAirCoo.TChiWatSup_nominal + (chiAirCoo.TChiWatRet_nominal -
+        chiAirCoo.TChiWatSup_nominal)/2,
     startTime=0)
     "CHW return temperature value"
     annotation (Placement(transformation(extent={{-120,14},{-100,34}})));
@@ -129,7 +129,7 @@ model ChillersCompression
   Fluid.Sources.Boundary_pT supConWat(
     redeclare final package Medium=MediumLiq,
     p=retConWat.p + chiWatCoo.dpCon_nominal,
-    T=datChiWatCoo.TConEnt_nominal,
+    T=chiWatCoo.TConEnt_nominal,
     nPorts=1)
     "Boundary conditions of CW at chiller inlet"
     annotation (Placement(transformation(extent={{130,-70},{110,-50}})));
@@ -159,18 +159,17 @@ model ChillersCompression
   Fluid.Sources.MassFlowSource_T souAir(
     redeclare final package Medium=MediumAir,
     m_flow=datChiAirCoo.mCon_flow_nominal,
-    T=datChiAirCoo.TConEnt_nominal,
+    T=chiAirCoo.TConEnt_nominal,
     nPorts=1)
     "Air source"
     annotation (Placement(transformation(extent={{130,50},{110,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet1(
-    amplitude=(datChiWatCoo.TChiWatRet_nominal - datChiWatCoo.TChiWatSup_nominal) /
-      2,
+    amplitude=(chiWatCoo.TChiWatRet_nominal - chiWatCoo.TChiWatSup_nominal)/2,
     freqHz=2 / 3000,
     y(final unit="K",
       displayUnit="degC"),
-    offset=datChiWatCoo.TChiWatSup_nominal +(datChiAirCoo.TChiWatRet_nominal -
-      datChiWatCoo.TChiWatSup_nominal) / 2,
+    offset=chiWatCoo.TChiWatSup_nominal + (chiAirCoo.TChiWatRet_nominal -
+        chiWatCoo.TChiWatSup_nominal)/2,
     startTime=0)
     "CHW return temperature value"
     annotation (Placement(transformation(extent={{-120,-106},{-100,-86}})));
@@ -197,12 +196,6 @@ protected
     "Chiller control bus"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}}),
       iconTransformation(extent={{-276,6},{-236,46}})));
-initial equation
-  Modelica.Utilities.Streams.print(
-    "Coef at rating conditions = " + String(Buildings.Utilities.Math.Functions.biquadratic(
-    a=datChiWatCoo.per.capFunT,
-    x1=Modelica.Units.Conversions.to_degC(datChiWatCoo.per.TEvaLvg_nominal),
-    x2=Modelica.Units.Conversions.to_degC(datChiWatCoo.per.TConLvg_nominal))));
 equation
   connect(TSup.port_b, supChiWat.ports[1])
     annotation (Line(points={{70,20},{110,20},{110,19}},color={0,127,255}));
@@ -237,8 +230,6 @@ equation
     annotation (Line(points={{20,-88},{20,-60},{-50,-60}},color={0,127,255}));
   connect(TChiWatRet.y, retChiWat.T_in)
     annotation (Line(points={{-98,24},{-72,24}},color={0,0,127}));
-  connect(TChiWatSupSet.y, bus.TSupSet)
-    annotation (Line(points={{-98,80},{0,80}},color={0,0,127}));
   connect(sinAir.ports[1], chiAirCoo.port_b1)
     annotation (Line(points={{-50,60},{20,60},{20,32}},color={0,127,255}));
   connect(souAir.ports[1], chiAirCoo.port_a1)
@@ -247,8 +238,10 @@ equation
     annotation (Line(points={{-98,-96},{-72,-96}},color={0,0,127}));
   connect(retChiWat1.ports[1], TRet2.port_a)
     annotation (Line(points={{-50,-100},{-30,-100}},color={0,127,255}));
-  connect(TChiWatSupSet1.y, bus2.TSupSet)
-    annotation (Line(points={{-98,-40},{0,-40}},color={0,0,127}));
+  connect(TChiWatSupSet1.y, bus2.TSet)
+    annotation (Line(points={{-98,-40},{0,-40}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, bus.TSet)
+    annotation (Line(points={{-98,80},{0,80}}, color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(
@@ -279,6 +272,10 @@ chiller (component <code>chiWatCoo</code>).
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data chiller model.
+</li>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
 First implementation.

@@ -210,7 +210,7 @@ by simulating a <i>24</i>-hour period during which the cooling loads reach
 their peak value.
 </p>
 <p>
-Two equally sized chillers are modeled, which can all be lead/lag alternated.
+Two equally sized chillers are modeled.
 A unique aggregated load is modeled on the CHW loop by means of a heating
 component controlled to maintain a constant <i>&Delta;T</i>,
 and a modulating valve controlled to track a prescribed flow rate.
@@ -227,9 +227,6 @@ Simulating this model shows how the plant responds to a varying load by
 <ul>
 <li>
 staging or unstaging the chillers,
-</li>
-<li>
-rotating lead/lag alternate equipment to ensure even wear,
 </li>
 <li>
 resetting the supply temperature and remote differential pressure

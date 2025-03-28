@@ -9,13 +9,15 @@ class AllSystemsAirCooled
 
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant pla(
     chi(
-      COPChi_nominal=fill(Buildings.Templates.Data.Defaults.COPChiAirCoo, pla.cfg.nChi),
-      dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi,
-          pla.cfg.nChi),
+      dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi, pla.cfg.nChi),
       TOut_nominal=Buildings.Templates.Data.Defaults.TOutChi,
-      redeclare
-        Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Carrier_19XR_742kW_5_42COP_VSD
-        perChi),
+      perChi(
+        each fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/York_YCAL0033EE_101kW_3_1COP_AirCooled.txt"),
+        each PLRSup={0.1,0.45,0.8,1.,1.15},
+        each devIde="York_YCAL0033EE_101kW_3_1COP_AirCooled",
+        each use_TEvaOutForTab=true,
+        each use_TConOutForTab=false)),
     ctl(
       TChiWatChiSup_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup,
           pla.cfg.nChi),
@@ -33,7 +35,7 @@ class AllSystemsAirCooled
       dTLifChi_nominal=pla.ctl.TConWatRetChi_nominal .- pla.ctl.TChiWatChiSup_nominal,
       capChi_nominal=fill(1E6, pla.cfg.nChi),
       VChiWatPri_flow_nominal=sum(pla.ctl.VChiWatChi_flow_nominal),
-      VChiWatSec_flow_nominal={1.1*pla.ctl.VChiWatPri_flow_nominal},
+      VChiWatSec_flow_nominal={sum(pla.ctl.VChiWatChi_flow_nominal) / 1.1},
       capUnlChi_min=0.15*pla.ctl.capChi_nominal,
       dTAppEco_nominal=Buildings.Templates.Data.Defaults.TChiWatEcoLvg -
           Buildings.Templates.Data.Defaults.TConWatEcoEnt,

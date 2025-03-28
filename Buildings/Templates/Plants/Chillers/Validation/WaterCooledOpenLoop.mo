@@ -44,7 +44,7 @@ model WaterCooledOpenLoop
         have_senTConWatChiSup=true,
         have_senTConWatChiRet_select=true),
       final energyDynamics=energyDynamics,
-      dat=datAll.pla)
+      final dat=datAll.pla)
     "CHW plant"
     annotation (Placement(transformation(extent={{-60,-30},{-20,10}})));
 

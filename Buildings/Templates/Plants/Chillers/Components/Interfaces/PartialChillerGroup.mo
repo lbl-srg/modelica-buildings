@@ -13,6 +13,14 @@ partial model PartialChillerGroup "Interface class for chiller group"
   parameter Buildings.Templates.Components.Types.Chiller typ
     "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_switchover=false
+    "Set to true for heat recovery chiller with built-in switchover"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration", enable=false));
+  parameter Boolean use_TChiWatSupForCtl=true
+    "Set to true for CHW supply temperature control, false for CHW return temperature control"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Plants.Chillers.Types.ChillerArrangement typArr
     "Type of chiller arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -139,28 +147,22 @@ partial model PartialChillerGroup "Interface class for chiller group"
 
   parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup
     dat(typ=typ, nChi=nChi)
-    "Parameter record for chiller group";
-
+    "Parameter record for chiller group"
+    annotation (Placement(transformation(extent={{170,170},{190,190}})));
   final parameter Buildings.Templates.Components.Data.Chiller datChi[nChi](
     final typ=fill(typ, nChi),
     final mChiWat_flow_nominal=mChiWatChi_flow_nominal,
     final mCon_flow_nominal=mConChi_flow_nominal,
     final cap_nominal=capChi_nominal,
-    final COP_nominal=dat.COPChi_nominal,
     final dpChiWat_nominal=if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.None
       and typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       then dat.dpChiWatChi_nominal else fill(0, nChi),
     final dpCon_nominal=if typValConWatChiIso == Buildings.Templates.Components.Types.Valve.None
       then dat.dpConChi_nominal else fill(0, nChi),
     final TChiWatSup_nominal=dat.TChiWatSupChi_nominal,
-    final TChiWatSup_max=dat.TChiWatSupChi_max,
-    final TConEnt_nominal=dat.TConEntChi_nominal,
-    final TConLvg_min=dat.TConLvgChi_min,
-    final TConLvg_max=dat.TConLvgChi_max,
-    final PLRUnl_min=dat.PLRUnlChi_min,
-    final PLR_min=dat.PLRChi_min,
+    final TCon_nominal=dat.TConChi_nominal,
     final per=dat.perChi)
-    "Parameter record of each chiller";
+    "Parameter record - Each chiller";
   final parameter Buildings.Templates.Components.Data.Valve datValChiWatChiIso[nChi](
     final typ=fill(typValChiWatChiIso, nChi),
     final m_flow_nominal=mChiWatChi_flow_nominal,
@@ -319,7 +321,6 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
     iconTransformation(extent={{-20,982},{20,1022}})));
-
 protected
   Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
     "Chiller control bus"
@@ -335,6 +336,12 @@ protected
     "Chiller CW isolation valve control bus" annotation (Placement(
         transformation(extent={{-100,140},{-60,180}}), iconTransformation(
           extent={{-466,50},{-426,90}})));
+initial equation
+  if typ==Buildings.Templates.Components.Types.Chiller.AirCooled then
+    assert(not Modelica.Math.BooleanVectors.anyTrue(dat.perChi.use_TConOutForTab),
+      "In " + getInstanceName() +
+      ": Only use_TConOutForTab=false is supported for air-cooled chiller performance data.");
+  end if;
 equation
   connect(busChi, bus.chi) annotation (Line(
       points={{0,160},{0,200}},

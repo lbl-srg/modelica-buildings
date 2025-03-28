@@ -17,19 +17,19 @@ record Controller
     "Maximum CHW supply temperature setpoint used in plant reset logic"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36));
-  parameter Modelica.Units.SI.Temperature TConWatRetChi_nominal[cfg.nChi](
-    each displayUnit="degC",
-    each start=Buildings.Templates.Data.Defaults.TConWatRet,
-    each final min=273.15)
-    "CW return temperature (condenser leaving) at chiller selection conditions - Each chiller"
-    annotation (Dialog(group="Temperature setpoints",
-      enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-      cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.Temperature TConWatSupChi_nominal[cfg.nChi](
     each displayUnit="degC",
     each start=Buildings.Templates.Data.Defaults.TConWatSup,
     each final min=273.15)
     "CW supply temperature (condenser entering) at chiller selection conditions - Each chiller"
+    annotation (Dialog(group="Temperature setpoints",
+      enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Modelica.Units.SI.Temperature TConWatRetChi_nominal[cfg.nChi](
+    each displayUnit="degC",
+    each start=Buildings.Templates.Data.Defaults.TConWatRet,
+    each final min=273.15)
+    "CW return temperature (condenser leaving) at chiller selection conditions - Each chiller"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
       cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));

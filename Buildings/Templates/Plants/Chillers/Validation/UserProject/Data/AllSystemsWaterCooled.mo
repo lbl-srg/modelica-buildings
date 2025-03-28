@@ -9,34 +9,39 @@ class AllSystemsWaterCooled
 
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant pla(
     chi(
-      COPChi_nominal=fill(Buildings.Templates.Data.Defaults.COPChiWatCoo, pla.cfg.nChi),
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi,
           pla.cfg.nChi),
       dpConChi_nominal=fill(Buildings.Templates.Data.Defaults.dpConWatChi, pla.cfg.nChi),
-      redeclare
-        Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD
-        perChi),
+      perChi(
+        each fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/McQuay_WSC_471kW_5_89COP_Vanes.txt"),
+        each PLRSup={0.1,0.43,0.75,1.,1.08},
+        each devIde="McQuay_WSC_471kW_5_89COP_Vanes",
+        each use_TEvaOutForTab=true,
+        each use_TConOutForTab=true)),
     ctl(
       TChiWatChiSup_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup,
-          pla.cfg.nChi),
+        pla.cfg.nChi),
       dpChiWatLocSet_min=Buildings.Templates.Data.Defaults.dpChiWatSet_min,
       dpChiWatRemSet_min=fill(Buildings.Templates.Data.Defaults.dpChiWatSet_min,
-          pla.cfg.nSenDpChiWatRem),
+        pla.cfg.nSenDpChiWatRem),
       VChiWatChi_flow_nominal=pla.ctl.capChi_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-           ./ (Buildings.Templates.Data.Defaults.TChiWatRet .- pla.ctl.TChiWatChiSup_nominal)
-          /pla.cfg.rhoChiWat_default,
+        ./ (Buildings.Templates.Data.Defaults.TChiWatRet .- pla.ctl.TChiWatChiSup_nominal)
+        /pla.cfg.rhoChiWat_default,
       VChiWatChi_flow_min=0.3*pla.ctl.VChiWatChi_flow_nominal,
       VConWatChi_flow_nominal=pla.ctl.capChi_nominal*(1 + 1/Buildings.Templates.Data.Defaults.COPChiWatCoo)
-          /Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/(Buildings.Templates.Data.Defaults.TConWatRet
-           - Buildings.Templates.Data.Defaults.TConWatSup)/pla.cfg.rhoCon_default,
+        /Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/(Buildings.Templates.Data.Defaults.TConWatRet
+        - Buildings.Templates.Data.Defaults.TConWatSup)/pla.cfg.rhoCon_default,
       dTLifChi_min=fill(Buildings.Templates.Data.Defaults.dTLifChi_min, pla.cfg.nChi),
       dTLifChi_nominal=pla.ctl.TConWatRetChi_nominal .- pla.ctl.TChiWatChiSup_nominal,
       capChi_nominal=fill(1E6, pla.cfg.nChi),
       VChiWatPri_flow_nominal=sum(pla.ctl.VChiWatChi_flow_nominal),
-      VChiWatSec_flow_nominal={1.1*pla.ctl.VChiWatPri_flow_nominal},
+      VChiWatSec_flow_nominal=fill(
+        sum(pla.ctl.VChiWatChi_flow_nominal) / 1.1 / max(1, pla.cfg.nLooChiWatSec),
+        pla.cfg.nLooChiWatSec),
       capUnlChi_min=0.15*pla.ctl.capChi_nominal,
       dTAppEco_nominal=Buildings.Templates.Data.Defaults.TChiWatEcoLvg -
-          Buildings.Templates.Data.Defaults.TConWatEcoEnt,
+        Buildings.Templates.Data.Defaults.TConWatEcoEnt,
       TWetBulCooEnt_nominal=Buildings.Templates.Data.Defaults.TWetBulTowEnt,
       dTAppCoo_nominal=Buildings.Templates.Data.Defaults.TConWatSup - Buildings.Templates.Data.Defaults.TWetBulTowEnt,
       VChiWatEco_flow_nominal=sum(pla.ctl.VChiWatChi_flow_nominal[1:2]),
