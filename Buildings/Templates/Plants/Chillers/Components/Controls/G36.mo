@@ -19,9 +19,9 @@ block G36
     "True: need limit chiller demand when chiller staging"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages
     chiTyp[cfg.nChi]=fill(
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.VariableSpeedCentrifugal,
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.VariableSpeedCentrifugal,
     cfg.nChi)
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
     annotation (Dialog(tab="General",group="Chillers configuration"));
@@ -38,9 +38,9 @@ block G36
     each displayUnit="degC")=dat.TChiWatChiSup_nominal
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General",group="Chillers configuration"));
-  final parameter Real LIFT_min[cfg.nChi](
+  final parameter Real minChiLif[cfg.nChi](
     each final unit="K")=dat.dTLifChi_min
-    "Minimum LIFT of each chiller"
+    "Minimum lift of each chiller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
   final parameter Boolean have_heaPreConSig=typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn
     "True: if there is head pressure control signal from chiller controller"
@@ -266,7 +266,7 @@ block G36
     unit="1")=dat.hLevCoo_max / dat.hLevAlaCoo_max
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers",group="Makeup water"));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller ctl(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller ctl(
     final nChi=cfg.nChi,
     final closeCoupledPlant=closeCoupledPlant,
     final have_ponyChiller=have_ponyChiller,
@@ -315,7 +315,7 @@ block G36
     final dpChiWatMax=dpChiWatMax,
     final TPlaChiWatSupMax=TPlaChiWatSupMax,
     final fanSpeMin=fanSpeMin,
-    final LIFT_min=LIFT_min,
+    final minChiLif=minChiLif,
     final TConWatSup_nominal=TConWatSup_nominal,
     final TConWatRet_nominal=TConWatRet_nominal,
     final watLevMin=watLevMin,
@@ -579,8 +579,8 @@ equation
 This is an implementation of the control sequence specified in ASHRAE (2021)
 for chilled water plants.
 It is based on
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a>.
 </p>
 <h4>Details</h4>
 <p>
