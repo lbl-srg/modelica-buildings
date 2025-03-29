@@ -262,6 +262,12 @@ equation
       Tolerance=1e-07,
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
-<p><span style=\"font-family: Arial;\">This model consist of an HVAC system, a building envelope model and a model for air flow through building leakage and through open doors. The HVAC system consists of an electric heating coil, a hot-water heating coil, a chilled water heating coil, and a fan. The figure below shows a schematic of the HVAC system.</span></p>
-</html>"));
+<p>This model simulates Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe, a four-pipe fan coil unit(FCU) system model for a 5-zone thermal model. </p>
+<p><br><span style=\"font-family: Arial;\">This model consist of an variable air volume(VAV) HVAC system, a building envelope model and a model for air flow through building leakage and through open doors. The HVAC system includes a fan-coil unit and a fan coil controller for each thermal zone. The fan-coil unit that consists of a a supply fan, an electric or hot-water heating coil, and a chilled-water cooling coil. The fan coil unit controller outputs supply fan enable signal and speed signal, the supply air temperature setpoint, the zone air heating and cooling setpoints, and valve positions of heating and cooling coils.</span></p>
+<p>See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a> and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller</a> for a description of the Fan Coil unit and the controller, and see the model <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">Buildings.Examples.VAVReheat.BaseClasses.Floor</a> for a description of the building envelope. </p>
+<p>The HVAC system switches between occupied, unoccupied, unoccupied warm-up and unoccupied pre-cool modes.The cooling coil and heating coil valves are modulated to maintain the heating and cooling setpoints.</p>
+</html>"),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"
+        "Simulate and plot"),
+    experiment(StopTime=345600, Tolerance=1e-07));
 end FanCoilUnit;
