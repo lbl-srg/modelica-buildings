@@ -36,20 +36,5 @@ Record that contains performance parameters for air filters.
 <p>It is used as a template of performance data for the filter models in
 <a href=\"modelica://Buildings.Fluid.AirFilters\">Buildings.Fluid.AirFilters</a>.
 </p>
-<p>
-This record includes the nominal air flow rate, the maximum mass of the contaminants that can be captured by the filter,
-and the nominal pressure drop value.
-</p>
-<p>
-Additionally, it features a curve that represents the relationship between the mass of captured contaminants 
-and filtration efficiency
-(see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
-Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
-</p>
-<p>
-Finally, it contains a parameter that defines how the pressure drop changes
-with the mass of the captured contaminants
-(see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
-Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>). </p>
 </html>"));
 end Generic;

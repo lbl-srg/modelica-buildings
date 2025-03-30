@@ -253,30 +253,44 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
 Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-An empirical model of air filters, which considers the impacts of the contaminant
-accumulation on the pressure drop and the filtration efficiency.
-This model does not require geometric data.
-Its performance is characterized by a performance dataset <code>per</code> (see
-<a href=\"modelica://Buildings.Fluid.AirFilters.Data.Generic\">
-Buildings.Fluid.AirFilters.Data.Generic</a>), Specifically,
+This model empirically simulates the performance of air filters, 
+focusing on key factors such as contamination and pressure drop,
+without requiring geometric data. 
+It provides a set of parameters and performance characteristics 
+that describe how the filter works under various conditions.
+The performance of the air filter is characterized by a performance dataset <code>per</code> 
+(see <a href=\"modelica://Buildings.Fluid.AirFilters.Data.Generic\">
+Buildings.Fluid.AirFilters.Data.Generic</a>), which contains key parameters that help 
+define filter behavior:
 </p>
 <ul>
 <li>
-the pressure drop of the filter is defined by the resistance coefficient <code>per.b</code>.
+<b>Contaminant Name</b>(<code>per.namCon</code>): 
+This array defines the type of contaminants that the filter is designed to capture.
 </li>
 <li>
-the filtration efficiency of the filter is defined by the filtration efficiency
-<code>per.filEffPar</code> for each type of contaminant. The contaminant type is
-specified by <code>per.namCon</code>. 
+<b>Nominal Conditions</b>:
+This includes the nominal pressure drop(<code>dp_nominal</code>), the nominal mass flow rate(<code>m_flow_nominal</code>), 
+and the maximum total mass of contaminants (<code>mCon_nominal</code>) that the filter can hold.
+</li>
+<li>
+<b>Resistance Coefficient</b>(<code>per.b</code>):
+This parameter describes how the pressure drop of the filter increases as 
+the filter collects more contaminants over time.
+(More detailed descriptions are in
+<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
+Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>).
+</li>
+<li>
+<b>Filtration Efficiency Curves</b>(<code>per.filEffPar</code>):
+This array contains filtration efficiency curves.
+Each curve defines the filtration efficiencies at capturing each contaminants that is 
+defined in <code>per.namCon</code>.
+(More detailed explanations are in 
+<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
+Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 </li>
 </ul>
-<p>
-See more detailed descriptions in
-<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
-Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>
-and <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
-Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>, respectively.
-</p>
 <p>
 The input boolean flag, <code>uRep</code>, triggers the filter replacement, i.e.,
 when <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
@@ -291,6 +305,14 @@ the captured contaminant mass exceeds the <code>mCon_nominal</code>, or
 <li>
 the <code>extraPropertiesNames</code> in the medium model does not contain all the contaminants
 specified in the <code>per.namCon</code>.
+</li>
+</ul>
+
+<h4>References</h4>
+<ul>
+<li>
+<a href=\"https://nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.1887r1.pdf\">
+CONTAM User Guide and Program Documentation Version 3.4</a>
 </li>
 </ul>
 </html>", revisions="<html>
