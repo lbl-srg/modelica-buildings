@@ -265,7 +265,7 @@ define filter behavior:
 </p>
 <ul>
 <li>
-<b>Contaminant Name</b>(<code>per.namCon</code>): 
+<b>Contaminant Name</b> (<code>per.namCon</code>): 
 This array defines the type of contaminants that the filter is designed to capture.
 </li>
 <li>
@@ -274,20 +274,18 @@ This includes the nominal pressure drop(<code>dp_nominal</code>), the nominal ma
 and the maximum total mass of contaminants (<code>mCon_nominal</code>) that the filter can hold.
 </li>
 <li>
-<b>Resistance Coefficient</b>(<code>per.b</code>):
+<b>Resistance Coefficient</b> (<code>per.b</code>):
 This parameter describes how the pressure drop of the filter increases as 
 the filter collects more contaminants over time.
-(More detailed descriptions are in
-<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
+(see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
 Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>).
 </li>
 <li>
-<b>Filtration Efficiency Curves</b>(<code>per.filEffPar</code>):
+<b>Filtration Efficiency Curves</b> (<code>per.filEffPar</code>):
 This array contains filtration efficiency curves.
-Each curve defines the filtration efficiencies at capturing each contaminants that is 
+Each curve defines the filtration efficiencies at capturing each contaminant that is 
 defined in <code>per.namCon</code>.
-(More detailed explanations are in 
-<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
+(see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
 Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 </li>
 </ul>
