@@ -14,19 +14,19 @@ model ConstantFanVariableWaterFlowrate
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TZon(
     final height=6,
     final duration=3600,
     final offset=273.15 + 21)
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooSetPoi(
     final k=273.15 + 25)
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaSetPoi(
     final k=273.15 + 23)
     "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));

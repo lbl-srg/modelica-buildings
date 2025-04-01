@@ -163,8 +163,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{-302,-378},{-280,-356}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-270},{-230,-250}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package Medium =
-               MediumA, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TPreHeaCoi(redeclare package
+      Medium = MediumA, m_flow_nominal=m_flow_nominal)
     "Preheating coil outlet temperature"
     annotation (Placement(transformation(extent={{134,-50},{154,-30}})));
   Buildings.Utilities.Math.Min min(nin=5) "Computes lowest room temperature"

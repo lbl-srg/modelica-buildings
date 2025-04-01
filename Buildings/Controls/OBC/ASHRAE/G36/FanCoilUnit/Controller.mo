@@ -519,7 +519,7 @@ block Controller
     if have_locAdj and not sepAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-260,150},{-220,190}}),
-      iconTransformation(extent={{-240,200},{-200,240}})));
+      iconTransformation(extent={{-242,200},{-202,240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj(
     final unit="K",

@@ -41,7 +41,7 @@ model SingleZoneVariableFanConstantWaterFlowrate
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0.2)
     "Constant real signal of 0.2 for the outdoor air economizer"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
@@ -68,10 +68,10 @@ model SingleZoneVariableFanConstantWaterFlowrate
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
     "Convert fan enable signal to Real value"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulFanSig
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulFanSig
     "Find input fan signal by multiplying fan enable signal and fan speed signal"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrFanProOn(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrFanProOn(
     final t=0.05)
     "Check if fan is running with speed greater than 10%"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
@@ -129,7 +129,7 @@ model SingleZoneVariableFanConstantWaterFlowrate
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaOcc
     "Convert occupancy signal to Real value"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulQIntGai
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulQIntGai
     "Find internal heat gain for zone only when it is occupied"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
