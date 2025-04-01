@@ -2,19 +2,17 @@ within Buildings.Controls.OBC.CDL.Logical;
 block Xor
   "Logical 'xor': y = u1 xor u2"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
-    "Connector of first Boolean input signal"
+    "Input for logical 'xor'"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
-    "Connector of second Boolean input signal"
+    "Input for logical 'xor'"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Output with u1 xor u2"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=not
-       ((u1 and u2) or
-                      (not u1 and not u2));
+  y=not ((u1 and u2) or (not u1 and not u2));
   annotation (
     defaultComponentName="xor",
     Icon(

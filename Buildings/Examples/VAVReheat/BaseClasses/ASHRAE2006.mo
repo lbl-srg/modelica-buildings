@@ -54,7 +54,7 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     from_dp=false,
-    riseTime=15,
+    strokeTime=15,
     dpFixed_nominal=5,
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,

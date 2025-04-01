@@ -63,20 +63,20 @@ model ChillerGroup
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  parameter Boolean use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+  parameter Boolean use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
+    "Set to true to continuously open and close valve"
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve"));
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=use_inputFilter));
+      group="Time needed to open or close valve",
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nUni]
     "Chiller On/Off command"
@@ -206,12 +206,11 @@ model ChillerGroup
     dpValve_nominal=1E3,
     final allowFlowReversal=allowFlowReversal2,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
-    final show_T=show_T)
-    "Chiller evaporator isolation valves"
+    final show_T=show_T) "Chiller evaporator isolation valves"
     annotation (Placement(transformation(extent={{-70,-50},{-90,-70}})));
   BaseClasses.MultipleValves valCon(
     redeclare final package Medium = Medium1,
@@ -223,12 +222,11 @@ model ChillerGroup
     dpValve_nominal=1E3,
     final allowFlowReversal=allowFlowReversal1,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
-    final show_T=show_T)
-    "Chiller condenser isolation valves"
+    final show_T=show_T) "Chiller condenser isolation valves"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{70,30},{90,10}})));

@@ -154,5 +154,12 @@ at that stage.
 <p>
 Otherwise, the stage is deemed unavailable.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StageAvailability;

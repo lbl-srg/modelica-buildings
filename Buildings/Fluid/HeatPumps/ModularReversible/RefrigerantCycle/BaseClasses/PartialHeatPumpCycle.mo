@@ -11,7 +11,7 @@ partial model PartialHeatPumpCycle
     "Calculates evaporator heat flow with total energy balance" annotation (
       Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
 equation
-  connect(iceFacCal.iceFac, sigBus.icefacHPMea) annotation (Line(points={{-81.2,
+  connect(iceFacCal.iceFac, sigBus.iceFacHPMea) annotation (Line(points={{-81.2,
           -50},{-64,-50},{-64,-28},{-110,-28},{-110,120},{1,120}},
                                                               color={0,0,127}),
       Text(

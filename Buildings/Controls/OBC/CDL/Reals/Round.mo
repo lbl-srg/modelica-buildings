@@ -2,12 +2,12 @@ within Buildings.Controls.OBC.CDL.Reals;
 block Round
   "Round real number to given digits"
   parameter Integer n
-    "Number of digits being round to";
+    "Number of digits to be round to";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input to be rounded"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Output with rounded input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -15,13 +15,10 @@ protected
     "Factor used for rounding";
 
 equation
-  y=if
-      (u > 0) then
-      floor(
-        u*fac+0.5)/fac
+  y=if (u > 0) then
+      floor( u*fac+0.5)/fac
     else
-      ceil(
-        u*fac-0.5)/fac;
+      ceil(u*fac-0.5)/fac;
   annotation (
     defaultComponentName="rou",
     Icon(

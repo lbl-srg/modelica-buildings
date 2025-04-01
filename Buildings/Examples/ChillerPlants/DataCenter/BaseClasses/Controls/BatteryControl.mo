@@ -121,23 +121,23 @@ equation
     annotation (Line(points={{-99,-120},{80,-120},{80,48}},
                                                           color={255,0,255}));
   connect(t1.inPort, alternative.split[1])
-    annotation (Line(points={{16,120},{8,120},{8,115},{-0.56,115}},
+    annotation (Line(points={{16,120},{8,120},{8,77.5},{-0.56,77.5}},
                                                     color={0,0,0}));
   connect(t2.inPort, alternative.split[2])
-    annotation (Line(points={{16,60},{8,60},{8,65},{-0.56,65}},
+    annotation (Line(points={{16,60},{8,60},{8,102.5},{-0.56,102.5}},
                                                   color={0,0,0}));
   connect(t3.outPort, alternative.join[1])
-    annotation (Line(points={{81.5,120},{92,120},{92,115},{100.56,115}},
+    annotation (Line(points={{81.5,120},{92,120},{92,77.5},{100.56,77.5}},
                                                        color={0,0,0}));
   connect(t4.outPort, alternative.join[2])
-    annotation (Line(points={{81.5,60},{92,60},{92,65},{100.56,65}},
+    annotation (Line(points={{81.5,60},{92,60},{92,102.5},{100.56,102.5}},
                                                      color={0,0,0}));
   connect(charge.active, multiSwitch1.u[1]) annotation (Line(
-      points={{50,109},{50,92},{64,92},{64,1.5},{104,1.5}},
+      points={{50,109},{50,92},{64,92},{64,-0.75},{104,-0.75}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(discharge.active, multiSwitch1.u[2]) annotation (Line(
-      points={{50,49},{50,49},{50,-4},{104,-4},{104,-1.5}},
+      points={{50,49},{50,49},{50,-4},{104,-4},{104,0.75}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   annotation ( Documentation(info="<html>

@@ -18,19 +18,19 @@ model WSEControl "Test model for WSEControl"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(TWetBub.y, wseCon.TWetBul) annotation (Line(
-      points={{-39,20},{-16,20},{-16,10},{-2,10}},
+      points={{-39,20},{-16,20},{-16,10.5882},{-2,10.5882}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TTowApp.y, wseCon.towTApp) annotation (Line(
-      points={{-39,-20},{-16,-20},{-16,6.25},{-2,6.25}},
+      points={{-39,-20},{-16,-20},{-16,7.05882},{-2,7.05882}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(wseCHWST.y, wseCon.wseCHWST) annotation (Line(
-      points={{-39,60},{-10,60},{-10,16.25},{-2,16.25}},
+      points={{-39,60},{-10,60},{-10,16.4706},{-2,16.4706}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(wseCWST.y, wseCon.wseCWST) annotation (Line(
-      points={{-39,-50},{-8,-50},{-8,1.375},{-2,1.375}},
+      points={{-39,-50},{-8,-50},{-8,2.47059},{-2,2.47059}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

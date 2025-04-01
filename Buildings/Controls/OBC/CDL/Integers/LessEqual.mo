@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.CDL.Integers;
 block LessEqual
   "Output y is true, if input u1 is less or equal than input u2"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u1
-    "Connector of first Integer input signal"
+    "First input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u2
-    "Connector of second Integer input signal"
+    "Second input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Outputs true if u1 is less or equal than u2"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

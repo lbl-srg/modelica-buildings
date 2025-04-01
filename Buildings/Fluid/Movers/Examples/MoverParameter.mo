@@ -9,8 +9,9 @@ model MoverParameter
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     massFlowRates={0,0.5,1}*m_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -28,8 +29,9 @@ model MoverParameter
   Buildings.Fluid.Movers.SpeedControlled_y pump_y(
     redeclare package Medium = Medium,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
-        speeds={0,0.5,1}, constantSpeed=1),
-    use_inputFilter=false,
+      speeds={0,0.5,1},
+      constantSpeed=1),
+    use_riseTime=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump with normalised speed input"
@@ -38,7 +40,7 @@ model MoverParameter
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
-    use_inputFilter=false,
+    use_riseTime=false,
     heads={0,0.5,1}*dp_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     dp_nominal=dp_nominal,
@@ -87,6 +89,13 @@ set point for a mover model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 21, 2023, by Hongxiang Fu:<br/>
 Deleted the mover with <code>Nrpm</code> signal.

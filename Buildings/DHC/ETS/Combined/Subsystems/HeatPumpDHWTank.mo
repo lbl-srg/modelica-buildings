@@ -5,29 +5,30 @@ model HeatPumpDHWTank
     Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump(
       heaPum(
         QCon_flow_nominal=QHotWat_flow_nominal,
-        QCon_flow_max=QHotWat_flow_nominal));
+        QCon_flow_max=QHotWat_flow_nominal),
+    pumCon(use_riseTime=true),
+    pumEva(use_riseTime=true));
   parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
     datWatHea "Performance data"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   parameter Modelica.Units.SI.HeatFlowRate QHotWat_flow_nominal(min=0)
     "Nominal capacity of heat pump condenser for hot water production system (>=0)"
     annotation (Dialog(group="Nominal condition"));
-  // IO CONNECTORS
-  // COMPONENTS
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floCon(realTrue=
         mCon_flow_nominal) "Condenser mass flow rate"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Buildings.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger heaPumTan(
     redeclare package MediumDom = Medium1,
-    redeclare package MediumHea = Medium2,                      final dat=
-        datWatHea)
+    redeclare package MediumHea = Medium2,
+    final dat=datWatHea)
     "Heat pump with storage tank for domestic hot water"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotSouSet(k=datWatHea.TDom_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotSouSet(
+    k=datWatHea.TDom_nominal)
     "Set point of water in hot water tank"
-    annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Buildings.Fluid.Sources.Boundary_pT preRef(
     redeclare package Medium = Medium2,
     p(displayUnit="bar"),
@@ -35,31 +36,30 @@ model HeatPumpDHWTank
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-60,-20})));
+        origin={-20,-120})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHeaPumRet(
     redeclare package Medium = Medium1,
+    allowFlowReversal=false,
     m_flow_nominal=mCon_flow_nominal,
-    tau=0)
-    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter
-                                      addPar(p=dT_nominal)
-                                                  "dT for heater"
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  Modelica.Blocks.Math.Add addPPum1
-                                   "Electricity use for pumps"
+    tau=0) "Sensor for return temperature to heat pump"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-160,-30})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
+    p=dT_nominal) "dT for heater"
+    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
+  Modelica.Blocks.Math.Add addPPum1 "Electricity use for pumps"
     annotation (Placement(transformation(extent={{170,-8},{190,12}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "Outputs true if boiler needs to be charged and plant is enabled"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
 equation
-  connect(THotSouSet.y, heaPumTan.TDomSet) annotation (Line(points={{-158,20},{
-          -81,20}},                color={0,0,127}));
-  connect(preRef.ports[1], heaPumTan.port_bHea) annotation (Line(points={{-70,-20},
-          {-92,-20},{-92,14},{-80,14}}, color={0,127,255}));
+  connect(THotSouSet.y, heaPumTan.TDomSet) annotation (Line(points={{-138,40},{-116,
+          40},{-116,20},{-81,20}}, color={0,0,127}));
   connect(heaPumTan.port_bHea, senTemHeaPumRet.port_a) annotation (Line(points={{-80,14},
-          {-120,14},{-120,0},{-140,0},{-140,-50}},          color={0,127,255}));
-  connect(senTemHeaPumRet.T, addPar.u) annotation (Line(points={{-130,-39},{
-          -130,-30},{-122,-30}},
-                            color={0,0,127}));
+          {-160,14},{-160,-20}},                            color={0,127,255}));
+  connect(senTemHeaPumRet.T, addPar.u) annotation (Line(points={{-149,-30},{-142,
+          -30}},            color={0,0,127}));
   connect(floCon.y, pumCon.m_flow_in)
     annotation (Line(points={{-58,90},{-4,90},{-4,0},{-14,0},{-14,-3.55271e-15}},
                                                             color={0,0,127}));
@@ -67,7 +67,7 @@ equation
     annotation (Line(points={{-60,14},{-26,14},{-26,10}},
                                                  color={0,127,255}));
   connect(senTemHeaPumRet.port_b, heaPum.port_a1)
-    annotation (Line(points={{-120,-50},{-100,-50},{-100,-66},{-80,-66}},
+    annotation (Line(points={{-160,-40},{-160,-66},{-80,-66}},
                                                     color={0,127,255}));
   connect(addPPum.y, addPPum1.u1)
     annotation (Line(points={{161,80},{168,80},{168,8}}, color={0,0,127}));
@@ -75,23 +75,25 @@ equation
           20},{-50,56},{164,56},{164,-4},{168,-4}}, color={0,0,127}));
   connect(addPPum1.y, PPum)
     annotation (Line(points={{191,2},{191,0},{220,0}}, color={0,0,127}));
-  connect(addPar.y, heaPum.TSet) annotation (Line(points={{-98,-30},{-92,-30},{
+  connect(addPar.y, heaPum.TSet) annotation (Line(points={{-118,-30},{-92,-30},{
           -92,-63},{-82,-63}}, color={0,0,127}));
   connect(heaPumTan.port_bDom, port_b1) annotation (Line(points={{-60,26},{-54,
           26},{-54,60},{200,60}},  color={0,127,255}));
-  connect(port_a1, heaPumTan.port_aDom) annotation (Line(points={{-200,60},{
-          -120,60},{-120,26},{-80,26}},  color={0,127,255}));
+  connect(port_a1, heaPumTan.port_aDom) annotation (Line(points={{-200,60},{-110,
+          60},{-110,26},{-80,26}},       color={0,127,255}));
   connect(uEna, and2.u1)
     annotation (Line(points={{-220,120},{-142,120}}, color={255,0,255}));
-  connect(heaPumTan.charge, and2.u2) annotation (Line(points={{-58,11},{-56,11},
-          {-56,12},{-54,12},{-54,0},{-100,0},{-100,80},{-160,80},{-160,112},{
-          -142,112}}, color={255,0,255}));
+  connect(heaPumTan.charge, and2.u2) annotation (Line(points={{-58,11},{-54,11},
+          {-54,0},{-100,0},{-100,80},{-160,80},{-160,112},{-142,112}},
+                      color={255,0,255}));
   connect(and2.y, floEva.u)
     annotation (Line(points={{-118,120},{-82,120}}, color={255,0,255}));
   connect(and2.y, floCon.u) annotation (Line(points={{-118,120},{-100,120},{
           -100,90},{-82,90}}, color={255,0,255}));
   connect(and2.y, conPI.trigger) annotation (Line(points={{-118,120},{-100,120},
           {-100,106},{110,106},{110,0},{124,0},{124,8}}, color={255,0,255}));
+  connect(preRef.ports[1], heaPum.port_b1) annotation (Line(points={{-30,-120},{
+          -40,-120},{-40,-66},{-60,-66}}, color={0,127,255}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -368,6 +370,23 @@ the supply equal to <code>dT_nominal</code>.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2024, by Michael Wetter:<br/>
+Enabled input filter to the pumps to avoid a nonlinear system of equations that causes OpenModelica
+to stop the translation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3924\">
+issue 3924</a>.
+</li>
+<li>
+June 11, 2024, by Michael Wetter:<br/>
+Changed temperature sensor to not allow reverse flow as it is not needed and will
+cause an undefined output if the mass flow rate is zero, which causes issues in the
+result verification.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3876\">
+issue 3876</a>.
+</li>
 <li>
 November 28, 2023, by David Blum:<br/>
 First implementation, extended from partial base class with added

@@ -10,10 +10,12 @@ partial model PartialTableData2D
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=
     Modelica.Blocks.Types.Smoothness.LinearSegments
-    "Smoothness of table interpolation";
+    "Smoothness of table interpolation"
+    annotation(Dialog(group="Data handling"));
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=
     Modelica.Blocks.Types.Extrapolation.LastTwoPoints
-    "Extrapolation of data outside the definition range";
+    "Extrapolation of data outside the definition range"
+    annotation(Dialog(group="Data handling"));
   parameter Boolean use_TEvaOutForTab=true
     "=true to use evaporator outlet temperature, false for inlet";
   parameter Boolean use_TConOutForTab=true

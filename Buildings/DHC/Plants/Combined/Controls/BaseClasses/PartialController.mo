@@ -9,7 +9,10 @@ block PartialController "Interface class for plant controller"
     "Number of CHW pumps operating at design conditions"
     annotation (Dialog(group="CHW loop and cooling-only chillers"),
       Evaluate=true);
-  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal
+  parameter Real TChiWatSup_nominal(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Design (minimum) CHW supply temperature"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
 
@@ -21,7 +24,10 @@ block PartialController "Interface class for plant controller"
     "Number of HW pumps operating at design conditions"
     annotation (Dialog(group="HW loop and heat recovery chillers"),
       Evaluate=true);
-  parameter Modelica.Units.SI.Temperature THeaWatSup_nominal
+  parameter Real THeaWatSup_nominal(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Design (maximum) HW supply temperature"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
 
@@ -47,111 +53,164 @@ block PartialController "Interface class for plant controller"
     annotation (Dialog(group="Cooling tower loop"),
       Evaluate=true);
 
-  parameter Modelica.Units.SI.HeatFlowRate QChiWatChi_flow_nominal
+  parameter Real QChiWatChi_flow_nominal(
+    final unit="W",
+    final quantity="HeatFlowRate")
     "Cooling design heat flow rate of cooling-only chillers (all units)"
     annotation (Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.HeatFlowRate QHeaPum_flow_nominal
+  parameter Real QHeaPum_flow_nominal(
+    final unit="W",
+    final quantity="HeatFlowRate")
     "Heating design heat flow rate of heat pumps (all units)"
     annotation (Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Real PLRStaTra(final unit="1", final min=0, final max=1) = 0.85
     "Part load ratio triggering stage transition";
-  parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCoo_flow_nominal
+  parameter Real QChiWatCasCoo_flow_nominal(
+    final unit="W",
+    final quantity="HeatFlowRate")
     "Cooling design heat flow rate of HRC in cascading cooling mode (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCoo_flow_nominal_approx
+  parameter Real QChiWatCasCoo_flow_nominal_approx(
+    final unit="W",
+    final quantity="HeatFlowRate")
     "Cooling design heat flow rate of HRC in cascading cooling mode (all units), approximate for scaling"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
-  final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=
+  final parameter Real QChiWat_flow_nominal(
+    final unit="W",
+    final quantity="HeatFlowRate")=
     QChiWatChi_flow_nominal+QChiWatCasCoo_flow_nominal
     "Plant cooling design heat flow rate (all units)";
-  parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
+  parameter Real QHeaWat_flow_nominal(
+    final unit="W",
+    final quantity="HeatFlowRate")
     "Heating design heat flow rate (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+  parameter Real cp_default(
+    final unit="J/(kg.K)",
+    final quantity="SpecificHeatCapacity")=
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of the fluid";
 
-  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
-    final min=0)
+  parameter Real mChiWat_flow_nominal(
+    final min=0,
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "CHW design mass flow rate (all units)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatSet_max(
+  parameter Real dpChiWatSet_max(
+    final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design (maximum) CHW differential pressure setpoint"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal
+  parameter Real mHeaWat_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "HW design mass flow rate (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpHeaWatSet_max(
+  parameter Real dpHeaWatSet_max(
+    final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design (maximum) HW differential pressure setpoint"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mConWatCon_flow_nominal(
-    final min=0)
+  parameter Real mConWatCon_flow_nominal(
+    final min=0,
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Design total CW mass flow rate through condenser barrels (all units)"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
-  parameter Modelica.Units.SI.MassFlowRate mConWatEva_flow_nominal(
-    final min=0)
+  parameter Real mConWatEva_flow_nominal(
+    final min=0,
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Design total CW mass flow rate through evaporator barrels (all units)"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
 
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal
+  parameter Real mChiWatChi_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Chiller CHW design mass flow rate (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min
+  parameter Real mChiWatChi_flow_min(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Chiller CHW minimum mass flow rate (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal
+  parameter Real mConWatChi_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Chiller CW design mass flow rate (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_nominal
+  parameter Real mChiWatChiHea_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "HRC CHW design mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_min
+  parameter Real mChiWatChiHea_flow_min(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "HRC CHW minimum mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mConWatChiHea_flow_nominal
+  parameter Real mConWatChiHea_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "HRC CW design mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mHeaWatChiHea_flow_min
+  parameter Real mHeaWatChiHea_flow_min(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Chiller HW minimum mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-
-  parameter Modelica.Units.SI.PressureDifference dpEvaChi_nominal(
+  parameter Real dpEvaChi_nominal(
+    final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Chiller evaporator design pressure drop (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpValEvaChi_nominal(
+  parameter Real dpValEvaChi_nominal(
+    final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Chiller evaporator isolation valve design pressure drop (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpEvaChiHea_nominal(
+  parameter Real dpEvaChiHea_nominal(
+    final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design chiller evaporator  pressure drop (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpValEvaChiHea_nominal(
+  parameter Real dpValEvaChiHea_nominal(
+    final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "HRC evaporator isolation valve design pressure drop (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-
-  parameter Modelica.Units.SI.PressureDifference dpConWatConSet_max(
+  parameter Real dpConWatConSet_max(
+    final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design (maximum) CW condenser loop differential pressure setpoint"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
-  parameter Modelica.Units.SI.PressureDifference dpConWatEvaSet_max(
+  parameter Real dpConWatEvaSet_max(
+    final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design (maximum) CW evaporator loop differential pressure setpoint"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
 
-  parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
+  parameter Real TTanSet[2, 2](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Real fraUslTan(final unit="1", final min=0, final max=1)
@@ -164,30 +223,31 @@ block PartialController "Interface class for plant controller"
     {-0.3, -0.2, -0.15, -0.10, -0.08}
     "Rate of change of tank charge fraction (over 10, 30, 120, 240, and 360') that triggers Charge Assist (<0)"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
-
-  parameter Modelica.Units.SI.TemperatureDifference dTLifChi_min
+  parameter Real dTLifChi_min(
+    final unit="K",
+    final quantity="TemperatureDifference")
     "Minimum chiller lift at minimum load"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.TemperatureDifference dTLifChi_nominal
+  parameter Real dTLifChi_nominal(
+    final unit="K",
+    final quantity="TemperatureDifference")
     "Design chiller lift"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-
-  parameter Modelica.Units.SI.TemperatureDifference dTHexCoo_nominal
+  parameter Real dTHexCoo_nominal(
+    final unit="K",
+    final quantity="TemperatureDifference")
     "Design heat exchanger approach"
     annotation (Dialog(group="Cooling tower loop"));
-
-  parameter Modelica.Units.SI.Time riseTimePum=30
-    "Pump rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation (
-      Dialog(
-      tab="Dynamics",
-      group="Filtered speed"));
-  parameter Modelica.Units.SI.Time riseTimeVal=120
-    "Pump rise time of the filter (time to reach 99.6 % of the opening)"
-    annotation (
-      Dialog(
-      tab="Dynamics",
-      group="Filtered opening"));
+  parameter Real riseTime(
+    final quantity="Time",
+    final unit="s")=30
+    "Time needed to change motor speed between zero and full speed"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Real strokeTime(
+    final quantity="Time",
+    final unit="s")=120
+    "Valve stroke time"
+    annotation (Dialog(tab="Dynamics", group="Time needed to open or close valve"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
     "Cooling enable signal"

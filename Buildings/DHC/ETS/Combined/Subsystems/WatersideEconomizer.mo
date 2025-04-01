@@ -117,8 +117,7 @@ model WatersideEconomizer
     from_dp=true,
     final dpValve_nominal=dpVal1_nominal,
     final dpFixed_nominal=dp1Hex_nominal,
-    use_inputFilter=false) if have_val1
-    "Heat exchanger primary control valve"
+    use_strokeTime=false) if have_val1 "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=
         m1_flow_nominal) if not have_val1 "Scale to nominal mass flow rate"
@@ -126,7 +125,7 @@ model WatersideEconomizer
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val2(
     redeclare final package Medium = Medium2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final m_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpVal2_nominal,
     final dpFixed_nominal={dp2Hex_nominal,0},

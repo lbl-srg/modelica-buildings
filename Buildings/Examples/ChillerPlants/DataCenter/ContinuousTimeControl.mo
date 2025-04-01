@@ -27,13 +27,13 @@ equation
 This model is the chilled water plant with continuous time control.
 The trim and respond logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
-<a href=\"modelica://Buildings.Examples.ChillerPlant\">
-Buildings.Examples.ChillerPlant</a>.
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter\">
+Buildings.Examples.ChillerPlants.DataCenter</a>.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl\">
-Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a>
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl\">
+Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl</a>
 for an implementation with the discrete time trim and respond logic.
 </p>
 </html>", revisions="<html>

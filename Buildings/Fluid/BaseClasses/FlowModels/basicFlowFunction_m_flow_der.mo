@@ -9,7 +9,7 @@ function basicFlowFunction_m_flow_der
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   input Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
-  input Real m_flow_der(unit="kg/s2")
+  input Real m_flow_der
     "Derivative of mass flow rate in design flow direction";
   output Real dp_der
     "Derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
@@ -31,8 +31,14 @@ Documentation(info="<html>
 <p>
 Function that implements the first order derivative of
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
-Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
-with respect to the mass flow rate.
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>,
+assuming a constant flow coefficient.
+</p>
+<p>
+When called with <code>m_flow_der=der(m_flow)</code>, this function returns
+the time derivative of <code>dp</code>.
+When called with <code>m_flow_der=1</code>, this function returns
+the derivative of <code>dp</code> with respect to <code>m_flow</code>.
 </p>
 </html>",
 revisions="<html>

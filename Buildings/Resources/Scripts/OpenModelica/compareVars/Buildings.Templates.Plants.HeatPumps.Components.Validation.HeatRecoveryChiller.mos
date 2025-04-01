@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "bus.hrc.y1",
+    "bus.hrc.y1Coo",
+    "bus.pumChiWatHrc.y1",
+    "bus.pumHeaWatHrc.y1",
+    "TChiWatLvg.T",
+    "inlChiWat.T",
+    "TSupSet.y",
+    "THeaWatLvg.T",
+    "inlHeaWat.T",
+    "TSupSet.y",
+    "hrc.hrc.chi.PLR2",
+    "hrc.hrc.chi.COP"
+  };

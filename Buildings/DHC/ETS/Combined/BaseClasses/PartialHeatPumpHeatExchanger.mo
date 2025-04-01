@@ -392,6 +392,9 @@ model PartialHeatPumpHeatExchanger
     if have_varFloEva or have_varFloCon "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
+  Fluid.Sensors.MassFlowRate senMasFlo1HexChi(redeclare package Medium =
+        MediumSer) "Chilled water HX primary mass flow rate"
+    annotation (Placement(transformation(extent={{50,-330},{30,-350}})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,
           0},{-200,-200},{-152,-200}},  color={0,0,127}));
@@ -403,8 +406,6 @@ equation
   connect(PPumCooTot.y, PPumTot.u[2]) annotation (Line(points={{212,380},{216,380},
           {216,400.5},{218,400.5}},
                                 color={0,0,127}));
-  connect(pum1HexChi.port_b, hexChi.port_a1) annotation (Line(points={{90,-340},
-          {10,-340}},                              color={0,127,255}));
   connect(pum1HexChi.m_flow_actual, mCoo_flow) annotation (Line(points={{89,-335},
           {82,-335},{82,-320},{276,-320},{276,-180},{320,-180}}, color={0,0,127}));
   connect(volMix_a.ports[1], swiFlo.port_bSup) annotation (Line(points={{-260,-360},
@@ -415,9 +416,6 @@ equation
           {258,-360},{258,-340},{110,-340}}, color={0,127,255}));
   connect(hexChi.port_b1, volMix_a.ports[2]) annotation (Line(points={{-10,-340},
           {-256,-340},{-256,-360},{-260,-360}}, color={0,127,255}));
-  connect(pum1HexChi.m_flow_actual, swiFlo.mRev_flow) annotation (Line(points={
-          {89,-335},{80,-335},{80,-356},{-20,-356},{-20,-384},{-12,-384}},
-        color={0,0,127}));
   connect(gai2.y, pum1HexChi.m_flow_in)
     annotation (Line(points={{-86,-200},{100,-200},{100,-328}},
                                                           color={0,0,127}));
@@ -531,6 +529,12 @@ equation
           -160,286},{-142,286}}, color={0,0,127}));
   connect(loaHHW.y, conFloConHHW.loa)
     annotation (Line(points={{-118,280},{-102,280}}, color={0,0,127}));
+  connect(pum1HexChi.port_b, senMasFlo1HexChi.port_a)
+    annotation (Line(points={{90,-340},{50,-340}}, color={0,127,255}));
+  connect(senMasFlo1HexChi.port_b, hexChi.port_a1)
+    annotation (Line(points={{30,-340},{10,-340}}, color={0,127,255}));
+  connect(senMasFlo1HexChi.m_flow, swiFlo.mRev_flow) annotation (Line(points={{
+          40,-351},{40,-394},{-16,-394},{-16,-384},{-12,-384}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
@@ -615,6 +619,11 @@ Energy, Volume 199, 15 May 2020, 117418.
 </html>",
   revisions="<html>
 <ul>
+<li>
+June 21, 2024, by Antoine Gautier:<br/>
+Added HX primary flow sensor.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3906\">#3906</a>.
+</li>
 <li>
 February 15, 2024, by Ettore Zanetti:<br/>
 Switch box <code>SwiFlo</code> valve pressure drop reduced to zero.

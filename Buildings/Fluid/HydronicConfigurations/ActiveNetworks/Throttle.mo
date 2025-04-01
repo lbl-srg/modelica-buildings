@@ -15,7 +15,7 @@ model Throttle "Throttle circuit"
   Buildings.Fluid.HydronicConfigurations.Components.TwoWayValve val(
     redeclare final package Medium=Medium,
     final typCha=typCha,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
@@ -251,16 +251,16 @@ allows drawing similar conclusions.
 References
 </h4>
 <p>
-Taylor, S. T., 2002. 
-Balancing variable flow hydronic systems. 
-ASHRAE Journal. 
+Taylor, S. T., 2002.
+Balancing variable flow hydronic systems.
+ASHRAE Journal.
 URL: <a href=\"https://tayloreng.egnyte.com/dl/CZVS52ZTVB/ASHRAE_Journal_-_Balancing_Variable_Flow_Hydronic_Systems.pdf_\">
 https://tayloreng.egnyte.com/dl/CZVS52ZTVB/ASHRAE_Journal_-_Balancing_Variable_Flow_Hydronic_Systems.pdf_</a>
 </p>
 <p>
-Taylor, S. T., 2017. 
-Doubling down on not balancing variable flow hydronic systems. 
-ASHRAE Journal. 
+Taylor, S. T., 2017.
+Doubling down on not balancing variable flow hydronic systems.
+ASHRAE Journal.
 URL: <a href=\"https://tayloreng.egnyte.com/dl/W8sfOOuoni/ASHRAE_Journal_-_Doubling-Down_on_NOT_Balancing_Variable_Flow_Hydronic_Systems.pdf_\">
 https://tayloreng.egnyte.com/dl/W8sfOOuoni/ASHRAE_Journal_-_Doubling-Down_on_NOT_Balancing_Variable_Flow_Hydronic_Systems.pdf_</a>
 </p>

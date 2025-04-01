@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Pre
-  "Breaks algebraic loops by an infinitesimal small time delay (y = pre(u): event iteration continues until u = pre(u))"
+  "Breaks algebraic loops by adding a delay of the output without advancing time (y = pre(u): event iteration continues until u = pre(u))"
   parameter Boolean pre_u_start=false
     "Start value of pre(u) at initial time";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+    "Input to be delayed by one event iteration"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Input delayed by one event iteration"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation

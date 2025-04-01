@@ -12,7 +12,7 @@ import pickle
 import random
 import re
 import sys
-from math import ceil, floor
+from math import ceil
 
 # For CPU- and I/O-heavy jobs, we prefer multiprocessing.Pool because it provides better process isolation.
 from multiprocessing import Pool
@@ -422,7 +422,7 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
             modif=[''.join(el[1]) for el in combinations],
         )
     )
-    indices_to_pop = df_model_modif[df_model_modif.duplicated() == True].index.tolist()
+    indices_to_pop = df_model_modif[df_model_modif.duplicated()].index.tolist()
     combinations = [
         el for idx, el in enumerate(combinations) if idx not in indices_to_pop
     ]
@@ -457,7 +457,6 @@ def report_clean(combinations, results):
         pd.DataFrame
     """
     try:
-        os.unlink('tmp_func.py')
         os.unlink('unitTestsTemplates.log')
     except FileNotFoundError:
         pass

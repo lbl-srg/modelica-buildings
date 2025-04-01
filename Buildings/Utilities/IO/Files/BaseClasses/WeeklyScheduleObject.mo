@@ -31,7 +31,7 @@ Object for storing weekly schedules.
   pure function destructor "Release storage and close the external object, write data if needed"
     input WeeklyScheduleObject weeklySchedule "Pointer to file writer object";
     external "C" weeklyScheduleFree(weeklySchedule)
-    annotation(Include=" #include <WeeklySchedule.c>",
+    annotation(Include=" #include <WeeklyScheduleFree.c>",
     IncludeDirectory="modelica://Buildings/Resources/C-Sources");
   annotation(Documentation(info="<html>
 <p>

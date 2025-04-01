@@ -6,7 +6,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-  import Modelica.Constants;
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -83,22 +82,22 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     annotation(Dialog(tab="Damper coefficients"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium =
-        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
+        Medium, m_flow(start=0, min=if allowFlowReversal then -Modelica.Constants.inf else
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Exh(redeclare package Medium =
-        Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else
+        Medium, m_flow(start=0, max=if allowFlowReversal then +Modelica.Constants.inf else
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_Ret(redeclare package Medium =
-        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
+        Medium, m_flow(start=0, min=if allowFlowReversal then -Modelica.Constants.inf else
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_Sup(redeclare package Medium =
-        Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else
+        Medium, m_flow(start=0, max=if allowFlowReversal then +Modelica.Constants.inf else
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
@@ -121,7 +120,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_strokeTime=false)
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
@@ -143,7 +142,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_strokeTime=false)
     "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRec(
@@ -165,7 +164,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_strokeTime=false)
     "Recirculation air damper"
     annotation (
       Placement(transformation(
@@ -297,6 +296,12 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 September 21, 2021, by Michael Wetter:<br/>
 Corrected typo in comments.<br/>

@@ -4,7 +4,7 @@ block Constant
   parameter Integer k
     "Constant output value";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Connector of Integer output signal"
+    "Output with constant value"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

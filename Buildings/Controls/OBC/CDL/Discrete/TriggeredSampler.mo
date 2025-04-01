@@ -4,13 +4,13 @@ block TriggeredSampler
   parameter Real y_start=0
     "Initial value of output signal";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector with a Real input signal"
+    "Input signal to be sampled"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Signal that triggers the sampler"
+    "Input for trigger that causes u to be sampled"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector with a Real output signal"
+    "Input signal at the last trigger instant"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation

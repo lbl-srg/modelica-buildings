@@ -30,21 +30,36 @@ record Controller
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatHp_flow_nominal(
     start=0.1,
-    displayUnit="L/s",
     final min=0)
-    "Design HW volume flow rate - Each heat pump"
+    "Design heat pump HW volume flow rate - Each heat pump"
     annotation (Evaluate=true,
     Dialog(group="Heat pump flow setpoints",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatHp_flow_min(
+    start=VHeaWatHp_flow_nominal,
+    final min=0)=1.1*VHeaWatHp_flow_nominal
+    "Minimum heat pump HW volume flow rate - Each heat pump"
+    annotation (Evaluate=true,
+    Dialog(group="Heat pump flow setpoints",
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Modelica.Units.SI.HeatFlowRate capHeaHp_nominal(
     start=1,
     final min=0)
-    "Design heating capacity - Each heat pump"
+    "Design heat pump heating capacity - Each heat pump"
     annotation (Dialog(group="Capacity",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatPri_flow_nominal(
+    start=VHeaWatHp_flow_nominal*cfg.nHp,
+    final min=0)=VHeaWatHp_flow_nominal*cfg.nHp
+    "Design primary HW volume flow rate"
+    annotation (Evaluate=true,
+    Dialog(group="Capacity",
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+      and cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatSec_flow_nominal(
     start=0.01,
-    displayUnit="L/s",
     final min=0)
     "Design secondary HW volume flow rate"
     annotation (Evaluate=true,
@@ -57,9 +72,7 @@ record Controller
     "Minimum value to which the HW differential pressure can be reset - Remote sensor"
     annotation (Dialog(group=
       "Information provided by designer",
-      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        or cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   // HACK(AntoineGautier):
   // Using cfg.nSenDpHeaWatRem for size(dpHeaWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
   // So the size is kept unassigned.
@@ -70,11 +83,27 @@ record Controller
     "Maximum HW differential pressure setpoint - Remote sensor"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Real dpHeaWatLocSet_min(
+    start=0,
+    final unit="Pa",
+    final min=0)=5 * 6895
+    "Minimum HW loop differential pressure setpoint local to the plant"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        or cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
+        and not cfg.have_senDpHeaWatRemWir));
+  parameter Real dpHeaWatLocSet_max(
+    start=1E5,
+    final unit="Pa",
+    final min=0)
+    "Maximum HW loop differential pressure setpoint local to the plant"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+        and not cfg.have_senDpHeaWatRemWir));
   parameter Real yPumHeaWatPriSet(
-    final max=1,
+    final max=2,
     final min=0,
     start=1,
     final unit="1")
@@ -82,7 +111,19 @@ record Controller
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater and
-      cfg.have_heaWat and cfg.have_pumHeaWatPriVar));
+      cfg.have_heaWat and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+      and cfg.have_pumHeaWatPriVar));
+  parameter Real yPumHeaWatPri_min(
+    final max=1,
+    final min=0,
+    start=0.1,
+    final unit="1")=0.1
+    "Primary HW pump minimum speed"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and cfg.typPumHeaWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+      and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Real yPumHeaWatSec_min(
     final unit="1",
     final min=0,
@@ -115,21 +156,36 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatHp_flow_nominal(
     start=0.1,
-    displayUnit="L/s",
     final min=0)
-    "Design CHW volume flow rate - Each heat pump"
+    "Design heat pump CHW volume flow rate - Each heat pump"
     annotation (Evaluate=true,
     Dialog(group="Heat pump flow setpoints",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Modelica.Units.SI.VolumeFlowRate VChiWatHp_flow_min(
+    start=VChiWatHp_flow_nominal,
+    final min=0)=1.1*VChiWatHp_flow_nominal
+    "Minimum heat pump CHW volume flow rate - Each heat pump"
+    annotation (Evaluate=true,
+    Dialog(group="Heat pump flow setpoints",
+      enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Modelica.Units.SI.HeatFlowRate capCooHp_nominal(
     start=1,
     final min=0)
-    "Design cooling capacity - Each heat pump"
+    "Design heat pump cooling capacity - Each heat pump"
     annotation (Dialog(group="Capacity",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Modelica.Units.SI.VolumeFlowRate VChiWatPri_flow_nominal(
+    start=VChiWatHp_flow_nominal*cfg.nHp,
+    final min=0)=VChiWatHp_flow_nominal*cfg.nHp
+    "Design primary CHW volume flow rate"
+    annotation (Evaluate=true,
+    Dialog(group="Capacity",
+      enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+      and cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatSec_flow_nominal(
     start=0.01,
-    displayUnit="L/s",
     final min=0)
     "Design secondary CHW volume flow rate"
     annotation (Evaluate=true,
@@ -158,8 +214,26 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
+  parameter Real dpChiWatLocSet_min(
+    start=0,
+    final unit="Pa",
+    final min=0)=5 * 6895
+    "Minimum CHW loop differential pressure setpoint local to the plant"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+        and not cfg.have_senDpChiWatRemWir));
+  parameter Real dpChiWatLocSet_max(
+    start=1E5,
+    final unit="Pa",
+    final min=0)
+    "Maximum CHW loop differential pressure setpoint local to the plant"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+        and not cfg.have_senDpChiWatRemWir));
   parameter Real yPumChiWatPriSet(
-    final max=1,
+    final max=2,
     final min=0,
     start=1,
     final unit="1")
@@ -168,6 +242,17 @@ record Controller
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
       and cfg.have_pumChiWatPriVar));
+  parameter Real yPumChiWatPri_min(
+    final max=1,
+    final min=0,
+    start=0.1,
+    final unit="1")=0.1
+    "Primary CHW pump minimum speed"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and cfg.typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+      and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Real yPumChiWatSec_min(
     final unit="1",
     final min=0,
@@ -215,6 +300,38 @@ record Controller
     "Staging part load ratio"
     annotation (Dialog(group="Equipment staging and rotation",
     enable=cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Real TChiWatSupHrc_min(
+    final min=273.15,
+    start=4 + 273.15,
+    final unit="K",
+    displayUnit="degC")
+    "Sidestream HRC – Minimum allowable CHW supply temperature"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
+  parameter Real THeaWatSupHrc_max(
+    final min=273.15,
+    start=60 + 273.15,
+    final unit="K",
+    displayUnit="degC")
+    "Sidestream HRC – Maximum allowable HW supply temperature"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
+  parameter Real COPHeaHrc_nominal(
+    final min=1.1,
+    final unit="1",
+    start=2.8)
+    "Sidestream HRC – Heating COP at design heating conditions"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
+  parameter Real capCooHrc_min(
+    start=0,
+    final min=0,
+    final unit="W")
+    "Sidestream HRC – Minimum cooling capacity below which cycling occurs"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
+  parameter Real capHeaHrc_min(
+    start=0,
+    final min=0,
+    final unit="W")
+    "Sidestream HRC – Minimum heating capacity below which cycling occurs"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
   annotation (
     defaultComponentName="datCtl",
     Documentation(
@@ -225,5 +342,12 @@ heat pump plant controllers that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Controls\">
 Buildings.Templates.Plants.HeatPumps.Components.Controls</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 4, 2024, by Michael Wetter:<br/>
+Corrected display unit for Dymola 2024x Refresh1.
+</li>
+</ul>
 </html>"));
 end Controller;

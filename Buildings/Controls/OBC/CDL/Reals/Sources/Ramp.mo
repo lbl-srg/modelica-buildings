@@ -15,7 +15,7 @@ block Ramp
     final unit="s")=0
     "Output = offset for time < startTime";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Ramp output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -23,7 +23,7 @@ equation
     if time < startTime then
       0
     else
-      if time <(startTime+duration) then
+      if time < (startTime+duration) then
         (time-startTime)*height/duration
       else
         height);
@@ -90,7 +90,7 @@ The Real output y is a ramp signal:
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

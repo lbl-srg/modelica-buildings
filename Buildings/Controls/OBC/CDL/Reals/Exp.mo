@@ -1,11 +1,10 @@
 within Buildings.Controls.OBC.CDL.Reals;
-block Exp
-  "Output the exponential (base e) of the input"
+block Exp "Output the exponential (base e) of the input"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input for the base e exponential function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Base e exponential value of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

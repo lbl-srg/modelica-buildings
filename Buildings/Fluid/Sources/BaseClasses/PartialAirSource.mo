@@ -17,7 +17,9 @@ partial model PartialAirSource
     each m_flow(max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
                     then 0 else +Modelica.Constants.inf,
                 min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
-                    then 0 else -Modelica.Constants.inf))
+                    then 0 else -Modelica.Constants.inf),
+    each h_outflow(nominal=Medium.h_default),
+    each Xi_outflow(each nominal=0.01))
     "Fluid ports"
     annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 
@@ -26,7 +28,9 @@ protected
     "Allowed flow direction" annotation (Evaluate=true, Dialog(tab="Advanced"));
   Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
     "Needed to connect to conditional connector";
-  Medium.BaseProperties medium if verifyInputs "Medium in the source";
+  Medium.BaseProperties medium(
+      T(start=Medium.T_default)
+    ) if verifyInputs "Medium in the source";
   Modelica.Blocks.Interfaces.RealInput Xi_in_internal[Medium.nXi](
     each final unit = "kg/kg")
     "Needed to connect to conditional connector";
@@ -79,6 +83,12 @@ Buildings.Fluid.Sources.BaseClasses.PartialSource</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
 <li>
 January 09, 2023, by Jianjun Hu:<br/>
 First implementation, specifically for the moist air source.<br/>

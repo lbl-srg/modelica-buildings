@@ -1,25 +1,20 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block MultiSum
   "Sum of Integers, y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
-  parameter Integer nin(
-    min=0)=0
+  parameter Integer nin(min=0)=0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
-  parameter Integer k[nin]=fill(
-    1,
-    nin)
+  parameter Integer k[nin]=fill(1, nin)
     "Input gains";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u[nin]
-    "Connector of Integer input signals"
+    "Inputs to be multipled with gain and added"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Connector of Integer output signal"
+    "Sum of inputs multiplied by the gain"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  if size(
-    u,
-    1) > 0 then
+  if size(u, 1) > 0 then
     y=k*u;
   else
     y=0;
@@ -82,7 +77,7 @@ for an example.
 September 14, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the Modelica Standard
 Library. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/933\">issue 933</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/933\">Buildings, issue 933</a>.
 </li>
 </ul>
 </html>"));

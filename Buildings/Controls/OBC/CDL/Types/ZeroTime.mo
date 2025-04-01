@@ -62,7 +62,7 @@ January 1, 2016, 0:00:00 local time.
 March 8, 2024, by Jelger Jansen:<br/>
 Extend functionality to year 2050.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1847\">#1847</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1847\">Buildings, issue 1847</a>.
 </li>
 <li>
 March 14, 2017, by Michael Wetter:<br/>
