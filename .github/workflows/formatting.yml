@@ -24,7 +24,7 @@ jobs:
     # Skip if the commit message contains "ci skip"
     if: "!contains(github.event.head_commit.message, 'ci skip')"
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       # Checks-out repository under $GITHUB_WORKSPACE, so job can access it
@@ -40,7 +40,7 @@ jobs:
         run: pip3 install --upgrade pip wheel
 
       - name: "Install BuildingsPy"
-        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@0bc654fd913c83f64163be167807e8989eff0293
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v5.2.0
 
       - name: Check for UTF-8 BOM
         run : |
