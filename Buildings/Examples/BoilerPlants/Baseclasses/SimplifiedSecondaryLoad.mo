@@ -1,4 +1,4 @@
-within Buildings.Examples.BoilerPlant.Baseclasses;
+within Buildings.Examples.BoilerPlants.Baseclasses;
 model SimplifiedSecondaryLoad
   "Simplified load model for hot water secondary loop"
 

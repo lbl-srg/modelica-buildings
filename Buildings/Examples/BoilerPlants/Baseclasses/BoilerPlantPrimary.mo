@@ -1,4 +1,4 @@
-within Buildings.Examples.BoilerPlant.Baseclasses;
+within Buildings.Examples.BoilerPlants.Baseclasses;
 model BoilerPlantPrimary
   "Boiler plant primary loop model for closed loop testing"
 

@@ -1,5 +1,5 @@
 within Buildings.Examples;
-package BoilerPlant "Package with closed-loop demonstration model for boiler plant
+package BoilerPlants "Package with closed-loop demonstration model for boiler plant
   sequences implemented as per ASHRAE G36"
 
 
@@ -16,4 +16,4 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers</a> can be coimbined with
 physics components to create a complete boiler plant system model.
 </p>
 </html>"));
-end BoilerPlant;
+end BoilerPlants;

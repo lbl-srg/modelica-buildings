@@ -1,4 +1,4 @@
-within Buildings.Examples.BoilerPlant;
+within Buildings.Examples.BoilerPlants;
 model ClosedLoopTest "Closed loop testing model"
   extends Modelica.Icons.Example;
 
@@ -19,7 +19,7 @@ model ClosedLoopTest "Closed loop testing model"
     displayUnit="1") = 0.4
     "Ratio of boiler-1 capacity to total capacity";
 
-  Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlantPrimary boiPlaPri(
+  Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary boiPlaPri(
     final nSec=2,
     final Q_flow_nominal=boiDesCap,
     final boiCap1=(1 - boiCapRat)*boiDesCap,
@@ -80,7 +80,7 @@ model ClosedLoopTest "Closed loop testing model"
     "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{-40,-40},{-20,40}})));
 
-  Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad secLoo2(
+  Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo2(
     final mRad_flow_nominal=1.25*0.6*30,
     final dpRad_nominal(displayUnit="Pa") = 40000,
     conPID(
@@ -90,7 +90,7 @@ model ClosedLoopTest "Closed loop testing model"
     "Secondary loop-2"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
-  Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad secLoo1(
+  Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo1(
     final mRad_flow_nominal=1.25*0.4*30,
     final dpRad_nominal(displayUnit="Pa") = 40000,
     conPID(
@@ -333,11 +333,11 @@ plant with variable speed primary and secondary pumps with controllers for the
 primary loop and the secondary loops.
 <br>
 The primary loop is modeled by the
-<a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlantPrimary\">
-Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlantPrimary</a> instance <code>boiPlaPri</code>
+<a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary\">
+Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary</a> instance <code>boiPlaPri</code>
 and is coupled with the secondary loop instances <code>secLoo1</code> and <code>secLoo2</code>
-of class <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad\">
-Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad</a>. The primary
+of class <a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad\">
+Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad</a>. The primary
 loop is controlled by the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a> instance
 <code>conBoiPlaPri</code>, and the secondary loops <code>secLoo1</code> and <code>secLoo2</code>
@@ -357,7 +357,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-140,-120},{180,
             200}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlant/ClosedLoopTest.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
       StartTime=86400,
