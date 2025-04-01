@@ -10,7 +10,7 @@ model PressureIndependent
     "Damper nominal mass flow rate";
   Buildings.Fluid.Actuators.Dampers.Exponential damExp(
     redeclare final package Medium = Medium,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final dpDamper_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal)
     "Damper with exponential opening characteristics"
@@ -36,12 +36,12 @@ model PressureIndependent
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "Pressure independent damper"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Exponential damExpPI(
     redeclare final package Medium = Medium,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final dpDamper_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal)
     "Damper with exponential opening characteristics"

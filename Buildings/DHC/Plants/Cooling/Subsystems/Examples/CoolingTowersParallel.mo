@@ -11,7 +11,7 @@ model CoolingTowersParallel
       dpValve_nominal = 6000,
       dp_nominal = 6000,
       PFan_nominal=4800,
-      use_inputFilter=false),
+      use_strokeTime=false),
     weaDat(final computeWetBulbTemperature=true));
 
    Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetLea(

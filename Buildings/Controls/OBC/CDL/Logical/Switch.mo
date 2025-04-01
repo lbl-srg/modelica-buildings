@@ -2,23 +2,20 @@ within Buildings.Controls.OBC.CDL.Logical;
 block Switch
   "Switch between two boolean signals"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
-    "Boolean input signal"
+    "Input u1"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u3
-    "Boolean input signal"
+    "Input u3"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Booelan output signal"
+    "Output with u1 if u2 is true, else u3"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=if u2 then
-      u1
-    else
-      u3;
+  y=if u2 then u1 else u3;
   annotation (
     defaultComponentName="logSwi",
     Documentation(
@@ -38,7 +35,7 @@ Otherwise, it outputs <code>y = u3</code>.
 July 17, 2020, by Jianjun Hu:<br/>
 Changed icon to display dynamically which input signal is being outputted.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\"># 2033</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\">Buildings, issue  2033</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

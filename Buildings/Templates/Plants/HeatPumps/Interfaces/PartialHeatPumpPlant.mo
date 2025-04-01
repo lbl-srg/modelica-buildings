@@ -20,7 +20,7 @@ partial model PartialHeatPumpPlant
   Derived classes representing AWHP shall use:
   redeclare final package MediumSou = MediumAir
   */
-    replaceable package MediumSou=Buildings.Media.Water
+  replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
     annotation (Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
@@ -44,13 +44,16 @@ partial model PartialHeatPumpPlant
     "Set to true if the plant provides DHW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  // RFE(AntoineGautier): Add option for sidestream HRC. Always excluded for now.
-  final parameter Boolean have_hrc(
+  parameter Boolean have_hrc_select(
     start=false)=false
     "Set to true for plants with a sidestream heat recovery chiller"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
     enable=have_heaWat and have_chiWat));
+  final parameter Boolean have_hrc=if have_heaWat and have_chiWat then have_hrc_select
+    else false
+    "Set to true for plants with sidestream heat recovery chiller"
+    annotation (Evaluate=true);
   parameter Buildings.Templates.Components.Types.HeatPump typ
     "Type of heat pump"
     annotation (Evaluate=true,
@@ -86,6 +89,8 @@ partial model PartialHeatPumpPlant
     final typPumHeaWatPri=typPumHeaWatPri,
     final typPumChiWatSec=typPumChiWatSec,
     final typPumHeaWatSec=typPumHeaWatSec,
+    final typTanChiWat=typTanChiWat,
+    final typTanHeaWat=typTanHeaWat,
     final typCtl=ctl.typ,
     final nAirHan=ctl.nAirHan,
     final nEquZon=ctl.nEquZon,
@@ -112,8 +117,7 @@ partial model PartialHeatPumpPlant
     annotation (Evaluate=true,
     Dialog(group="Heat pumps"));
   // Plants with AWHP.
-  // RFE(AntoineGautier): Add constant primary-only option.
-  final parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis_select1(
+  parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis_select1(
     start=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)=
     Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
     "Type of distribution system"
@@ -121,6 +125,8 @@ partial model PartialHeatPumpPlant
     Dialog(group="Configuration",
     enable=typ==Buildings.Templates.Components.Types.HeatPump.AirToWater),
     choices(
+      choice=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+      "Variable primary-only",
       choice=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
       "Constant primary - Variable secondary centralized"));
   // Plants with WWHP.
@@ -151,64 +157,37 @@ partial model PartialHeatPumpPlant
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
   final parameter Boolean have_bypHeaWatFix=
-    have_heaWat and typDis <> Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-    and typDis <> Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    have_heaWat and (
+    typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+    or typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)
     "Set to true if the HW loop has a fixed bypass"
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
-  final parameter Boolean have_valHeaWatMinByp=have_heaWat and typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+  final parameter Boolean have_valHeaWatMinByp=have_heaWat and
+    typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
     "Set to true if the HW loop has a minimum flow bypass valve"
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
-  // Constant primary plants with dedicated primary pumps.
+  // Constant primary - variable secondary plants.
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri_select1(
     start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)=
     Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     "Type of primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Primary loop",
-      enable=have_heaWat and typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-        and (typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-        or typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)),
+      enable=have_heaWat
+      and typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2),
     choices(
     choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant
       "Constant speed pump specified separately",
     choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
       "Variable speed pump specified separately"));
-  // Constant primary plants with headered primary pumps.
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri_select2(
-    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)=
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    "Type of primary HW pumps"
-    annotation (Evaluate=true,
-    Dialog(group="Primary loop",
-      enable=have_heaWat and typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and (typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-        or typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)),
-    choices(choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant
-      "Constant speed pump specified separately",
-    choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-      "Variable speed pump specified separately"));
-  // Variable primary plants with headered primary pumps require variable speed pumps.
+  // Constant primary-only plants and variable primary plants require variable speed pumps.
   final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri=
-    if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-    and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-    or typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
-    then typPumHeaWatPri_select1 elseif have_heaWat and typArrPumPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and (typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only or typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
-    then typPumHeaWatPri_select2 elseif have_heaWat and typArrPumPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Dedicated and (typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only or typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2) then
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    elseif have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-    and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-    or typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)
-    then Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable else
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    if have_heaWat then (
+      if typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+      then typPumHeaWatPri_select1 else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Type of primary HW pumps"
     annotation (Evaluate=true);
   final parameter Boolean have_pumHeaWatPriVar=
@@ -228,6 +207,17 @@ partial model PartialHeatPumpPlant
     "Number of primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
+  parameter Buildings.Templates.Components.Types.IntegrationPoint typTanHeaWat_select(
+    start=Buildings.Templates.Components.Types.IntegrationPoint.None)=
+    Buildings.Templates.Components.Types.IntegrationPoint.Supply
+    "Specify if there is a HW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true,
+    Dialog(group="Primary loop", enable=have_heaWat));
+  final parameter Buildings.Templates.Components.Types.IntegrationPoint typTanHeaWat=
+    if have_heaWat then typTanHeaWat_select
+    else Buildings.Templates.Components.Types.IntegrationPoint.None
+    "Specify if there is a HW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true);
   // RFE: Only centralized secondary HW pumps are currently supported for primary-secondary plants.
   final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumHeaWatSec=
     if have_heaWat and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
@@ -265,56 +255,38 @@ partial model PartialHeatPumpPlant
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
   final parameter Boolean have_bypChiWatFix=
-    have_chiWat and typDis <> Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-    and typDis <> Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    have_chiWat and (
+    typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+    or typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)
     "Set to true if the CHW loop has a fixed bypass"
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
-  final parameter Boolean have_valChiWatMinByp=have_chiWat and typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+  final parameter Boolean have_valChiWatMinByp=have_chiWat and
+    typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
     "Set to true if the CHW loop has a minimum flow bypass valve"
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
-  // Constant primary plants with separate dedicated primary CHW pumps.
+  // Constant primary - variable secondary plants with separate dedicated primary CHW pumps or headered primary pumps.
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri_select1(
     start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)=
     typPumHeaWatPri
     "Type of primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Primary loop",
-      enable=have_pumChiWatPriDed and (typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-        or typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)));
-  // Constant primary plants with headered primary pumps.
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri_select2(
-    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)=
-    typPumHeaWatPri
-    "Type of primary CHW pumps"
-    annotation (Evaluate=true,
-    Dialog(group="Primary loop",
-      enable=have_chiWat and typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and (typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-        or typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)),
+      enable=(have_pumChiWatPriDed
+      or have_chiWat and typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered)
+      and typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2),
     choices(choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant
       "Constant speed pump specified separately",
     choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
       "Variable speed pump specified separately"));
-  // Variable primary plants with headered primary CHW pumps require variable speed pumps.
+  // Constant primary-only plants and variable primary plants require variable speed pumps.
   final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri=
-    if have_pumChiWatPriDed and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-    or typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
-    then typPumChiWatPri_select1 elseif have_chiWat and typArrPumPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and (typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only or typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
-    then typPumChiWatPri_select2 elseif have_pumChiWatPriDed and (typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only or typDis ==
-    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2) then
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    elseif have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-    and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-    or typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)
-    then Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable else
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    if have_pumChiWatPriDed
+      or have_chiWat and typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+    then (if typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+    then typPumChiWatPri_select1 else  Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Type of primary CHW pumps"
     annotation (Evaluate=true);
   final parameter Boolean have_pumChiWatPriVar=
@@ -335,6 +307,17 @@ partial model PartialHeatPumpPlant
     "Number of primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
+  parameter Buildings.Templates.Components.Types.IntegrationPoint typTanChiWat_select(
+    start=Buildings.Templates.Components.Types.IntegrationPoint.None)=
+    Buildings.Templates.Components.Types.IntegrationPoint.Return
+    "Specify if there is a CHW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true,
+    Dialog(group="Primary loop", enable=have_chiWat));
+  final parameter Buildings.Templates.Components.Types.IntegrationPoint typTanChiWat=
+    if have_chiWat then typTanChiWat_select
+    else Buildings.Templates.Components.Types.IntegrationPoint.None
+    "Specify if there is a CHW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true);
   // RFE: Currently, only centralized secondary CHW pumps are supported for primary-secondary plants.
   final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumChiWatSec=
     if have_chiWat and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
@@ -405,11 +388,9 @@ partial model PartialHeatPumpPlant
     "OAT or source fluid supply temperature (evaporator entering) in heating mode - Each heat pump";
   final parameter Modelica.Units.SI.Temperature TSouCoo_nominal=dat.hp.TSouCooHp_nominal
     "OAT or source fluid supply temperature (evaporator entering) in cooling mode - Each heat pump";
-  // Dynamics and miscellaneous parameterss.
-  parameter Modelica.Units.SI.Time tau=30
-    "Time constant at nominal flow"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition"));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  // Dynamics and miscellaneous parameters.
+  final parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
@@ -417,6 +398,9 @@ partial model PartialHeatPumpPlant
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),
     Evaluate=true);
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for all valves"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"));

@@ -235,5 +235,12 @@ If a heat pump is commanded enabled in either heating or cooling mode,
 it is removed from the staging order of the opposite mode until it has 
 been off for <code>dtOff</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end EquipmentAvailability;

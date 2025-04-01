@@ -11,7 +11,8 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
         final TiHot=TiHot,
         final TiCol=TiCol,
         final THeaWatSupSetMin=THeaWatSupSetMin,
-        final TChiWatSupSetMin=TChiWatSupSetMin),
+        final TChiWatSupSetMin=TChiWatSupSetMin,
+        final TChiWatSupSetMax=TChiWatSupSetMax),
     nSysHea=1,
     nSouAmb=
       if have_borFie then
@@ -126,6 +127,10 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     annotation (Dialog(group="Supervisory controller"));
   parameter Modelica.Units.SI.Temperature TChiWatSupSetMin(displayUnit="degC")
      = datChi.TEvaLvgMin
+    "Minimum value of chilled water supply temperature set point"
+    annotation (Dialog(group="Supervisory controller"));
+  parameter Modelica.Units.SI.Temperature TChiWatSupSetMax(displayUnit="degC")
+     = datChi.TEvaLvgMax
     "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
 
@@ -316,6 +321,19 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 6, 2025, by Hongxiang Fu:<br/>
+Added parameters to support chilled water temperature reset.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4133\">#4133</a>.
+</li>
+<li>
+November 22, 2024, by Michael Wetter:<br/>
+Reduced number of time events by replacing zero order hold with true and false hold,
+and increasing the minimum cycle time.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">#4058</a>.
+</li>
 <li>
 March 27, 2024, by David Blum:<br/>
 Update icon.<br/>

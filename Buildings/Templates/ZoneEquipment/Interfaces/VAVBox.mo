@@ -41,7 +41,7 @@ model VAVBox "Interface class for VAV terminal unit"
   Buildings.Templates.Components.Actuators.Damper damVAV(
       redeclare final package Medium = MediumAir,
       final typ=Buildings.Templates.Components.Types.Damper.Modulating,
-      use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+      use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
       final allowFlowReversal=allowFlowReversalAir,
       final show_T=show_T,
       final dat=datDamVAV,

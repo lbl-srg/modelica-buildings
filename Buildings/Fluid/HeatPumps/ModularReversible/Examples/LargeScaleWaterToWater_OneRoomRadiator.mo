@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatPumps.ModularReversible.Examples;
 model LargeScaleWaterToWater_OneRoomRadiator
   "Large scale water to water heat pump connected to a simple room model with radiator"
   extends Modelica.Icons.Example;
-  extends BaseClasses.PartialOneRoomRadiator(
+  extends Buildings.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     V=6*100*3,
@@ -90,10 +90,10 @@ equation
   Furthermore, this example demonstrates the warnings which
   are raised if two devices are combined with different sizes, leading
   to different scaling factors for heating and cooling operation.
-  If the default <code>QCoo_flow_nominal</code> is used (leading to 
+  If the default <code>QCoo_flow_nominal</code> is used (leading to
   the same scaling factors), the mass flow rates will differ.
   Setting the parameter <code>allowDifferentDeviceIdentifiers</code> to false,
-  an additional warning is raised, indicating that the table data for cooling and 
+  an additional warning is raised, indicating that the table data for cooling and
   heating operation do not originate from the same real device.
 </p>
 <p>
@@ -104,6 +104,12 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Introduced medium <code>MediumEva</code> and refactored medium assignment
+as the model replaced non-replaceable medium bindings.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1981\">#1981</a>.
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=

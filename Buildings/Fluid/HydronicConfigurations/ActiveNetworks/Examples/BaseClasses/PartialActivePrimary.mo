@@ -1,5 +1,5 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses;
-model PartialActivePrimary
+partial model PartialActivePrimary
   "Partial model of active primary network"
   extends Modelica.Icons.Example;
 
@@ -84,13 +84,11 @@ model PartialActivePrimary
     redeclare final package Medium = MediumLiq,
     final energyDynamics=energyDynamics,
     addPowerToMedium=false,
-    use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=mPum_flow_nominal,
-    final dp_nominal=dpPum_nominal)
-    "Circulation pump"
-    annotation (
-      choicesAllMatching=true,
-      Placement(transformation(extent={{-90,-70},{-70,-50}})));
+    final dp_nominal=dpPum_nominal) "Circulation pump" annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{-90,-70},{-70,
+            -50}})));
 
   FixedResistances.PressureDrop res1(
     redeclare final package Medium = MediumLiq,

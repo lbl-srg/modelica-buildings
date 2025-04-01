@@ -50,8 +50,8 @@ model MultipleToMultiple
     "Offset in y-direction between inlet and outlet in icon layer";
   constant Integer icon_dy = 100
     "Distance in y-direction between each branch in icon layer";
-  constant Buildings.Templates.Components.Types.IconPipe icon_pipe =
-    Buildings.Templates.Components.Types.IconPipe.Supply
+  constant Buildings.Templates.Components.Types.IntegrationPoint icon_pipe=
+      Buildings.Templates.Components.Types.IntegrationPoint.Supply
     "Pipe symbol";
 
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](
@@ -163,85 +163,85 @@ equation
           textString="%name"),
     Line( points={{-100, 0}, {100, 0}},
           color={0,127,255},
-          visible=icon_pipe==Buildings.Templates.Components.Types.IconPipe.None),
+          visible=icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.None),
     Line( points={{icon_xinl, 0}, {0,0}},
           color={0,0,0},
           thickness=5,
-          visible=icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          visible=icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_a>=2 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_a>=2 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{icon_xinl, icon_dy}, {0,icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_a>=3 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_a>=3 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{icon_xinl, 2*icon_dy}, {0, 2*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_a>=4 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_a>=4 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{icon_xinl, 3*icon_dy}, {0, 3*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_a>=5 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_a>=5 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{icon_xinl, 4*icon_dy}, {0, 4*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_a>=6 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_a>=6 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{icon_xinl, 5*icon_dy}, {0, 5*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
     Line( points={{0, icon_offset}, {icon_xout,icon_offset}},
           color={0,0,0},
           thickness=5,
-          visible=icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          visible=icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_b>=2 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_b>=2 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{0, icon_offset + 1*icon_dy}, {icon_xout,icon_offset + 1*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_b>=3 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_b>=3 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{0, icon_offset + 2*icon_dy}, {icon_xout,icon_offset + 2*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_b>=4 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_b>=4 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{0, icon_offset + 3*icon_dy}, {icon_xout,icon_offset + 3*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_b>=5 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_b>=5 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{0, icon_offset + 4*icon_dy}, {icon_xout,icon_offset + 4*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts_b>=6 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
+    Line( visible=nPorts_b>=6 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points={{0, icon_offset + 5*icon_dy}, {icon_xout,icon_offset + 5*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None and
+    Line( visible=icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None and
           max(nPorts_a, nPorts_b)>=2 and have_comLeg,
           points={{0, 0}, {0, icon_offset + (max(nPorts_a, nPorts_b)-1)*icon_dy}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash)}),
     Diagram(
     coordinateSystem(preserveAspectRatio=false)),

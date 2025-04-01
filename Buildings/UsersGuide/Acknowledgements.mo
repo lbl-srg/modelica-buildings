@@ -26,6 +26,9 @@ class Acknowledgements "Acknowledgements"
  <li>
   The California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, Award Number 500-10-052.
  </li>
+ <li>
+ The U.S. Department of Defense (DoD) under the Environmental Security Technology Certification Program (ESTCP), Award Number EW23-7686.
+ </li>
  </ul>
 <p>
 The core of this library is the Modelica IBPSA library,

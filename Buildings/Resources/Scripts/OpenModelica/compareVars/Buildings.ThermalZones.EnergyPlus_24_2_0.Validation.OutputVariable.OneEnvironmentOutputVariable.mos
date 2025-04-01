@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "TEnePlu.y",
+    "building.weaBus.TDryBul"
+  };

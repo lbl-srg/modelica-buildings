@@ -60,7 +60,7 @@ The <code>MixingVolume</code> <code>Medium</code> parameter contains information
 the type of fluid and its properties that should be modelled by the <code>MixingVolume</code>.
 Set its value to <code>MediumAir</code>, which is declared in the template,
 by typing <code>redeclare package Medium = MediumAir</code>.
-For the nominal mass flow rate you may assume a value of <i>1 kg/m<sup>3</sup></i> for now.
+For the nominal mass flow rate you may assume a value of <i>1 kg/s</i> for now.
 You will have to change this value once you add a ventilation system to the model (see
 <a href=\"modelica://Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse6\">
 Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse6</a>).

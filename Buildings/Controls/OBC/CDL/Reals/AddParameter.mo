@@ -1,11 +1,12 @@
 within Buildings.Controls.OBC.CDL.Reals;
-block AddParameter
-  "Output the sum of an input plus a parameter"
+block AddParameter "Output the sum of an input plus a parameter"
   parameter Real p
-    "Value to be added";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Connector of Real input signal"
+    "Parameter to be added to the input";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Input to be added to the parameter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Sum of the parameter and the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -24,7 +25,7 @@ revisions="<html>
 <li>
 February 3, 2022, by Jianjun Hu:<br/>
 Removed input gain factor.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">issue 2876</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">Buildings, issue 2876</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

@@ -26,13 +26,13 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
   Valves.TwoWayTable valTab(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpValve_nominal=6000,
     flowCharacteristics=Buildings.Fluid.Actuators.Valves.Data.Linear(),
     from_dp=true) "Valve model with opening characteristics based on a table"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   TwoWayLinear valLin(
-    use_inputFilter=false,
+    use_strokeTime=false,
     redeclare package Medium = Medium,
     l=0.0001,
     m_flow_nominal=2,
