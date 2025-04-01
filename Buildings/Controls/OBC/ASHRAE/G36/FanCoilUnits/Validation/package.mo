@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences;
-package Validation "Package containing validation models for fan coil unit subsequences"
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits;
+package Validation "Package of validation models for fan coil unit controls"
 
   annotation (Icon(graphics={
         Rectangle(
@@ -21,7 +21,7 @@ package Validation "Package containing validation models for fan coil unit subse
           points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}),
   Documentation(info="<html>
   <p>
-  This package contains the validation models for the fan coil unit subsequences.
+  This package contains the validation model for the fan coil unit controller.
   </p>
   </html>", revisions="<html>
   <ul>

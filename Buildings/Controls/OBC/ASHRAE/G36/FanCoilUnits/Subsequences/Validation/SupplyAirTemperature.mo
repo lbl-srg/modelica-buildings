@@ -1,29 +1,29 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.Validation;
 block SupplyAirTemperature
   "Validation model for supply air temperature setpoint subsequence"
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature
     TSupAir(
     final have_cooCoi=true,
     final have_heaCoi=true)
     "Instance demonstrating heating signal operation"
     annotation (Placement(transformation(extent={{-50,60},{-30,84}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature
     TSupAir3(
     final have_cooCoi=true,
     final have_heaCoi=false)
     "Instance demonstrating cooling signal operation when heating coil is absent"
     annotation (Placement(transformation(extent={{60,-80},{80,-56}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature
     TSupAir2(
     final have_cooCoi=false,
     final have_heaCoi=true)
     "Instance demonstrating heating signal operation when cooling coil is absent"
     annotation (Placement(transformation(extent={{-50,-100},{-30,-76}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature
     TSupAir1(
     final have_cooCoi=true,
     final have_heaCoi=true)
@@ -181,14 +181,14 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnit/Subsequences/Validation/SupplyAirTemperature.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/Validation/SupplyAirTemperature.mos"
     "Simulate and plot"),
 experiment(StopTime=100, Tolerance=1e-06),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature</a>. 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature</a>. 
 Each of the four instances of the controller represents operation with different
 inputs for heating and cooling loop signals, and different configuration
 parameters of fan coil unit with presence or absence of heating and cooling

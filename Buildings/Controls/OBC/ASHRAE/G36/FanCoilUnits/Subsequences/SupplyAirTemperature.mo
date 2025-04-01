@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences;
 block SupplyAirTemperature
   "Subsequence for calculating supply air temperature setpoint"
 
@@ -485,7 +485,7 @@ Similarly, <code>TSupSet</code> is varied from the zone heating setpoint tempera
 measured supply air temperature <code>TAirSup</code>. 
 <code>yCooCoi</code> and <code>yHeaCoi</code> are set to zero when the fan proven on signal 
 <code>u1Fan</code> is <code>false</code>. </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/FanCoilUnit/Subsequences/SupplyAirTemperature.png\" alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/SupplyAirTemperature.png\" alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
 </html>",
 revisions="<html>
 <ul>

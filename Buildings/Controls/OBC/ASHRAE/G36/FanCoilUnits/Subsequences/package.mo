@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits;
 package Subsequences "Package of subsequences for fan coil unit controls"
 
   annotation(Icon(graphics={

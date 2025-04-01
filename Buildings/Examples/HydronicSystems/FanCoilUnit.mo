@@ -32,7 +32,7 @@ model FanCoilUnit
     each fanPer=fanPer)
     annotation (Placement(transformation(extent={{20,16},{40,36}})));
 
-  Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU[5](each TSupSet_max=
+  Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU[5](each TSupSet_max=
         308.15, each TSupSet_min=285.85)
     annotation (Placement(transformation(extent={{-52,-34},{-2,54}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat[5](each filNam=
@@ -264,7 +264,7 @@ equation
     Documentation(info="<html>
 <p>This model simulates Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe, a four-pipe fan coil unit(FCU) system model for a 5-zone thermal model. </p>
 <p><br><span style=\"font-family: Arial;\">This model consist of an variable air volume(VAV) HVAC system, a building envelope model and a model for air flow through building leakage and through open doors. The HVAC system includes a fan-coil unit and a fan coil controller for each thermal zone. The fan-coil unit that consists of a a supply fan, an electric or hot-water heating coil, and a chilled-water cooling coil. The fan coil unit controller outputs supply fan enable signal and speed signal, the supply air temperature setpoint, the zone air heating and cooling setpoints, and valve positions of heating and cooling coils.</span></p>
-<p>See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a> and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller</a> for a description of the Fan Coil unit and the controller, and see the model <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">Buildings.Examples.VAVReheat.BaseClasses.Floor</a> for a description of the building envelope. </p>
+<p>See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a> and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a description of the Fan Coil unit and the controller, and see the model <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">Buildings.Examples.VAVReheat.BaseClasses.Floor</a> for a description of the building envelope. </p>
 <p>The HVAC system switches between occupied, unoccupied, unoccupied warm-up and unoccupied pre-cool modes.The cooling coil and heating coil valves are modulated to maintain the heating and cooling setpoints. The supply air temperature is modulated based on the differential between the temperature setpoint and the zone temperature to avoid unecessary heating and cooling use and avoid extreme temperature fluctuations. </p>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"

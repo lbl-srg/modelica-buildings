@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36;
-package FanCoilUnit "Control sequences for fan coil unit"
+package FanCoilUnits "Control sequences for fan coil unit"
 
 annotation(Icon(graphics={
         Rectangle(
@@ -48,4 +48,4 @@ annotation(Icon(graphics={
   </li>
   </ul>
   </html>"));
-end FanCoilUnit;
+end FanCoilUnits;

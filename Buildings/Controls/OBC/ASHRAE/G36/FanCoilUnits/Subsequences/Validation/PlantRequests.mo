@@ -1,17 +1,17 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.Validation;
 model PlantRequests
   "Validation model for subsequence for calculating the plant requests"
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests plaReq
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests plaReq
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests plaReq1(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests plaReq1(
     final have_hotWatCoi=false)
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests plaReq2(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests plaReq2(
     final have_chiWatCoi=false)
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
@@ -136,13 +136,13 @@ equation
 
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnit/Subsequences/Validation/PlantRequests.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/Validation/PlantRequests.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests</a>
 for fan coil units. The three instances of the controller are as follows:
 </p>
 <ul>

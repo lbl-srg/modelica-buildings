@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences;
 block FanSpeed
   "Fan speed setpoint subsequence"
 
@@ -388,7 +388,7 @@ The setpoint in deadband mode is equal to the deadband fan speed <code>deaSpe</c
 </p>
 <p align=\"center\">
 <img alt=\"Fan speed setpoint control logic diagram\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/FanCoilUnit/Subsequences/FanSpeed.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/FanSpeed.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

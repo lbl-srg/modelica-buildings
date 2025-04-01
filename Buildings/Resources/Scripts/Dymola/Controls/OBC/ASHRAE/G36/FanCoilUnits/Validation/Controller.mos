@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Validation.Controller", method="Cvode", outputInterval=300, stopTime=86400, tolerance=1e-06, resultFile="conFCU");
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Validation.Controller", method="Cvode", outputInterval=300, stopTime=86400, tolerance=1e-06, resultFile="conFCU");
 createPlot(id=1, position={0, 0, 790, 939}, y={"conFCU.u1Occ"}, range={0.0, 90000.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 790, 939}, y={"conFCU.TZon", "conFCU.TZonHeaSet", "conFCU.TZonCooSet"}, range={0.0, 90000.0, 10.0, 35.0}, grid=true, subPlot=2, colors={{0,140,72}, {28,108,200}, {238,46,47}}, displayUnits={"degC", "degC", "degC"});
 createPlot(id=1, position={0, 0, 790, 939}, y={"conFCU.heaPI.y"}, range={0.0, 90000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});

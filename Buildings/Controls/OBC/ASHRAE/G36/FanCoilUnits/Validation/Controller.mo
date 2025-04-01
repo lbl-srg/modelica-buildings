@@ -1,8 +1,8 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Validation;
 model Controller
     "Validation of the top-level controller"
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU(
     final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_winSen=false,
@@ -19,7 +19,7 @@ model Controller
     "Validate the heating case"
     annotation (Placement(transformation(extent={{20,76},{60,136}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU1(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU1(
     final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_winSen=true,
@@ -37,7 +37,7 @@ model Controller
     "Validate the cooling case for a system with a window sensor but no occupancy sensor"
     annotation (Placement(transformation(extent={{20,0},{60,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU2(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU2(
     final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_winSen=false,
@@ -55,7 +55,7 @@ model Controller
     "Validate the cooling case for a system with an occupancy sensor but no window sensor"
     annotation (Placement(transformation(extent={{20,-78},{60,-18}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU3(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU3(
     final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_winSen=true,
@@ -273,7 +273,7 @@ equation
   connect(win1.y, conFCU3.u1Win) annotation (Line(points={{-158,-170},{0,-170},{
           0,-149.5},{18,-149.5}}, color={255,0,255}));
 annotation (experiment(StopTime=86400, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnit/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnits/Validation/Controller.mos"
     "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                     graphics={
@@ -298,8 +298,8 @@ annotation (experiment(StopTime=86400, Tolerance=1e-06),
 Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a>.
 <br>
 <code>conFCU</code> represents an instance of the controller with heating mode 
 operation, with the open-loop signals for measured zone temperature and measured 

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits;
 block Controller
   "Fan coil unit controller that comprises subsequences for controlling fan speed and supply air temperature"
 
@@ -696,7 +696,7 @@ block Controller
 
 
 protected
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests fcuPlaReq(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests fcuPlaReq(
     final have_hotWatCoi=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_chiWatCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     final cooSpe_max=cooSpe_max,
@@ -744,7 +744,7 @@ protected
     "Check if there is occupant"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature
     TSupAir(
     final have_cooCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
          or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
@@ -767,7 +767,7 @@ protected
     final deaHysLim=deaHysLim) "Supply air temperature setpoint controller"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed fanSpe(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe(
     final have_cooCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
          or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
     final have_heaCoi=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
@@ -1113,8 +1113,8 @@ The supply fan control is implemented according to Part 5.22.4. It outputs
 the control signals for supply fan enable <code>yFan</code> and the fan speed 
 <code>yFanSpe</code>.
 See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed</a> for more detailed 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed</a> for more detailed 
 description.
 </p>
 <h4>Supply air temperature setpoint</h4>
@@ -1123,8 +1123,8 @@ The supply air temperature setpoint control sequences are implemented based on P
 The block outputs a supply air temperature setpoint signal <code>TSupSet</code>,
 and control signals for the heating coil <code>yHeaCoi</code> and the cooling coil 
 <code>yCooCoi</code>. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature</a>
 for more detailed description.
 </p>
 <h4>Zone air heating and cooling setpoints</h4>
@@ -1141,8 +1141,8 @@ The block outputs a chilled water plant request <code>yChiPlaReq</code>, chilled
 water supply temperature reset request <code>yChiWatResReq</code>, hot water plant 
 request <code>yHotWatPlaReq</code> and hot water supply temperature reset request
 <code>yHotWatResReq</code>. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests</a>
 for more detailed description.
 </p>
 </html>",

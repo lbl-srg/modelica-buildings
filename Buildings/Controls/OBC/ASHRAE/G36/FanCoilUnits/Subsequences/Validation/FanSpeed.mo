@@ -1,38 +1,38 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.Validation;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.Validation;
 block FanSpeed
   "Validation model for fan speed subsequence"
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed fanSpe(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe(
     final have_cooCoi=true,
     final have_heaCoi=true)
     "Instance demonstrating variation of heating loop signal"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed fanSpe2(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe2(
     final have_cooCoi=true,
     final have_heaCoi=true)
     "Instance demonstrating variation of operating mode"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed fanSpe1(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe1(
     final have_cooCoi=true,
     final have_heaCoi=true)
     "Instance demonstrating variation of cooling loop signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed fanSpe3(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe3(
     final have_cooCoi=true,
     final have_heaCoi=false)
     "Instance demonstrating variation of cooling loop signal with no heating coil"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed fanSpe4(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe4(
     final have_cooCoi=false,
     final have_heaCoi=true)
     "Instance demonstrating variation of heating loop signal with no cooling coil"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed fanSpe5(
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe5(
     final have_cooCoi=false,
     final have_heaCoi=false)
     "Instance demonstrating variation of operating mode with no heating and cooling coils"
@@ -260,13 +260,13 @@ equation
     experiment(
       StopTime=100,
       Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnit/Subsequences/Validation/FanSpeed.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/Validation/FanSpeed.mos"
     "Simulate and plot"),
     Documentation(info="<html>
       <p>
       This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed\">
-      Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.FanSpeed</a>. 
+      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed\">
+      Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed</a>. 
       Each of the six instances of the controller represents operation with different
       inputs for heating and cooling loop signals, as well as the operating mode
       and fan proven on signal, and different configuration

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.Validation.FanSpeed", method="Cvode", stopTime=100, tolerance=1e-06, resultFile="FanSpeed");
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.Validation.FanSpeed", method="Cvode", stopTime=100, tolerance=1e-06, resultFile="FanSpeed");
 
 createPlot(id=1, position={0, 0, 1669, 978}, y={"fanSpe.opeMod"}, range={0.0, 100.0, 0.8, 1.2}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 1669, 978}, y={"fanSpe.u1FanPro"}, range={0.0, 100.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences;
 block PlantRequests
   "Output plant requests for fan coil unit"
 
