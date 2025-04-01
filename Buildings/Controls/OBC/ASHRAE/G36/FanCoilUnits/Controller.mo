@@ -1114,7 +1114,7 @@ the control signals for supply fan enable <code>yFan</code> and the fan speed
 <code>yFanSpe</code>.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed</a> for more detailed 
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed</a> for a detailed
 description.
 </p>
 <h4>Supply air temperature setpoint</h4>
@@ -1125,7 +1125,7 @@ and control signals for the heating coil <code>yHeaCoi</code> and the cooling co
 <code>yCooCoi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature</a>
-for more detailed description.
+for a detailed description.
 </p>
 <h4>Zone air heating and cooling setpoints</h4>
 <p>
@@ -1143,7 +1143,7 @@ request <code>yHotWatPlaReq</code> and hot water supply temperature reset reques
 <code>yHotWatResReq</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests</a>
-for more detailed description.
+for a detailed description.
 </p>
 </html>",
 revisions="<html>
