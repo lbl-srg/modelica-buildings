@@ -268,14 +268,14 @@ Buildings.Fluid.Chillers.ModularReversible</a>.
 <ul>
 <li>
 <b>Ideal controls</b>: The heating or cooling load is calculated based on the block
-inputs. The block returns the required compressor part load ratio <i>PLR</i>
+inputs. The block returns the required part load ratio <i>PLR</i>
 to meet the load – within the system capacity.<sup>1</sup>
 </li>
 <li>
 <b>Capacity and power calculation</b>: The capacity and power are interpolated
 from user-provided data along the load side fluid temperature,
 the source side fluid temperature
-and the compressor part load ratio <i>yMea</i> provided as input.<sup>2</sup>
+and the part load ratio <i>yMea</i> provided as input.<sup>2</sup>
 </li>
 </ul>
 <p>
@@ -287,17 +287,16 @@ the upper bound is typically equal to <i>1</i> (unless there are some
 capacity margins at design conditions that need to be accounted for).
 In this block, the part load ratio is used as a proxy variable
 for the actual capacity modulation observable.
-For systems with VFDs, this is the normalized compressor speed.
-For systems with on/off compressors,
-this is the number of enabled compressors divided by the total number
-of compressors.
+For systems with VFDs, this is the compressor speed.
+For systems with on/off compressors, this is the capacity of the enabled 
+compressors divided by the total capacity.
 When meeting the load by cycling on and off a single compressor,
 this is the time fraction the compressor is enabled.
 In all cases, the algorithm assumes continuous operation and only approximates
 the performance on a time average.
 </p>
 <p>
-<sup>2</sup> The reason why the compressor part load ratio is both calculated (<i>PLR</i>)
+<sup>2</sup> The reason why the part load ratio is both calculated (<i>PLR</i>)
 and exposed as an input (<i>yMea</i>) is to allow for modeling internal safeties
 that can limit operation.
 If no safeties are modeled, a direct feedback of <i>PLR</i> to
@@ -335,7 +334,7 @@ In this domain, the machine PLR varies while the compressor PLR stays
 roughly the same.
 The input power is considered equal to the interpolated value at
 <code>TLoa</code>, <code>TSou</code>, <code>min(PLRSup)</code>.
-This domain may not exist if the parameter <code>PLRUnl_min</code> is
+This domain may not exist if the parameter <code>PLRCyc_min</code> is
 equal to <code>min(PLRSup)</code>, which is the default setting.
 </li>
 <li><b>Last operating compressor cycling</b><br>
@@ -351,9 +350,9 @@ when the machine is enabled and all compressors are disabled.
 </ol>
 <p>
 <img src=\"modelica://Buildings/Resources/Images/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/TableData2DLoadDep.png\" 
-border=\"1\" alt=\"Input power as a function of the compressor part load ratio.\"/>
+border=\"1\" alt=\"Input power as a function of the part load ratio.\"/>
 </p>
-<p><i>Figure 1. Input power as a function of the compressor part load ratio.</i></p>
+<p><i>Figure 1. Input power as a function of the part load ratio.</i></p>
 <h4>Performance data file</h4>
 <p>
 The performance data are read from an external ASCII file that must meet
@@ -461,7 +460,7 @@ externally as <code>P-Q_flow</code>.
 </p>
 <h4>Ideal controls</h4>
 <p>
-The block implements ideal controls by solving for the compressor part load ratio
+The block implements ideal controls by solving for the part load ratio
 required to meet the load (more precisely the minimum between the load
 and the actual capacity for the current load and source temperatures).
 This is done by interpolating the PLR values along the heat flow rate values
