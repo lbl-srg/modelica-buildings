@@ -11,8 +11,8 @@ package Baseclasses "Package containing baseclasses for example model"
     <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad\">
     Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedZoneWithRadiator</a> 
     used to demonstrate the use of the implemented boiler plant controller
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Controller\">
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Controller</a>.
     </p>
     </html>"));
 end Baseclasses;

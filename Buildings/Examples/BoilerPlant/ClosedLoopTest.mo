@@ -36,7 +36,7 @@ model ClosedLoopTest "Closed loop testing model"
     "Boiler plant primary loop model"
     annotation (Placement(transformation(extent={{40,-20},{60,12}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.PrimaryController conBoiPri(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController conBoiPri(
     final controllerType_priPum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final controllerType_bypVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_priOnl=false,
@@ -56,8 +56,8 @@ model ClosedLoopTest "Closed loop testing model"
     final maxLocDpPri=50000,
     final minLocDpPri=50000,
     final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={boiCapRat*boiDesCap*0.8,(1 - boiCapRat)*boiDesCap*0.8},
@@ -76,7 +76,7 @@ model ClosedLoopTest "Closed loop testing model"
     final k_priPum=0.1,
     final Ti_priPum=15,
     final minPriPumSpeSta={0,0,0},
-    final speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate)
+    final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate)
     "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{-40,-40},{-20,40}})));
 
@@ -104,7 +104,7 @@ model ClosedLoopTest "Closed loop testing model"
     "Sum requests from both secondary loops"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
     conPumSec2(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_varSecPum=true,
@@ -114,12 +114,12 @@ model ClosedLoopTest "Closed loop testing model"
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
     final k=1,
     final Ti=12.5,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP,
     enaHeaLeaPum(intGreThr(t=-1)))
     "Secondary pump controller-2"
     annotation (Placement(transformation(extent={{-8,40},{12,80}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
     conPumSec1(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_varSecPum=true,
@@ -129,7 +129,7 @@ model ClosedLoopTest "Closed loop testing model"
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
     final k=1,
     final Ti=12.5,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.SecondaryPumpSpeedControlTypes.remoteDP,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP,
     enaHeaLeaPum(intGreThr(t=-1)))
     "Secondary pump controller-1"
     annotation (Placement(transformation(extent={{-10,128},{10,168}})));
@@ -338,12 +338,12 @@ Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlantPrimary</a> instance <code
 and is coupled with the secondary loop instances <code>secLoo1</code> and <code>secLoo2</code>
 of class <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad\">
 Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad</a>. The primary
-loop is controlled by the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.PrimaryController\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.PrimaryController</a> instance
+loop is controlled by the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a> instance
 <code>conBoiPlaPri</code>, and the secondary loops <code>secLoo1</code> and <code>secLoo2</code>
 are controlled by the secondary loop controller
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller</a> instances
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller</a> instances
 <code>secPumCon1</code> and <code>secPumCon2</code>, respectively.
 </p>
 </html>", revisions="<html>
