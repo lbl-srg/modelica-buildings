@@ -455,9 +455,6 @@ equation
   connect(intSwi1.y, yHotWatPlaReq)
     annotation (Line(points={{82,-220},{220,-220}},  color={255,127,0}));
 
-  connect(yChiWatResReq, yChiWatResReq)
-    annotation (Line(points={{220,240},{220,240}}, color={255,127,0}));
-
   connect(uFan, hysFanCoo.u)
     annotation (Line(points={{-220,240},{-132,240}}, color={0,0,127}));
 

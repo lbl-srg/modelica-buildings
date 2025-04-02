@@ -649,8 +649,7 @@ block Controller
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
       iconTransformation(extent={{200,20},{240,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
-    modSetPoi(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints modSetPoi(
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final sepAdj=sepAdj,
@@ -742,7 +741,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold havOcc(
     final t=1) if have_occSen
     "Check if there is occupant"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
+    annotation (Placement(transformation(extent={{-202,-220},{-182,-200}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature
     TSupAir(
@@ -819,8 +818,8 @@ equation
           {-150,223},{-142,223}}, color={255,0,255}));
   connect(u1Win, modSetPoi.u1Win) annotation (Line(points={{-240,-260},{-150,-260},
           {-150,223},{-142,223}}, color={255,0,255}));
-  connect(havOcc.y, modSetPoi.u1OccSen) annotation (Line(points={{-78,100},{-60,
-          100},{-60,160},{-164,160},{-164,196},{-142,196}}, color={255,0,255}));
+  connect(havOcc.y, modSetPoi.u1OccSen) annotation (Line(points={{-180,-210},{
+          -164,-210},{-164,196},{-142,196}},                color={255,0,255}));
   connect(modSetPoi.warUpTim, warUpTim) annotation (Line(points={{-142,226},{-166,
           226},{-166,260},{-240,260}}, color={0,0,127}));
   connect(modSetPoi.cooDowTim, cooDowTim) annotation (Line(points={{-142,228},{-160,
@@ -857,12 +856,11 @@ equation
           45},{38,45}},    color={0,0,127}));
   connect(heaPI.y, TSupAir.uHea) annotation (Line(points={{-58,260},{0,260},{0,52},
           {38,52}},   color={0,0,127}));
-  connect(TZonHeaSet, TZonHeaSet)
-    annotation (Line(points={{220,160},{220,160}}, color={0,0,127}));
   connect(u1Fan, TSupAir.u1Fan) annotation (Line(points={{-240,-230},{8,-230},{8,
           59},{38,59}}, color={255,0,255}));
-  connect(nOcc, havOcc.u) annotation (Line(points={{-240,-200},{-140,-200},{-140,
-          100},{-102,100}}, color={255,127,0}));
+  connect(nOcc, havOcc.u) annotation (Line(points={{-240,-200},{-212,-200},{
+          -212,-210},{-204,-210}},
+                            color={255,127,0}));
   connect(cooSetAdj, modSetPoi.cooSetAdj) annotation (Line(points={{-240,140},{-172,
           140},{-172,201},{-142,201}}, color={0,0,127}));
   connect(heaSetAdj, modSetPoi.heaSetAdj) annotation (Line(points={{-240,110},{-168,
@@ -1099,7 +1097,7 @@ Documentation(info="<html>
 <p>
 Block for fan coil unit control. It outputs supply fan enable signal and speed signal,
 the supply air temperature setpoint, the zone air heating and cooling setpoints,
-and valve positions of heating and cooling coils.
+and commanded valve positions for heating and cooling coils.
 </p>
 <p>
 It is implemented according to the ASHRAE Guideline 36-2021, Part 5.22.
@@ -1110,7 +1108,7 @@ The sequences consist of the following subsequences.
 <h4>Supply fan control</h4>
 <p>
 The supply fan control is implemented according to Part 5.22.4. It outputs
-the control signals for supply fan enable <code>yFan</code> and the fan speed 
+the control signals for supply fan enable <code>yFan</code> and the fan speed
 <code>yFanSpe</code>.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed\">
@@ -1121,7 +1119,7 @@ description.
 <p>
 The supply air temperature setpoint control sequences are implemented based on Part 5.22.4.
 The block outputs a supply air temperature setpoint signal <code>TSupSet</code>,
-and control signals for the heating coil <code>yHeaCoi</code> and the cooling coil 
+and control signals for the heating coil <code>yHeaCoi</code> and the cooling coil
 <code>yCooCoi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.SupplyAirTemperature</a>
@@ -1130,15 +1128,15 @@ for a detailed description.
 <h4>Zone air heating and cooling setpoints</h4>
 <p>
 The zone air heating setpoint <code>TZonHeaSet</code>and cooling setpoint <code>TZonHeaSet</code>
-as well as system operation mode signal <code>modSetPoi.yOpeMod</code> are detailed at
+as well as system operation mode signal <code>modSetPoi.yOpeMod</code> are described at
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints</a>.
 </p>
 <h4>Plant requests</h4>
 <p>
 The plant requests are implemented based on Part 5.22.8.
-The block outputs a chilled water plant request <code>yChiPlaReq</code>, chilled 
-water supply temperature reset request <code>yChiWatResReq</code>, hot water plant 
+The block outputs a chilled water plant request <code>yChiPlaReq</code>, chilled
+water supply temperature reset request <code>yChiWatResReq</code>, hot water plant
 request <code>yHotWatPlaReq</code> and hot water supply temperature reset request
 <code>yHotWatResReq</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests\">
