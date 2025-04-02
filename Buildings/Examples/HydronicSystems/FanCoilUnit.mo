@@ -4,6 +4,13 @@ model FanCoilUnit
 
   extends Modelica.Icons.Example;
 
+  replaceable parameter Fluid.Movers.Data.Generic           fanPer
+    constrainedby Fluid.Movers.Data.Generic
+    "Record with performance data for supply fan"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{106,-114},{124,-96}})),
+      Dialog(group="Fan parameters"));
+
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15)
     "Medium model for air";
 
@@ -85,6 +92,20 @@ model FanCoilUnit
       computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 
+
+    Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(nout=5)
+    "Scalar replicator for occupancy"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+
+    Controls.OBC.CDL.Integers.Sources.Constant LimLev(k=0)
+    "Cooling and heating demand limit level"
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+
+
+   Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=5)
+    "Scalar replicator for demand limit level"
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+
   Controls.SetPoints.OccupancySchedule           occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
@@ -104,50 +125,45 @@ model FanCoilUnit
     "Unoccupied heating temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 
-  Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=5)
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep1(nout=5)
-    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 
   Controls.OBC.CDL.Reals.GreaterThreshold greThr[5]
+    "Greater than threshold for fan speed, if fan speed > 0, output is true"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
   Controls.OBC.CDL.Logical.Timer tim[5](t=fill(120, 5))
+    "Timer for fan signal, if fan speed is greater than 0 for 120s, fan is proven on"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
 
   Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep2(nout=5)
+    "Scalar replicator for temperature setpoint adjustment"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
   Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep3(nout=5)
+    "Scalar replicator for time to next occupancy"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(nout=5)
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+
 
   Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep4(nout=5)
+    "Scalar replicator for occupied setpoint temperature"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
   Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep5(nout=5)
+    "Scalar replicator for unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
   Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep6(nout=5)
+    "Scalar replicator for unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Controls.OBC.CDL.Integers.Sources.Constant LimLev(k=0)
-    "Cooling and heating demand limit level"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-
-  replaceable parameter Fluid.Movers.Data.Generic           fanPer
-    constrainedby Fluid.Movers.Data.Generic
-    "Record with performance data for supply fan"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{106,-114},{124,-96}})),
-      Dialog(group="Fan parameters"));
 
 protected
   Controls.OBC.CDL.Reals.Sources.Constant           cooWarTim(final k=0)
     "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
+
+  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep1(nout=5)
+    "Scalar replicator for cool-down and warm-up time"
+    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 equation
   connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{6,37.3333},{14,
           37.3333},{14,28},{19,28}},
@@ -186,8 +202,9 @@ equation
   connect(occSch.occupied, booScaRep1.u) annotation (Line(points={{-119,4},{
           -112,4},{-112,10},{-102,10}},
                                      color={255,0,255}));
-  connect(booScaRep1.y, conFCU.u1Occ) annotation (Line(points={{-78,10},{-52,10},
-          {-52,32.5},{-38,32.5}},      color={255,0,255}));
+  connect(booScaRep1.y, conFCU.u1Occ) annotation (Line(points={{-78,10},{-68,10},
+          {-68,12},{-58,12},{-58,32.5},{-38,32.5}},
+                                       color={255,0,255}));
   connect(TOccSetPoi.y, reaScaRep4.u) annotation (Line(points={{-118,-20},{-102,
           -20}},                           color={0,0,127}));
   connect(reaScaRep4.y, conFCU.TOccHeaSet) annotation (Line(points={{-78,-20},{
@@ -266,14 +283,18 @@ equation
           {33,-36},{31,-36},{31,-40}}, color={0,127,255}));
   connect(tim.passed, conFCU.u1Fan) annotation (Line(points={{-78,-118},{-68,-118},
           {-68,-1},{-38,-1}},         color={255,0,255}));
-  connect(fanCoiUni.yFan_actual, greThr.u) annotation (Line(points={{40.5,34},{
-          80,34},{80,-140},{-152,-140},{-152,-110},{-142,-110}}, color={0,0,127}));
+  connect(fanCoiUni.yFan_actual, greThr.u) annotation (Line(points={{40.5,34},{76,
+          34},{76,-130},{-152,-130},{-152,-110},{-142,-110}},    color={0,0,127}));
   connect(weaDat.weaBus, floor1.weaBus) annotation (Line(
       points={{-40,110},{56,110},{56,132},{111.174,132},{111.174,126.769}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
-            -140},{160,160}})),                                  Diagram(
+            -140},{160,160}}), graphics={
+        Text(
+          extent={{-110,192},{110,156}},
+          textColor={0,0,255},
+          textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,
             160}})),
     experiment(
