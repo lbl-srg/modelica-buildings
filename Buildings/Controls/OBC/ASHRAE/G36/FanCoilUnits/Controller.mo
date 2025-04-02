@@ -478,7 +478,7 @@ block Controller
     final quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
     annotation (Placement(transformation(extent={{-260,240},{-220,280}}),
-      iconTransformation(extent={{-240,340},{-200,380}})));
+      iconTransformation(extent={{-240,320},{-200,360}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",
@@ -486,7 +486,7 @@ block Controller
     final quantity="Time")
     "Cool-down time retrieved from optimal cool-down block"
     annotation (Placement(transformation(extent={{-260,270},{-220,310}}),
-      iconTransformation(extent={{-240,300},{-200,340}})));
+      iconTransformation(extent={{-240,280},{-200,320}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final unit="s",
@@ -494,7 +494,7 @@ block Controller
     final quantity="Time")
     "Time to next occupied period"
     annotation (Placement(transformation(extent={{-260,210},{-220,250}}),
-      iconTransformation(extent={{-240,260},{-200,300}})));
+      iconTransformation(extent={{-240,240},{-200,280}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
@@ -519,7 +519,7 @@ block Controller
     if have_locAdj and not sepAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-260,150},{-220,190}}),
-      iconTransformation(extent={{-242,200},{-202,240}})));
+      iconTransformation(extent={{-240,200},{-200,240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj(
     final unit="K",
@@ -894,18 +894,18 @@ equation
   connect(setAdj, modSetPoi.setAdj) annotation (Line(points={{-240,170},{-176,170},
           {-176,203},{-142,203}}, color={0,0,127}));
 annotation (defaultComponentName="conFCU",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-400},{200,400}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-360},{200,360}}),
         graphics={Rectangle(
-          extent={{-200,-400},{200,400}},
+          extent={{-200,-360},{200,360}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-200,500},{200,400}},
+          extent={{-200,460},{200,360}},
           textString="%name",
           textColor={0,0,255}),
         Text(
-          extent={{-196,296},{-134,268}},
+          extent={{-196,276},{-130,248}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -917,7 +917,7 @@ annotation (defaultComponentName="conFCU",
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
-          extent={{-196,114},{-150,94}},
+          extent={{-200,116},{-134,94}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -949,25 +949,25 @@ annotation (defaultComponentName="conFCU",
           fillPattern=FillPattern.Solid,
           textString="TSupSet"),
         Text(
-          extent={{148,172},{200,136}},
+          extent={{156,178},{198,142}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yFan"),
         Text(
-          extent={{116,136},{194,102}},
+          extent={{90,136},{194,102}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZonHeaSet"),
         Text(
-          extent={{116,98},{196,60}},
+          extent={{98,100},{196,60}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TZonCooSet"),
         Text(
-          extent={{142,60},{196,22}},
+          extent={{130,62},{196,22}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -975,7 +975,7 @@ annotation (defaultComponentName="conFCU",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric),
         Text(
-          extent={{142,20},{196,-18}},
+          extent={{130,22},{196,-18}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -983,96 +983,96 @@ annotation (defaultComponentName="conFCU",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
                or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil),
         Text(
-          extent={{-194,378},{-120,346}},
+          extent={{-198,356},{-116,324}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="warUpTim"),
         Text(
-          extent={{-194,338},{-114,306}},
+          extent={{-200,318},{-104,284}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="cooDowTim"),
         Text(
-          extent={{-194,74},{-82,52}},
+          extent={{-200,72},{-54,48}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uCooDemLimLev"),
         Text(
-          extent={{-194,32},{-82,10}},
+          extent={{-200,30},{-56,6}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uHeaDemLimLev"),
         Text(
-          extent={{-196,-290},{-150,-310}},
+          extent={{-196,-290},{-144,-310}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="u1Fan"),
         Text(
-          extent={{144,212},{188,190}},
+          extent={{142,214},{198,190}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="y1Fan"),
         Text(
-          extent={{-198,236},{-136,208}},
+          extent={{-198,236},{-146,212}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="setAdj",
           visible=have_locAdj and not sepAdj),
         Text(
-          extent={{106,-90},{198,-66}},
+          extent={{70,-88},{198,-66}},
           textColor={244,125,35},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yChiWatResReq",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased),
         Text(
-          extent={{132,-130},{198,-108}},
+          extent={{108,-128},{198,-108}},
           textColor={244,125,35},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yChiPlaReq",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased),
         Text(
-          extent={{104,-170},{196,-146}},
+          extent={{76,-172},{196,-146}},
           textColor={244,125,35},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHotWatResReq",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
-          extent={{106,-210},{198,-186}},
+          extent={{84,-214},{198,-186}},
           textColor={244,125,35},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHotWatPlaReq",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
-          extent={{-196,-86},{-104,-114}},
+          extent={{-196,-86},{-96,-114}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TOccHeaSet"),
         Text(
-          extent={{-194,-128},{-98,-152}},
+          extent={{-196,-128},{-100,-152}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TOccCooSet"),
         Text(
-          extent={{-194,-168},{-98,-190}},
+          extent={{-200,-168},{-104,-190}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TUnoHeaSet"),
         Text(
-          extent={{-200,-208},{-94,-230}},
+          extent={{-200,-208},{-104,-230}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,

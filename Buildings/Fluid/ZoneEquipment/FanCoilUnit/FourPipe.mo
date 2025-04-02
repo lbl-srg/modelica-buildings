@@ -10,6 +10,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
     "Heating coil type"
     annotation (Dialog(group="System parameters"));
+
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)
     "Nominal heat flow rate of electric heating coil"
@@ -34,10 +35,6 @@ model FourPipe "System model for a four-pipe fan coil unit"
   parameter Modelica.Units.SI.ThermalConductance UACooCoi_nominal
     "Nominal Thermal conductance, used to compute heat capacity"
     annotation(Dialog(group="Cooling coil parameters"));
-
-  parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal
-    "Nominal mass flow rate of outdoor air"
-    annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
     "Nominal mass flow rate of supply air"
