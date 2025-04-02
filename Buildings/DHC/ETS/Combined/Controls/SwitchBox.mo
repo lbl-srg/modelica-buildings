@@ -1,7 +1,9 @@
 within Buildings.DHC.ETS.Combined.Controls;
 block SwitchBox "Controller for flow switch box"
-  extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+
+  parameter Real m_flow_nominal(
+    final quantity="MassFlowRate",
+    final unit="kg/s")
     "Nominal mass flow rate, used for scaling to avoid chattering"
     annotation (Dialog(group="Nominal condition"));
   parameter Real trueHoldDuration(
@@ -12,46 +14,56 @@ block SwitchBox "Controller for flow switch box"
     final quantity="Time",
     final unit="s") = trueHoldDuration
     "false hold duration";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPos_flow(final unit="kg/s")
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mPos_flow(
+    final unit="kg/s")
     "Service water mass flow rate in positive direction"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mRev_flow(final unit="kg/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mRev_flow(
+    final unit="kg/s")
     "Service water mass flow rate in reverse direction"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    final unit="1")
     "Control output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold posDom(final t, h=0.001*m_flow_nominal)
+
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold posDom(
+    final h=0.001*m_flow_nominal)
     "Output true in case of dominating positive flow"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Logical.Switch swi "Switch to select the mode"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
+    "Switch to select the mode"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Modelica.Blocks.Sources.Constant posModOn(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant posModOn(
+    final k=1)
     "Output signal in case of dominating positive flow"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=trueHoldDuration,
     final falseHoldDuration=falseHoldDuration)
-    "True/false hold to remove the risk of chattering"
+    "True-false hold to remove the risk of chattering"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Modelica.Blocks.Sources.Constant revModOn(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant revModOn(final k=0)
     "Output signal in case of dominating reverse flow"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Flow difference"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(delta=trueHoldDuration/10)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(
+    final delta=trueHoldDuration/10)
     "Rolling average of flow difference"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+
 equation
   connect(posModOn.y, swi.u1)
-    annotation (Line(points={{21,80},{60,80},{60,8},{68,8}}, color={0,0,127}));
-  connect(swi.y, y) annotation (Line(points={{91,0},{120,0}}, color={0,0,127}));
+    annotation (Line(points={{22,80},{60,80},{60,8},{68,8}}, color={0,0,127}));
+  connect(swi.y, y) annotation (Line(points={{92,0},{120,0}}, color={0,0,127}));
   connect(posDom.y, truFalHol.u)
     annotation (Line(points={{12,0},{28,0}},color={255,0,255}));
   connect(truFalHol.y, swi.u2)
     annotation (Line(points={{52,0},{68,0}}, color={255,0,255}));
-  connect(revModOn.y, swi.u3) annotation (Line(points={{21,-80},{60,-80},{60,-8},
+  connect(revModOn.y, swi.u3) annotation (Line(points={{22,-80},{60,-80},{60,-8},
           {68,-8}}, color={0,0,127}));
   connect(mPos_flow, sub.u1) annotation (Line(points={{-120,80},{-90,80},{-90,6},
           {-82,6}}, color={0,0,127}));
@@ -103,5 +115,14 @@ January 12, 2020, by Michael Wetter:<br/>
 Added documentation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{102,140}},
+          textString="%name")}));
 end SwitchBox;

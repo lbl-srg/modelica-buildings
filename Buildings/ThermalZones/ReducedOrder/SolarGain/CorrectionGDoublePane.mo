@@ -2,7 +2,6 @@ within Buildings.ThermalZones.ReducedOrder.SolarGain;
 model CorrectionGDoublePane
   "Double pane window solar correction"
   extends BaseClasses.PartialCorrectionG;
-  import con = Modelica.Units.Conversions;
 
   // Parameters for the transmission correction factor based on VDI 6007 Part 3
   // A0 to A6 are experimental constants VDI 6007 Part 3 page 20
@@ -87,8 +86,8 @@ protected
 
 equation
   for i in 1:n loop
-    Ta_dir[i]= (((((A6*con.to_deg(inc[i])+A5)*con.to_deg(inc[i])+A4)*con.to_deg(inc[i])+A3)*
-    con.to_deg(inc[i])+A2)*con.to_deg(inc[i])+A1)*con.to_deg(inc[i])+A0;
+    Ta_dir[i]= (((((A6*Modelica.Units.Conversions.to_deg(inc[i])+A5)*Modelica.Units.Conversions.to_deg(inc[i])+A4)*Modelica.Units.Conversions.to_deg(inc[i])+A3)*
+    Modelica.Units.Conversions.to_deg(inc[i])+A2)*Modelica.Units.Conversions.to_deg(inc[i])+A1)*Modelica.Units.Conversions.to_deg(inc[i])+A0;
     Tai_dir[i]= 0.907^(1/sqrt(1-(sin(inc[i])/1.515)^2));
     Ta1_dir[i]= Ta_dir[i]*Tai_dir[i];
     rho_T1_dir[i]= 1-Ta_dir[i];
@@ -128,6 +127,12 @@ equation
   </html>",
   revisions="<html>
   <ul>
+  <li>
+  February 7, 2025, by Jelger Jansen:<br/>
+  Removed <code>import</code> statement.
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+  </li>
   <li>
   September 12, 2015 by Moritz Lauster:<br/>
   Adapted to Annex 60 requirements.
