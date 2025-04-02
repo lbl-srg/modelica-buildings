@@ -3,11 +3,12 @@ partial record Generic
   "Partial record to specify performance data for load-dependent data-based models"
   extends Modelica.Icons.Record;
   parameter String fileName "Path to file with performance data";
-  parameter Real PLRSup[:](each final unit="1", each final min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRSup[:](each final min=0)
     "PLR values at which heat flow rate and power data are provided";
-  parameter Real PLRCyc_min(final max=min(PLRSup), final min=0, final unit="1")=min(PLRSup)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRCyc_min(final max=min(PLRSup), final min=0)=
+    min(PLRSup)
     "Minimum PLR before cycling last compressor off";
-  parameter Real P_min(final min=0)=0
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
     "Minimum power when system is enabled with compressor cycled off";
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate in condenser";

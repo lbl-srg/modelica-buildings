@@ -6,7 +6,7 @@ model TableData2DLoadDep
     PEle_nominal=calQUseP.P_nominal * scaFac);
   parameter Boolean use_rev
     "True if the refrigerant machine is reversible";
-  final parameter Real scaFac=QHea_flow_nominal / calQUseP.Q_flow_nominal
+  final parameter Real scaFac(final unit="1")=QHea_flow_nominal / calQUseP.Q_flow_nominal
     "Scaling factor";
   final parameter Boolean use_TEvaOutForTab=dat.use_TEvaOutForTab
     "=true to use evaporator outlet temperature, false for inlet";

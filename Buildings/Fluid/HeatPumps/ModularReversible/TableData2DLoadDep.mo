@@ -64,13 +64,10 @@ model TableData2DLoadDep
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(
-    min=Modelica.Constants.eps)
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
     "Nominal heating capacity"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(
-    max=0,
-    start=0)
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0, start=0)
     "Nominal cooling capacity"
     annotation (Dialog(group="Nominal condition - Cooling",
       enable=use_rev));
@@ -98,16 +95,16 @@ model TableData2DLoadDep
     Dialog(enable=use_rev),
   Placement(transformation(extent={{114,-18},{130,-2}})));
   parameter Modelica.Units.SI.Temperature TConHea_nominal
-    "Nominal temperature of the heated fluid"
+    "HW temperature: leaving if datHea.use_TConOutForTab=true, entering otherwie"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
-    "Nominal temperature of the cooled fluid"
+    "Evaporator heating fluid temperature: leaving if datHea.use_TEvaOutForTab=true, entering otherwie"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TConCoo_nominal
-    "Nominal temperature of the cooled fluid"
+    "CHW temperature: leaving if datCoo.use_TEvaOutForTab=true, entering otherwise"
     annotation (Dialog(enable=use_rev,group="Nominal condition - Cooling"));
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
-    "Nominal temperature of the heated fluid"
+    "Condenser cooling fluid temperature: leaving if datCoo.use_TConOutForTab=true, entering otherwise"
     annotation (Dialog(enable=use_rev,group="Nominal condition - Cooling"));
   Modelica.Blocks.Sources.BooleanConstant conHea(
     final k=true)
@@ -119,28 +116,28 @@ model TableData2DLoadDep
     calYSet(
       final use_rev=use_rev,
       final useInHeaPum=true) "Calculate command signal from required PLR"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-50,-20},{-70,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
-    "Enable command"
+    "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-142,-20},{-102,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
     "Temperature setpoint"
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
       iconTransformation(extent={{-142,0},{-102,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput hea
-    if use_rev
-    "Heating mode enable command"
-    annotation (Placement(transformation(extent={{-180,-90},{-140,-50}}),
+    if use_rev "Switchover signal: true for heating, false for cooling"
+    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-142,-40},{-102,0}})));
-  Modelica.Blocks.Sources.BooleanConstant conHea1(
-    final k=true)
-    if not use_rev
-    "Locks the device in heating mode if designated to be not reversible"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-110,-126})));
+  Modelica.Blocks.Sources.BooleanConstant conHeaBus(final k=true)
+    if use_busConOnl and not use_rev
+    "Locks the device in heating mode if not reversible - Case with use_busConOnl=true"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,-90})));
   Modelica.Blocks.Interfaces.RealOutput PLR(final unit="1")
     "Compressor part load ratio" annotation (Placement(transformation(extent={{
             140,-70},{160,-50}}), iconTransformation(
@@ -150,15 +147,16 @@ model TableData2DLoadDep
 equation
   if not use_intSafCtr then
     connect(calYSet.ySet, sigBus.yMea)
-      annotation (Line(points={{-98,-90},{-92,-90},{-92,-40},{-136,-40},{-136,-41},{-141,-41}},
+      annotation (Line(points={{-72,-10},{-74,-10},{-74,-38},{-136,-38},{-136,-41},
+            {-141,-41}},
         color={0,0,127}));
   end if;
   connect(conHea.y, sigBus.hea)
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-140,-40},{-140,-41},{-141,-41}},
       color={255,0,255}));
   connect(hea, sigBus.hea)
-    annotation (Line(points={{-160,-70},{-132,-70},{-132,-40},{-134,-40},{-134,
-          -41},{-141,-41}},
+    annotation (Line(points={{-160,-80},{-130,-80},{-130,-40},{-134,-40},{-134,-41},
+          {-141,-41}},
       color={255,0,255}));
   connect(eff.QUse_flow, refCycIneCon.y)
     annotation (Line(points={{98,37},{48,37},{48,66},{8.88178e-16,66},{8.88178e-16,61}},
@@ -168,26 +166,27 @@ equation
       color={255,0,255}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(sigBus.PLRHea, calYSet.PLRHea)
-    annotation (Line(points={{-141,-41},{-141,-42},{-130,-42},{-130,-84},{-122,
-          -84}},                                               color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-141,-41},{-141,-42},{-46,-42},{-46,-4},{-48,-4}},
+                                                               color={255,204,51},thickness=0.5));
   connect(calYSet.ySet, sigBus.ySet)
-    annotation (Line(points={{-98,-90},{-92,-90},{-92,-44},{-138,-44},{-138,-41},{-141,-41}},
+    annotation (Line(points={{-72,-10},{-74,-10},{-74,-38},{-138,-38},{-138,-41},
+          {-141,-41}},
       color={0,0,127}));
   connect(calYSet.ySet, safCtr.ySet)
-    annotation (Line(points={{-98,-90},{-92,-90},{-92,-28},{-120,-28},{-120,-10},
+    annotation (Line(points={{-72,-10},{-74,-10},{-74,-28},{-118,-28},{-118,-10},
           {-113.333,-10}},
       color={0,0,127}));
   connect(sigBus.PLRCoo, calYSet.PLRCoo)
-    annotation (Line(points={{-141,-41},{-141,-42},{-130,-42},{-130,-96},{-122,
-          -96}},                                               color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-141,-41},{-141,-42},{-46,-42},{-46,-16},{-48,-16}},
+                                                               color={255,204,51},thickness=0.5));
   connect(on, sigBus.onOffMea)
     annotation (Line(points={{-160,-20},{-130,-20},{-130,-38},{-142,-38},{-142,
           -41},{-141,-41}},                                    color={255,0,255}));
   connect(TSet, sigBus.TSet)
-    annotation (Line(points={{-160,20},{-120,20},{-120,-38},{-141,-38},{-141,
-          -41}},                                             color={0,0,127}));
-  connect(conHea1.y, sigBus.hea)
-    annotation (Line(points={{-99,-126},{-76,-126},{-76,-41},{-141,-41}},color={255,0,255}));
+    annotation (Line(points={{-160,40},{-120,40},{-120,-38},{-141,-38},{-141,-41}},
+                                                             color={0,0,127}));
+  connect(conHeaBus.y, sigBus.hea) annotation (Line(points={{-99,-90},{-76,-90},
+          {-76,-41},{-141,-41}}, color={255,0,255}));
   connect(PLR, sigBus.yMea) annotation (Line(points={{150,-60},{130,-60},{130,
           -36},{-138,-36},{-138,-40},{-140,-40},{-140,-41},{-141,-41}}, color={
           0,0,127}));
@@ -222,7 +221,7 @@ data along three variables.
 <ul>
 <li>Condenser entering or leaving temperature: the choice
 between the entering or leaving temperature depends on the
-value of the parameter <code>use_TCondOutForTab</code>
+value of the parameter <code>use_TConOutForTab</code>
 specified in the parameter record
 (<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump\">
 Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump</a>
@@ -268,7 +267,7 @@ Heat pump on/off command signal: <code>on</code>
 (Boolean, scalar)
 </li>
 <li>For reversible heat pumps only (<code>use_rev=true</code>),
-heat pump operating mode command signal: <code>hea</code>
+heat pump switchover signal: <code>hea</code>
 (Boolean, scalar)<br/>
 Set <code>hea=true</code> for heating mode, <code>hea=false</code> for cooling mode.
 </li>
