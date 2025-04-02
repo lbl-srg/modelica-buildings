@@ -1,0 +1,8 @@
+﻿simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Examples.Modular4PipeExample", stopTime=5400, tolerance=1e-06, resultFile="Modular4PipeExample");
+createPlot(id=1, position={15, 15, 590, 364}, y=fill("", 0), range={0.0, 1.0, 0.0, 1.0}, grid=true);
+createPlot(id=2, position={0, 0, 1619, 691}, y={"hpMod.y"}, range={0.0, 5400.0, 0.0, 4.0}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1619, 691}, y={"ySet.y"}, range={0.0, 5400.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1619, 691}, y={"souEva.T_in", "souCon.T_in", "souAir.T_in", "hp.eva.T", "hp.con1.T", 
+"hp.con.T"}, range={0.0, 5400.0, 0.0, 60.0}, grid=true, subPlot=103, colors={{0,140,72}, {28,108,200}, {238,46,47}, {217,67,180}, {0,0,0}, {162,29,33}}, displayUnits={"degC", "degC", "degC", "degC", "degC", "degC"});
+createPlot(id=2, position={0, 0, 1619, 691}, y={"hp.eva.Q_flow", "hp.con.Q_flow", "hp.con1.Q_flow"}, range={0.0, 5400.0, -50000.0, 50000.0}, grid=true, subPlot=104, colors={{28,108,200}, {0,140,72}, {238,46,47}});
+

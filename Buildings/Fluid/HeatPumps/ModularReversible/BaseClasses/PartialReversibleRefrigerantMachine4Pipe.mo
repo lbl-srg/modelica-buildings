@@ -302,7 +302,7 @@ partial model PartialReversibleRefrigerantMachine4Pipe
     final show_T=show_T,
     final deltaM=deltaMCon,
     final tau=tauCon,
-    final T_start=TCon_start,
+    T_start=TCon_start,
     final p_start=pCon_start,
     final use_cap=use_conCap,
     final X_start=XCon_start,
@@ -324,7 +324,7 @@ partial model PartialReversibleRefrigerantMachine4Pipe
     final allowFlowReversal=allowFlowReversalEva,
     final m_flow_small=1E-4*abs(mEva_flow_nominal),
     final show_T=show_T,
-    final T_start=TEva_start,
+    T_start=TEva_start,
     final p_start=pEva_start,
     final X_start=XEva_start,
     final from_dp=from_dp,
@@ -345,7 +345,7 @@ partial model PartialReversibleRefrigerantMachine4Pipe
     final show_T=show_T,
     final deltaM=deltaMCon1,
     final tau=tauCon1,
-    final T_start=TCon1_start,
+    T_start=TCon1_start,
     final p_start=pCon1_start,
     final use_cap=use_con1Cap,
     final X_start=XCon1_start,
@@ -357,7 +357,7 @@ partial model PartialReversibleRefrigerantMachine4Pipe
     final GOut=GCon1Out,
     final m_flow_nominal=mCon1_flow_nominal,
     final dp_nominal=dpCon1_nominal,
-    final GInn=GCon1Ins) "Heat exchanger model for the condenser1"
+    final GInn=GCon1Ins) "Heat exchanger model for the condenser1(air coil)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={106,-40})));

@@ -3,17 +3,20 @@ model Modular4Pipe
   "Grey-box model for reversible and non-reversible heat pumps"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine4Pipe(
+    airCoi(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
     final use_COP=false,
     final use_EER=false,
     con(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
-    con1(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
     eva(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
     final PEle_nominal=refCyc.refCycHeaPumAmbHea.PEle_nominal,
     mCon_flow_nominal=QHea_flow_nominal/(dTCon_nominal*cpCon),
-    mCon1_flow_nominal=QHea_flow_nominal/(dTCon1_nominal*cpCon1),
+    mCon1_flow_nominal=QHeaCoo_flow_nominal/(dTCon1_nominal*cpCon1),
     mEva_flow_nominal=(QHea_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
+
     use_rev=false,
-    redeclare final Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle4Pipe refCyc(
+    redeclare final
+      Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle4Pipe
+      refCyc(
       redeclare model RefrigerantCycleHeatPumpHeating =
           RefrigerantCycleHeatPumpHeating,
       redeclare model RefrigerantCycleHeatPumpCooling =
@@ -24,10 +27,13 @@ model Modular4Pipe
 
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
     "Nominal heating capacity"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Ambient Heating"));
+  parameter Modelica.Units.SI.HeatFlowRate QHeaCoo_flow_nominal(min=Modelica.Constants.eps)
+    "Nominal heating capacity"
+    annotation (Dialog(group="Nominal condition - Heating Cooling"));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0)=0
     "Nominal cooling capacity"
-      annotation(Dialog(group="Nominal condition - Cooling", enable=use_rev));
+      annotation(Dialog(group="Nominal condition - Ambient Cooling", enable=use_rev));
 
   replaceable model RefrigerantCycleHeatPumpHeating =
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
@@ -38,7 +44,7 @@ model Modular4Pipe
        final QHea_flow_nominal=QHea_flow_nominal,
        final TCon_nominal=TConHea_nominal,
        final TEva_nominal=TEvaHea_nominal,
-       final cpCon=cpCon,
+       final cpCon=cpCon1,
        final cpEva=cpEva)
   "Refrigerant cycle module for the heating mode"
     annotation (choicesAllMatching=true);
@@ -49,9 +55,9 @@ model Modular4Pipe
        constrainedby
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final useInHeaPum=true,
-       final QHea_flow_nominal=QHea_flow_nominal,
-       final TCon_nominal=TConHea_nominal,
-       final TEva_nominal=TEvaHea_nominal,
+       final QHea_flow_nominal=QHeaCoo_flow_nominal,
+       final TCon_nominal=TConHeaCoo_nominal,
+       final TEva_nominal=TEvaHeaCoo_nominal,
        final cpCon=cpCon,
        final cpEva=cpEva)
   "Refrigerant cycle module for the heating cooling mode"
@@ -71,16 +77,23 @@ model Modular4Pipe
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   parameter Modelica.Units.SI.Temperature TConHea_nominal
     "Nominal temperature of the heated fluid"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Ambient Heating"));
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
     "Nominal temperature of the cooled fluid"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Ambient Heating"));
   parameter Modelica.Units.SI.Temperature TConCoo_nominal
     "Nominal temperature of the cooled fluid"
-    annotation(Dialog(enable=use_rev, group="Nominal condition - Cooling"));
+    annotation(Dialog(enable=use_rev, group="Nominal condition - Ambient Cooling"));
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
     "Nominal temperature of the heated fluid"
-    annotation(Dialog(enable=use_rev, group="Nominal condition - Cooling"));
+    annotation(Dialog(enable=use_rev, group="Nominal condition - Ambient Cooling"));
+  parameter Modelica.Units.SI.Temperature TConHeaCoo_nominal
+    "Nominal temperature of the cooled fluid"
+    annotation(Dialog(enable=use_rev, group="Nominal condition - Heating Cooling"));
+  parameter Modelica.Units.SI.Temperature TEvaHeaCoo_nominal
+    "Nominal temperature of the heated fluid"
+    annotation(Dialog(enable=use_rev, group="Nominal condition - Heating Cooling"));
+
 
   Modelica.Blocks.Interfaces.IntegerInput mod if not use_busConOnl and use_rev
     annotation (Placement(transformation(extent={{-164,-82},{-140,-58}}),
