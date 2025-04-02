@@ -53,54 +53,45 @@ model TableData2DLoadDep
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0, start=0)
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(final max=0, start=0)
     "Nominal cooling capacity"
-    annotation (Dialog(group="Nominal condition - Cooling"));
+    annotation (Dialog(group="Nominal condition"));
   final parameter Real scaFacCoo=refCyc.refCycChiCoo.scaFac
     "Scaling factor of power and heat flow rate";
   replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic datCoo
     constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic
     "Cooling performance data"
     annotation (choicesAllMatching=true,
-    Dialog(enable=use_rev),
-  Placement(transformation(extent={{114,-18},{130,-2}})));
+      Placement(transformation(extent={{114,-18},{130,-2}})));
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
-    "Nominal temperature of the cooled fluid"
+    "CHW temperature: leaving if datCoo.use_TEvaOutForTab=true, entering otherwise"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TConCoo_nominal
-    "Nominal temperature of the heated fluid"
+    "Condenser cooling fluid temperature: leaving if datCoo.use_TConOutForTab=true, entering otherwise"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
-    "Enable command"
+    "On/off command: true to enable chiller, false to disable chiller"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-142,-20},{-102,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
     "Temperature setpoint"
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
       iconTransformation(extent={{-142,0},{-102,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo
-    if have_switchover
-    "Heating mode enable command"
-    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
+    if have_switchover "Switchover signal: true for cooling, false for heating"
+    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-142,-40},{-102,0}})));
-  Modelica.Blocks.Sources.BooleanConstant conHea1(
-    final k=true)
-    if not use_rev
-    "Locks the device in heating mode if designated to be not reversible"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-110,-126})));
   Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.CalculateCommandSignal calYSet(
     final use_rev=false,
     final useInHeaPum=false)
     "Calculate command signal from required PLR"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(
-    k=true)
+    annotation (Placement(transformation(extent={{-50,-20},{-70,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conCoo(k=true)
     if not have_switchover
-    "Placeholder signal to force cooling mode"
-    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
+    "Locks the device in cooling mode if have_switchover=false"
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Modelica.Blocks.Logical.Not notCoo
     "Not cooling is heat recovery"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
@@ -117,34 +108,29 @@ model TableData2DLoadDep
 equation
   if not use_intSafCtr then
     connect(calYSet.ySet, sigBus.yMea)
-      annotation (Line(points={{-98,-90},{-92,-90},{-92,-40},{-136,-40},{-136,-41},{-141,-41}},
-        color={0,0,127}));
+      annotation (Line(points={{-72,-10},{-74,-10},{-74,-34},{-136,-34},{-136,-41},
+            {-141,-41}}, color={0,0,127}));
   end if;
   connect(on, sigBus.onOffMea)
     annotation (Line(points={{-160,-20},{-132,-20},{-132,-38},{-141,-38},{-141,
           -41}},                                               color={255,0,255}));
   connect(TSet, sigBus.TSet)
-    annotation (Line(points={{-160,20},{-120,20},{-120,-38},{-141,-38},{-141,
-          -41}},                                             color={0,0,127}));
-  connect(conHea1.y, sigBus.hea)
-    annotation (Line(points={{-99,-126},{-76,-126},{-76,-41},{-141,-41}},color={255,0,255}));
+    annotation (Line(points={{-160,40},{-120,40},{-120,-38},{-141,-38},{-141,-41}},
+                                                             color={0,0,127}));
   connect(coo, sigBus.coo)
-    annotation (Line(points={{-160,-60},{-130,-60},{-130,-42},{-142,-42},{-142,
-          -41},{-141,-41}},                                    color={255,0,255}),
+    annotation (Line(points={{-160,-80},{-132,-80},{-132,-42},{-142,-42},{-142,-41},
+          {-141,-41}},                                         color={255,0,255}),
       Text(string="%second",index=1,extent={{6,3},{6,3}},horizontalAlignment=TextAlignment.Left));
   connect(calYSet.ySet, sigBus.ySet)
-    annotation (Line(points={{-98,-90},{-92,-90},{-92,-44},{-138,-44},{-138,-41},{-141,-41}},
+    annotation (Line(points={{-72,-10},{-74,-10},{-74,-34},{-138,-34},{-138,-41},
+          {-141,-41}},
       color={0,0,127}));
   connect(calYSet.ySet, safCtr.ySet)
-    annotation (Line(points={{-98,-90},{-92,-90},{-92,-28},{-120,-28},{-120,-10},
+    annotation (Line(points={{-72,-10},{-74,-10},{-74,-28},{-118,-28},{-118,-10},
           {-113.333,-10}},
       color={0,0,127}));
-  connect(sigBus.PLRCoo, calYSet.PLRCoo)
-    annotation (Line(points={{-141,-41},{-141,-42},{-130,-42},{-130,-96},{-122,
-          -96}},                                               color={255,204,51},thickness=0.5));
-  connect(tru.y, sigBus.coo)
-    annotation (Line(points={{-62,-70},{-130,-70},{-130,-42},{-141,-42},{-141,
-          -41}},                                              color={255,0,255}));
+  connect(conCoo.y, sigBus.coo) annotation (Line(points={{-98,-90},{-84,-90},{-84,
+          -42},{-141,-42},{-141,-41}}, color={255,0,255}));
   connect(eff.hea, notCoo.y)
     annotation (Line(points={{98,30},{90,30},{90,50},{81,50}},color={255,0,255}));
   connect(notCoo.u, sigBus.coo)
@@ -164,6 +150,10 @@ equation
   connect(PLR, sigBus.yMea) annotation (Line(points={{150,-60},{130,-60},{130,
           -36},{-138,-36},{-138,-40},{-140,-40},{-140,-41},{-141,-41}}, color={
           0,0,127}));
+  connect(sigBus.PLRCoo, calYSet.PLRCoo) annotation (Line(
+      points={{-141,-41},{-44,-41},{-44,-16},{-48,-16}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     Icon(
       coordinateSystem(
@@ -238,7 +228,7 @@ Chiller on/off command signal: <code>on</code>
 (Boolean, scalar)
 </li>
 <li>For heat recovery chillers only (<code>have_switchover=true</code>),
-chiller operating mode command signal: <code>coo</code>
+chiller switchover signal: <code>coo</code>
 (Boolean, scalar)<br/>
 Set <code>coo=true</code> for cooling mode,
 <code>coo=false</code> for heating mode.
