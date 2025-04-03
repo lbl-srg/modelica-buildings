@@ -83,10 +83,9 @@ block TableData2DLoadDep
     "Entering fluid temperature on load side"
     annotation (Placement(transformation(extent={{-140,-48},{-100,-8}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmbEnt(
     final unit="K",
-    displayUnit="degC")
-    "Entering fluid temperature on source side"
+    displayUnit="degC") "Entering fluid temperature on ambient side"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
@@ -121,15 +120,14 @@ block TableData2DLoadDep
     "Heat flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouLvg(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmbLvg(
     final unit="K",
-    displayUnit="degC")
-    "Leaving fluid temperature on source side"
+    displayUnit="degC") "Leaving fluid temperature on ambient side"
     annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yMea(
     final unit="1")
-    "Compressor part load ratio resulting from equipment internal safeties"
+    "Part load ratio resulting from equipment internal safeties"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cpLoa(
@@ -183,15 +181,15 @@ protected
   // which is either TLoa(Ent|Lvg) or TSou(Ent|Lvg) depending on the operating mode.
   Modelica.Units.SI.Temperature TLoaTab=if typ==2 then (if coo_internal then
     (if use_TEvaOutForTab then TLoaLvg else TLoaEnt)
-    else (if use_TEvaOutForTab then TSouLvg else TSouEnt))
+    else (if use_TEvaOutForTab then TAmbLvg else TAmbEnt))
     elseif typ==1 then (if use_TEvaOutForTab then TLoaLvg else TLoaEnt)
     else (if use_TConOutForTab then TLoaLvg else TLoaEnt)
     "Fluid temperature on load side used for table data interpolation";
   Modelica.Units.SI.Temperature TSouTab=if typ==2 then (if coo_internal then
-    (if use_TConOutForTab then TSouLvg else TSouEnt)
+    (if use_TConOutForTab then TAmbLvg else TAmbEnt)
     else (if use_TConOutForTab then TLoaLvg else TLoaEnt))
-    elseif typ==1 then (if use_TConOutForTab then TSouLvg else TSouEnt)
-    else (if use_TEvaOutForTab then TSouLvg else TSouEnt)
+    elseif typ==1 then (if use_TConOutForTab then TAmbLvg else TAmbEnt)
+    else (if use_TEvaOutForTab then TAmbLvg else TAmbEnt)
     "Fluid temperature on load side used for table data interpolation";
   Modelica.Units.SI.Temperature TLoaCtl=if use_TLoaLvgForCtl then TLoaEnt else TLoaLvg
     "Fluid temperature used for load calculation (Delta-T with setpoint)";
@@ -268,19 +266,19 @@ Buildings.Fluid.Chillers.ModularReversible</a>.
 <li>
 <b>Ideal controls</b>: The heating or cooling load is calculated based on the block
 inputs. The block returns the required part load ratio <code>PLR</code>
-to meet the load – within system capacity.<sup>1</sup>
+to meet the load, within system capacity.<sup>1</sup>
 </li>
 <li>
 <b>Capacity and power calculation</b>: The capacity and power are interpolated
 from user-provided data along the load side fluid temperature,
-the source side fluid temperature
+the ambient side fluid temperature
 and the part load ratio <code>yMea</code> provided as input.<sup>2</sup>
 </li>
 </ul>
 <p>
-<sup>1</sup> At given load and source temperatures,
-the part load ratio is defined as the ratio of the heating (resp. cooling)
-heat flow rate to the heat pump (resp. chiller) capacity.
+<sup>1</sup> The part load ratio is defined as the ratio of the actual heating 
+(or cooling) heat flow rate to the maximum capacity of the heat pump (or chiller) 
+at the given load-side and ambient-side fluid temperatures.
 It is dimensionless and bounded by <code>0</code> and <code>max(PLRSup)</code>, where
 the upper bound is typically equal to <code>1</code> (unless there are some
 capacity margins at design conditions that need to be accounted for).
@@ -317,15 +315,15 @@ into three domains, as illustrated in Figure&nbsp;1.
 This domain corresponds to the capacity range where the machine adapts to the
 load without false loading or cycling on and off the last operating compressor.
 Depending on the technology, this is achieved for example by modulating
-the compressor speed, throttling the inlet guide vane
+the compressor speed, throttling the inlet guide vanes
 or staging a varying number of compressors.
 In this domain, both the machine PLR and the compressor PLR vary.
 The capacity and power are linearly interpolated
 based on the performance data provided in an external file, which
 syntax is specified in the following section.
 The interpolation is carried out along three variables: the
-load side fluid temperature, the source side fluid temperature
-and the compressor part load ratio.
+load-side fluid temperature, the ambient-side fluid temperature
+and the part load ratio.
 Note that no extrapolation is performed.
 The capacity and power are limited by the minimum or maximum values
 provided in the performance data file.
@@ -369,13 +367,13 @@ In addition, this file must contain at least two 2D-tables that provide the maxi
 heating (resp. minimum cooling) heat flow rate and the input power
 of the heat pump (resp. chiller) at <i>100&nbsp;&percnt;</i>
 PLR.
-Each row of these tables corresponds to a value of the load side
+Each row of these tables corresponds to a value of the load-side
 fluid temperature, each column corresponds to a value of the
-source side fluid temperature.
+ambient-side fluid temperature.
 This could be either the leaving temperature if <code>use_T*OutForTab</code>
 is true, or the entering temperature if <code>use_T*OutForTab</code>
 is false.
-The load and source temperatures must cover the whole operating domain,
+The load and ambient temperatures must cover the whole operating domain,
 knowing that the model only performs interpolation and no extrapolation
 of the capacity and power along these variables.
 </p>
@@ -475,7 +473,7 @@ externally as <code>P-Q_flow</code>.
 <p>
 The block implements ideal controls by solving for the part load ratio
 required to meet the load (more precisely the minimum between the load
-and the actual capacity for the current load and source temperatures).
+and the actual capacity for the current load and ambient temperatures).
 This is done by interpolating the PLR values along the heat flow rate values
 for a given load.
 </p>

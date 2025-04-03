@@ -100,10 +100,10 @@ equation
   connect(cp[2].y, extBusSig[6].u[2])
     annotation (Line(points={{72,100},{100.5,100},{100.5,92}},
                                                             color={0,0,127}));
-  connect(extBusSig[1].y, calQUseP.TSouEnt)
+  connect(extBusSig[1].y,calQUseP.TAmbEnt)
     annotation (Line(points={{100,68},{100,60},{121,60},{121,12}},
                                                               color={0,0,127}));
-  connect(extBusSig[2].y, calQUseP.TSouLvg)
+  connect(extBusSig[2].y,calQUseP.TAmbLvg)
     annotation (Line(points={{100,68},{100,60},{119,60},{119,12}},
                                                               color={0,0,127}));
   connect(extBusSig[3].y, calQUseP.TLoaEnt)
