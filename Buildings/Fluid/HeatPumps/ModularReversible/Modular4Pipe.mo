@@ -3,7 +3,7 @@ model Modular4Pipe
   "Grey-box model for reversible and non-reversible heat pumps"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine4Pipe(
-    airCoi(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
+    con1(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
     final use_COP=false,
     final use_EER=false,
     con(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
@@ -12,7 +12,6 @@ model Modular4Pipe
     mCon_flow_nominal=QHea_flow_nominal/(dTCon_nominal*cpCon),
     mCon1_flow_nominal=QHeaCoo_flow_nominal/(dTCon1_nominal*cpCon1),
     mEva_flow_nominal=(QHea_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
-
     use_rev=false,
     redeclare final
       Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle4Pipe
