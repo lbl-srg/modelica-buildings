@@ -70,7 +70,7 @@ model TableData2DLoadDep
     "Active return temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch pInl_rel
-    "Active inlet gaupe pressure"
+    "Active inlet gauge pressure"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pHeaWatInl(
     k=sup.p + hp.dpCon_nominal)
@@ -91,51 +91,45 @@ model TableData2DLoadDep
     final m_flow_nominal=hp.mCon_flow_nominal)
     "Supply temperature"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSouHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TAmbHea(
     y(final unit="K",
       displayUnit="degC"),
     height=4,
     duration=500,
     offset=hp.TEvaHea_nominal,
-    startTime=2400)
-    "Source fluid supply temperature value"
+    startTime=2400) "Ambient fluid supply temperature value"
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSouCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TAmbCoo(
     y(final unit="K",
       displayUnit="degC"),
     height=- 4,
     duration=500,
     offset=hp.TEvaCoo_nominal,
-    startTime=1400)
-    "Source fluid supply temperature value"
+    startTime=1400) "Ambient-side fluid supply temperature value"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch TSouAct
-    "Active source fluid supply temperature"
+  Buildings.Controls.OBC.CDL.Reals.Switch TAmbAct
+    "Active ambient-side fluid supply temperature"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch pInl_rel1
-    "Active inlet gaupe pressure"
+    "Active inlet gauge pressure"
     annotation (Placement(transformation(extent={{-40,-170},{-20,-150}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pSouInlHea(
-    k=retSou.p + hp.dpEva_nominal)
-    "Source fluid inlet pressure"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pAmbInlHea(
+    k=retAmb.p + hp.dpEva_nominal) "Ambient fluid inlet pressure"
     annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pSouInlCoo(
-    k=retSou.p + hp.dpCon_nominal)
-    "Source fluid inlet pressure"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pAmbInlCoo(
+    k=retAmb.p + hp.dpCon_nominal) "Ambient-side fluid inlet pressure"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-120,-160})));
-  Fluid.Sources.Boundary_pT inlHpSou(
+  Fluid.Sources.Boundary_pT inlHpAmb(
     redeclare final package Medium=Medium,
     use_p_in=true,
     use_T_in=true,
-    nPorts=1)
-    "Boundary conditions or source side fluid at HP inlet"
+    nPorts=1) "Boundary conditions of ambient-side fluid at HP inlet"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
-  Fluid.Sources.Boundary_pT retSou(
+  Fluid.Sources.Boundary_pT retAmb(
     redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
-    nPorts=2)
-    "Boundary condition at source system return"
+    nPorts=2) "Boundary conditions of ambient-side fluid at HP outlet"
     annotation (Placement(transformation(extent={{190,-70},{170,-50}})));
   Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep hp(
     show_T=true,
@@ -254,12 +248,11 @@ model TableData2DLoadDep
     "Non reversible heat pump"
     annotation (Placement(transformation(extent={{-10.5,-10.5},{10.5,10.5}},
       rotation=0,origin={110.5,-106.5})));
-  Sources.Boundary_pT inlHpSou1(
+  Sources.Boundary_pT inlHpAmb1(
     redeclare final package Medium=Medium,
-    p=pSouInlHea.k,
+    p=pAmbInlHea.k,
     use_T_in=true,
-    nPorts=1)
-    "Boundary conditions or source side fluid at HP inlet"
+    nPorts=1) "Boundary conditions of ambient-side fluid at HP inlet"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
 equation
   connect(TChiWatSupSet.y, TSetAct.u3)
@@ -278,17 +271,17 @@ equation
     annotation (Line(points={{-68,0},{-60,0},{-60,-12},{-42,-12}},color={0,0,127}));
   connect(pChiWatInl.y, pInl_rel.u3)
     annotation (Line(points={{-68,-40},{-46,-40},{-46,-28},{-42,-28}},color={0,0,127}));
-  connect(TSouHea.y, TSouAct.u1)
+  connect(TAmbHea.y,TAmbAct. u1)
     annotation (Line(points={{-108,-80},{-60,-80},{-60,-72},{-42,-72}},color={0,0,127}));
-  connect(TSouCoo.y, TSouAct.u3)
+  connect(TAmbCoo.y,TAmbAct. u3)
     annotation (Line(points={{-68,-100},{-46,-100},{-46,-88},{-42,-88}},color={0,0,127}));
-  connect(pSouInlHea.y, pInl_rel1.u1)
+  connect(pAmbInlHea.y, pInl_rel1.u1)
     annotation (Line(points={{-108,-120},{-64,-120},{-64,-152},{-42,-152}},color={0,0,127}));
-  connect(pSouInlCoo.y, pInl_rel1.u3)
+  connect(pAmbInlCoo.y, pInl_rel1.u3)
     annotation (Line(points={{-108,-160},{-60,-160},{-60,-168},{-42,-168}},color={0,0,127}));
-  connect(TSouAct.y, inlHpSou.T_in)
+  connect(TAmbAct.y,inlHpAmb. T_in)
     annotation (Line(points={{-18,-80},{0,-80},{0,-36},{8,-36}},color={0,0,127}));
-  connect(pInl_rel1.y, inlHpSou.p_in)
+  connect(pInl_rel1.y,inlHpAmb. p_in)
     annotation (Line(points={{-18,-160},{-10,-160},{-10,-32},{8,-32}},color={0,0,127}));
   connect(TSetAct.y, hp.TSet)
     annotation (Line(points={{-18,120},{80,120},{80,-4.4},{97.69,-4.4}},color={0,0,127}));
@@ -298,9 +291,9 @@ equation
     annotation (Line(points={{130,0},{126,0},{126,-0.2},{121,-0.2}},color={0,127,255}));
   connect(TSup.port_b, sup.ports[1])
     annotation (Line(points={{150,0},{160,0},{160,-1},{170,-1}},color={0,127,255}));
-  connect(inlHpSou.ports[1], hp.port_a2)
+  connect(inlHpAmb.ports[1], hp.port_a2)
     annotation (Line(points={{30,-40},{140,-40},{140,-12.8},{121,-12.8}},color={0,127,255}));
-  connect(retSou.ports[1], hp.port_b2)
+  connect(retAmb.ports[1], hp.port_b2)
     annotation (Line(points={{170,-61},{90,-61},{90,-12.8},{100,-12.8}},color={0,127,255}));
   connect(y1.y[1], hp.on)
     annotation (Line(points={{-158,140},{82,140},{82,-6.5},{97.69,-6.5}},color={255,0,255}));
@@ -318,12 +311,12 @@ equation
     annotation (Line(points={{30,-100},{50,-100}},color={0,127,255}));
   connect(TSup1.port_b, sup.ports[2])
     annotation (Line(points={{150,-100},{160,-100},{160,1},{170,1}},color={0,127,255}));
-  connect(inlHpSou1.ports[1], hpNrv.port_a2)
+  connect(inlHpAmb1.ports[1], hpNrv.port_a2)
     annotation (Line(points={{30,-140},{160,-140},{160,-112.8},{121,-112.8}},
       color={0,127,255}));
-  connect(hpNrv.port_b2, retSou.ports[2])
+  connect(hpNrv.port_b2,retAmb. ports[2])
     annotation (Line(points={{100,-112.8},{90,-112.8},{90,-59},{170,-59}},color={0,127,255}));
-  connect(TSouHea.y, inlHpSou1.T_in)
+  connect(TAmbHea.y,inlHpAmb1. T_in)
     annotation (Line(points={{-108,-80},{-60,-80},{-60,-136},{8,-136}},color={0,0,127}));
   connect(THeaWatRet.y, inlHp1.T_in)
     annotation (Line(points={{-68,80},{-4,80},{-4,-96},{8,-96}},color={0,0,127}));
@@ -340,7 +333,7 @@ equation
     annotation (Line(points={{-158,140},{-50,140},{-50,-160},{-42,-160}},color={255,0,255}));
   connect(y1.y[2], hp.hea)
     annotation (Line(points={{-158,140},{82,140},{82,-8.6},{97.69,-8.6}},color={255,0,255}));
-  connect(y1.y[2], TSouAct.u2)
+  connect(y1.y[2],TAmbAct. u2)
     annotation (Line(points={{-158,140},{-86,140},{-86,146},{-50,146},{-50,-80},{-42,-80}},
       color={255,0,255}));
   annotation (

@@ -135,7 +135,7 @@ input power increases according to the polynomial <code>EIRFunPLR</code>,
 but the heat flow rate only varies due to the effect of the increasing 
 leaving temperature as the setpoint is no longer met.
 This appears as a deficiency in the polynomial model that is resolved
-in the data table. 
+in the data table model. 
 </p>
 </html>",
       revisions="<html>

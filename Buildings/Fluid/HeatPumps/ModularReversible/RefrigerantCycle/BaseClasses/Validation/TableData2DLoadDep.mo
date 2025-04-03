@@ -152,10 +152,10 @@ equation
   connect(TChiWatSet.y, chiSupLvg.TSet) annotation (Line(points={{-98,80},{-30,80},
           {-30,105},{-2,105}},
                             color={0,0,127}));
-  connect(TConEnt.y, chiSupLvg.TSouEnt)
+  connect(TConEnt.y,chiSupLvg.TAmbEnt)
     annotation (Line(points={{-98,0},{-16,0},{-16,101},{-2,101}},
                                                              color={0,0,127}));
-  connect(TConLvg.y, chiSupLvg.TSouLvg) annotation (Line(points={{-58,-20},{-14,
+  connect(TConLvg.y,chiSupLvg.TAmbLvg)  annotation (Line(points={{-58,-20},{-14,
           -20},{-14,99},{-2,99}}, color={0,0,127}));
   connect(mEva_flow.y, chiSupLvg.mLoa_flow) annotation (Line(points={{-98,-80},{
           -8,-80},{-8,93},{-2,93}},
@@ -167,10 +167,10 @@ equation
           {-2,49}},color={255,0,255}));
   connect(TChiWatSet.y, chiRetEnt.TSet) annotation (Line(points={{-98,80},{-30,80},
           {-30,45},{-2,45}},color={0,0,127}));
-  connect(TConEnt.y, chiRetEnt.TSouEnt)
+  connect(TConEnt.y,chiRetEnt.TAmbEnt)
     annotation (Line(points={{-98,0},{-14,0},{-14,41},{-2,41}},
                                                              color={0,0,127}));
-  connect(TConLvg.y, chiRetEnt.TSouLvg) annotation (Line(points={{-58,-20},{-14,
+  connect(TConLvg.y,chiRetEnt.TAmbLvg)  annotation (Line(points={{-58,-20},{-14,
           -20},{-14,40},{-2,40},{-2,39}},
                                   color={0,0,127}));
   connect(TEvaLvg.y, chiRetEnt.TLoaLvg) annotation (Line(points={{-58,-60},{-10,
@@ -214,9 +214,9 @@ equation
           0,127}));
   connect(on.y, hpSupLvg.on) annotation (Line(points={{-58,60},{-20,60},{-20,-71},
           {-2,-71}},       color={255,0,255}));
-  connect(TEvaEnt.y, hpSupLvg.TSouEnt) annotation (Line(points={{-98,-40},{-12,-40},
+  connect(TEvaEnt.y,hpSupLvg.TAmbEnt)  annotation (Line(points={{-98,-40},{-12,-40},
           {-12,-79},{-2,-79}},       color={0,0,127}));
-  connect(TEvaLvg.y, hpSupLvg.TSouLvg) annotation (Line(points={{-58,-60},{-10,-60},
+  connect(TEvaLvg.y,hpSupLvg.TAmbLvg)  annotation (Line(points={{-58,-60},{-10,-60},
           {-10,-81},{-2,-81}},         color={0,0,127}));
   connect(TConEnt.y, hpSupLvg.TLoaEnt) annotation (Line(points={{-98,0},{-16,0},
           {-16,-83},{-2,-83}},    color={0,0,127}));
@@ -228,9 +228,9 @@ equation
           -6,-100},{-6,-87},{-2,-87}},       color={0,0,127}));
   connect(cp.y, hpSupLvg.cpLoa) annotation (Line(points={{-38,100},{-4,100},{-4,
           -89},{-2,-89}},                   color={0,0,127}));
-  connect(TEvaLvg.y, chiHeaSupLvg.TSouLvg) annotation (Line(points={{-58,-60},{-8,
+  connect(TEvaLvg.y,chiHeaSupLvg.TAmbLvg)  annotation (Line(points={{-58,-60},{-8,
           -60},{-8,-4},{-6,-4},{-6,-21},{-2,-21}},         color={0,0,127}));
-  connect(TEvaEnt.y, chiHeaSupLvg.TSouEnt) annotation (Line(points={{-98,-40},{-12,
+  connect(TEvaEnt.y,chiHeaSupLvg.TAmbEnt)  annotation (Line(points={{-98,-40},{-12,
           -40},{-12,-19},{-2,-19}},       color={0,0,127}));
   connect(TConEnt.y, chiHeaSupLvg.TLoaEnt) annotation (Line(points={{-98,0},{-16,
           0},{-16,-23},{-2,-23}},      color={0,0,127}));

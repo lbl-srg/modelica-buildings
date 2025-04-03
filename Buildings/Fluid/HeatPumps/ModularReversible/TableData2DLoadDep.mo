@@ -234,7 +234,7 @@ between the entering or leaving temperature depends on the
 value of the parameter <code>use_TEvaOutForTab</code>
 specified in the parameter record.
 </li>
-<li>Compressor part load ratio (PLR): the part load ratio is used as
+<li>Part load ratio (PLR): the part load ratio is used as
 a proxy variable for the actual capacity modulation observable.
 A discrete observable such as the number of operating compressors
 for systems with multiple on/off compressors is converted into
