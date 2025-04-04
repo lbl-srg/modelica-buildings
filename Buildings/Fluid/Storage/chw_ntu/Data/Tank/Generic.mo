@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice_ntu.Data.Tank;
+within Buildings.Fluid.Storage.chw_ntu.Data.Tank;
 record Generic
   extends Modelica.Icons.Record;
   constant Integer nCha = 4 "Number of coefficients for charging characteristic curve";

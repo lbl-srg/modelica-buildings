@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice_ntu;
+within Buildings.Fluid.Storage.chw_ntu;
 model Tank "Ice tank with performance based on performance curves"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     final allowFlowReversal = false,
@@ -10,7 +10,7 @@ model Tank "Ice tank with performance based on performance curves"
    "Start value for state of charge"
     annotation(Dialog(tab = "Initialization"));
 
-  replaceable parameter Buildings.Fluid.Storage.Ice_ntu.Data.Tank.Generic per
+  replaceable parameter Buildings.Fluid.Storage.chw_ntu.Data.Tank.Generic per
     "Performance data" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{40,60},{60,80}}, rotation=0)));
 
