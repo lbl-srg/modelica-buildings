@@ -4,16 +4,47 @@ class Version_12_0_0 "Version 12.0.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 12.0.0 is ... xxx
+Version 12.0.0 is a major release that adds various new packages and models.
 </p>
 <p>
-The following major changes have been done compared to release 11:
+The library has been tested with
+Dymola 2025x,
+OpenModelica 1.24.0,
+OPTIMICA 1.55.11 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 11.1.0:
 </p>
 <ul>
 <li>
-The EnergyPlus coupling has been update to EnergyPlus 24.2.0.
+The EnergyPlus coupling has been update to EnergyPlus 24.2.0,
+and the implementation that uses EnergyPlus 9.6.0 has been moved to the <code>Obsolete</code> package.
+</li>
+<li>
+The package <code>Buildings.Fluid.Geothermal.ZonedBorefields</code> has been added that allows
+modeling geothermal borefields in which groups of boreholes are operated with different mass flow rates
+and inlet temperatures,
+for example to create a hot core and warm perimeter.
+</li>
+<li>
+The template models for air-source heat pump and chiller plants have been updated to allow an optional side-stream
+water-to-water heat recovery heat pump, and to allow optional buffer tanks
+on the hot or cold side. Also, its control has been updated.
+</li>
+<li>
+The control sequences in the package <code>Buildings.DHC.ETS</code> and <code>Buildings.DHC.Plants</code> have been updated
+to comply with ASHRAE Standard 231P (Control Description Language).
+</li>
+<li>
+For pumps, fans, valves and dampers, changed the model for the actuator position.
+The new implementation changes the actuator position at a constant speed defined by the rise time (fans and pumps) or
+the stroke time (valves and dampers) rather than a second order filter.
+This gives more realistic response, and also simplifies the control loop tuning.
 </li>
 </ul>
+<p>
+Also, many models have been updated to improve performance, to improve compliance with the Modelica Language Standard and to correct model errors.
+</p>
 </div>
 <!-- New libraries -->
 <p>
@@ -60,7 +91,10 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Updated the EnergyPlus coupling to use
                        EnergyPlus version 24.2.0.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.<br/>
+                       Improved the error reporting if a simulation is run from a working directory that has spaces in its name.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3993\">#3993</a>.
     </td>
     </tr>
 </table>
@@ -71,6 +105,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS<br/>
+                       Buildings.DHC.Plants
+    </td>
+    <td valign=\"top\">Improved the control sequences to comply with CDL specification.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4110\">issue 4110</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Applications</b>
     </td>
 </tr>
@@ -132,6 +176,20 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added HX primary flow sensor and moving average to break the algebraic loop
                        when using components configured in steady state.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3906\">#3906</a>.
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Supervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Reset<br/>
+                       Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield
+    </td>
+    <td valign=\"top\">Revised the ETS supervisory controller to<br/>
+                       (a) reduce back flow in the buffer tanks, and<br/>
+                       (b) support chilled water supply temperature reset.<br/>
+                       Also adjusted the base validation model to introduce more varied load transitions.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4133\">#4133</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -225,14 +283,6 @@ have been <b style=\"color:blue\">improved</b> in a
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -323,7 +373,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                       Buildings.Fluid.SolarCollectors.EN12975
 
+    </td>
+    <td valign=\"top\">Removed parameter <code>nPanelsSer</code> to avoid allowing an inconsistent
+                       declaration of the number of panel of the collector field, and of how
+                       many panels are installed in parallel and in series.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
@@ -426,6 +490,42 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.SortWithIndices
+    </td>
+    <td valign=\"top\">Moved to the <code>Obsolete</code> package.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0
+    </td>
+    <td valign=\"top\">Moved models to <code>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</code>,
+                       use instead the models in <code>Buildings.ThermalZones.EnergyPlus_24_2_0</code>.<br/>
+                       The conversion script will update existing models to use the models from
+                       <code>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</code>
+                       to ensure compatibility, because to update to EnergyPlus_24_2_0,
+                       the idf files also need to be updated.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4149\">#4149</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.Air<br/>
+                       Buildings.Obsolete.Controls.Continuous<br/>
+                       Buildings.Obsolete.Examples<br/>
+                       Buildings.Obsolete.Fluid.FixedResistances<br/>
+                       Buildings.Obsolete.Fluid.Sources
+    </td>
+    <td valign=\"top\">Removed obsolete models that were added at least two versions ago.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4149\">issue 4149</a>.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
     </td>
@@ -450,14 +550,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        The blocks should be compatible with older versions after this update, but the results
                        will differ.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4069</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
@@ -488,14 +580,6 @@ that can lead to wrong simulation results):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3952\">#3952</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
@@ -516,13 +600,5 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
 end Version_12_0_0;
