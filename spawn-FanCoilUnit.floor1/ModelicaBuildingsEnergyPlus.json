@@ -1,0 +1,43 @@
+{
+  "version": "0.2",
+  "EnergyPlus": {
+    "idf": "C:/Users/mouc074/my-project/buildings/Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf",
+    "weather": "C:/Users/mouc074/my-project/buildings/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw",
+    "relativeSurfaceTolerance": 1.00e-06
+  },
+  "RunPeriod": {
+    "start_day_of_year": "Sunday",
+    "apply_weekend_holiday_rule": "No",
+    "use_weather_file_daylight_saving_period": "No",
+    "use_weather_file_holidays_and_special_days": "No",
+    "use_weather_file_rain_indicators": "Yes",
+    "use_weather_file_snow_indicators": "Yes"
+  },
+  "model": {
+    "zones": [
+      {
+        "name": "Core_ZN"
+      },
+      {
+        "name": "Attic"
+      },
+      {
+        "name": "Perimeter_ZN_2"
+      },
+      {
+        "name": "Perimeter_ZN_3"
+      },
+      {
+        "name": "Perimeter_ZN_1"
+      },
+      {
+        "name": "Perimeter_ZN_4"
+      }
+    ]
+  },
+  "fmu": {
+      "name": "C:/Users/mouc074/my-project/buildings/spawn-FanCoilUnit.floor1/EnergyPlus.fmu",
+      "version": "2.0",
+      "kind": "ME"
+  }
+}

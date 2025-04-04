@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "conFCU[3].u1Occ",
+    "conFCU[3].u1Fan",
+    "floor1.TAirCor",
+    "floor1.TAirSou",
+    "floor1.TAirNor",
+    "floor1.TAirEas",
+    "floor1.TAirWes",
+    "conFCU[3].TZonHeaSet",
+    "conFCU[3].TZonCooSet",
+    "conFCU[3].yCooCoi",
+    "conFCU[3].yHeaCoi",
+    "conFCU[3].TSup",
+    "conFCU[3].TSupSet"
+  };

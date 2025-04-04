@@ -24,51 +24,57 @@ model FanCoilUnit
     "Medium model of chilled water";
 
 
-  Fluid.Sources.Boundary_pT souHea(
+  Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
     T=333.15,
-    nPorts=5) "Source for heating "
+    nPorts=5)
+    "Source for heating "
     annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={11,-49})));
 
-  Fluid.Sources.Boundary_pT sinHea(
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
     T=328.15,
-    nPorts=5) "Sink for heating "
+    nPorts=5)
+    "Sink for heating "
      annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-11,-49})));
-  Fluid.Sources.Boundary_pT sinCoo(
+
+  Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
     T=288.15,
-    nPorts=5) "Sink for cooling "
+    nPorts=5)
+    "Sink for cooling "
     annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={31,-49})));
 
-  Fluid.Sources.Boundary_pT souCoo(
+  Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
     T=279.15,
-    nPorts=5) "Source for cooling "
+    nPorts=5)
+    "Source for cooling "
     annotation (Placement(
         transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={51,-49})));
 
-   ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor floor1(
-      redeclare package Medium = MediumA) "5-zone building model"
+   Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor floor1(
+      redeclare package Medium = MediumA)
+      "5-zone building model"
     annotation (Placement(transformation(extent={{62,76},{140,120}})));
 
-  Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni[5](
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni[5](
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
@@ -79,91 +85,89 @@ model FanCoilUnit
     UACooCoi_nominal={2.25*146.06,2.25*146.06,2.25*146.06,2.25*146.06,2.25*146.06},
     mAir_flow_nominal={0.09,0.222,0.1337,0.21303,0.137},
     QHeaCoi_flow_nominal={6036.5,8070.45,4910.71,7795.7,4906.52},
-    each fanPer=fanPer) "Fan coil units"
+    each fanPer=fanPer)
+    "Fan coil units"
     annotation (Placement(transformation(extent={{20,16},{40,36}})));
 
-  Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU[5](each TSupSet_max=308.15,
-      each TSupSet_min=285.85) "Fan coil unit controller"
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU[5](each TSupSet_max=308.15,
+      each TSupSet_min=285.85)
+      "Fan coil unit controller"
     annotation (Placement(transformation(extent={{-36,-6},{4,54}})));
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(each filNam=
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(each filNam=
         Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-      computeWetBulbTemperature=false) "Weather data reader"
+      computeWetBulbTemperature=false)
+      "Weather data reader"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 
-
-    Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(nout=5)
-    "Scalar replicator for occupancy"
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-
-    Controls.OBC.CDL.Integers.Sources.Constant LimLev(k=0)
+protected
+    Buildings.Controls.OBC.CDL.Integers.Sources.Constant LimLev(k=0)
     "Cooling and heating demand limit level"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
-
-   Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=5)
+   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=5)
     "Scalar replicator for demand limit level"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 
-  Controls.SetPoints.OccupancySchedule           occSch(occupancy=3600*{6,19})
+  Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Modelica.Blocks.Sources.Constant TSetAdj(k=0)
-    "Temperature setpoint adjustment value"
-    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
 
-  Controls.OBC.CDL.Reals.Sources.Constant TOccSetPoi(k=23 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccSetPoi(k=23 + 273.15)
     "Occupied temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
-  Controls.OBC.CDL.Reals.Sources.Constant TUnOccCooSet(k=25 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnOccCooSet(k=25 + 273.15)
     "Unoccupied cooling  temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
 
-  Controls.OBC.CDL.Reals.Sources.Constant TUnOccHeaSet(k=21 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnOccHeaSet(k=21 + 273.15)
     "Unoccupied heating temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 
-
-  Controls.OBC.CDL.Reals.GreaterThreshold greThr[5]
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[5]
     "Greater than threshold for fan speed, if fan speed > 0, output is true"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
-  Controls.OBC.CDL.Logical.Timer tim[5](t=fill(120, 5))
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[5](t=fill(120, 5))
     "Timer for fan signal, if fan speed is greater than 0 for 120s, fan is proven on"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
 
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep2(nout=5)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep2(nout=5)
     "Scalar replicator for temperature setpoint adjustment"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep3(nout=5)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep3(nout=5)
     "Scalar replicator for time to next occupancy"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
 
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep4(nout=5)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep4(nout=5)
     "Scalar replicator for occupied setpoint temperature"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep5(nout=5)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep5(nout=5)
     "Scalar replicator for unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep6(nout=5)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep6(nout=5)
     "Scalar replicator for unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-
-protected
-  Controls.OBC.CDL.Reals.Sources.Constant           cooWarTim(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetAdj(k=0)
+    "Unoccupied cooling  temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
+     Controls.OBC.CDL.Reals.Sources.Constant           cooWarTim(final k=0)
     "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
 
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep1(nout=5)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep1(nout=5)
     "Scalar replicator for cool-down and warm-up time"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
+   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(nout=5)
+    "Scalar replicator for occupancy"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 equation
   connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{6,37.3333},{14,
           37.3333},{14,28},{19,28}},
@@ -190,8 +194,6 @@ equation
   connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{41,21.2},{
           44,21.2},{44,64},{-66,64},{-66,22.3333},{-38,22.3333}},
                                                             color={0,0,127}));
-  connect(TSetAdj.y, reaScaRep2.u)
-    annotation (Line(points={{-119,100},{-102,100}}, color={0,0,127}));
   connect(reaScaRep2.y, conFCU.setAdj) annotation (Line(points={{-78,100},{-64,
           100},{-64,38},{-50,38},{-50,42.3333},{-38,42.3333}},
                                   color={0,0,127}));
@@ -289,6 +291,8 @@ equation
       points={{-40,110},{56,110},{56,132},{111.174,132},{111.174,126.769}},
       color={255,204,51},
       thickness=0.5));
+  connect(TSetAdj.y, reaScaRep2.u)
+    annotation (Line(points={{-118,100},{-102,100}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
             -140},{160,160}}), graphics={
         Text(
@@ -297,17 +301,34 @@ equation
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,
             160}})),
-    experiment(
-      StartTime=259200,
-      StopTime=345600,
-      Interval=60,
-      Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
-<p>This model simulates <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a> , a four-pipe fan coil unit(FCU) system model for a 5-zone thermal model. </p>
-<p><br><span style=\"font-family: Arial;\">This model consist of an variable air volume(VAV) HVAC system, a building envelope model and a model for air flow through building leakage and through open doors. The HVAC system includes a fan-coil unit and a fan coil controller for each thermal zone. The fan-coil unit that consists of a a supply fan, an electric or hot-water heating coil, and a chilled-water cooling coil. The fan coil unit controller outputs supply fan enable signal and speed signal, the supply air temperature setpoint, the zone air heating and cooling setpoints, and valve positions of heating and cooling coils.</span></p>
-<p>See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a> and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a description of the Fan Coil unit and the controller, and see the model <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">Buildings.Examples.VAVReheat.BaseClasses.Floor</a> for a description of the building envelope. </p>
-<p>The HVAC system switches between occupied, unoccupied, unoccupied warm-up and unoccupied pre-cool modes.The cooling coil and heating coil valves are modulated to maintain the heating and cooling setpoints. The supply air temperature is modulated based on the differential between the temperature setpoint and the zone temperature to avoid unecessary heating and cooling use and avoid extreme temperature fluctuations. </p>
+    <p>This model simulates <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">
+    Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a>, a four-pipe fan
+    coil unit(FCU) system model for a 5-zone thermal model. </p>
+     <p><br>This model consist of a variable air volume(VAV) HVAC system, a 
+     building envelope model, and a model for air flow through building 
+     leakage and through open doors. The HVAC system includes a fan-coil unit
+     and a fan coil controller for each thermal zone. The fan-coil unit that
+     consists of a supply fan, an electric or hot-water heating coil, and a 
+     chilled-water cooling coil. The fan coil unit controller outputs the 
+     supply fan enable signal and speed signal, the supply air temperature 
+     setpoint, the zone air heating and cooling setpoints, and valve positions
+     of heating and cooling coils.</p>
+      <p>The HVAC system switches between occupied, unoccupied, unoccupied warm-up
+      and unoccupied pre-cool modes. The cooling coil and heating coil valves
+      are modulated to maintain the heating and cooling setpoints. The supply
+      air temperature is modulated based on the differential between the 
+      temperature setpoint and the zone temperature to avoid unecessary heating
+      and cooling use and avoid extreme temperature fluctuations.</p>
+      <p>See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a> and 
+      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
+      Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a 
+      description of the Fan Coil unit and the controller, and see the model 
+      <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+      Buildings.Examples.VAVReheat.BaseClasses.Floor</a> for a description of 
+      the building envelope. </p>
+<p> </p>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"
         "Simulate and plot"),
