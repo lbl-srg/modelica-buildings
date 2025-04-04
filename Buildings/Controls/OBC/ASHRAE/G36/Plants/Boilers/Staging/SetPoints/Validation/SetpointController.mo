@@ -429,9 +429,8 @@ equation
   connect(boiAva.y, staSetCon.uBoiAva) annotation (Line(points={{-138,20},{40,
           20},{40,144.154},{58,144.154}},
                               color={255,0,255}));
-  connect(VHotWat_flow.y, staSetCon.VHotWat_flow) annotation (Line(points={{-138,
-          180},{-100,180},{-100,169.077},{58,169.077}},
-                                                color={0,0,127}));
+  connect(VHotWat_flow.y, staSetCon.VHotWatPri_flow) annotation (Line(points={{
+          -138,180},{-100,180},{-100,169.077},{58,169.077}}, color={0,0,127}));
   connect(THotWatRet.y, staSetCon.THotWatRetPri) annotation (Line(points={{-58,188},
           {-48,188},{-48,158},{58,158}}, color={0,0,127}));
   connect(THotWatRetSec.y, staSetCon.THotWatRetSec) annotation (Line(points={{-58,100},
@@ -487,9 +486,8 @@ equation
   connect(boiAva1.y, staSetCon1.uBoiAva) annotation (Line(points={{-138,-220},{
           40,-220},{40,-95.8462},{58,-95.8462}},
                                       color={255,0,255}));
-  connect(VHotWat_flow1.y, staSetCon1.VHotWat_flow) annotation (Line(points={{-138,
-          -60},{-100,-60},{-100,-70.9231},{58,-70.9231}},
-                                                color={0,0,127}));
+  connect(VHotWat_flow1.y, staSetCon1.VHotWatPri_flow) annotation (Line(points=
+          {{-138,-60},{-100,-60},{-100,-70.9231},{58,-70.9231}}, color={0,0,127}));
   connect(THotWatRet1.y, staSetCon1.THotWatRetPri) annotation (Line(points={{-58,-52},
           {-48,-52},{-48,-82},{58,-82}},      color={0,0,127}));
   connect(THotWatRetSec1.y, staSetCon1.THotWatRetSec) annotation (Line(points={{-58,
@@ -545,9 +543,8 @@ equation
   connect(boiAva2.y, staSetCon2.uBoiAva) annotation (Line(points={{262,20},{440,
           20},{440,144.154},{458,144.154}},
                                     color={255,0,255}));
-  connect(VHotWat_flow2.y, staSetCon2.VHotWat_flow) annotation (Line(points={{262,180},
-          {300,180},{300,169.077},{458,169.077}},
-                                               color={0,0,127}));
+  connect(VHotWat_flow2.y, staSetCon2.VHotWatPri_flow) annotation (Line(points=
+          {{262,180},{300,180},{300,169.077},{458,169.077}}, color={0,0,127}));
   connect(staUp2.u, staSetCon2.yChaUpEdg) annotation (Line(points={{498,190},{
           490,190},{490,162.154},{482,162.154}},
                                      color={255,0,255}));

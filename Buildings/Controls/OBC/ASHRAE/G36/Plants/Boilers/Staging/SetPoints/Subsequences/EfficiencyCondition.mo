@@ -2,6 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subseq
 block EfficiencyCondition
   "Efficiency condition used in staging up and down"
 
+  parameter Boolean have_allNonCon=false
+    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers"
+    annotation(Dialog(tab="Non-configurable", enable=false));
+
   parameter Integer nSta = 5
     "Number of stages in the boiler plant";
 
@@ -76,7 +80,7 @@ block EfficiencyCondition
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if not have_allNonCon
     "Measured hot-water flow-rate"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -84,7 +88,7 @@ block EfficiencyCondition
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VUpMinSet_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if not have_allNonCon
     "Minimum flow setpoint for the next available higher stage"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
@@ -110,7 +114,7 @@ protected
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
-    final p=1e-6)
+    final p=1e-6) if not have_allNonCon
     "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -118,20 +122,20 @@ protected
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Divide div2
+  Buildings.Controls.OBC.CDL.Reals.Divide div2 if not have_allNonCon
     "Divider to get relative value of flow-rate"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=-sigDif,
-    final uHigh=0)
+    final uHigh=0) if not have_allNonCon
     "Hysteresis loop for flow-rate condition"
     annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=true)
+    final k=true) if not have_allNonCon
     "Constant boolean source"
-    annotation (Placement(transformation(extent={{30,-20},{50,0}})));
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=fraNonConBoi - sigDif,
@@ -167,11 +171,11 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 if not have_allNonCon
     "Switch for flow-rate condition"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if not have_allNonCon
     "Find difference between measurted flowrate and minimum flow setpoint for next higher stage"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
@@ -196,6 +200,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical Not"
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
+    final k=true)
+    if have_allNonCon
+    "Constant boolean source"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
   connect(sub1.u1, VHotWat_flow) annotation (Line(points={{-82,-34},{-110,-34},{
@@ -239,7 +249,7 @@ equation
     annotation (Line(points={{122,-30},{126,-30},{126,-8},{128,-8}},
       color={255,0,255}));
   connect(con1.y, logSwi1.u1)
-    annotation (Line(points={{52,-10},{80,-10},{80,-22},{98,-22}},
+    annotation (Line(points={{52,-20},{90,-20},{90,-22},{98,-22}},
       color={255,0,255}));
   connect(hys.y, logSwi1.u3)
     annotation (Line(points={{52,-50},{80,-50},{80,-38},{98,-38}},
@@ -282,6 +292,8 @@ equation
     annotation (Line(points={{-140,20},{-114,20}}, color={0,0,127}));
   connect(addParDivZer1.y, div.u2) annotation (Line(points={{-90,20},{-86,20},{-86,
           24},{-82,24}}, color={0,0,127}));
+  connect(con2.y, and2.u2) annotation (Line(points={{82,0},{118,0},{118,-8},{128,
+          -8}}, color={255,0,255}));
 annotation (
   defaultComponentName = "effCon",
   Icon(

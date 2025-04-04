@@ -60,23 +60,15 @@ block Controller
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=1) = 0.1
     "Minimum pump speed"
-    annotation (Dialog(group="Pump parameters", enable=have_varPriPum));
-
-  parameter Real maxPumSpe(
-    final unit="1",
-    displayUnit="1",
-    final min=minPumSpe,
-    final max=1) = 1
-    "Maximum pump speed"
     annotation (Dialog(group="Pump parameters", enable=have_varPriPum));
 
   parameter Real VHotWat_flow_nominal(
     final min=1e-6,
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if have_priOnl and have_heaPriPum and (have_remDPReg or have_locDPReg)
     "Total plant design hot water flow rate"
     annotation (Dialog(group="Plant parameters"));
 
@@ -314,7 +306,7 @@ block Controller
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference") if have_priOnl and have_varPriPum
-     and locDPReg
+     and have_locDPReg
     "Hot water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-460},{-280,-420}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -322,7 +314,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_remote[nSen](
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen)) if have_priOnl and
-    have_varPriPum and (locDPReg or remDPReg)
+    have_varPriPum and (have_locDPReg or have_remDPReg)
     "Hot water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-320,-500},{-280,-460}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -330,7 +322,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
     final unit="Pa",
     final quantity="PressureDifference") if have_priOnl and have_varPriPum
-     and (locDPReg or remDPReg)
+     and (have_locDPReg or have_remDPReg)
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-530},{-280,-490}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
@@ -347,7 +339,7 @@ block Controller
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate") if not have_priOnl and have_varPriPum
-     and floReg and use_priSecFloSen
+     and have_floReg and use_priSecFloSen
     "Measured hot water flowrate through secondary loop"
     annotation (Placement(transformation(extent={{-320,-600},{-280,-560}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
@@ -356,7 +348,7 @@ block Controller
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate") if not have_priOnl and have_varPriPum
-     and floReg and not use_priSecFloSen
+     and have_floReg and not use_priSecFloSen
     "Measured hot water flowrate through decoupler"
     annotation (Placement(transformation(extent={{-320,-630},{-280,-590}}),
       iconTransformation(extent={{-140,-220},{-100,-180}})));
@@ -365,7 +357,7 @@ block Controller
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") if not have_priOnl and
-    have_varPriPum and temReg and use_priTemSen
+    have_varPriPum and have_temReg and use_priTemSen
     "Measured hot water temperature at primary loop supply"
     annotation (Placement(transformation(extent={{-320,-660},{-280,-620}}),
       iconTransformation(extent={{-140,-250},{-100,-210}})));
@@ -374,7 +366,7 @@ block Controller
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") if not have_priOnl and
-    have_varPriPum and temReg
+    have_varPriPum and have_temReg
     "Measured hot water temperature at secondary loop supply"
     annotation (Placement(transformation(extent={{-320,-690},{-280,-650}}),
       iconTransformation(extent={{-140,-280},{-100,-240}})));
@@ -383,13 +375,13 @@ block Controller
     final unit=fill("K", nBoi),
     displayUnit=fill("K",nBoi),
     final quantity=fill("ThermodynamicTemperature",nBoi)) if not have_priOnl
-     and have_varPriPum and temReg and not use_priTemSen
+     and have_varPriPum and have_temReg and not use_priTemSen
     "Measured hot water temperature at boiler supply"
     annotation (Placement(transformation(extent={{-320,-720},{-280,-680}}),
       iconTransformation(extent={{-140,-310},{-100,-270}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatPum[nPum]
-    "Hot water pump status"
+    "Hot water pump enable signal"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
       iconTransformation(extent={{100,20},{140,60}})));
 
@@ -420,25 +412,24 @@ block Controller
     final minLocDp=minLocDp,
     final maxLocDp=maxLocDp,
     final minPumSpe=minPumSpe,
-    final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if have_priOnl and have_varPriPum and locDPReg
+    final Td=Td) if have_priOnl and have_varPriPum and have_locDPReg
     "Hot water pump speed control with local DP sensor"
-    annotation (Placement(transformation(extent={{-60,-490},{-40,-470}})));
+    annotation (Placement(transformation(extent={{-60,-492},{-40,-472}})));
 
 protected
-  parameter Boolean remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP)
-    "Boolean flag for pump speed control with remote differential pressure";
+  parameter Boolean have_remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP)
+    "Boolean flag for primary pump speed control with remote differential pressure";
 
-  parameter Boolean locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP)
-    "Boolean flag for pump speed control with local differential pressure";
+  parameter Boolean have_locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP)
+    "Boolean flag for primary pump speed control with local differential pressure";
 
-  parameter Boolean temReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature)
-    "Boolean flag for pump speed control with temperature readings";
+  parameter Boolean have_temReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature)
+    "Boolean flag for primary pump speed control with temperature readings";
 
-  parameter Boolean floReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate)
-    "Boolean flag for pump speed control with flowrate readings";
+  parameter Boolean have_floReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate)
+    "Boolean flag for primary pump speed control with flowrate readings";
 
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
@@ -501,10 +492,9 @@ protected
     final nSen=nSen,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
-    final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if have_priOnl and have_varPriPum and remDPReg
+    final Td=Td) if have_priOnl and have_varPriPum and have_remDPReg
     "Hot water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-60,-530},{-40,-510}})));
 
@@ -514,12 +504,9 @@ protected
     final use_priSecSen=use_priSecFloSen,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
-    final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
-    final Td=Td,
-    final VHotWat_flow_nominal=VHotWat_flow_nominal) if not have_priOnl and
-    have_varPriPum and floReg
+    final Td=Td) if not have_priOnl and have_varPriPum and have_floReg
     "Pump speed control using flow sensors"
     annotation (Placement(transformation(extent={{-60,-574},{-40,-554}})));
 
@@ -531,7 +518,6 @@ protected
     final numIgnReq=numIgnReq,
     final boiDesFlo=boiDesFlo,
     final minPumSpe=minPumSpe,
-    final maxPumSpe=maxPumSpe,
     final delTim=delTim,
     final samPer=samPer,
     final triAmo=triAmo,
@@ -541,7 +527,7 @@ protected
     final twoReqLimHig=twoReqLimHig,
     final oneReqLimLow=oneReqLimLow,
     final oneReqLimHig=oneReqLimHig) if not have_priOnl and have_varPriPum
-     and temReg "Pump speed control using temperature sensors"
+     and have_temReg "Pump speed control using temperature sensors"
     annotation (Placement(transformation(extent={{-60,-608},{-40,-588}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi] if not have_heaPriPum
@@ -791,15 +777,15 @@ equation
       color={0,0,127}));
 
   connect(pumSpeLocDp.dpHotWat_local,dpHotWat_local)
-    annotation (Line(points={{-62,-472},{-230,-472},{-230,-440},{-300,-440}},
+    annotation (Line(points={{-62,-474},{-230,-474},{-230,-440},{-300,-440}},
       color={0,0,127}));
 
   connect(pumSpeLocDp.dpHotWat_remote,dpHotWat_remote)
-    annotation (Line(points={{-62,-484},{-200,-484},{-200,-480},{-300,-480}},
+    annotation (Line(points={{-62,-486},{-200,-486},{-200,-480},{-300,-480}},
       color={0,0,127}));
 
   connect(pumSpeLocDp.dpHotWatSet,dpHotWatSet)
-    annotation (Line(points={{-62,-488},{-220,-488},{-220,-510},{-300,-510}},
+    annotation (Line(points={{-62,-490},{-220,-490},{-220,-510},{-300,-510}},
       color={0,0,127}));
 
   connect(dpHotWat_remote,pumSpeRemDp.dpHotWat)
@@ -924,8 +910,8 @@ equation
   connect(pumSpeRemDp.yHotWatPumSpe, max.u2) annotation (Line(points={{-38,-520},
           {96,-520},{96,-552},{132,-552}}, color={0,0,127}));
 
-  connect(pumSpeLocDp.yHotWatPumSpe, max.u2) annotation (Line(points={{-38,-480},
-          {96,-480},{96,-552},{132,-552}}, color={0,0,127}));
+  connect(pumSpeLocDp.yHotWatPumSpe, max.u2) annotation (Line(points={{-38,-482},
+          {96,-482},{96,-552},{132,-552}}, color={0,0,127}));
 
   connect(pumSpeFlo.yHotWatPumSpe, max.u2) annotation (Line(points={{-38,-564},{
           96,-564},{96,-552},{132,-552}}, color={0,0,127}));
@@ -1060,8 +1046,9 @@ equation
           {-278,-300},{-278,98},{22,98},{22,106},{56,106}}, color={255,127,0}));
   connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-340},
           {-264,-340},{-264,96},{28,96},{28,102},{56,102}}, color={255,127,0}));
-  connect(uHotWatPum, pumSpeLocDp.uHotWatPum) annotation (Line(points={{-300,140},
-          {-260,140},{-260,-476},{-62,-476}}, color={255,0,255}));
+  connect(uHotWatPum, pumSpeLocDp.uHotWatPum) annotation (Line(points={{-300,
+          140},{-260,140},{-260,-478},{-62,-478}},
+                                              color={255,0,255}));
   connect(uHotWatPum, pumSpeRemDp.uHotWatPum) annotation (Line(points={{-300,140},
           {-260,140},{-260,-512},{-62,-512}}, color={255,0,255}));
   connect(uHotWatPum, pumSpeFlo.uHotWatPum) annotation (Line(points={{-300,140},

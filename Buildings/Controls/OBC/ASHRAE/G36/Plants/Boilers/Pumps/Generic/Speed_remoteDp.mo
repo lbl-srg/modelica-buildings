@@ -15,9 +15,6 @@ block Speed_remoteDp
   parameter Real minPumSpe = 0.1
     "Minimum pump speed";
 
-  parameter Real maxPumSpe = 1
-    "Maximum pump speed";
-
   parameter Real k=1
     "Gain of controller"
     annotation(Dialog(group="Speed controller"));
@@ -61,7 +58,7 @@ block Speed_remoteDp
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatPumSpe(
     final min=minPumSpe,
-    final max=maxPumSpe,
+    final max=1,
     final unit="1",
     displayUnit="1")
     "Hot water pump speed"
@@ -113,7 +110,7 @@ protected
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumSpe_max(
-    final k=maxPumSpe)
+    final k=1)
     "Maximum pump speed"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
@@ -244,8 +241,7 @@ When any hot water pump is proven on, <code>uHotWatPum = true</code>,
 pump speed will be controlled by a reverse acting PID loop maintaining the
 differential pressure signal at a setpoint <code>dpHotWatSet</code>. All pumps
 receive the same speed signal. PID loop output shall be mapped from minimum
-pump speed (<code>minPumSpe</code>) at 0% to maximum pump speed
-(<code>maxPumSpe</code>) at 100%.
+pump speed (<code>minPumSpe</code>) at 0% to maximum pump speed at 100%.
 </li>
 <li>
 Where multiple differential pressure sensors exist, a PID loop shall run for

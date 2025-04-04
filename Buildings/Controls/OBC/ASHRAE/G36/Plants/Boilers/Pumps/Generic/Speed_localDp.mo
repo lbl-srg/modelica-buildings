@@ -30,15 +30,8 @@ block Speed_localDp
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=1) = 0.1
     "Minimum pump speed";
-
-  parameter Real maxPumSpe(
-    final unit="1",
-    displayUnit="1",
-    final min=minPumSpe,
-    final max=1) = 1
-    "Maximum pump speed";
 
   parameter Real k=1
     "Gain of controller"
@@ -88,7 +81,7 @@ block Speed_localDp
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatPumSpe(
     final min=minPumSpe,
-    final max=maxPumSpe,
+    final max=1,
     final unit="1")
     "Hot water pump speed"
     annotation (Placement(transformation(extent={{140,70},{180,110}}),
@@ -108,7 +101,6 @@ block Speed_localDp
     final nSen=1,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
-    final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
     final Td=Td)
@@ -292,7 +284,7 @@ When any pump is proven on, pump speed shall be controlled by a reverse acting
 PID loop maintaining the local dP <code>dpHotWat_local</code> at the DP setpoint output
 from the remote sensor control loop. All pumps receive the same speed signal. 
 PID loop output shall be mapped from minimum pump speed (<code>minPumSpe</code>) 
-at 0% to maximum pump speed (<code>maxPumSpe</code>) at 100%.
+at 0% to maximum pump speed at 100%.
 </li>
 <li>
 Where multiple remote DP sensors exist, a PID loop shall run for each sensor.
