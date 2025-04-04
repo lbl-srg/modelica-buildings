@@ -45,7 +45,7 @@ block PlantDisable
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
-    "Boiler enable status vector"
+    "Boiler enable signal"
     annotation (Placement(transformation(extent={{180,30},{220,70}}),
       iconTransformation(extent={{100,40},{140,80}})));
 

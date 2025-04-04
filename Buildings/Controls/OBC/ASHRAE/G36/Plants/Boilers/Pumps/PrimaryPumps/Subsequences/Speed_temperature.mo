@@ -24,16 +24,8 @@ block Speed_temperature
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=1) = 0.1
     "Minimum pump speed"
-    annotation(Dialog(group="Pump parameters"));
-
-  parameter Real maxPumSpe(
-    final unit="1",
-    displayUnit="1",
-    final min=minPumSpe,
-    final max=1) = 1
-    "Maximum pump speed"
     annotation(Dialog(group="Pump parameters"));
 
   parameter Real delTim(
@@ -132,7 +124,7 @@ block Speed_temperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatPumSpe(
     final min=minPumSpe,
-    final max=maxPumSpe,
+    final max=1,
     final unit="1",
     displayUnit="1")
     "Hot water pump speed"
@@ -182,9 +174,9 @@ protected
     annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
-    final iniSet=maxPumSpe,
+    final iniSet=1,
     final minSet=minPumSpe,
-    final maxSet=maxPumSpe,
+    final maxSet=1,
     final delTim=delTim,
     final samplePeriod=samPer,
     final numIgnReq=numIgnReq,

@@ -9,13 +9,11 @@ model PrimaryController
   parameter Real schTab[nSchRow,2] = [0,1; 6,1; 18,1; 24,1]
     "Table defining schedule for enabling plant";
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController
-                                                                     controller(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller(
     final have_priOnl=true,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
-    final nSta=3,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
     final nPumPri_nominal=2,
@@ -37,14 +35,12 @@ model PrimaryController
     "Test scenario for primary-only boiler plants with headered variable speed primary pumps"
     annotation (Placement(transformation(extent={{-260,12},{-240,96}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController
-                                                                     controller1(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller1(
     final have_priOnl=false,
     final have_secFloSen=true,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
-    final nSta=3,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
     final nPumPri_nominal=2,
@@ -66,14 +62,12 @@ model PrimaryController
     "Test scenario for primary-secondary boiler plants with headered variable speed primary pumps"
     annotation (Placement(transformation(extent={{0,12},{20,96}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController
-                                                                     controller2(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller2(
     final have_priOnl=false,
     final have_secFloSen=true,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
                   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
-    final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
     final nPumPri_nominal=2,
@@ -106,40 +100,15 @@ protected
     "True delay for simulating pump proven on process"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1)
-    "Unit delay to simulate change of bypass valve position"
-    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1[2](
-    final samplePeriod=fill(1, 2))
-    "Unit delay to simulate change of isolation valve position"
-    annotation (Placement(transformation(extent={{-220,100},{-200,120}})));
-
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2[2](
     final delayTime=fill(15, 2))
     "True delay for simulating boiler proven on process"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel2[2](
-    final samplePeriod=fill(1, 2))
-    "Unit delay to simulate change of isolation valve position"
-    annotation (Placement(transformation(extent={{40,100},{60,120}})));
-
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3[2](
     final delayTime=fill(20, 2))
     "True delay for simulating pump proven on process"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel4[2](
-    final samplePeriod=fill(1, 2))
-    "Unit delay to simulate change of pump speed"
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=2)
-    "Replicate pump speed to all pumps in system"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5[2](
     final delayTime=fill(20, 2))
@@ -150,16 +119,6 @@ protected
     final delayTime=fill(20, 2))
     "True delay for simulating pump proven on process"
     annotation (Placement(transformation(extent={{260,90},{280,110}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel3[2](
-    final samplePeriod=fill(1, 2))
-    "Unit delay to simulate change of pump speed"
-    annotation (Placement(transformation(extent={{290,60},{310,80}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
-    final nout=2)
-    "Replicate pump speed to all pumps in system"
-    annotation (Placement(transformation(extent={{260,60},{280,80}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=0)
@@ -331,6 +290,14 @@ protected
     "Table defining when plant can be enabled"
     annotation (Placement(transformation(extent={{-340,190},{-320,210}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Pre pre5[2]
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-220,100},{-200,120}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre8[2]
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+
 equation
   connect(TOut.y, controller.TOut) annotation (Line(points={{-318,100},{-290,100},
           {-290,81.3},{-262,81.3}},   color={0,0,127}));
@@ -411,55 +378,23 @@ equation
   connect(TRet2.y,controller2. TRetSec) annotation (Line(points={{162,40},{180,40},
           {180,64.5},{218,64.5}},   color={0,0,127}));
 
-  connect(controller.yBoi, truDel.u) annotation (Line(points={{-238,62.4},{-230,
-          62.4},{-230,140},{-222,140}},
+  connect(controller.yBoi, truDel.u) annotation (Line(points={{-238,64.5},{-230,
+          64.5},{-230,140},{-222,140}},
                                   color={255,0,255}));
-  connect(controller.yPriPum, truDel1.u) annotation (Line(points={{-238,41.4},{-230,
-          41.4},{-230,50},{-222,50}},
+  connect(controller.yPriPum, truDel1.u) annotation (Line(points={{-238,43.5},{-230,
+          43.5},{-230,50},{-222,50}},
                                     color={255,0,255}));
-  connect(controller.yBypValPos, uniDel.u) annotation (Line(points={{-238,49.8},
-          {-224,49.8},{-224,80},{-222,80}},
-                                    color={0,0,127}));
-  connect(uniDel.y, controller.uBypValPos) annotation (Line(points={{-198,80},{-150,
-          80},{-150,0},{-272,0},{-272,18.3},{-262,18.3}},
-                                                        color={0,0,127}));
-  connect(controller.yHotWatIsoVal, uniDel1.u) annotation (Line(points={{-238,54},
-          {-226,54},{-226,110},{-222,110}}, color={0,0,127}));
-  connect(uniDel1.y, controller.uHotWatIsoVal) annotation (Line(points={{-198,110},
-          {-144,110},{-144,-16},{-278,-16},{-278,22.5},{-262,22.5}},
-                                                                 color={0,0,127}));
-  connect(controller1.yBoi, truDel2.u) annotation (Line(points={{22,62.4},{26,62.4},
+  connect(controller1.yBoi, truDel2.u) annotation (Line(points={{22,64.5},{26,64.5},
           {26,140},{38,140}}, color={255,0,255}));
-  connect(controller1.yHotWatIsoVal, uniDel2.u) annotation (Line(points={{22,54},
-          {28,54},{28,110},{38,110}}, color={0,0,127}));
-  connect(controller1.yPriPum, truDel3.u) annotation (Line(points={{22,41.4},{34,
-          41.4},{34,70},{38,70}},
+  connect(controller1.yPriPum, truDel3.u) annotation (Line(points={{22,43.5},{34,
+          43.5},{34,70},{38,70}},
                             color={255,0,255}));
-  connect(uniDel2.y, controller1.uHotWatIsoVal) annotation (Line(points={{62,110},
-          {106,110},{106,-16},{-18,-16},{-18,22.5},{-2,22.5}},
-                                                           color={0,0,127}));
-  connect(reaRep.y, uniDel4.u)
-    annotation (Line(points={{62,40},{68,40}}, color={0,0,127}));
-  connect(controller1.yPriPumSpe, reaRep.u) annotation (Line(points={{22,37.2},{
-          32,37.2},{32,40},{38,40}},
-                                color={0,0,127}));
-  connect(uniDel4.y, controller1.uPriPumSpe) annotation (Line(points={{92,40},{96,
-          40},{96,-10},{-8,-10},{-8,14.1},{-2,14.1}},
-                                                  color={0,0,127}));
-  connect(controller2.yBoi, truDel5.u) annotation (Line(points={{242,62.4},{250,
-          62.4},{250,130},{258,130}},
+  connect(controller2.yBoi, truDel5.u) annotation (Line(points={{242,64.5},{250,
+          64.5},{250,130},{258,130}},
                                 color={255,0,255}));
   connect(truDel6.u, controller2.yPriPum) annotation (Line(points={{258,100},{254,
-          100},{254,41.4},{242,41.4}},
+          100},{254,43.5},{242,43.5}},
                                    color={255,0,255}));
-  connect(reaRep1.y, uniDel3.u)
-    annotation (Line(points={{282,70},{288,70}}, color={0,0,127}));
-  connect(controller2.yPriPumSpe, reaRep1.u) annotation (Line(points={{242,37.2},
-          {254,37.2},{254,70},{258,70}},
-                                      color={0,0,127}));
-  connect(uniDel3.y, controller2.uPriPumSpe) annotation (Line(points={{312,70},{
-          320,70},{320,10},{216,10},{216,14.1},{218,14.1}},
-                                                        color={0,0,127}));
   connect(conInt.y, controller.TSupResReq) annotation (Line(points={{-318,160},{
           -266,160},{-266,89.7},{-262,89.7}},
                                             color={255,127,0}));
@@ -513,6 +448,19 @@ equation
           200},{-4,108},{-2,108},{-2,93.9}},    color={255,0,255}));
   connect(greThr.y, controller2.uSchEna) annotation (Line(points={{-278,200},{216,
           200},{216,93.9},{218,93.9}},       color={255,0,255}));
+  connect(controller.yHotWatIsoVal, pre5.u) annotation (Line(points={{-238,56.1},
+          {-228,56.1},{-228,110},{-222,110}}, color={255,0,255}));
+  connect(pre5.y, controller.uHotWatIsoVal) annotation (Line(points={{-198,110},
+          {-140,110},{-140,-8},{-276,-8},{-276,22.5},{-262,22.5}}, color={255,0,
+          255}));
+  connect(controller1.yHotWatIsoVal, pre8.u) annotation (Line(points={{22,56.1},
+          {30,56.1},{30,100},{38,100}}, color={255,0,255}));
+  connect(pre8.y, controller1.uHotWatIsoVal) annotation (Line(points={{62,100},{
+          120,100},{120,-32},{-14,-32},{-14,22.5},{-2,22.5}}, color={255,0,255}));
+  connect(TSup1.y, controller1.TSupSec) annotation (Line(points={{-58,70},{-50,70},
+          {-50,44},{-10,44},{-10,43.5},{-2,43.5}}, color={0,0,127}));
+  connect(TSup2.y, controller2.TSupSec) annotation (Line(points={{162,70},{170,70},
+          {170,44},{210,44},{210,43.5},{218,43.5}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={Ellipse(

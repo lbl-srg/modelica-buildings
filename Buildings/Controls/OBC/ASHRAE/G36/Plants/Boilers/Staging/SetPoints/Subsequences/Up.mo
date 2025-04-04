@@ -2,6 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subseq
 block Up
   "Generates a stage up signal"
 
+  parameter Boolean have_allNonCon=false
+    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers"
+    annotation(Dialog(tab="Non-configurable", enable=false));
+
   parameter Integer nSta = 5
     "Number of stages in the boiler plant";
 
@@ -119,7 +123,7 @@ block Up
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if not have_allNonCon
     "Measured hot water flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
@@ -127,7 +131,7 @@ block Up
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VUpMinSet_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if not have_allNonCon
     "Minimum flow setpoint for next available higher stage"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
@@ -139,6 +143,7 @@ block Up
 
 protected
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.EfficiencyCondition effCon(
+    have_allNonCon=have_allNonCon,
     final nSta=nSta,
     final fraNonConBoi=fraNonConBoi,
     final fraConBoi=fraConBoi,

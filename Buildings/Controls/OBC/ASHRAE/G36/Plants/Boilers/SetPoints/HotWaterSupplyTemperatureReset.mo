@@ -38,7 +38,7 @@ block HotWaterSupplyTemperatureReset
     "The maximum allowed hot water setpoint temperature for condensing boilers"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
-  parameter Real TConBoiHotWatSetOff(
+  parameter Real dTConBoiHotWatSet(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = -10
@@ -148,7 +148,8 @@ protected
     "Select plant setpoint based on stage type"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(nin=nSta)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
+    final nin=nSta)
     "Extract stage type for current stage"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -178,8 +179,9 @@ protected
     "Detect start of stage change process"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
-    final duration=holTimVal)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final trueHoldDuration=holTimVal,
+    final falseHoldDuration=0)
     "Hold setpoint value for duration of stage change"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
@@ -254,7 +256,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
-    final p=TConBoiHotWatSetOff)
+    final p=dTConBoiHotWatSet)
     "Boiler setpoint for condensing boilers in non-condensing type stage"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
 

@@ -3,7 +3,8 @@ block Up
     "Sequence for control devices when there is stage-up command"
 
   parameter Boolean have_priOnl = false
-    "True: The boiler plant is primary-only"
+    "True: The boiler plant is primary-only;
+    False: The boiler plant is primary-secondary"
     annotation (Dialog(group="Boiler plant parameters"));
 
   parameter Boolean have_heaPriPum = true

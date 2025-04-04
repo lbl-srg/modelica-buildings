@@ -17,15 +17,8 @@ block Speed_flow
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=1) = 0.1
     "Minimum pump speed";
-
-  parameter Real maxPumSpe(
-    final unit="1",
-    displayUnit="1",
-    final min=minPumSpe,
-    final max=1) = 1
-    "Maximum pump speed";
 
   parameter Real k(
     final unit="1",
@@ -48,13 +41,6 @@ block Speed_flow
     final min=0) = 0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Speed controller"));
-
-  parameter Real VHotWat_flow_nominal(
-    final min=1e-6,
-    final unit="m3/s",
-    displayUnit="m3/s",
-    final quantity="VolumeFlowRate")=0.5
-    "Total plant design hot water flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
     "Hot water pump status"
@@ -87,7 +73,7 @@ block Speed_flow
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatPumSpe(
     final min=minPumSpe,
-    final max=maxPumSpe,
+    final max=1,
     final unit="1",
     displayUnit="1")
     "Hot water pump speed"
@@ -132,7 +118,7 @@ protected
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumSpe_max(
-    final k=maxPumSpe)
+    final k=1)
     "Maximum pump speed"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
@@ -150,11 +136,6 @@ protected
     final p=1e-6) if use_priSecSen
     "Ensure divisor is non-zero"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=1/VHotWat_flow_nominal) if not use_priSecSen
-    "Normalize flowrate"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 
 equation
   connect(zer.y, pumSpe.x1)
@@ -183,8 +164,6 @@ equation
   connect(VHotWatPri_flow, addPar.u) annotation (Line(points={{-140,-30},{-110,-30},
           {-110,-70},{-102,-70}}, color={0,0,127}));
 
-  connect(VHotWatDec_flow, gai.u)
-    annotation (Line(points={{-140,-100},{-62,-100}}, color={0,0,127}));
   connect(zer.y, conPID.u_s) annotation (Line(points={{-58,90},{-28,90},{-28,0},
           {-12,0}},color={0,0,127}));
   connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-68,0},{-68,-12},{
@@ -194,12 +173,12 @@ equation
     annotation (Line(points={{-38,-20},{-6,-20},{-6,-12}}, color={255,0,255}));
   connect(div.y, conPID.u_m)
     annotation (Line(points={{-38,-70},{0,-70},{0,-12}},   color={0,0,127}));
-  connect(gai.y, conPID.u_m)
-    annotation (Line(points={{-38,-100},{0,-100},{0,-12}},   color={0,0,127}));
   connect(conPID.y, pumSpe.u)
     annotation (Line(points={{12,0},{58,0}},                 color={0,0,127}));
   connect(pumSpe.y, yHotWatPumSpe)
     annotation (Line(points={{82,0},{140,0}}, color={0,0,127}));
+  connect(VHotWatDec_flow, conPID.u_m)
+    annotation (Line(points={{-140,-100},{0,-100},{0,-12}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -226,7 +205,7 @@ When any hot water pump is proven on, <code>uHotWatPum = true</code>,
 pump speed<code>yHotWatPumSpe</code> will be controlled by a reverse acting PID
 loop maintaining the flowrate through the decoupler at zero. PID loop output 
 shall be mapped from minimum pump speed (<code>minPumSpe</code>) at 0% to maximum
-pump speed(<code>maxPumSpe</code>) at 100%.
+pump speed at 100%.
 </p>
 <ol>
 <li>
