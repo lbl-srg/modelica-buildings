@@ -36,7 +36,7 @@ model AirsideEconomizer "Controller for airside economizer"
     Ti=Ti) "PID controller"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(final k=0)
     "Constant output signal with value 1"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
@@ -48,7 +48,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal ecoOff
     "Determine if airside economizer is off"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
+  Buildings.Controls.OBC.CDL.Reals.Switch switch1
     "Switch to select control output"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

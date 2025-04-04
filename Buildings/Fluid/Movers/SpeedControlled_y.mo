@@ -6,21 +6,19 @@ model SpeedControlled_y
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
     final stageInputs(each final unit="1") = per.speeds,
-    final constInput(final unit="1") =       per.constantSpeed,
-    filter(
+    final constInput(final unit="1") = per.constantSpeed,
+    motSpe(
       final y_start=y_start,
       u(final unit="1"),
       y(final unit="1")),
-    eff(
-      per(final pressure = per.pressure,
-          final etaHydMet = per.etaHydMet,
-          final etaMotMet = per.etaMotMet),
-          r_N(start=y_start)),
-    gaiSpe(u(final unit="1"),
-           final k=1/per.speed_nominal));
+    eff(per(
+        final pressure=per.pressure,
+        final etaHydMet=per.etaHydMet,
+        final etaMotMet=per.etaMotMet),
+        r_N(start=y_start)));
 
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   Modelica.Blocks.Interfaces.RealInput y(
     unit="1")
@@ -44,10 +42,8 @@ initial equation
    "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
 
 equation
-  connect(gaiSpe.u, y)
-    annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));
-  connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
-          {-26,50},{-22,50}}, color={0,0,127}));
+  connect(inputSwitch.u, y) annotation (Line(points={{-22,50},{-26,50},{-26,80},
+          {0,80},{0,120}}, color={0,0,127}));
   connect(eff.dp, gain.u)
     annotation (Line(points={{-11,-50},{-6,-50},{-6,-42},{-10,-42},{-10,-32}},
                                                            color={0,0,127}));
@@ -55,13 +51,12 @@ equation
     annotation (Line(points={{-10,-9},{-10,14},{56,14},{56,8}},
                                                      color={0,0,127}));
 
-  if use_inputFilter then
-    connect(filter.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
-            26},{-26,26},{-26,-46}},  color={0,0,127}));
+  if use_riseTime then
+    connect(motSpe.y, eff.y_in) annotation (Line(points={{41,70},{44,70},{44,26},
+            {-26,26},{-26,-46}},      color={0,0,127}));
   else
     connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{44,50},{44,
-            26},{-26,26},{-26,-46}},
-                                   color={0,0,127}));
+            26}},                  color={0,0,127}));
   end if;
 
     annotation (defaultComponentName="mov",
@@ -89,6 +84,18 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+</li>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Removed the modification that normalised the speed input
+because it is no longer needed. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Removed the modification of <code>m_flow_nominal</code>.<br/>

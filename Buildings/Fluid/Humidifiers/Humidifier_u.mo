@@ -45,7 +45,7 @@ equation
           extent={{-52,-60},{58,-120}},
           textString="m=%m_flow_nominal",
           pattern=LinePattern.None,
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Rectangle(
           extent={{-100,61},{-70,58}},
           lineColor={0,0,255},

@@ -1,9 +1,9 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model Derivative "Validation model for the Derivative block"
-  Buildings.Controls.OBC.CDL.Continuous.Cos cos1
+  Buildings.Controls.OBC.CDL.Reals.Cos cos1
     "Block that outputs the cosine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=5,
     offset=0,
     height=6.283*5) "Block that generates ramp signal"

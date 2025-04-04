@@ -46,7 +46,7 @@ partial model PartialOpenLoop "Partial model with open loop system"
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;

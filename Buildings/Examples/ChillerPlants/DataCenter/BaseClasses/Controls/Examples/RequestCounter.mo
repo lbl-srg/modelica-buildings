@@ -12,7 +12,7 @@ model RequestCounter "Test model for RequestCounter"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(act1.y, reqCou.uAct[1]) annotation (Line(
-      points={{-59,50},{-40,50},{-40,8.66667},{-22,8.66667}},
+      points={{-59,50},{-40,50},{-40,9.33333},{-22,9.33333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(act2.y, reqCou.uAct[2]) annotation (Line(
@@ -20,7 +20,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(act3.y, reqCou.uAct[3]) annotation (Line(
-      points={{-59,-30},{-40,-30},{-40,11.3333},{-22,11.3333}},
+      points={{-59,-30},{-40,-30},{-40,10.6667},{-22,10.6667}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

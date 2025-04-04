@@ -2,6 +2,7 @@ FileWriter
 FileWriterObject
 JSONWriterObject
 OutputTime
+WeeklyScheduleObject
 cacheVals
 printRealArray
 writeJSON

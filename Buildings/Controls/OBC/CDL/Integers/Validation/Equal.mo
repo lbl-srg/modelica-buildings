@@ -10,7 +10,7 @@ model Equal
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     table=[
       0,0;
@@ -20,7 +20,7 @@ model Equal
       1,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin1(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     table=[
       0,0;
@@ -60,7 +60,7 @@ Buildings.Controls.OBC.CDL.Integers.Equal</a>.
 September 26, 2017, by Thierry S. Nouidui:<br/>
 Revised implementation for JModelica verification.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/939\">issue 939</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/939\">Buildings, issue 939</a>.
 </li>
 <li>
 August 30, 2017, by Jianjun Hu:<br/>

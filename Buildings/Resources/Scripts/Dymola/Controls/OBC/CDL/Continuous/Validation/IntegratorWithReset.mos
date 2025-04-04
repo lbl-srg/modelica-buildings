@@ -1,6 +1,0 @@
-simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.IntegratorWithReset", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="IntegratorWithReset1");
-createPlot(id=1, position={35, 30, 586, 850}, y={"cons.y"}, range={0.0, 1.0, 8.8, 11.2}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={35, 30, 586, 850}, y={"booleanPulse.y"}, range={0.0, 1.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=2, position={645, 30, 725, 850}, y={"intDef.y_start", "intDef.y", "intDef.y_reset_in"}, range={0.0, 1.0, -5.0, 15.0}, grid=true, colors={{28,108,200}, {0,140,72},{238,46,47}});
-createPlot(id=2, position={645, 30, 725, 850}, y={"intWitRes1.y_start", "intWitRes1.y", "intWitRes1.y_reset_in"}, range={0.0, 1.0, 1.0, 6.0}, grid=true,  subPlot=2, colors={{28,108,200}, {0,140,72}, {238,46,47}});
-createPlot(id=2, position={645, 30, 725, 850}, y={"intWitRes2.y_start", "intWitRes2.y", "intWitRes2.y_reset_in"}, range={0.0, 1.0, -6.0, -1.0}, grid=true, subPlot=3, colors={{28,108,200}, {0,140,72}, {238,46,47}});

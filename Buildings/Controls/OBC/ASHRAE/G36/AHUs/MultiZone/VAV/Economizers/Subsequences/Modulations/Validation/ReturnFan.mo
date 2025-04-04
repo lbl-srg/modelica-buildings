@@ -11,16 +11,16 @@ model ReturnFan
     "Multi zone VAV AHU minimum outdoor air control - damper modulation, the unit does not have direct pressure control"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxRetDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxRetDam(
     final k=0.9)
     "Return damper maximum position"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp temLoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp temLoo(
     final duration=1800,
     final offset=-1,
     final height=2) "Temperature control loop output"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minRetDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minRetDam(
     final k=0.1)
     "Return damper minimum position"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));

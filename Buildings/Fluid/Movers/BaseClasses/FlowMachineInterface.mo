@@ -3,8 +3,6 @@ model FlowMachineInterface
   "Partial model with performance curves for fans or pumps"
   extends Modelica.Blocks.Icons.Block;
 
-  import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
-
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
@@ -109,13 +107,15 @@ model FlowMachineInterface
 
   Modelica.Blocks.Interfaces.RealOutput etaHyd(
     final quantity="Efficiency",
-    final unit="1") "Hydraulic efficiency"
+    final unit="1",
+    start = 0.7) "Hydraulic efficiency"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaMot(
     final quantity="Efficiency",
-    final unit="1") "Motor efficiency"
+    final unit="1",
+    start = 0.7) "Motor efficiency"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
         iconTransformation(extent={{100,-110},{120,-90}})));
 
@@ -187,7 +187,8 @@ protected
     else zeros(9)
     "Coefficients for cubic spline of motor efficiency vs. motor PLR with generic curves";
 
-  parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa")=
+  final parameter Modelica.Units.SI.PressureDifference dpMax(
+    displayUnit="Pa")=
     per.dpMax "Maximum head";
 
   parameter Real delta = 0.05
@@ -466,28 +467,28 @@ equation
   // pCur1, pCur2 or pCur3, and preDer1, preDer2 or preDer3
   if (curve == 1) then
     if homotopyInitialization then
-       V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
+       V_flow*kRes + dp_internal = homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer1,
                                                      per=pCur1),
-                                           simplified=r_N * (cha.pressure(
+                                           simplified=r_N * (Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer1,
                                                      per=pCur1)
-                               +(V_flow-V_flow_nominal) * (cha.pressure(
+                               +(V_flow-V_flow_nominal) * (Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=(1+delta)*V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer1,
                                                      per=pCur1)
-                                       -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
+                                       -Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=(1-delta)*V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
@@ -496,7 +497,7 @@ equation
                                                     /(2*delta*V_flow_nominal)));
 
     else
-       V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
+       V_flow*kRes + dp_internal= Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
                                                r_N=r_N,
                                                dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
@@ -505,28 +506,28 @@ equation
     end if;     // end of computation for this branch
    elseif (curve == 2) then
     if homotopyInitialization then
-       V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
+       V_flow*kRes + dp_internal = homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer2,
                                                      per=pCur2),
-                                            simplified=r_N * (cha.pressure(
+                                            simplified=r_N * (Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer2,
                                                      per=pCur2)
-                               +(V_flow-V_flow_nominal) * (cha.pressure(
+                               +(V_flow-V_flow_nominal) * (Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=(1+delta)*V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer2,
                                                      per=pCur2)
-                                       -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
+                                       -Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=(1-delta)*V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
@@ -535,7 +536,7 @@ equation
                                                     /(2*delta*V_flow_nominal)));
 
     else
-       V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
+       V_flow*kRes + dp_internal= Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
                                                       r_N=r_N,
                                                       dpMax=dpMax,
                                                       V_flow_max=V_flow_max,
@@ -544,14 +545,14 @@ equation
     end if;     // end of computation for this branch
   else
     if homotopyInitialization then
-       V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
+       V_flow*kRes + dp_internal = homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer3,
                                                      per=pCur3),
-                          simplified=r_N * (cha.pressure(
+                          simplified=r_N * (Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
@@ -559,13 +560,13 @@ equation
                                                      d=preDer3,
                                                      per=pCur3)
                                +(V_flow-V_flow_nominal)*
-                                       (cha.pressure(V_flow=(1+delta)*V_flow_nominal,
+                                       (Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=(1+delta)*V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer3,
                                                      per=pCur3)
-                                       -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
+                                       -Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=(1-delta)*V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
@@ -574,7 +575,7 @@ equation
                                                     /(2*delta*V_flow_nominal)));
 
     else
-       V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
+       V_flow*kRes + dp_internal= Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
                                                       r_N=r_N,
                                                       dpMax=dpMax,
                                                       V_flow_max=V_flow_max,
@@ -610,74 +611,68 @@ equation
     P_internal=PEle;
     eta_internal=eta;
     WHyd = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                    x1=etaMot, x2=1E-2, deltaX=1E-3);
+                    x1=etaHyd, x2=1E-2, deltaX=1E-3);
   end if;
   if per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
     if homotopyInitialization then
-      P_internal = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
+      P_internal = homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
                       simplified=V_flow/V_flow_nominal*
-                            cha.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
+                            Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
     else
-      P_internal = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
+      P_internal = (rho/rho_default)*Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
     eta_internal = WFlo/Buildings.Utilities.Math.Functions.smoothMax(
                      x1=P_internal, x2=deltaP, deltaX=deltaP/2);
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     if homotopyInitialization then
-      P_internal = homotopy(actual=cha.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta),
+      P_internal = homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta),
                       simplified=V_flow/V_flow_nominal*
-                            cha.power(per=powEu, V_flow=V_flow_nominal, r_N=1, d=powEuDer, delta=delta));
+                            Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow_nominal, r_N=1, d=powEuDer, delta=delta));
     else
-      P_internal = (rho/rho_default)*cha.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
+      P_internal = (rho/rho_default)*Buildings.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
     end if;
     eta_internal = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
                             x1=P_internal, x2=deltaP, deltaX=deltaP/2);
   elseif per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
-      eta_internal = homotopy(actual=cha.efficiency(per=per.efficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=per.efficiency, V_flow=V_flow_max,   d=etaDer, r_N=r_N, delta=delta));
+      eta_internal = homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency(per=per.efficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
+                        simplified=Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency(per=per.efficiency, V_flow=V_flow_max,   d=etaDer, r_N=r_N, delta=delta));
     else
-      eta_internal = cha.efficiency(per=per.efficiency, V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta);
+      eta_internal = Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency(per=per.efficiency, V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta);
     end if;
-    if per.powerOrEfficiencyIsHydraulic then
-      P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                        x1=eta_internal, x2=1E-2, deltaX=1E-3);
-    else
-      P_internal=WHyd/Buildings.Utilities.Math.Functions.smoothMax(
-                        x1=eta_internal, x2=1E-2, deltaX=1E-3);
-    end if;
+    P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
+                      x1=eta_internal, x2=1E-2, deltaX=1E-3);
   else // Not provided
     if per.powerOrEfficiencyIsHydraulic then
       eta_internal=0.7;
-      P_internal=WFlo/eta_internal;
     else
       eta_internal=0.49;
-      P_internal=WHyd/eta_internal;
     end if;
+    P_internal=WFlo/eta_internal;
   end if;
 
   // Motor efficiency etaMot
   if per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
-      etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
+      etaMot = homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
+                        simplified=Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
     else
-      etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta);
+      etaMot = Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta);
     end if;
   elseif per.etaMotMet==
        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio then
     if homotopyInitialization then
-      etaMot =homotopy(actual=cha.efficiency_yMot(
+      etaMot =homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot(
         per=per.motorEfficiency_yMot,
         y=yMot,
-        d=motDer_yMot), simplified=cha.efficiency_yMot(
+        d=motDer_yMot), simplified=Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot(
         per=per.motorEfficiency_yMot,
         y=1,
         d=motDer_yMot));
     else
-      etaMot =cha.efficiency_yMot(
+      etaMot =Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot(
         per=per.motorEfficiency_yMot,
         y=yMot,
         d=motDer_yMot);
@@ -685,15 +680,15 @@ equation
   elseif per.etaMotMet==
        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve then
       if homotopyInitialization then
-        etaMot =homotopy(actual=cha.efficiency_yMot(
+        etaMot =homotopy(actual=Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot(
           per=per.motorEfficiency_yMot_generic,
           y=yMot,
-          d=motDer_yMot_generic), simplified=cha.efficiency_yMot(
+          d=motDer_yMot_generic), simplified=Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot(
           per=per.motorEfficiency_yMot_generic,
           y=1,
           d=motDer_yMot_generic));
       else
-        etaMot =cha.efficiency_yMot(
+        etaMot =Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot(
           per=per.motorEfficiency_yMot_generic,
           y=yMot,
           d=motDer_yMot_generic);
@@ -864,6 +859,21 @@ See discussions and an example of this situation in
 revisions="<html>
 <ul>
 <li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
+<li>
+May 15, 2024, by Hongxiang Fu:<br/>
+Corrected efficiency equations if
+<code>powerOrEfficiencyIsHydraulic=false</code>
+and specified the <code>start</code> attribute for <code>etaHyd</code>
+and <code>etaMot</code> to suppress a warning.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
+<li>
 August 8, 2022, by Hongxiang Fu:<br/>
 <ul>
 <li>
@@ -929,7 +939,7 @@ for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 <li>
 September 2, 2015, by Michael Wetter:<br/>
 Corrected computation of
-<code>etaMot = cha.efficiency(per=per.motorEfficiency, V_flow=V_flow, d=motDer, r_N=r_N, delta=1E-4)</code>
+<code>etaMot = Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency(per=per.motorEfficiency, V_flow=V_flow, d=motDer, r_N=r_N, delta=1E-4)</code>
 which previously used <code>V_flow_max</code> instead of <code>V_flow</code>.
 </li>
 <li>

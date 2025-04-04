@@ -195,7 +195,7 @@ equation
 This is a model of a radiant slab with pipes or a capillary heat exchanger
 embedded in the construction.
 The model is a composition of multiple models of
-<a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>
 that are arranged in a parallel.
 </p>
@@ -207,7 +207,7 @@ port variables for the heat port at the two surfaces, and for the flow inlet and
 <p>
 A typical model application is as follows: Suppose a large room has a radiant slab with two parallel circuits
 with the same pipe spacing and pipe length. Then, rather than using two instances of
-<a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 this system can be modeled using one instance of this model in order to reduce computing effort.
 See
@@ -217,10 +217,10 @@ that shows that the models give identical results.
 </p>
 <p>
 Since this model is a parallel arrangment of <code>nCir</code> models of
-<a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 we refer to
-<a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>
 for the model documentation.
 </p>

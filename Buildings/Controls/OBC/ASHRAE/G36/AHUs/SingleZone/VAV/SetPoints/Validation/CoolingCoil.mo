@@ -9,12 +9,12 @@ model CoolingCoil "Validation of cooling coil model"
     final controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final kCooCoi=1) "Cooling coil controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup(
     final height=4,
     final offset=TSupSet - 2,
     final duration=3600*8) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSetSig(
     final k=TSupSet)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -22,7 +22,7 @@ model CoolingCoil "Validation of cooling coil model"
     final k=true)
     "Fan is on"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse zonSta(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse zonSta(
     final offset=2,
     final period=3600*2)
     "Zone state"

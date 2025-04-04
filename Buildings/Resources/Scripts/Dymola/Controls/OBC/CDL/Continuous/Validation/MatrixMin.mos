@@ -1,5 +1,0 @@
-simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.MatrixMin", method="Cvode", tolerance=1e-06, stopTime=1.0, resultFile="MatrixMin");
-
-createPlot(id=1, position={10, 15, 1000, 750}, subPlot=1, y={"matMin.y[1]", "matMin.y[2]", "matMin.y[3]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{238,46,47}, {0,0,127}});
-createPlot(id=1, position={10, 15, 1000, 750}, subPlot=2, y={"matMin1.y[1]", "matMin1.y[2]", "matMin1.y[3]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{238,46,47}, {0,0,127}});
-createPlot(id=1, position={10, 15, 1000, 750}, subPlot=3, y={"matMin2.y[1]", "matMin2.y[2]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{238,46,47}});

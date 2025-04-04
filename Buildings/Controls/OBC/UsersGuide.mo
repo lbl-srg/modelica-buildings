@@ -61,6 +61,22 @@ as it is clear that this will be the room temperature.
     <td>Minimum (maximum) position</td></tr>
 <tr><td><code>yHeaCoi</code> (<code>yCooCoi</code>)</td>
     <td>Heating (cooling) coil control signal</td></tr>
+<tr><td><code>uChiIsoVal</code></td>
+    <td>Chiller condenser water isolation valve status</td></tr>
+<tr><td><code>dpChiWat_remote</code></td>
+    <td>Chilled water differntial statis pressure from remote sensor</td></tr>
+<tr><td><code>TChiWatRet</code></td>
+    <td>Chilled water return temperature</td></tr>
+<tr><td><code>VChiWat_flow</code></td>
+    <td>Measured chilled water volume flow rate</td></tr>
+<tr><td><code>uHeaPreCon</code></td>
+    <td>Chiller head pressure control loop signal from chiller controller</td></tr>
+<tr><td><code>yChiPumSpe</code></td>
+    <td>Chilled water pump speed setpoint</td></tr>
+<tr><td><code>yChi</code></td>
+    <td>Chiller status setpoint</td></tr>
+<tr><td><code>yMinValPos</code></td>
+    <td>Minimum valve position setpoint</td></tr>
 <tr><td colspan=\"2\"><b>Parameter names</b></td></tr>
 <tr><th>Name</th> <th>Comments</th></tr>
 <tr><td><code>use_TMix</code></td>
@@ -97,6 +113,24 @@ as it is clear that this will be the room temperature.
     <td>Time constant of integrator block for cooling control loop signal</td></tr>
 <tr><td><code>TdCoo</code></td>
     <td>Time constant of derivative block for cooling control loop signal</td></tr>
+<tr><td><code>nChi</code></td>
+    <td>Total number of chillers</td></tr>
+<tr><td><code>have_parChi</code></td>
+    <td>True: the plant has parallel chillers</td></tr>
+<tr><td><code>have_heaChiWatPum</code></td>
+    <td>True: the plant has headed chilled water pumps</td></tr>
+<tr><td><code>have_fixSpeConWatPum</code></td>
+    <td>True: the plant has fixed speed condenser water pumps</td></tr>
+<tr><td><code>need_reduceChillerDemand</code></td>
+    <td>True: the plant needs to limit chiller demand when chiller staging</td></tr>
+<tr><td><code>minChiLif</code></td>
+    <td>Minimum allowable lift at minimum load for chiller</td></tr>
+<tr><td><code>TChiWatSupMin</code></td>
+    <td>Minimum chilled water supply temperature</td></tr>
+<tr><td><code>dpChiWatPumMin</code></td>
+    <td>Minimum chilled water pump differential static pressure</td></tr>
+<tr><td><code>lift_min</code></td>
+    <td>Chiller minimum lift</td></tr>
 </table>
 <br/>
 </html>"),
@@ -127,16 +161,27 @@ as it is clear that this will be the room temperature.
 The package <a href=\"modelica://Buildings.Controls.OBC\">Buildings.Controls.OBC</a>
 contains the Control Description Language (CDL) and models for building control that
 are implemented using CDL.
-Both have been developed in the OpenBuildingControl project, see
+The Control Description Language is a language that is being standardized through
+ASHRAE Standard 231P.
+It has been developed to digitalize the design, implementation and commissioning
+of building control sequences in format that is independent of any particular
+control product line (Wetter et al., 2018).
+For a description of the process for digitalizing control delivery,
+see Wetter et al. (2022).
+</p>
+<p>
+The Control Description Language and the library of control sequences
+have been developed in the OpenBuildingControl project, see
 <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
 </p>
 <p>
-The package contains control sequences for
+This package contains control sequences for
 </p>
 <ul>
 <li>
 HVAC airside system control
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">Buildings.Controls.OBC.ASHRAE.G36</a>,
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">
+Buildings.Controls.OBC.ASHRAE.G36</a>,
 </li>
 <li>
 radiant heating and cooling systems
@@ -164,7 +209,33 @@ which output the optimal start time for an HVAC system.
 The Control Description Language (CDL) can be found in
 <a href=\"modelica://Buildings.Controls.OBC.CDL\">Buildings.Controls.OBC.CDL</a>
 and its specification is at <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
+Note that the implementation in
+<a href=\"modelica://Buildings.Controls.OBC.CDL\">Buildings.Controls.OBC.CDL</a>
+replicates some classes from the Modelica Standard Library.
+This was done to have a self-contained implementation of CDL that can be
+standardized through ASHRAE and that has minimum dependencies
+on other software to ease support by building automation systems.
+The replication of the implementation of the blocks also avoids
+that CDL inadvertently changes
+if the Modelica Standard Library is updated,
+which is undesirable as changes to CDL will need to go through the
+ASHRAE standardization process.
 </p>
+<h4>References</h4>
+<ul>
+<li>
+Michael Wetter, Milica Grahovac and Jianjun Hu.<br/>
+Control Description Language.<br/>
+<i>1st American Modelica Conference</i>, Cambridge, MA, USA, August 2018.<br/>
+<a href=\"https://doi.org/10.3384/ecp1815417\">https://doi.org/10.3384/ecp1815417</a>.
+</li>
+<li>
+Michael Wetter, Paul Ehrlich, Antoine Gautier, Milica Grahovac, Philip Haves, Jianjun Hu, Anand Prakash, Dave Robin and Kun Zhang.<br/>
+OpenBuildingControl: Digitizing the control delivery from building energy modeling to specification, implementation and formal verification.<br/>
+<i>Energy</i>, Volume 238, Part A, January 2022.<br/>
+<a href=\"https://doi.org/10.1016/j.energy.2021.121501\">https://doi.org/10.1016/j.energy.2021.121501</a>.
+</li>
+</ul>
 </html>"),
   Icon(graphics={
         Ellipse(

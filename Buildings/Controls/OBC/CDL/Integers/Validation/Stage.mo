@@ -23,13 +23,13 @@ model Stage
     "Total number of enabled stages, with a hold duration of 1 second"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     final duration=10,
     final height=1,
     final startTime=1)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=0.5,
     final freqHz=1/5,
     final offset=0.5)

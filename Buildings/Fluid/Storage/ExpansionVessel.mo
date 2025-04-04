@@ -139,7 +139,7 @@ setting the <code>stateSelect</code> attribute leads to smaller systems of equat
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
-<a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
+<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>

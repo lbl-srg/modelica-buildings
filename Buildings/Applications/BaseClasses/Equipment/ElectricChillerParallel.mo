@@ -4,10 +4,9 @@ model ElectricChillerParallel "Multiple identical electric chillers"
     redeclare final Buildings.Fluid.Chillers.ElectricEIR chi[num](
       final per=per));
 
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[num]
-    "Performance data"
-    annotation (choicesAllMatching = true,
-                Placement(transformation(extent={{42,74},{62,94}})));
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[
+    numAct] "Performance data" annotation (choicesAllMatching=true, Placement(
+        transformation(extent={{42,74},{62,94}})));
   annotation (    Documentation(info="<html>
 <p>
 This model implements a chiller parallel with <code>num</code> identical chillers. For the chiller model please see

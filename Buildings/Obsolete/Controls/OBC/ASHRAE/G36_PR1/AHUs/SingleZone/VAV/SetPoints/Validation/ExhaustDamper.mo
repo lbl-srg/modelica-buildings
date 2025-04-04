@@ -8,7 +8,7 @@ model ExhaustDamper
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(k=true)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp outDamPos(
     duration=1200,
     startTime=0,
     height=0.6,

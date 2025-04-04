@@ -5,65 +5,65 @@ model Controller "Validation controller model"
       VPriSysMax_flow=0.35, peaSysPop=6) "Multizone VAV AHU controller"
     annotation (Placement(transformation(extent={{100,-60},{180,68}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCooOn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRooCooOn(
     final k=273.15 + 24)
     "Cooling on setpoint"
     annotation (Placement(transformation(extent={{-160,189},{-140,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHeaOn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRooHeaOn(
     final k=273.15 + 20) "Heating on setpoint"
     annotation (Placement(transformation(extent={{-220,209},{-200,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut(
     final k=297.15)
     "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup(
     height=4,
     duration=3600,
     offset=273.15 + 14) "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow(
     duration=1800,
     offset=0.02,
     height=0.0168)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TMixMea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TMixMea(
     height=4,
     duration=1,
     offset=273.15 + 2,
     startTime=0)
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
     amplitude=5,
     offset=18 + 273.15,
     freqHz=1/3600) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-220,170},{-200,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ducStaPre(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin ducStaPre(
     offset=200,
     amplitude=150,
     freqHz=1/3600) "Duct static pressure"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine2(
     offset=3,
     amplitude=2,
     freqHz=1/9600) "Duct static pressure setpoint reset requests"
     annotation (Placement(transformation(extent={{-220,-210},{-200,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine3(
     amplitude=6,
     freqHz=1/9600)
     "Maximum supply temperature setpoint reset"
     annotation (Placement(transformation(extent={{-220,-170},{-200,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs2
+  Buildings.Controls.OBC.CDL.Reals.Abs abs2
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs3
+  Buildings.Controls.OBC.CDL.Reals.Abs abs3
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round3(n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round3(n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round4(n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round4(n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-100,-210},{-80,-190}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger ducPreResReq
@@ -76,44 +76,44 @@ model Controller "Validation controller model"
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sumDesZonPop(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant sumDesZonPop(
     final k=5)
     "Sum of design zone population"
     annotation (Placement(transformation(extent={{-220,119},{-200,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sumDesPopBreZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant sumDesPopBreZon(
     final k=0.0125)
     "Sum of the population component design breathing zone flow rate"
     annotation (Placement(transformation(extent={{-160,101},{-140,122}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sumDesAreBreZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant sumDesAreBreZon(
     final k=0.03)
     "Sum of the area component design breathing zone flow rate"
     annotation (Placement(transformation(extent={{-220,79},{-200,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desSysVenEff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desSysVenEff(
     final k=1)
     "Design system ventilation efficiency"
     annotation (Placement(transformation(extent={{-160,51},{-140,72}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uncOutAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uncOutAir(
     amplitude=0.01,
     width=0.25,
     period=3600,
     offset=0.0375) "Sum of all zones required uncorrected outdoor airflow rate"
     annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp vavBoxFlo2(
     offset=1,
     height=0.5,
     duration=3600)
     "Ramp signal for generating VAV box flow rate"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp vavBoxFlo1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp vavBoxFlo1(
     height=1.5,
     offset=1,
     duration=3600)
     "Ramp signal for generating VAV box flow rate"
     annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "System primary airflow rate, equals to the sum of the measured discharged flow rate of all terminal units"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uOutAirFra_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uOutAirFra_max(
     amplitude=0.005,
     width=0.25,
     period=3600,

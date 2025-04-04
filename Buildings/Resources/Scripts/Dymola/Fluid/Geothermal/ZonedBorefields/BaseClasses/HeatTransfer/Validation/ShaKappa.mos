@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.Validation.ShaKappa", tolerance=1e-6, stopTime=1.0, resultFile="ShaKappa");
+removePlots();
+createPlot(id = 1,
+ position = {50, 50, 700, 500},
+ x = "time",
+ y = {"cmp"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename="ShaKappa.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

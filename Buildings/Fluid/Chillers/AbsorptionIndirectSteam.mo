@@ -313,7 +313,7 @@ The heat balance of the chiller is
 <p>
 The equipment performance data is obtained from the record <code>per</code>,
 which is an instance of
-<a href=\"Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the

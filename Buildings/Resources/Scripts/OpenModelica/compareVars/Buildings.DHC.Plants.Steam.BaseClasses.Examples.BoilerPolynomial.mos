@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "y.y",
+    "boiDyn.QFue_flow",
+    "boiSte.QFue_flow",
+    "boiDyn.vol.VLiq",
+    "boiSte.VLiq"
+  };

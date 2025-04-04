@@ -6,7 +6,7 @@ model OutsideAirFlow
     outAirSet_SinZon(AFlo=40, have_occSen=true)
     "Block to output minimum outdoor airflow rate for system with single zone "
     annotation (Placement(transformation(extent={{20,0},{60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp numOfOcc(
     height=4,
     duration=3600)
     "Number of occupant detected in zone"
@@ -23,12 +23,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan(
     k=true) "Supply fan status"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TZon(
     height=6,
     offset=273.15 + 17,
     duration=3600) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TDis(
     height=4,
     duration=3600,
     offset=273.15 + 18) "Terminal unit discharge air temperature"

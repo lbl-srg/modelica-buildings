@@ -79,6 +79,7 @@ model ChillerSetPointControl
         MediumAir, m_flow_nominal=999)
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=1.2*mCHW_flow_nominal,
     dp(start=40474),
     redeclare package Medium = Medium2,
@@ -176,7 +177,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(linPieTwo.y[2], firstOrder1.u) annotation (Line(
-      points={{-39,30.3},{-20,30},{-2,30}},
+      points={{-39,30.05},{-20,30},{-2,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(firstOrder1.y, chi.TSet) annotation (Line(
@@ -200,7 +201,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, linPieTwo.y[1]) annotation (Line(
-      points={{84,-8},{-20,-8},{-20,29.3},{-39,29.3}},
+      points={{84,-8},{-20,-8},{-20,29.55},{-39,29.55}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -214,6 +215,13 @@ equation
       Tolerance=1e-6),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 August 16, 2019, by Michael Wetter:<br/>
 Changed initialization of PI controller for Dymola 2020.

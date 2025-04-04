@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block ReturnFan "Return fan control for single zone AHU"
 
   parameter Real speDif=-0.1
-    "Speed difference between supply and return fan to maintain building pressure at desired pressure";
+    "Speed difference between supply and return fan to maintain building pressure at desired pressure"
+    annotation (__cdl(ValueInReference=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
@@ -31,13 +32,13 @@ block ReturnFan "Return fan control for single zone AHU"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=speDif)
     "Adjusted return fan speed"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Return fan speed"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Return fan speed"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) "Zero speed"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 

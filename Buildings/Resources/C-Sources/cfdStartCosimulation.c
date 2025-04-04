@@ -206,6 +206,11 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
     }
   }
 
+  cosim->ffd->msg = (char *) malloc(1000*sizeof(char));
+  if (cosim->ffd->msg == NULL){
+    ModelicaError("Failed to allocate memory for cosim->ffd->msg in cfdStartCosimulation.c");
+  }
+
   cosim->ffd->temHea = (double *) malloc(nSur*sizeof(double));
   if (cosim->ffd->temHea == NULL){
     ModelicaError("Failed to allocate memory for cosim->ffd->temHea in cfdStartCosimulation.c");
@@ -225,6 +230,7 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
   | Implicitly launch DLL module.
   ****************************************************************************/
   ffd_dll(cosim);
+  cosim->started = 1;
 
   return 0;
 } /* End of cfdStartCosimulation()*/

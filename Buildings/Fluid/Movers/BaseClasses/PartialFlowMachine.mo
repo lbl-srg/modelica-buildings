@@ -45,22 +45,23 @@ partial model PartialFlowMachine
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
     annotation (Dialog(
       tab="Dynamics",
-      group="Nominal condition",
+      group="Conservation equations",
       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Classes used to implement the filtered speed
-  parameter Boolean use_inputFilter=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+  parameter Boolean use_riseTime=true
+    "Set to true to continuously change motor speed"
+    annotation(Dialog(tab="Dynamics", group="Motor speed"));
+
   parameter Modelica.Units.SI.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+    "Time needed to change motor speed between zero and full speed" annotation (
       Dialog(
       tab="Dynamics",
-      group="Filtered speed",
-      enable=use_inputFilter));
+      group="Motor speed",
+      enable=use_riseTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   // Connectors and ports
   Modelica.Blocks.Interfaces.IntegerInput stage
@@ -84,7 +85,8 @@ partial model PartialFlowMachine
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
+    T(start=293.15))
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
@@ -194,9 +196,6 @@ protected
   final parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_start=
       Medium.specificEnthalpy(sta_start) "Start value for outflowing enthalpy";
 
-  final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
-      riseTime) "Cut-off frequency of filter";
-
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs)
    if inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
@@ -233,19 +232,15 @@ protected
     nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-70,0},{-90,20}})));
 
-  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
-    final n=2,
-    final f=fCut,
-    final normalized=true,
-    final initType=init) if use_inputFilter
-    "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
-    annotation (Placement(transformation(extent={{20,61},{40,80}})));
-
-  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1"))
- if inputType == Buildings.Fluid.Types.InputType.Continuous and
-    speedIsInput
-    "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
-    annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
+  Modelica.Blocks.Nonlinear.SlewRateLimiter motSpe(
+    Rising=1/riseTime,
+    Falling=-1/riseTime,
+    Td=0.001*riseTime,
+    initType=init,
+    strict=true)
+    if use_riseTime
+      "Dynamics of motor speed"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
@@ -266,7 +261,8 @@ protected
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow(
-    final alpha=0)
+    final alpha=0,
+    port(T(start=293.15)))
  if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
@@ -395,12 +391,10 @@ initial algorithm
   assert(nominalValuesDefineDefaultPressureCurve or
          per.havePressureCurve or
          (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed),
-"*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve.
-             This leads to approximate calculations of the electrical power
-             consumption. Add the correct pressure curve in the record per
-             to obtain an accurate computation.
-             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+"*** Warning in " + getInstanceName() +
+": Mover is flow or pressure controlled and uses default pressure curve.
+This leads to an approximate power consumption.
+Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
          level=AssertionLevel.warning);
 
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
@@ -415,15 +409,11 @@ initial algorithm
            (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
          per.etaHydMet<>
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
-"*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve with per.etaHydMet set to
-             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate.
-             Since this can cause wrong power consumption, the model will overwrite
-             this setting and use instead
-             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided." +
-             "See the user guide to see what assumptions are made in this setting
-             or provide other information to the model.
-             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+"*** Warning in " + getInstanceName() +
+": Mover is flow or pressure controlled, uses default pressure curve and
+has per.etaHydMet=.Power_VolumeFlowRate.
+As this can cause wrong power consumption, the model overrides this setting by using per.etaHydMet=.NotProvided.
+Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or
@@ -431,11 +421,11 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
             or per.etaHydMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaHydMet is set to .Power_VolumeFlowRate or .EulerNumber.
-             This requires that per.pressure be provided.
-             Because it is not,
-             the model will override this setting and use .NotProvided instead.",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaHydMet=.Power_VolumeFlowRate or per.etaHydMet=.EulerNumber.
+This requires per.pressure to be provided.
+Because it is not, the model overrides this setting by using per.etaHydMet=.NotProvided.
+Also consider using models under Movers.Preconfigured which autopopulate a pressure curve.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or per.haveWMot_nominal or
@@ -443,12 +433,11 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve. This requires that per.WMot_nominal be provided
-             or at least per.pressure be provided so that per.WMot_nominal can
-             be estimated. Because neither is provided,
-             the model will override this setting and use .NotProvided instead.",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve.
+This requires per.WMot_nominal or per.pressure to be provided. Because neither is provided,
+the model overrides this setting and by using per.etaMotMet=.NotProvided.
+Also consider using models under Movers.Preconfigured which autopopulate a pressure curve.",
          level=AssertionLevel.warning);
 
   assert(per.powerOrEfficiencyIsHydraulic or
@@ -456,12 +445,11 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve while information is provided for total electric
-             power instead of hydraulic power. This forms an algebraic loop
-             and may cause the simulation to not converge
-             (see the \"Motor efficiency\" section in usersguide).",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve
+and provides information for total electric power instead of hydraulic power.
+This forms an algebraic loop. If simulation fails to converge,
+see the \"Motor efficiency\" section in the users guide for how to correct it.",
          level=AssertionLevel.warning);
 
 equation
@@ -517,9 +505,8 @@ equation
           -54},{-40,-54},{-40,-11}},               color={0,0,127}));
   connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{4,-56},{4,
           -86},{48,-86}}, color={0,0,127}));
-  connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{12,50},{12,70.5},
-          {18,70.5}},     color={0,0,127}));
-
+  connect(inputSwitch.y, motSpe.u) annotation (Line(points={{1,50},{12,50},{12,
+          70},{18,70}},   color={0,0,127}));
   connect(senRelPre.p_rel, eff.dp_in) annotation (Line(points={{50.5,-26.35},{50.5,
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
   connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,
@@ -548,7 +535,7 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          visible=not use_inputFilter,
+          visible=not use_riseTime,
           points={{0,100},{0,40}}),
         Rectangle(
           extent={{-100,16},{100,-16}},
@@ -583,19 +570,19 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-20,92},{22,46}},
           textColor={0,0,0},
           fillColor={135,135,135},
@@ -653,6 +640,24 @@ See discussions in
 revisions="<html>
 <ul>
 <li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+</li>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Removed the gain block that normalised the speed input
+because it is no longer needed. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
+<li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Instead of extending
 <a href=\"Modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
@@ -683,7 +688,7 @@ Added an <code>assert()</code> warning when the model has to make an unreliable
 guess for efficiency computation using <code>.EulerNumber</code>.
 </li>
 <li>
-Added an <code>assert()</code> warning when the model has to overwrite
+Added an <code>assert()</code> warning when the model has to override
 <code>per.etaMotMet</code>.
 </li>
 </ul>

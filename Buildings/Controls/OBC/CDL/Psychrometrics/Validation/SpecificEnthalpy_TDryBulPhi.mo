@@ -4,13 +4,13 @@ model SpecificEnthalpy_TDryBulPhi
   Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi hBulPhi
     "Model for specific enthalpy computation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0.001)
     "Relative humidity"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBul(
     k=273.15+29.4)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-64,24},{-44,44}})));
@@ -39,7 +39,7 @@ Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi</a>.
 September 29, 2020, by Michael Wetter:<br/>
 Renamed model and updated for new input of the psychrometric blocks.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">Buildings, issue 2139</a>
 </li>
 <li>
 April 7, 2017 by Jianjun Hu:<br/>

@@ -11,10 +11,10 @@ model ModeAndSetPoints
     ignDemLim=false) "Operating mode and temperature setpoints"
     annotation (Placement(transformation(extent={{80,40},{100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin cooSetAdj(
     final freqHz=1/28800) "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5)
     "Heating setpoint adjustment"
@@ -37,54 +37,54 @@ model ModeAndSetPoints
     final width=0.95)
     "Generate signal indicating occupancy status"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerAdj(
     final k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooDowTim(
     final k=1800)
     "Cooling down time"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant warUpTim(
     final k=1800)
     "Warm-up time"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     final offset=0,
     final height=6.2831852,
     final duration=24*3600) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sin sin2
+  Buildings.Controls.OBC.CDL.Reals.Sin sin2
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=12.5)
     "Gain factor"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter zonTem(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter zonTem(
     final p=273.15 + 22.5)
     "Current zone temperature"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSetOcc(
     final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCooSetOcc(
     final k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSetUno(
     final k=285.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCooSetUno(
     final k=303.15) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not winOpe "Window is open"

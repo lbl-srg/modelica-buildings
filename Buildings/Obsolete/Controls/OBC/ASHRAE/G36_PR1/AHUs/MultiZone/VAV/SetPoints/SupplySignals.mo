@@ -71,7 +71,7 @@ block SupplySignals "Multizone VAV AHU coil valve positions"
         iconTransformation(extent={{100,20},{140,60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conTSup(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conTSup(
     final controllerType=controllerType,
     final k=kTSup,
     final Ti=TiTSup,
@@ -82,32 +82,32 @@ protected
     final reverseActing=false)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch to select supply temperature control signal based on status of supply fan"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHeaMaxCon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant uHeaMaxCon(
     final k=uHeaMax)
     "Constant signal to map control action"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant negOne(final k=-1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant negOne(final k=-1)
     "Negative unity signal"
     annotation (Placement(transformation(extent={{0,18},{20,38}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCooMinCon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant uCooMinCon(
     final k=uCooMin)
     "Constant signal to map control action"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Zero control signal"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Unity signal"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conSigCoo(
+  Buildings.Controls.OBC.CDL.Reals.Line conSigCoo(
     final limitBelow=true,
     final limitAbove=false)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conSigHea(
+  Buildings.Controls.OBC.CDL.Reals.Line conSigHea(
     final limitBelow=false,
     final limitAbove=true)
     "Heating control signal"

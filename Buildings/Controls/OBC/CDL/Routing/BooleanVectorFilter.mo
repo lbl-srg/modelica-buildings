@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block BooleanVectorFilter
-  "Filter a boolean vector based on a boolean mask"
+block BooleanVectorFilter "Filter a boolean vector based on a boolean mask"
+
   parameter Integer nin "Size of input vector";
   parameter Integer nout "Size of output vector";
   parameter Boolean msk[nin]=fill(true,nin) "Array mask";
 
-  Interfaces.BooleanInput u[nin]
-    "Connector of Boolean input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u[nin]
+    "Input signals from which values are extracted"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y[nout]
-    "Connector of Boolean output signals"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nout]
+    "Output with extracted input signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

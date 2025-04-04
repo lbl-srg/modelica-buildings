@@ -15,25 +15,25 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
     have_winSen=true,
     have_CO2Sen=true) "Controller for VAV terminal unit with reheat"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(k=273.15 + 24)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRooCoo(k=273.15 + 24)
     "Room cooling setpoint "
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirFlo(
     offset=0.02,
     height=0.0168,
     duration=3600) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TZon(
     height=6,
     offset=273.15 + 17,
     duration=3600) "Measured room temperature"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TDis(
     height=4,
     duration=3600,
     offset=273.15 + 18) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup(
     height=4,
     duration=3600,
     offset=273.15 + 14) "AHU supply air temperature"
@@ -42,10 +42,10 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(k=273.15 + 20)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(k=273.15 + 20)
     "Room heating setpoint"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ppmCO2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ppmCO2(
     duration=3600,
     height=800,
     offset=200) "CO2 concentration"
@@ -53,12 +53,12 @@ model Controller "Validate model for controlling VAV terminal box with reheat"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(period=3600)
     "WIndow status"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp nOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp nOcc(
     height=5,
     duration=4800,
     offset=0) "Number of occupants"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round rou(n=0) "Round the input"
+  Buildings.Controls.OBC.CDL.Reals.Round rou(n=0) "Round the input"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
     final samplePeriod=2) "Mimic damper position"

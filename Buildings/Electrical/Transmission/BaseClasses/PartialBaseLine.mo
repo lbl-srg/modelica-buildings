@@ -55,7 +55,7 @@ partial model PartialBaseLine "Partial cable line dispersion model"
       l,
       f_n,
       commercialCable) "Capacitance of the cable" annotation (Evaluate=True);
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature cableTemp
+  Buildings.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
   Modelica.Blocks.Interfaces.RealInput T if use_T "Temperature of the cable"

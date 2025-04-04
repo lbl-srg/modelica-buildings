@@ -5,18 +5,18 @@ block SpecificEnthalpy_TDryBulPhi
     final quantity="Pressure",
     final unit="Pa")=101325
     "Atmospheric pressure";
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput phi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealOutput h(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput h(
     final quantity="SpecificEnergy",
     final unit="J/kg")
     "Specific enthalpy"
@@ -62,13 +62,13 @@ The correlation used in this model is from the 2009 ASHRAE Handbook Fundamentals
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 September 29, 2020, by Michael Wetter:<br/>
 Removed input <code>p</code>, used instead a parameter for the atmospheric pressure and renamed block.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">Buildings, issue 2139</a>
 </li>
 <li>
 April 7, 2017 by Jianjun Hu:<br/>

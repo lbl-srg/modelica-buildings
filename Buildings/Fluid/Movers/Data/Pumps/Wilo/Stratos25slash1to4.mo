@@ -1,7 +1,6 @@
 within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos25slash1to4 "Pump data for a Wilo Stratos 25/1-4 pump"
   extends Generic(
-    speed_rpm_nominal=1800,
     final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     power(V_flow={5.55555555556e-07, 0.000402190923318,  0.00052269170579,
@@ -34,6 +33,12 @@ Documentation(info="<html>
   </html>",
   revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Deleted angular speed parameters with the unit rpm.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>

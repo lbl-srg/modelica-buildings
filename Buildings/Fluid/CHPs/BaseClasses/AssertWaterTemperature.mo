@@ -20,7 +20,7 @@ model AssertWaterTemperature
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=TWatMax -THys,
     final uHigh=TWatMax + THys)
     "Check if water temperature is larger than the maximum temperature"

@@ -24,8 +24,8 @@ equation
       pattern=LinePattern.Dash));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenter/DiscreteTimeControl.mos"
-        "Simulate and plot"), Documentation(info="<html>
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/DiscreteTimeControl.mos"
+        "Simulate and plot"), Documentation(info="<html> 
 <p>
 This model is the chilled water plant with trim and respond control,
 which is a discrete time control logic.
@@ -33,13 +33,13 @@ which is a discrete time control logic.
 <p>
 The trim and respond logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
-<a href=\"Buildings.Examples.ChillerPlant\">
-Buildings.Examples.ChillerPlant</a>.
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter\">
+Buildings.Examples.ChillerPlants.DataCenter</a>.
 </p>
 <p>
 See
-<a href=\"Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl\">
-Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a>
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl\">
+Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl</a>
 for an implementation that approximates the trim and respond
 logic by a continuous time controller.
 </p>
@@ -48,7 +48,7 @@ logic by a continuous time controller.
 <li>
 January 13, 2015, by Michael Wetter:<br/>
 Moved base model to
-<a href=\"Buildings.Examples.ChillerPlant.BaseClasses.DataCenter\">
+<a href=\"modelica://Buildings.Examples.ChillerPlant.BaseClasses.DataCenter\">
 Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a>.
 </li>
 <li>

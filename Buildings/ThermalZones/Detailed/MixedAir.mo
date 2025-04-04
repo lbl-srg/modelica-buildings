@@ -84,6 +84,35 @@ model MixedAir "Model of a room in which the air is completely mixed"
     annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
         iconTransformation(extent={{-232,12},{-200,44}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput HGlo[NConExtWin](
+    final unit=fill("W/m2",NConExtWin))
+    "Global solar irradiance"
+    annotation (Placement(transformation(extent={{460,-130},{500,-90}}),
+      iconTransformation(extent={{200,-120},{240,-80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QTraGlo[NConExtWin](
+    final unit=fill("W",NConExtWin)) "Transmitted global solar radiation"
+    annotation (Placement(transformation(extent={{460,-170},{500,-130}}),
+      iconTransformation(extent={{200,-160},{240,-120}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Add gloSol[NConExtWin] if haveConExtWin
+    "Global solar irradiance"
+    annotation (Placement(transformation(extent={{400,-120},{420,-100}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Add traSol[NConExtWin] if haveConExtWin
+    "Transmitted solar radiation"
+    annotation (Placement(transformation(extent={{400,-160},{420,-140}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[NConExtWin](
+    final k=fill(0,NConExtWin),
+    y(unit=fill("W",NConExtWin))) if not haveConExtWin "Constant zero"
+    annotation (Placement(transformation(extent={{400,-200},{420,-180}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[NConExtWin](
+    final k=fill(0, NConExtWin),
+    y(unit=fill("W/m2", NConExtWin))) if not haveConExtWin
+    "Constant zero"
+    annotation (Placement(transformation(extent={{400,-80},{420,-60}})));
+
 equation
   connect(uSha, conExtWin.uSha) annotation (Line(
       points={{-280,180},{308,180},{308,62},{281,62}},
@@ -117,6 +146,27 @@ equation
   connect(C_flow, air.C_flow) annotation (Line(points={{-280,-110},{-200,-110},{
           -200,-114},{-200,-114},{-200,-202},{-18,-202},{-18,-141},{39,-141}},
         color={0,0,127}));
+  connect(conExtWinRad.HDir, gloSol.u2) annotation (Line(points={{321.5,-10},{340,
+          -10},{340,-116},{398,-116}},
+                                     color={0,0,127}));
+  connect(conExtWinRad.HDif, gloSol.u1) annotation (Line(points={{321.5,-6},{350,
+          -6},{350,-104},{398,-104}},
+                                    color={0,0,127}));
+  connect(gloSol.y, HGlo)
+    annotation (Line(points={{422,-110},{480,-110}},
+                                                   color={0,0,127}));
+  connect(conExtWinRad.QTraDif_flow, traSol.u2) annotation (Line(points={{299,-20},
+          {292,-20},{292,-156},{398,-156}}, color={0,0,127}));
+  connect(conExtWinRad.QTraDir_flow, traSol.u1) annotation (Line(points={{299,-23},
+          {296,-23},{296,-144},{398,-144}},
+                                          color={0,0,127}));
+  connect(traSol.y, QTraGlo)
+    annotation (Line(points={{422,-150},{480,-150}}, color={0,0,127}));
+  connect(con.y, QTraGlo) annotation (Line(points={{422,-190},{440,-190},{440,
+          -150},{480,-150}},
+                       color={0,0,127}));
+  connect(con1.y, HGlo) annotation (Line(points={{422,-70},{440,-70},{440,-110},
+          {480,-110}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>

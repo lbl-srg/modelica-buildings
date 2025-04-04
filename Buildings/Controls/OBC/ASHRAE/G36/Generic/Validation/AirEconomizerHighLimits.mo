@@ -92,12 +92,12 @@ model AirEconomizerHighLimits
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_1)
     "Title 24 standard, with fixed enthalpy and fixed dry bulb device"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp retAirEnt(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp retAirEnt(
     final height=5000,
     final duration=10,
     final offset=65000) "Return air enthalpy"
     annotation (Placement(transformation(extent={{-90,-6},{-70,14}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp retAirTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp retAirTem(
     final height=5,
     final duration=10,
     final offset=295.15) "Return air temperature"

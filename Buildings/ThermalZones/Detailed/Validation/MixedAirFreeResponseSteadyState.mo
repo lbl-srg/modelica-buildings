@@ -17,7 +17,7 @@ model MixedAirFreeResponseSteadyState
       HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero input signal"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0) "Zero input signal"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 equation
   connect(zer.y, weaDat.HDifHor_in) annotation (Line(points={{-78,40},{-66,40},{

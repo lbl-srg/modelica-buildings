@@ -9,16 +9,16 @@ model EnergyConversionNormal "Validate model EnergyConversionNormal"
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal opeModBas(
     final per=per) "Energy conversion for a typical CHP operation"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp PEle(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp PEle(
     final height=5000,
     final duration=360,
     final offset=0,
     final startTime=600) "Electric power"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant mWat_flow(
     final k=0.05) "Water mass flow rate"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWatIn(
     y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Water inlet temperature"

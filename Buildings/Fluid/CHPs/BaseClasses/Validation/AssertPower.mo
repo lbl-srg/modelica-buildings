@@ -12,7 +12,7 @@ model AssertPower "Validate model AssertPower"
     dPEleMax=per.dPEleMax)
     "Assert if electric power is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable PEleDem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable PEleDem(
     table=[0,0; 300,500; 600,2000; 900,3001;
            1200,0; 1500,6000; 2000,6000],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)

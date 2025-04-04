@@ -28,7 +28,7 @@ int main(int nArgs, char ** args){
   size_t nStrWri = 0;
 
   int i;
-  pythonPtr* ptr = malloc(sizeof(pythonPtr));
+  pythonPtr* ptr = (pythonPtr*) malloc(sizeof(pythonPtr));
   /* Set ptr to null as pythonExchangeValuesNoModelica is checking for this */
   ptr->ptr = NULL;
   ptr->isInitialized = 0;

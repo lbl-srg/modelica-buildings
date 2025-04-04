@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "theMixVal.TMixSet",
+    "theMixVal.senTMix.T",
+    "domHotWatTan.senTemHot.T",
+    "domHotWatTan.TTanTop.T",
+    "domHotWatTan.TTanBot.T",
+    "domHotWatTan.conCha.TTanTopSet",
+    "hea.Q_flow",
+    "domHotWatTan.PEle",
+    "domHotWatTan.divVal.y_actual",
+    "sch.y[1]"
+  };

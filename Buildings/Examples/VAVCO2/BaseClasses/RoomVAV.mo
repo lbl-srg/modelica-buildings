@@ -177,20 +177,20 @@ equation
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           textString="%name",
-          lineColor={0,0,0}),
+          textColor={0,0,0}),
         Text(
           extent={{-182,-72},{-112,-102}},
           pattern=LinePattern.None,
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,89},
+          textColor={0,0,89},
           textString="nPeo"),
         Text(
           extent={{114,126},{184,96}},
           pattern=LinePattern.None,
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,89},
+          textColor={0,0,89},
           textString="yDam")}),
     Documentation(info="<html>
 <p>

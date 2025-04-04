@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block Declination "Declination angle"
-  extends Modelica.Blocks.Icons.Block;
+  extends Buildings.BoundaryConditions.WeatherData.BaseClasses.PartialConvertTime;
   Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", unit="s")
     "Day number with units of seconds"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -13,7 +13,8 @@ protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Constant";
   constant Real k2 = 2*Modelica.Constants.pi/365.25 "Constant";
 equation
-  decAng = Modelica.Math.asin(-k1 * Modelica.Math.cos((nDay/86400 + 10)*k2))
+  modTimAux = nDay;
+  decAng = Modelica.Math.asin(-k1 * Modelica.Math.cos((calTimAux/86400 + 10)*k2))
     "(A4.5)";
   annotation (
     defaultComponentName="decAng",
@@ -35,6 +36,11 @@ Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.Declination</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2023, by Ettore Zanetti:<br/>
+Updated to use partial class for conversion from simulation time to calendar time.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">IBPSA #1716</a>.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Updated documentation and added validation.

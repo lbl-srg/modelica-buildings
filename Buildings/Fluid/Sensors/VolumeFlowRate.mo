@@ -25,7 +25,7 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
         rotation=270)));
 protected
   Medium.Density dMed(start=d_start)
-    "Medium temperature to which the sensor is exposed";
+    "Medium density to which the sensor is exposed";
 
   Medium.Density d_a_inflow(start=d_start)
     "Density of inflowing fluid at port_a";

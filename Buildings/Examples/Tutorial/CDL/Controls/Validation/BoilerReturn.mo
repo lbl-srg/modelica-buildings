@@ -6,7 +6,7 @@ model BoilerReturn
   Buildings.Examples.Tutorial.CDL.Controls.BoilerReturn conBoiRet
     "Controller for boiler return water temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TRet(
     height=50,
     duration=3600,
     offset=293.15) "Return water temperature"

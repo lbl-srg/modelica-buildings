@@ -13,7 +13,7 @@ partial model Example1 "Example 1 partial model"
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     allowFlowReversal=allowFlowReversal.k,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -37,7 +37,7 @@ partial model Example1 "Example 1 partial model"
     dpValve_nominal=1000,
     l={0.002,0.002},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_strokeTime=false,
     portFlowDirection_1=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional

@@ -124,7 +124,7 @@ where <i>&alpha;<sub>s</sub></i> is the ground thermal diffusivity and
 <i>erfint</i> is the integral of the error function, defined in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_erfint</a>.
 The integral is solved numerically, with the integrand defined in
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_Equivalent\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_Equivalent</a>.
 </p>
 </html>", revisions="<html>
 <ul>

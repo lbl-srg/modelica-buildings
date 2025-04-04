@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.CDL.Reals.Validation.PIDWithResetScale", method="CVode", stopTime=100, tolerance=1e-06, resultFile="PIDWithResetScale");
+createPlot(id=2, position={577, 61, 1454, 979}, y={"pidSca.y", "pidNoSca.y"}, range={0.0, 100.0, -2.0, 2.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={577, 61, 1454, 979}, y={"pla1.y", "pla2.y", "pidSca.u_s"}, range={0.0, 100.0, -500.0, 1500.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={577, 61, 1454, 979}, y={"pidSca.trigger"}, range={0.0, 100.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}});

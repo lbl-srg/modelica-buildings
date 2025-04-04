@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "zon.T",
+    "heaWat.u",
+    "vavDam.y",
+    "TFanIn.T",
+    "TFanOut.T"
+  };

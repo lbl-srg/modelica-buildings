@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "enaTowCel.uChiSta",
+    "enaTowCel.uChiStaSet",
+    "enaTowCel.uTowStaCha",
+    "enaTowCel.uWse",
+    "enaTowCel.yNumCel",
+    "enaTowCel.yLeaCel",
+    "enaTowCel.uConWatPumSpe[1]"
+  };

@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "senM_flow.m_flow",
+    "senMasFlo.m_flow",
     "senH.h_out",
     "senH_flow.H_flow",
     "senHSen_flow.H_flow",

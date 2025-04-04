@@ -45,16 +45,16 @@ protected
     final a=per.coeEtaQ)
     "Part load thermal efficiency"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide groHea
+  Buildings.Controls.OBC.CDL.Reals.Divide groHea
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply heaGen
+  Buildings.Controls.OBC.CDL.Reals.Multiply heaGen
     "Heat generation within the engine"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Utilities.Math.Polynomial masFloAir(final a=per.coeMasAir)
     "Air mass flow rate computation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter masFloFue(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter masFloFue(
     final k=1/per.LHVFue) "Fuel mass flow rate computation"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 equation

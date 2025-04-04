@@ -56,7 +56,6 @@ public
 
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalResistancesOneUTube
     intResUTub(
-      dynFil=dynFil,
       hSeg=hSeg,
       energyDynamics=energyDynamics,
       Rgb_val=Rgb_val,
@@ -92,7 +91,8 @@ initial equation
       kMed=kMed,
       muMed=muMed,
       cpMed=cpMed,
-      m_flow_nominal=m1_flow_nominal);
+      m_flow_nominal=m1_flow_nominal,
+      instanceName=getInstanceName());
 
 equation
     assert(borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
@@ -158,6 +158,19 @@ International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
+<li>
+November 22, 2023, by Michael Wetter:<br/>
+Corrected use of <code>getInstanceName()</code> which was called inside a function which
+is not allowed.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1814\">IBPSA, #1814</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Removed <code>massDynamics</code>.<br/>

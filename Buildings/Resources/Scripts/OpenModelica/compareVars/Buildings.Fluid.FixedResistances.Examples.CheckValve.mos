@@ -4,8 +4,5 @@ compareVars :=
     "checkValve_m_flow.dp",
     "checkValve.m_flow",
     "checkValveDpFix.m_flow",
-    "checkValve_m_flow.m_flow",
-    "checkValve.k",
-    "checkValveDpFix.k",
-    "checkValve_m_flow.k"
+    "checkValve_m_flow.m_flow"
   };

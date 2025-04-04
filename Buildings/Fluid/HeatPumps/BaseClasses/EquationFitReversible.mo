@@ -9,6 +9,9 @@ block EquationFitReversible
           {80,92}})));
   parameter Real scaling_factor
    "Scaling factor for heat pump capacity";
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_small(min=Modelica.Constants.eps)
+     = per.hea.Q_flow*1E-9*scaling_factor
+    "Small value for heat flow rate or power, used to avoid division by zero";
 
   Modelica.Blocks.Interfaces.IntegerInput uMod
    "Control input signal, cooling mode= -1, off=0, heating mode=+1"
@@ -71,9 +74,6 @@ block EquationFitReversible
    "Part load ratio";
 
 protected
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_small(min=Modelica.Constants.eps)
-     = per.hea.Q_flow*1E-9*scaling_factor
-    "Small value for heat flow rate or power, used to avoid division by zero";
   Real xNor[5] "Normalized inlet variables";
 
 initial equation
@@ -142,7 +142,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 Block that implements the equation fit method for the reverse heat pump model
-<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>",
