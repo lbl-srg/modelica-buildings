@@ -4,47 +4,65 @@ model AirToWater
   extends
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
-  final parameter Real staEqu[:, nHp](
+//   final parameter Real staEqu[:, nHp](
+//     each final max=1,
+//     each final min=0,
+//     each final unit="1")=dat.staEqu
+//     "Staging matrix – Equipment required for each stage"
+//     annotation (Dialog(group="Equipment staging and rotation"));
+
+  final parameter Real staEquCooHea[:, ctl.nHp](
     each final max=1,
     each final min=0,
-    each final unit="1")=dat.staEqu
+    each final unit="1")=dat.staEquCooHea
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
+
+  final parameter Real staEquOneMod[:, ctl.nHp](
+    each final max=1,
+    each final min=0,
+    each final unit="1")=dat.staEquOneMod
+    "Staging matrix – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation"));
+
   final parameter Integer nSta(
-    final min=1)=size(staEqu, 1)
+    final min=1)=size(staEquOneMod, 1)
     "Number of stages"
     annotation (Evaluate=true);
   final parameter Integer idxEquAlt[ctl.nEquAlt]=Modelica.Math.BooleanVectors.index(
     {Modelica.Math.BooleanVectors.anyTrue({
-      nHp==1 or staEqu[i,j] > 0 and staEqu[i,j] < 1 for i in 1:nSta})
-      for j in 1:nHp})
+      nHp==1 or (staEquCooHea[i,j] > 0 and staEquCooHea[i,j] < 1) or (staEquOneMod[i,j] > 0 and staEquOneMod[i,j] < 1) for i in 1:nSta})
+      for j in 1:ctl.nHp})
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
-  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
+  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_hybridPlant
+                                                           ctl(
     final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
-    final have_hrc_select=cfg.have_hrc,
+    final have_hrc_select=false,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
     final THeaWatSup_nominal=dat.THeaWatSup_nominal,
     final TOutChiWatLck=dat.TOutChiWatLck,
     final TOutHeaWatLck=dat.TOutHeaWatLck,
-    final VChiWatHp_flow_min=fill(dat.VChiWatHp_flow_min, cfg.nHp),
-    final VChiWatHp_flow_nominal=fill(dat.VChiWatHp_flow_nominal, cfg.nHp),
+    final VChiWatHp_flow_min=fill(dat.VChiWatHp_flow_min, ctl.nHp),
+    final VChiWatHp_flow_nominal=fill(dat.VChiWatHp_flow_nominal, ctl.nHp),
     final VChiWatPri_flow_nominal=dat.VChiWatPri_flow_nominal,
     final VChiWatSec_flow_nominal=dat.VChiWatSec_flow_nominal,
-    final VHeaWatHp_flow_min=fill(dat.VHeaWatHp_flow_min, cfg.nHp),
-    final VHeaWatHp_flow_nominal=fill(dat.VHeaWatHp_flow_nominal, cfg.nHp),
+    final VHeaWatHp_flow_min=fill(dat.VHeaWatHp_flow_min, ctl.nHp),
+    final VHeaWatHp_flow_nominal=fill(dat.VHeaWatHp_flow_nominal, ctl.nHp),
     final VHeaWatPri_flow_nominal=dat.VHeaWatPri_flow_nominal,
     final VHeaWatSec_flow_nominal=dat.VHeaWatSec_flow_nominal,
-    final capCooHp_nominal=fill(dat.capCooHp_nominal, cfg.nHp),
-    final capHeaHp_nominal=fill(dat.capHeaHp_nominal, cfg.nHp),
+    final capCooHp_nominal=fill(dat.capCooHp_nominal, ctl.nHp),
+    final capHeaHp_nominal=fill(dat.capHeaHp_nominal, ctl.nHp),
     final cp_default=if cfg.have_heaWat then cfg.cpHeaWat_default else cfg.cpChiWat_default,
     final dpChiWatRemSet_max=dat.dpChiWatRemSet_max,
     final dpChiWatRemSet_min=dat.dpChiWatRemSet_min,
     final dpHeaWatRemSet_max=dat.dpHeaWatRemSet_max,
     final dpHeaWatRemSet_min=dat.dpHeaWatRemSet_min,
+    final staEquCooHea=staEquCooHea,
+    final staEquOneMod=staEquOneMod,
     final capCooHrc_min=dat.capCooHrc_min,
     final capHeaHrc_min=dat.capHeaHrc_min,
     final COPHeaHrc_nominal=dat.COPHeaHrc_nominal,
@@ -68,10 +86,10 @@ model AirToWater
     final have_valHpInlIso=cfg.have_valHpInlIso,
     final have_valHpOutIso=cfg.have_valHpOutIso,
     final idxEquAlt=idxEquAlt,
-    final nHp=cfg.nHp,
-    final nPumChiWatPri=cfg.nPumChiWatPri,
+    final nHp=cfg.nHp+1,
+    final nPumChiWatPri=ctl.nHp,
     final nPumChiWatSec=cfg.nPumChiWatSec,
-    final nPumHeaWatPri=cfg.nPumHeaWatPri,
+    final nPumHeaWatPri=ctl.nHp,
     final nPumHeaWatSec=cfg.nPumHeaWatSec,
     final nSenDpChiWatRem=nSenDpChiWatRem,
     final nSenDpHeaWatRem=nSenDpHeaWatRem,
@@ -79,7 +97,6 @@ model AirToWater
     final rho_default=if cfg.have_heaWat then cfg.rhoHeaWat_default else cfg.rhoChiWat_default,
     final schCoo=dat.schCoo,
     final schHea=dat.schHea,
-    final staEqu=dat.staEqu,
     final yPumChiWatPri_min=dat.yPumChiWatPri_min,
     yPumChiWatPriSet=dat.yPumChiWatPriSet,
     final yPumChiWatSec_min=dat.yPumChiWatSec_min,
@@ -175,6 +192,38 @@ model AirToWater
     if cfg.have_chiWat and not have_senDpChiWatRemWir
     "Local CHW DP reset"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1HeaCooChiWatPum_actual
+    annotation (Placement(transformation(extent={{-300,260},{-260,300}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1HeaCooHeaWatPum_actual
+    annotation (Placement(transformation(extent={{-300,220},{-260,260}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaHeaCooChiWatPum
+    annotation (Placement(transformation(extent={{260,320},{300,360}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaHeaCooHeaWatPum
+    annotation (Placement(transformation(extent={{260,280},{300,320}}),
+        iconTransformation(extent={{100,0},{140,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1FourPipeASHP_actual
+    annotation (Placement(transformation(extent={{-300,300},{-260,340}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaFourPipeASHP
+    annotation (Placement(transformation(extent={{260,240},{300,280}}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-40,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yModFourPipeASHP
+    annotation (Placement(transformation(extent={{260,200},{300,240}}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={0,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetFourPipeASHP annotation (
+     Placement(transformation(extent={{260,160},{300,200}}), iconTransformation(
+          extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={40,-120})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   /* Control point connection - start */
   // Inputs from plant control bus
@@ -199,40 +248,55 @@ equation
   connect(bus.dpHeaWatLocSet, ctl.dpHeaWatLocSet);
   connect(bus.dpHeaWatRem, ctl.dpHeaWatRem);
   connect(bus.dpHeaWatRem, resDpHeaWatLoc.dpRem);
-  connect(busHp.y1_actual, ctl.u1Hp_actual);
-  connect(busPumChiWatPri.y1_actual, ctl.u1PumChiWatPri_actual);
-  connect(busPumChiWatSec.y1_actual, ctl.u1PumChiWatSec_actual);
-  connect(busPumHeaWatPri.y1_actual, ctl.u1PumHeaWatPri_actual);
-  connect(busPumHeaWatSec.y1_actual, ctl.u1PumHeaWatSec_actual);
+
+  connect(busHp[:].y1_actual, ctl.u1Hp_actual[1:nHp]);
+  connect(ctl.TSupSet[1:nHp], busHp[:].TSet);
+  connect(ctl.y1HeaHp[1:nHp], busHp[:].y1Hea);
+  connect(ctl.y1Hp[1:nHp], busHp[:].y1);
+
+  connect(y1FourPipeASHP_actual, ctl.u1Hp_actual[nHp+1]);
+  connect(ctl.TSupSet[nHp+1], TSetFourPipeASHP);
+  connect(ctl.yMod[nHp+1], yModFourPipeASHP);
+  connect(ctl.y1Hp[nHp+1], yEnaFourPipeASHP);
+
+  connect(ctl.y1ValChiWatHpInlIso[1:nHp], busValChiWatHpInlIso[:].y1);
+  connect(ctl.y1ValChiWatHpOutIso[1:nHp], busValChiWatHpOutIso[:].y1);
+  connect(ctl.y1ValHeaWatHpInlIso[1:nHp], busValHeaWatHpInlIso[:].y1);
+  connect(ctl.y1ValHeaWatHpOutIso[1:nHp], busValHeaWatHpOutIso[:].y1);
+  connect(busPumHeaWatPri.y1_actual, ctl.u1PumHeaWatPri_actual[1:nHp]);
+  connect(busPumHeaWatSec.y1_actual, ctl.u1PumHeaWatSec_actual[1:nHp]);
+  connect(busPumChiWatPri.y1_actual, ctl.u1PumChiWatPri_actual[1:nHp]);
+  connect(busPumChiWatSec.y1_actual, ctl.u1PumChiWatSec_actual[1:nHp]);
+  connect(ctl.y1PumHeaWatPri[1:nHp], busPumHeaWatPri.y1);
+  connect(ctl.y1PumHeaWatSec[1:nHp], busPumHeaWatSec.y1);
+  connect(ctl.y1PumChiWatPri[1:nHp], busPumChiWatPri.y1);
+  connect(ctl.y1PumChiWatSec[1:nHp], busPumChiWatSec.y1);
+  connect(ctl.yPumChiWatPriDed[1:nHp], busPumChiWatPri.y);
+  connect(ctl.yPumChiWatPriHdr, busPumChiWatPri.y);
+  connect(ctl.yPumChiWatSec, busPumChiWatSec.y);
+  connect(ctl.yPumHeaWatPriDed[1:nHp], busPumHeaWatPri.y);
+  connect(ctl.yPumHeaWatPriHdr, busPumHeaWatPri.y);
+  connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
+
+  connect(y1HeaCooHeaWatPum_actual, ctl.u1PumHeaWatPri_actual[nHp+1]);
+  connect(y1HeaCooChiWatPum_actual, ctl.u1PumChiWatPri_actual[nHp+1]);
+  connect(ctl.y1PumChiWatPri[nHp+1], yEnaHeaCooChiWatPum);
+  connect(ctl.y1PumHeaWatPri[nHp+1], yEnaHeaCooHeaWatPum);
+
   connect(bus.u1SchCoo, ctl.u1SchCoo);
   connect(bus.u1SchHea, ctl.u1SchHea);
   connect(busHrc.y1_actual, ctl.u1Hrc_actual);
   connect(bus.TChiWatRetUpsHrc, ctl.TChiWatRetUpsHrc);
   connect(bus.THeaWatRetUpsHrc, ctl.THeaWatRetUpsHrc);
   // Outputs to plant control bus
-  connect(ctl.TSupSet, busHp.TSet);
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.THeaWatSupSet, bus.THeaWatSupSet);
   connect(ctl.dpChiWatRemSet, bus.dpChiWatRemSet);
   connect(ctl.dpHeaWatRemSet, bus.dpHeaWatRemSet);
-  connect(ctl.y1HeaHp, busHp.y1Hea);
-  connect(ctl.y1Hp, busHp.y1);
-  connect(ctl.y1PumChiWatPri, busPumChiWatPri.y1);
-  connect(ctl.y1PumChiWatSec, busPumChiWatSec.y1);
-  connect(ctl.y1PumHeaWatPri, busPumHeaWatPri.y1);
-  connect(ctl.y1PumHeaWatSec, busPumHeaWatSec.y1);
-  connect(ctl.y1ValChiWatHpInlIso, busValChiWatHpInlIso.y1);
-  connect(ctl.y1ValChiWatHpOutIso, busValChiWatHpOutIso.y1);
-  connect(ctl.y1ValHeaWatHpInlIso, busValHeaWatHpInlIso.y1);
-  connect(ctl.y1ValHeaWatHpOutIso, busValHeaWatHpOutIso.y1);
+
   connect(ctl.yValHeaWatMinByp, busValHeaWatMinByp.y);
   connect(ctl.yValChiWatMinByp, busValChiWatMinByp.y);
-  connect(ctl.yPumChiWatPriDed, busPumChiWatPri.y);
-  connect(ctl.yPumChiWatPriHdr, busPumChiWatPri.y);
-  connect(ctl.yPumChiWatSec, busPumChiWatSec.y);
-  connect(ctl.yPumHeaWatPriDed, busPumHeaWatPri.y);
-  connect(ctl.yPumHeaWatPriHdr, busPumHeaWatPri.y);
-  connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
+
   connect(ctl.y1Hrc, busHrc.y1);
   connect(ctl.y1CooHrc, busHrc.y1Coo);
   connect(ctl.TSupSetHrc, busHrc.TSupSet);
@@ -322,6 +386,8 @@ equation
   connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={
           {22,-10},{34,-10},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
         color={0,0,127}));
+  connect(con.y, ctl.u1Hrc_actual) annotation (Line(points={{-58,30},{-32,30},{
+          -32,24.2},{-22,24.2}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

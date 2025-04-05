@@ -195,6 +195,7 @@ block PartialController "Interface for heat pump plant controller"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=-90,
       origin={260,-140}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={100,-60})));
+
 protected
   Buildings.Templates.Components.Interfaces.Bus busHp[nHp]
     "Heat pump control bus"
@@ -259,6 +260,7 @@ protected
     if cfg.have_valChiWatMinByp "CHW minimum flow bypass valve control bus"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
         iconTransformation(extent={{-466,50},{-426,90}})));
+
 equation
   /* Control point connection - start */
   connect(busPumHeaWatPri, bus.pumHeaWatPri);

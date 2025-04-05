@@ -65,20 +65,18 @@ model AirToWater
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
-    redeclare final package MediumHeaWat=Medium,
+    redeclare final package MediumHeaWat = Medium,
     have_hrc_select=true,
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
     nHp=3,
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
-    ctl(
-      nAirHan=1,
-      nEquZon=0),
-    is_dpBalYPumSetCal=true)
-    "Heat pump plant"
+    ctl(nAirHan=1, nEquZon=0),
+    is_dpBalYPumSetCal=true) "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-120},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
     k=293.15,

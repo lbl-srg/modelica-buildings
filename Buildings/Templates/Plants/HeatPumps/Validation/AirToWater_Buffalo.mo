@@ -71,23 +71,24 @@ model AirToWater_Buffalo "Validation of AWHP plant template"
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
-    redeclare final package MediumHeaWat=Medium,
+    redeclare final package MediumHeaWat = Medium,
     have_hrc_select=false,
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
-    nHp=4,
+    nHp=2,
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
+
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+
     typTanHeaWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
+
     typTanChiWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
+
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
-    ctl(
-      nAirHan=1,
-      nEquZon=0),
-    is_dpBalYPumSetCal=true)
-    "Heat pump plant"
+    ctl(nAirHan=1, nEquZon=0),
+    is_dpBalYPumSetCal=true) "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-120},{-40,-80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
@@ -157,7 +158,7 @@ model AirToWater_Buffalo "Validation of AWHP plant template"
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
-    annotation (Placement(transformation(extent={{10,-170},{-10,-150}})));
+    annotation (Placement(transformation(extent={{20,-170},{0,-150}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
@@ -201,6 +202,7 @@ model AirToWater_Buffalo "Validation of AWHP plant template"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(p=273.15)
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+
 equation
   if have_chiWat then
     connect(mulInt[3].y, busAirHan.reqResChiWat)
@@ -252,14 +254,10 @@ equation
     annotation (Line(points={{-22,140},{-40,140}},color={255,127,0}));
   connect(mulInt[2].y, busAirHan.reqPlaHeaWat)
     annotation (Line(points={{-22,140},{-40,140}},color={255,127,0}));
-  connect(pipHeaWat.port_b, pla.port_aHeaWat)
-    annotation (Line(points={{-10,-160},{-30,-160},{-30,-118},{-40,-118}},color={0,127,255}));
-  connect(pipChiWat.port_b, pla.port_aChiWat)
-    annotation (Line(points={{-10,-100},{-20,-100},{-20,-104},{-40,-104}},color={0,127,255}));
   connect(mChiWat_flow.port_b, pipChiWat.port_a)
     annotation (Line(points={{160,-90},{160,-100},{10,-100}},color={0,127,255}));
   connect(mHeaWat_flow.port_b, pipHeaWat.port_a)
-    annotation (Line(points={{160,-150},{160,-160},{10,-160}},color={0,127,255}));
+    annotation (Line(points={{160,-150},{160,-160},{20,-160}},color={0,127,255}));
   connect(reqPlaRes.yChiWatResReq, ph[1].u)
     annotation (Line(points={{68,140},{50,140},{50,144},{42,144}},color={255,127,0}));
   connect(reqPlaRes.yChiPlaReq, ph[2].u)
@@ -282,48 +280,54 @@ equation
   connect(norFlo1.y, ctlEquZon.u_s)
     annotation (Line(points={{40,100},{68,100}}, color={0,0,127}));
   connect(datRea.y[7], reqFloHea.TSupRef) annotation (Line(points={{-159,100},{
-          -130,100},{-130,106},{-122,106}}, color={0,0,127}));
+          -130,100},{-130,108},{-122,108}}, color={0,0,127}));
   connect(datRea.y[4], reqFloHea.TRetRef) annotation (Line(points={{-159,100},{
-          -130,100},{-130,102},{-122,102}}, color={0,0,127}));
+          -130,100},{-130,104},{-122,104}}, color={0,0,127}));
   connect(datRea.y[5], reqFloHea.mRef_flow) annotation (Line(points={{-159,100},
-          {-132,100},{-132,98},{-122,98}}, color={0,0,127}));
+          {-132,100},{-132,100},{-122,100}},
+                                           color={0,0,127}));
   connect(senTemCooSup.port_b, loaChiWat.port_a)
     annotation (Line(points={{60,-60},{70,-60}}, color={0,127,255}));
-  connect(pla.port_bChiWat, senTemCooSup.port_a) annotation (Line(points={{-40,
-          -96},{-16,-96},{-16,-60},{40,-60}}, color={0,127,255}));
-  connect(pla.port_bChiWat, dpChiWatRem[1].port_a) annotation (Line(points={{
-          -40,-96},{-16,-96},{-16,-60},{30,-60},{30,-70}}, color={0,127,255}));
-  connect(pla.port_bHeaWat, senTemHeaSup.port_a) annotation (Line(points={{-40,
-          -110},{-20,-110},{-20,-120},{40,-120}}, color={0,127,255}));
   connect(senTemHeaSup.port_b, loaHeaWat.port_a)
     annotation (Line(points={{60,-120},{70,-120}}, color={0,127,255}));
-  connect(pla.port_bHeaWat, dpHeaWatRem[1].port_a) annotation (Line(points={{
-          -40,-110},{-20,-110},{-20,-120},{32,-120},{32,-130}}, color={0,127,
-          255}));
   connect(senTemHeaSup.T, reqFloHea.TSupMea) annotation (Line(points={{50,-109},
-          {50,-98},{56,-98},{56,-180},{-140,-180},{-140,94},{-122,94}}, color={
+          {50,-98},{56,-98},{56,-180},{-154,-180},{-154,96},{-122,96}}, color={
           0,0,127}));
   connect(datRea.y[4], addPar.u) annotation (Line(points={{-159,100},{-132,100},
           {-132,70},{-122,70}}, color={0,0,127}));
   connect(addPar.y, loaHeaWat.TSet) annotation (Line(points={{-98,70},{62,70},{
           62,-112},{68,-112}}, color={0,0,127}));
   connect(reqFloHea.mReq_flow, norFlo1[1].u)
-    annotation (Line(points={{-98,100},{16,100}}, color={0,0,127}));
+    annotation (Line(points={{-98,104},{-42,104},{-42,100},{16,100}},
+                                                  color={0,0,127}));
   connect(datRea.y[2], addPar1.u) annotation (Line(points={{-159,100},{-132,100},
           {-132,0},{-122,0}}, color={0,0,127}));
   connect(addPar1.y, loaChiWat.TSet)
     annotation (Line(points={{-98,0},{68,0},{68,-52}}, color={0,0,127}));
   connect(datRea.y[6], reqFloCoo.TSupRef) annotation (Line(points={{-159,100},{
-          -132,100},{-132,36},{-122,36}}, color={0,0,127}));
+          -132,100},{-132,38},{-122,38}}, color={0,0,127}));
   connect(datRea.y[2], reqFloCoo.TRetRef) annotation (Line(points={{-159,100},{
-          -132,100},{-132,32},{-122,32}}, color={0,0,127}));
+          -132,100},{-132,34},{-122,34}}, color={0,0,127}));
   connect(datRea.y[3], reqFloCoo.mRef_flow) annotation (Line(points={{-159,100},
-          {-132,100},{-132,28},{-122,28}}, color={0,0,127}));
+          {-132,100},{-132,30},{-122,30}}, color={0,0,127}));
   connect(senTemCooSup.T, reqFloCoo.TSupMea) annotation (Line(points={{50,-49},
-          {50,4},{-90,4},{-90,46},{-130,46},{-130,24},{-122,24}}, color={0,0,
+          {50,4},{-90,4},{-90,46},{-130,46},{-130,26},{-122,26}}, color={0,0,
           127}));
-  connect(reqFloCoo.mReq_flow, norFlo1[2].u) annotation (Line(points={{-98,30},
-          {-38,30},{-38,100},{16,100}}, color={0,0,127}));
+  connect(reqFloCoo.mReq_flow, norFlo1[2].u) annotation (Line(points={{-98,34},
+          {-38,34},{-38,100},{16,100}}, color={0,0,127}));
+  connect(pla.port_aChiWat, pipChiWat.port_b) annotation (Line(points={{-40,
+          -104},{-16,-104},{-16,-100},{-10,-100}}, color={0,127,255}));
+  connect(pla.port_bChiWat, senTemCooSup.port_a) annotation (Line(points={{-40,
+          -96},{-16,-96},{-16,-60},{40,-60}}, color={0,127,255}));
+  connect(pla.port_bChiWat, dpChiWatRem[1].port_a) annotation (Line(points={{
+          -40,-96},{-16,-96},{-16,-60},{30,-60},{30,-70}}, color={0,127,255}));
+  connect(pipHeaWat.port_b, pla.port_aHeaWat) annotation (Line(points={{0,-160},
+          {-32,-160},{-32,-118},{-40,-118}}, color={0,127,255}));
+  connect(pla.port_bHeaWat, senTemHeaSup.port_a) annotation (Line(points={{-40,
+          -110},{-16,-110},{-16,-120},{40,-120}}, color={0,127,255}));
+  connect(pla.port_bHeaWat, dpHeaWatRem[1].port_a) annotation (Line(points={{
+          -40,-110},{-16,-110},{-16,-120},{32,-120},{32,-130}}, color={0,127,
+          255}));
   annotation (
     __Dymola_Commands(
       file=
