@@ -4,84 +4,84 @@ block OpenLoop
     Buildings.Templates.Plants.Boilers.HotWater.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.OpenLoop);
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Con_default[nBoiCon](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Con_default[cfg.nBoiCon](
     each table=[0,0; 1,1; 2,0],
     each timeScale=1000,
     each period=2000)
     "Default Enable signal for all condensing units"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Non_default[nBoiNon](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Non_default[cfg.nBoiNon](
     each table=[0,0; 1,1; 2,0],
     each timeScale=1000,
     each period=2000)
     "Default Enable signal for all non-condensing units"
     annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1BoiCon[nBoiCon](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1BoiCon[cfg.nBoiCon](
     table=y1Con_default.table,
     timeScale=y1Con_default.timeScale,
-    period=y1Con_default.period) if have_boiCon
+    period=y1Con_default.period) if cfg.have_boiCon
     "Boiler Enable signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,190},{-140,210}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatConSupSet(
     y(final unit="K", displayUnit="degC"), final k=dat.THeaWatConSup_nominal)
-    if have_boiCon
+    if cfg.have_boiCon
     "HW supply temperature set point - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,230},{-140,250}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
-    final nout=nBoiCon)  if have_boiCon
+    final nout=cfg.nBoiCon)  if cfg.have_boiCon
     "Replicate signal"
     annotation (Placement(transformation(extent={{-150,230},{-170,250}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValBoiConIso[nBoiCon](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValBoiConIso[cfg.nBoiCon](
     table=y1Con_default.table,
     timeScale=y1Con_default.timeScale,
-    period=y1Con_default.period) if have_boiCon
+    period=y1Con_default.period) if cfg.have_boiCon
     "Boiler isolation valve opening signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,130},{-140,150}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1BoiNon[nBoiNon](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1BoiNon[cfg.nBoiNon](
     table=y1Non_default.table,
     timeScale=y1Non_default.timeScale,
-    period=y1Non_default.period) if have_boiNon
+    period=y1Non_default.period) if cfg.have_boiNon
     "Boiler Enable signal - Non-condensing Boilers"
     annotation (Placement(transformation(extent={{-60,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
     y(final unit="K", displayUnit="degC"), final k=dat.THeaWatSup_nominal)
-    if have_boiNon
+    if cfg.have_boiNon
     "HW supply temperature set point"
     annotation (Placement(transformation(extent={{-60,210},{-80,230}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep1(
-    final nout=nBoiNon) if have_boiNon
+    final nout=cfg.nBoiNon) if cfg.have_boiNon
     "Replicate signal"
     annotation (Placement(transformation(extent={{-90,210},{-110,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValBoiNonIso[nBoiNon](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValBoiNonIso[cfg.nBoiNon](
     table=y1Non_default.table,
     timeScale=y1Non_default.timeScale,
-    period=y1Non_default.period) if have_boiNon
+    period=y1Non_default.period) if cfg.have_boiNon
     "Boiler isolation valve opening signal - Non-condensing Boilers"
     annotation (Placement(transformation(extent={{-60,110},{-80,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPriCon[
-    nPumHeaWatPriCon](
+    cfg.nPumHeaWatPriCon](
     table=y1Con_default.table,
     timeScale=y1Con_default.timeScale,
-    period=y1Con_default.period) if have_boiCon
+    period=y1Con_default.period) if cfg.have_boiCon
     "Primary HW pump Enable signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriCon(
-    y(final unit="1"), k=1) if have_boiCon and have_varPumHeaWatPriCon
+    y(final unit="1"), k=1) if cfg.have_boiCon and cfg.have_varPumHeaWatPriCon
     "Primary HW pump speed signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,50},{-140,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPriNon[
-    nPumHeaWatPriNon](
+    cfg.nPumHeaWatPriNon](
     table=y1Non_default.table,
     timeScale=y1Non_default.timeScale,
-    period=y1Non_default.period) if have_boiNon
+    period=y1Non_default.period) if cfg.have_boiNon
     "Primary HW pump Enable signal - Non-condensing Boilers"
     annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriNon(
-    y(final unit="1"), k=1) if have_boiNon and have_varPumHeaWatPriNon
+    y(final unit="1"), k=1) if cfg.have_boiNon and cfg.have_varPumHeaWatPriNon
     "Primary HW pump speed signal - Non-condensing Boilers"
     annotation (Placement(transformation(extent={{-60,30},{-80,50}})));
 
@@ -89,17 +89,17 @@ block OpenLoop
     each table=[0,0; 1,1; 2,0],
     each timeScale=1000,
     each period=2000)
-    if typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
+    if cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump Enable signal"
     annotation (Placement(transformation(extent={{-120,-50},{-140,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatSec(
     y(final unit="1"), k=1)
-    if typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
+    if cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump speed signal"
     annotation (Placement(transformation(extent={{-120,-90},{-140,-70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValHeaWatMinByp(
-    y(final unit="1"), k=0) if have_valHeaWatMinBypCon or have_valHeaWatMinBypNon
+    y(final unit="1"), k=0) if cfg.have_valHeaWatMinBypCon or cfg.have_valHeaWatMinBypNon
     "HW minimum flow bypass valve opening signal"
     annotation (Placement(transformation(extent={{-120,10},{-140,30}})));
 equation

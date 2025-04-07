@@ -5,10 +5,10 @@ model BoilerPlant "Boiler plant"
     final typCtl=ctl.typ,
     final nAirHan=ctl.nAirHan,
     final nEquZon=ctl.nEquZon,
-    dat(
-      have_senDpHeaWatLoc=ctl.have_senDpHeaWatLoc,
-      nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
-      have_senVHeaWatSec=ctl.have_senVHeaWatSec));
+    cfg(
+      final have_senDpHeaWatRemWir=ctl.have_senDpHeaWatRemWir,
+      final nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
+      final have_senVHeaWatSec=ctl.have_senVHeaWatSec));
 
   Buildings.Templates.Plants.Boilers.HotWater.Components.BoilerGroup boiCon(
     redeclare final package Medium = Medium,
@@ -462,7 +462,7 @@ model BoilerPlant "Boiler plant"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpHeaWatLoc(
     redeclare final package Medium=Medium,
-    final have_sen=ctl.have_senDpHeaWatLoc,
+    final have_sen=not ctl.have_senDpHeaWatRemWir,
     final allowFlowReversal=allowFlowReversal,
     final text_rotation=90)
     "Local HW differential pressure sensor"
@@ -521,29 +521,34 @@ model BoilerPlant "Boiler plant"
   replaceable Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.Guideline36 ctl
     constrainedby
     Buildings.Templates.Plants.Boilers.HotWater.Components.Interfaces.PartialController(
-      final dat=dat.ctl,
-      final have_boiCon=have_boiCon,
-      final have_boiNon=have_boiNon,
-      final nBoiCon=nBoiCon,
-      final nBoiNon=nBoiNon,
-      final typPumHeaWatPriCon=typPumHeaWatPriCon,
-      final typPumHeaWatPriNon=typPumHeaWatPriNon,
-      final typPumHeaWatSec=typPumHeaWatSec,
-      final nPumHeaWatPriCon=nPumHeaWatPriCon,
-      final nPumHeaWatPriNon=nPumHeaWatPriNon,
-      final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
-      final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
-      final nPumHeaWatSec=nPumHeaWatSec,
-      final have_valHeaWatMinBypCon=have_valHeaWatMinBypCon,
-      final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon)
+      final cfg=cfg,
+      final dat=dat.ctl)
     "Plant controller"
     annotation (
     Dialog(group="Controls"),
     Placement(transformation(extent={{-10,130},{10,150}})));
 
+  Fluid.Sources.Boundary_pT bouHeaWat(
+    redeclare final package Medium = Medium,
+    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
+    nPorts=1)
+    "Pressure boundary condition mimicking expansion tank" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={70,-270})));
+protected
+  Buildings.Templates.Components.Interfaces.Bus busLooCon if have_boiCon
+    "Condensing boiler loop control bus" annotation (Placement(transformation(
+          extent={{-300,140},{-260,180}}), iconTransformation(extent={{-466,50},
+            {-426,90}})));
+protected
+  Buildings.Templates.Components.Interfaces.Bus busLooNon if have_boiNon
+    "Non-condensing boiler loop control bus" annotation (Placement(
+        transformation(extent={{-300,100},{-260,140}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
-
   connect(bus, boiCon.bus);
   connect(bus, boiNon.bus);
   connect(bus.pumHeaWatPriCon, pumHeaWatPriCon.bus);
@@ -552,18 +557,18 @@ equation
   connect(bus.valHeaWatMinByp, valHeaWatMinBypNon.bus);
   connect(bus.pumHeaWatSec, pumHeaWatSec.bus);
   connect(dpHeaWatLoc.y, bus.dpHeaWatLoc);
-  connect(VHeaWatPriSupCon_flow.y, bus.VHeaWatPriCon_flow);
-  connect(VHeaWatPriRetCon_flow.y, bus.VHeaWatPriCon_flow);
-  connect(VHeaWatPriSupNon_flow.y, bus.VHeaWatPriNon_flow);
-  connect(VHeaWatPriRetNon_flow.y, bus.VHeaWatPriNon_flow);
+  connect(VHeaWatPriSupCon_flow.y, busLooCon.VHeaWatPri_flow);
+  connect(VHeaWatPriRetCon_flow.y, busLooCon.VHeaWatPri_flow);
+  connect(VHeaWatPriSupNon_flow.y, busLooNon.VHeaWatPri_flow);
+  connect(VHeaWatPriRetNon_flow.y, busLooNon.VHeaWatPri_flow);
   connect(VHeaWatSecSup_flow.y, bus.VHeaWatSec_flow);
   connect(VHeaWatSecRet_flow.y, bus.VHeaWatSec_flow);
-  connect(VHeaWatBypCon_flow.y, bus.VHeaWatBypCon_flow);
-  connect(VHeaWatBypNon_flow.y, bus.VHeaWatBypNon_flow);
-  connect(THeaWatPriSupCon.y, bus.THeaWatPriSupCon);
-  connect(THeaWatPlaRetCon.y, bus.THeaWatPlaRetCon);
-  connect(THeaWatPriSupNon.y, bus.THeaWatPriSupNon);
-  connect(THeaWatPlaRetNon.y, bus.THeaWatPlaRetNon);
+  connect(VHeaWatBypCon_flow.y, busLooCon.VHeaWatByp_flow);
+  connect(VHeaWatBypNon_flow.y, busLooNon.VHeaWatByp_flow);
+  connect(THeaWatPriSupCon.y, busLooCon.THeaWatPriSup);
+  connect(THeaWatPlaRetCon.y, busLooCon.THeaWatPlaRet);
+  connect(THeaWatPriSupNon.y, busLooNon.THeaWatPriSup);
+  connect(THeaWatPlaRetNon.y, busLooNon.THeaWatPlaRet);
   connect(THeaWatSecSup.y, bus.THeaWatSecSup);
   connect(THeaWatSecRet.y, bus.THeaWatSecRet);
   connect(THeaWatIntSup.y, bus.THeaWatIntSup);
@@ -801,6 +806,16 @@ equation
       color={0,0,0},
       thickness=0.5,
       visible=have_boiNon));
+  connect(busLooCon, bus.looCon) annotation (Line(
+      points={{-280,160},{-260,160},{-260,140},{-300,140}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busLooNon, bus.looNon) annotation (Line(
+      points={{-280,120},{-260,120},{-260,140},{-300,140}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bouHeaWat.ports[1], junInlBoiCon.port_1)
+    annotation (Line(points={{70,-260},{70,-240}}, color={0,127,255}));
   annotation (
   Documentation(info="<html>
 <p>

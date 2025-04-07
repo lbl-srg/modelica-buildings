@@ -8,7 +8,7 @@ model BoilerPlantOpenLoop
 
   replaceable parameter
     Buildings.Templates.Plants.Boilers.HotWater.Validation.UserProject.Data.AllSystems
-    datAll
+    datAll(pla(final cfg=pla.cfg))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
@@ -20,9 +20,11 @@ model BoilerPlantOpenLoop
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  inner Buildings.Templates.Plants.Boilers.HotWater.BoilerPlant BOI(
+  Buildings.Templates.Plants.Boilers.HotWater.BoilerPlant pla(
     redeclare final package Medium = Medium,
-    redeclare replaceable Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.OpenLoop ctl,
+    redeclare replaceable
+      Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.OpenLoop
+      ctl,
     typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing,
     nBoiNon_select=2,
     typPumHeaWatPriNon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable,
@@ -30,7 +32,7 @@ model BoilerPlantOpenLoop
     typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final dat=datAll._BOI)
+    final dat=datAll.pla)
     "Boiler plant"
     annotation (Placement(transformation(extent={{-60,-30},{-20,10}})));
 
@@ -44,14 +46,14 @@ model BoilerPlantOpenLoop
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
-    m_flow_nominal=BOI.mHeaWat_flow_nominal,
-    dp_nominal=datAll._BOI.ctl.dpHeaWatLocSet_nominal)
+    m_flow_nominal=pla.mHeaWat_flow_nominal,
+    dp_nominal=datAll.pla.ctl.dpHeaWatLocSet_nominal)
     "Flow resistance of HW distribution system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Fluid.Sensors.TemperatureTwoPort THeaWatRet(
     redeclare final package Medium =Medium,
-    final m_flow_nominal=BOI.mHeaWat_flow_nominal)
+    final m_flow_nominal=pla.mHeaWat_flow_nominal)
     "HW return temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -59,16 +61,16 @@ model BoilerPlantOpenLoop
         origin={20,-40})));
   Fluid.Sensors.VolumeFlowRate VHeaWat_flow(
     redeclare final package Medium =Medium,
-    final m_flow_nominal=BOI.mHeaWat_flow_nominal)
+    final m_flow_nominal=pla.mHeaWat_flow_nominal)
     "HW volume flow rate"
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
 equation
   connect(res.port_b, bou.ports[1])
     annotation (Line(points={{40,0},{70,0},{70,-21}},      color={0,127,255}));
-  connect(BOI.port_b, res.port_a)
+  connect(pla.port_b, res.port_a)
     annotation (Line(points={{-19.8,-10},{0,-10},{0,0},{20,0}},
                                                color={0,127,255}));
-  connect(BOI.port_a, THeaWatRet.port_b) annotation (Line(points={{-19.8,-20},{
+  connect(pla.port_a, THeaWatRet.port_b) annotation (Line(points={{-19.8,-20},{
           0,-20},{0,-40},{10,-40}}, color={0,127,255}));
   connect(THeaWatRet.port_a, VHeaWat_flow.port_b)
     annotation (Line(points={{30,-40},{40,-40}}, color={0,127,255}));

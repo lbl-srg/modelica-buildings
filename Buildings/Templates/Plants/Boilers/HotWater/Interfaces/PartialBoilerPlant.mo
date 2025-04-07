@@ -4,14 +4,50 @@ partial model PartialBoilerPlant
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HW medium";
+  // See derived class for additional bindings of parameters not defined in interface.
+  parameter Buildings.Templates.Plants.Boilers.HotWater.Configuration.BoilerPlant cfg(
+    final have_boiCon=have_boiCon,
+    final have_boiNon=have_boiNon,
+    final have_valHeaWatMinBypCon=have_valHeaWatMinBypCon,
+    final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon,
+    final have_varPumHeaWatPriCon=have_varPumHeaWatPriCon,
+    final have_varPumHeaWatPriNon=have_varPumHeaWatPriNon,
+    final nAirHan=nAirHan,
+    final nBoiCon=nBoiCon,
+    final nBoiNon=nBoiNon,
+    final nEquZon=nEquZon,
+    final nLooHeaWatSec=nLooHeaWatSec,
+    final nPumHeaWatPriCon=nPumHeaWatPriCon,
+    final nPumHeaWatPriNon=nPumHeaWatPriNon,
+    final nPumHeaWatSec=nPumHeaWatSec,
+    final rhoHeaWat_default=rhoHeaWat_default,
+    final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
+    final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
+    final typCtl=typCtl,
+    final typMod=typMod,
+    final typPumHeaWatSec=typPumHeaWatSec)
+    "Configuration parameters"
+    annotation (__ctrlFlow(enable=false));
+  parameter Buildings.Templates.Plants.Boilers.HotWater.Data.BoilerPlant dat(
+    cfg=cfg)
+    "Design and operating parameters"
+    annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
 
+  // The controller implementation does not support hybrid plants
+  // but the equipment model does. We only limit the choices here
+  // but keep all choices in the enumeration for future support.
   parameter Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler typ
     "Type of boilers"
-    annotation (Evaluate=true, Dialog(group="Boilers"));
+    annotation (Evaluate=true, Dialog(group="Boilers"),
+    choices(
+    choice = Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing
+      "Condensing boilers only",
+    choice = Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing
+      "Non-condensing boilers only"));
   parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod=
     Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial
     "Type of boiler model"
-    annotation (Evaluate=true, Dialog(group="Boilers"));
+    annotation (Evaluate=true, Dialog(group="Boilers"), __ctrlFlow(enable=false));
 
   final parameter Boolean have_boiCon =
     typ==Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing
@@ -198,28 +234,6 @@ partial model PartialBoilerPlant
     "Number of terminal units (zone equipment) served by the plant"
     annotation(Evaluate=true, Dialog(group="Controls"));
 
-  // See derived class for additional bindings of parameters not defined at top-level.
-  parameter Buildings.Templates.Plants.Boilers.HotWater.Data.BoilerPlant dat(
-    final have_boiCon=have_boiCon,
-    final have_boiNon=have_boiNon,
-    final nBoiCon=nBoiCon,
-    final nBoiNon=nBoiNon,
-    final typMod=typMod,
-    final typPumHeaWatSec=typPumHeaWatSec,
-    final nPumHeaWatPriCon=nPumHeaWatPriCon,
-    final nPumHeaWatPriNon=nPumHeaWatPriNon,
-    final nPumHeaWatSec=nPumHeaWatSec,
-    final have_valHeaWatMinBypCon=have_valHeaWatMinBypCon,
-    final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon,
-    final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
-    final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
-    final have_varPumHeaWatPriCon=have_varPumHeaWatPriCon,
-    final have_varPumHeaWatPriNon=have_varPumHeaWatPriNon,
-    final typCtl=typCtl,
-    final rho_default=rho_default)
-    "Design and operating parameters"
-    annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
-
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatPriCon_flow_nominal=
     sum(dat.pumHeaWatPriCon.m_flow_nominal)
     "Primary HW mass flow rate - Condensing boilers";
@@ -235,12 +249,18 @@ partial model PartialBoilerPlant
     else max(mHeaWatPriCon_flow_nominal, mHeaWatPriNon_flow_nominal)
     "HW mass flow rate (total, distributed to consumers)";
   final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=
-    (if have_boiCon then sum(dat.boiCon.capBoi_nominal) else 0) +
-    (if have_boiNon then sum(dat.boiNon.capBoi_nominal) else 0)
+    (if have_boiCon then sum(abs(dat.boiCon.capBoi_nominal)) else 0) +
+    (if have_boiNon then sum(abs(dat.boiNon.capBoi_nominal)) else 0)
     "Heating capacity (total)";
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=cap_nominal
+    "Heating heat flow rate - All units";
   final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=
     dat.ctl.THeaWatSup_nominal
     "Maximum HW supply temperature";
+  final parameter Modelica.Units.SI.Temperature THeaWatRet_nominal=
+    THeaWatSup_nominal - QHea_flow_nominal / cpHeaWat_default /
+    mHeaWat_flow_nominal
+    "HW return temperature";
 
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow"
@@ -257,15 +277,18 @@ partial model PartialBoilerPlant
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  final parameter Medium.Density rho_default=
-    Medium.density(sta_default)
-    "HW default density";
-  final parameter Medium.ThermodynamicState sta_default=
-     Medium.setState_pTX(
-       T=Buildings.Templates.Data.Defaults.THeaWatSup,
-       p=Medium.p_default,
-       X=Medium.X_default)
-    "HW default state";
+  final parameter Modelica.Media.Interfaces.Types.Density rhoHeaWat_default=
+      Medium.density(staHeaWat_default) "HW default density";
+  final parameter Medium.SpecificHeatCapacity cpHeaWat_default=
+    Medium.specificHeatCapacityCp(staHeaWat_default)
+    "HW default specific heat capacity"
+    annotation (Evaluate=true);
+  final parameter
+    Modelica.Media.Interfaces.PartialSimpleMedium.ThermodynamicState
+    staHeaWat_default=Medium.setState_pTX(
+      T=Buildings.Templates.Data.Defaults.THeaWatSup,
+      p=Medium.p_default,
+      X=Medium.X_default) "HW default state";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,

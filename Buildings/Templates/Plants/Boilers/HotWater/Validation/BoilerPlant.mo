@@ -3,8 +3,8 @@ model BoilerPlant
   "Validation of boiler plant template with G36 controls"
   extends
     Buildings.Templates.Plants.Boilers.HotWater.Validation.BoilerPlantOpenLoop(
-    BOI(
-      typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Hybrid,
+    pla(
+      typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing,
       nBoiCon_select=2,
       nBoiNon_select=2,
       typPumHeaWatPriCon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable,
@@ -19,26 +19,26 @@ model BoilerPlant
         typMeaCtlHeaWatPri=Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
         locSenVHeaWatPri=Buildings.Templates.Plants.Boilers.HotWater.Types.SensorLocation.Return,
         locSenVHeaWatSec=Buildings.Templates.Plants.Boilers.HotWater.Types.SensorLocation.Return,
-        have_senDpHeaWatLoc=true)));
+        have_senDpHeaWatRemWir=false)));
 
-  UserProject.AirHandlerControlPoints sigAirHan[BOI.nAirHan]
+  UserProject.AirHandlerControlPoints sigAirHan[pla.nAirHan]
     "AHU control points"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   UserProject.BASControlPoints sigBAS "BAS control points"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  UserProject.DistributionControlPoints sigDis(nSenDpHeaWatRem=BOI.ctl.nSenDpHeaWatRem)
+  UserProject.DistributionControlPoints sigDis(nSenDpHeaWatRem=pla.ctl.nSenDpHeaWatRem)
     "HW distribution system control points"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
 equation
-  connect(sigAirHan.bus, BOI.busAirHan) annotation (Line(
+  connect(sigAirHan.bus,pla.busAirHan)  annotation (Line(
       points={{-70,60},{-20,60},{-20,4}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigBAS.bus, BOI.bus) annotation (Line(
+  connect(sigBAS.bus,pla.bus)  annotation (Line(
       points={{-70,20},{-60,20},{-60,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigDis.bus, BOI.bus) annotation (Line(
+  connect(sigDis.bus,pla.bus)  annotation (Line(
       points={{-70,-20},{-60,-20},{-60,0}},
       color={255,204,51},
       thickness=0.5));

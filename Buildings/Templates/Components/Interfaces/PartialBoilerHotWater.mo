@@ -47,23 +47,9 @@ partial model PartialBoilerHotWater "Interface class for hot water boiler models
       "Boiler"
       annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset ctl(
-    Ti=60,
-    final yMax=1,
-    final yMin=0,
-    final reverseActing=true)
+  Plants.Controls.Utilities.PIDWithEnable ctlPID
     "HW supply temperature controller"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiSet
-    "Switch setpoint to measured value when disabled"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiSig
-    "Switch control signal to zero when disabled"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valDis(final k=0)
-    "Value when disabled"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-
 initial equation
   if typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Table then
     assert(mHeaWat_flow_nominal <= dat.per.m_flow_nominal,
@@ -93,38 +79,24 @@ equation
   connect(boi.port_b, port_b)
     annotation (Line(points={{10,-60},{80,-60},{80,0},{100,0}},
                                               color={0,127,255}));
-  connect(boi.T, ctl.u_m) annotation (Line(points={{11,-52},{20,-52},{20,20},{
-          -40,20},{-40,28}},
-                         color={0,0,127}));
-  connect(swiSet.y, ctl.u_s)
-    annotation (Line(points={{-58,40},{-52,40}}, color={0,0,127}));
-  connect(boi.T, swiSet.u3) annotation (Line(points={{11,-52},{20,-52},{20,20},
-          {-90,20},{-90,32},{-82,32}}, color={0,0,127}));
-  connect(bus.THeaWatSupSet, swiSet.u1) annotation (Line(
-      points={{0,100},{0,80},{-90,80},{-90,48},{-82,48}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.y1, swiSet.u2) annotation (Line(
-      points={{0,100},{0,80},{-90,80},{-90,40},{-82,40}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(swiSet.u2, ctl.trigger) annotation (Line(points={{-82,40},{-86,40},{
-          -86,24},{-46,24},{-46,28}}, color={255,0,255}));
-  connect(ctl.y, swiSig.u1) annotation (Line(points={{-28,40},{-20,40},{-20,48},
-          {-2,48}}, color={0,0,127}));
-  connect(valDis.y, swiSig.u3) annotation (Line(points={{-28,0},{-4,0},{-4,32},
-          {-2,32}}, color={0,0,127}));
-  connect(swiSet.u2, swiSig.u2) annotation (Line(points={{-82,40},{-86.1538,40},
-          {-86.1538,24},{-10,24},{-10,40},{-2,40}}, color={255,0,255}));
-  connect(swiSig.y, bus.y_actual) annotation (Line(points={{22,40},{40,40},{40,
-          96},{0,96},{0,100}},
-                         color={0,0,127}));
-  connect(swiSig.y, boi.y) annotation (Line(points={{22,40},{40,40},{40,-40},{
-          -20,-40},{-20,-52},{-12,-52}}, color={0,0,127}));
   connect(boi.T, bus.THeaWatSup) annotation (Line(points={{11,-52},{60,-52},{60,
           98},{0,98},{0,100}}, color={0,0,127}));
 
 
+  connect(ctlPID.y, boi.y) annotation (Line(points={{-28,0},{-20,0},{-20,-52},{
+          -12,-52}}, color={0,0,127}));
+  connect(boi.T, ctlPID.u_m) annotation (Line(points={{11,-52},{20,-52},{20,-40},
+          {-40,-40},{-40,-12}}, color={0,0,127}));
+  connect(bus.y1, ctlPID.uEna) annotation (Line(
+      points={{0,100},{0,20},{-60,20},{-60,-20},{-44,-20},{-44,-12}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.THeaWatSupSet, ctlPID.u_s) annotation (Line(
+      points={{0,100},{0,20},{-60,20},{-60,0},{-52,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ctlPID.y, bus.y_actual) annotation (Line(points={{-28,0},{20,0},{20,
+          96},{0,96},{0,100}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This partial class provides a standard interface for hot water boiler models.

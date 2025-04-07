@@ -3,87 +3,57 @@ class AllSystems
   "Design and operating parameters for testing purposes"
   extends Buildings.Templates.Data.AllSystems(
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
-
     stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     sysUni=Buildings.Templates.Types.Units.SI);
 
-  // The following instance name matches the system tag.
-  outer Buildings.Templates.Plants.Boilers.HotWater.BoilerPlant BOI;
-
-  parameter Buildings.Templates.Plants.Boilers.HotWater.Data.BoilerPlant _BOI(
-    final have_boiCon=BOI.have_boiCon,
-    final have_boiNon=BOI.have_boiNon,
-    final nBoiCon=BOI.nBoiCon,
-    final nBoiNon=BOI.nBoiNon,
-    final typMod=BOI.typMod,
-    final typPumHeaWatSec=BOI.typPumHeaWatSec,
-    final nPumHeaWatPriCon=BOI.nPumHeaWatPriCon,
-    final nPumHeaWatPriNon=BOI.nPumHeaWatPriNon,
-    final nPumHeaWatSec=BOI.nPumHeaWatSec,
-    final have_valHeaWatMinBypCon=BOI.have_valHeaWatMinBypCon,
-    final have_valHeaWatMinBypNon=BOI.have_valHeaWatMinBypNon,
-    final have_senDpHeaWatLoc=BOI.ctl.have_senDpHeaWatLoc,
-    final nSenDpHeaWatRem=BOI.ctl.nSenDpHeaWatRem,
-    final have_senVHeaWatSec=BOI.ctl.have_senVHeaWatSec,
-    final typArrPumHeaWatPriCon=BOI.typArrPumHeaWatPriCon,
-    final typArrPumHeaWatPriNon=BOI.typArrPumHeaWatPriNon,
-    final have_varPumHeaWatPriCon=BOI.have_varPumHeaWatPriCon,
-    final have_varPumHeaWatPriNon=BOI.have_varPumHeaWatPriNon,
-    final typCtl=BOI.typCtl,
-    final rho_default=BOI.rho_default,
+  parameter Buildings.Templates.Plants.Boilers.HotWater.Data.BoilerPlant pla(
     boiCon(
       fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
-      dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi, BOI.nBoiCon),
-      mHeaWatBoi_flow_nominal=_BOI.ctl.capBoiCon_nominal /
-        Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./
-        (_BOI.ctl.THeaWatConSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRet)),
+      dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi,
+          pla.cfg.nBoiCon),
+      mHeaWatBoi_flow_nominal=pla.ctl.capBoiCon_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+           ./ (pla.ctl.THeaWatConSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRet)),
     boiNon(
       fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
-      dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi, BOI.nBoiNon),
-      mHeaWatBoi_flow_nominal=_BOI.ctl.capBoiNon_nominal /
-        Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./
-        (_BOI.ctl.THeaWatSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRet)),
+      dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi,
+          pla.cfg.nBoiNon),
+      mHeaWatBoi_flow_nominal=pla.ctl.capBoiNon_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+           ./ (pla.ctl.THeaWatSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRet)),
     ctl(
       THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSup,
       THeaWatConSup_nominal=Buildings.Templates.Data.Defaults.THeaWatConSup,
       TOutLck=Buildings.Templates.Data.Defaults.TOutHeaWatLck,
-      VHeaWatBoiCon_flow_nominal=_BOI.boiCon.mHeaWatBoi_flow_nominal /
-        _BOI.rho_default,
-      VHeaWatBoiCon_flow_min=0.1 * _BOI.ctl.VHeaWatBoiCon_flow_nominal,
-      VHeaWatBoiNon_flow_nominal=_BOI.boiNon.mHeaWatBoi_flow_nominal /
-        _BOI.rho_default,
-      VHeaWatBoiNon_flow_min=0.1 * _BOI.ctl.VHeaWatBoiNon_flow_nominal,
-      ratFirBoiCon_min=fill(0.2, BOI.nBoiCon),
-      ratFirBoiNon_min=fill(0.2, BOI.nBoiNon),
-      capBoiCon_nominal=fill(1E6, BOI.nBoiCon),
-      capBoiNon_nominal=fill(1E6, BOI.nBoiNon),
-      VHeaWatPriCon_flow_nominal=sum(_BOI.ctl.VHeaWatBoiCon_flow_nominal),
-      VHeaWatPriNon_flow_nominal=sum(_BOI.ctl.VHeaWatBoiNon_flow_nominal),
-      VHeaWatSec_flow_nominal=
-        max(_BOI.ctl.VHeaWatPriCon_flow_nominal, _BOI.ctl.VHeaWatPriNon_flow_nominal) / 1.1,
-      dpHeaWatLocSet_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
-      dpHeaWatRemSet_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-        BOI.ctl.nSenDpHeaWatRem),
+      VHeaWatBoiCon_flow_nominal=pla.boiCon.mHeaWatBoi_flow_nominal/pla.cfg.rhoHeaWat_default,
+      VHeaWatBoiCon_flow_min=0.1*pla.ctl.VHeaWatBoiCon_flow_nominal,
+      VHeaWatBoiNon_flow_nominal=pla.boiNon.mHeaWatBoi_flow_nominal/pla.cfg.rhoHeaWat_default,
+      VHeaWatBoiNon_flow_min=0.1*pla.ctl.VHeaWatBoiNon_flow_nominal,
+      ratFirBoiCon_min=fill(0.2, pla.cfg.nBoiCon),
+      ratFirBoiNon_min=fill(0.2, pla.cfg.nBoiNon),
+      capBoiCon_nominal=fill(1E6, pla.cfg.nBoiCon),
+      capBoiNon_nominal=fill(1E6, pla.cfg.nBoiNon),
+      VHeaWatPriCon_flow_nominal=sum(pla.ctl.VHeaWatBoiCon_flow_nominal),
+      VHeaWatPriNon_flow_nominal=sum(pla.ctl.VHeaWatBoiNon_flow_nominal),
+      VHeaWatSec_flow_nominal=max(pla.ctl.VHeaWatPriCon_flow_nominal, pla.ctl.VHeaWatPriNon_flow_nominal)
+        /1.1,
+      dpHeaWatLocSet_max=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
+      dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+        pla.cfg.nSenDpHeaWatRem),
       yPumHeaWatPri_min=0.1,
       yPumHeaWatSec_min=0.1,
-      yPumHeaWatPriSta_min=fill(0.1, size(_BOI.ctl.sta, 1)),
-      sta=if BOI.have_boiCon and BOI.have_boiNon then
-        [0,0,0,0; 1,0,1,0; 1,1,1,1] else [0,0; 1,0; 1,1]),
-    pumHeaWatPriCon(
-      dp_nominal=fill(max(_BOI.boiCon.dpHeaWatBoi_nominal) * 1.5, BOI.nPumHeaWatPriCon) +
-       fill((if _BOI.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None then
-       _BOI.ctl.dpHeaWatLocSet_nominal else 0), BOI.nPumHeaWatPriCon)),
-    pumHeaWatPriNon(
-      dp_nominal=fill(max(_BOI.boiNon.dpHeaWatBoi_nominal) * 1.5, BOI.nPumHeaWatPriNon) +
-       fill((if _BOI.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None then
-       _BOI.ctl.dpHeaWatLocSet_nominal else 0), BOI.nPumHeaWatPriNon)),
-    pumHeaWatSec(
-      dp_nominal=fill(_BOI.ctl.dpHeaWatLocSet_nominal, BOI.nPumHeaWatSec),
-      m_flow_nominal=1.1 / max(1, BOI.nPumHeaWatSec) *
-        fill(max(sum(_BOI.pumHeaWatPriCon.m_flow_nominal), sum(_BOI.pumHeaWatPriNon.m_flow_nominal)),
-        BOI.nPumHeaWatSec)))
+      yPumHeaWatPriSta_min=fill(0.1, size(pla.ctl.sta, 1)),
+      sta=[0,0; 1,0; 1,1]),
+    pumHeaWatPriCon(dp_nominal=fill(max(pla.boiCon.dpHeaWatBoi_nominal)*1.5,
+      pla.cfg.nPumHeaWatPriCon) + fill((
+      if pla.cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+       then pla.ctl.dpHeaWatLocSet_max else 0), pla.cfg.nPumHeaWatPriCon)),
+    pumHeaWatPriNon(dp_nominal=fill(max(pla.boiNon.dpHeaWatBoi_nominal)*1.5,
+      pla.cfg.nPumHeaWatPriNon) + fill((
+       if pla.cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+       then pla.ctl.dpHeaWatLocSet_max else 0), pla.cfg.nPumHeaWatPriNon)),
+    pumHeaWatSec(dp_nominal=fill(pla.ctl.dpHeaWatLocSet_max, pla.cfg.nPumHeaWatSec),
+        m_flow_nominal=1.1/max(1, pla.cfg.nPumHeaWatSec)*fill(max(sum(pla.pumHeaWatPriCon.m_flow_nominal),
+          sum(pla.pumHeaWatPriNon.m_flow_nominal)), pla.cfg.nPumHeaWatSec)))
     "HW plant parameters";
   annotation (Documentation(info="<html>
 <p>
