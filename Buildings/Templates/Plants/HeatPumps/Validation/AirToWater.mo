@@ -71,13 +71,13 @@ model AirToWater
     final have_chiWat=have_chiWat,
     nHp=3,
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
     ctl(nAirHan=1, nEquZon=0),
     is_dpBalYPumSetCal=true) "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-120},{-40,-80}})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
     k=293.15,
     y(final unit="K",

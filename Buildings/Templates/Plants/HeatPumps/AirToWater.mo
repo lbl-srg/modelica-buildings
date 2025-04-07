@@ -673,8 +673,8 @@ public
     m_flow_nominal=mHeaWatPri_flow_nominal,
     dpValve_nominal=200)
     annotation (Placement(transformation(extent={{52,-174},{72,-154}})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow mov(redeclare package Medium
-      = MediumHeaWat, m_flow_nominal=mHeaWatPri_flow_nominal)
+  Fluid.Movers.Preconfigured.FlowControlled_m_flow mov(redeclare package Medium =
+        MediumHeaWat, m_flow_nominal=mHeaWatPri_flow_nominal)
     annotation (Placement(transformation(extent={{80,-154},{100,-174}})));
   Fluid.Movers.Preconfigured.FlowControlled_m_flow mov1(redeclare package
       Medium = MediumChiWat, m_flow_nominal=mChiWatPri_flow_nominal)

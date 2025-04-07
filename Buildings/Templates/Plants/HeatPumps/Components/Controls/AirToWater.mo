@@ -40,6 +40,7 @@ model AirToWater
                                                            ctl(
     final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     final have_hrc_select=false,
+    is_heaRec={false,false,true},
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -223,7 +224,7 @@ model AirToWater
         rotation=-90,
         origin={40,-120})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-190,-230},{-170,-210}})));
 equation
   /* Control point connection - start */
   // Inputs from plant control bus
@@ -386,8 +387,12 @@ equation
   connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={
           {22,-10},{34,-10},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
         color={0,0,127}));
-  connect(con.y, ctl.u1Hrc_actual) annotation (Line(points={{-58,30},{-32,30},{
-          -32,24.2},{-22,24.2}}, color={255,0,255}));
+  connect(con.y, busHrc.y1_actual) annotation (Line(points={{-168,-220},{-160,
+          -220},{-160,-280},{-240,-280}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

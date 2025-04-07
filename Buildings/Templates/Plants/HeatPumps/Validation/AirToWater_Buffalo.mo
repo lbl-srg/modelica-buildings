@@ -77,13 +77,9 @@ model AirToWater_Buffalo "Validation of AWHP plant template"
     final have_chiWat=have_chiWat,
     nHp=2,
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
-
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-
     typTanHeaWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
-
     typTanChiWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
-
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,

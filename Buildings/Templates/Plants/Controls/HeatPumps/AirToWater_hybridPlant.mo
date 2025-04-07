@@ -164,7 +164,7 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
     "Number of heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Boolean is_heaRec[nHp]
+  parameter Boolean is_heaRec[nHp]=fill(false,nHp)
     "Vector indicating if each HP has heat-recovery capabilities; True=Has heat recovery;False=No heat recovery"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));

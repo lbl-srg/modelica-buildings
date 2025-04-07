@@ -5,7 +5,7 @@ record HeatPumpPlant
   // Generic
   parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg
     "Configuration parameters"
-    annotation (Dialog(enable=false));
+    annotation (Dialog(enable=true));
   parameter String id=""
     "System tag"
     annotation (Dialog(tab="Advanced"));
