@@ -52,7 +52,9 @@ block RequiredFlowrate
   Buildings.Controls.OBC.CDL.Reals.Subtract sub3 if has_minTemp
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar3(p=1e-6) if has_minTemp
-    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
+    annotation (Placement(transformation(extent={{50,-130},{70,-110}})));
+  Buildings.Controls.OBC.CDL.Reals.Abs abs3 if has_minTemp
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 equation
   connect(TSupRef, sub.u1) annotation (Line(points={{-120,60},{-88,60},{-88,46},
           {-82,46}}, color={0,0,127}));
@@ -106,10 +108,12 @@ equation
   connect(max2.y, TRet) annotation (Line(points={{2,-100},{90,-100},{90,-60},{
           120,-60}},
                  color={0,0,127}));
-  connect(sub3.y, addPar3.u)
-    annotation (Line(points={{42,-80},{48,-80}}, color={0,0,127}));
-  connect(addPar3.y, div1.u2) annotation (Line(points={{72,-80},{78,-80},{78,
-          -22},{34,-22},{34,-6},{38,-6}}, color={0,0,127}));
+  connect(addPar3.y, div1.u2) annotation (Line(points={{72,-120},{80,-120},{80,
+          -18},{38,-18},{38,-6}},         color={0,0,127}));
+  connect(abs3.y, addPar3.u)
+    annotation (Line(points={{42,-120},{48,-120}}, color={0,0,127}));
+  connect(sub3.y, abs3.u) annotation (Line(points={{42,-80},{50,-80},{50,-106},
+          {10,-106},{10,-120},{18,-120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
           Rectangle(
