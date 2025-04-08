@@ -27,6 +27,7 @@ model AirToWater_Buffalo_nonTemplate
         have_valHpInlIso=true,
         have_valHpOutIso=true,
         typCtl=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater,
+
         nAirHan=1,
         nEquZon=1,
         rhoHeaWat_default(displayUnit="kg/m3") = 1000,
@@ -36,34 +37,42 @@ model AirToWater_Buffalo_nonTemplate
         rhoSou_default(displayUnit="kg/m3") = 1.225,
         cpSou_default=1005,
         typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+
         nPumHeaWatPri=2,
         nPumHeaWatSec=1,
         have_valHeaWatMinByp=false,
         typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+
         have_pumHeaWatPriVar=false,
         typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
+
         typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+
         typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
+
         have_senDpHeaWatRemWir=true,
         nSenDpHeaWatRem=1,
         have_pumChiWatPriDed=false,
         typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+
         nPumChiWatPri=2,
         nPumChiWatSec=1,
         have_valChiWatMinByp=false,
         have_pumChiWatPriVar=false,
         typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
+
         typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+
         have_senDpChiWatRemWir=true,
         nSenDpChiWatRem=1,
         have_inpSch=true),
       ctl(THeaWatSup_nominal=333.15, TChiWatSup_nominal=279.85),
       hp(
-        mHeaWatHp_flow_nominal=3*58/2,
-        capHeaHp_nominal=2.7e6/2,
+        mHeaWatHp_flow_nominal=0.3*58/2,
+        capHeaHp_nominal=0.55*2.7e6/2,
         THeaWatSupHp_nominal=333.15,
-        mChiWatHp_flow_nominal=68/2,
-        capCooHp_nominal=2.4e6/2,
+        mChiWatHp_flow_nominal=0.3*68,
+        capCooHp_nominal=0.3*2.4e6/2,
         TChiWatSupHp_nominal=279.85)))
     "Plant parameters"
     annotation (Placement(transformation(extent={{160,158},{180,178}})));
@@ -77,8 +86,7 @@ model AirToWater_Buffalo_nonTemplate
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.mos"))
+        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.mos"))
     "Outdoor conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-490,190})));
@@ -110,8 +118,8 @@ model AirToWater_Buffalo_nonTemplate
   Fluid.Actuators.Valves.TwoWayEqualPercentage valDisHeaWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=3*datAll.pla.hp.mHeaWatHp_flow_nominal,
-    dpValve_nominal=3E4,
-    dpFixed_nominal=datAll.pla.ctl.dpHeaWatRemSet_max[1] - 3E4)
+    dpValve_nominal=0.1*3E4,
+    dpFixed_nominal=0.1*(datAll.pla.ctl.dpHeaWatRemSet_max[1] - 3E4))
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
@@ -119,8 +127,8 @@ model AirToWater_Buffalo_nonTemplate
   Fluid.Actuators.Valves.TwoWayEqualPercentage valDisChiWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal,
-    dpValve_nominal=3E4,
-    dpFixed_nominal=datAll.pla.ctl.dpChiWatRemSet_max[1] - 3E4)
+    dpValve_nominal=0.01*3E4,
+    dpFixed_nominal=0.01*(datAll.pla.ctl.dpChiWatRemSet_max[1] - 3E4))
     if have_chiWat
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -148,12 +156,16 @@ model AirToWater_Buffalo_nonTemplate
     "Plant and reset request"
     annotation (Placement(transformation(extent={{90,122},{70,142}})));
   Buildings.Controls.OBC.CDL.Reals.PID ctlEquZon[2](
-    each k=0.1,
-    each Ti=60,
+    controllerType={Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
+        Buildings.Controls.OBC.CDL.Types.SimpleController.PID},
+    k={0.1,0.1},
+    Ti={30,60},
+    Td={100,1e-9},
     reverseActing=fill(true,2)) "Zone equipment controller"
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo[2](k={1/3*datAll.pla.hp.mHeaWatHp_flow_nominal,
-        1/3*datAll.pla.hp.mChiWatHp_flow_nominal}) "Normalize flow rate"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo[2](k={1/(3*datAll.pla.hp.mHeaWatHp_flow_nominal),
+        1/(3*datAll.pla.hp.mChiWatHp_flow_nominal)})
+                                                   "Normalize flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -199,13 +211,14 @@ model AirToWater_Buffalo_nonTemplate
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo1[2](k={1/3*datAll.pla.hp.mHeaWatHp_flow_nominal,
-        1/3*datAll.pla.hp.mChiWatHp_flow_nominal}) "Normalize flow rate"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo1[2](k={1/(3*
+        datAll.pla.hp.mHeaWatHp_flow_nominal),1/(3*datAll.pla.hp.mChiWatHp_flow_nominal)})
+                                                   "Normalize flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={28,100})));
-  HeatPumps_PNNL.Components.Controls.RequiredFlowrate reqFloHea
+  HeatPumps_PNNL.Components.Controls.RequiredFlowrate reqFloHea(has_minTemp=true)
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   HeatPumps_PNNL.Components.Controls.RequiredFlowrate reqFloCoo
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
@@ -473,8 +486,9 @@ public
     annotation (Placement(transformation(extent={{-52,-436},{-72,-416}})));
   Fluid.Movers.Preconfigured.SpeedControlled_y mov3(
     redeclare package Medium = Medium,
-    m_flow_nominal=datAll.pla.ctl.VHeaWatSec_flow_nominal*Buildings.Media.Water.d_const,
-    dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max)
+    m_flow_nominal=datAll.pla.ctl.VChiWatSec_flow_nominal*Buildings.Media.Water.d_const,
+
+    dp_nominal=3*ctl.dpChiWatRemSet_max[1])
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -482,8 +496,9 @@ public
 
   Fluid.Movers.Preconfigured.SpeedControlled_y mov4(
     redeclare package Medium = Medium,
-    m_flow_nominal=datAll.pla.ctl.VChiWatSec_flow_nominal*Buildings.Media.Water.d_const,
-    dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max)
+    m_flow_nominal=datAll.pla.ctl.VHeaWatSec_flow_nominal*Buildings.Media.Water.d_const,
+
+    dp_nominal=2*ctl.dpHeaWatRemSet_max[1])
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -519,7 +534,7 @@ public
     VHeaWatHp_flow_min=0.6*ctl.VHeaWatHp_flow_nominal,
     final VHeaWatSec_flow_nominal=3*datAll.pla.hp.mHeaWatHp_flow_nominal/1000,
     capHeaHp_nominal=fill(datAll.pla.hp.capHeaHp_nominal, ctl.nHp),
-    dpHeaWatRemSet_max={5E4},
+    dpHeaWatRemSet_max={7E4},
     final TChiWatSup_nominal=279.95,
     TChiWatSupSet_max=288.15,
     TOutChiWatLck=283.15,
@@ -529,7 +544,7 @@ public
     capCooHp_nominal=fill(datAll.pla.hp.capCooHp_nominal, ctl.nHp),
     yPumHeaWatPriSet=0.8,
     yPumChiWatPriSet=0.7,
-    dpChiWatRemSet_max={5E4},
+    dpChiWatRemSet_max={1E6},
     staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1],
     staEquOneMod=[1/2,1/2,0; 1,1,0; 1,1,1],
     idxEquAlt={1,2},
@@ -707,6 +722,9 @@ public
     annotation (Placement(transformation(extent={{-320,-490},{-300,-470}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea7
     annotation (Placement(transformation(extent={{-294,-490},{-274,-470}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum1(k=30)
+    "Placeholder signal for request generator"
+    annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busHp[2]
     "Heat pump control bus" annotation (Placement(transformation(extent={{-522,84},
@@ -794,12 +812,6 @@ equation
           0,0,127}));
   connect(datRea.y[4], addPar.u) annotation (Line(points={{-159,100},{-132,100},
           {-132,70},{-122,70}}, color={0,0,127}));
-  connect(addPar.y, loaHeaWat.TSet) annotation (Line(points={{-98,70},{64,70},{
-          64,-156},{192,-156},{192,-468},{184,-468},{184,-496},{180,-496},{180,
-          -520}},              color={0,0,127}));
-  connect(reqFloHea.mReq_flow, norFlo1[1].u)
-    annotation (Line(points={{-98,104},{-42,104},{-42,100},{16,100}},
-                                                  color={0,0,127}));
   connect(datRea.y[2], addPar1.u) annotation (Line(points={{-159,100},{-132,100},
           {-132,0},{-122,0}}, color={0,0,127}));
   connect(addPar1.y, loaChiWat.TSet)
@@ -814,8 +826,6 @@ equation
   connect(senTemCooSup.T, reqFloCoo.TSupMea) annotation (Line(points={{50,-49},
           {50,4},{-90,4},{-90,46},{-130,46},{-130,26},{-122,26}}, color={0,0,
           127}));
-  connect(reqFloCoo.mReq_flow, norFlo1[2].u) annotation (Line(points={{-98,34},
-          {-38,34},{-38,100},{16,100}}, color={0,0,127}));
   connect(hp.ports_bChiHeaWat, valIso.ports_aChiHeaWatHp) annotation (Line(
         points={{-648,-260},{-648,-242},{-650,-242},{-650,-156},{-575.875,-156},
           {-575.875,-160}},                                               color
@@ -1285,8 +1295,6 @@ equation
   connect(senTemHeaSup.T, busSen.THeaWatSupSec) annotation (Line(points={{140,
           -499},{110,-499},{110,-234},{62,-234}},
                                             color={0,0,127}));
-  connect(addPar.y, busSen.THeaWatRetSec) annotation (Line(points={{-98,70},{64,
-          70},{64,-234},{62,-234}}, color={0,0,127}));
   connect(bou.ports, mov.port_a) annotation (Line(points={{-550,-182},{-528,
           -182},{-528,-172},{-508,-172},{-508,-178}}, color={0,127,255}));
   connect(dpChiWatRem[1].port_a, senTemCooSup.port_b) annotation (Line(points={
@@ -1338,41 +1346,51 @@ equation
           60},{-392,60},{-392,28.2},{-382,28.2}}, color={255,0,255}));
   connect(ctl.y1PumChiWatSec[1], pre1.u) annotation (Line(points={{-338,16},{
           -326,16},{-326,60},{-334,60}}, color={255,0,255}));
-  connect(booToRea.y, mov2.y) annotation (Line(points={{-32,-386},{-32,-388},{
-          -100,-388},{-100,-414}}, color={0,0,127}));
-  connect(booToRea1.y, mov1.y) annotation (Line(points={{-32,-456},{-102,-456},
-          {-102,-458},{-172,-458}}, color={0,0,127}));
+  connect(booToRea.y, mov2.y) annotation (Line(points={{-32,-386},{-32,-388},{-100,
+          -388},{-100,-414}}, color={0,0,127}));
+  connect(booToRea1.y, mov1.y) annotation (Line(points={{-32,-456},{-102,-456},{
+          -102,-458},{-172,-458}}, color={0,0,127}));
   connect(weaDat.weaBus, out.weaBus) annotation (Line(
-      points={{-480,190},{-472,190},{-472,208},{-700,208},{-700,-172},{-584,
-          -172},{-584,-216},{-504,-216},{-504,-212},{-348,-212},{-348,-439.8},{
-          -260,-439.8}},
+      points={{-480,190},{-472,190},{-472,208},{-700,208},{-700,-172},{-584,-172},
+          {-584,-216},{-504,-216},{-504,-212},{-348,-212},{-348,-439.8},{-260,-439.8}},
       color={255,204,51},
       thickness=0.5));
+
   connect(out.ports[1], hp1.port_b3) annotation (Line(points={{-240,-441},{-236,
-          -441},{-236,-424},{-224,-424},{-224,-420},{-152,-420},{-152,-423.9},{
-          -136,-423.9}}, color={0,127,255}));
+          -441},{-236,-424},{-224,-424},{-224,-420},{-152,-420},{-152,-423.9},{-136,
+          -423.9}}, color={0,127,255}));
   connect(out.ports[2], mov5.port_a) annotation (Line(points={{-240,-439},{-236,
-          -439},{-236,-424},{-268,-424},{-268,-484},{-258,-484}}, color={0,127,
-          255}));
-  connect(mov5.port_b, hp1.port_a3) annotation (Line(points={{-238,-484},{-136,
-          -484},{-136,-448}}, color={0,127,255}));
+          -439},{-236,-424},{-268,-424},{-268,-484},{-258,-484}}, color={0,127,255}));
+  connect(mov5.port_b, hp1.port_a3) annotation (Line(points={{-238,-484},{-136,-484},
+          {-136,-448}}, color={0,127,255}));
   connect(xor.y, booToRea7.u)
     annotation (Line(points={{-298,-480},{-296,-480}}, color={255,0,255}));
   connect(booToRea7.y, mov5.y) annotation (Line(points={{-272,-480},{-260,-480},
           {-260,-472},{-248,-472}}, color={0,0,127}));
-  connect(booToRea.u, xor.u1) annotation (Line(points={{-8,-386},{-164,-386},{
-          -164,-480},{-322,-480}}, color={255,0,255}));
+  connect(booToRea.u, xor.u1) annotation (Line(points={{-8,-386},{-164,-386},{-164,
+          -480},{-322,-480}}, color={255,0,255}));
   connect(booToRea1.u, xor.u2) annotation (Line(points={{-8,-456},{-4,-456},{-4,
           -512},{-56,-512},{-56,-560},{-164,-560},{-164,-552},{-332,-552},{-332,
           -488},{-322,-488}}, color={255,0,255}));
+  connect(reqFloCoo.mReq_flow, norFlo1[2].u) annotation (Line(points={{-98,34},{
+          -60,34},{-60,36},{-20,36},{-20,100},{16,100}}, color={0,0,127}));
+  connect(TDum1.y, reqFloHea.TMinRef) annotation (Line(points={{-138,170},{-136,
+          170},{-136,84},{-128,84},{-128,92},{-122,92}}, color={0,0,127}));
+  connect(reqFloHea.mReq_flow, norFlo1[1].u) annotation (Line(points={{-98,104},
+          {-20,104},{-20,100},{16,100}}, color={0,0,127}));
+  connect(reqFloHea.TRet, loaHeaWat.TSet) annotation (Line(points={{-98,96},{8,96},
+          {8,80},{164,80},{164,-508},{180,-508},{180,-520}}, color={0,0,127}));
+  connect(reqFloHea.TRet, busSen.THeaWatRetSec) annotation (Line(points={{-98,96},
+          {8,96},{8,80},{164,80},{164,-232},{100,-232},{100,-204},{62,-204},{62,
+          -234}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
         "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWater.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=86400,
-      StopTime=604800,
+      StartTime=15638400,
+      StopTime=16156800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Documentation(
