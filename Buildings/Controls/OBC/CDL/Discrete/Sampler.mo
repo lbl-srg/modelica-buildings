@@ -54,7 +54,6 @@ equation
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={223,211,169},
-          lineThickness=5.0,
           borderPattern=BorderPattern.Raised,
           fillPattern=FillPattern.Solid),
         Text(
