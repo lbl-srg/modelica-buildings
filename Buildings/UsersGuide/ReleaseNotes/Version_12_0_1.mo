@@ -49,7 +49,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Electrical.BaseClasses.WindTurbine.PartialWindTurbine
     </td>
-    <td valign=\"top\">Changed model to avoid a rounding error that occurs due to the revised definition of <ocde>eps</code>
+    <td valign=\"top\">Changed model to avoid a rounding error that occurs due to the revised definition of <code>eps</code>
                        in the development version of the Modelica Standard Library 4.1.0.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
     </td>
