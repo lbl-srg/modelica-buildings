@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Validation;
-model AirToWater_Buffalo_nonTemplate
+model Buffalo_hybridDedicated_nonTemplate
   "Validation of AWHP plant template"
   extends Modelica.Icons.Example;
   replaceable package Medium=Buildings.Media.Water
@@ -27,6 +27,7 @@ model AirToWater_Buffalo_nonTemplate
         have_valHpInlIso=true,
         have_valHpOutIso=true,
         typCtl=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater,
+
         nAirHan=1,
         nEquZon=1,
         rhoHeaWat_default(displayUnit="kg/m3") = 1000,
@@ -36,34 +37,42 @@ model AirToWater_Buffalo_nonTemplate
         rhoSou_default(displayUnit="kg/m3") = 1.225,
         cpSou_default=1005,
         typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+
         nPumHeaWatPri=2,
-        nPumHeaWatSec=1,
+        nPumHeaWatSec=pumHeaWatSec.nPum,
         have_valHeaWatMinByp=false,
         typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+
         have_pumHeaWatPriVar=false,
         typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
+
         typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+
         typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
+
         have_senDpHeaWatRemWir=true,
         nSenDpHeaWatRem=1,
         have_pumChiWatPriDed=false,
         typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+
         nPumChiWatPri=2,
-        nPumChiWatSec=1,
+        nPumChiWatSec=pumChiWatSec.nPum,
         have_valChiWatMinByp=false,
         have_pumChiWatPriVar=false,
         typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
+
         typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+
         have_senDpChiWatRemWir=true,
         nSenDpChiWatRem=1,
         have_inpSch=true),
       ctl(THeaWatSup_nominal=333.15, TChiWatSup_nominal=279.85),
       hp(
-        mHeaWatHp_flow_nominal=0.3*58/2,
-        capHeaHp_nominal=0.55*2.7e6/2,
+        mHeaWatHp_flow_nominal=0.15*58,
+        capHeaHp_nominal=0.45*2.7e6,
         THeaWatSupHp_nominal=333.15,
-        mChiWatHp_flow_nominal=0.3*68,
-        capCooHp_nominal=0.3*2.4e6/2,
+        mChiWatHp_flow_nominal=0.35*68,
+        capCooHp_nominal=0.35*2.4e6,
         TChiWatSupHp_nominal=279.85)))
     "Plant parameters"
     annotation (Placement(transformation(extent={{160,158},{180,178}})));
@@ -118,8 +127,8 @@ model AirToWater_Buffalo_nonTemplate
   Fluid.Actuators.Valves.TwoWayEqualPercentage valDisChiWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal,
-    dpValve_nominal=0.01*3E4,
-    dpFixed_nominal=0.01*(datAll.pla.ctl.dpChiWatRemSet_max[1] - 3E4))
+    dpValve_nominal=1*3E4,
+    dpFixed_nominal=1*(datAll.pla.ctl.dpChiWatRemSet_max[1] - 3E4))
     if have_chiWat
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -147,10 +156,10 @@ model AirToWater_Buffalo_nonTemplate
     "Plant and reset request"
     annotation (Placement(transformation(extent={{90,122},{70,142}})));
   Buildings.Controls.OBC.CDL.Reals.PID ctlEquZon[2](
-    controllerType={Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
-        Buildings.Controls.OBC.CDL.Types.SimpleController.PID},
+    controllerType={Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+        Buildings.Controls.OBC.CDL.Types.SimpleController.PI},
     k={0.1,0.1},
-    Ti={30,60},
+    Ti={45,120},
     Td={100,1e-9},
     reverseActing=fill(true,2)) "Zone equipment controller"
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
@@ -175,8 +184,7 @@ model AirToWater_Buffalo_nonTemplate
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt[4]
     "Importance multiplier"
     annotation (Placement(transformation(extent={{0,122},{-20,142}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[4](
-    each k=10)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[4](k={20,20,10,10})
     "Constant"
     annotation (Placement(transformation(extent={{40,170},{20,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
@@ -224,46 +232,16 @@ model AirToWater_Buffalo_nonTemplate
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(p=273.15)
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Components.ValvesIsolation valIso(
-    redeclare final package Medium = Medium,
-    final nHp=2,
-    final have_chiWat=true,
-    final have_valHpInlIso=true,
-    final have_valHpOutIso=true,
-    final have_pumChiWatPriDed=false,
-    final mHeaWatHp_flow_nominal=fill(datAll.pla.hp.mHeaWatHp_flow_nominal,
-        valIso.nHp),
-    final dpHeaWatHp_nominal=fill(datAll.pla.hp.dpHeaWatHp_nominal, valIso.nHp),
-    final dpBalHeaWatHp_nominal=fill(0, valIso.nHp),
-    final mChiWatHp_flow_nominal=fill(datAll.pla.hp.mChiWatHp_flow_nominal,
-        valIso.nHp),
-    final dpBalChiWatHp_nominal=fill(0, valIso.nHp),
-    final allowFlowReversal=true,
-    linearized=true)
-    "Heat pump isolation valves"
-    annotation (Placement(transformation(extent={{-678,-160},{-420,-106}})));
-
-  Components.HeatPumpGroups.AirToWater                                      hp(
-    redeclare final package MediumHeaWat = Medium,
-    redeclare final package MediumAir = MediumAir,
-    final nHp=2,
-    final is_rev=true,
-    dat=datAll.pla.hp,
-    final energyDynamics=energyDynamics,
-    final have_dpChiHeaWatHp=false,
-    final have_dpSou=false,
-    final allowFlowReversal=allowFlowReversal,
-    final allowFlowReversalSou=false)
-    "Heat pump group"
-    annotation (Placement(transformation(extent={{-838,-340},{-358,-260}})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y mov[2](
+  Fluid.Movers.Preconfigured.SpeedControlled_y mov(
     redeclare package Medium = Medium,
-    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal,
-    dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal) annotation (Placement(
+    addPowerToMedium=false,
+    m_flow_nominal=4*datAll.pla.pumChiWatPri.m_flow_nominal[1],
+    dp_nominal=datAll.pla.pumChiWatPri.dp_nominal[1])
+                                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-508,-188})));
+        rotation=0,
+        origin={-510,-190})));
   Buildings.Templates.Components.Routing.Junction junChiWatBypSup1(
     redeclare final package Medium = Medium,
     final m_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal*{1,-1,1},
@@ -397,16 +375,11 @@ model AirToWater_Buffalo_nonTemplate
     dpCon1_nominal=6000,
     use_con1Cap=false,
     mEva_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal,
-    QHeaCoo_flow_nominal=20000,
-    QCoo_flow_nominal=-30000,
+    QHeaCoo_flow_nominal=datAll.pla.hp.capHeaHp_nominal,
+    QCoo_flow_nominal=-datAll.pla.hp.capCooHp_nominal,
     redeclare model RefrigerantCycleHeatPumpHeating =
         Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
-        (
-        redeclare
-          Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal,
-        TAppCon_nominal=0,
-        TAppEva_nominal=0),
+        (TAppCon_nominal=0, TAppEva_nominal=0),
     redeclare model RefrigerantCycleHeatPumpCooling =
         Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
         redeclare
@@ -432,26 +405,26 @@ model AirToWater_Buffalo_nonTemplate
         nthOrd=1,
         initType=Modelica.Blocks.Types.Init.InitialState),
     TConCoo_nominal=308.15,
-    dpCon_nominal(displayUnit="Pa") = 6000,
+    dpCon_nominal(displayUnit="Pa") = 0.75*datAll.pla.pumChiWatPri.dp_nominal[1],
     use_conCap=false,
     CCon=0,
     GConOut=0,
     GConIns=0,
-    TEvaCoo_nominal=283.15,
+    TEvaCoo_nominal=279.95,
     dTEva_nominal=6,
     dTCon_nominal=20,
-    dpEva_nominal(displayUnit="Pa") = 6000,
+    dpEva_nominal(displayUnit="Pa") = 0.75*datAll.pla.pumChiWatPri.dp_nominal[1],
     use_evaCap=false,
     CEva=0,
     GEvaOut=0,
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
-    QHea_flow_nominal=30000,
-    TEvaHea_nominal=298.15,
+    QHea_flow_nominal=datAll.pla.hp.capHeaHp_nominal,
+    TEvaHea_nominal=273.15,
     TConHea_nominal=313.15,
-    TConHeaCoo_nominal=323.15,
-    TEvaHeaCoo_nominal=283.15,
+    TConHeaCoo_nominal=333.15,
+    TEvaHeaCoo_nominal=279.95,
     con1(T_start=298.15),
     con(T_start=313.15),
     eva(T_start=283.15))    "Modular reversible 4pipe heat pump instance"
@@ -460,45 +433,31 @@ public
   Fluid.FixedResistances.CheckValve cheVal(
     redeclare package Medium = Medium,
     m_flow_nominal=datAll.pla.hp.mHeaWatHp_flow_nominal,
-    dpValve_nominal=200)
+    dpValve_nominal=1e-9)
     annotation (Placement(transformation(extent={{-210,-456},{-190,-436}})));
   Fluid.Movers.Preconfigured.SpeedControlled_y     mov1(redeclare package
       Medium = Medium, m_flow_nominal=datAll.pla.hp.mHeaWatHp_flow_nominal,
-    dp_nominal=2*hp1.dpCon_nominal)
+    dp_nominal=datAll.pla.pumChiWatPri.dp_nominal[1])
     annotation (Placement(transformation(extent={{-182,-436},{-162,-456}})));
   Fluid.Movers.Preconfigured.SpeedControlled_y     mov2(redeclare package
-      Medium = Medium, m_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal,
-    dp_nominal=2*hp1.dpEva_nominal)
+      Medium = Medium,
+    addPowerToMedium=false,
+    m_flow_nominal=4*datAll.pla.hp.mChiWatHp_flow_nominal,
+    dp_nominal=datAll.pla.pumChiWatPri.dp_nominal[1])
     annotation (Placement(transformation(extent={{-90,-436},{-110,-416}})));
   Fluid.FixedResistances.CheckValve cheVal1(
     redeclare package Medium = Medium,
     m_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal,
-    dpValve_nominal=200)
+    dpValve_nominal=1e-9)
     annotation (Placement(transformation(extent={{-52,-436},{-72,-416}})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y mov3(
-    redeclare package Medium = Medium,
-    m_flow_nominal=datAll.pla.ctl.VChiWatSec_flow_nominal*Buildings.Media.Water.d_const,
-    dp_nominal=3*ctl.dpChiWatRemSet_max[1])
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-38,-90})));
 
-  Fluid.Movers.Preconfigured.SpeedControlled_y mov4(
-    redeclare package Medium = Medium,
-    m_flow_nominal=datAll.pla.ctl.VHeaWatSec_flow_nominal*Buildings.Media.Water.d_const,
-    dp_nominal=2*ctl.dpHeaWatRemSet_max[1])
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={30,-510})));
-
-  Controls.HeatPumps.AirToWater_hybridPlant                ctl(
+  Controls.HeatPumps.AirToWater_hybridPlant ctlHea(
     have_heaWat=true,
-    have_chiWat=true,
+    has_sort=false,
+    have_chiWat=false,
     have_hrc_select=true,
-    have_valHpInlIso=true,
-    have_valHpOutIso=true,
+    have_valHpInlIso=false,
+    have_valHpOutIso=false,
     have_pumChiWatPriDed_select=true,
     have_pumPriHdr=false,
     is_priOnl=false,
@@ -508,9 +467,9 @@ public
     have_senVChiWatPri_select=false,
     have_senTHeaWatPriRet_select=false,
     have_senTChiWatPriRet_select=false,
-    nHp=3,
-    is_heaRec={false,false,true},
-    nPumHeaWatSec=1,
+    nHp=2,
+    is_heaRec={false,true},
+    nPumHeaWatSec=4,
     nPumChiWatSec=1,
     have_senDpHeaWatRemWir=true,
     nSenDpHeaWatRem=1,
@@ -519,34 +478,37 @@ public
     final THeaWatSup_nominal=333.15,
     THeaWatSupSet_min=318.15,
     TOutHeaWatLck=303.15,
-    VHeaWatHp_flow_nominal=1.1*fill(ctl.VHeaWatSec_flow_nominal/ctl.nHp, ctl.nHp),
-    VHeaWatHp_flow_min=0.6*ctl.VHeaWatHp_flow_nominal,
-    final VHeaWatSec_flow_nominal=3*datAll.pla.hp.mHeaWatHp_flow_nominal/1000,
-    capHeaHp_nominal=fill(datAll.pla.hp.capHeaHp_nominal, ctl.nHp),
+    VHeaWatHp_flow_nominal=1.1*fill(ctlHea.VHeaWatSec_flow_nominal/ctlHea.nHp,
+        ctlHea.nHp),
+    VHeaWatHp_flow_min=0.6*ctlHea.VHeaWatHp_flow_nominal,
+    final VHeaWatSec_flow_nominal=ctlHea.nHp*datAll.pla.hp.mHeaWatHp_flow_nominal
+        /1000,
+    capHeaHp_nominal=fill(datAll.pla.hp.capHeaHp_nominal, ctlHea.nHp),
     dpHeaWatRemSet_max={7E4},
     final TChiWatSup_nominal=279.95,
     TChiWatSupSet_max=288.15,
     TOutChiWatLck=283.15,
-    VChiWatHp_flow_nominal=1.1*fill(ctl.VChiWatSec_flow_nominal/ctl.nHp, ctl.nHp),
-    VChiWatHp_flow_min=0.6*ctl.VChiWatHp_flow_nominal,
-    final VChiWatSec_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal/1000,
-    capCooHp_nominal=fill(datAll.pla.hp.capCooHp_nominal, ctl.nHp),
+    VChiWatHp_flow_nominal=1.1*fill(ctlHea.VChiWatSec_flow_nominal/ctlHea.nHp,
+        ctlHea.nHp),
+    VChiWatHp_flow_min=0.6*ctlHea.VChiWatHp_flow_nominal,
+    final VChiWatSec_flow_nominal=ctlHea.nHp*datAll.pla.hp.mChiWatHp_flow_nominal
+        /1000,
+    capCooHp_nominal=fill(datAll.pla.hp.capCooHp_nominal, ctlHea.nHp),
     yPumHeaWatPriSet=0.8,
     yPumChiWatPriSet=0.7,
     dpChiWatRemSet_max={1E6},
-    staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1],
-    staEquOneMod=[1/2,1/2,0; 1,1,0; 1,1,1],
+    staEquCooHea=[0,1; 1,1],
+    staEquOneMod=[1,0; 1,1],
+    nEquAlt=2,
     idxEquAlt={1,2},
     kCtlDpHeaWat=100,
     TiCtlDpHeaWat=1e-3,
     TChiWatSupHrc_min=277.15,
     THeaWatSupHrc_max=333.15,
     COPHeaHrc_nominal=2.8,
-    capCooHrc_min=ctl.capHeaHrc_min*(1 - 1/ctl.COPHeaHrc_nominal),
-    capHeaHrc_min=0.3*0.5*sum(ctl.capHeaHp_nominal),
-    ctlPumHeaWatSec(ctlDpRem(y(start=1))))
-    "Plant controller"
-    annotation (Placement(transformation(extent={{-380,-30},{-340,42}})));
+    capCooHrc_min=ctlHea.capHeaHrc_min*(1 - 1/ctlHea.COPHeaHrc_nominal),
+    capHeaHrc_min=0.3*0.5*sum(ctlHea.capHeaHp_nominal)) "Plant controller"
+    annotation (Placement(transformation(extent={{-620,-4},{-580,68}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(k=Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.AmbientCooling)
     annotation (Placement(transformation(extent={{-410,-486},{-390,-466}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
@@ -567,11 +529,15 @@ public
     annotation (Placement(transformation(extent={{-260,-416},{-240,-396}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
     annotation (Placement(transformation(extent={{-260,-366},{-240,-346}})));
-  Buildings.Controls.OBC.CDL.Reals.PID conPIDCoo(reverseActing=false)
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset
+                                       conPIDCoo(
+    k=0.2,
+    Ti=15,                                       reverseActing=false)
     annotation (Placement(transformation(extent={{-180,-340},{-200,-320}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2
     annotation (Placement(transformation(extent={{-230,-386},{-210,-366}})));
-  Buildings.Controls.OBC.CDL.Reals.PID conPIDHea
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset
+                                       conPIDHea(k=0.05, Ti=60)
     annotation (Placement(transformation(extent={{-100,-486},{-80,-466}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-10,-396},{-30,-376}})));
@@ -589,22 +555,11 @@ public
         Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.AmbientHeating,
         Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.HeatingCooling})
     annotation (Placement(transformation(extent={{-520,-500},{-500,-480}})));
-  Interfaces.Bus                                      bus
-    "Plant control bus"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,
-      origin={-520,-46}),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-100,0})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3[2](t=0.05, h=0.02)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3(t=0.05, h=0.02)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-490,-230})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr4(t=0.05, h=0.02)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-30,-610})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr5(t=0.05, h=0.02)
-    annotation (Placement(transformation(extent={{-42,-30},{-62,-10}})));
+        origin={-480,-190})));
   Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium,
       m_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal) annotation (
       Placement(transformation(
@@ -627,12 +582,7 @@ public
      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-400,-180})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2[2] annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-400,-150})));
+        origin={-470,-150})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul2
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul3
@@ -644,7 +594,7 @@ public
         rotation=0,
         origin={-122,-92})));
   Fluid.Sensors.VolumeFlowRate senVolFlo(redeclare package Medium = Medium,
-      m_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal)
+      m_flow_nominal=2*datAll.pla.hp.mChiWatHp_flow_nominal)
     annotation (Placement(transformation(extent={{-106,-102},{-86,-82}})));
   Fluid.Sensors.TemperatureTwoPort senTem3(redeclare package Medium = Medium,
       m_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal) annotation (
@@ -653,7 +603,7 @@ public
         rotation=0,
         origin={-122,-140})));
   Fluid.Sensors.VolumeFlowRate senVolFlo1(redeclare package Medium = Medium,
-      m_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal)
+      m_flow_nominal=2*datAll.pla.hp.mChiWatHp_flow_nominal)
     annotation (Placement(transformation(extent={{-88,-150},{-108,-130}})));
   Fluid.Sensors.TemperatureTwoPort senTem4(redeclare package Medium = Medium,
       m_flow_nominal=3*datAll.pla.hp.mHeaWatHp_flow_nominal) annotation (
@@ -680,7 +630,7 @@ public
         transformation(extent={{42,-254},{82,-214}}), iconTransformation(extent
           ={{-980,164},{-940,204}})));
   Buildings.Templates.Components.Interfaces.Bus busSen2 annotation (Placement(
-        transformation(extent={{-542,-20},{-502,20}}), iconTransformation(
+        transformation(extent={{-672,-20},{-632,20}}), iconTransformation(
           extent={{-980,164},{-940,204}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo2(k=1/1000)
     "Normalize flow rate" annotation (Placement(transformation(
@@ -693,16 +643,19 @@ public
         rotation=90,
         origin={120,-290})));
   Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=2)
-    annotation (Placement(transformation(extent={{-570,-192},{-550,-172}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{-360,70},{-380,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1
-    annotation (Placement(transformation(extent={{-336,50},{-356,70}})));
-  Fluid.Sources.Outside out(redeclare package Medium = MediumAir, nPorts=2)
-    annotation (Placement(transformation(extent={{-260,-450},{-240,-430}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-560,-140})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[pumHeaWatSec.nPum]
+    annotation (Placement(transformation(extent={{-600,100},{-620,120}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[pumChiWatSec.nPum]
+    annotation (Placement(transformation(extent={{-350,0},{-370,20}})));
+  Fluid.Sources.Outside out(redeclare package Medium = MediumAir, nPorts=3)
+    annotation (Placement(transformation(extent={{-640,-340},{-620,-320}})));
   Fluid.Movers.Preconfigured.SpeedControlled_y     mov5(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=hp1.mCon1_flow_nominal,
+    addPowerToMedium=false,
+    m_flow_nominal=10*hp1.mCon1_flow_nominal,
     dp_nominal=2*hp1.dpCon_nominal)
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=180,
@@ -714,26 +667,246 @@ public
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum1(k=30)
     "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
-protected
-  Buildings.Templates.Components.Interfaces.Bus busHp[2]
-    "Heat pump control bus" annotation (Placement(transformation(extent={{-522,84},
-            {-482,124}}), iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpInlIso[2]
-    "Heat pump inlet HW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-526,44},{-486,84}}), iconTransformation(extent
-          ={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpOutIso[2]
-    "Heat pump outlet HW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-522,8},{-482,48}}), iconTransformation(extent={
-            {-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatHpInlIso[2]
-    "Heat pump inlet CHW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-484,-46},{-444,-6}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatHpOutIso[2]
-    "Heat pump outlet CHW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-484,-86},{-444,-46}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.HeatPumps.AirToWater hpDed(
+    redeclare package MediumHeaWat = Medium,
+    redeclare package MediumAir = MediumAir,
+    is_rev=false,
+    dat(
+      mHeaWat_flow_nominal=datAll.pla.hp.mHeaWatHp_flow_nominal,
+      dpHeaWat_nominal(displayUnit="Pa") = 0.75*datAll.pla.pumChiWatPri.dp_nominal[
+        1],
+      capHea_nominal=datAll.pla.hp.capHeaHp_nominal,
+      THeaWatSup_nominal=333.15,
+      TSouHea_nominal=283.15,
+      perFit=datAll.pla.hp.perFitHp))
+    annotation (Placement(transformation(extent={{-580,-280},{-560,-260}})));
+  Buildings.Templates.Components.Chillers.Compression chiDed(
+    redeclare package MediumChiWat = Medium,
+    redeclare package MediumCon = MediumAir,
+    dat=datChi,
+    typ=Buildings.Templates.Components.Types.Chiller.AirCooled)
+    annotation (Placement(transformation(extent={{-500,-260},{-480,-280}})));
+  parameter
+    Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_York_YT_1396kW_7_35COP_Vanes
+    datChiPerFit
+    annotation (Placement(transformation(extent={{-658,-98},{-638,-78}})));
+  Fluid.Movers.Preconfigured.SpeedControlled_y     mov6(
+    redeclare package Medium = MediumAir,
+    addPowerToMedium=false,
+    m_flow_nominal=10*datChi.mCon_flow_nominal,
+    dp_nominal=2*hp1.dpCon_nominal)
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={-520,-300})));
+  Fluid.Movers.Preconfigured.SpeedControlled_y mov7(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
+    dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1])
+                                                   annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-590,-190})));
+  Controls.HeatPumps.AirToWater_hybridPlant ctlCoo(
+    have_heaWat=false,
+    has_sort=false,
+    have_chiWat=true,
+    have_hrc_select=true,
+    have_valHpInlIso=false,
+    have_valHpOutIso=false,
+    have_pumChiWatPriDed_select=true,
+    have_pumPriHdr=false,
+    is_priOnl=false,
+    have_pumHeaWatPriVar_select=false,
+    have_pumChiWatPriVar_select=false,
+    have_senVHeaWatPri_select=false,
+    have_senVChiWatPri_select=false,
+    have_senTHeaWatPriRet_select=false,
+    have_senTChiWatPriRet_select=false,
+    nHp=2,
+    is_heaRec={false,true},
+    nPumHeaWatSec=1,
+    nPumChiWatSec=4,
+    have_senDpHeaWatRemWir=true,
+    nSenDpHeaWatRem=1,
+    have_senDpChiWatRemWir=true,
+    nSenDpChiWatRem=1,
+    final THeaWatSup_nominal=333.15,
+    THeaWatSupSet_min=318.15,
+    TOutHeaWatLck=303.15,
+    VHeaWatHp_flow_nominal=1.1*fill(ctlHea.VHeaWatSec_flow_nominal/ctlHea.nHp,
+        ctlHea.nHp),
+    VHeaWatHp_flow_min=0.6*ctlHea.VHeaWatHp_flow_nominal,
+    final VHeaWatSec_flow_nominal=ctlHea.nHp*datAll.pla.hp.mHeaWatHp_flow_nominal
+        /1000,
+    capHeaHp_nominal=fill(datAll.pla.hp.capHeaHp_nominal, ctlHea.nHp),
+    dpHeaWatRemSet_max={7E4},
+    final TChiWatSup_nominal=279.95,
+    TChiWatSupSet_max=283.15,
+    TOutChiWatLck=283.15,
+    VChiWatHp_flow_nominal=1.1*fill(ctlHea.VChiWatSec_flow_nominal/ctlHea.nHp,
+        ctlHea.nHp),
+    VChiWatHp_flow_min=0.6*ctlHea.VChiWatHp_flow_nominal,
+    final VChiWatSec_flow_nominal=ctlHea.nHp*datAll.pla.hp.mChiWatHp_flow_nominal
+        /1000,
+    capCooHp_nominal=fill(datAll.pla.hp.capCooHp_nominal, ctlCoo.nHp),
+    yPumHeaWatPriSet=0.8,
+    yPumChiWatPriSet=0.7,
+    dpChiWatRemSet_max={1E5},
+    staEquCooHea=[0,1; 1,1],
+    staEquOneMod=[1,0; 1,1],
+    nEquAlt=2,
+    idxEquAlt={1,2},
+    kCtlDpHeaWat=100,
+    TiCtlDpHeaWat=1e-3,
+    kCtlDpChiWat=100,
+    TiCtlDpChiWat=1e-3,
+    TChiWatSupHrc_min=277.15,
+    THeaWatSupHrc_max=333.15,
+    COPHeaHrc_nominal=2.8,
+    capCooHrc_min=ctlHea.capHeaHrc_min*(1 - 1/ctlHea.COPHeaHrc_nominal),
+    capHeaHrc_min=0.3*0.5*sum(ctlHea.capHeaHp_nominal)) "Plant controller"
+    annotation (Placement(transformation(extent={{-380,-84},{-340,-12}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr6(t=0.05, h=0.02)
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-560,-190})));
+  Buildings.Templates.Components.Interfaces.Bus busHP annotation (Placement(
+        transformation(extent={{-660,-180},{-620,-140}}), iconTransformation(
+          extent={{-980,164},{-940,204}})));
+  Buildings.Templates.Components.Interfaces.Bus busChi annotation (Placement(
+        transformation(extent={{-432,-174},{-392,-134}}), iconTransformation(
+          extent={{-980,164},{-940,204}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
+    annotation (Placement(transformation(extent={{-540,80},{-520,100}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
+    annotation (Placement(transformation(extent={{-300,-10},{-280,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt1
+    annotation (Placement(transformation(extent={{-500,80},{-480,100}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt2
+    annotation (Placement(transformation(extent={{-260,-10},{-240,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt
+    annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
+  parameter Buildings.Templates.Components.Data.Chiller datChi(
+    use_datDes=true,
+    mChiWat_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal,
+    cap_nominal=datAll.pla.hp.capCooHp_nominal,
+    COP_nominal=datChiPerFit.COP_nominal,
+    dpChiWat_nominal(displayUnit="Pa") = 0.75*datAll.pla.pumChiWatPri.dp_nominal[
+      1],
+    dpCon_nominal(displayUnit="Pa") = 3000,
+    TChiWatSup_nominal=279.95,
+    TConEnt_nominal=303.15,
+    TConLvg_nominal=308.15,
+    per=datChiPerFit)
+    annotation (Placement(transformation(extent={{-520,-60},{-500,-40}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea8 annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-550,-250})));
+  Buildings.Templates.Components.Pumps.Multiple pumHeaWatSec(
+    have_valChe=true,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
+    redeclare final package Medium = Medium,
+    final have_var=true,
+    final have_varCom=true,
+    nPum=4,
+    dat=datAll.pla.pumHeaWatSec) "Secondary HHW pumps"
+    annotation (Placement(transformation(extent={{8,-700},{28,-680}})));
+  Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatSec(
+    redeclare final package Medium = Medium,
+    final nPorts=pumHeaWatSec.nPum,
+    final m_flow_nominal=3*datAll.pla.hp.mHeaWatHp_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) "Secondary CHW pumps outlet manifold"
+    annotation (Placement(transformation(extent={{34,-700},{54,-680}})));
+
+  Buildings.Templates.Components.Routing.SingleToMultiple inlPumHeaWatSec(
+    redeclare final package Medium = Medium,
+    final nPorts=pumHeaWatSec.nPum,
+    final m_flow_nominal=3*datAll.pla.hp.mHeaWatHp_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) "Secondary CHW pumps inlet manifold"
+    annotation (Placement(transformation(extent={{-20,-700},{0,-680}})));
+
+  Buildings.Templates.Components.Interfaces.Bus busPumSecHeaWat annotation (
+      Placement(transformation(extent={{-350,90},{-310,130}}),
+        iconTransformation(extent={{-980,164},{-940,204}})));
+  Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatSec(
+    redeclare final package Medium = Medium,
+    final nPorts=pumChiWatSec.nPum,
+    final m_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) "Secondary CHW pumps inlet manifold"
+    annotation (Placement(transformation(extent={{-32,268},{-12,288}})));
+
+  Buildings.Templates.Components.Pumps.Multiple pumChiWatSec(
+    have_valChe=true,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
+    redeclare final package Medium = Medium,
+    final have_var=true,
+    final have_varCom=true,
+    nPum=4,
+    dat=datAll.pla.pumChiWatSec) "Secondary CHW pumps"
+    annotation (Placement(transformation(extent={{-4,268},{16,288}})));
+  Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatSec(
+    redeclare final package Medium = Medium,
+    final nPorts=pumChiWatSec.nPum,
+    final m_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) "Secondary CHW pumps outlet manifold"
+    annotation (Placement(transformation(extent={{22,268},{42,288}})));
+
+  Buildings.Templates.Components.Interfaces.Bus busPumSecChiWat annotation (
+      Placement(transformation(extent={{-360,164},{-320,204}}),
+        iconTransformation(extent={{-980,164},{-940,204}})));
+  Fluid.Sensors.VolumeFlowRate senVolFlo4(redeclare package Medium = Medium,
+      m_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal)
+    annotation (Placement(transformation(extent={{-222,-102},{-202,-82}})));
+  Fluid.Sensors.VolumeFlowRate senVolFlo5(redeclare package Medium = Medium,
+      m_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-160,-182})));
+  Fluid.Sensors.VolumeFlowRate senVolFlo6(redeclare package Medium = Medium,
+      m_flow_nominal=2*datAll.pla.hp.mChiWatHp_flow_nominal)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-66,-116})));
+  Fluid.Sensors.TemperatureTwoPort senTem6(redeclare package Medium = Medium,
+      m_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal)   annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-256,-92})));
+  Fluid.Sensors.TemperatureTwoPort senTem7(redeclare package Medium = MediumAir,
+      m_flow_nominal=datChi.mCon_flow_nominal)               annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-470,-310})));
+  Fluid.Sources.Boundary_pT bou1(redeclare package Medium = MediumAir, nPorts=1)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-560,-320})));
+  Fluid.Sensors.TemperatureTwoPort senTem8(redeclare package Medium = MediumAir,
+      m_flow_nominal=datChi.mCon_flow_nominal)               annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-470,-332})));
 equation
   if have_chiWat then
   end if;
@@ -815,24 +988,6 @@ equation
   connect(senTemCooSup.T, reqFloCoo.TSupMea) annotation (Line(points={{50,-49},
           {50,4},{-90,4},{-90,46},{-130,46},{-130,26},{-122,26}}, color={0,0,
           127}));
-  connect(hp.ports_bChiHeaWat, valIso.ports_aChiHeaWatHp) annotation (Line(
-        points={{-648,-260},{-648,-242},{-650,-242},{-650,-156},{-575.875,-156},
-          {-575.875,-160}},                                               color
-        ={0,127,255}));
-  connect(valIso.ports_bChiHeaWatHp, mov.port_a) annotation (Line(points={{-522.125,
-          -160},{-524,-160},{-524,-168},{-508,-168},{-508,-178}},
-                                          color={0,127,255}));
-  connect(hp.ports_aChiHeaWat, mov.port_b) annotation (Line(points={{-548,-260},
-          {-548,-212},{-508,-212},{-508,-198}}, color={0,127,255}));
-  connect(weaDat.weaBus, hp.busWea) annotation (Line(
-      points={{-480,190},{-472,190},{-472,148},{-572,148},{-572,-108},{-616,-108},
-          {-616,-252},{-618,-252},{-618,-260}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(valIso.port_bHeaWat, junHeaWatBypSup1.port_3) annotation (Line(points={{-678,
-          -133},{-678,-206},{-676,-206},{-676,-560},{-168,-560},{-168,-538}},
-                                                                      color={0,127,
-          255}));
   connect(junHeaWatBypSup.port_3, junHeaWatBypRet.port_3)
     annotation (Line(points={{-72,-518},{-72,-578}}, color={0,127,255}));
   connect(junHeaWatBypSup2.port_3, cheVal.port_a) annotation (Line(points={{-168,
@@ -842,133 +997,22 @@ equation
     annotation (Line(points={{-190,-446},{-182,-446}}, color={0,127,255}));
   connect(mov1.port_b, hp1.port_a1)
     annotation (Line(points={{-162,-446},{-146,-446}}, color={0,127,255}));
-  connect(junHeaWatBypSup2.port_2, valIso.port_aHeaWat) annotation (Line(points={{-178,
-          -588},{-690,-588},{-690,-117.571},{-678,-117.571}},       color={0,127,
-          255}));
-  connect(junChiWatBypSup.port_3, junChiWatBypRet.port_3)
-    annotation (Line(points={{-72,-102},{-72,-130}}, color={0,127,255}));
-  connect(valIso.port_bChiWat, junChiWatBypSup1.port_1) annotation (Line(points={{-420,
-          -109.857},{-164,-109.857},{-164,-92},{-156,-92}},
-                  color={0,127,255}));
-  connect(junChiWatBypRet1.port_2, valIso.port_aChiWat) annotation (Line(points={{-156,
-          -140},{-168,-140},{-168,-125.286},{-420,-125.286}},
-                      color={0,127,255}));
   connect(cheVal1.port_b, mov2.port_a)
     annotation (Line(points={{-72,-426},{-90,-426}}, color={0,127,255}));
   connect(mov2.port_b, hp1.port_a2)
     annotation (Line(points={{-110,-426},{-126,-426}}, color={0,127,255}));
   connect(junChiWatBypRet1.port_3, cheVal1.port_a) annotation (Line(points={{-146,
           -150},{-146,-264},{-44,-264},{-44,-426},{-52,-426}},color={0,127,255}));
-  connect(junChiWatBypSup.port_2, mov3.port_a) annotation (Line(points={{-62,-92},
-          {-56,-92},{-56,-90},{-48,-90}},  color={0,127,255}));
-  connect(mov3.port_b, senTemCooSup.port_a) annotation (Line(points={{-28,-90},{
-          -20,-90},{-20,-60},{40,-60}}, color={0,127,255}));
   connect(junChiWatBypRet.port_1, pipChiWat.port_b) annotation (Line(points={{-62,
           -140},{-22,-140}},                                             color={
           0,127,255}));
   connect(junHeaWatBypRet.port_1, pipHeaWat.port_b) annotation (Line(points={{-62,
           -588},{0,-588}},                                           color={0,127,
           255}));
-  connect(mov4.port_b, senTemHeaSup.port_a) annotation (Line(points={{40,-510},
-          {130,-510}},                                 color={0,127,255}));
-  connect(mov4.port_b, dpHeaWatRem[1].port_a) annotation (Line(points={{40,-510},
-          {70,-510},{70,-520}},                                  color={0,127,255}));
-  connect(junHeaWatBypSup.port_2, mov4.port_a) annotation (Line(points={{-62,-508},
-          {12,-508},{12,-510},{20,-510}},                          color={0,127,
-          255}));
   connect(conInt.y, extIndInt.u)
     annotation (Line(points={{-498,-490},{-482,-490}},
                                                  color={255,127,0}));
-  connect(ctl.yMod[3], extIndInt.index) annotation (Line(points={{-338,36.6667},
-          {-316,36.6667},{-316,144},{-564,144},{-564,-112},{-604,-112},{-604,
-          -512},{-470,-512},{-470,-502}},                  color={255,127,0}));
-  connect(ctl.y1HeaHp[1:2], busHp.y1Hea) annotation (Line(points={{-338,38},{-324,
-          38},{-324,136},{-504,136},{-504,104},{-502,104}}, color={255,127,0}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(ctl.y1Hp[1:2], busHp.y1) annotation (Line(points={{-338,40},{-328,40},
-          {-328,104},{-502,104}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(ctl.TSupSet[1:2], busHp.TSet) annotation (Line(points={{-338,-12},{-320,
-          -12},{-320,140},{-536,140},{-536,104},{-502,104}}, color={0,0,127}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(busHp.y1_actual, ctl.u1Hp_actual[1:2]) annotation (Line(
-      points={{-502,104},{-396,104},{-396,36.2},{-382,36.2}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
 
-  connect(busHp, bus.hp) annotation (Line(
-      points={{-502,104},{-544,104},{-544,-16},{-520,-16},{-520,-46}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(bus, hp.bus) annotation (Line(
-      points={{-520,-46},{-520,-208},{-598,-208},{-598,-260}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(bus, valIso.bus) annotation (Line(
-      points={{-520,-46},{-520,-76},{-549,-76},{-549,-117.571}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-
-  connect(busValHeaWatHpInlIso, bus.valHeaWatHpInlIso) annotation (Line(
-      points={{-506,64},{-508,64},{-508,-16},{-488,-16},{-488,-48},{-520,-48},{-520,
-          -46}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(busValHeaWatHpOutIso, bus.valHeaWatHpOutIso) annotation (Line(
-      points={{-502,28},{-556,28},{-556,-48},{-520,-48},{-520,-46}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso) annotation (Line(
-      points={{-464,-26},{-464,-28},{-520,-28},{-520,-46}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(busValChiWatHpOutIso, bus.valChiWatHpOutIso) annotation (Line(
-      points={{-464,-66},{-464,-48},{-520,-48},{-520,-46}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(conInt2.y, intEqu2.u1)
     annotation (Line(points={{-388,-476},{-372,-476}}, color={255,127,0}));
   connect(conInt1.y, intEqu1.u1)
@@ -994,56 +1038,10 @@ equation
   connect(extIndInt.y, hp1.mod) annotation (Line(points={{-458,-490},{-456,-490},
           {-456,-488},{-452,-488},{-452,-456},{-224,-456},{-224,-424},{-156,-424},
           {-156,-433.9},{-147.1,-433.9}},                   color={255,127,0}));
-  connect(ctl.y1ValHeaWatHpInlIso[1:2], busValHeaWatHpInlIso[:].y1) annotation (Line(
-        points={{-338,34},{-328,34},{-328,-48},{-424,-48},{-424,64},{-506,64}},
-        color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(ctl.y1ValHeaWatHpOutIso[1:2], busValHeaWatHpOutIso[:].y1) annotation (Line(
-        points={{-338,32},{-324,32},{-324,-52},{-428,-52},{-428,28},{-502,28}},
-        color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(ctl.y1ValChiWatHpOutIso[1:2], busValChiWatHpOutIso[:].y1) annotation (Line(
-        points={{-338,28},{-316,28},{-316,-64},{-432,-64},{-432,-68},{-464,-68},
-          {-464,-66}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(ctl.y1ValChiWatHpInlIso[1:2], busValChiWatHpInlIso[:].y1) annotation (Line(
-        points={{-338,30},{-312,30},{-312,-48},{-320,-48},{-320,-56},{-432,-56},
-          {-432,-28},{-464,-28},{-464,-26}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(booToRea3.y, mul.u1) annotation (Line(points={{-278,-356},{-268,-356},
           {-268,-350},{-262,-350}}, color={0,0,127}));
   connect(booToRea4.y, mul1.u1) annotation (Line(points={{-278,-396},{-276,-400},
           {-262,-400}}, color={0,0,127}));
-  connect(mov.y_actual, greThr3.u) annotation (Line(points={{-501,-199},{-501,-200},
-          {-490,-200},{-490,-218}},
-                        color={0,0,127}));
-  connect(greThr3[:].y, ctl.u1PumHeaWatPri_actual[1:2]) annotation (Line(points={{-490,
-          -242},{-490,-252},{-440,-252},{-440,34.2},{-382,34.2}},
-                                                color={255,0,255}));
-  connect(greThr3[:].y, ctl.u1PumChiWatPri_actual[1:2]) annotation (Line(points={{-490,
-          -242},{-490,-252},{-440,-252},{-440,32.2},{-382,32.2}},
-                                                color={255,0,255}));
-  connect(mov4.y_actual, greThr4.u) annotation (Line(points={{41,-503},{50,-503},
-          {50,-610},{-18,-610}}, color={0,0,127}));
-  connect(mov3.y_actual, greThr5.u) annotation (Line(points={{-27,-83},{-16,-83},
-          {-16,-20},{-40,-20}},
-        color={0,0,127}));
-  connect(greThr.y, ctl.u1PumChiWatPri_actual[3]) annotation (Line(points={{-142,
-          -406},{-262,-406},{-262,32.2},{-382,32.2}}, color={255,0,255}));
-  connect(greThr1.y, ctl.u1PumHeaWatPri_actual[3]) annotation (Line(points={{-202,
-          -510},{-264,-510},{-264,34.2},{-382,34.2}}, color={255,0,255}));
   connect(and3.y, booToRea4.u)
     annotation (Line(points={{-308,-396},{-302,-396}}, color={255,0,255}));
   connect(and1.y, booToRea3.u)
@@ -1056,17 +1054,8 @@ equation
           -392},{-232,-392},{-232,-382}}, color={0,0,127}));
   connect(add2.y, hp1.ySet) annotation (Line(points={{-208,-376},{-147.1,-376},{
           -147.1,-437.9}}, color={0,0,127}));
-  connect(ctl.TSupSet[3], conPIDCoo.u_s) annotation (Line(points={{-338,
-          -11.3333},{-274,-11.3333},{-274,-306},{-170,-306},{-170,-330},{-178,
-          -330}},
-        color={0,0,127}));
-  connect(ctl.TSupSet[3], conPIDHea.u_s) annotation (Line(points={{-338,
-          -11.3333},{-220,-11.3333},{-220,-476},{-102,-476}},
-                                                    color={0,0,127}));
   connect(hp1.port_b2, senTem.port_a) annotation (Line(points={{-146,-426},{-160,
           -426},{-160,-370}}, color={0,127,255}));
-  connect(senTem.port_b, junChiWatBypSup1.port_3) annotation (Line(points={{-160,
-          -350},{-160,-112},{-146,-112},{-146,-102}}, color={0,127,255}));
   connect(junHeaWatBypSup1.port_1, senTem1.port_b) annotation (Line(points={{-178,
           -528},{-188,-528},{-188,-548},{0,-548},{0,-440},{-44,-440},{-44,-444},
           {-96,-444},{-96,-446},{-104,-446}}, color={0,127,255}));
@@ -1074,7 +1063,7 @@ equation
     annotation (Line(points={{-124,-446},{-126,-446}}, color={0,127,255}));
   connect(conPIDHea.y, mul1.u2) annotation (Line(points={{-78,-476},{-68,-476},{
           -68,-496},{-272,-496},{-272,-412},{-262,-412}}, color={0,0,127}));
-  connect(intEqu2.y, swi.u2) annotation (Line(points={{-348,-476},{-340,-476},{-340,
+  connect(intEqu2.y, swi.u2) annotation (Line(points={{-348,-476},{-344,-476},{-344,
           -296},{-110,-296},{-110,-330},{-102,-330}}, color={255,0,255}));
   connect(senTem.T, swi.u1) annotation (Line(points={{-171,-360},{-180,-360},{-180,
           -380},{-120,-380},{-120,-322},{-102,-322}}, color={0,0,127}));
@@ -1087,39 +1076,16 @@ equation
   connect(swi.y, conPIDHea.u_m) annotation (Line(points={{-78,-330},{-72,-330},{
           -72,-348},{-116,-348},{-116,-384},{-204,-384},{-204,-396},{-232,-396},
           {-232,-492},{-90,-492},{-90,-488}}, color={0,0,127}));
-  connect(ctl.y1PumChiWatPri[3], booToRea.u) annotation (Line(points={{-338,22},
-          {-136,22},{-136,52},{-8,52},{-8,76},{104,76},{104,-96},{140,-96},{140,
-          -386},{-8,-386}}, color={255,0,255}));
-  connect(ctl.y1Hp[3], and1.u2) annotation (Line(points={{-338,40.6667},{-334,
-          40.6667},{-334,-364},{-332,-364}},
-                                    color={255,127,0}));
-  connect(ctl.y1Hp[3], and3.u2) annotation (Line(points={{-338,40.6667},{-338,
-          -185},{-332,-185},{-332,-404}},
-                                    color={255,127,0}));
-  connect(ctl.y1PumHeaWatPri[3], booToRea1.u) annotation (Line(points={{-338,24},
-          {-312,24},{-312,88},{-188,88},{-188,200},{200,200},{200,-456},{-8,-456}},
-        color={255,0,255}));
-  connect(ctl.y1PumChiWatSec[1], booToRea2.u) annotation (Line(points={{-338,16},
-          {-230,16},{-230,-40},{-142,-40}}, color={255,0,255}));
-  connect(ctl.y1PumHeaWatSec[1], booToRea5.u) annotation (Line(points={{-338,18},
-          {-176,18},{-176,-76},{-164,-76},{-164,-212},{12,-212},{12,-470},{18,-470}},
-        color={255,0,255}));
-  connect(booToRea6.y, mov.y) annotation (Line(points={{-400,-192},{-400,-200},{
-          -488,-200},{-488,-188},{-496,-188}}, color={0,0,127}));
-  connect(or2.y, booToRea6.u)
-    annotation (Line(points={{-400,-162},{-400,-168}}, color={255,0,255}));
-  connect(ctl.y1PumHeaWatPri[1:2], or2.u1) annotation (Line(points={{-338,24},{-320,
-          24},{-320,-136},{-400,-136},{-400,-138}}, color={255,0,255}));
-  connect(ctl.y1PumChiWatPri[1:2], or2.u2) annotation (Line(points={{-338,22},{-328,
-          22},{-328,-132},{-408,-132},{-408,-138}}, color={255,0,255}));
+  connect(ctlHea.y1PumHeaWatSec[1], booToRea5.u) annotation (Line(points={{-578,
+          43.25},{-176,43.25},{-176,-76},{-164,-76},{-164,-212},{12,-212},{12,-470},
+          {18,-470}},
+                  color={255,0,255}));
   connect(booToRea2.y, mul2.u1) annotation (Line(points={{-118,-40},{-118,-34},{
           -92,-34}}, color={0,0,127}));
-  connect(ctl.yPumChiWatSec, mul2.u2) annotation (Line(points={{-338,2},{-204,2},
-          {-204,-60},{-100,-60},{-100,-46},{-92,-46}}, color={0,0,127}));
   connect(booToRea5.y, mul3.u1)
     annotation (Line(points={{42,-470},{58,-470},{58,-474}}, color={0,0,127}));
-  connect(ctl.yPumHeaWatSec, mul3.u2) annotation (Line(points={{-338,4},{-194,4},
-          {-194,-486},{58,-486}}, color={0,0,127}));
+  connect(ctlHea.yPumHeaWatSec, mul3.u2) annotation (Line(points={{-578,30},{-194,
+          30},{-194,-486},{58,-486}}, color={0,0,127}));
   connect(junChiWatBypSup1.port_2, senTem2.port_a)
     annotation (Line(points={{-136,-92},{-132,-92}}, color={0,127,255}));
   connect(senTem2.port_b, senVolFlo.port_a)
@@ -1152,8 +1118,8 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(weaBus.TDryBul, ctl.TOut) annotation (Line(
-      points={{-400.815,175.175},{-410,175.175},{-410,12},{-382,12}},
+  connect(weaBus.TDryBul, ctlHea.TOut) annotation (Line(
+      points={{-400.815,175.175},{-636,175.175},{-636,38},{-622,38}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -1161,67 +1127,28 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(busSen, busSen2) annotation (Line(
-      points={{62,-234},{64,-234},{64,-204},{-540,-204},{-540,0},{-522,0}},
+      points={{62,-234},{64,-234},{64,-204},{-152,-204},{-152,-216},{-444,-216},
+          {-444,-18},{-630,-18},{-630,0},{-652,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(busSen2.THeaWatRetPri, ctl.THeaWatPriRet) annotation (Line(
-      points={{-522,0},{-452,0},{-452,8},{-382,8}},
+  connect(busSen2.THeaWatRetPri, ctlHea.THeaWatPriRet) annotation (Line(
+      points={{-652,0},{-630,0},{-630,34},{-622,34}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busSen2.TChiWatSupPri, ctl.TChiWatPriSup) annotation (Line(
-      points={{-522,0},{-452,0},{-452,4},{-382,4}},
+  connect(busSen2.THeaWatSupPri, ctlHea.THeaWatPriSup) annotation (Line(
+      points={{-652,0},{-630,0},{-630,36},{-622,36}},
       color={255,204,51},
       thickness=0.5));
-  connect(busSen2.THeaWatSupPri, ctl.THeaWatPriSup) annotation (Line(
-      points={{-522,0},{-452,0},{-452,10},{-382,10}},
+  connect(busSen2.THeaWatSupSec, ctlHea.THeaWatSecSup) annotation (Line(
+      points={{-652,0},{-630,0},{-630,24},{-622,24}},
       color={255,204,51},
       thickness=0.5));
-  connect(busSen2.VHeaWatPri_flow, ctl.VHeaWatPri_flow) annotation (Line(
-      points={{-522,0},{-452,0},{-452,6},{-382,6}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.TChiWatRetPri, ctl.TChiWatPriRet) annotation (Line(
-      points={{-522,0},{-452,0},{-452,2},{-382,2}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.VChiWatPri_flow, ctl.VChiWatPri_flow) annotation (Line(
-      points={{-522,0},{-382,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.THeaWatSupSec, ctl.THeaWatSecSup) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-2},{-382,-2}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.THeaWatRetSec, ctl.THeaWatSecRet) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-4},{-382,-4}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.VHeaWatSec_flow, ctl.VHeaWatSec_flow) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-8},{-382,-8}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.THeaWatRetSec, ctl.THeaWatRetUpsHrc) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-6},{-382,-6}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.TChiWatSupSec, ctl.TChiWatSecSup) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-10},{-382,-10}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.TChiWatRetSec, ctl.TChiWatSecRet) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-12},{-382,-12}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.VChiWatSec_flow, ctl.VChiWatSec_flow) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-16},{-382,-16}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.TChiWatRetSec, ctl.TChiWatRetUpsHrc) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-14},{-382,-14}},
+  connect(busSen2.VHeaWatSec_flow, ctlHea.VHeaWatSec_flow) annotation (Line(
+      points={{-652,0},{-630,0},{-630,18},{-622,18}},
       color={255,204,51},
       thickness=0.5));
   connect(dpChiWatRem[1].p_rel, busSen.dpChiWatRem) annotation (Line(points={{30,-101},
@@ -1229,27 +1156,13 @@ equation
                                                 color={0,0,127}));
   connect(dpHeaWatRem[1].p_rel, busSen.dpHeaWatRem) annotation (Line(points={{61,
           -530},{61,-532},{4,-532},{4,-384},{62,-384},{62,-234}}, color={0,0,127}));
-  connect(busSen2.dpHeaWatRem, ctl.dpHeaWatRem[1]) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-18},{-382,-18}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busSen2.dpChiWatRem, ctl.dpChiWatRem[1]) annotation (Line(
-      points={{-522,0},{-452,0},{-452,-24},{-382,-24}},
+  connect(busSen2.dpHeaWatRem, ctlHea.dpHeaWatRem[1]) annotation (Line(
+      points={{-652,0},{-630,0},{-630,8},{-622,8}},
       color={255,204,51},
       thickness=0.5));
   connect(greThr2.y, busSen.y1HRC_actual) annotation (Line(points={{-8,-420},{62,
           -420},{62,-234}}, color={255,0,255}));
-  connect(busSen2.y1HRC_actual, ctl.u1Hp_actual[3]) annotation (Line(
-      points={{-522,0},{-464,0},{-464,44},{-396,44},{-396,36.8667},{-382,
-          36.8667}},
-      color={255,204,51},
-      thickness=0.5));
 
-  connect(busSen2.y1HRC_actual, ctl.u1Hrc_actual) annotation (Line(
-      points={{-522,0},{-464,0},{-464,44},{-396,44},{-396,36},{-392,36},{-392,26.2},
-          {-382,26.2}},
-      color={255,204,51},
-      thickness=0.5));
   connect(senTem2.T, busSen.TChiWatSupPri) annotation (Line(points={{-122,-81},{
           -122,-72},{-134,-72},{-134,-194},{62,-194},{62,-234}}, color={0,0,127}));
   connect(senTem3.T, busSen.TChiWatRetPri) annotation (Line(points={{-122,-129},
@@ -1284,8 +1197,6 @@ equation
   connect(senTemHeaSup.T, busSen.THeaWatSupSec) annotation (Line(points={{140,
           -499},{110,-499},{110,-234},{62,-234}},
                                             color={0,0,127}));
-  connect(bou.ports, mov.port_a) annotation (Line(points={{-550,-182},{-528,
-          -182},{-528,-172},{-508,-172},{-508,-178}}, color={0,127,255}));
   connect(dpChiWatRem[1].port_a, senTemCooSup.port_b) annotation (Line(points={
           {40,-110},{40,-88},{68,-88},{68,-60},{60,-60}}, color={0,127,255}));
   connect(dpChiWatRem[1].port_b, pipChiWat.port_b) annotation (Line(points={{20,
@@ -1293,93 +1204,326 @@ equation
         color={0,127,255}));
   connect(dpHeaWatRem[1].port_b, pipHeaWat.port_b) annotation (Line(points={{70,
           -540},{70,-572},{-8,-572},{-8,-588},{0,-588}}, color={0,127,255}));
-  connect(mul3.y, mov4.y) annotation (Line(points={{82,-480},{92,-480},{92,-500},
-          {48,-500},{48,-492},{30,-492},{30,-498}}, color={0,0,127}));
-  connect(mul2.y, mov3.y)
-    annotation (Line(points={{-68,-40},{-38,-40},{-38,-78}}, color={0,0,127}));
-  connect(greThr5.y, busSen.y1PumChiWatSec_actual) annotation (Line(points={{-64,
-          -20},{-72,-20},{-72,-4},{-8,-4},{-8,-120},{8,-120},{8,-240},{36,-240},
-          {36,-234},{62,-234}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(greThr4.y, busSen.y1PumHeaWatSec_actual) annotation (Line(points={{-42,
-          -610},{-52,-610},{-52,-448},{-80,-448},{-80,-368},{60,-368},{60,-264},
-          {62,-264},{62,-234}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(ctl.y1PumHeaWatSec[1], pre.u) annotation (Line(points={{-338,18},{-308,
-          18},{-308,80},{-358,80}}, color={255,0,255}));
-  connect(pre.y, ctl.u1PumHeaWatSec_actual[1]) annotation (Line(points={{-382,80},
-          {-400,80},{-400,30.2},{-382,30.2}}, color={255,0,255}));
   connect(reqPlaRes.yChiWatResReq, mulInt[1].u2) annotation (Line(points={{68,
           140},{12,140},{12,126},{2,126}}, color={255,127,0}));
   connect(reqPlaRes.yChiPlaReq, mulInt[2].u2)
-    annotation (Line(points={{68,135},{68,126},{2,126}}, color={255,127,0}));
+    annotation (Line(points={{68,135},{68,136},{12,136},{12,126},{2,126}},
+                                                         color={255,127,0}));
   connect(reqPlaRes.yHotWatResReq, mulInt[3].u2) annotation (Line(points={{68,
           129},{12,129},{12,126},{2,126}}, color={255,127,0}));
   connect(reqPlaRes.yHotWatPlaReq, mulInt[4].u2) annotation (Line(points={{68,
           124},{12,124},{12,126},{2,126}}, color={255,127,0}));
-  connect(mulInt[1].y, ctl.nReqResChiWat) annotation (Line(points={{-22,132},{
-          -442,132},{-442,14},{-382,14}}, color={255,127,0}));
-  connect(mulInt[2].y, ctl.nReqPlaChiWat) annotation (Line(points={{-22,132},{
-          -444,132},{-444,16},{-392,16},{-392,18},{-382,18}}, color={255,127,0}));
-  connect(mulInt[3].y, ctl.nReqResHeaWat) annotation (Line(points={{-22,132},{
-          -444,132},{-444,16},{-382,16}}, color={255,127,0}));
-  connect(mulInt[4].y, ctl.nReqPlaHeaWat) annotation (Line(points={{-22,132},{
-          -444,132},{-444,16},{-392,16},{-392,20},{-382,20}}, color={255,127,0}));
-  connect(pre1.y, ctl.u1PumChiWatSec_actual[1]) annotation (Line(points={{-358,
-          60},{-392,60},{-392,28.2},{-382,28.2}}, color={255,0,255}));
-  connect(ctl.y1PumChiWatSec[1], pre1.u) annotation (Line(points={{-338,16},{
-          -326,16},{-326,60},{-334,60}}, color={255,0,255}));
+  connect(mulInt[3].y, ctlHea.nReqResHeaWat) annotation (Line(points={{-22,132},
+          {-334,132},{-334,136},{-644,136},{-644,42},{-622,42}}, color={255,127,
+          0}));
+  connect(mulInt[4].y, ctlHea.nReqPlaHeaWat) annotation (Line(points={{-22,132},
+          {-332,132},{-332,130},{-640,130},{-640,46},{-622,46}}, color={255,127,
+          0}));
   connect(booToRea.y, mov2.y) annotation (Line(points={{-32,-386},{-32,-388},{-100,
           -388},{-100,-414}}, color={0,0,127}));
   connect(booToRea1.y, mov1.y) annotation (Line(points={{-32,-456},{-102,-456},{
           -102,-458},{-172,-458}}, color={0,0,127}));
   connect(weaDat.weaBus, out.weaBus) annotation (Line(
-      points={{-480,190},{-472,190},{-472,208},{-700,208},{-700,-172},{-584,-172},
-          {-584,-216},{-504,-216},{-504,-212},{-348,-212},{-348,-439.8},{-260,-439.8}},
+      points={{-480,190},{-472,190},{-472,172},{-680,172},{-680,-330},{-640,-330},
+          {-640,-329.8}},
       color={255,204,51},
       thickness=0.5));
 
-  connect(out.ports[1], hp1.port_b3) annotation (Line(points={{-240,-441},{-236,
-          -441},{-236,-424},{-224,-424},{-224,-420},{-152,-420},{-152,-423.9},{-136,
-          -423.9}}, color={0,127,255}));
-  connect(out.ports[2], mov5.port_a) annotation (Line(points={{-240,-439},{-236,
-          -439},{-236,-424},{-268,-424},{-268,-484},{-258,-484}}, color={0,127,255}));
+  connect(out.ports[1], mov5.port_a) annotation (Line(points={{-620,-331.333},{
+          -620,-430},{-268,-430},{-268,-484},{-258,-484}},        color={0,127,255}));
   connect(mov5.port_b, hp1.port_a3) annotation (Line(points={{-238,-484},{-136,-484},
           {-136,-448}}, color={0,127,255}));
   connect(xor.y, booToRea7.u)
     annotation (Line(points={{-298,-480},{-296,-480}}, color={255,0,255}));
   connect(booToRea7.y, mov5.y) annotation (Line(points={{-272,-480},{-260,-480},
           {-260,-472},{-248,-472}}, color={0,0,127}));
-  connect(booToRea.u, xor.u1) annotation (Line(points={{-8,-386},{-164,-386},{-164,
-          -480},{-322,-480}}, color={255,0,255}));
+  connect(booToRea.u, xor.u1) annotation (Line(points={{-8,-386},{0,-386},{0,-300},
+          {-334,-300},{-334,-480},{-322,-480}},
+                              color={255,0,255}));
   connect(booToRea1.u, xor.u2) annotation (Line(points={{-8,-456},{-4,-456},{-4,
           -512},{-56,-512},{-56,-560},{-164,-560},{-164,-552},{-332,-552},{-332,
           -488},{-322,-488}}, color={255,0,255}));
-  connect(reqFloCoo.mReq_flow, norFlo1[2].u) annotation (Line(points={{-98,34},{
-          -60,34},{-60,36},{-20,36},{-20,100},{16,100}}, color={0,0,127}));
   connect(TDum1.y, reqFloHea.TMinRef) annotation (Line(points={{-138,170},{-136,
           170},{-136,84},{-128,84},{-128,92},{-122,92}}, color={0,0,127}));
-  connect(reqFloHea.mReq_flow, norFlo1[1].u) annotation (Line(points={{-98,104},
-          {-20,104},{-20,100},{16,100}}, color={0,0,127}));
   connect(reqFloHea.TRet, loaHeaWat.TSet) annotation (Line(points={{-98,96},{8,96},
           {8,80},{164,80},{164,-508},{180,-508},{180,-520}}, color={0,0,127}));
   connect(reqFloHea.TRet, busSen.THeaWatRetSec) annotation (Line(points={{-98,96},
           {8,96},{8,80},{164,80},{164,-232},{100,-232},{100,-204},{62,-204},{62,
           -234}}, color={0,0,127}));
+  connect(mov6.port_b, chiDed.port_a1) annotation (Line(points={{-510,-300},{-506,
+          -300},{-506,-276},{-500,-276}}, color={0,127,255}));
+  connect(out.ports[2], mov6.port_a) annotation (Line(points={{-620,-330},{-620,
+          -300},{-530,-300}}, color={0,127,255}));
+  connect(weaDat.weaBus, hpDed.busWea) annotation (Line(
+      points={{-480,190},{-472,190},{-472,172},{-680,172},{-680,-332},{-580,-332},
+          {-580,-328},{-576,-328},{-576,-260}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(junChiWatBypRet1.port_2, mov.port_a) annotation (Line(points={{-156,-140},
+          {-324,-140},{-324,-128},{-520,-128},{-520,-190}}, color={0,127,255}));
+  connect(mov7.port_b, hpDed.port_a) annotation (Line(points={{-580,-190},{-580,
+          -270},{-580,-270}}, color={0,127,255}));
+  connect(booToRea6[1].y, mov.y) annotation (Line(points={{-470,-162},{-470,-168},
+          {-510,-168},{-510,-178}},
+                        color={0,0,127}));
+  connect(booToRea6[2].y, mov7.y) annotation (Line(points={{-470,-162},{-470,-168},
+          {-590,-168},{-590,-178}},                                     color={0,
+          0,127}));
+  connect(hpDed.port_b, junHeaWatBypSup1.port_3) annotation (Line(points={{-560,
+          -270},{-540,-270},{-540,-538},{-168,-538}}, color={0,127,255}));
+  connect(mov7.port_a, junHeaWatBypSup2.port_2) annotation (Line(points={{-600,-190},
+          {-600,-192},{-648,-192},{-648,-588},{-178,-588}}, color={0,127,255}));
+  connect(mulInt[1].y, ctlCoo.nReqResChiWat) annotation (Line(points={{-22,132},
+          {-400,132},{-400,-40},{-382,-40}}, color={255,127,0}));
+  connect(mov.y_actual, greThr3.u) annotation (Line(points={{-499,-183},{-500,-183},
+          {-500,-190},{-492,-190}}, color={0,0,127}));
+  connect(mov7.y_actual, greThr6.u) annotation (Line(points={{-579,-183},{-580,-183},
+          {-580,-190},{-572,-190}}, color={0,0,127}));
+  connect(greThr3.y, ctlCoo.u1PumChiWatPri_actual[1]) annotation (Line(points={{
+          -468,-190},{-468,-192},{-440,-192},{-440,-22},{-396,-22},{-396,-21.8},
+          {-382,-21.8}}, color={255,0,255}));
+  connect(greThr6.y, ctlHea.u1PumHeaWatPri_actual[1]) annotation (Line(points={{
+          -548,-190},{-540,-190},{-540,-30},{-670,-30},{-670,60.2},{-622,60.2}},
+        color={255,0,255}));
+  connect(ctlCoo.y1PumChiWatSec[1], booToRea2.u) annotation (Line(points={{-338,
+          -38.75},{-336,-40},{-142,-40}},
+                                       color={255,0,255}));
+  connect(ctlCoo.yPumChiWatSec, mul2.u2) annotation (Line(points={{-338,-52},{-148,
+          -52},{-148,-60},{-100,-60},{-100,-46},{-92,-46}}, color={0,0,127}));
+  connect(busChi, chiDed.bus) annotation (Line(
+      points={{-412,-154},{-412,-288},{-490,-288},{-490,-280}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(busHP, hpDed.bus) annotation (Line(
+      points={{-640,-160},{-640,-254},{-570,-254},{-570,-260}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(mulInt[2].y, ctlCoo.nReqPlaChiWat) annotation (Line(points={{-22,132},
+          {-400,132},{-400,-40},{-392,-40},{-392,-36},{-382,-36}}, color={255,127,
+          0}));
+  connect(weaBus.TDryBul, ctlCoo.TOut) annotation (Line(
+      points={{-400.815,175.175},{-400,175.175},{-400,128},{-404,128},{-404,-42},
+          {-382,-42}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busSen2.TChiWatSupPri, ctlCoo.TChiWatPriSup) annotation (Line(
+      points={{-652,0},{-630,0},{-630,-18},{-444,-18},{-444,-50},{-382,-50}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busSen2.TChiWatRetPri, ctlCoo.TChiWatPriRet) annotation (Line(
+      points={{-652,0},{-630,0},{-630,-18},{-444,-18},{-444,-52},{-382,-52}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busSen2.TChiWatSupSec, ctlCoo.TChiWatSecSup) annotation (Line(
+      points={{-652,0},{-630,0},{-630,-18},{-444,-18},{-444,-64},{-382,-64}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busSen2.VChiWatSec_flow, ctlCoo.VChiWatSec_flow) annotation (Line(
+      points={{-652,0},{-630,0},{-630,-18},{-444,-18},{-444,-70},{-382,-70}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busSen2.dpChiWatRem, ctlCoo.dpChiWatRem[1]) annotation (Line(
+      points={{-652,0},{-630,0},{-630,-18},{-444,-18},{-444,-78},{-382,-78}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ctlCoo.y1Hp[1], busChi.y1) annotation (Line(points={{-338,-14.5},{-320,
+          -14.5},{-320,-124},{-412,-124},{-412,-154}}, color={255,127,0}));
+  connect(ctlCoo.y1Hp[2], and1.u2) annotation (Line(points={{-338,-13.5},{-336,-13.5},
+          {-336,-16},{-320,-16},{-320,-280},{-350,-280},{-350,-364},{-332,-364}},
+        color={255,0,255}));
+  connect(ctlHea.y1Hp[2], and3.u2) annotation (Line(points={{-578,66.5},{-576,66.5},
+          {-576,64},{-472,64},{-472,-132},{-448,-132},{-448,-404},{-332,-404}},
+        color={255,127,0}));
+  connect(ctlCoo.TSupSet[2], conPIDCoo.u_s) annotation (Line(points={{-338,-65.5},
+          {-188,-65.5},{-188,-312},{-172,-312},{-172,-330},{-178,-330}}, color={
+          0,0,127}));
+  connect(ctlHea.TSupSet[2], conPIDHea.u_s) annotation (Line(points={{-578,14.5},
+          {-432,14.5},{-432,-534},{-228,-534},{-228,-476},{-102,-476}}, color={0,
+          0,127}));
+  connect(greThr.y, ctlCoo.u1PumChiWatPri_actual[2]) annotation (Line(points={{-142,
+          -406},{-230,-406},{-230,-90},{-440,-90},{-440,-22},{-382,-22},{-382,-21.8}},
+        color={255,0,255}));
+  connect(greThr1.y, ctlHea.u1PumHeaWatPri_actual[2]) annotation (Line(points={{
+          -202,-510},{-220,-510},{-220,-560},{-696,-560},{-696,42},{-660,42},{-660,
+          60.2},{-622,60.2}}, color={255,0,255}));
+  connect(busSen2.y1HRC_actual, ctlHea.u1Hp_actual[2]) annotation (Line(
+      points={{-652,0},{-652,62.7},{-622,62.7}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busSen2.y1HRC_actual, ctlCoo.u1Hp_actual[2]) annotation (Line(
+      points={{-652,0},{-396,0},{-396,-17.3},{-382,-17.3}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busHP.y1_actual, ctlHea.u1Hp_actual[1]) annotation (Line(
+      points={{-640,-160},{-684,-160},{-684,60},{-676,60},{-676,64},{-622,64},{-622,
+          61.7}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busChi.y1_actual, ctlCoo.u1Hp_actual[1]) annotation (Line(
+      points={{-412,-154},{-412,-120},{-408,-120},{-408,-28},{-392,-28},{-392,-18.3},
+          {-382,-18.3}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ctlHea.y1Hp[1], busHP.y1) annotation (Line(points={{-578,65.5},{-472,65.5},
+          {-472,-88},{-628,-88},{-628,-128},{-640,-128},{-640,-160}}, color={255,
+          0,255}));
+  connect(ctlHea.TSupSet[1], busHP.TSet) annotation (Line(points={{-578,13.5},{-568,
+          13.5},{-568,-108},{-608,-108},{-608,-160},{-640,-160}}, color={0,0,127}));
+  connect(ctlCoo.y1PumChiWatPri[1], booToRea6[1].u) annotation (Line(points={{-338,
+          -32},{-332,-32},{-332,-44},{-328,-44},{-328,-120},{-476,-120},{-476,-138},
+          {-470,-138}}, color={255,0,255}));
+  connect(ctlHea.y1PumHeaWatPri[1], booToRea6[2].u) annotation (Line(points={{-578,
+          50},{-468,50},{-468,-120},{-476,-120},{-476,-138},{-470,-138}}, color
+        ={255,0,255}));
+  connect(ctlCoo.y1PumChiWatPri[2], booToRea.u) annotation (Line(points={{-338,-32},
+          {-332,-32},{-332,-44},{-328,-44},{-328,-60},{-180,-60},{-180,-300},{0,
+          -300},{0,-386},{-8,-386}}, color={255,0,255}));
+  connect(ctlHea.y1PumHeaWatPri[2], booToRea1.u) annotation (Line(points={{-578,
+          50},{-468,50},{-468,-124},{-452,-124},{-452,-452},{-436,-452},{-436,-496},
+          {-428,-496},{-428,-528},{-332,-528},{-332,-552},{-164,-552},{-164,-560},
+          {-56,-560},{-56,-512},{-4,-512},{-4,-456},{-8,-456}}, color={255,0,255}));
+  connect(booToInt.y, mulInt1.u1) annotation (Line(points={{-518,90},{-508,90},{
+          -508,96},{-502,96}}, color={255,127,0}));
+  connect(ctlHea.yMod[2], mulInt1.u2) annotation (Line(points={{-578,62.5},{-564,
+          62.5},{-564,60},{-512,60},{-512,84},{-502,84}}, color={255,127,0}));
+  connect(booToInt1.y, mulInt2.u1) annotation (Line(points={{-278,0},{-268,0},{-268,
+          6},{-262,6}}, color={255,127,0}));
+  connect(ctlCoo.yMod[2], mulInt2.u2) annotation (Line(points={{-338,-17.5},{-324,
+          -17.5},{-324,-20},{-272,-20},{-272,-6},{-262,-6}}, color={255,127,0}));
+  connect(mulInt1.y, addInt.u1) annotation (Line(points={{-478,90},{-236,90},{-236,
+          76},{-222,76}}, color={255,127,0}));
+  connect(mulInt2.y, addInt.u2) annotation (Line(points={{-238,0},{-232,0},{-232,
+          64},{-222,64}}, color={255,127,0}));
+  connect(addInt.y, extIndInt.index) annotation (Line(points={{-198,70},{-168,70},
+          {-168,-220},{-436,-220},{-436,-440},{-528,-440},{-528,-516},{-470,-516},
+          {-470,-502}}, color={255,127,0}));
+  connect(mov.port_b, chiDed.port_a2) annotation (Line(points={{-500,-190},{-500,
+          -252},{-472,-252},{-472,-264},{-480,-264}}, color={0,127,255}));
+  connect(bou.ports[1], mov.port_a) annotation (Line(points={{-561,-150},{-561,-172},
+          {-520,-172},{-520,-190}}, color={0,127,255}));
+  connect(ctlCoo.y1EnaPla, ctlHea.u1EnaCoo) annotation (Line(points={{-338,-10},
+          {-336,-10},{-336,72},{-564,72},{-564,80},{-622,80},{-622,70}}, color={
+          255,0,255}));
+  connect(ctlHea.y1EnaPla, ctlCoo.u1EnaHea) annotation (Line(points={{-578,70},{
+          -580,70},{-580,84},{-548,84},{-548,68},{-396,68},{-396,4},{-382,4},{-382,
+          -6}}, color={255,0,255}));
+  connect(booToRea8.y, mov6.y) annotation (Line(points={{-550,-262},{-552,-262},
+          {-552,-276},{-520,-276},{-520,-288}}, color={0,0,127}));
+  connect(busChi.y1, booToRea8.u) annotation (Line(
+      points={{-412,-154},{-412,-188},{-436,-188},{-436,-212},{-440,-212},{-440,
+          -232},{-550,-232},{-550,-238}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bou.ports[2], mov7.port_a) annotation (Line(points={{-559,-150},{-559,
+          -164},{-608,-164},{-608,-190},{-600,-190}}, color={0,127,255}));
+  connect(datRea.y[5], norFlo1[1].u) annotation (Line(points={{-159,100},{-132,100},
+          {-132,52},{-20,52},{-20,100},{16,100}}, color={0,0,127}));
+  connect(pumHeaWatSec.ports_b,outPumHeaWatSec. ports_a)
+    annotation (Line(points={{28,-690},{34,-690}}, color={0,127,255}));
+  connect(inlPumHeaWatSec.ports_b,pumHeaWatSec. ports_a)
+    annotation (Line(points={{0,-690},{8,-690}}, color={0,127,255}));
+  connect(junHeaWatBypSup.port_2,inlPumHeaWatSec. port_a) annotation (Line(
+        points={{-62,-508},{-20,-508},{-20,-592},{-12,-592},{-12,-672},{-28,-672},
+          {-28,-690},{-20,-690}}, color={0,127,255}));
+  connect(outPumHeaWatSec.port_b, senTemHeaSup.port_a) annotation (Line(points={
+          {54,-690},{68,-690},{68,-576},{96,-576},{96,-572},{112,-572},{112,-510},
+          {130,-510}}, color={0,127,255}));
+  connect(dpHeaWatRem[1].port_a, senTemHeaSup.port_a) annotation (Line(points={{
+          70,-520},{70,-510},{130,-510}}, color={0,127,255}));
+  connect(busPumSecHeaWat,pumHeaWatSec. bus) annotation (Line(
+      points={{-330,110},{-156,110},{-156,-680},{18,-680}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ctlHea.y1PumHeaWatSec,busPumSecHeaWat.y1);
+  connect(ctlHea.yPumHeaWatSec,busPumSecHeaWat.y);
+  connect(ctlCoo.y1PumChiWatSec,busPumSecChiWat.y1);
+  connect(ctlCoo.yPumChiWatSec,busPumSecChiWat.y);
+//   connect(ctlHea.u1PumHeaWatSec_actual,busPumSecHeaWat.y1_actual);
+  connect(ctlHea.y1PumHeaWatSec, pre.u) annotation (Line(points={{-578,44},{-568,
+          44},{-568,110},{-598,110}}, color={255,0,255}));
+  connect(pre.y, ctlHea.u1PumHeaWatSec_actual) annotation (Line(points={{-622,110},
+          {-632,110},{-632,56.2},{-622,56.2}}, color={255,0,255}));
+  connect(ctlHea.y1EnaPla, booToInt.u) annotation (Line(points={{-578,70},{-580,
+          70},{-580,84},{-552,84},{-552,90},{-542,90}}, color={255,0,255}));
+  connect(ctlCoo.y1EnaPla, booToInt1.u) annotation (Line(points={{-338,-10},{-336,
+          -10},{-336,16},{-312,16},{-312,0},{-302,0}}, color={255,0,255}));
+  connect(inlPumChiWatSec.ports_b, pumChiWatSec.ports_a)
+    annotation (Line(points={{-12,278},{-4,278}}, color={0,127,255}));
+  connect(pumChiWatSec.ports_b, outPumChiWatSec.ports_a)
+    annotation (Line(points={{16,278},{22,278}}, color={0,127,255}));
+  connect(junChiWatBypSup.port_2, inlPumChiWatSec.port_a) annotation (Line(
+        points={{-62,-92},{-30,-92},{-30,260},{-40,260},{-40,278},{-32,278}},
+        color={0,127,255}));
+  connect(outPumChiWatSec.port_b, senTemCooSup.port_a) annotation (Line(points={
+          {42,278},{50,278},{50,280},{56,280},{56,52},{28,52},{28,-60},{40,-60}},
+        color={0,127,255}));
+  connect(busPumSecChiWat, pumChiWatSec.bus) annotation (Line(
+      points={{-340,184},{-340,300},{6,300},{6,288}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ctlCoo.y1PumChiWatSec, pre1.u) annotation (Line(points={{-338,-38},{-328,
+          -38},{-328,0},{-340,0},{-340,10},{-348,10}}, color={255,0,255}));
+  connect(pre1.y, ctlCoo.u1PumChiWatSec_actual) annotation (Line(points={{-372,10},
+          {-388,10},{-388,0},{-392,0},{-392,-25.8},{-382,-25.8}}, color={255,0,255}));
+  connect(ctlCoo.TSupSet[1], busChi.TSupSet) annotation (Line(points={{-338,
+          -66.5},{-336,-66.5},{-336,-64},{-316,-64},{-316,-152},{-380,-152},{
+          -380,-156},{-412,-156},{-412,-154}}, color={0,0,127}));
+  connect(senVolFlo4.port_b, junChiWatBypSup1.port_1)
+    annotation (Line(points={{-202,-92},{-156,-92}}, color={0,127,255}));
+  connect(senTem.port_b, senVolFlo5.port_a)
+    annotation (Line(points={{-160,-350},{-160,-192}}, color={0,127,255}));
+  connect(senVolFlo5.port_b, junChiWatBypSup1.port_3) annotation (Line(points={
+          {-160,-172},{-160,-112},{-146,-112},{-146,-102}}, color={0,127,255}));
+  connect(booToRea.u, conPIDCoo.trigger) annotation (Line(points={{-8,-386},{-8,
+          -388},{0,-388},{0,-300},{-216,-300},{-216,-352},{-200,-352},{-200,
+          -356},{-180,-356},{-180,-348},{-184,-348},{-184,-342}}, color={255,0,
+          255}));
+  connect(booToRea1.u, conPIDHea.trigger) annotation (Line(points={{-8,-456},{
+          -4,-456},{-4,-498},{-50,-498},{-50,-488},{-96,-488}}, color={255,0,
+          255}));
+  connect(junChiWatBypRet.port_3, senVolFlo6.port_b) annotation (Line(points={{
+          -72,-130},{-72,-126},{-66,-126}}, color={0,127,255}));
+  connect(junChiWatBypSup.port_3, senVolFlo6.port_a) annotation (Line(points={{
+          -72,-102},{-72,-106},{-66,-106}}, color={0,127,255}));
+  connect(chiDed.port_b2, senTem6.port_a) annotation (Line(points={{-500,-264},
+          {-530,-264},{-530,-92},{-266,-92}}, color={0,127,255}));
+  connect(senTem6.port_b, senVolFlo4.port_a)
+    annotation (Line(points={{-246,-92},{-222,-92}}, color={0,127,255}));
+  connect(chiDed.port_b1, senTem7.port_a) annotation (Line(points={{-480,-276},
+          {-470,-276},{-470,-300}}, color={0,127,255}));
+  connect(datRea.y[3], norFlo1[2].u) annotation (Line(points={{-159,100},{-132,
+          100},{-132,52},{-20,52},{-20,100},{16,100}}, color={0,0,127}));
+  connect(senTem7.port_b, bou1.ports[1])
+    annotation (Line(points={{-470,-320},{-550,-320}}, color={0,127,255}));
+  connect(out.ports[3], senTem8.port_b) annotation (Line(points={{-620,-328.667},
+          {-550,-328.667},{-550,-332},{-480,-332}}, color={0,127,255}));
+  connect(senTem8.port_a, hp1.port_b3) annotation (Line(points={{-460,-332},{
+          -346,-331.333},{-346,-288},{-152,-288},{-152,-423.9},{-136,-423.9}},
+        color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file=
         "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWater.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=15638400,
-      StopTime=16156800,
+      StartTime=15984000,
+      StopTime=16172800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Documentation(
@@ -1457,4 +1601,4 @@ First implementation.
       coordinateSystem(
         extent={{-700,-640},{200,220}})),
     Icon(coordinateSystem(extent={{-700,-640},{200,220}})));
-end AirToWater_Buffalo_nonTemplate;
+end Buffalo_hybridDedicated_nonTemplate;

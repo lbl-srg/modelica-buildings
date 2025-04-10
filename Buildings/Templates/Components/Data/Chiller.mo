@@ -6,7 +6,7 @@ record Chiller
     "Set to true to use specified design conditions, false to use data from performance record"
     annotation (Evaluate=true,
     __ctrlFlow(enable=false));
-  parameter Buildings.Templates.Components.Types.Chiller typ
+  parameter Buildings.Templates.Components.Types.Chiller typ = Buildings.Templates.Components.Types.Chiller.AirCooled
     "Type of chiller"
     annotation (Evaluate=true,
     Dialog(group="Configuration",

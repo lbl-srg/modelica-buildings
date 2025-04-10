@@ -4,6 +4,7 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
     "Set to true for plants that provide HW"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
+  parameter Boolean has_sort=true;
   parameter Boolean have_chiWat
     "Set to true for plants that provide CHW"
     annotation (Evaluate=true,
@@ -460,7 +461,7 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
     final min=1)=size(staEquCooHea, 1)
     "Number of stages"
     annotation (Evaluate=true);
-  final parameter Integer nEquAlt(
+  parameter Integer nEquAlt(
     final min=0)=if nHp==1 then 1 else
     max({sum({(if staEquCooHea[i, j] > 0 and staEquCooHea[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
@@ -846,8 +847,7 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
             {{-300,300},{-260,340}}), iconTransformation(extent={{-240,100},{-200,
             140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SchCoo
-    if have_chiWat and have_inpSch
-    "Cooling mode enable via schedule"
+    if have_chiWat and have_inpSch "Cooling mode enable via schedule"
     annotation (Placement(transformation(extent={{-300,340},{-260,380}}),
       iconTransformation(extent={{-240,302},{-200,342}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqResHeaWat
@@ -1213,8 +1213,7 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
     annotation (Placement(transformation(extent={{-40,308},{-20,332}})));
   StagingRotation.SortRuntime sorRunTimHea(
     idxEquAlt=idxEquAlt,
-    nin=nHp)
-    if have_heaWat
+    nin=nHp) if have_heaWat and has_sort
     "Sort lead/lag alternate equipment by staging runtime – Heating mode"
     annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
   Enabling.Enable enaCoo(
@@ -1269,8 +1268,7 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
     "Left-limit of command signal to break algebraic loop"
     annotation (Placement(transformation(extent={{230,350},{210,370}})));
   StagingRotation.SortRuntime sorRunTimCoo(
-    final idxEquAlt=idxEquAlt, nin=nHp)
-    if have_chiWat
+    final idxEquAlt=idxEquAlt, nin=nHp) if have_chiWat and has_sort
     "Sort lead/lag alternate equipment by staging runtime – Cooling mode"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Pumps.Generic.StagingHeadered staPumHeaWatPri(
@@ -1576,6 +1574,37 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
     annotation (Placement(transformation(extent={{160,430},{180,450}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=nHp)
     annotation (Placement(transformation(extent={{200,430},{220,450}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not has_sort
+    annotation (Placement(transformation(extent={{-120,420},{-100,440}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nEquAlt](k={i
+        for i in 1:nEquAlt}) if not has_sort
+    annotation (Placement(transformation(extent={{-160,400},{-140,420}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nEquAlt](k={i
+        for i in nEquAlt:-1:1}) if not has_sort
+    annotation (Placement(transformation(extent={{-160,440},{-140,460}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(nout=
+        nEquAlt) if not has_sort
+    annotation (Placement(transformation(extent={{-192,420},{-172,440}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaModSig[nHp](k=fill(true,
+        nHp)) if have_heaWat and not have_chiWat
+              "Constant heating mdoe signal"
+    annotation (Placement(transformation(extent={{90,310},{110,330}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooModSig[nHp](k=fill(false,
+        nHp)) if not have_heaWat and have_chiWat
+    "Constant cooling mode signal"
+    annotation (Placement(transformation(extent={{90,280},{110,300}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaHea
+    if not have_heaWat and have_chiWat "Cooling mode enable via schedule"
+    annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
+        iconTransformation(extent={{-240,400},{-200,440}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaCoo
+    if have_heaWat and not have_chiWat "Cooling mode enable via schedule"
+    annotation (Placement(transformation(extent={{-300,210},{-260,250}}),
+        iconTransformation(extent={{-240,360},{-200,400}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EnaPla
+    if not have_heaWat or not have_chiWat "Heat pump enable command"
+    annotation (Placement(transformation(extent={{260,400},{300,440}}),
+        iconTransformation(extent={{200,360},{240,400}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));
@@ -2078,6 +2107,36 @@ equation
     annotation (Line(points={{182,440},{198,440}}, color={255,127,0}));
   connect(intScaRep.y, intSwi.u1) annotation (Line(points={{222,440},{228,440},{
           228,400},{172,400},{172,348},{178,348}}, color={255,127,0}));
+  connect(intSwi1.y, enaEquHea.uIdxAltSor) annotation (Line(points={{-98,430},{-52,
+          430},{-52,384},{32,384},{32,366},{38,366}}, color={255,127,0}));
+  connect(conInt2.y, intSwi1.u1) annotation (Line(points={{-138,450},{-136,450},
+          {-136,438},{-122,438}}, color={255,127,0}));
+  connect(conInt1.y, intSwi1.u3) annotation (Line(points={{-138,410},{-136,410},
+          {-136,422},{-122,422}}, color={255,127,0}));
+  connect(booScaRep1.y, intSwi1.u2)
+    annotation (Line(points={{-170,430},{-122,430}}, color={255,0,255}));
+  connect(and2.y, booScaRep1.u) annotation (Line(points={{-98,490},{-92,490},{-92,
+          508},{-204,508},{-204,430},{-194,430}}, color={255,0,255}));
+  connect(heaModSig.y, booToInt.u) annotation (Line(points={{112,320},{132,320},
+          {132,332},{138,332}}, color={255,0,255}));
+  connect(cooModSig.y, booToInt.u) annotation (Line(points={{112,290},{116,290},
+          {116,304},{128,304},{128,320},{132,320},{132,332},{138,332}}, color={
+          255,0,255}));
+  connect(u1EnaHea, and2.u1) annotation (Line(points={{-280,260},{-196,260},{
+          -196,388},{-56,388},{-56,472},{-132,472},{-132,490},{-122,490}},
+        color={255,0,255}));
+  connect(u1EnaCoo, and2.u2) annotation (Line(points={{-280,230},{-240,230},{
+          -240,256},{-200,256},{-200,482},{-122,482}}, color={255,0,255}));
+  connect(enaHea.y1, y1EnaPla) annotation (Line(points={{-88,360},{-56,360},{
+          -56,472},{-52,472},{-52,540},{244,540},{244,420},{280,420}}, color={
+          255,0,255}));
+  connect(enaCoo.y1, y1EnaPla) annotation (Line(points={{-88,100},{-80,100},{
+          -80,128},{-200,128},{-200,396},{-168,396},{-168,392},{-56,392},{-56,
+          472},{-52,472},{-52,540},{244,540},{244,420},{280,420}}, color={255,0,
+          255}));
+  connect(intSwi1.y, enaEquCoo.uIdxAltSor) annotation (Line(points={{-98,430},{
+          -52,430},{-52,384},{68,384},{68,260},{40,260},{40,120},{76,120},{76,
+          84},{32,84},{32,106},{38,106}}, color={255,127,0}));
   annotation (
     defaultComponentName="ctl",
     Icon(
