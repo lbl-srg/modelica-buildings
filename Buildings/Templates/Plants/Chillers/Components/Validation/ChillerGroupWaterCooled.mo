@@ -91,14 +91,17 @@ model ChillerGroupWaterCooled
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
     final dpConChi_nominal=dpConWatChi_nominal,
     final capChi_nominal=capChi_nominal,
-    final COPChi_nominal=COPChi_nominal,
     final TChiWatSupChi_nominal=fill(TChiWatSup_nominal, nChi),
-    final TConWatEntChi_nominal=fill(TConWatSup_nominal, nChi),
-    PLRChi_min=fill(0.15, nChi),
-    redeclare
-      Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD
-      perChi)
-    "Parameter record for water-cooled chiller group";
+    final TConWatChi_nominal=fill(TConWatRet_nominal, nChi),
+    perChi(
+      each fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/McQuay_WSC_471kW_5_89COP_Vanes.txt"),
+      each PLRSup={0.1,0.43,0.75,1.,1.08},
+      each devIde="McQuay_WSC_471kW_5_89COP_Vanes",
+      each use_TEvaOutForTab=true,
+      each use_TConOutForTab=true))
+    "Parameter record for chiller group"
+    annotation (Placement(transformation(extent={{-240,180},{-220,200}})));
 
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
     redeclare final package Medium=MediumChiWat,

@@ -19,13 +19,10 @@ block G36
     "True: need limit chiller demand when chiller staging"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  // FIXME #2299
-  final parameter Real desCap(
-    unit="W")=sum(dat.capChi_nominal)
-    "Plant design capacity"
-    annotation (Dialog(tab="General",group="Chillers configuration"));
-  // FIXME #2299: Why not use an enumeration?
-  parameter Integer chiTyp[cfg.nChi]=fill(Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.variableSpeedCentrifugal, cfg.nChi)
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages
+    chiTyp[cfg.nChi]=fill(
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.VariableSpeedCentrifugal,
+    cfg.nChi)
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
     annotation (Dialog(tab="General",group="Chillers configuration"));
   final parameter Real chiDesCap[cfg.nChi](
@@ -41,19 +38,12 @@ block G36
     each displayUnit="degC")=dat.TChiWatChiSup_nominal
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General",group="Chillers configuration"));
-  // FIXME #2299: Should be provided for each chiller.
-  final parameter Real minChiLif(
-    final unit="K",
-    displayUnit="K")=dat.dTLifChi_min[1]
-    "Minimum allowable lift at minimum load for chiller"
-    annotation (Dialog(tab="General",group="Chillers configuration",
-      enable=not have_heaPreConSig));
+  final parameter Real minChiLif[cfg.nChi](
+    each final unit="K")=dat.dTLifChi_min
+    "Minimum lift of each chiller"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
   final parameter Boolean have_heaPreConSig=typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn
     "True: if there is head pressure control signal from chiller controller"
-    annotation (Dialog(tab="General",group="Chillers configuration"));
-  final parameter Boolean anyVsdCen=sum({if chiTyp[i] == Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.variableSpeedCentrifugal
-    then 1 else 0 for i in 1:cfg.nChi}) > 0
-    "True: the plant contains at least one variable speed centrifugal chiller"
     annotation (Dialog(tab="General",group="Chillers configuration"));
   // ---- General: Waterside economizer ----
   final parameter Boolean have_WSE=cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
@@ -157,19 +147,19 @@ block G36
     annotation (Dialog(tab="Plant enable",
       enable=false));
   final parameter Real TChiLocOut(
-    unit="K",
+    final unit="K",
     displayUnit="degC")=dat.TOutChiWatLck
     "Outdoor air lockout temperature below which the chiller plant should be disabled"
     annotation (Dialog(tab="Plant enable"));
   // ---- Waterside economizer ----
   final parameter Real TOutWetDes(
-    unit="K",
+    final unit="K",
     displayUnit="degC")=dat.TWetBulCooEnt_nominal
     "Design outdoor air wet bulb temperature"
     annotation (Evaluate=true,
     Dialog(tab="Waterside economizer",group="Design parameters"));
   final parameter Real VHeaExcDes_flow(
-    unit="m3/s")=dat.VChiWatEco_flow_nominal
+    final unit="m3/s")=dat.VChiWatEco_flow_nominal
     "Design heat exchanger chilled water volume flow rate"
     annotation (Evaluate=true,
     Dialog(tab="Waterside economizer",group="Design parameters"));
@@ -178,14 +168,14 @@ block G36
     annotation (Dialog(tab="Waterside economizer",group="Valve or pump control"));
   // ---- Head pressure ----
   final parameter Real minConWatPumSpe(
-    unit="1")=dat.yPumConWat_min
+    final unit="1")=dat.yPumConWat_min
     "Minimum condenser water pump speed"
     annotation (Dialog(enable=not
                                  ((not have_WSE) and
                                                     have_fixSpeConWatPum),tab=
     "Head pressure",group="Limits"));
   final parameter Real minHeaPreValPos(
-    unit="1")=dat.yValConWatChiIso_min
+    final unit="1")=dat.yValConWatChiIso_min
     "Minimum head pressure control valve position"
     annotation (Dialog(enable=(not
                                   ((not have_WSE) and
@@ -227,21 +217,20 @@ block G36
     annotation (Dialog(tab="Chilled water pumps",group=
       "Pump speed control when there is local DP sensor"));
   // ---- Plant reset ----
-  // FIXME #2299: Dependency to plant configuration not addressed.
-  final parameter Real dpChiWatPumMin(
-    unit="Pa",
-    displayUnit="Pa")=dat.dpChiWatLocSet_min
-    "Minimum chilled water pump differential static pressure, default 5 psi"
+  final parameter Real dpChiWatMin[nSenChiWatPum](
+    each final unit="Pa",
+    each displayUnit="Pa")=dat.dpChiWatRemSet_min
+    "Minimum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset",group="Chilled water supply"));
-  final parameter Real dpChiWatPumMax[nSenChiWatPum](
+  final parameter Real dpChiWatMax[nSenChiWatPum](
     each final unit="Pa",
     each displayUnit="Pa")=dat.dpChiWatRemSet_max
-    "Maximum chilled water pump differential static pressure, the array size equals to the number of remote pressure sensor"
+    "Maximum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset",group="Chilled water supply"));
-  final parameter Real TChiWatSupMax(
-    unit="K",
+  final parameter Real TPlaChiWatSupMax(
+    final unit="K",
     displayUnit="degC")=dat.TChiWatSup_max
-    "Maximum chilled water supply temperature, default 60 degF"
+    "Maximum chilled water supply temperature setpoint used in plant reset logic"
     annotation (Dialog(tab="Plant Reset",group="Chilled water supply"));
   // ---- Cooling tower: fan speed ----
   final parameter Real fanSpeMin(
@@ -277,7 +266,7 @@ block G36
     unit="1")=dat.hLevCoo_max / dat.hLevAlaCoo_max
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers",group="Makeup water"));
-  ControllerG36Debug ctl(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller ctl(
     final nChi=cfg.nChi,
     final closeCoupledPlant=closeCoupledPlant,
     final have_ponyChiller=have_ponyChiller,
@@ -285,13 +274,10 @@ block G36
     final chiTyp=chiTyp,
     final schTab=schTab,
     final have_parChi=have_parChi,
-    final desCap=desCap,
     final chiDesCap=chiDesCap,
     final chiMinCap=chiMinCap,
     final TChiWatSupMin=TChiWatSupMin,
-    final minChiLif=minChiLif,
     final have_heaPreConSig=have_heaPreConSig,
-    final anyVsdCen=anyVsdCen,
     final have_WSE=have_WSE,
     final heaExcAppDes=heaExcAppDes,
     final have_byPasValCon=have_byPasValCon,
@@ -325,11 +311,11 @@ block G36
     final nPum_nominal=nPum_nominal,
     final VChiWat_flow_nominal=VChiWat_flow_nominal,
     final maxLocDp=maxLocDp,
-    final dpChiWatPumMin=dpChiWatPumMin,
-    final dpChiWatPumMax=dpChiWatPumMax,
-    final TChiWatSupMax=TChiWatSupMax,
+    final dpChiWatMin=dpChiWatMin,
+    final dpChiWatMax=dpChiWatMax,
+    final TPlaChiWatSupMax=TPlaChiWatSupMax,
     final fanSpeMin=fanSpeMin,
-    final LIFT_min=LIFT_min,
+    final minChiLif=minChiLif,
     final TConWatSup_nominal=TConWatSup_nominal,
     final TConWatRet_nominal=TConWatRet_nominal,
     final watLevMin=watLevMin,
@@ -383,14 +369,6 @@ block G36
     if not have_senVChiWatPri
     "#2299 Should be conditional"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi FIXME_TOutWet(
-    redeclare final package Medium=Buildings.Media.Air)
-    "#2299 Two input points should rather be used for OA DB temperature and RH."
-    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant p_default(
-    final k=Buildings.Media.Air.p_default)
-    "Default outdoor air absolute pressure"
-    annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_TConWatRet(
     k=Buildings.Templates.Data.Defaults.TConWatRet)
     "#2299: Missing connectors and dependency to plant configuration"
@@ -537,9 +515,8 @@ equation
   connect(FIXME_uFanSpe.y, ctl.uFanSpe);
   connect(RFE_watLev.y, ctl.watLev);
   connect(FIXME_VChiWat_flow.y, ctl.VChiWat_flow);
-  connect(bus.TOut, FIXME_TOutWet.TDryBul);
-  connect(bus.phiOut, FIXME_TOutWet.phi);
-  connect(FIXME_TOutWet.TWetBul, ctl.TOutWet);
+  connect(bus.TOut, ctl.TOut);
+  connect(bus.phiOut, ctl.phi);
   connect(FIXME_TConWatRet.y, ctl.TConWatRet);
   // Controller outputs
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
@@ -563,8 +540,6 @@ equation
   connect(FIXME_yValChiWatChiByp.y, bus.valChiWatChiByp.y1);
   connect(FIXME_y1ValConWatIso.y, bus.valConWatEcoIso.y1);
   /* Control point connection - stop */
-  connect(p_default.y, FIXME_TOutWet.p)
-    annotation (Line(points={{-158,-80},{-150,-80},{-150,-68},{-141,-68}},color={0,0,127}));
   connect(ctl.yChiPumSpe, FIXME_yChiPumSpe.u)
     annotation (Line(points={{22,6.5},{40,6.5},{40,-120},{58,-120}},color={0,0,127}));
   connect(ctl.yTowFanSpe, FIXME_yTowFanSpe.u)
@@ -604,8 +579,8 @@ equation
 This is an implementation of the control sequence specified in ASHRAE (2021)
 for chilled water plants.
 It is based on
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a>.
 </p>
 <h4>Details</h4>
 <p>

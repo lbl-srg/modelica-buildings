@@ -95,7 +95,7 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     enable=typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
      or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
      or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed));
-  parameter Integer nLooChiWatSec=1
+  parameter Integer nLooChiWatSec(start=1)=1
     "Number of secondary CHW loops for distributed secondary distribution"
     annotation (Evaluate=true, Dialog(group="Secondary CHW loop",
     enable=typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed));
@@ -286,7 +286,7 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     MediumChiWat.density(staChiWat_default)
     "CHW default density";
   final parameter MediumChiWat.SpecificHeatCapacity cpChiWat_default=
-    MediumChiWat.density(staChiWat_default)
+    MediumChiWat.specificHeatCapacityCp(staChiWat_default)
     "CHW default specific heat capacity";
   final parameter MediumChiWat.ThermodynamicState staChiWat_default=
      MediumChiWat.setState_pTX(
@@ -298,7 +298,7 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     MediumCon.density(staCon_default)
     "Condenser cooling fluid default density";
   final parameter MediumCon.SpecificHeatCapacity cpCon_default=
-    MediumCon.density(staCon_default)
+    MediumCon.specificHeatCapacityCp(staCon_default)
     "Condenser cooling fluid default specific heat capacity";
   final parameter MediumCon.ThermodynamicState staCon_default=
      MediumCon.setState_pTX(

@@ -143,8 +143,8 @@ The table below lists all available equipment configurations.
 The first option (shown in <b>bold</b>) represents the default plant configuration.
 Options shown in <font color=\"gray\"><em>gray italics</em></font> are not currently
 supported by the plant controller
-<a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\\\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>
+<a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\\\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a>
 and cannot be selected.
 The user may refer to ASHRAE (2021) for further details.
 </p>

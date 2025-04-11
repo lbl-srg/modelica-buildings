@@ -4,7 +4,7 @@ record Controller
   extends Modelica.Icons.Record;
   parameter Buildings.Templates.Plants.Chillers.Configuration.ChillerPlant cfg
     "Plant configuration parameters";
-  parameter Modelica.Units.SI.Temperature TChiWatChiSup_nominal[cfg.nChi](
+  parameter Modelica.Units.SI.Temperature TChiWatChiSup_nominal[:](
     each displayUnit="degC",
     each start=Buildings.Templates.Data.Defaults.TChiWatSup,
     each final min=260)
@@ -17,19 +17,19 @@ record Controller
     "Maximum CHW supply temperature setpoint used in plant reset logic"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36));
-  parameter Modelica.Units.SI.Temperature TConWatRetChi_nominal[cfg.nChi](
-    each displayUnit="degC",
-    each start=Buildings.Templates.Data.Defaults.TConWatRet,
-    each final min=273.15)
-    "CW return temperature (condenser leaving) at chiller selection conditions - Each chiller"
-    annotation (Dialog(group="Temperature setpoints",
-      enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-      cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Modelica.Units.SI.Temperature TConWatSupChi_nominal[cfg.nChi](
+  parameter Modelica.Units.SI.Temperature TConWatSupChi_nominal[:](
     each displayUnit="degC",
     each start=Buildings.Templates.Data.Defaults.TConWatSup,
     each final min=273.15)
     "CW supply temperature (condenser entering) at chiller selection conditions - Each chiller"
+    annotation (Dialog(group="Temperature setpoints",
+      enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Modelica.Units.SI.Temperature TConWatRetChi_nominal[:](
+    each displayUnit="degC",
+    each start=Buildings.Templates.Data.Defaults.TConWatRet,
+    each final min=273.15)
+    "CW return temperature (condenser leaving) at chiller selection conditions - Each chiller"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
       cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
@@ -46,28 +46,28 @@ record Controller
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
       cfg.typDisChiWat<>Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
         and not cfg.have_senDpChiWatRemWir));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_min[cfg.nSenDpChiWatRem](
+  parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_min[:](
     each start=Buildings.Templates.Data.Defaults.dpChiWatSet_min)
     "Minimum CHW differential pressure setpoint used in plant reset logic - Each remote sensor"
     annotation (Dialog(group="Differential pressure setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
       cfg.typDisChiWat<>Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
         and cfg.have_senDpChiWatRemWir));
-  parameter Modelica.Units.SI.VolumeFlowRate VChiWatChi_flow_nominal[cfg.nChi](
+  parameter Modelica.Units.SI.VolumeFlowRate VChiWatChi_flow_nominal[:](
     each displayUnit="L/s",
     each final min=0,
     each start=0)
     "Design CHW volume flow rate - Each chiller"
     annotation (Dialog(group="Chiller flow setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36));
-  parameter Modelica.Units.SI.VolumeFlowRate VChiWatChi_flow_min[cfg.nChi](
+  parameter Modelica.Units.SI.VolumeFlowRate VChiWatChi_flow_min[:](
     each displayUnit="L/s",
     each final min=0,
     each start=0)
     "Minimum CHW volume flow rate - Each chiller"
     annotation (Dialog(group="Chiller flow setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36));
-  parameter Modelica.Units.SI.VolumeFlowRate VConWatChi_flow_nominal[cfg.nChi](
+  parameter Modelica.Units.SI.VolumeFlowRate VConWatChi_flow_nominal[:](
     each displayUnit="L/s",
     each start=0.01,
     each final min=0)
@@ -76,7 +76,7 @@ record Controller
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
       and cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
       and cfg.have_pumConWatVar));
-  parameter Modelica.Units.SI.TemperatureDifference dTLifChi_min[cfg.nChi](
+  parameter Modelica.Units.SI.TemperatureDifference dTLifChi_min[:](
     each start=Buildings.Templates.Data.Defaults.dTLifChi_min,
     each final min=0)
     "Minimum allowable lift at minimum load - Each chiller"
@@ -84,14 +84,14 @@ record Controller
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
       and cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
       and cfg.typCtlHea<>Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None));
-  parameter Modelica.Units.SI.TemperatureDifference dTLifChi_nominal[cfg.nChi](
+  parameter Modelica.Units.SI.TemperatureDifference dTLifChi_nominal[:](
     each final min=0)=TConWatRetChi_nominal - TChiWatChiSup_nominal
     "Design lift at design load - Each chiller"
     annotation (Dialog(group="Chiller lift setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
       and cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
         and cfg.typCtlHea<>Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None));
-  parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[cfg.nChi](
+  parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[:](
     each start=0,
     each final min=0)
     "Design capacity - Each chiller"
@@ -110,7 +110,7 @@ record Controller
         or cfg.typMeaCtlChiWatPri==Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.FlowDifference)
         or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
         and cfg.typArrPumChiWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered)));
-  parameter Modelica.Units.SI.VolumeFlowRate VChiWatSec_flow_nominal[cfg.nLooChiWatSec](
+  parameter Modelica.Units.SI.VolumeFlowRate VChiWatSec_flow_nominal[:](
     each start=0.01,
     each displayUnit="L/s",
     each final min=0)
@@ -121,7 +121,7 @@ record Controller
         or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
         or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)
         and cfg.have_senVChiWatSec)));
-  parameter Modelica.Units.SI.HeatFlowRate capUnlChi_min[cfg.nChi](
+  parameter Modelica.Units.SI.HeatFlowRate capUnlChi_min[:](
     start=0.1 * abs(capChi_nominal),
     each final min=0)
     "Minimum load before engaging hot gas bypass or cycling - Each chiller"
@@ -207,7 +207,7 @@ record Controller
       ((cfg.typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
         or cfg.typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed)
         and cfg.have_senLevCoo)));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[cfg.nSenDpChiWatRem](
+  parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[:](
     each start=Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
     each final min=0)
     "Mmaximum CHW differential pressure setpoint - Remote sensor"
@@ -323,23 +323,21 @@ record Controller
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
       and cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   // RFE: The following parameter has the type Real for future capability to specify lead/lag alternated chillers with 0.5.
-  parameter Real sta[:, nUniSta](
+  parameter Real sta[:, :](
     each min=0,
     each max=1,
     each final unit="1")
     "Staging matrix with plant stage as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
     annotation (Evaluate=true,
     Dialog(group="Plant staging"));
-  final parameter Integer nUniSta=if cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-    then cfg.nChi + 1 else cfg.nChi
-    "Number of units to be staged, including chillers and optional WSE"
-    annotation (Evaluate=true,
-    Dialog(group="Plant staging"));
   final parameter Integer nSta=size(sta, 1)
     "Number of plant stages"
     annotation (Evaluate=true,
-    Dialog(group="Plant staging",
-      enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36));
+    Dialog(group="Plant staging"));
+  final parameter Integer nUniSta=size(sta, 2)
+    "Number of units to be staged, including chillers and optional WSE"
+    annotation (Evaluate=true,
+    Dialog(group="Plant staging"));
   parameter Real staCoo[nSta](
     each max=cfg.nCoo,
     start=fill(0, nSta))

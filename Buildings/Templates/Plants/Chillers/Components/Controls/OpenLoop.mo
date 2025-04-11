@@ -4,8 +4,7 @@ block OpenLoop
   extends Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.Chillers.Types.Controller.OpenLoop);
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[cfg.nChi](
-    y(
-      each final unit="K",
+    y(each final unit="K",
       each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature set point"
@@ -251,7 +250,8 @@ equation
   HACK: The following clauses should be removed at translation if `not cfg.have_pumChiWatSec`
   but Dymola fails to do so.
   Hence, explicit `if then` statements are used.
-  */ if cfg.have_pumChiWatSec then
+  */
+     if cfg.have_pumChiWatSec then
     connect(yPumChiWatSec.y, busPumChiWatSec.y)
       annotation (Line(points={{-98,-10},{140,-10},{140,20}},color={0,0,127}));
     connect(busPumChiWatSec, bus.pumChiWatSec)
@@ -304,7 +304,7 @@ equation
   connect(y1Chi.y[1], busChi.y1)
     annotation (Line(points={{-162,280},{-258,280},{-258,200},{-240,200}},color={255,0,255}),
       Text(string="%second",index=1,extent={{6,3},{6,3}},horizontalAlignment=TextAlignment.Left));
-  connect(TChiWatSupSet.y, busChi.TSupSet)
+  connect(TChiWatSupSet.y, busChi.TSet)
     annotation (Line(points={{-102,260},{-254,260},{-254,200},{-240,200}},color={0,0,127}));
   connect(y1Coo.y[1], bus.y1Coo)
     annotation (Line(points={{-2,-260},{-254,-260},{-254,0},{-260,0}},color={255,0,255}),

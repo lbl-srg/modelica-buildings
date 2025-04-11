@@ -22,12 +22,13 @@ partial model PartialChiller
   parameter Boolean have_switchover=false
     "Set to true for heat recovery chiller with built-in switchover"
     annotation (Evaluate=true,
-    Dialog(group="Configuration",
-      enable=false));
+    Dialog(group="Configuration", enable=false));
+  parameter Boolean use_TChiWatSupForCtl=true
+    "Set to true for CHW supply temperature control, false for CHW return temperature control"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Data.Chiller dat(
-    typ=typ,
-    cpChiWat_default=cpChiWat_default,
-    cpCon_default=cpCon_default)
+    typ=typ)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,80},{90,100}})),
     __ctrlFlow(enable=false));
@@ -45,12 +46,18 @@ partial model PartialChiller
     "Design condenser cooling fluid pressure drop";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=dat.TChiWatSup_nominal
     "Design CHW supply temperature";
-  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=dat.TChiWatRet_nominal
+  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
+    TChiWatSup_nominal - QChiWat_flow_nominal / cpChiWat_default / mChiWat_flow_nominal
     "Design CHW return temperature";
-  final parameter Modelica.Units.SI.Temperature TConEnt_nominal=dat.TConEnt_nominal
+  // Derived classes must provide bindings for the condenser variables and COP at design.
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal
+    "Design condenser heat flow rate";
+  parameter Modelica.Units.SI.Temperature TConEnt_nominal
     "Design condenser entering fluid temperature";
-  final parameter Modelica.Units.SI.Temperature TConLvg_nominal=dat.TConLvg_nominal
+  parameter Modelica.Units.SI.Temperature TConLvg_nominal
     "Design condenser leaving fluid temperature";
+  parameter Modelica.Units.SI.Efficiency COP_nominal
+    "Coefficient of performance at design conditions";
   parameter Boolean have_dpChiWat=true
     "Set to true for CHW pressure drop computed by this model, false for external computation"
     annotation (Evaluate=true,
@@ -98,6 +105,10 @@ This partial class provides a standard interface for chiller models.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+Refactored for load-dependent 2D table data chiller model.
+</li>
 <li>
 November 18, 2022, by Antoine Gautier:<br/>
 First implementation.

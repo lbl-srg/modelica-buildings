@@ -8,6 +8,8 @@ model Compression "Group of compression chillers"
     each final allowFlowReversal1=allowFlowReversalSou,
     each final allowFlowReversal2=allowFlowReversal,
     each final typ=typ,
+    each final have_switchover=have_switchover,
+    each final use_TChiWatSupForCtl=use_TChiWatSupForCtl,
     final dat=datChi,
     each final energyDynamics=energyDynamics,
     each final tau=tau)

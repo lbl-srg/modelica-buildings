@@ -15,15 +15,12 @@ record ChillerPlant "Record for chiller plant"
     chi(
     final nChi=cfg.nChi,
     final typ=cfg.typChi,
-    final cpChiWat_default=cfg.cpChiWat_default,
-    final cpCon_default=cfg.cpCon_default,
     mChiWatChi_flow_nominal=ctl.VChiWatChi_flow_nominal*cfg.rhoChiWat_default,
     mConWatChi_flow_nominal=ctl.VConWatChi_flow_nominal*cfg.rhoCon_default,
     capChi_nominal=ctl.capChi_nominal,
     TChiWatSupChi_nominal=ctl.TChiWatChiSup_nominal,
-    TChiWatSupChi_max=fill(ctl.TChiWatSup_max, cfg.nChi),
-    TConWatEntChi_nominal=ctl.TConWatSupChi_nominal,
-    PLRUnlChi_min=ctl.capUnlChi_min ./ ctl.capChi_nominal)
+    TConWatChi_nominal={if chi.perChi[i].use_TConOutForTab then
+      ctl.TConWatRetChi_nominal[i] else ctl.TConWatSupChi_nominal[i] for i in 1:cfg.nChi})
     "Chiller group"
     annotation (Dialog(group="Chillers"));
 

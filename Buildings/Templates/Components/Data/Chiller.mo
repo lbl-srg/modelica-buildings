@@ -10,12 +10,6 @@ record Chiller
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "CHW default specific heat capacity"
     annotation (Dialog(group="Configuration"));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpCon_default=if typ ==
-    Buildings.Templates.Components.Types.Chiller.AirCooled then
-    Buildings.Utilities.Psychrometrics.Constants.cpAir
-    else Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-    "Condenser cooling fluid default specific heat capacity"
-    annotation (Dialog(group="Configuration"));
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
     final min=0)
     "CHW mass flow rate"
@@ -31,15 +25,6 @@ record Chiller
       enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.HeatFlowRate cap_nominal
     "Cooling capacity"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(
-    final min=0)=abs(cap_nominal) *(1 / COP_nominal + 1)
-    "Condenser heat flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Real COP_nominal(
-    final min=1,
-    final unit="1")
-    "Cooling COP"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal(
     final min=0,
@@ -59,105 +44,25 @@ record Chiller
     final min=260)
     "CHW supply temperature"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal(
-    final min=260)=TChiWatSup_nominal + abs(cap_nominal) /
-    cpChiWat_default / mChiWat_flow_nominal
-    "CHW return temperature"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TChiWatSup_min=TChiWatSup_nominal
-    "Minimum CHW supply temperature"
-    annotation (Dialog(group="Operating limits"));
-  parameter Modelica.Units.SI.Temperature TChiWatSup_max=
-    Buildings.Templates.Data.Defaults.TChiWatSup_max
-    "Maximum CHW supply temperature"
-    annotation (Dialog(group="Operating limits"));
-  parameter Modelica.Units.SI.Temperature TConEnt_nominal(
+  parameter Modelica.Units.SI.Temperature TCon_nominal(
     final min=273.15)
-    "Condenser entering fluid temperature (CW or air)"
-    annotation (Dialog(group="Nominal condition",
-      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
-  // The following parameter is not declared as final to allow parameterization
-  // based on leaving CHW temperature. In this case, the user shall compute
-  // TConEnt_nominal from TConLvg_nominal.
-  parameter Modelica.Units.SI.Temperature TConLvg_nominal=
-    TConEnt_nominal + QCon_flow_nominal / mCon_flow_nominal / cpCon_default
-    "Condenser leaving fluid temperature (CW or air)"
+    "Condenser entering or leaving fluid temperature (depending on per.use_TConOutForTab)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TConLvg_min(
-    final min=273.15)=Buildings.Templates.Data.Defaults.TConLvg_min
-    "Minimum condenser leaving fluid temperature (CW or air)"
-    annotation (Dialog(group="Operating limits"));
-  parameter Modelica.Units.SI.Temperature TConLvg_max(
-    final min=273.15)=Buildings.Templates.Data.Defaults.TConLvg_max
-    "Maximum condenser leaving fluid temperature (CW or air)"
-    annotation (Dialog(group="Operating limits"));
-  parameter Real PLRUnl_min(
-    start=0,
-    final min=PLR_min,
-    final max=1)=PLR_min
-    "Minimum unloading ratio (before engaging hot gas bypass, if any)";
-  parameter Real PLR_min(
-    start=0,
-    final min=0,
-    final max=1)=0.15
-    "Minimum part load ratio before cycling";
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic per(
-    COP_nominal=COP_nominal,
-    QEva_flow_nominal=- abs(cap_nominal),
-    TConLvg_nominal=TConLvg_nominal,
-    TConLvgMin=TConLvg_min,
-    TConLvgMax=TConLvg_max,
-    TEvaLvg_nominal=TChiWatSup_nominal,
-    TEvaLvgMin=TChiWatSup_nominal,
-    TEvaLvgMax=TChiWatSup_max,
-    PLRMin=PLR_min,
-    PLRMinUnl=PLRUnl_min,
-    PLRMax=1.0,
-    etaMotor=1.0,
-    mEva_flow_nominal=mChiWat_flow_nominal,
-    mCon_flow_nominal=mCon_flow_nominal)
-    "Chiller performance data"
-    annotation (choicesAllMatching=true);
-  final parameter Real COPPer_nominal(
-    final min=0,
-    final unit="1")=per.COP_nominal /
-      Buildings.Utilities.Math.Functions.biquadratic(
-        a=per.EIRFunT,
-        x1=Modelica.Units.Conversions.to_degC(TChiWatSup_nominal),
-        x2=Modelica.Units.Conversions.to_degC(TConLvg_nominal)) / Buildings.Utilities.Math.Functions.bicubic(
-        a=per.EIRFunPLR,
-        x1=Modelica.Units.Conversions.to_degC(TConLvg_nominal),
-        x2=1)
-    "Cooling COP computed at design conditions from performance record"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.HeatFlowRate capPer_flow_nominal=abs(per.QEva_flow_nominal) *
-    Buildings.Utilities.Math.Functions.biquadratic(
-      a=per.capFunT,
-      x1=Modelica.Units.Conversions.to_degC(TChiWatSup_nominal),
-      x2=Modelica.Units.Conversions.to_degC(TConLvg_nominal))
-    "Cooling capacity computed at design conditions from performance record"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic perSca(
-    final COP_nominal=per.COP_nominal * COP_nominal / COPPer_nominal,
-    final QEva_flow_nominal=per.QEva_flow_nominal * abs(cap_nominal) /
-      capPer_flow_nominal,
-    final EIRFunPLR=per.EIRFunPLR,
-    final EIRFunT=per.EIRFunT,
-    final PLRMax=per.PLRMax,
-    final PLRMin=per.PLRMin,
-    final PLRMinUnl=per.PLRMinUnl,
-    final TConLvgMax=per.TConLvgMax,
-    final TConLvgMin=per.TConLvgMin,
-    final TConLvg_nominal=per.TConLvg_nominal,
-    final TEvaLvgMax=per.TEvaLvgMax,
-    final TEvaLvgMin=per.TEvaLvgMin,
-    final TEvaLvg_nominal=per.TEvaLvg_nominal,
-    final capFunT=per.capFunT,
-    final etaMotor=per.etaMotor,
-    final mCon_flow_nominal=per.mCon_flow_nominal,
-    final mEva_flow_nominal=per.mEva_flow_nominal)
-    "Chiller performance data scaled to specified design capacity and COP"
-    annotation (choicesAllMatching=true);
+  replaceable parameter
+    Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic per(
+      mCon_flow_nominal=mCon_flow_nominal,
+      mEva_flow_nominal=mChiWat_flow_nominal,
+      dpCon_nominal=dpCon_nominal,
+      dpEva_nominal=dpChiWat_nominal,
+      tabLowBou=[
+        TCon_nominal - 30, TChiWatSup_nominal - 2;
+        TCon_nominal + 10, TChiWatSup_nominal - 2],
+      devIde="") constrainedby
+    Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic
+    "Cooling performance data"
+    annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-8,0},{8,16}})));
   annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datChi",
@@ -169,27 +74,23 @@ the classes within
 <a href=\"modelica://Buildings.Templates.Components.Chillers\">
 Buildings.Templates.Components.Chillers</a>.
 It is composed of a set of parameters corresponding to the design
-(selection) conditions and a sub-record <code>per</code> corresponding
-to the rating conditions at which the performance curves <code>per.capFunT</code>,
-<code>per.EIRFunT</code> and <code>per.EIRFunPLR</code> are calculated.
+(selection) conditions and a sub-record <code>per</code> providing
+the chiller performance data.
+The design capacity is used to parameterize the chiller model.
+The capacity (and power) computed from the external performance data file
+is automatically scaled by the chiller model to match the value provided 
+at design conditions.
 </p>
 <p>
-The performance data specified in the sub-record
-<code>per</code> are \"translated\" so that the capacity and cooling <i>COP</i>
-calculated at design conditions match the design values
-<code>cap_nominal</code> and <code>COP_nominal</code>.
-The performance data that result from this translation are stored in
-the sub-record <code>perSca</code> which is ultimately used by the chiller models within
-<a href=\"modelica://Buildings.Templates.Components.Chillers\">
-Buildings.Templates.Components.Chillers</a>.<br/>
-Note that the performance data can be specified either by redeclaring
-the sub-record <code>per</code>, or by simply assigning the performance
-curves <code>per.capFunT</code>, <code>per.EIRFunT</code> and <code>per.EIRFunPLR</code>
-in case these curves were calculated based on the design conditions.
-To support the former, the design conditions are propagated \"down\" to
-the sub-record <code>per</code> but these bindings do not persist
-after redeclaration so that a record at different rating conditions can
-also be used.
+Note that the design value for condenser cooling fluid (e.g., condenser water) 
+mass flow rate is only required for water-cooled chillers.
+Air-cooled chillers use a default outdoor air flow assignment
+since the chiller model doesn't explicitly calculate fan power based on
+outdoor air flow and condenser pressure drop. Instead, fan power 
+is integrated into the chiller power computed from the performance data.
+This is because both US (AHRI Standard 550/590) and European (EN14511) 
+chiller performance rating standards incorporate fan power into the rated
+total input power.
 </p>
 </html>"));
 end Chiller;
