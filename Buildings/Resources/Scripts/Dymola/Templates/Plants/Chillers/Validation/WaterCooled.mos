@@ -98,13 +98,14 @@ createPlot(
 createPlot(
     id=6,
     subPlot=2,
-    y={"pla.chi.chi[1].chi.PLR2", "pla.chi.chi[2].chi.PLR2"},
+    y={"pla.chi.chi[1].chi.PLR", "pla.chi.chi[2].chi.PLR"},
     autoscale=true,
     grid=true,
     timeUnit="h"
 );
 createPlot(
     id=7,
+    position={350, 40, 300, 300},
     y={"pla.bus.TChiWatSupSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatPlaRet"},
     autoscale=true,
     grid=true,

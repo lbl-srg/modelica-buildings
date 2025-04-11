@@ -1,6 +1,7 @@
 within Buildings.Templates.Plants.Chillers;
 model WaterCooled "Water-cooled chiller plant"
   /* FIXME: Add comment for the following bindings and make them final after testing.
+  (This is for plant configurations not yet supported by the controller implementation.)
   typArrChi_select
   typDisChiWat
   typArrPumChiWatPri_select

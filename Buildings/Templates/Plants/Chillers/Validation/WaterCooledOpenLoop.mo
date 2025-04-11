@@ -48,10 +48,10 @@ model WaterCooledOpenLoop
     "CHW plant"
     annotation (Placement(transformation(extent={{-60,-30},{-20,10}})));
 
-  Fluid.Sources.PropertySource_T proSou(use_T_in=true,
-    redeclare final package Medium=MediumChiWat)
-    "Boundary conditions for CHW distribution system"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+  Fluid.Sources.PropertySource_T setTChiWatRet(use_T_in=true, redeclare final
+      package Medium = MediumChiWat) "Set CHWRT" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-20})));
 
@@ -93,12 +93,12 @@ equation
           0,-20},{0,-40},{10,-40}}, color={0,127,255}));
   connect(TChiWatRet.port_a, VChiWat_flow.port_b)
     annotation (Line(points={{30,-40},{40,-40}}, color={0,127,255}));
-  connect(res.port_b, proSou.port_a)
+  connect(res.port_b, setTChiWatRet.port_a)
     annotation (Line(points={{40,0},{80,0},{80,-10}}, color={0,127,255}));
-  connect(VChiWat_flow.port_a, proSou.port_b)
+  connect(VChiWat_flow.port_a, setTChiWatRet.port_b)
     annotation (Line(points={{60,-40},{80,-40},{80,-30}}, color={0,127,255}));
-  connect(TChiWatRetPre.y, proSou.T_in) annotation (Line(points={{-68,40},{60,40},
-          {60,-16},{68,-16}}, color={0,0,127}));
+  connect(TChiWatRetPre.y, setTChiWatRet.T_in) annotation (Line(points={{-68,40},
+          {60,40},{60,-16},{68,-16}}, color={0,0,127}));
   annotation (
   experiment(
     StartTime=19612800,
