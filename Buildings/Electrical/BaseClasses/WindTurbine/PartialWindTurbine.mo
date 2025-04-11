@@ -26,7 +26,7 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=scale)
     "Gain, used to allow a user to easily scale the power"
     annotation (Placement(transformation(extent={{2,20},{22,40}})));
-  DC.Sources.BaseClasses.WindCorrection                      cor(
+  DC.Sources.BaseClasses.WindCorrection cor(
     final h=h,
     final hRef=hRef,
     final n=nWin) "Correction for wind"
@@ -172,7 +172,7 @@ Below and above these wind speeds, the generated power is zero.
 <li>
 April 9, 2025, by Michael Wetter:<br/>
 Increased small number to extend table beyond cut-out wind speed.<br/>
-<a href=\"https://github.com/lbl-srg/modelica-Buildings/issues/1996\">IBPSA, issue 1996</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, issue 1996</a>.
 </li>
 <li>
 March 1, 2016, by Michael Wetter:<br/>
