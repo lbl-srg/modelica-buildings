@@ -58,7 +58,6 @@ model ClosedLoopTest "Closed loop testing model"
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
         Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
-    final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={boiCapRat*boiDesCap*0.8,(1 - boiCapRat)*boiDesCap*0.8},
     final boiFirMin={0.2,0.3},
@@ -218,10 +217,6 @@ equation
   connect(boiPlaPri.yRetTem, conBoiPri.TRetPri) annotation (Line(points={{62,-2},
           {104,-2},{104,-72},{-72,-72},{-72,18},{-42,18}}, color={0,0,127}));
 
-  connect(boiPlaPri.yHotWatDp, conBoiPri.dpHotWatPri_rem) annotation (Line(
-        points={{62,-6},{108,-6},{108,-76},{-76,-76},{-76,6},{-42,6}}, color={0,
-          0,127}));
-
   connect(boiPlaPri.VHotWatPri_flow, conBoiPri.VHotWatPri_flow) annotation (
       Line(points={{62,-10},{112,-10},{112,-80},{-80,-80},{-80,14},{-42,14}},
         color={0,0,127}));
@@ -237,16 +232,19 @@ equation
         points={{62,-22},{128,-22},{128,-96},{-96,-96},{-96,-30},{-42,-30}},
         color={0,0,127}));
 
-  connect(conBoiPri.yPriPum, boiPlaPri.uPumSta) annotation (Line(points={{-18,-12},
-          {-6,-12},{-6,-8},{38,-8}}, color={255,0,255}));
+  connect(conBoiPri.yPriPum, boiPlaPri.uPumSta) annotation (Line(points={{-18,-10},
+          {-6,-10},{-6,-8},{38,-8}}, color={255,0,255}));
   connect(conBoiPri.yBoi, boiPlaPri.uBoiSta)
-    annotation (Line(points={{-18,8},{38,8}}, color={255,0,255}));
+    annotation (Line(points={{-18,10},{10,10},{10,8},{38,8}},
+                                              color={255,0,255}));
   connect(conBoiPri.TBoiHotWatSupSet, boiPlaPri.TBoiHotWatSupSet)
-    annotation (Line(points={{-18,4},{38,4}}, color={0,0,127}));
+    annotation (Line(points={{-18,6},{10,6},{10,4},{38,4}},
+                                              color={0,0,127}));
   connect(conBoiPri.yHotWatIsoVal, boiPlaPri.uHotIsoVal)
-    annotation (Line(points={{-18,0},{38,0}}, color={0,0,127}));
-  connect(conBoiPri.yPriPumSpe, boiPlaPri.uPumSpe) annotation (Line(points={{-18,
-          -16},{0,-16},{0,-12},{38,-12}}, color={0,0,127}));
+    annotation (Line(points={{-18,2},{10,2},{10,0},{38,0}},
+                                              color={0,0,127}));
+  connect(conBoiPri.yPriPumSpe, boiPlaPri.uPumSpe) annotation (Line(points={{-18,-14},
+          {0,-14},{0,-12},{38,-12}},      color={0,0,127}));
   connect(con3[1].y, conBoiPri.uSchEna) annotation (Line(points={{-98,0},{-90,0},
           {-90,38},{-42,38}}, color={255,0,255}));
   connect(boiPlaPri.port_b[2], secLoo1.port_a) annotation (Line(points={{43,10.25},
@@ -279,25 +277,21 @@ equation
   connect(secLoo2.dPSec,conPumSec2. dpHotWat_remote[1]) annotation (Line(points
         ={{62,64},{72,64},{72,88},{-20,88},{-20,50},{-10,50}}, color={0,0,127}));
   connect(conBoiPri.yMaxSecPumSpe,conPumSec2. uMaxSecPumSpeCon) annotation (
-      Line(points={{-18,-8},{-14,-8},{-14,42},{-10,42}}, color={0,0,127}));
+      Line(points={{-18,-6},{-14,-6},{-14,42},{-10,42}}, color={0,0,127}));
   connect(conBoiPri.yMaxSecPumSpe,conPumSec1. uMaxSecPumSpeCon) annotation (
-      Line(points={{-18,-8},{-14,-8},{-14,130},{-12,130}}, color={0,0,127}));
-  connect(conBoiPri.yPla,conPumSec2. uPlaEna) annotation (Line(points={{-18,16},
-          {-16,16},{-16,70},{-10,70}}, color={255,0,255}));
-  connect(conBoiPri.yPla,conPumSec1. uPlaEna) annotation (Line(points={{-18,16},
-          {-16,16},{-16,158},{-12,158}}, color={255,0,255}));
+      Line(points={{-18,-6},{-14,-6},{-14,130},{-12,130}}, color={0,0,127}));
+  connect(conBoiPri.yPla,conPumSec2. uPlaEna) annotation (Line(points={{-18,14},
+          {-16,14},{-16,70},{-10,70}}, color={255,0,255}));
+  connect(conBoiPri.yPla,conPumSec1. uPlaEna) annotation (Line(points={{-18,14},
+          {-16,14},{-16,158},{-12,158}}, color={255,0,255}));
   connect(secLoo2.yPumEna,conPumSec2. uHotWatPum[1]) annotation (Line(points={{62,
           72},{74,72},{74,92},{-22,92},{-22,74},{-10,74}}, color={255,0,255}));
   connect(secLoo1.yPumEna,conPumSec1. uHotWatPum[1]) annotation (Line(points={{62,152},
           {74,152},{74,178},{-26,178},{-26,162},{-12,162}},      color={255,0,255}));
-  connect(boiPlaPri.yPriPumSpe, conBoiPri.uPriPumSpe) annotation (Line(points={
-          {62,6},{70,6},{70,-46},{-42,-46},{-42,-38}}, color={0,0,127}));
   connect(con.y,conPumSec1. dpHotWatSet) annotation (Line(points={{-58,150},{
           -26,150},{-26,134},{-12,134}}, color={0,0,127}));
   connect(con.y,conPumSec2. dpHotWatSet) annotation (Line(points={{-58,150},{-26,
           150},{-26,46},{-10,46}}, color={0,0,127}));
-  connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,14},
-          {62,22},{24,22},{24,-48},{-50,-48},{-50,10},{-42,10}}, color={0,0,127}));
   connect(boiPlaPri.VDec_flow, conBoiPri.VHotWatDec_flow) annotation (Line(
         points={{62,10},{72,10},{72,-52},{-52,-52},{-52,-6},{-42,-6}}, color={0,
           0,127}));
@@ -326,6 +320,8 @@ equation
         color={0,0,127}));
   connect(secLoo2.yPumSpe,conPumSec2. uPumSpe) annotation (Line(points={{62,68},
           {76,68},{76,94},{-24,94},{-24,62},{-10,62}}, color={0,0,127}));
+  connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,14},
+          {70,14},{70,-46},{-54,-46},{-54,10},{-42,10}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This model couples the boiler plant model for a primary-secondary, condensing boiler

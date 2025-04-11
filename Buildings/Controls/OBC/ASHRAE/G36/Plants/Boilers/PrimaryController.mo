@@ -766,8 +766,7 @@ model PrimaryController "Boiler plant primary loop controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRetSec(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    if not have_priOnl and have_secFloSen
+    final quantity="ThermodynamicTemperature") if not have_priOnl
     "Measured hot water secondary return temperature"
     annotation (Placement(transformation(extent={{-440,108},{-400,148}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
@@ -793,7 +792,8 @@ model PrimaryController "Boiler plant primary loop controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSec(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not have_priOnl
+    final quantity="ThermodynamicTemperature")
+    if not have_priOnl and have_varPriPum and have_temRegPri
     "Measured hot water supply temperature in secondary loop"
     annotation (Placement(transformation(extent={{-440,-170},{-400,-130}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
