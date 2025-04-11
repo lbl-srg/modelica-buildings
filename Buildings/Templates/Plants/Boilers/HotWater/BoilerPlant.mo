@@ -5,7 +5,7 @@ model BoilerPlant "Boiler plant"
     final typCtl=ctl.typ,
     final nAirHan=ctl.nAirHan,
     final nEquZon=ctl.nEquZon,
-    cfg(
+    final cfg(
       final have_senDpHeaWatRemWir=ctl.have_senDpHeaWatRemWir,
       final nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
       final have_senVHeaWatSec=ctl.have_senVHeaWatSec));
@@ -67,7 +67,7 @@ model BoilerPlant "Boiler plant"
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatPriCon(
     redeclare final package Medium = Medium,
     final nPum=nPumHeaWatPriCon,
-    final have_var=have_varPumHeaWatPriCon,
+    final have_var=have_pumHeaWatPriVarCon,
     final have_varCom=true,
     final dat=dat.pumHeaWatPriCon,
     final energyDynamics=energyDynamics,
@@ -155,7 +155,7 @@ model BoilerPlant "Boiler plant"
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final allowFlowReversal=true,
-    final have_sen=have_varPumHeaWatPriCon
+    final have_sen=have_pumHeaWatPriVarCon
       and typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
       and ctl.typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
@@ -263,7 +263,7 @@ model BoilerPlant "Boiler plant"
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatPriNon(
     redeclare final package Medium = Medium,
     final nPum=nPumHeaWatPriNon,
-    final have_var=have_varPumHeaWatPriNon,
+    final have_var=have_pumHeaWatPriVarNon,
     final have_varCom=true,
     final dat=dat.pumHeaWatPriNon,
     final energyDynamics=energyDynamics,
@@ -350,7 +350,7 @@ model BoilerPlant "Boiler plant"
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final allowFlowReversal=true,
-    final have_sen=have_varPumHeaWatPriNon
+    final have_sen=have_pumHeaWatPriVarNon
       and typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
       and ctl.typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,

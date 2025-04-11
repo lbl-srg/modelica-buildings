@@ -36,18 +36,16 @@ model BoilerPlantOpenLoop
     "Boiler plant"
     annotation (Placement(transformation(extent={{-60,-30},{-20,10}})));
 
-  Fluid.Sources.Boundary_pT bou(
-    redeclare final package Medium=Medium,
-    p=200000,
-    T=Buildings.Templates.Data.Defaults.THeaWatRet,
-    nPorts=2)
-    "Boundary conditions for HW distribution system"
-    annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
+  Fluid.Sources.PropertySource_T setTHeaWatRet(use_T_in=true, redeclare final
+      package Medium = Medium) "Set HWRT" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={80,-20})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
     m_flow_nominal=pla.mHeaWat_flow_nominal,
-    dp_nominal=datAll.pla.ctl.dpHeaWatLocSet_nominal)
+    dp_nominal=datAll.pla.ctl.dpHeaWatLocSet_max)
     "Flow resistance of HW distribution system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -64,9 +62,10 @@ model BoilerPlantOpenLoop
     final m_flow_nominal=pla.mHeaWat_flow_nominal)
     "HW volume flow rate"
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRetPre(k=pla.THeaWatRet_nominal)
+    "Prescribed HWRT"
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
 equation
-  connect(res.port_b, bou.ports[1])
-    annotation (Line(points={{40,0},{70,0},{70,-21}},      color={0,127,255}));
   connect(pla.port_b, res.port_a)
     annotation (Line(points={{-19.8,-10},{0,-10},{0,0},{20,0}},
                                                color={0,127,255}));
@@ -74,13 +73,20 @@ equation
           0,-20},{0,-40},{10,-40}}, color={0,127,255}));
   connect(THeaWatRet.port_a, VHeaWat_flow.port_b)
     annotation (Line(points={{30,-40},{40,-40}}, color={0,127,255}));
-  connect(VHeaWat_flow.port_a, bou.ports[2])
-    annotation (Line(points={{60,-40},{70,-40},{70,-19}}, color={0,127,255}));
-  annotation (
-  experiment(
-    StartTime=0,
-    StopTime=2000,
-    Tolerance=1e-06),
+  connect(setTHeaWatRet.port_b, VHeaWat_flow.port_a)
+    annotation (Line(points={{80,-30},{80,-40},{60,-40}}, color={0,127,255}));
+  connect(res.port_b, setTHeaWatRet.port_a)
+    annotation (Line(points={{40,0},{80,0},{80,-10}}, color={0,127,255}));
+  connect(THeaWatRetPre.y, setTHeaWatRet.T_in) annotation (Line(points={{-68,40},
+          {60,40},{60,-16},{68,-16}}, color={0,0,127}));
+annotation (
+  __Dymola_Commands(
+    file=
+      "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Boilers/HotWater/Validation/BoilerPlantOpenLoop.mos"
+      "Simulate and plot"),
+    experiment(
+      Tolerance=1e-6,
+      StopTime=2200.0),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

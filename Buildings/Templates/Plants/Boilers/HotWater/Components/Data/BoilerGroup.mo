@@ -36,7 +36,7 @@ record BoilerGroup "Record for boiler group model"
       Q_flow_nominal=if nBoi>0 then capBoi_nominal else {0},
       TIn_nominal=if nBoi>0 then THeaWatBoiSup_nominal -
         capBoi_nominal / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./ mHeaWatBoi_flow_nominal
-        else {Buildings.Templates.Data.Defaults.THeaWatRet},
+        else {Buildings.Templates.Data.Defaults.THeaWatRetHig},
       m_flow_nominal=if nBoi>0 then mHeaWatBoi_flow_nominal else {0},
       dp_nominal=if nBoi>0 then dpHeaWatBoi_nominal else {0})
     "Boiler performance data - Each boiler"

@@ -2,9 +2,7 @@ within Buildings.Templates.Plants.Boilers.HotWater.Components.Interfaces;
 block PartialController
   parameter Buildings.Templates.Plants.Boilers.HotWater.Configuration.BoilerPlant cfg
     "Plant configuration parameters"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration",
-      enable=false));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.Boilers.HotWater.Components.Data.Controller dat(
     final cfg=cfg)
     "Parameter record for controller";
@@ -32,10 +30,10 @@ block PartialController
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36 and
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None and
-    (cfg.have_varPumHeaWatPriCon or cfg.have_varPumHeaWatPriNon)));
+    (cfg.have_pumHeaWatPriVarCon or cfg.have_pumHeaWatPriVarNon)));
   final parameter Boolean have_senVHeaWatPriCon=
     cfg.have_boiCon and (
-    if cfg.have_varPumHeaWatPriCon and
+    if cfg.have_pumHeaWatPriVarCon and
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None then
     typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
     else cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None)
@@ -43,7 +41,7 @@ block PartialController
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_senVHeaWatPriNon=
     cfg.have_boiNon and (
-    if cfg.have_varPumHeaWatPriNon and
+    if cfg.have_pumHeaWatPriVarNon and
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None then
     typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
     else cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None)
@@ -54,7 +52,7 @@ block PartialController
     "Location of primary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36 and
-    cfg.have_senVHeaWatPriCon or cfg.have_senVHeaWatPriNon));
+    have_senVHeaWatPriCon or have_senVHeaWatPriNon));
   final parameter Boolean have_senVHeaWatSec=
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None and
     typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
@@ -71,14 +69,14 @@ block PartialController
     cfg.have_boiCon and (
     if cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None then
     typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
-    else cfg.have_varPumHeaWatPriCon)
+    else cfg.have_pumHeaWatPriVarCon)
     "Set to true for primary HW supply temperature sensor - Condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_senTHeaWatPriSupNon=
     cfg.have_boiNon and (
     if cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None then
     typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
-    else cfg.have_varPumHeaWatPriNon)
+    else cfg.have_pumHeaWatPriVarNon)
     "Set to true for primary HW supply temperature sensor - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -221,7 +219,8 @@ equation
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-260,-380},{260,380}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-260,-280},{260,280}},
+        grid={2,2})),
     Documentation(info="<html>
 <p>
 This partial class provides a standard interface for boiler plant controllers.

@@ -19,7 +19,7 @@ model BoilerHotWater "Test model for the hot water boiler model"
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
     THeaWatSup_nominal=333.15)
     "Design and operating parameters for the boiler model using a polynomial"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.Templates.Components.Boilers.HotWaterTable boiTab(
     redeclare final package Medium = Medium,
@@ -57,7 +57,7 @@ model BoilerHotWater "Test model for the hot water boiler model"
     timeScale=3600,
     period=3600) "Boiler Enable signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Templates.HeatingPlants.HotWater.Interfaces.Bus bus
+  Buildings.Templates.Components.Interfaces.Bus bus
     "Boiler control bus"
     annotation (
       Placement(transformation(extent={{-20,20},{20,60}}), iconTransformation(
@@ -79,7 +79,7 @@ model BoilerHotWater "Test model for the hot water boiler model"
     final m_flow_nominal=datBoiTab.mHeaWat_flow_nominal)
     "HW supply temperature"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
-  HeatingPlants.HotWater.Interfaces.Bus bus1
+  Buildings.Templates.Components.Interfaces.Bus bus1
     "Boiler control bus"
     annotation (
       Placement(transformation(extent={{-20,-60},{20,-20}}),

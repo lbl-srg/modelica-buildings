@@ -17,7 +17,7 @@ block Guideline36 "Guideline 36 controller"
     "True: Headered primary hot water pumps;
      False: Dedicated primary hot water pumps";
 
-  final parameter Boolean have_varPriPum = cfg.have_varPumHeaWatPriCon or cfg.have_varPumHeaWatPriNon
+  final parameter Boolean have_varPriPum = cfg.have_pumHeaWatPriVarCon or cfg.have_pumHeaWatPriVarNon
     "True: Variable-speed primary pumps;
      False: Fixed-speed primary pumps";
 
@@ -220,6 +220,10 @@ block Guideline36 "Guideline 36 controller"
   Buildings.Controls.OBC.CDL.Reals.MultiMax FIXME_max(nin=nSenDpHeaWatRem)
     "There should be one setpoint value for each remote sensor"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre uBoi_pre[nBoi]
+    "Break algebraic loop at initialization" annotation (Placement(
+        transformation(extent={{-60,-30},{-40,-10}}), iconTransformation(extent
+          ={{-240,220},{-200,260}})));
 initial equation
   assert(nAirHan + nEquZon > 0,
    "In "+ getInstanceName() + ": "+
@@ -315,8 +319,6 @@ equation
         points={{12,-10.5},{32,-10.5},{32,78},{48,78}}, color={255,0,255}));
   connect(ctlLooPri.yMaxSecPumSpe, ctlPumHeaWatSec.uMaxSecPumSpeCon)
     annotation (Line(points={{12,-7.1},{34,-7.1},{34,62},{48,62}}, color={0,0,127}));
-  connect(FIXME_uBoi.y, ctlLooPri.uBoi) annotation (Line(points={{-78,-20},{-20,
-          -20},{-20,-20.7},{-12,-20.7}}, color={255,0,255}));
   connect(busBoiCon.y_actual, FIXME_uBoi.u) annotation (Line(
       points={{-240,160},{-120,160},{-120,-20},{-102,-20}},
       color={255,204,51},
@@ -331,6 +333,10 @@ equation
     annotation (Line(points={{-78,60},{-62,60}}, color={0,0,127}));
   connect(FIXME_max.y, ctlPumHeaWatSec.dpHotWatSet) annotation (Line(points={{-38,
           60},{28,60},{28,66},{48,66}}, color={0,0,127}));
+  connect(FIXME_uBoi.y, uBoi_pre.u)
+    annotation (Line(points={{-78,-20},{-62,-20}}, color={255,0,255}));
+  connect(uBoi_pre.y, ctlLooPri.uBoi) annotation (Line(points={{-38,-20},{-20,
+          -20},{-20,-20.7},{-12,-20.7}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 FIXME cfg.have_boiCon and cfg.have_boiNon mutually exclusive

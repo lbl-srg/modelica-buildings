@@ -1,0 +1,26 @@
+simulateModel("Buildings.Templates.Plants.Boilers.HotWater.Validation.BoilerPlantOpenLoop",
+  method="cvode",
+  tolerance=1e-6,
+  startTime=0.0,
+  stopTime=2200.0,
+  resultFile="BoilerPlantOpenLoop");
+createPlot(id=1,
+  position={5, 5, 400, 600},
+  y={"THeaWatRet.T", "pla.bus.looNon.THeaWatPlaRet", "pla.bus.looNon.THeaWatPriSup", "pla.bus.boiNon[1].THeaWatSupSet", "pla.boiNon.boiPol[1].boi.T"},
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"pla.bus.boiNon[1].y1"},
+  subPlot=2,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"pla.bus.boiNon[1].y_actual"},
+  subPlot=3,
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  position={415, 5, 400, 300},
+  y={"pla.bus.looNon.VHeaWatPri_flow", "VHeaWat_flow.V_flow"},
+  autoscale=true,
+  grid=true);

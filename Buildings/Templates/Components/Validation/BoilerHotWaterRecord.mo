@@ -14,7 +14,7 @@ model BoilerHotWaterRecord
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
     THeaWatSup_nominal=333.15)
     "Design and operating parameters for the boiler model using a lookup table"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{10,70},{30,90}})));
 
   parameter Buildings.Templates.Components.Data.BoilerHotWater datBoiTabRed(
     final typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Table,
@@ -25,7 +25,7 @@ model BoilerHotWaterRecord
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
     THeaWatSup_nominal=333.15)
     "Design and operating parameters for the boiler model using a lookup table with redeclaration"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{68,70},{88,90}})));
 
   parameter Buildings.Templates.Components.Data.BoilerHotWater datBoiTabLoc(
     final typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Table,
@@ -36,7 +36,7 @@ model BoilerHotWaterRecord
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
     THeaWatSup_nominal=333.15)
     "Design and operating parameters for the boiler model using a local assignment of the efficiency curve "
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
   annotation (
   experiment(
@@ -64,7 +64,7 @@ HW flow rate and capacity persist when redeclaring the performance record
 <code>datBoiTabRed.per</code>,
 </li>
 <li>
-how to completely overwrite the original bindings to the design conditions
+how to completely overwrite the original bindings with the design conditions
 when assigning an instance of a compatible record to <code>datBoiTab.per</code>.
 Note that Dymola (as of version 2023.x) does not support a direct binding 
 with a record function and requires a local instance of the record as illustrated

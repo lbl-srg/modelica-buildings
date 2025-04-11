@@ -18,11 +18,11 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     final nBoi=nBoi,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
     mHeaWatBoi_flow_nominal=datBoi.capBoi_nominal/
-      (Buildings.Templates.Data.Defaults.THeaWatSup - Buildings.Templates.Data.Defaults.THeaWatRet) /
+      (Buildings.Templates.Data.Defaults.THeaWatSupHig - Buildings.Templates.Data.Defaults.THeaWatRetHig) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capBoi_nominal=fill(1000E3, nBoi),
     dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi, nBoi),
-    THeaWatBoiSup_nominal=fill(Buildings.Templates.Data.Defaults.THeaWatSup, nBoi))
+    THeaWatBoiSup_nominal=fill(Buildings.Templates.Data.Defaults.THeaWatSupHig, nBoi))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumHeaWatPri(
@@ -87,7 +87,7 @@ model BoilerGroupPolynomial "Validation model for boiler group"
   Fluid.Sources.Boundary_pT bouHeaWat(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal,
-    T=Buildings.Templates.Data.Defaults.THeaWatRet,
+    T=Buildings.Templates.Data.Defaults.THeaWatRetHig,
     nPorts=2) "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -115,7 +115,7 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     have_valHeaWatMinBypCon=false,
     have_valHeaWatMinBypNon=false,
     dat(
-      THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSup,
+      THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig,
       sta={fill(0, nBoi)}))
     "Controller"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));

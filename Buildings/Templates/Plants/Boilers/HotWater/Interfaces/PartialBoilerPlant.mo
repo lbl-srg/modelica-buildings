@@ -6,12 +6,13 @@ partial model PartialBoilerPlant
     "HW medium";
   // See derived class for additional bindings of parameters not defined in interface.
   parameter Buildings.Templates.Plants.Boilers.HotWater.Configuration.BoilerPlant cfg(
+    final typ=typ,
     final have_boiCon=have_boiCon,
     final have_boiNon=have_boiNon,
     final have_valHeaWatMinBypCon=have_valHeaWatMinBypCon,
     final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon,
-    final have_varPumHeaWatPriCon=have_varPumHeaWatPriCon,
-    final have_varPumHeaWatPriNon=have_varPumHeaWatPriNon,
+    final have_pumHeaWatPriVarCon=have_pumHeaWatPriVarCon,
+    final have_pumHeaWatPriVarNon=have_pumHeaWatPriVarNon,
     final nAirHan=nAirHan,
     final nBoiCon=nBoiCon,
     final nBoiNon=nBoiNon,
@@ -26,8 +27,7 @@ partial model PartialBoilerPlant
     final typCtl=typCtl,
     final typMod=typMod,
     final typPumHeaWatSec=typPumHeaWatSec)
-    "Configuration parameters"
-    annotation (__ctrlFlow(enable=false));
+    "Configuration parameters";
   parameter Buildings.Templates.Plants.Boilers.HotWater.Data.BoilerPlant dat(
     cfg=cfg)
     "Design and operating parameters"
@@ -101,14 +101,14 @@ partial model PartialBoilerPlant
   // FIXME: Add condition for boilers with non-zero minimum flow.
   final parameter Boolean have_valHeaWatMinBypCon=
     typ==Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing and
-    have_varPumHeaWatPriCon and
+    have_pumHeaWatPriVarCon and
     typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Set to true if the condensing boiler group has a HW minimum flow bypass valve"
     annotation(Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
   // FIXME: Add condition for boilers with non-zero minimum flow.
   final parameter Boolean have_valHeaWatMinBypNon=
     typ==Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing and
-    have_varPumHeaWatPriNon and
+    have_pumHeaWatPriVarNon and
     typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Set to true if the non-condensing boiler group has a HW minimum flow bypass valve"
     annotation(Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
@@ -143,7 +143,7 @@ partial model PartialBoilerPlant
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
-  final parameter Boolean have_varPumHeaWatPriCon=
+  final parameter Boolean have_pumHeaWatPriVarCon=
     typPumHeaWatPriCon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.FactoryVariable or
     typPumHeaWatPriCon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable
     "Set to true for variable speed primary HW pumps"
@@ -180,7 +180,7 @@ partial model PartialBoilerPlant
     typArrPumHeaWatPriNon_select else Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
-  final parameter Boolean have_varPumHeaWatPriNon=
+  final parameter Boolean have_pumHeaWatPriVarNon=
     typPumHeaWatPriNon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.FactoryVariable or
     typPumHeaWatPriNon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable
     "Set to true for variable speed primary HW pumps"
@@ -277,16 +277,15 @@ partial model PartialBoilerPlant
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  final parameter Modelica.Media.Interfaces.Types.Density rhoHeaWat_default=
+  final parameter Medium.Density rhoHeaWat_default=
       Medium.density(staHeaWat_default) "HW default density";
   final parameter Medium.SpecificHeatCapacity cpHeaWat_default=
     Medium.specificHeatCapacityCp(staHeaWat_default)
     "HW default specific heat capacity"
     annotation (Evaluate=true);
-  final parameter
-    Modelica.Media.Interfaces.PartialSimpleMedium.ThermodynamicState
+  final parameter Medium.ThermodynamicState
     staHeaWat_default=Medium.setState_pTX(
-      T=Buildings.Templates.Data.Defaults.THeaWatSup,
+      T=Buildings.Templates.Data.Defaults.THeaWatSupHig,
       p=Medium.p_default,
       X=Medium.X_default) "HW default state";
 

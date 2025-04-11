@@ -13,16 +13,16 @@ class AllSystems
       dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi,
           pla.cfg.nBoiCon),
       mHeaWatBoi_flow_nominal=pla.ctl.capBoiCon_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-           ./ (pla.ctl.THeaWatConSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRet)),
+           ./ (pla.ctl.THeaWatConSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRetHig)),
     boiNon(
       fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
       dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi,
           pla.cfg.nBoiNon),
       mHeaWatBoi_flow_nominal=pla.ctl.capBoiNon_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-           ./ (pla.ctl.THeaWatSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRet)),
+           ./ (pla.ctl.THeaWatSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRetHig)),
     ctl(
-      THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSup,
-      THeaWatConSup_nominal=Buildings.Templates.Data.Defaults.THeaWatConSup,
+      THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig,
+      THeaWatConSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
       TOutLck=Buildings.Templates.Data.Defaults.TOutHeaWatLck,
       VHeaWatBoiCon_flow_nominal=pla.boiCon.mHeaWatBoi_flow_nominal/pla.cfg.rhoHeaWat_default,
       VHeaWatBoiCon_flow_min=0.1*pla.ctl.VHeaWatBoiCon_flow_nominal,

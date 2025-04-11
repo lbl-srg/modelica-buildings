@@ -2,6 +2,9 @@ within Buildings.Templates.Plants.Boilers.HotWater.Configuration;
 record BoilerPlant "Configuration parameters for boiler plant"
   extends Modelica.Icons.Record;
   // Boilers
+  parameter Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler typ
+    "Type of boilers"
+    annotation (Evaluate=true);
   parameter Boolean have_boiCon
     "Set to true if the plant includes condensing boilers"
     annotation (Evaluate=true);
@@ -43,10 +46,10 @@ record BoilerPlant "Configuration parameters for boiler plant"
     "Type of primary HW pump arrangement - Condensing boilers";
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriNon
     "Type of primary HW pump arrangement - Non-condensing boilers";
-  parameter Boolean have_varPumHeaWatPriCon
+  parameter Boolean have_pumHeaWatPriVarCon
     "Set to true for variable speed primary HW pumps - Condensing boilers"
     annotation (Evaluate=true);
-  parameter Boolean have_varPumHeaWatPriNon
+  parameter Boolean have_pumHeaWatPriVarNon
     "Set to true for variable speed primary HW pumps - Non-condensing boilers"
     annotation (Evaluate=true);
   parameter Boolean have_valHeaWatMinBypCon
