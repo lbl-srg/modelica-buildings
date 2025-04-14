@@ -61,8 +61,7 @@ model ChillerGroupAirCooled
     final m_flow_nominal=mChiWatChi_flow_nominal,
     dp_nominal=1.5*dpChiWatChi_nominal)
     "Parameter record for primary CHW pumps";
-  parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup
-    datChi(
+  parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup datChi(
     final nChi=nChi,
     final typ=Buildings.Templates.Components.Types.Chiller.AirCooled,
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
@@ -76,7 +75,8 @@ model ChillerGroupAirCooled
       each PLRSup={0.1,0.45,0.8,1.,1.15},
       each devIde="York_YCAL0033EE_101kW_3_1COP_AirCooled",
       each use_TEvaOutForTab=true,
-      each use_TConOutForTab=false)) "Parameter record for chiller group"
+      each use_TConOutForTab=false))
+    "Parameter record for chiller group"
     annotation (Placement(transformation(extent={{-240,180},{-220,200}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
     redeclare final package Medium=MediumChiWat,
@@ -153,7 +153,7 @@ model ChillerGroupAirCooled
       typEco=chi.typEco,
       typValChiWatChiIso=chi.typValChiWatChiIso,
       typValConWatChiIso=chi.typValConWatChiIso),
-    dat(sta=fill(fill(0, ctl.dat.nUniSta), ctl.dat.nUniSta)))
+    dat(sta=fill(fill(0, nChi), nChi)))
     "Plant controller"
     annotation (Placement(transformation(extent={{-160,170},{-180,190}})));
   Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla

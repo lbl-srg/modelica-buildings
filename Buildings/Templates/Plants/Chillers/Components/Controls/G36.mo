@@ -35,7 +35,7 @@ block G36
     annotation (Dialog(tab="General",group="Chillers configuration"));
   final parameter Real TChiWatSupMin[cfg.nChi](
     each final unit="K",
-    each displayUnit="degC")=dat.TChiWatChiSup_nominal
+    each displayUnit="degC")=dat.TChiWatSupChi_nominal
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General",group="Chillers configuration"));
   final parameter Real minChiLif[cfg.nChi](

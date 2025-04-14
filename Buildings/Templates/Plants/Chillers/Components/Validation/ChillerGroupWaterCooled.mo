@@ -232,7 +232,7 @@ model ChillerGroupWaterCooled
       typEco=chi.typEco,
       typValChiWatChiIso=chi.typValChiWatChiIso,
       typValConWatChiIso=chi.typValConWatChiIso),
-    dat(sta=fill(fill(0, ctl.dat.nUniSta), ctl.dat.nUniSta)))
+    dat(sta=fill(fill(0, nChi), nChi)))
     "Plant controller"
     annotation (Placement(transformation(extent={{-160,170},{-180,190}})));
   Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla

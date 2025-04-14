@@ -18,7 +18,7 @@ record ChillerPlant "Record for chiller plant"
     mChiWatChi_flow_nominal=ctl.VChiWatChi_flow_nominal*cfg.rhoChiWat_default,
     mConWatChi_flow_nominal=ctl.VConWatChi_flow_nominal*cfg.rhoCon_default,
     capChi_nominal=ctl.capChi_nominal,
-    TChiWatSupChi_nominal=ctl.TChiWatChiSup_nominal,
+    TChiWatSupChi_nominal=ctl.TChiWatSupChi_nominal,
     TConWatChi_nominal={if chi.perChi[i].use_TConOutForTab then
       ctl.TConWatRetChi_nominal[i] else ctl.TConWatSupChi_nominal[i] for i in 1:cfg.nChi})
     "Chiller group"

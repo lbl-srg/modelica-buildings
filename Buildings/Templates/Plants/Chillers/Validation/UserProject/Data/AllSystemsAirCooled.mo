@@ -19,20 +19,20 @@ class AllSystemsAirCooled
         each use_TEvaOutForTab=true,
         each use_TConOutForTab=false)),
     ctl(
-      TChiWatChiSup_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup,
+      TChiWatSupChi_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup,
           pla.cfg.nChi),
       dpChiWatLocSet_min=Buildings.Templates.Data.Defaults.dpChiWatSet_min,
       dpChiWatRemSet_min=fill(Buildings.Templates.Data.Defaults.dpChiWatSet_min,
           pla.cfg.nSenDpChiWatRem),
       VChiWatChi_flow_nominal=pla.ctl.capChi_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-           ./ (Buildings.Templates.Data.Defaults.TChiWatRet .- pla.ctl.TChiWatChiSup_nominal)
+           ./ (Buildings.Templates.Data.Defaults.TChiWatRet .- pla.ctl.TChiWatSupChi_nominal)
           /pla.cfg.rhoChiWat_default,
       VChiWatChi_flow_min=0.3*pla.ctl.VChiWatChi_flow_nominal,
       VConWatChi_flow_nominal=pla.ctl.capChi_nominal*(1 + 1/Buildings.Templates.Data.Defaults.COPChiWatCoo)
           /Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/(Buildings.Templates.Data.Defaults.TConWatRet
            - Buildings.Templates.Data.Defaults.TConWatSup)/pla.cfg.rhoCon_default,
       dTLifChi_min=fill(Buildings.Templates.Data.Defaults.dTLifChi_min, pla.cfg.nChi),
-      dTLifChi_nominal=pla.ctl.TConWatRetChi_nominal .- pla.ctl.TChiWatChiSup_nominal,
+      dTLifChi_nominal=pla.ctl.TConWatRetChi_nominal .- pla.ctl.TChiWatSupChi_nominal,
       capChi_nominal=fill(1E6, pla.cfg.nChi),
       VChiWatPri_flow_nominal=sum(pla.ctl.VChiWatChi_flow_nominal),
       VChiWatSec_flow_nominal={sum(pla.ctl.VChiWatChi_flow_nominal) / 1.1},

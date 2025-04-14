@@ -201,7 +201,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
   final parameter Modelica.Units.SI.PressureDifference dpConChi_nominal[nChi]=
     dat.dpConChi_nominal
     "CW pressure drop - Each chiller";
-  final parameter Modelica.Units.SI.Temperature TChiWatChiSup_nominal[nChi]=
+  final parameter Modelica.Units.SI.Temperature TChiWatSupChi_nominal[nChi]=
     dat.TChiWatSupChi_nominal
     "CHW supply temperature - Each chiller";
 
