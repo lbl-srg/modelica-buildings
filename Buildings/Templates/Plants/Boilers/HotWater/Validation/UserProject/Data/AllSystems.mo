@@ -13,7 +13,7 @@ class AllSystems
       dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi,
           pla.cfg.nBoiCon),
       mHeaWatBoi_flow_nominal=pla.ctl.capBoiCon_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-           ./ (pla.ctl.THeaWatConSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRetHig)),
+           ./ (pla.ctl.THeaWatConSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRetMed)),
     boiNon(
       fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
       dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi,

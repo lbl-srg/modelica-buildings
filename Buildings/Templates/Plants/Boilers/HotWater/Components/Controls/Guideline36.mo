@@ -232,47 +232,56 @@ initial equation
 
 equation
   /* Control point connection - start */
+
   // Primary loop controller inputs from plant control bus
-  // Hybrid plants not supported: bus*Con and bus*Non are exclusive from each other.
   connect(bus.dpHeaWatLoc, ctlLooPri.dpHotWatPri_loc);
   connect(bus.dpHeaWatRem, ctlLooPri.dpHotWatPri_rem);
   connect(bus.TOut, ctlLooPri.TOut);
+  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.THeaWatPlaRet, ctlLooPri.TRetPri);
   connect(busLooNon.THeaWatPlaRet, ctlLooPri.TRetPri);
   connect(bus.THeaWatSecRet, ctlLooPri.TRetSec);
-  connect(busBoiCon.THeaWatSup, ctlLooPri.TSupBoi);
-  connect(busBoiNon.THeaWatSup, ctlLooPri.TSupBoi);
+  connect(busBoiCon.THeaWatSup, ctlLooPri.TSupBoi[1:cfg.nBoiCon]);
+  connect(busBoiNon.THeaWatSup, ctlLooPri.TSupBoi[(cfg.nBoiCon+1):nBoi]);
+  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.THeaWatPriSup, ctlLooPri.TSupPri);
   connect(busLooNon.THeaWatPriSup, ctlLooPri.TSupPri);
   connect(bus.THeaWatSecSup, ctlLooPri.TSupSec);
-  connect(busValBoiConIso.y1_actual, ctlLooPri.uHotWatIsoVal);
-  connect(busValBoiNonIso.y1_actual, ctlLooPri.uHotWatIsoVal);
-  connect(busPumHeaWatPriCon.y1_actual, ctlLooPri.uPriPum);
-  connect(busPumHeaWatPriNon.y1_actual, ctlLooPri.uPriPum);
+  connect(busValBoiConIso.y1_actual, ctlLooPri.uHotWatIsoVal[1:cfg.nBoiCon]);
+  connect(busValBoiNonIso.y1_actual, ctlLooPri.uHotWatIsoVal[(cfg.nBoiCon+1):nBoi]);
+  connect(busPumHeaWatPriCon.y1_actual, ctlLooPri.uPriPum[1:cfg.nBoiCon]);
+  connect(busPumHeaWatPriNon.y1_actual, ctlLooPri.uPriPum[(cfg.nBoiCon+1):nBoi]);
   connect(bus.u1Sch, ctlLooPri.uSchEna);
+  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.VHeaWatByp_flow, ctlLooPri.VHotWatDec_flow);
   connect(busLooNon.VHeaWatByp_flow, ctlLooPri.VHotWatDec_flow);
+  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.VHeaWatPri_flow, ctlLooPri.VHotWatPri_flow);
   connect(busLooNon.VHeaWatPri_flow, ctlLooPri.VHotWatPri_flow);
   connect(bus.VHotWatSec_flow, ctlLooPri.VHotWatSec_flow);
+
   // Secondary HW pump controller inputs from plant control bus
   connect(bus.dpHeaWatLoc, ctlPumHeaWatSec.dpHotWat_local);
   connect(bus.dpHeaWatRem, ctlPumHeaWatSec.dpHotWat_remote);
   connect(busPumHeaWatSec.y1_actual, ctlPumHeaWatSec.uHotWatPum);
-  connect(busPumHeaWatPriCon.y1_actual, ctlPumHeaWatSec.uPriPumSta);
-  connect(busPumHeaWatPriNon.y1_actual, ctlPumHeaWatSec.uPriPumSta);
+  connect(busPumHeaWatPriCon.y1_actual, ctlPumHeaWatSec.uPriPumSta[1:cfg.nBoiCon]);
+  connect(busPumHeaWatPriNon.y1_actual, ctlPumHeaWatSec.uPriPumSta[(cfg.nBoiCon+1):nBoi]);
   connect(bus.VHeaWatSec_flow, ctlPumHeaWatSec.VHotWat_flow);
+
   // Primary loop controller outputs to plant control bus
-  connect(ctlLooPri.TBoiHotWatSupSet, busBoiCon.THeaWatSupSet);
-  connect(ctlLooPri.TBoiHotWatSupSet, busBoiNon.THeaWatSupSet);
-  connect(ctlLooPri.yBoi, busBoiCon.y1);
-  connect(ctlLooPri.yBoi, busBoiNon.y1);
+  connect(ctlLooPri.TBoiHotWatSupSet[1:cfg.nBoiCon], busBoiCon.THeaWatSupSet);
+  connect(ctlLooPri.TBoiHotWatSupSet[(cfg.nBoiCon+1):nBoi], busBoiNon.THeaWatSupSet);
+  connect(ctlLooPri.yBoi[1:cfg.nBoiCon], busBoiCon.y1);
+  connect(ctlLooPri.yBoi[(cfg.nBoiCon+1):nBoi], busBoiNon.y1);
   connect(ctlLooPri.yBypValPos, busValHeaWatMinByp.y);
-  connect(ctlLooPri.yHotWatIsoVal, busValBoiConIso.y1);
-  connect(ctlLooPri.yPriPum, busPumHeaWatPriCon.y1);
-  connect(ctlLooPri.yPriPum, busPumHeaWatPriNon.y1);
+  connect(ctlLooPri.yHotWatIsoVal[1:cfg.nBoiCon], busValBoiConIso.y1);
+  connect(ctlLooPri.yHotWatIsoVal[(cfg.nBoiCon+1):nBoi], busValBoiNonIso.y1);
+  connect(ctlLooPri.yPriPum[1:cfg.nBoiCon], busPumHeaWatPriCon.y1);
+  connect(ctlLooPri.yPriPum[(cfg.nBoiCon+1):nBoi], busPumHeaWatPriNon.y1);
+  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(ctlLooPri.yPriPumSpe, busPumHeaWatPriCon.y);
   connect(ctlLooPri.yPriPumSpe, busPumHeaWatPriNon.y);
+
   // Secondary HW pump controller outputs to plant control bus
   connect(ctlPumHeaWatSec.yHotWatPum, busPumHeaWatSec.y1);
   connect(ctlPumHeaWatSec.yPumSpe, busPumHeaWatSec.y);
@@ -339,8 +348,6 @@ equation
           -20},{-20,-20.7},{-12,-20.7}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
-FIXME cfg.have_boiCon and cfg.have_boiNon mutually exclusive
-
 <p>
 This is an implementation of the control sequence specified in ASHRAE (2021)
 for hot water plants.

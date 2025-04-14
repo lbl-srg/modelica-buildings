@@ -35,7 +35,7 @@ model BoilerGroup "Boiler group"
     final cap_nominal=capBoi_nominal,
     final dpHeaWat_nominal=if typValBoiIso==Buildings.Templates.Components.Types.Valve.None then
       dat.dpHeaWatBoi_nominal else fill(0, nBoi),
-    final THeaWatSup_nominal=dat.THeaWatBoiSup_nominal,
+    final THeaWatSup_nominal=dat.THeaWatSupBoi_nominal,
     final per=dat.per)
     "Parameter record of each boiler";
   final parameter Buildings.Templates.Components.Data.Valve datValBoiIso[nBoi](
@@ -56,8 +56,8 @@ model BoilerGroup "Boiler group"
   final parameter Modelica.Units.SI.PressureDifference dpHeaWatBoi_nominal[nBoi]=
     dat.dpHeaWatBoi_nominal
     "HW pressure drop - Each boiler";
-  final parameter Modelica.Units.SI.Temperature THeaWatBoiSup_nominal[nBoi]=
-    dat.THeaWatBoiSup_nominal
+  final parameter Modelica.Units.SI.Temperature THeaWatSupBoi_nominal[nBoi]=
+    dat.THeaWatSupBoi_nominal
     "HW supply temperature - Each boiler";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=

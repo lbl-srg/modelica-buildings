@@ -25,7 +25,7 @@ record BoilerGroup "Record for boiler group model"
     each final min=0)
     "Heating capacity - Each boiler"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature THeaWatBoiSup_nominal[nBoi](
+  parameter Modelica.Units.SI.Temperature THeaWatSupBoi_nominal[nBoi](
     each final min=260)
     "(Highest) HW supply temperature - Each boiler"
     annotation(Dialog(group="Nominal condition"));
@@ -34,7 +34,7 @@ record BoilerGroup "Record for boiler group model"
     constrainedby Buildings.Fluid.Boilers.Data.Generic(
       each fue=fue,
       Q_flow_nominal=if nBoi>0 then capBoi_nominal else {0},
-      TIn_nominal=if nBoi>0 then THeaWatBoiSup_nominal -
+      TIn_nominal=if nBoi>0 then THeaWatSupBoi_nominal -
         capBoi_nominal / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./ mHeaWatBoi_flow_nominal
         else {Buildings.Templates.Data.Defaults.THeaWatRetHig},
       m_flow_nominal=if nBoi>0 then mHeaWatBoi_flow_nominal else {0},
@@ -53,7 +53,7 @@ record BoilerGroup "Record for boiler group model"
     "Coefficients for efficiency curve - Each boiler"
     annotation (Dialog(enable=
     typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial));
-  parameter Modelica.Units.SI.Temperature T_nominal[nBoi]=THeaWatBoiSup_nominal
+  parameter Modelica.Units.SI.Temperature T_nominal[nBoi]=THeaWatSupBoi_nominal
     "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature) - Each boiler"
     annotation (Dialog(enable=
     typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial and

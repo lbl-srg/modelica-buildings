@@ -22,7 +22,7 @@ model BoilerGroupPolynomial "Validation model for boiler group"
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capBoi_nominal=fill(1000E3, nBoi),
     dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi, nBoi),
-    THeaWatBoiSup_nominal=fill(Buildings.Templates.Data.Defaults.THeaWatSupHig, nBoi))
+    THeaWatSupBoi_nominal=fill(Buildings.Templates.Data.Defaults.THeaWatSupHig, nBoi))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumHeaWatPri(

@@ -16,7 +16,7 @@ record BoilerPlant "Record for HW plant model"
     final nBoi=cfg.nBoiCon,
     final typMod=cfg.typMod,
     capBoi_nominal=ctl.capBoiCon_nominal,
-    THeaWatBoiSup_nominal=fill(if cfg.have_boiCon and cfg.have_boiNon then ctl.THeaWatConSup_nominal
+    THeaWatSupBoi_nominal=fill(if cfg.have_boiCon and cfg.have_boiNon then ctl.THeaWatConSup_nominal
      else ctl.THeaWatSup_nominal, cfg.nBoiCon))
     "Condensing boilers"
     annotation(Dialog(group="Boilers", enable=cfg.have_boiCon));
@@ -25,7 +25,7 @@ record BoilerPlant "Record for HW plant model"
     final nBoi=cfg.nBoiNon,
     final typMod=cfg.typMod,
     capBoi_nominal=ctl.capBoiNon_nominal,
-    THeaWatBoiSup_nominal=fill(ctl.THeaWatSup_nominal, cfg.nBoiNon))
+    THeaWatSupBoi_nominal=fill(ctl.THeaWatSup_nominal, cfg.nBoiNon))
     "Non-condensing boilers"
     annotation(Dialog(group="Boilers", enable=cfg.have_boiNon));
 
