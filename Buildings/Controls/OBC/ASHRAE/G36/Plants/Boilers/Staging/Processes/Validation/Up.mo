@@ -209,10 +209,7 @@ model Up
     annotation (Placement(transformation(extent={{450,-180},{470,-160}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel[nBoi](
-    final samplePeriod=fill(1, nBoi),
-    final y_start={1,0})
-    "Unit delay"
+  CDL.Logical.Pre pre20[nBoi](pre_u_start={true,false}) "Logical pre block"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nBoi](
@@ -253,8 +250,7 @@ protected
     annotation (Placement(transformation(extent={{-368,0},{-348,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nSta](
-    final k={1,2,2})
-    "Stage typer vector"
+    final k={1,2,2}) "Stage type vector"
     annotation (Placement(transformation(extent={{-220,140},{-200,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -717,20 +713,14 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1[nBoi](
-    final samplePeriod=fill(1, nBoi),
-    final y_start={1,0})
-    "Unit delay"
+  CDL.Logical.Pre pre21[nBoi](pre_u_start={true,false}) "Logical pre block"
     annotation (Placement(transformation(extent={{310,170},{330,190}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre16
     "Logical pre block"
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel2[nBoi](
-    final samplePeriod=fill(1, nBoi),
-    final y_start={1,0})
-    "Unit delay"
+  CDL.Logical.Pre pre22[nBoi](pre_u_start={true,false}) "Logical pre block"
     annotation (Placement(transformation(extent={{700,170},{720,190}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre17
@@ -1216,10 +1206,6 @@ equation
           -70},{230,-165},{408,-165}},                         color={255,0,255}));
   connect(pre3.y, upProCon.uBoi) annotation (Line(points={{-278,210},{-180,210},
           {-180,193},{-162,193}}, color={255,0,255}));
-  connect(upProCon.yHotWatIsoVal, uniDel.u) annotation (Line(points={{-138,194},
-          {-126,194},{-126,180},{-62,180}}, color={0,0,127}));
-  connect(uniDel.y, upProCon.uHotWatIsoVal) annotation (Line(points={{-38,180},{
-          -30,180},{-30,240},{-176,240},{-176,197},{-162,197}}, color={0,0,127}));
   connect(pre2.y, upProCon.uStaChaPro) annotation (Line(points={{-38,220},{0,220},
           {0,100},{-184,100},{-184,174},{-162,174}}, color={255,0,255}));
   connect(booRep.u, pre14.y)
@@ -1230,10 +1216,6 @@ equation
           {-112,112}}, color={255,0,255}));
   connect(pre4.y, upProCon1.uBoi) annotation (Line(points={{92,210},{204,210},{204,
           193},{208,193}}, color={255,0,255}));
-  connect(upProCon1.yHotWatIsoVal, uniDel1.u) annotation (Line(points={{232,194},
-          {240,194},{240,180},{308,180}}, color={0,0,127}));
-  connect(uniDel1.y, upProCon1.uHotWatIsoVal) annotation (Line(points={{332,180},
-          {340,180},{340,240},{194,240},{194,197},{208,197}}, color={0,0,127}));
   connect(pre6.y, upProCon1.uStaChaPro) annotation (Line(points={{332,220},{370,
           220},{370,100},{186,100},{186,174},{208,174}}, color={255,0,255}));
   connect(pre16.y, booRep1.u)
@@ -1244,10 +1226,6 @@ equation
           {230,100},{230,70},{238,70}}, color={255,0,255}));
   connect(pre13.y, upProCon4.uBoi) annotation (Line(points={{482,210},{588,210},
           {588,191},{598,191}}, color={255,0,255}));
-  connect(upProCon4.yHotWatIsoVal, uniDel2.u) annotation (Line(points={{622,192},
-          {632,192},{632,180},{698,180}}, color={0,0,127}));
-  connect(uniDel2.y, upProCon4.uHotWatIsoVal) annotation (Line(points={{722,180},
-          {730,180},{730,160},{590,160},{590,195},{598,195}}, color={0,0,127}));
   connect(pre15.y, upProCon4.uStaChaPro) annotation (Line(points={{722,220},{760,
           220},{760,100},{574,100},{574,172},{598,172}}, color={255,0,255}));
   connect(booRep4.u, pre17.y)
@@ -1285,6 +1263,18 @@ equation
           {-80,104},{-176,104},{-176,186},{-162,186}}, color={255,0,255}));
   connect(con17.y, upProCon4.VHotWat_flow) annotation (Line(points={{562,270},{
           580,270},{580,207},{598,207}}, color={0,0,127}));
+  connect(upProCon.yHotWatIsoVal, pre20.u) annotation (Line(points={{-138,194},{
+          -72,194},{-72,180},{-62,180}}, color={255,0,255}));
+  connect(pre20.y, upProCon.uHotWatIsoVal) annotation (Line(points={{-38,180},{-30,
+          180},{-30,240},{-176,240},{-176,197},{-162,197}}, color={255,0,255}));
+  connect(upProCon1.yHotWatIsoVal, pre21.u) annotation (Line(points={{232,194},{
+          232,196},{244,196},{244,180},{308,180}}, color={255,0,255}));
+  connect(pre21.y, upProCon1.uHotWatIsoVal) annotation (Line(points={{332,180},{
+          340,180},{340,240},{196,240},{196,197},{208,197}}, color={255,0,255}));
+  connect(upProCon4.yHotWatIsoVal, pre22.u) annotation (Line(points={{622,192},{
+          632,192},{632,180},{698,180}}, color={255,0,255}));
+  connect(pre22.y, upProCon4.uHotWatIsoVal) annotation (Line(points={{722,180},{
+          732,180},{732,240},{572,240},{572,195},{598,195}}, color={255,0,255}));
 annotation (
  experiment(
       StopTime=900,
