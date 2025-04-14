@@ -510,13 +510,13 @@ public
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     annotation (Placement(transformation(extent={{-370,-516},{-350,-496}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
-    annotation (Placement(transformation(extent={{-330,-406},{-310,-386}})));
+    annotation (Placement(transformation(extent={{-420,-400},{-400,-380}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
-    annotation (Placement(transformation(extent={{-330,-366},{-310,-346}})));
+    annotation (Placement(transformation(extent={{-420,-370},{-400,-350}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3
-    annotation (Placement(transformation(extent={{-300,-366},{-280,-346}})));
+    annotation (Placement(transformation(extent={{-380,-370},{-360,-350}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4
-    annotation (Placement(transformation(extent={{-300,-406},{-280,-386}})));
+    annotation (Placement(transformation(extent={{-380,-400},{-360,-380}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul1
     annotation (Placement(transformation(extent={{-260,-416},{-240,-396}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
@@ -779,7 +779,7 @@ public
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt2
     annotation (Placement(transformation(extent={{-260,-10},{-240,10}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
-    annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
+    annotation (Placement(transformation(extent={{-380,80},{-360,100}})));
   parameter Buildings.Templates.Components.Data.Chiller datChi(
     use_datDes=true,
     mChiWat_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal,
@@ -902,7 +902,6 @@ public
   Modelica.Blocks.Sources.CombiTimeTable datRea1(
     final fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Templates/HeatPumpPlant/Validation/AirToWater_Buffalo.dat"),
-
     final tableOnFile=true,
     final columns=2:8,
     final tableName="EnergyPlus",
@@ -911,6 +910,31 @@ public
     shiftTime=-3628800)
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-240,140},{-220,160}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
+    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(k=3)
+    annotation (Placement(transformation(extent={{-320,80},{-300,100}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{-230,-30},{-210,-10}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
+    annotation (Placement(transformation(extent={{-370,-620},{-350,-600}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(k=Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.HeatingCooling)
+    annotation (Placement(transformation(extent={{-410,-620},{-390,-600}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    annotation (Placement(transformation(extent={{-300,-530},{-280,-510}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul5
+    annotation (Placement(transformation(extent={{-320,-400},{-300,-380}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr4(t=278)
+    annotation (Placement(transformation(extent={{-240,-280},{-260,-260}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea9
+    annotation (Placement(transformation(extent={{-280,-280},{-300,-260}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul4
+    annotation (Placement(transformation(extent={{-320,-370},{-300,-350}})));
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(t=273.15 + 70)
+    annotation (Placement(transformation(extent={{-260,-630},{-240,-610}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea10
+    annotation (Placement(transformation(extent={{-220,-630},{-200,-610}})));
 equation
   if have_chiWat then
   end if;
@@ -985,8 +1009,6 @@ equation
           -132,100},{-132,38},{-122,38}}, color={0,0,127}));
   connect(datRea.y[2], reqFloCoo.TRetRef) annotation (Line(points={{-159,100},{
           -132,100},{-132,34},{-122,34}}, color={0,0,127}));
-  connect(datRea.y[3], reqFloCoo.mRef_flow) annotation (Line(points={{-159,100},
-          {-132,100},{-132,30},{-122,30}}, color={0,0,127}));
   connect(senTemCooSup.T, reqFloCoo.TSupMea) annotation (Line(points={{50,-49},
           {50,4},{-90,4},{-90,46},{-130,46},{-130,26},{-122,26}}, color={0,0,
           127}));
@@ -1025,10 +1047,6 @@ equation
   connect(extIndInt.y, intEqu1.u2) annotation (Line(points={{-458,-490},{-424,-490},
           {-424,-524},{-372,-524},{-372,-514}},
                   color={255,127,0}));
-  connect(intEqu2.y, and1.u1) annotation (Line(points={{-348,-476},{-344,-476},{
-          -344,-478},{-340,-478},{-340,-356},{-332,-356}}, color={255,0,255}));
-  connect(intEqu1.y, and3.u1) annotation (Line(points={{-348,-506},{-348,-508},{
-          -336,-508},{-336,-396},{-332,-396}}, color={255,0,255}));
   connect(mov2.y_actual, greThr.u) annotation (Line(points={{-111,-419},{-118,-419},
           {-118,-406}}, color={0,0,127}));
   connect(mov1.y_actual, greThr1.u) annotation (Line(points={{-161,-453},{-161,-452},
@@ -1040,14 +1058,10 @@ equation
   connect(extIndInt.y, hp1.mod) annotation (Line(points={{-458,-490},{-456,-490},
           {-456,-488},{-452,-488},{-452,-456},{-224,-456},{-224,-424},{-156,-424},
           {-156,-433.9},{-147.1,-433.9}},                   color={255,127,0}));
-  connect(booToRea3.y, mul.u1) annotation (Line(points={{-278,-356},{-268,-356},
-          {-268,-350},{-262,-350}}, color={0,0,127}));
-  connect(booToRea4.y, mul1.u1) annotation (Line(points={{-278,-396},{-276,-400},
-          {-262,-400}}, color={0,0,127}));
   connect(and3.y, booToRea4.u)
-    annotation (Line(points={{-308,-396},{-302,-396}}, color={255,0,255}));
+    annotation (Line(points={{-398,-390},{-382,-390}}, color={255,0,255}));
   connect(and1.y, booToRea3.u)
-    annotation (Line(points={{-308,-356},{-302,-356}}, color={255,0,255}));
+    annotation (Line(points={{-398,-360},{-382,-360}}, color={255,0,255}));
   connect(conPIDCoo.y, mul.u2) annotation (Line(points={{-202,-330},{-268,-330},
           {-268,-344},{-272,-344},{-272,-362},{-262,-362}}, color={0,0,127}));
   connect(mul.y, add2.u1) annotation (Line(points={{-238,-356},{-232,-356},{-232,
@@ -1065,8 +1079,6 @@ equation
     annotation (Line(points={{-124,-446},{-126,-446}}, color={0,127,255}));
   connect(conPIDHea.y, mul1.u2) annotation (Line(points={{-78,-476},{-68,-476},{
           -68,-496},{-272,-496},{-272,-412},{-262,-412}}, color={0,0,127}));
-  connect(intEqu2.y, swi.u2) annotation (Line(points={{-348,-476},{-344,-476},{-344,
-          -296},{-110,-296},{-110,-330},{-102,-330}}, color={255,0,255}));
   connect(senTem.T, swi.u1) annotation (Line(points={{-171,-360},{-180,-360},{-180,
           -380},{-120,-380},{-120,-322},{-102,-322}}, color={0,0,127}));
   connect(senTem1.T, swi.u3) annotation (Line(points={{-114,-457},{-116,-457},{-116,
@@ -1348,12 +1360,13 @@ equation
   connect(ctlCoo.y1Hp[1], busChi.y1) annotation (Line(points={{-338,-16.5},{
           -320,-16.5},{-320,-124},{-412,-124},{-412,-154}},
                                                        color={255,127,0}));
-  connect(ctlCoo.y1Hp[2], and1.u2) annotation (Line(points={{-338,-15.5},{-336,
-          -15.5},{-336,-16},{-320,-16},{-320,-280},{-350,-280},{-350,-364},{
-          -332,-364}},
+  connect(ctlCoo.y1Hp[2], and1.u2) annotation (Line(points={{-338,-15.5},{-320,
+          -15.5},{-320,-124},{-376,-124},{-376,-376},{-428,-376},{-428,-368},{
+          -422,-368}},
         color={255,0,255}));
-  connect(ctlHea.y1Hp[2], and3.u2) annotation (Line(points={{-578,66.5},{-576,66.5},
-          {-576,64},{-472,64},{-472,-132},{-448,-132},{-448,-404},{-332,-404}},
+  connect(ctlHea.y1Hp[2], and3.u2) annotation (Line(points={{-578,66.5},{-576,
+          66.5},{-576,64},{-472,64},{-472,-132},{-448,-132},{-448,-444},{-422,
+          -444},{-422,-398}},
         color={255,127,0}));
   connect(ctlCoo.TSupSet[2], conPIDCoo.u_s) annotation (Line(points={{-338,
           -67.5},{-188,-67.5},{-188,-312},{-172,-312},{-172,-330},{-178,-330}},
@@ -1416,13 +1429,12 @@ equation
   connect(ctlCoo.yMod[2], mulInt2.u2) annotation (Line(points={{-338,-19.5},{
           -324,-19.5},{-324,-20},{-272,-20},{-272,-6},{-262,-6}},
                                                              color={255,127,0}));
-  connect(mulInt1.y, addInt.u1) annotation (Line(points={{-478,90},{-236,90},{-236,
-          76},{-222,76}}, color={255,127,0}));
-  connect(mulInt2.y, addInt.u2) annotation (Line(points={{-238,0},{-232,0},{-232,
-          64},{-222,64}}, color={255,127,0}));
-  connect(addInt.y, extIndInt.index) annotation (Line(points={{-198,70},{-168,70},
-          {-168,-220},{-436,-220},{-436,-440},{-528,-440},{-528,-516},{-470,-516},
-          {-470,-502}}, color={255,127,0}));
+  connect(mulInt1.y, addInt.u1) annotation (Line(points={{-478,90},{-392,90},{
+          -392,96},{-382,96}},
+                          color={255,127,0}));
+  connect(mulInt2.y, addInt.u2) annotation (Line(points={{-238,0},{-232,0},{
+          -232,52},{-392,52},{-392,84},{-382,84}},
+                          color={255,127,0}));
   connect(mov.port_b, chiDed.port_a2) annotation (Line(points={{-500,-190},{-500,
           -252},{-472,-252},{-472,-264},{-480,-264}}, color={0,127,255}));
   connect(bou.ports[1], mov.port_a) annotation (Line(points={{-561,-150},{-561,-172},
@@ -1529,8 +1541,67 @@ equation
         color={0,127,255}));
   connect(reqFloCoo.mReq_flow, norFlo1[2].u) annotation (Line(points={{-98,34},
           {-36,34},{-36,52},{-20,52},{-20,100},{16,100}}, color={0,0,127}));
-  connect(datRea.y[2], addPar1.u) annotation (Line(points={{-159,100},{-132,100},
-          {-132,32},{-136,32},{-136,0},{-122,0}}, color={0,0,127}));
+  connect(addInt.y, intSwi.u3) annotation (Line(points={{-358,90},{-350,90},{
+          -350,74},{-292,74},{-292,72},{-222,72}}, color={255,127,0}));
+  connect(conInt3.y, intSwi.u1) annotation (Line(points={{-298,90},{-240,90},{
+          -240,88},{-222,88}}, color={255,127,0}));
+  connect(ctlCoo.y1EnaPla, and2.u1) annotation (Line(points={{-338,-12},{-336,
+          -12},{-336,16},{-312,16},{-312,-24},{-240,-24},{-240,-20},{-232,-20}},
+        color={255,0,255}));
+  connect(ctlHea.y1EnaPla, and2.u2) annotation (Line(points={{-578,70},{-580,70},
+          {-580,84},{-548,84},{-548,68},{-396,68},{-396,36},{-192,36},{-192,-44},
+          {-240,-44},{-240,-28},{-232,-28}}, color={255,0,255}));
+  connect(and2.y, intSwi.u2) annotation (Line(points={{-208,-20},{-188,-20},{
+          -188,64},{-232,64},{-232,80},{-222,80}}, color={255,0,255}));
+  connect(datRea1.y[3], reqFloCoo.mRef_flow) annotation (Line(points={{-219,150},
+          {-132,150},{-132,30},{-122,30}}, color={0,0,127}));
+  connect(intSwi.y, extIndInt.index) annotation (Line(points={{-198,80},{-184,
+          80},{-184,-148},{-240,-148},{-240,-220},{-436,-220},{-436,-440},{-528,
+          -440},{-528,-516},{-470,-516},{-470,-502}}, color={255,127,0}));
+  connect(conInt4.y, intEqu3.u1)
+    annotation (Line(points={{-388,-610},{-372,-610}}, color={255,127,0}));
+  connect(extIndInt.y, intEqu3.u2) annotation (Line(points={{-458,-490},{-440,
+          -490},{-440,-628},{-372,-628},{-372,-618}}, color={255,127,0}));
+  connect(intEqu3.y, or2.u2) annotation (Line(points={{-348,-610},{-348,-612},{
+          -320,-612},{-320,-528},{-302,-528}}, color={255,0,255}));
+  connect(mul5.y, mul1.u1) annotation (Line(points={{-298,-390},{-272,-390},{
+          -272,-400},{-262,-400}}, color={0,0,127}));
+  connect(booToRea4.y, mul5.u1) annotation (Line(points={{-358,-390},{-332,-390},
+          {-332,-384},{-322,-384}}, color={0,0,127}));
+  connect(senTem.T, greThr4.u) annotation (Line(points={{-171,-360},{-228,-360},
+          {-228,-270},{-238,-270}}, color={0,0,127}));
+  connect(greThr4.y, booToRea9.u)
+    annotation (Line(points={{-262,-270},{-278,-270}}, color={255,0,255}));
+  connect(booToRea9.y, mul5.u2) annotation (Line(points={{-302,-270},{-336,-270},
+          {-336,-396},{-322,-396}}, color={0,0,127}));
+  connect(mul4.y, mul.u1) annotation (Line(points={{-298,-360},{-280,-360},{
+          -280,-350},{-262,-350}}, color={0,0,127}));
+  connect(booToRea3.y, mul4.u1) annotation (Line(points={{-358,-360},{-332,-360},
+          {-332,-354},{-322,-354}}, color={0,0,127}));
+  connect(lesThr.y, booToRea10.u)
+    annotation (Line(points={{-238,-620},{-222,-620}}, color={255,0,255}));
+  connect(booToRea10.y, mul4.u2) annotation (Line(points={{-198,-620},{-192,
+          -620},{-192,-556},{-444,-556},{-444,-448},{-420,-448},{-420,-412},{
+          -348,-412},{-348,-376},{-332,-376},{-332,-366},{-322,-366}}, color={0,
+          0,127}));
+  connect(senTem1.T, lesThr.u) annotation (Line(points={{-114,-457},{-116,-457},
+          {-116,-480},{-224,-480},{-224,-548},{-216,-548},{-216,-604},{-276,
+          -604},{-276,-620},{-262,-620}}, color={0,0,127}));
+  connect(datRea1.y[2], addPar1.u) annotation (Line(points={{-219,150},{-132,
+          150},{-132,32},{-136,32},{-136,0},{-122,0}}, color={0,0,127}));
+  connect(intEqu1.y, and3.u1) annotation (Line(points={{-348,-506},{-348,-508},
+          {-340,-508},{-340,-416},{-416,-416},{-416,-408},{-428,-408},{-428,
+          -390},{-422,-390}}, color={255,0,255}));
+  connect(or2.y, and1.u1) annotation (Line(points={{-278,-520},{-272,-520},{
+          -272,-500},{-336,-500},{-336,-484},{-332,-484},{-332,-404},{-340,-404},
+          {-340,-356},{-352,-356},{-352,-344},{-428,-344},{-428,-360},{-422,
+          -360}}, color={255,0,255}));
+  connect(intEqu2.y, or2.u1) annotation (Line(points={{-348,-476},{-344,-476},{
+          -344,-500},{-336,-500},{-336,-520},{-302,-520}}, color={255,0,255}));
+  connect(or2.y, swi.u2) annotation (Line(points={{-278,-520},{-272,-520},{-272,
+          -500},{-336,-500},{-336,-484},{-332,-484},{-332,-404},{-340,-404},{
+          -340,-356},{-352,-356},{-352,-252},{-152,-252},{-152,-284},{-144,-284},
+          {-144,-330},{-102,-330}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=
