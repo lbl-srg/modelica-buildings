@@ -56,6 +56,11 @@ more information and a table of values.
 </html>", revisions="<html>
 <ul>
 <li>
+April 14, 2025, by Jianjun Hu:<br/>
+Updated reference link. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4177\">Buildings, issue 4177</a>.
+</li>
+<li>
 March 17, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>
