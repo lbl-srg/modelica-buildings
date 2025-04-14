@@ -57,7 +57,7 @@ partial model PartialChiller
   parameter Modelica.Units.SI.Temperature TConLvg_nominal
     "Design condenser leaving fluid temperature";
   parameter Modelica.Units.SI.Efficiency COP_nominal
-    "Coefficient of performance at design conditions";
+    "Coefficient of performance at design cooling conditions";
   parameter Boolean have_dpChiWat=true
     "Set to true for CHW pressure drop computed by this model, false for external computation"
     annotation (Evaluate=true,

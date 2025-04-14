@@ -143,17 +143,7 @@ record HeatPumpPlant
   // Sidestream HRC
   parameter Buildings.Templates.Components.Data.Chiller hrc(
     typ=Buildings.Templates.Components.Types.Chiller.WaterCooled,
-    cpChiWat_default=cfg.cpChiWat_default,
-    cpCon_default=cfg.cpHeaWat_default,
-    COP_nominal=ctl.COPHeaHrc_nominal - 1,
-    TChiWatSup_nominal=ctl.TChiWatSup_nominal,
-    TChiWatSup_min=ctl.TChiWatSupHrc_min,
-    TConEnt_nominal=if cfg.have_hrc then
-      hrc.TConLvg_nominal - hrc.QCon_flow_nominal / hrc.mCon_flow_nominal / hrc.cpCon_default
-      else 273.15,
-    TConLvg_nominal=ctl.THeaWatSup_nominal,
-    TConLvg_max=ctl.THeaWatSupHrc_max,
-    PLR_min=abs(ctl.capCooHrc_min / hrc.cap_nominal))
+    TChiWatSup_nominal=ctl.TChiWatSup_nominal)
     "Chiller"
     annotation (Dialog(group="Sidetream heat recovery chiller", enable=cfg.have_hrc));
   /* HACK(AntoineGautier):
@@ -173,6 +163,7 @@ record HeatPumpPlant
       {0, 1, 2} * pumChiWatHrc.m_flow_nominal / cfg.rhoChiWat_default else {0,0,0},
       dp=if pumChiWatHrc.typ<>Buildings.Templates.Components.Types.Pump.None then
       {1.14, 1, 0.42} * pumChiWatHrc.dp_nominal else {0,0,0})))
+    "HRC CHW pump"
     annotation (Dialog(group="Sidetream heat recovery chiller", enable=cfg.have_hrc));
   parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatHrc(
     final rho_default=cfg.rhoHeaWat_default,

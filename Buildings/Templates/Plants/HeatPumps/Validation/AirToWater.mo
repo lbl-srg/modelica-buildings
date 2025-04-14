@@ -335,7 +335,7 @@ Simulating this model shows how the plant responds to a varying load by
 </p>
 <ul>
 <li>
-staging or unstaging the AWHPs and associated primary pumps,
+staging or unstaging the AWHPs and the HRC with the associated primary pumps,
 </li>
 <li>
 rotating lead/lag alternate equipment to ensure even wear,
@@ -349,6 +349,14 @@ staging and controlling the secondary pumps to meet the
 remote differential pressure setpoint.
 </li>
 </ul>
+<p> 
+Note that the HRC model does not explicitly represent compressor cycling.
+As a result, the cycling-based disabling condition specified in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>
+is never triggered.
+This limitation may lead to overestimating the HRC operating time.
+</p>
 <h4>Details</h4>
 <p>
 By default, all valves within the plant are modeled considering a linear
@@ -362,6 +370,12 @@ various plant configurations.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 18, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat recovery chiller model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 March 21, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data heat pump model.<br/>
