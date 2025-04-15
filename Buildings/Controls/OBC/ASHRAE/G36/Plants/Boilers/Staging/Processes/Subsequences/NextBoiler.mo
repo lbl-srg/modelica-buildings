@@ -10,10 +10,10 @@ block NextBoiler
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
-    "True: in the stage change process"
-    annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
-      iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStachaPro
+    "Stage change process completion signal" annotation (Placement(
+        transformation(extent={{-260,-180},{-220,-140}}), iconTransformation(
+          extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
     "Boiler stage setpoint"
@@ -163,10 +163,6 @@ protected
     "Detect boilers being turned off"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical Not"
-    annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
-
 equation
   connect(booRep.y,enaBoi. clr) annotation (Line(points={{-138,-160},{-130,-160},
           {-130,34},{-122,34}},   color={255,0,255}));
@@ -289,15 +285,13 @@ equation
           130},{-122,130}}, color={255,0,255}));
   connect(cha.down, dowPro.u) annotation (Line(points={{-178,104},{-140,104},{
           -140,90},{-122,90}}, color={255,0,255}));
-  connect(chaPro, not1.u)
-    annotation (Line(points={{-240,-160},{-202,-160}}, color={255,0,255}));
-  connect(not1.y, booRep.u)
-    annotation (Line(points={{-178,-160},{-162,-160}}, color={255,0,255}));
-  connect(not1.y, upPro.clr) annotation (Line(points={{-178,-160},{-170,-160},{-170,
-          124},{-122,124}}, color={255,0,255}));
-  connect(not1.y, dowPro.clr) annotation (Line(points={{-178,-160},{-170,-160},{
-          -170,84},{-122,84}}, color={255,0,255}));
 
+  connect(uStachaPro, booRep.u)
+    annotation (Line(points={{-240,-160},{-162,-160}}, color={255,0,255}));
+  connect(uStachaPro, upPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
+          {-170,124},{-122,124}}, color={255,0,255}));
+  connect(uStachaPro, dowPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
+          {-170,84},{-122,84}}, color={255,0,255}));
 annotation (
   defaultComponentName="nexBoi",
   Diagram(coordinateSystem(preserveAspectRatio=false,

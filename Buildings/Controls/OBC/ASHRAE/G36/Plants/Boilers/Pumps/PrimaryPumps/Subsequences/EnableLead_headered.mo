@@ -6,11 +6,7 @@ block EnableLead_headered
   parameter Integer nBoi=3
     "Total number of hot water isolation valves (same as number of boilers)";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal[nBoi](
-    final unit=fill("1",nBoi),
-    displayUnit=fill("1",nBoi),
-    final min=fill(0,nBoi),
-    final max=fill(1,nBoi))
+  CDL.Interfaces.BooleanInput                     uHotWatIsoVal[nBoi]
     "Hot water isolation valve status"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
@@ -19,12 +15,6 @@ block EnableLead_headered
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nBoi](
-    final t=fill(0.25, nBoi),
-    final h=fill(0.1, nBoi))
-    "Determine if the isolation valve is open based on valve position"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
   Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta
     "Lead pump status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -39,8 +29,7 @@ protected
     "Logical false"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nBoi)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nBoi)
     "Check if there are any hot water isolation valves opened"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
@@ -58,10 +47,8 @@ equation
   connect(mulOr.y, leaPumSta.u2)
     annotation (Line(points={{-18,0},{38,0}}, color={255,0,255}));
 
-  connect(uHotWatIsoVal, greThr.u)
-    annotation (Line(points={{-120,0},{-82,0}}, color={0,0,127}));
-  connect(greThr.y, mulOr.u[1:nBoi]) annotation (Line(points={{-58,0},{-50,0},{-50,
-          0},{-42,0}},               color={255,0,255}));
+  connect(uHotWatIsoVal, mulOr.u)
+    annotation (Line(points={{-120,0},{-42,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLeaPriPum_headered",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
