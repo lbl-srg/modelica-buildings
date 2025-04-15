@@ -518,7 +518,7 @@ model BoilerPlant "Boiler plant"
         origin={228,0})));
 
   // Controls
-  replaceable Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.Guideline36 ctl
+  replaceable Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.G36         ctl
     constrainedby
     Buildings.Templates.Plants.Boilers.HotWater.Components.Interfaces.PartialController(
       final cfg=cfg,
@@ -888,7 +888,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 <p>
 Some input control points are required in addition to the ones already connected
 inside this model, see the documentation of
-<a href=\"modelica://Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.Guideline36\">
+<a href=\"modelica://Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.G36\">
 Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.Guideline36</a>.
 </p>
 <h4>References</h4>

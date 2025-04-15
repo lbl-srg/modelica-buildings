@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Boilers.HotWater.Components.Controls;
-block Guideline36 "Guideline 36 controller"
+block G36 "Guideline 36 controller"
   extends
     Buildings.Templates.Plants.Boilers.HotWater.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36);
@@ -38,7 +38,7 @@ block Guideline36 "Guideline 36 controller"
     "Number of boilers";
 
   // Concatenation with array-comprehension to be CDL-compliant.
-  final parameter Integer boiTyp[nBoi] = {
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes boiTyp[nBoi] = {
     if i<=cfg.nBoiCon then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler
     else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler
     for i in 1:nBoi}
@@ -206,9 +206,6 @@ block Guideline36 "Guideline 36 controller"
      k={i for i in 1:cfg.nPumHeaWatSec}) if cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump index - No rotation logic currently implemented"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold FIXME_uBoi[nBoi](each t=1E-2,
-      each h=0.5E-2) "Emulation of boiler status"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaBoi[nBoi](each k=true)
     "Boiler available signal – Implementation does not handle fault detection yet"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}}),
@@ -220,10 +217,6 @@ block Guideline36 "Guideline 36 controller"
   Buildings.Controls.OBC.CDL.Reals.MultiMax FIXME_max(nin=nSenDpHeaWatRem)
     "There should be one setpoint value for each remote sensor"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre uBoi_pre[nBoi]
-    "Break algebraic loop at initialization" annotation (Placement(
-        transformation(extent={{-60,-30},{-40,-10}}), iconTransformation(extent
-          ={{-240,220},{-200,260}})));
 initial equation
   assert(nAirHan + nEquZon > 0,
    "In "+ getInstanceName() + ": "+
@@ -328,24 +321,12 @@ equation
         points={{12,-10.5},{32,-10.5},{32,78},{48,78}}, color={255,0,255}));
   connect(ctlLooPri.yMaxSecPumSpe, ctlPumHeaWatSec.uMaxSecPumSpeCon)
     annotation (Line(points={{12,-7.1},{34,-7.1},{34,62},{48,62}}, color={0,0,127}));
-  connect(busBoiCon.y_actual, FIXME_uBoi.u) annotation (Line(
-      points={{-240,160},{-120,160},{-120,-20},{-102,-20}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busBoiNon.y_actual, FIXME_uBoi.u) annotation (Line(
-      points={{-160,160},{-120,160},{-120,-20},{-102,-20}},
-      color={255,204,51},
-      thickness=0.5));
   connect(u1AvaBoi.y, ctlLooPri.uBoiAva) annotation (Line(points={{-78,20},{-20,
           20},{-20,-0.3},{-12,-0.3}}, color={255,0,255}));
   connect(dpHeaWatSet.y, FIXME_max.u)
     annotation (Line(points={{-78,60},{-62,60}}, color={0,0,127}));
   connect(FIXME_max.y, ctlPumHeaWatSec.dpHotWatSet) annotation (Line(points={{-38,
           60},{28,60},{28,66},{48,66}}, color={0,0,127}));
-  connect(FIXME_uBoi.y, uBoi_pre.u)
-    annotation (Line(points={{-78,-20},{-62,-20}}, color={255,0,255}));
-  connect(uBoi_pre.y, ctlLooPri.uBoi) annotation (Line(points={{-38,-20},{-20,
-          -20},{-20,-20.7},{-12,-20.7}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>
@@ -406,4 +387,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Guideline36;
+end G36;
