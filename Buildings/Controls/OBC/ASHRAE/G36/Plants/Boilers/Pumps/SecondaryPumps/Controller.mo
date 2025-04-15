@@ -40,16 +40,8 @@ block Controller
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=1) = 0.1
     "Minimum pump speed"
-    annotation (Dialog(group="Pump parameters", enable=have_varSecPum));
-
-  parameter Real maxPumSpe(
-    final unit="1",
-    displayUnit="1",
-    final min=minPumSpe,
-    final max=1) = 1
-    "Maximum pump speed"
     annotation (Dialog(group="Pump parameters", enable=have_varSecPum));
 
   parameter Real VHotWat_flow_nominal(
@@ -314,7 +306,6 @@ block Controller
     final minLocDp=minLocDp,
     final maxLocDp=maxLocDp,
     final minPumSpe=minPumSpe,
-    final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
     final Td=Td) if have_varSecPum and locDPReg
@@ -375,7 +366,6 @@ protected
     final nSen=nSen,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
-    final maxPumSpe=maxPumSpe,
     final k=k,
     final Ti=Ti,
     final Td=Td) if have_varSecPum and remDPReg

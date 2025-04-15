@@ -133,17 +133,9 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{-190,40},{-170,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre3[2]
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{70,130},{90,150}})));
-
   Buildings.Controls.OBC.CDL.Logical.Pre pre4[2]
     "Logical pre block"
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre6[2]
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{290,120},{310,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre7[2]
     "Logical pre block"
@@ -406,29 +398,16 @@ equation
                                           color={255,127,0}));
   connect(truDel.y, pre1.u)
     annotation (Line(points={{-198,140},{-192,140}}, color={255,0,255}));
-  connect(pre1.y, controller.uBoi) annotation (Line(points={{-168,140},{-130,140},
-          {-130,-30},{-284,-30},{-284,30.9},{-262,30.9}},
-                                                      color={255,0,255}));
   connect(pre2.u, truDel1.y)
     annotation (Line(points={{-192,50},{-198,50}}, color={255,0,255}));
   connect(pre2.y, controller.uPriPum) annotation (Line(points={{-168,50},{-154,50},
           {-154,8},{-274,8},{-274,26.7},{-262,26.7}},
                                                   color={255,0,255}));
-  connect(truDel2.y, pre3.u)
-    annotation (Line(points={{62,140},{68,140}}, color={255,0,255}));
   connect(truDel3.y, pre4.u)
     annotation (Line(points={{62,70},{68,70}}, color={255,0,255}));
   connect(pre4.y, controller1.uPriPum) annotation (Line(points={{92,70},{108,70},
           {108,-20},{-10,-20},{-10,26.7},{-2,26.7}},
                                                  color={255,0,255}));
-  connect(pre3.y, controller1.uBoi) annotation (Line(points={{92,140},{110,140},
-          {110,-22},{-20,-22},{-20,30.9},{-2,30.9}},
-                                                 color={255,0,255}));
-  connect(pre6.u, truDel5.y)
-    annotation (Line(points={{288,130},{282,130}}, color={255,0,255}));
-  connect(pre6.y, controller2.uBoi) annotation (Line(points={{312,130},{340,130},
-          {340,0},{202,0},{202,30.9},{218,30.9}},
-                                              color={255,0,255}));
   connect(pre7.u, truDel6.y)
     annotation (Line(points={{288,100},{282,100}}, color={255,0,255}));
   connect(pre7.y, controller2.uPriPum) annotation (Line(points={{312,100},{338,100},
@@ -457,10 +436,6 @@ equation
           {30,56.1},{30,100},{38,100}}, color={255,0,255}));
   connect(pre8.y, controller1.uHotWatIsoVal) annotation (Line(points={{62,100},{
           120,100},{120,-32},{-14,-32},{-14,22.5},{-2,22.5}}, color={255,0,255}));
-  connect(TSup1.y, controller1.TSupSec) annotation (Line(points={{-58,70},{-50,70},
-          {-50,44},{-10,44},{-10,43.5},{-2,43.5}}, color={0,0,127}));
-  connect(TSup2.y, controller2.TSupSec) annotation (Line(points={{162,70},{170,70},
-          {170,44},{210,44},{210,43.5},{218,43.5}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={Ellipse(

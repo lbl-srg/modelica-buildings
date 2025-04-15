@@ -63,10 +63,14 @@ protected
     "Ensure stage-completion signal is passed only when the stage-up signal is active"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
+  Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(
     final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler)
     "Pass True if all preceding stages are condensing boiler type stages"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert Real to Integer for comparison with enumeration"
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nSta](
     final k=boiStaInd)
@@ -93,12 +97,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nSta]
     "Integer to Real conversion"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(
     final nin=nSta)
     "Detect maximum from stage-type vector"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
     final nin=nSta)
@@ -151,7 +155,7 @@ equation
           -68},{-42,-68}}, color={255,127,0}));
 
   connect(intSwi.y, intToRea.u)
-    annotation (Line(points={{-18,-60},{-2,-60}}, color={255,127,0}));
+    annotation (Line(points={{-18,-60},{-12,-60}},color={255,127,0}));
 
   connect(uStaTyp, intToRea1.u)
     annotation (Line(points={{-180,-20},{-142,-20}}, color={255,127,0}));
@@ -198,14 +202,11 @@ equation
   connect(intLes.y, intSwi.u2)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={255,0,255}));
 
-  connect(intToRea.y, mulMax.u[1:nSta]) annotation (Line(points={{22,-60},{30,-60},
-          {30,-60},{38,-60}},     color={0,0,127}));
+  connect(intToRea.y, mulMax.u[1:nSta]) annotation (Line(points={{12,-60},{18,-60}},
+                                  color={0,0,127}));
 
-  connect(mulMax.y, lesThr.u)
-    annotation (Line(points={{62,-60},{78,-60}}, color={0,0,127}));
-
-  connect(lesThr.y, and2.u2) annotation (Line(points={{102,-60},{110,-60},{110,-38},
-          {118,-38}}, color={255,0,255}));
+  connect(intLesThr.y, and2.u2) annotation (Line(points={{102,-60},{110,-60},{110,
+          -38},{118,-38}}, color={255,0,255}));
 
   connect(or2.y, and1.u1)
     annotation (Line(points={{-78,50},{-42,50}}, color={255,0,255}));
@@ -216,6 +217,10 @@ equation
   connect(and1.y, logSwi.u1) annotation (Line(points={{-18,50},{100,50},{100,38},
           {118,38}}, color={255,0,255}));
 
+  connect(mulMax.y, reaToInt.u)
+    annotation (Line(points={{42,-60},{48,-60}}, color={0,0,127}));
+  connect(reaToInt.y, intLesThr.u)
+    annotation (Line(points={{72,-60},{78,-60}}, color={255,127,0}));
 annotation (
   defaultComponentName="hotWatSupTemRes",
   Icon(graphics={

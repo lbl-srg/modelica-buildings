@@ -429,8 +429,8 @@ equation
   connect(boiSet.y, nexBoi.uBoiSet) annotation (Line(points={{-118,100},{-100,100},
           {-100,180},{-62,180}}, color={255,0,255}));
 
-  connect(inPro.y, nexBoi.chaPro) annotation (Line(points={{-118,40},{-80,40},{-80,
-          173},{-62,173}}, color={255,0,255}));
+  connect(inPro.y, nexBoi.uStachaPro) annotation (Line(points={{-118,40},{-80,
+          40},{-80,173},{-62,173}}, color={255,0,255}));
 
   connect(staSet1.y, nexBoi1.uStaSet) annotation (Line(points={{182,220},{220,220},
           {220,187},{238,187}}, color={255,127,0}));
@@ -438,8 +438,8 @@ equation
   connect(boiSet1.y, nexBoi1.uBoiSet) annotation (Line(points={{182,100},{200,100},
           {200,180},{238,180}}, color={255,0,255}));
 
-  connect(inPro1.y, nexBoi1.chaPro) annotation (Line(points={{182,40},{220,40},{
-          220,173},{238,173}}, color={255,0,255}));
+  connect(inPro1.y, nexBoi1.uStachaPro) annotation (Line(points={{182,40},{220,
+          40},{220,173},{238,173}}, color={255,0,255}));
 
   connect(staSet2.y, nexBoi2.uStaSet) annotation (Line(points={{-118,-100},{-80,
           -100},{-80,-133},{-62,-133}}, color={255,127,0}));
@@ -447,14 +447,14 @@ equation
   connect(boiSet2.y, nexBoi2.uBoiSet) annotation (Line(points={{-118,-220},{-100,
           -220},{-100,-140},{-62,-140}}, color={255,0,255}));
 
-  connect(inPro2.y, nexBoi2.chaPro) annotation (Line(points={{-118,-280},{-80,-280},
-          {-80,-147},{-62,-147}}, color={255,0,255}));
+  connect(inPro2.y, nexBoi2.uStachaPro) annotation (Line(points={{-118,-280},{-80,
+          -280},{-80,-147},{-62,-147}}, color={255,0,255}));
 
   connect(staSet3.y, nexBoi3.uStaSet) annotation (Line(points={{182,-100},{220,-100},
           {220,-133},{238,-133}}, color={255,127,0}));
 
-  connect(inPro3.y, nexBoi3.chaPro) annotation (Line(points={{182,-280},{220,-280},
-          {220,-147},{238,-147}}, color={255,0,255}));
+  connect(inPro3.y, nexBoi3.uStachaPro) annotation (Line(points={{182,-280},{
+          220,-280},{220,-147},{238,-147}}, color={255,0,255}));
 
   connect(boiSet3.y, nexBoi3.uBoiSet) annotation (Line(points={{182,-220},{200,-220},
           {200,-140},{238,-140}}, color={255,0,255}));

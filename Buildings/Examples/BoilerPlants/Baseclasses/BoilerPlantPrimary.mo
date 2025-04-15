@@ -198,9 +198,7 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{-360,20},{-320,60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotIsoVal[2](
-    final unit="1",
-    displayUnit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotIsoVal[2]
     "Hot water isolation valve signal"
     annotation (Placement(transformation(extent={{-360,60},{-320,100}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -264,13 +262,12 @@ model BoilerPlantPrimary
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VHotWatPri_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") "Measured flowrate in primary circuit"
+    final quantity="VolumeFlowRate")
+    "Measured flowrate in primary circuit"
     annotation (Placement(transformation(extent={{320,-50},{360,-10}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[2](
-    final unit="1",
-    displayUnit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatIsoVal[2]
     "Measured boiler hot water isolation valve position"
     annotation (Placement(transformation(extent={{320,-170},{360,-130}}),
       iconTransformation(extent={{100,-200},{140,-160}})));
@@ -356,7 +353,6 @@ model BoilerPlantPrimary
     redeclare package Medium = MediumW,
     final m_flow_nominal=mBoi_flow_nominal2,
     final dpValve_nominal=dpValve_nominal_value,
-    final use_inputFilter=true,
     final init=Modelica.Blocks.Types.Init.InitialState,
     final y_start=0,
     final dpFixed_nominal=dpFixed_nominal_value)
@@ -615,6 +611,16 @@ model BoilerPlantPrimary
       rotation=90,
       origin={0,-80})));
 
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[2]
+    "Boolean to Real conversion"
+    annotation (Placement(transformation(extent={{-300,70},{-280,90}})));
+
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1[2](
+    final t=fill(0.95,2),
+    final h=fill(0.05, 2))
+    "Check if isolation valve is opened"
+    annotation (Placement(transformation(extent={{280,-160},{300,-140}})));
+
 equation
   connect(val1.port_a, spl1.port_3)
     annotation (Line(points={{0,-150},{-20,-150}},    color={0,127,255}));
@@ -714,14 +720,6 @@ equation
           {128,-200},{178,-200}}, color={0,0,127}));
   connect(edg.y, conPIDBoi.trigger) annotation (Line(points={{-148,120},{-80,120},
           {-80,-190},{44,-190},{44,-132}}, color={255,0,255}));
-  connect(uHotIsoVal[1], val1.y) annotation (Line(points={{-340,75},{-180,75},{-180,
-          -94},{10,-94},{10,-138}},   color={0,0,127}));
-  connect(uHotIsoVal[2], val2.y) annotation (Line(points={{-340,85},{-170,85},{-170,
-          -180},{10,-180},{10,-198}}, color={0,0,127}));
-  connect(val1.y_actual, yHotWatIsoVal[1]) annotation (Line(points={{15,-143},{32,
-          -143},{32,-170},{290,-170},{290,-155},{340,-155}}, color={0,0,127}));
-  connect(val2.y_actual, yHotWatIsoVal[2]) annotation (Line(points={{15,-203},{32,
-          -203},{32,-170},{290,-170},{290,-145},{340,-145}}, color={0,0,127}));
   connect(senTem2.port_b, spl6.port_2) annotation (Line(points={{210,-20},{210,
           -150},{160,-150}},
                        color={0,127,255}));
@@ -801,6 +799,19 @@ equation
     annotation (Line(points={{-30,-140},{-30,-90}}, color={0,127,255}));
   connect(spl1.port_2,cheVal2. port_a) annotation (Line(points={{-30,-140},{-30,
           -100},{0,-100},{0,-90}}, color={0,127,255}));
+  connect(uHotIsoVal, booToRea2.u)
+    annotation (Line(points={{-340,80},{-302,80}}, color={255,0,255}));
+  connect(booToRea2[1].y, val1.y) annotation (Line(points={{-278,80},{-160,80},{
+          -160,-106},{10,-106},{10,-138}}, color={0,0,127}));
+  connect(booToRea2[2].y, val2.y) annotation (Line(points={{-278,80},{-160,80},{
+          -160,-186},{10,-186},{10,-198}}, color={0,0,127}));
+  connect(yHotWatIsoVal, greThr1.y)
+    annotation (Line(points={{340,-150},{302,-150}}, color={255,0,255}));
+  connect(val1.y_actual, greThr1[1].u) annotation (Line(points={{15,-143},{16,-143},
+          {16,-100},{272,-100},{272,-150},{278,-150}}, color={0,0,127}));
+  connect(val2.y_actual, greThr1[2].u) annotation (Line(points={{15,-203},{16,-203},
+          {16,-168},{40,-168},{40,-140},{28,-140},{28,-132},{16,-132},{16,-100},
+          {272,-100},{272,-150},{278,-150}}, color={0,0,127}));
   annotation (defaultComponentName="boiPlaPri",
     Documentation(info="<html>
       <p>

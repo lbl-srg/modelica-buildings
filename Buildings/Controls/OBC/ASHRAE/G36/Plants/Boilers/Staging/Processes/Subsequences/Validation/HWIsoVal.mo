@@ -4,23 +4,37 @@ model HWIsoVal
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal
     enaHotIsoVal(
-    final nBoi=2,
-    final chaHotWatIsoTim=300,
-    final iniValPos=0,
-    final endValPos=1)
+    final reqAct=true,
+    final nBoi=2)
     "Enable isolation valve"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal
     disHotIsoVal(
-    final nBoi=2,
-    final chaHotWatIsoTim=300,
-    final iniValPos=1,
-    final endValPos=0)
+    final reqAct=false,
+    final nBoi=2)
     "Disable isolation valve"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=15)
+    "Delay to represent valve opening process"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=15)
+    "Delay to represent valve closing process"
+    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Not gate for combining with true delay block"
+    annotation (Placement(transformation(extent={{90,-100},{110,-80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Not gate for combining with true delay block"
+    annotation (Placement(transformation(extent={{150,-100},{170,-80}})));
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.15,
     final period=3600)
@@ -41,8 +55,8 @@ protected
     "Upstream device status"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valOne(
-    final k=1)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant valOne(
+    final k=true)
     "Valve one position, fully open"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
 
@@ -51,8 +65,8 @@ protected
     "Enabling boiler index"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valOne1(
-    final k=1)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant valOne1(
+    final k=true)
     "Valve one position, fully open"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
@@ -61,16 +75,14 @@ protected
     "Disabling boiler index"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1)
-    "Unit delay"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
+    "Pre block"
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(
-    final samplePeriod=1,
-    final y_start=1)
-    "Unit delay"
-    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1(
+    final pre_u_start=true)
+    "Pre block"
+    annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
 
 equation
   connect(booPul.y, staCha.u)
@@ -97,20 +109,26 @@ equation
   connect(disBoi.y, disHotIsoVal.nexChaBoi) annotation (Line(points={{82,80},{
           90,80},{90,8},{118,8}}, color={255,127,0}));
 
-  connect(valOne1.y, disHotIsoVal.uHotWatIsoVal[1]) annotation (Line(points={{
-          42,20},{60,20},{60,4},{118,4}}, color={0,0,127}));
-
+  connect(pre2.y, enaHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{-8,0},
+          {0,0},{0,28},{-122,28},{-122,15.5},{-102,15.5}}, color={255,0,255}));
   connect(valOne.y, enaHotIsoVal.uHotWatIsoVal[1]) annotation (Line(points={{-178,
-          20},{-140,20},{-140,14},{-102,14}}, color={0,0,127}));
-  connect(enaHotIsoVal.yHotWatIsoVal[2], uniDel.u) annotation (Line(points={{-78,
-          5},{-70,5},{-70,0},{-62,0}}, color={0,0,127}));
-  connect(uniDel.y, enaHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{-38,
-          0},{-30,0},{-30,40},{-110,40},{-110,16},{-102,16}}, color={0,0,127}));
-  connect(disHotIsoVal.yHotWatIsoVal[2], uniDel1.u) annotation (Line(points={{142,
-          -5},{150,-5},{150,-10},{158,-10}}, color={0,0,127}));
-  connect(uniDel1.y, disHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{182,
-          -10},{190,-10},{190,30},{110,30},{110,6},{118,6}}, color={0,0,127}));
-
+          20},{-122,20},{-122,14.5},{-102,14.5}}, color={255,0,255}));
+  connect(pre1.y, disHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{202,-90},
+          {210,-90},{210,18},{110,18},{110,5.5},{118,5.5}}, color={255,0,255}));
+  connect(valOne1.y, disHotIsoVal.uHotWatIsoVal[1]) annotation (Line(points={{42,
+          20},{88,20},{88,4.5},{118,4.5}}, color={255,0,255}));
+  connect(pre2.u, truDel.y)
+    annotation (Line(points={{-32,0},{-38,0}}, color={255,0,255}));
+  connect(enaHotIsoVal.yHotWatIsoVal[2], truDel.u) annotation (Line(points={{-78,
+          4.5},{-70,4.5},{-70,0},{-62,0}}, color={255,0,255}));
+  connect(disHotIsoVal.yHotWatIsoVal[2], not1.u) annotation (Line(points={{142,-5.5},
+          {150,-5.5},{150,-74},{80,-74},{80,-90},{88,-90}}, color={255,0,255}));
+  connect(not1.y, truDel1.u)
+    annotation (Line(points={{112,-90},{118,-90}}, color={255,0,255}));
+  connect(truDel1.y, not2.u)
+    annotation (Line(points={{142,-90},{148,-90}}, color={255,0,255}));
+  connect(not2.y, pre1.u)
+    annotation (Line(points={{172,-90},{178,-90}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/Processes/Subsequences/Validation/HWIsoVal.mos"
