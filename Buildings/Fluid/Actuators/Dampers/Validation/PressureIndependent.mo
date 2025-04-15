@@ -165,6 +165,11 @@ the damper opening value results from the regularization process.
 </html>", revisions="<html>
 <ul>
 <li>
+April 15, 2025, by Michael Wetter:<br/>
+Changed initialization of controller.<br/>
+For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4183\">Buildings, #4183</a>.
+</li>
+<li>
 April 5, 2020 by Antoine Gautier:<br/>
 First implementation.
 </li>
