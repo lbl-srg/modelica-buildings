@@ -222,9 +222,6 @@ equation
         color={0,0,127}));
 
 
-  connect(boiPlaPri.yBoiSta, conBoiPri.uBoi) annotation (Line(points={{62,-14},
-          {120,-14},{120,-88},{-88,-88},{-88,-22},{-42,-22}}, color={255,0,255}));
-
   connect(boiPlaPri.yPumSta, conBoiPri.uPriPum) annotation (Line(points={{62,-18},
           {124,-18},{124,-92},{-92,-92},{-92,-26},{-42,-26}}, color={255,0,255}));
 
