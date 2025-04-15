@@ -49,7 +49,6 @@ protected
           Rectangle(
             extent={{-100,100},{100,-100}},
             lineColor={0,0,0},
-            lineThickness=5.0,
             fillColor={210,210,210},
             fillPattern=FillPattern.Solid,
             borderPattern=BorderPattern.Raised),
@@ -90,7 +89,6 @@ protected
           Rectangle(
             extent={{-100,100},{100,-100}},
             lineColor={0,0,0},
-            lineThickness=5.0,
             fillColor={210,210,210},
             fillPattern=FillPattern.Solid,
             borderPattern=BorderPattern.Raised),
@@ -127,7 +125,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
