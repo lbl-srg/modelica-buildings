@@ -8,24 +8,24 @@ model EnableLead_headered
     "Enable lead hot water pump based on the status of hot water isolation valves"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(
+  CDL.Logical.Sources.Pulse                      booPul(
     final period=600,
     final shift=300)
     "Real pulse signal"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul1(
+  CDL.Logical.Sources.Pulse                      booPul1(
     final period=1000,
     final shift=500)
     "Real pulse signal"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
 equation
-  connect(pul.y, enaLeaPriPum.uHotWatIsoVal[1]) annotation (Line(points={{-28,30},
-          {-16,30},{-16,-1},{-2,-1}}, color={0,0,127}));
-  connect(pul1.y, enaLeaPriPum.uHotWatIsoVal[2]) annotation (Line(points={{-28,-30},
-          {-16,-30},{-16,1},{-2,1}}, color={0,0,127}));
 
+  connect(booPul.y, enaLeaPriPum.uHotWatIsoVal[1]) annotation (Line(points={{
+          -28,30},{-16,30},{-16,-0.5},{-2,-0.5}}, color={255,0,255}));
+  connect(booPul1.y, enaLeaPriPum.uHotWatIsoVal[2]) annotation (Line(points={{
+          -28,-30},{-16,-30},{-16,0.5},{-2,0.5}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Pumps/PrimaryPumps/Subsequences/Validation/EnableLead_headered.mos"

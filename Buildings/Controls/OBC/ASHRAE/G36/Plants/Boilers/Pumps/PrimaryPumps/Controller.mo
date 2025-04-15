@@ -288,9 +288,8 @@ block Controller
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
       iconTransformation(extent={{-140,270},{-100,310}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotIsoVal[nBoi](
-    final unit="1",
-    displayUnit="1") if have_heaPriPum
+  CDL.Interfaces.BooleanInput                     uHotIsoVal[nBoi]
+                     if have_heaPriPum
     "Hot water isolation valve status"
     annotation (Placement(transformation(extent={{-320,50},{-280,90}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
@@ -817,9 +816,6 @@ equation
   connect(mulSumInt.y, lasLagPum.index)
     annotation (Line(points={{-178,-120},{-70,-120},{-70,-112}}, color={255,127,0}));
 
-  connect(uHotIsoVal, enaHeaLeaPum.uHotWatIsoVal) annotation (Line(points={{-300,70},
-          {-202,70}},                              color={0,0,127}));
-
   connect(VHotWat_flow,pumSpeFlo. VHotWatPri_flow) annotation (Line(points={{-300,
           -20},{-266,-20},{-266,-564},{-62,-564}},      color={0,0,127}));
 
@@ -1092,6 +1088,8 @@ equation
   connect(not5.y, and5.u2) annotation (Line(points={{2,-390},{20,-390},{20,-360},
           {-160,-360},{-160,-266},{-10,-266},{-10,-248},{-2,-248}}, color={255,
           0,255}));
+  connect(uHotIsoVal, enaHeaLeaPum.uHotWatIsoVal)
+    annotation (Line(points={{-300,70},{-202,70}}, color={255,0,255}));
 annotation (defaultComponentName="priPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-280,-720},{280,260}}),
   graphics={

@@ -7,59 +7,56 @@ model PlantDisable
     final have_priOnl=true,
     final have_heaPriPum=true,
     final nBoi=2,
-    final chaHotWatIsoRat=1/60,
     final delBoiDis=180)
     "Plant disable for primary-only plants with headered pumps"
-    annotation (Placement(transformation(extent={{10,80},{30,100}})));
+    annotation (Placement(transformation(extent={{12,80},{32,100}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable
     plaDis1(
     final have_priOnl=false,
     final have_heaPriPum=true,
     final nBoi=2,
-    final chaHotWatIsoRat=1/60,
     final delBoiDis=180)
     "Plant disable for primary-secondary plants with headered pumps"
-    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation (Placement(transformation(extent={{10,-20},{30,0}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable
     plaDis2(
     final have_priOnl=false,
     final have_heaPriPum=false,
     final nBoi=2,
-    final chaHotWatIsoRat=1/60,
     final delBoiDis=180)
     "Plant disable for primary-secondary plants with dedicated pumps"
-    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
+    annotation (Placement(transformation(extent={{10,-100},{30,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "Hold rising edge signal for visualization"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "Hold rising edge signal for visualization"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol2(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "Hold rising edge signal for visualization"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=true)
     "Constant Boolean source"
-    annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
     final k={false,true})
     "Boiler status before plant disable"
-    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.1,
@@ -80,63 +77,41 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{-28,80},{-8,100}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel[2](
-    final samplePeriod=fill(1, 2),
-    final y_start={0,1})
+  CDL.Logical.Pre                               pre1  [2](pre_u_start={false,true})
     "Unit delay for valve position"
-    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1[2](
-    final samplePeriod=fill(1, 2),
-    final y_start={0,1})
-    "Unit delay for valve position"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[2](
-    final k={0,1})
-    "Valve position when plant is enabled"
-    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Switch swi[2]
-    "Real switch"
-    annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
-
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=2)
-    "Boolean replicator"
-    annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2]
-    "Real switch"
-    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
+  CDL.Logical.Pre pre2[2](pre_u_start={false,true}) "Unit delay for valve position"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
 equation
-  connect(con.y, plaDis.uBoi) annotation (Line(points={{-68,10},{0,10},{0,94},{
-          8,94}},       color={255,0,255}));
+  connect(con.y, plaDis.uBoi) annotation (Line(points={{-38,-20},{0,-20},{0,38},
+          {-2,38},{-2,94},{10,94}},
+                        color={255,0,255}));
 
-  connect(con.y, plaDis1.uBoi) annotation (Line(points={{-68,10},{0,10},{0,4},{
-          8,4}},      color={255,0,255}));
+  connect(con.y, plaDis1.uBoi) annotation (Line(points={{-38,-20},{-16,-20},{-16,
+          -6},{8,-6}},color={255,0,255}));
 
-  connect(con.y, plaDis2.uBoi) annotation (Line(points={{-68,10},{0,10},{0,-96},
-          {8,-96}},       color={255,0,255}));
+  connect(con.y, plaDis2.uBoi) annotation (Line(points={{-38,-20},{0,-20},{0,-86},
+          {8,-86}},       color={255,0,255}));
 
-  connect(booPul.y, plaDis.uPla) annotation (Line(points={{-68,120},{6,120},{6,
-          98},{8,98}},  color={255,0,255}));
+  connect(booPul.y, plaDis.uPla) annotation (Line(points={{-68,120},{6,120},{6,98},
+          {10,98}},     color={255,0,255}));
 
   connect(booPul.y, plaDis1.uPla) annotation (Line(points={{-68,120},{6,120},{6,
-          8},{8,8}},  color={255,0,255}));
+          -2},{8,-2}},color={255,0,255}));
 
   connect(booPul.y, plaDis2.uPla) annotation (Line(points={{-68,120},{6,120},{6,
-          -92},{8,-92}},  color={255,0,255}));
+          -82},{8,-82}},  color={255,0,255}));
 
-  connect(plaDis.yStaChaPro, truFalHol.u) annotation (Line(points={{32,84},{36,84},
-          {36,70},{38,70}}, color={255,0,255}));
+  connect(plaDis.yStaChaPro, truFalHol.u) annotation (Line(points={{34,84},{50,84},
+          {50,70},{58,70}}, color={255,0,255}));
 
-  connect(plaDis1.yStaChaPro, truFalHol1.u) annotation (Line(points={{32,-6},{36,
-          -6},{36,-20},{38,-20}}, color={255,0,255}));
+  connect(plaDis1.yStaChaPro, truFalHol1.u) annotation (Line(points={{32,-16},{32,
+          -30},{58,-30}},         color={255,0,255}));
 
-  connect(plaDis2.yStaChaPro, truFalHol2.u) annotation (Line(points={{32,-106},{
-          36,-106},{36,-120},{38,-120}},
+  connect(plaDis2.yStaChaPro, truFalHol2.u) annotation (Line(points={{32,-96},{48,
+          -96},{48,-100},{58,-100}},
                                    color={255,0,255}));
 
   connect(booPul.y, edg.u) annotation (Line(points={{-68,120},{-64,120},{-64,
@@ -155,52 +130,27 @@ equation
                 color={255,0,255}));
 
   connect(or2.y, plaDis.uStaChaProEnd) annotation (Line(points={{-6,90},{-4,90},
-          {-4,82},{8,82}}, color={255,0,255}));
+          {-4,82},{10,82}},color={255,0,255}));
 
   connect(or2.y, plaDis1.uStaChaProEnd) annotation (Line(points={{-6,90},{-4,90},
-          {-4,-8},{8,-8}}, color={255,0,255}));
+          {-4,-18},{8,-18}},
+                           color={255,0,255}));
 
   connect(or2.y, plaDis2.uStaChaProEnd) annotation (Line(points={{-6,90},{-4,90},
-          {-4,-108},{8,-108}}, color={255,0,255}));
+          {-4,-98},{8,-98}},   color={255,0,255}));
 
-  connect(plaDis.yHotWatIsoVal, uniDel1.u) annotation (Line(points={{32,88},{36,
-          88},{36,136},{-96,136},{-96,80},{-92,80}},
-                                                   color={0,0,127}));
-
-  connect(plaDis1.yHotWatIsoVal, uniDel.u) annotation (Line(points={{32,-2},{34,
-          -2},{34,28},{-96,28},{-96,-20},{-92,-20}}, color={0,0,127}));
-
-  connect(con1.y, swi.u1) annotation (Line(points={{-68,-50},{-60,-50},{-60,-42},
-          {-52,-42}}, color={0,0,127}));
-
-  connect(uniDel.y, swi.u3) annotation (Line(points={{-68,-20},{-64,-20},{-64,
-          -58},{-52,-58}}, color={0,0,127}));
-
-  connect(booPul.y, booRep.u) annotation (Line(points={{-68,120},{-64,120},{-64,
-          68},{-96,68},{-96,50},{-92,50}}, color={255,0,255}));
-
-  connect(booRep.y, swi.u2) annotation (Line(points={{-68,50},{-56,50},{-56,-50},
-          {-52,-50}}, color={255,0,255}));
-
-  connect(swi.y, plaDis1.uHotWatIsoVal) annotation (Line(points={{-28,-50},{-12,
-          -50},{-12,0},{8,0}}, color={0,0,127}));
-
-  connect(uniDel1.y, swi1.u3) annotation (Line(points={{-68,80},{-66,80},{-66,
-          42},{-32,42}}, color={0,0,127}));
-
-  connect(swi1.y, plaDis.uHotWatIsoVal)
-    annotation (Line(points={{-8,50},{2,50},{2,90},{8,90}}, color={0,0,127}));
-
-  connect(con1.y, swi1.u1) annotation (Line(points={{-68,-50},{-60,-50},{-60,58},
-          {-32,58}}, color={0,0,127}));
-
-  connect(booRep.y, swi1.u2)
-    annotation (Line(points={{-68,50},{-32,50}}, color={255,0,255}));
-
-  connect(con2.y, plaDis1.uPumChaPro) annotation (Line(points={{-28,-10},{-20,-10},
-          {-20,-4},{8,-4}}, color={255,0,255}));
-  connect(con2.y, plaDis2.uPumChaPro) annotation (Line(points={{-28,-10},{-20,-10},
-          {-20,-104},{8,-104}}, color={255,0,255}));
+  connect(con2.y, plaDis1.uPumChaPro) annotation (Line(points={{-38,-50},{-6,-50},
+          {-6,-14},{8,-14}},color={255,0,255}));
+  connect(con2.y, plaDis2.uPumChaPro) annotation (Line(points={{-38,-50},{-6,-50},
+          {-6,-94},{8,-94}},    color={255,0,255}));
+  connect(pre2.y, plaDis.uHotWatIsoVal) annotation (Line(points={{-38,40},{2,40},
+          {2,90},{10,90}}, color={255,0,255}));
+  connect(plaDis.yHotWatIsoVal, pre2.u) annotation (Line(points={{34,88},{38,88},
+          {38,24},{-72,24},{-72,40},{-62,40}}, color={255,0,255}));
+  connect(pre1.y, plaDis1.uHotWatIsoVal) annotation (Line(points={{-38,-80},{-2,
+          -80},{-2,-10},{8,-10}}, color={255,0,255}));
+  connect(plaDis1.yHotWatIsoVal, pre1.u) annotation (Line(points={{32,-12},{40,-12},
+          {40,10},{-70,10},{-70,-80},{-62,-80}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),

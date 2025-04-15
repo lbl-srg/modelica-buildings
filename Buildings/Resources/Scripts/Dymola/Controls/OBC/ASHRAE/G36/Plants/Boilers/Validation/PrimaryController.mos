@@ -38,21 +38,3 @@ createPlot(id=5, position={0, 0, 485, 73}, y={"controller2.yPriPum[2]"}, range={
 createPlot(id=5, position={0, 0, 485, 72}, y={"controller2.yBoi[2]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
 createPlot(id=5, position={0, 0, 485, 73}, y={"controller2.VHotWatPri_flow", "controller2.VHotWatSec_flow"}, range={0.0, 7600.0, 0.00028, 0.00031}, grid=true, subPlot=7, colors={{28,108,200}, {238,46,47}});
 createPlot(id=5, position={0, 0, 485, 72}, y={"controller2.yPriPumSpe"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=8, colors={{28,108,200}});
-
-createPlot(id=6, position={0, 0, 485, 615}, y={"controller3.plaReq"}, range={0.0, 7600.0, -2.0, 4.0}, grid=true, colors={{28,108,200}});
-createPlot(id=6, position={0, 0, 485, 72}, y={"controller3.staSetCon.ySta"}, range={0.0, 7600.0, -5.0, 5.0}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=6, position={0, 0, 485, 73}, y={"controller3.yPriPum[1]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=6, position={0, 0, 485, 72}, y={"controller3.yBoi[1]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
-createPlot(id=6, position={0, 0, 485, 73}, y={"controller3.yPriPum[2]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});
-createPlot(id=6, position={0, 0, 485, 72}, y={"controller3.yBoi[2]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
-createPlot(id=6, position={0, 0, 485, 73}, y={"controller3.VHotWatPri_flow", "controller2.VHotWatSec_flow"}, range={0.0, 7600.0, 0.00028, 0.00031}, grid=true, subPlot=7, colors={{28,108,200}, {238,46,47}});
-createPlot(id=6, position={0, 0, 485, 72}, y={"controller3.yPriPumSpe"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=8, colors={{28,108,200}});
-
-createPlot(id=7, position={0, 0, 485, 615}, y={"controller4.uPla"}, range={0.0, 7600.0, -2.0, 4.0}, grid=true, colors={{28,108,200}});
-createPlot(id=7, position={0, 0, 485, 72}, y={"controller4.staSetCon.ySta"}, range={0.0, 7600.0, -5.0, 5.0}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=7, position={0, 0, 485, 73}, y={"controller4.yPriPum[1]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=7, position={0, 0, 485, 72}, y={"controller4.yBoi[1]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
-createPlot(id=7, position={0, 0, 485, 73}, y={"controller4.yPriPum[2]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});
-createPlot(id=7, position={0, 0, 485, 72}, y={"controller4.yBoi[2]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
-createPlot(id=7, position={0, 0, 485, 73}, y={"controller4.VHotWatPri_flow", "controller2.VHotWatSec_flow"}, range={0.0, 7600.0, 0.00028, 0.00031}, grid=true, subPlot=7, colors={{28,108,200}, {238,46,47}});
-createPlot(id=7, position={0, 0, 485, 72}, y={"controller4.yPriPumSpe"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=8, colors={{28,108,200}});

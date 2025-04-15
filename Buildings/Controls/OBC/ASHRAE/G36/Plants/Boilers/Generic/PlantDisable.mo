@@ -8,13 +8,8 @@ block PlantDisable
   parameter Boolean have_heaPriPum = true
     "True: Boiler plant has headered pump configuration; False: Boiler plant has dedicated pump configuration";
 
-  parameter Integer nBoi=3
+  parameter Integer nBoi
     "Total number of boilers in the plant";
-
-  parameter Real chaHotWatIsoRat(
-    final unit="1/s",
-    final displayUnit="1/s") = 1/60
-    "Rate at which to slowly change isolation valve, should be determined in the field";
 
   parameter Real delBoiDis=180
     "Time delay after boilers have been disabled before completing disabling process";
@@ -39,8 +34,8 @@ block PlantDisable
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal[nBoi] if have_heaPriPum
-    "Boiler hot water isolation valve position vector"
+  CDL.Interfaces.BooleanInput                     uHotWatIsoVal[nBoi] if have_heaPriPum
+    "Boiler hot water isolation valve status vector"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -54,19 +49,27 @@ block PlantDisable
     annotation (Placement(transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi] if have_heaPriPum
-    "Boiler hot water isolation valve position vector"
+  CDL.Interfaces.BooleanOutput                     yHotWatIsoVal[nBoi] if have_heaPriPum
+    "Boiler hot water isolation valve signal"
     annotation (Placement(transformation(extent={{180,-70},{220,-30}}),
       iconTransformation(extent={{100,-40},{140,0}})));
 
-protected
+  CDL.Logical.And and4[nBoi] if have_heaPriPum
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+  CDL.Logical.And and5[nBoi] if have_heaPriPum
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+  CDL.Logical.Not not2[nBoi] if have_heaPriPum
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  CDL.Logical.Or or1[nBoi] if have_heaPriPum
+    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+// protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index vector";
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Subsequences.HWIsoVal disHotWatIsoVal[nBoi](
-    final chaHotWatIsoRat=fill(chaHotWatIsoRat, nBoi)) if have_heaPriPum
+  Subsequences.HWIsoVal                                                          disHotWatIsoVal[nBoi]
+                                                       if have_heaPriPum
     "Disable boiler hot water isolation valve for all disabled boilers simultaneously"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{20,-12},{40,8}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nBoi]
     "Pass input boiler enable status when plant is enabled and disable all boilers when plant is disabled"
@@ -84,13 +87,13 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nBoi) if have_heaPriPum
     "Boolean replicator"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=delBoiDis,
     final delayOnInit=true)
     "Delay after all boilers have been disabled"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Pass through stage change completion signal from staging process controller when plant is enabled"
@@ -100,8 +103,8 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
-    final nin=nBoi) if have_priOnl and have_heaPriPum
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(nin=nBoi)
+                    if have_priOnl and have_heaPriPum
     "Multi And"
     annotation (Placement(transformation(extent={{80,-126},{100,-106}})));
 
@@ -122,8 +125,8 @@ protected
     annotation (Placement(transformation(extent={{150,-130},{170,-110}})));
 
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd2(
-    final nin=nBoi) if not have_priOnl and have_heaPriPum
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd2(nin=nBoi)
+                    if not have_priOnl and have_heaPriPum
     "Multi And"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
@@ -131,10 +134,6 @@ protected
     final nin=1) if not have_priOnl and not have_heaPriPum
     "Multi Or"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Switch swi[nBoi] if have_heaPriPum
-    "Real switch"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and3 if not have_priOnl
     "Indicate pump change completion only when plant is disabled"
@@ -149,7 +148,7 @@ equation
                          color={255,0,255}));
 
   connect(booRep2.u, truDel.y)
-    annotation (Line(points={{-22,-10},{-38,-10}}, color={255,0,255}));
+    annotation (Line(points={{-62,-10},{-68,-10}}, color={255,0,255}));
 
   connect(and2.y, or2.u2) annotation (Line(points={{12,-120},{60,-120},{60,-128},
           {118,-128}}, color={255,0,255}));
@@ -195,10 +194,7 @@ equation
     annotation (Line(points={{162,50},{200,50}}, color={255,0,255}));
 
   connect(not1.y, truDel.u)
-    annotation (Line(points={{-108,-10},{-62,-10}},color={255,0,255}));
-
-  connect(swi.y, yHotWatIsoVal)
-    annotation (Line(points={{162,-50},{200,-50}}, color={0,0,127}));
+    annotation (Line(points={{-108,-10},{-92,-10}},color={255,0,255}));
 
   connect(uPla, booRep1.u)
     annotation (Line(points={{-180,120},{-42,120}}, color={255,0,255}));
@@ -208,28 +204,40 @@ equation
   connect(uPla, and2.u2) annotation (Line(points={{-180,120},{-140,120},{-140,
           10},{-34,10},{-34,-128},{-12,-128}},
                                            color={255,0,255}));
-  connect(uHotWatIsoVal, disHotWatIsoVal.uHotWatIsoVal) annotation (Line(points={{-180,
-          -40},{0,-40},{0,-44},{18,-44}},       color={0,0,127}));
-  connect(disHotWatIsoVal.yDisHotWatIsoVal, mulAnd2.u[1:nBoi]) annotation (Line(
-        points={{42,-44},{60,-44},{60,-90},{78,-90}},           color={255,0,255}));
-  connect(disHotWatIsoVal.yDisHotWatIsoVal, mulAnd1.u[1:nBoi]) annotation (Line(
-        points={{42,-44},{60,-44},{60,-116},{78,-116}},         color={255,0,255}));
-  connect(disHotWatIsoVal.yHotWatIsoVal, swi.u1) annotation (Line(points={{42,-56},
-          {100,-56},{100,-42},{138,-42}}, color={0,0,127}));
-  connect(uHotWatIsoVal, swi.u3) annotation (Line(points={{-180,-40},{0,-40},{0,
-          -32},{130,-32},{130,-58},{138,-58}}, color={0,0,127}));
-  connect(booRep2.y, disHotWatIsoVal.uUpsDevSta) annotation (Line(points={{2,-10},
-          {10,-10},{10,-50},{18,-50}}, color={255,0,255}));
-  connect(booRep2.y, swi.u2) annotation (Line(points={{2,-10},{10,-10},{10,-20},
-          {120,-20},{120,-50},{138,-50}}, color={255,0,255}));
+  connect(booRep2.y, disHotWatIsoVal.uUpsDevSta) annotation (Line(points={{-38,-10},
+          {10,-10},{10,-2},{18,-2}},   color={255,0,255}));
   connect(and3.y, lat1.u) annotation (Line(points={{-68,-70},{-66,-70},{-66,-80},
           {-62,-80}}, color={255,0,255}));
   connect(uPumChaPro, and3.u2) annotation (Line(points={{-180,-80},{-100,-80},{
           -100,-78},{-92,-78}}, color={255,0,255}));
   connect(not1.y, and3.u1) annotation (Line(points={{-108,-10},{-100,-10},{-100,
           -70},{-92,-70}}, color={255,0,255}));
-  connect(booRep2.y, disHotWatIsoVal.chaPro) annotation (Line(points={{2,-10},{10,
-          -10},{10,-56},{18,-56}}, color={255,0,255}));
+  connect(booRep2.y, disHotWatIsoVal.chaPro) annotation (Line(points={{-38,-10},
+          {10,-10},{10,-8},{18,-8}},
+                                   color={255,0,255}));
+  connect(booRep2.y, and4.u1) annotation (Line(points={{-38,-10},{10,-10},{10,
+          14},{88,14},{88,-30},{98,-30}},
+                                      color={255,0,255}));
+  connect(uHotWatIsoVal, and5.u2) annotation (Line(points={{-180,-40},{0,-40},{
+          0,-68},{98,-68}},               color={255,0,255}));
+  connect(booRep2.y, not2.u) annotation (Line(points={{-38,-10},{10,-10},{10,-50},
+          {18,-50}}, color={255,0,255}));
+  connect(not2.y, and5.u1) annotation (Line(points={{42,-50},{90,-50},{90,-60},{
+          98,-60}}, color={255,0,255}));
+  connect(and5.y, or1.u2) annotation (Line(points={{122,-60},{130,-60},{130,-58},
+          {138,-58}}, color={255,0,255}));
+  connect(and4.y, or1.u1) annotation (Line(points={{122,-30},{132,-30},{132,-42},
+          {130,-42},{130,-50},{138,-50}}, color={255,0,255}));
+  connect(or1.y, yHotWatIsoVal)
+    annotation (Line(points={{162,-50},{200,-50}}, color={255,0,255}));
+  connect(uHotWatIsoVal, disHotWatIsoVal.uHotWatIsoVal) annotation (Line(points
+        ={{-180,-40},{0,-40},{0,4},{18,4}}, color={255,0,255}));
+  connect(disHotWatIsoVal.yHotWatIsoVal, and4.u2) annotation (Line(points={{42,
+          -8},{80,-8},{80,-38},{98,-38}}, color={255,0,255}));
+  connect(disHotWatIsoVal.yDisHotWatIsoVal, mulAnd1.u) annotation (Line(points=
+          {{42,4},{60,4},{60,-116},{78,-116}}, color={255,0,255}));
+  connect(disHotWatIsoVal.yDisHotWatIsoVal, mulAnd2.u) annotation (Line(points=
+          {{42,4},{60,4},{60,-90},{78,-90}}, color={255,0,255}));
   annotation (defaultComponentName="plaDis",
     Icon(graphics={
       Rectangle(
