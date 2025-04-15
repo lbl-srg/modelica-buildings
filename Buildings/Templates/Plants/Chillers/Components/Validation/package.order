@@ -2,7 +2,7 @@ ChillerGroupAirCooled
 ChillerGroupWaterCooled
 ChillersToPrimaryPumpsParallel
 ChillersToPrimaryPumpsSeries
-CoolerGroupCoolingTowerOpen
+CoolerGroupCoolingTower
 Economizers
 StagingMatrixComputation
 Configuration

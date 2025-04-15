@@ -701,5 +701,12 @@ The third configuration has a waterside economizer with a heat exchanger
 pump to control the CHW flow rate.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ChillersToPrimaryPumpsSeries;

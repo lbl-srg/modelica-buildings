@@ -24,7 +24,7 @@ model WaterCooled "Water-cooled chiller plant"
     typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered);
 
   // Coolers
-  replaceable Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen
+  replaceable Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower
     coo constrainedby
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialCoolerGroup(
     redeclare final package MediumConWat = MediumCon,

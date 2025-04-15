@@ -285,5 +285,12 @@ to provide the necessary signals for any system configuration.
 To test a different system configuration, one needs only to modify the
 chiller group component.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ChillerGroupAirCooled;

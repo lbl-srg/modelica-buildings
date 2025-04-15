@@ -92,6 +92,14 @@ partial model PartialCoolerGroup
     "Outlet isolation valve parameters"
     annotation (Dialog(enable=false));
 
+  parameter Modelica.Units.SI.PressureDifference dpTotCoo_nominal[nCoo] =
+    (if typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None then
+    datValCooInlIso.dpValve_nominal else fill(0, nCoo)) .+
+    (if typValCooOutIso<>Buildings.Templates.Components.Types.Valve.None then
+    datValCooOutIso.dpValve_nominal else fill(0, nCoo)) .+
+    dat.dpConWatFriCoo_nominal
+    "Total pressure drop across each cooler, including isolation valves";
+
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));

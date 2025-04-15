@@ -13,7 +13,7 @@ model WaterCooledOpenLoop
     Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled
     datAll(pla(cfg=pla.cfg))
     "Design and operating parameters"
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+    annotation (Placement(transformation(extent={{70,60},{90,80}})));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -27,25 +27,25 @@ model WaterCooledOpenLoop
       typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
       typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature,
       have_senLevCoo=false),
-    chi(
-      typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
+    chi(typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
     redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen
+      Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower
       coo,
     redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.Economizers.None eco)
-    constrainedby Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
-      redeclare final package MediumChiWat = MediumChiWat,
-      redeclare replaceable package MediumCon = MediumConWat,
-      nChi=2,
-      chi(
-        have_senTChiWatChiSup_select=true,
-        have_senTChiWatChiRet=true,
-        have_senTConWatChiSup=true,
-        have_senTConWatChiRet_select=true),
-      final energyDynamics=energyDynamics,
-      final dat=datAll.pla)
-    "CHW plant"
+      Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve
+      eco "Heat exchanger with bypass valve for CHW flow control")
+    constrainedby
+    Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
+    redeclare final package MediumChiWat = MediumChiWat,
+    redeclare replaceable package MediumCon = MediumConWat,
+    nChi=2,
+    chi(
+      have_senTChiWatChiSup_select=true,
+      have_senTChiWatChiRet=true,
+      have_senTConWatChiSup=true,
+      have_senTConWatChiRet_select=true),
+    final energyDynamics=energyDynamics,
+    final dat=datAll.pla) "CHW plant"
     annotation (Placement(transformation(extent={{-60,-30},{-20,10}})));
 
   Fluid.Sources.PropertySource_T setTChiWatRet(use_T_in=true, redeclare final

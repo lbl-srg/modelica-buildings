@@ -1,12 +1,21 @@
 within Buildings.Templates.Plants.Chillers.Components.CoolerGroups;
-model CoolingTowerOpen "Open-circuit cooling towers in parallel"
+model CoolingTower "Cooling towers in parallel"
   extends
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialCoolerGroup(
-    final typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen);
+    final typCoo=if typTow==Buildings.Templates.Components.Types.CoolingTower.Open then
+      Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+      elseif typTow==Buildings.Templates.Components.Types.CoolingTower.Closed then
+        Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+      else Buildings.Templates.Components.Types.Cooler.None);
+
+  parameter Buildings.Templates.Components.Types.CoolingTower typTow=
+    Buildings.Templates.Components.Types.CoolingTower.Open
+    "Cooling tower type"
+    annotation(Evaluate=true, Dialog(group="Configuration"));
 
   Buildings.Templates.Components.Coolers.CoolingTower coo[nCoo](
     redeclare each final package MediumConWat=MediumConWat,
-    each final typ=typCoo,
+    each final typTow=typTow,
     final dat=datCoo,
     each final show_T=show_T,
     each final allowFlowReversal=allowFlowReversal,
@@ -94,7 +103,7 @@ equation
     defaultComponentName="coo",
     Documentation(info="<html>
 <p>
-This model represents a group of open-circuit cooling towers.
+This model represents a group of cooling towers.
 The tower cells (or units) may be unequally sized as explained in the documentation of
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.Data.CoolerGroup\">
 Buildings.Templates.Plants.Chillers.Components.Data.CoolerGroup</a>.
@@ -108,7 +117,7 @@ Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialCoolerGroup</a>
 </html>", revisions="<html>
 <ul>
 <li>
-November 18, 2022, by Antoine Gautier:<br/>
+April 17, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
@@ -349,4 +358,4 @@ First implementation.
           textColor={0,0,0},
           visible=nCoo >= 6,
           textString="CT-6")}));
-end CoolingTowerOpen;
+end CoolingTower;

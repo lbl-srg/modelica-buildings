@@ -53,7 +53,7 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       have_senTConWatChiRet_select=true,
       typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
     redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen
+      Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower
       coo,
     redeclare replaceable
       Buildings.Templates.Plants.Chillers.Components.Economizers.None eco,

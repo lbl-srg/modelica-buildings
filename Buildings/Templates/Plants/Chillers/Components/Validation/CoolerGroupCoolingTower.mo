@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Chillers.Components.Validation;
-model CoolerGroupCoolingTowerOpen
-  "Validation model for cooler group with open-circuit cooling towers"
+model CoolerGroupCoolingTower
+  "Validation model for cooling tower group"
   extends Modelica.Icons.Example;
 
   replaceable package MediumConWat = Buildings.Media.Water
@@ -8,13 +8,14 @@ model CoolerGroupCoolingTowerOpen
     "CW medium";
 
   parameter Integer nCoo=2
-    "Number of cooler units";
+    "Number of cooler units"
+    annotation (Evaluate=true, Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.MassFlowRate mConWatCoo_flow_nominal[nCoo]=
     capCoo_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
     (TConWatRet_nominal-TConWatSup_nominal)
     "CW mass flow rate - Each cooler unit"
-    annotation (Evaluate=true, Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal=
     sum(mConWatCoo_flow_nominal)
     "Total CW mass flow rate (all units)";
@@ -30,7 +31,7 @@ model CoolerGroupCoolingTowerOpen
     mConWatCoo_flow_nominal / Buildings.Templates.Data.Defaults.ratMFloConWatByMFloAirTow
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal[nCoo]=fill(1e6, nCoo)
+  parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal[nCoo]=fill(1E6, nCoo)
     "Cooling capacity - Each unit (>0)"
     annotation (Dialog(group="Nominal condition"));
 
@@ -61,7 +62,7 @@ model CoolerGroupCoolingTowerOpen
     final typ=Buildings.Templates.Components.Types.Pump.Multiple,
     final nPum=nCoo,
     final m_flow_nominal=mConWatCoo_flow_nominal,
-    dp_nominal=fill(1.5*max(dpConWatFriCoo_nominal .+ dpConWatStaCoo_nominal), nCoo))
+    dp_nominal=fill(max(cooVal.dpTotCoo_nominal), nCoo))
     "Parameter record for CW pumps"
     annotation (Placement(transformation(extent={{180,260},{200,280}})));
   parameter Buildings.Templates.Plants.Chillers.Components.Data.CoolerGroup datCoo(
@@ -105,6 +106,7 @@ model CoolerGroupCoolingTowerOpen
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
                  iconTransformation(extent={{-432,12},{-412,32}})));
   Buildings.Templates.Components.Pumps.Multiple pumConWat(
+    have_valChe=false,
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
     final nPum=nCoo,
@@ -155,14 +157,13 @@ model CoolerGroupCoolingTowerOpen
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,30})));
-  Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen coo(
+  CoolerGroups.CoolingTower cooVal(
     show_T=true,
+    final dat=datCoo,
     final energyDynamics=energyDynamics,
     redeclare final package MediumConWat = MediumConWat,
-    final dat=datCoo,
-    final nCoo=nCoo)
-    "Cooler group"
-    annotation (Placement(transformation(
+    final nCoo=nCoo) "Cooling towers with isolation valves" annotation (
+      Placement(transformation(
         extent={{40,-40},{-40,40}},
         rotation=0,
         origin={-140,60})));
@@ -195,6 +196,7 @@ model CoolerGroupCoolingTowerOpen
         rotation=90,
         origin={20,-160})));
   Buildings.Templates.Components.Pumps.Multiple pumConWat1(
+    have_valChe=false,
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
     final nPum=nCoo,
@@ -226,7 +228,7 @@ model CoolerGroupCoolingTowerOpen
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-80,-230})));
-  Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen coo1(
+  CoolerGroups.CoolingTower cooNoVal(
     show_T=true,
     final energyDynamics=energyDynamics,
     redeclare final package MediumConWat = MediumConWat,
@@ -234,7 +236,7 @@ model CoolerGroupCoolingTowerOpen
     final nCoo=nCoo,
     typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
     typValCooOutIso=Buildings.Templates.Components.Types.Valve.None)
-    "Cooler group" annotation (Placement(
+    "Cooling towers without isolation valves" annotation (Placement(
         transformation(
         extent={{40,-40},{-40,40}},
         rotation=0,
@@ -257,23 +259,22 @@ equation
     annotation (Line(points={{240,48},{240,42}},     color={0,0,127}));
   connect(comSigLoa.y, loaCon.u)
     annotation (Line(points={{240,18},{240,0},{26,0},{26,8}},color={0,0,127}));
-  connect(coo.port_b, inlPumConWat.port_a) annotation (Line(points={{-144.878,
-          60},{-200,60},{-200,-20},{-70,-20}},
-                                           color={0,127,255}));
+  connect(cooVal.port_b, inlPumConWat.port_a) annotation (Line(points={{
+          -144.878,60},{-200,60},{-200,-20},{-70,-20}},
+                                               color={0,127,255}));
   connect(bouCon.ports[1], inlPumConWat.port_a) annotation (Line(points={{-80,-40},
           {-80,-20},{-70,-20}}, color={0,127,255}));
   connect(pumConWat.ports_b, outConWatChi.ports_b)
     annotation (Line(points={{-30,-20},{-20,-20}}, color={0,127,255}));
   connect(outConWatChi.port_a, loaCon.port_a)
     annotation (Line(points={{0,-20},{20,-20},{20,10}},  color={0,127,255}));
-  connect(loaCon.port_b, coo.port_a) annotation (Line(points={{20,30},{20,60},{
-          -135.122,60}},
-                       color={0,127,255}));
+  connect(loaCon.port_b, cooVal.port_a) annotation (Line(points={{20,30},{20,60},
+          {-135.122,60}}, color={0,127,255}));
   connect(busPumConWat, pumConWat.bus) annotation (Line(
       points={{200,60},{200,-10},{-40,-10}},
       color={255,204,51},
       thickness=0.5));
-  connect(busPla, coo.bus) annotation (Line(
+  connect(busPla, cooVal.bus) annotation (Line(
       points={{200,100},{-140,100}},
       color={255,204,51},
       thickness=0.5));
@@ -289,7 +290,7 @@ equation
           160},{100,120}},      color={255,0,255}));
   connect(y1ValIso.y[1], valCooOutIso.y1) annotation (Line(points={{-228,160},{140,
           160},{140,120}}, color={255,0,255}));
-  connect(weaDat.weaBus, coo.busWea) annotation (Line(
+  connect(weaDat.weaBus, cooVal.busWea) annotation (Line(
       points={{-230,120},{-125.366,120},{-125.366,100}},
       color={255,204,51},
       thickness=0.5));
@@ -298,9 +299,9 @@ equation
                                                    color={0,127,255}));
   connect(y1.y[1], busPumConWat1.y1) annotation (Line(points={{-228,200},{160,200},
           {160,-120},{200,-120}},      color={255,0,255}));
-  connect(coo1.port_b, inlPumConWat1.port_a) annotation (Line(points={{-144.878,
-          -120},{-200,-120},{-200,-200},{-70,-200}},
-                                          color={0,127,255}));
+  connect(cooNoVal.port_b, inlPumConWat1.port_a) annotation (Line(points={{
+          -144.878,-120},{-200,-120},{-200,-200},{-70,-200}},
+                                                     color={0,127,255}));
   connect(bouCon1.ports[1], inlPumConWat1.port_a) annotation (Line(points={{-80,
           -220},{-80,-200},{-70,-200}},
                                       color={0,127,255}));
@@ -310,18 +311,18 @@ equation
   connect(outConWatChi1.port_a, loaCon1.port_a)
     annotation (Line(points={{0,-200},{20,-200},{20,-170}},
                                                          color={0,127,255}));
-  connect(loaCon1.port_b, coo1.port_a)
-    annotation (Line(points={{20,-150},{20,-120},{-135.122,-120}},
-                                                        color={0,127,255}));
+  connect(loaCon1.port_b, cooNoVal.port_a) annotation (Line(points={{20,-150},{
+          20,-120},{-135.122,-120}},
+                                  color={0,127,255}));
   connect(busPumConWat1, pumConWat1.bus) annotation (Line(
       points={{200,-120},{200,-190},{-40,-190}},
       color={255,204,51},
       thickness=0.5));
-  connect(busPla1, coo1.bus) annotation (Line(
+  connect(busPla1, cooNoVal.bus) annotation (Line(
       points={{200,-80},{-140,-80}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaDat.weaBus, coo1.busWea) annotation (Line(
+  connect(weaDat.weaBus, cooNoVal.busWea) annotation (Line(
       points={{-230,120},{-220,120},{-220,-60},{-125.366,-60},{-125.366,-80}},
       color={255,204,51},
       thickness=0.5));
@@ -342,18 +343,26 @@ equation
     StopTime=2000,
     Tolerance=1e-06),
   __Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Components/Validation/CoolerGroupCoolingTowerOpen.mos"
+  "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Components/Validation/CoolerGroupCoolingTower.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model validates the cooler group model
-<a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen\">
+<a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower\">
 Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen</a>
 with open-loop controls.
 </p>
 <p>
 Two model configurations are tested: one with inlet and outlet
-isolation valves, the other without any isolation valves.
+isolation valves (component <code>cooVal</code>), the other 
+without any isolation valves (component <code>cooNoVal</code>).
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
-end CoolerGroupCoolingTowerOpen;
+end CoolerGroupCoolingTower;

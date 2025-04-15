@@ -1,6 +1,15 @@
 within Buildings.Templates.Components.Coolers;
 model CoolingTower "Cooling tower model using Merkel method"
-  extends Buildings.Templates.Components.Interfaces.PartialCooler;
+  extends Buildings.Templates.Components.Interfaces.PartialCooler(
+    final typ=if typTow==Buildings.Templates.Components.Types.CoolingTower.Open then
+      Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+      elseif typTow==Buildings.Templates.Components.Types.CoolingTower.Closed then
+        Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+      else Buildings.Templates.Components.Types.Cooler.None);
+
+  parameter Buildings.Templates.Components.Types.CoolingTower typTow
+    "Cooling tower type"
+    annotation(Evaluate=true, Dialog(group="Configuration"));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
     redeclare final package Medium = MediumConWat,
@@ -99,9 +108,49 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-November 18, 2022, by Antoine Gautier:<br/>
+April 17, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a model of a single cooling tower cell with a variable speed fan.
+The model is a wrapper for
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>
+and uses Merkel's method to calculate the cooling heat flow rate of the condenser water.
+</p>
+<p>
+The user may refer to the documentation of the above model for the modeling assumptions.
+Both open-circuit and closed-circuit cooling towers are supported.
+Note that the tower basin is not modeled, nor is the spray pump,
+and only friction pressure losses are accounted for.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
+</p>
+<ul>
+<li>
+Start command: <code>y1</code>, DO signal
+</li>
+<li>
+<li>
+Fan speed command (VFD speed): <code>y</code>, AO signal
+</li>
+<li>
+Fan status (VFD status): <code>y1_actual</code>, DI signal
+</li>
+</ul>
+<h4>Model parameters</h4>
+<p>
+The design parameters are specified with an instance of
+<a href=\"modelica://Buildings.Templates.Components.Data.Cooler\">
+Buildings.Templates.Components.Data.Cooler</a>.
+Despite the fact that only friction pressure losses are accounted for,
+the parameter record includes the elevation head for 
+open-circuit cooling towers. This parameter is used to size the condenser 
+water pumps and to prepare for future support.
+</p>
 </html>"));
 end CoolingTower;
