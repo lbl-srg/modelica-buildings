@@ -76,8 +76,7 @@ First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the derivative time of a PID controller.</p>
-<h4>Main equations</h4>
+<p>This block calculates the derivative time of a PID controller as</p>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>d</sub> = 0.5 L T/(0.3 L + T),
 </p>

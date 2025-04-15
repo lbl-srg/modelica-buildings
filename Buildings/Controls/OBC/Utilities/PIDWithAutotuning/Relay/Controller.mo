@@ -160,10 +160,9 @@ annotation (defaultComponentName = "relCon",
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This block generates a relay output <code>yDif</code> which equals to
-<code>(u_m - u_s)/r</code>.
-<code>u_m</code> and <code>u_s</code>
-are the measurement and the setpoint, respectively.
+This block generates a relay output <code>yDif = (u_m - u_s)/r</code>, where
+<code>u_m</code> is the measurement,
+<code>u_s</code> is the setpoint and
 <code>r</code> is the typical range of control error.
 </p>
 <p>
@@ -176,8 +175,8 @@ Step 1: Calculate control error,
 </p>
 <ul>
 <li>
-If the parameter <code>reverseActing = true</code>, set the control error <code>err</code> to
-<code>(u_s - u_m)/r</code>, else set it to <code>(u_m - u_s)/r</code>.
+If the parameter <code>reverseActing = true</code>, set the control error <code>err = (u_s - u_m)/r</code>,
+else set <code>err = (u_m - u_s)/r</code>.
 </li>
 </ul>
 <p>
@@ -185,11 +184,11 @@ Step 2: Calculate <code>y</code> and <code>yOn</code>,
 </p>
 <ul>
 <li>
-If <code>err &gt; deaBan</code> and <code>trigger</code> is <code>true</code>,
+If <code>err &gt; deaBan</code> and <code>trigger = true</code>,
 then <code>y = yHig</code> and <code>yOn = true</code>,
 </li>
 <li>
-else if <code>err &lt; -deaBan</code> and <code>trigger</code> is <code>true</code>,
+else if <code>err &lt; -deaBan</code> and <code>trigger = true</code>,
 then <code>y = yLow</code> and <code>yOn = false</code>,
 </li>
 <li>

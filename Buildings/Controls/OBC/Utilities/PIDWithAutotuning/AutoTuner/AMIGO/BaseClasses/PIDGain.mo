@@ -82,8 +82,7 @@ First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain of a PID model.</p>
-<h4>Main equations</h4>
+<p>This block calculates the control gain of a PID model as
 <p align=\"center\" style=\"font-style:italic;\">
 k = 1/k<sub>p</sub> + (0.2 + 0.45 T/L),
 </p>

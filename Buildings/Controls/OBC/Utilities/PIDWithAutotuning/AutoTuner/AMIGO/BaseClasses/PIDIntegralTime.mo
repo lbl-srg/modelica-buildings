@@ -90,8 +90,7 @@ First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the integral time of a PID model.</p>
-<h4>Main equations</h4>
+<p>This block calculates the integral time of a PID model as
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>i</sub> = L (0.4 L + 0.8 T)/(L + 0.1 T),
 </p>

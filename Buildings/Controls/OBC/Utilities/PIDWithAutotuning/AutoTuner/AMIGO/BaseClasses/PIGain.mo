@@ -124,8 +124,7 @@ First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain of a PI model.</p>
-<h4>Main equations</h4>
+<p>This block calculates the control gain of a PI model as
 <p align=\"center\" style=\"font-style:italic;\">
 k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),
 </p>

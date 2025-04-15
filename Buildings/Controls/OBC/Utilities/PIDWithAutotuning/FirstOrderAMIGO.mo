@@ -111,7 +111,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=yHig - yRef,
     final yLow=yRef - yLow)
-    "Identify the on and off period length, the half period ratio, 
+    "Identify the on and off period length, the half period ratio,
     and the moments when the tuning starts and ends"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.ControlProcessModel
@@ -222,7 +222,7 @@ protected
     "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
-    final message="The setpoint must not change when an autotuning tuning is ongoing. 
+    final message="The setpoint must not change when an autotuning tuning is ongoing.
     This ongoing autotuning will be aborted and the control gains will not be changed.")
     "Warning message when the setpoint changes during tuning process"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
@@ -405,7 +405,7 @@ Step 2: Extract parameters of a first-order plus time-delay (FOPTD) model
 <ul>
 <li>
 Based on the inputs and outputs from the relay controller, the
-parameters of the FOPTD model is calculated (see 
+parameters of the FOPTD model is calculated (see
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification</a>).
 The FOPTD is a simplified representation of the control process.
@@ -417,7 +417,7 @@ Step 3: Calculate the PID gains
 <ul>
 <li>
 The PID gains are calculated with the Approximate M-constrained Integral Gain Optimization (AMIGO) method
-based on the FOPTD model parameters (see 
+based on the FOPTD model parameters (see
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO</a>).
 </li>
@@ -461,13 +461,13 @@ generated. The ongoing tuning process will be halted, and no adjustments will be
 to the PID parameters.
 </li>
 <li>
-The autotuning must be conducted when the simulation is in a stable state.
+The autotuning must be conducted when the process is in a stable state.
 The user should monitor changes in the independent variables and
-the control variables (e.g., mass flow rate, temperature) over time.
+the controlled variables (e.g., mass flow rate, temperature) over time.
 When the changes in the independent variables are small (e.g., less than 10%),
-and the changes in the control variables are either small or
+and the changes in the controlled variables are either small or
 exhibit regular oscillations,
-the simulation can be considered in a stable state.
+the process can be considered in a stable state.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
@@ -477,7 +477,7 @@ typical range of the control error <code>r</code>,
 the reference output for the tuning process <code>yRef</code>, the higher and
 lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
 deadband <code>deaBan</code>.
-These parameters must be specified on a case-by-case basis. 
+These parameters must be specified on a case-by-case basis.
 To set them, the user should conduct the following steps.
 </p>
 <p>
@@ -489,7 +489,7 @@ In the test run, disable the autotuning and keep the independent variables,
 including but not limited to the setpoint value, constant.
 </li>
 <li>
-During the test run, adjust <code>r</code> so that the 
+During the test run, adjust <code>r</code> so that the
 output of the relay controller, <code>rel.yDif</code>,
 stays between 0 and 1.
 </li>

@@ -126,20 +126,20 @@ First implementation.<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block processes a relay switch output signal and calculates:
+This block processes a relay switch output signal and calculates
 </p>
 <ol>
 <li>
-the length of the on period;
+the length of the on period,
 </li>
 <li>
-the length of the off period;
+the length of the off period,
 </li>
 <li>
-the normalized time delay of the responses;
+the normalized time delay of the responses, and
 </li>
 <li>
-the flags which indicate if the tuning starts and completes, respectively.
+the flags which indicate if the tuning starts and completes.
 </li>
 </ol>
 <p>
