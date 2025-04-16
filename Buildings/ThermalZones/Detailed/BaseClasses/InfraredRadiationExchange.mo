@@ -44,6 +44,8 @@ protected
     "Surface area of opaque surfaces";
   final parameter Modelica.Units.SI.Area A[nTot](each fixed=false)
     "Surface areas";
+  final parameter Modelica.Units.SI.Area ATot(fixed=false)
+    "Total surface area in the zone";
   final parameter Real kOpa[nOpa](each unit="W/K4", each fixed=false)
     "Product sigma*epsilon*A for opaque surfaces";
   final parameter Real kOpaInv[nOpa](each unit="K4/W", each fixed=false)
@@ -157,9 +159,11 @@ initial equation
   // Reflectivity for opaque surfaces
   rhoOpa = 1 .- epsOpa;
   // View factors from surface i to surface j
+  ATot = sum((A[k]) for k in 1:nTot);
   for i in 1:nTot loop
     for j in 1:nTot loop
-      F[i, j] = A[j]/sum((A[k]) for k in 1:nTot);
+      F[i, j] = if i == j then 0 else A[j]/(ATot-A[i]);
+      //F[i, j] = A[j]/ATot;
     end for;
   end for;
   for i in 1:nOpa loop
@@ -168,7 +172,7 @@ initial equation
   // Test whether the view factors add up to one, or the sum is zero in case there
   // is only one construction
   for i in 1:nTot loop
-    assert((abs(1 - sum(F[i, j] for j in 1:nTot))) < 1E-10,
+    assert(abs(1 - sum(F[i, j] for j in 1:nTot)) < 1E-10,
       "Program error: Sum 1 of view factors is " + String(sum(F[i, j] for j in
       1:nTot)));
   end for;
