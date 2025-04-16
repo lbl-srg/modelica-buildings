@@ -60,9 +60,9 @@ block FirstOrderAMIGO
     "Value to which the controller output is reset if the boolean trigger has a rising edge"
     annotation (Dialog(group="Integrator reset"));
   parameter Real setHys = 0.05*r
-    "Hysteresis for checking setpoint";
+    "Hysteresis for checking set point";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Connector of setpoint input signal"
+    "Connector of set point input signal"
     annotation (Placement(transformation(extent={{-320,-20},{-280,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
@@ -205,29 +205,29 @@ protected
     "Sums the inputs"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler sam_u_s(final y_start=0)
-    "Recording the setpoint. Not that y_start does not influence the tuning."
+    "Recording the set point. Not that y_start does not influence the tuning."
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Logical.Nand nand1
-    "Check if an autotuning is ongoing while the setpoint changes"
+    "Check if an autotuning is ongoing while the set point changes"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub3
-    "Change of the setpoint"
+    "Change of the set point"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs2
-    "Absolute value of the setpoint change"
+    "Absolute value of the set point change"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=setHys,
     final h=0.5*setHys)
-    "Check if the setpoint changes"
+    "Check if the set point changes"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
-    final message="The setpoint must not change when an autotuning tuning is ongoing.
+    final message="The set point must not change when an autotuning tuning is ongoing.
     This ongoing autotuning will be aborted and the control gains will not be changed.")
-    "Warning message when the setpoint changes during tuning process"
+    "Warning message when the set point changes during tuning process"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    "Check if the setpoint changes during an autotuning process"
+    "Check if the set point changes during an autotuning process"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the autotuning is completed or aborted"
@@ -456,13 +456,13 @@ a new request for performing autotuning will be ignored and a warning
 will be generated.
 </li>
 <li>
-If the setpoint is changed during an autotuning process, a warning will be
+If the set point is changed during an autotuning process, a warning will be
 generated. The ongoing tuning process will be halted, and no adjustments will be made
 to the PID parameters.
 </li>
 <li>
 The autotuning must be conducted when the process is in a stable state.
-The user should monitor changes in the system input variables, e.g.,
+The user should monitor changes in the disturbances of the control plant, e.g.,
 outdoor drybulb temperature, and the controller output <code>y</code> over time.
 When the changes in the independent variables are small (e.g., less than 10%) and the
 change in <code>y</code> is either small or exhibits regular oscillations,
@@ -484,8 +484,8 @@ Step 1: Conduct a &quot;test run&quot;
 </p>
 <ul>
 <li>
-In the test run, disable the autotuning and keep the system input variables 
-and the setpoint constant.
+In the test run, disable the autotuning and keep the disturbances of the control
+plant and the set point constant.
 </li>
 <li>
 During the test run, adjust <code>r</code> so that the
@@ -502,7 +502,7 @@ Step 2: Calculate <code>yRef</code> and <code>deaBan</code>
 </p>
 <ul>
 <li>
-To calculate the <code>yRef</code>, divide the setpoint by the sum of the
+To calculate the <code>yRef</code>, divide the set point by the sum of the
 minimum and the maximum values of the controller input, <code>u_m</code>, 
 during the test run.
 </li>
