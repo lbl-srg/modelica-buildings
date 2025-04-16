@@ -60,7 +60,7 @@ block FirstOrderAMIGO
     "Value to which the controller output is reset if the boolean trigger has a rising edge"
     annotation (Dialog(group="Integrator reset"));
   parameter Real setHys = 0.05*r
-    "Hysteresis for checking set point";
+    "Hysteresis for checking setpoint";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-320,-20},{-280,20}}),
@@ -456,17 +456,16 @@ a new request for performing autotuning will be ignored and a warning
 will be generated.
 </li>
 <li>
-If the set point is changed during an autotuning process, a warning will be
+If the setpoint is changed during an autotuning process, a warning will be
 generated. The ongoing tuning process will be halted, and no adjustments will be made
 to the PID parameters.
 </li>
 <li>
 The autotuning must be conducted when the process is in a stable state.
-The user should monitor changes in the independent variables and
-the controlled variables (e.g., mass flow rate, temperature) over time.
-When the changes in the independent variables are small (e.g., less than 10%),
-and the changes in the controlled variables are either small or
-exhibit regular oscillations,
+The user should monitor changes in the system input variables, e.g.,
+outdoor drybulb temperature, and the controller output <code>y</code> over time.
+When the changes in the independent variables are small (e.g., less than 10%) and the
+change in <code>y</code> is either small or exhibits regular oscillations,
 the process can be considered in a stable state.
 </li>
 </ul>
@@ -485,8 +484,8 @@ Step 1: Conduct a &quot;test run&quot;
 </p>
 <ul>
 <li>
-In the test run, disable the autotuning and keep the independent variables,
-including but not limited to the setpoint value, constant.
+In the test run, disable the autotuning and keep the system input variables 
+and the setpoint constant.
 </li>
 <li>
 During the test run, adjust <code>r</code> so that the
@@ -503,8 +502,9 @@ Step 2: Calculate <code>yRef</code> and <code>deaBan</code>
 </p>
 <ul>
 <li>
-To calculate the <code>yRef</code>, divide the set point by the sum of the
-minimum and the maximum values of the measurement during the test run.
+To calculate the <code>yRef</code>, divide the setpoint by the sum of the
+minimum and the maximum values of the controller input, <code>u_m</code>, 
+during the test run.
 </li>
 <li>
 For the <code>deaBan</code>, first divide the maximum and the
