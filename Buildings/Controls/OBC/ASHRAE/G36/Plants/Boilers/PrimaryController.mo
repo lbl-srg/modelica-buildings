@@ -493,9 +493,11 @@ model PrimaryController "Boiler plant primary loop controller"
     final min=1e-6,
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if have_priOnl and have_heaPriPum and (have_remDPRegPri or have_locDPRegPri)
+    final quantity="VolumeFlowRate",
+    final start=0)
     "Plant design hot water flow rate thorugh primary loop"
-    annotation (Dialog(group="Boiler plant configuration parameters"));
+    annotation (Dialog(group="Boiler plant configuration parameters",
+      enable=have_priOnl and have_heaPriPum and (have_remDPRegPri or have_locDPRegPri)));
 
   parameter Real boiDesFlo[nBoi](
     final min=1e-6,
@@ -947,10 +949,10 @@ protected
   parameter Integer nSta=size(staMat,1)
     "Number of boiler plant stages";
 
-  parameter Boolean have_allCon = sum(boiTyp)/nBoi==1
+  parameter Boolean have_allCon = sum(boiTyp)==1*nBoi
     "Check if all the boilers in a plant are condensing boilers";
 
-  parameter Boolean have_allNonCon = sum(boiTyp)/nBoi==2
+  parameter Boolean have_allNonCon = sum(boiTyp)==2*nBoi
     "Check if all the boilers in a plant are non-condensing boilers";
 
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes
