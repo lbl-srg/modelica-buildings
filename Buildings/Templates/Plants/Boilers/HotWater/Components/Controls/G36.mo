@@ -37,8 +37,7 @@ block G36 "Guideline 36 controller"
   final parameter Integer nBoi = cfg.nBoiCon + cfg.nBoiNon
     "Number of boilers";
 
-  // Concatenation with array-comprehension to be CDL-compliant.
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes boiTyp[nBoi] = {
+  final parameter Integer boiTyp[nBoi] = {
     if i<=cfg.nBoiCon then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler
     else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler
     for i in 1:nBoi}
