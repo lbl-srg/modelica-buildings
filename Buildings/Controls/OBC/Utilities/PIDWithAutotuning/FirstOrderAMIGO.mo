@@ -462,9 +462,10 @@ to the PID parameters.
 </li>
 <li>
 The autotuning must be conducted when the process is in a stable state.
-The user should monitor changes in the disturbances of the control plant, e.g.,
-outdoor drybulb temperature, and the controller output <code>y</code> over time.
-When the changes in the independent variables are small (e.g., less than 10%) and the
+The user should monitor changes in the disturbances affecting the system that 
+is controlled by the controller, e.g.,outdoor drybulb temperature, 
+and the controller output <code>y</code> over time.
+When the changes in those disturbances are small (e.g., less than 10%) and the
 change in <code>y</code> is either small or exhibits regular oscillations,
 the process can be considered in a stable state.
 </li>
@@ -484,8 +485,8 @@ Step 1: Conduct a &quot;test run&quot;
 </p>
 <ul>
 <li>
-In the test run, disable the autotuning and keep the disturbances of the control
-plant and the set point constant.
+In the test run, disable the autotuning and keep the disturbances and 
+the set point constant.
 </li>
 <li>
 During the test run, adjust <code>r</code> so that the
@@ -496,20 +497,24 @@ stays between 0 and 1.
 The test run must begin once the simulation reaches a stable state and end
 when it reaches another stable state.
 </li>
+<li>
+The set point value must lie within the range defined by the 
+minimum and maximum value of <code>u_m</code>.
+</li>
 </ul>
 <p>
 Step 2: Calculate <code>yRef</code> and <code>deaBan</code>
 </p>
 <ul>
 <li>
-To calculate the <code>yRef</code>, divide the set point by the sum of the
-minimum and the maximum values of the controller input, <code>u_m</code>, 
-during the test run.
+Set <code>yRef</code> to be the ratio of the difference between the set point 
+and the minimum value of <code>u_m</code> to the range of <code>u_m</code>, 
+(i.e., the difference between its maximum and minimum values), during the test run.
 </li>
 <li>
 For the <code>deaBan</code>, first divide the maximum and the
 minimum control errors during the test run by <code>r</code>.
-Then set the <code>deaBan</code> to half of the smaller absolute value
+Then set the <code>deaBan</code> to be half of the smaller absolute value
 of those two deviations.
 </li>
 </ul>
