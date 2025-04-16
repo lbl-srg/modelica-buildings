@@ -1935,8 +1935,8 @@ equation
           660,0},{660,-465},{738,-465}}, color={0,0,127}));
   connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,640},{
           -810,640},{-810,-463},{738,-463}}, color={255,0,255}));
-  connect(disChi.yChiWatIsoVal, yChiWatIsoVal) annotation (Line(points={{762,-465},
-          {810,-465},{810,0},{940,0}},        color={0,0,127}));
+  connect(disChi.yChiWatIsoVal, yChiWatIsoVal) annotation (Line(points={{762,
+          -462},{810,-462},{810,0},{940,0}},  color={0,0,127}));
   connect(uChiWatPum, disChi.uConWatReq) annotation (Line(points={{-920,574},{
           -790,574},{-790,-468},{738,-468}}, color={255,0,255}));
   connect(pro4.y, disChi.uConWatIsoVal) annotation (Line(points={{682,240},{700,
@@ -2021,6 +2021,9 @@ equation
           574},{-790,574},{-790,531},{434,531}}, color={255,0,255}));
   connect(uChiWatIsoVal, wseSta.uChiIsoVal) annotation (Line(points={{-920,-228},
           {-764,-228},{-764,302},{-704,302}}, color={0,0,127}));
+  connect(disChi.y1ChiWatIsoVal, wseSta.u1ChiIsoVal) annotation (Line(points={{
+          762,-464},{800,-464},{800,-340},{-746,-340},{-746,306},{-704,306}},
+        color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),

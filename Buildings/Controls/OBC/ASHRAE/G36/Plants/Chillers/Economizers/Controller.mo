@@ -407,7 +407,7 @@ protected
     "Check if the economizer-only bypass valve should open"
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
 
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold valOpe[nchi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold valOpe[nChi](
     final t=fill(0.25, nChi),
     final h=fill(hysVal,nChi))
     if have_priOnl and have_parChi
@@ -415,7 +415,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyOpeVal(
-    final nin=nchi) if have_priOnl and have_parChi
+    final nin=nChi) if have_priOnl and have_parChi
     "Check if any commanded valve has been open greater than the threshold"
     annotation (Placement(transformation(extent={{-100,-230},{-80,-210}})));
 
