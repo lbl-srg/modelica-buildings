@@ -62,7 +62,7 @@ block FirstOrderAMIGO
   parameter Real setHys = 0.05*r
     "Hysteresis for checking set point";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Connector of setpoint input signal"
+    "Connector of set point input signal"
     annotation (Placement(transformation(extent={{-320,-20},{-280,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
@@ -205,29 +205,29 @@ protected
     "Sums the inputs"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler sam_u_s(final y_start=0)
-    "Recording the setpoint. Not that y_start does not influence the tuning."
+    "Recording the set point. Not that y_start does not influence the tuning."
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Logical.Nand nand1
-    "Check if an autotuning is ongoing while the setpoint changes"
+    "Check if an autotuning is ongoing while the set point changes"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub3
-    "Change of the setpoint"
+    "Change of the set point"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs2
-    "Absolute value of the setpoint change"
+    "Absolute value of the set point change"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=setHys,
     final h=0.5*setHys)
-    "Check if the setpoint changes"
+    "Check if the set point changes"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
-    final message="The setpoint must not change when an autotuning tuning is ongoing.
+    final message="The set point must not change when an autotuning tuning is ongoing.
     This ongoing autotuning will be aborted and the control gains will not be changed.")
-    "Warning message when the setpoint changes during tuning process"
+    "Warning message when the set point changes during tuning process"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    "Check if the setpoint changes during an autotuning process"
+    "Check if the set point changes during an autotuning process"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the autotuning is completed or aborted"
@@ -462,11 +462,11 @@ to the PID parameters.
 </li>
 <li>
 The autotuning must be conducted when the process is in a stable state.
-The user should monitor changes in the independent variables and
-the controlled variables (e.g., mass flow rate, temperature) over time.
-When the changes in the independent variables are small (e.g., less than 10%),
-and the changes in the controlled variables are either small or
-exhibit regular oscillations,
+The user should monitor changes in the disturbances affecting the system that 
+is controlled by the controller, e.g.,outdoor drybulb temperature, 
+and the controller output <code>y</code> over time.
+When the changes in those disturbances are small (e.g., less than 10%) and the
+change in <code>y</code> is either small or exhibits regular oscillations,
 the process can be considered in a stable state.
 </li>
 </ul>
@@ -485,8 +485,8 @@ Step 1: Conduct a &quot;test run&quot;
 </p>
 <ul>
 <li>
-In the test run, disable the autotuning and keep the independent variables,
-including but not limited to the setpoint value, constant.
+In the test run, disable the autotuning and keep the disturbances and 
+the set point constant.
 </li>
 <li>
 During the test run, adjust <code>r</code> so that the
@@ -497,19 +497,24 @@ stays between 0 and 1.
 The test run must begin once the simulation reaches a stable state and end
 when it reaches another stable state.
 </li>
+<li>
+The set point value must lie within the range defined by the 
+minimum and maximum value of <code>u_m</code>.
+</li>
 </ul>
 <p>
 Step 2: Calculate <code>yRef</code> and <code>deaBan</code>
 </p>
 <ul>
 <li>
-To calculate the <code>yRef</code>, divide the set point by the sum of the
-minimum and the maximum values of the measurement during the test run.
+Set <code>yRef</code> to be the ratio of the difference between the set point 
+and the minimum value of <code>u_m</code> to the range of <code>u_m</code>, 
+(i.e., the difference between its maximum and minimum values), during the test run.
 </li>
 <li>
 For the <code>deaBan</code>, first divide the maximum and the
 minimum control errors during the test run by <code>r</code>.
-Then set the <code>deaBan</code> to half of the smaller absolute value
+Then set the <code>deaBan</code> to be half of the smaller absolute value
 of those two deviations.
 </li>
 </ul>
