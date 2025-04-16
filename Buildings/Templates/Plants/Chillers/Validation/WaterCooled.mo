@@ -44,8 +44,6 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     nAirHan=1,
     final energyDynamics=energyDynamics,
     final dat=datAll.pla,
-    typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    have_pumConWatVar_select=true,
     chi(
       have_senTChiWatChiSup_select=true,
       have_senTChiWatChiRet=true,

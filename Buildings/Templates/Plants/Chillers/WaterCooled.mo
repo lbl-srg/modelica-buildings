@@ -1,31 +1,35 @@
 within Buildings.Templates.Plants.Chillers;
 model WaterCooled "Water-cooled chiller plant"
-  /* FIXME: Add comment for the following bindings and make them final after testing.
-  (This is for plant configurations not yet supported by the controller implementation.)
+  /* 
+  The following parameters have final bindings due to the limited plant configurations
+  supported by the controller. These bindings can be removed when the controller
+  provides additional configuration support.
   typArrChi_select
   typDisChiWat
   typArrPumChiWatPri_select
   have_pumChiWatPriVar_select
   chi(typValChiWatChiIso_select
   typArrPumConWat_select
+  
+  And for the component coo:
+  typValCooInlIso
   */
-  extends
-    Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
+  extends Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Water,
     final typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
     final typCoo=coo.typCoo,
     final typValCooInlIso=coo.typValCooInlIso,
     final typValCooOutIso=coo.typValCooOutIso,
-    typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
-    typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
-    typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    have_pumChiWatPriVar_select=false,
-    chi(typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
-    typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered);
+    final typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+    final typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
+    final typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    final have_pumChiWatPriVar_select=false,
+    chi(final typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
+    final typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered);
 
   // Coolers
-  replaceable Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower
-    coo constrainedby
+  replaceable Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower coo
+    constrainedby
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialCoolerGroup(
     redeclare final package MediumConWat = MediumCon,
     final have_varCom=true,
@@ -34,7 +38,8 @@ model WaterCooled "Water-cooled chiller plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
-    final text_flip=true)
+    final text_flip=true,
+    final typValCooInlIso=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)
     "Coolers"
     annotation (Dialog(group="Coolers"), Placement(transformation(extent={{-118,34},
             {-282,94}})));

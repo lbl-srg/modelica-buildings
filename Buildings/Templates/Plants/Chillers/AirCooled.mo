@@ -1,15 +1,16 @@
 within Buildings.Templates.Plants.Chillers;
 model AirCooled "Air-cooled chiller plant"
-  /* FIXME: Add comment for the following bindings and make them final after testing.
-  (This is for plant configurations not yet supported by the controller implementation.)
+  /* 
+  The following parameters have final bindings due to the limited plant configurations
+  supported by the controller. These bindings can be removed when the controller
+  provides additional configuration support.
   typArrChi_select
   typDisChiWat
   typArrPumChiWatPri_select
   have_pumChiWatPriVar_select
   chi(typValChiWatChiIso_select
   */
-  extends
-    Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
+  extends Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Air,
     redeclare final Buildings.Templates.Plants.Chillers.Components.Economizers.None eco,
     ctl(final typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn),
@@ -19,11 +20,11 @@ model AirCooled "Air-cooled chiller plant"
     final nPumConWat=0,
     final typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
     final typValCooOutIso=Buildings.Templates.Components.Types.Valve.None,
-    typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
-    typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
-    typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    have_pumChiWatPriVar_select=false,
-    chi(typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating));
+    final typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+    final typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
+    final typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    final have_pumChiWatPriVar_select=false,
+    chi(final typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating));
   Buildings.Fluid.Sources.MassFlowSource_WeatherData souAir[nChi](
     redeclare each final package Medium = MediumCon,
     each final nPorts=1,

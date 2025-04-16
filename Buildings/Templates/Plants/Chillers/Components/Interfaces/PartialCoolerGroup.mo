@@ -79,8 +79,7 @@ partial model PartialCoolerGroup
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nCoo),
     dpFixed_nominal=if typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None then
       dat.dpConWatFriCoo_nominal else fill(0, nCoo))
-    "Inlet isolation valve parameters"
-    annotation (Dialog(enable=false));
+    "Inlet isolation valve parameters";
   final parameter Buildings.Templates.Components.Data.Valve datValCooOutIso[nCoo](
     final typ=fill(typValCooOutIso, nCoo),
     final m_flow_nominal=dat.mConWatCoo_flow_nominal,
@@ -89,10 +88,9 @@ partial model PartialCoolerGroup
       if typValCooInlIso==Buildings.Templates.Components.Types.Valve.None and
       typValCooOutIso<>Buildings.Templates.Components.Types.Valve.None then
       dat.dpConWatFriCoo_nominal else fill(0, nCoo))
-    "Outlet isolation valve parameters"
-    annotation (Dialog(enable=false));
+    "Outlet isolation valve parameters";
 
-  parameter Modelica.Units.SI.PressureDifference dpTotCoo_nominal[nCoo] =
+  final parameter Modelica.Units.SI.PressureDifference dpTotCoo_nominal[nCoo] =
     (if typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None then
     datValCooInlIso.dpValve_nominal else fill(0, nCoo)) .+
     (if typValCooOutIso<>Buildings.Templates.Components.Types.Valve.None then
