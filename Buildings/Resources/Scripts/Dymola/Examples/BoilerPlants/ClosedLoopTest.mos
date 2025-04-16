@@ -12,7 +12,7 @@ createPlot(id=2, position={0, 0, 1123, 809}, y={"secLoo2.conPID.u_s", "secLoo2.c
 createPlot(id=2, position={0, 0, 1123, 809}, y={"secLoo2.conPID.y"}, range={86000.0, 174000.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
 
 createPlot(id=3, position={0, 0, 1500, 978}, y={"conBoiPri.yPla"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={0, 0, 1500, 136}, y={"conBoiPri.TPlaHotWatSupSet", "boiPlaPri.ySupTem"}, range={510000.0, 700000.0, 250.0, 350.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1500, 136}, y={"conBoiPri.TBoiHotWatSupSet[1]", "boiPlaPri.ySupTem"}, range={510000.0, 700000.0, 250.0, 350.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=3, position={0, 0, 1500, 135}, y={"conBoiPri.staSetCon.ySta"}, range={510000.0, 700000.0, -5.0, 5.0}, grid=true, subPlot=3, colors={{28,108,200}});
 createPlot(id=3, position={0, 0, 1500, 136}, y={"conBoiPri.yHotWatIsoVal[1]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
 createPlot(id=3, position={0, 0, 1500, 135}, y={"conBoiPri.yBoi[1]"}, range={510000.0, 700000.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});

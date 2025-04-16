@@ -11,7 +11,7 @@ model ClosedLoopTest "Closed loop testing model"
   parameter Real boiDesCap(
     final unit="W",
     displayUnit="W",
-    final quantity="Power")= 3000000
+    final quantity="Power")= 3000000*1.2
     "Total boiler plant design capacity";
 
   parameter Real boiCapRat(
