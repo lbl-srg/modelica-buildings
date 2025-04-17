@@ -11,7 +11,7 @@ model ClosedLoopTest "Closed loop testing model"
   parameter Real boiDesCap(
     final unit="W",
     displayUnit="W",
-    final quantity="Power")= 3000000*1.2
+    final quantity="Power")= 3000000*1.5
     "Total boiler plant design capacity";
 
   parameter Real boiCapRat(
@@ -29,10 +29,12 @@ model ClosedLoopTest "Closed loop testing model"
     final TBoiRet_min=323.15,
     final dpValve_nominal_value(displayUnit="Pa") = 2000,
     final dpFixed_nominal_value(displayUnit="Pa") = 1000,
-    final controllerTypeBoi1=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    final controllerTypeBoi1=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final kBoi1=0.1,
-    final controllerTypeBoi2=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final kBoi2=0.1)
+    TiBoi1=30,
+    final controllerTypeBoi2=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final kBoi2=0.1,
+    TiBoi2=30)
     "Boiler plant primary loop model"
     annotation (Placement(transformation(extent={{40,-20},{60,12}})));
 
@@ -143,6 +145,26 @@ model ClosedLoopTest "Closed loop testing model"
     "Unconditioned zone temperature"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
+  Fluid.FixedResistances.Junction           spl4(
+    redeclare package Medium = MediumW,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final m_flow_nominal={secLoo2.mRad_flow_nominal + secLoo1.mRad_flow_nominal,
+        -secLoo2.mRad_flow_nominal,-secLoo1.mRad_flow_nominal},
+    final dp_nominal={0,0,0})
+    "Splitter"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={46,38})));
+  Fluid.FixedResistances.Junction           spl1(
+    redeclare package Medium = MediumW,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final m_flow_nominal={secLoo1.mRad_flow_nominal,-secLoo2.mRad_flow_nominal -
+        secLoo1.mRad_flow_nominal,secLoo2.mRad_flow_nominal},
+    final dp_nominal={0,0,0})
+    "Splitter"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=270,
+      origin={130,70})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3[2](
     final k=fill(true,2))
@@ -244,10 +266,6 @@ equation
           {0,-14},{0,-12},{38,-12}},      color={0,0,127}));
   connect(con3[1].y, conBoiPri.uSchEna) annotation (Line(points={{-98,0},{-90,0},
           {-90,38},{-42,38}}, color={255,0,255}));
-  connect(boiPlaPri.port_b[2], secLoo1.port_a) annotation (Line(points={{43,10.25},
-          {43,50},{82,50},{82,134},{46,134},{46,140}}, color={0,127,255}));
-  connect(boiPlaPri.port_a[2], secLoo1.port_b) annotation (Line(points={{57,10.25},
-          {57,54},{70,54},{70,132},{54,132},{54,140}}, color={0,127,255}));
   connect(secLoo1.nReq, addInt.u1) annotation (Line(points={{62,156},{84,156},{84,
           36},{138,36}}, color={255,127,0}));
   connect(secLoo2.nReq, addInt.u2) annotation (Line(points={{62,76},{80,76},{80,
@@ -308,10 +326,6 @@ equation
           {-30,190},{30,190},{30,156},{38,156}}, color={0,0,127}));
   connect(gai1.y, secLoo2.uHotWat_flow) annotation (Line(points={{-58,100},{30,100},
           {30,76},{38,76}}, color={0,0,127}));
-  connect(boiPlaPri.port_b[1], secLoo2.port_a) annotation (Line(points={{43,9.75},
-          {43,56},{46,56},{46,60}}, color={0,127,255}));
-  connect(boiPlaPri.port_a[1], secLoo2.port_b) annotation (Line(points={{57,9.75},
-          {58,9.75},{58,56},{54,56},{54,60}}, color={0,127,255}));
   connect(secLoo1.yPumSpe,conPumSec1. uPumSpe) annotation (Line(points={{62,148},
           {76,148},{76,184},{-28,184},{-28,152},{-20,152},{-20,150},{-12,150}},
         color={0,0,127}));
@@ -319,6 +333,18 @@ equation
           {76,68},{76,94},{-24,94},{-24,62},{-10,62}}, color={0,0,127}));
   connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,14},
           {70,14},{70,-46},{-54,-46},{-54,10},{-42,10}}, color={0,0,127}));
+  connect(boiPlaPri.port_b, spl4.port_1) annotation (Line(points={{43,10},{43,24},
+          {46,24},{46,28}}, color={0,127,255}));
+  connect(spl4.port_2, secLoo2.port_a)
+    annotation (Line(points={{46,48},{46,60}}, color={0,127,255}));
+  connect(spl4.port_3, secLoo1.port_a) annotation (Line(points={{56,38},{82,38},
+          {82,134},{46,134},{46,140}}, color={0,127,255}));
+  connect(secLoo1.port_b, spl1.port_1) annotation (Line(points={{54,140},{54,136},
+          {86,136},{86,86},{130,86},{130,80}}, color={0,127,255}));
+  connect(spl1.port_3, secLoo2.port_b) annotation (Line(points={{120,70},{114,70},
+          {114,34},{78,34},{78,54},{54,54},{54,60}}, color={0,127,255}));
+  connect(spl1.port_2, boiPlaPri.port_a) annotation (Line(points={{130,60},{130,
+          22},{57,22},{57,10}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This model couples the boiler plant model for a primary-secondary, condensing boiler
@@ -353,7 +379,7 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=86400,
+      StartTime=43200,
       StopTime=172800,
       Interval=60,
       Tolerance=1e-06,

@@ -50,31 +50,27 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.And and6[nBoi] if reqAct
     "Change current index signal to true when change process is triggered"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
     final nout=nBoi) "Replicate signal for array logic processing"
-    annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and7[nBoi] if not reqAct
-    "Modify only current index signal on input valve status array "
-    annotation (Placement(transformation(extent={{120,30},{140,50}})));
+    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1[nBoi] if not reqAct
     "Generate true array with false value only for current index"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2[nBoi] if not reqAct
     "Not block "
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or3[nBoi] if not reqAct
     "Change current index signal to false when change process is triggered"
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if upstream changes have been completed and current process is triggered"
-    annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
+    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or1[nBoi] if reqAct
     "Modify only current index signal on input valve status array"
@@ -82,12 +78,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nBoi]
     "Check next enabling isolation valve"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
     final nout=nBoi)
     "Replicate integer input"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not3[nBoi]
     "Logical not"
@@ -109,30 +105,36 @@ protected
     "Logical or"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
-    final nin=nBoi)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(nin=(nBoi+1))
     "Logical and"
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and5
-    "Check if the isolation valve has been fully open"
-    annotation (Placement(transformation(extent={{140,130},{160,150}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nBoi](
     final k=boiInd)
     "Boiler index array"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
+  CDL.Logical.Latch lat
+    annotation (Placement(transformation(extent={{144,130},{164,150}})));
+  CDL.Logical.Edge edg
+    annotation (Placement(transformation(extent={{100,124},{120,144}})));
+  CDL.Logical.Edge edg2 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={132,200})));
+  CDL.Logical.And                        and1[nBoi] if not reqAct
+    "Change current index signal to true when change process is triggered"
+    annotation (Placement(transformation(extent={{72,30},{92,50}})));
 equation
 
   connect(chaPro, and2.u2)
-    annotation (Line(points={{-180,-178},{-82,-178}}, color={255,0,255}));
+    annotation (Line(points={{-180,-178},{-102,-178}},color={255,0,255}));
 
   connect(nexChaBoi, intRep.u)
-    annotation (Line(points={{-180,10},{-82,10}}, color={255,127,0}));
+    annotation (Line(points={{-180,10},{-102,10}},color={255,127,0}));
 
   connect(intRep.y, intEqu.u1)
-    annotation (Line(points={{-58,10},{-42,10}}, color={255,127,0}));
+    annotation (Line(points={{-78,10},{-62,10}}, color={255,127,0}));
 
   connect(not4.y, and4.u2)
     annotation (Line(points={{-18,160},{-12,160},{-12,182},{-2,182}},
@@ -148,58 +150,66 @@ equation
     annotation (Line(points={{22,190},{30,190},{30,212},{38,212}},
       color={255,0,255}));
 
-  connect(and5.y,yEnaHotWatIsoVal)
-    annotation (Line(points={{162,140},{200,140}}, color={255,0,255}));
-
-  connect(or2.y, mulAnd1.u)
-    annotation (Line(points={{62,220},{78,220}}, color={255,0,255}));
-
   connect(conInt.y, intEqu.u2)
-    annotation (Line(points={{-58,-20},{-50,-20},{-50,2},{-42,2}},
+    annotation (Line(points={{-78,-20},{-62,-20},{-62,2}},
       color={255,127,0}));
 
 
-  connect(uUpsDevSta, and2.u1) annotation (Line(points={{-180,-140},{-100,-140},
-          {-100,-170},{-82,-170}},color={255,0,255}));
+  connect(uUpsDevSta, and2.u1) annotation (Line(points={{-180,-140},{-120,-140},
+          {-120,-170},{-102,-170}},
+                                  color={255,0,255}));
 
-  connect(yHotWatIsoVal, and3.u1) annotation (Line(points={{200,0},{160,0},{160,
+  connect(yHotWatIsoVal, and3.u1) annotation (Line(points={{200,0},{168,0},{168,
           110},{-80,110},{-80,220},{-2,220}}, color={255,0,255}));
-  connect(yHotWatIsoVal, not3.u) annotation (Line(points={{200,0},{160,0},{160,110},
+  connect(yHotWatIsoVal, not3.u) annotation (Line(points={{200,0},{168,0},{168,110},
           {-80,110},{-80,190},{-42,190}}, color={255,0,255}));
-  connect(uHotWatIsoVal, and3.u2) annotation (Line(points={{-180,-100},{-134,-100},
-          {-134,212},{-2,212}}, color={255,0,255}));
-  connect(uHotWatIsoVal, not4.u) annotation (Line(points={{-180,-100},{-134,-100},
-          {-134,160},{-42,160}}, color={255,0,255}));
-  connect(mulAnd1.y, and5.u1) annotation (Line(points={{102,220},{128,220},{128,
-          140},{138,140}}, color={255,0,255}));
-  connect(uUpsDevSta, and5.u2) annotation (Line(points={{-180,-140},{-100,-140},
-          {-100,132},{138,132}}, color={255,0,255}));
-  connect(uHotWatIsoVal, or1.u2) annotation (Line(points={{-180,-100},{110,-100},
-          {110,-48},{118,-48}}, color={255,0,255}));
+  connect(uHotWatIsoVal, and3.u2) annotation (Line(points={{-180,-100},{-140,-100},
+          {-140,212},{-2,212}}, color={255,0,255}));
+  connect(uHotWatIsoVal, not4.u) annotation (Line(points={{-180,-100},{-140,-100},
+          {-140,160},{-42,160}}, color={255,0,255}));
   connect(and6.y, or1.u1)
-    annotation (Line(points={{42,-40},{118,-40}}, color={255,0,255}));
+    annotation (Line(points={{12,-40},{118,-40}}, color={255,0,255}));
   connect(booScaRep1.u, and2.y)
-    annotation (Line(points={{-42,-170},{-58,-170}}, color={255,0,255}));
-  connect(booScaRep1.y, and6.u2) annotation (Line(points={{-18,-170},{0,-170},{0,
-          -48},{18,-48}}, color={255,0,255}));
-  connect(or1.y, yHotWatIsoVal) annotation (Line(points={{142,-40},{160,-40},{160,
-          0},{200,0}}, color={255,0,255}));
-  connect(and7.y, yHotWatIsoVal) annotation (Line(points={{142,40},{160,40},{160,
-          0},{200,0}}, color={255,0,255}));
-  connect(uHotWatIsoVal, and7.u2) annotation (Line(points={{-180,-100},{110,-100},
-          {110,32},{118,32}}, color={255,0,255}));
-  connect(intEqu.y, not1.u) annotation (Line(points={{-18,10},{-10,10},{-10,40},
-          {18,40}}, color={255,0,255}));
-  connect(booScaRep1.y, not2.u) annotation (Line(points={{-18,-170},{0,-170},{0,
-          10},{18,10}}, color={255,0,255}));
-  connect(not2.y, or3.u2) annotation (Line(points={{42,10},{60,10},{60,32},{78,32}},
+    annotation (Line(points={{-62,-170},{-78,-170}}, color={255,0,255}));
+  connect(booScaRep1.y, and6.u2) annotation (Line(points={{-38,-170},{-20,-170},
+          {-20,-48},{-12,-48}},
+                          color={255,0,255}));
+  connect(intEqu.y, not1.u) annotation (Line(points={{-38,10},{-30,10},{-30,40},
+          {-12,40}},color={255,0,255}));
+  connect(booScaRep1.y, not2.u) annotation (Line(points={{-38,-170},{-20,-170},{
+          -20,0},{-12,0}},
+                        color={255,0,255}));
+  connect(not2.y, or3.u2) annotation (Line(points={{12,0},{20,0},{20,32},{28,32}},
         color={255,0,255}));
   connect(not1.y, or3.u1)
-    annotation (Line(points={{42,40},{78,40}}, color={255,0,255}));
-  connect(intEqu.y, and6.u1) annotation (Line(points={{-18,10},{-10,10},{-10,-40},
-          {18,-40}}, color={255,0,255}));
-  connect(or3.y, and7.u1)
-    annotation (Line(points={{102,40},{118,40}}, color={255,0,255}));
+    annotation (Line(points={{12,40},{28,40}}, color={255,0,255}));
+  connect(intEqu.y, and6.u1) annotation (Line(points={{-38,10},{-30,10},{-30,-40},
+          {-12,-40}},color={255,0,255}));
+  connect(lat.y, yEnaHotWatIsoVal)
+    annotation (Line(points={{166,140},{200,140}}, color={255,0,255}));
+  connect(uUpsDevSta, edg.u) annotation (Line(points={{-180,-140},{-120,-140},{-120,
+          134},{98,134}}, color={255,0,255}));
+  connect(edg.y, lat.clr)
+    annotation (Line(points={{122,134},{142,134}}, color={255,0,255}));
+  connect(mulAnd1.y, edg2.u) annotation (Line(points={{102,220},{132,220},{132,212}},
+        color={255,0,255}));
+  connect(edg2.y, lat.u) annotation (Line(points={{132,188},{132,140},{142,140}},
+        color={255,0,255}));
+  connect(uUpsDevSta, mulAnd1.u[1]) annotation (Line(points={{-180,-140},{-120,-140},
+          {-120,134},{68,134},{68,212},{70,212},{70,220},{78,220}},       color
+        ={255,0,255}));
+  connect(or2.y, mulAnd1.u[2:nBoi+1]) annotation (Line(points={{62,220},{70,220},{70,
+          220},{78,220}},       color={255,0,255}));
+  connect(uHotWatIsoVal, or1.u2) annotation (Line(points={{-180,-100},{110,-100},
+          {110,-48},{118,-48}}, color={255,0,255}));
+  connect(or1.y, yHotWatIsoVal) annotation (Line(points={{142,-40},{170,-40},{170,
+          0},{200,0}}, color={255,0,255}));
+  connect(or3.y, and1.u1)
+    annotation (Line(points={{52,40},{70,40}}, color={255,0,255}));
+  connect(uHotWatIsoVal, and1.u2) annotation (Line(points={{-180,-100},{60,-100},
+          {60,32},{70,32}}, color={255,0,255}));
+  connect(and1.y, yHotWatIsoVal) annotation (Line(points={{94,40},{168,40},{168,
+          0},{200,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="hotWatIsoVal",
   Diagram(
