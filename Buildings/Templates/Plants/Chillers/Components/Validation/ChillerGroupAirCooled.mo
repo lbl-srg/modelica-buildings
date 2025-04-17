@@ -262,7 +262,8 @@ equation
     annotation (Line(points={{68,-80},{10,-80}}, color={0,127,255}));
   connect(bouChiWat.ports[1], loa.port_b)
     annotation (Line(points={{40,-90},{40,-80},{68,-80}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-260,-140},{260,220}})),
+  annotation (Diagram(coordinateSystem(extent={{-260,-140},{260,220}}),
+        graphics={Bitmap(extent={{432,-30},{-280,-30}}, fileName="")}),
   experiment(
     StopTime=2000,
     Tolerance=1e-06),

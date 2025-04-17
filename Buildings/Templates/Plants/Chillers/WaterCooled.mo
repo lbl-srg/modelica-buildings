@@ -16,6 +16,7 @@ model WaterCooled "Water-cooled chiller plant"
   */
   extends Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Water,
+    redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Controls.G36 ctl,
     final typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
     final typCoo=coo.typCoo,
     final typValCooInlIso=coo.typValCooInlIso,

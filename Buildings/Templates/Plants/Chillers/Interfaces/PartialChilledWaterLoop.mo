@@ -300,7 +300,7 @@ partial model PartialChilledWaterLoop
     Placement(transformation(extent={{-40,-262},{40,-242}})));
 
   // Controls
-  replaceable Buildings.Templates.Plants.Chillers.Components.Controls.OpenLoop ctl
+  replaceable Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController ctl
     constrainedby
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController(
     final nAirHan=nAirHan,

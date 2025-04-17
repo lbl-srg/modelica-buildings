@@ -225,11 +225,11 @@ record Controller
        and (cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
        and not cfg.have_senDpChiWatRemWir)));
   // FIXME #2299: For dedicated CW pumps this should be a 2-D array [nSta, nPumConWat] which is more aligned with §5.20.9.6.
-  parameter Real yPumConWatSta_nominal[nSta](
+  parameter Real yPumConWatSta_nominal[:](
     each final unit="1",
     each final min=0,
     each final max=1,
-    each start=1)
+    start=fill(1, nSta))
     "CW pump speed delivering design CW flow through chillers and WSE - Each plant stage"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
@@ -268,11 +268,11 @@ record Controller
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
       cfg.typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump));
-  parameter Real yPumChiWatPriSta_nominal[nSta](
+  parameter Real yPumChiWatPriSta_nominal[:](
     each final unit="1",
     each final min=0,
     each final max=1,
-    each start=1)
+    start=fill(1, nSta))
     "Primary CHW pump speed delivering design flow through chillers - Each plant stage"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
@@ -280,11 +280,11 @@ record Controller
         ((cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
         or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2)
         and cfg.have_pumChiWatPriVar)));
-  parameter Real yPumChiWatPriSta_min[nSta](
+  parameter Real yPumChiWatPriSta_min[:](
     each final unit="1",
     each final min=0,
     each final max=1,
-    each start=0.3)
+    start=fill(0.3, nSta))
     "Primary CHW pump speed delivering minimum flow through chillers - Each plant stage"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
@@ -338,7 +338,7 @@ record Controller
     "Number of units to be staged, including chillers and optional WSE"
     annotation (Evaluate=true,
     Dialog(group="Plant staging"));
-  parameter Real staCoo[nSta](
+  parameter Real staCoo[:](
     each max=cfg.nCoo,
     start=fill(0, nSta))
     "Quantity of enabled cooler units (e.g. cooling tower cells) at each plant Stage"

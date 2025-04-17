@@ -137,8 +137,7 @@ partial block PartialController "Interface class for plant controller"
 
   final parameter Real sta[:,:]=dat.sta
     "Staging matrix with plant stage as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
-    annotation (Evaluate=true, Dialog(group="Plant staging",
-    enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36));
+    annotation (Evaluate=true, Dialog(group="Plant staging"));
   final parameter Integer nUniSta=dat.nUniSta
     "Number of units to stage, including chillers and optional WSE"
     annotation (Evaluate=true, Dialog(group="Plant staging"));

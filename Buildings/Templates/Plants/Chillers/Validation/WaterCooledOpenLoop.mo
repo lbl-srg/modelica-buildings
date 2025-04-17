@@ -21,12 +21,8 @@ model WaterCooledOpenLoop
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
-    typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     have_pumConWatVar_select=true,
-    ctl(
-      typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
-      typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature,
-      have_senLevCoo=false),
+    redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Controls.OpenLoop ctl,
     chi(typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
     redeclare replaceable
       Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower
