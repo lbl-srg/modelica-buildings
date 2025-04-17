@@ -462,8 +462,8 @@ to the PID parameters.
 </li>
 <li>
 The autotuning must be conducted when the process is in a stable state.
-The user should monitor changes in the disturbances affecting the system that 
-is controlled by the controller, e.g.,outdoor drybulb temperature, 
+The user should monitor changes in the disturbances affecting the system that
+is controlled by the controller, e.g.,outdoor drybulb temperature,
 and the controller output <code>y</code> over time.
 When the changes in those disturbances are small (e.g., less than 10%) and the
 change in <code>y</code> is either small or exhibits regular oscillations,
@@ -485,7 +485,7 @@ Step 1: Conduct a &quot;test run&quot;
 </p>
 <ul>
 <li>
-In the test run, disable the autotuning and keep the disturbances and 
+In the test run, disable the autotuning and keep the disturbances and
 the set point constant.
 </li>
 <li>
@@ -498,7 +498,7 @@ The test run must begin once the simulation reaches a stable state and end
 when it reaches another stable state.
 </li>
 <li>
-The set point value must lie within the range defined by the 
+The set point value must lie within the range defined by the
 minimum and maximum value of <code>u_m</code>.
 </li>
 </ul>
@@ -507,8 +507,8 @@ Step 2: Calculate <code>yRef</code> and <code>deaBan</code>
 </p>
 <ul>
 <li>
-Set <code>yRef</code> to be the ratio of the difference between the set point 
-and the minimum value of <code>u_m</code> to the range of <code>u_m</code>, 
+Set <code>yRef</code> to be the ratio of the difference between the set point
+and the minimum value of <code>u_m</code> to the range of <code>u_m</code>,
 (i.e., the difference between its maximum and minimum values), during the test run.
 </li>
 <li>
