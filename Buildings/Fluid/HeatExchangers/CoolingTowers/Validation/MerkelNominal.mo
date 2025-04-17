@@ -24,7 +24,8 @@ model MerkelNominal
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFan(k=1) "Fan speed"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWetBul(k=tow.TAirInWB_nominal) "TWB"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWetBul(k=tow.TAirInWB_nominal)
+    "Wetbulb temperature"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare final package Medium = Medium_W,
