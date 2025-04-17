@@ -12,6 +12,7 @@ uses(Modelica(version="4.0.0")),
 conversion(
   noneFromVersion="11.1.0",
   noneFromVersion="11.0.0",
+  noneFromVersion="11.1.0",
   from(
     version={"10.0.0", "10.1.0"},
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_10_to_11.0.0.mos"),
