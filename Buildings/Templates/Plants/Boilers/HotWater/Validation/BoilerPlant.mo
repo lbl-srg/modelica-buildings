@@ -42,14 +42,14 @@ model BoilerPlant
 
   UserProject.BASControlPoints sigBAS "BAS control points"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-  Fluid.HeatExchangers.Heater_T           loaHeaWat(
+  Fluid.HeatExchangers.SensibleCooler_T   loaHeaWat(
     redeclare final package Medium = Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     show_T=true,
     final dp_nominal=0,
     final energyDynamics=energyDynamics,
     tau=300,
-    QMax_flow=pla.cap_nominal)
+    QMin_flow=-pla.cap_nominal)
     "HW system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage valDisHeaWat(
