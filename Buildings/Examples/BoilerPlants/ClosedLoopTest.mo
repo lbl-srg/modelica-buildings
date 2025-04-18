@@ -34,7 +34,9 @@ model ClosedLoopTest "Closed loop testing model"
     TiBoi1=30,
     final controllerTypeBoi2=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final kBoi2=0.1,
-    TiBoi2=30)
+    TiBoi2=30,
+    pum2(dp_nominal=5000),
+    pum1(dp_nominal=5000))
     "Boiler plant primary loop model"
     annotation (Placement(transformation(extent={{40,-20},{60,12}})));
 
@@ -83,7 +85,7 @@ model ClosedLoopTest "Closed loop testing model"
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo2(
     final mRad_flow_nominal=1.25*0.6*30,
-    final dpRad_nominal(displayUnit="Pa") = 40000,
+    final dpRad_nominal(displayUnit="bar") = 30000,
     conPID(
       final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
       final k=0.05,
@@ -93,7 +95,7 @@ model ClosedLoopTest "Closed loop testing model"
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo1(
     final mRad_flow_nominal=1.25*0.4*30,
-    final dpRad_nominal(displayUnit="Pa") = 40000,
+    final dpRad_nominal(displayUnit="bar") = 30000,
     conPID(
       final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
       final k=0.05,
@@ -209,6 +211,11 @@ protected
     final k=0.6)
     "Split load between two secondary loops"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+protected
+  Controls.OBC.CDL.Logical.Sources.Constant           con1[2](final k=fill(
+        false, 2))
+    "Constant boiler availability status"
+    annotation (Placement(transformation(extent={{4,14},{24,34}})));
 
 equation
 
@@ -258,9 +265,6 @@ equation
                                               color={255,0,255}));
   connect(conBoiPri.TBoiHotWatSupSet, boiPlaPri.TBoiHotWatSupSet)
     annotation (Line(points={{-18,6},{10,6},{10,4},{38,4}},
-                                              color={0,0,127}));
-  connect(conBoiPri.yHotWatIsoVal, boiPlaPri.uHotIsoVal)
-    annotation (Line(points={{-18,2},{10,2},{10,0},{38,0}},
                                               color={0,0,127}));
   connect(conBoiPri.yPriPumSpe, boiPlaPri.uPumSpe) annotation (Line(points={{-18,-14},
           {0,-14},{0,-12},{38,-12}},      color={0,0,127}));
@@ -345,6 +349,8 @@ equation
           {114,34},{78,34},{78,54},{54,54},{54,60}}, color={0,127,255}));
   connect(spl1.port_2, boiPlaPri.port_a) annotation (Line(points={{130,60},{130,
           22},{57,22},{57,10}}, color={0,127,255}));
+  connect(conBoiPri.yHotWatIsoVal, boiPlaPri.uHotIsoVal) annotation (Line(
+        points={{-18,2},{30,2},{30,0},{38,0}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 This model couples the boiler plant model for a primary-secondary, condensing boiler
@@ -379,10 +385,10 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=43200,
+      StartTime=0,
       StopTime=172800,
       Interval=60,
-      Tolerance=1e-06,
+      Tolerance=1e-03,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;

@@ -278,7 +278,7 @@ model BoilerPlantPrimary
   Buildings.Fluid.Sources.Boundary_pT preSou(
     redeclare package Medium = MediumW,
     final p=100000,
-    nPorts=2)
+    nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
 
@@ -346,7 +346,8 @@ model BoilerPlantPrimary
     final dpValve_nominal=dpValve_nominal_value,
     final init=Modelica.Blocks.Types.Init.InitialState,
     final y_start=0,
-    final dpFixed_nominal=dpFixed_nominal_value)
+    final dpFixed_nominal=dpFixed_nominal_value,
+    l=1e-9)
     "Isolation valve for boiler-2"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
 
@@ -356,7 +357,8 @@ model BoilerPlantPrimary
     final dpValve_nominal=dpValve_nominal_value,
     final init=Modelica.Blocks.Types.Init.InitialState,
     final y_start=0,
-    final dpFixed_nominal=dpFixed_nominal_value)
+    final dpFixed_nominal=dpFixed_nominal_value,
+    l=1e-9)
     "Isolation valve for boiler-1"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
 
@@ -420,13 +422,6 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0,
       origin={150,-150})));
-
-  Buildings.Fluid.Sensors.RelativePressure senRelPre1(
-    redeclare package Medium = MediumW)
-    "Differential pressure sensor between hot water supply and return"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-      rotation=90,
-      origin={-70,-10})));
 
   Buildings.Fluid.FixedResistances.PlugFlowPipe pipe(
     redeclare package Medium = MediumW,
@@ -582,7 +577,7 @@ model BoilerPlantPrimary
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-22,-30})));
+      origin={-66,-30})));
 equation
   connect(val1.port_a, spl1.port_3)
     annotation (Line(points={{0,-150},{-20,-150}},    color={0,127,255}));
@@ -688,18 +683,13 @@ equation
         color={0,0,127}));
   connect(senTem4.T, TRetSec) annotation (Line(points={{190,131},{256,131},{256,
           240},{340,240}}, color={0,0,127}));
-  connect(preSou.ports[1], spl1.port_2) annotation (Line(points={{-100,-131},{
+  connect(preSou.ports[1], spl1.port_2) annotation (Line(points={{-100,-130},{
           -100,-132},{-60,-132},{-60,-128},{-30,-128},{-30,-140}}, color={0,127,
           255}));
   connect(cheVal1.port_b, pum1.port_a)
     annotation (Line(points={{-30,-70},{-30,-60}}, color={0,127,255}));
   connect(cheVal2.port_b,pum2. port_a)
     annotation (Line(points={{0,-70},{0,-60}}, color={0,127,255}));
-  connect(senRelPre1.port_b, preSou.ports[2]) annotation (Line(points={{-70,-20},
-          {-58,-20},{-58,-128},{-44,-128},{-60,-128},{-100,-128},{-100,-129}},
-        color={0,127,255}));
-  connect(senRelPre1.port_a, spl4.port_1) annotation (Line(points={{-70,0},{-72,
-          0},{-72,30},{-30,30}}, color={0,127,255}));
   connect(uHotIsoVal, booToRea2.u)
     annotation (Line(points={{-340,80},{-302,80}}, color={255,0,255}));
   connect(booToRea2[1].y, val1.y) annotation (Line(points={{-278,80},{-160,80},{
@@ -732,11 +722,14 @@ equation
   connect(spl2.port_3, cheVal2.port_a)
     annotation (Line(points={{-20,-110},{0,-110},{0,-90}}, color={0,127,255}));
   connect(spl3.port_1, pum1.port_b)
-    annotation (Line(points={{-22,-40},{-30,-40}}, color={0,127,255}));
+    annotation (Line(points={{-66,-40},{-68,-40},{-68,-48},{-48,-48},{-48,-28},
+          {-30,-28},{-30,-40}},                    color={0,127,255}));
   connect(spl3.port_3, pum2.port_b)
-    annotation (Line(points={{-12,-30},{-12,-40},{0,-40}}, color={0,127,255}));
+    annotation (Line(points={{-56,-30},{-56,-24},{-12,-24},{-12,-28},{0,-28},{0,
+          -40}},                                           color={0,127,255}));
   connect(spl3.port_2, senVolFlo.port_a)
-    annotation (Line(points={{-22,-20},{-30,-20}}, color={0,127,255}));
+    annotation (Line(points={{-66,-20},{-66,-8},{-52,-8},{-52,-22},{-30,-22},{
+          -30,-20}},                               color={0,127,255}));
   connect(port_a, pipe.port_a)
     annotation (Line(points={{40,240},{40,120},{130,120}}, color={0,127,255}));
   connect(spl4.port_2, port_b) annotation (Line(points={{-30,50},{-32,50},{-32,
