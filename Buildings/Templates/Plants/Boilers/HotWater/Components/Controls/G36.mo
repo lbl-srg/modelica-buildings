@@ -126,7 +126,6 @@ block G36 "Guideline 36 controller"
          then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate
       else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature)
     "Primary pump speed regulation method";
-
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes
     speConTypSec = if cfg.have_senDpHeaWatRemWir then
       Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP
@@ -165,16 +164,14 @@ block G36 "Guideline 36 controller"
   ControllerSecondaryPump_patch ctlPumHeaWatSec(
     final have_secFloSen=have_secFloSen,
     final have_varSecPum=have_varSecPum,
-    final maxLocDp=maxLocDp,
-    final maxPumSpe=maxPumSpe,
-    final minLocDp=minLocDp,
-    final minPumSpe=minPumSpe,
+    final maxLocDp=maxLocDpSec,
+    final minPumSpe=minSecPumSpe,
     final nPum=cfg.nPumHeaWatSec,
     final nPum_nominal=cfg.nPumHeaWatSec,
     final nPumPri=nPumPri,
-    final nSen=nSen,
-    final speConTyp=speConTyp,
-    final VHotWat_flow_nominal=VHotWat_flow_nominal) if cfg.typPumHeaWatSec ==
+    final nSen=nSenDpHeaWatRem,
+    final speConTyp=speConTypSec,
+    final VHotWat_flow_nominal=VHotWatSec_flow_nominal) if cfg.typPumHeaWatSec ==
     Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump controller - For centralized pumps only"
     annotation (Placement(transformation(extent={{50,60},{70,100}})));
@@ -314,8 +311,6 @@ equation
       thickness=0.5));
   connect(reqResHeaWat.y, ctlPumHeaWatSec.supResReq) annotation (Line(points={{170,
           120},{44,120},{44,86},{48,86}}, color={255,127,0}));
-  connect(ctlPumHeaWatSec.yPumSpe, ctlPumHeaWatSec.uPumSpe) annotation (Line(
-        points={{72,70},{76,70},{76,50},{44,50},{44,82},{48,82}}, color={0,0,127}));
   connect(ctlLooPri.yPriPum, ctlPumHeaWatSec.uPriPumSta) annotation (Line(
         points={{12,-10.5},{32,-10.5},{32,78},{48,78}}, color={255,0,255}));
   connect(ctlLooPri.yMaxSecPumSpe, ctlPumHeaWatSec.uMaxSecPumSpeCon)

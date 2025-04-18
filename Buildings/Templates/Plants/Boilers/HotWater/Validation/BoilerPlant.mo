@@ -35,6 +35,7 @@ model BoilerPlant
     ctl(
       nAirHan=1,
       nEquZon=0,
+      typMeaCtlHeaWatPri=Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler,
       have_senDpHeaWatRemWir=true))
     "Boiler plant"
     annotation (Placement(transformation(extent={{-60,-100},{-20,-60}})));
