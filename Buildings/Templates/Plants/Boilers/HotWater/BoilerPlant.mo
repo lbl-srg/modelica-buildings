@@ -822,8 +822,13 @@ equation
 This template represents a hot water plant with boilers.
 </p>
 <p>
-The possible equipment configurations are enumerated in the table below.
+The table below lists all available equipment configurations.
 If any default is provided, it is displayed in bold characters.
+Options shown in <font color=\"gray\"><em>gray italics</em></font> are not currently
+supported by the plant controller
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a>
+and cannot be selected.
 The user may refer to ASHRAE (2021) for further details.
 </p>
 <table summary=\"summary\" border=\"1\">
@@ -832,7 +837,7 @@ The user may refer to ASHRAE (2021) for further details.
 <td>
 Condensing<br/>
 Non-condensing<br/>
-Hybrid (both condensing and non-condensing boilers)
+<font color=\"gray\"><em>Hybrid (both condensing and non-condensing boilers)</em></font>
 </td>
 <td></td>
 </tr>
@@ -840,12 +845,10 @@ Hybrid (both condensing and non-condensing boilers)
 <td>
 Constant speed<br/>
 Variable speed<br/>
-Constant speed, provided with boiler with factory controls<br/>
-Variable speed, provided with boiler with factory controls
+<font color=\"gray\"><em>Constant speed, provided with boiler with factory controls</em></font><br/>
+<font color=\"gray\"><em>Variable speed, provided with boiler with factory controls</em></font>
 </td>
 <td>
-In case of hybrid plants, the type of primary HW pumps is specified
-separately for the condensing boiler group and the non-condensing boiler group.
 </td>
 </tr>
 <tr><td>Type of primary HW pump arrangement</td>
@@ -853,10 +856,7 @@ separately for the condensing boiler group and the non-condensing boiler group.
 Headered<br/>
 Dedicated
 </td>
-<td>
-If the primary HW pumps are provided with the boilers, they are necessarily
-configured in a dedicated arrangement and this option is not available.
-</td>
+<td></td>
 </tr>
 <tr><td>Type of secondary HW pumps</td>
 <td>
@@ -867,14 +867,10 @@ Variable speed, centralized
 Constant speed secondary pumps are not supported as they are generally not
 advisable on any boiler system (see section 5.21.7.11 in ASHRAE, 2021 for
 further explanations).<br/>
-In case of hybrid plants, the primary-only option is not available.<br/>
 Centralized secondary pumps refers to configurations with a single group
 of secondary pumps that is typically integrated into the plant.<br/>
 Distributed secondary pumps with multiple secondary
 loops served by dedicated secondary pumps are currently not supported.
-This limitation stems from the Guideline 36 controller implementation in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 </td>
 </tr>
 <tr><td>Controller</td>

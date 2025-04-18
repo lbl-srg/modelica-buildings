@@ -6,7 +6,8 @@ class AllSystems
     stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     sysUni=Buildings.Templates.Types.Units.SI);
-
+  // FIXME(AntoineGautier PR#2700):
+  // Should pla.ctl.sta have stage 0 with no equipement enabled as G36 prescribes?
   parameter Buildings.Templates.Plants.Boilers.HotWater.Data.BoilerPlant pla(
     boiCon(
       fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
@@ -42,7 +43,7 @@ class AllSystems
       yPumHeaWatPri_min=0.1,
       yPumHeaWatSec_min=0.1,
       yPumHeaWatPriSta_min=fill(0.1, size(pla.ctl.sta, 1)),
-      sta=[0,0; 1,0; 1,1]),
+      sta=[1,0; 1,1]),
     pumHeaWatPriCon(dp_nominal=fill(max(pla.boiCon.dpHeaWatBoi_nominal)*1.5,
       pla.cfg.nPumHeaWatPriCon) + fill((
       if pla.cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
