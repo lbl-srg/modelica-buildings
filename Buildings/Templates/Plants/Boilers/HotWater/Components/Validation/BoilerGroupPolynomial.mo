@@ -104,16 +104,32 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     final energyDynamics=energyDynamics)
     "Boiler group inlet manifold"
     annotation (Placement(transformation(extent={{-10,-90},{-30,-70}})));
-  Controls.OpenLoop ctl(
+  Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.OpenLoop ctl(
+    cfg(
     final have_boiCon=true,
     final have_boiNon=false,
     final nBoiCon=nBoi,
     final nBoiNon=0,
-    final typPumHeaWatPriCon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable,
+    typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing,
+    final typMod=boi.typMod,
     final typArrPumHeaWatPriCon=boi.typArrPumHeaWatPri,
     final typPumHeaWatSec=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None,
+    final nPumHeaWatPriCon=pumHeaWatPri.nPum,
     have_valHeaWatMinBypCon=false,
     have_valHeaWatMinBypNon=false,
+    have_pumHeaWatPriVarCon=false,
+    have_pumHeaWatPriVarNon=false,
+    have_senDpHeaWatRemWir=false,
+    have_senVHeaWatSec=false,
+    nAirHan=0,
+    nEquZon=0,
+    nLooHeaWatSec=1,
+    nPumHeaWatPriNon=0,
+    nPumHeaWatSec=0,
+    nSenDpHeaWatRem=1,
+    rhoHeaWat_default=Buildings.Media.Water.d_const,
+    typArrPumHeaWatPriNon=boi.typArrPumHeaWatPri,
+    typCtl=Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.OpenLoop),
     dat(
       THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig,
       sta={fill(0, nBoi)}))

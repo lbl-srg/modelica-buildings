@@ -6,7 +6,8 @@ class AllSystems
     stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     sysUni=Buildings.Templates.Types.Units.SI);
-
+  // FIXME(AntoineGautier PR#2700):
+  // Should pla.ctl.sta have stage 0 with no equipement enabled as G36 prescribes?
   parameter Buildings.Templates.Plants.Boilers.HotWater.Data.BoilerPlant pla(
     boiCon(
       fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
