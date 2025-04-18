@@ -210,7 +210,7 @@ record Controller
   parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[:](
     start=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, cfg.nSenDpChiWatRem),
     each final min=0)
-    "Mmaximum CHW differential pressure setpoint - Remote sensor"
+    "Maximum CHW differential pressure setpoint - Remote sensor"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
        and (cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only

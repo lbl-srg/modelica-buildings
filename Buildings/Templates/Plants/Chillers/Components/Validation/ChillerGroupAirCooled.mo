@@ -145,14 +145,43 @@ model ChillerGroupAirCooled
     final tau=tau) "Primary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Plants.Chillers.Components.Controls.OpenLoop ctl(
-    cfg=Buildings.Templates.Plants.Chillers.Components.Validation.Configuration.Variable1OnlyAirCooledParallel(
-      nChi=chi.nChi,
-      typArrPumChiWatPri=chi.typArrPumChiWatPri,
-      have_pumChiWatPriVar=pumChiWatPri.have_var,
-      have_pumChiWatPriVarCom=pumChiWatPri.have_varCom,
-      typEco=chi.typEco,
-      typValChiWatChiIso=chi.typValChiWatChiIso,
-      typValConWatChiIso=chi.typValConWatChiIso),
+    cfg(
+      final nChi=nChi,
+      final typArrPumChiWatPri=chi.typArrPumChiWatPri,
+      final have_pumChiWatPriVar=pumChiWatPri.have_var,
+      final have_pumChiWatPriVarCom=pumChiWatPri.have_varCom,
+      final typEco=chi.typEco,
+      final typValChiWatChiIso=chi.typValChiWatChiIso,
+      final typValConWatChiIso=chi.typValConWatChiIso,
+      cpChiWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      cpCon_default=Buildings.Utilities.Psychrometrics.Constants.cpAir,
+      have_pumChiWatSec=false,
+      have_senDpChiWatRemWir=false,
+      have_senLevCoo=false,
+      have_senVChiWatSec=false,
+      have_valChiWatChiBypPar=false,
+      have_pumConWatVarCom=false,
+      have_pumConWatVar=false,
+      nAirHan=0,
+      nCoo=0,
+      nEquZon=0,
+      nLooChiWatSec=1,
+      nPumChiWatPri=nChi,
+      nPumChiWatSec=0,
+      nPumConWat=0,
+      nSenDpChiWatRem=1,
+      rhoChiWat_default=Buildings.Media.Water.d_const,
+      rhoCon_default=Buildings.Media.Air.dStp,
+      typArrChi=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+      typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+      typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
+      typCoo=Buildings.Templates.Components.Types.Cooler.None,
+      typCtl=Buildings.Templates.Plants.Chillers.Types.Controller.OpenLoop,
+      typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None,
+      typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
+      typMeaCtlChiWatPri=Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor,
+      typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
+      typValCooOutIso=Buildings.Templates.Components.Types.Valve.None),
     dat(sta=fill(fill(0, nChi), nChi)))
     "Plant controller"
     annotation (Placement(transformation(extent={{-160,170},{-180,190}})));
@@ -262,8 +291,7 @@ equation
     annotation (Line(points={{68,-80},{10,-80}}, color={0,127,255}));
   connect(bouChiWat.ports[1], loa.port_b)
     annotation (Line(points={{40,-90},{40,-80},{68,-80}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-260,-140},{260,220}}),
-        graphics={Bitmap(extent={{432,-30},{-280,-30}}, fileName="")}),
+  annotation (Diagram(coordinateSystem(extent={{-260,-140},{260,220}})),
   experiment(
     StopTime=2000,
     Tolerance=1e-06),
