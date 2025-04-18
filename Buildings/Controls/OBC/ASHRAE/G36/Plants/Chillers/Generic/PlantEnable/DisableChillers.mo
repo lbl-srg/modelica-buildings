@@ -60,7 +60,7 @@ block DisableChillers
     final max=fill(1, nChi))
     "Chiller chilled water isolation valve position setpoints"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
-        iconTransformation(extent={{100,30},{140,70}})));
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal[nChi](
     final unit=fill("1", nChi),
     final min=fill(0, nChi),
@@ -68,6 +68,10 @@ block DisableChillers
     "Chiller condenser water isolation valve position setpoints"
     annotation (Placement(transformation(extent={{200,50},{240,90}}),
         iconTransformation(extent={{100,0},{140,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiWatIsoVal[nChi]
+    "Chiller chilled water isolation valve commanded setpoint"
+    annotation (Placement(transformation(extent={{200,140},{240,180}}),
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe[nChiWatPum](
     final unit=fill("1", nChiWatPum),
     final min=fill(0, nChiWatPum),
@@ -123,7 +127,7 @@ block DisableChillers
     "Close all chilled water isolation valve"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Close valve"
-    annotation (Placement(transformation(extent={{160,190},{180,210}})));
+    annotation (Placement(transformation(extent={{140,190},{160,210}})));
   Buildings.Controls.OBC.CDL.Logical.Or cloConIsoVal
     "Close all condenser water isolation valve"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
@@ -190,6 +194,10 @@ block DisableChillers
     final k=false)
     if not have_WSE "Logical false"
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nChi](final h=fill(
+        0.05, nChi))
+    "Check if the chiller isolation valve is enabled"
+    annotation (Placement(transformation(extent={{160,150},{180,170}})));
 
 equation
   connect(uChiWatReq, mulOr.u)
@@ -201,9 +209,9 @@ equation
   connect(noChiWatReq.y, cloChiIsoVal.u2) annotation (Line(points={{-118,160},{-50,
           160},{-50,192},{-42,192}},    color={255,0,255}));
   connect(booScaRep1.y, swi.u2)
-    annotation (Line(points={{102,200},{158,200}}, color={255,0,255}));
-  connect(uChiWatIsoVal, swi.u3) annotation (Line(points={{-220,130},{130,130},{
-          130,192},{158,192}}, color={0,0,127}));
+    annotation (Line(points={{102,200},{138,200}}, color={255,0,255}));
+  connect(uChiWatIsoVal, swi.u3) annotation (Line(points={{-220,130},{110,130},{
+          110,192},{138,192}}, color={0,0,127}));
   connect(truDel.y, cloConIsoVal.u1) annotation (Line(points={{-78,200},{-60,200},
           {-60,70},{-42,70}},     color={255,0,255}));
   connect(mulOr1.y, noConWatReq.u)
@@ -257,14 +265,14 @@ equation
   connect(swi1.y, yConWatIsoVal)
     annotation (Line(points={{182,70},{220,70}}, color={0,0,127}));
   connect(swi.y, yChiWatIsoVal)
-    annotation (Line(points={{182,200},{220,200}}, color={0,0,127}));
+    annotation (Line(points={{162,200},{220,200}}, color={0,0,127}));
   connect(uChi, chiMod.u)
     annotation (Line(points={{-220,200},{-182,200}}, color={255,0,255}));
   connect(chiMod.y, noChi.u)
     annotation (Line(points={{-158,200},{-142,200}}, color={255,0,255}));
-  connect(con.y, swi.u1) annotation (Line(points={{42,250},{140,250},{140,208},{
-          158,208}}, color={0,0,127}));
-  connect(con.y, swi1.u1) annotation (Line(points={{42,250},{140,250},{140,78},{
+  connect(con.y, swi.u1) annotation (Line(points={{42,250},{120,250},{120,208},{
+          138,208}}, color={0,0,127}));
+  connect(con.y, swi1.u1) annotation (Line(points={{42,250},{120,250},{120,78},{
           158,78}}, color={0,0,127}));
   connect(con1.y, swi2.u1) annotation (Line(points={{42,-10},{140,-10},{140,-52},
           {158,-52}}, color={0,0,127}));
@@ -298,6 +306,10 @@ equation
           {78,-238}}, color={255,0,255}));
   connect(noChi.y, truDel.u)
     annotation (Line(points={{-118,200},{-102,200}}, color={255,0,255}));
+  connect(swi.y, greThr.u) annotation (Line(points={{162,200},{170,200},{170,180},
+          {150,180},{150,160},{158,160}}, color={0,0,127}));
+  connect(greThr.y, y1ChiWatIsoVal)
+    annotation (Line(points={{182,160},{220,160}}, color={255,0,255}));
 annotation (defaultComponentName = "disChi",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={
