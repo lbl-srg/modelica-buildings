@@ -3,17 +3,17 @@ block Change
   "Output whether the Integer input changes values, increases or decreases"
   parameter Integer pre_u_start=0
     "Start value of pre(u) at initial time";
-  Interfaces.IntegerInput u
-    "Connector of Integer input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
+    "Integer to be monitored for a change in value"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Output that is true when the input changes its value"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Interfaces.BooleanOutput up
-    "Connector of Boolean output signal indicating input increase"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput up
+    "Output that is true when the input increased its value"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
-  Interfaces.BooleanOutput down
-    "Connector of Boolean output signal indicating input decrease"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput down
+    "Output that is true when the input decreased its value"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 initial equation
@@ -32,7 +32,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
@@ -71,13 +70,13 @@ When the input <code>u</code> decreases, the output <code>down</code> will be
 May 3, 2022, by Michael Wetter:<br/>
 Renamed parameter <code>y_start</code> to <code>pre_u_start</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">Buildings, issue 2990</a>.
 </li>
 <li>
 January 26, 2021, by Michael Wetter:<br/>
 Changed initialization of <code>pre(u)</code> to use the initial value of the input rather than <code>0</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2294\">#2294</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2294\">Buildings, issue 2294</a>.
 </li>
 <li>
 July 18, 2018, by Michael Wetter:<br/>

@@ -1,0 +1,29 @@
+// Simulate
+simulateModel("Buildings.DHC.Loads.Steam.BaseClasses.Examples.ValveSelfActing", stopTime=15, method="dassl", tolerance=1e-06, resultFile="ValveSelfActing");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={11, 59, 631, 388}, 
+  y={"prv.port_a.p", "prv.port_b.p", "prv.dp"}, 
+  range={0.0, 15.0, 0.0, 10.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}}, 
+  timeUnit="s", 
+  displayUnits={"pa", "pa", "pa"},
+  filename = "ValveSelfActing.mat");
+createPlot(id=1, position={11, 59, 631, 388}, 
+  y={"speEntIn.h_out", "speEntOut.h_out"}, 
+  range={0.0, 15.0, 2600000.0, 2700000.0}, 
+  grid=true, 
+  subPlot=102, 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="s", 
+  displayUnits={"J/kg", "J/kg"});
+createPlot(id=1, position={11, 59, 631, 388}, 
+  y={"prv.m_flow"}, 
+  range={0.0, 15.0, -1.0, 2.0}, 
+  grid=true, 
+  subPlot=103, 
+  colors={{28,108,200}}, 
+  timeUnit="s", 
+  displayUnits={"kg/s"});
+

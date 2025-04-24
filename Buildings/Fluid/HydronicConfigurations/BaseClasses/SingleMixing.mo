@@ -15,7 +15,7 @@ model SingleMixing "Single mixing circuit"
     redeclare final package Medium=Medium,
     final typCha=typCha,
     final energyDynamics=energyDynamics,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final portFlowDirection_1=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
       Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -81,11 +81,8 @@ model SingleMixing "Single mixing circuit"
     final dp_nominal=dpPum_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    final per=perPum)
-    "Pump"
-    annotation (
-      Placement(transformation(
+    use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    final per=perPum) "Pump" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,40})));

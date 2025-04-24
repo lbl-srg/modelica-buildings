@@ -18,11 +18,11 @@ block Proof "Verify two boolean inputs"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=90, origin={0,-260}),
         iconTransformation(extent={{-20,-20},{20,20}}, rotation=90, origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLocFal
-    "True: measured input is locked to false even after the setpoint has changed to true"
+    "Output with true if the measured input is locked to false even after the setpoint has changed to true"
     annotation (Placement(transformation(extent={{240,100},{280,140}}),
         iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLocTru
-    "True: measured input is locked to true even after the setpoint has changed to false"
+    "Output with true if the measured input is locked to true even after the setpoint has changed to false"
     annotation (Placement(transformation(extent={{240,-140},{280,-100}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
 
@@ -296,7 +296,6 @@ the feedback delay"),
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Ellipse(

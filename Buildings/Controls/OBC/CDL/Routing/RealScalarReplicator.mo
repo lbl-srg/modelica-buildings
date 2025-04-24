@@ -3,17 +3,15 @@ block RealScalarReplicator
   "Real signal replicator"
   parameter Integer nout=1
     "Number of outputs";
-  Interfaces.RealInput u
-    "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Input signal to be replicated"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[nout]
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nout]
+    "Output with replicated input signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=fill(
-    u,
-    nout);
+  y=fill(u, nout);
   annotation (
     defaultComponentName="reaScaRep",
     Icon(

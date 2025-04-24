@@ -1,15 +1,16 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Sqrt
   "Output the square root of the input (input >= 0 required)"
-  Interfaces.RealInput u
-    "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Input to square root function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Output with square root of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y=sqrt(u);
+
   annotation (
     defaultComponentName="sqr",
     Icon(
@@ -59,11 +60,15 @@ equation
       info="<html>
 <p>
 Block that outputs square root of the input <code>y = sqrt(u)</code>,
-where <code>u</code> is an input. All elements of the input vector shall be non-negative.
+where <code>u</code> is an input. The input <code>u</code> must be non-negative.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Michael Wetter:<br/>
+Updated documentation.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

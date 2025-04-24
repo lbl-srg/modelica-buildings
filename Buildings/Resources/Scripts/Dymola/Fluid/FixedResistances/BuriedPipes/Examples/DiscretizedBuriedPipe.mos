@@ -1,0 +1,9 @@
+simulateModel("Buildings.Fluid.FixedResistances.BuriedPipes.Examples.DiscretizedBuriedPipe", stopTime=63072000, method="Cvode", tolerance=1e-06, resultFile="DiscretizedBuriedPipe");
+createPlot(
+  id=1,
+  position={55, 55, 1192, 772},
+  y={"senTemInl.T", "senTemOut.T", "gro.soi.T", "senTemInlRev.T", "senTemOutRev.T", "groRev.soi.T"},
+  range={0.0, 750.0, 2.0, 26.0},
+  grid=true,
+  autoscale=false,
+  timeUnit="d");

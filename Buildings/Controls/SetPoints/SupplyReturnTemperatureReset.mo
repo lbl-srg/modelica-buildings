@@ -15,7 +15,7 @@ block SupplyReturnTemperatureReset
 
   parameter Boolean use_TRoo_in = false
     "Get the room temperature set point from the input connector"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(Evaluate=true);
   parameter Modelica.Units.SI.Temperature TRoo=293.15
     "Fixed value of room temperature set point"
     annotation (Dialog(enable=not use_TRoo_in));
@@ -86,8 +86,14 @@ shift the heating curve.
 </html>", revisions="<html>
 <ul>
 <li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
 January 03, 2020, by Jianjun Hu:<br/>
-Changed name from <code>HotWaterTemperatureReset</code> to 
+Changed name from <code>HotWaterTemperatureReset</code> to
 <code>SupplyReturnTemperatureReset</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1273\">#1273</a>.

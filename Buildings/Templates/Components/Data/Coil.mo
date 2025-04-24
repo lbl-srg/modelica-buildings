@@ -123,9 +123,12 @@ the maximum value from the performance data record.
     annotation(choicesAllMatching=true, Dialog(
       enable=typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
       typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName="datCoi",
+  Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for
+This record provides the set of sizing parameters for
 the classes within
 <a href=\"modelica://Buildings.Templates.Components.Coils\">
 Buildings.Templates.Components.Coils</a>.

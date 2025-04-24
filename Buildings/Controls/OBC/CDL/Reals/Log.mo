@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Log
   "Output the natural (base e) logarithm of the input (input > 0 required)"
-  Interfaces.RealInput u
-    "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Input for base e logarithm"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Base e logarithm of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

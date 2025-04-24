@@ -1,19 +1,18 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Nand
   "Logical 'nand': y = not (u1 and u2)"
-  Interfaces.BooleanInput u1
-    "Connector of first Boolean input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
+    "Input signal for 'nand'"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput u2
-    "Connector of second Boolean input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
+    "Input signal for 'nand'"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Output with false if both inputs are true"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=not
-       (u1 and u2);
+  y=not (u1 and u2);
   annotation (
     defaultComponentName="nand",
     Icon(
@@ -24,7 +23,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Text(

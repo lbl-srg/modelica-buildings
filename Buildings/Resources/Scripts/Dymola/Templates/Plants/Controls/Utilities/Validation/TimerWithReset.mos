@@ -1,0 +1,10 @@
+simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.TimerWithReset", stopTime=5.0, method="Cvode", tolerance=1e-06, resultFile="TimerWithReset");
+createPlot(id=1, position={15, 15, 300, 500}, y={"noThr.u", "res.y"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=1);
+createPlot(id=1, position={15, 15, 300, 500}, y={"noThr.t", "noThr.y", "noThrRes.y"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=2);
+createPlot(id=1, position={15, 15, 300, 500}, y={"noThr.passed", "noThrRes.passed"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=3);
+createPlot(id=2, position={325, 15, 300, 500}, y={"thrTim.u", "res.y"}, range={0.0, 5.0, -0.2, 1.2}, grid=true, subPlot=1);
+createPlot(id=2, position={325, 15, 300, 500}, y={"thrTim.t", "thrTim.y", "thrTimRes.y"}, range={0.0, 5.0, -0.5, 2.0}, grid=true, subPlot=2);
+createPlot(id=2, position={325, 15, 300, 500}, y={"thrTim.passed", "thrTimRes.passed"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=3);
+createPlot(id=3, position={630, 15, 300, 500}, y={"thrTim1.u", "res.y"}, range={0.0, 5.0, -0.2, 1.2}, grid=true, subPlot=1);
+createPlot(id=3, position={630, 15, 300, 500}, y={"thrTim1.t", "thrTim1.y", "thrTim1Res.y"}, range={0.0, 5.0, -0.5, 2.0}, grid=true, subPlot=2);
+createPlot(id=3, position={630, 15, 300, 500}, y={"thrTim1.passed", "thrTim1Res.passed"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=3);

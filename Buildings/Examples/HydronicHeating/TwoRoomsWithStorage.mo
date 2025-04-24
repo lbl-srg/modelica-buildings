@@ -42,7 +42,7 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for boiler circuit" annotation (Placement(transformation(extent={{-10,
             -10},{10,10}}, origin={70,-160})));
@@ -179,7 +179,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
     from_dp=true,
-    use_inputFilter=false) "Radiator valve"
+    use_strokeTime=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,120},{380,140}})));
   Controls.OBC.CDL.Reals.PID conRoo2(
     yMax=1,
@@ -197,7 +197,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
     from_dp=true,
-    use_inputFilter=false) "Radiator valve"
+    use_strokeTime=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
   Controls.OBC.CDL.Reals.PID conRoo1(
     yMax=1,
@@ -228,7 +228,7 @@ model TwoRoomsWithStorage
     tau=10,
     m_flow_nominal=mRad_flow_nominal,
     dpFixed_nominal={100,0},
-    use_inputFilter=false,
+    use_strokeTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Three-way valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -359,7 +359,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false) "Supply air fan"
+    use_riseTime=false) "Supply air fan"
     annotation (Placement(transformation(extent={{70,490},{90,510}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
@@ -369,7 +369,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false) "Return air fan"
+    use_riseTime=false) "Return air fan"
     annotation (Placement(transformation(extent={{90,450},{70,470}})));
   Airflow.Multizone.Orifice lea1(redeclare package Medium = MediumA, A=0.01^2)
     "Leakage of facade of room"
@@ -445,9 +445,8 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Actuators.Dampers.Exponential damSupByp(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    use_inputFilter=false,
-    dpDamper_nominal=0.27)
-    "Supply air damper that bypasses the heat recovery"
+    use_strokeTime=false,
+    dpDamper_nominal=0.27) "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
   Buildings.Fluid.HeatExchangers.SensibleCooler_T coo(
     redeclare package Medium = MediumA,
@@ -553,16 +552,14 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   Buildings.Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    use_inputFilter=false,
-    dpDamper_nominal=0.27)
-    "Supply air damper that closes the heat recovery"
+    use_strokeTime=false,
+    dpDamper_nominal=0.27) "Supply air damper that closes the heat recovery"
     annotation (Placement(transformation(extent={{120,490},{140,510}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRetByp(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    use_inputFilter=false,
-    dpDamper_nominal=0.27)
-    "Return air damper that bypasses the heat recovery"
+    use_strokeTime=false,
+    dpDamper_nominal=0.27) "Return air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
   Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
                                       "Pump and furnace off"

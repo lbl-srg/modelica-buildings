@@ -1,0 +1,28 @@
+simulateModel("Buildings.DHC.Loads.BaseClasses.Validation.TerminalUnitScaling",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1000.0,
+    resultFile="TerminalUnitScaling");
+createPlot(
+    id=1,
+    position={1, 20, 492, 682},
+    y={"ter.QActHea_flow", "terUniMul.QActHea_flow", "terUniMulZonMul.QActHea_flow", "ter.QReqHea_flow", "QHea_flow_nominal"},
+    grid=true,
+    color=true,
+    filename="TerminalUnitScaling.mat");
+createPlot(
+    id=1,
+    y={"ter.mReqHeaWat_flow", "terUniMul.mReqHeaWat_flow", "terUniMulZonMul.mReqHeaWat_flow", "ter.mHeaWat_flow_nominal"},
+    grid=true,
+    color=true,
+    subPlot=2);
+createPlot(
+    id=1,
+    y={"ter.TLoaODE.TAir", "terUniMul.TLoaODE.TAir", "terUniMulZonMul.TLoaODE.TAir", "TSet.y"},
+    grid=true,
+    color=true,
+    subPlot=3);
+
+
+
+

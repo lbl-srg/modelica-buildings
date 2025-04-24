@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "chi.sta_a1.T",
-    "chi.sta_b1.T",
-    "chi.sta_a2.T",
-    "chi.sta_b2.T",
+    "senTConEnt.T",
+    "senTConLvg.T",
+    "senTEvaEnt.T",
+    "senTEvaLvg.T",
     "chi.TSet",
     "chi.QEva_flow",
     "chi.QCon_flow",

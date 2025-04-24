@@ -20,9 +20,11 @@ import shutil
 ###########################################################################
 # List of all spawn versions and commits that are supported
 # by the Buildings library
+# build_type is either custom or builds
 spawn_dists = [
-    {"version": "0.4.3",
-     "commit": "7048a72798"}
+    {"version": "0.5.0",
+     "commit": "ab07bde9bb",
+     "build_type": "custom"}
 ]
 ###########################################################################
 
@@ -140,6 +142,7 @@ def replace_table_in_mo(html, varType, moFile, spawn_dir):
         "..",
         "..",
         "..",
+        "Obsolete",
         "ThermalZones",
         "EnergyPlus_{}".format(energyPlus_version_dash),
         moFile,
@@ -187,7 +190,7 @@ def _getEnergyPlusVersion(spawn_dir):
 
     raise ValueError("Failed to find EnergyPlus version.")
 
-def update_version_in_modelica_files(spawn_dir, spawn_exe):
+def update_version_in_modelica_files(spawn_dir, spawn_exe, build_type):
     import os
     import re
 
@@ -195,9 +198,9 @@ def update_version_in_modelica_files(spawn_dir, spawn_exe):
     ep_package = "EnergyPlus_{}".format(energyPlus_version).replace('.', '_')
 
     for rel_file in [\
-        os.path.join("Buildings", "ThermalZones", ep_package, "Building.mo"),
-        os.path.join("Buildings", "ThermalZones", ep_package, "package.mo"),
-        os.path.join("Buildings", "ThermalZones", ep_package, "UsersGuide.mo"),
+        os.path.join("Buildings", "Obsolete", "ThermalZones", ep_package, "Building.mo"),
+        os.path.join("Buildings", "Obsolete", "ThermalZones", ep_package, "package.mo"),
+        os.path.join("Buildings", "Obsolete", "ThermalZones", ep_package, "UsersGuide.mo"),
         os.path.join("Buildings", "Resources", "Scripts", "travis", "pyfmi", "runSpawnFromOtherDirectory.py")
         ]:
         # Path to Building.mo
@@ -206,12 +209,15 @@ def update_version_in_modelica_files(spawn_dir, spawn_exe):
                 os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
                 rel_file))
 
-        # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
         with open (abs_file, 'r' ) as f:
             content = f.read()
-        content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", "{}".format(spawn_exe), content)
-        content = re.sub(r"Spawn-light-\d+.\d+.\d+-.{10}", "{}".format(spawn_dir), content)
-        content = re.sub(r"EnergyPlus \d+.\d+.\d+", "EnergyPlus {}".format(energyPlus_version), content)
+
+        # Replace spawn.s3.amazonaws.com/builds/ or spawn.s3.amazonaws.com/custom/
+        content = re.sub(r"spawn\.s3\.amazonaws\.com/[a-zA-Z]+/", f"spawn.s3.amazonaws.com/{build_type}/", content)
+        # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
+        content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", spawn_exe, content)
+        content = re.sub(r"Spawn-light-\d+.\d+.\d+-.{10}", spawn_dir, content)
+        content = re.sub(r"EnergyPlus \d+.\d+.\d+", f"EnergyPlus {energyPlus_version}", content)
 
         with open(abs_file, 'w' ) as f:
             f.write(content)
@@ -249,7 +255,7 @@ def update_actuator_output_tables(spawn_dir, spawn_exe):
 #            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, ".git"))
 #    repo = Repo(git_folder)
 #
-#    # Get the old Spawn executuables
+#    # Get the old Spawn executables
 #    for file in glob.glob(os.path.join("Buildings", "Resources", "bin", "**/spawn-?.?.?-*"), recursive=True):
 #        if spawn_exe in file:
 #            # Add to git
@@ -288,17 +294,18 @@ if __name__ == "__main__":
     on_windows = "Windows" in platform.system()
     install_linux = on_linux     or not args.binaries_for_os_only
     install_windows = on_windows or not args.binaries_for_os_only
-    update_mo_files = on_linux and not args.binaries_for_os_only
+    update_mo_files = on_linux
 
     # Build list of distributions
     dists = list()
     for spawn_dist in spawn_dists:
         version = spawn_dist['version']
         commit = spawn_dist['commit']
+        build_type = spawn_dist['build_type']
         if install_linux:
             dists.append(
                {
-                    "src": "https://spawn.s3.amazonaws.com/builds/Spawn-light-{}-{}-Linux.tar.gz".format(version, commit[0:10]),
+                    "src": "https://spawn.s3.amazonaws.com/{}/Spawn-light-{}-{}-Linux.tar.gz".format(build_type, version, commit[0:10]),
                     "des": "Spawn-light-{}-{}/linux64".format(version, commit[0:10]),
                     "spawn_dir": "Spawn-light-{}-{}".format(version, commit[0:10]),
                     "spawn_exe": "spawn-{}-{}".format(version, commit[0:10]),
@@ -307,7 +314,7 @@ if __name__ == "__main__":
         if install_windows:
             dists.append(
                 {
-                    "src": "https://spawn.s3.amazonaws.com/builds/Spawn-light-{}-{}-win64.zip".format(version, commit[0:10]),
+                    "src": "https://spawn.s3.amazonaws.com/{}/Spawn-light-{}-{}-win64.zip".format(build_type, version, commit[0:10]),
                     "des": "Spawn-light-{}-{}/win64".format(version, commit[0:10]),
                     "spawn_exe": "spawn-{}-{}".format(version, commit[0:10])
                 }
@@ -326,7 +333,8 @@ if __name__ == "__main__":
             print("Updating Spawn version in Modelica files.")
             update_version_in_modelica_files(
                 spawn_dir = dist["spawn_dir"],
-                spawn_exe = dist["spawn_exe"])
+                spawn_exe = dist["spawn_exe"],
+                build_type = build_type)
         # Update the table with supported output variables and actuator names
         if update_mo_files and 'linux' in dist['des']:
             print("Updating actuator and output tables.")

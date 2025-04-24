@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "DXCoiCon.uCoiSeq[1]",
+    "DXCoiCon.uCoiSeq[2]",
+    "DXCoiCon.uCoiSeq[3]",
+    "DXCoiCon.uDXCoiAva[1]",
+    "DXCoiCon.uDXCoiAva[1]",
+    "DXCoiCon.uDXCoiAva[1]",
+    "DXCoiCon.uComSpe[1]",
+    "DXCoiCon.uComSpe[2]",
+    "DXCoiCon.uComSpe[3]",
+    "DXCoiCon.uCoi",
+    "DXCoiCon.yDXCoi[1]",
+    "DXCoiCon.yDXCoi[2]",
+    "DXCoiCon.yDXCoi[3]"
+  };

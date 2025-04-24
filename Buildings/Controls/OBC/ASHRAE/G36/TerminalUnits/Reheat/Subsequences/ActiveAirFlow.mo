@@ -74,7 +74,7 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.setUp)
     "Setup mode"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Check if it is in occupied, cooldown, or setup mode"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
@@ -162,6 +162,9 @@ protected
     final k=VHeaMin_flow)
     "Heating minimum airflow"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    "Check if it is in occupied, cooldown, or setup mode"
+    annotation (Placement(transformation(extent={{40,160},{60,180}})));
 
 equation
   connect(occMod.y, ifOcc.u1)
@@ -184,14 +187,10 @@ equation
           -130,-198},{-122,-198}}, color={255,127,0}));
   connect(setBacMod.y, ifSetBac.u1)
     annotation (Line(points={{-138,-190},{-122,-190}}, color={255,127,0}));
-  connect(ifOcc.y, or3.u1) annotation (Line(points={{-98,190},{-60,190},{-60,178},
-          {-22,178}}, color={255,0,255}));
-  connect(ifCooDow.y, or3.u2) annotation (Line(points={{-98,90},{-70,90},{-70,170},
+  connect(ifOcc.y, or3.u1) annotation (Line(points={{-98,190},{-60,190},{-60,170},
           {-22,170}}, color={255,0,255}));
-  connect(ifSetUp.y, or3.u3) annotation (Line(points={{-98,10},{-50,10},{-50,162},
+  connect(ifCooDow.y, or3.u2) annotation (Line(points={{-98,90},{-70,90},{-70,162},
           {-22,162}}, color={255,0,255}));
-  connect(or3.y, actCooMax.u)
-    annotation (Line(points={{2,170},{138,170}}, color={255,0,255}));
   connect(ifOcc.y, occModInd.u) annotation (Line(points={{-98,190},{-60,190},{-60,
           130},{-22,130}}, color={255,0,255}));
   connect(VOccMin_flow, pro.u2) annotation (Line(points={{-220,40},{-180,40},{-180,
@@ -252,7 +251,12 @@ equation
     annotation (Line(points={{182,20},{220,20}}, color={0,0,127}));
   connect(add4.y, VActHeaMax_flow)
     annotation (Line(points={{182,-120},{220,-120}}, color={0,0,127}));
-
+  connect(or3.y, or1.u1)
+    annotation (Line(points={{2,170},{38,170}}, color={255,0,255}));
+  connect(or1.y, actCooMax.u)
+    annotation (Line(points={{62,170},{138,170}}, color={255,0,255}));
+  connect(ifSetUp.y, or1.u2) annotation (Line(points={{-98,10},{30,10},{30,162},
+          {38,162}}, color={255,0,255}));
 annotation (
   defaultComponentName="actAirSet",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,220}})),

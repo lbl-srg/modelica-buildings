@@ -1,6 +1,9 @@
 #ifndef IBPSA_FILEWRITERStructure_c
 #define IBPSA_FILEWRITERStructure_c
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "ModelicaUtilities.h"
 
 #include "fileWriterStructure.h"

@@ -110,7 +110,8 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     annotation (Placement(transformation(extent={{54,-134},{62,-126}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{74,-138},{84,-128}})));
-  Buildings.Fluid.Sensors.Density density1(redeclare package Medium = MediumA)
+  Buildings.Fluid.Sensors.Density density1(redeclare package Medium = MediumA,
+      warnAboutOnePortConnection=false)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{84,-162},{74,-152}})));
   Buildings.Fluid.FixedResistances.PressureDrop heaCoo1(
@@ -236,6 +237,12 @@ equation
           textString="BackZone")}),
             Documentation(revisions="<html>
 <ul>
+<li>
+March 26, 2024, by Michael Wetter:<br/>
+Configured the sensor parameter to suppress the warning about being a one-port connection.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3731\">#3731</a>
+</li>
 <li>
 May 12, 2023, by Jianjun Hu:<br/>
 Added test acceptance criteria limits.

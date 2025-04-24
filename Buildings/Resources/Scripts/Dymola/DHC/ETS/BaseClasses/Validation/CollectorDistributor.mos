@@ -1,0 +1,42 @@
+simulateModel("Buildings.DHC.ETS.BaseClasses.Validation.CollectorDistributor",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=5000,
+    resultFile="CollectorDistributor");
+createPlot(
+    id=1,
+    position={-3, 14, 539, 661},
+    autoscale=true,
+    y={"senT1_1Sup.T", "senT1_1Ret.T", "senT2_1Sup.T", "senT2_1Ret.T", "senT2_2Sup.T", "senT2_2Ret.T"},
+    grid=true,
+    filename="CollectorDistributor.mat");
+createPlot(
+    id=1,
+    y={"senMasFlo1_1.m_flow", "senMasFlo2_1.m_flow", "senMasFlo2_2.m_flow"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=2,
+    position={578, 14, 539, 661},
+    autoscale=true,
+    y={"senT1_2Sup.T", "senT1_2Ret.T", "senT2_3Sup.T", "senT2_3Ret.T", "senT2_4Sup.T", "senT2_4Ret.T"},
+    grid=true,
+    filename="CollectorDistributor.mat");
+createPlot(
+    id=2,
+    y={"senMasFlo1_2.m_flow", "senMasFlo2_3.m_flow", "senMasFlo2_4.m_flow"},
+    grid=true,
+    subPlot=2);
+createPlot(
+    id=3,
+    position={1126, 12, 539, 661},
+    autoscale=true,
+    y={"senT1_3Sup.T", "senT1_3Ret.T", "senT2_5Sup.T", "senT2_5Ret.T", "senT2_6Sup.T", "senT2_6Ret.T"},
+    grid=true,
+    filename="CollectorDistributor.mat");
+createPlot(
+    id=3,
+    y={"senMasFlo1_3.m_flow", "senMasFlo2_5.m_flow", "senMasFlo2_6.m_flow"},
+    grid=true,
+    subPlot=2);
+

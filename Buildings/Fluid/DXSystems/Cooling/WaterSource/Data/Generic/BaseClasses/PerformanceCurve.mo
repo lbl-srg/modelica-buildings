@@ -9,7 +9,7 @@ record PerformanceCurve "Data record for a performance curve"
     annotation (Dialog(group="Performance curves"));
 
   parameter Real EIRFunFFCon[:]
-    "Polynomial coefficients for EIR function of water flow fration at condensers"
+    "Polynomial coefficients for EIR function of water flow fraction at condensers"
     annotation (Dialog(group="Performance curves"));
 //------------------------Range for performance curves------------------------//
 

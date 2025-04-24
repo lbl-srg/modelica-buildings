@@ -3,8 +3,8 @@ block Constant
   "Output constant signal of type Real"
   parameter Real k
     "Constant output value";
-  Interfaces.RealOutput y
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Constant output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

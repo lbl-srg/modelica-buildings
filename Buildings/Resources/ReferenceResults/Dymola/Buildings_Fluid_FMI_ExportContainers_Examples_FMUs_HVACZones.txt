@@ -1,38 +1,30 @@
-last-generated=2022-12-20
+last-generated=2024-09-16
 statistics-fmu-dependencies=
 {
   "Derivatives": {
-    "der(fan.filter.s[1])": [
-      "fan.filter.s[1]"
+    "der(fan.motSpe.y)": [
+      "fan.motSpe.y"
     ],
-    "der(fan.filter.s[2])": [
-      "fan.filter.s[1]",
-      "fan.filter.s[2]"
-    ],
-    "der(fan2.filter.s[1])": [
-      "fan2.filter.s[1]"
-    ],
-    "der(fan2.filter.s[2])": [
-      "fan2.filter.s[1]",
-      "fan2.filter.s[2]"
+    "der(fan2.motSpe.y)": [
+      "fan2.motSpe.y"
     ],
     "der(senTemHXOut.T)": [
       "fluPor[1,1].backward.T",
       "fluPor[1,1].backward.X_w",
       "fluPor[2,1].backward.T",
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]",
+      "fan.motSpe.y",
       "senTemHXOut.T",
-      "fan2.filter.s[2]"
+      "fan2.motSpe.y"
     ],
     "der(senTemSupAir.T)": [
       "fluPor[1,1].backward.T",
       "fluPor[1,1].backward.X_w",
       "fluPor[2,1].backward.T",
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]",
+      "fan.motSpe.y",
       "senTemSupAir.T",
-      "fan2.filter.s[2]"
+      "fan2.motSpe.y"
     ]
   },
   "InitialUnknowns": {
@@ -55,13 +47,11 @@ statistics-fmu-dependencies=
       "zer[2].k"
     ],
     "TOut": [],
-    "der(fan.filter.s[1])": [],
-    "der(fan.filter.s[2])": [
+    "der(fan.motSpe.y)": [
       "fan.riseTime",
       "fan.m_flow_start"
     ],
-    "der(fan2.filter.s[1])": [],
-    "der(fan2.filter.s[2])": [
+    "der(fan2.motSpe.y)": [
       "fan2.riseTime",
       "fan2.m_flow_start"
     ],
@@ -89,16 +79,10 @@ statistics-fmu-dependencies=
       "weaDat.pAtm",
       "fan2.m_flow_start"
     ],
-    "fan.filter.s[1]": [
-      "fan.riseTime"
-    ],
-    "fan.filter.s[2]": [
+    "fan.motSpe.y": [
       "fan.m_flow_start"
     ],
-    "fan2.filter.s[1]": [
-      "fan2.riseTime"
-    ],
-    "fan2.filter.s[2]": [
+    "fan2.motSpe.y": [
       "fan2.m_flow_start"
     ],
     "fluPor[1,1].forward.T": [
@@ -250,90 +234,90 @@ statistics-fmu-dependencies=
       "fluPor[1,1].backward.X_w",
       "fluPor[2,1].backward.T",
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[1,1].forward.X_w": [
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]"
+      "fan.motSpe.y"
     ],
     "fluPor[1,1].m_flow": [
-      "fan.filter.s[2]"
+      "fan.motSpe.y"
     ],
     "fluPor[1,2].forward.T": [
       "fluPor[2,1].backward.T",
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[1,2].forward.X_w": [
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[1,2].m_flow": [
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[1,3].forward.T": [
       "fluPor[2,1].backward.T",
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[1,3].forward.X_w": [
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[1,3].m_flow": [
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[2,1].forward.T": [
       "fluPor[1,1].backward.T",
       "fluPor[1,1].backward.X_w",
       "fluPor[2,1].backward.T",
       "fluPor[2,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[2,1].forward.X_w": [
       "fluPor[1,1].backward.X_w",
-      "fan.filter.s[2]"
+      "fan.motSpe.y"
     ],
     "fluPor[2,1].m_flow": [
-      "fan.filter.s[2]"
+      "fan.motSpe.y"
     ],
     "fluPor[2,2].forward.T": [
       "fluPor[1,1].backward.T",
       "fluPor[1,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[2,2].forward.X_w": [
       "fluPor[1,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[2,2].m_flow": [
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[2,3].forward.T": [
       "fluPor[1,1].backward.T",
       "fluPor[1,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[2,3].forward.X_w": [
       "fluPor[1,1].backward.X_w",
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "fluPor[2,3].m_flow": [
-      "fan.filter.s[2]",
-      "fan2.filter.s[2]"
+      "fan.motSpe.y",
+      "fan2.motSpe.y"
     ],
     "weaBus.HDifHor": [],
     "weaBus.HDirNor": [],

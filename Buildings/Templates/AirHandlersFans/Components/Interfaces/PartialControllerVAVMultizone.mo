@@ -56,18 +56,18 @@ partial block PartialControllerVAVMultizone
     "Type of outdoor air section"
     annotation (Dialog(group="Economizer"));
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=
-    if secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-    elseif secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-    elseif secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan
-      then (if typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
-          then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-        elseif typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure
-          then Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-        else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper)
-    else Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl
+    buiPreCon=if secOutRel.typSecRel == Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper
+       then Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+       elseif secOutRel.typSecRel == Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan
+       then Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+       elseif secOutRel.typSecRel == Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan
+       then (if typCtlFanRet == Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
+       then Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+       elseif typCtlFanRet == Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure
+       then Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp
+       else Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper)
+       else Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Type of building pressure control system"
     annotation (Dialog(group="Economizer"));
 
@@ -96,7 +96,7 @@ partial block PartialControllerVAVMultizone
 initial equation
   if typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone then
     // We check the fallback "else" clause.
-    if buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper then
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper then
       assert(secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
        "In "+ getInstanceName() + ": "+
        "The system configuration is incompatible with available options for building pressure control.");

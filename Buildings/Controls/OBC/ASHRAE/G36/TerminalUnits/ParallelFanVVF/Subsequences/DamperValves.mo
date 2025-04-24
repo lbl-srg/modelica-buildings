@@ -194,6 +194,7 @@ block DamperValves
     annotation (Placement(transformation(extent={{360,-320},{400,-280}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
   Buildings.Controls.OBC.CDL.Reals.Line lin
@@ -224,10 +225,11 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-240,190},{-220,210}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Hot water valve position"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
+    "Hot water valve position"
     annotation (Placement(transformation(extent={{300,10},{320,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nomFlow(final k=
-        VCooMax_flow)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nomFlow(
+    final k=VCooMax_flow)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{60,240},{80,260}})));
   Buildings.Controls.OBC.CDL.Reals.Divide VDisSet_flowNor
@@ -420,7 +422,10 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Reals.Switch swi8
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{100,380},{120,400}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
+    "Check if the airflow setpoint should be overrided"
+    annotation (Placement(transformation(extent={{-80,360},{-60,380}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{40,380},{60,400}})));
 
@@ -507,11 +512,9 @@ equation
   connect(conTDisHeaSet.y, THeaDisSet)
     annotation (Line(points={{-118,70},{380,70}},  color={0,0,127}));
   connect(conDam.y, swi3.u3) annotation (Line(points={{262,280},{280,280},{280,
-          102},{298,102}},
-                      color={0,0,127}));
+          102},{298,102}}, color={0,0,127}));
   connect(conZer3.y, swi3.u1) annotation (Line(points={{-258,110},{20,110},{20,
-          118},{298,118}},
-                     color={0,0,127}));
+          118},{298,118}}, color={0,0,127}));
   connect(minFan.y, gai1.u)
     annotation (Line(points={{-258,-70},{-242,-70}}, color={0,0,127}));
   connect(gai1.y, sub.u2) annotation (Line(points={{-218,-70},{-200,-70},{-200,-56},
@@ -551,35 +554,35 @@ equation
   connect(booToRea.y, mul.u1) annotation (Line(points={{122,-90},{160,-90},{160,
           -104},{198,-104}}, color={0,0,127}));
   connect(max1.y, mul.u2) annotation (Line(points={{122,-130},{140,-130},{140,-116},
-          {198,-116}},       color={0,0,127}));
+          {198,-116}}, color={0,0,127}));
   connect(mul.y, swi4.u1) annotation (Line(points={{222,-110},{240,-110},{240,-202},
-          {258,-202}},       color={0,0,127}));
+          {258,-202}}, color={0,0,127}));
   connect(VOAMin_flow, gre2.u1) annotation (Line(points={{-360,-110},{-300,-110},
           {-300,-260},{-62,-260}}, color={0,0,127}));
   connect(gre2.y, booToRea1.u)
     annotation (Line(points={{-38,-260},{38,-260}}, color={255,0,255}));
   connect(max1.y, mul1.u1) annotation (Line(points={{122,-130},{140,-130},{140,-264},
-          {158,-264}},       color={0,0,127}));
+          {158,-264}}, color={0,0,127}));
   connect(booToRea1.y, mul1.u2) annotation (Line(points={{62,-260},{120,-260},{120,
-          -276},{158,-276}},     color={0,0,127}));
+          -276},{158,-276}}, color={0,0,127}));
   connect(greThr2.y, cooHea.u2) annotation (Line(points={{-258,0},{-120,0},{-120,
-          -308},{-62,-308}},       color={255,0,255}));
+          -308},{-62,-308}}, color={255,0,255}));
   connect(greThr1.y, cooHea.u1) annotation (Line(points={{-218,280},{-100,280},{
           -100,-300},{-62,-300}},color={255,0,255}));
   connect(cooHea.y, not1.u)
     annotation (Line(points={{-38,-300},{38,-300}}, color={255,0,255}));
   connect(mul1.y, swi6.u1) annotation (Line(points={{182,-270},{200,-270},{200,-292},
-          {218,-292}},       color={0,0,127}));
+          {218,-292}}, color={0,0,127}));
   connect(not1.y, swi6.u2)
     annotation (Line(points={{62,-300},{218,-300}}, color={255,0,255}));
   connect(swi6.y, swi4.u3) annotation (Line(points={{242,-300},{250,-300},{250,-218},
-          {258,-218}},       color={0,0,127}));
+          {258,-218}}, color={0,0,127}));
   connect(conHal1.y, heaFanRat.x1) annotation (Line(points={{-38,-380},{20,-380},
           {20,-402},{38,-402}}, color={0,0,127}));
   connect(mul1.y, max2.u2) annotation (Line(points={{182,-270},{200,-270},{200,-322},
-          {-260,-322},{-260,-386},{-182,-386}},       color={0,0,127}));
+          {-260,-322},{-260,-386},{-182,-386}}, color={0,0,127}));
   connect(minFan.y, max2.u1) annotation (Line(points={{-258,-70},{-250,-70},{-250,
-          -374},{-182,-374}},      color={0,0,127}));
+          -374},{-182,-374}}, color={0,0,127}));
   connect(max2.y, heaFanRat.f1) annotation (Line(points={{-158,-380},{-120,-380},
           {-120,-406},{38,-406}}, color={0,0,127}));
   connect(uHea, heaFanRat.u) annotation (Line(points={{-360,0},{-310,0},{-310,-410},
@@ -603,8 +606,7 @@ equation
   connect(isUno.y, swi2.u2) annotation (Line(points={{-158,-500},{130,-500},{130,
           20},{298,20}}, color={255,0,255}));
   connect(isUno.y, swi3.u2) annotation (Line(points={{-158,-500},{130,-500},{
-          130,110},{298,110}},
-                           color={255,0,255}));
+          130,110},{298,110}}, color={255,0,255}));
   connect(isUno.y, swi7.u2) annotation (Line(points={{-158,-500},{130,-500},{130,
           -240},{318,-240}}, color={255,0,255}));
   connect(swi4.y, swi7.u3) annotation (Line(points={{282,-210},{300,-210},{300,-248},
@@ -647,21 +649,17 @@ equation
   connect(zerFlo.y,add1. u1) annotation (Line(points={{-58,500},{0,500},{0,486},
           {38,486}}, color={0,0,127}));
   connect(forZerFlo.y,or3. u1) annotation (Line(points={{-118,500},{-100,500},{-100,
-          398},{38,398}}, color={255,0,255}));
+          370},{-82,370}},color={255,0,255}));
   connect(forCooMax.y,or3. u2) annotation (Line(points={{-118,460},{-100,460},{-100,
-          390},{38,390}}, color={255,0,255}));
+          362},{-82,362}},color={255,0,255}));
   connect(add1.y,swi8. u1) annotation (Line(points={{62,480},{80,480},{80,398},{
           98,398}},   color={0,0,127}));
   connect(add2.y,add1. u2) annotation (Line(points={{22,440},{30,440},{30,474},{
           38,474}}, color={0,0,127}));
   connect(minFlo.y,add2. u2) annotation (Line(points={{-58,420},{-20,420},{-20,434},
           {-2,434}}, color={0,0,127}));
-  connect(forMinFlo.y,or3. u3) annotation (Line(points={{-118,420},{-100,420},{-100,
-          382},{38,382}},color={255,0,255}));
   connect(swi.y, swi8.u3) annotation (Line(points={{82,300},{90,300},{90,382},{98,
           382}}, color={0,0,127}));
-  connect(or3.y, swi8.u2)
-    annotation (Line(points={{62,390},{98,390}}, color={255,0,255}));
   connect(swi8.y, VPri_flow_Set)
     annotation (Line(points={{122,390},{380,390}}, color={0,0,127}));
   connect(swi8.y, VDisSet_flowNor.u1) annotation (Line(points={{122,390},{140,390},
@@ -672,6 +670,12 @@ equation
           {-80,-40},{-80,-156},{38,-156}}, color={0,0,127}));
   connect(u1Fan, conDam.trigger) annotation (Line(points={{-360,130},{244,130},{
           244,268}}, color={255,0,255}));
+  connect(or2.y, swi8.u2)
+    annotation (Line(points={{62,390},{98,390}}, color={255,0,255}));
+  connect(or3.y, or2.u2) annotation (Line(points={{-58,370},{20,370},{20,382},{38,
+          382}}, color={255,0,255}));
+  connect(forMinFlo.y, or2.u1) annotation (Line(points={{-118,420},{-100,420},{-100,
+          390},{38,390}}, color={255,0,255}));
 annotation (
   defaultComponentName="damValFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-340,-520},{360,520}}),

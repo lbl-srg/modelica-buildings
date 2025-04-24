@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.TrueArrayConditional",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=5.0,
+    resultFile="TrueArrayConditional");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 300, 600},
+    y={"truArrConSam.u", "truArrConSam.uIdx[1]", "truArrConSam.uIdx[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"truArrConSam.y1[1]", "truArrConSam.y1[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"truArrConGre.y1[1]", "truArrConGre.y1[2]", "truArrConGre.y1[3]", "truArrConGre.y1[4]"},
+    autoscale=true,
+    grid=true
+);

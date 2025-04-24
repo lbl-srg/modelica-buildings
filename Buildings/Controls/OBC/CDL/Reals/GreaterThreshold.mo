@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block GreaterThreshold
-  "Output y is true, if input u is greater than threshold"
+  "Output y is true, if input u is greater than threshold with hysteresis"
   parameter Real t=0
     "Threshold for comparison";
   parameter Real h(
@@ -10,11 +10,11 @@ block GreaterThreshold
   parameter Boolean pre_y_start=false
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
-  Interfaces.RealInput u
-    "Input"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Input to be compared against the threshold"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
-    "Output"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Outputs true if u is greater than the threshold with hysteresis"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -35,10 +35,10 @@ protected
     "Greater block without hysteresis"
     parameter Real t=0
       "Threshold for comparison";
-    Interfaces.RealInput u
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u
       "Input u"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.BooleanOutput y
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
       "Output y"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -50,7 +50,6 @@ protected
           Rectangle(
             extent={{-100,100},{100,-100}},
             lineColor={0,0,0},
-            lineThickness=5.0,
             fillColor={210,210,210},
             fillPattern=FillPattern.Solid,
             borderPattern=BorderPattern.Raised),
@@ -71,10 +70,10 @@ protected
     parameter Boolean pre_y_start=false
       "Value of pre(y) at initial time"
       annotation (Dialog(tab="Advanced"));
-    Interfaces.RealInput u
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u
       "Input u"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.BooleanOutput y
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
       "Output y"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -92,7 +91,6 @@ protected
           Rectangle(
             extent={{-100,100},{100,-100}},
             lineColor={0,0,0},
-            lineThickness=5.0,
             fillColor={210,210,210},
             fillPattern=FillPattern.Solid,
             borderPattern=BorderPattern.Raised),
@@ -125,7 +123,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
@@ -220,17 +217,17 @@ revisions="<html>
 <li>
 April 29, 2022, by Jianjun Hu:<br/>
 Corrected the condition of swiching true back to false.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">issue 2981</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">Buildings, issue 2981</a>.
 </li>
 <li>
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">issue 2246</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">Buildings, issue 2246</a>.
 </li>
 <li>
 August 5, 2020, by Michael Wetter:<br/>
 Added hysteresis.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">Buildings, issue 2076</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

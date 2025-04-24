@@ -58,7 +58,7 @@ model WetCoilDiscretizedPControl
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = Medium1,
     m_flow_nominal=m1_flow_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpFixed_nominal=2000,
     dpValve_nominal=5000)
     annotation (Placement(transformation(extent={{18,38},{38,58}})));

@@ -20,7 +20,7 @@ model ConstantHeatInjection_100Boreholes
     redeclare package Medium = Medium,
     T_start=T_start,
     addPowerToMedium=false,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,

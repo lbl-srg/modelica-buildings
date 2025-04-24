@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "plrToPul.uPLR",
-    "plrToPul.yEna",
-    "gaiTim.y",
-    "timEna.y"
-  };

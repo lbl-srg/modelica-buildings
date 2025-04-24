@@ -31,7 +31,7 @@ model SimpleHouse4 "Heating model"
 
   Fluid.Movers.Preconfigured.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWater,
-    use_inputFilter=false,
+    use_riseTime=false,
     m_flow_nominal=mWat_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false) "Pump"

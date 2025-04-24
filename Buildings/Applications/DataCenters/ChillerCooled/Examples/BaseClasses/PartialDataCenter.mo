@@ -56,7 +56,9 @@ partial model PartialDataCenter
   parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
-  replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
+  replaceable
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE
+    chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
     numChi=numChi,
@@ -71,10 +73,9 @@ partial model PartialDataCenter
     redeclare each
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
-    use_inputFilter=false,
+    use_strokeTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_controller=false)
-    "Chillers and waterside economizer"
+    use_controller=false) "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
@@ -120,9 +121,8 @@ partial model PartialDataCenter
     each addPowerToMedium=false,
     per=perPumCW,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    each use_inputFilter=false)
-    "Condenser water pump"
-    annotation (Placement(transformation(
+    each use_riseTime=false) "Condenser water pump" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,100})));
@@ -187,7 +187,7 @@ partial model PartialDataCenter
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
     each dpValve_nominal=6000,
-    each use_inputFilter=false)
+    each use_strokeTime=false)
     "Shutoff valves"
     annotation (Placement(transformation(extent={{70,130},{50,150}})));
 
@@ -321,7 +321,7 @@ equation
             color={0,127,255},
             thickness=0.5));
   connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{32,200},{32,144},{22,144}},
+      points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,144}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -480,17 +480,17 @@ equation
       thickness=0.5));
   connect(chiNumOn.y, CWPumCon.numOnChi)
     annotation (Line(
-      points={{-236.9,65},{-174,65}},
+      points={{-236.9,65},{-206,65},{-206,64},{-174,64}},
       color={255,127,0}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(
-      points={{20,-126},{32,-126},{32,-196},{1.525,-196},{1.525,-188.7}},
+      points={{20,-126},{32,-126},{32,-196},{4.5625,-196},{4.5625,-188.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(roo.airPorts[2], TAirSup.port_b)
     annotation (Line(
-      points={{5.575,-188.7},{5.575,-196},{-50,-196},{-50,-160}},
+      points={{2.5375,-188.7},{2.5375,-196},{-50,-196},{-50,-160}},
       color={0,127,255},
       thickness=0.5));
   connect(roo.TRooAir, ahuFanSpeCon.u_m)
@@ -551,6 +551,8 @@ equation
           {-126,226},{-126,248},{-122,248}},color={0,0,127}));
   connect(plaOn.y, varSpeCon.on) annotation (Line(points={{-138,240},{-136,240},
           {-136,210},{-190,210},{-190,4},{-170,4}}, color={255,0,255}));
+  connect(plaOn.y, CWPumCon.on) annotation (Line(points={{-138,240},{-136,240},
+          {-136,210},{-190,210},{-190,70},{-174,70}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,260}})),
     Documentation(info="<html>
@@ -566,6 +568,12 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 3, 2024, by Jianjun Hu:<br/>
+Added plant on signal to control the pump speed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
 <li>
 January 2, 2022, by Kathryn Hinkelman:<br/>
 Passed the <code>plaOn</code> signal to the chilled water pump control

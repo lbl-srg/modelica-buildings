@@ -45,20 +45,20 @@ model TwoWayValve "Container class for two-way valves"
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve"
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve"));
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=use_inputFilter));
+      group="Time needed to open or close valve",
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(final unit="1")
     "Input control signal"
@@ -75,7 +75,7 @@ model TwoWayValve "Container class for two-way valves"
         iconTransformation(extent={{40,50},{80,90}})));
 
   Actuators.Valves.TwoWayEqualPercentage valEqu(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
@@ -88,11 +88,10 @@ model TwoWayValve "Container class for two-way valves"
     final from_dp=from_dp,
     final allowFlowReversal=allowFlowReversal,
     final linearized=linearized,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
-    final y_start=y_start)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
+    final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Two-way valve with equal percentage characteristic"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Actuators.Valves.TwoWayLinear valLin(
@@ -107,11 +106,10 @@ model TwoWayValve "Container class for two-way valves"
     final from_dp=from_dp,
     final allowFlowReversal=allowFlowReversal,
     final linearized=linearized,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
-    final y_start=y_start)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
+    final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
     "Two-way valve with linear characteristic"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
   Actuators.Valves.TwoWayTable valTab(
@@ -125,16 +123,15 @@ model TwoWayValve "Container class for two-way valves"
     final from_dp=from_dp,
     final allowFlowReversal=allowFlowReversal,
     final linearized=linearized,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
-    final flowCharacteristics=flowCharacteristics)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
+    final flowCharacteristics=flowCharacteristics) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
     "Two-way valve with table-specified characteristic"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Actuators.Valves.TwoWayPressureIndependent valPre(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
@@ -144,11 +141,10 @@ model TwoWayValve "Container class for two-way valves"
     final deltaM=deltaM,
     final from_dp=from_dp,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
-    final y_start=y_start)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.PressureIndependent
+    final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.PressureIndependent
     "Pressure-independent two-way valve"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 initial equation
@@ -218,19 +214,19 @@ equation
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-20,94},{22,48}},
           textColor={0,0,0},
           fillColor={135,135,135},
@@ -257,7 +253,7 @@ equation
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid),
     Line(
-      visible=use_inputFilter,
+      visible=use_strokeTime,
       points={{-30,40},{30,40}}),
     Line(
       points={{0,40},{0,0}}),      Text(
@@ -273,20 +269,20 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This is a container class for two-way valve models from 
+This is a container class for two-way valve models from
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
 Buildings.Fluid.Actuators.Valves</a>.
-Note that the models 
+Note that the models
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPolynomial\">
-Buildings.Fluid.Actuators.Valves.TwoWayPolynomial</a> 
+Buildings.Fluid.Actuators.Valves.TwoWayPolynomial</a>
 and
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening\">
-Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening</a> 
+Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening</a>
 are not represented.
 </p>
 <p>
-The parameter <code>typCha</code> allows configuring the model 
-by selecting the valve characteristic to be used based on the enumeration 
+The parameter <code>typCha</code> allows configuring the model
+by selecting the valve characteristic to be used based on the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic\">
 Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic</a>.
 </p>

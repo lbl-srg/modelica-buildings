@@ -3,8 +3,8 @@ block Constant
   "Output constant signal of type Boolean"
   parameter Boolean k
     "Constant output value";
-  Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Output with constant value"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -23,7 +23,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Ellipse(
