@@ -1,14 +1,14 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle
   "Toggles output value whenever its input turns true"
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Toggle input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput clr
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput clr
     "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.BooleanOutput y
-    "Output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Output with toggled signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -19,25 +19,25 @@ initial equation
 equation
   when initial() then
     //scenario = 1
-    y=if clr then
-        false
-      else
-        u;
-  elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == false) and
-                                                          (pre(y) == false) then
+    y=if clr then false else u;
+      elsewhen
+	(not clr) and change(u) and
+        (pre(u) == false) and
+        (pre(y) == false)
+      then
     //scenario = 2
     y=true;
   elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == false) and
-                                                          (pre(y) == true) then
+        (not clr) and change(u) and
+        (pre(u) == false) and
+        (pre(y) == true)
+  then
     //scenario = 3
     y=false;
   elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == true) then
+       (not clr) and change(u) and
+       (pre(u) == true)
+  then
     //scenario = 4
     y=pre(y);
   elsewhen clr then
@@ -54,7 +54,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Ellipse(
@@ -121,9 +120,9 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that generates a <code>true</code> output when toggle input <code>u</code> 
+Block that generates a <code>true</code> output when toggle input <code>u</code>
 rises from <code>false</code> to <code>true</code>, provided that the clear input
-<code>clr</code> is <code>false</code> or also became at the same time 
+<code>clr</code> is <code>false</code> or also became at the same time
 <code>false</code>. The output remains <code>true</code> until
 </p>
 <ul>
@@ -141,8 +140,8 @@ regardless of the value of the toggle input <code>u</code>.
 </p>
 
 <p>
-At initial time, if <code>clr = false</code>, then the output will be 
-<code>y = u</code>. Otherwise it will be <code>y=false</code> 
+At initial time, if <code>clr = false</code>, then the output will be
+<code>y = u</code>. Otherwise it will be <code>y=false</code>
 (because the clear input <code>clr</code> is <code>true</code>).
 </p>
 
@@ -158,7 +157,7 @@ At initial time, if <code>clr = false</code>, then the output will be
 October 13, 2020, by Jianjun Hu:<br/>
 Removed the parameter <code>pre_y_start</code>, and made the initial output to be
 equal to toggle input when the clear input is <code>false</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">issue 2177</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">Buildings, issue 2177</a>.
 </li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
@@ -166,8 +165,8 @@ Simplified implementation, and made model work with OpenModelica.
 </li>
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
-Corrected implementation that causes wrong output at initial stage. 
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+Corrected implementation that causes wrong output at initial stage.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">Buildings, issue 1402</a>.
 </li>
 <li>
 March 31, 2017, by Jianjun Hu:<br/>

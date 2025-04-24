@@ -124,14 +124,12 @@ model ChillerDXHeatingEconomizer
     final m_flow_nominal=mAir_flow_nominal,
     final nominalValuesDefineDefaultPressureCurve=true,
     final dp_nominal=875,
-    final per(
-      final etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
-      final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+    final per(final etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+        final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=false,
-    final use_inputFilter=false,
-    redeclare package Medium = MediumA)
-    "Supply fan"
+    final use_riseTime=false,
+    redeclare package Medium = MediumA) "Supply fan"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
     final m_flow_nominal=mAir_flow_nominal,
@@ -144,7 +142,7 @@ model ChillerDXHeatingEconomizer
     "Heating efficiency"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Fluid.Sources.Outside out(
-    final C=fill(0.0004, 1),
+    final C=fill(0.0004, MediumA.nC),
     final nPorts=3,
     redeclare package Medium = MediumA)
     "Boundary conditions for outside air"
@@ -182,7 +180,7 @@ model ChillerDXHeatingEconomizer
         extent={{10,-10},{-10,10}},
         origin={138,-174})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat(
-    final use_inputFilter=false,
+    final use_riseTime=false,
     final allowFlowReversal=false,
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -195,9 +193,7 @@ model ChillerDXHeatingEconomizer
     final dp_nominal=12000,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for chilled water loop"
-    annotation (
-      Placement(transformation(
+    "Pump for chilled water loop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,-90})));
@@ -357,7 +353,6 @@ protected
             fillPattern=FillPattern.Solid),
           Line(points={{62,0},{-98,0}}, color={0,0,0}),
           Rectangle(
-            visible=use_inputFilter,
             extent={{28,-10},{46,10}},
             lineColor={0,0,0},
             fillColor={135,135,135},
@@ -634,6 +629,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2024, by Michael Wetter:<br/>
+Corrected wrong assignment of <code>out.C</code>.
+</li>
 <li>
 November 1, 2021, by Hongxiang Fu:<br/>
 Refactored the model by replacing <code>not use_powerCharacteristic</code>

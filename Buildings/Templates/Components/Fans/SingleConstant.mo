@@ -5,16 +5,14 @@ model SingleConstant "Single fan - Constant speed"
     final typ=Buildings.Templates.Components.Types.Fan.SingleConstant);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
-    redeclare final package Medium =Medium,
+    redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final per=dat.per,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    final allowFlowReversal=allowFlowReversal)
-    "Fan"
-    annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}})));
+    use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal) "Fan"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta
     "Start/stop signal" annotation (Placement(transformation(
@@ -67,6 +65,13 @@ The fan is commanded On with a Boolean signal <code>y1</code> (starter contact).
 <li>
 A status signal <code>y1_actual</code> (Boolean) is returned.
 <code>y1_actual = true</code> means that the fan is On.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

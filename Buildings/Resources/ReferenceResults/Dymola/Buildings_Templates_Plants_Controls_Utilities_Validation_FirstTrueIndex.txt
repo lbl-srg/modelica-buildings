@@ -1,0 +1,10 @@
+last-generated=2024-06-12
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+idxFirTru.y=[2e+00, 2e+00]
+idxFirTruAllFal.y=[0e+00, 0e+00]

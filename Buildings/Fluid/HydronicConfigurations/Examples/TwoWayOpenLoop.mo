@@ -39,7 +39,7 @@ model TwoWayOpenLoop
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
     final dpValve_nominal= 0.5 * dp_nominal,
-    use_inputFilter=false) "Control valve with 50% authority" annotation (
+    use_strokeTime=false) "Control valve with 50% authority" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -57,7 +57,7 @@ model TwoWayOpenLoop
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
     final dpValve_nominal=0.25*dp_nominal,
-    use_inputFilter=false) "Control valve with 25% authority" annotation (
+    use_strokeTime=false) "Control valve with 25% authority" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -75,7 +75,7 @@ model TwoWayOpenLoop
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
     final dpValve_nominal=0.75*dp_nominal,
-    use_inputFilter=false) "Control valve with 75% authority" annotation (
+    use_strokeTime=false) "Control valve with 75% authority" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -90,7 +90,7 @@ model TwoWayOpenLoop
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
     final dpValve_nominal=0.5*dp_nominal,
-    use_inputFilter=false) "Control valve with 50% authority and overflow"
+    use_strokeTime=false) "Control valve with 50% authority and overflow"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -117,7 +117,7 @@ model TwoWayOpenLoop
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
     final dpValve_nominal=0.5*dp_nominal,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "Control valve with 33% authority and balanced circuit" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -136,7 +136,7 @@ model TwoWayOpenLoop
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
     final dpValve_nominal=1*dp_nominal,
-    use_inputFilter=false) "Control valve with 100% authority" annotation (
+    use_strokeTime=false) "Control valve with 100% authority" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -154,7 +154,7 @@ model TwoWayOpenLoop
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
     final dpValve_nominal=0.33*dp_nominal,
-    use_inputFilter=false) "Control valve with 33% authority" annotation (
+    use_strokeTime=false) "Control valve with 33% authority" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -311,7 +311,7 @@ is expressed as a fraction of the design flow rate, see plot #1) is then explain
 practical authority as
 <i>d(V&#775;(y) / V&#775;<sub>design</sub>) / dy =
 1 / &beta;' <sup>1/2</sup> * d(Kv(y) / Kvs) / dy</i>
-when <i>y</i> tends towards zero and where the function <i>Kv(y) / Kvs</i> 
+when <i>y</i> tends towards zero and where the function <i>Kv(y) / Kvs</i>
 is the inherent valve characteristic.
 </li>
 </ul>

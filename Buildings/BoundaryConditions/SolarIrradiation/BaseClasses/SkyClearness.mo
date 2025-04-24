@@ -5,7 +5,7 @@ block SkyClearness "Sky clearness"
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
-    displayUnit="degreeC") "Zenith angle of the sun beam"
+    displayUnit="deg") "Zenith angle of the sun beam"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput HDifHor(quantity=
         "RadiantEnergyFluenceRate", unit="W/m2")
@@ -65,6 +65,12 @@ is such that the regularization is usually not triggered.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2024, by Michael Wetter:<br/>
+Corrected <code>displayUnit</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1848\">IBPSA, #1848</a>.
+</li>
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>

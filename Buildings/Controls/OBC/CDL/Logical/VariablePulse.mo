@@ -120,14 +120,13 @@ protected
       n=6);
     t_end = t_sta + u*period;
 
-    y = ((time>=t_sta) and (time<t_end));
+    y = (time>=t_sta) and (time<t_end);
 
   annotation (Icon(
         graphics={
           Rectangle(
             extent={{-100,100},{100,-100}},
             lineColor={0,0,0},
-            lineThickness=5.0,
             fillColor={210,210,210},
             fillPattern=FillPattern.Solid,
             borderPattern=BorderPattern.Raised),
@@ -178,7 +177,6 @@ annotation (
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Text(

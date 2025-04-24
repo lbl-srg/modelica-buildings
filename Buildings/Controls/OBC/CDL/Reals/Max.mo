@@ -1,20 +1,18 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Max
   "Pass through the largest signal"
-  Interfaces.RealInput u1
-    "Connector of Real input signal 1"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
+    "Input to the max function"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput u2
-    "Connector of Real input signal 2"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
+    "Input to the max function"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealOutput y
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Maximum of the inputs"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=max(
-    u1,
-    u2);
+  y=max(u1, u2);
   annotation (
     defaultComponentName="max",
     Documentation(

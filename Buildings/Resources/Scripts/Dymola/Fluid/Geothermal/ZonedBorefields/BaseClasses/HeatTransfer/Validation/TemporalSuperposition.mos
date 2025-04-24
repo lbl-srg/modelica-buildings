@@ -1,0 +1,15 @@
+simulateModel("Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.Validation.TemporalSuperposition", stopTime=1.0, method="Cvode", tolerance=1e-06, resultFile="TemporalSuperposition");
+
+createPlot(
+  id=1,
+  position={15, 10, 592, 689},
+  y={"supPosErr[1]", "supPosErr[2]"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="TemporalSuperposition.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+

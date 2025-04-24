@@ -1,0 +1,6 @@
+simulateModel("Buildings.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETS", tolerance=1e-6, startTime=0, stopTime=864000, method="CVode", resultFile="BuildingTimeSeriesWithETS");
+createPlot(id=1, position={540, 9, 784, 617}, y={"bui.ets.proHeaWat.heaPum.QCon_flow_nominal", "bui.ets.proHeaWat.heaPum.QCon_flow"}, range={0.0, 10.0, -200000.0, 400000.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"W", "W"});
+createPlot(id=1, position={540, 9, 784, 617}, y={"bui.ets.proHotWat.heaPum.QCon_flow_nominal", "bui.ets.proHotWat.heaPum.QCon_flow"}, range={0.0, 10.0, -2000.0, 4000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"W", "W"});
+createPlot(id=1, position={540, 9, 784, 617}, y={"bui.PHea", "bui.PPum"}, range={0.0, 10.0, -50000.0, 100000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"W", "W"});
+createPlot(id=1, position={540, 9, 784, 617}, y={"bui.bui.QReqHea_flow", "bui.bui.QReqCoo_flow", "bui.bui.QHea_flow", "bui.bui.QCoo_flow"}, range={0.0, 10.0, -200000.0, 400000.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"W", "W", "W", "W"});
+

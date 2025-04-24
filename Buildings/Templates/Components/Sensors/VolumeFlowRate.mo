@@ -10,13 +10,11 @@ model VolumeFlowRate "Volume flow rate sensor"
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final allowFlowReversal=allowFlowReversal) if have_sen
+    final m_flow_nominal=m_flow_nominal) if have_sen
     "Volume flow rate sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Templates.Components.Routing.PassThroughFluid pas(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) if not have_sen "Pass through"
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
+      package Medium = Medium) if not have_sen "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
 

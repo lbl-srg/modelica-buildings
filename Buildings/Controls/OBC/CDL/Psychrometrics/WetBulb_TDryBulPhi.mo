@@ -1,18 +1,18 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics;
 block WetBulb_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput phi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealOutput TWetBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
@@ -143,20 +143,20 @@ DOI: 10.1175/JAMC-D-11-0143.1
 <li>
 March 6, 2023, by Michael Wetter:<br/>
 Added a constant in order for unit check to pass.<br/>
-See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">Buildings, issue 1711</a>
 for a discussion.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 September 29, 2020, by Michael Wetter:<br/>
 Removed unused input <code>p</code> and renamed block.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">Buildings, issue 2139</a>
 </li>
 <li>
 April 11, 2017, by Jianjun Hu:<br/>
@@ -169,7 +169,7 @@ Changed icon.
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Corrected exact implementation.
-See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a>
+See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Buildings, issue 474</a>
 for a discussion.
 </li>
 <li>

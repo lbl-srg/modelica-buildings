@@ -5,16 +5,15 @@ block Limiter
     "Upper limit of input signal";
   parameter Real uMin
     "Lower limit of input signal";
-  Interfaces.RealInput u
-    "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Input to be limited"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Limited value of input signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  assert(
-    uMin < uMax,
+  assert(uMin < uMax,
     "uMin must be smaller than uMax. Check parameters.");
 
 equation
@@ -40,11 +39,15 @@ and
 <code>uMax</code> and <code>uMin</code> are parameters.
 </p>
 <p>
-If <code>uMax &lt; uMin</code>, an error occurs and no output is produced.
+If <code>uMax &lt; uMin</code>, an error occurs.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Michael Wetter:<br/>
+Updated documentation.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

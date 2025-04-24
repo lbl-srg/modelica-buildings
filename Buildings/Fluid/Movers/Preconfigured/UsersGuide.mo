@@ -23,11 +23,14 @@ Buildings.Fluid.Movers.Data.Pumps</a>
 for pumps and
 <a href=\"Modelica://Buildings.Fluid.Movers.Data.Fans\">
 Buildings.Fluid.Movers.Data.Fans</a>
-for fans.
-(See also
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1884\">#1884</a>.)
+for fans. It goes through the design operating point and spans over
+<i>0</i> and twice the design flow rate at maximum speed. See figure below.
 The model identifies itself as a fan or pump based on the default density of
 the medium.
+<p align=\"center\">
+<img alt=\"Pump characteristic\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Preconfigured/PumpCharacteristic.png\"/>
+</p>
 </li>
 <li>
 The hydraulic efficiency is computed based on the Euler number.

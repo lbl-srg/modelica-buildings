@@ -1,0 +1,24 @@
+// Simulate
+simulateModel("Buildings.DHC.Plants.Steam.BaseClasses.Examples.BoilerPolynomial", stopTime=3600, tolerance=1e-06, method="dassl", resultFile="BoilerPolynomial");
+// Plot commands
+createPlot(id=1, position={33, 21, 614, 476}, 
+	y={"y.y"}, 
+	range={0.0, 3600.0, -0.5, 1.5}, 
+	grid=true, 
+	filename="BoilerPolynomial.mat", 
+	colors={{28,108,200}});
+createPlot(id=1, position={33, 21, 614, 476}, 
+	y={"boiDyn.QFue_flow", "boiSte.QFue_flow"}, 
+	range={0.0, 3600.0, -20000.0, 60000.0}, 
+	grid=true, 
+	subPlot=102, 
+	colors={{28,108,200}, {238,46,47}}, 
+	displayUnits={"W", "W"});
+createPlot(id=1, position={33, 21, 614, 476}, 
+	y={"boiDyn.vol.VLiq", "boiSte.VLiq"}, 
+	range={0.0, 3600.0, 0.03, 0.07}, 
+	grid=true, 
+	subPlot=103, 
+	colors={{28,108,200}, {238,46,47}}, 
+	displayUnits={"m3", "m3"});
+

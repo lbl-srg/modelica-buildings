@@ -3,7 +3,7 @@ compareVars :=
     "arr.bus.y",
     "arr.bus.y1",
     "arr.bus.y1_actual",
-    "arr.fan[1].m_flow",
+    "arr.fan.m_flow",
     "arr.m_flow_nominal",
     "cst.bus.y1",
     "cst.bus.y1_actual",

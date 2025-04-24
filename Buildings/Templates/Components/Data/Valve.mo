@@ -33,12 +33,15 @@ record Valve "Record for valve model"
       enable=typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
         typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating));
 
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName="datVal",
+  Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for
-the classes within
-<a href=\"modelica://Buildings.Templates.Components.Valves\">
-Buildings.Templates.Components.Valves</a>.
+This record provides the set of sizing parameters for
+the class
+<a href=\"modelica://Buildings.Templates.Components.Actuators.Valve\">
+Buildings.Templates.Components.Actuators.Valve</a>.
 </p>
 </html>"));
 end Valve;

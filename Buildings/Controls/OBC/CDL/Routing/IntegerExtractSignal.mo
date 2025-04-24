@@ -7,10 +7,10 @@ block IntegerExtractSignal
     "Number of outputs";
   parameter Integer extract[nout]=1:nout
     "Extracting vector";
-  Interfaces.IntegerInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u[nin]
     "Integer input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y[nout]
     "Integer signals extracted from the input vector with the extraction scheme specified by the integer vector"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

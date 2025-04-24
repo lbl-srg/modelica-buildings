@@ -57,6 +57,27 @@ block G36VAVMultiZone
     "Number of zones that each group contains"
     annotation(Evaluate=true);
 
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil typCoiCoo=
+    if coiCoo.typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling then
+      Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+    elseif coiCoo.typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+      coiCoo.typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
+      Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
+    else Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.None
+    "Type of cooling coil"
+    annotation(Evaluate=true);
+
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil typCoiHea=
+    if coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    elseif coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
+      coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+    else Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None
+    "Type of cooling coil"
+    annotation(Evaluate=true);
+
   parameter Boolean have_perZonRehBox=false
     "Set to true if there are any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="Configuration"));
@@ -139,10 +160,8 @@ block G36VAVMultiZone
     final minOADes=typSecOut,
     final buiPreCon=buiPreCon,
     final ecoHigLimCon=typCtlEco,
-    final have_hotWatCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
-      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
-    final have_eleHeaCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
-      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating,
+    final cooCoi=typCoiCoo,
+    final heaCoi=typCoiHea,
     final have_perZonRehBox=have_perZonRehBox,
     final VUncDesOutAir_flow=VOutUnc_flow_nominal,
     final VDesTotOutAir_flow=VOutTot_flow_nominal,
@@ -252,8 +271,12 @@ equation
   connect(bus.pAirSup_rel, ctl.dpDuc);
   connect(bus.TOut, ctl.TOut);
   connect(bus.TAirSup, ctl.TAirSup);
-  connect(bus.VOut_flow, ctl.VAirOut_flow);
-  connect(bus.VOutMin_flow, ctl.VAirOut_flow);
+  if typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper then
+    connect(bus.VOut_flow, ctl.VAirOut_flow);
+  end if;
+  if typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow then
+    connect(bus.VOutMin_flow, ctl.VAirOut_flow);
+  end if;
 
   connect(bus.dpAirOutMin, ctl.dpMinOutDam);
   connect(bus.hAirOut, ctl.hAirOut);
@@ -268,8 +291,6 @@ equation
 
   connect(bus.fanSup.V_flow, ctl.VAirSup_flow);
   connect(bus.fanRet.V_flow, ctl.VAirRet_flow);
-  connect(bus.coiCoo.y_actual, ctl.uCooCoi_actual);
-  connect(bus.coiHea.y_actual, ctl.uHeaCoi_actual);
 
   connect(bus.fanSup.y1_actual, y1FanSup_actual.u);
   connect(bus.TAirSup, TAirSup.u);
@@ -308,6 +329,7 @@ equation
   connect(ctl.y1MinOutDam, bus.damOutMin.y1);
   connect(ctl.yRetDam, bus.damRet.y);
   connect(ctl.yRelDam, bus.damRel.y);
+  connect(ctl.y1RelDam, bus.damRel.y1);
   connect(ctl.yOutDam, bus.damOut.y);
   connect(ctl.y1EneCHWPum, bus.y1PumChiWat);
   connect(ctl.y1SupFan, bus.fanSup.y1);
@@ -485,20 +507,24 @@ Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem</a>:
 Computation of the AHU operating mode
 </li>
 </ul>
-<h4>Details</h4>
-<p>
-The AI point for the measured outdoor air flow rate <code>ctl.VOut_flow</code>
-used for minimum outdoor airflow control is connected to both <code>bus.VOutMin_flow</code>
-(dedicated minimum OA damper) and <code>bus.VOut_flow</code> (single common OA damper).
-Those two variables are exclusive from one another.
-In case of dedicated OA dampers, the total outdoor airflow is not measured,
-hence no <code>bus.VOut_flow</code> signal is available for that configuration.
-</p>
 <h4>References</h4>
 <ul>
 <li>
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 8, 2023, by Antoine Gautier:<br/>
+Added support for additional configurations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">#3526</a>.
+</li>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

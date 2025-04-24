@@ -1,6 +1,10 @@
 Bus
+PartialChiller
 PartialCoil
-PartialDamper
 PartialFan
+PartialHeatPump
+PartialHeatPumpEquationFit
+PartialPump
+PartialPumpMultiple
+PartialPumpSingle
 PartialSensor
-PartialValve

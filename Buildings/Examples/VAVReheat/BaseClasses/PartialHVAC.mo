@@ -51,6 +51,24 @@ partial model PartialHVAC
     PCooSen=cooCoi.QSen2_flow,
     PCooLat=cooCoi.QLat2_flow) "Results of the simulation";
 
+  Fluid.Actuators.Dampers.Exponential damRet(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mAir_flow_nominal,
+    from_dp=false,
+    strokeTime=15,
+    dpDamper_nominal=5,
+    dpFixed_nominal=5) "Return air damper" annotation (Placement(transformation(
+        origin={0,-10},
+        extent={{10,-10},{-10,10}},
+        rotation=90)));
+  Fluid.Actuators.Dampers.Exponential damOut(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mAir_flow_nominal,
+    from_dp=false,
+    strokeTime=15,
+    dpDamper_nominal=5,
+    dpFixed_nominal=5) "Outdoor air damper"
+    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Fluid.FixedResistances.Junction splCooSup(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal*{1,1,1},
@@ -218,7 +236,31 @@ protected
 
   end Results;
 equation
-
+  connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
+      points={{320,-40},{320,-10}},
+      color={0,0,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dot));
+  connect(TSup.port_a, fanSup.port_b) annotation (Line(
+      points={{330,-40},{320,-40}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(amb.ports[1], VOut1.port_a) annotation (Line(
+      points={{-114,-46.1},{-94,-46.1},{-94,-40},{-90,-40}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(weaBus.TDryBul, TOut.u) annotation (Line(
+      points={{-319.95,180.05},{-310,180.05},{-310,180},{-302,180}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(amb.weaBus, weaBus) annotation (Line(
+      points={{-136,-44.78},{-320,-44.78},{-320,180}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
 
   connect(heaCoi.port_b2, cooCoi.port_a2)
     annotation (Line(

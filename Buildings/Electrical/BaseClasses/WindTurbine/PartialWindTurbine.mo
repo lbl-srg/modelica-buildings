@@ -15,8 +15,8 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds per(
     final tableOnFile=tableOnFile,
     final table=cat(1, cat(1, [0, 0], table),
-                    [vOut+10*Modelica.Constants.eps, 0;
-                     vOut+20*Modelica.Constants.eps, 0]),
+                    [vOut+1E-9, 0;
+                     vOut+2E-9, 0]),
     final tableName=tableName,
     final fileName=fileName,
     final columns=2:2,
@@ -26,7 +26,7 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=scale)
     "Gain, used to allow a user to easily scale the power"
     annotation (Placement(transformation(extent={{2,20},{22,40}})));
-  DC.Sources.BaseClasses.WindCorrection                      cor(
+  DC.Sources.BaseClasses.WindCorrection cor(
     final h=h,
     final hRef=hRef,
     final n=nWin) "Correction for wind"
@@ -170,10 +170,15 @@ Below and above these wind speeds, the generated power is zero.
 </html>", revisions="<html>
 <ul>
 <li>
+April 9, 2025, by Michael Wetter:<br/>
+Increased small number to extend table beyond cut-out wind speed.<br/>
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, issue 1996</a>.
+</li>
+<li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed test for equality of <code>Real</code> variables.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-Buildings/issues/493\">issue 493</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
 </li>
 <li>
 January 10, 2013, by Michael Wetter:<br/>

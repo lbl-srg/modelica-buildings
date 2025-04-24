@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "QAggShi_flow[1, 1]",
+    "QAggShi_flow[1, 2]",
+    "QAggShi_flow[1, 3]",
+    "QAggShi_flow[1, 4]",
+    "QAggShi_flow[1, 5]",
+    "QAggShi_flow[2, 1]",
+    "QAggShi_flow[2, 2]",
+    "QAggShi_flow[2, 3]",
+    "QAggShi_flow[2, 4]",
+    "QAggShi_flow[2, 5]"
+  };

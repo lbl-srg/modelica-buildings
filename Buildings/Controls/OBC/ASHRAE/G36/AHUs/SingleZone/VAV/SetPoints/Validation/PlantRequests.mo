@@ -6,7 +6,8 @@ model PlantRequests
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests plaReq1(
-    final  have_hotWatCoi=false) "Calculate plant request"
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None)
+    "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTem(
@@ -63,8 +64,9 @@ equation
           0},{30,51},{58,51}}, color={0,0,127}));
   connect(supTemSet1.y, plaReq.TSupCoo) annotation (Line(points={{-18,60},{0,60},
           {0,65},{58,65}}, color={0,0,127}));
-  connect(supTemSet.y, plaReq1.TSupCoo) annotation (Line(points={{-18,-60},{0,-60},
-          {0,-65},{58,-65}}, color={0,0,127}));
+  connect(supTemSet.y, plaReq1.TSupCoo) annotation (Line(points={{-18,-60},{0,
+          -60},{0,-65},{58,-65}},
+                             color={0,0,127}));
   connect(supTem2.y, plaReq.TSupHeaEco) annotation (Line(points={{-18,20},{20,20},
           {20,55},{58,55}}, color={0,0,127}));
 

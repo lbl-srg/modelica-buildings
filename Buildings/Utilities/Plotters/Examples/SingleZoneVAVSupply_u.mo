@@ -137,7 +137,7 @@ The plot will be generated in the file <code>plots.html</code>.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVSingleZoneTSupSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/SetPoints/Supply_Temperature.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

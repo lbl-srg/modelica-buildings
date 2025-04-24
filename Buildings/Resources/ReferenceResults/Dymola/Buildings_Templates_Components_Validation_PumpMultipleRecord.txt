@@ -1,0 +1,18 @@
+last-generated=2024-06-02
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+V_flow_nominal[1]=[1.004433608613908e-03, 1.004433608613908e-03]
+V_flow_nominal[2]=[2.008867217227817e-03, 2.008867217227817e-03]
+datDef.per[1].pressure.V_flow[2]=[1.004433608613908e-03, 1.004433608613908e-03]
+datDef.per[2].pressure.V_flow[2]=[2.008867217227817e-03, 2.008867217227817e-03]
+datRed.per[1].pressure.V_flow[2]=[2.777777845039964e-03, 2.777777845039964e-03]
+datRed.per[2].pressure.V_flow[2]=[2.777777845039964e-03, 2.777777845039964e-03]
+datAss.per[1].pressure.V_flow[2]=[2.777777845039964e-03, 2.777777845039964e-03]
+datAss.per[2].pressure.V_flow[2]=[2.099483273923397e-03, 2.099483273923397e-03]
+datPre.per[1].pressure.V_flow[2]=[2.008867217227817e-03, 2.008867217227817e-03]
+datPre.per[2].pressure.V_flow[2]=[4.017734434455633e-03, 4.017734434455633e-03]

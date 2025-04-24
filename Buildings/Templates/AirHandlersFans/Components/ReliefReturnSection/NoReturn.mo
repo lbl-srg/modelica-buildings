@@ -5,12 +5,15 @@ model NoReturn "No return branch"
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoReturn,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
-    final typFanRet=fanRet.typ);
+    final typFanRet=fanRet.typ,
+    final nFanRel=0,
+    final nFanRet=fanRet.nFan);
 
-  Buildings.Templates.Components.Dampers.TwoPosition damRel(
+  Buildings.Templates.Components.Actuators.Damper damRel(
     redeclare final package Medium = MediumAir,
+    final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
     final dat=dat.damRel,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final text_flip=true)
     "Relief damper"

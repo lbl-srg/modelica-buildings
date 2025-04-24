@@ -219,15 +219,15 @@ annotation (
         Text(
           extent={{-96,-72},{-50,-88}},
           textColor={0,0,0},
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper),
           textString="VAirOut_flow"),
         Text(
           extent={{30,-70},{98,-86}},
           textColor={0,0,0},
           textString="outAir_normalized",
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper))}),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper))}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},{220,120}})),
 Documentation(info="<html>
 <p>
@@ -297,6 +297,10 @@ but no larger than the design total outdoor airflow rate <code>VDesTotOutAir_flo
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Michael Wetter:<br/>
+Corrected wrong annotation.
+</li>
 <li>
 March 12, 2022, by Jianjun Hu:<br/>
 First implementation.

@@ -1,0 +1,8 @@
+// Simulate
+simulateModel("Buildings.DHC.Loads.Steam.Examples.BuildingTimeSeriesAtETS", startTime=1728000, stopTime=1814400, tolerance=1e-06, method="dassl", resultFile="BuildingTimeSeriesAtETS");
+// Plot commands
+createPlot(id=1, position={19, 14, 624, 499}, y={"bui.Q_flow"}, range={480.0, 504.0, 0.0, 25.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="h", displayUnits={"kW"});
+createPlot(id=1, position={19, 14, 624, 499}, y={"bui.vol.m_flow"}, range={480.0, 504.0, -0.002, 0.01}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="h", displayUnits={"kg/s"});
+createPlot(id=2, position={416, 11, 459, 500}, y={"bui.vol.port_a.h_outflow", "bui.vol.port_b.h_outflow"}, range={480.0, 505.0, 0.0, 3000000.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"J/kg", "J/kg"});
+createPlot(id=2, position={416, 11, 459, 500}, y={"bui.sta_a.p", "bui.vol.sta_a.p", "bui.vol.sta_b.p"}, range={480.0, 505.0, 1.5, 4.5}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="h", displayUnits={"bar", "bar", "bar"});
+

@@ -15,9 +15,6 @@ partial block PartialControllerVAVBox
     datAll.stdVen
     "Ventilation standard";
 
-  outer replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
-    "VAV damper";
-
   outer replaceable Buildings.Templates.Components.Coils.None coiHea
     "Heating coil";
 

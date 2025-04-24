@@ -100,6 +100,7 @@ block Dampers
     annotation (Placement(transformation(extent={{260,-280},{300,-240}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
+protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-220,210},{-200,230}})));
@@ -186,9 +187,9 @@ block Dampers
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Check if the airflow setpoint should be overrided"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     final k=1)
     "Constant 1"
@@ -219,6 +220,9 @@ block Dampers
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{220,-270},{240,-250}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    "Check if the airflow setpoint should be overrided"
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
   connect(conInt.y, cooSta.u1)
@@ -259,7 +263,7 @@ equation
           {80,-184},{98,-184}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conPID.u_s)
     annotation (Line(points={{122,-130},{136,-130},{136,-110},{148,-110}},
-                                                     color={0,0,127}));
+          color={0,0,127}));
   connect(VDis_flowNor.y, conPID.u_m) annotation (Line(points={{122,-190},{160,
           -190},{160,-122}}, color={0,0,127}));
   connect(oveFloSet,forZerFlo. u1)
@@ -288,14 +292,6 @@ equation
           {-42,26}}, color={0,0,127}));
   connect(add2.y,add1. u2) annotation (Line(points={{-58,-20},{-50,-20},{-50,14},
           {-42,14}}, color={0,0,127}));
-  connect(forZerFlo.y,or3. u1) annotation (Line(points={{-158,40},{-140,40},{-140,
-          -72},{-82,-72}},  color={255,0,255}));
-  connect(forCooMax.y,or3. u2) annotation (Line(points={{-158,0},{-140,0},{-140,
-          -80},{-82,-80}}, color={255,0,255}));
-  connect(forMinFlo.y,or3. u3) annotation (Line(points={{-158,-40},{-140,-40},{-140,
-          -88},{-82,-88}}, color={255,0,255}));
-  connect(or3.y, swi1.u2)
-    annotation (Line(points={{-58,-80},{38,-80}}, color={255,0,255}));
   connect(add1.y, swi1.u1) annotation (Line(points={{-18,20},{0,20},{0,-72},{38,
           -72}}, color={0,0,127}));
   connect(swi1.y, VSet_flow)
@@ -335,6 +331,18 @@ equation
           {218,-252}}, color={0,0,127}));
   connect(u1Fan, conPID.trigger) annotation (Line(points={{-280,-150},{154,-150},
           {154,-122}}, color={255,0,255}));
+  connect(or1.y, swi1.u2)
+    annotation (Line(points={{-18,-80},{38,-80}}, color={255,0,255}));
+  connect(or3.y, or1.u2) annotation (Line(points={{-98,-100},{-60,-100},{-60,-88},
+          {-42,-88}}, color={255,0,255}));
+  connect(forMinFlo.y, or1.u1) annotation (Line(points={{-158,-40},{-134,-40},{-134,
+          -80},{-42,-80}}, color={255,0,255}));
+  connect(forCooMax.y, or3.u1) annotation (Line(points={{-158,0},{-140,0},{-140,
+          -100},{-122,-100}},
+                            color={255,0,255}));
+  connect(forZerFlo.y, or3.u2) annotation (Line(points={{-158,40},{-146,40},{
+          -146,-108},{-122,-108}},
+                              color={255,0,255}));
 annotation (
   defaultComponentName="damCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-300},{260,300}})),

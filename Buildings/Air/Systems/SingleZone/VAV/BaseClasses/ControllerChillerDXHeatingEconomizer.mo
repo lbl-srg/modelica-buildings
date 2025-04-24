@@ -212,11 +212,6 @@ model ControllerChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiFan "Switch fan on"
     annotation (Placement(transformation(extent={{70,120},{90,140}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysHea(
-    final uLow=0.01,
-    final uHigh=0.05)
-    "Hysteresis for heating"
-    annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr orFan(nin=3)
     "Switch fan on if heating, cooling, or occupied"
     annotation (Placement(transformation(extent={{40,94},{60,114}})));
@@ -226,6 +221,9 @@ model ControllerChillerDXHeatingEconomizer
     "Chiller on signal based on room temperature"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
+  Controls.OBC.CDL.Reals.Greater heaOnTRoo(h=0.5)
+    "Heater on signal based on room temperature"
+    annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
 protected
   Modelica.Blocks.Sources.Constant TSetSupChiConst(
     final k=TSupChi_nominal)
@@ -271,21 +269,17 @@ equation
           138},{68,138}}, color={0,0,127}));
   connect(swiFan.y, yFan) annotation (Line(points={{92,130},{96,130},{96,90},{
           110,90}}, color={0,0,127}));
-  connect(conSup.yHea, hysHea.u) annotation (Line(points={{-39,86},{-34,86},{
-          -34,130},{-32,130}}, color={0,0,127}));
   connect(swiFan.u2, orFan.y)   annotation (Line(points={{68,130},{64,130},{64,104},{62,104}},
           color={255,0,255}));
-  connect(hysHea.y, orFan.u[1]) annotation (Line(points={{-8,130},{24,130},{24,
-          108.667},{38,108.667}},
-                        color={255,0,255}));
   connect(conEco.TMixSet, conCooVal.u_s) annotation (Line(points={{39,78},{-10,
           78},{-10,-20},{-2,-20}}, color={0,0,127}));
   connect(and1.y, chiOn) annotation (Line(points={{91,-30},{96,-30},{96,-54},{110,
           -54}},     color={255,0,255}));
   connect(conEco.yCoiSta, and1.u1) annotation (Line(points={{61,62},{64,62},{64,
           -30},{68,-30}}, color={255,0,255}));
-  connect(uOcc, orFan.u[2]) annotation (Line(points={{-120,0},{-14,0},{-14,104},
-          {38,104}},    color={255,0,255}));
+  connect(uOcc, orFan.u[1]) annotation (Line(points={{-120,0},{-14,0},{-14,
+          101.667},{38,101.667}},
+                        color={255,0,255}));
   connect(TMix, conEco.TMix) annotation (Line(points={{-120,30},{-26,30},{-26,75},
           {39,75}}, color={0,0,127}));
   connect(TOut, conEco.TOut) annotation (Line(points={{-120,-40},{-66,-40},{-66,
@@ -303,8 +297,14 @@ equation
   connect(chiOnTRoo.y, conEco.cooSta) annotation (Line(points={{42,-70},{50,-70},
           {50,40},{34,40},{34,62},{39,62}}, color={255,0,255}));
 
-  connect(chiOnTRoo.y, orFan.u[3]) annotation (Line(points={{42,-70},{50,-70},{
-          50,40},{34,40},{34,99.3333},{38,99.3333}}, color={255,0,255}));
+  connect(chiOnTRoo.y, orFan.u[2]) annotation (Line(points={{42,-70},{50,-70},{
+          50,40},{34,40},{34,104},{38,104}},         color={255,0,255}));
+  connect(heaOnTRoo.y, orFan.u[3]) annotation (Line(points={{-38,130},{20,130},
+          {20,106.333},{38,106.333}}, color={255,0,255}));
+  connect(heaOnTRoo.u2, TRoo) annotation (Line(points={{-62,122},{-86,122},{-86,
+          -80},{-120,-80}}, color={0,0,127}));
+  connect(TSetRooHea, heaOnTRoo.u1) annotation (Line(points={{-120,120},{-80,
+          120},{-80,130},{-62,130}}, color={0,0,127}));
   annotation (
   defaultComponentName="conChiDXHeaEco",
   Icon(graphics={Line(points={{-100,-100},{0,2},{-100,100}}, color=
@@ -315,6 +315,11 @@ heating coil and a cooling coil.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 28, 2024, by David Blum:<br/>
+Adjust heating hysteresis to avoid chattering.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3735\">issue 3735</a>.
+</li>
 <li>
 November 20, 2020, by David Blum:<br/>
 Turn fan on when setup cooling required.

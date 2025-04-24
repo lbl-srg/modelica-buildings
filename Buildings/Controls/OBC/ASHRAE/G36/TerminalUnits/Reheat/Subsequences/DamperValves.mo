@@ -193,6 +193,7 @@ block DamperValves
     annotation (Placement(transformation(extent={{320,-180},{360,-140}}),
         iconTransformation(extent={{100,-160},{140,-120}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   Buildings.Controls.OBC.CDL.Reals.Line lin
@@ -389,7 +390,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Reals.Switch swi6
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{180,270},{200,290}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
@@ -408,7 +409,7 @@ block DamperValves
     annotation (Placement(transformation(extent={{0,350},{20,370}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the airflow setpoint should be overrided"
-    annotation (Placement(transformation(extent={{0,270},{20,290}})));
+    annotation (Placement(transformation(extent={{60,270},{80,290}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMax1(
     final k=VCooMax_flow)
     "Cooling maximum flow"
@@ -429,6 +430,10 @@ block DamperValves
     final falseHoldDuration=0)
     "Hold true input for certain time"
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Check if the airflow setpoint should be overrided"
+    annotation (Placement(transformation(extent={{0,280},{20,300}})));
+
 equation
   connect(uCoo, lin.u)
     annotation (Line(points={{-340,200},{-162,200}}, color={0,0,127}));
@@ -593,12 +598,12 @@ equation
     annotation (Line(points={{-118,380},{-62,380}},color={255,0,255}));
   connect(zerFlo.y,add1. u1) annotation (Line(points={{-38,460},{0,460},{0,446},
           {118,446}},color={0,0,127}));
-  connect(forZerFlo.y,or3. u1) annotation (Line(points={{-118,460},{-104,460},{-104,
-          308},{-62,308}}, color={255,0,255}));
-  connect(forCooMax.y,or3. u2) annotation (Line(points={{-118,420},{-96,420},{-96,
-          300},{-62,300}}, color={255,0,255}));
-  connect(forMinFlo.y,or3. u3) annotation (Line(points={{-118,380},{-88,380},{-88,
-          292},{-62,292}}, color={255,0,255}));
+  connect(forZerFlo.y,or3. u1) annotation (Line(points={{-118,460},{-104,460},{
+          -104,300},{-62,300}},
+                           color={255,0,255}));
+  connect(forCooMax.y,or3. u2) annotation (Line(points={{-118,420},{-96,420},{
+          -96,292},{-62,292}},
+                           color={255,0,255}));
   connect(add1.y, swi6.u1) annotation (Line(points={{142,440},{160,440},{160,288},
           {178,288}}, color={0,0,127}));
   connect(oveFloSet,forMinFlo1. u1) annotation (Line(points={{-340,460},{-300,460},
@@ -611,12 +616,10 @@ equation
           {-2,366}}, color={0,0,127}));
   connect(heaMax.y,add4. u2) annotation (Line(points={{-38,340},{-20,340},{-20,354},
           {-2,354}},color={0,0,127}));
-  connect(or3.y,or1. u1) annotation (Line(points={{-38,300},{-20,300},{-20,280},
-          {-2,280}}, color={255,0,255}));
   connect(forMinFlo1.y,or1. u2) annotation (Line(points={{-118,340},{-80,340},{-80,
-          272},{-2,272}}, color={255,0,255}));
+          272},{58,272}}, color={255,0,255}));
   connect(or1.y, swi6.u2)
-    annotation (Line(points={{22,280},{178,280}}, color={255,0,255}));
+    annotation (Line(points={{82,280},{178,280}}, color={255,0,255}));
   connect(add2.y, add1.u2) annotation (Line(points={{82,400},{100,400},{100,434},
           {118,434}}, color={0,0,127}));
   connect(add4.y, add2.u2) annotation (Line(points={{22,360},{40,360},{40,394},{
@@ -657,6 +660,12 @@ equation
           138}}, color={255,0,255}));
   connect(max1.y, swi3.u3) annotation (Line(points={{-78,-240},{-60,-240},{-60,
           -218},{-42,-218}}, color={0,0,127}));
+  connect(forMinFlo.y, or4.u2) annotation (Line(points={{-118,380},{-88,380},{-88,
+          282},{-2,282}}, color={255,0,255}));
+  connect(or3.y, or4.u1) annotation (Line(points={{-38,300},{-20,300},{-20,290},
+          {-2,290}}, color={255,0,255}));
+  connect(or4.y, or1.u1) annotation (Line(points={{22,290},{40,290},{40,280},{58,
+          280}}, color={255,0,255}));
 annotation (
   defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-500},{320,500}}),

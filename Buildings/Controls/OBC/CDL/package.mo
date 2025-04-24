@@ -4,11 +4,13 @@ package CDL "Package with blocks, examples and validation tests for control desc
     Documentation(
       info="<html>
 <p>
-Package that has elementary input-output blocks
+Package that has Elementary Blocks
 that form the Control Description Language (CDL).
+</p>
+<p>
 The implementation is structured into sub-packages.
-The packages <code>Validation</code> and <code>Examples</code>
-contain validation and example models.
+The packages <code>Validation</code>
+contain validation models.
 These are not part of the CDL specification, but rather
 implemented to provide reference responses computed by the CDL blocks.
 For a specification of CDL, see

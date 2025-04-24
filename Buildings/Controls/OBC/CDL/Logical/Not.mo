@@ -1,11 +1,10 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block Not
-  "Logical not"
-  Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+block Not "Logical not"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
+    "Input to be negated"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Output with negated input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -20,7 +19,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),

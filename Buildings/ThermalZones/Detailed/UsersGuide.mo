@@ -989,7 +989,7 @@ port <i>2</i> etc.
 <p>
 <a name=\"ZuoEtAl2016\"/>
 Wangda Zuo, Michael Wetter, Wei Tian, Dan Li, Mingang Jin, Qingyan Chen.<br/>
-<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Zuo2016.pdf\">
+<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/ZuoEtAl2016.pdf\">
 Coupling Indoor Airflow, HVAC, Control and Building Envelope Heat Transfer in the Modelica Buildings Library.
 </a>
 <br/>

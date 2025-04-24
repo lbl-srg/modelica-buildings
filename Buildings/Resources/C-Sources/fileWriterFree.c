@@ -2,6 +2,10 @@
  *
  * Michael Wetter, LBNL                     2018-05-12
  */
+
+#ifndef IBPSA_FILEWRITERFree_c
+#define IBPSA_FILEWRITERFree_c
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "ModelicaUtilities.h"
@@ -62,3 +66,5 @@ void fileWriterFree(void* ptrFileWriter){
 
   return;
 }
+
+#endif

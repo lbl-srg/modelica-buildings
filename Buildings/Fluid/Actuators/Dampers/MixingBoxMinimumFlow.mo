@@ -17,7 +17,7 @@ model MixingBoxMinimumFlow
     annotation (Dialog(group="Nominal condition"));
   parameter Real yOutMin_start=y_start
     "Initial value of signal for minimum outside air damper"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium =
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
@@ -55,34 +55,34 @@ model MixingBoxMinimumFlow
     final m_flow_nominal=mOutMin_flow_nominal,
     final dpDamper_nominal=dpDamOutMin_nominal,
     final dpFixed_nominal=dpFixOutMin_nominal,
-    final use_inputFilter=false) "Damper for minimum outside air intake"
+    final use_strokeTime=false) "Damper for minimum outside air intake"
     annotation (Placement(transformation(extent={{48,32},{68,52}})));
 protected
-  Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if use_inputFilter
+  Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if use_strokeTime
     "Filtered damper position in the range 0..1"
     annotation (Placement(transformation(extent={{-32,78},{-12,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 
-  Buildings.Fluid.BaseClasses.ActuatorFilter filterOutMin(
-    final n=order,
-    final f=fCut,
-    final normalized=true,
-    final initType=Modelica.Blocks.Types.Init.InitialOutput,
-    final y_start=y_start) if use_inputFilter
-    "Second order filter to approximate valve opening time, and to improve numerics"
+  Modelica.Blocks.Nonlinear.SlewRateLimiter actPosOutMin(
+    Rising=1/strokeTime,
+    Falling=-1/strokeTime,
+    Td=0.001*strokeTime,
+    initType=init,
+    y_start=y_start,
+    strict=true) if use_strokeTime
+    "Actuator position for minimum outdoor air flow"
     annotation (Placement(transformation(extent={{-56,81},{-42,95}})));
-
 equation
- connect(filterOutMin.y, yOutMin_filtered) annotation (Line(
+ connect(actPosOutMin.y, yOutMin_filtered) annotation (Line(
       points={{-41.3,88},{-22,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  if use_inputFilter then
-  connect(yOutMin, filterOutMin.u) annotation (Line(
+  if use_strokeTime then
+  connect(yOutMin,actPosOutMin. u) annotation (Line(
       points={{-60,120},{-60,88},{-57.4,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(filterOutMin.y, yOutMin_actual) annotation (Line(
+  connect(actPosOutMin.y, yOutMin_actual) annotation (Line(
       points={{-41.3,88},{-36,88},{-36,68},{-42,68}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -136,6 +136,11 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+September 11, 2024, by Michael Wetter:<br/>
+Renamed parameters to <code>use_strokeTime</code> and <code>strokeTime</code>,
+and updated actuator model.
+</li>
 <li>
 June 10, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>

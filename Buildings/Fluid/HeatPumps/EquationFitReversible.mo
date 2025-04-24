@@ -56,6 +56,13 @@ model EquationFitReversible
 
   output Real PLR(min=0, nominal=1, unit="1") = equFit.PLR
    "Part load ratio";
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
+    message="uMod cannot be -1 if reverseCycle is false.")
+      if not per.reverseCycle
+    "Generate alert message if control input is not valid"
+    annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
+
 protected
   constant Modelica.Units.SI.SpecificEnergy h1_default=
       Medium1.specificEnthalpy_pTX(
@@ -92,17 +99,23 @@ protected
    "Load side entering fluid temperature"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_set(
-    final y= if (uMod == 0)
-      then
-        0
-      else
-        m1_flow*(hSet - inStream(port_a1.h_outflow)))
+    final y=if uMod == 1 then Buildings.Utilities.Math.Functions.smoothMax(
+              x1=m1_flow * (hSet - inStream(port_a1.h_outflow)),
+              x2=Q_flow_small,
+              deltaX=Q_flow_small/100)
+            elseif uMod == -1 then Buildings.Utilities.Math.Functions.smoothMin(
+              x1=m1_flow * (hSet - inStream(port_a1.h_outflow)),
+              x2=-Q_flow_small,
+              deltaX=Q_flow_small/100)
+            else 0)
     "Required heat flow rate to meet set point"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  BaseClasses.EquationFitReversible equFit(final per=per,
-                                         final scaling_factor=scaling_factor)
-   "Performance model"
+  BaseClasses.EquationFitReversible equFit(
+    final per=per,
+    final scaling_factor=scaling_factor,
+    final Q_flow_small=Q_flow_small)
+    "Performance model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloLoa
@@ -112,15 +125,10 @@ protected
    "Prescribed source side heat flow rate"
     annotation (Placement(transformation(extent={{59,-70},{39,-50}})));
 
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(final t=0) if not
-    per.reverseCycle "Indicator, outputs true if in cooling mode"
+  Controls.OBC.CDL.Integers.GreaterEqualThreshold greEqu(
+    final t=0) if not per.reverseCycle
+    "Indicator, outputs true if in cooling mode"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-
-  Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
-    message="uMod cannot be -1 if reverseCycle is false.")
-      if not per.reverseCycle
-    "Generate alert message if control input is not valid"
-    annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
 
 equation
   connect(equFit.QSou_flow,QSou_flow)
@@ -148,9 +156,9 @@ equation
     annotation (Line(points={{-10,60},{-14,60},{-14,20},{39,20}}, color={191,0,0}));
   connect(vol2.heatPort, preHeaFloSou.port)
     annotation (Line(points={{12,-60},{39,-60}},color={191,0,0}));
-  connect(aleMes.u, lesThr.y)
+  connect(aleMes.u,greEqu.y)
     annotation (Line(points={{-54,-80},{-58,-80}}, color={255,0,255}));
-  connect(lesThr.u, uMod) annotation (Line(points={{-82,-80},{-88,-80},{-88,0},{
+  connect(greEqu.u, uMod) annotation (Line(points={{-82,-80},{-88,-80},{-88,0},{
           -112,0}}, color={255,127,0}));
   connect(equFit.Q_flow_set, Q_flow_set.y)
     annotation (Line(points={{-11,9},{-44,9},{-44,40},{-59,40}},color={0,0,127}));
@@ -364,6 +372,18 @@ Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 4, 2024, by Antoine Gautier:<br/>
+Added load limit depending on operating mode.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3815\">#3815</a>.
+</li>
+<li>
+April 1, 2024, by Michael Wetter:<br/>
+Corrected wrong assertion.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3664\">#3664</a>.
+</li>
 <li>
 September 16, 2019 by Michael Wetter:<br/>
 Refactored implementation.
