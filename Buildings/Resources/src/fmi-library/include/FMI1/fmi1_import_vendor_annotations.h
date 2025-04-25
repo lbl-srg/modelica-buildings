@@ -29,7 +29,7 @@ extern "C" {
 /**
 * \addtogroup  fmi1_import
 * @{
-*	\addtogroup  fmi1_import_annotations Basic support for vendor annotations.
+*    \addtogroup  fmi1_import_annotations Basic support for vendor annotations.
 *@}
  * \addtogroup  fmi1_import_annotations Basic support for vendor annotations.
  @{ 
@@ -39,11 +39,11 @@ extern "C" {
 \name Vendor annotation supporting structures
 */
 /**@{ */
-	/** \brief  Opaque list of vendor annotations. */
+    /** \brief  Opaque list of vendor annotations. */
 typedef struct fmi1_xml_vendor_list_t fmi1_import_vendor_list_t;
-	/** \brief Opaque vendor object. */
+    /** \brief Opaque vendor object. */
 typedef struct fmi1_xml_vendor_t fmi1_import_vendor_t;
-	/** \brief Opaque annotation object. */
+    /** \brief Opaque annotation object. */
 typedef struct fmi1_xml_annotation_t fmi1_import_annotation_t;
 /**@} */
 
@@ -61,7 +61,7 @@ FMILIB_EXPORT unsigned int  fmi1_import_get_number_of_vendor_annotations(fmi1_im
 
 /** \brief Get an annotation object for the vendor by index
 
-	Note: Annotations may later be used in other places but have common interface name-value 
+    Note: Annotations may later be used in other places but have common interface name-value 
 */
 FMILIB_EXPORT fmi1_import_annotation_t* fmi1_import_get_vendor_annotation(fmi1_import_vendor_t*, unsigned int  index);
 

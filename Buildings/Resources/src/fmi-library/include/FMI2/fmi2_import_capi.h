@@ -26,7 +26,7 @@ extern "C" {
 /* #include <FMI2/fmi2_xml_model_description.h>*/
 
 #include <FMI2/fmi2_types.h>
-#include <FMI2/fmi2_functions.h>
+#include <FMI2/fmi2_function_types.h>
 #include <FMI2/fmi2_enums.h>
 /* #include <FMI2/fmi2_capi.h> */
 
@@ -40,18 +40,18 @@ Wrapper functions for the FMI 2.0 functions
  * @{
  */
 
-/**	\addtogroup fmi2_import_capi_const_destroy FMI 2.0 Constructor and Destructor	
+/**    \addtogroup fmi2_import_capi_const_destroy FMI 2.0 Constructor and Destructor    
  * \brief Functions for instantiating and freeing the container of the struct that is responsible for the FMI functions.
  *
- *	Before any of the FMI functions may be called, the construction function must instantiate a fmi_import_t module.
- *	After the fmi_import_t module has been succesfully instantiated, all the FMI functions can be called. To unload
- *	the FMI functions, the destroy functions shall be called.
+ *    Before any of the FMI functions may be called, the construction function must instantiate a fmi_import_t module.
+ *    After the fmi_import_t module has been succesfully instantiated, all the FMI functions can be called. To unload
+ *    the FMI functions, the destroy functions shall be called.
  *
- * 	\addtogroup fmi2_import_capi_me FMI 2.0 (ME) Model Exchange functions
+ *    \addtogroup fmi2_import_capi_me FMI 2.0 (ME) Model Exchange functions
  * \brief List of Model Exchange wrapper functions. Common functions are not listed.
- *	\addtogroup fmi2_import_capi_cs FMI 2.0 (CS) Co-Simulation functions 
+ *    \addtogroup fmi2_import_capi_cs FMI 2.0 (CS) Co-Simulation functions 
  * \brief List of Co-Simulation wrapper functions. Common functions are not listed.
- *	\addtogroup fmi2_import_capi_common FMI 2.0 (ME & CS) Common functions
+ *    \addtogroup fmi2_import_capi_common FMI 2.0 (ME & CS) Common functions
  * \brief List of wrapper functions that are in common for both Model Exchange and Co-Simulation.
  */
 
@@ -140,11 +140,11 @@ FMILIB_EXPORT void fmi2_import_free_instance(fmi2_import_t* fmu);
  * \brief Calls the FMI function fmiSetupExperiment(...)
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
- * @param tolerance_defined True if the @p tolerance argument is to be used
- * @param tolerance Solvers internal to the FMU should use this tolerance or finer, if @p tolerance_defined is true
- * @param start_time Start time of the experiment
- * @param stop_time_defined True if the @p stop_time argument is to be used
- * @param stop_time Stop time of the experiment, if @p stop_time_defined is true
+ * @param toleranceDefined True if the @p tolerance argument is to be used
+ * @param tolerance Solvers internal to the FMU should use this tolerance or finer, if @p toleranceDefined is true
+ * @param startTime Start time of the experiment
+ * @param stopTimeDefined True if the @p stopTime argument is to be used
+ * @param stopTime Stop time of the experiment, if @p stopTimeDefined is true
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_setup_experiment(fmi2_import_t* fmu,
@@ -236,7 +236,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_set_string(fmi2_import_t* fmu, const fmi
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param value (Output)Array of variable values.
+ * @param[out] value Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_real(fmi2_import_t* fmu, const fmi2_value_reference_t vr[], size_t nvr, fmi2_real_t    value[]);
@@ -247,7 +247,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_real(fmi2_import_t* fmu, const fmi2_
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param value (Output)Array of variable values.
+ * @param[out] value Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_integer(fmi2_import_t* fmu, const fmi2_value_reference_t vr[], size_t nvr, fmi2_integer_t value[]);
@@ -258,7 +258,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_integer(fmi2_import_t* fmu, const fm
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param value (Output)Array of variable values.
+ * @param[out] value Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_boolean(fmi2_import_t* fmu, const fmi2_value_reference_t vr[], size_t nvr, fmi2_boolean_t value[]);
@@ -269,7 +269,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_boolean(fmi2_import_t* fmu, const fm
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param value (Output)Array of variable values.
+ * @param[out] value Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_string(fmi2_import_t* fmu, const fmi2_value_reference_t vr[], size_t nvr, fmi2_string_t  value[]);
@@ -417,8 +417,8 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_set_continuous_states(fmi2_import_t* fmu
  * @param noSetFMUStatePriorToCurrentPoint True if fmiSetFMUState will no
           longer be called for time instants prior to current time in this
           simulation run.
- * @param enterEventMode (Output) Call fmiEnterEventMode indicator.
- * @param terminateSimulation (Output) Terminate simulation indicator.
+ * @param[out] enterEventMode  Call fmiEnterEventMode indicator.
+ * @param[out] terminateSimulation  Terminate simulation indicator.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_completed_integrator_step(fmi2_import_t* fmu,
@@ -429,7 +429,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_completed_integrator_step(fmi2_import_t*
  * \brief Wrapper for the FMI function fmiGetDerivatives(...) 
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
- * @param derivatives (Output) Array of the derivatives.
+ * @param[out] derivatives  Array of the derivatives.
  * @param nx Number of derivatives.
  * @return FMI status.
  */
@@ -439,7 +439,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_derivatives(fmi2_import_t* fmu, fmi2
  * \brief Wrapper for the FMI function fmiGetEventIndicators(...) 
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
- * @param eventIndicators (Output) The event indicators.
+ * @param[out] eventIndicators  The event indicators.
  * @param ni Number of event indicators.
  * @return FMI status.
  */
@@ -449,7 +449,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_event_indicators(fmi2_import_t* fmu,
  * \brief Wrapper for the FMI function fmiGetContinuousStates(...) 
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
- * @param states (Output) Array of state values.
+ * @param[out] states  Array of state values.
  * @param nx Number of states.
  * @return FMI status.
  */
@@ -459,7 +459,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_continuous_states(fmi2_import_t* fmu
  * \brief Wrapper for the FMI function fmiGetNominalsOfContinuousStates(...) 
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
- * @param x_nominal (Output) The nominal values.
+ * @param[out] x_nominal  The nominal values.
  * @param nx Number of nominal values.
  * @return FMI status.
  */
@@ -479,7 +479,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_nominals_of_continuous_states(fmi2_i
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param order	Array of derivative orders.
+ * @param order    Array of derivative orders.
  * @param value Array of variable values.
  * @return FMI status.
  */
@@ -491,8 +491,8 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_set_real_input_derivatives(fmi2_import_t
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param order	Array of derivative orders.
- * @param value (Output) Array of variable values.
+ * @param order    Array of derivative orders.
+ * @param[out] value  Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_real_output_derivatives(fmi2_import_t* fmu, const fmi2_value_reference_t vr[], size_t nvr, const fmi2_integer_t order[], fmi2_real_t value[]);                                              
@@ -521,7 +521,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_do_step(fmi2_import_t* fmu, fmi2_real_t 
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI status value.
+ * @param[out] value  FMI status value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_status(fmi2_import_t* fmu, const fmi2_status_kind_t s, fmi2_status_t*  value);
@@ -531,7 +531,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_status(fmi2_import_t* fmu, const fmi
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI real value.
+ * @param[out] value  FMI real value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_real_status(fmi2_import_t* fmu, const fmi2_status_kind_t s, fmi2_real_t*    value);
@@ -541,7 +541,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_real_status(fmi2_import_t* fmu, cons
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu.
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI integer value.
+ * @param[out] value  FMI integer value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_integer_status(fmi2_import_t* fmu, const fmi2_status_kind_t s, fmi2_integer_t* value);
@@ -551,7 +551,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_integer_status(fmi2_import_t* fmu, c
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu.
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI boolean value.
+ * @param[out] value  FMI boolean value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_boolean_status(fmi2_import_t* fmu, const fmi2_status_kind_t s, fmi2_boolean_t* value);
@@ -561,7 +561,7 @@ FMILIB_EXPORT fmi2_status_t fmi2_import_get_boolean_status(fmi2_import_t* fmu, c
  * 
  * @param fmu A model description object returned by fmi2_import_parse_xml() that has loaded the FMI functions, see fmi2_import_create_dllfmu().
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI string value.
+ * @param[out] value  FMI string value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi2_status_t fmi2_import_get_string_status(fmi2_import_t* fmu, const fmi2_status_kind_t s, fmi2_string_t*  value);
