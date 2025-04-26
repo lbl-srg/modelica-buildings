@@ -355,7 +355,7 @@ protected
     annotation (Placement(transformation(extent={{250,-50},{270,-30}})));
   CDL.Logical.Or                        or5
     "Pass signal when plant is enabled or when stage-up process is initiated"
-    annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
+    annotation (Placement(transformation(extent={{-132,8},{-112,28}})));
 equation
   connect(nexBoi.yNexEnaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points={{-148,
           -51},{-90,-51},{-90,8},{-72,8}},       color={255,127,0}));
@@ -578,18 +578,19 @@ equation
     annotation (Line(points={{222,-40},{248,-40}}, color={255,0,255}));
   connect(or4.y, yHotWatIsoVal) annotation (Line(points={{272,-40},{274,-40},{
           274,-70},{300,-70}}, color={255,0,255}));
-  connect(lat2.y, or5.u2) annotation (Line(points={{-158,-120},{-152,-120},{-152,
-          -104},{-216,-104},{-216,-88},{-202,-88}}, color={255,0,255}));
-  connect(lat.y, or5.u1) annotation (Line(points={{-200,0},{-196,0},{-196,-64},{
-          -216,-64},{-216,-80},{-202,-80}}, color={255,0,255}));
-  connect(or5.y, enaHotWatIsoVal.chaPro) annotation (Line(points={{-178,-80},{-120,
-          -80},{-120,-8},{-72,-8}}, color={255,0,255}));
-  connect(or5.y, enaBoi.uStaUp) annotation (Line(points={{-178,-80},{-120,-80},{
-          -120,-8},{-84,-8},{-84,20},{52,20},{52,6},{58,6}}, color={255,0,255}));
   connect(uStaChaPro, nexBoi.uStachaPro) annotation (Line(points={{-260,-150},{-228,
           -150},{-228,-68},{-172,-68},{-172,-67}}, color={255,0,255}));
   connect(uBoi, enaBoi.uBoi) annotation (Line(points={{-260,80},{48,80},{48,-2},
           {58,-2}}, color={255,0,255}));
+  connect(or5.y, enaHotWatIsoVal.chaPro) annotation (Line(points={{-110,18},{-88,
+          18},{-88,-8},{-72,-8}}, color={255,0,255}));
+  connect(or5.y, enaBoi.uStaUp) annotation (Line(points={{-110,18},{52,18},{52,6},
+          {58,6}}, color={255,0,255}));
+  connect(lat.y, or5.u1) annotation (Line(points={{-200,0},{-196,0},{-196,24},{-184,
+          24},{-184,40},{-134,40},{-134,18}}, color={255,0,255}));
+  connect(lat2.y, or5.u2) annotation (Line(points={{-158,-120},{-152,-120},{-152,
+          -80},{-180,-80},{-180,-40},{-144,-40},{-144,-24},{-140,-24},{-140,4},{
+          -144,4},{-144,10},{-134,10}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
