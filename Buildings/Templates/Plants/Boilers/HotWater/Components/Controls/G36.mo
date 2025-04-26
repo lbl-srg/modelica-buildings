@@ -134,6 +134,7 @@ block G36 "Guideline 36 controller"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController ctlLooPri(
     final boiDesCap=boiDesCap,
+    Ti_bypVal=60,
     final boiDesFlo=boiDesFlo,
     final boiFirMin=boiFirMin,
     final boiTyp=boiTyp,
@@ -146,6 +147,7 @@ block G36 "Guideline 36 controller"
     final maxLocDpPri=maxLocDpPri,
     final minFloSet=minFloSet,
     minLocDpPri=3E4,
+    Ti_priPum=60,
     final minPriPumSpeSta=minPriPumSpeSta,
     final minPumSpePri=minPumSpePri,
     final minSecPumSpe=minSecPumSpe,
@@ -161,7 +163,8 @@ block G36 "Guideline 36 controller"
     final VHotWatPri_flow_nominal=VHotWatPri_flow_nominal)
     "Primary loop controller"
     annotation (Placement(transformation(extent={{-10,-36},{10,32}})));
-  ControllerSecondaryPump_patch ctlPumHeaWatSec(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
+                                ctlPumHeaWatSec(
     final have_secFloSen=have_secFloSen,
     final have_varSecPum=have_varSecPum,
     final maxLocDp=maxLocDpSec,
@@ -170,6 +173,7 @@ block G36 "Guideline 36 controller"
     final nPum_nominal=cfg.nPumHeaWatSec,
     final nPumPri=nPumPri,
     final nSen=nSenDpHeaWatRem,
+    Ti=60,
     final speConTyp=speConTypSec,
     final VHotWat_flow_nominal=VHotWatSec_flow_nominal) if cfg.typPumHeaWatSec ==
     Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
@@ -213,6 +217,13 @@ block G36 "Guideline 36 controller"
   Buildings.Controls.OBC.CDL.Reals.MultiMax FIXME_max(nin=nSenDpHeaWatRem)
     "There should be one setpoint value for each remote sensor"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Modelica.Blocks.Continuous.CriticalDamping FIXME_uPumSpe(
+    n=1,
+    f=2.2/(2*Modelica.Constants.pi*30),
+    initType=Modelica.Blocks.Types.Init.InitialOutput) if cfg.typPumHeaWatSec
+     == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
+    "PR#2700: This should be the commanded speed"
+    annotation (Placement(transformation(extent={{70,30},{50,50}})));
 initial equation
   assert(nAirHan + nEquZon > 0,
    "In "+ getInstanceName() + ": "+
@@ -321,6 +332,10 @@ equation
     annotation (Line(points={{-78,60},{-62,60}}, color={0,0,127}));
   connect(FIXME_max.y, ctlPumHeaWatSec.dpHotWatSet) annotation (Line(points={{-38,
           60},{28,60},{28,66},{48,66}}, color={0,0,127}));
+  connect(ctlPumHeaWatSec.yPumSpe, FIXME_uPumSpe.u) annotation (Line(points={{
+          72,70},{80,70},{80,40},{72,40}}, color={0,0,127}));
+  connect(FIXME_uPumSpe.y, ctlPumHeaWatSec.uPumSpe) annotation (Line(points={{
+          49,40},{40,40},{40,82},{48,82}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>

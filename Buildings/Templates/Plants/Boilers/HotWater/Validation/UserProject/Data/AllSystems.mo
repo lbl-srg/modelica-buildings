@@ -2,12 +2,10 @@ within Buildings.Templates.Plants.Boilers.HotWater.Validation.UserProject.Data;
 class AllSystems
   "Design and operating parameters for testing purposes"
   extends Buildings.Templates.Data.AllSystems(
-    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
-    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+    sysUni=Buildings.Templates.Types.Units.SI,
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
-    sysUni=Buildings.Templates.Types.Units.SI);
-  // FIXME(AntoineGautier PR#2700):
-  // Should pla.ctl.sta have stage 0 with no equipement enabled as G36 prescribes?
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B);
   parameter Buildings.Templates.Plants.Boilers.HotWater.Data.BoilerPlant pla(
     boiCon(
       fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),

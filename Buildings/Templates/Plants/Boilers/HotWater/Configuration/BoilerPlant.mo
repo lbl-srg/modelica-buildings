@@ -17,6 +17,12 @@ record BoilerPlant "Configuration parameters for boiler plant"
   parameter Integer nBoiNon
     "Number of non-condensing boilers"
     annotation (Evaluate=true);
+  parameter Boolean have_boiConZerFlo
+    "Set to true for condensing boilers with zero minimum flow"
+    annotation (Evaluate=true);
+  parameter Boolean have_boiNonZerFlo
+    "Set to true for non-condensing boilers with zero minimum flow"
+    annotation (Evaluate=true);
   parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod
     "Type of boiler model (same model for all boilers)"
     annotation (Evaluate=true);

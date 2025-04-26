@@ -68,8 +68,9 @@ model BoilerPlant
       final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.None)
     "Plant and reset request"
     annotation (Placement(transformation(extent={{110,90},{90,110}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(table=[0,0; 5,0; 7,0;
-        12,0.2; 16,1; 22,0.1; 24,0], timeScale=3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(table=[0,0; 5,0; 7,
+        1; 12,0.2; 16,0.8; 22,0.1; 24,0],
+                                     timeScale=3600)
                     "Source signal for CHW flow ratio"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.CDL.Reals.PID ctlEquZon(

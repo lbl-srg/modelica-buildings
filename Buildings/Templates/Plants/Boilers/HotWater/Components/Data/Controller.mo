@@ -33,13 +33,14 @@ record Controller "Record for plant controller"
     cfg.typCtl==Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36 and
     cfg.have_boiCon and cfg.have_valHeaWatMinBypCon));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiCon_flow_min[:](
-    start=fill(0.1, cfg.nBoiCon),
+    start=fill(0, cfg.nBoiCon),
     each displayUnit="L/s",
     each final min=0)
     "Minimum HW volume flow rate - Each condensing boiler"
-    annotation(Dialog(group="Boiler flow setpoints", enable=
+    annotation(Evaluate=true,
+    Dialog(group="Boiler flow setpoints", enable=
     cfg.typCtl==Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36 and
-    cfg.have_boiCon));
+    cfg.have_boiCon and not cfg.have_boiConZerFlo));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiNon_flow_nominal[:](
     start=fill(0.1, cfg.nBoiNon),
     each displayUnit="L/s",
@@ -49,13 +50,14 @@ record Controller "Record for plant controller"
     cfg.typCtl==Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36 and
     cfg.have_boiNon and cfg.have_valHeaWatMinBypNon));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiNon_flow_min[:](
-    start=fill(0.1, cfg.nBoiNon),
+    start=fill(0, cfg.nBoiNon),
     each displayUnit="L/s",
     each final min=0)
     "Minimum HW volume flow rate - Each non-condensing boiler"
-    annotation(Dialog(group="Boiler flow setpoints", enable=
+    annotation(Evaluate=true,
+    Dialog(group="Boiler flow setpoints", enable=
     cfg.typCtl==Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36 and
-    cfg.have_boiNon));
+    cfg.have_boiNon and not cfg.have_boiNonZerFlo));
   parameter Real ratFirBoiCon_min[:](
     start=fill(0.2, cfg.nBoiCon),
     each final unit="1")
