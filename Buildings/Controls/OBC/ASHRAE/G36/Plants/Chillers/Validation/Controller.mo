@@ -98,16 +98,6 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro1[2] "Chiller cooling load"
     annotation (Placement(transformation(extent={{-200,-138},{-180,-118}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta
-    "Chiller one status"
-    annotation (Placement(transformation(extent={{140,130},{160,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta
-    "Chiller two status"
-    annotation (Placement(transformation(extent={{140,80},{160,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre towSta1[2](
-    final pre_u_start=fill(false, 2))
-    "Tower cell status"
-    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp watLev(
     final height=1.2,
     final duration=3600,
@@ -121,10 +111,6 @@ model Controller "Validation head pressure controller"
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{200,40},{220,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre conWatPum[2](
-    final pre_u_start=fill(false, 2))
-    "Condenser water pump status setpoint"
-    annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol2[2](
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
@@ -155,6 +141,15 @@ model Controller "Validation head pressure controller"
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-300,-210},{-280,-190}})));
+  Buildings.Templates.Components.Controls.StatusEmulator chiOne "Chiller one status"
+    annotation (Placement(transformation(extent={{140,170},{160,190}})));
+  Buildings.Templates.Components.Controls.StatusEmulator chiTwo "Chiller two status"
+    annotation (Placement(transformation(extent={{140,110},{160,130}})));
+  Buildings.Templates.Components.Controls.StatusEmulator conWatPum[2]
+    "Condenser water pump status setpoint"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+  Buildings.Templates.Components.Controls.StatusEmulator towSta[2] "Tower cell status"
+    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
 equation
   connect(chiPlaCon.uChiWatPum, uChiWatPum.y) annotation (Line(points={{-30,180},
           {-190,180},{-190,132},{-238,132}}, color={255,0,255}));
@@ -162,10 +157,6 @@ equation
     annotation (Line(points={{-298,-70},{-282,-70}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.TChiWatSupResReq) annotation (Line(points={{-258,
           -70},{-100,-70},{-100,-50},{-30,-50}},      color={255,127,0}));
-  connect(chiPlaCon.yChi[1], chiOneSta.u) annotation (Line(points={{90,97.5},{120,
-          97.5},{120,140},{138,140}},    color={255,0,255}));
-  connect(chiPlaCon.yChi[2], chiTwoSta.u) annotation (Line(points={{90,102.5},{114,
-          102.5},{114,90},{138,90}},     color={255,0,255}));
   connect(uChiAva.y, chiPlaCon.uChiAva) annotation (Line(points={{-218,-50},{-124,
           -50},{-124,5},{-30,5}}, color={255,0,255}));
   connect(phi.y, chiPlaCon.phi) annotation (Line(points={{-278,60},{-150,60},{-150,
@@ -188,20 +179,10 @@ equation
           {106,-97.5},{106,-146},{118,-146}},color={0,0,127}));
   connect(chiPlaCon.yTowFanSpe[1], max1.u1) annotation (Line(points={{90,-102.5},
           {112,-102.5},{112,-134},{118,-134}},  color={0,0,127}));
-  connect(chiPlaCon.yTowCel, towSta1.u) annotation (Line(points={{90,-85},{96,-85},
-          {96,-170},{118,-170}},       color={255,0,255}));
-  connect(towSta1.y, chiPlaCon.uTowSta) annotation (Line(points={{142,-170},{160,
-          -170},{160,-190},{-40,-190},{-40,-170},{-30,-170}}, color={255,0,255}));
   connect(chiPlaCon.yTowCelIsoVal, zerOrdHol.u) annotation (Line(points={{90,-70},
-          {100,-70},{100,-90},{118,-90}},      color={0,0,127}));
+          {110,-70},{110,-90},{118,-90}},      color={0,0,127}));
   connect(zerOrdHol.y, chiPlaCon.uIsoVal) annotation (Line(points={{142,-90},{
           190,-90},{190,-210},{-70,-210},{-70,-150},{-30,-150}}, color={0,0,127}));
-  connect(chiPlaCon.yConWatPum, conWatPum.u) annotation (Line(points={{90,20},{
-          108,20},{108,-40},{158,-40}}, color={255,0,255}));
-  connect(conWatPum.y, chiPlaCon.uConWatPum) annotation (Line(points={{182,-40},
-          {210,-40},{210,-230},{-100,-230},{-100,-90},{-30,-90}}, color={255,0,255}));
-  connect(conWatPum.y, booToRea.u)
-    annotation (Line(points={{182,-40},{218,-40}}, color={255,0,255}));
   connect(booToRea.y, pro.u2) annotation (Line(points={{242,-40},{250,-40},{250,
           -6},{258,-6}},   color={0,0,127}));
   connect(pro.y, chiPlaCon.uConWatPumSpe) annotation (Line(points={{282,0},{300,
@@ -233,38 +214,52 @@ equation
   connect(zerOrdHol3.y, chiPlaCon.uFanSpe) annotation (Line(points={{170,-140},
           {180,-140},{180,-200},{-60,-200},{-60,-130},{-30,-130}}, color={0,0,
           127}));
-  connect(chiOneSta.y, booToRea1[1].u) annotation (Line(points={{162,140},{200,140},
-          {200,260},{-250,260},{-250,170},{-242,170}},     color={255,0,255}));
-  connect(chiOneSta.y, chiPlaCon.uConWatReq[1]) annotation (Line(points={{162,140},
-          {200,140},{200,260},{-90,260},{-90,187.5},{-30,187.5}},    color={255,
-          0,255}));
-  connect(chiOneSta.y, chiPlaCon.uChi[1]) annotation (Line(points={{162,140},{200,
-          140},{200,260},{-90,260},{-90,117.5},{-30,117.5}},    color={255,0,
-          255}));
-  connect(chiOneSta.y, chiPlaCon.uChiHeaCon[1]) annotation (Line(points={{162,140},
-          {200,140},{200,260},{-90,260},{-90,-32.5},{-30,-32.5}},    color={255,
-          0,255}));
-  connect(chiTwoSta.y, booToRea1[2].u) annotation (Line(points={{162,90},{210,90},
-          {210,270},{-260,270},{-260,170},{-242,170}},     color={255,0,255}));
-  connect(chiTwoSta.y, chiPlaCon.uConWatReq[2]) annotation (Line(points={{162,90},
-          {210,90},{210,270},{-100,270},{-100,192.5},{-30,192.5}},     color={
-          255,0,255}));
-  connect(chiTwoSta.y, chiPlaCon.uChi[2]) annotation (Line(points={{162,90},{210,
-          90},{210,270},{-100,270},{-100,122.5},{-30,122.5}},     color={255,0,
-          255}));
-  connect(chiTwoSta.y, chiPlaCon.uChiHeaCon[2]) annotation (Line(points={{162,90},
-          {210,90},{210,270},{-100,270},{-100,-27.5},{-30,-27.5}},     color={
-          255,0,255}));
-  connect(chiOneSta.y, chiPlaCon.uChiWatReq[1]) annotation (Line(points={{162,
-          140},{200,140},{200,260},{-90,260},{-90,197.5},{-30,197.5}}, color={
-          255,0,255}));
-  connect(chiTwoSta.y, chiPlaCon.uChiWatReq[2]) annotation (Line(points={{162,
-          90},{210,90},{210,270},{-100,270},{-100,202.5},{-30,202.5}}, color={
-          255,0,255}));
   connect(zerOrdHol1.y, pro.u1) annotation (Line(points={{222,50},{252,50},{252,
           6},{258,6}}, color={0,0,127}));
   connect(chiWatFlo.y[1], chiPlaCon.VChiWat_flow) annotation (Line(points={{
           -278,-200},{-160,-200},{-160,130},{-30,130}}, color={0,0,127}));
+  connect(chiPlaCon.yChi[1], chiOne.y1) annotation (Line(points={{90,97.5},{110,
+          97.5},{110,180},{138,180}}, color={255,0,255}));
+  connect(chiPlaCon.yChi[2], chiTwo.y1) annotation (Line(points={{90,102.5},{120,
+          102.5},{120,120},{138,120}}, color={255,0,255}));
+  connect(chiOne.y1_actual, booToRea1[1].u) annotation (Line(points={{162,180},{
+          180,180},{180,240},{-260,240},{-260,170},{-242,170}}, color={255,0,255}));
+  connect(chiOne.y1_actual, chiPlaCon.uChiWatReq[1]) annotation (Line(points={{162,
+          180},{180,180},{180,240},{-40,240},{-40,197.5},{-30,197.5}}, color={255,
+          0,255}));
+  connect(chiOne.y1_actual, chiPlaCon.uConWatReq[1]) annotation (Line(points={{162,
+          180},{180,180},{180,240},{-40,240},{-40,187.5},{-30,187.5}}, color={255,
+          0,255}));
+  connect(chiOne.y1_actual, chiPlaCon.uChi[1]) annotation (Line(points={{162,180},
+          {180,180},{180,240},{-40,240},{-40,117.5},{-30,117.5}}, color={255,0,255}));
+  connect(chiOne.y1_actual, chiPlaCon.uChiHeaCon[1]) annotation (Line(points={{162,
+          180},{180,180},{180,240},{-40,240},{-40,-32.5},{-30,-32.5}}, color={255,
+          0,255}));
+  connect(chiTwo.y1_actual, booToRea1[2].u) annotation (Line(points={{162,120},{
+          200,120},{200,250},{-260,250},{-260,170},{-242,170}}, color={255,0,255}));
+  connect(chiTwo.y1_actual, chiPlaCon.uChiWatReq[2]) annotation (Line(points={{162,
+          120},{200,120},{200,250},{-60,250},{-60,202.5},{-30,202.5}}, color={255,
+          0,255}));
+  connect(chiTwo.y1_actual, chiPlaCon.uConWatReq[2]) annotation (Line(points={{162,
+          120},{200,120},{200,250},{-60,250},{-60,192.5},{-30,192.5}}, color={255,
+          0,255}));
+  connect(chiTwo.y1_actual, chiPlaCon.uChi[2]) annotation (Line(points={{162,120},
+          {200,120},{200,250},{-60,250},{-60,122.5},{-30,122.5}}, color={255,0,255}));
+  connect(chiTwo.y1_actual, chiPlaCon.uChiHeaCon[2]) annotation (Line(points={{162,
+          120},{200,120},{200,250},{-60,250},{-60,-27.5},{-30,-27.5}}, color={255,
+          0,255}));
+  connect(chiPlaCon.yConWatPum, conWatPum.y1) annotation (Line(points={{90,20},{
+          120,20},{120,0},{138,0}}, color={255,0,255}));
+  connect(conWatPum.y1_actual, chiPlaCon.uConWatPum) annotation (Line(points={{162,
+          0},{210,0},{210,-230},{-100,-230},{-100,-90},{-30,-90}}, color={255,0,
+          255}));
+  connect(conWatPum.y1_actual, booToRea.u) annotation (Line(points={{162,0},{210,
+          0},{210,-40},{218,-40}}, color={255,0,255}));
+  connect(chiPlaCon.yTowCel, towSta.y1) annotation (Line(points={{90,-85},{100,-85},
+          {100,-170},{118,-170}}, color={255,0,255}));
+  connect(towSta.y1_actual, chiPlaCon.uTowSta) annotation (Line(points={{142,-170},
+          {170,-170},{170,-190},{-50,-190},{-50,-170},{-30,-170}}, color={255,0,
+          255}));
 annotation (
   experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Validation/Controller.mos"
