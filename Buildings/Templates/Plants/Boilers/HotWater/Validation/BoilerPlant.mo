@@ -42,14 +42,14 @@ model BoilerPlant
 
   UserProject.BASControlPoints sigBAS "BAS control points"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-  Fluid.HeatExchangers.Heater_T           loaHeaWat(
+  Fluid.HeatExchangers.SensibleCooler_T   loaHeaWat(
     redeclare final package Medium = Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     show_T=true,
     final dp_nominal=0,
     final energyDynamics=energyDynamics,
     tau=300,
-    QMax_flow=pla.cap_nominal)
+    QMin_flow=-pla.cap_nominal)
     "HW system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage valDisHeaWat(
@@ -82,10 +82,12 @@ model BoilerPlant
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={180,-20})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter THeaWatRet(p=pla.THeaWatSup_nominal
-         - pla.THeaWatRet_nominal) "Prescribed HW return temperature"
+  Buildings.Controls.OBC.CDL.Reals.AddParameter THeaWatRet(p=pla.THeaWatRet_nominal
+         - pla.THeaWatSup_nominal) "Prescribed HW return temperature"
     annotation (Placement(transformation(extent={{-108,-30},{-88,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Max max1 "Limit prescribed HWRT"
+  Buildings.Controls.OBC.CDL.Reals.Max max1(
+    y(unit="K", displayUnit="degC"))
+    "Limit prescribed HWRT"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt[2]
     "Importance multiplier"
@@ -93,7 +95,7 @@ model BoilerPlant
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[2](each k=10)
                "Request multiplier factor"
     annotation (Placement(transformation(extent={{110,130},{90,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=313.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=303.15)
     "Constant limiting prescribed return temperature"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
   AirHandlersFans.Interfaces.Bus busAirHan
@@ -138,8 +140,6 @@ equation
   connect(pla.bus,busPla)
     annotation (Line(points={{-60,-70},{-120,-70}},
                                                   color={255,204,51},thickness=0.5));
-  connect(max1.y,loaHeaWat. TSet)
-    annotation (Line(points={{-38,0},{60,0},{60,-32},{68,-32}},  color={0,0,127}));
   connect(cst.y,mulInt. u1)
     annotation (Line(points={{88,140},{60,140},{60,106},{22,106}},
                                                                color={255,127,0}));
@@ -204,6 +204,8 @@ equation
       points={{-120,-70},{-154,-70},{-154,-20},{-140,-20}},
       color={255,204,51},
       thickness=0.5));
+  connect(max1.y, loaHeaWat.TSet) annotation (Line(points={{-38,0},{60,0},{60,
+          -32},{68,-32}}, color={0,0,127}));
 annotation (
   __Dymola_Commands(
     file=
