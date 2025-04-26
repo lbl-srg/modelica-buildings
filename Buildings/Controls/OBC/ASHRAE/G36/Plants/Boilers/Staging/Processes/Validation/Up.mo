@@ -338,6 +338,16 @@ model Up
     annotation (Placement(transformation(extent={{270,-150},{290,-130}})));
   CDL.Logical.Or or15
     annotation (Placement(transformation(extent={{240,-150},{260,-130}})));
+  CDL.Integers.Equal intEqu15
+    annotation (Placement(transformation(extent={{-268,10},{-248,30}})));
+  CDL.Routing.BooleanScalarReplicator booScaRep15(nout=nBoi)
+    annotation (Placement(transformation(extent={{-240,10},{-220,30}})));
+  CDL.Logical.And and16
+                      [nBoi]
+    annotation (Placement(transformation(extent={{-212,10},{-192,30}})));
+  CDL.Logical.Or or16
+                    [nBoi]
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
 protected
   CDL.Logical.Pre pre20[nBoi]                           "Logical pre block"
     annotation (Placement(transformation(extent={{-60,180},{-40,200}})));
@@ -358,7 +368,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nSta](
     final k={1,2,2}) "Stage type vector"
-    annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
+    annotation (Placement(transformation(extent={{-240,190},{-220,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.1/3600,
@@ -687,6 +697,13 @@ protected
 protected
   CDL.Logical.Pre pre19[nBoi]                           "Logical pre block"
     annotation (Placement(transformation(extent={{430,-120},{410,-100}})));
+  CDL.Logical.Sources.Constant                        con27
+                                                          [nBoi](final k={false,false})
+    "Boiler setpoints for stage 3"
+    annotation (Placement(transformation(extent={{-370,10},{-350,30}})));
+  CDL.Integers.Sources.Constant                        conInt21(final k=0)
+    "Stage 3 setpoint"
+    annotation (Placement(transformation(extent={{-340,20},{-320,40}})));
 equation
 
   connect(upProCon.yPumChaPro, yPumChaPro.u) annotation (Line(points={{-138,178},
@@ -695,9 +712,8 @@ equation
   connect(yPumChaPro.y, falEdg.u)
     annotation (Line(points={{-98,160},{-92,160}}, color={255,0,255}));
 
-  connect(conInt2.y, upProCon.uStaTyp) annotation (Line(points={{-218,210},{
-          -210,210},{-210,184},{-162,184}},
-                                       color={255,127,0}));
+  connect(conInt2.y, upProCon.uStaTyp) annotation (Line(points={{-218,200},{-210,
+          200},{-210,184},{-162,184}}, color={255,127,0}));
 
   connect(con3.y, upProCon.THotWatSupSet) annotation (Line(points={{-198,250},{
           -172,250},{-172,204},{-162,204}},                       color={0,0,
@@ -818,8 +834,8 @@ equation
           {610,290},{610,268},{590,268},{590,206},{598,206}},      color={0,0,
           127}));
 
-  connect(pre2.y, upProCon.uStaChaPro) annotation (Line(points={{-38,220},{0,
-          220},{0,132},{-172,132},{-172,172},{-162,172}},
+  connect(pre2.y, upProCon.uStaChaPro) annotation (Line(points={{-38,220},{-20,220},
+          {-20,132},{-172,132},{-172,172},{-162,172}},
                                                      color={255,0,255}));
   connect(pre6.y, upProCon1.uStaChaPro) annotation (Line(points={{332,220},{370,
           220},{370,100},{186,100},{186,172},{208,172}}, color={255,0,255}));
@@ -887,8 +903,6 @@ equation
           100},{-160,100}}, color={255,0,255}));
   connect(and1.y, or2.u2) annotation (Line(points={{-186,90},{-186,92},{-160,92}},
         color={255,0,255}));
-  connect(and3.y, or7.u2) annotation (Line(points={{-186,60},{-132,60},{-132,82},
-          {-120,82}}, color={255,0,255}));
   connect(or2.y, or7.u1) annotation (Line(points={{-136,100},{-132,100},{-132,
           90},{-120,90}}, color={255,0,255}));
   connect(or7.y, upProCon.uBoiSet) annotation (Line(points={{-96,90},{-92,90},{
@@ -899,14 +913,11 @@ equation
           -340,180},{-332,180}}, color={255,0,255}));
   connect(booPul.y, upProCon.uPlaEna) annotation (Line(points={{-348,230},{-200,
           230},{-200,176},{-162,176}}, color={255,0,255}));
-  connect(pre2.y, pre14.u) annotation (Line(points={{-38,220},{0,220},{0,132},{
-          -172,132},{-172,162},{-374,162},{-374,176},{-372,176}}, color={255,0,
+  connect(pre2.y, pre14.u) annotation (Line(points={{-38,220},{-20,220},{-20,132},
+          {-172,132},{-172,162},{-374,162},{-374,176},{-372,176}},color={255,0,
           255}));
   connect(pre14.y, or6.u2) annotation (Line(points={{-348,176},{-348,172},{-332,
           172}}, color={255,0,255}));
-  connect(pre14.y, upProCon.uStaUpPro) annotation (Line(points={{-348,176},{
-          -344,176},{-344,194},{-240,194},{-240,188},{-162,188}}, color={255,0,
-          255}));
   connect(or8.u2, pre3.y)
     annotation (Line(points={{38,202},{40,200},{32,200}}, color={255,0,255}));
   connect(booPul1.y, or8.u1) annotation (Line(points={{22,236},{32,236},{32,228},
@@ -1176,11 +1187,31 @@ equation
     annotation (Line(points={{432,-140},{432,-110}}, color={255,0,255}));
   connect(pre19.y, upProCon3.uBoi)
     annotation (Line(points={{408,-110},{408,-146}}, color={255,0,255}));
+  connect(pre14.y, upProCon.uStaUpPro) annotation (Line(points={{-348,176},{-344,
+          176},{-344,200},{-248,200},{-248,220},{-184,220},{-184,188},{-162,188}},
+        color={255,0,255}));
+  connect(and3.y, or16.u1) annotation (Line(points={{-186,60},{-172,60},{-172,
+          40},{-162,40}}, color={255,0,255}));
+  connect(and16.y, or16.u2) annotation (Line(points={{-190,20},{-162,20},{-162,
+          32}}, color={255,0,255}));
+  connect(booScaRep15.y, and16.u1)
+    annotation (Line(points={{-218,20},{-214,20}}, color={255,0,255}));
+  connect(intEqu15.y, booScaRep15.u)
+    annotation (Line(points={{-246,20},{-242,20}}, color={255,0,255}));
+  connect(conInt21.y, intEqu15.u2) annotation (Line(points={{-318,30},{-280,30},
+          {-280,12},{-270,12}}, color={255,127,0}));
+  connect(onCouInt.y, intEqu15.u1) annotation (Line(points={{-276,180},{-276,20},
+          {-270,20}}, color={255,127,0}));
+  connect(con27.y, and16.u2) annotation (Line(points={{-348,20},{-348,4},{-214,
+          4},{-214,12}}, color={255,0,255}));
+  connect(or16.y, or7.u2) annotation (Line(points={{-138,40},{-132,40},{-132,82},
+          {-120,82}}, color={255,0,255}));
 annotation (
  experiment(
-      StopTime=900,
+      StopTime=1800,
       Interval=1,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/Processes/Validation/Up.mos"
     "Simulate and plot"),
   Documentation(info="<html>
