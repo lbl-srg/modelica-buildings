@@ -122,6 +122,13 @@ block Up
     annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi]
+    "Boiler status;
+    True: Proven on;
+    False: Proven off"
+    annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaTyp[nSta]
     "Boiler plant stage type vector"
     annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
@@ -198,10 +205,6 @@ block Up
     annotation (Placement(transformation(extent={{280,-210},{320,-170}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  CDL.Interfaces.BooleanInput uBoi[nBoi] "Boiler status;
-    True: Proven on;
-    False: Proven off" annotation (Placement(transformation(extent={{-280,60},{
-            -240,100}}), iconTransformation(extent={{-140,40},{-100,80}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Not not1[nBoi] if have_heaPriPum
     "Logical not"

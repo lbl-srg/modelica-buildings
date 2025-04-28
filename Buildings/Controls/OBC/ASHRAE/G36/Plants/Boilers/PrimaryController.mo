@@ -1130,7 +1130,7 @@ protected
     annotation (Placement(transformation(extent={{-390,20},{-370,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nSta](
-    final k=fill(false, nSta))
+    final k=fill(true, nSta))
     "Constant Boolean False signal"
     annotation (Placement(transformation(extent={{-390,-10},{-370,10}})));
 
