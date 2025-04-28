@@ -1,9 +1,6 @@
 //  Conversion script for Buildings library
 //  from: Version 10
 //  to:   Version 11.0.0
-clear
-
-convertClear();
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3689
 convertClass("Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset",
