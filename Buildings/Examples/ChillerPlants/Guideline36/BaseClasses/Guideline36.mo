@@ -6,7 +6,11 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
                                                                            (
     senVolFlo(tau=10),
     chi1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    chi2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+    chi2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    chwIsoVal1(y_start=0),
+    chwIsoVal2(y_start=0),
+    cwIsoVal1(y_start=0),
+    cwIsoVal2(y_start=0));
 //   parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal = 10
 //     "Nominal mass flow rate in chilled water loop";
 //   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 10

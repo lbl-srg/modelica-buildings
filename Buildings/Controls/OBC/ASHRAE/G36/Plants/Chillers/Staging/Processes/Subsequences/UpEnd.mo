@@ -5,6 +5,8 @@ block UpEnd "Sequence for ending stage-up process"
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
 
+  parameter Real delayStaCha(unit="s")=900
+    "Hold period for each stage change";
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time") = 300
@@ -250,6 +252,10 @@ protected
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
 
+public
+  CDL.Logical.TrueFalseHold chiStaHol[nChi](final trueHoldDuration=delayStaCha)
+    "Hold the chiller commanded status after being changed"
+    annotation (Placement(transformation(extent={{60,250},{80,270}})));
 equation
   connect(lat.y, not2.u)
     annotation (Line(points={{-178,150},{-142,150}}, color={255,0,255}));
@@ -337,9 +343,6 @@ equation
   connect(nexDisChi, enaChi.nexDisChi)
     annotation (Line(points={{-240,110},{-90,110},{-90,221},{-82,221}},
       color={255,127,0}));
-  connect(enaChi.yChi, yChi)
-    annotation (Line(points={{-58,238},{-20,238},{-20,260},{240,260}},
-      color={255,0,255}));
   connect(uChi, minChiWatSet.uChi)
     annotation (Line(points={{-240,190},{-150,190},{-150,-86},{58,-86}},
       color={255,0,255}));
@@ -482,6 +485,10 @@ equation
           210,-120},{160,-120},{160,-80},{178,-80}}, color={255,0,255}));
   connect(VMinChiWat_setpoint, chiWatByp.u3) annotation (Line(points={{-240,-230},
           {170,-230},{170,-88},{178,-88}}, color={0,0,127}));
+  connect(yChi, chiStaHol.y)
+    annotation (Line(points={{240,260},{82,260}}, color={255,0,255}));
+  connect(chiStaHol.u, enaChi.yChi) annotation (Line(points={{58,260},{-38,260},
+          {-38,238},{-58,238}}, color={255,0,255}));
 annotation (
   defaultComponentName="endUp",
   Diagram(coordinateSystem(preserveAspectRatio=false,
