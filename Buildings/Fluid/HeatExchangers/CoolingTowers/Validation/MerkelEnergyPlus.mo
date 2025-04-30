@@ -24,7 +24,7 @@ model MerkelEnergyPlus
     "Nominal volumetric flow rate of water (medium 2)";
   parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=0.561240
     "Nominal volumetric flow rate of air (medium 1)";
-  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=18.85 + 273.15
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=25.60 + 273.15
     "Nominal outdoor wetbulb temperature";
   parameter Modelica.Units.SI.TemperatureDifference Ran=5.50
     "Range temperature (difference between water in and out)";
