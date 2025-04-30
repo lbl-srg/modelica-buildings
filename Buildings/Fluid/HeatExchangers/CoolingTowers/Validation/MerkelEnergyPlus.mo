@@ -23,14 +23,12 @@ model MerkelEnergyPlus
     "Nominal water-to-air ratio";
   parameter Modelica.Units.SI.Temperature TAirInWB_nominal=18.85 + 273.15
     "Nominal outdoor wetbulb temperature";
-  parameter Modelica.Units.SI.Temperature TWatIn_nominal=34.16 + 273.15
-    "Nominal water inlet temperature";
+  parameter Modelica.Units.SI.TemperatureDifference Ran=5.50
+    "Range temperature (difference between water in and out)";
+  parameter Modelica.Units.SI.TemperatureDifference App=3.90
+    "Approach temperature (difference between water out and wetbulb)";
   parameter Modelica.Units.SI.Temperature TWatOut_initial=33.019 + 273.15
     "Nominal water inlet temperature";
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=-20286.37455
-    "Nominal heat transfer, positive";
-  parameter Modelica.Units.SI.ThermalConductance UA_nominal_EP=2011.28668
-    "Nominal heat transfer, positive";
   parameter Modelica.Units.SI.Power PFan_nominal=213.00693 "Nominal fan power";
 
   parameter Real r_VEnePlu[:] = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
@@ -38,6 +36,14 @@ model MerkelEnergyPlus
   parameter Real r_PEnePlu[:] = {0,0.020982275,0.027843038,0.046465108,
     0.082729139,0.142515786,0.231705701,0.356179538,0.521817952,0.734501596,1}
     "Fan power output as a function of the signal";
+
+  // Values calculated from principals
+  final parameter Modelica.Units.SI.Temperature TWatIn_nominal=
+    TWatOut_nominal+Ran
+    "Nominal water inlet temperature";
+  final parameter Modelica.Units.SI.Temperature TWatOut_nominal=
+    TAirInWB_nominal+App
+    "Nominal water outlet temperature, 29.5 in EnergyPlus";
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
@@ -59,7 +65,7 @@ model MerkelEnergyPlus
     ratWatAir_nominal=ratWatAir_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
-    TWatOut_nominal=TWatIn_nominal+Q_flow_nominal/(m_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq),
+    TWatOut_nominal=TWatOut_nominal,
     PFan_nominal=PFan_nominal,
     yMin=0.1,
     fraFreCon=0.1,
