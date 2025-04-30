@@ -20,7 +20,7 @@ model MerkelEnergyPlus
   // Cooling tower parameters - values quoted from EnergyPlus
   parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
     "Nominal pressure difference of cooling tower";
-  parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal=0.00109181
+  parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal=0.00109317
     "Nominal volumetric flow rate of water (medium 2)";
   parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=0.561240
     "Nominal volumetric flow rate of air (medium 1)";
@@ -32,7 +32,7 @@ model MerkelEnergyPlus
     "Approach temperature (difference between water out and wetbulb)";
   parameter Modelica.Units.SI.Temperature TWatOut_initial=33.019 + 273.15
     "Nominal water inlet temperature";
-  parameter Modelica.Units.SI.Power PFan_nominal=213.00693 "Nominal fan power";
+  parameter Modelica.Units.SI.Power PFan_nominal=213.27113 "Nominal fan power";
 
   parameter Real r_VEnePlu[:] = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
     "Fan control signal";
