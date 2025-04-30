@@ -11,6 +11,11 @@ model MerkelEnergyPlus
       MediumWat.p_default,
       MediumWat.T_default,
       MediumWat.X_default)) "Default density of water";
+  parameter Modelica.Units.SI.Density denAir=MediumAir.density(
+      MediumAir.setState_pTX(
+      MediumAir.p_default,
+      MediumAir.T_default,
+      MediumAir.X_default)) "Default density of air";
 
   // Cooling tower parameters - values quoted from EnergyPlus
   parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
@@ -42,7 +47,7 @@ model MerkelEnergyPlus
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
     VAir_flow_nominal*denAir
     "Nominal mass flow rate of air (medium 1)";
-  final parameter Real ratWatAir_nominal = m_flow_nominal/mAir_flow_nominal
+  final parameter Real ratWatAir_nominal = mWat_flow_nominal/mAir_flow_nominal
     "Nominal water-to-air ratio";
   final parameter Modelica.Units.SI.Temperature TWatIn_nominal=
     TWatOut_nominal+Ran
@@ -67,7 +72,7 @@ model MerkelEnergyPlus
     dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=TWatOut_initial,
-    m_flow_nominal=m_flow_nominal,
+    m_flow_nominal=mWat_flow_nominal,
     ratWatAir_nominal=ratWatAir_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
