@@ -12,15 +12,13 @@ model MerkelEnergyPlus
       MediumWat.T_default,
       MediumWat.X_default)) "Default density of water";
 
-  // Cooling tower parameters
+  // Cooling tower parameters - values quoted from EnergyPlus
   parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
     "Nominal pressure difference of cooling tower";
   parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal=0.00109181
     "Nominal volumetric flow rate of water (medium 2)";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=VWat_flow_nominal*
-      denWat "Nominal mass flow rate of water (medium 2)";
-  parameter Real ratWatAir_nominal = 1.61599
-    "Nominal water-to-air ratio";
+  parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=0.561240
+    "Nominal volumetric flow rate of air (medium 1)";
   parameter Modelica.Units.SI.Temperature TAirInWB_nominal=18.85 + 273.15
     "Nominal outdoor wetbulb temperature";
   parameter Modelica.Units.SI.TemperatureDifference Ran=5.50
@@ -38,6 +36,14 @@ model MerkelEnergyPlus
     "Fan power output as a function of the signal";
 
   // Values calculated from principals
+  final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=
+    VWat_flow_nominal*denWat
+    "Nominal mass flow rate of water (medium 2)";
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
+    VAir_flow_nominal*denAir
+    "Nominal mass flow rate of air (medium 1)";
+  final parameter Real ratWatAir_nominal = m_flow_nominal/mAir_flow_nominal
+    "Nominal water-to-air ratio";
   final parameter Modelica.Units.SI.Temperature TWatIn_nominal=
     TWatOut_nominal+Ran
     "Nominal water inlet temperature";
