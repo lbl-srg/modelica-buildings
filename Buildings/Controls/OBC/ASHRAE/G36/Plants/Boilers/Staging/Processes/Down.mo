@@ -93,6 +93,19 @@ block Down
     annotation (Placement(transformation(extent={{-280,20},{-240,60}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatIsoVal[nBoi]
+    if have_heaPriPum
+    "Boiler hot water isolation valve status vector;
+    True: Detected open;
+    False: Detected closed"
+    annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi]
+    "Boiler status vector"
+    annotation (Placement(transformation(extent={{-280,140},{-240,180}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
     "Boiler stage setpoint index from staging setpoint controller"
     annotation (Placement(transformation(extent={{-280,-100},{-240,-60}}),
@@ -116,12 +129,6 @@ block Down
     annotation (Placement(transformation(extent={{-280,220},{-240,260}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
 
-  CDL.Interfaces.BooleanInput                     uHotWatIsoVal[nBoi]
-                                if have_heaPriPum
-    "Boiler hot water isolation valve status vector; True: Detected open; False: Detected closed"
-    annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler enable signal"
     annotation (Placement(transformation(extent={{280,90},{320,130}}),
@@ -129,7 +136,7 @@ block Down
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaChaPro
     "Rising edge indicating end of stage change process"
-    annotation (Placement(transformation(extent={{280,30},{320,70}}),
+    annotation (Placement(transformation(extent={{280,20},{320,60}}),
       iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
@@ -144,6 +151,14 @@ block Down
     annotation (Placement(transformation(extent={{280,-130},{320,-90}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatIsoVal[nBoi]
+    if have_heaPriPum
+    "Boiler hot water isolation valve signal;
+    True: Commanded open;
+    False: Commanded closed"
+    annotation (Placement(transformation(extent={{280,-60},{320,-20}}),
+      iconTransformation(extent={{100,20},{140,60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexEnaBoi
     "Boiler index of next boiler being enabled"
     annotation (Placement(transformation(extent={{280,-170},{320,-130}}),
@@ -154,20 +169,15 @@ block Down
     annotation (Placement(transformation(extent={{280,-210},{320,-170}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
-  CDL.Interfaces.BooleanOutput                     yHotWatIsoVal[nBoi]
-                                if have_heaPriPum
-    "Boiler hot water isolation valve signal; True: Commanded open; False: Commanded closed"
-    annotation (Placement(transformation(extent={{280,-90},{320,-50}}),
-      iconTransformation(extent={{100,20},{140,60}})));
-
-  CDL.Logical.Not not1[nBoi] if have_heaPriPum "Logical not"
-    annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
-  CDL.Logical.Not not2[nBoi] if have_heaPriPum "Logical not"
-    annotation (Placement(transformation(extent={{170,-80},{190,-60}})));
-  CDL.Interfaces.BooleanInput uBoi[nBoi] "Boiler status vector" annotation (
-      Placement(transformation(extent={{-280,140},{-240,180}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
 protected
+  Buildings.Controls.OBC.CDL.Logical.Not not1[nBoi] if have_heaPriPum
+    "Logical not"
+    annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2[nBoi] if have_heaPriPum
+    "Logical not"
+    annotation (Placement(transformation(extent={{190,-70},{210,-50}})));
+
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.ResetMinBypass minBypRes(
     final delEna=delEnaMinFloSet,
     final relFloDif=relFloDif) if have_priOnl
@@ -179,9 +189,9 @@ protected
     "Identify boiler indices to be turned on and off during the stage change process"
     annotation (Placement(transformation(extent={{-170,-76},{-150,-56}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal enaHotWatIsoVal(reqAct=
-        true,
-    final nBoi=nBoi)   if have_heaPriPum
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal enaHotWatIsoVal(
+    final reqAct=true,
+    final nBoi=nBoi) if have_heaPriPum
     "Open hot water isolation valve for boiler being enabled"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
@@ -195,15 +205,15 @@ protected
     "Diable boiler status in boiler status vector as per required stage change"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal disHotWatIsoVal1(reqAct=
-        false,
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal disHotWatIsoVal1(
+    final reqAct=false,
     final nBoi=nBoi)   if have_heaPriPum
     "Close hot water valve for boiler being disabled"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Check for completion of valve closing process and pump change process"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
+    annotation (Placement(transformation(extent={{200,30},{220,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Latch to retain stage-up edge signal till the stage change process is completed"
@@ -228,7 +238,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Detect change in process completion status and send out pulse signal"
-    annotation (Placement(transformation(extent={{230,40},{250,60}})));
+    annotation (Placement(transformation(extent={{240,30},{260,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not have_priOnl
     "Generate pulse to signal start of pump change process"
@@ -281,24 +291,37 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true) if have_priOnl
     "Boolean True signal"
-    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
+    annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2 if not have_priOnl
     "Logical And"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
 
-  CDL.Logical.And and5[nBoi] if have_heaPriPum "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and5[nBoi] if have_heaPriPum
+    "Pass valve position signal during and after valve opening process"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  CDL.Logical.Or or3[nBoi] if have_heaPriPum "Logical or"
+
+  Buildings.Controls.OBC.CDL.Logical.Or or3[nBoi] if have_heaPriPum
+    "Pass valve position signal before and after valve oepning process, if there
+    is simultaneous enable-disable of boilers"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
-  CDL.Logical.And and6[nBoi] if have_heaPriPum "Logical and"
+
+  Buildings.Controls.OBC.CDL.Logical.And and6[nBoi] if have_heaPriPum
+    "Pass valve position signal before valve opening process is initiated"
     annotation (Placement(transformation(extent={{50,-140},{70,-120}})));
-  CDL.Logical.And and7[nBoi] if have_heaPriPum "Logical and"
-    annotation (Placement(transformation(extent={{190,-40},{210,-20}})));
-  CDL.Logical.And and8[nBoi] if have_heaPriPum "Logical and"
-    annotation (Placement(transformation(extent={{210,-70},{230,-50}})));
-  CDL.Logical.Or or1[nBoi] if have_heaPriPum "Logical or"
-    annotation (Placement(transformation(extent={{240,-50},{260,-30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and7[nBoi] if have_heaPriPum
+    "Pass valve position signal during and after valve closing process"
+    annotation (Placement(transformation(extent={{220,-40},{240,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and8[nBoi] if have_heaPriPum
+    "Pass valve position signal before valve closing process is initiated"
+    annotation (Placement(transformation(extent={{220,-70},{240,-50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or1[nBoi] if have_heaPriPum
+    "Pass valve position signal before and after valve closing process"
+    annotation (Placement(transformation(extent={{250,-50},{270,-30}})));
+
 equation
   connect(lat.y, minBypRes.uUpsDevSta) annotation (Line(points={{-200,0},{-196,
           0},{-196,28},{-172,28}},
@@ -338,11 +361,11 @@ equation
   connect(uPumChaPro, and4.u2) annotation (Line(points={{-260,-190},{-160,-190},
           {-160,-210},{120,-210},{120,-198},{130,-198}}, color={255,0,255}));
 
-  connect(lat4.y, and3.u2) annotation (Line(points={{182,-190},{184,-190},{184,
-          -8},{188,-8}}, color={255,0,255}));
+  connect(lat4.y, and3.u2) annotation (Line(points={{182,-190},{184,-190},{184,32},
+          {198,32}},     color={255,0,255}));
 
   connect(edg.y, yStaChaPro)
-    annotation (Line(points={{252,50},{300,50}}, color={255,0,255}));
+    annotation (Line(points={{262,40},{300,40}}, color={255,0,255}));
 
   connect(edg2.y, or2.u1) annotation (Line(points={{162,-236},{200,-236},{200,
           -240},{208,-240}}, color={255,0,255}));
@@ -369,8 +392,8 @@ equation
   connect(truDel.y, lat6.u) annotation (Line(points={{122,0},{126,0},{126,40},{148,
           40}}, color={255,0,255}));
 
-  connect(lat6.y, and3.u1) annotation (Line(points={{172,40},{180,40},{180,0},{188,
-          0}}, color={255,0,255}));
+  connect(lat6.y, and3.u1) annotation (Line(points={{172,40},{198,40}},
+               color={255,0,255}));
 
   connect(truDel.y, booRep1.u) annotation (Line(points={{122,0},{126,0},{126,
           -150},{138,-150}},                    color={255,0,255}));
@@ -379,11 +402,11 @@ equation
           -10,60},{-10,100},{-2,100}},
                                    color={255,0,255}));
 
-  connect(disHotWatIsoVal1.yEnaHotWatIsoVal, and3.u1) annotation (Line(points={{
-          172,6},{180,6},{180,0},{188,0}}, color={255,0,255}));
+  connect(disHotWatIsoVal1.yEnaHotWatIsoVal, and3.u1) annotation (Line(points={{172,6},
+          {176,6},{176,40},{198,40}},      color={255,0,255}));
 
-  connect(minBypRes.yMinBypRes, booRep.u) annotation (Line(points={{-148,20},{
-          -112,20},{-112,-140},{-42,-140}},color={255,0,255}));
+  connect(minBypRes.yMinBypRes, booRep.u) annotation (Line(points={{-148,20},{-110,
+          20},{-110,-140},{-42,-140}},     color={255,0,255}));
 
   connect(minBypRes.yMinBypRes, enaHotWatIsoVal.uUpsDevSta) annotation (Line(
         points={{-148,20},{-110,20},{-110,-5},{-72,-5}}, color={255,0,255}));
@@ -431,8 +454,8 @@ equation
         points={{-148,-70},{60,-70},{60,-60},{140,-60},{140,8},{148,8}}, color={
           255,127,0}));
 
-  connect(and3.y, edg.u) annotation (Line(points={{212,0},{220,0},{220,50},{228,
-          50}}, color={255,0,255}));
+  connect(and3.y, edg.u) annotation (Line(points={{222,40},{238,40}},
+                color={255,0,255}));
 
   connect(nexBoi.yOnOff, enaHotWatIsoVal.chaPro) annotation (Line(points={{-148,
           -66},{-80,-66},{-80,-8},{-72,-8}}, color={255,0,255}));
@@ -454,16 +477,16 @@ equation
   connect(mulOr.y, enaHotWatIsoVal.uUpsDevSta) annotation (Line(points={{-148,60},
           {-110,60},{-110,-5},{-72,-5}}, color={255,0,255}));
 
-  connect(mulOr.y, booRep.u) annotation (Line(points={{-148,60},{-112,60},{-112,
+  connect(mulOr.y, booRep.u) annotation (Line(points={{-148,60},{-110,60},{-110,
           -140},{-42,-140}},color={255,0,255}));
 
   connect(nexBoi.yEnaSmaBoi, yNexEnaBoi) annotation (Line(points={{-148,-75},{-76,
           -75},{-76,-86},{260,-86},{260,-150},{300,-150}}, color={255,127,0}));
 
-  connect(con.y, and1.u2) annotation (Line(points={{-138,-160},{-48,-160},{-48,-26},
+  connect(con.y, and1.u2) annotation (Line(points={{-138,-130},{-48,-130},{-48,-26},
           {-10,-26},{-10,-8},{-2,-8}}, color={255,0,255}));
-  connect(con.y, and3.u2) annotation (Line(points={{-138,-160},{52,-160},{52,-172},
-          {184,-172},{184,-8},{188,-8}}, color={255,0,255}));
+  connect(con.y, and3.u2) annotation (Line(points={{-138,-130},{-48,-130},{-48,-76},
+          {184,-76},{184,32},{198,32}},  color={255,0,255}));
   connect(nexBoi.yLasDisBoi, yLasDisBoi) annotation (Line(points={{-148,-70},{60,
           -70},{60,-60},{140,-60},{140,-116},{254,-116},{254,-190},{300,-190}},
         color={255,127,0}));
@@ -507,27 +530,27 @@ equation
           {30,-130},{48,-130}}, color={255,0,255}));
   connect(not1.y, and6.u2) annotation (Line(points={{32,-140},{40,-140},{40,
           -138},{48,-138}}, color={255,0,255}));
-  connect(booRep1.y, not2.u) annotation (Line(points={{162,-150},{164,-150},{
-          164,-70},{168,-70}}, color={255,0,255}));
-  connect(booRep1.y, and7.u2) annotation (Line(points={{162,-150},{164,-150},{
-          164,-38},{188,-38}}, color={255,0,255}));
-  connect(disHotWatIsoVal1.yHotWatIsoVal, and7.u1) annotation (Line(points={{
-          172,-6},{180,-6},{180,-30},{188,-30}}, color={255,0,255}));
-  connect(not2.y, and8.u1) annotation (Line(points={{192,-70},{200,-70},{200,
-          -60},{208,-60}}, color={255,0,255}));
-  connect(or3.y, and8.u2) annotation (Line(points={{102,-110},{120,-110},{120,
-          -100},{204,-100},{204,-68},{208,-68}}, color={255,0,255}));
-  connect(and7.y, or1.u1) annotation (Line(points={{212,-30},{212,-32},{228,-32},
-          {228,-40},{238,-40}}, color={255,0,255}));
-  connect(and8.y, or1.u2) annotation (Line(points={{232,-60},{232,-56},{238,-56},
-          {238,-48}}, color={255,0,255}));
-  connect(or1.y, yHotWatIsoVal) annotation (Line(points={{262,-40},{272,-40},{
-          272,-70},{300,-70}}, color={255,0,255}));
+  connect(booRep1.y, not2.u) annotation (Line(points={{162,-150},{164,-150},{164,
+          -60},{188,-60}},     color={255,0,255}));
+  connect(booRep1.y, and7.u2) annotation (Line(points={{162,-150},{164,-150},{164,
+          -38},{218,-38}},     color={255,0,255}));
+  connect(disHotWatIsoVal1.yHotWatIsoVal, and7.u1) annotation (Line(points={{172,-6},
+          {172,-8},{180,-8},{180,-30},{218,-30}},color={255,0,255}));
+  connect(not2.y, and8.u1) annotation (Line(points={{212,-60},{218,-60}},
+                           color={255,0,255}));
+  connect(and7.y, or1.u1) annotation (Line(points={{242,-30},{244,-30},{244,-40},
+          {248,-40}},           color={255,0,255}));
+  connect(and8.y, or1.u2) annotation (Line(points={{242,-60},{244,-60},{244,-48},
+          {248,-48}}, color={255,0,255}));
+  connect(or1.y, yHotWatIsoVal) annotation (Line(points={{272,-40},{300,-40}},
+                               color={255,0,255}));
   connect(uBoi, disBoi.uBoi) annotation (Line(points={{-260,160},{-216,160},{-216,
           84},{-84,84},{-84,80},{40,80},{40,16},{48,16},{48,-2},{58,-2}}, color
         ={255,0,255}));
   connect(uStaChaPro, nexBoi.uStachaPro) annotation (Line(points={{-260,-130},{-230,
           -130},{-230,-73},{-172,-73}}, color={255,0,255}));
+  connect(or3.y, and8.u2) annotation (Line(points={{102,-110},{120,-110},{120,-80},
+          {216,-80},{216,-68},{218,-68}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
