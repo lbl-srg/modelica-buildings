@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "opeSig.y",
+    "TOut.T",
+    "senTemHXOut.T",
+    "TMixSetPoi.y",
+    "whe.senSupMasFlo.m_flow"
+  };
