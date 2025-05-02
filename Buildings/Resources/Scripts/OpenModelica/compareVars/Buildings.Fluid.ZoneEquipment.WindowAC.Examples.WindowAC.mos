@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "winAC.fan.P",
+    "winAC.sinSpeDXCoo.P",
+    "winAC.TAirMix.T",
+    "winAC.TAirLvg.T"
+  };

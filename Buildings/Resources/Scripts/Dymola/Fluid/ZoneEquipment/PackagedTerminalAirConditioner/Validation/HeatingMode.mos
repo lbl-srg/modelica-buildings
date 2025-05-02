@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Validation.HeatingMode", startTime=0, stopTime=432000, method="Cvode", tolerance=1e-06, resultFile="HeatingMode");
+createPlot(id=1, position={0, 0, 1464, 694}, y={"TZonAirMod.y", "TZonAirEP.y"}, range={0.0, 5.0, 20.0, 24.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="d");
+createPlot(id=1, position={0, 0, 1464, 344}, y={"PHeaCoiMod.y", "PHeaCoiEP.y", "PCooCoiMod.y", "PCooCoiEP.y"}, range={0.0, 5.0, -1000.0, 6000.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {28,108,200}, {238,46,47}}, patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.DashDotDot, LinePattern.DashDotDot}, thicknesses={0.5, 0.5, 0.5, 0.5}, timeUnit="d");
+createPlot(id=2, position={0, 0, 959, 814}, y={"m_flowFan.y", "m_flowFanEP.y"}, range={0.0, 5.0, -0.2, 0.6}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="d");
+createPlot(id=2, position={0, 0, 959, 200}, y={"TAirLvgMod.y", "TAirLvgEP.y"}, range={0.0, 5.0, 20.0, 35.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="d");
+createPlot(id=2, position={0, 0, 959, 199}, y={"TAirMixMod.y", "TAirMixEP.y"}, range={0.0, 5.0, 20.0, 24.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="d");

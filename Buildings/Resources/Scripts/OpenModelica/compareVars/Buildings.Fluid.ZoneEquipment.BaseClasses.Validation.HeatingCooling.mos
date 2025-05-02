@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "conCooMod.TZon",
+    "conCooMod.TZonSet",
+    "conCooMod.uFan",
+    "conCooMod.TSup",
+    "conCooMod.TSupDew",
+    "conCooMod.yMod",
+    "conCooMod.yEna",
+    "conCooMod.yCoi",
+    "conHeaMod.TZon",
+    "conHeaMod.TZonSet",
+    "conHeaMod.uFan",
+    "conHeaMod.yMod",
+    "conHeaMod.yEna",
+    "conHeaMod.yCoi"
+  };
