@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.DistrictCHP.Validation;
-model ToppingCycle
+model ToppingCycle "Model validation for the topping cycle subsystem"
   extends Modelica.Icons.Example;
 
   // Choose differernt gas turbine

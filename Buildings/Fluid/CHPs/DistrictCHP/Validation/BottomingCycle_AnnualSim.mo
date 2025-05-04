@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.DistrictCHP.Validation;
-model BottomingCycle_AnnualSim
+model BottomingCycle_AnnualSim "Model validation for the bottoming cycle subsystem"
   extends Modelica.Icons.Example;
 
   // Medium declarations
