@@ -91,7 +91,7 @@ MODIF_GRID = {
 EXCLUDE = {}
 
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
-REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
+REMOVE_MODIF = {
     'Buildings.Templates.Plants.Boilers.HotWater.Validation.BoilerPlant': [
         (
             [
