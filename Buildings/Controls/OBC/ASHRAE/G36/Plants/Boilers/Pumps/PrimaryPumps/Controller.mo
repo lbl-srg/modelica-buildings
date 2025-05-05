@@ -68,9 +68,10 @@ block Controller
     final min=1e-6,
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if have_priOnl and have_heaPriPum and (have_remDPReg or have_locDPReg)
+    final quantity="VolumeFlowRate")
     "Total plant design hot water flow rate"
-    annotation (Dialog(group="Plant parameters"));
+    annotation (Dialog(group="Plant parameters",
+      enable=have_priOnl and have_heaPriPum and (have_remDPReg or have_locDPReg)));
 
   parameter Real boiDesFlo[nBoi](
     final min=1e-6,
