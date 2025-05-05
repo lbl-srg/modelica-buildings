@@ -192,7 +192,8 @@ protected
     "Multi-input Logical And"
     annotation (Placement(transformation(extent={{52,-230},{72,-210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nBoi] "Logical pre block"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nBoi]
+    "Logical pre block"
     annotation (Placement(transformation(extent={{-160,-240},{-140,-220}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre2

@@ -94,19 +94,20 @@ protected
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and4[nBoi]
-    "Logical and"
+    "Check if valves commanded closed are closed"
     annotation (Placement(transformation(extent={{0,180},{20,200}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and3[nBoi]
-    "Logical and"
+    "Check if valves commanded open are open"
     annotation (Placement(transformation(extent={{0,210},{20,230}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or  or2[nBoi]
-    "Logical or"
+    "Check if each valve is at commanded position"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(nin=(nBoi+1))
-    "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
+    nin=(nBoi+1))
+    "Output true signal if all valves are at commanded position"
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nBoi](
@@ -114,17 +115,23 @@ protected
     "Boiler index array"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
-  CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Indicate valve change completion till upstream changes are activated again
+    for a stage change"
     annotation (Placement(transformation(extent={{144,130},{164,150}})));
-  CDL.Logical.Edge edg
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Check if upstream changes are activated again for a stage change"
     annotation (Placement(transformation(extent={{100,124},{120,144}})));
-  CDL.Logical.Edge edg2 annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={132,200})));
-  CDL.Logical.And                        and1[nBoi] if not reqAct
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2
+    "Check if valve position changes are completed"
+    annotation (Placement(transformation(extent={{114,210},{134,230}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and1[nBoi] if not reqAct
     "Change current index signal to true when change process is triggered"
     annotation (Placement(transformation(extent={{72,30},{92,50}})));
+
 equation
 
   connect(chaPro, and2.u2)
@@ -159,9 +166,9 @@ equation
           {-120,-170},{-102,-170}},
                                   color={255,0,255}));
 
-  connect(yHotWatIsoVal, and3.u1) annotation (Line(points={{200,0},{168,0},{168,
+  connect(yHotWatIsoVal, and3.u1) annotation (Line(points={{200,0},{170,0},{170,
           110},{-80,110},{-80,220},{-2,220}}, color={255,0,255}));
-  connect(yHotWatIsoVal, not3.u) annotation (Line(points={{200,0},{168,0},{168,110},
+  connect(yHotWatIsoVal, not3.u) annotation (Line(points={{200,0},{170,0},{170,110},
           {-80,110},{-80,190},{-42,190}}, color={255,0,255}));
   connect(uHotWatIsoVal, and3.u2) annotation (Line(points={{-180,-100},{-140,-100},
           {-140,212},{-2,212}}, color={255,0,255}));
@@ -191,12 +198,13 @@ equation
           134},{98,134}}, color={255,0,255}));
   connect(edg.y, lat.clr)
     annotation (Line(points={{122,134},{142,134}}, color={255,0,255}));
-  connect(mulAnd1.y, edg2.u) annotation (Line(points={{102,220},{132,220},{132,212}},
+  connect(mulAnd1.y, edg2.u) annotation (Line(points={{102,220},{112,220}},
         color={255,0,255}));
-  connect(edg2.y, lat.u) annotation (Line(points={{132,188},{132,140},{142,140}},
+  connect(edg2.y, lat.u) annotation (Line(points={{136,220},{138,220},{138,140},
+          {142,140}},
         color={255,0,255}));
-  connect(uUpsDevSta, mulAnd1.u[1]) annotation (Line(points={{-180,-140},{-120,-140},
-          {-120,134},{68,134},{68,212},{70,212},{70,220},{78,220}},       color
+  connect(uUpsDevSta, mulAnd1.u[1]) annotation (Line(points={{-180,-140},{-120,
+          -140},{-120,134},{68,134},{68,220},{78,220}},                   color
         ={255,0,255}));
   connect(or2.y, mulAnd1.u[2:nBoi+1]) annotation (Line(points={{62,220},{70,220},{70,
           220},{78,220}},       color={255,0,255}));
@@ -208,7 +216,7 @@ equation
     annotation (Line(points={{52,40},{70,40}}, color={255,0,255}));
   connect(uHotWatIsoVal, and1.u2) annotation (Line(points={{-180,-100},{60,-100},
           {60,32},{70,32}}, color={255,0,255}));
-  connect(and1.y, yHotWatIsoVal) annotation (Line(points={{94,40},{168,40},{168,
+  connect(and1.y, yHotWatIsoVal) annotation (Line(points={{94,40},{170,40},{170,
           0},{200,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="hotWatIsoVal",

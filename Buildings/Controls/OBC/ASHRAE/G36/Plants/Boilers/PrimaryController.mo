@@ -679,7 +679,8 @@ model PrimaryController "Boiler plant primary loop controller"
     final min=0,
     final max=1) = 0
     "Minimum secondary pump speed"
-    annotation(Dialog(tab="Condensation control parameters"));
+    annotation(Dialog(tab="Condensation control parameters",
+      enable=not have_allCon));
 
   parameter Real minPriPumSpeSta[nSta](
     final unit=fill("1",nSta),
@@ -1130,7 +1131,7 @@ protected
     annotation (Placement(transformation(extent={{-390,20},{-370,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nSta](
-    final k=fill(false, nSta))
+    final k=fill(true, nSta))
     "Constant Boolean False signal"
     annotation (Placement(transformation(extent={{-390,-10},{-370,10}})));
 
