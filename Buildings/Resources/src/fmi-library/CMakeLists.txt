@@ -64,7 +64,7 @@ ExternalProject_Add(
 
   PREFIX         ${FMI_LIBRARY}
   GIT_REPOSITORY https://github.com/modelon-community/fmi-library
-  GIT_TAG        3.0
+  GIT_TAG        3.0.2
   GIT_SHALLOW    ON
 
   BUILD_ALWAYS   OFF
