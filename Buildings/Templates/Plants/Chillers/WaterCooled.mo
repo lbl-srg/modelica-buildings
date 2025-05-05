@@ -8,7 +8,7 @@ model WaterCooled "Water-cooled chiller plant"
   typDisChiWat
   typArrPumChiWatPri_select
   have_pumChiWatPriVar_select
-  chi(typValChiWatChiIso_select
+  chi.typValChiWatChiIso_select
   typArrPumConWat_select
   
   And for the component coo:
@@ -25,7 +25,8 @@ model WaterCooled "Water-cooled chiller plant"
     final typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
     final typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final have_pumChiWatPriVar_select=false,
-    chi(final typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
+    chi(
+      final typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
     final typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered);
 
   // Coolers
