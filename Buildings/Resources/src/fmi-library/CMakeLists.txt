@@ -7,7 +7,7 @@ cmake_policy(SET CMP0048 NEW)
 cmake_minimum_required(VERSION 3.8)
 
 project( fmi-library
-  VERSION 3.0
+  VERSION 3.0.2
   DESCRIPTION "FMI Library for Modelica Buildings Library"
   LANGUAGES C
 )
