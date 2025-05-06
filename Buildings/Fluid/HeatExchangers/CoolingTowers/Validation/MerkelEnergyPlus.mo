@@ -6,16 +6,16 @@ model MerkelEnergyPlus
   package MediumAir = Buildings.Media.Air "Air medium model";
   package MediumWat = Buildings.Media.Water "Water medium model";
 
-  parameter Modelica.Units.SI.Density denWat=MediumWat.density(
+  parameter Modelica.Units.SI.Density rhoWat=MediumWat.density(
       MediumWat.setState_pTX(
-      MediumWat.p_default,
-      MediumWat.T_default,
-      MediumWat.X_default)) "Default density of water";
-  parameter Modelica.Units.SI.Density denAir=MediumAir.density(
+        MediumWat.p_default,
+        MediumWat.T_default,
+        MediumWat.X_default)) "Default density of water";
+  parameter Modelica.Units.SI.Density rhoAir=MediumAir.density(
       MediumAir.setState_pTX(
-      MediumAir.p_default,
-      MediumAir.T_default,
-      MediumAir.X_default)) "Default density of air";
+        MediumAir.p_default,
+        MediumAir.T_default,
+        MediumAir.X_default)) "Default density of air";
 
   // Cooling tower parameters - values quoted from EnergyPlus
   parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
@@ -26,9 +26,9 @@ model MerkelEnergyPlus
     "Nominal volumetric flow rate of air (medium 1)";
   parameter Modelica.Units.SI.Temperature TAirInWB_nominal=25.60 + 273.15
     "Nominal outdoor wetbulb temperature";
-  parameter Modelica.Units.SI.TemperatureDifference Ran=5.50
+  parameter Modelica.Units.SI.TemperatureDifference TRan=5.50
     "Range temperature (difference between water in and out)";
-  parameter Modelica.Units.SI.TemperatureDifference App=3.90
+  parameter Modelica.Units.SI.TemperatureDifference TApp=3.90
     "Approach temperature (difference between water out and wetbulb)";
   parameter Modelica.Units.SI.Temperature TWatOut_initial=33.019 + 273.15
     "Nominal water inlet temperature";
@@ -42,18 +42,16 @@ model MerkelEnergyPlus
 
   // Values calculated from principals
   final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=
-    VWat_flow_nominal*denWat
+    VWat_flow_nominal*rhoWat
     "Nominal mass flow rate of water (medium 2)";
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-    VAir_flow_nominal*denAir
+    VAir_flow_nominal*rhoAir
     "Nominal mass flow rate of air (medium 1)";
   final parameter Real ratWatAir_nominal = mWat_flow_nominal/mAir_flow_nominal
     "Nominal water-to-air ratio";
-  final parameter Modelica.Units.SI.Temperature TWatIn_nominal=
-    TWatOut_nominal+Ran
+  final parameter Modelica.Units.SI.Temperature TWatIn_nominal=TWatOut_nominal + TRan
     "Nominal water inlet temperature";
-  final parameter Modelica.Units.SI.Temperature TWatOut_nominal=
-    TAirInWB_nominal+App
+  final parameter Modelica.Units.SI.Temperature TWatOut_nominal=TAirInWB_nominal + TApp
     "Nominal water outlet temperature, 29.5 in EnergyPlus";
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
