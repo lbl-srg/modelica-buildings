@@ -24,6 +24,15 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
+    </td>
+    <td valign=\"top\">Package that contains components for the PID controller that can
+                       autotune the control gain and time constants.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -44,6 +53,13 @@ have been <b style=\"color:blue\">improved</b> in a
                          Buildings.Utilities.Clustering
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Utilities.Clustering.KMeans
+    </td>
+    <td valign=\"top\">Improved code to avoid an error during initialization of certain borefield geometries.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #1985</a> and
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1976\">IBPSA, #1976</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
 </tr>
@@ -54,11 +70,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities.Clustering.KMeans
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
-    <td valign=\"top\">Improved code to avoid an error during initialization of certain borefield geometries.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #1985</a> and
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1976\">IBPSA, #1976</a>.
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u
+    </td>
+    <td valign=\"top\">Reformulated model to avoid warning about binding equation not being a parameter expression.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4215\">#4215</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
