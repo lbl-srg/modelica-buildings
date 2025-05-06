@@ -1,0 +1,14 @@
+last-generated=2023-04-04
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+01]
+zerStaIndCor.uInd=[0e+00, 0e+00]
+zerStaIndCor.yIndMod=[1e+00, 1e+00]
+zerStaIndCor.yCapMod=[0e+00, 0e+00]
+zerStaIndCor1.uInd=[1e+00, 1e+00]
+zerStaIndCor1.yIndMod=[1e+00, 1e+00]
+zerStaIndCor1.yCapMod=[1e+01, 1e+01]
