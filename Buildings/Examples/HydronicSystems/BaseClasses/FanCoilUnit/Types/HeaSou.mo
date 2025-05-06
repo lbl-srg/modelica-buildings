@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types;
+within Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types;
 type HeaSou = enumeration(
     ele
        "Electric resistance heating coil",

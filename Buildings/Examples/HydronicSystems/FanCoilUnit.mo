@@ -74,7 +74,7 @@ model FanCoilUnit
       "5-zone building model"
     annotation (Placement(transformation(extent={{62,76},{140,120}})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni[5](
+  Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe fanCoiUni[5](
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
@@ -293,8 +293,8 @@ equation
       thickness=0.5));
   connect(TSetAdj.y, reaScaRep2.u)
     annotation (Line(points={{-118,100},{-102,100}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
-            -140},{160,160}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={
         Text(
           extent={{-110,192},{110,156}},
           textColor={0,0,255},
@@ -302,8 +302,8 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,
             160}})),
     Documentation(info="<html>
-    <p>This model simulates <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">
-    Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a>, a four-pipe fan
+    <p>This model simulates <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe\">
+    Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe</a>, a four-pipe fan
     coil unit(FCU) system model for a 5-zone thermal model. </p>
      <p><br>This model consist of a variable air volume(VAV) HVAC system, a 
      building envelope model, and a model for air flow through building 
@@ -320,8 +320,8 @@ equation
       air temperature is modulated based on the differential between the 
       temperature setpoint and the zone temperature to avoid unecessary heating
       and cooling use and avoid extreme temperature fluctuations.</p>
-      <p>See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">
-      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a> and 
+      <p>See the model <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe\">
+      Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe</a> and 
       <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
       Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a 
       description of the Fan Coil unit and the controller, and see the model 

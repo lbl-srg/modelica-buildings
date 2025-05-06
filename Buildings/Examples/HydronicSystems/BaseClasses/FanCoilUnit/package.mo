@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment;
+within Buildings.Examples.HydronicSystems.BaseClasses;
 package FanCoilUnit "Package with fan coil unit system models"
 
   annotation (Icon(graphics={
@@ -37,10 +37,10 @@ package FanCoilUnit "Package with fan coil unit system models"
           extent={{-80.0,0.0},{-20.0,60.0}})}),
   Documentation(info="<html>
   This package contains models for the four-pipe fan coil unit, including the system model
-  <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a> and the package of control modules
-  <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls\">
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls</a>. 
+  <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe\">
+  Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe</a> and the package of control modules
+  <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls\">
+  Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls</a>. 
   
     </html>"));
 end FanCoilUnit;

@@ -1,5 +1,0 @@
-simulateModel("Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses.Validation.ZoneTemperatureSetpoint", method="Cvode", tolerance=1e-6,startTime=0, stopTime=100, resultFile="ZoneTemperatureSetpoint");
-
-removePlots(false);
-createPlot(id=1, position={0, 0, 1666, 976}, y={"TZonSet.uOcc"}, range={0.0, 100.0, -0.1, 1.1}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1666, 485}, y={"TZonSet.TZonSetHea", "TZonSet.TZonSetCoo"}, range={0.0, 100.0, 284.0, 304.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

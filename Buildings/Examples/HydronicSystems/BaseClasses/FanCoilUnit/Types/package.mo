@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
+within Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 

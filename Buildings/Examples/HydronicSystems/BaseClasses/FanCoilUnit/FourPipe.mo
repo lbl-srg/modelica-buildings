@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
+within Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit;
 model FourPipe "System model for a four-pipe fan coil unit"
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model of air";
@@ -6,8 +6,8 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Medium model of hot water";
   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
     "Medium model of chilled water";
-  parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou
-    heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
+  parameter Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types.HeaSou
+    heaCoiTyp=Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types.HeaSou.hotWat
     "Heating coil type"
     annotation (Dialog(group="System parameters"));
 
@@ -70,26 +70,26 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation (Placement(transformation(extent={{350,-50},{370,-30}}),
       iconTransformation(extent={{190,-50},{210,-30}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(redeclare final package
-      Medium = Buildings.Media.Water)
+  Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(
+    redeclare final package Medium = Buildings.Media.Water)
     "Chilled water return port"
     annotation (Placement(transformation(extent={{94,-190},{114,-170}}),
       iconTransformation(extent={{50,-210},{70,-190}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(redeclare package Medium =
-        Buildings.Media.Water)
+  Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(
+    redeclare package Medium = Buildings.Media.Water)
     "Chilled water supply port"
     annotation (Placement(transformation(extent={{134,-190},{154,-170}}),
       iconTransformation(extent={{110,-210},{130,-190}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(redeclare final package
-      Medium = Buildings.Media.Water)          if has_HW
+  Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(
+    redeclare final package Medium = Buildings.Media.Water) if has_HW
     "Hot water return port"
     annotation (Placement(transformation(extent={{-46,-190},{-26,-170}}),
       iconTransformation(extent={{-130,-210},{-110,-190}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(redeclare final package
-      Medium = Buildings.Media.Water)          if has_HW
+  Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(
+    redeclare final package Medium = Buildings.Media.Water) if has_HW
     "Hot water supply port"
     annotation (Placement(transformation(extent={{-6,-190},{14,-170}}),
       iconTransformation(extent={{-70,-210},{-50,-190}})));
@@ -200,7 +200,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{240,-20},{260,0}})));
 
-  Movers.Preconfigured.FlowControlled_m_flow   fan(
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium = MediumA,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     addPowerToMedium=false,
@@ -250,27 +250,37 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final Q_flow_nominal=QHeaCoi_flow_nominal) if not has_HW
     "Electric heating coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+
   Modelica.Blocks.Math.Gain gai(
     final k=mAir_flow_nominal)
     "Find mass flowrate value by multiplying nominal flowrate by normalized fan speed signal"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+
   Modelica.Blocks.Interfaces.RealOutput yFan_actual(
     final unit="1",
     displayUnit="1")
     "Normalized actual fan speed signal"
     annotation (Placement(transformation(extent={{360,100},{380,120}}),
       iconTransformation(extent={{200,150},{220,170}})));
+
   Modelica.Blocks.Math.Gain gaiFanNor(
     final k=1/mAir_flow_nominal)
     "Normalized fan signal"
     annotation (Placement(transformation(extent={{300,100},{320,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup annotation (
-      Placement(transformation(extent={{200,-116},{240,-76}}),
-        iconTransformation(extent={{200,-116},{240,-76}})));
-  Sources.Boundary_pT bou(redeclare package Medium = MediumA, nPorts=1)
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup
+    "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{200,-116},{240,-76}}),
+      iconTransformation(extent={{200,-116},{240,-76}})));
+
+  Buildings.Fluid.Sources.Boundary_pT bou(
+    redeclare package Medium = MediumA,
+    nPorts=1)
+    "Boundary condition for normalizing pressure"
     annotation (Placement(transformation(extent={{164,12},{184,32}})));
+
 protected
-  final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat)
+  final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types.HeaSou.hotWat)
     "Check if a hot water heating coil exists"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
@@ -364,11 +374,11 @@ equation
     and a mixing box. 
     </p>
     The control modules for the system are implemented separately in
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls\">
-    Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls</a>:
+    <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls\">
+    Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls</a>:
     <ul>
     <li>
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFanVariableWaterFlowrate\">
+    <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls.ConstantFanVariableWaterFlowrate\">
     ConstantFanVariableWaterFlowrate</a>:
     Modulate the cooling coil and heating coil valve positions to regulate the zone temperature
     between the heating and cooling setpoints. The fan is enabled and operated at the 
@@ -376,7 +386,7 @@ equation
     zone is occupied but there are no loads.
     </li>
     <li>
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate\">
+    <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate\">
     VariableFanConstantWaterFlowrate</a>:
     Modulate the fan speed to regulate the zone temperature between the heating 
     and cooling setpoints. It is run at minimum speed when zone is occupied but 
@@ -384,7 +394,7 @@ equation
     when there are zone heating or cooling loads, respectively.
     </li>
     <li>
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.MultispeedFanConstantWaterFlowrate\">
+    <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls.MultispeedFanConstantWaterFlowrate\">
     MultispeedFanConstantWaterFlowrate</a>:
     Modulate the fan speed to regulate the zone temperature between the heating 
     and cooling setpoints. It is set at a range of fixed values between the maximum 
