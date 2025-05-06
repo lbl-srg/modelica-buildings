@@ -68,6 +68,11 @@ model BoilerGroup "Boiler group"
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
 
+  parameter Boolean linearized=false
+    "= true, use linear relation between m_flow and dp for the valve components"
+    annotation (Evaluate=true,
+    Dialog(tab="Advanced", enable=typValBoiIso<>Buildings.Templates.Components.Types.Valve.None));
+
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWat[nBoi](
     redeclare each final package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -116,7 +121,8 @@ model BoilerGroup "Boiler group"
     redeclare each final package Medium=Medium,
     each final typ=typValBoiIso,
     final dat=datValBoiIso,
-    each final allowFlowReversal=allowFlowReversal)
+    each final allowFlowReversal=allowFlowReversal,
+    each final linearized=linearized)
     "Boiler isolation valve"
     annotation (Placement(transformation(extent={{150,110},{170,130}})));
 

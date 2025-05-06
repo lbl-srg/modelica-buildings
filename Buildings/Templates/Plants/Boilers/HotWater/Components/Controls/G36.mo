@@ -74,8 +74,8 @@ block G36 "Guideline 36 controller"
     "Boiler minimum firing ratio";
 
   final parameter Real minFloSet[nBoi] = {
-    if i<=cfg.nBoiCon then dat.ratFirBoiCon_min[i]
-    else dat.ratFirBoiNon_min[i-cfg.nBoiCon] for i in 1:nBoi}
+    if i<=cfg.nBoiCon then dat.VHeaWatBoiCon_flow_min[i]
+    else dat.VHeaWatBoiNon_flow_min[i-cfg.nBoiCon] for i in 1:nBoi}
     "Design minimum hot water flow through each boiler";
 
   final parameter Real maxFloSet[nBoi] = {

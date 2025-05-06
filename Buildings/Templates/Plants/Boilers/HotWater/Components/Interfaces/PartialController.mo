@@ -30,7 +30,7 @@ block PartialController
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36 and
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None and
-    (cfg.have_pumHeaWatPriVarCon or cfg.have_pumHeaWatPriVarNon)));
+    (cfg.have_boiCon and cfg.have_pumHeaWatPriVarCon or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
   final parameter Boolean have_senVHeaWatPriCon=
     cfg.have_boiCon and (
     if cfg.have_pumHeaWatPriVarCon and
@@ -55,7 +55,10 @@ block PartialController
     have_senVHeaWatPriCon or have_senVHeaWatPriNon));
   final parameter Boolean have_senVHeaWatSec=
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None and
+    (if cfg.have_boiCon and cfg.have_pumHeaWatPriVarCon or
+    cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon then
     typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
+    else true)
     "Set to true for secondary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.Boilers.HotWater.Types.SensorLocation locSenVHeaWatSec=

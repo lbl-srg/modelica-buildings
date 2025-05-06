@@ -18,7 +18,8 @@ model BoilerPlant "Boiler plant"
     final typArrPumHeaWatPri=typArrPumHeaWatPriCon,
     final dat=dat.boiCon,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    final linearized=linearized)
     if have_boiCon
     "Condensing boilers"
     annotation (Placement(transformation(extent={{-220,-260},{-140,-120}})));
@@ -31,7 +32,8 @@ model BoilerPlant "Boiler plant"
     final typArrPumHeaWatPri=typArrPumHeaWatPriNon,
     final dat=dat.boiNon,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    final linearized=linearized)
     if have_boiNon
     "Non-condensing boilers"
     annotation (Placement(transformation(extent={{-220,-120},{-140,20}})));
@@ -90,7 +92,9 @@ model BoilerPlant "Boiler plant"
     redeclare final package Medium = Medium,
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=dat.valHeaWatMinBypCon,
-    final allowFlowReversal=allowFlowReversal) if have_valHeaWatMinBypCon
+    final allowFlowReversal=allowFlowReversal,
+    from_dp=true,
+    final linearized=linearized)               if have_valHeaWatMinBypCon
     "HW minimum flow bypass valve - Condensing boilers"
     annotation (Placement(
         transformation(
@@ -286,7 +290,9 @@ model BoilerPlant "Boiler plant"
     redeclare final package Medium = Medium,
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=dat.valHeaWatMinBypNon,
-    final allowFlowReversal=allowFlowReversal) if have_valHeaWatMinBypNon
+    final allowFlowReversal=allowFlowReversal,
+    from_dp=true,
+    final linearized=linearized)               if have_valHeaWatMinBypNon
     "HW minimum flow bypass valve - Non-condensing boilers"
     annotation (Placement(
         transformation(

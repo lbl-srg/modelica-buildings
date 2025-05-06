@@ -159,9 +159,9 @@ partial model PartialBoilerPlant
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
-  final parameter Boolean have_pumHeaWatPriVarCon=
-    typPumHeaWatPriCon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.FactoryVariable or
-    typPumHeaWatPriCon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable
+  final parameter Boolean have_pumHeaWatPriVarCon=have_boiCon and
+    (typPumHeaWatPriCon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.FactoryVariable or
+    typPumHeaWatPriCon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable)
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
 
@@ -196,9 +196,9 @@ partial model PartialBoilerPlant
     typArrPumHeaWatPriNon_select else Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
-  final parameter Boolean have_pumHeaWatPriVarNon=
-    typPumHeaWatPriNon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.FactoryVariable or
-    typPumHeaWatPriNon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable
+  final parameter Boolean have_pumHeaWatPriVarNon=have_boiNon and
+    (typPumHeaWatPriNon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.FactoryVariable or
+    typPumHeaWatPriNon==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable)
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
 
@@ -291,6 +291,9 @@ partial model PartialBoilerPlant
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for all valves"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   final parameter Medium.Density rhoHeaWat_default=
       Medium.density(staHeaWat_default) "HW default density";
