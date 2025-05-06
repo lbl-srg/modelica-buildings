@@ -6,8 +6,6 @@ class AllSystemsWaterCooled
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B);
-  // FIXME(AntoineGautier PR#2299):
-  // Should pla.ctl.sta and pla.ctl.staCoo have stage 0 with no equipement enabled as G36 prescribes?
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant pla(
     chi(
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi,
@@ -62,9 +60,9 @@ class AllSystemsWaterCooled
       yPumChiWatSec_min=0.1,
       yFanCoo_min=0,
       sta=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-           then [0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else [1,0; 1,1],
+           then [0,0,0; 0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else [0,0; 1,0; 1,1],
       staCoo=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-           then {1,1,2,2,2} else {1,2},
+           then {0,1,1,2,2,2} else {0,1,2},
       TOutChiWatLck=250,
       TConWatRetChi_nominal=fill(Buildings.Templates.Data.Defaults.TConWatRet,
           pla.cfg.nChi),

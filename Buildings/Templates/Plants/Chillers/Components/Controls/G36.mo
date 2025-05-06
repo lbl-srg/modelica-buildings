@@ -85,9 +85,9 @@ block G36
     "True: headered condenser water pumps"
     annotation (Dialog(tab="General",group="Condenser water pump"));
   // ---- General: Chiller staging settings ----
-  final parameter Integer nStaChiOnl=if cfg.typEco == Buildings.Templates.Plants.Chillers.Types.Economizer.None
-    then nSta - 1 else sum({if sta[i, nUniSta] > 0 then 0 else 1 for i in 1:nSta}) -
-    1
+  final parameter Integer nStaChiOnl=
+    if cfg.typEco == Buildings.Templates.Plants.Chillers.Types.Economizer.None then nSta - 1
+    else sum({if sta[i, nUniSta] > 0 then 0 else 1 for i in 1:nSta}) - 1
     "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
     annotation (Evaluate=true,
     Dialog(tab="General",group="Staging configuration"));
@@ -95,14 +95,14 @@ block G36
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable"
     annotation (Evaluate=true,
     Dialog(tab="General",group="Staging configuration"));
-  // FIXME #2299: This should be refactored, see details in the PR page.
-  // How can we specify that chillers are interchangeable (as opposed to required to run at a given stage) and should be lead/lag alternated?
+  // FIXME #2299: How can we specify that chillers are interchangeable
+  // (as opposed to required to run at a given stage) and should be lead/lag alternated?
   final parameter Integer staMat[nStaChiOnl, cfg.nChi](
     each fixed=false)
     "Staging matrix with chiller stage as row index and chiller as column index"
     annotation (Dialog(tab="General",group="Staging configuration"));
-  final parameter Real desChiNum[nStaChiOnl + 1]={if i == 0 then 0 else sum(
-    staMat[i]) for i in 0:nStaChiOnl}
+  final parameter Real desChiNum[nStaChiOnl + 1]=
+    {if i == 0 then 0 else sum(staMat[i]) for i in 0:nStaChiOnl}
     "Design number of chiller that should be ON at each chiller stage, including the zero stage"
     annotation (Dialog(tab="General",group="Staging configuration"));
   final parameter Real staTmp[nSta, nUniSta]={{if sta[i, j] > 0 then (if j <= cfg.nChi
@@ -324,8 +324,7 @@ block G36
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiAva[cfg.nChi](each k=true)
     "Boiler available signal – Implementation does not handle fault detection yet"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Templates.Components.Controls.StatusEmulator
-                                                      FIXME_uChiHeaCon[cfg.nChi]
+  Buildings.Templates.Components.Controls.StatusEmulator FIXME_uChiHeaCon[cfg.nChi]
     "#2299: This signal should be internally computed by the stage up and down sequences"
     annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant RFE_watLev(
@@ -391,16 +390,7 @@ block G36
     or cfg.typValCooOutIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "#2299 Should be Boolean and conditional to a configuration parameter"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal FIXME_uFanSpe(
-    u_internal=0)
-    "#2299: This should be the commanded speed `ySpeSet` computed internally"
-    annotation (Placement(transformation(extent={{20,-150},{0,-130}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal FIXME_uConWatPumSpe[cfg.nPumConWat](
-    each u_internal=0)
-    "#2299: Should be the commanded speed output from subcontroller."
-    annotation (Placement(transformation(extent={{20,-110},{0,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply
-                                         FIXME_uChiLoa[cfg.nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply FIXME_uChiLoa[cfg.nChi]
     "#2299: The chiller load (𝑄𝑟𝑒𝑞𝑢𝑖𝑟𝑒𝑑) shall be internally calculated by the controller"
     annotation (Placement(transformation(extent={{-150,190},{-130,210}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yChi_actual[cfg.nChi]
@@ -414,6 +404,18 @@ block G36
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal FIXME_uIsoVal[cfg.nCoo]
     "#2299 Should be Boolean + missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-190,-150},{-170,-130}})));
+  Modelica.Blocks.Continuous.CriticalDamping FIXME_uConWatPumSpe[cfg.nPumConWat](
+    each n=1,
+    each f=2.2/(2*Modelica.Constants.pi*30),
+    each initType=Modelica.Blocks.Types.Init.InitialOutput)
+    "#2299: Should be the commanded speed output from subcontroller."
+    annotation (Placement(transformation(extent={{20,-110},{0,-90}})));
+  Modelica.Blocks.Continuous.CriticalDamping FIXME_uFanSpe(
+    n=1,
+    f=2.2/(2*Modelica.Constants.pi*30),
+    initType=Modelica.Blocks.Types.Init.InitialOutput)
+    "#2299: This should be the commanded speed `ySpeSet` computed internally"
+    annotation (Placement(transformation(extent={{20,-150},{0,-130}})));
 protected
   Integer idx
     "Iteration variable for algorithm section";
@@ -536,14 +538,6 @@ equation
           -3},{-2,-3}}, color={255,0,255}));
   connect(ctl.yTowCelIsoVal, FIXME_yTowCelIsoVal.u) annotation (Line(points={{22,
           -18},{38,-18},{38,-60},{48,-60}}, color={0,0,127}));
-  connect(FIXME_yTowFanSpe.y, FIXME_uFanSpe.u) annotation (Line(points={{72,-90},
-          {80,-90},{80,-140},{22,-140}}, color={0,0,127}));
-  connect(FIXME_uFanSpe.y, ctl.uFanSpe) annotation (Line(points={{-2,-140},{-20,
-          -140},{-20,-30},{-2,-30}}, color={0,0,127}));
-  connect(ctl.yConWatPumSpe, FIXME_uConWatPumSpe.u) annotation (Line(points={{22,
-          6},{40,6},{40,-100},{22,-100}}, color={0,0,127}));
-  connect(FIXME_uConWatPumSpe.y, ctl.uConWatPumSpe) annotation (Line(points={{-2,
-          -100},{-18,-100},{-18,-20},{-2,-20}}, color={0,0,127}));
   connect(FIXME_uChiLoa.y, ctl.uChiCooLoa) annotation (Line(points={{-128,200},{
           -22,200},{-22,-26},{-2,-26}},
                                     color={0,0,127}));
@@ -567,6 +561,14 @@ equation
           13},{34,13},{34,-60},{22,-60}}, color={255,0,255}));
   connect(FIXME_uChiHeaCon.y1_actual, ctl.uChiHeaCon) annotation (Line(points={
           {-2,-60},{-14,-60},{-14,-10},{-2,-10}}, color={255,0,255}));
+  connect(ctl.yConWatPumSpe, FIXME_uConWatPumSpe.u) annotation (Line(points={{22,
+          6},{40,6},{40,-100},{22,-100}}, color={0,0,127}));
+  connect(FIXME_uConWatPumSpe.y, ctl.uConWatPumSpe) annotation (Line(points={{-1,
+          -100},{-12,-100},{-12,-20},{-2,-20}}, color={0,0,127}));
+  connect(FIXME_uFanSpe.y, ctl.uFanSpe) annotation (Line(points={{-1,-140},{-10,
+          -140},{-10,-30},{-2,-30}}, color={0,0,127}));
+  connect(FIXME_yTowFanSpe.y, FIXME_uFanSpe.u) annotation (Line(points={{72,-90},
+          {80,-90},{80,-140},{22,-140}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>

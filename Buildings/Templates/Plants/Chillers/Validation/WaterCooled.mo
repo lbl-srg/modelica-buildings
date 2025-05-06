@@ -48,15 +48,8 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       have_senTChiWatChiSup_select=true,
       have_senTChiWatChiRet=true,
       have_senTConWatChiSup=true,
-      have_senTConWatChiRet_select=true,
-      typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
-    redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower
-      coo,
-    redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.Economizers.None eco,
-    redeclare final Buildings.Templates.Plants.Chillers.Components.Controls.G36
-      ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
+      have_senTConWatChiRet_select=true),
+    ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
         typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
     "Chiller plant"
     annotation (Placement(transformation(extent={{-80,-118},{-40,-78}})));

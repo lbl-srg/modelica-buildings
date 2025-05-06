@@ -76,7 +76,7 @@ annotation (
 Documentation(info="<html>
 <p>
 This model validates the algorithm used to compute the so-called
-staging matrix within the plant controller
+chiller staging matrix within the plant controller
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.Controls.G36\">
 Buildings.Templates.Plants.Chillers.Components.Controls.G36</a>.
 </p>

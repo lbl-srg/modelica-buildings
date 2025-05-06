@@ -6,8 +6,6 @@ class AllSystemsAirCooled
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B);
-  // FIXME(AntoineGautier PR#2299):
-  // Should pla.ctl.sta have stage 0 with no equipement enabled as G36 prescribes?
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant pla(
     chi(
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi, pla.cfg.nChi),
@@ -58,7 +56,7 @@ class AllSystemsAirCooled
       yPumChiWatPri_min=0.1,
       yPumChiWatSec_min=0.1,
       yFanCoo_min=0,
-      sta=[1,0; 1,1],
+      sta=[0,0; 1,0; 1,1],
       TOutChiWatLck=250,
       TConWatRetChi_nominal=fill(Buildings.Templates.Data.Defaults.TConWatRet,
           pla.cfg.nChi),
