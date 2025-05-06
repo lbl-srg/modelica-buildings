@@ -11,33 +11,50 @@ model MerkelEnergyPlus
       MediumWat.p_default,
       MediumWat.T_default,
       MediumWat.X_default)) "Default density of water";
+  parameter Modelica.Units.SI.Density denAir=MediumAir.density(
+      MediumAir.setState_pTX(
+      MediumAir.p_default,
+      MediumAir.T_default,
+      MediumAir.X_default)) "Default density of air";
 
-  // Cooling tower parameters
+  // Cooling tower parameters - values quoted from EnergyPlus
   parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
     "Nominal pressure difference of cooling tower";
-  parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal=0.00109181
+  parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal=0.00109317
     "Nominal volumetric flow rate of water (medium 2)";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=VWat_flow_nominal*
-      denWat "Nominal mass flow rate of water (medium 2)";
-  parameter Real ratWatAir_nominal = 1.61599
-    "Nominal water-to-air ratio";
-  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=18.85 + 273.15
+  parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal=0.561240
+    "Nominal volumetric flow rate of air (medium 1)";
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=25.60 + 273.15
     "Nominal outdoor wetbulb temperature";
-  parameter Modelica.Units.SI.Temperature TWatIn_nominal=34.16 + 273.15
-    "Nominal water inlet temperature";
+  parameter Modelica.Units.SI.TemperatureDifference Ran=5.50
+    "Range temperature (difference between water in and out)";
+  parameter Modelica.Units.SI.TemperatureDifference App=3.90
+    "Approach temperature (difference between water out and wetbulb)";
   parameter Modelica.Units.SI.Temperature TWatOut_initial=33.019 + 273.15
     "Nominal water inlet temperature";
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=-20286.37455
-    "Nominal heat transfer, positive";
-  parameter Modelica.Units.SI.ThermalConductance UA_nominal_EP=2011.28668
-    "Nominal heat transfer, positive";
-  parameter Modelica.Units.SI.Power PFan_nominal=213.00693 "Nominal fan power";
+  parameter Modelica.Units.SI.Power PFan_nominal=213.27113 "Nominal fan power";
 
   parameter Real r_VEnePlu[:] = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}
     "Fan control signal";
   parameter Real r_PEnePlu[:] = {0,0.020982275,0.027843038,0.046465108,
     0.082729139,0.142515786,0.231705701,0.356179538,0.521817952,0.734501596,1}
     "Fan power output as a function of the signal";
+
+  // Values calculated from principals
+  final parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=
+    VWat_flow_nominal*denWat
+    "Nominal mass flow rate of water (medium 2)";
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
+    VAir_flow_nominal*denAir
+    "Nominal mass flow rate of air (medium 1)";
+  final parameter Real ratWatAir_nominal = mWat_flow_nominal/mAir_flow_nominal
+    "Nominal water-to-air ratio";
+  final parameter Modelica.Units.SI.Temperature TWatIn_nominal=
+    TWatOut_nominal+Ran
+    "Nominal water inlet temperature";
+  final parameter Modelica.Units.SI.Temperature TWatOut_nominal=
+    TAirInWB_nominal+App
+    "Nominal water outlet temperature, 29.5 in EnergyPlus";
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
@@ -55,11 +72,11 @@ model MerkelEnergyPlus
     dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=TWatOut_initial,
-    m_flow_nominal=m_flow_nominal,
+    m_flow_nominal=mWat_flow_nominal,
     ratWatAir_nominal=ratWatAir_nominal,
     TAirInWB_nominal=TAirInWB_nominal,
     TWatIn_nominal=TWatIn_nominal,
-    TWatOut_nominal=TWatIn_nominal+Q_flow_nominal/(m_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq),
+    TWatOut_nominal=TWatOut_nominal,
     PFan_nominal=PFan_nominal,
     yMin=0.1,
     fraFreCon=0.1,
@@ -155,6 +172,13 @@ outlet are equal to the state variables of the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 30, 2025, by Kathryn Hinkelman:<br/>
+Corrected the wetbulb value <code>TAirInWB_nominal</code> and 
+added intermediate equations from E+ to model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4189\">#4189</a>.
+</li>
 <li>
 December 23, 2019, by Kathryn Hinkelman:<br/>
 First implementation.

@@ -46,8 +46,12 @@ equation
           {-12,4}}, color={0,0,127}));
   connect(yFan.y, tow.y) annotation (Line(points={{-38,80},{-20,80},{-20,8},{-12,
           8}}, color={0,0,127}));
-annotation(
-  experiment(StartTime=0, StopTime=1000, Tolerance=1e-06), Documentation(info="<html>
+annotation (
+  __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelNominal.mos"
+    "Simulate and plot"),
+  experiment(StartTime=0, StopTime=1000, Tolerance=1e-06),
+  Documentation(info="<html>
 <p>
 Validation model for the Merkel cooling tower.
 </p>
