@@ -72,7 +72,7 @@ ExternalProject_Add(
 #--Configure step-------------
 #  CONFIGURE_COMMAND ""
   CMAKE_ARGS        
-      -DFMILIB_BUILD_SHARED_LIB=OFF
+      -DFMILIB_BUILD_SHARED_LIB=ON
       -DFMILIB_GENERATE_DOXYGEN_DOC=OFF
       -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install
 
