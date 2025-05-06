@@ -57,7 +57,7 @@ Validation model for the Merkel cooling tower.
 </p>
 <p>
 The model simulates the cooling tower at the design conditions,
-and can be used to verify whether the outlet temperature is the same as the one from the design condition.
+and it verifies that at steady-state, the outlet temperature is the same as the one from the design condition.
 </p>
 </html>", revisions="<html>
 <ul>
