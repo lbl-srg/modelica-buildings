@@ -68,7 +68,7 @@ It is redefined to "." for Makefile based build environments. Otherwise is set b
 #define FMI_TERMINALS_AND_ICONS_XML "terminalsAndIcons.xml"
 
 
-#define FMILIB_STATIC_LIB_ONLY
+/* #undef FMILIB_STATIC_LIB_ONLY */
 #ifdef FMILIB_STATIC_LIB_ONLY
 /**
 \def FMILIB_STATIC_LIB_ONLY
