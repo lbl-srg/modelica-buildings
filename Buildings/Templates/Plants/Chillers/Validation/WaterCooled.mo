@@ -44,6 +44,7 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     nAirHan=1,
     final energyDynamics=energyDynamics,
     final dat=datAll.pla,
+    linearized=true,
     chi(
       have_senTChiWatChiSup_select=true,
       have_senTChiWatChiRet=true,
@@ -228,6 +229,16 @@ staging and controlling the primary pumps to meet the
 remote differential pressure setpoint.
 </li>
 </ul>
+<h4>Details</h4>
+<p>
+By default, all valves within the plant are modeled considering a linear
+variation of the pressure drop with the flow rate (<code>pla.linearized=true</code>),
+as opposed to the quadratic relationship usually considered for
+a turbulent flow regime.
+By limiting the size of the system of nonlinear equations, this setting
+reduces the risk of solver failure and the time to solution for testing
+various plant configurations.
+</p>
 </html>",
       revisions="<html>
 <ul>
