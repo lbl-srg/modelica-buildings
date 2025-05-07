@@ -228,7 +228,7 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     final typValConWatChiIso=typValConWatChiIso,
     final typValCooInlIso=typValCooInlIso,
     final typValCooOutIso=typValCooOutIso)
-    "Configurationj parameters";
+    "Configuration parameters";
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant dat
     "Design and operating parameters";
 

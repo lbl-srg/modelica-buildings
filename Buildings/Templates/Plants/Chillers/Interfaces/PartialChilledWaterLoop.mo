@@ -6,7 +6,7 @@ partial model PartialChilledWaterLoop
     final typValConWatChiIso=chi.typValConWatChiIso,
     final typEco=eco.typ,
     final typCtl=ctl.typ,
-    cfg(
+    final cfg(
       final have_senDpChiWatRemWir=ctl.have_senDpChiWatRemWir,
       final have_senVChiWatSec=ctl.have_senVChiWatSec,
       final have_senLevCoo=ctl.have_senLevCoo,
@@ -300,7 +300,7 @@ partial model PartialChilledWaterLoop
     Placement(transformation(extent={{-40,-262},{40,-242}})));
 
   // Controls
-  replaceable Buildings.Templates.Plants.Chillers.Components.Controls.OpenLoop ctl
+  replaceable Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController ctl
     constrainedby
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController(
     final nAirHan=nAirHan,

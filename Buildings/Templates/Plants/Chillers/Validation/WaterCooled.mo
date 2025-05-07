@@ -44,21 +44,13 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     nAirHan=1,
     final energyDynamics=energyDynamics,
     final dat=datAll.pla,
-    typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    have_pumConWatVar_select=true,
+    linearized=true,
     chi(
       have_senTChiWatChiSup_select=true,
       have_senTChiWatChiRet=true,
       have_senTConWatChiSup=true,
-      have_senTConWatChiRet_select=true,
-      typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
-    redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen
-      coo,
-    redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.Economizers.None eco,
-    redeclare final Buildings.Templates.Plants.Chillers.Components.Controls.G36
-      ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
+      have_senTConWatChiRet_select=true),
+    ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
         typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
     "Chiller plant"
     annotation (Placement(transformation(extent={{-80,-118},{-40,-78}})));
@@ -237,6 +229,16 @@ staging and controlling the primary pumps to meet the
 remote differential pressure setpoint.
 </li>
 </ul>
+<h4>Details</h4>
+<p>
+By default, all valves within the plant are modeled considering a linear
+variation of the pressure drop with the flow rate (<code>pla.linearized=true</code>),
+as opposed to the quadratic relationship usually considered for
+a turbulent flow regime.
+By limiting the size of the system of nonlinear equations, this setting
+reduces the risk of solver failure and the time to solution for testing
+various plant configurations.
+</p>
 </html>",
       revisions="<html>
 <ul>

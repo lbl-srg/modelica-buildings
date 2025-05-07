@@ -221,18 +221,44 @@ model ChillerGroupWaterCooled
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
 
   Plants.Chillers.Components.Controls.OpenLoop ctl(
-    cfg=Buildings.Templates.Plants.Chillers.Components.Validation.Configuration.Variable1OnlyWaterCooledParallel(
-      nChi=chi.nChi,
-      typArrPumChiWatPri=chi.typArrPumChiWatPri,
-      typArrPumConWat=chi.typArrPumConWat,
-      have_pumChiWatPriVar=pumChiWatPri.have_var,
-      have_pumChiWatPriVarCom=pumChiWatPri.have_varCom,
-      have_pumConWatVar=pumConWat.have_var,
-      have_pumConWatVarCom=pumConWat.have_varCom,
-      typEco=chi.typEco,
-      typValChiWatChiIso=chi.typValChiWatChiIso,
-      typValConWatChiIso=chi.typValConWatChiIso),
-    dat(sta=fill(fill(0, ctl.dat.nUniSta), ctl.dat.nUniSta)))
+    cfg(
+      final nChi=chi.nChi,
+      final typArrPumChiWatPri=chi.typArrPumChiWatPri,
+      final typArrPumConWat=chi.typArrPumConWat,
+      final have_pumChiWatPriVar=pumChiWatPri.have_var,
+      final have_pumChiWatPriVarCom=pumChiWatPri.have_varCom,
+      final have_pumConWatVar=pumConWat.have_var,
+      final have_pumConWatVarCom=pumConWat.have_varCom,
+      final typEco=chi.typEco,
+      final typValChiWatChiIso=chi.typValChiWatChiIso,
+      final typValConWatChiIso=chi.typValConWatChiIso,
+      nCoo=nChi,
+      nPumConWat=nChi,
+      typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
+      typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen,
+      cpChiWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      cpCon_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      have_pumChiWatSec=false,
+      have_senDpChiWatRemWir=false,
+      have_senLevCoo=false,
+      have_senVChiWatSec=false,
+      have_valChiWatChiBypPar=false,
+      nAirHan=0,
+      nEquZon=0,
+      nLooChiWatSec=1,
+      nPumChiWatPri=nChi,
+      nPumChiWatSec=0,
+      nSenDpChiWatRem=1,
+      rhoChiWat_default=Buildings.Media.Water.d_const,
+      rhoCon_default=Buildings.Media.Water.d_const,
+      typArrChi=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+      typCtl=Buildings.Templates.Plants.Chillers.Types.Controller.OpenLoop,
+      typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None,
+      typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
+      typMeaCtlChiWatPri=Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor,
+      typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
+      typValCooOutIso=Buildings.Templates.Components.Types.Valve.None),
+    dat(sta=fill(fill(0, nChi), nChi)))
     "Plant controller"
     annotation (Placement(transformation(extent={{-160,170},{-180,190}})));
   Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla
@@ -367,5 +393,12 @@ to provide the necessary signals for any system configuration.
 To test a different system configuration, one needs only to modify the
 chiller group component.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ChillerGroupWaterCooled;

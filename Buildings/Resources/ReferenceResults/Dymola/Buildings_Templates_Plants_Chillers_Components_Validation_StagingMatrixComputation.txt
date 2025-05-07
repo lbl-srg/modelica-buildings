@@ -1,0 +1,12 @@
+last-generated=2025-04-18
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+staMat[1, 1]=[1e+00, 1e+00]
+staMat[1, 2]=[0e+00, 0e+00]
+staMat[2, 1]=[1e+00, 1e+00]
+staMat[2, 2]=[1e+00, 1e+00]

@@ -6,7 +6,6 @@ class AllSystemsAirCooled
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B);
-
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant pla(
     chi(
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi, pla.cfg.nChi),
@@ -19,20 +18,20 @@ class AllSystemsAirCooled
         each use_TEvaOutForTab=true,
         each use_TConOutForTab=false)),
     ctl(
-      TChiWatChiSup_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup,
+      TChiWatSupChi_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup,
           pla.cfg.nChi),
       dpChiWatLocSet_min=Buildings.Templates.Data.Defaults.dpChiWatSet_min,
       dpChiWatRemSet_min=fill(Buildings.Templates.Data.Defaults.dpChiWatSet_min,
           pla.cfg.nSenDpChiWatRem),
       VChiWatChi_flow_nominal=pla.ctl.capChi_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-           ./ (Buildings.Templates.Data.Defaults.TChiWatRet .- pla.ctl.TChiWatChiSup_nominal)
+           ./ (Buildings.Templates.Data.Defaults.TChiWatRet .- pla.ctl.TChiWatSupChi_nominal)
           /pla.cfg.rhoChiWat_default,
       VChiWatChi_flow_min=0.3*pla.ctl.VChiWatChi_flow_nominal,
       VConWatChi_flow_nominal=pla.ctl.capChi_nominal*(1 + 1/Buildings.Templates.Data.Defaults.COPChiWatCoo)
           /Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/(Buildings.Templates.Data.Defaults.TConWatRet
            - Buildings.Templates.Data.Defaults.TConWatSup)/pla.cfg.rhoCon_default,
       dTLifChi_min=fill(Buildings.Templates.Data.Defaults.dTLifChi_min, pla.cfg.nChi),
-      dTLifChi_nominal=pla.ctl.TConWatRetChi_nominal .- pla.ctl.TChiWatChiSup_nominal,
+      dTLifChi_nominal=pla.ctl.TConWatRetChi_nominal .- pla.ctl.TChiWatSupChi_nominal,
       capChi_nominal=fill(1E6, pla.cfg.nChi),
       VChiWatPri_flow_nominal=sum(pla.ctl.VChiWatChi_flow_nominal),
       VChiWatSec_flow_nominal={sum(pla.ctl.VChiWatChi_flow_nominal) / 1.1},
@@ -57,8 +56,7 @@ class AllSystemsAirCooled
       yPumChiWatPri_min=0.1,
       yPumChiWatSec_min=0.1,
       yFanCoo_min=0,
-      sta=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-           then [0,0,0; 0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else [0,0; 1,0; 1,1],
+      sta=[0,0; 1,0; 1,1],
       TOutChiWatLck=250,
       TConWatRetChi_nominal=fill(Buildings.Templates.Data.Defaults.TConWatRet,
           pla.cfg.nChi),

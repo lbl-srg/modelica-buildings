@@ -89,7 +89,7 @@ model Economizers "Validation model for waterside economizers"
     final energyDynamics=energyDynamics,
     final tau=tau)
     "WSE with CHW bypass valve"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+    annotation (Placement(transformation(extent={{-40,10},{40,30}})));
   Fluid.Sources.Boundary_pT bouConWatRet(
     redeclare final package Medium=MediumConWat,
     final nPorts=2)
@@ -97,7 +97,7 @@ model Economizers "Validation model for waterside economizers"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-80,50})));
+        origin={-60,60})));
   Fluid.Sources.Boundary_pT bouConWatSup(
     redeclare final package Medium = MediumChiWat,
     p=bouConWatRet.p + dpConWatEco_nominal,
@@ -123,7 +123,7 @@ model Economizers "Validation model for waterside economizers"
     hex(show_T=true),
     final energyDynamics=energyDynamics,
     final tau=tau) "WSE with HX pump"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation (Placement(transformation(extent={{-40,-90},{40,-70}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatEco
     "WSE CHW pump control bus" annotation (Placement(transformation(extent={{-20,-40},
             {20,0}}),        iconTransformation(extent={{-316,184},{-276,224}})));
@@ -134,7 +134,7 @@ model Economizers "Validation model for waterside economizers"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable yPumChiWatEco(table=[0,
         0; 1,0; 1.5,1; 2,1], timeScale=1000) "WSE CHW pump speed signal"
-    annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
+    annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   .Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla1
     "Plant control bus" annotation (Placement(transformation(extent={{-20,-80},
             {20,-40}}), iconTransformation(extent={{-432,12},{-412,32}})));
@@ -158,8 +158,8 @@ model Economizers "Validation model for waterside economizers"
     final nPorts=1) "CHW return boundary condition" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-80,-98})));
+        rotation=180,
+        origin={-80,-80})));
   Fluid.Sources.MassFlowSource_T bouChiWatRet(
     redeclare final package Medium = MediumChiWat,
     m_flow=mChiWatEco_flow_nominal,
@@ -167,15 +167,16 @@ model Economizers "Validation model for waterside economizers"
     final nPorts=1) "CHW return boundary condition" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-80,0})));
+        rotation=180,
+        origin={-80,20})));
 equation
   connect(ecoVal.port_b, bouChiWatSup.ports[1])
-    annotation (Line(points={{2.5,20},{79,20},{79,-80}}, color={0,127,255}));
+    annotation (Line(points={{10,20},{80,20},{80,-80},{79,-80}},
+                                                         color={0,127,255}));
   connect(bouConWatSup.ports[1], ecoVal.port_aConWat)
-    annotation (Line(points={{79,40},{79,28},{-10,28}},   color={0,127,255}));
-  connect(ecoVal.port_bConWat, bouConWatRet.ports[1]) annotation (Line(points={{-10,12},
-          {-81,12},{-81,40}},            color={0,127,255}));
+    annotation (Line(points={{79,40},{-40,40},{-40,28}},  color={0,127,255}));
+  connect(ecoVal.port_bConWat, bouConWatRet.ports[1]) annotation (Line(points={{-40,12},
+          {-61,12},{-61,50}},            color={0,127,255}));
   connect(busPla, ecoVal.bus) annotation (Line(
       points={{0,60},{0,30}},
       color={255,204,51},
@@ -184,14 +185,15 @@ equation
     annotation (Line(points={{-108,0},{-100,0},{-100,76},{0,76},{0,100}},
                                                           color={0,0,127}));
   connect(bouConWatSup.ports[2], ecoPum.port_aConWat) annotation (Line(points={{81,40},
-          {60,40},{60,-72},{-10,-72}},       color={0,127,255}));
-  connect(ecoPum.port_bConWat, bouConWatRet.ports[2]) annotation (Line(points={{-10,-88},
-          {-60,-88},{-60,40},{-79,40}},                            color={0,127,
+          {60,40},{60,-50},{-40,-50},{-40,-72}},
+                                             color={0,127,255}));
+  connect(ecoPum.port_bConWat, bouConWatRet.ports[2]) annotation (Line(points={{-40,-88},
+          {-60,-88},{-60,50},{-59,50}},                            color={0,127,
           255}));
   connect(y1PumChiWatEco.y[1], busPumChiWatEco.y1) annotation (Line(points={{-108,40},
           {-50,40},{-50,-20},{0,-20}},         color={255,0,255}));
-  connect(yPumChiWatEco.y[1], busPumChiWatEco.y) annotation (Line(points={{-108,80},
-          {-40,80},{-40,-36},{0,-36},{0,-20}},         color={0,0,127}));
+  connect(yPumChiWatEco.y[1], busPumChiWatEco.y) annotation (Line(points={{-108,
+          -40},{0,-40},{0,-20}},                       color={0,0,127}));
   connect(busPumChiWatEco, busPla1.pumChiWatEco) annotation (Line(
       points={{0,-20},{0,-60}},
       color={255,204,51},
@@ -218,17 +220,18 @@ equation
         points={{-108,120},{100,120},{100,-40},{40,-40}},
                                                         color={255,0,255}));
   connect(ecoPum.port_b, bouChiWatSup.ports[2])
-    annotation (Line(points={{2.5,-80},{81,-80}},
+    annotation (Line(points={{10,-80},{81,-80}},
                                                color={0,127,255}));
-  connect(bouChiWatRet1.ports[1], ecoPum.port_a) annotation (Line(points={{-80,-88},
-          {-80,-80},{-2.5,-80}},     color={0,127,255}));
+  connect(bouChiWatRet1.ports[1], ecoPum.port_a) annotation (Line(points={{-70,-80},
+          {-10,-80}},                color={0,127,255}));
   connect(bouChiWatRet.ports[1], ecoVal.port_a)
-    annotation (Line(points={{-80,10},{-80,20},{-2.5,20}},color={0,127,255}));
+    annotation (Line(points={{-70,20},{-10,20}},          color={0,127,255}));
   annotation (
   experiment(
     StopTime=2000,
     Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/Economizer.mos"
+  __Dymola_Commands(
+    file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Components/Validation/Economizers.mos"
     "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-140,-140},{120,140}})),
     Documentation(info="<html>
@@ -241,5 +244,12 @@ and
 Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve</a>
 using open-loop controls.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Economizers;

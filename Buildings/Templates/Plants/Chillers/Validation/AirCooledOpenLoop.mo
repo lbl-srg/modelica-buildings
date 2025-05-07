@@ -5,11 +5,7 @@ model AirCooledOpenLoop
     redeclare Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsAirCooled datAll,
     redeclare Buildings.Templates.Plants.Chillers.AirCooled pla(
       redeclare package MediumCon = MediumAir,
-      typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
-      typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-      typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
-      chi(typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-          typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating)));
+      redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Controls.OpenLoop ctl));
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

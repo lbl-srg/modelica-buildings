@@ -31,12 +31,18 @@ package Types "Package with type definitions"
       None
       "No external cooler (typically for air-cooled chillers)",
       CoolingTowerClosed
-      "Closed-circuit cooling tower",
+      "Closed-circuit cooling tower (evaporative fluid cooler)",
       CoolingTowerOpen
       "Open-circuit cooling tower",
       DryCooler
       "Dry cooler")
     "Enumeration to configure the condenser water cooling equipment";
+  type CoolingTower = enumeration(
+      Closed
+      "Closed-circuit cooling tower (evaporative fluid cooler)",
+      Open
+      "Open-circuit cooling tower")
+    "Enumeration to configure the cooling tower";
   type Damper = enumeration(
       Modulating
       "Modulating damper",

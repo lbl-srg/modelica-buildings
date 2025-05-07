@@ -61,8 +61,7 @@ model ChillerGroupAirCooled
     final m_flow_nominal=mChiWatChi_flow_nominal,
     dp_nominal=1.5*dpChiWatChi_nominal)
     "Parameter record for primary CHW pumps";
-  parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup
-    datChi(
+  parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup datChi(
     final nChi=nChi,
     final typ=Buildings.Templates.Components.Types.Chiller.AirCooled,
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
@@ -76,7 +75,8 @@ model ChillerGroupAirCooled
       each PLRSup={0.1,0.45,0.8,1.,1.15},
       each devIde="York_YCAL0033EE_101kW_3_1COP_AirCooled",
       each use_TEvaOutForTab=true,
-      each use_TConOutForTab=false)) "Parameter record for chiller group"
+      each use_TConOutForTab=false))
+    "Parameter record for chiller group"
     annotation (Placement(transformation(extent={{-240,180},{-220,200}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
     redeclare final package Medium=MediumChiWat,
@@ -145,15 +145,44 @@ model ChillerGroupAirCooled
     final tau=tau) "Primary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Plants.Chillers.Components.Controls.OpenLoop ctl(
-    cfg=Buildings.Templates.Plants.Chillers.Components.Validation.Configuration.Variable1OnlyAirCooledParallel(
-      nChi=chi.nChi,
-      typArrPumChiWatPri=chi.typArrPumChiWatPri,
-      have_pumChiWatPriVar=pumChiWatPri.have_var,
-      have_pumChiWatPriVarCom=pumChiWatPri.have_varCom,
-      typEco=chi.typEco,
-      typValChiWatChiIso=chi.typValChiWatChiIso,
-      typValConWatChiIso=chi.typValConWatChiIso),
-    dat(sta=fill(fill(0, ctl.dat.nUniSta), ctl.dat.nUniSta)))
+    cfg(
+      final nChi=nChi,
+      final typArrPumChiWatPri=chi.typArrPumChiWatPri,
+      final have_pumChiWatPriVar=pumChiWatPri.have_var,
+      final have_pumChiWatPriVarCom=pumChiWatPri.have_varCom,
+      final typEco=chi.typEco,
+      final typValChiWatChiIso=chi.typValChiWatChiIso,
+      final typValConWatChiIso=chi.typValConWatChiIso,
+      cpChiWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      cpCon_default=Buildings.Utilities.Psychrometrics.Constants.cpAir,
+      have_pumChiWatSec=false,
+      have_senDpChiWatRemWir=false,
+      have_senLevCoo=false,
+      have_senVChiWatSec=false,
+      have_valChiWatChiBypPar=false,
+      have_pumConWatVarCom=false,
+      have_pumConWatVar=false,
+      nAirHan=0,
+      nCoo=0,
+      nEquZon=0,
+      nLooChiWatSec=1,
+      nPumChiWatPri=nChi,
+      nPumChiWatSec=0,
+      nPumConWat=0,
+      nSenDpChiWatRem=1,
+      rhoChiWat_default=Buildings.Media.Water.d_const,
+      rhoCon_default=Buildings.Media.Air.dStp,
+      typArrChi=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+      typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+      typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
+      typCoo=Buildings.Templates.Components.Types.Cooler.None,
+      typCtl=Buildings.Templates.Plants.Chillers.Types.Controller.OpenLoop,
+      typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None,
+      typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
+      typMeaCtlChiWatPri=Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor,
+      typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
+      typValCooOutIso=Buildings.Templates.Components.Types.Valve.None),
+    dat(sta=fill(fill(0, nChi), nChi)))
     "Plant controller"
     annotation (Placement(transformation(extent={{-160,170},{-180,190}})));
   Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla
@@ -285,5 +314,12 @@ to provide the necessary signals for any system configuration.
 To test a different system configuration, one needs only to modify the
 chiller group component.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ChillerGroupAirCooled;

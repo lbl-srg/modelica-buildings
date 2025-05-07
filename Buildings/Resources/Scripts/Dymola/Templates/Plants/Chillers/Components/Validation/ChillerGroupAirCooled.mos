@@ -1,4 +1,3 @@
-
 simulateModel("Buildings.Templates.Plants.Chillers.Components.Validation.ChillerGroupAirCooled",
   method="cvode",
   tolerance=1e-6,

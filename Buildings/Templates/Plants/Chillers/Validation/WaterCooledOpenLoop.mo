@@ -13,7 +13,7 @@ model WaterCooledOpenLoop
     Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled
     datAll(pla(cfg=pla.cfg))
     "Design and operating parameters"
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+    annotation (Placement(transformation(extent={{70,60},{90,80}})));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -21,37 +21,33 @@ model WaterCooledOpenLoop
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
-    typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     have_pumConWatVar_select=true,
-    ctl(
-      typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
-      typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature,
-      have_senLevCoo=false),
-    chi(
-      typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
+    redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Controls.OpenLoop ctl,
+    chi(typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
     redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen
+      Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower
       coo,
     redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.Economizers.None eco)
-    constrainedby Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
-      redeclare final package MediumChiWat = MediumChiWat,
-      redeclare replaceable package MediumCon = MediumConWat,
-      nChi=2,
-      chi(
-        have_senTChiWatChiSup_select=true,
-        have_senTChiWatChiRet=true,
-        have_senTConWatChiSup=true,
-        have_senTConWatChiRet_select=true),
-      final energyDynamics=energyDynamics,
-      final dat=datAll.pla)
-    "CHW plant"
+      Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve
+      eco "Heat exchanger with bypass valve for CHW flow control")
+    constrainedby
+    Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
+    redeclare final package MediumChiWat = MediumChiWat,
+    redeclare replaceable package MediumCon = MediumConWat,
+    nChi=2,
+    chi(
+      have_senTChiWatChiSup_select=true,
+      have_senTChiWatChiRet=true,
+      have_senTConWatChiSup=true,
+      have_senTConWatChiRet_select=true),
+    final energyDynamics=energyDynamics,
+    final dat=datAll.pla) "CHW plant"
     annotation (Placement(transformation(extent={{-60,-30},{-20,10}})));
 
-  Fluid.Sources.PropertySource_T proSou(use_T_in=true,
-    redeclare final package Medium=MediumChiWat)
-    "Boundary conditions for CHW distribution system"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+  Fluid.Sources.PropertySource_T setTChiWatRet(use_T_in=true, redeclare final
+      package Medium = MediumChiWat) "Set CHWRT" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-20})));
 
@@ -93,12 +89,12 @@ equation
           0,-20},{0,-40},{10,-40}}, color={0,127,255}));
   connect(TChiWatRet.port_a, VChiWat_flow.port_b)
     annotation (Line(points={{30,-40},{40,-40}}, color={0,127,255}));
-  connect(res.port_b, proSou.port_a)
+  connect(res.port_b, setTChiWatRet.port_a)
     annotation (Line(points={{40,0},{80,0},{80,-10}}, color={0,127,255}));
-  connect(VChiWat_flow.port_a, proSou.port_b)
+  connect(VChiWat_flow.port_a, setTChiWatRet.port_b)
     annotation (Line(points={{60,-40},{80,-40},{80,-30}}, color={0,127,255}));
-  connect(TChiWatRetPre.y, proSou.T_in) annotation (Line(points={{-68,40},{60,40},
-          {60,-16},{68,-16}}, color={0,0,127}));
+  connect(TChiWatRetPre.y, setTChiWatRet.T_in) annotation (Line(points={{-68,40},
+          {60,40},{60,-16},{68,-16}}, color={0,0,127}));
   annotation (
   experiment(
     StartTime=19612800,

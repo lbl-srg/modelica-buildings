@@ -6,10 +6,6 @@ record Chiller
     "Type of chiller"
     annotation (Evaluate=true,
     Dialog(group="Configuration", enable=false));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-    "CHW default specific heat capacity"
-    annotation (Dialog(group="Configuration"));
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
     final min=0)
     "CHW mass flow rate"

@@ -59,19 +59,33 @@ initial algorithm
   end if;
 equation
 /* 
-The when clause makes the variable discrete, and when the algorithm is executed, 
+The when clause below makes the variable discrete, and when the algorithm is executed, 
 it is initialized with its pre value.
 */
 algorithm
   when sample(0, 3E7) then
     idx := 0;
   end when;
-  annotation (Documentation(info="<html>
+annotation (
+  experiment(
+    StopTime=1,
+    Tolerance=1e-06),
+  __Dymola_Commands(
+    file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Components/Validation/StagingMatrixComputation.mos"
+    "Simulate and plot"),
+Documentation(info="<html>
 <p>
 This model validates the algorithm used to compute the so-called
-staging matrix within the plant controller
+chiller staging matrix within the plant controller
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.Controls.G36\">
 Buildings.Templates.Plants.Chillers.Components.Controls.G36</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StagingMatrixComputation;

@@ -91,6 +91,10 @@ equation
       points={{0,100},{0,-40},{-20,-40},{-20,-52},{-12.2,-52}},
       color={255,204,51},
       thickness=0.5));
+  connect(bus.y1Coo, chi.coo) annotation (Line(
+      points={{0,100},{0,-40},{-20,-40},{-20,-56},{-12.2,-56}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     defaultComponentName="chi",
     Documentation(

@@ -15,7 +15,8 @@ model ChillersCompression
   parameter Data.Chiller datChiAirCoo(
     final typ=chiAirCoo.typ,
     mChiWat_flow_nominal=datChiAirCoo.cap_nominal / abs(datChiAirCoo.TChiWatSup_nominal -
-      Buildings.Templates.Data.Defaults.TChiWatRet) / datChiAirCoo.cpChiWat_default,
+      Buildings.Templates.Data.Defaults.TChiWatRet) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     cap_nominal=750E3,
     dpChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
@@ -32,7 +33,8 @@ model ChillersCompression
   parameter Buildings.Templates.Components.Data.Chiller datChiWatCoo(
     final typ=chiWatCoo.typ,
     mChiWat_flow_nominal=datChiWatCoo.cap_nominal / abs(datChiWatCoo.TChiWatSup_nominal -
-      Buildings.Templates.Data.Defaults.TChiWatRet) / datChiWatCoo.cpChiWat_default,
+      Buildings.Templates.Data.Defaults.TChiWatRet) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     mCon_flow_nominal=datChiWatCoo.mChiWat_flow_nominal,
     cap_nominal=750E3,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,

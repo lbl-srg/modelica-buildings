@@ -54,7 +54,7 @@ partial block PartialController "Interface class for plant controller"
     or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed then
       typMeaCtlChiWatPri==Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.FlowDifference
     else false
-    "Set to true for primary CHW flow sensor"
+    "Set to true for plants with primary CHW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.Chillers.Types.SensorLocation locSenFloChiWatPri=
     Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return
@@ -66,7 +66,7 @@ partial block PartialController "Interface class for plant controller"
     cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2 or
     cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2 or
     cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
-    "Set to true for secondary CHW flow sensor"
+    "Set to true for plants with secondary CHW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.Chillers.Types.SensorLocation locSenFloChiWatSec=
     Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return
@@ -76,7 +76,7 @@ partial block PartialController "Interface class for plant controller"
           have_senVChiWatSec));
 
   parameter Boolean have_senTChiWatPriSup_select=false
-    "Set to true for primary CHW supply temperature sensor"
+    "Set to true for plants with primary CHW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
           Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
           cfg.typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
@@ -84,12 +84,12 @@ partial block PartialController "Interface class for plant controller"
   final parameter Boolean have_senTChiWatPriSup=
     cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
     or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-    or have_senTChiWatPlaRet_select
-    "Set to true for plant CHW return temperature sensor"
+    or have_senTChiWatPriSup_select
+    "Set to true for plants with CHW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Boolean have_senTChiWatPlaRet_select=false
-    "Set to true for plant CHW return temperature sensor"
+    "Set to true for plants with CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
           Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
           cfg.typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
@@ -100,7 +100,7 @@ partial block PartialController "Interface class for plant controller"
     elseif cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
       then true
     else have_senTChiWatPlaRet_select
-    "Set to true for plant CHW return temperature sensor"
+    "Set to true for plants with CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   // For plants with WSE, TChiWatEcoBef is used in place of TChiWatSecRet.
@@ -110,7 +110,7 @@ partial block PartialController "Interface class for plant controller"
     else cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
       or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
       or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
-    "Set to true for secondary CHW return temperature sensor"
+    "Set to true for plants with secondary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl typCtlFanCoo=
@@ -137,8 +137,7 @@ partial block PartialController "Interface class for plant controller"
 
   final parameter Real sta[:,:]=dat.sta
     "Staging matrix with plant stage as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
-    annotation (Evaluate=true, Dialog(group="Plant staging",
-    enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36));
+    annotation (Evaluate=true, Dialog(group="Plant staging"));
   final parameter Integer nUniSta=dat.nUniSta
     "Number of units to stage, including chillers and optional WSE"
     annotation (Evaluate=true, Dialog(group="Plant staging"));
