@@ -7,7 +7,7 @@ cmake_policy(SET CMP0048 NEW)
 cmake_minimum_required(VERSION 3.8)
 
 project( fmi-library
-  VERSION 3.0.2
+  VERSION 3.0.3
   DESCRIPTION "FMI Library for Modelica Buildings Library"
   LANGUAGES C
 )
@@ -64,7 +64,7 @@ ExternalProject_Add(
 
   PREFIX         ${FMI_LIBRARY}
   GIT_REPOSITORY https://github.com/modelon-community/fmi-library
-  GIT_TAG        3.0.2
+  GIT_TAG        3.0.3
   GIT_SHALLOW    ON
 
   BUILD_ALWAYS   OFF
