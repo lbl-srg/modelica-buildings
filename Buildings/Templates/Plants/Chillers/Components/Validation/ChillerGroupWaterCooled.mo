@@ -86,6 +86,7 @@ model ChillerGroupWaterCooled
     datChi(
     final nChi=nChi,
     final typ=Buildings.Templates.Components.Types.Chiller.WaterCooled,
+    final typArrChi=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
     final mConWatChi_flow_nominal=mConWatChi_flow_nominal,
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
@@ -151,7 +152,7 @@ model ChillerGroupWaterCooled
   Plants.Chillers.Components.ChillerGroups.Compression chi(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumConWat,
-    typArr=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+    typArrChi=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only,
     final dat=datChi,
     final nChi=nChi,

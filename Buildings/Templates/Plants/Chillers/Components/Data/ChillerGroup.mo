@@ -12,6 +12,9 @@ record ChillerGroup
     "Type of chiller"
     annotation (Evaluate=true,
     Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Plants.Chillers.Types.ChillerArrangement typArrChi
+    "Type of chiller arrangement"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi](
     each final min=0)
     "CHW mass flow rate - Each chiller"
@@ -32,6 +35,16 @@ record ChillerGroup
     each start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "CHW pressure drop - Each chiller"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpBalChiWatChiPar_nominal[nChi](
+    each final min=0, each start=0)=fill(0, nChi)
+    "CHW balancing valve pressure drop at design mass flow rate - Each chiller in parallel"
+    annotation (Dialog(group="Nominal condition",
+      enable=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel));
+  parameter Modelica.Units.SI.PressureDifference dpBalChiWatSer_nominal(
+    final min=0, start=0)=0
+    "CHW balancing valve pressure drop at design mass flow rate - Series chillers"
+    annotation (Dialog(group="Nominal condition",
+      enable=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series));
   parameter Modelica.Units.SI.PressureDifference dpConChi_nominal[nChi](
     each final min=0,
     each start=if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
@@ -41,6 +54,10 @@ record ChillerGroup
     "Condenser cooling fluid pressure drop"
     annotation (Dialog(group="Nominal condition",
       enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Modelica.Units.SI.PressureDifference dpBalConWatChi_nominal[nChi](
+    each final min=0, each start=0)=fill(0, nChi)
+    "CW balancing valve pressure drop at design mass flow rate - Each chiller"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](
     each final min=0)
     "Cooling capacity - Each chiller"

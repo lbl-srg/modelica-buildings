@@ -6,9 +6,6 @@ model ChillersToPrimaryPumps
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium";
 
-  parameter Integer icon_dy = 360
-    "Distance in y-direction between each branch in icon layer";
-
   parameter Integer nChi
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -80,6 +77,9 @@ model ChillersToPrimaryPumps
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Integer icon_dy = 360
+    "Distance in y-direction between each branch in icon layer"
+    annotation(Dialog(tab="Graphics"));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bRet[nPorts](
     redeclare each final package Medium = MediumChiWat,

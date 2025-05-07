@@ -24,7 +24,7 @@ partial model PartialChilledWaterLoop
     redeclare final package MediumCon = MediumCon,
     final nChi=nChi,
     final typ=typChi,
-    final typArr=typArrChi,
+    final typArrChi=typArrChi,
     final typArrPumChiWatPri=typArrPumChiWatPri,
     final typArrPumConWat=typArrPumConWat,
     final have_pumConWatVar=have_pumConWatVar,

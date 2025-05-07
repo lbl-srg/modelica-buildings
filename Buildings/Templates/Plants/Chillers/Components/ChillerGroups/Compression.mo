@@ -62,23 +62,25 @@ model Compression "Group of compression chillers"
     annotation (Placement(transformation(extent={{-150,110},{-170,130}})));
 
   // CHW isolation valve
+  // In case of series chillers, the following component is configured as
+  // a fixed pressure drop and the last element represents the unique balancing valve.
   Buildings.Templates.Components.Actuators.Valve valChiWatChiIsoPar[nChi](
     redeclare each final package Medium = MediumChiWat,
-    each final typ=typValChiWatChiIso,
+    each final typ=if typArrChi == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      then typValChiWatChiIso else Buildings.Templates.Components.Types.Valve.None,
     each final allowFlowReversal=allowFlowReversal,
-    final dat=datValChiWatChiIso,
+    final dat=datValChiWatChiIsoPar,
     each final use_strokeTime=use_strokeTime,
     each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
     each final linearized=linearized)
-    if typArr == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
     "Chiller CHW isolation valve - Parallel chillers"
-    annotation (Placement(transformation(extent={{130,110},{150,130}})));
+    annotation (Placement(transformation(extent={{160,110},{180,130}})));
   Buildings.Templates.Components.Actuators.Valve valChiWatChiIsoSer[nChi](
     redeclare each final package Medium = MediumChiWat,
-    each final typ=typValChiWatChiIso,
+    each final typ=typValChiWatChiIsoSer,
     each final allowFlowReversal=allowFlowReversal,
     each final dat=datValChiWatChiIso,
     each final use_strokeTime=use_strokeTime,
@@ -87,11 +89,11 @@ model Compression "Group of compression chillers"
     each final y_start=y_start,
     each final from_dp=from_dp,
     each final linearized=linearized)
-    if typArr == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+    if typArrChi == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
     "Chiller CHW isolation valve - Series chillers"
     annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=270,
-        origin={180,0})));
+        origin={140,0})));
 equation
   /* Control point connection - start */
   /*
@@ -114,9 +116,9 @@ equation
   /* Control point connection - stop */
 
   connect(TChiWatChiSup.port_b, valChiWatChiIsoPar.port_a)
-    annotation (Line(points={{110,120},{130,120}}, color={0,127,255}));
+    annotation (Line(points={{110,120},{160,120}}, color={0,127,255}));
   connect(valChiWatChiIsoPar.port_b, ports_bChiWat)
-    annotation (Line(points={{150,120},{200,120}}, color={0,127,255}));
+    annotation (Line(points={{180,120},{200,120}}, color={0,127,255}));
   connect(valConWatChiIso.port_b, ports_bCon) annotation (Line(points={{-170,120},
           {-200,120}},                       color={0,127,255}));
   connect(valConWatChiIso.port_a, TConWatChiRet.port_b) annotation (Line(points={{-150,
@@ -134,25 +136,25 @@ equation
   connect(chi.port_b2, TChiWatChiSup.port_a) annotation (Line(points={{6,10},{20,
           10},{20,120},{90,120}}, color={0,127,255}));
   connect(ports_aChiWat, valChiWatChiIsoSer.port_a) annotation (Line(points={{200,
-          -100},{180,-100},{180,-10}},                 color={0,127,255}));
-  connect(valChiWatChiIsoSer.port_b, ports_bChiWat) annotation (Line(points={{180,10},
-          {180,120},{200,120}},                     color={0,127,255}));
+          -100},{140,-100},{140,-10}},                 color={0,127,255}));
   connect(busValConWatChiIso, valConWatChiIso.bus) annotation (Line(
       points={{-80,160},{-160,160},{-160,130}},
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatChiIso, valChiWatChiIsoPar.bus) annotation (Line(
-      points={{80,160},{140,160},{140,130}},
+      points={{80,160},{170,160},{170,130}},
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatChiIso, valChiWatChiIsoSer.bus) annotation (Line(
-      points={{80,160},{160,160},{160,0},{170,0}},
+      points={{80,160},{120,160},{120,0},{130,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busChi, chi.bus) annotation (Line(
       points={{0,160},{-10,160},{-10,0}},
       color={255,204,51},
       thickness=0.5));
+  connect(valChiWatChiIsoSer.port_b, valChiWatChiIsoPar.port_a) annotation (
+      Line(points={{140,10},{140,120},{160,120}}, color={0,127,255}));
   annotation(defaultComponentName="chi", Documentation(info="<html>
 <p>
 This model represents a group of compression chillers.
