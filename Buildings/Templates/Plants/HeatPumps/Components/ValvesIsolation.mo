@@ -1151,6 +1151,7 @@ May 7, 2025, by Antoine Gautier:<br/>
 Refactored with fixed resistance in valve component.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4227\">#4227</a>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
