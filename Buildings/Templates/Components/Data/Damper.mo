@@ -11,7 +11,7 @@ record Damper "Record for damper model"
     start=1)
     "Air mass flow rate"
     annotation (
-      Dialog(group="Mechanical",
+      Dialog(group="Nominal condition",
         enable=typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final min=0,
@@ -21,14 +21,13 @@ record Damper "Record for damper model"
     else 15)
     "Air pressure drop"
     annotation (
-      Dialog(group="Mechanical",
+      Dialog(group="Nominal condition",
         enable=typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(
     final min=0,
     displayUnit="Pa")=0
     "Air pressure drop of fixed elements in series with damper"
-    annotation (
-      Dialog(group="Mechanical", enable=false));
+    annotation (Dialog(group="Nominal condition"));
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName="datDam",
