@@ -1,0 +1,31 @@
+% File: FMILIB_Acknowledgements.txt 
+% Acknowledgements on the use of third party software inside for the FMILIB.
+% Note: Content of this file is used verbatim in doxygen generated documentation.
+%
+
+\section Acknowledgements
+The FMI Library utilizes contains code from third party tools and packages.
+The respective copyright information and licenses are listed with URL 
+references to the full texts.
+
+- \b eXPat \n
+The parsing of the file modelDescription.xml is using eXpat.\n
+Homepage: <http://www.libexpat.org/> \n
+MIT License: <http://www.jclark.com/xml/copying.txt>
+
+- \b Minizip \n
+The unziping of the FMU is performed partially by using Minizip library.\n
+Homepage: <http://www.winimage.com/zLibDll/minizip.html>.\n
+Condition of use and distribution are the same as Zlib
+<http://www.zlib.net/zlib_license.html>.
+
+- \b Zlib \n
+The unziping is performed by using Zlib library called via \e minizip library.\n
+Homepage: <http://www.zlib.net/>.\n
+Zlib License: <http://www.zlib.net/zlib_license.html>. 
+
+- \b C99 snprintf \n
+C99 snprintf library is used to realize the snprintf functionality staying with C89
+code.\n
+Homepage: http://www.jhweiss.de/software/snprintf.html \n
+The code is free to use. See notice in the COPYING file included with the code.
