@@ -10,6 +10,7 @@ versionDate="2025-03-17",
 dateModified="2025-03-17",
 uses(Modelica(version="4.0.0")),
 conversion(
+  noneFromVersion="11.1.0",
   noneFromVersion="11.0.0",
   noneFromVersion="11.1.0",
   from(

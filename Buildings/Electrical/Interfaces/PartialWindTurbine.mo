@@ -15,8 +15,8 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds per(
     final tableOnFile=tableOnFile,
     final table=cat(1, cat(1, [0, 0], table),
-                    [vOut+10*Modelica.Constants.eps, 0;
-                     vOut+20*Modelica.Constants.eps, 0]),
+                    [vOut+1E-9, 0;
+                     vOut+2E-9, 0]),
     final tableName=tableName,
     final fileName=fileName,
     final columns=2:2,
@@ -169,6 +169,11 @@ Below and above these wind speeds, the generated power is zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2025, by Michael Wetter:<br/>
+Increased small number to extend table beyond cut-out wind speed.<br/>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4224\">issue 4224</a>.
+</li>
 <li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed test for equality of <code>Real</code> variables.
