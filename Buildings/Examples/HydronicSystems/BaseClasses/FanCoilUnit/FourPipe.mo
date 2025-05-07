@@ -219,13 +219,6 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{280,-20},{300,0}})));
 
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic fanPer
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for supply fan"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{50,100},{70,120}})),
-      Dialog(group="Fan parameters"));
-
   Buildings.Fluid.FixedResistances.PressureDrop totRes(
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dpAir_nominal,
