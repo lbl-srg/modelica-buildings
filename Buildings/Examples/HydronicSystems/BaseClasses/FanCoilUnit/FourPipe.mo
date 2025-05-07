@@ -1,11 +1,14 @@
 within Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit;
 model FourPipe "System model for a four-pipe fan coil unit"
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
-    "Medium model of air";
+    "Medium for air";
+
   replaceable package MediumHW = Modelica.Media.Interfaces.PartialMedium
-    "Medium model of hot water";
+    "Medium for hot water";
+
   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
-    "Medium model of chilled water";
+    "Medium for chilled water";
+
   parameter Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types.HeaSou
     heaCoiTyp=Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types.HeaSou.hotWat
     "Heating coil type"
@@ -370,40 +373,9 @@ equation
     Documentation(info="<html>
     <p>
     This is a four-pipe fan coil unit system model. The system contains
-    a supply fan, an electric or hot-water heating coil, a chilled-water cooling coil,
-    and a mixing box. 
+    a supply fan, an electric or hot-water heating coil, and a chilled-water
+    cooling coil.
     </p>
-    The control modules for the system are implemented separately in
-    <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls\">
-    Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls</a>:
-    <ul>
-    <li>
-    <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls.ConstantFanVariableWaterFlowrate\">
-    ConstantFanVariableWaterFlowrate</a>:
-    Modulate the cooling coil and heating coil valve positions to regulate the zone temperature
-    between the heating and cooling setpoints. The fan is enabled and operated at the 
-    maximum speed when there are zone heating or cooling loads. It is run at minimum speed when
-    zone is occupied but there are no loads.
-    </li>
-    <li>
-    <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate\">
-    VariableFanConstantWaterFlowrate</a>:
-    Modulate the fan speed to regulate the zone temperature between the heating 
-    and cooling setpoints. It is run at minimum speed when zone is occupied but 
-    there are no loads. The heating and cooling coil valves are completely opened 
-    when there are zone heating or cooling loads, respectively.
-    </li>
-    <li>
-    <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls.MultispeedFanConstantWaterFlowrate\">
-    MultispeedFanConstantWaterFlowrate</a>:
-    Modulate the fan speed to regulate the zone temperature between the heating 
-    and cooling setpoints. It is set at a range of fixed values between the maximum 
-    and minimum speed, based on the heating and cooling loop signals generated. 
-    It is run at minimum speed when zone is occupied but there are no loads. The 
-    heating and cooling coil valves are completely opened when there are zone 
-    heating or cooling loads, respectively.
-    </li>
-    </ul>
     </html>
     ", revisions="<html>
     <ul>

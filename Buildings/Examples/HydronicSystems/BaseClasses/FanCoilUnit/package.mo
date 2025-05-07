@@ -1,5 +1,6 @@
 within Buildings.Examples.HydronicSystems.BaseClasses;
-package FanCoilUnit "Package with fan coil unit system models"
+package FanCoilUnit
+  "Package with fan coil unit system model"
 
   annotation (Icon(graphics={
         Rectangle(
@@ -36,11 +37,11 @@ package FanCoilUnit "Package with fan coil unit system models"
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}),
   Documentation(info="<html>
-  This package contains models for the four-pipe fan coil unit, including the system model
+  This package contains the system model for the four-pipe fan coil unit
   <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe\">
-  Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe</a> and the package of control modules
-  <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls\">
-  Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Controls</a>. 
+  Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe</a> and the package of type definitions
+  <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types\">
+  Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types</a>.
   
     </html>"));
 end FanCoilUnit;

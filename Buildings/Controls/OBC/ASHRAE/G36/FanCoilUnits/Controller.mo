@@ -1,11 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits;
 block Controller
-  "Fan coil unit controller that comprises subsequences for controlling fan speed and supply air temperature"
+  "Fan coil unit controller that comprises subsequences for controlling fan speed
+  and supply air temperature"
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Cooling coil type"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="System and building parameters"));
+
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Heating coil type"
     annotation (__cdl(ValueInReference=false),
