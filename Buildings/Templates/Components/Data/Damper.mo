@@ -11,8 +11,7 @@ record Damper "Record for damper model"
     start=1)
     "Air mass flow rate"
     annotation (
-      Dialog(group="Nominal condition",
-        enable=typ<>Buildings.Templates.Components.Types.Damper.None));
+      Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final min=0,
     displayUnit="Pa",
