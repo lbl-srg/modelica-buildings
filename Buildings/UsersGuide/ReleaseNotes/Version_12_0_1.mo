@@ -12,9 +12,9 @@ Version 12.0.1 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Plants
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package of sequences for chiller and boiler plants
     </td>
     </tr>
 </table>
@@ -78,6 +78,17 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Reformulated model to avoid warning about binding equation not being a parameter expression.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4215\">#4215</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Actuators.Damper<br/>
+                       Buildings.Templates.Components.Actuators.Valve<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation
+    </td>
+    <td valign=\"top\">Replaced direct fluid pass-through with fixed resistance in actuator components.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4227\">#4227</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

@@ -4,8 +4,6 @@ package Types "Package with type definitions"
   type Chiller = enumeration(
       AirCooled
       "Air-cooled compression chiller",
-      None
-      "No chiller",
       WaterCooled
       "Water-cooled compression chiller")
     "Enumeration to specify the type of chiller";
@@ -27,12 +25,18 @@ package Types "Package with type definitions"
       None
       "No external cooler (typically for air-cooled chillers)",
       CoolingTowerClosed
-      "Closed-circuit cooling tower",
+      "Closed-circuit cooling tower (evaporative fluid cooler)",
       CoolingTowerOpen
       "Open-circuit cooling tower",
       DryCooler
       "Dry cooler")
     "Enumeration to configure the condenser water cooling equipment";
+  type CoolingTower = enumeration(
+      Closed
+      "Closed-circuit cooling tower (evaporative fluid cooler)",
+      Open
+      "Open-circuit cooling tower")
+    "Enumeration to configure the cooling tower";
   type Damper = enumeration(
       Modulating
       "Modulating damper",
@@ -75,10 +79,6 @@ package Types "Package with type definitions"
       WaterToWater
       "Water(or brine)-to-water heat pump")
     "Enumeration to specify the type of heat pump";
-  type HeatPumpModel = enumeration(
-      EquationFit
-      "Heat pump model based on the equation fit method")
-    "Enumeration to specify the heat pump model";
   type IntegrationPoint = enumeration(
       None
       "None",

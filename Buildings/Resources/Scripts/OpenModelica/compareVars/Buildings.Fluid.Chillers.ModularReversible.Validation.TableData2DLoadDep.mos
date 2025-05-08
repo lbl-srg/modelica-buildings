@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "chi.TSet",
+    "chi.refCyc.sigBus.TEvaInMea",
+    "chi.refCyc.sigBus.TEvaOutMea",
+    "per.TEvaLvgMax",
+    "chi.refCyc.sigBus.TConInMea",
+    "chi.refCyc.sigBus.TConOutMea",
+    "chi.EER",
+    "chi.on",
+    "chi.PLR",
+    "chi.P",
+    "ref.y[1]",
+    "chi.QEva_flow",
+    "ref.y[3]"
+  };

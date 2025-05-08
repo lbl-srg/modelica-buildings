@@ -87,6 +87,8 @@ declare -A checksum_dirs=(
   ["ZoneEquipment"]="Templates/ZoneEquipment
                      Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
                      Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  ["Plants.Chillers"]="Templates/Plants/Chillers
+                       Controls/OBC/ASHRAE/G36/Plants/Chillers"
   ["Plants.HeatPumps"]="Templates/Plants/HeatPumps
                         Templates/Plants/Controls"
 )
@@ -96,6 +98,7 @@ declare -A checksum_dirs=(
 declare -A test_script=(
   ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
   ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["Plants.Chillers"]="./Resources/Scripts/travis/templates/Plants.Chillers.py"
   ["Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
 )
 
@@ -132,6 +135,7 @@ for type in "${!test_script[@]}"; do
     fi
 
     # Diff/master
+    git fetch origin master:refs/remotes/origin/master # This is for https://github.com/actions/checkout/issues/296
     diff_checksum="$(git diff --name-only origin/master Resources/Scripts/travis/templates | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 ));  then
       echo "Computed checksum does not match checksum on master."
