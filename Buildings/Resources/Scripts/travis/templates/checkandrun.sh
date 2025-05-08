@@ -132,6 +132,7 @@ for type in "${!test_script[@]}"; do
     fi
 
     # Diff/master
+    git fetch origin master:refs/remotes/origin/master # This is for https://github.com/actions/checkout/issues/296
     diff_checksum="$(git diff --name-only origin/master Resources/Scripts/travis/templates | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 ));  then
       echo "Computed checksum does not match checksum on master."
