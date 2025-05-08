@@ -109,8 +109,8 @@ partial model PartialChilledWaterLoop
     "Primary CHW volume flow rate"
     annotation (
     Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.Templates.Components.Routing.Junction junction(
-    redeclare final package Medium=MediumChiWat,
+  Buildings.Templates.Components.Routing.Junction junByp(
+    redeclare final package Medium = MediumChiWat,
     final tau=tau,
     final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,-1},
     final energyDynamics=energyDynamics,
@@ -121,9 +121,7 @@ partial model PartialChilledWaterLoop
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving)
-    "Fluid junction at minimum flow bypass or common leg"
-    annotation (
-    Placement(
+    "Fluid junction at minimum flow bypass or common leg" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -186,7 +184,8 @@ partial model PartialChilledWaterLoop
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
     icon_dy=-360,
-    icon_pipe=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled then
+    icon_pipe=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+      and typEco == Buildings.Templates.Plants.Chillers.Types.Economizer.None then
       Buildings.Templates.Components.Types.IntegrationPoint.Return else
       Buildings.Templates.Components.Types.IntegrationPoint.None)
     "Chiller group condenser fluid outlet"
@@ -237,7 +236,7 @@ partial model PartialChilledWaterLoop
   Buildings.Templates.Components.Sensors.DifferentialPressure dpChiWatLoc(
     redeclare final package Medium=MediumChiWat,
     final allowFlowReversal=allowFlowReversal,
-    final text_rotation=-90) if not ctl.have_senDpChiWatRemWir
+    final text_rotation=90) if not ctl.have_senDpChiWatRemWir
     "Local CHW differential pressure sensor"
     annotation (Placement(
         transformation(
@@ -395,7 +394,7 @@ equation
       thickness=0.5,
       visible=typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
-      points={{-40,-260},{-50,-260},{-50,0},{-40,0}},
+      points={{-40,-260},{-40,0},{-40,0}},
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash,
@@ -412,13 +411,13 @@ equation
   connect(outPumChiWatPri.port_b, VChiWatPri_flow.port_a)
     annotation (Line(points={{120,0},{120,0}}, color={0,0,0},
       thickness=0.5));
-  connect(junction.port_2, inlPumChiWatSec.port_a)
+  connect(junByp.port_2, inlPumChiWatSec.port_a)
     annotation (Line(points={{180,0},{180,0}}, color={0,127,255}));
-  connect(junction.port_3, valChiWatMinByp.port_a) annotation (Line(
+  connect(junByp.port_3, valChiWatMinByp.port_a) annotation (Line(
       points={{170,-10},{170,-90}},
       color={0,0,0},
       thickness=0.5));
-  connect(junction.port_2, supChiWat.port_a) annotation (Line(
+  connect(junByp.port_2, supChiWat.port_a) annotation (Line(
       points={{180,0},{200,0}},
       color={0,0,0},
       thickness=0.5));
@@ -446,7 +445,7 @@ equation
       points={{140,0},{140,0}},
       color={0,0,0},
       thickness=0.5));
-  connect(TChiWatPriSup.port_b, junction.port_1) annotation (Line(
+  connect(TChiWatPriSup.port_b, junByp.port_1) annotation (Line(
       points={{160,0},{160,0}},
       color={0,0,0},
       thickness=0.5));
@@ -532,8 +531,15 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Diagram(graphics={Rectangle(
-  extent={{280,0},{281,-240}},
+Diagram(graphics={
+Line(points={{-40,0},{-60,0}},
+  color={0,0,0},
+  pattern=LinePattern.Dash,
+  thickness=0.5,
+  visible=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+       and typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None),
+Rectangle(
+  extent={{280,0},{281,-260}},
   lineColor={0,0,0},
   visible=not ctl.have_senDpChiWatRemWir)}));
 end PartialChilledWaterLoop;
