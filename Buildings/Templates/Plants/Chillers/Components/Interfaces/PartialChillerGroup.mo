@@ -21,7 +21,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "Set to true for CHW supply temperature control, false for CHW return temperature control"
     annotation (Evaluate=true,
     Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Plants.Chillers.Types.ChillerArrangement typArr
+  parameter Buildings.Templates.Plants.Chillers.Types.ChillerArrangement typArrChi
     "Type of chiller arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.PumpArrangement
@@ -146,7 +146,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup
-    dat(typ=typ, nChi=nChi)
+    dat(typ=typ, typArrChi=typArrChi, nChi=nChi)
     "Parameter record for chiller group"
     annotation (Placement(transformation(extent={{170,170},{190,190}})));
   final parameter Buildings.Templates.Components.Data.Chiller datChi[nChi](
@@ -154,31 +154,37 @@ partial model PartialChillerGroup "Interface class for chiller group"
     final mChiWat_flow_nominal=mChiWatChi_flow_nominal,
     final mCon_flow_nominal=mConChi_flow_nominal,
     final cap_nominal=capChi_nominal,
-    final dpChiWat_nominal=if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.None
-      and typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+    final dpChiWat_nominal=if typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
       then dat.dpChiWatChi_nominal else fill(0, nChi),
-    final dpCon_nominal=if typValConWatChiIso == Buildings.Templates.Components.Types.Valve.None
-      then dat.dpConChi_nominal else fill(0, nChi),
+    final dpCon_nominal=fill(0, nChi),
     final TChiWatSup_nominal=dat.TChiWatSupChi_nominal,
     final TCon_nominal=dat.TConChi_nominal,
     final per=dat.perChi)
     "Parameter record - Each chiller";
-  final parameter Buildings.Templates.Components.Data.Valve datValChiWatChiIso[nChi](
-    final typ=fill(typValChiWatChiIso, nChi),
+  // For series chillers, the following component is used to model the unique balancing valve after the last chiller.
+  final parameter Buildings.Templates.Components.Data.Valve datValChiWatChiIsoPar[nChi](
+    final typ=if typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+     then fill(typValChiWatChiIso, nChi) else
+     fill(Buildings.Templates.Components.Types.Valve.None, nChi),
     final m_flow_nominal=mChiWatChi_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nChi),
-    dpFixed_nominal=if typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
-      and typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
-      then dat.dpChiWatChi_nominal else fill(0, nChi))
-    "Parallel chillers CHW bypass valve parameters"
+    dpFixed_nominal=if typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      then dpFixedChiWat_nominal else dpBalChiWatChi_nominal)
+    "CHW isolation valve parameters - Parallel chillers"
+    annotation (Dialog(enable=false));
+  final parameter Buildings.Templates.Components.Data.Valve datValChiWatChiIsoSer[nChi](
+    final typ=fill(typValChiWatChiIso, nChi),
+    final m_flow_nominal=fill(sum(mChiWatChi_flow_nominal), nChi),
+    dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nChi),
+    dpFixed_nominal=fill(0, nChi))
+    "CHW isolation valve parameters - Series chillers"
     annotation (Dialog(enable=false));
   final parameter Buildings.Templates.Components.Data.Valve datValConWatChiIso[nChi](
     final typ=fill(typValConWatChiIso, nChi),
     final m_flow_nominal=mConChi_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nChi),
-    dpFixed_nominal=if typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None then
-      dat.dpConChi_nominal else fill(0, nChi))
-    "Series chillers CHW bypass valve parameters"
+    dpFixed_nominal=dpFixedConWat_nominal)
+    "CW isolation valve parameters"
     annotation (Dialog(enable=false));
 
   final parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi]=
@@ -198,9 +204,41 @@ partial model PartialChillerGroup "Interface class for chiller group"
   final parameter Modelica.Units.SI.PressureDifference dpChiWatChi_nominal[nChi]=
     dat.dpChiWatChi_nominal
     "CHW pressure drop - Each chiller";
+  // For series chillers, a unique balancing valve is modeled after the last chiller.
+  final parameter Modelica.Units.SI.PressureDifference dpBalChiWatChi_nominal[nChi]=
+    if typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel then
+      dat.dpBalChiWatChiPar_nominal else
+      {if i < nChi then 0 else dat.dpBalChiWatSer_nominal for i in 1:nChi}
+    "CHW balancing valve pressure drop at design mass flow rate - Each chiller";
+  final parameter Modelica.Units.SI.PressureDifference dpFixedChiWat_nominal[nChi]=
+    dpChiWatChi_nominal .+ dpBalChiWatChi_nominal
+    "Fixed CHW pressure drop: chiller + balancing valve"
+    annotation (Dialog(group="Nominal condition"));
+  // The following parameter is intended for external use.
+  final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal[nChi]=
+    dpFixedChiWat_nominal .+
+    (if typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+     and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+     then datValChiWatChiIsoPar.dpValve_nominal else fill(0, nChi))
+    "Total CHW pressure drop: fixed + valves"
+    annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpConChi_nominal[nChi]=
     dat.dpConChi_nominal
     "CW pressure drop - Each chiller";
+  final parameter Modelica.Units.SI.PressureDifference dpBalConWatChi_nominal[nChi]=
+    dat.dpBalConWatChi_nominal
+    "CW balancing valve pressure drop at design mass flow rate - Each chiller";
+  final parameter Modelica.Units.SI.PressureDifference dpFixedConWat_nominal[nChi]=
+    dpConChi_nominal .+ dpBalConWatChi_nominal
+    "Fixed CW pressure drop: chiller + balancing valve"
+    annotation (Dialog(group="Nominal condition"));
+  // The following parameter is intended for external use.
+  final parameter Modelica.Units.SI.PressureDifference dpConWat_nominal[nChi]=
+    dpFixedConWat_nominal .+
+    (if typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+    then datValConWatChiIso.dpValve_nominal else fill(0, nChi))
+    "Total CW pressure drop: fixed + valves"
+    annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.Temperature TChiWatSupChi_nominal[nChi]=
     dat.TChiWatSupChi_nominal
     "CHW supply temperature - Each chiller";
@@ -268,6 +306,13 @@ partial model PartialChillerGroup "Interface class for chiller group"
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"),HideResult=true);
+
+protected
+  parameter Integer icon_dy = 360
+    "Distance in y-direction between each branch in icon layer"
+    annotation(Dialog(tab="Graphics"));
+
+public
   MediumChiWat.ThermodynamicState sta_aChiWat[nChi]=MediumChiWat.setState_phX(
     ports_aChiWat.p, noEvent(actualStream(ports_aChiWat.h_outflow)),
     noEvent(actualStream(ports_aChiWat.Xi_outflow)))
@@ -359,6 +404,9 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-400,-1000},{400,1000}}),
   graphics={
+    Text( extent={{-151,-1008},{149,-1048}},
+          textColor={0,0,255},
+          textString="%name"),
     Line( points={{180,840},{400,840}},
           color={0,0,0},
           pattern=LinePattern.Dash,
@@ -386,11 +434,13 @@ equation
       color={0,0,0},
       pattern=LinePattern.Solid,
       thickness=5),
-    Text( extent={{-151,-1008},{149,-1048}},
-          textColor={0,0,255},
-          textString="%name"),
+    Line( points=if typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      then {{400,960},{400,-1000}} else {{400,840},{400,-1000}},
+          color={0,0,0},
+          thickness=5,
+          pattern=LinePattern.Dash),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
         and nChi>=1,
       extent={{-100,-100},{100,100}},
@@ -398,19 +448,19 @@ equation
       rotation=-90,
       origin={300,960}),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
       and nChi >= 1,
       extent={{260,1020},{340,1100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
         and nChi >= 2,
       extent={{260,660},{340,740}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
                and nChi >= 2,
           extent={{-100,-100},{100,100}},
@@ -419,12 +469,12 @@ equation
           rotation=-90,
           origin={300,600}),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi >= 3,
       extent={{260,300},{340,380}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
         and nChi >= 3,
       extent={{-100,-100},{100,100}},
@@ -432,7 +482,7 @@ equation
       rotation=-90,
       origin={300,240}),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
         and nChi >= 4,
       extent={{-100,-100},{100,100}},
@@ -440,31 +490,31 @@ equation
       rotation=-90,
       origin={300,-120}),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi>=4,
       extent={{260,-60},{340,20}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
       and nChi >= 1,
       extent={{260,1020},{340,1100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi >= 2,
       extent={{260,660},{340,740}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
-          visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+          visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
                and nChi >= 3,
           extent={{260,300},{340,380}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi>=4,
       extent={{260,-60},{340,20}},
@@ -525,19 +575,19 @@ equation
     Line(
       points={{300,1020},{300,960}},
       color={0,0,0},
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
             and nChi >= 1),
     Line(
       points={{300,660},{300,600}},
       color={0,0,0},
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
             and nChi >= 2),
     Line(
       points={{300,300},{300,240}},
       color={0,0,0},
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
             and nChi >= 3),
     Line(
@@ -552,7 +602,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=5),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
       and nChi>=5,
       extent={{-100,-100},{100,100}},
@@ -560,13 +610,13 @@ equation
       rotation=-90,
       origin={300,-480}),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
       and nChi>=5,
       extent={{260,-420},{340,-340}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
       and nChi >= 5,
       extent={{260,-420},{340,-340}},
@@ -589,7 +639,7 @@ equation
     Line(
       points={{300,-420},{300,-480}},
       color={0,0,0},
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
       and nChi >= 5),
     Line(
@@ -599,7 +649,7 @@ equation
       pattern=LinePattern.Solid,
       thickness=5),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
       and nChi>=6,
       extent={{-100,-100},{100,100}},
@@ -607,13 +657,13 @@ equation
       rotation=-90,
       origin={300,-840}),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
         and nChi>=6,
       extent={{260,-780},{340,-700}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi>=6,
       extent={{260,-780},{340,-700}},
@@ -636,7 +686,7 @@ equation
     Line(
       points={{300,-780},{300,-840}},
       color={0,0,0},
-      visible=typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      visible=typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       and typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
         and nChi >= 6),
     Line(
@@ -890,8 +940,158 @@ typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
       extent={{-60,-800},{60,-680}},
       fileName=
       "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-      visible=nChi >= 6)}),
-    Documentation(info="<html>
+      visible=nChi >= 6),
+    Bitmap(
+      visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 1,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=360,
+      origin={400,900}),
+    Bitmap(
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 1,
+      extent={{460,860},{540,940}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 1,
+      extent={{460,860},{540,940}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 2,
+          extent={{460,900 - 1*icon_dy - 40},{540,900 - 1*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 2,
+          extent={{460,900 - 1*icon_dy - 40},{540,900 - 1*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 2,
+          extent={{-100,-100},{100,100}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+          rotation=360,
+          origin={400,900 - icon_dy}),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 3,
+          extent={{460,900 - 2*icon_dy - 40},{540,900 - 2*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 3,
+          extent={{460,900 - 2*icon_dy - 40},{540,900 - 2*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 3,
+          extent={{-100,-100},{100,100}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+          rotation=360,
+          origin={400,900 - 2*icon_dy}),
+    Bitmap(
+          visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 4,
+          extent={{-100,-100},{100,100}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+          rotation=360,
+          origin={400,900 - 3*icon_dy}),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 4,
+          extent={{460,900 - 3*icon_dy - 40},{540,900 - 3*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 4,
+          extent={{460,900 - 3*icon_dy - 40},{540,900 - 3*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Line( visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 1,
+          points={{400,900},{460,900}},
+          color={0,0,0}),
+    Line( visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 2,
+          points={{400,900 - 1*icon_dy},{460,900 - 1*icon_dy}},
+          color={0,0,0}),
+    Line( visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 3,
+          points={{400,900 - 2*icon_dy},{460,900 - 2*icon_dy}},
+          color={0,0,0}),
+    Line( visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 4,
+          points={{400,900 - 3*icon_dy},{460,900 - 3*icon_dy}},
+          color={0,0,0}),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 5,
+          extent={{460,900 - 4*icon_dy - 40},{540,900 - 4*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 5,
+          extent={{460,900 - 4*icon_dy - 40},{540,900 - 4*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 5,
+          extent={{-100,-100},{100,100}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+          rotation=360,
+          origin={400,900 - 4*icon_dy}),
+    Bitmap(
+          visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 6,
+          extent={{-100,-100},{100,100}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+          rotation=360,
+          origin={400,900-5*icon_dy}),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 6,
+          extent={{460,900 - 5*icon_dy - 40},{540,900 - 5*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+          visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 6,
+          extent={{460,900 - 5*icon_dy - 40},{540,900 - 5*icon_dy + 40}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Line( visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 5,
+          points={{400,900 - 4*icon_dy},{460,900 - 4*icon_dy}},
+          color={0,0,0}),
+    Line( visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArrChi==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 6,
+          points={{400,900 - 5*icon_dy},{460,900 - 5*icon_dy}},
+          color={0,0,0})}),
+Documentation(info="<html>
 <p>
 This partial class provides a standard interface for chiller group models.
 </p>

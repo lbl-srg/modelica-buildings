@@ -15,6 +15,7 @@ record ChillerPlant "Record for chiller plant"
     chi(
     final nChi=cfg.nChi,
     final typ=cfg.typChi,
+    final typArrChi=cfg.typArrChi,
     mChiWatChi_flow_nominal=ctl.VChiWatChi_flow_nominal*cfg.rhoChiWat_default,
     mConWatChi_flow_nominal=ctl.VConWatChi_flow_nominal*cfg.rhoCon_default,
     capChi_nominal=ctl.capChi_nominal,

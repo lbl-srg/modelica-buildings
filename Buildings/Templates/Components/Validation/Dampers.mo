@@ -33,7 +33,6 @@ model Dampers "Validation model for damper components"
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
-
   Buildings.Templates.Components.Actuators.Damper pre(
     final typ=Buildings.Templates.Components.Types.Damper.PressureIndependent,
     y_start=0,
