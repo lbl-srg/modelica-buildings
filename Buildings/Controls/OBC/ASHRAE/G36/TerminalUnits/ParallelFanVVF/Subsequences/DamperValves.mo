@@ -958,7 +958,7 @@ Fan control
 <li>
 When the zone stats is cooling (<code>uCoo &gt; 0</code>), in occupied mode only, the
 parallel fan starts when primary airflow (<code>VPri_flow</code>) drops below the
-the minimum outdoor airflow setpoint <code>VOAMin_flow</code> 
+the minimum outdoor airflow setpoint <code>VOAMin_flow</code>
 (if using California Title 24, it should be the zone absolute minimum outdoor airflow rate)
 minus half of the minium fan
 rate <code>minRat</code> and shuts off when primary airflow rises above the
@@ -967,7 +967,7 @@ set point is equal to the minimum outdoor airflow rate
 minus the current primary airflow set point <code>VPri_flow_Set</code>.
 </li>
 <li>
-When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>), 
+When the zone state is Deadband (<code>uCoo=0</code> and <code>uHea=0</code>),
 the parallel fan starts when primary airflow (<code>VPri_flow</code>) is below the
 minimum outdoor airflow <code>VOAMin_flow</code> (or if using California Title 24,
 the zone absolute minimum outdoor airflow rate). The fan flow rate setpoint

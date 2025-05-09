@@ -1,0 +1,33 @@
+
+simulateModel("Buildings.Templates.Plants.Chillers.Components.Validation.ChillersToPrimaryPumpsParallel",
+  method="cvode",
+  tolerance=1e-6,
+  stopTime=2000.0,
+  resultFile="ChillersToPrimaryPumpsParallel");
+createPlot(id=1,
+  position={5, 5, 400, 400},
+  y={"mChiWatPri_flow.m_flow", "mChiWatChi_flow[1].m_flow", "mChiWatChi_flow[2].m_flow", "mChiWatChi_flow[3].m_flow"},
+  subPlot=1,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"TChiWatChiEnt[1].T", "TChiWatChiEnt[2].T", "TChiWatChiEnt[3].T"},
+  subPlot=2,
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  position={415, 5, 400, 600},
+  y={"mChiWatPri_flow.m_flow", "mChiWatEco_flow.m_flow", "mChiWatChi_flow1[1].m_flow", "mChiWatChi_flow1[2].m_flow", "mChiWatChi_flow1[3].m_flow"},
+  subPlot=1,
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  y={"TChiWatEcoEnt.T", "TChiWatChiEnt1[1].T", "TChiWatChiEnt1[2].T", "TChiWatChiEnt1[3].T"},
+  subPlot=2,
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  y={"busPla.valChiWatChiByp.y1_actual"},
+  subPlot=3,
+  autoscale=true,
+  grid=true);

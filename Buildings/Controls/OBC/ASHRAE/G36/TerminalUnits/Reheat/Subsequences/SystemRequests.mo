@@ -605,7 +605,7 @@ annotation (
   Documentation(info="<html>
 <p>
 This sequence outputs the system reset requests for terminal unit with reheat. The
-implementation is according to the Section 5.6.8 of ASHRAE Guideline 36, May 2020. 
+implementation is according to the Section 5.6.8 of ASHRAE Guideline 36, May 2020.
 </p>
 <h4>Cooling SAT reset requests <code>yZonTemResReq</code></h4>
 <ol>

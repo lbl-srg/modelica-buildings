@@ -698,21 +698,21 @@ outdoor air requirements. Different sequence will be enabled depending on the
 designes minimum outdoor air and economizer function, which include
 <ol type=\"i\">
 <li>
-separate minimum outdoor air damper, with airflow measurement. 
+separate minimum outdoor air damper, with airflow measurement.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithAFMS\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithAFMS</a>
 for a description.
 </li>
 <li>
-separate minimum outdoor air damper, with differential pressure measurement. 
+separate minimum outdoor air damper, with differential pressure measurement.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP</a>
 for a description.
 </li>
 <li>
-single common minimum outdoor air and economizer damper. 
+single common minimum outdoor air and economizer damper.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common</a>
@@ -738,14 +738,14 @@ that were computed in the above blocks. Different sequence will be enabled depen
 on the types of building pressure control system, which include
 <ol type=\"i\">
 <li>
-relief damper or relief fan control. 
+relief damper or relief fan control.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Reliefs\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Reliefs</a>
 for a description.
 </li>
 <li>
-return fan control with airflow tracking, or with direct building pressure control. 
+return fan control with airflow tracking, or with direct building pressure control.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan</a>

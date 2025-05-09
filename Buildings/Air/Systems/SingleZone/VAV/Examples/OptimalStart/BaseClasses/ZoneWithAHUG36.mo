@@ -48,7 +48,6 @@ block ZoneWithAHUG36
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller con(
     eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-
     VAreBreZon_flow=0.4989,
     VPopBreZon_flow=0.2075,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
@@ -229,12 +228,12 @@ equation
           preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
 Documentation(info="<html>
 <p>
-This base class contains a controller based on Guideline36 
+This base class contains a controller based on Guideline36
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller</a>,
 a single-zone VAV system
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer\">
-Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>, 
+Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>,
 and a single-zone floor building
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
 Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>.
