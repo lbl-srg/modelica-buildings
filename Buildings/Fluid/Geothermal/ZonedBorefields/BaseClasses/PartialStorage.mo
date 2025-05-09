@@ -77,7 +77,7 @@ partial model PartialStorage
     redeclare each final package Medium = Medium,
     final borFieDat=zonDat,
     each final nSeg=nSeg,
-    final m_flow_nominal=borFieDat.conDat.mZon_flow_nominal,
+    final m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     final dp_nominal=dp_nominal,
     each final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
@@ -319,6 +319,14 @@ to evaluate the total temperature change at each of the borehole segments.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 9, 2025, by Massimo Cimmino:<br/>
+Fixed the nominal borehole fluid mass flow rate to be equal to the total zone
+fluid mass flow rate divided by the number of boreholes in the zone. This led
+to incorrect pressure drop evaluations. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4199\">
+issue 4199</a>.
+</li>
 <li>
 February 2024, by Massimo Cimmino:<br/>
 First implementation.
