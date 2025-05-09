@@ -21,6 +21,10 @@ record BoilerGroup "Record for boiler group model"
     each start=Buildings.Templates.Data.Defaults.dpHeaWatBoi)
     "HW pressure drop - Each boiler"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpBalHeaWatBoi_nominal[nBoi](
+    each final min=0, each start=0)=fill(0, nBoi)
+    "HW balancing valve pressure drop at design mass flow rate - Each boiler"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capBoi_nominal[nBoi](
     each final min=0)
     "Heating capacity - Each boiler"

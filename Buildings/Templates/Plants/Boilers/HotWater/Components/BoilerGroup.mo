@@ -33,8 +33,7 @@ model BoilerGroup "Boiler group"
     each final fue=dat.fue,
     final mHeaWat_flow_nominal=mHeaWatBoi_flow_nominal,
     final cap_nominal=capBoi_nominal,
-    final dpHeaWat_nominal=if typValBoiIso==Buildings.Templates.Components.Types.Valve.None then
-      dat.dpHeaWatBoi_nominal else fill(0, nBoi),
+    final dpHeaWat_nominal=fill(0, nBoi),
     final THeaWatSup_nominal=dat.THeaWatSupBoi_nominal,
     final per=dat.per)
     "Parameter record of each boiler";
@@ -42,9 +41,8 @@ model BoilerGroup "Boiler group"
     final typ=fill(typValBoiIso, nBoi),
     final m_flow_nominal=mHeaWatBoi_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nBoi),
-    dpFixed_nominal=if typValBoiIso<>Buildings.Templates.Components.Types.Valve.None then
-      dat.dpHeaWatBoi_nominal else fill(0, nBoi))
-    "Parallel boilers HW bypass valve parameters"
+    dpFixed_nominal=dpFixedHeaWat_nominal)
+    "Boiler isolation valve parameters"
     annotation (Dialog(enable=false));
 
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatBoi_flow_nominal[nBoi]=
@@ -56,6 +54,18 @@ model BoilerGroup "Boiler group"
   final parameter Modelica.Units.SI.PressureDifference dpHeaWatBoi_nominal[nBoi]=
     dat.dpHeaWatBoi_nominal
     "HW pressure drop - Each boiler";
+  final parameter Modelica.Units.SI.PressureDifference dpBalHeaWatBoi_nominal[nBoi]=
+    dat.dpBalHeaWatBoi_nominal
+    "HW balancing valve pressure drop at design mass flow rate - Each boiler";
+  final parameter Modelica.Units.SI.PressureDifference dpFixedHeaWat_nominal[nBoi]=
+    dpHeaWatBoi_nominal .+ dpBalHeaWatBoi_nominal
+    "Fixed HW pressure drop: boiler + balancing valve";
+  // The following parameter is intended for external use.
+  final parameter Modelica.Units.SI.PressureDifference dpHeaWat_nominal[nBoi]=
+    dpFixedHeaWat_nominal .+
+    (if typValBoiIso <> Buildings.Templates.Components.Types.Valve.None
+     then datValBoiIso.dpValve_nominal else fill(0, nBoi))
+    "Total HW pressure drop: fixed + valves";
   final parameter Modelica.Units.SI.Temperature THeaWatSupBoi_nominal[nBoi]=
     dat.THeaWatSupBoi_nominal
     "HW supply temperature - Each boiler";

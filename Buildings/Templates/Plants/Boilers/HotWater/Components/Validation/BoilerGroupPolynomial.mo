@@ -107,7 +107,9 @@ model BoilerGroupPolynomial "Validation model for boiler group"
   Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.OpenLoop ctl(
     cfg(
     final have_boiCon=true,
+    have_boiConZerFlo=false,
     final have_boiNon=false,
+    have_boiNonZerFlo=false,
     final nBoiCon=nBoi,
     final nBoiNon=0,
     typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing,
