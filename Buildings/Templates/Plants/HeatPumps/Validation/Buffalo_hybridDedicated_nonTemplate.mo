@@ -59,11 +59,11 @@ model Buffalo_hybridDedicated_nonTemplate
         have_inpSch=true),
       ctl(THeaWatSup_nominal=333.15, TChiWatSup_nominal=279.85),
       hp(
-        mHeaWatHp_flow_nominal=0.15*58,
-        capHeaHp_nominal=0.45*2.7e6,
+        mHeaWatHp_flow_nominal=0.01*0.15*58,
+        capHeaHp_nominal=0.01*0.45*2.7e6,
         THeaWatSupHp_nominal=333.15,
-        mChiWatHp_flow_nominal=0.35*68,
-        capCooHp_nominal=0.35*2.4e6,
+        mChiWatHp_flow_nominal=0.8*0.35*68,
+        capCooHp_nominal=0.8*0.35*2.4e6,
         TChiWatSupHp_nominal=279.85)))
     "Plant parameters"
     annotation (Placement(transformation(extent={{160,158},{180,178}})));
@@ -198,7 +198,7 @@ model Buffalo_hybridDedicated_nonTemplate
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     timeScale=1,
-    shiftTime=12355200)
+    shiftTime=0)
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
 
@@ -907,7 +907,7 @@ public
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     timeScale=1,
-    shiftTime=-3628800)
+    shiftTime=0)
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-240,140},{-220,160}})));
 
@@ -1608,8 +1608,9 @@ equation
         "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWater.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=12355200,
-      StopTime=12960000,
+      StartTime=11145600,
+      StopTime=11750400,
+      Interval=600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Documentation(
