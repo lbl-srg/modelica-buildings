@@ -80,6 +80,24 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4215\">#4215</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0
+    </td>
+    <td valign=\"top\">Updated the FMI library to version 3.0.3.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4198\">#4189</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0
+    </td>
+    <td valign=\"top\">Updated the FMI library to version 3.0.3.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4198\">#4189</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
