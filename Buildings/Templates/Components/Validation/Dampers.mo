@@ -65,7 +65,8 @@ model Dampers "Validation model for damper components"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Buildings.Templates.Components.Actuators.Damper non(
     final typ=Buildings.Templates.Components.Types.Damper.None,
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    dat(m_flow_nominal=1))
     "No damper"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Fluid.FixedResistances.PressureDrop res(

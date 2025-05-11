@@ -132,7 +132,7 @@ for type in "${!test_script[@]}"; do
     fi
 
     # Diff/master
-    git fetch --depth=1 origin master
+    git fetch origin master
     diff_checksum="$(git diff --name-only origin/master Resources/Scripts/travis/templates | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 ));  then
       echo "Computed checksum does not match checksum on master."
