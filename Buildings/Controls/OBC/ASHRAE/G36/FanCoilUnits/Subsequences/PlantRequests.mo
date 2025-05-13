@@ -136,7 +136,7 @@ block PlantRequests
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
@@ -144,7 +144,7 @@ block PlantRequests
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSupSet(
     final unit="K",
-    final displayUnit="degC",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
