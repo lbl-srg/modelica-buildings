@@ -454,7 +454,7 @@ block Controller
     "Maximum cool-down or warm-up time"
     annotation(Dialog(tab="Advanced", group="Operation mode"));
 
-  parameter Real Thys(
+  parameter Real THys(
     final unit="1",
     displayUnit="1")=0.1
     "Hysteresis for checking temperature difference"
@@ -738,7 +738,7 @@ protected
     final hotWatResReqTimLim2=hotWatResReqTimLim2,
     final hotWatResReqLim3=hotWatResReqLim3,
     final hotWatResReqTimLim3=hotWatResReqTimLim3,
-    final Thys=Thys,
+    final THys=THys,
     final dFanSpe=dFanSpe) if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
      or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Block for generating chilled water requests and hot water requests for their respective plants"

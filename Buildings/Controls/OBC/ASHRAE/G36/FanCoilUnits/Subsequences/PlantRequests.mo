@@ -122,7 +122,7 @@ block PlantRequests
     "Time period for which hotWatResReqLim3 has to be exceeded before three hot water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
-  parameter Real Thys(
+  parameter Real THys(
     final unit="K",
     final quantity = "TemperatureDifference") = 0.1
     "Hysteresis for checking temperature difference"
@@ -227,13 +227,13 @@ protected
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=chiWatResReqLim3,
-    final h=Thys) if have_chiWatCoi
+    final h=THys) if have_chiWatCoi
     "Check if the supply temperature is greater than the setpoint by a threshold value for sending three reset requests"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=chiWatResReqLim2,
-    final h=Thys) if have_chiWatCoi
+    final h=THys) if have_chiWatCoi
     "Check if the supply temperature is greater than the setpoint by a threshold value for sending two reset requests"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 
@@ -295,13 +295,13 @@ protected
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3(
     final t=hotWatResReqLim3,
-    final h=Thys) if have_hotWatCoi
+    final h=THys) if have_hotWatCoi
     "Check if the supply temperature is less than the setpoint by a threshold value for sending three reset requests"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr4(
     final t=hotWatResReqLim2,
-    final h=Thys) if have_hotWatCoi
+    final h=THys) if have_hotWatCoi
     "Check if the supply temperature is less than the setpoint by a threshold value for sending two reset requests"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
 
