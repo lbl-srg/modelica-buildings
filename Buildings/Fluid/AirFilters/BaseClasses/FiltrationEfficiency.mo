@@ -61,7 +61,7 @@ This model calculates the filtration efficiency, <i>eps</i>, using cubic Hermite
 the filter dataset (see 
 <a href=\"modelica://Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters\">
 Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters</a>)
-with respect to <i>rat</i>.
+with respect to the input <i>rat</i>.
 </p>
 <p>
 The <i>rat</i> is the relative mass of the contaminant that is captured by the filter,
