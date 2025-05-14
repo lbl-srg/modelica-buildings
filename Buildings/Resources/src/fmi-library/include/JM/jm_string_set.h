@@ -25,19 +25,19 @@
 extern "C" {
 #endif
 /** \file jm_string_set.h Definition of ::jm_string_set and supporting functions
-	*
-	* \addtogroup jm_utils
-	* @{
-	*    \addtogroup jm_string_set_group
-	* @}
-	*/
+    *
+    * \addtogroup jm_utils
+    * @{
+    *    \addtogroup jm_string_set_group
+    * @}
+    */
 
-	/** \addtogroup jm_string_set_group A set of strings
-	 @{
-	*/
+    /** \addtogroup jm_string_set_group A set of strings
+     @{
+    */
 
 /** 
-	\brief Set of string is based on a vector	
+    \brief Set of string is based on a vector
 
 */
 typedef struct jm_vector_jm_string jm_string_set; /* equivalent to "typedef jm_vector(jm_string) jm_string_set" which Doxygen does not understand */
@@ -45,9 +45,9 @@ typedef struct jm_vector_jm_string jm_string_set; /* equivalent to "typedef jm_v
 /**
 \brief Find a string in a set.
 
-\param s A string set.
-\param str Search string.
-\return If found returns a pointer to the string saved in the set. If not found returns NULL.
+@param s A string set.
+@param str Search string.
+@return If found returns a pointer to the string saved in the set. If not found returns NULL.
 */
 static jm_string jm_string_set_find(jm_string_set* s, jm_string str) {
     jm_string* found = jm_vector_bsearch(jm_string)(s,&str,jm_compare_string);
@@ -58,9 +58,9 @@ static jm_string jm_string_set_find(jm_string_set* s, jm_string str) {
 /**
 \brief Find index of a string in a set.
 
-\param s A string set.
-\param str Search string.
-\return If found returns the index to the string saved in the set. If not found returns the insertion index of the string.
+@param s A string set.
+@param str Search string.
+@return If found returns the index to the string saved in the set. If not found returns the insertion index of the string.
 */
 static size_t jm_string_set_find_index(jm_string_set* s, jm_string str) {
     size_t len = jm_vector_get_size(jm_string)(s);
@@ -88,7 +88,7 @@ static size_t jm_string_set_find_index(jm_string_set* s, jm_string str) {
 *  \brief Put an element in the set if it is not there yet.
 *
 *  @param s A string set.
-*  \param str String to put.
+*  @param str String to put.
 *  @return A pointer to the inserted (or found) element or zero pointer if failed.
 */
 static jm_string jm_string_set_put(jm_string_set* s, jm_string str) {
@@ -113,7 +113,7 @@ static jm_string jm_string_set_put(jm_string_set* s, jm_string str) {
 }
 
 /** @}
-	*/
+    */
 
 #ifdef __cplusplus
 }
