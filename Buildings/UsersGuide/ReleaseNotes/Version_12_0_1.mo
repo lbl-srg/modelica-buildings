@@ -146,12 +146,14 @@ that can lead to wrong simulation results):
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4189\">#4189</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected unit error that led to wrong calculation of COP degradation due to frost building.
+                       Disabled the model unless air is used on the evaporator side.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1975/\">IBPSA, #1975</a>.
     </td>
 </tr>
 </table>
