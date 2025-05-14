@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block BrighteningCoefficient "Circumsolar and horizon brightening coefficients"
   extends Modelica.Blocks.Icons.Block;
-  import H = Buildings.Utilities.Math.Functions.regStep;
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
@@ -42,43 +41,42 @@ protected
   Real b7;
   Real b8;
 equation
-  b1 = H(
+  b1 = Buildings.Utilities.Math.Functions.regStep(
     y1=1,
     y2=0,
     x=1.065 - skyCle,
     x_small=d);
-  b2 = H(
+  b2 = Buildings.Utilities.Math.Functions.regStep(
     y1=1,
     y2=0,
     x=1.23 - skyCle,
     x_small=d);
-  b3 = H(
+  b3 = Buildings.Utilities.Math.Functions.regStep(
     y1=1,
     y2=0,
     x=1.50 - skyCle,
     x_small=d);
-  b4 = H(
+  b4 = Buildings.Utilities.Math.Functions.regStep(
     y1=1,
     y2=0,
     x=1.95 - skyCle,
     x_small=d);
-  b5 = H(
+  b5 = Buildings.Utilities.Math.Functions.regStep(
     y1=1,
     y2=0,
     x=2.80 - skyCle,
     x_small=d);
-
-  b6 = H(
+  b6 = Buildings.Utilities.Math.Functions.regStep(
     y1=1,
     y2=0,
     x=4.50 - skyCle,
     x_small=d);
-  b7 = H(
+  b7 = Buildings.Utilities.Math.Functions.regStep(
     y1=1,
     y2=0,
     x=6.20 - skyCle,
     x_small=d);
-  b8 = H(
+  b8 = Buildings.Utilities.Math.Functions.regStep(
     y1=1,
     y2=0,
     x=skyCle - 6.20,
@@ -118,6 +116,12 @@ This component computes the circumsolar and horizon brightening coefficients.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 April 27, 2018, by Michael Wetter:<br/>
 Corrected <code>displayUnit</code>.<br/>

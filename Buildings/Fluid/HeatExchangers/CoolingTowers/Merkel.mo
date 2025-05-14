@@ -249,6 +249,12 @@ EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. </p>
 revisions="<html>
 <ul>
 <li>
+April 17, 2025, by Michael Wetter:<br/>
+Corrected computation of nominal UA value, which also needs to include the correction for <code>cpEqu_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4189\">#4189</a>.
+</li>
+<li>
 January 16, 2020, by Michael Wetter:<br/>
 Revised model to put the thermal performance in a separate block.
 </li>

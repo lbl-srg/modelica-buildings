@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "T.y",
+    "L.y",
+    "PIDIntTim.Ti"
+  };

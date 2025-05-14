@@ -5,7 +5,10 @@ partial model PartialOneRoomRadiator
       Buildings.Media.Air "Medium model for air";
   replaceable package MediumWat =
       Buildings.Media.Water "Medium model for water";
-
+  replaceable package MediumEva =
+    Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Medium model for evaporator-side fluid";
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=20000
     "Nominal heat flow rate of radiator";
   parameter Modelica.Units.SI.Temperature TRadSup_nominal=273.15 + 50
@@ -29,8 +32,8 @@ partial model PartialOneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mAirRoo_flow_nominal,
     V=V) annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=
-        Q_flow_nominal/40)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
+    G=Q_flow_nominal/40)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
@@ -109,7 +112,7 @@ partial model PartialOneRoomRadiator
 //--------------------------------------------------------------------------------------//
 
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumHeaPumSou(
-    redeclare package Medium = MediumWat,
+    redeclare package Medium = MediumEva,
     m_flow_start=mEva_flow_nominal,
     m_flow_nominal=mEva_flow_nominal,
     use_riseTime=false,
@@ -125,12 +128,12 @@ partial model PartialOneRoomRadiator
         rotation=180,
         origin={-110,-110})));
   Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = MediumWat,
+    redeclare package Medium = MediumEva,
     T=281.15,
     nPorts=1) "Fluid source on source side"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = MediumWat,
+    redeclare package Medium = MediumEva,
     T=283.15) "Fluid sink on source side"
     annotation (Placement(transformation(extent={{80,-210},{60,-190}})));
   Buildings.Fluid.Sources.Boundary_pT preSou(
@@ -264,6 +267,12 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Introduced medium <code>MediumEva</code> and refactored medium assignment
+as the model replaced non-replaceable medium bindings.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1981\">#1981</a>.
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=
