@@ -79,6 +79,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4215\">#4215</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Actuators.Damper<br/>
+                       Buildings.Templates.Components.Actuators.Valve<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation
+    </td>
+    <td valign=\"top\">Replaced direct fluid pass-through with fixed resistance in actuator components.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4227\">#4227</a>.
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
     </td>
 </tr>
