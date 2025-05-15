@@ -3,12 +3,11 @@ model Modular_OneRoomRadiator
   "Modular reversible heat pump connected to a simple room model with radiator"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
+    redeclare package MediumEva = MediumAir,
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
-    sin(nPorts=1, redeclare package Medium = MediumAir),
+    sin(nPorts=1),
     pumHeaPumSou(
-      dp_nominal=heaPum.dpEva_nominal,
-      redeclare package Medium = MediumAir),
-    sou(redeclare package Medium = MediumAir),
+      dp_nominal=heaPum.dpEva_nominal),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
     pumHeaPum(dp_nominal=heaPum.dpCon_nominal));
   extends Modelica.Icons.Example;
@@ -108,6 +107,12 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Introduced medium <code>MediumEva</code> and refactored medium assignment
+as the model replaced non-replaceable medium bindings.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1981\">#1981</a>.
+</li>
 <li>
   May 2, 2024, by Michael Wetter:<br/>
   Refactored check for device identifiers.<br/>

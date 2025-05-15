@@ -10,7 +10,6 @@ model FlatPlate "Test model for FlatPlate"
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array,
-    nPanelsSer=5,
     nPanelsPar=5,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
     nPanels=25,
@@ -85,6 +84,12 @@ for a variable fluid flow rate and weather data from San Francisco, CA, USA.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 4, 2025, by Jelger Jansen:<br/>
+Remove <code>nPanelsSer</code> as a model parameter.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
+</li>
 <li>
 February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
