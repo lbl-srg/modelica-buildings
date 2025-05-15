@@ -7,8 +7,125 @@ package UsersGuide "User's Guide"
 <p>
 This package contains models demonstrating the coupling between Modelica simulation
 and <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH</a> simulation.
-Note that to run the coupled simulation, the TOUGH simulator should be installed.
+The coupled models would be needed for modeling borefield-based geothermal energy systems in which
+the underground geologic is complicated. When there is strong underground waterflow,
+the models like the g-function based approaches that assume heat transfer
+in the ground is purely by conduction become less accurate.
 </p>
+<p>
+The model <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTube\">
+Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTube</a> assumes that in the
+borefield, all the boreholes has the same heat transfer with ground, with the ground
+thermal response being captured by the TOUGH simulator through
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse\">
+Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse</a>.
+</p>
+<p>
+Note that to use the coupled simulation model, the TOUGH simulator should be installed.
+However, for the demonstration purpose, the test models in this package calls the
+code that imitates the TOUGH response.
+</p>
+
+<h4>Coupling workflow</h4>
+<p>
+The borehole wall
+is the boundary between the Modelica simulation and the TOUGH simulation.
+Modelica simulation provide the heat flow rate through the wall as the boundary condition
+for the TOUGH simulation, while the TOUGH simulation returns the wall temperature
+as the boundary condition for Modelica simulation.
+The flow chart below shows the overall coupling workflow at each time step.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/Borefields/TOUGHResponse/workFlow.png\" width=\"2000\"/>
+</p>
+<p>
+When the Modelica variable <code>sampleTirgger</code> is true, Modelica calls the
+TOUGH simulation through a ground response model that is implemented with a Python
+interface function, as described below section.
+The Python module invokes heat flow rates from the ground <code>QBor_flow</code>,
+the initial borehole wall temperature <code>TBorWal_start</code>, the ambient
+air temperature <code>TOut</code> and the current simulation time. 
+</p>
+<ol>
+<li>
+In the first invocation of Python, this object is not yet initialized. Python
+therefore takes the initial temperature from the Modelica to initialize the object.
+</li>
+<li>
+With the function <code>write_incon</code>, it then updates the TOUGH input files.
+Note that the initial input files are in
+<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/ToughFiles</code>:
+<ul>
+<li>
+<code>writeincon.inp</code>: the file contains the initial borehole wall temperature and 
+the heat flow rate. The initial borehole wall temperature will be updated with the
+borehole wall temperature stored in the state. The heat flow rate is the heat flow rate
+measured in the Modelica model.
+</li>
+<li>
+<code>INFILE</code>: the start and stop TOUGH simulation time will be updated.
+The start time is the one stored in the state. The stop time is the current
+simulation time.
+</li>
+<li>
+<code>INCON</code>: it has the same format as the TOUGH output file <code>SAVE</code>. But
+the initial borehole wall temperature will be updated with the one in <code>writeincon.inp</code>.
+</li>
+<li>
+<code>GENER</code>: the file defines the heat flow rate on the borehole hole. It will
+be updated with the one in <code>writeincon.inp</code>.
+</li>
+</ul>
+</li>
+<li>
+Then it invokes TOUGH simulator.
+</li>
+<li>
+With the function <code>readsave</code>, it extracts the borehole wall temperature and
+the temperature of ground on the interested points, from TOUGH simulation result
+file <code>SAVE</code>.
+</li>
+<li>
+Update the state to store the TOUGH simulation stop time, the heat flow
+from the borehole wall to ground which is measured by Modelica, and the
+new borehole wall temperatures at each section.
+</li>
+</ol>
+<p>
+The program <code>GroundReponse</code> should be updated if there is change in the TOUGH inputs
+files <code>MESH</code> and <code>INFILE</code>. The reason is that the Python
+script hardcodes the position of the nodes in the <code>MESH</code> and <code>INFILE</code>.
+In particular the assumption is that all the relevant nodes are at the top of
+<code>MESH</code> and <code>INFILE</code>. The sub-functions that need to be updated
+are:
+</p>
+<ul>
+<li>
+<code>modelica_mesh</code>: This function finds the size of the Modelica mesh.
+</li>
+<li>
+<code>mesh_to_mesh</code>: This function maps the mesh difference between TOUGH and
+Modelica and calculates <code>T</code> and <code>Q</code> for the respective nodes.
+The code assumes that the <code>MESH</code> is bidimensional on the x-z axis.
+If a different type of mesh is used (i.e. radial), following two functions also need to
+be updated.
+</li>
+<li>
+<code>find_layer_depth</code>: This function finds the depth of the borehole.
+</li>
+<li>
+<code>add_grid_boundary</code>: This function finds the bounds of the TOUGH mesh.
+</li>
+</ul>
+<p>
+In order to test the changes, the Python script can be used without Modelica and
+simply calling the <code>doStep</code> function with dummy <code>Q</code> inputs.
+</p>
+
+
+
+
+
 <h4>Python interface</h4>
 <p>
 The coupling is conducted through the instance <code>pyt</code> in class
@@ -98,94 +215,9 @@ temperature for the TOUGH simulation.
 <code>clock.y</code>: the current simulation time.
 </li>
 </ul>
-<h4>Coupling workflow</h4>
-<p>
-The flow chart below shows the overall workflow of the coupling.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/Borefields/TOUGHResponse/workFlow.png\" width=\"2000\"/>
-</p>
-<p>
-When the Modelica variable <code>sampleTirgger</code> is true, Modelica calls the
-Python module that invokes heat flow rates from the ground <code>QBor_flow</code>,
-the initial borehole wall temperature <code>TBorWal_start</code>, the ambient
-air temperature <code>TOut</code> and the current simulation time. 
-</p>
-<ol>
-<li>
-In the first invocation of Python, this object is not yet initialized. Python
-therefore takes the initial temperature from the Modelica to initialize the object.
-</li>
-<li>
-With the function <code>write_incon</code>, it then updates the TOUGH input files.
-Note that the initial input files are in
-<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/ToughFiles</code>:
-<ul>
-<li>
-<code>writeincon.inp</code>: the file contains the initial borehole wall temperature and 
-the heat flow rate. The initial borehole wall temperature will be updated with the
-borehole wall temperature stored in the state. The heat flow rate is the heat flow rate
-measured in the Modelica model.
-</li>
-<li>
-<code>INFILE</code>: the start and stop TOUGH simulation time will be updated.
-The start time is the one stored in the state. The stop time is the current
-simulation time.
-</li>
-<li>
-<code>INCON</code>: it has the same format as the TOUGH output file <code>SAVE</code>. But
-the initial borehole wall temperature will be updated with the one in <code>writeincon.inp</code>.
-</li>
-<li>
-<code>GENER</code>: the file defines the heat flow rate on the borehole hole. It will
-be updated with the one in <code>writeincon.inp</code>.
-</li>
-</ul>
-</li>
-<li>
-Then it invokes TOUGH simulator.
-</li>
-<li>
-With the function <code>readsave</code>, it extracts the borehole wall temperature and
-the temperature of ground on the interested points, from TOUGH simulation result
-file <code>SAVE</code>.
-</li>
-<li>
-Update the state to store the TOUGH simulation stop time, the heat flow
-from the borehole wall to ground which is measured by Modelica, and the
-new borehole wall temperatures at each section.
-</li>
-</ol>
-<p>
-The program <code>GroundReponse</code> should be updated if there is change in the TOUGH inputs
-files <code>MESH</code> and <code>INFILE</code>. The reason is that the Python
-script hardcodes the position of the nodes in the <code>MESH</code> and <code>INFILE</code>.
-In particular the assumption is that all the relevant nodes are at the top of
-<code>MESH</code> and <code>INFILE</code>. The sub-functions that need to be updated
-are:
-</p>
-<ul>
-<li>
-<code>modelica_mesh</code>: This function finds the size of the Modelica mesh.
-</li>
-<li>
-<code>mesh_to_mesh</code>: This function maps the mesh difference between TOUGH and
-Modelica and calculates <code>T</code> and <code>Q</code> for the respective nodes.
-The code assumes that the <code>MESH</code> is bidimensional on the x-z axis.
-If a different type of mesh is used (i.e. radial), following two functions also need to
-be updated.
-</li>
-<li>
-<code>find_layer_depth</code>: This function finds the depth of the borehole.
-</li>
-<li>
-<code>add_grid_boundary</code>: This function finds the bounds of the TOUGH mesh.
-</li>
-</ul>
-<p>
-In order to test the changes, the Python script can be used without Modelica and
-simply calling the <code>doStep</code> function with dummy <code>Q</code> inputs.
-</p>
+
+
+
 <h4>Assumptions</h4>
 <ul>
 <li>
