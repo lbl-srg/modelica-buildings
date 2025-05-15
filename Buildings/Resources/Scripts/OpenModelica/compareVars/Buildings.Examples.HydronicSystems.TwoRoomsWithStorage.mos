@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "roo1.air.vol.T",
+    "roo2.air.vol.T",
+    "weaBus.TDryBul",
+    "tan.vol[1].T",
+    "tan.vol[2].T",
+    "tan.vol[3].T",
+    "tan.vol[4].T",
+    "tan.vol[5].T",
+    "temSup.T",
+    "temRet.T",
+    "boi.T",
+    "val1.y",
+    "val2.y"
+  };
