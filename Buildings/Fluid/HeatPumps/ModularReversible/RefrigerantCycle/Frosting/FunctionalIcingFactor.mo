@@ -25,7 +25,7 @@ protected
       pasThrTEvaIn.y,
       pasThrTEvaOut.y,
       pasThrMasFlowEva.y)) "Icing factor"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
 equation
   connect(pasThrTEvaOut.u, sigBus.TEvaOutMea) annotation (Line(points={{-12,-30},
           {-54,-30},{-54,0},{-101,0}},
@@ -46,15 +46,9 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ice.y, iceFac)
-    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
+  connect(ice.y, swi.u1)
+    annotation (Line(points={{41,20},{50,20},{50,8},{58,8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Text(
-          extent={{-151,147},{149,107}},
-          textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255},
-          textString="%name"),
         Ellipse(
           lineColor = {108,88,49},
           fillColor = {255,215,136},
@@ -66,12 +60,17 @@ equation
           textString="f")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
-    <ul>
-    <li>
-    <>December 7, 2023, by Michael Wetter:<br/>
+<ul>
+  <li>
+    Mai 2, 2025, by Fabian Wuellhorst:<br/>
+    Disable if not air souce
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">IBPSA #1975</a>
+  </li>
+  <li>
+    December 7, 2023, by Michael Wetter:<br/>
     Changed implementation to use graphical models.
-    </li>
-    <li>
+  </li>
+  <li>
     <i>November 26, 2018,</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)

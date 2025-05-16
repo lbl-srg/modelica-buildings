@@ -14,7 +14,11 @@ model PressureDrop
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
-  final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
+  parameter Boolean disableComputeFlowResistance_internal=false
+    "=false to disable computation of flow resistance"
+    annotation(Evaluate=true);
+  final parameter Boolean computeFlowResistance=
+    (dp_nominal_pos > Modelica.Constants.eps) and not disableComputeFlowResistance_internal
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
   final parameter Real coeff=
@@ -125,6 +129,9 @@ then the pressure drop is computed as a linear function of the
 mass flow rate.
 </p>
 <p>
+To disable any pressure drop calculation, set <code>dp_nominal = 0</code>.
+</p>
+<p>
 Setting <code>allowFlowReversal=false</code> can lead to simpler
 equations. However, this should only be set to <code>false</code>
 if one can guarantee that the flow never reverses its direction.
@@ -176,6 +183,11 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 25, 2025, by Fabian Wuelhorst and Michael Wetter:<br/>
+Add option to disable <code>computeFlowResistance</code> for extending classes.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2001\">#2001</a>.
+</li>
 <li>
 September 21, 2018, by Michael Wetter:<br/>
 Decrease value of <code>deltaM(min=...)</code> attribute.
