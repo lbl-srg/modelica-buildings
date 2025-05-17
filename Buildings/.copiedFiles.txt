@@ -1935,6 +1935,9 @@ Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/Functions/
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/Functions/partialIcingFactor.mo
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/Functions/wetterAfjei1997.mo
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/NoFrosting.mo
+Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/Validation/WetterAfjei1997.mo
+Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/Validation/package.mo
+Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/Validation/package.order
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/package.mo
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/package.order
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Inertias/BaseClasses/PartialInertia.mo
@@ -2908,6 +2911,7 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Python-Sources/MakeORCFluidRecord.py
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_HeatPumps_ModularReversible_RefrigerantCycle_Frosting_Validation_WetterAfjei1997.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -3487,6 +3491,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/Ai
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/CarnotWithLosses_OneRoomRadiator.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/LargeScaleWaterToWater_OneRoomRadiator.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/Modular_OneRoomRadiator.mos
+Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/Validation/WetterAfjei1997.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/Comparative/Carnot_y.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/Comparative/ConstantCarnotEffectiveness.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/Comparative/TableData2D.mos
