@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "torSou.tau",
+    "pum.to_rpm.y",
+    "pum.pum.P"
+  };
