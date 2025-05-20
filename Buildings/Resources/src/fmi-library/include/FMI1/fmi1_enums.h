@@ -16,6 +16,7 @@
 #ifndef FMI1_ENUMS_H_
 #define FMI1_ENUMS_H_
 
+#include <FMI1/fmi1_functions.h>
 #include <fmilib_config.h>
 
 #ifdef __cplusplus
@@ -23,16 +24,16 @@ extern "C" {
 #endif
 
 /** \file fmi1_enums.h 
-	\brief Definions the enum types used with FMI 1.0 libs
+    \brief Definions the enum types used with FMI 1.0 libs
 */
 
-/**	\addtogroup fmi1_utils
-	@{
-	\addtogroup fmi1_enums
-	@}
+/**    \addtogroup fmi1_utils
+    @{
+    \addtogroup fmi1_enums
+    @}
 */
 /** \addtogroup fmi1_enums Enum types used with FMI 1.0 libs
-	@{
+    @{
 */
 /** \brief Naming convention for the variables in XML file*/
 typedef enum fmi1_variable_naming_convension_enu_t
@@ -51,7 +52,7 @@ typedef enum fmi1_fmu_kind_enu_t
         fmi1_fmu_kind_enu_me = 0,
         fmi1_fmu_kind_enu_cs_standalone,
         fmi1_fmu_kind_enu_cs_tool,
-		fmi1_fmu_kind_enu_unknown
+        fmi1_fmu_kind_enu_unknown
 } fmi1_fmu_kind_enu_t;
 
 /** \brief Convert a #fmi1_fmu_kind_enu_t constant into string  */
@@ -63,7 +64,7 @@ typedef enum fmi1_variability_enu_t {
         fmi1_variability_enu_parameter,
         fmi1_variability_enu_discrete,
         fmi1_variability_enu_continuous,
-		fmi1_variability_enu_unknown
+        fmi1_variability_enu_unknown
 } fmi1_variability_enu_t;
 
 /** \brief Convert a #fmi1_variability_enu_t constant into string  */
@@ -81,6 +82,9 @@ typedef enum fmi1_causality_enu_t {
 /** \brief Convert a #fmi1_causality_enu_t constant into string  */
 FMILIB_EXPORT const char* fmi1_causality_to_string(fmi1_causality_enu_t c);
 
+/** Convert #fmi1_status_t variable to string  */
+FMILIB_EXPORT const char* fmi1_status_to_string(fmi1_status_t status);
+
 /** \brief Alias property for variables */
 typedef enum fmi1_variable_alias_kind_enu_t {
     fmi1_variable_is_negated_alias = -1,
@@ -91,20 +95,20 @@ typedef enum fmi1_variable_alias_kind_enu_t {
 /** \brief Base types used in type definitions */
 typedef enum fmi1_base_type_enu_t
 {
-	fmi1_base_type_real,
-	fmi1_base_type_int,
-	fmi1_base_type_bool,
-	fmi1_base_type_str,
-	fmi1_base_type_enum
+    fmi1_base_type_real,
+    fmi1_base_type_int,
+    fmi1_base_type_bool,
+    fmi1_base_type_str,
+    fmi1_base_type_enum
 } fmi1_base_type_enu_t;
 
 /**  \brief Convert base type constant to string 
-	\param bt Base type identifier.
-	\return Corresponding base type name.
-	*/
+    @param bt Base type identifier.
+    @return Corresponding base type name.
+    */
 FMILIB_EXPORT const char* fmi1_base_type_to_string(fmi1_base_type_enu_t bt);
 
-/**	
+/**    
  @}
 */
 #ifdef __cplusplus

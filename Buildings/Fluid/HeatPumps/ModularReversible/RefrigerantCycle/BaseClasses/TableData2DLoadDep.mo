@@ -17,7 +17,7 @@ block TableData2DLoadDep
     "=true to use condenser outlet temperature for table data, false for inlet";
   parameter Real scaFac(unit="1")=1
     "Scaling factor for interpolated heat flow rate and power";
-  parameter Modelica.Units.SI.DimensionlessRatio PLRSup[:](final min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRSup[:](each final min=0)
     "PLR values at which heat flow rate and power data are provided";
   final parameter Modelica.Units.SI.DimensionlessRatio PLRUnl_min=min(PLRSup)
     "Minimum PLR before false loading the compressor";
