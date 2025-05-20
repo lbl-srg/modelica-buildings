@@ -1,7 +1,6 @@
 within Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types;
 type HeaSou = enumeration(
-    ele
-       "Electric resistance heating coil",
+    ele "Electric resistance heating coil",
     hotWat "Hot-water heating coil")
     "Enumeration for the heating coil types"
     annotation (Documentation(info="<html>
