@@ -17,11 +17,11 @@ model FourPipe "System model for a four-pipe fan coil unit"
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)
     "Nominal heat flow rate of electric heating coil"
-    annotation(Dialog(enable=not has_HW, group="Heating coil parameters"));
+    annotation(Dialog(enable=not have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal
     "Nominal mass flow rate of heating hot water"
-    annotation(Dialog(enable=has_HW, group="Heating coil parameters"));
+    annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal
     "Total pressure difference across supply and return ports in airloop"
@@ -29,7 +29,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   parameter Modelica.Units.SI.ThermalConductance UAHeaCoi_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity"
-    annotation(Dialog(enable=has_HW, group="Heating coil parameters"));
+    annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
     "Nominal mass flow rate of chilled water"
@@ -86,13 +86,13 @@ model FourPipe "System model for a four-pipe fan coil unit"
       iconTransformation(extent={{110,-210},{130,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(
-    redeclare final package Medium = Buildings.Media.Water) if has_HW
+    redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water return port"
     annotation (Placement(transformation(extent={{-46,-190},{-26,-170}}),
       iconTransformation(extent={{-130,-210},{-110,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(
-    redeclare final package Medium = Buildings.Media.Water) if has_HW
+    redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water supply port"
     annotation (Placement(transformation(extent={{-6,-190},{14,-170}}),
       iconTransformation(extent={{-70,-210},{-50,-190}})));
@@ -111,7 +111,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final dp1_nominal=0,
     final dp2_nominal=0,
     final UA_nominal=UAHeaCoi_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if has_HW
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if have_hotWat
     "Hot water heating coil"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=180,
@@ -120,7 +120,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHW(
     redeclare final package Medium = MediumHW,
     final m_flow_nominal=mHotWat_flow_nominal,
-    final dpValve_nominal=50) if has_HW
+    final dpValve_nominal=50) if have_hotWat
     "Hot water flow control valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
@@ -128,7 +128,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   Buildings.Fluid.Sensors.VolumeFlowRate VHW_flow(
     redeclare final package Medium = MediumHW,
-    final m_flow_nominal=mHotWat_flow_nominal) if has_HW
+    final m_flow_nominal=mHotWat_flow_nominal) if have_hotWat
     "Hot water volume flowrate sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -136,7 +136,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   Buildings.Fluid.Sensors.TemperatureTwoPort THWRet(
     redeclare final package Medium = MediumHW,
-    final m_flow_nominal=mHotWat_flow_nominal) if has_HW
+    final m_flow_nominal=mHotWat_flow_nominal) if have_hotWat
     "Hot water return temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
@@ -144,7 +144,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   Buildings.Fluid.Sensors.TemperatureTwoPort THWSup(
     redeclare final package Medium = MediumHW,
-    final m_flow_nominal=mHotWat_flow_nominal) if has_HW
+    final m_flow_nominal=mHotWat_flow_nominal) if have_hotWat
     "Hot water supply temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -243,7 +243,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=0,
-    final Q_flow_nominal=QHeaCoi_flow_nominal) if not has_HW
+    final Q_flow_nominal=QHeaCoi_flow_nominal) if not have_hotWat
     "Electric heating coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
@@ -276,7 +276,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation (Placement(transformation(extent={{164,12},{184,32}})));
 
 protected
-  final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types.HeaSou.hotWat)
+  final parameter Boolean have_hotWat=(heaCoiTyp ==Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.Types.HeaSou.hotWat)
     "Check if a hot water heating coil exists"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
