@@ -27,6 +27,13 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit
+    </td>
+    <td valign=\"top\">Control sequences for fan coil units.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
     </td>
     <td valign=\"top\">Package that contains components for the PID controller that can
