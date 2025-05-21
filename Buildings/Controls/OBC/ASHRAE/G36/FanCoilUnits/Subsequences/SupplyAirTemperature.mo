@@ -155,7 +155,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
@@ -163,7 +163,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_heaCoi
     "Zone heating temperature setpoint"
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
@@ -171,7 +171,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_cooCoi
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-280,-130},{-240,-90}}),
@@ -193,7 +193,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{240,-60},{280,-20}}),

@@ -296,38 +296,32 @@ block Controller
     annotation (Dialog(tab="Adjust temperature setpoint", group="Limits"));
 
   parameter Real incTSetDem_1(
-    final unit="K",
-    displayUnit="K")=0.56
+    final unit="K")=0.56
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real incTSetDem_2(
-    final unit="K",
-    displayUnit="K")=1.1
+    final unit="K")=1.1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real incTSetDem_3(
-    final unit="K",
-    displayUnit="K")=2.2
+    final unit="K")=2.2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real decTSetDem_1(
-    final unit="K",
-    displayUnit="K")=0.56
+    final unit="K")=0.56
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real decTSetDem_2(
-    final unit="K",
-    displayUnit="K")=1.1
+    final unit="K")=1.1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real decTSetDem_3(
-    final unit="K",
-    displayUnit="K")=2.2
+    final unit="K")=2.2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
@@ -353,8 +347,7 @@ block Controller
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real chiWatResReqLim2(
-    final unit="K",
-    displayUnit="K")=2.78
+    final unit="K")=2.78
     "Temperature difference limit between setpoint and supply air temperature above which two chilled water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Chilled water temperature reset requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
@@ -367,8 +360,7 @@ block Controller
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real chiWatResReqLim3(
-    final unit="K",
-    displayUnit="K")=5.56
+    final unit="K")=5.56
     "Temperature difference limit between setpoint and supply air temperature above which three chilled water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Chilled water temperature reset requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
@@ -402,8 +394,7 @@ block Controller
                       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
 
   parameter Real hotWatResReqLim2(
-    final unit="K",
-    displayUnit="K")=8
+    final unit="K")=8
     "Temperature difference limit between setpoint and supply air temperature above which two hot water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Hot water requests",
                       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
@@ -416,8 +407,7 @@ block Controller
                       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
 
   parameter Real hotWatResReqLim3(
-    final unit="K",
-    displayUnit="K")=17
+    final unit="K")=17
     "Temperature difference limit between setpoint and supply air temperature above which three hot water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Hot water requests",
                       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
@@ -454,8 +444,7 @@ block Controller
     annotation(Dialog(tab="Advanced", group="Operation mode"));
 
   parameter Real THys(
-    final unit="1",
-    displayUnit="1")=0.1
+    final unit="K")=0.1
     "Hysteresis for checking temperature difference"
     annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
