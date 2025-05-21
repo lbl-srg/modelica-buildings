@@ -300,42 +300,49 @@ equation
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,
             160}})),
-    Documentation(info="<html>
-    <p>This model demonstrates the usage of
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
-    Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a>,
-    a controller for four-pipe fan coil units (FCUs) based on the sequences defined
-    in ASHRAE Guideline 36, 2021. </p>
-    <p><br>This model consists of
-    <ul>
-    <li>
-    a 5-zone building thermal model with considerations for a
-    building envelope model and air flow through building
-    leakage and through open doors.
-    <li>a fan-coil unit that
-     consists of a supply fan, an electric or hot-water heating coil, and a 
-     chilled-water cooling coil.
-     </li>
-     <li>
-     The fan coil unit controller outputs the
-     supply fan enable signal and speed signal, the supply air temperature 
-     setpoint, the zone air heating and cooling setpoints, and valve positions
-     for heating and cooling coils.</li></ul></p>
-      <p>The HVAC system switches between occupied, unoccupied, unoccupied warm-up
-      and unoccupied pre-cool modes. The cooling coil and heating coil valves
-      are modulated to maintain the heating and cooling setpoints. The supply
-      air temperature is modulated based on the differential between the 
-      temperature setpoint and the zone temperature to avoid unecessary heating
-      and cooling use and avoid extreme temperature fluctuations.</p>
-      <p>See the model <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe\">
-      Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe</a> and 
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
-      Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a 
-      description of the Fan Coil unit and the controller, and see the model 
-      <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
-      Buildings.Examples.VAVReheat.BaseClasses.Floor</a> for a description of 
-      the building envelope. </p>
-<p> </p>
+Documentation(info="<html>
+<p>
+This model demonstrates the usage of
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a>,
+a controller for four-pipe fan coil units based on the sequences defined
+in ASHRAE Guideline 36, 2021.
+</p>
+<p>
+This model consists of
+</p>
+<ul>
+<li>
+a 5-zone building thermal model with considerations for a building envelope model
+and air flow through building leakage and through open doors.
+</li>
+<li>
+a fan-coil unit that consists of a supply fan, an electric or hot-water heating
+coil, and a chilled-water cooling coil.
+</li>
+<li>
+The fan coil unit controller outputs the supply fan enable signal and speed signal,
+the supply air temperature setpoint, the zone air heating and cooling setpoints,
+and valve positions for heating and cooling coils.
+</li>
+</ul>
+<p>
+The HVAC system switches between occupied, unoccupied, unoccupied warm-up and
+unoccupied pre-cool modes. The cooling coil and heating coil valves are modulated
+to maintain the heating and cooling setpoints. The supply air temperature is modulated
+based on the differential between the temperature setpoint and the zone temperature
+to avoid unecessary heating and cooling use and avoid extreme temperature fluctuations.
+</p>
+<p>
+See the model <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe\">
+Buildings.Examples.HydronicSystems.BaseClasses.FanCoilUnit.FourPipe</a> and 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for the 
+description of the fan coil unit and the controller, and see the model 
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+Buildings.Examples.VAVReheat.BaseClasses.Floor</a>
+for the description of the building envelope.
+</p>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"
         "Simulate and plot"),
