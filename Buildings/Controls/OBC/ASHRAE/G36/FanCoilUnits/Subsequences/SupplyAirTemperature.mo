@@ -393,7 +393,7 @@ equation
           120,82},{138,82}}, color={0,0,127}));
   connect(conZer.y, swiCooCoi.u3) annotation (Line(points={{102,-20},{120,-20},{
           120,-148},{138,-148}},         color={0,0,127}));
-  annotation (defaultComponentName="TSupAir",
+  annotation (defaultComponentName="supAirTem",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}}),
                                                       graphics={
         Rectangle(

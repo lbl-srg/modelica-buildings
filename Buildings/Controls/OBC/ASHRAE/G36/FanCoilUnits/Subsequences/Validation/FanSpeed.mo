@@ -245,7 +245,7 @@ equation
   connect(ram1.y, reaToInt5.u)
     annotation (Line(points={{42,-90},{48,-90}}, color={0,0,127}));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
@@ -257,28 +257,26 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-200},{120,200}})),
-    experiment(
-      StopTime=100,
-      Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/Validation/FanSpeed.mos"
+experiment(StopTime=100, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/Validation/FanSpeed.mos"
     "Simulate and plot"),
-    Documentation(info="<html>
-      <p>
-      This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed\">
-      Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed</a>. 
-      Each of the six instances of the controller represents operation with different
-      inputs for heating and cooling loop signals, as well as the operating mode
-      and fan proven on signal, and different configuration
-      parameters of fan coil unit with presence or absence of heating and cooling
-      coils, as described by the comment for each instance.
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      March 18, 2022, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed</a>. 
+Each of the six instances of the controller represents operation with different
+inputs for heating and cooling loop signals, as well as the operating mode
+and fan proven on signal, and different configuration
+parameters of fan coil unit with presence or absence of heating and cooling
+coils, as described by the comment for each instance.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 18, 2022, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end FanSpeed;
