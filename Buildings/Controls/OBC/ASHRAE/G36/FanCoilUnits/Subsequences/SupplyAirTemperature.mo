@@ -64,7 +64,7 @@ block SupplyAirTemperature
     annotation(__cdl(ValueInReference=false),
       Dialog(group="Deadband", enable = have_cooCoi));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of cooling coil controller"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
                       enable=have_cooCoi));
@@ -82,8 +82,8 @@ block SupplyAirTemperature
     final quantity="time")=0.5
     "Integrator time constant"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
-      enable = (controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-                or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable = (cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                or cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
             and have_cooCoi));
 
   parameter Real TdCooCoi(
@@ -92,11 +92,11 @@ block SupplyAirTemperature
     final quantity="time")=0.1
     "Derivative block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
-      enable = (controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable = (cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                or cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
             and have_cooCoi));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of heating coil controller"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
       enable=have_heaCoi));
@@ -114,8 +114,8 @@ block SupplyAirTemperature
     final quantity="time")=0.5
     "Integrator block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
-      enable = (controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-                or controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable = (heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                or heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
             and have_heaCoi));
 
   parameter Real TdHeaCoi(
@@ -124,8 +124,8 @@ block SupplyAirTemperature
     final quantity="time")=0.1
     "Derivative block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
-      enable = (controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                or controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable = (heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                or heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
             and have_heaCoi));
 
   parameter Real deaHysLim(
@@ -241,14 +241,14 @@ protected
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
 
   Buildings.Controls.OBC.CDL.Reals.PID conPIDHea(
-    final controllerType=controllerTypeHeaCoi,
+    final controllerType=heaCoiConTyp,
     final k=kHeaCoi,
     final Ti=TiHeaCoi,
     final Td=TdHeaCoi) "PID controller for heating coil"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.PID conPIDCoo(
-    final controllerType=controllerTypeCooCoi,
+    final controllerType=cooCoiConTyp,
     final k=kCooCoi,
     final Ti=TiCooCoi,
     final Td=TdCooCoi,

@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits;
 block Controller
-  "Fan coil unit controller that comprises subsequences for controlling fan speed
-  and supply air temperature"
+  "Fan coil unit controller that comprises subsequences for controlling fan speed and supply air temperature"
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Cooling coil type"
@@ -37,7 +36,7 @@ block Controller
       Dialog(enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
              or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of cooling loop signal controller"
     annotation (Dialog(tab="PID parameters", group="Cooling loop control",
@@ -55,8 +54,8 @@ block Controller
     final unit="s")=900
     "Time constant of integrator block for cooling control loop signal"
     annotation(Dialog(tab="PID parameters", group="Cooling loop control",
-      enable=(controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-              or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable=(cooConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+              or cooConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
           and (cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
                or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)));
 
@@ -64,12 +63,12 @@ block Controller
     final unit="s")=0.1
     "Time constant of derivative block for cooling control loop signal"
     annotation (Dialog(tab="PID parameters", group="Cooling loop control",
-      enable=(controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-              or controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable=(cooConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+              or cooConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
           and (cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
                or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of heating loop signal controller"
     annotation(Dialog(tab="PID parameters", group="Heating loop control",
@@ -87,8 +86,8 @@ block Controller
     final unit="s")=900
     "Time constant of integrator block for heating control loop signal"
     annotation(Dialog(tab="PID parameters", group="Heating loop control",
-      enable=(controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-             or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable=(heaConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+             or heaConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
         and (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
              or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)));
 
@@ -96,12 +95,12 @@ block Controller
     final unit="s")=0.1
     "Time constant of derivative block for heating control loop signal"
     annotation (Dialog(tab="PID parameters", group="Heating loop control",
-      enable=(controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-              or controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable=(heaConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+              or heaConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
           and (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooCoiConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of cooling coil controller"
     annotation(Dialog(tab="PID parameters", group="Cooling coil control",
@@ -119,8 +118,8 @@ block Controller
     final unit="s")=900
     "Time constant of integrator block for cooling coil control signal"
     annotation(Dialog(tab="PID parameters", group="Cooling coil control",
-      enable=(controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-             or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable=(cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+             or cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
         and (cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
              or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)));
 
@@ -128,12 +127,12 @@ block Controller
     final unit="s")=0.1
     "Time constant of derivative block for cooling coil control signal"
     annotation (Dialog(tab="PID parameters", group="Cooling coil control",
-      enable=(controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-              or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable=(cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+              or cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
           and (cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
               or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaCoi=
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of heating coil controller"
     annotation(Dialog(tab="PID parameters", group="Heating coil control",
@@ -151,8 +150,8 @@ block Controller
     final unit="s")=900
     "Time constant of integrator block for heating coil control signal"
     annotation(Dialog(tab="PID parameters", group="Heating coil control",
-    enable=(controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-            or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+    enable=(heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+            or heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
         and (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
              or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)));
 
@@ -160,8 +159,8 @@ block Controller
     final unit="s")=0.1
     "Time constant of derivative block for heatinging coil control signal"
     annotation (Dialog(tab="PID parameters", group="Heating coil control",
-      enable=(controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-              or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      enable=(heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+              or heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
           and (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)));
 
@@ -700,7 +699,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset cooPI(
     final reverseActing=false,
-    final controllerType=controllerTypeCoo,
+    final controllerType=cooConTyp,
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo) if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
@@ -709,7 +708,7 @@ block Controller
     annotation (Placement(transformation(extent={{-40,196},{-20,216}})));
 
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset heaPI(
-    final controllerType=controllerTypeHea,
+    final controllerType=heaConTyp,
     final k=kHea,
     final Ti=TiHea,
     final Td=TdHea) if heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
@@ -779,11 +778,11 @@ protected
     final uCoo_max=uCooFan_min,
     final heaDea=heaDea,
     final cooDea=cooDea,
-    final controllerTypeCooCoi=controllerTypeCooCoi,
+    final cooCoiConTyp=cooCoiConTyp,
     final kCooCoi=kCooCoi,
     final TiCooCoi=TiCooCoi,
     final TdCooCoi=TdCooCoi,
-    final controllerTypeHeaCoi=controllerTypeHeaCoi,
+    final heaCoiConTyp=heaCoiConTyp,
     final kHeaCoi=kHeaCoi,
     final TiHeaCoi=TiHeaCoi,
     final TdHeaCoi=TdHeaCoi,
