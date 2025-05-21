@@ -341,6 +341,5 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/H
         "Simulate and plot"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-07));
 end FanCoilUnit;
