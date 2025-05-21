@@ -297,32 +297,32 @@ block Controller
 
   parameter Real incTSetDem_1(
     final unit="K")=0.56
-    "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
+    "Cooling setpoint increase value (degK) when cooling demand limit level 1 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real incTSetDem_2(
     final unit="K")=1.1
-    "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
+    "Cooling setpoint increase value (degK) when cooling demand limit level 2 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real incTSetDem_3(
     final unit="K")=2.2
-    "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
+    "Cooling setpoint increase value (degK) when cooling demand limit level 3 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real decTSetDem_1(
     final unit="K")=0.56
-    "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
+    "Heating setpoint decrease value (degK) when heating demand limit level 1 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real decTSetDem_2(
     final unit="K")=1.1
-    "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
+    "Heating setpoint decrease value (degK) when heating demand limit level 2 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real decTSetDem_3(
     final unit="K")=2.2
-    "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
+    "Heating setpoint decrease value (degK) when heating demand limit level 3 is imposed"
     annotation (Dialog(tab="Adjust temperature setpoint", group="Demand control adjustment"));
 
   parameter Real chiWatPlaReqLim0(
