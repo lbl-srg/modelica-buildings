@@ -115,7 +115,8 @@ protected
     "Unoccupied heating temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[5]
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[5](final t=fill(0.01,
+        5), final h=fill(0.005, 5))
     "Check if fan speed is above threshold for proven on signal"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
@@ -192,9 +193,8 @@ equation
                                       color={0,0,127}));
   connect(greThr.y, tim.u) annotation (Line(points={{-118,-110},{-102,-110}},
                color={255,0,255}));
-  connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{41,25.2},{
-          44,25.2},{44,64},{-66,64},{-66,22.3333},{-38,22.3333}},
-                                                            color={0,0,127}));
+  connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{41,25},{44,
+          25},{44,64},{-66,64},{-66,22.3333},{-38,22.3333}},color={0,0,127}));
   connect(reaScaRep2.y, conFCU.setAdj) annotation (Line(points={{-78,100},{-64,
           100},{-64,38},{-50,38},{-50,42.3333},{-38,42.3333}},
                                   color={0,0,127}));
