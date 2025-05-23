@@ -88,7 +88,7 @@ initial equation
     Received TEvaHea_nominal = " + String(TEvaHea_nominal) + "
              TConHea_nominal = " + String(TConHea_nominal) + ".");
   assert(QCoo_flow_nominal > -1E-6 or TConCoo_nominal < TEvaCoo_nominal,
-    "In " + getInstanceName() +": Wrong parameterization. Require TConCoo_nominal < TEvaCoo_nominal..
+    "In " + getInstanceName() +": Wrong parameterization. Require TConCoo_nominal < TEvaCoo_nominal.
     Received TConCoo_nominal = " + String(TConCoo_nominal) + "
              TEvaCoo_nominal = " + String(TEvaCoo_nominal) + ".");
 equation
