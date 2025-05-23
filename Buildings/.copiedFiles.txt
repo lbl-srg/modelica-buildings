@@ -2911,6 +2911,7 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Python-Sources/MakeORCFluidRecord.py
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_HeatPumps_ModularReversible_RefrigerantCycle_Frosting_Validation_WetterAfjei1997.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
