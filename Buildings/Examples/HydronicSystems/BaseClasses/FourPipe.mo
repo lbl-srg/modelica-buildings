@@ -344,8 +344,6 @@ equation
                                                        color={0,127,255}));
   connect(TAirLvg.T, TAirSup)
     annotation (Line(points={{250,1},{250,70},{380,70}},   color={0,0,127}));
-  connect(TAirSup, TAirSup)
-    annotation (Line(points={{380,70},{380,70}},   color={0,0,127}));
   connect(vAirRet.port_b, heaCoiEle.port_a) annotation (Line(points={{-100,20},
           {-80,20},{-80,10},{-20,10}},          color={0,127,255}));
   connect(vAirRet.port_b, heaCoiHW.port_a2) annotation (Line(points={{-100,20},

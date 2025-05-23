@@ -84,7 +84,7 @@ model FanCoilUnit
     annotation (Placement(transformation(extent={{-40,-6},{0,54}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    each filNam=Modelica.Utilities.Files.loadResource(
+    filNam=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     computeWetBulbTemperature=false)
     "Weather data reader"
