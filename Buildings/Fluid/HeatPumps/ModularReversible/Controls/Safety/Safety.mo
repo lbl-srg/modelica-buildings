@@ -19,6 +19,8 @@ model Safety "Model including all safety levels"
     Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope
     opeEnv if safCtrPar.use_opeEnv constrainedby
     Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope(
+      final onOffMea_start=safCtrPar.onOffMea_start,
+      final ySet_small=ySet_small,
       final use_TConOutHea=safCtrPar.use_TConOutHea,
       final use_TEvaOutHea=safCtrPar.use_TEvaOutHea,
       final use_TConOutCoo=safCtrPar.use_TConOutCoo,
@@ -37,12 +39,16 @@ model Safety "Model including all safety levels"
     final maxCycRat=safCtrPar.maxCycRat,
     final onOffMea_start=safCtrPar.onOffMea_start,
     final ySet_small=ySet_small,
-    final ySetRed=safCtrPar.ySetRed) if safCtrPar.use_minOnTime or safCtrPar.use_minOffTime
+    final ySetRed=safCtrPar.ySetRed)
+      if safCtrPar.use_minOnTime or safCtrPar.use_minOffTime
      or safCtrPar.use_maxCycRat "On off control block"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.AntiFreeze antFre(final TAntFre=
-        safCtrPar.TAntFre, final dTHys=safCtrPar.dTHysAntFre)
+  Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.AntiFreeze antFre(
+    final onOffMea_start=safCtrPar.onOffMea_start,
+    final ySet_small=ySet_small,
+    final TAntFre=safCtrPar.TAntFre,
+    final dTHys=safCtrPar.dTHysAntFre)
     if safCtrPar.use_antFre "Antifreeze control"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Interfaces.IntegerOutput opeEnvErr if safCtrPar.use_opeEnv
@@ -59,9 +65,12 @@ model Safety "Model including all safety levels"
         origin={30,-130})));
 
   Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.MinimalFlowRate
-    minVolFloRatSaf(final mEvaMin_flow=safCtrPar.r_mEvaMinPer_flow*
-        mEva_flow_nominal, final mConMin_flow=safCtrPar.r_mConMinPer_flow*
-        mCon_flow_nominal) if safCtrPar.use_minFlowCtr
+    minVolFloRatSaf(
+      final onOffMea_start=safCtrPar.onOffMea_start,
+      final ySet_small=ySet_small,
+      final mEvaMin_flow=safCtrPar.r_mEvaMinPer_flow*mEva_flow_nominal,
+      final mConMin_flow=safCtrPar.r_mConMinPer_flow*mCon_flow_nominal)
+        if safCtrPar.use_minFlowCtr
     "Block to ensure minimal flow rates"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
@@ -93,8 +102,8 @@ model Safety "Model including all safety levels"
 equation
 
   connect(sigBus, onOffCtr.sigBus) annotation (Line(
-      points={{-119,-61},{-112,-61},{-112,-10},{-66,-10},{-66,23.9167},{-59.9167,
-          23.9167}},
+      points={{-119,-61},{-112,-61},{-112,-10},{-66,-10},{-66,23.9167},{
+          -59.9167,23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -103,8 +112,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus, opeEnv.sigBus) annotation (Line(
-      points={{-119,-61},{-112,-61},{-112,-10},{-28,-10},{-28,23.9167},{-19.9167,
-          23.9167}},
+      points={{-119,-61},{-112,-61},{-112,-10},{-28,-10},{-28,23.9167},{
+          -19.9167,23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -160,8 +169,8 @@ equation
   connect(opeEnv.yOut, antFre.ySet) annotation (Line(points={{0.833333,30},{
           18.6667,30}},                                               color={0,0,
           127}));
-  connect(antFre.yOut, minVolFloRatSaf.ySet) annotation (Line(points={{40.8333,30},
-          {58.6667,30}},                                                color={0,
+  connect(antFre.yOut, minVolFloRatSaf.ySet) annotation (Line(points={{40.8333,
+          30},{58.6667,30}},                                            color={0,
           0,127}));
   connect(antFre.yOut, reaPasThrMinVolRat.u) annotation (Line(
       points={{40.8333,30},{40.8333,30},{52,30},{52,70},{58,70}},

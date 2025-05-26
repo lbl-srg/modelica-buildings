@@ -87,6 +87,10 @@ initial equation
     "In " + getInstanceName() +": Wrong parameterization. Require TEvaHea_nominal < TConHea_nominal.
     Received TEvaHea_nominal = " + String(TEvaHea_nominal) + "
              TConHea_nominal = " + String(TConHea_nominal) + ".");
+  // If the heat pump is also used for cooling, then QCoo_flow_nominal << 0.
+  // Hence the first test is false and we require the correct entry of the temperatures.
+  // If it is not used for cooling, then QCoo_flow_nominal = 0, and the temperature entry
+  // won't be checked for correctness.
   assert(QCoo_flow_nominal > -1E-6 or TConCoo_nominal < TEvaCoo_nominal,
     "In " + getInstanceName() +": Wrong parameterization. Require TConCoo_nominal < TEvaCoo_nominal.
     Received TConCoo_nominal = " + String(TConCoo_nominal) + "

@@ -1,5 +1,9 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 partial model PartialSafety "Safety control with I/O"
+  parameter Boolean onOffMea_start=true
+    "Start value for the on-off signal of the device, true for on";
+  parameter Real ySet_small
+    "Threshold for relative speed for the device to be considered on";
   Modelica.Blocks.Interfaces.RealInput ySet
     "Input for relative compressor speed from 0 to 1"
     annotation (Placement(transformation(extent={{-152,-16},{-120,16}}),
