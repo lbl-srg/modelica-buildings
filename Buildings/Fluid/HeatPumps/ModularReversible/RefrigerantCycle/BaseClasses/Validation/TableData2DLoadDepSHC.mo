@@ -49,9 +49,9 @@ model TableData2DLoadDepSHC
     y(final unit="K", displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatSet(
-    height=THwEnt.k - THwSup_nominal,
-    duration=50,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin  THeaWatSet(
+    amplitude=1.2*(THwEnt.k - THwSup_nominal),
+    freqHz=0.02,
     offset=THwSup_nominal,
     startTime=10,
     y(final unit="K", displayUnit="degC"))

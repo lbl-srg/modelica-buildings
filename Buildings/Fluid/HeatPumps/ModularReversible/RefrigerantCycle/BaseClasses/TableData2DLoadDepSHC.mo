@@ -158,6 +158,12 @@ block TableData2DLoadDepSHC
   final parameter Real scaFacHeaShc(unit="1")=QHeaShc_flow_nominal / QHeaShcInt1_flow_nominal
     "Scaling factor for interpolated heating heat flow rate - SHC mode";
 
+  final parameter Modelica.Units.SI.Power P_nominal = max({
+    scaFacHea * PHeaInt1_nominal,
+    scaFacCoo * PCooInt1_nominal,
+    scaFacCooShc * PShcInt1_nominal})
+    "Maximum power at nominal conditions (external use) - All modes";
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onHea
     "Set to true to enable heating, or false to disable heating"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
@@ -410,7 +416,6 @@ initial equation
     tabPShc, fill(TChw_nominal, nPLRShc), fill(THw_nominal, nPLRShc));
   QCooShcInt_flow_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabQShc, fill(TChw_nominal, nPLRShc), fill(THw_nominal, nPLRShc));
-
 equation
   QHeaSet_flow=if onHea then max(0, sigLoa * (THwSet - THwCtl) * cpHw * mHw_flow)
     else 0;
@@ -464,7 +469,7 @@ equation
         cat(1, {0}, QHeaInt_flow),
         cat(1, {0}, PLRHeaSor),
         (QHeaSet_flow - QHeaShc_flow) / (1 - ratCycShc))));
-      PLRCooShcCyc =max(0, min(PLRCoo_max, Modelica.Math.Vectors.interpolate(
+      PLRCooShcCyc = max(0, min(PLRCoo_max, Modelica.Math.Vectors.interpolate(
         abs(cat(1, {0}, QCooInt_flow)),
         cat(1, {0}, PLRCooSor),
         abs(QCooSet_flow - QCooShc_flow) / (1 - ratCycShc))));
