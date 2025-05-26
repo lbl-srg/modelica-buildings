@@ -8,7 +8,7 @@ model MinimalFlowRate "Safety control for minimum mass flow rate"
     "Minimal mass flow rate in condenser required to operate the device";
   parameter Boolean onOffMea_start=true
     "Start value for the on-off signal of the device, true for on";
-  parameter Real ySet_small
+  parameter Real ySet_small = 0.1
     "Threshold for relative speed for the device to be considered on";
   Modelica.Blocks.Logical.Hysteresis hysCon(
     final uLow=mConMin_flow,
