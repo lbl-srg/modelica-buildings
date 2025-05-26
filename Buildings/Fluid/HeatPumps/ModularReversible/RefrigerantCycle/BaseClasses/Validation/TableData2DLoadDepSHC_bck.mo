@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation;
-model TableData2DLoadDepSHC
+model TableData2DLoadDepSHC_bck
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.Temperature THwSup_nominal = 50 + 273.15
     "HW supply temperature"
@@ -49,9 +49,9 @@ model TableData2DLoadDepSHC
     y(final unit="K", displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatSet(
-    height=THwEnt.k - THwSup_nominal,
-    duration=60,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin  THeaWatSet(
+    amplitude=1.2*(THwEnt.k - THwSup_nominal),
+    freqHz=0.02,
     offset=THwSup_nominal,
     startTime=10,
     y(final unit="K", displayUnit="degC"))
@@ -66,8 +66,9 @@ model TableData2DLoadDepSHC
     y(final unit="K", displayUnit="degC"))
     "Evaporator entering CHW temperature"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=true) "Constant"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant onHea(k=true)
+    "Heating mode enable"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mChw_flow(k=
         mChw_flow_nominal)
     "CHW mass flow rate"
@@ -79,9 +80,11 @@ model TableData2DLoadDepSHC
     k=Buildings.Media.Water.cp_const)
     "Specific heat capacity of load side fluid"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant onCoo(k=true)
+    "Cooling mode enable"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC_bck
     hpSupLvg(
-    nUni=2,
     use_TEvaOutForTab=true,
     use_TConOutForTab=true,
     use_TAmbOutForTab=false,
@@ -125,13 +128,6 @@ model TableData2DLoadDepSHC
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal)
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer(k=0) "Constant"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Templates.Plants.Controls.Utilities.StageIndex idxSta(
-    have_inpAva=false,
-    nSta=2,
-    dtRun=60*(5/60))
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{-20,
           -18},{-2,-18}}, color={0,0,127}));
@@ -140,10 +136,14 @@ equation
   connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-98,0},{-28,0},{
           -28,-4},{-2,-4}}, color={0,0,127}));
   connect(TChiWatSet.y, hpSupLvg.TChwSet) annotation (Line(points={{-98,80},{
-          -22,80},{-22,2},{-2,2}},
+          -22,80},{-22,4},{-2,4}},
                                color={0,0,127}));
   connect(THeaWatSet.y, hpSupLvg.THwSet) annotation (Line(points={{-98,40},{-24,
-          40},{-24,4},{-2,4}}, color={0,0,127}));
+          40},{-24,6},{-2,6}}, color={0,0,127}));
+  connect(onCoo.y, hpSupLvg.onCoo) annotation (Line(points={{-58,20},{-28,20},{-28,
+          8},{-2,8}}, color={255,0,255}));
+  connect(onHea.y, hpSupLvg.onHea) annotation (Line(points={{-58,60},{-26,60},{-26,
+          10},{-2,10}}, color={255,0,255}));
   connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-98,-40},{-12,
           -40},{-12,-12},{-2,-12}}, color={0,0,127}));
   connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-58,-20},{-26,-20},
@@ -162,18 +162,6 @@ equation
           -4,-6},{-2,-6}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-4,
           -40},{-4,-14},{-2,-14}}, color={0,0,127}));
-  connect(zer.y, hpSupLvg.nUniHea) annotation (Line(points={{-58,60},{-26,60},{
-          -26,10},{-2,10}}, color={255,127,0}));
-  connect(zer.y, hpSupLvg.nUniCoo) annotation (Line(points={{-58,60},{-26,60},{
-          -26,8},{-2,8}}, color={255,127,0}));
-  connect(hpSupLvg.y1UpShc, idxSta.u1Up) annotation (Line(points={{22,-16},{70,
-          -16},{70,2},{78,2}}, color={255,0,255}));
-  connect(hpSupLvg.y1DowShc, idxSta.u1Dow) annotation (Line(points={{22,-18},{
-          72,-18},{72,-2},{78,-2}}, color={255,0,255}));
-  connect(tru.y, idxSta.u1Lea) annotation (Line(points={{-58,20},{70,20},{70,6},
-          {78,6}}, color={255,0,255}));
-  connect(idxSta.y, hpSupLvg.nUniShc) annotation (Line(points={{102,0},{110,0},
-          {110,-30},{-18,-30},{-18,6},{-2,6}}, color={255,127,0}));
   annotation (Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     __Dymola_Commands(
       file=
@@ -215,4 +203,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TableData2DLoadDepSHC;
+end TableData2DLoadDepSHC_bck;
