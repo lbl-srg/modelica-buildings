@@ -207,6 +207,11 @@ equation
       pattern=LinePattern.Dash));
   annotation (Documentation(revisions="<html><ul>
   <li>
+    <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
+    Increase error counter only when device should turn on (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2011\">IBPSA #2011</a>)
+  </li>
+  <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on the discussion in this issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)

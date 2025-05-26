@@ -61,6 +61,11 @@ partial model PartialSafety "Safety control with I/O"
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
   <li>
+    <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
+    Introduce partial parameters used in all safety blocks (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2011\">IBPSA #2011</a>)
+  </li>
+  <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
