@@ -7,16 +7,16 @@ partial model PartialOperationalEnvelope
   parameter Modelica.Units.SI.Temperature tabLowCoo[:,2]
     "Lower boundary for cooling with second column as useful temperature side";
   parameter Boolean use_TConOutHea=true
-    "=true to use condenser outlet temperature for envelope in heating mode, false for inlet"
+    "if true, use condenser outlet temperature for operational envelope in heating mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TEvaOutHea=false
-    "=true to use evaporator outlet temperature for envelope in heating mode, false for inlet"
+    "if true, use evaporator outlet temperature for operational envelope in heating mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TConOutCoo=false
-    "=true to use useful side outlet temperature for envelope in cooling mode, false for inlet"
+    "if true, use useful side outlet temperature for operational envelope in cooling mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TEvaOutCoo=true
-    "=true to use evaporator outlet temperature for envelope in cooling mode, false for inlet"
+    "if true, use evaporator outlet temperature for operational envelope in cooling mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys=5
@@ -51,6 +51,11 @@ equation
 
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
+<li>
+May 22, 2025, by Michael Wetter:<br/>
+Revised comment.<br/>
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+</li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

@@ -59,6 +59,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible.Modular
+    </td>
+    <td valign=\"top\">Added assertion to avoid wrong parameter definition for reference temperatures in reverse operation mode.
+                       Improved parameter documentation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #2013</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
@@ -69,6 +79,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1976\">IBPSA, #1976</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.Modular
+    </td>
+    <td valign=\"top\">Added assertion to avoid wrong parameter definition for reference temperatures in reverse operation mode.
+                       Improved parameter documentation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #2013</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
