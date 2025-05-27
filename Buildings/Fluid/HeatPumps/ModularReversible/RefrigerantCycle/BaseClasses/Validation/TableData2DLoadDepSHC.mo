@@ -67,7 +67,7 @@ model TableData2DLoadDepSHC
     "Evaporator entering CHW temperature"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=true) "Constant"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mChw_flow(k=
         mChw_flow_nominal)
     "CHW mass flow rate"
@@ -111,7 +111,7 @@ model TableData2DLoadDepSHC
   Modelica.Blocks.Sources.RealExpression TEvaLvgHpSupLvg(y=hpSupLvg.TChwEnt +
         hpSupLvg.QCoo_flow/hpSupLvg.mChw_flow/hpSupLvg.cpChw)
     "Calculate evaporator leaving temperature"
-    annotation (Placement(transformation(extent={{30,-20},{50,0}})));
+    annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=15 + 273.15, y(
         final unit="K", displayUnit="degC")) "OA temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
@@ -125,13 +125,21 @@ model TableData2DLoadDepSHC
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal)
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer(k=0) "Constant"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Templates.Plants.Controls.Utilities.StageIndex idxSta(
+  Templates.Plants.Controls.Utilities.StageIndex modShc(
     have_inpAva=false,
     nSta=2,
-    dtRun=60*(5/60))
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    dtRun=60*(5/60)) "Compute number of modules in SHC mode"
+    annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+  Templates.Plants.Controls.Utilities.StageIndex modHea(
+    have_inpAva=false,
+    nSta=2,
+    dtRun=60*(5/60)) "Compute number of modules in heating mode"
+    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+  Templates.Plants.Controls.Utilities.StageIndex modCoo(
+    have_inpAva=false,
+    nSta=2,
+    dtRun=60*(5/60)) "Compute number of modules in cooling mode"
+    annotation (Placement(transformation(extent={{90,0},{110,20}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{-20,
           -18},{-2,-18}}, color={0,0,127}));
@@ -156,24 +164,40 @@ equation
           -20,-10},{-2,-10}}, color={0,0,127}));
   connect(TConLvgHpSupLvg.y, filter.u)
     annotation (Line(points={{51,6},{60,6},{60,40},{52,40}}, color={0,0,127}));
-  connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{51,-10},{60,-10},
-          {60,-40},{52,-40}}, color={0,0,127}));
+  connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{59,-40},{52,
+          -40}},              color={0,0,127}));
   connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
           -4,-6},{-2,-6}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-4,
           -40},{-4,-14},{-2,-14}}, color={0,0,127}));
-  connect(zer.y, hpSupLvg.nUniHea) annotation (Line(points={{-58,60},{-26,60},{
-          -26,10},{-2,10}}, color={255,127,0}));
-  connect(zer.y, hpSupLvg.nUniCoo) annotation (Line(points={{-58,60},{-26,60},{
-          -26,8},{-2,8}}, color={255,127,0}));
-  connect(hpSupLvg.y1UpShc, idxSta.u1Up) annotation (Line(points={{22,-16},{70,
-          -16},{70,2},{78,2}}, color={255,0,255}));
-  connect(hpSupLvg.y1DowShc, idxSta.u1Dow) annotation (Line(points={{22,-18},{
-          72,-18},{72,-2},{78,-2}}, color={255,0,255}));
-  connect(tru.y, idxSta.u1Lea) annotation (Line(points={{-58,20},{70,20},{70,6},
-          {78,6}}, color={255,0,255}));
-  connect(idxSta.y, hpSupLvg.nUniShc) annotation (Line(points={{102,0},{110,0},
-          {110,-30},{-18,-30},{-18,6},{-2,6}}, color={255,127,0}));
+  connect(hpSupLvg.y1UpShc,modShc. u1Up) annotation (Line(points={{22,-16},{80,
+          -16},{80,-18},{88,-18}},
+                               color={255,0,255}));
+  connect(hpSupLvg.y1DowShc,modShc. u1Dow) annotation (Line(points={{22,-18},{
+          78,-18},{78,-22},{88,-22}},
+                                    color={255,0,255}));
+  connect(tru.y,modShc. u1Lea) annotation (Line(points={{52,80},{80,80},{80,-14},
+          {88,-14}},
+                   color={255,0,255}));
+  connect(modShc.y, hpSupLvg.nUniShc) annotation (Line(points={{112,-20},{120,
+          -20},{120,-60},{-18,-60},{-18,6},{-2,6}},
+                                               color={255,127,0}));
+  connect(hpSupLvg.y1UpHea, modHea.u1Up) annotation (Line(points={{22,-8},{72,
+          -8},{72,42},{88,42}}, color={255,0,255}));
+  connect(hpSupLvg.y1DowHea, modHea.u1Dow) annotation (Line(points={{22,-10},{
+          74,-10},{74,38},{88,38}}, color={255,0,255}));
+  connect(tru.y, modHea.u1Lea) annotation (Line(points={{52,80},{80,80},{80,46},
+          {88,46}}, color={255,0,255}));
+  connect(tru.y, modCoo.u1Lea) annotation (Line(points={{52,80},{80,80},{80,16},
+          {88,16}}, color={255,0,255}));
+  connect(hpSupLvg.y1DowCoo, modCoo.u1Dow) annotation (Line(points={{22,-14},{
+          78,-14},{78,8},{88,8}}, color={255,0,255}));
+  connect(hpSupLvg.y1UpCoo, modCoo.u1Up) annotation (Line(points={{22,-12},{76,
+          -12},{76,12},{88,12}}, color={255,0,255}));
+  connect(modHea.y, hpSupLvg.nUniHea) annotation (Line(points={{112,40},{118,40},
+          {118,58},{-6,58},{-6,10},{-2,10}}, color={255,127,0}));
+  connect(modCoo.y, hpSupLvg.nUniCoo) annotation (Line(points={{112,10},{120,10},
+          {120,60},{-8,60},{-8,8},{-2,8}}, color={255,127,0}));
   annotation (Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     __Dymola_Commands(
       file=
