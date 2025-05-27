@@ -2,7 +2,8 @@ within Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Examples;
 model AntiFreeze "Example for usage of antifreeze model"
   extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
-  Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.AntiFreeze antFre
+  Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.AntiFreeze antFre(
+      onOffMea_start=false, ySet_small=hys.uHigh)
     "Safety control for antifreeze"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=50)
@@ -31,7 +32,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(ySetPul.y, antFre.ySet) annotation (Line(points={{-69,30},{-8,30},{-8,
-          11.6667},{-1.33333,11.6667}},
+          10},{-1.33333,10}},
                           color={0,0,127}));
   connect(TEvaOutEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-69,-50},{
           -50,-50}},                     color={0,0,127}), Text(
@@ -45,11 +46,11 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(hys.u, antFre.yOut) annotation (Line(points={{22,-50},{44,-50},{44,
-          11.6667},{20.8333,11.6667}},
+  connect(hys.u, antFre.yOut) annotation (Line(points={{22,-50},{44,-50},{44,10},
+          {20.8333,10}},
                     color={0,0,127}));
-  connect(antFre.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{44,
-          11.6667},{44,-40},{110,-40}},
+  connect(antFre.yOut, yOut) annotation (Line(points={{20.8333,10},{44,10},{44,
+          -40},{110,-40}},
                       color={0,0,127}));
   connect(ySetPul.y, ySet) annotation (Line(points={{-69,30},{-8,30},{-8,40},{110,
           40}},     color={0,0,127}));
