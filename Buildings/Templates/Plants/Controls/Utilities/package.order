@@ -10,6 +10,7 @@ PlaceholderInteger
 PlaceholderLogical
 PlaceholderReal
 StageIndex
+StageIndexWithStage0
 TimerWithReset
 TrueArrayConditional
 Validation

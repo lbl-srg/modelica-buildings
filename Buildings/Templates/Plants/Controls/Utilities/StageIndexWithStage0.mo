@@ -1,11 +1,7 @@
 within Buildings.Templates.Plants.Controls.Utilities;
-block StageIndex
-  "Evaluation of stage index from staging signals"
+block StageIndexWithStage0 "Evaluation of stage index from staging signals"
   parameter Boolean have_inpAva=true
     "Set to true if stage availability is provided with input signal, false for stages always available"
-    annotation (Evaluate=true);
-  parameter Boolean use_sta0=false
-    "Set to true to enable transitions to stage 0"
     annotation (Evaluate=true);
   parameter Integer nSta(
     start=1,
@@ -18,14 +14,9 @@ block StageIndex
     displayUnit="min")=0
     "Minimum runtime of each stage"
     annotation (Evaluate=true);
-  parameter Integer idxStaFir(
-    final min=0)=1
-    "Index of the first stage to be enabled when u1 is true"
-    annotation (Evaluate=true);
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Lea
-    "Lead unit enable signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1 "Enable signal"
     annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Up
     "Stage up command"
     annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
@@ -77,7 +68,7 @@ block StageIndex
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep2(
     final nout=nSta)
     "Replicate"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not notLea "True if lead unit is disabled"
     annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd upAndEna(
@@ -91,9 +82,9 @@ block StageIndex
   Buildings.Controls.OBC.CDL.Logical.Not una[nSta]
     "True if stage is not available"
     annotation (Placement(transformation(extent={{-190,-170},{-170,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.And runAndSta0[nSta]
-    "Runtime condition met AND request to transition to stage 0"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+  Buildings.Controls.OBC.CDL.Logical.And runAndEna[nSta]
+    "Runtime condition met AND condition to transition to stage 0"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractor staUna(
     final nin=nSta)
     "Return true if current stage is unavailable"
@@ -215,21 +206,15 @@ block StageIndex
     final integerFalse=0)
     "Cast to integer"
     annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold idxNexZer(final t=0)
-    if use_sta0 "True if index of next stage to be enabled is zero"
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold idxNexZer
+    "True if index of next stage to be enabled is zero"
     annotation (Placement(transformation(extent={{130,-110},{110,-90}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd dowAndEnaAndNex0(nin=3)
-    if use_sta0 "Stage down and lead unit enabled and next stage index is 0"
-    annotation (Placement(transformation(extent={{-190,10},{-170,30}})));
-  PlaceholderLogical phNoSta0(final have_inp=use_sta0, final u_internal=false)
-    "Placeholder signal if use_sta0 is false"
-    annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold idxNexZer1
-    "True if index of next stage to be enabled is zero"
-    annotation (Placement(transformation(extent={{220,-100},{200,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Or toSta0
-    "True if transition to stage 0 requested"
-    annotation (Placement(transformation(extent={{-108,30},{-88,50}})));
+    "Stage down and lead unit enabled and next stage index is 0"
+    annotation (Placement(transformation(extent={{-190,20},{-170,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Or disOrSta0
+    "System disabled or transition to stage 0 requested"
+    annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
 equation
   for i in 1:nSta loop
     for j in 1:nSta loop
@@ -250,10 +235,10 @@ equation
       color={0,0,0}));
   connect(sta0.outPort, sta0ToSta.inPort)
     annotation (Line(points={{-89.5,140},{-64,140}},color={0,0,0}));
-  connect(u1Lea, notLea.u)
-    annotation (Line(points={{-260,120},{-200,120},{-200,60},{-192,60}},color={255,0,255}));
-  connect(runAndSta0.y, staToSta0.condition)
-    annotation (Line(points={{22,40},{60,40},{60,148}}, color={255,0,255}));
+  connect(u1, notLea.u) annotation (Line(points={{-260,120},{-200,120},{-200,60},
+          {-192,60}}, color={255,0,255}));
+  connect(runAndEna.y, staToSta0.condition)
+    annotation (Line(points={{22,60},{60,60},{60,148}},color={255,0,255}));
   connect(sta.active, idxFirAct.u1)
     annotation (Line(points={{0,129},{0,100},{178,100}},color={255,0,255}));
   connect(maxInt.y, staUna.index)
@@ -293,13 +278,10 @@ equation
           -160},{-200,-80},{-192,-80}}, color={255,0,255}));
   connect(phAvaSta.y, idxFirAva.u1) annotation (Line(points={{-208,-160},{-200,
           -160},{-200,-120},{-192,-120}}, color={255,0,255}));
-  connect(u1Lea, upAndEna.u[1])
-    annotation (Line(points={{-260,120},{-200,120},{-200,-2.33333},{-112,-2.33333}},
-      color={255,0,255}));
-  connect(u1Lea, dowAndEna.u[1])
-    annotation (Line(points={{-260,120},{-200,120},{-200,-42.3333},{-112,
-          -42.3333}},
-      color={255,0,255}));
+  connect(u1, upAndEna.u[1]) annotation (Line(points={{-260,120},{-200,120},{-200,
+          -2.33333},{-112,-2.33333}}, color={255,0,255}));
+  connect(u1, dowAndEna.u[1]) annotation (Line(points={{-260,120},{-200,120},{
+          -200,-42.3333},{-112,-42.3333}}, color={255,0,255}));
   connect(u1Up, upAndEna.u[2])
     annotation (Line(points={{-260,0},{-186,0},{-186,0},{-112,0}},color={255,0,255}));
   connect(u1Dow, dowAndEna.u[2])
@@ -375,8 +357,6 @@ equation
     annotation (Line(points={{132,-180},{134,-180},{134,-186},{148,-186}},color={255,127,0}));
   connect(truNexHigAva.y1, sta0ToSta.condition)
     annotation (Line(points={{-128,120},{-60,120},{-60,128}},color={255,0,255}));
-  connect(u1Lea, booToInt.u)
-    annotation (Line(points={{-260,120},{-192,120}},color={255,0,255}));
   connect(booToInt.y, truNexHigAva.u)
     annotation (Line(points={{-168,120},{-152,120}},color={255,127,0}));
   connect(idxFirAva.y, truNexHigAva.uIdx[1])
@@ -388,10 +368,10 @@ equation
     annotation (Line(points={{22,0},{38,0}},color={255,0,255}));
   connect(upOrDowOrActUna.y, rep3.u)
     annotation (Line(points={{62,0},{68,0}},color={255,0,255}));
-  connect(rep2.y, runAndSta0.u1)
-    annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));
-  connect(pas.y, runAndSta0.u2) annotation (Line(points={{-18,80},{-12,80},{-12,
-          32},{-2,32}}, color={255,0,255}));
+  connect(rep2.y, runAndEna.u1)
+    annotation (Line(points={{-98,60},{-2,60}},color={255,0,255}));
+  connect(pas.y, runAndEna.u2)
+    annotation (Line(points={{-18,80},{-12,80},{-12,52},{-2,52}},color={255,0,255}));
   connect(idxFirAct.y, intScaRep.u)
     annotation (Line(points={{202,100},{220,100},{220,-220},{-60,-220},{-60,-200},{-52,-200}},
       color={255,127,0}));
@@ -399,20 +379,20 @@ equation
     annotation (Line(points={{-28,-200},{-24,-200},{-24,-168},{-12,-168}},color={255,127,0}));
   connect(idxNex.y, idxNexZer.u) annotation (Line(points={{132,-180},{134,-180},
           {134,-100},{132,-100}}, color={255,127,0}));
-  connect(u1Lea, dowAndEnaAndNex0.u[1]) annotation (Line(points={{-260,120},{
-          -200,120},{-200,17.6667},{-192,17.6667}}, color={255,0,255}));
+  connect(dowAndEnaAndNex0.y, disOrSta0.u2) annotation (Line(points={{-168,30},
+          {-156,30},{-156,52},{-152,52}}, color={255,0,255}));
+  connect(notLea.y, disOrSta0.u1)
+    annotation (Line(points={{-168,60},{-152,60}}, color={255,0,255}));
+  connect(disOrSta0.y, rep2.u)
+    annotation (Line(points={{-128,60},{-122,60}}, color={255,0,255}));
+  connect(u1, dowAndEnaAndNex0.u[1]) annotation (Line(points={{-260,120},{-200,
+          120},{-200,32},{-192,32},{-192,27.6667}}, color={255,0,255}));
   connect(u1Dow, dowAndEnaAndNex0.u[2]) annotation (Line(points={{-260,-40},{
-          -222,-40},{-222,20},{-192,20}}, color={255,0,255}));
+          -224,-40},{-224,30},{-192,30},{-192,30}}, color={255,0,255}));
   connect(idxNexZer.y, dowAndEnaAndNex0.u[3]) annotation (Line(points={{108,
-          -100},{-218,-100},{-218,22.3333},{-192,22.3333}}, color={255,0,255}));
-  connect(dowAndEnaAndNex0.y, phNoSta0.u)
-    annotation (Line(points={{-168,20},{-152,20}}, color={255,0,255}));
-  connect(phNoSta0.y, toSta0.u2) annotation (Line(points={{-128,20},{-120,20},{
-          -120,32},{-110,32}}, color={255,0,255}));
-  connect(notLea.y, toSta0.u1) annotation (Line(points={{-168,60},{-120,60},{
-          -120,40},{-110,40}}, color={255,0,255}));
-  connect(toSta0.y, rep2.u)
-    annotation (Line(points={{-86,40},{-42,40}}, color={255,0,255}));
+          -100},{-216,-100},{-216,32.3333},{-192,32.3333}}, color={255,0,255}));
+  connect(upAndEna.y, booToInt.u) annotation (Line(points={{-88,0},{-80,0},{-80,
+          16},{-196,16},{-196,120},{-192,120}}, color={255,0,255}));
   annotation (
     __cdl(
       extensionBlock=true),
@@ -510,4 +490,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end StageIndex;
+end StageIndexWithStage0;

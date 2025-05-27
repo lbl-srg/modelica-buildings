@@ -562,23 +562,19 @@ equation
           cat(1, {0}, PCooInt),
           PLRCooShcCyc)));
   // Evaluate stage up and down conditions
-  // max(nUni*, 0.1) guards against numeric residuals triggering stage up conditions.
-  y1UpShc = QHeaSet_flow > SPLR * max(nUniShc, 0.1) * max(QHeaShcInt_flow) and
-    QCooSet_flow < SPLR * max(nUniShc, 0.1) * min(QCooShcInt_flow) and
-    nUniShc + nUniHea + nUniCoo < nUni;
-  y1DowShc = QHeaSet_flow < SPLR * (nUniShc - 1) * max(QHeaShcInt_flow) and
-    QCooSet_flow > SPLR * (nUniShc - 1) * min(QCooShcInt_flow) and
-    nUniShc > 0;
-  y1UpHea = QHeaSetRes_flow > SPLR * max(nUniHea, 0.1) * max(QHeaInt_flow) and
-    not y1UpShc and
-    nUniShc + nUniHea + nUniCoo < nUni;
-  y1DowHea = QHeaSetRes_flow < SPLR * (nUniHea - 1) * max(QHeaInt_flow) and
-    nUniHea > 0;
-  y1UpCoo = QCooSetRes_flow < SPLR * max(nUniCoo, 0.1) * min(QCooInt_flow) and
-    not y1UpShc and not y1UpHea and
-    nUniShc + nUniHea + nUniCoo < nUni;
-  y1DowCoo = QCooSetRes_flow > SPLR * (nUniCoo - 1) * min(QCooInt_flow) and
-    nUniCoo > 0;
+  // deltaX * Q*_flow_nominal guards against numerical residuals influencing stage transitions.
+  y1UpShc = QHeaSet_flow > SPLR * nUniShc * max(QHeaShcInt_flow) + deltaX * QHeaShc_flow_nominal and
+    QCooSet_flow < SPLR * nUniShc * min(QCooShcInt_flow) + deltaX * QCooShc_flow_nominal or
+    QHeaSetRes_flow > 0.1 * QHeaShc_flow_nominal and nUniHea + nUniCoo + nUniShc == nUni or
+    QCooSetRes_flow < 0.1 * QCooShc_flow_nominal and nUniHea + nUniCoo + nUniShc == nUni;
+  y1DowShc = QHeaSet_flow <= SPLR * (nUniShc - 1) * max(QHeaShcInt_flow) + deltaX * QHeaShc_flow_nominal or
+    QCooSet_flow >= SPLR * (nUniShc - 1) * min(QCooShcInt_flow) + deltaX * QCooShc_flow_nominal;
+  y1UpHea = QHeaSetRes_flow > SPLR * nUniHea * max(QHeaInt_flow) + deltaX * QHea_flow_nominal
+    and not y1UpShc;
+  y1DowHea = QHeaSetRes_flow <= SPLR * (nUniHea - 1) * max(QHeaInt_flow) + deltaX * QHea_flow_nominal;
+  y1UpCoo = QCooSetRes_flow < SPLR * nUniCoo * min(QCooInt_flow) + deltaX * QCoo_flow_nominal
+    and not y1UpShc and not y1UpHea;
+  y1DowCoo = QCooSetRes_flow >= SPLR * (nUniCoo - 1) * min(QCooInt_flow) + deltaX * QCoo_flow_nominal;
   annotation (
     Documentation(
       info="<html>
