@@ -47,8 +47,7 @@ block PlantRequests
     annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
   parameter Real chiWatResReqLim2(
-    final unit="K",
-    final quantity="TemperatureDifference") = 2.78
+    final unit="K") = 2.78
     "Temperature difference limit between setpoint and supply air temperature above which two chilled water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
@@ -60,8 +59,7 @@ block PlantRequests
     annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
   parameter Real chiWatResReqLim3(
-    final unit="K",
-    final quantity="TemperatureDifference") = 5.56
+    final unit="K") = 5.56
     "Temperature difference limit between setpoint and supply air temperature above which three chilled water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
@@ -97,8 +95,7 @@ block PlantRequests
     annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqLim2(
-    final unit="K",
-    final quantity="TemperatureDifference") = 8
+    final unit="K") = 8
     "Temperature difference limit between setpoint and supply air temperature above which two hot water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
@@ -110,8 +107,7 @@ block PlantRequests
     annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqLim3(
-    final unit="K",
-    final quantity="TemperatureDifference") = 17
+    final unit="K") = 17
     "Temperature difference limit between setpoint and supply air temperature above which three hot water reset requests are sent"
     annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
@@ -123,8 +119,7 @@ block PlantRequests
     annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real THys(
-    final unit="K",
-    final quantity = "TemperatureDifference") = 0.1
+    final unit="K") = 0.1
     "Hysteresis for checking temperature difference"
     annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
@@ -352,143 +347,94 @@ protected
 equation
   connect(TAirSup, cooSupTemDif.u1) annotation (Line(points={{-220,200},{-180,200},
           {-180,206},{-142,206}}, color={0,0,127}));
-
   connect(TAirSupSet, cooSupTemDif.u2) annotation (Line(points={{-220,160},{-190,
           160},{-190,194},{-142,194}}, color={0,0,127}));
-
   connect(cooSupTemDif.y, greThr.u)
     annotation (Line(points={{-118,200},{-82,200}}, color={0,0,127}));
-
   connect(greThr.y, truDel.u)
     annotation (Line(points={{-58,200},{-42,200}}, color={255,0,255}));
-
   connect(greThr1.y, truDel1.u)
     annotation (Line(points={{-58,150},{-42,150}}, color={255,0,255}));
-
   connect(cooSupTemDif.y, greThr1.u) annotation (Line(points={{-118,200},{-100,200},
           {-100,150},{-82,150}}, color={0,0,127}));
-
   connect(uCooCoiSet, hys.u)
     annotation (Line(points={{-220,100},{-122,100}}, color={0,0,127}));
-
   connect(truDel.y, chiWatRes3.u2)
     annotation (Line(points={{-18,200},{158,200}}, color={255,0,255}));
-
   connect(thr.y, chiWatRes3.u1) annotation (Line(points={{22,232},{60,232},{60,208},
           {158,208}}, color={255,127,0}));
-
   connect(truDel1.y, chiWatRes2.u2)
     annotation (Line(points={{-18,150},{118,150}}, color={255,0,255}));
-
   connect(two.y, chiWatRes2.u1) annotation (Line(points={{22,180},{50,180},{50,158},
           {118,158}}, color={255,127,0}));
-
   connect(one.y, chiWatRes1.u1) annotation (Line(points={{22,120},{40,120},{40,108},
           {78,108}}, color={255,127,0}));
-
   connect(chiWatRes1.y, chiWatRes2.u3) annotation (Line(points={{102,100},{110,100},
           {110,142},{118,142}}, color={255,127,0}));
-
   connect(chiWatRes2.y, chiWatRes3.u3) annotation (Line(points={{142,150},{150,150},
           {150,192},{158,192}}, color={255,127,0}));
-
   connect(zer.y, chiWatRes1.u3) annotation (Line(points={{22,60},{30,60},{30,92},
           {78,92}}, color={255,127,0}));
-
   connect(one.y, intSwi3.u1) annotation (Line(points={{22,120},{40,120},{40,28},
           {78,28}}, color={255,127,0}));
-
   connect(zer.y, intSwi3.u3) annotation (Line(points={{22,60},{30,60},{30,12},{78,
           12}}, color={255,127,0}));
-
   connect(intSwi3.y, yChiPlaReq)
     annotation (Line(points={{102,20},{220,20}}, color={255,127,0}));
-
   connect(TAirSup, heaSupTemDif.u2) annotation (Line(points={{-220,200},{-180,200},
           {-180,-66},{-142,-66}}, color={0,0,127}));
-
   connect(greThr3.y, truDel2.u)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={255,0,255}));
-
   connect(greThr4.y, truDel3.u)
-    annotation (Line(points={{-58,-110},{-42,-110}},
-                                                   color={255,0,255}));
-
+    annotation (Line(points={{-58,-110},{-42,-110}}, color={255,0,255}));
   connect(heaSupTemDif.y, greThr3.u)
     annotation (Line(points={{-118,-60},{-82,-60}}, color={0,0,127}));
-
   connect(heaSupTemDif.y, greThr4.u) annotation (Line(points={{-118,-60},{-100,-60},
-          {-100,-110},{-82,-110}},
-                                 color={0,0,127}));
-
+          {-100,-110},{-82,-110}}, color={0,0,127}));
   connect(truDel2.y, hotWatRes3.u2)
     annotation (Line(points={{-18,-60},{138,-60}}, color={255,0,255}));
-
   connect(thr.y, hotWatRes3.u1) annotation (Line(points={{22,232},{60,232},{60,-52},
           {138,-52}}, color={255,127,0}));
-
   connect(hotWatRes2.y, hotWatRes3.u3) annotation (Line(points={{122,-110},{130,
-          -110},{130,-68},{138,-68}},
-                                color={255,127,0}));
-
+          -110},{130,-68},{138,-68}}, color={255,127,0}));
   connect(two.y, hotWatRes2.u1) annotation (Line(points={{22,180},{50,180},{50,-102},
           {98,-102}}, color={255,127,0}));
-
   connect(truDel3.y, hotWatRes2.u2)
     annotation (Line(points={{-18,-110},{98,-110}},color={255,0,255}));
-
   connect(one.y, hotWatRes1.u1) annotation (Line(points={{22,120},{40,120},{40,-132},
           {58,-132}}, color={255,127,0}));
-
   connect(zer.y, hotWatRes1.u3) annotation (Line(points={{22,60},{30,60},{30,-148},
           {58,-148}}, color={255,127,0}));
-
   connect(hotWatRes1.y, hotWatRes2.u3) annotation (Line(points={{82,-140},{90,-140},
-          {90,-118},{98,-118}},       color={255,127,0}));
-
+          {90,-118},{98,-118}}, color={255,127,0}));
   connect(one.y, intSwi1.u1) annotation (Line(points={{22,120},{40,120},{40,-212},
           {58,-212}}, color={255,127,0}));
-
   connect(zer.y, intSwi1.u3) annotation (Line(points={{22,60},{30,60},{30,-228},
           {58,-228}}, color={255,127,0}));
-
   connect(intSwi1.y, yHotWatPlaReq)
     annotation (Line(points={{82,-220},{220,-220}},  color={255,127,0}));
-
   connect(uFan, hysFanCoo.u)
     annotation (Line(points={{-220,240},{-132,240}}, color={0,0,127}));
-
   connect(hysFanCoo.y, booToIntCoo.u)
     annotation (Line(points={{-108,240},{-82,240}}, color={255,0,255}));
-
   connect(chiWatRes3.y, mulIntCoo.u2) annotation (Line(points={{182,200},{188,200},
           {188,220},{90,220},{90,234},{98,234}}, color={255,127,0}));
-
   connect(booToIntCoo.y, mulIntCoo.u1) annotation (Line(points={{-58,240},{-20,240},
           {-20,252},{60,252},{60,246},{98,246}}, color={255,127,0}));
-
   connect(mulIntCoo.y, yChiWatResReq) annotation (Line(points={{122,240},{220,240}},
-                                color={255,127,0}));
-
+          color={255,127,0}));
   connect(hotWatRes3.y, mulIntHea.u2) annotation (Line(points={{162,-60},{170,-60},
-          {170,-28},{152,-28},{152,-16},{158,-16}},
-                                                  color={255,127,0}));
-
+          {170,-28},{152,-28},{152,-16},{158,-16}}, color={255,127,0}));
   connect(hysFanHea.y, booToIntHea.u)
     annotation (Line(points={{-118,-10},{-92,-10}}, color={255,0,255}));
-
   connect(booToIntHea.y, mulIntHea.u1) annotation (Line(points={{-68,-10},{46,-10},
           {46,-4},{158,-4}},color={255,127,0}));
-
   connect(uFan, hysFanHea.u) annotation (Line(points={{-220,240},{-170,240},{
           -170,-10},{-142,-10}}, color={0,0,127}));
-
   connect(mulIntHea.y, yHotWatResReq) annotation (Line(points={{182,-10},{192,-10},
           {192,-40},{220,-40}},color={255,127,0}));
-
   connect(TAirSupSet, heaSupTemDif.u1) annotation (Line(points={{-220,160},{-190,
           160},{-190,-54},{-142,-54}}, color={0,0,127}));
-
   connect(hys.y, chiWatRes1.u2)
     annotation (Line(points={{-98,100},{78,100}}, color={255,0,255}));
   connect(uCooCoiSet, hys1.u) annotation (Line(points={{-220,100},{-140,100},{-140,

@@ -1,10 +1,10 @@
 within Buildings.UsersGuide.ReleaseNotes;
-class Version_12_0_1 "Version 12.0.1"
+class Version_12_1_0 "Version 12.1.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 12.0.1 is ... xxx
+Version 12.1.0 is ... xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -25,6 +25,13 @@ to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit
+    </td>
+    <td valign=\"top\">Control sequences for fan coil units.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
@@ -155,12 +162,14 @@ that can lead to wrong simulation results):
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4189\">#4189</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected unit error that led to wrong calculation of COP degradation due to frost building.
+                       Disabled the model unless air is used on the evaporator side.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1975/\">IBPSA, #1975</a>.
     </td>
 </tr>
 </table>
@@ -189,4 +198,4 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_12_0_1;
+end Version_12_1_0;
