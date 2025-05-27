@@ -94,6 +94,10 @@ initial equation
     "In " + getInstanceName() +": Wrong parameterization. Require TEvaCoo_nominal < TConCoo_nominal.
     Received TEvaCoo_nominal = " + String(TEvaCoo_nominal) + "
              TConCoo_nominal = " + String(TConCoo_nominal) + ".");
+  // If the chiller is also used for heating, then QHea_flow_nominal >> 0.
+  // Hence the first test is false and we require the correct entry of the temperatures.
+  // If it is not used for heating, then QHea_flow_nominal = 0, and the temperature entry
+  // won't be checked for correctness.
   assert(QHea_flow_nominal < 1E-6 or TConHea_nominal < TEvaHea_nominal,
     "In " + getInstanceName() +": Wrong parameterization. Require TConHea_nominal < TEvaHea_nominal.
     Received TConHea_nominal = " + String(TConHea_nominal) + "

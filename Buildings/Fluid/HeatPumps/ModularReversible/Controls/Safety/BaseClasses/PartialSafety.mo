@@ -1,5 +1,9 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 partial model PartialSafety "Safety control with I/O"
+  parameter Boolean onOffMea_start=true
+    "Start value for the on-off signal of the device, true for on";
+  parameter Real ySet_small = 0.1
+    "Threshold for relative speed for the device to be considered on";
   Modelica.Blocks.Interfaces.RealInput ySet
     "Input for relative compressor speed from 0 to 1"
     annotation (Placement(transformation(extent={{-152,-16},{-120,16}}),
@@ -56,6 +60,11 @@ partial model PartialSafety "Safety control with I/O"
           textString="%name")}),     Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
+    Introduce partial parameters used in all safety blocks (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2011\">IBPSA #2011</a>)
+  </li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
