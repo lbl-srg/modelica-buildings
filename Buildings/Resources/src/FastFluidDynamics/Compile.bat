@@ -3,10 +3,10 @@
 ::*******************************************************************
 ::Set the Output Directory, Compile Mode and MSbuild File Name
 ::*******************************************************************
-set DIR=..\..\Library\win64
+set DIR=..\..\Library\win32
 set MSbuildName=ffd
 set BuildConfiguration=Release
-set Platform=Win64
+set Platform=Win32
 ::Note: Two build mode, Debug or Release
 
 ::*******************************************************************
@@ -41,8 +41,11 @@ if exist "%DIR%\%MSbuildName%.lib" (
 ::Set Default Compiler Version and Toolset (edited by user)
 ::-------------------------------------------------------------------
 ::Note: Toolset: V100 for VC10.0, v110 for VC11.0
-set VCVersion=14.0
-set Toolset=v140
+::      Toolset: V160 for VC 2019
+::set VCVersion=14.0
+::set Toolset=v140
+set VCVersion=2019
+set Toolset=v142
 
 ::-------------------------------------------------------------------
 ::Call vcvarsall.bat (Not user editable)
@@ -62,10 +65,15 @@ if %Platform%==Win64 (
   set Conf_Platform=x64
   )
 
-if exist "%VCDIR% %VCVersion%\VC\vcvarsall.bat" (
-  call "%VCDIR% %VCVersion%\VC\vcvarsall.bat" %Conf%
+::if exist "%VCDIR% %VCVersion%\VC\vcvarsall.bat" (
+::  call "%VCDIR% %VCVersion%\VC\vcvarsall.bat" %Conf%
+::  goto MSbuildSetting
+::  )
+if exist "%VCDIR%\%VCVersion%\Community\VC\Auxiliary\Build\vcvarsall.bat" (
+  call "%VCDIR%\%VCVersion%\Community\VC\Auxiliary\Build\vcvarsall.bat" %Conf%
   goto MSbuildSetting
   )
+
 
 goto missing
 
@@ -191,11 +199,13 @@ msbuild %MSbuildName%.vcxproj /t:rebuild /p:PlatformToolset=%Toolset%;Configurat
 ::Copy ffd.dll to Output Directory
 ::*******************************************************************
 echo Copy %MSbuildName%.dll and %MSbuildName%.lib to %DIR%
-if %Platform%==Win32 (
+echo %Platform%
+pause
+if %Platform%==x86 (
   copy "%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
   copy "%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
   )
-if %Platform%==X64 (
+if %Platform%==x64 (
   copy "X64\%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
   copy "X64\%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
   )
@@ -205,10 +215,10 @@ if %Platform%==X64 (
 ::Clean Build Folder
 ::*******************************************************************
 echo Clean %BuildConfiguration% Build Folder
-if %Platform%==Win32 (
+if %Platform%==x86 (
   rmdir %BuildConfiguration% /s /q
   )
-if %Platform%==X64 (
+if %Platform%==x64 (
   rmdir X64 /s /q
   )
 goto :eof

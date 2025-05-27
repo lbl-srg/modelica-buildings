@@ -74,7 +74,6 @@ annotation (defaultComponentName="sta",
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
@@ -136,7 +135,7 @@ Revised implementation.
 <li>
 September 8, 2022, by Jianjun Hu:<br/>
 First implementation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">issue 3103</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">Buildings, issue 3103</a>.
 </li>
 </ul>
 </html>"));

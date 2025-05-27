@@ -97,7 +97,7 @@ Updated documentation.
 February 2, 2022, by Michael Wetter:<br/>
 Removed <code>unit=\"1\"</code> declaration for gain <code>k</code>.
 This is to avoid the warning observed in
-<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2872\">#2872</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2872\">Buildings, issue 2872</a>.
 </li>
 <li>
 October 21, 2021, by Michael Wetter:<br/>
@@ -108,14 +108,14 @@ August 3, 2020, by Jianjun:<br/>
 Fixed the input <code>y_reset_in</code>.
 <br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">Buildings, issue 2056</a>.
 </li>
 <li>
 April 21, 2020, by Michael Wetter:<br/>
 Removed parameter <code>initType</code>.
 <br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1887\">issue 1887</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1887\">Buildings, issue 1887</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

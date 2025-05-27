@@ -1,6 +1,6 @@
 # Modelica Buildings library
 
-[![Build Status](https://travis-ci.com/lbl-srg/modelica-buildings.svg?branch=master)](https://travis-ci.com/lbl-srg/modelica-buildings)
+[![Build Status](https://app.travis-ci.com/lbl-srg/modelica-buildings.svg?branch=master)](https://app.travis-ci.com/lbl-srg/modelica-buildings)
 
 This is the development site for the Modelica _Buildings_ library and its user guide.
 
@@ -29,7 +29,7 @@ The main project site is http://simulationresearch.lbl.gov/modelica.
 
 ## Current release
 
-Download [Buildings Library 11.0.0 (2024-04-09)](https://github.com/lbl-srg/modelica-buildings/releases/download/v11.0.0/Buildings-v11.0.0.zip)
+Download [Buildings Library 12.0.0 (2025-03-17)](https://github.com/lbl-srg/modelica-buildings/releases/download/v12.0.0/Buildings-v12.0.0.zip)
 
 ## License
 

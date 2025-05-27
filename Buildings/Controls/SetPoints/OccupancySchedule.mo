@@ -95,8 +95,6 @@ protected
   end getOutput;
 
 encapsulated function switchInteger "Switch two Integer arguments"
-  import Modelica;
-  extends Modelica.Icons.Function;
   input Integer x1 "First argument";
   input Integer x2 "Second argument";
   output Integer y1 "Output = x2";
@@ -107,8 +105,6 @@ algorithm
 end switchInteger;
 
 encapsulated function switchReal "Switch two Real arguments"
-  import Modelica;
-  extends Modelica.Icons.Function;
   input Real x1 "First argument";
   input Real x2 "Second argument";
   output Real y1 "Output = x2";
@@ -196,6 +192,12 @@ The period always starts at <i>t=0</i> seconds.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 March 25, 2021, by Michael Wetter:<br/>
 Integrated changes from Buildings for

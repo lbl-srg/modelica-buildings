@@ -20,15 +20,17 @@ function der_temperature_u
     each unit="kg.K2/J")
     "Derivatives dT/du at the support points";
 protected
-  parameter Real scale=0.999 "Used to place points on the phase transition";
-  Modelica.Units.SI.Temperature Tm1=TSol + (1 - scale)*(TLiq - TSol)
+  constant Real scale=0.999 "Used to place points on the phase transition";
+  Modelica.Units.SI.Temperature Tm1
     "Support point";
-  Modelica.Units.SI.Temperature Tm2=TSol + scale*(TLiq - TSol)
+  Modelica.Units.SI.Temperature Tm2
     "Support point";
 algorithm
   assert(Buildings.HeatTransfer.Conduction.nSupPCM == 6,
     "The material must have exactly 6 support points for the u(T) relation.");
   assert(TLiq > TSol, "TLiq has to be larger than TSol.");
+  Tm1:=TSol + (1 - scale)*(TLiq - TSol);
+  Tm2:=TSol + scale*(TLiq - TSol);
   // Get the derivative values at the support points
   ud:={c*scale*TSol,
        c*TSol,
@@ -60,6 +62,12 @@ to compute for a given specific internal energy the temperature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2025, by Michael Wetter:<br/>
+Reformulated model to avoid warning about binding equation not being a parameter expression.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4215\">#4215</a>.
+</li>
 <li>
 August 30, 2024, by Michael Wetter:<br/>
 Removed wrong <code>parameter</code> declaration on a protected variable which causes an error in

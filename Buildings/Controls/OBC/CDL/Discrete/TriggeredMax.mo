@@ -31,7 +31,6 @@ equation
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={223,211,169},
-          lineThickness=5.0,
           borderPattern=BorderPattern.Raised,
           fillPattern=FillPattern.Solid),
         Text(
@@ -98,7 +97,7 @@ September 14, 2017, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code> and <code>sampleTime</code>
 as these are not needed for this block, and introduced parameter
 <code>y_start=0</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">issue 938</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">Buildings, issue 938</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

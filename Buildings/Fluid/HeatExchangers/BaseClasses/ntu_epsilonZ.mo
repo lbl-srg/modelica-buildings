@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function ntu_epsilonZ
   "Computes number of transfer units for given heat exchanger effectiveness and heat exchanger flow regime"
-  import f = Buildings.Fluid.Types.HeatExchangerFlowRegime;
   input Real eps(min=0, max=0.999) "Heat exchanger effectiveness";
   input Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
   input Integer flowRegime
@@ -27,7 +26,7 @@ protected
   end epsilon_ntuZ_crossFlowUnmixed;
 
 algorithm
-  if (flowRegime == Integer(f.ParallelFlow)) then // parallel flow
+  if (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow)) then // parallel flow
     a := Z+1;
     assert(eps < 1/a,
       "Invalid input data. eps > 1/(1+Z) is physically not possible for parallel flow.
@@ -35,7 +34,7 @@ algorithm
              Z = " + String(Z) + "
        1/(Z+1) = " + String(1/a));
     NTU := -(Modelica.Math.log(1-eps*a))/(a);
-  elseif (flowRegime == Integer(f.CounterFlow)) then// counter flow
+  elseif (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow)) then// counter flow
    // a is constraining Z since eps is not defined for Z=1.
     a := smooth(1, if Z < 0.97 then Z else
       Buildings.Utilities.Math.Functions.smoothMin(
@@ -44,7 +43,7 @@ algorithm
       deltaX=0.01));
     NTU := Modelica.Math.log((1-eps)/(1-eps*a)) / (a-1);
 
-  elseif (flowRegime == Integer(f.CrossFlowUnmixed)) then
+  elseif (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed)) then
     a := 0;
     // The function Internal.solve evaluates epsilon_ntuZ at NTU=x_min-1e-10 and NTU=x_max+1e-10
     // when it solves iteratively epsilon_ntuZ for ntu
@@ -53,7 +52,7 @@ algorithm
       f=function epsilon_ntuZ_crossFlowUnmixed(eps=eps, Z=Z),
       u_min=1.5*1e-10,
       u_max=1e6);
-  elseif (flowRegime == Integer(f.CrossFlowCMinUnmixedCMaxMixed)) then
+  elseif (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed)) then
     // cross flow, (single pass), CMax mixed, CMin unmixed. (Coil with one row.)
    a := smooth(1, if Z > 0.03 then Z else
       Buildings.Utilities.Math.Functions.smoothMin(
@@ -61,7 +60,7 @@ algorithm
       x2=Z,
       deltaX=0.01));
     NTU := -Modelica.Math.log(1+(Modelica.Math.log(1-eps*a)/a));
-  elseif (flowRegime == Integer(f.CrossFlowCMinMixedCMaxUnmixed)) then
+  elseif (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed)) then
     // cross flow, (single pass), CMin mixed, CMax unmixed.
    a := smooth(1, if Z > 0.03 then Z else
       Buildings.Utilities.Math.Functions.smoothMin(
@@ -69,7 +68,7 @@ algorithm
       x2=Z,
       deltaX=0.01));
     NTU := -Modelica.Math.log(1+Z*Modelica.Math.log(1-eps))/Z;
-  elseif (flowRegime == Integer(f.ConstantTemperaturePhaseChange)) then
+  elseif (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)) then
     // one side is experiencing constant temperature phase change
     // Z is unused
     a := 0;
@@ -77,8 +76,8 @@ algorithm
   else
     a := 0;
     NTU := 0;
-    assert(Integer(f.ParallelFlow) <= flowRegime and
-           flowRegime <= Integer(f.ConstantTemperaturePhaseChange),
+    assert(Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow) <= flowRegime and
+           flowRegime <= Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange),
            "Flow regime is not implemented.");
   end if;
 
@@ -101,6 +100,12 @@ This is handled internally and not exposed to the global solver.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 February 28, 2020, by Michael Wetter:<br/>
 Replaced call to <code>Media.Common.OneNonLinearEquation</code> to use
