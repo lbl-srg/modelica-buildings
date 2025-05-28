@@ -51,15 +51,6 @@ Also, many models have been updated to improve performance, to improve complianc
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
-    </td>
-    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Geothermal.ZonedBorefields
     </td>
     <td valign=\"top\">Package with models for borefields in which individual groups of boreholes can be operated
