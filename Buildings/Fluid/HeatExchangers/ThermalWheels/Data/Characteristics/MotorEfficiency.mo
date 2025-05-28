@@ -9,19 +9,19 @@ record MotorEfficiency
     "Wheel speed ratio";
   parameter Modelica.Units.SI.Efficiency eta[size(uSpe, 1)](
     each final max=1)
-    "Wheel motor efficiency at a given speed ratio";
+    "Wheel motor percent full-load efficiency at a given speed ratio";
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",
   Documentation(info="<html>
 <p>
 This model describes wheel speed ratio <code>uSpe</code> versus
-the motor percent full-load efficiency (see
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>).
-It is based on
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot</a>.
+the motor percent full-load efficiency <code>eta</code>, i.e., the ratio of the 
+motor efficiency to that when the uSpe is 1.
+The elements of the vector <code>uSpe</code> should be in ascending order,
+i.e.,<code>uSpe[i] &lt; uSpe[i+1]</code>.
+Both vectors, <code>uSpe</code> and <code>eta</code>
+must have the same size.
 </p>
 </html>",
 revisions="<html>
