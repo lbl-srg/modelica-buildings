@@ -54,17 +54,16 @@ record Generic "Generic data record for thermal wheels"
     "Multiplication factor for latent heat exchange effectiveness due to wheel speed ratio between 0 and 1"
     annotation (Dialog(group="Heat exchange effectiveness computation",
                        enable=have_latHEX and have_varSpe));
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.MotorEfficiency motorEfficiency(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.MotorEfficiency relMotEff(
     uSpe={0},
     eta={0.7})
-    "Motor percent full-load versus wheel speed ratio"
-    annotation (Dialog(group="Power computation",
-    enable=have_varSpe));
+    "Ratio of the motor efficiency at give speed to the one when the speed is 1"
+    annotation (Dialog(group="Power computation", enable=have_varSpe));
   final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
-    motorEfficiency_default=Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
+    relMotEff_default=Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
       P_nominal=P_nominal,
       eta_max=1)
-    "Default motor percent full-load efficiency versus wheel speed ratio"
+    "Default relative motor efficiency"
     annotation (Dialog(group="Power computation"));
 
   annotation (

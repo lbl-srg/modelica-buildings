@@ -40,8 +40,7 @@ equation
   connect(speCor.epsLatCor, mulLat.u1) annotation (Line(points={{-98,112},{-80,
           112},{-80,106},{-42,106}}, color={0,0,127}));
   connect(effCal.epsSen, mulSen.u2) annotation (Line(points={{-78,5},{-70,5},{
-          -70,134},{-42,134}},
-                           color={0,0,127}));
+          -70,134},{-42,134}}, color={0,0,127}));
   connect(effCal.epsLat, mulLat.u2) annotation (Line(points={{-78,-5},{-60,-5},
           {-60,94},{-42,94}}, color={0,0,127}));
   connect(mulSen.y, hex.epsSen)

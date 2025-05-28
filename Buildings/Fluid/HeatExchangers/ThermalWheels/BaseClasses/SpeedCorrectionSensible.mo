@@ -3,11 +3,11 @@ model SpeedCorrectionSensible "Sensible heat wheels"
   extends Modelica.Blocks.Icons.Block;
 
   final parameter Real xSpe[:] = if per.use_defaultMotorEfficiencyCurve
-    then per.motorEfficiency_default.y else per.motorEfficiency.uSpe
+    then per.relMotEff_default.y else per.relMotEff.uSpe
     "x-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
   final parameter Real[size(xSpe,1)] yEta = if per.use_defaultMotorEfficiencyCurve
-    then per.motorEfficiency_default.eta else per.motorEfficiency.eta
+    then per.relMotEff_default.eta else per.relMotEff.eta
     "y-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per
@@ -26,7 +26,7 @@ model SpeedCorrectionSensible "Sensible heat wheels"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSenCor(final unit="1")
     "Sensible heat exchanger effectiveness correction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Integer nSpe = size(yEta,1)

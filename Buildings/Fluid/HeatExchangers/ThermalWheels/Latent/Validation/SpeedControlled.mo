@@ -8,7 +8,7 @@ model SpeedControlled
     per(
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
+    relMotEff(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
     have_latHEX=true,
     use_defaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"

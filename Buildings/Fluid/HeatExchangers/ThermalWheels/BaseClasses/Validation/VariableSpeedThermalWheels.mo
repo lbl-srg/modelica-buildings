@@ -5,7 +5,7 @@ model VariableSpeedThermalWheels
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perSenWhe(
     mSup_flow_nominal=1,
     mExh_flow_nominal=1,
-    motorEfficiency(uSpe={0.1,0.6,0.8,1},
+    relMotEff(uSpe={0.1,0.6,0.8,1},
     eta={0.3,0.8,0.85,1}),
     have_latHEX=false,
     use_defaultMotorEfficiencyCurve=false)
@@ -14,7 +14,7 @@ model VariableSpeedThermalWheels
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWhe(
     mSup_flow_nominal=1,
     mExh_flow_nominal=1,
-    motorEfficiency(uSpe={0.1,0.6,0.8,1},
+    relMotEff(uSpe={0.1,0.6,0.8,1},
     eta={0.3,0.8,0.85,1}),
     have_latHEX=true,
     use_defaultMotorEfficiencyCurve=false)
