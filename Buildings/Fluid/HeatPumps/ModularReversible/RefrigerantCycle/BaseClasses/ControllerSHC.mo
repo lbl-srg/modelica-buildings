@@ -297,8 +297,6 @@ equation
           -108},{132,-108}}, color={255,127,0}));
   connect(avaShc.y, nShc.u1AvaSta) annotation (Line(points={{108,-100},{44,-100},
           {44,-86},{48,-86}}, color={255,0,255}));
-  connect(y1UpHeaTim.passed, nHea.u1Up) annotation (Line(points={{-148,66},{40,
-          66},{40,82},{46,82}}, color={255,0,255}));
   connect(offOrDisHeaAndShc.y, enaLeaHea.clr) annotation (Line(points={{-8,160},
           {4,160},{4,74},{8,74}}, color={255,0,255}));
   connect(offOrDisCooAndShc.y, enaLeaCoo.clr) annotation (Line(points={{-8,130},
@@ -345,6 +343,8 @@ equation
           -20,0},{8,0}}, color={255,0,255}));
   connect(y1UpHea, enaLeaHea.u) annotation (Line(points={{-200,60},{-20,60},{
           -20,80},{8,80}}, color={255,0,255}));
+  connect(y1UpHeaTim.passed, nHea.u1Up) annotation (Line(points={{-148,66},{40,
+          66},{40,82},{46,82}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

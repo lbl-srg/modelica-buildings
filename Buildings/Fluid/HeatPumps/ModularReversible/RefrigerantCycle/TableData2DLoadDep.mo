@@ -241,7 +241,7 @@ This model serves as a wrapper class to integrate the block
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>
 into heat pump models.
 For a complete description of all modeling assumptions, 
-please refer to the documentation of this block.
+please refer to the documentation of this latter block.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-120},{140,120}})));

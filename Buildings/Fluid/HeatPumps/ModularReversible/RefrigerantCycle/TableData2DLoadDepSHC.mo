@@ -133,11 +133,11 @@ equation
   connect(onAndHeaOrShc.y, calQUseP.onHea) annotation (Line(points={{32,80},{38,
           80},{38,54},{88,54}}, color={255,0,255}));
   connect(sigBus.THwSet, calQUseP.THwSet) annotation (Line(
-      points={{1,120},{40,120},{40,50},{88,50}},
+      points={{1,120},{40,120},{40,48},{88,48}},
       color={255,204,51},
       thickness=0.5));
   connect(sigBus.TChwSet, calQUseP.TChwSet) annotation (Line(
-      points={{1,120},{40,120},{40,48},{88,48}},
+      points={{1,120},{40,120},{40,46},{88,46}},
       color={255,204,51},
       thickness=0.5));
   connect(sigBus.TAmbInMea, calQUseP.TAmbEnt) annotation (Line(
@@ -252,12 +252,12 @@ First implementation.
 </html>", info="<html>
 <p>
 This model serves as a wrapper class to integrate the block
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>
 into heat pump models.
 For a complete description of all modeling assumptions, 
-please refer to the documentation of this block.
+please refer to the documentation of this latter block.
 </p>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-120},{140,120}})));
+    Diagram(coordinateSystem(extent={{-140,-120},{140,120}}, grid={2,2})));
 end TableData2DLoadDepSHC;

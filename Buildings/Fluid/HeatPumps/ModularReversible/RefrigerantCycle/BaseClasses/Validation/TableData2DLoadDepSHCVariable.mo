@@ -156,6 +156,8 @@ model TableData2DLoadDepSHCVariable
     y(final unit="K", displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1UpHeaHol(trueHoldDuration=
+        1) annotation (Placement(transformation(extent={{110,10},{130,30}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{-20,
           -18},{-2,-18}}, color={0,0,127}));
@@ -219,14 +221,18 @@ equation
           {68,-42},{92,-42},{92,-68}}, color={255,0,255}));
   connect(TChiWatSet.y[1], hpSupLvg.TChwSet) annotation (Line(points={{-98,80},
           {-26,80},{-26,2},{-2,2}}, color={0,0,127}));
+  connect(controllerSHC.y1UpHea, y1UpHeaHol.u) annotation (Line(points={{68,-8},
+          {90,-8},{90,20},{108,20}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-180,-120},{180,120}}, grid={2,2})),
     __Dymola_Commands(
       file=
         "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/TableData2DLoadDepSHCVariable.mos"
         "Simulate and plot"),
     experiment(
-      Tolerance=1e-6,
-      StopTime=100.0),
+      StopTime=150,
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
 This model validates the load calculation and staging logic of the block

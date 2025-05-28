@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 block TableData2DLoadDepSHC
   "Modeling block for simultaneous heating and cooling systems based on load-dependent 2D table data"
-  parameter Integer nUni(final min=1) = 1
+  parameter Integer nUni(min=1)=1
     "Number of modules";
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
@@ -12,11 +12,11 @@ block TableData2DLoadDepSHC
     "=true to use HW temperature at outlet for table data, false for inlet";
   parameter Boolean use_TAmbOutForTab
     "=true to use ambient fluid temperature at outlet for table data, false for inlet";
-  parameter Modelica.Units.SI.DimensionlessRatio PLRHeaSup[:](each min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRHeaSup[:](min=0)
     "PLR values at which heat flow rate and power data are provided - Heating mode";
-  parameter Modelica.Units.SI.DimensionlessRatio PLRCooSup[:](each min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRCooSup[:](min=0)
     "PLR values at which heat flow rate and power data are provided - Cooling mode";
-  parameter Modelica.Units.SI.DimensionlessRatio PLRShcSup[:](each min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRShcSup[:](min=0)
     "PLR values at which heat flow rate and power data are provided - SHC mode";
   final parameter Modelica.Units.SI.DimensionlessRatio PLRHeaCyc_min=min(PLRHeaSup)
     "Minimum PLR before cycling off the last compressor - Heating mode";
@@ -96,66 +96,72 @@ block TableData2DLoadDepSHC
     "Ambient side fluid temperature — Entering or leaving depending on use_TAmbOutForTab"
     annotation (Dialog(group="Nominal condition - Heating mode"));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal
-    "Heating heat flow rate"
+    "Heating heat flow rate - All modules"
     annotation (Dialog(group="Nominal condition - Heating mode"));
   parameter Modelica.Units.SI.Temperature TAmbCoo_nominal
     "Ambient side fluid temperature — Entering or leaving depending on use_TAmbOutForTab"
     annotation (Dialog(group="Nominal condition - Cooling mode"));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal
-    "Cooling heat flow rate"
+    "Cooling heat flow rate - All modules"
     annotation (Dialog(group="Nominal condition - Cooling mode"));
   parameter Modelica.Units.SI.HeatFlowRate QHeaShc_flow_nominal
-    "Heating heat flow rate"
+    "Heating heat flow rate - All modules"
     annotation (Dialog(group="Nominal condition - SHC mode"));
   parameter Modelica.Units.SI.HeatFlowRate QCooShc_flow_nominal
-    "Cooling heat flow rate"
+    "Cooling heat flow rate - All modules"
     annotation (Dialog(group="Nominal condition - SHC mode"));
-  parameter Real SPLR(final min=0, final max=1) = 0.9
+  parameter Real SPLR(
+    max=1,
+    min=0)=0.9
     "Staging part load ratio"
     annotation (Dialog(tab="Advanced"));
   // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
   // Binding equations yield incorrect results but no error!
   final parameter Modelica.Units.SI.Power PHeaInt_nominal[nPLRHea](each fixed=false)
-    "Power interpolated at nominal conditions, at each PLR - Heating mode";
+    "Power interpolated at nominal conditions, at each PLR - Heating mode, single module";
   final parameter Modelica.Units.SI.HeatFlowRate QHeaInt_flow_nominal[nPLRHea](each fixed=false)
-    "Heat flow rate interpolated at nominal conditions, at each PLR - Heating mode";
+    "Heat flow rate interpolated at nominal conditions, at each PLR - Heating mode, single module";
   final parameter Modelica.Units.SI.Power PHeaInt1_nominal=
     Modelica.Math.Vectors.interpolate(PLRHeaSor, PHeaInt_nominal, 1)
-    "Power interpolated at nominal conditions, at PLR=1 - Heating mode";
+    "Power interpolated at nominal conditions, at PLR=1 - Heating mode, single module";
   final parameter Modelica.Units.SI.HeatFlowRate QHeaInt1_flow_nominal=
     Modelica.Math.Vectors.interpolate(PLRHeaSor, QHeaInt_flow_nominal, 1)
-    "Heat flow rate interpolated at nominal conditions, at PLR=1 - Heating mode";
+    "Heat flow rate interpolated at nominal conditions, at PLR=1 - Heating mode, single module";
   final parameter Modelica.Units.SI.Power PCooInt_nominal[nPLRCoo](each fixed=false)
-    "Power interpolated at nominal conditions, at each PLR - Cooling mode";
+    "Power interpolated at nominal conditions, at each PLR - Cooling mode, single module";
   final parameter Modelica.Units.SI.HeatFlowRate QCooInt_flow_nominal[nPLRCoo](each fixed=false)
-    "Heat flow rate interpolated at nominal conditions, at each PLR - Cooling mode";
+    "Heat flow rate interpolated at nominal conditions, at each PLR - Cooling mode, single module";
   final parameter Modelica.Units.SI.Power PCooInt1_nominal=
     Modelica.Math.Vectors.interpolate(PLRCooSor, PCooInt_nominal, 1)
-    "Power interpolated at nominal conditions, at PLR=1 - Cooling mode";
+    "Power interpolated at nominal conditions, at PLR=1 - Cooling mode, single module";
   final parameter Modelica.Units.SI.HeatFlowRate QCooInt1_flow_nominal=
     Modelica.Math.Vectors.interpolate(PLRCooSor, QCooInt_flow_nominal, 1)
-    "Heat flow rate interpolated at nominal conditions, at PLR=1 - Cooling mode";
+    "Heat flow rate interpolated at nominal conditions, at PLR=1 - Cooling mode, single module";
   final parameter Modelica.Units.SI.Power PShcInt_nominal[nPLRShc](each fixed=false)
-    "Power interpolated at nominal conditions, at each PLR - SHC mode";
+    "Power interpolated at nominal conditions, at each PLR - SHC mode, single module";
   final parameter Modelica.Units.SI.HeatFlowRate QCooShcInt_flow_nominal[nPLRShc](each fixed=false)
-    "Cooling heat flow rate interpolated at nominal conditions, at each PLR - SHC mode";
+    "Cooling heat flow rate interpolated at nominal conditions, at each PLR - SHC mode, single module";
   final parameter Modelica.Units.SI.Power PShcInt1_nominal=
     Modelica.Math.Vectors.interpolate(PLRShcSor, PShcInt_nominal, 1)
-    "Power interpolated at nominal conditions, at PLR=1 - SHC mode";
+    "Power interpolated at nominal conditions, at PLR=1 - SHC mode, single module";
   final parameter Modelica.Units.SI.HeatFlowRate QCooShcInt1_flow_nominal=
     Modelica.Math.Vectors.interpolate(PLRShcSor, QCooShcInt_flow_nominal, 1)
-    "Cooling heat flow rate interpolated at nominal conditions, at PLR=1 - SHC mode";
+    "Cooling heat flow rate interpolated at nominal conditions, at PLR=1 - SHC mode, single module";
   final parameter Modelica.Units.SI.HeatFlowRate QHeaShcInt1_flow_nominal=
     PShcInt1_nominal - QCooShcInt1_flow_nominal
-    "Heating heat flow rate at nominal conditions, at PLR=1 - SHC mode";
+    "Heating heat flow rate at nominal conditions, at PLR=1 - SHC mode, single module";
 
-  final parameter Real scaFacHea(unit="1")=QHea_flow_nominal / QHeaInt1_flow_nominal
+  final parameter Real scaFacHea(unit="1")=QHea_flow_nominal /
+    (nUni * QHeaInt1_flow_nominal)
     "Scaling factor for interpolated heat flow rate and power - Heating mode";
-  final parameter Real scaFacCoo(unit="1")=QCoo_flow_nominal / QCooInt1_flow_nominal
+  final parameter Real scaFacCoo(unit="1")=QCoo_flow_nominal /
+    (nUni * QCooInt1_flow_nominal)
     "Scaling factor for interpolated heat flow rate and power - Cooling mode";
-  final parameter Real scaFacCooShc(unit="1")=QCooShc_flow_nominal / QCooShcInt1_flow_nominal
+  final parameter Real scaFacCooShc(unit="1")=QCooShc_flow_nominal /
+    (nUni * QCooShcInt1_flow_nominal)
     "Scaling factor for interpolated cooling heat flow rate and power - SHC mode";
-  final parameter Real scaFacHeaShc(unit="1")=QHeaShc_flow_nominal / QHeaShcInt1_flow_nominal
+  final parameter Real scaFacHeaShc(unit="1")=QHeaShc_flow_nominal /
+    (nUni * QHeaShcInt1_flow_nominal)
     "Scaling factor for interpolated heating heat flow rate - SHC mode";
 
   final parameter Modelica.Units.SI.Power P_nominal = max({
@@ -445,7 +451,7 @@ equation
   QHeaShcInt_flow=scaFacHeaShc * (PShcInt .- QCooShcInt_flow) / scaFacCooShc;
   if nUniShc > 0 then
     // Compute PLR for modules in SHC mode
-    PLRShc = min(PLRShc_max, max(
+    PLRShc = max(0, min(PLRShc_max, max(
       Modelica.Math.Vectors.interpolate(
         cat(1, {0}, QHeaShcInt_flow),
         cat(1, {0}, PLRShcSor),
@@ -453,9 +459,8 @@ equation
       Modelica.Math.Vectors.interpolate(
         abs(cat(1, {0}, QCooShcInt_flow)),
         cat(1, {0}, PLRShcSor),
-        abs(QCooSet_flow / (nUniShc + nUniCoo)))));
-    // Compute heating and cooling output of all modules running in SHC mode,
-    // without single-mode cycling
+        abs(QCooSet_flow / (nUniShc + nUniCoo))))));
+    // Compute thermal output of all SHC modules without single-mode cycling
     QHeaShcNoCyc_flow = nUniShc * Modelica.Math.Vectors.interpolate(
       cat(1, {0}, PLRShcSor),
       cat(1, {0}, QHeaShcInt_flow),
@@ -465,7 +470,7 @@ equation
       cat(1, {0}, QCooShcInt_flow),
       PLRShc);
     // Compute SHC cycling ratio required to balance heating and cooling loads
-    // ratCycShc=1 means perfect balance (no cycling): module continuously runs in SHC.
+    // ratCycShc=1 means perfect balance (no cycling): modules continuously run in SHC.
     ratCycShc = min(
       QHeaSet_flow / (nUniShc + nUniHea) * nUniShc *
         Buildings.Utilities.Math.Functions.inverseXRegularized(
@@ -475,15 +480,16 @@ equation
           QCooShcNoCyc_flow, deltaX * abs(QCooShc_flow_nominal)));
     QHeaShc_flow = ratCycShc * QHeaShcNoCyc_flow;
     QCooShc_flow = ratCycShc * QCooShcNoCyc_flow;
+    // Compute PLR and thermal output of all SHC modules cycling into single-mode
     PLRHeaShcCyc = max(0, min(PLRHea_max, Modelica.Math.Vectors.interpolate(
       cat(1, {0}, QHeaInt_flow),
       cat(1, {0}, PLRHeaSor),
-      (QHeaSet_flow / (nUniShc + nUniHea) * nUniShc - QHeaShc_flow) *
+      (QHeaSet_flow / (nUniShc + nUniHea) - QHeaShc_flow / nUniShc) *
         Buildings.Utilities.Math.Functions.inverseXRegularized(1 - ratCycShc, deltaX))));
     PLRCooShcCyc = max(0, min(PLRCoo_max, Modelica.Math.Vectors.interpolate(
       abs(cat(1, {0}, QCooInt_flow)),
       cat(1, {0}, PLRCooSor),
-      abs(QCooSet_flow / (nUniShc + nUniCoo) * nUniShc - QCooShc_flow) *
+      abs(QCooSet_flow / (nUniShc + nUniCoo) - QCooShc_flow / nUniShc) *
         Buildings.Utilities.Math.Functions.inverseXRegularized(1 - ratCycShc, deltaX))));
     QHeaShcCyc_flow = nUniShc * (1 - ratCycShc) * Modelica.Math.Vectors.interpolate(
       cat(1, {0}, PLRHeaSor),
@@ -505,7 +511,7 @@ equation
     QHeaShcCyc_flow = 0;
     QCooShcCyc_flow = 0;
   end if;
-  // Compute residual loads and number of units running in heating or cooling mode
+  // Compute residual loads and PLR of single-mode modules
   QHeaSetRes_flow = QHeaSet_flow - (QHeaShc_flow + QHeaShcCyc_flow);
   QCooSetRes_flow = QCooSet_flow - (QCooShc_flow + QCooShcCyc_flow);
   if nUniHea > 0 then
@@ -562,11 +568,12 @@ equation
           cat(1, {0}, PCooInt),
           PLRCooShcCyc)));
   // Evaluate stage up and down conditions
-  // deltaX * Q*_flow_nominal guards against numerical residuals influencing stage transitions.
+  // (deltaX guards against numerical residuals influencing stage transitions)
   y1UpShc = QHeaSet_flow > SPLR * nUniShc * max(QHeaShcInt_flow) + deltaX * QHeaShc_flow_nominal and
     QCooSet_flow < SPLR * nUniShc * min(QCooShcInt_flow) + deltaX * QCooShc_flow_nominal or
-    QHeaSetRes_flow > 0.1 * QHeaShc_flow_nominal and nUniHea + nUniCoo + nUniShc == nUni or
-    QCooSetRes_flow < 0.1 * QCooShc_flow_nominal and nUniHea + nUniCoo + nUniShc == nUni;
+    nUniHea + nUniCoo + nUniShc == nUni and (
+    QHeaSet_flow > QHea_flow + 0.1 * QHeaShc_flow_nominal or
+    QCooSetRes_flow < QCoo_flow + 0.1 * QCooShc_flow_nominal);
   y1DowShc = QHeaSet_flow <= SPLR * (nUniShc - 1) * max(QHeaShcInt_flow) + deltaX * QHeaShc_flow_nominal or
     QCooSet_flow >= SPLR * (nUniShc - 1) * min(QCooShcInt_flow) + deltaX * QCooShc_flow_nominal;
   y1UpHea = QHeaSetRes_flow > SPLR * nUniHea * max(QHeaInt_flow) + deltaX * QHea_flow_nominal
