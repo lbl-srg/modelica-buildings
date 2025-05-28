@@ -59,6 +59,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible.Modular
+    </td>
+    <td valign=\"top\">Added assertion to avoid wrong parameter definition for reference temperatures in reverse operation mode.
+                       Improved parameter documentation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #2013</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
@@ -69,6 +79,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1976\">IBPSA, #1976</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.Modular
+    </td>
+    <td valign=\"top\">Added assertion to avoid wrong parameter definition for reference temperatures in reverse operation mode.
+                       Improved parameter documentation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #2013</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -145,6 +166,16 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">IBPSA.Fluid.Chillers.ModularReversible.Controls.Safety
+    </td>
+    <td valign=\"top\">Corrected error that lead to the equipment safety counter to be increased, for example
+                      due to minimum flow rate, even if the compressor signal <code>ySet</code> is zero.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2011/\">IBPSA, #2011</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchanger</b>
     </td>
 </tr>
@@ -156,6 +187,13 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety
+    </td>
+    <td valign=\"top\">Corrected error that lead to the equipment safety counter to be increased, for example
+                      due to minimum flow rate, even if the compressor signal <code>ySet</code> is zero.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2011/\">IBPSA, #2011</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting
