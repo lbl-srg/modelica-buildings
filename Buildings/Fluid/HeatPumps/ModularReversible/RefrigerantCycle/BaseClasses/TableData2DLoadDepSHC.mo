@@ -243,8 +243,8 @@ block TableData2DLoadDepSHC
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W")
     "Input power"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{100,80},{140,120}}),
+      iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
     final unit="J/s")
     "Heating heat flow rate"
@@ -254,7 +254,7 @@ block TableData2DLoadDepSHC
     final unit="J/s")
     "Cooling heat flow rate"
     annotation (Placement(transformation(extent={{100,100},{140,140}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+      iconTransformation(extent={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nUniHea
     "Number of modules in heating mode"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
@@ -269,28 +269,78 @@ block TableData2DLoadDepSHC
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1UpHea
     "Heating stage up condition"
-    annotation (Placement(transformation(extent={{100,0},{140,40}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+      iconTransformation(extent={{100,-178},{140,-138}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1DowHea
     "Heating stage down condition"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+      iconTransformation(extent={{100,-198},{140,-158}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1UpCoo
     "Cooling stage up condition"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+    annotation (Placement(transformation(extent={{100,-120},{140,-80}}),
+      iconTransformation(extent={{100,-218},{140,-178}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1DowCoo
     "Cooling stage down condition"
-    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+    annotation (Placement(transformation(extent={{100,-140},{140,-100}}),
+      iconTransformation(extent={{100,-238},{140,-198}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1UpShc
     "SHC stage up condition"
-    annotation (Placement(transformation(extent={{100,-120},{140,-80}}),
-      iconTransformation(extent={{100,-140},{140,-100}})));
+    annotation (Placement(transformation(extent={{100,-160},{140,-120}}),
+      iconTransformation(extent={{100,-258},{140,-218}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1DowShc
     "SHC stage down condition"
-    annotation (Placement(transformation(extent={{100,-140},{140,-100}}),
-      iconTransformation(extent={{100,-160},{140,-120}})));
+    annotation (Placement(transformation(extent={{100,-180},{140,-140}}),
+      iconTransformation(extent={{100,-278},{140,-238}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCooInt_flow_min(
+    final unit="J/s")=min(QCooInt_flow)
+    "Capacity at maximum PLR - Cooling mode, single module"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCooShcInt_flow_min(
+    final unit="J/s")=min(QCooShcInt_flow)
+    "Cooling capacity at maximum PLR - SHC mode, single module"
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+      iconTransformation(extent={{100,-100},{140,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHeaShcInt_flow_max(
+    final unit="J/s")=max(QHeaShcInt_flow)
+    "Heating capacity at maximum PLR - SHC mode, single module"
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHeaSet_flow(
+    final unit="J/s")
+    "Heating load - All modules"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCooSet_flow(
+    final unit="J/s")
+    "Cooling load - All modules"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+      iconTransformation(extent={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHeaInt_flow_max(
+    final unit="J/s")=max(QHeaInt_flow)
+    "Capacity at maximum PLR - Heating mode, single module"
+  annotation (Placement(transformation(extent={{100,0},{140,40}}),
+      iconTransformation(extent={{100,-40},{140,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHeaSetRes_flow(
+    final unit="J/s")
+    "Residual heating load - All modules except those in SHC mode"
+      annotation (Placement(transformation(extent={{100,20},{140,60}}),
+      iconTransformation(extent={{100,0},{140,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCooSetRes_flow(
+    final unit="J/s")
+    "Residual cooling load - All modules except those in SHC mode"
+      annotation (Placement(transformation(extent={{156,32},{196,72}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHeaUnm_flow(
+    final unit="J/s")=QHeaSet_flow-QHea_flow
+    "Unmet heating loads - All modules"
+      annotation (Placement(transformation(extent={{158,-26},{198,14}}),
+      iconTransformation(extent={{100,-130},{140,-90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCooUnm_flow(
+    final unit="J/s")=QCooSet_flow-QCoo_flow
+    "Unmet cooling loads - All modules"
+      annotation (Placement(transformation(extent={{156,12},{196,52}}),
+      iconTransformation(extent={{100,-150},{140,-110}})));
 protected
   final parameter Real PLRHeaSor[nPLRHea]=Modelica.Math.Vectors.sort(PLRHeaSup)
     "PLR values in increasing order - Heating mode";
@@ -359,12 +409,6 @@ protected
       verboseRead=fill(false, nPLRShc))
     "External table objects for power interpolation - SHC mode";
   constant Real deltaX = 1E-4 "Small number used for smoothing";
-  Modelica.Units.SI.HeatFlowRate QHeaSet_flow "Heating load - All modules";
-  Modelica.Units.SI.HeatFlowRate QCooSet_flow "Cooling load - All modules";
-  Modelica.Units.SI.HeatFlowRate QHeaSetRes_flow
-    "Residual heating load - All modules except those in SHC mode";
-  Modelica.Units.SI.HeatFlowRate QCooSetRes_flow
-    "Residual cooling load - All modules except those in SHC mode";
 
   Modelica.Units.SI.HeatFlowRate QHeaShc_flow
     "Heating heat flow rate - All modules in SHC mode";
@@ -378,7 +422,6 @@ protected
     "Heating heat flow rate when cycling in heating only mode - All modules cycling from SHC mode";
   Modelica.Units.SI.HeatFlowRate QCooShcCyc_flow
     "Cooling heat flow rate when cycling in cooling only mode - All modules cycling from SHC mode";
-
   Modelica.Units.SI.HeatFlowRate QHeaInt_flow[nPLRHea]
     "Capacity at PLR support points - Heating mode, single module";
   Modelica.Units.SI.Power PHeaInt[nPLRHea]
@@ -573,15 +616,19 @@ equation
     QCooSet_flow < SPLR * nUniShc * min(QCooShcInt_flow) + deltaX * QCooShc_flow_nominal or
     nUniHea + nUniCoo + nUniShc == nUni and (
     QHeaSet_flow > QHea_flow + 0.1 * QHeaShc_flow_nominal or
-    QCooSetRes_flow < QCoo_flow + 0.1 * QCooShc_flow_nominal);
+    QCooSet_flow < QCoo_flow + 0.1 * QCooShc_flow_nominal);
   y1DowShc = QHeaSet_flow <= SPLR * (nUniShc - 1) * max(QHeaShcInt_flow) + deltaX * QHeaShc_flow_nominal or
     QCooSet_flow >= SPLR * (nUniShc - 1) * min(QCooShcInt_flow) + deltaX * QCooShc_flow_nominal;
   y1UpHea = QHeaSetRes_flow > SPLR * nUniHea * max(QHeaInt_flow) + deltaX * QHea_flow_nominal
-    and not y1UpShc;
-  y1DowHea = QHeaSetRes_flow <= SPLR * (nUniHea - 1) * max(QHeaInt_flow) + deltaX * QHea_flow_nominal;
+    and not y1UpShc or
+    y1DowShc and QHeaSet_flow > SPLR * (nUniShc - 1) * max(QHeaShcInt_flow) + deltaX * QHeaShc_flow_nominal;
+  y1DowHea = QHeaSetRes_flow <= SPLR * (nUniHea - 1) * max(QHeaInt_flow) + deltaX * QHea_flow_nominal or
+    y1UpShc and nUniHea + nUniCoo + nUniShc == nUni;
   y1UpCoo = QCooSetRes_flow < SPLR * nUniCoo * min(QCooInt_flow) + deltaX * QCoo_flow_nominal
-    and not y1UpShc and not y1UpHea;
-  y1DowCoo = QCooSetRes_flow >= SPLR * (nUniCoo - 1) * min(QCooInt_flow) + deltaX * QCoo_flow_nominal;
+    and not y1UpShc and not y1UpHea or
+    y1DowShc and QCooSet_flow < SPLR * (nUniShc - 1) * min(QCooShcInt_flow) + deltaX * QCooShc_flow_nominal;
+  y1DowCoo = QCooSetRes_flow >= SPLR * (nUniCoo - 1) * min(QCooInt_flow) + deltaX * QCoo_flow_nominal or
+    y1UpShc and nUniHea + nUniCoo + nUniShc == nUni;
   annotation (
     Documentation(
       info="<html>

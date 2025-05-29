@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation;
-model TableData2DLoadDepSHCVariable
+model TableData2DLoadDepSHCVariable_bck
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.Temperature THwSup_nominal = 50 + 273.15
     "HW supply temperature"
@@ -51,7 +51,7 @@ model TableData2DLoadDepSHCVariable
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin  THeaWatSet(
     amplitude=THwEnt.k - THwSup_nominal,
-    freqHz=1.5/100,
+    freqHz=2/100,
     offset=THwSup_nominal + (THwEnt.k - THwSup_nominal)/2,
     startTime=10,
     y(final unit="K", displayUnit="degC"))
@@ -125,20 +125,39 @@ model TableData2DLoadDepSHCVariable
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal)
     annotation (Placement(transformation(extent={{50,-70},{30,-50}})));
-  ControllerSHC ctl(
-    nUni=2,
-    dtRun(displayUnit="s") = 5,
-    dtMea=5) "Controller"
+  ControllerSHC controllerSHC(nUni=2, dtRun(displayUnit="s") = 5)
     annotation (Placement(transformation(extent={{70,-20},{90,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxShc(k=Integer(
         Buildings.Fluid.HeatPumps.Types.OperatingMode.SHC)) "SHC mode index"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Min min1
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupNom(k=
-        THwSup_nominal, y(final unit="K", displayUnit="degC"))
-    "Design HW supply temperature"
-    annotation (Placement(transformation(extent={{-92,10},{-72,30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1DowShcHol(trueHoldDuration
+      =1) annotation (Placement(transformation(extent={{92,-48},{112,-28}})));
+  Buildings.Controls.OBC.CDL.Integers.Change cha
+    annotation (Placement(transformation(extent={{118,-24},{138,-4}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold chaDowShc(trueHoldDuration=1)
+    annotation (Placement(transformation(extent={{152,-30},{172,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold chaUpShc(trueHoldDuration=1)
+    annotation (Placement(transformation(extent={{152,8},{172,28}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatSet1(
+    height=THwEnt.k - THwSup_nominal,
+    duration=60,
+    offset=THwSup_nominal,
+    startTime=10,
+    y(final unit="K", displayUnit="degC"))
+    "HW supply or return temperature setpoint"
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1UpShcHol(trueHoldDuration=
+        1) annotation (Placement(transformation(extent={{94,-78},{114,-58}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatSet1(
+    height=TChwEnt.k - TChwSup_nominal,
+    duration=80,
+    offset=TChwSup_nominal,
+    startTime=10,
+    y(final unit="K", displayUnit="degC"))
+    "CHW supply or return temperature setpoint"
+    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1UpHeaHol(trueHoldDuration=
+        1) annotation (Placement(transformation(extent={{110,10},{130,30}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{-20,
           -18},{-2,-18}}, color={0,0,127}));
@@ -146,6 +165,8 @@ equation
           -100},{-40,-8},{-2,-8}}, color={0,0,127}));
   connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-98,0},{-28,0},{
           -28,-4},{-2,-4}}, color={0,0,127}));
+  connect(THeaWatSet.y, hpSupLvg.THwSet) annotation (Line(points={{-98,40},{-24,
+          40},{-24,4},{-2,4}}, color={0,0,127}));
   connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-98,-40},{-12,
           -40},{-12,-12},{-2,-12}}, color={0,0,127}));
   connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-58,-20},{-26,-20},
@@ -166,51 +187,51 @@ equation
           -4,-6},{-2,-6}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-60},{-4,
           -60},{-4,-14},{-2,-14}}, color={0,0,127}));
-  connect(ctl.nUniHea, hpSupLvg.nUniHea) annotation (Line(points={{92,-6},{100,-6},
-          {100,60},{-6,60},{-6,10},{-2,10}}, color={255,127,0}));
-  connect(ctl.nUniCoo, hpSupLvg.nUniCoo) annotation (Line(points={{92,-10},{102,
-          -10},{102,62},{-8,62},{-8,8},{-2,8}}, color={255,127,0}));
-  connect(ctl.nUniShc, hpSupLvg.nUniShc) annotation (Line(points={{92,-2},{104,-2},
-          {104,64},{-10,64},{-10,6},{-2,6}}, color={255,127,0}));
-  connect(tru.y, ctl.on) annotation (Line(points={{56,100},{64,100},{64,-2},{68,
-          -2}}, color={255,0,255}));
-  connect(idxShc.y, ctl.mode) annotation (Line(points={{32,80},{62,80},{62,-4},{
-          68,-4}}, color={255,127,0}));
+  connect(hpSupLvg.y1UpHea, controllerSHC.y1UpHea)
+    annotation (Line(points={{22,-8},{68,-8}}, color={255,0,255}));
+  connect(hpSupLvg.y1DowHea, controllerSHC.y1DowHea)
+    annotation (Line(points={{22,-10},{68,-10}}, color={255,0,255}));
+  connect(hpSupLvg.y1UpCoo, controllerSHC.y1UpCoo)
+    annotation (Line(points={{22,-12},{68,-12}}, color={255,0,255}));
+  connect(hpSupLvg.y1DowCoo, controllerSHC.y1DowCoo)
+    annotation (Line(points={{22,-14},{68,-14}}, color={255,0,255}));
+  connect(hpSupLvg.y1UpShc, controllerSHC.y1UpShc)
+    annotation (Line(points={{22,-16},{68,-16}}, color={255,0,255}));
+  connect(hpSupLvg.y1DowShc, controllerSHC.y1DowShc)
+    annotation (Line(points={{22,-18},{68,-18}}, color={255,0,255}));
+  connect(controllerSHC.nUniHea, hpSupLvg.nUniHea) annotation (Line(points={{92,
+          -6},{100,-6},{100,60},{-6,60},{-6,10},{-2,10}}, color={255,127,0}));
+  connect(controllerSHC.nUniCoo, hpSupLvg.nUniCoo) annotation (Line(points={{92,
+          -10},{102,-10},{102,62},{-8,62},{-8,8},{-2,8}}, color={255,127,0}));
+  connect(controllerSHC.nUniShc, hpSupLvg.nUniShc) annotation (Line(points={{92,-2},
+          {104,-2},{104,64},{-10,64},{-10,6},{-2,6}},       color={255,127,0}));
+  connect(tru.y, controllerSHC.on) annotation (Line(points={{56,100},{64,100},{
+          64,-2},{68,-2}}, color={255,0,255}));
+  connect(idxShc.y, controllerSHC.mode) annotation (Line(points={{32,80},{62,80},
+          {62,-4},{68,-4}}, color={255,127,0}));
+  connect(controllerSHC.y1DowShc, y1DowShcHol.u) annotation (Line(points={{68,
+          -18},{80,-18},{80,-38},{90,-38}}, color={255,0,255}));
+  connect(controllerSHC.nUniShc, cha.u)
+    annotation (Line(points={{92,-2},{104,-2},{104,-14},{116,-14}},
+                                                  color={255,127,0}));
+  connect(cha.down, chaDowShc.u)
+    annotation (Line(points={{140,-20},{150,-20}}, color={255,0,255}));
+  connect(cha.up, chaUpShc.u) annotation (Line(points={{140,-8},{146,-8},{146,
+          18},{150,18}}, color={255,0,255}));
+  connect(controllerSHC.y1UpShc, y1UpShcHol.u) annotation (Line(points={{68,-16},
+          {68,-42},{92,-42},{92,-68}}, color={255,0,255}));
   connect(TChiWatSet.y[1], hpSupLvg.TChwSet) annotation (Line(points={{-98,80},
           {-26,80},{-26,2},{-2,2}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaSet_flow, ctl.QHeaSet_flow)
-    annotation (Line(points={{22,2},{45,2},{45,-6},{68,-6}}, color={0,0,127}));
-  connect(hpSupLvg.QCooSet_flow, ctl.QCooSet_flow)
-    annotation (Line(points={{22,0},{44,0},{44,-8},{68,-8}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaSetRes_flow, ctl.QHeaSetRes_flow) annotation (Line(
-        points={{22,-2},{42,-2},{42,-10},{68,-10}}, color={0,0,127}));
-  connect(hpSupLvg.QCooSetRes_flow, ctl.QCooSetRes_flow) annotation (Line(
-        points={{22,-4},{46,-4},{46,-11.8},{68,-11.8}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaInt_flow_max, ctl.QHeaInt_flow_max) annotation (Line(
-        points={{22,-6},{42,-6},{42,-14},{68,-14}}, color={0,0,127}));
-  connect(hpSupLvg.QCooInt_flow_min, ctl.QCooInt_flow_min) annotation (Line(
-        points={{22,-8},{40,-8},{40,-16},{68,-16}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaShcInt_flow_max, ctl.QHeaShcInt_flow_max) annotation (
-      Line(points={{22,-10},{36,-10},{36,-18},{68,-18}}, color={0,0,127}));
-  connect(hpSupLvg.QCooShcInt_flow_min, ctl.QCooShcInt_flow_min) annotation (
-      Line(points={{22,-12},{32,-12},{32,-20},{68,-20}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaUnm_flow, ctl.QHeaUnm_flow) annotation (Line(points={{22,
-          -15},{46,-15},{46,-23.2},{68,-23.2}}, color={0,0,127}));
-  connect(hpSupLvg.QCooUnm_flow, ctl.QCooUnm_flow) annotation (Line(points={{22,
-          -17},{46,-17},{46,-25.2},{68,-25.2}}, color={0,0,127}));
-  connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-98,40},{-80,40},{
-          -80,46},{-62,46}}, color={0,0,127}));
-  connect(min1.y, hpSupLvg.THwSet) annotation (Line(points={{-38,40},{-12,40},{
-          -12,4},{-2,4}}, color={0,0,127}));
-  connect(THeaWatSupNom.y, min1.u2) annotation (Line(points={{-70,20},{-66,20},
-          {-66,34},{-62,34}}, color={0,0,127}));
+  connect(controllerSHC.y1UpHea, y1UpHeaHol.u) annotation (Line(points={{68,-8},
+          {90,-8},{90,20},{108,20}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-180,-120},{180,120}}, grid={2,2})),
     __Dymola_Commands(
       file=
         "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/TableData2DLoadDepSHCVariable.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=300,
+      StopTime=150,
+      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
@@ -238,4 +259,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TableData2DLoadDepSHCVariable;
+end TableData2DLoadDepSHCVariable_bck;
