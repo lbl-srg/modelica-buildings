@@ -10,55 +10,51 @@ block SupplyAirTemperature
     "True if the unit has a heating coil"
     annotation(__cdl(ValueInReference=false));
 
-  parameter Real uHea_min(
-    final unit="1",
-    displayUnit="1") = heaDea
+  parameter Real uHea_min(unit="1")=heaDea
     "Minimum heating loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Heating loop", enable = have_heaCoi));
 
   parameter Real TSupSet_max(
-    final unit="K",
-    displayUnit="degC") = 305.15
+    unit="K",
+    displayUnit="degC")=305.15
     "Supply air temperature setpoint at maximum heating loop signal"
     annotation(__cdl(ValueInReference=false),
       Dialog(group="Heating loop", enable = have_heaCoi));
 
   parameter Real uHea_max(
-    final unit="1",
-    displayUnit="1") = 0.5
+    unit="1",
+    displayUnit="1")=0.5
     "Maximum heating loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Heating loop", enable = have_heaCoi));
 
-  parameter Real uCoo_min(
-    final unit="1",
-    displayUnit="1") = cooDea
+  parameter Real uCoo_min(unit="1")=cooDea
     "Minimum cooling loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Cooling loop", enable = have_cooCoi));
 
   parameter Real TSupSet_min(
-    final unit="K",
-    displayUnit="degC") = 285.95
+    unit="K",
+    displayUnit="degC")=285.95
     "Supply air temperature setpoint at maximum cooling loop signal"
     annotation(__cdl(ValueInReference=false),
       Dialog(group="Cooling loop", enable = have_cooCoi));
 
   parameter Real uCoo_max(
-    final unit="1",
-    displayUnit="1") = 0.5
+    unit="1",
+    displayUnit="1")=0.5
     "Maximum cooling loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Cooling loop", enable = have_cooCoi));
 
   parameter Real heaDea(
-    final unit="1",
-    displayUnit="1") = 0.05
+    unit="1",
+    displayUnit="1")=0.05
     "Heating loop signal limit above which setpoint operation changes from deadband
     mode to heating mode"
     annotation(__cdl(ValueInReference=false),
       Dialog(group="Deadband", enable = have_heaCoi));
 
   parameter Real cooDea(
-    final unit="1",
-    displayUnit="1") = 0.05
+    unit="1",
+    displayUnit="1")=0.05
     "Cooling loop signal limit above which setpoint operation changes from deadband
     mode to cooling mode"
     annotation(__cdl(ValueInReference=false),
@@ -70,16 +66,15 @@ block SupplyAirTemperature
                       enable=have_cooCoi));
 
   parameter Real kCooCoi(
-    final unit="1",
+    unit="1",
     displayUnit="1")=1
     "Controller gain"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
                       enable=have_cooCoi));
 
   parameter Real TiCooCoi(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time")=0.5
+    unit="s",
+    displayUnit="s")=0.5
     "Integrator time constant"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
       enable = (cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -87,9 +82,8 @@ block SupplyAirTemperature
             and have_cooCoi));
 
   parameter Real TdCooCoi(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time")=0.1
+    unit="s",
+    displayUnit="s")=0.1
     "Derivative block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
       enable = (cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -102,16 +96,15 @@ block SupplyAirTemperature
       enable=have_heaCoi));
 
   parameter Real kHeaCoi(
-    final unit="1",
+    unit="1",
     displayUnit="1")=1
     "Controller gain"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
       enable=have_heaCoi));
 
   parameter Real TiHeaCoi(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time")=0.5
+    unit="s",
+    displayUnit="s")=0.5
     "Integrator block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
       enable = (heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -119,9 +112,8 @@ block SupplyAirTemperature
             and have_heaCoi));
 
   parameter Real TdHeaCoi(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time")=0.1
+    unit="s",
+    displayUnit="s")=0.1
     "Derivative block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
       enable = (heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -129,8 +121,8 @@ block SupplyAirTemperature
             and have_heaCoi));
 
   parameter Real deaHysLim(
-    final unit="1",
-    displayUnit="1") = 0.01
+    unit="1",
+    displayUnit="1")=0.01
     "Hysteresis limits for deadband mode transitions"
     annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
@@ -196,47 +188,47 @@ block SupplyAirTemperature
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{240,-60},{280,-20}}),
+    annotation (Placement(transformation(extent={{240,-70},{280,-30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Switch swiDeaCoo
     "Switch for turning on cooling mode from deadband mode"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Switch swiCooCoi
+  Buildings.Controls.OBC.CDL.Reals.Switch swiCooCoi if have_cooCoi
     "Switch cooling coil signal to zero in deadband mode"
     annotation (Placement(transformation(extent={{140,-150},{160,-130}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Switch swiHeaCoi
+  Buildings.Controls.OBC.CDL.Reals.Switch swiHeaCoi if have_heaCoi
     "Switch heating coil signal to zero in deadband mode"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Line linTHeaSupAir
+  Buildings.Controls.OBC.CDL.Reals.Line linTHeaSupAir if have_heaCoi
     "Convert heating loop signal to supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Line linTCooSupAir
+  Buildings.Controls.OBC.CDL.Reals.Line linTCooSupAir if have_cooCoi
     "Convert cooling loop signal to supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
+    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTSupSet_max(
-    final k=TSupSet_max)
+    final k=TSupSet_max) if have_heaCoi
     "Maximum heating supply air temperature setpoint limit signal"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUHea_min(
-    final k=uHea_min)
+    final k=uHea_min) if have_heaCoi
     "Minimum heating loop signal support point"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTSupSet_min(
-    final k=TSupSet_min)
+    final k=TSupSet_min) if have_cooCoi
     "Minimum cooling supply air temperature setpoint limit signal"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
+    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUCoo_min(
-    final k=uCoo_min)
+    final k=uCoo_min) if have_cooCoi
     "Minimum cooling loop signal support point"
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
 
@@ -244,7 +236,8 @@ protected
     final controllerType=heaCoiConTyp,
     final k=kHeaCoi,
     final Ti=TiHeaCoi,
-    final Td=TdHeaCoi) "PID controller for heating coil"
+    final Td=TdHeaCoi) if have_heaCoi
+    "PID controller for heating coil"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.PID conPIDCoo(
@@ -252,112 +245,106 @@ protected
     final k=kCooCoi,
     final Ti=TiCooCoi,
     final Td=TdCooCoi,
-    final reverseActing=false) "PID controller for cooling coil"
+    final reverseActing=false) if have_cooCoi
+    "PID controller for cooling coil"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysDeaHea(
     final uLow=heaDea-deaHysLim,
-    final uHigh=heaDea)
+    final uHigh=heaDea) if have_heaCoi
     "Hysteresis for switching between deadband mode and heating mode"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZerHeaMod(
-    final k=0) if not have_heaCoi
-    "Constant zero signal for heating mode"
-    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Switch swiDeaHea
+  Buildings.Controls.OBC.CDL.Reals.Switch swiDeaHea if have_heaCoi
     "Switch for turning on heating mode from deadband mode"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysDeaCoo(
     final uLow=cooDea-deaHysLim,
-    final uHigh=cooDea)
+    final uHigh=cooDea) if have_cooCoi
     "Hysteresis for switching on cooling mode from deadband mode"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZerCooMod(
-    final k=0) if not have_cooCoi
-    "Constant zero signal for cooling mode"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul2
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul2 if have_heaCoi
     "Output heating coil signal only when fan is proven on"
     annotation (Placement(transformation(extent={{200,100},{220,120}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul3
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul3 if have_cooCoi
     "Output cooling coil signal only when fan is proven on"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUHea_max(
-    final k=uHea_max)
+    final k=uHea_max) if have_heaCoi
     "Maximum heating loop signal support point"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUCoo_max(
-    final k=uCoo_max)
+    final k=uCoo_max) if have_cooCoi
     "Maximum cooling loop signal support point"
-    annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
+    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZer(
     final k=0)
     "Constant zero signal"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=1) if not have_heaCoi
+    "Dummy gain"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false) if not have_cooCoi
+    "Constant false"
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
+    final k=1) if not have_cooCoi
+    "Dummy gain"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+
 equation
   connect(uHea, linTHeaSupAir.u) annotation (Line(points={{-260,40},{-100,40},{-100,
           60},{-82,60}}, color={0,0,127}));
-  connect(uCoo, linTCooSupAir.u) annotation (Line(points={{-260,-60},{-80,-60},{
-          -80,-110},{-62,-110}}, color={0,0,127}));
+  connect(uCoo, linTCooSupAir.u) annotation (Line(points={{-260,-60},{-160,-60},
+          {-160,-110},{-82,-110}}, color={0,0,127}));
   connect(TAirSup, conPIDHea.u_m)
     annotation (Line(points={{-260,0},{90,0},{90,48}}, color={0,0,127}));
   connect(TAirSup, conPIDCoo.u_m) annotation (Line(points={{-260,0},{60,0},{60,-120},
           {90,-120},{90,-112}}, color={0,0,127}));
   connect(linTHeaSupAir.y, swiDeaHea.u1) annotation (Line(points={{-58,60},{-40,
           60},{-40,68},{-22,68}}, color={0,0,127}));
-  connect(conZerHeaMod.y, hysDeaHea.u)
-    annotation (Line(points={{-118,110},{-82,110}},color={0,0,127}));
-  connect(conZerHeaMod.y, linTHeaSupAir.u) annotation (Line(points={{-118,110},{
-          -100,110},{-100,60},{-82,60}}, color={0,0,127}));
   connect(uHea, hysDeaHea.u) annotation (Line(points={{-260,40},{-100,40},{-100,
           110},{-82,110}}, color={0,0,127}));
   connect(hysDeaHea.y, swiDeaHea.u2) annotation (Line(points={{-58,110},{-30,110},
           {-30,60},{-22,60}}, color={255,0,255}));
-  connect(conZerCooMod.y, linTCooSupAir.u) annotation (Line(points={{-98,-40},{-80,
-          -40},{-80,-110},{-62,-110}}, color={0,0,127}));
   connect(hysDeaCoo.y, swiDeaCoo.u2)
-    annotation (Line(points={{-38,-40},{18,-40}}, color={255,0,255}));
-  connect(uCoo, hysDeaCoo.u) annotation (Line(points={{-260,-60},{-80,-60},{-80,
-          -40},{-62,-40}}, color={0,0,127}));
-  connect(conZerCooMod.y, hysDeaCoo.u) annotation (Line(points={{-98,-40},{-62,-40}},
-          color={0,0,127}));
-  connect(swiDeaHea.y, swiDeaCoo.u3) annotation (Line(points={{2,60},{8,60},{8,-48},
-          {18,-48}}, color={0,0,127}));
-  connect(linTCooSupAir.y, swiDeaCoo.u1) annotation (Line(points={{-38,-110},{-20,
-          -110},{-20,-32},{18,-32}},color={0,0,127}));
-  connect(swiDeaCoo.y, conPIDHea.u_s) annotation (Line(points={{42,-40},{50,-40},
+    annotation (Line(points={{-98,-50},{18,-50}}, color={255,0,255}));
+  connect(uCoo, hysDeaCoo.u) annotation (Line(points={{-260,-60},{-160,-60},{-160,
+          -50},{-122,-50}},color={0,0,127}));
+  connect(swiDeaHea.y, swiDeaCoo.u3) annotation (Line(points={{2,60},{10,60},{10,
+          -58},{18,-58}}, color={0,0,127}));
+  connect(linTCooSupAir.y, swiDeaCoo.u1) annotation (Line(points={{-58,-110},{-40,
+          -110},{-40,-42},{18,-42}},color={0,0,127}));
+  connect(swiDeaCoo.y, conPIDHea.u_s) annotation (Line(points={{42,-50},{50,-50},
           {50,60},{78,60}}, color={0,0,127}));
-  connect(swiDeaCoo.y, conPIDCoo.u_s) annotation (Line(points={{42,-40},{50,-40},
+  connect(swiDeaCoo.y, conPIDCoo.u_s) annotation (Line(points={{42,-50},{50,-50},
           {50,-100},{78,-100}}, color={0,0,127}));
   connect(conTSupSet_max.y, linTHeaSupAir.f2) annotation (Line(points={{-118,20},
           {-90,20},{-90,52},{-82,52}},  color={0,0,127}));
-  connect(conTSupSet_min.y, linTCooSupAir.f2) annotation (Line(points={{-98,-140},
-          {-80,-140},{-80,-118},{-62,-118}}, color={0,0,127}));
-  connect(TZonHeaSet, linTHeaSupAir.f1) annotation (Line(points={{-260,80},{-100,
-          80},{-100,64},{-82,64}},color={0,0,127}));
+  connect(conTSupSet_min.y, linTCooSupAir.f2) annotation (Line(points={{-118,-140},
+          {-100,-140},{-100,-118},{-82,-118}}, color={0,0,127}));
+  connect(TZonHeaSet, linTHeaSupAir.f1) annotation (Line(points={{-260,80},{-120,
+          80},{-120,64},{-82,64}},color={0,0,127}));
   connect(TZonCooSet, linTCooSupAir.f1) annotation (Line(points={{-260,-110},{-200,
-          -110},{-200,-106},{-62,-106}}, color={0,0,127}));
-  connect(TAirSup, swiDeaHea.u3) annotation (Line(points={{-260,0},{-40,0},{-40,
+          -110},{-200,-106},{-82,-106}}, color={0,0,127}));
+  connect(TAirSup, swiDeaHea.u3) annotation (Line(points={{-260,0},{-50,0},{-50,
           52},{-22,52}}, color={0,0,127}));
-  connect(conZerHeaMod.y, linTHeaSupAir.f1) annotation (Line(points={{-118,110},
-          {-100,110},{-100,64},{-82,64}}, color={0,0,127}));
-  connect(conZerCooMod.y, linTCooSupAir.f1) annotation (Line(points={{-98,-40},{
-          -80,-40},{-80,-106},{-62,-106}}, color={0,0,127}));
-  connect(swiDeaCoo.y, TSupSet) annotation (Line(points={{42,-40},{260,-40}},
+  connect(swiDeaCoo.y, TSupSet) annotation (Line(points={{42,-50},{260,-50}},
           color={0,0,127}));
   connect(u1Fan, booToRea2.u)
     annotation (Line(points={{-260,140},{118,140}},color={255,0,255}));
@@ -374,15 +361,15 @@ equation
   connect(conUHea_min.y, linTHeaSupAir.x1) annotation (Line(points={{-178,110},{
           -160,110},{-160,68},{-82,68}}, color={0,0,127}));
   connect(conUCoo_min.y, linTCooSupAir.x1) annotation (Line(points={{-198,-80},{
-          -180,-80},{-180,-102},{-62,-102}}, color={0,0,127}));
-  connect(conUCoo_max.y, linTCooSupAir.x2) annotation (Line(points={{-138,-140},
-          {-130,-140},{-130,-114},{-62,-114}}, color={0,0,127}));
+          -180,-80},{-180,-102},{-82,-102}}, color={0,0,127}));
+  connect(conUCoo_max.y, linTCooSupAir.x2) annotation (Line(points={{-158,-140},
+          {-150,-140},{-150,-114},{-82,-114}}, color={0,0,127}));
   connect(conPIDCoo.y, swiCooCoi.u1) annotation (Line(points={{102,-100},{110,-100},
           {110,-132},{138,-132}}, color={0,0,127}));
   connect(swiCooCoi.y, mul3.u2) annotation (Line(points={{162,-140},{190,-140},{
           190,-96},{198,-96}}, color={0,0,127}));
-  connect(hysDeaCoo.y, swiCooCoi.u2) annotation (Line(points={{-38,-40},{0,-40},
-          {0,-140},{138,-140}}, color={255,0,255}));
+  connect(hysDeaCoo.y, swiCooCoi.u2) annotation (Line(points={{-98,-50},{-20,-50},
+          {-20,-140},{138,-140}}, color={255,0,255}));
   connect(swiHeaCoi.y, mul2.u2) annotation (Line(points={{162,90},{180,90},{180,
           104},{198,104}}, color={0,0,127}));
   connect(conPIDHea.y, swiHeaCoi.u1) annotation (Line(points={{102,60},{110,60},
@@ -392,7 +379,18 @@ equation
   connect(conZer.y, swiHeaCoi.u3) annotation (Line(points={{102,-20},{120,-20},{
           120,82},{138,82}}, color={0,0,127}));
   connect(conZer.y, swiCooCoi.u3) annotation (Line(points={{102,-20},{120,-20},{
-          120,-148},{138,-148}},         color={0,0,127}));
+          120,-148},{138,-148}}, color={0,0,127}));
+  connect(TAirSup, gai.u) annotation (Line(points={{-260,0},{-50,0},{-50,30},{-22,
+          30}}, color={0,0,127}));
+  connect(gai.y, swiDeaCoo.u3) annotation (Line(points={{2,30},{10,30},{10,-58},
+          {18,-58}}, color={0,0,127}));
+  connect(con.y, swiDeaCoo.u2) annotation (Line(points={{-98,-80},{-80,-80},{-80,
+          -50},{18,-50}}, color={255,0,255}));
+  connect(TAirSup, gai1.u) annotation (Line(points={{-260,0},{-50,0},{-50,-20},{
+          -42,-20}}, color={0,0,127}));
+  connect(gai1.y, swiDeaCoo.u1) annotation (Line(points={{-18,-20},{0,-20},{0,-42},
+          {18,-42}}, color={0,0,127}));
+
   annotation (defaultComponentName="supAirTem",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}}),
                                                       graphics={
@@ -467,8 +465,11 @@ equation
           visible=have_cooCoi)}),        Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-240,-180},{240,180}})),
   Documentation(info="<html>
-<p>Block that outputs the supply air temperature setpoint, as well as the control signals for the cooling and heating coils in a fan coil unit system. 
-The implemented sequence is based on ASHRAE Guideline 36, 2021, Part 5.22.4. </p>
+<p>
+Block that outputs the supply air temperature setpoint, as well as the control signals
+for the cooling and heating coils in a fan coil unit system. 
+The implemented sequence is based on ASHRAE Guideline 36, 2021, Part 5.22.4.
+</p>
 <p>The supply air temperature 
 <code>TSupSet</code> is varied from the zone cooling setpoint temperature 
 <code>TZonCooSet</code> to the minimum supply air temperature for cooling 
@@ -485,7 +486,8 @@ Similarly, <code>TSupSet</code> is varied from the zone heating setpoint tempera
 measured supply air temperature <code>TAirSup</code>. 
 <code>yCooCoi</code> and <code>yHeaCoi</code> are set to zero when the fan proven on signal 
 <code>u1Fan</code> is <code>false</code>. </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/SupplyAirTemperature.png\" alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/FanCoilUnits/Subsequences/SupplyAirTemperature.png\"
+alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
 </html>",
 revisions="<html>
 <ul>
