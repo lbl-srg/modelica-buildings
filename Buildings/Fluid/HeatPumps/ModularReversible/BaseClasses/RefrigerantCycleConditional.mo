@@ -149,28 +149,12 @@ equation
       coordinateSystem(
         preserveAspectRatio=false)),
     Documentation(
-      revisions="<html><ul>
-  <li>
-    May 2, 2024, by Michael Wetter:<br/>
-    Refactored check for device identifiers.<br/>
-    This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
-  </li>
-  <li>
-    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
-    Adjusted based on the discussion in this issue <a href=
-    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
-  </li>
-  <li>
-    <i>May 22, 2019</i> by Julian Matthes:<br/>
-    Rebuild due to the introducion of the thermal machine partial model
-    (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
-  </li>
-  <li>
-    <i>November 26, 2018,</i> by Fabian Wuellhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
-  </li>
+      revisions="<html>
+<ul>
+<li>
+March 21, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </ul>
 </html>",
       info="<html>

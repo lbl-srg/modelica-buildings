@@ -284,7 +284,7 @@ equation
   connect(pInl_rel1.y,inlHpAmb. p_in)
     annotation (Line(points={{-18,-160},{-10,-160},{-10,-32},{8,-32}},color={0,0,127}));
   connect(TSetAct.y, hp.TSet)
-    annotation (Line(points={{-18,120},{80,120},{80,-4.4},{97.69,-4.4}},color={0,0,127}));
+    annotation (Line(points={{-18,120},{80,120},{80,-2.3},{97.69,-2.3}},color={0,0,127}));
   connect(TRet.port_b, hp.port_a1)
     annotation (Line(points={{70,0},{86,0},{86,-0.2},{100,-0.2}},color={0,127,255}));
   connect(TSup.port_a, hp.port_b1)
@@ -321,7 +321,7 @@ equation
   connect(THeaWatRet.y, inlHp1.T_in)
     annotation (Line(points={{-68,80},{-4,80},{-4,-96},{8,-96}},color={0,0,127}));
   connect(THeaWatSupSet.y, hpNrv.TSet)
-    annotation (Line(points={{-68,160},{84,160},{84,-104.4},{97.69,-104.4}},
+    annotation (Line(points={{-68,160},{84,160},{84,-102.3},{97.69,-102.3}},
       color={0,0,127}));
   connect(y1.y[2], TSetAct.u2)
     annotation (Line(points={{-158,140},{-50,140},{-50,120},{-42,120}},color={255,0,255}));

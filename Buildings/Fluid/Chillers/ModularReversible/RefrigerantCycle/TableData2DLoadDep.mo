@@ -23,7 +23,7 @@ model TableData2DLoadDep
     typ=if have_switchover then 2 else 1,
     final scaFac=scaFac,
     final TLoa_nominal=TEva_nominal,
-    final TSou_nominal=TCon_nominal,
+    final TAmb_nominal=TCon_nominal,
     final use_TEvaOutForTab=use_TEvaOutForTab,
     final use_TConOutForTab=use_TConOutForTab,
     final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
