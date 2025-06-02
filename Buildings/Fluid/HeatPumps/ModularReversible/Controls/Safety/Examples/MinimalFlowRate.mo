@@ -4,6 +4,8 @@ model MinimalFlowRate
   extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.MinimalFlowRate minFloRatSaf(
+    onOffMea_start=false,
+    ySet_small=hys.uHigh,
       mEvaMin_flow=0.1, mConMin_flow=0.1)
     "Safety block for minimal flow rate safety"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
