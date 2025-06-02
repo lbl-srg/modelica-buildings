@@ -175,7 +175,7 @@ block Controller
     final Ti=Ti,
     final Td=Td) if not have_locSen
     "Chilled water pump speed control with remote DP sensor"
-    annotation (Placement(transformation(extent={{-60,-250},{-40,-230}})));
+    annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
 
 protected
   final parameter Real minLocDp(
@@ -427,9 +427,9 @@ equation
   connect(pumSpeLocDp.dpChiWatSet_remote, dpChiWatSet_remote) annotation (Line(
         points={{-2,-218},{-220,-218},{-220,-250},{-300,-250}},  color={0,0,127}));
   connect(dpChiWat_remote, pumSpeRemDp.dpChiWat_remote) annotation (Line(points={{-300,
-          -200},{-270,-200},{-270,-240},{-62,-240}},       color={0,0,127}));
+          -200},{-270,-200},{-270,-240},{-2,-240}},        color={0,0,127}));
   connect(dpChiWatSet_remote, pumSpeRemDp.dpChiWatSet_remote) annotation (Line(
-        points={{-300,-250},{-220,-250},{-220,-248},{-62,-248}}, color={0,0,127}));
+        points={{-300,-250},{-220,-250},{-220,-248},{-2,-248}},  color={0,0,127}));
   connect(enaPum.y, pumSta.u2)
     annotation (Line(points={{202,-30},{210,-30},{210,-50},{150,-50},{150,-98},
       {178,-98}},  color={255,0,255}));
@@ -466,14 +466,10 @@ equation
   connect(enaDedLeaPum.uPla, uPla)
     annotation (Line(points={{-202,118},{-240,118},{-240,190},{-300,190}},
       color={255,0,255}));
-  connect(uChiWatPum, pumSpeLocDp.uChiWatPum) annotation (Line(points={{-300,150},
-          {-260,150},{-260,-206},{-2,-206}},  color={255,0,255}));
-  connect(uChiWatPum, pumSpeRemDp.uChiWatPum) annotation (Line(points={{-300,150},
-          {-260,150},{-260,-232},{-62,-232}}, color={255,0,255}));
   connect(pumSpeLocDp.yChiWatPumSpe, yPumSpe)
     annotation (Line(points={{22,-210},{162,-210},{162,-200},{300,-200}},
           color={0,0,127}));
-  connect(pumSpeRemDp.yChiWatPumSpe, yPumSpe) annotation (Line(points={{-39,-240},
+  connect(pumSpeRemDp.yChiWatPumSpe, yPumSpe) annotation (Line(points={{21,-240},
           {40,-240},{40,-200},{300,-200}},   color={0,0,127}));
   connect(enaLagChiPum.yUp, enaNexLag.u) annotation (Line(points={{-218,-12},{-196,
           -12},{-196,30},{-2,30}},
@@ -542,6 +538,12 @@ equation
           -188,-20},{-188,0},{-42,0}},color={255,0,255}));
   connect(uWse, enaHeaLeaPum.uWse) annotation (Line(points={{-300,0},{-214,0},{-214,
           64},{-202,64}}, color={255,0,255}));
+  connect(pre1.y, pumSpeLocDp.uChiWatPum) annotation (Line(points={{242,-120},{
+          260,-120},{260,-140},{-60,-140},{-60,-206},{-2,-206}}, color={255,0,
+          255}));
+  connect(pre1.y, pumSpeRemDp.uChiWatPum) annotation (Line(points={{242,-120},{
+          260,-120},{260,-140},{-60,-140},{-60,-232},{-2,-232}}, color={255,0,
+          255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,

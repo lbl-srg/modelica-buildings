@@ -374,11 +374,6 @@ protected
     "Logical and"
     annotation (Placement(transformation(extent={{160,150},{180,170}})));
 
-public
-  CDL.Discrete.TriggeredSampler triSam
-    annotation (Placement(transformation(extent={{122,-198},{142,-178}})));
-  CDL.Reals.Sources.Sin sin(freqHz=1/(24*3600))
-    annotation (Placement(transformation(extent={{38,-184},{58,-164}})));
 equation
   connect(lat.y,chiDemRed.uDemLim)
     annotation (Line(points={{-118,150},{-100,150},{-100,129},{-82,129}},
@@ -665,10 +660,6 @@ equation
           {-28,140},{-28,100},{-22,100}}, color={255,0,255}));
   connect(or2.y, and4.u2) annotation (Line(points={{2,170},{6,170},{6,152},{158,
           152}}, color={255,0,255}));
-  connect(sin.y, triSam.u) annotation (Line(points={{60,-174},{110,-174},{110,-188},
-          {120,-188}}, color={0,0,127}));
-  connect(lat5.y, triSam.trigger) annotation (Line(points={{122,-220},{124,-220},
-          {124,-212},{132,-212},{132,-200}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

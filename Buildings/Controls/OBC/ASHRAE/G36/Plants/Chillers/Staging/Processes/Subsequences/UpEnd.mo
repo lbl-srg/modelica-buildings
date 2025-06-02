@@ -251,9 +251,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
-
-public
-  CDL.Logical.TrueFalseHold chiStaHol[nChi](final trueHoldDuration=delayStaCha)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold chiStaHol[nChi](final
+      trueHoldDuration=fill(delayStaCha, nChi))
     "Hold the chiller commanded status after being changed"
     annotation (Placement(transformation(extent={{60,250},{80,270}})));
 equation

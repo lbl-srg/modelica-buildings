@@ -1311,6 +1311,7 @@ block Controller "Chiller plant controller"
     final have_heaConWatPum=have_heaConWatPum,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
     final need_reduceChillerDemand=need_reduceChillerDemand,
+    final delayStaCha=delayStaCha,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final byPasSetTim=byPasSetTim,
@@ -1763,7 +1764,7 @@ equation
   connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{122,-440},{180,
           -440},{180,-512},{-320,-512},{-320,-692},{-268,-692}}, color={255,0,255}));
   connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{
-          590,-400},{80,-400},{80,-440},{98,-440}},    color={255,0,255}));
+          590,-400},{90,-400},{90,-440},{98,-440}},    color={255,0,255}));
   connect(towCon.ySpeSet, mulMax.u) annotation (Line(points={{-172,-684},{-100,
           -684},{-100,-580},{-62,-580}}, color={0,0,127}));
   connect(chiStaUp.y, desConWatPumSpeSwi.u2) annotation (Line(points={{402,320},
@@ -1935,8 +1936,6 @@ equation
           660,0},{660,-465},{738,-465}}, color={0,0,127}));
   connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,640},{
           -810,640},{-810,-463},{738,-463}}, color={255,0,255}));
-  connect(uChiWatPum, disChi.uConWatReq) annotation (Line(points={{-920,574},{
-          -790,574},{-790,-468},{738,-468}}, color={255,0,255}));
   connect(pro4.y, disChi.uConWatIsoVal) annotation (Line(points={{682,240},{700,
           240},{700,-471},{738,-471}}, color={0,0,127}));
   connect(disChi.yConWatIsoVal,yConWatIsoVal)  annotation (Line(points={{762,-468},
@@ -2024,6 +2023,8 @@ equation
         color={255,0,255}));
   connect(chiIsoVal.y, yChiWatIsoVal)
     annotation (Line(points={{562,0},{940,0}}, color={0,0,127}));
+  connect(uConWatReq, disChi.uConWatReq) annotation (Line(points={{-920,610},{
+          80,610},{80,-468},{738,-468}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),

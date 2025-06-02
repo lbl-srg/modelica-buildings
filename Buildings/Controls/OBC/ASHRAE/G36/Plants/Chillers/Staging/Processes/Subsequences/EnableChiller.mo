@@ -128,11 +128,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi4 "Logical switch"
     annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
 
-public
-  CDL.Reals.Sources.Sin sin(freqHz=1/(24*3600))
-    annotation (Placement(transformation(extent={{88,-2},{108,18}})));
-  CDL.Discrete.TriggeredSampler triSam1
-    annotation (Placement(transformation(extent={{172,-16},{192,4}})));
 equation
   connect(nexEnaChi, intRep.u)
     annotation (Line(points={{-220,120},{-162,120}}, color={255,127,0}));
@@ -243,10 +238,6 @@ equation
     annotation (Line(points={{-78,-118},{-40,-118},{-40,-178},{158,-178}},
       color={255,0,255}));
 
-  connect(logSwi2[1].y, triSam1.trigger)
-    annotation (Line(points={{182,-50},{182,-18}}, color={255,0,255}));
-  connect(sin.y, triSam1.u) annotation (Line(points={{110,8},{130,8},{130,10},{
-          170,10},{170,-6}}, color={0,0,127}));
 annotation (
   defaultComponentName="enaChi",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
