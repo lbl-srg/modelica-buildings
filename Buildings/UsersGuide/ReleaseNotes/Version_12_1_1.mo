@@ -1,10 +1,10 @@
 within Buildings.UsersGuide.ReleaseNotes;
-class Version_12_0_1 "Version 12.0.1"
+class Version_12_1_1 "Version 12.1.1"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 12.0.1 is ... xxx
+Version X.Y.Z is ... xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -24,15 +24,6 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
-    </td>
-    <td valign=\"top\">Package that contains components for the PID controller that can
-                       autotune the control gain and time constants.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -49,25 +40,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b><br/>
-                         Buildings.Utilities.Clustering
+<tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+<tr><td valign=\"top\">xxx
     </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Electrical.BaseClasses.WindTurbine.PartialWindTurbine
-    </td>
-    <td valign=\"top\">Changed model to avoid a rounding error that occurs due to the revised definition of <code>eps</code>
-                       in the development version of the Modelica Standard Library 4.1.0.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Utilities.Clustering.KMeans
-    </td>
-    <td valign=\"top\">Improved code to avoid an error during initialization of certain borefield geometries.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #1985</a> and
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1976\">IBPSA, #1976</a>.
+    <td valign=\"top\">xxx.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -135,4 +113,4 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_12_0_1;
+end Version_12_1_1;

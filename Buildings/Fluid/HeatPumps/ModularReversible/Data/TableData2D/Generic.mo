@@ -13,9 +13,9 @@ record Generic "Partial two-dimensional data of refrigerant machines"
     "Nominal pressure drop in evaporator";
   parameter String devIde "Name of the device";
   parameter Boolean use_TEvaOutForTab
-    "=true to use evaporator outlet temperature for table data, false for inlet";
+    "if true, use evaporator outlet temperature for table data, otherwise use inlet";
   parameter Boolean use_TConOutForTab
-    "=true to use condenser outlet temperature for table data, false for inlet";
+    "if true, use condenser outlet temperature for table data, otherwise use inlet";
 
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
@@ -74,6 +74,11 @@ https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>
 </p>
 </html>",
         revisions="<html><ul>
+<li>
+May 22, 2025, by Michael Wetter:<br/>
+Revised comment.<br/>
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+</li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on IPBSA guidelines <a href=
