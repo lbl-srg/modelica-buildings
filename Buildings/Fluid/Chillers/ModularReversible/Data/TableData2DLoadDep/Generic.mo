@@ -27,21 +27,13 @@ Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialO
 for guidance on how to populate this table.
 </p>
 </html>",
-      revisions="<html><ul>
-  <li>
-    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
-    Adjusted based on IPBSA guidelines <a href=
-    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
-  </li>
-  <li>
-    <i>May 7, 2020</i> by Philipp Mehrfeld:<br/>
-    Add description of how to calculate m_flows
-  </li>
-  <li>
-    <i>December 10, 2013</i> by Ole Odendahl:<br/>
-    Formatted documentation appropriately
-  </li>
+      revisions="<html>
+<ul>
+<li>
+March 21, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </ul>
-</html>
-"), Icon);
+</html>"),
+    Icon);
 end Generic;

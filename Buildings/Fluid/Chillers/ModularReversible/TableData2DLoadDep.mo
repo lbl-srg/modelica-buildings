@@ -78,7 +78,7 @@ model TableData2DLoadDep
     displayUnit="degC")
     "Temperature setpoint"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-142,0},{-102,40}})));
+      iconTransformation(extent={{-142,20},{-102,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo
     if have_switchover "Switchover signal: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
@@ -157,7 +157,7 @@ equation
   annotation (
     Icon(
       coordinateSystem(
-        extent={{-100,-100},{100,100}}),
+        extent={{-100,-100},{100,100}}, grid={2,2}),
       graphics={
         Text(
           extent={{-100,-12},{-72,-30}},
