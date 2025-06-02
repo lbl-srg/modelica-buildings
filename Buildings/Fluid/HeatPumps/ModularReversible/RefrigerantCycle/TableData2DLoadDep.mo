@@ -22,7 +22,7 @@ model TableData2DLoadDep
     final typ=3,
     final scaFac=scaFac,
     final TLoa_nominal=TCon_nominal,
-    final TSou_nominal=TEva_nominal,
+    final TAmb_nominal=TEva_nominal,
     final use_TEvaOutForTab=use_TEvaOutForTab,
     final use_TConOutForTab=use_TConOutForTab,
     final use_TLoaLvgForCtl=use_TLoaLvgForCtl,

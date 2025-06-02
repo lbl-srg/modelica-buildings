@@ -6,8 +6,7 @@ model TableData2DLoadDep
     duration=80,
     offset=TEvaLvg.k,
     startTime=10,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
@@ -16,36 +15,31 @@ model TableData2DLoadDep
     duration=80,
     offset=TConEnt.k,
     startTime=10,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "HW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConEnt(
     k=TConLvg.k - 889828 / datCoo.mCon_flow_nominal / cp.k,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "TConInMea in HP hea. cycle, TEvaInMea in HP coo. cycle, TConInMea in chiller coo. cycle, TEvaInMea in chiller hea. cycle"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConLvg(
     k=63 + 273.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "TConOutMea in HP hea. cycle, TEvaOutMea in HP coo. cycle, TConOutMea in chiller coo. cycle, TEvaOutMea in chiller hea. cycle"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TEvaEnt(
     k=TEvaLvg.k + 630369 / datCoo.mEva_flow_nominal / cp.k,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "TEvaInMea in HP hea. cycle, TConInMea in HP coo. cycle, TEvaInMea in chiller coo. cycle, TConInMea in chiller hea. cycle"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TEvaLvg(
     k=6 + 273.15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "TEvaOutMea in HP hea. cycle, TConOutMea in HP coo. cycle, TEvaOutMea in chiller coo. cycle, TConOutMea in chiller hea. cycle"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
@@ -56,7 +50,7 @@ model TableData2DLoadDep
     PLRSup=datCoo.PLRSup,
     fileName=datCoo.fileName,
     TLoa_nominal=TEvaLvg.k,
-    TSou_nominal=TConLvg.k)
+    TAmb_nominal=TConLvg.k)
     "Chiller with CHWST control and performance data interpolation based on leaving temperature"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   parameter Data.TableData2DLoadDep.GenericHeatPump datHea(
@@ -123,7 +117,7 @@ model TableData2DLoadDep
     PLRSup=datCoo.PLRSup,
     fileName=datCoo.fileName,
     TLoa_nominal=TEvaLvg.k,
-    TSou_nominal=TConEnt.k)
+    TAmb_nominal=TConEnt.k)
     "Chiller with CHWRT control and performance data interpolation based on CW entering temperature"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Modelica.Blocks.Sources.RealExpression TEvaLvgChiSupLvg(
@@ -145,7 +139,7 @@ model TableData2DLoadDep
     PLRSup=datCoo.PLRSup,
     fileName=datCoo.fileName,
     TLoa_nominal=TEvaLvg.k,
-    TSou_nominal=TConLvg.k)
+    TAmb_nominal=TConLvg.k)
     "Heat recovery chiller with CHWST control and performance data interpolation based on leaving temperature"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Modelica.Blocks.Sources.RealExpression TConLvgChiHeaSupLvg(
@@ -160,7 +154,7 @@ model TableData2DLoadDep
     PLRSup=datHea.PLRSup,
     fileName=datHea.fileName,
     TLoa_nominal=TConLvg.k,
-    TSou_nominal=TEvaLvg.k)
+    TAmb_nominal=TEvaLvg.k)
     "Heat pump with HWST control and performance data interpolation based on leaving temperature"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(
