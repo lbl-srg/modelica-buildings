@@ -131,19 +131,19 @@ block ControllerSHC_bck2 "Controller for modular multipipe system"
   Buildings.Controls.OBC.CDL.Logical.Nor noSwaToShc
     "True if no swap from single mode to SHC"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
-  StageChangeCondition chaStaShc(final pol=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.StageChangeCondition.Polarity
-        .Heating, final SPLR=SPLR)
+  StageChangeCondition chaStaShc(final pol=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.StageChangeCondition.Polarity.
+         Heating, final SPLR=SPLR)
     "SHC stage change conditions based on heating load"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
-  StageChangeCondition chaStaShcCoo(final pol=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.StageChangeCondition.Polarity
-        .Cooling, final SPLR=SPLR)
+  StageChangeCondition chaStaShcCoo(final pol=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.StageChangeCondition.Polarity.
+         Cooling, final SPLR=SPLR)
     "SHC stage change conditions based on cooling load"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  StageChangeCondition chaStaHea(final pol=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.StageChangeCondition.Polarity
-        .Heating, final SPLR=SPLR) "Heating stage change conditions"
+  StageChangeCondition chaStaHea(final pol=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.StageChangeCondition.Polarity.
+         Heating, final SPLR=SPLR) "Heating stage change conditions"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
-  StageChangeCondition chaStaCoo(final pol=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.StageChangeCondition.Polarity
-        .Cooling, final SPLR=SPLR) "Cooling stage change conditions"
+  StageChangeCondition chaStaCoo(final pol=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.StageChangeCondition.Polarity.
+         Cooling, final SPLR=SPLR) "Cooling stage change conditions"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Or dowShc "SHC stage down condition"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
@@ -179,8 +179,8 @@ block ControllerSHC_bck2 "Controller for modular multipipe system"
   Buildings.Controls.OBC.CDL.Integers.LessEqual avaCoo[nUni]
     "True if module available for cooling mode"
     annotation (Placement(transformation(extent={{162,-30},{142,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxUni[nUni](k={i for i
-         in 1:nUni}) "Module index"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxUni[nUni](k={i for i in
+            1:nUni}) "Module index"
     annotation (Placement(transformation(extent={{202,130},{182,150}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(final nout=
         nUni) "Replicate number of units commanded in given mode"

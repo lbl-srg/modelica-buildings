@@ -41,15 +41,14 @@ model TableData2DLoadDepSHCVariable
     Buildings.Media.Water.cp_const
     "CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable
-                                                TChiWatSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TChiWatSet(
     table=[0,0; 10,0; 80,TChwEnt.k - TChwSup_nominal; 95,TChwEnt.k -
         TChwSup_nominal],
     offset={TChwSup_nominal},
-    y(final unit="K", each displayUnit="degC"))
+    y(each final unit="K", each displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin  THeaWatSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatSet(
     amplitude=THwEnt.k - THwSup_nominal,
     freqHz=1.5/100,
     offset=THwSup_nominal + (THwEnt.k - THwSup_nominal)/2,
@@ -101,7 +100,9 @@ model TableData2DLoadDepSHCVariable
     final TAmbCoo_nominal=TAmbCoo_nominal,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
-    final QCooShc_flow_nominal=QCooShc_flow_nominal)
+    final QCooShc_flow_nominal=QCooShc_flow_nominal,
+    dtRun=5,
+    dtMea=1)
     "Heat pump with supply temperature control and performance data interpolation based on leaving temperature"
     annotation (Placement(transformation(extent={{0,-20},{20,12}})));
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.THwEnt +
@@ -119,17 +120,12 @@ model TableData2DLoadDepSHCVariable
     f_cut=1,
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=THwSup_nominal)
-    annotation (Placement(transformation(extent={{50,30},{30,50}})));
+    annotation (Placement(transformation(extent={{50,38},{30,58}})));
   Modelica.Blocks.Continuous.Filter filter1(
     f_cut=1,
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal)
     annotation (Placement(transformation(extent={{50,-70},{30,-50}})));
-  ControllerSHC ctl(
-    nUni=2,
-    dtRun(displayUnit="s") = 5,
-    dtMea=5) "Controller"
-    annotation (Placement(transformation(extent={{70,-20},{90,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxShc(k=Integer(
         Buildings.Fluid.HeatPumps.Types.OperatingMode.SHC)) "SHC mode index"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
@@ -157,53 +153,23 @@ equation
   connect(cp.y, hpSupLvg.cpHw) annotation (Line(points={{-58,100},{-20,100},{
           -20,-10},{-2,-10}}, color={0,0,127}));
   connect(TConLvgHpSupLvg.y, filter.u)
-    annotation (Line(points={{51,16},{60,16},{60,40},{52,40}},
+    annotation (Line(points={{51,16},{60,16},{60,48},{52,48}},
                                                              color={0,0,127}));
   connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{51,-36},{60,
           -36},{60,-60},{52,-60}},
                               color={0,0,127}));
-  connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
-          -4,-6},{-2,-6}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-60},{-4,
           -60},{-4,-14},{-2,-14}}, color={0,0,127}));
-  connect(ctl.nUniHea, hpSupLvg.nUniHea) annotation (Line(points={{92,-6},{100,-6},
-          {100,60},{-6,60},{-6,10},{-2,10}}, color={255,127,0}));
-  connect(ctl.nUniCoo, hpSupLvg.nUniCoo) annotation (Line(points={{92,-10},{102,
-          -10},{102,62},{-8,62},{-8,8},{-2,8}}, color={255,127,0}));
-  connect(ctl.nUniShc, hpSupLvg.nUniShc) annotation (Line(points={{92,-2},{104,-2},
-          {104,64},{-10,64},{-10,6},{-2,6}}, color={255,127,0}));
-  connect(tru.y, ctl.on) annotation (Line(points={{56,100},{64,100},{64,-2},{68,
-          -2}}, color={255,0,255}));
-  connect(idxShc.y, ctl.mode) annotation (Line(points={{32,80},{62,80},{62,-4},{
-          68,-4}}, color={255,127,0}));
   connect(TChiWatSet.y[1], hpSupLvg.TChwSet) annotation (Line(points={{-98,80},
           {-26,80},{-26,2},{-2,2}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaSet_flow, ctl.QHeaSet_flow)
-    annotation (Line(points={{22,2},{45,2},{45,-6},{68,-6}}, color={0,0,127}));
-  connect(hpSupLvg.QCooSet_flow, ctl.QCooSet_flow)
-    annotation (Line(points={{22,0},{44,0},{44,-8},{68,-8}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaSetRes_flow, ctl.QHeaSetRes_flow) annotation (Line(
-        points={{22,-2},{42,-2},{42,-10},{68,-10}}, color={0,0,127}));
-  connect(hpSupLvg.QCooSetRes_flow, ctl.QCooSetRes_flow) annotation (Line(
-        points={{22,-4},{46,-4},{46,-11.8},{68,-11.8}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaInt_flow_max, ctl.QHeaInt_flow_max) annotation (Line(
-        points={{22,-6},{42,-6},{42,-14},{68,-14}}, color={0,0,127}));
-  connect(hpSupLvg.QCooInt_flow_min, ctl.QCooInt_flow_min) annotation (Line(
-        points={{22,-8},{40,-8},{40,-16},{68,-16}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaShcInt_flow_max, ctl.QHeaShcInt_flow_max) annotation (
-      Line(points={{22,-10},{36,-10},{36,-18},{68,-18}}, color={0,0,127}));
-  connect(hpSupLvg.QCooShcInt_flow_min, ctl.QCooShcInt_flow_min) annotation (
-      Line(points={{22,-12},{32,-12},{32,-20},{68,-20}}, color={0,0,127}));
-  connect(hpSupLvg.QHeaUnm_flow, ctl.QHeaUnm_flow) annotation (Line(points={{22,
-          -15},{46,-15},{46,-23.2},{68,-23.2}}, color={0,0,127}));
-  connect(hpSupLvg.QCooUnm_flow, ctl.QCooUnm_flow) annotation (Line(points={{22,
-          -17},{46,-17},{46,-25.2},{68,-25.2}}, color={0,0,127}));
   connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-98,40},{-80,40},{
           -80,46},{-62,46}}, color={0,0,127}));
   connect(min1.y, hpSupLvg.THwSet) annotation (Line(points={{-38,40},{-12,40},{
           -12,4},{-2,4}}, color={0,0,127}));
   connect(THeaWatSupNom.y, min1.u2) annotation (Line(points={{-70,20},{-66,20},
           {-66,34},{-62,34}}, color={0,0,127}));
+  connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,48},{-4,48},{
+          -4,-6},{-2,-6}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-180,-120},{180,120}}, grid={2,2})),
     __Dymola_Commands(
       file=

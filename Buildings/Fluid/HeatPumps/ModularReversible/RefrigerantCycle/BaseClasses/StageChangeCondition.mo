@@ -34,7 +34,7 @@ block StageChangeCondition
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=if pol ==
         Polarity.Heating then 1 else -1) "Apply polarity"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Reals.MovingAverage QSetAve(final delta=dtMea)
     "Compute moving average"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
@@ -47,7 +47,7 @@ block StageChangeCondition
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={0,60})));
+        origin={0,50})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(final k=-SPLR)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -61,27 +61,28 @@ block StageChangeCondition
   Buildings.Controls.OBC.CDL.Reals.Add add1
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre "Apply polarity"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Reals.Less les "Apply polarity"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{62,-50},{82,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Up "Stage up condition"
-    annotation (Placement(transformation(extent={{100,62},{140,102}}),
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Dow
-    "Stage down condition" annotation (Placement(transformation(extent={{100,-20},
-            {140,20}}), iconTransformation(extent={{100,-80},{140,-40}})));
+    "Stage down condition" annotation (Placement(transformation(extent={{100,-62},
+            {140,-22}}),iconTransformation(extent={{100,-80},{140,-40}})));
 equation
   connect(nUni, nUniRea.u)
     annotation (Line(points={{-120,-60},{-92,-60}}, color={255,127,0}));
   connect(QSet_flow, QSetAve.u)
     annotation (Line(points={{-120,80},{-92,80}}, color={0,0,127}));
   connect(QSetAve.y, gai1.u)
-    annotation (Line(points={{-68,80},{-62,80}}, color={0,0,127}));
+    annotation (Line(points={{-68,80},{-66,80},{-66,60},{-62,60}},
+                                                 color={0,0,127}));
   connect(nUniRea.y, nUniTimQ.u2) annotation (Line(points={{-68,-60},{-56,-60},{
           -56,-6},{-52,-6}}, color={0,0,127}));
-  connect(nUniTimQ.y, gai2.u) annotation (Line(points={{-28,0},{-20,0},{-20,60},
-          {-12,60}}, color={0,0,127}));
-  connect(gai2.y, add2.u1) annotation (Line(points={{12,60},{14,60},{14,46},{18,
+  connect(nUniTimQ.y, gai2.u) annotation (Line(points={{-28,0},{-20,0},{-20,50},
+          {-12,50}}, color={0,0,127}));
+  connect(gai2.y, add2.u1) annotation (Line(points={{12,50},{14,50},{14,46},{18,
           46}}, color={0,0,127}));
   connect(gai3.y, add2.u2) annotation (Line(points={{12,20},{14,20},{14,34},{18,
           34}}, color={0,0,127}));
@@ -98,17 +99,22 @@ equation
   connect(gai4.y, add1.u2) annotation (Line(points={{12,-20},{14,-20},{14,-26},{
           18,-26}}, color={0,0,127}));
   connect(gai1.y, gre.u1)
-    annotation (Line(points={{-38,80},{58,80}}, color={0,0,127}));
-  connect(add2.y, gre.u2) annotation (Line(points={{42,40},{50,40},{50,72},{58,72}},
+    annotation (Line(points={{-38,60},{54,60},{54,40},{58,40}},
+                                                color={0,0,127}));
+  connect(add2.y, gre.u2) annotation (Line(points={{42,40},{50,40},{50,32},{58,
+          32}},
         color={0,0,127}));
-  connect(gai1.y, les.u1) annotation (Line(points={{-38,80},{54,80},{54,0},{58,0}},
+  connect(gai1.y, les.u1) annotation (Line(points={{-38,60},{54,60},{54,-40},{
+          60,-40}},
         color={0,0,127}));
-  connect(add1.y, les.u2) annotation (Line(points={{42,-20},{54,-20},{54,-8},{58,
-          -8}}, color={0,0,127}));
-  connect(gre.y, y1Up) annotation (Line(points={{82,80},{102,80},{102,82},{120,82}},
+  connect(add1.y, les.u2) annotation (Line(points={{42,-20},{54,-20},{54,-48},{
+          60,-48}},
+                color={0,0,127}));
+  connect(gre.y, y1Up) annotation (Line(points={{82,40},{120,40}},
         color={255,0,255}));
   connect(les.y, y1Dow)
-    annotation (Line(points={{82,0},{120,0}}, color={255,0,255}));
+    annotation (Line(points={{84,-40},{102,-40},{102,-42},{120,-42}},
+                                              color={255,0,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

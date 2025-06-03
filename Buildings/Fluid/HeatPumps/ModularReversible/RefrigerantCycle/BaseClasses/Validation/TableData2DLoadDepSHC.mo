@@ -81,7 +81,7 @@ model TableData2DLoadDepSHC
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC
     hpSupLvg(
-    nUni=1,
+    nUni=3,
     use_TEvaOutForTab=true,
     use_TConOutForTab=true,
     use_TAmbOutForTab=false,
@@ -101,9 +101,11 @@ model TableData2DLoadDepSHC
     final TAmbCoo_nominal=TAmbCoo_nominal,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
-    final QCooShc_flow_nominal=QCooShc_flow_nominal)
+    final QCooShc_flow_nominal=QCooShc_flow_nominal,
+    dtRun=5,
+    dtMea=1)
     "Heat pump with supply temperature control and performance data interpolation based on leaving temperature"
-    annotation (Placement(transformation(extent={{0,-20},{20,12}})));
+    annotation (Placement(transformation(extent={{0,-18},{20,14}})));
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.THwEnt +
         hpSupLvg.QHea_flow/hpSupLvg.mHw_flow/hpSupLvg.cpHw)
     "Calculate condenser leaving temperature"
@@ -125,48 +127,38 @@ model TableData2DLoadDepSHC
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal)
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant nUniHeaCoo(k=0)
-    "Number of modules in heating or cooling mode"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant nUniShc(k=1)
-    "Number of modules in SHC mode"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
-  connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{-20,
-          -18},{-2,-18}}, color={0,0,127}));
-  connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-58,-100},{-40,
-          -100},{-40,-8},{-2,-8}}, color={0,0,127}));
+  connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{
+          -20,-16},{-2,-16}},
+                          color={0,0,127}));
+  connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-58,-100},{
+          -40,-100},{-40,-6},{-2,-6}},
+                                   color={0,0,127}));
   connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-98,0},{-28,0},{
-          -28,-4},{-2,-4}}, color={0,0,127}));
+          -28,-2},{-2,-2}}, color={0,0,127}));
   connect(TChiWatSet.y, hpSupLvg.TChwSet) annotation (Line(points={{-98,80},{
-          -22,80},{-22,2},{-2,2}},
+          -22,80},{-22,4},{-2,4}},
                                color={0,0,127}));
   connect(THeaWatSet.y, hpSupLvg.THwSet) annotation (Line(points={{-98,40},{-24,
-          40},{-24,4},{-2,4}}, color={0,0,127}));
+          40},{-24,6},{-2,6}}, color={0,0,127}));
   connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-98,-40},{-12,
-          -40},{-12,-12},{-2,-12}}, color={0,0,127}));
+          -40},{-12,-10},{-2,-10}}, color={0,0,127}));
   connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-58,-20},{-26,-20},
-          {-26,0},{-2,0}}, color={0,0,127}));
+          {-26,2},{-2,2}}, color={0,0,127}));
   connect(TOut.y, hpSupLvg.TAmbLvg) annotation (Line(points={{-58,-20},{-26,-20},
-          {-26,-2},{-2,-2}}, color={0,0,127}));
+          {-26,0},{-2,0}},   color={0,0,127}));
   connect(mChw_flow.y, hpSupLvg.mChw_flow) annotation (Line(points={{-98,-80},{
-          -6,-80},{-6,-16},{-2,-16}}, color={0,0,127}));
+          -6,-80},{-6,-14},{-2,-14}}, color={0,0,127}));
   connect(cp.y, hpSupLvg.cpHw) annotation (Line(points={{-58,100},{-20,100},{
-          -20,-10},{-2,-10}}, color={0,0,127}));
+          -20,-8},{-2,-8}},   color={0,0,127}));
   connect(TConLvgHpSupLvg.y, filter.u)
     annotation (Line(points={{51,6},{60,6},{60,40},{52,40}}, color={0,0,127}));
   connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{59,-40},{52,
           -40}},              color={0,0,127}));
   connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
-          -4,-6},{-2,-6}}, color={0,0,127}));
+          -4,-4},{-2,-4}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-4,
-          -40},{-4,-14},{-2,-14}}, color={0,0,127}));
-  connect(nUniHeaCoo.y, hpSupLvg.nUniHea) annotation (Line(points={{-58,60},{
-          -26,60},{-26,10},{-2,10}}, color={255,127,0}));
-  connect(nUniHeaCoo.y, hpSupLvg.nUniCoo) annotation (Line(points={{-58,60},{
-          -26,60},{-26,8},{-2,8}}, color={255,127,0}));
-  connect(nUniShc.y, hpSupLvg.nUniShc) annotation (Line(points={{-58,20},{-28,
-          20},{-28,6},{-2,6}}, color={255,127,0}));
+          -40},{-4,-12},{-2,-12}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     __Dymola_Commands(
       file=

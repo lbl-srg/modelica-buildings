@@ -244,8 +244,8 @@ block ControllerSHC "Controller for modular multipipe system"
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep2(final nout=
         nUni) "Replicate number of units commanded in given mode"
     annotation (Placement(transformation(extent={{184,-90},{204,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxUni[nUni](k={i for i
-         in 1:nUni}) "Module index"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxUni[nUni](k={i for i in
+            1:nUni}) "Module index"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold notUpShc(t=4/5*dtRun, h=dtRun/
         10) "SHC stage up condition not met"

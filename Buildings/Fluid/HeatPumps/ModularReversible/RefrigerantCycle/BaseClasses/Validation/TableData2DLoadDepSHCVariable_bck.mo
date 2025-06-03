@@ -79,7 +79,7 @@ model TableData2DLoadDepSHCVariable_bck
     k=Buildings.Media.Water.cp_const)
     "Specific heat capacity of load side fluid"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC
+  TableData2DLoadDepSHC_bck1
     hpSupLvg(
     nUni=2,
     use_TEvaOutForTab=true,
@@ -199,10 +199,10 @@ equation
     annotation (Line(points={{22,-16},{68,-16}}, color={255,0,255}));
   connect(hpSupLvg.y1DowShc, controllerSHC.y1DowShc)
     annotation (Line(points={{22,-18},{68,-18}}, color={255,0,255}));
-  connect(controllerSHC.nUniHea, hpSupLvg.nUniHea) annotation (Line(points={{92,
-          -6},{100,-6},{100,60},{-6,60},{-6,10},{-2,10}}, color={255,127,0}));
-  connect(controllerSHC.nUniCoo, hpSupLvg.nUniCoo) annotation (Line(points={{92,
-          -10},{102,-10},{102,62},{-8,62},{-8,8},{-2,8}}, color={255,127,0}));
+  connect(controllerSHC.nUniHea, hpSupLvg.nUniHea) annotation (Line(points={{92,-6},
+          {100,-6},{100,60},{-6,60},{-6,10},{-2,10}},     color={255,127,0}));
+  connect(controllerSHC.nUniCoo, hpSupLvg.nUniCoo) annotation (Line(points={{92,-10},
+          {102,-10},{102,62},{-8,62},{-8,8},{-2,8}},      color={255,127,0}));
   connect(controllerSHC.nUniShc, hpSupLvg.nUniShc) annotation (Line(points={{92,-2},
           {104,-2},{104,64},{-10,64},{-10,6},{-2,6}},       color={255,127,0}));
   connect(tru.y, controllerSHC.on) annotation (Line(points={{56,100},{64,100},{
