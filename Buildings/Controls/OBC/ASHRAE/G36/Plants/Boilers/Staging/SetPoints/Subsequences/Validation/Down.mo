@@ -5,6 +5,7 @@ model Down
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down
     staDow(
     final have_priOnl=false,
+    final have_allNonCon=false,
     final nSta=1,
     final fraMinFir=1.1,
     final delMinFir=300,
@@ -25,6 +26,7 @@ model Down
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down
     staDow1(
     final have_priOnl=false,
+    final have_allNonCon=false,
     final nSta=1,
     final fraMinFir=1.1,
     final delMinFir=300,
@@ -45,6 +47,7 @@ model Down
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down
     staDow2(
     final have_priOnl=true,
+    final have_allNonCon=false,
     final nSta=1,
     final fraMinFir=1.1,
     final delMinFir=300,
@@ -64,6 +67,7 @@ model Down
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down
     staDow3(
     final have_priOnl=true,
+    final have_allNonCon=false,
     final nSta=1,
     final fraMinFir=1.1,
     final delMinFir=300,

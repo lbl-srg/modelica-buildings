@@ -4,16 +4,14 @@ model Speed_flow
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Subsequences.Speed_flow
     hotPumSpe(
-    final nPum=2,
-    final VHotWat_flow_nominal=0.5)
+    final nPum=2)
     "Scenario testing speed control using flowrate sensors in primary and secondary circuits"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Subsequences.Speed_flow
     hotPumSpe1(
     use_priSecSen=false,
-    final nPum=2,
-    final VHotWat_flow_nominal=0.5)
+    final nPum=2)
     "Scenario testing speed control using flowrate sensor in decoupler"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

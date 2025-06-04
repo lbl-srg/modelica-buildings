@@ -8,8 +8,7 @@ block Down
     False: The boiler plant is primary-secondary";
 
   parameter Boolean have_allNonCon
-    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers"
-    annotation(Dialog(enable=false));
+    "Are all the boilers in the plant non-condensing boilers?";
 
   parameter Integer nSta = 5
     "Number of stages";
