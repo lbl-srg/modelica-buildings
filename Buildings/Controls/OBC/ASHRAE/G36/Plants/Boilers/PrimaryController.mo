@@ -881,7 +881,6 @@ model PrimaryController "Boiler plant primary loop controller"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController staSetCon(
     final have_priOnl=have_priOnl,
-    final have_allNonCon=have_allNonCon,
     final have_secFloSen=have_secFloSen,
     final nBoi=nBoi,
     final boiTyp=boiTyp,

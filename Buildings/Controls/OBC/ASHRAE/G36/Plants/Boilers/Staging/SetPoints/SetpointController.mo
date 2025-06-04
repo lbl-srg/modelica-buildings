@@ -8,10 +8,6 @@ block SetpointController
     False: The boiler plant is primary-secondary"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Boolean have_allNonCon=true
-    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers"
-    annotation(Dialog(tab="Non-configurable", enable=false));
-
   parameter Boolean have_secFloSen=false
     "True: Flowrate sensors in secondary loops;
     False: Flowrate sensor in decoupler"
@@ -342,6 +338,12 @@ block SetpointController
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
 protected
+  parameter Boolean have_allCon = sum(boiTyp)==1*nBoi
+    "Check if all the boilers in a plant are condensing boilers";
+
+  parameter Boolean have_allNonCon = sum(boiTyp)==2*nBoi
+    "Check if all the boilers in a plant are non-condensing boilers";
+
   final parameter Integer nSta=size(staMat,1)
     "Number of boiler plant stages";
 

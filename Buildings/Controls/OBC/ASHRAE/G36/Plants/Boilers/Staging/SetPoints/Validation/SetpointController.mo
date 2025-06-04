@@ -189,6 +189,11 @@ protected
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
 
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(
+    final k=10^(-10))
+    "Constant"
+    annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSup(
     final k=273.15 + 30)
     "Hot water supply temperature"
@@ -203,6 +208,13 @@ protected
     final k=273.15 + 26)
     "Hot water secondary loop return temperature"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin uPumSpe(
+    final amplitude=1,
+    final offset=0,
+    final freqHz=1/21600)
+    "Pump speed signal"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1
     "Falling edge detector"
@@ -273,6 +285,11 @@ protected
     "Falling edge detector"
     annotation (Placement(transformation(extent={{560,60},{580,80}})));
 
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep2(
+    final nout=3)
+    "Convert input into array"
+    annotation (Placement(transformation(extent={{280,110},{300,130}})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THotWatRet2(
     final amplitude=7,
     final phase=0,
@@ -319,6 +336,11 @@ protected
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{320,202},{340,222}})));
 
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero2(
+    final k=10^(-10))
+    "Constant"
+    annotation (Placement(transformation(extent={{240,110},{260,130}})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSup2(
     final k=273.15 + 30)
     "Hot water supply temperature"
@@ -329,9 +351,20 @@ protected
     "Hot water flow rate"
     annotation (Placement(transformation(extent={{240,170},{260,190}})));
 
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin uPumSpe2(
+    final amplitude=1,
+    final offset=0,
+    final freqHz=1/21600) "Pump speed signal"
+    annotation (Placement(transformation(extent={{320,80},{340,100}})));
+
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Falling edge detector"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
+
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
+    final nout=3)
+    "Convert input into array"
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
 
 equation
   connect(staSetCon.ySta,intToRea. u)
@@ -364,6 +397,10 @@ equation
           {-30,220},{-30,176},{58,176}},          color={0,0,127}));
   connect(THotWatSup.y, staSetCon.THotWatSup) annotation (Line(points={{-58,140},
           {-40,140},{-40,167},{58,167}}, color={0,0,127}));
+  connect(zero.y, reaRep.u) annotation (Line(points={{-138,120},{-122,120}},
+                                 color={0,0,127}));
+  connect(reaRep.y, staSetCon.VMinSet_flow) annotation (Line(points={{-98,120},
+          {-30,120},{-30,164},{58,164}}, color={0,0,127}));
   connect(boiAva.y, staSetCon.uBoiAva) annotation (Line(points={{-138,20},{40,
           20},{40,143},{58,143}},
                               color={255,0,255}));
@@ -373,6 +410,9 @@ equation
           {-48,188},{-48,158},{58,158}}, color={0,0,127}));
   connect(THotWatRetSec.y, staSetCon.THotWatRetSec) annotation (Line(points={{-58,100},
           {-24,100},{-24,155},{58,155}},      color={0,0,127}));
+  connect(uPumSpe.y, staSetCon.uPumSpe) annotation (Line(points={{-58,70},{-16,
+          70},{-16,152},{58,152}},
+                               color={0,0,127}));
   connect(staUp.u, staSetCon.yChaUpEdg) annotation (Line(points={{98,190},{90,
           190},{90,159.5},{82,159.5}},
                               color={255,0,255}));
@@ -450,6 +490,10 @@ equation
           {370,212},{370,176},{458,176}},          color={0,0,127}));
   connect(THotWatSup2.y, staSetCon2.THotWatSup) annotation (Line(points={{342,140},
           {360,140},{360,167},{458,167}}, color={0,0,127}));
+  connect(zero2.y, reaRep2.u)
+    annotation (Line(points={{262,120},{278,120}}, color={0,0,127}));
+  connect(reaRep2.y, staSetCon2.VMinSet_flow) annotation (Line(points={{302,120},
+          {370,120},{370,164},{458,164}}, color={0,0,127}));
   connect(boiAva2.y, staSetCon2.uBoiAva) annotation (Line(points={{262,20},{440,
           20},{440,143},{458,143}}, color={255,0,255}));
   connect(VHotWat_flow2.y, staSetCon2.VHotWatPri_flow) annotation (Line(points={{262,180},
@@ -460,8 +504,10 @@ equation
   connect(staDow2.u, staSetCon2.yChaDowEdg) annotation (Line(points={{498,130},
           {494,130},{494,153.5},{482,153.5}},
                                          color={255,0,255}));
+  connect(uPumSpe2.y, staSetCon2.uBypValPos) annotation (Line(points={{342,90},
+          {380,90},{380,161},{458,161}},color={0,0,127}));
   connect(THotWatRet2.y, staSetCon2.THotWatRetPri) annotation (Line(points={{
-          342,180},{356,180},{356,158},{458,158}}, color={0,0,127}));
+          342,180},{350,180},{350,158},{458,158}}, color={0,0,127}));
 annotation (
  experiment(
       StopTime=86400,
