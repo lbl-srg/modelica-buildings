@@ -703,7 +703,7 @@ model PrimaryController "Boiler plant primary loop controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPum[nPumPri]
     "Primary pump status"
-    annotation (Placement(transformation(extent={{-440,-420},{-400,-380}}),
+    annotation (Placement(transformation(extent={{-440,-320},{-400,-280}}),
       iconTransformation(extent={{-140,-280},{-100,-240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchEna
@@ -815,7 +815,7 @@ model PrimaryController "Boiler plant primary loop controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatIsoVal[nBoi]
     if have_heaPriPum "Boiler isolation valve open status"
-    annotation (Placement(transformation(extent={{-440,-500},{-400,-460}}),
+    annotation (Placement(transformation(extent={{-440,-380},{-400,-340}}),
       iconTransformation(extent={{-140,-320},{-100,-280}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
@@ -919,15 +919,6 @@ model PrimaryController "Boiler plant primary loop controller"
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
-
-  CDL.Logical.And and1[nBoi] if have_heaPriPum
-    annotation (Placement(transformation(extent={{240,250},{260,270}})));
-  CDL.Logical.And and3[nBoi] if have_heaPriPum
-    annotation (Placement(transformation(extent={{240,220},{260,240}})));
-  CDL.Logical.Not not1[nBoi]
-    annotation (Placement(transformation(extent={{182,220},{202,240}})));
-  CDL.Logical.Or or3[nBoi] if have_heaPriPum
-    annotation (Placement(transformation(extent={{300,240},{320,260}})));
 protected
   parameter Boolean have_remDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
@@ -955,6 +946,22 @@ protected
 
   parameter Boolean have_allNonCon = sum(boiTyp)==2*nBoi
     "Check if all the boilers in a plant are non-condensing boilers";
+
+  Buildings.Controls.OBC.CDL.Logical.And and1[nBoi] if have_heaPriPum
+    "Convey valve position signals from stage-up process block"
+    annotation (Placement(transformation(extent={{240,250},{260,270}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and3[nBoi] if have_heaPriPum
+    "Convey valve position signals from stage-down process block"
+    annotation (Placement(transformation(extent={{240,220},{260,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1[nBoi]
+    "Identify stage-down process"
+    annotation (Placement(transformation(extent={{182,220},{202,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or3[nBoi] if have_heaPriPum
+    "Output final valve position signals"
+    annotation (Placement(transformation(extent={{300,240},{320,260}})));
 
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes
     "Used to break algebraic loop and sample staging setpoint signal"
@@ -1228,8 +1235,66 @@ protected
     "One signal for maximum secondary pump speed in condensing-only boiler plants"
     annotation (Placement(transformation(extent={{320,-120},{340,-100}})));
 
-  CDL.Logical.Pre pre2[nBoi] "Logical pre block"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2[nBoi]
+    "Logical pre block"
     annotation (Placement(transformation(extent={{260,196},{240,216}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conHavPriOnl(
+    final k=have_priOnl)
+    "Boolean parameter selection for plant configuration"
+    annotation (Placement(transformation(extent={{-340,-420},{-320,-400}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIntLocDp(
+    final k=have_locDPRegPri)
+    "Speed control type signal"
+    annotation (Placement(transformation(extent={{-300,-450},{-280,-430}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIntRemDp(
+    final k=have_remDPRegPri)
+    "Speed control type signal"
+    annotation (Placement(transformation(extent={{-300,-480},{-280,-460}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIntFlo(
+    final k=have_floRegPri)
+    "Speed control type signal"
+    annotation (Placement(transformation(extent={{-300,-510},{-280,-490}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIntTem(
+    final k=have_temRegPri)
+    "Speed control type signal"
+    annotation (Placement(transformation(extent={{-300,-540},{-280,-520}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    "Check if valid speed control type for selected configuration"
+    annotation (Placement(transformation(extent={{-240,-450},{-220,-430}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and5
+    "Check if valid speed control type for selected configuration"
+    annotation (Placement(transformation(extent={{-240,-480},{-220,-460}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and6
+    "Check if valid speed control type for selected configuration"
+    annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and7
+    "Check if valid speed control type for selected configuration"
+    annotation (Placement(transformation(extent={{-240,-540},{-220,-520}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Alternative selection for boiler plant configuration"
+    annotation (Placement(transformation(extent={{-300,-570},{-280,-550}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
+    final nin=4)
+    "Check compliance with all configuration selection rules"
+    annotation (Placement(transformation(extent={{-200,-490},{-180,-470}})));
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="Invalid plant configuration selections. Please refer to
+    documentation for allowed configuration selections.")
+    "Error message for non-compliant configuration selection"
+    annotation (Placement(transformation(extent={{-160,-490},{-140,-470}})));
+
 equation
   connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-188,
           -14.8333},{64,-14.8333},{64,98},{118,98}},
@@ -1498,14 +1563,14 @@ equation
          {{-420,380},{-256,380},{-256,200},{-144,200},{-144,184},{-142,184}},
         color={255,127,0}));
   connect(uPriPum, hotWatSupTemRes.uHotWatPumSta) annotation (Line(points={{-420,
-          -400},{-28,-400},{-28,28},{-158,28},{-158,188},{-142,188}}, color={255,
+          -300},{-28,-300},{-28,28},{-158,28},{-158,188},{-142,188}}, color={255,
           0,255}));
-  connect(uPriPum, priPumCon.uHotWatPum) annotation (Line(points={{-420,-400},{
-          -28,-400},{-28,-155.733},{118,-155.733}},
+  connect(uPriPum, priPumCon.uHotWatPum) annotation (Line(points={{-420,-300},{
+          -28,-300},{-28,-155.733},{118,-155.733}},
                                                 color={255,0,255}));
-  connect(uPriPum, bypValPos.uPumSta) annotation (Line(points={{-420,-400},{-28,
-          -400},{-28,-42},{118,-42}}, color={255,0,255}));
-  connect(uPriPum, cha.u) annotation (Line(points={{-420,-400},{-28,-400},{-28,-420},
+  connect(uPriPum, bypValPos.uPumSta) annotation (Line(points={{-420,-300},{-28,
+          -300},{-28,-42},{118,-42}}, color={255,0,255}));
+  connect(uPriPum, cha.u) annotation (Line(points={{-420,-300},{-28,-300},{-28,-420},
           {158,-420}}, color={255,0,255}));
   connect(cha.y, mulOr.u[1:nPumPri]) annotation (Line(points={{182,-420},{190,-420},{190,
           -420},{198,-420}},     color={255,0,255}));
@@ -1568,9 +1633,9 @@ equation
           -12.6667}},
         color={0,0,127}));
   connect(uHotWatIsoVal, upProCon.uHotWatIsoVal) annotation (Line(points={{-420,
-          -480},{40,-480},{40,106},{118,106}}, color={255,0,255}));
-  connect(uHotWatIsoVal, dowProCon.uHotWatIsoVal) annotation (Line(points={{
-          -420,-480},{40,-480},{40,44},{118,44},{118,45}}, color={255,0,255}));
+          -360},{40,-360},{40,106},{118,106}}, color={255,0,255}));
+  connect(uHotWatIsoVal, dowProCon.uHotWatIsoVal) annotation (Line(points={{-420,
+          -360},{40,-360},{40,44},{118,44},{118,45}},      color={255,0,255}));
   connect(yBoi, pre2.u) annotation (Line(points={{420,200},{276,200},{276,206},
           {262,206}}, color={255,0,255}));
   connect(pre2.y, upProCon.uBoi) annotation (Line(points={{238,206},{72,206},{
@@ -1596,6 +1661,34 @@ equation
           {298,242}}, color={255,0,255}));
   connect(or3.y, plaDis.uHotWatIsoVal) annotation (Line(points={{322,250},{332,
           250},{332,160},{220,160},{220,70},{238,70}}, color={255,0,255}));
+  connect(conHavPriOnl.y, and4.u2) annotation (Line(points={{-318,-410},{-270,-410},
+          {-270,-448},{-242,-448}}, color={255,0,255}));
+  connect(conHavPriOnl.y, and5.u2) annotation (Line(points={{-318,-410},{-270,-410},
+          {-270,-478},{-242,-478}}, color={255,0,255}));
+  connect(conHavPriOnl.y, not2.u) annotation (Line(points={{-318,-410},{-308,-410},
+          {-308,-560},{-302,-560}},             color={255,0,255}));
+  connect(not2.y, and6.u2) annotation (Line(points={{-278,-560},{-270,-560},{-270,
+          -508},{-242,-508}}, color={255,0,255}));
+  connect(not2.y, and7.u2) annotation (Line(points={{-278,-560},{-270,-560},{-270,
+          -538},{-242,-538}}, color={255,0,255}));
+  connect(and4.y, mulOr1.u[1]) annotation (Line(points={{-218,-440},{-212,-440},
+          {-212,-482.625},{-202,-482.625}}, color={255,0,255}));
+  connect(and5.y, mulOr1.u[2]) annotation (Line(points={{-218,-470},{-216,-470},
+          {-216,-480.875},{-202,-480.875}}, color={255,0,255}));
+  connect(and6.y, mulOr1.u[3]) annotation (Line(points={{-218,-500},{-212,-500},
+          {-212,-480},{-202,-480},{-202,-479.125}}, color={255,0,255}));
+  connect(and7.y, mulOr1.u[4]) annotation (Line(points={{-218,-530},{-212,-530},
+          {-212,-480},{-202,-480},{-202,-477.375}}, color={255,0,255}));
+  connect(conIntLocDp.y, and4.u1)
+    annotation (Line(points={{-278,-440},{-242,-440}}, color={255,0,255}));
+  connect(conIntRemDp.y, and5.u1)
+    annotation (Line(points={{-278,-470},{-242,-470}}, color={255,0,255}));
+  connect(conIntFlo.y, and6.u1)
+    annotation (Line(points={{-278,-500},{-242,-500}}, color={255,0,255}));
+  connect(conIntTem.y, and7.u1)
+    annotation (Line(points={{-278,-530},{-242,-530}}, color={255,0,255}));
+  connect(mulOr1.y, assMes.u)
+    annotation (Line(points={{-178,-480},{-162,-480}}, color={255,0,255}));
   annotation (defaultComponentName="conPlaBoi",
     Icon(coordinateSystem(extent={{-100,-400},{100,400}}),
        graphics={
