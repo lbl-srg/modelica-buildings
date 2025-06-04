@@ -17,11 +17,13 @@ block BypassValve
   parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(group="Valve controller",
-                       enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
+                       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                              or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Valve controller",
-                       enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+                       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                              or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enable signal"
@@ -132,7 +134,7 @@ open the condenser water isolation valve to the heat exchanger (<code>yConWatIso
 and enable the economizer in-line chilled water return line valve (<code>yRetVal=1</code>).
 </p>
 <p>
-When the in-line valve is enabled, it shall be modulated by a direct-acting PID
+When the in-line chilled water return valve is enabled, it shall be modulated by a direct-acting PID
 loop to maintain the static pressure difference across the chilled water side
 of the heat exchanger at the design value (<code>dpDes</code>). Map the loop output from 0% open
 at 0% output to 100% open at 100% output. Bias the loop to launce from 100%

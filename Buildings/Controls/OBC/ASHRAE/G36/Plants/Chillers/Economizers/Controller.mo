@@ -265,7 +265,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
         iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiWatBypVal if have_priOnl and have_parChi
-    "Ecnomizer-only chiller water bypass valve"
+    "Ecnomizer-only chiller water bypass valve commanded status"
     annotation (Placement(transformation(extent={{180,-200},{220,-160}}),
         iconTransformation(extent={{100,-130},{140,-90}})));
 
@@ -651,10 +651,20 @@ If the flow through the WSE is controller by a variable speed pump
 (<code>have_byPasValCon=false</code>), the pump is controlled by
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatExchangerPump\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatExchangerPump</a>
-
 </li>
-
 </ul>
+
+<h4>Economizer-only chilled water bypass valve</h4>
+<p>
+Per section 5.20.3.11, for primary-only parallel chiller plant, a chiller bypass valve is needed
+to operate the WSE without flowing water through any of the chillers.
+</p>
+<p>
+When economizer is enabled and all chiller isolation valves are commanded closed,
+open the economizer-only chilled water bypass valve (<code>y1ChiWatBypVal=true</code>).
+Close bypass valve when any chiller isolation valve is commanded open and exceeds
+25% open.
+</p>
 
 
 
