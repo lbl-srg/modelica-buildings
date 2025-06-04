@@ -427,6 +427,9 @@ protected
     "Filtered residual heating load";
   Real QCooRes
     "Filtered residual cooling load";
+  Integer pre_nUniShc = pre(nUniShc);
+  Integer pre_nUniHea = pre(nUniHea);
+  Integer pre_nUniCoo = pre(nUniCoo);
 initial equation
   der(QHeaRes)=0;
   der(QCooRes)=0;
@@ -453,12 +456,12 @@ initial equation
   pre(nUniCoo1) = nUniCoo;
   pre(entryTime) = -Modelica.Constants.inf;
 equation
-  when {change(nUniShc), change(nUniHea), change(nUniCoo),
+  when {change(pre_nUniShc), change(pre_nUniHea), change(pre_nUniCoo),
     time >= pre(entryTime) + dtRun} then
     if time >= pre(entryTime) + dtRun then
       nUniShc1 = nUniShc;
-      nUniHea1 = if nUniShc1 + nUniHea <= nUni then nUniHea else nUni - nUniShc1;
-      nUniCoo1 = if nUniShc1 + nUniHea1 + nUniCoo <= nUni then nUniCoo else
+      nUniHea1 = if nUniShc + nUniHea <= nUni then nUniHea else nUni - nUniShc1;
+      nUniCoo1 = if nUniShc + nUniHea + nUniCoo <= nUni then nUniCoo else
         nUni - nUniShc1 - nUniHea1;
     else
       nUniShc1 = pre(nUniShc1);
@@ -485,8 +488,8 @@ equation
   // (deltaX guards against numerical residuals influencing stage transitions)
   if min(QCooShcInt_flow) < deltaX * QCooShc_flow_nominal and
      max(QHeaShcInt_flow) > deltaX * QHeaShc_flow_nominal then
-    nUniShcHea = integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) / max(QHeaShcInt_flow)));
-    nUniShcCoo = integer(ceil((QCooSet_flow - deltaX * QCooShc_flow_nominal) / min(QCooShcInt_flow)));
+    nUniShcHea = integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) / SPLR / max(QHeaShcInt_flow)));
+    nUniShcCoo = integer(ceil((QCooSet_flow - deltaX * QCooShc_flow_nominal) / SPLR / min(QCooShcInt_flow)));
   else
     nUniShcHea = 0;
     nUniShcCoo = 0;
@@ -559,11 +562,11 @@ equation
   QHeaSetRes_flow = QHeaSet_flow - (QHeaShc_flow + QHeaShcCyc_flow);
   QCooSetRes_flow = QCooSet_flow - (QCooShc_flow + QCooShcCyc_flow);
   if max(QHeaInt_flow) > deltaX * QHea_flow_nominal and nUniShc < nUni and nUniShcHea > nUniShc then
-    nUniHea = integer(ceil((QHeaRes - deltaX * QHea_flow_nominal) / SPLR / max(QHeaInt_flow)));
+    nUniHea = integer(ceil((QHeaSetRes_flow - deltaX * QHea_flow_nominal) / SPLR / max(QHeaInt_flow)));
   else nUniHea=0;
   end if;
   if min(QCooInt_flow) < deltaX * QCoo_flow_nominal and nUniShc < nUni and nUniShcCoo > nUniShc then
-    nUniCoo = integer(ceil((QCooRes - deltaX * QCoo_flow_nominal) / SPLR / min(QCooInt_flow)));
+    nUniCoo = integer(ceil((QCooSetRes_flow - deltaX * QCoo_flow_nominal) / SPLR / min(QCooInt_flow)));
   else nUniCoo = 0;
   end if;
   if nUniHea1 > 0 then
