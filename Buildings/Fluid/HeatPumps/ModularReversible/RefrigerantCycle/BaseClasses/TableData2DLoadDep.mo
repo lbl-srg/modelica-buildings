@@ -1,6 +1,8 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 block TableData2DLoadDep
   "Calculation of capacity, heat flow rate and power based on load-dependent 2D table data"
+   extends Modelica.Blocks.Icons.Block;
+
   type TypeOfSystem = Integer(final min = 1, final max = 3)
   annotation(choices(
     choice = 1 "Chiller",
