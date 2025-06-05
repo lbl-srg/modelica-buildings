@@ -265,15 +265,15 @@ block TableData2DLoadDepSHC
     "Cooling heat flow rate"
     annotation (Placement(transformation(extent={{100,100},{140,140}}),
       iconTransformation(extent={{100,100},{140,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniHea(start=0)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniHea(start=0, fixed=true)
     "Number of modules in heating mode"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniCoo(start=0)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniCoo(start=0, fixed=true)
     "Number of modules in cooling mode"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniShc(start=0)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniShc(start=0, fixed=true)
     "Number of modules in SHC mode (may be cycling into cooling or heating mode)"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-160},{140,-120}})));
@@ -345,11 +345,9 @@ protected
       verboseRead=fill(false, nPLRShc))
     "External table objects for power interpolation - SHC mode";
   constant Real deltaX = 1E-4 "Small number used for smoothing";
-
-public
+protected
   Real QHeaShcExc_flow;
   Real QCooShcExc_flow;
-protected
   Modelica.Units.SI.HeatFlowRate QHeaSet_flow
     "Heating load - All modules";
   Modelica.Units.SI.HeatFlowRate QCooSet_flow
@@ -416,8 +414,8 @@ protected
     "Sign of Delta-T used for load calculation";
   Real ratCycShc(start=1)
     "Operating mode cycling ratio for load balancing";
-  Integer nUniShcHea;
-  Integer nUniShcCoo;
+  Integer nUniShcHea(start=0, fixed=true);
+  Integer nUniShcCoo(start=0, fixed=true);
   discrete Real entryTime(final quantity="Time", final unit="s")
     "Time instant when stage started";
   Integer nUniHea1(start=0)
@@ -426,15 +424,12 @@ protected
     "Number of modules in cooling mode";
   Integer nUniShc1(start=0)
     "Number of modules in SHC mode (may be cycling into cooling or heating mode)";
-  Integer pre_nUniShc = pre(nUniShc);
-  Integer pre_nUniHea = pre(nUniHea);
-  Integer pre_nUniCoo = pre(nUniCoo);
-  // FIXME: removing these 2 variables and equations make simulation fail with OCT!?
-  Real QHea;
-  Real QCoo;
+  Integer pre_nUniShc(start=0, fixed=true) = pre(nUniShc);
+  Integer pre_nUniHea(start=0, fixed=true) = pre(nUniHea);
+  Integer pre_nUniCoo(start=0, fixed=true) = pre(nUniCoo);
+  Integer useHea(start=0, fixed=true);
+  Integer useCoo(start=0, fixed=true);
 initial equation
-  der(QHea) = 0;
-  der(QCoo) = 0;
   PHeaInt_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabPHea, fill(THw_nominal, nPLRHea), fill(TAmbHea_nominal, nPLRHea));
   QHeaInt_flow_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
@@ -447,12 +442,6 @@ initial equation
     tabPShc, fill(TChw_nominal, nPLRShc), fill(THw_nominal, nPLRShc));
   QCooShcInt_flow_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabQShc, fill(TChw_nominal, nPLRShc), fill(THw_nominal, nPLRShc));
-  // Including the 3 following equations yields error in flattened model with OCT.
-  // Not including them yields initialization warning with Dymola.
-  // OMC can handle both.
-//   pre(nUniShc) = nUniShc;
-//   pre(nUniHea) = nUniHea;
-//   pre(nUniCoo) = nUniCoo;
   pre(nUniShc1) = nUniShc;
   pre(nUniHea1) = nUniHea;
   pre(nUniCoo1) = nUniCoo;
@@ -473,8 +462,10 @@ equation
     entryTime = if change(nUniShc1) or change(nUniHea1) or change(nUniCoo1)
       then time else pre(entryTime);
   end when;
-  dtMea* der(QHea) = QHeaSetRes_flow - QHea;
-  dtMea* der(QCoo) = QCooSetRes_flow - QCoo;
+  when {initial(), change(nUniShc), change(nUniShcHea), change(nUniShcCoo)} then
+    useHea = if nUniShc < nUni and nUniShcHea > nUniShc then 1 else 0;
+    useCoo = if nUniShc < nUni and nUniShcCoo > nUniShc then 1 else 0;
+  end when;
   // Compute total heating and cooling loads
   QHeaSet_flow = max(0, sigLoa * (THwSet - THwCtl) * cpHw * mHw_flow);
   QCooSet_flow = min(0, sigLoa * (TChwSet - TChwCtl) * cpChw * mChw_flow);
@@ -488,18 +479,14 @@ equation
   QHeaShcInt_flow=scaFacHeaShc * (PShcInt .- QCooShcInt_flow) / scaFacCooShc;
   // Compute number of modules in SHC mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions)
-  if min(QCooShcInt_flow) < deltaX * QCooShc_flow_nominal and
-     max(QHeaShcInt_flow) > deltaX * QHeaShc_flow_nominal then
-    nUniShcHea = integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) / max(QHeaShcInt_flow)));
-    nUniShcCoo = integer(ceil((QCooSet_flow - deltaX * QCooShc_flow_nominal) / min(QCooShcInt_flow)));
-  else
-    nUniShcHea = 0;
-    nUniShcCoo = 0;
-  end if;
+  nUniShcHea = integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) /
+    max(cat(1, QHeaShcInt_flow, {deltaX * QHeaShc_flow_nominal}))));
+  nUniShcCoo = integer(ceil((QCooSet_flow - deltaX * QCooShc_flow_nominal) /
+    min(cat(1, QCooShcInt_flow, {deltaX * QCooShc_flow_nominal}))));
   nUniShc = min({nUni, nUniShcHea, nUniShcCoo});
   if nUniShc1 > 0 then
     // Compute PLR for modules in SHC mode
-    PLRShc = max(0, min(PLRShc_max, max(
+    PLRShc = Buildings.Utilities.Math.Functions.smoothLimit(max(
       Modelica.Math.Vectors.interpolate(
         cat(1, {0}, QHeaShcInt_flow),
         cat(1, {0}, PLRShcSor),
@@ -507,7 +494,8 @@ equation
       Modelica.Math.Vectors.interpolate(
         abs(cat(1, {0}, QCooShcInt_flow)),
         cat(1, {0}, PLRShcSor),
-        abs(QCooSet_flow / (nUniShc1 + nUniCoo1))))));
+        abs(QCooSet_flow / (nUniShc1 + nUniCoo1)))),
+      0, PLRShc_max, deltaX);
     // Compute thermal output of module in SHC mode without single-mode cycling
     QHeaShcNoCyc_flow = Modelica.Math.Vectors.interpolate(
       cat(1, {0}, PLRShcSor),
@@ -522,24 +510,29 @@ equation
     QCooShcExc_flow = nUniShc1 * (QCooShcNoCyc_flow - QCooSet_flow / (nUniShc1 + nUniCoo1));
     // Compute SHC cycling ratio to balance heating and cooling loads
     // ratCycShc=1 means perfect balance (no cycling): module continuously runs in SHC.
-    ratCycShc = 1 - max(
+    ratCycShc = 1 - Buildings.Utilities.Math.Functions.smoothMax(
       QHeaShcExc_flow * Buildings.Utilities.Math.Functions.inverseXRegularized(
         QHeaShcNoCyc_flow, deltaX * QHeaShc_flow_nominal / nUni),
       QCooShcExc_flow * Buildings.Utilities.Math.Functions.inverseXRegularized(
-        QCooShcNoCyc_flow, deltaX * abs(QCooShc_flow_nominal) / nUni));
+        QCooShcNoCyc_flow, deltaX * abs(QCooShc_flow_nominal) / nUni),
+      deltaX);
     QHeaShc_flow = (nUniShc1 - 1 + ratCycShc) * QHeaShcNoCyc_flow;
     QCooShc_flow = (nUniShc1 - 1 + ratCycShc) * QCooShcNoCyc_flow;
     // Compute PLR and thermal output of SHC module cycling into single-mode
-    PLRHeaShcCyc = max(0, min(PLRHea_max, Modelica.Math.Vectors.interpolate(
+    PLRHeaShcCyc = Buildings.Utilities.Math.Functions.smoothLimit(
+      Modelica.Math.Vectors.interpolate(
       cat(1, {0}, QHeaInt_flow),
       cat(1, {0}, PLRHeaSor),
       (QHeaSet_flow / (nUniShc1 + nUniHea1) * nUniShc1 - QHeaShc_flow) *
-        Buildings.Utilities.Math.Functions.inverseXRegularized(1 - ratCycShc, deltaX))));
-    PLRCooShcCyc = max(0, min(PLRCoo_max, Modelica.Math.Vectors.interpolate(
+        Buildings.Utilities.Math.Functions.inverseXRegularized(1 - ratCycShc, deltaX)),
+      0, PLRHea_max, deltaX);
+    PLRCooShcCyc = Buildings.Utilities.Math.Functions.smoothLimit(
+      Modelica.Math.Vectors.interpolate(
       abs(cat(1, {0}, QCooInt_flow)),
       cat(1, {0}, PLRCooSor),
       abs(QCooSet_flow / (nUniShc1 + nUniCoo1) * nUniShc1 - QCooShc_flow) *
-        Buildings.Utilities.Math.Functions.inverseXRegularized(1 - ratCycShc, deltaX))));
+        Buildings.Utilities.Math.Functions.inverseXRegularized(1 - ratCycShc, deltaX)),
+      0, PLRCoo_max, deltaX);
     QHeaShcCyc_flow = (1 - ratCycShc) * Modelica.Math.Vectors.interpolate(
       cat(1, {0}, PLRHeaSor),
       cat(1, {0}, QHeaInt_flow),
@@ -566,14 +559,10 @@ equation
   // (deltaX guards against numerical residuals influencing stage transitions)
   QHeaSetRes_flow = QHeaSet_flow - (QHeaShc_flow + QHeaShcCyc_flow);
   QCooSetRes_flow = QCooSet_flow - (QCooShc_flow + QCooShcCyc_flow);
-  if max(QHeaInt_flow) > deltaX * QHea_flow_nominal and nUniShc < nUni and nUniShcHea > nUniShc then
-    nUniHea = integer(ceil((QHeaSetRes_flow - deltaX * QHea_flow_nominal) / SPLR / max(QHeaInt_flow)));
-  else nUniHea=0;
-  end if;
-  if min(QCooInt_flow) < deltaX * QCoo_flow_nominal and nUniShc < nUni and nUniShcCoo > nUniShc then
-    nUniCoo = integer(ceil((QCooSetRes_flow - deltaX * QCoo_flow_nominal) / SPLR / min(QCooInt_flow)));
-  else nUniCoo = 0;
-  end if;
+  nUniHea = useHea * integer(ceil((QHeaSetRes_flow - deltaX * QHea_flow_nominal) / SPLR /
+    max(cat(1, QHeaInt_flow, {deltaX * QHea_flow_nominal}))));
+  nUniCoo = useCoo * integer(ceil((QCooSetRes_flow - deltaX * QCoo_flow_nominal) / SPLR /
+    min(cat(1, QCooInt_flow, {deltaX * QCoo_flow_nominal}))));
   if nUniHea1 > 0 then
     PLRHea = max(0, min(PLRHea_max, Modelica.Math.Vectors.interpolate(
       cat(1, {0}, QHeaInt_flow),
@@ -635,17 +624,17 @@ The model assumes hydronic balance over each active module.
 <h4>Simultaneous heating and cooling operation</h4>
 <p>
 Modular systems in parallel arrangement with hydronic balance over each module
-require that each module handles an equal fraction of the total heating and 
-cooling loads. 
-Otherwise, when one module cannot meet its assigned load fraction, this creates 
+require that each module handles an equal fraction of the total heating and
+cooling loads.
+Otherwise, when one module cannot meet its assigned load fraction, this creates
 a deficit that must be compensated in two ways: another module must handle not only
-an increased load, but also a modified temperature setpoint to account for the 
+an increased load, but also a modified temperature setpoint to account for the
 other module's shortfall.
-To achieve effective load balancing across all modules, the model assumes cycling 
-between simultaneous SHC mode and single-mode operation. This cycling ensures that, 
-on average, loads are met on both sides. 
-The alternative operating mode corresponds to the dominant load — for example, 
-when cooling loads dominate, modules will cycle between SHC mode and cooling-only 
+To achieve effective load balancing across all modules, the model assumes cycling
+between simultaneous SHC mode and single-mode operation. This cycling ensures that,
+on average, loads are met on both sides.
+The alternative operating mode corresponds to the dominant load — for example,
+when cooling loads dominate, modules will cycle between SHC mode and cooling-only
 operation.
 The cycling ratio <code>ratCycShc</code> is then calculated as:
 <code>ratCycShc = min(...)</code>.
@@ -671,8 +660,8 @@ and the part load ratio <code>yMea</code> provided as input.<sup>2</sup>
 </li>
 </ul>
 <p>
-<sup>1</sup> The part load ratio is defined as the ratio of the actual heating 
-(or cooling) heat flow rate to the maximum capacity of the heat pump (or chiller) 
+<sup>1</sup> The part load ratio is defined as the ratio of the actual heating
+(or cooling) heat flow rate to the maximum capacity of the heat pump (or chiller)
 at the given load-side and ambient-side fluid temperatures.
 It is dimensionless and bounded by <code>0</code> and <code>max(PLRSup)</code>, where
 the upper bound is typically equal to <code>1</code> (unless there are some
@@ -821,11 +810,11 @@ Instead, the model assumes continuous operation from <code>0</code> to <code>max
 The only effect of cycling taken into account is the impact of the remaining power
 <code>P_min</code> when the machine is enabled and the last operating
 compressor is cycled off.
-Studies on chillers and heat pumps show that this is the main driver of 
+Studies on chillers and heat pumps show that this is the main driver of
 efficiency loss due to cycling (Rivière, 2004).
 When a compressor is staged on, energy losses occur due to the overcoming of the
 refrigerant pressure equalization and the heat exchanger temperature conditioning.
-However, a large part of these losses is recovered when staging off the compressor, 
+However, a large part of these losses is recovered when staging off the compressor,
 unless the machine is disconnected from the load when compressors are disabled.
 This disconnection does not happen when staging multiple compressors,
 and the research shows no significant performance degradation when a
@@ -834,13 +823,13 @@ And even when disabling the last operating compressor, most plant
 controls require continuous operation of the primary pumps when
 the chillers or heat pumps are enabled.
 The European Standard for performance rating of chillers and heat pumps
-at part load conditions (CEN, 2022) states that the performance degradation due to 
+at part load conditions (CEN, 2022) states that the performance degradation due to
 the pressure equalization effect when the unit restarts can be considered
 as negligible for hydronic systems.
-The only effect that will impact the coefficient of performance 
+The only effect that will impact the coefficient of performance
 when cycling is the remaining power input when the compressor is switching off.
 If this remaining power is not measured, the Standard prescribes a default
-value of <i>10&nbsp;&percnt;</i> of the effective power input measured 
+value of <i>10&nbsp;&percnt;</i> of the effective power input measured
 during continuous operation at part load.
 </p>
 <h4>Heat recovery chillers</h4>
@@ -886,10 +875,10 @@ which allows limiting the required PLR to account for equipment internal safetie
 <h4>References</h4>
 <ul>
 <li>
-CEN, 2022. European Standard EN&nbsp;14825:2022&nbsp;E. 
-Air conditioners, liquid chilling packages and heat pumps, 
-with electrically driven compressors, for space heating and cooling, 
-commercial and process cooling - Testing and rating at part load conditions 
+CEN, 2022. European Standard EN&nbsp;14825:2022&nbsp;E.
+Air conditioners, liquid chilling packages and heat pumps,
+with electrically driven compressors, for space heating and cooling,
+commercial and process cooling - Testing and rating at part load conditions
 and calculation of seasonal performance.
 </li>
 <li>Rivière, P. (2004). Performances saisonnières des groupes de production d’eau glaçée
