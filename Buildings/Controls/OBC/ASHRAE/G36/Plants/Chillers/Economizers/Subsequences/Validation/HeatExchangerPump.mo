@@ -15,9 +15,8 @@ model HeatExchangerPump "Validate the control of heat exchanger pump"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumOn(
     final width=0.8,
-    final period=3600)
-    "Pump proven on"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    final period=3600) "Pump proven on"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp entHexTem(
     final height=8,
     final duration=3600,
@@ -31,11 +30,13 @@ model HeatExchangerPump "Validate the control of heat exchanger pump"
     final width=0.2, final period=3600)
     "Enabled plant"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  CDL.Logical.Sources.Constant notInPro(final k=false) "Not in staging process"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
-  connect(ecoSta.y,wsePum. uWSE) annotation (Line(points={{-38,50},{0,50},{0,4},
-          {18,4}}, color={255,0,255}));
-  connect(pumOn.y, wsePum.uPum) annotation (Line(points={{-38,10},{-10,10},{-10,
-          0},{18,0}}, color={255,0,255}));
+  connect(ecoSta.y,wsePum. uWSE) annotation (Line(points={{-38,50},{0,50},{0,5},
+          {18,5}}, color={255,0,255}));
+  connect(pumOn.y, wsePum.uPum) annotation (Line(points={{-58,20},{-10,20},{-10,
+          2},{18,2}}, color={255,0,255}));
   connect(entWSETem.y, wsePum.TEntWSE) annotation (Line(points={{-38,-30},{-10,-30},
           {-10,-4},{18,-4}}, color={0,0,127}));
   connect(entHexTem.y, wsePum.TEntHex) annotation (Line(points={{-38,-70},{0,-70},
@@ -44,6 +45,8 @@ equation
     annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
   connect(not2.y, wsePum.uPla) annotation (Line(points={{-18,80},{8,80},{8,8},{18,
           8}}, color={255,0,255}));
+  connect(notInPro.y, wsePum.uStaPro) annotation (Line(points={{-18,0},{-10,0},
+          {-10,-1},{18,-1}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Economizers/Subsequences/Validation/HeatExchangerPump.mos"

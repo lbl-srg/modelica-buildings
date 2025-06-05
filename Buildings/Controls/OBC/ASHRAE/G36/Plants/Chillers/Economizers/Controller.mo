@@ -130,13 +130,19 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     "Hysteresis for checking valve position"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Hysteresis"));
 
+  parameter Real dtHol(
+    final min=0,
+    final unit="s")=900
+    "Minimum hold time during stage change"
+    annotation (Dialog(tab="Advanced", enable=not have_byPasValCon));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-220,210},{-180,250}}),
-        iconTransformation(extent={{-140,112},{-100,152}})));
+        iconTransformation(extent={{-140,110},{-100,150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
@@ -144,7 +150,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature upstream of the WSE"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+        iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
     final unit="K",
@@ -152,7 +158,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature downstream of the WSE"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax(
     final min=0,
@@ -160,50 +166,56 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     final unit="1")
     "Maximum cooling tower fan speed"
     annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
-    iconTransformation(extent={{-140,20},{-100,60}})));
+    iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Measured chilled water volume flow rate"
     annotation (Placement(transformation(extent={{-220,120},{-180,160}}),
-    iconTransformation(extent={{-140,40},{-100,80}})));
+    iconTransformation(extent={{-140,50},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal"
     annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
-        iconTransformation(extent={{-140,0},{-100,40}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(
     final min=0,
     final max=nSta) "Initial chiller stage (at plant enable)"
     annotation (Placement(transformation(extent={{-220,-10},{-180,30}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,-10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta(
     final min=0,
     final max=nSta)
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-220,-68},{-180,-28}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
+        iconTransformation(extent={{-140,-30},{-100,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat(
     final unit="Pa",
     final quantity="PressureDifference") if have_byPasValCon
     "Differential static pressure across economizer in the chilled water side"
     annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPum
     if not have_byPasValCon "True: heat exchanger pump is proven on"
     annotation (Placement(transformation(extent={{-220,-130},{-180,-90}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaPro
+    if not have_byPasValCon
+    "True: in staging process"
+    annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEntHex(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not have_byPasValCon
     "Chilled water temperature entering heat exchanger"
-    annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-220,-170},{-180,-130}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoVal[nChi] if have_priOnl and have_parChi
     "Chiller isolation valve commanded setpoint: true- commanded on"
@@ -236,10 +248,8 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Placement(transformation(extent={{180,20},{220,60}}),
     iconTransformation(extent={{100,10},{140,50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal(
-    final min=0,
-    final max=1,
-    final unit="1") "Economizer condensing water isolation valve position"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatIsoVal
+    "Economizer condenser water isolation valve position"
     annotation (Placement(transformation(extent={{180,-50},{220,-10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -346,7 +356,8 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatExchangerPump wsePum(
     final minSpe=minSpe,
-    final desSpe=desSpe)
+    final desSpe=desSpe,
+    final dtHol=dtHol)
     if not have_byPasValCon
     "Pump control for economizer when the chilled water flow is controlled by a variable speed heat exchanger pump"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
@@ -485,20 +496,17 @@ equation
     annotation (Line(points={{142,40},{200,40}},   color={255,0,255}));
   connect(dpChiWat, wseVal.dpChiWat) annotation (Line(points={{-200,-80},{-42,-80},
           {-42,-76},{118,-76}},   color={0,0,127}));
-  connect(uPum, wsePum.uPum) annotation (Line(points={{-200,-110},{118,-110}},
+  connect(uPum, wsePum.uPum) annotation (Line(points={{-200,-110},{-42,-110},{-42,
+          -108},{118,-108}},
           color={255,0,255}));
-  connect(TEntHex, wsePum.TEntHex) annotation (Line(points={{-200,-140},{100,-140},
+  connect(TEntHex, wsePum.TEntHex) annotation (Line(points={{-200,-150},{100,-150},
           {100,-118},{118,-118}},        color={0,0,127}));
-  connect(wseVal.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-64},
-          {160,-64},{160,-30},{200,-30}},    color={0,0,127}));
   connect(wseVal.yRetVal, yRetVal)
     annotation (Line(points={{142,-76},{200,-76}},   color={0,0,127}));
   connect(wsePum.yPumOn, yPumOn)
     annotation (Line(points={{142,-110},{200,-110}}, color={255,0,255}));
   connect(wsePum.yPumSpe, yPumSpe) annotation (Line(points={{142,-116},{160,-116},
           {160,-140},{200,-140}}, color={0,0,127}));
-  connect(wsePum.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-104},
-          {160,-104},{160,-30},{200,-30}},   color={0,0,127}));
   connect(TChiWatRet, wsePum.TEntWSE) annotation (Line(points={{-200,200},{-170,
           200},{-170,-114},{118,-114}}, color={0,0,127}));
   connect(uPla, wseVal.uPla) annotation (Line(points={{-200,40},{-154,40},{-154,
@@ -512,7 +520,7 @@ equation
   connect(enaEco.y, wseVal.uWSE) annotation (Line(points={{142,40},{150,40},{150,
           20},{110,20},{110,-70},{118,-70}},     color={255,0,255}));
   connect(enaEco.y, wsePum.uWSE) annotation (Line(points={{142,40},{150,40},{150,
-          20},{110,20},{110,-106},{118,-106}},   color={255,0,255}));
+          20},{110,20},{110,-105},{118,-105}},   color={255,0,255}));
   connect(enaEco.y, falEdg.u) annotation (Line(points={{142,40},{160,40},{160,110},
           {-120,110},{-120,130},{-102,130}},color={255,0,255}));
   connect(enaEco.y, wseTun.uWseSta) annotation (Line(points={{142,40},{150,40},{
@@ -553,6 +561,12 @@ equation
     annotation (Line(points={{-118,-220},{-102,-220}}, color={255,0,255}));
   connect(cloVal.y, valCom.clr) annotation (Line(points={{62,-200},{100,-200},{100,
           -186},{118,-186}}, color={255,0,255}));
+  connect(uStaPro, wsePum.uStaPro) annotation (Line(points={{-200,-130},{90,-130},
+          {90,-111},{118,-111}}, color={255,0,255}));
+  connect(wseVal.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-64},
+          {160,-64},{160,-30},{200,-30}}, color={255,0,255}));
+  connect(wsePum.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-104},
+          {160,-104},{160,-30},{200,-30}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
              graphics={
@@ -656,17 +670,15 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatE
 
 <h4>Economizer-only chilled water bypass valve</h4>
 <p>
-Per section 5.20.3.11, for primary-only parallel chiller plant, a chiller bypass valve is needed
-to operate the WSE without flowing water through any of the chillers.
-</p>
-<p>
-When economizer is enabled and all chiller isolation valves are commanded closed,
-open the economizer-only chilled water bypass valve (<code>y1ChiWatBypVal=true</code>).
-Close bypass valve when any chiller isolation valve is commanded open and exceeds
+Per section 5.20.3.11, when economizer is enabled and all chiller isolation valves are
+commanded closed, open the economizer-only chilled water bypass valve (<code>y1ChiWatBypVal=true</code>).
+Close the bypass valve when any chiller isolation valve is commanded open and exceeds
 25% open.
 </p>
-
-
+<p>
+The economizer-only chillerd water bypass valve is typically needed for primary-only
+parallerl plant.
+</p>
 
 </html>",
 revisions="<html>

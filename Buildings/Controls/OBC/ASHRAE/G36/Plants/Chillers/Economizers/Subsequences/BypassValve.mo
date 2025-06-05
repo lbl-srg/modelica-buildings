@@ -39,11 +39,8 @@ block BypassValve
     "Differential static pressure across economizer in the chilled water side"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "Economizer condensing water isolation valve position"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatIsoVal
+    "Economizer condenser water isolation valve commanded status"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetVal(
@@ -54,9 +51,6 @@ block BypassValve
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal conWatIso
-    "Condensing water valve position"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
@@ -96,18 +90,16 @@ equation
           -28}},color={0,0,127}));
   connect(swi.y, yRetVal) annotation (Line(points={{82,-20},{120,-20}},
                 color={0,0,127}));
-  connect(conWatIso.y, yConWatIsoVal)
-    annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
   connect(uWSE, and1.u1)
     annotation (Line(points={{-120,40},{-82,40}}, color={255,0,255}));
   connect(uPla, and1.u2) annotation (Line(points={{-120,80},{-90,80},{-90,32},{-82,
           32}}, color={255,0,255}));
-  connect(and1.y, conWatIso.u)
-    annotation (Line(points={{-58,40},{58,40}}, color={255,0,255}));
   connect(and1.y, conPID.trigger) annotation (Line(points={{-58,40},{-40,40},{-40,
           -20},{-6,-20},{-6,-12}}, color={255,0,255}));
   connect(and1.y, swi.u2) annotation (Line(points={{-58,40},{-40,40},{-40,-20},{
           58,-20}}, color={255,0,255}));
+  connect(and1.y, yConWatIsoVal)
+    annotation (Line(points={{-58,40},{120,40}}, color={255,0,255}));
 annotation (defaultComponentName = "wseVal",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -130,7 +122,7 @@ according to ASHRAE Guideline36-2021, section 5.20.3.4-6.
 When economizer is enabled, start next condenser pump and (or) adjust the pump
 speed (see <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller</a>),
-open the condenser water isolation valve to the heat exchanger (<code>yConWatIsoVal=1</code>),
+open the condenser water isolation valve to the heat exchanger (<code>yConWatIsoVal=true</code>),
 and enable the economizer in-line chilled water return line valve (<code>yRetVal=1</code>).
 </p>
 <p>

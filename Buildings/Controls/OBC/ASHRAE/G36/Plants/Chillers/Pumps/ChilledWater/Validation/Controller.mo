@@ -79,11 +79,10 @@ protected
     final nout=2)
     "Replicate real input"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol[3](
-    trueHoldDuration=fill(5, 3)) "Chilled water pump status"
+  Buildings.Templates.Components.Controls.StatusEmulator sta[3](
+    delayTime=fill(2, 3))
+    "Chilled water pump proven status emulator"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[3] "Break loop"
-    annotation (Placement(transformation(extent={{80,110},{100,130}})));
 
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)
@@ -145,12 +144,10 @@ equation
           {56,-130},{56,-91},{78,-91}}, color={0,0,127}));
   connect(isoVal.y, heaNoLoc.uChiWatIsoVal) annotation (Line(points={{-78,140},
           {40,140},{40,157},{78,157}},color={0,0,127}));
-  connect(truFalHol.y, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},{
-          44,120},{44,167},{78,167}}, color={255,0,255}));
-  connect(heaNoLoc.yChiWatPum, pre.u) annotation (Line(points={{102,160},{120,160},
-          {120,140},{70,140},{70,120},{78,120}}, color={255,0,255}));
-  connect(pre.y, truFalHol.u) annotation (Line(points={{102,120},{110,120},{110,
-          100},{-10,100},{-10,120},{-2,120}}, color={255,0,255}));
+  connect(heaNoLoc.yChiWatPum, sta.y1) annotation (Line(points={{102,160},{110,160},
+          {110,100},{-10,100},{-10,120},{-2,120}}, color={255,0,255}));
+  connect(sta.y1_actual, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},
+          {44,120},{44,167},{78,167}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Pumps/ChilledWater/Validation/Controller.mos"

@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater;
 block Controller
   "Sequences to control chilled water pumps in primary-only plant system"
 
-  parameter Boolean have_heaPum = true
+  parameter Boolean have_heaPum=true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated";
   parameter Boolean have_locSen = false
     "Flag of local DP sensor: true=local DP sensor hardwired to controller";
@@ -17,19 +17,16 @@ block Controller
   parameter Real minPumSpe=0.1 "Minimum pump speed";
   parameter Real maxPumSpe=1 "Maximum pump speed";
   parameter Integer nPum_nominal(
-    final max=nPum,
-    final min=1)=nPum
+    max=nPum,
+    min=1)=nPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(group="Nominal conditions"));
   parameter Real VChiWat_flow_nominal(
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1e-6)=0.5
+    min=1e-6,
+    unit="m3/s")=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Real maxLocDp(
-    final unit="Pa",
-    final quantity="PressureDifference")=15*6894.75
+  parameter Real maxLocDp(unit="Pa")=15*6894.75
     "Maximum chilled water loop local differential pressure setpoint"
     annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=have_locSen));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
@@ -39,13 +36,11 @@ block Controller
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Speed controller"));
   parameter Real Ti(
-    final unit="s",
-    final quantity="Time",
+    unit="s",
     displayUnit="s")=0.5 "Time constant of integrator block"
       annotation (Dialog(group="Speed controller"));
   parameter Real Td(
-    final unit="s",
-    final quantity="Time",
+    unit="s",
     displayUnit="s")=0.1 "Time constant of derivative block"
       annotation (Dialog(group="Speed controller",
     enable=
@@ -195,7 +190,7 @@ protected
     "Replicate integer input"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=nPum) if have_heaPum
+    final nout=nPum)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(
@@ -407,7 +402,7 @@ equation
     annotation (Line(points={{-198,230},{-160,230},{-160,-90},{-82,-90}},
       color={0,0,127}));
   connect(booRep2.y, lasLagPumSta.u1)
-    annotation (Line(points={{82,0},{90,0},{90,-82},{118,-82}},
+    annotation (Line(points={{82,0},{96,0},{96,-82},{118,-82}},
       color={255,0,255}));
   connect(uChiWatPum, lasLagPumSta.u3)
     annotation (Line(points={{-300,150},{100,150},{100,-98},{118,-98}},
@@ -436,7 +431,7 @@ equation
   connect(lasLagPumSta.y, pumSta.u1)
     annotation (Line(points={{142,-90},{178,-90}}, color={255,0,255}));
   connect(booRep2.y, remPum.u2)
-    annotation (Line(points={{82,0},{90,0},{90,-70},{218,-70}},
+    annotation (Line(points={{82,0},{96,0},{96,-70},{218,-70}},
       color={255,0,255}));
   connect(pumSta.y, remPum.u3)
     annotation (Line(points={{202,-90},{210,-90},{210,-78},{218,-78}},
@@ -538,12 +533,10 @@ equation
           -188,-20},{-188,0},{-42,0}},color={255,0,255}));
   connect(uWse, enaHeaLeaPum.uWse) annotation (Line(points={{-300,0},{-214,0},{-214,
           64},{-202,64}}, color={255,0,255}));
-  connect(pre1.y, pumSpeLocDp.uChiWatPum) annotation (Line(points={{242,-120},{
-          260,-120},{260,-140},{-60,-140},{-60,-206},{-2,-206}}, color={255,0,
-          255}));
-  connect(pre1.y, pumSpeRemDp.uChiWatPum) annotation (Line(points={{242,-120},{
-          260,-120},{260,-140},{-60,-140},{-60,-232},{-2,-232}}, color={255,0,
-          255}));
+  connect(booRep.y, pumSpeLocDp.uChiWatPum) annotation (Line(points={{22,100},{
+          90,100},{90,-180},{-18,-180},{-18,-206},{-2,-206}}, color={255,0,255}));
+  connect(booRep.y, pumSpeRemDp.uChiWatPum) annotation (Line(points={{22,100},{
+          90,100},{90,-180},{-18,-180},{-18,-232},{-2,-232}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,
