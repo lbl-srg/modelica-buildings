@@ -65,8 +65,6 @@ model TableData2DLoadDepSHCVariable
     y(final unit="K", displayUnit="degC"))
     "Evaporator entering CHW temperature"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=true) "Constant"
-    annotation (Placement(transformation(extent={{34,90},{54,110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mChw_flow(k=
         mChw_flow_nominal)
     "CHW mass flow rate"
@@ -115,7 +113,7 @@ model TableData2DLoadDepSHCVariable
     annotation (Placement(transformation(extent={{30,-46},{50,-26}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=15 + 273.15, y(
         final unit="K", displayUnit="degC")) "OA temperature"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Blocks.Continuous.Filter filter(
     f_cut=1,
     init=Modelica.Blocks.Types.Init.InitialOutput,
@@ -126,15 +124,20 @@ model TableData2DLoadDepSHCVariable
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal)
     annotation (Placement(transformation(extent={{50,-70},{30,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxShc(k=Integer(
-        Buildings.Fluid.HeatPumps.Types.OperatingMode.SHC)) "SHC mode index"
-    annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupNom(k=
         THwSup_nominal, y(final unit="K", displayUnit="degC"))
     "Design HW supply temperature"
     annotation (Placement(transformation(extent={{-92,10},{-72,30}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
+    table=[0,3; 1,2; 2,1],
+    timeScale=100,
+    period=300) "Operating mode command"
+    annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(table=[0,1; 250,0],
+      period=300) "On/off command"
+    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{-20,
           -18},{-2,-18}}, color={0,0,127}));
@@ -144,9 +147,9 @@ equation
           -28,-4},{-2,-4}}, color={0,0,127}));
   connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-98,-40},{-12,
           -40},{-12,-12},{-2,-12}}, color={0,0,127}));
-  connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-58,-20},{-26,-20},
+  connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-58,-60},{-26,-60},
           {-26,0},{-2,0}}, color={0,0,127}));
-  connect(TOut.y, hpSupLvg.TAmbLvg) annotation (Line(points={{-58,-20},{-26,-20},
+  connect(TOut.y, hpSupLvg.TAmbLvg) annotation (Line(points={{-58,-60},{-26,-60},
           {-26,-2},{-2,-2}}, color={0,0,127}));
   connect(mChw_flow.y, hpSupLvg.mChw_flow) annotation (Line(points={{-98,-80},{
           -6,-80},{-6,-16},{-2,-16}}, color={0,0,127}));
@@ -170,6 +173,10 @@ equation
           {-66,34},{-62,34}}, color={0,0,127}));
   connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,48},{-4,48},{
           -4,-6},{-2,-6}}, color={0,0,127}));
+  connect(mode.y[1], hpSupLvg.mode) annotation (Line(points={{-138,-20},{-8,-20},
+          {-8,8},{-2,8}}, color={255,127,0}));
+  connect(on.y[1], hpSupLvg.on) annotation (Line(points={{-138,60},{-8,60},{-8,
+          10},{-2,10}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-180,-120},{180,120}}, grid={2,2})),
     __Dymola_Commands(
       file=

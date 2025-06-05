@@ -66,15 +66,16 @@ model TableData2DLoadDepSHC
     y(final unit="K", displayUnit="degC"))
     "Evaporator entering CHW temperature"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(k=true) "Constant"
-    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(k=true)
+    "On/off command"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mChw_flow(k=
         mChw_flow_nominal)
     "CHW mass flow rate"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mHw_flow(k=mHw_flow_nominal)
     "HW mass flow rate"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cp(
     k=Buildings.Media.Water.cp_const)
     "Specific heat capacity of load side fluid"
@@ -127,12 +128,15 @@ model TableData2DLoadDepSHC
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal)
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=Buildings.Fluid.HeatPumps.Types.OperatingModes.shc)
+    "Operating mode command"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{
           -20,-16},{-2,-16}},
                           color={0,0,127}));
-  connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-58,-100},{
-          -40,-100},{-40,-6},{-2,-6}},
+  connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-58,-60},{
+          -40,-60},{-40,-6},{-2,-6}},
                                    color={0,0,127}));
   connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-98,0},{-28,0},{
           -28,-2},{-2,-2}}, color={0,0,127}));
@@ -159,6 +163,10 @@ equation
           -4,-4},{-2,-4}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-4,
           -40},{-4,-12},{-2,-12}}, color={0,0,127}));
+  connect(on.y, hpSupLvg.on) annotation (Line(points={{-58,60},{-18,60},{-18,12},
+          {-2,12}}, color={255,0,255}));
+  connect(mode.y, hpSupLvg.mode) annotation (Line(points={{-58,20},{-40,20},{
+          -40,10},{-2,10}}, color={255,127,0}));
   annotation (Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     __Dymola_Commands(
       file=

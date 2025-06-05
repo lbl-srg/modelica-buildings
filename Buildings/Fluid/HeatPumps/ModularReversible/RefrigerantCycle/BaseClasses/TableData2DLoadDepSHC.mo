@@ -180,6 +180,14 @@ block TableData2DLoadDepSHC
     scaFacCooShc * PShcInt1_nominal})
     "Maximum power at nominal conditions (external use) - All modes";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
+    "On/off command: true to enable heat pump, false to disable heat pump"
+    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
+      iconTransformation(extent={{-140,120},{-100,160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode
+    "Operating mode command (from Buildings.Fluid.HeatPumps.Types.OperatingModes)"
+    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
+      iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THwEnt(
     final unit="K",
     displayUnit="degC")
@@ -253,8 +261,8 @@ block TableData2DLoadDepSHC
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W")
     "Input power"
-    annotation (Placement(transformation(extent={{100,80},{140,120}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+      iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
     final unit="J/s")
     "Heating heat flow rate"
@@ -263,20 +271,20 @@ block TableData2DLoadDepSHC
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
     final unit="J/s")
     "Cooling heat flow rate"
-    annotation (Placement(transformation(extent={{100,100},{140,140}}),
-      iconTransformation(extent={{100,100},{140,140}})));
+    annotation (Placement(transformation(extent={{100,80},{140,120}}),
+      iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniHea(start=0, fixed=true)
     "Number of modules in heating mode"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniCoo(start=0, fixed=true)
     "Number of modules in cooling mode"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniShc(start=0, fixed=true)
     "Number of modules in SHC mode (may be cycling into cooling or heating mode)"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
-      iconTransformation(extent={{100,-160},{140,-120}})));
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+      iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   final parameter Real PLRHeaSor[nPLRHea]=Modelica.Math.Vectors.sort(PLRHeaSup)
     "PLR values in increasing order - Heating mode";
@@ -382,20 +390,15 @@ protected
     "Heating capacity at PLR support points - SHC mode, single module";
   Modelica.Units.SI.Power PShcInt[nPLRShc]
     "Input power at PLR support points - SHC mode, single module";
-  Real PLRHea(
-    start=0)
+  Real PLRHea(start=1)
     "Part load ratio - Modules in heating mode";
-  Real PLRCoo(
-    start=0)
+  Real PLRCoo(start=1)
     "Part load ratio - Modules in cooling mode";
-  Real PLRShc(
-    start=0)
+  Real PLRShc(start=1)
     "Part load ratio - Modules in SHC mode";
-  Real PLRHeaShcCyc(
-    start=0)
+  Real PLRHeaShcCyc(start=1)
     "Part load ratio - Modules in SHC mode that cycle in heating mode";
-  Real PLRCooShcCyc(
-    start=0)
+  Real PLRCooShcCyc(start=1)
     "Part load ratio - Modules in SHC mode that cycle in cooling mode";
   Modelica.Units.SI.Temperature THwTab=
     if use_TConOutForTab then THwLvg else THwEnt
@@ -427,8 +430,10 @@ protected
   Integer pre_nUniShc(start=0, fixed=true) = pre(nUniShc);
   Integer pre_nUniHea(start=0, fixed=true) = pre(nUniHea);
   Integer pre_nUniCoo(start=0, fixed=true) = pre(nUniCoo);
-  Integer useHea(start=0, fixed=true);
-  Integer useCoo(start=0, fixed=true);
+  Integer useHeaShc(start=0, fixed=true);
+  Integer useCooShc(start=0, fixed=true);
+  Integer useHea;
+  Integer useCoo;
 initial equation
   PHeaInt_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabPHea, fill(THw_nominal, nPLRHea), fill(TAmbHea_nominal, nPLRHea));
@@ -462,10 +467,23 @@ equation
     entryTime = if change(nUniShc1) or change(nUniHea1) or change(nUniCoo1)
       then time else pre(entryTime);
   end when;
-  when {initial(), change(nUniShc), change(nUniShcHea), change(nUniShcCoo)} then
-    useHea = if nUniShc < nUni and nUniShcHea > nUniShc then 1 else 0;
-    useCoo = if nUniShc < nUni and nUniShcCoo > nUniShc then 1 else 0;
+
+  when {initial() or change(nUniShc) or change(nUniShcHea) or change(nUniShcCoo)} then
+    useHeaShc = if nUniShc < nUni and nUniShcHea > nUniShc then 1 else 0;
+    useCooShc = if nUniShc < nUni and nUniShcCoo > nUniShc then 1 else 0;
   end when;
+
+  if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.heating then
+    useHea = 1;
+    useCoo = 0;
+  elseif on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling then
+    useHea = 0;
+    useCoo = 1;
+  else
+    useHea = 0;
+    useCoo = 0;
+  end if;
+
   // Compute total heating and cooling loads
   QHeaSet_flow = max(0, sigLoa * (THwSet - THwCtl) * cpHw * mHw_flow);
   QCooSet_flow = min(0, sigLoa * (TChwSet - TChwCtl) * cpChw * mChw_flow);
@@ -477,13 +495,20 @@ equation
   QCooShcInt_flow=scaFacCooShc * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabQShc, fill(TChwTab, nPLRShc), fill(THwTab, nPLRShc));
   QHeaShcInt_flow=scaFacHeaShc * (PShcInt .- QCooShcInt_flow) / scaFacCooShc;
+
   // Compute number of modules in SHC mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions)
-  nUniShcHea = integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) /
-    max(cat(1, QHeaShcInt_flow, {deltaX * QHeaShc_flow_nominal}))));
-  nUniShcCoo = integer(ceil((QCooSet_flow - deltaX * QCooShc_flow_nominal) /
-    min(cat(1, QCooShcInt_flow, {deltaX * QCooShc_flow_nominal}))));
+  if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc then
+    nUniShcHea = integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) /
+      max(cat(1, QHeaShcInt_flow, {deltaX * QHeaShc_flow_nominal}))));
+    nUniShcCoo = integer(ceil((QCooSet_flow - deltaX * QCooShc_flow_nominal) /
+      min(cat(1, QCooShcInt_flow, {deltaX * QCooShc_flow_nominal}))));
+  else
+    nUniShcHea = 0;
+    nUniShcCoo = 0;
+  end if;
   nUniShc = min({nUni, nUniShcHea, nUniShcCoo});
+
   if nUniShc1 > 0 then
     // Compute PLR for modules in SHC mode
     PLRShc = Buildings.Utilities.Math.Functions.smoothLimit(max(
@@ -559,10 +584,12 @@ equation
   // (deltaX guards against numerical residuals influencing stage transitions)
   QHeaSetRes_flow = QHeaSet_flow - (QHeaShc_flow + QHeaShcCyc_flow);
   QCooSetRes_flow = QCooSet_flow - (QCooShc_flow + QCooShcCyc_flow);
-  nUniHea = useHea * integer(ceil((QHeaSetRes_flow - deltaX * QHea_flow_nominal) / SPLR /
+
+  nUniHea = max(useHeaShc, useHea) * integer(ceil((QHeaSetRes_flow - deltaX * QHea_flow_nominal) / SPLR /
     max(cat(1, QHeaInt_flow, {deltaX * QHea_flow_nominal}))));
-  nUniCoo = useCoo * integer(ceil((QCooSetRes_flow - deltaX * QCoo_flow_nominal) / SPLR /
+  nUniCoo = max(useCooShc, useCoo) * integer(ceil((QCooSetRes_flow - deltaX * QCoo_flow_nominal) / SPLR /
     min(cat(1, QCooInt_flow, {deltaX * QCoo_flow_nominal}))));
+
   if nUniHea1 > 0 then
     PLRHea = max(0, min(PLRHea_max, Modelica.Math.Vectors.interpolate(
       cat(1, {0}, QHeaInt_flow),

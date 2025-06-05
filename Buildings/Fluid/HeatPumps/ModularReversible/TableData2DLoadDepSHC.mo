@@ -95,6 +95,10 @@ model TableData2DLoadDepSHC
     "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-142,-20},{-102,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode
+    "Operating mode command (from Buildings.Fluid.HeatPumps.Types.OperatingModes)"
+    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
+      iconTransformation(extent={{-142,-40},{-102,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(
     final unit="K",
     displayUnit="degC")
@@ -107,10 +111,6 @@ model TableData2DLoadDepSHC
     "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
       iconTransformation(extent={{-142,0},{-102,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode
-    "Operating mode command: 1 for heating, 2 for cooling, 3 for SHC"
-    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-142,-40},{-102,0}})));
 equation
   if not use_intSafCtr then
     connect(calYSet.ySet, sigBus.yMea)
