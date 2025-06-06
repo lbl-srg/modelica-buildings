@@ -110,11 +110,11 @@ model TableData2DLoadDepSHC
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.THwEnt +
         hpSupLvg.QHea_flow/hpSupLvg.mHw_flow/hpSupLvg.cpHw)
     "Calculate condenser leaving temperature"
-    annotation (Placement(transformation(extent={{30,-4},{50,16}})));
+    annotation (Placement(transformation(extent={{30,0},{50,20}})));
   Modelica.Blocks.Sources.RealExpression TEvaLvgHpSupLvg(y=hpSupLvg.TChwEnt +
         hpSupLvg.QCoo_flow/hpSupLvg.mChw_flow/hpSupLvg.cpChw)
     "Calculate evaporator leaving temperature"
-    annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
+    annotation (Placement(transformation(extent={{30,-20},{50,0}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=15 + 273.15, y(
         final unit="K", displayUnit="degC")) "OA temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
@@ -156,9 +156,11 @@ equation
   connect(cp.y, hpSupLvg.cpHw) annotation (Line(points={{-58,100},{-20,100},{
           -20,-8},{-2,-8}},   color={0,0,127}));
   connect(TConLvgHpSupLvg.y, filter.u)
-    annotation (Line(points={{51,6},{60,6},{60,40},{52,40}}, color={0,0,127}));
-  connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{59,-40},{52,
-          -40}},              color={0,0,127}));
+    annotation (Line(points={{51,10},{60,10},{60,40},{52,40}},
+                                                             color={0,0,127}));
+  connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{51,-10},{60,
+          -10},{60,-40},{52,-40}},
+                              color={0,0,127}));
   connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
           -4,-4},{-2,-4}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-4,
@@ -177,23 +179,22 @@ equation
       StopTime=100.0),
     Documentation(info="<html>
 <p>
-This model validates the load calculation logic of the block
+This model validates the load calculation and staging logic of the block
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
-Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>
-with a single module in SHC mode and no module in single mode.
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
 </p>
-<ul>
-<li>
-The component <code>hpSupLvg</code> is configured with HW and CHW 
-supply temperature control and performance data interpolation 
-based on evaporator and condenser leaving temperature.
-</li>
-</ul>
+<p>
+The model represents a three-module system operating in constant 
+simultaneous heating and cooling mode with the on/off command 
+always <code>true</code>.
+</p>
 <p>
 The validation is carried out by computing the tracked temperature
 using the heat flow rate calculated by the block, and feeding back 
 this variable as input.
 It is then expected that the tracked temperature matches the setpoint.
+Note that a filtered value of the tracked temperature is used to avoid
+creating an algebraic loop.
 </p>
 </html>", revisions="<html>
 <ul>

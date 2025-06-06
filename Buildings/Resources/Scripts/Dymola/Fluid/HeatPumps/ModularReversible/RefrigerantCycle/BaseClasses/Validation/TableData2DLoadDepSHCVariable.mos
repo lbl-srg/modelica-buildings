@@ -10,14 +10,21 @@ Advanced.StoreProtectedVariables = old_flag;
 createPlot(
     id=1,
     subPlot=1,
-    position={5, 5, 400, 400},
-    y={"hpSupLvg.THwSet", "hpSupLvg.THwEnt", "hpSupLvg.THwLvg"},
+    position={5, 5, 400, 600},
+    y={"hpSupLvg.on", "hpSupLvg.mode"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=2,
+    y={"hpSupLvg.THwSet", "hpSupLvg.THwEnt", "hpSupLvg.THwLvg"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
     y={"hpSupLvg.TChwSet", "hpSupLvg.TChwEnt", "hpSupLvg.TChwLvg"},
     autoscale=true,
     grid=true
@@ -26,7 +33,7 @@ createPlot(
     id=2,
     subPlot=1,
     position={415, 5, 400, 600},
-    y={"hpSupLvg.nUniHea1", "hpSupLvg.nUniCoo1", "hpSupLvg.nUniShc1"},
+    y={"hpSupLvg.nUniHea", "hpSupLvg.nUniCoo", "hpSupLvg.nUniShc"},
     autoscale=true,
     grid=true
 );
