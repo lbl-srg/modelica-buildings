@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
-  constant Modelica.Units.SI.Time minHorLen = 1E-6
-    "Minimum value for horizon length, used to guard against rounding errors, 
-    must be greater or equal to the solver tolerance";
+  constant Modelica.Units.SI.Time minHorLen = 1E-5
+    "Minimum value for horizon length, used to guard against rounding errors, must not be smaller than the solver tolerance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
