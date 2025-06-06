@@ -135,7 +135,6 @@ protected
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 
-protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=0)
     "Stage 0"
@@ -195,11 +194,10 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[2](k=fill(1, 2))
     "Chiller chilled water isolation valve positions"
     annotation (Placement(transformation(extent={{-300,-130},{-280,-110}})));
-
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4[2](k=fill(1, 2))
     "Chiller chilled water isolation valve positions"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
-  CDL.Logical.Sources.Constant                        con5(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(final k=false)
     "Not in process"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
 equation
