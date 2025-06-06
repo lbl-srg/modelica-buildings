@@ -119,7 +119,7 @@ block Controller "Chiller plant controller"
     "Staging matrix with chiller stage as row index and chiller as column index"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
-  parameter Real desChiNum[nSta+1]={0,1,2}
+  parameter Integer desChiNum[nSta+1]={0,1,2}
     "Design number of chiller that should be ON at each chiller stage, including the zero stage"
     annotation (Dialog(tab="General", group="Staging configuration", enable=have_fixSpeConWatPum));
 
@@ -133,7 +133,7 @@ block Controller "Chiller plant controller"
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
-  parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
+  parameter Integer desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
@@ -251,11 +251,6 @@ block Controller "Chiller plant controller"
 
   parameter Real minEcoSpe=0.1
     "Minimum economizer chilled water pump speed"
-    annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
-      enable=have_WSE and not have_byPasValCon));
-
-  parameter Real desEcoSpe=0.9
-    "Design economizer pump speed"
     annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
       enable=have_WSE and not have_byPasValCon));
 
@@ -1103,8 +1098,7 @@ block Controller "Chiller plant controller"
     final k=kEcoVal,
     final Ti=TiEcoVal,
     final Td=TdEcoVal,
-    final minSpe=minEcoSpe,
-    final desSpe=desEcoSpe) if have_WSE
+    final minSpe=minEcoSpe) if have_WSE
     "Waterside economizer (WSE) enable/disable status"
     annotation(Placement(transformation(extent={{-700,300},{-660,356}})));
 

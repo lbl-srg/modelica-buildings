@@ -96,7 +96,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Dialog(group="Valve or pump control", enable=not have_byPasValCon));
   parameter Real desSpe(
     final min=0,
-    final max=1)=0.9
+    final max=1)=1
     "Design pump speed"
     annotation (Dialog(group="Valve or pump control", enable=not have_byPasValCon));
 
