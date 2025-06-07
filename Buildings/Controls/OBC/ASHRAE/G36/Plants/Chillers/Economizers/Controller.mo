@@ -274,7 +274,8 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Placement(transformation(extent={{180,-160},{220,-120}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiWatBypVal if have_priOnl and have_parChi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiWatBypVal
+    if have_priOnl and have_parChi
     "Ecnomizer-only chiller water bypass valve commanded status"
     annotation (Placement(transformation(extent={{180,-200},{220,-160}}),
         iconTransformation(extent={{100,-130},{140,-90}})));

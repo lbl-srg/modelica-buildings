@@ -957,12 +957,6 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{920,670},{960,710}}),
         iconTransformation(extent={{100,290},{140,330}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiWatBypVal
-    if have_priOnl and have_parChi
-    "Ecnomizer-only chiller water bypass valve commanded status"
-    annotation (Placement(transformation(extent={{920,640},{960,680}}),
-        iconTransformation(extent={{100,270},{140,310}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet[nChi](
     final unit=fill("K", nChi),
     displayUnit=fill("degC", nChi),
@@ -2027,8 +2021,6 @@ equation
           {-380,428},{-380,620},{798,620}}, color={0,0,127}));
   connect(supTem.y, TChiWatSupSet)
     annotation (Line(points={{822,620},{940,620}}, color={0,0,127}));
-  connect(wseSta.y1ChiWatBypVal, y1ChiWatBypVal) annotation (Line(points={{-656,
-          306},{-568,306},{-568,660},{940,660}}, color={255,0,255}));
   connect(wseSta.yConWatIsoVal, yEcoConWatIsoVal) annotation (Line(points={{-656,
           328},{-620,328},{-620,780},{940,780}}, color={255,0,255}));
 annotation (
