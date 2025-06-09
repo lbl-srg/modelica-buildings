@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "TZonAirMod.y",
+    "TZonAirEP.y",
+    "m_flowFanMod.y",
+    "m_flowFanEP.y",
+    "TAirLvgMod.y",
+    "TAirLvgEP.y",
+    "QCooCoiMod.y",
+    "QCooCoiEP.y",
+    "PCooCoiMod.y",
+    "PCooCoiEP.y"
+  };
