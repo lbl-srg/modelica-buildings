@@ -179,7 +179,7 @@ model TableData2DLoadDep
     use_TConOutForOpeEnv=true,
     use_TEvaOutForOpeEnv=true)
     "Heat pump performance data"
-    annotation (Placement(transformation(extent={{100,62},{120,82}})));
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Sources.Boundary_pT sup(
     redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,

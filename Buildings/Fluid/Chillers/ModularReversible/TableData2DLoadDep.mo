@@ -72,17 +72,17 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable chiller, false to disable chiller"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-142,-20},{-102,20}})));
+      iconTransformation(extent={{-138,-18},{-102,18}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
     "Temperature setpoint"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-142,20},{-102,60}})));
+      iconTransformation(extent={{-138,22},{-102,58}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo
     if have_switchover "Switchover signal: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-142,-40},{-102,0}})));
+      iconTransformation(extent={{-138,-38},{-102,-2}})));
   Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.CalculateCommandSignal calYSet(
     final use_rev=false,
     final useInHeaPum=false)

@@ -120,17 +120,17 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-142,-20},{-102,20}})));
+      iconTransformation(extent={{-138,-18},{-102,18}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
     "Temperature setpoint"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-142,20},{-102,60}})));
+      iconTransformation(extent={{-138,22},{-102,58}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput hea
     if use_rev "Switchover signal: true for heating, false for cooling"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-142,-40},{-102,0}})));
+      iconTransformation(extent={{-138,-38},{-102,-2}})));
   Modelica.Blocks.Sources.BooleanConstant conHeaBus(final k=true)
     if use_busConOnl and not use_rev
     "Locks the device in heating mode if not reversible - Case with use_busConOnl=true"
