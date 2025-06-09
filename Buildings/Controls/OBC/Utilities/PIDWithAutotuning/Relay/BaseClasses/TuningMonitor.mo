@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
-  constant Modelica.Units.SI.Time minHorLen = Buildings.Controls.OBC.CDL.Constants.eps
-    "Minimum value for horizon length, used to guard against rounding errors";
+  constant Modelica.Units.SI.Time eps = 1E-5
+    "A small tolerance applied to determine whether a variable is greater than zero";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
@@ -33,7 +33,7 @@ protected
     "Check if either the length for the on period or the length for the off period are larger than 0"
     annotation (Placement(transformation(origin={-40,10}, extent = {{-40, 40}, {-20, 60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(
-    final k=minHorLen)
+    final k=eps)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
@@ -161,6 +161,11 @@ or <code>tOff</code> changes after the tuning period starts, as illustrated belo
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/algorithm.png\"/>
 </p>
+<p>Note:</p>
+This block monitors the values of <code>tOn</code> and <code>tOff</code> to detect the start and end of the tuning period.
+Rapid changes in these values can cause unreliable event triggering during variable time-step integration.
+To enhance robustness, a small tolerance <code>eps</code> is introduced.
+Increasing <code>eps</code> can help ensure correct event detection if any events are missed.
 
 <h4>References</h4>
 <p>
