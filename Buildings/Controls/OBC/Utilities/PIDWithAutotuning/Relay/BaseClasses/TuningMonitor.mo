@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
   constant Modelica.Units.SI.Time eps = 1E-5
-    "A small tolerance applied when determining if a variable is greater than zero";
+    "A small tolerance applied to determine whether a variable is greater than zero";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
