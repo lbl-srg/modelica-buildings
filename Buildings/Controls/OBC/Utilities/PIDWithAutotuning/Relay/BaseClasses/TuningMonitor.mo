@@ -162,9 +162,9 @@ or <code>tOff</code> changes after the tuning period starts, as illustrated belo
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/algorithm.png\"/>
 </p>
 <p>Note:</p>
-This block monitors the values of <code>tOn</code> and <code>tOff</code> to detect the start and end of the tuning period. 
-Rapid changes in these values can cause unreliable event triggering during variable time-step integration. 
-To enhance robustness, a small tolerance <code>eps</code> is introduced. 
+This block monitors the values of <code>tOn</code> and <code>tOff</code> to detect the start and end of the tuning period.
+Rapid changes in these values can cause unreliable event triggering during variable time-step integration.
+To enhance robustness, a small tolerance <code>eps</code> is introduced.
 Increasing <code>eps</code> can help ensure correct event detection if any events are missed.
 
 <h4>References</h4>
