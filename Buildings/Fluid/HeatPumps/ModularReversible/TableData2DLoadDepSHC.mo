@@ -6,19 +6,16 @@ model TableData2DLoadDepSHC
     final use_COP=true,
     final use_EER=true,
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
-    dpEva_nominal=datHea.dpEva_nominal * scaFacHea ^ 2,
-    dpCon_nominal=datHea.dpCon_nominal * scaFacHea ^ 2,
-    redeclare replaceable
-      Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.TableData2DLoadDep safCtrPar
-      constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
-        final use_maxCycRat=false,
-        final tabUppHea=datHea.tabUppBou,
-        final tabLowCoo=datCoo.tabLowBou,
-        final use_TConOutHea=datHea.use_TConOutForOpeEnv,
-        final use_TEvaOutHea=datHea.use_TEvaOutForOpeEnv,
-        final use_TConOutCoo=datCoo.use_TConOutForOpeEnv,
-        final use_TEvaOutCoo=datCoo.use_TEvaOutForOpeEnv),
-    dTEva_nominal=(QHea_flow_nominal - PEle_nominal) / cpEva / mEva_flow_nominal,
+    dpEva_nominal=dat.dpEva_nominal * scaFacCoo ^ 2,
+    dpCon_nominal=dat.dpCon_nominal * scaFacHea ^ 2,
+    redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.TableData2DLoadDep safCtrPar(
+      final use_maxCycRat=false,
+      use_opeEnv=false,
+      use_antFre=false,
+      use_minFlowCtr=false,
+      tabUppHea=[273.15, 273.15],
+      tabLowCoo=[273.15, 273.15]),
+    dTEva_nominal=abs(QCoo_flow_nominal) / cpEva / mEva_flow_nominal,
     dTCon_nominal=QHea_flow_nominal / cpCon / mCon_flow_nominal,
     GEvaIns=0,
     GEvaOut=0,
@@ -28,96 +25,193 @@ model TableData2DLoadDepSHC
     GConOut=0,
     CCon=0,
     use_conCap=false,
-    mEva_flow_nominal=datHea.mEva_flow_nominal * scaFacHea,
-    mCon_flow_nominal=datHea.mCon_flow_nominal * scaFacHea,
+    mEva_flow_nominal=dat.mEva_flow_nominal * scaFacCoo,
+    mCon_flow_nominal=dat.mCon_flow_nominal * scaFacHea,
     final use_rev=false,
+    final use_intSafCtr=false,
+    final calEff=false,
     redeclare final Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycleConditional refCyc(
       redeclare final model RefrigerantCycleHeatPumpHeating=
         RefrigerantCycleHeatPumpHeating,
       redeclare final model RefrigerantCycleHeatPumpCooling=
         RefrigerantCycleHeatPumpCooling,
       final allowDifferentDeviceIdentifiers=allowDifferentDeviceIdentifiers));
-  final model RefrigerantCycleHeatPumpHeating=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DLoadDepSHC(
-    final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
-    final use_rev=use_rev,
-    final QHea_flow_nominal=QHea_flow_nominal,
-    final TCon_nominal=TConHea_nominal,
-    final TEva_nominal=TEvaHea_nominal,
-    final cpCon=cpCon,
-    final cpEva=cpEva,
-    redeclare Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-    final dat=datHea)
+  final model RefrigerantCycleHeatPumpHeating=
+    Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DLoadDepSHC(
+      final nUni=nUni,
+      final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
+      final TCon_nominal=TConHea_nominal,
+      final TEva_nominal=TEvaHea_nominal,
+      final TConCoo_nominal=TConCoo_nominal,
+      final TEvaCoo_nominal=TEvaCoo_nominal,
+      final QCoo_flow_nominal=QCoo_flow_nominal,
+      final QHea_flow_nominal=QHea_flow_nominal,
+      final QCooShc_flow_nominal=QCooShc_flow_nominal,
+      final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
+      final cpCon=cpCon,
+      final cpEva=cpEva,
+      final dat=dat)
     "Refrigerant cycle module for the heating mode";
-  final model RefrigerantCycleHeatPumpCooling=Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep(
-    final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
-    final useInChi=false,
-    final have_switchover=false,
-    final QCoo_flow_nominal=QCoo_flow_nominal,
-    final TCon_nominal=TEvaCoo_nominal,
-    final TEva_nominal=TConCoo_nominal,
-    final cpCon=cpCon,
-    final cpEva=cpEva,
-    redeclare final Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-    final dat=datCoo)
+  final model RefrigerantCycleHeatPumpCooling=
+    Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
+      final useInChi=false,
+      final cpCon=cpCon,
+      final cpEva=cpEva,
+      final TCon_nominal=TEvaCoo_nominal,
+      final TEva_nominal=TConCoo_nominal,
+      final QCoo_flow_nominal=QCoo_flow_nominal)
     "Refrigerant cycle module for the cooling mode";
+  replaceable package MediumAmb = Modelica.Media.Interfaces.PartialMedium
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Ambient-side medium";
+  parameter Buildings.Fluid.HeatPumps.Types.HeatPump typ
+    "System type"
+    annotation(Evaluate=true);
+  parameter Integer nUni(min=1)=1
+    "Number of modules";
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
-    "Nominal heating capacity"
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal
+    "Heating heat flow rate - All modules"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0, start=0)
-    "Nominal cooling capacity"
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal
+    "Cooling heat flow rate - All modules"
     annotation (Dialog(group="Nominal condition - Cooling"));
+  parameter Modelica.Units.SI.HeatFlowRate QHeaShc_flow_nominal
+    "Heating heat flow rate - All modules"
+    annotation (Dialog(group="Nominal condition - SHC"));
+  parameter Modelica.Units.SI.HeatFlowRate QCooShc_flow_nominal
+    "Cooling heat flow rate - All modules"
+    annotation (Dialog(group="Nominal condition - SHC"));
   replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic dat
-    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Genericp
+    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic
     "Heating performance data"
     annotation (choicesAllMatching=true,
-    Placement(transformation(extent={{82,-18},{98,-2}})));
+    Placement(transformation(extent={{84,-18},{100,-2}})));
   parameter Modelica.Units.SI.Temperature TConHea_nominal
-    "HW temperature: leaving if datHea.use_TConOutForTab=true, entering otherwie"
+    "HW temperature: leaving if dat.use_TConOutForTab=true, entering otherwie"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
-    "Evaporator heating fluid temperature: leaving if datHea.use_TEvaOutForTab=true, entering otherwie"
+    "Evaporator heating fluid temperature: leaving if dat.use_TAmbOutForTab=true, entering otherwie"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TConCoo_nominal
-    "CHW temperature: leaving if datCoo.use_TEvaOutForTab=true, entering otherwise"
-    annotation (Dialog(enable=use_rev,group="Nominal condition - Cooling"));
+    "CHW temperature: leaving if dat.use_TEvaOutForTab=true, entering otherwise"
+    annotation (Dialog(group="Nominal condition - Cooling"));
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
-    "Condenser cooling fluid temperature: leaving if datCoo.use_TConOutForTab=true, entering otherwise"
-    annotation (Dialog(enable=use_rev,group="Nominal condition - Cooling"));
-  Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.CalculateCommandSignal
-    calYSet(
-      final use_rev=use_rev,
-      final useInHeaPum=true) "Calculate command signal from required PLR"
-    annotation (Placement(transformation(extent={{-50,-20},{-70,0}})));
+    "Condenser cooling fluid temperature: leaving if dat.use_TAmbOutForTab=true, entering otherwise"
+    annotation (Dialog(group="Nominal condition - Cooling"));
+  parameter Boolean allowFlowReversalAmb = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for ambient-side medium"
+    annotation(Dialog(tab="Assumptions", enable=typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater),
+    Evaluate=true);
+  final parameter Real scaFacHea(
+    unit="1")=refCyc.refCycHeaPumHea.calQUseP.scaFacHea
+    "Scaling factor for interpolated heat flow rate and power - Heating mode";
+  final parameter Real scaFacCoo(
+    unit="1")=refCyc.refCycHeaPumHea.calQUseP.scaFacCoo
+    "Scaling factor for interpolated heat flow rate and power - Cooling mode";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-142,-20},{-102,20}})));
+        iconTransformation(extent={{-138,-38},{-102,-2}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode
     "Operating mode command (from Buildings.Fluid.HeatPumps.Types.OperatingModes)"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-142,-40},{-102,0}})));
+        iconTransformation(extent={{-138,-58},{-102,-22}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(
     final unit="K",
     displayUnit="degC")
     "HW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
-    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-142,0},{-102,40}})));
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+        iconTransformation(extent={{-138,22},{-102,58}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChwSet(
     final unit="K",
     displayUnit="degC")
     "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-142,0},{-102,40}})));
+        iconTransformation(extent={{-138,-18},{-102,18}})));
+  Modelica.Fluid.Interfaces.FluidPort_a portAmb_a(
+    redeclare final package Medium = Medium1,
+    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
+    h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
+    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater
+    "Ambient-side fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-130,170},{-110,190}}),
+        iconTransformation(extent={{-70,-110},{-50,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b portAmb_b(
+    redeclare final package Medium = MediumAmb,
+    m_flow(max=if allowFlowReversalAmb then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumAmb.h_default, nominal=MediumAmb.h_default))
+    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater
+    "Ambient-side fluid connector b (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{130,170},{110,190}}),
+        iconTransformation(extent={{70,-110},{50,-90}})));
+  BoundaryConditions.WeatherData.Bus weaBus
+    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater
+    "Weather bus"
+    annotation (Placement(
+        transformation(extent={{-20,160},{20,200}}), iconTransformation(extent={{-10,90},
+            {10,110}})));
+  // FIXME: bindings to ambient parameters
+  BaseClasses.EvaporatorCondenserWithCapacity hxAmb(
+    redeclare final package Medium = MediumAmb,
+    final allowFlowReversal=allowFlowReversalAmb,
+    final m_flow_small=1E-4*abs(mAmb_flow_nominal),
+    final show_T=show_T,
+    final deltaM=deltaMCon,
+    final tau=tauCon,
+    final T_start=TCon_start,
+    final p_start=pCon_start,
+    final use_cap=use_conCap,
+    final X_start=XCon_start,
+    final from_dp=from_dp,
+    final energyDynamics=energyDynamics,
+    final isCon=true,
+    final C=CCon,
+    final TCap_start=TConCap_start,
+    final GOut=GConOut,
+    final m_flow_nominal=mAmb_flow_nominal,
+    final dp_nominal=dpAmb_nominal,
+    final GInn=GConIns)
+    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater
+    "Heat exchanger between refrigerant and ambient-side fluid"
+    annotation (Placement(transformation(extent={{20,140},{60,180}})));
+  Sensors.TemperatureTwoPort TAmbLiqIn(
+    redeclare final package Medium = MediumCon,
+    final m_flow_nominal=mAmb_flow_nominal)
+    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater
+    "Ambient-side medium inlet temperature"
+    annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
+  Templates.Plants.Controls.Utilities.PlaceholderReal TAmbIn(final have_inp=typ ==
+        Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater, have_inpPh=true)
+    "Ambient-side fluid inlet temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-16,144})));
+  Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
+    "Placeholder signal"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
+      origin={-100,-88})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniHea(start=0)
+    "Number of modules in heating mode"
+    annotation (Placement(transformation(extent={{140,-78},{180,-38}}),
+      iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={30,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniCoo(start=0)
+    "Number of modules in cooling mode"
+    annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
+      iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={0,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniShc(start=0)
+    "Number of modules in SHC mode (may be cycling into single mode)"
+    annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
+      iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-30,-120})));
 equation
-  if not use_intSafCtr then
-    connect(calYSet.ySet, sigBus.yMea)
-      annotation (Line(points={{-72,-10},{-74,-10},{-74,-38},{-136,-38},{-136,-41},
-            {-141,-41}},
-        color={0,0,127}));
-  end if;
   connect(eff.QUse_flow, refCycIneCon.y)
     annotation (Line(points={{98,37},{48,37},{48,66},{8.88178e-16,66},{8.88178e-16,61}},
       color={0,0,127}));
@@ -125,30 +219,42 @@ equation
     annotation (Line(points={{98,30},{48,30},{48,0},{26,0},{26,-30},{-20,-30},{-20,-41},{-141,-41}},
       color={255,0,255}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(sigBus.PLRHea, calYSet.PLRHea)
-    annotation (Line(points={{-141,-41},{-141,-42},{-46,-42},{-46,-4},{-48,-4}},
-                                                               color={255,204,51},thickness=0.5));
-  connect(calYSet.ySet, sigBus.ySet)
-    annotation (Line(points={{-72,-10},{-74,-10},{-74,-38},{-138,-38},{-138,-41},
-          {-141,-41}},
-      color={0,0,127}));
-  connect(calYSet.ySet, safCtr.ySet)
-    annotation (Line(points={{-72,-10},{-74,-10},{-74,-28},{-118,-28},{-118,-10},
-          {-113.333,-10}},
-      color={0,0,127}));
-  connect(sigBus.PLRCoo, calYSet.PLRCoo)
-    annotation (Line(points={{-141,-41},{-141,-42},{-46,-42},{-46,-16},{-48,-16}},
-                                                               color={255,204,51},thickness=0.5));
   connect(on, sigBus.onOffMea)
     annotation (Line(points={{-160,-20},{-130,-20},{-130,-38},{-142,-38},{-142,
           -41},{-141,-41}},                                    color={255,0,255}));
-  connect(TSet, sigBus.TSet)
-    annotation (Line(points={{-160,40},{-120,40},{-120,-38},{-141,-38},{-141,-41}},
-                                                             color={0,0,127}));
-  connect(PLR, sigBus.yMea) annotation (Line(points={{150,-60},{130,-60},{130,
-          -36},{-138,-36},{-138,-40},{-140,-40},{-140,-41},{-141,-41}}, color={
-          0,0,127}));
+  connect(THwSet, sigBus.THwSet) annotation (Line(points={{-160,60},{-122,60},{-122,
+          -41},{-141,-41}}, color={0,0,127}));
+  connect(TChwSet, sigBus.TChwSet) annotation (Line(points={{-160,40},{-124,40},
+          {-124,-41},{-141,-41}}, color={0,0,127}));
+  connect(hxAmb.port_b, portAmb_b)
+    annotation (Line(points={{60,160},{120,160},{120,180}},
+                                                  color={0,127,255}));
+  connect(portAmb_a, TAmbLiqIn.port_a) annotation (Line(points={{-120,180},{-120,
+          160},{-110,160}}, color={0,127,255}));
+  connect(TAmbLiqIn.port_b, hxAmb.port_a)
+    annotation (Line(points={{-90,160},{20,160}}, color={0,127,255}));
+  connect(weaBus.TDryBul, TAmbIn.u) annotation (Line(
+      points={{0.1,180.1},{0.1,144},{-4,144}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(TAmbIn.y, sigBus.TAmbInMea) annotation (Line(points={{-28,144},{-34,144},
+          {-34,-40},{-141,-40},{-141,-41}}, color={0,0,127}));
+  connect(hxAmb.T, TAmbIn.uPh) annotation (Line(points={{62.4,150},{66,150},{66,
+          138},{-4,138}}, color={0,0,127}));
+  connect(hxAmb.Q_flow, sigBus.QAmb_flow) annotation (Line(points={{40,136},{40,
+          120},{-32,120},{-32,-41},{-141,-41}}, color={0,0,127}));
+  connect(mode, sigBus.mode) annotation (Line(points={{-160,-80},{-130,-80},{-130,
+          -41},{-141,-41}}, color={255,127,0}));
+  connect(conHea.y, sigBus.hea) annotation (Line(points={{-111,-88},{-128,-88},{
+          -128,-41},{-141,-41}}, color={255,0,255}));
+  connect(nUniHea, sigBus.nUniHea) annotation (Line(points={{160,-58},{140,-58},
+          {140,-60},{130,-60},{130,-41},{-141,-41}}, color={255,127,0}));
+  connect(nUniCoo, sigBus.nUniCoo) annotation (Line(points={{160,-80},{128,-80},
+          {128,-41},{-141,-41}}, color={255,127,0}));
+  connect(nUniShc, sigBus.nUniShc) annotation (Line(points={{160,-100},{126,
+          -100},{126,-41},{-141,-41}}, color={255,127,0}));
   annotation (
+    defaultComponentName="hp",
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}}),
@@ -160,7 +266,7 @@ equation
           textString="hea")}),
     Diagram(
       coordinateSystem(
-        extent={{-140,-160},{140,160}})),
+        extent={{-140,-180},{140,180}}, grid={2,2})),
     Documentation(
       revisions="<html>
 <ul>

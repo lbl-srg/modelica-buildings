@@ -1,0 +1,58 @@
+simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=5400,
+    method="CVode",
+    resultFile="TableData2DLoadDepHeatPump");
+createPlot(
+    id=1,
+    position={5, 5, 400, 600},
+    subPlot=1,
+    y={"hp.on", "hp.mode"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"THwRet.T", "THwSup.T", "hp.THwSet", "THwSup_nominal", "THwRet_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"TChwRet.T", "TChwSup.T", "hp.TChwSet", "TChwSup_nominal", "TChwRet_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={415, 5, 400, 600},
+    y={"hp.QCon_flow", "hp.QHea_flow_nominal", "hp.QHeaShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"hp.QEva_flow", "hp.QCoo_flow_nominal", "hp.QCooShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"hp.refCyc.sigBus.mConMea_flow", "hp.refCyc.sigBus.mEvaMea_flow", "hp.mCon_flow_nominal", "hp.mEva_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={825, 5, 400, 300},
+    subPlot=1,
+    y={"hp.refCyc.sigBus.nUniCoo", "hp.refCyc.sigBus.nUniHea", "hp.refCyc.sigBus.nUniShc"},
+    autoscale=true,
+    grid=true
+);

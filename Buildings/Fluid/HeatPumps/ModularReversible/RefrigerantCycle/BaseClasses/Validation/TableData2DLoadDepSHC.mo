@@ -85,7 +85,6 @@ model TableData2DLoadDepSHC
     nUni=3,
     use_TEvaOutForTab=true,
     use_TConOutForTab=true,
-    use_TAmbOutForTab=false,
     PLRHeaSup={1},
     PLRCooSup={1},
     PLRShcSup={1},
@@ -133,28 +132,26 @@ model TableData2DLoadDepSHC
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{
-          -20,-16},{-2,-16}},
+          -20,-14},{-2,-14}},
                           color={0,0,127}));
   connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-58,-60},{
-          -40,-60},{-40,-6},{-2,-6}},
+          -40,-60},{-40,-4},{-2,-4}},
                                    color={0,0,127}));
   connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-98,0},{-28,0},{
-          -28,-2},{-2,-2}}, color={0,0,127}));
+          -28,0},{-2,0}},   color={0,0,127}));
   connect(TChiWatSet.y, hpSupLvg.TChwSet) annotation (Line(points={{-98,80},{
-          -22,80},{-22,4},{-2,4}},
+          -22,80},{-22,6},{-2,6}},
                                color={0,0,127}));
   connect(THeaWatSet.y, hpSupLvg.THwSet) annotation (Line(points={{-98,40},{-24,
-          40},{-24,6},{-2,6}}, color={0,0,127}));
+          40},{-24,8},{-2,8}}, color={0,0,127}));
   connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-98,-40},{-12,
-          -40},{-12,-10},{-2,-10}}, color={0,0,127}));
+          -40},{-12,-8},{-2,-8}},   color={0,0,127}));
   connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-58,-20},{-26,-20},
-          {-26,2},{-2,2}}, color={0,0,127}));
-  connect(TOut.y, hpSupLvg.TAmbLvg) annotation (Line(points={{-58,-20},{-26,-20},
-          {-26,0},{-2,0}},   color={0,0,127}));
+          {-26,4},{-2,4}}, color={0,0,127}));
   connect(mChw_flow.y, hpSupLvg.mChw_flow) annotation (Line(points={{-98,-80},{
-          -6,-80},{-6,-14},{-2,-14}}, color={0,0,127}));
+          -6,-80},{-6,-12},{-2,-12}}, color={0,0,127}));
   connect(cp.y, hpSupLvg.cpHw) annotation (Line(points={{-58,100},{-20,100},{
-          -20,-8},{-2,-8}},   color={0,0,127}));
+          -20,-6},{-2,-6}},   color={0,0,127}));
   connect(TConLvgHpSupLvg.y, filter.u)
     annotation (Line(points={{51,10},{60,10},{60,40},{52,40}},
                                                              color={0,0,127}));
@@ -162,9 +159,9 @@ equation
           -10},{60,-40},{52,-40}},
                               color={0,0,127}));
   connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
-          -4,-4},{-2,-4}}, color={0,0,127}));
+          -4,-2},{-2,-2}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-4,
-          -40},{-4,-12},{-2,-12}}, color={0,0,127}));
+          -40},{-4,-10},{-2,-10}}, color={0,0,127}));
   connect(on.y, hpSupLvg.on) annotation (Line(points={{-58,60},{-18,60},{-18,12},
           {-2,12}}, color={255,0,255}));
   connect(mode.y, hpSupLvg.mode) annotation (Line(points={{-58,20},{-40,20},{

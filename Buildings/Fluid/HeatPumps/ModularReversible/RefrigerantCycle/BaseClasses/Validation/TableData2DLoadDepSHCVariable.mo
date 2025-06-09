@@ -81,7 +81,6 @@ model TableData2DLoadDepSHCVariable
     nUni=3,
     use_TEvaOutForTab=true,
     use_TConOutForTab=true,
-    use_TAmbOutForTab=false,
     PLRHeaSup={1},
     PLRCooSup={1},
     PLRShcSup={1},
@@ -137,44 +136,44 @@ model TableData2DLoadDepSHCVariable
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(table=[0,1; 250,0],
       period=300) "On/off command"
-    annotation (Placement(transformation(extent={{-52,90},{-32,110}})));
+    annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
 equation
-  connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-8,-100},{-4,-100},{-4,
-          -18},{-2,-18}}, color={0,0,127}));
-  connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-48,-100},{-40,
-          -100},{-40,-8},{-2,-8}}, color={0,0,127}));
-  connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-78,0},{-28,0},{-28,
-          -4},{-2,-4}},     color={0,0,127}));
-  connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-78,-40},{-12,-40},
-          {-12,-12},{-2,-12}},      color={0,0,127}));
+  connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-8,-100},{-4,-100},{
+          -4,-16},{-2,-16}},
+                          color={0,0,127}));
+  connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-48,-100},{
+          -40,-100},{-40,-6},{-2,-6}},
+                                   color={0,0,127}));
+  connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-78,0},{-28,0},{
+          -28,-2},{-2,-2}}, color={0,0,127}));
+  connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-78,-40},{-12,
+          -40},{-12,-10},{-2,-10}}, color={0,0,127}));
   connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-48,-60},{-26,-60},
-          {-26,0},{-2,0}}, color={0,0,127}));
-  connect(TOut.y, hpSupLvg.TAmbLvg) annotation (Line(points={{-48,-60},{-26,-60},
-          {-26,-2},{-2,-2}}, color={0,0,127}));
-  connect(mChw_flow.y, hpSupLvg.mChw_flow) annotation (Line(points={{-78,-80},{-6,
-          -80},{-6,-16},{-2,-16}},    color={0,0,127}));
+          {-26,2},{-2,2}}, color={0,0,127}));
+  connect(mChw_flow.y, hpSupLvg.mChw_flow) annotation (Line(points={{-78,-80},{
+          -6,-80},{-6,-14},{-2,-14}}, color={0,0,127}));
   connect(cp.y, hpSupLvg.cpHw) annotation (Line(points={{-8,-100},{-4,-100},{-4,
-          -10},{-2,-10}},     color={0,0,127}));
+          -8},{-2,-8}},       color={0,0,127}));
   connect(TConLvgHpSupLvg.y, filter.u)
     annotation (Line(points={{51,10},{60,10},{60,40},{52,40}},
                                                              color={0,0,127}));
   connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{51,-10},{60,-10},
           {60,-40},{52,-40}}, color={0,0,127}));
-  connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-8,-40},
-          {-8,-14},{-2,-14}},      color={0,0,127}));
-  connect(TChiWatSet.y[1], hpSupLvg.TChwSet) annotation (Line(points={{-28,60},{
-          -12,60},{-12,2},{-2,2}},  color={0,0,127}));
+  connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-8,
+          -40},{-8,-12},{-2,-12}}, color={0,0,127}));
+  connect(TChiWatSet.y[1], hpSupLvg.TChwSet) annotation (Line(points={{-28,60},
+          {-12,60},{-12,4},{-2,4}}, color={0,0,127}));
   connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-78,40},{-44,40},{-44,
           26},{-42,26}},     color={0,0,127}));
-  connect(min1.y, hpSupLvg.THwSet) annotation (Line(points={{-18,20},{-14,20},{-14,
-          4},{-2,4}},     color={0,0,127}));
+  connect(min1.y, hpSupLvg.THwSet) annotation (Line(points={{-18,20},{-14,20},{
+          -14,6},{-2,6}}, color={0,0,127}));
   connect(THeaWatSupNom.y, min1.u2) annotation (Line(points={{-48,20},{-44,20},{
           -44,14},{-42,14}},  color={0,0,127}));
-  connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{-4,
-          -6},{-2,-6}},    color={0,0,127}));
+  connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
+          -4,-4},{-2,-4}}, color={0,0,127}));
   connect(mode.y[1], hpSupLvg.mode) annotation (Line(points={{-58,80},{-10,80},{
           -10,8},{-2,8}}, color={255,127,0}));
-  connect(on.y[1], hpSupLvg.on) annotation (Line(points={{-30,100},{-8,100},{-8,
+  connect(on.y[1], hpSupLvg.on) annotation (Line(points={{-28,100},{-8,100},{-8,
           10},{-2,10}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}}, grid={2,2})),
     __Dymola_Commands(
