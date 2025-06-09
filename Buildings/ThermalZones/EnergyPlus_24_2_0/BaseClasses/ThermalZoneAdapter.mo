@@ -59,7 +59,17 @@ model ThermalZoneAdapter
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
-
+  final parameter Modelica.Units.SI.Power QCooSen_flow(fixed=false) "Design sensible cooling load";
+  final parameter Modelica.Units.SI.Power QCooLat_flow(fixed=false) "Design latent cooling load";
+  final parameter Modelica.Units.SI.Temperature TOutCoo(fixed=false) "Outdoor drybulb temperature at the cooling design load";
+  final parameter Modelica.Units.SI.DimensionlessRatio XOutCoo(fixed=false) "Outdoor humidity ratio at the cooling design load per total air mass of the zone";
+  final parameter Modelica.Units.SI.Time TCoo(fixed=false) "Time at which these loads occurred";
+  final parameter Modelica.Units.SI.Power QHea_flow(fixed=false) "Design heating load";
+  final parameter Modelica.Units.SI.Temperature TOutHea(fixed=false) "Outdoor drybulb temperature at the heating design load";
+  final parameter Modelica.Units.SI.DimensionlessRatio XOutHea(fixed=false) "Outdoor humidity ratio at the heating design load per total air mass of the zone";
+  final parameter Modelica.Units.SI.MassFlowRate mOutCoo_flow(fixed=false) "Minimum outdoor air flow rate during the cooling design load";
+  final parameter Modelica.Units.SI.MassFlowRate mOutHea_flow(fixed=false) "Minimum outdoor air flow rate during the heating design load";
+  final parameter Modelica.Units.SI.Time THea(fixed=false) "Time at which these loads occurred";
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -101,7 +111,7 @@ model ThermalZoneAdapter
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},{120,-50}})));
 
 protected
-  constant Integer nParOut=3
+  constant Integer nParOut=14
     "Number of parameter values retrieved from EnergyPlus";
   constant Integer nInp=5
     "Number of inputs";
@@ -138,8 +148,12 @@ protected
     printUnit=false,
     jsonName="zones",
     jsonKeysValues="        \"name\": \""+zoneName+"\"",
-    parOutNames={"AFlo","V","mSenFac"},
-    parOutUnits={"m2","m3","1"},
+    parOutNames={"AFlo","V","mSenFac","QCooSen_flow","QCooLat_flow","TOutCoo",
+                 "XOutCoo","TCoo","QHea_flow","TOutHea","XOutHea","mOutCoo_flow",
+                 "mOutHea_flow","THea"},
+    parOutUnits={"m2","m3","1","W","W","K",
+                 "1","s","W","K","1","kg/s",
+                 "kg/s","s"},
     nParOut=nParOut,
     inpNames={"T","X","mInlets_flow","TAveInlet","QGaiRad_flow"},
     inpUnits={"K","1","kg/s","K","W"},
@@ -220,7 +234,9 @@ initial equation
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  {AFlo, V, mSenFac}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+  {AFlo,V,mSenFac,QCooSen_flow,QCooLat_flow,TOutCoo,
+   XOutCoo,TCoo,QHea_flow,TOutHea,XOutHea,mOutCoo_flow,
+   mOutHea_flow,THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);
