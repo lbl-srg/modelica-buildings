@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
-  constant Modelica.Units.SI.Time minHorLen = Buildings.Controls.OBC.CDL.Constants.eps
-    "Minimum value for horizon length, used to guard against rounding errors";
+  constant Modelica.Units.SI.Time minHorLen = 1E-5
+    "A small tolerance applied to determine whether a variable is greater than zero";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
@@ -161,6 +161,11 @@ or <code>tOff</code> changes after the tuning period starts, as illustrated belo
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/algorithm.png\"/>
 </p>
+<p>Note:</p>
+This block monitors the values of <code>tOn</code> and <code>tOff</code> to detect the start and end of the tuning period.
+Rapid changes in these values can cause unreliable event triggering during variable time-step integration.
+To enhance robustness, a small tolerance <code>eps</code> is introduced.
+Increasing <code>eps</code> can help ensure correct event detection if any events are missed.
 
 <h4>References</h4>
 <p>
