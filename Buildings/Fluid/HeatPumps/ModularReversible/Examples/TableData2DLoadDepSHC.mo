@@ -58,8 +58,8 @@ model TableData2DLoadDepSHC
     "Total CHW pressure drop across HP and isolation valve"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TChiWatSet(
-    table=[0,0; 10,0; 80,TChwEnt.k - TChwSup_nominal; 95,TChwEnt.k -
-        TChwSup_nominal],
+    table=[0,0; 10,0; 80,0.2*(TChwEnt.k - TChwSup_nominal); 95,0.2*(TChwEnt.k
+         - TChwSup_nominal)],
     offset={TChwSup_nominal},
     timeScale=20,
     y(each final unit="K", each displayUnit="degC"))
@@ -67,9 +67,9 @@ model TableData2DLoadDepSHC
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatSet(
     amplitude=THwEnt.k - THwSup_nominal,
-    freqHz=1.5/3600,
-    offset=THwSup_nominal + (THwEnt.k - THwSup_nominal)/2,
-    startTime=100,
+    freqHz=1/3600,
+    offset=THwSup_nominal,
+    startTime=1000,
     y(final unit="K", displayUnit="degC"))
     "HW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-150,62},{-130,82}})));
@@ -84,7 +84,7 @@ model TableData2DLoadDepSHC
     annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=15 + 273.15, y(
         final unit="K", displayUnit="degC")) "OA temperature"
-    annotation (Placement(transformation(extent={{-130,130},{-110,150}})));
+    annotation (Placement(transformation(extent={{-152,130},{-132,150}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupNom(k=
@@ -93,9 +93,9 @@ model TableData2DLoadDepSHC
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
     table=[0,3; 1,2; 2,1],
-    timeScale=1500,
-    period=4500)
-                "Operating mode command"
+    timeScale=1200,
+    period=3600)
+    "Operating mode command"
     annotation (Placement(transformation(extent={{-130,90},{-110,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(
     table=[0,1; 5000,0],
@@ -114,7 +114,6 @@ model TableData2DLoadDepSHC
     final dat=dat,
     mCon_flow_nominal=mHw_flow_nominal,
     mEva_flow_nominal=mChw_flow_nominal,
-    typ=Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater,
     final QHea_flow_nominal=QHea_flow_nominal,
     QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
@@ -222,7 +221,7 @@ equation
           -2}},     color={255,0,255}));
   connect(mode.y[1], hp.mode) annotation (Line(points={{-108,100},{16,100},{16,-4},
           {28,-4}}, color={255,127,0}));
-  connect(TOut.y, weaBus.TDryBul) annotation (Line(points={{-108,140},{-98,140},
+  connect(TOut.y, weaBus.TDryBul) annotation (Line(points={{-130,140},{-98,140},
           {-98,140.1},{-89.9,140.1}},color={0,0,127}));
   connect(weaBus, hp.weaBus) annotation (Line(
       points={{-90,140},{20,140},{20,40},{40,40},{40,10}},

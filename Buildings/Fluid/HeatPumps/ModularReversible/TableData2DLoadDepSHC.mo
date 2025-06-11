@@ -64,7 +64,10 @@ model TableData2DLoadDepSHC
   replaceable package MediumAmb = Modelica.Media.Interfaces.PartialMedium
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Ambient-side medium";
-  parameter Buildings.Fluid.HeatPumps.Types.HeatPump typ
+  // The following parameter is for future support of 6-pipe systems.
+  // Currently only 4-pipe systems are implemented.
+  final parameter Buildings.Fluid.HeatPumps.Types.HeatPump typ=
+    Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater
     "System type"
     annotation(Evaluate=true);
   parameter Integer nUni(min=1)=1
@@ -159,22 +162,6 @@ model TableData2DLoadDepSHC
     "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
         iconTransformation(extent={{-138,-18},{-102,18}})));
-  Modelica.Fluid.Interfaces.FluidPort_a portAmb_a(
-    redeclare final package Medium = Medium1,
-    m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
-    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater
-    "Ambient-side fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-130,170},{-110,190}}),
-        iconTransformation(extent={{-70,-110},{-50,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portAmb_b(
-    redeclare final package Medium = MediumAmb,
-    m_flow(max=if allowFlowReversalAmb then +Modelica.Constants.inf else 0),
-    h_outflow(start=MediumAmb.h_default, nominal=MediumAmb.h_default))
-    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater
-    "Ambient-side fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{130,170},{110,190}}),
-        iconTransformation(extent={{70,-110},{50,-90}})));
   BoundaryConditions.WeatherData.Bus weaBus
     if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater
     "Weather bus"
@@ -182,35 +169,6 @@ model TableData2DLoadDepSHC
         transformation(extent={{-20,160},{20,200}}), iconTransformation(extent={{-10,90},
             {10,110}})));
   // FIXME: bindings to ambient parameters
-  BaseClasses.EvaporatorCondenserWithCapacity hxAmb(
-    redeclare final package Medium = MediumAmb,
-    final allowFlowReversal=allowFlowReversalAmb,
-    final m_flow_small=1E-4*abs(mAmb_flow_nominal),
-    final show_T=show_T,
-    final deltaM=deltaMCon,
-    final tau=tauCon,
-    final T_start=TCon_start,
-    final p_start=pCon_start,
-    final use_cap=use_conCap,
-    final X_start=XCon_start,
-    final from_dp=from_dp,
-    final energyDynamics=energyDynamics,
-    final isCon=true,
-    final C=CCon,
-    final TCap_start=TConCap_start,
-    final GOut=GConOut,
-    final m_flow_nominal=mAmb_flow_nominal,
-    final dp_nominal=dpAmb_nominal,
-    final GInn=GConIns)
-    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater
-    "Heat exchanger between refrigerant and ambient-side fluid"
-    annotation (Placement(transformation(extent={{20,140},{60,180}})));
-  Sensors.TemperatureTwoPort TAmbLiqIn(
-    redeclare final package Medium = MediumCon,
-    final m_flow_nominal=mAmb_flow_nominal)
-    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater
-    "Ambient-side medium inlet temperature"
-    annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
   Templates.Plants.Controls.Utilities.PlaceholderReal TAmbIn(final have_inp=typ ==
         Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater, have_inpPh=true)
     "Ambient-side fluid inlet temperature" annotation (Placement(transformation(
@@ -286,23 +244,12 @@ equation
           -41},{-141,-41}}, color={0,0,127}));
   connect(TChwSet, sigBus.TChwSet) annotation (Line(points={{-160,40},{-124,40},
           {-124,-41},{-141,-41}}, color={0,0,127}));
-  connect(hxAmb.port_b, portAmb_b)
-    annotation (Line(points={{60,160},{120,160},{120,180}},
-                                                  color={0,127,255}));
-  connect(portAmb_a, TAmbLiqIn.port_a) annotation (Line(points={{-120,180},{-120,
-          160},{-110,160}}, color={0,127,255}));
-  connect(TAmbLiqIn.port_b, hxAmb.port_a)
-    annotation (Line(points={{-90,160},{20,160}}, color={0,127,255}));
   connect(weaBus.TDryBul, TAmbIn.u) annotation (Line(
       points={{0.1,180.1},{0.1,144},{-4,144}},
       color={255,204,51},
       thickness=0.5));
   connect(TAmbIn.y, sigBus.TAmbInMea) annotation (Line(points={{-28,144},{-34,144},
           {-34,-40},{-141,-40},{-141,-41}}, color={0,0,127}));
-  connect(hxAmb.T, TAmbIn.uPh) annotation (Line(points={{62.4,150},{66,150},{66,
-          138},{-4,138}}, color={0,0,127}));
-  connect(hxAmb.Q_flow, sigBus.QAmb_flow) annotation (Line(points={{40,136},{40,
-          120},{-32,120},{-32,-41},{-141,-41}}, color={0,0,127}));
   connect(mode, sigBus.mode) annotation (Line(points={{-160,-80},{-130,-80},{-130,
           -41},{-141,-41}}, color={255,127,0}));
   connect(conHea.y, sigBus.hea) annotation (Line(points={{-111,-88},{-128,-88},{
