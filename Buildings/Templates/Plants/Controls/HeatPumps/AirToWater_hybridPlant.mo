@@ -856,8 +856,7 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
     annotation (Placement(transformation(extent={{-300,-380},{-260,-340}}),
       iconTransformation(extent={{-240,80},{-200,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqResChiWat
-    if have_chiWat
-    "Sum of CHW reset requests of all heating loads served"
+    if have_chiWat "Sum of CHW reset requests of all cooling loads served"
     annotation (Placement(transformation(extent={{-300,-400},{-260,-360}}),
       iconTransformation(extent={{-240,60},{-200,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual[nPumHeaWatPri]
