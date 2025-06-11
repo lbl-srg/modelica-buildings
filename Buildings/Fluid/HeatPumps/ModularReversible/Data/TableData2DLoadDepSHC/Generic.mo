@@ -3,11 +3,11 @@ record Generic
   "Partial record to specify performance data for load-dependent data-based models"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.Units.SI.DimensionlessRatio PLRHeaSup[:](min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRHeaSup[:](each final min=0)
     "PLR values at which heat flow rate and power data are provided - Heating mode";
-  parameter Modelica.Units.SI.DimensionlessRatio PLRCooSup[:](min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRCooSup[:](each final min=0)
     "PLR values at which heat flow rate and power data are provided - Cooling mode";
-  parameter Modelica.Units.SI.DimensionlessRatio PLRShcSup[:](min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio PLRShcSup[:](each final min=0)
     "PLR values at which heat flow rate and power data are provided - SHC mode";
   parameter String fileNameHea
     "File where performance data are stored - Heating mode (single module)"

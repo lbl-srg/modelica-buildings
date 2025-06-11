@@ -11,19 +11,19 @@ model TableData2DLoadDepSHC
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
-  parameter Modelica.Units.SI.Temperature THwSup_nominal = 50 + 273.15
+  parameter Modelica.Units.SI.Temperature THwSup_nominal=323.15
     "HW supply temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature THwRet_nominal = 42 + 273.15
+  parameter Modelica.Units.SI.Temperature THwRet_nominal=315.15
     "HW return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TChwSup_nominal = 7 + 273.15
+  parameter Modelica.Units.SI.Temperature TChwSup_nominal=280.15
     "CHW supply temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TChwRet_nominal = 12 + 273.15
+  parameter Modelica.Units.SI.Temperature TChwRet_nominal=285.15
     "CHW return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TAmbHea_nominal = -5 + 273.15
+  parameter Modelica.Units.SI.Temperature TAmbHea_nominal=268.15
     "OA temperature"
     annotation (Dialog(group="Nominal condition - Heating mode"));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal = 58E3
@@ -32,7 +32,7 @@ model TableData2DLoadDepSHC
   parameter Modelica.Units.SI.HeatFlowRate QHeaShc_flow_nominal = 85E3
     "Heating heat flow rate - SHC mode"
     annotation (Dialog(group="Nominal condition - Heating mode"));
-  parameter Modelica.Units.SI.Temperature TAmbCoo_nominal = 35 + 273.15
+  parameter Modelica.Units.SI.Temperature TAmbCoo_nominal=308.15
     "Ambient side fluid temperature — Entering or leaving depending on use_TAmbOutForTab"
     annotation (Dialog(group="Nominal condition - Cooling mode"));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal = -73E3
@@ -51,6 +51,12 @@ model TableData2DLoadDepSHC
     Buildings.Media.Water.cp_const
     "CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpHw_nominal=30000
+    "Total HW pressure drop across HP and isolation valve"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpChw_nominal=40000
+    "Total CHW pressure drop across HP and isolation valve"
+    annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TChiWatSet(
     table=[0,0; 10,0; 80,TChwEnt.k - TChwSup_nominal; 95,TChwEnt.k -
         TChwSup_nominal],
@@ -58,7 +64,7 @@ model TableData2DLoadDepSHC
     timeScale=20,
     y(each final unit="K", each displayUnit="degC"))
     "CHW supply or return temperature setpoint"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatSet(
     amplitude=THwEnt.k - THwSup_nominal,
     freqHz=1.5/3600,
@@ -66,47 +72,48 @@ model TableData2DLoadDepSHC
     startTime=100,
     y(final unit="K", displayUnit="degC"))
     "HW supply or return temperature setpoint"
-    annotation (Placement(transformation(extent={{-150,30},{-130,50}})));
+    annotation (Placement(transformation(extent={{-150,62},{-130,82}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THwEnt(k=THwSup_nominal +
     (THwRet_nominal - THwSup_nominal)*QHeaShc_flow_nominal/QHea_flow_nominal,
     y(final unit="K", displayUnit="degC")) "Condenser entering HW temperature"
-    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
+    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChwEnt(k=TChwSup_nominal +
     (TChwRet_nominal - TChwSup_nominal)* QCooShc_flow_nominal /QCoo_flow_nominal,
     y(final unit="K", displayUnit="degC"))
     "Evaporator entering CHW temperature"
-    annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
+    annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=15 + 273.15, y(
         final unit="K", displayUnit="degC")) "OA temperature"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-130,130},{-110,150}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupNom(k=
         THwSup_nominal, y(final unit="K", displayUnit="degC"))
     "Design HW supply temperature"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
     table=[0,3; 1,2; 2,1],
     timeScale=1500,
     period=4500)
                 "Operating mode command"
-    annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
+    annotation (Placement(transformation(extent={{-130,90},{-110,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(
     table=[0,1; 5000,0],
     timeScale=1,
     period=5400)  "On/off command"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC hp(
     redeclare final package MediumCon=MediumLiq,
     redeclare final package MediumEva=MediumLiq,
     redeclare final package MediumAmb=MediumAmb,
     final energyDynamics=energyDynamics,
     nUni=3,
+    use_preDro=false,
+    dpHw_nominal=30E3,
+    dpChw_nominal=40E3,
     final dat=dat,
     mCon_flow_nominal=mHw_flow_nominal,
-    dpCon_nominal=30E3,
     mEva_flow_nominal=mChw_flow_nominal,
-    dpEva_nominal=40E3,
     typ=Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater,
     final QHea_flow_nominal=QHea_flow_nominal,
     QCoo_flow_nominal=QCoo_flow_nominal,
@@ -117,9 +124,9 @@ model TableData2DLoadDepSHC
     TConCoo_nominal=TChwSup_nominal,
     TEvaCoo_nominal=TAmbCoo_nominal)
     "Multipipe heat pump"
-    annotation (Placement(transformation(extent={{12,-10},{32,10}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-100,-80},{-60,-40}}), iconTransformation(
+        transformation(extent={{-110,120},{-70,160}}), iconTransformation(
           extent={{-28,-54},{-8,-34}})));
   parameter Data.TableData2DLoadDepSHC.Generic dat(
     PLRHeaSup={1},
@@ -135,129 +142,124 @@ model TableData2DLoadDepSHC
     devIde="",
     use_TEvaOutForTab=true,
     use_TConOutForTab=true) "Performance data"
-    annotation (Placement(transformation(extent={{-10,120},{10,140}})));
+    annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Sources.Boundary_pT hwIn(
     redeclare final package Medium = MediumLiq,
-    p=hwOut.p + hp.dpCon_nominal,
+    p=hwOut.p + hp.dpHw_nominal + hp.dpValIso_nominal,
     use_T_in=true,
     nPorts=1) "Boundary conditions of HW at HP inlet"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   Sources.Boundary_pT hwOut(
     redeclare final package Medium = MediumLiq,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=1) "Boundary conditions of HW at HP outlet"
-    annotation (Placement(transformation(extent={{150,30},{130,50}})));
+    annotation (Placement(transformation(extent={{140,30},{120,50}})));
   Sources.Boundary_pT chwOut(
     redeclare final package Medium = MediumLiq,
     p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
     nPorts=1) "Boundary conditions of CHW at HP outlet"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
   Sources.Boundary_pT chwIn(
     redeclare final package Medium = MediumLiq,
-    p=chwOut.p + hp.dpEva_nominal,
+    p=chwOut.p + hp.dpChw_nominal + hp.dpValIso_nominal,
     use_T_in=true,
     nPorts=1) "Boundary conditions of CHW at HP inlet"
-    annotation (Placement(transformation(extent={{112,-30},{92,-10}})));
+    annotation (Placement(transformation(extent={{142,-50},{122,-30}})));
   Sensors.TemperatureTwoPort THwSup(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=hp.mCon_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=THwRet_nominal) "HW supply temperature"
-    annotation (Placement(transformation(extent={{98,30},{118,50}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Sensors.TemperatureTwoPort THwRet(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=hp.mCon_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=THwSup_nominal) "HW return temperature"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Sensors.TemperatureTwoPort TChwRet(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=hp.mEva_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=TChwRet_nominal) "CHW return temperature"
-    annotation (Placement(transformation(extent={{80,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
   Sensors.TemperatureTwoPort TChwSup(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=hp.mEva_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=TChwSup_nominal) "CHW supply temperature"
-    annotation (Placement(transformation(extent={{0,-30},{-20,-10}})));
-  Actuators.Valves.TwoWayLinear valHwIso(
+    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
+  Actuators.Valves.TwoWayTable  valHwIso(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=hp.mCon_flow_nominal,
-    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
+    flowCharacteristics=hp.chaValHwIso,
+    dpValve_nominal=hp.dpValIso_nominal,
+    strokeTime=10,
     init=Modelica.Blocks.Types.Init.InitialState,
-    dpFixed_nominal=0)
+    dpFixed_nominal=hp.dpHw_nominal)
     "HW isolation valve"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/hp.nUni)
-    annotation (Placement(transformation(extent={{92,-70},{112,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Add addInt
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Max maxInt
-    annotation (Placement(transformation(extent={{32,-70},{52,-50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(k=1) "Constant"
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=max(1, pre(hp.nUniShc)
-         + pre(hp.nUniHea))/hp.nUni)
-    annotation (Placement(transformation(extent={{30,62},{50,82}})));
+    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+  Actuators.Valves.TwoWayTable  valChwIso(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=hp.mEva_flow_nominal,
+    dpValve_nominal=hp.dpValIso_nominal,
+    init=Modelica.Blocks.Types.Init.InitialState,
+    dpFixed_nominal=hp.dpChw_nominal,
+    flowCharacteristics=hp.chaValChwIso)
+    "CHW isolation valve"
+    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
 equation
-  connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-128,40},{-94,40},{-94,
-          26},{-92,26}},     color={0,0,127}));
-  connect(THeaWatSupNom.y, min1.u2) annotation (Line(points={{-98,20},{-94,20},{
-          -94,14},{-92,14}},  color={0,0,127}));
-  connect(min1.y, hp.THwSet) annotation (Line(points={{-68,20},{-20,20},{-20,4},
-          {10,4}}, color={0,0,127}));
-  connect(TChiWatSet.y[1], hp.TChwSet) annotation (Line(points={{-78,60},{-22,60},
-          {-22,0},{10,0}}, color={0,0,127}));
-  connect(on.y[1], hp.on) annotation (Line(points={{-78,100},{-24,100},{-24,-2},
-          {10,-2}}, color={255,0,255}));
-  connect(mode.y[1], hp.mode) annotation (Line(points={{-108,80},{-26,80},{-26,-4},
-          {10,-4}}, color={255,127,0}));
-  connect(TOut.y, weaBus.TDryBul) annotation (Line(points={{-98,-60},{-88,-60},{
-          -88,-59.9},{-79.9,-59.9}}, color={0,0,127}));
+  connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-128,72},{-120,72},{-120,
+          46},{-112,46}},    color={0,0,127}));
+  connect(THeaWatSupNom.y, min1.u2) annotation (Line(points={{-128,20},{-120,20},
+          {-120,34},{-112,34}},
+                              color={0,0,127}));
+  connect(min1.y, hp.THwSet) annotation (Line(points={{-88,40},{12,40},{12,4},{28,
+          4}},     color={0,0,127}));
+  connect(TChiWatSet.y[1], hp.TChwSet) annotation (Line(points={{-78,80},{14,80},
+          {14,0},{28,0}},  color={0,0,127}));
+  connect(on.y[1], hp.on) annotation (Line(points={{-78,120},{18,120},{18,-2},{28,
+          -2}},     color={255,0,255}));
+  connect(mode.y[1], hp.mode) annotation (Line(points={{-108,100},{16,100},{16,-4},
+          {28,-4}}, color={255,127,0}));
+  connect(TOut.y, weaBus.TDryBul) annotation (Line(points={{-108,140},{-98,140},
+          {-98,140.1},{-89.9,140.1}},color={0,0,127}));
   connect(weaBus, hp.weaBus) annotation (Line(
-      points={{-80,-60},{-60,-60},{-60,10},{22,10}},
+      points={{-90,140},{20,140},{20,40},{40,40},{40,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(THwEnt.y, hwIn.T_in) annotation (Line(points={{-128,0},{-62,0},{-62,44},
-          {-52,44}}, color={0,0,127}));
-  connect(TChwEnt.y, chwIn.T_in) annotation (Line(points={{-128,-40},{120,-40},{
-          120,-16},{114,-16}}, color={0,0,127}));
+  connect(THwEnt.y, hwIn.T_in) annotation (Line(points={{-128,-20},{-80,-20},{-80,
+          24},{-72,24}},
+                     color={0,0,127}));
+  connect(TChwEnt.y, chwIn.T_in) annotation (Line(points={{-128,-80},{150,-80},{
+          150,-36},{144,-36}}, color={0,0,127}));
   connect(THwSup.port_b, hwOut.ports[1])
-    annotation (Line(points={{118,40},{130,40}}, color={0,127,255}));
+    annotation (Line(points={{120,40},{120,40}}, color={0,127,255}));
   connect(hwIn.ports[1], THwRet.port_a)
-    annotation (Line(points={{-30,40},{-20,40}}, color={0,127,255}));
+    annotation (Line(points={{-50,20},{-40,20}}, color={0,127,255}));
   connect(THwRet.port_b, hp.port_a1)
-    annotation (Line(points={{0,40},{0,6},{12,6}}, color={0,127,255}));
+    annotation (Line(points={{-20,20},{20,20},{20,6},{30,6}},
+                                                   color={0,127,255}));
   connect(chwIn.ports[1], TChwRet.port_a)
-    annotation (Line(points={{92,-20},{80,-20}}, color={0,127,255}));
-  connect(TChwRet.port_b, hp.port_a2) annotation (Line(points={{60,-20},{40,-20},
-          {40,-6},{32,-6}}, color={0,127,255}));
+    annotation (Line(points={{122,-40},{122,-40},{120,-40}},
+                                                 color={0,127,255}));
+  connect(TChwRet.port_b, hp.port_a2) annotation (Line(points={{100,-40},{60,-40},
+          {60,-6},{50,-6}}, color={0,127,255}));
   connect(chwOut.ports[1], TChwSup.port_b)
-    annotation (Line(points={{-30,-20},{-20,-20}}, color={0,127,255}));
-  connect(TChwSup.port_a, hp.port_b2)
-    annotation (Line(points={{0,-20},{0,-6},{12,-6}}, color={0,127,255}));
-  connect(hp.nUniShc, addInt.u1) annotation (Line(points={{19,-12},{18,-12},{18,
-          -42},{-20,-42},{-20,-54},{-2,-54}},color={255,127,0}));
-  connect(hp.nUniHea, addInt.u2) annotation (Line(points={{25,-12},{24,-12},{24,
-          -44},{-18,-44},{-18,-66},{-2,-66}},color={255,127,0}));
-  connect(hp.port_b1, valHwIso.port_a) annotation (Line(points={{32,6},{40,6},{
-          40,40},{60,40}}, color={0,127,255}));
+    annotation (Line(points={{-50,-40},{-40,-40}}, color={0,127,255}));
+  connect(hp.port_b1, valHwIso.port_a) annotation (Line(points={{50,6},{60,6},{60,
+          40},{70,40}},    color={0,127,255}));
   connect(valHwIso.port_b, THwSup.port_a)
-    annotation (Line(points={{80,40},{98,40}}, color={0,127,255}));
-  connect(intToRea.u, maxInt.y)
-    annotation (Line(points={{58,-60},{54,-60}}, color={255,127,0}));
-  connect(addInt.y, maxInt.u1) annotation (Line(points={{22,-60},{26,-60},{26,
-          -54},{30,-54}}, color={255,127,0}));
-  connect(one.y, maxInt.u2) annotation (Line(points={{22,-90},{26,-90},{26,-66},
-          {30,-66}}, color={255,127,0}));
-  connect(intToRea.y, gai.u) annotation (Line(points={{82,-60},{88,-60},{88,-60},
-          {90,-60}}, color={0,0,127}));
-  connect(realExpression.y, valHwIso.y)
-    annotation (Line(points={{51,72},{70,72},{70,52}}, color={0,0,127}));
+    annotation (Line(points={{90,40},{100,40}},color={0,127,255}));
+  connect(TChwSup.port_a, valChwIso.port_b)
+    annotation (Line(points={{-20,-40},{-10,-40}},
+                                               color={0,127,255}));
+  connect(hp.port_b2, valChwIso.port_a) annotation (Line(points={{30,-6},{20,-6},
+          {20,-40},{10,-40}}, color={0,127,255}));
+  connect(hp.yValHwIso, valHwIso.y) annotation (Line(points={{48,11},{48,60},{80,
+          60},{80,52}}, color={0,0,127}));
+  connect(hp.yValChwIso, valChwIso.y) annotation (Line(points={{32,-11},{32,-20},
+          {0,-20},{0,-28}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,160}})),
     __Dymola_Commands(
       file=

@@ -6,8 +6,8 @@ model TableData2DLoadDepSHC
     final use_COP=true,
     final use_EER=true,
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
-    dpEva_nominal=dat.dpEva_nominal * scaFacCoo ^ 2,
-    dpCon_nominal=dat.dpCon_nominal * scaFacHea ^ 2,
+    final dpEva_nominal=if use_preDro then dpChw_nominal else 0,
+    final dpCon_nominal=if use_preDro then dpHw_nominal else 0,
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.TableData2DLoadDep safCtrPar(
       final use_maxCycRat=false,
       use_opeEnv=false,
@@ -72,6 +72,15 @@ model TableData2DLoadDepSHC
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
     annotation (Evaluate=true);
+  parameter Boolean use_preDro=true
+    "Set to true to model HW/CHW pressure drop, false for external calculation by valve component"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.PressureDifference dpHw_nominal = dat.dpCon_nominal * scaFacHea ^ 2
+    "HW pressure drop - Only modeled in component if use_preDro=true"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpChw_nominal = dat.dpEva_nominal * scaFacCoo ^ 2
+    "CHW pressure drop - Only modeled in component if use_preDro=true"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal
     "Heating heat flow rate - All modules"
     annotation (Dialog(group="Nominal condition"));
@@ -111,6 +120,25 @@ model TableData2DLoadDepSHC
   final parameter Real scaFacCoo(
     unit="1")=refCyc.refCycHeaPumHea.calQUseP.scaFacCoo
     "Scaling factor for interpolated heat flow rate and power - Cooling mode";
+  parameter Real dpValIso_nominal = Buildings.Templates.Data.Defaults.dpValIso
+    "HW/CHW isolation valve pressure drop at nominal flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  final parameter Buildings.Fluid.Actuators.Valves.Data.Generic chaValHwIso =
+    Buildings.Fluid.Actuators.Valves.Data.Generic(
+      y={i / nUni for i in 0:nUni},
+      phi={sqrt((i / nUni)^2 * dpValIso_nominal /
+        (dpValIso_nominal + dpHw_nominal * (1 - (i / nUni)^2)))
+        for i in 0:nUni})
+    "Equivalent HW isolation valve flow characteristic"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  final parameter Buildings.Fluid.Actuators.Valves.Data.Generic chaValChwIso =
+    Buildings.Fluid.Actuators.Valves.Data.Generic(
+      y={i / nUni for i in 0:nUni},
+      phi={sqrt((i / nUni)^2 * dpValIso_nominal /
+        (dpValIso_nominal + dpChw_nominal * (1 - (i / nUni)^2)))
+        for i in 0:nUni})
+    "Equivalent CHW isolation valve flow characteristic"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
@@ -195,7 +223,7 @@ model TableData2DLoadDepSHC
       origin={-100,-88})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniHea(start=0)
     "Number of modules in heating mode"
-    annotation (Placement(transformation(extent={{140,-78},{180,-38}}),
+    annotation (Placement(transformation(extent={{140,-80},{180,-40}}),
       iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={30,-120})));
@@ -211,6 +239,38 @@ model TableData2DLoadDepSHC
       iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-30,-120})));
+  Modelica.Blocks.Interfaces.RealOutput yValHwIso(final unit="1")
+    "Equivalent HW isolation valve command" annotation (Placement(
+        transformation(extent={{140,90},{160,110}}), iconTransformation(extent={{-10,-10},
+            {10,10}},
+        rotation=90,
+        origin={80,110})));
+  Modelica.Blocks.Interfaces.RealOutput yValChwIso(final unit="1")
+    "Equivalent CHW isolation valve command" annotation (Placement(
+        transformation(extent={{140,70},{160,90}}), iconTransformation(extent={{-10,-10},
+            {10,10}},
+        rotation=-90,
+        origin={-80,-110})));
+  Modelica.Blocks.Sources.RealExpression calYValHwIso(y=if on and (mode ==
+        Buildings.Fluid.HeatPumps.Types.OperatingModes.heating or mode ==
+        Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) then max(1, pre(
+        nUniShc) + pre(nUniHea))/nUni else 0)
+    "Calculate equivalent HW isolation valve command"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={120,100})));
+  Modelica.Blocks.Sources.RealExpression calYValChwIso(y=if on and (mode ==
+        Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling or mode ==
+        Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) then max(1, pre(
+        nUniShc) + pre(nUniCoo))/nUni else 0)
+    "Calculate equivalent CHW isolation valve command"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={120,80})));
 equation
   connect(eff.QUse_flow, refCycIneCon.y)
     annotation (Line(points={{98,37},{48,37},{48,66},{8.88178e-16,66},{8.88178e-16,61}},
@@ -247,12 +307,16 @@ equation
           -41},{-141,-41}}, color={255,127,0}));
   connect(conHea.y, sigBus.hea) annotation (Line(points={{-111,-88},{-128,-88},{
           -128,-41},{-141,-41}}, color={255,0,255}));
-  connect(nUniHea, sigBus.nUniHea) annotation (Line(points={{160,-58},{140,-58},
-          {140,-60},{130,-60},{130,-41},{-141,-41}}, color={255,127,0}));
+  connect(nUniHea, sigBus.nUniHea) annotation (Line(points={{160,-60},{130,-60},
+          {130,-41},{-141,-41}},                     color={255,127,0}));
   connect(nUniCoo, sigBus.nUniCoo) annotation (Line(points={{160,-80},{128,-80},
           {128,-41},{-141,-41}}, color={255,127,0}));
   connect(nUniShc, sigBus.nUniShc) annotation (Line(points={{160,-100},{126,
           -100},{126,-41},{-141,-41}}, color={255,127,0}));
+  connect(calYValChwIso.y, yValChwIso)
+    annotation (Line(points={{131,80},{150,80}}, color={0,0,127}));
+  connect(calYValHwIso.y, yValHwIso)
+    annotation (Line(points={{131,100},{150,100}}, color={0,0,127}));
   annotation (
     defaultComponentName="hp",
     Icon(
