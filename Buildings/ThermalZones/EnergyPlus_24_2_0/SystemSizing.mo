@@ -1,32 +1,28 @@
 within Buildings.ThermalZones.EnergyPlus_24_2_0;
-model OutputVariable
-  "Block to read an EnergyPlus output variable"
+model SystemSizing
+  "Block to read system sizing parameters from EnergyPlus"
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
-  parameter String name
-    "EnergyPlus name of the output variable as in the EnergyPlus .rdd or .mdd file";
-  parameter String key
-    "EnergyPlus key of the output variable";
-  parameter Boolean isDirectDependent=false
-    "Set to false for states or weather variables, or true for algebraic variables with direct dependency on input variables";
-  Modelica.Blocks.Interfaces.RealInput directDependency if isDirectDependent
-    "Set to algebraic variable on which this output directly depends on"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  discrete Modelica.Blocks.Interfaces.RealOutput y
-    "Output received from EnergyPlus"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  parameter String sysName "Name of HVAC system to group autosizing";
+  final parameter Modelica.Units.SI.Power QCooSen_flow(fixed=false) "Design sensible cooling load";
+  final parameter Modelica.Units.SI.Power QCooLat_flow(fixed=false) "Design latent cooling load";
+  final parameter Modelica.Units.SI.Temperature TOutCoo(fixed=false) "Outdoor drybulb temperature at the cooling design load";
+  final parameter Modelica.Units.SI.DimensionlessRatio XOutCoo(fixed=false) "Outdoor humidity ratio at the cooling design load per total air mass of the zone";
+  final parameter Modelica.Units.SI.Time TCoo(fixed=false) "Time at which these loads occurred";
+  final parameter Modelica.Units.SI.Power QHea_flow(fixed=false) "Design heating load";
+  final parameter Modelica.Units.SI.Temperature TOutHea(fixed=false) "Outdoor drybulb temperature at the heating design load";
+  final parameter Modelica.Units.SI.DimensionlessRatio XOutHea(fixed=false) "Outdoor humidity ratio at the heating design load per total air mass of the zone";
+  final parameter Modelica.Units.SI.MassFlowRate mOutCoo_flow(fixed=false) "Minimum outdoor air flow rate during the cooling design load";
+  final parameter Modelica.Units.SI.MassFlowRate mOutHea_flow(fixed=false) "Minimum outdoor air flow rate during the heating design load";
+  final parameter Modelica.Units.SI.Time THea(fixed=false) "Time at which these loads occurred";
 
 protected
-  final parameter Boolean printUnit=building.printUnits
-    "Set to true to print unit of OutputVariable objects to log file"
-    annotation (Dialog(group="Diagnostics"));
-  Modelica.Blocks.Interfaces.RealInput directDependency_in_internal
-    "Needed to connect to conditional connector";
-  constant Integer nParOut=0
+  constant Integer nParOut=11
     "Number of parameter values retrieved from EnergyPlus";
   constant Integer nInp=0
     "Number of inputs";
-  constant Integer nOut=1
+  constant Integer nOut=0
     "Number of outputs";
   constant Integer nDer=0
     "Number of derivatives";
@@ -45,7 +41,7 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
-    epName=name,
+    epName="hvac_sizing_group_"+sysName,
     hvacZone="n/a",
     autosizeHVAC=autosizeHVAC,
     use_sizingPeriods=use_sizingPeriods,
@@ -55,69 +51,50 @@ protected
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
-    printUnit=printUnit,
-    jsonName="outputVariables",
-    jsonKeysValues="        \"name\": \""+name+"\",
-        \"key\": \""+key+"\",
-        \"fmiName\": \""+name+"_"+key+"\"",
-    parOutNames=fill("",nParOut),
-    parOutUnits=fill("",nParOut),
+    printUnit=false,
+    jsonName="modelicaSystems",
+    jsonKeysValues="        \"name\": \""+sysName+"\"",
+    parOutNames={"QCooSen_flow","QCooLat_flow","TOutCoo",
+                 "XOutCoo","TCoo","QHea_flow","TOutHea","XOutHea","mOutCoo_flow",
+                 "mOutHea_flow","THea"},
+    parOutUnits={"W","W","K",
+                 "1","s","W","K","1","kg/s",
+                 "kg/s","s"},
     nParOut=nParOut,
     inpNames=fill("",nInp),
     inpUnits=fill("",nInp),
     nInp=0,
-    outNames={key},
+    outNames=fill("",nOut),
     outUnits=fill("",nOut),
     nOut=nOut,
     derivatives_structure=fill(fill(nDer,2),nDer),
     nDer=nDer,
     derivatives_delta=fill(0,nDer))
     "Class to communicate with EnergyPlus";
-  Real yEP[nY]
-    "Output of exchange function";
-  Modelica.Units.SI.Time tNext(start=startTime, fixed=true)
-    "Next sampling time";
 
 initial equation
-  assert(
-    not usePrecompiledFMU,
-    "Use of pre-compiled FMU is not supported for block OutputVariable.");
+  if usePrecompiledFMU then
+    assert(
+      Modelica.Utilities.Strings.length(fmuName) > 1,
+      "If usePrecompiledFMU = true, must set parameter fmuName");
+  end if;
+
   nObj=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
+  {QCooSen_flow,QCooLat_flow,TOutCoo,
+   XOutCoo,TCoo,QHea_flow,TOutHea,XOutHea,mOutCoo_flow,
+   mOutHea_flow,THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+    adapter=adapter,
+    nParOut=nParOut,
+    isSynchronized=nObj);
+
 equation
-  if isDirectDependent then
-    connect(directDependency,directDependency_in_internal);
-  else
-    directDependency_in_internal=0;
-  end if;
-  when {initial(),time >= pre(tNext)} then
-    yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
-      adapter=adapter,
-      nY=nY,
-      u={round(time,1E-3),directDependency_in_internal},
-      dummy=nObj);
-    y=yEP[1];
-    tNext=yEP[2];
-  end when;
   nObj=synBui.synchronize.done;
+
   annotation (
-    defaultComponentName="out",
-    Icon(
-      graphics={
-        Text(
-          extent={{-88,84},{80,50}},
-          textColor={0,0,255},
-          textString="%key"),
-        Text(
-          extent={{-86,36},{80,2}},
-          textColor={0,0,255},
-          textString="%name"),
-        Text(
-          extent={{-90,-96},{100,-28}},
-          textString=DynamicSelect("0.0",String(y,
-            significantDigits=2)))}),
+    defaultComponentName="sysSiz",
     Documentation(
       info="<html>
 <p>
@@ -2084,4 +2061,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end OutputVariable;
+end SystemSizing;
