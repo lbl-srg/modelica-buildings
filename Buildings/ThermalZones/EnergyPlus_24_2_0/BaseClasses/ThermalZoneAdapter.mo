@@ -59,17 +59,18 @@ model ThermalZoneAdapter
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
-  final parameter Modelica.Units.SI.Power QCooSen_flow(fixed=false) "Design sensible cooling load";
-  final parameter Modelica.Units.SI.Power QCooLat_flow(fixed=false) "Design latent cooling load";
-  final parameter Modelica.Units.SI.Temperature TOutCoo(fixed=false) "Outdoor drybulb temperature at the cooling design load";
-  final parameter Modelica.Units.SI.DimensionlessRatio XOutCoo(fixed=false) "Outdoor humidity ratio at the cooling design load per total air mass of the zone";
-  final parameter Modelica.Units.SI.Time TCoo(fixed=false) "Time at which these loads occurred";
-  final parameter Modelica.Units.SI.Power QHea_flow(fixed=false) "Design heating load";
-  final parameter Modelica.Units.SI.Temperature TOutHea(fixed=false) "Outdoor drybulb temperature at the heating design load";
-  final parameter Modelica.Units.SI.DimensionlessRatio XOutHea(fixed=false) "Outdoor humidity ratio at the heating design load per total air mass of the zone";
-  final parameter Modelica.Units.SI.MassFlowRate mOutCoo_flow(fixed=false) "Minimum outdoor air flow rate during the cooling design load";
-  final parameter Modelica.Units.SI.MassFlowRate mOutHea_flow(fixed=false) "Minimum outdoor air flow rate during the heating design load";
-  final parameter Modelica.Units.SI.Time THea(fixed=false) "Time at which these loads occurred";
+  // Zone sizing parameters
+  final parameter Modelica.Units.SI.Power sizZon_QCooSen_flow(fixed=false) "Design sensible cooling load";
+  final parameter Modelica.Units.SI.Power sizZon_QCooLat_flow(fixed=false) "Design latent cooling load";
+  final parameter Modelica.Units.SI.Temperature sizZon_TOutCoo(fixed=false) "Outdoor drybulb temperature at the cooling design load";
+  final parameter Modelica.Units.SI.DimensionlessRatio sizZon_XOutCoo(fixed=false) "Outdoor humidity ratio at the cooling design load per total air mass of the zone";
+  final parameter Modelica.Units.SI.Time sizZon_TCoo(fixed=false) "Time at which these loads occurred";
+  final parameter Modelica.Units.SI.Power sizZon_QHea_flow(fixed=false) "Design heating load";
+  final parameter Modelica.Units.SI.Temperature sizZon_TOutHea(fixed=false) "Outdoor drybulb temperature at the heating design load";
+  final parameter Modelica.Units.SI.DimensionlessRatio sizZon_XOutHea(fixed=false) "Outdoor humidity ratio at the heating design load per total air mass of the zone";
+  final parameter Modelica.Units.SI.MassFlowRate sizZon_mOutCoo_flow(fixed=false) "Minimum outdoor air flow rate during the cooling design load";
+  final parameter Modelica.Units.SI.MassFlowRate sizZon_mOutHea_flow(fixed=false) "Minimum outdoor air flow rate during the heating design load";
+  final parameter Modelica.Units.SI.Time sizZon_THea(fixed=false) "Time at which these loads occurred";
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -148,10 +149,12 @@ protected
     printUnit=false,
     jsonName="zones",
     jsonKeysValues="        \"name\": \""+zoneName+"\"",
-    parOutNames={"AFlo","V","mSenFac","QCooSen_flow","QCooLat_flow","TOutCoo",
+    parOutNames={"AFlo","V","mSenFac",
+                 "QCooSen_flow","QCooLat_flow","TOutCoo",
                  "XOutCoo","TCoo","QHea_flow","TOutHea","XOutHea","mOutCoo_flow",
                  "mOutHea_flow","THea"},
-    parOutUnits={"m2","m3","1","W","W","K",
+    parOutUnits={"m2","m3","1",
+                 "W","W","K",
                  "1","s","W","K","1","kg/s",
                  "kg/s","s"},
     nParOut=nParOut,
@@ -234,9 +237,10 @@ initial equation
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  {AFlo,V,mSenFac,QCooSen_flow,QCooLat_flow,TOutCoo,
-   XOutCoo,TCoo,QHea_flow,TOutHea,XOutHea,mOutCoo_flow,
-   mOutHea_flow,THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+  {AFlo,V,mSenFac,
+   sizZon_QCooSen_flow,sizZon_QCooLat_flow,sizZon_TOutCoo,
+   sizZon_XOutCoo,sizZon_TCoo,sizZon_QHea_flow,sizZon_TOutHea,sizZon_XOutHea,sizZon_mOutCoo_flow,
+   sizZon_mOutHea_flow,sizZon_THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);
