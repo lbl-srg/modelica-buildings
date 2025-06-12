@@ -56,9 +56,8 @@ model TableData2DLoadDep
   parameter Data.TableData2DLoadDep.GenericHeatPump datHea(
     fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_HP.txt"),
-    PLRSup={0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0},
+    PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
     PLRCyc_min=0.2,
-    P_min=50,
     mCon_flow_nominal=45,
     mEva_flow_nominal=30,
     dpCon_nominal=40E3,
@@ -76,9 +75,8 @@ model TableData2DLoadDep
   parameter Chillers.ModularReversible.Data.TableData2DLoadDep.Generic datCoo(
     fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_Chiller.txt"),
-    PLRSup={0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1.0},
+    PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
     PLRCyc_min=0.2,
-    P_min=50,
     mCon_flow_nominal=45,
     mEva_flow_nominal=30,
     dpCon_nominal=40E3,

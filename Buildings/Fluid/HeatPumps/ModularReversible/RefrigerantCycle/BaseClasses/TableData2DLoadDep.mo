@@ -27,8 +27,8 @@ block TableData2DLoadDep
     final max=PLRUnl_min,
     final min=0)=min(PLRSup)
     "Minimum PLR before cycling off the last compressor";
-  parameter Modelica.Units.SI.Power P_min(min=0)=0
-    "Remaining power when system is enabled with all compressors cycled off";
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   final parameter Integer nPLR=size(PLRSup, 1)
     "Number of PLR support points"
     annotation (Evaluate=true);

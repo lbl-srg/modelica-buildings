@@ -47,7 +47,8 @@ model TableData2DLoadDep
     final cpCon=cpCon,
     final cpEva=cpEva,
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-    final dat=datHea)
+    final dat=datHea,
+    final P_min=P_min)
     "Refrigerant cycle module for the heating mode";
   final model RefrigerantCycleHeatPumpCooling=Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep(
     final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
@@ -59,7 +60,8 @@ model TableData2DLoadDep
     final cpCon=cpCon,
     final cpEva=cpEva,
     redeclare final Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-    final dat=datCoo)
+    final dat=datCoo,
+    final P_min=P_min)
     "Refrigerant cycle module for the cooling mode";
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
@@ -94,6 +96,8 @@ model TableData2DLoadDep
     annotation (choicesAllMatching=true,
     Dialog(enable=use_rev),
   Placement(transformation(extent={{114,-18},{130,-2}})));
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   parameter Modelica.Units.SI.Temperature TConHea_nominal
     "HW temperature: leaving if datHea.use_TConOutForTab=true, entering otherwie"
     annotation (Dialog(group="Nominal condition"));
