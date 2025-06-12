@@ -135,8 +135,6 @@ equation
       points={{1,120},{0,120},{0,52},{88,52}},
       color={255,204,51},
       thickness=0.5));
-  connect(calQUseP.QAmb_flow, sigBus.QAmb_flow) annotation (Line(points={{112,46},
-          {126,46},{126,118},{2,118},{2,120},{1,120}}, color={0,0,127}));
   connect(calQUseP.nUniHea, sigBus.nUniHea) annotation (Line(points={{112,34},{128,
           34},{128,120},{1,120}}, color={255,127,0}));
   connect(calQUseP.nUniCoo, sigBus.nUniCoo) annotation (Line(points={{112,30},{130,

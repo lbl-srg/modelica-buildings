@@ -62,9 +62,6 @@ model TableData2DLoadDepSHC
       final TEva_nominal=TConCoo_nominal,
       final QCoo_flow_nominal=QCoo_flow_nominal)
     "Refrigerant cycle module for the cooling mode";
-  replaceable package MediumAmb = Modelica.Media.Interfaces.PartialMedium
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Ambient-side medium";
   // The following parameter is for future support of 6-pipe systems.
   // Currently only 4-pipe systems are implemented.
   final parameter Buildings.Fluid.HeatPumps.Types.HeatPump typ=
