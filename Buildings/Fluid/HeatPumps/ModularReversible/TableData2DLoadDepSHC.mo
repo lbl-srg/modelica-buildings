@@ -50,7 +50,8 @@ model TableData2DLoadDepSHC
       final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
       final cpCon=cpCon,
       final cpEva=cpEva,
-      final dat=dat)
+      final dat=dat,
+      final P_min=P_min)
     "Refrigerant cycle module for the heating mode";
   final model RefrigerantCycleHeatPumpCooling=
     Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
@@ -98,9 +99,11 @@ model TableData2DLoadDepSHC
     annotation (Dialog(group="Nominal condition - SHC"));
   replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic dat
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic
-    "Heating performance data"
+    "Performance data"
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{84,-18},{100,-2}})));
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Remaining power when system is enabled with all compressors cycled off";
   parameter Modelica.Units.SI.Temperature TConHea_nominal
     "HW temperature: leaving if dat.use_TConOutForTab=true, entering otherwie"
     annotation (Dialog(group="Nominal condition"));

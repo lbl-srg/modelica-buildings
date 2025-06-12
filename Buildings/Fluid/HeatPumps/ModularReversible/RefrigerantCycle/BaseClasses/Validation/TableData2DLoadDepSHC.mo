@@ -45,7 +45,7 @@ model TableData2DLoadDepSHC
     height=TChwEnt.k - TChwSup_nominal,
     duration=80,
     offset=TChwSup_nominal,
-    startTime=10,
+    startTime=50,
     y(final unit="K", displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));

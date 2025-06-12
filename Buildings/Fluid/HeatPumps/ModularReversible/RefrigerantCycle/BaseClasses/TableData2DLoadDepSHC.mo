@@ -23,7 +23,7 @@ block TableData2DLoadDepSHC
     "Minimum PLR before cycling off the last compressor - Cooling";
   final parameter Modelica.Units.SI.DimensionlessRatio PLRShcCyc_min=min(PLRShcSup)
     "Minimum PLR before cycling off the last compressor - SHC";
-  parameter Modelica.Units.SI.Power P_min(min=0)=0
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
     "Remaining power when system is enabled with all compressors cycled off";
   final parameter Integer nPLRHea=size(PLRHeaSup, 1)
     "Number of PLR support points - Heating"
@@ -89,13 +89,13 @@ block TableData2DLoadDepSHC
     "CHW temperature — Entering or leaving depending on use_TEvaOutForTab"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TAmbHea_nominal
-    "Ambient-side fluid temperature — Entering or leaving depending on use_TAmbOutForTab"
+    "Ambient-side fluid temperature — Entering"
     annotation (Dialog(group="Nominal condition - Heating"));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal
     "Heating heat flow rate - All modules"
     annotation (Dialog(group="Nominal condition - Heating"));
   parameter Modelica.Units.SI.Temperature TAmbCoo_nominal
-    "Ambient-side fluid temperature — Entering or leaving depending on use_TAmbOutForTab"
+    "Ambient-side fluid temperature — Entering"
     annotation (Dialog(group="Nominal condition - Cooling"));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal
     "Cooling heat flow rate - All modules"
@@ -272,10 +272,6 @@ block TableData2DLoadDepSHC
     "Number of modules in SHC mode (may be cycling into single mode)"
     annotation (Placement(transformation(extent={{100,-160},{140,-120}}),
       iconTransformation(extent={{100,-160},{140,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QAmb_flow(final unit="J/s")
-    "Heat flow rate to ambient side" annotation (Placement(transformation(
-          extent={{100,40},{140,80}}), iconTransformation(extent={{100,40},{140,
-            80}})));
 protected
   final parameter Real PLRHeaSor[nPLRHea]=Modelica.Math.Vectors.sort(PLRHeaSup)
     "PLR values in increasing order - Heating";
@@ -494,7 +490,7 @@ equation
     tabQShc, fill(TChwTab, nPLRShc), fill(THwTab, nPLRShc));
   QHeaShcInt_flow=scaFacHeaShc *(PShcInt .- QCooShcInt_flow) / scaFacCooShc;
   // Compute number of modules in SHC mode and PLR for these modules
-  // (deltaX guards against numerical residuals influencing stage transitions)
+  // (deltaX guards against numerical residuals influencing stage transitions near zero load)
   if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc then
     nUniShcHea=integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) / max(
       cat(1, QHeaShcInt_flow, {deltaX * QHeaShc_flow_nominal}))));
@@ -557,7 +553,7 @@ equation
     QCooShcCyc_flow=0;
   end if;
   // Compute residual loads, number of single-mode modules and PLR
-  // (deltaX guards against numerical residuals influencing stage transitions)
+  // (deltaX guards against numerical residuals influencing stage transitions near zero load)
   QHeaSetRes_flow=QHeaSet_flow -(QHeaShc_flow + QHeaShcCyc_flow);
   QCooSetRes_flow=QCooSet_flow -(QCooShc_flow + QCooShcCyc_flow);
   nUniHeaRaw=max(useHeaShc, useHea) * integer(ceil((QHeaSetRes_flow - deltaX *
@@ -591,12 +587,6 @@ equation
     1, {0}, QHeaInt_flow), PLRHea) + QHeaShc_flow + QHeaShcCyc_flow;
   QCoo_flow=nUniCoo * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRCooSor), cat(
     1, {0}, QCooInt_flow), PLRCoo) + QCooShc_flow + QCooShcCyc_flow;
-  // FIXME
-  QAmb_flow=nUniHea * (Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRHeaSor),
-      cat(1, {0}, PHeaInt), PLRHea) - Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRHeaSor), cat(
-    1, {0}, QHeaInt_flow), PLRHea)) + nUniCoo * (Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRCooSor),
-      cat(1, {0}, PCooInt), PLRCoo) - Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRCooSor), cat(
-    1, {0}, QCooInt_flow), PLRCoo));
   P=nUniHea * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRHeaSor),
       cat(1, {0}, PHeaInt), PLRHea) +
     nUniCoo * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRCooSor),

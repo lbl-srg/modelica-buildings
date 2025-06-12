@@ -33,6 +33,8 @@ model TableData2DLoadDepSHC
   replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic dat
     "Record with performance data"
     annotation (choicesAllMatching=true);
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Remaining power when system is enabled with all compressors cycled off";
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cp[2](
     k={cpEva, cpCon})
     "Specific heat capacity"
@@ -61,7 +63,8 @@ model TableData2DLoadDepSHC
     final TAmbCoo_nominal=TEvaCoo_nominal,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
-    final QCooShc_flow_nominal=QCooShc_flow_nominal)
+    final QCooShc_flow_nominal=QCooShc_flow_nominal,
+    final P_min=P_min)
     "Compute heat flow rate and input power"
     annotation (Placement(transformation(extent={{90,24},{110,56}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cst(final k=0) "Constant"
