@@ -1,12 +1,9 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Examples;
 model TableData2DLoadDepSHC
   extends Modelica.Icons.Example;
-  replaceable package MediumLiq=Buildings.Media.Water
+  replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HW or CHW medium";
-  replaceable package MediumAmb=Buildings.Media.Air
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Ambient-side medium";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
@@ -103,14 +100,13 @@ model TableData2DLoadDepSHC
     period=5400)  "On/off command"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC hp(
-    redeclare final package MediumCon=MediumLiq,
-    redeclare final package MediumEva=MediumLiq,
-    redeclare final package MediumAmb=MediumAmb,
+    redeclare final package MediumCon=Medium,
+    redeclare final package MediumEva=Medium,
     final energyDynamics=energyDynamics,
     nUni=3,
     use_preDro=false,
-    dpHw_nominal=30E3,
-    dpChw_nominal=40E3,
+    dpHw_nominal=30000,
+    dpChw_nominal=40000,
     final dat=dat,
     mCon_flow_nominal=mHw_flow_nominal,
     mEva_flow_nominal=mChw_flow_nominal,
@@ -143,53 +139,53 @@ model TableData2DLoadDepSHC
     use_TConOutForTab=true) "Performance data"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Sources.Boundary_pT hwIn(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     p=hwOut.p + hp.dpHw_nominal + hp.dpValIso_nominal,
     use_T_in=true,
     nPorts=1) "Boundary conditions of HW at HP inlet"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   Sources.Boundary_pT hwOut(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=1) "Boundary conditions of HW at HP outlet"
     annotation (Placement(transformation(extent={{140,30},{120,50}})));
   Sources.Boundary_pT chwOut(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
     nPorts=1) "Boundary conditions of CHW at HP outlet"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
   Sources.Boundary_pT chwIn(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     p=chwOut.p + hp.dpChw_nominal + hp.dpValIso_nominal,
     use_T_in=true,
     nPorts=1) "Boundary conditions of CHW at HP inlet"
     annotation (Placement(transformation(extent={{142,-50},{122,-30}})));
   Sensors.TemperatureTwoPort THwSup(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mCon_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
-    T_start=THwRet_nominal) "HW supply temperature"
+    T_start=THwSup_nominal) "HW supply temperature"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Sensors.TemperatureTwoPort THwRet(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mCon_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
-    T_start=THwSup_nominal) "HW return temperature"
+    T_start=THwRet_nominal) "HW return temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Sensors.TemperatureTwoPort TChwRet(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mEva_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=TChwRet_nominal) "CHW return temperature"
     annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
   Sensors.TemperatureTwoPort TChwSup(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mEva_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=TChwSup_nominal) "CHW supply temperature"
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   Actuators.Valves.TwoWayTable  valHwIso(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mCon_flow_nominal,
     flowCharacteristics=hp.chaValHwIso,
     dpValve_nominal=hp.dpValIso_nominal,
@@ -199,7 +195,7 @@ model TableData2DLoadDepSHC
     "HW isolation valve"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
   Actuators.Valves.TwoWayTable  valChwIso(
-    redeclare final package Medium = MediumLiq,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mEva_flow_nominal,
     dpValve_nominal=hp.dpValIso_nominal,
     init=Modelica.Blocks.Types.Init.InitialState,
@@ -276,14 +272,14 @@ Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableDa
 </p>
 <p>
 The model represents a three-module system.
-The operating mode switches between simultaneous heating and cooling, 
+The operating mode switches between simultaneous heating and cooling,
 heating only, and cooling only.
-The on/off command starts as <code>true</code> and is switched to 
+The on/off command starts as <code>true</code> and is switched to
 <code>false</code> at the end.
 </p>
 <p>
 The validation is carried out by computing the tracked temperature
-using the heat flow rate calculated by the block, and feeding back 
+using the heat flow rate calculated by the block, and feeding back
 this variable as input.
 It is then expected that the tracked temperature matches the setpoint.
 Note that a filtered value of the tracked temperature is used to avoid
