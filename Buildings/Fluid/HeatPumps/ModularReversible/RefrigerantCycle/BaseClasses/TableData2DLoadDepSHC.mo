@@ -162,16 +162,16 @@ block TableData2DLoadDepSHC
     PShcInt1_nominal - QCooShcInt1_flow_nominal
     "Heating heat flow rate at nominal conditions, at PLR=1 - SHC, single module";
   final parameter Real scaFacHea(
-    unit="1")=QHea_flow_nominal /(nUni * QHeaInt1_flow_nominal)
+    unit="1")=QHea_flow_nominal / (nUni * QHeaInt1_flow_nominal)
     "Scaling factor for interpolated heat flow rate and power - Heating";
   final parameter Real scaFacCoo(
-    unit="1")=QCoo_flow_nominal /(nUni * QCooInt1_flow_nominal)
+    unit="1")=QCoo_flow_nominal / (nUni * QCooInt1_flow_nominal)
     "Scaling factor for interpolated heat flow rate and power - Cooling";
   final parameter Real scaFacCooShc(
-    unit="1")=QCooShc_flow_nominal /(nUni * QCooShcInt1_flow_nominal)
+    unit="1")=QCooShc_flow_nominal / (nUni * QCooShcInt1_flow_nominal)
     "Scaling factor for interpolated cooling heat flow rate and power - SHC";
   final parameter Real scaFacHeaShc(
-    unit="1")=QHeaShc_flow_nominal /(nUni * QHeaShcInt1_flow_nominal)
+    unit="1")=QHeaShc_flow_nominal / (nUni * QHeaShcInt1_flow_nominal)
     "Scaling factor for interpolated heating heat flow rate - SHC";
   final parameter Modelica.Units.SI.Power P_nominal=max({scaFacHea *
     PHeaInt1_nominal, scaFacCoo * PCooInt1_nominal, scaFacCooShc *
@@ -441,10 +441,10 @@ initial equation
     TChw_nominal, nPLRShc), fill(THw_nominal, nPLRShc));
   QCooShcInt_flow_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabQShc, fill(TChw_nominal, nPLRShc), fill(THw_nominal, nPLRShc));
-  pre(nUniShc)=nUniShcRaw;
-  pre(nUniHea)=nUniHeaRaw;
-  pre(nUniCoo)=nUniCooRaw;
-  pre(entryTime)=- Modelica.Constants.inf;
+  pre(nUniShc) = nUniShcRaw;
+  pre(nUniHea) = nUniHeaRaw;
+  pre(nUniCoo) = nUniCooRaw;
+  pre(entryTime) = -Modelica.Constants.inf;
 equation
   // Update number of modules in each mode with respect to
   // - minimum stage runtime
@@ -456,13 +456,20 @@ equation
     if time >= pre(entryTime) + dtRun then
       nUniShc = pre(nUniShc) + (
         if nUniShcRaw > pre(nUniShc) and pre(nUniShc) < nUni then 1
-        elseif nUniShcRaw < pre(nUniShc) and pre(nUniShc) > 0 then -1 else 0);
+        elseif pre(nUniShc) > 0 and nUniShcRaw < pre(nUniShc) then -1
+        else 0);
       nUniHea = pre(nUniHea) + (
         if nUniHeaRaw > pre(nUniHea) and nUniShc + pre(nUniHea) < nUni then 1
-        elseif nUniHeaRaw < pre(nUniHea) and pre(nUniHea) > 0 then -1 else 0);
+        elseif pre(nUniHea) > 0 and (
+          nUniHeaRaw < pre(nUniHea) or
+          nUniShc + pre(nUniHea) + pre(nUniCoo) > nUni) then -1
+        else 0);
       nUniCoo = pre(nUniCoo) + (
         if nUniCooRaw > pre(nUniCoo) and nUniShc + nUniHea + pre(nUniCoo) < nUni then 1
-        elseif nUniCooRaw < pre(nUniCoo) and pre(nUniCoo) > 0 then -1 else 0);
+        elseif pre(nUniCoo) > 0 and (
+          nUniCooRaw < pre(nUniCoo) or
+          nUniShc + nUniHea + pre(nUniCoo) > nUni) then -1
+        else 0);
     else
       nUniShc = pre(nUniShc);
       nUniHea = pre(nUniHea);
@@ -517,11 +524,11 @@ equation
         Modelica.Math.Vectors.interpolate(
           cat(1, {0}, QHeaShcInt_flow),
           cat(1, {0}, PLRShcSor),
-          QHeaSet_flow / (nUniShc + nUniHea)),
+          QHeaSet_flow / max(1, nUniShc + nUniHea)),
         Modelica.Math.Vectors.interpolate(
           abs(cat(1, {0}, QCooShcInt_flow)),
           cat(1, {0}, PLRShcSor),
-          abs(QCooSet_flow / (nUniShc + nUniCoo))),
+          abs(QCooSet_flow / max(1, nUniShc + nUniCoo))),
         deltaX),
       PLRShc_max, deltaX);
     // Compute thermal output of module in SHC mode without single-mode cycling
