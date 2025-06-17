@@ -39,7 +39,7 @@ model AirToWater "Validation of AWHP plant template"
       "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Outdoor conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-210,-64})));
+      origin={-210,-40})));
   Fluid.HeatExchangers.SensibleCooler_T loaHw(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mHw_flow_nominal,
@@ -80,14 +80,18 @@ model AirToWater "Validation of AWHP plant template"
       displayUnit="degC"))
     "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
-  Fluid.Sensors.RelativePressure dpHwRem(redeclare each final package Medium =
-        Medium) "HW differential pressure at one remote location" annotation (
+  Fluid.Sensors.RelativePressure dpHwRem(
+    redeclare final package Medium = Medium)
+    "HW differential pressure at one remote location"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-180})));
-  Fluid.Sensors.RelativePressure dpChwRem(redeclare each final package Medium
-      = Medium) "CHW differential pressure at one remote location" annotation (
+  Fluid.Sensors.RelativePressure dpChwRem(
+    redeclare final package Medium = Medium)
+    "CHW differential pressure at one remote location"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -189,11 +193,11 @@ model AirToWater "Validation of AWHP plant template"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(k=true)
     "On/off command"
-    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
+    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(
     k=Buildings.Fluid.HeatPumps.Types.OperatingModes.shc)
     "Operating mode command"
-    annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
+    annotation (Placement(transformation(extent={{-220,-140},{-200,-120}})));
   parameter Data.TableData2DLoadDepSHC.Generic dat(
     PLRHeaSup={1},
     PLRCooSup={1},
@@ -208,7 +212,7 @@ model AirToWater "Validation of AWHP plant template"
     devIde="",
     use_TEvaOutForTab=true,
     use_TConOutForTab=true) "Performance data"
-    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
+    annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
   Sensors.TemperatureTwoPort TChwSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mEva_flow_nominal,
@@ -223,7 +227,7 @@ model AirToWater "Validation of AWHP plant template"
     annotation (Placement(transformation(extent={{-40,-170},{-20,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet[2](k={
         THwSup_nominal,TChwSup_nominal}) "Supply temperature setpoints"
-    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
+    annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
   Sources.Boundary_pT pChwRet(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
@@ -231,7 +235,7 @@ model AirToWater "Validation of AWHP plant template"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-110})));
+        origin={-110,-130})));
   Sources.Boundary_pT pHwRet(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
@@ -247,8 +251,8 @@ model AirToWater "Validation of AWHP plant template"
     m_flow_nominal=hp.mEva_flow_nominal,
     dp_nominal=dpChwLocSet_max + hp.dpChw_nominal) "Primary CHW pump"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(k=0.3) "Constant"
-    annotation (Placement(transformation(extent={{-170,-50},{-150,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME(k=0.5) "Constant"
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Movers.Preconfigured.SpeedControlled_y pumHwPri(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -275,6 +279,15 @@ model AirToWater "Validation of AWHP plant template"
     flowCharacteristics=hp.chaValChwIso)
     "CHW isolation valve"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni(nin=3)
+    "Total number of enabled modules"
+    annotation (Placement(transformation(extent={{-210,-230},{-190,-210}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message="Number of enabled modules exceeds number of modules")
+    "Assert condition on number of enabled modules"
+             annotation (Placement(transformation(extent={{-150,-230},{-130,-210}})));
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(t=hp.nUni)
+    "True if number of enabled modules lower or equal to number of modules"
+    annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
 equation
   connect(loaChw.port_b, valDisChw.port_a)
     annotation (Line(points={{90,-60},{110,-60}},color={0,127,255}));
@@ -330,33 +343,29 @@ equation
     annotation (Line(points={{-148,20},{-140,20},{-140,14},{-132,14}},
                                                                      color={0,0,127}));
   connect(weaDat.weaBus, hp.weaBus) annotation (Line(
-      points={{-200,-64},{-110,-64},{-110,-70}},
+      points={{-200,-40},{-110,-40},{-110,-70}},
       color={255,204,51},
       thickness=0.5));
-  connect(mode.y, hp.mode) annotation (Line(points={{-198,-140},{-160,-140},{
-          -160,-84},{-122,-84}},
-                           color={255,127,0}));
+  connect(mode.y, hp.mode) annotation (Line(points={{-198,-130},{-180,-130},{-180,
+          -84},{-122,-84}},color={255,127,0}));
   connect(reqPlaRes.yChiPlaReq, mulInt[2].u2) annotation (Line(points={{68,135},
           {20,135},{20,134},{2,134}}, color={255,127,0}));
   connect(reqPlaRes.yHotWatPlaReq, mulInt[1].u2) annotation (Line(points={{68,124},
           {20,124},{20,134},{2,134}}, color={255,127,0}));
   connect(ratFlo.y, ctlEquZon.u_s)
     annotation (Line(points={{-198,100},{68,100}}, color={0,0,127}));
-  connect(on.y, hp.on) annotation (Line(points={{-198,-100},{-180,-100},{-180,
-          -82},{-122,-82}},
-                      color={255,0,255}));
+  connect(on.y, hp.on) annotation (Line(points={{-198,-80},{-184,-80},{-184,-82},
+          {-122,-82}},color={255,0,255}));
   connect(THwSup.T, TChwRet.u) annotation (Line(points={{-30,-149},{-30,-22},{
           -180,-22},{-180,60},{-172,60}},
                                      color={0,0,127}));
   connect(TChwSup.T, THwRet.u) annotation (Line(points={{-10,-49},{-10,-20},{
           -178,-20},{-178,20},{-172,20}},
                                      color={0,0,127}));
-  connect(TSupSet[1].y, hp.THwSet) annotation (Line(points={{-198,-20},{-184,
-          -20},{-184,-76},{-122,-76}},
-                                 color={0,0,127}));
-  connect(TSupSet[2].y, hp.TChwSet) annotation (Line(points={{-198,-20},{-184,
-          -20},{-184,-80},{-122,-80}},
-                                 color={0,0,127}));
+  connect(TSupSet[1].y, hp.THwSet) annotation (Line(points={{-198,0},{-184,0},{-184,
+          -76},{-122,-76}},      color={0,0,127}));
+  connect(TSupSet[2].y, hp.TChwSet) annotation (Line(points={{-198,0},{-184,0},{
+          -184,-80},{-122,-80}}, color={0,0,127}));
   connect(TChwSup.port_b, pumChwPri.port_a)
     annotation (Line(points={{0,-60},{10,-60}}, color={0,127,255}));
   connect(pumChwPri.port_b, loaChw.port_a)
@@ -378,19 +387,19 @@ equation
           -200},{-140,-74},{-120,-74}},
                                  color={0,127,255}));
   connect(pChwRet.ports[1], hp.port_a2)
-    annotation (Line(points={{-100,-110},{-102,-110},{-102,-86},{-100,-86}},
+    annotation (Line(points={{-100,-130},{-100,-86}},
                                                     color={0,127,255}));
   connect(pHwRet.ports[1], hp.port_a1) annotation (Line(points={{-120,-160},{
           -140,-160},{-140,-74},{-120,-74}},
                                        color={0,127,255}));
-  connect(one.y, pumChwPri.y)
-    annotation (Line(points={{-148,-40},{20,-40},{20,-48}}, color={0,0,127}));
+  connect(FIXME.y, pumChwPri.y)
+    annotation (Line(points={{-78,0},{20,0},{20,-48}}, color={0,0,127}));
   connect(THwSup.port_b, pumHwPri.port_a)
     annotation (Line(points={{-20,-160},{10,-160}}, color={0,127,255}));
   connect(pumHwPri.port_b, loaHw.port_a)
     annotation (Line(points={{30,-160},{70,-160}}, color={0,127,255}));
-  connect(one.y, pumHwPri.y) annotation (Line(points={{-148,-40},{6,-40},{6,
-          -104},{20,-104},{20,-148}}, color={0,0,127}));
+  connect(FIXME.y, pumHwPri.y) annotation (Line(points={{-78,0},{6,0},{6,-104},{
+          20,-104},{20,-148}}, color={0,0,127}));
   connect(hp.port_b1, valHwIso.port_a) annotation (Line(points={{-100,-74},{-80,
           -74},{-80,-160},{-70,-160}}, color={0,127,255}));
   connect(valHwIso.port_b, THwSup.port_a)
@@ -403,11 +412,19 @@ equation
           -128,-86},{-128,-60},{-60,-60}}, color={0,127,255}));
   connect(hp.yValChwIso, valChwIso.y) annotation (Line(points={{-118,-91},{-118,
           -94},{-130,-94},{-130,-42},{-50,-42},{-50,-48}}, color={0,0,127}));
+  connect(sumNumUni.y,intLesEquThr. u)
+    annotation (Line(points={{-188,-220},{-182,-220}},
+                                             color={255,127,0}));
+  connect(intLesEquThr.y,assMes. u)
+    annotation (Line(points={{-158,-220},{-152,-220}},
+                                             color={255,0,255}));
+  connect(hp.nUniShc, sumNumUni.u[1]) annotation (Line(points={{-113,-92},{-113,
+          -100},{-230,-100},{-230,-222.333},{-212,-222.333}}, color={255,127,0}));
+  connect(hp.nUniCoo, sumNumUni.u[2]) annotation (Line(points={{-110,-92},{-110,
+          -100},{-230,-100},{-230,-220},{-212,-220}}, color={255,127,0}));
+  connect(hp.nUniHea, sumNumUni.u[3]) annotation (Line(points={{-107,-92},{-107,
+          -100},{-230,-100},{-230,-217.667},{-212,-217.667}}, color={255,127,0}));
   annotation (
-    __Dymola_Commands(
-      file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWater.mos"
-        "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
       StopTime=86400.0),

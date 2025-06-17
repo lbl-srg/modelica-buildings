@@ -120,6 +120,8 @@ block TableData2DLoadDepSHC
     min=0)=0.9
     "Staging part load ratio"
     annotation (Dialog(tab="Advanced"));
+  // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
+  // Binding equations yield incorrect results but no error!
   final parameter Modelica.Units.SI.Power PHeaInt_nominal[nPLRHea](
     each fixed=false)
     "Power interpolated at nominal conditions, at each PLR - Heating, single module";
@@ -452,25 +454,25 @@ equation
   when {change(pre_nUniShcRaw), change(pre_nUniHeaRaw), change(pre_nUniCooRaw),
     time >= pre(entryTime) + dtRun} then
     if time >= pre(entryTime) + dtRun then
-      nUniShc=pre(nUniShc) + (if nUniShcRaw > pre(nUniShc) then 1
-        elseif nUniShcRaw < pre(nUniShc) then -1 else 0);
-      nUniHea=pre(nUniHea) + (if nUniShc == nUni then 0
-        elseif nUniHeaRaw > pre(nUniHea) then 1
-        elseif nUniHeaRaw < pre(nUniHea) then -1 else 0);
-      nUniCoo=pre(nUniCoo) + (if nUniShc + nUniHea == nUni then 0
-        elseif nUniCooRaw > pre(nUniCoo) then 1
-        elseif nUniCooRaw < pre(nUniCoo) then -1 else 0);
+      nUniShc = pre(nUniShc) + (
+        if nUniShcRaw > pre(nUniShc) and pre(nUniShc) < nUni then 1
+        elseif nUniShcRaw < pre(nUniShc) and pre(nUniShc) > 0 then -1 else 0);
+      nUniHea = pre(nUniHea) + (
+        if nUniHeaRaw > pre(nUniHea) and nUniShc + pre(nUniHea) < nUni then 1
+        elseif nUniHeaRaw < pre(nUniHea) and pre(nUniHea) > 0 then -1 else 0);
+      nUniCoo = pre(nUniCoo) + (
+        if nUniCooRaw > pre(nUniCoo) and nUniShc + nUniHea + pre(nUniCoo) < nUni then 1
+        elseif nUniCooRaw < pre(nUniCoo) and pre(nUniCoo) > 0 then -1 else 0);
     else
-      nUniShc=pre(nUniShc);
-      nUniHea=pre(nUniHea);
-      nUniCoo=pre(nUniCoo);
+      nUniShc = pre(nUniShc);
+      nUniHea = pre(nUniHea);
+      nUniCoo = pre(nUniCoo);
     end if;
     entryTime=if change(nUniShc) or change(nUniHea) or change(nUniCoo) then time
       else pre(entryTime);
   end when;
   // Update calculation variables for number of modules in single-mode depending on dominant load
-  when {initial(), change(nUniShcRaw), change(nUniShcHea), change(nUniShcCoo)}
-    then
+  when {initial(), change(nUniShcRaw), change(nUniShcHea), change(nUniShcCoo)} then
     useHeaShc=if nUniShcRaw < nUni and nUniShcHea > nUniShcRaw then 1 else 0;
     useCooShc=if nUniShcRaw < nUni and nUniShcCoo > nUniShcRaw then 1 else 0;
   end when;
@@ -485,6 +487,7 @@ equation
     useHea=0;
     useCoo=0;
   end if;
+  // Compute total heating and cooling loads
   QHeaSet_flow=max(0, sigLoa *(THwSet - THwCtl) * cpHw * mHw_flow);
   QCooSet_flow=min(0, sigLoa *(TChwSet - TChwCtl) * cpChw * mChw_flow);
   QHeaInt_flow=scaFacHea * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
@@ -494,6 +497,8 @@ equation
   QCooShcInt_flow=scaFacCooShc * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabQShc, fill(TChwTab, nPLRShc), fill(THwTab, nPLRShc));
   QHeaShcInt_flow=scaFacHeaShc *(PShcInt .- QCooShcInt_flow) / scaFacCooShc;
+  // Compute number of modules in SHC mode and PLR for these modules
+  // (deltaX guards against numerical residuals influencing stage transitions near zero load)
   if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc then
     nUniShcHea=integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) / SPLR /
       max(cat(1, QHeaShcInt_flow, {deltaX * QHeaShc_flow_nominal}))));
@@ -505,16 +510,33 @@ equation
   end if;
   nUniShcRaw=min({nUni, nUniShcHea, nUniShcCoo});
   if nUniShc > 0 then
-    PLRShc=Buildings.Utilities.Math.Functions.smoothLimit(max(Modelica.Math.Vectors.interpolate(
-      cat(1, {0}, QHeaShcInt_flow), cat(1, {0}, PLRShcSor), QHeaSet_flow /(
-      nUniShc + nUniHea)), Modelica.Math.Vectors.interpolate(abs(cat(1, {0}, QCooShcInt_flow)), cat(
-      1, {0}, PLRShcSor), abs(QCooSet_flow /(nUniShc + nUniCoo)))), 0, PLRShc_max, deltaX);
-    QHeaShcNoCyc_flow=Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRShcSor), cat(
-      1, {0}, QHeaShcInt_flow), PLRShc);
-    QCooShcNoCyc_flow=Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRShcSor), cat(
-      1, {0}, QCooShcInt_flow), PLRShc);
-    QHeaShcExc_flow = nUniShc * (QHeaShcNoCyc_flow - QHeaSet_flow / (nUniShc + nUniHea));
-    QCooShcExc_flow = nUniShc * (QCooShcNoCyc_flow - QCooSet_flow / (nUniShc + nUniCoo));
+    // Compute PLR for modules in SHC mode
+    // Using smoothLimit() instead of smoothMin(smoothMax()) below triggers chattering with OCT
+    PLRShc=Buildings.Utilities.Math.Functions.smoothMin(
+      Buildings.Utilities.Math.Functions.smoothMax(
+        Modelica.Math.Vectors.interpolate(
+          cat(1, {0}, QHeaShcInt_flow),
+          cat(1, {0}, PLRShcSor),
+          QHeaSet_flow / (nUniShc + nUniHea)),
+        Modelica.Math.Vectors.interpolate(
+          abs(cat(1, {0}, QCooShcInt_flow)),
+          cat(1, {0}, PLRShcSor),
+          abs(QCooSet_flow / (nUniShc + nUniCoo))),
+        deltaX),
+      PLRShc_max, deltaX);
+    // Compute thermal output of module in SHC mode without single-mode cycling
+    QHeaShcNoCyc_flow=Modelica.Math.Vectors.interpolate(
+      cat(1, {0}, PLRShcSor),
+      cat(1, {0}, QHeaShcInt_flow),
+      PLRShc);
+    QCooShcNoCyc_flow=Modelica.Math.Vectors.interpolate(
+      cat(1, {0}, PLRShcSor),
+      cat(1, {0}, QCooShcInt_flow),
+      PLRShc);
+    // Compute excess heat flow rate and SHC cycling ratio to balance heating and cooling loads
+    // ratCycShc=1 means perfect balance (no cycling): module continuously runs in SHC.
+    QHeaShcExc_flow = nUniShc * (QHeaShcNoCyc_flow - QHeaSet_flow / max(1, nUniShc + nUniHea));
+    QCooShcExc_flow = nUniShc * (QCooShcNoCyc_flow - QCooSet_flow / max(1, nUniShc + nUniCoo));
     ratCycShc=Buildings.Utilities.Math.Functions.smoothMax(0,
       1 - Buildings.Utilities.Math.Functions.smoothMax(
       QHeaShcExc_flow * Buildings.Utilities.Math.Functions.inverseXRegularized(
@@ -524,22 +546,29 @@ equation
       deltaX), deltaX);
     QHeaShc_flow=(nUniShc - 1 + ratCycShc) * QHeaShcNoCyc_flow;
     QCooShc_flow=(nUniShc - 1 + ratCycShc) * QCooShcNoCyc_flow;
+    // Compute PLR and thermal output of SHC module cycling into single-mode
     // Using smoothLimit() instead of smoothMin(smoothMax()) below makes
     // OCT fail to update the events when simulating Validation.TableData2DLoadDepSHC
     PLRHeaShcCyc=Buildings.Utilities.Math.Functions.smoothMin(
-      Buildings.Utilities.Math.Functions.smoothMax(Modelica.Math.Vectors.interpolate(
-      cat(1, {0}, QHeaInt_flow),
-      cat(1, {0}, PLRHeaSor),
-      (QHeaSet_flow / (nUniShc + nUniHea) * nUniShc - QHeaShc_flow) *
-      Buildings.Utilities.Math.Functions.inverseXRegularized(1 - ratCycShc, deltaX)),
-      0, deltaX), PLRHea_max, deltaX);
+      Buildings.Utilities.Math.Functions.smoothMax(
+        Modelica.Math.Vectors.interpolate(
+          cat(1, {0}, QHeaInt_flow),
+          cat(1, {0}, PLRHeaSor),
+          (QHeaSet_flow / max(1, nUniShc + nUniHea) * nUniShc - QHeaShc_flow) *
+          Buildings.Utilities.Math.Functions.inverseXRegularized(
+            1 - ratCycShc, deltaX)),
+        0, deltaX),
+      PLRHea_max, deltaX);
     PLRCooShcCyc=Buildings.Utilities.Math.Functions.smoothMin(
-      Buildings.Utilities.Math.Functions.smoothMax(Modelica.Math.Vectors.interpolate(
-      abs(cat(1, {0}, QCooInt_flow)),
-      cat(1, {0}, PLRCooSor),
-      abs(QCooSet_flow / (nUniShc + nUniCoo) * nUniShc - QCooShc_flow) *
-      Buildings.Utilities.Math.Functions.inverseXRegularized(1 - ratCycShc, deltaX)),
-      0, deltaX), PLRCoo_max, deltaX);
+      Buildings.Utilities.Math.Functions.smoothMax(
+        Modelica.Math.Vectors.interpolate(
+          abs(cat(1, {0}, QCooInt_flow)),
+          cat(1, {0}, PLRCooSor),
+          abs(QCooSet_flow / max(1, nUniShc + nUniCoo) * nUniShc - QCooShc_flow) *
+          Buildings.Utilities.Math.Functions.inverseXRegularized(
+            1 - ratCycShc, deltaX)),
+        0, deltaX),
+      PLRCoo_max, deltaX);
     QHeaShcCyc_flow=(1 - ratCycShc) * Modelica.Math.Vectors.interpolate(
       cat(1, {0}, PLRHeaSor), cat(1, {0}, QHeaInt_flow), PLRHeaShcCyc);
     QCooShcCyc_flow=(1 - ratCycShc) * Modelica.Math.Vectors.interpolate(
@@ -558,17 +587,21 @@ equation
     QHeaShcCyc_flow=0;
     QCooShcCyc_flow=0;
   end if;
+  // Compute residual load, number of modules in single mode and PLR for these modules
+  // (deltaX guards against numerical residuals influencing stage transitions near zero load)
   QHeaSetRes_flow=QHeaSet_flow -(QHeaShc_flow + QHeaShcCyc_flow);
   QCooSetRes_flow=QCooSet_flow -(QCooShc_flow + QCooShcCyc_flow);
-  nUniHeaRaw=max(useHeaShc, useHea) * integer(ceil((QHeaSetRes_flow - deltaX *
-    QHea_flow_nominal) / SPLR / max(cat(1, QHeaInt_flow, {deltaX *
-    QHea_flow_nominal}))));
-  nUniCooRaw=max(useCooShc, useCoo) * integer(ceil((QCooSetRes_flow - deltaX *
-    QCoo_flow_nominal) / SPLR / min(cat(1, QCooInt_flow, {deltaX *
-    QCoo_flow_nominal}))));
+  nUniHeaRaw=max(useHeaShc, useHea) * integer(ceil(
+    (QHeaSetRes_flow - deltaX * QHea_flow_nominal) / SPLR /
+    max(cat(1, QHeaInt_flow, {deltaX * QHea_flow_nominal}))));
+  nUniCooRaw=max(useCooShc, useCoo) * integer(ceil(
+    (QCooSetRes_flow - deltaX * QCoo_flow_nominal) / SPLR /
+    min(cat(1, QCooInt_flow, {deltaX * QCoo_flow_nominal}))));
   if nUniHea > 0 then
-    PLRHea=max(0, min(PLRHea_max, Modelica.Math.Vectors.interpolate(cat(1, {0}, QHeaInt_flow), cat(
-      1, {0}, PLRHeaSor), QHeaSetRes_flow / nUniHea)));
+    PLRHea=max(0, min(PLRHea_max, Modelica.Math.Vectors.interpolate(
+      cat(1, {0}, QHeaInt_flow),
+      cat(1, {0}, PLRHeaSor),
+      QHeaSetRes_flow / nUniHea)));
     PHeaInt=scaFacHea * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
       tabPHea, fill(THwTab, nPLRHea), fill(TAmbTab, nPLRHea));
   else
@@ -576,31 +609,40 @@ equation
     PHeaInt=fill(0, nPLRHea);
   end if;
   if nUniCoo > 0 then
-    PLRCoo=max(0, min(PLRCoo_max, Modelica.Math.Vectors.interpolate(abs(cat(1, {0}, QCooInt_flow)), cat(
-      1, {0}, PLRCooSor), abs(QCooSetRes_flow / nUniCoo))));
+    PLRCoo=max(0, min(PLRCoo_max, Modelica.Math.Vectors.interpolate(
+      abs(cat(1, {0}, QCooInt_flow)),
+      cat(1, {0}, PLRCooSor),
+      abs(QCooSetRes_flow / nUniCoo))));
     PCooInt=scaFacCoo * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
       tabPCoo, fill(TChwTab, nPLRCoo), fill(TAmbTab, nPLRCoo));
   else
     PLRCoo=0;
     PCooInt=fill(0, nPLRCoo);
   end if;
+  // Compute total heating and cooling flow rate and power
   PShcInt=scaFacCooShc * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabPShc, fill(TChwTab, nPLRShc), fill(THwTab, nPLRShc));
   QHea_flow=nUniHea * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRHeaSor), cat(
     1, {0}, QHeaInt_flow), PLRHea) + QHeaShc_flow + QHeaShcCyc_flow;
   QCoo_flow=nUniCoo * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRCooSor), cat(
     1, {0}, QCooInt_flow), PLRCoo) + QCooShc_flow + QCooShcCyc_flow;
-  P=nUniHea * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRHeaSor),
+  P=nUniHea * Modelica.Math.Vectors.interpolate(
+      cat(1, {0}, PLRHeaSor),
       cat(1, {0}, PHeaInt), PLRHea) +
-    nUniCoo * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRCooSor),
+    nUniCoo * Modelica.Math.Vectors.interpolate(
+      cat(1, {0}, PLRCooSor),
       cat(1, {0}, PCooInt), PLRCoo) +
-    nUniShc *(ratCycShc * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRShcSor), cat(
-    1, {0}, PShcInt), PLRShc) +(1 - ratCycShc) *(Modelica.Math.Vectors.interpolate(
-    cat(1, {0}, PLRHeaSor), cat(1, {0}, PHeaInt), PLRHeaShcCyc) + Modelica.Math.Vectors.interpolate(
-    cat(1, {0}, PLRCooSor), cat(1, {0}, PCooInt), PLRCooShcCyc)));
-    annotation (Dialog(tab="Advanced"),
-    Documentation(
-      info="<html>
+    nUniShc * (ratCycShc * Modelica.Math.Vectors.interpolate(
+      cat(1, {0}, PLRShcSor),
+      cat(1, {0}, PShcInt), PLRShc) +
+      (1 - ratCycShc) * (
+        Modelica.Math.Vectors.interpolate(
+          cat(1, {0}, PLRHeaSor), cat(1, {0}, PHeaInt), PLRHeaShcCyc) +
+        Modelica.Math.Vectors.interpolate(
+          cat(1, {0}, PLRCooSor), cat(1, {0}, PCooInt), PLRCooShcCyc)));
+annotation (Dialog(tab="Advanced"),
+Documentation(
+info="<html>
 The model assumes hydronic balance over each active module.
 <h4>Simultaneous heating and cooling operation</h4>
 <p>

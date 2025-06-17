@@ -109,11 +109,11 @@ model TableData2DLoadDepSHC
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.THwEnt +
         hpSupLvg.QHea_flow/hpSupLvg.mHw_flow/hpSupLvg.cpHw)
     "Calculate condenser leaving temperature"
-    annotation (Placement(transformation(extent={{30,0},{50,20}})));
+    annotation (Placement(transformation(extent={{30,66},{50,86}})));
   Modelica.Blocks.Sources.RealExpression TEvaLvgHpSupLvg(y=hpSupLvg.TChwEnt +
         hpSupLvg.QCoo_flow/hpSupLvg.mChw_flow/hpSupLvg.cpChw)
     "Calculate evaporator leaving temperature"
-    annotation (Placement(transformation(extent={{30,-20},{50,0}})));
+    annotation (Placement(transformation(extent={{30,-86},{50,-66}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=15 + 273.15, y(
         final unit="K", displayUnit="degC")) "OA temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
@@ -130,6 +130,17 @@ model TableData2DLoadDepSHC
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=Buildings.Fluid.HeatPumps.Types.OperatingModes.shc)
     "Operating mode command"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni(nin=3)
+    "Total number of enabled modules"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(
+    t=hpSupLvg.nUni)
+    "True if number of enabled modules lower or equal to number of modules"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    message="Number of enabled modules exceeds number of modules")
+    "Assert condition on number of enabled modules"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{
           -20,-14},{-2,-14}},
@@ -153,11 +164,10 @@ equation
   connect(cp.y, hpSupLvg.cpHw) annotation (Line(points={{-58,100},{-20,100},{
           -20,-6},{-2,-6}},   color={0,0,127}));
   connect(TConLvgHpSupLvg.y, filter.u)
-    annotation (Line(points={{51,10},{60,10},{60,40},{52,40}},
+    annotation (Line(points={{51,76},{60,76},{60,40},{52,40}},
                                                              color={0,0,127}));
-  connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{51,-10},{60,
-          -10},{60,-40},{52,-40}},
-                              color={0,0,127}));
+  connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{51,-76},{60,-76},
+          {60,-40},{52,-40}}, color={0,0,127}));
   connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
           -4,-2},{-2,-2}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-4,
@@ -166,6 +176,16 @@ equation
           {-2,12}}, color={255,0,255}));
   connect(mode.y, hpSupLvg.mode) annotation (Line(points={{-58,20},{-40,20},{
           -40,10},{-2,10}}, color={255,127,0}));
+  connect(hpSupLvg.nUniHea, sumNumUni.u[1]) annotation (Line(points={{22,-8},{26,
+          -8},{26,-2.33333},{28,-2.33333}}, color={255,127,0}));
+  connect(hpSupLvg.nUniCoo, sumNumUni.u[2]) annotation (Line(points={{22,-12},{26,
+          -12},{26,0},{28,0}}, color={255,127,0}));
+  connect(hpSupLvg.nUniShc, sumNumUni.u[3]) annotation (Line(points={{22,-16},{26,
+          -16},{26,2.33333},{28,2.33333}}, color={255,127,0}));
+  connect(sumNumUni.y, intLesEquThr.u)
+    annotation (Line(points={{52,0},{58,0}}, color={255,127,0}));
+  connect(intLesEquThr.y, assMes.u)
+    annotation (Line(points={{82,0},{88,0}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     __Dymola_Commands(
       file=

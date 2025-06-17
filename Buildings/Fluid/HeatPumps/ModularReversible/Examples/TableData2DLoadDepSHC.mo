@@ -203,6 +203,16 @@ model TableData2DLoadDepSHC
     flowCharacteristics=hp.chaValChwIso)
     "CHW isolation valve"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni(nin=3)
+    "Total number of enabled modules"
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=
+        "Number of enabled modules exceeds number of modules")
+    "Assert condition on number of enabled modules"
+             annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(t=hp.nUni)
+    "True if number of enabled modules lower or equal to number of modules"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-128,72},{-120,72},{-120,
           46},{-112,46}},    color={0,0,127}));
@@ -255,6 +265,16 @@ equation
           60},{80,52}}, color={0,0,127}));
   connect(hp.yValChwIso, valChwIso.y) annotation (Line(points={{32,-11},{32,-20},
           {0,-20},{0,-28}}, color={0,0,127}));
+  connect(hp.nUniHea, sumNumUni.u[1]) annotation (Line(points={{43,-12},{43,-20},
+          {62,-20},{62,-2.33333},{68,-2.33333}}, color={255,127,0}));
+  connect(hp.nUniCoo, sumNumUni.u[2]) annotation (Line(points={{40,-12},{40,-18},
+          {64,-18},{64,0},{68,0}}, color={255,127,0}));
+  connect(hp.nUniShc, sumNumUni.u[3]) annotation (Line(points={{37,-12},{37,-16},
+          {66,-16},{66,2.33333},{68,2.33333}}, color={255,127,0}));
+  connect(sumNumUni.y, intLesEquThr.u)
+    annotation (Line(points={{92,0},{98,0}}, color={255,127,0}));
+  connect(intLesEquThr.y, assMes.u)
+    annotation (Line(points={{122,0},{128,0}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,160}})),
     __Dymola_Commands(
       file=
