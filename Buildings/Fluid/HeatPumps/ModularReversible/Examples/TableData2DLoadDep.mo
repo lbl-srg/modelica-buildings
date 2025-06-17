@@ -284,7 +284,7 @@ equation
   connect(pInl_rel1.y,inlHpAmb. p_in)
     annotation (Line(points={{-18,-160},{-10,-160},{-10,-32},{8,-32}},color={0,0,127}));
   connect(TSetAct.y, hp.TSet)
-    annotation (Line(points={{-18,120},{80,120},{80,-2.3},{97.69,-2.3}},color={0,0,127}));
+    annotation (Line(points={{-18,120},{80,120},{80,-2.3},{97.9,-2.3}}, color={0,0,127}));
   connect(TRet.port_b, hp.port_a1)
     annotation (Line(points={{70,0},{86,0},{86,-0.2},{100,-0.2}},color={0,127,255}));
   connect(TSup.port_a, hp.port_b1)
@@ -296,7 +296,7 @@ equation
   connect(retAmb.ports[1], hp.port_b2)
     annotation (Line(points={{170,-61},{90,-61},{90,-12.8},{100,-12.8}},color={0,127,255}));
   connect(y1.y[1], hp.on)
-    annotation (Line(points={{-158,140},{82,140},{82,-6.5},{97.69,-6.5}},color={255,0,255}));
+    annotation (Line(points={{-158,140},{82,140},{82,-6.5},{97.9,-6.5}}, color={255,0,255}));
   connect(inlHp.ports[1], TRet.port_a)
     annotation (Line(points={{30,0},{50,0}},color={0,127,255}));
   connect(TRet1.port_b, hpNrv.port_a1)
@@ -305,7 +305,7 @@ equation
     annotation (Line(points={{130,-100},{126,-100},{126,-100.2},{121,-100.2}},
       color={0,127,255}));
   connect(y1.y[1], hpNrv.on)
-    annotation (Line(points={{-158,140},{82,140},{82,-106.5},{97.69,-106.5}},
+    annotation (Line(points={{-158,140},{82,140},{82,-106.5},{97.9,-106.5}},
       color={255,0,255}));
   connect(inlHp1.ports[1], TRet1.port_a)
     annotation (Line(points={{30,-100},{50,-100}},color={0,127,255}));
@@ -321,7 +321,7 @@ equation
   connect(THeaWatRet.y, inlHp1.T_in)
     annotation (Line(points={{-68,80},{-4,80},{-4,-96},{8,-96}},color={0,0,127}));
   connect(THeaWatSupSet.y, hpNrv.TSet)
-    annotation (Line(points={{-68,160},{84,160},{84,-102.3},{97.69,-102.3}},
+    annotation (Line(points={{-68,160},{84,160},{84,-102.3},{97.9,-102.3}},
       color={0,0,127}));
   connect(y1.y[2], TSetAct.u2)
     annotation (Line(points={{-158,140},{-50,140},{-50,120},{-42,120}},color={255,0,255}));
@@ -332,7 +332,7 @@ equation
   connect(y1.y[2], pInl_rel1.u2)
     annotation (Line(points={{-158,140},{-50,140},{-50,-160},{-42,-160}},color={255,0,255}));
   connect(y1.y[2], hp.hea)
-    annotation (Line(points={{-158,140},{82,140},{82,-8.6},{97.69,-8.6}},color={255,0,255}));
+    annotation (Line(points={{-158,140},{82,140},{82,-8.6},{97.9,-8.6}}, color={255,0,255}));
   connect(y1.y[2],TAmbAct. u2)
     annotation (Line(points={{-158,140},{-86,140},{-86,146},{-50,146},{-50,-80},{-42,-80}},
       color={255,0,255}));
