@@ -8,8 +8,6 @@ partial record Generic
   parameter Modelica.Units.SI.DimensionlessRatio PLRCyc_min(final max=min(PLRSup), final min=0)=
     min(PLRSup)
     "Minimum PLR before cycling last compressor off";
-  parameter Modelica.Units.SI.Power P_min(final min=0)=0
-    "Minimum power when system is enabled with compressor cycled off";
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate in condenser";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
@@ -23,7 +21,21 @@ partial record Generic
     "=true to use evaporator outlet temperature for table data, false for inlet";
   parameter Boolean use_TConOutForTab
     "=true to use condenser outlet temperature for table data, false for inlet";
-
+  parameter String tabNamQ[nPLR]={"q@" + String(p,
+    format=".2f") for p in PLRSor}
+    "Table names with heat flow rate data"
+    annotation (Evaluate=true,
+    Dialog(tab="Advanced"));
+  parameter String tabNamP[nPLR]={"p@" + String(p,
+    format=".2f") for p in PLRSor}
+    "Table names with power data"
+    annotation (Evaluate=true,
+    Dialog(tab="Advanced"));
+  final parameter Integer nPLR=size(PLRSup, 1)
+    "Number of PLR support points"
+    annotation (Evaluate=true);
+  final parameter Real PLRSor[nPLR]=Modelica.Math.Vectors.sort(PLRSup)
+    "PLR values in increasing order";
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
 <p>
@@ -36,9 +48,9 @@ to calculate the capacity and power.
 This class provides the path to the external data file with the performance
 data (parameter <code>fileName</code>) as well as the PLR values at which
 capacity and power are specified (parameter <code>PLRSup</code>).
-The external data file must be formatted as specified in the documentation 
-of the above block. Please also refer to this documentation for the definition 
-of the parameters <code>PLRCyc_min</code> and <code>P_min</code>.
+The external data file must be formatted as specified in the documentation
+of the above block. Please also refer to this documentation for the definition
+of the parameter <code>PLRCyc_min</code>.
 </p>
 </html>",
 revisions="<html>
