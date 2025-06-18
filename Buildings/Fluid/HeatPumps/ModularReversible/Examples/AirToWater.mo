@@ -137,16 +137,16 @@ model AirToWater "Validation of AWHP plant template"
       origin={200,-220})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter TChwRetPre(p=TChwRet_nominal -
         TChwSup_nominal) "Prescribed CHW return temperature"
-    annotation (Placement(transformation(extent={{-170,120},{-150,140}})));
+    annotation (Placement(transformation(extent={{-170,150},{-150,170}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter THwRetPre(p=THwRet_nominal -
         THwSup_nominal) "Prescribed HW return temperature"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+    annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   Buildings.Controls.OBC.CDL.Reals.Max max2
     "Limit prescribed HWRT"
-    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
+    annotation (Placement(transformation(extent={{-130,110},{-110,130}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1
     "Limit prescribed CHWRT"
-    annotation (Placement(transformation(extent={{-130,120},{-110,140}})));
+    annotation (Placement(transformation(extent={{-130,150},{-110,170}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt[2]
     "Importance multiplier"
     annotation (Placement(transformation(extent={{0,190},{-20,210}})));
@@ -168,10 +168,11 @@ model AirToWater "Validation of AWHP plant template"
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     k=293.15) "Constant limiting prescribed return temperature"
-    annotation (Placement(transformation(extent={{-220,140},{-200,160}})));
+    annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
   Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC hp(
     redeclare final package MediumCon=Medium,
     redeclare final package MediumEva=Medium,
+    final energyDynamics=energyDynamics,
     final mCon_flow_nominal=mHw_flow_nominal,
     final mEva_flow_nominal=mChw_flow_nominal,
     nUni=3,
@@ -346,6 +347,12 @@ model AirToWater "Validation of AWHP plant template"
     y_reset=1,
     y_neutral=0) "HW minimum flow bypass valve controller"
     annotation (Placement(transformation(extent={{-30,-130},{-10,-110}})));
+  Sensors.TemperatureTwoPort TChwRet1(redeclare final package Medium = Medium,
+      final m_flow_nominal=hp.mEva_flow_nominal) "CHW return temperature"
+    annotation (Placement(transformation(extent={{170,-90},{150,-70}})));
+  Sensors.TemperatureTwoPort THwRet1(redeclare final package Medium = Medium,
+      final m_flow_nominal=hp.mCon_flow_nominal) "HW return temperature"
+    annotation (Placement(transformation(extent={{170,-250},{150,-230}})));
 equation
   connect(loaChw.port_b, valDisChw.port_a)
     annotation (Line(points={{130,-40},{150,-40}},
@@ -354,9 +361,9 @@ equation
     annotation (Line(points={{130,-200},{150,-200}},
                                                    color={0,127,255}));
   connect(TDum.y, reqPlaRes.TAirSup)
-    annotation (Line(points={{-198,220},{60,220},{60,200},{92,200}},  color={0,0,127}));
+    annotation (Line(points={{-198,220},{100,220},{100,200},{92,200}},color={0,0,127}));
   connect(TDum.y, reqPlaRes.TAirSupSet)
-    annotation (Line(points={{-198,220},{60,220},{60,195},{92,195}},  color={0,0,127}));
+    annotation (Line(points={{-198,220},{100,220},{100,195},{92,195}},color={0,0,127}));
   connect(valDisChw.y_actual, reqPlaRes.uCooCoiSet)
     annotation (Line(points={{165,-33},{180,-33},{180,189},{92,189}},color={0,0,127}));
   connect(valDisHw.y_actual, reqPlaRes.uHeaCoiSet)
@@ -373,34 +380,30 @@ equation
     annotation (Line(points={{220,12},{220,140},{80,140},{80,148}},
                                                                 color={0,0,127}));
   connect(ctlEquZon[2].y, valDisChw.y)
-    annotation (Line(points={{92,160},{100,160},{100,30},{160,30},{160,-28}},
+    annotation (Line(points={{92,160},{160,160},{160,-28}},
       color={0,0,127}));
   connect(ctlEquZon[1].y, valDisHw.y)
-    annotation (Line(points={{92,160},{140,160},{140,-44},{160,-44},{160,-188}},
+    annotation (Line(points={{92,160},{140,160},{140,-180},{160,-180},{160,-188}},
       color={0,0,127}));
-  connect(TChwRetPre.y, min1.u1) annotation (Line(points={{-148,130},{-140,130},
-          {-140,136},{-132,136}}, color={0,0,127}));
+  connect(TChwRetPre.y, min1.u1) annotation (Line(points={{-148,160},{-140,160},
+          {-140,166},{-132,166}}, color={0,0,127}));
   connect(min1.y, loaChw.TSet)
-    annotation (Line(points={{-108,130},{100,130},{100,-32},{108,-32}},
+    annotation (Line(points={{-108,160},{24,160},{24,-32},{108,-32}},
                                                                  color={0,0,127}));
   connect(max2.y, loaHw.TSet)
-    annotation (Line(points={{-38,110},{84,110},{84,-192},{108,-192}},
+    annotation (Line(points={{-108,120},{22,120},{22,-192},{108,-192}},
                                                                    color={0,0,127}));
   connect(cst.y, mulInt.u1)
     annotation (Line(points={{18,240},{10,240},{10,206},{2,206}},
                                                                color={255,127,0}));
-  connect(mChw_flow.port_b, pipChw.port_a)
-    annotation (Line(points={{200,-70},{200,-80},{80,-80}},  color={0,127,255}));
-  connect(mHw_flow.port_b, pipHw.port_a)
-    annotation (Line(points={{200,-230},{200,-240},{80,-240}},color={0,127,255}));
   connect(con.y, min1.u2)
-    annotation (Line(points={{-198,150},{-140,150},{-140,124},{-132,124}},
+    annotation (Line(points={{-198,140},{-140,140},{-140,154},{-132,154}},
                                                                      color={0,0,127}));
   connect(con.y, max2.u1)
-    annotation (Line(points={{-198,150},{-70,150},{-70,116},{-62,116}},
+    annotation (Line(points={{-198,140},{-140,140},{-140,126},{-132,126}},
                                                                      color={0,0,127}));
-  connect(THwRetPre.y, max2.u2) annotation (Line(points={{-78,110},{-70,110},{
-          -70,104},{-62,104}},
+  connect(THwRetPre.y, max2.u2) annotation (Line(points={{-148,120},{-140,120},{
+          -140,114},{-132,114}},
                          color={0,0,127}));
   connect(weaDat.weaBus, hp.weaBus) annotation (Line(
       points={{-200,-30},{-130,-30},{-130,-64}},
@@ -414,14 +417,10 @@ equation
   connect(reqPlaRes.yHotWatPlaReq, mulInt[1].u2) annotation (Line(points={{68,184},
           {20,184},{20,194},{2,194}}, color={255,127,0}));
   connect(ratFlo.y, ctlEquZon.u_s)
-    annotation (Line(points={{-198,180},{-66,180},{-66,160},{68,160}},
+    annotation (Line(points={{-198,180},{60,180},{60,160},{68,160}},
                                                    color={0,0,127}));
   connect(on.y, hp.on) annotation (Line(points={{-198,-70},{-184,-70},{-184,-76},
           {-142,-76}},color={255,0,255}));
-  connect(THwSup.T, TChwRetPre.u) annotation (Line(points={{-50,-189},{-50,48},
-          {-180,48},{-180,130},{-172,130}},color={0,0,127}));
-  connect(TChwSup.T, THwRetPre.u) annotation (Line(points={{-30,-29},{-30,0},{
-          -178,0},{-178,110},{-102,110}},   color={0,0,127}));
   connect(TSupSet[1].y, hp.THwSet) annotation (Line(points={{-198,10},{-180,10},
           {-180,-70},{-142,-70}},color={0,0,127}));
   connect(TSupSet[2].y, hp.TChwSet) annotation (Line(points={{-198,10},{-180,10},
@@ -462,7 +461,7 @@ equation
   connect(hp.port_b2, valChwIso.port_a) annotation (Line(points={{-140,-80},{
           -160,-80},{-160,-40},{-90,-40}}, color={0,127,255}));
   connect(hp.yValChwIso, valChwIso.y) annotation (Line(points={{-138,-85},{-138,
-          -88},{-94,-88},{-94,-20},{-80,-20},{-80,-28}},   color={0,0,127}));
+          -88},{-94,-88},{-94,-22},{-80,-22},{-80,-28}},   color={0,0,127}));
   connect(sumNumUni.y,intLesEquThr. u)
     annotation (Line(points={{-198,-200},{-194,-200}},
                                              color={255,127,0}));
@@ -480,21 +479,19 @@ equation
   connect(dpChwRem.p_rel, ctlPumChwPri.u_m) annotation (Line(points={{91,-60},{
           80,-60},{80,-20},{-20,-20},{-20,-12}},
                                               color={0,0,127}));
-  connect(on.y, ctlPumChwPri.uEna) annotation (Line(points={{-198,-70},{-184,
-          -70},{-184,-16},{-24,-16},{-24,-12}},
-                                           color={255,0,255}));
+  connect(on.y, ctlPumChwPri.uEna) annotation (Line(points={{-198,-70},{-184,-70},
+          {-184,-20},{-24,-20},{-24,-12}}, color={255,0,255}));
   connect(ctlPumChwPri.y, pumChwPri.y)
     annotation (Line(points={{-8,0},{0,0},{0,-28}}, color={0,0,127}));
   connect(dpHeaSet[2].y, ctlValChwByp.u_s)
-    annotation (Line(points={{-198,50},{-116,50},{-116,40},{-32,40}},
+    annotation (Line(points={{-198,50},{-40,50},{-40,40},{-32,40}},
                                                   color={0,0,127}));
   connect(ctlValChwByp.y, valChwByp.y) annotation (Line(points={{-8,40},{20,40},
           {20,-60},{28,-60}}, color={0,0,127}));
-  connect(dpChwHea.p_rel, ctlValChwByp.u_m) annotation (Line(points={{-51,-60},
-          {-48,-60},{-48,20},{-20,20},{-20,28}},color={0,0,127}));
-  connect(on.y, ctlValChwByp.uEna) annotation (Line(points={{-198,-70},{-184,
-          -70},{-184,22},{-24,22},{-24,28}},
-                                        color={255,0,255}));
+  connect(dpChwHea.p_rel, ctlValChwByp.u_m) annotation (Line(points={{-51,-60},{
+          -48,-60},{-48,18},{-20,18},{-20,28}}, color={0,0,127}));
+  connect(on.y, ctlValChwByp.uEna) annotation (Line(points={{-198,-70},{-184,-70},
+          {-184,20},{-24,20},{-24,28}}, color={255,0,255}));
   connect(dpHwRem.p_rel, ctlPumHwPri.u_m) annotation (Line(points={{91,-220},{
           80,-220},{80,-180},{-20,-180},{-20,-172}},
                                                   color={0,0,127}));
@@ -540,8 +537,18 @@ equation
           -60,-240},{-70,-240}}, color={0,127,255}));
   connect(valHwIso.port_b, dpHwHea.port_b) annotation (Line(points={{-70,-200},
           {-60,-200},{-60,-210}}, color={0,127,255}));
-  connect(TChwSup.T, ctlPumChwPri.u_s) annotation (Line(points={{-30,-29},{-30,
-          -14.5},{-32,-14.5},{-32,0}}, color={0,0,127}));
+  connect(mChw_flow.port_b, TChwRet1.port_a) annotation (Line(points={{200,-70},
+          {200,-80},{170,-80}}, color={0,127,255}));
+  connect(TChwRet1.port_b, pipChw.port_a)
+    annotation (Line(points={{150,-80},{80,-80}}, color={0,127,255}));
+  connect(mHw_flow.port_b, THwRet1.port_a) annotation (Line(points={{200,-230},{
+          200,-240},{170,-240}}, color={0,127,255}));
+  connect(THwRet1.port_b, pipHw.port_a)
+    annotation (Line(points={{150,-240},{80,-240}}, color={0,127,255}));
+  connect(TChwSup.T, TChwRetPre.u) annotation (Line(points={{-30,-29},{-30,-18},
+          {-178,-18},{-178,160},{-172,160}}, color={0,0,127}));
+  connect(THwSup.T, THwRetPre.u) annotation (Line(points={{-50,-189},{-54,-189},
+          {-54,-16},{-176,-16},{-176,120},{-172,120}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
@@ -616,6 +623,5 @@ First implementation.
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-240,-260},{240,260}}, grid={2,2})),
-    Icon(coordinateSystem(extent={{-240,-260},{240,260}})));
+        extent={{-240,-260},{240,260}}, grid={2,2})));
 end AirToWater;

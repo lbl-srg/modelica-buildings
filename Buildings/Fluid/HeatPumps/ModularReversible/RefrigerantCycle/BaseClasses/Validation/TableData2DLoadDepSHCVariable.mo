@@ -42,7 +42,7 @@ model TableData2DLoadDepSHCVariable
     "CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TChiWatSet(
-    table=[0,0; 30,0; 80,TChwEnt.k - TChwSup_nominal; 95,TChwEnt.k -
+    table=[0,0; 720,0; 2000,TChwEnt.k - TChwSup_nominal; 2500,TChwEnt.k -
         TChwSup_nominal],
     offset={TChwSup_nominal},
     y(each final unit="K", each displayUnit="degC"))
@@ -50,9 +50,9 @@ model TableData2DLoadDepSHCVariable
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatSet(
     amplitude=THwEnt.k - THwSup_nominal,
-    freqHz=0.9/100,
+    freqHz=1/3600,
     offset=THwSup_nominal + (THwEnt.k - THwSup_nominal)/2,
-    startTime=10,
+    startTime=500,
     y(final unit="K", displayUnit="degC"))
     "HW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
@@ -97,9 +97,7 @@ model TableData2DLoadDepSHCVariable
     final TAmbCoo_nominal=TAmbCoo_nominal,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
-    final QCooShc_flow_nominal=QCooShc_flow_nominal,
-    dtRun=5,
-    dtMea=1)
+    final QCooShc_flow_nominal=QCooShc_flow_nominal)
     "Heat pump with supply temperature control and performance data interpolation based on leaving temperature"
     annotation (Placement(transformation(extent={{0,-20},{20,12}})));
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.THwEnt +
@@ -131,11 +129,13 @@ model TableData2DLoadDepSHCVariable
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
     table=[0,3; 1,2; 2,1],
-    timeScale=100,
-    period=300) "Operating mode command"
+    timeScale=2000,
+    period=6000)
+                "Operating mode command"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(table=[0,1; 250,0],
-      period=300) "On/off command"
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(table=[0,1; 7000,0],
+      period=7200)
+                  "On/off command"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni(nin=3)
     "Total number of enabled modules"
@@ -206,7 +206,7 @@ equation
         "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/TableData2DLoadDepSHCVariable.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=300,
+      StopTime=7200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>

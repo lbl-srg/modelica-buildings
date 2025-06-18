@@ -209,20 +209,22 @@ model TableData2DLoadDepSHC
             {10,10}},
         rotation=-90,
         origin={-80,-110})));
-  Modelica.Blocks.Sources.RealExpression calYValHwIso(y=if on and (mode ==
-        Buildings.Fluid.HeatPumps.Types.OperatingModes.heating or mode ==
-        Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) then max(1, pre(
-        nUniShc) + pre(nUniHea))/nUni else 0)
+  Modelica.Blocks.Sources.RealExpression calYValHwIso(
+    y=if on and (
+      mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.heating or
+      mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) then
+      max(1, nUniShc + nUniHea) / nUni else 0)
     "Calculate equivalent HW isolation valve command"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,100})));
-  Modelica.Blocks.Sources.RealExpression calYValChwIso(y=if on and (mode ==
-        Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling or mode ==
-        Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) then max(1, pre(
-        nUniShc) + pre(nUniCoo))/nUni else 0)
+  Modelica.Blocks.Sources.RealExpression calYValChwIso(
+    y=if on and (
+      mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling or
+      mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) then
+      max(1, nUniShc + nUniCoo) / nUni else 0)
     "Calculate equivalent CHW isolation valve command"
     annotation (
       Placement(transformation(

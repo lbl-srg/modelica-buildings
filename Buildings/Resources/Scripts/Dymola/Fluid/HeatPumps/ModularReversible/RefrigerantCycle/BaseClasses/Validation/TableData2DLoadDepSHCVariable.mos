@@ -3,7 +3,7 @@ Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDepSHCVariable",
     tolerance=1e-6,
     startTime=0,
-    stopTime=300,
+    stopTime=7200,
     method="CVode",
     resultFile="TableData2DLoadDepSHCRefCycVar");
 Advanced.StoreProtectedVariables = old_flag;

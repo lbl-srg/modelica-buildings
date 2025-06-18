@@ -113,8 +113,9 @@ block TableData2DLoadDepSHC
     annotation (Dialog(tab="Advanced"));
   parameter Real dtMea(
     final min=0,
-    final unit="s")=30
-    "Load averaging time window";
+    final unit="s")=60
+    "Load averaging time window"
+    annotation (Dialog(tab="Advanced"));
   parameter Real SPLR(
     max=1,
     min=0)=0.9
@@ -428,6 +429,10 @@ protected
     "Calculation variable to compute nUniHeaRaw in heating only mode";
   Integer useCoo
     "Calculation variable to compute nUniCooRaw in cooling only mode";
+  Modelica.Units.SI.HeatFlowRate QHeaSetMea_flow;
+  Modelica.Units.SI.HeatFlowRate QCooSetMea_flow;
+  Modelica.Units.SI.HeatFlowRate QHeaSetResMea_flow;
+  Modelica.Units.SI.HeatFlowRate QCooSetResMea_flow;
 initial equation
   PHeaInt_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(tabPHea, fill(
     THw_nominal, nPLRHea), fill(TAmbHea_nominal, nPLRHea));
@@ -445,13 +450,17 @@ initial equation
   pre(nUniHea) = nUniHeaRaw;
   pre(nUniCoo) = nUniCooRaw;
   pre(entryTime) = -Modelica.Constants.inf;
+  QHeaSetMea_flow = 0;
+  QCooSetMea_flow = 0;
 equation
+  dtMea * der(QHeaSetMea_flow) = QHeaSet_flow - QHeaSetMea_flow;
+  dtMea * der(QCooSetMea_flow) = QCooSet_flow - QCooSetMea_flow;
   // Update number of modules in each mode with respect to
   // - minimum stage runtime
   // - step-by-step staging
   // - maximum number of modules in bank
   // - priority order: SHC > heating > cooling
-  when {change(pre_nUniShcRaw), change(pre_nUniHeaRaw), change(pre_nUniCooRaw),
+  when {initial(), change(pre_nUniShcRaw), change(pre_nUniHeaRaw), change(pre_nUniCooRaw),
     time >= pre(entryTime) + dtRun} then
     if time >= pre(entryTime) + dtRun then
       nUniShc = pre(nUniShc) + (
@@ -479,7 +488,7 @@ equation
       else pre(entryTime);
   end when;
   // Update calculation variables for number of modules in single-mode depending on dominant load
-  when {initial(), change(nUniShcRaw), change(nUniShcHea), change(nUniShcCoo)} then
+  when {change(nUniShcRaw), change(nUniShcHea), change(nUniShcCoo)} then
     useHeaShc=if nUniShcRaw < nUni and nUniShcHea > nUniShcRaw then 1 else 0;
     useCooShc=if nUniShcRaw < nUni and nUniShcCoo > nUniShcRaw then 1 else 0;
   end when;
@@ -507,9 +516,9 @@ equation
   // Compute number of modules in SHC mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions near zero load)
   if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc then
-    nUniShcHea=integer(ceil((QHeaSet_flow - deltaX * QHeaShc_flow_nominal) / SPLR /
+    nUniShcHea=integer(ceil((QHeaSetMea_flow - 100 * deltaX * QHeaShc_flow_nominal) / SPLR /
       max(cat(1, QHeaShcInt_flow, {deltaX * QHeaShc_flow_nominal}))));
-    nUniShcCoo=integer(ceil((QCooSet_flow - deltaX * QCooShc_flow_nominal) / SPLR /
+    nUniShcCoo=integer(ceil((QCooSetMea_flow - 100 * deltaX * QCooShc_flow_nominal) / SPLR /
       min(cat(1, QCooShcInt_flow, {deltaX * QCooShc_flow_nominal}))));
   else
     nUniShcHea=0;
@@ -542,9 +551,9 @@ equation
       PLRShc);
     // Compute excess heat flow rate and SHC cycling ratio to balance heating and cooling loads
     // ratCycShc=1 means perfect balance (no cycling): module continuously runs in SHC.
-    QHeaShcExc_flow = nUniShc * (QHeaShcNoCyc_flow - QHeaSet_flow / max(1, nUniShc + nUniHea));
-    QCooShcExc_flow = nUniShc * (QCooShcNoCyc_flow - QCooSet_flow / max(1, nUniShc + nUniCoo));
-    ratCycShc=Buildings.Utilities.Math.Functions.smoothMax(0,
+    QHeaShcExc_flow = max(0, nUniShc * (QHeaShcNoCyc_flow - QHeaSet_flow / max(1, nUniShc + nUniHea)));
+    QCooShcExc_flow = min(0, nUniShc * (QCooShcNoCyc_flow - QCooSet_flow / max(1, nUniShc + nUniCoo)));
+    ratCycShc = Buildings.Utilities.Math.Functions.smoothMax(0,
       1 - Buildings.Utilities.Math.Functions.smoothMax(
       QHeaShcExc_flow * Buildings.Utilities.Math.Functions.inverseXRegularized(
         QHeaShcNoCyc_flow, deltaX * QHeaShc_flow_nominal / nUni),
@@ -596,13 +605,15 @@ equation
   end if;
   // Compute residual load, number of modules in single mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions near zero load)
-  QHeaSetRes_flow=QHeaSet_flow -(QHeaShc_flow + QHeaShcCyc_flow);
-  QCooSetRes_flow=QCooSet_flow -(QCooShc_flow + QCooShcCyc_flow);
+  QHeaSetRes_flow = QHeaSet_flow -(QHeaShc_flow + QHeaShcCyc_flow);
+  QCooSetRes_flow = QCooSet_flow -(QCooShc_flow + QCooShcCyc_flow);
+  QHeaSetResMea_flow = QHeaSetMea_flow - (QHeaShc_flow + QHeaShcCyc_flow);
+  QCooSetResMea_flow = QCooSetMea_flow - (QCooShc_flow + QCooShcCyc_flow);
   nUniHeaRaw=max(useHeaShc, useHea) * integer(ceil(
-    (QHeaSetRes_flow - deltaX * QHea_flow_nominal) / SPLR /
+    (QHeaSetResMea_flow - deltaX * QHea_flow_nominal) / SPLR /
     max(cat(1, QHeaInt_flow, {deltaX * QHea_flow_nominal}))));
   nUniCooRaw=max(useCooShc, useCoo) * integer(ceil(
-    (QCooSetRes_flow - deltaX * QCoo_flow_nominal) / SPLR /
+    (QCooSetResMea_flow - deltaX * QCoo_flow_nominal) / SPLR /
     min(cat(1, QCooInt_flow, {deltaX * QCoo_flow_nominal}))));
   if nUniHea > 0 then
     PLRHea=max(0, min(PLRHea_max, Modelica.Math.Vectors.interpolate(

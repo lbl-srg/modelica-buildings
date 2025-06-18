@@ -95,7 +95,7 @@ model TableData2DLoadDepSHC
     "Operating mode command"
     annotation (Placement(transformation(extent={{-130,90},{-110,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(
-    table=[0,1; 5000,0],
+    table=[0,0; 500,1; 5000,0],
     timeScale=1,
     period=5400)  "On/off command"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));

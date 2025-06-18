@@ -29,7 +29,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=1,
-    position={415, 5, 400, 600},
+    position={415, 5, 400, 400},
     y={"hp.QCon_flow", "hp.QHea_flow_nominal", "hp.QHeaShc_flow_nominal"},
     autoscale=true,
     grid=true
@@ -38,13 +38,6 @@ createPlot(
     id=2,
     subPlot=2,
     y={"hp.QEva_flow", "hp.QCoo_flow_nominal", "hp.QCooShc_flow_nominal"},
-    autoscale=true,
-    grid=true
-);
-createPlot(
-    id=2,
-    subPlot=3,
-    y={"hp.refCyc.sigBus.mConMea_flow", "hp.refCyc.sigBus.mEvaMea_flow", "hp.mCon_flow_nominal", "hp.mEva_flow_nominal"},
     autoscale=true,
     grid=true
 );
@@ -83,6 +76,21 @@ createPlot(
     id=5,
     subPlot=2,
     y={"ctlPumHwPri.y", "ctlPumChwPri.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=6,
+    position={870, 50, 400, 400},
+    subPlot=1,
+    y={"mHw_flow.m_flow", "hp.refCyc.sigBus.mConMea_flow", "hp.mCon_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=6,
+    subPlot=2,
+    y={"mChw_flow.m_flow", "hp.refCyc.sigBus.mEvaMea_flow", "hp.mEva_flow_nominal"},
     autoscale=true,
     grid=true
 );

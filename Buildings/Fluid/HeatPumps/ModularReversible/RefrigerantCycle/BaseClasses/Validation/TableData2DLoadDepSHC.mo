@@ -43,17 +43,17 @@ model TableData2DLoadDepSHC
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatSet(
     height=TChwEnt.k - TChwSup_nominal,
-    duration=80,
+    duration=2500,
     offset=TChwSup_nominal,
-    startTime=50,
+    startTime=1000,
     y(final unit="K", displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatSet(
     height=THwEnt.k - THwSup_nominal,
-    duration=60,
+    duration=2000,
     offset=THwSup_nominal,
-    startTime=10,
+    startTime=500,
     y(final unit="K", displayUnit="degC"))
     "HW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
@@ -101,9 +101,7 @@ model TableData2DLoadDepSHC
     final TAmbCoo_nominal=TAmbCoo_nominal,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
-    final QCooShc_flow_nominal=QCooShc_flow_nominal,
-    dtRun=5,
-    dtMea=1)
+    final QCooShc_flow_nominal=QCooShc_flow_nominal)
     "Heat pump with supply temperature control and performance data interpolation based on leaving temperature"
     annotation (Placement(transformation(extent={{0,-18},{20,14}})));
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.THwEnt +
@@ -193,7 +191,7 @@ equation
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
-      StopTime=100.0),
+      StopTime=3600.0),
     Documentation(info="<html>
 <p>
 This model validates the load calculation and staging logic of the block
