@@ -339,7 +339,7 @@ protected
     extrapolation=fill(extrapolation, nPLRShc),
     verboseRead=fill(false, nPLRShc))
     "External table objects for power interpolation - SHC";
-  constant Real deltaX=1E-4
+  constant Real deltaX = 1E-3
     "Small number used for smoothing";
   Modelica.Units.SI.HeatFlowRate QHeaSet_flow
     "Heating load - All modules";
@@ -517,9 +517,9 @@ equation
   // Calculate number of modules in SHC mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions near zero load)
   if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc then
-    nUniShcHea=integer(ceil((QHeaSetMea_flow - 100 * deltaX * QHeaShc_flow_nominal) / SPLR /
+    nUniShcHea=integer(ceil((QHeaSetMea_flow - 10 * deltaX * QHeaShc_flow_nominal) / SPLR /
       max(cat(1, QHeaShcInt_flow, {deltaX * QHeaShc_flow_nominal}))));
-    nUniShcCoo=integer(ceil((QCooSetMea_flow - 100 * deltaX * QCooShc_flow_nominal) / SPLR /
+    nUniShcCoo=integer(ceil((QCooSetMea_flow - 10 * deltaX * QCooShc_flow_nominal) / SPLR /
       min(cat(1, QCooShcInt_flow, {deltaX * QCooShc_flow_nominal}))));
   else
     nUniShcHea = 0;
@@ -554,13 +554,15 @@ equation
     // ratCycShc=1 means perfect balance (no cycling): module continuously runs in SHC.
     QHeaShcExc_flow = max(0, nUniShc * (QHeaShcNoCyc_flow - QHeaSet_flow / max(1, nUniShc + nUniHea)));
     QCooShcExc_flow = min(0, nUniShc * (QCooShcNoCyc_flow - QCooSet_flow / max(1, nUniShc + nUniCoo)));
-    ratCycShc = Buildings.Utilities.Math.Functions.smoothMax(0,
-      1 - Buildings.Utilities.Math.Functions.smoothMax(
-      QHeaShcExc_flow * Buildings.Utilities.Math.Functions.inverseXRegularized(
-        QHeaShcNoCyc_flow, deltaX * QHeaShc_flow_nominal / nUni),
-      QCooShcExc_flow * Buildings.Utilities.Math.Functions.inverseXRegularized(
-        QCooShcNoCyc_flow, deltaX * abs(QCooShc_flow_nominal) / nUni),
-      deltaX), deltaX);
+    ratCycShc = 1 - Buildings.Utilities.Math.Functions.smoothMin(
+      1,
+      Buildings.Utilities.Math.Functions.smoothMax(
+        QHeaShcExc_flow * Buildings.Utilities.Math.Functions.inverseXRegularized(
+          QHeaShcNoCyc_flow, deltaX * QHeaShc_flow_nominal / nUni),
+        QCooShcExc_flow * Buildings.Utilities.Math.Functions.inverseXRegularized(
+          QCooShcNoCyc_flow, deltaX * abs(QCooShc_flow_nominal) / nUni),
+        deltaX),
+      deltaX);
     QHeaShc_flow = (nUniShc - 1 + ratCycShc) * QHeaShcNoCyc_flow;
     QCooShc_flow = (nUniShc - 1 + ratCycShc) * QCooShcNoCyc_flow;
     // Calculate PLR and thermal output of SHC module cycling into single-mode
@@ -611,10 +613,10 @@ equation
   QHeaSetResMea_flow = QHeaSetMea_flow - (QHeaShc_flow + QHeaShcCyc_flow);
   QCooSetResMea_flow = QCooSetMea_flow - (QCooShc_flow + QCooShcCyc_flow);
   nUniHeaRaw=max(useHeaShc, useHea) * integer(ceil(
-    (QHeaSetResMea_flow - deltaX * QHea_flow_nominal) / SPLR /
+    (QHeaSetResMea_flow - 10 * deltaX * QHea_flow_nominal) / SPLR /
     max(cat(1, QHeaInt_flow, {deltaX * QHea_flow_nominal}))));
   nUniCooRaw=max(useCooShc, useCoo) * integer(ceil(
-    (QCooSetResMea_flow - deltaX * QCoo_flow_nominal) / SPLR /
+    (QCooSetResMea_flow - 10 * deltaX * QCoo_flow_nominal) / SPLR /
     min(cat(1, QCooInt_flow, {deltaX * QCoo_flow_nominal}))));
   if nUniHea > 0 then
     PLRHea=max(0, min(PLRHea_max, Modelica.Math.Vectors.interpolate(
@@ -662,7 +664,61 @@ equation
 annotation (Dialog(tab="Advanced"),
 Documentation(
 info="<html>
-The model assumes hydronic balance over each active module.
+<p>
+This block provides the core implementation to model simultaneous heating and
+cooling (SHC) systems, also called multipipe chillers or heat pumps.
+Since the majority of these systems are composed of multiple modules
+connected together in a parallel arrangement, the implementation includes
+the staging and load balancing logic for an arbitrary number of modules
+<code>nUni</code>.
+Nevertheless, single module systems can also be
+appropriately represented by setting <code>nUni=1</code>.
+</p>
+<p>
+The block implements the following functionalities.
+</p>
+<ul>
+<li>
+Module staging
+</li>
+<li>
+Load balancing between the CHW and HW sides of modules running in SHC mode
+</li>
+<li>
+Ideal controls
+</li>
+<li>
+Capacity and power calculation
+</li>
+</ul>
+<h4>Ooperating mode</h4>
+<p>
+The block input <code>mode</code> allows switching between three operating modes.
+<ol>
+<li>
+Heating-only: In this mode the system operates as a non-reversible heat pump.
+All modules track the HW temperature setpoint and source heat from the ambient-side
+fluid.
+</li>
+<li>
+Cooling-only: In this mode the system operates as a chiller.
+All modules track the CHW temperature setpoint and reject heat to the ambient-side
+fluid.
+</li>
+<li>
+Simultaneous heating and cooling: In this mode, some modules operate as
+heat recovery chillers, sourcing heat from the CHW circuit and 
+rejecting heat to the HW circuit. 
+The load balancing logic ensures that, on average, both the HW temperature setpoint 
+and the CHW temperature setpoint are met by these modules. 
+Additional modules may concurrently run in heating-only or cooling-only mode 
+to match the residual load.
+In the extreme case where the system is only exposed to heating (resp. cooling) loads, 
+all modules will run in heating-only (resp. cooling-only) mode.
+</li>
+
+
+</p>
 <h4>Simultaneous heating and cooling operation</h4>
 <p>
 Modular systems in parallel arrangement with hydronic balance over each module
@@ -672,22 +728,18 @@ Otherwise, when one module cannot meet its assigned load fraction, this creates
 a deficit that must be compensated in two ways: another module must handle not only
 an increased load, but also a modified temperature setpoint to account for the
 other module's shortfall.
-To achieve effective load balancing across all modules, the model assumes cycling
-between simultaneous SHC mode and single-mode operation. This cycling ensures that,
-on average, loads are met on both sides.
+To achieve effective load balancing across all modules, the model assumes that
+<b>a single module</b> enabled in SHC mode can cycle between SHC and single-mode operation. 
+This cycling ensures that, on average, loads are met on both sides.
+Cycling is restricted to a single module.
+
 The alternative operating mode corresponds to the dominant load — for example,
 when cooling loads dominate, modules will cycle between SHC mode and cooling-only
 operation.
 The cycling ratio <code>ratCycShc</code> is then calculated as:
 <code>ratCycShc = min(...)</code>.
 </p>
-<p>
-This block implements two core features for some chiller and heat pump models
-within <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible\">
-Buildings.Fluid.HeatPumps.ModularReversible</a> and
-<a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible\">
-Buildings.Fluid.Chillers.ModularReversible</a>.
-</p>
+<h4>Module staging</h4>
 <ul>
 <li>
 <b>Ideal controls</b>: The heating or cooling load is calculated based on the block
@@ -783,67 +835,25 @@ border=\"1\" alt=\"Input power as a function of the part load ratio.\"/>
 <p><i>Figure 1. Input power as a function of the part load ratio.</i></p>
 <h4>Performance data file</h4>
 <p>
-The performance data are read from an external ASCII file that must meet
+The performance data are read from external ASCII files that must meet
 the requirements specified in the documentation of
-<a href=\"modelica://Modelica.Blocks.Tables.CombiTable2Ds\">
-Modelica.Blocks.Tables.CombiTable2Ds</a>.
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
 </p>
 <p>
-In addition, this file must contain at least two 2D-tables that provide the maximum
-heating (resp. minimum cooling) heat flow rate and the input power
-of the heat pump (resp. chiller) at <i>100&nbsp;&percnt;</i>
-PLR.
-Each row of these tables corresponds to a value of the load-side
-fluid temperature, each column corresponds to a value of the
-ambient-side fluid temperature.
-This could be either the leaving temperature if <code>use_T*OutForTab</code>
-is true, or the entering temperature if <code>use_T*OutForTab</code>
-is false.
-The load and ambient temperatures must cover the whole operating domain,
-knowing that the model only performs interpolation and no extrapolation
-of the capacity and power along these variables.
+A performance data file must be provided for each operating mode: heating-only,
+cooling-only and simultaneous heating and cooling.
+It is expected that performance data be provided for a single module.
+This is however a loose requirement as the scaling logic anyway ensures that
+the nominal heat flow rates <code>Q*_flow_nominal</code> provided as parameters 
+match the value interpolated from the performance data, times the number of modules.
 </p>
 <p>
-The table providing the capacity values must be named <code>q@X.XX</code>
-where <code>X.XX</code> is the PLR value formatted with exactly
-2 decimal places (<code>\"%.2f\"</code>).
-Similarly, the table providing the power values must be named
-<code>p@X.XX</code>.
-</p>
-<p>
-Here is an example of chiller data (\"-----\" is not part of the file content):
-</p>
-<blockquote><pre>
------------------------------------------------------
-#1
-double q@1.00(5,5)                    # Cooling heat flow rate at 100 % PLR
-0 292.0 297.4 302.8 308.2             # CW temperatures as column headers
-280.4 -493241 -555900 -495611 -312372 # Each row provides the capacity at a given CHW temperature
-282.2 -470560 -578165 -562822 -424529
-284.1 -418413 -573462 -605561 -514711
-285.9 -342290 -542284 -619329 -573426
-double p@1.00(5, 5)                   # Input power at 100 % PLR
-0 292.0 297.4 302.8 308.2             # CW temperatures as column headers
-280.4 60430 80413 80830 55530         # Each row provides the input power at a given CHW temperature
-282.2 54399 80278 89151 73950
-284.1 45251 76017 92822 87633
-285.9 34546 68567 91833 95401
------------------------------------------------------
-</pre></blockquote>
-<p>
-In addition, for machines that have capacity modulation other than
-cycling on and off a single compressor, the whole range of <b>normal
-capacity modulation</b> must be covered by providing similar 2D-tables
-at different PLR values.
-The lowest PLR value will be considered as the minimum PLR value
-before false loading the compressor.
-If the machine has no hot gas bypass (<code>PLRCyc_min = min(PLRSup)</code>)
-this will correspond to the minimum PLR value before cycling the
-last operating compressor.
-</p>
-<p>
-All the PLR values used in the performance data file must be specified
-in the array parameter <code>PLRSup[:]</code>.
+Note that for single-mode performance data, the ambient-side fluid temperature 
+must correspond to the <b>entering</b> temperature, while the model supports 
+choosing between entering or leaving temperature for the CHW and HW via
+the parameters <code>use_TEvaOutForTab</code> and <code>use_TConOutForTab</code>,
+respectively.
 </p>
 <h4>Compressor cycling</h4>
 <p>

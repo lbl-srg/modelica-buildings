@@ -48,7 +48,7 @@ model TableData2DLoadDepSHCVariable
     y(each final unit="K", each displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin THwSet(
     amplitude=THwEnt.k - THwSup_nominal,
     freqHz=1/5000,
     offset=THwSup_nominal + (THwEnt.k - THwSup_nominal)/2,
@@ -114,18 +114,18 @@ model TableData2DLoadDepSHCVariable
   Modelica.Blocks.Continuous.Filter filter(
     f_cut=1,
     init=Modelica.Blocks.Types.Init.InitialOutput,
-    y_start=THwSup_nominal)
+    y_start=THwSup_nominal) "Filter to avoid algebraic loop"
     annotation (Placement(transformation(extent={{50,30},{30,50}})));
   Modelica.Blocks.Continuous.Filter filter1(
     f_cut=1,
     init=Modelica.Blocks.Types.Init.InitialOutput,
-    y_start=TChwSup_nominal)
+    y_start=TChwSup_nominal) "Filter to avoid algebraic loop"
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1
+    "Keep HW temperature setpoint below design value"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupNom(k=
-        THwSup_nominal, y(final unit="K", displayUnit="degC"))
-    "Design HW supply temperature"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSwSupNom(k=THwSup_nominal,
+      y(final unit="K", displayUnit="degC")) "Design HW supply temperature"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
     table=[0,3; 1,2; 2,1],
@@ -175,12 +175,12 @@ equation
           -40},{-8,-12},{-2,-12}}, color={0,0,127}));
   connect(TChiWatSet.y[1], hpSupLvg.TChwSet) annotation (Line(points={{-28,60},
           {-12,60},{-12,4},{-2,4}}, color={0,0,127}));
-  connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-78,40},{-44,40},{-44,
-          26},{-42,26}},     color={0,0,127}));
+  connect(THwSet.y, min1.u1) annotation (Line(points={{-78,40},{-44,40},{-44,26},
+          {-42,26}}, color={0,0,127}));
   connect(min1.y, hpSupLvg.THwSet) annotation (Line(points={{-18,20},{-14,20},{
           -14,6},{-2,6}}, color={0,0,127}));
-  connect(THeaWatSupNom.y, min1.u2) annotation (Line(points={{-48,20},{-44,20},{
-          -44,14},{-42,14}},  color={0,0,127}));
+  connect(TSwSupNom.y, min1.u2) annotation (Line(points={{-48,20},{-44,20},{-44,
+          14},{-42,14}}, color={0,0,127}));
   connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
           -4,-4},{-2,-4}}, color={0,0,127}));
   connect(mode.y[1], hpSupLvg.mode) annotation (Line(points={{-58,80},{-10,80},{

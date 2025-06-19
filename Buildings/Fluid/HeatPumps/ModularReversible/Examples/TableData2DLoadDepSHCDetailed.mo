@@ -232,7 +232,6 @@ model TableData2DLoadDepSHCDetailed
     final m_flow_nominal=hp.mCon_flow_nominal,
     flowCharacteristics=hp.chaValHwIso,
     dpValve_nominal=hp.dpValIso_nominal,
-    strokeTime=30,
     init=Modelica.Blocks.Types.Init.InitialState,
     dpFixed_nominal=hp.dpHw_nominal)
     "HW isolation valve"
@@ -241,7 +240,6 @@ model TableData2DLoadDepSHCDetailed
     redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mEva_flow_nominal,
     dpValve_nominal=hp.dpValIso_nominal,
-    strokeTime=30,
     init=Modelica.Blocks.Types.Init.InitialState,
     dpFixed_nominal=hp.dpChw_nominal,
     flowCharacteristics=hp.chaValChwIso) "CHW isolation valve"

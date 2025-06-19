@@ -1,19 +1,19 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation;
 model TableData2DLoadDepSHC
   extends Modelica.Icons.Example;
-  parameter Modelica.Units.SI.Temperature THwSup_nominal = 50 + 273.15
+  parameter Modelica.Units.SI.Temperature THwSup_nominal=323.15
     "HW supply temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature THwRet_nominal = 42 + 273.15
+  parameter Modelica.Units.SI.Temperature THwRet_nominal=315.15
     "HW return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TChwSup_nominal = 7 + 273.15
+  parameter Modelica.Units.SI.Temperature TChwSup_nominal=280.15
     "CHW supply temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TChwRet_nominal = 12 + 273.15
+  parameter Modelica.Units.SI.Temperature TChwRet_nominal=285.15
     "CHW return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TAmbHea_nominal = -5 + 273.15
+  parameter Modelica.Units.SI.Temperature TAmbHea_nominal=268.15
     "OA temperature"
     annotation (Dialog(group="Nominal condition - Heating mode"));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal = 58E3
@@ -22,7 +22,7 @@ model TableData2DLoadDepSHC
   parameter Modelica.Units.SI.HeatFlowRate QHeaShc_flow_nominal = 85E3
     "Heating heat flow rate - SHC mode"
     annotation (Dialog(group="Nominal condition - Heating mode"));
-  parameter Modelica.Units.SI.Temperature TAmbCoo_nominal = 35 + 273.15
+  parameter Modelica.Units.SI.Temperature TAmbCoo_nominal=308.15
     "Ambient side fluid temperature — Entering or leaving depending on use_TAmbOutForTab"
     annotation (Dialog(group="Nominal condition - Cooling mode"));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal = -73E3
@@ -41,7 +41,7 @@ model TableData2DLoadDepSHC
     Buildings.Media.Water.cp_const
     "CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChwSet(
     height=TChwEnt.k - TChwSup_nominal,
     duration=2500,
     offset=TChwSup_nominal,
@@ -49,7 +49,7 @@ model TableData2DLoadDepSHC
     y(final unit="K", displayUnit="degC"))
     "CHW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THwSet(
     height=THwEnt.k - THwSup_nominal,
     duration=2000,
     offset=THwSup_nominal,
@@ -102,7 +102,7 @@ model TableData2DLoadDepSHC
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
     final QCooShc_flow_nominal=QCooShc_flow_nominal)
-    "Heat pump with supply temperature control and performance data interpolation based on leaving temperature"
+    "Heat pump with supply temperature control and performance data interpolation based on leaving CHW/HW temperature"
     annotation (Placement(transformation(extent={{0,-18},{20,14}})));
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.THwEnt +
         hpSupLvg.QHea_flow/hpSupLvg.mHw_flow/hpSupLvg.cpHw)
@@ -118,12 +118,12 @@ model TableData2DLoadDepSHC
   Modelica.Blocks.Continuous.Filter filter(
     f_cut=1,
     init=Modelica.Blocks.Types.Init.InitialOutput,
-    y_start=THwSup_nominal)
+    y_start=THwSup_nominal) "Filter to avoid algebraic loop"
     annotation (Placement(transformation(extent={{50,30},{30,50}})));
   Modelica.Blocks.Continuous.Filter filter1(
     f_cut=1,
     init=Modelica.Blocks.Types.Init.InitialOutput,
-    y_start=TChwSup_nominal)
+    y_start=TChwSup_nominal) "Filter to avoid algebraic loop"
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=Buildings.Fluid.HeatPumps.Types.OperatingModes.shc)
     "Operating mode command"
@@ -139,20 +139,79 @@ model TableData2DLoadDepSHC
     message="Number of enabled modules exceeds number of modules")
     "Assert condition on number of enabled modules"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC
+    hpRetLvg(
+    nUni=3,
+    use_TLoaLvgForCtl=false,
+    use_TEvaOutForTab=true,
+    use_TConOutForTab=true,
+    PLRHeaSup={1},
+    PLRCooSup={1},
+    PLRShcSup={1},
+    fileNameHea=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+    fileNameCoo=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+    fileNameShc=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt"),
+    final THw_nominal=THwSup_nominal,
+    final TChw_nominal=TChwSup_nominal,
+    TAmbHea_nominal=TAmbHea_nominal,
+    final QHea_flow_nominal=QHea_flow_nominal,
+    final TAmbCoo_nominal=TAmbCoo_nominal,
+    final QCoo_flow_nominal=QCoo_flow_nominal,
+    final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
+    final QCooShc_flow_nominal=QCooShc_flow_nominal)
+    "Heat pump with return temperature control and performance data interpolation based on leaving CHW/HW temperature"
+    annotation (Placement(transformation(extent={{0,-200},{20,-168}})));
+  Modelica.Blocks.Sources.RealExpression TConEntHpRetLvg(y=hpRetLvg.THwLvg -
+        hpRetLvg.QHea_flow/hpRetLvg.mHw_flow/hpRetLvg.cpHw)
+    "Calculate condenser entering temperature"
+    annotation (Placement(transformation(extent={{30,-114},{50,-94}})));
+  Modelica.Blocks.Sources.RealExpression TEvaEntHpRetLvg(y=hpRetLvg.TChwLvg -
+        hpRetLvg.QCoo_flow/hpRetLvg.mChw_flow/hpRetLvg.cpChw)
+    "Calculate evaporator entering temperature"
+    annotation (Placement(transformation(extent={{30,-266},{50,-246}})));
+  Modelica.Blocks.Continuous.Filter filter2(
+    f_cut=1,
+    init=Modelica.Blocks.Types.Init.InitialOutput,
+    y_start=THwSup_nominal) "Filter to avoid algebraic loop"
+    annotation (Placement(transformation(extent={{50,-150},{30,-130}})));
+  Modelica.Blocks.Continuous.Filter filter3(
+    f_cut=1,
+    init=Modelica.Blocks.Types.Init.InitialOutput,
+    y_start=TChwSup_nominal) "Filter to avoid algebraic loop"
+    annotation (Placement(transformation(extent={{50,-230},{30,-210}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni1(nin=3)
+    "Total number of enabled modules"
+    annotation (Placement(transformation(extent={{30,-190},{50,-170}})));
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr1(t=
+        hpSupLvg.nUni)
+    "True if number of enabled modules lower or equal to number of modules"
+    annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(message=
+        "Number of enabled modules exceeds number of modules")
+    "Assert condition on number of enabled modules"
+    annotation (Placement(transformation(extent={{90,-190},{110,-170}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChwLvg(k=TChwSup_nominal,
+      y(final unit="K", displayUnit="degC")) "CHW leaving temperature"
+    annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THwLvg(k=THwSup_nominal, y(
+        final unit="K", displayUnit="degC")) "HW leaving temperature"
+    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
 equation
   connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-58,100},{-20,100},{
           -20,-14},{-2,-14}},
                           color={0,0,127}));
   connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-58,-60},{
-          -40,-60},{-40,-4},{-2,-4}},
+          -24,-60},{-24,-4},{-2,-4}},
                                    color={0,0,127}));
   connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-98,0},{-28,0},{
           -28,0},{-2,0}},   color={0,0,127}));
-  connect(TChiWatSet.y, hpSupLvg.TChwSet) annotation (Line(points={{-98,80},{
-          -22,80},{-22,6},{-2,6}},
-                               color={0,0,127}));
-  connect(THeaWatSet.y, hpSupLvg.THwSet) annotation (Line(points={{-98,40},{-24,
-          40},{-24,8},{-2,8}}, color={0,0,127}));
+  connect(TChwSet.y, hpSupLvg.TChwSet) annotation (Line(points={{-98,80},{-22,
+          80},{-22,6},{-2,6}}, color={0,0,127}));
+  connect(THwSet.y, hpSupLvg.THwSet) annotation (Line(points={{-98,40},{-30,40},
+          {-30,8},{-2,8}}, color={0,0,127}));
   connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-98,-40},{-12,
           -40},{-12,-8},{-2,-8}},   color={0,0,127}));
   connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-58,-20},{-26,-20},
@@ -184,6 +243,46 @@ equation
           {-12,-2},{-2,-2}}, color={0,0,127}));
   connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-10,
           -40},{-10,-10},{-2,-10}}, color={0,0,127}));
+  connect(TConEntHpRetLvg.y, filter2.u) annotation (Line(points={{51,-104},{60,
+          -104},{60,-140},{52,-140}}, color={0,0,127}));
+  connect(TEvaEntHpRetLvg.y, filter3.u) annotation (Line(points={{51,-256},{60,
+          -256},{60,-220},{52,-220}}, color={0,0,127}));
+  connect(sumNumUni1.y, intLesEquThr1.u)
+    annotation (Line(points={{52,-180},{58,-180}}, color={255,127,0}));
+  connect(intLesEquThr1.y, assMes1.u)
+    annotation (Line(points={{82,-180},{88,-180}}, color={255,0,255}));
+  connect(on.y, hpRetLvg.on) annotation (Line(points={{-58,60},{-30,60},{-30,
+          -170},{-2,-170}}, color={255,0,255}));
+  connect(mode.y, hpRetLvg.mode) annotation (Line(points={{-58,20},{-30,20},{
+          -30,-172},{-2,-172}}, color={255,127,0}));
+  connect(TOut.y, hpRetLvg.TAmbEnt) annotation (Line(points={{-58,-20},{-30,-20},
+          {-30,-178},{-2,-178}}, color={0,0,127}));
+  connect(mChw_flow.y, hpRetLvg.mChw_flow) annotation (Line(points={{-98,-80},{
+          -52,-80},{-52,-194},{-2,-194}}, color={0,0,127}));
+  connect(mHw_flow.y, hpRetLvg.mHw_flow) annotation (Line(points={{-58,-60},{
+          -24,-60},{-24,-186},{-2,-186}}, color={0,0,127}));
+  connect(TChwSet.y, hpRetLvg.TChwSet) annotation (Line(points={{-98,80},{-50,
+          80},{-50,-176},{-2,-176}}, color={0,0,127}));
+  connect(THwSet.y, hpRetLvg.THwSet) annotation (Line(points={{-98,40},{-50,40},
+          {-50,-174},{-2,-174}}, color={0,0,127}));
+  connect(hpRetLvg.nUniHea, sumNumUni1.u[1]) annotation (Line(points={{22,-190},
+          {26,-190},{26,-182.333},{28,-182.333}}, color={255,127,0}));
+  connect(hpRetLvg.nUniCoo, sumNumUni1.u[2]) annotation (Line(points={{22,-194},
+          {26,-194},{26,-180},{28,-180}}, color={255,127,0}));
+  connect(hpRetLvg.nUniShc, sumNumUni1.u[3]) annotation (Line(points={{22,-198},
+          {26,-198},{26,-177.667},{28,-177.667}}, color={255,127,0}));
+  connect(filter3.y, hpRetLvg.TChwEnt) annotation (Line(points={{29,-220},{-20,
+          -220},{-20,-190},{-2,-190}}, color={0,0,127}));
+  connect(filter2.y, hpRetLvg.THwEnt) annotation (Line(points={{29,-140},{-20,
+          -140},{-20,-182},{-2,-182}}, color={0,0,127}));
+  connect(TChwLvg.y, hpRetLvg.TChwLvg) annotation (Line(points={{-98,-200},{-30,
+          -200},{-30,-192},{-2,-192}}, color={0,0,127}));
+  connect(THwLvg.y, hpRetLvg.THwLvg) annotation (Line(points={{-98,-160},{-32,
+          -160},{-32,-184},{-2,-184}}, color={0,0,127}));
+  connect(cp.y, hpRetLvg.cpChw) annotation (Line(points={{-58,100},{-22,100},{
+          -22,-196},{-2,-196}}, color={0,0,127}));
+  connect(cp.y, hpRetLvg.cpHw) annotation (Line(points={{-58,100},{-22,100},{
+          -22,-188},{-2,-188}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     __Dymola_Commands(
       file=
