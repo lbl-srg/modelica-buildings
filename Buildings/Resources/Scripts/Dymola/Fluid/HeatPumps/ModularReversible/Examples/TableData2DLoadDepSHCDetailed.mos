@@ -1,30 +1,33 @@
-simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Examples.AirToWater",
+simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHCDetailed",
     tolerance=1e-6,
     startTime=0,
     stopTime=86400,
     method="CVode",
-    resultFile="ModularReversibleAirToWater");
+    resultFile="TableData2DLoadDepSHCDetailed");
 createPlot(
     id=1,
     position={5, 5, 400, 600},
     subPlot=1,
     y={"hp.on", "hp.mode"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=1,
     subPlot=2,
-    y={"THwRet.T", "THwSup.T", "hp.THwSet", "THwSup_nominal", "THwRet_nominal"},
+    y={"THwSup.T", "hp.THwSet", "THwRet.T", "THwRetPla.T"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=1,
     subPlot=3,
-    y={"TChwRet.T", "TChwSup.T", "hp.TChwSet", "TChwSup_nominal", "TChwRet_nominal"},
+    y={"TChwSup.T", "hp.TChwSet", "TChwRet.T", "TChwRetPla.T"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=2,
@@ -32,14 +35,16 @@ createPlot(
     position={415, 5, 400, 400},
     y={"hp.QCon_flow", "hp.QHea_flow_nominal", "hp.QHeaShc_flow_nominal"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=2,
     subPlot=2,
     y={"hp.QEva_flow", "hp.QCoo_flow_nominal", "hp.QCooShc_flow_nominal"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=3,
@@ -47,7 +52,8 @@ createPlot(
     subPlot=1,
     y={"hp.refCyc.sigBus.nUniCoo", "hp.refCyc.sigBus.nUniHea", "hp.refCyc.sigBus.nUniShc"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=4,
@@ -55,14 +61,16 @@ createPlot(
     subPlot=1,
     y={"ctlValHwByp.u_m", "ctlValHwByp.u_s", "ctlValChwByp.u_m", "ctlValChwByp.u_s"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=4,
     subPlot=2,
     y={"ctlValHwByp.y", "ctlValChwByp.y"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=5,
@@ -70,14 +78,16 @@ createPlot(
     subPlot=1,
     y={"ctlPumHwPri.u_m", "ctlPumHwPri.u_s", "ctlPumChwPri.u_m", "ctlPumChwPri.u_s"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=5,
     subPlot=2,
     y={"ctlPumHwPri.y", "ctlPumChwPri.y"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=6,
@@ -85,12 +95,14 @@ createPlot(
     subPlot=1,
     y={"mHw_flow.m_flow", "hp.refCyc.sigBus.mConMea_flow", "hp.mCon_flow_nominal"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );
 createPlot(
     id=6,
     subPlot=2,
     y={"mChw_flow.m_flow", "hp.refCyc.sigBus.mEvaMea_flow", "hp.mEva_flow_nominal"},
     autoscale=true,
-    grid=true
+    grid=true,
+    timeUnit="h"
 );

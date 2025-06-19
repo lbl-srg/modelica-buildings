@@ -31,9 +31,9 @@ model TableData2DLoadDepSHC
     final use_intSafCtr=false,
     final calEff=false,
     redeclare final Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycleConditional refCyc(
-      redeclare final model RefrigerantCycleHeatPumpHeating=
+      redeclare model RefrigerantCycleHeatPumpHeating=
         RefrigerantCycleHeatPumpHeating,
-      redeclare final model RefrigerantCycleHeatPumpCooling=
+      redeclare model RefrigerantCycleHeatPumpCooling=
         RefrigerantCycleHeatPumpCooling,
       final allowDifferentDeviceIdentifiers=allowDifferentDeviceIdentifiers));
   final model RefrigerantCycleHeatPumpHeating=

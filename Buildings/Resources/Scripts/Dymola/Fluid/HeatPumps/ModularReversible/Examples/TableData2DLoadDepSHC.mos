@@ -3,7 +3,7 @@ simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DL
     startTime=0,
     stopTime=5400,
     method="CVode",
-    resultFile="TableData2DLoadDepHeatPump");
+    resultFile="TableData2DLoadDepSHC");
 createPlot(
     id=1,
     position={5, 5, 400, 600},

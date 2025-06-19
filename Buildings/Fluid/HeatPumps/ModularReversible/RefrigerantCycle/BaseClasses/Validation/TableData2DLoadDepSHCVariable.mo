@@ -42,7 +42,7 @@ model TableData2DLoadDepSHCVariable
     "CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TChiWatSet(
-    table=[0,0; 720,0; 2000,TChwEnt.k - TChwSup_nominal; 2500,TChwEnt.k -
+    table=[0,0; 1500,0; 3000,TChwEnt.k - TChwSup_nominal; 3600,TChwEnt.k -
         TChwSup_nominal],
     offset={TChwSup_nominal},
     y(each final unit="K", each displayUnit="degC"))
@@ -50,9 +50,9 @@ model TableData2DLoadDepSHCVariable
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatSet(
     amplitude=THwEnt.k - THwSup_nominal,
-    freqHz=1/3600,
+    freqHz=1/5000,
     offset=THwSup_nominal + (THwEnt.k - THwSup_nominal)/2,
-    startTime=500,
+    startTime=1000,
     y(final unit="K", displayUnit="degC"))
     "HW supply or return temperature setpoint"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));

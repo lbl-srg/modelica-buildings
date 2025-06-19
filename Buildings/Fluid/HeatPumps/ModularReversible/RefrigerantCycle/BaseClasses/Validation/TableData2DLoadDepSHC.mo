@@ -166,10 +166,6 @@ equation
                                                              color={0,0,127}));
   connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{51,-76},{60,-76},
           {60,-40},{52,-40}}, color={0,0,127}));
-  connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
-          -4,-2},{-2,-2}}, color={0,0,127}));
-  connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-4,
-          -40},{-4,-10},{-2,-10}}, color={0,0,127}));
   connect(on.y, hpSupLvg.on) annotation (Line(points={{-58,60},{-18,60},{-18,12},
           {-2,12}}, color={255,0,255}));
   connect(mode.y, hpSupLvg.mode) annotation (Line(points={{-58,20},{-40,20},{
@@ -184,6 +180,10 @@ equation
     annotation (Line(points={{52,0},{58,0}}, color={255,127,0}));
   connect(intLesEquThr.y, assMes.u)
     annotation (Line(points={{82,0},{88,0}}, color={255,0,255}));
+  connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-12,40},
+          {-12,-2},{-2,-2}}, color={0,0,127}));
+  connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-10,
+          -40},{-10,-10},{-2,-10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     __Dymola_Commands(
       file=
