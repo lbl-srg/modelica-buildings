@@ -77,7 +77,7 @@ model TableData2DLoadDepSHCVariable
     "Specific heat capacity of load side fluid"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC
-    hpSupLvg(
+    hpSup(
     nUni=3,
     use_TEvaOutForTab=true,
     use_TConOutForTab=true,
@@ -98,16 +98,15 @@ model TableData2DLoadDepSHCVariable
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
     final QCooShc_flow_nominal=QCooShc_flow_nominal)
-    "Heat pump with supply temperature control and performance data interpolation based on leaving temperature"
+    "Heat pump with supply temperature control"
     annotation (Placement(transformation(extent={{0,-20},{20,12}})));
-  Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.THwEnt +
-        hpSupLvg.QHea_flow/hpSupLvg.mHw_flow/hpSupLvg.cpHw)
-    "Calculate condenser leaving temperature"
-    annotation (Placement(transformation(extent={{30,66},{50,86}})));
-  Modelica.Blocks.Sources.RealExpression TEvaLvgHpSupLvg(y=hpSupLvg.TChwEnt +
-        hpSupLvg.QCoo_flow/hpSupLvg.mChw_flow/hpSupLvg.cpChw)
+  Modelica.Blocks.Sources.RealExpression TConLvgHpSup(y=hpSup.THwEnt + hpSup.QHea_flow
+        /hpSup.mHw_flow/hpSup.cpHw) "Calculate condenser leaving temperature"
+    annotation (Placement(transformation(extent={{30,60},{50,80}})));
+  Modelica.Blocks.Sources.RealExpression TEvaLvgHpSup(y=hpSup.TChwEnt + hpSup.QCoo_flow
+        /hpSup.mChw_flow/hpSup.cpChw)
     "Calculate evaporator leaving temperature"
-    annotation (Placement(transformation(extent={{30,-86},{50,-66}})));
+    annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=15 + 273.15, y(
         final unit="K", displayUnit="degC")) "OA temperature"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
@@ -144,58 +143,50 @@ model TableData2DLoadDepSHCVariable
         "Number of enabled modules exceeds number of modules")
     "Assert condition on number of enabled modules"
              annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(t=
-        hpSupLvg.nUni)
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(t=hpSup.nUni)
     "True if number of enabled modules lower or equal to number of modules"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
-  connect(cp.y, hpSupLvg.cpChw) annotation (Line(points={{-8,-100},{-4,-100},{
-          -4,-16},{-2,-16}},
-                          color={0,0,127}));
-  connect(mHw_flow.y, hpSupLvg.mHw_flow) annotation (Line(points={{-48,-100},{
-          -40,-100},{-40,-6},{-2,-6}},
-                                   color={0,0,127}));
-  connect(THwEnt.y, hpSupLvg.THwEnt) annotation (Line(points={{-78,0},{-28,0},{
-          -28,-2},{-2,-2}}, color={0,0,127}));
-  connect(TChwEnt.y, hpSupLvg.TChwEnt) annotation (Line(points={{-78,-40},{-12,
-          -40},{-12,-10},{-2,-10}}, color={0,0,127}));
-  connect(TOut.y, hpSupLvg.TAmbEnt) annotation (Line(points={{-48,-60},{-26,-60},
-          {-26,2},{-2,2}}, color={0,0,127}));
-  connect(mChw_flow.y, hpSupLvg.mChw_flow) annotation (Line(points={{-78,-80},{
-          -6,-80},{-6,-14},{-2,-14}}, color={0,0,127}));
-  connect(cp.y, hpSupLvg.cpHw) annotation (Line(points={{-8,-100},{-4,-100},{-4,
-          -8},{-2,-8}},       color={0,0,127}));
-  connect(TConLvgHpSupLvg.y, filter.u)
-    annotation (Line(points={{51,76},{60,76},{60,40},{52,40}},
-                                                             color={0,0,127}));
-  connect(TEvaLvgHpSupLvg.y, filter1.u) annotation (Line(points={{51,-76},{60,
-          -76},{60,-40},{52,-40}},
-                              color={0,0,127}));
-  connect(filter1.y, hpSupLvg.TChwLvg) annotation (Line(points={{29,-40},{-8,
-          -40},{-8,-12},{-2,-12}}, color={0,0,127}));
-  connect(TChiWatSet.y[1], hpSupLvg.TChwSet) annotation (Line(points={{-28,60},
-          {-12,60},{-12,4},{-2,4}}, color={0,0,127}));
+  connect(cp.y, hpSup.cpChw) annotation (Line(points={{-8,-100},{-4,-100},{-4,-16},
+          {-2,-16}}, color={0,0,127}));
+  connect(mHw_flow.y, hpSup.mHw_flow) annotation (Line(points={{-48,-100},{-40,
+          -100},{-40,-6},{-2,-6}}, color={0,0,127}));
+  connect(THwEnt.y, hpSup.THwEnt) annotation (Line(points={{-78,0},{-28,0},{-28,
+          -2},{-2,-2}}, color={0,0,127}));
+  connect(TChwEnt.y, hpSup.TChwEnt) annotation (Line(points={{-78,-40},{-12,-40},
+          {-12,-10},{-2,-10}}, color={0,0,127}));
+  connect(TOut.y, hpSup.TAmbEnt) annotation (Line(points={{-48,-60},{-26,-60},{
+          -26,2},{-2,2}}, color={0,0,127}));
+  connect(mChw_flow.y, hpSup.mChw_flow) annotation (Line(points={{-78,-80},{-6,
+          -80},{-6,-14},{-2,-14}}, color={0,0,127}));
+  connect(cp.y, hpSup.cpHw) annotation (Line(points={{-8,-100},{-4,-100},{-4,-8},
+          {-2,-8}}, color={0,0,127}));
+  connect(TConLvgHpSup.y, filter.u) annotation (Line(points={{51,70},{60,70},{
+          60,40},{52,40}}, color={0,0,127}));
+  connect(TEvaLvgHpSup.y, filter1.u) annotation (Line(points={{51,-70},{60,-70},
+          {60,-40},{52,-40}}, color={0,0,127}));
+  connect(filter1.y, hpSup.TChwLvg) annotation (Line(points={{29,-40},{-8,-40},
+          {-8,-12},{-2,-12}}, color={0,0,127}));
+  connect(TChiWatSet.y[1], hpSup.TChwSet) annotation (Line(points={{-28,60},{-12,
+          60},{-12,4},{-2,4}}, color={0,0,127}));
   connect(THwSet.y, min1.u1) annotation (Line(points={{-78,40},{-44,40},{-44,26},
           {-42,26}}, color={0,0,127}));
-  connect(min1.y, hpSupLvg.THwSet) annotation (Line(points={{-18,20},{-14,20},{
-          -14,6},{-2,6}}, color={0,0,127}));
+  connect(min1.y, hpSup.THwSet) annotation (Line(points={{-18,20},{-14,20},{-14,
+          6},{-2,6}}, color={0,0,127}));
   connect(TSwSupNom.y, min1.u2) annotation (Line(points={{-48,20},{-44,20},{-44,
           14},{-42,14}}, color={0,0,127}));
-  connect(filter.y, hpSupLvg.THwLvg) annotation (Line(points={{29,40},{-4,40},{
-          -4,-4},{-2,-4}}, color={0,0,127}));
-  connect(mode.y[1], hpSupLvg.mode) annotation (Line(points={{-58,80},{-10,80},{
-          -10,8},{-2,8}}, color={255,127,0}));
-  connect(on.y[1], hpSupLvg.on) annotation (Line(points={{-28,100},{-8,100},{-8,
-          10},{-2,10}}, color={255,0,255}));
-  connect(hpSupLvg.nUniHea,sumNumUni. u[1]) annotation (Line(points={{22,-10},{
-          26,-10},{26,-2.33333},{28,-2.33333}},
-                                            color={255,127,0}));
-  connect(hpSupLvg.nUniCoo,sumNumUni. u[2]) annotation (Line(points={{22,-14},{
-          26,-14},{26,0},{28,0}},
-                               color={255,127,0}));
-  connect(hpSupLvg.nUniShc,sumNumUni. u[3]) annotation (Line(points={{22,-18},{
-          26,-18},{26,2.33333},{28,2.33333}},
-                                           color={255,127,0}));
+  connect(filter.y, hpSup.THwLvg) annotation (Line(points={{29,40},{-4,40},{-4,
+          -4},{-2,-4}}, color={0,0,127}));
+  connect(mode.y[1], hpSup.mode) annotation (Line(points={{-58,80},{-10,80},{-10,
+          8},{-2,8}}, color={255,127,0}));
+  connect(on.y[1], hpSup.on) annotation (Line(points={{-28,100},{-8,100},{-8,10},
+          {-2,10}}, color={255,0,255}));
+  connect(hpSup.nUniHea, sumNumUni.u[1]) annotation (Line(points={{22,-10},{26,
+          -10},{26,-2.33333},{28,-2.33333}}, color={255,127,0}));
+  connect(hpSup.nUniCoo, sumNumUni.u[2]) annotation (Line(points={{22,-14},{26,
+          -14},{26,0},{28,0}}, color={255,127,0}));
+  connect(hpSup.nUniShc, sumNumUni.u[3]) annotation (Line(points={{22,-18},{26,
+          -18},{26,2.33333},{28,2.33333}}, color={255,127,0}));
   connect(sumNumUni.y, intLesEquThr.u)
     annotation (Line(points={{52,0},{58,0}}, color={255,127,0}));
   connect(intLesEquThr.y, assMes.u)
@@ -225,7 +216,7 @@ The on/off command starts as <code>true</code> and is switched to
 <p>
 The validation is carried out by computing the tracked temperature
 using the heat flow rate calculated by the block, and feeding back 
-this variable as input.
+this variable as input to the heat pump model.
 It is then expected that the tracked temperature matches the setpoint.
 Note that a filtered value of the tracked temperature is used to avoid
 creating an algebraic loop.

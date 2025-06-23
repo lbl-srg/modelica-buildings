@@ -403,9 +403,9 @@ protected
     "Sign of Delta-T used for load calculation";
   Real ratCycShc(start=1)
     "Cycling ratio between SHC and single mode for load balancing";
-  Integer nUniShcHea(start=0, fixed=true)
+  Integer nUniHeaShcRaw(start=0, fixed=true)
     "Number of modules required to meet heating load based on SHC capacity";
-  Integer nUniShcCoo(start=0, fixed=true)
+  Integer nUniCooShcRaw(start=0, fixed=true)
     "Number of modules required to meet cooling load based on SHC capacity";
   discrete Real entryTime(final quantity="Time", final unit="s")
     "Time instant when stage started";
@@ -486,9 +486,9 @@ equation
       else pre(entryTime);
   end when;
   // Update calculation variables for number of modules in single-mode depending on dominant load
-  when {change(nUniShcRaw), change(nUniShcHea), change(nUniShcCoo)} then
-    useHeaShc=if nUniShcRaw < nUni and nUniShcHea > nUniShcRaw then 1 else 0;
-    useCooShc=if nUniShcRaw < nUni and nUniShcCoo > nUniShcRaw then 1 else 0;
+  when {change(nUniShcRaw),change(nUniHeaShcRaw),change(nUniCooShcRaw)} then
+    useHeaShc=if nUniShcRaw < nUni and nUniHeaShcRaw > nUniShcRaw then 1 else 0;
+    useCooShc=if nUniShcRaw < nUni and nUniCooShcRaw > nUniShcRaw then 1 else 0;
   end when;
   if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.heating then
     useHea=1;
@@ -517,15 +517,23 @@ equation
   // Calculate number of modules in SHC mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions near zero load)
   if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc then
-    nUniShcHea=integer(ceil((QHeaSetMea_flow - 10 * deltaX * QHeaShc_flow_nominal) / SPLR /
-      max(cat(1, QHeaShcInt_flow, {deltaX * QHeaShc_flow_nominal}))));
-    nUniShcCoo=integer(ceil((QCooSetMea_flow - 10 * deltaX * QCooShc_flow_nominal) / SPLR /
-      min(cat(1, QCooShcInt_flow, {deltaX * QCooShc_flow_nominal}))));
+    nUniHeaShcRaw = integer(ceil((QHeaSetMea_flow - 10*deltaX*
+      QHeaShc_flow_nominal)/SPLR/max(
+      cat(
+        1,
+        QHeaShcInt_flow,
+        {deltaX*QHeaShc_flow_nominal}))));
+    nUniCooShcRaw = integer(ceil((QCooSetMea_flow - 10*deltaX*
+      QCooShc_flow_nominal)/SPLR/min(
+      cat(
+        1,
+        QCooShcInt_flow,
+        {deltaX*QCooShc_flow_nominal}))));
   else
-    nUniShcHea = 0;
-    nUniShcCoo = 0;
+    nUniHeaShcRaw = 0;
+    nUniCooShcRaw = 0;
   end if;
-  nUniShcRaw = min({nUni, nUniShcHea, nUniShcCoo});
+  nUniShcRaw =min({nUni,nUniHeaShcRaw,nUniCooShcRaw});
   if nUniShc > 0 then
     // Calculate PLR for modules in SHC mode
     // Using smoothLimit() instead of smoothMin(smoothMax()) below triggers chattering with OCT
@@ -667,12 +675,10 @@ info="<html>
 <p>
 This block provides the core implementation to model simultaneous heating and
 cooling (SHC) systems, also called multipipe chillers or heat pumps.
-Since the majority of these systems are composed of multiple modules
-connected together in a parallel arrangement, the implementation includes
-the staging and load balancing logic for an arbitrary number of modules
-<code>nUni</code>.
-Nevertheless, single module systems can also be
-appropriately represented by setting <code>nUni=1</code>.
+Since the majority of these systems are composed of multiple modules,
+the implementation includes the staging logic for an arbitrary number of
+modules <code>nUni</code>. Nevertheless, single module systems can also be
+appropriately represented by setting <code>nUni = 1</code>.
 </p>
 <p>
 The block implements the following functionalities.
@@ -682,7 +688,7 @@ The block implements the following functionalities.
 Module staging
 </li>
 <li>
-Load balancing between the CHW and HW sides of modules running in SHC mode
+Load balancing of modules running in SHC mode
 </li>
 <li>
 Ideal controls
@@ -691,9 +697,10 @@ Ideal controls
 Capacity and power calculation
 </li>
 </ul>
-<h4>Ooperating mode</h4>
+<h4>System and module operating mode</h4>
 <p>
-The block input <code>mode</code> allows switching between three operating modes.
+The block input <code>mode</code> allows switching between three system operating modes.
+</p>
 <ol>
 <li>
 Heating-only: In this mode the system operates as a non-reversible heat pump.
@@ -707,29 +714,144 @@ fluid.
 </li>
 <li>
 Simultaneous heating and cooling: In this mode, some modules operate as
-heat recovery chillers, sourcing heat from the CHW circuit and 
-rejecting heat to the HW circuit. 
-The load balancing logic ensures that, on average, both the HW temperature setpoint 
-and the CHW temperature setpoint are met by these modules. 
-Additional modules may concurrently run in heating-only or cooling-only mode 
+heat recovery chillers, sourcing heat from the CHW circuit and
+rejecting heat to the HW circuit.
+The load balancing logic ensures that, on average, both the HW temperature
+setpoint and the CHW temperature setpoint are met by these modules.
+Additional modules may concurrently run in heating-only or cooling-only mode
 to match the residual load.
-In the extreme case where the system is only exposed to heating (resp. cooling) loads, 
+In the extreme case where the system is only exposed to heating (resp. cooling) loads,
 all modules will run in heating-only (resp. cooling-only) mode.
 </li>
-
-
-</p>
-<h4>Simultaneous heating and cooling operation</h4>
+</ol>
+<h4>Module staging</h4>
 <p>
-Modular systems in parallel arrangement with hydronic balance over each module
-require that each module handles an equal fraction of the total heating and
-cooling loads.
+First, the heating and cooling loads <code>QHeaSet_flow</code> and <code>QCooSet_flow</code>
+are calculated from the block inputs.
+Depending on the parameter <code>use_TLoaLvgForCtl</code>, the load calculation either
+assumes a supply temperature setpoint (<code>use_TLoaLvgForCtl = true</code>) and uses
+the entering temperature, or it assumes a return temperature setpoint
+(<code>use_TLoaLvgForCtl = false</code>) and uses the leaving temperature.
+</p>
+<p>
+Note that the staging logic uses time-averaged heating and cooling loads
+<code>QHeaSetMea_flow</code> and <code>QCooSetMea_flow</code>.
+An exponential moving average (<code>T * der(y) = u - y</code>) is used for computational
+efficiency.
+</p>
+<p>
+Then the model evaluates the capacity of a single module in each mode, based on the current
+source and sink fluid temperature. For the HW and CHW sides, this is the entering or leaving
+temperature depending on the parameters <code>use_TConLvgForTab</code> and <code>use_TEvaLvgForTab</code>,
+respectively. For the ambient-side fluid, this is necessarily the entering temperature.
+The capacity is interpolated from the performance data as described in the documentation of
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
+</p>
+<p>
+The number of modules required to run to meet the load is then calculated for each mode
+as follows.
+</p>
+<ul>
+<li>
+Number of modules required to run in SHC mode to meet the heating load:
+<code>nUniHeaShcRaw = ceil(QHeaSet_flow / max(QHeaShcInt_flow) / SPLR)</code>,
+where <code>max(QHeaShcInt_flow)</code> is the heating capacity in SHC mode and
+<code>SPLR</code> is a parameter representing the staging part load ratio.
+Note that this parameter must be strictly lower than <code>1</code> because
+the number of staged modules conditions the opening of isolation valves
+and the staging of primary pumps. If <code>SPLR = 1</code> it is
+likely that the mass flow rate will limit the load below the capacity of a
+single module, practically preventing the system from staging up until the
+return temperature falls below the design value.
+</li>
+<li>
+Number of modules required to run in SHC mode to meet the cooling load:
+<code>nUniCooShcRaw = ceil(QCooSetMea_flow / min(QCooSHcInt_flow) / SPLR)</code>,
+where <code>min(QCooSHcInt_flow)</code> is the cooling capacity in SHC mode.
+</li>
+<li>
+Number of modules required to run in SHC mode:
+<code>nUniCShcRaw = min(nUniCooShcRaw, nUniHeaShcRaw)</code>.
+This condition means that the system stops staging modules in SHC mode
+when either the cooling load or the heating load is met.
+</li>
+<li>
+Number of modules required to run in heating mode:
+<code>nUniHeaRaw = ceil(QHeaSetResMea_flow / max(QHeaInt_flow) / SPLR)</code>,
+where <code>QHeaSetResMea_flow</code> is the residual heating load, calculated as the
+time-averaged heating load minus the heating output of modules in SHC mode,
+and <code>max(QHeaInt_flow)</code> is the heating capacity.
+</li>
+<li>
+Number of modules required to run in cooling mode:
+<code>nUniCooRaw = ceil(QCooSetResMea_flow / min(QCooInt_flow) / SPLR)</code>,
+where <code>QCooSetResMea_flow</code> is the residual cooling load, calculated as the
+time-averaged cooling load minus the cooling output of modules in SHC mode,
+and <code>min(QCooInt_flow)</code> is the cooling capacity.
+</li>
+</ul>
+<p>
+Discrete-event logic is then used to calculate the actual number of modules in
+each mode (<code>nUniShc</code>, <code>nUniHea</code> and <code>nUniCoo</code>)
+based on the following requirements.
+</p>
+<ul>
+<li>Minimum stage runtime: The number of modules enabled in each mode must stay unchanged
+for at least <code>dtRun</code>.</li>
+<li>Step-by-step staging: Only one module can be enabled or disabled on the HW side at the
+same time, and similarly for the CHW side. However, \"hot swapping\" is allowed,
+where one module can be enabled or disabled in SHC mode while a module is simultaneously
+being disabled or enabled in heating or cooling mode.
+</li>
+<li>Priority order: When the total number of modules required to run in each mode 
+(<code>nUniShc + nUniHea + nUniCOo</code>) exceeds the number of modules in the bank, 
+the following priority applies where modules required in SHC mode are staged first and 
+modules required in cooling mode are staged last.</li>
+</ul>
+<h4>Load balancing of modules running in SHC mode</h4>
+<p>
+A fundamental assumption for load balancing is that the system is composed
+of equally sized modules that are hydronically balanced, connected in 
+parallel arrangement and controlled with the same setpoint.
+This implies that each module connected to the HW (resp. CHW) loop handles an 
+equal fraction of the total heating (resp. cooling) load, whatever the operating
+mode of the module.
+The heating load of each module in SHC mode can then be calculated as: 
+<code>QHeaSetUniShc_flow = QHeaSet_flow / (nUniShc + nUniHea)</code>.
+Similarly for the cooling load: 
+<code>QCooSetUniShc_flow = QCooSet_flow / (nUniShc + nUniCoo)</code>.
+</p>
+<p>
+Now, in order to achieve load balancing between the CHW and HW sides for the 
+subset of modules in SHC mode, the model assumes that these modules are loaded
+for the most demanding side, and that <b>a single module</b> can cycle between 
+SHC and the corresponding single-mode operation.
+For example, in case of <i>90&nbsp;&percnt;</i> cooling load and <i>60&nbsp;&percnt;</i>
+heating load, the module will cycle between SHC at <i>90&nbsp;&percnt;</i>&nbsp;PLR during 
+<i>2/3</i> of the time and cooling-only at <i>90&nbsp;&percnt;</i>&nbsp;PLR during 
+<i>1/3</i> of the time.
+This logic is inspired from the sequence of operation of a multipipe heat pump
+(Johnson Controls, 2024) where the last enabled circuit cycles between 
+SHC and single-mode operation to balance the heating and cooling loads.
+</p>
+<p>
+The part load ratio of each module in SHC mode in then calculated as:
+<code>PLRShc = max(fHea<sup>-1</sup>(QHeaSetUniShc_flow), fCoo<sup>-1</sup>(QCooSetUniShc_flow))</code>,
+where <code>f(Hea|Coo)<sup>-1</sup></code> is the linear interpolation of the part
+load ratio along the module capacity at the actual source and sink temperature,
+based on the performance data provided for SHC operation.
+</p>
+<p>
+
+
 Otherwise, when one module cannot meet its assigned load fraction, this creates
-a deficit that must be compensated in two ways: another module must handle not only
+a deficit that must be compensated for by other module that must handle not only
 an increased load, but also a modified temperature setpoint to account for the
 other module's shortfall.
+
 To achieve effective load balancing across all modules, the model assumes that
-<b>a single module</b> enabled in SHC mode can cycle between SHC and single-mode operation. 
+<b>a single module</b> enabled in SHC mode can cycle between SHC and single-mode operation.
 This cycling ensures that, on average, loads are met on both sides.
 Cycling is restricted to a single module.
 
@@ -845,12 +967,12 @@ A performance data file must be provided for each operating mode: heating-only,
 cooling-only and simultaneous heating and cooling.
 It is expected that performance data be provided for a single module.
 This is however a loose requirement as the scaling logic anyway ensures that
-the nominal heat flow rates <code>Q*_flow_nominal</code> provided as parameters 
+the nominal heat flow rates <code>Q*_flow_nominal</code> provided as parameters
 match the value interpolated from the performance data, times the number of modules.
 </p>
 <p>
-Note that for single-mode performance data, the ambient-side fluid temperature 
-must correspond to the <b>entering</b> temperature, while the model supports 
+Note that for single-mode performance data, the ambient-side fluid temperature
+must correspond to the <b>entering</b> temperature, while the model supports
 choosing between entering or leaving temperature for the CHW and HW via
 the parameters <code>use_TEvaOutForTab</code> and <code>use_TConOutForTab</code>,
 respectively.
@@ -884,27 +1006,6 @@ If this remaining power is not measured, the Standard prescribes a default
 value of <i>10&nbsp;&percnt;</i> of the effective power input measured
 during continuous operation at part load.
 </p>
-<h4>Heat recovery chillers</h4>
-<p>
-Heat recovery chillers can be modeled with this block.
-In this case, the same chiller performance data file is used for
-both cooling and heating operation.
-The model assumes that all dissipated heat from the compressor
-is recovered by the refrigerant. This assumption enables computing
-the heating capacity as the sum of the cooling capacity and the input power.
-</p>
-<p>
-When configured to represent a heat recovery chiller, this block uses an
-additional input connector <code>coo</code> which must be true when
-cooling mode is enabled, and false when heating mode is enabled.
-The load side input variables must externally be connected to the
-evaporator side variables in cooling mode, and to the condenser side
-variables in heating mode.
-The output connector <code>Q_flow</code> is always the
-<i>cooling</i> heat flow rate, whatever the operating mode.
-The heating heat flow rate in heating mode can be computed
-externally as <code>P-Q_flow</code>.
-</p>
 <h4>Ideal controls</h4>
 <p>
 The block implements ideal controls by solving for the part load ratio
@@ -927,16 +1028,8 @@ which allows limiting the required PLR to account for equipment internal safetie
 <h4>References</h4>
 <ul>
 <li>
-CEN, 2022. European Standard EN&nbsp;14825:2022&nbsp;E.
-Air conditioners, liquid chilling packages and heat pumps,
-with electrically driven compressors, for space heating and cooling,
-commercial and process cooling - Testing and rating at part load conditions
-and calculation of seasonal performance.
-</li>
-<li>Rivière, P. (2004). Performances saisonnières des groupes de production d’eau glaçée
-[Seasonal performance of liquid chilling packages].
-École Nationale Supérieure des Mines de Paris. [In French].
-<a href=\"https://pastel.hal.science/pastel-00001483\">https://pastel.hal.science/pastel-00001483</a>
+Johnson Controls, Inc. (2024). YMAE application guide - YMAE air-to-water inverter scroll heat pumps.
+YORK.
 </li>
 </ul>
 </html>",
