@@ -82,7 +82,7 @@ model TableData2DLoadDepSHC
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC
     hpSup(
-    nUni=1,
+    nUni=3,
     use_TEvaOutForTab=true,
     use_TConOutForTab=true,
     PLRHeaSup={1},
@@ -311,7 +311,7 @@ creating an algebraic loop.
 </html>", revisions="<html>
 <ul>
 <li>
-FIXME, 2025, by Antoine Gautier:<br/>
+July 1, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

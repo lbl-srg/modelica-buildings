@@ -202,7 +202,7 @@ equation
     Line(points={{-30,0},{58,0}})}), Documentation(revisions="<html>
 <ul>
 <li>
-March 21, 2025, by Antoine Gautier:<br/>
+July 1, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

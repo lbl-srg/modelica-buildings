@@ -308,7 +308,7 @@ creating an algebraic loop.
 </html>", revisions="<html>
 <ul>
 <li>
-FIXME, 2025, by Antoine Gautier:<br/>
+July 1, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

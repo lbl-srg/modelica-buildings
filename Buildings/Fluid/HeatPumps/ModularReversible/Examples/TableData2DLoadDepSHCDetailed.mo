@@ -655,13 +655,7 @@ various plant configurations.
       revisions="<html>
 <ul>
 <li>
-May 31, 2024, by Antoine Gautier:<br/>
-Added sidestream HRC and refactored the model after updating the HP plant template.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
-</li>
-<li>
-March 29, 2024, by Antoine Gautier:<br/>
+July 1, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
