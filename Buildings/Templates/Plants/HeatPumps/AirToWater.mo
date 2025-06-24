@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps;
-model AirToWater "Air-to-water heat pump plant"
+model AirToWater
+  "Air-to-water heat pump plant"
   extends Buildings.Templates.Plants.HeatPumps.Interfaces.PartialHeatPumpPlant(
     redeclare final package MediumChiWat=MediumHeaWat,
     redeclare final package MediumSou=MediumAir,
@@ -9,8 +10,7 @@ model AirToWater "Air-to-water heat pump plant"
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=have_chiWat,
     final cfg(
-      final typMod=hp.typMod),
-    out(nPorts=3));
+      final typMod=hp.typMod));
   parameter Boolean is_dpBalYPumSetCal(start=false)=false
     "Set to true to automatically size balancing valves or evaluate pump speed providing design flow"
     annotation(Evaluate=true, Dialog(tab="Advanced",
@@ -667,210 +667,6 @@ model AirToWater "Air-to-water heat pump plant"
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-340})));
-public
-  Fluid.FixedResistances.CheckValve cheVal(
-    redeclare package Medium = MediumHeaWat,
-    m_flow_nominal=mHeaWatPri_flow_nominal,
-    dpValve_nominal=200)
-    annotation (Placement(transformation(extent={{52,-174},{72,-154}})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow mov(redeclare package Medium =
-        MediumHeaWat, m_flow_nominal=mHeaWatPri_flow_nominal)
-    annotation (Placement(transformation(extent={{80,-154},{100,-174}})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow mov1(redeclare package
-      Medium = MediumChiWat, m_flow_nominal=mChiWatPri_flow_nominal)
-    annotation (Placement(transformation(extent={{172,-154},{152,-134}})));
-  Fluid.FixedResistances.CheckValve cheVal1(
-    redeclare package Medium = MediumChiWat,
-    m_flow_nominal=mChiWatPri_flow_nominal,
-    dpValve_nominal=200)
-    annotation (Placement(transformation(extent={{210,-154},{190,-134}})));
-  Fluid.HeatPumps.ModularReversible.Modular4Pipe           hp1(
-    redeclare package MediumCon = MediumHeaWat,
-    redeclare package MediumCon1 = MediumAir,
-    redeclare package MediumEva = MediumChiWat,
-    use_rev=true,
-    allowDifferentDeviceIdentifiers=true,
-    use_intSafCtr=false,
-    mCon_flow_nominal=mHeaWatPri_flow_nominal,
-    dTCon1_nominal=40,
-    dpCon1_nominal=6000,
-    use_con1Cap=false,
-    mEva_flow_nominal=mChiWatPri_flow_nominal,
-    QHeaCoo_flow_nominal=20000,
-    QCoo_flow_nominal=-30000,
-    redeclare model RefrigerantCycleHeatPumpHeating =
-        Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
-        (
-        redeclare
-          Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal,
-        TAppCon_nominal=0,
-        TAppEva_nominal=0),
-    redeclare model RefrigerantCycleHeatPumpCooling =
-        Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
-        redeclare
-          Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal,
-        mCon_flow_nominal=hp1.mCon_flow_nominal,
-        mEva_flow_nominal=hp1.mEva_flow_nominal,
-        datTab=
-            Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
-    redeclare model RefrigerantCycleHeatPumpHeatingCooling =
-        Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D2 (
-        redeclare
-          Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal,
-        mCon_flow_nominal=hp1.mCon1_flow_nominal,
-        mEva_flow_nominal=hp1.mEva_flow_nominal,
-        datTab=
-            Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
-    redeclare model RefrigerantCycleInertia =
-        Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
-        (
-        refIneFreConst=1/300,
-        nthOrd=1,
-        initType=Modelica.Blocks.Types.Init.InitialState),
-    TConCoo_nominal=308.15,
-    dpCon_nominal(displayUnit="Pa") = 6000,
-    use_conCap=false,
-    CCon=0,
-    GConOut=0,
-    GConIns=0,
-    TEvaCoo_nominal=283.15,
-    dTEva_nominal=6,
-    dTCon_nominal=20,
-    dpEva_nominal(displayUnit="Pa") = 6000,
-    use_evaCap=false,
-    CEva=0,
-    GEvaOut=0,
-    GEvaIns=0,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    show_T=true,
-    QHea_flow_nominal=30000,
-    TEvaHea_nominal=298.15,
-    TConHea_nominal=313.15,
-    TConHeaCoo_nominal=323.15,
-    TEvaHeaCoo_nominal=283.15,
-    con1(T_start=298.15),
-    con(T_start=313.15),
-    eva(T_start=283.15))    "Modular reversible 4pipe heat pump instance"
-    annotation (Placement(transformation(extent={{108,-144},{128,-164}})));
-  Buildings.Templates.Components.Routing.Junction junHeaWatBypSup1(
-    redeclare final package Medium = MediumHeaWat,
-    final m_flow_nominal=mHeaWatPri_flow_nominal*{1,-1,1},
-    final energyDynamics=energyDynamics,
-    dp_nominal=fill(0, 3),
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
-                                                           if have_heaWat
-    "Fluid junction"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={160,-218})));
-  Buildings.Templates.Components.Routing.Junction junHeaWatBypSup2(
-    redeclare final package Medium = MediumHeaWat,
-    final m_flow_nominal=mHeaWatPri_flow_nominal*{1,-1,-1},
-    final energyDynamics=energyDynamics,
-    dp_nominal=fill(0, 3),
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
-                                                           if have_heaWat
-    "Fluid junction"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=0,
-      origin={154,-334})));
-  Buildings.Templates.Components.Routing.Junction junChiWatBypSup1(
-    redeclare final package Medium = MediumChiWat,
-    final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,1},
-    final energyDynamics=energyDynamics,
-    dp_nominal=fill(0, 3),
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
-                                                           if have_chiWat
-    "Fluid junction"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={154,80})));
-  Buildings.Templates.Components.Routing.Junction junChiWatBypRet1(
-    redeclare final package Medium = MediumChiWat,
-    final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,-1},
-    final energyDynamics=energyDynamics,
-    dp_nominal=fill(0, 3),
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
-    if have_chiWat "Fluid junction" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={156,0})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{260,-110},{240,-90}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
-    annotation (Placement(transformation(extent={{260,-180},{240,-160}})));
-  Buildings.Controls.OBC.CDL.Reals.PID conPIDCoo(reverseActing=false)
-    annotation (Placement(transformation(extent={{60,-60},{40,-40}})));
-  Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        MediumHeaWat, m_flow_nominal=mHeaWatPri_flow_nominal) annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={136,-204})));
-  Buildings.Controls.OBC.CDL.Reals.PID conPIDHea
-    annotation (Placement(transformation(extent={{170,-200},{190,-180}})));
-  Buildings.Controls.OBC.CDL.Reals.Add add2
-    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul
-    annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
-    annotation (Placement(transformation(extent={{10,-130},{30,-110}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3
-    annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
-  Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
-        MediumChiWat, m_flow_nominal=mChiWatPri_flow_nominal) annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={100,-46})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
-    annotation (Placement(transformation(extent={{-100,-230},{-80,-210}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.AmbientHeating)
-    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4
-    annotation (Placement(transformation(extent={{-30,-120},{-10,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3
-    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
-    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(k=Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.AmbientCooling)
-    annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=0.05, h=0.02)
-    annotation (Placement(transformation(extent={{150,-130},{130,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(t=0.05, h=0.02)
-    annotation (Placement(transformation(extent={{100,-230},{120,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2(t=50, h=10)
-    annotation (Placement(transformation(extent={{216,-210},{236,-190}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor extIndInt(nin=3)
-    annotation (Placement(transformation(extent={{260,-40},{240,-20}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](k={Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.AmbientCooling,
-        Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.AmbientHeating,
-        Buildings.Fluid.HeatPumps.ModularReversible.Types.Modes.HeatingCooling})
-    annotation (Placement(transformation(extent={{300,-40},{280,-20}})));
 initial equation
   // Calculation of pump speed providing design flow.
   if is_dpBalYPumSetCal
@@ -985,7 +781,7 @@ equation
     annotation (Line(points={{250,80},{250,80}},color={0,127,255}));
   connect(valIso.port_bChiWat, supChiWatPri.port_a)
     annotation (Line(
-      points={{-60,80},{-20,80}},
+      points={{-60,80},{-60,80},{-20,80}},
       color={0,0,0},
       thickness=0.5,
       visible=have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
@@ -1209,6 +1005,17 @@ equation
       color={0,0,0},
       thickness=0.5,
       visible=have_chiWat));
+  connect(tanChiWatSup.port_b, junChiWatBypSup.port_1) annotation (Line(
+      points={{140,80},{170,80}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_chiWat));
+  connect(junChiWatBypRet.port_2, tanChiWatRet.port_a) annotation (Line(
+      points={{170,0},{140,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_chiWat,
+      pattern=LinePattern.Dash));
   connect(tanChiWatRet.port_b, TChiWatPriRet.port_a) annotation (Line(
       points={{120,0},{70,0}},
       color={0,0,0},
@@ -1219,6 +1026,15 @@ equation
       points={{70,-280},{120,-280}},
       color={0,0,0},
       thickness=0.5));
+  connect(tanHeaWatSup.port_b, junHeaWatBypSup.port_1) annotation (Line(
+      points={{140,-280},{170,-280}},
+      color={0,0,0},
+      thickness=0.5));
+  connect(junHeaWatBypRet.port_2, tanHeaWatRet.port_a) annotation (Line(
+      points={{170,-360},{140,-360}},
+      color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(tanHeaWatRet.port_b, THeaWatPriRet.port_a) annotation (Line(
       points={{120,-360},{70,-360}},
       color={0,0,0},
@@ -1231,123 +1047,6 @@ equation
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(cheVal1.port_b, mov1.port_a)
-    annotation (Line(points={{190,-144},{172,-144}}, color={0,127,255}));
-  connect(cheVal.port_b, mov.port_a)
-    annotation (Line(points={{72,-164},{80,-164}}, color={0,127,255}));
-  connect(mov.port_b, hp1.port_a1)
-    annotation (Line(points={{100,-164},{108,-164}}, color={0,127,255}));
-  connect(tanHeaWatSup.port_b, junHeaWatBypSup1.port_3) annotation (Line(points
-        ={{140,-280},{160,-280},{160,-228}}, color={0,127,255}));
-  connect(junHeaWatBypSup1.port_2, junHeaWatBypSup.port_1)
-    annotation (Line(points={{170,-218},{170,-280}}, color={0,127,255}));
-  connect(junHeaWatBypSup2.port_3, cheVal.port_a) annotation (Line(points={{154,
-          -324},{154,-240},{48,-240},{48,-164},{52,-164}},
-                                                    color={0,127,255}));
-  connect(junHeaWatBypRet.port_2, junHeaWatBypSup2.port_1) annotation (Line(
-        points={{170,-360},{164,-360},{164,-334}},
-        color={0,127,255}));
-  connect(junHeaWatBypSup2.port_2, tanHeaWatRet.port_a) annotation (Line(points={{144,
-          -334},{144,-360},{140,-360}},
-                                  color={0,127,255}));
-  connect(mov1.port_b, hp1.port_a2)
-    annotation (Line(points={{152,-144},{128,-144}}, color={0,127,255}));
-  connect(junChiWatBypSup1.port_2, junChiWatBypSup.port_1)
-    annotation (Line(points={{164,80},{170,80}}, color={0,127,255}));
-  connect(tanChiWatSup.port_b, junChiWatBypSup1.port_1)
-    annotation (Line(points={{140,80},{144,80}}, color={0,127,255}));
-  connect(junChiWatBypRet1.port_2, tanChiWatRet.port_a)
-    annotation (Line(points={{146,0},{140,0}}, color={0,127,255}));
-  connect(hp1.port_b3, out.ports[2]) annotation (Line(points={{118,-141.9},{118,
-          100},{0,100},{0,370}}, color={0,127,255}));
-  connect(booToRea.y, mov1.m_flow_in) annotation (Line(points={{238,-100},{162,-100},
-          {162,-132}}, color={0,0,127}));
-  connect(booToRea1.y, mov.m_flow_in) annotation (Line(points={{238,-170},{160,-170},
-          {160,-190},{90,-190},{90,-176}}, color={0,0,127}));
-  connect(hp1.port_b1, senTem.port_a) annotation (Line(points={{128,-164},{136,-164},
-          {136,-194}}, color={0,127,255}));
-  connect(senTem.port_b, junHeaWatBypSup1.port_1) annotation (Line(points={{136,
-          -214},{136,-218},{150,-218}}, color={0,127,255}));
-  connect(senTem.T, conPIDHea.u_m) annotation (Line(points={{147,-204},{180,-204},
-          {180,-202}}, color={0,0,127}));
-  connect(mul.y, add2.u1)
-    annotation (Line(points={{32,-70},{32,-84},{38,-84}}, color={0,0,127}));
-  connect(mul1.y, add2.u2)
-    annotation (Line(points={{32,-120},{38,-120},{38,-96}}, color={0,0,127}));
-  connect(add2.y, hp1.ySet) annotation (Line(points={{62,-90},{68,-90},{68,-156},
-          {106.9,-156},{106.9,-155.9}}, color={0,0,127}));
-  connect(conPIDHea.y, mul1.u2) annotation (Line(points={{192,-190},{192,-192},{
-          204,-192},{204,-104},{0,-104},{0,-126},{8,-126}}, color={0,0,127}));
-  connect(conPIDCoo.y, mul.u2) annotation (Line(points={{38,-50},{4,-50},{4,-76},
-          {8,-76}}, color={0,0,127}));
-  connect(hp1.port_b2, senTem1.port_a) annotation (Line(points={{108,-144},{100,
-          -144},{100,-56}}, color={0,127,255}));
-  connect(senTem1.port_b, junChiWatBypSup1.port_3) annotation (Line(points={{100,
-          -36},{100,54},{154,54},{154,70}}, color={0,127,255}));
-  connect(senTem1.T, conPIDCoo.u_m) annotation (Line(points={{89,-46},{89,-48},{
-          76,-48},{76,-72},{50,-72},{50,-62}}, color={0,0,127}));
-  connect(junChiWatBypRet1.port_1, junChiWatBypRet.port_2)
-    annotation (Line(points={{166,0},{170,0}}, color={0,127,255}));
-  connect(cheVal1.port_a, junChiWatBypRet1.port_3) annotation (Line(points={{210,
-          -144},{224,-144},{224,-40},{156,-40},{156,-10}}, color={0,127,255}));
-  connect(booToRea3.y, mul.u1)
-    annotation (Line(points={{-8,-70},{-8,-64},{8,-64}}, color={0,0,127}));
-  connect(booToRea4.y, mul1.u1) annotation (Line(points={{-8,-110},{4,-110},{4,-114},
-          {8,-114}}, color={0,0,127}));
-  connect(and1.y, booToRea3.u)
-    annotation (Line(points={{-38,-70},{-32,-70}}, color={255,0,255}));
-  connect(and3.y, booToRea4.u)
-    annotation (Line(points={{-38,-110},{-32,-110}}, color={255,0,255}));
-  connect(intEqu2.y, and1.u1) annotation (Line(points={{-78,-190},{-74,-190},{-74,
-          -70},{-62,-70}}, color={255,0,255}));
-  connect(intEqu1.y, and3.u1) annotation (Line(points={{-78,-220},{-70,-220},{-70,
-          -110},{-62,-110}}, color={255,0,255}));
-  connect(conInt2.y, intEqu2.u1)
-    annotation (Line(points={{-118,-190},{-102,-190}}, color={255,127,0}));
-  connect(conInt1.y, intEqu1.u1)
-    annotation (Line(points={{-118,-220},{-102,-220}}, color={255,127,0}));
-
-  connect(out.ports[3], hp1.port_a3) annotation (Line(points={{0,370},{0,100},{
-          102,100},{102,-170},{118,-170},{118,-166}}, color={0,127,255}));
-  connect(mov1.y_actual, greThr.u) annotation (Line(points={{151,-137},{152,
-          -137},{152,-120}}, color={0,0,127}));
-  connect(mov.y_actual, greThr1.u) annotation (Line(points={{101,-171},{104,
-          -171},{104,-176},{108,-176},{108,-204},{92,-204},{92,-220},{98,-220}},
-        color={0,0,127}));
-  connect(hp1.P, greThr2.u) annotation (Line(points={{129,-154},{129,-156},{144,
-          -156},{144,-164},{208,-164},{208,-200},{214,-200}}, color={0,0,127}));
-  connect(greThr.y, ctl.y1HeaCooChiWatPum_actual) annotation (Line(points={{128,
-          -120},{124,-120},{124,-20},{200,-20},{200,324},{458,324}}, color={255,
-          0,255}));
-  connect(ctl.yEnaHeaCooChiWatPum, booToRea.u) annotation (Line(points={{482,
-          318},{494,318},{494,-100},{262,-100}}, color={255,0,255}));
-  connect(ctl.yEnaHeaCooHeaWatPum, booToRea1.u) annotation (Line(points={{482,
-          322},{508,322},{508,280},{528,280},{528,-170},{262,-170}}, color={255,
-          0,255}));
-  connect(greThr1.y, ctl.y1HeaCooHeaWatPum_actual) annotation (Line(points={{
-          122,-220},{360,-220},{360,328},{458,328}}, color={255,0,255}));
-  connect(greThr2.y, ctl.y1FourPipeASHP_actual) annotation (Line(points={{238,
-          -200},{340,-200},{340,314},{458,314}}, color={255,0,255}));
-  connect(ctl.yEnaFourPipeASHP, and1.u2) annotation (Line(points={{466,308},{
-          468,308},{468,250},{-62,250},{-62,-78}}, color={255,0,255}));
-  connect(ctl.yEnaFourPipeASHP, and3.u2) annotation (Line(points={{466,308},{
-          466,250},{-62,250},{-62,-118}}, color={255,0,255}));
-  connect(ctl.TSetFourPipeASHP, conPIDCoo.u_s) annotation (Line(points={{474,
-          308},{472,308},{472,122},{62,122},{62,-50}}, color={0,0,127}));
-  connect(ctl.TSetFourPipeASHP, conPIDHea.u_s) annotation (Line(points={{474,
-          308},{478,308},{478,98},{168,98},{168,-190}}, color={0,0,127}));
-  connect(conInt.y, extIndInt.u)
-    annotation (Line(points={{278,-30},{262,-30}}, color={255,127,0}));
-  connect(extIndInt.y, hp1.mod) annotation (Line(points={{238,-30},{106,-30},{
-          106,-152},{106.9,-152},{106.9,-151.9}}, color={255,127,0}));
-  connect(extIndInt.y, intEqu2.u2) annotation (Line(points={{238,-30},{106,-30},
-          {106,-130},{38,-130},{38,-244},{-110,-244},{-110,-198},{-102,-198}},
-        color={255,127,0}));
-  connect(extIndInt.y, intEqu1.u2) annotation (Line(points={{238,-30},{106,-30},
-          {106,-130},{38,-130},{38,-244},{-110,-244},{-110,-228},{-102,-228}},
-        color={255,127,0}));
-  connect(ctl.yModFourPipeASHP, extIndInt.index) annotation (Line(points={{470,
-          308},{470,-50},{250,-50},{250,-42}}, color={255,127,0}));
   annotation (
     defaultComponentName="pla",
     Documentation(
