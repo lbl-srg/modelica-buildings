@@ -63,11 +63,11 @@ model HHW_CHW_plant "Validation of AWHP plant template"
         have_inpSch=true),
       ctl(THeaWatSup_nominal=333.15, TChiWatSup_nominal=279.85),
       hp(
-        mHeaWatHp_flow_nominal=0.3*58/2,
-        capHeaHp_nominal=0.55*2.7e6/2,
+        mHeaWatHp_flow_nominal=0.3*58/18,
+        capHeaHp_nominal=0.55*2.7e6/18,
         THeaWatSupHp_nominal=333.15,
-        mChiWatHp_flow_nominal=0.3*68,
-        capCooHp_nominal=0.3*2.4e6/2,
+        mChiWatHp_flow_nominal=0.3*68/9,
+        capCooHp_nominal=0.3*2.4e6/18,
         TChiWatSupHp_nominal=279.85)))
     "Plant parameters"
     annotation (Placement(transformation(extent={{160,158},{180,178}})));
@@ -80,11 +80,6 @@ model HHW_CHW_plant "Validation of AWHP plant template"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.mos"))
-    "Outdoor conditions"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-490,190})));
 
   Fluid.Sensors.RelativePressure dpHeaWatRem[1](
     redeclare each final package Medium=Medium)
@@ -405,7 +400,7 @@ model HHW_CHW_plant "Validation of AWHP plant template"
         origin={-134,-588})));
   BoundaryConditions.WeatherData.Bus
       weaBus "Weather data bus" annotation (Placement(transformation(extent={{-438,
-            140},{-364,210}}),   iconTransformation(extent={{-406,148},{-386,168}})));
+            140},{-364,210}})));
   Buildings.Templates.Components.Interfaces.Bus busSen annotation (Placement(
         transformation(extent={{42,-320},{82,-280}}), iconTransformation(extent
           ={{-980,164},{-940,204}})));
@@ -525,16 +520,16 @@ public
         origin={144,-588})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqPlaHeaWat annotation (
       Placement(transformation(extent={{-740,40},{-700,80}}),
-        iconTransformation(extent={{-666,66},{-626,106}})));
+        iconTransformation(extent={{-160,-120},{-120,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqPlaChiWat annotation (
       Placement(transformation(extent={{-740,0},{-700,40}}), iconTransformation(
-          extent={{-666,66},{-626,106}})));
+          extent={{-160,-60},{-120,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqResChiWat annotation (
       Placement(transformation(extent={{-740,-80},{-700,-40}}),
-        iconTransformation(extent={{-666,66},{-626,106}})));
+        iconTransformation(extent={{-160,20},{-120,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqResHeaWat annotation (
       Placement(transformation(extent={{-740,-40},{-700,0}}),
-        iconTransformation(extent={{-666,66},{-626,106}})));
+        iconTransformation(extent={{-160,80},{-120,120}})));
 equation
   if have_chiWat then
   end if;
@@ -551,11 +546,6 @@ equation
                                           color={0,127,255}));
   connect(hp.ports_aChiHeaWat, mov.port_b) annotation (Line(points={{-548,-260},
           {-548,-212},{-508,-212},{-508,-198}}, color={0,127,255}));
-  connect(weaDat.weaBus, hp.busWea) annotation (Line(
-      points={{-480,190},{-472,190},{-472,148},{-572,148},{-572,-108},{-616,-108},
-          {-616,-252},{-618,-252},{-618,-260}},
-      color={255,204,51},
-      thickness=0.5));
   connect(valIso.port_bHeaWat, junHeaWatBypSup1.port_3) annotation (Line(points={{-678,
           -133},{-678,-206},{-676,-206},{-676,-560},{-168,-560},{-168,-538}},
                                                                       color={0,127,
@@ -738,14 +728,6 @@ equation
     annotation (Line(points={{-110,-588},{-124,-588}}, color={0,127,255}));
   connect(senTem5.port_b, junHeaWatBypSup2.port_1)
     annotation (Line(points={{-144,-588},{-158,-588}}, color={0,127,255}));
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-480,190},{-452,190},{-452,175},{-401,175}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(weaBus.TDryBul, ctl.TOut) annotation (Line(
       points={{-400.815,175.175},{-410,175.175},{-410,12},{-382,12}},
       color={255,204,51},
@@ -1036,6 +1018,25 @@ equation
           {-549,-20},{-549,16},{-382,16}}, color={255,127,0}));
   connect(nReqResChiWat, ctl.nReqResChiWat) annotation (Line(points={{-720,-60},
           {-552,-60},{-552,14},{-382,14}}, color={255,127,0}));
+  connect(weaBus, hp.busWea) annotation (Line(
+      points={{-401,175},{-556,175},{-556,32},{-564,32},{-564,-88},{-692,-88},{
+          -692,-112},{-696,-112},{-696,-176},{-618,-176},{-618,-260}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBus, fourPipeASHP_with_controls.weaBus) annotation (Line(
+      points={{-401,175},{-556,175},{-556,32},{-564,32},{-564,-88},{-692,-88},{
+          -692,-112},{-696,-112},{-696,-176},{-620,-176},{-620,-248},{-508,-248},
+          {-508,-212},{-336,-212},{-336,-399.7},{-328.7,-399.7}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     __Dymola_Commands(
       file=
@@ -1120,5 +1121,5 @@ First implementation.
     Diagram(
       coordinateSystem(
         extent={{-700,-640},{200,220}})),
-    Icon(coordinateSystem(extent={{-700,-640},{200,220}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end HHW_CHW_plant;

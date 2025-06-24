@@ -216,11 +216,6 @@ public
     annotation (Placement(transformation(extent={{-98,-464},{-78,-444}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea10
     annotation (Placement(transformation(extent={{-58,-464},{-38,-444}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.mos"))
-    "Outdoor conditions"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-510,-160})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPlaOpeMod annotation (
       Placement(transformation(extent={{-580,-320},{-540,-280}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
@@ -245,6 +240,10 @@ public
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumConEnaPro annotation
     (Placement(transformation(extent={{180,-240},{220,-200}}),
         iconTransformation(extent={{100,20},{140,60}})));
+  BoundaryConditions.WeatherData.Bus
+      weaBus "Weather data bus" annotation (Placement(transformation(extent={{-510,
+            -100},{-436,-30}}), iconTransformation(extent={{-424,-132},{-350,
+            -62}})));
 equation
   if have_chiWat then
   end if;
@@ -388,10 +387,6 @@ equation
           -334},{-174,-334},{-174,-318},{-170,-318},{-170,-238},{-178,-238},{-178,
           -190},{-190,-190},{-190,-86},{10,-86},{10,-118},{18,-118},{18,-164},{60,
           -164}},                   color={255,0,255}));
-  connect(weaDat.weaBus, out.weaBus) annotation (Line(
-      points={{-500,-160},{-500,-163.8},{-478,-163.8}},
-      color={255,204,51},
-      thickness=0.5));
   connect(cheVal.port_a, port_a2) annotation (Line(points={{-48,-280},{-56,-280},
           {-56,-236},{-32,-236},{-32,-184},{-48,-184},{-48,-60},{100,-60}},
         color={0,127,255}));
@@ -421,6 +416,15 @@ equation
           {-48,-390},{172,-390},{172,-220},{200,-220}}, color={255,0,255}));
   connect(greThr.y, yPumEvaEnaPro) annotation (Line(points={{20,-240},{6,-240},{
           6,-200},{150,-200},{150,-160},{200,-160}}, color={255,0,255}));
+  connect(weaBus, out.weaBus) annotation (Line(
+      points={{-473,-65},{-472,-65},{-472,-148},{-488,-148},{-488,-163.8},{-478,
+          -163.8}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     __Dymola_Commands(
       file=
