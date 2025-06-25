@@ -5,17 +5,9 @@ model SystemSizing
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
 
   parameter String sysName "Name of HVAC system to group autosizing";
-  final parameter Modelica.Units.SI.Power QCooSen_flow(fixed=false) "Design sensible cooling load";
-  final parameter Modelica.Units.SI.Power QCooLat_flow(fixed=false) "Design latent cooling load";
-  final parameter Modelica.Units.SI.Temperature TOutCoo(fixed=false) "Outdoor drybulb temperature at the cooling design load";
-  final parameter Modelica.Units.SI.DimensionlessRatio XOutCoo(fixed=false) "Outdoor humidity ratio at the cooling design load per total air mass of the zone";
-  final parameter Modelica.Units.SI.Time TCoo(fixed=false) "Time at which these loads occurred";
-  final parameter Modelica.Units.SI.Power QHea_flow(fixed=false) "Design heating load";
-  final parameter Modelica.Units.SI.Temperature TOutHea(fixed=false) "Outdoor drybulb temperature at the heating design load";
-  final parameter Modelica.Units.SI.DimensionlessRatio XOutHea(fixed=false) "Outdoor humidity ratio at the heating design load per total air mass of the zone";
-  final parameter Modelica.Units.SI.MassFlowRate mOutCoo_flow(fixed=false) "Minimum outdoor air flow rate during the cooling design load";
-  final parameter Modelica.Units.SI.MassFlowRate mOutHea_flow(fixed=false) "Minimum outdoor air flow rate during the heating design load";
-  final parameter Modelica.Units.SI.Time THea(fixed=false) "Time at which these loads occurred";
+
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing siz "Sizing parameters for zone"
+             annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 protected
   constant Integer nParOut=11
@@ -83,9 +75,9 @@ initial equation
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  {QCooSen_flow,QCooLat_flow,TOutCoo,
-   XOutCoo,TCoo,QHea_flow,TOutHea,XOutHea,mOutCoo_flow,
-   mOutHea_flow,THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+  {siz.QCooSen_flow,siz.QCooLat_flow,siz.TOutCoo,
+   siz.XOutCoo,siz.TCoo,siz.QHea_flow,siz.TOutHea,siz.XOutHea,siz.mOutCoo_flow,
+   siz.mOutHea_flow,siz.THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);

@@ -59,18 +59,6 @@ model ThermalZoneAdapter
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
-  // Zone sizing parameters
-  final parameter Modelica.Units.SI.Power sizZon_QCooSen_flow(fixed=false) "Design sensible cooling load";
-  final parameter Modelica.Units.SI.Power sizZon_QCooLat_flow(fixed=false) "Design latent cooling load";
-  final parameter Modelica.Units.SI.Temperature sizZon_TOutCoo(fixed=false) "Outdoor drybulb temperature at the cooling design load";
-  final parameter Modelica.Units.SI.DimensionlessRatio sizZon_XOutCoo(fixed=false) "Outdoor humidity ratio at the cooling design load per total air mass of the zone";
-  final parameter Modelica.Units.SI.Time sizZon_TCoo(fixed=false) "Time at which these loads occurred";
-  final parameter Modelica.Units.SI.Power sizZon_QHea_flow(fixed=false) "Design heating load";
-  final parameter Modelica.Units.SI.Temperature sizZon_TOutHea(fixed=false) "Outdoor drybulb temperature at the heating design load";
-  final parameter Modelica.Units.SI.DimensionlessRatio sizZon_XOutHea(fixed=false) "Outdoor humidity ratio at the heating design load per total air mass of the zone";
-  final parameter Modelica.Units.SI.MassFlowRate sizZon_mOutCoo_flow(fixed=false) "Minimum outdoor air flow rate during the cooling design load";
-  final parameter Modelica.Units.SI.MassFlowRate sizZon_mOutHea_flow(fixed=false) "Minimum outdoor air flow rate during the heating design load";
-  final parameter Modelica.Units.SI.Time sizZon_THea(fixed=false) "Time at which these loads occurred";
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -110,6 +98,8 @@ model ThermalZoneAdapter
     final unit="W")
     "Total heat gain from people, to be used for optional computation of CO2 released"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},{120,-50}})));
+  Sizing siz "Sizing parameters for zone"
+             annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
 protected
   constant Integer nParOut=14
@@ -225,7 +215,6 @@ protected
          else
            ceil(u/accuracy-0.5)*accuracy;
   end round;
-
 initial equation
   if usePrecompiledFMU then
     assert(
@@ -238,9 +227,9 @@ initial equation
     isSynchronized=building.isSynchronized);
 
   {AFlo,V,mSenFac,
-   sizZon_QCooSen_flow,sizZon_QCooLat_flow,sizZon_TOutCoo,
-   sizZon_XOutCoo,sizZon_TCoo,sizZon_QHea_flow,sizZon_TOutHea,sizZon_XOutHea,sizZon_mOutCoo_flow,
-   sizZon_mOutHea_flow,sizZon_THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+   siz.QCooSen_flow,siz.QCooLat_flow,siz.TOutCoo,
+   siz.XOutCoo,siz.TCoo,siz.QHea_flow,siz.TOutHea,siz.XOutHea,siz.mOutCoo_flow,
+   siz.mOutHea_flow,siz.THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);
