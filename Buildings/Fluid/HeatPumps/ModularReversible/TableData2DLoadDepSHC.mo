@@ -199,13 +199,13 @@ model TableData2DLoadDepSHC
         origin={-30,-120})));
   Modelica.Blocks.Interfaces.RealOutput yValHwIso(final unit="1")
     "Equivalent HW isolation valve command" annotation (Placement(
-        transformation(extent={{140,90},{160,110}}), iconTransformation(extent={{-10,-10},
+        transformation(extent={{140,100},{160,120}}),iconTransformation(extent={{-10,-10},
             {10,10}},
         rotation=90,
         origin={80,110})));
   Modelica.Blocks.Interfaces.RealOutput yValChwIso(final unit="1")
     "Equivalent CHW isolation valve command" annotation (Placement(
-        transformation(extent={{140,70},{160,90}}), iconTransformation(extent={{-10,-10},
+        transformation(extent={{140,80},{160,100}}),iconTransformation(extent={{-10,-10},
             {10,10}},
         rotation=-90,
         origin={-80,-110})));
@@ -219,7 +219,7 @@ model TableData2DLoadDepSHC
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={120,100})));
+        origin={120,110})));
   Modelica.Blocks.Sources.RealExpression calYValChwIso(
     y=if on and (
       mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling or
@@ -230,7 +230,36 @@ model TableData2DLoadDepSHC
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={120,80})));
+        origin={120,90})));
+  Modelica.Blocks.Sources.BooleanExpression calY1ValHwIso[nUni](y={on and (mode
+         == Buildings.Fluid.HeatPumps.Types.OperatingModes.heating or mode ==
+        Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) and (i == 1 or
+        nUniShc + nUniHea >= i) for i in 1:nUni})
+    "Calculate HW isolation valve command" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={120,70})));
+  Modelica.Blocks.Interfaces.BooleanOutput y1ValHwIso[nUni]
+    "HW isolation valve command" annotation (Placement(transformation(extent={{
+            140,60},{160,80}}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,110})));
+  Modelica.Blocks.Sources.BooleanExpression calY1ValChwIso[nUni](y={on and (
+        mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling or mode
+         == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) and (i == 1 or
+        nUniShc + nUniCoo >= i) for i in 1:nUni})
+    "Calculate CHW isolation valve command" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={120,50})));
+  Modelica.Blocks.Interfaces.BooleanOutput y1ValChwIso[nUni]
+    "CHW isolation valve command" annotation (Placement(transformation(extent={
+            {140,40},{160,60}}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-60,-110})));
 equation
   connect(eff.QUse_flow, refCycIneCon.y)
     annotation (Line(points={{98,37},{48,37},{48,66},{8.88178e-16,66},{8.88178e-16,61}},
@@ -263,9 +292,13 @@ equation
   connect(nUniShc, sigBus.nUniShc) annotation (Line(points={{160,-100},{126,
           -100},{126,-41},{-141,-41}}, color={255,127,0}));
   connect(calYValChwIso.y, yValChwIso)
-    annotation (Line(points={{131,80},{150,80}}, color={0,0,127}));
+    annotation (Line(points={{131,90},{150,90}}, color={0,0,127}));
   connect(calYValHwIso.y, yValHwIso)
-    annotation (Line(points={{131,100},{150,100}}, color={0,0,127}));
+    annotation (Line(points={{131,110},{150,110}}, color={0,0,127}));
+  connect(calY1ValHwIso.y, y1ValHwIso)
+    annotation (Line(points={{131,70},{150,70}}, color={255,0,255}));
+  connect(calY1ValChwIso.y, y1ValChwIso)
+    annotation (Line(points={{131,50},{150,50}}, color={255,0,255}));
   annotation (
     defaultComponentName="hp",
     Icon(

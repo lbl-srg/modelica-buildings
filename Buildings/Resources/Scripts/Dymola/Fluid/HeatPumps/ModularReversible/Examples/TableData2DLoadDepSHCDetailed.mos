@@ -76,7 +76,7 @@ createPlot(
     id=5,
     position={460, 50, 400, 400},
     subPlot=1,
-    y={"ctlPumHwPri.u_m", "ctlPumHwPri.u_s", "ctlPumChwPri.u_m", "ctlPumChwPri.u_s"},
+    y={"ctlPumHwPri.u_m", "ctlPumHwPri.u_s", "ctlPumChwPri.dpRem[1]", "ctlPumChwPri.dpRemSet[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
