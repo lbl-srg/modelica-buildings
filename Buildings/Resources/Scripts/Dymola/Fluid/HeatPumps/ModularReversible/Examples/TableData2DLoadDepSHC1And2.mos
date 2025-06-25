@@ -1,9 +1,9 @@
-simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHCDetailed",
+simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1And2",
     tolerance=1e-6,
     startTime=0,
     stopTime=86400,
     method="CVode",
-    resultFile="TableData2DLoadDepSHCDetailed");
+    resultFile="TableData2DLoadDepSHC1And2");
 createPlot(
     id=1,
     position={5, 5, 400, 600},
@@ -16,7 +16,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"THwSup.T", "hp.THwSet", "THwRet.T", "THwRetPla.T"},
+    y={"THwSup.T", "THwSupPri.T", "hp.THwSet", "THwRet.T", "THwRetPla.T"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -24,7 +24,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"TChwSup.T", "hp.TChwSet", "TChwRet.T", "TChwRetPla.T"},
+    y={"TChwSup.T", "TChwSupPri.T", "hp.TChwSet", "TChwRet.T", "TChwRetPla.T"},
     autoscale=true,
     grid=true,
     timeUnit="h"

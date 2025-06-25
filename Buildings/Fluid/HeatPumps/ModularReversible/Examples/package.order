@@ -4,5 +4,6 @@ LargeScaleWaterToWater_OneRoomRadiator
 Modular_OneRoomRadiator
 TableData2DLoadDep
 TableData2DLoadDepSHC
-TableData2DLoadDepSHCDetailed
+TableData2DLoadDepSHC1Only
+TableData2DLoadDepSHC1And2
 BaseClasses
