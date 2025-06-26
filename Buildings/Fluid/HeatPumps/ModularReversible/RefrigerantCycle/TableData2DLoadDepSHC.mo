@@ -35,6 +35,25 @@ model TableData2DLoadDepSHC
     annotation (choicesAllMatching=true);
   parameter Modelica.Units.SI.Power P_min(final min=0)=0
     "Remaining power when system is enabled with all compressors cycled off";
+  parameter Real dtRun(
+    final min=0,
+    final unit="s") = 300
+    "Minimum stage runtime"
+    annotation (Dialog(tab="Advanced - Staging logic"));
+  parameter Real dtMea(
+    final min=0,
+    final unit="s") = 120
+    "Load averaging time window"
+    annotation (Dialog(tab="Advanced - Staging logic"));
+  parameter Real SPLR(
+    max=1,
+    min=0) = 0.9
+    "Staging part load ratio"
+    annotation (Dialog(tab="Advanced - Staging logic"));
+  parameter Modelica.Units.SI.TemperatureDifference dTSaf(
+    final min=0) = 3
+    "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
+    annotation (Dialog(tab="Advanced - Safeties"));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cp[2](
     k={cpEva, cpCon})
     "Specific heat capacity"
@@ -64,7 +83,11 @@ model TableData2DLoadDepSHC
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHeaShc_flow_nominal=QHeaShc_flow_nominal,
     final QCooShc_flow_nominal=QCooShc_flow_nominal,
-    final P_min=P_min)
+    final P_min=P_min,
+    final dtRun=dtRun,
+    final dtMea=dtMea,
+    final SPLR=SPLR,
+    final dTSaf=dTSaf)
     "Compute heat flow rate and input power"
     annotation (Placement(transformation(extent={{90,24},{110,56}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cst(final k=0) "Constant"

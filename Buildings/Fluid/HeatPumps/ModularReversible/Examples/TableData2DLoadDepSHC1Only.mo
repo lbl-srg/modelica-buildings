@@ -1,34 +1,57 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Examples;
 model TableData2DLoadDepSHC1Only
-  "Validation of SHC HP model in primary-only plant"
+  "Example of a primary-only plant with four-pipe heat pump"
   extends Modelica.Icons.Example;
-  replaceable package Medium=Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium
+  package Medium=Buildings.Media.Water
     "Main medium (common for CHW and HW)";
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=1500E3;
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-1500E3;
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=1500E3
+    "Heating heat flow rate"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-1500E3
+    "Cooling heat flow rate"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal=
     abs(QHea_flow_nominal / (THwSup_nominal - THwRet_nominal)) /
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq;
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "HW mass flow rate"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mChw_flow_nominal=
     abs(QCoo_flow_nominal / (TChwSup_nominal - TChwRet_nominal)) /
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq;
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "CHW mass flow rate"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature THwSup_nominal=
-    Buildings.Templates.Data.Defaults.THeaWatSupMed;
+    Buildings.Templates.Data.Defaults.THeaWatSupMed
+    "HW supply temperature"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TChwSup_nominal=
-    Buildings.Templates.Data.Defaults.TChiWatSup;
+    Buildings.Templates.Data.Defaults.TChiWatSup
+    "CHW supply temperature"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature THwRet_nominal=
-    Buildings.Templates.Data.Defaults.THeaWatRetMed;
+    Buildings.Templates.Data.Defaults.THeaWatRetMed
+    "HW return temperature"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TChwRet_nominal=
-    Buildings.Templates.Data.Defaults.TChiWatRet;
-  parameter Modelica.Units.SI.PressureDifference dpChwRemSet_max=
-    Buildings.Templates.Data.Defaults.dpChiWatRemSet_max;
+    Buildings.Templates.Data.Defaults.TChiWatRet
+    "CHW return temperature"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpHwRemSet_max=
-    Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max;
-  parameter Modelica.Units.SI.PressureDifference dpChwLocSet_max=
-    Buildings.Templates.Data.Defaults.dpChiWatLocSet_max;
+    Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max
+    "Maximum HW differential pressure setpoint - At remote location"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpChwRemSet_max=
+    Buildings.Templates.Data.Defaults.dpChiWatRemSet_max
+    "Maximum CHW differential pressure setpoint - At remote location"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpHwLocSet_max=
-    Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max;
+    Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max
+    "Maximum HW differential pressure setpoint - local to the plant"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpChwLocSet_max=
+    Buildings.Templates.Data.Defaults.dpChiWatLocSet_max
+    "Maximum CHW differential pressure setpoint - local to the plant"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -220,7 +243,7 @@ model TableData2DLoadDepSHC1Only
     dpValve_nominal=hp.dpValIso_nominal,
     init=Modelica.Blocks.Types.Init.InitialState,
     dpFixed_nominal=hp.dpHw_nominal)
-    "HW isolation valve"
+    "Equivalent actuator for modules' condenser barrels and HW isolation valves"
     annotation (Placement(transformation(extent={{-150,-230},{-130,-210}})));
   Actuators.Valves.TwoWayTable  valChwIso(
     redeclare final package Medium = Medium,
@@ -228,7 +251,8 @@ model TableData2DLoadDepSHC1Only
     dpValve_nominal=hp.dpValIso_nominal,
     init=Modelica.Blocks.Types.Init.InitialState,
     dpFixed_nominal=hp.dpChw_nominal,
-    flowCharacteristics=hp.chaValChwIso) "CHW isolation valve"
+    flowCharacteristics=hp.chaValChwIso)
+    "Equivalent actuator for modules' evaporator barrels and CHW isolation valves"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni(nin=3)
     "Total number of enabled modules"
@@ -351,8 +375,9 @@ model TableData2DLoadDepSHC1Only
     redeclare final package Medium=Medium,
     final energyDynamics=energyDynamics,
     dat(
-      m_flow_nominal=fill(hp.mEva_flow_nominal / pumChwPri.nPum, pumChwPri.nPum),
-      dp_nominal=fill(dpChwLocSet_max + hp.dpChw_nominal, pumChwPri.nPum),
+      m_flow_nominal=fill(hp.mEva_flow_nominal/pumChwPri.nPum, pumChwPri.nPum),
+      dp_nominal=fill(dpChwLocSet_max + valChwIso.dpFixed_nominal + valChwIso.dpValve_nominal,
+          pumChwPri.nPum) .+ pumChwPri.dpValChe_nominal,
       rho_default=Medium.d_const),
     final nPum=hp.nUni) "Primary CHW pumps"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
@@ -401,7 +426,8 @@ model TableData2DLoadDepSHC1Only
     final energyDynamics=energyDynamics,
     dat(
       m_flow_nominal=fill(hp.mCon_flow_nominal/pumHwPri.nPum, pumHwPri.nPum),
-      dp_nominal=fill(dpHwLocSet_max + hp.dpHw_nominal, pumHwPri.nPum),
+      dp_nominal=fill(dpHwLocSet_max + valHwIso.dpFixed_nominal + valHwIso.dpFixed_nominal,
+          pumHwPri.nPum) .+ pumHwPri.dpValChe_nominal,
       rho_default=Medium.d_const),
     final nPum=hp.nUni) "Primary HW pumps"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
@@ -666,9 +692,9 @@ equation
   connect(staPumChwPri.y1, busPumChwPri.y1) annotation (Line(points={{-38,100},
           {-32,100},{-32,80},{-50,80},{-50,76}},
                                            color={255,0,255}));
-  connect(hp.y1ValChwIso, staPumChwPri.u1ValOutIso) annotation (Line(points={{-186,
-          -65},{-186,-66},{-156,-66},{-156,104},{-62,104}},
-                                    color={255,0,255}));
+  connect(hp.y1ChwValIsoPumPri, staPumChwPri.u1ValOutIso) annotation (Line(
+        points={{-186,-65},{-186,-66},{-156,-66},{-156,104},{-62,104}}, color={
+          255,0,255}));
   connect(VChwPri.V_flow, staPumChwPri.V_flow) annotation (Line(points={{-50,-9},
           {-50,2},{-86,2},{-86,98},{-62,98}},     color={0,0,127}));
   connect(dpRemSet[2].y, staPumChwPri.dpSet[1]) annotation (Line(points={{-238,
@@ -715,8 +741,9 @@ equation
       points={{-50,-124},{-70,-124},{-70,-100},{-62,-100}},
       color={255,204,51},
       thickness=0.5));
-  connect(hp.y1ValHwIso, staPumHwPri.u1ValOutIso) annotation (Line(points={{-174,
-          -43},{-174,-38},{-138,-38},{-138,-96},{-62,-96}},   color={255,0,255}));
+  connect(hp.y1HwValIsoPumPri, staPumHwPri.u1ValOutIso) annotation (Line(points
+        ={{-174,-43},{-174,-38},{-138,-38},{-138,-96},{-62,-96}}, color={255,0,
+          255}));
   connect(VHwPri.V_flow, staPumHwPri.V_flow) annotation (Line(points={{-50,-209},
           {-50,-204},{-68,-204},{-68,-102},{-62,-102}}, color={0,0,127}));
   connect(outPumHwPri.port_b, loaHw.port_a)
@@ -754,52 +781,103 @@ equation
     Documentation(
       info="<html>
 <p>
-This model validates
-<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.AirToWater\">
-Buildings.Templates.Plants.HeatPumps.AirToWater</a>
-by simulating a <i>24</i>-hour period with overlapping heating and
+This model illustrates the use of
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC\">
+Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC</a>
+to model a primary-secondary heating and cooling plant.
+The simulation covers a <i>24</i>-hour period with overlapping heating and
 cooling loads.
 The heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
-Three equally sized heat pumps are modeled, which can all be lead/lag alternated.
-A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>)
-and connected to the HW and CHW return pipes (sidestream integration).
-A unique aggregated load is modeled on each loop by means of a cooling or heating
-component controlled to maintain a constant <i>&Delta;T</i>
-and a modulating valve controlled to track a prescribed flow rate.
-An importance multiplier of <i>10</i> is applied to the plant requests
-and reset requests generated from the valve position.
+The plant model includes the following components.
 </p>
+<ul>
+<li>
+Modular heat pump with three units
+</li>
+<li>
+HW and CHW isolation valves represented by an equivalent actuator
+</li>
+<li>
+Three headered variable-speed primary HW and CHW pumps
+</li>
+<li>
+HW and CHW minimum flow bypass valves
+</li>
+</ul>
+<p>
+A unique aggregated load is modeled on each loop by means of a cooling or heating component 
+controlled to maintain a constant &Delta;T and a modulating valve controlled to track 
+a prescribed flow rate.
+</p>
+<p>
+The closed-loop controls use the following logical blocks.
+</p>
+<ul>
+<li>
+Heating and cooling plant enable: see
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Enabling.Enable\">
+Buildings.Templates.Plants.Controls.Enabling.Enable</a>.<br/>
+The HW and CHW plant requests used in this logic are generated 
+based on an opening threshold of <i>10&nbsp;&percnt;</i> of the equivalent
+terminal valves.
+</li>
+<li>
+Heat pump operating mode:
+When the heating plant is enabled and the cooling plant is disabled, the heat 
+pump is commanded in heating-only mode.
+When the cooling plant is enabled and the heating plant is disabled, the heat 
+pump is commanded in cooling-only mode.
+When both the cooling plant and the heating plant are enabled, the heat 
+pump is commanded in simultaneous heating and cooling mode.
+When both the cooling plant and the heating plant are disabled, the heat 
+pump is commanded off.
+</li>
+<li>
+HW and CHW supply temperature:
+The heat pump is controlled with constant setpoints equal to the design values.
+</li>
+<li>
+Primary HW and CHW pumps controlled to maintain a remote differential pressure setpoint:
+See
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered</a>
+for the staging and rotation logic, and
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure</a>
+for the control logic.
+</li>
+<li>
+Minimum flow HW and CHW bypass valves controlled to maintain the heat pump header
+differential pressure at design value.
+</li>
+</ul>
 <p>
 Simulating this model shows how the plant responds to a varying load by
 </p>
 <ul>
 <li>
-staging or unstaging the AWHPs and associated primary pumps,
+enabling or disabling the heating and cooling plants,
+and switching the heat pump operating mode accordingly,
 </li>
 <li>
-rotating lead/lag alternate equipment to ensure even wear,
+staging or unstaging the heat pump modules in various modes,
 </li>
 <li>
-resetting the supply temperature and remote differential pressure
-in both the CHW and HW loops based on the valve position,
+actuating the corresponding isolation valves,
 </li>
 <li>
-staging and controlling the secondary pumps to meet the
+staging, rotating and controlling the primary pumps to meet the
 remote differential pressure setpoint.
 </li>
+<li>
+modulating the minimum flow bypass valve to keep the header differential pressure
+at its design value, which, in conjunction with the isolation valves' control, 
+effectively results in a flowrate through the heat pump heat exchangers varying 
+linearly with the number of enabled modules on each loop.
+</li>
 </ul>
-<h4>Details</h4>
-<p>
-By default, all valves within the plant are modeled considering a linear
-variation of the pressure drop with the flow rate (<code>pla.linearized=true</code>),
-as opposed to the quadratic relationship usually considered for
-a turbulent flow regime.
-By limiting the size of the system of nonlinear equations, this setting
-reduces the risk of solver failure and the time to solution for testing
-various plant configurations.
-</p>
 </html>",
       revisions="<html>
 <ul>

@@ -57,17 +57,9 @@ createPlot(
 );
 createPlot(
     id=4,
-    position={50, 50, 400, 400},
+    position={50, 50, 400, 200},
     subPlot=1,
-    y={"ctlValHwByp.u_m", "ctlValHwByp.u_s", "ctlValChwByp.u_m", "ctlValChwByp.u_s"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
-);
-createPlot(
-    id=4,
-    subPlot=2,
-    y={"ctlValHwByp.y", "ctlValChwByp.y"},
+    y={"pumHwPri.bus.y1[1]", "pumHwPri.bus.y1[2]", "pumHwPri.bus.y1[3]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -76,7 +68,7 @@ createPlot(
     id=5,
     position={460, 50, 400, 400},
     subPlot=1,
-    y={"ctlPumHwPri.u_m", "ctlPumHwPri.u_s", "ctlPumChwPri.dpRem[1]", "ctlPumChwPri.dpRemSet[1]"},
+    y={"ctlPumHwSec.dpRem[1]", "ctlPumHwSec.dpRemSet[1]", "ctlPumChwSec.dpRem[1]", "ctlPumChwSec.dpRemSet[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -84,7 +76,7 @@ createPlot(
 createPlot(
     id=5,
     subPlot=2,
-    y={"ctlPumHwPri.y", "ctlPumChwPri.y"},
+    y={"ctlPumHwSec.y", "ctlPumChwSec.y"},
     autoscale=true,
     grid=true,
     timeUnit="h"

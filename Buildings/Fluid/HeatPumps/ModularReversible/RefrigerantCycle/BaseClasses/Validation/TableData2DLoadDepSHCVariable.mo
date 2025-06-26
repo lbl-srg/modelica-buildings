@@ -211,7 +211,7 @@ The model represents a three-module system.
 The operating mode switches between simultaneous heating and cooling, 
 heating only, and cooling only.
 The on/off command starts as <code>true</code> and is switched to 
-<code>false</code> at the end.
+<code>false</code> at the end of the simulated period.
 </p>
 <p>
 The validation is carried out by computing the tracked temperature

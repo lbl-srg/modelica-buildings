@@ -110,21 +110,21 @@ block TableData2DLoadDepSHC
     final min=0,
     final unit="s") = 300
     "Minimum stage runtime"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced - Staging logic"));
   parameter Real dtMea(
     final min=0,
     final unit="s") = 120
     "Load averaging time window"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced - Staging logic"));
   parameter Real SPLR(
     max=1,
     min=0) = 0.9
     "Staging part load ratio"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced - Staging logic"));
   parameter Modelica.Units.SI.TemperatureDifference dTSaf(
     final min=0) = 3
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced - Safeties"));
   // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
   // Binding equations yield incorrect results but no error!
   final parameter Modelica.Units.SI.Power PHeaInt_nominal[nPLRHea](
@@ -253,7 +253,7 @@ block TableData2DLoadDepSHC
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W") "Input power"
-    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QHea_flow(
     final unit="J/s") "Heating heat flow rate"
@@ -262,7 +262,7 @@ block TableData2DLoadDepSHC
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCoo_flow(
     final unit="J/s")
     "Cooling heat flow rate"
-    annotation (Placement(transformation(extent={{100,80},{140,120}}),
+    annotation (Placement(transformation(extent={{100,100},{140,140}}),
       iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniHea(start=0)
     "Number of modules in heating mode"
@@ -682,25 +682,24 @@ equation
     PCooInt=scaFacCoo * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
       tabPCoo, fill(TChwTab, nPLRCoo), fill(TAmbTab, nPLRCoo));
   else
-    PLRCoo=0;
-    PCooInt=fill(0, nPLRCoo);
+    PLRCoo = 0;
+    PCooInt = fill(0, nPLRCoo);
   end if;
   // Calculate total heating and cooling flow rate and power
-  PShcInt=scaFacCooShc * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+  PShcInt = scaFacCooShc * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabPShc, fill(TChwTab, nPLRShc), fill(THwTab, nPLRShc));
-  QHea_flow=nUniHea * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRHeaSor), cat(
-    1, {0}, QHeaInt_flow), PLRHea) + QHeaShc_flow + QHeaShcCyc_flow;
-  QCoo_flow=nUniCoo * Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRCooSor), cat(
-    1, {0}, QCooInt_flow), PLRCoo) + QCooShc_flow + QCooShcCyc_flow;
-  P=nUniHea * Modelica.Math.Vectors.interpolate(
-      cat(1, {0}, PLRHeaSor),
-      cat(1, {0}, PHeaInt), PLRHea) +
+  QHea_flow = nUniHea * Modelica.Math.Vectors.interpolate(
+    cat(1, {0}, PLRHeaSor), cat(1, {0}, QHeaInt_flow), PLRHea) +
+    QHeaShc_flow + QHeaShcCyc_flow;
+  QCoo_flow = nUniCoo * Modelica.Math.Vectors.interpolate(
+    cat(1, {0}, PLRCooSor), cat(1, {0}, QCooInt_flow), PLRCoo) +
+    QCooShc_flow + QCooShcCyc_flow;
+  P = nUniHea * Modelica.Math.Vectors.interpolate(
+      cat(1, {0}, PLRHeaSor), cat(1, {0}, PHeaInt), PLRHea) +
     nUniCoo * Modelica.Math.Vectors.interpolate(
-      cat(1, {0}, PLRCooSor),
-      cat(1, {0}, PCooInt), PLRCoo) +
+      cat(1, {0}, PLRCooSor), cat(1, {0}, PCooInt), PLRCoo) +
     nUniShc * (ratCycShc * Modelica.Math.Vectors.interpolate(
-      cat(1, {0}, PLRShcSor),
-      cat(1, {0}, PShcInt), PLRShc) +
+      cat(1, {0}, PLRShcSor), cat(1, {0}, PShcInt), PLRShc) +
       (1 - ratCycShc) * (
         Modelica.Math.Vectors.interpolate(
           cat(1, {0}, PLRHeaSor), cat(1, {0}, PHeaInt), PLRHeaShcCyc) +

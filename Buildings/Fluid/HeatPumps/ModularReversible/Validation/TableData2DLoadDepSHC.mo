@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatPumps.ModularReversible.Examples;
+within Buildings.Fluid.HeatPumps.ModularReversible.Validation;
 model TableData2DLoadDepSHC
   extends Modelica.Icons.Example;
   replaceable package Medium=Buildings.Media.Water
@@ -48,12 +48,6 @@ model TableData2DLoadDepSHC
     Buildings.Media.Water.cp_const
     "CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpHw_nominal=30000
-    "Total HW pressure drop across HP and isolation valve"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpChw_nominal=40000
-    "Total CHW pressure drop across HP and isolation valve"
-    annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TChiWatSet(
     table=[0,0; 10,0; 80,0.2*(TChwEnt.k - TChwSup_nominal); 95,0.2*(TChwEnt.k
          - TChwSup_nominal)],
@@ -61,7 +55,7 @@ model TableData2DLoadDepSHC
     timeScale=20,
     y(each final unit="K", each displayUnit="degC"))
     "CHW supply or return temperature setpoint"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatSet(
     amplitude=THwEnt.k - THwSup_nominal,
     freqHz=1/3600,
@@ -69,36 +63,36 @@ model TableData2DLoadDepSHC
     startTime=1000,
     y(final unit="K", displayUnit="degC"))
     "HW supply or return temperature setpoint"
-    annotation (Placement(transformation(extent={{-150,62},{-130,82}})));
+    annotation (Placement(transformation(extent={{-150,30},{-130,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THwEnt(k=THwSup_nominal +
     (THwRet_nominal - THwSup_nominal)*QHeaShc_flow_nominal/QHea_flow_nominal,
     y(final unit="K", displayUnit="degC")) "Condenser entering HW temperature"
-    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
+    annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChwEnt(k=TChwSup_nominal +
     (TChwRet_nominal - TChwSup_nominal)* QCooShc_flow_nominal /QCoo_flow_nominal,
     y(final unit="K", displayUnit="degC"))
     "Evaporator entering CHW temperature"
-    annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
+    annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=15 + 273.15, y(
         final unit="K", displayUnit="degC")) "OA temperature"
-    annotation (Placement(transformation(extent={{-152,130},{-132,150}})));
+    annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupNom(k=
         THwSup_nominal, y(final unit="K", displayUnit="degC"))
     "Design HW supply temperature"
-    annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
+    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
     table=[0,3; 1,2; 2,1],
     timeScale=1200,
     period=3600)
     "Operating mode command"
-    annotation (Placement(transformation(extent={{-130,90},{-110,110}})));
+    annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(
     table=[0,0; 500,1; 5000,0],
     timeScale=1,
     period=5400)  "On/off command"
-    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+    annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC hp(
     redeclare final package MediumCon=Medium,
     redeclare final package MediumEva=Medium,
@@ -119,9 +113,9 @@ model TableData2DLoadDepSHC
     TConCoo_nominal=TChwSup_nominal,
     TEvaCoo_nominal=TAmbCoo_nominal)
     "Multipipe heat pump"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-110,120},{-70,160}}), iconTransformation(
+        transformation(extent={{0,100},{40,140}}),     iconTransformation(
           extent={{-28,-54},{-8,-34}})));
   parameter Data.TableData2DLoadDepSHC.Generic dat(
     PLRHeaSup={1},
@@ -137,53 +131,53 @@ model TableData2DLoadDepSHC
     devIde="",
     use_TEvaOutForTab=true,
     use_TConOutForTab=true) "Performance data"
-    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+    annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Sources.Boundary_pT hwIn(
     redeclare final package Medium = Medium,
     p=hwOut.p + hp.dpHw_nominal + hp.dpValIso_nominal,
     use_T_in=true,
     nPorts=1) "Boundary conditions of HW at HP inlet"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Sources.Boundary_pT hwOut(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=1) "Boundary conditions of HW at HP outlet"
-    annotation (Placement(transformation(extent={{140,30},{120,50}})));
+    annotation (Placement(transformation(extent={{140,10},{120,30}})));
   Sources.Boundary_pT chwOut(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
     nPorts=1) "Boundary conditions of CHW at HP outlet"
-    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   Sources.Boundary_pT chwIn(
     redeclare final package Medium = Medium,
     p=chwOut.p + hp.dpChw_nominal + hp.dpValIso_nominal,
     use_T_in=true,
     nPorts=1) "Boundary conditions of CHW at HP inlet"
-    annotation (Placement(transformation(extent={{142,-50},{122,-30}})));
+    annotation (Placement(transformation(extent={{142,-70},{122,-50}})));
   Sensors.TemperatureTwoPort THwSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mCon_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=THwSup_nominal) "HW supply temperature"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Sensors.TemperatureTwoPort THwRet(
     redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mCon_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=THwRet_nominal) "HW return temperature"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Sensors.TemperatureTwoPort TChwRet(
     redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mEva_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=TChwRet_nominal) "CHW return temperature"
-    annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
+    annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
   Sensors.TemperatureTwoPort TChwSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mEva_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=TChwSup_nominal) "CHW supply temperature"
-    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
   Actuators.Valves.TwoWayTable  valHwIso(
     redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mCon_flow_nominal,
@@ -192,8 +186,8 @@ model TableData2DLoadDepSHC
     strokeTime=10,
     init=Modelica.Blocks.Types.Init.InitialState,
     dpFixed_nominal=hp.dpHw_nominal)
-    "HW isolation valve"
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+    "Equivalent actuator for modules' condenser barrels and HW isolation valves"
+    annotation (Placement(transformation(extent={{70,10},{90,30}})));
   Actuators.Valves.TwoWayTable  valChwIso(
     redeclare final package Medium = Medium,
     final m_flow_nominal=hp.mEva_flow_nominal,
@@ -201,84 +195,90 @@ model TableData2DLoadDepSHC
     init=Modelica.Blocks.Types.Init.InitialState,
     dpFixed_nominal=hp.dpChw_nominal,
     flowCharacteristics=hp.chaValChwIso)
-    "CHW isolation valve"
-    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
+    "Equivalent actuator for modules' evaporator barrels and CHW isolation valves"
+    annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni(nin=3)
     "Total number of enabled modules"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=
         "Number of enabled modules exceeds number of modules")
     "Assert condition on number of enabled modules"
-             annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+             annotation (Placement(transformation(extent={{130,-30},{150,-10}})));
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(t=hp.nUni)
     "True if number of enabled modules lower or equal to number of modules"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 equation
-  connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-128,72},{-120,72},{-120,
-          46},{-112,46}},    color={0,0,127}));
-  connect(THeaWatSupNom.y, min1.u2) annotation (Line(points={{-128,20},{-120,20},
-          {-120,34},{-112,34}},
-                              color={0,0,127}));
-  connect(min1.y, hp.THwSet) annotation (Line(points={{-88,40},{12,40},{12,4},{28,
-          4}},     color={0,0,127}));
-  connect(TChiWatSet.y[1], hp.TChwSet) annotation (Line(points={{-78,80},{14,80},
-          {14,0},{28,0}},  color={0,0,127}));
-  connect(on.y[1], hp.on) annotation (Line(points={{-78,120},{18,120},{18,-2},{28,
-          -2}},     color={255,0,255}));
-  connect(mode.y[1], hp.mode) annotation (Line(points={{-108,100},{16,100},{16,-4},
-          {28,-4}}, color={255,127,0}));
-  connect(TOut.y, weaBus.TDryBul) annotation (Line(points={{-130,140},{-98,140},
-          {-98,140.1},{-89.9,140.1}},color={0,0,127}));
+  connect(THeaWatSet.y, min1.u1) annotation (Line(points={{-128,40},{-120,40},{-120,
+          26},{-112,26}},    color={0,0,127}));
+  connect(THeaWatSupNom.y, min1.u2) annotation (Line(points={{-128,0},{-120,0},{
+          -120,14},{-112,14}},color={0,0,127}));
+  connect(min1.y, hp.THwSet) annotation (Line(points={{-88,20},{12,20},{12,-16},
+          {28,-16}},
+                   color={0,0,127}));
+  connect(TChiWatSet.y[1], hp.TChwSet) annotation (Line(points={{-88,60},{14,60},
+          {14,-20},{28,-20}},
+                           color={0,0,127}));
+  connect(on.y[1], hp.on) annotation (Line(points={{-88,100},{10,100},{10,-22},{
+          28,-22}}, color={255,0,255}));
+  connect(mode.y[1], hp.mode) annotation (Line(points={{-128,80},{16,80},{16,-24},
+          {28,-24}},color={255,127,0}));
+  connect(TOut.y, weaBus.TDryBul) annotation (Line(points={{-128,120},{-98,120},
+          {-98,120.1},{20.1,120.1}}, color={0,0,127}));
   connect(weaBus, hp.weaBus) annotation (Line(
-      points={{-90,140},{20,140},{20,40},{40,40},{40,10}},
+      points={{20,120},{20,20},{40,20},{40,-10}},
       color={255,204,51},
       thickness=0.5));
-  connect(THwEnt.y, hwIn.T_in) annotation (Line(points={{-128,-20},{-80,-20},{-80,
-          24},{-72,24}},
+  connect(THwEnt.y, hwIn.T_in) annotation (Line(points={{-128,-40},{-80,-40},{-80,
+          4},{-72,4}},
                      color={0,0,127}));
-  connect(TChwEnt.y, chwIn.T_in) annotation (Line(points={{-128,-80},{150,-80},{
-          150,-36},{144,-36}}, color={0,0,127}));
+  connect(TChwEnt.y, chwIn.T_in) annotation (Line(points={{-128,-100},{150,-100},
+          {150,-56},{144,-56}},color={0,0,127}));
   connect(THwSup.port_b, hwOut.ports[1])
-    annotation (Line(points={{120,40},{120,40}}, color={0,127,255}));
+    annotation (Line(points={{120,20},{120,20}}, color={0,127,255}));
   connect(hwIn.ports[1], THwRet.port_a)
-    annotation (Line(points={{-50,20},{-40,20}}, color={0,127,255}));
+    annotation (Line(points={{-50,0},{-40,0}},   color={0,127,255}));
   connect(THwRet.port_b, hp.port_a1)
-    annotation (Line(points={{-20,20},{20,20},{20,6},{30,6}},
+    annotation (Line(points={{-20,0},{20,0},{20,-14},{30,-14}},
                                                    color={0,127,255}));
   connect(chwIn.ports[1], TChwRet.port_a)
-    annotation (Line(points={{122,-40},{122,-40},{120,-40}},
+    annotation (Line(points={{122,-60},{120,-60}},
                                                  color={0,127,255}));
-  connect(TChwRet.port_b, hp.port_a2) annotation (Line(points={{100,-40},{60,-40},
-          {60,-6},{50,-6}}, color={0,127,255}));
+  connect(TChwRet.port_b, hp.port_a2) annotation (Line(points={{100,-60},{60,-60},
+          {60,-26},{50,-26}},
+                            color={0,127,255}));
   connect(chwOut.ports[1], TChwSup.port_b)
-    annotation (Line(points={{-50,-40},{-40,-40}}, color={0,127,255}));
-  connect(hp.port_b1, valHwIso.port_a) annotation (Line(points={{50,6},{60,6},{60,
-          40},{70,40}},    color={0,127,255}));
+    annotation (Line(points={{-50,-60},{-40,-60}}, color={0,127,255}));
+  connect(hp.port_b1, valHwIso.port_a) annotation (Line(points={{50,-14},{60,-14},
+          {60,20},{70,20}},color={0,127,255}));
   connect(valHwIso.port_b, THwSup.port_a)
-    annotation (Line(points={{90,40},{100,40}},color={0,127,255}));
+    annotation (Line(points={{90,20},{100,20}},color={0,127,255}));
   connect(TChwSup.port_a, valChwIso.port_b)
-    annotation (Line(points={{-20,-40},{-10,-40}},
+    annotation (Line(points={{-20,-60},{-10,-60}},
                                                color={0,127,255}));
-  connect(hp.port_b2, valChwIso.port_a) annotation (Line(points={{30,-6},{20,-6},
-          {20,-40},{10,-40}}, color={0,127,255}));
-  connect(hp.yValHwIso, valHwIso.y) annotation (Line(points={{48,11},{48,60},{80,
-          60},{80,52}}, color={0,0,127}));
-  connect(hp.yValChwIso, valChwIso.y) annotation (Line(points={{32,-11},{32,-20},
-          {0,-20},{0,-28}}, color={0,0,127}));
-  connect(hp.nUniHea, sumNumUni.u[1]) annotation (Line(points={{43,-12},{43,-20},
-          {62,-20},{62,-2.33333},{68,-2.33333}}, color={255,127,0}));
-  connect(hp.nUniCoo, sumNumUni.u[2]) annotation (Line(points={{40,-12},{40,-18},
-          {64,-18},{64,0},{68,0}}, color={255,127,0}));
-  connect(hp.nUniShc, sumNumUni.u[3]) annotation (Line(points={{37,-12},{37,-16},
-          {66,-16},{66,2.33333},{68,2.33333}}, color={255,127,0}));
+  connect(hp.port_b2, valChwIso.port_a) annotation (Line(points={{30,-26},{20,-26},
+          {20,-60},{10,-60}}, color={0,127,255}));
+  connect(hp.yValHwIso, valHwIso.y) annotation (Line(points={{48,-9},{48,40},{80,
+          40},{80,32}}, color={0,0,127}));
+  connect(hp.yValChwIso, valChwIso.y) annotation (Line(points={{32,-31},{32,-40},
+          {0,-40},{0,-48}}, color={0,0,127}));
+  connect(hp.nUniHea, sumNumUni.u[1]) annotation (Line(points={{43,-32},{43,-40},
+          {62,-40},{62,-22.3333},{68,-22.3333}}, color={255,127,0}));
+  connect(hp.nUniCoo, sumNumUni.u[2]) annotation (Line(points={{40,-32},{40,-38},
+          {64,-38},{64,-20},{68,-20}},
+                                   color={255,127,0}));
+  connect(hp.nUniShc, sumNumUni.u[3]) annotation (Line(points={{37,-32},{37,-36},
+          {66,-36},{66,-17.6667},{68,-17.6667}},
+                                               color={255,127,0}));
   connect(sumNumUni.y, intLesEquThr.u)
-    annotation (Line(points={{92,0},{98,0}}, color={255,127,0}));
+    annotation (Line(points={{92,-20},{98,-20}},
+                                             color={255,127,0}));
   connect(intLesEquThr.y, assMes.u)
-    annotation (Line(points={{122,0},{128,0}}, color={255,0,255}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,160}})),
+    annotation (Line(points={{122,-20},{128,-20}},
+                                               color={255,0,255}));
+  annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,160}}, grid={2,2})),
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDepSHC.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/TableData2DLoadDepSHC.mos"
         "Simulate and plot"),
     experiment(
       StopTime=5400,
@@ -286,24 +286,31 @@ equation
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
-This model validates the load calculation and staging logic of the block
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
-Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
+This model validates the hydronics and built-in control logic of
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC\">
+Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC</a>.
 </p>
 <p>
-The model represents a three-module system.
-The operating mode switches between simultaneous heating and cooling,
+The model represents a three-module system where the HW and CHW isolation
+valves are modeled using an equivalent actuator.
+The actuator model represents the parallel network of the modules'
+condenser or evaporator barrels in series with the HW or CHW isolation valves.
+It is parameterized with the flow characteristics calculated 
+by the heat pump model, and controlled by the output variables provided 
+by this model.
+The heat pump operating mode switches between simultaneous heating and cooling,
 heating only, and cooling only.
 The on/off command starts as <code>true</code> and is switched to
 <code>false</code> at the end.
 </p>
 <p>
-The validation is carried out by computing the tracked temperature
-using the heat flow rate calculated by the block, and feeding back
-this variable as input.
-It is then expected that the tracked temperature matches the setpoint.
-Note that a filtered value of the tracked temperature is used to avoid
-creating an algebraic loop.
+While the heat pump component is subjected to the design HW and CHW 
+differential pressures and return temperatures, the supply temperature 
+setpoints vary, creating a varying load.
+The validation then consists in verifying that the modules are effectively 
+staged in various modes to adapt to the load. Additionally, it confirms that the 
+isolation valve parameterization and controls result in HW and CHW flow rates
+that vary linearly with the number of enabled modules on each side.
 </p>
 </html>", revisions="<html>
 <ul>
