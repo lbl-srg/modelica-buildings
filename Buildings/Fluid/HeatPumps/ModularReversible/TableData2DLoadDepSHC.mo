@@ -164,7 +164,7 @@ model TableData2DLoadDepSHC
     "Staging part load ratio"
     annotation (Dialog(tab="Advanced - Staging logic"));
   parameter Modelica.Units.SI.TemperatureDifference dTSaf(
-    final min=0) = 3
+    final min=0) = 2
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
     annotation (Dialog(tab="Advanced - Safeties"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
@@ -359,7 +359,8 @@ where the capacity and power are interpolated from manufacturer
 data along the source and sink temperature and the part load ratio (PLR).<sup>1</sup>
 </p>
 <p>
-The model supports modeling both modular and single-unit systems.
+The model supports modeling both modular (<code>nUni > 1</code>) and 
+single-unit (<code>nUni = 1</code>) systems.
 When modeling modular systems, the staging logic for multiple modules is 
 included, but the HW and CHW isolation valves are not.
 However, the model includes the calculation of the flow characteristic
@@ -373,7 +374,7 @@ The model includes ideal controls that solve for the HW or CHW supply
 or return temperature setpoint within the capacity limit.
 The Boolean parameter <code>use_TLoaLvgForCtl</code> is used
 for toggling between supply or return temperature control.
-The default setting <code>use_TLoaLvgForCtl=true</code> corresponds to
+The default setting <code>use_TLoaLvgForCtl = true</code> corresponds to
 supply temperature control.
 </p>
 <p>
@@ -383,6 +384,7 @@ please refer to the documentation of
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
 This documentation also details the required format for the performance data file.
 </p>
+<h5>Footnotes</h5>
 <p>
 <sup>1</sup>
 The part load ratio is used as a proxy variable for the actual capacity modulation observable.
@@ -477,7 +479,7 @@ The actuator model can be parameterized with the flow characteristic
 <code>chaValHwIso</code> (resp. <code>chaValChwIso</code>) which is calculated by
 the current model to ensure that a fractional opening of <code>1 / i</code>
 results in a mass flow rate of <code>mCon_flow_nominal / i</code>
-(resp. <code>mEva_flow_nominal / i</code>) when the model is exposed to a
+(resp. <code>mEva_flow_nominal / i</code>) when the model is subjected to a
 differential pressure of <code>dpHw_nominal</code> on the HW side
 (resp. <code>dpChw_nominal</code> on the CHW side).
 The flow characteristic is calculated under the assumption that the 
@@ -494,7 +496,7 @@ and <code>dpValIso_nominal</code> is the isolation valve pressure drop at design
 <p>
 Note that at least one HW isolation valve (resp. CHW isolation valve) must be open 
 when the heat pump is in SHC or heating-only mode (resp. SHC or cooling-only mode),
-even if all modules are staged off. This is a requirement for proper load calculation 
+irrespective of any modules being staged on. This is a requirement for proper load calculation 
 in the staging logic. This requirement is taken into account in the calculation of
 the control variables for the equivalent actuator <code>yValHwIso</code> and <code>yValChwIso</code>.
 </p>
@@ -508,11 +510,11 @@ that showcase the use of this heat pump model in conjunction with equivalent
 actuator models in a primary-only and constant primary-secondary plant model.
 </p>
 <p>
-Alternatively, the model also provides the Boolean array connectors <code>y1HwValIsoPumPri</code> and 
-<code>y1ChwValIsoPumPri</code> that can be used to control an explicit parallel arrangement 
+Alternatively, the model also provides the Boolean array connectors <code>y1HwValIsoPumPri[nUni]</code> 
+and <code>y1ChwValIsoPumPri[nUni]</code> that can be used to control an explicit parallel arrangement 
 of isolation valves or primary pumps.
-These connectors use the same requirement as above and their first element is <code>true</code>
-based on the system operating mode command, even if all modules are staged off.
+These variables use the same requirement as above and their first element is <code>true</code>
+based on the system operating mode command, irrespective of any modules being staged on.
 </p>
 </html>"));
 end TableData2DLoadDepSHC;

@@ -291,8 +291,8 @@ equation
 This model validates the load calculation and staging logic of the block
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
-The two available control options are tested. 
-The component <code>hpSup</code> uses supply temperature control,
+The two available control options are tested: 
+the component <code>hpSup</code> uses supply temperature control,
 while the component <code>hpRet</code> uses return temperature control.
 </p>
 <p>
@@ -304,7 +304,8 @@ always <code>true</code>.
 The validation is carried out by computing the tracked temperature
 using the heat flow rate calculated by the block, and feeding back 
 this variable as input to the heat pump model.
-It is then expected that the tracked temperature matches the setpoint.
+It is then expected that the tracked temperature matches the setpoint,
+under the constraints of step-by-step staging and minimum stage runtime.
 Note that a filtered value of the tracked temperature is used to avoid
 creating an algebraic loop.
 </p>

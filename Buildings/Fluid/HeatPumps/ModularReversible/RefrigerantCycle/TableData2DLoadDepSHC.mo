@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
 model TableData2DLoadDepSHC
-  "Data-based model dependent on condenser and evaporator entering or leaving temperarure and PLR"
+  "Multipipe system data-based model dependent on source and sink temperature and PLR"
   extends Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
     final devIde=dat.devIde,
     final useInHeaPum=true,
@@ -51,7 +51,7 @@ model TableData2DLoadDepSHC
     "Staging part load ratio"
     annotation (Dialog(tab="Advanced - Staging logic"));
   parameter Modelica.Units.SI.TemperatureDifference dTSaf(
-    final min=0) = 3
+    final min=0) = 2
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
     annotation (Dialog(tab="Advanced - Safeties"));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cp[2](
@@ -235,8 +235,20 @@ This model serves as a wrapper class to integrate the block
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>
 into heat pump models.
-For a complete description of all modeling assumptions, 
-please refer to the documentation of this latter block.
+For a complete description of all modeling assumptions, please refer to the
+documentation of this latter block.
+</p>
+<h4>Implementation details</h4>
+<p>
+The modeling block 
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>
+provides the heat flow rate at both the condenser and evaporator.
+Therefore, the current block bypasses the calculation of 
+<code>QCon_flow</code> from <code>QEva_flow</code> provided by the base class
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle</a>.
+Instead, it uses the output variables from the modeling block directly.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-120},{140,120}}, grid={2,2})));

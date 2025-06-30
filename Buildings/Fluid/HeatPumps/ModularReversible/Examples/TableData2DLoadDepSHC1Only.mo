@@ -380,7 +380,7 @@ model TableData2DLoadDepSHC1Only
           pumChwPri.nPum) .+ pumChwPri.dpValChe_nominal,
       rho_default=Medium.d_const),
     final nPum=hp.nUni) "Primary CHW pumps"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+    annotation (Placement(transformation(extent={{-20,2},{0,22}})));
   Templates.Components.Routing.MultipleToSingle outPumChwPri(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -468,6 +468,30 @@ model TableData2DLoadDepSHC1Only
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyPumChwPri(nin=pumChwPri.nPum)
     "True if any primary CHW pump is proven on"
     annotation (Placement(transformation(extent={{-26,96},{-6,116}})));
+  FixedResistances.Junction junChwBypSup(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final m_flow_nominal=mChw_flow_nominal*{1,-1,-1},
+    final dp_nominal=fill(0, 3)) "CHW bypass supply junction"
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
+  FixedResistances.Junction junChwBypRet(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final m_flow_nominal=mChw_flow_nominal*{1,-1,1},
+    final dp_nominal=fill(0, 3)) "CHW bypass return junction"
+    annotation (Placement(transformation(extent={{50,-50},{30,-70}})));
+  FixedResistances.Junction junHwBypSup(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final m_flow_nominal=mHw_flow_nominal*{1,-1,-1},
+    final dp_nominal=fill(0, 3)) "HW bypass supply junction"
+    annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
+  FixedResistances.Junction junHwBypRet(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final m_flow_nominal=mHw_flow_nominal*{1,-1,1},
+    final dp_nominal=fill(0, 3)) "HW bypass return junction"
+    annotation (Placement(transformation(extent={{50,-250},{30,-270}})));
 equation
   connect(loaChw.port_b, valDisChw.port_a)
     annotation (Line(points={{130,-20},{150,-20}},
@@ -496,10 +520,10 @@ equation
   connect(TChwRetPre.y, min1.u1) annotation (Line(points={{-188,180},{-180,180},
           {-180,186},{-172,186}}, color={0,0,127}));
   connect(min1.y, loaChw.TSet)
-    annotation (Line(points={{-148,180},{24,180},{24,-12},{108,-12}},
+    annotation (Line(points={{-148,180},{22,180},{22,-12},{108,-12}},
                                                                  color={0,0,127}));
   connect(max2.y, loaHw.TSet)
-    annotation (Line(points={{-148,140},{22,140},{22,-212},{108,-212}},
+    annotation (Line(points={{-148,140},{20,140},{20,-212},{108,-212}},
                                                                    color={0,0,127}));
   connect(con.y, min1.u2)
     annotation (Line(points={{-238,160},{-180,160},{-180,174},{-172,174}},
@@ -572,12 +596,8 @@ equation
           {-84,-40},{-84,4},{-50,4},{-50,8}},   color={0,0,127}));
   connect(pChwRet.ports[1], hp.port_a2)
     annotation (Line(points={{-170,-100},{-170,-60}}, color={0,127,255}));
-  connect(pipHw.port_b, THwRetPla.port_a)
-    annotation (Line(points={{60,-260},{-110,-260}},color={0,127,255}));
   connect(THwRetPla.port_b, hp.port_a1) annotation (Line(points={{-130,-260},{
           -200,-260},{-200,-48},{-190,-48}}, color={0,127,255}));
-  connect(pipChw.port_b, TChwRetPla.port_a)
-    annotation (Line(points={{60,-60},{-110,-60}},color={0,127,255}));
   connect(TChwRetPla.port_b, hp.port_a2)
     annotation (Line(points={{-130,-60},{-170,-60}},color={0,127,255}));
   connect(dpHwHea.p_rel, ctlValHwByp.u_m) annotation (Line(points={{-91,-240},{
@@ -586,10 +606,6 @@ equation
           -180},{-30,-240},{28,-240}},color={0,0,127}));
   connect(dpHeaSet[1].y, ctlValHwByp.u_s) annotation (Line(points={{-238,70},{
           -80,70},{-80,-180},{-62,-180}}, color={0,0,127}));
-  connect(valHwByp.port_b, THwRetPla.port_a) annotation (Line(points={{40,-250},
-          {40,-260},{-110,-260}},color={0,127,255}));
-  connect(valChwByp.port_b, TChwRetPla.port_a)
-    annotation (Line(points={{40,-50},{40,-60},{-110,-60}},color={0,127,255}));
   connect(dpChwHea.port_a, TChwRetPla.port_a) annotation (Line(points={{-100,
           -50},{-100,-60},{-110,-60}},
                                 color={0,127,255}));
@@ -661,19 +677,11 @@ equation
   connect(mode.y, hp.mode) annotation (Line(points={{-152,240},{-226,240},{-226,
           -58},{-192,-58}}, color={255,127,0}));
 
-  connect(inlPumChwPri.ports_b, pumChwPri.ports_a)
-    annotation (Line(points={{-20,-20},{-20,-20}}, color={0,127,255}));
-  connect(pumChwPri.ports_b, outPumChwPri.ports_a)
-    annotation (Line(points={{0,-20},{0,-20}}, color={0,127,255}));
-  connect(outPumChwPri.port_b, loaChw.port_a)
-    annotation (Line(points={{20,-20},{110,-20}}, color={0,127,255}));
-  connect(outPumChwPri.port_b, valChwByp.port_a)
-    annotation (Line(points={{20,-20},{40,-20},{40,-30}}, color={0,127,255}));
   connect(ctlPumChwPri.y, busPumChwPri.y) annotation (Line(points={{-38,50},{
           -32,50},{-32,72},{-42,72},{-42,76},{-50,76}},
                                                     color={0,0,127}));
   connect(busPumChwPri, pumChwPri.bus) annotation (Line(
-      points={{-50,76},{-10,76},{-10,-10}},
+      points={{-50,76},{-10,76},{-10,22}},
       color={255,204,51},
       thickness=0.5));
   connect(busPumChwPri.y1_actual, ctlPumChwPri.y1_actual) annotation (Line(
@@ -746,10 +754,6 @@ equation
           255}));
   connect(VHwPri.V_flow, staPumHwPri.V_flow) annotation (Line(points={{-50,-209},
           {-50,-204},{-68,-204},{-68,-102},{-62,-102}}, color={0,0,127}));
-  connect(outPumHwPri.port_b, loaHw.port_a)
-    annotation (Line(points={{20,-220},{110,-220}}, color={0,127,255}));
-  connect(outPumHwPri.port_b, valHwByp.port_a) annotation (Line(points={{20,-220},
-          {40,-220},{40,-230}}, color={0,127,255}));
   connect(dpHwRem.p_rel, ctlPumHwPri.dpRem[1]) annotation (Line(points={{91,-240},
           {80,-240},{80,-134},{-66,-134},{-66,-150},{-62,-150}}, color={0,0,127}));
   connect(dpHwRem.p_rel, staPumHwPri.dp[1]) annotation (Line(points={{91,-240},
@@ -770,6 +774,34 @@ equation
                                                  color={255,0,255}));
   connect(anyPumChwPri.y, ctlValChwByp.uEna) annotation (Line(points={{-4,106},
           {0,106},{0,126},{-76,126},{-76,6},{-54,6},{-54,8}},   color={255,0,255}));
+  connect(valChwByp.port_a, junChwBypSup.port_3)
+    annotation (Line(points={{40,-30},{40,-30}}, color={0,127,255}));
+  connect(outPumChwPri.port_b, junChwBypSup.port_1)
+    annotation (Line(points={{20,-20},{30,-20}}, color={0,127,255}));
+  connect(junChwBypSup.port_2, loaChw.port_a)
+    annotation (Line(points={{50,-20},{110,-20}}, color={0,127,255}));
+  connect(pipChw.port_b, junChwBypRet.port_1)
+    annotation (Line(points={{60,-60},{50,-60}}, color={0,127,255}));
+  connect(junChwBypRet.port_3, valChwByp.port_b)
+    annotation (Line(points={{40,-50},{40,-50}}, color={0,127,255}));
+  connect(junChwBypRet.port_2, TChwRetPla.port_a)
+    annotation (Line(points={{30,-60},{-110,-60}}, color={0,127,255}));
+  connect(outPumHwPri.port_b, junHwBypSup.port_1)
+    annotation (Line(points={{20,-220},{30,-220}}, color={0,127,255}));
+  connect(valHwByp.port_a, junHwBypSup.port_3)
+    annotation (Line(points={{40,-230},{40,-230}}, color={0,127,255}));
+  connect(junHwBypSup.port_2, loaHw.port_a)
+    annotation (Line(points={{50,-220},{110,-220}}, color={0,127,255}));
+  connect(valHwByp.port_b, junHwBypRet.port_3)
+    annotation (Line(points={{40,-250},{40,-250}}, color={0,127,255}));
+  connect(pipHw.port_b, junHwBypRet.port_1)
+    annotation (Line(points={{60,-260},{50,-260}}, color={0,127,255}));
+  connect(junHwBypRet.port_2, THwRetPla.port_a)
+    annotation (Line(points={{30,-260},{-110,-260}}, color={0,127,255}));
+  connect(inlPumChwPri.ports_b, pumChwPri.ports_a)
+    annotation (Line(points={{-20,-20},{-20,12}}, color={0,127,255}));
+  connect(outPumChwPri.ports_a, pumChwPri.ports_b)
+    annotation (Line(points={{0,-20},{0,12}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file=
@@ -784,7 +816,7 @@ equation
 This model illustrates the use of
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC\">
 Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC</a>
-to model a primary-secondary heating and cooling plant.
+to model a primary-only heating and cooling plant.
 The simulation covers a <i>24</i>-hour period with overlapping heating and
 cooling loads.
 The heating loads reach their peak value first, the cooling loads reach it last.
@@ -794,7 +826,7 @@ The plant model includes the following components.
 </p>
 <ul>
 <li>
-Modular heat pump with three units
+Modular four-pipe heat pump with three units
 </li>
 <li>
 HW and CHW isolation valves represented by an equivalent actuator
@@ -812,11 +844,11 @@ controlled to maintain a constant &Delta;T and a modulating valve controlled to 
 a prescribed flow rate.
 </p>
 <p>
-The closed-loop controls use the following logical blocks.
+The closed-loop controls includes the following logic.
 </p>
 <ul>
 <li>
-Heating and cooling plant enable: see
+Heating and cooling plant enable: See
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Enabling.Enable\">
 Buildings.Templates.Plants.Controls.Enabling.Enable</a>.<br/>
 The HW and CHW plant requests used in this logic are generated 
@@ -849,8 +881,8 @@ Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure</a
 for the control logic.
 </li>
 <li>
-Minimum flow HW and CHW bypass valves controlled to maintain the heat pump header
-differential pressure at design value.
+Minimum flow HW and CHW bypass valves controlled to maintain the differential pressure 
+across the heat pump HW and CHW headers at design value.
 </li>
 </ul>
 <p>

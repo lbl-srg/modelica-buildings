@@ -122,7 +122,7 @@ block TableData2DLoadDepSHC
     "Staging part load ratio"
     annotation (Dialog(tab="Advanced - Staging logic"));
   parameter Modelica.Units.SI.TemperatureDifference dTSaf(
-    final min=0) = 3
+    final min=0) = 2
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
     annotation (Dialog(tab="Advanced - Safeties"));
   // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
@@ -561,7 +561,7 @@ equation
   if nUniShc > 0 then
     // Calculate PLR for modules in SHC mode
     // Using smoothLimit() instead of smoothMin(smoothMax()) below triggers chattering with OCT
-    PLRShcSaf = Buildings.Utilities.Math.Functions.smoothMin(
+    PLRShcSaf = min(
       Modelica.Math.Vectors.interpolate(
         cat(1, {0}, QHeaShcInt_flow),
         cat(1, {0}, PLRShcSor),
@@ -569,8 +569,7 @@ equation
       Modelica.Math.Vectors.interpolate(
         abs(cat(1, {0}, QCooShcInt_flow)),
         cat(1, {0}, PLRShcSor),
-        abs(QCooSaf_flow / max(1, nUniShc + nUniCoo))),
-      deltaX);
+        abs(QCooSaf_flow / max(1, nUniShc + nUniCoo))));
     PLRShcLoa = Buildings.Utilities.Math.Functions.smoothMin(
       Buildings.Utilities.Math.Functions.smoothMax(
         Modelica.Math.Vectors.interpolate(
