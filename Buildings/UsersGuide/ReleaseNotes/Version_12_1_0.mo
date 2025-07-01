@@ -29,12 +29,6 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">Package that contains an autotuning PID controller.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.AirFilters
-    </td>
-    <td valign=\"top\">Package of models for air filters.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
-    </td>
-</tr>
 </table>
 <!-- New components for existing libraries -->
 <!-- Backward compatible changes -->
