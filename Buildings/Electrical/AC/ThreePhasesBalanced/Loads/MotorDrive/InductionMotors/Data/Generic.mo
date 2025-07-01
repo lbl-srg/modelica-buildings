@@ -1,4 +1,4 @@
-﻿within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data;
+within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data;
 record Generic "Generic record of induction machine parameters"
   extends Modelica.Icons.Record;
   parameter Integer P = 4 "Number of Poles";

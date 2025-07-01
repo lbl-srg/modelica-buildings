@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "motDri.speBlo.tau_e",
+    "motDri.speBlo.tau_m",
+    "motDri.speBlo.N",
+    "sou.P.real",
+    "sou.P.apparent"
+  };
