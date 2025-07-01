@@ -198,8 +198,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=7200,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model validates the load calculation and staging logic of the block

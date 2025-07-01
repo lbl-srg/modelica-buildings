@@ -512,11 +512,12 @@ equation
     useHeaShc=if nUniShcRaw < nUni and nUniHeaShcRaw > nUniShcRaw then 1 else 0;
     useCooShc=if nUniShcRaw < nUni and nUniCooShcRaw > nUniShcRaw then 1 else 0;
   end when;
-  if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.heating then
+  if on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.heating
+       then
     useHea=1;
     useCoo=0;
-  elseif on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling
-    then
+  elseif on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.cooling
+       then
     useHea=0;
     useCoo=1;
   else
@@ -540,7 +541,8 @@ equation
   QHeaShcInt_flow=scaFacHeaShc *(PShcInt .- QCooShcInt_flow) / scaFacCooShc;
   // Calculate number of modules in SHC mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions near zero load)
-  if on and mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc then
+  if on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc
+       then
     nUniHeaShcRaw = integer(ceil((QHeaSetMea_flow - 10 * deltaX *
       QHeaShc_flow_nominal) / SPLR / max(
       cat(

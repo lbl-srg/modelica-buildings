@@ -100,8 +100,7 @@ This class provides the path to the external data file with the performance
 data (parameter <code>fileName</code>) as well as the PLR values at which
 capacity and power are specified (parameter <code>PLRSup</code>).
 The external data file must be formatted as specified in the documentation
-of the above block. Please also refer to this documentation for the definition
-of the parameter <code>PLRCyc_min</code>.
+of the above block.
 </p>
 </html>",
 revisions="<html>

@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatPumps;
+within Buildings.Fluid.HeatPumps.ModularReversible;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
@@ -12,5 +12,18 @@ package Types "Package with type definitions"
     constant Integer heating = 1 "Heating only";
     constant Integer cooling = 2 "Cooling only";
     constant Integer shc = 3 "Simultaneous heating and cooling";
+    annotation(
+      Documentation(info="<html>
+<p>
+This package defines integer constants to specify the operating modes of 
+simultaneous heating and cooling systems.
+</p>
+</html>"));
   end OperatingModes;
+annotation(
+  Documentation(info="<html>
+<p>
+This package contains type definitions.
+</p>
+</html>"));
 end Types;

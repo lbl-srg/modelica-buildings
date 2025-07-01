@@ -124,7 +124,7 @@ model TableData2DLoadDepSHC
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal) "Filter to avoid algebraic loop"
     annotation (Placement(transformation(extent={{50,30},{30,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=Buildings.Fluid.HeatPumps.Types.OperatingModes.shc)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
     "Operating mode command"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni(nin=3)

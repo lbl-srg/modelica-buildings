@@ -68,10 +68,9 @@ model TableData2DLoadDepSHC
     "Refrigerant cycle module for the cooling mode";
   // The following parameter is for future support of 6-pipe systems.
   // Currently only 4-pipe systems are implemented.
-  final parameter Buildings.Fluid.HeatPumps.Types.HeatPump typ=
-    Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater
-    "System type"
-    annotation(Evaluate=true);
+  final parameter Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump
+    typ=Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump.AirToWater
+    "System type" annotation (Evaluate=true);
   parameter Integer nUni(min=1)=1
     "Number of modules";
   parameter Boolean use_TLoaLvgForCtl=true
@@ -121,7 +120,7 @@ model TableData2DLoadDepSHC
     annotation (Dialog(group="Nominal condition - Cooling"));
   parameter Boolean allowFlowReversalAmb = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for ambient-side medium"
-    annotation(Dialog(tab="Assumptions", enable=typ==Buildings.Fluid.HeatPumps.Types.HeatPump.WaterToWater),
+    annotation(Dialog(tab="Assumptions", enable=typ == Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump.WaterToWater),
     Evaluate=true);
   final parameter Real scaFacHea(
     unit="1")=refCyc.refCycHeaPumHea.calQUseP.scaFacHea
@@ -188,15 +187,16 @@ model TableData2DLoadDepSHC
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
         iconTransformation(extent={{-138,-18},{-102,18}})));
   BoundaryConditions.WeatherData.Bus weaBus
-    if typ==Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater
+    if typ == Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump.AirToWater
     "Weather bus"
     annotation (Placement(
         transformation(extent={{-20,160},{20,200}}), iconTransformation(extent={{-10,90},
             {10,110}})));
-  // FIXME: bindings to ambient parameters
-  Templates.Plants.Controls.Utilities.PlaceholderReal TAmbIn(final have_inp=typ ==
-        Buildings.Fluid.HeatPumps.Types.HeatPump.AirToWater, have_inpPh=true)
-    "Ambient-side fluid inlet temperature" annotation (Placement(transformation(
+  // The following block is to prepare future support of six-pipe systems.
+  Templates.Plants.Controls.Utilities.PlaceholderReal TAmbIn(final have_inp=typ
+         == Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump.AirToWater,
+      have_inpPh=true) "Ambient-side fluid inlet temperature" annotation (
+      Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-16,144})));
@@ -247,45 +247,38 @@ model TableData2DLoadDepSHC
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-60,-110})));
-  Modelica.Blocks.Sources.BooleanExpression calY1ValChwIso[nUni](
-    y={on and (
-         mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling or
-         mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) and
-       (i == 1 or nUniShc + nUniCoo >= i) for i in 1:nUni})
+  Modelica.Blocks.Sources.BooleanExpression calY1ValChwIso[nUni](y={on and (
+        mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.cooling
+         or mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
+         and (i == 1 or nUniShc + nUniCoo >= i) for i in 1:nUni})
     "Calculate CHW isolation valve command" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,50})));
-  Modelica.Blocks.Sources.RealExpression calYValHwIso(
-    y=if on and (
-      mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.heating or
-      mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) then
-      max(1, nUniShc + nUniHea) / nUni else 0)
-    "Calculate equivalent HW isolation valve command"
-    annotation (
-      Placement(transformation(
+  Modelica.Blocks.Sources.RealExpression calYValHwIso(y=if on and (mode ==
+        Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.heating
+         or mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
+         then max(1, nUniShc + nUniHea)/nUni else 0)
+    "Calculate equivalent HW isolation valve command" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,110})));
-  Modelica.Blocks.Sources.RealExpression calYValChwIso(
-    y=if on and (
-      mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.cooling or
-      mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) then
-      max(1, nUniShc + nUniCoo) / nUni else 0)
-    "Calculate equivalent CHW isolation valve command"
-    annotation (
-      Placement(transformation(
+  Modelica.Blocks.Sources.RealExpression calYValChwIso(y=if on and (mode ==
+        Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.cooling
+         or mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
+         then max(1, nUniShc + nUniCoo)/nUni else 0)
+    "Calculate equivalent CHW isolation valve command" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,90})));
-  Modelica.Blocks.Sources.BooleanExpression calY1ValHwIso[nUni](
-    y={on and (
-         mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.heating or
-         mode == Buildings.Fluid.HeatPumps.Types.OperatingModes.shc) and
-       (i == 1 or nUniShc + nUniHea >= i) for i in 1:nUni})
-    "Calculate HW isolation valve command"
-    annotation (Placement(transformation(
+  Modelica.Blocks.Sources.BooleanExpression calY1ValHwIso[nUni](y={on and (mode
+         == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.heating
+         or mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
+         and (i == 1 or nUniShc + nUniHea >= i) for i in 1:nUni})
+    "Calculate HW isolation valve command" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,70})));
@@ -359,9 +352,9 @@ where the capacity and power are interpolated from manufacturer
 data along the source and sink temperature and the part load ratio (PLR).<sup>1</sup>
 </p>
 <p>
-The model supports modeling both modular (<code>nUni > 1</code>) and 
+The model supports modeling both modular (<code>nUni > 1</code>) and
 single-unit (<code>nUni = 1</code>) systems.
-When modeling modular systems, the staging logic for multiple modules is 
+When modeling modular systems, the staging logic for multiple modules is
 included, but the HW and CHW isolation valves are not.
 However, the model includes the calculation of the flow characteristic
 of an equivalent actuator model to simplify the modeling of isolation valves.
@@ -378,7 +371,7 @@ The default setting <code>use_TLoaLvgForCtl = true</code> corresponds to
 supply temperature control.
 </p>
 <p>
-For a comprehensive description of the algorithm and underlying assumptions, 
+For a comprehensive description of the algorithm and underlying assumptions,
 please refer to the documentation of
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
@@ -405,9 +398,9 @@ On/off command signal: <code>on</code>
 <li>System operating mode command: <code>mode</code>
 (integer, scalar)<br/>
 Based on the mode definitions from
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Types.OperatingModes\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes\">
 Buildings.Fluid.HeatPumps.Types.OperatingModes</a>
-and the logic described in 
+and the logic described in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
 </li>
@@ -432,7 +425,7 @@ The following output points are available.
 HW isolation valve commanded position: <code>yValHwIso</code>
 (real, scalar)<br/>
 This is a real scalar signal (not a Boolean vector) that is provided to control
-a single instance of 
+a single instance of
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPolynomial\">
 Buildings.Fluid.Actuators.Valves.TwoWayPolynomial</a>
 as an equivalent for the modules' HW isolation valves, see Section \"Implementation details\".
@@ -441,7 +434,7 @@ as an equivalent for the modules' HW isolation valves, see Section \"Implementat
 CHW isolation valve commanded position: <code>yValChwIso</code>
 (real, scalar)<br/>
 This is a real scalar signal (not a Boolean vector) that is provided to control
-a single instance of 
+a single instance of
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPolynomial\">
 Buildings.Fluid.Actuators.Valves.TwoWayPolynomial</a>
 as an equivalent for the modules' CHW isolation valves, see Section \"Implementation details\".
@@ -464,27 +457,27 @@ CHW isolation valves (two-position) or primary pumps, see Section \"Implementati
 Modular systems are typically installed with HW and CHW isolation valves for each module.
 The model does not include these valves.
 Furthermore, the model aggregates all modules into an equivalent heating or cooling system.
-For integration into a plant model, the recommended approach consists of using 
-a single instance of 
+For integration into a plant model, the recommended approach consists of using
+a single instance of
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPolynomial\">
 Buildings.Fluid.Actuators.Valves.TwoWayPolynomial</a>
-to represent the parallel network of HW isolation valves in series with the 
-modules' condenser barrels, and another instance to represent the parallel network of 
+to represent the parallel network of HW isolation valves in series with the
+modules' condenser barrels, and another instance to represent the parallel network of
 CHW isolation valves in series with the modules' evaporator barrels.
 The heat pump model must then be configured with <code>use_preDro = false</code>
 to inhibit the heat exchanger pressure drop calculation.
 </p>
 <p>
-The actuator model can be parameterized with the flow characteristic 
+The actuator model can be parameterized with the flow characteristic
 <code>chaValHwIso</code> (resp. <code>chaValChwIso</code>) which is calculated by
 the current model to ensure that a fractional opening of <code>1 / i</code>
 results in a mass flow rate of <code>mCon_flow_nominal / i</code>
 (resp. <code>mEva_flow_nominal / i</code>) when the model is subjected to a
 differential pressure of <code>dpHw_nominal</code> on the HW side
 (resp. <code>dpChw_nominal</code> on the CHW side).
-The flow characteristic is calculated under the assumption that the 
-heat pump heat exchanger flow resistance is lumped with the actuator 
-flow resistance, which yields the following expression for the characteristic:  
+The flow characteristic is calculated under the assumption that the
+heat pump heat exchanger flow resistance is lumped with the actuator
+flow resistance, which yields the following expression for the characteristic:
 </p>
 <code>&phi;(y) = (y<sup>2</sup> * dpValIso_nominal /
 (dpValIso_nominal + dp&lt;Hw|Chw&gt;_nominal * (1 - y<sup>2</sup>)))<sup>1/2</sup></code>,
@@ -494,13 +487,13 @@ when a number of <code>i</code> modules are enabled on the HW or CHW side,
 and <code>dpValIso_nominal</code> is the isolation valve pressure drop at design flow.
 </p>
 <p>
-Note that at least one HW isolation valve (resp. CHW isolation valve) must be open 
+Note that at least one HW isolation valve (resp. CHW isolation valve) must be open
 when the heat pump is in SHC or heating-only mode (resp. SHC or cooling-only mode),
-irrespective of any modules being staged on. This is a requirement for proper load calculation 
+irrespective of any modules being staged on. This is a requirement for proper load calculation
 in the staging logic. This requirement is taken into account in the calculation of
 the control variables for the equivalent actuator <code>yValHwIso</code> and <code>yValChwIso</code>.
 </p>
-<p>This approach is illustrated in the example models 
+<p>This approach is illustrated in the example models
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1Only\">
 Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1Only</a>
 and
@@ -510,8 +503,8 @@ that showcase the use of this heat pump model in conjunction with equivalent
 actuator models in a primary-only and constant primary-secondary plant model.
 </p>
 <p>
-Alternatively, the model also provides the Boolean array connectors <code>y1HwValIsoPumPri[nUni]</code> 
-and <code>y1ChwValIsoPumPri[nUni]</code> that can be used to control an explicit parallel arrangement 
+Alternatively, the model also provides the Boolean array connectors <code>y1HwValIsoPumPri[nUni]</code>
+and <code>y1ChwValIsoPumPri[nUni]</code> that can be used to control an explicit parallel arrangement
 of isolation valves or primary pumps.
 These variables use the same requirement as above and their first element is <code>true</code>
 based on the system operating mode command, irrespective of any modules being staged on.

@@ -282,8 +282,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=5400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model validates the hydronics and built-in control logic of

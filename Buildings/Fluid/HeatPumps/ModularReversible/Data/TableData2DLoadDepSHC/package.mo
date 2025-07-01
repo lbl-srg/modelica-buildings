@@ -5,7 +5,7 @@ package TableData2DLoadDepSHC
 
   annotation (Documentation(info="<html>
 <p>
-This package contains parameter records for load-dependent data-based heat pump models.
+This package contains parameter records for multipipe heat pump data-based models.
 </p>
 </html>"));
 end TableData2DLoadDepSHC;
