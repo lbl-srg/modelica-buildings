@@ -765,7 +765,7 @@ solving for the part load ratio required to meet the load (more precisely the mi
 between the load and the actual capacity for the current source and sink temperatures).
 This is done by interpolating the PLR values along the heat flow rate values
 for a given load.
-As described in Section \"Load balancing of modules in SHC mode\", the part load ratio
+As described in Section \"Load balancing between the HW and CHW side\", the part load ratio
 for modules in SHC mode is the maximum between the PLR values for the heating load and
 the cooling load.
 </p>
