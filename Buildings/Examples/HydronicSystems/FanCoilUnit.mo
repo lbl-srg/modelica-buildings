@@ -52,7 +52,7 @@ model FanCoilUnit
     annotation (Placement(transformation(extent={{-9,-9},{9,9}},
       rotation=90,origin={51,-49})));
 
-   Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor floor1(
+   Buildings.Examples.VAVReheat.BaseClasses.Floor floor1(
      redeclare package Medium = MediumA)
      "Thermal zone model"
      annotation (Placement(transformation(extent={{62,76},{140,120}})));
@@ -61,19 +61,21 @@ model FanCoilUnit
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
-    mHotWat_flow_nominal={0.21805,5*0.53883,0.33281,5*0.50946,0.33236},
+    mHotWat_flow_nominal={0.21805,5*0.53883,1*0.33281,5*0.50946,3*0.33236},
     dpAir_nominal=fill(100, 5),
-    UAHeaCoi_nominal={2.25*146.06,2.25*146.06,2.25*146.06,2.25*146.06,2.25*146.06},
-    mChiWat_flow_nominal={0.23106,0.30892,0.18797,0.2984,0.18781},
+    UAHeaCoi_nominal={2.25*146.06*1.75,2.25*146.06,2.25*146.06*1.5,2.25*146.06*4,2.25*146.06*5},
+    mChiWat_flow_nominal={0.23106*1.5,0.30892,0.18797,0.2984,0.18781},
     UACooCoi_nominal={2.25*146.06,2.25*146.06,2.25*146.06,2.25*146.06,2.25*146.06},
-    mAir_flow_nominal=2*{0.9,0.222,0.1337,1.5*0.21303,1.5*0.137},
+    mAir_flow_nominal={0.9/1.5,0.222*2,0.1337,0.21303,0.137}*3,
     QHeaCoi_flow_nominal={6036.5,8070.45,4910.71,7795.7,4906.52})
     "Fan coil units"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU[5](
     final TiCoo=fill(200, 5),
-    final TiHea=fill(200, 5),
+    heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    kHea=0.05,
+    final TiHea=fill(120, 5),
     kCooCoi=fill(0.05, 5),
     final TiCooCoi=fill(200, 5),
     kHeaCoi=fill(0.05, 5),
@@ -121,8 +123,9 @@ protected
     "Unoccupied heating temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[5](final t=fill(0.01,
-        5), final h=fill(0.005, 5))
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[5](
+    final t=fill(0.01,5),
+    final h=fill(0.005, 5))
     "Check if fan speed is above threshold for proven on signal"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
