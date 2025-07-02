@@ -291,8 +291,8 @@ equation
           {36,-36},{51,-36},{51,-40}}, color={0,127,255}));
   connect(fanCoiUni.port_CHW_b, sinCoo.ports) annotation (Line(points={{32,20},
           {32,-36},{31,-36},{31,-40}}, color={0,127,255}));
-  connect(tim.passed, conFCU.u1Fan) annotation (Line(points={{-78,-118},{-68,
-          -118},{-68,-1},{-42,-1}},   color={255,0,255}));
+  connect(tim.passed, conFCU.u1Fan) annotation (Line(points={{-78,-118},{-60,
+          -118},{-60,-1},{-42,-1}},   color={255,0,255}));
   connect(fanCoiUni.yFan_actual, greThr.u) annotation (Line(points={{42,38},{76,
           38},{76,-130},{-152,-130},{-152,-110},{-142,-110}},    color={0,0,127}));
   connect(weaDat.weaBus, floor1.weaBus) annotation (Line(
