@@ -12,7 +12,7 @@ model FanCoilUnit
 
   Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 6000,
+    p(displayUnit="Pa") = 300000 + 12000,
     T=333.15,
     nPorts=5)
     "Source for hot water"
@@ -61,27 +61,28 @@ model FanCoilUnit
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
-    mHotWat_flow_nominal={0.21805,5*0.53883,1*0.33281,5*0.50946,3*0.33236},
+    mHotWat_flow_nominal={2.5*0.21805,7.5*0.53883,0.5*0.33281,7.5*0.50946,6*0.33236}*2,
     dpAir_nominal=fill(100, 5),
-    UAHeaCoi_nominal={2.25*146.06*1.75,2.25*146.06,2.25*146.06*1.5,2.25*146.06*4,2.25*146.06*5},
-    mChiWat_flow_nominal={0.23106*1.5,0.30892,0.18797,0.2984,0.18781},
-    UACooCoi_nominal={2.25*146.06,2.25*146.06,2.25*146.06,2.25*146.06,2.25*146.06},
-    mAir_flow_nominal={0.9/1.5,0.222*2,0.1337,0.21303,0.137}*3,
+    UAHeaCoi_nominal={2.25*146.06*2.5,2.25*146.06*2,2.25*146.06*1.5,2.25*146.06*6,
+        2.25*146.06*7.5}*1.1,
+    mChiWat_flow_nominal={0.23106*1.5,2*0.30892,0.18797,0.2984,0.18781},
+    UACooCoi_nominal={2.25*146.06,2.25*146.06*1.5,2.25*146.06,2.25*146.06,2.25*146.06},
+    mAir_flow_nominal={0.9/1.5,0.222*2,0.1337*2,0.21303*2,0.137*2}*3,
     QHeaCoi_flow_nominal={6036.5,8070.45,4910.71,7795.7,4906.52})
     "Fan coil units"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU[5](
-    final TiCoo=fill(200,5),
+    final TiCoo=fill(200, 5),
     final heaConTyp=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI,5),
-    final kHea=fill(0.05,5),
-    final TiHea=fill(120,5),
-    final kCooCoi=fill(0.05,5),
-    final TiCooCoi=fill(200,5),
-    final kHeaCoi=fill(0.05,5),
-    final TiHeaCoi=fill(200,5),
-    final TSupSet_max=fill(308.15,5),
-    final TSupSet_min=fill(285.85,5))
+    final kHea=fill(0.05, 5),
+    final TiHea=fill(120, 5),
+    final kCooCoi=fill(0.05, 5),
+    final TiCooCoi=fill(200, 5),
+    final kHeaCoi=fill(0.05, 5),
+    final TiHeaCoi=fill(300, 5),
+    final TSupSet_max=fill(308.15, 5),
+    final TSupSet_min=fill(285.85, 5))
     "Fan coil unit controller"
     annotation (Placement(transformation(extent={{-40,-6},{0,54}})));
 
