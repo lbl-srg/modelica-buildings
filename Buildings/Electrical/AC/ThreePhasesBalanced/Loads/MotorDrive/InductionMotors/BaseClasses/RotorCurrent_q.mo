@@ -20,8 +20,10 @@ model RotorCurrent_q "q-axis rotor current calculation block"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
   der_i_qr = (((v_qr)/Lr)-((Rr*i_qr)/Lr)-((der_i_qs*Lm)/Lr)-(omega_r*i_dr)-((omega_r*Lm*i_ds)/Lr));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This block computes q-axis rotor current for the models in 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>"));
 end RotorCurrent_q;

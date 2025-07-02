@@ -22,8 +22,10 @@ model RotorCurrent_d "d-axis rotor current calculation block"
 initial equation
 equation
   der_i_dr = (((v_dr)/Lr)-((Rr*i_dr)/Lr)-((der_i_ds*Lm)/Lr)+(omega_r*i_qr)+((omega_r*Lm*i_qs)/Lr));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This block computes d-axis rotor current for the models in 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>"));
 end RotorCurrent_d;

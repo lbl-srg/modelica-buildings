@@ -9,7 +9,8 @@ model SquirrelCageDrive
     constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record with Induction Machine performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,64},{80,84}})));
-
+  parameter Boolean reverseActing = true
+  "Default: Set to true for reverseActing in heating and set to false in cooling mode";
   parameter Boolean have_controller = true
     "Set to true for enable PID control, False for simple speed control";
   parameter Modelica.Blocks.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -101,7 +102,7 @@ model SquirrelCageDrive
     final yMin=yMin,
     final k=k,
     final Ti=Ti,
-    final reverseActing=true)
+    final reverseActing=reverseActing)
     "PI controller as variable frequency drive"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -139,12 +140,11 @@ equation
 
   connect(Vrms.y, VFDvol.u1) annotation (Line(points={{-55,56},{-28,56},{-28,36},
           {-22,36}}, color={0,0,127}));
-  connect(torSpe.V_rms, VFDvol.y) annotation (Line(points={{16.8333,-1.55556},{
-          16.8333,30},{1,30}},
-                         color={0,0,127}));
+  connect(torSpe.V_rms, VFDvol.y) annotation (Line(points={{16.6,-2.8},{16.6,30},
+          {1,30}},       color={0,0,127}));
   connect(torSpe.f, VFDfre.y)
-    annotation (Line(points={{16.8333,-6.22222},{10.0714,-6.22222},{10.0714,-10},
-          {1,-10}},                            color={0,0,127}));
+    annotation (Line(points={{16.6,-7},{10.0714,-7},{10.0714,-10},{1,-10}},
+                                               color={0,0,127}));
   connect(speBlo.tau_m, tau_m) annotation (Line(points={{24,-70},{-160,-70}},
                             color={0,0,127}));
   connect(angFre1.y, integrator.u) annotation (Line(points={{-55,70},{-4,70}},
@@ -159,19 +159,18 @@ equation
                                 color={0,0,127}));
   connect(speed.flange, shaft)
     annotation (Line(points={{80,0},{100,0}}, color={0,0,0}));
-  connect(torSpe.omega_r, speBlo.omega_r) annotation (Line(points={{16.8333,
-          -10.8889},{4,-10.8889},{4,-26},{52,-26},{52,-63.9},{47.9,-63.9}},
-                                                         color={0,0,127}));
-  connect(speBlo.omega_r1, speed.w_ref) annotation (Line(points={{47.9,-70.3},{47.9,
-          -68},{56,-68},{56,0},{62.4,0}},               color={0,0,127}));
+  connect(torSpe.omega_r, speBlo.omega_r) annotation (Line(points={{16.6,-11.2},
+          {4,-11.2},{4,-26},{52,-26},{52,-64},{48,-64}}, color={0,0,127}));
+  connect(speBlo.omega_r1, speed.w_ref) annotation (Line(points={{48,-70},{48,-68},
+          {56,-68},{56,0},{62.4,0}},                    color={0,0,127}));
   connect(fre.y, VFDfre.u2)
     annotation (Line(points={{-49,-50},{-28,-50},{-28,-16},{-22,-16}},
                                                  color={0,0,127}));
   connect(VFDfre.u1, VFDvol.u2) annotation (Line(points={{-22,-4},{-28,-4},{-28,
           24},{-22,24}},
                      color={0,0,127}));
-  connect(torSpe.tau_e, speBlo.tau_e) annotation (Line(points={{35.5,-6.22222},{
-          50,-6.22222},{50,-42},{16,-42},{16,-64},{24,-64}},
+  connect(torSpe.tau_e, speBlo.tau_e) annotation (Line(points={{33.4,-7},{50,-7},
+          {50,-42},{16,-42},{16,-64},{24,-64}},
         color={0,0,127}));
   connect(switch1.y, VFDvol.u2) annotation (Line(points={{-39,-4},{-28,-4},{-28,
           24},{-22,24}}, color={0,0,127}));

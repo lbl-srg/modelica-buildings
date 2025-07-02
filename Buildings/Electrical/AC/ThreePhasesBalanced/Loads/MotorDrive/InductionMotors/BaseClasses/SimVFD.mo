@@ -58,4 +58,10 @@ equation
     annotation (Line(points={{118,40},{118,40}}, color={0,0,127}));
   connect(gain.y, Freq_out)
     annotation (Line(points={{81,40},{118,40}}, color={0,0,127}));
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This block computes the VFD by maintaining constant ratio for the models in 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>"));
 end SimVFD;

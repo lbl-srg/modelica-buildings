@@ -41,9 +41,7 @@ equation
           -66},{-8,2},{-4,2}},   color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(
-      StopTime=2,
-      Tolerance=1e-06),
+    experiment(Tolerance=1e-6,StartTime=0,StopTime=2),
 __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Examples/SquirrelCageDrive.mos"
       "Simulate and plot"),

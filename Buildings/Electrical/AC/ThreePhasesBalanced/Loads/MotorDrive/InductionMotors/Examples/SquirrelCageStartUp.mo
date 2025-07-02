@@ -1,5 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Examples;
 model SquirrelCageStartUp
+  "Squirrel cage induction motor start up performance"
     extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=26.5) "Load torque"
@@ -19,7 +20,7 @@ equation
                          color={0,120,120}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(Tolerance=1e-06, StopTime=1),
+    experiment(Tolerance=1e-6,StartTime=0,StopTime=1),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Examples/SquirrelCageStartUp.mos"
       "Simulate and plot"),

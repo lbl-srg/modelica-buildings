@@ -16,4 +16,10 @@ algorithm
   v_ds:= V_rms;
 algorithm
   v_qs:= 0;
+ annotation (preferredView="info", Documentation(info="<html>
+<p>
+This block convert the stator voltage from its root mean square (RMS) value into q-axis and d-axis voltages for the models in 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>"));
 end VoltageConversion;

@@ -16,7 +16,10 @@ model TorqueBlock "Calculate Electromagnetic torque using stator and rotor curre
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
   tau_e = ((i_qs*i_dr)-(i_ds*i_qr))*(3/2)*(P/(2))*Lm;
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+  annotation (preferredView="info", Documentation(info="<html>
+<p>
+This block computes the electrical torque for the models in 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>"));
 end TorqueBlock;

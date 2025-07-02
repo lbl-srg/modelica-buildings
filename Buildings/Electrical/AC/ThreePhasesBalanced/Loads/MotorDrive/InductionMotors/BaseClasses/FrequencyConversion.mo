@@ -11,5 +11,10 @@ block FrequencyConversion
 
 algorithm
   omega := 2*Modelica.Constants.pi*f;
-
+ annotation (preferredView="info", Documentation(info="<html>
+<p>
+This block computes the angular frequency for the models in 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>"));
 end FrequencyConversion;

@@ -10,4 +10,21 @@ record IM_10HP_400V_50Hz =
       Rr = 0.7402 "Rotor Resistance [ohm]",
       Freq = 50 "Standard Frequency [Hz]",
       Voltage = 400) "Generic 10hp motor operating at 400V and 50Hz"
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
+   annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "per",
+  Documentation(preferredView="info",
+  info="<html>
+<p>
+This is the record of parameters for Induction Machine models from MATLAB
+<code>(IM10HP400V50Hz)</code>
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+May 7, 2024, by Viswanathan Ganesh:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

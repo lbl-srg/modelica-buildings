@@ -53,7 +53,10 @@ equation
           -48},{30,0},{38,0}},    color={0,0,127}));
   connect(omega_r1, gain1.u) annotation (Line(points={{120,0},{80,0},{80,-48},{30,
           -48},{30,0},{38,0}},     color={0,0,127}));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+ annotation (preferredView="info", Documentation(info="<html>
+<p>
+This block computes the rotor speed for the models in 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>"));
 end SpeedBlock;
