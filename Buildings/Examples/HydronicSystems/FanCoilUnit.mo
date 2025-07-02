@@ -72,16 +72,16 @@ model FanCoilUnit
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU[5](
-    final TiCoo=fill(200, 5),
-    heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    kHea=0.05,
-    final TiHea=fill(120, 5),
-    kCooCoi=fill(0.05, 5),
-    final TiCooCoi=fill(200, 5),
-    kHeaCoi=fill(0.05, 5),
-    final TiHeaCoi=fill(200, 5),
-    each TSupSet_max=308.15,
-    each TSupSet_min=285.85)
+    final TiCoo=fill(200,5),
+    final heaConTyp=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI,5),
+    final kHea=fill(0.05,5),
+    final TiHea=fill(120,5),
+    final kCooCoi=fill(0.05,5),
+    final TiCooCoi=fill(200,5),
+    final kHeaCoi=fill(0.05,5),
+    final TiHeaCoi=fill(200,5),
+    final TSupSet_max=fill(308.15,5),
+    final TSupSet_min=fill(285.85,5))
     "Fan coil unit controller"
     annotation (Placement(transformation(extent={{-40,-6},{0,54}})));
 
