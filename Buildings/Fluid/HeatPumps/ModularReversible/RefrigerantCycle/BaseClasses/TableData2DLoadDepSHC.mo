@@ -1008,19 +1008,4 @@ First implementation.
         extent={{-150,210},{150,170}},
         textString="%name",
         textColor={0,0,255})}));
-  // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
-  // Binding equations yield incorrect results but no error!
-  // Compute total heating and cooling loads
-  // Compute capacity given actual temperatures
-  // Compute number of modules in SHC mode and PLR for these modules
-  // (deltaX guards against numerical residuals influencing stage transitions near zero load)
-    // Compute PLR for modules in SHC mode
-    // Compute thermal output of module in SHC mode without single-mode cycling
-    // Excess thermal output
-    // Compute SHC cycling ratio to balance heating and cooling loads
-    // ratCycShc=1 means perfect balance (no cycling): module continuously runs in SHC.
-    // Compute PLR and thermal output of SHC module cycling into single-mode
-  // Compute residual loads, number of single-mode modules and PLR
-  // (deltaX guards against numerical residuals influencing stage transitions near zero load)
-  // Compute total heating and cooling flow rate and power
 end TableData2DLoadDepSHC;
