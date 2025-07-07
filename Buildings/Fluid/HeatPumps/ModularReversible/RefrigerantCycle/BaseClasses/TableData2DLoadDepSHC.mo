@@ -734,6 +734,13 @@ Module staging
 Load balancing between the HW and CHW side
 </li>
 </ul>
+<p>
+The method used to interpolate capacity and power based on user-provided data is 
+taken from 
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
+Users should be familiar with this latter block before continuing with this documentation.
+</p>
 <h4>System and module operating mode</h4>
 <p>
 The block input <code>mode</code> allows switching between three system operating modes.
@@ -892,7 +899,14 @@ parallel arrangement and controlled at the same setpoint.
 This implies that each module connected to the HW (resp. CHW) loop handles an
 equal fraction of the total heating (resp. cooling) load, irrespective of whether
 the module operates in SHC or single mode.
-The heating or cooling load of each module in SHC mode can then be calculated as:</p>
+This assumption is strictly true on the dominant side.
+However, as explained below, it is only partially true on the non-dominant side where 
+setpoint deviations occur in the modules with excess thermal output and in 
+the compensating module.
+</p>
+<p>
+Based on this assumption, on the dominant side, the heating or cooling load of each 
+module in SHC mode can be calculated as:</p>
 <code>Q&lt;Hea|Coo&gt;SetUniShc_flow = Q&lt;Hea|Coo&gt;Set_flow / (nUniShc + nUni&lt;Hea|Coo&gt;)</code>.
 <p>
 Now, in order to achieve load balancing between the CHW and HW sides for the
@@ -945,18 +959,6 @@ expression of the cycling ratio for this module:</p>
 continuously runs in SHC mode, and <code>ratCycShc = 0</code> means that the module continuously
 runs in single mode.</p>
 <p>
-Note that since <code>SPLR &lt; 1</code>, the excess heating or cooling load may exceed the
-capacity of a single module. In this case, the load deficit is \"transferred\" to the remaining modules
-running in single mode. In a real system where the modules are hydronically balanced, this would
-force single-mode modules to operate at a different setpoint to compensate for the setpoint
-overshoot by SHC modules.
-However, the model \"numerically absorbs\" this by simply reducing the residual load
-that the remaining modules must handle. The temperature setpoint discrepancy is neglected,
-creating a modeling uncertainty that is acceptable given the error magnitude
-(<code>1 - SPLR</code> times the design &Delta;T) and partial cancellation of opposing errors
-from SHC modules (setpoint overshoot) and single-mode modules (setpoint undershoot).
-</p>
-<p>
 The actual heating or cooling heat flow rate of the modules in SHC mode is:</p>
 <code>Q&lt;Hea|Coo&gt;Shc_flow = (nUniShc - 1 + ratCycShc) * f&lt;Hea|Coo&gt;Shc(PLRShc)</code>.
 <p>
@@ -977,6 +979,30 @@ can now be calculated as:</p>
 <p>
 which ultimately allows calculating the PLR value of these modules and their contribution
 to the total heating and cooling output of the bank.
+</p>
+<h4>Implementation limitations</h4>
+<p>
+The load balancing logic relies on a subset of modules producing excess heat flow rate 
+while another module compensates for it.
+The fundamental assumption of even load between modules therefore breaks down on 
+the non-dominant side.
+In a real system where the modules are hydronically balanced, this imbalance yields 
+varying leaving temperatures across modules.
+In the worst case, the deviation from setpoint is <code>SPLR / 2</code> times the 
+design &Delta;T.
+</p>
+<p>
+In addition, since <code>SPLR &lt; 1</code>, the excess heating or cooling load may 
+exceed the capacity of a single module. In this case, the load deficit is \"transferred\" 
+to the remaining modules running in single mode. 
+Here, the error magnitude is only <code>1 - SPLR</code> times the design &Delta;T.
+</p>
+<p>
+These temperature discrepancies are neglected in the model which \"numerically absorbs\" 
+them by simply adjusting the load that each module must handle. 
+This creates a modeling uncertainty that is deemed acceptable given the error magnitude
+and partial cancellation of opposing errors from modules that exhibit setpoint overshoot
+and modules that exhibit setpoint undershoot.
 </p>
 <h4>References</h4>
 <ul>
