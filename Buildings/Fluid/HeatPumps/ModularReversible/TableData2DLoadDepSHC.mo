@@ -107,10 +107,10 @@ model TableData2DLoadDepSHC
   parameter Modelica.Units.SI.Power P_min(final min=0)=0
     "Remaining power when system is enabled with all compressors cycled off";
   parameter Modelica.Units.SI.Temperature TConHea_nominal
-    "HW temperature: leaving if dat.use_TConOutForTab=true, entering otherwie"
+    "HW temperature: leaving if dat.use_TConOutForTab=true, entering otherwise"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
-    "Evaporator heating fluid temperature: leaving if dat.use_TAmbOutForTab=true, entering otherwie"
+    "Evaporator heating fluid temperature: leaving if dat.use_TAmbOutForTab=true, entering otherwise"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TConCoo_nominal
     "CHW temperature: leaving if dat.use_TEvaOutForTab=true, entering otherwise"

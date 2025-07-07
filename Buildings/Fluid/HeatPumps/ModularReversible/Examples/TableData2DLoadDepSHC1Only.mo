@@ -271,7 +271,7 @@ model TableData2DLoadDepSHC1Only
         rotation=-90,
         origin={-100,-40})));
   Sensors.RelativePressure dpHwHea(redeclare final package Medium = Medium)
-    "Mpdule HW header differential pressure" annotation (Placement(
+    "Module HW header differential pressure" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
@@ -839,8 +839,8 @@ HW and CHW minimum flow bypass valves
 </li>
 </ul>
 <p>
-A unique aggregated load is modeled on each loop by means of a cooling or heating component 
-controlled to maintain a constant &Delta;T and a modulating valve controlled to track 
+A unique aggregated load is modeled on each loop by means of a cooling or heating component
+controlled to maintain a constant &Delta;T and a modulating valve controlled to track
 a prescribed flow rate.
 </p>
 <p>
@@ -851,19 +851,19 @@ The closed-loop controls includes the following logic.
 Heating and cooling plant enable: See
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Enabling.Enable\">
 Buildings.Templates.Plants.Controls.Enabling.Enable</a>.<br/>
-The HW and CHW plant requests used in this logic are generated 
+The HW and CHW plant requests used in this logic are generated
 based on an opening threshold of <i>10&nbsp;&percnt;</i> of the equivalent
 terminal valves.
 </li>
 <li>
 Heat pump operating mode:
-When the heating plant is enabled and the cooling plant is disabled, the heat 
+When the heating plant is enabled and the cooling plant is disabled, the heat
 pump is commanded in heating-only mode.
-When the cooling plant is enabled and the heating plant is disabled, the heat 
+When the cooling plant is enabled and the heating plant is disabled, the heat
 pump is commanded in cooling-only mode.
-When both the cooling plant and the heating plant are enabled, the heat 
+When both the cooling plant and the heating plant are enabled, the heat
 pump is commanded in simultaneous heating and cooling mode.
-When both the cooling plant and the heating plant are disabled, the heat 
+When both the cooling plant and the heating plant are disabled, the heat
 pump is commanded off.
 </li>
 <li>
@@ -881,7 +881,7 @@ Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure</a
 for the control logic.
 </li>
 <li>
-Minimum flow HW and CHW bypass valves controlled to maintain the differential pressure 
+Minimum flow HW and CHW bypass valves controlled to maintain the differential pressure
 across the heat pump HW and CHW headers at design value.
 </li>
 </ul>
@@ -905,8 +905,8 @@ remote differential pressure setpoint.
 </li>
 <li>
 modulating the minimum flow bypass valve to keep the header differential pressure
-at its design value, which, in conjunction with the isolation valves' control, 
-effectively results in a flowrate through the heat pump heat exchangers varying 
+at its design value, which, in conjunction with the isolation valves' control,
+effectively results in a flowrate through the heat pump heat exchangers varying
 linearly with the number of enabled modules on each loop.
 </li>
 </ul>

@@ -900,19 +900,19 @@ Three headered variable-speed secondary HW and CHW pumps
 </li>
 </ul>
 <p>
-A unique aggregated load is modeled on each loop by means of a cooling or heating component 
-controlled to maintain a constant &Delta;T and a modulating valve controlled to track 
+A unique aggregated load is modeled on each loop by means of a cooling or heating component
+controlled to maintain a constant &Delta;T and a modulating valve controlled to track
 a prescribed flow rate.
 </p>
 <p>
-The closed-loop controls use mostly the same logic as the one described in 
+The closed-loop controls use mostly the same logic as the one described in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1Only\">
 Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1Only</a>.
 Only the logic that differs is presented below.
 </p>
 <ul>
 <li>
-Primary HW and CHW pumps staged based on the number of modules enabled in each mode:
+Primary HW and CHW pump staging based on the number of modules enabled in each mode:
 See
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered\">
 Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered</a>.
