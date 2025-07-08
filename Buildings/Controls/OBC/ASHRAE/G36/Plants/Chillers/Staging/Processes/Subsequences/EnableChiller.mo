@@ -93,9 +93,6 @@ protected
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nChi)
     "Replicate boolean input"
@@ -153,8 +150,6 @@ equation
     annotation (Line(points={{-220,0},{-162,0}}, color={255,0,255}));
   connect(booToRea.y, triSam.u)
     annotation (Line(points={{-138,0},{-22,0}}, color={0,0,127}));
-  connect(edg.y, booRep1.u)
-    annotation (Line(points={{-78,-20},{-62,-20}}, color={255,0,255}));
   connect(booRep1.y, triSam.trigger)
     annotation (Line(points={{-38,-20},{-10,-20},{-10,-12}},   color={255,0,255}));
   connect(triSam.y, greEquThr.u)
@@ -204,9 +199,6 @@ equation
   connect(intEqu1.y, and3.u2)
     annotation (Line(points={{-78,-150},{20,-150},{20,-118},{38,-118}},
       color={255,0,255}));
-  connect(uStaUp, edg.u)
-    annotation (Line(points={{-220,60},{-190,60},{-190,-20},{-102,-20}},
-      color={255,0,255}));
   connect(uStaUp, booRep4.u)
     annotation (Line(points={{-220,60},{-190,60},{-190,40},{-42,40}},
       color={255,0,255}));
@@ -238,6 +230,8 @@ equation
     annotation (Line(points={{-78,-118},{-40,-118},{-40,-178},{158,-178}},
       color={255,0,255}));
 
+  connect(uStaUp, booRep1.u) annotation (Line(points={{-220,60},{-190,60},{-190,
+          -20},{-62,-20}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaChi",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

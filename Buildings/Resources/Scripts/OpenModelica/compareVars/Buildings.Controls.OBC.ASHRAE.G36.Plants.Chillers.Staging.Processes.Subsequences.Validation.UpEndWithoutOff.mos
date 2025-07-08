@@ -9,7 +9,6 @@ compareVars :=
     "endUp.yChi[1]",
     "endUp.yChi[2]",
     "endUp.yChiWatMinSet",
-    "endUp.yEndSta",
     "triSam.u",
     "triSam.y"
   };

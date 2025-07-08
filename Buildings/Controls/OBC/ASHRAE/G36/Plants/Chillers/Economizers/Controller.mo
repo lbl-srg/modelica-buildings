@@ -223,9 +223,10 @@ block Controller "Waterside economizer (WSE) enable/disable status"
         iconTransformation(extent={{-140,-130},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiIsoVal[nChi](
-    final unit="1",
-    final min=0,
-    final max=1) if have_priOnl and have_parChi
+    final unit=fill("1", nChi),
+    final min=fill(0, nChi),
+    final max=fill(1, nChi))
+                 if have_priOnl and have_parChi
     "Measured chiller isolation valve position"
     annotation (Placement(transformation(extent={{-220,-240},{-180,-200}}),
         iconTransformation(extent={{-140,-150},{-100,-110}})));
