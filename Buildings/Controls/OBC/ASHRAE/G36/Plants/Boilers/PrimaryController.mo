@@ -50,7 +50,8 @@ model PrimaryController "Boiler plant primary loop controller"
 
   parameter Integer nIgnReq(
     final min=0) = 0
-    "Number of hot-water requests to be ignored before enabling boiler plant loop"
+    "Number of hot-water plant requests to be ignored before enabling boiler plant
+    loop"
     annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Integer nBoi
@@ -83,10 +84,10 @@ model PrimaryController "Boiler plant primary loop controller"
       enable = have_priOnl));
 
   parameter Integer numIgnReq = 0
-    "Number of ignored requests"
+    "Number of ignored primary pump speed reset requests"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable= speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable= have_temRegPri));
 
   parameter Integer nPumPri_nominal(
     final max=nPumPri,
@@ -714,13 +715,19 @@ model PrimaryController "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{-440,400},{-400,440}}),
       iconTransformation(extent={{-140,360},{-100,400}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatIsoVal[nBoi]
+    if have_heaPriPum
+    "Boiler isolation valve open status"
+    annotation (Placement(transformation(extent={{-440,-380},{-400,-340}}),
+      iconTransformation(extent={{-140,-320},{-100,-280}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq
     "Plant requests"
     annotation (Placement(transformation(extent={{-440,330},{-400,370}}),
       iconTransformation(extent={{-140,280},{-100,320}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TSupResReq
-    "Hot water supply temperature reset requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput resReq
+    "Hot water reset requests"
     annotation (Placement(transformation(extent={{-440,360},{-400,400}}),
       iconTransformation(extent={{-140,320},{-100,360}})));
 
@@ -815,11 +822,6 @@ model PrimaryController "Boiler plant primary loop controller"
     "Measured differential pressure between hot water supply and return in primary circuit"
     annotation (Placement(transformation(extent={{-440,-240},{-400,-200}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatIsoVal[nBoi]
-    if have_heaPriPum "Boiler isolation valve open status"
-    annotation (Placement(transformation(extent={{-440,-380},{-400,-340}}),
-      iconTransformation(extent={{-140,-320},{-100,-280}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler enable signal"
@@ -1353,8 +1355,8 @@ equation
   connect(conInt2.y, priPumCon.uPumLeaLag) annotation (Line(points={{82,-128},{
           86,-128},{86,-152.933},{118,-152.933}},
                                             color={255,127,0}));
-  connect(plaReq, plaEna.supResReq) annotation (Line(points={{-420,350},{-360,350},
-          {-360,330},{-342,330}},      color={255,127,0}));
+  connect(plaReq, plaEna.plaReq) annotation (Line(points={{-420,350},{-360,350},
+          {-360,330},{-342,330}}, color={255,127,0}));
   connect(reaToInt.u, triSam.y)
     annotation (Line(points={{-110,-40},{-114,-40}},
                                                    color={0,0,127}));
@@ -1558,9 +1560,9 @@ equation
           {-230,60},{-30,60}},color={255,0,255}));
   connect(and2.y, dowProCon.uStaDowPro) annotation (Line(points={{-6,60},{74,60},
           {74,35},{118,35}}, color={255,0,255}));
-  connect(TSupResReq, hotWatSupTemRes.nHotWatSupResReq) annotation (Line(points=
-         {{-420,380},{-256,380},{-256,200},{-144,200},{-144,184},{-142,184}},
-        color={255,127,0}));
+  connect(resReq, hotWatSupTemRes.nHotWatSupResReq) annotation (Line(points={{-420,
+          380},{-256,380},{-256,200},{-144,200},{-144,184},{-142,184}}, color={
+          255,127,0}));
   connect(uPriPum, hotWatSupTemRes.uHotWatPumSta) annotation (Line(points={{-420,
           -300},{-28,-300},{-28,28},{-158,28},{-158,188},{-142,188}}, color={255,
           0,255}));

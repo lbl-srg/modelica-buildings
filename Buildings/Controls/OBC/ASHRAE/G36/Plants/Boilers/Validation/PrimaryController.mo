@@ -387,15 +387,12 @@ equation
   connect(truDel6.u, controller2.yPriPum) annotation (Line(points={{258,100},{254,
           100},{254,43.5},{242,43.5}},
                                    color={255,0,255}));
-  connect(conInt.y, controller.TSupResReq) annotation (Line(points={{-318,160},{
-          -266,160},{-266,89.7},{-262,89.7}},
-                                            color={255,127,0}));
-  connect(conInt.y, controller1.TSupResReq) annotation (Line(points={{-318,160},
-          {-6,160},{-6,89.7},{-2,89.7}},
-                                       color={255,127,0}));
-  connect(conInt.y, controller2.TSupResReq) annotation (Line(points={{-318,160},
-          {212,160},{212,89.7},{218,89.7}},
-                                          color={255,127,0}));
+  connect(conInt.y, controller.resReq) annotation (Line(points={{-318,160},{-266,
+          160},{-266,89.7},{-262,89.7}}, color={255,127,0}));
+  connect(conInt.y, controller1.resReq) annotation (Line(points={{-318,160},{-6,
+          160},{-6,89.7},{-2,89.7}}, color={255,127,0}));
+  connect(conInt.y, controller2.resReq) annotation (Line(points={{-318,160},{
+          212,160},{212,89.7},{218,89.7}}, color={255,127,0}));
   connect(truDel.y, pre1.u)
     annotation (Line(points={{-198,140},{-192,140}}, color={255,0,255}));
   connect(pre2.u, truDel1.y)

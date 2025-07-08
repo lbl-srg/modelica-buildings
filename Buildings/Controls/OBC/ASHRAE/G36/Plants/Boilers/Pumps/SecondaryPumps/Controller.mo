@@ -210,8 +210,9 @@ block Controller
     annotation (Placement(transformation(extent={{-320,70},{-280,110}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPumSta[nPumPri] if not have_varSecPum
-    "Primary pumps operating status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPum[nPumPri]
+    if not have_varSecPum
+    "Primary pumps enable signals"
     annotation (Placement(transformation(extent={{-320,-176},{-280,-136}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
@@ -221,8 +222,8 @@ block Controller
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
       iconTransformation(extent={{-140,162},{-100,202}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
-    "Hot water supply reset requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput resReq
+    "Hot water reset requests"
     annotation (Placement(transformation(extent={{-320,20},{-280,60}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
@@ -609,8 +610,8 @@ equation
   connect(pumSpeRemDp.yHotWatPumSpe, min.u2) annotation (Line(points={{-38,-370},
           {146,-370},{146,-406},{158,-406}}, color={0,0,127}));
 
-  connect(uPriPumSta, booToInt1.u) annotation (Line(points={{-300,-156},{-252,-156}},
-                                    color={255,0,255}));
+  connect(uPriPum, booToInt1.u)
+    annotation (Line(points={{-300,-156},{-252,-156}}, color={255,0,255}));
 
   connect(mulSumInt1.y, intGre.u1) annotation (Line(points={{-178,-156},{-124,-156},
           {-124,-190},{-62,-190}},      color={255,127,0}));
@@ -621,8 +622,8 @@ equation
   connect(intLes.y, not1.u)
     annotation (Line(points={{-28,-240},{0,-240}},  color={255,0,255}));
 
-  connect(supResReq, enaHeaLeaPum.supResReq) annotation (Line(points={{-300,40},
-          {-220,40},{-220,82},{-202,82}}, color={255,127,0}));
+  connect(resReq, enaHeaLeaPum.supResReq) annotation (Line(points={{-300,40},{-220,
+          40},{-220,82},{-202,82}}, color={255,127,0}));
 
   connect(chaPumSta1.yHotWatPum, chaPumSta4.uHotWatPum) annotation (Line(points={{80,78},
           {100,78},{100,42},{50,42},{50,18},{56,18}},         color={255,0,255}));

@@ -293,9 +293,6 @@ annotation (
   Block updates boiler hot water isolation valve enabling-disabling status when 
   there is stage change command (<code>chaPro=true</code>). It will also generate 
   status <code>yEnaHotWatIsoVal</code> to indicate if the valve status change process has finished.
-  This block is not based on any specific section in ASHRAE Guideline 36, 2021,
-  but has been designed to carry out the hot water isolation valve operations in
-  the staging sequences defined in 5.21.3.
   </p>
   <ul>
   <li>

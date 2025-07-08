@@ -274,14 +274,14 @@ equation
           36},{138,36}}, color={255,127,0}));
   connect(secLoo2.nReq, addInt.u2) annotation (Line(points={{62,76},{80,76},{80,
           24},{138,24}}, color={255,127,0}));
-  connect(addInt.y, conBoiPri.TSupResReq) annotation (Line(points={{162,30},{
-          170,30},{170,90},{-50,90},{-50,34},{-42,34}}, color={255,127,0}));
+  connect(addInt.y, conBoiPri.resReq) annotation (Line(points={{162,30},{170,30},
+          {170,90},{-50,90},{-50,34},{-42,34}}, color={255,127,0}));
   connect(addInt.y, conBoiPri.plaReq) annotation (Line(points={{162,30},{170,30},
           {170,90},{-50,90},{-50,30},{-42,30}}, color={255,127,0}));
-  connect(secLoo1.nReq,conPumSec1. supResReq) annotation (Line(points={{62,156},
-          {70,156},{70,174},{-20,174},{-20,154},{-12,154}}, color={255,127,0}));
-  connect(secLoo2.nReq,conPumSec2. supResReq) annotation (Line(points={{62,76},{
-          80,76},{80,86},{-18,86},{-18,66},{-10,66}}, color={255,127,0}));
+  connect(secLoo1.nReq, conPumSec1.resReq) annotation (Line(points={{62,156},{
+          70,156},{70,174},{-20,174},{-20,154},{-12,154}}, color={255,127,0}));
+  connect(secLoo2.nReq, conPumSec2.resReq) annotation (Line(points={{62,76},{80,
+          76},{80,86},{-18,86},{-18,66},{-10,66}}, color={255,127,0}));
   connect(secLoo1.dPSec,conPumSec1. dpHotWat_remote[1]) annotation (Line(points={{62,144},
           {72,144},{72,176},{-22,176},{-22,138},{-12,138}},          color={0,0,
           127}));

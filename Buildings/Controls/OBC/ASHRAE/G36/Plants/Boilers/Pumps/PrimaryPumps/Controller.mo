@@ -45,7 +45,7 @@ block Controller
     annotation (Dialog(group="Plant parameters"));
 
   parameter Integer numIgnReq = 0
-    "Number of ignored requests"
+    "Number of ignored primary pump speed reset requests"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
       enable= speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));

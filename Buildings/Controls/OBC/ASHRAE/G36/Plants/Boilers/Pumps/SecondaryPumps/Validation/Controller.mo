@@ -493,9 +493,8 @@ equation
   connect(reaToInt.u, pul.y)
     annotation (Line(points={{-242,160},{-248,160}}, color={0,0,127}));
 
-  connect(reaToInt.y,secPumCon. supResReq) annotation (Line(points={{-218,160},{
-          -210,160},{-210,180},{-126,180},{-126,166},{-102,166}},     color={255,
-          127,0}));
+  connect(reaToInt.y, secPumCon.resReq) annotation (Line(points={{-218,160},{-210,
+          160},{-210,180},{-126,180},{-126,166},{-102,166}}, color={255,127,0}));
 
   connect(booPul1.y,secPumCon1. uPlaEna) annotation (Line(points={{72,210},{140,
           210},{140,160},{198,160}}, color={255,0,255}));
@@ -503,8 +502,8 @@ equation
   connect(pul1.y, reaToInt1.u)
     annotation (Line(points={{62,170},{68,170}}, color={0,0,127}));
 
-  connect(reaToInt1.y,secPumCon1. supResReq) annotation (Line(points={{92,170},
-          {164,170},{164,156},{198,156}},    color={255,127,0}));
+  connect(reaToInt1.y, secPumCon1.resReq) annotation (Line(points={{92,170},{
+          164,170},{164,156},{198,156}}, color={255,127,0}));
 
   connect(booPul2.y,secPumCon2. uPlaEna) annotation (Line(points={{-238,60},{
           -164,60},{-164,0},{-102,0}},
@@ -513,8 +512,8 @@ equation
   connect(pul2.y, reaToInt2.u)
     annotation (Line(points={{-238,20},{-222,20}}, color={0,0,127}));
 
-  connect(reaToInt2.y,secPumCon2. supResReq) annotation (Line(points={{-198,20},
-          {-168,20},{-168,-4},{-102,-4}},     color={255,127,0}));
+  connect(reaToInt2.y, secPumCon2.resReq) annotation (Line(points={{-198,20},{-168,
+          20},{-168,-4},{-102,-4}}, color={255,127,0}));
 
   connect(booPul3.y,secPumCon3. uPlaEna) annotation (Line(points={{62,40},{134,40},
           {134,-20},{198,-20}},
@@ -523,8 +522,8 @@ equation
   connect(pul3.y, reaToInt3.u)
     annotation (Line(points={{62,0},{78,0}},   color={0,0,127}));
 
-  connect(reaToInt3.y,secPumCon3. supResReq) annotation (Line(points={{102,0},{
-          128,0},{128,-24},{198,-24}},color={255,127,0}));
+  connect(reaToInt3.y, secPumCon3.resReq) annotation (Line(points={{102,0},{128,
+          0},{128,-24},{198,-24}}, color={255,127,0}));
 
   connect(booPul4.y,secPumCon4. uPlaEna) annotation (Line(points={{-218,-170},{
           -164,-170},{-164,-200},{-102,-200}},
@@ -533,14 +532,13 @@ equation
   connect(pul4.y, reaToInt4.u)
     annotation (Line(points={{-228,-210},{-222,-210}}, color={0,0,127}));
 
-  connect(reaToInt4.y,secPumCon4. supResReq) annotation (Line(points={{-198,
-          -210},{-180,-210},{-180,-204},{-102,-204}},
-                                                    color={255,127,0}));
+  connect(reaToInt4.y, secPumCon4.resReq) annotation (Line(points={{-198,-210},
+          {-180,-210},{-180,-204},{-102,-204}}, color={255,127,0}));
 
-  connect(booPul4.y,secPumCon4. uPriPumSta[1]) annotation (Line(points={{-218,-170},
+  connect(booPul4.y, secPumCon4.uPriPum[1]) annotation (Line(points={{-218,-170},
           {-164,-170},{-164,-212.5},{-102,-212.5}}, color={255,0,255}));
 
-  connect(booPul5.y,secPumCon4. uPriPumSta[2]) annotation (Line(points={{-218,-250},
+  connect(booPul5.y, secPumCon4.uPriPum[2]) annotation (Line(points={{-218,-250},
           {-170,-250},{-170,-211.5},{-102,-211.5}}, color={255,0,255}));
 
   connect(pul5.y,secPumCon. uMaxSecPumSpeCon) annotation (Line(points={{-238,110},

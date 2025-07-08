@@ -14,7 +14,7 @@ block Speed_temperature
     annotation(Dialog(group="Pump parameters"));
 
   parameter Integer numIgnReq=0
-    "Number of ignored requests"
+    "Number of ignored primary pump speed reset requests"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
   parameter Real boiDesFlo[nBoi]
