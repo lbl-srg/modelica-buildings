@@ -74,7 +74,7 @@ block Coupled
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -142,9 +142,6 @@ equation
     annotation (Line(points={{-140,0},{-102,0}}, color={0,0,127}));
   connect(proOn.y, anyProOn.u)
     annotation (Line(points={{-78,0},{-62,0}}, color={255,0,255}));
-  connect(anyProOn.y, conPID.trigger)
-    annotation (Line(points={{-38,0},{0,0},{0,30},{-76,30},{-76,68}},
-      color={255,0,255}));
   connect(uChi, swi1.u2)
     annotation (Line(points={{-140,-80},{-62,-80}}, color={255,0,255}));
   connect(one1.y, swi1.u3)
@@ -173,7 +170,8 @@ equation
     annotation (Line(points={{42,-80},{50,-80},{50,8},{78,8}}, color={0,0,127}));
   connect(swi.y,ySpeSet)
     annotation (Line(points={{102,0},{140,0}}, color={0,0,127}));
-
+  connect(anyProOn.y, conPID.uEna) annotation (Line(points={{-38,0},{0,0},{0,30},
+          {-74,30},{-74,68}}, color={255,0,255}));
 annotation (
   defaultComponentName="couTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),

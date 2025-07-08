@@ -54,8 +54,9 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nSen](
-      final unit=fill("Pa", nSen), final quantity=fill("PressureDifference",
-        nSen)) "Chilled water differential static pressure setpoint"
+    final unit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference",nSen))
+    "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe(
@@ -72,7 +73,7 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{140,-40},{180,0}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID1(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID1(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -90,7 +91,7 @@ block Speed_primary_localDp
   Buildings.Controls.OBC.CDL.Reals.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID[nSen](
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
@@ -143,8 +144,6 @@ protected
 equation
   connect(conPID.y, maxRemDP.u)
     annotation (Line(points={{22,-20},{38,-20}}, color={0,0,127}));
-  connect(booRep.y, conPID.trigger)
-    annotation (Line(points={{-18,-40},{4,-40},{4,-32}}, color={255,0,255}));
   connect(maxRemDP.y, locDpSet.u)
     annotation (Line(points={{62,-20},{98,-20}}, color={0,0,127}));
   connect(zer.y, locDpSet.x1)
@@ -186,7 +185,7 @@ equation
   connect(one.y, conPID1.u_s)
     annotation (Line(points={{-98,20},{-90,20},{-90,60},{-42,60}}, color={0,0,127}));
   connect(div1.y, conPID1.u_m)
-    annotation (Line(points={{-78,80},{-60,80},{-60,32},{-30,32},{-30,48}},
+    annotation (Line(points={{-78,80},{-60,80},{-60,26},{-30,26},{-30,48}},
       color={0,0,127}));
   connect(pumSpe.y, swi.u1)
     annotation (Line(points={{122,60},{130,60},{130,100},{80,100},{80,128},{98,128}},
@@ -201,15 +200,16 @@ equation
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{-98,-40},{-50,-40},{-50,120},{98,120}},
       color={255,0,255}));
-  connect(mulOr.y, conPID1.trigger)
-    annotation (Line(points={{-98,-40},{-50,-40},{-50,-20},{-36,-20},{-36,48}},
-      color={255,0,255}));
   connect(uChiWatPum, mulOr.u)
     annotation (Line(points={{-160,-40},{-122,-40}},color={255,0,255}));
   connect(dpChiWatSet_remote, div.u2) annotation (Line(points={{-160,-120},{-80,
           -120},{-80,-106},{-42,-106}}, color={0,0,127}));
   connect(locDpSet.y, dpChiWatPumSet_local)
     annotation (Line(points={{122,-20},{160,-20}}, color={0,0,127}));
+  connect(booRep.y, conPID.uEna)
+    annotation (Line(points={{-18,-40},{6,-40},{6,-32}}, color={255,0,255}));
+  connect(mulOr.y, conPID1.uEna) annotation (Line(points={{-98,-40},{-50,-40},{-50,
+          32},{-34,32},{-34,48}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

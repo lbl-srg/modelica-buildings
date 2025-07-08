@@ -51,7 +51,7 @@ block BypassValve
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -94,12 +94,12 @@ equation
     annotation (Line(points={{-120,40},{-82,40}}, color={255,0,255}));
   connect(uPla, and1.u2) annotation (Line(points={{-120,80},{-90,80},{-90,32},{-82,
           32}}, color={255,0,255}));
-  connect(and1.y, conPID.trigger) annotation (Line(points={{-58,40},{-40,40},{-40,
-          -20},{-6,-20},{-6,-12}}, color={255,0,255}));
   connect(and1.y, swi.u2) annotation (Line(points={{-58,40},{-40,40},{-40,-20},{
           58,-20}}, color={255,0,255}));
   connect(and1.y, yConWatIsoVal)
     annotation (Line(points={{-58,40},{120,40}}, color={255,0,255}));
+  connect(and1.y, conPID.uEna) annotation (Line(points={{-58,40},{-40,40},{-40,-20},
+          {-4,-20},{-4,-12}}, color={255,0,255}));
 annotation (defaultComponentName = "wseVal",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

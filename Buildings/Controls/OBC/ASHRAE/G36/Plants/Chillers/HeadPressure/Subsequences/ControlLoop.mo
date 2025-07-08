@@ -52,7 +52,7 @@ block ControlLoop
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -84,11 +84,10 @@ equation
     annotation (Line(points={{-38,-40},{-22,-40}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{2,-40},{30,-40},{30,48}}, color={0,0,127}));
-  connect(uHeaPreEna, conPID.trigger)
-    annotation (Line(points={{-120,20},{24,20},{24,48}}, color={255,0,255}));
   connect(TChiWatSup, lif.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,
           -46},{-62,-46}}, color={0,0,127}));
-
+  connect(uHeaPreEna, conPID.uEna)
+    annotation (Line(points={{-120,20},{26,20},{26,48}}, color={255,0,255}));
 annotation (
   defaultComponentName= "chiHeaPreLoo",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

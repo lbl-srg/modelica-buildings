@@ -78,7 +78,8 @@ block LessCoupled
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
     final min=fill(0, nConWatPum),
     final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
+    final unit=fill("1", nConWatPum))
+    "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
@@ -120,7 +121,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset supCon(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable supCon(
     final controllerType=supWatCon,
     final k=kSupCon,
     final Ti=TiSupCon,
@@ -240,9 +241,6 @@ equation
   connect(plrTowMaxSpe, fanSpe.u[3])
     annotation (Line(points={{-200,-180},{40,-180},{40,-119.333},{58,-119.333}},
       color={0,0,127}));
-  connect(anyProOn.y, supCon.trigger)
-    annotation (Line(points={{-78,-20},{-60,-20},{-60,-50},{-16,-50},{-16,-42}},
-                  color={255,0,255}));
   connect(fanSpe.y, swi.u1)
     annotation (Line(points={{82,-120},{100,-120},{100,-132},{118,-132}},
       color={0,0,127}));
@@ -301,9 +299,10 @@ equation
     annotation (Line(points={{-18,50},{-12,50}}, color={0,0,127}));
   connect(gai.y, multiMax.u)
     annotation (Line(points={{12,50},{18,50}}, color={0,0,127}));
-
   connect(truDel.y, delTem.u2)
     annotation (Line(points={{-118,100},{58,100}}, color={255,0,255}));
+  connect(anyProOn.y, supCon.uEna) annotation (Line(points={{-78,-20},{-60,-20},
+          {-60,-50},{-14,-50},{-14,-42}}, color={255,0,255}));
 annotation (
   defaultComponentName="lesCouTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{160,200}})),
