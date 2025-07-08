@@ -85,10 +85,6 @@ protected
     "PID controller for regulating remote differential pressure"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Reset PID loop when it is activated"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
     "Check if any hot water primary pumps are enabled"
@@ -180,10 +176,6 @@ equation
           -122,0},{-102,0}},       color={255,0,255}));
   connect(mulOr.y, swi.u2) annotation (Line(points={{-78,0},{-50,0},{-50,100},{78,
           100}}, color={255,0,255}));
-  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-50,0},{-50,-40},{-42,
-          -40}}, color={255,0,255}));
-  connect(edg.y, booRep.u)
-    annotation (Line(points={{-18,-40},{-12,-40}}, color={255,0,255}));
   connect(booRep.y, conPID.trigger)
     annotation (Line(points={{12,-40},{24,-40},{24,-12}}, color={255,0,255}));
   connect(reaRep1.y, conPID.u_s)
@@ -194,6 +186,8 @@ equation
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
   connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
           {78,92}}, color={0,0,127}));
+  connect(mulOr.y, booRep.u) annotation (Line(points={{-78,0},{-50,0},{-50,-40},
+          {-12,-40}}, color={255,0,255}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

@@ -118,14 +118,10 @@ protected
     "PID controller for regulating local differential pressure setpoint"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Reset PID loop when it is activated"
-    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
-
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
     "Check if any hot water pumps are enabled"
-    annotation (Placement(transformation(extent={{-110,-60},{-90,-40}})));
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nSen)
@@ -135,7 +131,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
@@ -201,8 +197,8 @@ equation
 
   connect(hotPumSpe.yHotWatPumSpe, yHotWatPumSpe)
     annotation (Line(points={{82,90},{160,90}}, color={0,0,127}));
-  connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-160,-50},{-112,
-          -50}},                     color={255,0,255}));
+  connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-160,-50},{
+          -102,-50}},                color={255,0,255}));
   connect(uHotWatPum, hotPumSpe.uHotWatPum) annotation (Line(points={{-160,-50},
           {-130,-50},{-130,98},{58,98}}, color={255,0,255}));
   connect(locDpSet.y, hotPumSpe.dpHotWatSet) annotation (Line(points={{122,-20},
@@ -210,12 +206,8 @@ equation
   connect(dpHotWat_local, hotPumSpe.dpHotWat[1])
     annotation (Line(points={{-160,90},{58,90}}, color={0,0,127}));
 
-  connect(mulOr.y, edg.u)
-    annotation (Line(points={{-88,-50},{-72,-50}}, color={255,0,255}));
-  connect(edg.y, booRep.u)
-    annotation (Line(points={{-48,-50},{-32,-50}}, color={255,0,255}));
   connect(booRep.y, conPID.trigger)
-    annotation (Line(points={{-8,-50},{4,-50},{4,-32}}, color={255,0,255}));
+    annotation (Line(points={{-18,-50},{4,-50},{4,-32}},color={255,0,255}));
   connect(div.y, conPID.u_m)
     annotation (Line(points={{-18,-100},{10,-100},{10,-32}}, color={0,0,127}));
   connect(reaRep1.y, conPID.u_s) annotation (Line(points={{-58,0},{-20,0},{-20,-20},
@@ -223,6 +215,8 @@ equation
   connect(conPID.y, maxRemDP.u[1:nSen]) annotation (Line(points={{22,-20},{30,-20},
           {30,-20},{38,-20}}, color={0,0,127}));
 
+  connect(mulOr.y, booRep.u)
+    annotation (Line(points={{-78,-50},{-42,-50}}, color={255,0,255}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
