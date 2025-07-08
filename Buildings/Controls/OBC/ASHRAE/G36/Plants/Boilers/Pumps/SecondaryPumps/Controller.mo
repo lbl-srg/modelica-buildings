@@ -6,7 +6,7 @@ block Controller
     "Type of controller"
     annotation(Dialog(tab="Pump control parameters", group="PID parameters"));
 
-  parameter Boolean have_varSecPum = false
+  final parameter Boolean have_varSecPum = true
     "True: Variable-speed secondary pumps;
     False: Fixed-speed secondary pumps"
     annotation (Dialog(group="Plant parameters"));

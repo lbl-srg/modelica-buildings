@@ -45,6 +45,9 @@ model PrimaryController "Boiler plant primary loop controller"
       enable = (not have_priOnl) and
       speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
 
+  final parameter Integer nSta=size(staMat,1)
+    "Number of boiler plant stages";
+
   parameter Integer nIgnReq(
     final min=0) = 0
     "Number of hot-water requests to be ignored before enabling boiler plant loop"
@@ -936,9 +939,6 @@ protected
 
   parameter Integer priPumInd[nPumPri]={i for i in 1:nPumPri}
     "Vector of primary pump indices up to total number of primary pumps";
-
-  parameter Integer nSta=size(staMat,1)
-    "Number of boiler plant stages";
 
   parameter Boolean have_allCon = sum(boiTyp)==1*nBoi
     "Check if all the boilers in a plant are condensing boilers";
