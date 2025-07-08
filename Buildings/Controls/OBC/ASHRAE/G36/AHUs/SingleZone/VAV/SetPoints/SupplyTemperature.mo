@@ -152,19 +152,19 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Max cooSet
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-
-public
-  CDL.Reals.Add heaEcoSet "Heating coil and economizer setpoint temperature"
+  Buildings.Controls.OBC.CDL.Reals.Add heaEcoSet
+    "Heating coil and economizer setpoint temperature"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  CDL.Reals.Subtract sub "Temperature difference"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Temperature difference"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 equation
   connect(TCooSet, aveZonSet.u1) annotation (Line(points={{-200,120},{-160,120},
-          {-160,106},{-122,106}},   color={0,0,127}));
+          {-160,106},{-122,106}}, color={0,0,127}));
   connect(THeaSet, aveZonSet.u2) annotation (Line(points={{-200,80},{-160,80},{
-          -160,94},{-122,94}},      color={0,0,127}));
+          -160,94},{-122,94}}, color={0,0,127}));
   connect(aveZonSet.y, lim.u)
-    annotation (Line(points={{-98,100},{-82,100}},    color={0,0,127}));
+    annotation (Line(points={{-98,100},{-82,100}}, color={0,0,127}));
   connect(uHea, heaSupTemDif.u) annotation (Line(points={{-200,0},{20,0},{20,80},
           {58,80}}, color={0,0,127}));
   connect(zer.y, heaSupTemDif.x1) annotation (Line(points={{-18,140},{40,140},{
@@ -172,30 +172,29 @@ equation
   connect(temOnePoi.y, heaSupTemDif.x2) annotation (Line(points={{-118,40},{
           -110,40},{-110,76},{58,76}}, color={0,0,127}));
   connect(zer.y, cooSupTem.x1) annotation (Line(points={{-18,140},{40,140},{40,
-          -12},{58,-12}},   color={0,0,127}));
+          -12},{58,-12}}, color={0,0,127}));
   connect(lim.y, cooSupTem.f1) annotation (Line(points={{-58,100},{30,100},{30,
-          -16},{58,-16}},                       color={0,0,127}));
+          -16},{58,-16}}, color={0,0,127}));
   connect(temTwoPoi.y, cooSupTem.x2) annotation (Line(points={{-38,-20},{20,-20},
-          {20,-24},{58,-24}},          color={0,0,127}));
+          {20,-24},{58,-24}}, color={0,0,127}));
   connect(supCooTem.y, addPar3.u) annotation (Line(points={{-118,-60},{-22,-60}},
-                                  color={0,0,127}));
+          color={0,0,127}));
   connect(addPar3.y, cooSupTem.f2) annotation (Line(points={{2,-60},{50,-60},{
-          50,-28},{58,-28}},           color={0,0,127}));
+          50,-28},{58,-28}}, color={0,0,127}));
   connect(temThrPoi.y, cooSupTem1.x1) annotation (Line(points={{-38,-90},{20,
           -90},{20,-102},{58,-102}}, color={0,0,127}));
   connect(lim.y, cooSupTem1.f1) annotation (Line(points={{-58,100},{30,100},{30,
-          -106},{58,-106}},                     color={0,0,127}));
+          -106},{58,-106}}, color={0,0,127}));
   connect(temFouPoi.y, cooSupTem1.x2) annotation (Line(points={{-38,-140},{40,
-          -140},{40,-114},{58,-114}},  color={0,0,127}));
+          -140},{40,-114},{58,-114}}, color={0,0,127}));
   connect(supCooTem.y, cooSupTem1.f2) annotation (Line(points={{-118,-60},{-80,
           -60},{-80,-118},{58,-118}},  color={0,0,127}));
   connect(uCoo, cooSupTem.u) annotation (Line(points={{-200,-110},{40,-110},{40,
           -20},{58,-20}},   color={0,0,127}));
   connect(uCoo, cooSupTem1.u) annotation (Line(points={{-200,-110},{58,-110}},
-                            color={0,0,127}));
+          color={0,0,127}));
   connect(cooSupTem.y, cooSet.u1) annotation (Line(points={{82,-20},{100,-20},{
-          100,-84},{118,-84}},
-                           color={0,0,127}));
+          100,-84},{118,-84}}, color={0,0,127}));
   connect(cooSupTem1.y, cooSet.u2) annotation (Line(points={{82,-110},{100,-110},
           {100,-96},{118,-96}}, color={0,0,127}));
   connect(cooSet.y, TSupCooSet)
