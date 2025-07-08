@@ -39,21 +39,21 @@ model TableData2DLoadDepSHC
     final min=0,
     final unit="s") = 300
     "Minimum stage runtime"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real dtMea(
     final min=0,
     final unit="s") = 120
     "Load averaging time window"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real SPLR(
     max=1,
     min=0) = 0.9
     "Staging part load ratio"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Modelica.Units.SI.TemperatureDifference dTSaf(
     final min=0) = 2
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
-    annotation (Dialog(tab="Advanced - Safeties"));
+    annotation (Dialog(tab="Advanced", group="Safeties"));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cp[2](
     k={cpEva, cpCon})
     "Specific heat capacity"

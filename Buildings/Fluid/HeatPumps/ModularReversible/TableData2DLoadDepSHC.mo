@@ -151,21 +151,21 @@ model TableData2DLoadDepSHC
     final min=0,
     final unit="s") = 300
     "Minimum stage runtime"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real dtMea(
     final min=0,
     final unit="s") = 120
     "Load averaging time window"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real SPLR(
     max=1,
     min=0) = 0.9
     "Staging part load ratio"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Modelica.Units.SI.TemperatureDifference dTSaf(
     final min=0) = 2
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
-    annotation (Dialog(tab="Advanced - Safeties"));
+    annotation (Dialog(tab="Advanced", group="Safeties"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
@@ -350,6 +350,10 @@ This is a model for simultaneous heating and cooling (SHC) systems
 (also called multipipe chillers or heat pumps),
 where the capacity and power are interpolated from manufacturer
 data along the source and sink temperature and the part load ratio (PLR).<sup>1</sup>
+</p>
+<p>
+All kinds of capacity-modulation processes are supported, such as VFD-driven compressors,
+multiple on-off compressors, and single compressor cycling.
 </p>
 <p>
 The model supports modeling both modular (<code>nUni > 1</code>) and

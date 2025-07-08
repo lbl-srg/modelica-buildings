@@ -110,21 +110,21 @@ block TableData2DLoadDepSHC
     final min=0,
     final unit="s") = 300
     "Minimum stage runtime"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real dtMea(
     final min=0,
     final unit="s") = 120
     "Load averaging time window"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real SPLR(
-    max=1,
-    min=0) = 0.9
+    final max=1,
+    final min=0) = 0.9
     "Staging part load ratio"
-    annotation (Dialog(tab="Advanced - Staging logic"));
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Modelica.Units.SI.TemperatureDifference dTSaf(
     final min=0) = 2
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
-    annotation (Dialog(tab="Advanced - Safeties"));
+    annotation (Dialog(tab="Advanced", group="Safeties"));
   // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
   // Binding equations yield incorrect results but no error!
   final parameter Modelica.Units.SI.Power PHeaInt_nominal[nPLRHea](
@@ -718,6 +718,15 @@ modules <code>nUni</code>. Nevertheless, single-module systems can also be
 appropriately represented by setting <code>nUni = 1</code>.
 </p>
 <p>
+All kinds of capacity-modulation processes are supported, such as
+VFD-driven compressors, multiple on-off compressors, and single compressor cycling.
+The method used to interpolate capacity and power based on user-provided data is
+taken from
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
+Users should be familiar with this latter block before continuing with this documentation.
+</p>
+<p>
 The block implements the following functionalities.
 </p>
 <ul>
@@ -734,13 +743,6 @@ Module staging
 Load balancing between the HW and CHW side
 </li>
 </ul>
-<p>
-The method used to interpolate capacity and power based on user-provided data is 
-taken from 
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
-Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
-Users should be familiar with this latter block before continuing with this documentation.
-</p>
 <h4>System and module operating mode</h4>
 <p>
 The block input <code>mode</code> allows switching between three system operating modes.
@@ -900,16 +902,16 @@ This implies that each module connected to the HW (resp. CHW) loop handles an
 equal fraction of the total heating (resp. cooling) load, irrespective of whether
 the module operates in SHC or single mode.
 This assumption is strictly true on the dominant side.
-However, as explained below, it is only partially true on the non-dominant side where 
-setpoint deviations occur in the modules with excess thermal output and in 
+However, as explained below, it is only partially true on the non-dominant side where
+setpoint deviations occur in the modules with excess thermal output and in
 the compensating module.
 </p>
 <p>
-Based on this assumption, on the dominant side, the heating or cooling load of each 
+Based on this assumption, on the dominant side, the heating or cooling load of each
 module in SHC mode can be calculated as:</p>
 <code>Q&lt;Hea|Coo&gt;SetUniShc_flow = Q&lt;Hea|Coo&gt;Set_flow / (nUniShc + nUni&lt;Hea|Coo&gt;)</code>.
 <p>
-Now, in order to achieve load balancing between the CHW and HW sides for the
+In order to achieve load balancing between the CHW and HW sides for the
 subset of modules in SHC mode, the model assumes that these modules are loaded
 for the most demanding side, and that <b>a single module</b> can cycle between
 SHC and the corresponding single-mode operation.
@@ -982,24 +984,18 @@ to the total heating and cooling output of the bank.
 </p>
 <h4>Implementation limitations</h4>
 <p>
-The load balancing logic relies on a subset of modules producing excess heat flow rate 
+The load balancing logic relies on a subset of modules producing excess heat flow rate
 while another module compensates for it.
-The fundamental assumption of even load between modules therefore breaks down on 
+The fundamental assumption of even load between modules therefore breaks down on
 the non-dominant side.
-In a real system where the modules are hydronically balanced, this imbalance yields 
+In a real system where the modules are hydronically balanced, this load imbalance yields
 varying leaving temperatures across modules.
-In the worst case, the deviation from setpoint is <code>SPLR / 2</code> times the 
+In the worst case, the deviation from setpoint is <code>SPLR / 2</code> times the
 design &Delta;T.
 </p>
 <p>
-In addition, since <code>SPLR &lt; 1</code>, the excess heating or cooling load may 
-exceed the capacity of a single module. In this case, the load deficit is \"transferred\" 
-to the remaining modules running in single mode. 
-Here, the error magnitude is only <code>1 - SPLR</code> times the design &Delta;T.
-</p>
-<p>
-These temperature discrepancies are neglected in the model which \"numerically absorbs\" 
-them by simply adjusting the load that each module must handle. 
+These temperature discrepancies are neglected in the model which \"numerically absorbs\"
+them by simply adjusting the load that each module must handle.
 This creates a modeling uncertainty that is deemed acceptable given the error magnitude
 and partial cancellation of opposing errors from modules that exhibit setpoint overshoot
 and modules that exhibit setpoint undershoot.
