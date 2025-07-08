@@ -301,7 +301,7 @@ equation
           {12,120},{12,-56},{280,-56},{280,-96},{272,-96}},          color={0,0,
           127}));
   connect(chiPlaCon.TChiWatSupSet[1], chi1.TSet) annotation (Line(points={{-96,132},
-          {140,132},{140,91},{318,91}},      color={0,0,127}));
+          {138,132},{138,91},{318,91}},      color={0,0,127}));
   connect(chiPlaCon.TChiWatSupSet[2], chi2.TSet) annotation (Line(points={{-96,132},
           {138,132},{138,1},{318,1}},      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},

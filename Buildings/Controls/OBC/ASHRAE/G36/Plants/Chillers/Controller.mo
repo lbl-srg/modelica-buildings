@@ -949,6 +949,12 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{920,700},{960,740}}),
         iconTransformation(extent={{100,310},{140,350}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1WseChiWatBypVal
+    if have_WSE and have_priOnl and have_parChi
+    "Ecnomizer-only chiller water bypass valve commanded status"
+    annotation (Placement(transformation(extent={{922,640},{962,680}}),
+        iconTransformation(extent={{100,270},{140,310}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yWsePumSpe(
     final min=0,
     final unit="1",
@@ -2023,6 +2029,8 @@ equation
     annotation (Line(points={{822,620},{940,620}}, color={0,0,127}));
   connect(wseSta.yConWatIsoVal, yEcoConWatIsoVal) annotation (Line(points={{-656,
           328},{-620,328},{-620,780},{940,780}}, color={255,0,255}));
+  connect(wseSta.y1ChiWatBypVal, y1WseChiWatBypVal) annotation (Line(points={{-656,
+          306},{-570,306},{-570,660},{942,660}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2277,8 +2285,8 @@ annotation (
         Text(
           extent={{36,296},{94,284}},
           textColor={255,0,255},
-          visible=have_priOnl and have_parChi,
-          textString="y1ChiWatBypVal")}),
+          visible=have_WSE and have_priOnl and have_parChi,
+          textString="y1WseChiWatBypVal")}),
     Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>
 <p>
