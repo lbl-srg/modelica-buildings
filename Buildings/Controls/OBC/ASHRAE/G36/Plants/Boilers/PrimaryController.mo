@@ -127,9 +127,9 @@ model PrimaryController "Boiler plant primary loop controller"
     annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Real boiDesCap[nBoi](
-    final unit="W",
-    displayUnit="W",
-    final quantity="Power")
+    final unit=fill("W",nBoi),
+    displayUnit=fill("W",nBoi),
+    final quantity=fill("Power",nBoi))
     "Design boiler capacities vector"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
@@ -296,20 +296,21 @@ model PrimaryController "Boiler plant primary loop controller"
     annotation (Dialog(tab="Staging setpoint parameters", group="Advanced"));
 
   parameter Real minFloSet[nBoi](
-    final unit="m3/s",
-    displayUnit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1e-6,
-    final max=maxFloSet)
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi),
+    final min=fill(1e-6,nBoi),
+    final max=fill(maxFloSet,nBoi))
     "Design minimum hot water flow through each boiler"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters"));
 
   parameter Real maxFloSet[nBoi](
-    final unit="m3/s",
-    displayUnit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=minFloSet)
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi),
+    final min=fill(minFloSet,nBoi),
+    final start=fill(minFloSet,nBoi))
     "Design maximum hot water flow through each boiler"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters",
@@ -324,14 +325,14 @@ model PrimaryController "Boiler plant primary loop controller"
 
   parameter Real TPlaHotWatSetMax(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 353.15
     "The maximum allowed hot-water setpoint temperature for the plant"
     annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
 
   parameter Real TConBoiHotWatSetMax(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 353.15
     "The maximum allowed hot water setpoint temperature for condensing boilers"
     annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
@@ -339,21 +340,14 @@ model PrimaryController "Boiler plant primary loop controller"
   parameter Real dTConBoiHotWatSet(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = -10
+    final quantity="TemperatureDifference") = -5
     "The offset for hot water setpoint temperature for condensing boilers in 
     non-condensing stage type"
     annotation(Dialog(tab="Supply temperature reset parameters", group="General parameters"));
 
-  parameter Real THotWatSetMinNonConBoi(
-    final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 341.48
-    "The minimum allowed hot-water setpoint temperature for non-condensing boilers"
-    annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
-
   parameter Real THotWatSetMinConBoi(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 305.37
     "The minimum allowed hot-water setpoint temperature for condensing boilers"
     annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
@@ -402,8 +396,8 @@ model PrimaryController "Boiler plant primary loop controller"
 
   parameter Real TMinSupNonConBoi(
     final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 333.2
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 341.45
     "Minimum supply temperature required for non-condensing boilers"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
@@ -487,11 +481,12 @@ model PrimaryController "Boiler plant primary loop controller"
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=1) = 0.1
+    final max=1,
+    final start=0) = 0.1
     "Minimum pump speed"
     annotation(Dialog(tab="Primary pump control parameters",
       group="General parameters",
-      enable=have_varPriPum));
+      enable=have_priOnl and have_varPriPum));
 
   parameter Real VHotWatPri_flow_nominal(
     final min=1e-6,
@@ -504,12 +499,13 @@ model PrimaryController "Boiler plant primary loop controller"
       enable=have_priOnl and have_heaPriPum and (have_remDPRegPri or have_locDPRegPri)));
 
   parameter Real boiDesFlo[nBoi](
-    final min=1e-6,
-    final unit="m3/s",
-    displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
+    final min=fill(1e-6,nBoi),
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi),
+    final start=fill(0,nBoi))
     "Vector of design flowrates for all boilers in plant"
-    annotation (Dialog(group="Boiler plant configuration parameters"));
+    annotation (Dialog(group="Boiler plant configuration parameters", enable=have_priOnl));
 
   parameter Real maxLocDpPri(
     final unit="Pa",
@@ -518,8 +514,7 @@ model PrimaryController "Boiler plant primary loop controller"
     final min=1e-6)
     "Maximum primary loop local differential pressure setpoint"
     annotation (Dialog(tab="Primary pump control parameters", group="DP-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP
-      or speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP));
+      enable = have_remDPRegPri or have_locDPRegPri));
 
   parameter Real minLocDpPri(
     final unit="Pa",
@@ -529,8 +524,7 @@ model PrimaryController "Boiler plant primary loop controller"
     "Minimum primary loop local differential pressure setpoint"
     annotation (Dialog(tab="Primary pump control parameters",
       group="DP-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP
-      or speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP));
+      enable = have_remDPRegPri or have_locDPRegPri));
 
   parameter Real offTimThr_priPum(
     final unit="s",
@@ -665,14 +659,14 @@ model PrimaryController "Boiler plant primary loop controller"
 
   parameter Real TRetSet(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 333.15
     "Minimum hot water return temperature for optimal non-condensing boiler performance"
     annotation(Dialog(tab="Condensation control parameters"));
 
   parameter Real TRetMinAll(
     final unit="K",
-    displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 330.35
     "Minimum allowed hot water return temperature for non-condensing boiler"
     annotation(Dialog(tab="Condensation control parameters"));
@@ -690,7 +684,8 @@ model PrimaryController "Boiler plant primary loop controller"
     final unit=fill("1",nSta),
     displayUnit=fill("1",nSta),
     final min=fill(0,nSta),
-    final max=fill(1,nSta))
+    final max=fill(1,nSta),
+    final start=fill(0,nSta))
     "Vector of minimum primary pump speed for each stage"
     annotation(Dialog(group="Boiler plant configuration parameters",
       enable=(not have_priOnl) and have_varPriPum));
@@ -860,7 +855,7 @@ model PrimaryController "Boiler plant primary loop controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TBoiHotWatSupSet[nBoi](
     final unit=fill("K", nBoi),
-    displayUnit=fill("K", nBoi),
+    displayUnit=fill("degC", nBoi),
     final quantity=fill("ThermodynamicTemperature", nBoi))
     "Boiler hot water supply temperature setpoint vector"
     annotation (Placement(transformation(extent={{400,150},{440,190}}),
@@ -870,7 +865,7 @@ model PrimaryController "Boiler plant primary loop controller"
     final unit="1",
     final displayUnit="1",
     final min=0,
-    final max=1) if not have_priOnl
+    final max=1) if not have_priOnl and not have_allCon
     "Maximum allowed secondary pump speed for preventing condensation"
     annotation (Placement(transformation(extent={{400,-100},{440,-60}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
@@ -1081,7 +1076,7 @@ protected
     final TPlaHotWatSetMax = TPlaHotWatSetMax,
     final TConBoiHotWatSetMax = TConBoiHotWatSetMax,
     final dTConBoiHotWatSet=dTConBoiHotWatSet,
-    final THotWatSetMinNonConBoi = THotWatSetMinNonConBoi,
+    final THotWatSetMinNonConBoi = TMinSupNonConBoi,
     final THotWatSetMinConBoi = THotWatSetMinConBoi,
     final delTimVal=delTimVal,
     final samPerVal=samPerVal,

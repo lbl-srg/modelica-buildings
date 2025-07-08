@@ -74,12 +74,13 @@ block Controller
       enable=have_priOnl and have_heaPriPum and (have_remDPReg or have_locDPReg)));
 
   parameter Real boiDesFlo[nBoi](
-    final min=1e-6,
-    final unit="m3/s",
-    displayUnit="m3/s",
-    final quantity="VolumeFlowRate")=
+    final min=fill(1e-6,nBoi),
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi))
     "Vector of design flowrates for all boilers in plant"
-    annotation (Dialog(group="Plant parameters"));
+    annotation (Dialog(group="Plant parameters",
+       enable=have_priOnl));
 
   parameter Real maxLocDp(
     final unit="Pa",
