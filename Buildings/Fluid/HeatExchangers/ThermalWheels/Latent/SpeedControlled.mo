@@ -62,7 +62,10 @@ annotation (
           points={{0,100},{0,100}},
           lineColor={28,108,200},
           fillColor={255,255,255},
-          fillPattern=FillPattern.None)}),
+          fillPattern=FillPattern.None), Text(
+          extent={{-94,14},{-64,-8}},
+          textColor={0,0,127},
+          textString="uSpe")}),
           Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,160}})),
 Documentation(info="<html>

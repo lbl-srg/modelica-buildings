@@ -135,7 +135,15 @@ annotation (
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Line(points={{-24,-90},{20,-90}}, color={0,0,0}),
-        Line(points={{-22,90},{22,90}}, color={0,0,0})}),
+        Line(points={{-22,90},{22,90}}, color={0,0,0}),
+        Text(
+          extent={{66,-26},{96,-48}},
+          textColor={0,0,127},
+          textString="P"),
+        Text(
+          extent={{54,54},{84,32}},
+          textColor={0,0,127},
+          textString="eps")}),
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>

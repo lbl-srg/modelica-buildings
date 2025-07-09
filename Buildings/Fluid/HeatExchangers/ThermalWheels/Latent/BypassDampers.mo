@@ -229,7 +229,15 @@ annotation (
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          lineThickness=0.5)}),
+          lineThickness=0.5),
+        Text(
+          extent={{-92,52},{-48,28}},
+          textColor={0,0,127},
+          textString="uBypDamPos"),
+        Text(
+          extent={{-94,-28},{-64,-50}},
+          textColor={0,0,127},
+          textString="uRot")}),
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-120},{100,180}})),
 Documentation(info="<html>
