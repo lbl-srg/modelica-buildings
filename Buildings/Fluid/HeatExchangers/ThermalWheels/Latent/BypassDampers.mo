@@ -12,7 +12,7 @@ model BypassDampers
     "Time needed to fully open or close actuator"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (no init/steady state/initial state/initial output)"
+    "Type of initialization of dampers (no init/steady state/initial state/initial output)"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
 
   parameter Real yByp_start=1 "Initial position of bypass actuators"
@@ -31,7 +31,10 @@ model BypassDampers
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal1,
     final m_flow_nominal=per.mSup_flow_nominal,
+    final from_dp=from_dp1,
+    final linearized=linearizeFlowResistance1,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -41,7 +44,10 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSup(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal1,
     final m_flow_nominal=per.mSup_flow_nominal,
+    final from_dp=from_dp1,
+    final linearized=linearizeFlowResistance1,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -52,7 +58,10 @@ model BypassDampers
     extent={{-10,-10},{10,10}},rotation=0,origin={-90,40})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal2,
     final m_flow_nominal=per.mExh_flow_nominal,
+    final from_dp=from_dp2,
+    final linearized=linearizeFlowResistance2,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -63,7 +72,10 @@ model BypassDampers
     extent={{10,10},{-10,-10}},rotation=-90,origin={60,-50})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal2,
     final m_flow_nominal=per.mExh_flow_nominal,
+    final from_dp=from_dp2,
+    final linearized=linearizeFlowResistance2,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,

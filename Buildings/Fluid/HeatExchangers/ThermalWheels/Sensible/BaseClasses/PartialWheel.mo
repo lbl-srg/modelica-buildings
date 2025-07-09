@@ -9,6 +9,30 @@ partial model PartialWheel
     "Record with performance data"
     annotation (Placement(transformation(extent={{-170,-60},{-150,-40}})));
 
+  parameter Boolean allowFlowReversal1 = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversal2 = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+
+  parameter Boolean from_dp1 = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 1"));
+  parameter Boolean linearizeFlowResistance1 = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Dialog(tab="Flow resistance", group="Medium 1"));
+
+  parameter Boolean from_dp2 = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 2"));
+  parameter Boolean linearizeFlowResistance2 = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Dialog(tab="Flow resistance", group="Medium 2"));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W") "Electric power consumption"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
@@ -60,7 +84,14 @@ protected
     final m1_flow_nominal=per.mSup_flow_nominal,
     final m2_flow_nominal=per.mExh_flow_nominal,
     final dp1_nominal=per.dpSup_nominal,
-    final dp2_nominal=per.dpExh_nominal) "Heat exchanger"
+    final dp2_nominal=per.dpExh_nominal,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
+    final from_dp1=from_dp1,
+    final from_dp2=from_dp2,
+    final linearizeFlowResistance1=linearizeFlowResistance1,
+    final linearizeFlowResistance2=linearizeFlowResistance2)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness effCal(
     final eps_nominal=per.epsSen_nominal,
