@@ -326,15 +326,15 @@ model PrimaryController "Boiler plant primary loop controller"
   parameter Real TPlaHotWatSetMax(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 353.15
-    "The maximum allowed hot-water setpoint temperature for the plant"
+    final quantity="ThermodynamicTemperature")
+    "Highest hot water supply temperature setpoint"
     annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
 
   parameter Real TConBoiHotWatSetMax(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature",
-    final start=353.15) = 353.15
+    final start=353.15)
     "Design hot water supply temperature for condensing boilers"
     annotation(Dialog(tab="Supply temperature reset parameters",
       group="Trim-and-Respond Logic parameters",
@@ -523,11 +523,12 @@ model PrimaryController "Boiler plant primary loop controller"
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference",
-    final min=1e-6)
+    final min=1e-6,
+    final start=34473.8) = 34473.8
     "Minimum primary loop local differential pressure setpoint"
     annotation (Dialog(tab="Primary pump control parameters",
       group="DP-based speed regulation",
-      enable = have_remDPRegPri or have_locDPRegPri));
+      enable = have_locDPRegPri));
 
   parameter Real offTimThr_priPum(
     final unit="s",

@@ -276,7 +276,7 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos(
     final unit="1",
-    displayUnit="1") if have_priOnl and not have_allNonCon
+    displayUnit="1") if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-440,50},{-400,90}}),
       iconTransformation(extent={{-140,20},{-100,60}})));

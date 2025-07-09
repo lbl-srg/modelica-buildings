@@ -205,7 +205,7 @@ block Down
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=1) if have_priOnl and not have_allNonCon
+    final max=1) if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
