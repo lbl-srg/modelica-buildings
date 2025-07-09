@@ -8,44 +8,49 @@ model DisableChillers
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staPro(
-    final k=false)
-    "Staging change process"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    final k=false) "Staging change process"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiIsoVal[2](
     final k={1,0})
     "Chilled water isolation valve"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conIsoVal1[2](
     final k={1,0})
     "Condenser water isolation valve"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumSpe[2](
     final k={0.75,0}) "Pumps speed"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta[2](
     final width={0.5,0.01},
     final period={3600,7200},
     shift={0,-100})
     "Chiller status"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIsoValSta[2](
+    final k={true,false})
+    "Condenser water isolation valve commanded setpoint"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
 equation
-  connect(chiSta.y, disPlaFroChi.uChi) annotation (Line(points={{-38,50},{44,50},
+  connect(chiSta.y, disPlaFroChi.uChi) annotation (Line(points={{-18,70},{44,70},
           {44,19},{58,19}},   color={255,0,255}));
-  connect(chiSta.y, disPlaFroChi.uChiWatReq) annotation (Line(points={{-38,50},
-          {40,50},{40,17},{58,17}},color={255,0,255}));
-  connect(chiSta.y, disPlaFroChi.uConWatReq) annotation (Line(points={{-38,50},
-          {48,50},{48,12},{58,12}},  color={255,0,255}));
-  connect(chiIsoVal.y, disPlaFroChi.uChiWatIsoVal) annotation (Line(points={{-58,20},
-          {20,20},{20,15},{58,15}}, color={0,0,127}));
-  connect(conIsoVal1.y, disPlaFroChi.uConWatIsoVal) annotation (Line(points={{-38,-10},
-          {24,-10},{24,9},{58,9}}, color={0,0,127}));
-  connect(pumSpe.y, disPlaFroChi.uChiWatPumSpe) annotation (Line(points={{-58,-40},
+  connect(chiSta.y, disPlaFroChi.uChiWatReq) annotation (Line(points={{-18,70},{
+          40,70},{40,17},{58,17}}, color={255,0,255}));
+  connect(chiSta.y, disPlaFroChi.uConWatReq) annotation (Line(points={{-18,70},{
+          48,70},{48,13},{58,13}},   color={255,0,255}));
+  connect(chiIsoVal.y, disPlaFroChi.uChiWatIsoVal) annotation (Line(points={{-58,40},
+          {20,40},{20,15},{58,15}}, color={0,0,127}));
+  connect(conIsoVal1.y, disPlaFroChi.uConWatIsoVal) annotation (Line(points={{-18,10},
+          {20,10},{20,11},{58,11}},color={0,0,127}));
+  connect(pumSpe.y, disPlaFroChi.uChiWatPumSpe) annotation (Line(points={{-18,-40},
           {28,-40},{28,7},{58,7}}, color={0,0,127}));
-  connect(pumSpe.y, disPlaFroChi.uConWatPumSpe) annotation (Line(points={{-58,-40},
+  connect(pumSpe.y, disPlaFroChi.uConWatPumSpe) annotation (Line(points={{-18,-40},
           {32,-40},{32,5},{58,5}}, color={0,0,127}));
-  connect(staPro.y, disPlaFroChi.chaPro) annotation (Line(points={{-18,-70},{36,
+  connect(staPro.y, disPlaFroChi.chaPro) annotation (Line(points={{-58,-70},{36,
           -70},{36,3},{58,3}}, color={255,0,255}));
+  connect(conIsoValSta.y, disPlaFroChi.u1ConWatIsoVal) annotation (Line(points={
+          {-58,-20},{24,-20},{24,9},{58,9}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Generic/PlantEnable/Validation/DisableChillers.mos"
