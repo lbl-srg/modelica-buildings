@@ -68,7 +68,7 @@ model HeatPump "Motor coupled heat pump"
     per constrainedby
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record of Induction Machine with performance data" annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{52,60},{72,80}})));
+      Placement(transformation(extent={{30,60},{50,80}})));
 
   //Controller parameters
   parameter Boolean have_controller = true
@@ -174,14 +174,14 @@ protected
     "Specific heat capacity of medium 2 at default medium state";
 
 equation
-  connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-70,60},
-          {-70,6},{-10,6}}, color={0,127,255}));
-  connect(port_b2,mecHea. port_b2) annotation (Line(points={{-100,-60},{-60,-60},
-          {-60,-6},{-10,-6}}, color={0,127,255}));
-  connect(port_b1,mecHea. port_b1) annotation (Line(points={{100,60},{60,60},
-          {60,6},{10,6}}, color={0,127,255}));
-  connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{60,-60},
-          {60,-6},{10,-6}}, color={0,127,255}));
+  connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-80,60},
+          {-80,6},{-10,6}}, color={0,127,255}));
+  connect(port_b2,mecHea. port_b2) annotation (Line(points={{-100,-60},{-80,-60},
+          {-80,-6},{-10,-6}}, color={0,127,255}));
+  connect(port_b1,mecHea. port_b1) annotation (Line(points={{100,60},{80,60},{
+          80,6},{10,6}},  color={0,127,255}));
+  connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{80,-60},
+          {80,-6},{10,-6}}, color={0,127,255}));
   connect(simMot.setPoi, setPoi) annotation (Line(points={{-41.6667,58},{-60,58},
           {-60,90},{-110,90}},color={0,0,127}));
   connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-60,30},{-60,

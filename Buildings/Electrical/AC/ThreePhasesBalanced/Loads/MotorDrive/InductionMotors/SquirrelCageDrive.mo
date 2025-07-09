@@ -88,7 +88,7 @@ model SquirrelCageDrive
     exact=true,
     phi(fixed=true))
     "Speed connector"
-    annotation (Placement(transformation(extent={{64,-8},{80,8}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Sources.RealExpression angFre1(
     y=switch1.y*omega)
     "Supply voltage angular frequency"
@@ -158,11 +158,11 @@ equation
   connect(VFD.u_m, mea) annotation (Line(points={{-90,18},{-90,10},{-160,10}},
                                 color={0,0,127}));
   connect(speed.flange, shaft)
-    annotation (Line(points={{80,0},{100,0}}, color={0,0,0}));
+    annotation (Line(points={{90,0},{100,0}}, color={0,0,0}));
   connect(torSpe.omega_r, speBlo.omega_r) annotation (Line(points={{16.6,-11.2},
           {4,-11.2},{4,-26},{52,-26},{52,-64},{48,-64}}, color={0,0,127}));
-  connect(speBlo.omega_r1, speed.w_ref) annotation (Line(points={{48,-70},{48,-68},
-          {56,-68},{56,0},{62.4,0}},                    color={0,0,127}));
+  connect(speBlo.omega_r1, speed.w_ref) annotation (Line(points={{48,-70},{60,
+          -70},{60,0},{68,0}},                          color={0,0,127}));
   connect(fre.y, VFDfre.u2)
     annotation (Line(points={{-49,-50},{-28,-50},{-28,-16},{-22,-16}},
                                                  color={0,0,127}));

@@ -4,8 +4,7 @@ model Chiller "Motor coupled chiller"
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
   extends Buildings.Electrical.Interfaces.PartialOnePort(
-    redeclare package PhaseSystem =
-        Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
   //Chiller parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
@@ -66,8 +65,8 @@ model Chiller "Motor coupled chiller"
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     per constrainedby
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    "Record of Induction Motor with performance data" annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{52,60},{72,80}})));
+    "Record of Induction Motor with performance data" annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{30,60},{50,80}})));
 
   //Controller parameters
   parameter Boolean have_controller = true
@@ -183,32 +182,53 @@ protected
       X = Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
+public
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
+      final unit="W")
+    "Actual heating heat flow rate added to fluid 1"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit=
+        "W")
+    "Electric power consumed"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
+      final unit="W")
+    "Actual cooling heat flow rate removed from fluid 2"
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
 equation
-  connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-70,60},
-          {-70,6},{-10,6}}, color={0,127,255}));
-  connect(port_b2, mecChi.port_b2) annotation (Line(points={{-100,-60},{-60,-60},
-          {-60,-6},{-10,-6}}, color={0,127,255}));
-  connect(mecChi.port_b1, port_b1) annotation (Line(points={{10,6},{60,6},{60,60},
+  connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-80,60},{
+          -80,6},{-10,6}},  color={0,127,255}));
+  connect(port_b2, mecChi.port_b2) annotation (Line(points={{-100,-60},{-80,-60},
+          {-80,-6},{-10,-6}}, color={0,127,255}));
+  connect(mecChi.port_b1, port_b1) annotation (Line(points={{10,6},{80,6},{80,60},
           {100,60}}, color={0,127,255}));
-  connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},
-          {60,-60},{100,-60}}, color={0,127,255}));
+  connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{80,-6},{80,
+          -60},{100,-60}},     color={0,127,255}));
   connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-60,90},{
           -60,58},{-41.6667,58}},
                               color={0,0,127}));
   connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-60,30},{-60,
           50},{-41.6667,50}},
                      color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-37,20},{-37,18},{
-          -46,18},{-46,42},{-41.6667,42}},
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-37,20},{-50,20},{
+          -50,42},{-41.6667,42}},
                               color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{-28.3333,60},{
           -28.3333,86},{0,86},{0,100}},
                     color={0,120,120}));
   connect(mecChi.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},{
           -20,50}},                color={0,0,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,
-            -80},{100,100}}),
-                         graphics={
+  connect(mecChi.P, P)
+    annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
+  connect(mecChi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{
+          70,90},{110,90}}, color={0,0,127}));
+  connect(mecChi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
+          {70,-30},{110,-30}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
+            {100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -288,10 +308,9 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(points={{62,0},{80,0}}, color={0,0,255}),
-        Line(points={{80,30},{100,30}}, color={0,0,255}),
-        Line(points={{80,0},{80,30}}, color={0,0,255}),
-        Line(points={{80,-30},{100,-30}}, color={0,0,255}),
-        Line(points={{80,-30},{80,0}}, color={0,0,255})}),
+        Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},color={0,0,255}),
+        Line(points={{62,0},{100,0}},color={0,0,255}),
+        Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255})}),
         defaultComponentName="chi",
     Documentation(info="<html>
 <p>
@@ -305,5 +324,5 @@ simulating microgrids and discussing grid interactions.
 <li>October 15, 2021, by Mingzhe Liu:<br>First implementation. </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-80},{100,100}})));
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
 end Chiller;
