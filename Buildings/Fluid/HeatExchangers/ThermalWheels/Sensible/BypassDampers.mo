@@ -52,7 +52,7 @@ model BypassDampers
     final dpDamper_nominal=dpDamper_nominal)
     "Supply air damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,origin={-50,20})));
+        rotation=0,origin={-50,6})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     final m_flow_nominal=per.mExh_flow_nominal,
@@ -73,7 +73,7 @@ model BypassDampers
     final y_start=yByp_start,
     final dpDamper_nominal=dpDamper_nominal)
     "Exhaust air bypass damper"
-    annotation (Placement(transformation(extent={{0,-90},{-20,-70}})));
+    annotation (Placement(transformation(extent={{-18,-90},{-38,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiEpsSen
     "Switch the heat exchanger effectiveness based on the wheel operation status"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
@@ -103,32 +103,29 @@ initial equation
 
 equation
   connect(bypDamSup.port_a, port_a1)
-    annotation (Line(points={{-60,80},{-180,80}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{-60,80},{-180,80}}, color={0,127,255}));
   connect(bypDamSup.port_b, port_b1)
-    annotation (Line(points={{-40,80},{100,80}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{-40,80},{100,80}}, color={0,127,255}));
   connect(bypDamExh.port_a, port_a2)
-    annotation (Line(points={{0,-80},{100,-80}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{-18,-80},{100,-80}},
+                                                 color={0,127,255}));
   connect(damExh.port_a, port_a2)
-    annotation (Line(points={{40,-50},{40,-80},{100,-80}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{40,-50},{40,-80},{100,-80}}, color={0,127,255}));
   connect(sub.y, damSup.y)
-    annotation (Line(points={{-78,100},{14,100},{14,60},{-50,60},{-50,32}}, color={0,0,127}));
+    annotation (Line(points={{-78,100},{14,100},{14,60},{-50,60},{-50,18}}, color={0,0,127}));
   connect(damExh.y,sub. y)
     annotation (Line(points={{28,-40},{14,-40},{14,100},{-78,100}}, color={0,0,127}));
   connect(bypDamSup.y, uBypDamPos)
     annotation (Line(points={{-50,92},{-50,140},{-202,140}}, color={0,0,127}));
   connect(damSup.port_b, hex.port_a1)
-    annotation (Line(points={{-40,20},{-26,20},{-26,6},{-10,6}},
-      color={0,127,255}, thickness=0.5));
+    annotation (Line(points={{-40,6},{-10,6}},
+      color={0,127,255}));
   connect(bypDamExh.y, uBypDamPos)
-    annotation (Line(points={{-10,-68},{-10,-60},{-20,-60},{-20,140},{-202,140}},
+    annotation (Line(points={{-28,-68},{-28,140},{-202,140}},
     color={0,0,127}));
   connect(hex.port_a2, damExh.port_b)
-    annotation (Line(points={{10,-6},{20,-6},{20,-16},{40,-16},{40,-30}},
-    color={0,127,255}, thickness=0.5));
+    annotation (Line(points={{10,-6},{40,-6},{40,-30}},
+    color={0,127,255}));
   connect(sub.u2, uBypDamPos)
     annotation (Line(points={{-102,94},{-160,94},{-160,140},{-202,140}},
       color={0,0,127}));
@@ -136,19 +133,18 @@ equation
     annotation (Line(points={{-119,120},{-110,120},{-110,106},{-102,106}},
       color={0,0,127}));
   connect(damSup.port_a, port_a1)
-    annotation (Line(points={{-60,20},{-160,20},{-160,80},{-180,80}},
-      color={0,127,255}, thickness=0.5));
+    annotation (Line(points={{-60,6},{-66,6},{-66,80},{-180,80}},
+      color={0,127,255}));
   connect(PEle.y, P) annotation (Line(points={{-39,160},{70,160},{70,-40},{120,-40}},
       color={0,0,127}));
   connect(bypDamExh.port_b, port_b2)
-    annotation (Line(points={{-20,-80},{-180,-80}}, color={0,127,255},
-      thickness=0.5));
+    annotation (Line(points={{-38,-80},{-180,-80}}, color={0,127,255}));
   connect(zero.y,swiEpsSen. u3) annotation (Line(points={{-119,180},{-100,180},
           {-100,192},{-62,192}}, color={0,0,127}));
   connect(effCal.eps,swiEpsSen. u1) annotation (Line(points={{-78,0},{-70,0},{-70,
           208},{-62,208}}, color={0,0,127}));
-  connect(swiEpsSen.y, hex.eps) annotation (Line(points={{-38,200},{-32,200},{
-          -32,0},{-12,0}}, color={0,0,127}));
+  connect(swiEpsSen.y, hex.eps) annotation (Line(points={{-38,200},{-20,200},{
+          -20,0},{-12,0}}, color={0,0,127}));
   connect(swiEpsSen.y, eps) annotation (Line(points={{-38,200},{80,200},{80,40},
           {120,40}}, color={0,0,127}));
   connect(uRot,swiEpsSen. u2) annotation (Line(points={{-200,0},{-170,0},{-170,
@@ -207,7 +203,15 @@ annotation (
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-90,52},{-46,28}},
+          textColor={0,0,127},
+          textString="uBypDamPos"),
+        Text(
+          extent={{-92,-28},{-62,-50}},
+          textColor={0,0,127},
+          textString="uRot")}),
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-120},{100,220}})),
 Documentation(info="<html>

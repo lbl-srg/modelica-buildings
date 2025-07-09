@@ -9,7 +9,7 @@ partial model PartialWheel
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
     final have_latHEX=true)
     "Record with performance data"
-    annotation (Placement(transformation(extent={{-150,-40},{-130,-20}})));
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W")
     "Electric power consumption"
@@ -23,11 +23,13 @@ partial model PartialWheel
   Buildings.Fluid.Sensors.MassFlowRate senSupMasFlo(
     redeclare package Medium = Medium)
     "Supply air mass flow rate"
-    annotation (Placement(transformation(extent={{50,-4},{70,16}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,60})));
   Buildings.Fluid.Sensors.MassFlowRate senExhMasFlo(
     redeclare package Medium = Medium)
     "Exhaust air mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-54},{-120,-34}})));
+    annotation (Placement(transformation(extent={{-100,-70},{-120,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
@@ -67,19 +69,19 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 equation
-  connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{60,17},
-          {60,60},{-110,60},{-110,6},{-102,6}}, color={0,0,127}));
+  connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{49,60},
+          {-110,60},{-110,6},{-102,6}},         color={0,0,127}));
   connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-110,
-          -33},{-110,-6},{-102,-6}}, color={0,0,127}));
+          -49},{-110,-6},{-102,-6}}, color={0,0,127}));
   connect(hex.port_b1, senSupMasFlo.port_a)
-    annotation (Line(points={{30,6},{50,6}}, color={0,127,255},
-      thickness=0.5));
-  connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{70,6},{80,6},
-          {80,80},{100,80}}, color={0,127,255}, thickness=0.5));
-  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-100,-44},
-          {-30,-44},{-30,-6},{10,-6}},  color={0,127,255}, thickness=0.5));
-  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-120,-44},{
-          -160,-44},{-160,-80},{-180,-80}}, color={0,127,255}, thickness=0.5));
+    annotation (Line(points={{30,6},{60,6},{60,50}},
+                                             color={0,127,255}));
+  connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{60,70},{60,80},
+          {100,80}},         color={0,127,255}));
+  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-100,-60},
+          {0,-60},{0,-6},{10,-6}},      color={0,127,255}));
+  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-120,-60},{
+          -130,-60},{-130,-80},{-180,-80}}, color={0,127,255}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
