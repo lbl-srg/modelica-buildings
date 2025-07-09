@@ -50,7 +50,7 @@ model Pump
     annotation (Placement(transformation(extent={{30,20},{10,40}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"
-    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
@@ -74,8 +74,8 @@ equation
           color={0,127,255}));
   connect(pum.port_b, port_b) annotation (Line(points={{10,0},{100,0}},
           color={0,127,255}));
-  connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-70},
-          {-60,-70},{-60,-100}}, color={191,0,0}));
+  connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-100}},
+                                 color={191,0,0}));
   connect(shaft, ine.flange_b) annotation (Line(points={{0,100},{0,90}},
           color={0,0,0}));
   connect(tor.flange, ine.flange_a) annotation (Line(points={{-20,70},{0,70}},

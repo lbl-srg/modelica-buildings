@@ -82,22 +82,24 @@ model Chiller "Chiller with mechanical interface"
     final TAppEva_nominal=TAppEva_nominal,
     final P_nominal=P_nominal) "Chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
+    "Mechanical connector"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(final J=loaIne,
-    phi(fixed=true, start=0), w(fixed=true, start=0)) "Chiller inertia"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,80})));
+  Modelica.Mechanics.Rotational.Components.Inertia ine(
+    final J=loaIne,
+    phi(fixed=true, start=0),
+    w(fixed=true, start=0)) "Chiller inertia"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90, origin={0,80})));
   Modelica.Mechanics.Rotational.Sources.Torque tor "Torque source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.RealExpression tauSor(final y=-tauChi) "Chiller torque"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={-70,90})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
+  Modelica.Blocks.Sources.RealExpression tauSor(
+    final y=-tauChi)
+    "Chiller torque"
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+        rotation=180, origin={-70,90})));
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe
+    "Rotation speed in rad/s"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
@@ -126,9 +128,6 @@ model Chiller "Chiller with mechanical interface"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
-initial equation
-  assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
-
 protected
   constant Boolean COP_is_for_cooling = true
     "Set to true if the specified COP is for cooling";
@@ -152,6 +151,9 @@ protected
       T = Medium2.T_default,
       X = Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
+
+initial equation
+  assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
 
 equation
   chi.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauChi,spe.w,1e-6,1e-8);

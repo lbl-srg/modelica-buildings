@@ -42,6 +42,7 @@ model Chiller "This example shows how to use the chiller with mechanical interfa
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=2,
     m2_flow_nominal=1.5,
+    show_T=true,
     QEva_flow_nominal=-3*1000,
     QCon_flow_nominal=1000 - (-3*1000),
     dTEva_nominal=-5,
