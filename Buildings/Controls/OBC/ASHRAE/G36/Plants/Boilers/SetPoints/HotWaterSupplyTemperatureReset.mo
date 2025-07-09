@@ -77,21 +77,21 @@ block HotWaterSupplyTemperatureReset
   parameter Real triAmoVal(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = -2
+    final quantity="TemperatureDifference") = -1.1
     "Setpoint trim value"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real resAmoVal(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 3
+    final quantity="TemperatureDifference") = 1.7
     "Setpoint respond value"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Real maxResVal(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 7
+    final quantity="TemperatureDifference") = 3.9
     "Setpoint maximum respond value"
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 

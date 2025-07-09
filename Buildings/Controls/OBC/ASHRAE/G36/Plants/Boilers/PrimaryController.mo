@@ -333,9 +333,12 @@ model PrimaryController "Boiler plant primary loop controller"
   parameter Real TConBoiHotWatSetMax(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 353.15
-    "The maximum allowed hot water setpoint temperature for condensing boilers"
-    annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
+    final quantity="ThermodynamicTemperature",
+    final start=353.15) = 353.15
+    "Design hot water supply temperature for condensing boilers"
+    annotation(Dialog(tab="Supply temperature reset parameters",
+      group="Trim-and-Respond Logic parameters",
+      enable=not have_allCon));
 
   parameter Real dTConBoiHotWatSet(
     final unit="K",
@@ -369,21 +372,21 @@ model PrimaryController "Boiler plant primary loop controller"
   parameter Real triAmoVal(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = -2
+    final quantity="TemperatureDifference") = -1.1
     "Setpoint trim value"
     annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
 
   parameter Real resAmoVal(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 3
+    final quantity="TemperatureDifference") = 1.7
     "Setpoint respond value"
     annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
 
   parameter Real maxResVal(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 7
+    final quantity="TemperatureDifference") = 3.9
     "Setpoint maximum respond value"
     annotation(Dialog(tab="Supply temperature reset parameters", group="Trim-and-Respond Logic parameters"));
 
@@ -1615,9 +1618,6 @@ equation
           {0,-50},{0,-102},{88,-102},{88,-193.067},{118,-193.067}}, color={0,0,127}));
   connect(oneSig.y, yMaxSecPumSpe) annotation (Line(points={{342,-110},{380,-110},
           {380,-80},{420,-80}}, color={0,0,127}));
-  connect(plaDis.yHotWatIsoVal, priPumCon.uHotIsoVal) annotation (Line(points={{262,68},
-          {280,68},{280,-140},{104,-140},{104,-161.333},{118,-161.333}},
-        color={0,0,127}));
   connect(VHotWatSec_flow, staSetCon.VHotWatSec_flow) annotation (Line(points={{-420,
           -70},{-266,-70},{-266,20},{-228,20},{-228,13.3333},{-212,13.3333}},
         color={0,0,127}));
@@ -1685,6 +1685,9 @@ equation
     annotation (Line(points={{-278,-530},{-242,-530}}, color={255,0,255}));
   connect(mulOr1.y, assMes.u)
     annotation (Line(points={{-178,-480},{-162,-480}}, color={255,0,255}));
+  connect(plaDis.yHotWatIsoVal, priPumCon.uHotIsoVal) annotation (Line(points={{262,68},
+          {280,68},{280,-100},{104,-100},{104,-161.333},{118,-161.333}},
+        color={255,0,255}));
   annotation (defaultComponentName="conPlaBoi",
     Icon(coordinateSystem(extent={{-100,-400},{100,400}}),
        graphics={
