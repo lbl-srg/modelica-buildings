@@ -2,6 +2,8 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model BypassDampers
   "Enthalpy recovery wheel with bypass dampers"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel(
+  from_dp1=true,
+  from_dp2=true,
   hex(final dp1_nominal=0,
       final dp2_nominal=0) "Hex dp is lumped in damper");
 

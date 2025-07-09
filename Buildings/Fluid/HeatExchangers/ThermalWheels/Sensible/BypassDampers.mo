@@ -2,6 +2,8 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model BypassDampers
   "Sensible heat recovery wheel with bypass dampers"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel(
+  from_dp1=true,
+  from_dp2=true,
   hex(final dp1_nominal=0,
       final dp2_nominal=0) "Hex dp is lumped in damper");
 
