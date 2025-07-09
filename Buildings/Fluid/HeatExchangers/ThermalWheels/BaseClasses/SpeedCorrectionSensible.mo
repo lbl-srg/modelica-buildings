@@ -34,6 +34,10 @@ protected
   parameter Real s = max(xSpe[i]/yEta[i] for i in 1:size(yEta,1)-1)
     "Maximum ratio of x-axis to y-axis in the power efficiency curve";
 
+  parameter Real[nSpe] dP(each fixed=false, each final unit="W")
+    "Derivatives at the support points for electric power consumption";
+  parameter Real[size(per.senEff.uSpe, 1)] dEpsSenCor(each fixed=false, each final unit="1")
+    "Derivatives at the support points for sensible heat exchanger effectiveness correction";
 
 initial equation
   assert(s < 1 + 1E-4,
@@ -47,16 +51,27 @@ initial equation
           The motor percent full-load efficiency at the full seepd must be 1.",
           level=AssertionLevel.error)
           "Check if the motor efficiency curve is consistent with the nominal condition";
+
+  dP = Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=xSpe,
+    y=yEta,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(yEta, strict=false));
+  dEpsSenCor = Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=per.senEff.uSpe,
+    y=per.senEff.epsCor,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(per.senEff.epsCor, strict=false));
 equation
-  P = per.P_nominal*uSpe/Buildings.Utilities.Math.Functions.smoothInterpolation(
-        x=uSpe,
-        xSup=xSpe,
-        ySup=yEta)
+  P = per.P_nominal*uSpe/Buildings.Utilities.Math.Functions.interpolate(
+        u=uSpe,
+        xd=xSpe,
+        yd=yEta,
+        d=dP)
         "Calculate the wheel power consumption";
-  epsSenCor = Buildings.Utilities.Math.Functions.smoothInterpolation(
-                x=uSpe,
-                xSup=per.senEff.uSpe,
-                ySup=per.senEff.epsCor)
+  epsSenCor = Buildings.Utilities.Math.Functions.interpolate(
+                u=uSpe,
+                xd=per.senEff.uSpe,
+                yd=per.senEff.epsCor,
+                d=dEpsSenCor)
                 "Calculate the sensible heat exchanger effectiveness correction";
    annotation (
    defaultComponentName="speCor",
@@ -98,6 +113,10 @@ Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerE
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 9, 2025, by Michael Wetter:<br/>
+Refactored implementation to avoid repetitive calculation of derivatives for spline interpolation.
+</li>
 <li>
 May 28, 2024, by Sen Huang:<br/>
 First implementation.
