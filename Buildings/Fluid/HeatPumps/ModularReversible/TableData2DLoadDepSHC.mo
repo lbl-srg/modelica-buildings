@@ -346,8 +346,8 @@ First implementation.
 </html>",
       info="<html>
 <p>
-This is a model for simultaneous heating and cooling (SHC) systems
-(also called multipipe chillers or heat pumps),
+This is a model for simultaneous heating and cooling (SHC) air-to-water heat pumps
+(also referred to as 4-pipe polyvalent units or \"Type A\" in Eurovent, 2025),
 where the capacity and power are interpolated from manufacturer
 data along the source and sink temperature and the part load ratio (PLR).<sup>1</sup>
 </p>
@@ -513,5 +513,14 @@ of isolation valves or primary pumps.
 These variables use the same requirement as above and their first element is <code>true</code>
 based on the system operating mode command, irrespective of any modules being staged on.
 </p>
+<h4>References</h4>
+<ul>
+<li>
+Eurovent (2025). Technical certification rules (TCR) of the Eurovent certified performance 
+mark liquid chilling packages and hydronic heat pumps (ECP - 3 LCPHP, Rev. 02-2025).
+<a href=\"https://www.eurovent-certification.com/media/images/c2c/031/c2c031f2dd38173a81e30a42f7d6f42a386f047c.pdf\">
+https://www.eurovent-certification.com/media/images/c2c/031/c2c031f2dd38173a81e30a42f7d6f42a386f047c.pdf</a>
+</li>
+</ul>
 </html>"));
 end TableData2DLoadDepSHC;

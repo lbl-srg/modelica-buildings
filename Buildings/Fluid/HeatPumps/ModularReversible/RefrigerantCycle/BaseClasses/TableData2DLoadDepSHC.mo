@@ -711,8 +711,9 @@ Documentation(
 info="<html>
 <p>
 This block provides the core implementation to model simultaneous heating and
-cooling (SHC) systems, also called multipipe chillers or heat pumps.
-Since the majority of these systems are composed of multiple modules,
+cooling (SHC) systems, also referred to as multipipe polyvalent units or \"Type A\"
+in Eurovent (2025).
+Since the most recent versions of these systems are composed of multiple modules,
 the implementation includes the staging logic for an arbitrary number of
 modules <code>nUni</code>. Nevertheless, single-module systems can also be
 appropriately represented by setting <code>nUni = 1</code>.
@@ -749,7 +750,7 @@ The block input <code>mode</code> allows switching between three system operatin
 </p>
 <ol>
 <li>
-Heating-only: In this mode, all modules operate as non-reversible heat pumps, tracking
+Heating-only: In this mode, all modules operate as heat pumps, tracking
 the HW temperature setpoint and sourcing heat from the ambient-side fluid.
 </li>
 <li>
@@ -1002,6 +1003,12 @@ and modules that exhibit setpoint undershoot.
 </p>
 <h4>References</h4>
 <ul>
+<li>
+Eurovent (2025). Technical certification rules (TCR) of the Eurovent certified performance
+mark liquid chilling packages and hydronic heat pumps (ECP - 3 LCPHP, Rev. 02-2025).
+<a href=\"https://www.eurovent-certification.com/media/images/c2c/031/c2c031f2dd38173a81e30a42f7d6f42a386f047c.pdf\">
+https://www.eurovent-certification.com/media/images/c2c/031/c2c031f2dd38173a81e30a42f7d6f42a386f047c.pdf</a>
+</li>
 <li>
 Johnson Controls, Inc. (2024). YMAE application guide - YMAE air-to-water inverter scroll heat pumps.
 YORK.
