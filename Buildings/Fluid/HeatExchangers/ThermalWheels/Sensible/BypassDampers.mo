@@ -18,9 +18,6 @@ model BypassDampers
   parameter Real yByp_start=0
     "Initial position of bypass actuators"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
-  parameter Real yMai_start=1
-    "Initial position of supply and exhaust actuators"
-    annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypDamPos(
     final unit="1",
     final min=0,
@@ -48,7 +45,7 @@ model BypassDampers
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
-    final y_start=yMai_start,
+    y_start=1-yByp_start,
     final dpDamper_nominal=dpDamper_nominal)
     "Supply air damper"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -59,7 +56,7 @@ model BypassDampers
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
-    final y_start=yMai_start,
+    y_start=1-yByp_start,
     final dpDamper_nominal=dpDamper_nominal)
     "Exhaust air damper"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},

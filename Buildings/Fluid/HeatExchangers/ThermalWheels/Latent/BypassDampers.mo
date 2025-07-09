@@ -14,8 +14,7 @@ model BypassDampers
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
-  parameter Real yMai_start=0 "Initial position of supply and exhaust actuator"
-    annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
+
   parameter Real yByp_start=1 "Initial position of bypass actuators"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
 
@@ -46,7 +45,7 @@ model BypassDampers
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
-    final y_start=yMai_start,
+    y_start=1-yByp_start,
     final dpDamper_nominal=dpDamper_nominal)
     "Supply air damper"
     annotation (Placement(transformation(
@@ -57,7 +56,7 @@ model BypassDampers
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
-    final y_start=yMai_start,
+    y_start=1-yByp_start,
     final dpDamper_nominal=dpDamper_nominal)
     "Exhaust air damper"
     annotation (Placement(transformation(
