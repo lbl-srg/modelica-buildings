@@ -97,8 +97,8 @@ equation
     annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
   connect(senSupTem.port_b, whe.port_b1) annotation (Line(points={{40,30},{30,
           30},{30,7.8},{20,7.8}},color={0,127,255}));
-    annotation (Placement(transformation(extent={{20,60},{40,80}})),
-           experiment(Tolerance=1e-6, StopTime=360),
+    annotation (
+    experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/Validation/BypassDampers.mos"
         "Simulate and plot"),
     Documentation(info="<html>
