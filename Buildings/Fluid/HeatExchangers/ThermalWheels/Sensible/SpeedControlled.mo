@@ -1,7 +1,10 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model SpeedControlled
   "Sensible heat recovery wheel with a variable speed drive"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel(
+    hex(
+      final dp1_nominal=per.dpSup_nominal,
+      final dp2_nominal=per.dpExh_nominal));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",

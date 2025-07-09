@@ -83,8 +83,6 @@ protected
     redeclare package Medium2 = Medium,
     final m1_flow_nominal=per.mSup_flow_nominal,
     final m2_flow_nominal=per.mExh_flow_nominal,
-    final dp1_nominal=per.dpSup_nominal,
-    final dp2_nominal=per.dpExh_nominal,
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final from_dp1=from_dp1,

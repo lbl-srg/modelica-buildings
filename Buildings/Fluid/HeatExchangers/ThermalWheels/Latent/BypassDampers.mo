@@ -1,7 +1,9 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model BypassDampers
   "Enthalpy recovery wheel with bypass dampers"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel(
+  hex(final dp1_nominal=0,
+      final dp2_nominal=0) "Hex dp is lumped in damper");
 
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
     "Nominal pressure drop of dampers";
@@ -52,7 +54,8 @@ model BypassDampers
     final strokeTime=strokeTime,
     final init=init,
     y_start=1-yByp_start,
-    final dpDamper_nominal=dpDamper_nominal)
+    final dpDamper_nominal=dpDamper_nominal,
+    final dpFixed_nominal=per.dpSup_nominal)
     "Supply air damper"
     annotation (Placement(transformation(
     extent={{-10,-10},{10,10}},rotation=0,origin={-90,40})));
@@ -66,7 +69,8 @@ model BypassDampers
     final strokeTime=strokeTime,
     final init=init,
     y_start=1-yByp_start,
-    final dpDamper_nominal=dpDamper_nominal)
+    final dpDamper_nominal=dpDamper_nominal,
+    final dpFixed_nominal=per.dpExh_nominal)
     "Exhaust air damper"
     annotation (Placement(transformation(
     extent={{10,10},{-10,-10}},rotation=-90,origin={60,-50})));

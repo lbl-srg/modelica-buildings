@@ -1,7 +1,10 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model SpeedControlled
   "Enthalpy recovery wheel with a variable speed drive"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel(
+   hex(
+      final dp1_nominal=per.dpSup_nominal,
+      final dp2_nominal=per.dpExh_nominal));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
