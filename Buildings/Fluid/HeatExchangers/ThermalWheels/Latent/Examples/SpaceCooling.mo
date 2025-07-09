@@ -169,7 +169,11 @@ model SpaceCooling "Space cooling system"
     shift=0.25*86400)
     "Operating signal"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.Continuous.LimPID conHX(k=0.1, Ti=60)
+  Buildings.Controls.Continuous.LimPID conWhe(
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
+    k=0.1,
+    Ti=60)
     "Heat recovery controller"
     annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMixSetPoi(
@@ -265,13 +269,12 @@ equation
   connect(opeSig.y, whe.uRot) annotation (Line(
       points={{-138,-60},{-108,-60},{-108,-33.4},{-104.2,-33.4}},
       color={255,0,255}));
-  connect(TMixSetPoi.y, conHX.u_s)
+  connect(TMixSetPoi.y, conWhe.u_s)
     annotation (Line(points={{-78,20},{-60,20}}, color={0,0,127}));
-  connect(senTemHXOut.T, conHX.u_m) annotation (Line(points={{-56,-13.4},{-56,2},
+  connect(senTemHXOut.T, conWhe.u_m) annotation (Line(points={{-56,-13.4},{-56,2},
           {-48,2},{-48,8}}, color={0,0,127}));
-  connect(conHX.y, whe.uBypDamPos) annotation (Line(points={{-37,20},{-14,20},{
-          -14,-80},{-112,-80},{-112,-24.6},{-104.2,-24.6}},
-          color={0,0,127}));
+  connect(conWhe.y, whe.uBypDamPos) annotation (Line(points={{-37,20},{-14,20},{
+          -14,-80},{-112,-80},{-112,-24.6},{-104.2,-24.6}}, color={0,0,127}));
   connect(vol.ports[2], senTemRetAir.port_a)
     annotation (Line(points={{71,20},{71,-46},{54,-46}}, color={0,127,255}));
   connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-80,-112},{-80,-140},
