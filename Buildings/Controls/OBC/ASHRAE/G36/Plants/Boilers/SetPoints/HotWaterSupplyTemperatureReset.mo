@@ -104,7 +104,7 @@ block HotWaterSupplyTemperatureReset
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaCha
     "Signal indicating plant is in the staging process"
-    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPumSta[nPum]
@@ -114,7 +114,7 @@ block HotWaterSupplyTemperatureReset
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nHotWatSupResReq
     "Number of hot-water supply temperature reset requests"
-    annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
+    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uTyp[nSta]
@@ -146,7 +146,7 @@ block HotWaterSupplyTemperatureReset
 protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Select plant setpoint based on stage type"
-    annotation (Placement(transformation(extent={{10,60},{30,80}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
     final nin=nSta)
@@ -163,6 +163,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
+    final have_hol=true,
     final iniSet=TPlaHotWatSetMax,
     final minSet=THotWatSetMinNonConBoi,
     final maxSet=TPlaHotWatSetMax,
@@ -171,27 +172,10 @@ protected
     final numIgnReq=nHotWatResReqIgn,
     final triAmo=triAmoVal,
     final resAmo=resAmoVal,
-    final maxRes=maxResVal)
+    final maxRes=maxResVal,
+    final dtHol=holTimVal)
     "Trim and respond controller for non-condensing stage type"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Detect start of stage change process"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
-    final trueHoldDuration=holTimVal,
-    final falseHoldDuration=0)
-    "Hold setpoint value for duration of stage change"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
-    "Retain last value before stage change initiates"
-    annotation (Placement(transformation(extent={{50,40},{70,60}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Switch swi
-    "Logical switch"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
@@ -199,6 +183,7 @@ protected
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes1(
+    final have_hol=true,
     final iniSet=TPlaHotWatSetMax,
     final minSet=THotWatSetMinConBoi,
     final maxSet=TPlaHotWatSetMax,
@@ -207,9 +192,10 @@ protected
     final numIgnReq=nHotWatResReqIgn,
     final triAmo=triAmoVal,
     final resAmo=resAmoVal,
-    final maxRes=maxResVal)
+    final maxRes=maxResVal,
+    final dtHol=holTimVal)
     "Trim and respond controller for condensing stage type"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant boiTypVec[nBoi](
     final k=boiTyp)
@@ -277,36 +263,21 @@ equation
   connect(uHotWatPumSta, mulOr.u[1:nPum]) annotation (Line(points={{-160,90},{-122,
           90}},                   color={255,0,255}));
   connect(mulOr.y, triRes.uDevSta)
-    annotation (Line(points={{-98,90},{-60,90},{-60,98},{-42,98}},
+    annotation (Line(points={{-98,90},{-60,90},{-60,38},{-42,38}},
                                                            color={255,0,255}));
-  connect(truHol.u, uStaCha)
-    annotation (Line(points={{-42,-30},{-50,-30},{-50,0},{-160,0}},
-                                                   color={255,0,255}));
-  connect(edg.u, uStaCha) annotation (Line(points={{-42,0},{-160,0}},
-                      color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-18,0},{60,0},{60,38}},
-                  color={255,0,255}));
-  connect(triSam.y, swi.u1)
-    annotation (Line(points={{72,50},{80,50},{80,8},{98,8}}, color={0,0,127}));
-  connect(truHol.y, swi.u2) annotation (Line(points={{-18,-30},{80,-30},{80,0},{
-          98,0}}, color={255,0,255}));
-  connect(triRes.numOfReq, nHotWatSupResReq) annotation (Line(points={{-42,82},{
-          -50,82},{-50,50},{-160,50}},
+  connect(triRes.numOfReq, nHotWatSupResReq) annotation (Line(points={{-42,22},{
+          -130,22},{-130,-20},{-160,-20}},
                                     color={255,127,0}));
-  connect(swi.y, TPlaHotWatSupSet)
-    annotation (Line(points={{122,0},{160,0}}, color={0,0,127}));
-  connect(swi1.y, triSam.u) annotation (Line(points={{32,70},{40,70},{40,50},{48,
-          50}}, color={0,0,127}));
-  connect(triRes.y, swi1.u1) annotation (Line(points={{-18,90},{0,90},{0,78},{8,
-          78}},   color={0,0,127}));
+  connect(triRes.y, swi1.u1) annotation (Line(points={{-18,30},{50,30},{50,8},{58,
+          8}},    color={0,0,127}));
   connect(triRes1.y, swi1.u3)
-    annotation (Line(points={{-18,50},{0,50},{0,62},{8,62}}, color={0,0,127}));
-  connect(triRes1.numOfReq, nHotWatSupResReq) annotation (Line(points={{-42,42},
-          {-50,42},{-50,50},{-160,50}}, color={255,127,0}));
-  connect(triRes1.uDevSta, mulOr.y) annotation (Line(points={{-42,58},{-60,58},{
-          -60,90},{-98,90}},   color={255,0,255}));
-  connect(swi1.y, swi.u3) annotation (Line(points={{32,70},{40,70},{40,-8},{98,-8}},
-        color={0,0,127}));
+    annotation (Line(points={{-18,-30},{50,-30},{50,-8},{58,-8}},
+                                                             color={0,0,127}));
+  connect(triRes1.numOfReq, nHotWatSupResReq) annotation (Line(points={{-42,-38},
+          {-130,-38},{-130,-20},{-160,-20}},
+                                        color={255,127,0}));
+  connect(triRes1.uDevSta, mulOr.y) annotation (Line(points={{-42,-22},{-60,-22},
+          {-60,90},{-98,90}},  color={255,0,255}));
   connect(uCurStaSet, extIndSig.index) annotation (Line(points={{-160,-120},{-70,
           -120},{-70,-82}}, color={255,127,0}));
   connect(extIndSig.u, intToRea.y)
@@ -315,8 +286,8 @@ equation
     annotation (Line(points={{-122,-70},{-160,-70}}, color={255,127,0}));
   connect(extIndSig.y, greThr.u)
     annotation (Line(points={{-58,-70},{-42,-70}}, color={0,0,127}));
-  connect(greThr.y, swi1.u2) annotation (Line(points={{-18,-70},{-10,-70},{-10,70},
-          {8,70}}, color={255,0,255}));
+  connect(greThr.y, swi1.u2) annotation (Line(points={{-18,-70},{-10,-70},{-10,0},
+          {58,0}}, color={255,0,255}));
   connect(boiTypVec.y, greThr1.u)
     annotation (Line(points={{-98,-250},{-82,-250}},  color={0,0,127}));
   connect(booToRea1.u, greThr1.y) annotation (Line(points={{-42,-270},{-50,-270},
@@ -328,11 +299,6 @@ equation
   connect(swi2.u2, greThr.y) annotation (Line(points={{-42,-190},{-50,-190},{-50,
           -100},{-10,-100},{-10,-70},{-18,-70}},
                            color={255,0,255}));
-  connect(swi2.u3, swi.y) annotation (Line(points={{-42,-198},{-46,-198},{-46,-210},
-          {-130,-210},{-130,-130},{130,-130},{130,0},{122,0}},
-                                      color={0,0,127}));
-  connect(addPar.u, swi.y) annotation (Line(points={{-122,-190},{-130,-190},{-130,
-          -130},{130,-130},{130,0},{122,0}}, color={0,0,127}));
   connect(min.u1, con.y) annotation (Line(points={{-82,-164},{-90,-164},{-90,-150},
           {-98,-150}}, color={0,0,127}));
   connect(min.u2, addPar.y) annotation (Line(points={{-82,-176},{-90,-176},{-90,
@@ -343,8 +309,6 @@ equation
     annotation (Line(points={{-18,-190},{8,-190}},color={0,0,127}));
   connect(pro.u1, reaRep.y) annotation (Line(points={{58,-184},{50,-184},{50,-190},
           {32,-190}}, color={0,0,127}));
-  connect(reaRep1.u, swi.y) annotation (Line(points={{8,-300},{-130,-300},{-130,
-          -130},{130,-130},{130,0},{122,0}}, color={0,0,127}));
   connect(booToRea.y, pro.u2) annotation (Line(points={{-18,-230},{50,-230},{50,
           -196},{58,-196}}, color={0,0,127}));
   connect(pro.y, add2.u1) annotation (Line(points={{82,-190},{90,-190},{90,-224},
@@ -356,6 +320,12 @@ equation
   connect(pro1.y, add2.u2) annotation (Line(points={{82,-270},{90,-270},{90,-236},
           {98,-236}}, color={0,0,127}));
 
+  connect(uStaCha, triRes.uHol) annotation (Line(points={{-160,40},{-80,40},{-80,
+          30},{-42,30}}, color={255,0,255}));
+  connect(uStaCha, triRes1.uHol) annotation (Line(points={{-160,40},{-80,40},{-80,
+          -30},{-42,-30}}, color={255,0,255}));
+  connect(swi1.y, TPlaHotWatSupSet)
+    annotation (Line(points={{82,0},{160,0}}, color={0,0,127}));
 annotation(defaultComponentName="hotWatSupTemRes",
   Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-140,-320},{140,120}})),
@@ -363,15 +333,9 @@ annotation(defaultComponentName="hotWatSupTemRes",
       extent={{-100,-100},{100,100}}),
       graphics={Rectangle(
                   extent={{-100,100},{100,-100}},
-                  lineColor={28,108,200},
+                  lineColor={0,0,0},
                   fillColor={255,255,255},
                   fillPattern=FillPattern.Solid),
-                Text(
-                  extent={{-50,20},{50,-20}},
-                  textColor={28,108,200},
-                  fillColor={255,255,255},
-                  fillPattern=FillPattern.None,
-                  textString="hotWatSupTemRes"),
                 Text(
                   extent={{-100,150},{100,110}},
                   textColor={0,0,255},
