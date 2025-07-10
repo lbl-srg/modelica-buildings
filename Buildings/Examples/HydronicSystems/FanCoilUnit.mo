@@ -74,7 +74,7 @@ model FanCoilUnit
     final kCooCoi=fill(0.05, 5),
     final TiCooCoi=fill(200, 5),
     final kHeaCoi=fill(0.05, 5),
-    final TiHeaCoi=fill(300, 5),
+    final TiHeaCoi=fill(200, 5),
     final TSupSet_max=fill(308.15, 5),
     final TSupSet_min=fill(285.85, 5))
     "Fan coil unit controller"
@@ -91,30 +91,27 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant LimLev(
     final k=0)
     "Cooling and heating demand limit level"
-    annotation (Placement(transformation(extent={{-200,40},{-180,60}})));
+    annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
     final nout=5)
     "Scalar replicator for demand limit level"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     final occupancy=3600*{6,19})
     "Occupancy schedule"
-    annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
+    annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccSetPoi(
-    final k=23 + 273.15)
-    "Occupied temperature setpoint"
-    annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccHeaSetPoi(final k=20 + 273.15)
+    "Occupied heating temperature setpoint"
+    annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnOccCooSet(
-    final k=25 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnOccCooSet(final k=30 + 273.15)
     "Unoccupied cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnOccHeaSet(
-    final k=21 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnOccHeaSet(final k=12 + 273.15)
     "Unoccupied heating temperature setpoint"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
@@ -132,17 +129,17 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep2(
     final nout=5)
     "Scalar replicator for temperature setpoint adjustment"
-    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
+    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep3(
     final nout=5)
     "Scalar replicator for time to next occupancy"
-    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep4(
     final nout=5)
     "Scalar replicator for occupied setpoint temperature"
-    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep5(
     final nout=5)
@@ -157,22 +154,31 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetAdj(
     final k=0)
     "Unoccupied cooling  temperature setpoint"
-    annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooWarTim(
-    final k=0)
-    "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooWarTim(final k=3600)
+    "Cooldown and warm-up time"
+    annotation (Placement(transformation(extent={{-200,130},{-180,150}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep1(
     final nout=5)
     "Scalar replicator for cool-down and warm-up time"
-    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
+    annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
     final nout=5)
     "Scalar replicator for occupancy"
-    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
+    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccCooSetPoi(
+    final k=24 + 273.15)
+    "Occupied cooling temperature setpoint"
+    annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
+
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep7(
+    final nout=5)
+    "Scalar replicator for occupied setpoint temperature"
+    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 
 equation
   connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{-18,17.3333},{
@@ -182,38 +188,37 @@ equation
           {-8,10},{-2,10}}, color={0,0,127}));
   connect(conFCU.yHeaCoi, fanCoiUni.uHea) annotation (Line(points={{-18,7.33333},
           {-4,7.33333},{-4,4},{-2,4}},  color={0,0,127}));
-  connect(intScaRep.y, conFCU.uCooDemLimLev) annotation (Line(points={{-138,50},
-          {-118,50},{-118,9},{-62,9}}, color={255,127,0}));
-  connect(intScaRep.y, conFCU.uHeaDemLimLev) annotation (Line(points={{-138,50},
-          {-118,50},{-118,5.66667},{-62,5.66667}}, color={255,127,0}));
-  connect(cooWarTim.y, reaScaRep1.u) annotation (Line(points={{-178,110},{-162,110}},
+  connect(intScaRep.y, conFCU.uCooDemLimLev) annotation (Line(points={{-138,80},
+          {-118,80},{-118,9},{-62,9}}, color={255,127,0}));
+  connect(intScaRep.y, conFCU.uHeaDemLimLev) annotation (Line(points={{-138,80},
+          {-118,80},{-118,5.66667},{-62,5.66667}}, color={255,127,0}));
+  connect(cooWarTim.y, reaScaRep1.u) annotation (Line(points={{-178,140},{-162,140}},
           color={0,0,127}));
-  connect(reaScaRep1.y, conFCU.warUpTim) annotation (Line(points={{-138,110},{
-          -100,110},{-100,32.3333},{-62,32.3333}},
+  connect(reaScaRep1.y, conFCU.warUpTim) annotation (Line(points={{-138,140},{
+          -100,140},{-100,32.3333},{-62,32.3333}},
                                               color={0,0,127}));
-  connect(reaScaRep1.y, conFCU.cooDowTim) annotation (Line(points={{-138,110},{-100,
-          110},{-100,29},{-62,29}}, color={0,0,127}));
+  connect(reaScaRep1.y, conFCU.cooDowTim) annotation (Line(points={{-138,140},{-100,
+          140},{-100,29},{-62,29}}, color={0,0,127}));
   connect(greThr.y, tim.u) annotation (Line(points={{-178,-130},{-162,-130}},
                color={255,0,255}));
   connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{22,2},{30,2},
           {30,44},{-80,44},{-80,2.33333},{-62,2.33333}},    color={0,0,127}));
-  connect(reaScaRep2.y, conFCU.setAdj) annotation (Line(points={{-138,80},{-106,
-          80},{-106,22.3333},{-62,22.3333}}, color={0,0,127}));
-  connect(occSch.tNexOcc, reaScaRep3.u) annotation (Line(points={{-179,16},{-170,
-          16},{-170,20},{-162,20}}, color={0,0,127}));
-  connect(reaScaRep3.y, conFCU.tNexOcc) annotation (Line(points={{-138,20},{
-          -112,20},{-112,25.6667},{-62,25.6667}},
+  connect(reaScaRep2.y, conFCU.setAdj) annotation (Line(points={{-138,110},{
+          -106,110},{-106,22.3333},{-62,22.3333}},
                                              color={0,0,127}));
-  connect(occSch.occupied, booScaRep1.u) annotation (Line(points={{-179,4},{-170,
-          4},{-170,-10},{-162,-10}}, color={255,0,255}));
-  connect(booScaRep1.y, conFCU.u1Occ) annotation (Line(points={{-138,-10},{-112,
-          -10},{-112,12.5},{-62,12.5}},color={255,0,255}));
-  connect(TOccSetPoi.y, reaScaRep4.u) annotation (Line(points={{-178,-40},{-162,
-          -40}}, color={0,0,127}));
-  connect(reaScaRep4.y, conFCU.TOccHeaSet) annotation (Line(points={{-138,-40},{
-          -106,-40},{-106,-4.33333},{-62,-4.33333}},          color={0,0,127}));
-  connect(reaScaRep4.y, conFCU.TOccCooSet) annotation (Line(points={{-138,-40},{
-          -106,-40},{-106,-7.66667},{-62,-7.66667}}, color={0,0,127}));
+  connect(occSch.tNexOcc, reaScaRep3.u) annotation (Line(points={{-179,46},{-170,
+          46},{-170,50},{-162,50}}, color={0,0,127}));
+  connect(reaScaRep3.y, conFCU.tNexOcc) annotation (Line(points={{-138,50},{
+          -112,50},{-112,25.6667},{-62,25.6667}},
+                                             color={0,0,127}));
+  connect(occSch.occupied, booScaRep1.u) annotation (Line(points={{-179,34},{-170,
+          34},{-170,20},{-162,20}},  color={255,0,255}));
+  connect(booScaRep1.y, conFCU.u1Occ) annotation (Line(points={{-138,20},{-112,20},
+          {-112,12.5},{-62,12.5}},     color={255,0,255}));
+  connect(TOccHeaSetPoi.y, reaScaRep4.u)
+    annotation (Line(points={{-178,-10},{-162,-10}}, color={0,0,127}));
+  connect(reaScaRep4.y, conFCU.TOccHeaSet) annotation (Line(points={{-138,-10},{
+          -120,-10},{-120,-4.33333},{-62,-4.33333}},          color={0,0,127}));
   connect(TUnOccCooSet.y, reaScaRep5.u)
     annotation (Line(points={{-178,-70},{-162,-70}}, color={0,0,127}));
   connect(reaScaRep5.y, conFCU.TUnoCooSet) annotation (Line(points={{-138,-70},
@@ -223,7 +228,7 @@ equation
   connect(reaScaRep6.y, conFCU.TUnoHeaSet) annotation (Line(points={{-138,-100},
           {-94,-100},{-94,-11},{-62,-11}},color={0,0,127}));
   connect(LimLev.y, intScaRep.u)
-    annotation (Line(points={{-178,50},{-162,50}}, color={255,127,0}));
+    annotation (Line(points={{-178,80},{-162,80}}, color={255,127,0}));
   connect(fanCoiUni[1].port_Air_a, floor1.portsCor[1]) annotation (Line(points={{19.8,14},
           {76,14},{76,104},{131.335,104},{131.335,79.0154}}, color={0,127,255}));
   connect(fanCoiUni[1].port_Air_b, floor1.portsCor[2]) annotation (Line(points={{20,6},{
@@ -274,7 +279,11 @@ equation
       points={{120,140},{151.174,140},{151.174,106.769}},
       color={255,204,51}, thickness=0.5));
   connect(TSetAdj.y, reaScaRep2.u)
-    annotation (Line(points={{-178,80},{-162,80}},   color={0,0,127}));
+    annotation (Line(points={{-178,110},{-162,110}}, color={0,0,127}));
+  connect(TOccCooSetPoi.y, reaScaRep7.u)
+    annotation (Line(points={{-178,-40},{-162,-40}}, color={0,0,127}));
+  connect(reaScaRep7.y, conFCU.TOccCooSet) annotation (Line(points={{-138,-40},{
+          -114,-40},{-114,-7.66667},{-62,-7.66667}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Text(
           extent={{-110,192},{110,156}},
