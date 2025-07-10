@@ -13,7 +13,8 @@ block Controller
   parameter Integer nChi = 2
     "Total number of chillers";
   parameter Integer nSen=2
-    "Total number of remote differential pressure sensors";
+    "Total number of remote differential pressure sensors"
+    annotation (Dialog(enable=not have_locSen));
   parameter Real minPumSpe=0.1 "Minimum pump speed";
   parameter Real maxPumSpe=1 "Maximum pump speed";
   parameter Integer nPum_nominal(
@@ -26,9 +27,6 @@ block Controller
     unit="m3/s")=0.5
     "Total plant design chilled water flow rate"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Real maxLocDp(unit="Pa")=15*6894.75
-    "Maximum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=have_locSen));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -50,62 +48,69 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum] if have_heaPum
     "Index of chilled water pumps in lead-lag order: lead pump, first lag pump, second lag pump, etc."
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
-      iconTransformation(extent={{-140,90},{-100,130}})));
+      iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if not have_heaPum
     "True: plant is enabled"
     annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+      iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pumps proven on status"
     annotation (Placement(transformation(extent={{-320,130},{-280,170}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna if not have_heaPum
     "Lead chiller enabling status"
     annotation (Placement(transformation(extent={{-320,100},{-280,140}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta if not have_heaPum
     "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-320,70},{-280,110}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq
     if not have_heaPum
     "Status indicating if lead chiller is requesting chilled water"
     annotation (Placement(transformation(extent={{-320,40},{-280,80}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_heaPum and have_WSE
     "True: the plant has waterside economizer"
     annotation (Placement(transformation(extent={{-320,-20},{-280,20}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
+      iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final unit=fill("1", nChi),
     final min=fill(0, nChi),
     final max=fill(1, nChi)) if have_heaPum
     "Chilled water isolation valve position"
     annotation (Placement(transformation(extent={{-320,10},{-280,50}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final unit="m3/s") if have_heaPum
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-320,-70},{-280,-30}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
     final quantity="PressureDifference") if have_locSen
     "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_local(
+    final unit="Pa",
+    final quantity="PressureDifference")
+    if have_locSen
+    "Chilled water differential static pressure setpoint for local sensor"
+    annotation (Placement(transformation(extent={{-320,-210},{-280,-170}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
     final unit=fill("Pa", nSen),
-    final quantity=fill("PressureDifference", nSen))
+    final quantity=fill("PressureDifference", nSen)) if not have_locSen
     "Chilled water differential static pressure from remote sensor"
-    annotation (Placement(transformation(extent={{-320,-220},{-280,-180}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-320,-238},{-280,-198}}),
+      iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nSen](
     final unit=fill("Pa", nSen),
-    final quantity=fill("PressureDifference",nSen))
+    final quantity=fill("PressureDifference",nSen)) if not have_locSen
     "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-270},{-280,-230}}),
-        iconTransformation(extent={{-140,-130},{-100,-90}})));
+        iconTransformation(extent={{-140,-150},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea
     "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{280,60},{320,100}}),
@@ -119,23 +124,18 @@ block Controller
     final min=0,
     final max=1,
     final unit="1") "Enabled chilled water pump speed"
-    annotation (Placement(transformation(extent={{280,-220},{320,-180}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatPumSet_local(
-    final quantity="PressureDifference",
-    final unit="Pa",
-    displayUnit="Pa") if have_locSen
-    "Local differential pressure setpoint"
-    annotation (Placement(transformation(extent={{280,-260},{320,-220}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+    annotation (Placement(transformation(extent={{280,-230},{320,-190}}),
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.EnableLead_dedicated
     enaDedLeaPum if not have_heaPum
     "Enable lead pump of dedicated pumps"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.EnableLead_headered
-    enaHeaLeaPum(final nChi=nChi, final have_WSE=have_WSE)
-                                  if have_heaPum
+    enaHeaLeaPum(
+    final nChi=nChi,
+    final have_WSE=have_WSE)
+    if have_heaPum
     "Enable lead pump of headered pumps"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP
@@ -147,10 +147,7 @@ block Controller
     annotation (Placement(transformation(extent={{-240,-26},{-220,-6}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.Speed_primary_localDp
     pumSpeLocDp(
-    final nSen=nSen,
     final nPum=nPum,
-    final minLocDp=minLocDp,
-    final maxLocDp=maxLocDp,
     final minPumSpe=minPumSpe,
     final maxPumSpe=maxPumSpe,
     final controllerType=controllerType,
@@ -414,15 +411,10 @@ equation
     annotation (Line(points={{142,190},{160,190},{160,-30},{178,-30}},
       color={255,0,255}));
   connect(pumSpeLocDp.dpChiWat_local, dpChiWat_local)
-    annotation (Line(points={{-2,-202},{-240,-202},{-240,-160},{-300,-160}},
+    annotation (Line(points={{-2,-204},{-222,-204},{-222,-160},{-300,-160}},
       color={0,0,127}));
-  connect(pumSpeLocDp.dpChiWat_remote, dpChiWat_remote)
-    annotation (Line(points={{-2,-214},{-270,-214},{-270,-200},{-300,-200}},
-      color={0,0,127}));
-  connect(pumSpeLocDp.dpChiWatSet_remote, dpChiWatSet_remote) annotation (Line(
-        points={{-2,-218},{-220,-218},{-220,-250},{-300,-250}},  color={0,0,127}));
   connect(dpChiWat_remote, pumSpeRemDp.dpChiWat_remote) annotation (Line(points={{-300,
-          -200},{-270,-200},{-270,-240},{-2,-240}},        color={0,0,127}));
+          -218},{-260,-218},{-260,-240},{-2,-240}},        color={0,0,127}));
   connect(dpChiWatSet_remote, pumSpeRemDp.dpChiWatSet_remote) annotation (Line(
         points={{-300,-250},{-220,-250},{-220,-248},{-2,-248}},  color={0,0,127}));
   connect(enaPum.y, pumSta.u2)
@@ -462,13 +454,12 @@ equation
     annotation (Line(points={{-202,118},{-240,118},{-240,190},{-300,190}},
       color={255,0,255}));
   connect(pumSpeLocDp.yChiWatPumSpe, yPumSpe)
-    annotation (Line(points={{22,-210},{162,-210},{162,-200},{300,-200}},
+    annotation (Line(points={{22,-210},{300,-210}},
           color={0,0,127}));
   connect(pumSpeRemDp.yChiWatPumSpe, yPumSpe) annotation (Line(points={{21,-240},
-          {40,-240},{40,-200},{300,-200}},   color={0,0,127}));
+          {100,-240},{100,-210},{300,-210}}, color={0,0,127}));
   connect(enaLagChiPum.yUp, enaNexLag.u) annotation (Line(points={{-218,-12},{-196,
-          -12},{-196,30},{-2,30}},
-                                 color={255,0,255}));
+          -12},{-196,30},{-2,30}}, color={255,0,255}));
   connect(enaNexLag.y, booRep1.u)
     annotation (Line(points={{22,30},{58,30}}, color={255,0,255}));
   connect(booToInt1.y, intEqu4.u1)
@@ -481,8 +472,6 @@ equation
     annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(not2.y, booRep2.u)
     annotation (Line(points={{22,0},{58,0}}, color={255,0,255}));
-  connect(pumSpeLocDp.dpChiWatPumSet_local, dpChiWatPumSet_local) annotation (
-      Line(points={{22,-216},{200,-216},{200,-240},{300,-240}},  color={0,0,127}));
   connect(booRep.y, pumSta1.u1) annotation (Line(points={{22,100},{90,100},{90,40},
           {238,40}}, color={255,0,255}));
   connect(addPum.y, pumSta1.u2) annotation (Line(points={{262,0},{268,0},{268,20},
@@ -533,10 +522,12 @@ equation
           -188,-20},{-188,0},{-42,0}},color={255,0,255}));
   connect(uWse, enaHeaLeaPum.uWse) annotation (Line(points={{-300,0},{-214,0},{-214,
           64},{-202,64}}, color={255,0,255}));
-  connect(booRep.y, pumSpeLocDp.uChiWatPum) annotation (Line(points={{22,100},{
-          90,100},{90,-180},{-18,-180},{-18,-206},{-2,-206}}, color={255,0,255}));
+  connect(booRep.y, pumSpeLocDp.uChiWatPum) annotation (Line(points={{22,100},{90,
+          100},{90,-180},{-18,-180},{-18,-216},{-2,-216}},    color={255,0,255}));
   connect(booRep.y, pumSpeRemDp.uChiWatPum) annotation (Line(points={{22,100},{
           90,100},{90,-180},{-18,-180},{-18,-232},{-2,-232}}, color={255,0,255}));
+  connect(dpChiWatSet_local, pumSpeLocDp.dpChiWatSet_local) annotation (Line(
+        points={{-300,-190},{-240,-190},{-240,-210},{-2,-210}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -588,15 +579,15 @@ annotation (
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enabled pump speed")}),
- Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}}),
        graphics={
         Rectangle(
-          extent={{-100,-100},{100,100}},
+          extent={{-100,-140},{100,140}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-120,146},{100,108}},
+          extent={{-100,180},{100,140}},
           textColor={0,0,255},
           textString="%name"),
         Rectangle(
