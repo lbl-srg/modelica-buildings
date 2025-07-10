@@ -47,7 +47,7 @@ model FanCoilUnit
         rotation=90, origin={70,-70})));
 
    Buildings.Examples.VAVReheat.BaseClasses.Floor floor1(
-     redeclare package Medium = MediumA)
+     redeclare package Medium = MediumA, sampleModel=true)
      "Thermal zone model"
      annotation (Placement(transformation(extent={{102,56},{180,100}})));
 
@@ -74,7 +74,7 @@ model FanCoilUnit
     final kCooCoi=fill(0.05, 5),
     final TiCooCoi=fill(200, 5),
     final kHeaCoi=fill(0.05, 5),
-    final TiHeaCoi=fill(200, 5),
+    final TiHeaCoi=fill(300, 5),
     final TSupSet_max=fill(308.15, 5),
     final TSupSet_min=fill(285.85, 5))
     "Fan coil unit controller"
