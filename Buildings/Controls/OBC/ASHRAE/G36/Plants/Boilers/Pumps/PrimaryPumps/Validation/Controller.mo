@@ -1369,14 +1369,13 @@ equation
           -254,180},{-254,248},{-180,248},{-180,257.467},{-172,257.467}},
                                                              color={255,0,255}));
 
-  connect(booPul1.y, priPumCon2.uBoiSta[2]) annotation (Line(points={{-258,180},
-          {-254,180},{-254,248},{-180,248},{-180,263.533},{-172,263.533}},
-                                                                   color={255,0,
-          255}));
+  connect(booPul1.y, priPumCon2.uBoi[2]) annotation (Line(points={{-258,180},{-254,
+          180},{-254,248},{-180,248},{-180,263.533},{-172,263.533}}, color={255,
+          0,255}));
 
-  connect(con9.y, priPumCon2.uBoiSta[1]) annotation (Line(points={{-228,220},{
-          -226,220},{-226,244},{-188,244},{-188,262.6},{-172,262.6}},
-                                                             color={255,0,255}));
+  connect(con9.y, priPumCon2.uBoi[1]) annotation (Line(points={{-228,220},{-226,
+          220},{-226,244},{-188,244},{-188,262.6},{-172,262.6}}, color={255,0,
+          255}));
 
   connect(conInt3.y,priPumCon3. uPumLeaLag) annotation (Line(points={{162,280},
           {180,280},{180,257.067},{188,257.067}},
@@ -1398,13 +1397,12 @@ equation
           160},{106,228},{180,228},{180,237.467},{188,237.467}},
                                                          color={255,0,255}));
 
-  connect(booPul3.y, priPumCon3.uBoiSta[2]) annotation (Line(points={{102,160},
-          {106,160},{106,228},{180,228},{180,243.533},{188,243.533}},
-                                                             color={255,0,255}));
+  connect(booPul3.y, priPumCon3.uBoi[2]) annotation (Line(points={{102,160},{
+          106,160},{106,228},{180,228},{180,243.533},{188,243.533}}, color={255,
+          0,255}));
 
-  connect(con13.y, priPumCon3.uBoiSta[1]) annotation (Line(points={{132,200},{
-          134,200},{134,224},{172,224},{172,242.6},{188,242.6}},
-                                                         color={255,0,255}));
+  connect(con13.y, priPumCon3.uBoi[1]) annotation (Line(points={{132,200},{134,
+          200},{134,224},{172,224},{172,242.6},{188,242.6}}, color={255,0,255}));
 
   connect(sin7.y, priPumCon3.VHotWatDec_flow) annotation (Line(points={{162,198},
           {176,198},{176,211.333},{188,211.333}},
@@ -1431,13 +1429,12 @@ equation
           -254,20},{-254,88},{-180,88},{-180,97.4667},{-172,97.4667}},
                                                         color={255,0,255}));
 
-  connect(booPul5.y, priPumCon4.uBoiSta[2]) annotation (Line(points={{-258,20},
-          {-254,20},{-254,88},{-180,88},{-180,103.533},{-172,103.533}},
-                                                               color={255,0,255}));
+  connect(booPul5.y, priPumCon4.uBoi[2]) annotation (Line(points={{-258,20},{-254,
+          20},{-254,88},{-180,88},{-180,103.533},{-172,103.533}}, color={255,0,
+          255}));
 
-  connect(con17.y, priPumCon4.uBoiSta[1]) annotation (Line(points={{-228,60},{
-          -226,60},{-226,84},{-188,84},{-188,102.6},{-172,102.6}},
-                                                          color={255,0,255}));
+  connect(con17.y, priPumCon4.uBoi[1]) annotation (Line(points={{-228,60},{-226,
+          60},{-226,84},{-188,84},{-188,102.6},{-172,102.6}}, color={255,0,255}));
 
   connect(sin9.y, priPumCon4.THotWatPri) annotation (Line(points={{-192,58},{
           -182,58},{-182,68.5333},{-172,68.5333}},
@@ -1468,13 +1465,11 @@ equation
           {106,68},{180,68},{180,77.4667},{188,77.4667}},
                                                 color={255,0,255}));
 
-  connect(booPul7.y, priPumCon5.uBoiSta[2]) annotation (Line(points={{102,0},{
-          106,0},{106,68},{180,68},{180,83.5333},{188,83.5333}},
-                                                   color={255,0,255}));
+  connect(booPul7.y, priPumCon5.uBoi[2]) annotation (Line(points={{102,0},{106,
+          0},{106,68},{180,68},{180,83.5333},{188,83.5333}}, color={255,0,255}));
 
-  connect(con22.y, priPumCon5.uBoiSta[1]) annotation (Line(points={{132,40},{
-          134,40},{134,64},{172,64},{172,82.6},{188,82.6}},
-                                                    color={255,0,255}));
+  connect(con22.y, priPumCon5.uBoi[1]) annotation (Line(points={{132,40},{134,
+          40},{134,64},{172,64},{172,82.6},{188,82.6}}, color={255,0,255}));
 
   connect(sin11.y, priPumCon5.THotWatBoiSup) annotation (Line(points={{172,40},
           {178,40},{178,42.9333},{188,42.9333}},
@@ -1501,14 +1496,12 @@ equation
           -264,-160},{-264,-92},{-190,-92},{-190,-82.5333},{-182,-82.5333}},
                                                               color={255,0,255}));
 
-  connect(booPul9.y, priPumCon6.uBoiSta[2]) annotation (Line(points={{-268,-160},
-          {-264,-160},{-264,-92},{-190,-92},{-190,-76.4667},{-182,-76.4667}},
-                                                                    color={255,0,
-          255}));
+  connect(booPul9.y, priPumCon6.uBoi[2]) annotation (Line(points={{-268,-160},{
+          -264,-160},{-264,-92},{-190,-92},{-190,-76.4667},{-182,-76.4667}},
+        color={255,0,255}));
 
-  connect(con27.y, priPumCon6.uBoiSta[1]) annotation (Line(points={{-238,-120},
-          {-236,-120},{-236,-96},{-198,-96},{-198,-77.4},{-182,-77.4}},
-                                                                   color={255,0,
+  connect(con27.y, priPumCon6.uBoi[1]) annotation (Line(points={{-238,-120},{-236,
+          -120},{-236,-96},{-198,-96},{-198,-77.4},{-182,-77.4}}, color={255,0,
           255}));
 
   connect(con29.y, priPumCon7.uMinPriPumSpeCon) annotation (Line(points={{92,-160},
@@ -1769,37 +1762,32 @@ equation
   connect(booPul11.y, truFalHol10.u) annotation (Line(points={{122,-180},{126,-180},
           {126,-100},{128,-100}}, color={255,0,255}));
 
-  connect(truFalHol10.y, priPumCon7.uBoiSta[1]) annotation (Line(points={{152,
-          -100},{192,-100},{192,-97.4},{208,-97.4}},
-                                           color={255,0,255}));
+  connect(truFalHol10.y, priPumCon7.uBoi[1]) annotation (Line(points={{152,-100},
+          {192,-100},{192,-97.4},{208,-97.4}}, color={255,0,255}));
 
   connect(booPul13.y, truFalHol11.u) annotation (Line(points={{-268,-340},{-264,
           -340},{-264,-260},{-262,-260}}, color={255,0,255}));
 
-  connect(truFalHol11.y, priPumCon8.uBoiSta[1]) annotation (Line(points={{-238,
-          -260},{-236,-260},{-236,-257.4},{-182,-257.4}},
-                                                color={255,0,255}));
+  connect(truFalHol11.y, priPumCon8.uBoi[1]) annotation (Line(points={{-238,-260},
+          {-236,-260},{-236,-257.4},{-182,-257.4}}, color={255,0,255}));
 
   connect(booPul15.y, truFalHol12.u) annotation (Line(points={{122,-350},{126,-350},
           {126,-270},{128,-270}}, color={255,0,255}));
 
-  connect(truFalHol12.y, priPumCon9.uBoiSta[1]) annotation (Line(points={{152,
-          -270},{160,-270},{160,-267.4},{208,-267.4}},
-                                             color={255,0,255}));
+  connect(truFalHol12.y, priPumCon9.uBoi[1]) annotation (Line(points={{152,-270},
+          {160,-270},{160,-267.4},{208,-267.4}}, color={255,0,255}));
 
   connect(booPul17.y, truFalHol13.u) annotation (Line(points={{-258,-500},{-254,
           -500},{-254,-420},{-252,-420}}, color={255,0,255}));
 
-  connect(truFalHol13.y, priPumCon10.uBoiSta[1]) annotation (Line(points={{-228,
-          -420},{-220,-420},{-220,-417.4},{-172,-417.4}},
-                                                      color={255,0,255}));
+  connect(truFalHol13.y, priPumCon10.uBoi[1]) annotation (Line(points={{-228,-420},
+          {-220,-420},{-220,-417.4},{-172,-417.4}}, color={255,0,255}));
 
   connect(booPul19.y, truFalHol14.u) annotation (Line(points={{102,-530},{106,-530},
           {106,-450},{108,-450}}, color={255,0,255}));
 
-  connect(truFalHol14.y, priPumCon11.uBoiSta[1]) annotation (Line(points={{132,
-          -450},{140,-450},{140,-447.4},{188,-447.4}},
-                                             color={255,0,255}));
+  connect(truFalHol14.y, priPumCon11.uBoi[1]) annotation (Line(points={{132,-450},
+          {140,-450},{140,-447.4},{188,-447.4}}, color={255,0,255}));
 
   connect(booPul.y, mulOr10.u[1:2]) annotation (Line(points={{-314,418},{-308,
           418},{-308,451.75},{-302,451.75}}, color={0,0,127}));
@@ -1881,9 +1869,8 @@ equation
   connect(booPul11.y, truDel.u) annotation (Line(points={{122,-180},{126,-180},{
           126,-140},{128,-140}}, color={255,0,255}));
 
-  connect(truDel.y, priPumCon7.uBoiSta[2]) annotation (Line(points={{152,-140},
-          {156,-140},{156,-96.4667},{208,-96.4667}},
-                                           color={255,0,255}));
+  connect(truDel.y, priPumCon7.uBoi[2]) annotation (Line(points={{152,-140},{
+          156,-140},{156,-96.4667},{208,-96.4667}}, color={255,0,255}));
 
   connect(truFalHol10.y, priPumCon7.uPlaEna) annotation (Line(points={{152,-100},
           {180,-100},{180,-88.5333},{208,-88.5333}}, color={255,0,255}));
@@ -1927,10 +1914,9 @@ equation
   connect(truDel1.y, intSwi1.u2) annotation (Line(points={{-236,-304},{-234,
           -304},{-234,-324},{-166,-324},{-166,-330},{-122,-330}}, color={255,0,
           255}));
-  connect(truDel1.y, priPumCon8.uBoiSta[2]) annotation (Line(points={{-236,-304},
-          {-234,-304},{-234,-270},{-194,-270},{-194,-256.467},{-182,-256.467}},
-                                                                        color={
-          255,0,255}));
+  connect(truDel1.y, priPumCon8.uBoi[2]) annotation (Line(points={{-236,-304},{
+          -234,-304},{-234,-270},{-194,-270},{-194,-256.467},{-182,-256.467}},
+        color={255,0,255}));
   connect(booPul15.y, truDel2.u) annotation (Line(points={{122,-350},{126,-350},
           {126,-310},{128,-310}}, color={255,0,255}));
 
@@ -1943,9 +1929,8 @@ equation
   connect(cha19.y, or3.u1) annotation (Line(points={{152,-210},{160,-210},{160,
           -240},{168,-240}}, color={255,0,255}));
 
-  connect(truDel2.y, priPumCon9.uBoiSta[2]) annotation (Line(points={{152,-310},
-          {158,-310},{158,-266.467},{208,-266.467}},
-                                             color={255,0,255}));
+  connect(truDel2.y, priPumCon9.uBoi[2]) annotation (Line(points={{152,-310},{
+          158,-310},{158,-266.467},{208,-266.467}}, color={255,0,255}));
 
   connect(truDel2.y, cha3.u) annotation (Line(points={{152,-310},{158,-310},{
           158,-286},{120,-286},{120,-244},{128,-244}}, color={255,0,255}));
@@ -1962,9 +1947,8 @@ equation
   connect(cha4.y, or4.u2) annotation (Line(points={{-228,-394},{-220,-394},{
           -220,-398},{-212,-398}}, color={255,0,255}));
 
-  connect(truDel3.y, priPumCon10.uBoiSta[2]) annotation (Line(points={{-228,
-          -460},{-222,-460},{-222,-416.467},{-172,-416.467}},
-                                                      color={255,0,255}));
+  connect(truDel3.y, priPumCon10.uBoi[2]) annotation (Line(points={{-228,-460},
+          {-222,-460},{-222,-416.467},{-172,-416.467}}, color={255,0,255}));
 
   connect(truDel3.y, cha4.u) annotation (Line(points={{-228,-460},{-222,-460},{
           -222,-406},{-260,-406},{-260,-394},{-252,-394}}, color={255,0,255}));
@@ -1990,9 +1974,8 @@ equation
   connect(or5.y, priPumCon11.uPumChaPro) annotation (Line(points={{172,-420},{
           176,-420},{176,-455.333},{188,-455.333}}, color={255,0,255}));
 
-  connect(truDel4.y, priPumCon11.uBoiSta[2]) annotation (Line(points={{142,-530},
-          {146,-530},{146,-446.467},{188,-446.467}},
-                                             color={255,0,255}));
+  connect(truDel4.y, priPumCon11.uBoi[2]) annotation (Line(points={{142,-530},{
+          146,-530},{146,-446.467},{188,-446.467}}, color={255,0,255}));
 
   connect(truDel4.y, intSwi4.u2) annotation (Line(points={{142,-530},{146,-530},
           {146,-500},{200,-500},{200,-520},{258,-520}}, color={255,0,255}));

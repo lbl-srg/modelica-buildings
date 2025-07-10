@@ -265,8 +265,8 @@ block Controller
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
       iconTransformation(extent={{-140,210},{-100,250}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[nBoi] if not have_priOnl
-    "Boiler status vector"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi] if not have_priOnl
+    "Boiler enable signals"
     annotation (Placement(transformation(extent={{-320,-90},{-280,-50}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
 
@@ -836,10 +836,10 @@ equation
   connect(THotWatBoiSup, pumSpeTem.THotWatBoiSup) annotation (Line(points={{-300,
           -700},{-68,-700},{-68,-606},{-62,-606}}, color={0,0,127}));
 
-  connect(uBoiSta, pumSpeTem.uBoiSta) annotation (Line(points={{-300,-70},{-270,
-          -70},{-270,-602},{-62,-602}}, color={255,0,255}));
+  connect(uBoi, pumSpeTem.uBoiSta) annotation (Line(points={{-300,-70},{-270,-70},
+          {-270,-602},{-62,-602}}, color={255,0,255}));
 
-  connect(uBoiSta, booToRea.u)
+  connect(uBoi, booToRea.u)
     annotation (Line(points={{-300,-70},{-254,-70}}, color={255,0,255}));
 
   connect(booToRea.y, extIndSig.u)
@@ -848,8 +848,8 @@ equation
   connect(conInt.y, extIndSig.index) annotation (Line(points={{-252,200},{-140,200},
           {-140,-88},{-212,-88},{-212,-82}}, color={255,127,0}));
 
-  connect(uBoiSta, booToInt1.u) annotation (Line(points={{-300,-70},{-270,-70},{
-          -270,-156},{-252,-156}}, color={255,0,255}));
+  connect(uBoi, booToInt1.u) annotation (Line(points={{-300,-70},{-270,-70},{-270,
+          -156},{-252,-156}}, color={255,0,255}));
 
   connect(booToInt1.y, mulSumInt1.u[1:nPum]) annotation (Line(points={{-228,-156},
           {-202,-156}},                            color={255,127,0}));

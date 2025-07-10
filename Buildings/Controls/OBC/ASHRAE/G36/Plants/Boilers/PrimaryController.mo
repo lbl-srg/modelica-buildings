@@ -986,12 +986,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Change cha[nPumPri]
     "Detect changes in primary pump status"
-    annotation (Placement(transformation(extent={{160,-430},{180,-410}})));
+    annotation (Placement(transformation(extent={{160,-320},{180,-300}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPumPri)
     "Pass true signal when any of the pump statuses change"
-    annotation (Placement(transformation(extent={{200,-430},{220,-410}})));
+    annotation (Placement(transformation(extent={{200,-320},{220,-300}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Up upProCon(
     final have_priOnl=have_priOnl,
@@ -1290,10 +1290,38 @@ protected
     annotation (Placement(transformation(extent={{-200,-490},{-180,-470}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Invalid plant configuration selections. Please refer to
-    documentation for allowed configuration selections.")
+    final message="Invalid pump speed control selections. Please refer to
+    documentation for allowed selections.")
     "Error message for non-compliant configuration selection"
     annotation (Placement(transformation(extent={{-160,-490},{-140,-470}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conHavPriOnl1(
+    final k=have_priOnl)
+    "Boolean parameter selection for plant configuration"
+    annotation (Placement(transformation(extent={{-40,-490},{-20,-470}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIntLocDp1(
+    final k=have_heaPriPum)
+    "Primary pump configuration type signal"
+    annotation (Placement(transformation(extent={{-40,-450},{-20,-430}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and8
+    "Check if valid pump configuration type for selected configuration"
+    annotation (Placement(transformation(extent={{20,-450},{40,-430}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not3
+    "Alternative selection for boiler plant configuration"
+    annotation (Placement(transformation(extent={{20,-490},{40,-470}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Check compliance with all configuration selection rules"
+    annotation (Placement(transformation(extent={{60,-470},{80,-450}})));
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
+    final message="Invalid primary pump configuration selections. Please refer to
+    documentation for allowed configuration selections.")
+    "Error message for non-compliant configuration selection"
+    annotation (Placement(transformation(extent={{100,-470},{120,-450}})));
 
 equation
   connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-188,
@@ -1509,9 +1537,9 @@ equation
                                                           color={255,0,255}));
   connect(logSwi.y, priPumCon.uOnOff) annotation (Line(points={{44,330},{50,330},
           {50,-76},{98,-76},{98,-172.533},{118,-172.533}},  color={255,0,255}));
-  connect(plaDis.yBoi, priPumCon.uBoiSta) annotation (Line(points={{262,76},{
-          274,76},{274,-88},{112,-88},{112,-166.933},{118,-166.933}},
-                                                                  color={255,0,255}));
+  connect(plaDis.yBoi, priPumCon.uBoi) annotation (Line(points={{262,76},{274,
+          76},{274,-88},{112,-88},{112,-166.933},{118,-166.933}}, color={255,0,
+          255}));
   connect(conSet.yMinPriPumSpe, priPumCon.uMinPriPumSpeCon) annotation (Line(
         points={{-36,-102},{88,-102},{88,-193.067},{118,-193.067}},
                                                            color={0,0,127}));
@@ -1570,18 +1598,16 @@ equation
                                                 color={255,0,255}));
   connect(uPriPum, bypValPos.uPumSta) annotation (Line(points={{-420,-300},{-28,
           -300},{-28,-42},{118,-42}}, color={255,0,255}));
-  connect(uPriPum, cha.u) annotation (Line(points={{-420,-300},{-28,-300},{-28,-420},
-          {158,-420}}, color={255,0,255}));
-  connect(cha.y, mulOr.u[1:nPumPri]) annotation (Line(points={{182,-420},{190,-420},{190,
-          -420},{198,-420}},     color={255,0,255}));
-  connect(mulOr.y, plaDis.uPumChaPro) annotation (Line(points={{222,-420},{232,-420},
+  connect(uPriPum, cha.u) annotation (Line(points={{-420,-300},{-28,-300},{-28,-310},
+          {158,-310}}, color={255,0,255}));
+  connect(cha.y, mulOr.u[1:nPumPri]) annotation (Line(points={{182,-310},{198,-310}},
+                                 color={255,0,255}));
+  connect(mulOr.y, plaDis.uPumChaPro) annotation (Line(points={{222,-310},{232,-310},
           {232,66},{238,66}}, color={255,0,255}));
-  connect(mulOr.y, upProCon.uPumChaPro) annotation (Line(points={{222,-420},{
-          232,-420},{232,-20},{70,-20},{70,74},{118,74}},
-                                                      color={255,0,255}));
-  connect(mulOr.y, dowProCon.uPumChaPro) annotation (Line(points={{222,-420},{
-          232,-420},{232,-20},{70,-20},{70,20},{118,20}},
-                                                      color={255,0,255}));
+  connect(mulOr.y, upProCon.uPumChaPro) annotation (Line(points={{222,-310},{232,
+          -310},{232,-20},{70,-20},{70,74},{118,74}}, color={255,0,255}));
+  connect(mulOr.y, dowProCon.uPumChaPro) annotation (Line(points={{222,-310},{232,
+          -310},{232,-20},{70,-20},{70,20},{118,20}}, color={255,0,255}));
   connect(hotWatSupTemRes.TBoiHotWatSupSet, TBoiHotWatSupSet) annotation (Line(
         points={{-118,176},{360,176},{360,170},{420,170}}, color={0,0,127}));
   connect(intWitRes.y, reaToInt1.u)
@@ -1689,6 +1715,18 @@ equation
   connect(plaDis.yHotWatIsoVal, priPumCon.uHotIsoVal) annotation (Line(points={{262,68},
           {280,68},{280,-100},{104,-100},{104,-161.333},{118,-161.333}},
         color={255,0,255}));
+  connect(conHavPriOnl1.y, and8.u2) annotation (Line(points={{-18,-480},{10,-480},
+          {10,-448},{18,-448}},  color={255,0,255}));
+  connect(conHavPriOnl1.y, not3.u) annotation (Line(points={{-18,-480},{18,-480}},
+                                  color={255,0,255}));
+  connect(conIntLocDp1.y, and8.u1)
+    annotation (Line(points={{-18,-440},{18,-440}}, color={255,0,255}));
+  connect(or4.y, assMes1.u)
+    annotation (Line(points={{82,-460},{98,-460}}, color={255,0,255}));
+  connect(and8.y, or4.u1) annotation (Line(points={{42,-440},{52,-440},{52,-460},
+          {58,-460}}, color={255,0,255}));
+  connect(not3.y, or4.u2) annotation (Line(points={{42,-480},{52,-480},{52,-468},
+          {58,-468}}, color={255,0,255}));
   annotation (defaultComponentName="conPlaBoi",
     Icon(coordinateSystem(extent={{-100,-400},{100,400}}),
        graphics={
