@@ -757,7 +757,7 @@ model PrimaryController "Boiler plant primary loop controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatPri_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if have_varPriPum
     "Measured hot water primary circuit flowrate"
     annotation (Placement(transformation(extent={{-440,148},{-400,188}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
@@ -781,8 +781,7 @@ model PrimaryController "Boiler plant primary loop controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatSec_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
-    if not have_priOnl and have_secFloSen and have_floRegPri and have_varPriPum
+    final quantity="VolumeFlowRate") if not have_priOnl and have_secFloSen
     "Measured hot water secondary circuit flowrate"
     annotation (Placement(transformation(extent={{-440,-90},{-400,-50}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
