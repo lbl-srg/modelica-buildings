@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "PID.u_s",
+    "PID.u_m",
+    "PIDWitTun.u_s",
+    "PIDWitTun.u_m",
+    "autTunSig.y",
+    "PIDWitTun.inTunPro.y",
+    "PIDWitTun.con.y",
+    "PIDWitTun.con.k",
+    "PIDWitTun.con.Ti",
+    "PIDWitTun.con.Td"
+  };

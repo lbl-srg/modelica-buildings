@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "kp.y",
+    "T.y",
+    "L.y",
+    "PID.k",
+    "PID.Ti",
+    "PID.Td"
+  };

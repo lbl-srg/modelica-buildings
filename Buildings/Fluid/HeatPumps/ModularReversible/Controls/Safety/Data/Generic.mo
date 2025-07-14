@@ -53,16 +53,16 @@ record Generic "Generic record definition for safety control blocks"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
 
   parameter Boolean use_TConOutHea=true
-    "=true to use condenser outlet temperature for envelope in heating mode, false for inlet"
+    "if true, use condenser outlet temperature for operational envelope in heating mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
   parameter Boolean use_TEvaOutHea=false
-    "=true to use evaporator outlet temperature for envelope in heating mode, false for inlet"
+    "if true, use evaporator outlet temperature for operational envelope in heating mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
   parameter Boolean use_TConOutCoo=false
-    "=true to use useful side outlet temperature for envelope in cooling mode, false for inlet"
+    "if true, use useful side outlet temperature for operational envelope in cooling mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
   parameter Boolean use_TEvaOutCoo=true
-    "=true to use evaporator outlet temperature for envelope in cooling mode, false for inlet"
+    "if true, use evaporator outlet temperature for operational envelope in cooling mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
   parameter Boolean use_antFre
     "=true to enable antifreeze control"
@@ -95,6 +95,11 @@ record Generic "Generic record definition for safety control blocks"
   harder to get, e.g. the minimum and maximum for on-time or off time.
 </p>
 </html>", revisions="<html><ul>
+<li>
+May 22, 2025, by Michael Wetter:<br/>
+Revised comment.<br/>
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+</li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

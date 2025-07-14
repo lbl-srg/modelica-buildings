@@ -60,12 +60,34 @@ protected
       timFin=timFin,
       tLoaAgg=tLoaAgg)
       "Number of aggregation cells";
-  final parameter Modelica.Units.SI.Time[i] nu(each fixed=false)
-    "Time vector for load aggregation";
+  final parameter Modelica.Units.SI.Time[i] nu = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.aggregationCellTimes(
+    i=i,
+    lvlBas=lvlBas,
+    nCel=nCel,
+    tLoaAgg=tLoaAgg,
+    timFin=timFin) "Time vector for load aggregation";
+
   final parameter Modelica.Units.SI.Time t_start(fixed=false)
     "Simulation start time";
-  final parameter Real[nSegTot,nSegTot,i] kappa(each fixed=false)
-    "Weight factor for each aggregation cell";
+
+  final parameter Real[nSegTot,nSegTot,i] kappa =
+    Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.temperatureResponseMatrix(
+      nBor=borFieDat.conDat.nBor,
+      cooBor=borFieDat.conDat.cooBor,
+      hBor=borFieDat.conDat.hBor,
+      dBor=borFieDat.conDat.dBor,
+      rBor=borFieDat.conDat.rBor,
+      aSoi=borFieDat.soiDat.aSoi,
+      kSoi=borFieDat.soiDat.kSoi,
+      nSeg=nSeg,
+      nZon=borFieDat.conDat.nZon,
+      iZon=borFieDat.conDat.iZon,
+      nBorPerZon=borFieDat.conDat.nBorPerZon,
+      nu=nu,
+      nTim=i,
+      relTol=relTol,
+      sha=sha) "Weight factor for each aggregation cell";
+
   final parameter Real[i] rCel(each fixed=false) "Cell widths";
 
   discrete Modelica.Units.SI.HeatFlowRate[nSegTot,i] QAgg_flow
@@ -82,7 +104,7 @@ protected
     "Previous time step's temperature difference current borehole wall temperature minus initial borehole temperature";
   discrete Real[nSegTot] derDelTBor0(each unit="K/s")
     "Derivative of wall temperature change from previous time steps";
-  final parameter Real[nSegTot] dTStepdt(each fixed=false)
+  final parameter Real[nSegTot] dTStepdt = {kappa[i,i,1]/tLoaAgg for i in 1:nSegTot}
     "Time derivative of h_ii/(2*pi*H*Nb*ks) within most recent cell";
 
   Modelica.Units.SI.Heat[nSegTot,1] U "Accumulated heat flow from all segments";
@@ -99,7 +121,7 @@ initial equation
   U_old = zeros(nSegTot,1);
   derDelTBor0 = zeros(nSegTot);
 
-  (nu,rCel) = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.aggregationCellTimes(
+  (,rCel) = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.aggregationCellTimes(
     i=i,
     lvlBas=lvlBas,
     nCel=nCel,
@@ -107,26 +129,6 @@ initial equation
     timFin=timFin);
 
   t_start = time;
-
-  kappa =
-    Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.temperatureResponseMatrix(
-      nBor=borFieDat.conDat.nBor,
-      cooBor=borFieDat.conDat.cooBor,
-      hBor=borFieDat.conDat.hBor,
-      dBor=borFieDat.conDat.dBor,
-      rBor=borFieDat.conDat.rBor,
-      aSoi=borFieDat.soiDat.aSoi,
-      kSoi=borFieDat.soiDat.kSoi,
-      nSeg=nSeg,
-      nZon=borFieDat.conDat.nZon,
-      iZon=borFieDat.conDat.iZon,
-      nBorPerZon=borFieDat.conDat.nBorPerZon,
-      nu=nu,
-      nTim=i,
-      relTol=relTol,
-      sha=sha);
-
-  dTStepdt = {kappa[i,i,1]/tLoaAgg for i in 1:nSegTot};
 
 equation
   assert(
