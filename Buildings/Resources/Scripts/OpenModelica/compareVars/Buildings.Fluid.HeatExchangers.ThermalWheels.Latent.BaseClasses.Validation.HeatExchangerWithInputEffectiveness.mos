@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "senExhTemIn.T",
+    "senExhTemOut.T",
+    "epsSen.y",
+    "epsLat.y",
+    "senExhRelHumIn.phi",
+    "senExhRelHumOut.phi"
+  };
