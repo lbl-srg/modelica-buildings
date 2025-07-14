@@ -83,7 +83,7 @@ equation
           {20,30},{40,30}}, color={0,127,255}));
   connect(torSou.flange,hea. shaft) annotation (Line(points={{-20,70},{0,70},
           {0,10}}, color={0,0,0}));
-  annotation (experiment(Tolerance=1e-6, StopTime=3600),
+  annotation (experiment(Tolerance=1e-6, StopTime=1000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/ThermoFluid/Examples/HeatPump.mos"
         "Simulate and plot"),
         Documentation(info="<html>
