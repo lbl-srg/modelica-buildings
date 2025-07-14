@@ -12,7 +12,7 @@ model Empirical "Example for using the empirical air filter model"
     m_flow_nominal=1,
     dp_nominal=100)
     "Performance dataset"
-    annotation (Placement(transformation(extent={{22,46},{42,66}})));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_C_in=true,
@@ -20,7 +20,7 @@ model Empirical "Example for using the empirical air filter model"
     nPorts=1)
     "Air source"
     annotation (Placement(transformation(
-    extent={{-106,-10},{-86,10}})));
+    extent={{-100,-10},{-80,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
@@ -30,7 +30,7 @@ model Empirical "Example for using the empirical air filter model"
     extent={{130,-10},{110,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse repSig(period=60, shift=30)
     "Filter replacement signal"
-    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp C_CO2_inflow(
     duration=30,
     height=-0.03,
@@ -51,7 +51,7 @@ model Empirical "Example for using the empirical air filter model"
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2In(
     redeclare package Medium = Medium, m_flow_nominal=1)
     "Trace substance sensor of CO2 in inlet air"
-    annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubVOCIn(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -60,29 +60,31 @@ model Empirical "Example for using the empirical air filter model"
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2Out(
     redeclare package Medium = Medium, m_flow_nominal=1)
     "Trace substance sensor of CO2 in outlet air"
-    annotation (Placement(transformation(extent={{32,-10},{52,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubVOCOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     substanceName="VOC") "Trace substance sensor of VOC in outlet air"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
-  connect(repSig.y, airFil.uRep) annotation (Line(points={{-28,50},{-4,50},{-4,
-          6},{-2,6}}, color={255,0,255}));
+  connect(repSig.y, airFil.uRep) annotation (Line(points={{-18,50},{-10,50},{
+          -10,6},{-2,6}},
+                      color={255,0,255}));
   connect(C_CO2_inflow.y, sou.C_in[2]) annotation (Line(points={{-139,30},{-120,
-          30},{-120,-8},{-108,-8}}, color={0,0,127}));
-  connect(C_VOC_inflow.y, sou.C_in[1]) annotation (Line(points={{-139,-30},{-120,
-          -30},{-120,-8},{-108,-8}}, color={0,0,127}));
+          30},{-120,-8},{-102,-8}}, color={0,0,127}));
+  connect(C_VOC_inflow.y, sou.C_in[1]) annotation (Line(points={{-139,-30},{
+          -120,-30},{-120,-8},{-102,-8}},
+                                     color={0,0,127}));
   connect(senTraSubVOCIn.port_b, airFil.port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
   connect(senTraSubCO2In.port_b, senTraSubVOCIn.port_a)
-    annotation (Line(points={{-52,0},{-40,0}}, color={0,127,255}));
+    annotation (Line(points={{-50,0},{-40,0}}, color={0,127,255}));
   connect(sou.ports[1], senTraSubCO2In.port_a)
-    annotation (Line(points={{-86,0},{-72,0}}, color={0,127,255}));
+    annotation (Line(points={{-80,0},{-70,0}}, color={0,127,255}));
   connect(airFil.port_b, senTraSubCO2Out.port_a)
-    annotation (Line(points={{20,0},{32,0}}, color={0,127,255}));
+    annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
   connect(senTraSubCO2Out.port_b, senTraSubVOCOut.port_a)
-    annotation (Line(points={{52,0},{70,0}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
   connect(senTraSubVOCOut.port_b, sin.ports[1])
     annotation (Line(points={{90,0},{110,0}}, color={0,127,255}));
   annotation (experiment(

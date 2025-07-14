@@ -51,8 +51,8 @@ Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 </p>
 <h4>References</h4>
 <p>
-Qiang Li ta al., (2022). Experimental study on the synthetic dust loading characteristics of air filters.
-Separation and Purification Technology 284 (2022), 120209.
+Qiang Li ta al., (2022). Experimental study on the synthetic dust loading characteristics
+of air filters. Separation and Purification Technology 284 (2022), 120209.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -70,14 +70,14 @@ model SpaceCooling
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     mSenFac=3)
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
@@ -88,7 +88,7 @@ model SpaceCooling
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumA,
@@ -98,7 +98,7 @@ model SpaceCooling
     dp1_nominal=200,
     dp2_nominal=200,
     eps=eps) "Heat recovery"
-    annotation (Placement(transformation(extent={{-70,-36},{-50,-16}})));
+    annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
@@ -117,7 +117,7 @@ model SpaceCooling
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-12,-26})));
+        origin={10,-26})));
   Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = MediumA,
     use_C_in=true,
@@ -128,7 +128,7 @@ model SpaceCooling
     redeclare package Medium = MediumW,
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
-    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+    annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Fluid.Sources.Boundary_pT sinWat(
     nPorts=1,
     redeclare package Medium = MediumW) "Sink for water circuit"
@@ -144,30 +144,30 @@ model SpaceCooling
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
-    annotation (Placement(transformation(extent={{-38,-26},{-26,-14}})));
+    annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
-    annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
-    annotation (Placement(transformation(extent={{-142,-102},{-122,-82}})));
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
     "Room temperature sensor"
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+    annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.Continuous.LimPID conRoo(
     k=0.1,
     Ti=60,
     yMax=mW_flow_nominal,
     reverseActing=false)
     "Room controller"
-    annotation (Placement(transformation(extent={{-100,-102},{-80,-82}})));
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Fluid.AirFilters.Empirical airFil(
     redeclare package Medium = MediumA,
     per=per)
@@ -184,37 +184,37 @@ model SpaceCooling
     m_flow_nominal=mA_flow_nominal,
     substanceName="PM10")
     "Trace substance sensor of outlet air"
-    annotation (Placement(transformation(extent={{-102,-10},{-82,10}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant repSig(k=false)
     "Filter replacement signal"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
-      points={{40,50},{50,50},{50,30},{60,30}},
+      points={{60,50},{80,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{40,80},{50,80},{50,30},{60,30}},
+      points={{40,80},{70,80},{70,50},{80,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fan.port_b, vol.ports[1]) annotation (Line(
-      points={{60,-20},{69,-20},{69,20}},
+      points={{80,-20},{89,-20},{89,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol.ports[2], hex.port_a2) annotation (Line(
-      points={{71,20},{71,-46},{-50,-46},{-50,-32}},
+      points={{91,40},{91,-46},{-32,-46},{-32,-32},{-40,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souWat.ports[1], cooCoi.port_a1)   annotation (Line(
-      points={{0,-100},{20,-100},{20,-32},{-2,-32}},
+      points={{0,-120},{26,-120},{26,-32},{20,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b1, sinWat.ports[1])    annotation (Line(
-      points={{-22,-32},{-30,-32},{-30,-66},{-60,-66}},
+      points={{0,-32},{-6,-32},{-6,-66},{-60,-66}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, out.weaBus) annotation (Line(
-      points={{-140,50},{-136,50},{-136,30},{-170,30},{-170,-21.8},{-162,-21.8}},
+      points={{-140,50},{-120,50},{-120,30},{-170,30},{-170,-21.8},{-162,-21.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -227,7 +227,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, TOut.T) annotation (Line(
-      points={{-109.95,50.05},{-66,50.05},{-66,50},{-22,50}},
+      points={{-109.95,50.05},{-66,50.05},{-66,50},{-2,50}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -235,51 +235,49 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{50,-8},{50,10},{22,10}},
+      points={{70,-8},{70,20},{62,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, senTemHXOut.port_a) annotation (Line(
-      points={{-50,-20},{-38,-20}},
+      points={{-40,-20},{-30,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemHXOut.port_b, cooCoi.port_a2) annotation (Line(
-      points={{-26,-20},{-22,-20}},
+      points={{-10,-20},{0,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b2, senTemSupAir.port_a) annotation (Line(
-      points={{-2,-20},{6,-20}},
+      points={{20,-20},{30,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemSupAir.port_b, fan.port_a) annotation (Line(
-      points={{18,-20},{40,-20}},
+      points={{50,-20},{60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut.port, theCon.port_a) annotation (Line(
-      points={{5.55112e-16,50},{20,50}},
+      points={{20,50},{40,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol.heatPort, senTemRoo.port) annotation (Line(
-      points={{60,30},{50,30},{50,80},{70,80}},
+      points={{80,50},{70,50},{70,80},{80,80}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conRoo.y, souWat.m_flow_in)
-    annotation (Line(points={{-79,-92},{-22,-92}}, color={0,0,127}));
+    annotation (Line(points={{-79,-110},{-40,-110},{-40,-112},{-22,-112}}, color={0,0,127}));
   connect(conRoo.u_s, TRooSetPoi.y)
-    annotation (Line(points={{-102,-92},{-120,-92}}, color={0,0,127}));
-  connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-90,-104},{-90,-142},
-          {100,-142},{100,80},{91,80}}, color={0,0,127}));
+    annotation (Line(points={{-102,-110},{-118,-110}}, color={0,0,127}));
+  connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-90,-122},{-90,-142},
+          {110,-142},{110,80},{101,80}},color={0,0,127}));
   connect(out.ports[1], airFil.port_a) annotation (Line(points={{-142,-23},{
-          -136,-23},{-136,0},{-128,0}},
-          color={0,127,255}));
-  connect(out.ports[2], hex.port_b2) annotation (Line(points={{-142,-21},{-136,
-          -21},{-136,-46},{-70,-46},{-70,-32}},
-          color={0,127,255}));
-  connect(C_inflow.y, out.C_in[1]) annotation (Line(points={{-149,-60},{-144,-60},
-          {-144,-42},{-170,-42},{-170,-30},{-164,-30}}, color={0,0,127}));
+          -136,-23},{-136,0},{-128,0}}, color={0,127,255}));
+  connect(out.ports[2], hex.port_b2) annotation (Line(points={{-142,-21},{-136,-21},
+          {-136,-32},{-60,-32}}, color={0,127,255}));
+  connect(C_inflow.y, out.C_in[1]) annotation (Line(points={{-149,-60},{-140,-60},
+          {-140,-42},{-170,-42},{-170,-30},{-164,-30}}, color={0,0,127}));
   connect(airFil.port_b, C_out.port_a)
-    annotation (Line(points={{-108,0},{-102,0}}, color={0,127,255}));
-  connect(C_out.port_b, hex.port_a1) annotation (Line(points={{-82,0},{-76,0},{
-          -76,-20},{-70,-20}}, color={0,127,255}));
+    annotation (Line(points={{-108,0},{-100,0}}, color={0,127,255}));
+  connect(C_out.port_b, hex.port_a1) annotation (Line(points={{-80,0},{-68,0},{-68,
+          -20},{-60,-20}}, color={0,127,255}));
   connect(repSig.y, airFil.uRep)
     annotation (Line(points={{-138,10},{-138,6},{-130,6}}, color={255,0,255}));
   annotation (Documentation(info="<html>

@@ -270,7 +270,8 @@ This array defines the type of contaminants that the filter is designed to captu
 </li>
 <li>
 <b>Nominal Conditions</b>:
-This includes the nominal pressure drop(<code>dp_nominal</code>), the nominal mass flow rate(<code>m_flow_nominal</code>), 
+This includes the nominal pressure drop(<code>dp_nominal</code>), the nominal mass
+flow rate(<code>m_flow_nominal</code>),
 and the maximum total mass of contaminants (<code>mCon_nominal</code>) that the filter can hold.
 </li>
 <li>
@@ -301,8 +302,8 @@ Warnings will be triggered when,
 the captured contaminant mass exceeds the <code>mCon_nominal</code>, or
 </li>
 <li>
-the <code>extraPropertiesNames</code> in the medium model does not contain all the contaminants
-specified in the <code>per.namCon</code>.
+the <code>extraPropertiesNames</code> in the medium model does not contain all the
+contaminants specified in the <code>per.namCon</code>.
 </li>
 </ul>
 

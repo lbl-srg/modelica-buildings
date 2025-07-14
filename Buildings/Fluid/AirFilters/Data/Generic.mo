@@ -13,8 +13,7 @@ record Generic "Generic data record for air filters"
     annotation (Dialog(group="Nominal condition"));
   parameter String namCon[:]={"CO2"}
     "Contaminant names";
-  parameter
-    Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
+  parameter Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
     filEffPar
     "Filtration efficiency versus relative mass of the contaminant";
   parameter Real b=1.1

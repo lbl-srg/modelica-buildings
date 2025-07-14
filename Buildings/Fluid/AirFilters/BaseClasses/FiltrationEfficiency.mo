@@ -57,8 +57,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
   defaultComponentName="eps",
 Documentation(info="<html>
 <p>
-This model calculates the filtration efficiency, <i>eps</i>, using cubic Hermite spline interpolation of
-the filter dataset (see 
+This model calculates the filtration efficiency, <i>eps</i>, using cubic Hermite
+spline interpolation of the filter dataset (see
 <a href=\"modelica://Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters\">
 Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters</a>)
 with respect to the input <i>rat</i>.

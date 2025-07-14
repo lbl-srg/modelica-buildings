@@ -25,44 +25,45 @@ model MassAccumulation
     final k=1,
     final y_start=mCon_reset)
     "Calculate the mass of contaminant"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=mCon_reset)
     "Constant"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Modelica.Blocks.Logical.Greater greater
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater greater(
+    final h=0.05*mCon_nominal)
     "Check if the filter is full"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
      final k=mCon_nominal)
     "Constant"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="In " + getInstanceName() + ": The filter needs to be replaced.")
     "Warning message when the filter is full"
-    annotation (Placement(transformation(extent={{72,40},{92,60}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=nConSub) "Summation of the inputs"
-    annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(intWitRes.y, mCon)
-    annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
+    annotation (Line(points={{2,0},{120,0}},  color={0,0,127}));
   connect(con.y, intWitRes.y_reset_in)
-    annotation (Line(points={{-58,-20},{-20,-20}, {-20,-8},{-12,-8}}, color={0,0,127}));
+    annotation (Line(points={{-58,-40},{-40,-40},{-40,-8},{-22,-8}},  color={0,0,127}));
   connect(intWitRes.trigger, uRep)
-    annotation (Line(points={{0,-12},{0,-60},{-120,-60}}, color={255,0,255}));
+    annotation (Line(points={{-10,-12},{-10,-60},{-120,-60}}, color={255,0,255}));
   connect(assMes.u, greater.y)
-    annotation (Line(points={{70,50},{61,50}}, color={255,0,255}));
+    annotation (Line(points={{58,50},{42,50}}, color={255,0,255}));
   connect(greater.u2, intWitRes.y)
-    annotation (Line(points={{38,42},{20,42},{20,0},{12,0}}, color={0,0,127}));
+    annotation (Line(points={{18,42},{10,42},{10,0},{2,0}},  color={0,0,127}));
   connect(con1.y, greater.u1)
-    annotation (Line(points={{2,50},{38,50}}, color={0,0,127}));
+    annotation (Line(points={{-18,50},{18,50}}, color={0,0,127}));
   connect(mulSum.y, intWitRes.u)
-    annotation (Line(points={{-30,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-22,0}}, color={0,0,127}));
   connect(mulSum.u, mCon_flow)
-    annotation (Line(points={{-54,0},{-120,0}}, color={0,0,127}));
-    annotation (Placement(transformation(extent={{20,62},{40,82}})),
-            defaultComponentName="masAcc",
+    annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
+
+annotation (defaultComponentName="masAcc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
      Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200},
                fillColor={255,255,255}, fillPattern=FillPattern.Solid),
