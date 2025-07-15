@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "onDeh.y",
+    "TProEnt.y",
+    "dehumPer.TProLea",
+    "dehumPer.X_w_ProEnt",
+    "dehumPer.X_w_ProLea"
+  };
