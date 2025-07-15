@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model RotorCurrent_q "q-axis rotor current calculation block"
   extends Modelica.Blocks.Icons.Block;
-   parameter Real Lr;
-   parameter Real Rr;
-   parameter Real Lm;
+  parameter Real Lr;
+  parameter Real Rr;
+  parameter Real Lm;
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_qr
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput i_qr
@@ -23,7 +23,8 @@ equation
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This block computes q-axis rotor current for the models in 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
 </html>"));
 end RotorCurrent_q;

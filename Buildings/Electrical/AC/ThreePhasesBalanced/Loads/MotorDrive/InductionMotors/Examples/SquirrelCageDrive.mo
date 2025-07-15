@@ -47,10 +47,12 @@ __Dymola_Commands(
       "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>First Implementation. </li>
+<li>
+May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>
+First Implementation.
+</li>
 </ul>
-</html>",
-info="<html>
+</html>", info="<html>
 An example of induction motor drive with closed loop variable speed controller.
 </html>"));
 end SquirrelCageDrive;

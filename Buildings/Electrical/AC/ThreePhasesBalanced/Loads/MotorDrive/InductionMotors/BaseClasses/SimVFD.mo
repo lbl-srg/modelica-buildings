@@ -23,7 +23,6 @@ block SimVFD "Simple VFD maintaing constant V/F ratio"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=N_s*p/120)
     annotation (Placement(transformation(extent={{-60,8},{-40,30}})));
-
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Math.Product product2
@@ -36,18 +35,15 @@ equation
     annotation (Line(points={{-66,60},{-120,60}}, color={0,0,127}));
   connect(Equivalent_Freq.y, VFD_Ratio.u1)
     annotation (Line(points={{-43,60},{-38,60},{-38,56},{-22,56}},
-                                               color={0,0,127}));
+          color={0,0,127}));
   connect(product1.u2, VFD_Ratio.y) annotation (Line(points={{18,-46},{6,
-          -46},{6,50},{1,50}},
-                            color={0,0,127}));
+          -46},{6,50},{1,50}}, color={0,0,127}));
   connect(product1.y, V_out) annotation (Line(points={{41,-40},{118,-40}},
-                      color={0,0,127}));
+          color={0,0,127}));
   connect(product2.u1, VFD_Ratio.y)
-    annotation (Line(points={{18,46},{6,46},{6,50},{1,50}},
-                                               color={0,0,127}));
+    annotation (Line(points={{18,46},{6,46},{6,50},{1,50}}, color={0,0,127}));
   connect(product2.u2, Freq) annotation (Line(points={{18,34},{0,34},{0,
-          -60},{-120,-60}},
-                      color={0,0,127}));
+          -60},{-120,-60}}, color={0,0,127}));
   connect(gain.u, product2.y)
     annotation (Line(points={{58,40},{41,40}}, color={0,0,127}));
   connect(V_in, product1.u1) annotation (Line(points={{-120,0},{12,0},{12,
@@ -61,7 +57,8 @@ equation
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This block computes the VFD by maintaining constant ratio for the models in 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
 </html>"));
 end SimVFD;

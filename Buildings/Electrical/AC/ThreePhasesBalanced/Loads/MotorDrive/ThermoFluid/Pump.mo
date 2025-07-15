@@ -17,6 +17,18 @@ model Pump
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{60,60},{80,80}})));
 
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final quantity="Power",
+    final unit="W")
+    "Electrical power consumed"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput y_actual(
+    final unit="1")
+    "Actual normalised pump speed that is used for computations"
+    annotation (Placement(transformation(extent={{100,60},{120,80}}),
+        iconTransformation(extent={{100,60},{120,80}})));
+
   Modelica.Units.SI.Torque tauPum "Pump torque";
 
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
@@ -32,19 +44,17 @@ model Pump
     phi(start=0, fixed=true),
     w(fixed=true, start=0))
     "Pump inertia"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,80})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90, origin={0,80})));
   Modelica.Mechanics.Rotational.Sources.Torque tor(useSupport=false)
-                                                   "Torque source"
+    "Torque source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.RealExpression tauSor(final y=-tauPum) "Pump torque"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={-70,90})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
+  Modelica.Blocks.Sources.RealExpression tauSor(
+    final y=-tauPum) "Pump torque"
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+        rotation=180, origin={-70,90})));
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe
+    "Rotation speed in rad/s"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
     annotation (Placement(transformation(extent={{30,20},{10,40}})));
@@ -52,18 +62,6 @@ model Pump
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-  Modelica.Blocks.Interfaces.RealOutput P(
-    final quantity="Power",
-    final unit="W")
-    "Electrical power consumed"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput y_actual(
-    final unit="1")
-    "Actual normalised pump speed that is used for computations"
-    annotation (Placement(transformation(extent={{100,60},{120,80}}),
-        iconTransformation(extent={{100,60},{120,80}})));
-
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     "Speed normalization"
     annotation (Placement(transformation(extent={{-10,20},{-30,40}})));
@@ -75,7 +73,7 @@ equation
   connect(pum.port_b, port_b) annotation (Line(points={{10,0},{100,0}},
           color={0,127,255}));
   connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-100}},
-                                 color={191,0,0}));
+          color={191,0,0}));
   connect(shaft, ine.flange_b) annotation (Line(points={{0,100},{0,90}},
           color={0,0,0}));
   connect(tor.flange, ine.flange_a) annotation (Line(points={{-20,70},{0,70}},
@@ -86,13 +84,13 @@ equation
           color={0,0,0}));
   connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,30},
           {32,30}}, color={0,0,127}));
-  connect(pum.P, P) annotation (Line(points={{11,9},{90,9},{90,90},{110,90}},
+  connect(pum.P, P) annotation (Line(points={{11,9},{50,9},{50,90},{110,90}},
           color={0,0,127}));
   connect(pum.y_actual, y_actual) annotation (Line(points={{11,7},{92,7},{92,70},
           {110,70}}, color={0,0,127}));
   connect(to_rpm.y, gaiSpe.u)
     annotation (Line(points={{9,30},{-8,30}}, color={0,0,127}));
-  connect(gaiSpe.y, pum.y) annotation (Line(points={{-31,30},{-36,30},{-36,12},{
+  connect(gaiSpe.y, pum.y) annotation (Line(points={{-31,30},{-40,30},{-40,12},{
           0,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
