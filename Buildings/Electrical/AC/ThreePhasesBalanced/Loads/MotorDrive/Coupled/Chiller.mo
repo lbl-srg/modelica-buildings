@@ -208,16 +208,14 @@ equation
   connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{80,-6},{80,
           -60},{100,-60}},     color={0,127,255}));
   connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-60,90},{
-          -60,58},{-41.6667,58}},
-                              color={0,0,127}));
+          -60,58},{-42,58}},  color={0,0,127}));
   connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-60,30},{-60,
-          50},{-41.6667,50}},
+          50},{-42,50}},
                      color={0,0,127}));
   connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-37,20},{-50,20},{
-          -50,42},{-41.6667,42}},
-                              color={0,0,127}));
-  connect(simMot.terminal, terminal) annotation (Line(points={{-28.3333,60},{
-          -28.3333,86},{0,86},{0,100}},
+          -50,42},{-42,42}},  color={0,0,127}));
+  connect(simMot.terminal, terminal) annotation (Line(points={{-30,60},{-30,86},
+          {0,86},{0,100}},
                     color={0,120,120}));
   connect(mecChi.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},{
           -20,50}},                color={0,0,0}));

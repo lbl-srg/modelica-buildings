@@ -90,7 +90,7 @@ model Pump "Motor coupled chiller"
     annotation (Placement(transformation(extent={{-10,-78},{10,-58}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
-  InductionMotors.SquirrelCageDrive motDri(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
     per=per1,
     k=k,
     Ti=Ti) annotation (Placement(transformation(extent={{-52,28},{-28,48}})));
@@ -102,15 +102,14 @@ equation
           color={0,127,255}));
   connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-20},
           {0,-68},{0,-68}}, color={191,0,0}));
-  connect(motDri.setPoi, setPoi) annotation (Line(points={{-54,46},{-60,46},{
+  connect(motDri.setPoi, setPoi) annotation (Line(points={{-54.4,46},{-60,46},{
           -60,80},{-110,80}}, color={0,0,127}));
-  connect(motDri.mea, meaPoi) annotation (Line(points={{-54,38},{-94,38},{-94,
+  connect(motDri.mea, meaPoi) annotation (Line(points={{-54.4,38},{-94,38},{-94,
           50},{-110,50}}, color={0,0,127}));
-  connect(motDri.tau_m, loaTor.y) annotation (Line(points={{-54,30},{-60,30},{
-          -60,10},{-49,10}},  color={0,0,127}));
-  connect(motDri.terminal, terminal) annotation (Line(points={{-38,48},{-38,
-          86},{0,86},{0,100}},
-                           color={0,120,120}));
+  connect(motDri.tau_m, loaTor.y) annotation (Line(points={{-54.4,30},{-60,30},
+          {-60,10},{-49,10}}, color={0,0,127}));
+  connect(motDri.terminal, terminal) annotation (Line(points={{-40,48},{-40,86},
+          {0,86},{0,100}}, color={0,120,120}));
   connect(motDri.shaft, pum.shaft)
     annotation (Line(points={{-28,38},{0,38},{0,10}}, color={0,0,0}));
   connect(port_a, port_a) annotation (Line(

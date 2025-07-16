@@ -6,6 +6,7 @@ CurrentCalculationQ_VFD
 FrequencyConversion
 MotorMachineInterface
 MotorModel
+PartialSquirrelCage
 RMS_Voltage
 RotorCurrent_d
 RotorCurrent_q
