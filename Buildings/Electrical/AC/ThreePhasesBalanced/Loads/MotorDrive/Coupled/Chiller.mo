@@ -4,8 +4,8 @@ model Chiller "Motor coupled chiller"
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
   extends Buildings.Electrical.Interfaces.PartialOnePort(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare replaceable Interfaces.Terminal_n terminal);
+    redeclare final package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare final replaceable Interfaces.Terminal_n terminal);
 
   //Chiller parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
@@ -22,9 +22,6 @@ model Chiller "Motor coupled chiller"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
-    "Nominal rotational speed of compressor"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
     "Pressure difference over condenser
@@ -62,38 +59,42 @@ model Chiller "Motor coupled chiller"
     annotation (Dialog(group="Efficiency"));
 
   //Motor parameters
+  parameter Boolean have_controller = true
+    "Set to true for enableing PID control"
+    annotation (Dialog(tab="Motor"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
+    "Nominal rotational speed of compressor"
+    annotation (Dialog(tab="Motor"));
+  parameter Modelica.Units.SI.Inertia loaIne=1 "Chiller inertia"
+    annotation (Dialog(tab="Motor"));
   replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     per constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    "Record of Induction Motor with performance data"
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{30,60},{50,80}})));
-
-  //Controller parameters
-  parameter Boolean have_controller = true
-    "Set to true for enableing PID control";
+    "Record of induction motor with performance data"
+    annotation (choicesAllMatching=true, Dialog(tab="Motor"), Placement(transformation(extent={{30,60},{50,80}})));
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="Advanced", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
   parameter Real k(min=0) = 1
     "Gain of controller"
-    annotation (Dialog(tab="Advanced", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block"
-    annotation (Dialog(tab="Advanced", group="Controller",
+    annotation (Dialog(tab="Motor", group="Controller",
                        enable=have_controller and
                               controllerType == Modelica.Blocks.Types.SimpleController.PI or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(min=0) = 0.1
     "Time constant of Derivative block"
-    annotation (Dialog(tab="Advanced", group="Controller",
+    annotation (Dialog(tab="Motor", group="Controller",
                        enable=have_controller and
                               controllerType == Modelica.Blocks.Types.SimpleController.PD or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
     "Upper limit of output"
-    annotation (Dialog(tab="Advanced", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(tab="Advanced", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K")
@@ -127,10 +128,16 @@ model Chiller "Motor coupled chiller"
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Chiller mecChi(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
+    final m1_flow_small=m1_flow_small,
+    final m2_flow_small=m2_flow_small,
+    final show_T=show_T,
     final dTEva_nominal=dTEva_nominal,
     final dTCon_nominal=dTCon_nominal,
+    final loaIne=loaIne,
     final use_eta_Carnot_nominal=use_eta_Carnot_nominal,
     final etaCarnot_nominal=etaCarnot_nominal,
     final COP_nominal=COP_nominal,

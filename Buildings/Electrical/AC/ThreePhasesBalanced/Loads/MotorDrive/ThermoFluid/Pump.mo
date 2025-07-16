@@ -17,6 +17,41 @@ model Pump
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{60,60},{80,80}})));
 
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics", group="Conservation equations"));
+  parameter Modelica.Units.SI.Time tau=1
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
+    annotation (Dialog(tab="Dynamics", group="Conservation equations"));
+  parameter Boolean use_riseTime=true
+    "Set to true to continuously change motor speed"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Time needed to change motor speed between zero and full speed"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Real y_start=0 "Initial value of speed"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_start=Medium.p_default
+    "Start value of pressure" annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
+    "Start value of temperature" annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=Medium.X_default
+                       "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.ExtraProperty C_start[Medium.nC]=
+      fill(0, Medium.nC) "Start value of trace substances"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.ExtraProperty C_nominal[Medium.nC]=
+      fill(1E-2, Medium.nC)
+    "Nominal value of trace substances. (Set to typical order of magnitude.)"
+    annotation (Dialog(tab="Initialization"));
+  parameter Boolean show_T=false
+    "= true, if actual temperature at port is computed"
+    annotation (Dialog(tab="Advanced", group="Diagnostics"));
+
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
     final unit="W")
@@ -31,13 +66,28 @@ model Pump
 
   Modelica.Units.SI.Torque tauPum "Pump torque";
 
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
-  annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
+    "Mechanical connector"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final allowFlowReversal=allowFlowReversal,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final per=per) "Pump"
+    final per=per,
+    final tau=tau,
+    final use_riseTime=use_riseTime,
+    final riseTime=riseTime,
+    final init=init,
+    final show_T=show_T,
+    final y_start=y_start)
+    "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(
     final J=loaIne,
@@ -65,6 +115,7 @@ model Pump
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     "Speed normalization"
     annotation (Placement(transformation(extent={{-10,20},{-30,40}})));
+
 equation
   pum.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauPum,spe.w,1e-6,1e-8);
 
@@ -100,7 +151,7 @@ equation
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-10,44},{10,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},

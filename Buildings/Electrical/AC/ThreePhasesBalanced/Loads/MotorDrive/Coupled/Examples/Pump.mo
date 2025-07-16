@@ -15,7 +15,7 @@ model Pump "This example shows how to use the motor coupled pump model"
     redeclare
       Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
       per1,
-    pum(pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = MediumW,
     redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
