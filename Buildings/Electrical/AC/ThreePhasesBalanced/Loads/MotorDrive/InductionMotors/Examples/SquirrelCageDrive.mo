@@ -19,6 +19,7 @@ model SquirrelCageDrive
     annotation (Placement(transformation(extent={{-60,8},{-40,28}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
+    reverseActing=true,
     have_controller=true,
     k=0.1,
     Ti=0.1)

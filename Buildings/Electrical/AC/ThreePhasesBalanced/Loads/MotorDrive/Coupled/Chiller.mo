@@ -6,6 +6,7 @@ model Chiller "Motor coupled chiller"
   extends Buildings.Electrical.Interfaces.PartialOnePort(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
+
   //Chiller parameters
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
     "Nominal cooling heat flow rate (Negative)"
@@ -61,51 +62,67 @@ model Chiller "Motor coupled chiller"
     annotation (Dialog(group="Efficiency"));
 
   //Motor parameters
-  replaceable parameter
-    Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    per constrainedby
-    Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    "Record of Induction Motor with performance data" annotation (
-      choicesAllMatching=true, Placement(transformation(extent={{30,60},{50,80}})));
+  replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
+    per constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
+    "Record of Induction Motor with performance data"
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{30,60},{50,80}})));
 
   //Controller parameters
   parameter Boolean have_controller = true
     "Set to true for enableing PID control";
-  parameter Modelica.Blocks.Types.SimpleController
-  controllerType=Modelica.Blocks.Types.SimpleController.PI
-     "Type of controller"
-      annotation (Dialog(tab="Advanced",
-                         group="Controller",
-                         enable=have_controller));
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="Advanced", group="Controller", enable=have_controller));
   parameter Real k(min=0) = 1
-     "Gain of controller"
-      annotation (Dialog(tab="Advanced",
-                         group="Controller",
-                         enable=have_controller));
+    "Gain of controller"
+    annotation (Dialog(tab="Advanced", group="Controller", enable=have_controller));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=0.5
-     "Time constant of Integrator block"
-      annotation (Dialog(tab="Advanced",
-                         group="Controller",
-                         enable=have_controller and
-  controllerType == Modelica.Blocks.Types.SimpleController.PI or
-  controllerType == Modelica.Blocks.Types.SimpleController.PID));
+    "Time constant of Integrator block"
+    annotation (Dialog(tab="Advanced", group="Controller",
+                       enable=have_controller and
+                              controllerType == Modelica.Blocks.Types.SimpleController.PI or
+                              controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(min=0) = 0.1
-     "Time constant of Derivative block"
-      annotation (Dialog(tab="Advanced",
-                         group="Controller",
-                         enable=have_controller and
-  controllerType == Modelica.Blocks.Types.SimpleController.PD or
-  controllerType == Modelica.Blocks.Types.SimpleController.PID));
+    "Time constant of Derivative block"
+    annotation (Dialog(tab="Advanced", group="Controller",
+                       enable=have_controller and
+                              controllerType == Modelica.Blocks.Types.SimpleController.PD or
+                              controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
     "Upper limit of output"
-     annotation (Dialog(tab="Advanced",
-                       group="Controller",
-                       enable=have_controller));
+    annotation (Dialog(tab="Advanced", group="Controller", enable=have_controller));
   parameter Real yMin=0
     "Lower limit of output"
-     annotation (Dialog(tab="Advanced",
-                       group="Controller",
-                       enable=have_controller));
+    annotation (Dialog(tab="Advanced", group="Controller", enable=have_controller));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
+    final unit="K")
+    "Evaporator leaving temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,70},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMea(
+    final unit="K")
+    "Measured evaporator leaving temperature"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
+    final quantity="HeatFlowRate",
+    final unit="W")
+    "Actual heating heat flow rate added to fluid 1"
+    annotation (Placement(transformation(extent={{100,70},{140,110}}),
+        iconTransformation(extent={{100,70},{140,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
+    final quantity="Power",
+    final unit="W")
+    "Electric power consumed"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QEva_flow(
+    final quantity="HeatFlowRate",
+    final unit="W")
+    "Actual cooling heat flow rate removed from fluid 2"
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Chiller mecChi(
     redeclare final package Medium1 = Medium1,
@@ -130,13 +147,11 @@ model Chiller "Motor coupled chiller"
     final Nrpm_nominal=Nrpm_nominal)
     "Chiller model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau)
-    "Chiller torque block"
-    annotation (Placement(transformation(extent={{-16,10},{-36,30}})));
+
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
     simMot(
-    per=per,
-    reverseActing=false,
+    final per=per,
+    final reverseActing=false,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -145,28 +160,9 @@ model Chiller "Motor coupled chiller"
     final yMin=yMin) "Motor model"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,90}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,90})));
-  Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target"
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}}),
-    iconTransformation(extent={{-120,20},{-100,40}})));
-
 protected
-  constant Boolean COP_is_for_cooling = true
-    "Set to true if the specified COP is for cooling";
-
-  final parameter Modelica.Units.SI.Temperature TUseAct_nominal=
-    if COP_is_for_cooling
-      then TEva_nominal - TAppEva_nominal
-      else TCon_nominal + TAppCon_nominal
-    "Nominal evaporator temperature for chiller or condenser temperature for heat pump, 
-    taking into account pinch temperature between fluid and refrigerant";
+  final parameter Modelica.Units.SI.Temperature TUseAct_nominal= TEva_nominal - TAppEva_nominal
+    "Nominal evaporator temperature for chiller, taking into account pinch temperature between fluid and refrigerant";
 
   final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -182,22 +178,11 @@ protected
       X = Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
-public
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
-      final unit="W")
-    "Actual heating heat flow rate added to fluid 1"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit=
-        "W")
-    "Electric power consumed"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
-      final unit="W")
-    "Actual cooling heat flow rate removed from fluid 2"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
-        iconTransformation(extent={{100,-100},{120,-80}})));
+  Modelica.Blocks.Sources.RealExpression loaTor(
+    final y=mecChi.shaft.tau)
+    "Chiller torque block"
+    annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
+
 equation
   connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-80,60},{
           -80,6},{-10,6}},  color={0,127,255}));
@@ -207,25 +192,25 @@ equation
           {100,60}}, color={0,127,255}));
   connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{80,-6},{80,
           -60},{100,-60}},     color={0,127,255}));
-  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-60,90},{
-          -60,58},{-42,58}},  color={0,0,127}));
-  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-60,30},{-60,
-          50},{-42,50}},
-                     color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-37,20},{-50,20},{
+  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-60,80},{-60,
+          58},{-42,58}}, color={0,0,127}));
+  connect(TMea, simMot.mea) annotation (Line(points={{-120,30},{-60,30},{-60,50},
+          {-42,50}}, color={0,0,127}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,20},{-50,20},{
           -50,42},{-42,42}},  color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{-30,60},{-30,86},
-          {0,86},{0,100}},
-                    color={0,120,120}));
+          {0,86},{0,100}}, color={0,120,120}));
   connect(mecChi.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},{
-          -20,50}},                color={0,0,0}));
+          -20,50}}, color={0,0,0}));
   connect(mecChi.P, P)
-    annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
-  connect(mecChi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{
-          70,90},{110,90}}, color={0,0,127}));
+    annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
+  connect(mecChi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
+          90},{120,90}}, color={0,0,127}));
   connect(mecChi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
-          {70,-30},{110,-30}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
+          {70,-30},{120,-30}}, color={0,0,127}));
+
+annotation (defaultComponentName="chi",
+  Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -309,7 +294,6 @@ equation
         Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},color={0,0,255}),
         Line(points={{62,0},{100,0}},color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255})}),
-        defaultComponentName="chi",
     Documentation(info="<html>
 <p>
 This is a model of a squirrel cage induction motor coupled chiller with 
@@ -318,9 +302,15 @@ simulating microgrids and discussing grid interactions.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>Updated Implementation. </li>
-<li>October 15, 2021, by Mingzhe Liu:<br>First implementation. </li>
+<li>
+May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
+Updated Implementation.
+</li>
+<li>
+October 15, 2021, by Mingzhe Liu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
+  Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
 end Chiller;
