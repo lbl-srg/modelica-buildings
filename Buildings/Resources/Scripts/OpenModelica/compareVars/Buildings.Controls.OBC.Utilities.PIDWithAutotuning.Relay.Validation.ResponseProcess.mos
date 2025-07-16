@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "relSwi.y",
+    "resPro.tOn",
+    "resPro.tOff",
+    "tunSta.y",
+    "tunEnd.y",
+    "resSig.y",
+    "resPro.tau"
+  };
