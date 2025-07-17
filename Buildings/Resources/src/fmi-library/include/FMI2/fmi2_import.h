@@ -25,10 +25,11 @@
 #include <JM/jm_callbacks.h>
 #include <FMI/fmi_import_util.h>
 #include <FMI/fmi_import_context.h>
+#include "FMI/fmi_import_options.h"
 /* #include <FMI2/fmi2_xml_model_description.h> */
 
 #include <FMI2/fmi2_types.h>
-#include <FMI2/fmi2_functions.h>
+#include <FMI2/fmi2_function_types.h>
 #include <FMI2/fmi2_enums.h>
 
 #include "fmi2_import_type.h"
@@ -44,23 +45,29 @@ extern "C" {
 #endif
 
 /**
- * \addtogroup  fmi2_import FMI 2.0 import interface
+ * \addtogroup fmi2_import FMI 2.0 import interface
  *  All the structures used in the interfaces are intended to
  *  be treated as opaque objects by the client code.
- @{ 
+ * @{
+ *      \addtogroup fmi2_import_init Construction, destruction and error handling
+ *      \addtogroup fmi2_import_gen General information retrieval
+ *      \addtogroup fmi2_import_capi Interface to the standard FMI 2.0 "C" API
+ *      @{
+ *           \brief Convenient functions for calling the FMI functions. This interface wraps the "C" API. 
+ *      @}
+ *      \addtogroup fmi2_import_options Functions for handling FMI Library options
+ * @}
  */
 
-/**	\addtogroup fmi2_import_init Constuction, destruction and error handling
- * 	\addtogroup fmi2_import_gen General information retrieval
- *	\addtogroup fmi2_import_capi Interface to the standard FMI 2.0 "C" API
- *  \brief Convenient functions for calling the FMI functions. This interface wrappes the "C" API. 
+/**
+ * \addtogroup fmi2_import_init
+ * @{
  */
- /** @} */
- /** @} */
 
-/** \addtogroup fmi2_import_init Constuction, destruction and error handling
-@{
+/** \brief Given directory name fmu_unzipped_path and model identifier consturct Dll/so name
+    @return Pointer to a string with the file name. Caller is responsible for freeing the memory.
 */
+FMILIB_EXPORT char* fmi2_import_get_dll_path(const char* fmu_unzipped_path, const char* model_identifier, jm_callbacks* callBackFunctions);
 
 /**
 * \brief Retrieve the last error message.
@@ -68,7 +75,7 @@ extern "C" {
 * Error handling:
 *
 *  Many functions in the library return pointers to struct. An error is indicated by returning NULL/0-pointer.
-*  If error is returned than fmi2_import_get_last_error() functions can be used to retrieve the error message.
+*  If error is returned then fmi2_import_get_last_error() functions can be used to retrieve the error message.
 *  If logging callbacks were specified then the same information is reported via logger.
 *  Memory for the error string is allocated and deallocated in the module.
 *  Client code should not store the pointer to the string since it can become invalid.
@@ -81,7 +88,7 @@ FMILIB_EXPORT const char* fmi2_import_get_last_error(fmi2_import_t* fmu);
 \brief Clear the error message.
 * @param fmu An FMU object as returned by fmi2_import_parse_xml().
 * @return 0 if further processing is possible. If it returns 1 then the 
-*	error was not recoverable. The \p fmu object should then be freed and recreated.
+*    error was not recoverable. The \p fmu object should then be freed and recreated.
 */
 FMILIB_EXPORT int fmi2_import_clear_last_error(fmi2_import_t* fmu);
 
@@ -238,7 +245,7 @@ FMILIB_EXPORT fmi2_import_variable_list_t* fmi2_import_get_variable_aliases(fmi2
 /** \brief Get the list of all the variables in the model.
 * @param fmu An FMU object as returned by fmi2_import_parse_xml().
 * @param sortOrder Specifies the order of the variables in the list: 
-		0 - original order as found in the XML file; 1 - sorted alfabetically by variable name; 2 sorted by types/value references.
+        0 - original order as found in the XML file; 1 - sorted alfabetically by variable name; 2 sorted by types/value references.
 * @return a variable list with all the variables in the model.
 *
 * Note that variable lists are allocated dynamically and must be freed when not needed any longer.
@@ -247,8 +254,8 @@ FMILIB_EXPORT fmi2_import_variable_list_t* fmi2_import_get_variable_list(fmi2_im
 
 /** \brief Create a variable list with a single variable.
   
-\param fmu An FMU object that this variable list will reference.
-\param v A variable.
+@param fmu An FMU object that this variable list will reference.
+@param v A variable.
 */
 FMILIB_EXPORT fmi2_import_variable_list_t* fmi2_import_create_var_list(fmi2_import_t* fmu,fmi2_import_variable_t* v);
 
@@ -280,19 +287,19 @@ FMILIB_EXPORT size_t fmi2_import_get_source_files_cs_num(fmi2_import_t* fmu);
 FMILIB_EXPORT const char* fmi2_import_get_source_file_cs(fmi2_import_t* fmu, size_t index);
 
 /**
-	\brief Get variable by variable name.
-	\param fmu - An fmu object as returned by fmi2_import_parse_xml().
-	\param name - variable name
-	\return variable pointer.
+    \brief Get variable by variable name.
+    @param fmu - An fmu object as returned by fmi2_import_parse_xml().
+    @param name - variable name
+    @return variable pointer.
 */
 FMILIB_EXPORT fmi2_import_variable_t* fmi2_import_get_variable_by_name(fmi2_import_t* fmu, const char* name);
 
 /**
-	\brief Get variable by value reference.
-	\param fmu - An fmu object as returned by fmi2_import_parse_xml().
-	\param baseType - basic data type
-	\param vr - value reference
-	\return variable pointer.
+    \brief Get variable by value reference.
+    @param fmu - An fmu object as returned by fmi2_import_parse_xml().
+    @param baseType - basic data type
+    @param vr - value reference
+    @return variable pointer.
 */
 FMILIB_EXPORT fmi2_import_variable_t* fmi2_import_get_variable_by_vr(fmi2_import_t* fmu, fmi2_base_type_enu_t baseType, fmi2_value_reference_t vr);
 
@@ -373,6 +380,23 @@ FMILIB_EXPORT void fmi2_import_get_discrete_states_dependencies(fmi2_import_t* f
 FMILIB_EXPORT void fmi2_import_get_initial_unknowns_dependencies(fmi2_import_t* fmu, size_t** startIndex, size_t** dependency, char** factorKind);
  
 /**@} */
+
+/**
+ * \addtogroup fmi2_import_options
+ * @{
+ */
+
+/**
+ * Returns the fmi_import_options_t:: object.
+ *
+ * @param fmu - an fmu object as returned by fmi2_import_parse_xml().
+ * @return fmi_import_options_t:: opaque object pointer
+ */
+FMILIB_EXPORT fmi_import_options_t* fmi2_import_get_options(fmi2_import_t* fmu);
+
+/**
+ * @}
+ */
 
 #ifdef __cplusplus
 }

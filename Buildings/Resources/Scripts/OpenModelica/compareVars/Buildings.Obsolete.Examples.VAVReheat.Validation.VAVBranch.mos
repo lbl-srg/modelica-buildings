@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "vavBra.yVAV",
-    "vavBra.yVal",
-    "TSupAir.y",
-    "vavBra.terHea.sta_b1.T",
-    "vavBra.senMasFlo.m_flow"
-  };

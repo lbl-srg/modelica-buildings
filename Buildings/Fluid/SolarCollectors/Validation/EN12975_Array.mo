@@ -28,16 +28,19 @@ model EN12975_Array
     nPanels=4,
     nSeg=3,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array,
-    nPanelsSer=2,
     nPanelsPar=2)
     "Flat plate solar collector model, has been modified for validation purposes"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Collector solCol1(nSeg=3, nPanels=2)
+  Collector solCol1(
+    nSeg=3,
+    nPanels=2)
     "Flat plate solar collector model, has been modified for validation purposes"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
-  Collector solCol2(nSeg=3, nPanels=2)
+  Collector solCol2(
+    nSeg=3,
+    nPanels=2)
     "Flat plate solar collector model, has been modified for validation purposes"
     annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
 
@@ -146,6 +149,12 @@ Furthermore, the pressure drops over all models should be the same.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2025, by Michael Wetter:<br/>
+Removed parameter assignment for parameter that no longer exists.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1968\">IBPSA, #1968</a>.
+</li>
 <li>
 February 27, 2024, by Jelger Jansen:<br/>
 First implementation.<br/>

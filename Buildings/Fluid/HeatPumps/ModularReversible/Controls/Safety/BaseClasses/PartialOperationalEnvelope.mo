@@ -7,16 +7,16 @@ partial model PartialOperationalEnvelope
   parameter Modelica.Units.SI.Temperature tabLowCoo[:,2]
     "Lower boundary for cooling with second column as useful temperature side";
   parameter Boolean use_TConOutHea=true
-    "=true to use condenser outlet temperature for envelope in heating mode, false for inlet"
+    "if true, use condenser outlet temperature for operational envelope in heating mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TEvaOutHea=false
-    "=true to use evaporator outlet temperature for envelope in heating mode, false for inlet"
+    "if true, use evaporator outlet temperature for operational envelope in heating mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TConOutCoo=false
-    "=true to use useful side outlet temperature for envelope in cooling mode, false for inlet"
+    "if true, use useful side outlet temperature for operational envelope in cooling mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TEvaOutCoo=true
-    "=true to use evaporator outlet temperature for envelope in cooling mode, false for inlet"
+    "if true, use evaporator outlet temperature for operational envelope in cooling mode, otherwise use inlet"
     annotation (Dialog(group="Operational Envelope"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys=5
@@ -26,31 +26,41 @@ partial model PartialOperationalEnvelope
     final tab=tabUppHea,
     final dT=dTHys,
     final isUppBou=true) "Operational boundary map for heating operation"
-    annotation (Placement(transformation(extent={{-80,40},{-20,100}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.BoundaryMap bouMapCoo(
     final tab=tabLowCoo,
     final dT=dTHys,
     final isUppBou=false) "Operational boundary map for cooling operation"
-    annotation (Placement(transformation(extent={{-80,-80},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Logical.LogicalSwitch swiHeaCoo
     "Switch between heating and cooling envelope"
     annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,0},{-80,0},{-80,20},{
-          70,20},{70,8},{78,8}},
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,0},{-100,0},{-100,20},
+          {70,20},{70,8},{78,8}},
                   color={0,0,127}));
   connect(swiHeaCoo.y, booPasThr.u)
     annotation (Line(points={{17,0},{38,0}}, color={255,0,255}));
   connect(bouMapCoo.noErr, swiHeaCoo.u3)
-    annotation (Line(points={{-17,-50},{-12,-50},{-12,-8},{-6,-8}},
+    annotation (Line(points={{-59,-30},{-14,-30},{-14,-8},{-6,-8}},
                                                           color={255,0,255}));
   connect(bouMapHea.noErr, swiHeaCoo.u1)
-    annotation (Line(points={{-17,70},{-12,70},{-12,8},{-6,8}},
+    annotation (Line(points={{-59,50},{-54,50},{-54,8},{-6,8}},
                                                        color={255,0,255}));
 
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
+    Increase error counter only when device should turn on (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2011\">IBPSA #2011</a>)
+  </li>
+<li>
+May 22, 2025, by Michael Wetter:<br/>
+Revised comment.<br/>
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+</li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
