@@ -17,41 +17,41 @@ model Pump
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{60,60},{80,80}})));
 
-  Modelica.Units.SI.Torque tauPum "Pump torque";
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics", group="Conservation equations"));
+  parameter Modelica.Units.SI.Time tau=1
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
+    annotation (Dialog(tab="Dynamics", group="Conservation equations"));
+  parameter Boolean use_riseTime=true
+    "Set to true to continuously change motor speed"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Time needed to change motor speed between zero and full speed"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Real y_start=0 "Initial value of speed"
+    annotation (Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_start=Medium.p_default
+    "Start value of pressure" annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
+    "Start value of temperature" annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=Medium.X_default
+                       "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.ExtraProperty C_start[Medium.nC]=
+      fill(0, Medium.nC) "Start value of trace substances"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.ExtraProperty C_nominal[Medium.nC]=
+      fill(1E-2, Medium.nC)
+    "Nominal value of trace substances. (Set to typical order of magnitude.)"
+    annotation (Dialog(tab="Initialization"));
+  parameter Boolean show_T=false
+    "= true, if actual temperature at port is computed"
+    annotation (Dialog(tab="Advanced", group="Diagnostics"));
 
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
-  annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Buildings.Fluid.Movers.SpeedControlled_y pum(
-    redeclare final package Medium = Medium,
-    final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final addPowerToMedium=addPowerToMedium,
-    final per=per) "Pump"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(
-    final J=loaIne,
-    phi(start=0, fixed=true),
-    w(fixed=true, start=0))
-    "Pump inertia"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,80})));
-  Modelica.Mechanics.Rotational.Sources.Torque tor(useSupport=false)
-                                                   "Torque source"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.RealExpression tauSor(final y=-tauPum) "Pump torque"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={-70,90})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
-  Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
-    annotation (Placement(transformation(extent={{30,20},{10,40}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat dissipation to environment"
-    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
-        iconTransformation(extent={{-10,-78},{10,-58}})));
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
     final unit="W")
@@ -64,9 +64,58 @@ model Pump
     annotation (Placement(transformation(extent={{100,60},{120,80}}),
         iconTransformation(extent={{100,60},{120,80}})));
 
+  Modelica.Units.SI.Torque tauPum "Pump torque";
+
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
+    "Mechanical connector"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Buildings.Fluid.Movers.SpeedControlled_y pum(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    final addPowerToMedium=addPowerToMedium,
+    final per=per,
+    final tau=tau,
+    final use_riseTime=use_riseTime,
+    final riseTime=riseTime,
+    final init=init,
+    final show_T=show_T,
+    final y_start=y_start)
+    "Pump"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Mechanics.Rotational.Components.Inertia ine(
+    final J=loaIne,
+    phi(start=0, fixed=true),
+    w(fixed=true, start=0))
+    "Pump inertia"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90, origin={0,80})));
+  Modelica.Mechanics.Rotational.Sources.Torque tor(useSupport=false)
+    "Torque source"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Modelica.Blocks.Sources.RealExpression tauSor(
+    final y=-tauPum) "Pump torque"
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+        rotation=180, origin={-70,90})));
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe
+    "Rotation speed in rad/s"
+    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+  Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
+    annotation (Placement(transformation(extent={{30,20},{10,40}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat dissipation to environment"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
+        iconTransformation(extent={{-10,-78},{10,-58}})));
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     "Speed normalization"
     annotation (Placement(transformation(extent={{-10,20},{-30,40}})));
+
 equation
   pum.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauPum,spe.w,1e-6,1e-8);
 
@@ -74,8 +123,8 @@ equation
           color={0,127,255}));
   connect(pum.port_b, port_b) annotation (Line(points={{10,0},{100,0}},
           color={0,127,255}));
-  connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-70},
-          {-60,-70},{-60,-100}}, color={191,0,0}));
+  connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-100}},
+          color={191,0,0}));
   connect(shaft, ine.flange_b) annotation (Line(points={{0,100},{0,90}},
           color={0,0,0}));
   connect(tor.flange, ine.flange_a) annotation (Line(points={{-20,70},{0,70}},
@@ -86,13 +135,13 @@ equation
           color={0,0,0}));
   connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,30},
           {32,30}}, color={0,0,127}));
-  connect(pum.P, P) annotation (Line(points={{11,9},{90,9},{90,90},{110,90}},
+  connect(pum.P, P) annotation (Line(points={{11,9},{50,9},{50,90},{110,90}},
           color={0,0,127}));
   connect(pum.y_actual, y_actual) annotation (Line(points={{11,7},{92,7},{92,70},
           {110,70}}, color={0,0,127}));
   connect(to_rpm.y, gaiSpe.u)
     annotation (Line(points={{9,30},{-8,30}}, color={0,0,127}));
-  connect(gaiSpe.y, pum.y) annotation (Line(points={{-31,30},{-36,30},{-36,12},{
+  connect(gaiSpe.y, pum.y) annotation (Line(points={{-31,30},{-40,30},{-40,12},{
           0,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
@@ -102,7 +151,7 @@ equation
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-10,44},{10,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},

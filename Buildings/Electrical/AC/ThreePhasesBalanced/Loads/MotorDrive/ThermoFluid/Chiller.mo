@@ -12,10 +12,12 @@ model Chiller "Chiller with mechanical interface"
     "Nominal heating flow rate (Positive)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
-    final max=0)=-10 "Temperature difference evaporator outlet-inlet"
+    final max=0)=-10
+    "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(
-    final min=0)=10 "Temperature difference condenser outlet-inlet"
+    final min=0)=10
+    "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
@@ -61,6 +63,25 @@ model Chiller "Chiller with mechanical interface"
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
+    final quantity="HeatFlowRate",
+    final unit="W")
+    "Actual heating heat flow rate added to fluid 1"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final quantity="Power",
+    final unit="W")
+    "Electric power consumed"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    final quantity="HeatFlowRate",
+    final unit="W")
+    "Actual cooling heat flow rate removed from fluid 2"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
+
   Modelica.Units.SI.Torque tauChi "Chiller torque";
 
   Buildings.Fluid.Chillers.Carnot_y chi(
@@ -82,52 +103,32 @@ model Chiller "Chiller with mechanical interface"
     final TAppEva_nominal=TAppEva_nominal,
     final P_nominal=P_nominal) "Chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
+    "Mechanical connector"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Modelica.Mechanics.Rotational.Components.Inertia ine(final J=loaIne,
-    phi(fixed=true, start=0), w(fixed=true, start=0)) "Chiller inertia"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,80})));
+  Modelica.Mechanics.Rotational.Components.Inertia ine(
+    final J=loaIne,
+    phi(fixed=true, start=0),
+    w(fixed=true, start=0)) "Chiller inertia"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90, origin={0,80})));
   Modelica.Mechanics.Rotational.Sources.Torque tor "Torque source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Modelica.Blocks.Sources.RealExpression tauSor(final y=-tauChi) "Chiller torque"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={-70,90})));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe "Rotation speed in rad/s"
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+  Modelica.Blocks.Sources.RealExpression tauSor(
+    final y=-tauChi)
+    "Chiller torque"
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+        rotation=180, origin={-70,90})));
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor spe
+    "Rotation speed in rad/s"
+    annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Modelica.Blocks.Math.UnitConversions.To_rpm to_rpm "Unit conversion"
-    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
-  Modelica.Blocks.Math.MultiProduct multiProduct(final nu=3)
-    "Cubic calculation"
-    annotation (Placement(transformation(extent={{-68,34},{-80,46}})));
+    annotation (Placement(transformation(extent={{40,20},{20,40}})));
+  Modelica.Blocks.Math.MultiProduct speCub(final nu=3) "Cubic calculation"
+    annotation (Placement(transformation(extent={{-40,20},{-60,40}})));
   Modelica.Blocks.Math.Gain gaiSpe(final k=1/Nrpm_nominal)
     "Speed normalization"
-    annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
-    final quantity="HeatFlowRate",
-    final unit="W")
-    "Actual heating heat flow rate added to fluid 1"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput P(
-    final quantity="Power",
-    final unit="W")
-    "Electric power consumed"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
-    final quantity="HeatFlowRate",
-    final unit="W")
-    "Actual cooling heat flow rate removed from fluid 2"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
-        iconTransformation(extent={{100,-100},{120,-80}})));
-
-initial equation
-  assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
+    annotation (Placement(transformation(extent={{0,20},{-20,40}})));
 
 protected
   constant Boolean COP_is_for_cooling = true
@@ -153,42 +154,47 @@ protected
       X = Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
+initial equation
+  assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
+
 equation
   chi.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauChi,spe.w,1e-6,1e-8);
 
-  connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-60,60},
-          {-60,6},{-10,6}}, color={0,127,255}));
-  connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-60,-60},
-          {-60,-6},{-10,-6}}, color={0,127,255}));
-  connect(chi.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},
-          {60,-60},{100,-60}}, color={0,127,255}));
-  connect(chi.port_b1, port_b1) annotation (Line(points={{10,6},{60,6},{60,60},
-          {100,60}}, color={0,127,255}));
+  connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-80,60},{-80,
+          6},{-10,6}}, color={0,127,255}));
+  connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-80,-60},{-80,
+          -6},{-10,-6}}, color={0,127,255}));
+  connect(chi.port_a2, port_a2) annotation (Line(points={{10,-6},{80,-6},{80,-60},
+          {100,-60}}, color={0,127,255}));
+  connect(chi.port_b1, port_b1) annotation (Line(points={{10,6},{80,6},{80,60},{
+          100,60}},  color={0,127,255}));
   connect(shaft,ine. flange_b) annotation (Line(points={{0,100},{1.77636e-15,100},
           {1.77636e-15,90}}, color={0,0,0}));
   connect(tauSor.y, tor.tau) annotation (Line(points={{-59,90},{-50,90},{-50,70},
           {-42,70}}, color={0,0,127}));
-  connect(ine.flange_a,spe. flange) annotation (Line(points={{-1.77636e-15,70},
-          {-1.77636e-15,60},{10,60}}, color={0,0,0}));
+  connect(ine.flange_a,spe. flange) annotation (Line(points={{0,70},{0,60},{30,60}},
+          color={0,0,0}));
   connect(ine.flange_a, tor.flange) annotation (Line(points={{-1.83187e-15,70},
           {-20,70}}, color={0,0,0}));
-  connect(spe.w,to_rpm. u) annotation (Line(points={{31,60},{40,60},{40,40},
-          {12,40}}, color={0,0,127}));
-  connect(to_rpm.y, gaiSpe.u) annotation (Line(points={{-11,40},{-18,40}},
+  connect(spe.w,to_rpm. u) annotation (Line(points={{51,60},{60,60},{60,30},{42,
+          30}}, color={0,0,127}));
+  connect(to_rpm.y, gaiSpe.u) annotation (Line(points={{19,30},{2,30}},
           color={0,0,127}));
-  connect(gaiSpe.y, multiProduct.u[1]) annotation (Line(points={{-41,40},{-50,40},
-          {-50,38.6},{-68,38.6}}, color={0,0,127}));
-  connect(gaiSpe.y, multiProduct.u[2])
-    annotation (Line(points={{-41,40},{-68,40}}, color={0,0,127}));
-  connect(gaiSpe.y, multiProduct.u[3]) annotation (Line(points={{-41,40},{-50,40},
-          {-50,41.4},{-68,41.4}}, color={0,0,127}));
-  connect(multiProduct.y, chi.y) annotation (Line(points={{-81.02,40},{-90,40},
-          {-90,9},{-12,9}}, color={0,0,127}));
+  connect(gaiSpe.y, speCub.u[1]) annotation (Line(points={{-21,30},{-40,30},{
+          -40,27.6667}},
+                     color={0,0,127}));
+  connect(gaiSpe.y, speCub.u[2])
+    annotation (Line(points={{-21,30},{-40,30}}, color={0,0,127}));
+  connect(gaiSpe.y, speCub.u[3]) annotation (Line(points={{-21,30},{-40,30},{
+          -40,32.3333}},
+                     color={0,0,127}));
+  connect(speCub.y, chi.y) annotation (Line(points={{-61.7,30},{-70,30},{-70,9},
+          {-12,9}}, color={0,0,127}));
   connect(chi.P, P) annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
-  connect(chi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{50,9},
-          {50,90},{110,90}}, color={0,0,127}));
-  connect(chi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{50,-9},
-          {50,-90},{110,-90}}, color={0,0,127}));
+  connect(chi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,90},
+          {110,90}}, color={0,0,127}));
+  connect(chi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},{70,
+          -90},{110,-90}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
