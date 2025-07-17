@@ -40,7 +40,13 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.EvaporativeCoolers
+    </td>
+    <td valign=\"top\">Package with evaporative cooler models based on EnergyPlus v23.1.0 Engineering Reference.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3492\">issue 3492</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
