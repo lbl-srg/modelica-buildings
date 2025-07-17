@@ -32,10 +32,10 @@ model TwoIdenticalZones
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "Data reader with results from EnergyPlus"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Controls.OBC.UnitConversions.From_degC TAirEnePlu
+  Buildings.Controls.OBC.UnitConversions.From_degC TAirEnePlu
     "Room air temperature computed by EnergyPlus"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter relHumEnePlu(k=0.01)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter relHumEnePlu(k=0.01)
     "Relative humidity in the room computed by EnergyPlus"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
@@ -70,7 +70,7 @@ model TwoIdenticalZones
       nPorts=3)
       "Thermal zone (core zone of the office building with 5 zones)"
       annotation (Placement(transformation(extent={{-18,6},{22,46}})));
-    Fluid.FixedResistances.PressureDrop duc(
+    Buildings.Fluid.FixedResistances.PressureDrop duc(
       redeclare package Medium=Medium,
       allowFlowReversal=false,
       linearized=true,
@@ -79,13 +79,13 @@ model TwoIdenticalZones
       m_flow_nominal=47*6/3600*1.2)
       "Duct resistance (to decouple room and outside pressure)"
       annotation (Placement(transformation(extent={{-30,-60},{-50,-40}})));
-    Fluid.Sources.MassFlowSource_WeatherData bou(
+    Buildings.Fluid.Sources.MassFlowSource_WeatherData bou(
       redeclare package Medium=Medium,
       m_flow=mOut_flow,
       nPorts=1)
       "Mass flow rate boundary condition"
       annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-    Fluid.Sources.Boundary_pT freshAir(
+    Buildings.Fluid.Sources.Boundary_pT freshAir(
       redeclare package Medium=Medium,
       nPorts=1)
       "Pressure boundary condition"
@@ -94,7 +94,7 @@ model TwoIdenticalZones
       k=0)
       "Latent heat gain"
       annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-    Fluid.Sensors.RelativeHumidity senRelHum(
+    Buildings.Fluid.Sensors.RelativeHumidity senRelHum(
       redeclare package Medium=Medium,
       warnAboutOnePortConnection=false)
       "Relative humidity in the room as computed by Modelica"

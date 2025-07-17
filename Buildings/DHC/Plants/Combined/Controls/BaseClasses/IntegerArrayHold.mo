@@ -31,7 +31,7 @@ algorithm
     time_change := time;
   end when;
 
-  annotation (
+  annotation (__cdl(extensionBlock=true),
   defaultComponentName="hol",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

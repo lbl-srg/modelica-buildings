@@ -76,10 +76,11 @@
   dymola:
     time_out: 600
   openmodelica:
-    comment: 'Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910'
+    comment: Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910
     simulate: false
   optimica:
-    time_out: 600
+    comment: Timeout after 600 seconds
+    simulate: false
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
   optimica:
     comment: Simulation times out
@@ -139,16 +140,16 @@
     comment: Timeout during translation
     time_out: 600
   optimica:
-    comment: Timeout on travis
-    time_out: 600
+    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
+    translate: false
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
     time_out: 600
   optimica:
-    comment: timeout on travis after 300s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/618700275
-    time_out: 600
+    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
+    translate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -201,8 +202,8 @@
     time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
+    comment: Translation timeout after 600 s
     translate: false
-    comment: Timeout on travis even with 900 s
   optimica:
     translate: false
     comment: Singularity, Modelon ticket 956
@@ -235,9 +236,6 @@
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
-  openmodelica:
-    translate: false
-    comment: Translation hangs.
   optimica:
     translate: false
     comment: Compilation seems to hang, may be related to Modelon ticket 956
@@ -245,7 +243,7 @@
   dymola:
     time_out: 600
   openmodelica:
-    time_out: 1200
+    time_out: 600
   optimica:
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
@@ -273,11 +271,60 @@
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
     translate: false
-- model_name: Buildings.Obsolete.Examples.VAVReheat.Validation.Guideline36SteadyState
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
+  dymola:
+    comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones2
+  dymola:
+    comment: Requires docker update to Ubuntu 22.04 due to libgc.
+    simulate: false
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones3
+  dymola:
+    comment: Requires docker update to Ubuntu 22.04 due to libgc.
+    simulate: false
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Spring
+  openmodelica:
+    comment: timed out after 300 seconds
     time_out: 600
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Summer
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Spring
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Summer
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
+  openmodelica:
+    comment: Timeout on travis
+    time_out: 900
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
+  openmodelica:
+    comment: returned non-zero exit status 255.
+    simulate: false
+  optimica:
+    rtol: 1.0e-08
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSummer
+  openmodelica:
+    comment: returned non-zero exit status 255.
+    simulate: false
+  optimica:
+    rtol: 1.0e-07
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingWinter
+  optimica:
+    rtol: 1.0e-08
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
+  optimica:
+    rtol: 1.0e-08
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
+  openmodelica:
+    comment: returned non-zero exit status 139.
+    simulate: false
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
   optimica:
     comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
@@ -308,6 +355,9 @@
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated
   openmodelica:
     comment: Translation failed.
+    translate: false
+  optimica:
+    comment: PyModelicaException due to NullPointerException
     translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
   openmodelica:
@@ -365,6 +415,9 @@
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithShade
+  dymola:
+    comment: Timeout on jenkins
+    time_out: 600
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
@@ -393,33 +446,43 @@
     comment: Timeout on travis
     time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case980
+  dymola:
+    comment: Timeout on jenkins
+    time_out: 600
   openmodelica:
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261256
     time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case995
+  dymola:
+    comment: Timeout on jenkins
+    time_out: 600
   openmodelica:
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261256
     time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Validation.FMUZoneAdapterZones1
   openmodelica:
-    comment: "Could not load the FMU binary: libc.so.6: version `GLIBC_2.34' not found"
+    comment: 'Could not load the FMU binary: libc.so.6: version `GLIBC_2.34'' not found'
     simulate: false
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Validation.FMUZoneAdapterZones2
   openmodelica:
-    comment: "Could not load the FMU binary: libc.so.6: version `GLIBC_2.34' not found"
+    comment: 'Could not load the FMU binary: libc.so.6: version `GLIBC_2.34'' not found'
     simulate: false
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Validation.FMUZoneAdapterZones3
   openmodelica:
-    comment: "Could not load the FMU binary: libc.so.6: version `GLIBC_2.34' not found"
+    comment: 'Could not load the FMU binary: libc.so.6: version `GLIBC_2.34'' not found'
     simulate: false
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
+    simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Spring
+  openmodelica:
+    comment: timed out after 600 seconds on travis but works locally
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer
   openmodelica:
@@ -453,59 +516,13 @@
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
-  dymola:
-    comment: Requires docker update to Ubuntu 22.04 due to libgc.
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings
+  openmodelica:
+    comment: error during shutdown, https://github.com/lbl-srg/modelica-buildings/issues/3345
     simulate: false
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones2
-  dymola:
-    comment: Requires docker update to Ubuntu 22.04 due to libgc.
-    simulate: false
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones3
-  dymola:
-    comment: Requires docker update to Ubuntu 22.04 due to libgc.
-    simulate: false
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Spring
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
   openmodelica:
-    comment: timed out after 300 seconds
-    time_out: 600
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Summer
-  openmodelica:
-    comment: timed out after 300 seconds
-    time_out: 600
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Spring
-  openmodelica:
-    comment: timed out after 300 seconds
-    time_out: 600
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Summer
-  openmodelica:
-    comment: timed out after 300 seconds
-    time_out: 600
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
-  openmodelica:
-    comment: Timeout on travis
-    time_out: 900
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
-  openmodelica:
-    comment: returned non-zero exit status 255.
-    simulate: false
-  optimica:
-    rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSummer
-  openmodelica:
-    comment: returned non-zero exit status 255.
-    simulate: false
-  optimica:
-    rtol: 1.0e-07
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingWinter
-  optimica:
-    rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
-  optimica:
-    rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
-  openmodelica:
-    comment: returned non-zero exit status 139.
+    comment: error during shutdown, https://github.com/lbl-srg/modelica-buildings/issues/3345
     simulate: false
 - model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:

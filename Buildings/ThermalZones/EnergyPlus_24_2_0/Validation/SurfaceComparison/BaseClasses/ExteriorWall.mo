@@ -14,14 +14,14 @@ model ExteriorWall "Model of an exterior wall with Spawn-controlled surface cond
   Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface sur(surfaceName=surNam)
     "Wall interior surface"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  HeatTransfer.Conduction.MultiLayer walCon(
+  Buildings.HeatTransfer.Conduction.MultiLayer walCon(
     A=A,
     layers=layers) "Wall construction"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,0})));
-  HeatTransfer.Sources.PrescribedHeatFlow heaSurExt
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaSurExt
     "Exterior surface heat transfer rate"
     annotation (Placement(
         transformation(
@@ -36,7 +36,7 @@ model ExteriorWall "Model of an exterior wall with Spawn-controlled surface cond
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,-30})));
-  HeatTransfer.Sources.PrescribedHeatFlow heaSurInt
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaSurInt
    "Prescribed heat flow rate"
     annotation (Placement(
         transformation(

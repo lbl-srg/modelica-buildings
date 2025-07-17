@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Examples;
 model CarnotWithLosses_OneRoomRadiator
   "Reversible heat pump with Carnot approach connected to a simple room model with radiator"
-  extends Examples.BaseClasses.PartialOneRoomRadiator(
+  extends Buildings.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1),
@@ -14,7 +14,7 @@ model CarnotWithLosses_OneRoomRadiator
     "Percentage of heat losses in the heat exchangers to the nominal heating output";
   Buildings.Fluid.HeatPumps.ModularReversible.CarnotWithLosses heaPum(
     redeclare package MediumCon = MediumWat,
-    redeclare package MediumEva = MediumWat,
+    redeclare package MediumEva = MediumEva,
     QHea_flow_nominal=Q_flow_nominal,
     use_rev=true,
     use_intSafCtr=true,
@@ -90,6 +90,12 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Introduced medium <code>MediumEva</code> and refactored medium assignment
+as the model replaced non-replaceable medium bindings.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1981\">#1981</a>.
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=

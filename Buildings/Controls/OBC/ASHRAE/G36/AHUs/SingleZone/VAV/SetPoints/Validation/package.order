@@ -7,5 +7,7 @@ ReliefDamper
 ReliefFan
 ReliefFanGroup
 ReturnFan
+SupplyFan
+SupplyTemperature
 Supply_T
 Supply_u

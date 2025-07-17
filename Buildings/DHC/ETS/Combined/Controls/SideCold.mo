@@ -1,11 +1,14 @@
 within Buildings.DHC.ETS.Combined.Controls;
 model SideCold
   "Control block for cold side"
-  extends Modelica.Blocks.Icons.Block;
+
   parameter Integer nSouAmb=1
     "Number of ambient sources to control"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.Temperature TChiWatSupSetMin(displayUnit="degC")
+  parameter Real TChiWatSupSetMin(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Minimum value of chilled water supply temperature set point";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -14,21 +17,51 @@ model SideCold
   parameter Real k(
     min=0)=0.1
     "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(
-    min=Buildings.Controls.OBC.CDL.Constants.small)=120
+  parameter Real Ti(
+    min=Buildings.Controls.OBC.CDL.Constants.small,
+    final quantity="Time",
+    final unit="s")=120
     "Time constant of integrator block"
     annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
+    "Enable signal for heating or cooling"
+    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
+    final unit="K",
+    displayUnit="degC")
+    "Supply temperature set point (heating or chilled water)"
+    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
+        iconTransformation(extent={{-140,-62},{-100,-22}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCol
     "Cold rejection control signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-    iconTransformation(extent={{-140,-22},{-100,18}})));
+        iconTransformation(extent={{-140,-22},{-100,18}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(
+    final unit="K",
+    displayUnit="degC")
+    "Temperature at bottom of tank"
+    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
+        iconTransformation(extent={{-140,-104},{-100,-64}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K",
     displayUnit="degC")
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{180,60},{220,100}}),
-    iconTransformation(extent={{100,-60},{140,-20}})));
+        iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
+    each final unit="1")
+    "Control signal for ambient sources"
+    annotation (Placement(transformation(extent={{180,20},{220,60}}),
+        iconTransformation(extent={{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIso(
+    final unit="1")
+    "Ambient loop isolation valve control signal"
+    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
   Buildings.Controls.OBC.CDL.Reals.Line mapFun[nSouAmb]
     "Mapping functions for ambient source control"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -52,7 +85,7 @@ model SideCold
     final k={(i) for i in 1:nSouAmb})
     "x2"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Combined.Controls.PIDWithEnable conTChiWatSup(
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conTChiWatSup(
     final k=k,
     final Ti=Ti,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -95,46 +128,21 @@ model SideCold
   Buildings.Controls.OBC.CDL.Reals.LimitSlewRate ramLimHea(
     raisingSlewRate=0.1) "Limit the rate of change"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
-    "Enable signal for heating or cooling"
-    annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
-    iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
-    final unit="K",
-    displayUnit="degC")
-    "Supply temperature set point (heating or chilled water)"
-    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
-    iconTransformation(extent={{-140,-62},{-100,-22}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TBot(
-    final unit="K",
-    displayUnit="degC")
-    "Temperature at bottom of tank"
-    annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
-    iconTransformation(extent={{-140,-104},{-100,-64}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
-    each final unit="1")
-    "Control signal for ambient sources"
-    annotation (Placement(transformation(extent={{180,20},{220,60}}),
-    iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValIso(
-    final unit="1")
-    "Ambient loop isolation valve control signal"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
     annotation (Placement(transformation(origin = {40, 0}, extent = {{80, -110}, {100, -90}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    t=0.01)
+    t = 0.01,
+    h = 0.005)
     "Control signal is non zero (with 1% tolerance)"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=300) "Hold logical signal to avoid short cycling"
     annotation (Placement(transformation(origin = {40, 0}, extent = {{40, -110}, {60, -90}})));
-protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre
-    "Block to avoid an algebraic loop during initialization" annotation(
-    Placement(transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}})));
+    "Block to avoid an algebraic loop during initialization"
+    annotation(Placement(transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}})));
+
 equation
   connect(x1.y,mapFun.x1)
     annotation (Line(points={{62,20},{80,20},{80,8},{98,8}},color={0,0,127}));
@@ -200,6 +208,10 @@ equation
       revisions="<html>
 <ul>
 <li>
+March 7, 2025, by Michael Wetter:<br/>
+Increased, and added where missing, hysteresis, as the input signal is the output of the PID controller.
+</li>
+<li>
 November 22, 2024, by Michael Wetter:<br/>
 Reduced number of time events by replacing zero order hold with true and false hold,
 and increasing the minimum cycle time.<br/>
@@ -262,5 +274,15 @@ The command signal is held for 5&nbsp;min to avoid short cycling.
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-180,-140},{180,140}})));
+        extent={{-180,-140},{180,140}})),
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{102,140}},
+          textString="%name")}));
 end SideCold;

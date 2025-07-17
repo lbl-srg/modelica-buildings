@@ -49,12 +49,17 @@ package ClimaticConstants "Surface temperature climatic constants"
   annotation (Documentation(info="<html>
 <p>
 Surface temperature data that is used in the calculation of undisturbed soil temperature.
-See <a href=\"https://tc0602.ashraetcs.org/Climatic_constants_using_ASHRAE_CD_Ver_6.0.pdf\">
+See <a href=\"https://tpc.ashrae.org/FileDownload?idx=a72f024c-dc69-41fa-8d5c-d1cd21df17f1\">
 Climatic Constants for Calculating Subsurface Soil Temperatures</a> for
 more information and a table of values.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2025, by Jianjun Hu:<br/>
+Updated reference link. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4177\">Buildings, issue 4177</a>.
+</li>
 <li>
 March 17, 2021, by Baptiste Ravache:<br/>
 First implementation.

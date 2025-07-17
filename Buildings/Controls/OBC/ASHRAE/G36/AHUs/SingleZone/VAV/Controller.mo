@@ -856,7 +856,6 @@ block Controller
     final maxHeaSpe=maxHeaSpe,
     final maxCooSpe=maxCooSpe,
     final minSpe=minSpe,
-    final looHys=looHys,
     final temPoiOne=temPoiOne,
     final temPoiTwo=temPoiTwo,
     final temPoiThr=temPoiThr,

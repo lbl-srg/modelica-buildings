@@ -50,7 +50,7 @@ model PressureIndependent
     k=10,
     Ti=0.001,
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    initType=Modelica.Blocks.Types.Init.InitialState)
+    initType=Modelica.Blocks.Types.Init.InitialOutput)
     "Discharge flow rate controller"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   Sensors.MassFlowRate senMasFlo(
@@ -164,6 +164,11 @@ the damper opening value results from the regularization process.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 15, 2025, by Michael Wetter:<br/>
+Changed initialization of controller.<br/>
+For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4183\">Buildings, #4183</a>.
+</li>
 <li>
 April 5, 2020 by Antoine Gautier:<br/>
 First implementation.

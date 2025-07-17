@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatPumps.ModularReversible.Examples;
 model LargeScaleWaterToWater_OneRoomRadiator
   "Large scale water to water heat pump connected to a simple room model with radiator"
   extends Modelica.Icons.Example;
-  extends BaseClasses.PartialOneRoomRadiator(
+  extends Buildings.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     V=6*100*3,
@@ -104,6 +104,12 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Introduced medium <code>MediumEva</code> and refactored medium assignment
+as the model replaced non-replaceable medium bindings.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1981\">#1981</a>.
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=

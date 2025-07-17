@@ -54,8 +54,6 @@ partial model PartialSolarCollector "Partial model for solar collectors"
   Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
-  parameter Integer nPanelsSer=0 "Number of array panels in series"
-    annotation(Dialog(group="Configuration declarations", enable= (sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array)));
   parameter Integer nPanelsPar=0 "Number of array panels in parallel"
     annotation(Dialog(group="Configuration declarations", enable= (sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array)));
 
@@ -158,14 +156,14 @@ protected
       totalArea/per.A "Number of panels used in the simulation";
   parameter Real nPanelsSer_internal=
     if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
-      nPanels
+      nPanels_internal
     else if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
       1
     else
-      nPanelsSer "Number of panels in series";
+      nPanels_internal/nPanelsPar_internal "Number of panels in series";
   parameter Real nPanelsPar_internal=
     if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
-      nPanels
+      nPanels_internal
     else if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
       1
     else
@@ -186,12 +184,10 @@ initial equation
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
 
-  if sysConfig==Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array then
-    assert(abs(nPanelsPar_internal*nPanelsSer_internal-nPanels_internal) < 1E-6,
-      "In " + getInstanceName() +
-      ": The product of the number of panels in series and parallel is not equal to the total number of panels in the array.",
-      level = AssertionLevel.error);
-  end if;
+  assert(mod(ATot_internal,per.A)/per.A <= 0.01,
+    "In " + getInstanceName() +
+    ": The total collector area is not an exact multitude of a single collector's area.",
+    level = AssertionLevel.warning);
 
 equation
   connect(shaCoe_internal,shaCoe_in);
@@ -257,6 +253,14 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 4, 2025, by Jelger Jansen:<br/>
+Use <code>nPanels_internal</code> when calculating <code>nPanelsPar_internal</code> and <code>nPanelsSer_internal</code>.
+Only request <code>nPanelsPar</code> as an input for an array of collectors and 
+add assert to check if the total collector area is an exact multitude of a single collector's area.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
+</li>
 <li>
 February 27, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>

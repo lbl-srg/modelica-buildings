@@ -8,6 +8,7 @@
 
  #include <string.h>
  #include <stdlib.h>
+ #include "ModelicaUtilities.h"
 
 void plotSendReal(void* object, const double* dbl){
   int i;

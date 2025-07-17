@@ -1,7 +1,6 @@
 within Buildings.Fluid.BaseClasses;
 block ActuatorFilter
   "Filter used for actuators of valves, dampers and movers"
-  import Modelica.Blocks.Types.Init;
   extends Modelica.Blocks.Interfaces.SISO;
 
   constant Integer n=2 "Order of filter";
@@ -17,7 +16,7 @@ block ActuatorFilter
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0.0
     "Initial value of output (remaining states are in steady state)"
-    annotation(Dialog(enable=initType == Init.InitialOutput, group=
+    annotation(Dialog(enable=initType == Modelica.Blocks.Types.Init.InitialOutput, group=
           "Initialization"));
 
   parameter Real u_nominal = 1 "Magnitude of input";
@@ -37,11 +36,11 @@ protected
   Real s[n](start=x_start/u_nom) "Filter states";
 
 initial equation
-  if initType == Init.SteadyState then
+  if initType == Modelica.Blocks.Types.Init.SteadyState then
     der(s) = zeros(n);
-  elseif initType == Init.InitialState then
+  elseif initType == Modelica.Blocks.Types.Init.InitialState then
     s = x_start/u_nom;
-  elseif initType == Init.InitialOutput then
+  elseif initType == Modelica.Blocks.Types.Init.InitialOutput then
     y = y_start;
     der(s[1:n - 1]) = zeros(n - 1);
   end if;
@@ -99,6 +98,12 @@ It turns out that this transformation leads to smaller system of nonlinear equat
 for a discussion.
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 July 22, 2021, by Michael Wetter:<br/>
 First implementation for

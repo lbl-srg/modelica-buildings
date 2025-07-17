@@ -6,9 +6,9 @@ record GenericHeatPump "Partial heat pump data"
   parameter Real tabUppBou[:,2]
     "Points to define upper boundary for sink temperature";
   parameter Boolean use_TEvaOutForOpeEnv=false
-    "=true to use evaporator outlet temperature for operational envelope, false for inlet";
+    "if true, use evaporator outlet temperature for operational envelope, otherwise use inlet";
   parameter Boolean use_TConOutForOpeEnv=true
-    "=true to use condenser outlet temperature for operational envelope, false for inlet";
+    "if true, use condenser outlet temperature for operational envelope, otherwise use inlet";
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
 <p>
@@ -24,6 +24,11 @@ record GenericHeatPump "Partial heat pump data"
 </p>
 </html>",
         revisions="<html><ul>
+<li>
+May 22, 2025, by Michael Wetter:<br/>
+Revised comment.<br/>
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+</li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on IPBSA guidelines <a href=

@@ -3,21 +3,20 @@ model AirToWater2D_OneRoomRadiator
   "Reversible heat pump with EN 2D data connected to a simple room model with radiator"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
+    redeclare package MediumEva = MediumAir,
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
-    sin(nPorts=1, redeclare package Medium = MediumAir),
+    sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
     pumHeaPumSou(
-      dp_nominal=heaPum.dpEva_nominal,
-      redeclare package Medium = MediumAir),
-    sou(use_T_in=true,
-      redeclare package Medium = MediumAir),
+      dp_nominal=heaPum.dpEva_nominal),
+    sou(use_T_in=true),
     pumHeaPum(dp_nominal=heaPum.dpCon_nominal));
 
   Buildings.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D
     heaPum(
     redeclare package MediumCon = MediumWat,
-    redeclare package MediumEva = MediumAir,
+    redeclare package MediumEva = MediumEva,
     TCon_start=TRadSup_nominal,
     QHea_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
@@ -98,6 +97,12 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Introduced medium <code>MediumEva</code> and refactored medium assignment
+as the model replaced non-replaceable medium bindings.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1981\">#1981</a>.
+</li>
 <li>
   <i>May 5, 2024</i> by Fabian Wuellhorst:<br/>
   Updated documentation and changed default value (see issue <a href=

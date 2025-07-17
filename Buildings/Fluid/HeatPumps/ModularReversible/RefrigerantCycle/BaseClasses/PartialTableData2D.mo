@@ -10,14 +10,16 @@ partial model PartialTableData2D
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=
     Modelica.Blocks.Types.Smoothness.LinearSegments
-    "Smoothness of table interpolation";
+    "Smoothness of table interpolation"
+    annotation(Dialog(group="Data handling"));
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=
     Modelica.Blocks.Types.Extrapolation.LastTwoPoints
-    "Extrapolation of data outside the definition range";
+    "Extrapolation of data outside the definition range"
+    annotation(Dialog(group="Data handling"));
   parameter Boolean use_TEvaOutForTab=true
-    "=true to use evaporator outlet temperature, false for inlet";
+    "if true, use evaporator outlet temperature, otherwise use inlet";
   parameter Boolean use_TConOutForTab=true
-    "=true to use condenser outlet temperature, false for inlet";
+    "if true, use condenser outlet temperature, otherwise use inlet";
   Modelica.Blocks.Tables.CombiTable2Ds tabPEle(
     final tableOnFile=false,
     final tableName="NoName",
@@ -137,26 +139,26 @@ protected
 initial algorithm
   assert(mCon_flow_nominal >= mCon_flow_min,
     "In " + getInstanceName() + ": The nominal condenser mass flow rate ("
-    + String(mCon_flow_nominal) + " kg/s) is smaller than the 
-    minimal value (" + String(mCon_flow_min) + " kg/s) for the table data 
+    + String(mCon_flow_nominal) + " kg/s) is smaller than the
+    minimal value (" + String(mCon_flow_min) + " kg/s) for the table data
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
   assert(mCon_flow_nominal <= mCon_flow_max,
     "In " + getInstanceName() + ": The nominal condenser mass flow rate ("
-    + String(mCon_flow_nominal) + " kg/s) is bigger than the 
-    maximal value (" + String(mCon_flow_max) + " kg/s) for the table data 
+    + String(mCon_flow_nominal) + " kg/s) is bigger than the
+    maximal value (" + String(mCon_flow_max) + " kg/s) for the table data
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
   assert(mEva_flow_nominal >= mEva_flow_min,
     "In " + getInstanceName() + ": The nominal evaporator mass flow rate ("
-    + String(mEva_flow_nominal) + " kg/s) is smaller than the 
-    minimal value (" + String(mEva_flow_min) + " kg/s) for the table data 
+    + String(mEva_flow_nominal) + " kg/s) is smaller than the
+    minimal value (" + String(mEva_flow_min) + " kg/s) for the table data
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
   assert(mEva_flow_nominal <= mEva_flow_max,
     "In " + getInstanceName() + ": The nominal evaporator mass flow rate ("
-    + String(mEva_flow_nominal) + " kg/s) is bigger than the 
-    maximal value (" + String(mEva_flow_max) + " kg/s) for the table data 
+    + String(mEva_flow_nominal) + " kg/s) is bigger than the
+    maximal value (" + String(mEva_flow_max) + " kg/s) for the table data
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
 equation
@@ -179,7 +181,13 @@ equation
   and chiller models using two-dimensional data.
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
+May 22, 2025, by Michael Wetter:<br/>
+Revised comment.<br/>
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+</li>
+<li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)

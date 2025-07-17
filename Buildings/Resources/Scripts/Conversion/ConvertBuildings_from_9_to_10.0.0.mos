@@ -1,9 +1,6 @@
 //  Conversion script for Buildings library
 //  from: Version 9
 //  to:   Version 10.0.0
-clear
-
-convertClear();
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2465
 convertClass("Buildings.Controls.OBC.CDL.Logical.And3",

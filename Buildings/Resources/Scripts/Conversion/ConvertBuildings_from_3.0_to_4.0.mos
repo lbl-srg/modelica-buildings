@@ -1,9 +1,6 @@
 // Conversion script for Buildings library
 //  from: Version 3.0
 //  to:   Version 4.0
-clear
-
-convertClear();
 
 // Renaming of filteredSpeed and filteredOpening
 convertElement("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",

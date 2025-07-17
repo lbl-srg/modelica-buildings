@@ -6,6 +6,10 @@ model MinimalFlowRate "Safety control for minimum mass flow rate"
     "Minimal mass flow rate in evaporator required to operate the device";
   parameter Modelica.Units.SI.MassFlowRate mConMin_flow
     "Minimal mass flow rate in condenser required to operate the device";
+  parameter Boolean onOffMea_start=true
+    "Start value for the on-off signal of the device, true for on";
+  parameter Real ySet_small
+    "Threshold for relative speed for the device to be considered on";
   Modelica.Blocks.Logical.Hysteresis hysCon(
     final uLow=mConMin_flow,
     final uHigh=max(mConMin_flow*1.1, Modelica.Constants.eps),
@@ -21,7 +25,6 @@ model MinimalFlowRate "Safety control for minimum mass flow rate"
   Modelica.Blocks.Logical.And and1
     "Both condenser and evaporator have sufficient flow"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-
 equation
   connect(hysCon.y, and1.u1) annotation (Line(points={{-39,20},{-28,20},{-28,0},
           {-22,0}},      color={255,0,255}));
@@ -56,6 +59,11 @@ equation
   or freezing of components.
 </p>
 </html>", revisions="<html><ul>
+  <li>
+    <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
+    Increase error counter only when device should turn on (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2011\">IBPSA #2011</a>)
+  </li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

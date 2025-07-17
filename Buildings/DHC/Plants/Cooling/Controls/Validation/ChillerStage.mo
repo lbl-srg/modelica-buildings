@@ -3,6 +3,7 @@ model ChillerStage
   "Example to test the chiller staging controller"
   extends Modelica.Icons.Example;
   Buildings.DHC.Plants.Cooling.Controls.ChillerStage chiStaCon(
+    cp_default=4186,
     tWai=30,
     QChi_nominal=-200*3.517*1000)
     "Chiller staging controller"
@@ -28,13 +29,13 @@ equation
     annotation (Line(points={{-39,50},{-28,50},{-28,3.75},{-1.25,3.75}},
       color={255,0,255}));
   connect(mFlo.y,chiStaCon.mFloChiWat)
-    annotation (Line(points={{-39,-50},{-28,-50},{-28,-3.75},{-1.25,-3.75}},
+    annotation (Line(points={{-39,-50},{-28,-50},{-28,-4.75},{-1.25,-4.75}},
       color={0,0,127}));
   connect(TRet.y,chiStaCon.TChiWatRet)
-    annotation (Line(points={{-39,20},{-34,20},{-34,1.25},{-1.25,1.25}},
+    annotation (Line(points={{-39,20},{-34,20},{-34,-0.25},{-1.25,-0.25}},
       color={0,0,127}));
   connect(TSup.y,chiStaCon.TChiWatSup)
-    annotation (Line(points={{-39,-20},{-34,-20},{-34,-1.25},{-1.25,-1.25}},
+    annotation (Line(points={{-39,-20},{-34,-20},{-34,-2.5},{-1.25,-2.5}},
       color={0,0,127}));
   annotation (
     Icon(

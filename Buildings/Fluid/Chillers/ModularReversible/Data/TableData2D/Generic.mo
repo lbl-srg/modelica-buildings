@@ -7,9 +7,9 @@ record Generic "Basic chiller data"
   parameter Real tabLowBou[:,2]
     "Points to define lower boundary for source temperature";
   parameter Boolean use_TEvaOutForOpeEnv=false
-    "=true to use evaporator outlet temperature for operational envelope, false for inlet";
+    "if true, use evaporator outlet temperature for operational envelope, otherwise use inlet";
   parameter Boolean use_TConOutForOpeEnv=false
-    "=true to use condenser outlet temperature for operational envelope, false for inlet";
+    "if true, use condenser outlet temperature for operational envelope, otherwise use inlet";
   annotation (Documentation(info="<html>
 
   <h4>Overview</h4>
@@ -26,6 +26,11 @@ record Generic "Basic chiller data"
 </p>
 </html>",
         revisions="<html><ul>
+<li>
+May 22, 2025, by Michael Wetter:<br/>
+Revised comment.<br/>
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+</li>
   <li>
     <i>November 26, 2018,</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

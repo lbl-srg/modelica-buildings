@@ -3,6 +3,8 @@ model OperationalEnvelope "Example for usage of operational envelope model"
   extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope opeEnv(
+    onOffMea_start=false,
+    ySet_small=hys.uHigh,
     tabUppHea=[233.15,333.15; 313.15,333.15],
     tabLowCoo=[233.15,288.15; 313.15,288.15]) "Safety control for operational envelope"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -32,7 +34,7 @@ model OperationalEnvelope "Example for usage of operational envelope model"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
 equation
   connect(opeEnv.sigBus, sigBus) annotation (Line(
-      points={{0.0833333,3.91667},{-50,3.91667},{-50,-52}},
+      points={{0.0833333,3.91667},{-50,3.91667},{-50,-50}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -40,42 +42,44 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(ySetPul.y, opeEnv.ySet) annotation (Line(points={{-69,30},{-8,30},{-8,
-          11.6667},{-1.33333,11.6667}},
+          10},{-1.33333,10}},
                           color={0,0,127}));
-  connect(hys.u, opeEnv.yOut) annotation (Line(points={{22,-50},{44,-50},{44,
-          11.6667},{20.8333,11.6667}},
+  connect(hys.u, opeEnv.yOut) annotation (Line(points={{22,-50},{44,-50},{44,10},
+          {20.8333,10}},
                     color={0,0,127}));
-  connect(opeEnv.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{44,
-          11.6667},{44,-40},{110,-40}},
+  connect(opeEnv.yOut, yOut) annotation (Line(points={{20.8333,10},{44,10},{44,
+          -40},{110,-40}},
                       color={0,0,127}));
   connect(ySetPul.y, ySet) annotation (Line(points={{-69,30},{-8,30},{-8,40},{110,
           40}},     color={0,0,127}));
   connect(TConOutEmu.y, sigBus.TConOutMea) annotation (Line(points={{-69,-10},{
-          -50,-10},{-50,-52}}, color={0,0,127}), Text(
+          -50,-10},{-50,-50}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TEvaInEmu.y, sigBus.TEvaInMea) annotation (Line(points={{-69,-50},{-52,
-          -50},{-52,-52},{-50,-52}},     color={0,0,127}), Text(
+  connect(TEvaInEmu.y, sigBus.TEvaInMea) annotation (Line(points={{-69,-50},{
+          -52,-50},{-52,-50},{-50,-50}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(hea.y, sigBus.hea) annotation (Line(points={{-69,70},{-50,70},{-50,-52}},
-                 color={255,0,255}), Text(
+  connect(hea.y, sigBus.hea) annotation (Line(points={{-69,70},{-50,70},{-50,
+          -50}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TConOutEmu.y, sigBus.TConInMea) annotation (Line(points={{-69,-10},{-50,
-          -10},{-50,-52}}, color={0,0,127}), Text(
+  connect(TConOutEmu.y, sigBus.TConInMea) annotation (Line(points={{-69,-10},{
+          -50,-10},{-50,-50}},
+                           color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TEvaInEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-69,-50},{-52,
-          -50},{-52,-52},{-50,-52}}, color={0,0,127}), Text(
+  connect(TEvaInEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-69,-50},{
+          -52,-50},{-52,-50},{-50,-50}},
+                                     color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

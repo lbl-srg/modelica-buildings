@@ -33,7 +33,7 @@ model IdealHeaterCooler
     final unit="W")
     "Heat flow rate"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPor
     "Heat port"

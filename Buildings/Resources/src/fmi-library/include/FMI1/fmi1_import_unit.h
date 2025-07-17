@@ -26,14 +26,14 @@
 extern "C" {
 #endif
 
-		/**
-	\addtogroup fmi1_import
-	@{
-	\addtogroup fmi1_import_units Functions for handling unit definitions.
-	@}
-	\addtogroup fmi1_import_units Functions for handling unit definitions.
-	@{
-	*/
+        /**
+    \addtogroup fmi1_import
+    @{
+    \addtogroup fmi1_import_units Functions for handling unit definitions
+    @}
+    \addtogroup fmi1_import_units Functions for handling unit definitions
+    @{
+    */
 
 /**\name Structures encapsulating unit information */
 /**@{ */
@@ -58,42 +58,42 @@ FMILIB_EXPORT const char* fmi1_import_get_unit_name(fmi1_import_unit_t*);
 FMILIB_EXPORT unsigned int fmi1_import_get_unit_display_unit_number(fmi1_import_unit_t*);
 
 /** \brief Get a display unit object by index.
-	@param index The index of display unit to be returned. Must be less than the number returned by fmi1_import_get_unit_display_unit_number()
+    @param index The index of display unit to be returned. Must be less than the number returned by fmi1_import_get_unit_display_unit_number()
 */
 FMILIB_EXPORT fmi1_import_display_unit_t* fmi1_import_get_unit_display_unit(fmi1_import_unit_t*, size_t index);
 
 /**
-	\brief Get unit defition for a display unit.
+    \brief Get unit defition for a display unit.
 */
 FMILIB_EXPORT fmi1_import_unit_t* fmi1_import_get_base_unit(fmi1_import_display_unit_t*);
 /**
-	\brief Get display unit name
+    \brief Get display unit name
 */
 FMILIB_EXPORT const char* fmi1_import_get_display_unit_name(fmi1_import_display_unit_t*);
 
 /**
-	\brief Get the "gain" associated with the display unit.
+    \brief Get the "gain" associated with the display unit.
 */
 FMILIB_EXPORT fmi1_real_t fmi1_import_get_display_unit_gain(fmi1_import_display_unit_t*);
 /**
-	\brief Get the "offset" associated with the display unit.
+    \brief Get the "offset" associated with the display unit.
 */
 FMILIB_EXPORT fmi1_real_t fmi1_import_get_display_unit_offset(fmi1_import_display_unit_t*);
 
 /**
-	\brief Convert a value measured in "units" to a value measured with "display units"
-	@param value The value to be converted.
-	@param du The display unit object
-	@param isRelativeQuantity specifies if "offset" should be incorporated into conversion
+    \brief Convert a value measured in "units" to a value measured with "display units"
+    @param value The value to be converted.
+    @param du The display unit object
+    @param isRelativeQuantity specifies if "offset" should be incorporated into conversion
 */
 FMILIB_EXPORT fmi1_real_t fmi1_import_convert_to_display_unit(fmi1_real_t value , fmi1_import_display_unit_t* du, int isRelativeQuantity);
 
 
 /**
-	\brief Convert a value measured in "display units" to a value measured with "units"
-	@param value The value to be converted.
-	@param du The display unit object
-	@param isRelativeQuantity specifies if "offset" should be incorporated into conversion
+    \brief Convert a value measured in "display units" to a value measured with "units"
+    @param value The value to be converted.
+    @param du The display unit object
+    @param isRelativeQuantity specifies if "offset" should be incorporated into conversion
 */
 FMILIB_EXPORT fmi1_real_t fmi1_import_convert_from_display_unit(fmi1_real_t value, fmi1_import_display_unit_t* du, int isRelativeQuantity);
 /** @} */

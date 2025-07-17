@@ -95,14 +95,12 @@ protected
         Rectangle(
           extent={{-100,46},{94,-34}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={200,200,200},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Rectangle(
           extent={{-92,30},{100,-44}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={235,235,235},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),

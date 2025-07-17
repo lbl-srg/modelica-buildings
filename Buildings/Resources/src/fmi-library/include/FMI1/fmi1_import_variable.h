@@ -30,23 +30,23 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-		/**
-	\addtogroup fmi1_import
-	@{
-	\addtogroup fmi1_import_variables Functions for handling variable definitions.
-	@}
-	\addtogroup fmi1_import_variables Functions for handling variable definitions.
-	\brief All the functions in this group take a pointer to ::fmi1_import_variable_t as a parameter.
-	A variable pointer may be obtained via a \ref fmi1_import_varlist module or via functions
-	fmi1_import_get_variable_by_name() and fmi1_import_get_variable_by_vr().
-	@{
-	*/
-	/**@name Scalar variable types */
+        /**
+    \addtogroup fmi1_import
+    @{
+    \addtogroup fmi1_import_variables Functions for handling variable definitions
+    @}
+    \addtogroup fmi1_import_variables Functions for handling variable definitions
+    \brief All the functions in this group take a pointer to ::fmi1_import_variable_t as a parameter.
+    A variable pointer may be obtained via a \ref fmi1_import_varlist module or via functions
+    fmi1_import_get_variable_by_name() and fmi1_import_get_variable_by_vr().
+    @{
+    */
+    /**@name Scalar variable types */
 /**@{ */
 /** \brief General variable type. 
 *
 * This type is convenient to unify all the variable list operations. 
-* 	However, typed variables are needed to support specific attributes.
+*    However, typed variables are needed to support specific attributes.
 */
 typedef struct fmi1_xml_variable_t fmi1_import_variable_t;
 /** \brief  Opaque real variable */
@@ -64,19 +64,19 @@ typedef struct fmi1_import_variable_list_t fmi1_import_variable_list_t;
 /**@} */
 
 /**
-	\brief Get variable by variable name.
-	\param fmu - An fmu object as returned by fmi1_import_parse_xml().
-	\param name - variable name
-	\return variable pointer.
+    \brief Get variable by variable name.
+    @param fmu - An fmu object as returned by fmi1_import_parse_xml().
+    @param name - variable name
+    @return variable pointer.
 */
 FMILIB_EXPORT fmi1_import_variable_t* fmi1_import_get_variable_by_name(fmi1_import_t* fmu, const char* name);
 
 /**
-	\brief Get variable by value reference.
-	\param fmu - An fmu object as returned by fmi1_import_parse_xml().
-	\param baseType - basic data type
-	\param vr - value reference
-	\return variable pointer.
+    \brief Get variable by value reference.
+    @param fmu - An fmu object as returned by fmi1_import_parse_xml().
+    @param baseType - basic data type
+    @param vr - value reference
+    @return variable pointer.
 */
 FMILIB_EXPORT fmi1_import_variable_t* fmi1_import_get_variable_by_vr(fmi1_import_t* fmu, fmi1_base_type_enu_t baseType, fmi1_value_reference_t vr);
 
@@ -85,7 +85,7 @@ FMILIB_EXPORT fmi1_import_variable_t* fmi1_import_get_variable_by_vr(fmi1_import
 FMILIB_EXPORT const char* fmi1_import_get_variable_name(fmi1_import_variable_t*);
 
 /** \brief Get variable description. 
-	@return Description string or empty string ("") if no description in the XML file was given.
+    @return Description string or empty string ("") if no description in the XML file was given.
 */
 FMILIB_EXPORT const char* fmi1_import_get_variable_description(fmi1_import_variable_t*);
 
@@ -93,7 +93,7 @@ FMILIB_EXPORT const char* fmi1_import_get_variable_description(fmi1_import_varia
 FMILIB_EXPORT fmi1_value_reference_t fmi1_import_get_variable_vr(fmi1_import_variable_t*);
 
 /**   \brief For scalar variable gives the type definition is present
-	@return Pointer of a type #fmi1_import_variable_typedef_t object or NULL of not present.
+    @return Pointer of a type #fmi1_import_variable_typedef_t object or NULL of not present.
 */
 FMILIB_EXPORT fmi1_import_variable_typedef_t* fmi1_import_get_variable_declared_type(fmi1_import_variable_t*);
 
@@ -112,54 +112,54 @@ FMILIB_EXPORT fmi1_variability_enu_t fmi1_import_get_variability(fmi1_import_var
 FMILIB_EXPORT fmi1_causality_enu_t fmi1_import_get_causality(fmi1_import_variable_t*);
 
 /** \brief Cast general variable to a one with the specific type 
-	
-	@return Typed object or NULL if base type does not match
+
+    @return Typed object or NULL if base type does not match
 */
 FMILIB_EXPORT fmi1_import_real_variable_t* fmi1_import_get_variable_as_real(fmi1_import_variable_t*);
 
 /** \brief Cast general variable to a one with the specific type 
-	
-	@return Typed object or NULL if base type does not match
+
+    @return Typed object or NULL if base type does not match
 */
 FMILIB_EXPORT fmi1_import_integer_variable_t* fmi1_import_get_variable_as_integer(fmi1_import_variable_t*);
 /** \brief Cast general variable to a one with the specific type 
-	
-	@return Typed object or NULL if base type does not match
+
+    @return Typed object or NULL if base type does not match
 */
 FMILIB_EXPORT fmi1_import_enum_variable_t* fmi1_import_get_variable_as_enum(fmi1_import_variable_t*);
 /** \brief Cast general variable to a one with the specific type 
-	
-	@return Typed object or NULL if base type does not match
+
+    @return Typed object or NULL if base type does not match
 */
 FMILIB_EXPORT fmi1_import_string_variable_t* fmi1_import_get_variable_as_string(fmi1_import_variable_t*);
 /** \brief Cast general variable to a one with the specific type 
-	
-	@return Typed object or NULL if base type does not match
+
+    @return Typed object or NULL if base type does not match
 */
 FMILIB_EXPORT fmi1_import_bool_variable_t* fmi1_import_get_variable_as_boolean(fmi1_import_variable_t*);
 
 /** 
-	\brief Get the variable "relativeQuantity" attribute. 
-	@return The "relativeQuantity" attribute as specified in the XML file. False if undefined.
+    \brief Get the variable "relativeQuantity" attribute. 
+    @return The "relativeQuantity" attribute as specified in the XML file. False if undefined.
 */
 FMILIB_EXPORT fmi1_boolean_t fmi1_import_get_real_variable_relative_quantity(fmi1_import_real_variable_t* v);
 
 /** 
-	\brief Get the variable start attribute. 
+    \brief Get the variable start attribute. 
 
-	@return The "start" attriburte as specified in the XML file or variable nominal value.
+    @return The "start" attriburte as specified in the XML file or variable nominal value.
 */
 FMILIB_EXPORT fmi1_real_t fmi1_import_get_real_variable_start(fmi1_import_real_variable_t* v);
 
 /** \brief Get maximum value for the variable
 
-	@return Either the value specified in the XML file or DBL_MAX as defined in <float.h>
+    @return Either the value specified in the XML file or DBL_MAX as defined in <float.h>
 */
 FMILIB_EXPORT fmi1_real_t fmi1_import_get_real_variable_max(fmi1_import_real_variable_t* v);
 
 /** \brief Get minimal value for the variable.
 
-	@return Either the value specified in the XML file or negated DBL_MAX as defined in <float.h>
+    @return Either the value specified in the XML file or negated DBL_MAX as defined in <float.h>
 */
 FMILIB_EXPORT fmi1_real_t fmi1_import_get_real_variable_min(fmi1_import_real_variable_t* v);
 

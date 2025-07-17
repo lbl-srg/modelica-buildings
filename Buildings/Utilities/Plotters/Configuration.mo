@@ -81,9 +81,9 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           textString="delay=%activationDelay"),
         Ellipse(
           extent={{-95,67},{-81,53}},
-          lineColor=DynamicSelect({235,235,235}, if activate > 0.5 then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if activate then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if activate > 0.5 then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if activate then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid,
           visible=activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)}),  Diagram(

@@ -6,33 +6,36 @@ model ChilledWaterPumpSpeed
     dpSetPoi=68900,
     tWai=30,
     m_flow_nominal=0.5,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
     Ti=60,
     Td=0.1)
     "Chilled water pump speed controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Pulse mFloTot(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse mFloTot(
     amplitude=2*chiWatPumSpe.m_flow_nominal,
     period=300,
-    startTime=150) "Total chilled water mass flow rate"
+    shift=150)
+    "Total chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Sources.Pulse dpMea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse dpMea(
     amplitude=0.4*chiWatPumSpe.dpSetPoi,
     period=150,
-    offset=0.8*chiWatPumSpe.dpSetPoi,
-    startTime=150) "Measured pressure drop"
+    shift=150,
+    offset=0.8*chiWatPumSpe.dpSetPoi)
+    "Measured pressure drop"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Sources.BooleanConstant on "Plant on signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(k=true)
+    "Plant on signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
   connect(mFloTot.y,chiWatPumSpe.masFloPum)
-    annotation (Line(points={{-39,30},{-30,30},{-30,2},{-12,2}},
+    annotation (Line(points={{-38,30},{-30,30},{-30,2},{-12,2}},
       color={0,0,127}));
-  connect(dpMea.y, chiWatPumSpe.dpMea) annotation (Line(points={{-39,-30},{-30,
-          -30},{-30,-4},{-12,-4}}, color={0,0,127}));
-  connect(on.y, chiWatPumSpe.on) annotation (Line(points={{-39,70},{-20,70},{
-          -20,8},{-12,8}}, color={255,0,255}));
+  connect(dpMea.y, chiWatPumSpe.dpMea) annotation (Line(points={{-38,-30},{-30,-30},
+          {-30,-4},{-12,-4}}, color={0,0,127}));
+  connect(on.y, chiWatPumSpe.on) annotation (Line(points={{-38,70},{-20,70},{-20,
+          8},{-12,8}}, color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(

@@ -83,6 +83,10 @@ size_t jm_vector_init(JM_TEMPLATE_INSTANCE_TYPE)(jm_vector(JM_TEMPLATE_INSTANCE_
         return 0;
 }
 
+void jm_vector_set_item(JM_TEMPLATE_INSTANCE_TYPE)(jm_vector(JM_TEMPLATE_INSTANCE_TYPE)* a, size_t index, JM_TEMPLATE_INSTANCE_TYPE item) {
+    *(jm_vector_get_itemp(JM_TEMPLATE_INSTANCE_TYPE)(a, index)) = item;
+}
+
 size_t jm_vector_resize(JM_TEMPLATE_INSTANCE_TYPE)(jm_vector(JM_TEMPLATE_INSTANCE_TYPE)* a, size_t size) {
         if(size > a->capacity)  {
             if(jm_vector_reserve(JM_TEMPLATE_INSTANCE_TYPE)(a, size) < size) {
@@ -112,6 +116,12 @@ size_t jm_vector_copy(JM_TEMPLATE_INSTANCE_TYPE)(jm_vector(JM_TEMPLATE_INSTANCE_
             memcpy((void*)destination->items, (void*)source->items, sizeof(JM_TEMPLATE_INSTANCE_TYPE)*destsize);
         }
         return destination->size;
+}
+
+jm_vector(JM_TEMPLATE_INSTANCE_TYPE)* jm_vector_clone(JM_TEMPLATE_INSTANCE_TYPE)(jm_vector(JM_TEMPLATE_INSTANCE_TYPE)* v) {                              \
+    jm_vector(JM_TEMPLATE_INSTANCE_TYPE)* ret = jm_vector_alloc(JM_TEMPLATE_INSTANCE_TYPE)(v->size, v->size, v->callbacks);
+    if(ret) jm_vector_copy(JM_TEMPLATE_INSTANCE_TYPE)(ret, v);
+    return ret;
 }
 
 size_t jm_vector_append(JM_TEMPLATE_INSTANCE_TYPE)(jm_vector(JM_TEMPLATE_INSTANCE_TYPE)* destination, jm_vector(JM_TEMPLATE_INSTANCE_TYPE)* source) {

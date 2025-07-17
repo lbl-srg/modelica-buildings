@@ -33,7 +33,6 @@ model Dampers "Validation model for damper components"
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
-
   Buildings.Templates.Components.Actuators.Damper pre(
     final typ=Buildings.Templates.Components.Types.Damper.PressureIndependent,
     y_start=0,
@@ -66,7 +65,8 @@ model Dampers "Validation model for damper components"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Buildings.Templates.Components.Actuators.Damper non(
     final typ=Buildings.Templates.Components.Types.Damper.None,
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    dat(m_flow_nominal=1))
     "No damper"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Fluid.FixedResistances.PressureDrop res(

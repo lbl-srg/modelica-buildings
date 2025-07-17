@@ -94,7 +94,8 @@ model Valves "Validation model for valve components"
       iconTransformation(extent={{-250,-32},{-210,8}})));
   Actuators.Valve non(
     redeclare final package Medium = MediumLiq,
-    typ=Buildings.Templates.Components.Types.Valve.None)
+    typ=Buildings.Templates.Components.Types.Valve.None,
+    dat(m_flow_nominal=1))
     "No valve"
     annotation (Placement(transformation(extent={{10,-130},{30,-110}})));
   Fluid.FixedResistances.PressureDrop res(

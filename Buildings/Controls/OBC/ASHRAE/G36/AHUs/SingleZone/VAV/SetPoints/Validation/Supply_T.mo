@@ -45,17 +45,17 @@ model Supply_T
 
 equation
   connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-58,-20},{-12,-20},{
-          -12,-12},{58,-12}},  color={0,0,127}));
+          -12,-12},{58,-12}}, color={0,0,127}));
   connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-18,50},{34,50},{34,
           -3.6},{58,-3.6}}, color={0,0,127}));
   connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-58,30},{28,30},{28,
-          -6},{58,-6}},     color={0,0,127}));
+          -6},{58,-6}}, color={0,0,127}));
   connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-18,10},{22,10},{22,
-          -9},{58,-9}},        color={0,0,127}));
+          -9},{58,-9}}, color={0,0,127}));
   connect(dT.u1, TZon.y) annotation (Line(points={{58,-44},{34,-44},{34,50},{-18,
-          50}},      color={0,0,127}));
+          50}}, color={0,0,127}));
   connect(dT.u2, TOut.y) annotation (Line(points={{58,-56},{28,-56},{28,30},{-58,
-          30}},      color={0,0,127}));
+          30}}, color={0,0,127}));
   connect(opeMod.y, setPoiVAV.uOpeMod) annotation (Line(points={{-58,70},{40,70},
           {40,-1},{58,-1}}, color={255,127,0}));
   connect(TZonCooSet.y, setPoiVAV.TCooSet) annotation (Line(points={{-18,-40},{16,

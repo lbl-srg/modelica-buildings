@@ -4,7 +4,9 @@ model MixingValveControl
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Source side medium";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
+  parameter Real m_flow_nominal(
+    quantity="MassFlowRate",
+    unit="kg/s")=1
     "Mass flow rate at nominal conditions";
   Buildings.DHC.Loads.BaseClasses.FlowDistribution disFlo(
     redeclare package Medium=Medium,

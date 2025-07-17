@@ -16,17 +16,17 @@
 #ifndef FMI2_TYPES_H_
 #define FMI2_TYPES_H_
 /** \file fmi2_types.h
-	Transformation of the standard FMI type names into fmi2_ prefixed.
+    Transformation of the standard FMI type names into fmi2_ prefixed.
 */
 /**
-	\addtogroup jm_utils
-	@{
-		\addtogroup fmi2_utils
-	@}
+    \addtogroup jm_utils
+    @{
+        \addtogroup fmi2_utils
+    @}
 */
 
-/**	\addtogroup fmi2_utils Functions and types supporting FMI 2.0 processing.
-	@{
+/**    \addtogroup fmi2_utils Functions and types supporting FMI 2.0 processing
+    @{
 */
 /** \name Renaming of typedefs 
 @{*/
@@ -51,22 +51,22 @@
 
 /** FMI platform name constant string.*/
 static const char * fmi2_get_types_platform(void) {
-	return fmi2TypesPlatform;
+    return fmi2TypesPlatform;
 }
 
 #undef fmi2TypesPlatform
 
 /** FMI boolean constants.*/
 typedef enum {
-	fmi2_true=fmi2True,
-	fmi2_false=fmi2False
+    fmi2_true=fmi2True,
+    fmi2_false=fmi2False
 } fmi2_boolean_enu_t;
 
 #undef fmi2True
 #undef fmi2False
 
-/**	
-	@}
+/**    
+    @}
 */
 
 #undef fmi2Component

@@ -1,9 +1,6 @@
 within Buildings.Electrical;
 package PhaseSystems "Phase systems used in power connectors"
   extends Modelica.Icons.Package;
-  import      Modelica.Units.SI;
-  import Modelica.Constants.pi;
-
 
   annotation (Icon(graphics={Line(
           points={{-70,-52},{50,-52}},
@@ -63,6 +60,12 @@ Proc. of the 10th Modelica Conference, Lund, Sweden, March 2014.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statements.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 May 27, 2014, by Marco Bonvini:<br/>
 Created documentation.

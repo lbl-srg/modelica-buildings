@@ -55,6 +55,7 @@ algorithm
   // instabilities in the calculations. Otherwise, calculations follow the
   // method of Bauer et al. (2011).
   if (RDelta[1,2] < 0) or (RDelta[1,3] < 0) then
+    x := 0;
     //Thermal resistance between the grout zone and borehole wall
     Rgb := Rg;
 

@@ -16,17 +16,17 @@
 #ifndef FMI1_TYPES_H_
 #define FMI1_TYPES_H_
 /** \file fmi1_types.h
-	Transformation of the standard FMI type names into fmi1_ prefixed.
+    Transformation of the standard FMI type names into fmi1_ prefixed.
 */
 /**
-	\addtogroup jm_utils
-	@{
-		\addtogroup fmi1_utils
-	@}
+    \addtogroup jm_utils
+    @{
+        \addtogroup fmi1_utils
+    @}
 */
 
-/**	\addtogroup fmi1_utils Functions and types supporting FMI 1.0 processing.
-	@{
+/**    \addtogroup fmi1_utils Functions and types supporting FMI 1.0 processing
+    @{
 */
 /** \name Renaming of typedefs 
 @{*/
@@ -46,15 +46,15 @@
 
 /** FMI platform name constant string.*/
 static const char * fmi1_get_platform(void) {
-	return fmiPlatform;
+    return fmiPlatform;
 }
 
 #undef fmiPlatform
 
 /** FMI boolean constants.*/
 typedef enum {
-	fmi1_true=fmiTrue,
-	fmi1_false=fmiFalse
+    fmi1_true=fmiTrue,
+    fmi1_false=fmiFalse
 } fmi1_boolean_enu_t;
 
 #undef fmiTrue
@@ -62,11 +62,11 @@ typedef enum {
 
 /** Undefined value for fmiValueReference (largest unsigned int value) */
 typedef enum fmi1_value_reference_enu_t {
-	fmi1_undefined_value_reference = (int)fmiUndefinedValueReference
+    fmi1_undefined_value_reference = (int)fmiUndefinedValueReference
 } fmi1_value_reference_enu_t;
 
-/**	
-	@}
+/**    
+    @}
 */
 
 #undef fmiComponent

@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "AgentPump.TSouIn",
-    "AgentPump.TSouOut",
-    "AgentPump.TSou",
-    "AgentPump.TSupDis",
-    "AgentPump.TRetDis",
-    "AgentPump.y"
+    "agePumCon.TSouIn",
+    "agePumCon.TSouOut",
+    "agePumCon.TSou",
+    "agePumCon.TSupDis",
+    "agePumCon.TRetDis",
+    "agePumCon.y"
   };

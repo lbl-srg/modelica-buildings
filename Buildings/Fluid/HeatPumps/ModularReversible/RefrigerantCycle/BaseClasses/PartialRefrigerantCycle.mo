@@ -15,8 +15,7 @@ partial model PartialRefrigerantCycle
     about different vapor compression devices in reversible models";
 
   replaceable Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal
-  constrainedby
-    Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor
+    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor(final cpEva=cpEva)
     "Replaceable model to calculate the icing factor" annotation (
     choicesAllMatching=true,
     Dialog(group="Frosting supression"),

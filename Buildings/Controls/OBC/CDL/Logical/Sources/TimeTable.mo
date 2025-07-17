@@ -106,7 +106,6 @@ Initial CDL implementation based on continuous time table implementation in CDL.
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised,
           lineColor={0,0,0}),

@@ -15,7 +15,7 @@ model KMeans_1d "Model that verifies the k-means clustering function for 1d data
     "Size of the clusters";
 
   parameter Integer labelsExp[nDat]=
-    {2,2,2,1,3}
+    {3,2,2,1,1}
     "Expected cluster labels";
 
   // Comparison result

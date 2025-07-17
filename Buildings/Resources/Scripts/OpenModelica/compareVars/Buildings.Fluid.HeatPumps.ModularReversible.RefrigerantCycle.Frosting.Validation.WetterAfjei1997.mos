@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "sigBus1.TEvaInMea",
+    "iceFacAir",
+    "iceFacWat"
+  };

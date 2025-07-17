@@ -12,7 +12,9 @@ model StagingPump "Validation of pump staging block"
     start=1)=1
     "Number of chillers served by the pumps"
     annotation(Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
+  parameter Real m_flow_nominal(
+    unit="kg/s",
+    quantity="MassFlowRate")=1
     annotation(Dialog(group="Nominal condition"));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable floSpe(
@@ -38,11 +40,10 @@ model StagingPump "Validation of pump staging block"
     h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
-  connect(floSpe.y[1],staDet. m_flow) annotation (Line(points={{-58,40},{30,40},
-          {30,0},{38,0}},     color={0,0,127}));
+  connect(floSpe.y[1],staDet. m_flow) annotation (Line(points={{-58,40},{28,40},
+          {28,0},{38,0}},     color={0,0,127}));
   connect(floSpe.y[2],staDet. y)
-    annotation (Line(points={{-58,40},{30,40},{30,-6},{38,-6}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-58,40},{28,40},{28,-6},{38,-6}}, color={0,0,127}));
   connect(yVal.y, isOpe.u)
     annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
   connect(isOpe.y,staDet.y1Ena)

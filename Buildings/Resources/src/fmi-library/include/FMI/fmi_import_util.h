@@ -25,45 +25,45 @@ extern "C" {
 \addtogroup  fmi_import_utils Utility functions supporting interactions with the library
 @{
 */
-/** 
-	\brief Create a unique temporary directory
-	\param cb - callbacks for memory allocation and logging. Default callbacks are used if this parameter is NULL.
-	\param systemTempDir - directory where the temp dir should be located both absolute and relative path are accepted.
-				System-wide directory is used if this parameter is NULL.
-	\param tempPrefix - File name template prefix used when creating temporaty directories. "fmil" is used if this is NULL.
-	\return A pointer to the temporary directory name (absolute path, no terminating '/'). Caller is responsible for freeing the memory.
-		The function returns NULL if there were errors in which case a message is send to the logger.	
+/**
+    \brief Create a unique temporary directory
+    @param cb - callbacks for memory allocation and logging. Default callbacks are used if this parameter is NULL.
+    @param systemTempDir - directory where the temp dir should be located both absolute and relative path are accepted.
+                System-wide directory is used if this parameter is NULL.
+    @param tempPrefix - File name template prefix used when creating temporaty directories. "fmil" is used if this is NULL.
+    @return A pointer to the temporary directory name (absolute path, no terminating '/'). Caller is responsible for freeing the memory.
+        The function returns NULL if there were errors in which case a message is send to the logger.    
 */
 FMILIB_EXPORT char* fmi_import_mk_temp_dir(jm_callbacks* cb, const char* systemTempDir, const char* tempPrefix);
 
 /**
-\brief Remove directory and all it contents.
-	\param cb - callbacks for memory allocation and logging. Default callbacks are used if this parameter is NULL.
-	\param dir - path to be removed.
-	\return Statuc success or error.
+    \brief Remove directory and all it contents.
+    @param cb - callbacks for memory allocation and logging. Default callbacks are used if this parameter is NULL.
+    @param dir - path to be removed.
+    @return Status: success or error.
 */
 FMILIB_EXPORT jm_status_enu_t fmi_import_rmdir(jm_callbacks* cb, const char* dir);
 
-/** 
-	\brief Create a file:// URL from absolute path
-	\param cb - callbacks for memory allocation and logging. Default callbacks are used if this parameter is NULL.
-	\param absPath - absolute path to be converted into the URL
-	\return A pointer to the URL. Caller is responsible for freeing the memory.
-		The function returns NULL if there were errors in which case a message is send to the logger.	
+/**
+    \brief Create a file:// URL from absolute path
+    @param cb - callbacks for memory allocation and logging. Default callbacks are used if this parameter is NULL.
+    @param absPath - absolute path to be converted into the URL
+    @return A pointer to the URL. Caller is responsible for freeing the memory.
+        The function returns NULL if there were errors in which case a message is send to the logger.    
 */
 FMILIB_EXPORT char* fmi_import_create_URL_from_abs_path(jm_callbacks* cb, const char* absPath);
 
-/** Given directory name fmu_unzipped_path and model identifier consturct Dll/so name
-	@return Pointer to a string with the file name. Caller is responsible for freeing the memory.
+/** Given directory name fmu_unzipped_path and the model identifier - construct the XML file name
+
+    @return Pointer to a string with the file name. Caller is responsible for freeing the memory.
 */
-FMILIB_EXPORT char* fmi_import_get_dll_path(const char* fmu_unzipped_path, const char* model_identifier, jm_callbacks* callBackFunctions);
+FMILIB_EXPORT char* fmi_import_get_terminals_and_icons_path(const char* fmu_unzipped_path, jm_callbacks* callBackFunctions);
 
 /** Given directory name fmu_unzipped_path and model identifier consturct XML file name
-	@return Pointer to a string with the file name. Caller is responsible for freeing the memory.
+    @return Pointer to a string with the file name. Caller is responsible for freeing the memory.
 */
 FMILIB_EXPORT char* fmi_import_get_model_description_path(const char* fmu_unzipped_path, jm_callbacks* callBackFunctions);
 /**
-@}
 @}
 */
 #ifdef __cplusplus

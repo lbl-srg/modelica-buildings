@@ -17,7 +17,8 @@ model ConstantCarnotEffectiveness "Carnot COP with a constant Carnot effectivene
     min=0,
     final unit="1") = etaCarnot_nominal*(TCon_nominal + TAppCon_nominal)/(
     TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
-    "Nominal coefficient of performance";
+    "Nominal coefficient of performance"
+    annotation(Dialog(group="Nominal condition"));
 equation
 
   connect(pasThrYMea.u, sigBus.yMea) annotation (Line(points={{18,70},{0,70},{0,

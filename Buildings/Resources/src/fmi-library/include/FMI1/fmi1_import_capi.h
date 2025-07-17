@@ -40,18 +40,18 @@ Wrapper functions for the FMI 1.0 functions
  * @{
  */
 
-/**	\addtogroup fmi1_import_capi_const_destroy FMI 1.0 Constructor and Destructor	
+/**    \addtogroup fmi1_import_capi_const_destroy FMI 1.0 Constructor and Destructor    
  * \brief Functions for instantiating and freeing the container of the struct that is responsible for the FMI functions.
  *
- *	Before any of the FMI functions may be called, the construction function must instantiate a fmi_import_t module.
- *	After the fmi_import_t module has been succesfully instantiated, all the FMI functions can be called. To unload
- *	the FMI functions, the destroy functions shall be called.
+ *    Before any of the FMI functions may be called, the construction function must instantiate a fmi_import_t module.
+ *    After the fmi_import_t module has been succesfully instantiated, all the FMI functions can be called. To unload
+ *    the FMI functions, the destroy functions shall be called.
  *
- * 	\addtogroup fmi1_import_capi_me FMI 1.0 (ME) Model Exchange functions
+ *    \addtogroup fmi1_import_capi_me FMI 1.0 (ME) Model Exchange functions
  * \brief List of Model Exchange wrapper functions. Common functions are not listed.
- *	\addtogroup fmi1_import_capi_cs FMI 1.0 (CS) Co-Simulation functions 
+ *    \addtogroup fmi1_import_capi_cs FMI 1.0 (CS) Co-Simulation functions 
  * \brief List of Co-Simulation wrapper functions. Common functions are not listed.
- *	\addtogroup fmi1_import_capi_common FMI 1.0 (ME & CS) Common functions
+ *    \addtogroup fmi1_import_capi_common FMI 1.0 (ME & CS) Common functions
  * \brief List of wrapper functions that are in common for both Model Exchange and Co-Simulation.
  */
 
@@ -163,7 +163,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_set_string(fmi1_import_t* fmu, const fmi
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param value (Output)Array of variable values.
+ * @param[out] value Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_real(fmi1_import_t* fmu, const fmi1_value_reference_t vr[], size_t nvr, fmi1_real_t    value[]);
@@ -174,7 +174,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_real(fmi1_import_t* fmu, const fmi1_
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param value (Output)Array of variable values.
+ * @param[out] value Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_integer(fmi1_import_t* fmu, const fmi1_value_reference_t vr[], size_t nvr, fmi1_integer_t value[]);
@@ -185,7 +185,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_integer(fmi1_import_t* fmu, const fm
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param value (Output)Array of variable values.
+ * @param[out] value Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_boolean(fmi1_import_t* fmu, const fmi1_value_reference_t vr[], size_t nvr, fmi1_boolean_t value[]);
@@ -196,7 +196,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_boolean(fmi1_import_t* fmu, const fm
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param value (Output)Array of variable values.
+ * @param[out] value Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_string(fmi1_import_t* fmu, const fmi1_value_reference_t vr[], size_t nvr, fmi1_string_t  value[]);
@@ -255,7 +255,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_set_continuous_states(fmi1_import_t* fmu
  * \brief Wrapper for the FMI function fmiCompletedIntegratorStep(...) 
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
- * @param callEventUpdate (Output) Call fmiEventUpdate indicator.
+ * @param[out] callEventUpdate  Call fmiEventUpdate indicator.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_completed_integrator_step(fmi1_import_t* fmu, fmi1_boolean_t* callEventUpdate);
@@ -266,7 +266,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_completed_integrator_step(fmi1_import_t*
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param toleranceControlled Enable or disable the use of relativeTolerance in the FMU.
  * @param relativeTolerance A relative tolerance used in the FMU.
- * @param eventInfo (Output) fmiEventInfo struct.
+ * @param[out] eventInfo  fmiEventInfo struct.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_initialize(fmi1_import_t* fmu, fmi1_boolean_t toleranceControlled, fmi1_real_t relativeTolerance, fmi1_event_info_t* eventInfo);
@@ -275,7 +275,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_initialize(fmi1_import_t* fmu, fmi1_bool
  * \brief Wrapper for the FMI function fmiGetDerivatives(...) 
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
- * @param derivatives (Output) Array of the derivatives.
+ * @param[out] derivatives  Array of the derivatives.
  * @param nx Number of derivatives.
  * @return FMI status.
  */
@@ -285,7 +285,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_derivatives(fmi1_import_t* fmu, fmi1
  * \brief Wrapper for the FMI function fmiGetEventIndicators(...) 
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
- * @param eventIndicators (Output) The event indicators.
+ * @param[out] eventIndicators  The event indicators.
  * @param ni Number of event indicators.
  * @return FMI status.
  */
@@ -296,7 +296,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_event_indicators(fmi1_import_t* fmu,
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param intermediateResults Indicate whether or not the fmiEventUpdate shall return after every internal event interation.
- * @param eventInfo (Output) An fmiEventInfo struct.
+ * @param[out] eventInfo  An fmiEventInfo struct.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_eventUpdate(fmi1_import_t* fmu, fmi1_boolean_t intermediateResults, fmi1_event_info_t* eventInfo);
@@ -305,7 +305,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_eventUpdate(fmi1_import_t* fmu, fmi1_boo
  * \brief Wrapper for the FMI function fmiGetContinuousStates(...) 
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
- * @param states (Output) Array of state values.
+ * @param[out] states  Array of state values.
  * @param nx Number of states.
  * @return FMI status.
  */
@@ -315,7 +315,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_continuous_states(fmi1_import_t* fmu
  * \brief Wrapper for the FMI function fmiGetNominalContinuousStates(...) 
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
- * @param x_nominal (Output) The nominal values.
+ * @param[out] x_nominal  The nominal values.
  * @param nx Number of nominal values.
  * @return FMI status.
  */
@@ -325,7 +325,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_nominal_continuous_states(fmi1_impor
  * \brief Wrapper for the FMI function fmiGetStateValueReferences(...) 
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
- * @param vrx (Output) The value-references of the states.
+ * @param[out] vrx  The value-references of the states.
  * @param nx Number of value-references.
  * @return FMI status.
  */
@@ -367,7 +367,7 @@ FMILIB_EXPORT const char* fmi1_import_get_types_platform(fmi1_import_t* fmu);
  * @return Error status. Returnes jm_status_error if fmiInstantiateSlave returned NULL, otherwise jm_status_success.
  */
 FMILIB_EXPORT jm_status_enu_t fmi1_import_instantiate_slave(fmi1_import_t* fmu, fmi1_string_t instanceName, fmi1_string_t fmuLocation, fmi1_string_t mimeType,
-																 fmi1_real_t timeout, fmi1_boolean_t visible, fmi1_boolean_t interactive);
+                                                                 fmi1_real_t timeout, fmi1_boolean_t visible, fmi1_boolean_t interactive);
 
 /**
  * \brief Wrapper for the FMI function fmiInitializeSlave(...) 
@@ -409,7 +409,7 @@ FMILIB_EXPORT void fmi1_import_free_slave_instance(fmi1_import_t* fmu);
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param order	Array of derivative orders.
+ * @param order    Array of derivative orders.
  * @param value Array of variable values.
  * @return FMI status.
  */
@@ -421,8 +421,8 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_set_real_input_derivatives(fmi1_import_t
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param vr Array of value references.
  * @param nvr Number of array elements.
- * @param order	Array of derivative orders.
- * @param value (Output) Array of variable values.
+ * @param order    Array of derivative orders.
+ * @param[out] value  Array of variable values.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_real_output_derivatives(fmi1_import_t* fmu, const fmi1_value_reference_t vr[], size_t nvr, const fmi1_integer_t order[], fmi1_real_t value[]);                                              
@@ -451,7 +451,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_do_step(fmi1_import_t* fmu, fmi1_real_t 
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI status value.
+ * @param[out] value  FMI status value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_status(fmi1_import_t* fmu, const fmi1_status_kind_t s, fmi1_status_t*  value);
@@ -461,7 +461,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_status(fmi1_import_t* fmu, const fmi
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI real value.
+ * @param[out] value  FMI real value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_real_status(fmi1_import_t* fmu, const fmi1_status_kind_t s, fmi1_real_t*    value);
@@ -471,7 +471,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_real_status(fmi1_import_t* fmu, cons
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI integer value.
+ * @param[out] value  FMI integer value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_integer_status(fmi1_import_t* fmu, const fmi1_status_kind_t s, fmi1_integer_t* value);
@@ -481,7 +481,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_integer_status(fmi1_import_t* fmu, c
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI boolean value.
+ * @param[out] value  FMI boolean value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_boolean_status(fmi1_import_t* fmu, const fmi1_status_kind_t s, fmi1_boolean_t* value);
@@ -491,7 +491,7 @@ FMILIB_EXPORT fmi1_status_t fmi1_import_get_boolean_status(fmi1_import_t* fmu, c
  * 
  * @param fmu A model description object returned by fmi1_import_parse_xml() that has loaded the FMI functions, see fmi1_import_create_dllfmu().
  * @param s Kind of status to return the value for.
- * @param value (Output) FMI string value.
+ * @param[out] value  FMI string value.
  * @return FMI status.
  */
 FMILIB_EXPORT fmi1_status_t fmi1_import_get_string_status(fmi1_import_t* fmu, const fmi1_status_kind_t s, fmi1_string_t*  value);

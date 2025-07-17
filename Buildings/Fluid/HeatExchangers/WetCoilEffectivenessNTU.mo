@@ -7,9 +7,6 @@ model WetCoilEffectivenessNTU
     final computeFlowResistance1=true,
     final computeFlowResistance2=true);
 
-  import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
-  import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
-
   constant Boolean use_dynamicFlowRegime = false
     "If true, flow regime is determined using actual flow rates";
   // This switch is declared as a constant instead of a parameter
@@ -18,7 +15,7 @@ model WetCoilEffectivenessNTU
   //   See discussions in https://github.com/ibpsa/modelica-ibpsa/pull/1683
 
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
-    con.CounterFlow
+    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
     "Heat exchanger configuration";
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient";
@@ -220,9 +217,9 @@ protected
     Buildings.Fluid.HeatExchangers.BaseClasses.determineWaterIndex(
       Medium2.substanceNames)
     "Index of water";
-  parameter flo flowRegime_nominal(fixed=false)
+  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-  flo flowRegime(fixed=false, start=flowRegime_nominal)
+  Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
@@ -296,29 +293,29 @@ initial equation
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
   C2_flow_nominal = m2_flow_nominal*cp2_nominal;
-  if (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+  if (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
     flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal)
       then
-        flo.CrossFlowCMinMixedCMaxUnmixed
+        Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed
       else
-        flo.CrossFlowCMinUnmixedCMaxMixed;
-  elseif (configuration == con.CrossFlowStream1UnmixedStream2Mixed) then
+        Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
+  elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) then
     flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal)
       then
-        flo.CrossFlowCMinUnmixedCMaxMixed
+        Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed
       else
-        flo.CrossFlowCMinMixedCMaxUnmixed;
-  elseif (configuration == con.ParallelFlow) then
-    flowRegime_nominal = flo.ParallelFlow;
-  elseif (configuration == con.CounterFlow) then
-    flowRegime_nominal = flo.CounterFlow;
-  elseif (configuration == con.CrossFlowUnmixed) then
-    flowRegime_nominal = flo.CrossFlowUnmixed;
+        Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
+  elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
+    flowRegime_nominal = Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+  elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
+    flowRegime_nominal = Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+  elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
+    flowRegime_nominal = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
   else
     // Invalid flow regime. Assign a value to flowRegime_nominal, and stop with an assert
-    flowRegime_nominal = flo.CrossFlowUnmixed;
-    assert(configuration >= con.ParallelFlow and
-      configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
+    flowRegime_nominal = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
+    assert(configuration >= Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow and
+      configuration <= Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
 
@@ -326,33 +323,33 @@ equation
   // Assign the flow regime for the given heat exchanger configuration and
   // mass flow rates
   if use_dynamicFlowRegime then
-    if (configuration == con.ParallelFlow) then
+    if (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
       flowRegime = if (C1_flow*C2_flow >= 0)
         then
-          flo.ParallelFlow
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow
         else
-          flo.CounterFlow;
-    elseif (configuration == con.CounterFlow) then
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
       flowRegime = if (C1_flow*C2_flow >= 0)
         then
-          flo.CounterFlow
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow
         else
-          flo.ParallelFlow;
-    elseif (configuration == con.CrossFlowUnmixed) then
-      flowRegime = flo.CrossFlowUnmixed;
-    elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
+      flowRegime = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
+    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
       flowRegime = if (C1_flow < C2_flow)
         then
-          flo.CrossFlowCMinMixedCMaxUnmixed
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed
         else
-          flo.CrossFlowCMinUnmixedCMaxMixed;
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
     else
-      // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+      // have ( configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
       flowRegime = if (C1_flow < C2_flow)
         then
-          flo.CrossFlowCMinUnmixedCMaxMixed
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed
         else
-          flo.CrossFlowCMinMixedCMaxUnmixed;
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
     end if;
   else
     flowRegime = flowRegime_nominal;
@@ -652,6 +649,12 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 February 3, 2023, by Jianjun Hu:<br/>
 Added <code>noEvent()</code> in the assertion function to avoid Optimica to not converge.<br/>

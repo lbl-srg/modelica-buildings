@@ -53,16 +53,16 @@ model Modular
   "Refrigerant cycle module for the heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
-    "Nominal temperature of the cooled fluid"
+    "Nominal temperature of the cooled fluid during cooling mode"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TConCoo_nominal
-    "Nominal temperature of the heated fluid"
+    "Nominal temperature of the heated fluid during cooling mode"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
-    "Nominal temperature of the heated fluid"
+    "Nominal temperature of the heated fluid during heating mode"
     annotation (Dialog(enable=use_rev, group="Nominal condition - Heating"));
   parameter Modelica.Units.SI.Temperature TConHea_nominal
-    "Nominal temperature of the cooled fluid"
+    "Nominal temperature of the cooled fluid during heating mode"
     annotation (Dialog(enable=use_rev, group="Nominal condition - Heating"));
 
 
@@ -82,6 +82,27 @@ model Modular
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,50})));
+  Modelica.Blocks.Logical.Hysteresis hys(
+    final uLow=0.001,
+    final uHigh=ySet_small,
+    final pre_y_start=false)
+    "Outputs whether the device is on based on the relative speed"
+    annotation (Placement(
+      transformation(extent={{10,10},{-10,-10}}, rotation=180, origin={-110,-90})));
+initial equation
+  assert(TEvaCoo_nominal < TConCoo_nominal,
+    "In " + getInstanceName() +": Wrong parameterization. Require TEvaCoo_nominal < TConCoo_nominal.
+    Received TEvaCoo_nominal = " + String(TEvaCoo_nominal) + "
+             TConCoo_nominal = " + String(TConCoo_nominal) + ".");
+  // If the chiller is also used for heating, then QHea_flow_nominal >> 0.
+  // Hence the first test is false and we require the correct entry of the temperatures.
+  // If it is not used for heating, then QHea_flow_nominal = 0, and the temperature entry
+  // won't be checked for correctness.
+  assert(QHea_flow_nominal < 1E-6 or TConHea_nominal < TEvaHea_nominal,
+    "In " + getInstanceName() +": Wrong parameterization. Require TConHea_nominal < TEvaHea_nominal.
+    Received TConHea_nominal = " + String(TConHea_nominal) + "
+             TEvaHea_nominal = " + String(TEvaHea_nominal) + ".");
+
 equation
   connect(conCoo.y, sigBus.coo)
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-138,-40},{-138,-42},
@@ -102,10 +123,28 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-99,-90},{-88,-90},
+          {-88,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},{-141,-41}},
+                                           color={255,0,255}));
+  connect(hys.u, sigBus.yMea) annotation (Line(points={{-122,-90},{-132,-90},{
+          -132,-40},{-136,-40},{-136,-41},{-141,-41}},
+                       color={0,0,127}));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html>
   <ul>
+  <li>
+  May 23, 2025, by Michael Wetter:<br/>
+  Added assertion against wrong parameterization.<br/>
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2013\">IBPSA #2013</a>.
+  </li>
+  <li>
+  February 25, 2025, by Antoine Gautier:<br/>
+  Added hysteresis that was removed from base class.<br/>
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1977\">IBPSA #1977</a>.
+  </li>
   <li>
   May 2, 2024, by Michael Wetter:<br/>
   Refactored check for device identifiers.<br/>
