@@ -90,12 +90,10 @@ equation
                           color={0,127,255}));
   connect(Sou.terminal, hea.terminal) annotation (Line(points={{0,40},{0,10}},
                           color={0,120,120}));
-  connect(TSet.y, hea.setPoi) annotation (Line(points={{-39,70},{-24,70},{-24,
-          8.88889},{-11,8.88889}},
-                    color={0,0,127}));
-  connect(senTem.T, hea.meaPoi) annotation (Line(points={{50,41},{50,96},{-18,
-          96},{-18,2.22222},{-11,2.22222}},
-                                     color={0,0,127}));
+  connect(TSet.y, hea.TSet) annotation (Line(points={{-39,70},{-24,70},{-24,
+          8.88889},{-11,8.88889}}, color={0,0,127}));
+  connect(senTem.T, hea.TMea) annotation (Line(points={{50,41},{50,96},{-18,96},
+          {-18,2.22222},{-11,2.22222}}, color={0,0,127}));
   connect(hea.port_b2, sin2.ports[1]) annotation (Line(points={{-10,-7.77778},{-30,
           -7.77778},{-30,-20},{-40,-20}},
                                 color={0,127,255}));

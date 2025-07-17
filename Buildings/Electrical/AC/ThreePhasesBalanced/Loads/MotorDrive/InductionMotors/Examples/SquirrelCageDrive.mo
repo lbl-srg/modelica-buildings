@@ -19,10 +19,11 @@ model SquirrelCageDrive
     annotation (Placement(transformation(extent={{-60,8},{-40,28}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
+    reverseActing=true,
     have_controller=true,
     k=0.1,
     Ti=0.1)
-    annotation (Placement(transformation(extent={{-2,0},{22,20}})));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   Modelica.Blocks.Sources.Step Speed_ref1(
     height=26.5,
@@ -32,13 +33,14 @@ model SquirrelCageDrive
 
 equation
   connect(motDri.terminal, sou.terminal)
-    annotation (Line(points={{12,20},{12,40}}, color={0,120,120}));
+    annotation (Line(points={{10,20},{10,30},{12,30},{12,40}},
+                                               color={0,120,120}));
   connect(Speed_ref.y, motDri.setPoi)
-    annotation (Line(points={{-39,18},{-4,18}},   color={0,0,127}));
-  connect(mea.y, motDri.mea) annotation (Line(points={{-39,-26},{-20,-26},{-20,
-          10},{-4,10}},   color={0,0,127}));
-  connect(Speed_ref1.y, motDri.tau_m) annotation (Line(points={{-37,-66},{-8,
-          -66},{-8,2},{-4,2}},   color={0,0,127}));
+    annotation (Line(points={{-39,18},{-2,18}},   color={0,0,127}));
+  connect(mea.y, motDri.mea) annotation (Line(points={{-39,-26},{-20,-26},{-20,10},
+          {-2,10}},       color={0,0,127}));
+  connect(Speed_ref1.y, motDri.tau_m) annotation (Line(points={{-37,-66},{-8,-66},
+          {-8,2},{-2,2}},        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=2),
@@ -47,10 +49,12 @@ __Dymola_Commands(
       "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
-<li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>First Implementation. </li>
+<li>
+May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
+First Implementation.
+</li>
 </ul>
-</html>",
-info="<html>
+</html>", info="<html>
 An example of induction motor drive with closed loop variable speed controller.
 </html>"));
 end SquirrelCageDrive;
