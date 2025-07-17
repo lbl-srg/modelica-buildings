@@ -7,7 +7,7 @@ cmake_policy(SET CMP0048 NEW)
 cmake_minimum_required(VERSION 3.8)
 
 project( fmi-library
-  VERSION 2.2
+  VERSION 3.0.3
   DESCRIPTION "FMI Library for Modelica Buildings Library"
   LANGUAGES C
 )
@@ -64,14 +64,17 @@ ExternalProject_Add(
 
   PREFIX         ${FMI_LIBRARY}
   GIT_REPOSITORY https://github.com/modelon-community/fmi-library
-  GIT_TAG        2.2
+  GIT_TAG        3.0.3
   GIT_SHALLOW    ON
 
   BUILD_ALWAYS   OFF
 
 #--Configure step-------------
 #  CONFIGURE_COMMAND ""
-  CMAKE_ARGS        DFMILIB_BUILD_SHARED_LIB=OFF DFMILIB_GENERATE_DOXYGEN_DOC=OFF
+  CMAKE_ARGS        
+      -DFMILIB_BUILD_SHARED_LIB=ON
+      -DFMILIB_GENERATE_DOXYGEN_DOC=OFF
+      -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install
 
 #--Build step-----------------
 #  BUILD_COMMAND     "" #cmake --build ..
@@ -118,7 +121,7 @@ file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/doc")
 add_custom_command(TARGET ${FMI_LIBRARY}
   POST_BUILD
   COMMAND "${CMAKE_COMMAND}" -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install/doc"
+        "${CMAKE_CURRENT_SOURCE_DIR}/build/fmi-library-modelon/src/install/share/doc"
         "${CMAKE_CURRENT_SOURCE_DIR}/doc"
   COMMENT "Copying doc files to ${CMAKE_CURRENT_SOURCE_DIR}/doc"
 )

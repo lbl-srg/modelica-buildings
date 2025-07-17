@@ -1,9 +1,6 @@
 // Conversion script for Buildings library
 //  from: Version 4.0
 //  to:   Version 5.0
-clear
-
-convertClear();
 
 convertClass("Buildings.Fluid.Interfaces.PrescribedOutletState",
              "Buildings.Fluid.Interfaces.PrescribedOutlet");

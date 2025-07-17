@@ -226,8 +226,14 @@ model Valve "Multiple-configuration valve"
         rotation=-90,
         origin={40,120})));
 
-  Routing.PassThroughFluid non(
-    redeclare final package Medium = Medium)
+  Buildings.Fluid.FixedResistances.PressureDrop non(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dpFixed_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearized)
     if typ==Buildings.Templates.Components.Types.Valve.None
     "No valve"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -602,6 +608,12 @@ for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 7, 2025, by Antoine Gautier:<br/>
+Replaced direct fluid pass-through with fixed resistance.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4227\">#4227</a>.
+</li>
 <li>
 September 27, 2023, by Antoine Gautier:<br/>
 First implementation.
