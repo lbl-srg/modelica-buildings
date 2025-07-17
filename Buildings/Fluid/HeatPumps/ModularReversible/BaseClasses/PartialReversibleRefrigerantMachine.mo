@@ -39,6 +39,19 @@ partial model PartialReversibleRefrigerantMachine
     "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
     annotation(Dialog(tab="Advanced", enable=use_rev));
 
+  // Safety control
+  parameter Boolean use_intSafCtr=true
+    "=true to enable internal safety control"
+    annotation (Dialog(group="Safety control"), choices(checkBox=true));
+  replaceable parameter
+    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
+    constrainedby
+    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
+    "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
+    group="Safety control"),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{42,-18},{58,-2}})));
+
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
     "Condenser heat transfer time constant at nominal flow"
@@ -129,20 +142,6 @@ partial model PartialReversibleRefrigerantMachine
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
       MediumEva.specificHeatCapacityCp(staEva_nominal)
     "Evaporator medium specific heat capacity";
-
-  // Safety control
-  parameter Boolean use_intSafCtr=true
-    "=true to enable internal safety control"
-    annotation (Dialog(group="Safety control"), choices(checkBox=true));
-  replaceable parameter
-    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
-    constrainedby
-    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
-    "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
-    group="Safety control"),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{42,-18},{58,-2}})));
-
 
 //Assumptions
   parameter Boolean allowFlowReversalEva=true
@@ -314,13 +313,6 @@ partial model PartialReversibleRefrigerantMachine
         extent={{-10,10},{10,-10}},
         rotation=0)));
 
-  Modelica.Blocks.Logical.Hysteresis hys(
-    final uLow=0.001,
-    final uHigh=ySet_small,
-    final pre_y_start=false) "Use default ySet value" annotation (Placement(
-        transformation(extent={{10,10},{-10,-10}}, rotation=180,
-        origin={-110,-90})));
-
   RefrigerantCycleInertia refCycIneCon "Inertia model for condenser side"
       annotation(Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -368,10 +360,10 @@ partial model PartialReversibleRefrigerantMachine
       final unit="W") "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{140,-140},{160,-120}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
-  Modelica.Blocks.Interfaces.RealOutput EER(unit="1") if use_EER
+  Modelica.Blocks.Interfaces.RealOutput EER(unit="1") if use_EER and calEff
     "Energy efficieny ratio" annotation (Placement(transformation(extent={{140,-40},
             {160,-20}}), iconTransformation(extent={{100,-40},{120,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput COP(unit="1") if use_COP
+  Modelica.Blocks.Interfaces.RealOutput COP(unit="1") if use_COP and calEff
     "Coefficient of performance" annotation (Placement(transformation(extent={{140,
             20},{160,40}}), iconTransformation(extent={{100,20},{120,40}})));
 
@@ -492,9 +484,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-99,-90},{-88,-90},{
-          -88,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},{-141,-41}},
-                                           color={255,0,255}));
   connect(TConAmb, sigBus.TConAmbMea) annotation (Line(
       points={{-152,120},{-128,120},{-128,50},{-76,50},{-76,-42},{-78,-42},{-78,
           -41},{-141,-41}},
@@ -504,9 +493,6 @@ equation
       points={{-152,-130},{-130,-130},{-130,-110},{-76,-110},{-76,-41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(hys.u, sigBus.yMea) annotation (Line(points={{-122,-90},{-132,-90},{-132,
-          -40},{-136,-40},{-136,-41},{-141,-41}},
-                       color={0,0,127}));
   connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,90},{38,90},{
           38,32},{-76,32},{-76,-40},{-140,-40},{-140,-41},{-141,-41}},
                                                  color={0,0,127}));
@@ -650,12 +636,12 @@ equation
         Text(
           extent={{72,40},{96,16}},
           textColor={0,0,127},
-          visible=use_COP,
+          visible=use_COP and calEff,
           textString="COP"),
         Text(
           extent={{72,-18},{96,-42}},
           textColor={0,0,127},
-          visible=use_EER,
+          visible=use_EER and calEff,
           textString="EER"),
         Rectangle(
           extent={{34,42},{38,-46}},
@@ -692,6 +678,24 @@ equation
           fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>February 27, 2025</i> by Jianjun Hu:<br/>
+    Corrected conditions for removing COP and EER output connector.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1979\">IBPSA #1979</a>.
+  </li>
+  <li>
+    <i>February 25, 2025</i> by Antoine Gautier:<br/>
+    Removed hysteresis.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1977\">IBPSA #1977</a>.
+  </li>
+  <li>
+    <i>August 19, 2024</i> by Michael Wetter:<br/>
+    Changed markup commands for code merge.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1919\">IBPSA #1919</a>.
+  </li>
   <li>
     <i>July 15, 2024</i> by Fabian Wuellhorst:<br/>
     Adjust hysteresis bandwidth (see issue

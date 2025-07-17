@@ -18,24 +18,27 @@ model Damper "Multiple-configuration damper"
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=
     dat.dp_nominal
     "Damper pressure drop";
+  final parameter Modelica.Units.SI.PressureDifference dpFixed_nominal=
+    dat.dpFixed_nominal
+    "Pressure drop of duct and resistances other than the damper in series, at nominal mass flow rate";
 
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve"
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
     enable=typ<>Buildings.Templates.Components.Types.Damper.None));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+      group="Time needed to open or close valve",
+      enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -79,26 +82,25 @@ model Damper "Multiple-configuration damper"
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
-    final dpFixed_nominal=dat.dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final dpFixed_nominal=dpFixed_nominal,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final linearized=linearized)
-    if typ==Buildings.Templates.Components.Types.Damper.Modulating or
-       typ==Buildings.Templates.Components.Types.Damper.TwoPosition
+    final linearized=linearized) if typ == Buildings.Templates.Components.Types.Damper.Modulating
+     or typ == Buildings.Templates.Components.Types.Damper.TwoPosition
     "Damper with exponential characteristic"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Buildings.Fluid.Actuators.Dampers.PressureIndependent ind(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
-    final dpFixed_nominal=dat.dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final dpFixed_nominal=dpFixed_nominal,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -106,12 +108,18 @@ model Damper "Multiple-configuration damper"
     final from_dp=from_dp)
     if typ==Buildings.Templates.Components.Types.Damper.PressureIndependent
     "Pressure independent damper"
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.Templates.Components.Routing.PassThroughFluid non(
-    redeclare final package Medium = Medium)
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+  Buildings.Fluid.FixedResistances.PressureDrop non(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dpFixed_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearized)
     if typ==Buildings.Templates.Components.Types.Damper.None
     "No damper"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal y1(final realTrue=1,
       final realFalse=0)
     if typ == Buildings.Templates.Components.Types.Damper.TwoPosition
@@ -157,17 +165,21 @@ equation
   connect(y1_actual.u, ind.y_actual);
   /* Control point connection - stop */
   connect(port_a, non.port_a)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(non.port_b, port_b)
-    annotation (Line(points={{-60,0},{100,0}}, color={0,127,255}));
-  connect(port_a,exp. port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+  connect(non.port_b, port_b)
+    annotation (Line(points={{10,0},{100,0}},  color={0,127,255}));
+  connect(port_a,exp. port_a)
+    annotation (Line(points={{-100,0},{-80,0},{-80,-20},{-50,-20}},
+                                                color={0,127,255}));
   connect(exp.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{-30,-20},{80,-20},{80,0},{100,0}},
+                                              color={0,127,255}));
   connect(port_a, ind.port_a)
-    annotation (Line(points={{-100,0},{50,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-80,0},{-80,-40},{30,-40}},
+                                               color={0,127,255}));
   connect(ind.port_b, port_b)
-    annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{50,-40},{80,-40},{80,0},{100,0}},
+                                              color={0,127,255}));
   connect(bus.y1, y1.u) annotation (Line(
       points={{0,100},{0,60},{-80,60},{-80,52}},
       color={255,204,51},
@@ -290,6 +302,12 @@ Buildings.Templates.Components.Data.Damper</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 7, 2025, by Antoine Gautier:<br/>
+Replaced direct fluid pass-through with fixed resistance.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4227\">#4227</a>.
+</li>
 <li>
 September 27, 2023, by Antoine Gautier:<br/>
 First implementation.

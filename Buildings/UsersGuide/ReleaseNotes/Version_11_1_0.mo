@@ -4,7 +4,22 @@ class Version_11_1_0 "Version 11.1.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 11.1.0 is ... xxx
+Version 11.1.0 is backward compatible with 11.0.0.
+</p>
+<p>
+The library has been tested with
+Dymola 2024x Refresh 1,
+OpenModelica 1.24.0,
+OPTIMICA 1.55.11 and recent versions of Impact.
+</p>
+<p>
+This backward compatible version adds a new package with heat pump models
+that can be operated in reversible mode to provide heating or cooling,
+and that can be configured to use various approaches to compute performance, such as
+data tables or Carnot analogy.
+</p>
+<p>
+Also, many models have been updated to improve performance, to ensure compliance with the Modelica Language Standard and to correct model errors.
 </p>
 </div>
 <!-- New libraries -->
@@ -30,44 +45,8 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        operation within specified envelope, antifreeze protection and minimum flow rate.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.CHPs.OrganicRankine
-    </td>
-    <td valign=\"top\">Package of an organic Rankine cycle,
-                       including working fluid data records.
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">issue 3433</a>.
-    </td>
-</tr>
 </table>
 <!-- New components for existing libraries -->
-<p>
-The following <b style=\"color:blue\">new components</b> have been added
-to <b style=\"color:blue\">existing</b> libraries:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.Validation.BaseClasses.ComparePower<br/>
-                       Buildings.Fluid.Movers.Validation.ComparePowerHydraulic<br/>
-                       Buildings.Fluid.Movers.Validation.ComparePowerInput<br/>
-                       Buildings.Fluid.Movers.Validation.ComparePowerTotal
-    </td>
-    <td valign=\"top\">Created new validation models to compare power estimation
-                       of different mover model setups.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
-    </td>
-</tr>
-</table>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -75,13 +54,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.Continuous</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.UnitDelay
+<tr><td valign=\"top\">Buildings.Controls.Continuous.Examples.NumberOfRequests
     </td>
-    <td valign=\"top\">Delayed the input.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3953\">issue 3953</a>.
+    <td valign=\"top\">Changed pulse input from 0 to 1 to 0.01 to 1
+                       so that the comparison against zero is robust.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1897\">IBPSA, #1897</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
@@ -94,6 +77,15 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Simplified the implementation.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS.Combined.Subsystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank
+    </td>
+    <td valign=\"top\">Enabled input filter for pumps to avoid a nonlinear system of equations that causes issues in OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3924\">issue 3924</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -150,96 +142,41 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Default efficiency method assignments now depend on
                        the availability of pressure curves.
-                       This reduces the occurrance of a warning message.<br/>
+                       This avoids a warning message.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Files</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.IO.Files.WeeklySchedule
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed syntax for inclusion of C source code to comply
+                       with the Modelica Language Specification.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1891\">IBPSA, #1891</a>.
+
     </td>
 </tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
-<p>
-The following <b style=\"color:blue\">existing components</b>
-have been <b style=\"color:blue\">improved</b> in a
-<b style=\"color:blue\">non-backward compatible</b> way:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Chillers.BaseClasses.PartialElectric<br/>
+                       Buildings.Fluid.HeatPumps.EquationFitReversible
     </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface
-    </td>
-    <td valign=\"top\">Corrected efficiency equations if
-                       <code>powerOrEfficiencyIsHydraulic=false</code>.<br/>
+    <td valign=\"top\">Added load limit depending on operating mode.<br/>
                        This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Obsolete.Fluid.Movers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Obsolete.Fluid.Movers.Validation.PowerExact<br/>
-                       Buildings.Obsolete.Fluid.Movers.Validation.PowerEuler<br/>
-                       Buildings.Obsolete.Fluid.Movers.Validation.PowerSimplified
-    </td>
-    <td valign=\"top\">Corrected efficiency assignment and moved to the Obsolete package.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3815\">#3815</a>.
     </td>
 </tr>
 </table>
 <!-- Uncritical errors -->
-<p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
 end Version_11_1_0;

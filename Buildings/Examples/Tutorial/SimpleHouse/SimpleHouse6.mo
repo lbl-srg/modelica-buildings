@@ -19,12 +19,10 @@ model SimpleHouse6 "Free cooling model"
     redeclare package Medium = MediumAir,
     show_T=true,
     dp_nominal=dpAir_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=mAir_flow_nominal)
-    "Constant head fan" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        origin={0,130})));
+    m_flow_nominal=mAir_flow_nominal) "Constant head fan" annotation (Placement(
+        transformation(extent={{-10,10},{10,-10}}, origin={0,130})));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hexRec(
     redeclare package Medium1 = MediumAir,

@@ -111,27 +111,27 @@ model Valve "Multiple-configuration valve"
     dat.dpFixedByp_nominal
     "Nominal pressure drop in the bypass line";
 
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve"
     annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
+    Dialog(tab="Dynamics", group="Time needed to open or close valve",
     enable=typ<>Buildings.Templates.Components.Types.Valve.None));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to open or close valve"
     annotation (__ctrlFlow(enable=false),
     Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+      group="Time needed to open or close valve",
+      enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+    Dialog(tab="Dynamics", group="Time needed to open or close valve",
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
   parameter Real y_start=1 "Initial position of actuator"
     annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+    Dialog(tab="Dynamics", group="Time needed to open or close valve",
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -226,8 +226,14 @@ model Valve "Multiple-configuration valve"
         rotation=-90,
         origin={40,120})));
 
-  Routing.PassThroughFluid non(
-    redeclare final package Medium = Medium)
+  Buildings.Fluid.FixedResistances.PressureDrop non(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dpFixed_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearized)
     if typ==Buildings.Templates.Components.Types.Valve.None
     "No valve"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -237,8 +243,8 @@ model Valve "Multiple-configuration valve"
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -260,8 +266,8 @@ model Valve "Multiple-configuration valve"
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -278,27 +284,20 @@ model Valve "Multiple-configuration valve"
         extent={{-70,10},{-50,30}},
         rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent ind(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
-    final from_dp=from_dp)
-    if is_twoWay
-    and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.PressureIndependent
-    "Pressure independent two-way valve"
-    annotation (
-      __ctrlFlow(enable=false),
-      Placement(
-        transformation(
-        extent={{-30,-30},{-10,-10}},
-        rotation=0)));
+    final from_dp=from_dp) if is_twoWay and chaTwo == Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.PressureIndependent
+    "Pressure independent two-way valve" annotation (__ctrlFlow(enable=false),
+      Placement(transformation(extent={{-30,-30},{-10,-10}}, rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayTable tab(
     redeclare final package Medium=Medium,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -306,8 +305,8 @@ model Valve "Multiple-configuration valve"
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -324,39 +323,6 @@ model Valve "Multiple-configuration valve"
         extent={{-10,-50},{10,-30}},
         rotation=0)));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear equLin(
-    redeclare final package Medium=Medium,
-    final fraK=fraK,
-    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=dpValve_nominal,
-    final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal},
-    final energyDynamics=energyDynamics,
-    final tau=tau,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
-    final init=init,
-    final y_start=y_start,
-    final portFlowDirection_1=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then
-      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final from_dp=from_dp,
-    final linearized={linearized, linearized})
-    if is_thrWay
-    and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.EqualPercentageLinear
-    "Three-way valve with equal percentage and linear characteristics"
-    annotation (
-      __ctrlFlow(enable=false),
-      Placement(
-        transformation(
-        extent={{30,-90},{50,-70}},
-        rotation=0)));
-  Fluid.Actuators.Valves.ThreeWayLinear linLin(
     redeclare final package Medium = Medium,
     final fraK=fraK,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -365,8 +331,8 @@ model Valve "Multiple-configuration valve"
     final dpFixed_nominal={dpFixed_nominal,dpFixedByp_nominal},
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -376,16 +342,36 @@ model Valve "Multiple-configuration valve"
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final from_dp=from_dp,
-    final linearized={linearized, linearized})
-    if is_thrWay
-    and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Linear
-    "Three-way valve with linear characteristics"
-    annotation (
-      __ctrlFlow(enable=false),
-      Placement(
-        transformation(
-        extent={{10,-70},{30,-50}},
-        rotation=0)));
+    final linearized={linearized,linearized}) if is_thrWay and chaThr ==
+    Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.EqualPercentageLinear
+    "Three-way valve with equal percentage and linear characteristics"
+    annotation (__ctrlFlow(enable=false), Placement(transformation(extent={{30,
+            -90},{50,-70}}, rotation=0)));
+  Fluid.Actuators.Valves.ThreeWayLinear linLin(
+    redeclare final package Medium = Medium,
+    final fraK=fraK,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal={dpFixed_nominal,dpFixedByp_nominal},
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
+    final init=init,
+    final y_start=y_start,
+    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final from_dp=from_dp,
+    final linearized={linearized,linearized}) if is_thrWay and chaThr ==
+    Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Linear
+    "Three-way valve with linear characteristics" annotation (__ctrlFlow(enable
+        =false), Placement(transformation(extent={{10,-70},{30,-50}}, rotation=
+            0)));
   Fluid.Actuators.Valves.ThreeWayTable tabTab(
     redeclare final package Medium = Medium,
     final flowCharacteristics1=flowCharacteristics1,
@@ -397,8 +383,8 @@ model Valve "Multiple-configuration valve"
     final dpFixed_nominal={dpFixed_nominal,dpFixedByp_nominal},
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -408,16 +394,11 @@ model Valve "Multiple-configuration valve"
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final from_dp=from_dp,
-    final linearized={linearized, linearized})
-    if is_thrWay
-    and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Table
-    "Three-way valve with table-specified characteristics"
-    annotation (
-      __ctrlFlow(enable=false),
-      Placement(
-        transformation(
-        extent={{50,-110},{70,-90}},
-        rotation=0)));
+    final linearized={linearized,linearized}) if is_thrWay and chaThr ==
+    Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Table
+    "Three-way valve with table-specified characteristics" annotation (
+      __ctrlFlow(enable=false), Placement(transformation(extent={{50,-110},{70,
+            -90}}, rotation=0)));
 equation
   /* Control point connection - start */
   connect(y1.y, lin.y);
@@ -627,6 +608,12 @@ for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 7, 2025, by Antoine Gautier:<br/>
+Replaced direct fluid pass-through with fixed resistance.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4227\">#4227</a>.
+</li>
 <li>
 September 27, 2023, by Antoine Gautier:<br/>
 First implementation.

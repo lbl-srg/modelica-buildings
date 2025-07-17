@@ -65,6 +65,7 @@ model HeatExchanger
   Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
+    show_T=true,
     final use_Q_flow_nominal=true,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final allowFlowReversal1=allowFlowReversal1,
@@ -130,7 +131,7 @@ model HeatExchanger
     final m_flow_nominal=m1_flow_nominal,
     from_dp=true,
     final dpValve_nominal=dpVal1_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final dpFixed_nominal=dp1Hex_nominal) if have_val1
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
@@ -149,11 +150,10 @@ model HeatExchanger
     redeclare final package Medium = Medium2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=false,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final m_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpVal2_nominal,
-    final dpFixed_nominal=fill(dp2Hex_nominal, 2))
-    "Control valve" annotation (
+    final dpFixed_nominal=fill(dp2Hex_nominal, 2)) "Control valve" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

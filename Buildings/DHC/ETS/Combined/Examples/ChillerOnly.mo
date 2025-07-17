@@ -53,8 +53,6 @@ equation
     annotation (Line(points={{-266,60},{-252,60}},color={0,0,127}));
   connect(loaNorCoo.y,loaCooNor.u)
     annotation (Line(points={{286,60},{272,60}},color={0,0,127}));
-  connect(TDisWatSup.y[1],disWat.T_in)
-    annotation (Line(points={{-309,-140},{-140,-140},{-140,-136},{-122,-136}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Examples/ChillerOnly.mos" "Simulate and plot"),
@@ -65,6 +63,10 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 22, 2024, by Michael Wetter:<br/>
+Removed duplicate connection.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.

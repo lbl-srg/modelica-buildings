@@ -1,22 +1,18 @@
-last-generated=2022-12-20
+last-generated=2024-09-16
 statistics-fmu-dependencies=
 {
   "Derivatives": {
-    "der(fan.filter.s[1])": [
-      "fan.filter.s[1]"
-    ],
-    "der(fan.filter.s[2])": [
-      "fan.filter.s[1]",
-      "fan.filter.s[2]"
+    "der(fan.motSpe.y)": [
+      "fan.motSpe.y"
     ],
     "der(senTemHXOut.T)": [
-      "fan.filter.s[2]",
+      "fan.motSpe.y",
       "senTemHXOut.T",
       "fluPor[1].backward.T",
       "fluPor[1].backward.X_w"
     ],
     "der(senTemSupAir.T)": [
-      "fan.filter.s[2]",
+      "fan.motSpe.y",
       "senTemSupAir.T",
       "fluPor[1].backward.T",
       "fluPor[1].backward.X_w"
@@ -33,8 +29,7 @@ statistics-fmu-dependencies=
       "zero.k"
     ],
     "TOut": [],
-    "der(fan.filter.s[1])": [],
-    "der(fan.filter.s[2])": [
+    "der(fan.motSpe.y)": [
       "fan.riseTime",
       "fan.m_flow_start"
     ],
@@ -56,10 +51,7 @@ statistics-fmu-dependencies=
       "fluPor[1].backward.T",
       "fluPor[1].backward.X_w"
     ],
-    "fan.filter.s[1]": [
-      "fan.riseTime"
-    ],
-    "fan.filter.s[2]": [
+    "fan.motSpe.y": [
       "fan.m_flow_start"
     ],
     "fluPor[1].forward.T": [
@@ -123,20 +115,20 @@ statistics-fmu-dependencies=
     "QGaiSenCon_flow": [],
     "TOut": [],
     "fluPor[1].forward.T": [
-      "fan.filter.s[2]",
+      "fan.motSpe.y",
       "fluPor[1].backward.T",
       "fluPor[1].backward.X_w"
     ],
     "fluPor[1].forward.X_w": [
-      "fan.filter.s[2]"
+      "fan.motSpe.y"
     ],
     "fluPor[1].m_flow": [
-      "fan.filter.s[2]"
+      "fan.motSpe.y"
     ],
     "fluPor[2].forward.T": [],
     "fluPor[2].forward.X_w": [],
     "fluPor[2].m_flow": [
-      "fan.filter.s[2]"
+      "fan.motSpe.y"
     ],
     "weaBus.HDifHor": [],
     "weaBus.HDirNor": [],

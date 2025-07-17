@@ -111,8 +111,8 @@ model PartialDirect
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mBui_flow_nominal,
     final dpValve_nominal=dpConVal_nominal,
-    use_inputFilter=true,
-    riseTime(displayUnit="s") = 60)
+    use_strokeTime=true,
+    strokeTime(displayUnit="s") = 60)
     "Control valve"
     annotation (Placement(transformation(extent={{-10,190},{10,210}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiRet(

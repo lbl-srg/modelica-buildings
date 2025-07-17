@@ -50,8 +50,8 @@ record Pentane "Data record for n-pentane (R601)"
 Record containing properties of n-pentane (R601).
 Its name in CoolProp is \"n-Pentane\".
 A figure in the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
-Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>
 </html>"));

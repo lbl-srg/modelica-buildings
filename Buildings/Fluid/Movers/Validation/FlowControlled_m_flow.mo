@@ -8,14 +8,14 @@ model FlowControlled_m_flow
       nominalValuesDefineDefaultPressureCurve=true,
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      use_inputFilter=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow floMacDyn(
       nominalValuesDefineDefaultPressureCurve=true,
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      use_inputFilter=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      use_riseTime=false));
 
 equation
   connect(gain.y, floMacSta.m_flow_in) annotation (Line(

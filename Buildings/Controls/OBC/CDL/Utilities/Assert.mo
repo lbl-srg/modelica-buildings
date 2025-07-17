@@ -8,10 +8,7 @@ block Assert
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
 equation
-  assert(
-    u,
-    message,
-    AssertionLevel.warning);
+  assert(u, message, AssertionLevel.warning);
   annotation (
     defaultComponentName="assMes",
     Icon(

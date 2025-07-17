@@ -13,7 +13,7 @@ model NoReturn "No return branch"
     redeclare final package Medium = MediumAir,
     final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
     final dat=dat.damRel,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final text_flip=true)
     "Relief damper"

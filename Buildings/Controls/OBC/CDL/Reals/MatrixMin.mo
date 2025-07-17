@@ -3,25 +3,16 @@ block MatrixMin
   "Output vector of row- or column-wise minimum values"
   parameter Boolean rowMin=true
     "If true, outputs row-wise minimum, otherwise column-wise";
-  parameter Integer nRow(
-    final min=1)
+  parameter Integer nRow(final min=1)
     "Number of rows in input matrix";
-  parameter Integer nCol(
-    final min=1)
+  parameter Integer nCol(final min=1)
     "Number of columns in input matrix";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nRow,nCol]
-    "Connector of Real input signals"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nRow, nCol]
+    "Input for the matrix min function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[
-    if rowMin then
-      size(
-        u,
-        1)
-    else
-      size(
-        u,
-        2)]
-    "Connector of Real output signals"
+    if rowMin then size(u, 1) else size(u, 2)]
+    "Output with vector of row- or colum-wise minimum of the input matrix"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

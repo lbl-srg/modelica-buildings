@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2012 Modelon AB
+    Copyright (C) 2012-2023 Modelon AB
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the BSD style license.
@@ -21,11 +21,11 @@ extern "C" {
 #include <fmilib_config.h>
 
 /**
-	@file jm_types.h Types used in the Utils module.
+    @file jm_types.h Types used in the Utils module.
 
-	*/
-/** 
-\defgroup jm_utils Utilities 
+    */
+/**
+\defgroup jm_utils Utilities
 \addtogroup jm_utils
   * @{
 */
@@ -41,27 +41,26 @@ typedef struct jm_name_ID_map_t {
 } jm_name_ID_map_t;
 
 /** \brief Return status codes */
-typedef enum {	
-	jm_status_error = -1,
-	jm_status_success = 0,
-	jm_status_warning = 1
+typedef enum {
+    jm_status_error = -1,
+    jm_status_success = 0,
+    jm_status_warning = 1
 } jm_status_enu_t;
 
 /** \brief Log levels supported via the logger functions in ::jm_callbacks */
-typedef enum {	
-	jm_log_level_nothing = 0, /** \brief Must be first in this enum. May be usefull in application relying solely on jm_get_last_error() */
-	jm_log_level_fatal, /** \brief Unrecoverable errors */
-	jm_log_level_error, /** \brief Errors that may be not critical for some FMUs. */
-	jm_log_level_warning, /** \brief Non-critical issues */
-	jm_log_level_info, /** \brief Informative messages */
-	jm_log_level_verbose, /** \brief Verbose messages */
-	jm_log_level_debug, /** \brief Debug messages. Only enabled if library is configured with FMILIB_ENABLE_LOG_LEVEL_DEBUG */
-	jm_log_level_all /** \brief  Must be last in this enum. */
+typedef enum {
+    jm_log_level_nothing = 0, /** \brief Must be first in this enum. May be usefull in application relying solely on jm_get_last_error() */
+    jm_log_level_fatal, /** \brief Unrecoverable errors */
+    jm_log_level_error, /** \brief Errors that may be not critical for some FMUs. */
+    jm_log_level_warning, /** \brief Non-critical issues */
+    jm_log_level_info, /** \brief Informative messages */
+    jm_log_level_verbose, /** \brief Verbose messages */
+    jm_log_level_debug, /** \brief Debug messages. Only enabled if library is configured with FMILIB_ENABLE_LOG_LEVEL_DEBUG */
+    jm_log_level_all /** \brief  Must be last in this enum. */
 } jm_log_level_enu_t;
 
-/** \brief Convert log level into a string */
-FMILIB_EXPORT
-const char* jm_log_level_to_string(jm_log_level_enu_t level);
+/** \brief Struct for restoring LC_NUMERIC locale. */
+typedef struct jm_locale_t jm_locale_t;
 
 /** @} */
 #ifdef __cplusplus

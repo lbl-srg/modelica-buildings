@@ -23,7 +23,7 @@ import shutil
 # build_type is either custom or builds
 spawn_dists = [
     {"version": "0.5.0",
-     "commit": "c10e8c6d7e",
+     "commit": "ab07bde9bb",
      "build_type": "custom"}
 ]
 ###########################################################################
@@ -142,6 +142,7 @@ def replace_table_in_mo(html, varType, moFile, spawn_dir):
         "..",
         "..",
         "..",
+        "Obsolete",
         "ThermalZones",
         "EnergyPlus_{}".format(energyPlus_version_dash),
         moFile,
@@ -197,9 +198,9 @@ def update_version_in_modelica_files(spawn_dir, spawn_exe, build_type):
     ep_package = "EnergyPlus_{}".format(energyPlus_version).replace('.', '_')
 
     for rel_file in [\
-        os.path.join("Buildings", "ThermalZones", ep_package, "Building.mo"),
-        os.path.join("Buildings", "ThermalZones", ep_package, "package.mo"),
-        os.path.join("Buildings", "ThermalZones", ep_package, "UsersGuide.mo"),
+        os.path.join("Buildings", "Obsolete", "ThermalZones", ep_package, "Building.mo"),
+        os.path.join("Buildings", "Obsolete", "ThermalZones", ep_package, "package.mo"),
+        os.path.join("Buildings", "Obsolete", "ThermalZones", ep_package, "UsersGuide.mo"),
         os.path.join("Buildings", "Resources", "Scripts", "travis", "pyfmi", "runSpawnFromOtherDirectory.py")
         ]:
         # Path to Building.mo
@@ -254,7 +255,7 @@ def update_actuator_output_tables(spawn_dir, spawn_exe):
 #            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, ".git"))
 #    repo = Repo(git_folder)
 #
-#    # Get the old Spawn executuables
+#    # Get the old Spawn executables
 #    for file in glob.glob(os.path.join("Buildings", "Resources", "bin", "**/spawn-?.?.?-*"), recursive=True):
 #        if spawn_exe in file:
 #            # Add to git

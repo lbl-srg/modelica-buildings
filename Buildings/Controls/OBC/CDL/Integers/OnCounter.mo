@@ -4,13 +4,13 @@ block OnCounter
   parameter Integer y_start=0
     "Initial and reset value of y if input reset switches to true";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Boolean input signal"
+    "Trigger, when set to true, the counter increases"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset
-    "Reset the counter"
+    "Reset, when true, the counter is set to y_start"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Integer output signal"
+    "Counter value"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -34,7 +34,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),

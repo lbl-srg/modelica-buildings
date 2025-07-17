@@ -37,7 +37,7 @@ model ComparePower
   Buildings.Fluid.Actuators.Dampers.Exponential damExp1(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final dpDamper_nominal=dp_nominal/2,
     y_start=1,
     final dpFixed_nominal=dp_nominal/2) "Damper"
@@ -45,7 +45,7 @@ model ComparePower
   Buildings.Fluid.Actuators.Dampers.Exponential damExp2(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final dpDamper_nominal=dp_nominal/2,
     y_start=1,
     final dpFixed_nominal=dp_nominal/2) "Damper"
@@ -53,7 +53,7 @@ model ComparePower
   Buildings.Fluid.Actuators.Dampers.Exponential damExp3(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final dpDamper_nominal=dp_nominal/2,
     y_start=1,
     final dpFixed_nominal=dp_nominal/2) "Damper"

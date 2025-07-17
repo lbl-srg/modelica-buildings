@@ -29,9 +29,14 @@ model CoolingTowersParallel
     annotation (Dialog(group="Heat transfer"));
   parameter Modelica.Units.SI.Power PFan_nominal "Fan power"
     annotation (Dialog(group="Fan"));
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation (Dialog(tab="Dynamics",group="Filtered opening"));
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve"
+    annotation (Dialog(tab="Dynamics",group="Time needed to open or close valve"));
+  parameter Modelica.Units.SI.Time strokeTime=30
+    "Time needed to change valve position from 0 to 1" annotation (
+      Dialog(
+      tab="Dynamics",
+      enable=use_strokeTime));
   Modelica.Blocks.Interfaces.BooleanInput on[num]
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
@@ -76,8 +81,8 @@ model CoolingTowersParallel
     each final allowFlowReversal=allowFlowReversal,
     each final m_flow_nominal=m_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
-    each final use_inputFilter=use_inputFilter,
-    each riseTime=30,
+    each final use_strokeTime=use_strokeTime,
+    each strokeTime=strokeTime,
     each final dpFixed_nominal=dp_nominal)
     "Cooling tower valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));

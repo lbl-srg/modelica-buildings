@@ -1,5 +1,5 @@
 simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWater",
-    method="cvode",
+    method="Radau",
     tolerance=1e-6,
     startTime=0.0,
     stopTime=86400.0,

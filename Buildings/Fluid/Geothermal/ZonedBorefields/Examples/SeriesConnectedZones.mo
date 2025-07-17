@@ -21,7 +21,7 @@ model SeriesConnectedZones "Description"
     T_start=T_start,
     allowFlowReversal=true,
     addPowerToMedium=false,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mZon_flow_nominal[1],
     dp_nominal=60E3) "Circulation pump"

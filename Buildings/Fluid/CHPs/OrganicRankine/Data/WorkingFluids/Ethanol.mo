@@ -48,8 +48,8 @@ record Ethanol "Data record for ethanol"
 Record containing properties of ethanol.
 Its name in CoolProp is \"Ethanol\".
 A figure in the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
-Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>
 </html>"));

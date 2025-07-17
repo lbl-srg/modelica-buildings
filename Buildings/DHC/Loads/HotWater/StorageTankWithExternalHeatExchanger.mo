@@ -22,7 +22,7 @@ model StorageTankWithExternalHeatExchanger
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp pumHex(
     redeclare package Medium = MediumHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     riseTime=10,
     m_flow_nominal=dat.mHex_flow_nominal,
     dp_nominal=dat.dpHexHea_nominal) "Pump with head as input" annotation (
@@ -92,7 +92,7 @@ model StorageTankWithExternalHeatExchanger
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear divVal(
     redeclare package Medium = MediumHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_strokeTime=false,
     m_flow_nominal=dat.mHex_flow_nominal,
     dpValve_nominal=1000) "Diversion valve to reduce mixing in tank"
     annotation (Placement(transformation(extent={{30,-40},{10,-60}})));
