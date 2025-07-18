@@ -94,7 +94,7 @@ model SpaceCooling "Space cooling system"
     redeclare package Medium = MediumA,
     per=per)
     "Heat recovery with bypass damper"
-    annotation (Placement(transformation(extent={{-102,-40},{-80,-18}})));
+    annotation (Placement(transformation(extent={{-110,-40},{-88,-18}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
@@ -116,7 +116,7 @@ model SpaceCooling "Space cooling system"
     redeclare package Medium = MediumA,
     nPorts=2)
     "Outdoor"
-    annotation (Placement(transformation(extent={{-140,-32},{-120,-12}})));
+    annotation (Placement(transformation(extent={{-168,-32},{-148,-12}})));
   Buildings.Fluid.Sources.MassFlowSource_T souWat(
     nPorts=1,
     redeclare package Medium = MediumW,
@@ -192,7 +192,16 @@ model SpaceCooling "Space cooling system"
     reverseActing=false)
     "Room controller"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
-
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFraHXIn(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal)
+    "Humidity sensor for heat recovery inlet on supply side"
+    annotation (Placement(transformation(extent={{-138,-28},{-122,-12}})));
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFraHXOut(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal)
+    "Humidity sensor for heat recovery outlet on supply side"
+    annotation (Placement(transformation(extent={{-80,-28},{-64,-12}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -206,10 +215,6 @@ equation
       points={{60,-20},{69,-20},{69,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(out.ports[2],whe. port_a1) annotation (Line(
-      points={{-120,-21},{-116,-21},{-116,-20.42},{-102,-20.42}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(souWat.ports[1], cooCoi.port_a1)   annotation (Line(
       points={{0,-100},{20,-100},{20,-32},{-20,-32}},
       color={0,127,255},
@@ -219,7 +224,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, out.weaBus) annotation (Line(
-      points={{-140,50},{-128,50},{-128,4},{-148,4},{-148,-21.8},{-140,-21.8}},
+      points={{-140,50},{-134,50},{-134,4},{-172,4},{-172,-22},{-168,-22},{-168,
+          -21.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -264,17 +270,17 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(whe.port_b2, out.ports[1]) annotation (Line(
-      points={{-102,-37.8},{-116,-37.8},{-116,-23},{-120,-23}},
+      points={{-110,-37.8},{-144,-37.8},{-144,-23},{-148,-23}},
       color={0,127,255}));
   connect(opeSig.y, whe.uRot) annotation (Line(
-      points={{-138,-60},{-108,-60},{-108,-33.4},{-104.2,-33.4}},
+      points={{-138,-60},{-118,-60},{-118,-33.4},{-112.2,-33.4}},
       color={255,0,255}));
   connect(TMixSetPoi.y, conWhe.u_s)
     annotation (Line(points={{-78,20},{-60,20}}, color={0,0,127}));
   connect(senTemHXOut.T, conWhe.u_m) annotation (Line(points={{-56,-13.4},{-56,2},
           {-48,2},{-48,8}}, color={0,0,127}));
-  connect(conWhe.y, whe.uBypDamPos) annotation (Line(points={{-37,20},{-14,20},{
-          -14,-80},{-112,-80},{-112,-24.6},{-104.2,-24.6}}, color={0,0,127}));
+  connect(conWhe.y, whe.uBypDamPos) annotation (Line(points={{-37,20},{-12,20},{
+          -12,-80},{-122,-80},{-122,-24.6},{-112.2,-24.6}}, color={0,0,127}));
   connect(vol.ports[2], senTemRetAir.port_a)
     annotation (Line(points={{71,20},{71,-46},{54,-46}}, color={0,127,255}));
   connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-80,-112},{-80,-140},
@@ -283,10 +289,16 @@ equation
     annotation (Line(points={{-138,-100},{-92,-100}}, color={0,0,127}));
   connect(conRoo.y, souWat.m_flow_in) annotation (Line(points={{-69,-100},{-30,-100},
           {-30,-92},{-22,-92}}, color={0,0,127}));
-  connect(whe.port_a2, senTemRetAir.port_b) annotation (Line(points={{-80,-37.8},
+  connect(whe.port_a2, senTemRetAir.port_b) annotation (Line(points={{-88,-37.8},
           {-60,-37.8},{-60,-46},{42,-46}}, color={0,127,255}));
-  connect(whe.port_b1, senTemHXOut.port_a) annotation (Line(points={{-80,-20.2},
-          {-80,-20},{-62,-20}}, color={0,127,255}));
+  connect(senMasFraHXIn.port_a, out.ports[2]) annotation (Line(points={{-138,-20},
+          {-138,-21},{-148,-21}}, color={0,127,255}));
+  connect(senMasFraHXIn.port_b, whe.port_a1) annotation (Line(points={{-122,-20},
+          {-122,-20.42},{-110,-20.42}}, color={0,127,255}));
+  connect(whe.port_b1, senMasFraHXOut.port_a) annotation (Line(points={{-88,-20.2},
+          {-88,-20},{-80,-20}}, color={0,127,255}));
+  connect(senMasFraHXOut.port_b, senTemHXOut.port_a)
+    annotation (Line(points={{-64,-20},{-62,-20}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This block is identical to
