@@ -33,7 +33,7 @@ integral of the error function.
 <li>
 July 17, 2025, by Hongxiang Fu:<br/>
 Added an assert-statement for <code>err</code>
-and removed it from CI tests.<br/>
+and removed it from reference results.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
 </li>

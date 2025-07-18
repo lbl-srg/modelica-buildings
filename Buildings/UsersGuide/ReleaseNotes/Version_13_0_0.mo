@@ -55,7 +55,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.FiniteLineSource_Erfint
     </td>
     <td valign=\"top\">Added an assert-statement for <code>err</code>
-                       and removed it from CI tests.<br/>
+                       and removed it from reference results.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
     </td>
 </tr>
