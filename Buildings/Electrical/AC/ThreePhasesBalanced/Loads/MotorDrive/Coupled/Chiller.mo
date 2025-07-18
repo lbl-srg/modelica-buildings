@@ -303,6 +303,7 @@ annotation (defaultComponentName="chi",
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255})}),
     Documentation(info="<html>
 <p>This is a model of a squirrel cage induction motor coupled chiller with ideal speed control. The chiller operation is regulated such that TMea is able to reach the TSet. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions.</p>
+<p>Using the &apos;per&apos; parameter, the user can set desired equivalent motor that closely matches with the chiller&apos;s rating based on manufacturer datasheet.</p>
 </html>", revisions="<html>
 <ul>
 <li>

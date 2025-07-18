@@ -301,6 +301,7 @@ equation
         defaultComponentName="hea",
     Documentation(info="<html>
 <p>This is a model of a squirrel cage induction motor coupled heat pump with ideal speed control. The heatpump operation is regulated such that TMea is able to reach the TSet. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions. </p>
+<p><span style=\"font-family: Arial;\">Using the &apos;per&apos; parameter, the user can set desired equivalent motor that closely matches with the heatpump&apos;s rating based on manufacturer datasheet.</span></p>
 </html>", revisions="<html>
 <ul>
 <li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>Updated Implementation. </li>
