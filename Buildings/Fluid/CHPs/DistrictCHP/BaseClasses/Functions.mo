@@ -72,10 +72,10 @@ First implementation.
 
   algorithm
     if abs(TAmb -59) < abs(TAmb-77) then
-    // The zero ethalpy reference tempeature is set at 59°F
+    // The zero ethalpy reference tempeature is set at 59 degF
     y:= 1- (0.2443*TSta- 13.571)/(0.3003*TExh - 55.576);
     else
-    // The zero ethalpy reference tempeature is set at 77°F
+    // The zero ethalpy reference tempeature is set at 77 degF
     y:= 1- (0.2443*TSta -17.892)/(0.3003*TExh - 59.897);
     end if;
   annotation (Documentation(info="<html>
@@ -96,7 +96,7 @@ where <i>h<sub>exh</sub></i> is the exhaust gas specific enthalpy (in Btu/lb),
 <p>
 The specific enthalpy for both the exhaust gas and exhaust stack is estimated
 using a zero enthalpy reference temperature.
-When the reference temperature is set at 59 &degF;, the corresponding correlation
+When the reference temperature is set at 59 &deg;F, the corresponding correlation
 functions are:
 </p>
 <p align=\"center\">
@@ -108,7 +108,7 @@ h<sub>sta</sub> = 0.2443T<sub>sta</sub> - 13.571 [Btu/lb].
 </p>
 
 <p>
-When the reference temperature is set at 77 &degF;, the corresponding correlation
+When the reference temperature is set at 77 &deg;F, the corresponding correlation
 functions are:
 </p>
 <p align=\"center\">

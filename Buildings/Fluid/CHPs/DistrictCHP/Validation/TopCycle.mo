@@ -62,16 +62,16 @@ equation
   // Ambient temperature connection
   connect(TAmb.y, topCycTab60.TSet)
     annotation (Line(points={{-59,0},{-40,0},{-40,60},{60,60},{60,72},{66,72}},
-              color={0,0,127}));
+         color={0,0,127}));
   connect(topCycTab70.TSet, TAmb.y)
     annotation (Line(points={{66,32},{60,32},{60,20},{-40,20},{-40,0},{-59,0}},
-              color={0,0,127}));
+         color={0,0,127}));
   connect(topCycTab80.TSet, TAmb.y)
     annotation (Line(points={{66,-8},{60,-8},{60,-20},{-40,-20},{-40,0},{-59,0}},
-              color={0,0,127}));
+         color={0,0,127}));
   connect(topCycTab100.TSet, TAmb.y)
     annotation (Line(points={{66,-88},{60,-88},{60,-100},{-40,-100},{-40,0},{-59,0}},
-              color={0,0,127}));
+         color={0,0,127}));
   connect(TAmb.y, topCycTab90.TSet) annotation (Line(points={{-59,0},{-40,0},{
           -40,-60},{60,-60},{60,-48},{66,-48}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

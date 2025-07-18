@@ -38,10 +38,10 @@ model Combined "Combined-cycle CHP model"
     annotation (Placement(transformation(extent={{100,10},{140,50}}),
         iconTransformation(extent={{100,10},{140,50}})));
 
-  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab(redeclare
-      Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Centaur50_T6200S_NG
+  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab(
+    redeclare Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Centaur50_T6200S_NG
       per) "Top cycle"
-           annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium =MediumW)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"

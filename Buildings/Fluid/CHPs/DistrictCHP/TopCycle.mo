@@ -119,8 +119,7 @@ equation
   connect(eleCap_CorFac.y, eleCap.u)
     annotation (Line(points={{-39,70},{-22,70}},color={0,0,127}));
   connect(gasTurEff.y, groHea.u2) annotation (Line(points={{2,20},{40,20},{40,
-          34},{58,34}},
-                    color={0,0,127}));
+          34},{58,34}}, color={0,0,127}));
   connect(exhTemp.y, TExh)
     annotation (Line(points={{2,-30},{160,-30}}, color={0,0,127}));
   connect(exhMas.y, mExh_flow)
