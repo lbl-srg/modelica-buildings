@@ -194,12 +194,14 @@ model SpaceCooling "Space cooling system"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFraHXIn(
     redeclare package Medium = MediumA,
-    m_flow_nominal=mA_flow_nominal)
+    m_flow_nominal=mA_flow_nominal,
+    tau=10)
     "Humidity sensor for heat recovery inlet on supply side"
     annotation (Placement(transformation(extent={{-138,-28},{-122,-12}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFraHXOut(
     redeclare package Medium = MediumA,
-    m_flow_nominal=mA_flow_nominal)
+    m_flow_nominal=mA_flow_nominal,
+    tau=10)
     "Humidity sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-80,-28},{-64,-12}})));
 equation
