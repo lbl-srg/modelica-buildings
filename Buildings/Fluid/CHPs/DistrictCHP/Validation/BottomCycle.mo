@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.DistrictCHP.Validation;
-model BottomingCycle_AnnualSim "Model validation for the bottoming cycle subsystem"
+model BottomCycle
+  "Model validation for the bottoming cycle subsystem"
   extends Modelica.Icons.Example;
 
   // Medium declarations
@@ -90,7 +91,7 @@ model BottomingCycle_AnnualSim "Model validation for the bottoming cycle subsyst
   parameter Modelica.Units.SI.SpecificEnthalpy h_start=1e5
     "Start value of specific enthalpy for pump";
 
-  Buildings.Fluid.CHPs.DistrictCHP.BottomingCycle botCyc(
+  Buildings.Fluid.CHPs.DistrictCHP.BottomCycle botCyc(
     final a=a,
     final a_SteMas=a_SteMas,
     final TSta=TSta,
@@ -122,8 +123,7 @@ model BottomingCycle_AnnualSim "Model validation for the bottoming cycle subsyst
     steBoi(fixed_p_start=false))
     annotation (Placement(transformation(extent={{-10,-30},{10,-12}})));
 
-  Modelica.Blocks.Sources.Constant ambTemp(k=15)
-    "Ambient temperature in Celsius"
+  Modelica.Blocks.Sources.Constant ambTemp(k=15 + 273.15) "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -139,8 +139,7 @@ model BottomingCycle_AnnualSim "Model validation for the bottoming cycle subsyst
     T=523.15,
     nPorts=1) "Boundary condition"
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
-  Modelica.Blocks.Sources.Constant exhTem(k=750 - 273.15)
-    "Exhaust gas temperature in Celsius"
+  Modelica.Blocks.Sources.Constant exhTem(k=750) "Exhaust gas temperature"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
     amplitude=-178,
@@ -153,15 +152,15 @@ model BottomingCycle_AnnualSim "Model validation for the bottoming cycle subsyst
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
   connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-12,-15},{-30,-15},{
-          -30,30},{-59,30}},          color={0,0,127}));
+          -30,30},{-59,30}}, color={0,0,127}));
   connect(botCyc.port_a, sou.ports[1]) annotation (Line(points={{-10,-20},{-20,-20},
           {-20,-40},{-30,-40}}, color={0,127,255}));
   connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,-20},{20,-20},
           {20,-40},{30,-40}},color={0,127,255}));
   connect(botCyc.TExh, exhTem.y) annotation (Line(points={{-12,-12},{-20,-12},{-20,
-          70},{-59,70}},                        color={0,0,127}));
-  connect(trapezoid.y, botCyc.mExh) annotation (Line(points={{-59,-10},{-40,-10},
-          {-40,-18},{-12,-18}}, color={0,0,127}));
+          70},{-59,70}}, color={0,0,127}));
+  connect(trapezoid.y, botCyc.mExh_flow) annotation (Line(points={{-59,-10},{-40,
+          -10},{-40,-18},{-12,-18}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=false)),
@@ -198,8 +197,8 @@ compared to 3 hours with the TPL model.
 </html>
 "),
 experiment(
-  StopTime=31536000,
+  StopTime=3000,
   Tolerance=1E-6),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/DistrictCHP/Validation/BottomingCycle_AnnualSim.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/DistrictCHP/Validation/BottomCycle.mos"
    "Simulate and plot"));
-end BottomingCycle_AnnualSim;
+end BottomCycle;

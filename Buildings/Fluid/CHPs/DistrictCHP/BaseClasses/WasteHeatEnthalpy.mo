@@ -15,7 +15,7 @@ block WasteHeatEnthalpy
     displayUnit="degC")
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput wasEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput hWasHea(
     final unit="J/kg",
     final quantity="SpecificEnthalpy")
     "Waste heat specific enthalpy"
@@ -24,7 +24,7 @@ block WasteHeatEnthalpy
 equation
   //Waste heat specific enthalpy calculation
   // Avaeraged specific heat of exhaust is 1.08 kJ/(kg-K)
-    wasEnt = 1.08e3*(TExh-TAmb);
+  hWasHea = 1.08e3*(TExh - TAmb);
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

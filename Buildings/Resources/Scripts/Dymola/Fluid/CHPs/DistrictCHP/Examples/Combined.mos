@@ -1,37 +1,7 @@
-﻿simulateModel("Buildings.Fluid.CHPs.DistrictCHP.Examples.Combined", 
-    tolerance=1e-06,
-    stopTime=86400, 
-    method="dassl", 
-    resultFile="CombinedCycleCHP");
+﻿simulateModel("Buildings.Fluid.CHPs.DistrictCHP.Examples.Combined", tolerance=1e-06, stopTime=86400, method="dassl", resultFile="CombinedCycleCHP");
 // Plot commands
-createPlot(id=1, 
-    position={137, 31, 1677, 846}, 
-    y={"LoadProfile.y[1]"}, 
-    range={0.0, 90000.0, 0.4, 1.2}, 
-    erase=false, 
-    autoscale=false, 
-    grid=true, 
-    filename="CombinedCycleCHP.mat", 
-    legends={"Gas Turbine Part Load"}, 
-    subPlot=101, 
-    bottomTitleType=2, 
-    bottomTitle="Time [s]", 
-    colors={{28,108,200}}, 
-    timeUnit="s");
-createPlot(id=1, 
-    position={137, 31, 1677, 846}, 
-    y={"combinedCyclePowerPlant.PEle"}, 
-    range={0.0, 90000.0, 2000000.0, 4500000.0}, 
-    erase=false, 
-    grid=true, 
-    legends={"Gas Turbine Power"}, 
-    subPlot=201, 
-    leftTitleType=2, 
-    leftTitle="PEle [W]", 
-    bottomTitleType=2, 
-    bottomTitle="Time [s]", 
-    colors={{0,0,0}}, 
-    timeUnit="s");
-createPlot(id=1, position={137, 31, 1677, 846}, y={"AmbientTemperature.y[1]"}, range={0.0, 90000.0, 21.0, 26.0}, erase=false, grid=true, legends={"Ambient Temperature"}, subPlot=102, leftTitleType=2, leftTitle="TAmb [degC]", bottomTitleType=2, bottomTitle="Time [s]", colors={{238,46,47}}, rightTitleType=0, timeUnit="s");
-createPlot(id=1, position={137, 31, 1677, 846}, y={"combinedCyclePowerPlant.PEle_ST"}, range={0.0, 90000.0, 1400000.0, 2400000.0}, erase=false, grid=true, legends={"Steam Turbine Power"}, subPlot=202, leftTitleType=2, leftTitle="PEle_ST [W]", bottomTitleType=2, bottomTitle="Time [s]", colors={{162,29,33}}, timeUnit="s");
+createPlot(id=1, position={137, 31, 1677, 846}, y={"loa.y[1]"}, range={0.0, 90000.0, 0.4, 1.2}, erase=false, autoscale=false, grid=true, filename="CombinedCycleCHP.mat", subPlot=101, bottomTitleType=2, bottomTitle="Time [s]", colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={137, 31, 1677, 846}, y={"comCyc.PEle"}, range={0.0, 90000.0, 2000000.0, 4500000.0}, erase=false, grid=true, subPlot=201, leftTitleType=2, leftTitle="PEle [W]", bottomTitleType=2, bottomTitle="Time [s]", colors={{0,0,0}}, timeUnit="s");
+createPlot(id=1, position={137, 31, 1677, 846}, y={"ambTem.y[1]"}, range={0.0, 90000.0, 21.0, 26.0}, erase=false, grid=true, subPlot=102, leftTitleType=2, leftTitle="TAmb [degC]", bottomTitleType=2, bottomTitle="Time [s]", colors={{238,46,47}}, rightTitleType=0, timeUnit="s");
+createPlot(id=1, position={137, 31, 1677, 846}, y={"comCyc.PEle_ST"}, range={0.0, 90000.0, 1400000.0, 2400000.0}, erase=false, grid=true, subPlot=202, leftTitleType=2, leftTitle="PEle_ST [W]", bottomTitleType=2, bottomTitle="Time [s]", colors={{162,29,33}}, timeUnit="s");
 

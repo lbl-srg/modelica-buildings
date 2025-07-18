@@ -7,7 +7,7 @@ block HRSGEfficiency
     final unit="K",
     displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
-    "Exhaust stack temperature in Celsius";
+    "Exhaust stack temperature";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     displayUnit="degC",
@@ -28,11 +28,11 @@ block HRSGEfficiency
 
 protected
   Modelica.Units.NonSI.Temperature_degF TExh_degF
-   "Exhaust gas temperature in degree Fahrenheit";
+    "Exhaust gas temperature in degree Fahrenheit";
   Modelica.Units.NonSI.Temperature_degF TSta_degF
-   "Exhaust stack temperature in degree Fahrenheit";
-   Modelica.Units.NonSI.Temperature_degF TAmb_degF
-   "Ambient temperature in degree Fahrenheit";
+    "Exhaust stack temperature in degree Fahrenheit";
+  Modelica.Units.NonSI.Temperature_degF TAmb_degF
+    "Ambient temperature in degree Fahrenheit";
 
 algorithm
   TExh_degF := (TExh-273.15)*(9/5) +32;

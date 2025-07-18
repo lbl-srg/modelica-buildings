@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.DistrictCHP;
-model BottomingCycle "Bottoming cycle subsystem model"
+model BottomCycle "Bottoming cycle subsystem model"
   extends Modelica.Blocks.Icons.Block;
 
   // Medium declarations
@@ -19,7 +19,7 @@ model BottomingCycle "Bottoming cycle subsystem model"
     displayUnit="degC",
     final unit="K",
     final quantity = "ThermodynamicTemperature") = 138+273.15
-    "HRSG stack temperature in Celsius";
+    "HRSG stack temperature";
   parameter Modelica.Units.SI.Volume watLevSet=V*0.8
     "Water level setpoint in the steam volume";
 
@@ -74,7 +74,7 @@ model BottomingCycle "Bottoming cycle subsystem model"
     displayUnit="degC",
     final unit="K",
     final quantity = "ThermodynamicTemperature")=550+273.15
-    "Superheated steam temperature in Celsius used for "
+    "Superheated steam temperature"
     annotation (Dialog(group="RealExpression block",tab="Advanced"));
 
   // Assumptions tab
@@ -83,12 +83,10 @@ model BottomingCycle "Bottoming cycle subsystem model"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   //Dynamics tab for evaporator energy and mass balance
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
-    Modelica.Fluid.Types.Dynamics.FixedInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Evaporator dynamic balance"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=
-    Modelica.Fluid.Types.Dynamics.FixedInitial
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Evaporator dynamic balance"));
 
@@ -139,7 +137,8 @@ model BottomingCycle "Bottoming cycle subsystem model"
     final quantity = "ThermodynamicTemperature")
     "Exhaust temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(
+    final unit="kg/s")
     "Exhaust mass flow rate"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmb(
@@ -148,15 +147,17 @@ model BottomingCycle "Bottoming cycle subsystem model"
     final quantity = "ThermodynamicTemperature")
    "Ambient temperature"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_ST(
+    final quantity= "Power",
+    final unit = "W")
+    "Steam turbine electricity generation"
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+        iconTransformation(extent={{100,60},{140,100}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = MediumW)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  // Outputs
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_ST
-    "Steam turbine electricity generation"
-    annotation (Placement(transformation(extent={{100,60},{140,100}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium =MediumS)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
@@ -166,14 +167,14 @@ model BottomingCycle "Bottoming cycle subsystem model"
   Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HRSGSteam steHeaFlo(
     final TSta=TSta)
     "Superheated steam heat flow produced from HRSG"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.SteamTurbineGeneration powGen(
     final a=a)
     "Power generation from steam turbine"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HeatInput heaInp(
-    final a_SteMas = a_SteMas)
-    annotation (Placement(transformation(extent={{-40,-14},{-20,6}})));
+    final a_SteMas = a_SteMas) "Required heat input"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
   // PI controller to adjust the pump mass flow rate
   Buildings.Controls.OBC.CDL.Reals.PID conPID(
@@ -190,7 +191,7 @@ model BottomingCycle "Bottoming cycle subsystem model"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   // Feedwater pump
-  Modelica.Fluid.Machines.ControlledPump pump(
+  Modelica.Fluid.Machines.ControlledPump pum(
     redeclare package Medium = MediumW,
     final p_a_nominal=p_a_nominal,
     final p_b_nominal=p_b_nominal,
@@ -201,13 +202,13 @@ model BottomingCycle "Bottoming cycle subsystem model"
     final use_T_start=use_T_start,
     final T_start=T_start,
     final h_start=h_start,
-    use_m_flow_set=true)
+    final use_m_flow_set=true)
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
   // Evaporator
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation steBoi(
     redeclare package MediumWat = MediumW,
     redeclare package MediumSte = MediumS,
@@ -220,94 +221,101 @@ model BottomingCycle "Bottoming cycle subsystem model"
     final VWat_start=VWat_start,
     fixed_p_start=true,
     VWat_flow(start=VWat_flow_start))
-       "Dynamic volume"
+    "Dynamic volume"
     annotation (Placement(transformation(extent={{40,-70},{60,-90}})));
 
   // A group of RealExpression
   Modelica.Blocks.Sources.RealExpression fixSteEnt(
-    final y=steBoi.port_b.h_outflow)
+    final y=steBoi.port_b.h_outflow) "Steam enthalpy"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.RealExpression fixWatEnt(
-    final y=pump.port_b.h_outflow)
+    final y=pum.port_b.h_outflow)
+    "Water flow enthalpy"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.RealExpression pumNomFlo(
-    final y=pump.m_flow_nominal)
+    final y=m_flow_nominal)
     "Nominal mass flow rate for feedwater pump"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
-  Modelica.Blocks.Sources.RealExpression supSteTem(final y=TSte)
-    "Superheated steam temperature in Celsius"
+  Modelica.Blocks.Sources.RealExpression supSteTem(
+    final y=TSte)
+    "Superheated steam temperature"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.RealExpression watLev(final y=watLevSet)
+  Modelica.Blocks.Sources.RealExpression watLev(
+    final y=watLevSet)
     "Water level setpoint"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
  // Others
-  Modelica.Blocks.Math.Product product1
+  Modelica.Blocks.Math.Product masFlo
+    "Prescribed mass flow rate to the pump"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract heaAva "Available heat"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre
+    "Check if the available heat is greater than the required input"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert AssertHeatingDemand(
-    message= "The heating demand is larger than the available heat")
+  Buildings.Controls.OBC.CDL.Utilities.Assert heaDemAss(
+    final message="The heating demand is larger than the available heat")
+    "Check if the demand is larger than the avaiable heat"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   inner Modelica.Fluid.System system(
     T_ambient=288.15,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{70,-62},{90,-42}})));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
 equation
   connect(preHeaFlo.port, steBoi.heatPort)
-    annotation (Line(points={{40,10},{50,10},{50,-70}},   color={191,0,0}));
-  connect(gre.y, AssertHeatingDemand.u)
-    annotation (Line(points={{62,60},{68,60}},   color={255,0,255}));
-  connect(gre.u2, heaInp.QFlo) annotation (Line(points={{38,52},{36,52},{36,38},
-          {0,38},{0,0},{-18,0}},   color={0,0,127}));
-  connect(steHeaFlo.mExh, mExh) annotation (Line(points={{-42,66},{-60,66},{-60,
-          20},{-120,20}}, color={0,0,127}));
-  connect(heaInp.mExh, mExh) annotation (Line(points={{-42,0},{-60,0},{-60,20},{
-          -120,20}},  color={0,0,127}));
-  connect(fixSteEnt.y, heaInp.steEnt) annotation (Line(points={{-59,-30},{-50,-30},
-          {-50,-8},{-42,-8}},   color={0,0,127}));
-  connect(fixWatEnt.y, heaInp.watEnt) annotation (Line(points={{-59,-50},{-46,-50},
-          {-46,-12},{-42,-12}},    color={0,0,127}));
-  connect(steHeaFlo.TAmb, TAmb) annotation (Line(points={{-42,70},{-80,70},{-80,
+    annotation (Line(points={{40,-10},{50,-10},{50,-70}}, color={191,0,0}));
+  connect(gre.y, heaDemAss.u)
+    annotation (Line(points={{62,60},{68,60}}, color={255,0,255}));
+  connect(gre.u2, heaInp.Q_flow) annotation (Line(points={{38,52},{30,52},{30,14},
+          {-18,14}}, color={0,0,127}));
+  connect(steHeaFlo.mExh_flow, mExh_flow) annotation (Line(points={{-42,76},{-60,
+          76},{-60,20},{-120,20}}, color={0,0,127}));
+  connect(heaInp.mExh_flow, mExh_flow) annotation (Line(points={{-42,14},{-60,14},
+          {-60,20},{-120,20}}, color={0,0,127}));
+  connect(fixSteEnt.y, heaInp.HSte_flow) annotation (Line(points={{-59,-30},{-50,
+          -30},{-50,6},{-42,6}}, color={0,0,127}));
+  connect(fixWatEnt.y, heaInp.HWat_flow) annotation (Line(points={{-59,-50},{-46,
+          -50},{-46,2},{-42,2}}, color={0,0,127}));
+  connect(steHeaFlo.TAmb, TAmb) annotation (Line(points={{-42,80},{-70,80},{-70,
           50},{-120,50}}, color={0,0,127}));
-  connect(steHeaFlo.TExh, TExh) annotation (Line(points={{-42,74},{-70,74},{-70,
+  connect(steHeaFlo.TExh, TExh) annotation (Line(points={{-42,84},{-80,84},{-80,
           80},{-120,80}}, color={0,0,127}));
   connect(supSteTem.y, heaInp.TSte) annotation (Line(points={{-59,-10},{-54,-10},
-          {-54,-4},{-42,-4}}, color={0,0,127}));
-  connect(pumNomFlo.y, product1.u1)
-    annotation (Line(points={{-19,-34},{-2,-34}},color={0,0,127}));
-  connect(product1.y, pump.m_flow_set) annotation (Line(points={{21,-40},{30,-40},
-          {30,-60},{5,-60},{5,-71.8}}, color={0,0,127}));
-  connect(pump.port_b, steBoi.port_a)
-    annotation (Line(points={{20,-80},{40,-80}}, color={0,127,255}));
-  connect(pump.port_a, port_a)
-    annotation (Line(points={{0,-80},{-100,-80},{-100,0}}, color={0,127,255}));
+          {-54,10},{-42,10}}, color={0,0,127}));
+  connect(pumNomFlo.y, masFlo.u1)
+    annotation (Line(points={{-19,-34},{-2,-34}}, color={0,0,127}));
+  connect(masFlo.y, pum.m_flow_set) annotation (Line(points={{21,-40},{30,-40},{
+          30,-60},{5,-60},{5,-71.8}}, color={0,0,127}));
+  connect(pum.port_b, steBoi.port_a) annotation (Line(points={{20,-80},{40,-80}},
+         color={0,127,255}, thickness=0.5));
+  connect(pum.port_a, port_a) annotation (Line(points={{0,-80},{-90,-80},{-90,0},{-100,0}},
+         color={0,127,255}, thickness=0.5));
   connect(port_b, steBoi.port_b)
-    annotation (Line(points={{100,0},{100,-80},{60,-80}}, color={0,127,255}));
-  connect(preHeaFlo.Q_flow, heaInp.QFlo) annotation (Line(points={{20,10},{0,10},
-          {0,0},{-18,0}},     color={0,0,127}));
+    annotation (Line(points={{100,0},{90,0},{90,-80},{60,-80}}, color={0,127,255},
+         thickness=0.5));
+  connect(preHeaFlo.Q_flow, heaInp.Q_flow)
+    annotation (Line(points={{20,-10},{0,-10},{0,14},{-18,14}}, color={0,0,127}));
   connect(watLev.y, conPID.u_s) annotation (Line(points={{-59,-70},{-50,-70},{-50,
           -60},{-42,-60}}, color={0,0,127}));
-  connect(powGen.TExh, TExh) annotation (Line(points={{-42,34},{-70,34},{-70,80},
+  connect(powGen.TExh, TExh) annotation (Line(points={{-42,44},{-80,44},{-80,80},
           {-120,80}}, color={0,0,127}));
-  connect(powGen.mExh, mExh) annotation (Line(points={{-42,26},{-60,26},{-60,20},
-          {-120,20}}, color={0,0,127}));
-  connect(powGen.PEle_ST, PEle_ST) annotation (Line(points={{-18,30},{-10,30},{
-          -10,80},{120,80}}, color={0,0,127}));
-  connect(steHeaFlo.supSte, sub.u1) annotation (Line(points={{-18,70},{0,70},{0,
-          66},{8,66}},   color={0,0,127}));
-  connect(sub.u2, powGen.PEle_ST) annotation (Line(points={{8,54},{-10,54},{-10,
-          30},{-18,30}}, color={0,0,127}));
-  connect(sub.y, gre.u1)
-    annotation (Line(points={{32,60},{38,60}}, color={0,0,127}));
-  connect(heaInp.TExh, TExh) annotation (Line(points={{-42,4},{-70,4},{-70,80},{
-          -120,80}},  color={0,0,127}));
+  connect(powGen.mExh_flow, mExh_flow) annotation (Line(points={{-42,36},{-60,36},
+          {-60,20},{-120,20}}, color={0,0,127}));
+  connect(powGen.PEle_ST, PEle_ST) annotation (Line(points={{-18,40},{120,40}},
+          color={0,0,127}));
+  connect(steHeaFlo.QSupSte_flow, heaAva.u1) annotation (Line(points={{-18,80},{
+          -10,80},{-10,66},{-2,66}}, color={0,0,127}));
+  connect(heaAva.u2, powGen.PEle_ST) annotation (Line(points={{-2,54},{-10,54},{
+          -10,40},{-18,40}}, color={0,0,127}));
+  connect(heaAva.y, gre.u1)
+    annotation (Line(points={{22,60},{38,60}}, color={0,0,127}));
+  connect(heaInp.TExh, TExh) annotation (Line(points={{-42,18},{-80,18},{-80,80},
+          {-120,80}}, color={0,0,127}));
   connect(steBoi.VLiq, conPID.u_m) annotation (Line(points={{61,-87},{64,-87},{64,
           -98},{-30,-98},{-30,-72}},color={0,0,127}));
-  connect(conPID.y, product1.u2) annotation (Line(points={{-18,-60},{-10,-60},{-10,
+  connect(conPID.y, masFlo.u2) annotation (Line(points={{-18,-60},{-10,-60},{-10,
           -46},{-2,-46}}, color={0,0,127}));
 annotation (
   defaultComponentName="botCyc",
@@ -347,21 +355,28 @@ and <i>P<sub>STG</sub></i> means the electric power production of the steam turb
 <p>
 In the model, there are base-class models used to handle this energy balance equation.
 </p>
-<p>
-- <code>BaseClasses.HeatInput</code> determines the value of
+<ul>
+<li>
+<a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HeatInput\">
+Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HeatInput</a>
+determines the value of
 <i>Q&#775;<sub>steam,sat</sub> - Q&#775;<sub>water</sub></i>.
-</p>
-<p>
-- <code>BaseClasses.HRSGSteam</code> calculates the value of
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HRSGSteam\">
+Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HRSGSteam</a>
+calculates the value of
 <i>Q&#775;<sub>exhaust</sub> - Q&#775;<sub>exhaust,loss</sub></i>.
-</p>
-<p>
-- <code>BaseClasses.SteamTurbineGeneration</code> calculates the value of
-<i>P<sub>STG</sub></i>. 
-</p>
-<p>
-- There is no need to calculate the value of <i>Q&#775;<sub>steam,loss</sub></i>; 
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.SteamTurbineGeneration\">
+Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.SteamTurbineGeneration</a>
+calculates the value of <i>P<sub>STG</sub></i>. 
+</li>
+<li>
+There is no need to calculate the value of <i>Q&#775;<sub>steam,loss</sub></i>; 
 instead, a constraint is applied to ensure that this value is not negative.
-</p>      
+</li>      
+</ul>
 </html>"));
-end BottomingCycle;
+end BottomCycle;

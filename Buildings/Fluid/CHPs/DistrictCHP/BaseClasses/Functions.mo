@@ -3,8 +3,7 @@ package Functions "This package contains functions for used in the blocks."
     extends Modelica.Icons.VariantsPackage;
 
   function SteamToExhaustMassFlowRatio
-    "Correlation function used to calculate
-   the ratio of steam to exhaust gas flow rates"
+    "Correlation function used to calculate the ratio of steam to exhaust gas flow rates"
     extends Modelica.Icons.Function;
 
     input Modelica.Units.NonSI.Temperature_degF TExh
@@ -30,8 +29,7 @@ y = a<sub>1</sub> + a<sub>2</sub> (T<sub>exh</sub> &frasl; 100 -11) - a<sub>3</s
 </i>
 </p>
 <p>
-where
-<i>T<sub>exh</sub></i> is the exhaust gas temperature (in Fahrenheit) from the
+where <i>T<sub>exh</sub></i> is the exhaust gas temperature (in Fahrenheit) from the
 gas turbine in the topping cycle,
 <i>T<sub>ste</sub></i> is the superheated steam temperature (in Fahrenheit) in
 the outlet of HRSG. 
@@ -64,11 +62,11 @@ First implementation.
     extends Modelica.Icons.Function;
 
     input Modelica.Units.NonSI.Temperature_degF TExh
-      "Exhaust gas temperature";
+      "Exhaust gas temperature in degrees Fahrenheit";
     input Modelica.Units.NonSI.Temperature_degF TSta
-      "Exhaust stack temperature";
+      "Exhaust stack temperature in degrees Fahrenheit";
     input Modelica.Units.NonSI.Temperature_degF TAmb
-      "Ambient temperature";
+      "Ambient temperature in degrees Fahrenheit";
     output Real y
       "Calculated HRSG effectiveness";
 

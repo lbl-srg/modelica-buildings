@@ -14,17 +14,17 @@ block HRSGSteam "Superheated steam heat flow from HRSG"
     displayUnit="degC")
     "Gas turbine exhaust gas temperature"
      annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh(
-    final unit= "kg/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(
+    final unit="kg/s")
     "Gas turbine exhaust gas mass flow rate"
-     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmb(
     final quantity="ThermodynamicTemperature",
     final unit = "K",
     displayUnit="degC")
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput supSte(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QSupSte_flow(
     final quantity="Power",
     final unit="W")
     "Superheated steam heat flow"
@@ -42,28 +42,27 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Multiply heaRec
     "Heat generation within the engine"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply supSte1
-    "Superheated steam energy "
+  Buildings.Controls.OBC.CDL.Reals.Multiply supSte "Superheated steam energy "
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
 equation
-  connect(heaRec.y, supSte1.u2) annotation (Line(points={{12,-20},{20,-20},{20,
-          -6},{28,-6}}, color={0,0,127}));
+  connect(heaRec.y, supSte.u2) annotation (Line(points={{12,-20},{20,-20},{20,-6},
+          {28,-6}}, color={0,0,127}));
   connect(heaExcEff.TExh, TExh)
     annotation (Line(points={{-62,44},{-80,44},{-80,40},{-120,40}}, color={0,0,127}));
   connect(wasEnt.TExh, TExh) annotation (Line(points={{-62,4},{-80,4},{-80,40},{
-          -120,40}},      color={0,0,127}));
-  connect(mExh, heaRec.u2) annotation (Line(points={{-120,-40},{-20,-40},{
-          -20,-26},{-12,-26}}, color={0,0,127}));
-  connect(heaExcEff.eta_HRSG, supSte1.u1)
+          -120,40}}, color={0,0,127}));
+  connect(mExh_flow, heaRec.u2) annotation (Line(points={{-120,-40},{-20,-40},{-20,
+          -26},{-12,-26}}, color={0,0,127}));
+  connect(heaExcEff.eta_HRSG, supSte.u1)
     annotation (Line(points={{-38,40},{0,40},{0,6},{28,6}}, color={0,0,127}));
   connect(heaExcEff.TAmb, TAmb) annotation (Line(points={{-62,36},{-72,36},{-72,
-          0},{-120,0}},   color={0,0,127}));
+          0},{-120,0}}, color={0,0,127}));
   connect(wasEnt.TAmb, TAmb) annotation (Line(points={{-62,-4},{-72,-4},{-72,0},
-          {-120,0}},  color={0,0,127}));
-  connect(heaRec.u1, wasEnt.wasEnt) annotation (Line(points={{-12,-14},{-20,-14},
+          {-120,0}}, color={0,0,127}));
+  connect(heaRec.u1, wasEnt.hWasHea) annotation (Line(points={{-12,-14},{-20,-14},
           {-20,0},{-38,0}}, color={0,0,127}));
-  connect(supSte1.y, supSte)
+  connect(supSte.y, QSupSte_flow)
     annotation (Line(points={{52,0},{120,0}}, color={0,0,127}));
 
 annotation (defaultComponentName="supSteaHea",

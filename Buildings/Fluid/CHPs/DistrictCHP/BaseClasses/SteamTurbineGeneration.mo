@@ -12,7 +12,7 @@ block SteamTurbineGeneration
     "Exhaust gas temperature inlet temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(
     final unit="kg/s",
     final quantity="MassFlowRate")
     "Exhaust mass flow rate"
@@ -26,20 +26,20 @@ block SteamTurbineGeneration
 
 protected
   Modelica.Units.NonSI.Temperature_degF TExh_degF
-   "Exhaust gas temperature in degree Fahrenheit";
+    "Exhaust gas temperature in degree Fahrenheit";
   Real aExh
-    "Exhaust gas specific exergy (J/kg)";
+     "Exhaust gas specific exergy (J/kg)";
 
 algorithm
   TExh_degF := (TExh-273.15)*(9/5) +32;
   aExh := Functions.ExhaustSpecificExergy(TExh=TExh_degF)/0.0004299226
     "Convert the unit from Btu/lb to J/kg (1J/kg=0.000429923 Btu/Ib)";
 
-  PEle_ST := mExh*aExh*Functions.ExhaustExergyEfficiency(a=a,TExh=TExh_degF)
+  PEle_ST :=mExh_flow*aExh*Functions.ExhaustExergyEfficiency(a=a, TExh=TExh_degF)
     "Steam turbine electricity is obtained by the exhaust exergy times exergy efficiency";
 
 annotation (defaultComponentName="steTurGen",
-  Icon(graphics={  Rectangle(
+  Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,

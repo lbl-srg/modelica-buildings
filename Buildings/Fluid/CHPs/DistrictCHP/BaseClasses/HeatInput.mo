@@ -1,9 +1,9 @@
 within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
-block HeatInput "This is a calculator for the required heat input"
+block HeatInput "Required heat input"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real a_SteMas[:]={0.153, 0.018, 0.002}
-  "Coefficients for the function relating the ratio of the steam flow rate to the exhaust flow rate";
+    "Coefficients for the function relating the ratio of the steam flow rate to the exhaust flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     displayUnit="degC",
@@ -11,7 +11,7 @@ block HeatInput "This is a calculator for the required heat input"
     final quantity= "ThermodynamicTemperature")
     "Exhaust gas temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(
     final quantity="MassFlowRate",
     final unit="kg/s")
     "Exhaust mass flow rate"
@@ -22,29 +22,30 @@ block HeatInput "This is a calculator for the required heat input"
     final quantity= "ThermodynamicTemperature")
     "Steam temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput steEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput HSte_flow(
     final quantity="Energy",
     final unit="J")
     "Fixed steam enthalpy"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput watEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput HWat_flow(
     final quantity="Energy",
     final unit="J")
-    "fixed water enthalpy"
+    "Fixed water enthalpy"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFlo
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow
     "Heat input"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mSte(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mSte_flow(
     final quantity="MassFlowRate",
     final unit="kg/s")
     "Calculated steam mass flow rate"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract entDif "Enthalpy difference"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  SteamToExhaustMassFlowRatio ratSteMasToExhMas(
-   final a_SteMas=a_SteMas)
+  Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.SteamToExhaustMassFlowRatio ratSteToExh(
+    final a_SteMas=a_SteMas)
+    "Steam to exhaust mass flow rate ratio"
     annotation (Placement(transformation(extent={{-60,66},{-40,86}})));
 
 protected
@@ -56,27 +57,27 @@ protected
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
 equation
-  connect(TSte, ratSteMasToExhMas.TSte) annotation (Line(points={{-120,0},{-80,
-          0},{-80,72},{-62,72}}, color={0,0,127}));
-  connect(heaInp.y, QFlo)
+  connect(TSte, ratSteToExh.TSte) annotation (Line(points={{-120,0},{-80,0},{-80,
+          72},{-62,72}}, color={0,0,127}));
+  connect(heaInp.y, Q_flow)
     annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
   connect(masSte.y, heaInp.u1) annotation (Line(points={{22,60},{30,60},{30,46},
           {58,46}},     color={0,0,127}));
-  connect(sub.y, heaInp.u2) annotation (Line(points={{-18,-60},{40,-60},{40,34},
-          {58,34}},     color={0,0,127}));
-  connect(mExh, masSte.u2) annotation (Line(points={{-120,40},{-20,40},{-20,54},
-          {-2,54}},      color={0,0,127}));
-  connect(steEnt, sub.u1) annotation (Line(points={{-120,-40},{-60,-40},{-60,
-          -54},{-42,-54}},     color={0,0,127}));
-  connect(watEnt, sub.u2) annotation (Line(points={{-120,-80},{-60,-80},{-60,
-          -66},{-42,-66}},     color={0,0,127}));
-  connect(ratSteMasToExhMas.mu, masSte.u1) annotation (Line(points={{-38,76},{-20,
-          76},{-20,66},{-2,66}},  color={0,0,127}));
-  connect(masSte.y,mSte)
-    annotation (Line(points={{22,60},{30,60},{30,-40},{120,-40}}, color={0,0,127}));
-  connect(mSte,mSte)
+  connect(entDif.y, heaInp.u2) annotation (Line(points={{-18,-60},{40,-60},{40,34},
+          {58,34}}, color={0,0,127}));
+  connect(mExh_flow, masSte.u2) annotation (Line(points={{-120,40},{-20,40},{-20,
+          54},{-2,54}}, color={0,0,127}));
+  connect(HSte_flow, entDif.u1) annotation (Line(points={{-120,-40},{-60,-40},{-60,
+          -54},{-42,-54}}, color={0,0,127}));
+  connect(HWat_flow, entDif.u2) annotation (Line(points={{-120,-80},{-60,-80},{-60,
+          -66},{-42,-66}}, color={0,0,127}));
+  connect(ratSteToExh.mu, masSte.u1) annotation (Line(points={{-38,76},{-20,76},
+          {-20,66},{-2,66}}, color={0,0,127}));
+  connect(masSte.y, mSte_flow) annotation (Line(points={{22,60},{30,60},{30,-40},
+          {120,-40}}, color={0,0,127}));
+  connect(mSte_flow, mSte_flow)
     annotation (Line(points={{120,-40},{120,-40}}, color={0,0,127}));
-  connect(ratSteMasToExhMas.TExh, TExh)
+  connect(ratSteToExh.TExh, TExh)
     annotation (Line(points={{-62,80},{-120,80}}, color={0,0,127}));
 
 annotation (defaultComponentName="reqHeaInp",

@@ -25,9 +25,9 @@ block SteamToExhaustMassFlowRatio
 
 protected
   Modelica.Units.NonSI.Temperature_degF TExh_degF
-   "Exhaust gas temperature in degree Fahrenheit";
+    "Exhaust gas temperature in degree Fahrenheit";
   Modelica.Units.NonSI.Temperature_degF TSte_degF
-   "Superheated steam temperature in degree Fahrenheit";
+    "Superheated steam temperature in degree Fahrenheit";
 
 algorithm
   TExh_degF := (TExh-273.15)*(9/5) +32;
