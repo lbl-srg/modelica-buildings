@@ -14,14 +14,13 @@ model Pump "This example shows how to use the motor coupled pump model"
     addPowerToMedium=true,
     redeclare
       Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-      per1,
+      motPer,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = MediumW,
     redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
     k=0.0012,
-    Ti=0.63)
-           "Pump"
+    Ti=0.63) "Pump"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(f=50, V=400)
@@ -49,7 +48,7 @@ model Pump "This example shows how to use the motor coupled pump model"
 equation
   connect(gri.terminal, pum.terminal) annotation (Line(points={{10,60},{10,30}},
           color={0,120,120}));
-  connect(step.y, pum.setPoi) annotation (Line(points={{-59,70},{-6,70},{-6,
+  connect(step.y, pum.m_flow_set) annotation (Line(points={{-59,70},{-6,70},{-6,
           27.7778},{-1,27.7778}}, color={0,0,127}));
   connect(dp1.port_b, pum.port_a) annotation (Line(points={{-20,20},{-18,20},{
           -18,18.8889},{0,18.8889}}, color={0,127,255}));
@@ -61,7 +60,7 @@ equation
           {64,-40},{0,-40}}, color={0,127,255}));
   connect(senMasFlo.port_b, sou.ports[2]) annotation (Line(points={{-20,-40},{
           -50,-40},{-50,21},{-80,21}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, pum.meaPoi) annotation (Line(points={{-10,-29},{-10,
+  connect(senMasFlo.m_flow,pum.m_flow)  annotation (Line(points={{-10,-29},{-10,
           23.3333},{-1,23.3333}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"

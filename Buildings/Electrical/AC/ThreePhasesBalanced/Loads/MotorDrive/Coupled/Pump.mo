@@ -16,8 +16,9 @@ model Pump "Motor coupled chiller"
 
   //Motor parameters
   replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    per1 constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    "Record of Induction Machine with performance data"
+    motPer constrainedby
+    Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
+    "Record of induction machine with performance data"
     annotation (Dialog(tab="Motor"), choicesAllMatching=true, Placement(transformation(extent={{52,60},{72,80}})));
   parameter Boolean have_controller = true
     "Set to true for enableing motor PID control"
@@ -50,7 +51,8 @@ model Pump "Motor coupled chiller"
   parameter Modelica.Units.SI.Inertia loaIne=1 "Pump inertia"
     annotation (Dialog(group="Motor"));
   parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
-    "Nominal rotational speed of pump" annotation (Dialog(group="Motor"));
+    "Nominal rotational speed of pump"
+    annotation (Dialog(group="Motor"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics", group="Conservation equations"));
@@ -69,9 +71,11 @@ model Pump "Motor coupled chiller"
   parameter Real y_start=0 "Initial value of speed"
     annotation (Dialog(tab="Dynamics", group="Motor speed"));
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_start=Medium.p_default
-    "Start value of pressure" annotation (Dialog(tab="Initialization"));
+    "Start value of pressure"
+    annotation (Dialog(tab="Initialization"));
   parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
-    "Start value of temperature" annotation (Dialog(tab="Initialization"));
+    "Start value of temperature"
+    annotation (Dialog(tab="Initialization"));
   parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=
       Medium.X_default "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization"));
@@ -85,6 +89,19 @@ model Pump "Motor coupled chiller"
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow_set(unit="kg/s")
+    "Set point of mass flow rate" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,80}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,80})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow(unit="kg/s")
+    "Measured mass flow rate"
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
     redeclare final package Medium = Medium,
@@ -107,24 +124,14 @@ model Pump "Motor coupled chiller"
     "Mechanical pump with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of mass flow rate"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,80}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,80})));
-  Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of mass flow rate"
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-10,-78},{10,-58}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
-    final per=per1,
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
+    motDri(
+    final per=motPer,
     final reverseActing=true,
     final controllerType=controllerType,
     final k=k,
@@ -147,20 +154,20 @@ equation
           color={0,127,255}));
   connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-20},
           {0,-68},{0,-68}}, color={191,0,0}));
-  connect(motDri.setPoi, setPoi) annotation (Line(points={{-42,58},{-60,58},{
-          -60,80},{-110,80}}, color={0,0,127}));
-  connect(motDri.mea, meaPoi) annotation (Line(points={{-42,50},{-110,50}},
-                          color={0,0,127}));
+  connect(motDri.setPoi, m_flow_set) annotation (Line(points={{-42,58},{-80,58},
+          {-80,80},{-120,80}}, color={0,0,127}));
+  connect(motDri.mea,m_flow)  annotation (Line(points={{-42,50},{-120,50}},
+          color={0,0,127}));
   connect(motDri.tau_m, loaTor.y) annotation (Line(points={{-42,42},{-60,42},{
           -60,20},{-41,20}},  color={0,0,127}));
   connect(motDri.terminal, terminal) annotation (Line(points={{-30,60},{-30,80},
           {0,80},{0,100}}, color={0,120,120}));
   connect(motDri.shaft, pum.shaft)
     annotation (Line(points={{-20,50},{0,50},{0,10}}, color={0,0,0}));
-  connect(port_a, port_a) annotation (Line(
-      points={{-100,0},{-100,0}},
+  connect(port_a, port_a) annotation (Line(points={{-100,0},{-100,0}},
       color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+  annotation (defaultComponentName="pum",
+  Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-80},{100,100}}),  graphics={
         Rectangle(
           extent={{-100,16},{100,-16}},
@@ -204,25 +211,54 @@ equation
         Text(extent={{66,84},{116,70}},
           textColor={0,0,127},
           textString="Q"),
-        Text(extent={{-140,108},{-90,94}},
+        Text(extent={{-126,106},{-76,92}},
           textColor={0,0,127},
-          textString="set_point"),
-        Text(extent={{-140,72},{-60,44}},
+          textString="m_flow_set"),
+        Text(extent={{-140,66},{-82,52}},
           textColor={0,0,127},
-          textString="measure_value")}),
-        defaultComponentName="pum",
-    Documentation(info="<html>
-<p>This is a model of a squirrel cage induction motor coupled pump with ideal speed control. The chiller operation is regulated such that meaPoi is able to reach the setPoi. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions. </p>
-<p>The model can be customized by selecting the follwoing parameters:</p>
-<p>&apos;per&apos; - Record of pump with performance data</p>
-<p>&apos;per1&apos; - Record of induction motor parameters</p>
-<p>&apos;per1&apos; needs to be selected such that rating of induction motor<b> slightly greater or equal</b> to the pump rating in the manufacturer datasheet</p>
-<p>&apos;riseTime&apos; in the dynamics helps to set the response of the fluid by regulating the motor speed to meet the prescribed mass flow. To get the desired equipment response along with &apos;riseTime&apos; the gains of the controller also needs to be tuned.</p>
+          textString="m_flow")}),
+Documentation(info="<html>
+<p>
+This is a model of a squirrel cage induction motor coupled pump with ideal speed
+control. The chiller operation is regulated such that mass flow rate is able to reach
+its setpoint. The model has electrical interfaces and can be used for simulating
+microgrids and discussing grid interactions.
+</p>
+<p>
+The model can be customized by selecting the follwoing parameters:
+</p>
+<ul>
+<li>
+<code>per</code>: record of pump with performance data
+</li>
+<li>
+<code>motPer</code>: record of induction motor parameters
+</li>
+<li>
+<code>motPer</code> needs to be selected such that rating of induction motor is
+slightly greater or equal to the pump rating in the manufacturer datasheet.
+</li>
+<li>
+<code>riseTime</code> in the dynamics helps to set the response of the fluid by
+regulating the motor speed to meet the prescribed mass flow. To get the desired
+equipment response along with <code>riseTime</code> the gains of the controller
+also needs to be tuned.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
-<li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>Updated Implementation. </li>
-<li>September 15, 2021, by Mingzhe Liu:<br>Refactored implementation to add mechanical interface and integrate inertia. </li>
-<li>March 6, 2019, by Yangyang Fu:<br>First implementation. </li>
+<li>
+May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
+Updated Implementation.
+</li>
+<li>
+September 15, 2021, by Mingzhe Liu:<br/>
+Refactored implementation to add mechanical interface and integrate inertia.
+</li>
+<li>
+March 6, 2019, by Yangyang Fu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-80},{100,100}})));
