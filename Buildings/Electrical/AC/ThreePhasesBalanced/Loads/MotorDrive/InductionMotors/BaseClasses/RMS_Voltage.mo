@@ -14,5 +14,13 @@ This function contains script to compute RMS voltage for the model
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
+First Implementation.
+</li>
+</ul>
 </html>"));
 end RMS_Voltage;
+

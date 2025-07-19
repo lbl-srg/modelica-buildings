@@ -2,22 +2,22 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 model SpeedBlock "Calculate speed and slip using electromagnetic torque, load torque and frequency"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real J( start=0.0131, fixed=true);
-  parameter Integer P( start=4, fixed=true);
+  parameter Real J( start=0.0131, fixed=true) "Moment of Inertia";
+  parameter Integer P( start=4, fixed=true) "Number of poles";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_e
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_e "Electromagnetic torque"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_m
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_m "Mechanical torque"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput omega
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput omega "Electrical angular frequency"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput omega_r
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput omega_r "Rotor angular frequency"
     annotation (Placement(transformation(extent={{100,50},{140,90}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput N
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput N "Rotor speed"
     annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput omega_r1
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput omega_r1 "Rotor angular frequency"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -60,5 +60,12 @@ This block computes the rotor speed for the models in
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
+First Implementation.
+</li>
+</ul>
 </html>"));
 end SpeedBlock;

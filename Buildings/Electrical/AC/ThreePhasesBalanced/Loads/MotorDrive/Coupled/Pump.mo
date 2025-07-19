@@ -107,7 +107,7 @@ model Pump "Motor coupled chiller"
     "Mechanical pump with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
+  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of mass flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -115,7 +115,7 @@ model Pump "Motor coupled chiller"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80})));
-  Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of control target"
+  Modelica.Blocks.Interfaces.RealInput meaPoi "Measured value of mass flow rate"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
@@ -212,11 +212,12 @@ equation
           textString="measure_value")}),
         defaultComponentName="pum",
     Documentation(info="<html>
-<p>
-This is a model of a squirrel cage induction motor coupled pump with ideal 
-speed control. The model has electrical interfaces and can be used for 
-simulating microgrids and discussing grid interactions.
-</p>
+<p>This is a model of a squirrel cage induction motor coupled pump with ideal speed control. The chiller operation is regulated such that meaPoi is able to reach the setPoi. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions. </p>
+<p>The model can be customized by selecting the follwoing parameters:</p>
+<p>&apos;per&apos; - Record of pump with performance data</p>
+<p>&apos;per1&apos; - Record of induction motor parameters</p>
+<p>&apos;per1&apos; needs to be selected such that rating of induction motor<b> slightly greater or equal</b> to the pump rating in the manufacturer datasheet</p>
+<p>&apos;riseTime&apos; in the dynamics helps to set the response of the fluid by regulating the motor speed to meet the prescribed mass flow. To get the desired equipment response along with &apos;riseTime&apos; the gains of the controller also needs to be tuned.</p>
 </html>", revisions="<html>
 <ul>
 <li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>Updated Implementation. </li>

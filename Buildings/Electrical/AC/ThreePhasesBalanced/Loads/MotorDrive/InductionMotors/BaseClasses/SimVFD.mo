@@ -6,20 +6,20 @@ block SimVFD "Simple VFD maintaing constant V/F ratio"
   parameter Integer p(start=4,fixed) " Number of Pole pairs ";
   parameter Real N_s( start=1500,fixed) "Synchronous Speed in RPM";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput N_ref
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput N_ref "Reference speed"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_in
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_in "Input voltage"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput Freq
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput Freq "Nominal frequency"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput V_out
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput V_out "Output voltage"
     annotation (Placement(transformation(extent={{100,-58},{136,-22}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Freq_out
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Freq_out "Output frequency"
     annotation (Placement(transformation(extent={{100,22},{136,58}})));
 
-  Modelica.Blocks.Math.Gain Equivalent_Freq(k=p/(120))
+  Modelica.Blocks.Math.Gain Equivalent_Freq(k=p/(120)) "Equivalent frequency"
     annotation (Placement(transformation(extent={{-64,50},{-44,70}})));
-  Modelica.Blocks.Math.Division VFD_Ratio
+  Modelica.Blocks.Math.Division VFD_Ratio "VFD ratio"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=N_s*p/120)
     annotation (Placement(transformation(extent={{-60,8},{-40,30}})));
@@ -60,5 +60,12 @@ This block computes the VFD by maintaining constant ratio for the models in
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
+First Implementation.
+</li>
+</ul>
 </html>"));
 end SimVFD;

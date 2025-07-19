@@ -1,33 +1,33 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model MotorModel "Induction Machine Model"
-  parameter Modelica.Units.SI.Reactance Lr;
-  parameter Modelica.Units.SI.Reactance Ls;
-  parameter Modelica.Units.SI.Resistance Rr;
-  parameter Modelica.Units.SI.Reactance Lm;
-  parameter Modelica.Units.SI.Reactance Rs;
+  parameter Modelica.Units.SI.Reactance Lr "Rotor Inductance";
+  parameter Modelica.Units.SI.Reactance Ls "Stator Inductance";
+  parameter Modelica.Units.SI.Resistance Rr "Rotor Resistance";
+  parameter Modelica.Units.SI.Reactance Lm "Mutual Inductance";
+  parameter Modelica.Units.SI.Reactance Rs "Stator Resistance";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput v_ds
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput v_ds "D-axis stator voltage"
     annotation (Placement(transformation(extent={{-180,50},{-140,90}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput v_qs
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput v_qs "Q-axis stator voltage"
     annotation (Placement(transformation(extent={{-180,90},{-140,130}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput omega
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput omega "Fundamental frequency"
     annotation (Placement(transformation(extent={{-180,10},{-140,50}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput omega_r
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput omega_r "Rotor frequency"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_qs
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_qs "Q-axis stator current"
     annotation (Placement(transformation(extent={{140,70},{180,110}}),
         iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_ds
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_ds "D-axis stator current"
     annotation (Placement(transformation(extent={{140,30},{180,70}}),
         iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_qr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_qr "Q-axis rotor current"
     annotation (Placement(transformation(extent={{140,-60},{180,-20}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_dr
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_dr "D-axis rotor current"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
@@ -175,3 +175,4 @@ Induction Machine Model
 </p>
 </html>"));
 end MotorModel;
+
