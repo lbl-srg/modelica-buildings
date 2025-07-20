@@ -2,13 +2,13 @@ within Buildings.Fluid.CHPs.DistrictCHP;
 model BottomCycle "Bottoming cycle subsystem model"
   extends Modelica.Blocks.Icons.Block;
 
-  // Medium declarations
+// Medium declarations
   package MediumS = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
   package MediumW = Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
-  // Parameters for the calculation blocks
+// Parameters for the calculation blocks
   parameter Real a[:]={-0.23380344533,0.220477944738,-0.01476897980}
     "Coefficients for bottoming cycle exergy efficiency function"
     annotation (Dialog(group="Coefficients for functions"));
@@ -23,7 +23,7 @@ model BottomCycle "Bottoming cycle subsystem model"
   parameter Modelica.Units.SI.Volume watLevSet=V*0.8
     "Water level setpoint in the steam volume";
 
-  // Advanced tab: parameters for the fluid systems
+// Advanced tab: parameters for the fluid systems
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=55
     "Nominal mass flow rate in fluid ports"
     annotation (Dialog(group="Fluid systems"));
@@ -39,7 +39,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Total volume of evaporator"
     annotation (Dialog(group="Evaporator"));
 
-  // Advanced tab: parameters for PI controller
+// Advanced tab: parameters for PI controller
   parameter Controls.OBC.CDL.Types.SimpleController pumCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Pump controller", tab="Advanced"));
@@ -77,12 +77,12 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Superheated steam temperature"
     annotation (Dialog(group="RealExpression block",tab="Advanced"));
 
-  // Assumptions tab
+// Assumptions tab
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  //Dynamics tab for evaporator energy and mass balance
+//Dynamics tab for evaporator energy and mass balance
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Evaporator dynamic balance"));
@@ -90,7 +90,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Evaporator dynamic balance"));
 
-  // Initialization tab
+// Initialization tab
   parameter Modelica.Units.SI.AbsolutePressure p_start(
     displayUnit="Pa") = 3000000
     "Start value of pressure"
@@ -130,7 +130,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Start value of specific enthalpy for pump"
     annotation (Dialog(tab="Initialization", group="Feedwater pump"));
 
-  // Inputs
+// Inputs
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     displayUnit="degC",
     final unit="K",
@@ -140,7 +140,7 @@ model BottomCycle "Bottoming cycle subsystem model"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(
     final unit="kg/s")
     "Exhaust mass flow rate"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent = {{-140, 0}, {-100, 40}}), iconTransformation(extent = {{-140, 0}, {-100, 40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmb(
     displayUnit="degC",
     final unit="K",
@@ -163,7 +163,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
-  // Calculation blocks
+// Calculation blocks
   Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HRSGSteam steHeaFlo(
     final TSta=TSta)
     "Superheated steam heat flow produced from HRSG"
@@ -176,7 +176,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     final a_SteMas = a_SteMas) "Required heat input"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  // PI controller to adjust the pump mass flow rate
+// PI controller to adjust the pump mass flow rate
   Buildings.Controls.OBC.CDL.Reals.PID conPID(
     final Td=Td,
     final k=k,
@@ -190,7 +190,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Pump speed controller"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
-  // Feedwater pump
+// Feedwater pump
   Modelica.Fluid.Machines.ControlledPump pum(
     redeclare package Medium = MediumW,
     final p_a_nominal=p_a_nominal,
@@ -205,7 +205,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     final use_m_flow_set=true)
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  // Evaporator
+// Evaporator
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
@@ -224,7 +224,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Dynamic volume"
     annotation (Placement(transformation(extent={{40,-70},{60,-90}})));
 
-  // A group of RealExpression
+// A group of RealExpression
   Modelica.Blocks.Sources.RealExpression fixSteEnt(
     final y=steBoi.port_b.h_outflow) "Steam enthalpy"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
@@ -245,7 +245,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Water level setpoint"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
- // Others
+// Others
   Modelica.Blocks.Math.Product masFlo
     "Prescribed mass flow rate to the pump"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
