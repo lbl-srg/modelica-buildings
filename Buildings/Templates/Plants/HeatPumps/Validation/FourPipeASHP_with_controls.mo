@@ -102,12 +102,12 @@ public
     annotation (Placement(transformation(extent={{-48,-290},{-28,-270}})));
   Fluid.Movers.Preconfigured.SpeedControlled_y     mov1(redeclare package
       Medium = Medium, m_flow_nominal=datAll.pla.hp.mHeaWatHp_flow_nominal,
-    dp_nominal=datAll.pla.pumChiWatPri.dp_nominal[1])
+    dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1])
     annotation (Placement(transformation(extent={{-20,-270},{0,-290}})));
   Fluid.Movers.Preconfigured.SpeedControlled_y     mov2(redeclare package
       Medium = Medium,
     addPowerToMedium=false,
-    m_flow_nominal=4*datAll.pla.hp.mChiWatHp_flow_nominal,
+    m_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal,
     dp_nominal=datAll.pla.pumChiWatPri.dp_nominal[1])
     annotation (Placement(transformation(extent={{72,-270},{52,-250}})));
   Fluid.FixedResistances.CheckValve cheVal1(

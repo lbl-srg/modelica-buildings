@@ -68,7 +68,8 @@ model HHW_CHW_plant "Validation of AWHP plant template"
         THeaWatSupHp_nominal=333.15,
         mChiWatHp_flow_nominal=0.3*68/9,
         capCooHp_nominal=0.3*2.4e6/18,
-        TChiWatSupHp_nominal=279.85)))
+        TChiWatSupHp_nominal=279.85),
+      pumHeaWatSec(dp_nominal=fill(150000, datAll.pla.cfg.nPumHeaWatSec))))
     "Plant parameters"
     annotation (Placement(transformation(extent={{160,158},{180,178}})));
 
@@ -108,13 +109,15 @@ model HHW_CHW_plant "Validation of AWHP plant template"
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=3*datAll.pla.hp.mHeaWatHp_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(datAll.pla.ctl.dpHeaWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(
+        datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
     annotation (Placement(transformation(extent={{20,-598},{0,-578}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=3*datAll.pla.hp.mChiWatHp_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max - max(datAll.pla.ctl.dpChiWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max - max(
+        datAll.pla.ctl.dpChiWatRemSet_max))
     if have_chiWat
     "Piping"
     annotation (Placement(transformation(extent={{56,-216},{36,-196}})));
@@ -318,7 +321,7 @@ model HHW_CHW_plant "Validation of AWHP plant template"
     VHeaWatHp_flow_min=0.6*ctl.VHeaWatHp_flow_nominal,
     final VHeaWatSec_flow_nominal=3*datAll.pla.hp.mHeaWatHp_flow_nominal/1000,
     capHeaHp_nominal=fill(datAll.pla.hp.capHeaHp_nominal, ctl.nHp),
-    dpHeaWatRemSet_max={7E4},
+    dpHeaWatRemSet_max=datAll.pla.ctl.dpHeaWatRemSet_max,
     final TChiWatSup_nominal=279.95,
     TChiWatSupSet_max=288.15,
     TOutChiWatLck=283.15,
@@ -328,12 +331,10 @@ model HHW_CHW_plant "Validation of AWHP plant template"
     capCooHp_nominal=fill(datAll.pla.hp.capCooHp_nominal, ctl.nHp),
     yPumHeaWatPriSet=0.8,
     yPumChiWatPriSet=0.7,
-    dpChiWatRemSet_max={1E6},
+    dpChiWatRemSet_max=datAll.pla.ctl.dpChiWatRemSet_max,
     staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1],
     staEquOneMod=[1/2,1/2,0; 1,1,0; 1,1,1],
     idxEquAlt={1,2},
-    kCtlDpHeaWat=100,
-    TiCtlDpHeaWat=1e-3,
     TChiWatSupHrc_min=277.15,
     THeaWatSupHrc_max=333.15,
     COPHeaHrc_nominal=2.8,
@@ -413,7 +414,7 @@ model HHW_CHW_plant "Validation of AWHP plant template"
     annotation (Placement(transformation(extent={{-348,-110},{-368,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[pumChiWatSec.nPum]
     annotation (Placement(transformation(extent={{-348,-86},{-368,-66}})));
-protected
+// protected
   Buildings.Templates.Components.Interfaces.Bus busHp[2]
     "Heat pump control bus" annotation (Placement(transformation(extent={{-522,84},
             {-482,124}}), iconTransformation(extent={{-466,50},{-426,90}})));

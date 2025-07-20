@@ -1922,7 +1922,7 @@ equation
           {116,-46},{116,-140},{148,-140}}, color={0,0,127}));
   connect(resHeaWat.TSupSet, repTHeaWatSupSet.u) annotation (Line(points={{72,234},
           {118,234},{118,-100},{148,-100}}, color={0,0,127}));
-  connect(seqEve.y1Hea, swiTSupSet.u2) annotation (Line(points={{162,308},{174,
+  connect(seqEve[1:(nHp-1)].y1Hea, swiTSupSet[1:(nHp-1)].u2) annotation (Line(points={{162,308},{174,
           308},{174,-120},{188,-120}}, color={255,0,255}));
   connect(swiTSupSet.y, TSupSet) annotation (Line(points={{212,-120},{242,-120},
           {242,-120},{280,-120}}, color={0,0,127}));
@@ -2311,6 +2311,8 @@ equation
           568,252},{404,252},{404,200},{280,200}}, color={255,0,255}));
   connect(or7.y, y1PumChiWatPri) annotation (Line(points={{564,140},{572,140},{
           572,124},{312,124},{312,180},{280,180}}, color={255,0,255}));
+  connect(intEqu[nHp].y, swiTSupSet[nHp].u2) annotation (Line(points={{382,360},
+          {384,360},{384,-120},{188,-120}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl",
     Icon(
