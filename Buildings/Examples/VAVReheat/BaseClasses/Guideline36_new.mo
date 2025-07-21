@@ -466,6 +466,11 @@ equation
           1104,444},{1118,444}}, color={255,127,0}));
   connect(conInt.y, mulInt1.u2) annotation (Line(points={{1042,440},{1096,440},
           {1096,384},{1118,384}}, color={255,127,0}));
+  connect(swiFreStaPum.y, val1.y) annotation (Line(points={{42,-110},{80,-110},
+          {80,-264},{140,-264},{140,-240}}, color={0,0,127}));
+  connect(sysHysCoo.yPum, val.y) annotation (Line(points={{42,-257},{72,-257},{
+          72,-272},{168,-272},{168,-184},{248,-184},{248,-246},{232,-246}},
+        color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1420,

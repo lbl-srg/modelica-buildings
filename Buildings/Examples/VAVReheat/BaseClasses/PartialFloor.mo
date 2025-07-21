@@ -180,27 +180,27 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(temAirSou.T, multiplex5_1.u1[1]) annotation (Line(
-      points={{310,350},{328,350},{328,300},{338,300}},
+      points={{311,350},{328,350},{328,300},{338,300}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(temAirEas.T, multiplex5_1.u2[1]) annotation (Line(
-      points={{312,320},{324,320},{324,295},{338,295}},
+      points={{313,320},{324,320},{324,295},{338,295}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(temAirNor.T, multiplex5_1.u3[1]) annotation (Line(
-      points={{312,290},{338,290}},
+      points={{313,290},{338,290}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(temAirWes.T, multiplex5_1.u4[1]) annotation (Line(
-      points={{312,258},{324,258},{324,285},{338,285}},
+      points={{313,258},{324,258},{324,285},{338,285}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(temAirCor.T, multiplex5_1.u5[1]) annotation (Line(
-      points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
+      points={{315,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));

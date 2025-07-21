@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
-partial model PartialHVAC_new
+partial model PartialHVAC_new_backup
   "Partial model of variable air volume flow system with terminal reheat that serves five thermal zones"
 
   replaceable package MediumA = Buildings.Media.Air
@@ -388,7 +388,7 @@ partial model PartialHVAC_new
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal,
     dpValve_nominal=100) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=270,
         origin={220,-246})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumW)
@@ -405,9 +405,45 @@ partial model PartialHVAC_new
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal,
     dpValve_nominal=100) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=270,
         origin={128,-240})));
+  Fluid.FixedResistances.Junction           splSupRoo1
+                                                     [numZon - 1](
+    redeclare each package Medium = MediumW,
+    each from_dp=true,
+    each linearized=true,
+    m_flow_nominal={{sum(VAVBox[i:numZon].mHeaWat_flow_nominal),sum(VAVBox[(i +
+        1):numZon].mHeaWat_flow_nominal),VAVBox[i].mHeaWat_flow_nominal} for i in
+            1:(numZon - 1)},
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each dp_nominal(each displayUnit="Pa") = {0,0,0},
+    each portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    each portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    each portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    "Splitter for room supply air"
+    annotation (Placement(transformation(extent={{492,-210},{512,-230}})));
+  Fluid.FixedResistances.Junction           splRetRoo1
+                                                     [numZon - 1](
+    redeclare each package Medium = MediumW,
+    each from_dp=false,
+    each linearized=true,
+    m_flow_nominal={{sum(VAVBox[i:numZon].mHeaWat_flow_nominal),sum(VAVBox[(i +
+        1):numZon].mHeaWat_flow_nominal),VAVBox[i].mHeaWat_flow_nominal} for i in
+            1:(numZon - 1)},
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each dp_nominal(each displayUnit="Pa") = {0,0,0},
+    each portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    each portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    each portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    "Splitter for room return air"
+    annotation (Placement(transformation(extent={{600,-210},{620,-230}})));
 protected
   constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
@@ -505,17 +541,25 @@ equation
   connect(VAVBox.port_bAir, port_supAir) annotation (Line(points={{740,60},{740,
           160},{1420,160}}, color={0,127,255}));
 
-
   connect(splSupRoo[1].port_1, senSupFlo.port_b)
     annotation (Line(points={{730,-40},{420,-40}}, color={0,127,255}));
   connect(splRetRoo[1].port_1, dpRetDuc.port_a)
     annotation (Line(points={{830,100},{580,100},{580,140},{400,140}},
     color={0,127,255}));
+  connect(splRetRoo1[1].port_1, portHeaTerRet)
+    annotation (Line(points={{600,-220},{580,-220},{580,-300},{500,-300}},
+    color={0,127,255}));
   connect(splSupRoo.port_3, VAVBox[1:(numZon-1)].port_aAir)
     annotation (Line(points={{740,-30},{740,20}}, color={0,127,255}));
+  connect(splSupRoo1.port_3, VAVBox[1:(numZon-1)].port_aHeaWat)
+    annotation (Line(points={{502,-210},{502,-96},{682,-96},{682,40},{720,40}},
+                                                  color={0,127,255}));
   connect(splRetRoo.port_3, port_retAir[1:(numZon-1)])
     annotation (Line(points={{840,110},{840,128},{1384,128},{1384,120},{1420,
           120}},
+    color={0,127,255}));
+  connect(splRetRoo1.port_3, VAVBox[1:(numZon-1)].port_bHeaWat)
+    annotation (Line(points={{610,-210},{610,28},{720,28}},
     color={0,127,255}));
 
   for i in 1:(numZon - 2) loop
@@ -525,13 +569,16 @@ equation
       connect(splRetRoo[i].port_2, splRetRoo[i+1].port_1)
           annotation (Line(points={{850,100},{726,100},{726,100},{830,100}},
     color={0,127,255}));
+      connect(splSupRoo1[i].port_2, splSupRoo1[i+1].port_1)
+          annotation (Line(points={{512,-220},{492,-220}},
+    color={0,127,255}));
+      connect(splRetRoo1[i].port_2, splRetRoo1[i+1].port_1)
+          annotation (Line(points={{620,-220},{600,-220}},
+    color={0,127,255}));
   end for;
   connect(splSupRoo[numZon-1].port_2, VAVBox[numZon].port_aAir);
   connect(splRetRoo[numZon-1].port_2, port_retAir[numZon]);
-  for i in 1:numZon loop
-    connect(portHeaTerSup, VAVBox[i].port_aHeaWat);
-    connect(portHeaTerRet, VAVBox[i].port_bHeaWat);
-  end for;
+  connect(splRetRoo1[numZon-1].port_2, VAVBox[numZon].port_bHeaWat);
 
   connect(cooCoi.port_b2, dpSupDuc.port_a)
     annotation (Line(points={{210,-40},{250,-40}}, color={0,127,255}));
@@ -547,6 +594,8 @@ equation
           -272},{240,-272},{240,-300}}, color={0,127,255}));
   connect(heaCoi.port_b1, portHeaCoiRet) annotation (Line(points={{98,-52},{90,-52},
           {90,-256},{120,-256},{120,-300}}, color={0,127,255}));
+  connect(portCooCoiSup, val.port_1) annotation (Line(points={{200,-300},{200,-304},
+          {264,-304},{264,-256},{220,-256}}, color={0,127,255}));
   connect(valCooCoi.port_b, senMasFlo.port_a)
     annotation (Line(points={{220,-200},{220,-166}}, color={0,127,255}));
   connect(senMasFlo.port_b, cooCoi.port_a1) annotation (Line(points={{220,-146},
@@ -555,19 +604,21 @@ equation
     annotation (Line(points={{128,-200},{128,-164}}, color={0,127,255}));
   connect(senMasFlo1.port_b, heaCoi.port_a1) annotation (Line(points={{128,-144},
           {128,-52},{118,-52}}, color={0,127,255}));
+  connect(portHeaCoiSup, val1.port_1) annotation (Line(points={{80,-300},{80,-328},
+          {160,-328},{160,-250},{128,-250}}, color={0,127,255}));
+  connect(val1.port_2, valHeaCoi.port_a)
+    annotation (Line(points={{128,-230},{128,-220}}, color={0,127,255}));
   connect(val1.port_3, portHeaCoiRet) annotation (Line(points={{118,-240},{120,-240},
           {120,-300}}, color={0,127,255}));
-  connect(val.port_3, portCooCoiRet) annotation (Line(points={{210,-246},{190,
-          -246},{190,-272},{240,-272},{240,-300}},
-                                             color={0,127,255}));
-  connect(val1.port_2, portHeaCoiSup) annotation (Line(points={{128,-250},{128,
-          -272},{144,-272},{144,-328},{80,-328},{80,-300}}, color={0,127,255}));
-  connect(val1.port_1, valHeaCoi.port_a)
-    annotation (Line(points={{128,-230},{128,-220}}, color={0,127,255}));
-  connect(val.port_1, valCooCoi.port_a) annotation (Line(points={{220,-236},{
-          224,-236},{224,-220},{220,-220}}, color={0,127,255}));
-  connect(val.port_2, portCooCoiSup) annotation (Line(points={{220,-256},{200,
-          -256},{200,-300}}, color={0,127,255}));
+  connect(val.port_2, valCooCoi.port_a) annotation (Line(points={{220,-236},{224,
+          -236},{224,-220},{220,-220}}, color={0,127,255}));
+  connect(val.port_3, portCooCoiRet) annotation (Line(points={{210,-246},{190,-246},
+          {190,-272},{240,-272},{240,-300}}, color={0,127,255}));
+  connect(portHeaTerSup, splSupRoo1[1].port_1) annotation (Line(points={{460,-300},
+          {464,-300},{464,-220},{492,-220}}, color={0,127,255}));
+  connect(splSupRoo1[4].port_2, VAVBox[5].port_aHeaWat) annotation (Line(points
+        ={{512,-220},{552,-220},{552,-96},{682,-96},{682,40},{720,40}}, color={0,
+          127,255}));
   annotation (
   Diagram(
     coordinateSystem(
@@ -728,4 +779,4 @@ This is for
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
-end PartialHVAC_new;
+end PartialHVAC_new_backup;

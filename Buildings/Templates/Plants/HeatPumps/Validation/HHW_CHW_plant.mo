@@ -68,8 +68,7 @@ model HHW_CHW_plant "Validation of AWHP plant template"
         THeaWatSupHp_nominal=333.15,
         mChiWatHp_flow_nominal=0.3*68/9,
         capCooHp_nominal=0.3*2.4e6/18,
-        TChiWatSupHp_nominal=279.85),
-      pumHeaWatSec(dp_nominal=fill(150000, datAll.pla.cfg.nPumHeaWatSec))))
+        TChiWatSupHp_nominal=279.85)))
     "Plant parameters"
     annotation (Placement(transformation(extent={{160,158},{180,178}})));
 

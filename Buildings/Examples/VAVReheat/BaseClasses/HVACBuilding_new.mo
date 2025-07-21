@@ -66,6 +66,18 @@ partial model HVACBuilding_new
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   Templates.Plants.HeatPumps.Validation.HHW_CHW_plant hHW_CHW_plant
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+  Fluid.FixedResistances.Junction jun(
+    redeclare package Medium = MediumW,
+    m_flow_nominal={(hvac.mHeaWat_flow_nominal + sum(hvac.VAVBox.mHeaWat_flow_nominal)),
+        -hvac.mHeaWat_flow_nominal,-sum(hvac.VAVBox.mHeaWat_flow_nominal)},
+    dp_nominal={0,0,0})
+    annotation (Placement(transformation(extent={{-34,-78},{-54,-58}})));
+  Fluid.FixedResistances.Junction jun1(
+    redeclare package Medium = MediumW,
+    m_flow_nominal={sum(hvac.VAVBox.mHeaWat_flow_nominal),-(hvac.mHeaWat_flow_nominal
+         + sum(hvac.VAVBox.mHeaWat_flow_nominal)),hvac.mHeaWat_flow_nominal},
+    dp_nominal={0,0,0})
+    annotation (Placement(transformation(extent={{60,-76},{40,-56}})));
 equation
   connect(weaDat.weaBus, hvac.weaBus) annotation (Line(
       points={{-70,10},{-56,10},{-56,11.4444},{-40.225,11.4444}},
@@ -105,16 +117,18 @@ equation
           10,-54},{14,-54},{14,-32},{-2,-32},{-2,-28}}, color={0,127,255}));
   connect(hHW_CHW_plant.port_a1, hvac.portCooCoiRet) annotation (Line(points={{
           -10,-54},{-10,-36},{6.25,-36},{6.25,-28}}, color={0,127,255}));
-  connect(hHW_CHW_plant.port_a2, hvac.portHeaTerRet) annotation (Line(points={{
-          10,-66},{25.5,-66},{25.5,-28}}, color={0,127,255}));
-  connect(hHW_CHW_plant.port_a2, hvac.portHeaCoiRet) annotation (Line(points={{
-          10,-66},{14,-66},{14,-78},{-22,-78},{-22,-32},{-13,-32},{-13,-28}},
-        color={0,127,255}));
-  connect(hHW_CHW_plant.port_b2, hvac.portHeaCoiSup) annotation (Line(points={{
-          -10,-66},{-24,-66},{-24,-28},{-21.25,-28}}, color={0,127,255}));
-  connect(hHW_CHW_plant.port_b2, hvac.portHeaTerSup) annotation (Line(points={{
-          -10,-66},{-24,-66},{-24,-34},{17.25,-34},{17.25,-28}}, color={0,127,
-          255}));
+  connect(hHW_CHW_plant.port_b2, jun.port_1) annotation (Line(points={{-10,-66},
+          {-30,-66},{-30,-68},{-34,-68}}, color={0,127,255}));
+  connect(jun.port_2, hvac.portHeaCoiSup) annotation (Line(points={{-54,-68},{
+          -58,-68},{-58,-34},{-21.25,-34},{-21.25,-28}}, color={0,127,255}));
+  connect(jun.port_3, hvac.portHeaTerSup) annotation (Line(points={{-44,-78},{
+          -44,-82},{17.25,-82},{17.25,-28}}, color={0,127,255}));
+  connect(jun1.port_2, hHW_CHW_plant.port_a2)
+    annotation (Line(points={{40,-66},{10,-66}}, color={0,127,255}));
+  connect(jun1.port_1, hvac.portHeaTerRet) annotation (Line(points={{60,-66},{
+          64,-66},{64,-34},{25.5,-34},{25.5,-28}}, color={0,127,255}));
+  connect(jun1.port_3, hvac.portHeaCoiRet) annotation (Line(points={{50,-76},{
+          50,-80},{-22,-80},{-22,-36},{-13,-36},{-13,-28}}, color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>

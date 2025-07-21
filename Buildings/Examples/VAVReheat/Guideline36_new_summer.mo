@@ -10,19 +10,29 @@ model Guideline36_new_summer
     mWes_flow_nominal=ACHWes*VRooWes*conv,
     redeclare Buildings.Examples.VAVReheat.BaseClasses.Guideline36_new hvac(
         QHeaAHU_flow_nominal=hvac.mHeaAir_flow_nominal*hvac.cpAir*(hvac.THeaAirSup_nominal
-           - hvac.THeaAirMix_nominal)*2),
+           - hvac.THeaAirMix_nominal)*2, QCooAHU_flow_nominal=2.5*hvac.mCooAir_flow_nominal
+          *hvac.cpAir*(hvac.TCooAirSup_nominal - hvac.TCooAirMix_nominal)),
     redeclare Buildings.Examples.VAVReheat.BaseClasses.Floor flo(sampleModel=
           true),
     hHW_CHW_plant(datAll(pla(
-          ctl(dpHeaWatRemSet_max={Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max}),
+          ctl(
+            dpHeaWatRemSet_max(each displayUnit="Pa") = {15000},
+            dpHeaWatLocSet_min=5000,
+            dpChiWatRemSet_max(each displayUnit="Pa") = {15000},
+            dpChiWatLocSet_min=5000),
           hp(
             mHeaWatHp_flow_nominal=hHW_CHW_plant.datAll.pla.hp.mChiWatHp_flow_nominal,
             capHeaHp_nominal=hHW_CHW_plant.datAll.pla.hp.capCooHp_nominal,
-            mChiWatHp_flow_nominal=0.3*68*6,
-            capCooHp_nominal=0.3*2.4e6*6),
-          pumHeaWatSec(dp_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
-                hHW_CHW_plant.pumHeaWatSec.nPum)))),
-                  ctl(kCtlDpHeaWat=1, TiCtlDpHeaWat=180,
+            mChiWatHp_flow_nominal=0.1*68,
+            capCooHp_nominal=0.3*2.4e5),
+          pumHeaWatSec(dp_nominal(each displayUnit="Pa") = fill(25000,
+              hHW_CHW_plant.datAll.pla.cfg.nPumHeaWatSec)),
+          pumChiWatSec(dp_nominal(each displayUnit="Pa") = fill(25000,
+              hHW_CHW_plant.datAll.pla.cfg.nPumChiWatSec)))),
+                                           ctl(
+        nReqIgnHeaWat=2,
+        kCtlDpHeaWat=1,
+        TiCtlDpHeaWat=180,
         kCtlDpChiWat=1,
         TiCtlDpChiWat=180)));
 
@@ -110,7 +120,7 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StartTime=15811200,
-      StopTime=15984000,
+      StopTime=17020800,
       Interval=60,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
