@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled;
-model Pump "Motor coupled chiller"
+model Pump "Motor coupled pump"
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
     port_a(p(start=Medium.p_default)),
     port_b(p(start=Medium.p_default)));
@@ -12,14 +12,16 @@ model Pump "Motor coupled chiller"
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record of pump with performance data"
-     annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-68},{-60,-48}})));
+     annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-60},
+            {-60,-40}})));
 
   //Motor parameters
   replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     motPer constrainedby
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record of induction machine with performance data"
-    annotation (Dialog(tab="Motor"), choicesAllMatching=true, Placement(transformation(extent={{52,60},{72,80}})));
+    annotation (Dialog(tab="Motor"), choicesAllMatching=true, Placement(transformation(extent={{42,60},
+            {62,80}})));
   parameter Boolean have_controller = true
     "Set to true for enableing motor PID control"
     annotation (Dialog(tab="Motor"));
@@ -91,17 +93,24 @@ model Pump "Motor coupled chiller"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow_set(unit="kg/s")
-    "Set point of mass flow rate" annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,80}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,80})));
+    "Set point of mass flow rate"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow(unit="kg/s")
     "Measured mass flow rate"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
+    final quantity="Power",
+    final unit="W")
+    "Electrical power consumed"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y_actual(
+    final unit="1")
+    "Actual normalised pump speed that is used for computations"
+    annotation (Placement(transformation(extent={{100,60},{120,80}}),
+        iconTransformation(extent={{100,60},{120,80}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
     redeclare final package Medium = Medium,
@@ -154,8 +163,8 @@ equation
           color={0,127,255}));
   connect(pum.heatPort, heatPort) annotation (Line(points={{0,-6.8},{0,-20},
           {0,-68},{0,-68}}, color={191,0,0}));
-  connect(motDri.setPoi, m_flow_set) annotation (Line(points={{-42,58},{-80,58},
-          {-80,80},{-120,80}}, color={0,0,127}));
+  connect(motDri.setPoi, m_flow_set) annotation (Line(points={{-42,58},{-60,58},
+          {-60,80},{-120,80}}, color={0,0,127}));
   connect(motDri.mea,m_flow)  annotation (Line(points={{-42,50},{-120,50}},
           color={0,0,127}));
   connect(motDri.tau_m, loaTor.y) annotation (Line(points={{-42,42},{-60,42},{
@@ -166,6 +175,10 @@ equation
     annotation (Line(points={{-20,50},{0,50},{0,10}}, color={0,0,0}));
   connect(port_a, port_a) annotation (Line(points={{-100,0},{-100,0}},
       color={0,127,255}));
+  connect(pum.P, P) annotation (Line(points={{11,9},{80,9},{80,90},{110,90}},
+        color={0,0,127}));
+  connect(pum.y_actual, y_actual) annotation (Line(points={{11,7},{84,7},{84,70},
+          {110,70}}, color={0,0,127}));
   annotation (defaultComponentName="pum",
   Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-80},{100,100}}),  graphics={
@@ -205,18 +218,16 @@ equation
           points={{10,70},{100,70}},
           color={0,0,0},
           smooth=Smooth.None),
-        Text(extent={{66,104},{116,90}},
+        Text(extent={{52,102},{102,88}},
           textColor={0,0,127},
           textString="P"),
-        Text(extent={{66,84},{116,70}},
-          textColor={0,0,127},
-          textString="Q"),
         Text(extent={{-126,106},{-76,92}},
           textColor={0,0,127},
           textString="m_flow_set"),
         Text(extent={{-140,66},{-82,52}},
           textColor={0,0,127},
-          textString="m_flow")}),
+          textString="m_flow"),
+        Text(extent={{50,86},{100,72}},textColor={0,0,127},textString="y_actual")}),
 Documentation(info="<html>
 <p>
 This is a model of a squirrel cage induction motor coupled pump with ideal speed

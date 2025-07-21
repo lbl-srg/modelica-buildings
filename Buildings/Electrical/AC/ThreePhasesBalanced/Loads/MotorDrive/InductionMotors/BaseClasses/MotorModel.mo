@@ -101,13 +101,11 @@ equation
   connect(v_ds, i_ds_block.v_ds) annotation (Line(points={{-160,70},{-20,70},{-20,59},{58,59}},
       color={0,0,127}, pattern=LinePattern.Dash, thickness=0.5));
   connect(i_dr_block.der_i_dr, int_dr.u) annotation (Line(points={{82,-100},{98,
-          -100}},                        color={0,0,127}));
+          -100}}, color={0,0,127}));
   connect(i_qr_block.i_dr, i_qs_block.i_dr) annotation (Line(points={{58,-46},{
-          40,-46},{40,84},{58,84}},
-                                 color={0,0,127}));
+          40,-46},{40,84},{58,84}}, color={0,0,127}));
   connect(i_dr_block.i_dr, I_dr.y) annotation (Line(points={{58,-94},{40,-94},{
-          40,-130},{-59,-130}},
-                             color={0,0,127}));
+          40,-130},{-59,-130}}, color={0,0,127}));
   connect(i_dr_block.i_qs, I_qs.y) annotation (Line(points={{58,-109},{-10,-109},
           {-10,120},{-59,120}}, color={0,0,127}));
   connect(I_qr.y, i_qr_block.i_qr) annotation (Line(points={{-59,-30},{-20,-30},
@@ -121,17 +119,13 @@ equation
   connect(v_qs, i_qs_block.v_qs)
     annotation (Line(points={{-160,110},{50,110},{50,99},{58,99}}, color={0,0,127}));
   connect(omega, i_ds_block.omega) annotation (Line(points={{-160,30},{-40,30},
-          {-40,48},{58,48}},
-                        color={0,0,127}));
+          {-40,48},{58,48}}, color={0,0,127}));
   connect(omega, i_qs_block.omega) annotation (Line(points={{-160,30},{-40,30},
-          {-40,88},{58,88}},
-                        color={0,0,127}));
+          {-40,88},{58,88}}, color={0,0,127}));
   connect(omega_r, i_qr_block.omega_r) annotation (Line(points={{-160,-120},{
-          -30,-120},{-30,-42},{58,-42}},
-                                     color={0,0,127}));
+          -30,-120},{-30,-42},{58,-42}}, color={0,0,127}));
   connect(omega_r, i_dr_block.omega_r) annotation (Line(points={{-160,-120},{
-          -30,-120},{-30,-102},{58,-102}},
-                                       color={0,0,127}));
+          -30,-120},{-30,-102},{58,-102}}, color={0,0,127}));
   connect(I_qr.y, i_ds_block.i_qr) annotation (Line(points={{-59,-30},{-20,-30},
           {-20,44},{58,44}}, color={0,0,127}));
   connect(I_qs.y, i_ds_block.i_qs) annotation (Line(points={{-59,120},{-10,120},
@@ -175,4 +169,3 @@ Induction Machine Model
 </p>
 </html>"));
 end MotorModel;
-

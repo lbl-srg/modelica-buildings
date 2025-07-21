@@ -66,8 +66,9 @@ equation
     annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
   connect(motMod.omega_r, omega_r) annotation (Line(points={{-22,-8},{-30,-8},{-30,
           -60},{-120,-60}}, color={0,0,127}));
-  connect(motMod.omega, freCon.omega) annotation (Line(points={{-22,-3},{-49.7643,
-          -3},{-49.7643,-0.1},{-58.1,-0.1}}, color={0,0,127}));
+  connect(motMod.omega, freCon.omega) annotation (Line(points={{-22,-3},{
+          -39.7643,-3},{-39.7643,-0.1},{-58.1,-0.1}},
+                                             color={0,0,127}));
   connect(motMod.i_qs, torBlo.i_qs) annotation (Line(
       points={{2,8},{58,8}},  color={0,0,127}));
   connect(motMod.i_ds, torBlo.i_ds) annotation (Line(
@@ -96,18 +97,13 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
+
+</html>", revisions="<html>
 <ul>
 <li>
 January, 2025, by Viswanathan Ganesh:<br/>
 Updated Icon Layer.
 </li>
-<li>
-September, 2023, by Zhanwei He:<br/>
-First implementation.
-</li>
-</ul>
-</html>", revisions="<html>
-<ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
 First Implementation.

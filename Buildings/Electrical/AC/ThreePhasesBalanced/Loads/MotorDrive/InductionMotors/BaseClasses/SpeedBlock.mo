@@ -46,14 +46,13 @@ equation
   connect(gain1.y, N) annotation (Line(points={{61,0},{70,0},{70,-70},{120,-70}},
           color={0,0,127}));
   connect(feedback1.u1, omega) annotation (Line(points={{-68,-60},{-120,-60}},
-                       color={0,0,127}));
+          color={0,0,127}));
   connect(feedback1.y, omega_r) annotation (Line(points={{-51,-60},{90,-60},{90,
           70},{120,70}}, color={0,0,127}));
   connect(feedback1.u2, gain1.u) annotation (Line(points={{-60,-52},{-60,-30},{
-          30,-30},{30,0},{38,0}},
-                               color={0,0,127}));
+          30,-30},{30,0},{38,0}}, color={0,0,127}));
   connect(omega_r1, gain1.u) annotation (Line(points={{120,-30},{30,-30},{30,0},
-          {38,0}},             color={0,0,127}));
+          {38,0}}, color={0,0,127}));
  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This block computes the rotor speed for the models in 

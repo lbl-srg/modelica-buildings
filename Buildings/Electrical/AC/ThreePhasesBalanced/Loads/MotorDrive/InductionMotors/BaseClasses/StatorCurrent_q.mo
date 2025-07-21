@@ -6,19 +6,26 @@ model StatorCurrent_q "q-axis stator current calculation block"
   parameter Real Lm "Mutual Inductance";
   parameter Real Rs "Stator Resistance";
   parameter Real Ls "Stator Inductance";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput v_qs "Q-axis stator voltage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput v_qs
+    "Q-axis stator voltage"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput i_qs "Q-axis stator current"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput i_qs
+    "Q-axis stator current"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput der_i_qr "Derivative of Q-axis rotor current"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput der_i_qr
+    "Derivative of Q-axis rotor current"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput omega "Electrical angular frequency"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput omega
+    "Electrical angular frequency"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput i_dr "D-axis rotor current"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput i_dr
+    "D-axis rotor current"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput i_ds "D-axis stator current"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput i_ds
+    "D-axis stator current"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput der_i_qs "Derivative of Q-axis stator current"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput der_i_qs
+    "Derivative of Q-axis stator current"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

@@ -204,8 +204,8 @@ equation
           {-42,50}}, color={0,0,127}));
   connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,20},{-50,20},{-50,
           42},{-42,42}},     color={0,0,127}));
-  connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,66},{
-          -30,66},{-30,60}}, color={0,120,120}));
+  connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,80},{-30,
+          80},{-30,60}},     color={0,120,120}));
   connect(mecHea.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},
           {-20,50}}, color={0,0,0}));
   connect(mecHea.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
@@ -299,13 +299,27 @@ equation
         Line(points={{62,0},{100,0}},color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255})}),
         defaultComponentName="hea",
-    Documentation(info="<html>
-<p>This is a model of a squirrel cage induction motor coupled heat pump with ideal speed control. The heatpump operation is regulated such that TMea is able to reach the TSet. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions. </p>
-<p><span style=\"font-family: Arial;\">Using the &apos;per&apos; parameter, the user can set desired equivalent motor that closely matches with the heatpump&apos;s rating based on manufacturer datasheet.</span></p>
+Documentation(info="<html>
+<p>
+This is a model of a squirrel cage induction motor coupled heat pump with ideal
+speed control. The heat pump operation is regulated such that the measured condenser
+leaving water temperature (<code>TMea</code>) is able to reach its setpoint
+(<code>TSet</code>). The model has electrical interfaces and can be used for
+simulating microgrids and discussing grid interactions.
+</p>
+<p>Using the parameter <code>per</code>, the user can set desired equivalent motor
+that closely matches with the heatpump&apos;s rating based on manufacturer datasheet.
+</p>
 </html>", revisions="<html>
 <ul>
-<li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>Updated Implementation. </li>
-<li>October 15, 2021, by Mingzhe Liu:<br>First implementation. </li>
+<li>
+May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
+Updated Implementation.
+</li>
+<li>
+October 15, 2021, by Mingzhe Liu:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
