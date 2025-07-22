@@ -11,7 +11,7 @@ protected
 algorithm
   y := smooth(2, max(0, min(1, 0.5+dx*(1.875+xpow2*(-5+6*xpow2)))));
 
- annotation (smoothOrder = 2,
+ annotation (Inline=true,
  Documentation(info="<html>
 <p>
 Twice Lipschitz continuously differentiable approximation to the
@@ -23,6 +23,12 @@ Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 21, 2025 by Hongxiang Fu:<br/>
+Made the function inlined.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4278\">#4278</a>.
+</li>
 <li>
 October 21, 2019:<br/>
 Added <code>delta.min</code> attribute to guard against division by zero.<br/>
