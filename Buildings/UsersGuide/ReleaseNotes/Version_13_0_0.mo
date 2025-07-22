@@ -49,12 +49,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math.Functions</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.bicubic<br/>
+                       Buildings/Utilities/Math/Functions/quadraticLinear<br/>
+                       Buildings.Utilities.Math.Functions.quinticHermite<br/>
+                       Buildings.Utilities.Math.Functions.smoothHeaviside<br/>
+                       Buildings.Utilities.Math.Functions.smoothLimit
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Made the functions inlined.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4278\">issue 4278</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
