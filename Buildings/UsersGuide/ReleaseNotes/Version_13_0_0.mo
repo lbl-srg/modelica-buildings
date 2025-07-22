@@ -53,7 +53,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.bicubic<br/>
-                       Buildings/Utilities/Math/Functions/quadraticLinear<br/>
+                       Buildings.Utilities.Math.Functions.quadraticLinear<br/>
                        Buildings.Utilities.Math.Functions.quinticHermite<br/>
                        Buildings.Utilities.Math.Functions.smoothHeaviside<br/>
                        Buildings.Utilities.Math.Functions.smoothLimit
