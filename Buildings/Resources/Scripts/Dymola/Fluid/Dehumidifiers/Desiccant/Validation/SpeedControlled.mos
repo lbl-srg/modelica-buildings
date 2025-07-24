@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Dehumidifiers.Desiccant.Examples.ElectricCoilSpeedControlled", stopTime=1200, method="Cvode", resultFile="ElectricCoilSpeedControlled")
+simulateModel("Buildings.Fluid.Dehumidifiers.Desiccant.Validation.SpeedControlled", stopTime=1200, method="Cvode", resultFile="SpeedControlled")
 createPlot(id=1, position={15, 15, 834, 686}, y={"uSpe.y"}, range={0.0, 1200.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=1, position={15, 15, 834, 686}, y={"senX_w_ProLea.X", "senX_w_ProEnt.X"}, range={0.0, 1200.0, 0.0, 0.03}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/kg", "kg/kg"});
 createPlot(id=1, position={15, 15, 834, 686}, y={"deh.P"}, range={0.0, 1200.0, -10000.0, 20000.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});

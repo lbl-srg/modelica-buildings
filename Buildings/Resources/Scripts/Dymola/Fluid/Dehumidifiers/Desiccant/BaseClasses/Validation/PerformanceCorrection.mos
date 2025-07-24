@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Validation.PerformanceCorrection", stopTime=100, method="CVode", tolerance=1e-6, resultFile="Performance");
+createPlot(id=1, position={3, 13, 477, 363}, y={"uSpe.y"}, range={0.0, 100.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={3, 13, 477, 363}, y={"dehPerCor.TProLea", "dehPerCor.TProEnt"}, range={0.0, 100.0, 280.0, 340.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"K", "K"});
+createPlot(id=1, position={3, 13, 477, 363}, y={"dehPerCor.X_w_ProLea", "dehPerCor.X_w_ProEnt"}, range={0.0, 100.0, 0.01, 0.03}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=2, position={498, 13, 404, 363}, y={"dehPerCor.uSpe"}, range={0.0, 100.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={498, 13, 404, 363}, y={"dehPerCor.hReg"}, range={0.0, 100.0, -20000.0, 60000.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
+createPlot(id=2, position={498, 13, 404, 363}, y={"dehPerCor.mReg_flow"}, range={0.0, 100.0, -0.5, 1.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+
