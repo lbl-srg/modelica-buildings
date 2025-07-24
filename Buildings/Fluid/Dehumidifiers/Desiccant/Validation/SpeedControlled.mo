@@ -1,36 +1,36 @@
-within Buildings.Fluid.Dehumidifiers.Desiccant.Examples;
-model ElectricCoilSpeedControlled
-  "Model that demonstrates the usage of a desiccant dehumidifier model with an electric heater and a variable speed wheel"
+within Buildings.Fluid.Dehumidifiers.Desiccant.Validation;
+model SpeedControlled
+  "Model that demonstrates the usage of a desiccant dehumidifier model with a variable speed wheel"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Air
-    "Process air";
-  package Medium2 = Buildings.Media.Air
-    "Regeneration air";
+  package Medium = Buildings.Media.Air
+    "Air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium,
+    p(displayUnit="Pa") = 101325 - 500,
     nPorts=1)
     "Regeneration air sink"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
-    redeclare package Medium = Medium2,
-    T(displayUnit="K") = 303.15,
+    redeclare package Medium = Medium,
+    p(displayUnit="Pa") = 101325,
+    T(displayUnit="K") = 273.15 + 50,
     nPorts=1)
     "Regeneration air source"
     annotation (Placement(transformation(extent={{60,40},{40,60}})));
   Modelica.Blocks.Sources.Ramp TProEnt(
     height=10,
     duration=600,
-    offset=273.15 + 30,
+    offset=273.15 + 20,
     startTime=600) "Temperature of the process air"
     annotation (Placement(transformation(extent={{-98,-70},{-78,-50}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
-    redeclare package Medium = Medium1,
-    p(displayUnit="Pa") = 101325 - 600,
+    redeclare package Medium = Medium,
+    p(displayUnit="Pa") = 101325 - 500,
     nPorts=1)
     "Process air sink"
     annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     use_p_in=false,
     T=273.15 + 50,
     X={0.025,1 - 0.025},
@@ -39,22 +39,18 @@ model ElectricCoilSpeedControlled
     nPorts=1)
     "Process air source"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilSpeedControlled
-    deh(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    m1_flow_nominal=0.4333*1.2,
-    m2_flow_nominal=3*1.2,
-    dp1_nominal=600,
-    dp2_nominal=600,
-    PMot_nominal=10,
-    vPro_nominal=1.5,
-    vReg_nominal=2.5,
-    perDat=perDat,
-    QReg_flow_nominal=50000,
-    etaHea=0.8) "Dehumidifier"
+  Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled deh(
+    redeclare package Medium = Medium,
+    per=perDat)
+    "Dehumidifier"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Dehumidifiers.Desiccant.Data.EnergyPlus perDat
+  Buildings.Fluid.Dehumidifiers.Desiccant.Data.EnergyPlus perDat(
+    have_varSpe=true,
+    mPro_flow_nominal=1,
+    mReg_flow_nominal=1,
+    TRegEnt_nominal(displayUnit="K"),
+    TProEnt_max(displayUnit="K"),
+    TProEnt_min(displayUnit="K"))
     "Performance data"
     annotation (Placement(transformation(extent={{20,72},{40,92}})));
   Modelica.Blocks.Sources.Ramp uSpe(
@@ -64,13 +60,11 @@ model ElectricCoilSpeedControlled
     startTime=0) "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senX_w_ProEnt(
-    redeclare package Medium = Medium1,
-    m_flow_nominal=0.4333*1.2)
+    redeclare package Medium = Medium, m_flow_nominal=0.5)
     "Humidity sensor of the process air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-34,-40},{-14,-20}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senX_w_ProLea(
-    redeclare package Medium = Medium1,
-    m_flow_nominal=0.4333*1.2)
+    redeclare package Medium = Medium, m_flow_nominal=0.5)
     "Humidity sensor of the process air leaving the dehumidifier"
     annotation (Placement(transformation(extent={{26,-18},{46,2}})));
 equation
@@ -92,7 +86,7 @@ equation
     annotation (Line(points={{-71,32},{-22,32},{-22,0},{-12,0}},
     color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1200),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Examples/ElectricCoilSpeedControlled.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Validation/SpeedControlled.mos"
     "Simulate and Plot"), Documentation(revisions="<html>
 <ul>
 <li>
@@ -103,7 +97,7 @@ First implementation.
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilSpeedControlled\">
+<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled\">
 Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilSpeedControlled</a>.
 </p>
 <p>
@@ -137,4 +131,4 @@ stops.
 </li>
 </ul>
 </html>"));
-end ElectricCoilSpeedControlled;
+end SpeedControlled;
