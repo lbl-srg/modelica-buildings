@@ -179,7 +179,7 @@ equation
 <p>
 Partial model of a desiccant dehumidifier.
 Specifically, this model considers the following configuration.
-This model should be extended to function as a dehumidifier with bypass dampers or a variable speed drive to 
+This model should be extended to function as a dehumidifier with bypass dampers or a variable speed drive to
 modulate dehumidification.
 </p>
 <p align=\"left\">

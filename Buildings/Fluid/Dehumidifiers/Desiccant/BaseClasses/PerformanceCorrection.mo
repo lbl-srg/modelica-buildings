@@ -94,8 +94,7 @@ model PerformanceCorrection
 
 equation
   connect(dehPer.X_w_ProEnt, X_w_ProEnt) annotation (Line(points={{-11,-3.8},{-94,
-          -3.8},{-94,-40},{-112,-40}},
-                                     color={0,0,127}));
+          -3.8},{-94,-40},{-112,-40}}, color={0,0,127}));
   connect(dehPer.TProEnt, TProEnt) annotation (Line(points={{-11,4.2},{-94,4.2},
           {-94,40},{-112,40}}, color={0,0,127}));
   connect(speCor.uSpe, uSpe)

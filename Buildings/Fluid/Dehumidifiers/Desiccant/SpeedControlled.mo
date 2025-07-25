@@ -23,7 +23,7 @@ equation
   assert(senRegMasFlo.m_flow >= dehPer.mReg_flow,
   "In " + getInstanceName() + ": insufficient regeneration air",
    level=AssertionLevel.warning)
-   "Check if the mass flow rate of the regeneration air aligns with 
+   "Check if the mass flow rate of the regeneration air aligns with
    the performance calculation.";
   connect(dehPer.uSpe, uSpe) annotation (Line(points={{-81,70.2},{-120,70.2},{-120,
           100},{-200,100},{-200,80},{-260,80}}, color={0,0,127}));
@@ -31,7 +31,7 @@ equation
           66.2},{-134,16},{-110,16},{-110,11}}, color={0,0,127}));
   connect(senTemRegEnt.T, dehPer.TRegEnt) annotation (Line(points={{-30,191},{
           -30,200},{-200,200},{-200,120},{-142,120},{-142,62},{-81,62}},
-                                                                   color={0,0,127}));
+          color={0,0,127}));
   connect(dehPer.mPro_flow, senProMasFlo.m_flow) annotation (Line(points={{-81,53.8},
           {-84,53.8},{-84,22},{40,22},{40,11}}, color={0,0,127}));
   connect(dehPer.X_w_ProEnt, senMasFraProEnt.X) annotation (Line(points={{-81,58.2},

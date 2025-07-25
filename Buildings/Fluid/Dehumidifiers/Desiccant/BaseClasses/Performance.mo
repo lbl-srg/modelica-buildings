@@ -18,8 +18,8 @@ model Performance "Desiccant dehumidifier performance"
   Modelica.Blocks.Interfaces.RealInput X_w_ProEnt(final unit="kg/kg")
     "Humidity ratio of the process air entering the dehumidifier"
     annotation (Placement(transformation(
-    extent={{-124,-52},{-100,-28}}),iconTransformation(extent={{-120,-48},{-100,
-            -28}})));
+    extent={{-124,-52},{-100,-28}}),
+    iconTransformation(extent={{-120,-48},{-100,-28}})));
   Modelica.Blocks.Interfaces.RealInput mPro_flow(
     final unit="kg/s")
     "Mass flow rate of the process air"
@@ -65,13 +65,13 @@ equation
   if uRot and vPro>0.1 then
     // Check the inlet condition of the process inlet condition.
     assert(TProEnt <= per.TProEnt_max and TProEnt >= per.TProEnt_min,
-       "In " + getInstanceName() + ": temperature of the process air entering the dehumidifier is beyond 
+       "In " + getInstanceName() + ": temperature of the process air entering the dehumidifier is beyond
        the range that is defined in the performance curve.",
        level=AssertionLevel.error);
     assert(X_w_ProEnt <= per.X_w_ProEnt_max and X_w_ProEnt >= per.X_w_ProEnt_min,
-       "In " + getInstanceName() + ": humidity ratio of the process air entering the dehumidifier is beyond 
+       "In " + getInstanceName() + ": humidity ratio of the process air entering the dehumidifier is beyond
        the range that is defined in the performance curve.",
-       level=AssertionLevel.error);
+       level=AssertionLevel.error); 
 
     vReg = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
        TProEnt=TProEnt,
@@ -122,70 +122,60 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model calculates the outlet conditions of the process air in a desiccant dehumidifier, 
-along with the required flow rate of the regeneration air and the specific regeneration energy, 
-based on the inlet conditions
-The calculation is set up as follows:
-
+This model calculates the outlet conditions of the process air in a desiccant dehumidifier,
+along with the required flow rate of the regeneration air and the specific regeneration energy,
+based on the inlet conditions. The calculation is set up as follows:
+</p>
 <ul>
 <li>
 The velocity of the process air is calculated by:
-<div style="text-align:center; font-style:italic;">
+<p style='text-align:center; font-style:italic;'>
 vPro = mPro_flow * vPro_nominal / mPro_flow_nominal,
-</div>
-where <code>mPro_flow</code> is the mass flow rate of the process air, <code>mPro_flow_nominal</code> is the nominal mass flow rate of the process air, and <code>vPro_nominal</code> is the nominal velocity of the process air.
+</p>
+where <code>mPro_flow</code> is the mass flow rate of the process air,
+<code>mPro_flow_nominal</code> is the nominal mass flow rate of the process air,
+and <code>vPro_nominal</code> is the nominal velocity.
 </li>
-
 <li>
 If the dehumidification signal <code>uRot = true</code> and <code>vPro &gt; 0.1</code>:
 <ul>
 <li>
-The inlet condition (temperature and humidity ratio) is compared to the corresponding limits in the performance curves
-(<a href="modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic">
-Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>).
+The inlet condition is compared to performance curve limits:
+<a href='modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic'>
+Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>
+<ul>
+<li>If out of range, throw an error.</li>
+<li>Otherwise:
 <ul>
 <li>
-If the inlet condition is beyond the limits, the calculation is terminated and an error is generated.
-</li>
-<li>
-Otherwise:
-<ul>
-<li>
-The temperature of the process air leaving the dehumidifier, <code>TProLea</code>, is calculated by:
-<div style="text-align:center; font-style:italic;">
+Temperature leaving: <code>TProLea</code>
+<p style='text-align:center; font-style:italic;'>
 TProLea = f(TProEnt, X_w_ProEnt, vPro, a) + 273.15,
-</div>
-where <code>f(*)</code> is defined in
-<a href="modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve">
-Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve</a>,
-<code>a</code> are coefficients, and <code>TProEnt</code> and <code>X_w_ProEnt</code> are the temperature and humidity ratio of the process air entering the dehumidifier.
+</p>
 </li>
 <li>
-The humidity ratio of the process air leaving the dehumidifier, <code>X_w_ProLea</code>, is calculated by:
-<div style="text-align:center; font-style:italic;">
+Humidity ratio: <code>X_w_ProLea</code>
+<p style='text-align:center; font-style:italic;'>
 X_w_ProLea = max(0, f(TProEnt, X_w_ProEnt, vPro, b)),
-</div>
-where <code>b</code> are coefficients.
+</p>
 </li>
 <li>
-The velocity of the regeneration air is calculated by:
-<div style="text-align:center; font-style:italic;">
+Regeneration air velocity:
+<p style='text-align:center; font-style:italic;'>
 vReg = f(TProEnt, X_w_ProEnt, vPro, c),
-</div>
-where <code>c</code> are coefficients.
+</p>
 </li>
 <li>
-The mass flow rate of the regeneration air is calculated by:
-<div style="text-align:center; font-style:italic;">
- mReg_flow = vReg * 90.0 / 245.0 * mPro_flow / vPro,
-</div>
+Regeneration mass flow rate:
+<p style='text-align:center; font-style:italic;'>
+mReg_flow = vReg * 90.0 / 245.0 * mPro_flow / vPro,
+</p>
 </li>
 <li>
-The specific energy of the regeneration air, <code>hReg</code>, is calculated by:
-<div style="text-align:center; font-style:italic;">
+Regeneration specific energy: <code>hReg</code>
+<p style='text-align:center; font-style:italic;'>
 hReg = max(0, f(TProEnt, X_w_ProEnt, vPro, d)),
-</div>
-where <code>d</code> are coefficients.
+</p>
 </li>
 </ul>
 </li>
@@ -193,29 +183,27 @@ where <code>d</code> are coefficients.
 </li>
 </ul>
 </li>
-
 <li>
 Otherwise:
 <ul>
-<li>The outlet condition of the process air is the same as the inlet condition.</li>
+<li>Outlet = inlet condition.</li>
 <li><code>mReg_flow</code> and <code>hReg</code> are set to 0.</li>
 </ul>
 </li>
 </ul>
-
 <h4>References</h4>
 <ul>
 <li>
-<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
-U.S. Department of Energy, <i> &quot;EnergyPlus Version 22.1.0 Documentation: Engineering Reference&quot;.</i></a>
+<a href='https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf'>
+U.S. Department of Energy, <i>&quot;EnergyPlus Version 22.1.0 Engineering Reference&quot;</i></a>
 </li>
 <li>
-<a href=\"https://www.ashrae.org/file%20library/technical%20resources/covid-19/i-p_s20_ch26.pdf\">
+<a href='https://www.ashrae.org/file%20library/technical%20resources/covid-19/i-p_s20_ch26.pdf'>
 ASHRAE Handbook—HVAC Systems &amp; Equipment Chapter 26</a>
 </li>
 </ul>
- 
-</html>", revisions="<html>
+</html>
+"", revisions="<html>
 <ul>
 <li>March 1, 2024, by Sen Huang:<br/>
 First implementation.</li>

@@ -132,7 +132,7 @@ The bypass damper position signal, <i>uBypDamPos</i>, changes from
 The temperature of the process air entering the dehumidifier, <i>TProEnt</i>, keeps constant
 until 600 seconds, and then it increases from 273.15 + 30 K to 273.15 + 40 K  at 1200 seconds.
 <br>
-The temperature of the regeneration air entering the dehumidifier and the humidity ratio of the 
+The temperature of the regeneration air entering the dehumidifier and the humidity ratio of the
 process air entering the dehumidifier are constant.
 </li>
 </ul>

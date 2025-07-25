@@ -38,7 +38,6 @@ protected
     "Number of the points in the power efficiency curve";
   parameter Real s = max(xSpe[i]/yEta[i] for i in 1:size(yEta,1)-1)
     "Maximum ratio of x-axis to y-axis in the power efficiency curve";
-
   parameter Real[nSpe] dP(each fixed=false, each final unit="W")
     "Derivatives at the support points for electric power consumption";
   parameter Real[size(per.senEff.uSpe, 1)] dEpsSenCor(each fixed=false, each final unit="1")

@@ -47,11 +47,9 @@ equation
   connect(onDeh.y, dehPer.uRot) annotation (Line(points={{-59,70},{-46,70},{-46,
           8.2},{-11,8.2}}, color={255,0,255}));
   connect(TProEnt.y, dehPer.TProEnt) annotation (Line(points={{-59,30},{-40,30},
-          {-40,4.2},{-11,4.2}},
-                           color={0,0,127}));
+          {-40,4.2},{-11,4.2}}, color={0,0,127}));
   connect(dehPer.X_w_ProEnt, X_w_ProEnt.y) annotation (Line(points={{-11,-3.8},
-          {-40,-3.8},{-40,-40},{-59,-40}},
-                                    color={0,0,127}));
+          {-40,-3.8},{-40,-40},{-59,-40}}, color={0,0,127}));
   connect(mPro_flow.y, dehPer.mPro_flow) annotation (Line(points={{-59,-80},{
           -20,-80},{-20,-8.2},{-11,-8.2}}, color={0,0,127}));
   connect(senHea.mPro_flow, mPro_flow.y) annotation (Line(points={{39,4},{20,4},
@@ -84,8 +82,8 @@ The dehumidification signal <i>onDeh</i> changes from
 </li>
 <li>
 The temperature of the process air entering the dehumidifier, <i>TProEnt</i>, and the
-Temperature of the regeneration air entering the dehumidifier, <i>TRegEnt</i>, change from 
-273 + 20 K to 273 + 30 K and 273 + 80 K to 273 + 70 K, respectively, during the period from 
+Temperature of the regeneration air entering the dehumidifier, <i>TRegEnt</i>, change from
+273 + 20 K to 273 + 30 K and 273 + 80 K to 273 + 70 K, respectively, during the period from
 0 to 100 seconds. 
 During the same period, the humidity ratio of the process air entering the dehumidifier,
 <i>X_w_ProEnt</i> and the volumetric flow rate of the process air, <i>VPro_flow</i>, change from

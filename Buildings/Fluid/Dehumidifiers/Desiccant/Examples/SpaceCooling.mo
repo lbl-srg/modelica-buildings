@@ -7,7 +7,7 @@ model SpaceCooling "Space cooling system"
 
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   // Heat recovery effectiveness
-  parameter Data.EnergyPlus per(
+  parameter Buildings.Fluid.Dehumidifiers.Desiccant.Data.EnergyPlus per(
     have_varSpe=true,
     uSpe_min=0.1,
     mPro_flow_nominal=mA_flow_nominal,
@@ -17,7 +17,7 @@ model SpaceCooling "Space cooling system"
     TRegEnt_nominal(displayUnit="K"),
     TProEnt_max(displayUnit="K"),
     TProEnt_min(displayUnit="K"))
-                           "Performance record for the dehumidifier"
+    "Performance record for the dehumidifier"
     annotation (Placement(transformation(extent={{-144,74},{-124,94}})));
 
 /////////////////////////////////////////////////////////
@@ -270,7 +270,7 @@ equation
   connect(vol.ports[2], senTemRetAir.port_a)
     annotation (Line(points={{71,20},{71,-46},{54,-46}}, color={0,127,255}));
   connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-80,-134},{-80,-142},
-          {98,-142},{98,80},{91,80}},   color={0,0,127}));
+          {98,-142},{98,80},{91,80}}, color={0,0,127}));
   connect(TRooSetPoi.y, conRoo.u_s)
     annotation (Line(points={{-140,-122},{-92,-122}}, color={0,0,127}));
   connect(conRoo.y, souWat.m_flow_in) annotation (Line(points={{-69,-122},{-30,-122},

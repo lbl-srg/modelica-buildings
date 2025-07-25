@@ -57,19 +57,19 @@ equation
    the performance calculation.";
   connect(bypDamPro.port_a, port_a1)
     annotation (Line(points={{-142,-100},{-190,-100},{-190,0},{-240,0}},
-                              color={0,127,255}));
+    color={0,127,255}));
   connect(bypDamPro.port_b, port_b1)
     annotation (Line(points={{-122,-100},{58,-100},{58,0},{100,0}},
-                                                 color={0,127,255}));
+    color={0,127,255}));
   connect(uni.y, sub.u1)
     annotation (Line(points={{-199,-40},{-188,-40},{-188,-34},{-176,-34}},
-                                                     color={0,0,127}));
+    color={0,0,127}));
   connect(uBypDamPos, bypDamPro.y)
     annotation (Line(points={{-260,-80},{-132,-80},{-132,-88}},
-                             color={0,0,127}));
+    color={0,0,127}));
   connect(sub.u2, uBypDamPos)
     annotation (Line(points={{-176,-46},{-180,-46},{-180,-80},{-260,-80}},
-                                   color={0,0,127}));
+    color={0,0,127}));
   connect(damPro.y, sub.y)
     annotation (Line(points={{-130,12},{-130,20},{-146,20},{-146,-40},{-152,-40}},
     color={0,0,127}));
@@ -102,7 +102,7 @@ equation
   annotation (
   defaultComponentName="deh",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                    graphics={
+        graphics={
         Text(
           extent={{28,22},{84,-32}},
           textColor={28,108,200},
