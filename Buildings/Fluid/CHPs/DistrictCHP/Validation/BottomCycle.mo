@@ -3,13 +3,13 @@ model BottomCycle
   "Model validation for the bottoming cycle subsystem"
   extends Modelica.Icons.Example;
 
-  // Medium declarations
+// Medium declarations
   package MediumS = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
   package MediumW = Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
-  // Parameters for the calculation blocks
+// Parameters for the calculation blocks
   parameter Real a[:]={-0.23380344533,0.220477944738,-0.01476897980}
     "Coefficients for bottoming cycle exergy efficiency function"
     annotation (Dialog(group="Coefficients for functions"));
@@ -22,7 +22,7 @@ model BottomCycle
     final quantity = "ThermodynamicTemperature") =182.486+273.15
     "HRSG stack temperature";
 
-  // Advanced tab: parameters for the fluid systems
+// Advanced tab: parameters for the fluid systems
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=56.9972
     "Nominal mass flow rate in fluid ports";
   parameter Real TSte(
@@ -37,7 +37,7 @@ model BottomCycle
   parameter Modelica.Units.SI.Volume V=12.4
     "Total volume of evaporator";
 
-  // Advanced tab: parameters for PI controller
+// Advanced tab: parameters for PI controller
   parameter Modelica.Units.SI.Volume watLevSet=V*0.8
     "Water volume setpoint in for PI controller";
   parameter Real k(min=0) = 2
@@ -55,17 +55,17 @@ model BottomCycle
   parameter Real Nd(min=100*Modelica.Constants.eps) = 1
     "The higher Nd, the more ideal the derivative block";
 
-  // Assumptions tab
+// Assumptions tab
   parameter Boolean allowFlowReversal = false
     "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports.";
 
-  //Dynamics tab for evaporator energy and mass balance
+//Dynamics tab for evaporator energy and mass balance
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state";
   parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of mass balance: dynamic (3 initialization options) or steady state";
 
-  // Initialization tab
+// Initialization tab
   parameter Modelica.Units.SI.AbsolutePressure p_start=3000000
     "Start value of pressure";
   parameter Modelica.Units.SI.Volume VWat_start=V*0.8
@@ -173,7 +173,7 @@ October 1, 2024, by Zhanwei He:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
+</html>", info= "<html>
 <p>
 This validation model compares the proposed CHP bottoming-cycle model with the
 high-fidelity model from the ThermoPower Library (TPL), focusing on the regulation
@@ -186,16 +186,20 @@ level, found in
 ThermoPower.Examples.RankineCycle.Simulators.ClosedLoop</a>. 
 This model simulates a closed-loop control system designed to regulate the
 evaporator’s void fraction, which represents the proportion of the gas phase within
-the total drum volume.
+the total drum volume. The comparison below shows the results between this bottoming cycle model and the TPL model.
 </p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/DistrictCHP/BCModelComparison.svg\"
+alt=\"ModelComparison\" width=\"800\" height=\"300\"/></p>
 <p>
-In this study, the simulation time has been extended from the default 3000 seconds
-to 31,536,000 seconds (one year) to evaluate the performance for annual simulations. 
-It demonstrates that the model can complete annual simulations in approximately 30-40 seconds, 
+When the simulation time has been extended from the default 3000 seconds
+to 31,536,000 seconds (one year) to evaluate the performance for annual simulations, this model can complete annual simulations in approximately 30-40 seconds, 
 compared to 3 hours with the TPL model. 
 </p>
-</html>
-"),
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/DistrictCHP/BCAnnSimCPU_Comparison.svg\"
+alt=\"CPUComparison\" width=\"800\" height=\"150\"/></p>
+</html>"),
 experiment(
   StopTime=3000,
   Tolerance=1E-6),
