@@ -1,32 +1,46 @@
 within Buildings.Fluid.CHPs.DistrictCHP.Validation;
-
 model TopCycle "Model validation for the topping cycle subsystem"
   extends Modelica.Icons.Example;
   // Choose differernt gas turbine
-  replaceable parameter Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Taurus70_11101S_NG per "Performance curve for the selected gas turbine";
+  replaceable parameter Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Taurus70_11101S_NG per
+    "Performance curve for the selected gas turbine";
   // Part load parameters for different load levels
-  Modelica.Blocks.Sources.Constant parLoa60(k = 0.6) "Gas turbine generator part load ratio is 0.6" annotation(
-    Placement(transformation(extent = {{-12, 70}, {8, 90}})));
-  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab60(final per = per) annotation(
-    Placement(transformation(extent = {{68, 66}, {88, 86}})));
-  Modelica.Blocks.Sources.Constant parLoa70(k = 0.7) "Gas turbine generator part load ratio is 0.7" annotation(
-    Placement(transformation(extent = {{-12, 30}, {8, 50}})));
-  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab70(final per = per) annotation(
-    Placement(transformation(extent = {{68, 26}, {88, 46}})));
-  Modelica.Blocks.Sources.Constant parLoa80(k = 0.8) "Gas turbine generator part load ratio is 0.8" annotation(
-    Placement(transformation(extent = {{-12, -10}, {8, 10}})));
-  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab80(final per = per) annotation(
-    Placement(transformation(extent = {{68, -14}, {88, 6}})));
-  Modelica.Blocks.Sources.Constant parLoa90(k = 0.9) "Gas turbine generator part load ratio is 0.9" annotation(
-    Placement(transformation(extent = {{-12, -50}, {8, -30}})));
-  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab90(final per = per) annotation(
-    Placement(transformation(extent = {{68, -54}, {88, -34}})));
-  Modelica.Blocks.Sources.Constant parLoa100(k = 1.0) "Gas turbine generator part load ratio is 1.0" annotation(
-    Placement(transformation(extent = {{-12, -90}, {8, -70}})));
-  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab100(final per = per) annotation(
-    Placement(transformation(extent = {{68, -94}, {88, -74}})));
-  Modelica.Blocks.Sources.Ramp TAmb(height = 30, duration = 3600, offset = 5) "Ramps for ambient temperature from 5°C to 35°C" annotation(
-    Placement(transformation(extent = {{-80, -10}, {-60, 10}})));
+  Modelica.Blocks.Sources.Constant parLoa60(k = 0.6)
+    "Gas turbine generator part load ratio is 0.6"
+    annotation(Placement(transformation(extent = {{-12, 70}, {8, 90}})));
+  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab60(
+    final per = per)
+    annotation(Placement(transformation(extent = {{68, 66}, {88, 86}})));
+  Modelica.Blocks.Sources.Constant parLoa70(k = 0.7)
+    "Gas turbine generator part load ratio is 0.7"
+    annotation(Placement(transformation(extent = {{-12, 30}, {8, 50}})));
+  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab70(
+    final per = per)
+    annotation(Placement(transformation(extent = {{68, 26}, {88, 46}})));
+  Modelica.Blocks.Sources.Constant parLoa80(k = 0.8)
+    "Gas turbine generator part load ratio is 0.8"
+    annotation(Placement(transformation(extent = {{-12, -10}, {8, 10}})));
+  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab80(
+    final per = per)
+    annotation(Placement(transformation(extent = {{68, -14}, {88, 6}})));
+  Modelica.Blocks.Sources.Constant parLoa90(k = 0.9)
+    "Gas turbine generator part load ratio is 0.9"
+    annotation(Placement(transformation(extent = {{-12, -50}, {8, -30}})));
+  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab90(
+    final per = per)
+    annotation(Placement(transformation(extent = {{68, -54}, {88, -34}})));
+  Modelica.Blocks.Sources.Constant parLoa100(k = 1.0)
+    "Gas turbine generator part load ratio is 1.0"
+    annotation(Placement(transformation(extent = {{-12, -90}, {8, -70}})));
+  Buildings.Fluid.CHPs.DistrictCHP.TopCycle topCycTab100(
+    final per = per)
+    annotation(Placement(transformation(extent = {{68, -94}, {88, -74}})));
+  Modelica.Blocks.Sources.Ramp TAmb(
+    height = 30,
+    duration = 3600,
+    offset = 5)
+    "Ramps for ambient temperature from 5°C to 35°C"
+    annotation(Placement(transformation(extent = {{-80, -10}, {-60, 10}})));
 equation
 // Connections for part load and turbine performance tables
   connect(topCycTab60.y, parLoa60.y) annotation(
@@ -66,7 +80,7 @@ changes from 5°C to 35°C.
 The models are configured to compute the following outputs for both nominal and part-load
 conditions: fuel mass flow rate, electricity output, exhaust mass flow rate, and
 exhaust temperature, for 10 gas turbines with capacities ranging from 4 MW to 35 MW.
-
+</p>
 </html>", revisions = "<html>
 <ul>
 <li>
