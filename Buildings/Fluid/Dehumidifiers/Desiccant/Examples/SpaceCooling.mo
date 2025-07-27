@@ -303,8 +303,8 @@ This block is identical to
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
 except that the heat recovery device is replaced with a dehumidifier
-that is modelled with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers</a>.
+that is modelled with <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BypassDampers\">
+modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BypassDampers</a>.
 </p>
 <p>
 The major input signals for the heat recovery device are configured as follows:

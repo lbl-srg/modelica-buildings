@@ -111,25 +111,45 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-240,-160},{100,240}})),
     Documentation(info="<html>
 <p>
-This model considers a desiccant dehumidifier system with an electric coil, a variable-speed regeneration fan, and bypass dampers
-as shown below.
-<p align=\"left\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/Dehumidifiers/Desiccant/BaseClasses/system_schematic_bypass.png\"
-alt=\"System_Schematic.png\" border=\"1\"/>
+Empricial Model of a desiccant dehumidifier, , which uses two dampers
+to bypass the proess air and thereby controls the dehumidification.
 </p>
 <p>
-The system configuration of the dehumidifier device is described in 
-<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.PartialDesiccant\">
-Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.PartialDesiccant</a>.
-</p>
-<p>
-Note that the operation of the coil and the fan is assumed to be ideal, i.e., they can
-provide the required regeneration heating power and the regeneration flow rate, which
-are calculated by 
+This model does not require geometric data. Its performance is determined
+by several curves, as defined in in
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\">
-Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>, 
-when their capacities permit.
+Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
+This operation of the dehumidifier is configured as follows.
 </p>
+<ul>
+<li>
+If the operating signal <code>uRot=true</code>,
+<ul>
+<li>
+The dehumidifier power consumption is constant and equal to the nominal value.
+</li>
+<li>
+The heat exchange in the heat recovery wheel is adjustable via bypassing process air
+through the dehumidifier.
+Accordingly, the sensible and latent heat exchanger effectiveness are calculated with
+<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\">
+Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
+</li>
+</ul>
+</li>
+<li>
+Otherwise,
+<ul>
+<li>
+The wheel power consumption is 0.
+</li>
+<li>
+In addition, dehumidification occurs,
+meaning the outlet condition of the process air matches that of the inlet.
+</li>
+</ul>
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -68,8 +68,8 @@ wheel speed as the input to control the dehumidification.
 This model does not require geometric data. 
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible</a>.
+<a href=\"Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrectionSensible\">
+Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses</a>.
 </p>
 </html>", revisions="<html>
 <ul>
