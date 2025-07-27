@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "uRot.y",
+    "uBypDamPos.y",
+    "senX_w_ProLea.X",
+    "senX_w_ProEnt.X",
+    "deh.P",
+    "TProEnt.y"
+  };

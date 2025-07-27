@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "uSpe.y",
+    "dehPerCor.TProLea",
+    "dehPerCor.TProEnt",
+    "dehPerCor.X_w_ProLea",
+    "dehPerCor.X_w_ProEnt",
+    "dehPerCor.uSpe",
+    "dehPerCor.hReg",
+    "dehPerCor.mReg_flow"
+  };
