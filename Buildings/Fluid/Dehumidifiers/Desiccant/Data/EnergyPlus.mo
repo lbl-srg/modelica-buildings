@@ -47,7 +47,7 @@ record EnergyPlus =
   "Default data record for desiccant dehumidifiers"
   annotation (Documentation(
   info="<html>
-Performance data for desiccant dehumidifier model.
+Performance data for desiccant dehumidifier models.
 This data corresponds to the default operation curve for the EnergyPlus object, 
 <i>Dehumidifier:Desiccant:NoFans</i>
 

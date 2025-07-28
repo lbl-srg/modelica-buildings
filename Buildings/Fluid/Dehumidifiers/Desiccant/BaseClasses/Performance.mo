@@ -71,7 +71,7 @@ equation
     assert(X_w_ProEnt <= per.X_w_ProEnt_max and X_w_ProEnt >= per.X_w_ProEnt_min,
        "In " + getInstanceName() + ": humidity ratio of the process air entering the dehumidifier is beyond
        the range that is defined in the performance curve.",
-       level=AssertionLevel.error); 
+       level=AssertionLevel.error);
 
     vReg = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
        TProEnt=TProEnt,
@@ -202,10 +202,9 @@ U.S. Department of Energy, <i>&quot;EnergyPlus Version 22.1.0 Engineering Refere
 ASHRAE Handbook—HVAC Systems &amp; Equipment Chapter 26</a>
 </li>
 </ul>
-</html>
-"", revisions="<html>
+</html>", revisions="<html>
 <ul>
-<li>March 1, 2024, by Sen Huang:<br/>
+<li>July 17, 2025, by Sen Huang:<br/>
 First implementation.</li>
 </ul>
 </html>"));

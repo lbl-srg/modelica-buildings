@@ -61,15 +61,15 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Empricial Model of a desiccant dehumidifier, which has the
+An empirical model of a desiccant dehumidifier, which has the
 wheel speed as the input to control the dehumidification.
 </p>
 <p>
 This model does not require geometric data. 
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in
-<a href=\"Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrectionSensible\">
-Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses</a>.
+<a href=\"Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrection\">
+Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrection</a>.
 </p>
 </html>", revisions="<html>
 <ul>

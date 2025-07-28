@@ -67,7 +67,7 @@ The Wheel speed ratio <i>uSpe</i> changes from
 </li>
 <li>
 The temperature of the process air entering the dehumidifier, <i>TProEnt</i>, and the
-Temperature of the regeneration air entering the dehumidifier, <i>TRegEnt</i>, change from
+temperature of the regeneration air entering the dehumidifier, <i>TRegEnt</i>, change from
 273 + 20 K to 273 + 30 K and 273 + 80 K to 273 + 70 K, respectively, during the period from
 0 to 100 seconds. 
 During the same period, the humidity ratio of the process air entering the dehumidifier,

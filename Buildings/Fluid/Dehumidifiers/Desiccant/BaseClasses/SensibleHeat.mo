@@ -68,11 +68,11 @@ equation
 <p>
 This model analyzes the sensible heat exchange between the process air and the regeneration air in a desiccant dehumidifier.
 </p>
-Specifically, it calculates the sensible heat exchange rate,  <code>Q</code>, so by:
+Specifically, it calculates the sensible heat exchange rate, <code>Q</code>, by:
 <p align=\"center\" style=\"font-style:italic;\">
 Q = (X_w_ProEnt-X_w_ProLea)*mPro_flow*(hReg-hPro),
 </p>
-where <code>X_w_ProEnt</code> and <code>X_w_ProLea</code> are the humidity ratio of the process air enetering and leaving 
+where <code>X_w_ProEnt</code> and <code>X_w_ProLea</code> are the humidity ratio of the process air entering and leaving 
 the dehumidifier, respectively.
 <code>mPro_flow</code> is the mass flow rate of the process air.
 <code>hReg</code> is the specific heat of the regeneration (see <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\"> 

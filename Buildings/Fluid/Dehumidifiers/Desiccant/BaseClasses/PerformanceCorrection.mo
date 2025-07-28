@@ -210,7 +210,7 @@ Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent</
 This model also adjusts the regeneration flow rate and the specific regeneration energy, assuming both are proportional to <code>uSpe</code>.
 </p>
 Finally, it also calculates the wheel power consumption based on <code>uSpe</code> (see details in <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible</a>)
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible</a>).
 </html>", revisions="<html>
 <ul>
 <li>July 17, 2025, by Sen Huang:<br/>

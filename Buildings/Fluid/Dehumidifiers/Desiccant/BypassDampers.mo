@@ -111,12 +111,12 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-240,-160},{100,240}})),
     Documentation(info="<html>
 <p>
-Empricial Model of a desiccant dehumidifier, , which uses two dampers
-to bypass the proess air and thereby controls the dehumidification.
+An empirical model of a desiccant dehumidifier that utilizes two dampers to bypass the process air, 
+thereby regulating the dehumidification process.
 </p>
 <p>
-This model does not require geometric data. Its performance is determined
-by several curves, as defined in in
+This model does not require geometric data. Instead, its performance is defined by a set of characteristic curves,
+as specified in
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\">
 Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
 This operation of the dehumidifier is configured as follows.
@@ -129,9 +129,11 @@ If the operating signal <code>uRot=true</code>,
 The dehumidifier power consumption is constant and equal to the nominal value.
 </li>
 <li>
-The heat exchange in the heat recovery wheel is adjustable via bypassing process air
-through the dehumidifier.
-Accordingly, the sensible and latent heat exchanger effectiveness are calculated with
+Heat exchange within the dehumidifier is modulated by bypassing a portion of the process air,
+enabling control over dehumidification.
+</li>
+<li>
+The sensible and latent heat exchanger effectiveness are computed using
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\">
 Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
 </li>
@@ -144,8 +146,7 @@ Otherwise,
 The wheel power consumption is 0.
 </li>
 <li>
-In addition, dehumidification occurs,
-meaning the outlet condition of the process air matches that of the inlet.
+No dehumidification takes place; the process air exits with the same conditions as it enters.
 </li>
 </ul>
 </li>
