@@ -12,8 +12,11 @@ model SpeedControlled "Desiccant dehumidifier with a variable speed drive"
     {-100,20}})));
   Buildings.Fluid.FixedResistances.PressureDrop resPro(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=per.mPro_flow_nominal,
-    final dp_nominal=per.dpPro_nominal)
+    final from_dp=from_dp,
+    final dp_nominal=per.dpPro_nominal,
+    final linearized=linearizeFlowResistance)
     "Flow resistance in the process air stream"
     annotation (Placement(transformation(extent={{-182,-10},{-162,10}})));
   BaseClasses.PerformanceCorrection dehPer(per=per)

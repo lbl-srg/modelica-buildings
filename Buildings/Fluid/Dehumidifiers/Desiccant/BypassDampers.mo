@@ -4,6 +4,18 @@ model BypassDampers "Desiccant dehumidifier with bypass dampers"
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(
     displayUnit="Pa") = 20
     "Nominal pressure drop of dampers";
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve using strokeTime"
+    annotation (Dialog(tab="Dynamics", group="Actuator position"));
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to fully open or close actuator"
+    annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization of dampers (no init/steady state/initial state/initial output)"
+    annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
+  parameter Real yByp_start=1 "Initial position of bypass actuators"
+    annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
+
   Modelica.Blocks.Interfaces.BooleanInput uRot
     "True when the wheel is operating" annotation (Placement(transformation(
     extent={{-280,60},{-240,100}}),
@@ -18,16 +30,30 @@ model BypassDampers "Desiccant dehumidifier with bypass dampers"
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamPro(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=per.mPro_flow_nominal,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
+    final init=init,
+    final y_start=yByp_start,
     final dpDamper_nominal=dpDamper_nominal,
-    dpFixed_nominal=per.dpPro_nominal)
+    final dpFixed_nominal=per.dpPro_nominal)
     "Process air bypass damper"
     annotation (Placement(transformation(extent={{-142,-110},{-122,-90}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damPro(
     redeclare package Medium = Medium,
+    allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=per.mPro_flow_nominal,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
+    final init=init,
+    final y_start=1 - yByp_start,
     final dpDamper_nominal=dpDamper_nominal,
-    dpFixed_nominal=per.dpPro_nominal)
+    final dpFixed_nominal=per.dpPro_nominal)
     "Process air damper"
     annotation (Placement(transformation(
     extent={{-10,-10},{10,10}},rotation=0,origin={-130,0})));

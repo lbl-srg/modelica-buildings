@@ -7,10 +7,28 @@ partial model PartialDesiccant
   parameter Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{60,204},{80,224}})));
+
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean from_dp = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance"));
+  parameter Boolean linearizeFlowResistance = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Dialog(tab="Flow resistance"));
+   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics"));
+
   Buildings.Fluid.FixedResistances.PressureDrop resReg(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=per.mReg_flow_nominal,
-    final dp_nominal=per.dpReg_nominal)
+    from_dp=from_dp,
+    final dp_nominal=per.dpReg_nominal,
+    final linearized=linearizeFlowResistance)
     "Flow resistance in the regeneration air stream"
     annotation (Placement(transformation(extent={{-162,170},{-182,190}})));
   Modelica.Blocks.Interfaces.RealOutput P(
@@ -42,6 +60,7 @@ partial model PartialDesiccant
 protected
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemRegEnt(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=per.mReg_flow_nominal,
     tau=10)
     "Temperature of the regeneration air entering the dehumidifier"
@@ -51,11 +70,13 @@ protected
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemProEnt(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=per.mPro_flow_nominal,
     tau=10) "Temperature of the process air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFraProEnt(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=per.mPro_flow_nominal,
     tau=10)
     "Humidity of the process air entering the dehumidifier"
@@ -66,15 +87,16 @@ protected
     annotation (Placement(transformation(extent={{-72,74},{-52,94}})));
   Buildings.Fluid.Interfaces.PrescribedOutlet outCon(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=per.mPro_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final energyDynamics=energyDynamics)
     "Model to set outlet conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
     vol(redeclare final package Medium = Medium,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final energyDynamics=energyDynamics,
     final m_flow_nominal=per.mReg_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final allowFlowReversal=allowFlowReversal,
     V=1,
     nPorts=2)
     "Volume for the regeneration air stream"
@@ -87,11 +109,13 @@ protected
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-62,150},{-82,130}})));
   Buildings.Fluid.Sensors.MassFlowRate senProMasFlo(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal)
     "Process air mass flow rate"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Fluid.Sensors.MassFlowRate senRegMasFlo(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal)
     "Regeneration air mass flow rate"
     annotation (Placement(transformation(extent={{60,170},{40,190}})));
   Modelica.Blocks.Math.Gain gai1(
