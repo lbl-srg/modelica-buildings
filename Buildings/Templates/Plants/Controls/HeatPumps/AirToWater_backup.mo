@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.HeatPumps;
-block AirToWater
+block AirToWater_backup
   "Controller for AWHP plant"
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
@@ -2125,4 +2125,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirToWater;
+end AirToWater_backup;

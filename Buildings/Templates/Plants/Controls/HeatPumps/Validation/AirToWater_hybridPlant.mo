@@ -38,7 +38,7 @@ model AirToWater_hybridPlant
     ctl.cp_default / ctl.rho_default
     "Design CHW volume flow rate"
     annotation (Dialog(group="Nominal condition"));
-  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_hybridPlant
+  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup_hybridPlant
                                                            ctl(
     have_heaWat=true,
     have_chiWat=true,
@@ -462,8 +462,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
-Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup</a>
 in a configuration with three equally sized lead/lag alternate
 heat pumps and a sidestream heat recovery chiller.
 </p>
