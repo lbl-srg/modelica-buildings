@@ -410,8 +410,8 @@ the sensors in the primary loop are used for calculating <i>Qrequired</i>.
 If a heat recovery chiller is piped into the secondary return, the sensors in the 
 primary loop are used.
 (These conditions are implemented in
-<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup\">
-Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup</a>.)
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>.)
 </p>
 <p>
 The required capacity is calculated based on return temperature, 

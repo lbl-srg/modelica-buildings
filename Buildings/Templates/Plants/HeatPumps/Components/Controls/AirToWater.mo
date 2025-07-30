@@ -36,7 +36,7 @@ model AirToWater
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
-  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup
+  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater
                                                            ctl(
     final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     final have_hrc_select=false,
@@ -399,8 +399,8 @@ equation
 This class implements the sequence of operation for plants with 
 air-to-water heat pumps.
 It is based on the controller
-<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup\">
-Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup</a>.
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>.
 </p>
 <h4>Control points</h4>
 <p>

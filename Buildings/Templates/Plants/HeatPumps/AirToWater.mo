@@ -1207,8 +1207,8 @@ based on manufacturer recommendations.
 <td>
 Most parts of the sequence of operation are similar to that
 described in ASHRAE, 2021 for chiller plants.<br/>
-See the documentation of <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup\">
-Buildings.Templates.Plants.Controls.HeatPumps.AirToWater_backup</a>
+See the documentation of <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>
 for more details.<br/>
 An open loop controller is also available for validation purposes.
 </td>
