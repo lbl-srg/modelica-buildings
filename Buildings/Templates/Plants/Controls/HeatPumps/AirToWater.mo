@@ -450,36 +450,35 @@ block AirToWater "Controller for AWHP plant"
   parameter Real staEqu[:, nHp](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    each final start=0)
+    each final unit="1")
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=not has_fouPip));
 
   parameter Real staEquCooHea[:, nHp](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    each final start=0)
+    each final unit="1")
     "Staging matrix for heating-cooling mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=has_fouPip));
 
   parameter Real staEquOneMod[:, nHp](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    each final start=0)
+    each final unit="1")
     "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=has_fouPip));
 
+  final parameter Real staEquTem[:,:]=if has_fouPip then staEquCooHea else staEqu
+    "Temporary placeholder";
 
   final parameter Integer nSta(
-    final min=1)=if has_fouPip then size(staEquCooHea, 1) else size(staEqu, 1)
+    final min=1)=size(staEquTem, 1)
     "Number of stages"
     annotation (Evaluate=true);
 
   parameter Integer nEquAlt(
     final min=0)=if nHp==1 then 1 else
-    max({sum({(if staEquCooHea[i, j] > 0 and staEquCooHea[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
+    max({sum({(if staEquTem[i, j] > 0 and staEquTem[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
   parameter Integer idxEquAlt[nEquAlt](final min=fill(1, nEquAlt))
@@ -1182,11 +1181,11 @@ block AirToWater "Controller for AWHP plant"
     if have_heaWat
     "Compute heating stage index"
     annotation (Placement(transformation(extent={{-10,350},{10,370}})));
-  StagingRotation.StageAvailability_hybridPlant avaStaHea(nSta=nSta, nEqu=nHp)
+  StagingRotation.StageAvailability avaStaHea(nSta=nSta, nEqu=nHp)
     if have_heaWat
     "Evaluate heating stage availability"
     annotation (Placement(transformation(extent={{-110,320},{-90,340}})));
-  StagingRotation.EquipmentEnable_hybridPlant enaEquHea(
+  StagingRotation.EquipmentEnable enaEquHea(
     final nEquAlt=nEquAlt,
     nSta=nSta,
     nEqu=nHp)
@@ -1206,11 +1205,11 @@ block AirToWater "Controller for AWHP plant"
     each final dtOff=dtOffHp)
     "Event sequencing"
     annotation (Placement(transformation(extent={{140,284},{160,312}})));
-  StagingRotation.StageAvailability_hybridPlant avaStaCoo(nSta=nSta, nEqu=nHp)
+  StagingRotation.StageAvailability avaStaCoo(nSta=nSta, nEqu=nHp)
     if have_chiWat
     "Evaluate cooling stage availability"
     annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
-  StagingRotation.StageChangeCommand_hybridPlant chaStaHea(
+  StagingRotation.StageChangeCommand chaStaHea(
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
     final have_pumSec=have_pumHeaWatSec,
     final have_inpPlrSta=false,
@@ -1243,7 +1242,7 @@ block AirToWater "Controller for AWHP plant"
     if have_chiWat
     "Cooling mode enable"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
-  StagingRotation.StageChangeCommand_hybridPlant chaStaCoo(
+  StagingRotation.StageChangeCommand chaStaCoo(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
     final have_pumSec=have_pumChiWatSec,
     final have_inpPlrSta=false,
@@ -1265,7 +1264,7 @@ block AirToWater "Controller for AWHP plant"
     if have_chiWat
     "Compute cooling stage index"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  StagingRotation.EquipmentEnable_hybridPlant enaEquCoo(
+  StagingRotation.EquipmentEnable enaEquCoo(
     final nEquAlt=nEquAlt,
     nSta=nSta,
     nEqu=nHp)
@@ -1573,17 +1572,16 @@ block AirToWater "Controller for AWHP plant"
   Buildings.Controls.OBC.CDL.Logical.Or or7[nHp]
     "Combine with primary pump signals for other HPs in cooling mode"
     annotation (Placement(transformation(extent={{240,170},{260,190}})));
-  HybridPlantControlModule ctl(
+  HybridPlantControlModule ctlPlaHyb(
     have_heaWat=have_heaWat,
     has_sort=has_sort,
     have_chiWat=have_chiWat,
     nHp=nHp,
     is_fouPip=is_fouPip,
-    staEqu=staEqu,
     staEquCooHea=staEquCooHea,
     staEquOneMod=staEquOneMod,
-    idxEquAlt=idxEquAlt) if has_fouPip
-             annotation (Placement(transformation(extent={{60,-114},{80,-86}})));
+    idxEquAlt=idxEquAlt) if has_fouPip "Hybrid plant control module"
+    annotation (Placement(transformation(extent={{60,-114},{80,-86}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));
@@ -2048,54 +2046,57 @@ equation
           200},{320,200}},                         color={255,0,255}));
   connect(or7.y, y1PumChiWatPri) annotation (Line(points={{262,180},{320,180}},
                                                    color={255,0,255}));
-  connect(enaCoo.y1, ctl.u1EnaCoo) annotation (Line(points={{-88,100},{-80,100},
-          {-80,-40},{36,-40},{36,-90},{58,-90}}, color={255,0,255}));
-  connect(enaHea.y1, ctl.u1EnaHea) annotation (Line(points={{-88,360},{-84,360},
-          {-84,-94},{58,-94}}, color={255,0,255}));
-  connect(y1HpPre.y, ctl.u1Hp) annotation (Line(points={{178,380},{-160,380},{-160,
-          0},{-64,0},{-64,-98},{58,-98}}, color={255,0,255}));
-  connect(seqEve.y1Hea, ctl.uMod) annotation (Line(points={{162,308},{176,308},{
-          176,-44},{124,-44},{124,-104},{92,-104},{92,-124},{52,-124},{52,-102},
-          {58,-102}}, color={255,0,255}));
-  connect(staPumHeaWatPri.y1, ctl.u1PumPriHea) annotation (Line(points={{162,200},
-          {232,200},{232,-60},{48,-60},{48,-110},{58,-110}}, color={255,0,255}));
-  connect(staPumChiWatPri.y1, ctl.u1PumPriCoo) annotation (Line(points={{212,180},
-          {220,180},{220,-56},{44,-56},{44,-106},{58,-106}}, color={255,0,255}));
-  connect(ctl.y1PumPri, or6.u1) annotation (Line(points={{82,-88},{104,-88},{104,
-          -80},{236,-80},{236,210},{238,210}}, color={255,0,255}));
-  connect(ctl.y1PumPri, or7.u1) annotation (Line(points={{82,-88},{104,-88},{104,
-          -80},{236,-80},{236,180},{238,180}}, color={255,0,255}));
-  connect(ctl.yAvaFouPipCoo, or1.u2) annotation (Line(points={{82,-92},{96,-92},
-          {96,-52},{-124,-52},{-124,12},{-122,12}}, color={255,0,255}));
-  connect(ctl.yAvaFouPipHea, or2.u1) annotation (Line(points={{82,-96},{100,-96},
-          {100,-76},{-68,-76},{-68,248},{-124,248},{-124,270},{-112,270}},
+  connect(enaCoo.y1, ctlPlaHyb.u1EnaCoo) annotation (Line(points={{-88,100},{-80,
+          100},{-80,-40},{36,-40},{36,-90},{58,-90}}, color={255,0,255}));
+  connect(enaHea.y1, ctlPlaHyb.u1EnaHea) annotation (Line(points={{-88,360},{-84,
+          360},{-84,-94},{58,-94}}, color={255,0,255}));
+  connect(y1HpPre.y, ctlPlaHyb.u1Hp) annotation (Line(points={{178,380},{-160,380},
+          {-160,0},{-64,0},{-64,-98},{58,-98}}, color={255,0,255}));
+  connect(seqEve.y1Hea, ctlPlaHyb.uMod) annotation (Line(points={{162,308},{176,
+          308},{176,-44},{124,-44},{124,-104},{92,-104},{92,-124},{52,-124},{52,
+          -102},{58,-102}}, color={255,0,255}));
+  connect(staPumHeaWatPri.y1, ctlPlaHyb.u1PumPriHea) annotation (Line(points={{162,
+          200},{232,200},{232,-60},{48,-60},{48,-110},{58,-110}}, color={255,0,255}));
+  connect(staPumChiWatPri.y1, ctlPlaHyb.u1PumPriCoo) annotation (Line(points={{212,
+          180},{220,180},{220,-56},{44,-56},{44,-106},{58,-106}}, color={255,0,255}));
+  connect(ctlPlaHyb.y1PumPri, or6.u1) annotation (Line(points={{82,-88},{104,-88},
+          {104,-80},{236,-80},{236,210},{238,210}}, color={255,0,255}));
+  connect(ctlPlaHyb.y1PumPri, or7.u1) annotation (Line(points={{82,-88},{104,-88},
+          {104,-80},{236,-80},{236,180},{238,180}}, color={255,0,255}));
+  connect(ctlPlaHyb.yAvaFouPipCoo, or1.u2) annotation (Line(points={{82,-92},{96,
+          -92},{96,-52},{-124,-52},{-124,12},{-122,12}}, color={255,0,255}));
+  connect(ctlPlaHyb.yAvaFouPipHea, or2.u1) annotation (Line(points={{82,-96},{100,
+          -96},{100,-76},{-68,-76},{-68,248},{-124,248},{-124,270},{-112,270}},
         color={255,0,255}));
-  connect(ctl.yHeaCoo, enaEquHea.u1HeaCoo) annotation (Line(points={{82,-100},{112,
-          -100},{112,-12},{72,-12},{72,224},{38,224},{38,352}}, color={255,0,255}));
-  connect(ctl.yHeaCoo, enaEquCoo.u1HeaCoo) annotation (Line(points={{82,-100},{112,
-          -100},{112,-12},{72,-12},{72,84},{38,84},{38,92}}, color={255,0,255}));
-  connect(ctl.yMod, yMod) annotation (Line(points={{82,-104},{86,-104},{86,340},
-          {320,340}}, color={255,127,0}));
-  connect(ctl.yStaEqu, chaStaCoo.staEqu) annotation (Line(points={{82,-108},{88,
-          -108},{88,-128},{-72,-128},{-72,68},{-42,68}}, color={0,0,127}));
-  connect(ctl.yStaEqu, avaStaCoo.staEqu) annotation (Line(points={{82,-108},{88,
-          -108},{88,-128},{-72,-128},{-72,44},{-128,44},{-128,66},{-112,66}},
+  connect(ctlPlaHyb.yHeaCoo, enaEquHea.u1HeaCoo) annotation (Line(points={{82,-100},
+          {112,-100},{112,-12},{72,-12},{72,224},{38,224},{38,352}}, color={255,
+          0,255}));
+  connect(ctlPlaHyb.yHeaCoo, enaEquCoo.u1HeaCoo) annotation (Line(points={{82,-100},
+          {112,-100},{112,-12},{72,-12},{72,84},{38,84},{38,92}}, color={255,0,255}));
+  connect(ctlPlaHyb.yMod, yMod) annotation (Line(points={{82,-104},{86,-104},{86,
+          340},{320,340}}, color={255,127,0}));
+  connect(ctlPlaHyb.yStaEqu, chaStaCoo.staEqu) annotation (Line(points={{82,-108},
+          {88,-108},{88,-128},{-72,-128},{-72,68},{-42,68}}, color={0,0,127}));
+  connect(ctlPlaHyb.yStaEqu, avaStaCoo.staEqu) annotation (Line(points={{82,-108},
+          {88,-108},{88,-128},{-72,-128},{-72,44},{-128,44},{-128,66},{-112,66}},
         color={0,0,127}));
-  connect(ctl.yStaEqu, chaStaHea.staEqu) annotation (Line(points={{82,-108},{88,
-          -108},{88,-128},{-72,-128},{-72,326},{-42,326}}, color={0,0,127}));
-  connect(ctl.yStaEqu, avaStaHea.staEqu) annotation (Line(points={{82,-108},{88,
-          -108},{88,-128},{-72,-128},{-72,290},{-128,290},{-128,326},{-112,326}},
+  connect(ctlPlaHyb.yStaEqu, chaStaHea.staEqu) annotation (Line(points={{82,-108},
+          {88,-108},{88,-128},{-72,-128},{-72,326},{-42,326}}, color={0,0,127}));
+  connect(ctlPlaHyb.yStaEqu, avaStaHea.staEqu) annotation (Line(points={{82,-108},
+          {88,-108},{88,-128},{-72,-128},{-72,290},{-128,290},{-128,326},{-112,326}},
         color={0,0,127}));
-  connect(ctl.yStaEqu, enaEquHea.staEqu) annotation (Line(points={{82,-108},{88,
-          -108},{88,-128},{-72,-128},{-72,384},{28,384},{28,364},{38,364}},
+  connect(ctlPlaHyb.yStaEqu, enaEquHea.staEqu) annotation (Line(points={{82,-108},
+          {88,-108},{88,-128},{-72,-128},{-72,384},{28,384},{28,364},{38,364}},
         color={0,0,127}));
-  connect(ctl.yStaEqu, enaEquCoo.staEqu) annotation (Line(points={{82,-108},{88,
-          -108},{88,-128},{-72,-128},{-72,120},{24,120},{24,104},{38,104}},
+  connect(ctlPlaHyb.yStaEqu, enaEquCoo.staEqu) annotation (Line(points={{82,-108},
+          {88,-108},{88,-128},{-72,-128},{-72,120},{24,120},{24,104},{38,104}},
         color={0,0,127}));
-  connect(ctl.yIdxSta, enaEquHea.uIdxAltSor) annotation (Line(points={{82,-112},
-          {84,-112},{84,-120},{26,-120},{26,368},{38,368}}, color={255,127,0}));
-  connect(ctl.yIdxSta, enaEquCoo.uIdxAltSor) annotation (Line(points={{82,-112},
-          {84,-112},{84,-120},{26,-120},{26,108},{38,108}}, color={255,127,0}));
+  connect(ctlPlaHyb.yIdxSta, enaEquHea.uIdxAltSor) annotation (Line(points={{82,
+          -112},{84,-112},{84,-120},{26,-120},{26,368},{38,368}}, color={255,127,
+          0}));
+  connect(ctlPlaHyb.yIdxSta, enaEquCoo.uIdxAltSor) annotation (Line(points={{82,
+          -112},{84,-112},{84,-120},{26,-120},{26,108},{38,108}}, color={255,127,
+          0}));
   annotation (
     defaultComponentName="ctl",
     Icon(

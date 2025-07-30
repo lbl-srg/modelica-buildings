@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
-model StageAvailability "Validation model for the evaluation of stage availability"
+model StageAvailability
+  "Validation model for the evaluation of stage availability"
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1AvaEqu(
     table=[
       0, 0, 0, 0;
@@ -14,27 +15,27 @@ model StageAvailability "Validation model for the evaluation of stage availabili
     period=7)
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability avaStaEqu(
-    staEqu=[
-      1 / 3, 1 / 3, 1 / 3;
-      2 / 3, 2 / 3, 2 / 3;
-      1, 1, 1])
+  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability
+                                                                        avaStaEqu(nSta=3,
+      nEqu=3)
     "Compute stage availability – Equally sized units"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability avaStaOneTwo(
-    staEqu=[
-      1, 0, 0;
-      0, 1 / 2, 1 / 2;
-      1, 1 / 2, 1 / 2;
-      0, 1, 1;
-      1, 1, 1])
+  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability
+                                                                        avaStaOneTwo(nSta=3,
+      nEqu=3)
     "Compute stage availability – One small equipment, two large equally sized equipment"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[3,3](k=[1/3,1/3,1/3; 2/3,
+        2/3,2/3; 1,1,1])
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 equation
   connect(u1AvaEqu.y, avaStaEqu.u1Ava)
     annotation (Line(points={{-58,0},{-20,0},{-20,20},{-12,20}},color={255,0,255}));
   connect(u1AvaEqu.y, avaStaOneTwo.u1Ava)
     annotation (Line(points={{-58,0},{-20,0},{-20,-20},{-12,-20}},color={255,0,255}));
+  connect(con.y, avaStaEqu.staEqu);
+  connect(con.y, avaStaOneTwo.staEqu);
+
   annotation (
     __Dymola_Commands(
       file=
