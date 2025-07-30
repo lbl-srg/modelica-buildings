@@ -50,8 +50,8 @@ record Controller
     annotation (Dialog(group="Capacity",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatPri_flow_nominal(
-    start=VHeaWatHp_flow_nominal*(cfg.nHp+1),
-    final min=0)=VHeaWatHp_flow_nominal*(cfg.nHp+1)
+    start=VHeaWatHp_flow_nominal*cfg.nHp,
+    final min=0)=VHeaWatHp_flow_nominal*cfg.nHp
     "Design primary HW volume flow rate"
     annotation (Evaluate=true,
     Dialog(group="Capacity",
@@ -176,8 +176,8 @@ record Controller
     annotation (Dialog(group="Capacity",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatPri_flow_nominal(
-    start=VChiWatHp_flow_nominal*(cfg.nHp+1),
-    final min=0)=VChiWatHp_flow_nominal*(cfg.nHp+1)
+    start=VChiWatHp_flow_nominal*cfg.nHp,
+    final min=0)=VChiWatHp_flow_nominal*cfg.nHp
     "Design primary CHW volume flow rate"
     annotation (Evaluate=true,
     Dialog(group="Capacity",
@@ -286,27 +286,12 @@ record Controller
   // Furthermore, a start value cannot be provided as the number of plant stages is not known beforehand.
   // If provided, there will likely be a mismatch between assigned value and start value.
   // Therefore, no enable annotation can be used.
-//   parameter Real staEqu[:, :](
-//     each final max=1,
-//     each final min=0,
-//     each final unit="1")
-//     "Staging matrix – Equipment required for each stage"
-//     annotation (Dialog(group="Equipment staging and rotation"));
-
-  parameter Real staEquCooHea[:, cfg.nHp+1](
+  parameter Real staEqu[:, :](
     each final max=1,
     each final min=0,
     each final unit="1")
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
-
-  parameter Real staEquOneMod[:, cfg.nHp+1](
-    each final max=1,
-    each final min=0,
-    each final unit="1")
-    "Staging matrix – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation"));
-
   parameter Real plrSta(
     final max=1,
     final min=0,
