@@ -5,8 +5,6 @@ EightPortHeatMassExchanger
 FourPortHeatMassExchanger
 LumpedVolumeDeclarations
 PartialEightPortInterface
-SixPort
-PartialSixPortInterface
 PartialFourPort
 PartialFourPortInterface
 PartialFourPortParallel

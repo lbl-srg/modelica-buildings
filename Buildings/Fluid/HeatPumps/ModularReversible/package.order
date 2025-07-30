@@ -3,7 +3,6 @@ AirToWaterTableData2D
 CarnotWithLosses
 LargeScaleWaterToWater
 Modular
-Modular4Pipe
 TableData2D
 Controls
 RefrigerantCycle
@@ -11,4 +10,3 @@ Data
 Examples
 Validation
 BaseClasses
-Types
