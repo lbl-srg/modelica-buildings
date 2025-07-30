@@ -98,7 +98,7 @@ First implementation.
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled\">
-Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilSpeedControlled</a>.
+Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled</a>.
 </p>
 <p>
 The input signals are configured as follows:

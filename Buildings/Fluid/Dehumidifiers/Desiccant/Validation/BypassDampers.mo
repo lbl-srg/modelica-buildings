@@ -112,7 +112,7 @@ First implementation.
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BypassDampers\">
-Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilBypassDampers</a>.
+Buildings.Fluid.Dehumidifiers.Desiccant.BypassDampers</a>.
 </p>
 <p>
 The input signals are configured as follows:

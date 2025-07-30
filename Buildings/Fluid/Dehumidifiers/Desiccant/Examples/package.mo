@@ -6,7 +6,7 @@ package Examples "Collection of models that illustrate model use and test models
 <p>
 This package contains validation models for the classes in
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant\">
-modelica://Buildings.Fluid.Dehumidifiers.Desiccant</a>.
+Buildings.Fluid.Dehumidifiers.Desiccant</a>.
 </p>
 </html>"));
 end Examples;

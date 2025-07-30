@@ -23,8 +23,6 @@ record Generic "Generic data record for desiccant dehumidifiers"
     displayUnit="Pa")=500
     "Nominal regeneration air pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Time tau=30
-    "Time constant of the regeneration air at nominal flow";
   parameter Modelica.Units.SI.Velocity vPro_nominal=2.5
     "Nominal velocity of the process air"
     annotation (Dialog(group="Nominal condition"));

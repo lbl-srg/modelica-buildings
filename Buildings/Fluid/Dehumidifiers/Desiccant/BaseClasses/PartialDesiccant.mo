@@ -21,7 +21,6 @@ partial model PartialDesiccant
    parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics"));
-
   Buildings.Fluid.FixedResistances.PressureDrop resReg(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -124,7 +123,7 @@ protected
     annotation (Placement(transformation(extent={{0,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
     "Sensible heat exchange calculation"
-    annotation (Placement(transformation(extent={{60,110},{40,130}})));
+    annotation (Placement(transformation(extent={{60,136},{40,156}})));
 equation
   connect(preHeaFlo.Q_flow, gai2.y)
     annotation (Line(points={{-62,140},{-21,140}},
@@ -162,12 +161,12 @@ equation
     annotation (Line(points={{-94,180},{-162,180}}, color={0,127,255}));
   connect(resReg.port_b, port_b2)
     annotation (Line(points={{-182,180},{-240,180}}, color={0,127,255}));
-  connect(max1.y, gai2.u) annotation (Line(points={{38,120},{20,120},{20,140},{2,
+  connect(max1.y, gai2.u) annotation (Line(points={{38,146},{20,146},{20,140},{2,
           140}}, color={0,0,127}));
-  connect(max1.u2, senHea.Q) annotation (Line(points={{62,114},{80,114},{80,40},
+  connect(max1.u2, senHea.Q) annotation (Line(points={{62,140},{90,140},{90,40},
           {1,40}}, color={0,0,127}));
   connect(outCon.Q_flow, max1.u1) annotation (Line(points={{11,8},{36,8},{36,100},
-          {72,100},{72,126},{62,126}}, color={0,0,127}));
+          {72,100},{72,152},{62,152}}, color={0,0,127}));
     annotation (
         Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),  graphics={
@@ -203,13 +202,19 @@ equation
 <p>
 Partial model of a desiccant dehumidifier.
 Specifically, this model considers the following configuration.
-This model should be extended to function as a dehumidifier with bypass dampers or a variable speed drive to
-modulate dehumidification.
+To achieve full dehumidification functionality, the model should be expanded to include features such as 
+bypass dampers or a variable speed drive for modulating dehumidification performance.
 </p>
 <p align=\"left\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/Dehumidifiers/Desiccant/BaseClasses/dehumidifer_schematic.png\"
 alt=\"Dehumidifer_Schematic.png\" border=\"1\"/>
 </p>
+<p>Note:</p>
+This model uses two components—<a href='modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SensibleHeat'>
+Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SensibleHeat</a> 
+and <a href='modelica://Buildings.Fluid.Interfaces.PrescribedOutlet'>Buildings.Fluid.Interfaces.PrescribedOutlet</a>—
+to calculate the sensible heat exchange between the process air and the regeneration air, seperately. 
+The one yielding the larger result is used in the final modeling process.
 </html>", revisions="<html>
 <ul>
 <li>March 1, 2024, by Sen Huang:<br/>

@@ -21,7 +21,12 @@ model SpeedControlled "Desiccant dehumidifier with a variable speed drive"
     annotation (Placement(transformation(extent={{-182,-10},{-162,10}})));
   BaseClasses.PerformanceCorrection dehPer(per=per)
     annotation (Placement(transformation(extent={{-80,52},{-60,72}})));
-
+initial equation
+  assert(per.have_varSpe,
+         "In " + getInstanceName() + ": The performance data record
+         is wrong, the variable speed flag must be true",
+         level=AssertionLevel.error)
+         "Check if the performance data record is correct";
 equation
   assert(senRegMasFlo.m_flow >= dehPer.mReg_flow,
   "In " + getInstanceName() + ": insufficient regeneration air",
@@ -68,7 +73,12 @@ An empirical model of a desiccant dehumidifier, which has the
 wheel speed as the input to control the dehumidification.
 </p>
 <p>
-This model does not require geometric data. 
+This model does not require geometric data. Instead, its performance is defined by a set of characteristic curves,
+as specified in
+<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\">
+Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
+</p>
+<p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in
 <a href=\"Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrection\">

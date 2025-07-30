@@ -15,7 +15,6 @@ model BypassDampers "Desiccant dehumidifier with bypass dampers"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
   parameter Real yByp_start=1 "Initial position of bypass actuators"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
-
   Modelica.Blocks.Interfaces.BooleanInput uRot
     "True when the wheel is operating" annotation (Placement(transformation(
     extent={{-280,60},{-240,100}}),
@@ -56,7 +55,7 @@ model BypassDampers "Desiccant dehumidifier with bypass dampers"
     final dpFixed_nominal=per.dpPro_nominal)
     "Process air damper"
     annotation (Placement(transformation(
-    extent={{-10,-10},{10,10}},rotation=0,origin={-130,0})));
+    extent={{-10,-10},{10,10}},rotation=0,origin={-168,0})));
   Modelica.Blocks.Sources.Constant uni(
     final k=1)
     "Unity signal"
@@ -75,12 +74,20 @@ protected
     final realFalse=0)
     "Electric power consumption for motor"
     annotation (Placement(transformation(extent={{-202,110},{-182,130}})));
+
+initial equation
+  assert(not per.have_varSpe,
+         "In " + getInstanceName() + ": The performance data record
+         is wrong, the variable speed flag must be false",
+         level=AssertionLevel.error)
+         "Check if the performance data record is correct";
 equation
   assert(senRegMasFlo.m_flow >= dehPer.mReg_flow,
-  "In " + getInstanceName() + ": insufficient regeneration air",
-   level=AssertionLevel.warning)
-   "Check if the mass flow rate of the regeneration air aligns with 
-   the performance calculation.";
+         "In " + getInstanceName() + ": insufficient regeneration air",
+         level=AssertionLevel.warning)
+         "Check if the mass flow rate of the regeneration air aligns with 
+         the performance calculation.";
+
   connect(bypDamPro.port_a, port_a1)
     annotation (Line(points={{-142,-100},{-190,-100},{-190,0},{-240,0}},
     color={0,127,255}));
@@ -97,12 +104,12 @@ equation
     annotation (Line(points={{-176,-46},{-180,-46},{-180,-80},{-260,-80}},
     color={0,0,127}));
   connect(damPro.y, sub.y)
-    annotation (Line(points={{-130,12},{-130,20},{-146,20},{-146,-40},{-152,-40}},
+    annotation (Line(points={{-168,12},{-168,20},{-142,20},{-142,-40},{-152,-40}},
     color={0,0,127}));
   connect(damPro.port_a, port_a1)
-    annotation (Line(points={{-140,0},{-240,0}},       color={0,127,255}));
+    annotation (Line(points={{-178,0},{-240,0}}, color={0,127,255}));
   connect(senTemProEnt.port_a, damPro.port_b)
-    annotation (Line(points={{-120,0},{-120,0}}, color={0,127,255}));
+    annotation (Line(points={{-120,0},{-158,0}}, color={0,127,255}));
   connect(PEle.y, P) annotation (Line(points={{-181,120},{80,120},{80,100},{110,
           100}}, color={0,0,127}));
   connect(PEle.u, uRot) annotation (Line(points={{-204,120},{-220,120},{-220,80},
