@@ -450,21 +450,21 @@ block AirToWater "Controller for AWHP plant"
   parameter Real staEqu[:, nHp](
     each final max=1,
     each final min=0,
-    each final unit="1")
+    each final unit="1")={fill(0,nHp)}
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=not has_fouPip));
 
   parameter Real staEquCooHea[:, nHp](
     each final max=1,
     each final min=0,
-    each final unit="1")
+    each final unit="1")={fill(0,nHp)}
     "Staging matrix for heating-cooling mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=has_fouPip));
 
   parameter Real staEquOneMod[:, nHp](
     each final max=1,
     each final min=0,
-    each final unit="1")
+    each final unit="1")={fill(0,nHp)}
     "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=has_fouPip));
 
@@ -1186,6 +1186,7 @@ block AirToWater "Controller for AWHP plant"
     "Evaluate heating stage availability"
     annotation (Placement(transformation(extent={{-110,320},{-90,340}})));
   StagingRotation.EquipmentEnable enaEquHea(
+    is_pumApp=false,
     final nEquAlt=nEquAlt,
     nSta=nSta,
     nEqu=nHp)
@@ -1265,6 +1266,7 @@ block AirToWater "Controller for AWHP plant"
     "Compute cooling stage index"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   StagingRotation.EquipmentEnable enaEquCoo(
+    is_pumApp=false,
     final nEquAlt=nEquAlt,
     nSta=nSta,
     nEqu=nHp)
@@ -1544,7 +1546,7 @@ block AirToWater "Controller for AWHP plant"
       have_inpPh=true) if have_chiWat
     "For HRC logic select either primary or secondary sensor depending on plant configuration"
     annotation (Placement(transformation(extent={{-140,-124},{-120,-104}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHp]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHp] if has_fouPip
     "Operation mode integer signal for each HP" annotation (Placement(
         transformation(extent={{300,320},{340,360}}), iconTransformation(extent
           ={{200,280},{240,320}})));
@@ -1566,10 +1568,10 @@ block AirToWater "Controller for AWHP plant"
   Buildings.Controls.OBC.CDL.Logical.Or or1[nHp]
     "Generate cooling mode availability signal for both 2-pipe and 4-pipe modules"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or6[nHp]
+  Buildings.Controls.OBC.CDL.Logical.Or or6[nPumHeaWatPri]
     "Combine with primary pump signals for other HPs in heating mode"
     annotation (Placement(transformation(extent={{240,200},{260,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or7[nHp]
+  Buildings.Controls.OBC.CDL.Logical.Or or7[nPumChiWatPri]
     "Combine with primary pump signals for other HPs in cooling mode"
     annotation (Placement(transformation(extent={{240,170},{260,190}})));
   HybridPlantControlModule ctlPlaHyb(
@@ -1582,6 +1584,29 @@ block AirToWater "Controller for AWHP plant"
     staEquOneMod=staEquOneMod,
     idxEquAlt=idxEquAlt) if has_fouPip "Hybrid plant control module"
     annotation (Placement(transformation(extent={{60,-114},{80,-86}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu if has_fouPip
+    "Check status of 4-pipe ASHP"
+    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Controls.OBC.CDL.Types.OperationModes.Heating)
+    if has_fouPip "Constant Integer signal indicating heating-only mode"
+    annotation (Placement(transformation(extent={{50,-170},{70,-150}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staMat[nSta,nHp](k=staEqu)
+    if not has_fouPip "Staging matrix signal"
+    annotation (Placement(transformation(extent={{-220,270},{-200,290}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    if not has_fouPip "Constant Boolean false signal"
+    annotation (Placement(transformation(extent={{-200,400},{-180,420}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(nout=nHp)
+    if not has_fouPip "Replicate signal by number of heat pumps"
+    annotation (Placement(transformation(extent={{-150,260},{-130,280}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(nout=
+        nPumHeaWatPri) if not has_fouPip
+    "Replicate signal by number of heating water primary pumps"
+    annotation (Placement(transformation(extent={{10,440},{30,460}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep2(nout=
+        nPumChiWatPri) if not has_fouPip
+    "Replicate signal by number of chilled water primary pumps"
+    annotation (Placement(transformation(extent={{10,410},{30,430}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));
@@ -1835,7 +1860,7 @@ equation
   connect(repTHeaWatSupSet.y, swiTSupSet.u1) annotation (Line(points={{172,-100},
           {178,-100},{178,-112},{188,-112}}, color={0,0,127}));
   connect(resChiWat.TSupSet, repTChiWatSupSet.u) annotation (Line(points={{72,-46},
-          {116,-46},{116,-140},{148,-140}}, color={0,0,127}));
+          {120,-46},{120,-140},{148,-140}}, color={0,0,127}));
   connect(resHeaWat.TSupSet, repTHeaWatSupSet.u) annotation (Line(points={{72,234},
           {118,234},{118,-100},{148,-100}}, color={0,0,127}));
   connect(seqEve[1:(nHp-1)].y1Hea, swiTSupSet[1:(nHp-1)].u2) annotation (Line(points={{162,308},{174,
@@ -2037,8 +2062,8 @@ equation
           52},{-120,52},{-120,74},{-112,74}},     color={255,0,255}));
   connect(or1.y, sorRunTimCoo.u1Ava) annotation (Line(points={{-98,20},{-56,20},
           {-56,24},{-42,24}}, color={255,0,255}));
-  connect(staPumChiWatPri.y1, or7.u2) annotation (Line(points={{212,180},{220,180},
-          {220,172},{238,172}},
+  connect(staPumChiWatPri.y1, or7.u2) annotation (Line(points={{212,180},{220,
+          180},{220,172},{238,172}},
                  color={255,0,255}));
   connect(staPumHeaWatPri.y1, or6.u2) annotation (Line(points={{162,200},{232,200},
           {232,202},{238,202}},                          color={255,0,255}));
@@ -2097,12 +2122,58 @@ equation
   connect(ctlPlaHyb.yIdxSta, enaEquCoo.uIdxAltSor) annotation (Line(points={{82,
           -112},{84,-112},{84,-120},{26,-120},{26,108},{38,108}}, color={255,127,
           0}));
+  connect(ctlPlaHyb.yMod[nHp], intEqu.u1) annotation (Line(points={{82,-104},{96,
+          -104},{96,-132},{72,-132},{72,-150},{78,-150}}, color={255,127,0}));
+  connect(conInt.y, intEqu.u2) annotation (Line(points={{72,-160},{72,-158},{78,
+          -158}}, color={255,127,0}));
+if has_fouPip then
+  connect(intEqu.y, swiTSupSet[nHp].u2) annotation (Line(points={{102,-150},{110,
+          -150},{110,-120},{188,-120}}, color={255,0,255}));
+else
+  connect(seqEve[nHp].y1Hea, swiTSupSet[nHp].u2) annotation (Line(points={{162,308},{174,
+          308},{174,-120},{188,-120}}, color={255,0,255}));
+end if;
+  connect(staMat.y, avaStaHea.staEqu) annotation (Line(points={{-198,280},{-176,
+          280},{-176,312},{-128,312},{-128,326},{-112,326}}, color={0,0,127}));
+  connect(staMat.y, chaStaHea.staEqu) annotation (Line(points={{-198,280},{-164,
+          280},{-164,204},{-72,204},{-72,326},{-42,326}}, color={0,0,127}));
+  connect(staMat.y, enaEquHea.staEqu) annotation (Line(points={{-198,280},{-164,
+          280},{-164,204},{-72,204},{-72,384},{28,384},{28,364},{38,364}},
+        color={0,0,127}));
+  connect(staMat.y, avaStaCoo.staEqu) annotation (Line(points={{-198,280},{-164,
+          280},{-164,204},{-72,204},{-72,44},{-128,44},{-128,66},{-112,66}},
+        color={0,0,127}));
+  connect(staMat.y, chaStaCoo.staEqu) annotation (Line(points={{-198,280},{-164,
+          280},{-164,204},{-72,204},{-72,68},{-42,68}}, color={0,0,127}));
+  connect(staMat.y, enaEquCoo.staEqu) annotation (Line(points={{-198,280},{-164,
+          280},{-164,204},{-72,204},{-72,120},{24,120},{24,104},{38,104}},
+        color={0,0,127}));
+  connect(con.y, enaEquHea.u1HeaCoo) annotation (Line(points={{-178,410},{-66,
+          410},{-66,352},{38,352}}, color={255,0,255}));
+  connect(con.y, enaEquCoo.u1HeaCoo) annotation (Line(points={{-178,410},{-66,
+          410},{-66,92},{38,92}}, color={255,0,255}));
+  connect(con.y, booScaRep.u) annotation (Line(points={{-178,410},{-172,410},{
+          -172,376},{-184,376},{-184,324},{-188,324},{-188,276},{-176,276},{
+          -176,270},{-152,270}}, color={255,0,255}));
+  connect(booScaRep.y, or2.u1)
+    annotation (Line(points={{-128,270},{-112,270}}, color={255,0,255}));
+  connect(booScaRep.y, or1.u2) annotation (Line(points={{-128,270},{-120,270},{
+          -120,252},{-116,252},{-116,208},{-120,208},{-120,116},{-128,116},{
+          -128,72},{-132,72},{-132,12},{-122,12}}, color={255,0,255}));
+  connect(booScaRep1.y, or6.u1) annotation (Line(points={{32,450},{172,450},{
+          172,210},{238,210}}, color={255,0,255}));
+  connect(booScaRep2.y, or7.u1) annotation (Line(points={{32,420},{268,420},{
+          268,164},{238,164},{238,180}}, color={255,0,255}));
+  connect(con.y, booScaRep1.u) annotation (Line(points={{-178,410},{-172,410},{
+          -172,450},{8,450}}, color={255,0,255}));
+  connect(con.y, booScaRep2.u) annotation (Line(points={{-178,410},{-172,410},{
+          -172,450},{0,450},{0,420},{8,420}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-260,-400},{300,400}}),
+        extent={{-260,-400},{300,460}}),
       graphics={
         Rectangle(
           extent={{-200,360},{200,-360}},
@@ -2115,7 +2186,7 @@ equation
           textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
-        extent={{-260,-400},{300,400}})),
+        extent={{-260,-400},{300,460}})),
     Documentation(
       info="<html>
 <p>

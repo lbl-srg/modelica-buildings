@@ -1,21 +1,22 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentEnable
   "Return array of equipment to be enabled at given stage"
+  parameter Boolean is_pumApp
+    "Is the equipment enable block used for a pump control module application?";
 
-//   parameter Integer nEquAlt=if nEqu==1 then 1 else
-//     max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
-//     "Number of lead/lag alternate equipment"
-//     annotation (Evaluate=true);
   parameter Integer nEquAlt
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
+
   parameter Integer nSta
     "Number of stages"
     annotation (Evaluate=true);
+
   parameter Integer nEqu
     "Number of equipment"
     annotation (Evaluate=true);
-  final Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
+
+  final Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
@@ -115,8 +116,8 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Integers.Less intLes
     "Compare to required number of equipment"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr
-                                        swiEna(nin=3)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr swiEna(
+    final nin=if is_pumApp then 2 else 3)
     "Evaluate condition to switch to newly computed enable signal"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
@@ -150,11 +151,11 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Reals.Multiply voiStaZer[nEqu]
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if not is_pumApp
     "Detect plant switching to heating-cooling mode" annotation (Placement(
         transformation(extent={{-240,-140},{-200,-100}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Change cha1
+  Buildings.Controls.OBC.CDL.Logical.Change cha1 if not is_pumApp
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
@@ -245,14 +246,14 @@ equation
     annotation (Line(points={{-78,80},{-70,80},{-70,0},{-62,0}},color={0,0,127}));
   connect(voiStaZer.y, isReq.u)
     annotation (Line(points={{-78,80},{-70,80},{-70,-40},{-62,-40}},color={0,0,127}));
-  connect(cha.y, swiEna.u[1]) annotation (Line(points={{52,-60},{66,-60},{66,
-          -62.3333},{78,-62.3333}}, color={255,0,255}));
+  connect(cha.y, swiEna.u[1]) annotation (Line(points={{52,-60},{66,-60},{66,-60},
+          {78,-60}},                color={255,0,255}));
   connect(intLes.y, swiEna.u[2]) annotation (Line(points={{52,-100},{62,-100},{
           62,-60},{78,-60}}, color={255,0,255}));
   connect(u1HeaCoo, cha1.u) annotation (Line(points={{-220,-120},{-180,-120},{
           -180,-100},{-142,-100}}, color={255,0,255}));
-  connect(cha1.y, swiEna.u[3]) annotation (Line(points={{-118,-100},{-40,-100},
-          {-40,-116},{62,-116},{62,-58},{78,-58},{78,-57.6667}}, color={255,0,
+  connect(cha1.y, swiEna.u[3]) annotation (Line(points={{-118,-100},{-40,-100},{
+          -40,-116},{62,-116},{62,-58},{78,-58},{78,-60}},       color={255,0,
           255}));
   annotation (
     defaultComponentName="enaEqu",
