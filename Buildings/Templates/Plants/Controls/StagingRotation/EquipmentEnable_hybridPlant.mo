@@ -1,12 +1,7 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentEnable_hybridPlant
   "Return array of equipment to be enabled at given stage"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
-    each unit="1",
-    each min=0,
-    each max=1)
-    "Staging matrix – Equipment required for each stage"
-    annotation (Evaluate=true);
+
 //   parameter Integer nEquAlt=if nEqu==1 then 1 else
 //     max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
 //     "Number of lead/lag alternate equipment"
@@ -22,18 +17,30 @@ block EquipmentEnable_hybridPlant
     annotation (Evaluate=true);
   final Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix";
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
-    "Indices of lead/lag alternate equipment sorted by increasing runtime"
-    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
-    "Stage index"
-    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
+    "Indices of lead/lag alternate equipment sorted by increasing runtime"
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
+    "Stage index"
+    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1)
+    "Staging matrix – Equipment required for each stage"
+    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+
   Modelica.Blocks.Sources.RealExpression traMatStaEqu[nEqu, nSta](y=traStaEqu)
     "Transpose of staging matrix"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
@@ -146,7 +153,7 @@ block EquipmentEnable_hybridPlant
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo
     "Detect plant switching to heating-cooling mode" annotation (Placement(
         transformation(extent={{-240,-140},{-200,-100}}), iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
+          extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Change cha1
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
 equation

@@ -1,10 +1,5 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block StageAvailability_hybridPlant "Compute stage availability"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
-    each unit="1",
-    each min=0,
-    each max=1)
-    "Staging matrix – Equipment required for each stage";
   parameter Integer nSta
     "Number of stages"
     annotation (Evaluate=true);
@@ -14,15 +9,20 @@ block StageAvailability_hybridPlant "Compute stage availability"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1)
+    "Staging matrix – Equipment required for each stage"
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1[nSta]
     "Stage available signal"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Modelica.Blocks.Sources.RealExpression matStaEqu[nSta, nEqu](
-    final y=staEqu)
-    "Staging matrix"
-    annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isReq[nSta, nEqu](
     each final t=0.99)
     "Return true if equipment required without lead/lag alternate"
@@ -74,12 +74,6 @@ block StageAvailability_hybridPlant "Compute stage availability"
     "Integer cast of number of equipment required at each stage"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
-  connect(matStaEqu.y, isReq.u)
-    annotation (Line(points={{-109,0},{-90,0},{-90,-40},{-82,-40}},color={0,0,127}));
-  connect(matStaEqu.y, isReqPosAlt.u)
-    annotation (Line(points={{-109,0},{-90,0},{-90,40},{-82,40}},color={0,0,127}));
-  connect(matStaEqu.y, isNotReqNoAlt.u)
-    annotation (Line(points={{-109,0},{-82,0}},color={0,0,127}));
   connect(isReq.y, isReqAva.u1)
     annotation (Line(points={{-58,-40},{-42,-40}},color={255,0,255}));
   connect(booVecRep.y, isReqAva.u2)
@@ -94,8 +88,6 @@ equation
     annotation (Line(points={{132,0},{160,0}},color={255,0,255}));
   connect(isReqAvaOrNotReq.y, all.u)
     annotation (Line(points={{22,-20},{28,-20}},color={255,0,255}));
-  connect(matStaEqu.y, nEquSta.u)
-    annotation (Line(points={{-109,0},{-90,0},{-90,80},{-82,80}},color={0,0,127}));
   connect(nReqAltAva.y, isReqAltAvaGreReq.u1)
     annotation (Line(points={{52,40},{68,40}},color={255,127,0}));
   connect(nReqAltAva.u, booToInt.y)
@@ -114,6 +106,15 @@ equation
     annotation (Line(points={{92,40},{100,40},{100,0},{108,0}},color={255,0,255}));
   connect(all.y, isAva.u2)
     annotation (Line(points={{52,-20},{100,-20},{100,-8},{108,-8}},color={255,0,255}));
+  connect(staEqu, isReqPosAlt.u) annotation (Line(points={{-160,60},{-92,60},{-92,
+          40},{-82,40}}, color={0,0,127}));
+  connect(staEqu, isNotReqNoAlt.u) annotation (Line(points={{-160,60},{-92,60},{
+          -92,0},{-82,0}}, color={0,0,127}));
+  connect(staEqu, isReq.u) annotation (Line(points={{-160,60},{-92,60},{-92,-40},
+          {-82,-40}}, color={0,0,127}));
+  connect(staEqu, nEquSta.u) annotation (Line(points={{-160,60},{-92,60},{-92,
+          80},{-82,80}},
+                      color={0,0,127}));
   annotation (
     defaultComponentName="avaSta",
     Icon(
