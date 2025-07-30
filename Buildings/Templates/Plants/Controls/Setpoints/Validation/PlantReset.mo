@@ -5,8 +5,8 @@ model PlantReset
     dpSet_max={5E4,8E4},
     TSup_nominal=323.15,
     TSupSetLim=298.15,
-    resDp_max=0.5,
-    resTSup_min=0.5) "Plant reset"
+    resDp_max=0.75,
+    resTSup_min=0.25) "Plant reset"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
@@ -36,7 +36,7 @@ model PlantReset
       1500, 2;
       1650, 1;
       1800, 0],
-    timeScale=20)
+    timeScale=10)
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse staPro(
@@ -56,9 +56,8 @@ equation
     annotation (Line(points={{-58,0},{18,0}},color={255,0,255}));
   annotation (
     experiment(
-      StopTime=40000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=20000.0,
+      Tolerance=1e-06),
     __Dymola_Commands(
       file=
         "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Setpoints/Validation/PlantReset.mos"

@@ -1,4 +1,4 @@
-﻿within Buildings.Templates.Plants.Controls.Pumps.Generic.Validation;
+within Buildings.Templates.Plants.Controls.Pumps.Generic.Validation;
 model StagingHeaderedDeltaP
   "Validation model for staging of headered variable speed pumps using ∆p pump speed control"
   parameter Integer nPum=4
@@ -84,10 +84,6 @@ model StagingHeaderedDeltaP
     annotation (Placement(transformation(extent={{30,90},{10,110}})));
   Components.Controls.StatusEmulator y1Pum_actual1[nPum] "Pump Status"
     annotation (Placement(transformation(extent={{30,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=
-        30) annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol1(trueHoldDuration=
-        30) annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
   connect(ratFlo.y[1], VPri_flow.u)
     annotation (Line(points={{-88,60},{-82,60}},
@@ -144,10 +140,6 @@ equation
     annotation (Line(points={{8,-20},{-18,-20}}, color={255,0,255}));
   connect(booToRea.y, mulSum.u) annotation (Line(points={{-42,-20},{-110,-20},{
           -110,-60},{-102,-60}}, color={0,0,127}));
-  connect(staPum.y1Up, truFalHol.u) annotation (Line(points={{32,66},{36,66},{
-          36,62},{42,62},{42,130},{58,130}}, color={255,0,255}));
-  connect(staPum.y1Dow, truFalHol1.u) annotation (Line(points={{32,54},{36,54},
-          {36,58},{42,58},{42,30},{58,30}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=

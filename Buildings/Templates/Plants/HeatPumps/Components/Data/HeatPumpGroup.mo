@@ -1,7 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Data;
 record HeatPumpGroup
   extends Modelica.Icons.Record;
-
   parameter Integer nHp(
     final min=1)
     "Number of heat pumps"
