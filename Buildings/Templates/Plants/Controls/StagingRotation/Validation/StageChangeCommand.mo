@@ -45,8 +45,7 @@ model StageChangeCommand
     timeScale=1000)
     "Source signal for volume flow rate ratio"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand
-                                                                         chaSta(
+  Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand chaSta(
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
     have_pumSec=false,
     plrSta=0.9,
@@ -90,6 +89,7 @@ model StageChangeCommand
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   StagingRotation.EquipmentEnable                                         enaEqu(
+    is_pumApp=true,
     nEquAlt=2,
     nSta=5,
     nEqu=3)
