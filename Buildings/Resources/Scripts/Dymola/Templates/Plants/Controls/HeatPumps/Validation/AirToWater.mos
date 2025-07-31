@@ -129,7 +129,7 @@ createPlot(
 );
 
 createPlot(
-    id=1,
+    id=7,
     position={5, 5, 300, 500},
     y={"ctl1.chaStaHea.capReq.QReq_flow", "ctl1.chaStaCoo.capReq.QReq_flow", "capHea_nominal", "capCoo_nominal"},
     autoscale=true,
@@ -137,7 +137,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=1,
+    id=7,
     subPlot=2,
     y={"ctl1.TOut", "ctl1.TOutChiWatLck", "ctl1.TOutHeaWatLck"},
     autoscale=true,
@@ -145,7 +145,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=2,
+    id=8,
     position={310, 5, 300, 500},
     y={"ctl1.nReqPlaHeaWat", "ctl1.nReqPlaChiWat", "ctl1.enaHea.y1", "ctl1.enaCoo.y1"},
     autoscale=true,
@@ -153,7 +153,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=2,
+    id=8,
     subPlot=2,
     y={"ctl1.idxStaHea.y", "ctl1.idxStaCoo.y"},
     autoscale=true,
@@ -161,7 +161,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=3,
+    id=9,
     position={615, 5, 300, 500},
     subPlot=1,
     y={"ctl1.y1Hp[1]", "ctl1.y1Hp[2]", "ctl1.y1Hp[3]"},
@@ -170,7 +170,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=3,
+    id=9,
     subPlot=2,
     y={"ctl1.y1HeaHp[1]", "ctl1.y1HeaHp[2]", "ctl1.y1HeaHp[3]"},
     autoscale=true,
@@ -178,7 +178,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=4,
+    id=10,
     position={920, 5, 300, 600},
     subPlot=1,
     y={"ctl1.y1PumHeaWatPri[1]", "ctl1.y1PumHeaWatPri[2]", "ctl1.y1PumHeaWatPri[3]"},
@@ -187,7 +187,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=4,
+    id=10,
     subPlot=2,
     y={"ctl1.y1PumHeaWatSec[1]", "ctl1.y1PumHeaWatSec[2]", "ctl1.y1PumHeaWatSec[3]"},
     autoscale=true,
@@ -195,7 +195,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=4,
+    id=10,
     subPlot=3,
     y={"ctl1.y1PumChiWatPri[1]", "ctl1.y1PumChiWatPri[2]", "ctl1.y1PumChiWatPri[3]"},
     autoscale=true,
@@ -203,7 +203,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=4,
+    id=10,
     subPlot=4,
     y={"ctl1.y1PumChiWatSec[1]", "ctl1.y1PumChiWatSec[2]", "ctl1.y1PumChiWatSec[3]"},
     autoscale=true,
@@ -211,7 +211,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=5,
+    id=11,
     position={1225, 5, 300, 600},
     subPlot=1,
     y={"ctl1.nReqResHeaWat", "ctl1.nReqResChiWat"},
@@ -220,7 +220,7 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=5,
+    id=11,
     subPlot=2,
     y={"ctl1.resHeaWat.TSupSet", "ctl1.resChiWat.TSupSet", "ctl1.THeaWatSup_nominal", "ctl1.THeaWatSupSet_min", "ctl1.TChiWatSup_nominal", "ctl1.TChiWatSupSet_max"},
     autoscale=true,
@@ -228,26 +228,9 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
-    id=5,
+    id=11,
     subPlot=3,
     y={"ctl1.dpHeaWatRemSet[1]", "ctl1.dpChiWatRemSet[1]", "ctl1.dpHeaWatRemSet_max[1]", "ctl1.dpHeaWatRemSet_min", "ctl1.dpChiWatRemSet_max[1]", "ctl1.dpChiWatRemSet_min"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
-);
-createPlot(
-    id=6,
-    position={15, 15, 300, 400},
-    subPlot=1,
-    y={"ctl1.y1Hrc", "ctl1.y1CooHrc", "ctl1.y1PumChiWatHrc", "ctl1.y1PumHeaWatHrc"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
-);
-createPlot(
-    id=6,
-    subPlot=2,
-    y={"ctl1.hrc.loaChiWat.QReq_flow", "ctl1.hrc.loaHeaWat.QReq_flow", "ctl1.capCooHrc_min", "ctl1.capHeaHrc_min", "ctl1.hrc.setMod.QEvaHea_flow.y"},
     autoscale=true,
     grid=true,
     timeUnit="h"

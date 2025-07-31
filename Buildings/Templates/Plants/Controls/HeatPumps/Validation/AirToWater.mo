@@ -629,7 +629,7 @@ equation
           -5.25581},{264,-5.25581},{264,-28},{210,-28},{210,4.7907},{218.857,
           4.7907}},                                                  color={0,0,
           127}));
-  connect(TOut.y, ctl1.TOut) annotation (Line(points={{-168,92},{26,92},{26,
+  connect(TOut.y, ctl1.TOut) annotation (Line(points={{-168,92},{168,92},{168,
           16.5116},{218.857,16.5116}},
                            color={0,0,127}));
   connect(ctl1.THeaWatSupSet, THeaWatRet1.u1) annotation (Line(points={{250.286,
