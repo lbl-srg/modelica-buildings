@@ -86,7 +86,6 @@ model AirToWater
 
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl1(
     have_heaWat=true,
-    has_sort=true,
     have_chiWat=true,
     have_hrc_select=false,
     have_valHpInlIso=false,
