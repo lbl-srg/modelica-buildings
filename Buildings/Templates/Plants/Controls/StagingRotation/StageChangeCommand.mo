@@ -18,13 +18,7 @@ block StageChangeCommand "Generate stage change command"
     annotation (Dialog(enable=not have_inpPlrSta));
   final Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
-    each final max=1,
-    each final min=0,
-    each final unit="1")
-    "Staging matrix – Equipment required for each stage"
-    annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+
   parameter Integer nSta
     "Number of stages"
     annotation (Evaluate=true);
@@ -76,6 +70,15 @@ block StageChangeCommand "Generate stage change command"
     annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   // We allow the stage index to be zero, e.g., when the plant is disabled.
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
+    each final max=1,
+    each final min=0,
+    each final unit="1")
+    "Staging matrix – Equipment required for each stage"
+    annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
     final min=0,
     final max=nSta)

@@ -1,5 +1,7 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
 model HybridPlantControlModule
+  "Validation model for 4-pipe ASHP integration block"
+
   Buildings.Templates.Plants.Controls.HeatPumps.HybridPlantControlModule
     ctl(
     final have_heaWat=true,
@@ -10,7 +12,7 @@ model HybridPlantControlModule
     final staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1],
     final staEquOneMod=[1/2,1/2,0; 1,1,0; 1,1,1],
     final idxEquAlt={1,2})
-    "Plant controller"
+    "Integration block"
     annotation (Placement(transformation(extent={{-10,-14},{10,14}})));
 
 protected

@@ -81,8 +81,61 @@ model AirToWater
     COPHeaHrc_nominal=2.8,
     capCooHrc_min=ctl.capHeaHrc_min *(1 - 1 / ctl.COPHeaHrc_nominal),
     capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal))
-    "Plant controller"
+    "Plant controller-1"
     annotation (Placement(transformation(extent={{0,-22},{40,50}})));
+
+  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl1(
+    have_heaWat=true,
+    has_sort=true,
+    have_chiWat=true,
+    have_hrc_select=false,
+    have_valHpInlIso=false,
+    have_valHpOutIso=false,
+    have_pumChiWatPriDed_select=true,
+    have_pumPriHdr=false,
+    is_priOnl=false,
+    have_pumHeaWatPriVar_select=false,
+    have_pumChiWatPriVar_select=false,
+    have_senVHeaWatPri_select=false,
+    have_senVChiWatPri_select=false,
+    have_senTHeaWatPriRet_select=false,
+    have_senTChiWatPriRet_select=false,
+    nHp=3,
+    nPumHeaWatPri=3,
+    have_senDpHeaWatRemWir=false,
+    nSenDpHeaWatRem=1,
+    have_senDpChiWatRemWir=false,
+    nSenDpChiWatRem=1,
+    final THeaWatSup_nominal=THeaWatSup_nominal,
+    THeaWatSupSet_min=298.15,
+    VHeaWatHp_flow_nominal=1.1*fill(VHeaWat_flow_nominal/ctl.nHp, ctl.nHp),
+    VHeaWatHp_flow_min=0.6*ctl.VHeaWatHp_flow_nominal,
+    final VHeaWatSec_flow_nominal=VHeaWat_flow_nominal,
+    capHeaHp_nominal=fill(350E3, ctl.nHp),
+    dpHeaWatRemSet_max={5E4},
+    final TChiWatSup_nominal=TChiWatSup_nominal,
+    TChiWatSupSet_max=288.15,
+    VChiWatHp_flow_nominal=1.1*fill(VChiWat_flow_nominal/ctl.nHp, ctl.nHp),
+    VChiWatHp_flow_min=0.6*ctl.VChiWatHp_flow_nominal,
+    final VChiWatSec_flow_nominal=VChiWat_flow_nominal,
+    capCooHp_nominal=fill(350E3, ctl.nHp),
+    yPumHeaWatPriSet=0.8,
+    yPumChiWatPriSet=0.7,
+    dpChiWatRemSet_max={5E4},
+    staEqu=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1],
+    idxEquAlt={1,2},
+    TChiWatSupHrc_min=277.15,
+    THeaWatSupHrc_max=333.15,
+    COPHeaHrc_nominal=2.8,
+    capCooHrc_min=ctl.capHeaHrc_min *(1 - 1 / ctl.COPHeaHrc_nominal),
+    capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal),
+    is_fouPip={false,false,true},
+    staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1],
+    staEquOneMod=[1/2,1/2,0; 1,1,0; 1,1,1])
+    "Plant controller-2"
+    annotation (Placement(transformation(extent={{216,-22},{256,50}})));
+
+protected
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
     table=[
       0, 0, 0;
@@ -234,56 +287,7 @@ model AirToWater
     if ctl.have_chiWat
     "CHWRT upstream of HRC"
     annotation (Placement(transformation(extent={{-110,170},{-90,190}})));
-  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl1(
-    have_heaWat=true,
-    has_sort=true,
-    have_chiWat=true,
-    have_hrc_select=false,
-    have_valHpInlIso=false,
-    have_valHpOutIso=false,
-    have_pumChiWatPriDed_select=true,
-    have_pumPriHdr=false,
-    is_priOnl=false,
-    have_pumHeaWatPriVar_select=false,
-    have_pumChiWatPriVar_select=false,
-    have_senVHeaWatPri_select=false,
-    have_senVChiWatPri_select=false,
-    have_senTHeaWatPriRet_select=false,
-    have_senTChiWatPriRet_select=false,
-    nHp=3,
-    nPumHeaWatPri=3,
-    have_senDpHeaWatRemWir=false,
-    nSenDpHeaWatRem=1,
-    have_senDpChiWatRemWir=false,
-    nSenDpChiWatRem=1,
-    final THeaWatSup_nominal=THeaWatSup_nominal,
-    THeaWatSupSet_min=298.15,
-    VHeaWatHp_flow_nominal=1.1*fill(VHeaWat_flow_nominal/ctl.nHp, ctl.nHp),
-    VHeaWatHp_flow_min=0.6*ctl.VHeaWatHp_flow_nominal,
-    final VHeaWatSec_flow_nominal=VHeaWat_flow_nominal,
-    capHeaHp_nominal=fill(350E3, ctl.nHp),
-    dpHeaWatRemSet_max={5E4},
-    final TChiWatSup_nominal=TChiWatSup_nominal,
-    TChiWatSupSet_max=288.15,
-    VChiWatHp_flow_nominal=1.1*fill(VChiWat_flow_nominal/ctl.nHp, ctl.nHp),
-    VChiWatHp_flow_min=0.6*ctl.VChiWatHp_flow_nominal,
-    final VChiWatSec_flow_nominal=VChiWat_flow_nominal,
-    capCooHp_nominal=fill(350E3, ctl.nHp),
-    yPumHeaWatPriSet=0.8,
-    yPumChiWatPriSet=0.7,
-    dpChiWatRemSet_max={5E4},
-    staEqu=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1],
-    idxEquAlt={1,2},
-    TChiWatSupHrc_min=277.15,
-    THeaWatSupHrc_max=333.15,
-    COPHeaHrc_nominal=2.8,
-    capCooHrc_min=ctl.capHeaHrc_min *(1 - 1 / ctl.COPHeaHrc_nominal),
-    capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal),
-    is_fouPip={false,false,true},
-    staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1],
-    staEquOneMod=[1/2,1/2,0; 1,1,0; 1,1,1])
-    "Plant controller"
-    annotation (Placement(transformation(extent={{216,-22},{256,50}})));
+
   Buildings.Controls.OBC.CDL.Reals.Add THeaWatRet1
     if ctl.have_heaWat
     "HWRT"
@@ -745,12 +749,13 @@ This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
 Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>
 in two configurations:
-<ol><li>with three equally sized lead/lag alternate
+<ol><li><code>ctl</code> with three equally sized lead/lag alternate
 heat pumps and a sidestream heat recovery chiller.</li>
 <li>
-a hybrid heat pump plant with two equally-sized 2-pipe air-source heat pumps (ASHPs)
-in a lead-lag relationship, and an additional 4-pipe AASHP that is prioritized when
-servicing simultaneous heating and cooling loads.
+<code>ctl1</code>, which controls a hybrid heat pump plant with two equally-sized
+2-pipe air-source heat pumps (ASHPs) in a lead-lag relationship, and an additional
+4-pipe ASHP that is prioritized when servicing simultaneous heating and cooling
+loads.
 </li>
 </ol>
 </p>

@@ -1,13 +1,25 @@
 within Buildings.Templates.Plants.Controls.HeatPumps;
 block HybridPlantControlModule
-  "Controller for additional calculations required for hybrid plant with modular 2-pipe ASHPs and 4-pipe ASHP"
+  "Controller for additional calculations required for hybrid plant with modular
+  2-pipe ASHPs and 4-pipe ASHP"
+
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Boolean has_sort=true;
+
   parameter Boolean have_chiWat
     "Set to true for plants that provide CHW"
+    annotation (Evaluate=true,
+    Dialog(group="Plant configuration"));
+
+  parameter Boolean has_sort=true
+    "Are the lead-lag equipment rotated based on runtime?"
+    annotation (Evaluate=true,
+    Dialog(group="Plant configuration"));
+
+  parameter Boolean is_fouPip[nHp]=fill(false,nHp)
+    "Vector indicating if each HP is a 4-pipe ASHP; True=Is 4-pipe ASHP;False=Not 4-pipe ASHP"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
@@ -16,10 +28,10 @@ block HybridPlantControlModule
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  parameter Boolean is_fouPip[nHp]=fill(false,nHp)
-    "Vector indicating if each HP is a 4-pipe ASHP; True=Is 4-pipe ASHP;False=Not 4-pipe ASHP"
+  parameter Integer idxEquAlt[nEquAlt](final min=fill(1, nEquAlt))
+    "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
-    Dialog(group="Plant configuration"));
+    Dialog(group="Equipment staging and rotation"));
 
   parameter Real staEquCooHea[:, nHp](
     each final max=1,
@@ -46,217 +58,289 @@ block HybridPlantControlModule
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
 
-  parameter Integer idxEquAlt[nEquAlt](final min=fill(1, nEquAlt))
-    "Indices of lead/lag alternate equipment"
-    annotation (Evaluate=true,
-    Dialog(group="Equipment staging and rotation"));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nSta,nHp](k=
-        staEquCooHea) "Staging matrix for heating-cooling mode"
-    annotation (Placement(transformation(extent={{-10,-240},{10,-220}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nSta,nHp](k=
-        staEquOneMod) "Staging matrix for heating-only and cooling-only mode"
-    annotation (Placement(transformation(extent={{-10,-300},{10,-280}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi[nSta,nHp]
-    "Switch between staging matrices for heating-cooling mode, and the staging matrix for other modes"
-    annotation (Placement(transformation(extent={{28,-270},{48,-250}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Check if both heating plant and cooling plant are enabled"
-    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(nout=nHp)
-    "Generate vector with size equal to number of heat pumps"
-    annotation (Placement(transformation(extent={{-50,-270},{-30,-250}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRep(nin=nHp,
-      nout=nSta) "Change into matrix with same dimensions as staging matrix"
-    annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nHp](
-    integerTrue=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,nHp),
-    integerFalse=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,nHp))
-    "Convert binary mode signal to Integer mode signals"
-    annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi[nHp]
-    "Output mode for 2-pipe and 4-pipe ASHPs"
-    annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isFouPip[nHp](k=is_fouPip)
-    "Is the heat pump a 4-pipe ASHP?"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
-    "Output Integer signal 1 when both heating plant and cooling plant are enabled"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
-    "Output mode signal only when heating-cooling mode is enabled"
-    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.HeatingCooling)
-    "Constant Integer signal representing heating-cooling mode"
-    annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Check if not in heating-cooling mode"
-    annotation (Placement(transformation(extent={{-114,-160},{-94,-140}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
-    "Output Integer 1 when not in heating-cooling mode"
-    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt1
-    "Output heating-only mode signal or cooling-only mode signal when not in heating-cooling mode"
-    annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
-  Buildings.Controls.OBC.CDL.Integers.Add addInt "Output non-zero mode signal"
-    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=nHp)
-    "Vectorize mode signal with dimension equal to number of heat pumps"
-    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not has_sort
-    "Switch between two staging orders when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{30,-370},{50,-350}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nEquAlt](k={i
-        for i in 1:nEquAlt}) if not has_sort
-    "Sort components in direct order when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nEquAlt](k={i
-        for i in nEquAlt:-1:1}) if not has_sort
-    "Sort components in reverse order when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{-10,-350},{10,-330}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(nout=
-        nEquAlt) if not has_sort
-    "Generate vector with size equal to list of lead-lag equipment"
-    annotation (Placement(transformation(extent={{-50,-370},{-30,-350}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaModSig[nHp](k=fill(true,
-        nHp)) if have_heaWat and not have_chiWat "Constant heating mode signal"
-    annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooModSig[nHp](k=fill(false,
-        nHp)) if not have_heaWat and have_chiWat
-    "Constant cooling mode signal"
-    annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaHea
-                                       "Heating plant enable"
+    "Heating plant enable"
     annotation (Placement(transformation(extent={{-298,-10},{-258,30}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaCoo
-                                       "Cooling plant enable"
-    annotation (Placement(transformation(extent={{-300,-70},{-260,-30}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nHp]
-    "Left-limit of command signal to break algebraic loop"
-    annotation (Placement(transformation(extent={{190,60},{210,80}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nHp]
-    "Check for HPs in heating-only mode"
-    annotation (Placement(transformation(extent={{-120,220},{-100,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[nHp]
-    "Left-limit of command signal to break algebraic loop"
-    annotation (Placement(transformation(extent={{20,220},{40,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or3[nHp]
-    "Check for HPs in heating-only and heating-cooling mode"
-    annotation (Placement(transformation(extent={{-60,220},{-40,240}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nHp]
-    "Check for HPs in heating-cooling mode"
-    annotation (Placement(transformation(extent={{100,300},{120,320}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nHp]
-    "Check for HPs in cooling-only mode"
-    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or4[nHp]
-    "Check for HPs in cooling-only mode or heating-cooling mode"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2[nHp]
-    "Left-limit of command signal to break algebraic loop"
-    annotation (Placement(transformation(extent={{20,130},{40,150}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3[nHp](
-    k=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,nHp))
-    "Constant Integer signal representing heating mode"
-    annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5[nHp](
-    k=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,nHp))
-    "Constant Integer signal representing cooling mode"
-    annotation (Placement(transformation(extent={{-220,160},{-200,180}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1[nHp]
-    "Check only HPs with heat recovery"
-    annotation (Placement(transformation(extent={{100,220},{120,240}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3[nHp]
-    "Check only HPs with heat recovery"
-    annotation (Placement(transformation(extent={{100,130},{120,150}})));
-  Buildings.Controls.OBC.CDL.Logical.And and4[nHp] "Check only enabled HPs"
-    annotation (Placement(transformation(extent={{-20,220},{0,240}})));
-  Buildings.Controls.OBC.CDL.Logical.And and5[nHp] "Check only enabled HPs"
-    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat[nHp]
-    "Latch that gets enabled when 4-pipe ASHP is in heating-only mode or heating-cooling mode"
-    annotation (Placement(transformation(extent={{170,210},{190,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2[nHp]
-    "4-pipe is in cooling-only mode"
-    annotation (Placement(transformation(extent={{212,210},{232,230}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nHp](
-    final pre_u_start=fill(true,nHp))
-    "Check when 4-pipe ASHP is disabled"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1[nHp]
-    "Latch that gets enabled when 4-pipe ASHP is in cooling-only mode or heating-cooling mode"
-    annotation (Placement(transformation(extent={{170,130},{190,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3[nHp]
-    "4-pipe is in heating-only mode"
-    annotation (Placement(transformation(extent={{212,130},{232,150}})));
-  Buildings.Controls.OBC.CDL.Logical.And and6[nHp]
-    "Check for heating-only status only in 4-pipe ASHP, and output false for all other HPs"
-    annotation (Placement(transformation(extent={{260,130},{280,150}})));
-  Buildings.Controls.OBC.CDL.Logical.And and7[nHp]
-    "Check for cooling-only status only in 4-pipe ASHP, and output false for all other HPs"
-    annotation (Placement(transformation(extent={{260,210},{280,230}})));
-  Buildings.Controls.OBC.CDL.Logical.And and8[nHp]
-    "Identify heat recovery heat pumps in heating-cooling mode"
-    annotation (Placement(transformation(extent={{200,300},{220,320}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or5[nHp]
-    "Check for primary heat pumps already enabled"
-    annotation (Placement(transformation(extent={{120,350},{140,370}})));
-  Buildings.Controls.OBC.CDL.Logical.And and9[nHp]
-    "Check if primary pump for 4 pipe ASHP is enabled"
-    annotation (Placement(transformation(extent={{260,350},{280,370}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep1(nout=nHp)
-    "Vectorize mode signal with dimnension equal to number of heat pumps"
-    annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaEqu[nSta,nHp](
-    each unit="1",
-    each min=0,
-    each max=1) "Staging matrix – Equipment required for each stage"
-    annotation (Placement(transformation(extent={{320,-280},{360,-240}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaCoo
+    "Cooling plant enable"
+    annotation (Placement(transformation(extent={{-300,-70},{-260,-30}}),
+      iconTransformation(extent={{-140,80},{-100,120}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMod[nHp]
     if have_heaWat and have_chiWat
     "Binary mode signal indicating if 2-pipe HP is in heating mode or cooling mode"
     annotation (Placement(transformation(extent={{-300,-200},{-260,-160}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHp]
-    "Operation mode integer signal for each HP" annotation (Placement(
-        transformation(extent={{320,-110},{360,-70}}), iconTransformation(
-          extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaFouPipHea[nHp]
-    "Availability vector of four-pipe HPs for heating operation" annotation (
-      Placement(transformation(extent={{320,200},{360,240}}),
-        iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaFouPipCoo[nHp]
-    "Availability vector of four-pipe HPs for cooling operation" annotation (
-      Placement(transformation(extent={{320,120},{360,160}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hp[nHp]
-    "HP enable signal vector" annotation (Placement(transformation(extent={{-300,40},
-            {-260,80}}),       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumPri[nHp]
-    "Primary pump enable for 4-pipe ASHP" annotation (Placement(transformation(
-          extent={{320,340},{360,380}}), iconTransformation(extent={{100,100},{140,
-            140}})));
+    "HP enable signal vector"
+    annotation (Placement(transformation(extent={{-300,40},{-260,80}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumPriHea[nHp]
-    "Primary pump enable for 4-pipe ASHP" annotation (Placement(transformation(
-          extent={{-300,320},{-260,360}}), iconTransformation(extent={{-140,-120},
-            {-100,-80}})));
+    "Primary pump enable for 4-pipe ASHP"
+    annotation (Placement(transformation(extent={{-300,320},{-260,360}}),
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumPriCoo[nHp]
-    "Primary pump enable for 4-pipe ASHP" annotation (Placement(transformation(
-          extent={{-298,360},{-258,400}}), iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+    "Primary pump enable for 4-pipe ASHP"
+    annotation (Placement(transformation(extent={{-298,360},{-258,400}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaFouPipHea[nHp]
+    "Availability vector of four-pipe HPs for heating operation"
+    annotation (Placement(transformation(extent={{320,200},{360,240}}),
+      iconTransformation(extent={{100,20},{140,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaFouPipCoo[nHp]
+    "Availability vector of four-pipe HPs for cooling operation"
+    annotation (Placement(transformation(extent={{320,120},{360,160}}),
+      iconTransformation(extent={{100,60},{140,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumPri[nHp]
+    "Primary pump enable for 4-pipe ASHP"
+    annotation (Placement(transformation(extent={{320,340},{360,380}}),
+      iconTransformation(extent={{100,100},{140,140}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaCoo
-    "Signal indicating heat pump plant is in heating-cooling mode" annotation (
-      Placement(transformation(extent={{320,-40},{360,0}}), iconTransformation(
-          extent={{100,-20},{140,20}})));
+    "Signal indicating heat pump plant is in heating-cooling mode"
+    annotation (Placement(transformation(extent={{320,-40},{360,0}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHp]
+    "Operation mode integer signal for each HP"
+    annotation (Placement(transformation(extent={{320,-110},{360,-70}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdxSta[nEquAlt]
     if not has_sort
-    "Staging index if runtime sorting is absent" annotation (Placement(
-        transformation(extent={{320,-380},{360,-340}}), iconTransformation(
-          extent={{100,-140},{140,-100}})));
+    "Staging index if runtime sorting is absent"
+    annotation (Placement(transformation(extent={{320,-380},{360,-340}}),
+      iconTransformation(extent={{100,-140},{140,-100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaEqu[nSta,nHp](
+    each unit="1",
+    each min=0,
+    each max=1)
+    "Staging matrix – Equipment required for each stage"
+    annotation (Placement(transformation(extent={{320,-280},{360,-240}}),
+      iconTransformation(extent={{100,-100},{140,-60}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nSta,nHp](
+    final k=staEquCooHea)
+    "Staging matrix for heating-cooling mode"
+    annotation (Placement(transformation(extent={{-10,-240},{10,-220}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nSta,nHp](
+    final k=staEquOneMod)
+    "Staging matrix for heating-only and cooling-only mode"
+    annotation (Placement(transformation(extent={{-10,-300},{10,-280}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nSta,nHp]
+    "Switch between staging matrices for heating-cooling mode, and the staging
+    matrix for other modes"
+    annotation (Placement(transformation(extent={{28,-270},{48,-250}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check if both heating plant and cooling plant are enabled"
+    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
+    final nout=nHp)
+    "Generate vector with size equal to number of heat pumps"
+    annotation (Placement(transformation(extent={{-50,-270},{-30,-250}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRep(
+    final nin=nHp,
+    final nout=nSta)
+    "Change into matrix with same dimensions as staging matrix"
+    annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nHp](
+    final integerTrue=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,nHp),
+    final integerFalse=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,nHp))
+    "Convert binary mode signal to Integer mode signals"
+    annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi[nHp]
+    "Output mode for 2-pipe and 4-pipe ASHPs"
+    annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isFouPip[nHp](
+    final k=is_fouPip)
+    "Is the heat pump a 4-pipe ASHP?"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
+    "Output Integer signal 1 when both heating plant and cooling plant are enabled"
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
+    "Output mode signal only when heating-cooling mode is enabled"
+    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.HeatingCooling)
+    "Constant Integer signal representing heating-cooling mode"
+    annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Check if not in heating-cooling mode"
+    annotation (Placement(transformation(extent={{-114,-160},{-94,-140}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
+    "Output Integer 1 when not in heating-cooling mode"
+    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt1
+    "Output heating-only mode signal or cooling-only mode signal when not
+    in heating-cooling mode"
+    annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Add addInt
+    "Output non-zero mode signal"
+    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
+
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
+    final nout=nHp)
+    "Vectorize mode signal with dimension equal to number of heat pumps"
+    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not has_sort
+    "Switch between two staging orders when runtime sorting is not used"
+    annotation (Placement(transformation(extent={{30,-370},{50,-350}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nEquAlt](
+    final k={i for i in 1:nEquAlt}) if not has_sort
+    "Sort components in direct order when runtime sorting is not used"
+    annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nEquAlt](
+    final k={i for i in nEquAlt:-1:1}) if not has_sort
+    "Sort components in reverse order when runtime sorting is not used"
+    annotation (Placement(transformation(extent={{-10,-350},{10,-330}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
+    final nout=nEquAlt) if not has_sort
+    "Generate vector with size equal to list of lead-lag equipment"
+    annotation (Placement(transformation(extent={{-50,-370},{-30,-350}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaModSig[nHp](
+    final k=fill(true,nHp)) if have_heaWat and not have_chiWat
+    "Constant heating mode signal"
+    annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooModSig[nHp](
+    final k=fill(false,nHp)) if not have_heaWat and have_chiWat
+    "Constant cooling mode signal"
+    annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nHp]
+    "Left-limit of command signal to break algebraic loop"
+    annotation (Placement(transformation(extent={{190,60},{210,80}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nHp]
+    "Check for HPs in heating-only mode"
+    annotation (Placement(transformation(extent={{-120,220},{-100,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[nHp]
+    "Left-limit of command signal to break algebraic loop"
+    annotation (Placement(transformation(extent={{20,220},{40,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or3[nHp]
+    "Check for HPs in heating-only and heating-cooling mode"
+    annotation (Placement(transformation(extent={{-60,220},{-40,240}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nHp]
+    "Check for HPs in heating-cooling mode"
+    annotation (Placement(transformation(extent={{100,300},{120,320}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nHp]
+    "Check for HPs in cooling-only mode"
+    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or4[nHp]
+    "Check for HPs in cooling-only mode or heating-cooling mode"
+    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2[nHp]
+    "Left-limit of command signal to break algebraic loop"
+    annotation (Placement(transformation(extent={{20,130},{40,150}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3[nHp](
+    final k=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,nHp))
+    "Constant Integer signal representing heating mode"
+    annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5[nHp](
+    final k=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,nHp))
+    "Constant Integer signal representing cooling mode"
+    annotation (Placement(transformation(extent={{-220,160},{-200,180}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and1[nHp]
+    "Check only HPs with heat recovery"
+    annotation (Placement(transformation(extent={{100,220},{120,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and3[nHp]
+    "Check only HPs with heat recovery"
+    annotation (Placement(transformation(extent={{100,130},{120,150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and4[nHp]
+    "Check only enabled HPs"
+    annotation (Placement(transformation(extent={{-20,220},{0,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and5[nHp]
+    "Check only enabled HPs"
+    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Latch lat[nHp]
+    "Latch that gets enabled when 4-pipe ASHP is in heating-only mode or heating-cooling mode"
+    annotation (Placement(transformation(extent={{170,210},{190,230}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2[nHp]
+    "4-pipe is in cooling-only mode"
+    annotation (Placement(transformation(extent={{212,210},{232,230}})));
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nHp](
+    final pre_u_start=fill(true,nHp))
+    "Check when 4-pipe ASHP is disabled"
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1[nHp]
+    "Latch that gets enabled when 4-pipe ASHP is in cooling-only mode or heating-cooling mode"
+    annotation (Placement(transformation(extent={{170,130},{190,150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not3[nHp]
+    "4-pipe is in heating-only mode"
+    annotation (Placement(transformation(extent={{212,130},{232,150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and6[nHp]
+    "Check for heating-only status only in 4-pipe ASHP, and output false for all other HPs"
+    annotation (Placement(transformation(extent={{260,130},{280,150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and7[nHp]
+    "Check for cooling-only status only in 4-pipe ASHP, and output false for all other HPs"
+    annotation (Placement(transformation(extent={{260,210},{280,230}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and8[nHp]
+    "Identify heat recovery heat pumps in heating-cooling mode"
+    annotation (Placement(transformation(extent={{200,300},{220,320}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or5[nHp]
+    "Check for primary heat pumps already enabled"
+    annotation (Placement(transformation(extent={{120,350},{140,370}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and9[nHp]
+    "Check if primary pump for 4 pipe ASHP is enabled"
+    annotation (Placement(transformation(extent={{260,350},{280,370}})));
+
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep1(nout=nHp)
+    "Vectorize mode signal with dimnension equal to number of heat pumps"
+    annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
+
 equation
   connect(and2.y, booScaRep.u)
     annotation (Line(points={{-198,-20},{-180,-20},{-180,-260},{-52,-260}},

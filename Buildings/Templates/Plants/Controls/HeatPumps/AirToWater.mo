@@ -1,14 +1,21 @@
 within Buildings.Templates.Plants.Controls.HeatPumps;
-block AirToWater "Controller for AWHP plant"
+block AirToWater
+  "Controller for AWHP plant"
+
+  final parameter Boolean has_sort=true
+    "Does the staging order algorithm have sorting by runtime for equipment
+    rotation?";
+
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Boolean has_sort=true;
+
   parameter Boolean have_chiWat
     "Set to true for plants that provide CHW"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
+
   parameter Boolean is_priOnl=false
     "Set to true for primary-only plant"
     annotation(Evaluate=true,
@@ -165,8 +172,10 @@ block AirToWater "Controller for AWHP plant"
     "Number of heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
+
   parameter Boolean is_fouPip[nHp]=fill(false,nHp)
-    "Vector indicating if each HP has heat-recovery capabilities; True=Has heat recovery;False=No heat recovery"
+    "Vector indicating if each HP is a 4-pipe air-source heat pump (ASHP);
+    True= Is 4-pipe ASHP;False=Is not 4-pipe ASHP"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
@@ -835,15 +844,101 @@ block AirToWater "Controller for AWHP plant"
     unit="s")=60
     "Runtime with second temperature threshold exceeded before disabling"
     annotation(Dialog(tab="Advanced", group="Sidestream HRC", enable=have_hrc));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaHp[nHp](each k=true)
-    "Heat pump available signal – Block does not handle faulted equipment yet"
-    annotation (Placement(transformation(extent={{-230,210},{-210,230}}),
-        iconTransformation(extent={{-240,220},{-200,260}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SchHea
+    if have_heaWat and have_inpSch
+    "Heating mode enable via schedule"
+    annotation (Placement(transformation(extent={{-300,360},{-260,400}}),
+      iconTransformation(extent={{-240,322},{-200,362}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SchCoo
+    if have_chiWat and have_inpSch
+    "Cooling mode enable via schedule"
+    annotation (Placement(transformation(extent={{-300,340},{-260,380}}),
+      iconTransformation(extent={{-240,302},{-200,342}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual[nPumHeaWatPri]
+    if have_pumHeaWatPri
+    "Primary HW pump status"
+    annotation (Placement(transformation(extent={{-300,180},{-260,220}}),
+      iconTransformation(extent={{-240,262},{-200,302}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual[nPumChiWatPri]
+    if have_pumChiWatPri
+    "Primary CHW pump status"
+    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
+      iconTransformation(extent={{-240,242},{-200,282}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatSec_actual[nPumHeaWatSec]
+    if have_pumHeaWatSec
+    "Secondary HW pump status"
+    annotation (Placement(transformation(extent={{-300,140},{-260,180}}),
+      iconTransformation(extent={{-240,222},{-200,262}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatSec_actual[nPumChiWatSec]
+    if have_pumChiWatSec
+    "Secondary CHW pump status"
+    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
+      iconTransformation(extent={{-240,202},{-200,242}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hp_actual[nHp]
+    "Heat pump status"
+    annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
+      iconTransformation(extent={{-240,282},{-200,322}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hrc_actual if have_hrc
+    "HRC status"
+    annotation (Placement(transformation(extent={{-300,-320},{-260,-280}}),
+      iconTransformation(extent={{-240,182},{-200,222}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ReqFloChiWat
+    if have_hrc and have_reqFloHrc
+    "CHW flow request from HRC"
+    annotation (Placement(transformation(extent={{-300,-340},{-260,-300}}),
+      iconTransformation(extent={{-240,162},{-200,202}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ReqFloConWat
+    if have_hrc and have_reqFloHrc
+    "CW flow request from HRC"
+    annotation (Placement(transformation(extent={{-300,-360},{-260,-320}}),
+      iconTransformation(extent={{-240,142},{-200,182}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaHea
+    if not have_heaWat and have_chiWat
+    "Heating plant enable from external block"
+    annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
+      iconTransformation(extent={{-240,400},{-200,440}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaCoo
+    if have_heaWat and not have_chiWat
+    "Cooling plant enable from external block"
+    annotation (Placement(transformation(extent={{-300,210},{-260,250}}),
+      iconTransformation(extent={{-240,360},{-200,400}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqPlaHeaWat
     if have_heaWat
-    "Number of HW plant requests" annotation (Placement(transformation(extent={
-            {-300,320},{-260,360}}), iconTransformation(extent={{-240,120},{-200,
-            160}})));
+    "Number of HW plant requests"
+    annotation (Placement(transformation(extent={{-300,320},{-260,360}}),
+      iconTransformation(extent={{-240,120},{-200,160}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqPlaChiWat
+    if have_chiWat
+    "Number of CHW plant requests"
+    annotation (Placement(transformation(extent={{-300,300},{-260,340}}),
+      iconTransformation(extent={{-240,100},{-200,140}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqResHeaWat
+    if have_heaWat
+    "Sum of HW reset requests of all heating loads served"
+    annotation (Placement(transformation(extent={{-300,-380},{-260,-340}}),
+      iconTransformation(extent={{-240,80},{-200,120}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqResChiWat
+    if have_chiWat
+    "Sum of CHW reset requests of all cooling loads served"
+    annotation (Placement(transformation(extent={{-300,-400},{-260,-360}}),
+      iconTransformation(extent={{-240,60},{-200,100}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature",
@@ -851,317 +946,332 @@ block AirToWater "Controller for AWHP plant"
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-300,100},{-260,140}}),
       iconTransformation(extent={{-240,40},{-200,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SchHea
-    if have_heaWat and have_inpSch
-    "Heating mode enable via schedule"
-    annotation (Placement(transformation(extent={{-300,360},{-260,400}}),
-      iconTransformation(extent={{-240,322},{-200,362}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqPlaChiWat
-    if have_chiWat
-    "Number of CHW plant requests" annotation (Placement(transformation(extent=
-            {{-300,300},{-260,340}}), iconTransformation(extent={{-240,100},{-200,
-            140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SchCoo
-    if have_chiWat and have_inpSch "Cooling mode enable via schedule"
-    annotation (Placement(transformation(extent={{-300,340},{-260,380}}),
-      iconTransformation(extent={{-240,302},{-200,342}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqResHeaWat
-    if have_heaWat
-    "Sum of HW reset requests of all heating loads served"
-    annotation (Placement(transformation(extent={{-300,-380},{-260,-340}}),
-      iconTransformation(extent={{-240,80},{-200,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqResChiWat
-    if have_chiWat "Sum of CHW reset requests of all cooling loads served"
-    annotation (Placement(transformation(extent={{-300,-400},{-260,-360}}),
-      iconTransformation(extent={{-240,60},{-200,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual[nPumHeaWatPri]
-    if have_pumHeaWatPri
-    "Primary HW pump status"
-    annotation (Placement(transformation(extent={{-300,180},{-260,220}}),
-      iconTransformation(extent={{-240,262},{-200,302}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual[nPumChiWatPri]
-    if have_pumChiWatPri
-    "Primary CHW pump status"
-    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
-      iconTransformation(extent={{-240,242},{-200,282}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatSec_actual[nPumHeaWatSec]
-    if have_pumHeaWatSec
-    "Secondary HW pump status"
-    annotation (Placement(transformation(extent={{-300,140},{-260,180}}),
-      iconTransformation(extent={{-240,222},{-200,262}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatSec_actual[nPumChiWatSec]
-    if have_pumChiWatSec
-    "Secondary CHW pump status"
-    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
-      iconTransformation(extent={{-240,202},{-200,242}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatPriRet(
     final unit="K",
     displayUnit="degC") if have_heaWat and have_senTHeaWatPriRet
     "Primary HW return temperature"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
       iconTransformation(extent={{-240,0},{-200,40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHeaWatPri_flow(
     final unit="m3/s") if have_heaWat and have_senVHeaWatPri
     "Primary HW volume flow rate"
     annotation (Placement(transformation(extent={{-300,40},{-260,80}}),
       iconTransformation(extent={{-240,-20},{-200,20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatLoc(
     final unit="Pa")
     if have_heaWat and not have_senDpHeaWatRemWir
     "Local HW differential pressure"
     annotation (Placement(transformation(extent={{-300,-240},{-260,-200}}),
       iconTransformation(extent={{-240,-300},{-200,-260}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatLocSet[nSenDpHeaWatRem](
     each final unit="Pa")
     if have_heaWat and not have_senDpHeaWatRemWir
     "Local HW differential pressure setpoint output from each of the remote loops"
     annotation (Placement(transformation(extent={{-300,-220},{-260,-180}}),
       iconTransformation(extent={{-240,-280},{-200,-240}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatRem[nSenDpHeaWatRem](
     each final unit="Pa") if have_heaWat and have_senDpHeaWatRemWir
     "Remote HW differential pressure"
     annotation (Placement(transformation(extent={{-300,-200},{-260,-160}}),
       iconTransformation(extent={{-240,-260},{-200,-220}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatLoc(
     final unit="Pa")
     if have_chiWat and not have_senDpChiWatRemWir
     "Local CHW differential pressure"
     annotation (Placement(transformation(extent={{-300,-300},{-260,-260}}),
       iconTransformation(extent={{-240,-360},{-200,-320}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatLocSet[nSenDpChiWatRem](
     each final unit="Pa")
     if have_chiWat and not have_senDpChiWatRemWir
     "Local CHW differential pressure setpoint output from each of the remote loops"
     annotation (Placement(transformation(extent={{-300,-280},{-260,-240}}),
       iconTransformation(extent={{-240,-340},{-200,-300}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatRem[nSenDpChiWatRem](
     each final unit="Pa") if have_chiWat and have_senDpChiWatRemWir
     "Remote CHW differential pressure"
     annotation (Placement(transformation(extent={{-300,-260},{-260,-220}}),
       iconTransformation(extent={{-240,-320},{-200,-280}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpInlIso[nHp]
-    if have_heaWat and have_valHpInlIso
-    "Heat pump inlet HW inlet isolation valve command" annotation (Placement(
-        transformation(extent={{300,300},{340,340}}), iconTransformation(extent={{200,260},
-            {240,300}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpOutIso[nHp]
-    if have_heaWat and have_valHpOutIso
-    "Heat pump outlet HW isolation valve command" annotation (Placement(
-        transformation(extent={{300,280},{340,320}}), iconTransformation(extent={{200,240},
-            {240,280}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpInlIso[nHp]
-    if have_chiWat and have_valHpInlIso
-    "Heat pump inlet CHW isolation valve command" annotation (Placement(
-        transformation(extent={{300,260},{340,300}}), iconTransformation(extent={{200,220},
-            {240,260}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpOutIso[nHp]
-    if have_chiWat and have_valHpOutIso
-    "Heat pump outlet CHW isolation valve command" annotation (Placement(
-        transformation(extent={{300,240},{340,280}}), iconTransformation(extent={{200,200},
-            {240,240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPri[nPumHeaWatPri]
-    if have_pumHeaWatPri
-    "Primary HW pump start command"
-    annotation (Placement(transformation(extent={{300,180},{340,220}}),
-      iconTransformation(extent={{200,160},{240,200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri[nPumChiWatPri]
-    if have_pumChiWatPri and have_chiWat
-    "Primary CHW pump start command"
-    annotation (Placement(transformation(extent={{300,160},{340,200}}),
-      iconTransformation(extent={{200,140},{240,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatSec[nPumHeaWatSec]
-    if have_pumHeaWatSec
-    "Secondary HW pump start command"
-    annotation (Placement(transformation(extent={{300,140},{340,180}}),
-      iconTransformation(extent={{200,100},{240,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatSec[nPumChiWatSec]
-    if have_pumChiWatSec
-    "Secondary CHW pump start command"
-    annotation (Placement(transformation(extent={{300,120},{340,160}}),
-      iconTransformation(extent={{200,80},{240,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hp[nHp]
-    "Heat pump enable command"
-    annotation (Placement(transformation(extent={{300,360},{340,400}}),
-      iconTransformation(extent={{200,320},{240,360}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaHp[nHp]
-    if have_heaWat and have_chiWat
-    "Heat pump heating/cooling mode command: true=heating, false=cooling"
-    annotation (Placement(transformation(extent={{300,340},{340,380}}),
-      iconTransformation(extent={{200,300},{240,340}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpHeaWatRemSet[nSenDpHeaWatRem](
-    each final min=0,
-    each final unit="Pa") if have_heaWat
-    "HW differential pressure setpoint"
-    annotation (Placement(transformation(extent={{300,-80},{340,-40}}),
-      iconTransformation(extent={{200,-160},{240,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatRemSet[nSenDpChiWatRem](
-    each final min=0,
-    each final unit="Pa") if have_chiWat
-    "CHW differential pressure setpoint"
-    annotation (Placement(transformation(extent={{300,-100},{340,-60}}),
-      iconTransformation(extent={{200,-180},{240,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr(
-    final unit="1") if have_pumHeaWatPriVar and have_pumPriHdr
-    "Primary headered HW pump speed command"
-    annotation (Placement(transformation(extent={{300,80},{340,120}}),
-      iconTransformation(extent={{200,40},{240,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr(
-    final unit="1") if have_pumChiWatPriVar and have_pumPriHdr
-    "Primary headered CHW pump speed command"
-    annotation (Placement(transformation(extent={{300,60},{340,100}}),
-      iconTransformation(extent={{200,20},{240,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatSec(
-    final unit="1")
-    if have_pumHeaWatSec
-    "Primary HW pump speed command"
-    annotation (Placement(transformation(extent={{300,-20},{340,20}}),
-      iconTransformation(extent={{200,-40},{240,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatSec(
-    final unit="1") if have_pumChiWatSec
-    "Primary CHW pump speed command"
-    annotation (Placement(transformation(extent={{300,-40},{340,0}}),
-      iconTransformation(extent={{200,-60},{240,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
-    final unit="K",
-    displayUnit="degC") if have_chiWat
-    "CHW supply temperature setpoint"
-    annotation (Placement(transformation(extent={{300,-200},{340,-160}}),
-      iconTransformation(extent={{200,-240},{240,-200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
-    final unit="K",
-    displayUnit="degC") if have_heaWat
-    "HW supply temperature setpoint"
-    annotation (Placement(transformation(extent={{300,-180},{340,-140}}),
-      iconTransformation(extent={{200,-220},{240,-180}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriRet(
     final unit="K",
     displayUnit="degC") if have_chiWat and have_senTChiWatPriRet
     "Primary CHW return temperature"
     annotation (Placement(transformation(extent={{-300,0},{-260,40}}),
       iconTransformation(extent={{-240,-60},{-200,-20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWatPri_flow(
     final unit="m3/s") if have_chiWat and have_senVChiWatPri
     "Primary CHW volume flow rate"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
       iconTransformation(extent={{-240,-80},{-200,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hp_actual[nHp]
-    "Heat pump status"
-    annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
-      iconTransformation(extent={{-240,282},{-200,322}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri](
-    each final unit="1") if have_pumHeaWatPriVar and not have_pumPriHdr
-    "Primary dedicated HW pump speed command"
-    annotation (Placement(transformation(extent={{300,40},{340,80}}),
-      iconTransformation(extent={{200,0},{240,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri](
-    each final unit="1") if have_pumChiWatPriVar and have_pumChiWatPriDed
-    "Primary dedicated CHW pump speed command"
-    annotation (Placement(transformation(extent={{300,20},{340,60}}),
-      iconTransformation(extent={{200,-20},{240,20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSecRet(
     final unit="K",
     displayUnit="degC") if have_heaWat and have_senTHeaWatSecRet
     "Secondary HW return temperature"
     annotation (Placement(transformation(extent={{-300,-60},{-260,-20}}),
       iconTransformation(extent={{-240,-120},{-200,-80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHeaWatSec_flow(
     final unit="m3/s") if have_heaWat and have_senVHeaWatSec
     "Secondary HW volume flow rate"
     annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
       iconTransformation(extent={{-240,-160},{-200,-120}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSecRet(
     final unit="K",
     displayUnit="degC") if have_chiWat and have_senTChiWatSecRet
     "Secondary CHW return temperature"
     annotation (Placement(transformation(extent={{-300,-140},{-260,-100}}),
       iconTransformation(extent={{-240,-200},{-200,-160}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWatSec_flow(
     final unit="m3/s") if have_chiWat and have_senVChiWatSec
     "Secondary CHW volume flow rate"
     annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
       iconTransformation(extent={{-240,-240},{-200,-200}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatPriSup(
+    final unit="K",
+    displayUnit="degC") if have_heaWat
+    "Primary HW supply temperature"
+    annotation (Placement(transformation(extent={{-300,80},{-260,120}}),
+      iconTransformation(extent={{-240,20},{-200,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriSup(
+    final unit="K",
+    displayUnit="degC") if have_chiWat
+    "Primary CHW return temperature"
+    annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
+      iconTransformation(extent={{-240,-40},{-200,0}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSecSup(
+    final unit="K",
+    displayUnit="degC") if have_heaWat and have_senTHeaWatSecSup
+    "Secondary HW supply temperature"
+    annotation (Placement(transformation(extent={{-300,-40},{-260,0}}),
+      iconTransformation(extent={{-240,-100},{-200,-60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSecSup(
+    final unit="K",
+    displayUnit="degC") if have_chiWat and have_senTChiWatSecSup
+    "Secondary CHW return temperature"
+    annotation (Placement(transformation(extent={{-300,-120},{-260,-80}}),
+      iconTransformation(extent={{-240,-180},{-200,-140}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetUpsHrc(
+    final unit="K",
+    displayUnit="degC") if have_hrc
+    "CHW return temperature upstream of HRC"
+    annotation (Placement(transformation(extent={{-300,-160},{-260,-120}}),
+      iconTransformation(extent={{-240,-220},{-200,-180}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatRetUpsHrc(
+    final unit="K",
+    displayUnit="degC") if have_hrc
+    "HW return temperature upstream of HRC"
+    annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
+      iconTransformation(extent={{-240,-140},{-200,-100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpInlIso[nHp]
+    if have_heaWat and have_valHpInlIso
+    "Heat pump inlet HW inlet isolation valve command"
+    annotation (Placement(transformation(extent={{300,300},{340,340}}),
+      iconTransformation(extent={{200,260},{240,300}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpOutIso[nHp]
+    if have_heaWat and have_valHpOutIso
+    "Heat pump outlet HW isolation valve command"
+    annotation (Placement(transformation(extent={{300,280},{340,320}}),
+      iconTransformation(extent={{200,240},{240,280}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpInlIso[nHp]
+    if have_chiWat and have_valHpInlIso
+    "Heat pump inlet CHW isolation valve command"
+    annotation (Placement(transformation(extent={{300,260},{340,300}}),
+      iconTransformation(extent={{200,220},{240,260}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpOutIso[nHp]
+    if have_chiWat and have_valHpOutIso
+    "Heat pump outlet CHW isolation valve command"
+    annotation (Placement(transformation(extent={{300,240},{340,280}}),
+      iconTransformation(extent={{200,200},{240,240}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPri[nPumHeaWatPri]
+    if have_pumHeaWatPri
+    "Primary HW pump start command"
+    annotation (Placement(transformation(extent={{300,180},{340,220}}),
+      iconTransformation(extent={{200,160},{240,200}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri[nPumChiWatPri]
+    if have_pumChiWatPri and have_chiWat
+    "Primary CHW pump start command"
+    annotation (Placement(transformation(extent={{300,160},{340,200}}),
+      iconTransformation(extent={{200,140},{240,180}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatSec[nPumHeaWatSec]
+    if have_pumHeaWatSec
+    "Secondary HW pump start command"
+    annotation (Placement(transformation(extent={{300,140},{340,180}}),
+      iconTransformation(extent={{200,100},{240,140}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatSec[nPumChiWatSec]
+    if have_pumChiWatSec
+    "Secondary CHW pump start command"
+    annotation (Placement(transformation(extent={{300,120},{340,160}}),
+      iconTransformation(extent={{200,80},{240,120}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hp[nHp]
+    "Heat pump enable command"
+    annotation (Placement(transformation(extent={{300,360},{340,400}}),
+      iconTransformation(extent={{200,320},{240,360}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaHp[nHp]
+    if have_heaWat and have_chiWat
+    "Heat pump heating/cooling mode command: true=heating, false=cooling"
+    annotation (Placement(transformation(extent={{300,340},{340,380}}),
+      iconTransformation(extent={{200,300},{240,340}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1CooHrc if have_hrc
+    "Sidestream HRC mode command: true for cooling, false for heating"
+    annotation (Placement(transformation(extent={{300,-320},{340,-280}}),
+      iconTransformation(extent={{200,-300},{240,-260}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatHrc if
+    have_hrc
+    "Sidestream HRC CHW pump enable command"
+    annotation (Placement(transformation(extent={{300,-380},{340,-340}}),
+      iconTransformation(extent={{200,-320},{240,-280}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatHrc if
+    have_hrc
+    "Sidestream HRC HW pump enable command"
+    annotation (Placement(transformation(extent={{300,-400},{340,-360}}),
+      iconTransformation(extent={{200,-340},{240,-300}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hrc if have_hrc
+    "Sidestream HRC enable command"
+    annotation (Placement(transformation(extent={{300,-300},{340,-260}}),
+      iconTransformation(extent={{200,-280},{240,-240}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EnaPla
+    if not have_heaWat or not have_chiWat
+    "Heat pump plant enable command"
+    annotation (Placement(transformation(extent={{300,380},{340,420}}),
+      iconTransformation(extent={{200,360},{240,400}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHp] if has_fouPip
+    "Operation mode integer signal for each HP"
+    annotation (Placement(transformation(extent={{300,320},{340,360}}),
+      iconTransformation(extent={{200,280},{240,320}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpHeaWatRemSet[nSenDpHeaWatRem](
+    each final min=0,
+    each final unit="Pa") if have_heaWat
+    "HW differential pressure setpoint"
+    annotation (Placement(transformation(extent={{300,-80},{340,-40}}),
+      iconTransformation(extent={{200,-160},{240,-120}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatRemSet[nSenDpChiWatRem](
+    each final min=0,
+    each final unit="Pa") if have_chiWat
+    "CHW differential pressure setpoint"
+    annotation (Placement(transformation(extent={{300,-100},{340,-60}}),
+      iconTransformation(extent={{200,-180},{240,-140}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr(
+    final unit="1") if have_pumHeaWatPriVar and have_pumPriHdr
+    "Primary headered HW pump speed command"
+    annotation (Placement(transformation(extent={{300,80},{340,120}}),
+      iconTransformation(extent={{200,40},{240,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr(
+    final unit="1") if have_pumChiWatPriVar and have_pumPriHdr
+    "Primary headered CHW pump speed command"
+    annotation (Placement(transformation(extent={{300,60},{340,100}}),
+      iconTransformation(extent={{200,20},{240,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatSec(
+    final unit="1")
+    if have_pumHeaWatSec
+    "Primary HW pump speed command"
+    annotation (Placement(transformation(extent={{300,-20},{340,20}}),
+      iconTransformation(extent={{200,-40},{240,0}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatSec(
+    final unit="1") if have_pumChiWatSec
+    "Primary CHW pump speed command"
+    annotation (Placement(transformation(extent={{300,-40},{340,0}}),
+      iconTransformation(extent={{200,-60},{240,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
+    final unit="K",
+    displayUnit="degC") if have_chiWat
+    "CHW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{300,-200},{340,-160}}),
+      iconTransformation(extent={{200,-240},{240,-200}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
+    final unit="K",
+    displayUnit="degC") if have_heaWat
+    "HW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{300,-180},{340,-140}}),
+      iconTransformation(extent={{200,-220},{240,-180}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri](
+    each final unit="1") if have_pumHeaWatPriVar and not have_pumPriHdr
+    "Primary dedicated HW pump speed command"
+    annotation (Placement(transformation(extent={{300,40},{340,80}}),
+      iconTransformation(extent={{200,0},{240,40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri](
+    each final unit="1") if have_pumChiWatPriVar and have_pumChiWatPriDed
+    "Primary dedicated CHW pump speed command"
+    annotation (Placement(transformation(extent={{300,20},{340,60}}),
+      iconTransformation(extent={{200,-20},{240,20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet[nHp](
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
     each displayUnit="degC")
     "Active HP supply temperature setpoint"
     annotation (Placement(transformation(extent={{300,-140},{340,-100}}),
-        iconTransformation(extent={{200,-200},{240,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatPriSup(final unit="K",
-      displayUnit="degC") if have_heaWat "Primary HW supply temperature"
-    annotation (Placement(transformation(extent={{-300,80},{-260,120}}),
-        iconTransformation(extent={{-240,20},{-200,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriSup(final unit="K",
-      displayUnit="degC") if have_chiWat "Primary CHW return temperature"
-    annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
-        iconTransformation(extent={{-240,-40},{-200,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSecSup(final unit="K",
-      displayUnit="degC") if have_heaWat and have_senTHeaWatSecSup
-    "Secondary HW supply temperature" annotation (Placement(transformation(
-          extent={{-300,-40},{-260,0}}),   iconTransformation(extent={{-240,
-            -100},{-200,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSecSup(final unit="K",
-      displayUnit="degC") if have_chiWat and have_senTChiWatSecSup
-    "Secondary CHW return temperature" annotation (Placement(transformation(
-          extent={{-300,-120},{-260,-80}}),  iconTransformation(extent={{-240,
-            -180},{-200,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hrc if have_hrc
-    "Sidestream HRC enable command" annotation (Placement(transformation(extent={{300,
-            -300},{340,-260}}),      iconTransformation(extent={{200,-280},{240,
-            -240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1CooHrc if have_hrc
-    "Sidestream HRC mode command: true for cooling, false for heating"
-    annotation (Placement(transformation(extent={{300,-320},{340,-280}}),
-        iconTransformation(extent={{200,-300},{240,-260}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatHrc if
-    have_hrc
-    "Sidestream HRC CHW pump enable command" annotation (Placement(
-        transformation(extent={{300,-380},{340,-340}}), iconTransformation(
-          extent={{200,-320},{240,-280}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatHrc if
-    have_hrc
-    "Sidestream HRC HW pump enable command" annotation (Placement(
-        transformation(extent={{300,-400},{340,-360}}), iconTransformation(
-          extent={{200,-340},{240,-300}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSetHrc(final unit="K",
-      displayUnit="degC") if have_hrc
-                          "Sidestream HRC active supply temperature setpoint"
+      iconTransformation(extent={{200,-200},{240,-160}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSetHrc(
+    final unit="K",
+    displayUnit="degC") if have_hrc
+    "Sidestream HRC active supply temperature setpoint"
     annotation (Placement(transformation(extent={{300,-340},{340,-300}}),
-        iconTransformation(extent={{200,-360},{240,-320}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetUpsHrc(final unit="K",
-      displayUnit="degC") if have_hrc "CHW return temperature upstream of HRC"
-    annotation (Placement(transformation(extent={{-300,-160},{-260,-120}}),
-        iconTransformation(extent={{-240,-220},{-200,-180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatRetUpsHrc(final unit="K",
-      displayUnit="degC") if have_hrc "HW return temperature upstream of HRC"
-    annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
-        iconTransformation(extent={{-240,-140},{-200,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hrc_actual if have_hrc
-    "HRC status"
-    annotation (Placement(transformation(extent={{-300,-320},{-260,-280}}),
-      iconTransformation(extent={{-240,182},{-200,222}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ReqFloChiWat
-    if have_hrc and have_reqFloHrc
-                   "CHW flow request from HRC" annotation (Placement(
-        transformation(extent={{-300,-340},{-260,-300}}),
-                                                        iconTransformation(
-          extent={{-240,162},{-200,202}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ReqFloConWat
-    if have_hrc and have_reqFloHrc
-                   "CW flow request from HRC" annotation (Placement(
-        transformation(extent={{-300,-360},{-260,-320}}),
-                                                        iconTransformation(
-          extent={{-240,142},{-200,182}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp(final unit="1")
+      iconTransformation(extent={{200,-360},{240,-320}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp(
+    final unit="1")
     if have_heaWat and is_priOnl
-    "HW minimum flow bypass valve command" annotation (Placement(transformation(
-          extent={{300,-240},{340,-200}}), iconTransformation(extent={{200,-100},
-            {240,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(final unit="1")
+    "HW minimum flow bypass valve command"
+    annotation (Placement(transformation(extent={{300,-240},{340,-200}}),
+      iconTransformation(extent={{200,-100},{240,-60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(
+    final unit="1")
     if have_chiWat and is_priOnl
-    "CHW minimum flow bypass valve command" annotation (Placement(
-        transformation(extent={{300,-260},{340,-220}}), iconTransformation(
-          extent={{200,-120},{240,-80}})));
+    "CHW minimum flow bypass valve command"
+    annotation (Placement(transformation(extent={{300,-260},{340,-220}}),
+      iconTransformation(extent={{200,-120},{240,-80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaHp[nHp](
+    each k=true)
+    "Heat pump available signal – Block does not handle faulted equipment yet"
+    annotation (Placement(transformation(extent={{-230,210},{-210,230}}),
+        iconTransformation(extent={{-240,220},{-200,260}})));
 
   Enabling.Enable enaHea(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
@@ -1546,22 +1656,7 @@ block AirToWater "Controller for AWHP plant"
       have_inpPh=true) if have_chiWat
     "For HRC logic select either primary or secondary sensor depending on plant configuration"
     annotation (Placement(transformation(extent={{-140,-124},{-120,-104}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHp] if has_fouPip
-    "Operation mode integer signal for each HP" annotation (Placement(
-        transformation(extent={{300,320},{340,360}}), iconTransformation(extent
-          ={{200,280},{240,320}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaHea
-    if not have_heaWat and have_chiWat "Cooling mode enable via schedule"
-    annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
-        iconTransformation(extent={{-240,400},{-200,440}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaCoo
-    if have_heaWat and not have_chiWat "Cooling mode enable via schedule"
-    annotation (Placement(transformation(extent={{-300,210},{-260,250}}),
-        iconTransformation(extent={{-240,360},{-200,400}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EnaPla
-    if not have_heaWat or not have_chiWat "Heat pump enable command"
-    annotation (Placement(transformation(extent={{300,380},{340,420}}),
-        iconTransformation(extent={{200,360},{240,400}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or or2[nHp]
     "Generate heating mode availability signal for both 2-pipe and 4-pipe modules"
     annotation (Placement(transformation(extent={{-110,260},{-90,280}})));

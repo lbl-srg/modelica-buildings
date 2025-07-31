@@ -24,6 +24,11 @@ block EquipmentEnable
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if not is_pumApp
+    "Detect plant switching to heating-cooling mode"
+    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
     "Indices of lead/lag alternate equipment sorted by increasing runtime"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
@@ -151,12 +156,11 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Reals.Multiply voiStaZer[nEqu]
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if not is_pumApp
-    "Detect plant switching to heating-cooling mode" annotation (Placement(
-        transformation(extent={{-240,-140},{-200,-100}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
+
   Buildings.Controls.OBC.CDL.Logical.Change cha1 if not is_pumApp
+    "Detect if plant enters simultaneous heating and cooling operation"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-108,0},{-100,0},{-100,60},{-150,60},{-150,68}},
