@@ -70,8 +70,8 @@ block HybridPlantControlModule
       nout=nSta) "Change into matrix with same dimensions as staging matrix"
     annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nHp](
-    integerTrue=fill(Buildings.Controls.OBC.CDL.Types.OperationModes.Heating,nHp),
-    integerFalse=fill(Buildings.Controls.OBC.CDL.Types.OperationModes.Cooling,nHp))
+    integerTrue=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,nHp),
+    integerFalse=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,nHp))
     "Convert binary mode signal to Integer mode signals"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi[nHp]
@@ -86,7 +86,7 @@ block HybridPlantControlModule
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
     "Output mode signal only when heating-cooling mode is enabled"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Controls.OBC.CDL.Types.OperationModes.HeatingCooling)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.HeatingCooling)
     "Constant Integer signal representing heating-cooling mode"
     annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -158,12 +158,12 @@ block HybridPlantControlModule
     "Left-limit of command signal to break algebraic loop"
     annotation (Placement(transformation(extent={{20,130},{40,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3[nHp](
-    k=fill(Buildings.Controls.OBC.CDL.Types.OperationModes.Heating,nHp))
+    k=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,nHp))
     "Constant Integer signal representing heating mode"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5[nHp](
-    k=fill(Buildings.Controls.OBC.CDL.Types.OperationModes.Cooling,nHp))
+    k=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,nHp))
     "Constant Integer signal representing cooling mode"
     annotation (Placement(transformation(extent={{-220,160},{-200,180}})));
   Buildings.Controls.OBC.CDL.Logical.And and1[nHp]

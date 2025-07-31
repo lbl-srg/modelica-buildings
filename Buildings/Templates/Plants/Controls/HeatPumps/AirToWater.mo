@@ -1587,7 +1587,7 @@ block AirToWater "Controller for AWHP plant"
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu if has_fouPip
     "Check status of 4-pipe ASHP"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Controls.OBC.CDL.Types.OperationModes.Heating)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating)
     if has_fouPip "Constant Integer signal indicating heating-only mode"
     annotation (Placement(transformation(extent={{50,-170},{70,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant staMat[nSta,nHp](k=staEqu)

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Types;
+within Buildings.Templates.Plants.Controls.HeatPumps.Types;
 package OperationModes
   constant Integer Cooling=1 "Cooling mode";
   constant Integer Heating=2 "Heating mode";
