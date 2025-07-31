@@ -1,4 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.HybridPlantControlModule",method="cvode",tolerance=1e-6,stopTime=3600,resultFile="HybridPlantControlModule");
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.HybridPlantControlModule",
+method="cvode",
+tolerance=1e-6,
+stopTime=3600,
+resultFile="HybridPlantControlModule");
 createPlot(id=1, position={822, 0, 814, 920}, y={"ctl.u1EnaCoo", "ctl.u1EnaHea"}, range={0.0, 3600.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
 createPlot(id=1, position={822, 0, 814, 920}, y={"ctl.u1Hp[1]", "ctl.u1Hp[2]", "ctl.u1Hp[3]"}, range={0.0, 3600.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
 createPlot(id=1, position={822, 0, 814, 920}, y={"ctl.uMod[1]", "ctl.uMod[2]", "ctl.uMod[3]"}, range={0.0, 3600.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
