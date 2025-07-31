@@ -15,27 +15,39 @@ model StageAvailability
     period=7)
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability
-                                                                        avaStaEqu(nSta=3,
-      nEqu=3)
+
+  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability avaStaEqu(
+    final nSta=3,
+    final nEqu=3)
     "Compute stage availability – Equally sized units"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability
-                                                                        avaStaOneTwo(nSta=3,
-      nEqu=3)
+
+  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability avaStaOneTwo(
+    final nSta=5,
+    final nEqu=3)
     "Compute stage availability – One small equipment, two large equally sized equipment"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[3,3](k=[1/3,1/3,1/3; 2/3,
-        2/3,2/3; 1,1,1])
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[3,3](
+    final k=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1])
+    "Staging matrix"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[5,3](
+    final k=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1])
+    "Staging matrix"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
 equation
   connect(u1AvaEqu.y, avaStaEqu.u1Ava)
-    annotation (Line(points={{-58,0},{-20,0},{-20,20},{-12,20}},color={255,0,255}));
+    annotation (Line(points={{-58,0},{-20,0},{-20,24},{-12,24}},color={255,0,255}));
   connect(u1AvaEqu.y, avaStaOneTwo.u1Ava)
-    annotation (Line(points={{-58,0},{-20,0},{-20,-20},{-12,-20}},color={255,0,255}));
-  connect(con.y, avaStaEqu.staEqu);
-  connect(con.y, avaStaOneTwo.staEqu);
+    annotation (Line(points={{-58,0},{-20,0},{-20,-16},{-12,-16}},color={255,0,255}));
 
+  connect(con.y, avaStaEqu.staEqu) annotation (Line(points={{-58,50},{-30,50},{-30,
+          16},{-12,16}}, color={0,0,127}));
+  connect(con1.y, avaStaOneTwo.staEqu) annotation (Line(points={{-58,-40},{-30,-40},
+          {-30,-24},{-12,-24}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
