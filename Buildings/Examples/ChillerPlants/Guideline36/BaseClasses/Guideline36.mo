@@ -135,6 +135,9 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     final samplePeriod=fill(120, 2))
     "Sample value and break algebric loop"
     annotation (Placement(transformation(extent={{-460,300},{-440,320}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
+    "Plant enable"
+    annotation (Placement(transformation(extent={{-280,150},{-260,170}})));
 
 protected
   final parameter Modelica.Units.SI.SpecificHeatCapacity Cp = 4198
@@ -244,15 +247,15 @@ equation
   connect(cooTowFan.y, chiPlaCon.uFanSpe) annotation (Line(points={{-378,200},{-190,
           200},{-190,20},{-144,20}},      color={0,0,127}));
   connect(conWatPum1.y_actual, chiPlaCon.uConWatPumSpe[1]) annotation (Line(
-        points={{207,199},{207,192},{-200,192},{-200,40},{-144,40}}, color={0,0,
+        points={{207,199},{207,192},{-200,192},{-200,44},{-144,44}}, color={0,0,
           127}));
   connect(conWatPum2.y_actual, chiPlaCon.uConWatPumSpe[2]) annotation (Line(
-        points={{267,199},{267,192},{-200,192},{-200,40},{-144,40}}, color={0,0,
+        points={{267,199},{267,192},{-200,192},{-200,44},{-144,44}}, color={0,0,
           127}));
   connect(pre5.y1_actual, chiPlaCon.uTowSta) annotation (Line(points={{-238,-20},{-190,-20},
           {-190,4},{-144,4}},      color={255,0,255}));
   connect(conWatPumSta.y, chiPlaCon.uConWatPum) annotation (Line(points={{-378,150},
-          {-340,150},{-340,36},{-144,36}},      color={255,0,255}));
+          {-340,150},{-340,40},{-144,40}},      color={255,0,255}));
   connect(pre3.y1_actual, chiPlaCon.uChiHeaCon) annotation (Line(points={{-258,290},{-170,
           290},{-170,60},{-144,60}},      color={255,0,255}));
   connect(pre2.y1_actual, chiPlaCon.uChiWatReq) annotation (Line(points={{-258,330},{-160,
@@ -304,6 +307,8 @@ equation
           {138,132},{138,91},{318,91}},      color={0,0,127}));
   connect(chiPlaCon.TChiWatSupSet[2], chi2.TSet) annotation (Line(points={{-96,132},
           {138,132},{138,1},{318,1}},      color={0,0,127}));
+  connect(plaEna.y, chiPlaCon.uPlaSchEna) annotation (Line(points={{-258,160},{-220,
+          160},{-220,36},{-144,36}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
             {160,-200}}), graphics={
         Rectangle(

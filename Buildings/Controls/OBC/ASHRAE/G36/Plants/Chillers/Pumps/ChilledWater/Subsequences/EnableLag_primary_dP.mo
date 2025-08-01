@@ -76,7 +76,7 @@ protected
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-1) "Add real inputs"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Find inputs difference"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
@@ -96,25 +96,34 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=false)
     "Logical false"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nomPum(
     final k=1/nPum_nominal)
     "Pump number ratio"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nomPum1(
     final k=1/nPum_nominal)
     "Pump number ratio"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=0.03)
     "Constant"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Input difference"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub3
     "Input difference"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(final t=0)
+    "Check if the lead pump has been enabled"
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.And enaPum1
+    "Enable pump"
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+  Buildings.Controls.OBC.CDL.Logical.And disPum1
+    "Disable pump"
+    annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
 
 equation
   connect(VChiWat_flow,chiWatFloRat. u)
@@ -131,7 +140,7 @@ equation
   connect(sub1.y, disPum.u)
     annotation (Line(points={{-98,-160},{-82,-160}}, color={0,0,127}));
   connect(intToRea.y, addPar1.u)
-    annotation (Line(points={{-78,0},{-60,0},{-60,-40},{-42,-40}},
+    annotation (Line(points={{-78,0},{-30,0},{-30,-40},{-22,-40}},
       color={0,0,127}));
   connect(chiWatFloRat.y, sub2.u1)
     annotation (Line(points={{-178,80},{-160,80},{-160,106},{-122,106}},
@@ -147,36 +156,46 @@ equation
   connect(enaNexLag.y, yUp)
     annotation (Line(points={{202,100},{240,100}}, color={255,0,255}));
   connect(con1.y, enaNexLag.u3)
-    annotation (Line(points={{122,0},{140,0},{140,92},{178,92}},
+    annotation (Line(points={{142,0},{150,0},{150,92},{178,92}},
       color={255,0,255}));
   connect(intToRea.y, nomPum.u)
-    annotation (Line(points={{-78,0},{-2,0}}, color={0,0,127}));
+    annotation (Line(points={{-78,0},{18,0}}, color={0,0,127}));
   connect(addPar1.y, nomPum1.u)
-    annotation (Line(points={{-18,-40},{-2,-40}},  color={0,0,127}));
-  connect(enaPum.y, truDel.u)
-    annotation (Line(points={{-58,100},{38,100}}, color={255,0,255}));
+    annotation (Line(points={{2,-40},{18,-40}},    color={0,0,127}));
   connect(truDel.y, enaNexLag.u2)
     annotation (Line(points={{62,100},{178,100}}, color={255,0,255}));
-  connect(disPum.y, truDel1.u)
-    annotation (Line(points={{-58,-160},{38,-160}}, color={255,0,255}));
   connect(truDel1.y, shuLasLag.u2)
     annotation (Line(points={{62,-160},{178,-160}}, color={255,0,255}));
   connect(nomPum.y, sub3.u1)
-    annotation (Line(points={{22,0},{30,0},{30,46},{58,46}}, color={0,0,127}));
-  connect(nomPum1.y, sub.u1) annotation (Line(points={{22,-40},{30,-40},{30,-34},
-          {58,-34}}, color={0,0,127}));
-  connect(con2.y, sub3.u2) annotation (Line(points={{22,-80},{40,-80},{40,34},{58,
+    annotation (Line(points={{42,0},{50,0},{50,46},{78,46}}, color={0,0,127}));
+  connect(nomPum1.y, sub.u1) annotation (Line(points={{42,-40},{50,-40},{50,-34},
+          {78,-34}}, color={0,0,127}));
+  connect(con2.y, sub3.u2) annotation (Line(points={{42,-80},{60,-80},{60,34},{78,
           34}}, color={0,0,127}));
-  connect(con2.y, sub.u2) annotation (Line(points={{22,-80},{40,-80},{40,-46},{58,
+  connect(con2.y, sub.u2) annotation (Line(points={{42,-80},{60,-80},{60,-46},{78,
           -46}}, color={0,0,127}));
-  connect(sub3.y, sub2.u2) annotation (Line(points={{82,40},{100,40},{100,70},{-140,
-          70},{-140,94},{-122,94}}, color={0,0,127}));
-  connect(sub.y, sub1.u1) annotation (Line(points={{82,-40},{100,-40},{100,-120},
+  connect(sub3.y, sub2.u2) annotation (Line(points={{102,40},{120,40},{120,70},{
+          -140,70},{-140,94},{-122,94}}, color={0,0,127}));
+  connect(sub.y, sub1.u1) annotation (Line(points={{102,-40},{120,-40},{120,-120},
           {-140,-120},{-140,-154},{-122,-154}}, color={0,0,127}));
   connect(con.y, shuLasLag.u1) annotation (Line(points={{142,160},{160,160},{160,
           -152},{178,-152}}, color={255,0,255}));
-  connect(con1.y, shuLasLag.u3) annotation (Line(points={{122,0},{140,0},{140,-168},
+  connect(con1.y, shuLasLag.u3) annotation (Line(points={{142,0},{150,0},{150,-168},
           {178,-168}}, color={255,0,255}));
+  connect(numOpePum.y, intGreThr.u) annotation (Line(points={{-118,0},{-110,0},{
+          -110,-60},{-102,-60}}, color={255,127,0}));
+  connect(enaPum.y, enaPum1.u1)
+    annotation (Line(points={{-58,100},{-22,100}}, color={255,0,255}));
+  connect(enaPum1.y, truDel.u)
+    annotation (Line(points={{2,100},{38,100}}, color={255,0,255}));
+  connect(disPum.y, disPum1.u1)
+    annotation (Line(points={{-58,-160},{-22,-160}}, color={255,0,255}));
+  connect(disPum1.y, truDel1.u)
+    annotation (Line(points={{2,-160},{38,-160}}, color={255,0,255}));
+  connect(intGreThr.y, enaPum1.u2) annotation (Line(points={{-78,-60},{-40,-60},
+          {-40,92},{-22,92}}, color={255,0,255}));
+  connect(intGreThr.y, disPum1.u2) annotation (Line(points={{-78,-60},{-40,-60},
+          {-40,-168},{-22,-168}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLagChiPum",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

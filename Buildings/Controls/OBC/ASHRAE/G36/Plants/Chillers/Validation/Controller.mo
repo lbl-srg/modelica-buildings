@@ -150,6 +150,9 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Templates.Components.Controls.StatusEmulator towSta[2] "Tower cell status"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
+    "Plant enable"
+    annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
 equation
   connect(chiPlaCon.uChiWatPum, uChiWatPum.y) annotation (Line(points={{-30,180},
           {-190,180},{-190,132},{-238,132}}, color={255,0,255}));
@@ -186,7 +189,7 @@ equation
   connect(booToRea.y, pro.u2) annotation (Line(points={{242,-40},{250,-40},{250,
           -6},{258,-6}},   color={0,0,127}));
   connect(pro.y, chiPlaCon.uConWatPumSpe) annotation (Line(points={{282,0},{300,
-          0},{300,-250},{-110,-250},{-110,-80},{-30,-80}},      color={0,0,127}));
+          0},{300,-250},{-110,-250},{-110,-70},{-30,-70}},      color={0,0,127}));
   connect(chiPlaCon.yChiWatIsoVal, zerOrdHol2.u) annotation (Line(points={{90,-15},
           {100,-15},{100,-60},{118,-60}}, color={0,0,127}));
   connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{142,-60},
@@ -200,8 +203,7 @@ equation
   connect(pro1.y, chiPlaCon.uChiCooLoa) annotation (Line(points={{-178,-128},{-70,
           -128},{-70,-110},{-30,-110}},  color={0,0,127}));
   connect(chiPlaCon.yConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{90,45},
-          {144,45},{144,50},{198,50}},
-                     color={0,0,127}));
+          {144,45},{144,50},{198,50}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.chiPlaReq) annotation (Line(points={{-258,-70},
           {-100,-70},{-100,-60},{-30,-60}}, color={255,127,0}));
   connect(reaToInt1.y, intGreThr.u) annotation (Line(points={{-258,-70},{-220,-70},
@@ -251,8 +253,8 @@ equation
           0,255}));
   connect(chiPlaCon.yConWatPum, conWatPum.y1) annotation (Line(points={{90,15},
           {120,15},{120,0},{138,0}},color={255,0,255}));
-  connect(conWatPum.y1_actual, chiPlaCon.uConWatPum) annotation (Line(points={{162,
-          0},{210,0},{210,-230},{-100,-230},{-100,-90},{-30,-90}}, color={255,0,
+  connect(conWatPum.y1_actual, chiPlaCon.uConWatPum) annotation (Line(points={{162,0},
+          {210,0},{210,-230},{-100,-230},{-100,-80},{-30,-80}},    color={255,0,
           255}));
   connect(conWatPum.y1_actual, booToRea.u) annotation (Line(points={{162,0},{210,
           0},{210,-40},{218,-40}}, color={255,0,255}));
@@ -261,6 +263,8 @@ equation
   connect(towSta.y1_actual, chiPlaCon.uTowSta) annotation (Line(points={{142,-170},
           {170,-170},{170,-190},{-50,-190},{-50,-170},{-30,-170}}, color={255,0,
           255}));
+  connect(plaEna.y, chiPlaCon.uPlaSchEna) annotation (Line(points={{-178,210},{-70,
+          210},{-70,-90},{-30,-90}}, color={255,0,255}));
 annotation (
   experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Validation/Controller.mos"

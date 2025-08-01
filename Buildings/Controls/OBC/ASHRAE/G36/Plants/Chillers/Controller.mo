@@ -155,10 +155,6 @@ block Controller "Chiller plant controller"
 
   // ---- Plant enable ----
 
-  parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
-    "Plant enabling schedule allowing operators to lock out the plant during off-hour"
-    annotation(Dialog(tab="Plant enable"));
-
   parameter Real TChiLocOut(
     unit="K",
     displayUnit="degC")=277.5
@@ -220,8 +216,8 @@ block Controller "Chiller plant controller"
     "Economizer enable time needed to allow increase of the tuning parameter"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE));
 
-  parameter Real dpDes=6000
-    "Design pressure difference across the chilled water side economizer"
+  parameter Real dpDes=3E4
+    "Design waterside economizer chilled water pressure drop"
     annotation (Dialog(tab="Waterside economizer", group="Valve or pump control",
         enable=have_WSE and have_byPasValCon));
 
@@ -695,11 +691,11 @@ block Controller "Chiller plant controller"
      annotation (Dialog(tab="Cooling Towers", group="Enable isolation valve"));
 
   // ---- Cooling tower: Water level control ----
-  parameter Real watLevMin(unit="1")=0.7
+  parameter Real watLevMin(min=0, unit="m")=0.7
     "Minimum cooling tower water level recommended by manufacturer"
      annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
-  parameter Real watLevMax(unit="1")=1
+  parameter Real watLevMax(unit="m")=1
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
@@ -882,12 +878,17 @@ block Controller "Chiller plant controller"
     final max=fill(1, nConWatPum),
     final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
     annotation(Placement(transformation(extent={{-940,-400},{-900,-360}}),
-        iconTransformation(extent={{-140,-220},{-100,-180}})));
+        iconTransformation(extent={{-140,-200},{-100,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
     "Condenser water pump status"
     annotation (Placement(transformation(extent={{-940,-430},{-900,-390}}),
-      iconTransformation(extent={{-140,-240},{-100,-200}})));
+      iconTransformation(extent={{-140,-220},{-100,-180}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPlaSchEna
+    "Plant schedule enable: true=Enable"
+    annotation (Placement(transformation(extent={{-940,-500},{-900,-460}}),
+        iconTransformation(extent={{-140,-240},{-100,-200}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -927,7 +928,8 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-940,-728},{-900,-688}}),
       iconTransformation(extent={{-140,-360},{-100,-320}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev(
+    final unit="m")
     "Measured water level"
     annotation (Placement(transformation(extent={{-940,-760},{-900,-720}}),
       iconTransformation(extent={{-140,-380},{-100,-340}})));
@@ -1113,7 +1115,6 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-700,300},{-660,356}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.Enable plaEna(
-    final schTab=schTab,
     final TChiLocOut=TChiLocOut,
     final plaThrTim=plaThrTim,
     final reqThrTim=reqThrTim,
@@ -2054,6 +2055,8 @@ equation
           127}));
   connect(dpChiWatSet_local, staSetCon.dpChiWatPumSet_local) annotation (Line(
         points={{-920,500},{-872,500},{-872,12},{-268,12}}, color={0,0,127}));
+  connect(plaEna.uPlaSchEna, uPlaSchEna) annotation (Line(points={{-704,-520},{-830,
+          -520},{-830,-480},{-920,-480}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2148,11 +2151,11 @@ annotation (
           textColor={255,127,0},
           textString="TChiWatSupResReq"),
         Text(
-          extent={{-98,-192},{-50,-206}},
+          extent={{-98,-172},{-50,-186}},
           textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
-          extent={{-98,-212},{-50,-226}},
+          extent={{-98,-192},{-50,-206}},
           textColor={255,0,255},
           textString="uConWatPum"),
         Text(
@@ -2314,7 +2317,11 @@ annotation (
           extent={{-98,268},{-42,254}},
           textColor={0,0,127},
           visible=have_locSenChiWatPum,
-          textString="dpChiWatSet_local")}),
+          textString="dpChiWatSet_local"),
+        Text(
+          extent={{-98,-214},{-50,-228}},
+          textColor={255,0,255},
+          textString="uPlaSchEna")}),
     Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>
 <p>

@@ -10,26 +10,18 @@ model Enable
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.Enable
     disPlaSch(
-    final schTab=[0,0;
-                  10*60,1;
-                  19*3600,0;
-                  24*3600,0],
     ignReq=1)
     "Disable plant without waterside economizer, due to schedule"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.Enable
     disPlaReq(
-    final schTab=[0,0;
-                  6*3600,1;
-                  19*3600,0;
-                  24*3600,0],
     ignReq=1)
     "Disable plant without waterside economizer, due to lack of request"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.Enable
-    disPlaOutTem(final schTab=[0,0; 1*3600,1; 19*3600,0; 24*3600,0])
+    disPlaOutTem
     "Disable plant without waterside economizer, due to low outdoor temperature"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
@@ -84,23 +76,36 @@ protected
     final offset=275.15) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTab(
+    table=[0,0; 6*3600,1; 1983600,0; 2483600,0],
+    timeScale=3600,
+    period=24*3600)
+    "Plant enable schedule"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+
 equation
   connect(conOutTem.y, disPlaSch.TOut)
-    annotation (Line(points={{2,70},{24,70},{24,95.8},{38,95.8}}, color={0,0,127}));
+    annotation (Line(points={{2,70},{28,70},{28,95.8},{38,95.8}}, color={0,0,127}));
   connect(chiPlaReq2.y[1], reaToInt2.u)
     annotation (Line(points={{-38,10},{-22,10}}, color={0,0,127}));
-  connect(reaToInt2.y, disPlaReq.chiPlaReq) annotation (Line(points={{2,10},{20,
-          10},{20,14},{38,14}}, color={255,127,0}));
+  connect(reaToInt2.y, disPlaReq.chiPlaReq) annotation (Line(points={{2,10},{10,
+          10},{10,14},{38,14}}, color={255,127,0}));
   connect(conOutTem1.y, disPlaReq.TOut)
-    annotation (Line(points={{2,-20},{24,-20},{24,5.8},{38,5.8}}, color={0,0,127}));
+    annotation (Line(points={{2,-20},{30,-20},{30,5.8},{38,5.8}}, color={0,0,127}));
   connect(chiPlaReq3.y[1], reaToInt3.u)
     annotation (Line(points={{-38,-70},{-22,-70}}, color={0,0,127}));
   connect(reaToInt3.y, disPlaOutTem.chiPlaReq) annotation (Line(points={{2,-70},
-          {20,-70},{20,-66},{38,-66}}, color={255,127,0}));
+          {12,-70},{12,-66},{38,-66}}, color={255,127,0}));
   connect(outTem1.y, disPlaOutTem.TOut)
-    annotation (Line(points={{2,-100},{24,-100},{24,-74.2},{38,-74.2}}, color={0,0,127}));
+    annotation (Line(points={{2,-100},{30,-100},{30,-74.2},{38,-74.2}}, color={0,0,127}));
   connect(conInt.y, disPlaSch.chiPlaReq) annotation (Line(points={{2,110},{20,
           110},{20,104},{38,104}}, color={255,127,0}));
+  connect(booTimTab.y[1], disPlaSch.uPlaSchEna) annotation (Line(points={{-38,50},
+          {20,50},{20,100},{38,100}}, color={255,0,255}));
+  connect(booTimTab.y[1], disPlaReq.uPlaSchEna) annotation (Line(points={{-38,50},
+          {20,50},{20,10},{38,10}}, color={255,0,255}));
+  connect(booTimTab.y[1], disPlaOutTem.uPlaSchEna) annotation (Line(points={{-38,
+          50},{20,50},{20,-70},{38,-70}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Generic/PlantEnable/Validation/Enable.mos"

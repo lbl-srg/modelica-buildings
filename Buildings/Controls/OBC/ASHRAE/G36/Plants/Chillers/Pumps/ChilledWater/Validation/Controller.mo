@@ -35,7 +35,7 @@ protected
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlo(
     final amplitude=0.25,
-    final freqHz=1/3600,
+    final freqHz=1/7200,
     final offset=0.25) "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen1(

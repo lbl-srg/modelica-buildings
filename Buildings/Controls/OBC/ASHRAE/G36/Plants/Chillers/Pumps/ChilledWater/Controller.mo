@@ -325,6 +325,9 @@ protected
     if have_heaPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg if have_heaPum
+    "Achieved setpoint"
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
 equation
   connect(enaDedLeaPum.uLeaChiEna, uLeaChiEna)
@@ -512,10 +515,6 @@ equation
           -20,-84},{-12,-84}}, color={255,127,0}));
   connect(mulInt.y, intRep2.u)
     annotation (Line(points={{12,-90},{18,-90}}, color={255,127,0}));
-  connect(mulAnd.y, disLasLag.clr) annotation (Line(points={{-118,-20},{-100,
-          -20},{-100,-6},{-42,-6}}, color={255,0,255}));
-  connect(mulAnd.y, enaNexLag.clr) annotation (Line(points={{-118,-20},{-100,
-          -20},{-100,24},{-2,24}}, color={255,0,255}));
   connect(pre1.y, booToInt1.u) annotation (Line(points={{242,-120},{260,-120},{
           260,-140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
   connect(enaLagChiPum.yDown, disLasLag.u) annotation (Line(points={{-218,-20},{
@@ -528,6 +527,12 @@ equation
           90,100},{90,-180},{-18,-180},{-18,-232},{-2,-232}}, color={255,0,255}));
   connect(dpChiWatSet_local, pumSpeLocDp.dpChiWatSet_local) annotation (Line(
         points={{-300,-190},{-240,-190},{-240,-210},{-2,-210}}, color={0,0,127}));
+  connect(mulAnd.y, edg.u)
+    annotation (Line(points={{-118,-20},{-102,-20}}, color={255,0,255}));
+  connect(edg.y, enaNexLag.clr) annotation (Line(points={{-78,-20},{-60,-20},{-60,
+          24},{-2,24}}, color={255,0,255}));
+  connect(edg.y, disLasLag.clr) annotation (Line(points={{-78,-20},{-60,-20},{-60,
+          -6},{-42,-6}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,
