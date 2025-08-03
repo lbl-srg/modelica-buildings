@@ -6,7 +6,7 @@ model BypassDampers
     "Air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325 - 500,
+    p(displayUnit="Pa") = 101325 - 250,
     nPorts=1)
     "Regeneration air sink"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
@@ -26,7 +26,7 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-98,-70},{-78,-50}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325 - 520,
+    p(displayUnit="Pa") = 101325 - 270,
     nPorts=1)
     "Process air sink"
     annotation (Placement(transformation(extent={{90,-50},{70,-30}})));

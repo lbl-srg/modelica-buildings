@@ -63,7 +63,6 @@ model BypassDampers "Desiccant dehumidifier with bypass dampers"
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Difference of the two inputs"
     annotation (Placement(transformation(extent={{-174,-50},{-154,-30}})));
-
   Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance dehPer(
     final per=per)
     "Dehumidifier performance"

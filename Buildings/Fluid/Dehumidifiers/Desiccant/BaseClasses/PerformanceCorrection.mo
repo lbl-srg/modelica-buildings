@@ -34,10 +34,14 @@ model PerformanceCorrection
   Modelica.Blocks.Math.Product product3
     "Corrected mass flow rate of the regeneration air"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
-  Modelica.Blocks.Logical.Hysteresis hys(final uLow=per.uSpe_min, final uHigh=
-        per.uSpe_min + 0.05)
+  Modelica.Blocks.Logical.Hysteresis hys(
+    final uLow=per.uSpe_min,
+    final uHigh=per.uSpe_min + 0.05)
     "Convert real input to boolean output "
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Modelica.Blocks.Math.Product product4
+    "Corrected mass flow rate of the regeneration air"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Interfaces.RealInput mPro_flow(
     final unit="kg/s")
     "Mass flow rate of the process air"
@@ -48,11 +52,13 @@ model PerformanceCorrection
     final unit="K") "Temperature of the process air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-124,28},{-100,52}}),
     iconTransformation(extent={{-120,32},{-100,52}})));
-  Modelica.Blocks.Interfaces.RealInput TRegEnt(final unit="K")
+  Modelica.Blocks.Interfaces.RealInput TRegEnt(
+    final unit="K")
     "Temperature of the regeneration air entering the dehumidifier"
     annotation(Placement(transformation(extent={{-124,-12},{-100,12}}),
     iconTransformation(extent={{-120,10},{-100,-10}})));
-  Modelica.Blocks.Interfaces.RealInput X_w_ProEnt(final unit="kg/kg")
+  Modelica.Blocks.Interfaces.RealInput X_w_ProEnt(
+    final unit="kg/kg")
     "Humidity ratio of the process air entering the dehumidifier"
     annotation (Placement(transformation(
     extent={{-124,-52},{-100,-28}}),
@@ -75,7 +81,8 @@ model PerformanceCorrection
     annotation (Placement(transformation(extent={{200,30},{220,50}}),
     iconTransformation(
     extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput X_w_ProLea(final unit="1")
+  Modelica.Blocks.Interfaces.RealOutput X_w_ProLea(
+    final unit="1")
     "Humidity ratio of the process air leaving the dehumidifier"
     annotation (Placement(transformation(extent={{200,-10},{220,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
@@ -84,13 +91,12 @@ model PerformanceCorrection
     "Mass flow rate of the regeneration air"
     annotation (Placement(transformation(extent={{200,-50},{220,-30}}),
     iconTransformation(extent={{100,-50},{120,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput hReg(final unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput hReg(
+    final unit="J/kg")
     "Specific regeneration energy"
     annotation (Placement(transformation(extent={{200,-90},{220,-70}}),
     iconTransformation(extent={{100,-90},{120,-70}})));
-  Modelica.Blocks.Math.Product product4
-    "Corrected mass flow rate of the regeneration air"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+
 
 equation
   connect(dehPer.X_w_ProEnt, X_w_ProEnt) annotation (Line(points={{-11,-3.8},{-94,

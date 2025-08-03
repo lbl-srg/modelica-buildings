@@ -36,6 +36,7 @@ model Performance
     "Mass flow rate of the process air"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SensibleHeat senHea
+    "Sensible heat exchange"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.Constant hPro(k=2446*1000)
     "Vaporization enthalpy of water in process air"

@@ -123,7 +123,7 @@ protected
     annotation (Placement(transformation(extent={{0,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
     "Sensible heat exchange calculation"
-    annotation (Placement(transformation(extent={{60,136},{40,156}})));
+    annotation (Placement(transformation(extent={{60,130},{40,150}})));
 equation
   connect(preHeaFlo.Q_flow, gai2.y)
     annotation (Line(points={{-62,140},{-21,140}},
@@ -161,12 +161,11 @@ equation
     annotation (Line(points={{-94,180},{-162,180}}, color={0,127,255}));
   connect(resReg.port_b, port_b2)
     annotation (Line(points={{-182,180},{-240,180}}, color={0,127,255}));
-  connect(max1.y, gai2.u) annotation (Line(points={{38,146},{20,146},{20,140},{2,
-          140}}, color={0,0,127}));
-  connect(max1.u2, senHea.Q) annotation (Line(points={{62,140},{90,140},{90,40},
+  connect(max1.y, gai2.u) annotation (Line(points={{38,140},{2,140}}, color={0,0,127}));
+  connect(max1.u2, senHea.Q) annotation (Line(points={{62,134},{90,134},{90,40},
           {1,40}}, color={0,0,127}));
-  connect(outCon.Q_flow, max1.u1) annotation (Line(points={{11,8},{36,8},{36,100},
-          {72,100},{72,152},{62,152}}, color={0,0,127}));
+  connect(outCon.Q_flow, max1.u1) annotation (Line(points={{11,8},{36,8},{36,
+          100},{72,100},{72,146},{62,146}}, color={0,0,127}));
     annotation (
         Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),  graphics={

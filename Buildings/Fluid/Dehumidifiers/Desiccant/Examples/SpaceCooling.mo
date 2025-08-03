@@ -169,7 +169,7 @@ model SpaceCooling "Space cooling system"
   Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled deh(
     redeclare package Medium = MediumA,
     per=per) "Dehumidifier"
-    annotation (Placement(transformation(extent={{-92,-18},{-72,2}})));
+    annotation (Placement(transformation(extent={{-98,-18},{-78,2}})));
   Buildings.Fluid.Sources.Boundary_pT sou_Reg(
     redeclare package Medium = MediumA,
     p(displayUnit="Pa") = 101325,
@@ -276,14 +276,14 @@ equation
   connect(conRoo.y, souWat.m_flow_in) annotation (Line(points={{-69,-122},{-30,-122},
           {-30,-92},{-22,-92}}, color={0,0,127}));
   connect(sin_Reg.ports[1], deh.port_b2) annotation (Line(points={{-120,20},{
-          -108,20},{-108,0},{-92,0}},
-                                  color={0,127,255}));
+          -108,20},{-108,0},{-98,0}},color={0,127,255}));
   connect(sou_Reg.ports[1], deh.port_a2) annotation (Line(points={{-60,20},{-70,
-          20},{-70,0},{-72,0}}, color={0,127,255}));
+          20},{-70,0},{-78,0}}, color={0,127,255}));
   connect(senX_w_DehOut.port_a, deh.port_b1) annotation (Line(points={{-70,-20},
-          {-72,-20},{-72,-16}},           color={0,127,255}));
+          {-72,-20},{-72,-16},{-78,-16}},
+                                color={0,127,255}));
   connect(senX_w_DehIn.port_b, deh.port_a1) annotation (Line(points={{-110,-20},
-          {-106,-20},{-106,-16},{-92,-16}},  color={0,127,255}));
+          {-106,-20},{-106,-16},{-98,-16}},  color={0,127,255}));
   connect(senTemRetAir.port_b, out.ports[1]) annotation (Line(points={{42,-46},
           {-140,-46},{-140,-21}},color={0,127,255}));
   connect(senX_w_DehIn.port_a, out.ports[2]) annotation (Line(points={{-130,-20},
@@ -297,7 +297,7 @@ equation
   connect(conDeh.u_m, senRelHum.phi) annotation (Line(points={{-110,-92},{-110,-102},
           {-44,-102},{-44,0},{-27.9,0},{-27.9,-9}}, color={0,0,127}));
   connect(conDeh.y, deh.uSpe) annotation (Line(points={{-99,-80},{-86,-80},{-86,
-          -40},{-100,-40},{-100,-8},{-94,-8}},  color={0,0,127}));
+          -40},{-100,-40},{-100,-8}},           color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block is identical to

@@ -16,11 +16,11 @@ record Generic "Generic data record for desiccant dehumidifiers"
     "Nominal regeneration air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpPro_nominal(
-    displayUnit="Pa")=500
+    displayUnit="Pa")=250
     "Nominal process air pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpReg_nominal(
-    displayUnit="Pa")=500
+    displayUnit="Pa")=250
     "Nominal regeneration air pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Velocity vPro_nominal=2.5
