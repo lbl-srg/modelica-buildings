@@ -140,7 +140,7 @@ and <code>vPro_nominal</code> is the nominal velocity.
 If the dehumidification signal <code>uRot = true</code> and <code>vPro &gt; 0.1</code>:
 <ul>
 <li>
-The inlet condition is compared to performance curve limits:
+The inlet condition is compared to performance curve limits defined in
 <a href='modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic'>
 Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>
 <ul>
@@ -148,13 +148,13 @@ Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>
 <li>Otherwise:
 <ul>
 <li>
-Temperature leaving: <code>TProLea</code>
+Temperature leaving:
 <p style='text-align:center; font-style:italic;'>
 TProLea = f(TProEnt, X_w_ProEnt, vPro, a) + 273.15,
 </p>
 </li>
 <li>
-Humidity ratio: <code>X_w_ProLea</code>
+Humidity ratio:
 <p style='text-align:center; font-style:italic;'>
 X_w_ProLea = max(0, f(TProEnt, X_w_ProEnt, vPro, b)),
 </p>
@@ -176,6 +176,9 @@ Regeneration specific energy: <code>hReg</code>
 <p style='text-align:center; font-style:italic;'>
 hReg = max(0, f(TProEnt, X_w_ProEnt, vPro, d)),
 </p>
+where <code>TProEnt</code> and <code>X_w_ProEnt</code> represent the temperature and
+humidity ratio of the process air entering the dehumidifier, respectively.
+<code>a</code>, <code>b</code>, <code>c</code>, and <code>d</code> are coefficients.
 </li>
 </ul>
 </li>

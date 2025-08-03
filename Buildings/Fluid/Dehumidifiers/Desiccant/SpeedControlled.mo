@@ -79,7 +79,7 @@ as specified in
 Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
 </p>
 <p>
-The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
+The operation of the dehumidifier is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in
 <a href=\"Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrection\">
 Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrection</a>.

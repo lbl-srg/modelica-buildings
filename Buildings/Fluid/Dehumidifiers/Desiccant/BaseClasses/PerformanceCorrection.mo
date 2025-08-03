@@ -203,13 +203,11 @@ X_w_ProLea = X_w_ProEnt - (X_w_ProEnt - X_w_ProLea) * epsLatCor
 <p>
 Here, <code>TProEnt</code> and <code>X_w_ProEnt</code> represent the temperature and humidity ratio of the process air entering the dehumidifier, respectively.
 <code>uSpe</code> is the wheel speed ratio.
-</p>
-<p>
 <code>epsSenCor</code> is the sensible heat exchange effectiveness correction based on <code>uSpe</code>
-(<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\">
+(see details in <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible</a>), and
 <code>epsLatCor</code> is the latent heat exchange effectiveness correction based on <code>uSpe</code>
-(<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent\">
+(see details in <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent</a>).
 </p>
 <p>
