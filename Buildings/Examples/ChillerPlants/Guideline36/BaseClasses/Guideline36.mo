@@ -144,6 +144,10 @@ protected
     "Water specific heat capacity";
   final parameter Modelica.Units.SI.HeatFlowRate chiDesCap = mChi_flow_nominal*dTChi*Cp
     "Chiller design capacity";
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2](
+    final realTrue=fill(0.9,2))
+    "Fixed condenser water pump speed"
+    annotation (Placement(transformation(extent={{40,150},{60,170}})));
 
 equation
   connect(chwIsoVal1.y_actual, chiWatIso[1].u) annotation (Line(points={{235,77},
@@ -186,10 +190,6 @@ equation
           {300,388},{-430,388},{-430,-20},{-362,-20}},      color={0,0,127}));
   connect(conWatLev.y, chiPlaCon.watLev) annotation (Line(points={{-498,0},{-380,
           0},{-380,8},{-144,8}},            color={0,0,127}));
-  connect(chiPlaCon.yConWatPumSpe[1], conWatPum1.y) annotation (Line(points={{-96,90},
-          {120,90},{120,224},{220,224},{220,210},{212,210}}, color={0,0,127}));
-  connect(chiPlaCon.yConWatPumSpe[2], conWatPum2.y) annotation (Line(points={{-96,90},
-          {120,90},{120,224},{280,224},{280,210},{272,210}}, color={0,0,127}));
   connect(chiPlaCon.yConWatIsoVal[1], cwIsoVal1.y) annotation (Line(points={{-96,96},
           {70,96},{70,118},{380,118},{380,112}},     color={0,0,127}));
   connect(chiPlaCon.yConWatIsoVal[2], cwIsoVal2.y) annotation (Line(points={{-96,96},
@@ -309,6 +309,12 @@ equation
           {138,132},{138,1},{318,1}},      color={0,0,127}));
   connect(plaEna.y, chiPlaCon.uPlaSchEna) annotation (Line(points={{-258,160},{-220,
           160},{-220,36},{-144,36}}, color={255,0,255}));
+  connect(chiPlaCon.yConWatPum, booToRea.u) annotation (Line(points={{-96,78},{-40,
+          78},{-40,160},{38,160}}, color={255,0,255}));
+  connect(booToRea[1].y, conWatPum1.y) annotation (Line(points={{62,160},{120,160},
+          {120,220},{220,220},{220,210},{212,210}}, color={0,0,127}));
+  connect(booToRea[2].y, conWatPum2.y) annotation (Line(points={{62,160},{120,160},
+          {120,220},{280,220},{280,210},{272,210}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
             {160,-200}}), graphics={
         Rectangle(
