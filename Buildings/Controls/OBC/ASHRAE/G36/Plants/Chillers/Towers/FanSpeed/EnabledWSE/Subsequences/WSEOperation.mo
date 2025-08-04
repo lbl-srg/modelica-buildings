@@ -97,7 +97,7 @@ protected
     final uHigh=1.5*5/9)
     "Check if chilled water supply temperature is greater than setpoint by a threshold delta"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset chiWatTemCon(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable chiWatTemCon(
     final controllerType=chiWatCon,
     final k=k,
     final Ti=Ti,
@@ -216,10 +216,9 @@ equation
     annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
   connect(cycOffTim.y, cycOn.u1)
     annotation (Line(points={{2,70},{38,70}}, color={255,0,255}));
-  connect(cycOn.y, chiWatTemCon.trigger)
-    annotation (Line(points={{62,70},{80,70},{80,-80},{-160,-80},{-160,-160},
-      {-136,-160},{-136,-152}}, color={255,0,255}));
-
+  connect(cycOn.y, chiWatTemCon.uEna) annotation (Line(points={{62,70},{80,70},{
+          80,-80},{-160,-80},{-160,-160},{-134,-160},{-134,-152}}, color={255,0,
+          255}));
 annotation (
   defaultComponentName="wseTowSpeWSEOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

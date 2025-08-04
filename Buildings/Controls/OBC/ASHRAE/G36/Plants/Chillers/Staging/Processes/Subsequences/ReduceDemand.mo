@@ -35,7 +35,7 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller status: true=ON"
-    annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
+    annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
     final quantity=fill("ElectricCurrent", nChi),
@@ -65,7 +65,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi]
     "Change zero input to a given constant if the chiller is not enabled"
-    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
+    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys[nChi](
     final uLow=fill(chiDemRedFac + 0.05 - 0.01, nChi),
     final uHigh=fill(chiDemRedFac + 0.05 + 0.01, nChi))
@@ -138,12 +138,12 @@ equation
   connect(uChiLoa, swi4.u3)
     annotation (Line(points={{-180,160},{-140,160},{-140,112},{118,112}}, color={0,0,127}));
   connect(uChi, swi.u2)
-    annotation (Line(points={{-180,-140},{-82,-140}}, color={255,0,255}));
+    annotation (Line(points={{-180,-160},{-82,-160}}, color={255,0,255}));
   connect(con.y, swi.u3)
-    annotation (Line(points={{-118,-190},{-100,-190},{-100,-148},{-82,-148}},
+    annotation (Line(points={{-118,-190},{-100,-190},{-100,-168},{-82,-168}},
       color={0,0,127}));
   connect(swi.y, div.u2)
-    annotation (Line(points={{-58,-140},{-50,-140},{-50,-146},{-42,-146}},
+    annotation (Line(points={{-58,-160},{-50,-160},{-50,-146},{-42,-146}},
       color={0,0,127}));
   connect(uChiLoa, div.u1)
     annotation (Line(points={{-180,160},{-140,160},{-140,-110},{-50,-110},{-50,-134},
@@ -201,8 +201,8 @@ equation
     annotation (Line(points={{22,160},{40,160},{40,-50},{58,-50}},
       color={0,0,127}));
   connect(addPar.y, swi.u1)
-    annotation (Line(points={{82,-50},{100,-50},{100,-82},{-100,-82},{-100,-132},
-          {-82,-132}}, color={0,0,127}));
+    annotation (Line(points={{82,-50},{100,-50},{100,-80},{-100,-80},{-100,-152},
+          {-82,-152}}, color={0,0,127}));
   connect(uDemLim, tim.u)
     annotation (Line(points={{-180,190},{-120,190},{-120,-100},{-42,-100}},
       color={255,0,255}));

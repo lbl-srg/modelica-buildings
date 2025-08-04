@@ -92,7 +92,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyDisChi(final nin=nChi)
     "Check if there is any disabling chiller"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And enaDis
     "Check if enabling and disabling chillers at the same process"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -174,9 +174,9 @@ equation
           -20},{-62,-20}},  color={255,0,255}));
   connect(anyEnaChi.y, enaDis.u1) annotation (Line(points={{-38,-20},{-2,-20}},
           color={255,0,255}));
-  connect(disChi.y, anyDisChi.u) annotation (Line(points={{-78,-80},{-70,-80},{-70,
-          -100},{-62,-100}}, color={255,0,255}));
-  connect(anyDisChi.y, enaDis.u2) annotation (Line(points={{-38,-100},{-10,-100},
+  connect(disChi.y, anyDisChi.u) annotation (Line(points={{-78,-80},{-62,-80}},
+                             color={255,0,255}));
+  connect(anyDisChi.y, enaDis.u2) annotation (Line(points={{-38,-80},{-10,-80},
           {-10,-28},{-2,-28}}, color={255,0,255}));
   connect(enaDis.y, yOnOff) annotation (Line(points={{22,-20},{300,-20}},
           color={255,0,255}));

@@ -165,10 +165,11 @@ block Controller "Cooling tower controller"
 
   // Water level control
   parameter Real watLevMin(
-    final min=0)=0.7
+    final min=0,
+    final unit="m")=0.7
     "Minimum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
-  parameter Real watLevMax=1
+  parameter Real watLevMax(final unit="m")=1
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
 
@@ -269,7 +270,8 @@ block Controller "Cooling tower controller"
     "Vector of tower cells isolation valve position"
     annotation (Placement(transformation(extent={{-140,-240},{-100,-200}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev(
+    final unit="m")
     "Measured water level"
     annotation (Placement(transformation(extent={{-140,-260},{-100,-220}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));

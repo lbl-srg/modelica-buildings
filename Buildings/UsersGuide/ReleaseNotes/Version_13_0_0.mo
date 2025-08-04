@@ -1,10 +1,10 @@
 within Buildings.UsersGuide.ReleaseNotes;
-class Version_12_0_1 "Version 12.0.1"
+class Version_13_0_0 "Version 13.0.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 12.0.1 is ... xxx
+Version X.Y.Z is ... xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -12,9 +12,9 @@ Version 12.0.1 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Plants
+<tr><td valign=\"top\">xxx
     </td>
-    <td valign=\"top\">Package of sequences for chiller and boiler plants
+    <td valign=\"top\">xxx.
     </td>
     </tr>
 </table>
@@ -24,15 +24,6 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
-    </td>
-    <td valign=\"top\">Package that contains components for the PID controller that can
-                       autotune the control gain and time constants.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -49,46 +40,21 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b><br/>
-                         Buildings.Utilities.Clustering
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities.Clustering.KMeans
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
     </td>
-    <td valign=\"top\">Improved code to avoid an error during initialization of certain borefield geometries.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #1985</a> and
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1976\">IBPSA, #1976</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Electrical.BaseClasses.WindTurbine.PartialWindTurbine
-    </td>
-    <td valign=\"top\">Changed model to avoid a rounding error that occurs due to the revised definition of <code>eps</code>
-                       in the development version of the Modelica Standard Library 4.1.0.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
+<tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+<tr><td valign=\"top\">xxx
     </td>
-</tr>
-<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u
-    </td>
-    <td valign=\"top\">Reformulated model to avoid warning about binding equation not being a parameter expression.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4215\">#4215</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Templates</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Templates.Components.Actuators.Damper<br/>
-                       Buildings.Templates.Components.Actuators.Valve<br/>
-                       Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation
-    </td>
-    <td valign=\"top\">Replaced direct fluid pass-through with fixed resistance in actuator components.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4227\">#4227</a>.
+    <td valign=\"top\">xxx.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -156,4 +122,4 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_12_0_1;
+end Version_13_0_0;

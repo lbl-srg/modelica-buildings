@@ -44,7 +44,7 @@ block Controller "Head pressure controller for plants with headered condenser wa
                                  or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon
-    "Chillers head pressure control status: true = ON, false = OFF"
+    "Enabling chillers head pressure control: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(

@@ -29,11 +29,11 @@ extern "C" {
 #endif
 
 /**
-	\addtogroup fmi2_import
-	@{
-	\addtogroup fmi2_import_typedef Support for processing variable types
-	@}
-	\addtogroup fmi2_import_typedef Support for processing variable types
+    \addtogroup fmi2_import
+    @{
+    \addtogroup fmi2_import_typedef Support for processing variable types
+    @}
+    \addtogroup fmi2_import_typedef Support for processing variable types
   @{
 */
 /**@name   Type definitions supporting structures*/
@@ -54,9 +54,9 @@ typedef struct fmi2_xml_type_definitions_t fmi2_import_type_definitions_t;
 FMILIB_EXPORT unsigned int fmi2_import_get_type_definition_number(fmi2_import_type_definitions_t* td);
 
 /** \brief Get a type definition specified by the index 
-	@param td the type definition list object
-	@param index the index of type definition. Must be less than the number returned by fmi2_import_get_type_definition_number()
-	@return A type definition object or NULL if index is out of range.
+    @param td the type definition list object
+    @param index the index of type definition. Must be less than the number returned by fmi2_import_get_type_definition_number()
+    @return A type definition object or NULL if index is out of range.
 */
 FMILIB_EXPORT fmi2_import_variable_typedef_t* fmi2_import_get_typedef(fmi2_import_type_definitions_t* td, unsigned int index);
 
@@ -77,31 +77,31 @@ FMILIB_EXPORT fmi2_base_type_enu_t fmi2_import_get_base_type(fmi2_import_variabl
 /* Boolean and String has no extra attributes -> not needed*/
 
 /** \brief Cast the general type definition object to an object with a specific base type 
-	@return Pointer to the specific type object or NULL if base type does not match.
+    @return Pointer to the specific type object or NULL if base type does not match.
 */
 FMILIB_EXPORT fmi2_import_real_typedef_t* fmi2_import_get_type_as_real(fmi2_import_variable_typedef_t*);
 /** \brief Cast the general type definition object to an object with a specific base type 
-	@return Pointer to the specific type object or NULL if base type does not match.
+    @return Pointer to the specific type object or NULL if base type does not match.
 */
 FMILIB_EXPORT fmi2_import_integer_typedef_t* fmi2_import_get_type_as_int(fmi2_import_variable_typedef_t*);
 /** \brief Cast the general type definition object to an object with a specific base type 
-	@return Pointer to the specific type object or NULL if base type does not match.
+    @return Pointer to the specific type object or NULL if base type does not match.
 */
 FMILIB_EXPORT fmi2_import_enumeration_typedef_t* fmi2_import_get_type_as_enum(fmi2_import_variable_typedef_t*);
 
 /** \brief Get the quantity associated with the type definition.
-	@return The quantity, or NULL-pointer if quantity is not defined (NULL-pointer is always returned for strings and booleans).
+    @return The quantity, or NULL-pointer if quantity is not defined (NULL-pointer is always returned for strings and booleans).
 */
 FMILIB_EXPORT const char* fmi2_import_get_type_quantity(fmi2_import_variable_typedef_t*);
 
 /** \brief Get minimal value for the type.
 
-	@return Either the value specified in the XML file or negated DBL_MAX as defined in <float.h>
+    @return Either the value specified in the XML file or negated DBL_MAX as defined in <float.h>
 */
 FMILIB_EXPORT double fmi2_import_get_real_type_min(fmi2_import_real_typedef_t*);
 /** \brief Get maximum value for the type
 
-	@return Either the value specified in the XML file or DBL_MAX as defined in <float.h>
+    @return Either the value specified in the XML file or DBL_MAX as defined in <float.h>
 */
 FMILIB_EXPORT double fmi2_import_get_real_type_max(fmi2_import_real_typedef_t*);
 
@@ -118,25 +118,25 @@ FMILIB_EXPORT int fmi2_import_get_real_type_is_relative_quantity(fmi2_import_rea
 FMILIB_EXPORT int fmi2_import_get_real_type_is_unbounded(fmi2_import_real_typedef_t*);
 
 /** \brief Get minimal value for the type.
-	
-	@return Either the value specified in the XML file or INT_MIN as defined in <limits.h>
+
+    @return Either the value specified in the XML file or INT_MIN as defined in <limits.h>
 */
 FMILIB_EXPORT int fmi2_import_get_integer_type_min(fmi2_import_integer_typedef_t*);
 /** \brief Get maximum value for the type
-	
-	@return Either the value specified in the XML file or INT_MAX as defined in <limits.h>
+
+    @return Either the value specified in the XML file or INT_MAX as defined in <limits.h>
 */
 FMILIB_EXPORT int fmi2_import_get_integer_type_max(fmi2_import_integer_typedef_t*);
 
 /** \brief Get minimal value for the type.
-	
-	@return Either the value specified in the XML file or 0
+
+    @return Either the value specified in the XML file or 0
 */
 FMILIB_EXPORT unsigned int fmi2_import_get_enum_type_min(fmi2_import_enumeration_typedef_t*);
 
 /** \brief Get maximum value for the type.
-	
-	@return Either the value specified in the XML file or INT_MAX as defined in <limits.h>
+
+    @return Either the value specified in the XML file or INT_MAX as defined in <limits.h>
 */
 FMILIB_EXPORT unsigned int fmi2_import_get_enum_type_max(fmi2_import_enumeration_typedef_t*);
 
@@ -156,8 +156,8 @@ FMILIB_EXPORT const char* fmi2_import_get_enum_type_item_description(fmi2_import
 FMILIB_EXPORT const char* fmi2_import_get_enum_type_value_name(fmi2_import_enumeration_typedef_t* t, int value);
 
 /**
-	\brief Get display unit associated with a real type definition.
-	@return Display unit object of NULL if none was given.
+    \brief Get display unit associated with a real type definition.
+    @return Display unit object of NULL if none was given.
 */
 FMILIB_EXPORT fmi2_import_display_unit_t* fmi2_import_get_type_display_unit(fmi2_import_real_typedef_t*);
 

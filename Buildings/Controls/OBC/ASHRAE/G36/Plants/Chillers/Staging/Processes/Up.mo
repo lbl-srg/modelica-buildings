@@ -19,6 +19,8 @@ block Up "Sequence for control devices when there is stage-up command"
     "True: fixed speed condenser water pump";
   parameter Boolean need_reduceChillerDemand=false
     "True: need limit chiller demand when chiller staging";
+  parameter Real delayStaCha(unit="s")=900
+    "Hold period for each stage change";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
     annotation (Dialog(group="Limit chiller demand", enable=need_reduceChillerDemand));
@@ -53,10 +55,10 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(group="Enable condenser water pump"));
-  parameter Real desConWatPumNum[totSta]={0,1,1,2,2,2}
+  parameter Integer desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Enable condenser water pump"));
-  parameter Real desChiNum[nChiSta]={0,1,2}
+  parameter Integer desChiNum[nChiSta]={0,1,2}
     "Design number of chiller that should be ON, according to current chiller stage"
     annotation (Dialog(group="Enable condenser water pump", enable=have_fixSpeConWatPum));
   parameter Real thrTimEnb(
@@ -293,6 +295,7 @@ protected
     endUp(
     final nChi=nChi,
     final have_parChi=have_parChi,
+    final delayStaCha=delayStaCha,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final maxFloSet=maxFloSet,
     final proOnTim=proOnTim,
@@ -304,7 +307,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
     "False constant"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Multiple or"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nChi)       "Multiple or"
     annotation (Placement(transformation(extent={{-140,-62},{-120,-42}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nChi) "Multiple or"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -378,9 +381,6 @@ equation
   connect(chiDemRed.uChiLoa, uChiLoa)
     annotation (Line(points={{-82,125},{-230,125},{-230,110},{-260,110}},
       color={0,0,127}));
-  connect(chiDemRed.uChi, uChi)
-    annotation (Line(points={{-82,111},{-220,111},{-220,80},{-260,80}},
-      color={255,0,255}));
   connect(lat.y, minBypSet.uStaPro) annotation (Line(points={{-118,150},{-100,
           150},{-100,84},{58,84}}, color={255,0,255}));
   connect(minBypSet.VChiWat_flow, VChiWat_flow)
@@ -423,9 +423,6 @@ equation
   connect(lat.y, endUp.uStaUp)
     annotation (Line(points={{-118,150},{-100,150},{-100,-260},{18,-260}},
       color={255,0,255}));
-  connect(uChi, endUp.uChi)
-    annotation (Line(points={{-260,80},{-220,80},{-220,-264},{18,-264}},
-      color={255,0,255}));
   connect(endUp.uChiWatReq, uChiWatReq)
     annotation (Line(points={{18,-270},{-168,-270},{-168,-280},{-260,-280}},
       color={255,0,255}));
@@ -440,9 +437,6 @@ equation
       color={0,0,127}));
   connect(uConWatReq, mulOr1.u)
     annotation (Line(points={{-260,-70},{-82,-70}},
-      color={255,0,255}));
-  connect(uChi, mulOr.u)
-    annotation (Line(points={{-260,80},{-220,80},{-220,-52},{-142,-52}},
       color={255,0,255}));
   connect(chiDemRed.yChiDem, yChiDem)
     annotation (Line(points={{-58,124},{40,124},{40,180},{260,180}},
@@ -500,9 +494,6 @@ equation
   connect(con1.y, chiDemRed.yOpeParLoaRatMin)
     annotation (Line(points={{-178,90},{-140,90},{-140,121},{-82,121}},
       color={0,0,127}));
-  connect(uChi, minChiWatFlo.uChi)
-    annotation (Line(points={{-260,80},{-220,80},{-220,44},{18,44}},
-      color={255,0,255}));
   connect(nexChi.yNexEnaChi, minChiWatFlo.nexEnaChi)
     annotation (Line(points={{-58,194},{-36,194},{-36,41},{18,41}},
       color={255,127,0}));
@@ -618,14 +609,8 @@ equation
           280},{-142,280}}, color={255,127,0}));
   connect(uStaSet, intEqu.u2) annotation (Line(points={{-260,200},{-220,200},{-220,
           272},{-142,272}}, color={255,127,0}));
-  connect(cha.up, and1.u1) annotation (Line(points={{-178,156},{-170,156},{-170,
-          300},{-102,300}}, color={255,0,255}));
   connect(and1.y, logSwi1.u3) annotation (Line(points={{-78,300},{-60,300},{-60,
           242},{-42,242}}, color={255,0,255}));
-  connect(cha.up, logSwi1.u1) annotation (Line(points={{-178,156},{-170,156},{-170,
-          258},{-42,258}}, color={255,0,255}));
-  connect(logSwi1.y, lat.u) annotation (Line(points={{-18,250},{0,250},{0,220},{
-          -150,220},{-150,150},{-142,150}}, color={255,0,255}));
   connect(uEnaPlaConPum, conWatPumCon.uEnaPla) annotation (Line(points={{-260,-36},
           {40,-36},{40,-58},{58,-58}}, color={255,0,255}));
   connect(uEnaPlaConIso, enaHeaCon.uEnaPla) annotation (Line(points={{-260,-160},
@@ -657,6 +642,20 @@ equation
           {-28,140},{-28,100},{-22,100}}, color={255,0,255}));
   connect(or2.y, and4.u2) annotation (Line(points={{2,170},{6,170},{6,152},{158,
           152}}, color={255,0,255}));
+  connect(cha.up, and1.u1) annotation (Line(points={{-178,156},{-170,156},{-170,
+          300},{-102,300}}, color={255,0,255}));
+  connect(cha.up, logSwi1.u1) annotation (Line(points={{-178,156},{-170,156},{
+          -170,258},{-42,258}}, color={255,0,255}));
+  connect(logSwi1.y, lat.u) annotation (Line(points={{-18,250},{0,250},{0,216},
+          {-150,216},{-150,150},{-142,150}}, color={255,0,255}));
+  connect(uChi, chiDemRed.uChi) annotation (Line(points={{-260,80},{-220,80},{
+          -220,111},{-82,111}}, color={255,0,255}));
+  connect(uChi, minChiWatFlo.uChi) annotation (Line(points={{-260,80},{-220,80},
+          {-220,44},{18,44}}, color={255,0,255}));
+  connect(uChi, mulOr.u) annotation (Line(points={{-260,80},{-220,80},{-220,-52},
+          {-142,-52}}, color={255,0,255}));
+  connect(uChi, endUp.uChi) annotation (Line(points={{-260,80},{-220,80},{-220,
+          -264},{18,-264}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

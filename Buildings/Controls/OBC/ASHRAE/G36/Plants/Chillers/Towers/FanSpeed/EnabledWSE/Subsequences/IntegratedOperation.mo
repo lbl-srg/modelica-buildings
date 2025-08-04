@@ -68,7 +68,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nChi](
     final k=fill(0, nChi)) "Zero constant"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset loaCon(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable loaCon(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
@@ -211,8 +211,8 @@ equation
     annotation (Line(points={{-38,20},{-2,20}}, color={255,0,255}));
   connect(uWse, and2.u2)
     annotation (Line(points={{-180,0},{-20,0},{-20,12},{-2,12}}, color={255,0,255}));
-  connect(and2.y, loaCon.trigger)
-    annotation (Line(points={{22,20},{84,20},{84,88}}, color={255,0,255}));
+  connect(and2.y, loaCon.uEna)
+    annotation (Line(points={{22,20},{86,20},{86,88}}, color={255,0,255}));
 annotation (
   defaultComponentName="wseTowSpeIntOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

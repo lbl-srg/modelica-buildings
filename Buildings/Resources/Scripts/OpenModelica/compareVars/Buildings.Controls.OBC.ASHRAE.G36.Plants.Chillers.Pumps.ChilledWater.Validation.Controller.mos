@@ -25,9 +25,7 @@ compareVars :=
     "dedLoc.uLeaChiSta",
     "dedLoc.uLeaChiWatReq",
     "dedNoLoc.enaDedLeaPum.yLea",
-    "dedLoc.dpChiWat_remote[1]",
-    "dedLoc.dpChiWat_remote[2]",
-    "dedLoc.pumSpeLocDp.locDpSet.y",
     "dedLoc.dpChiWat_local",
+    "dedLoc.dpChiWatSet_local",
     "dedLoc.yPumSpe"
   };

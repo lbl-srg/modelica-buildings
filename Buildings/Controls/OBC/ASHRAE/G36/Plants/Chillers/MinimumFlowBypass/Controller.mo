@@ -55,7 +55,7 @@ block Controller
     annotation (Placement(transformation(extent={{140,30},{180,70}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset valPos(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable valPos(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -110,13 +110,11 @@ equation
   connect(div.u1, VChiWatSet_flow)
     annotation (Line(points={{-22,-54},{-80,-54},{-80,-40},{-160,-40}},
       color={0,0,127}));
-  connect(uChiWatPum, valPos.trigger)
-    annotation (Line(points={{-160,50},{44,50},{44,68}},
-      color={255,0,255}));
   connect(valPos.y, swi.u1)
     annotation (Line(points={{62,80},{80,80},{80,58},{98,58}},
       color={0,0,127}));
-
+  connect(uChiWatPum, valPos.uEna)
+    annotation (Line(points={{-160,50},{46,50},{46,68}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypValCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
