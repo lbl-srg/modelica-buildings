@@ -92,12 +92,10 @@ equation
    annotation (
    defaultComponentName="speCor",
    Documentation(info="<html>
-<p>
 This model is identical to <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent</a>, with the sole modification being the substitution 
 of the performance dataset with  with <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic\">
 Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>July 17, 2025, by Sen Huang:<br/>

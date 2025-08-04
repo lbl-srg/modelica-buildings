@@ -308,7 +308,7 @@ that is modelled with <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desicca
 Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled</a>.
 </p>
 <p>
-The major input signals for the heat recovery device are configured as follows:
+The major input signals for the dehumidifier are configured as follows:
 </p>
 <ul>
 <li>

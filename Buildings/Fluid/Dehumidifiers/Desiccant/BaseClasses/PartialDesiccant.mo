@@ -200,13 +200,15 @@ equation
     Documentation(info="<html>
 <p>
 Partial model of a desiccant dehumidifier.
-Specifically, this model considers the following configuration.
-To achieve full dehumidification functionality, the model should be expanded to include features such as 
-bypass dampers or a variable speed drive for modulating dehumidification performance.
+Specifically, this model considers the following system configuration.
 </p>
 <p align=\"left\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/Dehumidifiers/Desiccant/BaseClasses/dehumidifer_schematic.png\"
 alt=\"Dehumidifer_Schematic.png\" border=\"1\"/>
+</p>
+<p>
+To achieve full dehumidification functionality, the model should be expanded to include features such as 
+bypass dampers or a variable speed drive for modulating dehumidification performance.
 </p>
 <p>Note:</p>
 This model uses two components—<a href='modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SensibleHeat'>

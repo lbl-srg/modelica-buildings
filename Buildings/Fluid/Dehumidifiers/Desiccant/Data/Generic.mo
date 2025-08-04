@@ -76,11 +76,10 @@ record Generic "Generic data record for desiccant dehumidifiers"
     annotation (Dialog(group="Nominal condition"));
 
   annotation (Documentation(info="<html>
-<p>This record is used as a template for performance data
+This record is used as a template for performance data
 for the desiccant dehumidifier models in
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant\">
 Buildings.Fluid.Dehumidifiers.Desiccant</a>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>March 1, 2024, by Sen Huang:<br/>

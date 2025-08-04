@@ -172,7 +172,7 @@ mReg_flow = vReg * 90.0 / 245.0 * mPro_flow / vPro,
 </p>
 </li>
 <li>
-Regeneration specific energy: <code>hReg</code>
+Regeneration specific energy:
 <p style='text-align:center; font-style:italic;'>
 hReg = max(0, f(TProEnt, X_w_ProEnt, vPro, d)),
 </p>
