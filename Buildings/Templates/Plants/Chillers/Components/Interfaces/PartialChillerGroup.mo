@@ -37,7 +37,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration",
       enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl typCtlHea(
-    start=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn)
+    start=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller)
     "Type of head pressure control"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled));
@@ -113,13 +113,13 @@ partial model PartialChillerGroup "Interface class for chiller group"
        ((typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
     or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)
     and typMeaCtlChiWatPri==Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.TemperatureChillerSensor
-    or typCtlHea==Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External)));
+    or typCtlHea==Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS)));
   // The following parameter stores the actual configuration setting.
   final parameter Boolean have_senTChiWatChiSup=
     if (typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
     or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)
     and typMeaCtlChiWatPri==Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.TemperatureChillerSensor
-    or typCtlHea==Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External
+    or typCtlHea==Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS
     then true
     else have_senTChiWatChiSup_select
     "Set to true for chiller CHW supply temperature sensor"
@@ -136,10 +136,10 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "Set to true for chiller CW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
           Buildings.Templates.Components.Types.Chiller.WaterCooled and not
-          typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External));
+          typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS));
   // The following parameter stores the actual configuration setting.
   final parameter Boolean have_senTConWatChiRet=
-    if typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External
+    if typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS
     then true elseif typ <> Buildings.Templates.Components.Types.Chiller.WaterCooled
     then false else have_senTConWatChiRet_select
     "Set to true for chiller CW return temperature sensor"
@@ -243,6 +243,27 @@ partial model PartialChillerGroup "Interface class for chiller group"
     dat.TChiWatSupChi_nominal
     "CHW supply temperature - Each chiller";
 
+  // Chiller head pressure control parameters
+  parameter Modelica.Units.SI.TemperatureDifference dTLifChi_min[nChi](
+    min=fill(0, nChi),
+    start=fill(Buildings.Templates.Data.Defaults.dTLifChi_min, nChi))
+    "Minimum allowable lift at minimum load - Each chiller"
+    annotation (Dialog(group="Chiller head pressure control",
+      enable=typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+  parameter Real kCtlHea(
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    start=1)=1
+    "Gain of chiller head pressure control loop"
+    annotation (Dialog(group="Chiller head pressure control",
+      enable=typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+  parameter Real TiCtlHea(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=60
+    "Integral time constant of chiller head pressure control loop"
+    annotation (Dialog(group="Chiller head pressure control",
+      enable=typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
@@ -307,12 +328,6 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"),HideResult=true);
 
-protected
-  parameter Integer icon_dy = 360
-    "Distance in y-direction between each branch in icon layer"
-    annotation(Dialog(tab="Graphics"));
-
-public
   MediumChiWat.ThermodynamicState sta_aChiWat[nChi]=MediumChiWat.setState_phX(
     ports_aChiWat.p, noEvent(actualStream(ports_aChiWat.h_outflow)),
     noEvent(actualStream(ports_aChiWat.Xi_outflow)))
@@ -367,10 +382,13 @@ public
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
     iconTransformation(extent={{-20,982},{20,1022}})));
 protected
+  parameter Integer icon_dy = 360
+    "Distance in y-direction between each branch in icon layer"
+    annotation(Dialog(tab="Graphics"));
   Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
     "Chiller control bus"
     annotation (Placement(transformation(extent={{-20,140},{20,180}}),
-                        iconTransformation(extent={{-350,6},{-310,46}})));
+     iconTransformation(extent={{-350,6},{-310,46}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso[nChi]
     if typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
     "Chiller CHW isolation valve control bus" annotation (Placement(

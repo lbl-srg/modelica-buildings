@@ -49,8 +49,12 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       have_senTChiWatChiSup_select=true,
       have_senTChiWatChiRet=true,
       have_senTConWatChiSup=true,
-      have_senTConWatChiRet_select=true),
-    ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
+      have_senTConWatChiRet_select=true,
+      chi(each show_T=true)),
+    redeclare replaceable
+      Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve
+      eco "Heat exchanger with bypass valve for CHW flow control",
+    ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller,
         typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
     "Chiller plant"
     annotation (Placement(transformation(extent={{-80,-118},{-40,-78}})));
@@ -121,9 +125,11 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     "Piping"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    k=293.15)
-    "Constant limiting prescribed return temperature"
+    k=293.15) "Constant limiting prescribed return temperature"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant schEna(k=true)
+    "Plant enable schedule"
+    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
 equation
   connect(mulInt[1].y, busAirHan.reqResChiWat)
     annotation (Line(points={{-12,140},{-40,140}},color={255,127,0}));
@@ -184,6 +190,8 @@ equation
           -108},{-20,-140},{-10,-140}}, color={0,127,255}));
   connect(pla.port_b, loaChiWat.port_a) annotation (Line(points={{-39.8,-98},{-20,
           -98},{-20,-60},{70,-60}}, color={0,127,255}));
+  connect(schEna.y, busPla.u1SchEna) annotation (Line(points={{-158,-20},{-80,
+          -20},{-80,-40}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=

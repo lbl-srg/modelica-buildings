@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Chillers;
 model AirCooled "Air-cooled chiller plant"
-  /* 
+  /*
   The following parameters have final bindings due to the limited plant configurations
   supported by the controller. These bindings can be removed when the controller
   provides additional configuration support.
@@ -14,7 +14,7 @@ model AirCooled "Air-cooled chiller plant"
     redeclare replaceable package MediumCon=Buildings.Media.Air,
     redeclare final Buildings.Templates.Plants.Chillers.Components.Economizers.None eco,
     redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Controls.G36 ctl(
-      final typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn),
+      final typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller),
     final typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
     final typCoo=Buildings.Templates.Components.Types.Cooler.None,
     final nCoo=0,

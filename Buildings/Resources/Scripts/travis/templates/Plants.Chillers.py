@@ -38,8 +38,8 @@ MODIF_GRID = {
     'Buildings.Templates.Plants.Chillers.Validation.WaterCooled': dict(
         pla__ctl__typCtlHea=[
             'Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None',
-            'Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn',
-            'Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External',
+            'Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller',
+            'Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS',
         ],
         pla__have_pumConWatVar_select=[
             'true',
@@ -66,12 +66,12 @@ EXCLUDE = {
             'have_pumConWatVar_select=false',
         ],
         [
-            'typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn',
+            'typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller',
             'have_pumConWatVar_select=false',
             'typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition',
         ],
         [
-            'typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External',
+            'typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS',
             'have_pumConWatVar_select=false',
             'typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition',
         ],

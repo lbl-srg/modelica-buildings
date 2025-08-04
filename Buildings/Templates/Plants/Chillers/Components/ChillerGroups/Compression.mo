@@ -16,36 +16,6 @@ model Compression "Group of compression chillers"
     "Chiller"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}}, rotation=90)));
 
-  // Sensors
-  Buildings.Templates.Components.Sensors.Temperature TChiWatChiSup[nChi](
-    redeclare each final package Medium=MediumChiWat,
-    final m_flow_nominal=mChiWatChi_flow_nominal,
-    each final have_sen=have_senTChiWatChiSup,
-    each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Chiller CHW supply temperature"
-    annotation (Placement(transformation(extent={{90,110},{110,130}})));
-  Buildings.Templates.Components.Sensors.Temperature TChiWatChiRet[nChi](
-    redeclare each final package Medium=MediumChiWat,
-    final m_flow_nominal=mChiWatChi_flow_nominal,
-    each final have_sen=have_senTChiWatChiRet,
-    each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Chiller CHW return temperature"
-    annotation (Placement(transformation(extent={{110,-110},{90,-90}})));
-  Buildings.Templates.Components.Sensors.Temperature TConWatChiSup[nChi](
-    redeclare each final package Medium=MediumCon,
-    final m_flow_nominal=mConChi_flow_nominal,
-    each have_sen=have_senTConWatChiSup,
-    each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Chiller CW supply temperature"
-    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
-  Buildings.Templates.Components.Sensors.Temperature TConWatChiRet[nChi](
-    redeclare each final package Medium=MediumCon,
-    final m_flow_nominal=mConChi_flow_nominal,
-    each have_sen=have_senTConWatChiRet,
-    each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Chiller CW return temperature"
-    annotation (Placement(transformation(extent={{-90,110},{-110,130}})));
-
   // CW isolation valve
   Buildings.Templates.Components.Actuators.Valve valConWatChiIso[nChi](
     redeclare each final package Medium = MediumCon,
@@ -94,47 +64,44 @@ model Compression "Group of compression chillers"
     annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=270,
         origin={140,0})));
-equation
-  /* Control point connection - start */
-  /*
-  HACK: The following clauses should be removed at translation if `not have_sen`
-  but Dymola fails to do so.
-  Hence, explicit `if then` statements are used.
-  */
-  if have_senTChiWatChiSup then
-    connect(bus.TChiWatChiSup, TChiWatChiSup.y);
-  end if;
-  if have_senTChiWatChiRet then
-    connect(bus.TChiWatChiRet, TChiWatChiRet.y);
-  end if;
-  if have_senTConWatChiSup then
-    connect(bus.TConWatChiSup, TConWatChiSup.y);
-  end if;
-  if have_senTConWatChiRet then
-    connect(bus.TConWatChiRet, TConWatChiRet.y);
-  end if;
-  /* Control point connection - stop */
 
-  connect(TChiWatChiSup.port_b, valChiWatChiIsoPar.port_a)
-    annotation (Line(points={{110,120},{160,120}}, color={0,127,255}));
+  // Sensors
+  // CW and CHW temperatures are taken from the fluid volume or medium stream
+  // for representative value near zero flow.
+  // This is needed for e.g. chiller head pressure control where the CW isolation valve
+  // may be modulated down to 0 %.
+  Modelica.Blocks.Sources.RealExpression TConWatChiRet[nChi](
+    y(each final unit="K", each displayUnit="degC")=chi.chi.con.T)
+    if have_senTConWatChiRet
+    "Chiller CW return temperature"
+    annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
+  Modelica.Blocks.Sources.RealExpression TChiWatChiSup[nChi](
+    y(each final unit="K", each displayUnit="degC") = chi.chi.eva.T)
+    if have_senTChiWatChiSup
+    "Chiller CHW supply temperature"
+    annotation (Placement(transformation(extent={{90,90},{70,110}})));
+  Modelica.Blocks.Sources.RealExpression TConWatChiSup[nChi](
+    y(each final unit="K", each displayUnit="degC") = chi.chi.senTConIn.y)
+    if have_senTConWatChiSup
+    "Chiller CW supply temperature"
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+  Modelica.Blocks.Sources.RealExpression TChiWatChiRet[nChi](
+    y(each final unit="K", each displayUnit="degC") = chi.chi.senTEvaIn.y)
+    if have_senTChiWatChiRet
+    "Chiller CHW return temperature"
+    annotation (Placement(transformation(extent={{90,70},{70,90}})));
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.HeadPressure.Subsequences.ControlLoop
+    ctlHea[nChi](
+    final minChiLif=dTLifChi_min,
+    each final k=kCtlHea,
+    each final Ti=TiCtlHea) if typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller
+    "Chiller head pressure control"
+    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+equation
   connect(valChiWatChiIsoPar.port_b, ports_bChiWat)
     annotation (Line(points={{180,120},{200,120}}, color={0,127,255}));
-  connect(valConWatChiIso.port_b, ports_bCon) annotation (Line(points={{-170,120},
-          {-200,120}},                       color={0,127,255}));
-  connect(valConWatChiIso.port_a, TConWatChiRet.port_b) annotation (Line(points={{-150,
-          120},{-110,120}},                             color={0,127,255}));
-  connect(chi.port_b1, TConWatChiRet.port_a) annotation (Line(points={{-6,-10},{
-          -40,-10},{-40,120},{-90,120}}, color={0,127,255}));
-  connect(ports_aChiWat, TChiWatChiRet.port_a)
-    annotation (Line(points={{200,-100},{110,-100}}, color={0,127,255}));
-  connect(TChiWatChiRet.port_b, chi.port_a2) annotation (Line(points={{90,-100},
-          {20,-100},{20,-10},{6,-10}}, color={0,127,255}));
-  connect(TConWatChiSup.port_b, chi.port_a1) annotation (Line(points={{-90,-100},
-          {-20,-100},{-20,10},{-6,10}}, color={0,127,255}));
-  connect(ports_aCon, TConWatChiSup.port_a)
-    annotation (Line(points={{-200,-100},{-110,-100}}, color={0,127,255}));
-  connect(chi.port_b2, TChiWatChiSup.port_a) annotation (Line(points={{6,10},{20,
-          10},{20,120},{90,120}}, color={0,127,255}));
+  connect(valConWatChiIso.port_b, ports_bCon)
+    annotation (Line(points={{-170,120}, {-200,120}}, color={0,127,255}));
   connect(ports_aChiWat, valChiWatChiIsoSer.port_a) annotation (Line(points={{200,
           -100},{140,-100},{140,-10}},                 color={0,127,255}));
   connect(busValConWatChiIso, valConWatChiIso.bus) annotation (Line(
@@ -155,6 +122,32 @@ equation
       thickness=0.5));
   connect(valChiWatChiIsoSer.port_b, valChiWatChiIsoPar.port_a) annotation (
       Line(points={{140,10},{140,120},{160,120}}, color={0,127,255}));
+  connect(chi.port_b1, valConWatChiIso.port_a) annotation (Line(points={{-6,-10},
+          {-40,-10},{-40,120},{-150,120}}, color={0,127,255}));
+  connect(chi.port_b2, valChiWatChiIsoPar.port_a) annotation (Line(points={{6,10},
+          {20,10},{20,120},{160,120}}, color={0,127,255}));
+  connect(TChiWatChiSup.y, busChi.TChiWatSup)
+    annotation (Line(points={{69,100},{0,100},{0,160}}, color={0,0,127}));
+  connect(TConWatChiRet.y, busChi.TConWatRet)
+    annotation (Line(points={{-69,100},{0,100},{0,160}}, color={0,0,127}));
+  connect(chi.port_a1, ports_aCon) annotation (Line(points={{-6,10},{-20,10},{-20,
+          -100},{-200,-100}}, color={0,127,255}));
+  connect(chi.port_a2, ports_aChiWat) annotation (Line(points={{6,-10},{20,-10},
+          {20,-100},{200,-100}}, color={0,127,255}));
+  connect(TConWatChiSup.y, busChi.TConWatSup)
+    annotation (Line(points={{-69,80},{0,80},{0,160}}, color={0,0,127}));
+  connect(TChiWatChiRet.y, busChi.TChiWatRet)
+    annotation (Line(points={{69,80},{0,80},{0,160}}, color={0,0,127}));
+  connect(TConWatChiRet.y, ctlHea.TConWatRet) annotation (Line(points={{-69,100},
+          {-60,100},{-60,40},{68,40},{68,40}}, color={0,0,127}));
+  connect(TChiWatChiSup.y, ctlHea.TChiWatSup) annotation (Line(points={{69,100},
+          {60,100},{60,32},{68,32}}, color={0,0,127}));
+  connect(busChi.y1_actual, ctlHea.uHeaPreEna) annotation (Line(
+      points={{0,160},{40,160},{40,48},{68,48}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ctlHea.yHeaPreCon, busChi.yCtlHea) annotation (Line(points={{92,40},{
+          100,40},{100,140},{6,140},{6,160},{0,160}}, color={0,0,127}));
   annotation(defaultComponentName="chi", Documentation(info="<html>
 <p>
 This model represents a group of compression chillers.
@@ -165,17 +158,17 @@ Modeling features and limitations:
 <ul>
 <li>
 The chillers have the same type (compression chiller).
-However, the chiller parameters such as the design capacity 
+However, the chiller parameters such as the design capacity
 and CHW flow rate may be different from one unit to another.
-Modeling different performance curves is also possible, 
-see the documentation of 
+Modeling different performance curves is also possible,
+see the documentation of
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup\">
 Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup</a>
 for further details.
 </li>
 <li>
 Same type of cooling fluid (air or water) for all chillers.
-This is a hard and final limitation considering the use of multiple-ports 
+This is a hard and final limitation considering the use of multiple-ports
 connectors that require a unique medium model.
 </li>
 <li>
