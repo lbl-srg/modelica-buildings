@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "conDeh.y",
+    "senRelHum.phi",
+    "senX_w_DehIn.X",
+    "senX_w_DehOut.X"
+  };

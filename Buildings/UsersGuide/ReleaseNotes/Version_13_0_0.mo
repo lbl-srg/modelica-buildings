@@ -49,6 +49,12 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Dehumidifiers
+    </td>
+    <td valign=\"top\">Package of models for dehumidifiers.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3711\">issue 3711</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

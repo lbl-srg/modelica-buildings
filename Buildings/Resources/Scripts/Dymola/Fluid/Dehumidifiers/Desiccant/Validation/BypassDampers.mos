@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Dehumidifiers.Desiccant.Validation.BypassDampers", stopTime=1200, method="Cvode", resultFile="BypassDampers")
+createPlot(id=1, position={55, 55, 834, 686}, y={"uRot.y"}, range={0.0, 1200.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={55, 55, 834, 686}, y={"uBypDamPos.y"}, range={0.0, 1200.0, -0.5, 1.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={55, 55, 834, 686}, y={"senX_w_ProLea.X", "senX_w_ProEnt.X"}, range={0.0, 1200.0, 0.0, 0.04}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/kg", "kg/kg"});
+createPlot(id=1, position={55, 55, 834, 686}, y={"deh.P"}, range={0.0, 1200.0, -10000.0, 20000.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
+createPlot(id=1, position={55, 55, 834, 686}, y={"TProEnt.y"}, range={0.0, 1200.0, 300.0, 320.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s");
