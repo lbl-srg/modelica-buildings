@@ -26,8 +26,8 @@ record Generic "Generic data record for desiccant dehumidifiers"
   parameter Modelica.Units.SI.Velocity vPro_nominal=2.5
     "Nominal velocity of the process air"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TRegEnt_nominal
-    "Nominal temperature of the regeneration air entering the dehumidifier"
+  parameter Modelica.Units.SI.Temperature TReg_base
+    "Base temperature of the regeneration air"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TProEnt_max
     "Maximum allowable temperature of the process air entering the dehumidifier"

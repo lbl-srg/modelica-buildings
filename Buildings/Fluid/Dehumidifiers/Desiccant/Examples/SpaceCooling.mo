@@ -14,7 +14,6 @@ model SpaceCooling "Space cooling system"
     mReg_flow_nominal=mA_flow_nominal,
     dpPro_nominal=200,
     dpReg_nominal=200,
-    TRegEnt_nominal(displayUnit="K"),
     TProEnt_max(displayUnit="K"),
     TProEnt_min(displayUnit="K"))
     "Performance record for the dehumidifier"

@@ -48,7 +48,6 @@ model SpeedControlled
     have_varSpe=true,
     mPro_flow_nominal=1,
     mReg_flow_nominal=1,
-    TRegEnt_nominal(displayUnit="K"),
     TProEnt_max(displayUnit="K"),
     TProEnt_min(displayUnit="K"))
     "Performance data"

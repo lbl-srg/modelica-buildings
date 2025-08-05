@@ -1,7 +1,7 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant.Data;
 record EnergyPlus =
   Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic (
-    TRegEnt_nominal =     273.15 + 121,
+    TReg_base =     273.15 + 121,
     TProEnt_min =         273.15 + 1.67,
     TProEnt_max =         273.15 + 48.9,
     X_w_ProEnt_min =      0.002857,

@@ -101,7 +101,7 @@ equation
            TProEnt = TProEnt,
            X_w_ProEnt = X_w_ProEnt,
            vPro = vPro,
-           a = per.d)*(per.TRegEnt_nominal- TRegEnt)/(per.TRegEnt_nominal - TProEnt),
+           a = per.d)*(per.TReg_base- TRegEnt)/(per.TReg_base - TProEnt),
            x2 = 0,
            deltaX = 0.01);
   else
@@ -174,10 +174,11 @@ mReg_flow = vReg * 90.0 / 245.0 * mPro_flow / vPro,
 <li>
 Regeneration specific energy:
 <p style='text-align:center; font-style:italic;'>
-hReg = max(0, f(TProEnt, X_w_ProEnt, vPro, d)),
+hReg = max(0, f(TProEnt, X_w_ProEnt, vPro, d)*(TReg_base-TRegEnt)/(TReg_base-TProEnt)),
 </p>
 where <code>TProEnt</code> and <code>X_w_ProEnt</code> represent the temperature and
 humidity ratio of the process air entering the dehumidifier, respectively.
+<code>TReg_base</code> is the base temperature of regeneration air.
 <code>a</code>, <code>b</code>, <code>c</code>, and <code>d</code> are coefficients.
 </li>
 </ul>
