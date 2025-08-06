@@ -13,9 +13,8 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     "Demand limit: true=limit chiller demand"
     annotation (Placement(transformation(extent={{-200,170},{-160,210}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("Power", nChi), final unit=fill("J/s", nChi))
     "Current chiller load"
     annotation (Placement(transformation(extent={{-200,140},{-160,180}}),
       iconTransformation(extent={{-140,30},{-100,70}})));

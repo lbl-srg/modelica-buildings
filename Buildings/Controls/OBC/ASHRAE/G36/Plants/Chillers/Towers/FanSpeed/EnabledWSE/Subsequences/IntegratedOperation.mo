@@ -37,9 +37,10 @@ block IntegratedOperation
     "Vector of chillers proven on status: true=ON"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    final unit=fill("W", nChi),
-    final quantity=fill("HeatFlowRate", nChi)) "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
+    final unit="W",
+    final quantity="HeatFlowRate")
+    "Current cooling load"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
@@ -84,9 +85,6 @@ protected
     final nin=nChi)
     "Sum of minimum cycling load for the operating chillers"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiSum totLoa(
-    final nin=nChi) "Total load of operating chillers"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum minCycLoa(final nin=nChi)
     "Sum of minimum cycling load for all chillers"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
@@ -148,8 +146,6 @@ equation
     annotation (Line(points={{2,140},{20,140},{20,94},{38,94}}, color={0,0,127}));
   connect(minCycLoa.y, div1.u2)
     annotation (Line(points={{2,140},{20,140},{20,54},{38,54}}, color={0,0,127}));
-  connect(totLoa.y, div1.u1)
-    annotation (Line(points={{2,60},{10,60},{10,66},{38,66}}, color={0,0,127}));
   connect(totMinCycLoa.y, div.u1)
     annotation (Line(points={{2,100},{10,100},{10,106},{38,106}}, color={0,0,127}));
   connect(div.y, loaCon.u_s)
@@ -188,8 +184,6 @@ equation
     annotation (Line(points={{-98,140},{-22,140}}, color={0,0,127}));
   connect(swi.y, totMinCycLoa.u)
     annotation (Line(points={{-38,100},{-22,100}}, color={0,0,127}));
-  connect(chiLoa, totLoa.u)
-    annotation (Line(points={{-180,60},{-22,60}},  color={0,0,127}));
   connect(uChi,chiOn. u)
     annotation (Line(points={{-180,100},{-140,100},{-140,20},{-122,20}},
       color={255,0,255}));
@@ -213,6 +207,8 @@ equation
     annotation (Line(points={{-180,0},{-20,0},{-20,12},{-2,12}}, color={255,0,255}));
   connect(and2.y, loaCon.uEna)
     annotation (Line(points={{22,20},{86,20},{86,88}}, color={255,0,255}));
+  connect(uChiLoa, div1.u1) annotation (Line(points={{-180,60},{0,60},{0,66},{38,
+          66}}, color={0,0,127}));
 annotation (
   defaultComponentName="wseTowSpeIntOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

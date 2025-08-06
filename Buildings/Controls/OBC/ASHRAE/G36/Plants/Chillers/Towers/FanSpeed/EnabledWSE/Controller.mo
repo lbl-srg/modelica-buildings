@@ -42,12 +42,12 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    final unit=fill("W", nChi),
-    final quantity=fill("HeatFlowRate", nChi))
-    "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
+    final unit="W",
+    final quantity="HeatFlowRate")
+    "Current cooling load"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -120,7 +120,7 @@ protected
 equation
   connect(intOpe.uChi, uChi)
     annotation (Line(points={{-42,88},{-80,88},{-80,40},{-120,40}}, color={255,0,255}));
-  connect(intOpe.chiLoa, chiLoa)
+  connect(intOpe.uChiLoa, uChiLoa)
     annotation (Line(points={{-42,80},{-120,80}}, color={0,0,127}));
   connect(wseOpe.uFanSpe,uFanSpe)
     annotation (Line(points={{-42,-52},{-60,-52},{-60,-30},{-120,-30}}, color={0,0,127}));
@@ -192,7 +192,7 @@ annotation (
         Text(
           extent={{-100,100},{-50,82}},
           textColor={0,0,127},
-          textString="chiLoa"),
+          textString="uChiLoa"),
         Text(
           extent={{-100,70},{-64,54}},
           textColor={255,0,255},

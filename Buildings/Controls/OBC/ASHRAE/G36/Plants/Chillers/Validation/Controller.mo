@@ -93,11 +93,6 @@ model Controller "Validation head pressure controller"
     final offset=3*6895,
     final startTime=0) "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
-    "Boolean to real"
-    annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[2] "Chiller cooling load"
-    annotation (Placement(transformation(extent={{-200,-138},{-180,-118}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp watLev(
     final height=1.2,
     final duration=3600,
@@ -115,12 +110,6 @@ model Controller "Validation head pressure controller"
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiCooLoa[2](
-    final height={80,70},
-    final duration=fill(3600, 2),
-    final offset={20,25})
-    "Current chiller cooling load"
-    annotation (Placement(transformation(extent={{-300,-130},{-280,-110}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if the WSE pump should be enabled"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
@@ -196,12 +185,6 @@ equation
           {200,-60},{200,-220},{-80,-220},{-80,-40},{-30,-40}}, color={0,0,127}));
   connect(dpChiWat.y, chiPlaCon.dpChiWat_remote[1]) annotation (Line(points={{-238,90},
           {-180,90},{-180,140},{-30,140}}, color={0,0,127}));
-  connect(booToRea1.y, pro1.u1) annotation (Line(points={{-218,170},{-210,170},
-          {-210,-122},{-202,-122}}, color={0,0,127}));
-  connect(chiCooLoa.y, pro1.u2) annotation (Line(points={{-278,-120},{-220,-120},
-          {-220,-134},{-202,-134}}, color={0,0,127}));
-  connect(pro1.y, chiPlaCon.uChiCooLoa) annotation (Line(points={{-178,-128},{-70,
-          -128},{-70,-110},{-30,-110}},  color={0,0,127}));
   connect(chiPlaCon.yConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{90,45},
           {144,45},{144,50},{198,50}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.chiPlaReq) annotation (Line(points={{-258,-70},
@@ -225,8 +208,6 @@ equation
           87.5},{110,180},{138,180}}, color={255,0,255}));
   connect(chiPlaCon.yChi[2], chiTwo.y1) annotation (Line(points={{90,92.5},{120,
           92.5},{120,120},{138,120}},  color={255,0,255}));
-  connect(chiOne.y1_actual, booToRea1[1].u) annotation (Line(points={{162,180},{
-          180,180},{180,240},{-260,240},{-260,170},{-242,170}}, color={255,0,255}));
   connect(chiOne.y1_actual, chiPlaCon.uChiWatReq[1]) annotation (Line(points={{162,
           180},{180,180},{180,240},{-40,240},{-40,197.5},{-30,197.5}}, color={255,
           0,255}));
@@ -238,8 +219,6 @@ equation
   connect(chiOne.y1_actual, chiPlaCon.uChiHeaCon[1]) annotation (Line(points={{162,
           180},{180,180},{180,240},{-40,240},{-40,-32.5},{-30,-32.5}}, color={255,
           0,255}));
-  connect(chiTwo.y1_actual, booToRea1[2].u) annotation (Line(points={{162,120},{
-          200,120},{200,250},{-260,250},{-260,170},{-242,170}}, color={255,0,255}));
   connect(chiTwo.y1_actual, chiPlaCon.uChiWatReq[2]) annotation (Line(points={{162,
           120},{200,120},{200,250},{-60,250},{-60,202.5},{-30,202.5}}, color={255,
           0,255}));

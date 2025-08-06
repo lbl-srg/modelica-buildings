@@ -94,9 +94,9 @@ block Down
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-320,260},{-280,300}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi)) if need_reduceChillerDemand
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("Power", nChi), final unit=fill("J/s", nChi))
+                                if need_reduceChillerDemand
     "Current chiller load"
     annotation (Placement(transformation(extent={{-320,230},{-280,270}}),
       iconTransformation(extent={{-140,90},{-100,130}})));

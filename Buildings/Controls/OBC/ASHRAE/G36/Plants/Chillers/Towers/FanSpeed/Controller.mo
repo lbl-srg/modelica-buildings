@@ -141,12 +141,10 @@ block Controller "Tower fan speed control"
     "Time to ramp return water temperature from initial value to setpoint"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Setpoint"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    final unit=fill("W", nChi),
-    final quantity=fill("HeatFlowRate", nChi))
-    if have_WSE "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(final unit="W",
+      final quantity="HeatFlowRate") if have_WSE "Current cooling load"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
-      iconTransformation(extent={{-140,170},{-100,210}})));
+        iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
@@ -286,9 +284,8 @@ block Controller "Tower fan speed control"
 equation
   connect(fanSpeWse.ySpeSet, fanSpeRetTem.uTowSpeWSE)
     annotation (Line(points={{-18,50},{0,50},{0,-22},{18,-22}},  color={0,0,127}));
-  connect(fanSpeWse.chiLoa, chiLoa)
-    annotation (Line(points={{-42,59},{-60,59},{-60,140},{-120,140}},
-      color={0,0,127}));
+  connect(fanSpeWse.uChiLoa, uChiLoa) annotation (Line(points={{-42,59},{-60,59},
+          {-60,140},{-120,140}}, color={0,0,127}));
   connect(fanSpeWse.uChi, uChi)
     annotation (Line(points={{-42,56},{-64,56},{-64,120},{-120,120}},
       color={255,0,255}));
@@ -360,8 +357,8 @@ annotation (
         Text(
           extent={{-100,200},{-50,182}},
           textColor={0,0,127},
-          textString="chiLoa",
-          visible=have_WSE),
+          visible=have_WSE,
+          textString="uChiLoa"),
         Text(
           extent={{-98,110},{-48,92}},
           textColor={0,0,127},

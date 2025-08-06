@@ -147,9 +147,6 @@ equation
   connect(not1.y, swi2.u2)
     annotation (Line(points={{-298,210},{-280,210},{-280,270},{-262,270}},
       color={255,0,255}));
-  connect(con1.y, cloCouWitWse.chiLoa[2])
-    annotation (Line(points={{-338,250},{-210,250},{-210,319},{-82,319}},
-      color={0,0,127}));
   connect(not1.y, cloCouWitWse.uChi[1])
     annotation (Line(points={{-298,210},{-200,210},{-200,316},{-82,316}},
       color={255,0,255}));
@@ -194,15 +191,6 @@ equation
       color={0,0,127}));
   connect(conWatPumSpe1.y, cloCouWitWse.uConWatPumSpe)
     annotation (Line(points={{-278,-220},{-100,-220},{-100,283},{-82,283}},
-      color={0,0,127}));
-  connect(swi2.y, cloCouWitWse.chiLoa[1])
-    annotation (Line(points={{-238,270},{-210,270},{-210,319},{-82,319}},
-      color={0,0,127}));
-  connect(swi2.y, lesCouWitWse.chiLoa[1])
-    annotation (Line(points={{-238,270},{-40,270},{-40,319},{98,319}},
-      color={0,0,127}));
-  connect(con1.y, lesCouWitWse.chiLoa[2])
-    annotation (Line(points={{-338,250},{-40,250},{-40,319},{98,319}},
       color={0,0,127}));
   connect(not1.y, lesCouWitWse.uChi[1])
     annotation (Line(points={{-298,210},{-30,210},{-30,316},{98,316}},
@@ -287,6 +275,10 @@ equation
           -148},{-262,-148}}, color={255,0,255}));
   connect(or4.y, or3.u1) annotation (Line(points={{-238,-80},{-230,-80},{-230,-100},
           {-270,-100},{-270,-140},{-262,-140}}, color={255,0,255}));
+  connect(swi2.y, cloCouWitWse.uChiLoa) annotation (Line(points={{-238,270},{
+          -210,270},{-210,319},{-82,319}}, color={0,0,127}));
+  connect(swi2.y, lesCouWitWse.uChiLoa) annotation (Line(points={{-238,270},{
+          -40,270},{-40,319},{98,319}}, color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/Validation/Controller.mos"
     "Simulate and plot"),

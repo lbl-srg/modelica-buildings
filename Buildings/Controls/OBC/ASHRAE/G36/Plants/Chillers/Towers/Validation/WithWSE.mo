@@ -163,10 +163,6 @@ equation
           {-320,136},{-262,136}}, color={0,0,127}));
   connect(ram1.y, chiWatSupTem.u2) annotation (Line(points={{-338,110},{-320,110},
           {-320,124},{-262,124}}, color={0,0,127}));
-  connect(chiOneLoa.y, towCon.chiLoa[1]) annotation (Line(points={{-238,330},{
-          -40,330},{-40,378.5},{198,378.5}}, color={0,0,127}));
-  connect(chiTwoLoa.y, towCon.chiLoa[2]) annotation (Line(points={{-338,310},{
-          -40,310},{-40,379.5},{198,379.5}}, color={0,0,127}));
   connect(chiOneSta.y, towCon.uChi[1]) annotation (Line(points={{-298,270},{-30,
           270},{-30,376.5},{198,376.5}}, color={255,0,255}));
   connect(chiTwoSta.y, towCon.uChi[2]) annotation (Line(points={{-338,240},{-30,
@@ -225,6 +221,8 @@ equation
           -78},{-82,-78}}, color={255,0,255}));
   connect(or4.y, or3.u1) annotation (Line(points={{-138,-20},{-120,-20},{-120,-70},
           {-82,-70}}, color={255,0,255}));
+  connect(chiOneLoa.y, towCon.uChiLoa) annotation (Line(points={{-238,330},{-40,
+          330},{-40,379},{198,379}}, color={0,0,127}));
 annotation (experiment(StopTime=3500.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/Validation/WithWSE.mos"
     "Simulate and plot"),

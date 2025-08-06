@@ -51,9 +51,8 @@ block DownStart "Sequence for starting stage-down process"
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("Power", nChi), final unit=fill("J/s", nChi))
     if need_reduceChillerDemand "Current chiller load"
     annotation (Placement(transformation(extent={{-200,130},{-160,170}}),
       iconTransformation(extent={{-140,40},{-100,80}})));

@@ -101,9 +101,8 @@ block Up "Sequence for control devices when there is stage-up command"
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("Power", nChi), final unit=fill("J/s", nChi))
     if need_reduceChillerDemand
     "Current chiller load"
     annotation (Placement(transformation(extent={{-280,90},{-240,130}}),
