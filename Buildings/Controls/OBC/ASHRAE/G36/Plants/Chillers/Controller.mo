@@ -920,14 +920,6 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{-940,-540},{-900,-500}}),
       iconTransformation(extent={{-140,-260},{-100,-220}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
-    final quantity="1",
-    final min=0,
-    final max=1) if not have_airCoo
-    "Tower fan speed"
-    annotation (Placement(transformation(extent={{-940,-608},{-900,-568}}),
-      iconTransformation(extent={{-140,-320},{-100,-280}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
@@ -1770,8 +1762,6 @@ equation
           {380,-220},{380,-128},{478,-128}}, color={255,0,255}));
   connect(TOut, plaEna.TOut) annotation (Line(points={{-920,-520},{-830,-520},{-830,
           -508.4},{-704,-508.4}}, color={0,0,127}));
-  connect(towCon.uFanSpe, uFanSpe)
-    annotation (Line(points={{-268,-588},{-920,-588}}, color={0,0,127}));
   connect(upProCon.uConWatReq, uConWatReq) annotation (Line(points={{172,352},{
           80,352},{80,610},{-920,610}}, color={255,0,255}));
   connect(upProCon.uChiWatReq, uChiWatReq) annotation (Line(points={{172,284},{
@@ -1803,8 +1793,8 @@ equation
         ={0,0,127}));
   connect(heaPreCon.uHeaPreCon, uHeaPreCon) annotation (Line(points={{-524,180},
           {-920,180}}, color={0,0,127}));
-  connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet) annotation (Line(
-        points={{-476,212},{-360,212},{-360,-620},{-268,-620}}, color={0,0,127}));
+  connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxSpeSet) annotation (Line(points={
+          {-476,212},{-360,212},{-360,-620},{-268,-620}}, color={0,0,127}));
   connect(heaPreCon.yConWatPumSpeSet, mulMax1.u) annotation (Line(points={{-476,
           188},{-470,188},{-470,160},{-462,160}}, color={0,0,127}));
   connect(mulMax1.y, dowProCon.uConWatPumSpeSet) annotation (Line(points={{-438,
@@ -2227,10 +2217,6 @@ annotation (
           extent={{-98,-232},{-78,-246}},
           textColor={0,0,127},
           textString="TOut"),
-        Text(
-          extent={{-96,-294},{-64,-306}},
-          textColor={0,0,127},
-          textString="uFanSpe"),
         Text(
           extent={{-98,-314},{-50,-328}},
           textColor={0,0,127},

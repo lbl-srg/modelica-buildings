@@ -83,8 +83,8 @@ equation
       color={0,0,127}));
   connect(towMaxSpe.y, swi[1].u1)
     annotation (Line(points={{-58,10},{-20,10},{-20,-2},{-2,-2}}, color={0,0,127}));
-  connect(swi.y, couTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{22,-10},{32,-10},{32,88},{58,88}}, color={0,0,127}));
+  connect(swi.y, couTowSpe.uMaxSpeSet) annotation (Line(points={{22,-10},{32,-10},
+          {32,88},{58,88}}, color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{-18,-50},{-8,-50},{-8,-18},{-2,-18}}, color={0,0,127}));
   connect(not1.y, couTowSpe.uChi)

@@ -111,8 +111,8 @@ equation
   connect(not1.y, swi.u2)
     annotation (Line(points={{-18,-130},{-12,-130},{-12,-50},{-2,-50}},
       color={255,0,255}));
-  connect(swi.y, lesCouTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{22,-50},{32,-50},{32,75},{58,75}}, color={0,0,127}));
+  connect(swi.y, lesCouTowSpe.uMaxSpeSet) annotation (Line(points={{22,-50},{32,
+          -50},{32,75},{58,75}}, color={0,0,127}));
   connect(not1.y, lesCouTowSpe.uChi)
     annotation (Line(points={{-18,-130},{38,-130},{38,73},{58,73}}, color={255,0,255}));
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)

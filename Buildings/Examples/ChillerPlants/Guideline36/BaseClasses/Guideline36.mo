@@ -107,10 +107,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatLev(
     final k=0.9) "Constant cooling tower water level"
     annotation (Placement(transformation(extent={{-520,-10},{-500,10}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiMax cooTowFan(
-    final nin=2)
-    "Cooling tower fan speed"
-    annotation (Placement(transformation(extent={{-400,190},{-380,210}})));
   Modelica.Fluid.Interfaces.FluidPort_b portCooCoiSup(
     redeclare package Medium =MediumW)
     "Cooling coil loop supply"
@@ -197,15 +193,10 @@ equation
   connect(chi1.P, chiSta[1].u) annotation (Line(points={{341,103},{350,103},{350,
           116},{90,116},{90,268},{-480,268},{-480,230},{-402,230}},     color={
           0,0,127}));
-  connect(cooTow1.yFanSpe, cooTowFan.u[1]) annotation (Line(points={{318,384},{-420,
-          384},{-420,199.5},{-402,199.5}},      color={0,0,127}));
   connect(conWatSupTem.T, chiPlaCon.TConWatSup) annotation (Line(points={{271,280},
           {280,280},{280,260},{-330,260},{-330,16},{-144,16}}, color={0,0,127}));
   connect(TWetBul.y, cooTow1.TAir) annotation (Line(points={{-499,80},{-490,80},
           {-490,350},{360,350},{360,384},{342,384}}, color={0,0,127}));
-  connect(cooTow2.yFanSpe, cooTowFan.u[2]) annotation (Line(points={{318,314},{290,
-          314},{290,384},{-420,384},{-420,200.5},{-402,200.5}},     color={0,0,
-          127}));
   connect(chiPlaCon.yMinValPosSet, valByp.y) annotation (Line(points={{-96,60},{
           0,60},{0,-200},{330,-200},{330,-208}},        color={0,0,127}));
   connect(jun10.port_2, portCooCoiSup) annotation (Line(
@@ -244,8 +235,6 @@ equation
           {366,387},{366,420},{-310,420},{-310,11},{-144,11}}, color={0,0,127}));
   connect(towIsoVal2.y_actual, chiPlaCon.uIsoVal[2]) annotation (Line(points={{375,317},
           {366,317},{366,420},{-310,420},{-310,13},{-144,13}}, color={0,0,127}));
-  connect(cooTowFan.y, chiPlaCon.uFanSpe) annotation (Line(points={{-378,200},{-190,
-          200},{-190,20},{-144,20}},      color={0,0,127}));
   connect(conWatPum1.y_actual, chiPlaCon.uConWatPumSpe[1]) annotation (Line(
         points={{207,199},{207,192},{-200,192},{-200,44},{-144,44}}, color={0,0,
           127}));

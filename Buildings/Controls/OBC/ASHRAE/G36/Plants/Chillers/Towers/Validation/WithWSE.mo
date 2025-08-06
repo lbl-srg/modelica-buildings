@@ -61,9 +61,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe2(final k=0)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-360,-10},{-340,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe3(final k=0.2)
-    "Measured tower fan speed"
-    annotation (Placement(transformation(extent={{-320,170},{-300,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatSupSet(
     final k=273.15 + 6.5)
     "Chilled water supply setpoint"
@@ -167,17 +164,15 @@ equation
           270},{-30,376.5},{198,376.5}}, color={255,0,255}));
   connect(chiTwoSta.y, towCon.uChi[2]) annotation (Line(points={{-338,240},{-30,
           240},{-30,377.5},{198,377.5}}, color={255,0,255}));
-  connect(towFanSpe3.y,towCon.uFanSpe)  annotation (Line(points={{-298,180},{
-          -10,180},{-10,373},{198,373}}, color={0,0,127}));
   connect(chiWatSupTem.y, towCon.TChiWatSup) annotation (Line(points={{-238,130},
           {0,130},{0,371},{198,371}}, color={0,0,127}));
   connect(chiWatSupSet.y, towCon.TChiWatSupSet) annotation (Line(points={{-338,
           -40},{10,-40},{10,369},{198,369}}, color={0,0,127}));
   connect(plaCap.y, towCon.reqPlaCap) annotation (Line(points={{-338,80},{20,80},
           {20,367},{198,367}}, color={0,0,127}));
-  connect(swi1.y, towCon.uMaxTowSpeSet[1]) annotation (Line(points={{-218,40},{
-          30,40},{30,364.5},{198,364.5}}, color={0,0,127}));
-  connect(hpTowSpe2.y, towCon.uMaxTowSpeSet[2]) annotation (Line(points={{-338,0},
+  connect(swi1.y, towCon.uMaxSpeSet[1]) annotation (Line(points={{-218,40},{30,
+          40},{30,364.5},{198,364.5}}, color={0,0,127}));
+  connect(hpTowSpe2.y, towCon.uMaxSpeSet[2]) annotation (Line(points={{-338,0},
           {40,0},{40,365.5},{198,365.5}}, color={0,0,127}));
   connect(or3.y, towCon.uPla) annotation (Line(points={{-58,-70},{60,-70},{60,361},
           {198,361}},      color={255,0,255}));

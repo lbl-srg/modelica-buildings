@@ -80,8 +80,6 @@ model Controller "Validation head pressure controller"
     final k=305.15)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Max max1 "Current fan speed"
-    annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     "Condenser water pump status"
     annotation (Placement(transformation(extent={{220,-50},{240,-30}})));
@@ -119,10 +117,6 @@ model Controller "Validation head pressure controller"
     final offset=273.15 + 14)
     "Chilled water temperature entering heat exchanger"
     annotation (Placement(transformation(extent={{-280,-40},{-260,-20}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol3(
-    final samplePeriod=5)
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{148,-150},{168,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable chiWatFlo(
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
     final table=[0,0; 6500,0; 7000,0.005; 7500,0.008; 9200,0.02; 10000,0.020;
@@ -167,10 +161,6 @@ equation
           {-120,-220},{-120,-140},{-30,-140}},       color={0,0,127}));
   connect(watLev.y, chiPlaCon.watLev) annotation (Line(points={{-238,-260},{-90,
           -260},{-90,-160},{-30,-160}}, color={0,0,127}));
-  connect(chiPlaCon.yTowFanSpe[2], max1.u2) annotation (Line(points={{90,-97.5},
-          {106,-97.5},{106,-146},{118,-146}},color={0,0,127}));
-  connect(chiPlaCon.yTowFanSpe[1], max1.u1) annotation (Line(points={{90,-102.5},
-          {112,-102.5},{112,-134},{118,-134}},  color={0,0,127}));
   connect(chiPlaCon.yTowCelIsoVal, zerOrdHol.u) annotation (Line(points={{90,-70},
           {110,-70},{110,-90},{118,-90}},      color={0,0,127}));
   connect(zerOrdHol.y, chiPlaCon.uIsoVal) annotation (Line(points={{142,-90},{
@@ -195,11 +185,6 @@ equation
           -90},{-140,-5},{-30,-5}}, color={255,0,255}));
   connect(TEntHex.y, chiPlaCon.TEntHex) annotation (Line(points={{-258,-30},{-148,
           -30},{-148,-15},{-30,-15}}, color={0,0,127}));
-  connect(max1.y, zerOrdHol3.u)
-    annotation (Line(points={{142,-140},{146,-140}}, color={0,0,127}));
-  connect(zerOrdHol3.y, chiPlaCon.uFanSpe) annotation (Line(points={{170,-140},
-          {180,-140},{180,-200},{-60,-200},{-60,-130},{-30,-130}}, color={0,0,
-          127}));
   connect(zerOrdHol1.y, pro.u1) annotation (Line(points={{222,50},{252,50},{252,
           6},{258,6}}, color={0,0,127}));
   connect(chiWatFlo.y[1], chiPlaCon.VChiWat_flow) annotation (Line(points={{
