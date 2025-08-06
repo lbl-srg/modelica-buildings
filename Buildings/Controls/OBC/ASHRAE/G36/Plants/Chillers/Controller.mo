@@ -706,7 +706,9 @@ block Controller "Chiller plant controller"
      annotation (Dialog(tab="Cooling Towers", group="Enable isolation valve", enable=(not have_airCoo)));
 
   // ---- Cooling tower: Water level control ----
-  parameter Real watLevMin(min=0, unit="m")=0.7
+  parameter Real watLevMin(
+    min=0,
+    unit="m")=0.7
     "Minimum cooling tower water level recommended by manufacturer"
      annotation (Dialog(tab="Cooling Towers", group="Makeup water", enable=(not have_airCoo)));
 
@@ -745,6 +747,7 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{-140,340},{-100,380}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
+    if not have_airCoo
     "Condenser water request for each chiller"
     annotation (Placement(transformation(extent={{-940,590},{-900,630}}),
       iconTransformation(extent={{-140,320},{-100,360}})));
@@ -788,8 +791,8 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{-140,180},{-100,220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
-    final unit="1")
-    if have_WSE "Outdoor relative humidity"
+    final unit="1") if have_WSE and not have_airCoo
+                "Outdoor relative humidity"
     annotation (Placement(transformation(extent={{-940,340},{-900,380}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
 
@@ -812,7 +815,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if not have_airCoo
     "Measured condenser water return temperature (condenser leaving)"
     annotation(Placement(transformation(extent={{-940,220},{-900,260}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
@@ -825,7 +828,8 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-940,190},{-900,230}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon[nChi] if have_heaPreConSig
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon[nChi]
+    if have_heaPreConSig and not have_airCoo
     "Chiller head pressure control loop signal from chiller controller"
     annotation (Placement(transformation(extent={{-940,160},{-900,200}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
@@ -851,7 +855,7 @@ block Controller "Chiller plant controller"
         iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEcoPum
-    if have_WSE and not have_byPasValCon
+    if have_WSE and not have_byPasValCon and not have_airCoo
     "True: economizer heat exchanger pump is proven on"
     annotation (Placement(transformation(extent={{-940,30},{-900,70}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -860,12 +864,13 @@ block Controller "Chiller plant controller"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    if have_WSE and not have_byPasValCon
+    if have_WSE and not have_byPasValCon and not have_airCoo
     "Chilled water temperature entering economizer heat exchanger"
     annotation (Placement(transformation(extent={{-940,0},{-900,40}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
+    if not have_airCoo
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-940,-100},{-900,-60}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -891,11 +896,13 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
     final min=fill(0, nConWatPum),
     final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
+    final unit=fill("1", nConWatPum)) if not have_airCoo
+                                      "Current condenser water pump speed"
     annotation(Placement(transformation(extent={{-940,-400},{-900,-360}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    if not have_airCoo
     "Condenser water pump status"
     annotation (Placement(transformation(extent={{-940,-430},{-900,-390}}),
       iconTransformation(extent={{-140,-220},{-100,-180}})));
@@ -915,7 +922,7 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCooLoa[nChi](
     final quantity=fill("HeatFlowRate",nChi),
-    final unit=fill("W", nChi)) if have_WSE
+    final unit=fill("W", nChi)) if have_WSE and not have_airCoo
     "Current chiller cooling load"
     annotation (Placement(transformation(extent={{-940,-580},{-900,-540}}),
       iconTransformation(extent={{-140,-280},{-100,-240}})));
@@ -923,14 +930,16 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final quantity="1",
     final min=0,
-    final max=1) "Tower fan speed"
+    final max=1) if not have_airCoo
+                 "Tower fan speed"
     annotation (Placement(transformation(extent={{-940,-608},{-900,-568}}),
       iconTransformation(extent={{-140,-320},{-100,-280}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not closeCoupledPlant
+    final quantity="ThermodynamicTemperature")
+    if not closeCoupledPlant and not have_airCoo
     "Condenser water supply temperature (condenser entering)"
     annotation(Placement(transformation(extent={{-940,-680},{-900,-640}}),
       iconTransformation(extent={{-140,-340},{-100,-300}})));
@@ -938,13 +947,13 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
+    final unit=fill("1", nTowCel)) if not have_airCoo
     "Vector of tower cells isolation valve position"
     annotation(Placement(transformation(extent={{-940,-728},{-900,-688}}),
       iconTransformation(extent={{-140,-360},{-100,-320}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev(
-    final unit="m")
+    final unit="m") if not have_airCoo
     "Measured water level"
     annotation (Placement(transformation(extent={{-940,-760},{-900,-720}}),
       iconTransformation(extent={{-140,-380},{-100,-340}})));
@@ -1020,8 +1029,9 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{920,330},{960,370}}),
       iconTransformation(extent={{100,120},{140,160}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi]
-    if have_heaConWatPum and (have_heaPreConSig or (not have_fixSpeConWatPum and not have_WSE))
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi] if (not
+    have_airCoo) and have_heaConWatPum and (have_heaPreConSig or (not
+    have_fixSpeConWatPum and not have_WSE))
     "Chiller condenser water isolation valve commanded setpoint"
     annotation (Placement(transformation(extent={{920,260},{960,300}}),
         iconTransformation(extent={{100,90},{140,130}})));
@@ -1150,7 +1160,8 @@ block Controller "Chiller plant controller"
     final controllerType=fill(controllerTypeHeaPre, nChi),
     final minChiLif=dTChiMinLif,
     final k=fill(kHeaPreCon, nChi),
-    final Ti=fill(TiHeaPreCon, nChi)) "Chiller head pressure controller"
+    final Ti=fill(TiHeaPreCon, nChi)) if not have_airCoo
+                                      "Chiller head pressure controller"
     annotation (Placement(transformation(extent={{-520,180},{-480,220}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.Controller minBypValCon(
@@ -1293,7 +1304,7 @@ block Controller "Chiller plant controller"
     final chaTowCelIsoTim=chaTowCelIsoTim,
     final watLevMin=watLevMin,
     final watLevMax=watLevMax) if not have_airCoo
-                               "Cooling tower controller"
+    "Cooling tower controller"
     annotation (Placement(transformation(extent={{-260,-720},{-180,-560}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Down dowProCon(
@@ -1301,6 +1312,7 @@ block Controller "Chiller plant controller"
     final nConWatPum=nConWatPum,
     final totSta=totSta,
     final nChiSta=nSta + 1,
+    final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
     final have_ponyChiller=have_ponyChiller,
     final have_parChi=have_parChi,
@@ -1330,6 +1342,7 @@ block Controller "Chiller plant controller"
     final nConWatPum=nConWatPum,
     final totSta=totSta,
     final nChiSta=nSta + 1,
+    final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
     final have_ponyChiller=have_ponyChiller,
     final have_parChi=have_parChi,
@@ -1375,45 +1388,41 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-740,-134},{-720,-114}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax conWatPumSpe(
-    final nin=nConWatPum)
-    if not have_fixSpeConWatPum
+    final nin=nConWatPum) if not have_fixSpeConWatPum and not have_airCoo
     "Running condenser water pump speed"
     annotation (Placement(transformation(extent={{-660,-390},{-640,-370}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or staCooTow
+  Buildings.Controls.OBC.CDL.Logical.Or staCooTow if not have_airCoo
     "Tower stage change status: true=stage cooling tower"
     annotation (Placement(transformation(extent={{480,-130},{500,-110}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=nChi) if have_WSE
+    final nout=nChi) if have_WSE and not have_airCoo
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-620,240},{-600,260}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatRetTem(
-    final nout=nChi)
-    if not have_heaPreConSig
+    final nout=nChi) if not have_heaPreConSig and not have_airCoo
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-680,230},{-660,250}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator chiWatSupTem(
-    final nout=nChi)
-    if not have_heaPreConSig
+    final nout=nChi) if not have_heaPreConSig and not have_airCoo
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-680,194},{-660,214}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch desConWatPumSpeSwi
-    if not have_fixSpeConWatPum
+    if not have_fixSpeConWatPum and not have_airCoo
     "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{480,190},{500,210}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator desConPumSpe(
-    final nout=nChi) if not have_fixSpeConWatPum
+    final nout=nChi) if not have_fixSpeConWatPum and not have_airCoo
     "Replicate design condenser water pump speed"
     annotation (Placement(transformation(extent={{540,190},{560,210}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax1(
-    final nin=nChi)
-    if not have_fixSpeConWatPum
+    final nin=nChi) if not have_fixSpeConWatPum and not have_airCoo
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{-460,150},{-440,170}})));
 
@@ -1430,7 +1439,7 @@ block Controller "Chiller plant controller"
     "Chiller commanded status"
     annotation (Placement(transformation(extent={{640,340},{660,360}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre preConPumLeaSta
+  Buildings.Controls.OBC.CDL.Logical.Pre preConPumLeaSta if not have_airCoo
     "Lead condenser water pump status from previous step"
     annotation (Placement(transformation(extent={{480,-260},{500,-240}})));
 
@@ -1443,18 +1452,19 @@ block Controller "Chiller plant controller"
     "In chiller stage up process"
     annotation (Placement(transformation(extent={{380,310},{400,330}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2 "Stage cooling tower"
-    annotation (Placement(transformation(extent={{100,-450},{120,-430}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2 if not have_airCoo
+    "Stage cooling tower"
+    annotation (Placement(transformation(extent={{100,-510},{120,-490}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch chiHeaCon[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch chiHeaCon[nChi] if not have_airCoo
     "Chiller head control enabling status"
     annotation (Placement(transformation(extent={{520,270},{540,290}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Switch conWatPumNum
+  Buildings.Controls.OBC.CDL.Integers.Switch conWatPumNum if not have_airCoo
     "Total number of enablded condenser water pump"
     annotation (Placement(transformation(extent={{440,10},{460,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch conPumLeaSta
+  Buildings.Controls.OBC.CDL.Logical.Switch conPumLeaSta if not have_airCoo
     "Pick the condenser water pump lead status"
     annotation (Placement(transformation(extent={{440,-260},{460,-240}})));
 
@@ -1488,31 +1498,32 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{640,470},{660,490}})));
 
   Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nConWatPum]
-    if not have_fixSpeConWatPum
+    if not have_fixSpeConWatPum and not have_airCoo
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{660,140},{680,160}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatPumSpe1(
-    final nout=nConWatPum) if not have_fixSpeConWatPum
+    final nout=nConWatPum) if not have_fixSpeConWatPum and not have_airCoo
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{590,140},{610,160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nConWatPum]
-    if not have_fixSpeConWatPum
+    if not have_fixSpeConWatPum and not have_airCoo
     "Boolean to real"
     annotation (Placement(transformation(extent={{580,50},{600,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3[nChi]
+    if not have_airCoo
     "Boolean to real"
     annotation (Placement(transformation(extent={{580,250},{600,270}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro4[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro4[nChi] if not have_airCoo
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{660,230},{680,250}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpeVal[nChi](
     final k=fill(1, nChi))
-    if not have_WSE and not have_fixSpeConWatPum
+    if not have_WSE and not have_fixSpeConWatPum and not have_airCoo
     "Full open head pressure control valve"
     annotation (Placement(transformation(extent={{240,180},{260,200}})));
 
@@ -1520,11 +1531,13 @@ block Controller "Chiller plant controller"
     final nSta=nSta,
     final nChiWatPum=nChiWatPum,
     final nConWatPum=nConWatPum,
-    final iniPumDel=iniPumDel)
+    final iniPumDel=iniPumDel,
+    final have_airCoo=have_airCoo)
     "Enable devices when plant is enabled"
     annotation (Placement(transformation(extent={{-540,-440},{-520,-420}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.DisableChillers disChi(
+    final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
     final nChi=nChi,
     final nChiWatPum=nChiWatPum,
@@ -1600,28 +1613,30 @@ protected
     "Plant design capacity";
 
   Buildings.Controls.OBC.CDL.Integers.LessEqual enaConWatPum[nConWatPum]
+    if not have_airCoo
     "Check if a condenser water pump should be enabled"
     annotation (Placement(transformation(extent={{540,50},{560,70}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conPum[nConWatPum](
-    final k=conPumLeaLag)
+    final k=conPumLeaLag) if not have_airCoo
     "Condenser water pumps lead lag order"
     annotation (Placement(transformation(extent={{480,50},{500,70}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
-    final nout=nConWatPum)
+    final nout=nConWatPum) if not have_airCoo
     "Duplicate to total number of condenser water pump"
     annotation (Placement(transformation(extent={{480,10},{500,30}})));
 
-public
-  Generic.ChillerLifts chiLif(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.ChillerLifts chiLif(
     final nChi=nChi,
-    minChiLif=dTChiMinLif,
-    maxChiLif=dTChiMaxLif) "Average lifts of the enabled chillers"
+    final minChiLif=dTChiMinLif,
+    final maxChiLif=dTChiMaxLif)
+    "Average lifts of the enabled chillers"
     annotation (Placement(transformation(extent={{-500,360},{-480,380}})));
+
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-268,72},{-580,72},
-          {-580,-520},{-658,-520}},            color={255,0,255}));
+          {-580,-520},{-658,-520}}, color={255,0,255}));
   connect(TChiWatRetDow, wseSta.TChiWatRetDow) annotation(Line(points={{-920,320},
           {-840,320},{-840,346},{-704,346}},      color={0,0,127}));
   connect(chiWatSupSet.TChiWatSupSet, staSetCon.TChiWatSupSet) annotation(Line(
@@ -1805,10 +1820,10 @@ equation
           340,-144},{340,314},{378,314}},  color={255,0,255}));
   connect(VChiWat_flow, wseSta.VChiWat_flow) annotation (Line(points={{-920,440},
           {-880,440},{-880,342},{-704,342}}, color={0,0,127}));
-  connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{122,-440},{180,
-          -440},{180,-512},{-320,-512},{-320,-692},{-268,-692}}, color={255,0,255}));
+  connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{122,-500},{180,
+          -500},{180,-530},{-320,-530},{-320,-692},{-268,-692}}, color={255,0,255}));
   connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{
-          590,-400},{90,-400},{90,-440},{98,-440}},    color={255,0,255}));
+          590,-420},{90,-420},{90,-500},{98,-500}},    color={255,0,255}));
   connect(towCon.ySpeSet, mulMax.u) annotation (Line(points={{-172,-684},{-100,
           -684},{-100,-580},{-62,-580}}, color={0,0,127}));
   connect(chiStaUp.y, desConWatPumSpeSwi.u2) annotation (Line(points={{402,320},
@@ -2071,8 +2086,8 @@ equation
     annotation (Line(points={{502,60},{538,60}}, color={255,127,0}));
   connect(enaConWatPum.y, booToRea1.u)
     annotation (Line(points={{562,60},{578,60}}, color={255,0,255}));
-  connect(intScaRep.y, enaConWatPum.u2) annotation (Line(points={{502,20},{520,20},
-          {520,52},{538,52}}, color={255,127,0}));
+  connect(intScaRep.y, enaConWatPum.u2) annotation (Line(points={{502,20},{520,
+          20},{520,52},{538,52}}, color={255,127,0}));
   connect(enaConWatPum.y, disChi.uConWatPum) annotation (Line(points={{562,60},{
           570,60},{570,-478},{738,-478}}, color={255,0,255}));
   connect(disChi.yConWatPum, yConWatPum) annotation (Line(points={{762,-476},{850,
@@ -2578,6 +2593,9 @@ If the plants have variable speed condenser water pumps and have waterside econo
 the condenser water pumps are headered.
 </li>
 </ul>
+<p>
+The sequence is not applicable for the plants with air cooled chillers.
+</p>
 
 <h4>3. Minimum chilled water flow</h4>
 <p>
@@ -2635,6 +2653,9 @@ In Guideline36-2021, the sequences for following types of plant have not been sp
 Plants with series chiller
 </li>
 </ul>
+<p>
+The sequence is not applicable for the plants with air cooled chillers.
+</p>
 
 <h4>7. Chiller staging control</h4>
 <p>
@@ -2710,10 +2731,13 @@ Plants with cooling tower fan speed control, for control condenser water supply
 temperature, section 5.20.12.2.b.
 </li>
 </ul>
+<p>
+The sequence is not applicable for the plants with air cooled chillers.
+</p>
 
 <h4>9. Equipment rotation</h4>
 <p>
-The sequence Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo 
+The sequence 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo</a>
 rotates equipment,

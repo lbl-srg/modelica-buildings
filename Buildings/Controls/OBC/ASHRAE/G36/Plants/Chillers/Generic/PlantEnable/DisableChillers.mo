@@ -1,19 +1,24 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable;
 block DisableChillers
   "Disable devices when the plant is disabled from chiller mode"
-
+  parameter Boolean have_airCoo=false
+    "True: the plant has air cooled chiller";
   parameter Boolean have_WSE=true
-    "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable";
+    "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable"
+    annotation (Dialog(enable=not have_airCoo));
   parameter Integer nChi=2
     "Total number of chillers";
   parameter Integer nChiWatPum = 2
     "Total number of chilled water pumps";
   parameter Integer nConWatPum = 2
-    "Total number of condenser water pumps";
+    "Total number of condenser water pumps"
+    annotation (Dialog(enable=not have_airCoo));
   parameter Integer nTowCel = 2
-    "Total number of cooling tower cells";
+    "Total number of cooling tower cells"
+    annotation (Dialog(enable=not have_airCoo));
   parameter Boolean have_fixSpeConWatPum = false
-    "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false";
+    "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false"
+    annotation (Dialog(enable=not have_airCoo));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller commanded on"
@@ -30,17 +35,19 @@ block DisableChillers
     annotation(Placement(transformation(extent={{-240,140},{-200,180}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
+    if not have_airCoo
     "Condenser water requst status for each chiller"
     annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if not have_airCoo
     "Chiller condenser water isolation valve position"
     annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ConWatIsoVal[nChi]
+    if not have_airCoo
     "Condenser water isolation valve commanded setpoint"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -49,7 +56,7 @@ block DisableChillers
     annotation (Placement(transformation(extent={{-240,-70},{-200,-30}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum]
-    if not have_fixSpeConWatPum
+    if not have_fixSpeConWatPum and not have_airCoo
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -58,10 +65,12 @@ block DisableChillers
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    if not have_airCoo
     "Condenser water pump commanded status"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE if have_WSE
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
+    if have_WSE and not have_airCoo
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-240,-280},{-200,-240}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -79,11 +88,12 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal[nChi](
     final unit=fill("1", nChi),
     final min=fill(0, nChi),
-    final max=fill(1, nChi))
+    final max=fill(1, nChi)) if not have_airCoo
     "Chiller condenser water isolation valve position setpoints"
     annotation (Placement(transformation(extent={{200,80},{240,120}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi]
+    if not have_airCoo
     "Condenser water isolation valve commanded setpoint"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
         iconTransformation(extent={{100,0},{140,40}})));
@@ -97,15 +107,18 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe[nConWatPum](
     final unit=fill("1", nConWatPum),
     final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum)) if not have_fixSpeConWatPum
+    final max=fill(1, nConWatPum))
+    if not have_fixSpeConWatPum and not have_airCoo
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatPum[nConWatPum]
+    if not have_airCoo
     "Condenser water pump commanded status: true-comanded on"
     annotation (Placement(transformation(extent={{200,-210},{240,-170}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowCel
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowCel if not
+    have_airCoo
     "True: the tower cells should be enabled"
     annotation (Placement(transformation(extent={{200,-250},{240,-210}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
@@ -123,11 +136,11 @@ block DisableChillers
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,220},{100,240}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nin=nChi)
+    final nin=nChi) if not have_airCoo
     "Check if there is any condenser water request"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep2(
-    final nout=nChi)
+    final nout=nChi) if not have_airCoo
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep3(
@@ -135,7 +148,7 @@ block DisableChillers
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep5(
-    final nout=nConWatPum)
+    final nout=nConWatPum) if not have_airCoo
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not noChi "No enabled chiller"
@@ -147,13 +160,13 @@ block DisableChillers
     annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Close valve"
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Or cloConIsoVal
+  Buildings.Controls.OBC.CDL.Logical.Or cloConIsoVal if not have_airCoo
     "Close all condenser water isolation valve"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Not noConWatReq
+  Buildings.Controls.OBC.CDL.Logical.Not noConWatReq if not have_airCoo
     "No condenser water request"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] if not have_airCoo
     "Close valve"
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Buildings.Controls.OBC.CDL.Logical.Or cloPums "Disable pumps"
@@ -162,13 +175,13 @@ block DisableChillers
     "Disable pumps"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi3[nConWatPum]
-    if not have_fixSpeConWatPum
+    if not have_fixSpeConWatPum and not have_airCoo
     "Disable pumps"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Plant is disabled and it is not in staging process"
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1 if not have_airCoo
     "Plant is disabled and it is not in staging process"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Not in staging process"
@@ -176,7 +189,7 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Plant is disabled and it is not in staging process"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.And and4
+  Buildings.Controls.OBC.CDL.Logical.And and4 if not have_airCoo
     "Plant is disabled and it is not in staging process"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr chiMod(
@@ -191,43 +204,49 @@ block DisableChillers
     "Constant zero"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[nConWatPum](
-    final k=fill(0, nConWatPum)) if not have_fixSpeConWatPum
+    final k=fill(0, nConWatPum)) if not have_fixSpeConWatPum and not
+    have_airCoo
     "Constant zero"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if have_WSE
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if have_WSE and not have_airCoo
     "Not in staging process"
     annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
   Buildings.Controls.OBC.CDL.Logical.And and5
     "Plant is disabled and it is not in staging process"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.And and6
+  Buildings.Controls.OBC.CDL.Logical.And and6 if not have_airCoo
     "Plant is disabled and it is not in staging process"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(
-    final k=true) if not have_WSE
+    final k=true) if not have_WSE or have_airCoo
     "Logical true"
     annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.Or disTow
+  Buildings.Controls.OBC.CDL.Logical.Or disTow if not have_airCoo
     "Disable cooling tower"
     annotation (Placement(transformation(extent={{80,-240},{100,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con4(
-    final k=false)
-    if not have_WSE "Logical false"
+    final k=false) if not have_WSE and not have_airCoo
+    "Logical false"
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nChi](
     final h=fill(0.05, nChi))
     "Check if the chiller isolation valve is enabled"
     annotation (Placement(transformation(extent={{160,180},{180,200}})));
-  Buildings.Controls.OBC.CDL.Logical.And and7[nChi]
+  Buildings.Controls.OBC.CDL.Logical.And and7[nChi] if not have_airCoo
     "Condenser water isolation valve commended setpoint"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Buildings.Controls.OBC.CDL.Logical.And conWatPum[nConWatPum]
+    if not have_airCoo
     "Condenser water pump commanded status"
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2[nConWatPum]
+  Buildings.Controls.OBC.CDL.Logical.Not not2[nConWatPum] if not have_airCoo
     "Not disable pumps"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(
+    final k=false)
+    if have_airCoo
+    "Logical true"
+    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 equation
   connect(uChiWatReq, mulOr.u)
     annotation (Line(points={{-220,190},{-182,190}}, color={255,0,255}));
@@ -236,7 +255,7 @@ equation
   connect(truDel.y, cloChiIsoVal.u1)
     annotation (Line(points={{-78,230},{-42,230}},color={255,0,255}));
   connect(noChiWatReq.y, cloChiIsoVal.u2) annotation (Line(points={{-118,190},{-50,
-          190},{-50,222},{-42,222}},    color={255,0,255}));
+          190},{-50,222},{-42,222}}, color={255,0,255}));
   connect(booScaRep1.y, swi.u2)
     annotation (Line(points={{102,230},{138,230}}, color={255,0,255}));
   connect(uChiWatIsoVal, swi.u3) annotation (Line(points={{-220,160},{110,160},{
@@ -251,7 +270,7 @@ equation
           80},{-60,112},{-42,112}},  color={255,0,255}));
   connect(booScaRep2.y, swi1.u2)
     annotation (Line(points={{82,120},{100,120},{100,100},{138,100}},
-                                                 color={255,0,255}));
+          color={255,0,255}));
   connect(uConWatIsoVal, swi1.u3) annotation (Line(points={{-220,50},{60,50},{60,
           92},{138,92}},     color={0,0,127}));
   connect(cloChiIsoVal.y, cloPums.u2) annotation (Line(points={{-18,230},{-10,230},
@@ -271,17 +290,15 @@ equation
   connect(cloChiIsoVal.y, and2.u1)
     annotation (Line(points={{-18,230},{38,230}}, color={255,0,255}));
   connect(and1.y, booScaRep2.u)
-    annotation (Line(points={{42,120},{58,120}},
-                                               color={255,0,255}));
+    annotation (Line(points={{42,120},{58,120}}, color={255,0,255}));
   connect(cloConIsoVal.y, and1.u1)
-    annotation (Line(points={{-18,120},{18,120}},
-                                               color={255,0,255}));
+    annotation (Line(points={{-18,120},{18,120}}, color={255,0,255}));
   connect(chaPro, not4.u)
     annotation (Line(points={{-220,-90},{-82,-90}},   color={255,0,255}));
   connect(not4.y, and1.u2) annotation (Line(points={{-58,-90},{0,-90},{0,112},{18,
-          112}},    color={255,0,255}));
+          112}}, color={255,0,255}));
   connect(not4.y, and2.u2) annotation (Line(points={{-58,-90},{0,-90},{0,222},{38,
-          222}},          color={255,0,255}));
+          222}}, color={255,0,255}));
   connect(cloPums.y, and3.u1)
     annotation (Line(points={{-58,-30},{18,-30}}, color={255,0,255}));
   connect(cloPums.y, and4.u1) annotation (Line(points={{-58,-30},{-10,-30},{-10,
@@ -295,8 +312,7 @@ equation
   connect(swi2.y, yChiWatPumSpe)
     annotation (Line(points={{182,-30},{220,-30}}, color={0,0,127}));
   connect(swi1.y, yConWatIsoVal)
-    annotation (Line(points={{162,100},{220,100}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{162,100},{220,100}}, color={0,0,127}));
   connect(swi.y, yChiWatIsoVal)
     annotation (Line(points={{162,230},{220,230}}, color={0,0,127}));
   connect(uChi, chiMod.u)
@@ -306,8 +322,7 @@ equation
   connect(con.y, swi.u1) annotation (Line(points={{42,280},{120,280},{120,238},{
           138,238}}, color={0,0,127}));
   connect(con.y, swi1.u1) annotation (Line(points={{42,280},{120,280},{120,108},
-          {138,108}},
-                    color={0,0,127}));
+          {138,108}}, color={0,0,127}));
   connect(con1.y, swi2.u1) annotation (Line(points={{122,20},{140,20},{140,-22},
           {158,-22}}, color={0,0,127}));
   connect(con2.y, swi3.u1) annotation (Line(points={{42,-80},{140,-80},{140,-112},
@@ -358,6 +373,8 @@ equation
           {140,-198},{158,-198}}, color={255,0,255}));
   connect(conWatPum.y, yConWatPum)
     annotation (Line(points={{182,-190},{220,-190}}, color={255,0,255}));
+  connect(con5.y, cloPums.u1)
+    annotation (Line(points={{-118,-30},{-82,-30}}, color={255,0,255}));
 annotation (defaultComponentName = "disChi",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={
