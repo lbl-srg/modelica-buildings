@@ -10,30 +10,30 @@ model PerformanceCorrection
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance dehPer(
     final per=per) "Dehumidifier performance calculation"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Math.Add add(
     final k1=-1)
    "Temperature difference in the process air"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+    annotation (Placement(transformation(extent={{40,44},{60,64}})));
   Modelica.Blocks.Math.Add add1(
     final k1=-1) "Humidity difference in the process air"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Modelica.Blocks.Math.Product product1
     "Correct temperature difference in the process air"
-    annotation (Placement(transformation(extent={{80,50},{100,70}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Math.Add add2
     "Corrected temperature of the process air leaving the dehumidifier"
-    annotation (Placement(transformation(extent={{120,50},{140,70}})));
+    annotation (Placement(transformation(extent={{140,20},{160,40}})));
   Modelica.Blocks.Math.Product product2
     "Corrected humidity difference in the process air"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{100,-14},{120,6}})));
   Modelica.Blocks.Math.Add add3(
     final k1=-1)
     "Correct humidity ratio of the process air leaving the dehumidifier"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+    annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
   Modelica.Blocks.Math.Product product3
     "Corrected mass flow rate of the regeneration air"
-    annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
+    annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
   Modelica.Blocks.Logical.Hysteresis hys(
     final uLow=per.uSpe_min,
     final uHigh=per.uSpe_min + 0.05)
@@ -89,7 +89,7 @@ model PerformanceCorrection
   Modelica.Blocks.Interfaces.RealOutput mReg_flow(
     final unit="kg/s")
     "Mass flow rate of the regeneration air"
-    annotation (Placement(transformation(extent={{200,-50},{220,-30}}),
+    annotation (Placement(transformation(extent={{200,-60},{220,-40}}),
     iconTransformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput hReg(
     final unit="J/kg")
@@ -97,65 +97,63 @@ model PerformanceCorrection
     annotation (Placement(transformation(extent={{200,-90},{220,-70}}),
     iconTransformation(extent={{100,-90},{120,-70}})));
 
-
 equation
-  connect(dehPer.X_w_ProEnt, X_w_ProEnt) annotation (Line(points={{-11,-3.8},{-94,
-          -3.8},{-94,-40},{-112,-40}}, color={0,0,127}));
-  connect(dehPer.TProEnt, TProEnt) annotation (Line(points={{-11,4.2},{-94,4.2},
-          {-94,40},{-112,40}}, color={0,0,127}));
+  connect(dehPer.X_w_ProEnt, X_w_ProEnt) annotation (Line(points={{-21,-3.8},{-70,
+          -3.8},{-70,-40},{-112,-40}}, color={0,0,127}));
+  connect(dehPer.TProEnt, TProEnt) annotation (Line(points={{-21,4.2},{-60,4.2},
+          {-60,40},{-112,40}}, color={0,0,127}));
   connect(speCor.uSpe, uSpe)
     annotation (Line(points={{-22,80},{-112,80}}, color={0,0,127}));
-  connect(add.u1, TProEnt) annotation (Line(points={{38,46},{-10,46},{-10,40},{-112,
+  connect(add.u1, TProEnt) annotation (Line(points={{38,60},{-10,60},{-10,40},{-112,
           40}}, color={0,0,127}));
   connect(dehPer.TProLea, add.u2)
-    annotation (Line(points={{11,8},{28,8},{28,34},{38,34}}, color={0,0,127}));
+    annotation (Line(points={{1,8},{20,8},{20,48},{38,48}},  color={0,0,127}));
   connect(add1.u1, dehPer.X_w_ProLea)
-    annotation (Line(points={{38,-4},{32,-4},{32,4},{11,4}}, color={0,0,127}));
-  connect(add1.u2, X_w_ProEnt) annotation (Line(points={{38,-16},{-20,-16},{-20,
+    annotation (Line(points={{38,-4},{32,-4},{32,4},{1,4}},  color={0,0,127}));
+  connect(add1.u2, X_w_ProEnt) annotation (Line(points={{38,-16},{-70,-16},{-70,
           -40},{-112,-40}}, color={0,0,127}));
-  connect(speCor.epsSenCor, product1.u1) annotation (Line(points={{2,80},{72,80},
-          {72,66},{78,66}}, color={0,0,127}));
-  connect(add.y, product1.u2) annotation (Line(points={{61,40},{72,40},{72,54},{
-          78,54}}, color={0,0,127}));
-  connect(add2.u2, TProEnt) annotation (Line(points={{118,54},{110,54},{110,26},
-          {-10,26},{-10,40},{-112,40}}, color={0,0,127}));
-  connect(product1.y, add2.u1) annotation (Line(points={{101,60},{110,60},{110,66},
-          {118,66}}, color={0,0,127}));
-  connect(add1.y, product2.u2) annotation (Line(points={{61,-10},{68,-10},{68,-6},
-          {78,-6}}, color={0,0,127}));
+  connect(speCor.epsSenCor, product1.u1) annotation (Line(points={{2,80},{80,80},
+          {80,66},{98,66}}, color={0,0,127}));
+  connect(add.y, product1.u2) annotation (Line(points={{61,54},{98,54}},
+          color={0,0,127}));
+  connect(add2.u2, TProEnt) annotation (Line(points={{138,24},{-60,24},{-60,40},
+          {-112,40}}, color={0,0,127}));
+  connect(product1.y, add2.u1) annotation (Line(points={{121,60},{130,60},{130,36},
+          {138,36}}, color={0,0,127}));
+  connect(add1.y, product2.u2) annotation (Line(points={{61,-10},{98,-10}},
+          color={0,0,127}));
   connect(speCor.epsLatCor, product2.u1)
-    annotation (Line(points={{2,72},{66,72},{66,6},{78,6}}, color={0,0,127}));
-  connect(product2.y, add3.u1) annotation (Line(points={{101,0},{110,0},{110,6},
-          {118,6}}, color={0,0,127}));
-  connect(add3.u2, X_w_ProEnt) annotation (Line(points={{118,-6},{108,-6},{108,-30},
-          {-20,-30},{-20,-40},{-112,-40}}, color={0,0,127}));
-  connect(add2.y, TProLea) annotation (Line(points={{141,60},{180,60},{180,40},{
+    annotation (Line(points={{2,72},{70,72},{70,2},{98,2}}, color={0,0,127}));
+  connect(product2.y, add3.u1) annotation (Line(points={{121,-4},{130,-4},{130,-14},
+          {138,-14}}, color={0,0,127}));
+  connect(add3.u2, X_w_ProEnt) annotation (Line(points={{138,-26},{-70,-26},{-70,
+          -40},{-112,-40}}, color={0,0,127}));
+  connect(add2.y, TProLea) annotation (Line(points={{161,30},{176,30},{176,40},{
           210,40}}, color={0,0,127}));
   connect(add3.y, X_w_ProLea)
-    annotation (Line(points={{141,0},{210,0}}, color={0,0,127}));
+    annotation (Line(points={{161,-20},{180,-20},{180,0},{210,0}}, color={0,0,127}));
   connect(speCor.P, P) annotation (Line(points={{2,88},{194,88},{194,80},{210,80}},
         color={0,0,127}));
-  connect(dehPer.mPro_flow, mPro_flow) annotation (Line(points={{-11,-8.2},{-60,
-          -8.2},{-60,-80},{-112,-80}}, color={0,0,127}));
+  connect(dehPer.mPro_flow, mPro_flow) annotation (Line(points={{-21,-8.2},{-90,
+          -8.2},{-90,-80},{-112,-80}}, color={0,0,127}));
   connect(product3.y, mReg_flow)
-    annotation (Line(points={{161,-40},{210,-40}}, color={0,0,127}));
-  connect(product3.u2, dehPer.mReg_flow) annotation (Line(points={{138,-46},{120,
-          -46},{120,-40},{24,-40},{24,-4},{11,-4}}, color={0,0,127}));
-  connect(product3.u1, uSpe) annotation (Line(points={{138,-34},{-80,-34},{-80,80},
+    annotation (Line(points={{181,-50},{210,-50}}, color={0,0,127}));
+  connect(product3.u2, dehPer.mReg_flow) annotation (Line(points={{158,-56},{20,
+          -56},{20,-4},{1,-4}},                     color={0,0,127}));
+  connect(product3.u1, uSpe) annotation (Line(points={{158,-44},{-80,-44},{-80,80},
           {-112,80}}, color={0,0,127}));
   connect(dehPer.hReg, product4.u1)
-  annotation (Line(points={{11,-8},{18,-8},{18,
-          -74},{98,-74}}, color={0,0,127}));
-  connect(product4.u2, uSpe) annotation (Line(points={{98,-86},{0,-86},{0,-34},{
-          -80,-34},{-80,80},{-112,80}}, color={0,0,127}));
+  annotation (Line(points={{1,-8},{10,-8},{10,-74},{98,-74}}, color={0,0,127}));
+  connect(product4.u2, uSpe) annotation (Line(points={{98,-86},{-80,-86},{-80,80},
+          {-112,80}}, color={0,0,127}));
   connect(product4.y, hReg)
     annotation (Line(points={{121,-80},{210,-80}}, color={0,0,127}));
   connect(dehPer.TRegEnt, TRegEnt)
-    annotation (Line(points={{-11,0},{-112,0}}, color={0,0,127}));
-  connect(hys.y, dehPer.uRot) annotation (Line(points={{-39,60},{-30,60},{-30,
-          8.2},{-11,8.2}}, color={255,0,255}));
-  connect(hys.u, uSpe) annotation (Line(points={{-62,60},{-74,60},{-74,80},{
-          -112,80}}, color={0,0,127}));
+    annotation (Line(points={{-21,0},{-112,0}}, color={0,0,127}));
+  connect(hys.y, dehPer.uRot) annotation (Line(points={{-39,60},{-30,60},{-30,8.2},
+          {-21,8.2}}, color={255,0,255}));
+  connect(hys.u, uSpe) annotation (Line(points={{-62,60},{-80,60},{-80,80},{-112,
+          80}},      color={0,0,127}));
   annotation (defaultComponentName="dehPerCor",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),

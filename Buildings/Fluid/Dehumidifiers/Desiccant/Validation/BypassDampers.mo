@@ -9,14 +9,14 @@ model BypassDampers
     p(displayUnit="Pa") = 101325 - 250,
     nPorts=1)
     "Regeneration air sink"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
     T(displayUnit="K") = 273.15 + 50,
     nPorts=1)
     "Regeneration air source"
-    annotation (Placement(transformation(extent={{60,40},{40,60}})));
+    annotation (Placement(transformation(extent={{80,40},{60,60}})));
   Modelica.Blocks.Sources.Ramp TProEnt(
     height=10,
     duration=600,
@@ -38,12 +38,12 @@ model BypassDampers
     p(displayUnit="Pa") = 101325,
     nPorts=1)
     "Process air source"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.BypassDampers deh(
     redeclare package Medium = Medium,
     per=perDat)
     "Dehumidifier"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.Data.EnergyPlus perDat(
     have_varSpe=false,
     mPro_flow_nominal=1,
@@ -68,36 +68,30 @@ model BypassDampers
     m_flow_nominal=0.5,
     tau=10)
     "Humidity sensor of the process air entering the dehumidifier"
-    annotation (Placement(transformation(extent={{-34,-40},{-14,-20}})));
+    annotation (Placement(transformation(extent={{-34,-50},{-14,-30}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senX_w_ProLea(
     redeclare package Medium = Medium, m_flow_nominal=0.5)
     "Humidity sensor of the process air leaving the dehumidifier"
-    annotation (Placement(transformation(extent={{26,-18},{46,2}})));
+    annotation (Placement(transformation(extent={{30,-18},{50,2}})));
 equation
   connect(sou_2.ports[1], deh.port_a2)
-    annotation (Line(points={{40,50},{18,50},
-    {18,8},{10,8}}, color={0,127,255}));
+    annotation (Line(points={{60,50},{40,50},{40,8},{20,8}}, color={0,127,255}));
   connect(sin_2.ports[1], deh.port_b2)
-    annotation (Line(points={{-40,50},{-20,50},
-    {-20,8},{-10,8}}, color={0,127,255}));
+    annotation (Line(points={{-40,60},{-10,60},{-10,8},{0,8}}, color={0,127,255}));
   connect(TProEnt.y, sou_1.T_in)
-    annotation (Line(points={{-77,-60},{-68,-60},
-    {-68,-26},{-62,-26}}, color={0,0,127}));
+    annotation (Line(points={{-77,-60},{-68,-60},{-68,-36},{-62,-36}}, color={0,0,127}));
   connect(uBypDamPos.y, deh.uBypDamPos)
-    annotation (Line(points={{-69,30},{-22,30},
-    {-22,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-69,30},{-20,30},{-20,0},{-2,0}}, color={0,0,127}));
   connect(uRot.y, deh.uRot)
-    annotation (Line(points={{-69,-6},{-12,-6}}, color={255,0,255}));
+    annotation (Line(points={{-69,-6},{-2,-6}},  color={255,0,255}));
   connect(deh.port_b1, senX_w_ProLea.port_a)
-    annotation (Line(points={{10,-8},{26,-8}}, color={0,127,255}));
+    annotation (Line(points={{20,-8},{30,-8}}, color={0,127,255}));
   connect(senX_w_ProLea.port_b, sin_1.ports[1])
-    annotation (Line(points={{46,-8},
-    {60,-8},{60,-40},{70,-40}}, color={0,127,255}));
+    annotation (Line(points={{50,-8},{60,-8},{60,-40},{70,-40}}, color={0,127,255}));
   connect(sou_1.ports[1], senX_w_ProEnt.port_a)
-    annotation (Line(points={{-40,-30},{-34,-30}}, color={0,127,255}));
+    annotation (Line(points={{-40,-40},{-34,-40}}, color={0,127,255}));
   connect(senX_w_ProEnt.port_b, deh.port_a1)
-    annotation (Line(points={{-14,-30},
-    {-6,-30},{-6,-16},{-16,-16},{-16,-8},{-10,-8}}, color={0,127,255}));
+    annotation (Line(points={{-14,-40},{-8,-40},{-8,-8},{0,-8}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=1200),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Validation/BypassDampers.mos"
     "Simulate and Plot"), Documentation(revisions="<html>

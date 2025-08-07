@@ -37,7 +37,7 @@ model Performance
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SensibleHeat senHea
     "Sensible heat exchange"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant hPro(k=2446*1000)
     "Vaporization enthalpy of water in process air"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -45,26 +45,26 @@ model Performance
     "Temperature of the regeneration air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
 equation
-  connect(onDeh.y, dehPer.uRot) annotation (Line(points={{-59,70},{-46,70},{-46,
+  connect(onDeh.y, dehPer.uRot) annotation (Line(points={{-59,70},{-30,70},{-30,
           8.2},{-11,8.2}}, color={255,0,255}));
   connect(TProEnt.y, dehPer.TProEnt) annotation (Line(points={{-59,30},{-40,30},
           {-40,4.2},{-11,4.2}}, color={0,0,127}));
-  connect(dehPer.X_w_ProEnt, X_w_ProEnt.y) annotation (Line(points={{-11,-3.8},
-          {-40,-3.8},{-40,-40},{-59,-40}}, color={0,0,127}));
+  connect(dehPer.X_w_ProEnt, X_w_ProEnt.y) annotation (Line(points={{-11,-3.8},{
+          -30,-3.8},{-30,-40},{-59,-40}},  color={0,0,127}));
   connect(mPro_flow.y, dehPer.mPro_flow) annotation (Line(points={{-59,-80},{
           -20,-80},{-20,-8.2},{-11,-8.2}}, color={0,0,127}));
-  connect(senHea.mPro_flow, mPro_flow.y) annotation (Line(points={{39,4},{20,4},
-          {20,30},{-34,30},{-34,-80},{-59,-80}}, color={0,0,127}));
-  connect(senHea.X_w_ProEnt, X_w_ProEnt.y) annotation (Line(points={{39,0},{16,0},
-          {16,24},{-28,24},{-28,-40},{-59,-40}}, color={0,0,127}));
+  connect(senHea.mPro_flow, mPro_flow.y) annotation (Line(points={{59,4},{46,4},
+          {46,-80},{-59,-80}}, color={0,0,127}));
+  connect(senHea.X_w_ProEnt, X_w_ProEnt.y) annotation (Line(points={{59,0},{40,0},
+          {40,-40},{-59,-40}}, color={0,0,127}));
   connect(dehPer.X_w_ProLea, senHea.X_w_ProLea)
-    annotation (Line(points={{11,4},{14,4},{14,-4},{39,-4}}, color={0,0,127}));
+    annotation (Line(points={{11,4},{20,4},{20,-4},{59,-4}}, color={0,0,127}));
   connect(senHea.hReg, dehPer.hReg)
-    annotation (Line(points={{39,-8},{11,-8}}, color={0,0,127}));
+    annotation (Line(points={{59,-8},{11,-8}}, color={0,0,127}));
   connect(hPro.y, senHea.hPro)
-    annotation (Line(points={{1,70},{30,70},{30,8},{39,8}}, color={0,0,127}));
-  connect(TRegEnt.y, dehPer.TRegEnt) annotation (Line(points={{-59,-8},{-48,-8},
-          {-48,0},{-11,0}}, color={0,0,127}));
+    annotation (Line(points={{1,70},{50,70},{50,8},{59,8}}, color={0,0,127}));
+  connect(TRegEnt.y, dehPer.TRegEnt) annotation (Line(points={{-59,-8},{-40,-8},
+          {-40,0},{-11,0}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=100),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/BaseClasses/Validation/Performance.mos"
         "Simulate and Plot"), Documentation(info="<html>

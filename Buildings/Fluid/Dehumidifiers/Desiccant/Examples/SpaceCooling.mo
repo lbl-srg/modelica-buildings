@@ -17,7 +17,7 @@ model SpaceCooling "Space cooling system"
     TProEnt_max(displayUnit="K"),
     TProEnt_min(displayUnit="K"))
     "Performance record for the dehumidifier"
-    annotation (Placement(transformation(extent={{-144,74},{-124,94}})));
+    annotation (Placement(transformation(extent={{-144,124},{-124,144}})));
 
 /////////////////////////////////////////////////////////
   // Design air conditions
@@ -71,18 +71,18 @@ model SpaceCooling "Space cooling system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     mSenFac=3)
     "Indoor room"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{142,90},{162,110}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
     G=10000/30)
     "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(
     Q_flow=QRooInt_flow)
     "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+    annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
     per(etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
@@ -91,7 +91,7 @@ model SpaceCooling "Space cooling system"
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{110,0},{130,20}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
@@ -108,32 +108,34 @@ model SpaceCooling "Space cooling system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling coil"
    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180, origin={0,-26})));
+        rotation=180,
+        origin={50,4})));
   Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = MediumA, nPorts=2)
     "Outdoor"
-    annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
+    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T souWat(
     nPorts=1,
     redeclare package Medium = MediumW,
     use_m_flow_in=true,
     T=TWSup_nominal)
     "Source for water flow rate"
-    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+    annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Fluid.Sources.Boundary_pT sinWat(
     nPorts=1, redeclare package Medium = MediumW)
     "Sink for water circuit"
-    annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
     "Weather data reader"
-    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}}),
+        iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse mAir_flow(
     amplitude=-mA_flow_nominal,
     width=0.5,
@@ -141,97 +143,97 @@ model SpaceCooling "Space cooling system"
     shift=0.24*87600,
     offset=mA_flow_nominal)
     "Fan air flow rate"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
-    annotation (Placement(transformation(extent={{16,-26},{28,-14}})));
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(
     k=TRooSet) "Room temperature set point"
-    annotation (Placement(transformation(extent={{-162,-132},{-142,-112}})));
+    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
     "Room temperature sensor"
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+    annotation (Placement(transformation(extent={{140,120},{160,140}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemRetAir(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for return air"
-    annotation (Placement(transformation(extent={{54,-52},{42,-40}})));
+    annotation (Placement(transformation(extent={{120,-60},{100,-40}})));
   Buildings.Controls.Continuous.LimPID conRoo(
     k=0.1,
     Ti=60,
     yMax=mW_flow_nominal,
     reverseActing=false)
     "Room controller"
-    annotation (Placement(transformation(extent={{-90,-132},{-70,-112}})));
+    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled deh(
     redeclare package Medium = MediumA,
     per=per) "Dehumidifier"
-    annotation (Placement(transformation(extent={{-98,-18},{-78,2}})));
+    annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
   Buildings.Fluid.Sources.Boundary_pT sou_Reg(
     redeclare package Medium = MediumA,
     p(displayUnit="Pa") = 101325,
     T(displayUnit="K") = 273.15 + 50,
     nPorts=1) "Regeneration air source"
-    annotation (Placement(transformation(extent={{-40,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-20,50},{-40,70}})));
   Buildings.Fluid.Sources.Boundary_pT sin_Reg(
     redeclare package Medium = MediumA,
     p(displayUnit="Pa") = 101325 - 500,
     nPorts=1) "Regeneration air sink"
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senX_w_DehOut(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     tau=10) "Humidity sensor of the process air entering the dehumidifier"
-    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senX_w_DehIn(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     tau=10) "Humidity sensor of the process air entering the dehumidifier"
-    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
-    tau=10) annotation (Placement(transformation(extent={{-38,-30},{-18,-10}})));
+    tau=10) annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Controls.Continuous.LimPID conDeh(
     k=0.1,
     Ti=60,
     reverseActing=false)
     "Dehumidifier controller"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant phiSetPoi(
     k=0.4)
     "Mixed air humidity set point"
-    annotation (Placement(transformation(extent={{-162,-90},{-142,-70}})));
+    annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
-      points={{40,50},{50,50},{50,30},{60,30}},
+      points={{80,100},{142,100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{40,80},{50,80},{50,30},{60,30}},
+      points={{40,130},{100,130},{100,100},{142,100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fan.port_b, vol.ports[1]) annotation (Line(
-      points={{60,-20},{69,-20},{69,20}},
+      points={{130,10},{151,10},{151,90}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souWat.ports[1], cooCoi.port_a1)   annotation (Line(
-      points={{0,-100},{30,-100},{30,-32},{10,-32}},
+      points={{60,-100},{80,-100},{80,-2},{60,-2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b1, sinWat.ports[1])    annotation (Line(
-      points={{-10,-32},{-14,-32},{-14,-66},{-60,-66}},
+      points={{40,-2},{30,-2},{30,-30},{20,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, out.weaBus) annotation (Line(
-      points={{-160,50},{-154,50},{-154,18},{-178,18},{-178,-19.8},{-160,-19.8}},
+      points={{-160,100},{-140,100},{-140,80},{-180,80},{-180,10.2},{-160,10.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-160,50},{-110,50}},
+      points={{-160,100},{-110,100}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -239,7 +241,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, TOut.T) annotation (Line(
-      points={{-109.95,50.05},{-66,50.05},{-66,50},{-22,50}},
+      points={{-109.95,100.05},{-66,100.05},{-66,100},{-22,100}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -247,56 +249,55 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{50,-8},{50,10},{22,10}},
+      points={{120,22},{120,60},{102,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cooCoi.port_b2, senTemSupAir.port_a) annotation (Line(
-      points={{10,-20},{16,-20}},
+      points={{60,10},{80,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemSupAir.port_b, fan.port_a) annotation (Line(
-      points={{28,-20},{40,-20}},
+      points={{100,10},{110,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut.port, theCon.port_a) annotation (Line(
-      points={{5.55112e-16,50},{20,50}},
+      points={{0,100},{60,100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol.heatPort, senTemRoo.port) annotation (Line(
-      points={{60,30},{50,30},{50,80},{70,80}},
+      points={{142,100},{120,100},{120,130},{140,130}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol.ports[2], senTemRetAir.port_a)
-    annotation (Line(points={{71,20},{71,-46},{54,-46}}, color={0,127,255}));
-  connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-80,-134},{-80,-142},
-          {98,-142},{98,80},{91,80}}, color={0,0,127}));
+    annotation (Line(points={{153,90},{153,-50},{120,-50}}, color={0,127,255}));
+  connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-30,-142},{-30,-150},
+          {180,-150},{180,130},{161,130}}, color={0,0,127}));
   connect(TRooSetPoi.y, conRoo.u_s)
-    annotation (Line(points={{-140,-122},{-92,-122}}, color={0,0,127}));
-  connect(conRoo.y, souWat.m_flow_in) annotation (Line(points={{-69,-122},{-30,-122},
-          {-30,-92},{-22,-92}}, color={0,0,127}));
-  connect(sin_Reg.ports[1], deh.port_b2) annotation (Line(points={{-120,20},{
-          -108,20},{-108,0},{-98,0}},color={0,127,255}));
-  connect(sou_Reg.ports[1], deh.port_a2) annotation (Line(points={{-60,20},{-70,
-          20},{-70,0},{-78,0}}, color={0,127,255}));
-  connect(senX_w_DehOut.port_a, deh.port_b1) annotation (Line(points={{-70,-20},
-          {-72,-20},{-72,-16},{-78,-16}},
-                                color={0,127,255}));
-  connect(senX_w_DehIn.port_b, deh.port_a1) annotation (Line(points={{-110,-20},
-          {-106,-20},{-106,-16},{-98,-16}},  color={0,127,255}));
-  connect(senTemRetAir.port_b, out.ports[1]) annotation (Line(points={{42,-46},
-          {-140,-46},{-140,-21}},color={0,127,255}));
-  connect(senX_w_DehIn.port_a, out.ports[2]) annotation (Line(points={{-130,-20},
-          {-130,-19},{-140,-19}}, color={0,127,255}));
+    annotation (Line(points={{-98,-130},{-42,-130}},  color={0,0,127}));
+  connect(conRoo.y, souWat.m_flow_in) annotation (Line(points={{-19,-130},{20,-130},
+          {20,-92},{38,-92}},   color={0,0,127}));
+  connect(sin_Reg.ports[1], deh.port_b2) annotation (Line(points={{-100,60},{-90,
+          60},{-90,26},{-80,26}},    color={0,127,255}));
+  connect(sou_Reg.ports[1], deh.port_a2) annotation (Line(points={{-40,60},{-50,
+          60},{-50,26},{-60,26}}, color={0,127,255}));
+  connect(senX_w_DehOut.port_a, deh.port_b1) annotation (Line(points={{-40,10},{
+          -60,10}}, color={0,127,255}));
+  connect(senX_w_DehIn.port_b, deh.port_a1) annotation (Line(points={{-100,10},{
+          -80,10}}, color={0,127,255}));
+  connect(senTemRetAir.port_b, out.ports[1]) annotation (Line(points={{100,-50},
+          {-140,-50},{-140,9}},  color={0,127,255}));
+  connect(senX_w_DehIn.port_a, out.ports[2]) annotation (Line(points={{-120,10},
+          {-120,11},{-140,11}},   color={0,127,255}));
   connect(senX_w_DehOut.port_b, senRelHum.port_a)
-    annotation (Line(points={{-50,-20},{-38,-20}}, color={0,127,255}));
+    annotation (Line(points={{-20,10},{0,10}}, color={0,127,255}));
   connect(senRelHum.port_b, cooCoi.port_a2)
-    annotation (Line(points={{-18,-20},{-10,-20}}, color={0,127,255}));
+    annotation (Line(points={{20,10},{40,10}}, color={0,127,255}));
   connect(phiSetPoi.y, conDeh.u_s)
-    annotation (Line(points={{-140,-80},{-122,-80}}, color={0,0,127}));
-  connect(conDeh.u_m, senRelHum.phi) annotation (Line(points={{-110,-92},{-110,-102},
-          {-44,-102},{-44,0},{-27.9,0},{-27.9,-9}}, color={0,0,127}));
-  connect(conDeh.y, deh.uSpe) annotation (Line(points={{-99,-80},{-86,-80},{-86,
-          -40},{-100,-40},{-100,-8}},           color={0,0,127}));
+    annotation (Line(points={{-158,-80},{-142,-80}}, color={0,0,127}));
+  connect(conDeh.u_m, senRelHum.phi) annotation (Line(points={{-130,-92},{-130,-100},
+          {-10,-100},{-10,30},{10.1,30},{10.1,21}}, color={0,0,127}));
+  connect(conDeh.y, deh.uSpe) annotation (Line(points={{-119,-80},{-90,-80},{-90,
+          18},{-82,18}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block is identical to
@@ -338,10 +339,11 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},{120,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-160},{200,
+            160}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Examples/SpaceCooling.mos"
         "Simulate and plot"),
-    experiment(StartTime=15552000, Tolerance=1e-6, StopTime=15638400));
+    experiment(StartTime=15552000, Tolerance=1e-6, StopTime=15638400),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end SpaceCooling;
