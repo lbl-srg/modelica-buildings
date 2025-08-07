@@ -23,11 +23,11 @@ extern "C" {
 #endif
 
 /** \file jm_named_ptr.h Definition of ::jm_named_ptr and supporting functions
-	*
-	* \addtogroup jm_utils
-	* @{
-		\addtogroup jm_named_ptr
-	* @}
+    *
+    * \addtogroup jm_utils
+    * @{
+        \addtogroup jm_named_ptr
+    * @}
 */
 /** \addtogroup jm_named_ptr Named objects
  @{
@@ -43,10 +43,10 @@ struct jm_named_ptr {
 
 /**
 \brief Allocate memory for the object and the name string and sets pointer to it packed together with the name pointer.
- \param name Name for the object.
- \param size Size of the data structure.
- \param nameoffset Offset of the name field within the data structure.
- \param c Callbacks to be used for memory allocation.
+ @param name Name for the object.
+ @param size Size of the data structure.
+ @param nameoffset Offset of the name field within the data structure.
+ @param c Callbacks to be used for memory allocation.
 
 The function jm_named_alloc() is intended for types defined as:
 \code
@@ -59,7 +59,24 @@ The "name" is copied into the allocated memory.
 */
 jm_named_ptr jm_named_alloc(jm_string name, size_t size, size_t nameoffset, jm_callbacks* c);
 
-/** \brief Same as jm_named_alloc() but name is given as a jm_vector(char) pointer */
+/**
+ * \brief Same as jm_named_alloc() but name is given as a jm_vector(char) pointer.
+ * 
+ * Returns a jm_named_ptr where the memory for the .ptr field has been allocated
+ * and the name set.
+ * 
+ * The caller needs to verify that the .ptr field is not NULL.
+ *
+ * The allocated memory must be able to store 'name', and 'nameoffset' must give
+ * the offset to that address.
+ * 
+ * @param name:
+ *      The name.
+ * @param size:
+ *      Size of memory for the .ptr (just like for malloc). Do not add the size for the name.
+ * @param nameoffset:
+ *      Write the name at offset from the start of the requested 'size'.
+ */
 jm_named_ptr jm_named_alloc_v(jm_vector(char)* name, size_t size, size_t nameoffset, jm_callbacks* c);
 
 /** \brief Free the memory allocated for the object pointed by jm_named_ptr */
