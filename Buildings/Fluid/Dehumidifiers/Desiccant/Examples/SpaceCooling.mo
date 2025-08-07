@@ -304,7 +304,8 @@ This block is identical to
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
 except that the heat recovery device is replaced with a dehumidifier
-that is modelled with <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled\">
+that is modelled with
+<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled\">
 Buildings.Fluid.Dehumidifiers.Desiccant.SpeedControlled</a>.
 </p>
 <p>
@@ -334,7 +335,8 @@ The mixed air humidity ratio <code>senRelHum.phi</code> is close to 0.4.
 <ul>
 <li>
 May 3, 2024, by Sen Huang:<br/>
-First implementation based on <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
+First implementation based on
+<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </li>
 </ul>

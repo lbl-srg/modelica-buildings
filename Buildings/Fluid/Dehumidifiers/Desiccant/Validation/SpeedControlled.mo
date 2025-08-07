@@ -86,8 +86,7 @@ equation
   connect(senX_w_ProEnt.port_b, deh.port_a1) annotation (Line(points={{-14,-40},
           {-10,-40},{-10,-8},{0,-8}},               color={0,127,255}));
   connect(uSpe.y, deh.uSpe)
-    annotation (Line(points={{-59,0},{-2,0}},
-    color={0,0,127}));
+    annotation (Line(points={{-59,0},{-2,0}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1200),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Validation/SpeedControlled.mos"
     "Simulate and Plot"), Documentation(revisions="<html>

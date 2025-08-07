@@ -11,7 +11,7 @@ model BypassDampers "Desiccant dehumidifier with bypass dampers"
     "Time needed to fully open or close actuator"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization of dampers (no init/steady state/initial state/initial output)"
+    "Type of initialization of dampers (no init, steady state, initial state, or initial output)"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
   parameter Real yByp_start=1 "Initial position of bypass actuators"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));

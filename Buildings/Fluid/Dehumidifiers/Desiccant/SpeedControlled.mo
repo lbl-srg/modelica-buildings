@@ -80,7 +80,7 @@ Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
 <p>
 The operation of the dehumidifier is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in
-<a href=\"Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrection\">
+<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrection\">
 Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.SpeedCorrection</a>.
 </p>
 </html>", revisions="<html>
