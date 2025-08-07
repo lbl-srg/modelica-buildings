@@ -1,10 +1,8 @@
 compareVars :=
   {
     "staStaDow.uStaDow",
-    "staStaDow.uChiLoa[1]",
-    "staStaDow.uChiLoa[2]",
-    "staStaDow.yChiDem[1]",
-    "staStaDow.yChiDem[2]",
+    "staStaDow.uChiLoa",
+    "staStaDow.yChiDem",
     "staStaDow.yChiHeaCon[1]",
     "staStaDow.yChiHeaCon[2]",
     "staStaDow.yChiWatIsoVal[1]",

@@ -32,8 +32,7 @@ protected
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Logical.Not staDow "Stage down command"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa[2](
-    final k=fill(2, 2))
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa(final k=2)
     "Chiller load"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin(
@@ -42,13 +41,13 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe[2](
     final k=fill(1, 2)) "Full open isolation valve"
     annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1[2](
-    final k=fill(0,2)) "Constant zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0)
+    "Constant zero"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre2[2](
     final pre_u_start=fill(true,2)) "Break algebraic loop"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Switch IsoVal[2] "Logical switch"
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
@@ -67,8 +66,8 @@ protected
     final samplePeriod=20)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](final k={
-        true,true})
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](
+    final k={true,true})
     "Vector of chillers status setpoint at stage two"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi2[2](
@@ -110,7 +109,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "True when it is not in process"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
-
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=2)
+    "Check if there is any enabled chiller"
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 equation
   connect(booPul.y,staDow. u)
     annotation (Line(points={{-118,130},{-102,130}}, color={255,0,255}));
@@ -120,14 +121,11 @@ equation
   connect(dowProCon.yChi, pre2.u)
     annotation (Line(points={{62,82},{94,82},{94,40},{98,40}},
       color={255,0,255}));
-  connect(pre2.y, swi1.u2)
-    annotation (Line(points={{122,40},{140,40},{140,0},{-80,0},{-80,-40},{-62,-40}},
-      color={255,0,255}));
   connect(chiLoa.y, swi1.u1)
-    annotation (Line(points={{-118,-20},{-100,-20},{-100,-32},{-62,-32}},
+    annotation (Line(points={{-118,-20},{-66,-20},{-66,-32},{-62,-32}},
       color={0,0,127}));
   connect(zer1.y, swi1.u3)
-    annotation (Line(points={{-118,-60},{-100,-60},{-100,-48},{-62,-48}},
+    annotation (Line(points={{-118,-60},{-66,-60},{-66,-48},{-62,-48}},
       color={0,0,127}));
   connect(swi1.y, dowProCon.uChiLoa)
     annotation (Line(points={{-38,-40},{-30,-40},{-30,81},{38,81}},
@@ -176,8 +174,7 @@ equation
       color={0,0,127}));
   connect(zerOrdHol1.y, dowProCon.uConWatPumSpeSet)
     annotation (Line(points={{122,-80},{140,-80},{140,-160},{24,-160},{24,55},{
-          38,55}},
-                color={0,0,127}));
+          38,55}}, color={0,0,127}));
   connect(zerOrdHol1.y, zerOrdHol2.u)
     annotation (Line(points={{122,-80},{140,-80},{140,-100},{80,-100},{80,-120},
           {98,-120}}, color={0,0,127}));
@@ -220,7 +217,10 @@ equation
           {-80,-180},{-80,-160},{-62,-160}}, color={255,0,255}));
   connect(sta.y, dowProCon.uChiSta) annotation (Line(points={{2,-160},{10,-160},
           {10,74},{38,74}}, color={255,127,0}));
-
+  connect(mulOr.y, swi1.u2)
+    annotation (Line(points={{-78,-40},{-62,-40}}, color={255,0,255}));
+  connect(pre2.y, mulOr.u) annotation (Line(points={{122,40},{140,40},{140,0},{-110,
+          0},{-110,-40},{-102,-40}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/DownWithoutOnOff.mos"

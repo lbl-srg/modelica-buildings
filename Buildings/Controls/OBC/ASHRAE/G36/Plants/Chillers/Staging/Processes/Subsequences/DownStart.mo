@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences;
 block DownStart "Sequence for starting stage-down process"
 
-  parameter Integer nChi=2
-                         "Total number of chillers";
+  parameter Integer nChi=2 "Total number of chillers";
   parameter Boolean have_airCoo=false
     "True: the plant has air cooled chiller";
   parameter Boolean have_parChi=true
@@ -51,11 +50,11 @@ block DownStart "Sequence for starting stage-down process"
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
-        fill("Power", nChi), final unit=fill("J/s", nChi))
-    if need_reduceChillerDemand "Current chiller load"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
+    final quantity="HeatFlowRate",
+    final unit="W") if need_reduceChillerDemand "Current chiller load"
     annotation (Placement(transformation(extent={{-200,130},{-160,170}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
@@ -94,12 +93,12 @@ block DownStart "Sequence for starting stage-down process"
     "Next disabling chiller when there is any stage up that need one chiller on and another off"
     annotation (Placement(transformation(extent={{-200,-190},{-160,-150}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
-    final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
-    if need_reduceChillerDemand "Chiller demand setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem(
+    final quantity="HeatFlowRate",
+    final unit="W") if need_reduceChillerDemand
+    "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{180,120},{220,160}}),
-      iconTransformation(extent={{100,70},{140,110}})));
+        iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinFloSet
     "Chilled water minimum flow setpoint"
     annotation (Placement(transformation(extent={{180,50},{220,90}}),
@@ -175,8 +174,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch heaPreCon[nChi] if not have_airCoo
     "Logical switch"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch chiDem[nChi]
-    if need_reduceChillerDemand
+  Buildings.Controls.OBC.CDL.Reals.Switch chiDem if need_reduceChillerDemand
     "Chiller demand"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
@@ -267,9 +265,6 @@ equation
       color={255,0,255}));
   connect(uOnOff, booRep4.u)
     annotation (Line(points={{-180,20},{58,20}}, color={255,0,255}));
-  connect(booRep4.y, chiDem.u2)
-    annotation (Line(points={{82,20},{120,20},{120,140},{138,140}},
-      color={255,0,255}));
   connect(chiDemRed.yChiDem, chiDem.u1)
     annotation (Line(points={{2,174},{120,174},{120,148},{138,148}},
       color={0,0,127}));
@@ -396,6 +391,8 @@ equation
           -2,-68}}, color={255,0,255}));
   connect(lat1.y, or1.u1) annotation (Line(points={{82,50},{100,50},{100,36},{-10,
           36},{-10,-60},{-2,-60}}, color={255,0,255}));
+  connect(booRep4.y[1], chiDem.u2) annotation (Line(points={{82,19.5},{120,19.5},
+          {120,140},{138,140}}, color={255,0,255}));
 annotation (
   defaultComponentName="staStaDow",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-200},{180,220}})),
