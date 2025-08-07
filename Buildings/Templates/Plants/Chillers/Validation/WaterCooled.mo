@@ -6,7 +6,11 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     "Main medium (common for CHW and CW)";
   parameter
     Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled
-    datAll(pla(final cfg=pla.cfg)) "Plant parameters"
+    datAll(pla(final cfg=pla.cfg, ctl(sta=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
+             then [0,0,0; 0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else [0,0; 1,0; 1,
+            1], staPumConWat=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
+             then {0,1,1,2,2,2} else {0,1,2})))
+                                   "Plant parameters"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -44,20 +48,20 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     nAirHan=1,
     final energyDynamics=energyDynamics,
     final dat=datAll.pla,
+    show_T=true,
     linearized=true,
     chi(
       have_senTChiWatChiSup_select=true,
       have_senTChiWatChiRet=true,
       have_senTConWatChiSup=true,
-      have_senTConWatChiRet_select=true,
-      chi(each show_T=true)),
+      have_senTConWatChiRet_select=true),
     redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve
-      eco "Heat exchanger with bypass valve for CHW flow control",
+      Buildings.Templates.Plants.Chillers.Components.Economizers.None eco
+      "No waterside economizer",
     ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller,
         typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
     "Chiller plant"
-    annotation (Placement(transformation(extent={{-80,-118},{-40,-78}})));
+    annotation (Placement(transformation(extent={{-80,-120},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSup(k=293.15, y(final
         unit="K", displayUnit="degC"))
     "Placeholder signal for request generator"
@@ -136,7 +140,7 @@ equation
   connect(mulInt[2].y, busAirHan.reqPlaChiWat)
     annotation (Line(points={{-12,140},{-40,140}},color={255,127,0}));
   connect(weaDat.weaBus, pla.busWea)
-    annotation (Line(points={{-160,-60},{-60,-60},{-60,-78}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-160,-60},{-60,-60},{-60,-80}},color={255,204,51},thickness=0.5));
   connect(loaChiWat.port_b, valDisChiWat.port_a)
     annotation (Line(points={{90,-60},{110,-60}},color={0,127,255}));
   connect(loaChiWat.port_a, dpChiWatRem[1].port_a)
@@ -146,9 +150,9 @@ equation
   connect(TAirSup.y, reqPlaRes.TAirSupSet) annotation (Line(points={{-158,160},
           {120,160},{120,141},{112,141}}, color={0,0,127}));
   connect(busAirHan, pla.busAirHan[1])
-    annotation (Line(points={{-40,140},{-40,-84}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-40,140},{-40,-86}},color={255,204,51},thickness=0.5));
   connect(pla.bus, busPla)
-    annotation (Line(points={{-80,-88},{-80,-40}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-80,-90},{-80,-40}},color={255,204,51},thickness=0.5));
   connect(valDisChiWat.y_actual, reqPlaRes.uCooCoiSet)
     annotation (Line(points={{125,-53},{140,-53},{140,135},{112,135}}, color={0,0,127}));
   connect(valDisChiWat.port_b, mChiWat_flow.port_a)
@@ -186,10 +190,12 @@ equation
           {-92,46}}, color={0,0,127}));
   connect(TChiWatRet.y, min1.u2) annotation (Line(points={{-106,20},{-100,20},{-100,
           34},{-92,34}}, color={0,0,127}));
-  connect(pla.port_a, pipChiWat.port_b) annotation (Line(points={{-39.8,-108},{-20,
-          -108},{-20,-140},{-10,-140}}, color={0,127,255}));
-  connect(pla.port_b, loaChiWat.port_a) annotation (Line(points={{-39.8,-98},{-20,
-          -98},{-20,-60},{70,-60}}, color={0,127,255}));
+  connect(pla.port_a, pipChiWat.port_b) annotation (Line(points={{-39.8,-110},{
+          -20,-110},{-20,-140},{-10,-140}},
+                                        color={0,127,255}));
+  connect(pla.port_b, loaChiWat.port_a) annotation (Line(points={{-39.8,-100},{
+          -20,-100},{-20,-60},{70,-60}},
+                                    color={0,127,255}));
   connect(schEna.y, busPla.u1SchEna) annotation (Line(points={{-158,-20},{-80,
           -20},{-80,-40}}, color={255,0,255}));
   annotation (

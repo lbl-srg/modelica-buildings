@@ -255,6 +255,7 @@ block G36
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers",group="Makeup water"));
   Buildings.Templates.Plants.Chillers.Components.Controls.patchController ctl(
+    final have_airCoo=cfg.typChi == Buildings.Templates.Components.Types.Chiller.AirCooled,
     final chiDesCap=chiDesCap,
     final chiMinCap=chiMinCap,
     final chiTyp=chiTyp,
@@ -355,9 +356,9 @@ block G36
     "Sum of CHW reset requests of all loads served"
     annotation (Placement(transformation(extent={{190,104},{170,124}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax FIXME_yConWatPumSpe(
-    final nin=nConWatPum)
-    if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-      and cfg.typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final nin=nConWatPum) if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+     and cfg.typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered
+     and cfg.have_pumConWatVar
     "#2299 Should be scalar in case of headered CW pumps"
     annotation (Placement(transformation(extent={{50,-20},{70,0}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis FIXME_yTowCelIsoVal[cfg.nCoo](
@@ -382,15 +383,10 @@ block G36
   Modelica.Blocks.Continuous.CriticalDamping FIXME_uConWatPumSpe[cfg.nPumConWat](
     each n=1,
     each f=2.2/(2*Modelica.Constants.pi*30),
-    each initType=Modelica.Blocks.Types.Init.InitialOutput)
+    each initType=Modelica.Blocks.Types.Init.InitialOutput) if cfg.typChi ==
+    Buildings.Templates.Components.Types.Chiller.WaterCooled and cfg.have_pumConWatVar
     "#2299: Should be the commanded speed output from subcontroller."
     annotation (Placement(transformation(extent={{20,-110},{0,-90}})));
-  Modelica.Blocks.Continuous.CriticalDamping FIXME_uFanSpe(
-    n=1,
-    f=2.2/(2*Modelica.Constants.pi*30),
-    initType=Modelica.Blocks.Types.Init.InitialOutput)
-    "#2299: This should be the commanded speed `ySpeSet` computed internally"
-    annotation (Placement(transformation(extent={{20,-170},{0,-150}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.LocalDp_setpoint
     resDpChiWatLoc(
     final nSen=cfg.nSenDpChiWatRem,
@@ -410,6 +406,10 @@ block G36
         cfg.nChi, nout=cfg.nChi) if typCtlHea <> Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None
     "#2299 Chiller CHW supply temperature, missing input connector"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal FIXME_uConWatPumSpe1[cfg.nPumConWat]
+    if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+     and not cfg.have_pumConWatVar "See above block"
+    annotation (Placement(transformation(extent={{20,-140},{0,-120}})));
 protected
   Integer idx
     "Iteration variable for algorithm section";
@@ -536,9 +536,6 @@ equation
           -3},{-2,-3}}, color={255,0,255}));
   connect(ctl.yTowCelIsoVal, FIXME_yTowCelIsoVal.u) annotation (Line(points={{22,-18},
           {38,-18},{38,-80},{48,-80}},      color={0,0,127}));
-  connect(FIXME_uChiLoa.y, ctl.uChiCooLoa) annotation (Line(points={{-128,200},{
-          -22,200},{-22,-26},{-2,-26}},
-                                    color={0,0,127}));
   connect(FIXME_uChiLoa.y, ctl.uChiLoa) annotation (Line(points={{-128,200},{-22,
           200},{-22,2},{-2,2}}, color={0,0,127}));
   connect(busChi.y1_actual, yChi_actual.u) annotation (Line(
@@ -561,10 +558,6 @@ equation
           40,5},{40,-100},{22,-100}},     color={0,0,127}));
   connect(FIXME_uConWatPumSpe.y, ctl.uConWatPumSpe) annotation (Line(points={{-1,-100},
           {-12,-100},{-12,-18},{-2,-18}},       color={0,0,127}));
-  connect(FIXME_uFanSpe.y, ctl.uFanSpe) annotation (Line(points={{-1,-160},{-10,
-          -160},{-10,-30},{-2,-30}}, color={0,0,127}));
-  connect(FIXME_yTowFanSpe.y, FIXME_uFanSpe.u) annotation (Line(points={{72,-110},
-          {80,-110},{80,-160},{22,-160}},color={0,0,127}));
   connect(resDpChiWatLoc.dpChiWatPumSet_local, ctl.dpChiWatSet_local)
     annotation (Line(points={{-38,-40},{-30,-40},{-30,26},{-2,26}}, color={0,0,127}));
   connect(ctl.dpChiWatPumSet, resDpChiWatLoc.dpChiWatSet_remote) annotation (
@@ -580,6 +573,10 @@ equation
       points={{-240,200},{-210,200},{-210,0},{-112,0}},
       color={255,204,51},
       thickness=0.5));
+  connect(ctl.yConWatPum, FIXME_uConWatPumSpe1.u) annotation (Line(points={{22,
+          -1},{28,-1},{28,-130},{22,-130}}, color={255,0,255}));
+  connect(FIXME_uConWatPumSpe1.y, ctl.uConWatPumSpe) annotation (Line(points={{
+          -2,-130},{-12,-130},{-12,-18},{-2,-18}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>
