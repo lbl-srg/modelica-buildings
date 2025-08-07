@@ -89,13 +89,13 @@ block LessCoupled
     "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
@@ -255,9 +255,8 @@ equation
       color={0,0,127}));
   connect(uChi, swi1.u2)
     annotation (Line(points={{-200,-120},{-42,-120}}, color={255,0,255}));
-  connect(uMaxTowSpeSet, swi1.u1)
-    annotation (Line(points={{-200,-90},{-120,-90},{-120,-112},{-42,-112}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, swi1.u1) annotation (Line(points={{-200,-90},{-120,-90},{-120,
+          -112},{-42,-112}}, color={0,0,127}));
   connect(one2.y, swi1.u3)
     annotation (Line(points={{-138,-150},{-120,-150},{-120,-128},{-42,-128}},
       color={0,0,127}));
@@ -362,7 +361,7 @@ at 0% loop output to 100% speed at 100% loop output.
 <li>
 Tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head
-pressure control loop <code>uMaxTowSpeSet</code>, and tower maximum speed that reset
+pressure control loop <code>uMaxSpeSet</code>, and tower maximum speed that reset
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
 receive the same speed signal.
 </li>

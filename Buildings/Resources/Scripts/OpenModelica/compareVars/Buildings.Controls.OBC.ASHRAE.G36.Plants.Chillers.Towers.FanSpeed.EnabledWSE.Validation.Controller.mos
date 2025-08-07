@@ -1,7 +1,6 @@
 compareVars :=
   {
-    "wseOpe.chiLoa[1]",
-    "wseOpe.chiLoa[2]",
+    "wseOpe.uChiLoa",
     "wseOpe.uChi[1]",
     "wseOpe.uChi[2]",
     "wseOpe.uWse",

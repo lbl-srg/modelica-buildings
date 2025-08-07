@@ -173,12 +173,10 @@ block Controller "Cooling tower controller"
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    final unit=fill("W", nChi),
-    final quantity=fill("HeatFlowRate", nChi)) if have_WSE
-    "Current cooling load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(final unit="W",
+      final quantity="HeatFlowRate") if have_WSE "Current cooling load"
     annotation (Placement(transformation(extent={{-140,220},{-100,260}}),
-      iconTransformation(extent={{-140,170},{-100,210}})));
+        iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Vector of chiller proven on status: true=ON"
     annotation (Placement(transformation(extent={{-140,190},{-100,230}}),
@@ -187,12 +185,6 @@ block Controller "Cooling tower controller"
     "Waterside economizer proven on status: true=ON"
     annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
       iconTransformation(extent={{-140,130},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
-     final min=0,
-     final max=1,
-     final unit="1") "Measured fan speed of each tower cell"
-    annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
-      iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     displayUnit="degC",
@@ -212,13 +204,13 @@ block Controller "Cooling tower controller"
     final quantity="HeatFlowRate") "Current required plant capacity"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
     "Vector of tower cell proven on status: true=running tower cell"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -393,22 +385,20 @@ equation
   connect(zer.y, swi.u3)
     annotation (Line(points={{22,-180},{40,-180},{40,-158},{58,-158}},
       color={0,0,127}));
-  connect(towFanSpe.chiLoa, chiLoa)
-    annotation (Line(points={{-22,59},{-40,59},{-40,240},{-120,240}}, color={0,0,127}));
+  connect(towFanSpe.uChiLoa, uChiLoa) annotation (Line(points={{-22,59},{-40,59},
+          {-40,240},{-120,240}}, color={0,0,127}));
   connect(towFanSpe.uChi, uChi)
     annotation (Line(points={{-22,56},{-44,56},{-44,210},{-120,210}}, color={255,0,255}));
   connect(towFanSpe.uWse, uWse) annotation (Line(points={{-22,53},{-48,53},{-48,
           180},{-120,180}}, color={255,0,255}));
-  connect(towFanSpe.uFanSpe,uFanSpe)
-    annotation (Line(points={{-22,50},{-52,50},{-52,160},{-120,160}}, color={0,0,127}));
   connect(towFanSpe.TChiWatSup, TChiWatSup)
     annotation (Line(points={{-22,47},{-56,47},{-56,140},{-120,140}}, color={0,0,127}));
   connect(towFanSpe.TChiWatSupSet, TChiWatSupSet)
     annotation (Line(points={{-22,44},{-60,44},{-60,120},{-120,120}}, color={0,0,127}));
   connect(towFanSpe.reqPlaCap, reqPlaCap)
     annotation (Line(points={{-22,41},{-64,41},{-64,100},{-120,100}}, color={0,0,127}));
-  connect(towFanSpe.uMaxTowSpeSet, uMaxTowSpeSet)
-    annotation (Line(points={{-22,38},{-68,38},{-68,70},{-120,70}}, color={0,0,127}));
+  connect(towFanSpe.uMaxSpeSet, uMaxSpeSet) annotation (Line(points={{-22,38},{
+          -68,38},{-68,70},{-120,70}}, color={0,0,127}));
   connect(towFanSpe.uTow, uTowSta) annotation (Line(points={{-22,35},{-76,35},{-76,
           40},{-120,40}},     color={255,0,255}));
   connect(towFanSpe.uPla, uPla)
@@ -468,8 +458,8 @@ annotation (
         Text(
           extent={{-100,196},{-62,184}},
           textColor={0,0,127},
-          textString="chiLoa",
-          visible=have_WSE),
+          visible=have_WSE,
+          textString="uChiLoa"),
         Text(
           extent={{-98,-82},{-50,-98}},
           textColor={255,127,0},
@@ -500,10 +490,6 @@ annotation (
           textString="uWse",
           visible=have_WSE),
         Text(
-          extent={{-100,138},{-50,124}},
-          textColor={0,0,127},
-          textString="uFanSpe"),
-        Text(
           extent={{-98,118},{-34,102}},
           textColor={0,0,127},
           textString="TChiWatSup",
@@ -517,9 +503,9 @@ annotation (
           textColor={0,0,127},
           textString="TChiWatSupSet"),
         Text(
-          extent={{-98,60},{-14,42}},
+          extent={{-98,60},{-28,44}},
           textColor={0,0,127},
-          textString="uMaxTowSpeSet"),
+          textString="uMaxSpeSet"),
         Text(
           extent={{-96,-22},{-12,-40}},
           textColor={0,0,127},

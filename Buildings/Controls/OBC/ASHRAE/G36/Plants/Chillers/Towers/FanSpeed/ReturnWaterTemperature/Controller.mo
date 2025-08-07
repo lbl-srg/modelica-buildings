@@ -128,13 +128,13 @@ block Controller
     annotation (Dialog(tab="Advanced",
                        group="Setpoint: Plant startup"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpeWSE(
-     final min=0,
-     final max=1,
-     final unit="1") if have_WSE
-    "Cooling tower speed when the waterside economizer is enabled"
-    annotation (Placement(transformation(extent={{-200,220},{-160,260}}),
-      iconTransformation(extent={{-240,160},{-200,200}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpeWSE(
+    final min=0,
+    final max=1,
+    final unit="1") if have_WSE
+    "Cooling tower speed when the waterside economizer is enabled" annotation (
+      Placement(transformation(extent={{-200,220},{-160,260}}),
+        iconTransformation(extent={{-240,160},{-200,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-200,190},{-160,230}}),
@@ -148,19 +148,13 @@ block Controller
     final quantity="HeatFlowRate") "Current required plant capacity"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-240,70},{-200,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
-      iconTransformation(extent={{-240,40},{-200,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
-    final min=0,
-    final max=1,
-    final unit="1") "Measured speed of current enabled tower fans"
-    annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
-      iconTransformation(extent={{-240,10},{-200,50}})));
+        iconTransformation(extent={{-240,40},{-200,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTow[nTowCel]
     "Cooling tower operating status: true=running tower cell"
     annotation (Placement(transformation(extent={{-200,-50},{-160,-10}}),
@@ -362,12 +356,8 @@ equation
   connect(conWatRetSet.uPla, uPla)
     annotation (Line(points={{-42,-78},{-60,-78},{-60,-120},{-180,-120}},
       color={255,0,255}));
-  connect(enaTow.uMaxTowSpeSet, uMaxTowSpeSet)
-    annotation (Line(points={{38,29},{-120,29},{-120,40},{-180,40}},
-      color={0,0,127}));
-  connect(enaTow.uFanSpe,uFanSpe)
-    annotation (Line(points={{38,26},{-130,26},{-130,10},{-180,10}},
-      color={0,0,127}));
+  connect(enaTow.uMaxSpeSet, uMaxSpeSet) annotation (Line(points={{38,29},{-120,
+          29},{-120,40},{-180,40}}, color={0,0,127}));
   connect(enaTow.uTow, uTow)
     annotation (Line(points={{38,14},{-110,14},{-110,-30},{-180,-30}},
       color={255,0,255}));
@@ -380,9 +370,8 @@ equation
   connect(couTowSpe.uConWatPumSpe, uConWatPumSpe)
     annotation (Line(points={{38,-128},{-80,-128},{-80,-200},{-180,-200}},
       color={0,0,127}));
-  connect(uMaxTowSpeSet, couTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{-180,40},{-120,40},{-120,-132},{38,-132}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, couTowSpe.uMaxSpeSet) annotation (Line(points={{-180,40},
+          {-120,40},{-120,-132},{38,-132}}, color={0,0,127}));
   connect(plrTowMaxSpe.y, couTowSpe.plrTowMaxSpe)
     annotation (Line(points={{2,100},{20,100},{20,-140},{38,-140}},
       color={0,0,127}));
@@ -398,9 +387,8 @@ equation
   connect(lesCouTowSpe.TConWatSup, TConWatSup)
     annotation (Line(points={{38,-222},{0,-222},{0,-280},{-180,-280}},
       color={0,0,127}));
-  connect(uMaxTowSpeSet, lesCouTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{-180,40},{-120,40},{-120,-225},{38,-225}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, lesCouTowSpe.uMaxSpeSet) annotation (Line(points={{-180,
+          40},{-120,40},{-120,-225},{38,-225}}, color={0,0,127}));
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)
     annotation (Line(points={{2,100},{20,100},{20,-230},{38,-230}},
       color={0,0,127}));
@@ -423,9 +411,8 @@ equation
   connect(swi.y, swi1.u1)
     annotation (Line(points={{142,20},{150,20},{150,190},{60,190},{60,218},
       {98,218}}, color={0,0,127}));
-  connect(uTowSpeWSE, swi1.u3)
-    annotation (Line(points={{-180,240},{80,240},{80,202},{98,202}},
-      color={0,0,127}));
+  connect(uSpeWSE, swi1.u3) annotation (Line(points={{-180,240},{80,240},{80,
+          202},{98,202}}, color={0,0,127}));
   connect(zer2.y, swi1.u3)
     annotation (Line(points={{62,170},{80,170},{80,202},{98,202}},
       color={0,0,127}));
@@ -463,6 +450,8 @@ equation
           {120,-61},{120,-40},{180,-40}}, color={0,0,127}));
   connect(conWatRetSet.yLifMin, yLifMin) annotation (Line(points={{-18,-64},
           {120,-64},{120,-80},{180,-80}}, color={0,0,127}));
+  connect(swi1.y, enaTow.uFanSpe) annotation (Line(points={{122,210},{130,210},
+          {130,60},{30,60},{30,26},{38,26}}, color={0,0,127}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},
@@ -518,10 +507,10 @@ annotation (
           textColor={255,0,255},
           textString="uChi"),
         Text(
-          extent={{-196,188},{-118,172}},
+          extent={{-196,188},{-142,172}},
           textColor={0,0,127},
-          textString="uTowSpeWSE",
-          visible=have_WSE),
+          visible=have_WSE,
+          textString="uSpeWSE"),
         Text(
           extent={{-200,130},{-154,114}},
           textColor={255,0,255},
@@ -540,13 +529,9 @@ annotation (
           textColor={0,0,127},
           textString="reqPlaCap"),
         Text(
-          extent={{-196,72},{-104,54}},
+          extent={{-198,72},{-124,54}},
           textColor={0,0,127},
-          textString="uMaxTowSpeSet"),
-        Text(
-          extent={{-200,40},{-134,22}},
-          textColor={0,0,127},
-          textString="uFanSpe"),
+          textString="uMaxSpeSet"),
         Text(
           extent={{-198,-50},{-118,-68}},
           textColor={0,0,127},

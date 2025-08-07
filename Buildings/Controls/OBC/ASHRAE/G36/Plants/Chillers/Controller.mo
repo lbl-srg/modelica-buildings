@@ -10,6 +10,10 @@ block Controller "Chiller plant controller"
     "Total number of chillers"
     annotation(Dialog(tab="General", group="Chillers configuration"));
 
+  parameter Boolean have_airCoo=false
+    "True: the plant has air cooled chiller"
+    annotation(Dialog(tab="General", group="Chillers configuration"));
+
   final parameter Boolean have_priOnl=true
     "True: the primary-only plant; False: the primary-secondary plant";
 
@@ -48,6 +52,9 @@ block Controller "Chiller plant controller"
   parameter Real dTChiMinLif[nChi](unit=fill("K", nChi))={12,12}
     "Minimum LIFT of each chiller"
     annotation (Dialog(group="Chillers configuration"));
+  parameter Real dTChiMaxLif[nChi](unit=fill("K", nChi))={18,18}
+    "Maximum LIFT of each chiller"
+    annotation (Dialog(group="Chillers configuration"));
 
   parameter Boolean have_heaPreConSig=false
     "True: if there is head pressure control signal from chiller controller"
@@ -57,17 +64,17 @@ block Controller "Chiller plant controller"
 
   parameter Boolean have_WSE=false
     "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable"
-    annotation (Dialog(tab="General", group="Waterside economizer"));
+    annotation (Dialog(tab="General", group="Waterside economizer", enable=not have_airCoo));
 
   parameter Real heaExcAppDes(
     unit="K",
     displayUnit="K")=2
     "Design heat exchanger approach"
-    annotation(Evaluate=true, Dialog(tab="General", group="Waterside economizer", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="General", group="Waterside economizer", enable=have_WSE and not have_airCoo));
 
   parameter Boolean have_byPasValCon=false
     "True: chilled water flow through economizer is controlled using heat exchanger bypass valve"
-    annotation (Dialog(group="Waterside economizer", enable=have_WSE));
+    annotation (Dialog(group="Waterside economizer", enable=have_WSE and not have_airCoo));
 
   // ----- General: Chilled water pump ---
 
@@ -91,19 +98,15 @@ block Controller "Chiller plant controller"
 
   parameter Integer nConWatPum=nChi
     "Total number of condenser water pumps"
-    annotation (Dialog(tab="General", group="Condenser water pump", enable=have_heaConWatPum));
+    annotation (Dialog(tab="General", group="Condenser water pump", enable=(not have_airCoo) and have_heaConWatPum));
 
   parameter Boolean have_fixSpeConWatPum = false
     "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false"
-    annotation(Dialog(tab="General", group="Condenser water pump", enable=not have_WSE));
-
-  parameter Real fixConWatPumSpe = 0.9
-    "Fixed speed of the constant speed condenser water pump"
-    annotation(Dialog(tab="General", group="Condenser water pump", enable=not have_WSE and have_fixSpeConWatPum));
+    annotation(Dialog(tab="General", group="Condenser water pump", enable=(not have_airCoo) and not have_WSE));
 
   parameter Boolean have_heaConWatPum=true
     "True: headered condenser water pumps"
-    annotation (Dialog(tab="General", group="Condenser water pump"));
+    annotation (Dialog(tab="General", group="Condenser water pump", enable=not have_airCoo));
 
   // ---- General: Chiller staging settings ----
 
@@ -131,27 +134,27 @@ block Controller "Chiller plant controller"
     max=fill(1, totSta),
     min=fill(0, totSta))={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
-    annotation (Dialog(tab="General", group="Staging configuration"));
+    annotation (Dialog(tab="General", group="Staging configuration", enable=not have_airCoo));
 
   parameter Integer desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
-    annotation (Dialog(tab="General", group="Staging configuration"));
+    annotation (Dialog(tab="General", group="Staging configuration", enable=not have_airCoo));
 
   parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
-    annotation(Dialog(tab="General", group="Staging configuration"));
+    annotation(Dialog(tab="General", group="Staging configuration", enable=not have_airCoo));
 
   // ---- General: Cooling tower ----
 
   parameter Integer nTowCel=4
     "Total number of cooling tower cells"
-    annotation (Dialog(tab="General", group="Cooling tower"));
+    annotation (Dialog(tab="General", group="Cooling tower", enable=not have_airCoo));
 
   parameter Real cooTowAppDes(
     unit="K",
     displayUnit="K")=2
     "Design cooling tower approach"
-    annotation(Evaluate=true, Dialog(tab="General", group="Cooling tower"));
+    annotation(Evaluate=true, Dialog(tab="General", group="Cooling tower", enable=not have_airCoo));
 
   // ---- Plant enable ----
 
@@ -181,97 +184,99 @@ block Controller "Chiller plant controller"
 
   parameter Real holdPeriod(unit="s")=1200
     "WSE minimum on or off time"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE and not have_airCoo));
 
   parameter Real delDis(unit="s")=120
     "Delay disable time period"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE and not have_airCoo));
 
   parameter Real TOffsetEna(unit="K")=2
     "Temperature offset between the chilled water return upstream of WSE and the predicted WSE output"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE and not have_airCoo));
 
   parameter Real TOffsetDis(unit="K")=1
     "Temperature offset between the chilled water return upstream and downstream WSE"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE and not have_airCoo));
 
   parameter Real TOutWetDes(
     unit="K",
     displayUnit="degC")=288.15
     "Design outdoor air wet bulb temperature"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE and not have_airCoo));
 
   parameter Real VHeaExcDes_flow(start=0, unit="m3/s")
     "Design heat exchanger chilled water volume flow rate"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE and not have_airCoo));
 
   parameter Real step=0.02 "Tuning step"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE and not have_airCoo));
 
   parameter Real wseOnTimDec(unit="s")=3600
     "Economizer enable time needed to allow decrease of the tuning parameter"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE and not have_airCoo));
 
   parameter Real wseOnTimInc(unit="s")=1800
     "Economizer enable time needed to allow increase of the tuning parameter"
-    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE));
+    annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Tuning", enable=have_WSE and not have_airCoo));
 
   parameter Real dpDes=3E4
     "Design waterside economizer chilled water pressure drop"
     annotation (Dialog(tab="Waterside economizer", group="Valve or pump control",
-        enable=have_WSE and have_byPasValCon));
+        enable=have_WSE and have_byPasValCon and not have_airCoo));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController ecoValCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
-        enable=have_WSE and have_byPasValCon));
+        enable=have_WSE and have_byPasValCon and not have_airCoo));
 
   parameter Real kEcoVal=0.1 "Gain of controller"
     annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
-        enable=have_WSE and have_byPasValCon));
+        enable=have_WSE and have_byPasValCon and not have_airCoo));
 
   parameter Real TiEcoVal=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Waterside economizer", group="Valve or pump control",
-        enable=have_WSE and have_byPasValCon
+        enable=have_WSE and have_byPasValCon and not have_airCoo
                and (ecoValCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                     or ecoValCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   parameter Real TdEcoVal=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
-      enable=have_WSE and have_byPasValCon
+      enable=have_WSE and have_byPasValCon and not have_airCoo
              and (ecoValCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                   or ecoValCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   parameter Real minEcoSpe=0.1
     "Minimum economizer chilled water pump speed"
     annotation (Dialog(tab="Waterside economizer",group="Valve or pump control",
-      enable=have_WSE and not have_byPasValCon));
+      enable=have_WSE and not have_byPasValCon and not have_airCoo));
 
   // ---- Head pressure ----
 
   parameter Real minConWatPumSpe(unit="1")=0.1
     "Minimum condenser water pump speed"
-    annotation(Dialog(enable= not ((not have_WSE) and have_fixSpeConWatPum), tab="Head pressure", group="Limits"));
+    annotation(Dialog(enable= (not have_airCoo) and not ((not have_WSE) and have_fixSpeConWatPum),
+                      tab="Head pressure", group="Limits"));
 
   parameter Real minHeaPreValPos(unit="1")=0.1
     "Minimum head pressure control valve position"
-    annotation(Dialog(enable= (not ((not have_WSE) and (not have_fixSpeConWatPum))), tab="Head pressure", group="Limits"));
+    annotation(Dialog(enable= (not have_airCoo) and (not ((not have_WSE) and (not have_fixSpeConWatPum))),
+                      tab="Head pressure", group="Limits"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaPre=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(tab="Head pressure", group="Loop signal", enable=not have_heaPreConSig));
+    annotation(Dialog(tab="Head pressure", group="Loop signal", enable=(not have_airCoo) and not have_heaPreConSig));
 
   parameter Real kHeaPreCon=0.1
     "Gain of controller"
-    annotation(Dialog(tab="Head pressure", group="Loop signal", enable=not have_heaPreConSig));
+    annotation(Dialog(tab="Head pressure", group="Loop signal", enable=(not have_airCoo) and not have_heaPreConSig));
 
   parameter Real TiHeaPreCon(unit="s")=10
     "Time constant of integrator block"
-    annotation(Dialog(tab="Head pressure", group="Loop signal", enable=not have_heaPreConSig));
+    annotation(Dialog(tab="Head pressure", group="Loop signal", enable=(not have_airCoo) and not have_heaPreConSig));
 
   // ---- Minimum flow bypass ----
 
@@ -537,167 +542,179 @@ block Controller "Chiller plant controller"
 
   parameter Real fanSpeMin(unit="1")=0.1
     "Minimum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed"));
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
 
   parameter Real fanSpeMax(unit="1")=1
     "Maximum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed"));
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Controller in the mode when WSE and chillers are enabled"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                       enable=have_WSE));
+                       enable=have_WSE and not have_airCoo));
 
   parameter Real kIntOpeTowFan=0.1 "Gain of controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
-                       enable=have_WSE));
+                       enable=have_WSE and not have_airCoo));
 
   parameter Real TiIntOpeTowFan(unit="s")=10
     "Time constant of integrator block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                            intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                                            intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+                              and not have_airCoo));
 
   parameter Real TdIntOpeTowFan(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                           intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                                           intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+                              and not have_airCoo));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatConTowFan=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Controller in the mode when only WSE is enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled", enable=have_WSE));
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+                       enable=have_WSE and not have_airCoo));
 
   parameter Real kWSETowFan=0.1 "Gain of controller"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled", enable=have_WSE));
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+                       enable=have_WSE and not have_airCoo));
 
   parameter Real TiWSETowFan(unit="s")=10
     "Time constant of integrator block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
                         enable=have_WSE and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                             chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                                             chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+                               and not have_airCoo));
 
   parameter Real TdWSETowFan(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                            chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                                            chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+                              and not have_airCoo));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
   parameter Real TConWatSup_nominal[nChi](
     unit=fill("K", nChi),
     each displayUnit="degC")={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
-    annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
+    annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control", enable=not have_airCoo));
 
   parameter Real TConWatRet_nominal[nChi](
     unit=fill("K", nChi),
     each displayUnit="degC")={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
-    annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
+    annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control", enable=not have_airCoo));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of coupled plant controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                        enable=closeCoupledPlant));
+                        enable=closeCoupledPlant and not have_airCoo));
 
   parameter Real kCouPla=1 "Gain of controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                        enable=closeCoupledPlant));
+                        enable=closeCoupledPlant and not have_airCoo));
 
   parameter Real TiCouPla(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
                        enable=closeCoupledPlant and (couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                                      couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                                                      couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+                              and not have_airCoo));
 
   parameter Real TdCouPla(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
                        enable=closeCoupledPlant and (couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                     couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                                                     couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+                              and not have_airCoo));
 
   parameter Real yCouPlaMax(unit="1")=1
-                      "Upper limit of output"
+    "Upper limit of output"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                       enable=closeCoupledPlant));
+                       enable=closeCoupledPlant and not have_airCoo));
 
   parameter Real yCouPlaMin(unit="1")=0
-                      "Lower limit of output"
+    "Lower limit of output"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                        enable=closeCoupledPlant));
+                        enable=closeCoupledPlant and not have_airCoo));
 
   parameter Real samplePeriodConTDiff(unit="s")=30
     "Period of sampling condenser water supply and return temperature difference"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                       enable=not closeCoupledPlant));
+                       enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController supWatCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Condenser supply water temperature controller for less coupled plant"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                       enable=not closeCoupledPlant));
+                       enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Real kSupCon=0.1 "Gain of controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                       enable=not closeCoupledPlant));
+                       enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Real TiSupCon(unit="s")=10
     "Time constant of integrator block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                       enable=not closeCoupledPlant and (supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-                                                         supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                       enable=(not closeCoupledPlant) and (supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+                                                           supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+                              and (not have_airCoo)));
 
   parameter Real TdSupCon(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                       enable=not closeCoupledPlant and (supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-                                                         supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+                       enable=(not closeCoupledPlant) and (supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                                                           supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+                               and (not have_airCoo)));
 
   parameter Real ySupConMax=1 "Upper limit of output"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                       enable=not closeCoupledPlant));
+                       enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Real ySupConMin=0 "Lower limit of output"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
-                       enable=not closeCoupledPlant));
+                       enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Real iniPlaTim(unit="s")=600
     "Time to hold return temperature at initial setpoint after plant being enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced"));
+    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
 
   parameter Real ramTim(unit="s")=180
     "Time to ramp return water temperature from initial value to setpoint"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced"));
+    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
 
   parameter Real cheMinFanSpe(unit="s")=300
     "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced"));
+    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
 
   parameter Real cheMaxTowSpe(unit="s")=300
     "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced"));
+    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
 
   parameter Real cheTowOff(unit="s")=60
     "Threshold time for checking duration when there is no enabled tower fan"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced"));
+    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
 
   // ---- Cooling tower: staging ----
   parameter Real chaTowCelIsoTim(unit="s")=300
     "Time to slowly change isolation valve"
-     annotation (Dialog(tab="Cooling Towers", group="Enable isolation valve"));
+     annotation (Dialog(tab="Cooling Towers", group="Enable isolation valve", enable=(not have_airCoo)));
 
   // ---- Cooling tower: Water level control ----
-  parameter Real watLevMin(min=0, unit="m")=0.7
+  parameter Real watLevMin(
+    min=0,
+    unit="m")=0.7
     "Minimum cooling tower water level recommended by manufacturer"
-     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
+     annotation (Dialog(tab="Cooling Towers", group="Makeup water", enable=(not have_airCoo)));
 
   parameter Real watLevMax(unit="m")=1
     "Maximum cooling tower water level recommended by manufacturer"
-    annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
+    annotation (Dialog(tab="Cooling Towers", group="Makeup water", enable=(not have_airCoo)));
 
   // ---- Advanced ----
   parameter Real locDt(unit="K")=1
@@ -730,6 +747,7 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{-140,340},{-100,380}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
+    if not have_airCoo
     "Condenser water request for each chiller"
     annotation (Placement(transformation(extent={{-940,590},{-900,630}}),
       iconTransformation(extent={{-140,320},{-100,360}})));
@@ -773,8 +791,8 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{-140,180},{-100,220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
-    final unit="1")
-    if have_WSE "Outdoor relative humidity"
+    final unit="1") if have_WSE and not have_airCoo
+                "Outdoor relative humidity"
     annotation (Placement(transformation(extent={{-940,340},{-900,380}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
 
@@ -797,7 +815,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if not have_airCoo
     "Measured condenser water return temperature (condenser leaving)"
     annotation(Placement(transformation(extent={{-940,220},{-900,260}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
@@ -810,14 +828,15 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-940,190},{-900,230}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon[nChi] if have_heaPreConSig
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaPreCon[nChi]
+    if have_heaPreConSig and not have_airCoo
     "Chiller head pressure control loop signal from chiller controller"
     annotation (Placement(transformation(extent={{-940,160},{-900,200}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
-    final quantity=fill("ElectricCurrent",nChi),
-    final unit=fill("A", nChi)) if need_reduceChillerDemand
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
+        fill("Power", nChi), final unit=fill("J/s", nChi))
+                                if need_reduceChillerDemand
     "Current chiller load, in amperage"
     annotation(Placement(transformation(extent={{-940,120},{-900,160}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -836,7 +855,7 @@ block Controller "Chiller plant controller"
         iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEcoPum
-    if have_WSE and not have_byPasValCon
+    if have_WSE and not have_byPasValCon and not have_airCoo
     "True: economizer heat exchanger pump is proven on"
     annotation (Placement(transformation(extent={{-940,30},{-900,70}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -845,12 +864,13 @@ block Controller "Chiller plant controller"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    if have_WSE and not have_byPasValCon
+    if have_WSE and not have_byPasValCon and not have_airCoo
     "Chilled water temperature entering economizer heat exchanger"
     annotation (Placement(transformation(extent={{-940,0},{-900,40}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
+    if not have_airCoo
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-940,-100},{-900,-60}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -876,11 +896,13 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
     final min=fill(0, nConWatPum),
     final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
+    final unit=fill("1", nConWatPum)) if not have_airCoo
+    "Current condenser water pump speed"
     annotation(Placement(transformation(extent={{-940,-400},{-900,-360}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    if not have_airCoo
     "Condenser water pump status"
     annotation (Placement(transformation(extent={{-940,-430},{-900,-390}}),
       iconTransformation(extent={{-140,-220},{-100,-180}})));
@@ -898,24 +920,11 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{-940,-540},{-900,-500}}),
       iconTransformation(extent={{-140,-260},{-100,-220}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiCooLoa[nChi](
-    final quantity=fill("HeatFlowRate",nChi),
-    final unit=fill("W", nChi)) if have_WSE
-    "Current chiller cooling load"
-    annotation (Placement(transformation(extent={{-940,-580},{-900,-540}}),
-      iconTransformation(extent={{-140,-280},{-100,-240}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
-    final quantity="1",
-    final min=0,
-    final max=1) "Tower fan speed"
-    annotation (Placement(transformation(extent={{-940,-608},{-900,-568}}),
-      iconTransformation(extent={{-140,-320},{-100,-280}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not closeCoupledPlant
+    final quantity="ThermodynamicTemperature")
+    if not closeCoupledPlant and not have_airCoo
     "Condenser water supply temperature (condenser entering)"
     annotation(Placement(transformation(extent={{-940,-680},{-900,-640}}),
       iconTransformation(extent={{-140,-340},{-100,-300}})));
@@ -923,13 +932,13 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
+    final unit=fill("1", nTowCel)) if not have_airCoo
     "Vector of tower cells isolation valve position"
     annotation(Placement(transformation(extent={{-940,-728},{-900,-688}}),
       iconTransformation(extent={{-140,-360},{-100,-320}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev(
-    final unit="m")
+    final unit="m") if not have_airCoo
     "Measured water level"
     annotation (Placement(transformation(extent={{-940,-760},{-900,-720}}),
       iconTransformation(extent={{-140,-380},{-100,-340}})));
@@ -959,7 +968,7 @@ block Controller "Chiller plant controller"
         iconTransformation(extent={{100,310},{140,350}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1WseChiWatBypVal
-    if have_WSE and have_priOnl and have_parChi
+    if have_WSE and have_priOnl and have_parChi and not have_airCoo
     "Ecnomizer-only chiller water bypass valve commanded status"
     annotation (Placement(transformation(extent={{922,640},{962,680}}),
         iconTransformation(extent={{100,270},{140,310}})));
@@ -967,7 +976,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yWsePumSpe(
     final min=0,
     final unit="1",
-    final max=1) if have_WSE and not have_byPasValCon
+    final max=1) if have_WSE and not have_byPasValCon and not have_airCoo
     "Heat exchanger pump speed setpoint"
     annotation (Placement(transformation(extent={{920,670},{960,710}}),
         iconTransformation(extent={{100,290},{140,330}})));
@@ -1005,8 +1014,9 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{920,330},{960,370}}),
       iconTransformation(extent={{100,120},{140,160}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi]
-    if have_heaConWatPum and (have_heaPreConSig or (not have_fixSpeConWatPum and not have_WSE))
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi] if (not
+    have_airCoo) and have_heaConWatPum and (have_heaPreConSig or (not
+    have_fixSpeConWatPum and not have_WSE))
     "Chiller condenser water isolation valve commanded setpoint"
     annotation (Placement(transformation(extent={{920,260},{960,300}}),
         iconTransformation(extent={{100,90},{140,130}})));
@@ -1014,16 +1024,17 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
-    if have_heaConWatPum and not (have_heaPreConSig or (not have_fixSpeConWatPum and not have_WSE))
+    final unit=fill("1", nChi)) if (not have_airCoo) and have_heaConWatPum and
+    not (have_heaPreConSig or (not have_fixSpeConWatPum and not have_WSE))
     "Condenser water isolation valve position"
     annotation (Placement(transformation(extent={{920,220},{960,260}}),
       iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe[nConWatPum](
-    final unit=fill("1", nChi),
-    final min=fill(0, nChi),
-    final max=fill(1, nChi))
+    final unit=fill("1", nConWatPum),
+    final min=fill(0, nConWatPum),
+    final max=fill(1, nConWatPum))
+                             if (not have_airCoo) and not have_fixSpeConWatPum
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{920,130},{960,170}}),
         iconTransformation(extent={{100,30},{140,70}})));
@@ -1036,6 +1047,7 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{100,2},{140,42}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatPum[nConWatPum]
+    if not have_airCoo
     "Condenser water pump commanded on"
     annotation (Placement(transformation(extent={{920,70},{960,110}}),
       iconTransformation(extent={{100,-30},{140,10}})));
@@ -1045,7 +1057,7 @@ block Controller "Chiller plant controller"
     final min=fill(0, nChi),
     final max=fill(1, nChi))
     "Chiller isolation valve position setpoints"
-    annotation (Placement(transformation(extent={{920,-20},{960,20}}),
+    annotation (Placement(transformation(extent={{920,-50},{960,-10}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaChiDemLim
@@ -1064,12 +1076,13 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowCelIsoVal[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
+    final unit=fill("1", nTowCel)) if not have_airCoo
     "Cooling tower cells isolation valve position"
     annotation (Placement(transformation(extent={{920,-640},{960,-600}}),
       iconTransformation(extent={{100,-200},{140,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowCel[nTowCel]
+    if not have_airCoo
     "Vector of tower cells status setpoint"
     annotation(Placement(transformation(extent={{920,-680},{960,-640}}),
       iconTransformation(extent={{100,-230},{140,-190}})));
@@ -1077,12 +1090,12 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowFanSpe[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
+    final unit=fill("1", nTowCel)) if not have_airCoo
     "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{920,-720},{960,-680}}),
       iconTransformation(extent={{100,-260},{140,-220}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMakUp
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMakUp if not have_airCoo
     "Makeup water valve On-Off status"
     annotation(Placement(transformation(extent={{920,-780},{960,-740}}),
       iconTransformation(extent={{100,-290},{140,-250}})));
@@ -1110,7 +1123,7 @@ block Controller "Chiller plant controller"
     final k=kEcoVal,
     final Ti=TiEcoVal,
     final Td=TdEcoVal,
-    final minSpe=minEcoSpe) if have_WSE
+    final minSpe=minEcoSpe) if have_WSE and not have_airCoo
     "Waterside economizer (WSE) enable/disable status"
     annotation(Placement(transformation(extent={{-700,300},{-660,356}})));
 
@@ -1120,20 +1133,21 @@ block Controller "Chiller plant controller"
     final reqThrTim=reqThrTim,
     final ignReq=ignReq,
     final locDt=locDt) "Sequence to enable and disable plant"
-    annotation (Placement(transformation(extent={{-700,-540},{-660,-500}})));
+    annotation (Placement(transformation(extent={{-700,-520},{-660,-480}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.HeadPressure.Controller
     heaPreCon[nChi](
     final have_fixSpeConWatPum=fill(have_fixSpeConWatPum, nChi),
     final have_heaPreConSig=fill(have_heaPreConSig, nChi),
-    final have_WSE=fill(have_WSE, nChi),
+    final have_WSE=fill(have_WSE and not have_airCoo, nChi),
     final minTowSpe=fill(fanSpeMin, nChi),
     final minConWatPumSpe=fill(minConWatPumSpe, nChi),
     final minHeaPreValPos=fill(minHeaPreValPos, nChi),
     final controllerType=fill(controllerTypeHeaPre, nChi),
     final minChiLif=dTChiMinLif,
     final k=fill(kHeaPreCon, nChi),
-    final Ti=fill(TiHeaPreCon, nChi)) "Chiller head pressure controller"
+    final Ti=fill(TiHeaPreCon, nChi)) if not have_airCoo
+    "Chiller head pressure controller"
     annotation (Placement(transformation(extent={{-520,180},{-480,220}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.Controller minBypValCon(
@@ -1151,7 +1165,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Controller chiWatPumCon(
     final have_heaPum=have_heaChiWatPum,
     final have_locSen=have_locSenChiWatPum,
-    final have_WSE=have_WSE,
+    final have_WSE=have_WSE and not have_airCoo,
     final nChi=nChi,
     final nPum=nChiWatPum,
     final nSen=nSenChiWatPum,
@@ -1194,7 +1208,7 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-520,420},{-480,460}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.SetpointController staSetCon(
-    final have_WSE=have_WSE,
+    final have_WSE=have_WSE and not have_airCoo,
     final have_serChi=have_serChi,
     final have_locSen=have_locSenChiWatPum,
     final nRemSen=nSenChiWatPum,
@@ -1275,7 +1289,8 @@ block Controller "Chiller plant controller"
     final towCelOnSet=towCelOnSet,
     final chaTowCelIsoTim=chaTowCelIsoTim,
     final watLevMin=watLevMin,
-    final watLevMax=watLevMax) "Cooling tower controller"
+    final watLevMax=watLevMax) if not have_airCoo
+    "Cooling tower controller"
     annotation (Placement(transformation(extent={{-260,-720},{-180,-560}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Down dowProCon(
@@ -1283,6 +1298,7 @@ block Controller "Chiller plant controller"
     final nConWatPum=nConWatPum,
     final totSta=totSta,
     final nChiSta=nSta + 1,
+    final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
     final have_ponyChiller=have_ponyChiller,
     final have_parChi=have_parChi,
@@ -1312,6 +1328,7 @@ block Controller "Chiller plant controller"
     final nConWatPum=nConWatPum,
     final totSta=totSta,
     final nChiSta=nSta + 1,
+    final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
     final have_ponyChiller=have_ponyChiller,
     final have_parChi=have_parChi,
@@ -1339,7 +1356,7 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{180,280},{260,440}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(
-    final nin=nTowCel) if have_WSE
+    final nin=nTowCel) if have_WSE and not have_airCoo
     "All input values are the same"
     annotation(Placement(transformation(extent={{-60,-590},{-40,-570}})));
 
@@ -1357,45 +1374,41 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-740,-134},{-720,-114}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax conWatPumSpe(
-    final nin=nConWatPum)
-    if not have_fixSpeConWatPum
+    final nin=nConWatPum) if not have_fixSpeConWatPum and not have_airCoo
     "Running condenser water pump speed"
     annotation (Placement(transformation(extent={{-660,-390},{-640,-370}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or staCooTow
+  Buildings.Controls.OBC.CDL.Logical.Or staCooTow if not have_airCoo
     "Tower stage change status: true=stage cooling tower"
     annotation (Placement(transformation(extent={{480,-130},{500,-110}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=nChi) if have_WSE
+    final nout=nChi) if have_WSE and not have_airCoo
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-620,240},{-600,260}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatRetTem(
-    final nout=nChi)
-    if not have_heaPreConSig
+    final nout=nChi) if not have_heaPreConSig and not have_airCoo
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-680,230},{-660,250}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator chiWatSupTem(
-    final nout=nChi)
-    if not have_heaPreConSig
+    final nout=nChi) if not have_heaPreConSig and not have_airCoo
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-680,194},{-660,214}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch desConWatPumSpeSwi
-    if not have_fixSpeConWatPum
+    if not have_fixSpeConWatPum and not have_airCoo
     "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{480,190},{500,210}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator desConPumSpe(
-    final nout=nChi) if not have_fixSpeConWatPum
+    final nout=nChi) if not have_fixSpeConWatPum and not have_airCoo
     "Replicate design condenser water pump speed"
     annotation (Placement(transformation(extent={{540,190},{560,210}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax1(
-    final nin=nChi)
-    if not have_fixSpeConWatPum
+    final nin=nChi) if not have_fixSpeConWatPum and not have_airCoo
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{-460,150},{-440,170}})));
 
@@ -1412,46 +1425,38 @@ block Controller "Chiller plant controller"
     "Chiller commanded status"
     annotation (Placement(transformation(extent={{640,340},{660,360}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre preConPumLeaSta
+  Buildings.Controls.OBC.CDL.Logical.Pre preConPumLeaSta if not have_airCoo
     "Lead condenser water pump status from previous step"
     annotation (Placement(transformation(extent={{480,-260},{500,-240}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nChiWatPum](final k=
-        chiPumLeaLag)
-                   if have_heaChiWatPum "Chilled water pump lead and lag index"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nChiWatPum](
+    final k=chiPumLeaLag) if have_heaChiWatPum
+    "Chilled water pump lead and lag index"
     annotation (Placement(transformation(extent={{360,570},{380,590}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch chiStaUp
     "In chiller stage up process"
     annotation (Placement(transformation(extent={{380,310},{400,330}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2 "Stage cooling tower"
-    annotation (Placement(transformation(extent={{100,-450},{120,-430}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2 if not have_airCoo
+    "Stage cooling tower"
+    annotation (Placement(transformation(extent={{100,-510},{120,-490}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch chiHeaCon[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch chiHeaCon[nChi] if not have_airCoo
     "Chiller head control enabling status"
     annotation (Placement(transformation(extent={{520,270},{540,290}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Switch conWatPumNum
+  Buildings.Controls.OBC.CDL.Integers.Switch conWatPumNum if not have_airCoo
     "Total number of enablded condenser water pump"
-    annotation (Placement(transformation(extent={{440,50},{460,70}})));
+    annotation (Placement(transformation(extent={{440,10},{460,30}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo equRot1 if have_heaChiWatPum
-    "Rotates two pumps or groups of pumps"
-    annotation (Placement(transformation(extent={{540,50},{560,70}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Switch conPumLeaSta
+  Buildings.Controls.OBC.CDL.Logical.Switch conPumLeaSta if not have_airCoo
     "Pick the condenser water pump lead status"
     annotation (Placement(transformation(extent={{440,-260},{460,-240}})));
 
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(
-    final t=1)
-    "Check if more than one pump is enabled, if yes, then it means lag pump is enabled"
-    annotation (Placement(transformation(extent={{480,50},{500,70}})));
-
   Buildings.Controls.OBC.CDL.Reals.Switch chiIsoVal[nChi]
     "Chiller isolation valve position setpoint"
-    annotation (Placement(transformation(extent={{540,-10},{560,10}})));
+    annotation (Placement(transformation(extent={{540,-40},{560,-20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch chiDem[nChi]
     if need_reduceChillerDemand
@@ -1466,11 +1471,6 @@ block Controller "Chiller plant controller"
     "Stage changing process status from previous step"
     annotation (Placement(transformation(extent={{440,-90},{460,-70}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    final k=fixConWatPumSpe)
-    if have_fixSpeConWatPum "Speed of constant speed condenser water pump"
-    annotation (Placement(transformation(extent={{540,90},{560,110}})));
-
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator chiWatPumSpe(
     final nout=nChiWatPum) "Chilled water pump speed"
     annotation (Placement(transformation(extent={{580,450},{600,470}})));
@@ -1483,29 +1483,33 @@ block Controller "Chiller plant controller"
     "Chilled water pump speed setpoint"
     annotation (Placement(transformation(extent={{640,470},{660,490}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nChiWatPum]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nConWatPum]
+    if not have_fixSpeConWatPum and not have_airCoo
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{660,140},{680,160}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatPumSpe1(
-    final nout=nConWatPum) "Condenser water pump speed"
+    final nout=nConWatPum) if not have_fixSpeConWatPum and not have_airCoo
+    "Condenser water pump speed"
     annotation (Placement(transformation(extent={{590,140},{610,160}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nConWatPum]
+    if not have_fixSpeConWatPum and not have_airCoo
     "Boolean to real"
-    annotation (Placement(transformation(extent={{580,56},{600,76}})));
+    annotation (Placement(transformation(extent={{580,50},{600,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3[nChi]
+    if not have_airCoo
     "Boolean to real"
     annotation (Placement(transformation(extent={{580,250},{600,270}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro4[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro4[nChi] if not have_airCoo
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{660,230},{680,250}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpeVal[nChi](
     final k=fill(1, nChi))
-    if not have_WSE and not have_fixSpeConWatPum
+    if not have_WSE and not have_fixSpeConWatPum and not have_airCoo
     "Full open head pressure control valve"
     annotation (Placement(transformation(extent={{240,180},{260,200}})));
 
@@ -1513,32 +1517,36 @@ block Controller "Chiller plant controller"
     final nSta=nSta,
     final nChiWatPum=nChiWatPum,
     final nConWatPum=nConWatPum,
-    final iniPumDel=iniPumDel)
+    final iniPumDel=iniPumDel,
+    final have_airCoo=have_airCoo)
     "Enable devices when plant is enabled"
     annotation (Placement(transformation(extent={{-540,-440},{-520,-420}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.DisableChillers disChi(
+    final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
     final nChi=nChi,
     final nChiWatPum=nChiWatPum,
     final nConWatPum=nConWatPum,
-    final nTowCel=nTowCel) "Disable devices when plant is disabled"
+    final nTowCel=nTowCel,
+    final have_fixSpeConWatPum=have_fixSpeConWatPum)
+    "Disable devices when plant is disabled"
     annotation (Placement(transformation(extent={{740,-480},{760,-460}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And celCom[nTowCel]
+  Buildings.Controls.OBC.CDL.Logical.And celCom[nTowCel] if not have_airCoo
     "False: disable tower cell"
     annotation (Placement(transformation(extent={{840,-670},{860,-650}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel] if not have_airCoo
     "Tower cell isolation valve position setpoint"
     annotation (Placement(transformation(extent={{880,-630},{900,-610}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nTowCel](
-    final k=fill(0, nTowCel))
+    final k=fill(0, nTowCel)) if not have_airCoo
     "Constant zero"
     annotation (Placement(transformation(extent={{700,-590},{720,-570}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nTowCel]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nTowCel] if not have_airCoo
     "Tower cell fan speed setpoint"
     annotation (Placement(transformation(extent={{880,-710},{900,-690}})));
 
@@ -1550,11 +1558,12 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{-520,120},{-500,140}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep3(
-    final nout=nTowCel)
+    final nout=nTowCel) if not have_airCoo
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{780,-590},{800,-570}})));
 
-  Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi wetBul if have_WSE
+  Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi wetBul
+    if have_WSE and not have_airCoo
     "Wet bulb temperature"
     annotation (Placement(transformation(extent={{-860,360},{-840,380}})));
 
@@ -1565,8 +1574,18 @@ block Controller "Chiller plant controller"
 
 protected
 
+  final parameter Real Cp(
+    final quantity="SpecificHeatCapacity") = 4198
+    "Water specific heat capacity";
+  final parameter Real rho(
+    final quantity="Density") = 1000
+    "Water density";
+
   final parameter Integer chiPumLeaLag[nChiWatPum]={i for i in 1:nChiWatPum}
     "Chiller water pump lead and lag index, {1,2,...,n}, with first one as lead pump";
+
+  final parameter Integer conPumLeaLag[nConWatPum]={i for i in 1:nConWatPum}
+    "Condenser water pump lead and lag index, {1,2,...,n}, with first one as lead pump";
 
   final parameter Boolean anyVsdCen = sum({
     if chiTyp[i]==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.VariableSpeedCentrifugal
@@ -1586,9 +1605,44 @@ protected
   final parameter Real desCap(unit="W")=sum(chiDesCap)
     "Plant design capacity";
 
+  Buildings.Controls.OBC.CDL.Integers.LessEqual enaConWatPum[nConWatPum]
+    if not have_airCoo
+    "Check if a condenser water pump should be enabled"
+    annotation (Placement(transformation(extent={{540,50},{560,70}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conPum[nConWatPum](
+    final k=conPumLeaLag) if not have_airCoo
+    "Condenser water pumps lead lag order"
+    annotation (Placement(transformation(extent={{480,50},{500,70}})));
+
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
+    final nout=nConWatPum) if not have_airCoo
+    "Duplicate to total number of condenser water pump"
+    annotation (Placement(transformation(extent={{480,10},{500,30}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.ChillerLifts chiLif(
+    final nChi=nChi,
+    final minChiLif=dTChiMinLif,
+    final maxChiLif=dTChiMaxLif)
+    "Average lifts of the enabled chillers"
+    annotation (Placement(transformation(extent={{-500,360},{-480,380}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub if have_WSE and not have_airCoo
+    "Temperature difference"
+    annotation (Placement(transformation(extent={{-558,-550},{-538,-530}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=rho*Cp)
+    if have_WSE and not have_airCoo
+    "Find product of the inputs"
+    annotation (Placement(transformation(extent={{-560,-630},{-540,-610}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul if have_WSE and not have_airCoo
+    "Find product of the inputs"
+    annotation (Placement(transformation(extent={{-462,-550},{-442,-530}})));
+
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-268,72},{-580,72},
-          {-580,-520},{-658,-520}},            color={255,0,255}));
+          {-580,-500},{-658,-500}}, color={255,0,255}));
   connect(TChiWatRetDow, wseSta.TChiWatRetDow) annotation(Line(points={{-920,320},
           {-840,320},{-840,346},{-704,346}},      color={0,0,127}));
   connect(chiWatSupSet.TChiWatSupSet, staSetCon.TChiWatSupSet) annotation(Line(
@@ -1611,7 +1665,7 @@ equation
           334},{-630,96},{-268,96}}, color={255,0,255}));
   connect(wseSta.y, towCon.uWse) annotation(Line(points={{-656,334},{-630,334},{
           -630,-580},{-268,-580}}, color={255,0,255}));
-  connect(plaEna.yPla, towCon.uPla) annotation(Line(points={{-658,-520},{-580,-520},
+  connect(plaEna.yPla, towCon.uPla) annotation(Line(points={{-658,-500},{-580,-500},
           {-580,-636},{-268,-636}}, color={255,0,255}));
   connect(wetBul.TWetBul, staSetCon.TOutWet) annotation(Line(points={{-838,370},
           {-756,370},{-756,-20},{-268,-20}}, color={0,0,127}));
@@ -1657,11 +1711,9 @@ equation
   connect(dowProCon.VChiWat_flow, VChiWat_flow) annotation(Line(points={{172,-192},
           {-880,-192},{-880,440},{-920,440}},color={0,0,127}));
   connect(VChiWat_flow, chiWatPumCon.VChiWat_flow) annotation(Line(points={{-920,
-          440},{-880,440},{-880,512.143},{414,512.143}},
-                                                color={0,0,127}));
+          440},{-880,440},{-880,512.143},{414,512.143}}, color={0,0,127}));
   connect(dpChiWat_remote, chiWatPumCon.dpChiWat_remote) annotation(Line(
-        points={{-920,470},{-770,470},{-770,489.643},{414,489.643}},
-                                                              color={0,0,127}));
+        points={{-920,470},{-770,470},{-770,489.643},{414,489.643}}, color={0,0,127}));
   connect(TChiWatSup, towCon.TChiWatSup) annotation(Line(points={{-920,210},{-840,
           210},{-840,-596},{-268,-596}},     color={0,0,127}));
   connect(chiWatSupSet.TChiWatSupSet, towCon.TChiWatSupSet) annotation(Line(
@@ -1674,8 +1726,7 @@ equation
           {110,-228},{110,292},{172,292}},   color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, chiWatPumCon.dpChiWatSet_remote)
     annotation (Line(points={{-476,452},{-370,452},{-370,483.214},{414,483.214}},
-                                                                          color=
-         {0,0,127}));
+          color={0,0,127}));
   connect(uChiAva, staSetCon.uChiAva) annotation(Line(points={{-920,80},{-268,80}},
           color={255,0,255}));
   connect(minBypValCon.yValPos, yMinValPosSet) annotation (Line(points={{-636,-140},
@@ -1709,10 +1760,8 @@ equation
           310,388},{310,-120},{478,-120}}, color={255,0,255}));
   connect(dowProCon.yTowStaDow, staCooTow.u2) annotation (Line(points={{268,-220},
           {380,-220},{380,-128},{478,-128}}, color={255,0,255}));
-  connect(TOut, plaEna.TOut) annotation (Line(points={{-920,-520},{-860,-520},{-860,
-          -528.4},{-704,-528.4}}, color={0,0,127}));
-  connect(towCon.uFanSpe, uFanSpe)
-    annotation (Line(points={{-268,-588},{-920,-588}}, color={0,0,127}));
+  connect(TOut, plaEna.TOut) annotation (Line(points={{-920,-520},{-830,-520},{-830,
+          -508.4},{-704,-508.4}}, color={0,0,127}));
   connect(upProCon.uConWatReq, uConWatReq) annotation (Line(points={{172,352},{
           80,352},{80,610},{-920,610}}, color={255,0,255}));
   connect(upProCon.uChiWatReq, uChiWatReq) annotation (Line(points={{172,284},{
@@ -1744,8 +1793,8 @@ equation
         ={0,0,127}));
   connect(heaPreCon.uHeaPreCon, uHeaPreCon) annotation (Line(points={{-524,180},
           {-920,180}}, color={0,0,127}));
-  connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet) annotation (Line(
-        points={{-476,212},{-360,212},{-360,-620},{-268,-620}}, color={0,0,127}));
+  connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxSpeSet) annotation (Line(points={
+          {-476,212},{-360,212},{-360,-620},{-268,-620}}, color={0,0,127}));
   connect(heaPreCon.yConWatPumSpeSet, mulMax1.u) annotation (Line(points={{-476,
           188},{-470,188},{-470,160},{-462,160}}, color={0,0,127}));
   connect(mulMax1.y, dowProCon.uConWatPumSpeSet) annotation (Line(points={{-438,
@@ -1775,10 +1824,10 @@ equation
           340,-144},{340,314},{378,314}},  color={255,0,255}));
   connect(VChiWat_flow, wseSta.VChiWat_flow) annotation (Line(points={{-920,440},
           {-880,440},{-880,342},{-704,342}}, color={0,0,127}));
-  connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{122,-440},{180,
-          -440},{180,-512},{-320,-512},{-320,-692},{-268,-692}}, color={255,0,255}));
+  connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{122,-500},{180,
+          -500},{180,-530},{-320,-530},{-320,-692},{-268,-692}}, color={255,0,255}));
   connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{
-          590,-400},{90,-400},{90,-440},{98,-440}},    color={255,0,255}));
+          590,-420},{90,-420},{90,-500},{98,-500}},    color={255,0,255}));
   connect(towCon.ySpeSet, mulMax.u) annotation (Line(points={{-172,-684},{-100,
           -684},{-100,-580},{-62,-580}}, color={0,0,127}));
   connect(chiStaUp.y, desConWatPumSpeSwi.u2) annotation (Line(points={{402,320},
@@ -1792,11 +1841,11 @@ equation
   connect(dowProCon.yChiHeaCon, chiHeaCon.u3) annotation (Line(points={{268,-232},
           {320,-232},{320,272},{518,272}},       color={255,0,255}));
   connect(chiStaUp.y, conWatPumNum.u2) annotation (Line(points={{402,320},{420,320},
-          {420,60},{438,60}},      color={255,0,255}));
+          {420,20},{438,20}},      color={255,0,255}));
   connect(upProCon.yConWatPumNum, conWatPumNum.u1) annotation (Line(points={{268,340},
-          {370,340},{370,68},{438,68}},          color={255,127,0}));
+          {370,340},{370,28},{438,28}},          color={255,127,0}));
   connect(dowProCon.yConWatPumNum, conWatPumNum.u3) annotation (Line(points={{268,
-          -272},{370,-272},{370,52},{438,52}},     color={255,127,0}));
+          -272},{370,-272},{370,12},{438,12}},     color={255,127,0}));
   connect(chiStaUp.y, conPumLeaSta.u2) annotation (Line(points={{402,320},{420,320},
           {420,-250},{438,-250}},      color={255,0,255}));
   connect(dowProCon.yLeaPum, conPumLeaSta.u3) annotation (Line(points={{268,-248},
@@ -1805,26 +1854,14 @@ equation
           {290,372},{290,-242},{438,-242}}, color={255,0,255}));
   connect(conPumLeaSta.y, preConPumLeaSta.u)
     annotation (Line(points={{462,-250},{478,-250}}, color={255,0,255}));
-  connect(conWatPumNum.y, intGreThr1.u)
-    annotation (Line(points={{462,60},{478,60}}, color={255,127,0}));
-  connect(intGreThr1.y, equRot1.uLagStaSet)
-    annotation (Line(points={{502,60},{538,60}}, color={255,0,255}));
-  connect(preConPumLeaSta.y, equRot1.uLeaStaSet) annotation (Line(points={{502,-250},
-          {520,-250},{520,66},{538,66}},       color={255,0,255}));
-  connect(uConWatPum, equRot1.uDevSta) annotation (Line(points={{-920,-410},{530,
-          -410},{530,54},{538,54}},     color={255,0,255}));
-  connect(equRot1.yDevStaSet, yConWatPum)
-    annotation (Line(points={{562,66},{570,66},{570,90},{940,90}}, color={255,0,255}));
   connect(chiMinFloSet.y, yChiWatMinFloSet)
     annotation (Line(points={{502,120},{940,120}}, color={0,0,127}));
   connect(uChiSwi.y, chiIsoVal.u2) annotation (Line(points={{482,350},{510,350},
-          {510,0},{538,0}}, color={255,0,255}));
+          {510,-30},{538,-30}}, color={255,0,255}));
   connect(upProCon.yChiWatIsoVal, chiIsoVal.u1) annotation (Line(points={{268,304},
-          {280,304},{280,8},{538,8}}, color={0,0,127}));
+          {280,304},{280,-22},{538,-22}}, color={0,0,127}));
   connect(dowProCon.yChiWatIsoVal, chiIsoVal.u3) annotation (Line(points={{268,-204},
-          {280,-204},{280,-8},{538,-8}}, color={0,0,127}));
-  connect(uChiCooLoa, towCon.chiLoa) annotation (Line(points={{-920,-560},{-594,
-          -560},{-594,-564},{-268,-564}}, color={0,0,127}));
+          {280,-204},{280,-38},{538,-38}}, color={0,0,127}));
   connect(uChiSwi.y, chiDem.u2) annotation (Line(points={{482,350},{510,350},{510,
           420},{638,420}},     color={255,0,255}));
   connect(upProCon.yChiDem, chiDem.u1) annotation (Line(points={{268,420},{430,420},
@@ -1848,8 +1885,7 @@ equation
   connect(relDem.y, yReaChiDemLim)
     annotation (Line(points={{502,-210},{940,-210}}, color={255,0,255}));
   connect(dpChiWat_local, chiWatPumCon.dpChiWat_local) annotation (Line(points={{-920,
-          540},{-820,540},{-820,502.5},{414,502.5}},
-                                                 color={0,0,127}));
+          540},{-820,540},{-820,502.5},{414,502.5}}, color={0,0,127}));
   connect(dpChiWat_local, staSetCon.dpChiWatPum_local) annotation (Line(points={{-920,
           540},{-820,540},{-820,4},{-268,4}}, color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, staSetCon.dpChiWatPumSet_remote)
@@ -1874,7 +1910,7 @@ equation
           {540,525},{540,500},{578,500}}, color={255,0,255}));
   connect(chiWatPumCon.yPumSpe, chiWatPumSpe.u) annotation (Line(points={{486,
           492.857},{540,492.857},{540,460},{578,460}},
-                                          color={0,0,127}));
+                                              color={0,0,127}));
   connect(chiWatPumCon.yChiWatPum, yChiWatPum) annotation (Line(points={{486,525},
           {540,525},{540,540},{940,540}}, color={255,0,255}));
   connect(booToRea.y, pro.u1) annotation (Line(points={{602,500},{620,500},{620,
@@ -1883,12 +1919,8 @@ equation
           620,474},{638,474}}, color={0,0,127}));
   connect(desConWatPumSpeSwi.y, conWatPumSpe1.u) annotation (Line(points={{502,200},
           {520,200},{520,150},{588,150}}, color={0,0,127}));
-  connect(equRot1.yDevStaSet, booToRea1.u)
-    annotation (Line(points={{562,66},{578,66}}, color={255,0,255}));
-  connect(booToRea1.y, pro1.u2) annotation (Line(points={{602,66},{650,66},{650,
+  connect(booToRea1.y, pro1.u2) annotation (Line(points={{602,60},{650,60},{650,
           144},{658,144}}, color={0,0,127}));
-  connect(con.y, conWatPumSpe1.u) annotation (Line(points={{562,100},{570,100},{
-          570,150},{588,150}}, color={0,0,127}));
   connect(conWatPumSpe1.y, pro1.u1) annotation (Line(points={{612,150},{640,150},
           {640,156},{658,156}}, color={0,0,127}));
   connect(chiHeaCon.y, booToRea3.u) annotation (Line(points={{542,280},{560,280},
@@ -1899,13 +1931,13 @@ equation
           {-160,200},{-160,234},{658,234}}, color={0,0,127}));
   connect(fulOpeVal.y, pro4.u2) annotation (Line(points={{262,190},{272,190},{272,
           234},{658,234}}, color={0,0,127}));
-  connect(plaEna.chiPlaReq, chiPlaReq) annotation (Line(points={{-704,-512},{-860,
-          -512},{-860,-340},{-920,-340}}, color={255,127,0}));
+  connect(plaEna.chiPlaReq, chiPlaReq) annotation (Line(points={{-704,-492},{-830,
+          -492},{-830,-340},{-920,-340}}, color={255,127,0}));
   connect(uChi, towCon.uChi) annotation (Line(points={{-920,400},{-800,400},{-800,
           -572},{-268,-572}},      color={255,0,255}));
   connect(staSetCon.yIni, wseSta.uIni) annotation (Line(points={{-172,-16},{-150,
           -16},{-150,272},{-750,272},{-750,330},{-704,330}}, color={255,127,0}));
-  connect(plaEna.yPla, wseSta.uPla) annotation (Line(points={{-658,-520},{-580,-520},
+  connect(plaEna.yPla, wseSta.uPla) annotation (Line(points={{-658,-500},{-580,-500},
           {-580,72},{-760,72},{-760,334},{-704,334}}, color={255,0,255}));
   connect(dpChiWat, wseSta.dpChiWat) annotation (Line(points={{-920,110},{-730,110},
           {-730,322},{-704,322}}, color={0,0,127}));
@@ -1913,7 +1945,7 @@ equation
           318},{-704,318}}, color={255,0,255}));
   connect(TEntHex, wseSta.TEntHex) annotation (Line(points={{-920,20},{-710,20},
           {-710,310},{-704,310}}, color={0,0,127}));
-  connect(plaEna.yPla, enaDev.uPla) annotation (Line(points={{-658,-520},{-580,-520},
+  connect(plaEna.yPla, enaDev.uPla) annotation (Line(points={{-658,-500},{-580,-500},
           {-580,-422},{-542,-422}}, color={255,0,255}));
   connect(staSetCon.yIni, enaDev.uIni) annotation (Line(points={{-172,-16},{-150,
           -16},{-150,-370},{-570,-370},{-570,-426},{-542,-426}}, color={255,127,0}));
@@ -1923,9 +1955,8 @@ equation
           -410},{-590,-438},{-542,-438}}, color={255,0,255}));
   connect(uChiWatPum, enaDev.uChiWatPum) annotation (Line(points={{-920,574},{-790,
           574},{-790,-434},{-542,-434}}, color={255,0,255}));
-  connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-520},
-          {-580,-520},{-580,560.357},{414,560.357}},
-                                            color={255,0,255}));
+  connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-500},
+          {-580,-500},{-580,560.357},{414,560.357}},color={255,0,255}));
   connect(enaDev.yLeaConPum, upProCon.uEnaPlaConPum) annotation (Line(points={{-518,
           -433},{-110,-433},{-110,364},{172,364}}, color={255,0,255}));
   connect(enaDev.yConWatIsoVal, upProCon.uEnaPlaConIso) annotation (Line(points={{-518,
@@ -1939,23 +1970,23 @@ equation
   connect(wseSta.yPumSpe, yWsePumSpe) annotation (Line(points={{-656,310},{-590,
           310},{-590,690},{940,690}}, color={0,0,127}));
   connect(chiComSta.y, disChi.uChi) annotation (Line(points={{662,350},{710,350},
-          {710,-461},{738,-461}}, color={255,0,255}));
-  connect(chiIsoVal.y, disChi.uChiWatIsoVal) annotation (Line(points={{562,0},{
-          660,0},{660,-465},{738,-465}}, color={0,0,127}));
-  connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,640},{
-          -810,640},{-810,-463},{738,-463}}, color={255,0,255}));
+          {710,-460},{738,-460}}, color={255,0,255}));
+  connect(chiIsoVal.y, disChi.uChiWatIsoVal) annotation (Line(points={{562,-30},
+          {660,-30},{660,-464},{738,-464}}, color={0,0,127}));
+  connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,640},{-810,
+          640},{-810,-462},{738,-462}},      color={255,0,255}));
   connect(pro4.y, disChi.uConWatIsoVal) annotation (Line(points={{682,240},{700,
-          240},{700,-469},{738,-469}}, color={0,0,127}));
+          240},{700,-468},{738,-468}}, color={0,0,127}));
   connect(disChi.yConWatIsoVal,yConWatIsoVal)  annotation (Line(points={{762,-466},
           {820,-466},{820,240},{940,240}},        color={0,0,127}));
-  connect(disChi.yChiWatPumSpe, yChiPumSpe) annotation (Line(points={{762,-472},
-          {830,-472},{830,480},{940,480}},  color={0,0,127}));
-  connect(pro.y, disChi.uChiWatPumSpe) annotation (Line(points={{662,480},{720,
-          480},{720,-473},{738,-473}}, color={0,0,127}));
+  connect(disChi.yChiWatPumSpe, yChiPumSpe) annotation (Line(points={{762,-471},
+          {830,-471},{830,480},{940,480}},  color={0,0,127}));
+  connect(pro.y, disChi.uChiWatPumSpe) annotation (Line(points={{662,480},{720,480},
+          {720,-472},{738,-472}},      color={0,0,127}));
   connect(pro1.y, disChi.uConWatPumSpe) annotation (Line(points={{682,150},{730,
-          150},{730,-475},{738,-475}}, color={0,0,127}));
-  connect(disChi.yConWatPumSpe, yConWatPumSpe) annotation (Line(points={{762,-475},
-          {840,-475},{840,150},{940,150}},        color={0,0,127}));
+          150},{730,-474},{738,-474}}, color={0,0,127}));
+  connect(disChi.yConWatPumSpe, yConWatPumSpe) annotation (Line(points={{762,-474},
+          {840,-474},{840,150},{940,150}},        color={0,0,127}));
   connect(towCon.yTowSta, celCom.u1)
     annotation (Line(points={{-172,-660},{838,-660}}, color={255,0,255}));
   connect(celCom.y, yTowCel)
@@ -1984,8 +2015,8 @@ equation
           130},{-340,372},{172,372}}, color={255,127,0}));
   connect(staSetCon.ySta, wseSta.uChiSta) annotation (Line(points={{-172,-24},{-140,
           -24},{-140,280},{-740,280},{-740,326},{-704,326}}, color={255,127,0}));
-  connect(chaProUpDown.y, disChi.chaPro) annotation (Line(points={{402,-80},{
-          410,-80},{410,-477},{738,-477}}, color={255,0,255}));
+  connect(chaProUpDown.y, disChi.chaPro) annotation (Line(points={{402,-80},{410,
+          -80},{410,-476},{738,-476}},     color={255,0,255}));
   connect(chiComSta.y, yChi)
     annotation (Line(points={{662,350},{940,350}}, color={255,0,255}));
   connect(disChi.yTowCel, booScaRep3.u) annotation (Line(points={{762,-479},{
@@ -2000,21 +2031,16 @@ equation
           {560,280},{560,260},{-550,260},{-550,220},{-524,220}}, color={255,0,
           255}));
   connect(uChiWatIsoVal, chiWatPumCon.uChiWatIsoVal) annotation (Line(points={{-920,
-          -228},{110,-228},{110,518.571},{414,518.571}},
-                                                      color={0,0,127}));
+          -228},{110,-228},{110,518.571},{414,518.571}}, color={0,0,127}));
   connect(wseSta.y, disChi.uWSE) annotation (Line(points={{-656,334},{-630,334},
-          {-630,-479},{738,-479}}, color={255,0,255}));
+          {-630,-480},{738,-480}}, color={255,0,255}));
   connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,334},{
           -630,334},{-630,528.214},{414,528.214}},
-                                           color={255,0,255}));
+                                              color={255,0,255}));
   connect(staSetCon.yChiSet, upProCon.uChiConIsoVal) annotation (Line(points={{
           -172,4},{-130,4},{-130,380},{172,380}}, color={255,0,255}));
   connect(staSetCon.yChiSet, dowProCon.uChiConIsoVal) annotation (Line(points={
           {-172,4},{-130,4},{-130,-260},{172,-260}}, color={255,0,255}));
-  connect(towCon.yLifMax, staSetCon.uLifMax) annotation (Line(points={{-172,-564},
-          {-140,-564},{-140,-454},{-310,-454},{-310,28},{-268,28}}, color={0,0,127}));
-  connect(towCon.yLifMin, staSetCon.uLifMin) annotation (Line(points={{-172,-572},
-          {-130,-572},{-130,-446},{-300,-446},{-300,20},{-268,20}}, color={0,0,127}));
   connect(wetBul.TWetBul, wseSta.TOutWet) annotation (Line(points={{-838,370},{-756,
           370},{-756,354},{-704,354}}, color={0,0,127}));
   connect(TOut, wetBul.TDryBul) annotation (Line(points={{-920,-520},{-888,-520},
@@ -2022,20 +2048,19 @@ equation
   connect(phi, wetBul.phi) annotation (Line(points={{-920,360},{-868,360},{-868,
           364},{-862,364}}, color={0,0,127}));
   connect(conInt1.y, chiWatPumCon.uPumLeaLag) annotation (Line(points={{382,580},
-          {400,580},{400,566.786},{414,566.786}},
-                                          color={255,127,0}));
+          {400,580},{400,566.786},{414,566.786}}, color={255,127,0}));
   connect(uChiWatPum, chiWatPumCon.uChiWatPum) annotation (Line(points={{-920,
           574},{-790,574},{-790,553.929},{414,553.929}},
-                                                 color={255,0,255}));
+                                                    color={255,0,255}));
   connect(uChiWatIsoVal, wseSta.uChiIsoVal) annotation (Line(points={{-920,-228},
           {-764,-228},{-764,302},{-704,302}}, color={0,0,127}));
   connect(disChi.y1ChiWatIsoVal, wseSta.u1ChiIsoVal) annotation (Line(points={{762,
           -463},{800,-463},{800,-340},{-746,-340},{-746,306},{-704,306}},
         color={255,0,255}));
   connect(chiIsoVal.y, yChiWatIsoVal)
-    annotation (Line(points={{562,0},{940,0}}, color={0,0,127}));
+    annotation (Line(points={{562,-30},{940,-30}}, color={0,0,127}));
   connect(uConWatReq, disChi.uConWatReq) annotation (Line(points={{-920,610},{80,
-          610},{80,-467},{738,-467}},    color={255,0,255}));
+          610},{80,-466},{738,-466}},    color={255,0,255}));
   connect(chaProUpDown.y, wseSta.uStaPro) annotation (Line(points={{402,-80},{410,
           -80},{410,-110},{-726,-110},{-726,314},{-704,314}}, color={255,0,255}));
   connect(chiWatSupSet.TChiWatSupSet, supTem.u) annotation (Line(points={{-476,428},
@@ -2047,7 +2072,7 @@ equation
   connect(wseSta.y1ChiWatBypVal, y1WseChiWatBypVal) annotation (Line(points={{-656,
           306},{-570,306},{-570,660},{942,660}}, color={255,0,255}));
   connect(chiHeaCon.y, disChi.u1ConWatIsoVal) annotation (Line(points={{542,280},
-          {690,280},{690,-471},{738,-471}}, color={255,0,255}));
+          {690,280},{690,-470},{738,-470}}, color={255,0,255}));
   connect(disChi.y1ConWatIsoVal, y1ConWatIsoVal) annotation (Line(points={{762,-468},
           {808,-468},{808,280},{940,280}}, color={255,0,255}));
   connect(dpChiWatSet_local, chiWatPumCon.dpChiWatSet_local) annotation (Line(
@@ -2055,8 +2080,38 @@ equation
           127}));
   connect(dpChiWatSet_local, staSetCon.dpChiWatPumSet_local) annotation (Line(
         points={{-920,500},{-872,500},{-872,12},{-268,12}}, color={0,0,127}));
-  connect(plaEna.uPlaSchEna, uPlaSchEna) annotation (Line(points={{-704,-520},{-830,
-          -520},{-830,-480},{-920,-480}}, color={255,0,255}));
+  connect(plaEna.uPlaSchEna, uPlaSchEna) annotation (Line(points={{-704,-500},{-868,
+          -500},{-868,-480},{-920,-480}}, color={255,0,255}));
+  connect(conWatPumNum.y, intScaRep.u)
+    annotation (Line(points={{462,20},{478,20}}, color={255,127,0}));
+  connect(conPum.y, enaConWatPum.u1)
+    annotation (Line(points={{502,60},{538,60}}, color={255,127,0}));
+  connect(enaConWatPum.y, booToRea1.u)
+    annotation (Line(points={{562,60},{578,60}}, color={255,0,255}));
+  connect(intScaRep.y, enaConWatPum.u2) annotation (Line(points={{502,20},{520,
+          20},{520,52},{538,52}}, color={255,127,0}));
+  connect(enaConWatPum.y, disChi.uConWatPum) annotation (Line(points={{562,60},{
+          570,60},{570,-478},{738,-478}}, color={255,0,255}));
+  connect(disChi.yConWatPum, yConWatPum) annotation (Line(points={{762,-476},{850,
+          -476},{850,90},{940,90}}, color={255,0,255}));
+  connect(uChi, chiLif.uChi) annotation (Line(points={{-920,400},{-520,400},{-520,
+          370},{-502,370}}, color={255,0,255}));
+  connect(chiLif.yLifMax, staSetCon.uLifMax) annotation (Line(points={{-478,376},
+          {-300,376},{-300,28},{-268,28}}, color={0,0,127}));
+  connect(chiLif.yLifMin, staSetCon.uLifMin) annotation (Line(points={{-478,364},
+          {-310,364},{-310,20},{-268,20}}, color={0,0,127}));
+  connect(TChiWatRet, sub.u1) annotation (Line(points={{-920,280},{-860,280},{-860,
+          -534},{-560,-534}}, color={0,0,127}));
+  connect(TChiWatSup, sub.u2) annotation (Line(points={{-920,210},{-840,210},{-840,
+          -546},{-560,-546}}, color={0,0,127}));
+  connect(VChiWat_flow, gai.u) annotation (Line(points={{-920,440},{-880,440},{-880,
+          -620},{-562,-620}}, color={0,0,127}));
+  connect(sub.y, mul.u1) annotation (Line(points={{-536,-540},{-520,-540},{-520,
+          -534},{-464,-534}}, color={0,0,127}));
+  connect(gai.y, mul.u2) annotation (Line(points={{-538,-620},{-500,-620},{-500,
+          -546},{-464,-546}}, color={0,0,127}));
+  connect(mul.y, towCon.uChiLoa) annotation (Line(points={{-440,-540},{-390,-540},
+          {-390,-564},{-268,-564}}, color={0,0,127}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2162,15 +2217,6 @@ annotation (
           extent={{-98,-232},{-78,-246}},
           textColor={0,0,127},
           textString="TOut"),
-        Text(
-          extent={{-98,-252},{-50,-266}},
-          textColor={0,0,127},
-          textString="uChiCooLoa",
-          visible=have_WSE),
-        Text(
-          extent={{-96,-294},{-64,-306}},
-          textColor={0,0,127},
-          textString="uFanSpe"),
         Text(
           extent={{-98,-314},{-50,-328}},
           textColor={0,0,127},
@@ -2552,6 +2598,9 @@ If the plants have variable speed condenser water pumps and have waterside econo
 the condenser water pumps are headered.
 </li>
 </ul>
+<p>
+The sequence is not applicable for the plants with air cooled chillers.
+</p>
 
 <h4>3. Minimum chilled water flow</h4>
 <p>
@@ -2609,6 +2658,9 @@ In Guideline36-2021, the sequences for following types of plant have not been sp
 Plants with series chiller
 </li>
 </ul>
+<p>
+The sequence is not applicable for the plants with air cooled chillers.
+</p>
 
 <h4>7. Chiller staging control</h4>
 <p>
@@ -2684,10 +2736,13 @@ Plants with cooling tower fan speed control, for control condenser water supply
 temperature, section 5.20.12.2.b.
 </li>
 </ul>
+<p>
+The sequence is not applicable for the plants with air cooled chillers.
+</p>
 
 <h4>9. Equipment rotation</h4>
 <p>
-The sequence Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo 
+The sequence 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo</a>
 rotates equipment,

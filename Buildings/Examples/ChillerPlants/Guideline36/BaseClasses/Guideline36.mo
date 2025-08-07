@@ -107,10 +107,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatLev(
     final k=0.9) "Constant cooling tower water level"
     annotation (Placement(transformation(extent={{-520,-10},{-500,10}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiMax cooTowFan(
-    final nin=2)
-    "Cooling tower fan speed"
-    annotation (Placement(transformation(extent={{-400,190},{-380,210}})));
   Modelica.Fluid.Interfaces.FluidPort_b portCooCoiSup(
     redeclare package Medium =MediumW)
     "Cooling coil loop supply"
@@ -144,6 +140,10 @@ protected
     "Water specific heat capacity";
   final parameter Modelica.Units.SI.HeatFlowRate chiDesCap = mChi_flow_nominal*dTChi*Cp
     "Chiller design capacity";
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2](
+    final realTrue=fill(0.9,2))
+    "Fixed condenser water pump speed"
+    annotation (Placement(transformation(extent={{40,150},{60,170}})));
 
 equation
   connect(chwIsoVal1.y_actual, chiWatIso[1].u) annotation (Line(points={{235,77},
@@ -186,10 +186,6 @@ equation
           {300,388},{-430,388},{-430,-20},{-362,-20}},      color={0,0,127}));
   connect(conWatLev.y, chiPlaCon.watLev) annotation (Line(points={{-498,0},{-380,
           0},{-380,8},{-144,8}},            color={0,0,127}));
-  connect(chiPlaCon.yConWatPumSpe[1], conWatPum1.y) annotation (Line(points={{-96,90},
-          {120,90},{120,224},{220,224},{220,210},{212,210}}, color={0,0,127}));
-  connect(chiPlaCon.yConWatPumSpe[2], conWatPum2.y) annotation (Line(points={{-96,90},
-          {120,90},{120,224},{280,224},{280,210},{272,210}}, color={0,0,127}));
   connect(chiPlaCon.yConWatIsoVal[1], cwIsoVal1.y) annotation (Line(points={{-96,96},
           {70,96},{70,118},{380,118},{380,112}},     color={0,0,127}));
   connect(chiPlaCon.yConWatIsoVal[2], cwIsoVal2.y) annotation (Line(points={{-96,96},
@@ -197,15 +193,10 @@ equation
   connect(chi1.P, chiSta[1].u) annotation (Line(points={{341,103},{350,103},{350,
           116},{90,116},{90,268},{-480,268},{-480,230},{-402,230}},     color={
           0,0,127}));
-  connect(cooTow1.yFanSpe, cooTowFan.u[1]) annotation (Line(points={{318,384},{-420,
-          384},{-420,199.5},{-402,199.5}},      color={0,0,127}));
   connect(conWatSupTem.T, chiPlaCon.TConWatSup) annotation (Line(points={{271,280},
           {280,280},{280,260},{-330,260},{-330,16},{-144,16}}, color={0,0,127}));
   connect(TWetBul.y, cooTow1.TAir) annotation (Line(points={{-499,80},{-490,80},
           {-490,350},{360,350},{360,384},{342,384}}, color={0,0,127}));
-  connect(cooTow2.yFanSpe, cooTowFan.u[2]) annotation (Line(points={{318,314},{290,
-          314},{290,384},{-420,384},{-420,200.5},{-402,200.5}},     color={0,0,
-          127}));
   connect(chiPlaCon.yMinValPosSet, valByp.y) annotation (Line(points={{-96,60},{
           0,60},{0,-200},{330,-200},{330,-208}},        color={0,0,127}));
   connect(jun10.port_2, portCooCoiSup) annotation (Line(
@@ -244,8 +235,6 @@ equation
           {366,387},{366,420},{-310,420},{-310,11},{-144,11}}, color={0,0,127}));
   connect(towIsoVal2.y_actual, chiPlaCon.uIsoVal[2]) annotation (Line(points={{375,317},
           {366,317},{366,420},{-310,420},{-310,13},{-144,13}}, color={0,0,127}));
-  connect(cooTowFan.y, chiPlaCon.uFanSpe) annotation (Line(points={{-378,200},{-190,
-          200},{-190,20},{-144,20}},      color={0,0,127}));
   connect(conWatPum1.y_actual, chiPlaCon.uConWatPumSpe[1]) annotation (Line(
         points={{207,199},{207,192},{-200,192},{-200,44},{-144,44}}, color={0,0,
           127}));
@@ -309,6 +298,12 @@ equation
           {138,132},{138,1},{318,1}},      color={0,0,127}));
   connect(plaEna.y, chiPlaCon.uPlaSchEna) annotation (Line(points={{-258,160},{-220,
           160},{-220,36},{-144,36}}, color={255,0,255}));
+  connect(chiPlaCon.yConWatPum, booToRea.u) annotation (Line(points={{-96,78},{-40,
+          78},{-40,160},{38,160}}, color={255,0,255}));
+  connect(booToRea[1].y, conWatPum1.y) annotation (Line(points={{62,160},{120,160},
+          {120,220},{220,220},{220,210},{212,210}}, color={0,0,127}));
+  connect(booToRea[2].y, conWatPum2.y) annotation (Line(points={{62,160},{120,160},
+          {120,220},{280,220},{280,210},{272,210}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
             {160,-200}}), graphics={
         Rectangle(

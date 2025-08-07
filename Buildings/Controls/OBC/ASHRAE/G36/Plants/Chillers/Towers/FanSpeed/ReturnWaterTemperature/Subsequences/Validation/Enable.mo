@@ -93,12 +93,10 @@ protected
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 
 equation
-  connect(hpTowSpe1.y, enaTow.uMaxTowSpeSet[1])
-    annotation (Line(points={{-198,90},{-180,90},{-180,59},{-142,59}},
-      color={0,0,127}));
-  connect(hpTowSpe2.y, enaTow.uMaxTowSpeSet[2])
-    annotation (Line(points={{-238,70},{-180,70},{-180,59},{-142,59}},
-      color={0,0,127}));
+  connect(hpTowSpe1.y, enaTow.uMaxSpeSet[1]) annotation (Line(points={{-198,90},
+          {-180,90},{-180,59},{-142,59}}, color={0,0,127}));
+  connect(hpTowSpe2.y, enaTow.uMaxSpeSet[2]) annotation (Line(points={{-238,70},
+          {-180,70},{-180,59},{-142,59}}, color={0,0,127}));
   connect(towFanSpe.y,enaTow.uFanSpe)
     annotation (Line(points={{-198,40},{-180,40},{-180,56},{-142,56}},
       color={0,0,127}));
@@ -111,10 +109,10 @@ equation
   connect(opeConPum.y, enaTow.uConWatPumNum)
     annotation (Line(points={{-238,-80},{-156,-80},{-156,41},{-142,41}},
       color={255,127,0}));
-  connect(hpTowSpe3.y, disTow.uMaxTowSpeSet[1])
-    annotation (Line(points={{-18,90},{0,90},{0,59},{38,59}}, color={0,0,127}));
-  connect(hpTowSpe4.y, disTow.uMaxTowSpeSet[2])
-    annotation (Line(points={{-58,70},{0,70},{0,59},{38,59}}, color={0,0,127}));
+  connect(hpTowSpe3.y, disTow.uMaxSpeSet[1]) annotation (Line(points={{-18,90},
+          {0,90},{0,59},{38,59}}, color={0,0,127}));
+  connect(hpTowSpe4.y, disTow.uMaxSpeSet[2]) annotation (Line(points={{-58,70},
+          {0,70},{0,59},{38,59}}, color={0,0,127}));
   connect(towFanSpe1.y,disTow.uFanSpe)
     annotation (Line(points={{-18,40},{0,40},{0,56},{38,56}}, color={0,0,127}));
   connect(conRetSet1.y, disTow.TTowSet)
@@ -126,12 +124,10 @@ equation
   connect(opeConPum1.y, disTow.uConWatPumNum)
     annotation (Line(points={{-58,-80},{24,-80},{24,41},{38,41}},
       color={255,127,0}));
-  connect(hpTowSpe5.y, disTow1.uMaxTowSpeSet[1])
-    annotation (Line(points={{162,90},{180,90},{180,59},{218,59}},
-      color={0,0,127}));
-  connect(hpTowSpe6.y, disTow1.uMaxTowSpeSet[2])
-    annotation (Line(points={{122,70},{180,70},{180,59},{218,59}},
-      color={0,0,127}));
+  connect(hpTowSpe5.y, disTow1.uMaxSpeSet[1]) annotation (Line(points={{162,90},
+          {180,90},{180,59},{218,59}}, color={0,0,127}));
+  connect(hpTowSpe6.y, disTow1.uMaxSpeSet[2]) annotation (Line(points={{122,70},
+          {180,70},{180,59},{218,59}}, color={0,0,127}));
   connect(towFanSpe2.y,disTow1.uFanSpe)
     annotation (Line(points={{162,40},{180,40},{180,56},{218,56}},
       color={0,0,127}));

@@ -2,41 +2,29 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subse
 block UpEnd "Sequence for ending stage-up process"
 
   parameter Integer nChi=2 "Total number of chillers";
+  parameter Boolean have_airCoo=false
+    "True: the plant has air cooled chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
 
   parameter Real delayStaCha(unit="s")=900
     "Hold period for each stage change";
-  parameter Real proOnTim(
-    final unit="s",
-    final quantity="Time") = 300
+  parameter Real proOnTim(unit="s")=300
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
     annotation (Dialog(group="Enable next chiller"));
-  parameter Real chaChiWatIsoTim(
-    final unit="s",
-    final quantity="Time")
+  parameter Real chaChiWatIsoTim(unit="s")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
-  parameter Real byPasSetTim(
-    final unit="s",
-    final quantity="Time")
+  parameter Real byPasSetTim(unit="s")
     "Time to slowly reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real minFloSet[nChi](
-    final unit=fill("m3/s", nChi),
-    final quantity=fill("VolumeFlowRate", nChi),
-    displayUnit=fill("m3/s", nChi))
+  parameter Real minFloSet[nChi](unit=fill("m3/s", nChi), each displayUnit="m3/s")
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real maxFloSet[nChi](
-    final unit=fill("m3/s", nChi),
-    final quantity=fill("VolumeFlowRate", nChi),
-    displayUnit=fill("m3/s", nChi))
+  parameter Real maxFloSet[nChi](unit=fill("m3/s", nChi), each displayUnit="m3/s")
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real aftByPasSetTim(
-    final unit="s",
-    final quantity="Time")=60
+  parameter Real aftByPasSetTim(unit="s")=60
     "Time after minimum bypass flow being resetted to new setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real relFloDif=0.05
@@ -77,10 +65,12 @@ block UpEnd "Sequence for ending stage-up process"
     annotation (Placement(transformation(extent={{-260,10},{-220,50}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
+    if not have_airCoo
     "Condenser water request status for each chiller"
     annotation (Placement(transformation(extent={{-260,-50},{-220,-10}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
+    if not have_airCoo
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-260,-80},{-220,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -106,6 +96,7 @@ block UpEnd "Sequence for ending stage-up process"
     annotation (Placement(transformation(extent={{220,80},{260,120}}),
       iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiHeaCon[nChi]
+    if not have_airCoo
     "Chiller head pressure control enabling status"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
       iconTransformation(extent={{100,-10},{140,30}})));
@@ -139,7 +130,7 @@ protected
     final nChi=nChi,
     final thrTimEnb=0,
     final waiTim=0,
-    final heaStaCha=false)
+    final heaStaCha=false) if not have_airCoo
     "Disable head pressure control of the chiller being disabled"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint
@@ -161,7 +152,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=true) "True constant"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and5 if not have_airCoo
+    "Logical and"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false)
     "False constant"
@@ -172,9 +164,10 @@ protected
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractor curDisChi1(final nin=nChi)
+    if not have_airCoo
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi] if not have_airCoo
     "Logical switch"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
@@ -206,18 +199,19 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Maintain ON signal when the chilled water isolation valve has been closed"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if not have_airCoo
     "Maintain ON signal when the chiller head pressure control has been disabled"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if the disabled chiller is not requiring chilled water"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3
+  Buildings.Controls.OBC.CDL.Logical.Not not3 if not have_airCoo
     "Check if the disabled chiller is not requiring condenser water"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-60,68},{-40,88}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and3 if not have_airCoo
+    "Logical and"
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(
     final t=nChi) "Check if index is in the range"
@@ -252,6 +246,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Staging up edge"
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if have_airCoo
+    "To be enabled when it is the air chilled"
+    annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false)
+    if have_airCoo "Dummy "
+    annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
 equation
   connect(lat.y, not2.u)
     annotation (Line(points={{-178,150},{-142,150}}, color={255,0,255}));
@@ -385,12 +386,12 @@ equation
       color={255,0,255}));
   connect(lat2.y, and5.u2)
     annotation (Line(points={{162,30},{180,30},{180,14},{-20,14},{-20,-38},{-2,-38}},
-                    color={255,0,255}));
+          color={255,0,255}));
   connect(edg1.y, lat2.clr)
     annotation (Line(points={{202,-260},{210,-260},{210,-280},{-30,-280},{-30,24},
           {138,24}},  color={255,0,255}));
   connect(disHeaCon.yEnaHeaCon, lat3.u)
-    annotation (Line(points={{82,-4},{110,-4},{110,-40},{118,-40}},   color={255,0,255}));
+    annotation (Line(points={{82,-4},{110,-4},{110,-40},{118,-40}}, color={255,0,255}));
   connect(lat3.y, minChiWatSet.uSubCha)
     annotation (Line(points={{142,-40},{160,-40},{160,-54},{40,-54},{40,-94},{58,
           -94}},  color={255,0,255}));
@@ -458,15 +459,14 @@ equation
           {-80,-54},{-80,-130},{-62,-130}}, color={255,0,255}));
   connect(and6.y, lat4.u)
     annotation (Line(points={{-38,-130},{0,-130},{0,-140},{58,-140}},
-                                                    color={255,0,255}));
+          color={255,0,255}));
   connect(lat4.y, chiWatByp1.u2) annotation (Line(points={{82,-140},{104,-140},
           {104,-90},{118,-90}},color={255,0,255}));
   connect(and7.y, lat5.u)
     annotation (Line(points={{142,-152},{160,-152},{160,-160},{178,-160}},
-                                                     color={255,0,255}));
+          color={255,0,255}));
   connect(lat.y, and7.u1) annotation (Line(points={{-178,150},{-170,150},{-170,
-          -152},{118,-152}},
-                       color={255,0,255}));
+          -152},{118,-152}}, color={255,0,255}));
   connect(and6.y, and7.u2) annotation (Line(points={{-38,-130},{0,-130},{0,-160},
           {118,-160}}, color={255,0,255}));
   connect(chiWatByp1.y, chiWatByp.u1) annotation (Line(points={{142,-90},{150,-90},
@@ -485,6 +485,16 @@ equation
           {58,-146}}, color={255,0,255}));
   connect(edg.y, lat5.clr) annotation (Line(points={{-38,-170},{24,-170},{24,-166},
           {178,-166}}, color={255,0,255}));
+  connect(con.y, or2.u1)
+    annotation (Line(points={{-178,-170},{-162,-170}}, color={255,0,255}));
+  connect(lat2.y, or2.u2) annotation (Line(points={{162,30},{180,30},{180,56},{-174,
+          56},{-174,-178},{-162,-178}}, color={255,0,255}));
+  connect(or2.y, and6.u1) annotation (Line(points={{-138,-170},{-126,-170},{-126,
+          -130},{-62,-130}}, color={255,0,255}));
+  connect(or2.y, minChiWatSet.uSubCha) annotation (Line(points={{-138,-170},{-126,
+          -170},{-126,-94},{58,-94}}, color={255,0,255}));
+  connect(or2.y, minBypSet.uUpsDevSta) annotation (Line(points={{-138,-170},{-126,
+          -170},{-126,-202},{58,-202}}, color={255,0,255}));
 annotation (
   defaultComponentName="endUp",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -504,7 +514,7 @@ annotation (
           textString="Close chilled water
 isolation valve"),
           Rectangle(
-          extent={{-218,-22},{218,-58}},
+          extent={{-218,-8},{218,-44}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),

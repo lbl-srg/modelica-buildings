@@ -56,9 +56,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(final k=0.5)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-320,110},{-300,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe3(final k=0.2)
-    "Measured tower fan speed"
-    annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatSupSet(
     final k=273.15 + 6.5)
     "Chilled water supply setpoint"
@@ -140,13 +137,11 @@ equation
           92},{-162,92}}, color={0,0,127}));
   connect(chiOneSta.y, towCon.uChi[1]) annotation (Line(points={{-298,270},{-30,
           270},{-30,376.5},{198,376.5}}, color={255,0,255}));
-  connect(towFanSpe3.y,towCon.uFanSpe)  annotation (Line(points={{-298,160},{-10,
-          160},{-10,373},{198,373}},     color={0,0,127}));
   connect(chiWatSupSet.y, towCon.TChiWatSupSet) annotation (Line(points={{-338,
           -40},{10,-40},{10,369},{198,369}}, color={0,0,127}));
   connect(plaCap.y, towCon.reqPlaCap) annotation (Line(points={{-338,140},{20,140},
           {20,367},{198,367}}, color={0,0,127}));
-  connect(maxTowSpe1.y, towCon.uMaxTowSpeSet[1]) annotation (Line(points={{-138,
+  connect(maxTowSpe1.y, towCon.uMaxSpeSet[1]) annotation (Line(points={{-138,
           100},{30,100},{30,364.5},{198,364.5}}, color={0,0,127}));
   connect(or3.y, towCon.uPla) annotation (Line(points={{-78,-70},{60,-70},{60,
           361},{198,361}}, color={255,0,255}));
@@ -206,8 +201,8 @@ equation
           120},{-240,48},{-162,48},{-162,48}}, color={0,0,127}));
   connect(zer.y, maxTowSpe2.u3) annotation (Line(points={{-298,80},{-260,80},{-260,
           32},{-162,32}}, color={0,0,127}));
-  connect(maxTowSpe2.y, towCon.uMaxTowSpeSet[2]) annotation (Line(points={{-138,
-          40},{40,40},{40,365.5},{198,365.5}}, color={0,0,127}));
+  connect(maxTowSpe2.y, towCon.uMaxSpeSet[2]) annotation (Line(points={{-138,40},
+          {40,40},{40,365.5},{198,365.5}}, color={0,0,127}));
 annotation (experiment(StopTime=3500.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/Validation/WithoutWSE.mos"
     "Simulate and plot"),

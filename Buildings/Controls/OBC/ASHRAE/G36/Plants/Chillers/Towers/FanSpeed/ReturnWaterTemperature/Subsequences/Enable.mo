@@ -26,13 +26,13 @@ block Enable "Sequence for enabling and disabling tower fan"
     "Threshold time for checking duration when there is no enabled tower fan"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-320,190},{-280,230}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final min=0,
     final max=1,
@@ -201,14 +201,13 @@ equation
     annotation (Line(points={{-98,160},{-62,160}},color={255,0,255}));
   connect(mulOr.y, truDel2.u)
     annotation (Line(points={{2,160},{18,160}}, color={255,0,255}));
-  connect(uMaxTowSpeSet, hys1.u)
+  connect(uMaxSpeSet, hys1.u)
     annotation (Line(points={{-300,210},{-242,210}}, color={0,0,127}));
   connect(hys1.y, swi.u2)
     annotation (Line(points={{-218,210},{-210,210},{-210,180},{-202,180}},
       color={255,0,255}));
-  connect(uMaxTowSpeSet, swi.u1)
-    annotation (Line(points={{-300,210},{-260,210},{-260,188},{-202,188}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, swi.u1) annotation (Line(points={{-300,210},{-260,210},{-260,
+          188},{-202,188}}, color={0,0,127}));
   connect(one.y, swi.u3)
     annotation (Line(points={{-218,150},{-210,150},{-210,172},{-202,172}},
       color={0,0,127}));
@@ -374,7 +373,7 @@ section 5.20.12.2, item a.11-l2.
 Disable the tower fans if either:
 <ul>
 <li>
-Any enabled chiller’s head pressure control maximum tower fan speed <code>uMaxTowSpeSet</code> 
+Any enabled chiller’s head pressure control maximum tower fan speed <code>uMaxSpeSet</code> 
 has equaled tower minimum speed <code>fanSpeMin</code> for 5 minutes, or
 </li>
 <li>
@@ -395,7 +394,7 @@ The tower temperature <code>TTow</code> rises above setpoint <code>TTowSet</code
 by 1 &deg;F, and
 </li>
 <li>
-All enabled chillers’ head pressure control maximum tower fan speed <code>uMaxTowSpeSet</code> 
+All enabled chillers’ head pressure control maximum tower fan speed <code>uMaxSpeSet</code> 
 are greater than tower minimum speed <code>fanSpeMin</code>.
 </li>
 </ul>

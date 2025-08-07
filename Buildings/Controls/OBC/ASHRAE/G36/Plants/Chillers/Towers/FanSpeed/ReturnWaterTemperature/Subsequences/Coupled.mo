@@ -49,13 +49,13 @@ block Coupled
     final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
@@ -147,9 +147,8 @@ equation
   connect(one1.y, swi1.u3)
     annotation (Line(points={{-78,-110},{-70,-110},{-70,-88},{-62,-88}},
       color={0,0,127}));
-  connect(uMaxTowSpeSet, swi1.u1)
-    annotation (Line(points={{-140,-40},{-80,-40},{-80,-72},{-62,-72}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, swi1.u1) annotation (Line(points={{-140,-40},{-80,-40},{-80,
+          -72},{-62,-72}}, color={0,0,127}));
   connect(swi1.y, maxSpe.u)
     annotation (Line(points={{-38,-80},{-22,-80}}, color={0,0,127}));
   connect(CWRTSpd.y, fanSpe.u[1])
@@ -218,7 +217,7 @@ speed <code>fanSpeMin</code> at 0% loop output to 100% speed at 100% loop output
 <li>
 The output tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head 
-pressure control loop <code>uMaxTowSpeSet</code>, and tower maximum speed that reset 
+pressure control loop <code>uMaxSpeSet</code>, and tower maximum speed that reset 
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
 receive the same speed signal.
 </li>

@@ -62,10 +62,6 @@ equation
     annotation (Line(points={{42,70},{70,70},{70,6},{98,6}}, color={255,0,255}));
   connect(chiSta1.y, wseOpe.uChi[1])
     annotation (Line(points={{-18,40},{70,40},{70,6},{98,6}}, color={255,0,255}));
-  connect(swi1.y, wseOpe.chiLoa[1])
-    annotation (Line(points={{42,110},{80,110},{80,9},{98,9}}, color={0,0,127}));
-  connect(con1.y, wseOpe.chiLoa[2])
-    annotation (Line(points={{-78,90},{-60,90},{-60,9},{98,9}}, color={0,0,127}));
   connect(wseSta.y, wseOpe.uWse)
     annotation (Line(points={{-18,-30},{40,-30},{40,2},{98,2}}, color={255,0,255}));
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
@@ -76,6 +72,8 @@ equation
           {50,-2},{98,-2}},color={0,0,127}));
   connect(timTab.y[1], wseOpe.TChiWatSup) annotation (Line(points={{-38,-100},{60,
           -100},{60,-6},{98,-6}},color={0,0,127}));
+  connect(swi1.y, wseOpe.uChiLoa) annotation (Line(points={{42,110},{80,110},{
+          80,9},{98,9}}, color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/EnabledWSE/Validation/Controller.mos"
     "Simulate and plot"),

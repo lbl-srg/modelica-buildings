@@ -23,8 +23,7 @@ model IdentifyStage "Validation identifying stage index"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chi2(
     final width=0.7,
-    final period=5)
-    "Chiller two status"
+    final period=5) "Chiller two status"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chi3(
     final width=0.9,
