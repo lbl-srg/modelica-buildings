@@ -51,24 +51,18 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
-     final min=0,
-     final max=1,
-     final unit="1") "Measured tower fan speed"
-     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
-       iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC",
@@ -115,15 +109,13 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Zero constant"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 equation
   connect(intOpe.uChi, uChi)
     annotation (Line(points={{-42,88},{-80,88},{-80,40},{-120,40}}, color={255,0,255}));
   connect(intOpe.uChiLoa, uChiLoa)
     annotation (Line(points={{-42,80},{-120,80}}, color={0,0,127}));
-  connect(wseOpe.uFanSpe,uFanSpe)
-    annotation (Line(points={{-42,-52},{-60,-52},{-60,-30},{-120,-30}}, color={0,0,127}));
   connect(wseOpe.TChiWatSup, TChiWatSup)
     annotation (Line(points={{-42,-60},{-120,-60}}, color={0,0,127}));
   connect(wseOpe.TChiWatSupSet, TChiWatSupSet)
@@ -139,7 +131,7 @@ equation
   connect(swi.y, swi1.u1)
     annotation (Line(points={{22,40},{40,40},{40,8},{58,8}}, color={0,0,127}));
   connect(zer.y, swi1.u3)
-    annotation (Line(points={{22,-30},{40,-30},{40,-8},{58,-8}}, color={0,0,127}));
+    annotation (Line(points={{22,-20},{40,-20},{40,-8},{58,-8}}, color={0,0,127}));
   connect(swi1.y,ySpeSet)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(uChi, mulOr.u)
@@ -147,6 +139,8 @@ equation
   connect(uWse, intOpe.uWse)
     annotation (Line(points={{-120,0},{-60,0},{-60,72},{-42,72}}, color={255,0,255}));
 
+  connect(swi1.y, wseOpe.uFanSpe) annotation (Line(points={{82,0},{90,0},{90,
+          -40},{-60,-40},{-60,-52},{-42,-52}}, color={0,0,127}));
 annotation (
   defaultComponentName="towFanSpeWse",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -194,19 +188,15 @@ annotation (
           textColor={0,0,127},
           textString="uChiLoa"),
         Text(
-          extent={{-100,70},{-64,54}},
+          extent={{-100,60},{-64,44}},
           textColor={255,0,255},
           textString="uChi"),
         Text(
-          extent={{-96,30},{-66,12}},
+          extent={{-96,10},{-66,-8}},
           textColor={255,0,255},
           textString="uWse"),
         Text(
-          extent={{-96,-10},{-52,-26}},
-          textColor={0,0,127},
-          textString="uFanSpe"),
-        Text(
-          extent={{-96,-52},{-40,-66}},
+          extent={{-96,-42},{-40,-56}},
           textColor={0,0,127},
           textString="TChiWatSup"),
         Text(

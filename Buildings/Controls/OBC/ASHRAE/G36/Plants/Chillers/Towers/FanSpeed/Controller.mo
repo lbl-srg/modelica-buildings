@@ -281,12 +281,12 @@ equation
   connect(fanSpeWse.uChiLoa, uChiLoa) annotation (Line(points={{-42,59},{-60,59},
           {-60,140},{-120,140}}, color={0,0,127}));
   connect(fanSpeWse.uChi, uChi)
-    annotation (Line(points={{-42,56},{-64,56},{-64,120},{-120,120}},
+    annotation (Line(points={{-42,55},{-64,55},{-64,120},{-120,120}},
       color={255,0,255}));
-  connect(fanSpeWse.uWse, uWse) annotation (Line(points={{-42,52},{-68,52},{-68,
+  connect(fanSpeWse.uWse, uWse) annotation (Line(points={{-42,50},{-68,50},{-68,
           100},{-120,100}}, color={255,0,255}));
   connect(fanSpeWse.TChiWatSup, TChiWatSup)
-    annotation (Line(points={{-42,44},{-76,44},{-76,60},{-120,60}},
+    annotation (Line(points={{-42,45},{-76,45},{-76,60},{-120,60}},
       color={0,0,127}));
   connect(fanSpeWse.TChiWatSupSet, TChiWatSupSet)
     annotation (Line(points={{-42,41},{-60,41},{-60,30},{-120,30}}, color={0,0,127}));
@@ -324,8 +324,6 @@ equation
           90,-48},{90,-130},{120,-130}}, color={0,0,127}));
   connect(fanSpeRetTem.yLifMin, yLifMin) annotation (Line(points={{62,-51},{
           80,-51},{80,-170},{120,-170}}, color={0,0,127}));
-  connect(fanSpeRetTem.ySpeSet, fanSpeWse.uFanSpe) annotation (Line(points={{62,
-          -40},{80,-40},{80,80},{-72,80},{-72,48},{-42,48}}, color={0,0,127}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),

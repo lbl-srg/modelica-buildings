@@ -38,10 +38,6 @@ model Controller
     period=3700)
     "Waterside economizer enabling status"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay fanSpe(
-    samplePeriod=1)
-    "Current fan speed"
-    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
     table=[0,280.4; 400,279.9; 1000,281.65; 1600,280.4],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
@@ -59,19 +55,16 @@ equation
   connect(chiSta1.y, swi1.u2)
     annotation (Line(points={{-18,40},{0,40},{0,110},{18,110}}, color={255,0,255}));
   connect(chiSta2.y, wseOpe.uChi[2])
-    annotation (Line(points={{42,70},{70,70},{70,6},{98,6}}, color={255,0,255}));
+    annotation (Line(points={{42,70},{70,70},{70,5},{98,5}}, color={255,0,255}));
   connect(chiSta1.y, wseOpe.uChi[1])
-    annotation (Line(points={{-18,40},{70,40},{70,6},{98,6}}, color={255,0,255}));
+    annotation (Line(points={{-18,40},{70,40},{70,5},{98,5}}, color={255,0,255}));
   connect(wseSta.y, wseOpe.uWse)
-    annotation (Line(points={{-18,-30},{40,-30},{40,2},{98,2}}, color={255,0,255}));
+    annotation (Line(points={{-18,-30},{40,-30},{40,0},{98,0}}, color={255,0,255}));
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
     annotation (Line(points={{-78,-130},{70,-130},{70,-9},{98,-9}},  color={0,0,127}));
-  connect(wseOpe.ySpeSet, fanSpe.u) annotation (Line(points={{122,0},{130,0},{130,
-          -80},{-110,-80},{-110,-60},{-102,-60}}, color={0,0,127}));
-  connect(fanSpe.y, wseOpe.uFanSpe) annotation (Line(points={{-78,-60},{50,-60},
-          {50,-2},{98,-2}},color={0,0,127}));
-  connect(timTab.y[1], wseOpe.TChiWatSup) annotation (Line(points={{-38,-100},{60,
-          -100},{60,-6},{98,-6}},color={0,0,127}));
+  connect(timTab.y[1], wseOpe.TChiWatSup) annotation (Line(points={{-38,-100},{
+          60,-100},{60,-5},{98,-5}},
+                                 color={0,0,127}));
   connect(swi1.y, wseOpe.uChiLoa) annotation (Line(points={{42,110},{80,110},{
           80,9},{98,9}}, color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
