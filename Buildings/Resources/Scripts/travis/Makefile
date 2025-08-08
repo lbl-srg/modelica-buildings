@@ -45,11 +45,13 @@ test-energyplus-validations:
 
 test-cdl-conformance:
 	(cd $(ROOT) && \
-	 echo "*********************************************************" && \
-	 echo "*** Running modelica-json" && \
 	 export MODELICAPATH=`pwd` && \
+	 sudo apt update && \
+     sudo apt install nodejs npm && \
 	 sudo npm install -g n && \
      sudo n 20.12.2 && \
+	 echo "*********************************************************" && \
+	 echo "*** Running modelica-json" && \
 	 node $(MODELICA_JSON_HOME)/app.js -f Buildings/Controls/OBC -o json -m modelica -d out --strict true && \
 	 rm -rf out)
 	@echo "    Target $@ successful."
