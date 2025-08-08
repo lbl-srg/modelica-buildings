@@ -366,17 +366,6 @@ block G36
      or cfg.typValCooOutIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "#2299 Should be Boolean and conditional to a configuration parameter"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply FIXME_uChiLoa[cfg.nChi]
-    "#2299: The chiller load (𝑄𝑟𝑒𝑞𝑢𝑖𝑟𝑒𝑑) shall be internally calculated by the controller"
-    annotation (Placement(transformation(extent={{-150,190},{-130,210}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yChi_actual[cfg.nChi]
-    "Convert chiller status to real"
-    annotation (Placement(transformation(extent={{-190,190},{-170,210}})));
-  Modelica.Blocks.Sources.RealExpression loaChiDivChiOn[cfg.nChi](each y=if
-        Modelica.Math.BooleanVectors.anyTrue(yChi_actual.u) then ctl.staSetCon.yCapReq
-        /sum(yChi_actual.y) else 0)
-    "Chiller load divided by number of running chillers"
-    annotation (Placement(transformation(extent={{-190,160},{-170,180}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal FIXME_uIsoVal[cfg.nCoo]
     "#2299 Should be Boolean + missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-190,-150},{-170,-130}})));
@@ -536,16 +525,6 @@ equation
           -3},{-2,-3}}, color={255,0,255}));
   connect(ctl.yTowCelIsoVal, FIXME_yTowCelIsoVal.u) annotation (Line(points={{22,-18},
           {38,-18},{38,-80},{48,-80}},      color={0,0,127}));
-  connect(FIXME_uChiLoa.y, ctl.uChiLoa) annotation (Line(points={{-128,200},{-22,
-          200},{-22,2},{-2,2}}, color={0,0,127}));
-  connect(busChi.y1_actual, yChi_actual.u) annotation (Line(
-      points={{-240,200},{-192,200}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(yChi_actual.y, FIXME_uChiLoa.u1) annotation (Line(points={{-168,200},{
-          -160,200},{-160,206},{-152,206}}, color={0,0,127}));
-  connect(loaChiDivChiOn.y, FIXME_uChiLoa.u2) annotation (Line(points={{-169,170},
-          {-160,170},{-160,194},{-152,194}}, color={0,0,127}));
   connect(busValCooInlIso.y1_actual, FIXME_uIsoVal.u) annotation (Line(
       points={{-240,-140},{-192,-140}},
       color={255,204,51},
