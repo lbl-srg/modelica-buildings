@@ -6,13 +6,6 @@ language: python
 python:
   - "3.8"
 
-language: node_js
-
-node_js:
-  - "node" # Uses the latest stable Node.js version
-  - "lts/*" # Uses the latest LTS version
-  - "20" # Specifies a particular major version (e.g., Node.js 20)
-
 branches:
   only:
     - master
