@@ -48,6 +48,8 @@ test-cdl-conformance:
 	 echo "*********************************************************" && \
 	 echo "*** Running modelica-json" && \
 	 export MODELICAPATH=`pwd` && \
+	 sudo npm install -g n && \
+     sudo n 20.12.2 && \
 	 node $(MODELICA_JSON_HOME)/app.js -f Buildings/Controls/OBC -o json -m modelica -d out --strict true && \
 	 rm -rf out)
 	@echo "    Target $@ successful."
