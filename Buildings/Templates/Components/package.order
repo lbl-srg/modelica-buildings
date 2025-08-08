@@ -2,6 +2,7 @@ Actuators
 Chillers
 Coils
 Controls
+Coolers
 Fans
 HeatPumps
 Pumps
@@ -12,3 +13,4 @@ Data
 Types
 Validation
 Interfaces
+BaseClasses

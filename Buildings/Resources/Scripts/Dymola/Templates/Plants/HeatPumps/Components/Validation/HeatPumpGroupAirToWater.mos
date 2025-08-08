@@ -36,7 +36,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=3,
-    y={"hpAw.hp[1].hp.PLR", "hpAw.hp[1].hp.COP"},
+    y={"hpAw.hp[1].hp.PLR", "hpAw.hp[1].hp.COP", "hpAw.hp[1].hp.EER"},
     autoscale=true,
     grid=true
 );

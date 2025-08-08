@@ -138,7 +138,7 @@ createPlot(
 createPlot(
     id=8,
     position={650, 40, 300, 600},
-    y={"pla.bus.hrc.y1", "pla.bus.hrc.y1Coo", "pla.hrc.hrc.chi.PLR2"},
+    y={"pla.bus.hrc.y1", "pla.bus.hrc.y1Coo", "pla.hrc.hrc.chi.PLR"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -146,7 +146,7 @@ createPlot(
 createPlot(
     id=8,
     subPlot=2,
-    y={"pla.bus.TChiWatRetUpsHrc", "pla.bus.TChiWatSecRet", "pla.bus.TChiWatSecSup"},
+    y={"pla.hrc.hrc.bus.TSet", "pla.bus.TChiWatRetUpsHrc", "pla.bus.TChiWatSecRet", "pla.bus.TChiWatSecSup"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -154,7 +154,7 @@ createPlot(
 createPlot(
     id=8,
     subPlot=3,
-    y={"pla.bus.THeaWatRetUpsHrc", "pla.bus.THeaWatSecRet", "pla.bus.THeaWatSecSup"},
+    y={"pla.hrc.hrc.bus.TSet", "pla.bus.THeaWatRetUpsHrc", "pla.bus.THeaWatSecRet", "pla.bus.THeaWatSecSup"},
     autoscale=true,
     grid=true,
     timeUnit="h"
