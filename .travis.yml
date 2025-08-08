@@ -6,6 +6,13 @@ language: python
 python:
   - "3.8"
 
+language: node_js
+
+node_js:
+    - "node" # Uses the latest stable Node.js version
+    - "lts/*" # Uses the latest LTS version
+    - "20" # Specifies a particular major version (e.g., Node.js 20)
+
 branches:
   only:
     - master
@@ -111,6 +118,8 @@ env:
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - nvm install 20.x # Installs a specific major version
+  - nvm use 20.x
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-templates-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
        docker pull "$DOCKER_REPONAME"/${DYMOLA_VERSION};
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
