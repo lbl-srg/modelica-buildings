@@ -4,13 +4,10 @@ model WaterCooled "Validation of water-cooled chiller plant template"
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Main medium (common for CHW and CW)";
-  parameter
+  replaceable parameter
     Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled
-    datAll(pla(final cfg=pla.cfg, ctl(sta=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-             then [0,0,0; 0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else [0,0; 1,0; 1,
-            1], staPumConWat=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-             then {0,1,1,2,2,2} else {0,1,2})))
-                                   "Plant parameters"
+    datAll(pla(cfg=pla.cfg))
+    "Plant parameters"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -41,18 +38,9 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     dpFixed_nominal=datAll.pla.ctl.dpChiWatRemSet_max[1] - 3E4)
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
-  Buildings.Templates.Plants.Chillers.WaterCooled pla(
-    redeclare final package MediumChiWat = Medium,
-    redeclare replaceable package MediumCon = Medium,
-    nChi=2,
-    nAirHan=1,
-    final energyDynamics=energyDynamics,
-    final dat=datAll.pla,
-    show_T=true,
-    linearized=true,
+  replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
+    redeclare final package MediumCon = Medium,
     chi(
-      have_senTChiWatChiSup_select=true,
-      have_senTChiWatChiRet=true,
       have_senTConWatChiSup=true,
       have_senTConWatChiRet_select=true),
     redeclare replaceable
@@ -60,6 +48,17 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       "No waterside economizer",
     ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller,
         typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
+    constrainedby Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
+      redeclare final package MediumChiWat = Medium,
+      nChi=2,
+      nAirHan=1,
+      final energyDynamics=energyDynamics,
+      final dat=datAll.pla,
+      show_T=true,
+      linearized=true,
+      chi(
+        have_senTChiWatChiSup_select=true,
+        have_senTChiWatChiRet=true))
     "Chiller plant"
     annotation (Placement(transformation(extent={{-80,-120},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSup(k=293.15, y(final

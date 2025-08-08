@@ -94,7 +94,8 @@ model Compression "Group of compression chillers"
     ctlHea[nChi](
     final minChiLif=dTLifChi_min,
     each final k=kCtlHea,
-    each final Ti=TiCtlHea) if typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller
+    each final Ti=TiCtlHea) if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
+     and typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller
     "Chiller head pressure control"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
 equation

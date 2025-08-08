@@ -249,20 +249,23 @@ partial model PartialChillerGroup "Interface class for chiller group"
     start=fill(Buildings.Templates.Data.Defaults.dTLifChi_min, nChi))
     "Minimum allowable lift at minimum load - Each chiller"
     annotation (Dialog(group="Chiller head pressure control",
-      enable=typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+      enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled and
+      typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
   parameter Real kCtlHea(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps,
     start=1)=1
     "Gain of chiller head pressure control loop"
     annotation (Dialog(group="Chiller head pressure control",
-      enable=typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+      enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled and
+      typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
   parameter Real TiCtlHea(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=60
     "Integral time constant of chiller head pressure control loop"
     annotation (Dialog(group="Chiller head pressure control",
-      enable=typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+      enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled and
+      typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
 
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow"

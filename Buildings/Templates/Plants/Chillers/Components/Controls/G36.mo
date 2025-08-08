@@ -367,6 +367,7 @@ block G36
     "#2299 Should be Boolean and conditional to a configuration parameter"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal FIXME_uIsoVal[cfg.nCoo]
+    if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
     "#2299 Should be Boolean + missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-190,-150},{-170,-130}})));
   Modelica.Blocks.Continuous.CriticalDamping FIXME_uConWatPumSpe[cfg.nPumConWat](
@@ -446,12 +447,15 @@ equation
   connect(bus.TConWatSup, ctl.TConWatSup);
   connect(bus.TChiWatPriSup, ctl.TChiWatSup);
   connect(bus.dpChiWatEco, ctl.dpChiWat);
-  connect(bus.pumConWat.y1_actual, ctl.uConWatPum);
   connect(busValChiWatChiIso.y_actual, ctl.uChiWatIsoVal);
-  // HACK Dymola does not automatically remove the clause at translation.
+  // HACK Dymola does not automatically remove these clauses at translation.
   if cfg.typEco == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump
     then
     connect(bus.pumChiWatEco.y1_actual, ctl.uEcoPum);
+  end if;
+  if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then
+    connect(bus.pumConWat.y1_actual, ctl.uConWatPum);
   end if;
   connect(bus.TChiWatEcoEnt, ctl.TEntHex);
   connect(bus.TOut, ctl.TOut);

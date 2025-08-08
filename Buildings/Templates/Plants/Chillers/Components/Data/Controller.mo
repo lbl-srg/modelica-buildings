@@ -316,24 +316,24 @@ record Controller
     "Staging matrix with plant stage as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
     annotation (Evaluate=true,
     Dialog(group="Plant staging"));
-  final parameter Integer nSta=size(sta, 1)
+  final parameter Integer nSta = size(sta, 1)
     "Number of plant stages"
     annotation (Evaluate=true,
     Dialog(group="Plant staging"));
-  final parameter Integer nUniSta=size(sta, 2)
+  final parameter Integer nUniSta = size(sta, 2)
     "Number of units to be staged, including chillers and optional WSE"
     annotation (Evaluate=true,
     Dialog(group="Plant staging"));
   parameter Integer staPumConWat[:](
     max=fill(cfg.nPumConWat, nSta),
     min=fill(0, nSta),
-    start=fill(1, nSta))
+    start=fill(cfg.nPumConWat, nSta))
     "Number of operating CW pumps - Each plant stage"
     annotation (Dialog(
       group="Plant staging",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
         (cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled)));
-  parameter Integer staCoo[:](max=fill(cfg.nCoo, nSta), start=fill(0, nSta))
+  parameter Integer staCoo[:](max=fill(cfg.nCoo, nSta), start=fill(cfg.nCoo, nSta))
     "Quantity of enabled cooler units (e.g. cooling tower cells) at each plant Stage"
     annotation (Evaluate=true,
     Dialog(group="Plant staging",

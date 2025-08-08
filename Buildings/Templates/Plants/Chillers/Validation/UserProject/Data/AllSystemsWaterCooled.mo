@@ -60,11 +60,11 @@ class AllSystemsWaterCooled
       yPumChiWatSec_min=0.1,
       yFanCoo_min=0,
       sta=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-           then [0,0,0; 0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else [0,0; 1,0; 1,1],
+        then [0,0,0; 0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else [0,0; 1,0; 1,1],
       staPumConWat=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-           then {0,1,1,2,2,2} else {0,1,2},
+        then {0,1,1,2,2,2} else {0,1,2},
       staCoo=if pla.cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-           then {0,1,1,2,2,2} else {0,1,2},
+        then {0,1,1,2,2,2} else {0,1,2},
       TOutChiWatLck=250,
       TConWatRetChi_nominal=fill(Buildings.Templates.Data.Defaults.TConWatRet,
           pla.cfg.nChi),
