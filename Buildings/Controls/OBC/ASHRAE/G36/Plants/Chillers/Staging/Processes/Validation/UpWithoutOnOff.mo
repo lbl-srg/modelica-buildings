@@ -34,24 +34,23 @@ protected
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
   Buildings.Controls.OBC.CDL.Logical.Not staUp "Stage up command"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa[2](
-    final k=fill(2, 2))
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa(final k=2)
     "Chiller load"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniChiIsoVal[2](
     final k={1,0}) "Initial chilled water solation valve"
     annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1[2](
-    final k=fill(0,2)) "Constant zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0)
+    "Constant zero"
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Reals.Switch IsoVal[2] "Logical switch"
     annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(10, 2))
     "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(
     final k=false)
     "Waterside economizer status"
@@ -128,7 +127,9 @@ protected
     final delayTime=0)
     "Chiller one status"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if there is any enabled chiller"
+    annotation (Placement(transformation(extent={{140,110},{160,130}})));
 equation
   connect(booPul.y, staUp.u)
     annotation (Line(points={{-178,110},{-162,110}}, color={255,0,255}));
@@ -160,8 +161,8 @@ equation
   connect(booRep.y, IsoVal.u2) annotation (Line(points={{-98,-220},{-90,-220},{-90,
           -250},{-82,-250}}, color={255,0,255}));
   connect(upProCon.yChiWatIsoVal, zerOrdHol.u) annotation (Line(points={{2,54},{
-          28,54},{28,-20},{38,-20}}, color={0,0,127}));
-  connect(zerOrdHol.y, IsoVal.u1) annotation (Line(points={{62,-20},{90,-20},{90,
+          28,54},{28,-30},{38,-30}}, color={0,0,127}));
+  connect(zerOrdHol.y, IsoVal.u1) annotation (Line(points={{62,-30},{90,-30},{90,
           -190},{-140,-190},{-140,-242},{-82,-242}},   color={0,0,127}));
   connect(IsoVal.y, upProCon.uChiWatIsoVal) annotation (Line(points={{-58,-250},
           {-38,-250},{-38,51},{-22,51}}, color={0,0,127}));
@@ -213,10 +214,6 @@ equation
     annotation (Line(points={{122,40},{138,40}}, color={255,0,255}));
   connect(upProCon.yChi[2], chiTwoSta.y1) annotation (Line(points={{2,51.5},{32,
           51.5},{32,120},{38,120}}, color={255,0,255}));
-  connect(chiOneSta.y, swi1[1].u2) annotation (Line(points={{162,40},{170,40},{170,
-          0},{-140,0},{-140,20},{-122,20}}, color={255,0,255}));
-  connect(chiTwoSta.y1_actual, swi1[2].u2) annotation (Line(points={{62,120},{70,
-          120},{70,0},{-140,0},{-140,20},{-122,20}}, color={255,0,255}));
   connect(chiOneSta.y, upProCon.uChi[1]) annotation (Line(points={{162,40},{170,
           40},{170,0},{-56,0},{-56,77.5},{-22,77.5}}, color={255,0,255}));
   connect(chiTwoSta.y1_actual, upProCon.uChi[2]) annotation (Line(points={{62,120},
@@ -245,6 +242,12 @@ equation
           32,50.5},{32,80},{38,80}}, color={255,0,255}));
   connect(chiOneSta1.y1_actual, chiOneSta.u1) annotation (Line(points={{62,80},
           {130,80},{130,48},{138,48}}, color={255,0,255}));
+  connect(chiTwoSta.y1_actual, or2.u1)
+    annotation (Line(points={{62,120},{138,120}}, color={255,0,255}));
+  connect(chiOneSta.y, or2.u2) annotation (Line(points={{162,40},{170,40},{170,100},
+          {132,100},{132,112},{138,112}}, color={255,0,255}));
+  connect(or2.y, swi1.u2) annotation (Line(points={{162,120},{180,120},{180,-10},
+          {-140,-10},{-140,20},{-122,20}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2000, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/UpWithoutOnOff.mos"

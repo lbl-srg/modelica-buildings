@@ -101,12 +101,12 @@ block Up "Sequence for control devices when there is stage-up command"
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
-        fill("Power", nChi), final unit=fill("J/s", nChi))
-    if need_reduceChillerDemand
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
+    final quantity="HeatFlowRate",
+    final unit="W") if need_reduceChillerDemand
     "Current chiller load"
     annotation (Placement(transformation(extent={{-280,90},{-240,130}}),
-      iconTransformation(extent={{-140,100},{-100,140}})));
+        iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
@@ -185,13 +185,12 @@ block Up "Sequence for control devices when there is stage-up command"
     "Indicate if it is in stage-up process: true=in stage-up process"
     annotation (Placement(transformation(extent={{240,190},{280,230}}),
       iconTransformation(extent={{100,170},{140,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
-    final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
-    if need_reduceChillerDemand
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem(
+    final quantity="HeatFlowRate",
+    final unit="W") if need_reduceChillerDemand
     "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{240,160},{280,200}}),
-      iconTransformation(extent={{100,130},{140,170}})));
+        iconTransformation(extent={{100,130},{140,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinFloSet(
     final min=0,
     final unit="m3/s",

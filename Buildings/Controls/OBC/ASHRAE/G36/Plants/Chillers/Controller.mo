@@ -792,7 +792,7 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final unit="1") if have_WSE and not have_airCoo
-                "Outdoor relative humidity"
+    "Outdoor relative humidity"
     annotation (Placement(transformation(extent={{-940,340},{-900,380}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
 
@@ -833,13 +833,6 @@ block Controller "Chiller plant controller"
     "Chiller head pressure control loop signal from chiller controller"
     annotation (Placement(transformation(extent={{-940,160},{-900,200}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
-        fill("Power", nChi), final unit=fill("J/s", nChi))
-                                if need_reduceChillerDemand
-    "Current chiller load, in amperage"
-    annotation(Placement(transformation(extent={{-940,120},{-900,160}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat(
     final unit="Pa",
@@ -1034,7 +1027,7 @@ block Controller "Chiller plant controller"
     final unit=fill("1", nConWatPum),
     final min=fill(0, nConWatPum),
     final max=fill(1, nConWatPum))
-                             if (not have_airCoo) and not have_fixSpeConWatPum
+    if (not have_airCoo) and not have_fixSpeConWatPum
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{920,130},{960,170}}),
         iconTransformation(extent={{100,30},{140,70}})));
@@ -1069,7 +1062,8 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinValPosSet(
     final min=0,
     final max=1,
-    final unit="1") "Chilled water minimum flow bypass valve position setpoint"
+    final unit="1")
+    "Chilled water minimum flow bypass valve position setpoint"
     annotation (Placement(transformation(extent={{920,-340},{960,-300}}),
         iconTransformation(extent={{100,-120},{140,-80}})));
 
@@ -1638,7 +1632,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Reals.Multiply mul if have_WSE and not have_airCoo
     "Find product of the inputs"
-    annotation (Placement(transformation(extent={{-462,-550},{-442,-530}})));
+    annotation (Placement(transformation(extent={{-460,-520},{-440,-500}})));
 
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-268,72},{-580,72},
@@ -1680,8 +1674,6 @@ equation
           {-130,4},{-130,424},{172,424}}, color={255,0,255}));
   connect(staSetCon.yChiSet, dowProCon.uChiSet) annotation(Line(points={{-172,4},
           {-130,4},{-130,-152},{172,-152}},  color={255,0,255}));
-  connect(uChiLoa, upProCon.uChiLoa) annotation(Line(points={{-920,140},{-830,140},
-          {-830,408},{172,408}}, color={0,0,127}));
   connect(upProCon.yStaPro, chaProUpDown.u1) annotation(Line(points={{268,436},{
           330,436},{330,-80},{378,-80}}, color={255,0,255}));
   connect(dowProCon.yStaPro, chaProUpDown.u2) annotation(Line(points={{268,-144},
@@ -1718,8 +1710,6 @@ equation
           210},{-840,-596},{-268,-596}},     color={0,0,127}));
   connect(chiWatSupSet.TChiWatSupSet, towCon.TChiWatSupSet) annotation(Line(
         points={{-476,428},{-380,428},{-380,-604},{-268,-604}},color={0,0,127}));
-  connect(dowProCon.uChiLoa, uChiLoa) annotation(Line(points={{172,-176},{-830,
-          -176},{-830,140},{-920,140}}, color={0,0,127}));
   connect(dowProCon.uChiWatIsoVal, uChiWatIsoVal) annotation(Line(points={{172,-228},
           {-920,-228}},  color={0,0,127}));
   connect(uChiWatIsoVal, upProCon.uChiWatIsoVal) annotation(Line(points={{-920,-228},
@@ -2107,11 +2097,15 @@ equation
   connect(VChiWat_flow, gai.u) annotation (Line(points={{-920,440},{-880,440},{-880,
           -620},{-562,-620}}, color={0,0,127}));
   connect(sub.y, mul.u1) annotation (Line(points={{-536,-540},{-520,-540},{-520,
-          -534},{-464,-534}}, color={0,0,127}));
+          -504},{-462,-504}}, color={0,0,127}));
   connect(gai.y, mul.u2) annotation (Line(points={{-538,-620},{-500,-620},{-500,
-          -546},{-464,-546}}, color={0,0,127}));
-  connect(mul.y, towCon.uChiLoa) annotation (Line(points={{-440,-540},{-390,-540},
+          -516},{-462,-516}}, color={0,0,127}));
+  connect(mul.y, towCon.uChiLoa) annotation (Line(points={{-438,-510},{-390,-510},
           {-390,-564},{-268,-564}}, color={0,0,127}));
+  connect(mul.y, upProCon.uChiLoa) annotation (Line(points={{-438,-510},{-20,-510},
+          {-20,408},{172,408}}, color={0,0,127}));
+  connect(mul.y, dowProCon.uChiLoa) annotation (Line(points={{-438,-510},{-20,-510},
+          {-20,-176},{172,-176}}, color={0,0,127}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
