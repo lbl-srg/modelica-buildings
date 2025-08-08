@@ -141,6 +141,7 @@ before_install:
       sudo apt install nodejs npm;
       sudo npm install -g n;
       sudo n 20.12.2;
+      hash -r
       node --version;
       make install-node-packages;
       make compile;
