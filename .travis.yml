@@ -137,7 +137,7 @@ before_install:
       rm ${MODELICA_JSON_VERSION}.tar.gz;
       mv modelica-json-${MODELICA_JSON_VERSION} ${MODELICA_JSON_HOME};
       cd ${MODELICA_JSON_HOME};
-      npm install -g n;
+      sudo npm install -g n;
       n stable;
       node --version;
       make install-node-packages;
