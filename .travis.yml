@@ -138,6 +138,7 @@ before_install:
       mv modelica-json-${MODELICA_JSON_VERSION} ${MODELICA_JSON_HOME};
       cd ${MODELICA_JSON_HOME};
       make install-node-packages;
+      npm install n -g;
       make compile;
       cd -;
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
