@@ -1,6 +1,8 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 block TableData2DLoadDep
   "Calculation of capacity, heat flow rate and power based on load-dependent 2D table data"
+   extends Modelica.Blocks.Icons.Block;
+
   type TypeOfSystem = Integer(final min = 1, final max = 3)
   annotation(choices(
     choice = 1 "Chiller",
@@ -25,8 +27,8 @@ block TableData2DLoadDep
     final max=PLRUnl_min,
     final min=0)=min(PLRSup)
     "Minimum PLR before cycling off the last compressor";
-  parameter Modelica.Units.SI.Power P_min(min=0)=0
-    "Remaining power when system is enabled with all compressors cycled off";
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   final parameter Integer nPLR=size(PLRSup, 1)
     "Number of PLR support points"
     annotation (Evaluate=true);
@@ -54,8 +56,8 @@ block TableData2DLoadDep
   parameter Modelica.Units.SI.Temperature TLoa_nominal
     "Load side fluid temperature — Entering or leaving depending on use_T*OutForTab"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TSou_nominal
-    "Source side fluid temperature — Entering or leaving depending on use_T*OutForTab"
+  parameter Modelica.Units.SI.Temperature TAmb_nominal
+    "Ambient side fluid temperature — Entering or leaving depending on use_T*OutForTab"
     annotation (Dialog(group="Nominal condition"));
   // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
   // Binding equations yield incorrect results but no error!
@@ -178,19 +180,19 @@ protected
   // For HRC the same data table is used for both cooling and heating,
   // and the block is necessarily used with chiller data.
   // So the first interpolation variable TLoaTab is always the evaporator temperature,
-  // which is either TLoa(Ent|Lvg) or TSou(Ent|Lvg) depending on the operating mode.
+  // which is either TLoa(Ent|Lvg) or TAmb(Ent|Lvg) depending on the operating mode.
   Modelica.Units.SI.Temperature TLoaTab=if typ==2 then (if coo_internal then
     (if use_TEvaOutForTab then TLoaLvg else TLoaEnt)
     else (if use_TEvaOutForTab then TAmbLvg else TAmbEnt))
     elseif typ==1 then (if use_TEvaOutForTab then TLoaLvg else TLoaEnt)
     else (if use_TConOutForTab then TLoaLvg else TLoaEnt)
     "Fluid temperature on load side used for table data interpolation";
-  Modelica.Units.SI.Temperature TSouTab=if typ==2 then (if coo_internal then
-    (if use_TConOutForTab then TAmbLvg else TAmbEnt)
-    else (if use_TConOutForTab then TLoaLvg else TLoaEnt))
-    elseif typ==1 then (if use_TConOutForTab then TAmbLvg else TAmbEnt)
-    else (if use_TEvaOutForTab then TAmbLvg else TAmbEnt)
-    "Fluid temperature on load side used for table data interpolation";
+  Modelica.Units.SI.Temperature TAmbTab=if typ == 2 then (if coo_internal then (
+    if use_TConOutForTab then TAmbLvg else TAmbEnt) else (if
+    use_TConOutForTab then TLoaLvg else TLoaEnt)) elseif typ == 1 then (if
+    use_TConOutForTab then TAmbLvg else TAmbEnt) else (if use_TEvaOutForTab
+     then TAmbLvg else TAmbEnt)
+    "Fluid temperature on ambient side used for table data interpolation";
   Modelica.Units.SI.Temperature TLoaCtl=if use_TLoaLvgForCtl then TLoaEnt else TLoaLvg
     "Fluid temperature used for load calculation (Delta-T with setpoint)";
   Real sigLoa=if use_TLoaLvgForCtl then 1 else - 1
@@ -198,9 +200,9 @@ protected
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo_internal;
 initial equation
   PInt_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-    tabP, fill(TLoa_nominal, nPLR), fill(TSou_nominal, nPLR));
+    tabP, fill(TLoa_nominal, nPLR), fill(TAmb_nominal, nPLR));
   QInt_flow_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-    tabQ, fill(TLoa_nominal, nPLR), fill(TSou_nominal, nPLR));
+    tabQ, fill(TLoa_nominal, nPLR), fill(TAmb_nominal, nPLR));
 equation
   if typ==2 then
     connect(coo, coo_internal);
@@ -220,7 +222,7 @@ equation
       max(0, sigLoa *(TSet - TLoaCtl) * cpLoa * mLoa_flow)
       else 0;
     QInt_flow=scaFac * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-      tabQ, fill(TLoaTab, nPLR), fill(TSouTab, nPLR));
+      tabQ, fill(TLoaTab, nPLR), fill(TAmbTab, nPLR));
     PLR1=min(PLR_max, Modelica.Math.Vectors.interpolate(
       abs(cat(1, {0}, QInt_flow)),
       cat(1, {0}, PLRSor),
@@ -232,7 +234,7 @@ equation
       cat(1, {0}, QInt_flow),
       yMea);
     PInt=scaFac * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-      tabP, fill(TLoaTab, nPLR), fill(TSouTab, nPLR));
+      tabP, fill(TLoaTab, nPLR), fill(TAmbTab, nPLR));
     P=if PLRCyc_min < PLRSor[1] then
       Modelica.Math.Vectors.interpolate(
         cat(1, {0, PLRCyc_min}, PLRSor),
@@ -335,7 +337,7 @@ For a chiller, this is achieved by bypassing hot gas directly to the evaporator.
 In this domain, the machine PLR varies while the compressor PLR stays
 roughly the same.
 The input power is considered equal to the interpolated value at
-<code>TLoa</code>, <code>TSou</code>, <code>min(PLRSup)</code>.
+<code>TLoa</code>, <code>TAmb</code>, <code>min(PLRSup)</code>.
 This domain may not exist if the parameter <code>PLRCyc_min</code> is
 equal to <code>min(PLRSup)</code>, which is the default setting.
 </li>
@@ -343,9 +345,9 @@ equal to <code>min(PLRSup)</code>, which is the default setting.
 This domain corresponds to the capacity range where the last
 operating compressor cycles on and off.
 In this domain, the capacity is linearly interpolated between
-<code>0</code> and the value at <code>TLoa</code>, <code>TSou</code>, <code>min(PLRSup)</code>,
+<code>0</code> and the value at <code>TLoa</code>, <code>TAmb</code>, <code>min(PLRSup)</code>,
 while the power is linearly interpolated between
-<code>P_min</code> and the value at <code>TLoa</code>, <code>TSou</code>,
+<code>P_min</code> and the value at <code>TLoa</code>, <code>TAmb</code>,
 <code>min(PLRSup)</code>, where <code>P_min</code> corresponds
 to the remaining power when the machine is enabled and all compressors are disabled.
 </li>
@@ -498,7 +500,7 @@ commercial and process cooling - Testing and rating at part load conditions
 and calculation of seasonal performance.
 </li>
 <li>Rivière, P. (2004). Performances saisonnières des groupes de production d’eau glaçée
-[Seasonal performance of liquid chilling packages].
+[Seasonal performance of liquid chillers].
 École Nationale Supérieure des Mines de Paris. [In French].
 <a href=\"https://pastel.hal.science/pastel-00001483\">https://pastel.hal.science/pastel-00001483</a>
 </li>

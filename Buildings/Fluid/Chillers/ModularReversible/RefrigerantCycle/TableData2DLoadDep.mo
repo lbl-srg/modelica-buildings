@@ -19,18 +19,22 @@ model TableData2DLoadDep
   replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic dat
     "Table with performance data"
     annotation (choicesAllMatching=true);
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep calQUseP(
     typ=if have_switchover then 2 else 1,
     final scaFac=scaFac,
     final TLoa_nominal=TEva_nominal,
-    final TSou_nominal=TCon_nominal,
+    final TAmb_nominal=TCon_nominal,
     final use_TEvaOutForTab=use_TEvaOutForTab,
     final use_TConOutForTab=use_TConOutForTab,
     final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
     final PLRSup=dat.PLRSup,
     final PLRCyc_min=dat.PLRCyc_min,
-    final P_min=dat.P_min,
-    final fileName=dat.fileName)
+    final P_min=P_min,
+    final fileName=dat.fileName,
+    final tabNamQ=dat.tabNamQ,
+    final tabNamP=dat.tabNamP)
     "Compute heat flow rate and input power"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={120,0})));

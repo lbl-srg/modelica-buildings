@@ -30,7 +30,7 @@ model Modular_OneRoomRadiator
     GConOut=100,
     GConIns=1000,
     TEvaHea_nominal=sou.T,
-    TEvaCoo_nominal=sou.T,
+    TEvaCoo_nominal=303.15,
     dTEva_nominal=2,
     dpEva_nominal(displayUnit="Pa") = 200,
     use_evaCap=false,
@@ -107,6 +107,11 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 23, 2025, by Michael Wetter:<br/>
+Changed nominal temperature during reverse mode so that heat pump has a positive lift.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2013\">IBPSA, #2013</a>.
+</li>
 <li>
 March 7, 2025, by Michael Wetter:<br/>
 Introduced medium <code>MediumEva</code> and refactored medium assignment

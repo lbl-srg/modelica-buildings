@@ -47,7 +47,8 @@ model TableData2DLoadDep
     final cpCon=cpCon,
     final cpEva=cpEva,
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-    final dat=datHea)
+    final dat=datHea,
+    final P_min=P_min)
     "Refrigerant cycle module for the heating mode";
   final model RefrigerantCycleHeatPumpCooling=Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep(
     final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
@@ -59,7 +60,8 @@ model TableData2DLoadDep
     final cpCon=cpCon,
     final cpEva=cpEva,
     redeclare final Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-    final dat=datCoo)
+    final dat=datCoo,
+    final P_min=P_min)
     "Refrigerant cycle module for the cooling mode";
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
@@ -94,6 +96,8 @@ model TableData2DLoadDep
     annotation (choicesAllMatching=true,
     Dialog(enable=use_rev),
   Placement(transformation(extent={{114,-18},{130,-2}})));
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   parameter Modelica.Units.SI.Temperature TConHea_nominal
     "HW temperature: leaving if datHea.use_TConOutForTab=true, entering otherwie"
     annotation (Dialog(group="Nominal condition"));
@@ -120,17 +124,17 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-142,-20},{-102,20}})));
+      iconTransformation(extent={{-138,-18},{-102,18}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
     "Temperature setpoint"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-142,0},{-102,40}})));
+      iconTransformation(extent={{-138,22},{-102,58}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput hea
     if use_rev "Switchover signal: true for heating, false for cooling"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-142,-40},{-102,0}})));
+      iconTransformation(extent={{-138,-38},{-102,-2}})));
   Modelica.Blocks.Sources.BooleanConstant conHeaBus(final k=true)
     if use_busConOnl and not use_rev
     "Locks the device in heating mode if not reversible - Case with use_busConOnl=true"
@@ -193,7 +197,7 @@ equation
   annotation (
     Icon(
       coordinateSystem(
-        extent={{-100,-100},{100,100}}),
+        extent={{-100,-100},{100,100}}, grid={2,2}),
       graphics={
         Text(
           extent={{-100,-12},{-72,-30}},
