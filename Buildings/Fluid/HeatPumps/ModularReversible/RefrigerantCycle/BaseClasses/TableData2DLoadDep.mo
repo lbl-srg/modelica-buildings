@@ -59,6 +59,8 @@ block TableData2DLoadDep
   parameter Modelica.Units.SI.Temperature TAmb_nominal
     "Ambient side fluid temperature — Entering or leaving depending on use_T*OutForTab"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.TemperatureDifference dTSet(min=0) = 2
+    "Maximum deviation from setpoint for control deadband (>0)";
   // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
   // Binding equations yield incorrect results but no error!
   final parameter Modelica.Units.SI.Power PInt_nominal[nPLR](each fixed=false)
@@ -172,7 +174,7 @@ protected
     "Capacity at PLR support points";
   Modelica.Units.SI.Power PInt[nPLR]
     "Input power at PLR support points";
-  Real PLR1(
+  discrete Real PLR1(
     start=0,
     final min=0,
     final max=PLR_max)
@@ -195,9 +197,16 @@ protected
     "Fluid temperature on ambient side used for table data interpolation";
   Modelica.Units.SI.Temperature TLoaCtl=if use_TLoaLvgForCtl then TLoaEnt else TLoaLvg
     "Fluid temperature used for load calculation (Delta-T with setpoint)";
+  Modelica.Units.SI.Temperature TLoaDea = if use_TLoaLvgForCtl then TLoaLvg else TLoaEnt
+    "Fluid temperature used for deadband control";
   Real sigLoa=if use_TLoaLvgForCtl then 1 else - 1
     "Sign of Delta-T used for load calculation";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo_internal;
+  Integer idxSta(start=1);
+  Integer pre_idxSta = pre(idxSta);
+  Real _PLR;
+  Boolean onAndHig = on and TLoaCtl > TSet + dTSet;
+  Boolean onAndLow = on and TLoaCtl < TSet - dTSet;
 initial equation
   PInt_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabP, fill(TLoa_nominal, nPLR), fill(TAmb_nominal, nPLR));
@@ -213,6 +222,21 @@ equation
       coo_internal=false;
     end if;
   end if;
+
+  when {
+    initial(),
+    on and TLoaDea > TSet + dTSet,
+    on and TLoaDea < TSet - dTSet}  then
+    PLR1 = if typ == 3 or typ == 2 and not coo_internal then
+      if TLoaDea > TSet + dTSet then PLRSorWith0[max(1, idxSta - 1)]
+      elseif TLoaDea < TSet - dTSet then PLRSorWith0[idxSta]
+      else pre(PLR1)
+    else (
+      if TLoaDea > TSet + dTSet then PLRSorWith0[idxSta]
+      elseif TLoaDea < TSet - dTSet then PLRSorWith0[max(1, idxSta - 1)]
+      else pre(PLR1));
+  end when;
+
   if on then
     QSet_flow=if typ==2 and (not coo_internal) then P - QSwiSet_flow
     elseif typ==1 or typ==2 and coo_internal then
@@ -223,10 +247,16 @@ equation
       else 0;
     QInt_flow=scaFac * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
       tabQ, fill(TLoaTab, nPLR), fill(TAmbTab, nPLR));
-    PLR1=min(PLR_max, Modelica.Math.Vectors.interpolate(
+
+    // We cannot use the index returned by interpolate because Dymola does not
+    // allow equations that cannot be scalarized within an if branch.
+    _PLR = min(PLR_max, Modelica.Math.Vectors.interpolate(
       abs(cat(1, {0}, QInt_flow)),
-      cat(1, {0}, PLRSor),
+      PLRSorWith0,
       abs(QSet_flow)));
+    idxSta = Modelica.Math.BooleanVectors.firstTrueIndex(
+      {el >= _PLR for el in PLRSorWith0});
+
     PLR=if PLR1 < PLRUnl_min and PLR1 > PLRCyc_min then PLRUnl_min else PLR1;
     // Actual input and output accounting for equipement internal safeties
     Q_flow=Modelica.Math.Vectors.interpolate(
@@ -248,7 +278,8 @@ equation
     QSet_flow=0;
     QSwiSet_flow=0;
     QInt_flow=fill(0, nPLR);
-    PLR1=0;
+    idxSta = 1;
+    _PLR = 0;
     PLR=0;
     Q_flow=0;
     PInt=fill(0, nPLR);

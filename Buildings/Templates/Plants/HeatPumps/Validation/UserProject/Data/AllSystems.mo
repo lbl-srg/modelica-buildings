@@ -21,7 +21,6 @@ class AllSystems
         fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
         PLRSup={1},
-        P_min=1.0E3,
         use_TEvaOutForTab=false,
         use_TConOutForTab=true,
         tabUppBou=[263.15,325.15; 313.15,325.15]),
@@ -29,7 +28,6 @@ class AllSystems
         fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
         PLRSup={1},
-        P_min=1.0E3,
         use_TEvaOutForTab=true,
         use_TConOutForTab=false)),
     pumHeaWatPri(
