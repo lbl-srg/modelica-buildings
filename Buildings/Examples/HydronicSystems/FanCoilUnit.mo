@@ -46,9 +46,10 @@ model FanCoilUnit
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90, origin={70,-70})));
 
-   Buildings.Examples.VAVReheat.BaseClasses.Floor floor1(
-     redeclare package Medium = MediumA, sampleModel=true)
-     "Thermal zone model"
+   Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
+     redeclare package Medium = MediumA,
+     sampleModel=true)
+     "Thermal zones model"
      annotation (Placement(transformation(extent={{102,56},{180,100}})));
 
   Buildings.Examples.HydronicSystems.BaseClasses.FourPipe fanCoiUni[5](
@@ -229,40 +230,41 @@ equation
           {-94,-100},{-94,-11},{-62,-11}},color={0,0,127}));
   connect(LimLev.y, intScaRep.u)
     annotation (Line(points={{-178,80},{-162,80}}, color={255,127,0}));
-  connect(fanCoiUni[1].port_Air_a, floor1.portsCor[1]) annotation (Line(points={{19.8,14},
-          {76,14},{76,104},{131.335,104},{131.335,79.0154}}, color={0,127,255}));
-  connect(fanCoiUni[1].port_Air_b, floor1.portsCor[2]) annotation (Line(points={{20,6},{
-          72,6},{72,106},{133.03,106},{133.03,79.0154}}, color={0,127,255}));
-  connect(fanCoiUni[2].port_Air_a, floor1.portsSou[1]) annotation (Line(points={{19.8,14},
-          {131.335,14},{131.335,65.4769}}, color={0,127,255}));
-  connect(fanCoiUni[2].port_Air_b, floor1.portsSou[2]) annotation (Line(points={{20,6},{
-          133.03,6},{133.03,65.4769}}, color={0,127,255}));
-  connect(fanCoiUni[3].port_Air_a, floor1.portsEas[1]) annotation (Line(points={{19.8,14},
-          {194,14},{194,79.0154},{169.996,79.0154}}, color={0,127,255}));
-  connect(fanCoiUni[3].port_Air_b, floor1.portsEas[2]) annotation (Line(points={{20,6},{
-          198,6},{198,79.0154},{171.691,79.0154}}, color={0,127,255}));
-  connect(fanCoiUni[4].port_Air_a, floor1.portsNor[1]) annotation (Line(points={{19.8,14},
-          {60,14},{60,108},{131.335,108},{131.335,90.5231}}, color={0,127,255}));
-  connect(fanCoiUni[4].port_Air_b, floor1.portsNor[2]) annotation (Line(points={{20,6},{
-          56,6},{56,110},{133.03,110},{133.03,90.5231}}, color={0,127,255}));
-  connect(fanCoiUni[5].port_Air_a, floor1.portsWes[1]) annotation (Line(points={{19.8,14},
-          {90,14},{90,79.0154},{110.309,79.0154}}, color={0,127,255}));
-  connect(fanCoiUni[5].port_Air_b, floor1.portsWes[2]) annotation (Line(points={{20,6},{
-          86,6},{86,79.0154},{112.004,79.0154}}, color={0,127,255}));
-  connect(floor1.TRooAir[5], conFCU[1].TZon) annotation (Line(points={{181.696,
+  connect(fanCoiUni[1].port_Air_a, flo.portsCor[1]) annotation (Line(points={{19.8,14},
+          {76,14},{76,104},{131.335,104},{131.335,79.0154}},     color={0,127,255}));
+  connect(fanCoiUni[1].port_Air_b, flo.portsCor[2]) annotation (Line(points={{20,6},{
+          72,6},{72,106},{133.03,106},{133.03,79.0154}},     color={0,127,255}));
+  connect(fanCoiUni[2].port_Air_a, flo.portsSou[1]) annotation (Line(points={{19.8,14},
+          {131.335,14},{131.335,65.4769}},     color={0,127,255}));
+  connect(fanCoiUni[2].port_Air_b, flo.portsSou[2]) annotation (Line(points={{20,6},{
+          133.03,6},{133.03,65.4769}},     color={0,127,255}));
+  connect(fanCoiUni[3].port_Air_a, flo.portsEas[1]) annotation (Line(points={{19.8,14},
+          {194,14},{194,79.0154},{169.996,79.0154}},     color={0,127,255}));
+  connect(fanCoiUni[3].port_Air_b, flo.portsEas[2]) annotation (Line(points={{20,6},{
+          198,6},{198,79.0154},{171.691,79.0154}},     color={0,127,255}));
+  connect(fanCoiUni[4].port_Air_a, flo.portsNor[1]) annotation (Line(points={{19.8,14},
+          {60,14},{60,108},{131.335,108},{131.335,90.5231}},     color={0,127,255}));
+  connect(fanCoiUni[4].port_Air_b, flo.portsNor[2]) annotation (Line(points={{20,6},{
+          56,6},{56,110},{133.03,110},{133.03,90.5231}},     color={0,127,255}));
+  connect(fanCoiUni[5].port_Air_a, flo.portsWes[1]) annotation (Line(points={{19.8,14},
+          {90,14},{90,79.0154},{110.309,79.0154}},     color={0,127,255}));
+  connect(fanCoiUni[5].port_Air_b, flo.portsWes[2]) annotation (Line(points={{20,6},{
+          86,6},{86,79.0154},{112.004,79.0154}},     color={0,127,255}));
+  connect(flo.TRooAir[5], conFCU[1].TZon) annotation (Line(points={{181.696,
           78.6769},{210,78.6769},{210,116},{-90,116},{-90,-1},{-62,-1}},
                                                                 color={0,0,127}));
-  connect(conFCU[2].TZon, floor1.TRooAir[1]) annotation (Line(points={{-62,-1},
-          {-90,-1},{-90,116},{210,116},{210,78},{181.696,78},{181.696,77.3231}},
-          color={0,0,127}));
-  connect(conFCU[3].TZon, floor1.TRooAir[2]) annotation (Line(points={{-62,-1},
-          {-90,-1},{-90,116},{210,116},{210,78},{181.696,78},{181.696,77.6615}},
-          color={0,0,127}));
-  connect(conFCU[4].TZon, floor1.TRooAir[3]) annotation (Line(points={{-62,-1},
-          {-90,-1},{-90,116},{210,116},{210,78},{181.696,78}},color={0,0,127}));
-  connect(conFCU[5].TZon, floor1.TRooAir[4]) annotation (Line(points={{-62,-1},
-          {-90,-1},{-90,116},{210,116},{210,78.3385},{181.696,78.3385}},
-          color={0,0,127}));
+  connect(conFCU[2].TZon, flo.TRooAir[1]) annotation (Line(points={{-62,-1},{
+          -90,-1},{-90,116},{210,116},{210,78},{181.696,78},{181.696,77.3231}},
+        color={0,0,127}));
+  connect(conFCU[3].TZon, flo.TRooAir[2]) annotation (Line(points={{-62,-1},{
+          -90,-1},{-90,116},{210,116},{210,78},{181.696,78},{181.696,77.6615}},
+        color={0,0,127}));
+  connect(conFCU[4].TZon, flo.TRooAir[3]) annotation (Line(points={{-62,-1},{
+          -90,-1},{-90,116},{210,116},{210,78},{181.696,78}},
+                                                          color={0,0,127}));
+  connect(conFCU[5].TZon, flo.TRooAir[4]) annotation (Line(points={{-62,-1},{
+          -90,-1},{-90,116},{210,116},{210,78.3385},{181.696,78.3385}},
+                                                                    color={0,0,127}));
   connect(sinHea.ports, fanCoiUni.port_HW_b) annotation (Line(points={{-50,-60},
           {-50,-36},{4,-36},{4,0}}, color={0,127,255}));
   connect(fanCoiUni.port_HW_a, souHea.ports) annotation (Line(points={{8,0},{8,-40},
@@ -275,9 +277,10 @@ equation
           {-88,-21},{-62,-21}}, color={255,0,255}));
   connect(fanCoiUni.yFan_actual, greThr.u) annotation (Line(points={{22,18},{50,
           18},{50,-150},{-210,-150},{-210,-130},{-202,-130}}, color={0,0,127}));
-  connect(weaDat.weaBus, floor1.weaBus) annotation (Line(
+  connect(weaDat.weaBus, flo.weaBus) annotation (Line(
       points={{120,140},{151.174,140},{151.174,106.769}},
-      color={255,204,51}, thickness=0.5));
+      color={255,204,51},
+      thickness=0.5));
   connect(TSetAdj.y, reaScaRep2.u)
     annotation (Line(points={{-178,110},{-162,110}}, color={0,0,127}));
   connect(TOccCooSetPoi.y, reaScaRep7.u)
