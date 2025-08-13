@@ -28,8 +28,9 @@ block LeastRuntime
     "Measures time spent loaded at the current role (lead or lag)"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  CDL.Logical.MultiOr mulOr(nin=nDev) "Multiple or"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nDev) "Multiple or"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+
 protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
@@ -97,11 +98,11 @@ equation
   connect(not2.y, and3[2].u1) annotation (Line(points={{22,30},{30,30},{30,20},{
           38,20}}, color={255,0,255}));
   connect(longer1.y, and1[1].u1) annotation (Line(points={{-18,60},{-10,60},{-10,
-          -60},{58,-60}},              color={255,0,255}));
+          -60},{58,-60}}, color={255,0,255}));
   connect(longer2.y, and1[2].u1) annotation (Line(points={{-18,30},{-10,30},{-10,
-          -60},{58,-60}},              color={255,0,255}));
+          -60},{58,-60}}, color={255,0,255}));
   connect(falEdg.y, and1.u2) annotation (Line(points={{-98,-60},{-60,-60},{-60,-68},
-          {58,-68}},      color={255,0,255}));
+          {58,-68}}, color={255,0,255}));
   connect(con.y, accTim.reset) annotation (Line(points={{-98,30},{-90,30},{-90,52},
           {-82,52}}, color={255,0,255}));
   connect(uDevSta, falEdg.u) annotation (Line(points={{-180,60},{-140,60},{-140,
@@ -119,8 +120,8 @@ equation
   connect(mulOr.y, yRot)
     annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
 
-  annotation (Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
-      defaultComponentName="leaRunTim",
+annotation (defaultComponentName="leaRunTim",
+  Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -149,20 +150,23 @@ equation
         color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This subsequence generates a rotation trigger signal <code>yRot</code> based on measuring the time each of the devices/groups of devices
-has spent in its current role. The rotation trigger output <code>yRot</code> is generated:
+This subsequence generates a rotation trigger signal <code>yRot</code> based on measuring
+the time each of the devices or groups of devices has spent in its current role. The
+rotation trigger output <code>yRot</code> is generated:
 </p>
 <ul>
 <li>
-for lead/lag operation when a device/a group of devices is enabled that has the shortest cumulative runtime
+for lead-lag operation when a device or a group of devices is enabled that has the
+shortest cumulative runtime
 </li>
 <li>
-for lead/standby operation when a device/a group of devices is disbled that has the longest cumulative runtime
+for lead-standby operation when a device or a group of devices is disbled that has
+the longest cumulative runtime
 </li>
 </ul>
 <p>
-The implementation corresponts sections 5.1.15.3. and 5.1.15.4.a. of Guideline36-2021 when applied to
-two devices or groups of devices.
+The implementation corresponds section 5.1.15.3. and 5.1.15.4.a. of Guideline 36-2021
+when applied to two devices or groups of devices.
 </p>
 </html>", revisions="<html>
 <ul>

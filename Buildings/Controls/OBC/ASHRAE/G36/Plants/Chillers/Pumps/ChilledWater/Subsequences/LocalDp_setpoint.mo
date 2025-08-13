@@ -31,9 +31,8 @@ block LocalDp_setpoint
     final unit="s",
     final quantity="Time")=0.1 "Time constant of derivative block"
       annotation (Dialog(group="Pressure controller",
-      enable=
-      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+                         enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+                                controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pump status"
@@ -129,17 +128,17 @@ equation
   connect(reaRep1.y, conPID.u_s)
     annotation (Line(points={{-58,40},{-40,40},{-40,20},{-22,20}},color={0,0,127}));
   connect(div.y, conPID.u_m)
-    annotation (Line(points={{-38,-60},{-10,-60},{-10,8}},   color={0,0,127}));
+    annotation (Line(points={{-38,-60},{-10,-60},{-10,8}}, color={0,0,127}));
   connect(mulOr.y, booRep.u)
-    annotation (Line(points={{-98,0},{-82,0}},     color={255,0,255}));
+    annotation (Line(points={{-98,0},{-82,0}}, color={255,0,255}));
   connect(uChiWatPum, mulOr.u)
-    annotation (Line(points={{-160,0},{-122,0}},    color={255,0,255}));
+    annotation (Line(points={{-160,0},{-122,0}}, color={255,0,255}));
   connect(dpChiWatSet_remote, div.u2) annotation (Line(points={{-160,-80},{-80,-80},
           {-80,-66},{-62,-66}},         color={0,0,127}));
   connect(locDpSet.y, dpChiWatPumSet_local)
-    annotation (Line(points={{122,20},{160,20}},   color={0,0,127}));
+    annotation (Line(points={{122,20},{160,20}}, color={0,0,127}));
   connect(booRep.y, conPID.uEna)
-    annotation (Line(points={{-58,0},{-14,0},{-14,8}},   color={255,0,255}));
+    annotation (Line(points={{-58,0},{-14,0},{-14,8}}, color={255,0,255}));
 annotation (
   defaultComponentName="locDpSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -178,18 +177,18 @@ annotation (
 <p>
 Block that calculates the local DP setpoint for the local primary loop DP sensor
 hardwired to the plant controller. It is applicable for the primary-only plants where
-the remote pressure differential (DP) sensor(s) is not hardwired to the plant controller,
+the remote pressure differential (DP) sensor(s) are not hardwired to the plant controller,
 but a local DP sensor is hardwired to the plant controller,
-according to ASHRAE Guideline36-2021,
+according to ASHRAE Guideline 36-2021,
 section 5.20.6 Primary chilled water pumps, part 5.20.6.10.
 </p>
 <ol>
 <li>
-Remote DP shall be maintained at setpoint <code>dpChiWatSet</code> by a reverse
-acting PID loop running in the controller to which the remote sensor is wired.
+Remote DP shall be maintained at setpoint <code>dpChiWatSet</code> by a reverse-acting
+PID loop running in the controller to which the remote sensor is wired.
 The loop output shall be a DP setpoint for the local primary loop DP sensor
 hardwired to the plant controller. Reset local DP from <code>minLocDp</code>,
-e.g. 5 psi (34473.8 Pa), at 0% loop output to <code>maxLocDp</code> at 100%
+e.g., 5 psi (34473.8 Pa), at 0% loop output to <code>maxLocDp</code> at 100%
 loop output.
 </li>
 </ol>

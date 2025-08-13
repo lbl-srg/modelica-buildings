@@ -23,7 +23,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.ChillerLifts\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.ChillerLifts</a>.
-It shows how to identify current chiller stage.
+It shows how to calculate current chiller lifts.
 </p>
 </html>", revisions="<html>
 <ul>

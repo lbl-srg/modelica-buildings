@@ -658,7 +658,7 @@ equation
       color={0,0,127}));
   connect(multiMax6.y, byPasSet1.u1)
     annotation (Line(points={{-58,-10},{40,-10},{40,280},{380,280},{380,248},{398,
-          248}},     color={0,0,127}));
+          248}}, color={0,0,127}));
   connect(multiMax1.y, oneLeSet.f1)
     annotation (Line(points={{-58,-50},{60,-50},{60,-26},{98,-26}},
       color={0,0,127}));
@@ -692,8 +692,7 @@ equation
   connect(mul3.y, max1.u2) annotation (Line(points={{-98,-80},{-80,-80},{-80,-96},
           {-22,-96}},  color={0,0,127}));
   connect(reaScaRep.y[3], mul3.u1) annotation (Line(points={{-248,-69.3333},{
-          -180,-69.3333},{-180,-74},{-122,-74}},
-                                              color={0,0,127}));
+          -180,-69.3333},{-180,-74},{-122,-74}}, color={0,0,127}));
   connect(reaScaRep.y[1], mul1[1].u2) annotation (Line(points={{-248,-70.6667},
           {-180,-70.6667},{-180,144},{-162,144}},color={0,0,127}));
   connect(reaScaRep.y[2], mul1[2].u2) annotation (Line(points={{-248,-70},{-180,
@@ -729,8 +728,7 @@ equation
   connect(or3.y, logSwi.u2)
     annotation (Line(points={{-38,-440},{118,-440}}, color={255,0,255}));
   connect(edg.y, logSwi.u1) annotation (Line(points={{82,-370},{100,-370},{100,
-          -432},{118,-432}},
-                       color={255,0,255}));
+          -432},{118,-432}}, color={255,0,255}));
   connect(or3.y, notChaSet.u) annotation (Line(points={{-38,-440},{-20,-440},{-20,
           -480},{20,-480}}, color={255,0,255}));
   connect(notChaSet.y, logSwi.u3) annotation (Line(points={{44,-480},{100,-480},
@@ -1009,11 +1007,11 @@ annotation (
 <p>
 Block that outputs chilled water minimum flow setpoint for primary-only
 plants with a minimum flow bypass valve,
-according to ASHRAE Guideline36-2021,
+according to ASHRAE Guideline 36-2021,
 section 5.20.8 Chilled water minimum flow bypass valve.
 </p>
 <p>
-1. For plants with parallel chillers, bypass valve shall modulate to maintain minimum
+1. For plants with parallel chillers, the bypass valve shall modulate to maintain minimum
 flow as measured by the chilled water flow meter at a setpoint that ensures minimum
 flow through all operating chillers, as follows:
 </p>
@@ -1052,7 +1050,7 @@ of <code>maxFloSet</code> for the operating chillers.
 <br/>
 
 <p>
-2. For plants with series chillers, bypass valve shall modulate to maintain minimum
+2. For plants with series chillers, the bypass valve shall modulate to maintain minimum
 flow as measured by the chilled water flow meter at a setpoint equal to the largest
 <code>minFloSet</code> of the operating chillers in current stage.
 </p>
@@ -1060,7 +1058,7 @@ flow as measured by the chilled water flow meter at a setpoint equal to the larg
 3. If there is any stage change requiring a chiller on and another chiller off,
 the minimum flow setpoint shall temporarily change to account for the
 <code>minFloSet</code> of both the chiller to be enabled and to be disabled
-prior to starting the newly enabled chiller.
+before starting the newly enabled chiller.
 </p>
 <p>
 Note that when there is a stage change requiring a change in the

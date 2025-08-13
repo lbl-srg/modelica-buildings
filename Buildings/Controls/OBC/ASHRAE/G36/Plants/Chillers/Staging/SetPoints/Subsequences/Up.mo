@@ -343,7 +343,7 @@ Documentation(info="<html>
 <p>
 Outputs a boolean stage up signal <code>y</code> based on the various plant
 operation conditions that get provided as input signals.
-It is implemented according to Guideline36-2021, section 5.20.4.15 and applies to
+It is implemented according to Guideline 36-2021, section 5.20.4.15 and applies to
 primary-only plant with and without a WSE.
 </p>
 <p>

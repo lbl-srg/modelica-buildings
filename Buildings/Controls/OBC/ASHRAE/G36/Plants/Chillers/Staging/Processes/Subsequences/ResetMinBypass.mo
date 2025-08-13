@@ -225,17 +225,17 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates minimum bypass flow reset status when there is 
-stage-change command.
-This development is based on ASHRAE Guideline36-2021, section 5.20.4.16, item b.
+a stage-change command.
+This development is based on ASHRAE Guideline 36-2021, section 5.20.4.16, item b.
 </p>
 <p>
-When there is stage-change command (<code>uStaPro</code> = true) and the upstream
+When there is a stage-change command (<code>uStaPro</code> = true) and the upstream
 device has finished its adjustment process (<code>uUpsDevSta</code> = true), 
 like in the stage-up process the operating chillers have reduced the demand, 
 check if the minimum chilled water flow rate <code>VChiWat_flow</code> has achieved 
 its new set point <code>VMinChiWat_setpoint</code>. 
 After new setpoint is achieved, wait for 1 minute (<code>byPasSetTim</code>) to 
-allow loop to stabilize. It will then set <code>yMinBypRes</code> to true.
+allow loop to be stabilized. It will then set <code>yMinBypRes</code> to true.
 </p>
 </html>",
 revisions="<html>

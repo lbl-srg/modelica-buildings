@@ -365,7 +365,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs signal <code>yTowSta</code> for enabling and disabling cooling tower 
-fan. This is implemented according to ASHRAE Guideline36-2021,
+fan. This is implemented according to ASHRAE Guideline 36-2021,
 section 5.20.12.2, item a.11-l2.
 </p>
 <ol>

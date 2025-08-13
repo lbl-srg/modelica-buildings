@@ -145,13 +145,13 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DisableChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DisableChiller</a>.
-It shows the substeps of disabling chillers when the plant is in staging down process.
+It shows the substeps of disabling chillers when the plant is in the staging down process.
 </p>
 <p>
 The instance <code>chiOnOff</code> shows how to enable and disable chillers when
-the staging down process requires one chiller being enabled and another chiller
-being disabled. The instance <code>chiOff</code> shows how the chiller being
-disable when the staging down process does not require other chiller being enabled.
+the staging down process requires one chiller to be enabled and another chiller
+to be disabled. The instance <code>chiOff</code> shows how the chiller is
+disable when the staging down process does not require other chiller to be enabled.
 </p>
 <p>
 For the instance <code>chiOnOff</code>, initially the plant has chiller 1 and 2
@@ -160,21 +160,21 @@ being disabled.
 </p>
 <ul>
 <li>
-Before 540 seconds, it does not require the plant staging down (<code>uStaDow=false</code>).
-The chiller 1 and 2 are operating, and chiller 3 is not operating.
+Before 540 seconds, it does not require the plant to stage down (<code>uStaDow=false</code>).
+The chiller 1 and 2 are operating, and the chiller 3 is not operating.
 </li>
 <li>
-At period between 540 seconds and 720 seconds, the plant is in staing down process.
-However, the process is not yet requiring the chiller being enabled or disabled,
+At the period between 540 seconds and 720 seconds, the plant is in the staging down process.
+However, the process is not yet requiring the chiller to be enabled or disabled,
 as <code>uEnaChiWatIsoVal=false</code>.
 </li>
 <li>
-At 720 seconds, the staging down process requires chiller 2 being diabled and chiller
-3 being enabled (<code>nexEnaChi=3</code>, <code>nexDisChi=2</code>). The chiller
+At 720 seconds, the staging down process requires chiller 2 to be disabled and chiller
+3 to be enabled (<code>nexEnaChi=3</code>, <code>nexDisChi=2</code>). The chiller
 3 becomes enabled.
 </li>
 <li>
-At 1020 seconds, which is 5 mintes after enabling chiller 3 (specified by
+At 1020 seconds, which is 5 minutes after enabling chiller 3 (specified by
 <code>proOnTim</code>), chiller 2 becomes disabled and the chiller demand limit
 can be released (<code>yRelDemLim=true</code>).
 </li>
@@ -186,7 +186,7 @@ operating. When staging down, it disables chiller 2.
 <ul>
 <li>
 Before 540 seconds, it does not require the plant staging down
-(<code>uStaDow=false</code>). The chiller 1 and 2 are operating, and chiller 3
+(<code>uStaDow=false</code>). The chiller 1 and 2 are operating, and the chiller 3
 is not operating.
 </li>
 <li>

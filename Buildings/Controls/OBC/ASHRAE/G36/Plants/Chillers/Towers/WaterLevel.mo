@@ -81,7 +81,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs <code>yMakUp</code> to control cooling tower make-up water
-valve. It is implemented according to ASHRAE Guideline36-2021, 
+valve. It is implemented according to ASHRAE Guideline 36-2021, 
 section 5.20.13, tower make-up water.
 </p>
 <p>

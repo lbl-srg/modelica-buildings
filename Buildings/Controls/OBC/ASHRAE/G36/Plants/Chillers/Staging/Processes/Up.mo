@@ -322,10 +322,11 @@ protected
     "False constant"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nChi) if not have_airCoo
-                                                                   "Multiple or"
+    "Multiple or"
     annotation (Placement(transformation(extent={{-140,-62},{-120,-42}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nChi)
-    if not have_airCoo                                              "Multiple or"
+    if not have_airCoo
+    "Multiple or"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{200,-200},{220,-180}})));
@@ -333,7 +334,7 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{140,-230},{160,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi] if not have_airCoo
-                                                         "Logical switch"
+    "Logical switch"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{200,30},{220,50}})));
@@ -345,7 +346,7 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 if not have_airCoo
-                                              "Logical and"
+    "Logical and"
     annotation (Placement(transformation(extent={{20,-126},{40,-106}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1 if need_reduceChillerDemand
     "Maintain ON signal when chiller demand has been limited"
@@ -391,10 +392,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Logical and"
     annotation (Placement(transformation(extent={{160,150},{180,170}})));
-
-public
-  CDL.Logical.Or or1 if have_airCoo "To be disabled when it is air chilled"
+  Buildings.Controls.OBC.CDL.Logical.Or or1 if have_airCoo
+    "To be disabled when it is air chilled"
     annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
+
 equation
   connect(lat.y,chiDemRed.uDemLim)
     annotation (Line(points={{-118,150},{-100,150},{-100,129},{-82,129}},
@@ -580,13 +581,11 @@ equation
   connect(lat5.y, booRep.u)
     annotation (Line(points={{122,-220},{138,-220}}, color={255,0,255}));
   connect(booRep.y, logSwi.u2) annotation (Line(points={{162,-220},{166,-220},{
-          166,-120},{198,-120}},
-                             color={255,0,255}));
+          166,-120},{198,-120}}, color={255,0,255}));
   connect(booRep.y, swi.u2) annotation (Line(points={{162,-220},{166,-220},{166,
           -190},{198,-190}}, color={255,0,255}));
   connect(lat5.y, endUp.uEnaChiWatIsoVal) annotation (Line(points={{122,-220},{
-          130,-220},{130,-240},{0,-240},{0,-262},{18,-262}},
-                                                         color={255,0,255}));
+          130,-220},{130,-240},{0,-240},{0,-262},{18,-262}}, color={255,0,255}));
   connect(endUp.endStaTri, lat.clr) annotation (Line(points={{42,-279},{60,-279},
           {60,-300},{-160,-300},{-160,144},{-142,144}}, color={255,0,255}));
   connect(endUp.endStaTri, lat1.clr) annotation (Line(points={{42,-279},{60,-279},
@@ -596,8 +595,7 @@ equation
   connect(endUp.endStaTri, lat3.clr) annotation (Line(points={{42,-279},{60,-279},
           {60,-300},{-160,-300},{-160,-86},{118,-86}}, color={255,0,255}));
   connect(endUp.endStaTri, lat4.clr) annotation (Line(points={{42,-279},{60,
-          -279},{60,-300},{-160,-300},{-160,-156},{118,-156}},
-                                                         color={255,0,255}));
+          -279},{60,-300},{-160,-300},{-160,-156},{118,-156}}, color={255,0,255}));
   connect(uStaSet, nexChi.uStaSet) annotation (Line(points={{-260,200},{-104,200},
           {-104,197},{-82,197}}, color={255,127,0}));
   connect(nexChi.uChiSet, uChiSet)
@@ -645,14 +643,13 @@ equation
   connect(con2.y, truDel.u)
     annotation (Line(points={{-178,240},{-142,240}}, color={255,0,255}));
   connect(truDel.y, logSwi1.u2) annotation (Line(points={{-118,240},{-80,240},{-80,
-          250},{-42,250}},     color={255,0,255}));
+          250},{-42,250}}, color={255,0,255}));
   connect(minChiWatFlo.yChaSet, minBypSet.uSetChaPro) annotation (Line(points={
           {42,32},{46,32},{46,72},{58,72}}, color={255,0,255}));
   connect(edg.y, lat2.u) annotation (Line(points={{142,80},{150,80},{150,70},{158,
           70}}, color={255,0,255}));
   connect(minBypSet.yMinBypRes, and3.u2) annotation (Line(points={{82,80},{90,
-          80},{90,112},{98,112}},
-                              color={255,0,255}));
+          80},{90,112},{98,112}}, color={255,0,255}));
   connect(and3.y, edg.u) annotation (Line(points={{122,120},{130,120},{130,100},
           {110,100},{110,80},{118,80}}, color={255,0,255}));
   connect(lat.y, and3.u1) annotation (Line(points={{-118,150},{80,150},{80,120},
@@ -860,7 +857,7 @@ and headered condenser water pumps, or air-cooled primary-only parallel chiller
 plants with headered chilled water pumps.
 This development is based on ASHRAE Guideline 36-2021,
 section 5.20.4.16, which specifies the step-by-step control of
-devices during chiller staging up process.
+devices during the chiller staging up process.
 </p>
 <ol>
 <li>
@@ -868,7 +865,7 @@ Identify the chiller(s) that should be enabled (and disabled, if <code>have_pony
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Command operating chillers to reduce demand to 75% (<code>chiDemRedFac</code>) of
@@ -877,7 +874,7 @@ current load up to a maximum of 5 minutes (<code>holChiDemTim</code>) before pro
 This is implemented in block <code>chiDemRed</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ReduceDemand\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ReduceDemand</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Reset the minimum chilled water flow setpoint,
@@ -885,12 +882,12 @@ Reset the minimum chilled water flow setpoint,
 <li>
 For any stage change during which a smaller chiller is disabled and a larger chiller
 is enabled, slowly change (<code>byPasSetTim</code>) the minimum chilled water flow
-setpoint to the one that includes both chillers are enabled. After new setpoint is
+setpoint to the one that includes both chillers are enabled. After the new setpoint is
 achieved, wait 1 minute (<code>aftByPasSetTim</code>) to allow loop to stabilize.
 </li>
 <li>
 For any other stage change, reset ((<code>byPasSetTim</code>)) the minimum chilled
-water flow setpoint to the one that includes the new chiller. After new setpoint is
+water flow setpoint to the one that includes the new chiller. After the new setpoint is
 achieved, wait 1 minute (<code>aftByPasSetTim</code>) to allow loop to stabilize.
 </li>
 </ul>
@@ -902,7 +899,7 @@ Block <code>minBypSet</code> checks if the new setpoint is achieved
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ResetMinBypass</a>).
 </li>
 <li>
-Start the next condenser water pump and/or change condenser water pump speed
+Start the next condenser water pump and (or) change the condenser water pump speed
 to that required of the new stage. Wait 10 seconds (<code>thrTimEnb</code>).
 Block <code>enaNexCWP</code> identifies chiller stage for the condenser water pump
 control
@@ -913,29 +910,29 @@ and block <code>conWatPumCon</code> checks if the condenser water pumps have bee
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller</a>).
 </li>
 <li>
-Enabled head pressure control for the chiller being enabled. Wait 30 seconds (<code>waiTim</code>).
+Enabled head pressure control for the being enabled chiller. Wait 30 seconds (<code>waiTim</code>).
 This is implemented in block <code>enaHeaCon</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
-Slowly (<code>chaChiWatIsoTim</code>) open chilled water isolation valve of the chiller
-being enabled. The valve timing should be determined in the fields.
+Slowly (<code>chaChiWatIsoTim</code>) open the chilled water isolation valve of the chiller
+being enabled. The valve timing should be determined in the field.
 This is implemented in block <code>enaChiIsoVal</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 End the staging up process:
 <ul>
 <li>
-If the stage change does not require one chiller enabled and another chiller disabled,
+If the stage change does not require one chiller to be enabled and another chiller to be disabled,
 start the next stage chiller after the isolation valve is fully open.
 </li>
 <li>
-If the stage change does require one chiller enabled and another chiller disabled,
+If the stage change does require one chiller to be enabled and another chiller to be disabled,
 starting the next stage chiller after the isolation valve is fully open, then shut off
 the smaller chiller, close the chiller's chilled water isolation valve, disable
 the head pressure control loop, and change the minimum chilled water flow setpoint
@@ -945,10 +942,10 @@ to the one for the new stage.
 Release the demand limit, which marks the end of the staging process.
 </li>
 </ul>
-These are implemented in block <code>endUp</code>. See
+These are implemented in the block <code>endUp</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.UpEnd\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.UpEnd</a>
-for more decriptions.
+for more descriptions.
 </li>
 </ol>
 </html>", revisions="<html>

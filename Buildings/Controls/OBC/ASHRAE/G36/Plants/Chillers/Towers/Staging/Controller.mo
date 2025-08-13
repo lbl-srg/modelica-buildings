@@ -199,7 +199,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block controls cooling tower fan staging. This is implemented accoding to 
-ASHRAE Guideline36-2021, section 5.20.12.1, 
+ASHRAE Guideline 36-2021, section 5.20.12.1, 
 which specifies tower fan staging process. It includes two subsequences:
 </p>
 <ul>

@@ -49,12 +49,12 @@ It validates the conditions for enabling and disabling the lag pump.
 </p>
 <ul>
 <li>
-At 2.8 minute, the condition for enabling the lag pump becomes satified and it
-durates more than 10 minutes. At 12.8 minute, the lag pump enabling output becomes true.
+At 2.8 minutes, the condition for enabling the lag pump becomes satisfied and it
+lasts more than 10 minutes. At 12.8 minutes, the lag pump enabling output becomes true.
 </li>
 <li>
-At 34 minute, the condition for diabling the lag pump becomes satisfied and it keeps
-true for more than 10 minutes. At 44 minutes, the lag pump disabling output become true.
+At 34 minutes, the condition for disabling the lag pump becomes satisfied and it remains
+true for more than 10 minutes. At 44 minutes, the lag pump disabling output becomes true.
 </li>
 </ul>
 </html>", revisions="<html>

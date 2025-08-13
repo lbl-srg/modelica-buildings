@@ -162,22 +162,21 @@ protected
 
 equation
   connect(logSwi1.u1, repLea.y) annotation (Line(points={{-62,-24},{-80,-24},{-80,
-          -10},{-98,-10}},     color={255,0,255}));
+          -10},{-98,-10}}, color={255,0,255}));
   connect(logSwi1.u3,repLag. y) annotation (Line(points={{-62,-40},{-98,-40}},
-                                 color={255,0,255}));
+          color={255,0,255}));
   connect(uLeaStaSet, repLea.u)
     annotation (Line(points={{-180,0},{-140,0},{-140,-10},{-122,-10}},
-                                                   color={255,0,255}));
+          color={255,0,255}));
   connect(uLagStaSet, repLag.u)
     annotation (Line(points={{-180,-80},{-140,-80},{-140,-40},{-122,-40}},
-                                                     color={255,0,255}));
+          color={255,0,255}));
   connect(logSwi1.y, yDevStaSet) annotation (Line(points={{-38,-32},{-30,-32},{-30,
-          60},{140,60},{140,20},{170,20}},       color={255,0,255}));
+          60},{140,60},{140,20},{170,20}}, color={255,0,255}));
   connect(staBySta.y,logSwi1. u3) annotation (Line(points={{-98,-80},{-90,-80},{
-          -90,-40},{-62,-40}},    color={255,0,255}));
+          -90,-40},{-62,-40}}, color={255,0,255}));
   connect(leaSwa.yDevStaSet, yDevStaSet) annotation (Line(points={{122,30},{140,
-          30},{140,20},{170,20}},
-                              color={255,0,255}));
+          30},{140,20},{170,20}}, color={255,0,255}));
   connect(minLeaTim.yRot, rotTwo.uRot)
     annotation (Line(points={{62,-30},{98,-30}}, color={255,0,255}));
   connect(rotTwo.yDevRol, yDevRol) annotation (Line(points={{122,-30},{140,-30},
@@ -188,12 +187,11 @@ equation
   connect(rotTwo.yPreDevRolSig, logSwi1.u2) annotation (Line(points={{122,-36},{
           140,-36},{140,-60},{-80,-60},{-80,-32},{-62,-32}}, color={255,0,255}));
   connect(rotSch.yRot, rotTwoCon.uRot)
-    annotation (Line(points={{22,30},{38,30}},   color={255,0,255}));
+    annotation (Line(points={{22,30},{38,30}}, color={255,0,255}));
   connect(uDevSta, leaSwa.uDevSta) annotation (Line(points={{-180,80},{90,80},{90,
           26},{98,26}}, color={255,0,255}));
   connect(rotTwoCon.yDevRol, leaSwa.uDevRolSet) annotation (Line(points={{62,30},
-          {80,30},{80,34},{98,34}},
-                                  color={255,0,255}));
+          {80,30},{80,34},{98,34}}, color={255,0,255}));
   connect(rotTwoCon.yDevRol, yDevRol) annotation (Line(points={{62,30},{80,30},{
           80,0},{140,0},{140,-20},{170,-20}},    color={255,0,255}));
   connect(uDevSta, minLeaTim.uDevSta) annotation (Line(points={{-180,80},{-20,80},
@@ -206,9 +204,9 @@ equation
   connect(leaRunTim.yRot, rotTwo.uRot) annotation (Line(points={{62,-80},{80,-80},
           {80,-30},{98,-30}}, color={255,0,255}));
 
-annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
-      defaultComponentName="equRot",
-    Icon(graphics={
+annotation(defaultComponentName="equRot",
+  Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
+  Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -256,39 +254,44 @@ annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
         Line(points={{-40,-60},{0,-60},{0,60},{40,60}}, color={128,128,128})}),
   Documentation(info="<html>
 <p>
-This controller block rotates equipment, such as chillers, pumps or valves, in order
-to ensure equal wear and tear. It is intended to be used for lead/lag and
-lead/standby operation of two devices or groups of devices. The implementation is
-based on the specification from ASHRAE Guideline36-2021, section 5.1.15.1.-4.
+This controller block rotates equipment, such as chillers, pumps, or valves, in order
+to ensure equal wear and tear. It is intended to be used for lead-lag and
+lead-standby operation of two devices or groups of devices. The implementation is
+based on the specification from ASHRAE Guideline 36-2021, section 5.1.15.1-4.
 </p>
 <p>
-The controller takes as inputs the current device proven ON/OFF status vector <code>uDevSta</code>,
-lead device status setpoint <code>uLeaStaSet</code> and lag device status setpoint <code>uLagStaSet</code>.
-The controller features the following rotation subsequences to generate the device status setpoints <code>yDevStaSet</code>
-and device roles <code>yDevRol</code> outputs:
+The controller takes as inputs the current device proven ON-OFF status vector <code>uDevSta</code>,
+lead device status setpoint <code>uLeaStaSet</code>, and lag device status setpoint
+<code>uLagStaSet</code>.
+The controller features the following rotation subsequences to generate the device status
+setpoints <code>yDevStaSet</code> and device roles <code>yDevRol</code> outputs:
 </p>
 <ul>
 <li>
-To rotate lead/lag device configurations, and lead/standby device configurations where the lead does
-not operate continuously, the controller can use:
+To rotate lead-lag device configurations, and lead-standby device configurations where
+the lead does not operate continuously, the controller can use:
 <ul>
 <li>
 the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.LeastRuntime\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.LeastRuntime</a> subsequence.
-In this subsequence the rotation signal is generated based on Guideline36 5.1.15.3 and 5.1.15.4.a. as applied to two devices/groups of devices.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.LeastRuntime</a>
+subsequence. In this subsequence the rotation signal is generated based on Guideline 36 5.1.15.3
+and 5.1.15.4.a. as applied to two devices or groups of devices.
 </li>
 <li>
 the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime</a> subsequence.
-This subsequences uses a minimum cumulative runtime period <code>minLeaRuntime</code> for a current lead device before rotation may occur.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime</a>
+subsequence. This subsequences uses a minimum cumulative runtime period <code>minLeaRuntime</code>
+for a current lead device before rotation may occur.
 </li>
 </ul>
 </li>
 <li>
-To rotate lead/standby device configurations where the lead operates continuously the controller uses
+To rotate lead-standby device configurations where the lead operates continuously, the controller uses
 the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.Scheduler\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.Scheduler</a> subsequence.
-In this subsequence the rotation signal is generated in regular time intervals, either measured from the simulation start or prescribed using a schedule.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.Scheduler</a>
+subsequence.
+In this subsequence the rotation signal is generated in regular time intervals, either measured
+from the simulation start or prescribed using a schedule.
 Before a device is put to stand-by, the new lead device must be proven on, as implemented by the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence.
@@ -308,7 +311,7 @@ represents a lead role and false represents a lag or a standby role.
 The indices of both output vectors and the <code>uDevSta</code> input vector represent physical devices.
 </p>
 <p>
-In addition to the specification in Guideline36, this model allows the user to:
+In addition to the specification in Guideline 36, this model allows the user to:
 </p>
 <ul>
 <li>

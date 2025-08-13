@@ -44,17 +44,17 @@ equation
   connect(logSwi.u1,not0. y) annotation (Line(points={{-2,8},{-30,8},{-30,-10},{
           -38,-10}}, color={255,0,255}));
   connect(logSwi.y,pre. u) annotation (Line(points={{22,0},{30,0},{30,-20},{38,-20}},
-                      color={255,0,255}));
+           color={255,0,255}));
   connect(pre.y,not0. u) annotation (Line(points={{62,-20},{80,-20},{80,-40},{-70,
-          -40},{-70,-10},{-62,-10}},   color={255,0,255}));
+          -40},{-70,-10},{-62,-10}}, color={255,0,255}));
   connect(pre.y,logSwi. u3) annotation (Line(points={{62,-20},{72,-20},{72,-34},
           {-14,-34},{-14,-8},{-2,-8}}, color={255,0,255}));
   connect(logSwi.y, yDevRol) annotation (Line(points={{22,0},{66,0},{66,20},{110,
-          20}},     color={255,0,255}));
+          20}}, color={255,0,255}));
   connect(uRot, booRep.u)
     annotation (Line(points={{-120,0},{-80,0},{-80,30},{-62,30}},color={255,0,255}));
   connect(booRep.y, logSwi.u2) annotation (Line(points={{-38,30},{-20,30},{-20,0},
-          {-2,0}},     color={255,0,255}));
+          {-2,0}}, color={255,0,255}));
   connect(pre.y, yPreDevRolSig) annotation (Line(points={{62,-20},{110,-20}},
            color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-60},{100,60}})),

@@ -71,7 +71,7 @@ equation
   connect(not3.y, and2.u1)
     annotation (Line(points={{-38,0},{-22,0}},  color={255,0,255}));
   connect(and2.y, leaPumSta.clr)
-    annotation (Line(points={{2,0},{10,0},{10,24},{18,24}},    color={255,0,255}));
+    annotation (Line(points={{2,0},{10,0},{10,24},{18,24}}, color={255,0,255}));
   connect(tim.passed, or2.u1)
     annotation (Line(points={{-18,-48},{0,-48},{0,-40},{38,-40}},
       color={255,0,255}));
@@ -122,16 +122,16 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-Block that enable and disable lead condenser water pump, for plants
+Block that enables and disables the lead condenser water pump, for plants
 with dedicated condenser water pumps,
-according to ASHRAE Guideline36-2021,
+according to ASHRAE Guideline 36-2021,
 section 5.20.9 Condenser water pumps, part 5.20.9.4.
 </p>
 <p>
-The lead condenser water pump should be enabled when lead chiller is commanded
+The lead condenser water pump should be enabled when the lead chiller is commanded
 to run (<code>uLeaChiEna</code> = true). It should be disabled when the lead
 chiller is disabled and either the lead chiller has been proven off
-(<code>uLeaChiSta</code> = false) for <code>offTimThr</code>, i.e. 3 minutes, or
+(<code>uLeaChiSta</code> = false) for <code>offTimThr</code>, i.e., 3 minutes, or
 is not requesting condenser water flow (<code>uLeaConWatReq</code> = false).
 </p>
 </html>", revisions="<html>

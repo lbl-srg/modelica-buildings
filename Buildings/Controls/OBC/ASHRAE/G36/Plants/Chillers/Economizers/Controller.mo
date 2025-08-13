@@ -489,22 +489,21 @@ equation
   connect(intEqu.y, and1.u2) annotation (Line(points={{-78,10},{-70,10},{-70,32},
           {-62,32}},  color={255,0,255}));
   connect(uIni, intEqu1.u1) annotation (Line(points={{-200,10},{-150,10},{-150,-40},
-          {-102,-40}},        color={255,127,0}));
+          {-102,-40}}, color={255,127,0}));
   connect(uChiSta, intEqu1.u2)
-    annotation (Line(points={{-200,-48},{-102,-48}},   color={255,127,0}));
+    annotation (Line(points={{-200,-48},{-102,-48}}, color={255,127,0}));
   connect(intEqu1.y, not1.u)
-    annotation (Line(points={{-78,-40},{-62,-40}},   color={255,0,255}));
+    annotation (Line(points={{-78,-40},{-62,-40}}, color={255,0,255}));
   connect(enaEco.y, y)
     annotation (Line(points={{142,40},{200,40}},   color={255,0,255}));
   connect(dpChiWat, wseVal.dpChiWat) annotation (Line(points={{-200,-80},{-42,-80},
           {-42,-76},{118,-76}},   color={0,0,127}));
   connect(uPum, wsePum.uPum) annotation (Line(points={{-200,-110},{-42,-110},{-42,
-          -108},{118,-108}},
-          color={255,0,255}));
+          -108},{118,-108}}, color={255,0,255}));
   connect(TEntHex, wsePum.TEntHex) annotation (Line(points={{-200,-150},{100,-150},
-          {100,-118},{118,-118}},        color={0,0,127}));
+          {100,-118},{118,-118}}, color={0,0,127}));
   connect(wseVal.yRetVal, yRetVal)
-    annotation (Line(points={{142,-76},{200,-76}},   color={0,0,127}));
+    annotation (Line(points={{142,-76},{200,-76}}, color={0,0,127}));
   connect(wsePum.yPumOn, yPumOn)
     annotation (Line(points={{142,-110},{200,-110}}, color={255,0,255}));
   connect(wsePum.yPumSpe, yPumSpe) annotation (Line(points={{142,-116},{160,-116},
@@ -516,7 +515,7 @@ equation
   connect(uPla, wsePum.uPla) annotation (Line(points={{-200,40},{-154,40},{-154,
           -102},{118,-102}}, color={255,0,255}));
   connect(uPla, and1.u1)
-    annotation (Line(points={{-200,40},{-62,40}},   color={255,0,255}));
+    annotation (Line(points={{-200,40},{-62,40}}, color={255,0,255}));
   connect(lat.y, pre2.u)
     annotation (Line(points={{42,40},{58,40}},   color={255,0,255}));
   connect(enaEco.y, wseVal.uWSE) annotation (Line(points={{142,40},{150,40},{150,
@@ -612,7 +611,7 @@ equation
           textString="Plant enabled in water side economizer mode")}),
 Documentation(info="<html>
 <p>
-Waterside economizer (WSE) control sequence per ASHRAE Guideline36-2021, section 5.20.3.
+Waterside economizer (WSE) control sequence per ASHRAE Guideline 36-2021, section 5.20.3.
 </p>
 <h4>Enable and disable WSE</h4>
 <p>
@@ -627,11 +626,11 @@ exchanger leaving water temperature (PHXLWT) increased in <code>TOffsetEna</code
 <li>
 Disable WSE if it has been enabled for at least <code>holdPeriod</code> of time and CHWRT downstream of
 WSE, <code>TChiWatRetDow</code>, is greater than <code>TChiWatRet</code> decreased in <code>TOffsetDis</code>
-for <code>delDis</code> time period.
+for <code>delDis</code> period.
 </li>
 </ul>
 <p>
-The following state machine chart illustrates the transitions between WSE enabled and disabled state:
+The following state machine chart illustrates the transitions between WSE enabled and disabled states:
 </p>
 <p align=\"center\">
 <img alt=\"Image of WSE enable-disable state machine chart\"
@@ -663,7 +662,7 @@ valve (<code>have_byPasValCon=true</code>), the WSE in-line CHW return line valv
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.BypassValve</a>
 </li>
 <li>
-If the flow through the WSE is controller by a variable speed pump
+If the flow through the WSE is controlled by a variable speed pump
 (<code>have_byPasValCon=false</code>), the pump is controlled by
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatExchangerPump\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatExchangerPump</a>
@@ -672,14 +671,14 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatE
 
 <h4>Economizer-only chilled water bypass valve</h4>
 <p>
-Per section 5.20.3.11, when economizer is enabled and all chiller isolation valves are
+Per section 5.20.3.11, when the economizer is enabled and all chiller isolation valves are
 commanded closed, open the economizer-only chilled water bypass valve (<code>y1ChiWatBypVal=true</code>).
 Close the bypass valve when any chiller isolation valve is commanded open and exceeds
 25% open.
 </p>
 <p>
-The economizer-only chillerd water bypass valve is typically needed for primary-only
-parallerl plant.
+The economizer-only chilled water bypass valve is typically needed for primary-only
+parallel plant.
 </p>
 
 </html>",

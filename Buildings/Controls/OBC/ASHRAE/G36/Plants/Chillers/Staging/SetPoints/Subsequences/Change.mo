@@ -452,7 +452,7 @@ At plant enable the intial stage <code>uIni</code> is held for at least <code>de
 and until any stage up or down signal is generated.
 </p>
 <p>
-Per Guideline36-2021, section 5.20.4.15.a. Each stage shall have a minimum runtime
+Per Guideline 36-2021, section 5.20.4.15.a. Each stage shall have a minimum runtime
 of <code>delayStaCha</code>.
 </p>
 </html>",

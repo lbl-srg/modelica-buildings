@@ -2025,8 +2025,7 @@ equation
   connect(wseSta.y, disChi.uWSE) annotation (Line(points={{-656,334},{-630,334},
           {-630,-480},{738,-480}}, color={255,0,255}));
   connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,334},{
-          -630,334},{-630,528.214},{414,528.214}},
-                                              color={255,0,255}));
+          -630,334},{-630,528.214},{414,528.214}}, color={255,0,255}));
   connect(staSetCon.yChiSet, upProCon.uChiConIsoVal) annotation (Line(points={{
           -172,4},{-130,4},{-130,380},{172,380}}, color={255,0,255}));
   connect(staSetCon.yChiSet, dowProCon.uChiConIsoVal) annotation (Line(points={
@@ -2040,8 +2039,7 @@ equation
   connect(conInt1.y, chiWatPumCon.uPumLeaLag) annotation (Line(points={{382,580},
           {400,580},{400,566.786},{414,566.786}}, color={255,127,0}));
   connect(uChiWatPum, chiWatPumCon.uChiWatPum) annotation (Line(points={{-920,
-          574},{-790,574},{-790,553.929},{414,553.929}},
-                                                    color={255,0,255}));
+          574},{-790,574},{-790,553.929},{414,553.929}}, color={255,0,255}));
   connect(uChiWatIsoVal, wseSta.uChiIsoVal) annotation (Line(points={{-920,-228},
           {-764,-228},{-764,302},{-704,302}}, color={0,0,127}));
   connect(disChi.y1ChiWatIsoVal, wseSta.u1ChiIsoVal) annotation (Line(points={{762,
@@ -2365,10 +2363,10 @@ annotation (
     Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>
 <p>
-This is chiller plant control sequence implemented according to ASHRAE Guideline 36-2021.
-It is composed by the subsequences in this pacakge. The applicability of some sequences
-are listed in the table below. The <code>yes</code> means that the sequence is appliable to
-the system type.
+The chiller plant control sequence is implemented according to ASHRAE Guideline 36-2021.
+It is composed by the subsequences in this package. The applicability of some sequences
+is listed in the table below. The <code>yes</code> means that the sequence is applicable
+to the system type.
 </p>
 <table summary=\"summary\" border=\"1\"><thead>
 <tr>
@@ -2563,7 +2561,7 @@ the system type.
 
 <h4>1. Plant reset</h4>
 <p>
-In Guideline36-2021, the sequences for following types of plant have been specified.
+In Guideline 36-2021, the sequences for following types of plant have been specified.
 However, they have not yet been implemented in this library.
 </p>
 <ul>
@@ -2580,12 +2578,12 @@ Plants with series chillers.
 
 <h4>2. Head pressure control</h4>
 <p>
-If there is head pressure control signal from chiller, the sequence is not needed.
-In Guideline36-2021, it assumes:
+If there is the head pressure control signal from chiller, the sequence is not needed.
+In Guideline 36-2021, it assumes:
 </p>
 <ul>
 <li>
-the plants with fixed speed condenser water pump do not have waterside economizer.
+The plants with fixed speed condenser water pumps do not have waterside economizer.
 </li>
 <li>
 If the plants have variable speed condenser water pumps and have waterside economizer,
@@ -2593,12 +2591,12 @@ the condenser water pumps are headered.
 </li>
 </ul>
 <p>
-The sequence is not applicable for the plants with air cooled chillers.
+The sequence is not applicable to the plants with air-cooled chillers.
 </p>
 
 <h4>3. Minimum chilled water flow</h4>
 <p>
-In Guideline36-2021, the sequences for following types of plant have not been specified.
+In Guideline 36-2021, the sequences for the following types of plants have not been specified.
 </p>
 <ul>
 <li>
@@ -2608,7 +2606,7 @@ Plants with primary-secondary systems
 
 <h4>4. Primary chilled water (CHW) pump control</h4>
 <p>
-In Guideline36-2021, the sequences for following types of plant have been specified.
+In Guideline 36-2021, the sequences for the following types of plants have been specified.
 However, they have not yet been implemented in this library.
 </p>
 <ul>
@@ -2616,7 +2614,7 @@ However, they have not yet been implemented in this library.
 Plants with series chiller, section 5.20.6.4 and 5.20.6.5.
 </li>
 <li>
-Primary-secondary plants and primary-only plants where primary pump speed is not
+Primary-secondary plants and primary-only plants where the primary pump speed is not
 controlled to maintain differential pressure, section 5.20.6.13 and 5.20.6.14.
 </li>
 <li>
@@ -2639,26 +2637,26 @@ deduce decoupler flow, section 5.20.6.18.
 
 <h4>5. Secondary chilled water pumps control</h4>
 <p>
-In Guideline36-2021, the secondary chilled water pumps control have been specified.
+In Guideline 36-2021, the secondary chilled water pumps controls have been specified.
 However, they have not yet been implemented in this library, section 5.20.7.
 </p>
 
 <h4>6. Condenser water (CW) pumps control</h4>
 <p>
-In Guideline36-2021, the sequences for following types of plant have not been specified.
+In Guideline 36-2021, the sequences for the following types of plants have not been specified.
 </p>
 <ul>
 <li>
-Plants with series chiller
+Plants with the series chiller
 </li>
 </ul>
 <p>
-The sequence is not applicable for the plants with air cooled chillers.
+The sequence is not applicable to the plants with air-cooled chillers.
 </p>
 
 <h4>7. Chiller staging control</h4>
 <p>
-In Guideline36-2021, the sequences for following types of plant have been specified.
+In Guideline 36-2021, the sequences for the following types of plants have been specified.
 However, they have not yet been implemented in this library.
 </p>
 <ul>
@@ -2705,13 +2703,13 @@ Water-cooled primary-only series chiller plants with dedicated CW pumps, section
 
 <h4>8. Cooling tower control</h4>
 <p>
-In current implementation, the tower sequence assumes that the cells are enabled in
-the order as it is labelled, meaning that it enabled the cells as cell 1, 2, 3,
-etc. Note from the Guideline36-2021,
+In the current implementation, the tower sequence assumes that the cells are enabled in
+the order as it is labelled, meaning that it enables the cells as cell 1, 2, 3,
+etc. Note from the Guideline 36-2021,
 </p>
 <ul>
 <li>
-The tower control sequence is applicable for plants with dynamic load profile,
+The tower control sequence is applicable to the plants with dynamic load profiles,
 i.e. those for which PLR may change by more than approximately 25% in any hour,
 for controlling condenser water return temperature.
 </li>
@@ -2721,17 +2719,17 @@ are needed to prevent tower freezing.
 </li>
 </ul>
 <p>
-In Guideline36-2021, the sequences for following types of plant have been specified.
+In Guideline 36-2021, the sequences for the following types of plants have been specified.
 However, they have not yet been implemented in this library.
 </p>
 <ul>
 <li>
-Plants with cooling tower fan speed control, for control condenser water supply
+Plants with cooling tower fan speed control, for controling the condenser water supply
 temperature, section 5.20.12.2.b.
 </li>
 </ul>
 <p>
-The sequence is not applicable for the plants with air cooled chillers.
+The sequence is not applicable to the plants with air-cooled chillers.
 </p>
 
 <h4>9. Equipment rotation</h4>
@@ -2739,9 +2737,8 @@ The sequence is not applicable for the plants with air cooled chillers.
 The sequence 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.EquipmentRotation.ControllerTwo</a>
-rotates equipment,
-such as chillers or pumps, in order to ensure equal wear and tear. It is applicable
-for two identical devices or device groups.
+rotates equipment, such as chillers or pumps, to ensure equal wear and tear. It is
+applicable to two identical devices or device groups.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -90,7 +90,6 @@ equation
     annotation (Line(points={{52,-40},{64,-40},{64,-8},{70,-8}},color={0,0,127}));
   annotation (
     defaultComponentName="conPID",
-    defaultComponentName="conPID",
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}}),
@@ -188,7 +187,7 @@ and the integral term is reset to <code>y_reset</code> at
 enable time.
 </li>
 <li>
-When disabled, the output of the controller is set to <code>y_neutral</code>
+When disabled, the output of the controller is set to <code>y_neutral</code>,
 and the setpoint is overridden by the measurement signal in order to avoid
 time integration of the control error.
 </li>

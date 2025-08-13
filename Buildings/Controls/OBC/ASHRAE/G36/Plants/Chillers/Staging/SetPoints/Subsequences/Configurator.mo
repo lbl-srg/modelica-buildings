@@ -256,7 +256,7 @@ equation
           extent={{-220,-200},{220,200}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in Guideline36-2021 as it provides
+This subsequence is not directly specified in Guideline 36-2021 as it provides
 a side calculation pertaining to generalization of the staging
 sequences for any number of chillers and stages provided by the
 user.
@@ -267,17 +267,17 @@ Given the staging matrix input parameter <code>staMat</code> the staging configu
 <ul>
 <li>
 Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code>
-input vector according to Guideline36-2021, section 5.20.4.13
+input vector according to Guideline 36-2021, section 5.20.4.13
 </li>
 <li>
 Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector
 input parameter <code>chiDesCap</code>.
 The chillers need to be tagged in order of ascending chiller capacity if unequally sized. This is
-according to section 3.1.7.5.a of Guideline36-2021, otherwise a warning is thrown.
+according to section 3.1.7.5.a of Guideline 36-2021, otherwise a warning is thrown.
 </li>
 <li>
 Minimum stage capacity vector <code>yMinCap</code> from the chiller minimum cycling load input
-parameter <code>chiMinCap</code> according to section 3.1.7.6.a of Guideline36-2021.
+parameter <code>chiMinCap</code> according to section 3.1.7.6.a of Guideline 36-2021.
 </li>
 <li>
 Stage type vector <code>yTyp</code> from the chiller type vector input parameter

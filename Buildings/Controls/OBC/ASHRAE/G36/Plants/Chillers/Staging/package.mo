@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers;
 package Staging "Chiller staging sequences"
 annotation (preferredView="info", Documentation(info="<html>
 <p>This package contains chiller staging control sequences based on
-ASHRAE Guideline36-2021.</p>
+ASHRAE Guideline 36-2021.</p>
 </html>"),
   Icon(graphics={
         Rectangle(

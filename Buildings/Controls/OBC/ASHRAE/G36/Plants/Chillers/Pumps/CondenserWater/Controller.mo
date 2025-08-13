@@ -218,7 +218,7 @@ equation
     annotation (Line(points={{-140,120},{-80,120},{-80,84},{18,84}},
       color={255,0,255}));
   connect(enaLeaHeaPum.uChiConIsoVal, uChiConIsoVal) annotation (Line(points={{18,136},
-          {-40,136},{-40,150},{-140,150}},         color={255,0,255}));
+          {-40,136},{-40,150},{-140,150}}, color={255,0,255}));
   connect(uConWatPum, booToInt.u)
     annotation (Line(points={{-140,-140},{-102,-140}}, color={255,0,255}));
   connect(booToInt.y, mulSumInt.u)
@@ -229,21 +229,17 @@ equation
           {30,-30},{30,-120},{38,-120}}, color={255,127,0}));
   connect(intEqu.y, and2.u2) annotation (Line(points={{62,-120},{70,-120},{70,-58},
           {78,-58}}, color={255,0,255}));
-  connect(abs.y, hys.u) annotation (Line(points={{-18,-90},{-2,-90}},
-                    color={0,0,127}));
+  connect(abs.y, hys.u) annotation (Line(points={{-18,-90},{-2,-90}}, color={0,0,127}));
   connect(uConWatPumSpeSet, speDif.u1) annotation (Line(points={{-140,-70},{
-          -100,-70},{-100,-84},{-82,-84}},
-                                      color={0,0,127}));
+          -100,-70},{-100,-84},{-82,-84}}, color={0,0,127}));
   connect(uConWatPumSpe, speDif.u2) annotation (Line(points={{-140,-110},{-100,
-          -110},{-100,-96},{-82,-96}},
-                                 color={0,0,127}));
+          -110},{-100,-96},{-82,-96}}, color={0,0,127}));
   connect(uEnaPla, enaLeaHeaPum.uEnaPla) annotation (Line(points={{-140,30},{10,
           30},{10,124},{18,124}}, color={255,0,255}));
   connect(uEnaPla, enaLeaDedPum.uEnaPla) annotation (Line(points={{-140,30},{10,
           30},{10,88},{18,88}}, color={255,0,255}));
 
-annotation (Dialog(tab="Advanced"),
-  defaultComponentName="conWatPumCon",
+annotation (defaultComponentName="conWatPumCon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(
@@ -275,16 +271,15 @@ annotation (Dialog(tab="Advanced"),
   Documentation(info="<html>
 <p>
 Block that generates control signals for condenser water pumps control, 
-according to ASHRAE Guideline36-2021, 
-section 5.20.9 Condenser water pumps. 
+according to ASHRAE Guideline 36-2021, section 5.20.9 Condenser water pumps. 
 </p>
 <p>
 This sequence contains three subsequences:
 </p>
 <ul>
 <li>
-Enabling and disabling lead pump should be controlled based on weather the pumps
-are configurated as headered or dedicated. If it is headered, 
+Enabling and disabling the lead pump should be controlled based on if the pumps
+are configured as headered or dedicated. If it is headered, 
 <code>have_heaPum</code> = true, then use block <code>enaLeaHeaPum</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Subsequences.EnableLead_headered\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Subsequences.EnableLead_headered</a>
@@ -294,7 +289,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Subsequen
 for a description.
 </li>
 <li>
-The design pump speed at current stage <code>yDesConWatPumSpe</code> and number of 
+The design pump speed at current stage <code>yDesConWatPumSpe</code> and the number of 
 operating pumps <code>yConWatPumNum</code> should be output from block 
 <code>pumSpe</code>. See 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Subsequences.Speed\">

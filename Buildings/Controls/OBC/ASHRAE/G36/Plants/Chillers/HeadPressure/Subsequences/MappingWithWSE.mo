@@ -248,30 +248,30 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code>, 
-controls condenser water pump speed <code>yConWatPumSpeSet</code> and 
+controls condenser water pump speed <code>yConWatPumSpeSet</code>, and 
 head pressure control valve position <code>yHeaPreConVal</code>
 for plants with water side economizers and headered condenser water pumps. 
-The development follows ASHRAE Guideline36-2021, 
-section 5.20.10 Head pressure control, part 5.20.10.5, 5.20.10.6 and 5.20.10.7.
+The development follows ASHRAE Guideline 36-2021, 
+section 5.20.10 Head pressure control, part 5.20.10.5, 5.20.10.6, and 5.20.10.7.
 </p>
 <p>
 1. For each chiller, when the waterside economizer is disabled (<code>uWSE</code> = false), 
-map chiller head pressure control loop signal <code>uHeaPreCon</code> as follows:
+map the chiller head pressure control loop signal <code>uHeaPreCon</code> as follows:
 </p>
 <ul>
 <li>
-When <code>uHeaPreCon</code> changes from 0 to 50%, reset maximum cooling tower
-speed setpoint <code>yMaxTowSpeSet</code> from 100% to minimum speed 
+When <code>uHeaPreCon</code> changes from 0 to 50%, reset the maximum cooling tower
+speed setpoint <code>yMaxTowSpeSet</code> from 100% to the minimum speed 
 <code>minTowSpe</code>.
 </li>
 <li>
 When <code>uHeaPreCon</code> changes from 50% to 100%, reset condenser water 
 pump speed <code>yConWatPumSpeSet</code> from design speed for the stage 
-<code>desConWatPumSpe</code> to minimum speed <code>minConWatPumSpe</code>.
+<code>desConWatPumSpe</code> to the minimum speed <code>minConWatPumSpe</code>.
 </li>
 <li>
-Each head pressure control valve <code>yHeaPreConVal</code> of enabled chiller shall 
-be 100% open, irrespective of loop output.
+Each head pressure control valve <code>yHeaPreConVal</code> of the enabled chiller shall 
+be 100% open, irrespective of the loop output.
 </li>
 </ul>
 
@@ -285,7 +285,7 @@ be 100% open, irrespective of loop output.
 </p>
 <ul>
 <li>
-Maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code> shall be 100% 
+The maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code> shall be 100% 
 irrespective of loop output.
 </li>
 <li>
@@ -294,8 +294,8 @@ speed for the stage <code>desConWatPumSpe</code>, irrespective of loop output.
 </li>
 <li>
 Each enabled chiller head pressure control loop output <code>uHeaPreCon</code> 
-shall reset head pressure control valve position <code>yHeaPreConVal</code> 
-from 100% open at 0% loop output to minimum position <code>minHeaPreValPos</code>
+shall reset the head pressure control valve position <code>yHeaPreConVal</code> 
+from 100% open at 0% loop output to the minimum position <code>minHeaPreValPos</code>
 at 100% loop output.
 </li>
 </ul>
@@ -308,7 +308,7 @@ at 100% loop output.
 <p>
 3. When the head pressure control loop is disabled (<code>uHeaPreEna</code> = false), 
 the head pressure control valve shall be closed; the maximum tower speed setpoint
-and the condenser water pump speed setpoint becomes 0.
+and the condenser water pump speed setpoints become 0.
 </p>
 </html>",
 revisions="<html>

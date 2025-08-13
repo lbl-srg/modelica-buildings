@@ -72,7 +72,7 @@ chilled water flow through the chillers.
 <ul>
 <li>
 From 0.1 seconds to 0.7 seconds, there is no chilled water pump proven on
-(<code>uChiWatPum=false</code>). Thus the bypass valve position setpoint
+(<code>uChiWatPum=false</code>). Thus, the bypass valve position setpoint
 is 1.
 </li>
 <li>

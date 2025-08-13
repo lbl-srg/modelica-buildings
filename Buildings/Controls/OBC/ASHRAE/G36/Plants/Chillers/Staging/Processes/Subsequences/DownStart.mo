@@ -512,10 +512,10 @@ annotation (
           textString="clr")}),
 Documentation(info="<html>
 <p>
-Block that controls devices at the first step of chiller staging down process.
+Block that controls devices at the first step of the chiller staging down process.
 This development is based on ASHRAE Guideline 36-2021,
 section 5.20.4.17, item a and b. The sections specifies the first step of
-staging down process.
+the staging down process.
 </p>
 <p>
 For the stage-down process that requires a smaller chiller being enabled and a
@@ -523,42 +523,42 @@ larger chiller being disabled (<code>uOnOff=true</code>):
 </p>
 <ol>
 <li>
-Command operating chilers to reduce demand to 75% (<code>chiDemRedFac</code>) of
-their current load or a percentage equal to current stage minimum cycling operative
-partial load ratio (<code>yOpeParLoaRatMin</code>), whichever is greater. Wait until acutal
+Command operating chillers to reduce demand to 75% (<code>chiDemRedFac</code>) of
+their current load or a percentage equal to the current stage minimum cycling operative
+partial load ratio (<code>yOpeParLoaRatMin</code>), whichever is greater. Wait until actual
 demand &lt; 80% of current load up to a maximum of 5 minutes (<code>holChiDemTim</code>)
 before proceeding. This is implemented in block <code>chiDemRed</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ReduceDemand\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ReduceDemand</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
-Slowly change the minimum chilled water flow setpoint to that approriate for the
-stage transition (<code>minChiWatSet</code>). After new setpoint is achieved, wait
-1 minutes (<code>aftByPasSetTim</code>) to allow loop to stabilize (<code>minBypRes</code>).
+Slowly change the minimum chilled water flow setpoint to that appropriate for the
+stage transition (<code>minChiWatSet</code>). After the new setpoint is achieved, wait
+1 minute (<code>aftByPasSetTim</code>) to allow the loop to stabilize (<code>minBypRes</code>).
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint</a>
 and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ResetMinBypass\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ResetMinBypass</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Enable head pressure control for the chiller being enabled. Wait 30 seconds (<code>waiTim</code>).
 It is implemented in block <code>enaHeaCon</code>, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
-Slowly open chilled water isolation valve of the smaller chiller being enabled.
-Determine valve timing <code>chaChiWatIsoTim</code> in the field as that required
+Slowly open the chilled water isolation valve of the smaller chiller being enabled.
+Determine valve timing <code>chaChiWatIsoTim</code> in the field as that is required
 to prevent nuisance trips.
 It is implemented in block <code>enaChiIsoVal</code>, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Start the smaller chiller after its chilled water isolation valve is fully open.
@@ -568,7 +568,7 @@ limit (<code>yReaDemLim=true</code>).
 It is implemented in block <code>disChi</code>, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DisableChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DisableChiller</a>
-for more decriptions.
+for more descriptions.
 </li>
 </ol>
 <p>
@@ -576,7 +576,7 @@ For staging down from any other stage (<code>uOnOff=false</code>), just shut off
 the last stage chiller. This is implemented in block <code>disChi</code>, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DisableChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DisableChiller</a>
-for more decriptions.
+for more descriptions.
 </p>
 </html>", revisions="<html>
 <ul>

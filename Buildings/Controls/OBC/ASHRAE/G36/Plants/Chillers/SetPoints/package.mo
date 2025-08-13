@@ -4,7 +4,7 @@ package SetPoints "Sequences for setting the setpoints for chilled water control
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains chilled water plant reset control sequences.
-The implementation is based on section 5.20.5.2. in ASHRAE Guideline36-2021.
+The implementation is based on section 5.20.5.2. in ASHRAE Guideline 36-2021.
 </p>
 </html>"),
   Icon(graphics={

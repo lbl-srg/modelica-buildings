@@ -53,7 +53,7 @@ equation
   connect(staPro.y, disPlaFroChi.chaPro) annotation (Line(points={{-58,-60},{36,
           -60},{36,4},{58,4}}, color={255,0,255}));
   connect(conIsoValSta.y, disPlaFroChi.u1ConWatIsoVal) annotation (Line(points={{-58,-10},
-          {24,-10},{24,10},{58,10}},         color={255,0,255}));
+          {24,-10},{24,10},{58,10}}, color={255,0,255}));
   connect(conWatPum.y, disPlaFroChi.uConWatPum) annotation (Line(points={{-18,
           -80},{40,-80},{40,2},{58,2}}, color={255,0,255}));
 annotation (
@@ -69,15 +69,14 @@ It demonstrates the control of disabling plants from chiller mode (<code>disPlaF
 </p>
 <ul>
 <li>
-Bofore 1800 seconds, the chiller 1 is enabled and the chiller 2 is disabled.
-The chilled water isolation valve is fully open and the chiller water pump
+Before 1800 seconds, the chiller 1 is enabled and the chiller 2 is disabled.
+The chilled water isolation valve is fully open, and the chiller water pump
 speed equals the input speed setpoint.
 </li>
 <li>
-After 1800 seconds, the chillers are disabled. Thus both the
-chilled and condenser water isolation valves are closed, the
-chilled and condenser water pump speed setpoint becomes 0, and
-all the tower cells are disabled.
+After 1800 seconds, the chillers are disabled. Thus, both the chilled and condenser
+water isolation valves are closed, the chilled and condenser water pump speed
+setpoints become 0, and all the tower cells are disabled.
 </li>
 </ul>
 </html>", revisions="<html>

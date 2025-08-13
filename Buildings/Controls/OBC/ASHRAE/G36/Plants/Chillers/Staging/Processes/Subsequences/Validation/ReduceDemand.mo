@@ -140,7 +140,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences
 </p>
 <p>
 It has two instances as below to demonstrate the process of reducing chiller demand
-when the plant is in staging process.
+when the plant is in the staging process.
 </p>
 <p>
 The instance <code>chiDemRed</code> shows the process of reducing the chiller

@@ -287,7 +287,7 @@ annotation (
 <p>
 This block outputs total number of enabling tower cells according to current plant
 stage and generates boolean output to enable or disable lead tower cell(s).
-It is implemented according to ASHRAE Guideline36-2021, section 5.20.12.1,
+It is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.1,
 </p>
 <ul>
 <li>item b which specifies number of enabled cooling tower cells according to

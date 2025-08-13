@@ -61,7 +61,7 @@ It demonstrates the setpoints control based on the output
 from the head pressure control loop.
 </p>
 <p>
-The instances <code>witWSE</code> and <code>noWSE</code> shows
+The instances <code>witWSE</code> and <code>noWSE</code> show
 the control when the waterside economizer is enabled and disabled
 respectively.
 </p>
@@ -69,7 +69,7 @@ respectively.
 <li>
 In instance <code>withWSE</code>, the economizer is enabled. 
 Thus, the maximum tower speed setpoint and the condenser
-water pump speed setpoint equal their maximum, which are 1.
+water pump speed setpoint are equal their maximum, which is 1.
 The head pressure control valve position <code>yHeaPreConVal</code>
 resets from 100% open at 0% loop output to minimum position
 <code>minHeaPreValPos</code> (0.1) at 100% loop output.
@@ -97,7 +97,7 @@ The head pressure control valve is fully open.
 For both instances, when the head pressure control loop becomes disabled,
 the head pressure control valve is fully closed; the maximum
 tower speed setpoint and the condenser water pump speed
-setpoint becomes 0.
+setpoints become 0.
 </li>
 </ul>
 </html>", revisions="<html>

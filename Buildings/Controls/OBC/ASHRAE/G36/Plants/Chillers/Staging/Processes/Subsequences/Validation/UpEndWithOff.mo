@@ -219,14 +219,14 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences
 </p>
 <p>
 It shows how the staging up process ends when the process requires one chiller
-being enabled and another chiller being disabled. The instance <code>endUp1</code>
+to be enabled and another chiller to be disabled. The instance <code>endUp1</code>
 shows the results as below. It stages up from stage 1 which requires smaller chiller
-1 being enabled, to stage 2 which requires larger chiller 2 being enabled and
-chiller 1 being disabled.
+1 to be enabled, to stage 2 which requires larger chiller 2 to be enabled and
+chiller 1 to be disabled.
 </p>
 <ul>
 <li>
-Before 1000 seconds, the plant is not in stagingg up process (<code>uStaUp=false</code>).
+Before 1000 seconds, the plant is not in staging up process (<code>uStaUp=false</code>).
 </li>
 <li>
 At 1000 seconds, the plant starts staging up (<code>uStaUp=true</code>). However,
@@ -242,13 +242,13 @@ The chiller 2 is enabled (<code>uChi[2]=true</code>, <code>uChiWatReq[2]=true</c
 After 300 seconds at 1425 seconds, the chiller 1 becomes disabled
 (<code>uChi[1]=false</code>). The chiller 1 becomes not requiring the chilled water
 and condenser water (<code>uChiWatReq[1]=false</code>, <code>uConWatReq[1]=false</code>).
-It starts slowly close the chilled water isolation valve of chiller 1.
+It starts slowly closing the chilled water isolation valve of chiller 1.
 </li>
 <li>
 After 300 seconds (<code>chaChiWatIsoTim</code>) at 1725 seconds, the chilled water
-isolation valve of chilelr 1 is fully closed. The head pressure control of chiller
+isolation valve of chiller 1 is fully closed. The head pressure control of chiller
 1 becomes disabled (<code>yChiHeaCon[1]</code>). The chilled water minimum flow
-setpoint chnages to the new setpoint.
+setpoint changes to the new setpoint.
 </li>
 <li>
 After 60 seconds (<code>aftByPasSetTim</code>) at 1785 seconds, the ending process

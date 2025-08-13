@@ -73,23 +73,22 @@ protected
 equation
   connect(mulOr.u, and2.y)
     annotation (Line(points={{118,20},{102,20}}, color={255,0,255}));
-
   connect(booRep1.y, and2.u2)
     annotation (Line(points={{42,20},{50,20},{50,12},{78,12}}, color={255,0,255}));
   connect(anyOn.y, allOff.u)
-    annotation (Line(points={{-78,-10},{-62,-10}},   color={255,0,255}));
+    annotation (Line(points={{-78,-10},{-62,-10}}, color={255,0,255}));
   connect(booRep1.u, equSig.y)
     annotation (Line(points={{18,20},{2,20}},  color={255,0,255}));
   connect(allOff.y, equSig.u2) annotation (Line(points={{-38,-10},{-30,-10},{-30,
-          12},{-22,12}},     color={255,0,255}));
+          12},{-22,12}}, color={255,0,255}));
   connect(allOn.y, equSig.u1) annotation (Line(points={{-38,30},{-30,30},{-30,20},
           {-22,20}},color={255,0,255}));
   connect(uDevSta, accTim.u)
     annotation (Line(points={{-180,60},{-62,60}}, color={255,0,255}));
   connect(uDevSta, allOn.u) annotation (Line(points={{-180,60},{-80,60},{-80,
-          30},{-62,30}},       color={255,0,255}));
+          30},{-62,30}}, color={255,0,255}));
   connect(uDevSta, anyOn.u) annotation (Line(points={{-180,60},{-120,60},{-120,
-          -10},{-102,-10}},      color={255,0,255}));
+          -10},{-102,-10}}, color={255,0,255}));
   connect(mulOr.y, yRot)
     annotation (Line(points={{142,20},{180,20}}, color={255,0,255}));
   connect(uPreDevRolSig, falEdg1.u)
@@ -98,8 +97,9 @@ equation
           {-110,52},{-62,52}}, color={255,0,255}));
   connect(accTim.passed, and2.u1) annotation (Line(points={{-38,52},{60,52},{60,
           20},{78,20}}, color={255,0,255}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
-      defaultComponentName="minLeaTim",
+
+annotation (defaultComponentName="minLeaTim",
+  Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
     Icon(graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -128,14 +128,13 @@ equation
         color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This subsequence generates a rotation trigger based on measuring time each of the devices enable time.
-The rotation trigger output <code>yRot</code> is generated as the current lead device runtime
-exceeds <code>minLeaRuntime</code> and the conditions are met such that the devices are not hot swapped. To
-avoid hot swapping the lead and lag/standby device need to be either both ON or both OFF for the rotation to occur.
-As the rotation trigger output <code>yRot</code> signal is generated, the runtime for the previous lead device
-or group of devices is reset to zero.
-<p>
-This is an OBC custom implementation.
+This subsequence generates a rotation trigger based on the measuring device enable
+time. The rotation trigger output <code>yRot</code> is generated as the current lead
+device runtime exceeds <code>minLeaRuntime</code> and the conditions are met such that
+the devices are not hot swapped. To avoid hot swapping, the lead-lag-standby device
+need to be either both ON or both OFF for the rotation to occur.
+As the rotation trigger output <code>yRot</code> signal is generated, the runtime for
+the previous lead device or group of devices is reset to zero.
 </p>
 </html>", revisions="<html>
 <ul>

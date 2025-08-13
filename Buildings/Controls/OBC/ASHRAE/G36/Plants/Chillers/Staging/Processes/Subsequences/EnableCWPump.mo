@@ -133,7 +133,7 @@ annotation (
           textString="uChiSta")}),
   Documentation(info="<html>
 <p>
-This block generates stage signal as input for condenser water pump control. 
+This block generates stage signal as input for the condenser water pump control. 
 </p>
 <ul>
 <li>
@@ -141,8 +141,8 @@ When there is no stage change command (<code>uStaUp=false</code>,
 <code>uStaDow=false</code>), it outputs current stage setpoint <code>uStaSet</code>.
 </li>
 <li>
-When there is stage up command (<code>uStaUp=true</code>, <code>uStaDow=false</code>)
-which means stage setpoint <code>uStaSet</code> has changed up to new stage,
+When there is a stage up command (<code>uStaUp=true</code>, <code>uStaDow=false</code>),
+which means that the stage setpoint <code>uStaSet</code> has changed up to a new stage,
 <ol>
 <li>
 When the minimum bypass flow has not been reset (<code>uUpsDevSta=false</code>),
@@ -157,8 +157,8 @@ the stage index for condenser water pump control should be the stage setpoint
 </ol>
 </li>
 <li>
-When there is stage down command (<code>uStaUp=false</code>, <code>uStaDow=true</code>)
-which means stage setpoint <code>uStaSet</code> has changed down to new stage,
+When there is a stage down command (<code>uStaUp=false</code>, <code>uStaDow=true</code>),
+which means that the stage setpoint <code>uStaSet</code> has changed down to a new stage,
 <ol>
 <li>
 When the head pressure control of the chiller being shut off has not been disabled 

@@ -141,7 +141,6 @@ equation
           {-2,86}}, color={0,0,127}));
   connect(con3.y, sub1.u2) annotation (Line(points={{-18,60},{-10,60},{-10,74},{
           -2,74}}, color={0,0,127}));
-
   connect(addPar.y, conWatPumOn1.index)
     annotation (Line(points={{-58,-80},{30,-80},{30,-72}}, color={255,127,0}));
   connect(uChiSta, addPar.u) annotation (Line(points={{-160,100},{-130,100},{-130,
@@ -154,6 +153,7 @@ equation
     annotation (Line(points={{2,-60},{18,-60}}, color={255,127,0}));
   connect(conInt1.y, conWatPumOn.u)
     annotation (Line(points={{2,-20},{18,-20}}, color={255,127,0}));
+
 annotation (
   defaultComponentName="conPumSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -190,12 +190,14 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{140,120}})),
   Documentation(info="<html>
 <p>
-Block that outputs number of operating condenser water pumps and design pump speed 
-for current stage, according to ASHRAE Guideline36-2021, 
-section 5.20.9 Condenser water pumps, part 5.20.9.5 and 5.20.9.6.
+Block that outputs the number of operating condenser water pumps and design pump speed 
+for current stage, according to ASHRAE Guideline 36-2021, 
+section 5.20.9 Condenser water pumps, part 5.20.9.5, and 5.20.9.6.
 </p>
-<p>If the plant has fixed speed condenser water pump (<code>fixSpe=true</code>) and
-does not have wateside economizer (<code>have_WSE=false</code>):</p>
+<p>
+If the plant has the fixed speed condenser water pump (<code>fixSpe=true</code>) and
+does not have the wateside economizer (<code>have_WSE=false</code>):
+</p>
 <ul>
 <li>
 The number of operating condenser water pumps shall match the number of operating chillers.
@@ -249,7 +251,7 @@ or 100% speed if design flow cannot be achieved.</td>
 </table>
 <br/>
 <p>
-Note that this sequence is for plants with the condenser water pumps are equally sized.
+Note that this sequence is for the plants with the condenser water pumps are equally sized.
 </p>
 </html>", revisions="<html>
 <ul>

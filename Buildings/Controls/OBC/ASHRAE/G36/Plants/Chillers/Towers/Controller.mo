@@ -561,7 +561,7 @@ Documentation(info="<html>
 Block that controls cooling tower cells enabling status <code>yTowSta</code>,
 the supply isolation valve positions <code>yIsoVal</code> of each cell and the
 cell fan operating speed <code>ySpeSet</code>.
-This is implemented according to ASHRAE Guideline36-2021, section 5.20.12.
+This is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.
 The section specifies sequences to control cooling tower.
 It includes three subsequences:
 </p>

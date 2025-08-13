@@ -608,12 +608,12 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-Primary chilled water pump control sequence per ASHRAE Guideline36-2021, 
+Primary chilled water pump control sequence per ASHRAE Guideline 36-2021, 
 section 5.20.6.1 to section 5.20.6.11, except section 3 and 4. It includes:
 </p>
 <ul>
 <li>
-Subsequences to enable lead pump, 
+Subsequences to enable the lead pump, 
 <ul>
 <li>
 for plants with dedicated pumps 
@@ -628,7 +628,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequence
 </ul>
 </li>
 <li>
-Subsequence to stage lag pumps of primary-only plants with headed varable-speed chilled water pump
+Subsequence to stage lag pumps of primary-only plants with headed variable-speed chilled water pump
 using differential pressure pump speed control 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP</a>

@@ -124,14 +124,14 @@ For the instance <code>staUpInd</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in staging up process. The chiller stage
-<code>yChiSta</code> equals previous stage setpoint, which is 1.
+Before 540 seconds, the plant is not in the staging up process. The chiller stage
+<code>yChiSta</code> equals the previous stage setpoint, which is 1.
 </li>
 <li>
-In the period from 540 seconds to 720 seconds, the plant is in staging up process
+In the period from 540 seconds to 720 seconds, the plant is in the staging up process,
 but the process is not yet requiring changing the condenser water pumps
 (<code>uUpsDevSta=false</code>). The chiller stage <code>yChiSta</code> still
-equals previous stage setpoint (1) but not yet equals the new setpoint
+equals the previous stage setpoint (1) but not yet equals the new setpoint
 <code>uStaSet</code> (2).
 </li>
 <li>
@@ -145,14 +145,14 @@ For the instance <code>staDowInd</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in staging down process. The chiller stage
-<code>yChiSta</code> equals previous stage setpoint, which is 2.
+Before 540 seconds, the plant is not in the staging down process. The chiller stage
+<code>yChiSta</code> equals the previous stage setpoint, which is 2.
 </li>
 <li>
-In the period from 540 seconds to 720 seconds, the plant is in staging down process
+In the period from 540 seconds to 720 seconds, the plant is in the staging down process,
 but the process is not yet requiring changing the condenser water pumps
 (<code>uUpsDevSta=false</code>). The chiller stage <code>yChiSta</code> still
-equals previous stage setpoint (2) but not yet equals the new setpoint
+equals the previous stage setpoint (2) but not yet equals the new setpoint
 <code>uStaSet</code> (1).
 </li>
 <li>

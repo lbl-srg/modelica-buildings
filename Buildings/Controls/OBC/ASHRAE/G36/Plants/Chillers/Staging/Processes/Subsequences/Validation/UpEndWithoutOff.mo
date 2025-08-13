@@ -126,9 +126,9 @@ equation
     annotation (Line(points={{-178,-240},{12,-240},{12,140},{38,140}},
       color={0,0,127}));
   connect(endUp.endStaTri, triSam.trigger) annotation (Line(points={{62,141},{66,
-          141},{66,208}},  color={255,0,255}));
+          141},{66,208}}, color={255,0,255}));
   connect(sin.y, triSam.u)
-    annotation (Line(points={{8,220},{54,220}},   color={0,0,127}));
+    annotation (Line(points={{8,220},{54,220}}, color={0,0,127}));
   connect(staUp.y, lat.u) annotation (Line(points={{-138,80},{-130,80},{-130,110},
           {-82,110}},color={255,0,255}));
   connect(endUp.endStaTri, lat.clr) annotation (Line(points={{62,141},{66,141},{
@@ -171,17 +171,17 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences
 </p>
 <p>
 It shows how the staging up process ends when the process does not require one chiller
-being enabled and another chiller being disabled. The instance <code>endUp</code>
-shows the results as below. It stages up from stage 1 which requires chiller 1 being
-enabled, to stage 2 which requires chiller 1 and chiller 2 being enabled.
+to be enabled and another chiller to be disabled. The instance <code>endUp</code>
+shows the results as below. It stages up from stage 1 which requires chiller 1 to be
+enabled, to stage 2 which requires chiller 1 and chiller 2 to be enabled.
 </p>
 <ul>
 <li>
-Before 1000 seconds, the plant is not in stagingg up process (<code>uStaUp=false</code>).
+Before 1000 seconds, the plant is not in the staging up process (<code>uStaUp=false</code>).
 </li>
 <li>
 At 1000 seconds, the plant starts staging up (<code>uStaUp=true</code>). However,
-it does not yet starts the subprocess of ending the staging process
+it does not yet start the subprocess of ending the staging process
 (<code>uEnaChiWatIsoVal=false</code>).
 </li>
 <li>

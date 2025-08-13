@@ -32,7 +32,6 @@ equation
   connect(pumSta.y, chiPumSpe.uChiWatPum)
     annotation (Line(points={{-38,-60},{0,-60},{0,-6},{18,-6}},
       color={255,0,255}));
-
   connect(locDpSet.y, chiPumSpe.dpChiWatSet_local)
     annotation (Line(points={{-38,0},{18,0}}, color={0,0,127}));
 annotation (
@@ -52,24 +51,24 @@ remote pressure sensors.
 </p>
 <ul>
 <li>
-Both pumps become enabled at 1 second. Thus the pump speed
+Both pumps become enabled at 1 second. Thus, the pump speed
 setpoint becomes non-zero.
 </li>
 <li>
 From 1 second to 3 seconds, the measured pressure is greater
-than the setpoint. Thus the pump speed is at minimum (0.1).
+than the setpoint. Thus, the pump speed is at the minimum (0.1).
 </li>
 <li>
 From 3 seconds to 4.5 seconds, the measured pressure becomes lower than the setpoint.
-Thus the pump speed increases.
+Thus, the pump speed increases.
 </li>
 <li>
 From 4.5 seconds to 6.5 seconds, the measured pressure becomes greater than the
-setpoint. Thus the pump speed becomes the minimum (0.1) again.
+setpoint. Thus, the pump speed becomes the minimum (0.1) again.
 </li>
 <li>
 After 6.5 seconds, the measured pressure becomes lower than the set point.
-The pump speed increases till to the maximum speed (1.0).
+The pump speed increases up to the maximum speed (1.0).
 </li>
 </ul>
 </html>", revisions="<html>

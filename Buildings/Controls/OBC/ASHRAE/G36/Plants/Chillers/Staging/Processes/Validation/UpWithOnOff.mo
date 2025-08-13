@@ -315,9 +315,9 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Up</a>.
 </p>
 <p>
 It shows a process of staging up from stage 1 which only requires small chiller 1
-being enabled, to stage 2 which only requires large chiller 2 being enabled. In
+to be enabled, to stage 2 which only requires large chiller 2 to be enabled. In
 stage 1 and 2, the required minimum chilled water flow setpoints are 0.5 m3/s and
-1.0 m3/s respectively. The process are below:
+1.0 m3/s, respectively. The process is below:
 </p>
 <ul>
 <li>
@@ -329,16 +329,16 @@ from 2 A to 1.5 A (which is lower than 80% of the operating chiller load).
 </li>
 <li>
 After 300 seconds (<code>byPasSetTim</code>) to 450 seconds, the minimum chilled
-water flow setpoint slowly increase from 0.5 m3/s to 1.667 m3/s which is for the
+water flow setpoint slowly increases from 0.5 m3/s, to 1.667 m3/s which is for the
 case when both chiller 1 and 2 are operating. The setpoint is achieved at 750 seconds.
 </li>
 <li>
-Wait 60 seconds (<code>aftByPasSetTim</code>) to allow the loop being stable,
+Wait 60 seconds (<code>aftByPasSetTim</code>) to allow the loop to be stable,
 enabling the head pressure control of chiller 2 (<code>yChiHeaCon[2]=true</code>)
 at 850 seconds.
 </li>
 <li>
-After 30 seconds (<code>waiTim</code>) at 880 seconds, it starts slowly open the chilled
+After 30 seconds (<code>waiTim</code>) at 880 seconds, it starts slowly opens the chilled
 water isolation valve of chiller 2 (<code>yChiWatIsoVal[2]</code>). After 300
 seconds (<code>chaChiWatIsoTim</code>) at 1180 seconds, the valve is fully open.
 </li>
@@ -354,12 +354,12 @@ At 1480 seconds, it slowly closes the chilled water isolation valve. After 300
 seconds (<code>chaChiWatIsoTim</code>) at 1780, the valve becomes fully closed.
 </li>
 <li>
-At 1780 seconds, it disables chiller 1 head pressure control and change the minimum
+At 1780 seconds, it disables chiller 1 head pressure control and changes the minimum
 chilled water flow setpoint to 1 m3/s.
 </li>
 <li>
 At 1800 seconds, the measured chilled water flow achieves the new setpoint. After
-60 seconds at 1860 seconds, the staging process is done and the chiller load demand is released.
+60 seconds at 1860 seconds, the staging process is done, and the chiller load demand is released.
 </li>
 </ul>
 </html>", revisions="<html>

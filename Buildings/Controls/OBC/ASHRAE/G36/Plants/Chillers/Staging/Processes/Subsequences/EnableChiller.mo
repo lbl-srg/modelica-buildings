@@ -138,7 +138,7 @@ equation
   connect(and2.y, booRep.u)
     annotation (Line(points={{-138,60},{-102,60}}, color={255,0,255}));
   connect(intEqu.y, and1.u1)
-    annotation (Line(points={{-78,120},{-42,120}},  color={255,0,255}));
+    annotation (Line(points={{-78,120},{-42,120}}, color={255,0,255}));
   connect(booRep.y, and1.u2)
     annotation (Line(points={{-78,60},{-60,60},{-60,112},{-42,112}},
       color={255,0,255}));
@@ -151,7 +151,7 @@ equation
   connect(booToRea.y, triSam.u)
     annotation (Line(points={{-138,0},{-22,0}}, color={0,0,127}));
   connect(booRep1.y, triSam.trigger)
-    annotation (Line(points={{-38,-20},{-10,-20},{-10,-12}},   color={255,0,255}));
+    annotation (Line(points={{-38,-20},{-10,-20},{-10,-12}}, color={255,0,255}));
   connect(triSam.y, greEquThr.u)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
   connect(and2.y, tim.u)
@@ -229,7 +229,6 @@ equation
   connect(tim.passed, logSwi4.u3)
     annotation (Line(points={{-78,-118},{-40,-118},{-40,-178},{158,-178}},
       color={255,0,255}));
-
   connect(uStaUp, booRep1.u) annotation (Line(points={{-220,60},{-190,60},{-190,
           -20},{-62,-20}}, color={255,0,255}));
 annotation (
@@ -369,13 +368,13 @@ but the enabled chiller has not yet finished starting."),
 and another chiller on, and the enabled chiller has finished starting.")}),
 Documentation(info="<html>
 <p>
-Block that controlles chiller when there is staging up command <code>uStaUp=true</code>.
-This implementation is based on ASHRAE Guideline36-2021, section 5.20.4.16,
+Block that controlls chiller when there is a staging up command <code>uStaUp=true</code>.
+This implementation is based on ASHRAE Guideline 36-2021, section 5.20.4.16,
 item f and item g.1. These sections specify when the next chiller should be enabled
-and when the running smaller chiller should be diabled.
+and when the running smaller chiller should be disabled.
 </p>
 <p>
-When the stage-up process does not requires a smaller chiller being staged off and
+When the stage-up process does not require a smaller chiller being staged off and
 a larger chiller being staged on (<code>uOnOff=false</code>):
 </p>
 <ul>
@@ -385,7 +384,7 @@ Start the next stage chiller after the chilled water isolation valve is fully op
 </li>
 </ul>
 <p>
-For any stage change during which a smaller chiller is diabled and a larger chiller
+For any stage change during which a smaller chiller is disabled and a larger chiller
 is enabled (<code>uOnOff=true</code>):
 </p>
 <ul>

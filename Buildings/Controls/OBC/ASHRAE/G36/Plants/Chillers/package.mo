@@ -4,11 +4,11 @@ package Chillers "Chiller plant control sequences"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains control sequences for a chiller plant comprising a single
-chiller or multiple chillers, chilled and condenser water pumps, cooling towers
+chiller or multiple chillers, chilled and condenser water pumps, cooling towers,
 and an optional water side economizer.
 </p>
 <p>
-The control sequences are implemented based on ASHRAE Guideline36-2021.
+The control sequences are implemented based on ASHRAE Guideline 36-2021.
 </p>
 </html>"),
     Icon(graphics={

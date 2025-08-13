@@ -259,10 +259,10 @@ This example validates
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Up</a>.
 </p>
 <p>
-It shows a process of staging up from stage 1 which requires only chiller 1 being
-enabled, to stage 2 which requires both chiller 1 and 2 being enabled. In stage 1
-and 2, the required minimum chilled water flow setpoints are 1.0 m3/s and 2.0 m3/s
-respectively. The process are below:
+It shows a process of staging up from stage 1 which requires only chiller 1 to be
+enabled, to stage 2 which requires both chiller 1 and 2 to be enabled. In stage 1
+and 2, the required minimum chilled water flow setpoints are 1.0 m3/s and 2.0 m3/s,
+respectively. The process is below:
 </p>
 <ul>
 <li>
@@ -275,16 +275,16 @@ the operating chiller load).
 </li>
 <li>
 After 300 seconds (<code>byPasSetTim</code>) to 450 seconds, the minimum chilled
-water flow setpoint slowly increase from 1.0 m3/s to 2.0 m3/s which is for the case
+water flow setpoint slowly increases from 1.0 m3/s, to 2.0 m3/s which is for the case
 when both chiller 1 and 2 are operating. The setpoint is achieved at 750 seconds.
 </li>
 <li>
-Wait 60 seconds (<code>aftByPasSetTim</code>) to allow the loop being stable,
+Wait 60 seconds (<code>aftByPasSetTim</code>) to allow the loop to be stable,
 enabling the head pressure control of chiller 2 (<code>yChiHeaCon[2]=true</code>)
 at 840 seconds.
 </li>
 <li>
-After 30 seconds (<code>waiTim</code>) at 870 seconds, it starts slowly open the chilled
+After 30 seconds (<code>waiTim</code>) at 870 seconds, it starts slowly opens the chilled
 water isolation valve of chiller 2 (<code>yChiWatIsoVal[2]</code>). After 300
 seconds (<code>chaChiWatIsoTim</code>) at 1170 seconds, the valve is fully open.
 </li>

@@ -208,11 +208,11 @@ setpoint"),
           textString="0.5")}),
 Documentation(info="<html>
 <p>
-Block that output setpoints for the chilled water supply of primary-only and
+Block that outputs setpoints for the chilled water supply of primary-only and
 primary-secondary systems serving differential pressure controlled pumps.
 The outputs include supply temperature setpoint <code>TChiWatSupSet</code>
 and pump differential pressure setpoint <code>dpChiWatPumSet</code>, according
-to ASHRAE Guideline36-2021, section 5.20.5.2.
+to ASHRAE Guideline 36-2021, section 5.20.5.2.
 </p>
 <p>
 Chilled water supply temperature setpoint <code>TChiWatSupSet</code> and pump

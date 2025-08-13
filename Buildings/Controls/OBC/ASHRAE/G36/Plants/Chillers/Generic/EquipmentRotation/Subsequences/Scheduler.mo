@@ -68,8 +68,10 @@ block Scheduler
     "Integer counter"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotTri(final period=
-        rotationPeriod, final shift=0) if simTimSta "Sample trigger"
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger rotTri(
+    final period=rotationPeriod,
+    final shift=0) if simTimSta
+    "Sample trigger"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
 protected
@@ -171,15 +173,14 @@ equation
   connect(rotTri.y, and1.u2) annotation (Line(points={{-118,-110},{-70,-110},{-70,
           -118},{18,-118}},  color={255,0,255}));
   connect(and1.y, yRot) annotation (Line(points={{42,-110},{150,-110},{150,0},{180,
-          0}},     color={255,0,255}));
+          0}}, color={255,0,255}));
   connect(con.y, tim.u)
     annotation (Line(points={{-78,-90},{-62,-90}}, color={255,0,255}));
   connect(tim.passed, and1.u1) annotation (Line(points={{-38,-98},{0,-98},{0,
           -110},{18,-110}}, color={255,0,255}));
-  annotation (Diagram(coordinateSystem(extent={{-160,-140},{160,140}})),
-      defaultComponentName="rotSch",
-    Icon(graphics={
-        Rectangle(
+annotation (defaultComponentName="rotSch",
+  Diagram(coordinateSystem(extent={{-160,-140},{160,140}})),
+  Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
@@ -214,29 +215,32 @@ equation
   Documentation(info="<html>
 <p>
 This block outputs generates a rotation trigger at
-chosen time intervals for lead/standby configurations where a lead device runs continuously.
-The implementation is based on Guideline36-2021 5.1.15.4.b, except 5.1.15.4.b 1.
+chosen time intervals for lead-standby configurations where a lead device runs continuously.
+The implementation is based on Guideline 36-2021 5.1.15.4.b, except 5.1.15.4.b 1.
 </p>
 <p>
-The user may chose to start counting time from simulation start to generate the
+The user may choose to start counting time from simulation start to generate the
 rotation signal at regular intervals <code>rotationPeriod</code> by setting a
 flag <code>sinTimSta</code> to <code>true</code>, or to use a calendar.
 </p>
 <p>
-If a calender is used the user needs to select the time of the day as an hour between 0 and 23 at which the rotation shall occur.
-Hour 0 is midnight.
-The block implements two options to select the time interval for the equipment rotation:
+If a calender is used, the user needs to select the time of the day as an hour between 0
+and 23 at which the rotation shall occur.
+Hour 0 is midnight. The block implements two options to select the time interval for
+the equipment rotation:
 </p>
 <ul>
 <li>
 Each <code>dayCou</code> days;
 </li>
 <li>
-Each <code>weeCou</code> weeks on a <code>weekday</code> selected between 1 = Monday and 7 = Sunday.
+Each <code>weeCou</code> weeks on a <code>weekday</code> selected between 1 = Monday
+and 7 = Sunday.
 </li>
 </ul>
 <p>
-To enable weekly intervals set the <code>weeInt</code> to true, otherwise a number of days can be used.
+To enable weekly intervals, set the <code>weeInt</code> to true, otherwise, a number
+of days can be used.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -173,18 +173,18 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
 <p>
-Block that output chilled water pump speed setpoint for primary-only plants where
+Block that outputs chilled water pump speed setpoint for primary-only plants where
 the remote pressure differential sensor is hardwired to the plant controller, 
-according to ASHRAE Guideline36-2021, 
+according to ASHRAE Guideline 36-2021, 
 section 5.20.6 Primary chilled water pumps, part 5.20.6.7 and 5.20.6.8.
 </p>
 <ol>
 <li>
 When any chilled water pump is proven on, <code>uChiWatPum</code> = true, 
-pump speed will be controlled by a reverse acting PID loop maintaining the
+the pump speed will be controlled by a reverse-acting PID loop, maintaining the
 differential pressure signal at a setpoint <code>dpChiWatSet</code>. All pumps
-receive the same speed signal. PID loop output shall be mapped from minimum
-pump speed (<code>minPumSpe</code>) at 0% to maximum pump speed
+receive the same speed signal. PID loop output shall be mapped from the minimum
+pump speed (<code>minPumSpe</code>) at 0% to the maximum pump speed
 (<code>maxPumSpe</code>) at 100%.
 </li>
 <li>

@@ -278,7 +278,7 @@ Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> when both waterside 
 economizer and chillers are enabled, i.e. integrated operation. This is implemented 
-according to ASHRAE Guideline36-2021, section 5.20.12.2, item c.1.
+according to ASHRAE Guideline 36-2021, section 5.20.12.2, item c.1.
 </p>
 <p>
 When the waterside economizer is enabled (<code>uWse=true</code>) and chillers

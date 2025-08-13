@@ -204,7 +204,7 @@ Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> based on the control
 of condenser water return temperature for the plant that is close coupled. 
-This is implemented according to ASHRAE Guideline36-2021, section 5.20.12.2, item a.6-7.
+This is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.2, item a.6-7.
 </p>
 <ul>
 <li>

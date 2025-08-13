@@ -163,8 +163,8 @@ annotation (defaultComponentName = "wsePum",
   Documentation(info="<html>
 <p>
 It implements the control of the waterside economizer valves when the chilled water
-flow through the economizer is controlled by variable speed heat exchanger pump.
-It is implemented according to ASHRAE Guideline36-2021, section 5.20.3.7-10. 
+flow through the economizer is controlled by the variable speed heat exchanger pump.
+It is implemented according to ASHRAE Guideline 36-2021, section 5.20.3.7-10. 
 </p>
 <p>
 When economizer is enabled (<code>uWSE=true</code>), start next condenser water
@@ -176,12 +176,12 @@ and enable the chilled water heat exchanger pump.
 </p>
 <p>
 The economizer heat exchanger pump speed reset requests shall be generated based
-on the difference between chilled water return temperature upstream of the economizer
-and economizer heat exchanger entering chilled water temperature.
+on the difference between the chilled water return temperature upstream of the economizer
+and the economizer heat exchanger entering chilled water temperature.
 </p>
 <ol>
 <li>
-If the temperature difference exceeeds 2 &deg;F (1.11 &deg;K), send 2 requests
+If the temperature difference exceeds 2 &deg;F (1.11 &deg;K), send 2 requests
 until the difference is less than 1.2 &deg;F (0.67 &deg;F).
 </li>
 <li>
@@ -214,7 +214,7 @@ Trim and Respond logic with the following parameters:
 <br/>
 
 <p>
-When economizer is disabled (<code>uWSE=false</code>), the chilled water heat
+When the economizer is disabled (<code>uWSE=false</code>), the chilled water heat
 exchanger pump shall be disabled, the heat exchanger condenser water isolation
 valve fully closed (<codE>yConWatIsoVal=0</code>), and the last lag condenser water pump disabled
 and (or) change the pump speed 

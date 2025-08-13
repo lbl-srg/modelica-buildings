@@ -97,7 +97,7 @@ equation
           {-62,118}}, color={0,0,127}));
   connect(uChi, booToRea.u)
     annotation (Line(points={{-160,0},{-70,0},{-70,-20},{-62,-20}},
-                                                    color={255,0,255}));
+          color={255,0,255}));
   connect(uChi,chiOn. u) annotation (Line(points={{-160,0},{-70,0},{-70,70},{
           -62,70}},  color={255,0,255}));
   connect(chiOn.y, swi2.u2)
@@ -154,11 +154,11 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs the maximum and minimum lifts of the enabled chillers. It is
-based on ASHRAE Guideline36-2021, section 5.20.4.14.
+based on ASHRAE Guideline 36-2021, section 5.20.4.14.
 </p>
 <p>
 <code>yLifMin</code> and <code>yLifMax</code> shall be calculated as the averages of
-<code>minChiLif</code> and <code>maxChiLif</code> for operating chillers respectively.
+<code>minChiLif</code> and <code>maxChiLif</code> for operating chillers, respectively.
 </p>
 </html>", revisions="<html>
 <ul>

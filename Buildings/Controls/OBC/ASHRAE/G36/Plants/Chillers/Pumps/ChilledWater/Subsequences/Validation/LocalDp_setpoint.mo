@@ -33,11 +33,11 @@ protected
 
 equation
   connect(remPreSen1.y, locDpSet.dpChiWat_remote[1]) annotation (Line(points={{-38,20},
-          {-20,20},{-20,-0.5},{18,-0.5}},   color={0,0,127}));
+          {-20,20},{-20,-0.5},{18,-0.5}}, color={0,0,127}));
   connect(remPreSen2.y, locDpSet.dpChiWat_remote[2]) annotation (Line(points={{-38,-20},
-          {-20,-20},{-20,0.5},{18,0.5}},      color={0,0,127}));
+          {-20,-20},{-20,0.5},{18,0.5}}, color={0,0,127}));
   connect(pumSta.y, locDpSet.uChiWatPum) annotation (Line(points={{-38,60},{0,
-          60},{0,6},{18,6}},   color={255,0,255}));
+          60},{0,6},{18,6}}, color={255,0,255}));
   connect(difPreSet.y, reaRep.u)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
   connect(reaRep.y, locDpSet.dpChiWatSet_remote) annotation (Line(points={{-18,-60},
@@ -60,12 +60,12 @@ remote pressure sensors.
 </p>
 <ul>
 <li>
-After 1 seconds, the two remote pressure sensors have the measured values higher than
+After 1 second, the two remote pressure sensors have the measured values higher than
 the setpoint. The reverse acting PID controller thus gives the minimum
 output. The local pressure setpoint is at the minimum value (<code>50000 Pa</code>).
 </li>
 <li>
-When the remote sensors have the measured values that becoome lower than the setpoint,
+When the remote sensors have the measured values that become lower than the setpoint,
 their reverse acting PID controllers give the output greater than the minimum.
 The greater of the two output values from both PID controllers is picked for
 specifying the local pressure setpoint.

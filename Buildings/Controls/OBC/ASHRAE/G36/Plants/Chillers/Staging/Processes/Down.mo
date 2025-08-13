@@ -864,7 +864,7 @@ and headered condenser water pumps, or air-cooled primary-only parallel chiller
 plants with headered chilled water pumps.
 This development is based on ASHRAE Guideline 36-2021,
 section 5.20.4.17, which specifies the step-by-step control of
-devices during chiller staging down process.
+devices during the chiller staging down process.
 </p>
 <ol>
 <li>
@@ -872,13 +872,13 @@ Identify the chiller(s) that should be enabled (and disabled, if <code>have_pony
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Start the staging down process,
 <ul>
 <li>
-For any stage change during which a smaller chiller is enabled and a larger chller
+For any stage change during which a smaller chiller is enabled and a larger chiller
 is disabled:
 <ol type=\"i\">
 <li>
@@ -890,15 +890,15 @@ Wait until actual demand &lt; 80% of current load up to a maximum of 5 minutes
 </li>
 <li>
 Slowly change the minimum flow bypass setpoint to the one that includes both
-chillers are enabled. After new setpoint is achieved, wait 1 minute
-(<code>aftByPasSetTim</code>) to allow loop stabilize.
+chillers are enabled. After the new setpoint is achieved, wait 1 minute
+(<code>aftByPasSetTim</code>) to allow loop being stabilized.
 </li>
 <li>
 Enable head pressure control for the chiller being enabled. Wait 30 seconds (<code>waiTim</code>).
 </li>
 <li>
-Slowly (<code>chaChiWatIsoTim</code>) open chilled water isolation valve of the smaller
-chiller being enabled. The valve timing should be determind in the field.
+Slowly (<code>chaChiWatIsoTim</code>) open the chilled water isolation valve of the smaller
+chiller being enabled. The valve timing should be determined in the field.
 </li>
 <li>
 Start the smaller chiller after its chilled water isolation valve is fully open.
@@ -917,7 +917,7 @@ If staging down from any other stage, shut off the last stage chiller.
 These are implemented in block <code>dowSta</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DownStart\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DownStart</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 When the controller of the chiller being shut off indicates no request for chilled
@@ -927,7 +927,7 @@ through other operating chillers.
 This is implemented in block <code>disChiIsoVal</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal</a>
-for more decriptions.
+for more descriptions.
 </li>
 
 <li>
@@ -937,7 +937,7 @@ loop.
 This is implemented in block <code>disHeaCon</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl</a>
-for more decriptions.
+for more descriptions.
 </li>
 
 <li>
