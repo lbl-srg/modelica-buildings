@@ -1,4 +1,4 @@
-within Buildings.Examples.HydronicSystems.BaseClasses;
+within Buildings.Fluid.ZoneEquipment;
 model FourPipe "System model for a four-pipe fan coil unit"
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium for air";

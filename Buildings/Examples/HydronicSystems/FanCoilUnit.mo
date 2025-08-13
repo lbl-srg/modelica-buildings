@@ -52,7 +52,7 @@ model FanCoilUnit
      "Thermal zones model"
      annotation (Placement(transformation(extent={{102,56},{180,100}})));
 
-  Buildings.Examples.HydronicSystems.BaseClasses.FourPipe fanCoiUni[5](
+  Buildings.Fluid.ZoneEquipment.FourPipe fanCoiUni[5](
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
@@ -327,8 +327,8 @@ based on the differential between the temperature setpoint and the zone temperat
 to avoid unecessary heating and cooling use and avoid extreme temperature fluctuations.
 </p>
 <p>
-See the model <a href=\"modelica://Buildings.Examples.HydronicSystems.BaseClasses.FourPipe\">
-Buildings.Examples.HydronicSystems.BaseClasses.FourPipe</a> and 
+See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FourPipe\">
+Buildings.Fluid.ZoneEquipment.FourPipe</a> and 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for the 
 description of the fan coil unit and the controller, and see the model 
