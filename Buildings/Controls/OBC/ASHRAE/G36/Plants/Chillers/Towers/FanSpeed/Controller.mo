@@ -405,11 +405,11 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code>. This is implemented
-according to ASHRAE Guideline 36-2021, section 5.20.12.2, itema and c.
-These sections specifies sequences to control tower fan speed in the mode
+according to ASHRAE Guideline 36-2021, section 5.20.12.2, item a and c.
+These sections specify sequences to control tower fan speed in the mode
 when waterside economizer (if the plant does have it) is enabled or disabled, for
 maintaining condenser water return temperature at its setpoint. This control is
-used for plants with dynamic load profiles, i.e. those for which PLR may change
+used for plants with dynamic load profiles, i.e., those for which PLR may change
 by more than approximately 25% in any hour.
 It includes two subsequences:
 </p>
@@ -421,9 +421,9 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Con
 for a description.
 </li>
 <li>
-Sequence of controlling tower fan speed to maintain condenser water return temperature
+Sequence of controlling the tower fan speed to maintain the condenser water return temperature
 at its setpoint. This control would be disabled if the waterside economizer is
-enabled. see
+enabled. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Controller</a>
 for a description.

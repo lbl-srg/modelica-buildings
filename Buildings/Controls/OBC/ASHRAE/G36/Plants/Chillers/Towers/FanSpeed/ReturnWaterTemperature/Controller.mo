@@ -617,7 +617,7 @@ item a. It includes four subsequences:
 </p>
 <ul>
 <li>
-Reset the tower maximum speed that reset based on plant partial load ratio
+Reset the tower maximum speed that resets based on the plant partial load ratio
 linearly from 100% at 50% operative part load ratio down to 70% at 0%
 load ratio.
 </li>
@@ -634,7 +634,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTem
 for a description.
 </li>
 <li>
-Sequence of controlling tower fan for close coupled plants, see
+Sequence of controlling tower fan for the close coupled plants, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled</a>
 for a description.

@@ -114,7 +114,8 @@ protected
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneVec[nChi](
-    final k=fill(1, nChi)) "Mocks a case with all chillers available"
+    final k=fill(1, nChi))
+    "Mocks a case with all chillers available"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
@@ -183,7 +184,7 @@ equation
   connect(chiDesCaps.y, staDesCaps.u) annotation (Line(points={{-178,110},{-142,
           110}}, color={0,0,127}));
   connect(chiMinCaps.y, staMinCaps.u) annotation (Line(points={{-178,70},{-142,70}},
-                 color={0,0,127}));
+          color={0,0,127}));
   connect(uChiAva, booToRea.u)
     annotation (Line(points={{-240,-40},{-202,-40}}, color={255,0,255}));
   connect(booToRea.y, sumNumAvaChi.u)
@@ -203,22 +204,21 @@ equation
   connect(matMax.y,reaToInt. u)
     annotation (Line(points={{-78,-120},{-62,-120}}, color={0,0,127}));
   connect(reaToInt.y, yTyp) annotation (Line(points={{-38,-120},{240,-120}},
-                      color={255,127,0}));
+          color={255,127,0}));
   connect(reaToInt.y, intToRea1.u) annotation (Line(points={{-38,-120},{-30,
-          -120},{-30,-170},{-22,-170}},
-                                 color={255,127,0}));
+          -120},{-30,-170},{-22,-170}}, color={255,127,0}));
   connect(intToRea1.y, sort.u)
-    annotation (Line(points={{2,-170},{18,-170}},  color={0,0,127}));
+    annotation (Line(points={{2,-170},{18,-170}}, color={0,0,127}));
   connect(sort.y, reaToInt1.u)
-    annotation (Line(points={{42,-170},{58,-170}},   color={0,0,127}));
+    annotation (Line(points={{42,-170},{58,-170}}, color={0,0,127}));
   connect(reaToInt.y,intEqu. u1) annotation (Line(points={{-38,-120},{90,-120},{
-          90,-150},{98,-150}},   color={255,127,0}));
+          90,-150},{98,-150}}, color={255,127,0}));
   connect(reaToInt1.y,intEqu. u2) annotation (Line(points={{82,-170},{90,-170},{
-          90,-158},{98,-158}},    color={255,127,0}));
+          90,-158},{98,-158}}, color={255,127,0}));
   connect(mulAnd.y, assMes.u)
-    annotation (Line(points={{162,-150},{178,-150}},  color={255,0,255}));
+    annotation (Line(points={{162,-150},{178,-150}}, color={255,0,255}));
   connect(intEqu.y, mulAnd.u) annotation (Line(points={{122,-150},{138,-150}},
-    color={255,0,255}));
+          color={255,0,255}));
   connect(staType.y, pro.u1) annotation (Line(points={{-178,-100},{-160,-100},{-160,
           -114},{-142,-114}}, color={0,0,127}));
   connect(staDesCaps.y, yDesCap) annotation (Line(points={{-118,110},{100,110},{
@@ -257,7 +257,7 @@ equation
 Documentation(info="<html>
 <p>
 This subsequence is not directly specified in Guideline 36-2021 as it provides
-a side calculation pertaining to generalization of the staging
+a side calculation about the generalization of the staging
 sequences for any number of chillers and stages provided by the
 user.
 </p>
@@ -290,10 +290,12 @@ Stage type is, based on the chiller types in that stage and in the recommended s
 Positive displacement, for any stage with only positive displacement chiller(s)
 </li>
 <li>
-Variable speed centirfugal, for any stage with any variable speed chiller(s) and no constant speed chiller(s)
+Variable speed centrifugal, for any stage with any variable speed chiller(s) and no
+constant speed chiller(s)
 </li>
 <li>
-Constant speed centirfugal, for any stage with any constant speed centrifugal chiller(s)<br/>
+Constant speed centrifugal, for any stage with any constant speed centrifugal
+chiller(s)<br/>
 </li>
 </ul>
 This stage type is used in the

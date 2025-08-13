@@ -364,7 +364,7 @@ annotation (
           textString="%name")}),
 Documentation(info="<html>
 <p>
-Block that outputs signal <code>yTowSta</code> for enabling and disabling cooling tower 
+Block that outputs signal <code>yTowSta</code> for enabling and disabling the cooling tower 
 fan. This is implemented according to ASHRAE Guideline 36-2021,
 section 5.20.12.2, item a.11-l2.
 </p>
@@ -395,7 +395,7 @@ by 1 &deg;F, and
 </li>
 <li>
 All enabled chillers’ head pressure control maximum tower fan speed <code>uMaxSpeSet</code> 
-are greater than tower minimum speed <code>fanSpeMin</code>.
+are greater than the tower minimum speed <code>fanSpeMin</code>.
 </li>
 </ul>
 </li>

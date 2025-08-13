@@ -259,11 +259,11 @@ equation
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-100},{20,-100},
           {20,80},{78,80}}, color={255,0,255}));
   connect(orStaUp.y, logSwi.u1) annotation (Line(points={{42,120},{60,120},{60,88},
-          {78,88}},  color={255,0,255}));
+          {78,88}}, color={255,0,255}));
   connect(sub1.y, hysTSup1.u)
     annotation (Line(points={{-98,-30},{-80,-30},{-80,-60},{-62,-60}}, color={0,0,127}));
   connect(hysTSup.y, truDel.u)
-    annotation (Line(points={{-38,0},{-22,0}},    color={255,0,255}));
+    annotation (Line(points={{-38,0},{-22,0}}, color={255,0,255}));
   connect(hysTSup1.y, truDel1.u)
     annotation (Line(points={{-38,-60},{-22,-60}}, color={255,0,255}));
   connect(truDel.y, orStaUp1.u1) annotation (Line(points={{2,0},{38,0}},
@@ -273,25 +273,23 @@ equation
   connect(orStaUp1.y, logSwi.u3) annotation (Line(points={{62,0},{70,0},{70,72},
           {78,72}}, color={255,0,255}));
   connect(noWSE.y, logSwi.u2)
-    annotation (Line(points={{2,80},{78,80}},   color={255,0,255}));
+    annotation (Line(points={{2,80},{78,80}}, color={255,0,255}));
   connect(noWSE.y, logSwi.u3) annotation (Line(points={{2,80},{30,80},{30,72},{78,
-          72}},    color={255,0,255}));
+          72}}, color={255,0,255}));
   connect(u, intGreThr.u)
     annotation (Line(points={{-180,-100},{-122,-100}}, color={255,127,0}));
   connect(sub1.y, hysTSup.u) annotation (Line(points={{-98,-30},{-80,-30},{-80,
-          0},{-62,0}},
-                     color={0,0,127}));
+          0},{-62,0}}, color={0,0,127}));
   connect(TChiWatSup, sub1.u1) annotation (Line(points={{-180,-70},{-130,-70},{
-          -130,-24},{-122,-24}},
-                            color={0,0,127}));
+          -130,-24},{-122,-24}}, color={0,0,127}));
   connect(TChiWatSupSet, sub1.u2) annotation (Line(points={{-180,-30},{-140,-30},
           {-140,-36},{-122,-36}}, color={0,0,127}));
   connect(uAvaCur, not1.u)
-    annotation (Line(points={{-180,20},{-122,20}},   color={255,0,255}));
+    annotation (Line(points={{-180,20},{-122,20}}, color={255,0,255}));
   connect(dpChiWatPumSet_remote, faiSafCon.dpChiWatPumSet_remote) annotation (
-      Line(points={{-180,80},{-150,80},{-150,94},{-102,94}},     color={0,0,127}));
+      Line(points={{-180,80},{-150,80},{-150,94},{-102,94}}, color={0,0,127}));
   connect(dpChiWatPum_remote, faiSafCon.dpChiWatPum_remote) annotation (Line(
-        points={{-180,50},{-120,50},{-120,91},{-102,91}},   color={0,0,127}));
+        points={{-180,50},{-120,50},{-120,91},{-102,91}}, color={0,0,127}));
   connect(lat.y, logSwi1.u2)
     annotation (Line(points={{62,-180},{118,-180}}, color={255,0,255}));
   connect(logSwi.y, logSwi1.u3) annotation (Line(points={{102,80},{110,80},{110,
@@ -366,7 +364,7 @@ available stage occurs when the chilled water supply temperature is sufficienctl
 above its setpoint for either a shorter or a longer time period
 </p>
 <p>
-Note that when the plant is enabled in chiller mode, the stage up signal will keep
+Note that when the plant is enabled in chiller mode, the stage up signal will remain
 false. The plant will control by the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.Enable\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.Enable</a>.

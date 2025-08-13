@@ -184,7 +184,7 @@ annotation (defaultComponentName = "iniSta",
 Documentation(info="<html>
 <p>
 This subsequence is not directly specified in Guideline 36-2021 as it provides a side
-calculation pertaining to generalization of the staging sequences for any
+calculation about the generalization of the staging sequences for any
 number of chillers and stages provided by the user.
 </p>
 <p>
@@ -201,7 +201,7 @@ When the plant is enabled and the plant has no waterside economizer
 stage <code>uUp</code>.
 </p>
 <p>
-When the plant is enabled and the plant has waterside economizer
+When the plant is enabled and the plant has the waterside economizer
 (<code>have_WSE</code>=true), the initial stage will be:
 </p>
 <ul>

@@ -153,8 +153,7 @@ equation
     annotation (Line(points={{-38,-80},{-22,-80}}, color={0,0,127}));
   connect(CWRTSpd.y, fanSpe.u[1])
     annotation (Line(points={{102,80},{110,80},{110,30},{10,30},{10,-80.6667},{
-          18,-80.6667}},
-                      color={0,0,127}));
+          18,-80.6667}}, color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
     annotation (Line(points={{2,-80},{18,-80}}, color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
@@ -211,13 +210,13 @@ This is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.2, it
 When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water return temperature <code>TConWatRet</code> shall be maintained at 
 setpoint <code>TConWatRetSet</code> by a direct acting PID loop. The loop output 
-shall be mapped to the variable tower speed. Map the tower speed from minimum tower
+shall be mapped to the variable tower speed. Map the tower speed from the minimum tower
 speed <code>fanSpeMin</code> at 0% loop output to 100% speed at 100% loop output.
 </li>
 <li>
 The output tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head 
-pressure control loop <code>uMaxSpeSet</code>, and tower maximum speed that reset 
+pressure control loop <code>uMaxSpeSet</code>, and tower maximum speed that resets 
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
 receive the same speed signal.
 </li>

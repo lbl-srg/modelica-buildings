@@ -260,8 +260,8 @@ annotation (
         textString="S")}),
 Documentation(info="<html>
 <p>
-Block that ouputs condenser water return temperature setpoint <code>TConWatRetSet</code>
-for the tower fan speed control to maintain the return temperature at setpoint. This
+Block that outputs the condenser water return temperature setpoint <code>TConWatRetSet</code>
+for the tower fan speed control to maintain the return temperature at the setpoint. This
 implementation is for plants with parallel chiller plants only. It is based on
 ASHRAE Guideline 36-2021, section 5.20.12.2, item a.5 and a.14.
 </p>
@@ -304,7 +304,6 @@ at 10 &deg;F less than the minimum <code>TConWatRet_nominal</code> for 10 minute
 (<code>iniPlaTim</code>) before ramping the setpoint to the calculated value above
 over 10 minutes (<code>ramTim</code>).
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>

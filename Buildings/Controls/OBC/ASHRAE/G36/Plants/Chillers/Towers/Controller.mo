@@ -173,8 +173,9 @@ block Controller "Cooling tower controller"
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(final unit="W",
-      final quantity="HeatFlowRate") if have_WSE "Current cooling load"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
+    final unit="W",
+    final quantity="HeatFlowRate") if have_WSE "Current cooling load"
     annotation (Placement(transformation(extent={{-140,220},{-100,260}}),
         iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -558,11 +559,11 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-260},{100,260}})),
 Documentation(info="<html>
 <p>
-Block that controls cooling tower cells enabling status <code>yTowSta</code>,
+Block that controls the cooling tower cells enabling status <code>yTowSta</code>,
 the supply isolation valve positions <code>yIsoVal</code> of each cell and the
 cell fan operating speed <code>ySpeSet</code>.
 This is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.
-The section specifies sequences to control cooling tower.
+The section specifies sequences to control the cooling tower.
 It includes three subsequences:
 </p>
 <ul>
@@ -578,7 +579,7 @@ Sequence of cooling tower staging, see
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Controller</a>
 for a description.
 Note that the sequence assumes that the cells are enabled in order as it is labelled, meaning
-that it enabled the cells as cell 1, 2, 3, etc.
+that it enables the cells as cell 1, 2, 3, etc.
 </li>
 <li>
 Sequence of tower make-up water valve control, see

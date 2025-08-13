@@ -277,7 +277,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> when both waterside 
-economizer and chillers are enabled, i.e. integrated operation. This is implemented 
+economizer and chillers are enabled, i.e., integrated operation. This is implemented 
 according to ASHRAE Guideline 36-2021, section 5.20.12.2, item c.1.
 </p>
 <p>
@@ -286,19 +286,19 @@ are running (<code>uChi=true</code>):
 </p>
 <ol>
 <li>
-Fan speed shall be equal to waterside economizer tower maximum speed.
+Fan speed shall be equal to the waterside economizer tower maximum speed.
 </li>
 <li>
 The waterside economizer tower maximum speed shall be reset by a direct acting PID
-loop maintaining the chiller load at 110% of the sum of minimum cycling load for
-the operating chillers. Map the tower maximum speed from minimum speed
+loop maintaining the chiller load at 110% of the sum of the minimum cycling load for
+the operating chillers. Map the tower maximum speed from the minimum speed
 <code>fanSpeMin</code> at 0% loop output to 100% speed at 100% loop output.
 Bias the loop to launch from 100% output.
 </li>
 <li>
 When starting integrated operation after previously operating with only the waterside
 economizer, hold the tower maximum speed at 100% for 10 minutes (<code>intModTim</code>) 
-to give the chiller time to get up to speed and produce at least minimum cycling 
+to give the chiller time to get up to speed and produce at least the minimum cycling 
 load, then enable the loop.
 </li>
 </ol>
