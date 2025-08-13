@@ -57,7 +57,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFan(
     final unit="1")
-    "Fan control signal"
+    "Fan normalized speed control signal"
     annotation(Placement(transformation(extent={{-300,60},{-260,100}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
@@ -373,9 +373,28 @@ equation
       extent={{-260,-140},{260,140}})),
     Documentation(info="<html>
     <p>
-    This is a four-pipe fan coil unit system model. The system contains
-    a supply fan, an electric or hot-water heating coil, and a chilled-water
-    cooling coil.
+    This is a four-pipe fan coil unit system model. The system consists of the
+    following components:
+    <ul>
+    <li>
+    a supply fan <code>fan</code> of class
+    <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+    Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
+    </li>
+    <li>heating coil options for a hot-water heating coil <code>heaCoiHW</code>
+    of class
+    <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+    Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>, or an electric heating
+    coil <code>heaCoiEle</code> of class
+    <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
+    Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>. Parameter <code>heaCoiTyp</code>
+    allows the user to pick between one of the two.
+    </li>
+    <li>a chilled-water cooling coil <code>cooCoi</code> of class
+    <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
+    Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
+    </li>
+    </ul>
     </p>
     </html>
     ", revisions="<html>
