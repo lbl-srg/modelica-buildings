@@ -49,7 +49,7 @@ block Controller "Chiller plant controller"
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real dTChiMinLif[nChi](unit=fill("K", nChi))={12,12}
+  parameter Real dTChiMinLif[nChi](unit=fill("K", nChi))=fill(12, nChi)
     "Minimum LIFT of each chiller"
     annotation (Dialog(group="Chillers configuration"));
   parameter Real dTChiMaxLif[nChi](unit=fill("K", nChi))={18,18}
