@@ -12,7 +12,7 @@ model FanCoilUnit
 
   Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 12000,
+    p(displayUnit="Pa") = 100000 + 3000,
     T=333.15,
     nPorts=5)
     "Source for hot water"
@@ -21,7 +21,7 @@ model FanCoilUnit
 
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
-    p=300000,
+    p=100000,
     T=328.15,
     nPorts=5)
     "Sink for hot water"
@@ -57,7 +57,7 @@ model FanCoilUnit
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
     mHotWat_flow_nominal={2.5*0.21805,7.5*0.53883,0.5*0.33281,3.75*0.50946,1.5*0.33236}
-        *2,
+        *0.25,
     dpAir_nominal=fill(100, 5),
     UAHeaCoi_nominal={2.25*146.06*2.5,2.25*146.06*2,2.25*146.06*1.5,2.25*146.06*
         3,2.25*146.06*1.75}*1.1,
@@ -75,8 +75,8 @@ model FanCoilUnit
     final TiHea=fill(120, 5),
     final kCooCoi=fill(0.05, 5),
     final TiCooCoi=fill(200, 5),
-    final kHeaCoi=fill(0.05, 5),
-    final TiHeaCoi=fill(300, 5),
+    final kHeaCoi=fill(0.005, 5),
+    final TiHeaCoi=fill(90, 5),
     final TSupSet_max=fill(308.15, 5),
     final TSupSet_min=fill(285.85, 5))
     "Fan coil unit controller"
@@ -351,5 +351,6 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/H
         "Simulate and plot"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-06));
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end FanCoilUnit;
