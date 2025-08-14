@@ -279,7 +279,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
 protected
   final parameter Boolean have_hotWat=(heaCoiTyp ==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased)
-    "Check if a hot water heating coil exists"
+    "True if a hot water heating coil exists"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
 equation

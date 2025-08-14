@@ -1,7 +1,6 @@
 within Buildings.Examples.HydronicSystems;
 model FanCoilUnit
-  "Fan Coil Unit"
-
+  "Model of a five zone floor with fan coil units"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air(T_default=293.15)
