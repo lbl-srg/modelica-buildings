@@ -461,38 +461,38 @@ equation
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-260,-140},{260,140}})),
-    Documentation(info="<html>
-    <p>
-    This is a four-pipe fan coil unit system model. The system consists of the
-    following components:
-    <ul>
-    <li>
-    a supply fan <code>fan</code> of class
-    <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-    Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
-    </li>
-    <li>heating coil options for a hot-water heating coil <code>heaCoiHW</code>
-    of class
-    <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
-    Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>, or an electric heating
-    coil <code>heaCoiEle</code> of class
-    <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
-    Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>. Parameter <code>heaCoiTyp</code>
-    allows the user to pick between one of the two.
-    </li>
-    <li>a chilled-water cooling coil <code>cooCoi</code> of class
-    <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
-    Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
-    </li>
-    </ul>
-    </p>
-    </html>
-    ", revisions="<html>
-    <ul>
-    <li>
-    August 03, 2022 by Karthik Devaprasad, Sen Huang:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Documentation(info="<html>
+<p>
+This is a four-pipe fan coil unit system model. The system consists of the
+following components:
+</p>
+<ul>
+<li>
+a supply fan <code>fan</code> of class
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
+</li>
+<li>
+heating coil options for a hot-water heating coil <code>heaCoiHW</code> of class
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>, or an electric heating
+coil <code>heaCoiEle</code> of class
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
+Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>. Parameter <code>heaCoiTyp</code>
+allows the user to pick between one of the two.
+</li>
+<li>
+a chilled-water cooling coil <code>cooCoi</code> of class
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+August 03, 2022 by Karthik Devaprasad, Sen Huang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end FourPipe;

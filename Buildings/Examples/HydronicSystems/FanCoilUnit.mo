@@ -337,8 +337,5 @@ for the description of the building envelope.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"
         "Simulate and plot"),
-    experiment(
-      StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+    experiment(StopTime=86400, Tolerance=1e-06));
 end FanCoilUnit;
