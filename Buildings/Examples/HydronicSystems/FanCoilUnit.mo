@@ -56,7 +56,7 @@ model FanCoilUnit
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
-    mHotWat_flow_nominal={2.5*0.21805,7.5*0.53883,0.5*0.33281,3.75*0.50946,1.5*0.33236}
+    mHotWat_flow_nominal={0.1*2.5*0.21805,0.1*7.5*0.53883,0.5*0.33281,0.75*3.75*0.50946,0.5*1.5*0.33236}
         *0.25,
     dpAir_nominal=fill(100, 5),
     UAHeaCoi_nominal={2.25*146.06*2.5,2.25*146.06*2,2.25*146.06*1.5,2.25*146.06*
