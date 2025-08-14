@@ -10,8 +10,8 @@ class AllSystems
     hp(
       capHeaHp_nominal=500E3,
       capCooHp_nominal=500E3,
-      mHeaWatHp_flow_nominal=pla.hp.capHeaHp_nominal / abs(pla.ctl.THeaWatSup_nominal -
-        Buildings.Templates.Data.Defaults.THeaWatRetMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      mHeaWatHp_flow_nominal=pla.hp.capHeaHp_nominal / 5
+        / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       mChiWatHp_flow_nominal=pla.hp.capCooHp_nominal / abs(pla.ctl.TChiWatSup_nominal -
         Buildings.Templates.Data.Defaults.TChiWatRet) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
@@ -32,7 +32,8 @@ class AllSystems
         use_TConOutForTab=false)),
     pumHeaWatPri(
       dp_nominal=fill(1.5 *(if pla.cfg.have_chiWat and pla.cfg.typPumChiWatPri ==
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal)
+        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then
+        max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal)
         else pla.hp.dpHeaWatHp_nominal), pla.cfg.nPumHeaWatPri) .+(if pla.cfg.typDis ==
         Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         then Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max else 0)),

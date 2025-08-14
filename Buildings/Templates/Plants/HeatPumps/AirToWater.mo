@@ -703,7 +703,8 @@ initial equation
         "indicating that the primary pump curve needs to be revised.");
       assert(yPumHeaWatPriSet >= 0.1 and yPumHeaWatPriSet <= 2,
         "In "+ getInstanceName() + ": "+
-        "The calculated primary pump speed to provide the design HW flow is out of bounds, "+
+        "The calculated primary pump speed (" + String(yPumHeaWatPriSet) +
+        ") to provide the design HW flow is out of bounds, "+
         "indicating that the primary pump curve needs to be revised.");
     end if;
     if have_chiWat then

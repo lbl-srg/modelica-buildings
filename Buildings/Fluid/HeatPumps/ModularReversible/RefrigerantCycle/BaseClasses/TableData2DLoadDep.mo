@@ -59,7 +59,7 @@ block TableData2DLoadDep
   parameter Modelica.Units.SI.Temperature TAmb_nominal
     "Ambient side fluid temperature — Entering or leaving depending on use_T*OutForTab"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dTSet(min=0) = 2
+  parameter Modelica.Units.SI.TemperatureDifference dTSet(min=0) = 5
     "Maximum deviation from setpoint for control deadband (>0)";
   // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
   // Binding equations yield incorrect results but no error!
