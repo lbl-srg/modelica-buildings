@@ -1,4 +1,4 @@
-within Buildings.Examples.HydronicSystems.BaseClasses;
+within Buildings.Fluid.ZoneEquipment;
 model FourPipe "System model for a four-pipe fan coil unit"
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium for air";
@@ -47,67 +47,67 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final unit="1")
     "Heating loop control signal"
     annotation(Placement(transformation(extent={{-300,-140},{-260,-100}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-240,-80},{-200,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final unit="1")
     "Cooling loop control signal"
     annotation(Placement(transformation(extent={{-300,-48},{-260,-8}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-240,-20},{-200,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFan(
     final unit="1")
-    "Fan control signal"
+    "Fan normalized speed control signal"
     annotation(Placement(transformation(extent={{-300,60},{-260,100}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-240,40},{-200,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFan_actual(
     final unit="1",
     displayUnit="1")
     "Normalized actual fan speed signal"
     annotation (Placement(transformation(extent={{260,90},{300,130}}),
-      iconTransformation(extent={{100,60},{140,100}})));
+      iconTransformation(extent={{200,60},{240,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{260,50},{300,90}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{200,-100},{240,-60}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Air_a(
     redeclare final package Medium = MediumA)
     "Return air port from zone"
     annotation (Placement(transformation(extent={{250,30},{270,50}}),
-      iconTransformation(extent={{88,30},{108,50}})));
+      iconTransformation(extent={{190,30},{210,50}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_Air_b(
     redeclare final package Medium = MediumA)
     "Supply air port to the zone"
     annotation (Placement(transformation(extent={{250,-50},{270,-30}}),
-      iconTransformation(extent={{90,-50},{110,-30}})));
+      iconTransformation(extent={{190,-50},{210,-30}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(
     redeclare final package Medium = Buildings.Media.Water)
     "Chilled water return port"
     annotation (Placement(transformation(extent={{-10,-150},{10,-130}}),
-      iconTransformation(extent={{10,-110},{30,-90}})));
+      iconTransformation(extent={{10,-210},{30,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(
     redeclare package Medium = Buildings.Media.Water)
     "Chilled water supply port"
     annotation (Placement(transformation(extent={{50,-150},{70,-130}}),
-      iconTransformation(extent={{50,-110},{70,-90}})));
+      iconTransformation(extent={{110,-210},{130,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(
     redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water return port"
     annotation (Placement(transformation(extent={{-130,-150},{-110,-130}}),
-      iconTransformation(extent={{-70,-110},{-50,-90}})));
+      iconTransformation(extent={{-150,-210},{-130,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(
     redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water supply port"
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}}),
-      iconTransformation(extent={{-30,-110},{-10,-90}})));
+      iconTransformation(extent={{-50,-210},{-30,-190}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirHea(
     redeclare final package Medium = MediumA,
@@ -359,23 +359,132 @@ equation
   connect(bou.ports[1], fan.port_a) annotation (Line(points={{104,20},{114,20},
           {114,-10},{120,-10}}, color={0,127,255}));
   annotation (defaultComponentName = "fanCoiUni",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
+          extent={{-200,200},{200,-200}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-100,100},{100,140}},
+          extent={{-100,200},{100,240}},
           textString="%name",
-          textColor={0,0,255})}),
+          textColor={0,0,255}),
+        Rectangle(
+          extent={{-148,-35},{200,-46}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{16,-72},{124,-82}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{48,-28},{90,-88}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-64.25,4.25},{64.25,-4.25}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={19.75,-136.25},
+          rotation=90),
+        Rectangle(
+          extent={{-64.25,4.25},{64.25,-4.25}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={119.75,-136.25},
+          rotation=90),
+                 Ellipse(
+        extent={{120,-10},{180,-70}},
+        lineColor={0,0,0},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid), Polygon(
+        points={{150,-10},{150,-70},{180,-40},{150,-10}},
+        lineColor={0,0,0},
+        fillColor={0,0,0},
+        fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-148,45},{200,34}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-45,6},{45,-6}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-142,-1},
+          rotation=90),
+        Rectangle(
+          extent={{-64.25,4.25},{64.25,-4.25}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-140.25,-136.25},
+          rotation=90,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-64.25,4.25},{64.25,-4.25}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-40.25,-136.25},
+          rotation=90,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-54.25,5},{54.25,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-90.25,-77},
+          rotation=180,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-112,-28},{-70,-88}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-260,-140},{260,140}})),
     Documentation(info="<html>
     <p>
-    This is a four-pipe fan coil unit system model. The system contains
-    a supply fan, an electric or hot-water heating coil, and a chilled-water
-    cooling coil.
+    This is a four-pipe fan coil unit system model. The system consists of the
+    following components:
+    <ul>
+    <li>
+    a supply fan <code>fan</code> of class
+    <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+    Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
+    </li>
+    <li>heating coil options for a hot-water heating coil <code>heaCoiHW</code>
+    of class
+    <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+    Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>, or an electric heating
+    coil <code>heaCoiEle</code> of class
+    <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
+    Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>. Parameter <code>heaCoiTyp</code>
+    allows the user to pick between one of the two.
+    </li>
+    <li>a chilled-water cooling coil <code>cooCoi</code> of class
+    <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
+    Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
+    </li>
+    </ul>
     </p>
     </html>
     ", revisions="<html>
