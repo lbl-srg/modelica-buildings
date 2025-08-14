@@ -129,7 +129,7 @@ block SupplyAirTemperature
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
     final unit="1",
@@ -143,7 +143,7 @@ block SupplyAirTemperature
     displayUnit="1") if have_cooCoi
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-280,-80},{-240,-40}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
@@ -159,7 +159,7 @@ block SupplyAirTemperature
     final quantity="ThermodynamicTemperature") if have_heaCoi
     "Zone heating temperature setpoint"
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
@@ -167,7 +167,7 @@ block SupplyAirTemperature
     final quantity="ThermodynamicTemperature") if have_cooCoi
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-280,-130},{-240,-90}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final unit="1",
@@ -392,25 +392,25 @@ equation
           {18,-42}}, color={0,0,127}));
 
   annotation (defaultComponentName="supAirTem",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                       graphics={
         Rectangle(
-        extent={{-100,-120},{100,120}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-100,160},{100,120}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255}),
         Text(
-          extent={{-96,112},{-50,92}},
+          extent={{-96,92},{-50,72}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="u1Fan"),
         Text(
-          extent={{-96,70},{-20,48}},
+          extent={{-96,60},{-20,38}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -430,7 +430,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="TAirSup"),
         Text(
-          extent={{-100,-50},{-52,-70}},
+          extent={{-100,-40},{-52,-60}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -444,7 +444,7 @@ equation
           textString="yHeaCoi",
           visible=have_heaCoi),
         Text(
-          extent={{-96,-88},{-20,-110}},
+          extent={{-96,-68},{-20,-90}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
