@@ -48,7 +48,6 @@ model PumpsPrimaryDedicated
       have_hotWat=false,
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
-      typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
@@ -98,7 +97,6 @@ model PumpsPrimaryDedicated
       have_hotWat=false,
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
-      typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
@@ -148,7 +146,6 @@ model PumpsPrimaryDedicated
       have_hotWat=false,
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
-      typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
@@ -198,7 +195,6 @@ model PumpsPrimaryDedicated
       have_hotWat=false,
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
-      typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
@@ -225,33 +221,32 @@ model PumpsPrimaryDedicated
     final nHp=2,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
-    final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
-    mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal / abs(datHp.THeaWatSupHp_nominal -
-      Buildings.Templates.Data.Defaults.THeaWatRetMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal/abs(datHp.THeaWatSupHp_nominal
+         - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaHp_nominal=500E3,
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatHp_flow_nominal=datHp.capCooHp_nominal / abs(datHp.TChiWatSupHp_nominal -
-      Buildings.Templates.Data.Defaults.TChiWatRet) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mChiWatHp_flow_nominal=datHp.capCooHp_nominal/abs(datHp.TChiWatSupHp_nominal
+         - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
-    perFitHp(
-      hea(
-        P=datHp.capHeaHp_nominal / Buildings.Templates.Data.Defaults.COPHpAwHea,
-        coeQ={- 4.2670305442, - 0.7381077035, 6.0049480456, 0, 0},
-        coeP={- 4.9107455513, 5.3665308366, 0.5447612754, 0, 0},
-        TRefLoa=Buildings.Templates.Data.Defaults.THeaWatRetMed,
-        TRefSou=Buildings.Templates.Data.Defaults.TOutHpHeaLow),
-      coo(
-        P=datHp.capCooHp_nominal / Buildings.Templates.Data.Defaults.COPHpAwCoo,
-        coeQ={- 2.2545246871, 6.9089257665, - 3.6548225094, 0, 0},
-        coeP={- 5.8086010402, 1.6894933858, 5.1167787436, 0, 0},
-        TRefLoa=Buildings.Templates.Data.Defaults.TChiWatRet,
-        TRefSou=Buildings.Templates.Data.Defaults.TOutHpCoo)))
-    "HP parameters"
-    annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
+    perHeaHp(
+      fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+      PLRSup={1},
+      P_min=1.0E3,
+      use_TEvaOutForTab=false,
+      use_TConOutForTab=true,
+      tabUppBou=[263.15,323.15; 313.15,323.15]),
+    perCooHp(
+      fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
+      PLRSup={1},
+      P_min=1.0E3))
+    "Reversible AWHP parameters"
+    annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumPriCom(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     nPum=datHp.nHp,
