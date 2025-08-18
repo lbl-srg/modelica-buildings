@@ -156,7 +156,7 @@ block Controller "Cooling tower controller"
   parameter Real staVec[totSta]={0,0.5,1,1.5,2}
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="Tower staging", group="Nominal"));
-  parameter Real towCelOnSet[totSta]={0,1,1,2,2}
+  parameter Integer towCelOnSet[totSta]={0,1,1,2,2}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(tab="Tower staging"));
   parameter Real chaTowCelIsoTim(unit="s")=300

@@ -51,7 +51,7 @@ block Down
     annotation (Dialog(group="Disable condenser water pump"));
   parameter Real desConWatPumSpe[totSta]
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
-    annotation (Dialog(group="Disable condenser water pump", enable=not have_airCoo));
+    annotation (Dialog(group="Disable condenser water pump", enable=(not have_airCoo) and (not have_fixSpeConWatPum)));
   parameter Integer desConWatPumNum[totSta]
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Disable condenser water pump", enable=not have_airCoo));

@@ -14,7 +14,7 @@ block Speed
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE";
   parameter Real desConWatPumSpe[totSta] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
     "Design condenser water pump speed setpoint, according to current chiller stage and WSE status"
-    annotation (Dialog(group="Setpoint according to stage"));
+    annotation (Dialog(group="Setpoint according to stage", enable=not fixSpe));
   parameter Integer desConWatPumNum[totSta] = {0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));

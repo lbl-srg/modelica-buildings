@@ -19,7 +19,7 @@ block Controller "Condenser water pump controller"
     annotation (Dialog(group="Stage design speed"));
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
-    annotation (Dialog(group="Stage design speed"));
+    annotation (Dialog(group="Stage design speed", enable=not fixSpe));
   parameter Integer desConWatPumNum[totSta]={0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Stage design speed"));
