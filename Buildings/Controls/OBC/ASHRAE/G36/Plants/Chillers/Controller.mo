@@ -25,9 +25,9 @@ block Controller "Chiller plant controller"
     "True: have pony chiller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Boolean need_reduceChillerDemand=false
-    "True: need limit chiller demand when chiller staging"
-    annotation (Dialog(tab="General", group="Chillers configuration"));
+  parameter Boolean use_loadShed=true
+    "Set to true if a load shed logic is used"
+    annotation (Dialog(tab="General", group="Chillers configuration", enable=not have_priOnl));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages
     chiTyp[nChi]={Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement,
@@ -542,11 +542,11 @@ block Controller "Chiller plant controller"
 
   parameter Real chiDemRedFac(unit="1")=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(tab="Staging", group="Up and down process", enable=need_reduceChillerDemand));
+    annotation (Dialog(tab="Staging", group="Up and down process", enable=have_priOnl or use_loadShed));
 
   parameter Real holChiDemTim(unit="s")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(tab="Staging", group="Up and down process", enable=need_reduceChillerDemand));
+    annotation (Dialog(tab="Staging", group="Up and down process", enable=have_priOnl or use_loadShed));
 
   parameter Real aftByPasSetTim(unit="s")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
@@ -1034,7 +1034,7 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
     final quantity=fill("ElectricCurrent",nChi),
-    final unit=fill("A", nChi)) if need_reduceChillerDemand
+    final unit=fill("A", nChi)) if have_priOnl or use_loadShed
     "Chiller demand setpoint to set through BACnet or similar "
     annotation(Placement(transformation(extent={{920,400},{960,440}}),
       iconTransformation(extent={{100,120},{140,160}})));
@@ -1091,7 +1091,7 @@ block Controller "Chiller plant controller"
         iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaChiDemLim
-    if need_reduceChillerDemand
+    if have_priOnl or use_loadShed
     "Release chiller demand limit, normally true"
     annotation (Placement(transformation(extent={{920,-230},{960,-190}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
@@ -1335,7 +1335,7 @@ block Controller "Chiller plant controller"
     final have_parChi=have_parChi,
     final have_heaConWatPum=have_heaConWatPum,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
-    final need_reduceChillerDemand=need_reduceChillerDemand,
+    final need_reduceChillerDemand=have_priOnl or use_loadShed,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final waiTim=waiTim,
@@ -1365,7 +1365,7 @@ block Controller "Chiller plant controller"
     final have_parChi=have_parChi,
     final have_heaConWatPum=have_heaConWatPum,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
-    final need_reduceChillerDemand=need_reduceChillerDemand,
+    final need_reduceChillerDemand=have_priOnl or use_loadShed,
     final delayStaCha=delayStaCha,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
@@ -1490,11 +1490,11 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{540,-40},{560,-20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch chiDem[nChi]
-    if need_reduceChillerDemand
+    if have_priOnl or use_loadShed
     "Chiller demand"
     annotation (Placement(transformation(extent={{640,410},{660,430}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch relDem if need_reduceChillerDemand
+  Buildings.Controls.OBC.CDL.Logical.Switch relDem if have_priOnl or use_loadShed
     "Release chiller demand limit"
     annotation (Placement(transformation(extent={{480,-220},{500,-200}})));
 
@@ -2220,11 +2220,6 @@ annotation (
           textString="uHeaPreCon",
           visible=have_heaPreConSig),
         Text(
-          extent={{-98,26},{-66,14}},
-          textColor={0,0,127},
-          textString="uChiLoa",
-          visible=need_reduceChillerDemand),
-        Text(
           extent={{-100,-24},{-64,-36}},
           textColor={255,0,255},
           textString="uChiAva"),
@@ -2294,7 +2289,7 @@ annotation (
           extent={{52,148},{100,134}},
           textColor={0,0,127},
           textString="yChiDem",
-          visible=need_reduceChillerDemand),
+          visible=have_priOnl or use_loadShed),
         Text(
           extent={{52,58},{100,44}},
           textColor={0,0,127},
@@ -2329,7 +2324,7 @@ annotation (
           extent={{52,-60},{100,-74}},
           textColor={255,0,255},
           textString="yReaChiDemLim",
-          visible=need_reduceChillerDemand),
+          visible=have_priOnl or use_loadShed),
         Text(
           extent={{-98,288},{-50,274}},
           textColor={0,0,127},
