@@ -11,12 +11,11 @@ function smoothLimit
 protected
   Real cor = deltaX/10;
 algorithm
-  y := smooth(1,
-         Buildings.Utilities.Math.Functions.smoothMin(
-           Buildings.Utilities.Math.Functions.smoothMax(
-             x,l+deltaX,cor),
-           u-deltaX,cor));
-  annotation (Inline=true,
+  y := Buildings.Utilities.Math.Functions.smoothMin(
+         Buildings.Utilities.Math.Functions.smoothMax(
+           x,l+deltaX,cor),
+         u-deltaX,cor);
+  annotation (smoothOrder = 1, Inline=true,
   Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <code>limit(.,.)</code> function.

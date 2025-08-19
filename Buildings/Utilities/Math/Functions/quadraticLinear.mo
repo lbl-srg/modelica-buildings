@@ -9,9 +9,9 @@ function quadraticLinear
 protected
  Real x1Sq=x1*x1;
 algorithm
-  y := smooth(999, a[1] + a[2]*x1 + a[3]*x1Sq + (a[4] + a[5]*x1 + a[6]*x1Sq)*x2);
+  y := a[1] + a[2]*x1 + a[3]*x1Sq + (a[4] + a[5]*x1 + a[6]*x1Sq)*x2;
 
-  annotation (Inline=true, Documentation(info="<html>
+  annotation (smoothOrder=999, Inline=true, Documentation(info="<html>
 This function computes
 <p align=\"center\" style=\"font-style:italic;\">
   y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub>
@@ -22,7 +22,7 @@ This function computes
 </html>", revisions="<html>
 <ul>
 <li>
-July 21, 2025 by Matthis Thorade:<br/>
+July 21, 2025 by Matthis Thorade and Hongxiang Fu:<br/>
 Made the function inlined.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4278\">#4278</a>.

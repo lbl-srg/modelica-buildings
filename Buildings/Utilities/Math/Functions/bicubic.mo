@@ -9,15 +9,15 @@ protected
  Real x1Sq = x1*x1 "x1 squared";
  Real x2Sq = x2*x2 "x2 squared";
 algorithm
-  y := smooth(999, a[1] + a[2] * x1 + a[3] * x1^2
-                        + a[4] * x2 + a[5] * x2^2
-                        + a[6] * x1 * x2
-                        + a[7] * x1Sq * x1
-                        + a[8] * x2Sq * x2
-                        + a[9] * x1Sq * x2
-                        + a[10] * x1 * x2Sq);
+  y := a[1] + a[2] * x1 + a[3] * x1^2
+            + a[4] * x2 + a[5] * x2^2
+            + a[6] * x1 * x2
+            + a[7] * x1Sq * x1
+            + a[8] * x2Sq * x2
+            + a[9] * x1Sq * x2
+            + a[10] * x1 * x2Sq;
 
-  annotation (Inline=true, Documentation(info="<html>
+  annotation (smoothOrder=999, Inline=true, Documentation(info="<html>
 <p>
 This function computes
 </p>
