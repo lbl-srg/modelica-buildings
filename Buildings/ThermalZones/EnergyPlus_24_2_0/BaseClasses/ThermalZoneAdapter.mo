@@ -98,8 +98,10 @@ model ThermalZoneAdapter
     final unit="W")
     "Total heat gain from people, to be used for optional computation of CO2 released"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},{120,-50}})));
-  Sizing siz "Sizing parameters for zone"
-             annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Sizing sizCoo "Sizing parameters for zone cooling load"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Sizing sizHea "Sizing parameters for zone heating load"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
 protected
   constant Integer nParOut=14
@@ -226,10 +228,11 @@ initial equation
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  {AFlo,V,mSenFac,
-   siz.QCooSen_flow,siz.QCooLat_flow,siz.TOutCoo,
-   siz.XOutCoo,siz.TCoo,siz.QHea_flow,siz.TOutHea,siz.XOutHea,siz.mOutCoo_flow,
-   siz.mOutHea_flow,siz.THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+  sizHea.QLat_flow=0;
+  {AFlo,V,mSenFac,sizCoo.QSen_flow,sizCoo.QLat_flow,sizCoo.TOut,sizCoo.XOut,
+    sizCoo.T,sizHea.QSen_flow,sizHea.TOut,sizHea.XOut,sizCoo.mOut_flow,
+    sizHea.mOut_flow,sizHea.T} =
+    Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);

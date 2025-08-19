@@ -6,8 +6,12 @@ model SystemSizing
 
   parameter String systemName "Name of HVAC system to group autosizing";
 
-  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing siz "Sizing parameters for zone"
-             annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing sizCoo
+    "Sizing parameters for zone cooling load"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  BaseClasses.Sizing sizHea
+    "Sizing parameters for zone heating load"
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
 protected
   constant Integer nParOut=11
@@ -75,9 +79,11 @@ initial equation
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  {siz.QCooSen_flow,siz.QCooLat_flow,siz.TOutCoo,
-   siz.XOutCoo,siz.TCoo,siz.QHea_flow,siz.TOutHea,siz.XOutHea,siz.mOutCoo_flow,
-   siz.mOutHea_flow,siz.THea}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+  sizHea.QLat_flow=0;
+  {sizCoo.QSen_flow,sizCoo.QLat_flow,sizCoo.TOut,sizCoo.XOut,sizCoo.T,
+    sizHea.QSen_flow,sizHea.TOut,sizHea.XOut,sizCoo.mOut_flow,sizHea.mOut_flow,
+    sizHea.T} =
+    Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);

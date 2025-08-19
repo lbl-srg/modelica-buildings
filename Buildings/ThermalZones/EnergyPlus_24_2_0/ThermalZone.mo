@@ -58,6 +58,24 @@ model ThermalZone
     min=1)=fmuZon.mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume"
     annotation (Dialog(tab="Dynamics",group="Zone air"));
+  BaseClasses.Sizing sizCoo(
+    final QSen_flow(fixed=true)=fmuZon.sizCoo.QSen_flow,
+    final QLat_flow(fixed=true)=fmuZon.sizCoo.QLat_flow,
+    final TOut(fixed=true)=fmuZon.sizCoo.TOut,
+    final XOut(fixed=true)=fmuZon.sizCoo.XOut,
+    final T(fixed=true)=fmuZon.sizCoo.T,
+    final mOut_flow(fixed=true)=fmuZon.sizCoo.mOut_flow)
+    "Sizing parameters for zone cooling load"
+    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
+  BaseClasses.Sizing sizHea(
+    final QSen_flow(fixed=true)=fmuZon.sizHea.QSen_flow,
+    final QLat_flow(fixed=true)=fmuZon.sizHea.QLat_flow,
+    final TOut(fixed=true)=fmuZon.sizHea.TOut,
+    final XOut(fixed=true)=fmuZon.sizHea.XOut,
+    final T(fixed=true)=fmuZon.sizHea.T,
+    final mOut_flow(fixed=true)=fmuZon.sizHea.mOut_flow)
+    "Sizing parameters for zone heating load"
+    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](
     each unit="W/m2")
     "Radiant, convective sensible and latent heat input into room (positive if heat gain)"
