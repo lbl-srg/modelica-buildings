@@ -115,7 +115,7 @@ env:
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - nvm install node --lts # Installs the latest version
+  - nvm install node 23.1 # Installs the specific version
   - nvm use node
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-templates-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
        docker pull "$DOCKER_REPONAME"/${DYMOLA_VERSION};
