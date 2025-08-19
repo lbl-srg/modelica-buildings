@@ -4,7 +4,7 @@ model SystemSizing
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
 
-  parameter String sysName "Name of HVAC system to group autosizing";
+  parameter String systemName "Name of HVAC system to group autosizing";
 
   Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing siz "Sizing parameters for zone"
              annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -33,11 +33,11 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
-    epName="hvac_sizing_group_"+sysName,
-    hvacZone="n/a",
-    autosizeHVAC=autosizeHVAC,
-    use_sizingPeriods=use_sizingPeriods,
-    runPeriod=runPeriod,
+    epName="hvac_sizing_group_"+systemName,
+    systemName="n/a",
+    autosizeHVAC=true,
+    use_sizingPeriods=true,
+    runPeriod=building.runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
@@ -45,7 +45,7 @@ protected
     logLevel=logLevel,
     printUnit=false,
     jsonName="modelicaSystems",
-    jsonKeysValues="        \"name\": \""+sysName+"\"",
+    jsonKeysValues="        \"name\": \""+systemName+"\"",
     parOutNames={"QCooSen_flow","QCooLat_flow","TOutCoo",
                  "XOutCoo","TCoo","QHea_flow","TOutHea","XOutHea","mOutCoo_flow",
                  "mOutHea_flow","THea"},

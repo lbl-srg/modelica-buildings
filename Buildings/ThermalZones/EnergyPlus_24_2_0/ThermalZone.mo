@@ -5,10 +5,15 @@ model ThermalZone
     Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter String hvacZone = "default"
-    "Name of the HVAC system that this zone belongs to for auto-sizing"
+  parameter Boolean autosizeHVAC=true
+    "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model"
     annotation(Dialog(group="Autosizing"));
-
+  parameter String systemName = if not autosizeHVAC then "unconditioned" else "default"
+    "Name of the HVAC system that this zone belongs to for auto-sizing"
+    annotation(Dialog(group="Autosizing", enable=autosizeHVAC));
+  parameter Boolean use_sizingPeriods=true
+    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file"
+    annotation(Dialog(group="Autosizing", enable=autosizeHVAC));
   parameter Integer nPorts=0
     "Number of fluid ports (equals to 2 for one inlet and one outlet)"
     annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
@@ -106,7 +111,7 @@ protected
     final idfName=idfName,
     final epwName=epwName,
     final zoneName=zoneName,
-    final hvacZone=hvacZone,
+    final systemName=systemName,
     final autosizeHVAC=autosizeHVAC,
     final use_sizingPeriods=use_sizingPeriods,
     final runPeriod=runPeriod,

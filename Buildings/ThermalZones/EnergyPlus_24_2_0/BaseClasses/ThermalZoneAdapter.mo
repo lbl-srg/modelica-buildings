@@ -23,7 +23,7 @@ model ThermalZoneAdapter
     "Name of the Energyplus weather file including the epw extension";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter String hvacZone
+  parameter String systemName
     "Name of the HVAC system that this zone belongs to for auto-sizing"
     annotation(Dialog(group="Auto-sizing"));
 
@@ -127,7 +127,7 @@ protected
     idfName=idfName,
     epwName=epwName,
     epName=zoneName,
-    hvacZone=hvacZone,
+    systemName=systemName,
     autosizeHVAC=autosizeHVAC,
     use_sizingPeriods=use_sizingPeriods,
     runPeriod=runPeriod,

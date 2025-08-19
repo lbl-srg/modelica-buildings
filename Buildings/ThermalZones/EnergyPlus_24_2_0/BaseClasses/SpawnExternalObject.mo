@@ -22,8 +22,8 @@ class SpawnExternalObject
       "Name of the weather file";
     input String epName
       "Name of the object in EnergyPlus";
-    input String hvacZone
-      "Name of the HVAC zone to which the thermal zone belongs to, or n/a for other objects. Used for autosizing";
+    input String systemName
+      "Name of the HVAC system to which the thermal zone belongs to, or n/a for other objects. Used for autosizing";
     input Boolean autosizeHVAC
       "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model";
     input Boolean use_sizingPeriods
@@ -81,7 +81,7 @@ class SpawnExternalObject
     idfName,
     epwName,
     epName,
-    hvacZone,
+    systemName,
     autosizeHVAC,
     use_sizingPeriods,
     runPeriod.startDayOfYear,
