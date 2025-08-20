@@ -1,14 +1,15 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Validation;
-model Xi_TDryBulTWetBul
+within Buildings.Utilities.Psychrometrics.Examples;
+model XW_TDryBulTWetBul
+  "Validation the calculation of the water vapor mass fraction"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model"
      annotation (choicesAllMatching = true);
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul watVap(
+  Buildings.Utilities.Psychrometrics.XW_TDryBulTWetBul watVap(
     redeclare package Medium = Medium)
     "Model for calculating water vapor mass fraction"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul watVapApp(
+  Buildings.Utilities.Psychrometrics.XW_TDryBulTWetBul watVapApp(
     redeclare package Medium = Medium,
     approximateWetBulb=true)
     "Model for calculating water vapor mass fraction"
@@ -45,7 +46,7 @@ equation
           {-30,-10},{-2,-10}}, color={0,0,127}));
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Baseclasses/Validation/Xi_TDryBulTWetBul.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/XW_TDryBulTWetBul.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 This examples is a unit test for the water vapor mass fraction.
@@ -60,4 +61,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Xi_TDryBulTWetBul;
+end XW_TDryBulTWetBul;

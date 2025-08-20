@@ -1,6 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
-block Xi_TDryBulTWetBul
-  "Compute the water vapor mass fraction"
+within Buildings.Utilities.Psychrometrics;
+block XW_TDryBulTWetBul "Compute the water vapor mass fraction"
 
   extends Modelica.Blocks.Icons.Block;
 
@@ -39,7 +38,9 @@ block Xi_TDryBulTWetBul
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Xi[Medium.nXi]
+//   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Xi[Medium.nXi]
+//     "Water vapor mass fraction";
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput X_w
     "Water vapor mass fraction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -62,6 +63,9 @@ protected
   Real rh_per(min=0)
     "Relative humidity in percentage";
 
+  Modelica.Units.SI.MassFraction Xi[Medium.nXi]
+    "Mass fraction of each component";
+
   Modelica.Units.SI.MassFraction XiSat(start=0.01)
     "Water vapor mass fraction at saturation";
 
@@ -72,12 +76,13 @@ initial equation
   assert(iWat > 0, "Did not find medium species 'water' in the medium model. Change medium model.");
 
 equation
+  X_w = Xi[iWat];
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
     rh_per       = 100 * p/
          Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul)
-         *Xi[iWat]/(Xi[iWat] +
-         Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
+         *X_w/(X_w +
+         Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-X_w));
     TWetBul      = 273.15 + uniCon1 * TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + uniConK * ( Modelica.Math.atan(TDryBul_degC + rh_per)
@@ -87,20 +92,20 @@ equation
     XiSat = 0;
     XiSatRefIn=0;
   else
-    XiSatRefIn=(1-Xi[iWat])*XiSat/(1-XiSat);
+    XiSatRefIn=(1-X_w)*XiSat/(1-XiSat);
     XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
       pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p =    p,
       phi =  1);
     (TWetBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
-              (1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              (1-X_w) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
               XiSatRefIn * Buildings.Utilities.Psychrometrics.Constants.cpSte +
-              (Xi[iWat]-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
+              (X_w-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
     =
     (TDryBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
-              (1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
-              Xi[iWat] * Buildings.Utilities.Psychrometrics.Constants.cpSte)  +
-    (Xi[iWat]-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.h_fg;
+              (1-X_w) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              X_w * Buildings.Utilities.Psychrometrics.Constants.cpSte)  +
+    (X_w-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.h_fg;
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
@@ -113,9 +118,9 @@ annotation (
           textColor={0,0,127},
           textString="TDryBul"),
         Text(
-          extent={{82,10},{96,-10}},
+          extent={{72,12},{96,-10}},
           textColor={0,0,127},
-          textString="Xi"),
+          textString="X_w"),
         Text(
           extent={{-98,-54},{-82,-78}},
           textColor={0,0,127},
@@ -169,4 +174,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Xi_TDryBulTWetBul;
+end XW_TDryBulTWetBul;

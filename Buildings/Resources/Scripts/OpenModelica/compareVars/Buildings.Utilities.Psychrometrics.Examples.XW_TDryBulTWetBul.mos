@@ -3,6 +3,6 @@ compareVars :=
     "watVap.TDryBul",
     "watVap.TWetBul",
     "watVap.p",
-    "watVap.Xi[1]",
-    "watVapApp.Xi[1]"
+    "watVap.X_w",
+    "watVapApp.X_w"
   };

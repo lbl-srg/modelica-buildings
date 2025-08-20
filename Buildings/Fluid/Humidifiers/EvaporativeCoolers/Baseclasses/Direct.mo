@@ -52,12 +52,12 @@ block Direct
     annotation (Placement(transformation(origin={120,0}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={120,0}, extent={{-20,-20},{20,20}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
-    XiOut(redeclare package Medium = Medium)
+  Buildings.Utilities.Psychrometrics.XW_TDryBulTWetBul
+    XWOut(redeclare package Medium = Medium)
     "Water vapor mass fraction at the outlet";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
-    XiIn(redeclare package Medium =  Medium)
+  Buildings.Utilities.Psychrometrics.XW_TDryBulTWetBul
+    XWIn(redeclare package Medium =  Medium)
     "Water vapor mass fraction at the inlet";
 
   Modelica.Units.SI.Velocity vel
@@ -89,13 +89,13 @@ equation
     effCoe[8]*(dep*vel^3) + effCoe[9]*(dep^3*vel) + effCoe[10]*(vel^3*dep^2) +
     effCoe[11]*(dep^3*vel^2);
   TDryBulOut = TDryBulIn - eff*(TDryBulIn - TWetBulIn);
-  TDryBulIn = XiIn.TDryBul;
-  TWetBulIn = XiIn.TWetBul;
-  p = XiIn.p;
-  TWetBulIn = XiOut.TWetBul;
-  p = XiOut.p;
-  TDryBulOut = XiOut.TDryBul;
-  dmWat_flow = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*rho_default;
+  TDryBulIn = XWIn.TDryBul;
+  TWetBulIn = XWIn.TWetBul;
+  p = XWIn.p;
+  TWetBulIn = XWOut.TWetBul;
+  p = XWOut.p;
+  TDryBulOut = XWOut.TDryBul;
+  dmWat_flow = (XWOut.X_w - XWIn.X_w)*V_flow*rho_default;
 
 annotation (Documentation(info="<html>
 <p>
