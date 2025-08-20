@@ -54,6 +54,7 @@ model SpaceCooling
 
   parameter Buildings.Fluid.AirFilters.Data.Generic per(
     mCon_nominal=5,
+    mCon_reset=0,
     namCon={"PM10"},
     filEffPar(rat={{0,0.5,1}},
     eps={{0.5,0.4,0.2}}),
@@ -278,7 +279,7 @@ equation
     annotation (Line(points={{-108,0},{-100,0}}, color={0,127,255}));
   connect(C_out.port_b, hex.port_a1) annotation (Line(points={{-80,0},{-68,0},{-68,
           -20},{-60,-20}}, color={0,127,255}));
-  connect(repSig.y, airFil.uRep)
+  connect(repSig.y,airFil.uRes)
     annotation (Line(points={{-138,10},{-138,6},{-130,6}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>

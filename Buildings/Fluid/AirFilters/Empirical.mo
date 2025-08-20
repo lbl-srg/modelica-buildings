@@ -6,9 +6,14 @@ model Empirical "Empirical air filter model"
   parameter Buildings.Fluid.AirFilters.Data.Generic per
     "Performance dataset"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
-    "Replacing the filter when trigger becomes true"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRes
+    "True: the filter has been replaced and reset the accumulation"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRep
+    "True if the filter is full and should be replaced"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps[nConSub](
     each final unit="1",
     each final min=0,
@@ -30,8 +35,7 @@ model Empirical "Empirical air filter model"
 protected
   parameter Integer nConSub = size(per.namCon,1)
     "Total types of contaminant substances";
-  Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient
-    res(
+  Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient res(
     redeclare package Medium = Medium,
     final m_flow_nominal=per.m_flow_nominal,
     final dp_nominal=per.dp_nominal)
@@ -42,46 +46,48 @@ protected
     final m_flow_nominal=per.m_flow_nominal,
     final namCon=per.namCon)
     "Contaminant removal"
-    annotation (Placement(transformation(extent={{36,-10},{56,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency epsCal(
     final mCon_nominal = per.mCon_nominal,
     final namCon=per.namCon,
     final filEffPar=per.filEffPar)
     "Filter characterization"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
     final mCon_nominal = per.mCon_nominal,
-    final mCon_reset=0,
+    final mCon_reset=per.mCon_reset,
     final nConSub=nConSub)
     "Contaminant accumulation"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection coeCor(
     final b=per.b)
     "Flow coefficient correction"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
 equation
   connect(masAcc.mCon, epsCal.mCon)
-    annotation (Line(points={{-18,80},{-2,80}}, color={0,0,127}));
-  connect(masAcc.uRep, uRep)
-    annotation (Line(points={{-42,74},{-42,74},{-70,74},{-70,60},{-120,60}},
+    annotation (Line(points={{-38,60},{-22,60}},color={0,0,127}));
+  connect(masAcc.uRes,uRes)
+    annotation (Line(points={{-62,54},{-80,54},{-80,80},{-120,80}},
       color={255,0,255}));
-  connect(epsCal.rat, coeCor.rat) annotation (Line(points={{22,86},{40,86},{40,80},
-          {58,80}}, color={0,0,127}));
-  connect(coeCor.y, res.kCor) annotation (Line(points={{82,80},{90,80},{90,20},
-          {-50,20},{-50,12}},color={0,0,127}));
-  connect(masTra.mCon_flow, masAcc.mCon_flow) annotation (Line(points={{58,6},{
-          76,6},{76,48},{-48,48},{-48,80},{-42,80}},color={0,0,127}));
+  connect(epsCal.rat, coeCor.rat) annotation (Line(points={{2,66},{20,66},{20,60},
+          {38,60}}, color={0,0,127}));
+  connect(coeCor.y, res.kCor) annotation (Line(points={{62,60},{70,60},{70,20},{
+          -50,20},{-50,12}}, color={0,0,127}));
+  connect(masTra.mCon_flow, masAcc.mCon_flow) annotation (Line(points={{62,6},{80,
+          6},{80,30},{-70,30},{-70,60},{-62,60}},   color={0,0,127}));
   connect(masTra.port_a, res.port_b)
-    annotation (Line(points={{36,0},{-40,0}}, color={0,127,255}));
+    annotation (Line(points={{40,0},{-40,0}}, color={0,127,255}));
   connect(masTra.port_b, port_b)
-    annotation (Line(points={{56,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(res.port_a, port_a)
     annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
-  connect(epsCal.y, eps) annotation (Line(points={{22,74},{40,74},{40,40},{120,
-          40}}, color={0,0,127}));
-  connect(masTra.eps, epsCal.y) annotation (Line(points={{34,6},{20,6},{20,40},
-          {40,40},{40,74},{22,74}}, color={0,0,127}));
+  connect(epsCal.y, eps) annotation (Line(points={{2,54},{20,54},{20,40},{120,40}},
+                color={0,0,127}));
+  connect(masTra.eps, epsCal.y) annotation (Line(points={{38,6},{20,6},{20,54},{
+          2,54}}, color={0,0,127}));
+  connect(masAcc.yRep, yRep) annotation (Line(points={{-38,68},{-30,68},{-30,80},
+          {120,80}}, color={255,0,255}));
 annotation (defaultComponentName="airFil",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -291,9 +297,10 @@ Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 </li>
 </ul>
 <p>
-The input boolean flag, <code>uRep</code>, triggers the filter replacement, i.e.,
+The input boolean flag, <code>uRes</code>, indicates that the filter has been replaced
+and thus reset the mass accumulation to the initial status, i.e.,
 when <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
-mass of the captured contaminants is reset to <i>0</i>.
+mass of the captured contaminants is reset to <code>per.mCon_reset</code>.
 </p>
 <b>Note:</b>
 Warnings will be triggered when,

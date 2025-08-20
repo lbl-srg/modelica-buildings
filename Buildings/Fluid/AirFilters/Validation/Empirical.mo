@@ -5,6 +5,7 @@ model Empirical "Example for using the empirical air filter model"
     "Air";
   parameter Buildings.Fluid.AirFilters.Data.Generic per(
     mCon_nominal=10,
+    mCon_reset=0,
     namCon={"CO2","VOC"},
     filEffPar(
       rat={{0,0.5,1},{0,0.5,1}},
@@ -67,7 +68,7 @@ model Empirical "Example for using the empirical air filter model"
     substanceName="VOC") "Trace substance sensor of VOC in outlet air"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
-  connect(repSig.y, airFil.uRep) annotation (Line(points={{-18,50},{-10,50},{
+  connect(repSig.y,airFil.uRes)  annotation (Line(points={{-18,50},{-10,50},{
           -10,6},{-2,6}},
                       color={255,0,255}));
   connect(C_CO2_inflow.y, sou.C_in[2]) annotation (Line(points={{-139,30},{-120,
