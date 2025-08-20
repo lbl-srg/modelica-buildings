@@ -119,11 +119,11 @@ block Controller "Chiller plant controller"
 
   parameter Integer plaStaMat[totSta, nUniSta]={{0,0,0},{0,0,1},{1,0,0},{1,0,1},{1,1,0},{1,1,1}}
     "Plant staging matrix with plant stage as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
-    annotation (Evaluate=true, Dialog(group="Plant staging"));
+    annotation (Evaluate=true, Dialog(group="Staging configuration"));
 
   parameter Integer staMat[nSta, nChi]={{1,0},{1,1}}
     "Chiller staging matrix with chiller stage as row index and chiller as column index"
-    annotation (Evaluate=true, Dialog(group="Plant staging"));
+    annotation (Evaluate=true, Dialog(group="Staging configuration"));
 
 //   final parameter Integer nSta = 2
 //     "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
@@ -149,8 +149,8 @@ block Controller "Chiller plant controller"
     "Design number of chiller that should be ON at each chiller stage, including the zero stage"
     annotation (Dialog(tab="General", group="Staging configuration", enable=have_fixSpeConWatPum));
 
-  final parameter Real staTmp[totSta, nUniSta]={{if plaStaMat[i, j] > 0 then (if j <= nChi
-    then plaStaMat[i, j] else 0.5) else 0 for j in 1:nUniSta} for i in 1:totSta}
+  final parameter Real staTmp[totSta, nUniSta]={{if plaStaMat[i, nUniSta] > 0 then (if j <= nChi
+    then plaStaMat[i, j] else 0.5) else plaStaMat[i,j] for j in 1:nUniSta} for i in 1:totSta}
     "Intermediary parameter to compute staVec"
     annotation (Dialog(tab="General",group="Staging configuration"));
   final parameter Real staVec[totSta]={sum(staTmp[i]) for i in 1:totSta}
