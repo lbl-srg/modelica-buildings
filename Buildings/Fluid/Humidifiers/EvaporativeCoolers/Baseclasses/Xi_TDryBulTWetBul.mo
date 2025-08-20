@@ -28,7 +28,7 @@ block Xi_TDryBulTWetBul
     min = 0)
     "Pressure"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWetBul(
     final quantity="ThermodynamicTemperature",
@@ -117,7 +117,7 @@ annotation (
           textColor={0,0,127},
           textString="Xi"),
         Text(
-          extent={{-98,-74},{-82,-98}},
+          extent={{-98,-54},{-82,-78}},
           textColor={0,0,127},
           textString="p"),
         Text(
@@ -155,7 +155,7 @@ annotation (
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-    defaultComponentName="wetBul",
+    defaultComponentName="watVap",
 Documentation(info="<html>
 <p>
 This block computes the water vapor mass fraction based on given dry bulb temperature,

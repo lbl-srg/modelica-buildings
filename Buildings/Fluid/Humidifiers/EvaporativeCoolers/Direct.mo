@@ -23,8 +23,9 @@ model Direct
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Direct dirEvaCoo(
     redeclare final package Medium = Medium,
     final dep=dep,
-    final padAre=padAre) "Direct evaporative cooling calculator" annotation (
-      Placement(transformation(origin={50,50}, extent={{-10,-10},{10,10}})));
+    final padAre=padAre)
+    "Direct evaporative cooling calculator"
+    annotation (Placement(transformation(origin={50,50}, extent={{-10,-10},{10,10}})));
 
 protected
   Medium.ThermodynamicState staInl=Medium.setState_phX(
