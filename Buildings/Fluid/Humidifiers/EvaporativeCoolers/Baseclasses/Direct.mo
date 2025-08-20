@@ -41,7 +41,7 @@ block Direct
   Buildings.Controls.OBC.CDL.Interfaces.RealInput p(
     final unit="Pa",
     final quantity="Pressure")
-    "Pressure"
+    "Inlet air pressure"
     annotation (Placement(transformation(origin={-120,-60},extent={{-20,-20},{20,20}}),
       iconTransformation(origin={-120,-60}, extent={{-20,-20},{20,20}})));
 

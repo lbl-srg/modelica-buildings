@@ -83,8 +83,6 @@ equation
           {-60,30},{-60,60},{36,60}}, color={0,0,127}));
   connect(TDryBulSupCon.y, indWetCal.TDryBulSecIn) annotation (Line(points={{-69,30},
           {-60,30},{-60,52},{36,52}}, color={0,0,127}));
-  connect(TWetBulSupCon.y, indWetCal.TWetBulPriIn) annotation (Line(points={{-69,80},
-          {-50,80},{-50,56},{36,56}}, color={0,0,127}));
   connect(TWetBulSupCon.y, indWetCal.TWetBulSecIn) annotation (Line(points={{-69,80},
           {-50,80},{-50,48},{36,48}}, color={0,0,127}));
   connect(V_flowRam.y, indWetCal.VPri_flow) annotation (Line(points={{1,80},{20,
@@ -95,8 +93,6 @@ equation
           {-60,30},{-60,10},{36,10}}, color={0,0,127}));
   connect(TDryBulSupCon.y, indWetCal1.TDryBulSecIn) annotation (Line(points={{-69,30},
           {-60,30},{-60,2},{36,2}}, color={0,0,127}));
-  connect(TWetBulSupCon.y, indWetCal1.TWetBulPriIn) annotation (Line(points={{-69,80},
-          {-50,80},{-50,6},{36,6}},color={0,0,127}));
   connect(TWetBulSupCon.y, indWetCal1.TWetBulSecIn) annotation (Line(points={{-69,80},
           {-50,80},{-50,-2},{36,-2}},   color={0,0,127}));
   connect(V_flowRam.y, indWetCal1.VSec_flow) annotation (Line(points={{1,80},{20,
@@ -105,8 +101,6 @@ equation
           {-40,-10},{-40,-6},{36,-6}}, color={0,0,127}));
   connect(TDryBulSupCon.y, indWetCal2.TDryBulPriIn) annotation (Line(points={{-69,30},
           {-60,30},{-60,-40},{36,-40}},     color={0,0,127}));
-  connect(TWetBulSupCon.y, indWetCal2.TWetBulPriIn) annotation (Line(points={{-69,80},
-          {-50,80},{-50,-44},{36,-44}},     color={0,0,127}));
   connect(TDryBulSupRam.y, indWetCal2.TDryBulSecIn) annotation (Line(points={{-69,
           -100},{-54,-100},{-54,-48},{36,-48}}, color={0,0,127}));
   connect(TWetBulSupCon.y, indWetCal2.TWetBulSecIn) annotation (Line(points={{-69,80},
@@ -119,8 +113,6 @@ equation
           {-60,30},{-60,-80},{36,-80}},     color={0,0,127}));
   connect(TDryBulSupCon.y, indWetCal3.TDryBulSecIn) annotation (Line(points={{-69,30},
           {-60,30},{-60,-88},{36,-88}},     color={0,0,127}));
-  connect(TWetBulSupCon.y, indWetCal3.TWetBulPriIn) annotation (Line(points={{-69,80},
-          {-50,80},{-50,-84},{36,-84}},     color={0,0,127}));
   connect(TWetBulSupRam.y, indWetCal3.TWetBulSecIn) annotation (Line(points={{-69,-50},
           {-64,-50},{-64,-92},{36,-92}},      color={0,0,127}));
   connect(V_flowCon.y, indWetCal3.VPri_flow) annotation (Line(points={{-69,-10},

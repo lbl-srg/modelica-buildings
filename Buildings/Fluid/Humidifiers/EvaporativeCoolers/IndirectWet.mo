@@ -77,7 +77,7 @@ model IndirectWet "Indirect wet evaporative cooler"
     final V=m1_flow_nominal*tau/rhoPri_default,
     nPorts=2)
     "Mixing volume for primary fluid"
-    annotation (Placement(transformation(origin={80,40}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={70,40}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet
     indWetCal(final maxEff=maxEff, final floRat=floRat)
@@ -143,8 +143,6 @@ equation
           60},{-94,20},{-90,20}}, color={0,127,255}));
   connect(senTemDryPri.T, indWetCal.TDryBulPriIn)
     annotation (Line(points={{-80,31},{-80,88.3333},{18.3333,88.3333}}, color={0,0,127}));
-  connect(senTemWetPri.T, indWetCal.TWetBulPriIn)
-    annotation (Line(points={{-50,31},{-50,85},{18.3333,85}}, color={0,0,127}));
   connect(senTemDrySec.T, indWetCal.TDryBulSecIn)
     annotation (Line(points={{-64,-49},{-64,81.6667},{18.3333,81.6667}}, color={0,0,127}));
   connect(senTemWetSec.T, indWetCal.TWetBulSecIn)
@@ -165,13 +163,14 @@ equation
   connect(indWetCal.TDryBulPriOut, preTem.T)
     annotation (Line(points={{41.6667,80},{58,80}}, color={0,0,127}));
   connect(preTem.port, volPri.heatPort) annotation (Line(points={{80,80},{90,80},
-          {90,60},{60,60},{60,40},{70,40}}, color={191,0,0}));
+          {90,60},{50,60},{50,40},{60,40}}, color={191,0,0}));
   connect(resSec.port_b, port_b2)
     annotation (Line(points={{50,-60},{100,-60}}, color={0,127,255}));
   connect(resPri.port_b, volPri.ports[1])
-    annotation (Line(points={{50,20},{79,20},{79,30}}, color={0,127,255}));
-  connect(volPri.ports[2], port_b1) annotation (Line(points={{81,30},{82,30},{82,
-          20},{98,20},{98,60},{100,60}}, color={0,127,255}));
+    annotation (Line(points={{50,20},{69,20},{69,30}}, color={0,127,255}));
+  connect(volPri.ports[2], port_b1) annotation (Line(points={{71,30},{72,30},{
+          72,20},{92,20},{92,60},{100,60}},
+                                         color={0,127,255}));
 
 annotation (defaultComponentName = "indWetEva",
 Documentation(info="<html>

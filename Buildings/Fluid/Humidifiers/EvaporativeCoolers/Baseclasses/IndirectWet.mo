@@ -32,14 +32,6 @@ block IndirectWet
     annotation (Placement(transformation(origin={-120,100}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={-140,100}, extent={{-20,-20},{20,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWetBulPriIn(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Wet bulb temperature of the primary inlet air"
-    annotation (Placement(transformation(origin={-120,60}, extent={{-20,-20},{20,20}}),
-      iconTransformation(origin={-140,60}, extent={{-20,-20},{20,20}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBulSecIn(
     final unit="K",
     displayUnit="degC",
