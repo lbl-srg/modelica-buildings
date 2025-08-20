@@ -459,7 +459,7 @@ model AirToWater
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal) if have_heaWat
                                                "HW buffer tank"
-    annotation (Placement(transformation(extent={{120,-290},{140,-270}})));
+    annotation (Placement(transformation(extent={{120,-288},{140,-268}})));
   Buildings.Templates.Components.Tanks.Buffer tanHeaWatRet(
     redeclare final package Medium = MediumHeaWat,
     final have_tan=typTanHeaWat == Buildings.Templates.Components.Types.IntegrationPoint.Return,
@@ -1023,11 +1023,11 @@ equation
       visible=have_chiWat,
       pattern=LinePattern.Dash));
   connect(THeaWatPriSup.port_b, tanHeaWatSup.port_a) annotation (Line(
-      points={{70,-280},{120,-280}},
+      points={{70,-280},{96,-280},{96,-278},{120,-278}},
       color={0,0,0},
       thickness=0.5));
   connect(tanHeaWatSup.port_b, junHeaWatBypSup.port_1) annotation (Line(
-      points={{140,-280},{170,-280}},
+      points={{140,-278},{156,-278},{156,-280},{170,-280}},
       color={0,0,0},
       thickness=0.5));
   connect(junHeaWatBypRet.port_2, tanHeaWatRet.port_a) annotation (Line(

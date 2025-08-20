@@ -1,9 +1,10 @@
 simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWater",
     method="Radau",
     tolerance=1e-6,
-    startTime=0.0,
-    stopTime=86400.0,
+    startTime=15000.0,
+    stopTime=30000.0,
     resultFile="AirToWaterPlant");
+Advanced.StoreProtectedVariables = true;
 createPlot(
     id=1,
     position={5, 5, 300, 500},
@@ -20,22 +21,7 @@ createPlot(
     grid=true,
     timeUnit="h"
 );
-createPlot(
-    id=2,
-    position={310, 5, 300, 500},
-    y={"pla.ctl.ctl.nReqPlaHeaWat", "pla.ctl.ctl.nReqPlaChiWat", "pla.ctl.ctl.enaHea.y1", "pla.ctl.ctl.enaCoo.y1"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
-);
-createPlot(
-    id=2,
-    subPlot=2,
-    y={"pla.ctl.ctl.idxStaHea.y", "pla.ctl.ctl.idxStaCoo.y"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
-);
+
 createPlot(
     id=3,
     position={615, 5, 300, 500},
@@ -121,19 +107,11 @@ createPlot(
 );
 createPlot(
     id=7,
-    position={345, 40, 300, 500},
-    y={"pla.bus.THeaWatSupSet", "pla.bus.THeaWatPriSup", "pla.bus.THeaWatSecSup", "pla.bus.THeaWatPriRet", "pla.bus.THeaWatSecRet"},
+    position={345, 40, 900, 500},
+    y={"pla.bus.THeaWatSupSet", "pla.hp.hp[1].hp.sigBus.TConInMea", "pla.hp.hp[1].hp.sigBus.TConOutMea", "pla.tanHeaWatSup.sta_a.T", "pla.tanHeaWatSup.sta_b.T"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
-);
-createPlot(
-    id=7,
-    subPlot=2,
-    y={"pla.bus.TChiWatSupSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatSecSup", "pla.bus.TChiWatPriRet", "pla.bus.TChiWatSecRet"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
+    timeUnit="min"
 );
 createPlot(
     id=8,

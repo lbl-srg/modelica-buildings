@@ -28,26 +28,25 @@ model AirToWater
     "Outdoor conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-170,-60})));
-  Fluid.HeatExchangers.SensibleCooler_T loaHeaWat(
+  Fluid.HeatExchangers.HeaterCooler_u   loaHeaWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     show_T=true,
     final dp_nominal=0,
     final energyDynamics=energyDynamics,
     tau=300,
-    QMin_flow=- pla.capHea_nominal)
-    "HW system approximated by prescribed return temperature"
+    Q_flow_nominal=-pla.capHea_nominal) "Heating load"
     annotation (Placement(transformation(extent={{70,-130},{90,-110}})));
-  Fluid.HeatExchangers.Heater_T loaChiWat(
+  Fluid.HeatExchangers.HeaterCooler_u
+                                loaChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     show_T=true,
     final dp_nominal=0,
     final energyDynamics=energyDynamics,
     tau=300,
-    QMax_flow=pla.capCoo_nominal)
-    if have_chiWat
-    "CHW system system approximated by prescribed return temperature"
+    Q_flow_nominal=pla.capCoo_nominal)
+    if have_chiWat "Cooling load"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage valDisHeaWat(
     redeclare final package Medium=Medium,
@@ -79,7 +78,9 @@ model AirToWater
       nEquZon=0),
     is_dpBalYPumSetCal=true,
     pumPri(pumHeaWat(pum(each show_T=true))),
-    valIso(valHeaWatHpInlIso(each show_T=true), valHeaWatHpOutIso(each show_T=true)))
+    valIso(valHeaWatHpInlIso(each show_T=true),
+    valHeaWatHpOutIso(each show_T=true)),
+    tanHeaWatSup(show_T=true))
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-120},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
@@ -149,22 +150,6 @@ model AirToWater
     "HW mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={160,-140})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter TChiWatRet(
-    p=pla.TChiWatRet_nominal - pla.TChiWatSup_nominal)
-    if have_chiWat
-    "Prescribed CHW return temperature"
-    annotation (Placement(transformation(extent={{-130,52},{-110,72}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter THeaWatRet(
-    p=pla.THeaWatRet_nominal - pla.THeaWatSup_nominal)
-    "Prescribed HW return temperature"
-    annotation (Placement(transformation(extent={{-130,12},{-110,32}})));
-  Buildings.Controls.OBC.CDL.Reals.Max max2
-    "Limit prescribed HWRT"
-    annotation (Placement(transformation(extent={{-90,12},{-70,32}})));
-  Buildings.Controls.OBC.CDL.Reals.Min min1
-    if have_chiWat
-    "Limit prescribed CHWRT"
-    annotation (Placement(transformation(extent={{-90,52},{-70,72}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt[4]
     "Importance multiplier"
     annotation (Placement(transformation(extent={{0,130},{-20,150}})));
@@ -187,15 +172,23 @@ model AirToWater
     if have_chiWat
     "Piping"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    k=293.15)
-    "Constant limiting prescribed return temperature"
-    annotation (Placement(transformation(extent={{-180,32},{-160,52}})));
   Controls.Utilities.PlaceholderInteger ph[2](
     each final have_inp=have_chiWat,
     each final u_internal=0)
     "Placeholder value"
     annotation (Placement(transformation(extent={{40,134},{20,154}})));
+  Modelica.Blocks.Sources.RealExpression ratLoa[if have_chiWat then 2 else 1](y=lin.y
+         .* ratFlo.y .^ 0.3)
+                 "Normalized load"
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
+  Buildings.Controls.OBC.CDL.Reals.Line lin[if have_chiWat then 2 else 1]
+    annotation (Placement(transformation(extent={{-88,10},{-68,30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conHea[4](k={20 + 273.15,0,
+        pla.THeaWatSup_nominal,1})
+    annotation (Placement(transformation(extent={{-150,30},{-130,50}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conCoo[4](k={pla.TChiWatSup_nominal,
+        1,20 + 273.15,0}) if have_chiWat
+    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
 equation
   if have_chiWat then
     connect(mulInt[3].y, busAirHan.reqResChiWat)
@@ -251,16 +244,6 @@ equation
   connect(ctlEquZon[1].y, valDisHeaWat.y)
     annotation (Line(points={{92,100},{100,100},{100,-104},{120,-104},{120,-108}},
       color={0,0,127}));
-  connect(busPla.THeaWatPriSup, THeaWatRet.u)
-    annotation (Line(points={{-80,-40},{-140,-40},{-140,22},{-132,22}},color={255,204,51},thickness=0.5));
-  connect(busPla.TChiWatPriSup, TChiWatRet.u)
-    annotation (Line(points={{-80,-40},{-140,-40},{-140,62},{-132,62}},color={255,204,51},thickness=0.5));
-  connect(TChiWatRet.y, min1.u1)
-    annotation (Line(points={{-108,62},{-100,62},{-100,68},{-92,68}},color={0,0,127}));
-  connect(min1.y, loaChiWat.TSet)
-    annotation (Line(points={{-68,62},{62,62},{62,-52},{68,-52}},color={0,0,127}));
-  connect(max2.y, loaHeaWat.TSet)
-    annotation (Line(points={{-68,22},{60,22},{60,-112},{68,-112}},color={0,0,127}));
   connect(cst.y, mulInt.u1)
     annotation (Line(points={{18,180},{6,180},{6,146},{2,146}},color={255,127,0}));
   connect(mulInt[1].y, busAirHan.reqResHeaWat)
@@ -275,12 +258,6 @@ equation
     annotation (Line(points={{160,-90},{160,-100},{10,-100}},color={0,127,255}));
   connect(mHeaWat_flow.port_b, pipHeaWat.port_a)
     annotation (Line(points={{160,-150},{160,-160},{10,-160}},color={0,127,255}));
-  connect(con.y, min1.u2)
-    annotation (Line(points={{-158,42},{-100,42},{-100,56},{-92,56}},color={0,0,127}));
-  connect(con.y, max2.u1)
-    annotation (Line(points={{-158,42},{-100,42},{-100,28},{-92,28}},color={0,0,127}));
-  connect(THeaWatRet.y, max2.u2)
-    annotation (Line(points={{-108,22},{-100,22},{-100,16},{-92,16}},color={0,0,127}));
   connect(reqPlaRes.yChiWatResReq, ph[1].u)
     annotation (Line(points={{68,140},{50,140},{50,144},{42,144}},color={255,127,0}));
   connect(reqPlaRes.yChiPlaReq, ph[2].u)
@@ -300,6 +277,34 @@ equation
     annotation (Line(points={{31,-140},{18,-140},{18,-42},{-80,-42},{-80,-40}},
       color={0,0,127}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(ratLoa[1].y, loaHeaWat.u) annotation (Line(points={{51,-20},{60,-20},{
+          60,-114},{68,-114}}, color={0,0,127}));
+  connect(ratLoa[2].y, loaChiWat.u) annotation (Line(points={{51,-20},{60,-20},{
+          60,-54},{68,-54}}, color={0,0,127}));
+  connect(busPla.THeaWatPriSup, lin[1].u) annotation (Line(
+      points={{-80,-40},{-100,-40},{-100,20},{-90,20}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(conHea[1].y, lin[1].x1) annotation (Line(points={{-128,40},{-110,40},{-110,
+          28},{-90,28}}, color={0,0,127}));
+  connect(conHea[2].y, lin[1].f1) annotation (Line(points={{-128,40},{-110,40},{-110,
+          24},{-90,24}}, color={0,0,127}));
+  connect(conHea[3].y, lin[1].x2) annotation (Line(points={{-128,40},{-110,40},{-110,
+          16},{-90,16}}, color={0,0,127}));
+  connect(conHea[4].y, lin[1].f2) annotation (Line(points={{-128,40},{-110,40},{-110,
+          12},{-90,12}}, color={0,0,127}));
+  connect(conCoo[1].y, lin[2].x1) annotation (Line(points={{-128,0},{-120,0},{-120,
+          28},{-90,28}}, color={0,0,127}));
+  connect(conCoo[2].y, lin[2].f1) annotation (Line(points={{-128,0},{-120,0},{-120,
+          24},{-90,24}}, color={0,0,127}));
+  connect(conCoo[3].y, lin[2].x2) annotation (Line(points={{-128,0},{-120,0},{-120,
+          18},{-90,18},{-90,16}}, color={0,0,127}));
+  connect(conCoo[4].y, lin[2].f2) annotation (Line(points={{-128,0},{-120,0},{-120,
+          12},{-90,12}}, color={0,0,127}));
+  connect(busPla.TChiWatPriSup, lin[2].u) annotation (Line(
+      points={{-80,-40},{-100,-40},{-100,20},{-90,20}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(
       file=
@@ -307,7 +312,8 @@ equation
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
-      StopTime=86400.0),
+      StartTime=15000.0,
+      StopTime=30000.0),
     Documentation(
       info="<html>
 <p>
