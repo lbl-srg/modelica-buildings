@@ -55,7 +55,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Examples.ResistanceVolumeFlowReversal
     </td>
-    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[.].T</code>
+    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[:].T</code>
                        from reference results.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
     </td>
