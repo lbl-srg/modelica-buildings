@@ -73,6 +73,11 @@ block TableData2DLoadDep
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
     Modelica.Math.Vectors.interpolate(PLRSor, QInt_flow_nominal, 1)
     "Heat flow rate interpolated at nominal conditions, at PLR=1 – Unscaled";
+  parameter Real dtMea(
+    final min=0,
+    final unit="s") = 120
+    "Load averaging time window"
+    annotation (Dialog(tab="Advanced", group="Staging logic"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
@@ -174,7 +179,7 @@ protected
     "Capacity at PLR support points";
   Modelica.Units.SI.Power PInt[nPLR]
     "Input power at PLR support points";
-  discrete Real PLR1(
+  Real PLR1(
     start=0,
     final min=0,
     final max=PLR_max)
@@ -203,7 +208,10 @@ protected
     "Sign of Delta-T used for load calculation";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo_internal;
   Integer idxSta(start=1)
-    "Index of first capacity stage above the load";
+    "Index of first capacity stage above the load (1 for stage 0)";
+  // Staging logic based on part load ratio and current stage
+  Integer idxSta_actual(start=1)
+    "Index of active capacity stage (1 for stage 0)";
   Real _PLR;
 initial equation
   PInt_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
@@ -211,6 +219,9 @@ initial equation
   QInt_flow_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
     tabQ, fill(TLoa_nominal, nPLR), fill(TAmb_nominal, nPLR));
 equation
+  // Staging logic based on part load ratio and current stage
+  PLR1 = PLRSorWith0[idxSta_actual];
+
   if typ==2 then
     connect(coo, coo_internal);
   else
@@ -225,14 +236,20 @@ equation
     initial(),
     on and TLoaDea > TSet + dTSet,
     on and TLoaDea < TSet - dTSet}  then
-    PLR1 = if typ == 3 or typ == 2 and not coo_internal then
-      if TLoaDea > TSet + dTSet then PLRSorWith0[max(1, idxSta - 1)]
-      elseif TLoaDea < TSet - dTSet then PLRSorWith0[idxSta]
-      else pre(PLR1)
-    else (
-      if TLoaDea > TSet + dTSet then PLRSorWith0[idxSta]
-      elseif TLoaDea < TSet - dTSet then PLRSorWith0[max(1, idxSta - 1)]
-      else pre(PLR1));
+    // Staging logic based on part load ratio and current stage
+    idxSta_actual = if typ == 3 or typ == 2 and not coo_internal then
+      if TLoaDea > TSet + dTSet then max(1, pre(idxSta_actual) - 1)
+      else idxSta
+    else
+      if TLoaDea > TSet + dTSet then idxSta
+      else max(1, pre(idxSta_actual) - 1);
+//     // Staging logic based on part load ratio
+//     PLR1 = if typ == 3 or typ == 2 and not coo_internal then
+//       if TLoaDea > TSet + dTSet then PLRSorWith0[max(1, idxSta - 1)]
+//       else PLRSorWith0[idxSta]
+//     else
+//       if TLoaDea > TSet + dTSet then PLRSorWith0[idxSta]
+//       else PLRSorWith0[max(1, idxSta - 1)];
   end when;
 
   if on then
@@ -254,6 +271,8 @@ equation
       abs(QSet_flow)));
     idxSta = Modelica.Math.BooleanVectors.firstTrueIndex(
       {el >= _PLR for el in PLRSorWith0});
+    // TODO: _PLR (and idxSta) are used in staging logic and should be computed
+    // based on a time-averaged load.
 
     PLR=if PLR1 < PLRUnl_min and PLR1 > PLRCyc_min then PLRUnl_min else PLR1;
     // Actual input and output accounting for equipement internal safeties

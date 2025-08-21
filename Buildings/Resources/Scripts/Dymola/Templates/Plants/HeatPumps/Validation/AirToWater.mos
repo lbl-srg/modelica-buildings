@@ -1,10 +1,10 @@
+Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWater",
     method="Radau",
     tolerance=1e-6,
     startTime=15000.0,
     stopTime=100000.0,
     resultFile="AirToWaterPlant");
-Advanced.StoreProtectedVariables = true;
 createPlot(
     id=1,
     position={5, 5, 300, 500},
