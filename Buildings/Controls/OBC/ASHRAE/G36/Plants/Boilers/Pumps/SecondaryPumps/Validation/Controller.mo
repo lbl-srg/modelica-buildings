@@ -4,7 +4,6 @@ model Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
     secPumCon(
-    final have_varSecPum=true,
     final have_secFloSen=true,
     final nPum=2,
     final nPumPri=2,
@@ -27,7 +26,6 @@ model Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
     secPumCon1(
-    final have_varSecPum=true,
     final have_secFloSen=true,
     final nPum=2,
     final nPumPri=2,
@@ -50,7 +48,6 @@ model Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
     secPumCon2(
-    final have_varSecPum=true,
     final have_secFloSen=false,
     final nPum=2,
     final nPumPri=2,
@@ -79,7 +76,6 @@ model Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
     secPumCon3(
-    final have_varSecPum=true,
     final have_secFloSen=false,
     final nPum=2,
     final nPumPri=2,
@@ -105,26 +101,6 @@ model Controller
     final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Testing pump configuration 4"
     annotation (Placement(transformation(extent={{200,-50},{220,-10}})));
-
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
-    secPumCon4(
-    final have_varSecPum=false,
-    final nPum=2,
-    final nPumPri=2,
-    final nSen=2,
-    final nPum_nominal=2,
-    final minPumSpe=0.1,
-    final VHotWat_flow_nominal=0.5,
-    final maxLocDp=10,
-    final minLocDp=5,
-    final offTimThr=180,
-    final timPer=600,
-    final staCon=-0.03,
-    final relFloHys=0.01,
-    final k=1,
-    final Ti=0.5,
-    final Td=0.1) "Testing pump configuration 5"
-    annotation (Placement(transformation(extent={{-100,-230},{-80,-190}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
@@ -206,33 +182,6 @@ protected
     final shift=0)
     "Real pulse"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
-    final width=1,
-    final period=3600,
-    final shift=10)
-    "Boolean pulse"
-    annotation (Placement(transformation(extent={{-240,-180},{-220,-160}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt4
-    "Real to Integer conversion"
-    annotation (Placement(transformation(extent={{-220,-220},{-200,-200}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul4(
-    final amplitude=2,
-    final width=1,
-    final period=3500,
-    final offset=0,
-    final shift=0)
-    "Real pulse"
-    annotation (Placement(transformation(extent={{-250,-220},{-230,-200}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
-    final width=0.5,
-    final period=900,
-    final shift=60)
-    "Boolean pulse"
-    annotation (Placement(transformation(extent={{-240,-260},{-220,-240}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul5(
     final amplitude=0.6,
@@ -345,16 +294,6 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{240,-40},{260,-20}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4[2](
-    final k={2,1})
-    "Pump rotation"
-    annotation (Placement(transformation(extent={{-150,-170},{-130,-150}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre5[2](
-    final pre_u_start=fill(false, 2))
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
-
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=1)
     "Constant Real source"
@@ -437,14 +376,6 @@ equation
   connect(secPumCon3.yHotWatPum,pre4. u)
     annotation (Line(points={{222,-30},{238,-30}}, color={255,0,255}));
 
-  connect(conInt4.y,secPumCon4. uPumLeaLag) annotation (Line(points={{-128,-160},
-          {-110,-160},{-110,-191.8},{-102,-191.8}},
-                                         color={255,127,0}));
-
-  connect(secPumCon4.yHotWatPum,pre5. u)
-    annotation (Line(points={{-78,-210},{-62,-210}},
-                                                   color={255,0,255}));
-
   connect(con1.y,secPumCon. dpHotWatSet) annotation (Line(points={{-168,210},{-164,
           210},{-164,146},{-102,146}},      color={0,0,127}));
 
@@ -464,11 +395,6 @@ equation
 
   connect(pre4.y,secPumCon3. uHotWatPum) annotation (Line(points={{262,-30},{270,
           -30},{270,40},{140,40},{140,-16},{198,-16}},       color={255,0,255}));
-
-  connect(pre5.y,secPumCon4. uHotWatPum) annotation (Line(points={{-38,-210},{
-          -30,-210},{-30,-140},{-160,-140},{-160,-196},{-102,-196}},
-                                                                 color={255,0,
-          255}));
 
   connect(sin6.y,secPumCon2. dpHotWat_remote) annotation (Line(points={{-238,
           -20},{-102,-20}},                   color={0,0,127}));
@@ -524,22 +450,6 @@ equation
 
   connect(reaToInt3.y, secPumCon3.resReq) annotation (Line(points={{102,0},{128,
           0},{128,-24},{198,-24}}, color={255,127,0}));
-
-  connect(booPul4.y,secPumCon4. uPlaEna) annotation (Line(points={{-218,-170},{
-          -164,-170},{-164,-200},{-102,-200}},
-                                          color={255,0,255}));
-
-  connect(pul4.y, reaToInt4.u)
-    annotation (Line(points={{-228,-210},{-222,-210}}, color={0,0,127}));
-
-  connect(reaToInt4.y, secPumCon4.resReq) annotation (Line(points={{-198,-210},
-          {-180,-210},{-180,-204},{-102,-204}}, color={255,127,0}));
-
-  connect(booPul4.y, secPumCon4.uPriPum[1]) annotation (Line(points={{-218,-170},
-          {-164,-170},{-164,-212.5},{-102,-212.5}}, color={255,0,255}));
-
-  connect(booPul5.y, secPumCon4.uPriPum[2]) annotation (Line(points={{-218,-250},
-          {-170,-250},{-170,-211.5},{-102,-211.5}}, color={255,0,255}));
 
   connect(pul5.y,secPumCon. uMaxSecPumSpeCon) annotation (Line(points={{-238,110},
           {-110,110},{-110,142},{-102,142}},      color={0,0,127}));
