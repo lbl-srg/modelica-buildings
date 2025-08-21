@@ -603,7 +603,7 @@ equation
                                                    color={255,0,255}));
   connect(or4.y, yHotWatIsoVal) annotation (Line(points={{322,-70},{360,-70}},
                                color={255,0,255}));
-  connect(uStaChaPro, nexBoi.uStachaPro) annotation (Line(points={{-260,-150},{-228,
+  connect(uStaChaPro,nexBoi.uStaChaPro)  annotation (Line(points={{-260,-150},{-228,
           -150},{-228,-68},{-172,-68},{-172,-67}}, color={255,0,255}));
   connect(uBoi, enaBoi.uBoi) annotation (Line(points={{-260,80},{48,80},{48,-2},
           {58,-2}}, color={255,0,255}));

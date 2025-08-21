@@ -10,7 +10,7 @@ block NextBoiler
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStachaPro
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaPro
     "Stage change process completion signal" annotation (Placement(
         transformation(extent={{-260,-180},{-220,-140}}), iconTransformation(
           extent={{-140,-90},{-100,-50}})));
@@ -286,11 +286,11 @@ equation
   connect(cha.down, dowPro.u) annotation (Line(points={{-178,104},{-140,104},{
           -140,90},{-122,90}}, color={255,0,255}));
 
-  connect(uStachaPro, booRep.u)
+  connect(uStaChaPro, booRep.u)
     annotation (Line(points={{-240,-160},{-162,-160}}, color={255,0,255}));
-  connect(uStachaPro, upPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
+  connect(uStaChaPro, upPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
           {-170,124},{-122,124}}, color={255,0,255}));
-  connect(uStachaPro, dowPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
+  connect(uStaChaPro, dowPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
           {-170,84},{-122,84}}, color={255,0,255}));
 annotation (
   defaultComponentName="nexBoi",

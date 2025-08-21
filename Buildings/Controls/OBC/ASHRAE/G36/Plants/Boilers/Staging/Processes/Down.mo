@@ -541,7 +541,7 @@ equation
   connect(uBoi, disBoi.uBoi) annotation (Line(points={{-260,160},{-216,160},{-216,
           80},{40,80},{40,-2},{58,-2}},                                   color
         ={255,0,255}));
-  connect(uStaChaPro, nexBoi.uStachaPro) annotation (Line(points={{-260,-130},{-230,
+  connect(uStaChaPro,nexBoi.uStaChaPro)  annotation (Line(points={{-260,-130},{-230,
           -130},{-230,-73},{-172,-73}}, color={255,0,255}));
   connect(or3.y, and8.u2) annotation (Line(points={{102,-110},{120,-110},{120,-80},
           {216,-80},{216,-68},{218,-68}}, color={255,0,255}));
