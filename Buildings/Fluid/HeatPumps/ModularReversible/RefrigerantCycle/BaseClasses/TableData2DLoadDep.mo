@@ -202,8 +202,8 @@ protected
   Real sigLoa=if use_TLoaLvgForCtl then 1 else - 1
     "Sign of Delta-T used for load calculation";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo_internal;
-  Integer idxSta(start=1);
-  Integer pre_idxSta = pre(idxSta);
+  Integer idxSta(start=1)
+    "Index of first capacity stage above the load";
   Real _PLR;
 initial equation
   PInt_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(

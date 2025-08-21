@@ -10,24 +10,23 @@ class AllSystems
     hp(
       capHeaHp_nominal=500E3,
       capCooHp_nominal=500E3,
-      mHeaWatHp_flow_nominal=pla.hp.capHeaHp_nominal / 5
-        / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      mChiWatHp_flow_nominal=pla.hp.capCooHp_nominal / abs(pla.ctl.TChiWatSup_nominal -
-        Buildings.Templates.Data.Defaults.TChiWatRet) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      mHeaWatHp_flow_nominal=pla.hp.capHeaHp_nominal/5/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      mChiWatHp_flow_nominal=pla.hp.capCooHp_nominal/abs(pla.ctl.TChiWatSup_nominal
+           - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
       TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
       TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
       perHeaHp(
         fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
-        PLRSup={1},
+            "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+        PLRSup={1,0.5},
         use_TEvaOutForTab=false,
         use_TConOutForTab=true,
         tabUppBou=[263.15,325.15; 313.15,325.15]),
       perCooHp(
         fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-        PLRSup={1},
+            "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
+        PLRSup={1,0.5},
         use_TEvaOutForTab=true,
         use_TConOutForTab=false)),
     pumHeaWatPri(

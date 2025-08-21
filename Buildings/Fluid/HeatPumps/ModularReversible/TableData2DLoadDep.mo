@@ -2,6 +2,7 @@ within Buildings.Fluid.HeatPumps.ModularReversible;
 model TableData2DLoadDep
   "Grey-box model for reversible and non-reversible heat pumps"
   extends Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
+    tauCon=4,
     final use_busConOnl=true,
     final use_COP=true,
     final use_EER=use_rev,

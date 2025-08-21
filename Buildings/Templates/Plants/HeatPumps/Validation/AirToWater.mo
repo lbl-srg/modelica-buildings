@@ -9,9 +9,7 @@ model AirToWater
     "Set to true if the plant provides CHW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  inner parameter UserProject.Data.AllSystems datAll(
-    pla(
-      final cfg=pla.cfg))
+  inner parameter UserProject.Data.AllSystems datAll(pla(final cfg=pla.cfg))
     "Plant parameters"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   parameter Boolean allowFlowReversal=true
@@ -28,7 +26,7 @@ model AirToWater
     "Outdoor conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-170,-60})));
-  Fluid.HeatExchangers.HeaterCooler_u   loaHeaWat(
+  Fluid.HeatExchangers.HeaterCooler_u loaHeaWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     show_T=true,
@@ -37,8 +35,7 @@ model AirToWater
     tau=300,
     Q_flow_nominal=-pla.capHea_nominal) "Heating load"
     annotation (Placement(transformation(extent={{70,-130},{90,-110}})));
-  Fluid.HeatExchangers.HeaterCooler_u
-                                loaChiWat(
+  Fluid.HeatExchangers.HeaterCooler_u loaChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     show_T=true,
@@ -313,7 +310,7 @@ equation
     experiment(
       Tolerance=1e-6,
       StartTime=15000.0,
-      StopTime=30000.0),
+      StopTime=100000.0),
     Documentation(
       info="<html>
 <p>

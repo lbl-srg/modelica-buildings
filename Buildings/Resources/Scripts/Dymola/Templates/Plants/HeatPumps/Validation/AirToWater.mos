@@ -2,7 +2,7 @@ simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWater",
     method="Radau",
     tolerance=1e-6,
     startTime=15000.0,
-    stopTime=30000.0,
+    stopTime=100000.0,
     resultFile="AirToWaterPlant");
 Advanced.StoreProtectedVariables = true;
 createPlot(
@@ -108,7 +108,7 @@ createPlot(
 createPlot(
     id=7,
     position={345, 40, 900, 500},
-    y={"pla.bus.THeaWatSupSet", "pla.hp.hp[1].hp.sigBus.TConInMea", "pla.hp.hp[1].hp.sigBus.TConOutMea", "pla.tanHeaWatSup.sta_a.T", "pla.tanHeaWatSup.sta_b.T"},
+    y={"pla.bus.THeaWatSupSet", "pla.bus.TChiWatSupSet", "pla.hp.hp[1].hp.sigBus.TConInMea", "pla.hp.hp[1].hp.sigBus.TConOutMea", "pla.tanHeaWatSup.sta_a.T", "pla.tanHeaWatSup.sta_b.T"},
     autoscale=true,
     grid=true,
     timeUnit="min"

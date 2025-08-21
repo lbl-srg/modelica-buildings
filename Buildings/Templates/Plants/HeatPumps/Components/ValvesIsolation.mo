@@ -136,7 +136,7 @@ model ValvesIsolation
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
-  parameter Modelica.Units.SI.Time tau=10
+  parameter Modelica.Units.SI.Time tau=1
     "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics",group="Nominal condition",
       enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
@@ -308,6 +308,7 @@ model ValvesIsolation
     each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
+    each final tau=tau,
     each final from_dp=from_dp,
     each final linearized=linearized)
     "HP outlet HW isolation valve"
@@ -321,6 +322,7 @@ model ValvesIsolation
     each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
+    each final tau=tau,
     each final from_dp=from_dp,
     each final linearized=linearized) if have_chiWat
     "HP outlet CHW isolation valve"
@@ -334,6 +336,7 @@ model ValvesIsolation
     each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
+    each final tau=tau,
     each final from_dp=from_dp,
     each final linearized=linearized)
     "HP inlet HW isolation valve"
@@ -347,6 +350,7 @@ model ValvesIsolation
     each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
+    each final tau=tau,
     each final from_dp=from_dp,
     each final linearized=linearized) if have_chiWat
     "HP inlet CHW isolation valve"
