@@ -154,10 +154,8 @@ equation
     annotation (Line(points={{-278,10},{-144,10},{-144,60},{-30,60}}, color={0,0,127}));
   connect(TChiWatRetDow.y, chiPlaCon.TChiWatRetDow) annotation (Line(points={{-278,
           -160},{-170,-160},{-170,90},{-30,90}}, color={0,0,127}));
-  connect(TConWatRet.y, chiPlaCon.TConWatRet) annotation (Line(points={{-198,-240},
-          {-134,-240},{-134,70},{-30,70}},         color={0,0,127}));
-  connect(TConWatSup.y, chiPlaCon.TConWatSup) annotation (Line(points={{-238,-220},
-          {-120,-220},{-120,-140},{-30,-140}},       color={0,0,127}));
+  connect(TConWatSup.y, chiPlaCon.TConWatSup) annotation (Line(points={{-238,
+          -220},{-120,-220},{-120,-135},{-30,-135}}, color={0,0,127}));
   connect(watLev.y, chiPlaCon.watLev) annotation (Line(points={{-238,-260},{-90,
           -260},{-90,-160},{-30,-160}}, color={0,0,127}));
   connect(chiPlaCon.yTowCelIsoVal, zerOrdHol.u) annotation (Line(points={{90,-70},
@@ -228,6 +226,12 @@ equation
           255}));
   connect(plaEna.y, chiPlaCon.uPlaSchEna) annotation (Line(points={{-178,210},{-70,
           210},{-70,-90},{-30,-90}}, color={255,0,255}));
+  connect(TConWatRet.y, chiPlaCon.TConWatTowRet) annotation (Line(points={{-198,
+          -240},{-134,-240},{-134,-125},{-30,-125}}, color={0,0,127}));
+  connect(TConWatRet.y, chiPlaCon.TConWatRet[1]) annotation (Line(points={{-198,
+          -240},{-134,-240},{-134,67.5},{-30,67.5}}, color={0,0,127}));
+  connect(TConWatRet.y, chiPlaCon.TConWatRet[2]) annotation (Line(points={{-198,
+          -240},{-134,-240},{-134,72.5},{-30,72.5}}, color={0,0,127}));
 annotation (
   experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Validation/Controller.mos"

@@ -4,8 +4,14 @@ block Controller "Tower fan speed control"
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl fanSpeCon=
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
+    "Tower fan speed control type";
+  final parameter Boolean have_conWatRetCon = fanSpeCon==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
+    "True: the fan speed is controlled to maintain the condenser water return temperature setpoint";
   parameter Boolean closeCoupledPlant=true
-    "Flag to indicate if the plant is close coupled";
+    "Flag to indicate if the plant is close coupled"
+    annotation (Dialog(enable=have_conWatRetCon));
   parameter Boolean have_WSE=true
     "Flag to indicate if the plant has waterside economizer";
   parameter Real desCap(
@@ -190,7 +196,7 @@ block Controller "Tower fan speed control"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if have_conWatRetCon
     "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -203,23 +209,24 @@ block Controller "Tower fan speed control"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not closeCoupledPlant
+    final quantity="ThermodynamicTemperature")
     "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
-    final unit="1") "Fan speed setpoint of each cooling tower cell"
+    final unit="1") if have_conWatRetCon
+                    "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMax(
-    final unit="K")
+    final unit="K") if have_conWatRetCon
     "Maximum LIFT among enabled chillers"
     annotation (Placement(transformation(extent={{100,-150},{140,-110}}),
         iconTransformation(extent={{100,-178},{140,-138}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMin(
-    final unit="K")
+    final unit="K") if have_conWatRetCon
     "Minimum LIFT among enabled chillers"
     annotation (Placement(transformation(extent={{100,-190},{140,-150}}),
         iconTransformation(extent={{100,-208},{140,-168}})));
@@ -254,7 +261,7 @@ block Controller "Tower fan speed control"
     final TdSupCon=TdSupCon,
     final ySupConMax=ySupConMax,
     final ySupConMin=ySupConMin,
-    final speChe=speChe)
+    final speChe=speChe) if have_conWatRetCon
     "Fan speed control based on condenser water return temperature control"
     annotation (Placement(transformation(extent={{20,-60},{60,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Controller

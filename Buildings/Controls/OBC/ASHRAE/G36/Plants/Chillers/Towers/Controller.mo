@@ -6,6 +6,14 @@ block Controller "Cooling tower controller"
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Integer nTowCel=2 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl fanSpeCon=
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
+    "Tower fan speed control type";
+  final parameter Boolean have_conWatRetCon = fanSpeCon==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
+    "True: the fan speed is controlled to maintain the condenser water return temperature setpoint";
+  parameter Boolean closeCoupledPlant=true
+    "Flag to indicate if the plant is close coupled"
+    annotation (Dialog(enable=have_conWatRetCon));
   parameter Boolean closeCoupledPlant=false
     "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet";
   parameter Boolean have_WSE=true
@@ -223,7 +231,7 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if have_conWatRetCon
     "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
@@ -236,7 +244,7 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not closeCoupledPlant
+    final quantity="ThermodynamicTemperature")
     "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -269,12 +277,12 @@ block Controller "Cooling tower controller"
     annotation (Placement(transformation(extent={{-140,-260},{-100,-220}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMax(
-    final unit="K")
+    final unit="K") if have_conWatRetCon
     "Maximum LIFT among enabled chillers"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,170},{140,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMin(
-    final unit="K")
+    final unit="K") if have_conWatRetCon
     "Minimum LIFT among enabled chillers"
     annotation (Placement(transformation(extent={{100,32},{140,72}}),
         iconTransformation(extent={{100,150},{140,190}})));
@@ -296,7 +304,7 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
+    final unit=fill("1", nTowCel)) if have_conWatRetCon
     "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{100,-170},{140,-130}}),
       iconTransformation(extent={{100,-130},{140,-90}})));
@@ -310,6 +318,7 @@ protected
     final nChi=nChi,
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
+    final fanSpeCon=fanSpeCon,
     final closeCoupledPlant=closeCoupledPlant,
     final have_WSE=have_WSE,
     final desCap=desCap,
@@ -363,13 +372,15 @@ protected
     final watLevMax=watLevMax)
     "Make up water control"
     annotation (Placement(transformation(extent={{-20,-250},{0,-230}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel] if have_conWatRetCon
+                                                       "Logical switch"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nTowCel](
     final k=fill(0, nTowCel)) "Zero constant"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=nTowCel) "Replicate real input"
+    final nout=nTowCel) if have_conWatRetCon
+                        "Replicate real input"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
 equation

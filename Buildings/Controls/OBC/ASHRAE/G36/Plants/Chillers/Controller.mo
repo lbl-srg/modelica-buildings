@@ -1,10 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers;
 block Controller "Chiller plant controller"
 
-  parameter Boolean closeCoupledPlant=false
-    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
-    annotation (Dialog(tab="General"));
-
   // ---- General: Chiller configuration ----
   parameter Integer nChi=2
     "Total number of chillers"
@@ -570,6 +566,19 @@ block Controller "Chiller plant controller"
 
   // ---- Cooling tower: fan speed ----
 
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl fanSpeCon=
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
+    "Tower fan speed control type"
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
+
+  final parameter Boolean have_conWatRetCon = fanSpeCon==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
+    "True: the fan speed is controlled to maintain the condenser water return temperature setpoint"
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
+
+  parameter Boolean closeCoupledPlant=false
+    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
+    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=(not have_airCoo) and have_conWatRetCon));
+
   parameter Real fanSpeMin(unit="1")=0.1
     "Minimum tower fan speed"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
@@ -842,13 +851,13 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-940,260},{-900,300}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not have_airCoo
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet[nChi](
+    final unit=fill("K", nChi),
+    displayUnit=fill("degC", nChi),
+    final quantity=fill("ThermodynamicTemperature", nChi)) if not have_airCoo
     "Measured condenser water return temperature (condenser leaving)"
-    annotation(Placement(transformation(extent={{-940,220},{-900,260}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+    annotation (Placement(transformation(extent={{-940,220},{-900,260}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
@@ -943,6 +952,15 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{-940,-540},{-900,-500}}),
       iconTransformation(extent={{-140,-260},{-100,-220}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatTowRet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    if have_conWatRetCon and not have_airCoo
+    "Condenser water return temperature (condenser leaving) to the cooling tower"
+    annotation (Placement(transformation(extent={{-942,-648},{-902,-608}}),
+        iconTransformation(extent={{-140,-310},{-100,-270}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
@@ -950,7 +968,7 @@ block Controller "Chiller plant controller"
     if not closeCoupledPlant and not have_airCoo
     "Condenser water supply temperature (condenser entering)"
     annotation(Placement(transformation(extent={{-940,-680},{-900,-640}}),
-      iconTransformation(extent={{-140,-340},{-100,-300}})));
+      iconTransformation(extent={{-140,-330},{-100,-290}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
     final min=fill(0, nTowCel),
@@ -1279,6 +1297,7 @@ block Controller "Chiller plant controller"
     final totSta=totSta,
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
+    final fanSpeCon=fanSpeCon,
     final closeCoupledPlant=closeCoupledPlant,
     final have_WSE=have_WSE,
     final desCap=desCap,
@@ -1417,11 +1436,6 @@ block Controller "Chiller plant controller"
     final nout=nChi) if have_WSE and not have_airCoo
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-620,240},{-600,260}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatRetTem(
-    final nout=nChi) if not have_heaPreConSig and not have_airCoo
-    "Condenser water return temperature"
-    annotation (Placement(transformation(extent={{-680,230},{-660,250}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator chiWatSupTem(
     final nout=nChi) if not have_heaPreConSig and not have_airCoo
@@ -1763,8 +1777,6 @@ equation
         color={255,127,0}));
   connect(TConWatSup, towCon.TConWatSup) annotation(Line(points={{-920,-660},{-268,
           -660}}, color={0,0,127}));
-  connect(TConWatRet, towCon.TConWatRet) annotation(Line(points={{-920,240},{-850,
-          240},{-850,-644},{-268,-644}}, color={0,0,127}));
   connect(watLev, towCon.watLev) annotation (Line(points={{-920,-740},{-300,-740},
           {-300,-716},{-268,-716}}, color={0,0,127}));
   connect(towCon.uIsoVal, uIsoVal) annotation(Line(points={{-268,-708},{-920,-708}},
@@ -1803,10 +1815,6 @@ equation
           250},{-622,250}}, color={255,0,255}));
   connect(booRep.y, heaPreCon.uWSE) annotation (Line(points={{-598,250},{-560,
           250},{-560,188},{-524,188}}, color={255,0,255}));
-  connect(TConWatRet, conWatRetTem.u) annotation (Line(points={{-920,240},{-682,
-          240}}, color={0,0,127}));
-  connect(conWatRetTem.y, heaPreCon.TConWatRet) annotation (Line(points={{-658,240},
-          {-650,240},{-650,212},{-524,212}},      color={0,0,127}));
   connect(TChiWatSup, chiWatSupTem.u) annotation (Line(points={{-920,210},{-840,
           210},{-840,204},{-682,204}}, color={0,0,127}));
   connect(chiWatSupTem.y, heaPreCon.TChiWatSup) annotation (Line(points={{-658,204},
@@ -2143,6 +2151,10 @@ equation
           {-20,-176},{172,-176}}, color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, dpChiWatPumSet) annotation (Line(points={
           {-476,452},{-370,452},{-370,590},{940,590}}, color={0,0,127}));
+  connect(TConWatTowRet, towCon.TConWatRet) annotation (Line(points={{-922,-628},
+          {-860,-628},{-860,-644},{-268,-644}}, color={0,0,127}));
+  connect(TConWatRet, heaPreCon.TConWatRet) annotation (Line(points={{-920,240},
+          {-650,240},{-650,212},{-524,212}}, color={0,0,127}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2244,7 +2256,7 @@ annotation (
           textColor={0,0,127},
           textString="TOut"),
         Text(
-          extent={{-98,-314},{-50,-328}},
+          extent={{-98,-304},{-50,-318}},
           textColor={0,0,127},
           textString="TConWatSup",
           visible=not closeCoupledPlant),
@@ -2401,7 +2413,12 @@ annotation (
           extent={{34,238},{96,222}},
           textColor={0,0,125},
           textString="dpChiWatPumSet",
-          visible=not have_locSenChiWatPum)}),
+          visible=not have_locSenChiWatPum),
+        Text(
+          extent={{-98,-282},{-40,-298}},
+          textColor={0,0,127},
+          visible=not closeCoupledPlant,
+          textString="TConWatTowRet")}),
     Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>
 <p>
