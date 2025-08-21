@@ -200,9 +200,6 @@ equation
     annotation (Line(points={{122,134},{142,134}}, color={255,0,255}));
   connect(mulAnd1.y, edg2.u) annotation (Line(points={{102,220},{112,220}},
         color={255,0,255}));
-  connect(edg2.y, lat.u) annotation (Line(points={{136,220},{138,220},{138,140},
-          {142,140}},
-        color={255,0,255}));
   connect(uUpsDevSta, mulAnd1.u[1]) annotation (Line(points={{-180,-140},{-120,
           -140},{-120,134},{68,134},{68,220},{78,220}},                   color
         ={255,0,255}));
@@ -218,6 +215,8 @@ equation
           {60,32},{70,32}}, color={255,0,255}));
   connect(and1.y, yHotWatIsoVal) annotation (Line(points={{94,40},{170,40},{170,
           0},{200,0}}, color={255,0,255}));
+  connect(edg2.y, lat.u) annotation (Line(points={{136,220},{138,220},{138,140},
+          {142,140}}, color={255,0,255}));
 annotation (
   defaultComponentName="hotWatIsoVal",
   Diagram(

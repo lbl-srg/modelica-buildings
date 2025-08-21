@@ -2,21 +2,15 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Validation;
 model PrimaryController
   "Validation model for boiler plant primary control sequence"
 
-  parameter Integer nSchRow(
-    final min=1) = 4
-    "Number of rows to be created for plant schedule table";
-
-  parameter Real schTab[nSchRow,2] = [0,1; 6,1; 18,1; 24,1]
-    "Table defining schedule for enabling plant";
-
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller(
     final have_priOnl=true,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
     final nPumPri_nominal=2,
+    final TPlaHotWatSetMax=343.15,
     final VHotWatPri_flow_nominal=0.0006,
     final maxLocDpPri=4100,
     final minLocDpPri=3900,
@@ -28,7 +22,7 @@ model PrimaryController
     final bypSetRat=0.00001,
     final nPumPri=2,
     final have_heaPriPum=true,
-    final TMinSupNonConBoi = 333.2,
+    final TMinSupNonConBoi=333.2,
     final have_varPriPum=true,
     final boiDesFlo={0.0003,0.0003},
     final minPriPumSpeSta={0,0,0})
@@ -40,10 +34,11 @@ model PrimaryController
     final have_secFloSen=true,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
     final nPumPri_nominal=2,
+    final TPlaHotWatSetMax=343.15,
     final VHotWatPri_flow_nominal=0.0006,
     final maxLocDpPri=4100,
     final minLocDpPri=3900,
@@ -71,6 +66,7 @@ model PrimaryController
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
     final nPumPri_nominal=2,
+    final TPlaHotWatSetMax=343.15,
     final VHotWatPri_flow_nominal=0.0006,
     final maxLocDpPri=4100,
     final minLocDpPri=3900,
@@ -90,6 +86,13 @@ model PrimaryController
     annotation (Placement(transformation(extent={{220,12},{240,96}})));
 
 protected
+  parameter Integer nSchRow(
+    final min=1) = 4
+    "Number of rows to be created for plant schedule table";
+
+  parameter Real schTab[nSchRow,2] = [0,1; 6,1; 18,1; 24,1]
+    "Table defining schedule for enabling plant";
+
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[2](
     final delayTime=fill(10, 2))
     "True delay for simulating boiler proven on process"
@@ -121,8 +124,8 @@ protected
     annotation (Placement(transformation(extent={{260,90},{280,110}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=0)
-    "Number of temperature reset requests"
+    final k=1)
+    "Number of plant requests"
     annotation (Placement(transformation(extent={{-340,150},{-320,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[2]
@@ -387,12 +390,6 @@ equation
   connect(truDel6.u, controller2.yPriPum) annotation (Line(points={{258,100},{254,
           100},{254,43.5},{242,43.5}},
                                    color={255,0,255}));
-  connect(conInt.y, controller.resReq) annotation (Line(points={{-318,160},{-266,
-          160},{-266,89.7},{-262,89.7}}, color={255,127,0}));
-  connect(conInt.y, controller1.resReq) annotation (Line(points={{-318,160},{-6,
-          160},{-6,89.7},{-2,89.7}}, color={255,127,0}));
-  connect(conInt.y, controller2.resReq) annotation (Line(points={{-318,160},{
-          212,160},{212,89.7},{218,89.7}}, color={255,127,0}));
   connect(truDel.y, pre1.u)
     annotation (Line(points={{-198,140},{-192,140}}, color={255,0,255}));
   connect(pre2.u, truDel1.y)
@@ -410,12 +407,6 @@ equation
   connect(pre7.y, controller2.uPriPum) annotation (Line(points={{312,100},{338,100},
           {338,2},{204,2},{204,26.7},{218,26.7}},
                                               color={255,0,255}));
-  connect(reaToInt.y, controller.plaReq) annotation (Line(points={{-278,130},{-272,
-          130},{-272,85.5},{-262,85.5}},    color={255,127,0}));
-  connect(reaToInt1.y, controller1.plaReq) annotation (Line(points={{-18,130},{-12,
-          130},{-12,85.5},{-2,85.5}},   color={255,127,0}));
-  connect(reaToInt2.y, controller2.plaReq) annotation (Line(points={{202,130},{208,
-          130},{208,85.5},{218,85.5}},   color={255,127,0}));
   connect(enaSch.y[1], greThr.u)
     annotation (Line(points={{-318,200},{-302,200}}, color={0,0,127}));
   connect(greThr.y, controller.uSchEna) annotation (Line(points={{-278,200},{-264,
@@ -433,6 +424,18 @@ equation
           {30,56.1},{30,100},{38,100}}, color={255,0,255}));
   connect(pre8.y, controller1.uHotWatIsoVal) annotation (Line(points={{62,100},{
           120,100},{120,-32},{-14,-32},{-14,22.5},{-2,22.5}}, color={255,0,255}));
+  connect(reaToInt.y, controller.resReq) annotation (Line(points={{-278,130},{-270,
+          130},{-270,89.7},{-262,89.7}}, color={255,127,0}));
+  connect(conInt.y, controller.plaReq) annotation (Line(points={{-318,160},{-272,
+          160},{-272,85.5},{-262,85.5}}, color={255,127,0}));
+  connect(reaToInt1.y, controller1.resReq) annotation (Line(points={{-18,130},{-10,
+          130},{-10,89.7},{-2,89.7}}, color={255,127,0}));
+  connect(conInt.y, controller1.plaReq) annotation (Line(points={{-318,160},{-12,
+          160},{-12,85.5},{-2,85.5}}, color={255,127,0}));
+  connect(conInt.y, controller2.plaReq) annotation (Line(points={{-318,160},{210,
+          160},{210,85.5},{218,85.5}}, color={255,127,0}));
+  connect(reaToInt2.y, controller2.resReq) annotation (Line(points={{202,130},{208,
+          130},{208,89.7},{218,89.7}}, color={255,127,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={Ellipse(

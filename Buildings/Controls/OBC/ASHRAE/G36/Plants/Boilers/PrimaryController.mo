@@ -300,7 +300,7 @@ model PrimaryController "Boiler plant primary loop controller"
     displayUnit=fill("m3/s",nBoi),
     final quantity=fill("VolumeFlowRate",nBoi),
     final min=fill(1e-6,nBoi),
-    final max=fill(maxFloSet,nBoi))
+    final max=maxFloSet)
     "Design minimum hot water flow through each boiler"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters"));
@@ -309,8 +309,8 @@ model PrimaryController "Boiler plant primary loop controller"
     final unit=fill("m3/s",nBoi),
     displayUnit=fill("m3/s",nBoi),
     final quantity=fill("VolumeFlowRate",nBoi),
-    final min=fill(minFloSet,nBoi),
-    final start=fill(minFloSet,nBoi))
+    final min=minFloSet,
+    final start=minFloSet)
     "Design maximum hot water flow through each boiler"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters",
@@ -757,7 +757,8 @@ model PrimaryController "Boiler plant primary loop controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatPri_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if have_varPriPum
+    final quantity="VolumeFlowRate")
+    if have_priOnl or not have_allNonCon or have_floRegPri
     "Measured hot water primary circuit flowrate"
     annotation (Placement(transformation(extent={{-440,148},{-400,188}}),
       iconTransformation(extent={{-140,120},{-100,160}})));

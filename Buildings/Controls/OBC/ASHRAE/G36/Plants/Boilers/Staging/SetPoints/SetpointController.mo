@@ -11,7 +11,8 @@ block SetpointController
   parameter Boolean have_secFloSen=false
     "True: Flowrate sensors in secondary loops;
     False: Flowrate sensor in decoupler"
-    annotation(Dialog(tab="Non-configurable", enable=false));
+    annotation(Dialog(tab="General",
+      group="Boiler plant configuration parameters"));
 
   parameter Integer nBoi
     "Number of boilers"
@@ -262,6 +263,7 @@ block SetpointController
     final quantity="VolumeFlowRate",
     final unit="m3/s",
     displayUnit="m3/s")
+    if have_priOnl or not have_allNonCon or not have_secFloSen
     "Measured primary loop hot water flow rate"
     annotation (Placement(transformation(extent={{-440,190},{-400,230}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
@@ -378,7 +380,8 @@ protected
     annotation (Placement(transformation(extent={{-310,-220},{-290,-200}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up staUp(
-    have_allNonCon=have_allNonCon,
+    final nBoi=nBoi,
+    final boiTyp=boiTyp,
     final nSta=nSta,
     final fraNonConBoi=fraNonConBoi,
     final fraConBoi=fraConBoi,

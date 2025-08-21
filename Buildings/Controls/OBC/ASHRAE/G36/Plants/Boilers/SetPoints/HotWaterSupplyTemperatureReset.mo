@@ -326,6 +326,13 @@ equation
           -30},{-42,-30}}, color={255,0,255}));
   connect(swi1.y, TPlaHotWatSupSet)
     annotation (Line(points={{82,0},{160,0}}, color={0,0,127}));
+  connect(swi1.y, swi2.u3) annotation (Line(points={{82,0},{90,0},{90,-130},{
+          -130,-130},{-130,-212},{-46,-212},{-46,-198},{-42,-198}}, color={0,0,
+          127}));
+  connect(swi1.y, addPar.u) annotation (Line(points={{82,0},{90,0},{90,-130},{
+          -130,-130},{-130,-190},{-122,-190}}, color={0,0,127}));
+  connect(swi1.y, reaRep1.u) annotation (Line(points={{82,0},{90,0},{90,-130},{
+          -130,-130},{-130,-300},{8,-300}}, color={0,0,127}));
 annotation(defaultComponentName="hotWatSupTemRes",
   Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-140,-320},{140,120}})),

@@ -423,14 +423,8 @@ equation
   connect(truDel1.y, logSwi.u1) annotation (Line(points={{22,100},{36,100},{36,-32},
           {38,-32}}, color={255,0,255}));
 
-  connect(lat.y, logSwi.u3) annotation (Line(points={{-200,0},{-196,0},{-196,-48},
-          {38,-48}}, color={255,0,255}));
-
   connect(nexBoi.yEnaSmaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points=
          {{-148,-75},{-76,-75},{-76,8},{-72,8}}, color={255,127,0}));
-
-  connect(logSwi.y, disBoi.uUpsDevSta) annotation (Line(points={{62,-40},{70,-40},
-          {70,-20},{50,-20},{50,2},{58,2}}, color={255,0,255}));
 
   connect(lat.y, disBoi.uStaDow) annotation (Line(points={{-200,0},{-196,0},{-196,
           -20},{44,-20},{44,6},{58,6}}, color={255,0,255}));
@@ -545,12 +539,16 @@ equation
   connect(or1.y, yHotWatIsoVal) annotation (Line(points={{272,-40},{300,-40}},
                                color={255,0,255}));
   connect(uBoi, disBoi.uBoi) annotation (Line(points={{-260,160},{-216,160},{-216,
-          84},{-84,84},{-84,80},{40,80},{40,16},{48,16},{48,-2},{58,-2}}, color
+          80},{40,80},{40,-2},{58,-2}},                                   color
         ={255,0,255}));
   connect(uStaChaPro, nexBoi.uStachaPro) annotation (Line(points={{-260,-130},{-230,
           -130},{-230,-73},{-172,-73}}, color={255,0,255}));
   connect(or3.y, and8.u2) annotation (Line(points={{102,-110},{120,-110},{120,-80},
           {216,-80},{216,-68},{218,-68}}, color={255,0,255}));
+  connect(logSwi.y, disBoi.uUpsDevSta) annotation (Line(points={{62,-40},{68,-40},
+          {68,-24},{52,-24},{52,2},{58,2}}, color={255,0,255}));
+  connect(lat.y, logSwi.u3) annotation (Line(points={{-200,0},{-196,0},{-196,-48},
+          {38,-48}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

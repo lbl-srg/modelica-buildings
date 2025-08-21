@@ -4,6 +4,8 @@ model Up
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up
     staUp(
+    final nBoi=2,
+    final boiTyp={1,1},
     final nSta=2,
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,
@@ -17,6 +19,8 @@ model Up
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up
     staUp1(
+    final nBoi=2,
+    final boiTyp={1,1},
     final nSta=2,
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,
@@ -30,6 +34,8 @@ model Up
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up
     staUp2(
+    final nBoi=2,
+    final boiTyp={1,1},
     final nSta=2,
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,

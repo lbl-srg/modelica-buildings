@@ -331,7 +331,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if have_varPriPum
+    final quantity="VolumeFlowRate")
+    if (have_priOnl and have_heaPriPum) or have_floReg
     "Hot water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
       iconTransformation(extent={{-140,150},{-100,190}})));
