@@ -31,33 +31,17 @@ protected
     "Boiler status setpoint"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch inPro
-    "Check if it is in the staging process"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
-
   Buildings.Controls.OBC.CDL.Logical.Switch boiSet1[2]
     "Boiler status setpoint"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Switch inPro1
-    "Check if it is in the staging process"
-    annotation (Placement(transformation(extent={{160,30},{180,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch boiSet2[2]
     "Boiler status setpoint"
     annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch inPro2
-    "Check if it is in the staging process"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
-
   Buildings.Controls.OBC.CDL.Logical.Switch boiSet3[2]
     "Boiler status setpoint"
     annotation (Placement(transformation(extent={{160,-230},{180,-210}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Switch inPro3
-    "Check if it is in the staging process"
-    annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.15,
@@ -102,17 +86,6 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
-    final width=0.5,
-    final period=120)
-    "Boolean pulse"
-    annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notIn(
-    final k=false)
-    "Not in the process"
-    annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.15,
     final period=120)
@@ -155,17 +128,6 @@ protected
     final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
-    final width=0.5,
-    final period=120)
-    "Boolean pulse"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notIn1(
-    final k=false)
-    "Not in the process"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.15,
@@ -210,17 +172,6 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul6(
-    final width=0.5,
-    final period=120)
-    "Boolean pulse"
-    annotation (Placement(transformation(extent={{-260,-290},{-240,-270}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notIn2(
-    final k=false)
-    "Not in the process"
-    annotation (Placement(transformation(extent={{-220,-310},{-200,-290}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
     final width=0.15,
     final period=120)
@@ -264,16 +215,25 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul7(
-    final width=0.5,
-    final period=120)
-    "Boolean pulse"
-    annotation (Placement(transformation(extent={{40,-290},{60,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=30)
+    "Generate stage change completion signal after it is initiated with short delay"
+    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notIn3(
-    final k=false)
-    "Not in the process"
-    annotation (Placement(transformation(extent={{80,-310},{100,-290}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=30)
+    "Generate stage change completion signal after it is initiated with short delay"
+    annotation (Placement(transformation(extent={{160,50},{180,70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
+    final delayTime=30)
+    "Generate stage change completion signal after it is initiated with short delay"
+    annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(
+    final delayTime=30)
+    "Generate stage change completion signal after it is initiated with short delay"
+    annotation (Placement(transformation(extent={{120,-280},{140,-260}})));
 
 equation
   connect(booPul.y, staUp.u)
@@ -300,15 +260,6 @@ equation
   connect(booRep.y,boiSet. u2)
     annotation (Line(points={{-158,100},{-142,100}}, color={255,0,255}));
 
-  connect(staUp.y, inPro.u2) annotation (Line(points={{-198,160},{-190,160},{-190,
-          40},{-142,40}}, color={255,0,255}));
-
-  connect(booPul4.y, inPro.u1) annotation (Line(points={{-238,40},{-220,40},{-220,
-          48},{-142,48}}, color={255,0,255}));
-
-  connect(notIn.y, inPro.u3) annotation (Line(points={{-198,20},{-160,20},{-160,
-          32},{-142,32},{-142,32}}, color={255,0,255}));
-
   connect(booPul1.y, staUp1.u)
     annotation (Line(points={{62,160},{78,160}}, color={255,0,255}));
 
@@ -330,15 +281,6 @@ equation
   connect(booRep1.y,boiSet1. u2)
     annotation (Line(points={{142,100},{158,100}}, color={255,0,255}));
 
-  connect(staUp1.y, inPro1.u2) annotation (Line(points={{102,160},{110,160},{110,
-          40},{158,40}}, color={255,0,255}));
-
-  connect(booPul5.y, inPro1.u1) annotation (Line(points={{62,40},{80,40},{80,48},
-          {158,48}}, color={255,0,255}));
-
-  connect(notIn1.y, inPro1.u3) annotation (Line(points={{102,20},{140,20},{140,32},
-          {158,32}}, color={255,0,255}));
-
   connect(booPul2.y, staDow.u)
     annotation (Line(points={{-238,-160},{-222,-160}}, color={255,0,255}));
 
@@ -359,15 +301,6 @@ equation
 
   connect(staTwoBoi2.y,boiSet2. u3) annotation (Line(points={{-238,-240},{-148,-240},
           {-148,-228},{-142,-228}}, color={255,0,255}));
-
-  connect(staDow.y, inPro2.u2) annotation (Line(points={{-198,-160},{-190,-160},
-          {-190,-280},{-142,-280}}, color={255,0,255}));
-
-  connect(booPul6.y, inPro2.u1) annotation (Line(points={{-238,-280},{-220,-280},
-          {-220,-272},{-142,-272}}, color={255,0,255}));
-
-  connect(notIn2.y, inPro2.u3) annotation (Line(points={{-198,-300},{-160,-300},
-          {-160,-288},{-142,-288}}, color={255,0,255}));
 
   connect(dowSta2.y, swi2.u1) annotation (Line(points={{-238,-80},{-200,-80},{-200,
           -92},{-182,-92}}, color={0,0,127}));
@@ -408,15 +341,6 @@ equation
   connect(staTwoBoi3.y,boiSet3. u3) annotation (Line(points={{62,-240},{152,-240},
           {152,-228},{158,-228}}, color={255,0,255}));
 
-  connect(staDow1.y, inPro3.u2) annotation (Line(points={{102,-160},{110,-160},{
-          110,-280},{158,-280}}, color={255,0,255}));
-
-  connect(booPul7.y, inPro3.u1) annotation (Line(points={{62,-280},{80,-280},{80,
-          -272},{158,-272}}, color={255,0,255}));
-
-  connect(notIn3.y, inPro3.u3) annotation (Line(points={{102,-300},{140,-300},{140,
-          -288},{158,-288}}, color={255,0,255}));
-
   connect(dowSta3.y, swi3.u1) annotation (Line(points={{62,-80},{100,-80},{100,-92},
           {118,-92}}, color={0,0,127}));
 
@@ -424,41 +348,45 @@ equation
           -108},{118,-108}}, color={0,0,127}));
 
   connect(staSet.y, nexBoi.uStaSet) annotation (Line(points={{-118,220},{-80,220},
-          {-80,187},{-62,187}}, color={255,127,0}));
+          {-80,186},{-62,186}}, color={255,127,0}));
 
   connect(boiSet.y, nexBoi.uBoiSet) annotation (Line(points={{-118,100},{-100,100},
           {-100,180},{-62,180}}, color={255,0,255}));
 
-  connect(inPro.y,nexBoi.uStaChaPro)  annotation (Line(points={{-118,40},{-80,
-          40},{-80,173},{-62,173}}, color={255,0,255}));
-
   connect(staSet1.y, nexBoi1.uStaSet) annotation (Line(points={{182,220},{220,220},
-          {220,187},{238,187}}, color={255,127,0}));
+          {220,186},{238,186}}, color={255,127,0}));
 
   connect(boiSet1.y, nexBoi1.uBoiSet) annotation (Line(points={{182,100},{200,100},
           {200,180},{238,180}}, color={255,0,255}));
 
-  connect(inPro1.y,nexBoi1.uStaChaPro)  annotation (Line(points={{182,40},{220,
-          40},{220,173},{238,173}}, color={255,0,255}));
-
   connect(staSet2.y, nexBoi2.uStaSet) annotation (Line(points={{-118,-100},{-80,
-          -100},{-80,-133},{-62,-133}}, color={255,127,0}));
+          -100},{-80,-134},{-62,-134}}, color={255,127,0}));
 
   connect(boiSet2.y, nexBoi2.uBoiSet) annotation (Line(points={{-118,-220},{-100,
           -220},{-100,-140},{-62,-140}}, color={255,0,255}));
 
-  connect(inPro2.y,nexBoi2.uStaChaPro)  annotation (Line(points={{-118,-280},{-80,
-          -280},{-80,-147},{-62,-147}}, color={255,0,255}));
-
   connect(staSet3.y, nexBoi3.uStaSet) annotation (Line(points={{182,-100},{220,-100},
-          {220,-133},{238,-133}}, color={255,127,0}));
-
-  connect(inPro3.y,nexBoi3.uStaChaPro)  annotation (Line(points={{182,-280},{
-          220,-280},{220,-147},{238,-147}}, color={255,0,255}));
+          {220,-134},{238,-134}}, color={255,127,0}));
 
   connect(boiSet3.y, nexBoi3.uBoiSet) annotation (Line(points={{182,-220},{200,-220},
           {200,-140},{238,-140}}, color={255,0,255}));
 
+  connect(staUp.y, truDel.u) annotation (Line(points={{-198,160},{-190,160},{-190,
+          50},{-182,50}}, color={255,0,255}));
+  connect(truDel.y, nexBoi.uStaChaPro) annotation (Line(points={{-158,50},{-88,50},
+          {-88,174},{-62,174}}, color={255,0,255}));
+  connect(staUp1.y, truDel1.u) annotation (Line(points={{102,160},{110,160},{110,
+          60},{158,60}}, color={255,0,255}));
+  connect(truDel1.y, nexBoi1.uStaChaPro) annotation (Line(points={{182,60},{220,
+          60},{220,174},{238,174}}, color={255,0,255}));
+  connect(staDow.y, truDel2.u) annotation (Line(points={{-198,-160},{-190,-160},
+          {-190,-260},{-142,-260}}, color={255,0,255}));
+  connect(truDel2.y, nexBoi2.uStaChaPro) annotation (Line(points={{-118,-260},{-80,
+          -260},{-80,-146},{-62,-146}}, color={255,0,255}));
+  connect(truDel3.y, nexBoi3.uStaChaPro) annotation (Line(points={{142,-270},{220,
+          -270},{220,-146},{238,-146}}, color={255,0,255}));
+  connect(staDow1.y, truDel3.u) annotation (Line(points={{102,-160},{110,-160},{
+          110,-270},{118,-270}}, color={255,0,255}));
 annotation (
  experiment(StopTime=120, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/Processes/Subsequences/Validation/NextBoiler.mos"
