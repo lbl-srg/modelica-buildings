@@ -57,7 +57,7 @@ model Controller
     final have_heaPriPum=true,
     final have_priOnl=false,
     final have_varPriPum=true,
-    use_priSecFloSen=true,
+    final use_priSecFloSen=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -83,7 +83,7 @@ model Controller
     final have_heaPriPum=true,
     final have_priOnl=false,
     final have_varPriPum=true,
-    use_priSecFloSen=false,
+    final use_priSecFloSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -109,7 +109,7 @@ model Controller
     final have_heaPriPum=true,
     final have_priOnl=false,
     final have_varPriPum=true,
-    use_priTemSen=true,
+    final use_priTemSen=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -145,7 +145,7 @@ model Controller
     final have_heaPriPum=true,
     final have_priOnl=false,
     final have_varPriPum=true,
-    use_priTemSen=false,
+    final use_priTemSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -181,7 +181,7 @@ model Controller
     final have_heaPriPum=true,
     final have_priOnl=false,
     final have_varPriPum=false,
-    use_priTemSen=false,
+    final use_priTemSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -217,7 +217,7 @@ model Controller
     final have_heaPriPum=false,
     final have_priOnl=false,
     final have_varPriPum=true,
-    use_priSecFloSen=true,
+    final use_priSecFloSen=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -243,7 +243,7 @@ model Controller
     final have_heaPriPum=false,
     final have_priOnl=false,
     final have_varPriPum=true,
-    use_priSecFloSen=false,
+    final use_priSecFloSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -269,7 +269,7 @@ model Controller
     final have_heaPriPum=false,
     final have_priOnl=false,
     final have_varPriPum=true,
-    use_priTemSen=true,
+    final use_priTemSen=true,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -305,7 +305,7 @@ model Controller
     final have_heaPriPum=false,
     final have_priOnl=false,
     final have_varPriPum=true,
-    use_priTemSen=false,
+    final use_priTemSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -341,7 +341,7 @@ model Controller
     final have_heaPriPum=false,
     final have_priOnl=false,
     final have_varPriPum=false,
-    use_priTemSen=false,
+    final use_priTemSen=false,
     final nPum=2,
     final nBoi=2,
     final nSen=2,
@@ -1060,66 +1060,59 @@ protected
     "Edge detector"
     annotation (Placement(transformation(extent={{160,-540},{180,-520}})));
 
-  CDL.Logical.Sources.Pulse                      booPul
-                                                    [2](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul[2](
     final width=fill(0.95, 2),
     final period=fill(3600, 2),
     final shift=fill(10, 2))
     "Real pulse signal"
     annotation (Placement(transformation(extent={{-336,408},{-316,428}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
-    final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[2](
+    final k=fill(1, 2))
     "Constant Real source"
     annotation (Placement(transformation(extent={{-270,360},{-250,380}})));
 
-  CDL.Logical.Sources.Pulse                      booPul2
-                                                     [2](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2[2](
     final width=fill(0.95, 2),
     final period=fill(3600, 2),
     final shift=fill(10, 2))
     "Real pulse signal"
     annotation (Placement(transformation(extent={{0,400},{20,420}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
-    final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3[2](
+    final k=fill(1, 2))
     "Constant Real source"
     annotation (Placement(transformation(extent={{80,380},{100,400}})));
 
-  CDL.Logical.Sources.Pulse                      booPul4
-                                                     [2](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4[2](
     final width=fill(0.95, 2),
     final period=fill(3600, 2),
     final shift=fill(10, 2))
     "Real pulse signal"
     annotation (Placement(transformation(extent={{-330,260},{-310,280}})));
 
-  CDL.Logical.Sources.Pulse                      booPul6
-                                                     [2](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul6[2](
     final width=fill(0.95, 2),
     final period=fill(3600, 2),
     final shift=fill(10, 2))
     "Real pulse signal"
     annotation (Placement(transformation(extent={{10,240},{30,260}})));
 
-  CDL.Logical.Sources.Pulse                      booPul8
-                                                     [2](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul8[2](
     final width=fill(0.95, 2),
     final period=fill(3600, 2),
     final shift=fill(10, 2))
     "Real pulse signal"
     annotation (Placement(transformation(extent={{-330,100},{-310,120}})));
 
-  CDL.Logical.Sources.Pulse                      booPul10
-                                                     [2](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul10[2](
     final width=fill(0.95, 2),
     final period=fill(3600, 2),
     final shift=fill(10, 2))
     "Real pulse signal"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
 
-  CDL.Logical.Sources.Pulse                      booPul12
-                                                     [2](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul12[2](
     final width=fill(0.95, 2),
     final period=fill(3600, 2),
     final shift=fill(10, 2))
@@ -1164,37 +1157,37 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{150,-430},{170,-410}})));
 
-  CDL.Logical.MultiOr                       mulOr10(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr10(
     final nin=2)
     "Sum of isolation valve positions"
     annotation (Placement(transformation(extent={{-300,440},{-280,460}})));
 
-  CDL.Logical.MultiOr                       mulOr11(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr11(
     final nin=2)
     "Sum of isolation valve positions"
     annotation (Placement(transformation(extent={{30,440},{50,460}})));
 
-  CDL.Logical.MultiOr                       mulOr12(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr12(
     final nin=2)
     "Sum of isolation valve positions"
     annotation (Placement(transformation(extent={{-300,300},{-280,320}})));
 
-  CDL.Logical.MultiOr                       mulOr13(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr13(
     final nin=2)
     "Sum of isolation valve positions"
     annotation (Placement(transformation(extent={{50,280},{70,300}})));
 
-  CDL.Logical.MultiOr                       mulOr14(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr14(
     final nin=2)
     "Sum of isolation valve positions"
     annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
 
-  CDL.Logical.MultiOr                       mulOr15(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr15(
     final nin=2)
     "Sum of isolation valve positions"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
-  CDL.Logical.MultiOr                       mulOr16(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr16(
     final nin=2)
     "Sum of isolation valve positions"
     annotation (Placement(transformation(extent={{-300,-40},{-280,-20}})));

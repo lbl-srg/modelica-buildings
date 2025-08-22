@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic;
 block Speed_remoteDp
-  "Pump speed control for plants where the remote DP sensor(s) is hardwired to the plant controller"
+  "Pump speed control for plants where the remote DP sensor(s) is hardwired to the
+  plant controller"
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -48,10 +49,10 @@ block Speed_remoteDp
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
-    final unit="Pa",
-    displayUnit="Pa",
-    final quantity="PressureDifference")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet[nSen](
+    final unit=fill("Pa", nSen),
+    displayUnit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference", nSen))
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -89,11 +90,6 @@ protected
     final nin=nPum)
     "Check if any hot water primary pumps are enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=nSen)
-    "Replicate real input"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
@@ -134,8 +130,6 @@ protected
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
 equation
-  connect(dpHotWatSet, reaRep.u)
-    annotation (Line(points={{-140,-100},{-102,-100}}, color={0,0,127}));
 
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{2,80},{20,80},{20,68},{58,68}}, color={0,0,127}));
@@ -155,10 +149,6 @@ equation
 
   connect(dpHotWat, div.u1)
     annotation (Line(points={{-140,-60},{-40,-60},{-40,-74},{-22,-74}},
-      color={0,0,127}));
-
-  connect(reaRep.y, div.u2)
-    annotation (Line(points={{-78,-100},{-40,-100},{-40,-86},{-22,-86}},
       color={0,0,127}));
 
   connect(one.y, reaRep1.u)
@@ -188,6 +178,8 @@ equation
           {78,92}}, color={0,0,127}));
   connect(mulOr.y, booRep.u) annotation (Line(points={{-78,0},{-50,0},{-50,-40},
           {-12,-40}}, color={255,0,255}));
+  connect(dpHotWatSet, div.u2) annotation (Line(points={{-140,-100},{-40,-100},{
+          -40,-86},{-22,-86}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

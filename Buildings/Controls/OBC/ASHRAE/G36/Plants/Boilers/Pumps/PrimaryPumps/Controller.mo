@@ -290,8 +290,7 @@ block Controller
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
       iconTransformation(extent={{-140,270},{-100,310}})));
 
-  CDL.Interfaces.BooleanInput                     uHotIsoVal[nBoi]
-                     if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotIsoVal[nBoi] if have_heaPriPum
     "Hot water isolation valve status"
     annotation (Placement(transformation(extent={{-320,50},{-280,90}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
@@ -320,10 +319,10 @@ block Controller
     annotation (Placement(transformation(extent={{-320,-500},{-280,-460}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
-    final unit="Pa",
-    final quantity="PressureDifference") if have_priOnl and have_varPriPum
-     and (have_locDPReg or have_remDPReg)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet[nSen](
+    final unit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference", nSen))
+    if have_priOnl and have_varPriPum and (have_locDPReg or have_remDPReg)
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-530},{-280,-490}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));

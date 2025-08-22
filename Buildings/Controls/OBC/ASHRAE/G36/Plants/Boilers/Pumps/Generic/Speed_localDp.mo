@@ -60,7 +60,7 @@ block Speed_localDp
     final unit="Pa",
     final quantity="PressureDifference")
     "Hot water differential static pressure from local sensor"
-    annotation (Placement(transformation(extent={{-180,70},{-140,110}}),
+    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWat_remote[nSen](
@@ -71,10 +71,10 @@ block Speed_localDp
     annotation (Placement(transformation(extent={{-180,-110},{-140,-70}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
-    final unit="Pa",
-    final quantity="PressureDifference",
-    displayUnit="Pa")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet[nSen](
+    final unit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference", nSen),
+    displayUnit=fill("Pa", nSen))
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -98,7 +98,7 @@ block Speed_localDp
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.Speed_remoteDp hotPumSpe(
     controllerType=controllerType,
-    final nSen=1,
+    final nSen=nSen,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
     final k=k,
@@ -108,6 +108,11 @@ block Speed_localDp
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
+    final nout=nSen)
+    "Replicate real input"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
@@ -122,11 +127,6 @@ protected
     final nin=nPum)
     "Check if any hot water pumps are enabled"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=nSen)
-    "Replicate real input"
-    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
@@ -162,9 +162,12 @@ protected
     "Replicate real input"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep2(
+    final nout=nSen)
+    "Replicate real input"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+
 equation
-  connect(dpHotWatSet, reaRep.u)
-    annotation (Line(points={{-160,-120},{-122,-120}}, color={0,0,127}));
 
   connect(maxRemDP.y, locDpSet.u)
     annotation (Line(points={{62,-20},{98,-20}}, color={0,0,127}));
@@ -188,10 +191,6 @@ equation
     annotation (Line(points={{-160,-90},{-80,-90},{-80,-94},{-42,-94}},
       color={0,0,127}));
 
-  connect(reaRep.y, div.u2)
-    annotation (Line(points={{-98,-120},{-80,-120},{-80,-106},{-42,-106}},
-      color={0,0,127}));
-
   connect(one.y, reaRep1.u)
     annotation (Line(points={{-98,20},{-90,20},{-90,0},{-82,0}}, color={0,0,127}));
 
@@ -201,10 +200,6 @@ equation
           -102,-50}},                color={255,0,255}));
   connect(uHotWatPum, hotPumSpe.uHotWatPum) annotation (Line(points={{-160,-50},
           {-130,-50},{-130,98},{58,98}}, color={255,0,255}));
-  connect(locDpSet.y, hotPumSpe.dpHotWatSet) annotation (Line(points={{122,-20},
-          {130,-20},{130,72},{40,72},{40,82},{58,82}}, color={0,0,127}));
-  connect(dpHotWat_local, hotPumSpe.dpHotWat[1])
-    annotation (Line(points={{-160,90},{58,90}}, color={0,0,127}));
 
   connect(booRep.y, conPID.trigger)
     annotation (Line(points={{-18,-50},{4,-50},{4,-32}},color={255,0,255}));
@@ -217,6 +212,16 @@ equation
 
   connect(mulOr.y, booRep.u)
     annotation (Line(points={{-78,-50},{-42,-50}}, color={255,0,255}));
+  connect(dpHotWatSet, div.u2) annotation (Line(points={{-160,-120},{-80,-120},{
+          -80,-106},{-42,-106}}, color={0,0,127}));
+  connect(locDpSet.y, reaRep.u) annotation (Line(points={{122,-20},{130,-20},{130,
+          50},{10,50},{10,70},{18,70}}, color={0,0,127}));
+  connect(reaRep.y, hotPumSpe.dpHotWatSet) annotation (Line(points={{42,70},{50,
+          70},{50,82},{58,82}}, color={0,0,127}));
+  connect(dpHotWat_local, reaRep2.u)
+    annotation (Line(points={{-160,80},{-42,80}}, color={0,0,127}));
+  connect(reaRep2.y, hotPumSpe.dpHotWat) annotation (Line(points={{-18,80},{0,80},
+          {0,90},{58,90}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
