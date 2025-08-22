@@ -856,7 +856,7 @@ block Controller "Chiller plant controller"
     final unit=fill("K", nChi),
     displayUnit=fill("degC", nChi),
     final quantity=fill("ThermodynamicTemperature", nChi)) if not have_airCoo
-    "Measured condenser water return temperature (condenser leaving)"
+    "Measured condenser water return temperature (condenser leaving) from each chiller"
     annotation (Placement(transformation(extent={{-940,220},{-900,260}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
 
@@ -1051,10 +1051,11 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{920,460},{960,500}}),
       iconTransformation(extent={{100,150},{140,190}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem(final quantity="HeatFlowRate",
-      final unit="W") if have_priOnl or use_loadShed
-    "Chiller demand setpoint to set through BACnet or similar " annotation (
-      Placement(transformation(extent={{920,400},{960,440}}),
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem(
+    final quantity="HeatFlowRate",
+    final unit="W") if have_priOnl or use_loadShed
+    "Chiller demand setpoint to set through BACnet or similar "
+    annotation (Placement(transformation(extent={{920,400},{960,440}}),
         iconTransformation(extent={{100,120},{140,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
@@ -1136,13 +1137,13 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{920,-680},{960,-640}}),
       iconTransformation(extent={{100,-230},{140,-190}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowFanSpe[nTowCel](
-    final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel)) if not have_airCoo
-    "Fan speed setpoint of each cooling tower cell"
-    annotation (Placement(transformation(extent={{920,-720},{960,-680}}),
-      iconTransformation(extent={{100,-260},{140,-220}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTowFanSpe(
+    final min=0,
+    final max=1,
+    final unit="1") if not have_airCoo
+    "Fan speed setpoint of enabled cooling tower cell" annotation (Placement(
+        transformation(extent={{920,-720},{960,-680}}), iconTransformation(
+          extent={{100,-260},{140,-220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMakUp if not have_airCoo
     "Makeup water valve On-Off status"
@@ -1405,11 +1406,6 @@ block Controller "Chiller plant controller"
     "Staging up process controller"
     annotation(Placement(transformation(extent={{180,280},{260,440}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(
-    final nin=nTowCel) if have_WSE and not have_airCoo
-    "All input values are the same"
-    annotation(Placement(transformation(extent={{-60,-590},{-40,-570}})));
-
   Buildings.Controls.OBC.CDL.Logical.Or chaProUpDown
     "Either in staging up or in staging down process"
     annotation(Placement(transformation(extent={{380,-90},{400,-70}})));
@@ -1590,7 +1586,7 @@ block Controller "Chiller plant controller"
     "Constant zero"
     annotation (Placement(transformation(extent={{700,-590},{720,-570}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nTowCel] if not have_airCoo
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 if not have_airCoo
     "Tower cell fan speed setpoint"
     annotation (Placement(transformation(extent={{880,-710},{900,-690}})));
 
@@ -1671,16 +1667,15 @@ protected
     "Average lifts of the enabled chillers"
     annotation (Placement(transformation(extent={{-500,360},{-480,380}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub if have_WSE and not have_airCoo
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Temperature difference"
     annotation (Placement(transformation(extent={{-558,-550},{-538,-530}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=rho*Cp)
-    if have_WSE and not have_airCoo
     "Find product of the inputs"
     annotation (Placement(transformation(extent={{-560,-630},{-540,-610}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul if have_WSE and not have_airCoo
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Find product of the inputs"
     annotation (Placement(transformation(extent={{-460,-520},{-440,-500}})));
 
@@ -1713,9 +1708,6 @@ equation
           {-580,-636},{-268,-636}}, color={255,0,255}));
   connect(wetBul.TWetBul, staSetCon.TOutWet) annotation(Line(points={{-838,370},
           {-756,370},{-756,-20},{-268,-20}}, color={0,0,127}));
-  connect(mulMax.y, staSetCon.uTowFanSpeMax) annotation(Line(points={{-38,-580},
-          {0,-580},{0,-360},{-780,-360},{-780,-36},{-268,-36}},
-        color={0,0,127}));
   connect(staSetCon.ySta, upProCon.uStaSet) annotation(Line(points={{-172,-24},{
           -140,-24},{-140,436},{172,436}}, color={255,127,0}));
   connect(staSetCon.ySta, dowProCon.uStaSet) annotation(Line(points={{-172,-24},
@@ -1730,8 +1722,6 @@ equation
           {340,-144},{340,-88},{378,-88}}, color={255,0,255}));
   connect(uChi, dowProCon.uChi) annotation(Line(points={{-920,400},{-800,400},{-800,
           -184},{172,-184}}, color={255,0,255}));
-  connect(mulMax.y, wseSta.uTowFanSpeMax) annotation(Line(points={{-38,-580},{0,
-          -580},{0,-360},{-780,-360},{-780,338},{-704,338}},       color={0,0,127}));
   connect(towCon.yMakUp, yMakUp) annotation(Line(points={{-172,-708},{-140,-708},
           {-140,-760},{940,-760}}, color={255,0,255}));
   connect(uChiWatPum, chiWatPlaRes.uChiWatPum) annotation(Line(points={{-920,574},
@@ -1862,8 +1852,6 @@ equation
           -500},{180,-530},{-320,-530},{-320,-692},{-268,-692}}, color={255,0,255}));
   connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{
           590,-420},{90,-420},{90,-500},{98,-500}},    color={255,0,255}));
-  connect(towCon.ySpeSet, mulMax.u) annotation (Line(points={{-172,-684},{-100,
-          -684},{-100,-580},{-62,-580}}, color={0,0,127}));
   connect(chiStaUp.y, desConWatPumSpeSwi.u2) annotation (Line(points={{402,320},
           {420,320},{420,200},{478,200}}, color={255,0,255}));
   connect(chiStaUp.y, uChiSwi.u) annotation (Line(points={{402,320},{420,320},{420,
@@ -2031,8 +2019,6 @@ equation
           {878,-628}}, color={0,0,127}));
   connect(swi1.y, yTowFanSpe)
     annotation (Line(points={{902,-700},{940,-700}}, color={0,0,127}));
-  connect(con1.y, swi1.u3) annotation (Line(points={{722,-580},{740,-580},{740,-708},
-          {878,-708}}, color={0,0,127}));
   connect(towCon.ySpeSet, swi1.u1) annotation (Line(points={{-172,-684},{-100,-684},
           {-100,-692},{878,-692}}, color={0,0,127}));
   connect(uChi, ideSta.uChi) annotation (Line(points={{-920,400},{-800,400},{-800,
@@ -2057,8 +2043,6 @@ equation
           -580},{820,-668},{838,-668}}, color={255,0,255}));
   connect(booScaRep3.y, swi.u2) annotation (Line(points={{802,-580},{820,-580},
           {820,-620},{878,-620}}, color={255,0,255}));
-  connect(booScaRep3.y, swi1.u2) annotation (Line(points={{802,-580},{820,-580},
-          {820,-700},{878,-700}}, color={255,0,255}));
   connect(chiHeaCon.y, heaPreCon.uChiHeaCon) annotation (Line(points={{542,280},
           {560,280},{560,260},{-550,260},{-550,220},{-524,220}}, color={255,0,
           255}));
@@ -2154,6 +2138,13 @@ equation
           {-650,240},{-650,212},{-524,212}}, color={0,0,127}));
   connect(chiStaUp.y, chiDem.u2) annotation (Line(points={{402,320},{420,320},{420,
           420},{638,420}}, color={255,0,255}));
+  connect(towCon.ySpeSet, wseSta.uTowFanSpeMax) annotation (Line(points={{-172,-684},
+          {-100,-684},{-100,-360},{-780,-360},{-780,338},{-704,338}}, color={0,0,
+          127}));
+  connect(con1[1].y, swi1.u3) annotation (Line(points={{722,-580},{740,-580},{740,
+          -708},{878,-708}}, color={0,0,127}));
+  connect(booScaRep3.y[1], swi1.u2) annotation (Line(points={{802,-580.75},{820,
+          -580.75},{820,-700},{878,-700}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),

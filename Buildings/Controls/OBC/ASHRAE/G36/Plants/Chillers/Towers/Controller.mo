@@ -301,13 +301,12 @@ block Controller "Cooling tower controller"
     "Vector of tower cells status setpoint"
     annotation (Placement(transformation(extent={{100,-130},{140,-90}}),
       iconTransformation(extent={{100,-70},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet[nTowCel](
-    final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel)) if have_conWatRetCon
-    "Fan speed setpoint of each cooling tower cell"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
+    final min=0,
+    final max=1,
+    final unit="1") if have_conWatRetCon "Fan speed setpoint for enabled cell"
     annotation (Placement(transformation(extent={{100,-170},{140,-130}}),
-      iconTransformation(extent={{100,-130},{140,-90}})));
+        iconTransformation(extent={{100,-130},{140,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMakUp
     "Makeup water valve On-Off status"
     annotation (Placement(transformation(extent={{100,-260},{140,-220}}),
@@ -372,30 +371,24 @@ protected
     final watLevMax=watLevMax)
     "Make up water control"
     annotation (Placement(transformation(extent={{-20,-250},{0,-230}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel] if have_conWatRetCon
-                                                       "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi if have_conWatRetCon
+    "Logical switch"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nTowCel](
-    final k=fill(0, nTowCel)) "Zero constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
+    "Zero constant"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=nTowCel) if have_conWatRetCon
-                        "Replicate real input"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nin=nTowCel)
+    "Check if there is any enabled cell"
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 
 equation
   connect(towSta.yTowSta, yTowSta)
-    annotation (Line(points={{2,-54},{20,-54},{20,-110},{120,-110}}, color={255,0,255}));
+    annotation (Line(points={{2,-54},{10,-54},{10,-110},{120,-110}}, color={255,0,255}));
   connect(towSta.yIsoVal, yIsoVal)
     annotation (Line(points={{2,-50},{40,-50},{40,-70},{120,-70}}, color={0,0,127}));
-  connect(towSta.yTowSta, swi.u2)
-    annotation (Line(points={{2,-54},{20,-54},{20,-150},{58,-150}}, color={255,0,255}));
-  connect(towFanSpe.ySpeSet, reaRep.u)
-    annotation (Line(points={{2,40},{18,40}}, color={0,0,127}));
-  connect(reaRep.y, swi.u1)
-    annotation (Line(points={{42,40},{50,40},{50,-142},{58,-142}}, color={0,0,127}));
   connect(zer.y, swi.u3)
-    annotation (Line(points={{22,-180},{40,-180},{40,-158},{58,-158}},
+    annotation (Line(points={{22,-180},{50,-180},{50,-158},{58,-158}},
       color={0,0,127}));
   connect(towFanSpe.uChiLoa, uChiLoa) annotation (Line(points={{-22,59},{-40,59},
           {-40,240},{-120,240}}, color={0,0,127}));
@@ -451,6 +444,12 @@ equation
           24.2},{34,24},{60,24},{60,80},{120,80}}, color={0,0,127}));
   connect(towFanSpe.yLifMin, yLifMin) annotation (Line(points={{2,21.2},{70,
           21.2},{70,52},{120,52}}, color={0,0,127}));
+  connect(towFanSpe.ySpeSet, swi.u1) annotation (Line(points={{2,40},{50,40},{50,
+          -142},{58,-142}}, color={0,0,127}));
+  connect(mulOr.y, swi.u2)
+    annotation (Line(points={{42,-150},{58,-150}}, color={255,0,255}));
+  connect(towSta.yTowSta, mulOr.u) annotation (Line(points={{2,-54},{10,-54},{10,
+          -150},{18,-150}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={

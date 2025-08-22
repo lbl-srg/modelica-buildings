@@ -32,6 +32,8 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
         iconTransformation(extent={{-200,-150},{-160,-110}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller chiPlaCon(
+    final plaStaMat=[0,0; 1,0; 1,1],
+    final staMat=[1,0; 1,1],
     final dpChiWatMax={160000},
     final chiDesCap={chiDesCap,chiDesCap},
     final chiMinCap={chiDesCap*0.1,chiDesCap*0.1},
@@ -39,7 +41,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     final nSenChiWatPum=1,
     final have_fixSpeConWatPum=true,
     final totSta=3,
-    final staVec={0,1,2},
     final desConWatPumSpe={0,0.5,0.75},
     final desConWatPumNum={0,2,2},
     final towCelOnSet={0,2,2},
@@ -144,7 +145,17 @@ protected
     final realTrue=fill(0.9,2))
     "Fixed condenser water pump speed"
     annotation (Placement(transformation(extent={{40,150},{60,170}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal           booToRea1
+                                                               [2](final
+      realTrue=fill(1, 2)) "Tower cell enabling status"
+    annotation (Placement(transformation(extent={{20,300},{40,320}})));
 
+public
+  Controls.OBC.CDL.Reals.Multiply mul[2] "Cell Speed"
+    annotation (Placement(transformation(extent={{140,280},{160,300}})));
+  Controls.OBC.CDL.Routing.RealScalarReplicator towSpe(nout=2)
+    "Tower cell speed"
+    annotation (Placement(transformation(extent={{20,200},{40,220}})));
 equation
   connect(chwIsoVal1.y_actual, chiWatIso[1].u) annotation (Line(points={{235,77},
           {100,77},{100,360},{-480,360},{-480,330},{-402,330}}, color={0,0,127}));
@@ -271,10 +282,6 @@ equation
           {-10,43},{-10,400},{380,400},{380,392}},                 color={0,0,127}));
   connect(chiPlaCon.yTowCelIsoVal[2], towIsoVal2.y) annotation (Line(points={{-96,45},
           {-10,45},{-10,332},{380,332},{380,322}},       color={0,0,127}));
-  connect(chiPlaCon.yTowFanSpe[1], cooTow1.y) annotation (Line(points={{-96,31},
-          {-32,31},{-32,410},{352,410},{352,388},{342,388}},   color={0,0,127}));
-  connect(chiPlaCon.yTowFanSpe[2], cooTow2.y) annotation (Line(points={{-96,33},
-          {-32,33},{-32,340},{352,340},{352,318},{342,318}},   color={0,0,127}));
   connect(chiPlaCon.yChiWatIsoVal[1], chwIsoVal1.y) annotation (Line(points={{-96,60},
           {40,60},{40,106},{240,106},{240,82}},              color={0,0,127}));
   connect(chiPlaCon.yChiWatIsoVal[2], chwIsoVal2.y) annotation (Line(points={{-96,60},
@@ -315,6 +322,18 @@ equation
   connect(chiConWatRetTem2.T, chiPlaCon.TConWatRet[2]) annotation (Line(points=
           {{390,21},{390,40},{376,40},{376,226},{-190,226},{-190,100},{-144,100}},
         color={0,0,127}));
+  connect(chiPlaCon.yTowCel, booToRea1.u) annotation (Line(points={{-96,38},{-30,
+          38},{-30,310},{18,310}}, color={255,0,255}));
+  connect(chiPlaCon.yTowFanSpe, towSpe.u) annotation (Line(points={{-96,32},{-20,
+          32},{-20,210},{18,210}}, color={0,0,127}));
+  connect(booToRea1.y, mul.u1) annotation (Line(points={{42,310},{120,310},{120,
+          296},{138,296}}, color={0,0,127}));
+  connect(towSpe.y, mul.u2) annotation (Line(points={{42,210},{120,210},{120,284},
+          {138,284}}, color={0,0,127}));
+  connect(mul[1].y, cooTow1.y) annotation (Line(points={{162,290},{180,290},{180,
+          408},{352,408},{352,388},{342,388}}, color={0,0,127}));
+  connect(mul[2].y, cooTow2.y) annotation (Line(points={{162,290},{180,290},{180,
+          340},{352,340},{352,318},{342,318}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
             {160,-200}}), graphics={
         Rectangle(
