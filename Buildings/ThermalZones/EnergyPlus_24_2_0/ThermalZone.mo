@@ -5,11 +5,11 @@ model ThermalZone
     Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter Boolean autosizeHVAC=true
+  parameter Boolean autosizeHVAC=false
     "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model"
     annotation(Dialog(group="Autosizing"));
-  parameter String systemName = if not autosizeHVAC then "unconditioned" else "default"
-    "Name of the HVAC system that this zone belongs to for auto-sizing"
+parameter String systemName = "default"
+    "Name of the HVAC system that this zone belongs if autosizeHVAC=true"
     annotation(Dialog(group="Autosizing", enable=autosizeHVAC));
   parameter Boolean use_sizingPeriods=true
     "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file"

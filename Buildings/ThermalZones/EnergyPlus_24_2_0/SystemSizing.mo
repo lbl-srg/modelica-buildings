@@ -5,7 +5,12 @@ model SystemSizing
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
 
   parameter String systemName "Name of HVAC system to group autosizing";
-
+  parameter Boolean autosizeHVAC
+    "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica"
+    annotation(Dialog(group="Auto-sizing"));
+  parameter Boolean use_sizingPeriods
+    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file"
+    annotation(Dialog(group="Auto-sizing"));
   Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing sizCoo
     "Sizing parameters for zone cooling load"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -28,6 +33,7 @@ protected
     fixed=false,
     start=0)
     "Total number of Spawn objects in building";
+  parameter String autosizeHVACStr = if autosizeHVAC then "true" else "false";
   Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject(
     objectType=4,
     startTime=startTime,
@@ -39,8 +45,8 @@ protected
     epwName=epwName,
     epName="hvac_sizing_group_"+systemName,
     systemName="n/a",
-    autosizeHVAC=true,
-    use_sizingPeriods=true,
+    autosizeHVAC=autosizeHVAC,
+    use_sizingPeriods=use_sizingPeriods,
     runPeriod=building.runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     usePrecompiledFMU=usePrecompiledFMU,
@@ -49,7 +55,7 @@ protected
     logLevel=logLevel,
     printUnit=false,
     jsonName="modelicaSystems",
-    jsonKeysValues="        \"name\": \""+systemName+"\"",
+    jsonKeysValues="        \"name\": \""+systemName+"\",\n        \"autosize\": \""+autosizeHVACStr+"\"",
     parOutNames={"QCooSen_flow","QCooLat_flow","TOutCoo",
                  "XOutCoo","TCoo","QHea_flow","TOutHea","XOutHea","mOutCoo_flow",
                  "mOutHea_flow","THea"},
