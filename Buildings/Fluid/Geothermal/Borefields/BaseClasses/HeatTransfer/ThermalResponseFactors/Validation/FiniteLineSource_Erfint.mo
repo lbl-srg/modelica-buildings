@@ -16,6 +16,7 @@ equation
   erfint = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(u=u);
   der(erfint_num) = Modelica.Math.Special.erf(u);
   err = erfint - erfint_num;
+  assert(err < 1E-3, "Error exceeded tolerance.");
 
   annotation (
     __Dymola_Commands(file=
@@ -29,6 +30,13 @@ integral of the error function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2025, by Hongxiang Fu:<br/>
+Added an assert-statement for <code>err</code>
+and removed it from reference results.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
+</li>
 <li>
 July 17, 2018, by Massimo Cimmino:<br/>
 First implementation.
