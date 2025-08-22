@@ -45,7 +45,7 @@ block Up
     "Enable delay for heating capacity and heating requirement"
     annotation(Dialog(group="Efficiency condition"));
 
-  parameter Real TDif(
+  parameter Real dTFai(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") = 10
@@ -53,7 +53,7 @@ block Up
     for failsafe condition"
     annotation(Dialog(group="Failsafe condition"));
 
-  parameter Real TDifHys(
+  parameter Real dTHys(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") = 1
@@ -160,8 +160,8 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
     final delEna=delFaiCon,
-    final TDif=TDif,
-    final TDifHys=TDifHys)
+    final dTFai=dTFai,
+    final dTHys=dTHys)
     "Failsafe condition for staging up and down"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 

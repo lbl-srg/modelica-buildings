@@ -12,7 +12,8 @@ block SetpointController
     "True: Flowrate sensors in secondary loops;
     False: Flowrate sensor in decoupler"
     annotation(Dialog(tab="General",
-      group="Boiler plant configuration parameters"));
+      group="Boiler plant configuration parameters",
+      enable=not have_priOnl));
 
   parameter Integer nBoi
     "Number of boilers"
@@ -86,7 +87,7 @@ block SetpointController
     "Enable delay for heating capacity requirement condition"
     annotation(Dialog(tab="Staging parameters", group="Efficiency condition parameters"));
 
-  parameter Real TDif(
+  parameter Real dTFai(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 10
@@ -106,7 +107,7 @@ block SetpointController
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Advanced", group="Efficiency condition parameters"));
 
-  parameter Real TDifHys(
+  parameter Real dTHys(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 1
@@ -160,7 +161,7 @@ block SetpointController
         tab="Staging parameters",
         group="Staging down parameters"));
 
-  parameter Real TCirDif(
+  parameter Real dTCir(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 3
@@ -197,13 +198,6 @@ block SetpointController
         enable=have_priOnl,
         tab="Advanced",
         group="Staging down parameters"));
-
-  parameter Real dTemp(
-    final unit="K",
-    displayUnit="K",
-    final quantity="TemperatureDifference") = 0.1
-    "Hysteresis deadband for measured temperatures"
-    annotation (Dialog(tab="Advanced", group="Failsafe condition parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
     "Signal indicating end of stage change process"
@@ -387,8 +381,8 @@ protected
     final fraConBoi=fraConBoi,
     final sigDif=sigDif,
     final delEffCon=delEffCon,
-    final TDif=TDif,
-    final TDifHys=TDifHys,
+    final dTFai=dTFai,
+    final dTHys=dTHys,
     final delFaiCon=delFaiCon)
     "Staging up calculator"
     annotation (Placement(transformation(extent={{-140,-116},{-120,-84}})));
@@ -405,10 +399,10 @@ protected
     final sigDif=sigDif,
     final delBypVal=delBypVal,
     final bypValClo=bypValClo,
-    final TCirDif=TCirDif,
+    final dTCir=dTCir,
     final delTRetDif=delTRetDif,
-    final dTemp=dTemp,
-    final TDif=TDif,
+    final dTHys=dTHys,
+    final dTFai=dTFai,
     final delFaiCon=delFaiCon,
     final boiMinPriPumSpeSta=boiMinPriPumSpeSta)
     "Staging down calculator"

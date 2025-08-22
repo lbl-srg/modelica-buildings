@@ -78,7 +78,7 @@ block Down
         enable=have_priOnl,
         tab="Advanced"));
 
-  parameter Real TCirDif(
+  parameter Real dTCir(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 3
@@ -103,14 +103,14 @@ block Down
                   (have_priOnl),
         group="Return temperature condition parameters"));
 
-  parameter Real dTemp(
+  parameter Real dTHys(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 0.1
     "Hysteresis deadband for measured temperatures"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Real TDif(
+  parameter Real dTFai(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 10
@@ -234,9 +234,9 @@ block Down
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
+    final dTHys=dTHys,
     final delEna=delFaiCon,
-    final TDif=TDif,
-    final TDifHys=dTemp)
+    final dTFai=dTFai)
     "Failsafe condition"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
@@ -294,8 +294,8 @@ protected
     annotation (Placement(transformation(extent={{-162,-190},{-142,-170}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
-    final uLow=TCirDif - dTemp,
-    final uHigh=TCirDif) if not have_priOnl and not have_allNonCon
+    final uLow=dTCir - dTHys,
+    final uHigh=dTCir) if not have_priOnl and not have_allNonCon
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-132,-190},{-112,-170}})));
 
@@ -636,7 +636,7 @@ Primary circuit pump speed <code>uPumSpe</code> is at the minimum
 allowed flow rate <code>boiMinPriPumSpeSta</code> and primary circuit hot
 water return temperature <code>TPriHotWatRet</code>
 exceeds the secondary circuit hot water return temperature <code>TSecHotWatRet</code> by 
-<code>TCirDif</code> for a time period <code>delTRetDiff</code>.
+<code>dTCir</code> for a time period <code>delTRetDiff</code>.
 </li>
 </ul>
 </li>
