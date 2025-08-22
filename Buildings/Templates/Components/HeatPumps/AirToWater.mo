@@ -1,8 +1,7 @@
 within Buildings.Templates.Components.HeatPumps;
 model AirToWater
   "Air-to-water heat pump"
-  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep
-                                                                                     (
+  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep (
     redeclare final package MediumSou=MediumAir,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final allowFlowReversalSou=false,
@@ -35,8 +34,8 @@ equation
     annotation (Line(points={{80,-140},{80,-100}},color={0,127,255}));
   connect(mAir_flow.y, floSou.m_flow_in)
     annotation (Line(points={{60,-72},{60,-96},{72,-96}},color={0,0,127}));
-  connect(hp.on, y1Rea.u) annotation (Line(points={{-12.2,-6},{-14,-6},{-14,12},
-          {40,12},{40,40},{60,40},{60,32}}, color={255,0,255}));
+  connect(hp.on, y1Rea.u) annotation (Line(points={{-12,-6},{-14,-6},{-14,12},{40,
+          12},{40,40},{60,40},{60,32}},     color={255,0,255}));
   annotation (
     defaultComponentName="hp",
     Documentation(
