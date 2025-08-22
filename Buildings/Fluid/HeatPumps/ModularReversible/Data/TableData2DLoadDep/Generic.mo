@@ -23,15 +23,12 @@ partial record Generic
     "=true to use condenser outlet temperature for table data, false for inlet";
   parameter String tabNamQ[:]={"q@" + String(p, format=".2f") for p in PLRSor}
     "Table names with heat flow rate data"
-    annotation (Evaluate=true,
-    Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced"));
   parameter String tabNamP[:]={"p@" + String(p, format=".2f") for p in PLRSor}
     "Table names with power data"
-    annotation (Evaluate=true,
-    Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced"));
   final parameter Real PLRSor[:]=Modelica.Math.Vectors.sort(PLRSup)
-    "PLR values in increasing order"
-    annotation (Evaluate=true);
+    "PLR values in increasing order";
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
 <p>
