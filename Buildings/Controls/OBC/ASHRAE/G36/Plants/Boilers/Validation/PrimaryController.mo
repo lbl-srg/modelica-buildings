@@ -4,6 +4,7 @@ model PrimaryController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller(
     final have_priOnl=true,
+    final have_isoValSen=true,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
                   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
@@ -32,6 +33,7 @@ model PrimaryController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller1(
     final have_priOnl=false,
     final have_secFloSen=true,
+    final nLooSec=1,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
                   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
@@ -60,6 +62,7 @@ model PrimaryController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller2(
     final have_priOnl=false,
     final have_secFloSen=true,
+    final nLooSec=1,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
                   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
@@ -293,6 +296,14 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Edge edg[2]
+    "Detect valve opening commands"
+    annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[2]
+    "Detect valve closing commands"
+    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
+
 equation
   connect(TOut.y, controller.TOut) annotation (Line(points={{-318,100},{-290,100},
           {-290,81.3},{-262,81.3}},   color={0,0,127}));
@@ -338,10 +349,6 @@ equation
   connect(sin1.y, reaToInt1.u)
     annotation (Line(points={{-58,130},{-42,130}}, color={0,0,127}));
 
-  connect(VHotWatSec_flow.y, controller1.VHotWatSec_flow) annotation (Line(
-        points={{-58,-90},{-30,-90},{-30,51.9},{-2,51.9}},
-                                                     color={0,0,127}));
-
   connect(TRet1.y, controller1.TRetSec) annotation (Line(points={{-58,40},{-40,40},
           {-40,64.5},{-2,64.5}},    color={0,0,127}));
 
@@ -365,10 +372,6 @@ equation
 
   connect(sin2.y,reaToInt2. u)
     annotation (Line(points={{162,130},{178,130}}, color={0,0,127}));
-
-  connect(VHotWatSec_flow1.y, controller2.VHotWatSec_flow) annotation (Line(
-        points={{162,-90},{196,-90},{196,51.9},{218,51.9}},
-                                                          color={0,0,127}));
 
   connect(TRet2.y,controller2. TRetSec) annotation (Line(points={{162,40},{180,40},
           {180,64.5},{218,64.5}},   color={0,0,127}));
@@ -417,13 +420,11 @@ equation
           200},{216,93.9},{218,93.9}},       color={255,0,255}));
   connect(controller.yHotWatIsoVal, pre5.u) annotation (Line(points={{-238,56.1},
           {-228,56.1},{-228,110},{-222,110}}, color={255,0,255}));
-  connect(pre5.y, controller.uHotWatIsoVal) annotation (Line(points={{-198,110},
-          {-140,110},{-140,-8},{-276,-8},{-276,22.5},{-262,22.5}}, color={255,0,
-          255}));
   connect(controller1.yHotWatIsoVal, pre8.u) annotation (Line(points={{22,56.1},
           {30,56.1},{30,100},{38,100}}, color={255,0,255}));
-  connect(pre8.y, controller1.uHotWatIsoVal) annotation (Line(points={{62,100},{
-          120,100},{120,-32},{-14,-32},{-14,22.5},{-2,22.5}}, color={255,0,255}));
+  connect(pre8.y, controller1.uHotWatIsoValOpe) annotation (Line(points={{62,
+          100},{120,100},{120,-32},{-14,-32},{-14,22.5},{-2,22.5}}, color={255,
+          0,255}));
   connect(reaToInt.y, controller.resReq) annotation (Line(points={{-278,130},{-270,
           130},{-270,89.7},{-262,89.7}}, color={255,127,0}));
   connect(conInt.y, controller.plaReq) annotation (Line(points={{-318,160},{-272,
@@ -436,6 +437,20 @@ equation
           160},{210,85.5},{218,85.5}}, color={255,127,0}));
   connect(reaToInt2.y, controller2.resReq) annotation (Line(points={{202,130},{208,
           130},{208,89.7},{218,89.7}}, color={255,127,0}));
+  connect(pre5.y, edg.u)
+    annotation (Line(points={{-198,110},{-182,110}}, color={255,0,255}));
+  connect(edg.y, controller.uHotWatIsoValOpe) annotation (Line(points={{-158,
+          110},{-140,110},{-140,-4},{-270,-4},{-270,22.5},{-262,22.5}}, color={
+          255,0,255}));
+  connect(pre5.y, falEdg.u) annotation (Line(points={{-198,110},{-190,110},{
+          -190,80},{-182,80}}, color={255,0,255}));
+  connect(falEdg.y, controller.uHotWatIsoValClo) annotation (Line(points={{-158,
+          80},{-148,80},{-148,2},{-266,2},{-266,18.09},{-262,18.09}}, color={
+          255,0,255}));
+  connect(VHotWatSec_flow.y, controller1.VHotWatSec_flow[1]) annotation (Line(
+        points={{-58,-90},{-20,-90},{-20,51.9},{-2,51.9}}, color={0,0,127}));
+  connect(VHotWatSec_flow1.y, controller2.VHotWatSec_flow[1]) annotation (Line(
+        points={{162,-90},{200,-90},{200,51.9},{218,51.9}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={Ellipse(
