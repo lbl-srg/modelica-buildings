@@ -174,19 +174,18 @@ model ValvesIsolation
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
+    PHp_min=1.0E3,
     perHeaHp(
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
-      P_min=1.0E3,
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
       tabUppBou=[263.15,323.15; 313.15,323.15]),
     perCooHp(
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-      PLRSup={1},
-      P_min=1.0E3))
+      PLRSup={1}))
     "Reversible AWHP parameters"
     annotation (Placement(transformation(extent={{-280,-80},{-260,-60}})));
   Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation valIsoCom(

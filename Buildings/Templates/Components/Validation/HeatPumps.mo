@@ -19,11 +19,11 @@ model HeatPumps "Validation model for heat pump component"
     capHea_nominal=500E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHea_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
+    P_min=1.0E3,
     perHea(
       fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
-      P_min=1.0E3,
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
       tabUppBou=[263.15,323.15; 313.15,323.15]))
@@ -46,11 +46,11 @@ model HeatPumps "Validation model for heat pump component"
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCoo_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
     TSouHea_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
+    P_min=1.0E3,
     perHea(
       fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
-      P_min=1.0E3,
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
       tabUppBou=[263.15,323.15; 313.15,323.15]),
@@ -58,7 +58,6 @@ model HeatPumps "Validation model for heat pump component"
       fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
       PLRSup={1},
-      P_min=1.0E3,
       tabLowBou=[253.15,265.15; 317.15,278.15]))
     "Reversible AWHP parameters"
     annotation (Placement(transformation(extent={{80,22},{100,42}})));
@@ -195,11 +194,11 @@ model HeatPumps "Validation model for heat pump component"
     dpSouWwHea_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     mSouWwCoo_flow_nominal=datHpWw.mSouWwHea_flow_nominal,
     mSouWwHea_flow_nominal=datHpWw.mHeaWat_flow_nominal,
+    P_min=50,
     perHea(
       fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_HP.txt"),
       PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
-      P_min=50,
       use_TEvaOutForTab=true,
       use_TConOutForTab=true,
       tabUppBou=[276.45,336.15; 303.15,336.15]),
@@ -207,7 +206,6 @@ model HeatPumps "Validation model for heat pump component"
       fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_Chiller.txt"),
       PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
-      P_min=50,
       use_TConOutForTab=true,
       tabLowBou=[292.15,276.45; 336.15,276.45]))
     "Reversible WWHP parameters"
