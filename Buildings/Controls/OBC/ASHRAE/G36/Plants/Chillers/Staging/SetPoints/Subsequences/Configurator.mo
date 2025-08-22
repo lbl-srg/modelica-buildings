@@ -181,18 +181,8 @@ protected
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
 equation
-  connect(chiDesCaps.y, staDesCaps.u) annotation (Line(points={{-178,110},{-142,
-          110}}, color={0,0,127}));
-  connect(chiMinCaps.y, staMinCaps.u) annotation (Line(points={{-178,70},{-142,70}},
-          color={0,0,127}));
   connect(uChiAva, booToRea.u)
     annotation (Line(points={{-240,-40},{-202,-40}}, color={255,0,255}));
-  connect(booToRea.y, sumNumAvaChi.u)
-    annotation (Line(points={{-178,-40},{-142,-40}}, color={0,0,127}));
-  connect(sumNumChi.y, sub2.u1) annotation (Line(points={{-118,20},{-100,20},{-100,
-          -4},{-82,-4}}, color={0,0,127}));
-  connect(sumNumAvaChi.y, sub2.u2) annotation (Line(points={{-118,-40},{-100.5,-40},
-          {-100.5,-16},{-82,-16}}, color={0,0,127}));
   connect(sub2.y,lesThr. u)
     annotation (Line(points={{-58,-10},{-42,-10}},  color={0,0,127}));
   connect(lesThr.y, yAva) annotation (Line(points={{-18,-10},{60,-10},{60,-80},{
@@ -225,8 +215,6 @@ equation
           100,20},{240,20}}, color={0,0,127}));
   connect(staMinCaps.y, yMinCap) annotation (Line(points={{-118,70},{80,70},{80,
           -20},{240,-20}}, color={0,0,127}));
-  connect(oneVec.y, sumNumChi.u)
-    annotation (Line(points={{-178,20},{-142,20}}, color={0,0,127}));
   connect(sort1.u, chiDesCaps.y) annotation (Line(points={{-142,170},{-160,
           170},{-160,110},{-178,110}}, color={0,0,127}));
   connect(sort1.y, sub1.u1) annotation (Line(points={{-118,170},{-110,170},{-110,
@@ -241,6 +229,18 @@ equation
     annotation (Line(points={{2,170},{18,170}}, color={0,0,127}));
   connect(lesThr1.y, assMes1.u)
     annotation (Line(points={{42,170},{58,170}}, color={255,0,255}));
+  connect(chiMinCaps.y, staMinCaps.u)
+    annotation (Line(points={{-178,70},{-142,70}}, color={0,0,127}));
+  connect(booToRea.y, sumNumAvaChi.u)
+    annotation (Line(points={{-178,-40},{-142,-40}}, color={0,0,127}));
+  connect(sumNumChi.y, sub2.u1) annotation (Line(points={{-118,20},{-100,20},{
+          -100,-4},{-82,-4}}, color={0,0,127}));
+  connect(sumNumAvaChi.y, sub2.u2) annotation (Line(points={{-118,-40},{-100,
+          -40},{-100,-16},{-82,-16}}, color={0,0,127}));
+  connect(oneVec.y, sumNumChi.u)
+    annotation (Line(points={{-178,20},{-142,20}}, color={0,0,127}));
+  connect(chiDesCaps.y, staDesCaps.u)
+    annotation (Line(points={{-178,110},{-142,110}}, color={0,0,127}));
   annotation (defaultComponentName = "conf",
         Icon(graphics={
         Rectangle(

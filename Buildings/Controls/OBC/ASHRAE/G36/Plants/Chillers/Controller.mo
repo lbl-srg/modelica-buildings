@@ -58,7 +58,7 @@ block Controller "Chiller plant controller"
 
   // ---- General: Waterside economizer ----
 
-  parameter Boolean have_WSE=false
+  parameter Boolean have_WSE=true
     "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable"
     annotation (Dialog(tab="General", group="Waterside economizer", enable=not have_airCoo));
 
@@ -145,16 +145,17 @@ block Controller "Chiller plant controller"
     "Design number of chiller that should be ON at each chiller stage, including the zero stage"
     annotation (Dialog(tab="General", group="Staging configuration", enable=have_fixSpeConWatPum));
 
-  final parameter Real staTmp[totSta, nUniSta]={{if plaStaMat[i, nUniSta] > 0 then (if j <= nChi
-    then plaStaMat[i, j] else 0.5) else plaStaMat[i,j] for j in 1:nUniSta} for i in 1:totSta}
+  final parameter Real staTmp[totSta, nUniSta]={{if plaStaMat[i, j] > 0 then (if j <= nChi
+    then plaStaMat[i, j] else 0.5) else 0 for j in 1:nUniSta} for i in 1:totSta}
     "Intermediary parameter to compute staVec"
     annotation (Dialog(tab="General",group="Staging configuration"));
   final parameter Real staVec[totSta]={sum(staTmp[i]) for i in 1:totSta}
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="General",group="Staging configuration"));
-
-  final parameter Integer nSta = sum({(if staVec[i] > 0.5 then 1 else 0) for i in 1:totSta})
-    "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included";
+  final parameter Integer nSta = if not have_WSE then totSta-1
+                                 else sum({if plaStaMat[i, nUniSta] > 0 then 0 else 1 for i in 1:totSta}) - 1
+    "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
+    annotation (Dialog(tab="General",group="Staging configuration"));
 
   parameter Real desConWatPumSpe[totSta](
     max=fill(1, totSta),
@@ -1050,12 +1051,11 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{920,460},{960,500}}),
       iconTransformation(extent={{100,150},{140,190}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
-    final quantity=fill("ElectricCurrent",nChi),
-    final unit=fill("A", nChi)) if have_priOnl or use_loadShed
-    "Chiller demand setpoint to set through BACnet or similar "
-    annotation(Placement(transformation(extent={{920,400},{960,440}}),
-      iconTransformation(extent={{100,120},{140,160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem(final quantity="HeatFlowRate",
+      final unit="W") if have_priOnl or use_loadShed
+    "Chiller demand setpoint to set through BACnet or similar " annotation (
+      Placement(transformation(extent={{920,400},{960,440}}),
+        iconTransformation(extent={{100,120},{140,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller commanded setpoint"
@@ -1503,8 +1503,7 @@ block Controller "Chiller plant controller"
     "Chiller isolation valve position setpoint"
     annotation (Placement(transformation(extent={{540,-40},{560,-20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Switch chiDem[nChi]
-    if have_priOnl or use_loadShed
+  Buildings.Controls.OBC.CDL.Reals.Switch chiDem if have_priOnl or use_loadShed
     "Chiller demand"
     annotation (Placement(transformation(extent={{640,410},{660,430}})));
 
@@ -1897,10 +1896,8 @@ equation
           {280,304},{280,-22},{538,-22}}, color={0,0,127}));
   connect(dowProCon.yChiWatIsoVal, chiIsoVal.u3) annotation (Line(points={{268,-204},
           {280,-204},{280,-38},{538,-38}}, color={0,0,127}));
-  connect(uChiSwi.y, chiDem.u2) annotation (Line(points={{482,350},{510,350},{510,
-          420},{638,420}},     color={255,0,255}));
-  connect(upProCon.yChiDem, chiDem.u1) annotation (Line(points={{268,420},{430,420},
-          {430,428},{638,428}},      color={0,0,127}));
+  connect(upProCon.yChiDem, chiDem.u1) annotation (Line(points={{268,420},{400,420},
+          {400,428},{638,428}},      color={0,0,127}));
   connect(dowProCon.yChiDem, chiDem.u3) annotation (Line(points={{268,-160},{430,
           -160},{430,412},{638,412}},     color={0,0,127}));
   connect(chiDem.y, yChiDem)
@@ -2155,6 +2152,8 @@ equation
           {-860,-628},{-860,-644},{-268,-644}}, color={0,0,127}));
   connect(TConWatRet, heaPreCon.TConWatRet) annotation (Line(points={{-920,240},
           {-650,240},{-650,212},{-524,212}}, color={0,0,127}));
+  connect(chiStaUp.y, chiDem.u2) annotation (Line(points={{402,320},{420,320},{420,
+          420},{638,420}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
