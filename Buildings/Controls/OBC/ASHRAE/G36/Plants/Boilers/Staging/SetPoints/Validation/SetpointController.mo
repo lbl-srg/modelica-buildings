@@ -16,18 +16,14 @@ model SetpointController
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,
     final delEffCon=600,
-    final TDif=10,
     final delFaiCon=900,
     final sigDif=0.01,
-    final TDifHys=1,
     final fraMinFir=1.1,
     final delMinFir=300,
     final fraDesCap=0.8,
     final delDesCapNonConBoi=600,
     final delDesCapConBoi=300,
-    final TCirDif=3,
-    final delTRetDif=300,
-    final dTemp=0.1)
+    final delTRetDif=300)
     "Testing staging setpoint controller for condensing boiler plant that is not primary-only"
     annotation (Placement(transformation(extent={{60,140},{80,176}})));
 
@@ -45,18 +41,14 @@ model SetpointController
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,
     final delEffCon=600,
-    final TDif=10,
     final delFaiCon=900,
     final sigDif=0.01,
-    final TDifHys=1,
     final fraMinFir=1.1,
     final delMinFir=300,
     final fraDesCap=0.8,
     final delDesCapNonConBoi=600,
     final delDesCapConBoi=300,
-    final TCirDif=3,
-    final delTRetDif=300,
-    final dTemp=0.1)
+    final delTRetDif=300)
     "Testing staging setpoint controller for non-condensing boiler plant"
     annotation (Placement(transformation(extent={{60,-100},{80,-64}})));
 
@@ -74,18 +66,14 @@ model SetpointController
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,
     final delEffCon=600,
-    final TDif=10,
     final delFaiCon=900,
     final sigDif=0.01,
-    final TDifHys=1,
     final fraMinFir=1.1,
     final delMinFir=300,
     final fraDesCap=0.8,
     final delDesCapNonConBoi=600,
     final delDesCapConBoi=300,
-    final TCirDif=3,
-    final delTRetDif=300,
-    final dTemp=0.1)
+    final delTRetDif=300)
     "Testing staging setpoint controller for primary-only, condensing boiler plant"
     annotation (Placement(transformation(extent={{460,140},{480,176}})));
 

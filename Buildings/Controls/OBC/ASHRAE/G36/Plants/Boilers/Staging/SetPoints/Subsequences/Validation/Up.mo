@@ -11,9 +11,7 @@ model Up
     final fraConBoi=1.5,
     final delEffCon=600,
     final delFaiCon=900,
-    final sigDif=0.1,
-    final TDif=10,
-    final TDifHys=1)
+    final sigDif=0.1)
     "Scenario testing activation by efficiency condition"
     annotation (Placement(transformation(extent={{-100,-16},{-80,16}})));
 
@@ -26,9 +24,7 @@ model Up
     final fraConBoi=1.5,
     final delEffCon=600,
     final delFaiCon=900,
-    final sigDif=0.1,
-    final TDif=10,
-    final TDifHys=1)
+    final sigDif=0.1)
     "Scenario testing activation by failsafe condition"
     annotation (Placement(transformation(extent={{30,-16},{50,16}})));
 
@@ -41,9 +37,7 @@ model Up
     final fraConBoi=1.5,
     final delEffCon=600,
     final delFaiCon=900,
-    final sigDif=0.1,
-    final TDif=10,
-    final TDifHys=1)
+    final sigDif=0.1)
     "Scenario testing activation due to current stage unavailability"
     annotation (Placement(transformation(extent={{160,-16},{180,16}})));
 

@@ -14,10 +14,7 @@ model Down
     final delDesCapConBoi=300,
     final sigDif=0.01,
     final bypValClo=0,
-    final TCirDif=3,
     final delTRetDif=300,
-    final dTemp=0.1,
-    final TDif=10,
     final delFaiCon=900,
     final boiMinPriPumSpeSta={0})
     "Scenario testing sequence for condensing-type stage"
@@ -35,10 +32,7 @@ model Down
     final delDesCapConBoi=300,
     final sigDif=0.01,
     final bypValClo=0,
-    final TCirDif=3,
     final delTRetDif=300,
-    final dTemp=0.1,
-    final TDif=10,
     final delFaiCon=900,
     final boiMinPriPumSpeSta={0})
     "Scenario testing sequence for non-condensing-type stage"
@@ -56,9 +50,6 @@ model Down
     final sigDif=0.01,
     final delBypVal=300,
     final bypValClo=0,
-    final TCirDif=3,
-    final dTemp=0.1,
-    final TDif=10,
     final delFaiCon=900,
     final boiMinPriPumSpeSta={0})
     "Scenario testing primary-only, condensing-type boiler plant"
@@ -76,9 +67,6 @@ model Down
     final sigDif=0.01,
     final delBypVal=300,
     final bypValClo=0,
-    final TCirDif=3,
-    final dTemp=0.1,
-    final TDif=10,
     final delFaiCon=900,
     final boiMinPriPumSpeSta={0})
     "Scenario testing primary-only, condensing-type boiler plant"
