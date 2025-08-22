@@ -43,10 +43,10 @@ equation
 <p>
 This is a model for an air-to-water heat pump where the capacity
 and input power are computed by interpolating manufacturer data
-along the condenser entering or leaving temperature, the 
+along the condenser entering or leaving temperature, the
 evaporator entering or leaving temperature and the part load ratio.
-The model can be configured to represent either a non-reversible 
-(heating-only) heat pump (<code>is_rev=false</code>) or a 
+The model can be configured to represent either a non-reversible
+(heating-only) heat pump (<code>is_rev=false</code>) or a
 reversible heat pump (<code>is_rev=true</code>).
 </p>
 <p>
@@ -66,7 +66,7 @@ for a description of the available control input and output variables.
 </html>", revisions="<html>
 <ul>
 <li>
-March 21, 2025, by Antoine Gautier:<br/>
+August 21, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data heat pump model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.

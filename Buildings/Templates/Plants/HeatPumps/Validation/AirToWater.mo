@@ -318,7 +318,7 @@ The heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
 Three equally sized heat pumps are modeled, which can all be lead/lag alternated.
-A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>) 
+A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>)
 and connected to the HW and CHW return pipes (sidestream integration).
 A unique aggregated load is modeled on each loop by means of a cooling or heating
 component controlled to maintain a constant <i>&Delta;T</i>
@@ -366,7 +366,7 @@ various plant configurations.
       revisions="<html>
 <ul>
 <li>
-March 21, 2025, by Antoine Gautier:<br/>
+August 21, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data heat pump model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
