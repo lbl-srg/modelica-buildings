@@ -2,7 +2,7 @@ compareVars :=
   {
     "hotPumSpe.dpHotWat_remote[1]",
     "hotPumSpe.dpHotWat_remote[2]",
-    "hotPumSpe.dpHotWatSet",
+    "hotPumSpe.dpHotWatSet[1]",
     "hotPumSpe.maxRemDP.u[1]",
     "hotPumSpe.maxRemDP.u[2]",
     "hotPumSpe.maxRemDP.y",

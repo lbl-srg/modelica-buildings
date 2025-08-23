@@ -22,7 +22,7 @@ createPlot(id=5, position={0, 0, 1372, 998}, y={"secPumCon2.uPumLeaLag[1]", "sec
 createPlot(id=5, position={0, 0, 1372, 162}, y={"secPumCon2.uPlaEna", "secPumCon2.plaReq"}, range={0.0, 3600.0, -1.0, 3.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=5, position={0, 0, 1372, 162}, y={"secPumCon2.yHotWatPum[2]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
 createPlot(id=5, position={0, 0, 1372, 163}, y={"secPumCon2.yPumSpe", "secPumCon2.speLim", "secPumCon2.speLim1", "secPumCon2.speLim2"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
-createPlot(id=5, position={0, 0, 1372, 162}, y={"secPumCon2.timPer1", "secPumCon2.timPer3", "secPumCon2.enaLagSecPum.tim.y", "secPumCon2.enaLagSecPum.tim2.y"}, range={0.0, 3600.0, -500.0, 1000.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=5, position={0, 0, 1372, 162}, y={"secPumCon2.timPer2", "secPumCon2.timPer3", "secPumCon2.enaLagSecPum.tim.y", "secPumCon2.enaLagSecPum.tim2.y"}, range={0.0, 3600.0, -500.0, 1000.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
 createPlot(id=5, position={0, 0, 1372, 162}, y={"secPumCon2.yHotWatPum[1]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=6, colors={{28,108,200}});
 createPlot(id=6, position={0, 0, 1372, 998}, y={"secPumCon2.dpHotWat_remote[1]", "secPumCon2.dpHotWatSet[1]"}, range={0.0, 3600.0, 0.4, 1.6}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=6, position={0, 0, 1372, 329}, y={"secPumCon2.yPumSpe"}, range={0.0, 3600.0, -0.2, 1.0}, grid=true, subPlot=2, colors={{28,108,200}});
@@ -30,7 +30,7 @@ createPlot(id=7, position={0, 0, 1372, 998}, y={"secPumCon3.uPumLeaLag[1]", "sec
 createPlot(id=7, position={0, 0, 1372, 162}, y={"secPumCon3.uPlaEna", "secPumCon3.plaReq"}, range={0.0, 3600.0, -1.0, 3.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=7, position={0, 0, 1372, 162}, y={"secPumCon3.yHotWatPum[2]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
 createPlot(id=7, position={0, 0, 1372, 163}, y={"secPumCon3.yPumSpe", "secPumCon3.speLim", "secPumCon3.speLim1", "secPumCon3.speLim2"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
-createPlot(id=7, position={0, 0, 1372, 162}, y={"secPumCon3.timPer1", "secPumCon3.timPer3", "secPumCon3.enaLagSecPum.tim.y", "secPumCon3.enaLagSecPum.tim2.y"}, range={0.0, 3600.0, -500.0, 1000.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=7, position={0, 0, 1372, 162}, y={"secPumCon3.timPer2", "secPumCon3.timPer3", "secPumCon3.enaLagSecPum.tim.y", "secPumCon3.enaLagSecPum.tim2.y"}, range={0.0, 3600.0, -500.0, 1000.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
 createPlot(id=7, position={0, 0, 1372, 162}, y={"secPumCon3.yHotWatPum[1]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=6, colors={{28,108,200}});
 createPlot(id=8, position={0, 0, 1372, 998}, y={"secPumCon3.dpHotWat_remote[1]", "secPumCon3.dpHotWatSet[1]"}, range={0.0, 3600.0, 0.4, 1.8}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=8, position={0, 0, 1372, 246}, y={"secPumCon3.pumSpeLocDp.locDpSet.y", "secPumCon3.pumSpeLocDp.dpHotWat_local"}, range={0.0, 3600.0, 2.0, 14.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
