@@ -27,7 +27,7 @@ createPlot(id=4, position={640, 947, 482, 288}, y={"controller1.yPriPum[1]"}, ra
 createPlot(id=4, position={640, 947, 482, 44}, y={"controller1.yBoi[1]"}, range={0.0, 7500.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=4, position={640, 947, 482, 43}, y={"controller1.yBoi[2]"}, range={0.0, 7500.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
 createPlot(id=4, position={640, 947, 482, 44}, y={"controller1.yPriPum[2]"}, range={0.0, 7500.0, -2.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
-createPlot(id=4, position={640, 947, 482, 44}, y={"controller1.VHotWatPri_flow", "controller1.VHotWatSec_flow"}, range={0.0, 7500.0, 0.00028, 0.00032}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={640, 947, 482, 44}, y={"controller1.VHotWatPri_flow", "controller1.VHotWatSec_flow[1]"}, range={0.0, 7500.0, 0.00028, 0.00032}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});
 createPlot(id=4, position={640, 947, 482, 44}, y={"controller1.yPriPumSpe"}, range={0.0, 7500.0, -2.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
 
 createPlot(id=5, position={0, 0, 485, 615}, y={"controller2.resReq"}, range={0.0, 7600.0, -2.0, 4.0}, grid=true, colors={{28,108,200}});
@@ -36,5 +36,5 @@ createPlot(id=5, position={0, 0, 485, 73}, y={"controller2.yPriPum[1]"}, range={
 createPlot(id=5, position={0, 0, 485, 72}, y={"controller2.yBoi[1]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
 createPlot(id=5, position={0, 0, 485, 73}, y={"controller2.yPriPum[2]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});
 createPlot(id=5, position={0, 0, 485, 72}, y={"controller2.yBoi[2]"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
-createPlot(id=5, position={0, 0, 485, 73}, y={"controller2.VHotWatPri_flow", "controller2.VHotWatSec_flow"}, range={0.0, 7600.0, 0.00028, 0.00031}, grid=true, subPlot=7, colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={0, 0, 485, 73}, y={"controller2.VHotWatPri_flow", "controller2.VHotWatSec_flow[1]"}, range={0.0, 7600.0, 0.00028, 0.00031}, grid=true, subPlot=7, colors={{28,108,200}, {238,46,47}});
 createPlot(id=5, position={0, 0, 485, 72}, y={"controller2.yPriPumSpe"}, range={0.0, 7600.0, -1.0, 2.0}, grid=true, subPlot=8, colors={{28,108,200}});
