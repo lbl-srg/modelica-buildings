@@ -50,12 +50,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Examples.ResistanceVolumeFlowReversal
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[:].T</code>
+                       from reference results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
     </td>
 </tr>
 </table>
