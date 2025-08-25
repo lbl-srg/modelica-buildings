@@ -38,6 +38,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Added new model for simultaneous heating and cooling (multipipe) systems.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4283\">#4283</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4169\">#4169</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
