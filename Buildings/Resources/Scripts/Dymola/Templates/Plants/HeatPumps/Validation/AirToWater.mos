@@ -1,6 +1,6 @@
 Advanced.StoreProtectedVariables = true;
 simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWater",
-    method="Radau",
+    method="cvode",
     tolerance=1e-6,
     startTime=15000.0,
     stopTime=100000.0,

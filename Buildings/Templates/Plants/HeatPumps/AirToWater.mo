@@ -672,11 +672,15 @@ initial equation
     and have_heaWat
     and typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
     and typPumHeaWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable then
-    0=Buildings.Templates.Utilities.computeBalancingPressureDrop(
+    0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
       m_flow_nominal=hp.mHeaWatHp_flow_nominal,
       dp_nominal=max(valIso.dpHeaWat_nominal) + dpValCheHeaWat_nominal,
       datPum=dat.pumHeaWatPriSin[1],
       r_N=yPumHeaWatPriSet);
+    assert(yPumHeaWatPriSet >= 0.1 and yPumHeaWatPriSet <= 2,
+      "In "+ getInstanceName() + ": "+
+      "The calculated primary pump speed to provide the design HW flow is out of bounds, "+
+      "indicating that the primary pump curve needs to be revised.");
   else
     yPumHeaWatPriSet=dat.ctl.yPumHeaWatPriSet;
   end if;
@@ -686,12 +690,16 @@ initial equation
     and (typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
       or typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
       and typPumHeaWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable) then
-    0=Buildings.Templates.Utilities.computeBalancingPressureDrop(
+    0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
       m_flow_nominal=hp.mChiWatHp_flow_nominal,
       dp_nominal=max(valIso.dpChiWat_nominal) + dpValCheChiWat_nominal,
       datPum=if typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
         then dat.pumChiWatPriSin[1] else dat.pumHeaWatPriSin[1],
       r_N=yPumChiWatPriSet);
+    assert(yPumChiWatPriSet >= 0.1 and yPumChiWatPriSet <= 2,
+      "In "+ getInstanceName() + ": "+
+      "The calculated primary pump speed to provide the design CHW flow is out of bounds, "+
+      "indicating that the primary pump curve needs to be revised.");
   else
     yPumChiWatPriSet=dat.ctl.yPumChiWatPriSet;
   end if;
@@ -1056,7 +1064,7 @@ equation
 This template represents an air-to-water heat pump plant
 with closed-loop controls. While the heat pump plant configuration can be changed
 through parameters, the image below shows a typical configuration with
-two reversible air-to-water heat pumps, a primary-secondary distribution system 
+two reversible air-to-water heat pumps, a primary-secondary distribution system
 and a sidestream heat recovery chiller.
 For a detailed schematic of the actual plant configuration, refer to the diagram
 view of the plant component. In Dymola, for example, you can access this by right-clicking
@@ -1227,13 +1235,13 @@ within the isolation valve component <code>valIso</code> based on lumped flow
 coefficients for the sake of computational efficiency.
 </p>
 <p>
-The template uses a heat pump model that interpolates capacity and power 
-from manufacturer data along the CHW/HW temperature, the outdoor 
+The template uses a heat pump model that interpolates capacity and power
+from manufacturer data along the CHW/HW temperature, the outdoor
 air temperature and the part load ratio.
 The heat pump performance data are provided via the subrecords
 <code>dat.hp.perHeaHp</code> and <code>dat.hp.perCooHp</code> for the
 heating mode and the cooling mode, respectively.
-For the required format of the performance data files, 
+For the required format of the performance data files,
 please refer to the documentation of the block
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
@@ -1248,7 +1256,7 @@ for HVAC Systems. Atlanta, GA.
 </html>", revisions="<html>
 <ul>
 <li>
-March 21, 2025, by Antoine Gautier:<br/>
+August 21, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data heat pump model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.

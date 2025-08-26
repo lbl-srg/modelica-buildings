@@ -28,7 +28,8 @@ class AllSystems
             "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
         PLRSup={1,0.5},
         use_TEvaOutForTab=true,
-        use_TConOutForTab=false)),
+        use_TConOutForTab=false),
+      PHp_min=1.0E3),
     pumHeaWatPri(
       dp_nominal=fill(1.5 *(if pla.cfg.have_chiWat and pla.cfg.typPumChiWatPri ==
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then
