@@ -12,10 +12,8 @@ block Controller "Cooling tower controller"
   final parameter Boolean have_conWatRetCon = fanSpeCon==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
     "True: the fan speed is controlled to maintain the condenser water return temperature setpoint";
   parameter Boolean closeCoupledPlant=true
-    "Flag to indicate if the plant is close coupled"
+    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
     annotation (Dialog(enable=have_conWatRetCon));
-  parameter Boolean closeCoupledPlant=false
-    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet";
   parameter Boolean have_WSE=true
     "Flag to indicate if the plant has waterside economizer";
   parameter Real desCap(unit="W")=1e6  "Plant design capacity"
@@ -26,8 +24,7 @@ block Controller "Cooling tower controller"
     annotation (Dialog(group="Nominal"));
 
   // Fan speed control: when WSE is enabled
-  parameter Real chiMinCap[nChi](
-    final unit=fill("W",nChi))={1e4,1e4}
+  parameter Real chiMinCap[nChi](unit=fill("W", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE));
@@ -69,23 +66,22 @@ block Controller "Cooling tower controller"
                                           chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-  parameter Real minChiLif[nChi](
-    final unit=fill("K",nChi))={12,12}
+  parameter Real minChiLif[nChi](unit=fill("K", nChi))={12,12}
     "Minimum LIFT of each chiller"
      annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
-    final unit=fill("K",nChi),
-    displayUnit=fill("degC",nChi))={293.15,293.15}
+    unit=fill("K", nChi),
+    each displayUnit="degC")={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatRet_nominal[nChi](
-    final unit=fill("K",nChi),
-    displayUnit=fill("degC",nChi))={303.15,303.15}
+    unit=fill("K", nChi),
+    each displayUnit="degC")={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TChiWatSupMin[nChi](
-    final unit=fill("K",nChi),
-    displayUnit=fill("degC",nChi))={278.15,278.15}
+    unit=fill("K", nChi),
+    each displayUnit="degC")={278.15,278.15}
     "Lowest chilled water supply temperature oc each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
@@ -173,11 +169,11 @@ block Controller "Cooling tower controller"
 
   // Water level control
   parameter Real watLevMin(
-    final min=0,
-    final unit="m")=0.7
+    min=0,
+    unit="m")=0.7
     "Minimum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
-  parameter Real watLevMax(final unit="m")=1
+  parameter Real watLevMax(unit="m")=1
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Makeup water"));
 
@@ -279,17 +275,31 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMax(
     final unit="K") if have_conWatRetCon
     "Maximum LIFT among enabled chillers"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+    annotation (Placement(transformation(extent={{100,128},{140,168}}),
         iconTransformation(extent={{100,170},{140,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMin(
     final unit="K") if have_conWatRetCon
     "Minimum LIFT among enabled chillers"
-    annotation (Placement(transformation(extent={{100,32},{140,72}}),
+    annotation (Placement(transformation(extent={{100,100},{140,140}}),
         iconTransformation(extent={{100,150},{140,190}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatRetSet(
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC",
+    final unit="K") if have_conWatRetCon
+    "Condenser water return temperature setpoint"
+    annotation (Placement(transformation(extent={{100,70},{140,110}}),
+        iconTransformation(extent={{100,120},{140,160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatSupSet(
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC",
+    final unit="K") if have_conWatRetCon and not closeCoupledPlant
+    "Condenser water supply temperature setpoint"
+    annotation (Placement(transformation(extent={{100,42},{140,82}}),
+        iconTransformation(extent={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaCel
     "Lead tower cell status setpoint"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
-      iconTransformation(extent={{100,90},{140,130}})));
+      iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoVal[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
@@ -440,16 +450,20 @@ equation
     annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
   connect(uPla, towSta.uPla) annotation (Line(points={{-120,20},{-84,20},{-84,-51},
           {-22,-51}}, color={255,0,255}));
-  connect(towFanSpe.yLifMax, yLifMax) annotation (Line(points={{2,24.2},{34,
-          24.2},{34,24},{60,24},{60,80},{120,80}}, color={0,0,127}));
-  connect(towFanSpe.yLifMin, yLifMin) annotation (Line(points={{2,21.2},{70,
-          21.2},{70,52},{120,52}}, color={0,0,127}));
+  connect(towFanSpe.yLifMax, yLifMax) annotation (Line(points={{2,30},{20,30},{20,
+          148},{120,148}},                         color={0,0,127}));
+  connect(towFanSpe.yLifMin, yLifMin) annotation (Line(points={{2,27},{30,27},{30,
+          120},{120,120}},         color={0,0,127}));
   connect(towFanSpe.ySpeSet, swi.u1) annotation (Line(points={{2,40},{50,40},{50,
           -142},{58,-142}}, color={0,0,127}));
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{42,-150},{58,-150}}, color={255,0,255}));
   connect(towSta.yTowSta, mulOr.u) annotation (Line(points={{2,-54},{10,-54},{10,
           -150},{18,-150}}, color={255,0,255}));
+  connect(towFanSpe.TConWatRetSet, TConWatRetSet) annotation (Line(points={{2,23.8},
+          {40,23.8},{40,90},{120,90}}, color={0,0,127}));
+  connect(towFanSpe.TConWatSupSet, TConWatSupSet) annotation (Line(points={{2,21},
+          {60,21},{60,62},{120,62}}, color={0,0,127}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
@@ -551,7 +565,7 @@ annotation (
           textColor={0,0,127},
           textString="yIsoVal"),
         Text(
-          extent={{48,120},{100,104}},
+          extent={{48,90},{100,74}},
           textColor={255,0,255},
           textString="yLeaCel"),
         Text(
@@ -565,7 +579,17 @@ annotation (
         Text(
           extent={{46,180},{96,162}},
           textColor={0,0,127},
-          textString="yLifMin")}),
+          textString="yLifMin"),
+        Text(
+          extent={{30,152},{98,134}},
+          textColor={0,0,127},
+          textString="TConWatRetSet",
+          visible=have_conWatRetCon),
+        Text(
+          extent={{30,130},{98,112}},
+          textColor={0,0,127},
+          visible=have_conWatRetCon and not closeCoupledPlant,
+          textString="TConWatSupSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-260},{100,260}})),
 Documentation(info="<html>
 <p>

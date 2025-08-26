@@ -132,8 +132,8 @@ block Controller
     final min=0,
     final max=1,
     final unit="1") if have_WSE
-    "Cooling tower speed when the waterside economizer is enabled" annotation (
-      Placement(transformation(extent={{-200,220},{-160,260}}),
+    "Cooling tower speed when the waterside economizer is enabled"
+    annotation (Placement(transformation(extent={{-200,220},{-160,260}}),
         iconTransformation(extent={{-240,160},{-200,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
@@ -204,6 +204,13 @@ block Controller
     "Minimum LIFT among enabled chillers"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
         iconTransformation(extent={{200,-130},{240,-90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatRetSet(
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC",
+    final unit="K")
+    "Condenser water return temperature setpoint"
+    annotation (Placement(transformation(extent={{160,-190},{200,-150}}),
+        iconTransformation(extent={{200,-180},{240,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatSupSet(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
@@ -452,6 +459,8 @@ equation
           {120,-64},{120,-80},{180,-80}}, color={0,0,127}));
   connect(swi1.y, enaTow.uFanSpe) annotation (Line(points={{122,210},{130,210},
           {130,60},{30,60},{30,26},{38,26}}, color={0,0,127}));
+  connect(conWatRetSet.TConWatRetSet, TConWatRetSet) annotation (Line(points={{-18,
+          -70},{0,-70},{0,-170},{180,-170}}, color={0,0,127}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},

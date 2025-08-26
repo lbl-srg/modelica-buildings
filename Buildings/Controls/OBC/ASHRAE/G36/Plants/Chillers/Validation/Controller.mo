@@ -2,6 +2,12 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Validation;
 model Controller "Validation head pressure controller"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller chiPlaCon(
+    dTChiMinLif={285.15,285.15},
+    dTChiMaxLif={291.15,291.15},
+    TOutWetDes=288.15,
+    minFloSet={0.0089,0.0089},
+    maxFloSet={0.025,0.025},
+    nPum_nominal=2,
     final closeCoupledPlant=false,
     final nChi=2,
     final have_parChi=true,
@@ -31,7 +37,11 @@ model Controller "Validation head pressure controller"
     final chiDesCap={200,200},
     final chiMinCap={20,20},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement})
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement},
+    TConWatSup_nominal={293.15,293.15},
+    TConWatRet_nominal={303.15,303.15},
+    watLevMin=0.7,
+    watLevMax=1)
     "Chiller plant controller"
     annotation (Placement(transformation(extent={{-20,-180},{80,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiWatPum[2](
