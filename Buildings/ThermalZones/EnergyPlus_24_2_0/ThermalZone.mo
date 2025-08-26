@@ -5,6 +5,15 @@ model ThermalZone
     Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter Boolean autosizeHVAC=true
+    "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model"
+    annotation(Dialog(group="Autosizing"));
+  parameter String systemName = if not autosizeHVAC then "unconditioned" else "default"
+    "Name of the HVAC system that this zone belongs to for auto-sizing"
+    annotation(Dialog(group="Autosizing", enable=autosizeHVAC));
+  parameter Boolean use_sizingPeriods=true
+    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file"
+    annotation(Dialog(group="Autosizing", enable=autosizeHVAC));
   parameter Integer nPorts=0
     "Number of fluid ports (equals to 2 for one inlet and one outlet)"
     annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
@@ -49,6 +58,24 @@ model ThermalZone
     min=1)=fmuZon.mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume"
     annotation (Dialog(tab="Dynamics",group="Zone air"));
+  BaseClasses.Sizing sizCoo(
+    final QSen_flow(fixed=true)=fmuZon.sizCoo.QSen_flow,
+    final QLat_flow(fixed=true)=fmuZon.sizCoo.QLat_flow,
+    final TOut(fixed=true)=fmuZon.sizCoo.TOut,
+    final XOut(fixed=true)=fmuZon.sizCoo.XOut,
+    final T(fixed=true)=fmuZon.sizCoo.T,
+    final mOut_flow(fixed=true)=fmuZon.sizCoo.mOut_flow)
+    "Sizing parameters for zone cooling load"
+    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
+  BaseClasses.Sizing sizHea(
+    final QSen_flow(fixed=true)=fmuZon.sizHea.QSen_flow,
+    final QLat_flow(fixed=true)=fmuZon.sizHea.QLat_flow,
+    final TOut(fixed=true)=fmuZon.sizHea.TOut,
+    final XOut(fixed=true)=fmuZon.sizHea.XOut,
+    final T(fixed=true)=fmuZon.sizHea.T,
+    final mOut_flow(fixed=true)=fmuZon.sizHea.mOut_flow)
+    "Sizing parameters for zone heating load"
+    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](
     each unit="W/m2")
     "Radiant, convective sensible and latent heat input into room (positive if heat gain)"
@@ -101,10 +128,13 @@ protected
     final idfVersion=idfVersion,
     final idfName=idfName,
     final epwName=epwName,
+    final zoneName=zoneName,
+    final systemName=systemName,
+    final autosizeHVAC=autosizeHVAC,
+    final use_sizingPeriods=use_sizingPeriods,
     final runPeriod=runPeriod,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final setInitialRadiativeHeatGainToZero=setInitialRadiativeHeatGainToZero,
-    final zoneName=zoneName,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
     final fmuName=fmuName,
@@ -173,8 +203,7 @@ protected
         3.82E-8*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM/Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
       else
         0 for i in 1:Medium.nC},
-    u1(
-      each final unit="W")) if use_C_flow
+    u1(each final unit="W")) if use_C_flow
     "Total trace substance flow rate"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nPorts](
