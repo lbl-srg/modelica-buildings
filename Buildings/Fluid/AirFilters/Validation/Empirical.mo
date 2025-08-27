@@ -69,13 +69,11 @@ model Empirical "Example for using the empirical air filter model"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
   connect(repSig.y,airFil.uRes)  annotation (Line(points={{-18,50},{-10,50},{
-          -10,6},{-2,6}},
-                      color={255,0,255}));
+          -10,6},{-2,6}}, color={255,0,255}));
   connect(C_CO2_inflow.y, sou.C_in[2]) annotation (Line(points={{-139,30},{-120,
           30},{-120,-8},{-102,-8}}, color={0,0,127}));
   connect(C_VOC_inflow.y, sou.C_in[1]) annotation (Line(points={{-139,-30},{
-          -120,-30},{-120,-8},{-102,-8}},
-                                     color={0,0,127}));
+          -120,-30},{-120,-8},{-102,-8}}, color={0,0,127}));
   connect(senTraSubVOCIn.port_b, airFil.port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
   connect(senTraSubCO2In.port_b, senTraSubVOCIn.port_a)
