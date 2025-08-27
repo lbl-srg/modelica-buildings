@@ -25,7 +25,7 @@ model Direct
     final use_T_in=false,
     final nPorts=1)
     "Sink"
-    annotation (Placement(transformation(origin={102,0}, extent={{10,-10},{-10,10}})));
+    annotation (Placement(transformation(origin={110,0}, extent={{10,-10},{-10,10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     final columns = 2:10,
@@ -53,27 +53,27 @@ model Direct
     final m_flow_nominal=m_flow_nominal,
     final T_start = 293.15)
     "Outlet air temperature sensor"
-    annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={40,0}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium = MediumA,
     final m_flow_nominal=m_flow_nominal)
     "Outlet air water mass fraction sensor"
-    annotation (Placement(transformation(origin={60,0}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={70,0}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Math.Mean mea(
     final f=1/600)
     "Mean block to average output data"
-    annotation (Placement(transformation(origin={50,60}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={70,60}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Math.Mean mea1(
     final f=1/600)
     "Mean block to average output data"
-    annotation (Placement(transformation(origin={90,30}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={110,30},extent={{-10,-10},{10,10}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
     "Convert inlet air humidity ratio denominator from dry air to total air"
-    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirOut
     "Convert outlet air humidity ratio denominator from dry air to total air"
@@ -85,21 +85,21 @@ model Direct
 
   Modelica.Blocks.Math.UnitConversions.To_degC to_degCOut
     "Convert outlet temperature from Kelvin to deg C"
-    annotation (Placement(transformation(extent={{80,50},{100,70}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 equation
   connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
           {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
   connect(dirEvaCoo.port_b, senTem.port_a)
-    annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
   connect(senTem.T, mea.u)
-    annotation (Line(points={{30,11},{30,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{40,11},{40,60},{58,60}}, color={0,0,127}));
   connect(senMasFra.X, mea1.u)
-    annotation (Line(points={{60,11},{60,30},{78,30}}, color={0,0,127}));
+    annotation (Line(points={{70,11},{70,30},{98,30}}, color={0,0,127}));
   connect(combiTimeTable.y[6], toTotAirIn.XiDry) annotation (Line(points={{-109,40},
-          {-100,40},{-100,-50},{-91,-50}}, color={0,0,127}));
-  connect(toTotAirIn.XiTotalAir, sou.Xi_in[1]) annotation (Line(points={{-69,-50},
-          {-50,-50},{-50,-4},{-42,-4}}, color={0,0,127}));
+          {-100,40},{-100,-60},{-91,-60}}, color={0,0,127}));
+  connect(toTotAirIn.XiTotalAir, sou.Xi_in[1]) annotation (Line(points={{-69,-60},
+          {-50,-60},{-50,-4},{-42,-4}}, color={0,0,127}));
   connect(combiTimeTable.y[8], toTotAirOut.XiDry)
     annotation (Line(points={{-109,40},{-81,40}},  color={0,0,127}));
   connect(combiTimeTable.y[5], from_degCIn.u) annotation (Line(points={{-109,40},
@@ -107,11 +107,11 @@ equation
   connect(from_degCIn.y, sou.T_in) annotation (Line(points={{-69,-20},{-60,-20},
           {-60,4},{-42,4}}, color={0,0,127}));
   connect(mea.y, to_degCOut.u)
-    annotation (Line(points={{61,60},{78,60}}, color={0,0,127}));
+    annotation (Line(points={{81,60},{98,60}}, color={0,0,127}));
   connect(senMasFra.port_a, senTem.port_b)
-    annotation (Line(points={{50,0},{40,0}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
   connect(senMasFra.port_b, sin.ports[1])
-    annotation (Line(points={{70,0},{92,0}}, color={0,127,255}));
+    annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
   connect(sou.ports[1], dirEvaCoo.port_a)
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
 

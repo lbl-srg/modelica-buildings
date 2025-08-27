@@ -52,12 +52,12 @@ block Direct
     annotation (Placement(transformation(origin={120,0}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={120,0}, extent={{-20,-20},{20,20}})));
 
-  Buildings.Utilities.Psychrometrics.XW_TDryBulTWetBul
-    XWOut(redeclare package Medium = Medium)
+  Buildings.Utilities.Psychrometrics.XW_TDryBulTWetBul XWOut(
+    redeclare package Medium = Medium)
     "Water vapor mass fraction at the outlet";
 
-  Buildings.Utilities.Psychrometrics.XW_TDryBulTWetBul
-    XWIn(redeclare package Medium =  Medium)
+  Buildings.Utilities.Psychrometrics.XW_TDryBulTWetBul XWIn(
+    redeclare package Medium =  Medium)
     "Water vapor mass fraction at the inlet";
 
   Modelica.Units.SI.Velocity vel

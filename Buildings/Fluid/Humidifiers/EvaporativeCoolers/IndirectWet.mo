@@ -169,8 +169,7 @@ equation
   connect(resPri.port_b, volPri.ports[1])
     annotation (Line(points={{50,20},{69,20},{69,30}}, color={0,127,255}));
   connect(volPri.ports[2], port_b1) annotation (Line(points={{71,30},{72,30},{
-          72,20},{92,20},{92,60},{100,60}},
-                                         color={0,127,255}));
+          72,20},{92,20},{92,60},{100,60}}, color={0,127,255}));
 
 annotation (defaultComponentName = "indWetEva",
 Documentation(info="<html>
@@ -208,7 +207,7 @@ air temperature.
 Note: The model works correctly only when the ports a1 and a2 are used as inlet ports, 
 and ports b1 and b2 are used as outlet ports, for the primary and secondary flow 
 respectively. Also, the secondary air outlet conditions are currently not validated, 
-and it is recommended that it be vented to an object acting as a sink, and without
+and it is recommended that it is vented to an object acting as a sink, and without
 connecting any downstream components to it.
 </p>
 </html>", revisions="<html>

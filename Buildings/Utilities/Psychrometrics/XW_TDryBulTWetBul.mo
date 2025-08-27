@@ -38,8 +38,6 @@ block XW_TDryBulTWetBul "Compute the water vapor mass fraction"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-//   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Xi[Medium.nXi]
-//     "Water vapor mass fraction";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput X_w
     "Water vapor mass fraction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
