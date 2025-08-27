@@ -40,6 +40,19 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math.Functions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.bicubic<br/>
+                       Buildings.Utilities.Math.Functions.quadraticLinear<br/>
+                       Buildings.Utilities.Math.Functions.quinticHermite<br/>
+                       Buildings.Utilities.Math.Functions.smoothHeaviside<br/>
+                       Buildings.Utilities.Math.Functions.smoothLimit
+    </td>
+    <td valign=\"top\">Made the functions inlined.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4278\">issue 4278</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
@@ -48,13 +61,34 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+</tr>     
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Examples.ResistanceVolumeFlowReversal
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[.].T</code>
+                       from reference results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.FiniteLineSource_Erfint
+    </td>
+    <td valign=\"top\">Added an assert-statement for <code>err</code>
+                       and removed it from reference results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
+    </td>
+    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
