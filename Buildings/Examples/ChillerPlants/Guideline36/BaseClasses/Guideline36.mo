@@ -33,6 +33,8 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller chiPlaCon(
     nChi=2,
+    chiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement},
     TChiWatSupMin={278.15,278.15},
     dTChiMinLif={12,12},
     dTChiMaxLif={18,18},

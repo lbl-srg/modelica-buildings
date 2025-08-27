@@ -38,8 +38,9 @@ block Controller "Chiller plant controller"
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real TChiWatSupMin[nChi](unit=fill("K", nChi), each displayUnit=
-        "degC")
+  parameter Real TChiWatSupMin[nChi](
+    unit=fill("K", nChi),
+    displayUnit=fill("degC",nChi))
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -60,7 +61,7 @@ block Controller "Chiller plant controller"
     "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable"
     annotation (Dialog(tab="General", group="Waterside economizer", enable=not have_airCoo));
 
-  parameter Real heaExcAppDes(unit="K", displayUnit="K")
+  parameter Real heaExcAppDes(unit="K", displayUnit="K", start=2)
     "Design heat exchanger approach"
     annotation(Evaluate=true, Dialog(tab="General", group="Waterside economizer", enable=have_WSE and not have_airCoo));
 
@@ -153,8 +154,9 @@ block Controller "Chiller plant controller"
     "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
     annotation (Dialog(tab="General",group="Staging configuration"));
 
-  parameter Real desConWatPumSpe[totSta](max=fill(1, totSta), min=fill(0,
-        totSta))
+  parameter Real desConWatPumSpe[totSta](
+    max=fill(1, totSta),
+    min=fill(0, totSta))
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(tab="General", group="Staging configuration", enable=(not have_airCoo) and (not have_fixSpeConWatPum)));
 
@@ -218,7 +220,7 @@ block Controller "Chiller plant controller"
     "Temperature offset between the chilled water return upstream and downstream WSE"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Enable parameters", enable=have_WSE and not have_airCoo));
 
-  parameter Real TOutWetDes(unit="K", displayUnit="degC")
+  parameter Real TOutWetDes(unit="K", displayUnit="degC", start=288.15)
     "Design outdoor air wet bulb temperature"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE and not have_airCoo));
 
@@ -437,8 +439,9 @@ block Controller "Chiller plant controller"
     "Minimum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Real dpChiWatMax[nSenChiWatPum](unit=fill("Pa", nSenChiWatPum),
-      each displayUnit="Pa")
+  parameter Real dpChiWatMax[nSenChiWatPum](
+    unit=fill("Pa", nSenChiWatPum),
+    displayUnit=fill("Pa", nSenChiWatPum))
     "Maximum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
@@ -640,13 +643,15 @@ block Controller "Chiller plant controller"
                               and not have_airCoo));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-  parameter Real TConWatSup_nominal[nChi](unit=fill("K", nChi), each
-      displayUnit="degC")
+  parameter Real TConWatSup_nominal[nChi](
+    unit=fill("K", nChi),
+    displayUnit=fill("degC", nChi))
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control", enable=not have_airCoo));
 
-  parameter Real TConWatRet_nominal[nChi](unit=fill("K", nChi), each
-      displayUnit="degC")
+  parameter Real TConWatRet_nominal[nChi](
+    unit=fill("K", nChi),
+    displayUnit=fill("degC", nChi))
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control", enable=not have_airCoo));
 
@@ -1675,19 +1680,21 @@ protected
     "Find product of the inputs"
     annotation (Placement(transformation(extent={{-460,-520},{-440,-500}})));
 
+public
+  CDL.Reals.MultiplyByParameter gai1(final k=1) if not have_WSE
+    "Dummy block to be disabled when there is no WSE"
+    annotation (Placement(transformation(extent={{-700,90},{-680,110}})));
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-268,72},{-580,72},
           {-580,-500},{-658,-500}}, color={255,0,255}));
   connect(TChiWatRetDow, wseSta.TChiWatRetDow) annotation(Line(points={{-920,320},
-          {-840,320},{-840,346},{-704,346}},      color={0,0,127}));
+          {-850,320},{-850,346},{-704,346}},      color={0,0,127}));
   connect(chiWatSupSet.TChiWatSupSet, staSetCon.TChiWatSupSet) annotation(Line(
         points={{-476,428},{-380,428},{-380,52},{-268,52}},     color={0,0,127}));
   connect(TChiWatSup, staSetCon.TChiWatSup) annotation(Line(points={{-920,210},{
           -840,210},{-840,44},{-268,44}},        color={0,0,127}));
   connect(VChiWat_flow, minBypValCon.VChiWat_flow) annotation(Line(points={{-920,
           440},{-880,440},{-880,-140},{-684,-140}},    color={0,0,127}));
-  connect(TChiWatRet, staSetCon.TChiWatRet) annotation(Line(points={{-920,280},{
-          -860,280},{-860,-48},{-268,-48}}, color={0,0,127}));
   connect(staSetCon.TWsePre, wseSta.TWsePre) annotation(Line(points={{-268,-56},
           {-420,-56},{-420,346},{-656,346}}, color={0,0,127}));
   connect(VChiWat_flow, staSetCon.VChiWat_flow) annotation(Line(points={{-920,440},
@@ -2146,6 +2153,12 @@ equation
   connect(towCon.ySpeSet, staSetCon.uTowFanSpeMax) annotation (Line(points={{-172,
           -684},{-100,-684},{-100,-360},{-300,-360},{-300,-36},{-268,-36}},
         color={0,0,127}));
+  connect(TChiWatRetDow, staSetCon.TChiWatRet) annotation (Line(points={{-920,320},
+          {-850,320},{-850,-48},{-268,-48}}, color={0,0,127}));
+  connect(TChiWatRet, gai1.u) annotation (Line(points={{-920,280},{-860,280},{-860,
+          100},{-702,100}}, color={0,0,127}));
+  connect(gai1.y, staSetCon.TChiWatRet) annotation (Line(points={{-678,100},{-660,
+          100},{-660,-48},{-268,-48}}, color={0,0,127}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),

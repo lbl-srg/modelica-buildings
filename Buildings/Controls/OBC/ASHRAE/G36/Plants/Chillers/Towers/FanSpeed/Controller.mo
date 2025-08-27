@@ -182,7 +182,7 @@ block Controller "Tower fan speed control"
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enabling status"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
+    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
@@ -201,8 +201,9 @@ block Controller "Tower fan speed control"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
+    if have_conWatRetCon and not closeCoupledPlant
     "Condenser water supply temperature (condenser entering)"
-    annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),
+    annotation (Placement(transformation(extent={{-140,-190},{-100,-150}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
@@ -233,7 +234,7 @@ block Controller "Tower fan speed control"
     displayUnit="degC",
     final unit="K") if have_conWatRetCon and not closeCoupledPlant
     "Condenser water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{100,-188},{140,-148}}),
+    annotation (Placement(transformation(extent={{100,-190},{140,-150}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Controller
@@ -318,7 +319,7 @@ equation
     annotation (Line(points={{-120,30},{-60,30},{-60,-46},{-2,-46}},
       color={0,0,127}));
   connect(fanSpeRetTem.uPla, uPla)
-    annotation (Line(points={{-2,-49},{-60,-49},{-60,-100},{-120,-100}},
+    annotation (Line(points={{-2,-49},{-60,-49},{-60,-90},{-120,-90}},
       color={255,0,255}));
   connect(fanSpeRetTem.TConWatRet, TConWatRet)
     annotation (Line(points={{-2,-52},{-56,-52},{-56,-120},{-120,-120}},
@@ -327,7 +328,7 @@ equation
     annotation (Line(points={{-2,-55},{-52,-55},{-52,-140},{-120,-140}},
       color={0,0,127}));
   connect(fanSpeRetTem.TConWatSup, TConWatSup)
-    annotation (Line(points={{-2,-58},{-48,-58},{-48,-160},{-120,-160}},
+    annotation (Line(points={{-2,-58},{-48,-58},{-48,-170},{-120,-170}},
       color={0,0,127}));
   connect(fanSpeRetTem.ySpeSet,ySpeSet)
     annotation (Line(points={{42,-40},{120,-40}},
@@ -338,8 +339,8 @@ equation
           {80,-110},{120,-110}}, color={0,0,127}));
   connect(fanSpeRetTem.TConWatRetSet, TConWatRetSet) annotation (Line(points={{42,
           -56},{70,-56},{70,-140},{120,-140}}, color={0,0,127}));
-  connect(fanSpeRetTem.TConWatSupSet, TConWatSupSet) annotation (Line(points={{42,
-          -59},{60,-59},{60,-168},{120,-168}}, color={0,0,127}));
+  connect(fanSpeRetTem.TConWatSupSet, TConWatSupSet) annotation (Line(points={{42,-59},
+          {60,-59},{60,-170},{120,-170}},      color={0,0,127}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
