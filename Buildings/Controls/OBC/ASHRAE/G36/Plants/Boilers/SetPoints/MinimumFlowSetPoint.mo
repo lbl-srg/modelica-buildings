@@ -13,17 +13,17 @@ block MinimumFlowSetPoint "Hot water minimum flow setpoint"
     "Boiler staging matrix";
 
   parameter Real minFloSet[nBoi](
-    final unit="m3/s",
-    displayUnit="m3/s",
-    final quantity="VolumeFlowRate",
-    final min=1e-6,
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi),
+    final min=fill(1e-6,nBoi),
     final max=maxFloSet) = {0.005, 0.005, 0.005}
     "Design minimum hot water flow through each boiler";
 
   parameter Real maxFloSet[nBoi](
-    final unit="m3/s",
-    displayUnit="m3/s",
-    final quantity="VolumeFlowRate",
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi),
     final min=minFloSet) = {0.025, 0.025, 0.025}
     "Design maximum hot water flow through each boiler";
 
