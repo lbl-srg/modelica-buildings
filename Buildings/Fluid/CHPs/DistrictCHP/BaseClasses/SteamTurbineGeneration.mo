@@ -32,10 +32,11 @@ protected
 
 algorithm
   TExh_degF := (TExh-273.15)*(9/5) +32;
-  aExh := Functions.ExhaustSpecificExergy(TExh=TExh_degF)/0.0004299226
+  aExh :=Functions.ExhaustSpecificExergy(TExh=TExh_degF)/0.0004299226
     "Convert the unit from Btu/lb to J/kg (1J/kg=0.000429923 Btu/Ib)";
 
-  PEle_ST :=mExh_flow*aExh*Functions.ExhaustExergyEfficiency(a=a, TExh=TExh_degF)
+  PEle_ST :=mExh_flow*aExh*Functions.ExhaustExergyEfficiency(a=a, TExh=
+    TExh_degF)
     "Steam turbine electricity is obtained by the exhaust exergy times exergy efficiency";
 
 annotation (defaultComponentName="steTurGen",

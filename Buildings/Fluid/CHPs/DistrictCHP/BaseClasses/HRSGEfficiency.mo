@@ -41,9 +41,9 @@ algorithm
 
 equation
   eta_HRSG =Functions.HRSGEffectiveness(
-     TExh=TExh_degF,
-     TSta=TSta_degF,
-     TAmb=TAmb_degF)
+    TExh=TExh_degF,
+    TSta=TSta_degF,
+    TAmb=TAmb_degF)
     "HRSG effectiveness calculation";
 annotation (defaultComponentName="effHRSG",
 Documentation(info="<html>

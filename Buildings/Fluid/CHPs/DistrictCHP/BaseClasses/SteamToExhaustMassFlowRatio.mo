@@ -35,9 +35,9 @@ algorithm
 
 equation
   mu =Functions.SteamToExhaustMassFlowRatio(
-     a=a_SteMas,
-     TExh=TExh_degF,
-     TSte=TSte_degF)
+    a=a_SteMas,
+    TExh=TExh_degF,
+    TSte=TSte_degF)
    "The ratio of steam and exhaust gas flow rate, which is a function of exhaust temperature";
 
 annotation (defaultComponentName="rat",
