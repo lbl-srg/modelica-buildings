@@ -6,7 +6,8 @@ model HotWaterPolynomial "Hot water boiler with efficiency described by a polyno
       final Q_flow_nominal = dat.cap_nominal,
       final m_flow_nominal=dat.mHeaWat_flow_nominal,
       final dp_nominal=dat.dpHeaWat_nominal,
-      final fue=dat.fue));
+      final fue=dat.fue),
+    ctlPID(k=0.1, Ti=60));
 
   annotation (
   defaultComponentName="boi",

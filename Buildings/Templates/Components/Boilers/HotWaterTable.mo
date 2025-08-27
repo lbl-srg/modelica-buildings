@@ -2,7 +2,8 @@ within Buildings.Templates.Components.Boilers;
 model HotWaterTable "Hot water boiler with efficiency described by a table"
   extends Buildings.Templates.Components.Interfaces.PartialBoilerHotWater(
     final typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Table,
-    redeclare Buildings.Fluid.Boilers.BoilerTable boi(final per=dat.per));
+    redeclare Buildings.Fluid.Boilers.BoilerTable boi(final per=dat.per),
+    ctlPID(k=0.1, Ti=60));
 
   annotation (
   defaultComponentName="boi",

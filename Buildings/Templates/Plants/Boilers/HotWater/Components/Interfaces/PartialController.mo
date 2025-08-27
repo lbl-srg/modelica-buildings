@@ -84,7 +84,7 @@ block PartialController
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Boolean have_senTHeaWatPlaRetCon=
-    cfg.have_boiCon and cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+    cfg.have_boiCon
     "Set to true for plant HW return temperature sensor - Condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean have_senTHeaWatPlaRetNon=cfg.have_boiNon
@@ -136,7 +136,6 @@ block PartialController
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={100,-60})));
-
 protected
   Buildings.Templates.Components.Interfaces.Bus busBoiCon[cfg.nBoiCon]
     if cfg.have_boiCon "Boiler control bus - Condensing boilers" annotation (

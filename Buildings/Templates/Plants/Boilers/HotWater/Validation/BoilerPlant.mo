@@ -28,14 +28,14 @@ model BoilerPlant
     nBoiNon_select=2,
     typPumHeaWatPriNon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable,
     typArrPumHeaWatPriNon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None,
+    typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized,
     final energyDynamics=energyDynamics,
     final tau=tau,
     final dat=datAll.pla,
     ctl(
       nAirHan=1,
       nEquZon=0,
-      typMeaCtlHeaWatPri=Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler,
+      typMeaCtlHeaWatPri=Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
       have_senDpHeaWatRemWir=true))
     "Boiler plant"
     annotation (Placement(transformation(extent={{-60,-100},{-20,-60}})));
@@ -85,7 +85,7 @@ model BoilerPlant
         origin={180,-20})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter THeaWatRet(p=pla.THeaWatRet_nominal
          - pla.THeaWatSup_nominal) "Prescribed HW return temperature"
-    annotation (Placement(transformation(extent={{-108,-30},{-88,-10}})));
+    annotation (Placement(transformation(extent={{-90,-30},{-110,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1(
     y(unit="K", displayUnit="degC"))
     "Limit prescribed HWRT"
@@ -122,15 +122,12 @@ model BoilerPlant
          datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
     annotation (Placement(transformation(extent={{30,-130},{10,-110}})));
-protected
-  Buildings.Templates.Components.Interfaces.Bus busLooCon if pla.have_boiCon
-    "Condensing boiler loop control bus" annotation (Placement(transformation(
-          extent={{-160,-40},{-120,0}}),   iconTransformation(extent={{-466,50},
-            {-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busLooNon if pla.have_boiNon
-    "Non-condensing boiler loop control bus" annotation (Placement(
-        transformation(extent={{-160,-60},{-120,-20}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
+  Fluid.Sensors.TemperatureTwoPort THeaWatSup(redeclare each final package
+      Medium = Medium, m_flow_nominal=pla.mHeaWat_flow_nominal)
+    "HW supply temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={20,-40})));
 equation
   connect(TAirSup.y,reqPlaRes. TAirSup) annotation (Line(points={{-158,120},{
           120,120},{120,108},{112,108}}, color={0,0,127}));
@@ -153,12 +150,11 @@ equation
     annotation (Line(points={{112,60},{120,60},{120,-28}},   color={0,0,127}));
   connect(con.y,max1. u1) annotation (Line(points={{-158,20},{-80,20},{-80,6},{
           -62,6}},   color={0,0,127}));
-  connect(THeaWatRet.y, max1.u2) annotation (Line(points={{-86,-20},{-80,-20},{
-          -80,-6},{-62,-6}}, color={0,0,127}));
+  connect(THeaWatRet.y, max1.u2) annotation (Line(points={{-112,-20},{-120,-20},
+          {-120,0},{-80,0},{-80,-6},{-62,-6}},
+                             color={0,0,127}));
   connect(mHeaWatLoo_flow.port_b, dpHeaWatRem[1].port_b) annotation (Line(
         points={{160,-90},{160,-120},{60,-120},{60,-90}}, color={0,127,255}));
-  connect(pla.port_b,loaHeaWat. port_a) annotation (Line(points={{-19.8,-80},{0,
-          -80},{0,-40},{70,-40}},   color={0,127,255}));
   connect(sigBAS.bus, busPla) annotation (Line(
       points={{-160,-70},{-120,-70}},
       color={255,204,51},
@@ -189,24 +185,14 @@ equation
           {80,97},{80,94},{22,94}}, color={255,127,0}));
   connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem) annotation (Line(points={{51,
           -80},{40,-80},{40,-50},{-120,-50},{-120,-70}}, color={0,0,127}));
-  connect(busLooNon.THeaWatPriSup, THeaWatRet.u) annotation (Line(
-      points={{-140,-40},{-120,-40},{-120,-20},{-110,-20}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busLooCon.THeaWatPriSup, THeaWatRet.u) annotation (Line(
-      points={{-140,-20},{-110,-20}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPla.looNon, busLooNon) annotation (Line(
-      points={{-120,-70},{-140,-70},{-140,-40}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPla.looCon, busLooCon) annotation (Line(
-      points={{-120,-70},{-154,-70},{-154,-20},{-140,-20}},
-      color={255,204,51},
-      thickness=0.5));
   connect(max1.y, loaHeaWat.TSet) annotation (Line(points={{-38,0},{60,0},{60,
           -32},{68,-32}}, color={0,0,127}));
+  connect(pla.port_b, THeaWatSup.port_a) annotation (Line(points={{-19.8,-80},{
+          0,-80},{0,-40},{10,-40}}, color={0,127,255}));
+  connect(THeaWatSup.port_b, loaHeaWat.port_a)
+    annotation (Line(points={{30,-40},{70,-40}}, color={0,127,255}));
+  connect(THeaWatSup.T, THeaWatRet.u)
+    annotation (Line(points={{20,-29},{20,-20},{-88,-20}}, color={0,0,127}));
 annotation (
   __Dymola_Commands(
     file=

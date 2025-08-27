@@ -29,10 +29,13 @@ block G36 "Guideline 36 controller"
     "True: Temperature sensors in primary and secondary loops;
     False: Temperature sensors in boiler supply and secondary loop";
 
-  // Only variable speed secondary pumps are supported in the template.
-  final parameter Boolean have_varSecPum = true
-    "True: Variable-speed secondary pumps;
-    False: Fixed-speed secondary pumps";
+  final parameter Integer nLooSec =
+    if cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
+      then 1
+    elseif cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Distributed
+      then cfg.nLooHeaWatSec
+    else 0
+    "Number of secondary loops serviced by primary plant";
 
   final parameter Integer nBoi = cfg.nBoiCon + cfg.nBoiNon
     "Number of boilers";
@@ -146,12 +149,12 @@ block G36 "Guideline 36 controller"
     final maxFloSet=maxFloSet,
     final maxLocDpPri=maxLocDpPri,
     final minFloSet=minFloSet,
-    minLocDpPri=3E4,
     Ti_priPum=60,
     final minPriPumSpeSta=minPriPumSpeSta,
     final minPumSpePri=minPumSpePri,
     final minSecPumSpe=minSecPumSpe,
     final nBoi=nBoi,
+    final nLooSec=nLooSec,
     final nPumPri=nPumPri,
     final nPumPri_nominal=nPumPri_nominal,
     final nSenPri=nSenPri,
@@ -160,13 +163,13 @@ block G36 "Guideline 36 controller"
     final TConBoiHotWatSetMax=TConBoiHotWatSetMax,
     final TOutLoc=TOutLoc,
     final TPlaHotWatSetMax=TPlaHotWatSetMax,
-    final VHotWatPri_flow_nominal=VHotWatPri_flow_nominal)
+    final VHotWatPri_flow_nominal=VHotWatPri_flow_nominal,
+    have_isoValSen=false)
     "Primary loop controller"
     annotation (Placement(transformation(extent={{-10,-36},{10,32}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
-                                ctlPumHeaWatSec(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller ctlPumHeaWatSec(
     final have_secFloSen=have_secFloSen,
-    final have_varSecPum=have_varSecPum,
+    final have_looPriNonCon=cfg.have_boiNon,
     final maxLocDp=maxLocDpSec,
     final minPumSpe=minSecPumSpe,
     final nPum=cfg.nPumHeaWatSec,
@@ -175,8 +178,8 @@ block G36 "Guideline 36 controller"
     final nSen=nSenDpHeaWatRem,
     Ti=60,
     final speConTyp=speConTypSec,
-    final VHotWat_flow_nominal=VHotWatSec_flow_nominal) if cfg.typPumHeaWatSec ==
-    Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
+    final VHotWat_flow_nominal=VHotWatSec_flow_nominal)
+    if cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump controller - For centralized pumps only"
     annotation (Placement(transformation(extent={{50,60},{70,100}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaHeaWatAirHan(
@@ -201,29 +204,19 @@ block G36 "Guideline 36 controller"
   Buildings.Controls.OBC.CDL.Integers.Add reqResHeaWat
     "Sum of HW reset requests from all served units"
     annotation (Placement(transformation(extent={{192,110},{172,130}})));
-
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxPumHeaWatSec[cfg.nPumHeaWatSec](
-     k={i for i in 1:cfg.nPumHeaWatSec}) if cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
+    k={i for i in 1:cfg.nPumHeaWatSec})
+    if cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump index - No rotation logic currently implemented"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaBoi[nBoi](each k=true)
     "Boiler available signal – Implementation does not handle fault detection yet"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}),
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}}),
         iconTransformation(extent={{-240,220},{-200,260}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpHeaWatSet[nSenDpHeaWatRem](
-    final k=dat.dpHeaWatRemSet_max)
-    "HW differential pressure setpoint - Remote sensor(s)"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiMax FIXME_max(nin=nSenDpHeaWatRem)
-    "There should be one setpoint value for each remote sensor"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Modelica.Blocks.Continuous.CriticalDamping FIXME_uPumSpe(
-    n=1,
-    f=2.2/(2*Modelica.Constants.pi*30),
-    initType=Modelica.Blocks.Types.Init.InitialOutput) if cfg.typPumHeaWatSec
-     == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
-    "PR#2700: This should be the commanded speed"
-    annotation (Placement(transformation(extent={{70,30},{50,50}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_dpHeaWatSet[
+    nSenDpHeaWatRem](final k=dat.dpHeaWatRemSet_max)
+    "HW differential pressure setpoint - Remote sensor(s): should be a parameter, missing local Δp setpoint, same for primary controller"
+    annotation (Placement(transformation(extent={{-10,56},{10,76}})));
 initial equation
   assert(nAirHan + nEquZon > 0,
    "In "+ getInstanceName() + ": "+
@@ -247,26 +240,22 @@ equation
   connect(busLooCon.THeaWatPriSup, ctlLooPri.TSupPri);
   connect(busLooNon.THeaWatPriSup, ctlLooPri.TSupPri);
   connect(bus.THeaWatSecSup, ctlLooPri.TSupSec);
-  connect(busValBoiConIso.y1_actual, ctlLooPri.uHotWatIsoVal[1:cfg.nBoiCon]);
-  connect(busValBoiNonIso.y1_actual, ctlLooPri.uHotWatIsoVal[(cfg.nBoiCon+1):nBoi]);
   connect(busPumHeaWatPriCon.y1_actual, ctlLooPri.uPriPum[1:cfg.nBoiCon]);
   connect(busPumHeaWatPriNon.y1_actual, ctlLooPri.uPriPum[(cfg.nBoiCon+1):nBoi]);
   connect(bus.u1Sch, ctlLooPri.uSchEna);
+  connect(bus.VHeaWatSec_flow, ctlLooPri.VHotWatSec_flow);
   // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.VHeaWatByp_flow, ctlLooPri.VHotWatDec_flow);
   connect(busLooNon.VHeaWatByp_flow, ctlLooPri.VHotWatDec_flow);
   // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.VHeaWatPri_flow, ctlLooPri.VHotWatPri_flow);
   connect(busLooNon.VHeaWatPri_flow, ctlLooPri.VHotWatPri_flow);
-  connect(bus.VHotWatSec_flow, ctlLooPri.VHotWatSec_flow);
 
   // Secondary HW pump controller inputs from plant control bus
   connect(bus.dpHeaWatLoc, ctlPumHeaWatSec.dpHotWat_local);
   connect(bus.dpHeaWatRem, ctlPumHeaWatSec.dpHotWat_remote);
   connect(busPumHeaWatSec.y1_actual, ctlPumHeaWatSec.uHotWatPum);
-  connect(busPumHeaWatPriCon.y1_actual, ctlPumHeaWatSec.uPriPumSta[1:cfg.nBoiCon]);
-  connect(busPumHeaWatPriNon.y1_actual, ctlPumHeaWatSec.uPriPumSta[(cfg.nBoiCon+1):nBoi]);
-  connect(bus.VHeaWatSec_flow, ctlPumHeaWatSec.VHotWat_flow);
+  connect(bus.VHeaWatSec_flow[1], ctlPumHeaWatSec.VHotWat_flow);
 
   // Primary loop controller outputs to plant control bus
   connect(ctlLooPri.TBoiHotWatSupSet[1:cfg.nBoiCon], busBoiCon.THeaWatSupSet);
@@ -296,12 +285,8 @@ equation
           {200,162},{200,166},{192,166}}, color={255,127,0}));
   connect(reqPlaHeaWatEquZon.y,reqPlaHeaWat. u2) annotation (Line(points={{208,-120},
           {200,-120},{200,154},{192,154}},color={255,127,0}));
-  connect(reqPlaHeaWat.y, ctlLooPri.plaReq) annotation (Line(points={{168,160},{
-          -20,160},{-20,23.5},{-12,23.5}}, color={255,127,0}));
-  connect(reqResHeaWat.y, ctlLooPri.TSupResReq) annotation (Line(points={{170,120},
-          {-18,120},{-18,26.9},{-12,26.9}}, color={255,127,0}));
   connect(idxPumHeaWatSec.y, ctlPumHeaWatSec.uPumLeaLag) annotation (Line(
-        points={{12,100},{40,100},{40,98.2},{48,98.2}}, color={255,127,0}));
+        points={{12,100},{44,100},{44,98.2},{48,98.2}}, color={255,127,0}));
   connect(ctlLooPri.yPla, ctlPumHeaWatSec.uPlaEna) annotation (Line(points={{12,
           9.9},{30,9.9},{30,90},{48,90}}, color={255,0,255}));
   connect(busEquZon.reqResHeaWat, reqResHeaWatEquZon.u) annotation (Line(
@@ -320,22 +305,20 @@ equation
       points={{260,140},{240,140},{240,120},{232,120}},
       color={255,204,51},
       thickness=0.5));
-  connect(reqResHeaWat.y, ctlPumHeaWatSec.supResReq) annotation (Line(points={{170,
-          120},{44,120},{44,86},{48,86}}, color={255,127,0}));
-  connect(ctlLooPri.yPriPum, ctlPumHeaWatSec.uPriPumSta) annotation (Line(
+  connect(ctlLooPri.yPriPum, ctlPumHeaWatSec.uPriPum) annotation (Line(
         points={{12,-10.5},{32,-10.5},{32,78},{48,78}}, color={255,0,255}));
   connect(ctlLooPri.yMaxSecPumSpe, ctlPumHeaWatSec.uMaxSecPumSpeCon)
     annotation (Line(points={{12,-7.1},{34,-7.1},{34,62},{48,62}}, color={0,0,127}));
-  connect(u1AvaBoi.y, ctlLooPri.uBoiAva) annotation (Line(points={{-78,20},{-20,
-          20},{-20,-0.3},{-12,-0.3}}, color={255,0,255}));
-  connect(dpHeaWatSet.y, FIXME_max.u)
-    annotation (Line(points={{-78,60},{-62,60}}, color={0,0,127}));
-  connect(FIXME_max.y, ctlPumHeaWatSec.dpHotWatSet) annotation (Line(points={{-38,
-          60},{28,60},{28,66},{48,66}}, color={0,0,127}));
-  connect(ctlPumHeaWatSec.yPumSpe, FIXME_uPumSpe.u) annotation (Line(points={{
-          72,70},{80,70},{80,40},{72,40}}, color={0,0,127}));
-  connect(FIXME_uPumSpe.y, ctlPumHeaWatSec.uPumSpe) annotation (Line(points={{
-          49,40},{40,40},{40,82},{48,82}}, color={0,0,127}));
+  connect(u1AvaBoi.y, ctlLooPri.uBoiAva) annotation (Line(points={{-38,0},{-20,0},
+          {-20,-0.3},{-12,-0.3}},     color={255,0,255}));
+  connect(reqPlaHeaWat.y, ctlPumHeaWatSec.plaReq) annotation (Line(points={{168,
+          160},{40,160},{40,86},{48,86}}, color={255,127,0}));
+  connect(reqPlaHeaWat.y, ctlLooPri.plaReq) annotation (Line(points={{168,160},{
+          -20,160},{-20,23.5},{-12,23.5}}, color={255,127,0}));
+  connect(reqResHeaWat.y, ctlLooPri.resReq) annotation (Line(points={{170,120},{
+          -18,120},{-18,26.9},{-12,26.9}}, color={255,127,0}));
+  connect(FIXME_dpHeaWatSet.y, ctlPumHeaWatSec.dpHotWatSet)
+    annotation (Line(points={{12,66},{48,66}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>

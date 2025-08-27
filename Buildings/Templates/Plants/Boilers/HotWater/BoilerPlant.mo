@@ -548,7 +548,6 @@ protected
     "Condensing boiler loop control bus" annotation (Placement(transformation(
           extent={{-300,140},{-260,180}}), iconTransformation(extent={{-466,50},
             {-426,90}})));
-protected
   Buildings.Templates.Components.Interfaces.Bus busLooNon if have_boiNon
     "Non-condensing boiler loop control bus" annotation (Placement(
         transformation(extent={{-300,100},{-260,140}}), iconTransformation(
@@ -567,8 +566,9 @@ equation
   connect(VHeaWatPriRetCon_flow.y, busLooCon.VHeaWatPri_flow);
   connect(VHeaWatPriSupNon_flow.y, busLooNon.VHeaWatPri_flow);
   connect(VHeaWatPriRetNon_flow.y, busLooNon.VHeaWatPri_flow);
-  connect(VHeaWatSecSup_flow.y, bus.VHeaWatSec_flow);
-  connect(VHeaWatSecRet_flow.y, bus.VHeaWatSec_flow);
+  // bus.VHeaWatSec_flow is an array for future support of distributed pumps.
+  connect(VHeaWatSecSup_flow.y, bus.VHeaWatSec_flow[1]);
+  connect(VHeaWatSecRet_flow.y, bus.VHeaWatSec_flow[1]);
   connect(VHeaWatBypCon_flow.y, busLooCon.VHeaWatByp_flow);
   connect(VHeaWatBypNon_flow.y, busLooNon.VHeaWatByp_flow);
   connect(THeaWatPriSupCon.y, busLooCon.THeaWatPriSup);
