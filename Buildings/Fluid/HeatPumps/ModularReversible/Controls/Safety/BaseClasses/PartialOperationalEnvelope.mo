@@ -37,11 +37,8 @@ partial model PartialOperationalEnvelope
     "Switch between heating and cooling envelope"
     annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,0},{-100,0},{-100,20},
-          {70,20},{70,8},{78,8}},
-                  color={0,0,127}));
   connect(swiHeaCoo.y, booPasThr.u)
-    annotation (Line(points={{17,0},{38,0}}, color={255,0,255}));
+    annotation (Line(points={{17,0},{78,0}}, color={255,0,255}));
   connect(bouMapCoo.noErr, swiHeaCoo.u3)
     annotation (Line(points={{-59,-30},{-14,-30},{-14,-8},{-6,-8}},
                                                           color={255,0,255}));
@@ -51,6 +48,11 @@ equation
 
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>May 27, 2025</i> by Fabian Wuellhorst:<br/>
+    Make safety checks parallel (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA #2015</a>)
+  </li>
   <li>
     <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
     Increase error counter only when device should turn on (see issue <a href=

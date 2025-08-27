@@ -43,11 +43,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible
+    </td>
+    <td valign=\"top\">Improved implementation and diagnostics of safety checks.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">IBPSA, issue 2035</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.PlugFlowPipe<br/>
                        Buildings.Fluid.PlugFlowPipeDiscretized
     </td>
     <td valign=\"top\">Added option to disable pressure drop calculation.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">IBPSA, issue 2035</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA, issue 2015</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math.Functions</b>
