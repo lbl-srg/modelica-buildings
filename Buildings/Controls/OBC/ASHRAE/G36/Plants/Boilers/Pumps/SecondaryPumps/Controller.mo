@@ -6,7 +6,7 @@ block Controller
     "Type of controller"
     annotation(Dialog(tab="Pump control parameters", group="PID parameters"));
 
-  parameter Boolean have_varSecPum = false
+  final parameter Boolean have_varSecPum = true
     "True: Variable-speed secondary pumps;
     False: Fixed-speed secondary pumps"
     annotation (Dialog(group="Plant parameters"));
@@ -16,6 +16,11 @@ block Controller
     False: No flow sensor in secondary loop"
     annotation (Dialog(group="Plant parameters",
       enable=have_varSecPum));
+
+  parameter Boolean have_looPriNonCon
+    "True: Non-condensing boiler in primary loop;
+    False: Only condensing boilers in primary loop"
+    annotation (Dialog(group="Plant parameters"));
 
   parameter Integer nPum
     "Total number of secondary hot water pumps"
@@ -210,25 +215,26 @@ block Controller
     annotation (Placement(transformation(extent={{-320,70},{-280,110}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPumSta[nPumPri] if not have_varSecPum
-    "Primary pumps operating status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPum[nPumPri]
+    if not have_varSecPum
+    "Primary pumps enable signals"
     annotation (Placement(transformation(extent={{-320,-176},{-280,-136}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uPumLeaLag[nPum]
-    if has_leaLag
+    if have_leaLag
     "Hot water pump lead-lag order"
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
       iconTransformation(extent={{-140,162},{-100,202}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
-    "Hot water supply reset requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq
+    "Hot water plant requests"
     annotation (Placement(transformation(extent={{-320,20},{-280,60}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSecPumSpeCon(
     final unit="1",
-    displayUnit="1") if have_varSecPum
+    displayUnit="1") if have_looPriNonCon
     "Maximum allowed pump speed for non-condensing boilers"
     annotation (Placement(transformation(extent={{-320,-410},{-280,-370}}),
       iconTransformation(extent={{-140,-200},{-100,-160}})));
@@ -249,10 +255,10 @@ block Controller
     annotation (Placement(transformation(extent={{-320,-350},{-280,-310}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
-    final unit="Pa",
-    final quantity="PressureDifference",
-    displayUnit="Pa") if have_varSecPum and (locDPReg or remDPReg)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet[nSen](
+    final unit=fill("Pa",nSen),
+    final quantity=fill("PressureDifference",nSen),
+    displayUnit=fill("Pa",nSen)) if have_varSecPum and (locDPReg or remDPReg)
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-380},{-280,-340}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -263,13 +269,6 @@ block Controller
     final quantity="VolumeFlowRate") if have_varSecPum and have_secFloSen
     "Hot water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
-    final unit="1",
-    displayUnit="1") if have_varSecPum and not have_secFloSen
-    "Measured pump speed"
-    annotation (Placement(transformation(extent={{-320,-80},{-280,-40}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatPum[nPum]
@@ -335,14 +334,14 @@ protected
   parameter Boolean locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.localDP)
     "Boolean flag for pump speed control with local differential pressure";
 
-  parameter Boolean has_leaLag=(nPum>1)
+  parameter Boolean have_leaLag=(nPum>1)
     "Boolean flag to determine if controller needs lead-lag order input";
 
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[1](
-    final k={1}) if not has_leaLag
+    final k={1}) if not have_leaLag
     "Constant source for lead-lag order with just one pump"
     annotation (Placement(transformation(extent={{-192,236},{-172,256}})));
 
@@ -378,7 +377,7 @@ protected
     annotation (Placement(transformation(extent={{-274,190},{-254,210}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPum]
-    if has_leaLag
+    if have_leaLag
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
 
@@ -512,6 +511,11 @@ protected
     "Boolean False signal"
     annotation (Placement(transformation(extent={{132,38},{152,58}})));
 
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
+    final k=1) if not have_looPriNonCon
+    "Constant one signal"
+    annotation (Placement(transformation(extent={{102,-424},{122,-404}})));
+
 equation
   connect(uPumLeaLag, intToRea.u)
     annotation (Line(points={{-300,230},{-222,230}}, color={255,127,0}));
@@ -609,8 +613,8 @@ equation
   connect(pumSpeRemDp.yHotWatPumSpe, min.u2) annotation (Line(points={{-38,-370},
           {146,-370},{146,-406},{158,-406}}, color={0,0,127}));
 
-  connect(uPriPumSta, booToInt1.u) annotation (Line(points={{-300,-156},{-252,-156}},
-                                    color={255,0,255}));
+  connect(uPriPum, booToInt1.u)
+    annotation (Line(points={{-300,-156},{-252,-156}}, color={255,0,255}));
 
   connect(mulSumInt1.y, intGre.u1) annotation (Line(points={{-178,-156},{-124,-156},
           {-124,-190},{-62,-190}},      color={255,127,0}));
@@ -621,8 +625,8 @@ equation
   connect(intLes.y, not1.u)
     annotation (Line(points={{-28,-240},{0,-240}},  color={255,0,255}));
 
-  connect(supResReq, enaHeaLeaPum.supResReq) annotation (Line(points={{-300,40},
-          {-220,40},{-220,82},{-202,82}}, color={255,127,0}));
+  connect(plaReq, enaHeaLeaPum.supResReq) annotation (Line(points={{-300,40},{-220,
+          40},{-220,82},{-202,82}}, color={255,127,0}));
 
   connect(chaPumSta1.yHotWatPum, chaPumSta4.uHotWatPum) annotation (Line(points={{80,78},
           {100,78},{100,42},{50,42},{50,18},{56,18}},         color={255,0,255}));
@@ -749,8 +753,10 @@ equation
           -160,-50},{-82,-50}}, color={0,0,127}));
   connect(con.y, lasLagPum.u) annotation (Line(points={{-170,246},{-160,246},{
           -160,-100},{-82,-100}}, color={0,0,127}));
-  connect(uPumSpe, enaLagSecPum.uPumSpe) annotation (Line(points={{-300,-60},{
-          -212,-60},{-212,38},{-122,38}}, color={0,0,127}));
+  connect(con2.y, min.u1) annotation (Line(points={{124,-414},{124,-416},{144,-416},
+          {144,-394},{158,-394}}, color={0,0,127}));
+  connect(min.y, enaLagSecPum.uPumSpe) annotation (Line(points={{182,-400},{194,
+          -400},{194,-292},{-212,-292},{-212,38},{-122,38}}, color={0,0,127}));
 annotation (defaultComponentName="conPumSec",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-440},{280,260}}),

@@ -2,9 +2,14 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subseq
 block Up
   "Generates a stage up signal"
 
-  parameter Boolean have_allNonCon=false
-    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers"
-    annotation(Dialog(tab="Non-configurable", enable=false));
+  parameter Integer nBoi
+    "Number of boilers";
+
+  parameter Integer boiTyp[nBoi]
+    "Boiler type";
+
+  final parameter Boolean have_allNonCon=sum(boiTyp)==2*nBoi
+    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers";
 
   parameter Integer nSta = 5
     "Number of stages in the boiler plant";
@@ -40,7 +45,7 @@ block Up
     "Enable delay for heating capacity and heating requirement"
     annotation(Dialog(group="Efficiency condition"));
 
-  parameter Real TDif(
+  parameter Real dTFai(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") = 10
@@ -48,7 +53,7 @@ block Up
     for failsafe condition"
     annotation(Dialog(group="Failsafe condition"));
 
-  parameter Real TDifHys(
+  parameter Real dTHys(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") = 1
@@ -143,7 +148,8 @@ block Up
 
 protected
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.EfficiencyCondition effCon(
-    have_allNonCon=have_allNonCon,
+    final nBoi=nBoi,
+    final boiTyp=boiTyp,
     final nSta=nSta,
     final fraNonConBoi=fraNonConBoi,
     final fraConBoi=fraConBoi,
@@ -154,8 +160,8 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
     final delEna=delFaiCon,
-    final TDif=TDif,
-    final TDifHys=TDifHys)
+    final dTFai=dTFai,
+    final dTHys=dTHys)
     "Failsafe condition for staging up and down"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 

@@ -45,7 +45,7 @@ block Controller
     annotation (Dialog(group="Plant parameters"));
 
   parameter Integer numIgnReq = 0
-    "Number of ignored requests"
+    "Number of ignored primary pump speed reset requests"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
       enable= speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
@@ -74,12 +74,13 @@ block Controller
       enable=have_priOnl and have_heaPriPum and (have_remDPReg or have_locDPReg)));
 
   parameter Real boiDesFlo[nBoi](
-    final min=1e-6,
-    final unit="m3/s",
-    displayUnit="m3/s",
-    final quantity="VolumeFlowRate")=
+    final min=fill(1e-6,nBoi),
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi))
     "Vector of design flowrates for all boilers in plant"
-    annotation (Dialog(group="Plant parameters"));
+    annotation (Dialog(group="Plant parameters",
+       enable=have_priOnl));
 
   parameter Real maxLocDp(
     final unit="Pa",
@@ -264,8 +265,8 @@ block Controller
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
       iconTransformation(extent={{-140,210},{-100,250}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[nBoi] if not have_priOnl
-    "Boiler status vector"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi] if not have_priOnl
+    "Boiler enable signals"
     annotation (Placement(transformation(extent={{-320,-90},{-280,-50}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
 
@@ -289,8 +290,7 @@ block Controller
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
       iconTransformation(extent={{-140,270},{-100,310}})));
 
-  CDL.Interfaces.BooleanInput                     uHotIsoVal[nBoi]
-                     if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotIsoVal[nBoi] if have_heaPriPum
     "Hot water isolation valve status"
     annotation (Placement(transformation(extent={{-320,50},{-280,90}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
@@ -319,10 +319,10 @@ block Controller
     annotation (Placement(transformation(extent={{-320,-500},{-280,-460}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
-    final unit="Pa",
-    final quantity="PressureDifference") if have_priOnl and have_varPriPum
-     and (have_locDPReg or have_remDPReg)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet[nSen](
+    final unit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference", nSen))
+    if have_priOnl and have_varPriPum and (have_locDPReg or have_remDPReg)
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-530},{-280,-490}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
@@ -330,7 +330,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if have_varPriPum
+    final quantity="VolumeFlowRate")
+    if (have_priOnl and have_heaPriPum) or have_floReg
     "Hot water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
       iconTransformation(extent={{-140,150},{-100,190}})));
@@ -835,10 +836,10 @@ equation
   connect(THotWatBoiSup, pumSpeTem.THotWatBoiSup) annotation (Line(points={{-300,
           -700},{-68,-700},{-68,-606},{-62,-606}}, color={0,0,127}));
 
-  connect(uBoiSta, pumSpeTem.uBoiSta) annotation (Line(points={{-300,-70},{-270,
-          -70},{-270,-602},{-62,-602}}, color={255,0,255}));
+  connect(uBoi, pumSpeTem.uBoiSta) annotation (Line(points={{-300,-70},{-270,-70},
+          {-270,-602},{-62,-602}}, color={255,0,255}));
 
-  connect(uBoiSta, booToRea.u)
+  connect(uBoi, booToRea.u)
     annotation (Line(points={{-300,-70},{-254,-70}}, color={255,0,255}));
 
   connect(booToRea.y, extIndSig.u)
@@ -847,8 +848,8 @@ equation
   connect(conInt.y, extIndSig.index) annotation (Line(points={{-252,200},{-140,200},
           {-140,-88},{-212,-88},{-212,-82}}, color={255,127,0}));
 
-  connect(uBoiSta, booToInt1.u) annotation (Line(points={{-300,-70},{-270,-70},{
-          -270,-156},{-252,-156}}, color={255,0,255}));
+  connect(uBoi, booToInt1.u) annotation (Line(points={{-300,-70},{-270,-70},{-270,
+          -156},{-252,-156}}, color={255,0,255}));
 
   connect(booToInt1.y, mulSumInt1.u[1:nPum]) annotation (Line(points={{-228,-156},
           {-202,-156}},                            color={255,127,0}));

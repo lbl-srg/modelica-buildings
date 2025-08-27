@@ -200,9 +200,6 @@ equation
     annotation (Line(points={{122,134},{142,134}}, color={255,0,255}));
   connect(mulAnd1.y, edg2.u) annotation (Line(points={{102,220},{112,220}},
         color={255,0,255}));
-  connect(edg2.y, lat.u) annotation (Line(points={{136,220},{138,220},{138,140},
-          {142,140}},
-        color={255,0,255}));
   connect(uUpsDevSta, mulAnd1.u[1]) annotation (Line(points={{-180,-140},{-120,
           -140},{-120,134},{68,134},{68,220},{78,220}},                   color
         ={255,0,255}));
@@ -218,6 +215,8 @@ equation
           {60,32},{70,32}}, color={255,0,255}));
   connect(and1.y, yHotWatIsoVal) annotation (Line(points={{94,40},{170,40},{170,
           0},{200,0}}, color={255,0,255}));
+  connect(edg2.y, lat.u) annotation (Line(points={{136,220},{138,220},{138,140},
+          {142,140}}, color={255,0,255}));
 annotation (
   defaultComponentName="hotWatIsoVal",
   Diagram(
@@ -293,9 +292,6 @@ annotation (
   Block updates boiler hot water isolation valve enabling-disabling status when 
   there is stage change command (<code>chaPro=true</code>). It will also generate 
   status <code>yEnaHotWatIsoVal</code> to indicate if the valve status change process has finished.
-  This block is not based on any specific section in ASHRAE Guideline 36, 2021,
-  but has been designed to carry out the hot water isolation valve operations in
-  the staging sequences defined in 5.21.3.
   </p>
   <ul>
   <li>

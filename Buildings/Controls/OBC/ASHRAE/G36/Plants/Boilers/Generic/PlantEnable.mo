@@ -38,8 +38,8 @@ block PlantEnable
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
-    "Number of heating hot-water requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq
+    "Number of hot-water plant requests"
     annotation (Placement(transformation(extent={{-200,30},{-160,70}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -160,7 +160,7 @@ equation
           {28,-70}},      color={255,0,255}));
   connect(mulOr.y, and2.u2) annotation (Line(points={{52,-70},{70,-70},{70,-38},
           {78,-38}}, color={255,0,255}));
-  connect(intGreThr.u, supResReq)
+  connect(intGreThr.u, plaReq)
     annotation (Line(points={{-122,50},{-180,50}}, color={255,127,0}));
   connect(lat.y, yPla)
     annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));

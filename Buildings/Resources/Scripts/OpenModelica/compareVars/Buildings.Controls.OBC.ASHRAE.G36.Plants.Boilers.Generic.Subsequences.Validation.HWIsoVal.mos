@@ -4,10 +4,5 @@ compareVars :=
     "cloHotIsoVal.chaPro",
     "cloHotIsoVal.uUpsDevSta",
     "cloHotIsoVal.yHotWatIsoVal",
-    "cloHotIsoVal.yDisHotWatIsoVal",
-    "cloHotIsoVal1.uHotWatIsoVal",
-    "cloHotIsoVal1.chaPro",
-    "cloHotIsoVal1.uUpsDevSta",
-    "cloHotIsoVal1.yHotWatIsoVal",
-    "cloHotIsoVal1.yDisHotWatIsoVal"
+    "cloHotIsoVal.yDisHotWatIsoVal"
   };

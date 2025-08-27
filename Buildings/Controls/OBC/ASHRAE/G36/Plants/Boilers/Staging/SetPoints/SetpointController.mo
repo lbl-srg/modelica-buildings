@@ -8,14 +8,12 @@ block SetpointController
     False: The boiler plant is primary-secondary"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Boolean have_allNonCon=true
-    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers"
-    annotation(Dialog(tab="Non-configurable", enable=false));
-
   parameter Boolean have_secFloSen=false
     "True: Flowrate sensors in secondary loops;
     False: Flowrate sensor in decoupler"
-    annotation(Dialog(tab="Non-configurable", enable=false));
+    annotation(Dialog(tab="General",
+      group="Boiler plant configuration parameters",
+      enable=not have_priOnl));
 
   parameter Integer nBoi
     "Number of boilers"
@@ -89,7 +87,7 @@ block SetpointController
     "Enable delay for heating capacity requirement condition"
     annotation(Dialog(tab="Staging parameters", group="Efficiency condition parameters"));
 
-  parameter Real TDif(
+  parameter Real dTFai(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 10
@@ -109,7 +107,7 @@ block SetpointController
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Advanced", group="Efficiency condition parameters"));
 
-  parameter Real TDifHys(
+  parameter Real dTHys(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 1
@@ -163,7 +161,7 @@ block SetpointController
         tab="Staging parameters",
         group="Staging down parameters"));
 
-  parameter Real TCirDif(
+  parameter Real dTCir(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 3
@@ -200,13 +198,6 @@ block SetpointController
         enable=have_priOnl,
         tab="Advanced",
         group="Staging down parameters"));
-
-  parameter Real dTemp(
-    final unit="K",
-    displayUnit="K",
-    final quantity="TemperatureDifference") = 0.1
-    "Hysteresis deadband for measured temperatures"
-    annotation (Dialog(tab="Advanced", group="Failsafe condition parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
     "Signal indicating end of stage change process"
@@ -266,6 +257,7 @@ block SetpointController
     final quantity="VolumeFlowRate",
     final unit="m3/s",
     displayUnit="m3/s")
+    if have_priOnl or not have_allNonCon or not have_secFloSen
     "Measured primary loop hot water flow rate"
     annotation (Placement(transformation(extent={{-440,190},{-400,230}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
@@ -280,7 +272,7 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos(
     final unit="1",
-    displayUnit="1") if have_priOnl and not have_allNonCon
+    displayUnit="1") if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-440,50},{-400,90}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -342,6 +334,12 @@ block SetpointController
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
 protected
+  parameter Boolean have_allCon = sum(boiTyp)==1*nBoi
+    "Check if all the boilers in a plant are condensing boilers";
+
+  parameter Boolean have_allNonCon = sum(boiTyp)==2*nBoi
+    "Check if all the boilers in a plant are non-condensing boilers";
+
   final parameter Integer nSta=size(staMat,1)
     "Number of boiler plant stages";
 
@@ -376,14 +374,15 @@ protected
     annotation (Placement(transformation(extent={{-310,-220},{-290,-200}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up staUp(
-    have_allNonCon=have_allNonCon,
+    final nBoi=nBoi,
+    final boiTyp=boiTyp,
     final nSta=nSta,
     final fraNonConBoi=fraNonConBoi,
     final fraConBoi=fraConBoi,
     final sigDif=sigDif,
     final delEffCon=delEffCon,
-    final TDif=TDif,
-    final TDifHys=TDifHys,
+    final dTFai=dTFai,
+    final dTHys=dTHys,
     final delFaiCon=delFaiCon)
     "Staging up calculator"
     annotation (Placement(transformation(extent={{-140,-116},{-120,-84}})));
@@ -400,10 +399,10 @@ protected
     final sigDif=sigDif,
     final delBypVal=delBypVal,
     final bypValClo=bypValClo,
-    final TCirDif=TCirDif,
+    final dTCir=dTCir,
     final delTRetDif=delTRetDif,
-    final dTemp=dTemp,
-    final TDif=TDif,
+    final dTHys=dTHys,
+    final dTFai=dTFai,
     final delFaiCon=delFaiCon,
     final boiMinPriPumSpeSta=boiMinPriPumSpeSta)
     "Staging down calculator"

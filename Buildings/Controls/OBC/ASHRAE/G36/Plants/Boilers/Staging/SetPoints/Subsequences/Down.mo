@@ -8,8 +8,7 @@ block Down
     False: The boiler plant is primary-secondary";
 
   parameter Boolean have_allNonCon
-    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers"
-    annotation(Dialog(enable=false));
+    "Are all the boilers in the plant non-condensing boilers?";
 
   parameter Integer nSta = 5
     "Number of stages";
@@ -79,7 +78,7 @@ block Down
         enable=have_priOnl,
         tab="Advanced"));
 
-  parameter Real TCirDif(
+  parameter Real dTCir(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 3
@@ -104,14 +103,14 @@ block Down
                   (have_priOnl),
         group="Return temperature condition parameters"));
 
-  parameter Real dTemp(
+  parameter Real dTHys(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 0.1
     "Hysteresis deadband for measured temperatures"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Real TDif(
+  parameter Real dTFai(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 10
@@ -206,7 +205,7 @@ block Down
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=1) if have_priOnl and not have_allNonCon
+    final max=1) if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -235,9 +234,9 @@ block Down
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
+    final dTHys=dTHys,
     final delEna=delFaiCon,
-    final TDif=TDif,
-    final TDifHys=dTemp)
+    final dTFai=dTFai)
     "Failsafe condition"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
@@ -295,8 +294,8 @@ protected
     annotation (Placement(transformation(extent={{-162,-190},{-142,-170}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
-    final uLow=TCirDif - dTemp,
-    final uHigh=TCirDif) if not have_priOnl and not have_allNonCon
+    final uLow=dTCir - dTHys,
+    final uHigh=dTCir) if not have_priOnl and not have_allNonCon
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-132,-190},{-112,-170}})));
 
@@ -308,16 +307,16 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1
     if not have_priOnl and not have_allNonCon
     "Logical Or"
-    annotation (Placement(transformation(extent={{60,-108},{80,-88}})));
+    annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=true) if not have_priOnl and not have_allNonCon
+    final k=true) if not have_priOnl and have_allNonCon
     "Constant Boolean True source"
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
     final nin=nSta)
@@ -328,10 +327,10 @@ protected
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     if not have_priOnl and not have_allNonCon
-    "Logical switch"
-    annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
+    "Logical or"
+    annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Logical Not"
@@ -454,10 +453,6 @@ equation
     annotation (Line(points={{-38,-170},{-22,-170}},   color={0,0,127}));
   connect(uCur, extIndSig.index) annotation (Line(points={{-30,-220},{-30,-190},
           {-10,-190},{-10,-182}}, color={255,127,0}));
-  connect(con1.y, logSwi1.u1) annotation (Line(points={{122,-70},{132,-70},{132,
-          -82},{138,-82}}, color={255,0,255}));
-  connect(or1.y, logSwi1.u3) annotation (Line(points={{82,-98},{138,-98}},
-                      color={255,0,255}));
   connect(div.u1, uCapReq) annotation (Line(points={{-122,66},{-172,66},{-172,
           60},{-200,60}},
                       color={0,0,127}));
@@ -480,8 +475,8 @@ equation
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{82,-170},{94,-170},{
           94,-40},{98,-40}},
                           color={255,0,255}));
-  connect(intGreThr.y, logSwi1.u2) annotation (Line(points={{82,-170},{94,-170},
-          {94,-90},{138,-90}},color={255,0,255}));
+  connect(intGreThr.y, or3.u2) annotation (Line(points={{82,-170},{94,-170},{94,
+          -108},{138,-108}}, color={255,0,255}));
   connect(faiSafCon.yFaiCon, not1.u)
     annotation (Line(points={{-138,130},{-130,130},{-130,130},{-122,130}},
                                                      color={255,0,255}));
@@ -529,8 +524,9 @@ equation
 
   connect(tim3.passed, or2.u1) annotation (Line(points={{32,42},{40,42},{40,20},
           {58,20}},color={255,0,255}));
-  connect(tim3.passed, or1.u1) annotation (Line(points={{32,42},{40,42},{40,-98},
-          {58,-98}}, color={255,0,255}));
+  connect(tim3.passed, or1.u1) annotation (Line(points={{32,42},{40,42},{40,
+          -100},{48,-100}},
+                     color={255,0,255}));
   connect(tim1.passed, or2.u2) annotation (Line(points={{32,-8},{46,-8},{46,12},
           {58,12}},color={255,0,255}));
   connect(and5.y, tim4.u) annotation (Line(points={{2,-30},{38,-30},{38,-60},{
@@ -539,8 +535,8 @@ equation
           -32},{98,-32}}, color={255,0,255}));
   connect(tim4.passed, logSwi.u3) annotation (Line(points={{72,-68},{90,-68},{90,
           -48},{98,-48}}, color={255,0,255}));
-  connect(tim2.passed, or1.u2) annotation (Line(points={{2,-108},{40,-108},{40,-106},
-          {58,-106}}, color={255,0,255}));
+  connect(tim2.passed, or1.u2) annotation (Line(points={{2,-108},{48,-108}},
+                      color={255,0,255}));
   connect(uCapMin, addParDivZer.u) annotation (Line(points={{-200,30},{-162,30}},
                                 color={0,0,127}));
   connect(addParDivZer.y, div.u2) annotation (Line(points={{-138,30},{-130,30},
@@ -552,7 +548,7 @@ equation
           -50},{-130,-46},{-122,-46}},                  color={0,0,127}));
   connect(and7.y, yStaDow)
     annotation (Line(points={{202,0},{240,0}}, color={255,0,255}));
-  connect(logSwi1.y, and7.u2) annotation (Line(points={{162,-90},{170,-90},{170,
+  connect(or3.y, and7.u2) annotation (Line(points={{162,-100},{170,-100},{170,
           -8},{178,-8}}, color={255,0,255}));
   connect(or2.y, and7.u2) annotation (Line(points={{82,20},{120,20},{120,-8},{
           178,-8}},
@@ -567,6 +563,10 @@ equation
           {-26,-8},{-26,-30},{-22,-30}}, color={255,0,255}));
   connect(and5.u2, not3.y) annotation (Line(points={{-22,-38},{-26,-38},{-26,
           -40},{-28,-40}}, color={255,0,255}));
+  connect(or1.y, or3.u1)
+    annotation (Line(points={{72,-100},{138,-100}}, color={255,0,255}));
+  connect(con1.y, and7.u2) annotation (Line(points={{162,-30},{170,-30},{170,-8},
+          {178,-8}}, color={255,0,255}));
 annotation(defaultComponentName = "staDow",
   Icon(coordinateSystem(extent={{-100,-160},{100,190}}),
       graphics={
@@ -636,7 +636,7 @@ Primary circuit pump speed <code>uPumSpe</code> is at the minimum
 allowed flow rate <code>boiMinPriPumSpeSta</code> and primary circuit hot
 water return temperature <code>TPriHotWatRet</code>
 exceeds the secondary circuit hot water return temperature <code>TSecHotWatRet</code> by 
-<code>TCirDif</code> for a time period <code>delTRetDiff</code>.
+<code>dTCir</code> for a time period <code>delTRetDiff</code>.
 </li>
 </ul>
 </li>
