@@ -391,10 +391,9 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=86400,
+      StartTime=172800,
       StopTime=259200,
       Interval=60,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-05),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;
