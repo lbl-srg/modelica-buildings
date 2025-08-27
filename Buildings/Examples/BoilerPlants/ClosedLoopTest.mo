@@ -11,7 +11,7 @@ model ClosedLoopTest "Closed loop testing model"
   parameter Real boiDesCap(
     final unit="W",
     displayUnit="W",
-    final quantity="Power")= 3000000*1.5
+    final quantity="Power")= 3000000*2
     "Total boiler plant design capacity";
 
   parameter Real boiCapRat(
@@ -24,7 +24,7 @@ model ClosedLoopTest "Closed loop testing model"
     final Q_flow_nominal=boiDesCap,
     final boiCap1=(1 - boiCapRat)*boiDesCap,
     final boiCap2=boiCapRat*boiDesCap,
-    final mSec_flow_nominal=2*mRad_flow_nominal,
+    final mSec_flow_nominal=secLoo1.mRad_flow_nominal + secLoo2.mRad_flow_nominal,
     final TBoiSup_nominal=333.15,
     final TBoiRet_min=323.15,
     final dpValve_nominal_value(displayUnit="Pa") = 2000,
@@ -78,7 +78,7 @@ model ClosedLoopTest "Closed loop testing model"
     final Ti_bypVal=90,
     final Td_bypVal=10e-9,
     final boiDesFlo=conBoiPri.maxFloSet,
-    final k_priPum=0.1,
+    final k_priPum=10,
     final Ti_priPum=15,
     final minPriPumSpeSta={0,0,0},
     final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate)
@@ -87,7 +87,7 @@ model ClosedLoopTest "Closed loop testing model"
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo2(
     final mRad_flow_nominal=1.25*0.6*30,
-    final dpRad_nominal(displayUnit="bar") = 30000,
+    final dpRad_nominal(displayUnit="Pa") = 10000,
     conPID(
       final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
       final k=0.05,
@@ -97,7 +97,7 @@ model ClosedLoopTest "Closed loop testing model"
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo1(
     final mRad_flow_nominal=1.25*0.4*30,
-    final dpRad_nominal(displayUnit="bar") = 30000,
+    final dpRad_nominal(displayUnit="Pa") = 10000,
     conPID(
       final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
       final k=0.05,
@@ -140,7 +140,7 @@ model ClosedLoopTest "Closed loop testing model"
     annotation (Placement(transformation(extent={{-10,128},{10,168}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[1](
-    final k={15000})
+    final k={5000})
     "Constant Real source for secondary loop differential pressure setpoint"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 
@@ -310,8 +310,8 @@ equation
           72},{74,72},{74,92},{-22,92},{-22,74},{-10,74}}, color={255,0,255}));
   connect(secLoo1.yPumEna,conPumSec1. uHotWatPum[1]) annotation (Line(points={{62,152},
           {74,152},{74,178},{-26,178},{-26,162},{-12,162}},      color={255,0,255}));
-  connect(con.y,conPumSec1. dpHotWatSet) annotation (Line(points={{-58,150},{
-          -26,150},{-26,134},{-12,134}}, color={0,0,127}));
+  connect(con.y,conPumSec1. dpHotWatSet) annotation (Line(points={{-58,150},{-26,
+          150},{-26,134},{-12,134}},     color={0,0,127}));
   connect(con.y,conPumSec2. dpHotWatSet) annotation (Line(points={{-58,150},{-26,
           150},{-26,46},{-10,46}}, color={0,0,127}));
   connect(boiPlaPri.VDec_flow, conBoiPri.VHotWatDec_flow) annotation (Line(
@@ -391,10 +391,10 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=0,
-      StopTime=172800,
+      StartTime=86400,
+      StopTime=259200,
       Interval=60,
-      Tolerance=1e-03,
+      Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;

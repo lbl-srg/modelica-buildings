@@ -84,7 +84,7 @@ model SimplifiedSecondaryLoad
     final addPowerToMedium=true,
     final riseTime=60,
     final m_flow_nominal=mRad_flow_nominal,
-    final dp_nominal=dpRad_nominal)
+    final dp_nominal=4*dpRad_nominal)
     "Hot water secondary pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -99,7 +99,7 @@ model SimplifiedSecondaryLoad
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0)));
 
-  Buildings.Controls.OBC.CDL.Reals.PID conPID
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID
     "Cooler valve controller"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
@@ -185,6 +185,8 @@ equation
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
   connect(val.port_a, pum.port_b)
     annotation (Line(points={{-10,0},{-20,0},{-20,-30}}, color={0,127,255}));
+  connect(uPum, conPID.trigger) annotation (Line(points={{-120,-40},{-96,-40},{-96,
+          40},{-46,40},{-46,48}}, color={255,0,255}));
   annotation (defaultComponentName="secLoo",
     Icon(
       coordinateSystem(

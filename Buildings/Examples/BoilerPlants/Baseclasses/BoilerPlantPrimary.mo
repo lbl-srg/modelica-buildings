@@ -304,7 +304,7 @@ model BoilerPlantPrimary
     final addPowerToMedium=false,
     final riseTime=60,
     final m_flow_nominal=mSec_flow_nominal/2,
-    dp_nominal=70000)
+    dp_nominal(displayUnit="Pa") = 50000)
     "Hot water primary pump-1"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -344,10 +344,9 @@ model BoilerPlantPrimary
     redeclare package Medium = MediumW,
     final m_flow_nominal=mBoi_flow_nominal2,
     final dpValve_nominal=dpValve_nominal_value,
+    strokeTime=60,
     final init=Modelica.Blocks.Types.Init.InitialState,
-    final y_start=0,
-    final dpFixed_nominal=dpFixed_nominal_value,
-    l=1e-9)
+    final dpFixed_nominal=dpFixed_nominal_value)
     "Isolation valve for boiler-2"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
 
@@ -355,10 +354,9 @@ model BoilerPlantPrimary
     redeclare package Medium = MediumW,
     final m_flow_nominal=mBoi_flow_nominal1,
     final dpValve_nominal=dpValve_nominal_value,
+    strokeTime=60,
     final init=Modelica.Blocks.Types.Init.InitialState,
-    final y_start=0,
-    final dpFixed_nominal=dpFixed_nominal_value,
-    l=1e-9)
+    final dpFixed_nominal=dpFixed_nominal_value)
     "Isolation valve for boiler-1"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
 
@@ -487,7 +485,7 @@ model BoilerPlantPrimary
     final addPowerToMedium=false,
     final riseTime=60,
     m_flow_nominal=mSec_flow_nominal/2,
-    dp_nominal=70000)
+    dp_nominal(displayUnit="Pa") = 50000)
     "Hot water primary pump-2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
