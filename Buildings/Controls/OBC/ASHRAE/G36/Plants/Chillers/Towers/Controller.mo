@@ -71,17 +71,17 @@ block Controller "Cooling tower controller"
      annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
     unit=fill("K", nChi),
-    each displayUnit="degC")={293.15,293.15}
+    displayUnit=fill("degC", nChi))={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatRet_nominal[nChi](
     unit=fill("K", nChi),
-    each displayUnit="degC")={303.15,303.15}
+    displayUnit=fill("degC", nChi))={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TChiWatSupMin[nChi](
     unit=fill("K", nChi),
-    each displayUnit="degC")={278.15,278.15}
+    displayUnit=fill("degC", nChi))={278.15,278.15}
     "Lowest chilled water supply temperature oc each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
