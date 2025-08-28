@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block SteamToExhaustMassFlowRatio
-  "A block to calculate the ratio of the steam to the exhaust mass flow rate"
+  "Ratio of the steam to the exhaust mass flow rate"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real a_SteMas[3]
@@ -38,7 +38,7 @@ equation
     a=a_SteMas,
     TExh=TExh_degF,
     TSte=TSte_degF)
-   "The ratio of steam and exhaust gas flow rate, which is a function of exhaust temperature";
+   "Ratio of steam and exhaust gas flow rate, which is a function of exhaust temperature";
 
 annotation (defaultComponentName="rat",
 Documentation(revisions="<html>

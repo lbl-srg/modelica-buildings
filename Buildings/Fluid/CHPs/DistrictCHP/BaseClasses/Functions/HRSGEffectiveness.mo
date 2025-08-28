@@ -14,16 +14,16 @@ function HRSGEffectiveness
 
 algorithm
   if abs(TAmb -59) < abs(TAmb-77) then
-  // The zero ethalpy reference tempeature is set at 59 degF
+  // The zero enthalpy reference tempeature is set at 59 degF
   y:= 1- (0.2443*TSta- 13.571)/(0.3003*TExh - 55.576);
   else
-  // The zero ethalpy reference tempeature is set at 77 degF
+  // The zero enthalpy reference tempeature is set at 77 degF
   y:= 1- (0.2443*TSta -17.892)/(0.3003*TExh - 59.897);
   end if;
 annotation (Documentation(info="<html>
 <p>
 This correlation function calculates the effectiveness of the HRSG based on a zero
-ethalpy reference temperature of either 59 or 77 degrees of Fahrenheit.
+enthalpy reference temperature of either 59 or 77 degrees of Fahrenheit.
 This correlation function has the form
 </p>
 <p align=\"center\">
@@ -48,7 +48,6 @@ h<sub>exh</sub> = 0.3003T<sub>exh</sub> - 55.576 [Btu/lb],
 h<sub>sta</sub> = 0.2443T<sub>sta</sub> - 13.571 [Btu/lb].
 </i>
 </p>
-
 <p>
 When the reference temperature is set at 77 &deg;F, the corresponding correlation
 functions are:

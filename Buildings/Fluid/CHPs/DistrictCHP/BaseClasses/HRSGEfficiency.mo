@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block HRSGEfficiency
-  "A block calculates the efficiency of HRSG"
+  "Efficiency of the Heat Recovery Steam Generator"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real TSta(

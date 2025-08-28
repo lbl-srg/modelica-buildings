@@ -4,8 +4,7 @@ package Functions "This package contains functions for used in the blocks."
 
   annotation (Documentation(info="<html>
 <p>
-This package contains functions for used
-in the blocks. 
+This package contains functions to be used in the blocks.
 </p>
 </html>", revisions="<html>
 <ul>

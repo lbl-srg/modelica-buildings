@@ -136,17 +136,20 @@ model BottomCycle "Bottoming cycle subsystem model"
     final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Exhaust temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(
     final unit="kg/s")
     "Exhaust mass flow rate"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmb(
     displayUnit="degC",
     final unit="K",
     final quantity = "ThermodynamicTemperature")
    "Ambient temperature"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_ST(
     final quantity= "Power",
     final unit = "W")
@@ -270,18 +273,20 @@ equation
     annotation (Line(points={{62,60},{68,60}}, color={255,0,255}));
   connect(gre.u2, heaInp.Q_flow) annotation (Line(points={{38,52},{30,52},{30,14},
           {-18,14}}, color={0,0,127}));
-  connect(steHeaFlo.mExh_flow, mExh_flow) annotation (Line(points={{-42,76},{-60,
-          76},{-60,20},{-120,20}}, color={0,0,127}));
-  connect(heaInp.mExh_flow, mExh_flow) annotation (Line(points={{-42,14},{-60,14},
-          {-60,20},{-120,20}}, color={0,0,127}));
+  connect(steHeaFlo.mExh_flow, mExh_flow) annotation (Line(points={{-42,76},{
+          -60,76},{-60,30},{-120,30}},
+                                   color={0,0,127}));
+  connect(heaInp.mExh_flow, mExh_flow) annotation (Line(points={{-42,14},{-60,
+          14},{-60,30},{-120,30}},
+                               color={0,0,127}));
   connect(fixSteEnt.y, heaInp.HSte_flow) annotation (Line(points={{-59,-30},{-50,
           -30},{-50,6},{-42,6}}, color={0,0,127}));
   connect(fixWatEnt.y, heaInp.HWat_flow) annotation (Line(points={{-59,-50},{-46,
           -50},{-46,2},{-42,2}}, color={0,0,127}));
   connect(steHeaFlo.TAmb, TAmb) annotation (Line(points={{-42,80},{-70,80},{-70,
-          50},{-120,50}}, color={0,0,127}));
+          60},{-120,60}}, color={0,0,127}));
   connect(steHeaFlo.TExh, TExh) annotation (Line(points={{-42,84},{-80,84},{-80,
-          80},{-120,80}}, color={0,0,127}));
+          90},{-120,90}}, color={0,0,127}));
   connect(supSteTem.y, heaInp.TSte) annotation (Line(points={{-59,-10},{-54,-10},
           {-54,10},{-42,10}}, color={0,0,127}));
   connect(pumNomFlo.y, masFlo.u1)
@@ -299,10 +304,11 @@ equation
     annotation (Line(points={{20,-10},{0,-10},{0,14},{-18,14}}, color={0,0,127}));
   connect(watLev.y, conPID.u_s) annotation (Line(points={{-59,-70},{-50,-70},{-50,
           -60},{-42,-60}}, color={0,0,127}));
-  connect(powGen.TExh, TExh) annotation (Line(points={{-42,44},{-80,44},{-80,80},
-          {-120,80}}, color={0,0,127}));
-  connect(powGen.mExh_flow, mExh_flow) annotation (Line(points={{-42,36},{-60,36},
-          {-60,20},{-120,20}}, color={0,0,127}));
+  connect(powGen.TExh, TExh) annotation (Line(points={{-42,44},{-80,44},{-80,90},
+          {-120,90}}, color={0,0,127}));
+  connect(powGen.mExh_flow, mExh_flow) annotation (Line(points={{-42,36},{-60,
+          36},{-60,30},{-120,30}},
+                               color={0,0,127}));
   connect(powGen.PEle_ST, PEle_ST) annotation (Line(points={{-18,40},{120,40}},
           color={0,0,127}));
   connect(steHeaFlo.QSupSte_flow, heaAva.u1) annotation (Line(points={{-18,80},{
@@ -311,8 +317,8 @@ equation
           -10,40},{-18,40}}, color={0,0,127}));
   connect(heaAva.y, gre.u1)
     annotation (Line(points={{22,60},{38,60}}, color={0,0,127}));
-  connect(heaInp.TExh, TExh) annotation (Line(points={{-42,18},{-80,18},{-80,80},
-          {-120,80}}, color={0,0,127}));
+  connect(heaInp.TExh, TExh) annotation (Line(points={{-42,18},{-80,18},{-80,90},
+          {-120,90}}, color={0,0,127}));
   connect(steBoi.VLiq, conPID.u_m) annotation (Line(points={{61,-87},{64,-87},{64,
           -98},{-30,-98},{-30,-72}},color={0,0,127}));
   connect(conPID.y, masFlo.u2) annotation (Line(points={{-18,-60},{-10,-60},{-10,

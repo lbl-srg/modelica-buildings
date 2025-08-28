@@ -84,12 +84,15 @@ P<sub>ste</sub> = a<sub>exh</sub> m<sub>exh</sub> &epsilon;<sub>exh</sub>,
 </i>
 </p>
 <p>
-where
-<i>P<sub>ste</sub></i> is the steam turbine power generation,
+where <i>P<sub>ste</sub></i> is the steam turbine power generation,
 <i>a<sub>exh</sub> </i> is the specific exergy of exhaust gas from gas turbine,
-which is obtained by using the function <code>Functions.ExhaustSpecificExergy</code>,
+which is obtained by using the function
+<a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustSpecificExergy\">
+Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustSpecificExergy</a>,
 <i>&epsilon;<sub>exh</sub></i> is the exergy efficiency, and the value is calculated
-by using the function <code>Functions.ExhaustExergyEfficiency</code>.
+by using the function
+<a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency\">
+Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency</a>.
 </p>
 <h4>References</h4>
 <p>
@@ -97,7 +100,7 @@ Gülen, S. (2019). <i> Gas Turbine Combined Cycle Power Plants (1st ed.) </i>. C
 <a href=\"https://doi.org/10.1201/9780429244360\">[Link]</a>
 </p>
 <p>
-Gülen, S. (2019) <i> Gas Turbines for Electric Power Generation.</i> Cambridge University Press. 
+Gülen, S. (2019) <i> Gas Turbines for Electric Power Generation.</i> Cambridge University Press.
 <a href=\"https://doi.org/10.1017/9781108241625\">[Link]</a>
 </p>
 </html>"));
