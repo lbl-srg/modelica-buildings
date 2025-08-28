@@ -28,14 +28,14 @@ occurring throughout the process.
      alt=\"Combined-cycle CHP System Schematic\"/>
 </p>
 <p>
-This model assumes that fuel consumption occurs only in the gas turbine, with no
+This model assumes that the fuel consumption occurs only in the gas turbine, with no
 fuel input to the supplementary duct burner in the HRSG. Minor energy losses,
-including mechanical and heat losses from the turbines and energy associated with
+including mechanical energy and heat losses from the turbines and energy associated with
 compressed inlet air, are neglected.
 </p>
 <h4>Governing Equations</h4>
 <p>
-As mechanical and heat losses in the turbine are neglected, the fuel combustion
+As mechanical energy and heat losses in the turbine are neglected, the fuel combustion
 energy is considered equal to the sum of the generated electricity and the heat
 flow of the exhaust gas. The energy balance equation for the topping cycle is:
 </p>
