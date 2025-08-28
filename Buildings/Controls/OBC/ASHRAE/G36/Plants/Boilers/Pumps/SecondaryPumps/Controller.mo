@@ -625,7 +625,7 @@ equation
   connect(intLes.y, not1.u)
     annotation (Line(points={{-28,-240},{0,-240}},  color={255,0,255}));
 
-  connect(plaReq, enaHeaLeaPum.supResReq) annotation (Line(points={{-300,40},{-220,
+  connect(plaReq, enaHeaLeaPum.plaReq) annotation (Line(points={{-300,40},{-220,
           40},{-220,82},{-202,82}}, color={255,127,0}));
 
   connect(chaPumSta1.yHotWatPum, chaPumSta4.uHotWatPum) annotation (Line(points={{80,78},
@@ -900,7 +900,6 @@ The parameter values for valid pump configurations are as follows:
         <th>2</th>
         <th>3</th>
         <th>4</th>
-        <th>5</th>
       </tr>
     </thead>
     <tbody>
@@ -910,13 +909,11 @@ The parameter values for valid pump configurations are as follows:
         <td>TRUE</td>
         <td>TRUE</td>
         <td>TRUE</td>
-        <td>FALSE</td>
       </tr>
       <tr>
         <td>have_secFloSen</td>
         <td>TRUE</td>
         <td>TRUE</td>
-        <td>FALSE</td>
         <td>FALSE</td>
         <td>FALSE</td>
       </tr>
@@ -926,7 +923,6 @@ The parameter values for valid pump configurations are as follows:
         <td>remoteDP</td>
         <td>localDP</td>
         <td>remoteDP</td>
-        <td>NA</td>
       </tr>
     </tbody>
   </table>
