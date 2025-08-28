@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers;
-model PrimaryController "Boiler plant primary loop controller"
+model PrimaryController
+  "Boiler plant primary loop controller"
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_priPum= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -354,7 +355,7 @@ model PrimaryController "Boiler plant primary loop controller"
     "Design hot water supply temperature for condensing boilers"
     annotation(Dialog(tab="Supply temperature reset parameters",
       group="Trim-and-Respond Logic parameters",
-      enable=not have_allCon));
+      enable=not have_allCon and not have_allNonCon));
 
   parameter Real dTConBoiHotWatSet(
     final unit="K",
