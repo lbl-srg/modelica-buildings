@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.CHPs.DistrictCHP.Validation.BottomCycle", method="cvode", stopTime=3000, tolerance=1e-06, resultFile="bottomCycle");
+// Plot commands
+createPlot(id=1, position={35, 35, 1379, 1340}, y={"botCyc.TExh", "botCyc.TAmb"}, range={0.0, 3000.0, 0.0, 500.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={35, 35, 1379, 1340}, y={"botCyc.mExh_flow"}, range={0.0, 3000.0, 300.0, 550.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=1, position={35, 35, 1379, 1340}, y={"botCyc.PEle_ST"}, range={0.0, 3000.0, 35000000.0, 60000000.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
+
