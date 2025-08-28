@@ -233,13 +233,12 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{200,-20},{220,0}})));
 
-  Buildings.Fluid.FixedResistances.PressureDrop totRes(
-    final m_flow_nominal=mAir_flow_nominal,
-    final dp_nominal=dpAir_nominal,
-    final allowFlowReversal=true,
-    redeclare final package Medium = MediumA)
-    "Total resistance"
-    annotation (Placement(transformation(extent={{80,-14},{100,6}})));
+  Buildings.Fluid.FixedResistances.PressureDrop totResAir(
+    redeclare final package Medium = MediumA,
+    final m_flow_nominal = mAir_flow_nominal,
+    final dp_nominal = dpAir_nominal,
+    final allowFlowReversal = true) "Total resistance of air path" annotation(
+    Placement(transformation(extent = {{80, -14}, {100, 6}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirRet(
     redeclare final package Medium = MediumA,
@@ -324,7 +323,7 @@ equation
     annotation (Line(points={{180,-10},{200,-10}}, color={0,127,255}));
   connect(vAirSup.port_b, port_Air_b) annotation (Line(points={{220,-10},{240,-10},
           {240,-40},{260,-40}}, color={0,127,255}));
-  connect(cooCoi.port_b2, totRes.port_a)
+  connect(cooCoi.port_b2, totResAir.port_a)
     annotation (Line(points={{40,-4},{80,-4}},   color={0,127,255}));
   connect(TAirRet.port_b, vAirRet.port_a)
     annotation (Line(points={{-210,20},{-200,20}}, color={0,127,255}));
@@ -354,7 +353,7 @@ equation
           -160,20},{-160,10},{-100,10}},        color={0,127,255}));
   connect(vAirRet.port_b, heaCoiHW.port_a2) annotation (Line(points={{-180,20},{
           -160,20},{-160,-56},{-100,-56}},         color={0,127,255}));
-  connect(totRes.port_b, fan.port_a) annotation (Line(points={{100,-4},{114,-4},
+  connect(totResAir.port_b, fan.port_a) annotation (Line(points={{100,-4},{114,-4},
           {114,-10},{120,-10}}, color={0,127,255}));
   connect(bou.ports[1], fan.port_a) annotation (Line(points={{104,20},{114,20},
           {114,-10},{120,-10}}, color={0,127,255}));
