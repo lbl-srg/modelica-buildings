@@ -44,8 +44,8 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       have_senTConWatChiSup=true,
       have_senTConWatChiRet_select=true),
     redeclare replaceable
-      Buildings.Templates.Plants.Chillers.Components.Economizers.None eco
-      "No waterside economizer",
+      Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve
+      eco "Heat exchanger with bypass valve for CHW flow control",
     ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller,
         typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
     constrainedby Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(

@@ -64,12 +64,11 @@ model Compression "Group of compression chillers"
     annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=270,
         origin={140,0})));
-
   // Sensors
   // CW and CHW temperatures are taken from the fluid volume or medium stream
   // for representative value near zero flow.
-  // This is needed for e.g. chiller head pressure control where the CW isolation valve
-  // may be modulated down to 0 %.
+  // This is needed for e.g. chiller head pressure control where the
+  // CW isolation valve may be modulated down to 0 %.
   Modelica.Blocks.Sources.RealExpression TConWatChiRet[nChi](
     y(each final unit="K", each displayUnit="degC")=chi.chi.con.T)
     if have_senTConWatChiRet
