@@ -93,7 +93,7 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep\">
 Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>
-against the polynomial chiller model 
+against the polynomial chiller model
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>
 for air-cooled chiller applications.
@@ -103,7 +103,7 @@ for air-cooled chiller applications.
 The validation setup is duplicated from
 <a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_AirCooled\">
 Buildings.Fluid.Chillers.Examples.ElectricEIR_AirCooled</a>
-and the component <code>ref</code> reads the reference results 
+and the component <code>ref</code> reads the reference results
 obtained from that model.
 </li>
 <li>
@@ -112,10 +112,10 @@ along the evaporator <i>leaving</i> temperature and the condenser
 <i>entering</i> temperature.
 </li>
 <li>
-The performance data are generated with the same polynomial equations as 
+The performance data are generated with the same polynomial equations as
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>,
-using polynomial coefficients from the same data record as the one used 
+using polynomial coefficients from the same data record as the one used
 in the reference example model, that is
 <a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled\">
 Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled</a>.
@@ -125,17 +125,17 @@ Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101
 <p>
 There is good agreement with the reference results, except during
 the time interval where the PLR value exceeds <i>1</i>.
-In this interval the polynomial model computes a significantly higher 
+In this interval the polynomial model computes a significantly higher
 cooling heat flow rate (in negative value) and a slightly higher power.
 This discrepancy occurs because the polynomial model calculates the
 heat flow rate at <i>PLR &le; 1</i> while calculating power at
 <i>PLR &le; per.PLRMax</i>.
-Consequently, when PLR increases between <i>1</i> and <i>per.PLRMax</i>, 
-input power increases according to the polynomial <code>EIRFunPLR</code>, 
-but the heat flow rate only varies due to the effect of the increasing 
+Consequently, when PLR increases between <i>1</i> and <i>per.PLRMax</i>,
+input power increases according to the polynomial <code>EIRFunPLR</code>,
+but the heat flow rate only varies due to the effect of the increasing
 leaving temperature as the setpoint is no longer met.
 This appears as a deficiency in the polynomial model that is resolved
-in the data table model. 
+in the data table model.
 </p>
 </html>",
       revisions="<html>

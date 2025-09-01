@@ -1,9 +1,9 @@
 Bus
 PartialChiller
 PartialCoil
+PartialCooler
 PartialFan
 PartialHeatPump
-PartialHeatPumpEquationFit
 PartialPump
 PartialPumpMultiple
 PartialPumpSingle
