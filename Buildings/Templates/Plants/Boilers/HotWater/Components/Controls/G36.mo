@@ -29,12 +29,7 @@ block G36 "Guideline 36 controller"
     "True: Temperature sensors in primary and secondary loops;
     False: Temperature sensors in boiler supply and secondary loop";
 
-  final parameter Integer nLooSec =
-    if cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
-      then 1
-    elseif cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Distributed
-      then cfg.nLooHeaWatSec
-    else 0
+  final parameter Integer nLooSec = cfg.nLooHeaWatSec
     "Number of secondary loops serviced by primary plant";
 
   final parameter Integer nBoi = cfg.nBoiCon + cfg.nBoiNon
@@ -243,7 +238,6 @@ equation
   connect(busPumHeaWatPriCon.y1_actual, ctlLooPri.uPriPum[1:cfg.nBoiCon]);
   connect(busPumHeaWatPriNon.y1_actual, ctlLooPri.uPriPum[(cfg.nBoiCon+1):nBoi]);
   connect(bus.u1Sch, ctlLooPri.uSchEna);
-  connect(bus.VHeaWatSec_flow, ctlLooPri.VHotWatSec_flow);
   // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.VHeaWatByp_flow, ctlLooPri.VHotWatDec_flow);
   connect(busLooNon.VHeaWatByp_flow, ctlLooPri.VHotWatDec_flow);
@@ -255,7 +249,6 @@ equation
   connect(bus.dpHeaWatLoc, ctlPumHeaWatSec.dpHotWat_local);
   connect(bus.dpHeaWatRem, ctlPumHeaWatSec.dpHotWat_remote);
   connect(busPumHeaWatSec.y1_actual, ctlPumHeaWatSec.uHotWatPum);
-  connect(bus.VHeaWatSec_flow[1], ctlPumHeaWatSec.VHotWat_flow);
 
   // Primary loop controller outputs to plant control bus
   connect(ctlLooPri.TBoiHotWatSupSet[1:cfg.nBoiCon], busBoiCon.THeaWatSupSet);
@@ -319,6 +312,10 @@ equation
           -18,120},{-18,26.9},{-12,26.9}}, color={255,127,0}));
   connect(FIXME_dpHeaWatSet.y, ctlPumHeaWatSec.dpHotWatSet)
     annotation (Line(points={{12,66},{48,66}}, color={0,0,127}));
+  connect(VHeaWatSec_flow.y, ctlLooPri.VHotWatSec_flow) annotation (Line(points
+        ={{-188,-80},{-20,-80},{-20,-3.7},{-12,-3.7}}, color={0,0,127}));
+  connect(VHeaWatSec_flow.y[1], ctlPumHeaWatSec.VHotWat_flow) annotation (Line(
+        points={{-188,-80},{40,-80},{40,82},{48,82}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>

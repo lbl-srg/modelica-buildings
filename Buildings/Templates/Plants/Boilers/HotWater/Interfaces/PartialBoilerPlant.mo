@@ -235,7 +235,7 @@ partial model PartialBoilerPlant
     "Number of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Secondary HW loop",
     enable=have_pumHeaWatSec));
-  parameter Integer nLooHeaWatSec(
+  parameter Integer nLooHeaWatSec_select(
     final min=1,
     start=1)
     "Number of secondary HW loops for distributed secondary distribution"
@@ -243,6 +243,13 @@ partial model PartialBoilerPlant
       group="Secondary HW loop",
       enable=
       typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Distributed));
+  final parameter Integer nLooHeaWatSec =
+    if typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
+      then 1
+    elseif typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Distributed
+      then nLooHeaWatSec_select
+    else 0
+    "Number of secondary HW loops";
   parameter Buildings.Templates.Plants.Boilers.HotWater.Types.Controller typCtl
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Controls"));

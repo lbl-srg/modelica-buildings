@@ -53,12 +53,11 @@ block PartialController
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36 and
     have_senVHeaWatPriCon or have_senVHeaWatPriNon));
+  // At least one flow sensor is needed, either in primary or secondary loop for staging.
   final parameter Boolean have_senVHeaWatSec=
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None and
-    (if cfg.have_boiCon and cfg.have_pumHeaWatPriVarCon or
-    cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon then
-    typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
-    else true)
+    (not have_senVHeaWatPriCon and not have_senVHeaWatPriNon or
+    typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference)
     "Set to true for secondary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.Boilers.HotWater.Types.SensorLocation locSenVHeaWatSec=
@@ -136,6 +135,10 @@ block PartialController
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={100,-60})));
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal VHeaWatSec_flow(nin=cfg.nLooHeaWatSec,
+      nout=cfg.nLooHeaWatSec) if cfg.typPumHeaWatSec <> Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+    "Secondary HW flow (handles none, single or multiple sensors)"
+    annotation (Placement(transformation(extent={{-210,-90},{-190,-70}})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busBoiCon[cfg.nBoiCon]
     if cfg.have_boiCon "Boiler control bus - Condensing boilers" annotation (
@@ -218,6 +221,10 @@ equation
       thickness=0.5));
   connect(busLooNon, bus.looNon) annotation (Line(
       points={{-160,200},{-180,200},{-180,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.VHeaWatSec_flow, VHeaWatSec_flow.u) annotation (Line(
+      points={{-260,0},{-220,0},{-220,-80},{-212,-80}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

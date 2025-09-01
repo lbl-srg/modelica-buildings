@@ -106,7 +106,7 @@ createPlot(
 createPlot(
   id=7,
   position={350, 40, 500, 400},
-  y={"pla.bus.boiCon[1].THeaWatSupSet", "pla.bus.boiCon[2].THeaWatSupSet", "pla.bus.looCon.THeaWatPriSup", "pla.bus.looCon.THeaWatPlaRet"},
+  y={"pla.bus.boiCon[1].THeaWatSupSet", "pla.bus.boiCon[2].THeaWatSupSet", "THeaWatSup.T", "pla.bus.looCon.THeaWatPlaRet"},
   autoscale=true,
   grid=true,
   timeUnit="h"
