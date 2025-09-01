@@ -1,8 +1,7 @@
 within Buildings.Templates.Components.HeatPumps;
 model AirToWater
   "Air-to-water heat pump"
-  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep
-                                                                                     (
+  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep (
     redeclare final package MediumSou=MediumAir,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final allowFlowReversalSou=false,
@@ -35,8 +34,8 @@ equation
     annotation (Line(points={{80,-140},{80,-100}},color={0,127,255}));
   connect(mAir_flow.y, floSou.m_flow_in)
     annotation (Line(points={{60,-72},{60,-96},{72,-96}},color={0,0,127}));
-  connect(hp.on, y1Rea.u) annotation (Line(points={{-12.2,-6},{-14,-6},{-14,12},
-          {40,12},{40,40},{60,40},{60,32}}, color={255,0,255}));
+  connect(hp.on, y1Rea.u) annotation (Line(points={{-12,-6},{-14,-6},{-14,12},{40,
+          12},{40,40},{60,40},{60,32}},     color={255,0,255}));
   annotation (
     defaultComponentName="hp",
     Documentation(
@@ -44,10 +43,10 @@ equation
 <p>
 This is a model for an air-to-water heat pump where the capacity
 and input power are computed by interpolating manufacturer data
-along the condenser entering or leaving temperature, the 
+along the condenser entering or leaving temperature, the
 evaporator entering or leaving temperature and the part load ratio.
-The model can be configured to represent either a non-reversible 
-(heating-only) heat pump (<code>is_rev=false</code>) or a 
+The model can be configured to represent either a non-reversible
+(heating-only) heat pump (<code>is_rev=false</code>) or a
 reversible heat pump (<code>is_rev=true</code>).
 </p>
 <p>
@@ -67,7 +66,7 @@ for a description of the available control input and output variables.
 </html>", revisions="<html>
 <ul>
 <li>
-March 21, 2025, by Antoine Gautier:<br/>
+August 21, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data heat pump model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.

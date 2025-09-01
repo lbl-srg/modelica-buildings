@@ -37,6 +37,7 @@ partial model PartialHeatPumpTableData2DLoadDep
     redeclare final package MediumEva = MediumSou,
     final datHea=dat.perHea,
     final datCoo=dat.perCoo,
+    final P_min=dat.P_min,
     final use_rev=is_rev,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHea_flow_nominal=QHea_flow_nominal,
@@ -79,19 +80,19 @@ equation
     annotation (Line(points={{40,132},{40,156},{0,156},{0,160}},
                                                          color={255,0,255}));
   connect(bus.y1, hp.on) annotation (Line(
-      points={{0,160},{0,20},{-20,20},{-20,-6},{-12.2,-6}},
+      points={{0,160},{0,20},{-20,20},{-20,-6},{-12,-6}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.y1Hea, hp.hea) annotation (Line(
-      points={{0,160},{0,20},{-20,20},{-20,-8},{-12.2,-8}},
+      points={{0,160},{0,20},{-20,20},{-20,-8},{-12,-8}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.TSet, hp.TSet) annotation (Line(
-      points={{0,160},{0,20},{-20,20},{-20,-4},{-12.2,-4}},
+      points={{0,160},{0,20},{-20,20},{-20,-2},{-12,-2}},
       color={255,204,51},
       thickness=0.5));
-  connect(hp.on, y1_actual.y1) annotation (Line(points={{-12.2,-6},{-14,-6},{-14,
-          12},{40,12},{40,108}}, color={255,0,255}));
+  connect(hp.on, y1_actual.y1) annotation (Line(points={{-12,-6},{-14,-6},{-14,12},
+          {40,12},{40,108}},     color={255,0,255}));
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>

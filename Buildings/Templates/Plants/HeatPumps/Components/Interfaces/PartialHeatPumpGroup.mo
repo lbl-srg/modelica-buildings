@@ -66,7 +66,8 @@ model PartialHeatPumpGroup "Interface for heat pump group"
     each final perCoo=dat.perCooHp,
     each final capCoo_nominal=dat.capCooHp_nominal,
     each final TChiWatSup_nominal=dat.TChiWatSupHp_nominal,
-    each final capHea_nominal=dat.capHeaHp_nominal)
+    each final capHea_nominal=dat.capHeaHp_nominal,
+    each final P_min=dat.PHp_min)
     "Design and operating parameters - Each heat pump";
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatHp_flow_nominal=dat.mHeaWatHp_flow_nominal
     "Design HW mass flow rate - Each heat pump";
