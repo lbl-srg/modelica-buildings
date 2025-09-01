@@ -161,7 +161,7 @@ equation
   connect(intToRea.y, nomPum.u)
     annotation (Line(points={{-78,0},{18,0}}, color={0,0,127}));
   connect(addPar1.y, nomPum1.u)
-    annotation (Line(points={{2,-40},{18,-40}},    color={0,0,127}));
+    annotation (Line(points={{2,-40},{18,-40}}, color={0,0,127}));
   connect(truDel.y, enaNexLag.u2)
     annotation (Line(points={{62,100},{178,100}}, color={255,0,255}));
   connect(truDel1.y, shuLasLag.u2)
@@ -232,14 +232,14 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-200},{220,200}})),
   Documentation(info="<html>
 <p>
-Block that enable and disable lag primary chilled water pump, for plants
+Block that enables and disables lag primary chilled water pump, for plants
 with headered primary chilled water pumps,
-according to ASHRAE Guideline36-2021,
+according to ASHRAE Guideline 36-2021,
 section 5.20.6 Primary chilled water pumps, part 5.20.6.6.
 </p>
 <p>
 Chilled water pump shall be staged as a function of chilled water flow ratio (CHWFR),
-i.e. the ratio of current chilled water flow <code>VChiWat_flow</code> to design
+i.e., the ratio of current chilled water flow <code>VChiWat_flow</code> to design
 flow <code>VChiWat_flow_nominal</code>, and the number of pumps <code>num_nominal</code>
 that operate at design conditions. Pumps are assumed to be equally sized.
 </p>

@@ -191,32 +191,32 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint</a>.
-It shows the calculation of the minimum chilled waterflow through
+It shows the calculation of the minimum chilled water flow through
 the operating chillers.
 </p>
 <p>
 It includes three instances <code>staUp</code>, <code>staDow</code>,
-and <code>onOffStaUp</code> that shows the minimum chilled waterflow
-setpoint when the plant is stageing up, staging down, and staging up
-with one chiller being enabled and another one chiller being disabled.
+and <code>onOffStaUp</code> that show the minimum chilled water flow
+setpoint when the plant is staging up, staging down, and staging up
+with one chiller being enabled and another chiller being disabled.
 </p>
 <ul>
 <li>
 For instance <code>staUp</code>, the plant stages up at moment 1 second,
 It stages up from chiller 1 and 2, to also enable chiller 3.
-When in the staging process all the up devices has been controlled
+When in the staging process, all the up devices have been controlled
 <code>uUpsDevSta=true</code> at 1.2 seconds, the minimum flow
 setpoint changes from 0.01 m3/s (sum of minimum flow of chiller 1 and 2)
-to 0.015 m3/s (sum of minium flow of all chillers). The staging process
+to 0.015 m3/s (sum of the minium flow of all chillers). The staging process
 takes 1.5 seconds (<code>byPasSetTim</code>).
 </li>
 <li>
-For instance <code>onOffStaUp</code>, the plant stages up at moment 1 seconds.
+For instance <code>onOffStaUp</code>, the plant stages up at moment 1 second.
 It enables chiller 3 and disables chiller 2.
-When in the staging process all the up devices has been controlled
+When in the staging process, all the up devices have been controlled
 <code>uUpsDevSta=true</code> at 1.2 seconds, the minimum flow
 setpoint changes from 0.01 m3/s (sum of minimum flow of chiller 1 and 2)
-to 0.015 m3/s (sum of minium flow of all chillers) at 2.7 seconds.
+to 0.015 m3/s (sum of the minium flow of all chillers) at 2.7 seconds.
 When the chiller staging process are done (<code>uSubCha=true</code>), the
 minimum flow setpoint changes back to 0.01 m3/s (sum of minimum flow of
 chiller 1 and 3).
@@ -224,10 +224,10 @@ chiller 1 and 3).
 <li>
 For instance <code>staDow</code>, the plant stages down at moment 1 second.
 It stages down from chiller 1 and 2, to disable chiller 2.
-When in the staging process all the up devices has been controlled
+When in the staging process, all the up devices have been controlled
 <code>uUpsDevSta=true</code> at 1.2 seconds, the minimum flow
 setpoint changes from 0.01 m3/s (sum of minimum flow of chiller 1 and 2)
-to 0.005 m3/s (minium flow of chiller 1). The staging process
+to 0.005 m3/s (the minium flow of chiller 1). The staging process
 takes 1.5 seconds (<code>byPasSetTim</code>).
 </li>
 </ul>

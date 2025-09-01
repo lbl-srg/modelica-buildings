@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic;
 block PIDWithEnable "PID controller with enable signal"
-  extends Modelica.Blocks.Icons.Block;
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
@@ -30,6 +29,7 @@ block PIDWithEnable "PID controller with enable signal"
     "Value to which the controller output is reset if the boolean trigger has a rising edge";
   parameter Real y_neutral=y_reset
     "Value to which the controller output is reset when the controller is disabled";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -46,7 +46,7 @@ block PIDWithEnable "PID controller with enable signal"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "Enable signal"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,
-      origin={-60,-120}),
+      origin={-70,-120}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-40,-120})));
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final k=k,
@@ -57,39 +57,41 @@ block PIDWithEnable "PID controller with enable signal"
     final yMin=yMin,
     final yMax=yMax,
     final reverseActing=reverseActing,
-    final y_reset=y_reset)
+    final y_reset=y_reset) "PID controller with reset"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
+    "Switch between setpoint and measurement"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
-    annotation (Placement(transformation(extent={{72,-10},{92,10}})));
+    "Switch between neutral value and the controller output"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant valDis(
     final k=y_neutral)
     "Value when disabled"
-    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+
 equation
   connect(conPID.u_s, swi.y)
     annotation (Line(points={{-12,0},{-18,0}},color={0,0,127}));
   connect(uEna, swi.u2)
-    annotation (Line(points={{-60,-120},{-60,-21.5625},{-60,0},{-42,0}},color={255,0,255}));
+    annotation (Line(points={{-70,-120},{-70,0},{-42,0}}, color={255,0,255}));
   connect(u_s, swi.u1)
     annotation (Line(points={{-120,0},{-80,0},{-80,8},{-42,8}},color={0,0,127}));
   connect(u_m, swi.u3)
-    annotation (Line(points={{0,-120},{0,-80},{-50,-80},{-50,-8},{-42,-8}},color={0,0,127}));
+    annotation (Line(points={{0,-120},{0,-80},{-60,-80},{-60,-8},{-42,-8}},color={0,0,127}));
   connect(uEna, conPID.trigger)
-    annotation (Line(points={{-60,-120},{-60,-20},{-6,-20},{-6,-12}},color={255,0,255}));
+    annotation (Line(points={{-70,-120},{-70,-20},{-6,-20},{-6,-12}},color={255,0,255}));
   connect(u_m, conPID.u_m)
     annotation (Line(points={{0,-120},{0,-12}},color={0,0,127}));
   connect(conPID.y, swi1.u1)
-    annotation (Line(points={{12,0},{40,0},{40,8},{70,8}},color={0,0,127}));
+    annotation (Line(points={{12,0},{30,0},{30,8},{58,8}},color={0,0,127}));
   connect(swi1.y, y)
-    annotation (Line(points={{94,0},{120,0}},color={0,0,127}));
+    annotation (Line(points={{82,0},{120,0}},color={0,0,127}));
   connect(uEna, swi1.u2)
-    annotation (Line(points={{-60,-120},{-60,-20},{60,-20},{60,0},{70,0}},color={255,0,255}));
+    annotation (Line(points={{-70,-120},{-70,-20},{40,-20},{40,0},{58,0}},color={255,0,255}));
   connect(valDis.y, swi1.u3)
-    annotation (Line(points={{52,-40},{64,-40},{64,-8},{70,-8}},color={0,0,127}));
+    annotation (Line(points={{42,-40},{50,-40},{50,-8},{58,-8}},color={0,0,127}));
   annotation (
-    defaultComponentName="conPID",
     defaultComponentName="conPID",
     Icon(
       coordinateSystem(
@@ -150,7 +152,7 @@ equation
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-150,150},{150,110}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255}),
         Line(
@@ -188,7 +190,7 @@ and the integral term is reset to <code>y_reset</code> at
 enable time.
 </li>
 <li>
-When disabled, the output of the controller is set to <code>y_neutral</code>
+When disabled, the output of the controller is set to <code>y_neutral</code>,
 and the setpoint is overridden by the measurement signal in order to avoid
 time integration of the control error.
 </li>

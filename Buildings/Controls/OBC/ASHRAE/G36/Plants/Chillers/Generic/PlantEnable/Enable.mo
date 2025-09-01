@@ -46,14 +46,6 @@ block Enable "Sequence to enable and disable plant"
     annotation (Placement(transformation(extent={{200,70},{220,90}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-//   final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
-//     Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
-//     "Smoothness of table interpolation";
-//
-//   final parameter Buildings.Controls.OBC.CDL.Types.Extrapolation extrapolation=
-//     Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
-//     "Extrapolation of data outside the definition range";
-
 protected
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
@@ -145,7 +137,7 @@ equation
   connect(disPlaCon.y, disPla.u2) annotation (Line(points={{82,-78},{90,-78},{90,
           -26},{98,-26}}, color={255,0,255}));
   connect(not2.y, disPlaCon.u1) annotation (Line(points={{2,-50},{20,-50},{20,-78},
-          {58,-78}},      color={255,0,255}));
+          {58,-78}}, color={255,0,255}));
   connect(hasReq.y, lesReq.u) annotation (Line(points={{-118,90},{-20,90},{-20,70},
           {-180,70},{-180,-70},{-142,-70}}, color={255,0,255}));
   connect(lesReq.y, enaTim1.u)
@@ -207,26 +199,25 @@ annotation (
           textString="STOP")}),
  Documentation(info="<html>
 <p>
-Block that generate chiller plant enable signals and output the initial plant stage,
-according to ASHRAE Guideline36-2021, section 5.20.2.1,
-5.20.2.2 and 5.20.2.3.
+Block that generates chiller plant enabling signals and outputs the initial plant stage,
+according to ASHRAE Guideline 36-2021, section 5.20.2.1, 5.20.2.2 and 5.20.2.3.
 </p>
 <p>
-The chiller plant should be enabled and disabled according to following sequences:
+The chiller plant should be enabled and disabled according to the following sequences:
 </p>
 <ol>
 <li>
 An enabling schedule should be included to allow operators to lock out the
-chiller plant during off-hour, e.g. to allow off-hour operation of HVAC systems
-except the chiller plant. The default schedule shall be 24/7 and be adjustable.
+chiller plant during off-hours, e.g. to allow off-hour operation of HVAC systems
+except the chiller plant. The default schedule shall be 24/7 and adjustable.
 </li>
 <li>
 The plant should be enabled in the lowest stage when the plant has been
-disabled for at least <code>plaThrTim</code>, e.g. 15 minutes and:
+disabled for at least <code>plaThrTim</code>, e.g., 15 minutes, and:
 <ul>
 <li>
 Number of chiller plant requests &gt; <code>ignReq</code> (<code>ignReq</code>
-should default to 0 and adjustable), and,
+should default be 0 and adjustable), and,
 </li>
 <li>
 Outdoor air temperature is greater than chiller lockout temperature,
@@ -239,7 +230,7 @@ The chiller enable schedule is active.
 </li>
 <li>
 The plant should be disabled when it has been enabled for at least
-<code>plaThrTim</code>, e.g. 15 minutes and:
+<code>plaThrTim</code>, e.g., 15 minutes, and:
 <ul>
 <li>
 Number of chiller plant requests &le; <code>ignReq</code> for <code>reqThrTim</code>, or,

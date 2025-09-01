@@ -6,7 +6,6 @@ block UpEnd "Sequence for ending stage-up process"
     "True: the plant has air cooled chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
-
   parameter Real delayStaCha(unit="s")=900
     "Hold period for each stage change";
   parameter Real proOnTim(unit="s")=300
@@ -289,7 +288,7 @@ equation
     annotation (Line(points={{82,-16},{140,-16},{140,-8},{178,-8}},
       color={255,0,255}));
   connect(logSwi3.y, yChiHeaCon)
-    annotation (Line(points={{202,0},{240,0}},     color={255,0,255}));
+    annotation (Line(points={{202,0},{240,0}}, color={255,0,255}));
   connect(booRep4.y, logSwi3.u2)
     annotation (Line(points={{62,100},{130,100},{130,0},{178,0}},
       color={255,0,255}));
@@ -344,10 +343,10 @@ equation
     annotation (Line(points={{-240,110},{-180,110},{-180,-91},{58,-91}},
       color={255,127,0}));
   connect(lat.y, minChiWatSet.uOnOff) annotation (Line(points={{-178,150},{-170,
-          150},{-170,-97},{58,-97}},   color={255,0,255}));
+          150},{-170,-97},{58,-97}}, color={255,0,255}));
   connect(minChiWatSet.yChiWatMinFloSet, minBypSet.VMinChiWat_setpoint)
     annotation (Line(points={{82,-90},{96,-90},{96,-112},{50,-112},{50,-214},{58,
-          -214}},     color={0,0,127}));
+          -214}}, color={0,0,127}));
   connect(con3.y, minChiWatSet.uUpsDevSta)
     annotation (Line(points={{-138,-110},{36,-110},{36,-83},{58,-83}},
       color={255,0,255}));
@@ -685,10 +684,10 @@ bypass setpoint"),
           textString="endStaTri")}),
 Documentation(info="<html>
 <p>
-Block that controls devices at the ending step of chiller staging up process.
+Block that controls devices at the ending step of the chiller staging up process.
 This development is based on ASHRAE Guideline 36-2021,
 section 5.20.4.16, item f and g. These sections specify the controls of
-devices at the ending step of staging up process.
+devices at the ending step of the staging up process.
 </p>
 <p>
 For the stage-up process that does not require a smaller chiller being disabled
@@ -701,13 +700,13 @@ isolation valve is fully open (<code>uEnaChiWatIsoVal=true</code>).
 This is implemented in block <code>enaChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableChiller</a>
-for more decriptions.
+for more descriptions.
 </li>
 </ul>
 <p>
-For any stage change during which a smaller chiller is diabled and a larger chiller
+For any stage change during which a smaller chiller is disabled and a larger chiller
 is enabled (<code>uOnOff=true</code>), after starting the next stage chiller
-specified above, do following:
+specified above, do the following:
 </p>
 <ol>
 <li>
@@ -716,7 +715,7 @@ is operating correctly, then shut off the small chiller (<code>nexDisChi</code>)
 This is implemented in block <code>enaChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableChiller</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 When the controller of the smaller chiller being shut off indicates no request
@@ -726,7 +725,7 @@ operating chillers.
 This is implemented in block <code>disChiIsoVal</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 When the controller of the smaller chiller being shut off indicates no request for
@@ -735,21 +734,21 @@ pressure control loop.
 This is implemented in block <code>disHeaCon</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Change the minimum flow bypass setpoint to that appropriate for the new stage.
 This is implemented in block <code>minChiWatSet</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Block <code>minBypSet</code> will then check if the new chilled water flow setpoint
 has been achieved. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ResetMinBypass\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ResetMinBypass</a>
-for more decriptions.
+for more descriptions.
 </li>
 </ol>
 </html>", revisions="<html>

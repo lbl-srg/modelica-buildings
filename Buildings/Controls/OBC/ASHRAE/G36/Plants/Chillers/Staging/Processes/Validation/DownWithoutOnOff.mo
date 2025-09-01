@@ -233,22 +233,22 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Down</a>.
 </p>
 <p>
 It shows a process of staging down from stage 2 which requires chiller 1 and chiller 2
-being enabled to stage 1 which requires only chiller 1 being enabled.
+to be enabled to stage 1 which requires only chiller 1 to be enabled.
 </p>
 <ul>
 <li>
 In stage 2, the design condenser water pump speed is 0.6 and it requires 2
-condenser water pumps. The maximum and minimum chilled water flow for chiller 1
+condenser water pumps. The maximum and minimum chilled water flows for chiller 1
 and 2 are 1.5 m3/s and 1.0 m3/s.
 </li>
 <li>
 In stage 1, the design condenser water pump speed is 0.75 and it requires 1 condenser
-water pump. The maximum and minimum chilled water flow for chiller 1 are 1.0 m3/s
+water pump. The maximum and minimum chilled water flows for chiller 1 are 1.0 m3/s
 and 0.5 m3/s.
 </li>
 </ul>
 <p>
-It demonstrates process as below:
+It demonstrates the process as below:
 </p>
 <ul>
 <li>
@@ -258,11 +258,11 @@ Before 75 seconds, the plant is not in the staging process.
 At 75 seconds, the plant starts staging down from stage 2 to stage 1. The chiller
 2 becomes disabled (<code>uChiLoa[2]=0</code>). Its head pressure control becomes
 disabled (<code>yChiHeaCon[2]=false</code>).
-It then slowly close chilled water isolation valve of chiller 1. This takes 300
-seconds (<code>chaChiWatIsoTim</code>) and finish the process at 375 seconds.
+It then slowly closes the chilled water isolation valve of chiller 1. This takes 300
+seconds (<code>chaChiWatIsoTim</code>) and finishes the process at 375 seconds.
 </li>
 <li>
-After the isolation being closed at 375 seconds, it slowly changes the minimum
+After the isolation is closed at 375 seconds, it slowly changes the minimum
 chilled water flow setpoint from 2 m3/s (for both chiller 1 and 2 operation) to
 1 m3/s (for only chiller 1 operation). It takes 300 seconds (<code>byPasSetTim</code>)
 to finish the change at 675 seconds. The staging process is done.

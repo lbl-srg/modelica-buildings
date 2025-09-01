@@ -104,7 +104,7 @@ equation
           30},{20,4},{38,4}},   color={255,127,0}));
   connect(conOutTem1.y, disPlaReq.TOut)
     annotation (Line(points={{2,-20},{20,-20},{20,-4.2},{38,-4.2}},
-                                                                  color={0,0,127}));
+          color={0,0,127}));
   connect(chiPlaReq3.y[1], reaToInt3.u)
     annotation (Line(points={{-38,-60},{-22,-60}}, color={0,0,127}));
   connect(reaToInt3.y, disPlaOutTem.chiPlaReq) annotation (Line(points={{2,-60},
@@ -112,9 +112,9 @@ equation
   connect(outTem1.y, disPlaOutTem.TOut)
     annotation (Line(points={{2,-120},{20,-120},{20,-94.2},{38,-94.2}}, color={0,0,127}));
   connect(conInt.y, disPlaSch.chiPlaReq) annotation (Line(points={{2,120},{20,120},
-          {20,104},{38,104}},      color={255,127,0}));
+          {20,104},{38,104}}, color={255,127,0}));
   connect(booTimTab.y[1], disPlaSch.uPlaSchEna) annotation (Line(points={{-38,100},
-          {38,100}},                  color={255,0,255}));
+          {38,100}}, color={255,0,255}));
   connect(booTimTab1.y[1], disPlaReq.uPlaSchEna)
     annotation (Line(points={{-38,0},{38,0}}, color={255,0,255}));
   connect(booTimTab2.y[1], disPlaOutTem.uPlaSchEna)
@@ -140,16 +140,16 @@ being enabled for 15 minutes and then becomes disabled.
 </li>
 <li>
 For instance <code>disPlaOutTem</code>, the input <code>TOut</code> becomes
-greater than the lockout temperature <code>TChiLocOut</code> at 4382.seconds.
+greater than the lockout temperature <code>TChiLocOut</code> at 4382 seconds.
 The plant becomes enabled. At 39877.7 seconds, the input <code>TOut</code>
-becomes lower than the lockeout temperature <code>TChiLocOut</code> by 0.556
+becomes lower than the lockout temperature <code>TChiLocOut</code> by 0.556
 &deg;C. The plant becomes disabled.
 </li>
 <li>
 For instance <code>disPlaSch</code>, the chiller enabing schedule specifies
 that the plant should be enabled at 600 seconds. However, the plant becomes
 enabled at 900 seconds as it allows the plant being disabled for 15 minutes.
-The plant becomes disabled at 68400 seconds, which is specified as in the
+The plant becomes disabled at 68400 seconds, which is specified in the
 plant scheduling.
 </li>
 </ul>

@@ -261,7 +261,7 @@ equation
   connect(uChiWatIsoVal, swi.u3) annotation (Line(points={{-220,160},{110,160},{
           110,222},{138,222}}, color={0,0,127}));
   connect(truDel.y, cloConIsoVal.u1) annotation (Line(points={{-78,230},{-60,230},
-          {-60,120},{-42,120}},   color={255,0,255}));
+          {-60,120},{-42,120}}, color={255,0,255}));
   connect(mulOr1.y, noConWatReq.u)
     annotation (Line(points={{-158,80},{-142,80}}, color={255,0,255}));
   connect(uConWatReq, mulOr1.u)
@@ -272,7 +272,7 @@ equation
     annotation (Line(points={{82,120},{100,120},{100,100},{138,100}},
           color={255,0,255}));
   connect(uConWatIsoVal, swi1.u3) annotation (Line(points={{-220,50},{60,50},{60,
-          92},{138,92}},     color={0,0,127}));
+          92},{138,92}}, color={0,0,127}));
   connect(cloChiIsoVal.y, cloPums.u2) annotation (Line(points={{-18,230},{-10,230},
           {-10,170},{-100,170},{-100,-38},{-82,-38}}, color={255,0,255}));
   connect(cloConIsoVal.y, cloPums.u1) annotation (Line(points={{-18,120},{-10,120},
@@ -304,9 +304,9 @@ equation
   connect(cloPums.y, and4.u1) annotation (Line(points={{-58,-30},{-10,-30},{-10,
           -120},{18,-120}}, color={255,0,255}));
   connect(not4.y, and4.u2) annotation (Line(points={{-58,-90},{0,-90},{0,-128},{
-          18,-128}},   color={255,0,255}));
+          18,-128}}, color={255,0,255}));
   connect(not4.y, and3.u2) annotation (Line(points={{-58,-90},{0,-90},{0,-38},{18,
-          -38}},     color={255,0,255}));
+          -38}}, color={255,0,255}));
   connect(swi3.y, yConWatPumSpe)
     annotation (Line(points={{182,-120},{220,-120}}, color={0,0,127}));
   connect(swi2.y, yChiWatPumSpe)
@@ -360,7 +360,7 @@ equation
   connect(greThr.y, y1ChiWatIsoVal)
     annotation (Line(points={{182,190},{220,190}}, color={255,0,255}));
   connect(u1ConWatIsoVal, and7.u2) annotation (Line(points={{-220,20},{78,20},{78,
-          52},{138,52}},     color={255,0,255}));
+          52},{138,52}}, color={255,0,255}));
   connect(booScaRep2.y, and7.u1) annotation (Line(points={{82,120},{100,120},{100,
           60},{138,60}}, color={255,0,255}));
   connect(and7.y, y1ConWatIsoVal)
@@ -391,7 +391,7 @@ annotation (defaultComponentName = "disChi",
   Documentation(info="<html>
 <p>
 It disables the devices when the chiller plant is disabled in chiller mode.
-It is implemented as ASHRAE Guideline36-2021, section 5.20.2.5 and 5.20.2.7.
+It is implemented as ASHRAE Guideline 36-2021, section 5.20.2.5 and 5.20.2.7.
 </p>
 <p>
 When the plant is disabled:

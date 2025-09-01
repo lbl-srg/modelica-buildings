@@ -248,7 +248,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DownStart\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DownStart</a>.
-It shows the begining steps when the plant starts staging down. In this example,
+It shows the beginning steps when the plant starts staging down. In this example,
 the staging down process requires enabling one chiller and disabling another chiller.
 </p>
 <p>
@@ -262,28 +262,28 @@ disabled and the chiller 2 is enabled.
 </li>
 <li>
 Since 180 seconds, the operating chiller load is reduced from 20 A to 15 A (75%
-of command load).
+of the command load).
 </li>
 <li>
 From 180 seconds to 480 seconds, the minimum flow setpoint (<code>yChiWatMinFlowSet</code>)
 changes from 1 m3/s to 2 m3/s, which are the minimal flow setpoints for 1 chiller
-operation and 2 chillers operation.
+operation and 2 chiller operations.
 </li>
 <li>
-After the minimum chilled water flow setpoint being changed at 480 seconds, the
+After the minimum chilled water flow setpoint is changed at 480 seconds, the
 head pressure control for the chiller 1 becomes enabled
 (<code>yChiHeaCon[1]=true</code>).
 </li>
 <li>
-After 30 seconds at the 510 seconds, the isolation valve of chiller 1 starts
-open and becomes fully open at 810 seconds.
+After 30 seconds at 510 seconds, the isolation valve of chiller 1 starts
+opening and becomes fully open at 810 seconds.
 </li>
 <li>
 At 810 seconds, the chiller 1 becomes enabled.
 </li>
 <li>
-After 300 seconds at the 1110 seconds, the chiller 2 becomes disabled. The chiller
-demand limit is released and the minimum chiller water flow setpoint then changes
+After 300 seconds at 1110 seconds, the chiller 2 becomes disabled. The chiller
+demand limit is released, and the minimum chiller water flow setpoint then changes
 to the one for only chiller 1 operating.
 </li>
 </ul>

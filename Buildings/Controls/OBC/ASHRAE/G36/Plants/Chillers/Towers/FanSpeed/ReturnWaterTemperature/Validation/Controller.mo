@@ -258,7 +258,7 @@ For the close and less coupled plants with waterside economizer,
 if the plant is not enabled, the tower fan speed setpoint is 0.
 </li>
 <li>
-if the economizer is enabled, the fan speed setpoint equals to the
+if the economizer is enabled, the fan speed setpoint equals the
 <code>uTowSpeWSE</code>.
 </li>
 <li>

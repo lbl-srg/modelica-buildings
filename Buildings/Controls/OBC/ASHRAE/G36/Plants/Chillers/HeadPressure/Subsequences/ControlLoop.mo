@@ -122,15 +122,14 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates chiller head pressure control loop signal when the signal
-is not available from chiller controller,
-according to ASHRAE Guideline36-2021,
-section 5.20.10 Head pressure control, part 5.20.10.1 and 5.20.10.2.
+is not available from chiller controller, according to ASHRAE Guideline 36-2021,
+section 5.20.10 head pressure control, part 5.20.10.1, and 5.20.10.2.
 </p>
 <p>
-1. When head pressure control loop is enabled, a reverse acting PID loop shall
+1. When the head pressure control loop is enabled, a reverse acting PID loop shall
 maintain the temperature differential between the chiller condenser water
 return (condenser leaving) temperature <code>TConWatRet</code> and chilled water supply temperature
-<code>TChiWatSup</code> at minimum allowable lift <code>minChiLif</code> (chiller lift
+<code>TChiWatSup</code> at the minimum allowable lift <code>minChiLif</code> (chiller lift
 equals to <code>TConWatRet</code> minus <code>TChiWatSup</code>)
 </p>
 <p>

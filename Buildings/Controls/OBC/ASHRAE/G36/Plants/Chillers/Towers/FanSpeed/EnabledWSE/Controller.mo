@@ -138,7 +138,6 @@ equation
     annotation (Line(points={{-120,40},{-42,40}}, color={255,0,255}));
   connect(uWse, intOpe.uWse)
     annotation (Line(points={{-120,0},{-60,0},{-60,72},{-42,72}}, color={255,0,255}));
-
   connect(swi1.y, wseOpe.uFanSpe) annotation (Line(points={{82,0},{90,0},{90,
           -40},{-60,-40},{-60,-52},{-42,-52}}, color={0,0,127}));
 annotation (
@@ -211,18 +210,18 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> when waterside 
-economizer is enabled. This is implemented according to ASHRAE Guideline36-2021,
+economizer is enabled. This is implemented according to ASHRAE Guideline 36-2021,
 section 5.20.12.2, item c. It includes two subsequences:
 </p>
 <ul>
 <li>
-When waterside economizer is enabled and chillers are running, see 
+When the waterside economizer is enabled and chillers are running, see 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.IntegratedOperation\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.IntegratedOperation</a>
 for a description.
 </li>
 <li>
-When waterside economizer is running alone, see 
+When the waterside economizer is running alone, see 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation</a>
 for a description.

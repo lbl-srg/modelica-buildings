@@ -123,53 +123,53 @@ Note that when using the subsequences,
 <ul>
 <li>
 specify the parameter <code>iniValPos=0</code> and <code>endValPos=1</code>
-if instantiates the class in the staging up process controller, and
+if instantiating the class in the staging up process controller, and
 </li>
 <li>
 specify the parameter <code>iniValPos=1</code> and <code>endValPos=0</code>
-if instantiates the class in the staging down process controller.
+if instantiating the class in the staging down process controller.
 </li>
 </ul>
 <p>
-For instance <code>enaChiIsoVal</code>,
+For the instance <code>enaChiIsoVal</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in staging up process. The isolation value 1
+Before 540 seconds, the plant is not in the staging up process. The isolation value 1
 is fully open (<code>yChiWatIsoVal[1]=1</code>) and the valve 2 is closed
 (<code>yChiWatIsoVal[2]=0</code>).
 </li>
 <li>
-Between 540 seconds and 720 seconds, the plant is in staging process. However, the
-process is not yet requiring the chilled water isolation values changing their
+Between 540 seconds and 720 seconds, the plant is in the staging process. However, the
+process is not yet requiring the chilled water isolation values to change their
 status, as the <code>uUpsDevSta=false</code>.
 </li>
 <li>
-Since 720 seconds, the plant staging process requires the isolation valve changing
+Since 720 seconds, the plant staging process requires the isolation valve to change
 their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being enabled.
-Thus the process starts opening the isolation valve 2. As specified by
+Thus, the process starts opening the isolation valve 2. As specified by
 <code>chaChiWatIsoTim=300 seconds</code>, it takes 5 minutes to fully open isolation
 valve 2 at 1020 seconds, and <code>yEnaChiWatIsoVal</code> becomes <code>true</code>.
 </li>
 </ul>
 <p>
-For instance <code>disChiIsoVal</code>,
+For the instance <code>disChiIsoVal</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in staging down process. Both the isolation
+Before 540 seconds, the plant is not in the staging down process. Both the isolation
 value 1 and 2 are fully open (<code>yChiWatIsoVal[1]=1</code>,
 <code>yChiWatIsoVal[2]=1</code>).
 </li>
 <li>
-Between 540 seconds and 720 seconds, the plant is in staging process. However,
-the process is not yet requiring the chilled water isolation values changing their
+Between 540 seconds and 720 seconds, the plant is in the staging process. However,
+the process is not yet requiring the chilled water isolation values to change their
 status, as the <code>uUpsDevSta=false</code>.
 </li>
 <li>
-Since 720 seconds, the plant staging process requires the isolation valve changing
+Since 720 seconds, the plant staging process requires the isolation valve to change
 their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being disabled.
-Thus the process starts closing the isolation valve 2. As specified by
+Thus, the process starts closing the isolation valve 2. As specified by
 <code>chaChiWatIsoTim=300 seconds</code>, it takes 5 minutes to fully close isolation
 valve 2 at 1020 seconds, and <code>yEnaChiWatIsoVal</code> becomes <code>true</code>.
 </li>

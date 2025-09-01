@@ -160,7 +160,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DownStart\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.DownStart</a>.
-It shows the begining steps when the plant starts staging down. In this example,
+It shows the beginning steps when the plant starts staging down. In this example,
 the staging down process does not require enabling one chiller and disabling
 another chiller.
 </p>
@@ -181,7 +181,7 @@ and its demand becomes 0.
 <p>
 The chiller head pressure control, the chilled water isolation valve and the
 chilled water minimum flow setpoint will be controlled in the down process after
-this down begining process.
+this down beginning process.
 </p>
 </html>", revisions="<html>
 <ul>

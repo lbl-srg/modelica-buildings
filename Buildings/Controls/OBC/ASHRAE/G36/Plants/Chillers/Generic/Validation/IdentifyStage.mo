@@ -46,8 +46,7 @@ equation
   connect(not2.y, ideSta1.uChi[2])
     annotation (Line(points={{22,-30},{58,-30}}, color={255,0,255}));
   connect(not1.y, ideSta1.uChi[3]) annotation (Line(points={{22,-70},{40,-70},{
-          40,-29.3333},{58,-29.3333}},
-                                    color={255,0,255}));
+          40,-29.3333},{58,-29.3333}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
@@ -58,31 +57,31 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.IdentifyStage\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.IdentifyStage</a>.
-It shows how to identify current chiller stage.
+It shows how to identify the current chiller stage.
 </p>
 <ul>
 <li>
 For instance <code>ideSta</code>, the staging matrix <code>staMat</code> is
-specified as <code>{{1,0}, {0,1}, {1,1}}</code> which means that in stage 1
+specified as <code>{{1,0}, {0,1}, {1,1}}</code>, which means that in stage 1
 chiller 1 is enabled, in stage 2 chiller 2 is enabled and in stage 3 both
 chillers are enabled.
 <ul>
 <li>
-Before 2.5 seconds, since chiller 1 and 2 are enabled, current stage is 3.
+Before 2.5 seconds, since chiller 1 and 2 are enabled, the current stage is 3.
 </li>
 <li>
 From 2.5 seconds to 3.5 seconds, chiller 2 is enabled and chiller 1 is
-disabled, current stage is 2.
+disabled, the current stage is 2.
 </li>
 <li>
-After 3.5 seconds, both chillers are disabled, thus current stage is 0.
+After 3.5 seconds, both chillers are disabled, thus, the current stage is 0.
 </li>
 </ul>
 </li>
 <li>
 For instance <code>ideSta1</code>, the staging matrix <code>staMat</code> is
-specified as <code>{{1,0,0},{1,1,0},{1,1,1}}</code> which means that in stage 1
-chiller 1 is enabled, in stage 2 chiller 1 and 2 is enabled and in stage 3 all
+specified as <code>{{1,0,0},{1,1,0},{1,1,1}}</code>, which means that in stage 1
+chiller 1 is enabled, in stage 2 chiller 1 and 2 is enabled, and in stage 3 all
 3 chillers are enabled.
 <ul>
 <li>
@@ -90,15 +89,15 @@ Before 2.5 seconds, no chiller is enabled. The current chiller stage
 is 0.
 </li>
 <li>
-From 2.5 seconds to 3.5 seconds, only chiller 1 is enabled. Thus the
+From 2.5 seconds to 3.5 seconds, only chiller 1 is enabled. Thus, the
 current chiller stage is 1.
 </li>
 <li>
-From 3.5 seconds to 4.5 seconds, chiller 1 and 2 are enabled. Thus
+From 3.5 seconds to 4.5 seconds, chiller 1 and 2 are enabled. Thus,
 the current chiller stage is 2.
 </li>
 <li>
-After 4.5 seconds, all the three chillers are enabled. Thus the
+After 4.5 seconds, all three chillers are enabled. Thus, the
 current chiller stage is 3.
 </li>
 </ul>

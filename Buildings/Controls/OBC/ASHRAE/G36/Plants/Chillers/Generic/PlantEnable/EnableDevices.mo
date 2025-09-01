@@ -69,7 +69,6 @@ block EnableDevices
     "Lead chiller commanded on"
     annotation (Placement(transformation(extent={{160,-140},{200,-100}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
-
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Check if current stage is initial stage"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -79,7 +78,8 @@ block EnableDevices
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Plant enable edge"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch ecoMod "Plant enabled in economizer mode"
+  Buildings.Controls.OBC.CDL.Logical.Latch ecoMod
+    "Plant enabled in economizer mode"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
@@ -91,10 +91,12 @@ block EnableDevices
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Enabled devices associate with chiller mode operation"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr chiWatPumOn(final nin=nChiWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr chiWatPumOn(
+    final nin=nChiWatPum)
     "Check if there is any chilled water pump proven on"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr conWatPumOn(final nin=nConWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr conWatPumOn(
+    final nin=nConWatPum)
     if not have_airCoo
     "Check if there is any condenser water pump proven on"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
@@ -131,7 +133,7 @@ equation
   connect(and1.y, yChiWatIsoVal)
     annotation (Line(points={{122,30},{180,30}}, color={255,0,255}));
   connect(and1.y, yConWatIsoVal) annotation (Line(points={{122,30},{140,30},{140,
-          0},{180,0}},     color={255,0,255}));
+          0},{180,0}}, color={255,0,255}));
   connect(uChiWatPum, chiWatPumOn.u)
     annotation (Line(points={{-180,-60},{-122,-60}}, color={255,0,255}));
   connect(uConWatPum, conWatPumOn.u)

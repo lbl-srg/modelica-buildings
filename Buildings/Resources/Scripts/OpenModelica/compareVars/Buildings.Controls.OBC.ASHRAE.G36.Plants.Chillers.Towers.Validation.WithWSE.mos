@@ -15,8 +15,7 @@ compareVars :=
     "towCon.uChiStaSet",
     "towCon.uTowSta[1]",
     "towCon.uTowSta[2]",
-    "towCon.ySpeSet[1]",
-    "towCon.ySpeSet[2]",
+    "towCon.ySpeSet",
     "towCon.uChiLoa",
     "towCon.chiMinCap[1]"
   };

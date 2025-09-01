@@ -46,43 +46,43 @@ This example validates
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Subsequences.Speed</a>.
 </p>
 <p>
-The example shows a chiller plant has 3 chiller stages and 6 plant stages. The plant
-stage means the stage that considers both chiller stage and waterside economizer
+The example shows a chiller plant with 3 chiller stages and 6 plant stages. The plant
+stage means the stage that considers both the chiller stage and the waterside economizer
 status. The plant stage is specified by the parameter <code>staVec</code>, which
-in this exmple is <code>{0, 0.5, 1, 1.5, 2, 2.5}</code>. The element like <i>x.5</i>
+in this example is <code>{0, 0.5, 1, 1.5, 2, 2.5}</code>. The element like <i>x.5</i>
 means chiller stage x plus enabled waterside economizer.
-At different plant stage, the number of enabled condenser water pumps and the speed
+At different plant stages, the number of enabled condenser water pumps and the speed
 are specified by parameter <code>desConWatPumNum</code> (<code>{0, 1, 1, 2, 2, 2}</code>)
 and <code>desConWatPumSpe</code> (<code>{0, 0.5, 0.75, 0.6, 0.75, 0.9}</code>).
 </p>
 <p>
-The process of setting the condenser water pump speed and the pump number are
+The process of setting the condenser water pump speed and the pump number is
 demonstrated as below:
 </p>
 <ul>
 <li>
-Before 0.2 seconds, the chiller stage is 0 and waterside economizer is enabled.
+Before 0.2 seconds, the chiller stage is 0 and the waterside economizer is enabled.
 Thus, the plant stage is 0.5 (2nd stage), the number of enabled pumps is 1 and the
 pump speed is 0.5.
 </li>
 <li>
 In the period between 0.2 seconds and 0.375 seconds, the chiller stage is 1 and
-waterside economizer is enabled. Thus, the plant stage is 1.5 (4th stage), the
+the waterside economizer is enabled. Thus, the plant stage is 1.5 (4th stage), the
 number of enabled pumps is 2 and the pump speed is 0.6.
 </li>
 <li>
 In the period between 0.375 seconds and 0.6 seconds, the chiller stage is 1 and
-waterside economizer is disabled. Thus, the plant stage is 1 (3th stage), the
+the waterside economizer is disabled. Thus, the plant stage is 1 (3th stage), the
 number of enabled pumps is 1 and the pump speed is 0.75.
 </li>
 <li>
 In the period between 0.6 seconds and 0.75 seconds, the chiller stage is 2 and
-waterside economizer is disabled. Thus, the plant stage is 2 (5th stage), the
+the waterside economizer is disabled. Thus, the plant stage is 2 (5th stage), the
 number of enabled pumps is 2 and the pump speed is 0.75.
 </li>
 <li>
-After 0.75 seconds, the chiller stage is 2 and waterside economizer is enabled. Thus,
-the plant stage is 2.5 (6th stage), the number of enabled pumps is 2 and the pump
+After 0.75 seconds, the chiller stage is 2 and the waterside economizer is enabled.
+Thus, the plant stage is 2.5 (6th stage), the number of enabled pumps is 2 and the pump
 speed is 0.9.
 </li>
 </ul>

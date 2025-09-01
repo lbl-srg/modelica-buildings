@@ -11,7 +11,7 @@ block CellsNumber
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
-  parameter Real towCelOnSet[totSta] = {0,2,2,4,4,4}
+  parameter Integer towCelOnSet[totSta] = {0,2,2,4,4,4}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
   parameter Real speChe = 0.01
     "Lower threshold value to check if condenser water pump is proven on"
@@ -88,10 +88,10 @@ protected
     final nin=totSta)
     "Number of cells should be enabled at current plant stage"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5[totSta](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant con5[totSta](
     final k=towCelOnSet)
     "Number of enabling cells at each stage"
-    annotation (Placement(transformation(extent={{80,140},{100,160}})));
+    annotation (Placement(transformation(extent={{20,140},{40,160}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
     final uLow=fill(speChe, nConWatPum),
     final uHigh=fill(2*speChe, nConWatPum))
@@ -138,6 +138,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And anyPumOn
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[totSta]
+    "Convert to real"
+    annotation (Placement(transformation(extent={{80,140},{100,160}})));
 equation
   connect(uWse, booToRea1.u)
     annotation (Line(points={{-280,-40},{-162,-40}}, color={255,0,255}));
@@ -157,8 +160,6 @@ equation
       color={0,0,127}));
   connect(sub4.y, greEquThr.u)
     annotation (Line(points={{22,-40},{38,-40}}, color={0,0,127}));
-  connect(con5.y, celOnNum.u)
-    annotation (Line(points={{102,150},{118,150}}, color={0,0,127}));
   connect(booToInt.y, mulSumInt.u)
     annotation (Line(points={{142,-40},{158,-40}}, color={255,127,0}));
   connect(uConWatPumSpe, proOn.u)
@@ -222,6 +223,10 @@ equation
     annotation (Line(points={{-280,-130},{-62,-130}}, color={255,0,255}));
   connect(anyPumOn.y, or2.u2) annotation (Line(points={{-38,-130},{180,-130},{
           180,-98},{198,-98}}, color={255,0,255}));
+  connect(con5.y, intToRea.u)
+    annotation (Line(points={{42,150},{78,150}}, color={255,127,0}));
+  connect(intToRea.y, celOnNum.u)
+    annotation (Line(points={{102,150},{118,150}}, color={0,0,127}));
 annotation (
   defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -287,7 +292,7 @@ annotation (
 <p>
 This block outputs total number of enabling tower cells according to current plant
 stage and generates boolean output to enable or disable lead tower cell(s).
-It is implemented according to ASHRAE Guideline36-2021, section 5.20.12.1,
+It is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.1,
 </p>
 <ul>
 <li>item b which specifies number of enabled cooling tower cells according to

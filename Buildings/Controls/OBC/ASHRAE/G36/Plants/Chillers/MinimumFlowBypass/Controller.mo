@@ -163,18 +163,18 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that controls chilled water minimum flow for primary-only
-plants with a minimum flow bypass valve,
-according to ASHRAE Guideline36-2021,
+plants with a minimum flow bypass valve, according to ASHRAE Guideline 36-2021,
 section 5.20.8 Chilled water minimum flow bypass valve.
 </p>
 <p>
-The minimum chilled water flow setpoint <code>VChiWatSet_flow</code> is specified by block
+The minimum chilled water flow setpoint <code>VChiWatSet_flow</code> is specified by
+the block
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint</a>.
 </p>
 <p>
 When any chilled water pump is proven on (<code>uChiWatPum</code> = true),
-the bypass valve PID loop shall be enabled. The valve shall be opened 100% otherwise.
+the bypass valve PID loop shall be enabled. Otherwise, the valve shall be opened 100%.
 When enabled, the bypass valve loop shall be biased to start with the valve
 100% open.
 </p>

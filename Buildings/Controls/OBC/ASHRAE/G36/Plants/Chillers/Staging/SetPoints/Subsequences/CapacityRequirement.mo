@@ -131,7 +131,7 @@ equation
   connect(chaPro, edg.u)
     annotation (Line(points={{-160,110},{-102,110}}, color={255,0,255}));
   connect(edg.y, triSam.trigger) annotation (Line(points={{-78,110},{-30,110},{-30,
-          118}},       color={255,0,255}));
+          118}}, color={255,0,255}));
   connect(triSam.y, swi.u1) annotation (Line(points={{-18,130},{10,130},{10,138},
           {78,138}}, color={0,0,127}));
   connect(max.y, swi.u3) annotation (Line(points={{122,-70},{130,-70},{130,60},{
@@ -167,16 +167,17 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-180},{140,160}})),
 Documentation(info="<html>
 <p>
-Calculates cooling capacity requirement based on the measured chilled water return temperature <code>TChiWatRet</code>,
-calculated chilled water supply temperature setpoint
-<code>TChiWatSupSet</code> and the measured chilled water flow <code>VChiWat_flow</code>.<br/>
-The calculation is according to Guideline36-2021, section 5.20.4.8.
+Calculates cooling capacity requirement based on the measured chilled water
+return temperature <code>TChiWatRet</code>, calculated chilled water supply
+temperature setpoint <code>TChiWatSupSet</code>, and the measured chilled
+water flow <code>VChiWat_flow</code>.<br/>
+The calculation is according to Guideline 36-2021, section 5.20.4.8.
 </p>
 <p>
 When a stage change process is in progress, as indicated by a boolean input
 <code>chaPro</code>, the capacity requirement is kept constant for the longer of
 <code>holPer</code> and the duration of the change process.<br/>
-The calculation is according to Guideline36-2021, section 5.20.4.9.
+The calculation is according to Guideline 36-2021, section 5.20.4.9.
 </p>
 </html>",
 revisions="<html>

@@ -234,8 +234,7 @@ equation
     annotation (Line(points={{2,-80},{20,-80},{20,-38},{98,-38}}, color={0,0,127}));
   connect(CWSTSpd.y, fanSpe.u[1])
     annotation (Line(points={{122,-30},{140,-30},{140,-80},{40,-80},{40,
-          -120.667},{58,-120.667}},
-                          color={0,0,127}));
+          -120.667},{58,-120.667}}, color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
     annotation (Line(points={{22,-120},{58,-120}},color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
@@ -335,7 +334,7 @@ Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> based on the control
 of condenser water return temperature for the plant that is not closed coupled.
-This is implemented according to ASHRAE Guideline36-2021, section 5.20.12.2,
+This is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.2,
 item a.8-10.
 </p>
 <ul>
@@ -343,11 +342,11 @@ item a.8-10.
 When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water supply temperature setpoint <code>TConWatSupSet</code> shall be
 set equal to the condenser water return temperature setpoint <code>TConWatRetSet</code>
-minus a temperature difference. The temperature difference is the 5 minute rolling
+minus a temperature difference. The temperature difference is the 5-minutes rolling
 average of common condenser water return temperature <code>TConWatRet</code> less
-condenser water supply temperature <code>TConWatSup</code>, sampled at minimum once
+condenser water supply temperature <code>TConWatSup</code>, sampled at the minimum once
 every 30 seconds. When the plant is first enabled, the temperature difference shall
-be fixed equal to 50% of the difference between design condenser water supply
+be fixed equal to 50% of the difference between the design condenser water supply
 (<code>TConWatSup_nominal</code>) and return (<code>TConWatRet_nominal</code>) temperature
 of the enabled chiller for 5 minutes (<code>iniPlaTim</code>).
 </li>
@@ -355,13 +354,13 @@ of the enabled chiller for 5 minutes (<code>iniPlaTim</code>).
 When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water supply temperature <code>TConWatSup</code> shall be maintained at
 setpoint by a direct acting PID loop. The loop output shall be mapped to the
-variable tower speed. Reset the tower speed from minimum tower speed <code>fanSpeMin</code>
+variable tower speed. Reset the tower speed from the minimum tower speed <code>fanSpeMin</code>
 at 0% loop output to 100% speed at 100% loop output.
 </li>
 <li>
 Tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head
-pressure control loop <code>uMaxSpeSet</code>, and tower maximum speed that reset
+pressure control loop <code>uMaxSpeSet</code>, and tower maximum speed that resets
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
 receive the same speed signal.
 </li>

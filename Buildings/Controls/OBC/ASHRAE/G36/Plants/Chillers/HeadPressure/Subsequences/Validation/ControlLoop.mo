@@ -37,8 +37,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.HeadPressure.Subsequences.ControlLoop\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.HeadPressure.Subsequences.ControlLoop</a>.
-It demonstrates how the head pressure control loop
-signal being generated.
+It demonstrates how the head pressure control loop signal is generated.
 </p>
 <ul>
 <li>

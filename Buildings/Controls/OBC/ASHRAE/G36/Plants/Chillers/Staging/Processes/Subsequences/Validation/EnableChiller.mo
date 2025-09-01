@@ -87,8 +87,7 @@ equation
       color={255,0,255}));
   connect(chiStaRet[2].y, enaDisChi.uChi[3])
     annotation (Line(points={{-18,80},{0,80},{0,40},{-104,40},{-104,78.6667},{
-          -82,78.6667}},
-                      color={255,0,255}));
+          -82,78.6667}}, color={255,0,255}));
   connect(onOff.y, enaDisChi.uOnOff)
     annotation (Line(points={{-138,-60},{-100,-60},{-100,74},{-82,74}},
       color={255,0,255}));
@@ -121,8 +120,7 @@ equation
       color={255,0,255}));
   connect(chiStaRet1.y, enaOneChi.uChi[3])
     annotation (Line(points={{162,80},{180,80},{180,40},{52,40},{52,78.6667},{
-          98,78.6667}},
-                     color={255,0,255}));
+          98,78.6667}}, color={255,0,255}));
 
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),
@@ -136,7 +134,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences
 </p>
 <p>
 The example has two instances <code>enaDisChi</code> and <code>enaOneChi</code>,
-which shows the sub-processes of enabling chillers when the plant is in staging up
+which show the sub-processes of enabling chillers when the plant is in staging up
 process. For the instance <code>enaDisChi</code>, the process requires chiller 3
 being enabled and chiller 2 being disabled, while for the instance
 <code>enaOneChi</code>, the process just requires chiller 3 being enabled.
@@ -146,20 +144,20 @@ For the instance <code>enaDisChi</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in staging up process. Chiller 1 and 2 are
+Before 540 seconds, the plant is not in staging up process. The chiller 1 and 2 are
 operating.
 </li>
 <li>
-For period from 540 seconds to 720 seconds, it is in process up process. However,
+For the period from 540 seconds to 720 seconds, it is in process up process. However,
 it does not yet require enabling chiller (<code>uEnaChiWatIsoVal=false</code>).
 </li>
 <li>
-Since 720 seconds, the process requires new chiller being enabled and the chiller
+Since 720 seconds, the process requires new chiller to be enabled and the chiller
 3 is enabled.
 </li>
 <li>
 After 5 minutes at 1020 seconds, the chiller 2 becomes disabled. The output
-<code>yNewChiEna</code> becomes true, indicates that the chiller enabling process
+<code>yNewChiEna</code> becomes true, indicating that the chiller enabling process
 is finished.
 </li>
 </ul>
@@ -169,15 +167,16 @@ For the instance <code>enaOneChi</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in staging up process. Chiller 1 and 2 are operating.
+Before 540 seconds, the plant is not in the staging up process. The chiller 1 and 2
+are operating.
 </li>
 <li>
-For period from 540 seconds to 720 seconds, it is in process up process. However,
+For the period from 540 seconds to 720 seconds, it is in the process up process. However,
 it does not yet require enabling chiller (<code>uEnaChiWatIsoVal=false</code>).
 </li>
 <li>
-Since 720 seconds, the process requires new chiller being enabled and the chiller
-3 is enabled. The output <code>yNewChiEna</code> becomes true, indicates that the
+Since 720 seconds, the process requires new chiller to be enabled and the chiller
+3 is enabled. The output <code>yNewChiEna</code> becomes true, indicating that the
 chiller enabling process is finished.
 </li>
 </ul>

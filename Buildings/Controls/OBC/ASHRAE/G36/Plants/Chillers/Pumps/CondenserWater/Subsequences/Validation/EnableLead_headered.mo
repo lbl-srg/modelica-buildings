@@ -26,7 +26,7 @@ protected
 
 equation
   connect(WSEConWatIsoVal.y, enaLeaConPum.uWseConIsoVal)
-    annotation (Line(points={{2,-30},{20,-30},{20,0},{38,0}},   color={255,0,255}));
+    annotation (Line(points={{2,-30},{20,-30},{20,0},{38,0}}, color={255,0,255}));
   connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal) annotation (Line(
         points={{2,30},{20,30},{20,6},{38,6}}, color={255,0,255}));
   connect(con1.y, enaLeaConPum.uEnaPla) annotation (Line(points={{2,-70},{30,-70},
@@ -43,7 +43,7 @@ This example validates
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Subsequences.EnableLead_headered</a>.
 </p>
 <p>
-It shows the process of enabling and disabling lead condenser water pump
+It shows the process of enabling and disabling the lead condenser water pump
 of the plants with headered condenser water pumps.
 </p>
 <p>

@@ -97,7 +97,6 @@ equation
           {78,-68}}, color={0,0,127}));
   connect(swi1.y, yChiWatPlaRes)
     annotation (Line(points={{102,-60},{140,-60}}, color={0,0,127}));
-
   connect(chaPro, triRes.uHol) annotation (Line(points={{-140,-40},{-100,-40},{
           -100,20},{-62,20}}, color={255,0,255}));
   connect(triRes.y, swi1.u1) annotation (Line(points={{-38,20},{60,20},{60,-52},
@@ -151,7 +150,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that output chilled water plant reset <code>yChiWatPlaRes</code> according
-to ASHRAE Guideline36-2021, section 5.20.5.2.
+to ASHRAE Guideline 36-2021, section 5.20.5.2.
 </p>
 <p>
 Following implementation is for plants with primary-only and primary-secondary
@@ -160,7 +159,7 @@ systems serving differential pressure controlled pumps.
 <ul>
 <li>
 Chilled water plant reset <code>yChiWatPlaRes</code> shall be reset
-using trim-respond logic with following parameters:
+using trim-respond logic with the following parameters:
 </li>
 </ul>
 <table summary=\"summary\" border=\"1\">
@@ -188,14 +187,14 @@ the plant is disabled (all chilled water pumps are disabled, <code>uChiWatPum</c
 <ul>
 <li>
 When the plant stage change is initiated (<code>uStaCha</code>=true), the plant
-reset <code>yChiWatPlaRes</code> shall be disabled and value fixed at its last
+reset <code>yChiWatPlaRes</code> shall be disabled and the value fixed at its last
 value for the longer of <code>holTim</code> and the time it takes for the plant
 to successfully stage.
 </li>
 </ul>
 <p>
 For primary-secondary plants serving more than one set of differential pressure
-controlled pumps, an unique instance of the reset shall be used for each set of
+controlled pumps, a unique instance of the reset shall be used for each set of
 differential pressure controlled secondary pumps.
 </p>
 <ul>

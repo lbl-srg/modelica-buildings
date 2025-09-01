@@ -141,7 +141,7 @@ temperature setpoint equals to the condenser water return temperature setpoint
 minus 50% of the difference between design condenser water supply 
 (<code>TConWatSup_nominal</code>) and return (<code>TConWatRet_nominal</code>)
 temperature of the enabled chiller. Note that in this period,
-the chiller are not enabled so the fan speed setpoint is 0.
+the chillers are not enabled so the fan speed setpoint is 0.
 </li>
 <li>
 After 5 minutes, the condenser water supply temperature setpoint equals to
@@ -155,17 +155,16 @@ seconds.
 The fan speed setpoint is the minimum of:
 <ul>
 <li>
-the maximum cooling tower speed setpoint from head pressure control loop
+the maximum cooling tower speed setpoint from the head pressure control loop
 of the enabled chiller, <code>uMaxTowSpeSet</code>,
 </li>
 <li>
-the tower maximum speed that reset based on plant partial load ratio,
+the tower maximum speed that resets based on the plant partial load ratio,
 <code>plrTowMaxSpe</code>,
 </li>
 <li>
 and the tower speed from the loop mapping based on the PID control
-for maintaining the condenser water supply temperature to be at its
-setpoint.
+for maintaining the condenser water supply temperature at its setpoint.
 </li>
 </ul>
 </li>

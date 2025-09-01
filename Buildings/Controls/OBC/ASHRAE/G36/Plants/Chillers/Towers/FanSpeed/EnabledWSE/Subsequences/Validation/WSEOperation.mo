@@ -54,29 +54,29 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation</a>.
-It shows following control process:
+It shows the following control process:
 </p>
 <ul>
 <li>
-In the begining period, the chilled water supply temperature is greater than the setpoint.
+In the beginning period, the chilled water supply temperature is greater than the setpoint.
 The direct acting PID controller increases the output to the maximum output so that
 the fan speed setpoint is 1. The measured fan speed becomes 1.
 </li>
 <li>
-In the following period, the chilled water supply temperature gradually reduces and
-till to becomes lower than the setpoint, the PID controller decreases the output to
+In the following period, the chilled water supply temperature gradually reduces until
+it becomes lower than the setpoint, the PID controller decreases the output to
 the minimum so that the fan speed setpoint becomes the minimum. The measured speed
 becomes the minimum as well.
 </li>
 <li>
-In the next period, after a 300 seconds during which both the chilled water supply
-temperature is lower than the setpoint and the fan speed stays at minimum value,
-the fan cycles off that the fan speed setpoint becomes zero. Thus the measured
+In the next period, after 300 seconds during which both the chilled water supply
+temperature is lower than the setpoint and the fan speed stays at the minimum value,
+the fan cycles off that the fan speed setpoint becomes zero. Thus, the measured
 speed becomes zero.
 </li>
 <li>
 After the fan has cycled off for more than 180 seconds, and the chilled water supply
-temperature becomes greater than the setpoint plus 1 &deg;F, the fan turns on and
+temperature becomes greater than the setpoint plus 1 &deg;F, the fan turns on, and
 the direct PID controller increases the output to the maximum output
 and so the fan speed setpoint becomes 1. The measured speed becomes 1.
 </li>

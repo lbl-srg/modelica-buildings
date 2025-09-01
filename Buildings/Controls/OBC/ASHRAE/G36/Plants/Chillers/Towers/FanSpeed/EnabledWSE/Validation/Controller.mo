@@ -63,8 +63,7 @@ equation
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
     annotation (Line(points={{-78,-130},{70,-130},{70,-9},{98,-9}},  color={0,0,127}));
   connect(timTab.y[1], wseOpe.TChiWatSup) annotation (Line(points={{-38,-100},{
-          60,-100},{60,-5},{98,-5}},
-                                 color={0,0,127}));
+          60,-100},{60,-5},{98,-5}}, color={0,0,127}));
   connect(swi1.y, wseOpe.uChiLoa) annotation (Line(points={{42,110},{80,110},{
           80,9},{98,9}}, color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
@@ -78,8 +77,8 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Con
 </p>
 <p>
 In this example, at 2000 seconds the plant changes from economizer-only mode to integration mode which
-have both the chiller and economizer operating. It then changes to chiller-only mode at 3530 seconds.
-It implements following processes:
+has both the chiller and economizer operating. It then changes to chiller-only mode at 3530 seconds.
+It implements the following processes:
 </p>
 <ul>
 <li>
@@ -97,7 +96,7 @@ meantime, the fan has been cycled off for 180 seconds (ranging from 895 seconds 
 again and the PID control increases the output to maximum and the fan speed setpoint becomes 1.
 </li>
 <li>
-From 1600 to 2000 seconds, the chilled water supply temperature is reduced but still keeps higher than
+From 1600 to 2000 seconds, the chilled water supply temperature is reduced but still remains higher than
 the setpoint and the fan speed setpoint keeps to be 1.
 </li>
 <li>
@@ -109,7 +108,7 @@ From 2600 to 3515 seconds, the direct acting PID maintains to the chiller load a
 cycling load for the operating chiller. 
 </li>
 <li>
-After the 3515 seconds, it becomes chiller only mode and the fan speed control becomes invalide.
+After the 3515 seconds, it becomes chiller-only mode and the fan speed control becomes invalid.
 </li>
 </ul>
 </html>", revisions="<html>

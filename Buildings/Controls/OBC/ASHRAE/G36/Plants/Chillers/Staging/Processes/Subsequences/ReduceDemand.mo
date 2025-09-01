@@ -289,7 +289,7 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that reduces demand of current operating chillers when there is a stage-up
-command, according to ASHRAE Guideline36-2021,
+command, according to ASHRAE Guideline 36-2021,
 section 5.20.4.16, item a which specifies how to start the stage-up
 process of the current operating chillers; and section 5.20.4.17, item a.1 which specifies
 how to start the stage-down process of the current operating chiller when the 
@@ -301,28 +301,28 @@ When there is a stage-up command,
 <ul>
 <li>
 Command operating chillers to reduce demand to <code>chiDemRedFac</code> of 
-their current load, e.g. 75%.
+their current load, e.g., 75%.
 </li>
 <li>
 Wait until actual demand &lt; 80% of current load up to a maximum of 
-<code>holChiDemTim</code> (e.g. 5 minutes) before proceeding.
+<code>holChiDemTim</code> (e.g., 5 minutes) before proceeding.
 </li>
 </ul>
 <p>
 When there is a stage-down command (<code>uStaDow=true</code>) and the process
-requires a smaller chiller being enabled and a larger chiller being disabled 
+requires a smaller chiller to be enabled and a larger chiller to be disabled 
 (<code>uOnOff=true</code>),
 </p>
 <ul>
 <li>
 Command operating chillers to reduce demand to <code>chiDemRedFac</code> of 
-their current load, e.g. 75% or a percentage equal to current stage
+their current load, e.g., 75% or a percentage equal to current stage
 minimum cycling operative partial load ratio <code>yOpeParLoaRatMin</code>, whichever is 
 greater.
 </li>
 <li>
 Wait until actual demand &lt; 80% of current load up to a maximum of 
-<code>holChiDemTim</code> (e.g. 5 minutes) before proceeding.
+<code>holChiDemTim</code> (e.g., 5 minutes) before proceeding.
 </li>
 </ul>
 </html>",

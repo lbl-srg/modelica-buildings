@@ -156,13 +156,13 @@ equation
   connect(swi2.y, yUpDes) annotation (Line(points={{182,60},{220,60}}, color={0,0,127}));
   connect(swi4.y, yUpMin) annotation (Line(points={{182,-90},{220,-90}}, color={0,0,127}));
   connect(uMinCap, upCapMin.u) annotation (Line(points={{-220,-180},{-20,-180},{
-          -20,-60},{-2,-60}},   color={0,0,127}));
+          -20,-60},{-2,-60}}, color={0,0,127}));
   connect(uMinCap, capMin.u) annotation (Line(points={{-220,-180},{-20,-180},{-20,
-          -140},{-2,-140}},  color={0,0,127}));
+          -140},{-2,-140}}, color={0,0,127}));
   connect(uDesCap, cap.u) annotation (Line(points={{-220,180},{-12,180}},
-                       color={0,0,127}));
+         color={0,0,127}));
   connect(uDesCap, dowCap.u) annotation (Line(points={{-220,180},{-20,180},{-20,
-          0},{-2,0}},                                color={0,0,127}));
+          0},{-2,0}}, color={0,0,127}));
   connect(uDesCap, upCap.u) annotation (Line(points={{-220,180},{-20,180},{-20,90},
           {-2,90}}, color={0,0,127}));
   connect(uLow, swi1.u2) annotation (Line(points={{-220,-60},{-50,-60},{-50,20},
@@ -170,14 +170,14 @@ equation
   connect(uHig, swi2.u2) annotation (Line(points={{-220,-90},{140,-90},{140,60},
           {158,60}}, color={255,0,255}));
   connect(uHig, swi4.u2) annotation (Line(points={{-220,-90},{158,-90}},
-                      color={255,0,255}));
+         color={255,0,255}));
   connect(gai.y, swi2.u1) annotation (Line(points={{102,120},{120,120},{120,68},
           {158,68}}, color={0,0,127}));
   connect(gai.y, swi4.u1) annotation (Line(points={{102,120},{120,120},{120,-82},
           {158,-82}},color={0,0,127}));
   connect(swi1.y, yDowDes) annotation (Line(points={{182,20},{220,20}}, color={0,0,127}));
   connect(cap.y, yDes) annotation (Line(points={{12,180},{220,180}},
-                 color={0,0,127}));
+         color={0,0,127}));
   connect(intGreEquThr.y, and2.u1)
     annotation (Line(points={{-138,80},{-122,80}}, color={255,0,255}));
   connect(intLesEquThr.y, and2.u2) annotation (Line(points={{-138,0},{-130,0},{-130,
@@ -225,8 +225,7 @@ equation
   connect(mul3.y, swi2.u3) annotation (Line(points={{82,70},{100,70},{100,52},{158,
           52}}, color={0,0,127}));
   connect(booToRea[2].y, mul3.u2) annotation (Line(points={{-58,80},{-10,80},{
-          -10,64},{58,64}},
-                        color={0,0,127}));
+          -10,64},{58,64}}, color={0,0,127}));
   connect(intSwi[2].y, upCap.index)
     annotation (Line(points={{-58,30},{10,30},{10,78}}, color={255,127,0}));
   connect(mul4.y, swi1.u3) annotation (Line(points={{82,40},{100,40},{100,12},{158,
@@ -305,7 +304,8 @@ stage <code>yUpMin</code>
 </ul>
 <p>
 for the purpose of calculating the operative part load ratios 
-(OPLR) up and down, respectively. The OPLR is defined in 1711 March 2020 draft section 5.2.4.6.
+(OPLR) up and down, respectively. The OPLR is defined in ASHRAE 36-2021,
+section 5.20.4.6.
 </p>
 <p>
 For numerical reasons and to ensure expected behavior in corner cases such as 

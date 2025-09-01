@@ -114,7 +114,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Timer"
     annotation (Placement(transformation(extent={{-80,-240},{-60,-220}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical andEnsures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Logical andEnsures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
     annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
 
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesEquThr(
@@ -125,7 +126,8 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Type conveter"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Type conveter"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
@@ -395,7 +397,7 @@ equation
 Documentation(info="<html>
 <p>
 This subsequence is not directly specified in Guideline36 as it provides a side
-calculation pertaining to generalization of the staging sequences for any number
+calculation pertaining to the generalization of the staging sequences for any number
 of chillers and stages provided by the user.
 </p>
 <p>
@@ -452,7 +454,7 @@ At plant enable the intial stage <code>uIni</code> is held for at least <code>de
 and until any stage up or down signal is generated.
 </p>
 <p>
-Per Guideline36-2021, section 5.20.4.15.a. Each stage shall have a minimum runtime
+Per Guideline 36-2021, section 5.20.4.15.a. Each stage shall have a minimum runtime
 of <code>delayStaCha</code>.
 </p>
 </html>",

@@ -315,22 +315,22 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Down</a>.
 </p>
 <p>
 It shows a process of staging down from stage 2 which requires large chiller 2
-being enabled to stage 1 which requires small chiller 1 being enabled and chiller
-2 being disabled.
+to be enabled, to stage 1 which requires small chiller 1 to be enabled and chiller
+2 to be disabled.
 </p>
 <ul>
 <li>
 In stage 2, the design condenser water pump speed is 0.6 and it requires 2
-condenser water pumps. The maximum and minimum chilled water flow are 1.5 m3/s and
+condenser water pumps. The maximum and minimum chilled water flows are 1.5 m3/s and
 1.0 m3/s.
 </li>
 <li>
 In stage 1, the design condenser water pump speed is 0.75 and it requires 1 condenser
-water pump. The maximum and minimum chilled water flow are 1.0 m3/s and 0.5 m3/s.
+water pump. The maximum and minimum chilled water flows are 1.0 m3/s and 0.5 m3/s.
 </li>
 </ul>
 <p>
-It demonstrates process as below:
+It demonstrates the process as below:
 </p>
 <ul>
 <li>
@@ -345,10 +345,10 @@ chiller load). It then slowly increases the minimum chilled water flow setpoint 
 </li>
 <li>
 After the new setpoint being achieved, wait 60 seconds (<code>aftByPasSetTim</code>)
-to 454 seconds, it enabled chiller 1 head pressure control (<code>yChiHeaCon[1]=true</code>).
+to 454 seconds, it enables chiller 1 head pressure control (<code>yChiHeaCon[1]=true</code>).
 </li>
 <li>
-After 30 seconds (<code>waiTim</code>) to 484 seconds, it starts slowly open the
+After 30 seconds (<code>waiTim</code>) to 484 seconds, it starts slowly opening the
 chiller 1 isolation valve (<code>yChiWatIsoVal[1]</code>). It takes 300 seconds
 (<code>chaChiWatIsoTim</code>) to fully open the valve, till 784 seconds.
 </li>
@@ -361,8 +361,8 @@ After 5 minutes (<code>proOnTim</code>) to 1084 seconds, the chiller 2 becomes
 disabled (<code>uChi[2]=false</code>, <code>uChiLoa[2]=0</code>).
 </li>
 <li>
-After the chiller 2 being disabled and no request for chilled water flow, it
-starts slowly close the isolation valve of chiller 2. At 1384 seconds, the valve
+After the chiller 2 is disabled and it has no request for chilled water flow, it
+starts slowly closing the isolation valve of chiller 2. At 1384 seconds, the valve
 is fully closed.
 </li>
 <li>
@@ -371,7 +371,7 @@ At 1384 seconds, the chiller 2 head pressure control becomes disabled
 the new one for the stage 1, which is 1 m3/s.
 </li>
 <li>
-After the new setpoint being achieved for 60 seconds, to 1684 seconds, the staging
+After the new setpoint is achieved for 60 seconds, to 1684 seconds, the staging
 process is done.
 </li>
 </ul>

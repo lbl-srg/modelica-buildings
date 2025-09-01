@@ -161,7 +161,7 @@ equation
   connect(chiHeaPreLoo.yHeaPreCon, noWSE.uHeaPreCon)
     annotation (Line(points={{2,90},{20,90},{20,58},{38,58}}, color={0,0,127}));
   connect(chiHeaPreLoo.yHeaPreCon, withWSE.uHeaPreCon)
-    annotation (Line(points={{2,90},{20,90},{20,-2},{38,-2}},   color={0,0,127}));
+    annotation (Line(points={{2,90},{20,90},{20,-2},{38,-2}}, color={0,0,127}));
   connect(withWSE.uWSE, uWSE)
     annotation (Line(points={{38,-14},{-20,-14},{-20,0},{-120,0}},
       color={255,0,255}));
@@ -172,19 +172,19 @@ equation
     annotation (Line(points={{-58,-60},{-40,-60},{-40,-48},{-22,-48}},
       color={0,0,127}));
   connect(swi.y, noWSE.uHeaPreCon)
-    annotation (Line(points={{2,-40},{20,-40},{20,58},{38,58}},   color={0,0,127}));
+    annotation (Line(points={{2,-40},{20,-40},{20,58},{38,58}}, color={0,0,127}));
   connect(swi.y, withWSE.uHeaPreCon)
-    annotation (Line(points={{2,-40},{20,-40},{20,-2},{38,-2}},     color={0,0,127}));
+    annotation (Line(points={{2,-40},{20,-40},{20,-2},{38,-2}}, color={0,0,127}));
   connect(noWSE.yMaxTowSpeSet, yMaxTowSpeSet)
     annotation (Line(points={{62,56},{80,56},{80,80},{120,80}}, color={0,0,127}));
   connect(withWSE.yHeaPreConVal, yHeaPreConVal)
     annotation (Line(points={{62,-16},{90,-16},{90,30},{120,30}}, color={0,0,127}));
   connect(withWSE.yMaxTowSpeSet, yMaxTowSpeSet)
-    annotation (Line(points={{62,-4},{80,-4},{80,80},{120,80}},   color={0,0,127}));
+    annotation (Line(points={{62,-4},{80,-4},{80,80},{120,80}}, color={0,0,127}));
   connect(withWSE.yConWatPumSpeSet, yConWatPumSpeSet)
     annotation (Line(points={{62,-10},{120,-10}}, color={0,0,127}));
   connect(desConWatPumSpe, withWSE.desConWatPumSpe)
-    annotation (Line(points={{-120,30},{0,30},{0,-6},{38,-6}},   color={0,0,127}));
+    annotation (Line(points={{-120,30},{0,30},{0,-6},{38,-6}}, color={0,0,127}));
   connect(noWSE.yConWatPumSpeSet, yConWatPumSpeSet)
     annotation (Line(points={{62,42},{70,42},{70,-10},{120,-10}}, color={0,0,127}));
   connect(noWSE.yHeaPreConVal, yHeaPreConVal)
@@ -238,10 +238,10 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates control signals for chiller head pressure control,
-according to ASHRAE Guideline36-2021, section 5.20.10 Head pressure control.
+according to ASHRAE Guideline 36-2021, section 5.20.10 head pressure control.
 </p>
 <p>
-Note that if a plant has waterside economizer, the condenser water pump must be
+Note that if a plant has the waterside economizer, the condenser water pump must be
 variable speed.
 </p>
 <p>
@@ -257,9 +257,9 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.HeadPressure.Subsequences.Cont
 for a description.
 </li>
 <li>
-If the chiller plant does not have waterside economizer, block <code>noWSE</code>
+If the chiller plant does not have the waterside economizer, block <code>noWSE</code>
 will be used for controlling maximum cooling tower speed setpoint
-<code>yMaxTowSpeSet</code> and, whether the plant has constant speed condenser
+<code>yMaxTowSpeSet</code> and, whether the plant has the constant speed condenser
 water pump or not, resetting head pressure control valve position
 <code>yHeaPreConVal</code> when <code>have_fixSpeConWatPum</code>=true, or resetting condenser
 water pump speed <code>yConWatPumSpeSet</code> when <code>have_fixSpeConWatPum</code>=false. See
@@ -268,7 +268,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.HeadPressure.Subsequences.Mapp
 for a description.
 </li>
 <li>
-If the chiller plant has waterside economizer, block <code>withWSE</code>
+If the chiller plant has the waterside economizer, block <code>withWSE</code>
 will be used for specifying <code>yMaxTowSpeSet</code>, <code>yHeaPreConVal</code> and
 condenser water pump speed <code>yConWatPumSpeSet</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.HeadPressure.Subsequences.MappingWithWSE\">

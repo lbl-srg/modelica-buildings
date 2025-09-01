@@ -275,9 +275,9 @@ annotation (
           extent={{-240,-200},{240,200}})),
 Documentation(info="<html>
 <p>
-Block that output cooling tower fan speed <code>yTowSpe</code> when only waterside 
-economizer is running. This is implemented 
-according to ASHRAE Guideline36-2021, section 5.20.12.2, item c.2.
+Block that output cooling tower fan speed <code>yTowSpe</code> when only the
+waterside economizer is running. This is implemented
+according to ASHRAE Guideline 36-2021, section 5.20.12.2, item c.2.
 </p>
 <ol>
 <li>
@@ -289,7 +289,7 @@ maximum <code>fanSpeMax</code> at 100% loop output.
 <li>
 If chilled water supply temperature <code>TChiWatSup</code> drops below setpoint
 and fans have been at minimum speed <code>fanSpeMin</code> for 5 minutes (<code>cheCycOffTim</code>), 
-fans shall cycle off for at lease 3 minutes (<code>minCycOffTim</code>) and until 
+fans shall cycle off for at least 3 minutes (<code>minCycOffTim</code>) and until 
 <code>TChiWatSup</code> rises above setpoint by 1 &deg;F.
 </li>
 </ol>

@@ -6,7 +6,7 @@ model TableData2DLoadDep
     PEle_nominal=calQUseP.P_nominal * scaFac);
   parameter Boolean use_rev
     "True if the refrigerant machine is reversible";
-  final parameter Real scaFac=QHea_flow_nominal / calQUseP.Q_flow_nominal
+  final parameter Real scaFac(final unit="1")=QHea_flow_nominal / calQUseP.Q_flow_nominal
     "Scaling factor";
   final parameter Boolean use_TEvaOutForTab=dat.use_TEvaOutForTab
     "=true to use evaporator outlet temperature, false for inlet";
@@ -18,18 +18,22 @@ model TableData2DLoadDep
   replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump dat
     "Table with performance data"
     annotation (choicesAllMatching=true);
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   BaseClasses.TableData2DLoadDep calQUseP(
     final typ=3,
     final scaFac=scaFac,
     final TLoa_nominal=TCon_nominal,
-    final TSou_nominal=TEva_nominal,
+    final TAmb_nominal=TEva_nominal,
     final use_TEvaOutForTab=use_TEvaOutForTab,
     final use_TConOutForTab=use_TConOutForTab,
     final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
     final PLRSup=dat.PLRSup,
     final PLRCyc_min=dat.PLRCyc_min,
-    final P_min=dat.P_min,
-    final fileName=dat.fileName)
+    final P_min=P_min,
+    final fileName=dat.fileName,
+    final tabNamQ=dat.tabNamQ,
+    final tabNamP=dat.tabNamP)
     "Compute heat flow rate and input power"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={120,0})));
@@ -100,10 +104,10 @@ equation
   connect(cp[2].y, extBusSig[6].u[2])
     annotation (Line(points={{72,100},{100.5,100},{100.5,92}},
                                                             color={0,0,127}));
-  connect(extBusSig[1].y, calQUseP.TSouEnt)
+  connect(extBusSig[1].y,calQUseP.TAmbEnt)
     annotation (Line(points={{100,68},{100,60},{121,60},{121,12}},
                                                               color={0,0,127}));
-  connect(extBusSig[2].y, calQUseP.TSouLvg)
+  connect(extBusSig[2].y,calQUseP.TAmbLvg)
     annotation (Line(points={{100,68},{100,60},{119,60},{119,12}},
                                                               color={0,0,127}));
   connect(extBusSig[3].y, calQUseP.TLoaEnt)

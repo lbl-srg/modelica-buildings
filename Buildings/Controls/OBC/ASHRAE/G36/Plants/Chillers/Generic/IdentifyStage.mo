@@ -111,15 +111,15 @@ annotation (defaultComponentName="ideSta",
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in 1711 as it provides
-a side calculation pertaining to generalization of the staging 
+This subsequence is not directly specified in ASHRAE Guideline 36-2021 as it provides
+a side calculation about the generalization of the staging 
 sequences for any number of chillers and stages provided by the 
 user.
 </p>
 <p>
 The subsequence outputs the current chiller stage index <code>ySta</code> according
 to the current chillers proven on status <code>uChi</code>
-and the given a staging matrix <code>staMat</code> which specified which chillers
+and the given staging matrix <code>staMat</code>, which specifies which chillers
 should be enabled at each stage.
 </p>
 </html>",

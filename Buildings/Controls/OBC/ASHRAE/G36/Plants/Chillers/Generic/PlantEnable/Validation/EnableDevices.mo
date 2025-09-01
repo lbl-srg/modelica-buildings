@@ -68,7 +68,7 @@ It shows how to control devices when the plant is just enabled.
 <ul>
 <li>
 At 360 seconds, the plant becomes enabled and the initial plant
-stage is 1. Thus the plant is enabled in chiller mode. The
+stage is 1. Thus, the plant is enabled in chiller mode. The
 associated isolation valves, lead primary chiller and condenser
 water pumps are enabled.
 From 360 seconds to 2880 seconds, the chiller stage <code>uChiSta</code>
@@ -82,12 +82,9 @@ Thus, the lead chiller becomes enabled.
 </li>
 <li>
 At 2880 seconds, the plant enabling process is ended.
-Thus the control after the moment becomes invalid.
+Thus, the control after the moment becomes invalid.
 </li>
 </ul>
-
-
-
 </html>", revisions="<html>
 <ul>
 <li>

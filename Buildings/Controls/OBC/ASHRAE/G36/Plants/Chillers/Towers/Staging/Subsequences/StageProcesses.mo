@@ -434,7 +434,7 @@ Documentation(info="<html>
 <p>
 This block outputs new status vector of cells. When staging up cells, the cells
 should be enabled only when their supply isolation valves have been proven fully
-open. It is implemented according to ASHRAE Guideline36-2021, 
+open. It is implemented according to ASHRAE Guideline 36-2021, 
 section 5.20.12.1, item e and f which specifies the process of enabling and disabling
 tower fan cells.
 </p>

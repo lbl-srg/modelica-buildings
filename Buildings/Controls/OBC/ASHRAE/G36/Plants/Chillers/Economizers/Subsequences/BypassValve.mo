@@ -116,11 +116,11 @@ annotation (defaultComponentName = "wseVal",
 <p>
 Waterside economizer valves control when the chilled water flow through the economizer
 is controlled using a modulating heat exchanger bypass valve. It is implemented
-according to ASHRAE Guideline36-2021, section 5.20.3.4-6. 
+according to ASHRAE Guideline 36-2021, section 5.20.3.4-6. 
 </p>
 <p>
-When economizer is enabled, start next condenser pump and (or) adjust the pump
-speed (see <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller\">
+When economizer is enabled, start next condenser pump and (or) adjust the pump speed
+(see <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller</a>),
 open the condenser water isolation valve to the heat exchanger (<code>yConWatIsoVal=true</code>),
 and enable the economizer in-line chilled water return line valve (<code>yRetVal=1</code>).
@@ -129,7 +129,7 @@ and enable the economizer in-line chilled water return line valve (<code>yRetVal
 When the in-line chilled water return valve is enabled, it shall be modulated by a direct-acting PID
 loop to maintain the static pressure difference across the chilled water side
 of the heat exchanger at the design value (<code>dpDes</code>). Map the loop output from 0% open
-at 0% output to 100% open at 100% output. Bias the loop to launce from 100%
+at 0% output to 100% open at 100% output. Bias the loop to launch from 100%
 output. The valve shall be fully open when the loop is disabled.
 </p>
 <p>

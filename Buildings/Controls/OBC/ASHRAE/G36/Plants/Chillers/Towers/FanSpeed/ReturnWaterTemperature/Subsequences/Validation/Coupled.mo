@@ -103,30 +103,30 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTem
 </p>
 <p>
 It shows tower fan speed control for a plant with 2 chillers. The chiller 2 becomes proven on
-since 360 seconds and the chiller 1 becomes proven on since 720 seconds. It shows following
+after 360 seconds, and the chiller 1 becomes proven on after 720 seconds. It shows the following
 processes:
 </p>
 <ul>
 <li>
-Before 360 seconds, no chiller is proven. Thus the two speed setpoint is 0.
+Before 360 seconds, no chiller is proven. Thus, the tow speed setpoint is 0.
 </li>
 <li>
 After 360 seconds, chiller 2 becomes proven on and the condenser water pump speed
 becomes greater than 0. When the pump speed becomes greater than the threshold
-and shows the pump is proven on at around 444 seconds, the PID controller retriggered
+and shows the pump is proven on at around 444 seconds, the PID controller is retriggered
 and the output starts from the minimum.
 However, before the condenser pump is proven on, the
 tow fan speed setpoint is 0.
 </li>
 <li>
 From around 444 seconds to 720 seconds, the tow fan speed setpoint is the minimum of
-<code>uMaxTowSpeSet[2]</code>, <code>plrTowMaxSpe</code> and the tower speed from
+<code>uMaxTowSpeSet[2]</code>, <code>plrTowMaxSpe</code>, and the tower speed from
 the loop mapping.
 </li>
 <li>
-After 720 seconds when the chiller 1 also becomes proven on, the tow fan speed
+After 720 seconds, when the chiller 1 also becomes proven on, the tow fan speed
 setpoint is the minimum of <code>uMaxTowSpeSet[1]</code>, 
-<code>uMaxTowSpeSet[2]</code>, <code>plrTowMaxSpe</code> and the tower speed from
+<code>uMaxTowSpeSet[2]</code>, <code>plrTowMaxSpe</code>, and the tower speed from
 the loop mapping.
 </li>
 </ul>

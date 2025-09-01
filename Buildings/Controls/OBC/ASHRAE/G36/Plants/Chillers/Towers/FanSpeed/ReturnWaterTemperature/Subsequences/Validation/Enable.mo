@@ -158,7 +158,7 @@ The instance <code>enaTow</code> shows that the tower fans will be enabled when:
 <ul>
 <li>
 The enabled chiller's head pressure control maximum tower fan speed is greater
-than the tower minium speed <code>fanSpeMin</code>, and
+than the tower minimum speed <code>fanSpeMin</code>, and
 </li>
 <li>
 The tower temperature <code>TTow</code> rises above setpoint <code>TTowSet</code>
@@ -177,7 +177,7 @@ for 5 minutes.
 </li>
 <li>
 The instance <code>disTow1</code> shows that all the tower fans should be disabled
-when the tower fans speed <code>uFanSpe</code> have been at minimum speed for
+when the tower fan speed <code>uFanSpe</code> has been at the minimum speed for
 5 minutes and the tower temperature <code>TTow</code> drops below the setpoint
 minus 1 &deg;F.
 </li>
