@@ -11,7 +11,8 @@ record Template
   parameter Boolean steadyState = (cFil < Modelica.Constants.eps or dFil < Modelica.Constants.eps)
     "Flag, if true, then material is computed using steady-state heat conduction"
     annotation(Evaluate=true);
-  final parameter Modelica.Units.SI.ThermalDiffusivity aFil=kFil/(dFil*cFil)
+  final parameter Modelica.Units.SI.ThermalDiffusivity aFil=
+    if (dFil*dFil > Modelica.Constants.eps) then kFil/(dFil*cFil) else 0
     "Heat diffusion coefficient of the borehole filling material";
   annotation (
   defaultComponentPrefixes="parameter",
@@ -24,6 +25,12 @@ Buildings.Fluid.Geothermal.Borefields.Data.Filling</a>.</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 3, 2025, by Michael Wetter:<br/>
+Guarded against division by zero.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2041\">IBPSA, issue 2041</a>.
+</li>
 <li>
 July 15, 2018, by Michael Wetter:<br/>
 Revised implementation, added <code>defaultComponentPrefixes</code> and
