@@ -205,9 +205,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
     extends Modelica.Icons.ReleaseNotes;
 
 
-class Version_10_1_2 "Version 10.1.2"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_10_1_2 "Version 10.1.2"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 10.1.2 is ... xxx
@@ -231,6 +231,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Filling.Template
+    </td>
+    <td valign=\"top\">Guarded against division by zero for steady-state simulations.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2041\">IBPSA, #2041</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -314,7 +323,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_10_1_2;
+    end Version_10_1_2;
 
     class Version_10_1_1 "Version 10.1.1"
       extends Modelica.Icons.ReleaseNotes;
