@@ -1945,7 +1945,7 @@ valve
 controller")}),
 Documentation(info="<html>
 <p>
-Block that controls the boiler plant components according to section 5.21 
+Block that controls the primary loop of a boiler plant according to section 5.21
 in ASHRAE Guideline 36, 2021. It consists of the following components:
 </p>
 <ul>
@@ -1990,6 +1990,11 @@ Plant disable process controller: <a href=\"modelica://Buildings.Controls.OBC.AS
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable</a>.
 </li>
 </ul>
+<p>
+For correct usage of this block, refer to the example model
+<a href=\"modelica://Buildings.Examples.BoilerPlants.ClosedLoopTest\">
+Buildings.Examples.BoilerPlants.ClosedLoopTest</a>.
+</p>
 <p>
 The parameter values for valid boiler plant configurations are as follows:
 </p>
