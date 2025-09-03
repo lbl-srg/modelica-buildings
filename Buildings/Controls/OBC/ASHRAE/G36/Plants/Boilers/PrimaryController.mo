@@ -720,11 +720,6 @@ model PrimaryController
     "Primary pump speed regulation method"
     annotation (Dialog(group="Boiler plant configuration parameters", enable=have_varPriPum));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
-    "Boiler availability status signal"
-    annotation (Placement(transformation(extent={{-440,28},{-400,68}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPum[nPumPri]
     "Primary pump status"
     annotation (Placement(transformation(extent={{-440,-320},{-400,-280}}),
@@ -1366,6 +1361,11 @@ protected
     "Current boiler isolation valve status"
     annotation (Placement(transformation(extent={{-320,-370},{-300,-350}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conBoiAva[nBoi](
+    final k=fill(true, nBoi))
+    "Constant true signal for boiler availability"
+    annotation (Placement(transformation(extent={{-320,-80},{-300,-60}})));
+
 equation
   connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-188,
           -14.8333},{64,-14.8333},{64,98},{118,98}},
@@ -1538,9 +1538,6 @@ equation
     annotation (Line(points={{142,-176.267},{260,-176.267},{260,-160},{420,-160}},
           color={255,0,255}));
 
-  connect(uBoiAva, staSetCon.uBoiAva) annotation (Line(points={{-420,48},{-300,
-          48},{-300,-25.6667},{-212,-25.6667}},
-                                       color={255,0,255}));
   connect(plaEna.yPla, upProCon.uPlaEna) annotation (Line(points={{-318,330},{
           -230,330},{-230,82},{118,82}},                             color={255,
           0,255}));
@@ -1781,6 +1778,9 @@ equation
     annotation (Line(points={{-420,-360},{-322,-360}}, color={255,0,255}));
   connect(uHotWatIsoValClo, lat2.clr) annotation (Line(points={{-420,-400},{
           -380,-400},{-380,-366},{-322,-366}}, color={255,0,255}));
+  connect(conBoiAva.y, staSetCon.uBoiAva) annotation (Line(points={{-298,-70},{
+          -234,-70},{-234,-25.6667},{-212,-25.6667}},
+                                                 color={255,0,255}));
   annotation (defaultComponentName="conPlaBoi",
     Icon(coordinateSystem(extent={{-100,-400},{100,400}}),
        graphics={
@@ -2054,5 +2054,18 @@ The parameter values for valid boiler plant configurations are as follows:
   </tr>
 </tbody>
 </table>
+<p>
+Note:
+<ol>
+<li>
+The controller currently assumes the boilers are constantly available. Future
+modifications will include logic for detecting availability.
+</li>
+<li>
+The controller currently does not accommodate lead-lag rotation of boilers and
+pumps. Future modifications will include existing sequences for lead-lag rotation.
+</li>
+</ol>
+</p>
 </html>"));
 end PrimaryController;
