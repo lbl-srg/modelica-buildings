@@ -15,6 +15,7 @@ model PrimaryController
     final VHotWatPri_flow_nominal=0.0006,
     final maxLocDpPri=4100,
     final minLocDpPri=3900,
+    maxRemDpPri={42000},
     final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP,
     final boiDesCap={15000*0.8,15000*0.8},
     final boiFirMin={0.2,0.3},
@@ -33,6 +34,7 @@ model PrimaryController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller1(
     final have_priOnl=false,
     final have_secFloSen=true,
+    have_priTemSen=true,
     final nLooSec=1,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
@@ -62,6 +64,7 @@ model PrimaryController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller2(
     final have_priOnl=false,
     final have_secFloSen=true,
+    have_priTemSen=true,
     final nLooSec=1,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,

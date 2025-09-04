@@ -43,7 +43,8 @@ model PrimaryController
       enable = (not have_priOnl) and
       speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate));
 
-  parameter Boolean have_priTemSen
+  parameter Boolean have_priTemSen(
+    final start = false)
     "Required for primary-secondary boiler plant.
     True: Temperature sensor in primary loop.
     False: No temperature sensor in primary loop."
@@ -546,7 +547,7 @@ model PrimaryController
     final start=minLocDpPri)
     "Maximum primary loop local differential pressure setpoint"
     annotation (Dialog(tab="Primary pump control parameters", group="DP-based speed regulation",
-      enable = (have_remDPRegPri or have_locDPRegPri) and have_priOnl));
+      enable = (have_locDPRegPri) and have_priOnl));
 
   parameter Real minLocDpPri(
     final unit="Pa",
@@ -558,6 +559,27 @@ model PrimaryController
     annotation (Dialog(tab="Primary pump control parameters",
       group="DP-based speed regulation",
       enable = have_locDPRegPri and have_priOnl));
+
+  parameter Real maxRemDpPri[nSenPri](
+    final unit=fill("Pa",nSenPri),
+    displayUnit=fill("Pa",nSenPri),
+    final quantity=fill("PressureDifference",nSenPri),
+    final min=fill(1e-6,nSenPri),
+    final start=minRemDpPri)
+    "Maximum primary loop local differential pressure setpoint"
+    annotation (Dialog(tab="Primary pump control parameters", group="DP-based speed regulation",
+      enable = (have_remDPRegPri or have_locDPRegPri) and have_priOnl));
+
+  parameter Real minRemDpPri[nSenPri](
+    final unit=fill("Pa",nSenPri),
+    displayUnit=fill("Pa",nSenPri),
+    final quantity=fill("PressureDifference",nSenPri),
+    final min=fill(1e-6,nSenPri),
+    final start=fill(34473.8,nSenPri)) = fill(34473.8,nSenPri)
+    "Minimum primary loop local differential pressure setpoint"
+    annotation (Dialog(tab="Primary pump control parameters",
+      group="DP-based speed regulation",
+      enable = (have_remDPRegPri or have_locDPRegPri) and have_priOnl));
 
   parameter Real offTimThr_priPum(
     final unit="s",
@@ -1194,7 +1216,7 @@ protected
     annotation (Placement(transformation(extent={{-162,-50},{-142,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpHotWatSet[nSenPri](
-    final k=fill(maxLocDpPri, nSenPri)) if have_priOnl
+    final k=maxRemDpPri) if have_priOnl
     "Differential pressure setpoint for primary circuit"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
