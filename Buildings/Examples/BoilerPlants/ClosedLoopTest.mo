@@ -48,6 +48,7 @@ model ClosedLoopTest "Closed loop testing model"
     final have_isoValSen=true,
     final have_varPriPum=true,
     final have_secFloSen=false,
+    final have_priTemSen=true,
     final nLooSec=2,
     final nIgnReq=1,
     final nHotWatResReqIgn=6,
@@ -117,6 +118,7 @@ model ClosedLoopTest "Closed loop testing model"
     final nPum=1,
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
+    final maxRemDp={5000},
     final k=1,
     final Ti=12.5,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP,
@@ -132,17 +134,13 @@ model ClosedLoopTest "Closed loop testing model"
     final nPum=1,
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
+    final maxRemDp={5000},
     final k=1,
     final Ti=12.5,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP,
     enaHeaLeaPum(intGreThr(t=-1)))
     "Secondary pump controller-1"
     annotation (Placement(transformation(extent={{-10,128},{10,168}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[1](
-    final k={5000})
-    "Constant Real source for secondary loop differential pressure setpoint"
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonUnc(
     final k=273.15 + 18)
@@ -230,8 +228,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
 
 equation
-  connect(con3.y, conBoiPri.uBoiAva) annotation (Line(points={{-98,0},{-70,0},{
-          -70,2},{-42,2}}, color={255,0,255}));
 
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{-100,60},{-80,60}},
@@ -310,10 +306,6 @@ equation
           72},{74,72},{74,92},{-22,92},{-22,74},{-10,74}}, color={255,0,255}));
   connect(secLoo1.yPumEna,conPumSec1. uHotWatPum[1]) annotation (Line(points={{62,152},
           {74,152},{74,178},{-26,178},{-26,162},{-12,162}},      color={255,0,255}));
-  connect(con.y,conPumSec1. dpHotWatSet) annotation (Line(points={{-58,150},{-26,
-          150},{-26,134},{-12,134}},     color={0,0,127}));
-  connect(con.y,conPumSec2. dpHotWatSet) annotation (Line(points={{-58,150},{-26,
-          150},{-26,46},{-10,46}}, color={0,0,127}));
   connect(boiPlaPri.VDec_flow, conBoiPri.VHotWatDec_flow) annotation (Line(
         points={{62,10},{72,10},{72,-52},{-52,-52},{-52,-6},{-42,-6}}, color={0,
           0,127}));

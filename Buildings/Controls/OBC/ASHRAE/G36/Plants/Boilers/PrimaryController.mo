@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers;
-model PrimaryController "Boiler plant primary loop controller"
+model PrimaryController
+  "Boiler plant primary loop controller"
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_priPum= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -41,6 +42,15 @@ model PrimaryController "Boiler plant primary loop controller"
       group="Boiler plant configuration parameters",
       enable = (not have_priOnl) and
       speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate));
+
+  parameter Boolean have_priTemSen(
+    final start = false)
+    "Required for primary-secondary boiler plant.
+    True: Temperature sensor in primary loop.
+    False: No temperature sensor in primary loop."
+    annotation(Dialog(tab="General",
+      group="Boiler plant configuration parameters",
+      enable = not have_priOnl));
 
   parameter Boolean have_priSecTemSen=false
     "Required only for primary-secondary plant with temperature differential-based primary pump 
@@ -194,7 +204,7 @@ model PrimaryController "Boiler plant primary loop controller"
   parameter Real dTFai(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 10
+    final quantity="TemperatureDifference") = 10/1.8
     "Required temperature difference between setpoint and measured temperature for
     triggering failsafe condition"
     annotation(Dialog(tab="Staging setpoint parameters", group="Failsafe condition parameters"));
@@ -269,7 +279,7 @@ model PrimaryController "Boiler plant primary loop controller"
   parameter Real dTCir(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 3
+    final quantity="TemperatureDifference") = 3/1.8
     "Required return water temperature difference between primary and secondary
     circuits for staging down"
     annotation (
@@ -354,7 +364,7 @@ model PrimaryController "Boiler plant primary loop controller"
     "Design hot water supply temperature for condensing boilers"
     annotation(Dialog(tab="Supply temperature reset parameters",
       group="Trim-and-Respond Logic parameters",
-      enable=not have_allCon));
+      enable=not have_allCon and not have_allNonCon));
 
   parameter Real dTConBoiHotWatSet(
     final unit="K",
@@ -537,7 +547,7 @@ model PrimaryController "Boiler plant primary loop controller"
     final start=minLocDpPri)
     "Maximum primary loop local differential pressure setpoint"
     annotation (Dialog(tab="Primary pump control parameters", group="DP-based speed regulation",
-      enable = (have_remDPRegPri or have_locDPRegPri) and have_priOnl));
+      enable = (have_locDPRegPri) and have_priOnl));
 
   parameter Real minLocDpPri(
     final unit="Pa",
@@ -549,6 +559,27 @@ model PrimaryController "Boiler plant primary loop controller"
     annotation (Dialog(tab="Primary pump control parameters",
       group="DP-based speed regulation",
       enable = have_locDPRegPri and have_priOnl));
+
+  parameter Real maxRemDpPri[nSenPri](
+    final unit=fill("Pa",nSenPri),
+    displayUnit=fill("Pa",nSenPri),
+    final quantity=fill("PressureDifference",nSenPri),
+    final min=fill(1e-6,nSenPri),
+    final start=minRemDpPri)
+    "Maximum primary loop local differential pressure setpoint"
+    annotation (Dialog(tab="Primary pump control parameters", group="DP-based speed regulation",
+      enable = (have_remDPRegPri or have_locDPRegPri) and have_priOnl));
+
+  parameter Real minRemDpPri[nSenPri](
+    final unit=fill("Pa",nSenPri),
+    displayUnit=fill("Pa",nSenPri),
+    final quantity=fill("PressureDifference",nSenPri),
+    final min=fill(1e-6,nSenPri),
+    final start=fill(34473.8,nSenPri)) = fill(34473.8,nSenPri)
+    "Minimum primary loop local differential pressure setpoint"
+    annotation (Dialog(tab="Primary pump control parameters",
+      group="DP-based speed regulation",
+      enable = (have_remDPRegPri or have_locDPRegPri) and have_priOnl));
 
   parameter Real offTimThr_priPum(
     final unit="s",
@@ -719,11 +750,6 @@ model PrimaryController "Boiler plant primary loop controller"
     "Primary pump speed regulation method"
     annotation (Dialog(group="Boiler plant configuration parameters", enable=have_varPriPum));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
-    "Boiler availability status signal"
-    annotation (Placement(transformation(extent={{-440,28},{-400,68}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPriPum[nPumPri]
     "Primary pump status"
     annotation (Placement(transformation(extent={{-440,-320},{-400,-280}}),
@@ -767,7 +793,7 @@ model PrimaryController "Boiler plant primary loop controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupPri(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if have_priOnl or have_priTemSen
     "Measured primary loop hot water supply temperature"
     annotation (Placement(transformation(extent={{-440,228},{-400,268}}),
       iconTransformation(extent={{-140,200},{-100,240}})));
@@ -835,7 +861,7 @@ model PrimaryController "Boiler plant primary loop controller"
     final unit=fill("K", nBoi),
     displayUnit=fill("degC", nBoi),
     final quantity=fill("ThermodynamicTemperature", nBoi)) if not have_priOnl
-     and have_varPriPum and have_temRegPri and not have_priSecTemSen
+     and (have_varPriPum and have_temRegPri and not have_priSecTemSen or not have_priTemSen)
     "Measured hot water supply temperature at boiler outlets"
     annotation (Placement(transformation(extent={{-440,-210},{-400,-170}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -1190,7 +1216,7 @@ protected
     annotation (Placement(transformation(extent={{-162,-50},{-142,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpHotWatSet[nSenPri](
-    final k=fill(maxLocDpPri, nSenPri)) if have_priOnl
+    final k=maxRemDpPri) if have_priOnl
     "Differential pressure setpoint for primary circuit"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
@@ -1365,6 +1391,18 @@ protected
     "Current boiler isolation valve status"
     annotation (Placement(transformation(extent={{-320,-370},{-300,-350}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conBoiAva[nBoi](
+    final k=fill(true, nBoi))
+    "Constant true signal for boiler availability"
+    annotation (Placement(transformation(extent={{-320,-80},{-300,-60}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Subsequences.TemperatureSupplyWeightedAverage TWeiAve(
+    final nBoi=nBoi,
+    final boiDesFlo=boiDesFlo) if not have_priOnl and (have_varPriPum and
+    have_temRegPri and not have_priSecTemSen or not have_priTemSen)
+    "Calculate weighted average of boiler supply temperatures"
+    annotation (Placement(transformation(extent={{-260,-296},{-240,-276}})));
+
 equation
   connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-188,
           -14.8333},{64,-14.8333},{64,98},{118,98}},
@@ -1537,9 +1575,6 @@ equation
     annotation (Line(points={{142,-176.267},{260,-176.267},{260,-160},{420,-160}},
           color={255,0,255}));
 
-  connect(uBoiAva, staSetCon.uBoiAva) annotation (Line(points={{-420,48},{-300,
-          48},{-300,-25.6667},{-212,-25.6667}},
-                                       color={255,0,255}));
   connect(plaEna.yPla, upProCon.uPlaEna) annotation (Line(points={{-318,330},{
           -230,330},{-230,82},{118,82}},                             color={255,
           0,255}));
@@ -1594,9 +1629,9 @@ equation
   connect(TSupSec, priPumCon.THotWatSec) annotation (Line(points={{-420,-150},{
           -320,-150},{-320,-238},{108,-238},{108,-204.267},{118,-204.267}},
           color={0,0,127}));
-  connect(TSupBoi, priPumCon.THotWatBoiSup) annotation (Line(points={{-420,-190},
-          {20,-190},{20,-232},{110,-232},{110,-207.067},{118,-207.067}},
-                      color={0,0,127}));
+  connect(TWeiAve.TSupAveWei, priPumCon.THotWatBoiSupWeiAve) annotation (Line(points={{-238,
+          -286},{110,-286},{110,-207.067},{118,-207.067}},
+        color={0,0,127}));
   connect(dpHotWatPri_loc, priPumCon.dpHotWat_local) annotation (Line(points={{-420,
           -220},{-180,-220},{-180,-234},{96,-234},{96,-184.667},{118,-184.667}},
         color={0,0,127}));
@@ -1780,6 +1815,16 @@ equation
     annotation (Line(points={{-420,-360},{-322,-360}}, color={255,0,255}));
   connect(uHotWatIsoValClo, lat2.clr) annotation (Line(points={{-420,-400},{
           -380,-400},{-380,-366},{-322,-366}}, color={255,0,255}));
+  connect(conBoiAva.y, staSetCon.uBoiAva) annotation (Line(points={{-298,-70},{
+          -234,-70},{-234,-25.6667},{-212,-25.6667}},
+                                                 color={255,0,255}));
+  connect(TSupBoi, TWeiAve.THotWatBoiSup) annotation (Line(points={{-420,-190},{
+          -340,-190},{-340,-292},{-262,-292}}, color={0,0,127}));
+  connect(pre2.y, TWeiAve.uBoiSta) annotation (Line(points={{238,206},{72,206},{
+          72,118},{-266,118},{-266,-280},{-262,-280}}, color={255,0,255}));
+  connect(TWeiAve.TSupAveWei, staSetCon.THotWatSup) annotation (Line(points={{-238,
+          -286},{-220,-286},{-220,-204},{-242,-204},{-242,10},{-212,10},{-212,9}},
+        color={0,0,127}));
   annotation (defaultComponentName="conPlaBoi",
     Icon(coordinateSystem(extent={{-100,-400},{100,400}}),
        graphics={
@@ -1944,7 +1989,7 @@ valve
 controller")}),
 Documentation(info="<html>
 <p>
-Block that controls the boiler plant components according to section 5.21 
+Block that controls the primary loop of a boiler plant according to section 5.21
 in ASHRAE Guideline 36, 2021. It consists of the following components:
 </p>
 <ul>
@@ -1989,6 +2034,11 @@ Plant disable process controller: <a href=\"modelica://Buildings.Controls.OBC.AS
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable</a>.
 </li>
 </ul>
+<p>
+For correct usage of this block, refer to the example model
+<a href=\"modelica://Buildings.Examples.BoilerPlants.ClosedLoopTest\">
+Buildings.Examples.BoilerPlants.ClosedLoopTest</a>.
+</p>
 <p>
 The parameter values for valid boiler plant configurations are as follows:
 </p>
@@ -2053,5 +2103,18 @@ The parameter values for valid boiler plant configurations are as follows:
   </tr>
 </tbody>
 </table>
+<p>
+Note:
+<ol>
+<li>
+The controller currently assumes the boilers are constantly available. Future
+modifications will include logic for detecting availability.
+</li>
+<li>
+The controller currently does not accommodate lead-lag rotation of boilers and
+pumps. Future modifications will include existing sequences for lead-lag rotation.
+</li>
+</ol>
+</p>
 </html>"));
 end PrimaryController;

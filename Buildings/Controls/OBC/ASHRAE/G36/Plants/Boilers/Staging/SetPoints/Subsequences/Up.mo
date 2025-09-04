@@ -48,7 +48,7 @@ block Up
   parameter Real dTFai(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 10
+    final quantity="ThermodynamicTemperature") = 10/1.8
     "Required temperature difference between setpoint and measured temperature
     for failsafe condition"
     annotation(Dialog(group="Failsafe condition"));

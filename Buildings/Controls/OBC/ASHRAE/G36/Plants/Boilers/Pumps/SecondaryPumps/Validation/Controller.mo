@@ -14,6 +14,7 @@ model Controller
     final VHotWat_flow_nominal=0.5,
     final maxLocDp=5*6894.75,
     final minLocDp=5*6894.75,
+    final maxRemDp={1,1},
     final offTimThr=180,
     final timPer=600,
     final staCon=-0.03,
@@ -37,6 +38,7 @@ model Controller
     final VHotWat_flow_nominal=0.5,
     final maxLocDp=10,
     final minLocDp=5,
+    final maxRemDp={1,1},
     final offTimThr=180,
     final timPer=600,
     final staCon=-0.03,
@@ -58,6 +60,7 @@ model Controller
     final nPum_nominal=2,
     final minPumSpe=0.1,
     final VHotWat_flow_nominal=0.5,
+    final maxRemDp={1,1},
     final speLim=0.9,
     final speLim1=0.99,
     final speLim2=0.4,
@@ -87,6 +90,7 @@ model Controller
     final nPum_nominal=2,
     final minPumSpe=0.1,
     final VHotWat_flow_nominal=0.5,
+    final maxRemDp={1,1},
     final speLim=0.9,
     final speLim1=0.99,
     final speLim2=0.4,
@@ -280,21 +284,6 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{240,-40},{260,-20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[2](
-    final k=fill(1, 2))
-    "Constant Real source"
-    annotation (Placement(transformation(extent={{-190,200},{-170,220}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3[2](
-    final k=fill(1, 2))
-    "Constant Real source"
-    annotation (Placement(transformation(extent={{120,110},{140,130}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4[2](
-    final k=fill(1, 2))
-    "Constant Real source"
-    annotation (Placement(transformation(extent={{-260,-70},{-240,-50}})));
-
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin6[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/1800, 2),
@@ -315,11 +304,6 @@ protected
     final offset=fill(1, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con6[2](
-    final k=fill(1, 2))
-    "Constant Real source"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
 
 equation
   connect(conInt.y,secPumCon. uPumLeaLag) annotation (Line(points={{-128,210},{-110,
@@ -362,18 +346,12 @@ equation
   connect(secPumCon3.yHotWatPum,pre4. u)
     annotation (Line(points={{222,-30},{238,-30}}, color={255,0,255}));
 
-  connect(con1.y,secPumCon. dpHotWatSet) annotation (Line(points={{-168,210},{-164,
-          210},{-164,146},{-102,146}},      color={0,0,127}));
-
   connect(pre1.y,secPumCon. uHotWatPum) annotation (Line(points={{-38,160},{-30,
           160},{-30,200},{-114,200},{-114,174},{-102,174}},       color={255,0,
           255}));
 
   connect(pre2.y,secPumCon1. uHotWatPum) annotation (Line(points={{262,150},{270,
           150},{270,220},{120,220},{120,164},{198,164}},     color={255,0,255}));
-
-  connect(con3.y,secPumCon1. dpHotWatSet) annotation (Line(points={{142,120},{170,
-          120},{170,136},{198,136}},     color={0,0,127}));
 
   connect(pre3.y,secPumCon2. uHotWatPum) annotation (Line(points={{-18,-10},{
           -10,-10},{-10,60},{-160,60},{-160,4},{-102,4}},       color={255,0,
@@ -385,19 +363,12 @@ equation
   connect(sin6.y,secPumCon2. dpHotWat_remote) annotation (Line(points={{-238,
           -20},{-102,-20}},                   color={0,0,127}));
 
-  connect(con4.y,secPumCon2. dpHotWatSet) annotation (Line(points={{-238,-60},{
-          -140,-60},{-140,-24},{-102,-24}},
-                                       color={0,0,127}));
-
   connect(sin5.y,secPumCon3. dpHotWat_local) annotation (Line(points={{62,-40},
           {150,-40},{150,-36},{198,-36}},
                                        color={0,0,127}));
 
   connect(sin7.y,secPumCon3. dpHotWat_remote) annotation (Line(points={{62,-80},
           {160,-80},{160,-40},{198,-40}}, color={0,0,127}));
-
-  connect(con6.y,secPumCon3. dpHotWatSet) annotation (Line(points={{62,-120},{
-          174,-120},{174,-44},{198,-44}},color={0,0,127}));
 
   connect(booPul.y,secPumCon. uPlaEna) annotation (Line(points={{-238,200},{-200,
           200},{-200,190},{-120,190},{-120,170},{-102,170}}, color={255,0,255}));

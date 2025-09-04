@@ -76,6 +76,26 @@ block Controller
       group="DP-based speed regulation",
       enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP));
 
+  parameter Real maxRemDp[nSen](
+    final unit=fill("Pa",nSen),
+    displayUnit=fill("Pa",nSen),
+    final quantity=fill("PressureDifference",nSen),
+    final min=fill(1e-6,nSen),
+    final start=minRemDp)
+    "Maximum primary loop local differential pressure setpoint"
+    annotation (Dialog(tab="Pump control parameters",
+      group="DP-based speed regulation"));
+
+  parameter Real minRemDp[nSen](
+    final unit=fill("Pa",nSen),
+    displayUnit=fill("Pa",nSen),
+    final quantity=fill("PressureDifference",nSen),
+    final min=fill(1e-6,nSen),
+    final start=fill(34473.8,nSen)) = fill(34473.8,nSen)
+    "Minimum primary loop local differential pressure setpoint"
+    annotation (Dialog(tab="Pump control parameters",
+      group="DP-based speed regulation"));
+
   parameter Real offTimThr(
     final unit="s",
     displayUnit="s",
@@ -255,14 +275,6 @@ block Controller
     annotation (Placement(transformation(extent={{-320,-350},{-280,-310}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet[nSen](
-    final unit=fill("Pa",nSen),
-    final quantity=fill("PressureDifference",nSen),
-    displayUnit=fill("Pa",nSen)) if have_varSecPum and (locDPReg or remDPReg)
-    "Hot water differential static pressure setpoint"
-    annotation (Placement(transformation(extent={{-320,-380},{-280,-340}}),
-      iconTransformation(extent={{-140,-160},{-100,-120}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
     displayUnit="m3/s",
@@ -326,6 +338,11 @@ block Controller
     enaHeaLeaPum
     "Enable lead pump of headered pumps"
     annotation (Placement(transformation(extent={{-200,76},{-180,96}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpHotWatSet1[nSen](
+    final k=maxRemDp) if have_varSecPum
+    "Differential pressure setpoint for primary circuit"
+    annotation (Placement(transformation(extent={{-260,-370},{-240,-350}})));
 
 protected
   parameter Boolean remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP)
@@ -553,16 +570,8 @@ equation
     annotation (Line(points={{-62,-334},{-200,-334},{-200,-330},{-300,-330}},
       color={0,0,127}));
 
-  connect(pumSpeLocDp.dpHotWatSet,dpHotWatSet)
-    annotation (Line(points={{-62,-338},{-220,-338},{-220,-360},{-300,-360}},
-      color={0,0,127}));
-
   connect(dpHotWat_remote,pumSpeRemDp.dpHotWat)
     annotation (Line(points={{-300,-330},{-200,-330},{-200,-370},{-62,-370}},
-      color={0,0,127}));
-
-  connect(dpHotWatSet,pumSpeRemDp.dpHotWatSet)
-    annotation (Line(points={{-300,-360},{-220,-360},{-220,-378},{-62,-378}},
       color={0,0,127}));
 
   connect(uHotWatPum, booToInt.u)
@@ -757,6 +766,10 @@ equation
           {144,-394},{158,-394}}, color={0,0,127}));
   connect(min.y, enaLagSecPum.uPumSpe) annotation (Line(points={{182,-400},{194,
           -400},{194,-292},{-212,-292},{-212,38},{-122,38}}, color={0,0,127}));
+  connect(dpHotWatSet1.y, pumSpeLocDp.dpHotWatSet) annotation (Line(points={{-238,
+          -360},{-72,-360},{-72,-338},{-62,-338}}, color={0,0,127}));
+  connect(dpHotWatSet1.y, pumSpeRemDp.dpHotWatSet) annotation (Line(points={{-238,
+          -360},{-204,-360},{-204,-378},{-62,-378}}, color={0,0,127}));
 annotation (defaultComponentName="conPumSec",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-440},{280,260}}),

@@ -372,12 +372,12 @@ block Controller
     annotation (Placement(transformation(extent={{-320,-690},{-280,-650}}),
       iconTransformation(extent={{-140,-280},{-100,-240}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatBoiSup[nBoi](
-    final unit=fill("K", nBoi),
-    displayUnit=fill("K",nBoi),
-    final quantity=fill("ThermodynamicTemperature",nBoi)) if not have_priOnl
-     and have_varPriPum and have_temReg and not use_priTemSen
-    "Measured hot water temperature at boiler supply"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatBoiSupWeiAve(
+    final unit="K",
+    displayUnit="K",
+    final quantity="ThermodynamicTemperature")
+    if not have_priOnl and have_varPriPum and have_temReg and not use_priTemSen
+    "Weighted average hot water temperature at boiler supply"
     annotation (Placement(transformation(extent={{-320,-720},{-280,-680}}),
       iconTransformation(extent={{-140,-310},{-100,-270}})));
 
@@ -828,16 +828,13 @@ equation
           -610},{-240,-610},{-240,-569},{-62,-569}},       color={0,0,127}));
 
   connect(THotWatPri, pumSpeTem.THotWatPri) annotation (Line(points={{-300,-640},
-          {-80,-640},{-80,-594},{-62,-594}}, color={0,0,127}));
+          {-80,-640},{-80,-596},{-62,-596}}, color={0,0,127}));
 
   connect(THotWatSec, pumSpeTem.THotWatSec) annotation (Line(points={{-300,-670},
-          {-76,-670},{-76,-598},{-62,-598}}, color={0,0,127}));
+          {-76,-670},{-76,-600},{-62,-600}}, color={0,0,127}));
 
-  connect(THotWatBoiSup, pumSpeTem.THotWatBoiSup) annotation (Line(points={{-300,
-          -700},{-68,-700},{-68,-606},{-62,-606}}, color={0,0,127}));
-
-  connect(uBoi, pumSpeTem.uBoiSta) annotation (Line(points={{-300,-70},{-270,-70},
-          {-270,-602},{-62,-602}}, color={255,0,255}));
+  connect(THotWatBoiSupWeiAve, pumSpeTem.THotWatBoiSupWeiAve) annotation (Line(
+        points={{-300,-700},{-68,-700},{-68,-604},{-62,-604}}, color={0,0,127}));
 
   connect(uBoi, booToRea.u)
     annotation (Line(points={{-300,-70},{-254,-70}}, color={255,0,255}));
@@ -1052,7 +1049,7 @@ equation
   connect(uHotWatPum, pumSpeFlo.uHotWatPum) annotation (Line(points={{-300,140},
           {-260,140},{-260,-559},{-62,-559}}, color={255,0,255}));
   connect(uHotWatPum, pumSpeTem.uHotWatPum) annotation (Line(points={{-300,140},
-          {-260,140},{-260,-590},{-62,-590}}, color={255,0,255}));
+          {-260,140},{-260,-592},{-62,-592}}, color={255,0,255}));
   connect(max.y, yPumSpe)
     annotation (Line(points={{156,-546},{300,-546}}, color={0,0,127}));
   connect(xor.y, not4.u)

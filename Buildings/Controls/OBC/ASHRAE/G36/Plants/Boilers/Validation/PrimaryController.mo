@@ -15,6 +15,7 @@ model PrimaryController
     final VHotWatPri_flow_nominal=0.0006,
     final maxLocDpPri=4100,
     final minLocDpPri=3900,
+    maxRemDpPri={42000},
     final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP,
     final boiDesCap={15000*0.8,15000*0.8},
     final boiFirMin={0.2,0.3},
@@ -33,6 +34,7 @@ model PrimaryController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller1(
     final have_priOnl=false,
     final have_secFloSen=true,
+    have_priTemSen=true,
     final nLooSec=1,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
@@ -62,6 +64,7 @@ model PrimaryController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller2(
     final have_priOnl=false,
     final have_secFloSen=true,
+    have_priTemSen=true,
     final nLooSec=1,
     final nBoi=2,
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
@@ -172,11 +175,6 @@ protected
     "Measured differential pressure between hot water supply and return in primary loop"
     annotation (Placement(transformation(extent={{-340,-30},{-320,-10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoiAva[2](
-    final k={true,true})
-    "Boiler availability status vector"
-    annotation (Placement(transformation(extent={{-340,-60},{-320,-40}})));
-
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=2,
     final freqHz=1/14400)
@@ -211,11 +209,6 @@ protected
     final k={4000})
     "Measured differential pressure between hot water supply and return in secondary loop"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoiAva1[2](
-    final k={true,true})
-    "Boiler availability status vector"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final amplitude=2, final freqHz=1/14400)
@@ -255,11 +248,6 @@ protected
     final k={4000})
     "Measured differential pressure between hot water supply and return in secondary loop"
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uBoiAva2[2](
-    final k={true,true})
-    "Boiler availability status vector"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2(
     final amplitude=2,
@@ -308,9 +296,6 @@ equation
   connect(TOut.y, controller.TOut) annotation (Line(points={{-318,100},{-290,100},
           {-290,81.3},{-262,81.3}},   color={0,0,127}));
 
-  connect(uBoiAva.y, controller.uBoiAva) annotation (Line(points={{-318,-50},{-288,
-          -50},{-288,56.1},{-262,56.1}},         color={255,0,255}));
-
   connect(TSup.y, controller.TSupPri) annotation (Line(points={{-318,70},{-310,70},
           {-310,77.1},{-262,77.1}},    color={0,0,127}));
 
@@ -332,10 +317,6 @@ equation
           {-26,81.3},{-2,81.3}},
                                color={0,0,127}));
 
-  connect(uBoiAva1.y, controller1.uBoiAva) annotation (Line(points={{-58,-50},{-34,
-          -50},{-34,56.1},{-2,56.1}},
-                                  color={255,0,255}));
-
   connect(TSup1.y, controller1.TSupPri) annotation (Line(points={{-58,70},{-50,70},
           {-50,77.1},{-2,77.1}},    color={0,0,127}));
 
@@ -355,10 +336,6 @@ equation
   connect(TOut2.y,controller2. TOut) annotation (Line(points={{162,100},{190,100},
           {190,81.3},{218,81.3}},
                                color={0,0,127}));
-
-  connect(uBoiAva2.y,controller2. uBoiAva) annotation (Line(points={{162,-50},{192,
-          -50},{192,56.1},{218,56.1}},
-                                  color={255,0,255}));
 
   connect(TSup2.y,controller2. TSupPri) annotation (Line(points={{162,70},{170,70},
           {170,77.1},{218,77.1}},   color={0,0,127}));
