@@ -50,8 +50,18 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Filling.Template
+    </td>
+    <td valign=\"top\">Guarded against division by zero for steady-state simulations.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2041\">IBPSA, #2041</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b><br/>
-                         Buildings.Utilities.Clustering
+                      <b>Buildings.Utilities.Clustering</b>
 <tr><td valign=\"top\">Buildings.Utilities.Clustering.KMeans
     </td>
     <td valign=\"top\">Improved code to avoid an error during initialization of certain borefield geometries.<br/>
