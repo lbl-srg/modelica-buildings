@@ -77,7 +77,7 @@ model FanCoilUnit
     final kCooCoi=fill(0.05, 5),
     final TiCooCoi=fill(200, 5),
     final kHeaCoi=fill(0.005, 5),
-    final TiHeaCoi=fill(90, 5),
+    final TiHeaCoi=fill(200, 5),
     final TSupSet_max=fill(308.15, 5),
     final TSupSet_min=fill(285.85, 5)) "Fan coil unit controller"
     annotation (Placement(transformation(extent={{-62,78},{-22,150}})));
@@ -693,8 +693,5 @@ for the description of the building envelope.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"
         "Simulate and plot"),
-    experiment(
-      StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+    experiment(StopTime=86400, Tolerance=1e-06));
 end FanCoilUnit;
