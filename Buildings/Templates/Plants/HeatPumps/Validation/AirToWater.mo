@@ -173,13 +173,15 @@ model AirToWater
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(datAll.pla.ctl.dpHeaWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max -
+      max(datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
     annotation (Placement(transformation(extent={{10,-170},{-10,-150}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max - max(datAll.pla.ctl.dpChiWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max -
+      max(datAll.pla.ctl.dpChiWatRemSet_max))
     if have_chiWat
     "Piping"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
@@ -316,7 +318,7 @@ The heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
 Three equally sized heat pumps are modeled, which can all be lead/lag alternated.
-A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>) 
+A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>)
 and connected to the HW and CHW return pipes (sidestream integration).
 A unique aggregated load is modeled on each loop by means of a cooling or heating
 component controlled to maintain a constant <i>&Delta;T</i>
@@ -363,6 +365,12 @@ various plant configurations.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
 Added sidestream HRC and refactored the model after updating the HP plant template.

@@ -138,12 +138,15 @@ block TableData2DLoadDep
     annotation (Placement(transformation(extent={{-140,-108},{-100,-68}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
 protected
-  final parameter Real PLRSor[nPLR]=Modelica.Math.Vectors.sort(PLRSup)
-    "PLR values in increasing order";
-  final parameter Real PLRSorWith0[nPLR + 1]=cat(1, {0}, PLRSor)
-    "PLR values in increasing order";
+  final parameter Real PLRSor[:]=Modelica.Math.Vectors.sort(PLRSup)
+    "PLR values in increasing order"
+    annotation(Evaluate=true);
+  final parameter Real PLRSorWith0[:]=cat(1, {0}, PLRSor)
+    "PLR values in increasing order"
+    annotation(Evaluate=true);
   final parameter Real PLR_max=PLRSor[nPLR]
-    "Maximum PLR";
+    "Maximum PLR"
+    annotation(Evaluate=true);
   final parameter Modelica.Blocks.Types.ExternalCombiTable2D tabQ[nPLR]=
     Modelica.Blocks.Types.ExternalCombiTable2D(
       tableName=tabNamQ,
@@ -152,7 +155,8 @@ protected
       smoothness=fill(smoothness, nPLR),
       extrapolation=fill(extrapolation, nPLR),
       verboseRead=fill(false, nPLR))
-    "External table objects for heat flow interpolation";
+    "External table objects for heat flow interpolation"
+    annotation(Evaluate=true);
   final parameter Modelica.Blocks.Types.ExternalCombiTable2D tabP[nPLR]=
     Modelica.Blocks.Types.ExternalCombiTable2D(
       tableName=tabNamP,
@@ -161,7 +165,8 @@ protected
       smoothness=fill(smoothness, nPLR),
       extrapolation=fill(extrapolation, nPLR),
       verboseRead=fill(false, nPLR))
-    "External table objects for power interpolation";
+    "External table objects for power interpolation"
+    annotation(Evaluate=true);
   Modelica.Units.SI.HeatFlowRate QSet_flow
     "Cooling or heating load";
   Modelica.Units.SI.HeatFlowRate QSwiSet_flow(
