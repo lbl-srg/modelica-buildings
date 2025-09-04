@@ -81,7 +81,7 @@ block Down
   parameter Real dTCir(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 3
+    final quantity="TemperatureDifference") = 3/1.8
     "Required return water temperature difference between the primary and
     secondary circuits for staging down"
     annotation (
@@ -113,7 +113,7 @@ block Down
   parameter Real dTFai(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 10
+    final quantity="TemperatureDifference") = 10/1.8
     "Temperature difference for failsafe condition"
     annotation(Dialog(group="Failsafe condition parameters"));
 

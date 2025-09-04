@@ -5,7 +5,7 @@ block FailsafeCondition
   parameter Real dTFai(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 10
+    final quantity="TemperatureDifference") = 10/1.8
     "Required temperature difference between setpoint and measured temperature
     for failsafe condition";
 

@@ -90,7 +90,7 @@ block SetpointController
   parameter Real dTFai(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 10
+    final quantity="TemperatureDifference") = 10/1.8
     "Required temperature difference between setpoint and measured temperature"
     annotation(Dialog(tab="Staging parameters", group="Failsafe condition parameters"));
 
@@ -164,7 +164,7 @@ block SetpointController
   parameter Real dTCir(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 3
+    final quantity="TemperatureDifference") = 3/1.8
     "Required return water temperature difference between primary and secondary
     circuits for staging down"
     annotation (
