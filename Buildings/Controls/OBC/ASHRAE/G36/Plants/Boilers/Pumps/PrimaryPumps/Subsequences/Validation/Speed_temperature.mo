@@ -48,44 +48,31 @@ protected
     "Temperature sensor reading from primary circuit"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TBoiSup2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TBoiSupWeiAve(
     phase=3.1415926535898,
     final offset=8,
     final freqHz=1/3600,
     final amplitude=2.5)
-    "Flowrate sensor reading from decoupler"
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumSta1(
-    final width=0.5,
-    final period=1800,
-    final shift=1)
-    "Pump status"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    "Boiler supply temperature weighted average"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
 equation
 
   connect(pumSta.y, hotPumSpe.uHotWatPum) annotation (Line(points={{-58,40},{-50,
-          40},{-50,8},{-42,8}}, color={255,0,255}));
+          40},{-50,6},{-42,6}}, color={255,0,255}));
   connect(TPriSup.y, hotPumSpe.THotWatPri) annotation (Line(points={{-58,0},{-50,
-          0},{-50,4},{-42,4}}, color={0,0,127}));
+          0},{-50,2},{-42,2}}, color={0,0,127}));
   connect(TSecSup.y, hotPumSpe.THotWatSec) annotation (Line(points={{-58,-40},{-46,
-          -40},{-46,0},{-42,0}}, color={0,0,127}));
+          -40},{-46,-2},{-42,-2}},
+                                 color={0,0,127}));
   connect(TSecSup.y, hotPumSpe1.THotWatSec) annotation (Line(points={{-58,-40},{
-          30,-40},{30,0},{38,0}}, color={0,0,127}));
+          30,-40},{30,-2},{38,-2}},
+                                  color={0,0,127}));
   connect(pumSta.y, hotPumSpe1.uHotWatPum) annotation (Line(points={{-58,40},{28,
-          40},{28,8},{38,8}}, color={255,0,255}));
-  connect(TPriSup.y, hotPumSpe1.THotWatBoiSup[1]) annotation (Line(points={{-58,0},
-          {-50,0},{-50,-18},{34,-18},{34,-8.5},{38,-8.5}},color={0,0,127}));
-  connect(TBoiSup2.y, hotPumSpe1.THotWatBoiSup[2]) annotation (Line(points={{12,-60},
-          {36,-60},{36,-6},{38,-6},{38,-7.5}},    color={0,0,127}));
-  connect(pumSta[1].y, hotPumSpe1.uBoiSta[1]) annotation (Line(points={{-58,40},
-          {28,40},{28,-4},{38,-4},{38,-4.5}},
-                                            color={255,0,255}));
-  connect(pumSta1.y, hotPumSpe1.uBoiSta[2]) annotation (Line(points={{12,60},{
-          34,60},{34,-3.5},{38,-3.5}},
-                                color={255,0,255}));
+          40},{28,6},{38,6}}, color={255,0,255}));
 
+  connect(TBoiSupWeiAve.y, hotPumSpe1.THotWatBoiSupWeiAve)
+    annotation (Line(points={{-58,-70},{38,-70},{38,-6}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Pumps/PrimaryPumps/Subsequences/Validation/Speed_temperature.mos"

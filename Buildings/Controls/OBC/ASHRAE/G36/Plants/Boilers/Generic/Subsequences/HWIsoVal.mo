@@ -181,24 +181,14 @@ annotation (
         textString="yHotWatIsoVal")}),
   Documentation(info="<html>
   <p>
-  Block updates boiler hot water isolation valve position when 
-  there is stage change command (<code>chaPro=true</code>). It will also generate 
-  status <code>yDisHotWatIsoVal=true</code> to indicate if the valve reset process has finished.
-  This block is not based on any specific section in RP-1711, but has been designed
-  to carry out the hot water isolation valve operations in the plant disable sequences
-  defined in 5.3.2.5.
-  </p>
-  <ul>
-  <li>
-  When there is a plant disable command (<code>chaPro=true</code>) and the boiler 
-  being diabled has been shut off (<code>uUpsDevSta=true</code>), 
-  the boiler's isolation valve will be fully closed at a rate of change of position 
-  <code>chaHotWatIsoRat</code>.
-  </li>
-  </ul>
-  <p>
-  This sequence will generate real signal <code>yHoyWatIsoVal</code> which indicates 
-  hot water isolation valve position.
+  Block updates boiler hot water isolation valve command <code>yHotWatIsoVal</code>
+  when there is a plant disable command (<code>chaPro=true</code>). It will also
+  generate status <code>yDisHotWatIsoVal</code> to indicate if the valve status
+  change process has finished.
+  <br>
+  When there is a plant disable command (<code>chaPro=true</code>) and the boilers
+  being diabled have been shut off (<code>uUpsDevSta=true</code>),
+  the boiler's isolation valve will be fully closed.
   </p>
   </html>", revisions="<html>
   <ul>

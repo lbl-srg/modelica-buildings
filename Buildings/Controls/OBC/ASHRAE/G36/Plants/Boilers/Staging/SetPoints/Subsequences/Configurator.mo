@@ -17,14 +17,14 @@ block Configurator "Configures boiler staging"
     "Staging matrix with stage as row index and boiler as column index";
 
   parameter Real boiDesCap[nBoi](
-    final unit="W",
-    displayUnit="W",
-    final quantity="Power")
+    final unit=fill("W",nBoi),
+    displayUnit=fill("W",nBoi),
+    final quantity=fill("Power",nBoi))
     "Design boiler capacities vector";
 
   parameter Real boiFirMin[nBoi](
-    final unit="1",
-    displayUnit="1")
+    final unit=fill("1",nBoi),
+    displayUnit=fill("1",nBoi))
     "Boiler minimum firing ratios vector";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]

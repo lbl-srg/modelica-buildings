@@ -2,14 +2,14 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subseq
 block FailsafeCondition
   "Failsafe condition used in staging up and down"
 
-  parameter Real TDif(
+  parameter Real dTFai(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 10
+    final quantity="TemperatureDifference") = 10/1.8
     "Required temperature difference between setpoint and measured temperature
     for failsafe condition";
 
-  parameter Real TDifHys(
+  parameter Real dTHys(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 1
@@ -54,8 +54,8 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
-    final uLow=TDif - TDifHys,
-    final uHigh=TDif)
+    final uLow=dTFai - dTHys,
+    final uHigh=dTFai)
     "Hysteresis deadband to prevent cycling"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
