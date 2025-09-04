@@ -44,7 +44,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation(Dialog(group="System parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
-    final unit="1")
+    final unit="1") if have_hea
     "Heating loop control signal"
     annotation(Placement(transformation(extent={{-300,-140},{-260,-100}}),
       iconTransformation(extent={{-240,-80},{-200,-40}})));
@@ -256,7 +256,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=0,
-    final Q_flow_nominal=QHeaCoi_flow_nominal) if not have_hotWat
+    final Q_flow_nominal=QHeaCoi_flow_nominal) if have_heaEle
     "Electric heating coil"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
@@ -279,6 +279,22 @@ protected
   final parameter Boolean have_hotWat=(heaCoiTyp ==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased)
     "True if a hot water heating coil exists"
     annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  final parameter Boolean have_heaEle=(heaCoiTyp ==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)
+    "True if an electric heating coil exists"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  final parameter Boolean have_hea=have_hotWat or have_heaEle
+    "True if a heating coil exists"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  Buildings.Fluid.FixedResistances.PressureDrop pipByp(
+    redeclare final package Medium = MediumA,
+    final m_flow_nominal=mAir_flow_nominal,
+    final dp_nominal=0,
+    final allowFlowReversal=true) if not have_hea
+    "Bypass when heating coil is absent"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
 equation
   connect(valHW.port_a, heaCoiHW.port_b1) annotation (Line(points={{-120,-70},{
@@ -358,6 +374,10 @@ equation
                                 color={0,127,255}));
   connect(bou.ports[1], fan.port_a) annotation (Line(points={{104,20},{114,20},
           {114,0},{120,0}},     color={0,127,255}));
+  connect(vAirRet.port_b, pipByp.port_a) annotation (Line(points={{-180,0},{-120,
+          0},{-120,60},{-100,60}}, color={0,127,255}));
+  connect(pipByp.port_b, TAirHea.port_a) annotation (Line(points={{-80,60},{-60,
+          60},{-60,0},{-30,0}}, color={0,127,255}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
@@ -458,7 +478,15 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={238,46,47},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid,
+          visible=have_hea),
+        Rectangle(
+          extent={{-136,-35},{-46,-46}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          visible=not have_hea)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-260,-140},{260,140}})),
 Documentation(info="<html>
