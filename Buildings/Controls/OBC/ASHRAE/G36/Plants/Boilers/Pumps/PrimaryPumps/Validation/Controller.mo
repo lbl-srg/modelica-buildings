@@ -803,12 +803,12 @@ protected
     "Constant Real source"
     annotation (Placement(transformation(extent={{50,10},{70,30}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin11[2](
-    final amplitude=fill(1.5, 2),
-    final freqHz=fill(1/3600, 2),
-    final phase=fill(3.14, 2),
-    final offset=fill(1, 2),
-    final startTime=fill(0, 2))
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin11(
+    final amplitude=1.5,
+    final freqHz=1/3600,
+    final phase=3.14,
+    final offset=1,
+    final startTime=0)
     "Sine signal"
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
 
@@ -968,12 +968,12 @@ protected
     "Constant Real source"
     annotation (Placement(transformation(extent={{-310,-490},{-290,-470}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin20[2](
-    final amplitude=fill(1.5, 2),
-    final freqHz=fill(1/3600, 2),
-    final phase=fill(3.14, 2),
-    final offset=fill(1, 2),
-    final startTime=fill(0, 2))
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin20(
+    final amplitude=1.5,
+    final freqHz=1/3600,
+    final phase=3.14,
+    final offset=1,
+    final startTime=0)
     "Sine signal"
     annotation (Placement(transformation(extent={{-214,-472},{-194,-452}})));
 
@@ -1414,10 +1414,6 @@ equation
   connect(con22.y, priPumCon5.uBoi[1]) annotation (Line(points={{132,40},{134,
           40},{134,64},{172,64},{172,82.6},{188,82.6}}, color={255,0,255}));
 
-  connect(sin11.y, priPumCon5.THotWatBoiSup) annotation (Line(points={{172,40},
-          {178,40},{178,42.9333},{188,42.9333}},
-                                      color={0,0,127}));
-
   connect(con23.y, priPumCon5.THotWatSec) annotation (Line(points={{72,-20},{
           136,-20},{136,18},{184,18},{184,45.7333},{188,45.7333}},
                                    color={0,0,127}));
@@ -1484,9 +1480,8 @@ equation
           -480},{-180,-480},{-180,-443.067},{-172,-443.067}},
                                                       color={0,0,127}));
 
-  connect(sin20.y, priPumCon10.THotWatBoiSup) annotation (Line(points={{-192,
-          -462},{-182,-462},{-182,-457.067},{-172,-457.067}},
-                                                color={0,0,127}));
+  connect(sin20.y, priPumCon10.THotWatBoiSupWeiAve) annotation (Line(points={{-192,
+          -462},{-182,-462},{-182,-457.067},{-172,-457.067}}, color={0,0,127}));
 
   connect(con41.y, priPumCon10.THotWatSec) annotation (Line(points={{-288,-520},
           {-224,-520},{-224,-482},{-174,-482},{-174,-454.267},{-172,-454.267}},
@@ -2051,6 +2046,8 @@ equation
           255}));
   connect(mulOr16.y, priPumCon6.uPlaEna) annotation (Line(points={{-278,-30},{
           -272,-30},{-272,-68.5333},{-182,-68.5333}}, color={255,0,255}));
+  connect(sin11.y, priPumCon5.THotWatBoiSupWeiAve) annotation (Line(points={{172,40},
+          {172,42.9333},{188,42.9333}},     color={0,0,127}));
 annotation (
   experiment(
       StopTime=3600,

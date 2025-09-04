@@ -43,6 +43,14 @@ model PrimaryController
       enable = (not have_priOnl) and
       speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate));
 
+  parameter Boolean have_priTemSen
+    "Required for primary-secondary boiler plant.
+    True: Temperature sensor in primary loop.
+    False: No temperature sensor in primary loop."
+    annotation(Dialog(tab="General",
+      group="Boiler plant configuration parameters",
+      enable = not have_priOnl));
+
   parameter Boolean have_priSecTemSen=false
     "Required only for primary-secondary plant with temperature differential-based primary pump 
     speed control.
@@ -763,7 +771,7 @@ model PrimaryController
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupPri(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if have_priOnl or have_priTemSen
     "Measured primary loop hot water supply temperature"
     annotation (Placement(transformation(extent={{-440,228},{-400,268}}),
       iconTransformation(extent={{-140,200},{-100,240}})));
@@ -831,7 +839,7 @@ model PrimaryController
     final unit=fill("K", nBoi),
     displayUnit=fill("degC", nBoi),
     final quantity=fill("ThermodynamicTemperature", nBoi)) if not have_priOnl
-     and have_varPriPum and have_temRegPri and not have_priSecTemSen
+     and (have_varPriPum and have_temRegPri and not have_priSecTemSen or not have_priTemSen)
     "Measured hot water supply temperature at boiler outlets"
     annotation (Placement(transformation(extent={{-440,-210},{-400,-170}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -1366,6 +1374,13 @@ protected
     "Constant true signal for boiler availability"
     annotation (Placement(transformation(extent={{-320,-80},{-300,-60}})));
 
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Subsequences.TemperatureSupplyWeightedAverage TWeiAve(
+    final nBoi=nBoi,
+    final boiDesFlo=boiDesFlo) if not have_priOnl and (have_varPriPum and
+    have_temRegPri and not have_priSecTemSen or not have_priTemSen)
+    "Calculate weighted average of boiler supply temperatures"
+    annotation (Placement(transformation(extent={{-260,-296},{-240,-276}})));
+
 equation
   connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-188,
           -14.8333},{64,-14.8333},{64,98},{118,98}},
@@ -1592,9 +1607,9 @@ equation
   connect(TSupSec, priPumCon.THotWatSec) annotation (Line(points={{-420,-150},{
           -320,-150},{-320,-238},{108,-238},{108,-204.267},{118,-204.267}},
           color={0,0,127}));
-  connect(TSupBoi, priPumCon.THotWatBoiSup) annotation (Line(points={{-420,-190},
-          {20,-190},{20,-232},{110,-232},{110,-207.067},{118,-207.067}},
-                      color={0,0,127}));
+  connect(TWeiAve.TSupAveWei, priPumCon.THotWatBoiSupWeiAve) annotation (Line(points={{-238,
+          -286},{110,-286},{110,-207.067},{118,-207.067}},
+        color={0,0,127}));
   connect(dpHotWatPri_loc, priPumCon.dpHotWat_local) annotation (Line(points={{-420,
           -220},{-180,-220},{-180,-234},{96,-234},{96,-184.667},{118,-184.667}},
         color={0,0,127}));
@@ -1781,6 +1796,13 @@ equation
   connect(conBoiAva.y, staSetCon.uBoiAva) annotation (Line(points={{-298,-70},{
           -234,-70},{-234,-25.6667},{-212,-25.6667}},
                                                  color={255,0,255}));
+  connect(TSupBoi, TWeiAve.THotWatBoiSup) annotation (Line(points={{-420,-190},{
+          -340,-190},{-340,-292},{-262,-292}}, color={0,0,127}));
+  connect(pre2.y, TWeiAve.uBoiSta) annotation (Line(points={{238,206},{72,206},{
+          72,118},{-266,118},{-266,-280},{-262,-280}}, color={255,0,255}));
+  connect(TWeiAve.TSupAveWei, staSetCon.THotWatSup) annotation (Line(points={{-238,
+          -286},{-220,-286},{-220,-204},{-242,-204},{-242,10},{-212,10},{-212,9}},
+        color={0,0,127}));
   annotation (defaultComponentName="conPlaBoi",
     Icon(coordinateSystem(extent={{-100,-400},{100,400}}),
        graphics={

@@ -88,15 +88,10 @@ block Speed_temperature
     "Higher limit of hysteresis loop sending one request"
     annotation(Dialog(group="Hysteresis loop parameters for request generation"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[nBoi] if not use_priSen
-    "Boiler status vector"
-    annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
     "Hot water pump status"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatPri(
     final unit="K",
@@ -104,7 +99,7 @@ block Speed_temperature
     final quantity="ThermodynamicTemperature") if use_priSen
     "Measured hot water temperature in primary circuit"
     annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSec(
     final unit="K",
@@ -112,15 +107,15 @@ block Speed_temperature
     final quantity="ThermodynamicTemperature")
     "Measured hot water temperature in secondary circuit"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatBoiSup[nBoi](
-    final unit=fill("K",nBoi),
-    displayUnit=fill("K",nBoi),
-    final quantity=fill("ThermodynamicTemperature",nBoi)) if not use_priSen
-    "Measured hot water temperature at boiler supply"
-    annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatBoiSupWeiAve(
+    final unit="K",
+    displayUnit="K",
+    final quantity="ThermodynamicTemperature") if not use_priSen
+    "Weighted average hot water temperature at boiler supply"
+    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatPumSpe(
     final min=minPumSpe,
@@ -134,12 +129,6 @@ block Speed_temperature
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Integer switch"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-
-  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(
-    final k=fill(1, nBoi),
-    final nin=nBoi) if not use_priSen
-    "Weighted average of boiler supply temperatures"
-    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
@@ -186,27 +175,6 @@ protected
     "Pump speed calculator"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi] if not
-    use_priSen
-    "Boolean to Real converter"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nBoi](
-    final k=boiDesFlo) if not use_priSen
-    "Vector of boiler design flowrates"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nBoi] if not
-    use_priSen
-    "Vector of design flowrates only for enabled boilers; Zero for disabled boilers"
-    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
-
-  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
-    final k=fill(1, nBoi),
-    final nin=nBoi) if not use_priSen
-    "Sum of flowrates of all enabled boilers"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Compare measured temperature in primary and secondary loops"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
@@ -224,24 +192,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=nBoi) if not use_priSen
-    "Real replicator"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Divide div[nBoi] if not use_priSen
-    "Calculate weights for average based on design flowrate"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro[nBoi] if not use_priSen
-    "Calculate weighted boiler supply temperatures"
-    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
-
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
-    final p=1e-6) if not use_priSen
-    "Pass non-zero divisor in case sum is zero"
-    annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
 equation
   connect(zer.y, swi.u3)
@@ -296,42 +246,8 @@ equation
   connect(triRes.y, swi.u1) annotation (Line(points={{102,50},{110,50},{110,80},
           {70,80},{70,108},{78,108}},color={0,0,127}));
 
-  connect(uBoiSta, booToRea.u)
-    annotation (Line(points={{-140,-50},{-102,-50}}, color={255,0,255}));
-
-  connect(booToRea.y, pro1.u1) annotation (Line(points={{-78,-50},{-74,-50},{-74,
-          -54},{-72,-54}}, color={0,0,127}));
-
-  connect(con.y, pro1.u2) annotation (Line(points={{-78,-80},{-74,-80},{-74,-66},
-          {-72,-66}}, color={0,0,127}));
-
-  connect(reaRep.y, div.u2) annotation (Line(points={{42,-90},{44,-90},{44,-74},
-          {16,-74},{16,-66},{18,-66}},
-                     color={0,0,127}));
-
-  connect(pro1.y, div.u1) annotation (Line(points={{-48,-60},{-46,-60},{-46,-54},
-          {18,-54}}, color={0,0,127}));
-
-  connect(div.y, pro.u1) annotation (Line(points={{42,-60},{46,-60},{46,-74},{48,
-          -74}}, color={0,0,127}));
-
-  connect(THotWatBoiSup, pro.u2) annotation (Line(points={{-140,-110},{46,-110},
-          {46,-86},{48,-86}}, color={0,0,127}));
-
-  connect(mulSum1.u[1:nBoi], pro.y) annotation (Line(points={{78,-80},{76,-80},{76,
-          -80},{72,-80}}, color={0,0,127}));
-
-  connect(mulSum1.y,sub2. u1) annotation (Line(points={{102,-80},{110,-80},{110,
-          -30},{-114,-30},{-114,36},{-102,36}}, color={0,0,127}));
-
-  connect(mulSum.y, addPar.u)
-    annotation (Line(points={{-18,-90},{-12,-90}}, color={0,0,127}));
-  connect(reaRep.u, addPar.y)
-    annotation (Line(points={{18,-90},{12,-90}}, color={0,0,127}));
-  connect(pro1.y, mulSum.u[1:nBoi]) annotation (Line(points={{-48,-60},{-46,-60},
-          {-46,-90},{-42,-90}},
-                           color={0,0,127}));
-
+  connect(THotWatBoiSupWeiAve, sub2.u1) annotation (Line(points={{-140,-60},{-114,
+          -60},{-114,36},{-102,36}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
