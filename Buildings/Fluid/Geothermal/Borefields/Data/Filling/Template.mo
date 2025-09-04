@@ -8,11 +8,11 @@ record Template
     "Specific heat capacity of the borehole filling material";
   parameter Modelica.Units.SI.Density dFil(displayUnit="kg/m3")
     "Density of the borehole filling material";
-  parameter Boolean steadyState = (cFil < Modelica.Constants.eps or dFil < Modelica.Constants.eps)
+  parameter Boolean steadyState = dFil*cFil < Modelica.Constants.eps
     "Flag, if true, then material is computed using steady-state heat conduction"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.ThermalDiffusivity aFil=
-    if (dFil*dFil > Modelica.Constants.eps) then kFil/(dFil*cFil) else 0
+    if (dFil*cFil < Modelica.Constants.eps) then 1E20 else kFil/(dFil*cFil)
     "Heat diffusion coefficient of the borehole filling material";
   annotation (
   defaultComponentPrefixes="parameter",
