@@ -148,11 +148,13 @@ protected
     "Boiler control bus - Non-condensing boilers"
     annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
                     iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValBoiConIso[cfg.nBoiCon]
-    if cfg.have_boiCon "Boiler isolation valve control bus - Condensing boilers"
+  Buildings.Templates.Components.Interfaces.Bus busValBoiConIso[cfg.nBoiCon] if cfg.have_boiCon
+     and cfg.typArrPumHeaWatPriCon == Buildings.Templates.Components.Types.PumpArrangement.Headered
+                       "Boiler isolation valve control bus - Condensing boilers"
     annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
         iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValBoiNonIso[cfg.nBoiNon] if cfg.have_boiNon
+     and cfg.typArrPumHeaWatPriNon == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Boiler isolation valve control bus - Non-condensing boilers"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
     iconTransformation(extent={{-466,50},{-426,90}})));

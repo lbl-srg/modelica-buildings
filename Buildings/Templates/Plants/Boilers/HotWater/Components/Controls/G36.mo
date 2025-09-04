@@ -4,6 +4,11 @@ block G36 "Guideline 36 controller"
     Buildings.Templates.Plants.Boilers.HotWater.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36);
 
+  parameter Boolean have_isoValSen(start=false) = false
+    "Set to true for isolation valve end switch status feedback"
+    annotation(Dialog(tab="General", group="Configuration",
+      enable=have_heaPriPum));
+
   final parameter Boolean have_priOnl =
     cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Is the boiler plant a primary-only, condensing boiler plant?";
@@ -102,16 +107,16 @@ block G36 "Guideline 36 controller"
     else dat.VHeaWatBoiNon_flow_nominal[i-cfg.nBoiCon] for i in 1:nBoi}
     "Vector of design flowrates for all boilers in plant";
 
-  final parameter Real maxLocDpPri = dat.dpHeaWatLocSet_max
-    "Maximum primary loop local differential pressure setpoint";
   final parameter Real minSecPumSpe = dat.yPumHeaWatSec_min
     "Minimum secondary pump speed";
   final parameter Real minPriPumSpeSta[dat.nSta] = dat.yPumHeaWatPriSta_min
     "Vector of minimum primary pump speed for each stage";
   final parameter Real VHotWatSec_flow_nominal = dat.VHeaWatSec_flow_nominal
     "Secondary loop design hot water flow rate";
-  final parameter Real maxLocDpSec = dat.dpHeaWatLocSet_max
-    "Maximum hot water loop local differential pressure setpoint in secondary loop";
+  final parameter Real maxLocDp = dat.dpHeaWatLocSet_max
+    "Maximum hot water loop local differential pressure setpoint";
+  parameter Real maxRemDp[:] = dat.dpHeaWatRemSet_max
+    "Maximum remote differential pressure setpoint(s)";
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes
     speConTypPri =
     if cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None then (
@@ -131,6 +136,7 @@ block G36 "Guideline 36 controller"
     "Secondary pump speed regulation method";
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController ctlLooPri(
+    final have_priTemSen=have_senTHeaWatPriSupCon or have_senTHeaWatPriSupNon,
     final boiDesCap=boiDesCap,
     Ti_bypVal=60,
     final boiDesFlo=boiDesFlo,
@@ -142,7 +148,8 @@ block G36 "Guideline 36 controller"
     final have_secFloSen=have_secFloSen,
     final have_varPriPum=have_varPriPum,
     final maxFloSet=maxFloSet,
-    final maxLocDpPri=maxLocDpPri,
+    final maxLocDpPri=maxLocDp,
+    final maxRemDpPri=maxRemDp,
     final minFloSet=minFloSet,
     Ti_priPum=60,
     final minPriPumSpeSta=minPriPumSpeSta,
@@ -159,13 +166,14 @@ block G36 "Guideline 36 controller"
     final TOutLoc=TOutLoc,
     final TPlaHotWatSetMax=TPlaHotWatSetMax,
     final VHotWatPri_flow_nominal=VHotWatPri_flow_nominal,
-    have_isoValSen=false)
+    final have_isoValSen=have_isoValSen)
     "Primary loop controller"
     annotation (Placement(transformation(extent={{-10,-36},{10,32}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller ctlPumHeaWatSec(
     final have_secFloSen=have_secFloSen,
     final have_looPriNonCon=cfg.have_boiNon,
-    final maxLocDp=maxLocDpSec,
+    final maxLocDp=maxLocDp,
+    final maxRemDp=maxRemDp,
     final minPumSpe=minSecPumSpe,
     final nPum=cfg.nPumHeaWatSec,
     final nPum_nominal=cfg.nPumHeaWatSec,
@@ -204,14 +212,6 @@ block G36 "Guideline 36 controller"
     if cfg.typPumHeaWatSec == Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump index - No rotation logic currently implemented"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaBoi[nBoi](each k=true)
-    "Boiler available signal – Implementation does not handle fault detection yet"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}}),
-        iconTransformation(extent={{-240,220},{-200,260}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_dpHeaWatSet[
-    nSenDpHeaWatRem](final k=dat.dpHeaWatRemSet_max)
-    "HW differential pressure setpoint - Remote sensor(s): should be a parameter, missing local Δp setpoint, same for primary controller"
-    annotation (Placement(transformation(extent={{-10,56},{10,76}})));
 initial equation
   assert(nAirHan + nEquZon > 0,
    "In "+ getInstanceName() + ": "+
@@ -244,6 +244,10 @@ equation
   // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.VHeaWatPri_flow, ctlLooPri.VHotWatPri_flow);
   connect(busLooNon.VHeaWatPri_flow, ctlLooPri.VHotWatPri_flow);
+  connect(busValBoiConIso.y1_actual, ctlLooPri.uHotWatIsoValOpe[1:cfg.nBoiCon]);
+  connect(busValBoiNonIso.y1_actual, ctlLooPri.uHotWatIsoValOpe[(cfg.nBoiCon+1):nBoi]);
+  connect(busValBoiConIso.y0_actual, ctlLooPri.uHotWatIsoValClo[1:cfg.nBoiCon]);
+  connect(busValBoiNonIso.y0_actual, ctlLooPri.uHotWatIsoValClo[(cfg.nBoiCon+1):nBoi]);
 
   // Secondary HW pump controller inputs from plant control bus
   connect(bus.dpHeaWatLoc, ctlPumHeaWatSec.dpHotWat_local);
@@ -302,16 +306,12 @@ equation
         points={{12,-10.5},{32,-10.5},{32,78},{48,78}}, color={255,0,255}));
   connect(ctlLooPri.yMaxSecPumSpe, ctlPumHeaWatSec.uMaxSecPumSpeCon)
     annotation (Line(points={{12,-7.1},{34,-7.1},{34,62},{48,62}}, color={0,0,127}));
-  connect(u1AvaBoi.y, ctlLooPri.uBoiAva) annotation (Line(points={{-38,0},{-20,0},
-          {-20,-0.3},{-12,-0.3}},     color={255,0,255}));
   connect(reqPlaHeaWat.y, ctlPumHeaWatSec.plaReq) annotation (Line(points={{168,
           160},{40,160},{40,86},{48,86}}, color={255,127,0}));
   connect(reqPlaHeaWat.y, ctlLooPri.plaReq) annotation (Line(points={{168,160},{
           -20,160},{-20,23.5},{-12,23.5}}, color={255,127,0}));
   connect(reqResHeaWat.y, ctlLooPri.resReq) annotation (Line(points={{170,120},{
           -18,120},{-18,26.9},{-12,26.9}}, color={255,127,0}));
-  connect(FIXME_dpHeaWatSet.y, ctlPumHeaWatSec.dpHotWatSet)
-    annotation (Line(points={{12,66},{48,66}}, color={0,0,127}));
   connect(VHeaWatSec_flow.y, ctlLooPri.VHotWatSec_flow) annotation (Line(points
         ={{-188,-80},{-20,-80},{-20,-3.7},{-12,-3.7}}, color={0,0,127}));
   connect(VHeaWatSec_flow.y[1], ctlPumHeaWatSec.VHotWat_flow) annotation (Line(

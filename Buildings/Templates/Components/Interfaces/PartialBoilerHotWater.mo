@@ -79,7 +79,7 @@ equation
   connect(boi.port_b, port_b)
     annotation (Line(points={{10,-60},{80,-60},{80,0},{100,0}},
                                               color={0,127,255}));
-  connect(boi.T, bus.THeaWatSup) annotation (Line(points={{11,-52},{60,-52},{60,
+  connect(boi.T, bus.THeaWatSup) annotation (Line(points={{11,-52},{40,-52},{40,
           98},{0,98},{0,100}}, color={0,0,127}));
 
 
