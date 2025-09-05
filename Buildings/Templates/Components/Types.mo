@@ -73,8 +73,10 @@ package Types "Package with type definitions"
       AirToWater
       "Air-to-water heat pump",
       WaterToWater
-      "Water(or brine)-to-water heat pump")
-    "Enumeration to specify the type of heat pump";
+      "Water(or brine)-to-water heat pump",
+      AirToWaterSHC
+      "SHC air-to-water heat pump")
+    "Enumeration to specify the type of heat pump" annotation();
   type IntegrationPoint = enumeration(
       None
       "None",
