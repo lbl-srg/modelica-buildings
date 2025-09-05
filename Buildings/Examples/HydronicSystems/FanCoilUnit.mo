@@ -53,8 +53,8 @@ model FanCoilUnit
     mHotWat_flow_nominal=0.75*3.75*0.50946*0.25,
     dpAir_nominal=100,
     UAHeaCoi_nominal=2.25*146.06*3*1.1,
-    mChiWat_flow_nominal=0.2984,
-    UACooCoi_nominal=2.25*146.06,
+    mChiWat_flow_nominal=4*0.2984,
+    UACooCoi_nominal=7.5*2.25*146.06,
     mAir_flow_nominal=0.21303*2*3,
     QHeaCoi_flow_nominal=7795.7)
     "Fan coil units"
@@ -265,7 +265,7 @@ model FanCoilUnit
     redeclare package MediumCHW = MediumW,
     mHotWat_flow_nominal=0.75*3.75*0.50946*0.25,
     dpAir_nominal=100,
-    UAHeaCoi_nominal=2.25*146.06*3*1.1,
+    UAHeaCoi_nominal=146.06*3*1.1,
     mChiWat_flow_nominal=0.2984,
     UACooCoi_nominal=2.25*146.06,
     mAir_flow_nominal=0.21303*2*3,
@@ -413,7 +413,10 @@ protected
     "Occupied cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
 
-
+  Modelica.Blocks.Math.Gain gaiIntNor1[3](
+    final k=fill(4.75*kIntNor,3))
+    "Gain for internal heat gain amplification for north zone"
+    annotation (Placement(transformation(extent={{-140,142},{-120,162}})));
 equation
   connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{-20,130},{-20,112},
           {-12,112}},                color={0,0,127}));
@@ -439,9 +442,6 @@ equation
           -126,-156},{-118,-156}}, color={0,0,127}));
   connect(gai.y, gaiIntNor.u) annotation (Line(points={{-95,-156},{-84,-156},{-84,
           -154},{-76,-154}}, color={0,0,127}));
-  connect(gaiIntNor.y, nor.qGai_flow) annotation (Line(points={{-53,-154},{-18,-154},
-          {-18,76},{44,76},{44,112},{58,112},{58,117.6},{62.16,117.6}}, color={0,
-          0,127}));
   connect(conFCU1.yFan, fanCoiUni1.uFan) annotation (Line(points={{-26,38},{20,38},
           {20,28},{28,28}}, color={0,0,127}));
   connect(conFCU1.yCooCoi, fanCoiUni1.uCoo)
@@ -491,16 +491,14 @@ equation
           {48,-162},{50,-162},{50,-154},{-4,-154},{-4,-22},{36,-22},{36,2}},
         color={0,127,255}));
   connect(souHea.ports[1], fanCoiUni1.port_HW_a) annotation (Line(points={{78,-166},
-          {78,-164},{80,-164},{80,-160},{6,-160},{6,-24},{38,-24},{38,-4},{46,
-          -4},{46,2}},
-                   color={0,127,255}));
+          {78,-164},{80,-164},{80,-160},{6,-160},{6,-24},{38,-24},{38,-4},{46,-4},
+          {46,2}}, color={0,127,255}));
   connect(sinCoo.ports[1], fanCoiUni2.port_CHW_b) annotation (Line(points={{111.333,
           -164},{111.333,-158},{12,-158},{12,-98},{48,-98},{48,-88}},
                                                                   color={0,127,255}));
   connect(sinCoo.ports[2], fanCoiUni1.port_CHW_b) annotation (Line(points={{110,
-          -164},{110,-162},{112,-162},{112,-158},{12,-158},{12,-26},{40,-26},{
-          40,-6},{52,-6},{52,2}},
-                               color={0,127,255}));
+          -164},{110,-162},{112,-162},{112,-158},{12,-158},{12,-26},{40,-26},{40,
+          -6},{52,-6},{52,2}}, color={0,127,255}));
   connect(souCoo.ports[1], fanCoiUni2.port_CHW_a) annotation (Line(points={{141.333,
           -164},{141.333,-158},{138,-158},{138,-100},{58,-100},{58,-88}},
                                                                       color={0,127,
@@ -602,30 +600,42 @@ equation
           109.75,13.6}}, color={0,127,255}));
   connect(leaNor.port_b, nor2.ports[3]) annotation (Line(points={{30,148},{64,
           148},{64,-82},{103.75,-82},{103.75,-80.4}}, color={0,127,255}));
-  connect(souCoo.ports[3], fanCoiUni.port_CHW_a) annotation (Line(points={{
-          138.667,-164},{138.667,-39},{22,-39},{22,86}}, color={0,127,255}));
-  connect(sinCoo.ports[3], fanCoiUni.port_CHW_b) annotation (Line(points={{
-          108.667,-164},{108.667,-158},{12,-158},{12,-26},{4,-26},{4,18},{8,18},
-          {8,70},{12,70},{12,86}}, color={0,127,255}));
+  connect(souCoo.ports[3], fanCoiUni.port_CHW_a) annotation (Line(points={{138.667,
+          -164},{138.667,-39},{22,-39},{22,86}}, color={0,127,255}));
+  connect(sinCoo.ports[3], fanCoiUni.port_CHW_b) annotation (Line(points={{108.667,
+          -164},{108.667,-158},{12,-158},{12,-26},{4,-26},{4,18},{8,18},{8,70},
+          {12,70},{12,86}},color={0,127,255}));
   connect(fanCoiUni.yFan_actual, greThr[1].u) annotation (Line(points={{32,114},
           {-136,114},{-136,104},{-202,104},{-202,-130}}, color={0,0,127}));
   connect(fanCoiUni1.yFan_actual, greThr[2].u) annotation (Line(points={{72,30},
           {-138,30},{-138,-18},{-202,-18},{-202,-130}}, color={0,0,127}));
   connect(fanCoiUni2.yFan_actual, greThr[3].u) annotation (Line(points={{68,-60},
-          {80,-60},{80,-122},{-16,-122},{-16,-176},{-212,-176},{-212,-130},{
-          -202,-130}}, color={0,0,127}));
-  connect(tim[1].passed, conFCU.u1Fan) annotation (Line(points={{-138,-138},{
-          -110,-138},{-110,84},{-64,84}}, color={255,0,255}));
-  connect(tim[2].passed, conFCU1.u1Fan) annotation (Line(points={{-138,-138},{
-          -110,-138},{-110,-8},{-70,-8}}, color={255,0,255}));
-  connect(tim[3].passed, conFCU2.u1Fan) annotation (Line(points={{-138,-138},{
-          -110,-138},{-110,-104},{-70,-104}}, color={255,0,255}));
+          {80,-60},{80,-122},{-16,-122},{-16,-176},{-212,-176},{-212,-130},{-202,
+          -130}}, color={0,0,127}));
+  connect(tim[1].passed, conFCU.u1Fan) annotation (Line(points={{-138,-138},{-110,
+          -138},{-110,84},{-64,84}}, color={255,0,255}));
+  connect(tim[2].passed, conFCU1.u1Fan) annotation (Line(points={{-138,-138},{-110,
+          -138},{-110,-8},{-70,-8}}, color={255,0,255}));
+  connect(tim[3].passed, conFCU2.u1Fan) annotation (Line(points={{-138,-138},{-110,
+          -138},{-110,-104},{-70,-104}}, color={255,0,255}));
   connect(fanCoiUni.port_Air_b, nor.ports[1]) annotation (Line(points={{30,102},
           {36,102},{36,94.4},{69.75,94.4}}, color={0,127,255}));
   connect(fanCoiUni.port_Air_a, nor.ports[2]) annotation (Line(points={{30,110},
           {42,110},{42,96},{69.75,96}}, color={0,127,255}));
-  connect(leaNor.port_b, nor.ports[3]) annotation (Line(points={{30,148},{54,
-          148},{54,97.6},{69.75,97.6}}, color={0,127,255}));
+  connect(leaNor.port_b, nor.ports[3]) annotation (Line(points={{30,148},{54,148},
+          {54,97.6},{69.75,97.6}}, color={0,127,255}));
+  connect(nor.surf_conBou, nor1.surf_conBou) annotation (Line(points={{93.9,88.8},
+          {93.9,28},{92,28},{92,8},{98,8},{98,-6},{133.9,-6},{133.9,4.8}},
+        color={191,0,0}));
+  connect(nor.surf_conBou, nor2.surf_conBou) annotation (Line(points={{93.9,88.8},
+          {93.9,28},{92,28},{92,8},{98,8},{98,-18},{92,-18},{92,-62},{90,-62},{90,
+          -102},{127.9,-102},{127.9,-89.2}}, color={191,0,0}));
+  connect(gai.y, gaiIntNor1.u) annotation (Line(points={{-95,-156},{-84,-156},{-84,
+          -98},{-128,-98},{-128,136},{-146,136},{-146,144},{-150,144},{-150,152},
+          {-142,152}}, color={0,0,127}));
+  connect(gaiIntNor1.y, nor.qGai_flow) annotation (Line(points={{-119,152},{-72,
+          152},{-72,164},{-14,164},{-14,174},{36,174},{36,166},{58,166},{58,117.6},
+          {62.16,117.6}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Text(
           extent={{-110,192},{110,156}},
@@ -678,5 +688,7 @@ for the description of the building envelope.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"
         "Simulate and plot"),
-    experiment(StopTime=86400, Tolerance=1e-06));
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06));
 end FanCoilUnit;
