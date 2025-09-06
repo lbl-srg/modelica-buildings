@@ -57,7 +57,7 @@ model HeatPumpSHC
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
-  parameter Data.HeatPumpSHC datHpSHC(
+  parameter Data.HeatPump datHpSHC(
     final cpHeaWat_default=hpSHC.cpHeaWat_default,
     final cpSou_default=hpSHC.cpSou_default,
     final typ=hpSHC.typ,
@@ -68,9 +68,12 @@ model HeatPumpSHC
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCoo_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
     perSHC(
-      fileNameHea=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
-      fileNameCoo=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
-      fileNameShc=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")),
+      fileNameHea=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+      fileNameCoo=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+      fileNameShc=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")),
     mHeaWat_flow_nominal=44.8136,
     dpHeaWat_nominal(displayUnit="Pa") = 30E3,
     capHea_nominal=1500E3,

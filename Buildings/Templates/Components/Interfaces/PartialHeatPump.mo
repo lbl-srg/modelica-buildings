@@ -42,7 +42,7 @@ model PartialHeatPump
     or typ==Buildings.Templates.Components.Types.HeatPump.AirToWater,
     group="Configuration"));
 
-  parameter Data.HeatPumpSHC dat(
+  parameter Data.HeatPump dat(
     typ=typ,
     is_rev=is_rev,
     cpHeaWat_default=cpHeaWat_default,
@@ -222,6 +222,7 @@ This partial class provides a standard interface for heat pump models.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>September 1, 2025, by Xing Lu, Karthik Devaprasad:<br>Integrate SHC mode. </li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
