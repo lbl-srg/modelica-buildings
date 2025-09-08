@@ -15,6 +15,32 @@ model FanCoilUnit
     annotation (Evaluate=true,Dialog(
       tab="Experimental (may be changed in future releases)"));
 
+  parameter Modelica.Units.SI.Length hRoo=2.74
+    "Room height";
+
+  parameter Modelica.Units.SI.Area AFlo=568.77/hRoo
+    "Area of each zone";
+
+  parameter Modelica.Units.SI.Volume VRoo=AFlo*hRoo
+    "Volume of each zone";
+
+  parameter Modelica.Units.SI.Length wExt=49.91
+    "Exterior wall width of each zone";
+
+  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
+    "Convective heat transfer model for room-facing surfaces of opaque constructions";
+
+  parameter Real winWalRat(
+    min=0.01,
+    max=0.99) = 0.33
+    "Window to wall ratio for exterior walls";
+
+  parameter Modelica.Units.SI.Length hWin=1.5
+    "Height of windows";
+
+  parameter Real kInt(min=0, max=1) = 1
+    "Gain factor to scale internal heat gain in each zone";
+
   parameter HeatTransfer.Data.Solids.Plywood matCarTra(
     k=0.11,
     d=544,
@@ -108,32 +134,6 @@ model FanCoilUnit
     "Floor construction (opa_a is carpet)"
     annotation (Placement(transformation(extent={{208,224},{228,244}})));
 
-  parameter Modelica.Units.SI.Length hRoo=2.74
-    "Room height";
-
-  parameter Modelica.Units.SI.Area AFlo=568.77/hRoo
-    "Area of each zone";
-
-  parameter Modelica.Units.SI.Volume VRoo=AFlo*hRoo
-    "Volume of each zone";
-
-  parameter Modelica.Units.SI.Length wExt=49.91
-    "Exterior wall width of each zone";
-
-  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
-    "Convective heat transfer model for room-facing surfaces of opaque constructions";
-
-  parameter Real winWalRat(
-    min=0.01,
-    max=0.99) = 0.33
-    "Window to wall ratio for exterior walls";
-
-  parameter Modelica.Units.SI.Length hWin=1.5
-    "Height of windows";
-
-  parameter Real kInt(min=0, max=1) = 1
-    "Gain factor to scale internal heat gain in each zone";
-
   Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 100000 + 3000,
@@ -154,7 +154,7 @@ model FanCoilUnit
 
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
-    p=300000,
+    p=100000,
     T=288.15,
     nPorts=3)
     "Sink for chilled water"
@@ -163,25 +163,22 @@ model FanCoilUnit
 
   Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 6000,
+    p(displayUnit="Pa") = 100000 + 3000,
     T=279.15,
     nPorts=3)
     "Source for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90, origin={150,-230})));
+      rotation=90, origin={152,-230})));
 
   Buildings.Fluid.ZoneEquipment.FourPipe fanCoiUni(
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
     heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None,
-    mHotWat_flow_nominal=0.75*3.75*0.50946*0.25,
     dpAir_nominal=100,
-    UAHeaCoi_nominal=2.25*146.06*3*1.1,
     mChiWat_flow_nominal=4*0.2984,
     UACooCoi_nominal=7.5*2.25*146.06,
-    mAir_flow_nominal=0.21303*2*3,
-    QHeaCoi_flow_nominal=7795.7)
+    mAir_flow_nominal=0.21303*2*3)
     "Fan coil unit with no heating coil"
     annotation (Placement(transformation(extent={{40,140},{80,180}})));
 
@@ -309,8 +306,7 @@ model FanCoilUnit
     UAHeaCoi_nominal=146.06*3*1.1,
     mChiWat_flow_nominal=0.2984,
     UACooCoi_nominal=2.25*146.06,
-    mAir_flow_nominal=0.21303*2*3,
-    QHeaCoi_flow_nominal=7795.7)
+    mAir_flow_nominal=0.21303*2*3)
     "Fan coil unit with hot-water heating coil"
     annotation (Placement(transformation(extent={{30,20},{70,60}})));
 
@@ -532,9 +528,6 @@ equation
   connect(zon3.heaPorAir, temAirNoHeaCoi2.port) annotation (Line(points={{143.75,
           -55},{104,-55},{104,-32},{180,-32},{180,-50}},           color={191,0,
           0}));
-  connect(replicator.y[1],zon3. uSha[1]) annotation (Line(points={{-139,200},{108,
-          200},{108,-32},{114,-32},{114,-32.5},{118,-32.5}},
-        color={0,0,127}));
   connect(gaiInt.y,zon3. qGai_flow) annotation (Line(points={{-39,-210},{102,
           -210},{102,-46},{108,-46},{108,-45},{118,-45}},
         color={0,0,127}));
@@ -551,11 +544,11 @@ equation
   connect(sinCoo.ports[2], fanCoiUni1.port_CHW_b) annotation (Line(points={{110,
           -220},{110,-96},{12,-96},{12,-8},{52,-8},{52,20}},
                                color={0,127,255}));
-  connect(souCoo.ports[1], fanCoiUni2.port_CHW_a) annotation (Line(points={{151.333,
-          -220},{151.333,-100},{58,-100},{58,-88}},                   color={0,127,
+  connect(souCoo.ports[1], fanCoiUni2.port_CHW_a) annotation (Line(points={{153.333,
+          -220},{153.333,-100},{58,-100},{58,-88}},                   color={0,127,
           255}));
-  connect(souCoo.ports[2], fanCoiUni1.port_CHW_a) annotation (Line(points={{150,
-          -220},{150,-100},{88,-100},{88,0},{80,0},{80,-4},{62,-4},{62,20}},
+  connect(souCoo.ports[2], fanCoiUni1.port_CHW_a) annotation (Line(points={{152,
+          -220},{152,-100},{88,-100},{88,0},{80,0},{80,-4},{62,-4},{62,20}},
                                    color={0,127,255}));
   connect(weaDat.weaBus,zon3. weaBus) annotation (Line(
       points={{-120,280},{-12,280},{-12,268},{120,268},{120,200},{180,200},{180,
@@ -656,8 +649,8 @@ equation
   connect(lea.port_b,zon3. ports[3]) annotation (Line(points={{40,280},{60,280},
           {60,232},{100,232},{100,104},{88,104},{88,56},{108,56},{108,32},{112,
           32},{112,-65.8333},{126.25,-65.8333}},      color={0,127,255}));
-  connect(souCoo.ports[3], fanCoiUni.port_CHW_a) annotation (Line(points={{148.667,
-          -220},{148.667,-212},{148,-212},{148,-100},{88,-100},{88,0},{80,0},{
+  connect(souCoo.ports[3], fanCoiUni.port_CHW_a) annotation (Line(points={{150.667,
+          -220},{150.667,-212},{148,-212},{148,-100},{88,-100},{88,0},{80,0},{
           80,-4},{64,-4},{64,-12},{8,-12},{8,124},{72,124},{72,140}},
                                                  color={0,127,255}));
   connect(sinCoo.ports[3], fanCoiUni.port_CHW_b) annotation (Line(points={{108.667,

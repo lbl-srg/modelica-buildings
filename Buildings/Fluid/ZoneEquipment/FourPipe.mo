@@ -15,24 +15,37 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation (Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
-    final min = 0)
+    final min=0,
+    final start=0)
     "Nominal heat flow rate of electric heating coil"
-    annotation(Dialog(enable=not have_hotWat, group="Heating coil parameters"));
+    annotation(Dialog(enable=have_heaEle, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal(
+    final min=0,
+    final start=0)
     "Nominal mass flow rate of heating hot water"
+    annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
+
+  parameter Modelica.Units.SI.PressureDifference dpHotWatCoi_nominal
+    "Total pressure difference across heating coil (Hot-water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal
     "Total pressure difference across supply and return ports in airloop"
     annotation(Dialog(group="System parameters"));
 
-  parameter Modelica.Units.SI.ThermalConductance UAHeaCoi_nominal
+  parameter Modelica.Units.SI.ThermalConductance UAHeaCoi_nominal(
+    final min=0,
+    final start=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
     "Nominal mass flow rate of chilled water"
+    annotation(Dialog(group="Cooling coil parameters"));
+
+  parameter Modelica.Units.SI.PressureDifference dpChiWatCoi_nominal
+    "Total pressure difference across cooling coil (Chilled-water side)"
     annotation(Dialog(group="Cooling coil parameters"));
 
   parameter Modelica.Units.SI.ThermalConductance UACooCoi_nominal
@@ -52,7 +65,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final unit="1")
     "Cooling loop control signal"
-    annotation(Placement(transformation(extent={{-300,-48},{-260,-8}}),
+    annotation(Placement(transformation(extent={{-300,-70},{-260,-30}}),
       iconTransformation(extent={{-240,-20},{-200,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFan(
@@ -88,25 +101,25 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(
     redeclare package Medium = Buildings.Media.Water)
     "Chilled water supply port"
-    annotation (Placement(transformation(extent={{50,-150},{70,-130}}),
+    annotation (Placement(transformation(extent={{-10,-150},{10,-130}}),
       iconTransformation(extent={{110,-210},{130,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(
     redeclare final package Medium = Buildings.Media.Water)
     "Chilled water return port"
-    annotation (Placement(transformation(extent={{-10,-150},{10,-130}}),
+    annotation (Placement(transformation(extent={{50,-150},{70,-130}}),
       iconTransformation(extent={{10,-210},{30,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(
     redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water supply port"
-    annotation (Placement(transformation(extent={{-70,-150},{-50,-130}}),
+    annotation (Placement(transformation(extent={{-130,-150},{-110,-130}}),
       iconTransformation(extent={{-50,-210},{-30,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(
     redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water return port"
-    annotation (Placement(transformation(extent={{-130,-150},{-110,-130}}),
+    annotation (Placement(transformation(extent={{-70,-150},{-50,-130}}),
       iconTransformation(extent={{-150,-210},{-130,-190}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirHea(
@@ -120,7 +133,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium2 = MediumA,
     final m1_flow_nominal=mHotWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=0,
+    final dp1_nominal=dpHotWatCoi_nominal,
     final dp2_nominal=0,
     final UA_nominal=UAHeaCoi_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if have_hotWat
@@ -133,19 +146,19 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium = MediumHW,
     final m_flow_nominal=mHotWat_flow_nominal,
     final dpValve_nominal=50,
-    dpFixed_nominal=1000)     if have_hotWat
+    dpFixed_nominal=0) if have_hotWat
     "Hot water flow control valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
-      origin={-120,-80})));
+      origin={-60,-80})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate VHW_flow(
     redeclare final package Medium = MediumHW,
     final m_flow_nominal=mHotWat_flow_nominal) if have_hotWat
     "Hot water volume flowrate sensor"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-60,-80})));
+      origin={-120,-80})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort THWRet(
     redeclare final package Medium = MediumHW,
@@ -153,22 +166,22 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Hot water return temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
-      origin={-120,-110})));
+      origin={-60,-110})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort THWSup(
     redeclare final package Medium = MediumHW,
     final m_flow_nominal=mHotWat_flow_nominal) if have_hotWat
     "Hot water supply temperature sensor"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-60,-110})));
+      origin={-120,-110})));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     redeclare final package Medium1 = MediumCHW,
     redeclare final package Medium2 = MediumA,
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=0,
+    final dp1_nominal=dpChiWatCoi_nominal,
     final dp2_nominal=0,
     final UA_nominal=UACooCoi_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -181,11 +194,11 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium = MediumCHW,
     final m_flow_nominal=mChiWat_flow_nominal,
     final dpValve_nominal=50,
-    dpFixed_nominal=1000)
+    dpFixed_nominal=0)
     "Chilled-water flow control valve"
     annotation(Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
-      origin={0,-80})));
+      origin={60,-80})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLvg(
     redeclare final package Medium = MediumCHW,
@@ -193,23 +206,23 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Chilled-water return temperature sensor"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
-      origin={0,-110})));
+      origin={60,-110})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate VCHW_flow(
     redeclare final package Medium = MediumCHW,
     final m_flow_nominal=mChiWat_flow_nominal)
     "Chilled-water volume flowrate sensor"
-    annotation(Placement(transformation(extent={{-10,10},{10,-10}},
+    annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={60,-80})));
+      origin={0,-80})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWEnt(
     redeclare final package Medium = MediumCHW,
     final m_flow_nominal=mChiWat_flow_nominal)
     "Chilled-water supply temperature sensor"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={60,-112})));
+      origin={0,-112})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirLvg(
     redeclare final package Medium = MediumA,
@@ -227,9 +240,8 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Supply fan"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
-  Buildings.Fluid.Sensors.VolumeFlowRate vAirSup(
-    redeclare final package Medium = MediumA,
-    final m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare final package
+      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal)
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
 
@@ -237,20 +249,15 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium = MediumA,
     final m_flow_nominal = mAir_flow_nominal,
     final dp_nominal = dpAir_nominal,
-    final allowFlowReversal = true) "Total resistance of air path" annotation(
-    Placement(transformation(extent={{80,-10},{100,10}})));
+    final allowFlowReversal = true)
+    "Total resistance of air path"
+    annotation(Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirRet(
     redeclare final package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal)
     "Return air temperature sensor"
     annotation (Placement(transformation(extent={{-230,-10},{-210,10}})));
-
-  Buildings.Fluid.Sensors.VolumeFlowRate vAirRet(
-    redeclare final package Medium = MediumA,
-    final m_flow_nominal=mAir_flow_nominal)
-    "Return air volume flowrate"
-    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoiEle(
     redeclare final package Medium = MediumA,
@@ -268,12 +275,6 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final k=1/mAir_flow_nominal)
     "Normalized fan signal"
     annotation (Placement(transformation(extent={{220,100},{240,120}})));
-
-  Buildings.Fluid.Sources.Boundary_pT bou(
-    redeclare package Medium = MediumA,
-    nPorts=1)
-    "Boundary condition for normalizing pressure"
-    annotation (Placement(transformation(extent={{84,10},{104,30}})));
 
 protected
   final parameter Boolean have_hotWat=(heaCoiTyp ==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased)
@@ -297,52 +298,49 @@ protected
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
 equation
-  connect(valHW.port_a, heaCoiHW.port_b1) annotation (Line(points={{-120,-70},{
-          -120,-16},{-100,-16}},
+  connect(valHW.port_a, heaCoiHW.port_b1) annotation (Line(points={{-60,-70},{
+          -60,-34},{-110,-34},{-110,-16},{-100,-16}},
                            color={0,127,255}));
   connect(THWRet.port_a, valHW.port_b)
-    annotation (Line(points={{-120,-100},{-120,-90}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{-60,-100},{-60,-90}},color={0,127,255}));
   connect(THWSup.port_b, VHW_flow.port_a)
-    annotation (Line(points={{-60,-100},{-60,-90}},
+    annotation (Line(points={{-120,-100},{-120,-90}},
                                                 color={0,127,255}));
   connect(heaCoiHW.port_b2, TAirHea.port_a) annotation (Line(points={{-80,-4},{
           -60,-4},{-60,0},{-30,0}},    color={0,127,255}));
   connect(uHea, valHW.y) annotation (Line(points={{-280,-120},{-140,-120},{-140,
-          -80},{-132,-80}},
+          -60},{-80,-60},{-80,-80},{-72,-80}},
                       color={0,0,127}));
   connect(port_HW_a, THWSup.port_a)
-    annotation (Line(points={{-60,-140},{-60,-120}},
+    annotation (Line(points={{-120,-140},{-120,-120}},
                                                  color={0,127,255}));
   connect(port_HW_b, THWRet.port_b)
-    annotation (Line(points={{-120,-140},{-120,-120}},
-                                                     color={0,127,255}));
+    annotation (Line(points={{-60,-140},{-60,-120}}, color={0,127,255}));
   connect(TCHWLvg.port_a, valCHW.port_b)
-    annotation (Line(points={{0,-100},{0,-90}},    color={0,127,255}));
-  connect(valCHW.port_a, cooCoi.port_b1) annotation (Line(points={{0,-70},{0,
-          -16},{20,-16}},  color={0,127,255}));
-  connect(VCHW_flow.port_b, cooCoi.port_a1) annotation (Line(points={{60,-70},{
-          60,-16},{40,-16}},   color={0,127,255}));
+    annotation (Line(points={{60,-100},{60,-90}},  color={0,127,255}));
+  connect(valCHW.port_a, cooCoi.port_b1) annotation (Line(points={{60,-70},{60,
+          -40},{10,-40},{10,-16},{20,-16}},
+                           color={0,127,255}));
+  connect(VCHW_flow.port_b, cooCoi.port_a1) annotation (Line(points={{0,-70},{0,
+          -30},{50,-30},{50,-16},{40,-16}},
+                               color={0,127,255}));
   connect(TCHWEnt.port_b, VCHW_flow.port_a)
-    annotation (Line(points={{60,-102},{60,-90}},  color={0,127,255}));
+    annotation (Line(points={{0,-102},{0,-90}},    color={0,127,255}));
   connect(TAirHea.port_b, cooCoi.port_a2) annotation (Line(points={{-10,0},{0,0},
           {0,-4},{20,-4}},        color={0,127,255}));
-  connect(port_CHW_b, TCHWLvg.port_b) annotation (Line(points={{0,-140},{0,-120}},
-                                color={0,127,255}));
+  connect(port_CHW_b, TCHWLvg.port_b) annotation (Line(points={{60,-140},{60,
+          -120}},               color={0,127,255}));
   connect(fan.port_b, TAirLvg.port_a)
     annotation (Line(points={{140,0},{160,0}},     color={0,127,255}));
-  connect(uCoo, valCHW.y) annotation (Line(points={{-280,-28},{-20,-28},{-20,
-          -80},{-12,-80}},
-                     color={0,0,127}));
-  connect(TAirLvg.port_b, vAirSup.port_a)
-    annotation (Line(points={{180,0},{200,0}},     color={0,127,255}));
-  connect(vAirSup.port_b, port_Air_b) annotation (Line(points={{220,0},{240,0},
+  connect(uCoo, valCHW.y) annotation (Line(points={{-280,-50},{40,-50},{40,-80},
+          {48,-80}}, color={0,0,127}));
+  connect(TAirLvg.port_b, senSupFlo.port_a)
+    annotation (Line(points={{180,0},{200,0}}, color={0,127,255}));
+  connect(senSupFlo.port_b, port_Air_b) annotation (Line(points={{220,0},{240,0},
           {240,-40},{260,-40}}, color={0,127,255}));
   connect(cooCoi.port_b2, totResAir.port_a)
     annotation (Line(points={{40,-4},{60,-4},{60,0},{80,0}},
                                                  color={0,127,255}));
-  connect(TAirRet.port_b, vAirRet.port_a)
-    annotation (Line(points={{-210,0},{-200,0}},   color={0,127,255}));
   connect(TAirRet.port_a, port_Air_a) annotation (Line(points={{-230,0},{-240,0},
           {-240,40},{260,40}},                   color={0,127,255}));
   connect(heaCoiEle.port_b, TAirHea.port_a) annotation (Line(points={{-80,20},{
@@ -356,28 +354,26 @@ equation
   connect(gaiFan_m_flow.y, fan.m_flow_in)
     annotation (Line(points={{-219,80},{130,80},{130,12}}, color={0,0,127}));
   connect(TCHWEnt.port_a, port_CHW_a)
-    annotation (Line(points={{60,-122},{60,-140}},  color={0,127,255}));
+    annotation (Line(points={{0,-122},{0,-140}},    color={0,127,255}));
   connect(gaiFanNor.y, yFan_actual)
     annotation (Line(points={{241,110},{280,110}}, color={0,0,127}));
   connect(fan.m_flow_actual, gaiFanNor.u) annotation (Line(points={{141,5},{160,
           5},{160,110},{218,110}},      color={0,0,127}));
   connect(heaCoiHW.port_a1, VHW_flow.port_b)
-    annotation (Line(points={{-80,-16},{-60,-16},{-60,-70}},
+    annotation (Line(points={{-80,-16},{-70,-16},{-70,-40},{-120,-40},{-120,-70}},
                                                        color={0,127,255}));
   connect(TAirLvg.T, TAirSup)
     annotation (Line(points={{170,11},{170,70},{280,70}},  color={0,0,127}));
-  connect(vAirRet.port_b, heaCoiEle.port_a) annotation (Line(points={{-180,0},{
-          -120,0},{-120,20},{-100,20}},         color={0,127,255}));
-  connect(vAirRet.port_b, heaCoiHW.port_a2) annotation (Line(points={{-180,0},{
-          -120,0},{-120,-4},{-100,-4}},            color={0,127,255}));
   connect(totResAir.port_b, fan.port_a) annotation (Line(points={{100,0},{120,0}},
                                 color={0,127,255}));
-  connect(bou.ports[1], fan.port_a) annotation (Line(points={{104,20},{114,20},
-          {114,0},{120,0}},     color={0,127,255}));
-  connect(vAirRet.port_b, pipByp.port_a) annotation (Line(points={{-180,0},{-120,
-          0},{-120,60},{-100,60}}, color={0,127,255}));
   connect(pipByp.port_b, TAirHea.port_a) annotation (Line(points={{-80,60},{-60,
           60},{-60,0},{-30,0}}, color={0,127,255}));
+  connect(TAirRet.port_b, heaCoiHW.port_a2) annotation (Line(points={{-210,0},{
+          -108,0},{-108,-4},{-100,-4}}, color={0,127,255}));
+  connect(TAirRet.port_b, heaCoiEle.port_a) annotation (Line(points={{-210,0},{
+          -108,0},{-108,20},{-100,20}}, color={0,127,255}));
+  connect(TAirRet.port_b, pipByp.port_a) annotation (Line(points={{-210,0},{
+          -108,0},{-108,60},{-100,60}}, color={0,127,255}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
