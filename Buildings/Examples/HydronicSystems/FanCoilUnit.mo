@@ -9,6 +9,131 @@ model FanCoilUnit
   replaceable package MediumW = Buildings.Media.Water
     "Medium for hot-water and chilled-water";
 
+  parameter Boolean sampleModel = false
+    "Set to true to time-sample the model, which can give shorter simulation time
+    if there is already time sampling in the system model"
+    annotation (Evaluate=true,Dialog(
+      tab="Experimental (may be changed in future releases)"));
+
+  parameter HeatTransfer.Data.Solids.Plywood matCarTra(
+    k=0.11,
+    d=544,
+    nStaRef=1,
+    x=0.215/0.11)
+    "Wood for floor"
+    annotation (Placement(transformation(extent={{200,190},{220,210}})));
+
+  parameter HeatTransfer.Data.Solids.Plywood matFur(
+    x=0.15,
+    nStaRef=5)
+    "Material for furniture"
+    annotation (Placement(transformation(extent={{238,190},{258,210}})));
+
+  parameter HeatTransfer.Data.Solids.Concrete matCon(
+    x=0.1,
+    k=1.311,
+    c=836,
+    nStaRef=5)
+    "Concrete"
+    annotation (Placement(transformation(extent={{200,130},{220,150}})));
+
+  parameter HeatTransfer.Data.Solids.Plywood matWoo(
+    x=0.01,
+    k=0.11,
+    d=544,
+    nStaRef=1)
+    "Wood for exterior construction"
+    annotation (Placement(transformation(extent={{200,100},{220,120}})));
+
+  parameter HeatTransfer.Data.Solids.GypsumBoard matGyp(
+    x=0.0127,
+    k=0.16,
+    c=830,
+    d=784,
+    nStaRef=2)
+    "Gypsum board"
+    annotation (Placement(transformation(extent={{200,60},{220,80}})));
+
+  parameter HeatTransfer.Data.Resistances.Carpet matCar
+    "Carpet"
+    annotation (Placement(transformation(extent={{200,160},{220,180}})));
+
+  parameter HeatTransfer.Data.Solids.Generic matIns(
+    x=0.087,
+    k=0.049,
+    c=836.8,
+    d=265,
+    nStaRef=5)
+    "Steelframe construction with insulation"
+    annotation (Placement(transformation(extent={{240,100},{260,120}})));
+
+  parameter HeatTransfer.Data.Solids.GypsumBoard matGyp2(
+    x=0.025,
+    k=0.16,
+    c=830,
+    d=784,
+    nStaRef=2)
+    "Gypsum board"
+    annotation (Placement(transformation(extent={{240,60},{260,80}})));
+
+  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+    UFra=2,
+    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
+    haveInteriorShade=false,
+    haveExteriorShade=false)
+    "Data record for the glazing system"
+    annotation (Placement(transformation(extent={{240,160},{260,180}})));
+
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(
+    final nLay=3,
+    material={matWoo,matIns,matGyp})
+    "Exterior construction"
+    annotation (Placement(transformation(extent={{208,264},{228,284}})));
+
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(
+    final nLay=1,
+    material={matGyp2})
+    "Interior wall construction"
+    annotation (Placement(transformation(extent={{246,264},{266,284}})));
+
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFur(
+    final nLay=1,
+    material={matFur})
+    "Construction for internal mass of furniture"
+    annotation (Placement(transformation(extent={{246,224},{266,244}})));
+
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(
+    final nLay=1,
+    material={matCon})
+    "Floor construction (opa_a is carpet)"
+    annotation (Placement(transformation(extent={{208,224},{228,244}})));
+
+  parameter Modelica.Units.SI.Length hRoo=2.74
+    "Room height";
+
+  parameter Modelica.Units.SI.Area AFlo=568.77/hRoo
+    "Area of each zone";
+
+  parameter Modelica.Units.SI.Volume VRoo=AFlo*hRoo
+    "Volume of each zone";
+
+  parameter Modelica.Units.SI.Length wExt=49.91
+    "Exterior wall width of each zone";
+
+  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
+    "Convective heat transfer model for room-facing surfaces of opaque constructions";
+
+  parameter Real winWalRat(
+    min=0.01,
+    max=0.99) = 0.33
+    "Window to wall ratio for exterior walls";
+
+  parameter Modelica.Units.SI.Length hWin=1.5
+    "Height of windows";
+
+  parameter Real kInt(min=0, max=1) = 1
+    "Gain factor to scale internal heat gain in each zone";
+
   Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 100000 + 3000,
@@ -16,7 +141,7 @@ model FanCoilUnit
     nPorts=1)
     "Source for hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90, origin={78,-176})));
+      rotation=90, origin={70,-230})));
 
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
@@ -25,7 +150,7 @@ model FanCoilUnit
     nPorts=1)
     "Sink for hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90, origin={48,-174})));
+      rotation=90, origin={20,-230})));
 
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
@@ -34,7 +159,7 @@ model FanCoilUnit
     nPorts=3)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90, origin={110,-174})));
+      rotation=90, origin={110,-230})));
 
   Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
@@ -43,7 +168,7 @@ model FanCoilUnit
     nPorts=3)
     "Source for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90, origin={140,-174})));
+      rotation=90, origin={150,-230})));
 
   Buildings.Fluid.ZoneEquipment.FourPipe fanCoiUni(
     redeclare package MediumA = MediumA,
@@ -57,8 +182,8 @@ model FanCoilUnit
     UACooCoi_nominal=7.5*2.25*146.06,
     mAir_flow_nominal=0.21303*2*3,
     QHeaCoi_flow_nominal=7795.7)
-    "Fan coil units"
-    annotation (Placement(transformation(extent={{-10,86},{30,126}})));
+    "Fan coil unit with no heating coil"
+    annotation (Placement(transformation(extent={{40,140},{80,180}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU(
     cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
@@ -74,14 +199,14 @@ model FanCoilUnit
     final TSupSet_max=308.15,
     final TSupSet_min=285.85)
     "Fan coil unit controller"
-    annotation (Placement(transformation(extent={{-62,78},{-22,150}})));
+    annotation (Placement(transformation(extent={{-58,104},{-18,176}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     computeWetBulbTemperature=false)
     "Weather data reader"
-    annotation (Placement(transformation(extent={{-48,180},{-28,200}})));
+    annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU1(
     cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
@@ -115,108 +240,17 @@ model FanCoilUnit
     "Fan coil unit controller"
     annotation (Placement(transformation(extent={{-68,-110},{-28,-38}})));
 
-  parameter Boolean sampleModel = false
-    "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
-    annotation (Evaluate=true,Dialog(
-      tab="Experimental (may be changed in future releases)"));
-
-  parameter HeatTransfer.Data.Solids.Plywood matCarTra(
-    k=0.11,
-    d=544,
-    nStaRef=1,
-    x=0.215/0.11) "Wood for floor"
-    annotation (Placement(transformation(extent={{30,262},{50,282}})));
-  parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
-    "Material for furniture"
-    annotation (Placement(transformation(extent={{68,262},{88,282}})));
-  parameter HeatTransfer.Data.Solids.Concrete matCon(
-    x=0.1,
-    k=1.311,
-    c=836,
-    nStaRef=5) "Concrete"
-    annotation (Placement(transformation(extent={{68,232},{88,252}})));
-  parameter HeatTransfer.Data.Solids.Plywood matWoo(
-    x=0.01,
-    k=0.11,
-    d=544,
-    nStaRef=1) "Wood for exterior construction"
-    annotation (Placement(transformation(extent={{68,202},{88,222}})));
-  parameter HeatTransfer.Data.Solids.GypsumBoard matGyp(
-    x=0.0127,
-    k=0.16,
-    c=830,
-    d=784,
-    nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{66,174},{86,194}})));
-  parameter HeatTransfer.Data.Resistances.Carpet matCar "Carpet"
-    annotation (Placement(transformation(extent={{108,262},{128,282}})));
-  parameter HeatTransfer.Data.Solids.Generic matIns(
-    x=0.087,
-    k=0.049,
-    c=836.8,
-    d=265,
-    nStaRef=5) "Steelframe construction with insulation"
-    annotation (Placement(transformation(extent={{108,202},{128,222}})));
-  parameter HeatTransfer.Data.Solids.GypsumBoard matGyp2(
-    x=0.025,
-    k=0.16,
-    c=830,
-    d=784,
-    nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{106,176},{126,196}})));
-  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
-    UFra=2,
-    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
-    haveInteriorShade=false,
-    haveExteriorShade=false) "Data record for the glazing system"
-    annotation (Placement(transformation(extent={{168,264},{188,284}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
-      material={matWoo,matIns,matGyp}) "Exterior construction"
-    annotation (Placement(transformation(extent={{208,264},{228,284}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(final nLay=1,
-      material={matGyp2}) "Interior wall construction"
-    annotation (Placement(transformation(extent={{246,264},{266,284}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFur(final nLay=1,
-      material={matFur})
-                 "Construction for internal mass of furniture"
-    annotation (Placement(transformation(extent={{246,224},{266,244}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(final nLay=1,
-      material={matCon})
-                 "Floor construction (opa_a is carpet)"
-    annotation (Placement(transformation(extent={{208,224},{228,244}})));
-
-  parameter Modelica.Units.SI.Length hRoo=2.74
-    "Room height";
-  parameter Modelica.Units.SI.Area AFloNor=568.77/hRoo
-    "Area of North zone";
-  parameter Modelica.Units.SI.Volume VRooNor=AFloNor*hRoo
-    "Volume of North zone";
-  parameter Modelica.Units.SI.Length wExtNor=49.91
-    "North zone exterior wall width";
-  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
-    "Convective heat transfer model for room-facing surfaces of opaque constructions";
-  parameter Real winWalRat(
-    min=0.01,
-    max=0.99) = 0.33 "Window to wall ratio for exterior walls";
-  parameter Modelica.Units.SI.Length hWin=1.5 "Height of windows";
-
-  parameter Real kIntNor(min=0, max=1) = 1
-    "Gain factor to scale internal heat gain in north zone";
-
-
-
-
-  ThermalZones.Detailed.MixedAir           nor(
+  Buildings.ThermalZones.Detailed.MixedAir zon1(
     redeclare package Medium = MediumA,
-    AFlo=AFloNor,
+    AFlo=AFlo,
     hRoo=hRoo,
     nConExt=0,
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={wExtNor*hRoo},
+      A={wExt*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*wExtNor*hRoo},
+      wWin={winWalRat/hWin*wExt*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -224,7 +258,7 @@ model FanCoilUnit
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
-      A={AFloNor,414.68},
+      A={AFlo,414.68},
       til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=3,
     datConBou(
@@ -235,31 +269,38 @@ model FanCoilUnit
     intConMod=intConMod,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final sampleModel=sampleModel,
-    nPorts=3)                      "North zone"
-    annotation (Placement(transformation(extent={{64,84},{110,132}})));
+    nPorts=3)
+    "Zone-1"
+    annotation (Placement(transformation(extent={{120,140},{170,190}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNoHeaCoi
     "Air temperature sensor"
-    annotation (Placement(transformation(extent={{136,90},{148,102}})));
+    annotation (Placement(transformation(extent={{160,220},{180,240}})));
+
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-200,166},{-180,186}})));
+    annotation (Placement(transformation(extent={{-200,190},{-180,210}})));
+
   Modelica.Blocks.Routing.Replicator replicator(nout=1)
-    annotation (Placement(transformation(extent={{-156,166},{-136,186}})));
+    annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
+
   Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
     table=[0,0.05; 8,0.05; 9,0.9; 12,0.9; 12,0.8; 13,0.8; 13,1; 17,1; 19,0.1; 24,
         0.05],
     timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
-    annotation (Placement(transformation(extent={{-164,-168},{-144,-148}})));
+    annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
+
   Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
-    annotation (Placement(transformation(extent={{-116,-166},{-96,-146}})));
-  Modelica.Blocks.Math.Gain gaiIntNor[3](each k=kIntNor)
-    "Gain for internal heat gain amplification for north zone"
-    annotation (Placement(transformation(extent={{-74,-164},{-54,-144}})));
-  Fluid.ZoneEquipment.FourPipe fanCoiUni1(
+    annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
+
+  Modelica.Blocks.Math.Gain gaiInt[3](each k=kInt)
+    "Gain for internal heat gain amplification for each zone"
+    annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
+
+  Buildings.Fluid.ZoneEquipment.FourPipe fanCoiUni1(
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
@@ -270,20 +311,20 @@ model FanCoilUnit
     UACooCoi_nominal=2.25*146.06,
     mAir_flow_nominal=0.21303*2*3,
     QHeaCoi_flow_nominal=7795.7)
-    "Fan coil units"
-    annotation (Placement(transformation(extent={{30,2},{70,42}})));
+    "Fan coil unit with hot-water heating coil"
+    annotation (Placement(transformation(extent={{30,20},{70,60}})));
 
-  ThermalZones.Detailed.MixedAir           nor1(
+  Buildings.ThermalZones.Detailed.MixedAir zon2(
     redeclare package Medium = MediumA,
-    AFlo=AFloNor,
+    AFlo=AFlo,
     hRoo=hRoo,
     nConExt=0,
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={wExtNor*hRoo},
+      A={wExt*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*wExtNor*hRoo},
+      wWin={winWalRat/hWin*wExt*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -291,7 +332,7 @@ model FanCoilUnit
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
-      A={AFloNor,414.68},
+      A={AFlo,414.68},
       til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=3,
     datConBou(
@@ -302,14 +343,15 @@ model FanCoilUnit
     nPorts=3,
     intConMod=intConMod,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final sampleModel=sampleModel) "North zone"
-    annotation (Placement(transformation(extent={{104,0},{150,48}})));
+    final sampleModel=sampleModel)
+    "Zone-2"
+    annotation (Placement(transformation(extent={{120,20},{170,70}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNoHeaCoi1
     "Air temperature sensor"
-    annotation (Placement(transformation(extent={{176,6},{188,18}})));
+    annotation (Placement(transformation(extent={{180,20},{200,40}})));
 
-  Fluid.ZoneEquipment.FourPipe fanCoiUni2(
+  Buildings.Fluid.ZoneEquipment.FourPipe fanCoiUni2(
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
@@ -321,20 +363,20 @@ model FanCoilUnit
     UACooCoi_nominal=2.25*146.06,
     mAir_flow_nominal=0.21303*2*3,
     QHeaCoi_flow_nominal=7795.7)
-    "Fan coil units"
+    "Fan coil unit with electric heating coil"
     annotation (Placement(transformation(extent={{26,-88},{66,-48}})));
 
-  ThermalZones.Detailed.MixedAir           nor2(
+  Buildings.ThermalZones.Detailed.MixedAir zon3(
     redeclare package Medium = MediumA,
-    AFlo=AFloNor,
+    AFlo=AFlo,
     hRoo=hRoo,
     nConExt=0,
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={wExtNor*hRoo},
+      A={wExt*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*wExtNor*hRoo},
+      wWin={winWalRat/hWin*wExt*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -342,7 +384,7 @@ model FanCoilUnit
     nConPar=2,
     datConPar(
       layers={conFlo,conFur},
-      A={AFloNor,414.68},
+      A={AFlo,414.68},
       til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
     nConBou=3,
     datConBou(
@@ -353,20 +395,23 @@ model FanCoilUnit
     nPorts=3,
     intConMod=intConMod,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final sampleModel=sampleModel) "North zone"
-    annotation (Placement(transformation(extent={{98,-94},{144,-46}})));
+    final sampleModel=sampleModel)
+    "Zone-3"
+    annotation (Placement(transformation(extent={{120,-80},{170,-30}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNoHeaCoi2
     "Air temperature sensor"
-    annotation (Placement(transformation(extent={{166,-78},{178,-66}})));
-  VAVReheat.BaseClasses.RoomLeakage                    leaNor(
+    annotation (Placement(transformation(extent={{180,-60},{200,-40}})));
+
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage lea(
     redeclare package Medium = MediumA,
-    VRoo=VRooNor,
+    VRoo=VRoo,
     s=49.91/33.27,
     azi=Buildings.Types.Azimuth.N,
     final use_windPressure=false)
     "Model for air infiltration through the envelope"
-    annotation (Placement(transformation(extent={{-6,128},{30,168}})));
+    annotation (Placement(transformation(extent={{0,260},{40,300}})));
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant LimLev(
     final k=0)
@@ -413,57 +458,63 @@ protected
     "Occupied cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
 
-  Modelica.Blocks.Math.Gain gaiIntNor1[3](
-    final k=fill(4.75*kIntNor,3))
-    "Gain for internal heat gain amplification for north zone"
-    annotation (Placement(transformation(extent={{-140,142},{-120,162}})));
+  Modelica.Blocks.Math.Gain gaiInt1[3](final k=fill(4.75*kInt, 3))
+    "Gain for internal heat gain amplification for zone with no heating coil service"
+    annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
+
 equation
-  connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{-20,130},{-20,112},
-          {-12,112}},                color={0,0,127}));
-  connect(conFCU.yCooCoi, fanCoiUni.uCoo) annotation (Line(points={{-20,114},{-20,
-          106},{-12,106}},  color={0,0,127}));
+  connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{-16,156},{20,156},
+          {20,166},{38,166}},        color={0,0,127}));
+  connect(conFCU.yCooCoi, fanCoiUni.uCoo) annotation (Line(points={{-16,140},{-16,
+          160},{38,160}},   color={0,0,127}));
   connect(greThr.y, tim.u) annotation (Line(points={{-178,-130},{-162,-130}},
                color={255,0,255}));
-  connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{32,98},{40,98},
-          {40,138},{-80,138},{-80,112},{-64,112}},          color={0,0,127}));
+  connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{82,152},{96,
+          152},{96,226},{-66,226},{-66,138},{-60,138}},     color={0,0,127}));
   connect(uSha.y, replicator.u)
-    annotation (Line(points={{-179,176},{-158,176}}, color={0,0,127}));
-  connect(replicator.y, nor.uSha) annotation (Line(points={{-135,176},{-54,176},
-          {-54,162},{56,162},{56,129.6},{62.16,129.6}}, color={0,0,127}));
-  connect(weaDat.weaBus, nor.weaBus) annotation (Line(
-      points={{-28,190},{60,190},{60,138},{107.585,138},{107.585,129.48}},
+    annotation (Line(points={{-179,200},{-162,200}}, color={0,0,127}));
+  connect(replicator.y, zon1.uSha) annotation (Line(points={{-139,200},{108,200},
+          {108,187.5},{118,187.5}}, color={0,0,127}));
+  connect(weaDat.weaBus, zon1.weaBus) annotation (Line(
+      points={{-120,280},{-12,280},{-12,268},{120,268},{120,200},{167.375,200},{
+          167.375,187.375}},
       color={255,204,51},
       thickness=0.5));
-  connect(nor.heaPorAir, temAirNoHeaCoi.port) annotation (Line(points={{85.85,108},
-          {58,108},{58,78},{130,78},{130,96},{136,96}}, color={191,0,0}));
-  connect(temAirNoHeaCoi.T, conFCU.TZon) annotation (Line(points={{148.6,96},{152,
-          96},{152,74},{-102,74},{-102,108},{-64,108}}, color={0,0,127}));
-  connect(intGaiFra.y, gai.u) annotation (Line(points={{-143,-158},{-126,-158},{
-          -126,-156},{-118,-156}}, color={0,0,127}));
-  connect(gai.y, gaiIntNor.u) annotation (Line(points={{-95,-156},{-84,-156},{-84,
-          -154},{-76,-154}}, color={0,0,127}));
+  connect(zon1.heaPorAir, temAirNoHeaCoi.port) annotation (Line(points={{143.75,
+          165},{112,165},{112,230},{160,230}}, color={191,0,0}));
+  connect(temAirNoHeaCoi.T, conFCU.TZon) annotation (Line(points={{181,230},{190,
+          230},{190,74},{-102,74},{-102,134},{-60,134}},color={0,0,127}));
+  connect(intGaiFra.y, gai.u) annotation (Line(points={{-219,-220},{-202,-220}},
+                                   color={0,0,127}));
+  connect(gai.y, gaiInt.u) annotation (Line(points={{-179,-220},{-168,-220},{
+          -168,-210},{-62,-210}},
+                             color={0,0,127}));
   connect(conFCU1.yFan, fanCoiUni1.uFan) annotation (Line(points={{-26,38},{20,38},
-          {20,28},{28,28}}, color={0,0,127}));
+          {20,46},{28,46}}, color={0,0,127}));
   connect(conFCU1.yCooCoi, fanCoiUni1.uCoo)
-    annotation (Line(points={{-26,22},{28,22}}, color={0,0,127}));
+    annotation (Line(points={{-26,22},{2,22},{2,40},{28,40}},
+                                                color={0,0,127}));
   connect(conFCU1.yHeaCoi, fanCoiUni1.uHea) annotation (Line(points={{-26,26},{14,
-          26},{14,16},{28,16}}, color={0,0,127}));
-  connect(fanCoiUni1.port_Air_b, nor1.ports[1]) annotation (Line(points={{70,18},
-          {98,18},{98,10.4},{109.75,10.4}}, color={0,127,255}));
-  connect(fanCoiUni1.port_Air_a, nor1.ports[2]) annotation (Line(points={{70,26},
-          {94,26},{94,18},{98,18},{98,12},{109.75,12}}, color={0,127,255}));
-  connect(nor1.heaPorAir, temAirNoHeaCoi1.port) annotation (Line(points={{125.85,
-          24},{154,24},{154,10},{176,10},{176,12}}, color={191,0,0}));
-  connect(conFCU1.TZon, temAirNoHeaCoi1.T) annotation (Line(points={{-70,16},{-78,
-          16},{-78,-20},{194,-20},{194,12},{188.6,12}}, color={0,0,127}));
-  connect(replicator.y, nor1.uSha) annotation (Line(points={{-135,176},{-54,176},
-          {-54,162},{56,162},{56,50},{98,50},{98,45.6},{102.16,45.6}}, color={0,
+          26},{14,34},{28,34}}, color={0,0,127}));
+  connect(fanCoiUni1.port_Air_b,zon2. ports[1]) annotation (Line(points={{70,36},
+          {76,36},{76,28},{88,28},{88,56},{108,56},{108,30.8333},{126.25,
+          30.8333}},                        color={0,127,255}));
+  connect(fanCoiUni1.port_Air_a,zon2. ports[2]) annotation (Line(points={{70,44},
+          {88,44},{88,56},{108,56},{108,32.5},{126.25,32.5}},
+                                                        color={0,127,255}));
+  connect(zon2.heaPorAir, temAirNoHeaCoi1.port) annotation (Line(points={{143.75,
+          45},{96,45},{96,80},{168,80},{168,68},{180,68},{180,30}},
+                                                    color={191,0,0}));
+  connect(conFCU1.TZon, temAirNoHeaCoi1.T) annotation (Line(points={{-70,16},{-134,
+          16},{-134,-20},{212,-20},{212,30},{201,30}},  color={0,0,127}));
+  connect(replicator.y,zon2. uSha) annotation (Line(points={{-139,200},{108,200},
+          {108,68},{114,68},{114,67.5},{118,67.5}},                    color={0,
           0,127}));
-  connect(gaiIntNor.y, nor1.qGai_flow) annotation (Line(points={{-53,-154},{-18,
-          -154},{-18,76},{96,76},{96,33.6},{102.16,33.6}}, color={0,0,127}));
-  connect(weaDat.weaBus, nor1.weaBus) annotation (Line(
-      points={{-28,190},{0,190},{0,164},{60,164},{60,138},{156,138},{156,45.48},
-          {147.585,45.48}},
+  connect(gaiInt.y,zon2. qGai_flow) annotation (Line(points={{-39,-210},{102,
+          -210},{102,54},{112,54},{112,55},{118,55}},      color={0,0,127}));
+  connect(weaDat.weaBus,zon2. weaBus) annotation (Line(
+      points={{-120,280},{-12,280},{-12,268},{120,268},{120,200},{180,200},{180,
+          67.375},{167.375,67.375}},
       color={255,204,51},
       thickness=0.5));
   connect(conFCU2.yFan, fanCoiUni2.uFan) annotation (Line(points={{-26,-58},{14,
@@ -472,64 +523,65 @@ equation
           14,-74},{14,-68},{24,-68}}, color={0,0,127}));
   connect(conFCU2.yHeaCoi, fanCoiUni2.uHea) annotation (Line(points={{-26,-70},{
           8,-70},{8,-76},{16,-76},{16,-74},{24,-74}}, color={0,0,127}));
-  connect(fanCoiUni2.port_Air_a, nor2.ports[1]) annotation (Line(points={{66,-64},
-          {92,-64},{92,-83.6},{103.75,-83.6}}, color={0,127,255}));
-  connect(fanCoiUni2.port_Air_b, nor2.ports[2]) annotation (Line(points={{66,-72},
-          {92,-72},{92,-82},{103.75,-82}}, color={0,127,255}));
-  connect(nor2.heaPorAir, temAirNoHeaCoi2.port) annotation (Line(points={{119.85,
-          -70},{148,-70},{148,-74},{160,-74},{160,-72},{166,-72}}, color={191,0,
+  connect(fanCoiUni2.port_Air_a,zon3. ports[1]) annotation (Line(points={{66,-64},
+          {76,-64},{76,-72},{108,-72},{108,-69.1667},{126.25,-69.1667}},
+                                               color={0,127,255}));
+  connect(fanCoiUni2.port_Air_b,zon3. ports[2]) annotation (Line(points={{66,-72},
+          {108,-72},{108,-67.5},{126.25,-67.5}},
+                                           color={0,127,255}));
+  connect(zon3.heaPorAir, temAirNoHeaCoi2.port) annotation (Line(points={{143.75,
+          -55},{104,-55},{104,-32},{180,-32},{180,-50}},           color={191,0,
           0}));
-  connect(replicator.y[1], nor2.uSha[1]) annotation (Line(points={{-135,176},{-54,
-          176},{-54,162},{56,162},{56,50},{90,50},{90,-48.4},{96.16,-48.4}},
+  connect(replicator.y[1],zon3. uSha[1]) annotation (Line(points={{-139,200},{108,
+          200},{108,-32},{114,-32},{114,-32.5},{118,-32.5}},
         color={0,0,127}));
-  connect(gaiIntNor.y, nor2.qGai_flow) annotation (Line(points={{-53,-154},{-18,
-          -154},{-18,76},{96,76},{96,-40},{88,-40},{88,-60.4},{96.16,-60.4}},
+  connect(gaiInt.y,zon3. qGai_flow) annotation (Line(points={{-39,-210},{102,
+          -210},{102,-46},{108,-46},{108,-45},{118,-45}},
         color={0,0,127}));
   connect(conFCU2.TZon, temAirNoHeaCoi2.T) annotation (Line(points={{-70,-80},{-78,
-          -80},{-78,-116},{184,-116},{184,-72},{178.6,-72}}, color={0,0,127}));
-  connect(sinHea.ports[1], fanCoiUni1.port_HW_b) annotation (Line(points={{48,-164},
-          {48,-162},{50,-162},{50,-154},{-4,-154},{-4,-22},{36,-22},{36,2}},
+          -80},{-78,-116},{204,-116},{204,-50},{201,-50}},   color={0,0,127}));
+  connect(sinHea.ports[1], fanCoiUni1.port_HW_b) annotation (Line(points={{20,-220},
+          {20,12},{36,12},{36,20}},
         color={0,127,255}));
-  connect(souHea.ports[1], fanCoiUni1.port_HW_a) annotation (Line(points={{78,-166},
-          {78,-164},{80,-164},{80,-160},{6,-160},{6,-24},{38,-24},{38,-4},{46,-4},
-          {46,2}}, color={0,127,255}));
+  connect(souHea.ports[1], fanCoiUni1.port_HW_a) annotation (Line(points={{70,-220},
+          {70,-166},{24,-166},{24,0},{44,0},{44,20},{46,20}},
+                   color={0,127,255}));
   connect(sinCoo.ports[1], fanCoiUni2.port_CHW_b) annotation (Line(points={{111.333,
-          -164},{111.333,-158},{12,-158},{12,-98},{48,-98},{48,-88}},
-                                                                  color={0,127,255}));
+          -220},{111.333,-96},{48,-96},{48,-88}},                 color={0,127,255}));
   connect(sinCoo.ports[2], fanCoiUni1.port_CHW_b) annotation (Line(points={{110,
-          -164},{110,-162},{112,-162},{112,-158},{12,-158},{12,-26},{40,-26},{40,
-          -6},{52,-6},{52,2}}, color={0,127,255}));
-  connect(souCoo.ports[1], fanCoiUni2.port_CHW_a) annotation (Line(points={{141.333,
-          -164},{141.333,-158},{138,-158},{138,-100},{58,-100},{58,-88}},
-                                                                      color={0,127,
+          -220},{110,-96},{12,-96},{12,-8},{52,-8},{52,20}},
+                               color={0,127,255}));
+  connect(souCoo.ports[1], fanCoiUni2.port_CHW_a) annotation (Line(points={{151.333,
+          -220},{151.333,-100},{58,-100},{58,-88}},                   color={0,127,
           255}));
-  connect(souCoo.ports[2], fanCoiUni1.port_CHW_a) annotation (Line(points={{140,
-          -164},{140,-162},{142,-162},{142,-158},{138,-158},{138,-100},{78,-100},
-          {78,-4},{62,-4},{62,2}}, color={0,127,255}));
-  connect(weaDat.weaBus, nor2.weaBus) annotation (Line(
-      points={{-28,190},{4,190},{4,170},{64,170},{64,144},{160,144},{160,28},{
-          200,28},{200,-48.52},{141.585,-48.52}},
+  connect(souCoo.ports[2], fanCoiUni1.port_CHW_a) annotation (Line(points={{150,
+          -220},{150,-100},{88,-100},{88,0},{80,0},{80,-4},{62,-4},{62,20}},
+                                   color={0,127,255}));
+  connect(weaDat.weaBus,zon3. weaBus) annotation (Line(
+      points={{-120,280},{-12,280},{-12,268},{120,268},{120,200},{180,200},{180,
+          68},{192,68},{192,48},{208,48},{208,12},{167.375,12},{167.375,-32.625}},
       color={255,204,51},
       thickness=0.5));
-  connect(fanCoiUni1.TAirSup, conFCU1.TSup) annotation (Line(points={{72,14},{78,
-          14},{78,64},{4,64},{4,20},{-70,20}}, color={0,0,127}));
+  connect(fanCoiUni1.TAirSup, conFCU1.TSup) annotation (Line(points={{72,32},{78,
+          32},{78,80},{-88,80},{-88,20},{-70,20}},
+                                               color={0,0,127}));
   connect(fanCoiUni2.TAirSup, conFCU2.TSup) annotation (Line(points={{68,-76},{76,
           -76},{76,-118},{-80,-118},{-80,-76},{-70,-76}}, color={0,0,127}));
   connect(cooWarTim.y, conFCU.warUpTim) annotation (Line(points={{-178,140},{-114,
-          140},{-114,148},{-64,148}}, color={0,0,127}));
+          140},{-114,174},{-60,174}}, color={0,0,127}));
   connect(cooWarTim.y, conFCU.cooDowTim) annotation (Line(points={{-178,140},{-114,
-          140},{-114,148},{-72,148},{-72,144},{-64,144}}, color={0,0,127}));
+          140},{-114,170},{-60,170}},                     color={0,0,127}));
   connect(cooWarTim.y, conFCU1.warUpTim) annotation (Line(points={{-178,140},{-114,
           140},{-114,102},{-76,102},{-76,64},{-70,64},{-70,56}}, color={0,0,127}));
   connect(cooWarTim.y, conFCU1.cooDowTim) annotation (Line(points={{-178,140},{-114,
           140},{-114,102},{-76,102},{-76,64},{-80,64},{-80,56},{-78,56},{-78,52},
           {-70,52}}, color={0,0,127}));
-  connect(TSetAdj.y, conFCU.setAdj) annotation (Line(points={{-178,110},{-76,110},
-          {-76,136},{-64,136}}, color={0,0,127}));
-  connect(TSetAdj.y, conFCU1.setAdj) annotation (Line(points={{-178,110},{-116,110},
-          {-116,44},{-70,44}}, color={0,0,127}));
-  connect(TSetAdj.y, conFCU2.setAdj) annotation (Line(points={{-178,110},{-116,110},
-          {-116,44},{-84,44},{-84,-52},{-70,-52}}, color={0,0,127}));
+  connect(TSetAdj.y, conFCU.setAdj) annotation (Line(points={{-178,110},{-150,110},
+          {-150,162},{-60,162}},color={0,0,127}));
+  connect(TSetAdj.y, conFCU1.setAdj) annotation (Line(points={{-178,110},{-150,110},
+          {-150,44},{-70,44}}, color={0,0,127}));
+  connect(TSetAdj.y, conFCU2.setAdj) annotation (Line(points={{-178,110},{-150,110},
+          {-150,-52},{-70,-52}},                   color={0,0,127}));
   connect(cooWarTim.y, conFCU2.warUpTim) annotation (Line(points={{-178,140},{-114,
           140},{-114,102},{-76,102},{-76,64},{-80,64},{-80,56},{-84,56},{-84,46},
           {-86,46},{-86,-54},{-80,-54},{-80,-50},{-78,-50},{-78,-40},{-70,-40}},
@@ -539,10 +591,10 @@ equation
           {-86,46},{-86,-54},{-80,-54},{-80,-50},{-78,-50},{-78,-44},{-70,-44}},
         color={0,0,127}));
   connect(LimLev.y, conFCU.uCooDemLimLev) annotation (Line(points={{-178,80},{-162,
-          80},{-162,120},{-104,120},{-104,106},{-74,106},{-74,120},{-64,120}},
+          80},{-162,120},{-104,120},{-104,106},{-74,106},{-74,146},{-60,146}},
         color={255,127,0}));
   connect(LimLev.y, conFCU.uHeaDemLimLev) annotation (Line(points={{-178,80},{-162,
-          80},{-162,120},{-104,120},{-104,106},{-74,106},{-74,116},{-64,116}},
+          80},{-162,120},{-104,120},{-104,106},{-74,106},{-74,142},{-60,142}},
         color={255,127,0}));
   connect(LimLev.y, conFCU1.uCooDemLimLev) annotation (Line(points={{-178,80},{-124,
           80},{-124,28},{-70,28}}, color={255,127,0}));
@@ -554,7 +606,7 @@ equation
           80},{-124,28},{-90,28},{-90,-68},{-78,-68},{-78,-72},{-70,-72}},
         color={255,127,0}));
   connect(occSch.tNexOcc, conFCU.tNexOcc) annotation (Line(points={{-179,46},{-122,
-          46},{-122,122},{-110,122},{-110,140},{-64,140}}, color={0,0,127}));
+          46},{-122,122},{-110,122},{-110,166},{-60,166}}, color={0,0,127}));
   connect(occSch.tNexOcc, conFCU1.tNexOcc) annotation (Line(points={{-179,46},{-90,
           46},{-90,48},{-70,48}}, color={0,0,127}));
   connect(occSch.tNexOcc, conFCU2.tNexOcc) annotation (Line(points={{-179,46},{-90,
@@ -565,83 +617,90 @@ equation
   connect(occSch.occupied, conFCU2.u1Occ) annotation (Line(points={{-179,34},{-96,
           34},{-96,-72},{-82,-72},{-82,-63.8},{-70,-63.8}}, color={255,0,255}));
   connect(occSch.occupied, conFCU.u1Occ) annotation (Line(points={{-179,34},{-126,
-          34},{-126,124.2},{-64,124.2}}, color={255,0,255}));
+          34},{-126,150.2},{-60,150.2}}, color={255,0,255}));
   connect(TOccHeaSetPoi.y, conFCU.TOccHeaSet) annotation (Line(points={{-180,6},
-          {-120,6},{-120,112},{-106,112},{-106,104},{-64,104}}, color={0,0,127}));
+          {-100,6},{-100,130},{-60,130}},                       color={0,0,127}));
   connect(conFCU1.TOccHeaSet, TOccHeaSetPoi.y) annotation (Line(points={{-70,12},
-          {-82,12},{-82,58},{-120,58},{-120,6},{-180,6}}, color={0,0,127}));
+          {-100,12},{-100,6},{-180,6}},                   color={0,0,127}));
   connect(conFCU2.TOccHeaSet, TOccHeaSetPoi.y) annotation (Line(points={{-70,-84},
-          {-102,-84},{-102,-38},{-124,-38},{-124,6},{-180,6}}, color={0,0,127}));
+          {-100,-84},{-100,6},{-180,6}},                       color={0,0,127}));
   connect(TOccCooSetPoi.y, conFCU2.TOccCooSet) annotation (Line(points={{-178,-40},
           {-124,-40},{-124,-88},{-70,-88}}, color={0,0,127}));
   connect(TOccCooSetPoi.y, conFCU1.TOccCooSet) annotation (Line(points={{-178,-40},
           {-124,-40},{-124,-88},{-82,-88},{-82,-74},{-80,-74},{-80,-56},{-82,-56},
           {-82,8},{-70,8}}, color={0,0,127}));
   connect(TOccCooSetPoi.y, conFCU.TOccCooSet) annotation (Line(points={{-178,-40},
-          {-104,-40},{-104,42},{-118,42},{-118,100},{-64,100}}, color={0,0,127}));
+          {-104,-40},{-104,42},{-118,42},{-118,126},{-60,126}}, color={0,0,127}));
   connect(TUnOccCooSet.y, conFCU2.TUnoCooSet) annotation (Line(points={{-178,-70},
-          {-104,-70},{-104,-86},{-84,-86},{-84,-96},{-70,-96}}, color={0,0,127}));
+          {-116,-70},{-116,-96},{-70,-96}},                     color={0,0,127}));
   connect(TUnOccCooSet.y, conFCU1.TUnoCooSet) annotation (Line(points={{-178,-70},
-          {-124,-70},{-124,0},{-70,0}}, color={0,0,127}));
+          {-116,-70},{-116,0},{-70,0}}, color={0,0,127}));
   connect(TUnOccCooSet.y, conFCU.TUnoCooSet) annotation (Line(points={{-178,-70},
-          {-124,-70},{-124,0},{-92,0},{-92,92},{-64,92}}, color={0,0,127}));
+          {-116,-70},{-116,0},{-92,0},{-92,118},{-60,118}},
+                                                          color={0,0,127}));
   connect(TUnOccHeaSet.y, conFCU2.TUnoHeaSet) annotation (Line(points={{-178,-100},
-          {-82,-100},{-82,-92},{-70,-92}}, color={0,0,127}));
+          {-140,-100},{-140,-92},{-70,-92}},
+                                           color={0,0,127}));
   connect(TUnOccHeaSet.y, conFCU1.TUnoHeaSet) annotation (Line(points={{-178,-100},
-          {-124,-100},{-124,4},{-70,4}}, color={0,0,127}));
+          {-140,-100},{-140,4},{-70,4}}, color={0,0,127}));
   connect(TUnOccHeaSet.y, conFCU.TUnoHeaSet) annotation (Line(points={{-178,-100},
-          {-124,-100},{-124,4},{-94,4},{-94,96},{-64,96}}, color={0,0,127}));
-  connect(weaDat.weaBus, leaNor.weaBus) annotation (Line(
-      points={{-28,190},{-12,190},{-12,148},{-6,148}},
+          {-140,-100},{-140,122},{-60,122}},               color={0,0,127}));
+  connect(weaDat.weaBus, lea.weaBus) annotation (Line(
+      points={{-120,280},{-112,280},{-112,284},{-8,284},{-8,280},{0,280}},
       color={255,204,51},
       thickness=0.5));
-  connect(leaNor.port_b, nor1.ports[3]) annotation (Line(points={{30,148},{54,
-          148},{54,48},{88,48},{88,26},{94,26},{94,18},{98,18},{98,13.6},{
-          109.75,13.6}}, color={0,127,255}));
-  connect(leaNor.port_b, nor2.ports[3]) annotation (Line(points={{30,148},{64,
-          148},{64,-82},{103.75,-82},{103.75,-80.4}}, color={0,127,255}));
-  connect(souCoo.ports[3], fanCoiUni.port_CHW_a) annotation (Line(points={{138.667,
-          -164},{138.667,-39},{22,-39},{22,86}}, color={0,127,255}));
+  connect(lea.port_b,zon2. ports[3]) annotation (Line(points={{40,280},{60,280},
+          {60,232},{100,232},{100,104},{88,104},{88,56},{108,56},{108,34.1667},
+          {126.25,34.1667}},
+                         color={0,127,255}));
+  connect(lea.port_b,zon3. ports[3]) annotation (Line(points={{40,280},{60,280},
+          {60,232},{100,232},{100,104},{88,104},{88,56},{108,56},{108,32},{112,
+          32},{112,-65.8333},{126.25,-65.8333}},      color={0,127,255}));
+  connect(souCoo.ports[3], fanCoiUni.port_CHW_a) annotation (Line(points={{148.667,
+          -220},{148.667,-212},{148,-212},{148,-100},{88,-100},{88,0},{80,0},{
+          80,-4},{64,-4},{64,-12},{8,-12},{8,124},{72,124},{72,140}},
+                                                 color={0,127,255}));
   connect(sinCoo.ports[3], fanCoiUni.port_CHW_b) annotation (Line(points={{108.667,
-          -164},{108.667,-158},{12,-158},{12,-26},{4,-26},{4,18},{8,18},{8,70},
-          {12,70},{12,86}},color={0,127,255}));
-  connect(fanCoiUni.yFan_actual, greThr[1].u) annotation (Line(points={{32,114},
-          {-136,114},{-136,104},{-202,104},{-202,-130}}, color={0,0,127}));
-  connect(fanCoiUni1.yFan_actual, greThr[2].u) annotation (Line(points={{72,30},
-          {-138,30},{-138,-18},{-202,-18},{-202,-130}}, color={0,0,127}));
+          -220},{108.667,-212},{108,-212},{108,-96},{12,-96},{12,128},{62,128},
+          {62,140}},       color={0,127,255}));
+  connect(fanCoiUni.yFan_actual, greThr[1].u) annotation (Line(points={{82,168},
+          {92,168},{92,220},{-220,220},{-220,-130},{-202,-130}},
+                                                         color={0,0,127}));
+  connect(fanCoiUni1.yFan_actual, greThr[2].u) annotation (Line(points={{72,48},
+          {78,48},{78,68},{-220,68},{-220,-130},{-202,-130}},
+                                                        color={0,0,127}));
   connect(fanCoiUni2.yFan_actual, greThr[3].u) annotation (Line(points={{68,-60},
-          {80,-60},{80,-122},{-16,-122},{-16,-176},{-212,-176},{-212,-130},{-202,
-          -130}}, color={0,0,127}));
+          {80,-60},{80,-180},{-220,-180},{-220,-130},{-202,-130}},
+                  color={0,0,127}));
   connect(tim[1].passed, conFCU.u1Fan) annotation (Line(points={{-138,-138},{-110,
-          -138},{-110,84},{-64,84}}, color={255,0,255}));
+          -138},{-110,110},{-60,110}},
+                                     color={255,0,255}));
   connect(tim[2].passed, conFCU1.u1Fan) annotation (Line(points={{-138,-138},{-110,
           -138},{-110,-8},{-70,-8}}, color={255,0,255}));
   connect(tim[3].passed, conFCU2.u1Fan) annotation (Line(points={{-138,-138},{-110,
           -138},{-110,-104},{-70,-104}}, color={255,0,255}));
-  connect(fanCoiUni.port_Air_b, nor.ports[1]) annotation (Line(points={{30,102},
-          {36,102},{36,94.4},{69.75,94.4}}, color={0,127,255}));
-  connect(fanCoiUni.port_Air_a, nor.ports[2]) annotation (Line(points={{30,110},
-          {42,110},{42,96},{69.75,96}}, color={0,127,255}));
-  connect(leaNor.port_b, nor.ports[3]) annotation (Line(points={{30,148},{54,148},
-          {54,97.6},{69.75,97.6}}, color={0,127,255}));
-  connect(nor.surf_conBou, nor1.surf_conBou) annotation (Line(points={{93.9,88.8},
-          {93.9,28},{92,28},{92,8},{98,8},{98,-6},{133.9,-6},{133.9,4.8}},
-        color={191,0,0}));
-  connect(nor.surf_conBou, nor2.surf_conBou) annotation (Line(points={{93.9,88.8},
-          {93.9,28},{92,28},{92,8},{98,8},{98,-18},{92,-18},{92,-62},{90,-62},{90,
-          -102},{127.9,-102},{127.9,-89.2}}, color={191,0,0}));
-  connect(gai.y, gaiIntNor1.u) annotation (Line(points={{-95,-156},{-84,-156},{-84,
-          -98},{-128,-98},{-128,136},{-146,136},{-146,144},{-150,144},{-150,152},
-          {-142,152}}, color={0,0,127}));
-  connect(gaiIntNor1.y, nor.qGai_flow) annotation (Line(points={{-119,152},{-72,
-          152},{-72,164},{-14,164},{-14,174},{36,174},{36,166},{58,166},{58,117.6},
-          {62.16,117.6}}, color={0,0,127}));
+  connect(fanCoiUni.port_Air_b, zon1.ports[1]) annotation (Line(points={{80,156},
+          {80,150.833},{126.25,150.833}}, color={0,127,255}));
+  connect(fanCoiUni.port_Air_a, zon1.ports[2]) annotation (Line(points={{80,164},
+          {100,164},{100,152.5},{126.25,152.5}}, color={0,127,255}));
+  connect(lea.port_b, zon1.ports[3]) annotation (Line(points={{40,280},{60,280},
+          {60,232},{100,232},{100,154.167},{126.25,154.167}}, color={0,127,255}));
+  connect(zon1.surf_conBou, zon2.surf_conBou) annotation (Line(points={{152.5,145},
+          {152.5,132},{92,132},{92,6},{152.5,6},{152.5,25}}, color={191,0,0}));
+  connect(zon1.surf_conBou, zon3.surf_conBou) annotation (Line(points={{152.5,145},
+          {152.5,132},{174,132},{174,-96},{152.5,-96},{152.5,-75}}, color={191,0,
+          0}));
+  connect(gai.y, gaiInt1.u) annotation (Line(points={{-179,-220},{-168,-220},
+          {-168,-184},{-224,-184},{-224,240},{-142,240}},
+                       color={0,0,127}));
+  connect(gaiInt1.y, zon1.qGai_flow) annotation (Line(points={{-119,240},{104,
+          240},{104,175},{118,175}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={Text(
           extent={{-110,192},{110,156}},
           textColor={0,0,255},
           textString="%name")}),  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-220,-160},{220,160}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-280,-300},{280,300}})),
 Documentation(info="<html>
 <p>
 This model demonstrates the usage of
@@ -655,22 +714,36 @@ This model consists of
 </p>
 <ul>
 <li>
-a 5-zone building thermal model with considerations for a building envelope model
-and air flow through building leakage and through open doors.
+3 thermal zone models with considerations for a building envelope and air flow
+through building leakage.
 </li>
 <li>
-a fan-coil unit that consists of a supply fan, an electric or hot-water heating
-coil, and a chilled-water cooling coil.
+3 fan-coil units serving each zone.
 </li>
 <li>
-The fan coil unit controller outputs the supply fan enable signal and speed signal,
+3 fan coil unit controllers that output the supply fan enable signal and speed signal,
 the supply air temperature setpoint, the zone air heating and cooling setpoints,
 and valve positions for heating and cooling coils.
 </li>
 </ul>
 <p>
+The 3 fan coil units each have a supply fan and a chilled-water cooling coil. The
+heating coil varies as follows for each instance:
+<ul>
+<li>
+<code>fanCoiUni</code> has no heating coil.
+</li>
+<li>
+<code>fanCoiUni1</code> has a hot-water heating coil.
+</li>
+<li>
+<code>fanCoiUni2</code> has an electric heating coil.
+</li>
+</ul>
+</p>
+<p>
 The HVAC system switches between occupied, unoccupied, unoccupied warm-up and
-unoccupied pre-cool modes. The cooling coil and heating coil valves are modulated
+unoccupied pre-cool modes. The cooling coil and heating coil output are modulated
 to maintain the heating and cooling setpoints. The supply air temperature is modulated
 based on the differential between the temperature setpoint and the zone temperature
 to avoid unecessary heating and cooling use and avoid extreme temperature fluctuations.
@@ -679,11 +752,8 @@ to avoid unecessary heating and cooling use and avoid extreme temperature fluctu
 See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FourPipe\">
 Buildings.Fluid.ZoneEquipment.FourPipe</a> and 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for the 
-description of the fan coil unit and the controller, and see the model 
-<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
-Buildings.Examples.VAVReheat.BaseClasses.Floor</a>
-for the description of the building envelope.
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a
+description of the fan coil unit and the controller.
 </p>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"
