@@ -705,8 +705,6 @@ block Controller
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
 
-
-protected
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests fcuPlaReq(
     final have_hotWatCoi=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_chiWatCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
@@ -744,11 +742,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not isOcc
     "If in unoccupied mode, switch off"
     annotation (Placement(transformation(extent={{-70,-290},{-50,-270}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant win(
-    final k=false) if not have_winSen
-    "Window status"
-    annotation (Placement(transformation(origin = {0, -66}, extent = {{-200, -190}, {-180, -170}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold havOcc(
     final t=1) if have_occSen
@@ -796,6 +789,12 @@ protected
     final cooDea=cooDea,
     final deaHysLim=deaHysLim) "Fan speed controller"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant win(
+    final k=false) if not have_winSen
+    "Window status"
+    annotation (Placement(transformation(origin = {0, -66}, extent = {{-200, -190}, {-180, -170}})));
 
 equation
   connect(unOccMod.y, isUnOcc.u2) annotation (Line(points={{-138,-280},{-120,-280},
