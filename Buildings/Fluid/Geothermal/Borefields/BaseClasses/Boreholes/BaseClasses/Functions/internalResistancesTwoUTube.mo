@@ -55,6 +55,7 @@ algorithm
   // instabilities in the calculations. Otherwise, calculations follow the
   // method of Bauer et al. (2011).
   if (RDelta[1,2] < 0) or (RDelta[1,3] < 0) then
+    x := 0;
     //Thermal resistance between the grout zone and borehole wall
     Rgb := Rg;
 
@@ -128,6 +129,12 @@ HVAC&amp;R Research,
 International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 9, 2025, by Jianjun Hu:<br/>
+Added missing value assignment.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2030\">IBPSA, #2030</a>.
+</li>
 <li>
 November 22, 2023, by Michael Wetter:<br/>
 Corrected use of <code>getInstanceName()</code> which was called inside a function which
