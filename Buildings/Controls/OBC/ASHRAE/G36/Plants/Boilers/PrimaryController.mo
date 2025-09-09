@@ -530,7 +530,7 @@ model PrimaryController
       enable=have_priOnl and have_heaPriPum and (have_remDPRegPri or have_locDPRegPri)));
 
   parameter Real boiDesFlo[nBoi](
-    final min=fill(1e-6,nBoi),
+    final min=fill(0,nBoi),
     final unit=fill("m3/s",nBoi),
     displayUnit=fill("m3/s",nBoi),
     final quantity=fill("VolumeFlowRate",nBoi),
@@ -1089,7 +1089,6 @@ protected
     final nPum_nominal=nPumPri,
     final minPumSpe=minPumSpePri,
     final VHotWat_flow_nominal=VHotWatPri_flow_nominal,
-    final boiDesFlo=boiDesFlo,
     final maxLocDp=maxLocDpPri,
     final minLocDp=minLocDpPri,
     final offTimThr=offTimThr_priPum,
@@ -1402,6 +1401,25 @@ protected
     have_temRegPri and not have_priSecTemSen or not have_priTemSen)
     "Calculate weighted average of boiler supply temperatures"
     annotation (Placement(transformation(extent={{-260,-296},{-240,-276}})));
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
+    final message="Invalid inputs for boiler design volume flowrates array")
+    "Error message for non-compliant boiler design flowrate input"
+    annotation (Placement(transformation(extent={{300,-470},{320,-450}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant boiDesFloSig[nBoi](
+    final k=boiDesFlo)
+    "Constant source for boiler design flowrates"
+    annotation (Placement(transformation(extent={{180,-470},{200,-450}})));
+
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nBoi](
+    final t=fill(1e-6, nBoi))
+    "Check if the design volume flowrate values are positive numbers"
+    annotation (Placement(transformation(extent={{220,-470},{240,-450}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
+    final nin=nBoi)
+    annotation (Placement(transformation(extent={{260,-470},{280,-450}})));
 
 equation
   connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-188,
@@ -1825,6 +1843,12 @@ equation
   connect(TWeiAve.TSupAveWei, staSetCon.THotWatSup) annotation (Line(points={{-238,
           -286},{-220,-286},{-220,-204},{-242,-204},{-242,10},{-212,10},{-212,9}},
         color={0,0,127}));
+  connect(boiDesFloSig.y, greThr.u)
+    annotation (Line(points={{202,-460},{218,-460}}, color={0,0,127}));
+  connect(greThr.y, mulAnd.u)
+    annotation (Line(points={{242,-460},{258,-460}}, color={255,0,255}));
+  connect(mulAnd.y, assMes2.u)
+    annotation (Line(points={{282,-460},{298,-460}}, color={255,0,255}));
   annotation (defaultComponentName="conPlaBoi",
     Icon(coordinateSystem(extent={{-100,-400},{100,400}}),
        graphics={

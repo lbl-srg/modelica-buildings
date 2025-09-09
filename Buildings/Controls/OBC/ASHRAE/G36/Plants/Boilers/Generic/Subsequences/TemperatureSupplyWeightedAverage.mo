@@ -5,7 +5,12 @@ block TemperatureSupplyWeightedAverage
   parameter Integer nBoi
     "Total number of boilers";
 
-  parameter Real boiDesFlo[nBoi]
+  parameter Real boiDesFlo[nBoi](
+    final min=fill(0,nBoi),
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi),
+    final start=fill(0,nBoi))
     "Vector of design flowrates for all boilers in plant";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[nBoi]

@@ -17,9 +17,6 @@ block Speed_temperature
     "Number of ignored primary pump speed reset requests"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
-  parameter Real boiDesFlo[nBoi]
-    "Vector of design flowrates for all boilers in plant";
-
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
@@ -289,11 +286,9 @@ until the difference is less than <code>oneReqLimLow</code>.
 </ul>
 <p>
 When there is no single temperature sensor in the primary loop and instead there
-are temperature sensors at each boiler supply outlet <code>THotWatBoiSup</code>,
-<code>use_priSen = false</code>, the primary loop temperature is
-calculated as the weighted average of <code>THotWatBoiSup</code>, weighted by the
-boiler design flowrates <code>boiDesFlo</code> of the enabled boilers
-<code>uBoiSta</code>.
+are temperature sensors at each boiler supply outlet (<code>use_priSen = false</code>),
+the average of the supply temperatures weighted by the boiler design flowrates of
+the enabled boilers <code>THotWatBoiSupWeiAve</code> is used.
 </p>
 </html>", revisions="<html>
 <ul>
