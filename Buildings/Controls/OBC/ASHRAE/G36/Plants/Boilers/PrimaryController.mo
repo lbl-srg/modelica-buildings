@@ -33,7 +33,7 @@ model PrimaryController
     False: Fixed-speed primary pumps"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Boolean have_secFloSen=false
+  parameter Boolean have_secFloSen_select=false
     "Required only for primary-secondary plant with flowrate-based primary pump 
     speed control.
     True: Flowrate sensor in secondary loop;
@@ -530,7 +530,7 @@ model PrimaryController
       enable=have_priOnl and have_heaPriPum and (have_remDPRegPri or have_locDPRegPri)));
 
   parameter Real boiDesFlo[nBoi](
-    final min=fill(1e-6,nBoi),
+    final min=fill(0,nBoi),
     final unit=fill("m3/s",nBoi),
     displayUnit=fill("m3/s",nBoi),
     final quantity=fill("VolumeFlowRate",nBoi),
@@ -812,7 +812,7 @@ model PrimaryController
     final quantity="VolumeFlowRate")
     if have_priOnl or not have_allNonCon or have_floRegPri
     "Measured hot water primary circuit flowrate"
-    annotation (Placement(transformation(extent={{-440,148},{-400,188}}),
+    annotation (Placement(transformation(extent={{-440,140},{-400,180}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatPri_rem[nSenPri](
@@ -836,7 +836,7 @@ model PrimaryController
     displayUnit=fill("m3/s",nLooSec),
     final quantity=fill("VolumeFlowRate",nLooSec)) if not have_priOnl and have_secFloSen
     "Measured hot water secondary circuit flowrates from all loops"
-    annotation(Placement(transformation(extent={{-440,-90},{-400,-50}}),
+    annotation(Placement(transformation(extent={{-440,-100},{-400,-60}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatDec_flow(
@@ -986,6 +986,12 @@ protected
   parameter Boolean have_floRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate)
     "Boolean flag for primary pump speed control with flowrate readings";
 
+  parameter Boolean have_secFloSen = if have_floRegPri then have_secFloSen_select
+    elseif (not have_priOnl and not have_varPriPum) then true
+    else false
+    "Parameter selection for secondary flow sensor in cases where user interface
+    may not be exposed";
+
   parameter Integer staInd[nSta]={i for i in 1:nSta}
     "Staging indices starting at 1";
 
@@ -1089,7 +1095,6 @@ protected
     final nPum_nominal=nPumPri,
     final minPumSpe=minPumSpePri,
     final VHotWat_flow_nominal=VHotWatPri_flow_nominal,
-    final boiDesFlo=boiDesFlo,
     final maxLocDp=maxLocDpPri,
     final minLocDp=minLocDpPri,
     final offTimThr=offTimThr_priPum,
@@ -1403,6 +1408,25 @@ protected
     "Calculate weighted average of boiler supply temperatures"
     annotation (Placement(transformation(extent={{-260,-296},{-240,-276}})));
 
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
+    final message="Invalid inputs for boiler design volume flowrates array")
+    "Error message for non-compliant boiler design flowrate input"
+    annotation (Placement(transformation(extent={{300,-470},{320,-450}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant boiDesFloSig[nBoi](
+    final k=boiDesFlo)
+    "Constant source for boiler design flowrates"
+    annotation (Placement(transformation(extent={{180,-470},{200,-450}})));
+
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nBoi](
+    final t=fill(1e-6, nBoi))
+    "Check if the design volume flowrate values are positive numbers"
+    annotation (Placement(transformation(extent={{220,-470},{240,-450}})));
+
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
+    final nin=nBoi)
+    annotation (Placement(transformation(extent={{260,-470},{280,-450}})));
+
 equation
   connect(staSetCon.yBoi, upProCon.uBoiSet) annotation (Line(points={{-188,
           -14.8333},{64,-14.8333},{64,98},{118,98}},
@@ -1481,16 +1505,16 @@ equation
   connect(TRetPri, conSet.THotWatRet) annotation (Line(points={{-420,208},{-260,
           208},{-260,-96},{-60,-96}},                   color={0,0,127}));
   connect(VHotWatPri_flow, staSetCon.VHotWatPri_flow) annotation (Line(points={{-420,
-          168},{-270,168},{-270,17.6667},{-212,17.6667}},
+          160},{-270,160},{-270,17.6667},{-212,17.6667}},
                                                      color={0,0,127}));
   connect(VHotWatPri_flow, upProCon.VHotWat_flow) annotation (Line(points={{-420,
-          168},{-270,168},{-270,88},{114,88},{114,118},{118,118}}, color={0,0,127}));
+          160},{-270,160},{-270,88},{114,88},{114,118},{118,118}}, color={0,0,127}));
   connect(VHotWatPri_flow, dowProCon.VHotWat_flow) annotation (Line(points={{-420,
-          168},{-270,168},{-270,88},{114,88},{114,60},{118,60}}, color={0,0,127}));
+          160},{-270,160},{-270,88},{114,88},{114,60},{118,60}}, color={0,0,127}));
   connect(VHotWatPri_flow, bypValPos.VHotWat_flow) annotation (Line(points={{-420,
-          168},{-270,168},{-270,88},{114,88},{114,-38},{118,-38}}, color={0,0,127}));
+          160},{-270,160},{-270,88},{114,88},{114,-38},{118,-38}}, color={0,0,127}));
   connect(VHotWatPri_flow, priPumCon.VHotWat_flow) annotation (Line(points={{-420,
-          168},{-270,168},{-270,88},{114,88},{114,-164.133},{118,-164.133}},
+          160},{-270,160},{-270,88},{114,88},{114,-164.133},{118,-164.133}},
                                                                      color={0,0,
           127}));
   connect(dpHotWatPri_rem, priPumCon.dpHotWat_remote) annotation (Line(points={{-420,88},
@@ -1793,8 +1817,8 @@ equation
           {58,-460}}, color={255,0,255}));
   connect(not3.y, or4.u2) annotation (Line(points={{42,-480},{52,-480},{52,-468},
           {58,-468}}, color={255,0,255}));
-  connect(VHotWatSec_flow, mulSum.u) annotation (Line(points={{-420,-70},{-420,-72},
-          {-376,-72},{-376,-90},{-362,-90}}, color={0,0,127}));
+  connect(VHotWatSec_flow, mulSum.u) annotation (Line(points={{-420,-80},{-372,-80},
+          {-372,-90},{-362,-90}},            color={0,0,127}));
   connect(mulSum.y, staSetCon.VHotWatSec_flow) annotation (Line(points={{-338,
           -90},{-272,-90},{-272,13.3333},{-212,13.3333}},
                                                      color={0,0,127}));
@@ -1825,6 +1849,12 @@ equation
   connect(TWeiAve.TSupAveWei, staSetCon.THotWatSup) annotation (Line(points={{-238,
           -286},{-220,-286},{-220,-204},{-242,-204},{-242,10},{-212,10},{-212,9}},
         color={0,0,127}));
+  connect(boiDesFloSig.y, greThr.u)
+    annotation (Line(points={{202,-460},{218,-460}}, color={0,0,127}));
+  connect(greThr.y, mulAnd.u)
+    annotation (Line(points={{242,-460},{258,-460}}, color={255,0,255}));
+  connect(mulAnd.y, assMes2.u)
+    annotation (Line(points={{282,-460},{298,-460}}, color={255,0,255}));
   annotation (defaultComponentName="conPlaBoi",
     Icon(coordinateSystem(extent={{-100,-400},{100,400}}),
        graphics={
