@@ -13,9 +13,6 @@ block G36 "Guideline 36 controller"
     cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Is the boiler plant a primary-only, condensing boiler plant?";
 
-  // FIXME: How are the following configurations supported?
-  // - Hybrid plant with dedicated non-condensing boiler pumps and headered condensing boiler pumps (see for instance Figure A-27 in G36)
-  // - Dedicated pump provided with boiler with factory controls
   final parameter Boolean have_heaPriPum =
     cfg.typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered or
     cfg.typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -26,8 +23,10 @@ block G36 "Guideline 36 controller"
     "True: Variable-speed primary pumps;
      False: Fixed-speed primary pumps";
 
-  final parameter Boolean have_secFloSen = have_senVHeaWatSec
-    "True: Flowrate sensor in secondary loop;
+  final parameter Boolean have_secFloSen_select = have_senVHeaWatSec
+    "Required only for primary-secondary plant with flowrate-based primary pump 
+    speed control.
+    True: Flowrate sensor in secondary loop;
     False: Flowrate sensor in decoupler";
 
   final parameter Boolean have_priSecTemSen = have_senTHeaWatPriSupCon or have_senTHeaWatPriSupNon
@@ -145,7 +144,7 @@ block G36 "Guideline 36 controller"
     final have_heaPriPum=have_heaPriPum,
     final have_priOnl=have_priOnl,
     final have_priSecTemSen=have_priSecTemSen,
-    final have_secFloSen=have_secFloSen,
+    final have_secFloSen_select=have_secFloSen_select,
     final have_varPriPum=have_varPriPum,
     final maxFloSet=maxFloSet,
     final maxLocDpPri=maxLocDp,
@@ -170,7 +169,7 @@ block G36 "Guideline 36 controller"
     "Primary loop controller"
     annotation (Placement(transformation(extent={{-10,-36},{10,32}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller ctlPumHeaWatSec(
-    final have_secFloSen=have_secFloSen,
+    final have_secFloSen=have_senVHeaWatSec,
     final have_looPriNonCon=cfg.have_boiNon,
     final maxLocDp=maxLocDp,
     final maxRemDp=maxRemDp,

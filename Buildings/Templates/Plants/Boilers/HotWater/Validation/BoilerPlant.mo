@@ -115,15 +115,16 @@ model BoilerPlant
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={160,-80})));
-  Fluid.FixedResistances.PressureDrop           pipHeaWat(
+  Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium = Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(
          datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
     annotation (Placement(transformation(extent={{30,-130},{10,-110}})));
-  Fluid.Sensors.TemperatureTwoPort THeaWatSup(redeclare each final package
-      Medium = Medium, m_flow_nominal=pla.mHeaWat_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort THeaWatSup(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=pla.mHeaWat_flow_nominal)
     "HW supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
