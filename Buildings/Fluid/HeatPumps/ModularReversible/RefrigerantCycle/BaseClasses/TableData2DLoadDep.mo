@@ -283,8 +283,8 @@ and the part load ratio <code>yMea</code> provided as input.<sup>2</sup>
 </li>
 </ul>
 <p>
-<sup>1</sup> The part load ratio is defined as the ratio of the actual heating 
-(or cooling) heat flow rate to the maximum capacity of the heat pump (or chiller) 
+<sup>1</sup> The part load ratio is defined as the ratio of the actual heating
+(or cooling) heat flow rate to the maximum capacity of the heat pump (or chiller)
 at the given load-side and ambient-side fluid temperatures.
 It is dimensionless and bounded by <code>0</code> and <code>max(PLRSup)</code>, where
 the upper bound is typically equal to <code>1</code> (unless there are some
@@ -433,11 +433,11 @@ Instead, the model assumes continuous operation from <code>0</code> to <code>max
 The only effect of cycling taken into account is the impact of the remaining power
 <code>P_min</code> when the machine is enabled and the last operating
 compressor is cycled off.
-Studies on chillers and heat pumps show that this is the main driver of 
+Studies on chillers and heat pumps show that this is the main driver of
 efficiency loss due to cycling (Rivière, 2004).
 When a compressor is staged on, energy losses occur due to the overcoming of the
 refrigerant pressure equalization and the heat exchanger temperature conditioning.
-However, a large part of these losses is recovered when staging off the compressor, 
+However, a large part of these losses is recovered when staging off the compressor,
 unless the machine is disconnected from the load when compressors are disabled.
 This disconnection does not happen when staging multiple compressors,
 and the research shows no significant performance degradation when a
@@ -446,13 +446,13 @@ And even when disabling the last operating compressor, most plant
 controls require continuous operation of the primary pumps when
 the chillers or heat pumps are enabled.
 The European Standard for performance rating of chillers and heat pumps
-at part load conditions (CEN, 2022) states that the performance degradation due to 
+at part load conditions (CEN, 2022) states that the performance degradation due to
 the pressure equalization effect when the unit restarts can be considered
 as negligible for hydronic systems.
-The only effect that will impact the coefficient of performance 
+The only effect that will impact the coefficient of performance
 when cycling is the remaining power input when the compressor is switching off.
 If this remaining power is not measured, the Standard prescribes a default
-value of <i>10&nbsp;&percnt;</i> of the effective power input measured 
+value of <i>10&nbsp;&percnt;</i> of the effective power input measured
 during continuous operation at part load.
 </p>
 <h4>Heat recovery chillers</h4>
@@ -498,10 +498,10 @@ which allows limiting the required PLR to account for equipment internal safetie
 <h4>References</h4>
 <ul>
 <li>
-CEN, 2022. European Standard EN&nbsp;14825:2022&nbsp;E. 
-Air conditioners, liquid chilling packages and heat pumps, 
-with electrically driven compressors, for space heating and cooling, 
-commercial and process cooling - Testing and rating at part load conditions 
+CEN, 2022. European Standard EN&nbsp;14825:2022&nbsp;E.
+Air conditioners, liquid chilling packages and heat pumps,
+with electrically driven compressors, for space heating and cooling,
+commercial and process cooling - Testing and rating at part load conditions
 and calculation of seasonal performance.
 </li>
 <li>Rivière, P. (2004). Performances saisonnières des groupes de production d’eau glaçée

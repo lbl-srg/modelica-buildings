@@ -95,7 +95,7 @@ model TableData2DLoadDep
     "Cooling performance data"
     annotation (choicesAllMatching=true,
     Dialog(enable=use_rev),
-  Placement(transformation(extent={{114,-18},{130,-2}})));
+    Placement(transformation(extent={{114,-18},{130,-2}})));
   parameter Modelica.Units.SI.Power P_min(final min=0)=0
     "Minimum power when system is enabled with compressor cycled off";
   parameter Modelica.Units.SI.Temperature TConHea_nominal

@@ -109,7 +109,7 @@ record HeatPumpGroup
       enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Modelica.Units.SI.MassFlowRate mSouHeaHp_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then mSouWwHeaHp_flow_nominal
-    else Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capHeaHp_nominal)
+    else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(capHeaHp_nominal)
     "Source fluid mass flow rate in heating mode - Each heat pump"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouHeaHp_nominal=if typ ==
@@ -131,7 +131,7 @@ record HeatPumpGroup
       enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and is_rev));
   final parameter Modelica.Units.SI.MassFlowRate mSouCooHp_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then mSouWwCooHp_flow_nominal
-    else Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capCooHp_nominal)
+    else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(capCooHp_nominal)
     "Source fluid mass flow rate in cooling mode - Each heat pump"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouCooHp_nominal=
@@ -174,7 +174,7 @@ record HeatPumpGroup
     defaultComponentName="datHp",
     Documentation(info="<html>
 <p>
-This record provides the set of parameters for heat pump group models 
+This record provides the set of parameters for heat pump group models
 that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups\">
 Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups</a>.
@@ -186,7 +186,7 @@ Only identical heat pumps are currently supported.
 The heat pump performance data are provided via the subrecords
 <code>perHeaHp</code> and <code>perCooHp</code> for the
 heating mode and the cooling mode, respectively.
-For the required format of the performance data files, 
+For the required format of the performance data files,
 please refer to the documentation of the block
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.

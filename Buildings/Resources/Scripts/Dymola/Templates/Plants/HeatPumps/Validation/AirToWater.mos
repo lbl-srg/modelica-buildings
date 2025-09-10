@@ -138,7 +138,7 @@ createPlot(
 createPlot(
     id=8,
     position={650, 40, 300, 600},
-    y={"pla.bus.hrc.y1", "pla.bus.hrc.y1Coo", "pla.hrc.hrc.chi.PLR2"},
+    y={"pla.bus.hrc.y1", "pla.bus.hrc.y1Coo", "pla.hrc.hrc.chi.PLR"},
     autoscale=true,
     grid=true,
     timeUnit="h"
