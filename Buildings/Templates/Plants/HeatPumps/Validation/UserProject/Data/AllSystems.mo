@@ -60,13 +60,13 @@ class AllSystems
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       TCon_nominal=pla.ctl.THeaWatSup_nominal,
       per(
-      fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_Chiller.txt"),
+        fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_Chiller.txt"),
         PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
         PLRCyc_min=0.2,
-        P_min=50,
         use_TEvaOutForTab=true,
-        use_TConOutForTab=true)),
+        use_TConOutForTab=true),
+      P_min=50),
     ctl(
       THeaWatSupSet_min=298.15,
       VHeaWatSec_flow_nominal=pla.cfg.nHp*pla.ctl.VHeaWatHp_flow_nominal/1.1,

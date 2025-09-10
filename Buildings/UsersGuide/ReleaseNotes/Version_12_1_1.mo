@@ -88,9 +88,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Templates.Components.HeatPumps.AirToWater<br/>
-	          Buildings.Templates.Components.HeatPumps.WaterToWater<br/>
-	          Buildings.Templates.Plants.HeatPumps.AirToWater
+<tr><td valign=\"top\">Buildings.Templates.Components.Chillers.Compression<br/>
+            Buildings.Templates.Components.HeatPumps.AirToWater<br/>
+            Buildings.Templates.Components.HeatPumps.WaterToWater<br/>
+	          Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+						Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater<br/>
+						Buildings.Templates.Plants.HeatPumps.Components.HeatRecoveryChiller
     </td>
     <td valign=\"top\">Refactored with load-dependent 2D table data heat pump model.<br/>
 This is for
