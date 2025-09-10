@@ -56,10 +56,6 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-280,-80},{-260,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiAva[2](
-    final k={true,true})
-    "Chilled availability"
-    annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatSup(
     final height=4,
     final duration=7200,
@@ -152,8 +148,6 @@ equation
     annotation (Line(points={{-298,-70},{-282,-70}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.TChiWatSupResReq) annotation (Line(points={{-258,
           -70},{-100,-70},{-100,-50},{-30,-50}},      color={255,127,0}));
-  connect(uChiAva.y, chiPlaCon.uChiAva) annotation (Line(points={{-218,-50},{-124,
-          -50},{-124,5},{-30,5}}, color={255,0,255}));
   connect(phi.y, chiPlaCon.phi) annotation (Line(points={{-278,60},{-150,60},{-150,
           100},{-30,100}}, color={0,0,127}));
   connect(TOut1.y, chiPlaCon.TOut) annotation (Line(points={{-238,-180},{-150,-180},
@@ -208,9 +202,6 @@ equation
           0,255}));
   connect(chiOne.y1_actual, chiPlaCon.uChi[1]) annotation (Line(points={{162,180},
           {180,180},{180,240},{-40,240},{-40,117.5},{-30,117.5}}, color={255,0,255}));
-  connect(chiOne.y1_actual, chiPlaCon.uChiHeaCon[1]) annotation (Line(points={{162,
-          180},{180,180},{180,240},{-40,240},{-40,-32.5},{-30,-32.5}}, color={255,
-          0,255}));
   connect(chiTwo.y1_actual, chiPlaCon.uChiWatReq[2]) annotation (Line(points={{162,
           120},{200,120},{200,250},{-60,250},{-60,202.5},{-30,202.5}}, color={255,
           0,255}));
@@ -219,9 +210,6 @@ equation
           0,255}));
   connect(chiTwo.y1_actual, chiPlaCon.uChi[2]) annotation (Line(points={{162,120},
           {200,120},{200,250},{-60,250},{-60,122.5},{-30,122.5}}, color={255,0,255}));
-  connect(chiTwo.y1_actual, chiPlaCon.uChiHeaCon[2]) annotation (Line(points={{162,
-          120},{200,120},{200,250},{-60,250},{-60,-27.5},{-30,-27.5}}, color={255,
-          0,255}));
   connect(chiPlaCon.yConWatPum, conWatPum.y1) annotation (Line(points={{90,0},{120,
           0},{120,0},{138,0}},      color={255,0,255}));
   connect(conWatPum.y1_actual, chiPlaCon.uConWatPum) annotation (Line(points={{162,0},
