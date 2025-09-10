@@ -120,7 +120,9 @@ A smaller time constant <code>Td &gt; 0</code> means a higher accuracy for the d
 <p>
 Note that the block limits the rate of change of the input <code>u</code> in the same
 way as <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
-Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>. However, the <code>LimitSlewRate</code>
+Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>. However, the
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
+Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>
 has a boolean parameter to flag if the rate of change should be limited, while this
 block has the boolean input <code>activate</code> to enable or disable the functionality.
 When the input <code>activate</code> switches to <code>false</code>,
