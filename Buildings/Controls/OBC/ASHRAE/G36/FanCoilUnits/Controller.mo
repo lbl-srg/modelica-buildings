@@ -705,8 +705,6 @@ block Controller
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
 
-
-protected
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests fcuPlaReq(
     final have_hotWatCoi=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_chiWatCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
@@ -745,11 +743,6 @@ protected
     "If in unoccupied mode, switch off"
     annotation (Placement(transformation(extent={{-70,-290},{-50,-270}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant win(
-    final k=false) if not have_winSen
-    "Window status"
-    annotation (Placement(transformation(origin = {0, -66}, extent = {{-200, -190}, {-180, -170}})));
-
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold havOcc(
     final t=1) if have_occSen
     "Check if there is occupant"
@@ -776,7 +769,7 @@ protected
     final TiHeaCoi=TiHeaCoi,
     final TdHeaCoi=TdHeaCoi,
     final deaHysLim=deaHysLim) "Supply air temperature setpoint controller"
-    annotation (Placement(transformation(extent={{40,38},{60,62}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe(
     final have_cooCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
@@ -796,6 +789,12 @@ protected
     final cooDea=cooDea,
     final deaHysLim=deaHysLim) "Fan speed controller"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant win(
+    final k=false) if not have_winSen
+    "Window status"
+    annotation (Placement(transformation(origin = {0, -66}, extent = {{-200, -190}, {-180, -170}})));
 
 equation
   connect(unOccMod.y, isUnOcc.u2) annotation (Line(points={{-138,-280},{-120,-280},
@@ -829,8 +828,8 @@ equation
           {-150,219},{-142,219}}, color={255,0,255}));
   connect(u1Win, modSetPoi.u1Win) annotation (Line(points={{-240,-260},{-150,-260},
           {-150,219},{-142,219}}, color={255,0,255}));
-  connect(havOcc.y, modSetPoi.u1OccSen) annotation (Line(points={{-190,-200},{
-          -164,-200},{-164,192},{-142,192}},                color={255,0,255}));
+  connect(havOcc.y, modSetPoi.u1OccSen) annotation (Line(points={{-178,-200},{-164,
+          -200},{-164,192},{-142,192}},                     color={255,0,255}));
   connect(modSetPoi.warUpTim, warUpTim) annotation (Line(points={{-142,222},{-166,
           222},{-166,260},{-240,260}}, color={0,0,127}));
   connect(modSetPoi.cooDowTim, cooDowTim) annotation (Line(points={{-142,224},{-160,
@@ -839,24 +838,20 @@ equation
           190},{-160,190},{-160,50},{-240,50}}, color={255,127,0}));
   connect(modSetPoi.uHeaDemLimLev, uHeaDemLimLev) annotation (Line(points={{-142,
           188},{-156,188},{-156,20},{-240,20}}, color={255,127,0}));
-  connect(TSupAir.yCooCoi, yCooCoi) annotation (Line(points={{62,44},{90,44},{
-          90,-20},{220,-20}},
-                           color={0,0,127}));
-  connect(TSupAir.yHeaCoi, yHeaCoi) annotation (Line(points={{62,56},{80,56},{
-          80,80},{220,80}},
-                         color={0,0,127}));
-  connect(TSupAir.TSupSet, TSupSet) annotation (Line(points={{62,50},{100,50},{
-          100,40},{220,40}},
-                         color={0,0,127}));
+  connect(TSupAir.yCooCoi, yCooCoi) annotation (Line(points={{62,44},{90,44},{90,
+          -20},{220,-20}}, color={0,0,127}));
+  connect(TSupAir.yHeaCoi, yHeaCoi) annotation (Line(points={{62,56},{80,56},{80,
+          80},{220,80}}, color={0,0,127}));
+  connect(TSupAir.TSupSet, TSupSet) annotation (Line(points={{62,50},{100,50},{100,
+          40},{220,40}}, color={0,0,127}));
   connect(fanSpe.yFan, yFan) annotation (Line(points={{62,218},{160,218},{160,200},
           {220,200}}, color={0,0,127}));
   connect(fanSpe.y1Fan, y1Fan) annotation (Line(points={{62,222},{160,222},{160,
           240},{220,240}}, color={255,0,255}));
   connect(modSetPoi.yOpeMod, fanSpe.opeMod) annotation (Line(points={{-118,214},
           {-60,214},{-60,226},{38,226}},  color={255,127,0}));
-  connect(TSup, TSupAir.TAirSup) annotation (Line(points={{-240,-10},{-80,-10},
-          {-80,48},{38,48}},
-                           color={0,0,127}));
+  connect(TSup, TSupAir.TAirSup) annotation (Line(points={{-240,-10},{-80,-10},{
+          -80,48},{38,48}},color={0,0,127}));
   connect(u1Fan, fanSpe.u1FanPro) annotation (Line(points={{-240,-230},{8,-230},
           {8,222},{38,222}},  color={255,0,255}));
   connect(heaPI.y, fanSpe.uHea) annotation (Line(points={{-58,260},{0,260},{0,218},
@@ -864,19 +859,17 @@ equation
   connect(cooPI.y, fanSpe.uCoo) annotation (Line(points={{-18,206},{20,206},{20,
           214},{38,214}},  color={0,0,127}));
   connect(modSetPoi.TCooSet,TSupAir.TZonCooSet)  annotation (Line(points={{-118,
-          206},{-50,206},{-50,40},{38,40}},    color={0,0,127}));
+          206},{-50,206},{-50,42},{38,42}},    color={0,0,127}));
   connect(modSetPoi.THeaSet,TSupAir.TZonHeaSet)  annotation (Line(points={{-118,
-          198},{-54,198},{-54,56},{38,56}},    color={0,0,127}));
-  connect(cooPI.y, TSupAir.uCoo) annotation (Line(points={{-18,206},{20,206},{
-          20,44},{38,44}}, color={0,0,127}));
-  connect(heaPI.y, TSupAir.uHea) annotation (Line(points={{-58,260},{0,260},{0,
-          52},{38,52}},
-                      color={0,0,127}));
-  connect(u1Fan, TSupAir.u1Fan) annotation (Line(points={{-240,-230},{8,-230},{
-          8,60},{38,60}},
-                        color={255,0,255}));
-  connect(nOcc, havOcc.u) annotation (Line(points={{-240,-200},{-190, -200}},
-                            color={255,127,0}));
+          198},{-54,198},{-54,55},{38,55}},    color={0,0,127}));
+  connect(cooPI.y, TSupAir.uCoo) annotation (Line(points={{-18,206},{20,206},{20,
+          45},{38,45}},    color={0,0,127}));
+  connect(heaPI.y, TSupAir.uHea) annotation (Line(points={{-58,260},{0,260},{0,52},
+          {38,52}},   color={0,0,127}));
+  connect(u1Fan, TSupAir.u1Fan) annotation (Line(points={{-240,-230},{8,-230},{8,
+          58},{38,58}}, color={255,0,255}));
+  connect(nOcc, havOcc.u) annotation (Line(points={{-240,-200},{-202,-200}},
+          color={255,127,0}));
   connect(cooSetAdj, modSetPoi.cooSetAdj) annotation (Line(points={{-240,140},{-172,
           140},{-172,197},{-142,197}}, color={0,0,127}));
   connect(heaSetAdj, modSetPoi.heaSetAdj) annotation (Line(points={{-240,110},{-168,

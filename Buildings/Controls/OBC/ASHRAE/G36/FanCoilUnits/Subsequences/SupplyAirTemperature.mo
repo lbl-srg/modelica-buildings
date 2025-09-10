@@ -74,7 +74,7 @@ block SupplyAirTemperature
 
   parameter Real TiCooCoi(
     unit="s",
-    displayUnit="s")=0.5
+    displayUnit="s")=60
     "Integrator time constant"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
       enable = (cooCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -104,7 +104,7 @@ block SupplyAirTemperature
 
   parameter Real TiHeaCoi(
     unit="s",
-    displayUnit="s")=0.5
+    displayUnit="s")=60
     "Integrator block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
       enable = (heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -122,14 +122,14 @@ block SupplyAirTemperature
 
   parameter Real deaHysLim(
     unit="1",
-    displayUnit="1")=0.01
+    displayUnit="1")=0.2
     "Hysteresis limits for deadband mode transitions"
     annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
     final unit="1",
@@ -143,7 +143,7 @@ block SupplyAirTemperature
     displayUnit="1") if have_cooCoi
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-280,-80},{-240,-40}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
@@ -159,7 +159,7 @@ block SupplyAirTemperature
     final quantity="ThermodynamicTemperature") if have_heaCoi
     "Zone heating temperature setpoint"
     annotation (Placement(transformation(extent={{-280,60},{-240,100}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
@@ -167,7 +167,7 @@ block SupplyAirTemperature
     final quantity="ThermodynamicTemperature") if have_cooCoi
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-280,-130},{-240,-90}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final unit="1",
@@ -191,7 +191,6 @@ block SupplyAirTemperature
     annotation (Placement(transformation(extent={{240,-70},{280,-30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
   Buildings.Controls.OBC.CDL.Reals.Switch swiDeaCoo
     "Switch for turning on cooling mode from deadband mode"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
@@ -211,26 +210,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Line linTCooSupAir if have_cooCoi
     "Convert cooling loop signal to supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTSupSet_max(
-    final k=TSupSet_max) if have_heaCoi
-    "Maximum heating supply air temperature setpoint limit signal"
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUHea_min(
-    final k=uHea_min) if have_heaCoi
-    "Minimum heating loop signal support point"
-    annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTSupSet_min(
-    final k=TSupSet_min) if have_cooCoi
-    "Minimum cooling supply air temperature setpoint limit signal"
-    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUCoo_min(
-    final k=uCoo_min) if have_cooCoi
-    "Minimum cooling loop signal support point"
-    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
 
   Buildings.Controls.OBC.CDL.Reals.PID conPIDHea(
     final controllerType=heaCoiConTyp,
@@ -277,6 +256,37 @@ protected
     "Output cooling coil signal only when fan is proven on"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
 
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=1) if not have_heaCoi
+    "Dummy gain"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
+    final k=1) if not have_cooCoi
+    "Dummy gain"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTSupSet_max(
+    final k=TSupSet_max) if have_heaCoi
+    "Maximum heating supply air temperature setpoint limit signal"
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUHea_min(
+    final k=uHea_min) if have_heaCoi
+    "Minimum heating loop signal support point"
+    annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTSupSet_min(
+    final k=TSupSet_min) if have_cooCoi
+    "Minimum cooling supply air temperature setpoint limit signal"
+    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUCoo_min(
+    final k=uCoo_min) if have_cooCoi
+    "Minimum cooling loop signal support point"
+    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conUHea_max(
     final k=uHea_max) if have_heaCoi
     "Maximum heating loop signal support point"
@@ -292,20 +302,10 @@ protected
     "Constant zero signal"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=1) if not have_heaCoi
-    "Dummy gain"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false) if not have_cooCoi
     "Constant false"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
-
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
-    final k=1) if not have_cooCoi
-    "Dummy gain"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 equation
   connect(uHea, linTHeaSupAir.u) annotation (Line(points={{-260,40},{-100,40},{-100,
@@ -392,25 +392,25 @@ equation
           {18,-42}}, color={0,0,127}));
 
   annotation (defaultComponentName="supAirTem",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                       graphics={
         Rectangle(
-        extent={{-100,-120},{100,120}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-100,160},{100,120}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255}),
         Text(
-          extent={{-96,112},{-50,92}},
+          extent={{-96,92},{-50,72}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="u1Fan"),
         Text(
-          extent={{-96,70},{-20,48}},
+          extent={{-96,60},{-20,38}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -430,7 +430,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="TAirSup"),
         Text(
-          extent={{-100,-50},{-52,-70}},
+          extent={{-100,-40},{-52,-60}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -444,7 +444,7 @@ equation
           textString="yHeaCoi",
           visible=have_heaCoi),
         Text(
-          extent={{-96,-88},{-20,-110}},
+          extent={{-96,-68},{-20,-90}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,

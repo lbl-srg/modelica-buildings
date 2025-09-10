@@ -187,7 +187,6 @@ block PlantRequests
     annotation (Placement(transformation(extent={{200,-240},{240,-200}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-protected
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysFanCoo(
     final uLow=cooSpe_max - 2*dFanSpe,
     final uHigh=cooSpe_max - dFanSpe) if have_chiWatCoi
@@ -248,11 +247,6 @@ protected
     "Check chilled water valve position against threshold values for sending one reset request"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant thr(
-    final k=3)
-    "Constant 3"
-    annotation (Placement(transformation(extent={{0,222},{20,242}})));
-
   Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes3 if have_chiWatCoi
     "Send 3 chilled water reset request"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
@@ -261,24 +255,9 @@ protected
     "Send 2 chilled water reset request"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant two(
-    final k=2)
-    "Constant 2"
-    annotation (Placement(transformation(extent={{0,170},{20,190}})));
-
   Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes1 if have_chiWatCoi
     "Send 1 chilled water reset request"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
-    final k=1)
-    "Constant 1"
-    annotation (Placement(transformation(extent={{0,110},{20,130}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer(
-    final k=0)
-    "Constant 0"
-    annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3 if have_chiWatCoi
     "Send 1 chiller plant request"
@@ -343,6 +322,27 @@ protected
     final uHigh=hotWatPlaReqLim1) if have_hotWatCoi
     "Check hot water valve position against threshold values for sending one plant request"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant thr(
+    final k=3)
+    "Constant 3"
+    annotation (Placement(transformation(extent={{0,222},{20,242}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant two(
+    final k=2)
+    "Constant 2"
+    annotation (Placement(transformation(extent={{0,170},{20,190}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
+    final k=1)
+    "Constant 1"
+    annotation (Placement(transformation(extent={{0,110},{20,130}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer(
+    final k=0)
+    "Constant 0"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
 equation
   connect(TAirSup, cooSupTemDif.u1) annotation (Line(points={{-220,200},{-180,200},
