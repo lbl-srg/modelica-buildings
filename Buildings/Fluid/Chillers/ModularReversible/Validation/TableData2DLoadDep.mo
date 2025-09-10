@@ -59,7 +59,7 @@ model TableData2DLoadDep
     tableOnFile=true,
     tableName="tab",
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/ElectricReformulatedEIR.csv"),
+      "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/ElectricReformulatedEIR.mos"),
     columns=2:4,
     timeEvents=Modelica.Blocks.Types.TimeEvents.NoTimeEvents)
     "Reference results"
@@ -92,7 +92,7 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep\">
 Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>
-against the polynomial chiller model 
+against the polynomial chiller model
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>
 for water-cooled chiller applications.
@@ -102,7 +102,7 @@ for water-cooled chiller applications.
 The validation setup is duplicated from
 <a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR</a>
-and the component <code>ref</code> reads the reference results 
+and the component <code>ref</code> reads the reference results
 obtained from that model.
 </li>
 <li>
@@ -111,10 +111,10 @@ along the evaporator <i>leaving</i> temperature and the condenser
 <i>leaving</i> temperature.
 </li>
 <li>
-The performance data are generated with the same polynomial equations as 
+The performance data are generated with the same polynomial equations as
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>,
-using polynomial coefficients from the same data record as the one used 
+using polynomial coefficients from the same data record as the one used
 in the reference example model, that is
 <a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes\">
 Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes</a>.
@@ -125,11 +125,11 @@ Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_McQuay_WS
 There is good agreement with the reference results, except during
 the model time interval <i>[7200, 7900]</i>&nbsp;s, where the
 polynomial model computes zero capacity and power.
-This discrepancy stems from the existence of multiple solutions 
+This discrepancy stems from the existence of multiple solutions
 in the polynomial model. The reference results show one solution
 with <i>TEvaLvg = TEvaEnt = 20</i>&nbsp;&deg;C.
 This temperature exceeds the upper limit <code>per.TEvaLvgMax</code>
-of the polynomial model's validity range, resulting in a negative capacity 
+of the polynomial model's validity range, resulting in a negative capacity
 that is bounded to <i>0</i> in the polynomial model.
 The data table model reveals that an alternative solution exists where the
 CHW setpoint is met with a PLR value of about <i>74</i>&nbsp;&percnt;.
