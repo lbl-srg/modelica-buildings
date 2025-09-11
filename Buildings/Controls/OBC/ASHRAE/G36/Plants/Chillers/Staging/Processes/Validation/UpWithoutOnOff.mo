@@ -55,14 +55,6 @@ protected
     final k=false)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
-    final samplePeriod=10)
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol2(
-    final samplePeriod=20)
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi[2](
     final k={true,false})
     "Vector of chillers status setpoint at stage one"
@@ -148,22 +140,15 @@ equation
           {-86,-40},{-86,75.6},{-22,75.6}},color={0,0,127}));
   connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-178,-170},{-46,-170},
           {-46,64},{-22,64}}, color={255,0,255}));
-  connect(upProCon.yDesConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{2,67},{
-          20,67},{20,-60},{38,-60}},  color={0,0,127}));
-  connect(zerOrdHol1.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{62,-60},
-          {80,-60},{80,-140},{-44,-140},{-44,62},{-22,62}},       color={0,0,127}));
-  connect(zerOrdHol1.y, zerOrdHol2.u) annotation (Line(points={{62,-60},{80,-60},
-          {80,-90},{20,-90},{20,-110},{38,-110}},  color={0,0,127}));
-  connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{62,-110},
-          {70,-110},{70,-134},{-42,-134},{-42,60},{-22,60}}, color={0,0,127}));
   connect(staUp.y, booRep.u) annotation (Line(points={{-138,110},{-130,110},{-130,
           -220},{-122,-220}}, color={255,0,255}));
   connect(booRep.y, IsoVal.u2) annotation (Line(points={{-98,-220},{-90,-220},{-90,
           -250},{-82,-250}}, color={255,0,255}));
   connect(upProCon.yChiWatIsoVal, zerOrdHol.u) annotation (Line(points={{2,54},{
           28,54},{28,-30},{38,-30}}, color={0,0,127}));
-  connect(zerOrdHol.y, IsoVal.u1) annotation (Line(points={{62,-30},{90,-30},{90,
-          -190},{-140,-190},{-140,-242},{-82,-242}},   color={0,0,127}));
+  connect(zerOrdHol.y, IsoVal.u1) annotation (Line(points={{62,-30},{100,-30},{
+          100,-190},{-140,-190},{-140,-242},{-82,-242}},
+                                                       color={0,0,127}));
   connect(IsoVal.y, upProCon.uChiWatIsoVal) annotation (Line(points={{-58,-250},
           {-38,-250},{-38,51},{-22,51}}, color={0,0,127}));
   connect(staUp.y, booRep1.u)

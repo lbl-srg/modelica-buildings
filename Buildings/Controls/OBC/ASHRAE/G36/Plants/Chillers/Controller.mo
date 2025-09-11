@@ -922,14 +922,6 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{-940,-360},{-900,-320}}),
       iconTransformation(extent={{-140,-180},{-100,-140}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) if not have_airCoo
-    "Current condenser water pump speed"
-    annotation(Placement(transformation(extent={{-940,-400},{-900,-360}}),
-        iconTransformation(extent={{-140,-200},{-100,-160}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
     if not have_airCoo "True: condenser water pump is enabled"
     annotation (Placement(transformation(extent={{-940,-430},{-900,-390}}),
@@ -1071,14 +1063,13 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{920,220},{960,260}}),
       iconTransformation(extent={{100,30},{140,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe[nConWatPum](
-    final unit=fill("1", nConWatPum),
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum))
-    if (not have_airCoo) and not have_fixSpeConWatPum
-    "Condenser water pump speed setpoint"
-    annotation (Placement(transformation(extent={{920,130},{960,170}}),
-        iconTransformation(extent={{100,0},{140,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpe(
+    final unit="1",
+    final min=0,
+    final max=1) if (not have_airCoo) and not have_fixSpeConWatPum
+    "Condenser water pump speed setpoint" annotation (Placement(transformation(
+          extent={{920,130},{960,170}}), iconTransformation(extent={{100,0},{
+            140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinFloSet(
     final quantity="VolumeFlowRate",
@@ -1359,7 +1350,6 @@ block Controller "Chiller plant controller"
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
     final aftByPasSetTim=aftByPasSetTim,
-    final pumSpeChe=speChe,
     final relFloDif=relFloDif,
     final desChiNum=desChiNum)
     "Staging down process controller"
@@ -1391,7 +1381,6 @@ block Controller "Chiller plant controller"
     final waiTim=waiTim,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final proOnTim=proOnTim,
-    final pumSpeChe=speChe,
     final relFloDif=relFloDif,
     final desChiNum=desChiNum)
     "Staging up process controller"
@@ -1409,11 +1398,6 @@ block Controller "Chiller plant controller"
     final nin=nChiWatPum)
     "Check if there is any chilled water pump is enabled"
     annotation(Placement(transformation(extent={{-740,-134},{-720,-114}})));
-
-  Buildings.Controls.OBC.CDL.Reals.MultiMax conWatPumSpe(
-    final nin=nConWatPum) if not have_fixSpeConWatPum and not have_airCoo
-    "Running condenser water pump speed"
-    annotation (Placement(transformation(extent={{-660,-390},{-640,-370}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or staCooTow if not have_airCoo
     "Tower stage change status: true=stage cooling tower"
@@ -1745,14 +1729,6 @@ equation
           color={0,0,127}));
   connect(uTowSta, towCon.uTowSta) annotation (Line(points={{-920,-780},{-440,-780},
           {-440,-628},{-268,-628}}, color={255,0,255}));
-  connect(uConWatPumSpe, conWatPumSpe.u) annotation (Line(points={{-920,-380},{-662,
-          -380}}, color={0,0,127}));
-  connect(uConWatPumSpe, towCon.uConWatPumSpe) annotation (Line(points={{-920,-380},
-          {-820,-380},{-820,-652},{-268,-652}}, color={0,0,127}));
-  connect(conWatPumSpe.y, dowProCon.uConWatPumSpe) annotation (Line(points={{-638,
-          -380},{130,-380},{130,-288},{172,-288}}, color={0,0,127}));
-  connect(conWatPumSpe.y, upProCon.uConWatPumSpe) annotation (Line(points={{-638,
-          -380},{130,-380},{130,328},{172,328}},      color={0,0,127}));
   connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-656,340},
           {-640,340},{-640,-28},{-268,-28}}, color={0,0,127}));
   connect(TChiWatRet, wseSta.TChiWatRet) annotation (Line(points={{-920,280},{-860,
@@ -1794,10 +1770,6 @@ equation
           {-476,212},{-360,212},{-360,-620},{-268,-620}}, color={0,0,127}));
   connect(heaPreCon.yConWatPumSpeSet, mulMax1.u) annotation (Line(points={{-476,
           188},{-470,188},{-470,160},{-462,160}}, color={0,0,127}));
-  connect(mulMax1.y, dowProCon.uConWatPumSpeSet) annotation (Line(points={{-438,
-          160},{-400,160},{-400,-280},{172,-280}}, color={0,0,127}));
-  connect(mulMax1.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{-438,160},
-          {-400,160},{-400,336},{172,336}}, color={0,0,127}));
   connect(upProCon.yChiWatMinFloSet, chiMinFloSet.u1) annotation (Line(points={{268,404},
           {350,404},{350,128},{478,128}}, color={0,0,127}));
   connect(dowProCon.yChiWatMinFloSet, chiMinFloSet.u3) annotation (Line(points={{268,
@@ -1863,10 +1835,6 @@ equation
           -160},{430,412},{638,412}},     color={0,0,127}));
   connect(chiDem.y, yChiDem)
     annotation (Line(points={{662,420},{940,420}}, color={0,0,127}));
-  connect(uConWatPum, upProCon.uConWatPum) annotation (Line(points={{-920,-410},
-          {140,-410},{140,308},{172,308}}, color={255,0,255}));
-  connect(uConWatPum, dowProCon.uConWatPum) annotation (Line(points={{-920,-410},
-          {140,-410},{140,-296},{172,-296}}, color={255,0,255}));
   connect(desConWatPumSpeSwi.y, desConPumSpe.u)
     annotation (Line(points={{502,200},{538,200}}, color={0,0,127}));
   connect(dowProCon.yReaDemLim, relDem.u3) annotation (Line(points={{268,-188},{
@@ -1923,8 +1891,9 @@ equation
           -16},{-150,-370},{-570,-370},{-570,-426},{-542,-426}}, color={255,127,0}));
   connect(staSetCon.ySta, enaDev.uChiSta) annotation (Line(points={{-172,-24},{-140,
           -24},{-140,-144},{-560,-144},{-560,-430},{-542,-430}},color={255,127,0}));
-  connect(uConWatPum, enaDev.uConWatPum) annotation (Line(points={{-920,-410},{-590,
-          -410},{-590,-438},{-542,-438}}, color={255,0,255}));
+  connect(uConWatPum, enaDev.uConWatPum) annotation (Line(points={{-920,-410},{
+          -720,-410},{-720,-438},{-542,-438}},
+                                          color={255,0,255}));
   connect(uChiWatPum, enaDev.uChiWatPum) annotation (Line(points={{-920,574},{-790,
           574},{-790,-434},{-542,-434}}, color={255,0,255}));
   connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-500},
@@ -2112,8 +2081,8 @@ equation
           320},{740,0},{120,0},{120,300},{172,300}}, color={255,0,255}));
   connect(pre.y, dowProCon.uChiHeaCon) annotation (Line(points={{602,320},{740,
           320},{740,0},{120,0},{120,-216},{172,-216}}, color={255,0,255}));
-  connect(chiWatPumCon.yPumSpe, disChi.uChiWatPumSpe) annotation (Line(points={
-          {486,474.857},{720,474.857},{720,-479},{738,-479}}, color={0,0,127}));
+  connect(chiWatPumCon.yPumSpe, disChi.uChiWatPumSpe) annotation (Line(points={{486,
+          474.857},{720,474.857},{720,-479},{738,-479}},      color={0,0,127}));
   connect(desConWatPumSpeSwi.y, disChi.uConWatPumSpe) annotation (Line(points={
           {502,200},{520,200},{520,160},{730,160},{730,-485},{738,-485}}, color
         ={0,0,127}));
@@ -2121,6 +2090,8 @@ equation
           {486,507},{630,507},{630,-477},{738,-477}}, color={255,0,255}));
   connect(disChi.yChiWatPum, yChiWatPum) annotation (Line(points={{762,-478},{
           830,-478},{830,540},{940,540}}, color={255,0,255}));
+  connect(uConWatPum, towCon.uConWatPum) annotation (Line(points={{-920,-410},{
+          -720,-410},{-720,-652},{-268,-652}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2205,10 +2176,6 @@ annotation (
           extent={{-98,-132},{-50,-146}},
           textColor={255,127,0},
           textString="TChiWatSupResReq"),
-        Text(
-          extent={{-98,-172},{-50,-186}},
-          textColor={0,0,127},
-          textString="uConWatPumSpe"),
         Text(
           extent={{-98,-192},{-50,-206}},
           textColor={255,0,255},

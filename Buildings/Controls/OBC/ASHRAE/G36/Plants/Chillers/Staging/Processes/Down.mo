@@ -72,9 +72,6 @@ block Down
     displayUnit="s")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Real pumSpeChe = 0.05
-    "Lower threshold value to check if condenser water pump has achieved setpoint"
-    annotation (Dialog(tab="Advanced", group="Disable condenser water pump"));
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
     annotation (Dialog(tab="Advanced", group="Reset bypass"));
@@ -146,25 +143,6 @@ block Down
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
       iconTransformation(extent={{-140,-150},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpeSet(
-    final min=0,
-    final max=1,
-    final unit="1") if not have_fixSpeConWatPum and not have_airCoo
-    "Condenser water pump speed setpoint"
-    annotation (Placement(transformation(extent={{-320,-290},{-280,-250}}),
-      iconTransformation(extent={{-140,-170},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe(
-    final min=0,
-    final max=1,
-    final unit="1") if not have_fixSpeConWatPum and not have_airCoo
-    "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-320,-360},{-280,-320}}),
-      iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
-    if have_fixSpeConWatPum and not have_airCoo
-    "Status indicating if condenser water pump is running"
-    annotation (Placement(transformation(extent={{-320,-400},{-280,-360}}),
-        iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaPro
     "Indicate stage-down status: true=in stage-down process"
     annotation (Placement(transformation(extent={{280,340},{320,380}}),
@@ -285,8 +263,7 @@ protected
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,
     final desConWatPumNum=desConWatPumNum,
-    final desChiNum=desChiNum,
-    final pumSpeChe=pumSpeChe) if not have_airCoo
+    final desChiNum=desChiNum) if not have_airCoo
     "Enabling next condenser water pump or change pump speed"
     annotation (Placement(transformation(extent={{140,-192},{160,-172}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint
@@ -357,18 +334,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-180,350},{-160,370}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 if not have_airCoo
-    "Logical and"
-    annotation (Placement(transformation(extent={{200,-250},{220,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{220,-380},{240,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Break algebraic loop"
     annotation (Placement(transformation(extent={{180,-380},{200,-360}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if not have_airCoo
-    "Maintain ON signal when condenser water pump has been disabled"
-    annotation (Placement(transformation(extent={{240,-264},{260,-244}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Maintain ON signal when chiller demand has been limited"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
@@ -474,10 +445,10 @@ equation
     annotation (Line(points={{-138,200},{-120,200},{-120,-158},{98,-158}},
       color={255,0,255}));
   connect(disNexCWP.yChiSta, conWatPumCon.uChiSta)
-    annotation (Line(points={{122,-160},{130,-160},{130,-183},{138,-183}},
+    annotation (Line(points={{122,-160},{130,-160},{130,-188},{138,-188}},
       color={255,127,0}));
   connect(mulOr1.y, conWatPumCon.uLeaConWatReq)
-    annotation (Line(points={{-18,-220},{46,-220},{46,-178},{138,-178}},
+    annotation (Line(points={{-18,-220},{46,-220},{46,-182},{138,-182}},
       color={255,0,255}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-300,220},{-200,220},{-200,-200},{-102,-200}},
@@ -486,11 +457,8 @@ equation
     annotation (Line(points={{-300,-120},{-250,-120},{-250,-220},{-42,-220}},
       color={255,0,255}));
   connect(conWatPumCon.uWSE, uWSE)
-    annotation (Line(points={{138,-185},{52,-185},{52,-240},{-300,-240}},
+    annotation (Line(points={{138,-191},{52,-191},{52,-240},{-300,-240}},
       color={255,0,255}));
-  connect(conWatPumCon.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{138,-189},{64,-189},{64,-340},{-300,-340}},
-      color={0,0,127}));
   connect(con.y, minChiWatFlo.uStaUp)
     annotation (Line(points={{-138,200},{-120,200},{-120,-313},{98,-313}},
       color={255,0,255}));
@@ -537,19 +505,16 @@ equation
     annotation (Line(points={{58,238},{40,238},{40,280},{-300,280}},
       color={0,0,127}));
   connect(conWatPumCon.uChiConIsoVal, uChiConIsoVal)
-    annotation (Line(points={{138,-172},{-140,-172},{-140,-180},{-300,-180}},
+    annotation (Line(points={{138,-173},{-140,-173},{-140,-180},{-300,-180}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiEna)
-    annotation (Line(points={{-78,-200},{40,-200},{40,-174},{138,-174}},
-      color={255,0,255}));
-  connect(mulOr.y, conWatPumCon.uLeaChiSta)
     annotation (Line(points={{-78,-200},{40,-200},{40,-176},{138,-176}},
       color={255,0,255}));
+  connect(mulOr.y, conWatPumCon.uLeaChiSta)
+    annotation (Line(points={{-78,-200},{40,-200},{40,-179},{138,-179}},
+      color={255,0,255}));
   connect(conWatPumCon.yDesConWatPumSpe, yDesConWatPumSpe)
-    annotation (Line(points={{162,-179},{240,-179},{240,-180},{300,-180}},
-      color={0,0,127}));
-  connect(conWatPumCon.uConWatPumSpeSet, uConWatPumSpeSet)
-    annotation (Line(points={{138,-187},{58,-187},{58,-270},{-300,-270}},
+    annotation (Line(points={{162,-182},{240,-182},{240,-180},{300,-180}},
       color={0,0,127}));
   connect(uChi, minChiWatFlo.uChi)
     annotation (Line(points={{-300,220},{-200,220},{-200,-318},{98,-318}},
@@ -567,10 +532,10 @@ equation
     annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
           354},{-182,354}},     color={255,0,255}));
   connect(conWatPumCon.yConWatPumNum, yConWatPumNum)
-    annotation (Line(points={{162,-185},{220,-185},{220,-220},{300,-220}},
+    annotation (Line(points={{162,-188},{220,-188},{220,-220},{300,-220}},
       color={255,127,0}));
   connect(conWatPumCon.yLeaPum, yLeaPum)
-    annotation (Line(points={{162,-173},{220,-173},{220,-150},{300,-150}},
+    annotation (Line(points={{162,-176},{220,-176},{220,-150},{300,-150}},
       color={255,0,255}));
   connect(disHeaCon.yChiHeaCon, yChiHeaCon)
     annotation (Line(points={{222,-106},{260,-106},{260,-100},{300,-100}},
@@ -589,27 +554,12 @@ equation
   connect(lat2.y, and4.u1)
     annotation (Line(points={{142,160},{160,160},{160,140},{-80,140},{-80,30},
       {-42,30}}, color={255,0,255}));
-  connect(conWatPumCon.yPumSpeChe, and2.u1)
-    annotation (Line(points={{162,-191},{180,-191},{180,-240},{198,-240}},
-      color={255,0,255}));
-  connect(and2.y, lat1.u)
-    annotation (Line(points={{222,-240},{230,-240},{230,-254},{238,-254}},
-      color={255,0,255}));
-  connect(edg1.y, lat1.clr)
-    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
-          -260},{238,-260}}, color={255,0,255}));
-  connect(lat1.y, minChiWatFlo.uUpsDevSta)
-    annotation (Line(points={{262,-254},{270,-254},{270,-280},{-40,-280},{-40,-315},
-          {98,-315}}, color={255,0,255}));
   connect(dowSta.yChiWatMinFloSet, chiWatMinSet.u3)
     annotation (Line(points={{82,236},{170,236},{170,-308},{198,-308}},
       color={0,0,127}));
   connect(minChiWatFlo.yChiWatMinFloSet, chiWatMinSet.u1)
     annotation (Line(points={{122,-322},{140,-322},{140,-292},{198,-292}},
       color={0,0,127}));
-  connect(lat1.y, chiWatMinSet.u2)
-    annotation (Line(points={{262,-254},{270,-254},{270,-280},{160,-280},{160,-300},
-          {198,-300}}, color={255,0,255}));
   connect(chiWatMinSet.y, yChiWatMinFloSet)
     annotation (Line(points={{222,-300},{260,-300},{260,-330},{300,-330}},
          color={0,0,127}));
@@ -632,11 +582,8 @@ equation
     annotation (Line(points={{222,-130},{250,-130},{250,-60},{300,-60}},
       color={255,0,255}));
   connect(lat4.y, disNexCWP.uUpsDevSta)
-    annotation (Line(points={{222,-130},{250,-130},{250,-142},{80,-142},{80,-152},
-      {98,-152}}, color={255,0,255}));
-  connect(lat4.y, and2.u2)
-    annotation (Line(points={{222,-130},{250,-130},{250,-142},{80,-142},{80,-248},
-      {198,-248}}, color={255,0,255}));
+    annotation (Line(points={{222,-130},{250,-130},{250,-142},{60,-142},{60,-152},
+          {98,-152}}, color={255,0,255}));
   connect(edg1.y, lat4.clr)
     annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
           -136},{198,-136}},   color={255,0,255}));
@@ -661,12 +608,10 @@ equation
           -110,224},{-110,130},{-300,130}}, color={255,0,255}));
   connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,130},{-110,130},
           {-110,-86},{120,-86},{120,-78},{138,-78}}, color={255,0,255}));
-  connect(conWatPumCon.uConWatPum, uConWatPum) annotation (Line(points={{138,-191},
-          {70,-191},{70,-380},{-300,-380}}, color={255,0,255}));
   connect(con.y, disHeaCon.uEnaPla) annotation (Line(points={{-138,200},{-120,
           200},{-120,-92},{198,-92}}, color={255,0,255}));
-  connect(con.y, conWatPumCon.uEnaPla) annotation (Line(points={{-138,200},{
-          -120,200},{-120,-180},{138,-180}}, color={255,0,255}));
+  connect(con.y, conWatPumCon.uEnaPla) annotation (Line(points={{-138,200},{-120,
+          200},{-120,-185},{138,-185}},      color={255,0,255}));
   connect(and5.y, and3.u1)
     annotation (Line(points={{102,-120},{118,-120}},color={255,0,255}));
   connect(and3.y, disHeaCon.uUpsDevSta) annotation (Line(points={{142,-120},{
@@ -697,10 +642,14 @@ equation
           {-62,-368}}, color={255,0,255}));
   connect(lat3.y, or1.u1) annotation (Line(points={{222,-30},{240,-30},{240,-50},
           {-72,-50},{-72,-360},{-62,-360}}, color={255,0,255}));
-  connect(or1.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{-38,-360},{80,
-          -360},{80,-315},{98,-315}}, color={255,0,255}));
-  connect(or1.y, chiWatMinSet.u2) annotation (Line(points={{-38,-360},{80,-360},
-          {80,-300},{198,-300}}, color={255,0,255}));
+  connect(or1.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{-38,-360},{60,
+          -360},{60,-315},{98,-315}}, color={255,0,255}));
+  connect(or1.y, chiWatMinSet.u2) annotation (Line(points={{-38,-360},{60,-360},
+          {60,-300},{198,-300}}, color={255,0,255}));
+  connect(lat4.y, chiWatMinSet.u2) annotation (Line(points={{222,-130},{250,-130},
+          {250,-142},{60,-142},{60,-300},{198,-300}}, color={255,0,255}));
+  connect(lat4.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{222,-130},{
+          250,-130},{250,-142},{60,-142},{60,-315},{98,-315}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
@@ -773,18 +722,6 @@ annotation (
           textString="uWSE",
           visible=have_WSE),
         Text(
-          extent={{-98,-162},{-32,-176}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="uConWatPumSpe",
-          visible=not have_fixSpeConWatPum),
-        Text(
-          extent={{-98,-140},{-26,-158}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="uConWatPumSpeSet",
-          visible=not have_fixSpeConWatPum),
-        Text(
           extent={{60,198},{100,186}},
           textColor={255,0,255},
           textString="yStaPro"),
@@ -847,11 +784,6 @@ annotation (
           extent={{-98,16},{-44,4}},
           textColor={255,0,255},
           textString="uChiHeaCon"),
-        Text(
-          extent={{-98,-182},{-42,-196}},
-          textColor={255,0,255},
-          textString="uConWatPum",
-          visible=have_fixSpeConWatPum),
         Text(
           extent={{50,-180},{98,-194}},
           textColor={255,0,255},

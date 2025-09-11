@@ -49,11 +49,6 @@ protected
     annotation (Placement(transformation(extent={{-360,-170},{-340,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-300,-190},{-280,-170}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe1[2](
-    final height=fill(0.5, 2),
-    final duration=fill(3600, 2),
-    final startTime=fill(300, 2)) "Measured condenser water pump speed"
-    annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(final k=0.5)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-320,-10},{-300,10}})));
@@ -108,6 +103,13 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
 
+public
+  CDL.Logical.Sources.Pulse conWatPum[2](final width=fill(0.1, 2), final period
+      =fill(3600, 2)) "Condenser water pump status"
+    annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
+  CDL.Logical.Not                        not2[2]
+  "Logical not"
+    annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
 equation
   connect(ram2.y,add1. u2)
     annotation (Line(points={{-338,-280},{-320,-280},{-320,-266},{-302,-266}},
@@ -181,9 +183,6 @@ equation
   connect(add3.y, cloCouWitWse.TConWatRet)
     annotation (Line(points={{-278,-180},{-110,-180},{-110,286},{-82,286}},
       color={0,0,127}));
-  connect(conWatPumSpe1.y, cloCouWitWse.uConWatPumSpe)
-    annotation (Line(points={{-278,-220},{-100,-220},{-100,283},{-82,283}},
-      color={0,0,127}));
   connect(not1.y, lesCouWitWse.uChi[1])
     annotation (Line(points={{-298,210},{-30,210},{-30,316},{98,316}},
       color={255,0,255}));
@@ -215,9 +214,6 @@ equation
   connect(add3.y, lesCouWitWse.TConWatRet)
     annotation (Line(points={{-278,-180},{70,-180},{70,286},{98,286}},
       color={0,0,127}));
-  connect(conWatPumSpe1.y, lesCouWitWse.uConWatPumSpe)
-    annotation (Line(points={{-278,-220},{80,-220},{80,283},{98,283}},
-      color={0,0,127}));
   connect(add1.y, lesCouWitWse.TConWatSup)
     annotation (Line(points={{-278,-260},{90,-260},{90,281},{98,281}},
       color={0,0,127}));
@@ -246,9 +242,6 @@ equation
   connect(add3.y, cloCouNoWse.TConWatRet)
     annotation (Line(points={{-278,-180},{210,-180},{210,286},{278,286}},
       color={0,0,127}));
-  connect(conWatPumSpe1.y, cloCouNoWse.uConWatPumSpe)
-    annotation (Line(points={{-278,-220},{220,-220},{220,283},{278,283}},
-      color={0,0,127}));
   connect(not1.y, or4.u1) annotation (Line(points={{-298,210},{-280,210},{-280,-80},
           {-262,-80}}, color={255,0,255}));
   connect(chiSta2.y, or4.u2) annotation (Line(points={{-338,180},{-286,180},{-286,
@@ -261,6 +254,14 @@ equation
           -210,270},{-210,319},{-82,319}}, color={0,0,127}));
   connect(swi2.y, lesCouWitWse.uChiLoa) annotation (Line(points={{-238,270},{
           -40,270},{-40,319},{98,319}}, color={0,0,127}));
+  connect(conWatPum.y, not2.u)
+    annotation (Line(points={{-278,-220},{-242,-220}}, color={255,0,255}));
+  connect(not2.y, cloCouWitWse.uConWatPum) annotation (Line(points={{-218,-220},
+          {-100,-220},{-100,283},{-82,283}}, color={255,0,255}));
+  connect(not2.y, lesCouWitWse.uConWatPum) annotation (Line(points={{-218,-220},
+          {80,-220},{80,283},{98,283}}, color={255,0,255}));
+  connect(not2.y, cloCouNoWse.uConWatPum) annotation (Line(points={{-218,-220},
+          {220,-220},{220,283},{278,283}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/Validation/Controller.mos"
     "Simulate and plot"),

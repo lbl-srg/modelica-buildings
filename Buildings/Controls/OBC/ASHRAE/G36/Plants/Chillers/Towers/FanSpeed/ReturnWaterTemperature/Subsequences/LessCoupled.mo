@@ -4,8 +4,6 @@ block LessCoupled
 
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
-  parameter Real pumSpeChe = 0.01
-    "Lower threshold value to check if condenser water pump is proven on";
   parameter Real fanSpeMin(
      final unit="1",
      final min=0,
@@ -63,25 +61,22 @@ block LessCoupled
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum))
-    "Current condenser water pump speed"
+      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status"
     annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
@@ -106,7 +101,7 @@ block LessCoupled
     final unit="1")
     "Tower maximum speed that reset based on plant partial load ratio"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatSupSet(
     final unit="K",
     displayUnit="degC",
@@ -133,13 +128,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
-    final uLow=fill(pumSpeChe, nConWatPum),
-    final uHigh=fill(2*pumSpeChe, nConWatPum))
-    "Check if the condenser water pump is proven on"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(
-    final nin=nConWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(nin=nConWatPum)
     "Check if any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant  minTowSpe(
@@ -215,10 +204,6 @@ protected
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
 equation
-  connect(proOn.y,anyProOn. u)
-    annotation (Line(points={{-118,-20},{-102,-20}}, color={255,0,255}));
-  connect(uConWatPumSpe, proOn.u)
-    annotation (Line(points={{-200,-20},{-142,-20}}, color={0,0,127}));
   connect(zer1.y, CWSTSpd.x1)
     annotation (Line(points={{62,0},{80,0},{80,-22},{98,-22}}, color={0,0,127}));
   connect(minTowSpe.y, CWSTSpd.f1)
@@ -301,6 +286,8 @@ equation
     annotation (Line(points={{-118,100},{58,100}}, color={255,0,255}));
   connect(anyProOn.y, supCon.uEna) annotation (Line(points={{-78,-20},{-60,-20},
           {-60,-50},{-14,-50},{-14,-42}}, color={255,0,255}));
+  connect(uConWatPum, anyProOn.u)
+    annotation (Line(points={{-200,-20},{-102,-20}}, color={255,0,255}));
 annotation (
   defaultComponentName="lesCouTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{160,200}})),

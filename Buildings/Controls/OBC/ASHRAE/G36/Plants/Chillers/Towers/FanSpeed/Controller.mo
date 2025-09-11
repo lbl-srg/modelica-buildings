@@ -192,12 +192,10 @@ block Controller "Tower fan speed control"
     "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
-      iconTransformation(extent={{-140,-190},{-100,-150}})));
+  CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status" annotation (Placement(transformation(
+          extent={{-140,-160},{-100,-120}}), iconTransformation(extent={{-140,-190},
+            {-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
@@ -325,9 +323,6 @@ equation
   connect(fanSpeRetTem.TConWatRet, TConWatRet)
     annotation (Line(points={{-2,-52},{-56,-52},{-56,-120},{-120,-120}},
       color={0,0,127}));
-  connect(fanSpeRetTem.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{-2,-55},{-52,-55},{-52,-140},{-120,-140}},
-      color={0,0,127}));
   connect(fanSpeRetTem.TConWatSup, TConWatSup)
     annotation (Line(points={{-2,-58},{-48,-58},{-48,-170},{-120,-170}},
       color={0,0,127}));
@@ -342,6 +337,8 @@ equation
           -56},{70,-56},{70,-140},{120,-140}}, color={0,0,127}));
   connect(fanSpeRetTem.TConWatSupSet, TConWatSupSet) annotation (Line(points={{42,-59},
           {60,-59},{60,-170},{120,-170}},      color={0,0,127}));
+  connect(uConWatPum, fanSpeRetTem.uConWatPum) annotation (Line(points={{-120,
+          -140},{-52,-140},{-52,-55},{-2,-55}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
@@ -386,9 +383,9 @@ annotation (
           textColor={0,0,127},
           textString="TConWatRet"),
         Text(
-          extent={{-94,-158},{10,-176}},
-          textColor={0,0,127},
-          textString="uConWatPumSpe"),
+          extent={{-100,-158},{-16,-176}},
+          textColor={255,0,255},
+          textString="uConWatPum"),
         Text(
           extent={{-98,-180},{-16,-200}},
           textColor={0,0,127},

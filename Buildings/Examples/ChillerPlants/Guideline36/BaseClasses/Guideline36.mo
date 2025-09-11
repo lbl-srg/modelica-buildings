@@ -244,12 +244,6 @@ equation
           {366,387},{366,420},{-310,420},{-310,11},{-144,11}}, color={0,0,127}));
   connect(towIsoVal2.y_actual, chiPlaCon.uIsoVal[2]) annotation (Line(points={{375,317},
           {366,317},{366,420},{-310,420},{-310,13},{-144,13}}, color={0,0,127}));
-  connect(conWatPum1.y_actual, chiPlaCon.uConWatPumSpe[1]) annotation (Line(
-        points={{207,199},{207,192},{-200,192},{-200,43},{-144,43}}, color={0,0,
-          127}));
-  connect(conWatPum2.y_actual, chiPlaCon.uConWatPumSpe[2]) annotation (Line(
-        points={{267,199},{267,192},{-200,192},{-200,45},{-144,45}}, color={0,0,
-          127}));
   connect(pre5.y1_actual, chiPlaCon.uTowSta) annotation (Line(points={{-238,-20},{-190,-20},
           {-190,4},{-144,4}},      color={255,0,255}));
   connect(conWatPumSta.y, chiPlaCon.uConWatPum) annotation (Line(points={{-378,150},
