@@ -505,7 +505,7 @@ The figure below shows the schematic diagram of the Four Pipe system:
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic.png\" border=\"1\"
 	width =\"40%\"/>
 </p>
-<p>
+<p>gi
 </li>
 </ul>
 </html>", revisions="<html>
