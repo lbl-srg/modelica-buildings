@@ -1441,7 +1441,8 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{540,190},{560,210}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax1(
-    final nin=nChi) if not have_fixSpeConWatPum and not have_airCoo
+    final nin=nChi)
+    if not have_fixSpeConWatPum and not have_airCoo and need_heaPreCon
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{-260,150},{-240,170}})));
 
