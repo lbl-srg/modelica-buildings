@@ -2,6 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnW
 block Coupled
   "Sequence of defining cooling tower fan speed when the plant is close coupled"
 
+  parameter Boolean need_heaPreCon = true
+    "True: the plant requires chiller head pressure being controlled";
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
   parameter Real fanSpeMin = 0.1 "Minimum cooling tower fan speed";
@@ -48,11 +50,12 @@ block Coupled
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
+    if need_heaPreCon
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -102,16 +105,21 @@ protected
     "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin maxSpe(
-    final nin=nChi)
+    final nin=nChi) if need_heaPreCon
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi  "Logical switch"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] if need_heaPreCon
+    "Logical switch"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one1[nChi](
-    final k=fill(1, nChi)) "Constant one"
+    final k=fill(1, nChi)) if need_heaPreCon "Constant one"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2(
+    final k=1) if not need_heaPreCon
+    "Constant one"
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
 equation
   connect(TConWatRet, conPID.u_m)
@@ -141,7 +149,8 @@ equation
     annotation (Line(points={{102,80},{110,80},{110,30},{10,30},{10,-80.6667},{
           18,-80.6667}}, color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
-    annotation (Line(points={{2,-80},{18,-80}}, color={0,0,127}));
+    annotation (Line(points={{2,-80},{10,-80},{10,-80},{18,-80}},
+         color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
     annotation (Line(points={{-140,-130},{10,-130},{10,-79.3333},{18,-79.3333}},
       color={0,0,127}));
@@ -158,6 +167,9 @@ equation
           {-74,30},{-74,68}}, color={255,0,255}));
   connect(uConWatPum, anyProOn.u)
     annotation (Line(points={{-140,0},{-62,0}}, color={255,0,255}));
+  connect(one2.y, fanSpe.u[2]) annotation (Line(points={{2,-40},{10,-40},{10,
+          -80},{18,-80}},
+                        color={0,0,127}));
 annotation (
   defaultComponentName="couTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
@@ -204,7 +216,8 @@ speed <code>fanSpeMin</code> at 0% loop output to 100% speed at 100% loop output
 <li>
 The output tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head 
-pressure control loop <code>uMaxSpeSet</code>, and tower maximum speed that resets 
+pressure control loop <code>uMaxSpeSet</code> (if the plant requires the chiller
+head pressure being controlled), and tower maximum speed that resets 
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
 receive the same speed signal.
 </li>

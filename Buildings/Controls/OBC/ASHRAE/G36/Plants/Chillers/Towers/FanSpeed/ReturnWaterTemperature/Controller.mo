@@ -2,6 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnW
 block Controller
   "Cooling tower speed control to maintain condenser water return temperature at setpoint"
 
+  parameter Boolean need_heaPreCon = true
+    "True: the plant requires chiller head pressure being controlled";
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
@@ -151,7 +153,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
         iconTransformation(extent={{-240,40},{-200,80}})));
@@ -226,6 +228,7 @@ block Controller
     final TChiWatSupMin=TChiWatSupMin) "Return temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Enable enaTow(
+    final need_heaPreCon=need_heaPreCon,
     final nChi=nChi,
     final nTowCel=nTowCel,
     final fanSpeChe=speChe,
@@ -236,6 +239,7 @@ block Controller
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled
     couTowSpe(
+    final need_heaPreCon=need_heaPreCon,
     final nChi=nChi,
     final nConWatPum=nConWatPum,
     final fanSpeMin=fanSpeMin,
@@ -249,6 +253,7 @@ block Controller
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.LessCoupled
     lesCouTowSpe(
+    final need_heaPreCon=need_heaPreCon,
     final nChi=nChi,
     final nConWatPum=nConWatPum,
     final fanSpeMin=fanSpeMin,
@@ -524,9 +529,10 @@ annotation (
           textColor={0,0,127},
           textString="reqPlaCap"),
         Text(
-          extent={{-198,72},{-124,54}},
+          extent={{-198,68},{-124,50}},
           textColor={0,0,127},
-          textString="uMaxSpeSet"),
+          textString="uMaxSpeSet",
+          visible=need_heaPreCon),
         Text(
           extent={{-198,-50},{-118,-68}},
           textColor={0,0,127},

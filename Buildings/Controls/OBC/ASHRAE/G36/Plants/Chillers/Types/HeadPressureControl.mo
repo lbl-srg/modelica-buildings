@@ -2,9 +2,9 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types;
 type HeadPressureControl= enumeration(
     NotRequired
   "Head pressure control is not required",
-    ControlledByChiller
+    ByChiller
   "Head pressure controlled by chiller",
-    ControlledByPlant
+    ByPlant
   "Head pressure controlled by plant")
   "Head pressure control type enumeration"
  annotation (

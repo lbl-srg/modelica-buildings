@@ -1,6 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed;
 block Controller "Tower fan speed control"
 
+  parameter Boolean need_heaPreCon = true
+    "True: the plant requires chiller head pressure being controlled";
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
@@ -173,7 +175,7 @@ block Controller "Tower fan speed control"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -238,6 +240,7 @@ block Controller "Tower fan speed control"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Controller
     fanSpeRetTem(
+    final need_heaPreCon=need_heaPreCon,
     final nChi=nChi,
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
@@ -375,9 +378,10 @@ annotation (
           textColor={0,0,127},
           textString="reqPlaCap"),
         Text(
-          extent={{-100,-10},{-8,-24}},
+          extent={{-102,-12},{-10,-26}},
           textColor={0,0,127},
-          textString="uMaxTowSpeSet"),
+          textString="uMaxTowSpeSet",
+          visible=need_heaPreCon),
         Text(
           extent={{-96,-130},{-28,-148}},
           textColor={0,0,127},

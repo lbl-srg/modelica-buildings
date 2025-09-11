@@ -313,6 +313,19 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     "Condenser water return temperature, from the chiller condenser"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0, origin={390,10})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatSupTem1(
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=mChi_flow_nominal)
+    "Chilled water supply temperature, from the chiller evaporator"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0, origin={280,70})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatSupTem2(
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=mChi_flow_nominal)
+    "Chilled water supply temperature, from the chiller evaporator"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0, origin={280,-20})));
+
 equation
   connect(jun3.port_1, cooTow1.port_b)
     annotation (Line(points={{260,320},{260,380},{320,380}}, color={238,46,47},
@@ -406,14 +419,8 @@ equation
   connect(chi2.port_b1, cwIsoVal2.port_a)
     annotation (Line(points={{340,10},{350,10}}, color={238,46,47},
       thickness=1));
-  connect(chwIsoVal1.port_a, chi1.port_b2)
-    annotation (Line(points={{250,70},{300,70},{300,88},{320,88}}, color={0,127,255},
-      thickness=1));
   connect(chi1.port_a2, jun6.port_2)
     annotation (Line(points={{340,88},{360,88},{360,70},{440,70},{440,-10}}, color={0,127,255},
-      thickness=1));
-  connect(chwIsoVal2.port_a, chi2.port_b2)
-    annotation (Line(points={{250,-20},{300,-20},{300,-2},{320,-2}}, color={0,127,255},
       thickness=1));
   connect(chi2.port_a2, jun6.port_3)
     annotation (Line(points={{340,-2},{360,-2},{360,-20},{430,-20}}, color={0,127,255},
@@ -471,6 +478,22 @@ equation
   connect(chiConWatRetTem2.port_b, jun4.port_1) annotation (Line(
       points={{400,10},{420,10},{420,90}},
       color={238,46,47},
+      thickness=1));
+  connect(chwIsoVal1.port_a, chiWatSupTem1.port_b) annotation (Line(
+      points={{250,70},{270,70}},
+      color={0,127,255},
+      thickness=1));
+  connect(chiWatSupTem1.port_a, chi1.port_b2) annotation (Line(
+      points={{290,70},{300,70},{300,88},{320,88}},
+      color={0,127,255},
+      thickness=1));
+  connect(chwIsoVal2.port_a, chiWatSupTem2.port_b) annotation (Line(
+      points={{250,-20},{270,-20}},
+      color={0,127,255},
+      thickness=1));
+  connect(chiWatSupTem2.port_a, chi2.port_b2) annotation (Line(
+      points={{290,-20},{300,-20},{300,-2},{320,-2}},
+      color={0,127,255},
       thickness=1));
  annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-580,-440},{580,440}})),

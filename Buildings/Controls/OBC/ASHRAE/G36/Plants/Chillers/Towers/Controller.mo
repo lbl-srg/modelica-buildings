@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers;
 block Controller "Cooling tower controller"
 
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl chiHeaPreCon=
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByPlant
+    "Chiller head pressure controlled type";
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer totSta=5
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
@@ -212,7 +215,7 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
@@ -321,7 +324,10 @@ block Controller "Cooling tower controller"
       iconTransformation(extent={{100,-190},{140,-150}})));
 
 protected
+  parameter Boolean need_heaPreCon = not chiHeaPreCon == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired
+    "True: the plant requires chiller head pressure being controlled";
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.Controller towFanSpe(
+    final need_heaPreCon=need_heaPreCon,
     final nChi=nChi,
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
@@ -533,7 +539,8 @@ annotation (
         Text(
           extent={{-98,60},{-28,44}},
           textColor={0,0,127},
-          textString="uMaxSpeSet"),
+          textString="uMaxSpeSet",
+          visible=need_heaPreCon),
         Text(
           extent={{-100,-22},{-16,-40}},
           textColor={255,0,255},
