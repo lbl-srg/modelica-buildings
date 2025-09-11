@@ -8,7 +8,7 @@ This package contains component models for chillers.
 </p>
 <p>
 For heat pump models, see
-<a href=\"Buildings.Fluid.HeatPumps\">Buildings.Fluid.HeatPumps</a>.
+<a href=\"modelica://Buildings.Fluid.HeatPumps\">Buildings.Fluid.HeatPumps</a>.
 </p>
 </html>"),
     Icon(graphics={
