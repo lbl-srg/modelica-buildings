@@ -89,13 +89,13 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Modelica.Fluid.Interfaces.FluidPort_a port_Air_a(
     redeclare final package Medium = MediumA)
     "Return air port from zone"
-    annotation (Placement(transformation(extent={{250,30},{270,50}}),
+    annotation (Placement(transformation(extent={{250,80},{270,100}}),
       iconTransformation(extent={{190,30},{210,50}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_Air_b(
     redeclare final package Medium = MediumA)
     "Supply air port to the zone"
-    annotation (Placement(transformation(extent={{250,-50},{270,-30}}),
+    annotation (Placement(transformation(extent={{250,-10},{270,10}}),
       iconTransformation(extent={{190,-50},{210,-30}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(
@@ -230,14 +230,14 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
 
-  Movers.Preconfigured.SpeedControlled_y       fan(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y fan(
     redeclare final package Medium = MediumA,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     addPowerToMedium=true,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dpAir_nominal)
     "Supply fan"
-    annotation (Placement(transformation(extent={{118,-6},{138,14}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare final package
       Medium = MediumA, final m_flow_nominal=mAir_flow_nominal)
@@ -321,19 +321,18 @@ equation
   connect(port_CHW_b, TCHWLvg.port_b) annotation (Line(points={{60,-140},{60,
           -120}},               color={0,127,255}));
   connect(fan.port_b, TAirLvg.port_a)
-    annotation (Line(points={{138,4},{154,4},{154,0},{160,0}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{140,0},{160,0}},     color={0,127,255}));
   connect(uCoo, valCHW.y) annotation (Line(points={{-280,-50},{40,-50},{40,-80},
           {48,-80}}, color={0,0,127}));
   connect(TAirLvg.port_b, senSupFlo.port_a)
     annotation (Line(points={{180,0},{200,0}}, color={0,127,255}));
-  connect(senSupFlo.port_b, port_Air_b) annotation (Line(points={{220,0},{240,0},
-          {240,-40},{260,-40}}, color={0,127,255}));
+  connect(senSupFlo.port_b, port_Air_b) annotation (Line(points={{220,0},{260,0}},
+                                color={0,127,255}));
   connect(cooCoi.port_b2, totResAir.port_a)
     annotation (Line(points={{40,-4},{60,-4},{60,0},{80,0}},
                                                  color={0,127,255}));
-  connect(TAirRet.port_a, port_Air_a) annotation (Line(points={{-230,0},{-240,0},
-          {-240,40},{260,40}},                   color={0,127,255}));
+  connect(TAirRet.port_a, port_Air_a) annotation (Line(points={{-230,0},{-236,0},
+          {-236,90},{260,90}},                   color={0,127,255}));
   connect(heaCoiEle.port_b, TAirHea.port_a) annotation (Line(points={{-80,20},{
           -60,20},{-60,0},{-30,0}},
                                   color={0,127,255}));
@@ -347,8 +346,8 @@ equation
                                                        color={0,127,255}));
   connect(TAirLvg.T, TAirSup)
     annotation (Line(points={{170,11},{170,70},{280,70}},  color={0,0,127}));
-  connect(totResAir.port_b, fan.port_a) annotation (Line(points={{100,0},{106,0},
-          {106,4},{118,4}},     color={0,127,255}));
+  connect(totResAir.port_b, fan.port_a) annotation (Line(points={{100,0},{120,0}},
+                                color={0,127,255}));
   connect(pipByp.port_b, TAirHea.port_a) annotation (Line(points={{-80,60},{-60,
           60},{-60,0},{-30,0}}, color={0,127,255}));
   connect(TAirRet.port_b, heaCoiHW.port_a2) annotation (Line(points={{-210,0},{
@@ -357,10 +356,10 @@ equation
           -108,0},{-108,20},{-100,20}}, color={0,127,255}));
   connect(TAirRet.port_b, pipByp.port_a) annotation (Line(points={{-210,0},{
           -108,0},{-108,60},{-100,60}}, color={0,127,255}));
-  connect(uFan, fan.y) annotation (Line(points={{-280,80},{-58,80},{-58,28},{
-          128,28},{128,16}}, color={0,0,127}));
-  connect(fan.y_actual, yFan_actual) annotation (Line(points={{139,11},{146,11},
-          {146,110},{280,110}}, color={0,0,127}));
+  connect(uFan, fan.y) annotation (Line(points={{-280,80},{130,80},{130,12}},
+                             color={0,0,127}));
+  connect(fan.y_actual, yFan_actual) annotation (Line(points={{141,7},{146,7},{
+          146,110},{280,110}},  color={0,0,127}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
@@ -484,13 +483,29 @@ a supply fan <code>fan</code> of class
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 </li>
 <li>
-heating coil options for no heating coil, a hot-water heating coil <code>heaCoiHW</code> of class
+heating coil options for no heating coil, a hot-water heating coil or an electric
+heating coil determined by the user selection for parameter <code>heaCoiTyp</code>
+as follows:
+<ol>
+<li>
+No heating coil with bypass connector <code>pipByp</code> of class
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a> if <code>heaCoiTyp</code>
+is set to <code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None</code>.
+</li>
+<li>
+A hot-water heating coil <code>heaCoiHW</code> of class
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
-Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>, or an electric heating
-coil <code>heaCoiEle</code> of class
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> if <code>heaCoiTyp</code>
+is set to <code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased</code>.
+</li>
+<li>
+An electric heating coil <code>heaCoiEle</code> of class
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
-Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>. Parameter <code>heaCoiTyp</code>
-allows the user to pick between one of the two.
+Buildings.Fluid.HeatExchangers.HeaterCooler_u</a> if <code>heaCoiTyp</code>
+is set to <code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric</code>.
+</li>
+</ol>
 </li>
 <li>
 a chilled-water cooling coil <code>cooCoi</code> of class
@@ -498,16 +513,10 @@ a chilled-water cooling coil <code>cooCoi</code> of class
 Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
 </ul>
 <p>
-The figure below shows the schematic diagram of the Four Pipe system:
+For examples of how to use the model, refer to
+<a href=\"modelica://Buildings.Examples.HydronicSystems.FanCoilUnit\">
+Buildings.Examples.HydronicSystems.FanCoilUnit</a>
 </p>
-
-<p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic.png\" border=\"1\"
-	width =\"40%\"/>
-</p>
-<p>
-</li>
-</ul>
 </html>", revisions="<html>
 <ul>
 <li>
