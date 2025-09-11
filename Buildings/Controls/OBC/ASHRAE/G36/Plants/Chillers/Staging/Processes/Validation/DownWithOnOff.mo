@@ -59,14 +59,6 @@ protected
     final k=false)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-200,-300},{-180,-280}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol4(
-    final samplePeriod=10)
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol5(
-    final samplePeriod=20)
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{100,-260},{120,-240}})));
   Buildings.Controls.OBC.CDL.Reals.Switch chiTwoLoa "Chiller two load"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(
@@ -239,18 +231,6 @@ equation
   connect(wseSta1.y, dowProCon.uWSE)
     annotation (Line(points={{-178,-290},{-10,-290},{-10,67},{18,67}},
       color={255,0,255}));
-  connect(dowProCon.yDesConWatPumSpe, zerOrdHol4.u)
-    annotation (Line(points={{42,69},{78,69},{78,-210},{98,-210}},
-      color={0,0,127}));
-  connect(zerOrdHol4.y, zerOrdHol5.u)
-    annotation (Line(points={{122,-210},{140,-210},{140,-230},{80,-230},{80,-250},
-          {98,-250}}, color={0,0,127}));
-  connect(zerOrdHol4.y, dowProCon.uConWatPumSpeSet)
-    annotation (Line(points={{122,-210},{140,-210},{140,-230},{-8,-230},{-8,65},
-          {18,65}}, color={0,0,127}));
-  connect(zerOrdHol5.y, dowProCon.uConWatPumSpe)
-    annotation (Line(points={{122,-250},{140,-250},{140,-270},{-6,-270},{-6,63},
-          {18,63}}, color={0,0,127}));
   connect(staDow1.y, booRep2.u)
     annotation (Line(points={{-138,140},{-122,140}}, color={255,0,255}));
   connect(staTwoChi2.y, chiSet2.u3) annotation (Line(points={{-178,100},{-90,100},

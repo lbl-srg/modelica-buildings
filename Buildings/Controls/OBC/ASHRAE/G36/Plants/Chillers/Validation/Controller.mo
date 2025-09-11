@@ -56,10 +56,6 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-280,-80},{-260,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiAva[2](
-    final k={true,true})
-    "Chilled availability"
-    annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatSup(
     final height=4,
     final duration=7200,
@@ -89,11 +85,6 @@ model Controller "Validation head pressure controller"
     final k=305.15)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
-    "Condenser water pump status"
-    annotation (Placement(transformation(extent={{220,-50},{240,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro[2] "Condenser water pump speed"
-    annotation (Placement(transformation(extent={{260,-10},{280,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpChiWat(
     final height=2*6895,
     final duration=3600,
@@ -109,10 +100,6 @@ model Controller "Validation head pressure controller"
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
-    final samplePeriod=fill(5, 2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{200,40},{220,60}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol2[2](
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
@@ -152,8 +139,6 @@ equation
     annotation (Line(points={{-298,-70},{-282,-70}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.TChiWatSupResReq) annotation (Line(points={{-258,
           -70},{-100,-70},{-100,-50},{-30,-50}},      color={255,127,0}));
-  connect(uChiAva.y, chiPlaCon.uChiAva) annotation (Line(points={{-218,-50},{-124,
-          -50},{-124,5},{-30,5}}, color={255,0,255}));
   connect(phi.y, chiPlaCon.phi) annotation (Line(points={{-278,60},{-150,60},{-150,
           100},{-30,100}}, color={0,0,127}));
   connect(TOut1.y, chiPlaCon.TOut) annotation (Line(points={{-238,-180},{-150,-180},
@@ -172,18 +157,12 @@ equation
           {110,-70},{110,-90},{118,-90}},      color={0,0,127}));
   connect(zerOrdHol.y, chiPlaCon.uIsoVal) annotation (Line(points={{142,-90},{
           190,-90},{190,-210},{-70,-210},{-70,-150},{-30,-150}}, color={0,0,127}));
-  connect(booToRea.y, pro.u2) annotation (Line(points={{242,-40},{250,-40},{250,
-          -6},{258,-6}},   color={0,0,127}));
-  connect(pro.y, chiPlaCon.uConWatPumSpe) annotation (Line(points={{282,0},{300,
-          0},{300,-250},{-110,-250},{-110,-70},{-30,-70}},      color={0,0,127}));
   connect(chiPlaCon.yChiWatIsoVal, zerOrdHol2.u) annotation (Line(points={{90,-30},
           {100,-30},{100,-60},{118,-60}}, color={0,0,127}));
   connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{142,-60},
           {200,-60},{200,-220},{-80,-220},{-80,-40},{-30,-40}}, color={0,0,127}));
   connect(dpChiWat.y, chiPlaCon.dpChiWat_remote[1]) annotation (Line(points={{-238,90},
           {-180,90},{-180,140},{-30,140}}, color={0,0,127}));
-  connect(chiPlaCon.yConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{90,30},
-          {144,30},{144,50},{198,50}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.chiPlaReq) annotation (Line(points={{-258,-70},
           {-100,-70},{-100,-60},{-30,-60}}, color={255,127,0}));
   connect(reaToInt1.y, intGreThr.u) annotation (Line(points={{-258,-70},{-220,-70},
@@ -192,8 +171,6 @@ equation
           -90},{-140,-5},{-30,-5}}, color={255,0,255}));
   connect(TEntHex.y, chiPlaCon.TEntHex) annotation (Line(points={{-258,-30},{-148,
           -30},{-148,-15},{-30,-15}}, color={0,0,127}));
-  connect(zerOrdHol1.y, pro.u1) annotation (Line(points={{222,50},{252,50},{252,
-          6},{258,6}}, color={0,0,127}));
   connect(chiWatFlo.y[1], chiPlaCon.VChiWat_flow) annotation (Line(points={{
           -278,-200},{-160,-200},{-160,130},{-30,130}}, color={0,0,127}));
   connect(chiPlaCon.yChi[1], chiOne.y1) annotation (Line(points={{90,72.5},{110,
@@ -208,9 +185,6 @@ equation
           0,255}));
   connect(chiOne.y1_actual, chiPlaCon.uChi[1]) annotation (Line(points={{162,180},
           {180,180},{180,240},{-40,240},{-40,117.5},{-30,117.5}}, color={255,0,255}));
-  connect(chiOne.y1_actual, chiPlaCon.uChiHeaCon[1]) annotation (Line(points={{162,
-          180},{180,180},{180,240},{-40,240},{-40,-32.5},{-30,-32.5}}, color={255,
-          0,255}));
   connect(chiTwo.y1_actual, chiPlaCon.uChiWatReq[2]) annotation (Line(points={{162,
           120},{200,120},{200,250},{-60,250},{-60,202.5},{-30,202.5}}, color={255,
           0,255}));
@@ -219,16 +193,11 @@ equation
           0,255}));
   connect(chiTwo.y1_actual, chiPlaCon.uChi[2]) annotation (Line(points={{162,120},
           {200,120},{200,250},{-60,250},{-60,122.5},{-30,122.5}}, color={255,0,255}));
-  connect(chiTwo.y1_actual, chiPlaCon.uChiHeaCon[2]) annotation (Line(points={{162,
-          120},{200,120},{200,250},{-60,250},{-60,-27.5},{-30,-27.5}}, color={255,
-          0,255}));
   connect(chiPlaCon.yConWatPum, conWatPum.y1) annotation (Line(points={{90,0},{120,
           0},{120,0},{138,0}},      color={255,0,255}));
   connect(conWatPum.y1_actual, chiPlaCon.uConWatPum) annotation (Line(points={{162,0},
           {210,0},{210,-230},{-100,-230},{-100,-80},{-30,-80}},    color={255,0,
           255}));
-  connect(conWatPum.y1_actual, booToRea.u) annotation (Line(points={{162,0},{210,
-          0},{210,-40},{218,-40}}, color={255,0,255}));
   connect(chiPlaCon.yTowCel, towSta.y1) annotation (Line(points={{90,-85},{100,-85},
           {100,-170},{118,-170}}, color={255,0,255}));
   connect(towSta.y1_actual, chiPlaCon.uTowSta) annotation (Line(points={{142,-170},

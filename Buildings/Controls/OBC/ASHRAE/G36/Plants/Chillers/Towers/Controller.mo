@@ -231,10 +231,8 @@ block Controller "Cooling tower controller"
     "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
@@ -373,9 +371,9 @@ protected
     final totSta=totSta,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
-    final chaTowCelIsoTim=chaTowCelIsoTim,
-    final speChe=speChe) "Cooling tower staging"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    final chaTowCelIsoTim=chaTowCelIsoTim)
+                         "Cooling tower staging"
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.WaterLevel makUpWat(
     final watLevMin=watLevMin,
     final watLevMax=watLevMax)
@@ -391,12 +389,15 @@ protected
     final nin=nTowCel)
     "Check if there is any enabled cell"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nConWatPum)
+    "Check if there is any pump on"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 equation
   connect(towSta.yTowSta, yTowSta)
-    annotation (Line(points={{2,-54},{10,-54},{10,-110},{120,-110}}, color={255,0,255}));
+    annotation (Line(points={{22,-54},{30,-54},{30,-110},{120,-110}},color={255,0,255}));
   connect(towSta.yIsoVal, yIsoVal)
-    annotation (Line(points={{2,-50},{40,-50},{40,-70},{120,-70}}, color={0,0,127}));
+    annotation (Line(points={{22,-50},{40,-50},{40,-70},{120,-70}},color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{22,-180},{50,-180},{50,-158},{58,-158}},
       color={0,0,127}));
@@ -420,36 +421,32 @@ equation
     annotation (Line(points={{-22,29},{-84,29},{-84,20},{-120,20}}, color={255,0,255}));
   connect(towFanSpe.TConWatRet, TConWatRet)
     annotation (Line(points={{-22,26},{-80,26},{-80,0},{-120,0}},     color={0,0,127}));
-  connect(towFanSpe.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{-22,23},{-72,23},{-72,-20},{-120,-20}}, color={0,0,127}));
   connect(towFanSpe.TConWatSup, TConWatSup)
     annotation (Line(points={{-22,21},{-68,21},{-68,-40},{-120,-40}}, color={0,0,127}));
   connect(towSta.uChiSta, uChiSta)
-    annotation (Line(points={{-22,-41},{-64,-41},{-64,-100},{-120,-100}}, color={255,127,0}));
+    annotation (Line(points={{-2,-41},{-64,-41},{-64,-100},{-120,-100}},  color={255,127,0}));
   connect(towSta.uIsoVal, uIsoVal)
-    annotation (Line(points={{-22,-57},{-40,-57},{-40,-220},{-120,-220}}, color={0,0,127}));
+    annotation (Line(points={{-2,-57},{-40,-57},{-40,-220},{-120,-220}},  color={0,0,127}));
   connect(makUpWat.watLev, watLev)
     annotation (Line(points={{-22,-240},{-120,-240}}, color={0,0,127}));
   connect(makUpWat.yMakUp, yMakUp)
     annotation (Line(points={{2,-240},{120,-240}}, color={255,0,255}));
   connect(uTowSta, towSta.uTowSta)
-    annotation (Line(points={{-120,40},{-76,40},{-76,-59},{-22,-59}}, color={255,0,255}));
-  connect(towSta.uChiStaSet, uChiStaSet) annotation (Line(points={{-22,-43},{-60,
+    annotation (Line(points={{-120,40},{-76,40},{-76,-59},{-2,-59}},  color={255,0,255}));
+  connect(towSta.uChiStaSet, uChiStaSet) annotation (Line(points={{-2,-43},{-60,
           -43},{-60,-120},{-120,-120}}, color={255,127,0}));
-  connect(towSta.uTowStaCha, uTowStaCha) annotation (Line(points={{-22,-45},{-56,
+  connect(towSta.uTowStaCha, uTowStaCha) annotation (Line(points={{-2,-45},{-56,
           -45},{-56,-150},{-120,-150}}, color={255,0,255}));
   connect(uWse, towSta.uWse) annotation (Line(points={{-120,180},{-48,180},{-48,
-          -47},{-22,-47}}, color={255,0,255}));
-  connect(uConWatPumSpe, towSta.uConWatPumSpe) annotation (Line(points={{-120,-20},
-          {-72,-20},{-72,-53},{-22,-53}}, color={0,0,127}));
-  connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{2,-46},{40,-46},{40,
+          -47},{-2,-47}},  color={255,0,255}));
+  connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{22,-46},{40,-46},{40,
           -30},{120,-30}}, color={255,0,255}));
   connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-70},{-48,-70},
-          {-48,-49},{-22,-49}}, color={255,0,255}));
+          {-48,-49},{-2,-49}},  color={255,0,255}));
   connect(swi.y, ySpeSet)
     annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
   connect(uPla, towSta.uPla) annotation (Line(points={{-120,20},{-84,20},{-84,-51},
-          {-22,-51}}, color={255,0,255}));
+          {-2,-51}},  color={255,0,255}));
   connect(towFanSpe.yLifMax, yLifMax) annotation (Line(points={{2,30},{20,30},{20,
           148},{120,148}},                         color={0,0,127}));
   connect(towFanSpe.yLifMin, yLifMin) annotation (Line(points={{2,27},{30,27},{30,
@@ -458,12 +455,18 @@ equation
           -142},{58,-142}}, color={0,0,127}));
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{42,-150},{58,-150}}, color={255,0,255}));
-  connect(towSta.yTowSta, mulOr.u) annotation (Line(points={{2,-54},{10,-54},{10,
-          -150},{18,-150}}, color={255,0,255}));
+  connect(towSta.yTowSta, mulOr.u) annotation (Line(points={{22,-54},{30,-54},{30,
+          -128},{0,-128},{0,-150},{18,-150}}, color={255,0,255}));
   connect(towFanSpe.TConWatRetSet, TConWatRetSet) annotation (Line(points={{2,23.8},
           {40,23.8},{40,90},{120,90}}, color={0,0,127}));
   connect(towFanSpe.TConWatSupSet, TConWatSupSet) annotation (Line(points={{2,21},
           {60,21},{60,62},{120,62}}, color={0,0,127}));
+  connect(uConWatPum, towFanSpe.uConWatPum) annotation (Line(points={{-120,-20},
+          {-72,-20},{-72,23},{-22,23}}, color={255,0,255}));
+  connect(uConWatPum, mulOr1.u)
+    annotation (Line(points={{-120,-20},{-42,-20}}, color={255,0,255}));
+  connect(mulOr1.y, towSta.uAnyConWatPum) annotation (Line(points={{-18,-20},{-10,
+          -20},{-10,-53},{-2,-53}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
@@ -532,9 +535,9 @@ annotation (
           textColor={0,0,127},
           textString="uMaxSpeSet"),
         Text(
-          extent={{-96,-22},{-12,-40}},
-          textColor={0,0,127},
-          textString="uConWatPumSpe"),
+          extent={{-100,-22},{-16,-40}},
+          textColor={255,0,255},
+          textString="uConWatPum"),
         Text(
           extent={{-100,-2},{-36,-18}},
           textColor={0,0,127},

@@ -67,7 +67,7 @@ equation
           {-40,-5},{38,-5}}, color={255,0,255}));
   connect(wseSta.y, towSta.uWse) annotation (Line(points={{-98,-40},{-34,-40},{-34,
           -7},{38,-7}},   color={255,0,255}));
-  connect(conWatPumSpe.y, towSta.uConWatPumSpe) annotation (Line(points={{-58,-100},
+  connect(conWatPumSpe.y,towSta.uAnyConWatPum)  annotation (Line(points={{-58,-100},
           {-26,-100},{-26,-13},{38,-13}}, color={0,0,127}));
   connect(towSta.yTowSta, pre1.u) annotation (Line(points={{62,-14},{78,-14}},
           color={255,0,255}));

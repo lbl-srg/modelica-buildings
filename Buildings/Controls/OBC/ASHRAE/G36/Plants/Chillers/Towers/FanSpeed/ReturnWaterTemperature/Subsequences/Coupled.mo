@@ -5,8 +5,6 @@ block Coupled
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
   parameter Real fanSpeMin = 0.1 "Minimum cooling tower fan speed";
-  parameter Real pumSpeChe = 0.01
-    "Lower threshold value to check if condenser water pump is proven on";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
     annotation (Dialog(group="Controller"));
@@ -35,7 +33,7 @@ block Coupled
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
@@ -43,10 +41,8 @@ block Coupled
     "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
@@ -66,7 +62,7 @@ block Coupled
     final unit="1")
     "Tower maximum speed that reset based on plant partial load ratio"
     annotation (Placement(transformation(extent={{-160,-150},{-120,-110}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
     final min=0,
     final max=1,
@@ -99,13 +95,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=yMax) "Constant one"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
-    final uLow=fill(pumSpeChe, nConWatPum),
-    final uHigh=fill(2*pumSpeChe, nConWatPum))
-    "Check if the condenser water pump is proven on"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(
-    final nin=nConWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(nin=nConWatPum)
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin fanSpe(final nin=3)
@@ -138,10 +128,6 @@ equation
     annotation (Line(points={{22,60},{40,60},{40,76},{78,76}}, color={0,0,127}));
   connect(one.y, CWRTSpd.f2)
     annotation (Line(points={{22,60},{40,60},{40,72},{78,72}}, color={0,0,127}));
-  connect(uConWatPumSpe, proOn.u)
-    annotation (Line(points={{-140,0},{-102,0}}, color={0,0,127}));
-  connect(proOn.y, anyProOn.u)
-    annotation (Line(points={{-78,0},{-62,0}}, color={255,0,255}));
   connect(uChi, swi1.u2)
     annotation (Line(points={{-140,-80},{-62,-80}}, color={255,0,255}));
   connect(one1.y, swi1.u3)
@@ -170,6 +156,8 @@ equation
     annotation (Line(points={{102,0},{140,0}}, color={0,0,127}));
   connect(anyProOn.y, conPID.uEna) annotation (Line(points={{-38,0},{0,0},{0,30},
           {-74,30},{-74,68}}, color={255,0,255}));
+  connect(uConWatPum, anyProOn.u)
+    annotation (Line(points={{-140,0},{-62,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="couTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),

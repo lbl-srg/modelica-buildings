@@ -175,12 +175,10 @@ block Controller
     final unit="K") "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-200,-220},{-160,-180}}),
-      iconTransformation(extent={{-240,-170},{-200,-130}})));
+  CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status" annotation (Placement(transformation(
+          extent={{-200,-220},{-160,-180}}), iconTransformation(extent={{-240,-170},
+            {-200,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
@@ -241,7 +239,6 @@ block Controller
     final nChi=nChi,
     final nConWatPum=nConWatPum,
     final fanSpeMin=fanSpeMin,
-    final pumSpeChe=speChe,
     final controllerType=couPlaCon,
     final k=kCouPla,
     final Ti=TiCouPla,
@@ -254,7 +251,6 @@ block Controller
     lesCouTowSpe(
     final nChi=nChi,
     final nConWatPum=nConWatPum,
-    final pumSpeChe=speChe,
     final fanSpeMin=fanSpeMin,
     final samplePeriod=samplePeriod,
     final iniPlaTim=iniPlaTim,
@@ -315,11 +311,6 @@ protected
     final k=0) if not have_WSE
     "Zero constant"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
-    final uLow=fill(speChe, nConWatPum),
-    final uHigh=fill(2*speChe, nConWatPum))
-    "Check if the condenser water pump is proven on"
-    annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nConWatPum]
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
@@ -369,27 +360,21 @@ equation
     annotation (Line(points={{38,14},{-110,14},{-110,-30},{-180,-30}},
       color={255,0,255}));
   connect(conWatRetSet.TConWatRetSet, couTowSpe.TConWatRetSet)
-    annotation (Line(points={{-18,-70},{0,-70},{0,-120},{38,-120}},
+    annotation (Line(points={{-18,-70},{0,-70},{0,-121},{38,-121}},
       color={0,0,127}));
   connect(couTowSpe.TConWatRet, TConWatRet)
     annotation (Line(points={{38,-124},{-100,-124},{-100,-160},{-180,-160}},
       color={0,0,127}));
-  connect(couTowSpe.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{38,-128},{-80,-128},{-80,-200},{-180,-200}},
-      color={0,0,127}));
   connect(uMaxSpeSet, couTowSpe.uMaxSpeSet) annotation (Line(points={{-180,40},
           {-120,40},{-120,-132},{38,-132}}, color={0,0,127}));
   connect(plrTowMaxSpe.y, couTowSpe.plrTowMaxSpe)
-    annotation (Line(points={{2,100},{20,100},{20,-140},{38,-140}},
+    annotation (Line(points={{2,100},{20,100},{20,-139},{38,-139}},
       color={0,0,127}));
   connect(conWatRetSet.TConWatRetSet, lesCouTowSpe.TConWatRetSet)
-    annotation (Line(points={{-18,-70},{0,-70},{0,-210},{38,-210}},
+    annotation (Line(points={{-18,-70},{0,-70},{0,-211},{38,-211}},
       color={0,0,127}));
   connect(TConWatRet, lesCouTowSpe.TConWatRet)
-    annotation (Line(points={{-180,-160},{-100,-160},{-100,-212},{38,-212}},
-      color={0,0,127}));
-  connect(uConWatPumSpe, lesCouTowSpe.uConWatPumSpe)
-    annotation (Line(points={{-180,-200},{-80,-200},{-80,-218},{38,-218}},
+    annotation (Line(points={{-180,-160},{-100,-160},{-100,-213},{38,-213}},
       color={0,0,127}));
   connect(lesCouTowSpe.TConWatSup, TConWatSup)
     annotation (Line(points={{38,-222},{0,-222},{0,-280},{-180,-280}},
@@ -397,7 +382,7 @@ equation
   connect(uMaxSpeSet, lesCouTowSpe.uMaxSpeSet) annotation (Line(points={{-180,
           40},{-120,40},{-120,-225},{38,-225}}, color={0,0,127}));
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)
-    annotation (Line(points={{2,100},{20,100},{20,-230},{38,-230}},
+    annotation (Line(points={{2,100},{20,100},{20,-229},{38,-229}},
       color={0,0,127}));
   connect(enaTow.yTow, swi.u2)
     annotation (Line(points={{62,20},{118,20}}, color={255,0,255}));
@@ -427,11 +412,6 @@ equation
     annotation (Line(points={{122,210},{180,210}}, color={0,0,127}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-180,210},{-122,210}}, color={255,0,255}));
-  connect(uConWatPumSpe, proOn.u)
-    annotation (Line(points={{-180,-200},{-150,-200},{-150,-260},{-142,-260}},
-      color={0,0,127}));
-  connect(proOn.y, booToInt.u)
-    annotation (Line(points={{-118,-260},{-102,-260}}, color={255,0,255}));
   connect(mulSumInt.y, enaTow.uConWatPumNum)
     annotation (Line(points={{-18,-260},{10,-260},{10,11},{38,11}},
       color={255,127,0}));
@@ -449,7 +429,7 @@ equation
     annotation (Line(points={{-180,210},{-140,210},{-140,-227},{38,-227}},
       color={255,0,255}));
   connect(uPla, lesCouTowSpe.uPla)
-    annotation (Line(points={{-180,-120},{-60,-120},{-60,-215},{38,-215}},
+    annotation (Line(points={{-180,-120},{-60,-120},{-60,-216},{38,-216}},
       color={255,0,255}));
   connect(lesCouTowSpe.TConWatSupSet, TConWatSupSet)
     annotation (Line(points={{62,-212},{180,-212}}, color={0,0,127}));
@@ -461,6 +441,12 @@ equation
           {130,60},{30,60},{30,26},{38,26}}, color={0,0,127}));
   connect(conWatRetSet.TConWatRetSet, TConWatRetSet) annotation (Line(points={{-18,
           -70},{0,-70},{0,-170},{180,-170}}, color={0,0,127}));
+  connect(uConWatPum, booToInt.u) annotation (Line(points={{-180,-200},{-150,
+          -200},{-150,-260},{-102,-260}}, color={255,0,255}));
+  connect(uConWatPum, couTowSpe.uConWatPum) annotation (Line(points={{-180,-200},
+          {-150,-200},{-150,-128},{38,-128}}, color={255,0,255}));
+  connect(uConWatPum, lesCouTowSpe.uConWatPum) annotation (Line(points={{-180,
+          -200},{-150,-200},{-150,-219},{38,-219}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},

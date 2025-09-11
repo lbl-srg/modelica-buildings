@@ -47,12 +47,6 @@ protected
     final k=false)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold conPumSpeSet(
-    final samplePeriod=10) "Design condenser water pump speed setpoint"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold conPumSpe(
-    final samplePeriod=20) "Condenser water pump speed"
-    annotation (Placement(transformation(extent={{80,-72},{100,-52}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer3(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
@@ -190,14 +184,6 @@ equation
           {100,20},{100,0},{-42,0},{-42,98.5},{18,98.5}},   color={255,0,255}));
   connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-178,-180},{-40,-180},
           {-40,96},{18,96}},   color={255,0,255}));
-  connect(upProCon.yDesConWatPumSpe, conPumSpeSet.u) annotation (Line(points={{42,99},
-          {54,99},{54,-20},{78,-20}},        color={0,0,127}));
-  connect(conPumSpeSet.y, conPumSpe.u) annotation (Line(points={{102,-20},{110,-20},
-          {110,-40},{60,-40},{60,-62},{78,-62}}, color={0,0,127}));
-  connect(conPumSpeSet.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{102,-20},
-          {110,-20},{110,-40},{-38,-40},{-38,94},{18,94}},      color={0,0,127}));
-  connect(conPumSpe.y, upProCon.uConWatPumSpe) annotation (Line(points={{102,-62},
-          {120,-62},{120,-80},{-36,-80},{-36,92},{18,92}},   color={0,0,127}));
   connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,-100},
           {120,-100},{120,-116},{-32,-116},{-32,84.5},{18,84.5}}, color={255,0,255}));
   connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90.5},
