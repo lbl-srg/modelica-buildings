@@ -11,7 +11,7 @@ model FanCoilUnit
 
   parameter Boolean sampleModel = false
     "Set to true to time-sample the model, which can give shorter simulation time
-    if there is already time sampling in the system mofandel"
+    if there is already time sampling in the system model"
     annotation (Evaluate=true,Dialog(
       tab="Experimental (may be changed in future releases)"));
 
@@ -180,7 +180,7 @@ model FanCoilUnit
     UACooCoi_nominal=7.5*2.25*146.06,
     mAir_flow_nominal=0.21303*2*3)
     "Fan coil unit with no heating coil"
-    annotation (Placement(transformation(extent={{32,132},{72,172}})));
+    annotation (Placement(transformation(extent={{40,140},{80,180}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU(
     cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
@@ -460,15 +460,13 @@ protected
 
 equation
   connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{-16,156},{20,156},
-          {20,158},{30,158}},        color={0,0,127}));
-  connect(conFCU.yCooCoi, fanCoiUni.uCoo) annotation (Line(points={{-16,140},{20,
-          140},{20,152},{30,152}},
-                            color={0,0,127}));
+          {20,166},{38,166}},        color={0,0,127}));
+  connect(conFCU.yCooCoi, fanCoiUni.uCoo) annotation (Line(points={{-16,140},{-16,
+          160},{38,160}},   color={0,0,127}));
   connect(greThr.y, tim.u) annotation (Line(points={{-178,-130},{-162,-130}},
                color={255,0,255}));
-  connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{74,144},{88,
-          144},{88,188},{-124,188},{-124,144},{-80,144},{-80,138},{-60,138}},
-                                                            color={0,0,127}));
+  connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{82,152},{96,
+          152},{96,226},{-66,226},{-66,138},{-60,138}},     color={0,0,127}));
   connect(uSha.y, replicator.u)
     annotation (Line(points={{-179,200},{-162,200}}, color={0,0,127}));
   connect(replicator.y, zon1.uSha) annotation (Line(points={{-139,200},{108,200},
@@ -652,15 +650,15 @@ equation
           {60,232},{100,232},{100,104},{88,104},{88,56},{108,56},{108,32},{112,
           32},{112,-65.8333},{126.25,-65.8333}},      color={0,127,255}));
   connect(souCoo.ports[3], fanCoiUni.port_CHW_a) annotation (Line(points={{150.667,
-          -220},{150.667,-100},{88,-100},{88,0},{80,0},{80,-4},{40,-4},{40,8},{
-          8,8},{8,120},{64,120},{64,132}},       color={0,127,255}));
+          -220},{150.667,-212},{148,-212},{148,-100},{88,-100},{88,0},{80,0},{
+          80,-4},{64,-4},{64,-12},{8,-12},{8,124},{72,124},{72,140}},
+                                                 color={0,127,255}));
   connect(sinCoo.ports[3], fanCoiUni.port_CHW_b) annotation (Line(points={{108.667,
-          -220},{108.667,-216},{112,-216},{112,-96},{12,-96},{12,72},{84,72},{
-          84,124},{54,124},{54,132}},
-                           color={0,127,255}));
-  connect(fanCoiUni.yFan_actual, greThr[1].u) annotation (Line(points={{74,160},
-          {88,160},{88,164},{92,164},{92,192},{-132,192},{-132,168},{-212,168},{
-          -212,-130},{-202,-130}},                       color={0,0,127}));
+          -220},{108.667,-212},{108,-212},{108,-96},{12,-96},{12,128},{62,128},
+          {62,140}},       color={0,127,255}));
+  connect(fanCoiUni.yFan_actual, greThr[1].u) annotation (Line(points={{82,168},
+          {92,168},{92,220},{-220,220},{-220,-130},{-202,-130}},
+                                                         color={0,0,127}));
   connect(fanCoiUni1.yFan_actual, greThr[2].u) annotation (Line(points={{72,48},
           {78,48},{78,68},{-220,68},{-220,-130},{-202,-130}},
                                                         color={0,0,127}));
@@ -674,11 +672,10 @@ equation
           -138},{-110,-8},{-70,-8}}, color={255,0,255}));
   connect(tim[3].passed, conFCU2.u1Fan) annotation (Line(points={{-138,-138},{-110,
           -138},{-110,-104},{-70,-104}}, color={255,0,255}));
-  connect(fanCoiUni.port_Air_b, zon1.ports[1]) annotation (Line(points={{72,148},
-          {96,148},{96,156},{126.25,156},{126.25,150.833}},
-                                          color={0,127,255}));
-  connect(fanCoiUni.port_Air_a, zon1.ports[2]) annotation (Line(points={{72,156},
-          {126.25,156},{126.25,152.5}},          color={0,127,255}));
+  connect(fanCoiUni.port_Air_b, zon1.ports[1]) annotation (Line(points={{80,156},
+          {80,150.833},{126.25,150.833}}, color={0,127,255}));
+  connect(fanCoiUni.port_Air_a, zon1.ports[2]) annotation (Line(points={{80,164},
+          {100,164},{100,152.5},{126.25,152.5}}, color={0,127,255}));
   connect(lea.port_b, zon1.ports[3]) annotation (Line(points={{40,280},{60,280},
           {60,232},{100,232},{100,154.167},{126.25,154.167}}, color={0,127,255}));
   connect(zon1.surf_conBou, zon2.surf_conBou) annotation (Line(points={{152.5,145},
