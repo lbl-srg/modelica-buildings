@@ -20,7 +20,7 @@ model Safety "Example for usage of all safety controls"
       use_minFlowCtr=true))
                        "Safety control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=50)
+  Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=47)
     "Pulse signal for ySet"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Modelica.Blocks.Sources.Pulse TConInEmu(
@@ -136,6 +136,12 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2025, by Michael Wetter:<br/>
+Changed periodicity of source to avoid simultaneous events.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4339\">Buildings, issue 4339</a>.
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=
