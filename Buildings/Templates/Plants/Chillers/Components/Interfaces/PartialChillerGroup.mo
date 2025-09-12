@@ -36,8 +36,8 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
       enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl typCtlHea(
-    start=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller)
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl typCtlHea(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller)
     "Type of head pressure control"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled));
@@ -79,7 +79,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean enaTypValConWatChiIso=
     typArrPumConWat==Buildings.Templates.Components.Types.PumpArrangement.Headered
-      and (typCtlHea==Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None
+      and (typCtlHea==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired
       or have_pumConWatVar
       and typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.None)
     "Enable choices of chiller CW isolation valve type"
@@ -113,13 +113,13 @@ partial model PartialChillerGroup "Interface class for chiller group"
        ((typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
     or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)
     and typMeaCtlChiWatPri==Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.TemperatureChillerSensor
-    or typCtlHea==Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS)));
+    or typCtlHea==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByPlant)));
   // The following parameter stores the actual configuration setting.
   final parameter Boolean have_senTChiWatChiSup=
     if (typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
     or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)
     and typMeaCtlChiWatPri==Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.TemperatureChillerSensor
-    or typCtlHea==Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS
+    or typCtlHea==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByPlant
     then true
     else have_senTChiWatChiSup_select
     "Set to true for chiller CHW supply temperature sensor"
@@ -136,10 +136,10 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "Set to true for chiller CW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
           Buildings.Templates.Components.Types.Chiller.WaterCooled and not
-          typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS));
+          typCtlHea == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByPlant));
   // The following parameter stores the actual configuration setting.
   final parameter Boolean have_senTConWatChiRet=
-    if typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BAS
+    if typCtlHea == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByPlant
     then true elseif typ <> Buildings.Templates.Components.Types.Chiller.WaterCooled
     then false else have_senTConWatChiRet_select
     "Set to true for chiller CW return temperature sensor"
@@ -250,14 +250,14 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "Minimum allowable lift at minimum load - Each chiller"
     annotation (Dialog(group="Chiller head pressure control",
       enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled and
-      typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+      typCtlHea == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller));
   parameter Real kCtlHea(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps,
     start=1)=1
     "Gain of chiller head pressure control loop"
     annotation (Dialog(group="Chiller head pressure control",
       enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled and
-      typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+      typCtlHea == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller));
   parameter Real TiCtlHea(
     final quantity="Time",
     final unit="s",
@@ -265,7 +265,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "Integral time constant of chiller head pressure control loop"
     annotation (Dialog(group="Chiller head pressure control",
       enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled and
-      typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller));
+      typCtlHea == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller));
 
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow"

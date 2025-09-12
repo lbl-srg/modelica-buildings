@@ -14,7 +14,7 @@ model AirCooled "Air-cooled chiller plant"
     redeclare replaceable package MediumCon=Buildings.Media.Air,
     redeclare final Buildings.Templates.Plants.Chillers.Components.Economizers.None eco,
     redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Controls.G36 ctl(
-      final typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller),
+      final typCtlHea=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller),
     final typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
     final typCoo=Buildings.Templates.Components.Types.Cooler.None,
     final nCoo=0,

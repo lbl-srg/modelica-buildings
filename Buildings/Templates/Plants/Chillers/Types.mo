@@ -12,11 +12,6 @@ package Types "Package with type definitions"
       VariableSpeed "Variable speed centrifugal",
       PositiveDisplacement "Positive displacement (screw or scroll)")
       "Enumeration to specify the type of compressor";
-  type ChillerLiftControl = enumeration(
-      None "No head pressure control (e.g. magnetic bearing chiller)",
-      Chiller "Head pressure control by chiller onboard controller (AO available)",
-      BAS "Head pressure control by BAS")
-    "Enumeration to specify the type of head pressure control";
   type Controller = enumeration(
       G36 "Guideline 36 controller",
       OpenLoop "Open loop")

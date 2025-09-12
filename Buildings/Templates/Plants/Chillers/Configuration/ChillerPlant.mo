@@ -11,7 +11,7 @@ record ChillerPlant "Configuration parameters for chiller plant"
   parameter Buildings.Templates.Plants.Chillers.Types.ChillerArrangement typArrChi
     "Type of chiller arrangement"
     annotation (Evaluate=true);
-  parameter Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl typCtlHea
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl typCtlHea
     "Type of head pressure control"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso

@@ -45,10 +45,6 @@ block G36
   final parameter Real dTChiMaxLif[cfg.nChi]=dat.dTLifChi_nominal
     "Maximum LIFT of each chiller"
     annotation (Dialog(group="Chillers configuration"));
-  final parameter Boolean have_heaPreConSig=
-    typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.Chiller
-    "True: if there is head pressure control signal from chiller controller"
-    annotation (Dialog(tab="General",group="Chillers configuration"));
   // ---- General: Waterside economizer ----
   final parameter Boolean have_WSE=
     cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
@@ -248,6 +244,7 @@ block G36
   Buildings.Templates.Plants.Chillers.Components.Controls.patchController ctl(
     final have_airCoo=cfg.typChi == Buildings.Templates.Components.Types.Chiller.AirCooled,
     final chiDesCap=chiDesCap,
+    final chiHeaPreCon=typCtlHea,
     final chiMinCap=chiMinCap,
     final chiTyp=chiTyp,
     final closeCoupledPlant=closeCoupledPlant,
@@ -267,7 +264,6 @@ block G36
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
     final have_heaChiWatPum=have_heaChiWatPum,
     final have_heaConWatPum=have_heaConWatPum,
-    final have_heaPreConSig=have_heaPreConSig,
     final have_locSenChiWatPum=have_locSenChiWatPum,
     final have_parChi=have_parChi,
     final have_ponyChiller=have_ponyChiller,
@@ -351,11 +347,11 @@ block G36
     "Local CHW differential pressure reset"
     annotation (Placement(transformation(extent={{-60,16},{-40,36}})));
   Buildings.Controls.OBC.CDL.Routing.RealVectorFilter FIXME_TChiWatChiSup(nin=
-        cfg.nChi, nout=cfg.nChi) if typCtlHea <> Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None
+        cfg.nChi, nout=cfg.nChi) if typCtlHea <> Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired
     "#2299 Chiller CHW supply temperature, missing input connector"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Controls.OBC.CDL.Routing.RealVectorFilter FIXME_uChiWatIsoVal(nin=cfg.nChi,
-      nout=cfg.nChi) if typCtlHea <> Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None
+      nout=cfg.nChi) if typCtlHea <> Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired
     "#2299 Depends on plant configuration, should rather be the commanded position"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
 protected

@@ -79,14 +79,14 @@ record Controller
     annotation (Dialog(group="Chiller lift setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
       and cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-      and cfg.typCtlHea<>Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None));
+      and cfg.typCtlHea<>Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired));
   parameter Modelica.Units.SI.TemperatureDifference dTLifChi_nominal[:](min=fill(
         0, cfg.nChi))=TConWatRetChi_nominal - TChiWatSupChi_nominal
     "Design lift at design load - Each chiller"
     annotation (Dialog(group="Chiller lift setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
       and cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-        and cfg.typCtlHea<>Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None));
+        and cfg.typCtlHea<>Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired));
   parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[:](min=fill(0, cfg.nChi),
       start=fill(0, cfg.nChi))
     "Design capacity - Each chiller"
