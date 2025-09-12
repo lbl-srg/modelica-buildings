@@ -2,6 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnW
 block LessCoupled
   "Sequence of defining cooling tower fan speed when the plant is not close coupled"
 
+  parameter Boolean need_heaPreCon = true
+    "True: the plant requires chiller head pressure being controlled";
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
   parameter Real fanSpeMin(
@@ -87,7 +89,7 @@ block LessCoupled
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -145,6 +147,7 @@ protected
     "Fan speed calculated based on supply water temperature control"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin maxSpe(final nin=nChi)
+    if need_heaPreCon
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin fanSpe(final nin=3)
@@ -156,9 +159,10 @@ protected
     "Zero constant"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2[nChi](
-    final k=fill(1,nChi)) "Constant one"
+    final k=fill(1,nChi)) if need_heaPreCon "Constant one"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] if need_heaPreCon
+    "Logical switch"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert chiller status to real number, true becomes 1 and false becomes 0"
@@ -202,6 +206,10 @@ protected
     final k=fill(0.5, nChi))
     "Gain factor"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one3(
+    final k=1) if not need_heaPreCon
+    "Constant one"
+    annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
 
 equation
   connect(zer1.y, CWSTSpd.x1)
@@ -221,7 +229,8 @@ equation
     annotation (Line(points={{122,-30},{140,-30},{140,-80},{40,-80},{40,
           -120.667},{58,-120.667}}, color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
-    annotation (Line(points={{22,-120},{58,-120}},color={0,0,127}));
+    annotation (Line(points={{22,-120},{40,-120},{40,-120},{58,-120}},
+         color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
     annotation (Line(points={{-200,-180},{40,-180},{40,-119.333},{58,-119.333}},
       color={0,0,127}));
@@ -288,6 +297,8 @@ equation
           {-60,-50},{-14,-50},{-14,-42}}, color={255,0,255}));
   connect(uConWatPum, anyProOn.u)
     annotation (Line(points={{-200,-20},{-102,-20}}, color={255,0,255}));
+  connect(one3.y, fanSpe.u[2]) annotation (Line(points={{22,-160},{32,-160},{32,
+          -120},{58,-120}},       color={0,0,127}));
 annotation (
   defaultComponentName="lesCouTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{160,200}})),
@@ -347,7 +358,8 @@ at 0% loop output to 100% speed at 100% loop output.
 <li>
 Tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head
-pressure control loop <code>uMaxSpeSet</code>, and tower maximum speed that resets
+pressure control loop <code>uMaxSpeSet</code> (if the plant requires the chiller
+head pressure being controlled), and tower maximum speed that resets
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
 receive the same speed signal.
 </li>
