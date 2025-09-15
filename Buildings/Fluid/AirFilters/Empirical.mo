@@ -32,6 +32,13 @@ model Empirical "Empirical air filter model"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
+  Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
+    final mCon_nominal = per.mCon_nominal,
+    final mCon_reset=per.mCon_reset,
+    final nConSub=nConSub)
+    "Contaminant accumulation"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+
 protected
   parameter Integer nConSub = size(per.namCon,1)
     "Total types of contaminant substances";
@@ -53,12 +60,6 @@ protected
     final filEffPar=per.filEffPar)
     "Filter characterization"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
-    final mCon_nominal = per.mCon_nominal,
-    final mCon_reset=per.mCon_reset,
-    final nConSub=nConSub)
-    "Contaminant accumulation"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection coeCor(
     final b=per.b)
     "Flow coefficient correction"

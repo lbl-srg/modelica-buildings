@@ -25,19 +25,17 @@ model PressureDropWithVaryingFlowCoefficient
     p(displayUnit="Pa") = 101325)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{50,-10},{30,10}})));
-  Buildings.Fluid.FixedResistances.PressureDrop resFixed(
+  Buildings.Fluid.FixedResistances.PressureDrop fixRes(
     redeclare package Medium = Medium,
     m_flow_nominal=0.2,
     from_dp=true,
-    dp_nominal=10)
-    "Fixed resistance"
+    dp_nominal=10) "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient
-    resVarying(
+    varRes(
     redeclare package Medium = Medium,
     m_flow_nominal=0.2,
-    dp_nominal=10)
-    "Varying resistance"
+    dp_nominal=10) "Varying resistance"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Modelica.Blocks.Sources.Pulse kCor(
     width=100,
@@ -49,15 +47,15 @@ model PressureDropWithVaryingFlowCoefficient
 equation
   connect(P.y, sou.p_in)
     annotation (Line(points={{-71,8},{-62,8},{-52,8}},color={0,0,127}));
-  connect(sou.ports[1], resFixed.port_a)
-    annotation (Line(points={{-30,-1},{-20,-1},{-20,0},{-10,0}}, color={0,127,255}));
-  connect(resFixed.port_b, sin.ports[1])
+  connect(sou.ports[1], fixRes.port_a) annotation (Line(points={{-30,-1},{-20,-1},
+          {-20,0},{-10,0}}, color={0,127,255}));
+  connect(fixRes.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{10,-1},{30,-1}}, color={0,127,255}));
-  connect(resVarying.port_a, sou.ports[2])
-    annotation (Line(points={{-10,40},{-20,40},{-20,1},{-30,1}}, color={0,127,255}));
-  connect(resVarying.port_b, sin.ports[2])
-    annotation (Line(points={{10,40},{18,40},{18,1},{30,1}}, color={0,127,255}));
-  connect(kCor.y, resVarying.kCor)
+  connect(varRes.port_a, sou.ports[2]) annotation (Line(points={{-10,40},{-20,40},
+          {-20,1},{-30,1}}, color={0,127,255}));
+  connect(varRes.port_b, sin.ports[2]) annotation (Line(points={{10,40},{18,40},
+          {18,1},{30,1}}, color={0,127,255}));
+  connect(kCor.y, varRes.kCor)
     annotation (Line(points={{-59,72},{0,72},{0,52}}, color={0,0,127}));
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
@@ -65,14 +63,14 @@ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-Before 0.5 seconds, the flow rates of the <code>resFixed</code> (pressure
-resistance with a constant flow coefficient) and the <code>resVarying</code>
+Before 0.5 seconds, the flow rates of the <code>fixRes</code> (pressure
+resistance with a constant flow coefficient) and the <code>varRes</code>
 (pressure resistance with a varying flow coefficient) are the same with the
 identical pressure drop.
 </p>
 <p>
-After 0.5 seconds, the flow rate of the <code>resVarying</code> is lower than
-that of <code>resFixed</code> as the flow coefficient 
+After 0.5 seconds, the flow rate of the <code>varRes</code> is lower than
+that of <code>fixRes</code> as the flow coefficient 
 of the former decreases by &radic;<span style=\"text-decoration:overline;\">2</span>.      
 </p>
 </html>", revisions="<html>
