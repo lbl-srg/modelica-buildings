@@ -128,10 +128,6 @@
   openmodelica:
     comment: Timeout after 300 seconds.
     simulate: false
-- model_name: Buildings.Examples.HydronicSystems.FanCoilUnit
-  openmodelica:
-    comment: Times out after 600 seconds.
-    time_out: 600
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
     comment: Times out after 900 seconds.
