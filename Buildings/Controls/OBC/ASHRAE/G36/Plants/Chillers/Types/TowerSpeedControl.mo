@@ -3,7 +3,7 @@ type TowerSpeedControl  = enumeration(
     CondenserWaterReturnTemperaure
   "Control tower fan speed to maintain condenser water return temperature setpoint",
     CondenserWaterSupplyTemperature
-  "Control tower fan speed to maintain condenser water return temperature setpoint")
+  "Control tower fan speed to maintain condenser water supply temperature setpoint")
   "Cooling tower fan speed control type enumeration"
  annotation (
 Documentation(info="<html>
