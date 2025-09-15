@@ -1,8 +1,8 @@
 compareVars :=
   {
-    "resFixed.m_flow",
-    "resVarying.port_a.m_flow",
-    "resFixed.k",
-    "resVarying.k",
+    "fixRes.m_flow",
+    "varRes.port_a.m_flow",
+    "fixRes.k",
+    "varRes.k",
     "kCor.y"
   };
