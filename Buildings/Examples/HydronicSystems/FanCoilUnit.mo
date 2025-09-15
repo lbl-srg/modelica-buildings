@@ -722,6 +722,7 @@ and valve positions for heating and cooling coils.
 <p>
 The 3 fan coil units each have a supply fan and a chilled-water cooling coil. The
 heating coil varies as follows for each instance:
+</p>
 <ul>
 <li>
 <code>fanCoiUni</code> has no heating coil.
@@ -733,7 +734,6 @@ heating coil varies as follows for each instance:
 <code>fanCoiUni2</code> has an electric heating coil.
 </li>
 </ul>
-</p>
 <p>
 The HVAC system switches between occupied, unoccupied, unoccupied warm-up and
 unoccupied pre-cool modes. The cooling coil and heating coil output are modulated
