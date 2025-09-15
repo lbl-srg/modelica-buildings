@@ -126,15 +126,9 @@ block FanSpeed
     annotation (Placement(transformation(extent={{200,20},{240,60}}),
       iconTransformation(extent={{100,-40},{140,0}})));
 
-protected
   Buildings.Controls.OBC.CDL.Integers.Equal isUnOcc
     "Check if zone is unoccupied"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant unOccMod(
-    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
-    "Constant unoccupied mode signal"
-    annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not notUno
     "Enable only if zone is not in unoccupied mode"
@@ -152,34 +146,9 @@ protected
     "Heating fan speed signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conuHea_min(
-    final k=uHea_min) if have_heaCoi
-    "Minimum heating loop signal support point"
-    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conheaSpe_min(
-    final k=heaSpe_min) if have_heaCoi
-    "Minimum heating fan speed limit signal"
-    annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant concooSpe_min(
-    final k=cooSpe_min) if have_cooCoi
-    "Minimum cooling fan speed limit signal"
-    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-
   Buildings.Controls.OBC.CDL.Reals.Line linCooFanSpe if have_cooCoi
     "Cooling fan speed signal"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conuCoo_min(
-    final k=uCoo_min) if have_cooCoi
-    "Minimum cooling loop signal support point"
-    annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conDeaFanSpe(
-    final k=deaSpe)
-    "Deadband mode fan speed signal"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysDeaHea(
     final uLow=heaDea-deaHysLim,
@@ -205,6 +174,39 @@ protected
     "Multiply fan speed signal by fan enable signal"
     annotation (Placement(transformation(extent={{100,-150},{120,-130}})));
 
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulDeaSpe
+    "Multiply deadband speed signal by fan enable signal"
+    annotation (Placement(transformation(extent={{100,0},{120,20}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=1) if not have_heaCoi "Dummy gain"
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
+    final k=1) if not have_cooCoi "Dummy gain"
+    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant unOccMod(
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
+    "Constant unoccupied mode signal"
+    annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false) if not have_cooCoi
+    "Constant false"
+    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conuCoo_max(
+    final k=uCoo_max) if have_cooCoi
+    "Maximum cooling loop signal support point"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant concooSpe_max(
+    final k=cooSpe_max) if have_cooCoi
+    "Maximum cooling fan speed limit signal"
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conheaSpe_max(
     final k=heaSpe_max) if have_heaCoi
     "Maximum heating fan speed limit signal"
@@ -215,32 +217,30 @@ protected
     "Maximum heating loop signal support point"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant concooSpe_max(
-    final k=cooSpe_max) if have_cooCoi
-    "Maximum cooling fan speed limit signal"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conuCoo_min(
+    final k=uCoo_min) if have_cooCoi
+    "Minimum cooling loop signal support point"
+    annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conuCoo_max(
-    final k=uCoo_max) if have_cooCoi
-    "Maximum cooling loop signal support point"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conDeaFanSpe(
+    final k=deaSpe)
+    "Deadband mode fan speed signal"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply mulDeaSpe
-    "Multiply deadband speed signal by fan enable signal"
-    annotation (Placement(transformation(extent={{100,0},{120,20}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conuHea_min(
+    final k=uHea_min) if have_heaCoi
+    "Minimum heating loop signal support point"
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=1) if not have_heaCoi "Dummy gain"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conheaSpe_min(
+    final k=heaSpe_min) if have_heaCoi
+    "Minimum heating fan speed limit signal"
+    annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=false) if not have_cooCoi
-    "Constant false"
-    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
-
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
-    final k=1) if not have_cooCoi "Dummy gain"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant concooSpe_min(
+    final k=cooSpe_min) if have_cooCoi
+    "Minimum cooling fan speed limit signal"
+    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
 
 equation
   connect(unOccMod.y, isUnOcc.u2) annotation (Line(points={{-158,150},{-140,150},
