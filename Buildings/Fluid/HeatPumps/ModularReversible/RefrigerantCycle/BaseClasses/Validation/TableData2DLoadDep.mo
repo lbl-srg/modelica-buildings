@@ -267,35 +267,35 @@ for different system configurations and operating modes.
 <ul>
 <li>
 The component <code>chiSupLvg</code> validates the block for
-chiller applications with CHW supply temperature control and 
-performance data interpolation based on evaporator and condenser 
+chiller applications with CHW supply temperature control and
+performance data interpolation based on evaporator and condenser
 leaving temperature.
 </li>
 <li>
 The component <code>chiRetEnt</code> validates the block for
-chiller applications with CHW return temperature control and 
+chiller applications with CHW return temperature control and
 performance data interpolation based on evaporator leaving
 and condenser entering temperature.
 </li>
 <li>
 The component <code>chiHeaSupLvg</code> validates the block for
-heat recovery chiller applications with HW supply temperature control 
-and performance data interpolation based on evaporator and condenser 
+heat recovery chiller applications with HW supply temperature control
+and performance data interpolation based on evaporator and condenser
 leaving temperature.
 </li>
 <li>
 The component <code>hpSupLvg</code> validates the block for
-heat pump applications with HW supply temperature control 
-and performance data interpolation based on evaporator and condenser 
+heat pump applications with HW supply temperature control
+and performance data interpolation based on evaporator and condenser
 leaving temperature.
 </li>
 </ul>
 <p>
 The validation is carried out by computing the tracked temperature
-using the heat flow rate calculated by the block, and feeding back 
+using the heat flow rate calculated by the block, and feeding back
 this variable along with the required part load ratio as inputs.
 It is then expected that the tracked temperature matches the setpoint.
-Further validation of the performance calculation algorithm 
+Further validation of the performance calculation algorithm
 by comparison to polynomial chiller models is available in the package
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.Validation\">
 Buildings.Fluid.Chillers.ModularReversible.Validation</a>.

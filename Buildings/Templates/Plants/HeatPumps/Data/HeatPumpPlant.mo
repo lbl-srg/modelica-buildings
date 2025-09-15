@@ -18,7 +18,6 @@ record HeatPumpPlant
     final typ=cfg.typ,
     final nHp=cfg.nHp,
     final is_rev=cfg.is_rev,
-    final typMod=cfg.typMod,
     final cpHeaWat_default=cfg.cpHeaWat_default,
     final cpSou_default=cfg.cpSou_default,
     TChiWatSupHp_nominal=ctl.TChiWatSup_nominal,
@@ -143,19 +142,8 @@ record HeatPumpPlant
       enable=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   // Sidestream HRC
   parameter Buildings.Templates.Components.Data.Chiller hrc(
-    typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Chiller.WaterCooled
-      else Buildings.Templates.Components.Types.Chiller.None,
-    cpChiWat_default=cfg.cpChiWat_default,
-    cpCon_default=cfg.cpHeaWat_default,
-    COP_nominal=ctl.COPHeaHrc_nominal - 1,
-    TChiWatSup_nominal=ctl.TChiWatSup_nominal,
-    TChiWatSup_min=ctl.TChiWatSupHrc_min,
-    TConEnt_nominal=if cfg.have_hrc then
-      hrc.TConLvg_nominal - hrc.QCon_flow_nominal / hrc.mCon_flow_nominal / hrc.cpCon_default
-      else 273.15,
-    TConLvg_nominal=ctl.THeaWatSup_nominal,
-    TConLvg_max=ctl.THeaWatSupHrc_max,
-    PLR_min=abs(ctl.capCooHrc_min / hrc.cap_nominal))
+    typ=Buildings.Templates.Components.Types.Chiller.WaterCooled,
+    TChiWatSup_nominal=ctl.TChiWatSup_nominal)
     "Chiller"
     annotation (Dialog(group="Sidetream heat recovery chiller", enable=cfg.have_hrc));
   /* HACK(AntoineGautier):
@@ -175,6 +163,7 @@ record HeatPumpPlant
       {0, 1, 2} * pumChiWatHrc.m_flow_nominal / cfg.rhoChiWat_default else {0,0,0},
       dp=if pumChiWatHrc.typ<>Buildings.Templates.Components.Types.Pump.None then
       {1.14, 1, 0.42} * pumChiWatHrc.dp_nominal else {0,0,0})))
+    "HRC CHW pump"
     annotation (Dialog(group="Sidetream heat recovery chiller", enable=cfg.have_hrc));
   parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatHrc(
     final rho_default=cfg.rhoHeaWat_default,
@@ -209,6 +198,18 @@ Note that those parameter bindings are not final so they may be
 overwritten in case a component is parameterized at nominal
 conditions that differ from the design conditions specified
 in the controller sub-record.
+</p>
+<p>
+Only identical heat pumps are currently supported.
+</p>
+<p>
+The heat pump performance data are provided via the subrecords
+<code>hp.perHeaHp</code> and <code>hp.perCooHp</code> for the
+heating mode and the cooling mode, respectively.
+For the required format of the performance data files, 
+please refer to the documentation of the block
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
 </p>
 </html>"));
 

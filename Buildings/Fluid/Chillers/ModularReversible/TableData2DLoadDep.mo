@@ -45,7 +45,8 @@ model TableData2DLoadDep
     final cpCon=cpCon,
     final cpEva=cpEva,
     redeclare final Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-    final dat=datCoo)
+    final dat=datCoo,
+    final P_min=P_min)
     "Refrigerant cycle module for the cooling mode";
   parameter Boolean have_switchover=false
     "Set to true for heat recovery chiller with built-in switchover"
@@ -53,7 +54,7 @@ model TableData2DLoadDep
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(final max=0, start=0)
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0, start=0)
     "Nominal cooling capacity"
     annotation (Dialog(group="Nominal condition"));
   final parameter Real scaFacCoo=refCyc.refCycChiCoo.scaFac
@@ -63,6 +64,8 @@ model TableData2DLoadDep
     "Cooling performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{114,-18},{130,-2}})));
+  parameter Modelica.Units.SI.Power P_min(min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
     "CHW temperature: leaving if datCoo.use_TEvaOutForTab=true, entering otherwise"
     annotation (Dialog(group="Nominal condition"));
