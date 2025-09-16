@@ -1,8 +1,13 @@
 Borefield
 Chiller
+DHWConsumption
 HeatExchanger
 HeatPump
 HeatPumpDHWTank
+HeatPumpModular
+PartialParallelNoControl
+StorageTankWithExternalHeatExchanger
+StratifiedTankWithCommand
 SwitchBox
 WatersideEconomizer
 Validation

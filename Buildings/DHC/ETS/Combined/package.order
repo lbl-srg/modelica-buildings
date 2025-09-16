@@ -1,8 +1,11 @@
 ChillerBorefield
 HeatPumpHeatExchanger
 HeatPumpHeatExchangerDHWTank
+HeatPumpThreeUtilities
 Controls
+JBA_tmp
 Subsystems
+Data
 Examples
 Validation
 BaseClasses

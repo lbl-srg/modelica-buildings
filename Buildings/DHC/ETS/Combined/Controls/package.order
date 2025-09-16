@@ -1,6 +1,8 @@
 Borefield
 Chiller
+EtsHex
 HeatExchanger
+HeatPumpModular
 PIDWithEnable
 PredictLeavingTemperature
 PrimaryVariableFlow
@@ -9,5 +11,7 @@ SideCold
 SideHot
 Supervisory
 SwitchBox
+TankChargingController
+TwoTankCoordination
 WatersideEconomizer
 BaseClasses
