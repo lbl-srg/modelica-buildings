@@ -519,9 +519,23 @@ Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
 <p>
 For examples of how to use the model, refer to
 <a href=\"modelica://Buildings.Examples.HydronicSystems.FanCoilUnit\">
-Buildings.Examples.HydronicSystems.FanCoilUnit</a>
+Buildings.Examples.HydronicSystems.FanCoilUnit</a>. The following points are salient
+when using the model:
+<ul>
+<li>
+The connected air-loop does not need an additional fan, since the fan in this model
+generates flow.
+</li>
+<li>
+The fluid loop connections for hot-water and chilled-water require an external pressure
+difference between the inlet and the outlet sufficient to overcome the pressure
+drop across the two respective coils.
+</li>
+</ul>
 </p>
-The figure below shows the schematic diagram of the four pipe system:
+The figure below shows the schematic diagram of the four pipe system when
+<code>heaCoiTyp</code> is set to
+<code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased</code>.
 </p>
 <p>
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic.png\" width=\"50%\"/>
