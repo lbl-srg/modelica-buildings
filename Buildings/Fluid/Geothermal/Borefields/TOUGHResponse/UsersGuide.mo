@@ -7,12 +7,6 @@ package UsersGuide "User's Guide"
 <p>
 This package contains models demonstrating the coupling between Modelica simulation
 and <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH</a> simulation.
-The coupled models would be needed for modeling borefield-based geothermal energy systems in which
-the underground geologic is complicated. When there is strong underground waterflow,
-the models like the g-function based approaches that assume heat transfer
-in the ground is purely by conduction become less accurate.
-</p>
-<p>
 The model <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTube\">
 Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTube</a> assumes that in the
 borefield, all the boreholes has the same heat transfer with ground, with the ground
@@ -26,7 +20,111 @@ However, for the demonstration purpose, the test models in this package calls th
 code that imitates the TOUGH response.
 </p>
 
-<h4>Coupling workflow</h4>
+<h4>When to use the model</h4>
+<p>
+The coupled models would be needed for modeling borefield-based geothermal energy
+systems in which the underground geologic is complicated. For instance, when there
+is strong underground waterflow, the models like the g-function based approaches
+that assume heat transfer in the ground is purely by conduction become less
+accurate as it cannot model the advective heat tranfer due to the water flow.
+</p>
+
+<h4>How the coupling works</h4>
+<p>
+The coupling is conducted through the instance <code>pyt</code> in class
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse\">
+Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse</a>.
+It instantiates the Pyhton interface model
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
+Buildings.Utilities.IO.Python_3_8.Real_Real</a>, which can send data to Python
+functions and obtain data from it. It allows doing the computations inside a Python
+module that calls an external simulator like TOUGH.
+</p>
+<b>Python interface</b>
+<p>
+Through the interface instance as below,
+</p>
+<pre>
+  Buildings.Utilities.IO.Python_3_8.Real_Real pyt(
+    moduleName=\"GroundResponse\",
+    functionName=\"doStep\",
+    nDblRea=nSeg+3*nInt,
+    nDblWri=2*nSeg+2,
+    samplePeriod=samplePeriod,
+    flag=flag,
+    passPythonObject=true)
+</pre>
+<p>
+the coupled simulation calls the function
+<code>doStep</code> of the Python module <code>GroundReponse</code> (see
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">
+Buildings.Utilities.IO.Python_3_8.UsersGuide</a> for how to setup the Python interface).
+The interface also specifies the number of values that are read from (<code>nDblRea</code>)
+and written to (<code>nDblWri</code>) the Python function; sample period <code>samplePeriod</code>
+that defines how often Modelica should call the Python interface; flag (<code>flag</code>)
+that specifies the type values (current value, average over interval, or integral over
+interval) written to the Python function.
+</p>
+<pre>
+  def doStep(dblInp, state):
+    # retrieve state of last invoke, including
+    #   -- the end time of the TOUGH simulation,
+    #   -- the heat flow on the borehole wall that was measured in Modelica at last invoke,
+    #   -- the borehole wall temperature at the end of last TOUGH simulation.
+    {tLast, Q, T} = {state['tLast'], state['Q'], state['T']}
+    
+    # Map the heat flow in the Modelica domain grid points to the TOUGH boundary
+    # grid point
+    Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
+
+    # update TOUGH input files for each TOUGH call:
+    #   -- update the INFILE to specify begining and ending TOUGH simulation time
+    #   -- update the GENER for specifying the heat flow boundary condition
+    # os.system(\"./writeincon < writeincon.inp\")
+    write_incon()
+
+    # conduct one step TOUGH simulation
+    os.system(\"/.../tough3-install/bin/tough3-eos1\")
+
+    # extract borehole wall temperature for Modelica simulation
+    # os.system(\" ./readsave < readsave.inp > out.txt\")
+    readsave()
+
+    data = extract_data('out.txt')
+    T_tough = data['T_Bor']
+    
+    # Map the temperature of the borehole wall in the TOUGH grid points to
+    # the Modelica domain grid point
+    T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
+
+    # update state
+    state = {'tLast': tim, 'Q': Q, 'T': T_tough}
+  return [T_toModelica, state]
+</pre>
+
+<p>
+The argument <code>dblInp</code> to the Python function is an array with size <code>nDblWri</code>.
+It inclues:
+</p>
+<ul>
+<li>
+<code>QBor_flow[nSeg]</code>: the heat exchange flow rate between each borehole segment
+and the ground.
+</li>
+<li>
+<code>TBorWal_start[nSeg]</code>: the initial temperature of each borehole wal segement.
+</li>
+<li>
+<code>TOut</code>: the outdoor air temperature. It will become the ground surface
+temperature for the TOUGH simulation.
+</li>
+<li>
+<code>clock.y</code>: the current simulation time.
+</li>
+</ul>
+
+
+<b>Coupling workflow</b>
 <p>
 The borehole wall
 is the boundary between the Modelica simulation and the TOUGH simulation.
@@ -126,95 +224,7 @@ simply calling the <code>doStep</code> function with dummy <code>Q</code> inputs
 
 
 
-<h4>Python interface</h4>
-<p>
-The coupling is conducted through the instance <code>pyt</code> in class
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse\">
-Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse</a>.
-It instantiates the Pyhton interface model
-<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
-Buildings.Utilities.IO.Python_3_8.Real_Real</a>, which can send data to Python
-functions and obtain data from it. It allows doing the computations inside a Python
-module that calls an external simulator like TOUGH.
-</p>
-<pre>
-Buildings.Utilities.IO.Python_3_8.Real_Real pyt(
-  moduleName=\"GroundResponse\",
-  functionName=\"doStep\",
-  nDblRea=nSeg+3*nInt,
-  nDblWri=2*nSeg+2,
-  samplePeriod=samplePeriod,
-  flag=flag,
-  passPythonObject=true)
-</pre>
-<p>
-Through the interface instance as above, the coupled simulation calls the function
-<code>doStep</code> of the Python module <code>GroundReponse</code> (see
-<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">
-Buildings.Utilities.IO.Python_3_8.UsersGuide</a> for how to setup the Python interface).
-The interface also specifies the number of values that are read from (<code>nDblRea</code>)
-and written to (<code>nDblWri</code>) the Python function; sample period <code>samplePeriod</code>
-that defines how often Modelica should call the Python interface; flag (<code>flag</code>)
-that specifies the type values (current value, average over interval, or integral over
-interval) written to the Python function.
-</p>
-<pre>
-def doStep(dblInp, state):
-    # retrieve state of last invoke, including
-    #   -- the end time of the TOUGH simulation,
-    #   -- the heat flow on the borehole wall that was measured in Modelica at last invoke,
-    #   -- the borehole wall temperature at the end of last TOUGH simulation.
-    {tLast, Q, T} = {state['tLast'], state['Q'], state['T']}
-    
-    # Map the heat flow in the Modelica domain grid points to the TOUGH boundary
-    # grid point
-    Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
 
-    # update TOUGH input files for each TOUGH call:
-    #   -- update the INFILE to specify begining and ending TOUGH simulation time
-    #   -- update the GENER for specifying the heat flow boundary condition
-    # os.system(\"./writeincon < writeincon.inp\")
-    write_incon()
-
-    # conduct one step TOUGH simulation
-    os.system(\"/.../tough3-install/bin/tough3-eos1\")
-
-    # extract borehole wall temperature for Modelica simulation
-    # os.system(\" ./readsave < readsave.inp > out.txt\")
-    readsave()
-
-    data = extract_data('out.txt')
-    T_tough = data['T_Bor']
-    
-    # Map the temperature of the borehole wall in the TOUGH grid points to
-    # the Modelica domain grid point
-    T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
-
-    # update state
-    state = {'tLast': tim, 'Q': Q, 'T': T_tough}
-return [T_toModelica, state]
-</pre>
-
-<p>
-The argument <code>dblInp</code> to the Python function is an array with size <code>nDblWri</code>.
-It inclues:
-</p>
-<ul>
-<li>
-<code>QBor_flow[nSeg]</code>: the heat exchange flow rate between each borehole segment
-and the ground.
-</li>
-<li>
-<code>TBorWal_start[nSeg]</code>: the initial temperature of each borehole wal segement.
-</li>
-<li>
-<code>TOut</code>: the outdoor air temperature. It will become the ground surface
-temperature for the TOUGH simulation.
-</li>
-<li>
-<code>clock.y</code>: the current simulation time.
-</li>
-</ul>
 
 
 
@@ -278,6 +288,12 @@ def tough_avatar(heatFlux, T_out):
     os.remove('SAVE')
     os.rename('temp_SAVE', 'SAVE')
 </pre>
+    
+<h4>How to use the model</h4>
+<p>
+
+</p>
+
     
 <h4>References</h4>
 <p>

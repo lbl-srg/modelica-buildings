@@ -102,8 +102,8 @@ partial model PartialBorefieldWithTough
     final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
-  Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse
-    touRes(final nSeg=nSeg,
+  Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse touRes(
+    final nSeg=nSeg,
     final nInt=nInt,
     final samplePeriod=samplePeriod,
     final flag=flag)
