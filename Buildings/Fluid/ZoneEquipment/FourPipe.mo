@@ -330,12 +330,12 @@ equation
           {48,-80}}, color={0,0,127}));
   connect(TAirLvg.port_b, senSupFlo.port_a)
     annotation (Line(points={{180,0},{200,0}}, color={0,127,255}));
-  connect(senSupFlo.port_b, port_Air_b) annotation (Line(points={{220,0},{260,0}},
+  connect(senSupFlo.port_b,port_air_b)  annotation (Line(points={{220,0},{260,0}},
                                 color={0,127,255}));
   connect(cooCoi.port_b2, totResAir.port_a)
     annotation (Line(points={{40,-4},{60,-4},{60,0},{80,0}},
                                                  color={0,127,255}));
-  connect(TAirRet.port_a, port_Air_a) annotation (Line(points={{-230,0},{-236,0},
+  connect(TAirRet.port_a,port_air_a)  annotation (Line(points={{-230,0},{-236,0},
           {-236,90},{260,90}},                   color={0,127,255}));
   connect(heaCoiEle.port_b, TAirHea.port_a) annotation (Line(points={{-80,20},{
           -60,20},{-60,0},{-30,0}},
