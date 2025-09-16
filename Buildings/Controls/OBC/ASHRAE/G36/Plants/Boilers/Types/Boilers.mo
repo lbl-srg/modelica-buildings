@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types;
 package Boilers
   "Definitions for boiler types"
 
-  constant Integer condensingBoiler = 1
+  constant Integer Condensing = 1
     "Condensing boiler";
 
-  constant Integer nonCondensingBoiler = 2
+  constant Integer NonCondensing = 2
     "Non-condensing boiler";
 
 annotation (

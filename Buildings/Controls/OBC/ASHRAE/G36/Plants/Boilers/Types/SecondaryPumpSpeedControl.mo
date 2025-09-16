@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types;
 type SecondaryPumpSpeedControl = enumeration(
-    localDP "Pump speed regulated to maintain local differential pressure setpoint",
-    remoteDP "Pump speed regulated to maintain remote differential pressure setpoint")
+    LocalDP "Pump speed regulated to maintain local differential pressure setpoint",
+    RemoteDP "Pump speed regulated to maintain remote differential pressure setpoint")
   "Definitions for secondary pump speed control types" annotation (
     Documentation(info="<html>
 <p>

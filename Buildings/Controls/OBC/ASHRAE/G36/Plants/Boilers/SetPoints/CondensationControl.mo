@@ -109,7 +109,7 @@ protected
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing)
     "Identify if current stage is condensing type or non-condensing type"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 

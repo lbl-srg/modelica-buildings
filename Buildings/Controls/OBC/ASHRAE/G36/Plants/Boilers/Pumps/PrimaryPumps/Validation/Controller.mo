@@ -23,7 +23,7 @@ model Controller
     final k=1,
     final Ti=10,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.remoteDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP)
     "Testing pump configuration 1"
     annotation (Placement(transformation(extent={{-170,372},{-150,428}})));
 
@@ -48,7 +48,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.localDP)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP)
     "Testing pump configuration 2"
     annotation (Placement(transformation(extent={{190,362},{210,418}})));
 
@@ -74,7 +74,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.flowrate)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Testing pump configuration 3"
     annotation (Placement(transformation(extent={{-170,222},{-150,278}})));
 
@@ -100,7 +100,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.flowrate)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Testing pump configuration 4"
     annotation (Placement(transformation(extent={{190,202},{210,258}})));
 
@@ -136,7 +136,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Testing pump configuration 5"
     annotation (Placement(transformation(extent={{-170,62},{-150,118}})));
 
@@ -172,7 +172,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Testing pump configuration 6"
     annotation (Placement(transformation(extent={{190,42},{210,98}})));
 
@@ -208,7 +208,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Testing pump configuration 7"
     annotation (Placement(transformation(extent={{-180,-118},{-160,-62}})));
 
@@ -234,7 +234,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.flowrate)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Testing pump configuration 8"
     annotation (Placement(transformation(extent={{210,-138},{230,-82}})));
 
@@ -260,7 +260,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.flowrate)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Testing pump configuration 9"
     annotation (Placement(transformation(extent={{-180,-298},{-160,-242}})));
 
@@ -296,7 +296,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Testing pump configuration 10"
     annotation (Placement(transformation(extent={{210,-308},{230,-252}})));
 
@@ -332,7 +332,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Testing pump configuration 11"
     annotation (Placement(transformation(extent={{-170,-458},{-150,-402}})));
 
@@ -368,7 +368,7 @@ model Controller
     final k=1,
     final Ti=0.5,
     final Td=0.1,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.temperature)
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Testing pump configuration 12"
     annotation (Placement(transformation(extent={{190,-488},{210,-432}})));
 

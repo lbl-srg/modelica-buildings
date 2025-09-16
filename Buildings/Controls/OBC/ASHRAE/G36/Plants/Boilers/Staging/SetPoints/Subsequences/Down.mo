@@ -362,7 +362,7 @@ protected
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing)
     "Check for non-condensing boilers in stage"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
