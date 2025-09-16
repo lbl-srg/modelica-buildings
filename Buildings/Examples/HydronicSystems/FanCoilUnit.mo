@@ -178,7 +178,7 @@ model FanCoilUnit
     dpAir_nominal=100,
     mChiWat_flow_nominal=4*0.2984,
     dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
-    UACooCoi_nominal=7.5*2.25*146.06,
+    UACooCoi_nominal=7.5*146.06,
     mAir_flow_nominal=0.21303*2*3)
     "Fan coil unit with no heating coil"
     annotation (Placement(transformation(extent={{40,140},{80,180}})));
@@ -228,11 +228,11 @@ model FanCoilUnit
     final TiCoo=200,
     final heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final kHea=0.05,
-    final TiHea=120,
+    final TiHea=200,
     final kCooCoi=0.05,
     final TiCooCoi=200,
     final kHeaCoi=0.005,
-    final TiHeaCoi=90,
+    final TiHeaCoi=200,
     final TSupSet_max=308.15,
     final TSupSet_min=285.85)
     "Fan coil unit controller"
@@ -305,7 +305,7 @@ model FanCoilUnit
     mHotWat_flow_nominal=0.75*3.75*0.50946*0.25,
     dpHotWatCoi_nominal(displayUnit="Pa") = 1000,
     dpAir_nominal=100,
-    UAHeaCoi_nominal=146.06*3*1.1,
+    UAHeaCoi_nominal=146.06*2*1.1,
     mChiWat_flow_nominal=0.2984,
     dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
     UACooCoi_nominal=2.25*146.06,
