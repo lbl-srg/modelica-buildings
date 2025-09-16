@@ -82,18 +82,21 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation (Placement(transformation(extent={{260,90},{300,130}}),
       iconTransformation(extent={{200,60},{240,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{260,50},{300,90}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_Air_a(
+  Modelica.Fluid.Interfaces.FluidPort_a port_air_a(
     redeclare final package Medium = MediumA)
     "Return air port from zone"
     annotation (Placement(transformation(extent={{250,80},{270,100}}),
       iconTransformation(extent={{190,30},{210,50}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_Air_b(
+  Modelica.Fluid.Interfaces.FluidPort_b port_air_b(
     redeclare final package Medium = MediumA)
     "Supply air port to the zone"
     annotation (Placement(transformation(extent={{250,-10},{270,10}}),
@@ -518,6 +521,12 @@ For examples of how to use the model, refer to
 <a href=\"modelica://Buildings.Examples.HydronicSystems.FanCoilUnit\">
 Buildings.Examples.HydronicSystems.FanCoilUnit</a>
 </p>
+The figure below shows the schematic diagram of the four pipe system:
+</p>
+<p>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic.png\" width=\"50%\"/>
+</p>
+<p>
 </html>", revisions="<html>
 <ul>
 <li>
