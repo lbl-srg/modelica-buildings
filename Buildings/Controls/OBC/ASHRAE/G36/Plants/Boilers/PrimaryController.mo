@@ -43,6 +43,12 @@ model PrimaryController
       enable = (not have_priOnl) and
       speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate));
 
+  final parameter Boolean have_secFloSen = if have_floRegPri then have_secFloSen_select
+    elseif (not have_priOnl and not have_varPriPum) then true
+    else false
+    "Parameter selection for secondary flow sensor in cases where user interface
+    may not be exposed";
+
   parameter Boolean have_priTemSen(
     final start = false)
     "Required for primary-secondary boiler plant.
@@ -985,12 +991,6 @@ protected
 
   parameter Boolean have_floRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Boolean flag for primary pump speed control with flowrate readings";
-
-  parameter Boolean have_secFloSen = if have_floRegPri then have_secFloSen_select
-    elseif (not have_priOnl and not have_varPriPum) then true
-    else false
-    "Parameter selection for secondary flow sensor in cases where user interface
-    may not be exposed";
 
   parameter Integer staInd[nSta]={i for i in 1:nSta}
     "Staging indices starting at 1";

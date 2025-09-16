@@ -47,7 +47,7 @@ model ClosedLoopTest "Closed loop testing model"
     final have_heaPriPum=true,
     final have_isoValSen=true,
     final have_varPriPum=true,
-    final have_secFloSen=false,
+    final have_secFloSen_select=false,
     final have_priTemSen=true,
     final nLooSec=2,
     final nIgnReq=1,
