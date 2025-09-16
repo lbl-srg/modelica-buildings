@@ -177,6 +177,7 @@ model FanCoilUnit
     heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None,
     dpAir_nominal=100,
     mChiWat_flow_nominal=4*0.2984,
+    dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
     UACooCoi_nominal=7.5*2.25*146.06,
     mAir_flow_nominal=0.21303*2*3)
     "Fan coil unit with no heating coil"
@@ -302,9 +303,11 @@ model FanCoilUnit
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
     mHotWat_flow_nominal=0.75*3.75*0.50946*0.25,
+    dpHotWatCoi_nominal(displayUnit="Pa") = 1000,
     dpAir_nominal=100,
     UAHeaCoi_nominal=146.06*3*1.1,
     mChiWat_flow_nominal=0.2984,
+    dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
     UACooCoi_nominal=2.25*146.06,
     mAir_flow_nominal=0.21303*2*3)
     "Fan coil unit with hot-water heating coil"
@@ -356,6 +359,7 @@ model FanCoilUnit
     dpAir_nominal=100,
     UAHeaCoi_nominal=2.25*146.06*3*1.1,
     mChiWat_flow_nominal=0.2984,
+    dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
     UACooCoi_nominal=2.25*146.06,
     mAir_flow_nominal=0.21303*2*3,
     QHeaCoi_flow_nominal=7795.7)

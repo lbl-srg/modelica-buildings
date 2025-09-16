@@ -26,7 +26,8 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Nominal mass flow rate of heating hot water"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpHotWatCoi_nominal
+  parameter Modelica.Units.SI.PressureDifference dpHotWatCoi_nominal(
+    final start=0)
     "Total pressure difference across heating coil (Hot-water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
