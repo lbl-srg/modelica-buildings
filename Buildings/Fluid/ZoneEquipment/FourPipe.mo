@@ -243,8 +243,9 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Supply fan"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
-  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare final package
-      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(
+    redeclare final package Medium = MediumA,
+    final m_flow_nominal=mAir_flow_nominal)
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
 
