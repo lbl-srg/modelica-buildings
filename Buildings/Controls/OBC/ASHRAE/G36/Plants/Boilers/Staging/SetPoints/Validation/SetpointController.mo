@@ -5,8 +5,8 @@ model SetpointController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController staSetCon(
     final have_priOnl=false,
     final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler},
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={1000000,1500000},
     final boiFirMin={0.2,0.3},
@@ -30,8 +30,8 @@ model SetpointController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController staSetCon1(
     final have_priOnl=false,
     final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler},
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={1000000,1500000},
     final boiFirMin={0.2,0.3},
@@ -55,8 +55,8 @@ model SetpointController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController staSetCon2(
     final have_priOnl=true,
     final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler},
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={1000000,1500000},
     final boiFirMin={0.2,0.3},

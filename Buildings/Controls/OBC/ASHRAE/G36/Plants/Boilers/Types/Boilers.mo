@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types;
-package BoilerTypes
+package Boilers
   "Definitions for boiler types"
 
   constant Integer condensingBoiler = 1
@@ -36,4 +36,4 @@ annotation (
            lineColor={128,128,128},
            extent={{-100.0,-100.0},{100.0,100.0}},
            radius=25.0)}));
-end BoilerTypes;
+end Boilers;

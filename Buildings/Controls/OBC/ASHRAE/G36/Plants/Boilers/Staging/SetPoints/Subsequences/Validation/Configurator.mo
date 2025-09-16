@@ -5,9 +5,9 @@ model Configurator "Validate boiler staging configurator subsequence"
     conf(
     final nSta=5,
     final nBoi=3,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler},
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3})
@@ -18,9 +18,9 @@ model Configurator "Validate boiler staging configurator subsequence"
     conf1(
     final nSta=5,
     final nBoi=3,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler},
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3})
@@ -31,9 +31,9 @@ model Configurator "Validate boiler staging configurator subsequence"
     conf2(
     final nSta=5,
     final nBoi=3,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler},
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3})
@@ -44,9 +44,9 @@ model Configurator "Validate boiler staging configurator subsequence"
     conf3(
     final nSta=5,
     final nBoi=3,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler},
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3})
@@ -57,9 +57,9 @@ model Configurator "Validate boiler staging configurator subsequence"
     conf4(
     final nSta=5,
     final nBoi=3,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler},
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3})
@@ -70,9 +70,9 @@ model Configurator "Validate boiler staging configurator subsequence"
     conf5(
     final nSta=5,
     final nBoi=3,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler,
+                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler},
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3})

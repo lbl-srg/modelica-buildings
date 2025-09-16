@@ -8,9 +8,9 @@ block Configurator "Configures boiler staging"
     "Number of boilers";
 
   parameter Integer boiTyp[nBoi]={
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler}
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.condensingBoiler,
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler,
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.nonCondensingBoiler}
     "Boiler type. Recommended staging order: 1. condensing boilers, 2. non-codensing boilers";
 
   parameter Integer staMat[nSta, nBoi] = {{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}}
@@ -342,8 +342,8 @@ equation
       <li>
       Stage type vector <code>yTyp</code> from the boiler type vector input
       parameter <code>boiTyp</code>. Boiler types are defined in
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes</a>.<br/>
+      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers\">
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers</a>.<br/>
       Stage type is based on the boiler types in that stage, and is classified
       as:
       <ol>
