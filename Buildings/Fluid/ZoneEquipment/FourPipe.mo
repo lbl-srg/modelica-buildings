@@ -26,7 +26,8 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Nominal mass flow rate of heating hot water"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpHotWatCoi_nominal
+  parameter Modelica.Units.SI.PressureDifference dpHotWatCoi_nominal(
+    final start=0)
     "Total pressure difference across heating coil (Hot-water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
@@ -81,18 +82,21 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation (Placement(transformation(extent={{260,90},{300,130}}),
       iconTransformation(extent={{200,60},{240,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{260,50},{300,90}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_Air_a(
+  Modelica.Fluid.Interfaces.FluidPort_a port_air_a(
     redeclare final package Medium = MediumA)
     "Return air port from zone"
     annotation (Placement(transformation(extent={{250,80},{270,100}}),
       iconTransformation(extent={{190,30},{210,50}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_Air_b(
+  Modelica.Fluid.Interfaces.FluidPort_b port_air_b(
     redeclare final package Medium = MediumA)
     "Supply air port to the zone"
     annotation (Placement(transformation(extent={{250,-10},{270,10}}),
@@ -239,8 +243,9 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Supply fan"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
-  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare final package
-      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(
+    redeclare final package Medium = MediumA,
+    final m_flow_nominal=mAir_flow_nominal)
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
 
@@ -326,12 +331,12 @@ equation
           {48,-80}}, color={0,0,127}));
   connect(TAirLvg.port_b, senSupFlo.port_a)
     annotation (Line(points={{180,0},{200,0}}, color={0,127,255}));
-  connect(senSupFlo.port_b, port_Air_b) annotation (Line(points={{220,0},{260,0}},
+  connect(senSupFlo.port_b,port_air_b)  annotation (Line(points={{220,0},{260,0}},
                                 color={0,127,255}));
   connect(cooCoi.port_b2, totResAir.port_a)
     annotation (Line(points={{40,-4},{60,-4},{60,0},{80,0}},
                                                  color={0,127,255}));
-  connect(TAirRet.port_a, port_Air_a) annotation (Line(points={{-230,0},{-236,0},
+  connect(TAirRet.port_a,port_air_a)  annotation (Line(points={{-230,0},{-236,0},
           {-236,90},{260,90}},                   color={0,127,255}));
   connect(heaCoiEle.port_b, TAirHea.port_a) annotation (Line(points={{-80,20},{
           -60,20},{-60,0},{-30,0}},
@@ -515,8 +520,28 @@ Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
 <p>
 For examples of how to use the model, refer to
 <a href=\"modelica://Buildings.Examples.HydronicSystems.FanCoilUnit\">
-Buildings.Examples.HydronicSystems.FanCoilUnit</a>
+Buildings.Examples.HydronicSystems.FanCoilUnit</a>. The following points are salient
+when using the model:
+<ul>
+<li>
+The connected air-loop does not need an additional fan, since the fan in this model
+generates flow.
+</li>
+<li>
+The fluid loop connections for hot-water and chilled-water require an external pressure
+difference between the inlet and the outlet sufficient to overcome the pressure
+drop across the two respective coils.
+</li>
+</ul>
 </p>
+The figure below shows the schematic diagram of the four pipe system when
+<code>heaCoiTyp</code> is set to
+<code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased</code>.
+</p>
+<p>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic.png\" width=\"50%\"/>
+</p>
+<p>
 </html>", revisions="<html>
 <ul>
 <li>
