@@ -295,8 +295,8 @@ The major input signals for the air filter are configured as follows:
 </p>
 <ul>
 <li>
-The input trace substance <i>C_inflow.y</i> changes from 10 &#181;g/m&sup3; (7.73e-9 kg/kg) to 15 &#181;g/m&sup3;
-(1.15e-8 kg/kg) at 12:00 (15552000+12*3600 seconds).
+The input trace substance <i>C_inflow.y</i> changes from 10 &#181;g/m&sup3; (7.73e-9 kg/kg, assuming an air density of 1.293 kg/m&sup3;) to 15 &#181;g/m&sup3;
+(1.16e-8 kg/kg) at 12:00 (15552000+12*3600 seconds).
 </li>
 <li>
 the filter replacement signal <code>repSig</code> is false.
