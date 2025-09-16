@@ -154,17 +154,17 @@ model ValvesIsolation
     "Time needed to open or close valve"
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Time needed to open or close valve",
-    enable=use_strokeTime and have_valHpInlIso or have_valHpOutIso));
+    enable=use_strokeTime and (have_valHpInlIso or have_valHpOutIso)));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Time needed to open or close valve",
-    enable=use_strokeTime and have_valHpInlIso or have_valHpOutIso));
+    enable=use_strokeTime and (have_valHpInlIso or have_valHpOutIso)));
   parameter Real y_start=1
     "Initial position of actuator"
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Time needed to open or close valve",
-    enable=use_strokeTime and have_valHpInlIso or have_valHpOutIso));
+    enable=use_strokeTime and (have_valHpInlIso or have_valHpOutIso)));
   parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true,
