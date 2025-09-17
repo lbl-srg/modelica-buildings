@@ -43,9 +43,8 @@ model PrimaryController
       enable = (not have_priOnl) and
       speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate));
 
-  final parameter Boolean have_secFloSen = if have_floRegPri then have_secFloSen_select
-    elseif (not have_priOnl and not have_varPriPum) then true
-    else false
+  final parameter Boolean have_secFloSen = not have_priOnl and
+    (not have_varPriPum or (have_varPriPum and have_secFloSen_select))
     "Parameter selection for secondary flow sensor in cases where user interface
     may not be exposed";
 
