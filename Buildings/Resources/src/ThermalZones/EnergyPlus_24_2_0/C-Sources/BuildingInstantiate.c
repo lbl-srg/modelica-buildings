@@ -263,16 +263,6 @@ void buildJSONModelStructureForEnergyPlus(
   /* weather file */
   buildJSONKeyStringValue(buffer, 2, "weather", bui->weather, true, size, SpawnFormatError);
 
-  /* Flag to request HVAC autosizing */
-  if (bui->autosizeHVAC) {
-    buildJSONKeyLiteralValue(buffer, 2, "autosize", "true", true, size, SpawnFormatError);
-    buildJSONKeyLiteralValue(buffer, 2, "runSimulationForSizingPeriods", bui->use_sizingPeriods ? "true": "false", true, size, SpawnFormatError);
-  }
-  else{
-    buildJSONKeyLiteralValue(buffer, 2, "autosize",                      "false", true, size, SpawnFormatError);
-    buildJSONKeyLiteralValue(buffer, 2, "runSimulationForSizingPeriods", "false", true, size, SpawnFormatError);
-  }
-
   /* Tolerance of solver for surface heat balance */
   buildJSONKeyDoubleValue(buffer, 2, "relativeSurfaceTolerance", bui->relativeSurfaceTolerance,
     false, size, SpawnFormatError);

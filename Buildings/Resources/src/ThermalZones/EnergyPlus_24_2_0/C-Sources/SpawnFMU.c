@@ -28,8 +28,6 @@ size_t AllocateBuildingDataStructure(
   const char* idfVersion,
   const char* idfName,
   const char* epwName,
-  const int autosizeHVAC,
-  const int use_sizingPeriods,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
@@ -142,9 +140,6 @@ size_t AllocateBuildingDataStructure(
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->weather, epwName);
 
-  /* Set flag for autosizing HVAC */
-  Buildings_FMUS[nFMU]->autosizeHVAC = autosizeHVAC;
-  Buildings_FMUS[nFMU]->use_sizingPeriods = use_sizingPeriods;
   /* Assign the RunPeriod object */
   Buildings_FMUS[nFMU]->runPer = malloc(sizeof(runPeriod));
   if ( Buildings_FMUS[nFMU]->runPer == NULL )

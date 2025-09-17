@@ -86,8 +86,6 @@ typedef struct FMUBuilding
   char* idfVersion; /* IDF version with underscores, such as 24_2_0. This must be the same as is used as suffix for Buildings.ThermalZones.EnergyPlus_ */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
-  bool autosizeHVAC; /* If true, EnergyPlus is requested to run the HVAC sizing calculations */
-  bool use_sizingPeriods; /* If true, run HVAC sizing calculations on all the included SizingPeriod objects in the idf file */
   runPeriod* runPer; /* EnergyPlus RunPeriod */
   double relativeSurfaceTolerance; /* Relative surface tolerance for heat balance calculations */
   size_t nExcObj; /* Number of exc that use this FMU */
