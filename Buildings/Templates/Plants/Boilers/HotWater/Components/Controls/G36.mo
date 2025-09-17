@@ -24,7 +24,7 @@ block G36 "Guideline 36 controller"
      False: Fixed-speed primary pumps";
 
   final parameter Boolean have_secFloSen_select = have_senVHeaWatSec
-    "Required only for primary-secondary plant with flowrate-based primary pump 
+    "Required only for primary-secondary plant with flowrate-based primary pump
     speed control.
     True: Flowrate sensor in secondary loop;
     False: Flowrate sensor in decoupler";
@@ -40,8 +40,8 @@ block G36 "Guideline 36 controller"
     "Number of boilers";
 
   final parameter Integer boiTyp[nBoi] = {
-    if i<=cfg.nBoiCon then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler
-    else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler
+    if i<=cfg.nBoiCon then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing
+    else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing
     for i in 1:nBoi}
     "Boiler type";
 
@@ -116,22 +116,22 @@ block G36 "Guideline 36 controller"
     "Maximum hot water loop local differential pressure setpoint";
   parameter Real maxRemDp[:] = dat.dpHeaWatRemSet_max
     "Maximum remote differential pressure setpoint(s)";
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl
     speConTypPri =
     if cfg.typPumHeaWatSec==Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None then (
       if cfg.have_senDpHeaWatRemWir then
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP else
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP)
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP else
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP)
     else (
       if typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler or
          typMeaCtlHeaWatPri==Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
-         then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate
-      else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature)
+         then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate
+      else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Primary pump speed regulation method";
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl
     speConTypSec = if cfg.have_senDpHeaWatRemWir then
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP
-      else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.localDP
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP
+      else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.LocalDP
     "Secondary pump speed regulation method";
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController ctlLooPri(
