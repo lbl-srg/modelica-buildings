@@ -12,10 +12,10 @@ model SystemSizing
 
   Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing sizCoo
     "Sizing parameters for zone cooling load"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  BaseClasses.Sizing sizHea
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing sizHea
     "Sizing parameters for zone heating load"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
 protected
   constant Integer nParOut=11
@@ -53,12 +53,10 @@ protected
     printUnit=false,
     jsonName="hvacSystems",
     jsonKeysValues="        \"name\": \""+systemName+"\",\n        \"autosize\": \""+autosizeHVACStr+"\"",
-    parOutNames={"QCooSen_flow","QCooLat_flow","TOutCoo",
-                 "XOutCoo","TCoo","QHea_flow","TOutHea","XOutHea","mOutCoo_flow",
-                 "mOutHea_flow","THea"},
-    parOutUnits={"W","W","K",
-                 "1","s","W","K","1","kg/s",
-                 "kg/s","s"},
+    parOutNames={"QCooSen_flow", "QCooLat_flow", "TOutCoo", "XOutCoo", "mOutCoo_flow", "tCoo",
+                 "QHea_flow",                    "TOutHea", "XOutHea", "mOutHea_flow","tHea"},
+    parOutUnits={"W", "W", "K", "1", "kg/s", "s",
+                 "W",      "K", "1", "kg/s", "s"},
     nParOut=nParOut,
     inpNames=fill("",nInp),
     inpUnits=fill("",nInp),
@@ -83,9 +81,8 @@ initial equation
     isSynchronized=building.isSynchronized);
 
   sizHea.QLat_flow=0;
-  {sizCoo.QSen_flow,sizCoo.QLat_flow,sizCoo.TOut,sizCoo.XOut,sizCoo.T,
-    sizHea.QSen_flow,sizHea.TOut,sizHea.XOut,sizCoo.mOut_flow,sizHea.mOut_flow,
-    sizHea.T} =
+  {sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, sizCoo.XOut, sizCoo.mOut_flow, sizCoo.t,
+    sizHea.QSen_flow,                   sizHea.TOut, sizHea.XOut, sizHea.mOut_flow, sizHea.t} =
     Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
