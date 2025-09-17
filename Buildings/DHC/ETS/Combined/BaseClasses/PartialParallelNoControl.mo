@@ -132,7 +132,7 @@ model PartialParallelNoControl
     pum2(dpMax=Modelica.Constants.inf)) "District heat exchanger"
     annotation (Placement(transformation(extent={{-10,-240},{10,-260}})));
 
-  ThermalGridJBA.Hubs.BaseClasses.StratifiedTankWithCommand tanChiWat(
+  Buildings.DHC.ETS.Combined.Subsystems.StratifiedTankWithCommand tanChiWat(
     redeclare final package Medium = MediumBui,
     final isHotWat=false,
     final m_flow_nominal=colChiWat.mDis_flow_nominal,
@@ -141,7 +141,7 @@ model PartialParallelNoControl
     final dIns=dInsTanChiWat,
     final nSeg=nSegTan) "Chilled water tank"
     annotation (Placement(transformation(extent={{200,100},{180,120}})));
-  ThermalGridJBA.Hubs.BaseClasses.StratifiedTankWithCommand tanHeaWat(
+  Buildings.DHC.ETS.Combined.Subsystems.StratifiedTankWithCommand tanHeaWat(
     redeclare final package Medium = MediumBui,
     final isHotWat=true,
     final m_flow_nominal=colHeaWat.mDis_flow_nominal,
