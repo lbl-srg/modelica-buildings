@@ -64,7 +64,7 @@ block Controller
     final min=1e-6)=1e3
     "Maximum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters", group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.LocalDP));
 
   parameter Real minLocDp(
     final unit="Pa",
@@ -74,7 +74,7 @@ block Controller
     "Minimum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters",
       group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.LocalDP));
 
   parameter Real maxRemDp[nSen](
     final unit=fill("Pa",nSen),
