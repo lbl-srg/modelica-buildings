@@ -784,7 +784,7 @@ void setFMUDebugLevel(FMUBuilding* bui){
 
   if (bui->logLevel >= MEDIUM)
     bui->SpawnFormatMessage("%.3f %s: Setting debug logging.\n", bui->time, bui->modelicaNameBuilding);
-  status = fmi2_import_set_debug_logging(
+  status = (fmi2Status)fmi2_import_set_debug_logging(
     bui->fmu,
     fmi2_true,        /* Logging on */
     (size_t)nCatReq, /* nCategories */
@@ -794,7 +794,7 @@ void setFMUDebugLevel(FMUBuilding* bui){
     for(i = 0; i < nCatReq; i++){
       bui->SpawnFormatMessage("  Category[%u] = '%s'\n", i, categories[i]);
     }
-    bui->SpawnFormatError("fmi2SetDebugLogging returned '%s' for FMU with name %s. Verbosity = %u", fmi2_status_to_string(status), bui->fmuAbsPat, bui->logLevel);
+    bui->SpawnFormatError("fmi2SetDebugLogging returned '%s' for FMU with name %s. Verbosity = %u", fmi2_status_to_string((fmi2_status_t)status), bui->fmuAbsPat, bui->logLevel);
   }
   /* Free storage */
   /* This gives Warning C4090 in Microsoft compiler
@@ -829,12 +829,12 @@ void spawnLogger(
   }
   else if (status == fmi2_status_warning){
     if (bui->logLevel >= WARNINGS)
-      bui->SpawnFormatMessage(signature, bui->time, instanceName, fmi2_status_to_string(status), msg);
+      bui->SpawnFormatMessage(signature, bui->time, instanceName, fmi2_status_to_string((fmi2_status_t)status), msg);
   }
   else{
     /* This captures fmi2_status_error and fmi2_status_fatal.
        They are written for any logLevel. */
-    bui->SpawnFormatMessage(signature, bui->time, instanceName, fmi2_status_to_string(status), msg);
+    bui->SpawnFormatMessage(signature, bui->time, instanceName, fmi2_status_to_string((fmi2_status_t)status), msg);
   }
 
   va_end(argp);
