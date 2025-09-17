@@ -51,8 +51,6 @@ extern void* allocate_Spawn_EnergyPlus_24_2_0(
   const char* epwName,
   const char* epName,
   const char* hvacZone,
-  const int autosizeHVAC,
-  const int use_sizingPeriods,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
