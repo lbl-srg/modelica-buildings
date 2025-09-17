@@ -3,6 +3,15 @@ model ThermalZone
   "Model to connect to an EnergyPlus thermal zone"
   extends
     Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
+  ////////////////////////////////////////////////////////////////////////////
+  // Buildings.Media declaration. This is identical to
+  // Buildings.Fluid.Interfaces.LumpedVolumeDeclarations, except
+  // that the comments have been changed to avoid a confusion about
+  // what energyDynamics refers to.
+  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choicesAllMatching=true);
+
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter String hvacSystemName="default"
@@ -11,9 +20,6 @@ model ThermalZone
   parameter Integer nPorts=0
     "Number of fluid ports (equals to 2 for one inlet and one outlet)"
     annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
-  replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component"
-    annotation (choicesAllMatching=true);
   parameter Boolean use_C_flow=false
     "Set to true to enable input connector for trace substance that is connected to room air"
     annotation (Dialog(group="Ports"));
@@ -593,14 +599,5 @@ First implementation for <a href=\"https://github.com/lbl-srg/modelica-buildings
 </li>
 </ul>
 </html>"));
-  ////////////////////////////////////////////////////////////////////////////
-  // Buildings.Media declaration. This is identical to
-  // Buildings.Fluid.Interfaces.LumpedVolumeDeclarations, except
-  // that the comments have been changed to avoid a confusion about
-  // what energyDynamics refers to.
-  // Ports
-  // Initialization
-
-// assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
 
 end ThermalZone;
