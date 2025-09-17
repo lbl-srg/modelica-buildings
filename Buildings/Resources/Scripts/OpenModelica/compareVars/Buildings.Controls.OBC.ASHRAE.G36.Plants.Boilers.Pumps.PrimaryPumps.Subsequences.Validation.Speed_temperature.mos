@@ -8,11 +8,7 @@ compareVars :=
     "hotPumSpe.yHotWatPumSpe",
     "hotPumSpe1.uHotWatPum[1]",
     "hotPumSpe1.uHotWatPum[2]",
-    "hotPumSpe1.THotWatBoiSup[1]",
-    "hotPumSpe1.THotWatBoiSup[2]",
-    "hotPumSpe1.uBoiSta[1]",
-    "hotPumSpe1.uBoiSta[2]",
-    "hotPumSpe1.mulSum1.y",
+    "hotPumSpe1.THotWatBoiSupWeiAve",
     "hotPumSpe1.THotWatSec",
     "hotPumSpe1.intSwi1.y",
     "hotPumSpe1.yHotWatPumSpe"
