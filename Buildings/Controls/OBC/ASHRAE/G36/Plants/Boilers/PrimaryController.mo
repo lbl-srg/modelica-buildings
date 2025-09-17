@@ -41,7 +41,12 @@ model PrimaryController
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters",
       enable = (not have_priOnl) and
-      speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate));
+      speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate));
+
+  final parameter Boolean have_secFloSen = not have_priOnl and
+    (not have_varPriPum or (have_varPriPum and have_secFloSen_select))
+    "Parameter selection for secondary flow sensor in cases where user interface
+    may not be exposed";
 
   parameter Boolean have_priTemSen(
     final start = false)
@@ -60,7 +65,7 @@ model PrimaryController
     annotation (Dialog(tab="General",
       group="Boiler plant configuration parameters",
       enable = (not have_priOnl) and
-      speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Integer nLooSec(
     final min=1,
@@ -84,8 +89,8 @@ model PrimaryController
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
   parameter Integer boiTyp[nBoi]={
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler}
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing}
     "Boiler type"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
@@ -617,7 +622,7 @@ model PrimaryController
     "Delay time"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real samPer_priPum(
     final unit="s",
@@ -627,7 +632,7 @@ model PrimaryController
     "Sample period of component"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real triAmo_priPum(
     final unit="1",
@@ -635,7 +640,7 @@ model PrimaryController
     "Trim amount"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real resAmo_priPum(
     final unit="1",
@@ -643,7 +648,7 @@ model PrimaryController
     "Respond amount"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real maxRes_priPum(
     final unit="1",
@@ -651,7 +656,7 @@ model PrimaryController
     "Maximum response per time interval"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real twoReqLimLow_priPum(
     final unit="K",
@@ -660,7 +665,7 @@ model PrimaryController
     "Lower limit of hysteresis loop sending two requests"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real twoReqLimHig_priPum(
     final unit="K",
@@ -669,7 +674,7 @@ model PrimaryController
     "Higher limit of hysteresis loop sending two requests"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real oneReqLimLow_priPum(
     final unit="K",
@@ -678,7 +683,7 @@ model PrimaryController
     "Lower limit of hysteresis loop sending one request"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real oneReqLimHig_priPum(
     final unit="K",
@@ -687,7 +692,7 @@ model PrimaryController
     "Higher limit of hysteresis loop sending one request"
     annotation (Dialog(tab="Primary pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real k_priPum(
     final unit="1",
@@ -745,8 +750,8 @@ model PrimaryController
     annotation(Dialog(group="Boiler plant configuration parameters",
       enable=(not have_priOnl) and have_varPriPum));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes
-    speConTypPri = Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl
+    speConTypPri = Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP
     "Primary pump speed regulation method"
     annotation (Dialog(group="Boiler plant configuration parameters", enable=have_varPriPum));
 
@@ -974,23 +979,17 @@ model PrimaryController
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
 protected
-  parameter Boolean have_remDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP)
+  parameter Boolean have_remDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
 
-  parameter Boolean have_locDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP)
+  parameter Boolean have_locDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP)
     "Boolean flag for primary pump speed control with local differential pressure";
 
-  parameter Boolean have_temRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature)
+  parameter Boolean have_temRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Boolean flag for primary pump speed control with temperature readings";
 
-  parameter Boolean have_floRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate)
+  parameter Boolean have_floRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Boolean flag for primary pump speed control with flowrate readings";
-
-  parameter Boolean have_secFloSen = if have_floRegPri then have_secFloSen_select
-    elseif (not have_priOnl and not have_varPriPum) then true
-    else false
-    "Parameter selection for secondary flow sensor in cases where user interface
-    may not be exposed";
 
   parameter Integer staInd[nSta]={i for i in 1:nSta}
     "Staging indices starting at 1";

@@ -24,13 +24,13 @@ block Controller
     "True: Use flowrate sensors in primary/secondary loops for speed regulation;
     False: Flowrate sensor in decoupler leg for speed regulation"
     annotation (Dialog(group="Plant parameters",
-      enable= speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate));
+      enable= speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate));
 
   parameter Boolean use_priTemSen = true
     "True: Use Temperature sensors in primary loop for speed control;
     False: Use temperature sensors in boiler supply for speed control"
     annotation (Dialog(group="Plant parameters",
-      enable= speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable= speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Integer nPum
     "Total number of hot water pumps"
@@ -48,7 +48,7 @@ block Controller
     "Number of ignored primary pump speed reset requests"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable= speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable= speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Integer nPum_nominal(
     final max=nPum,
@@ -80,7 +80,7 @@ block Controller
     final min=1e-6)
     "Maximum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters", group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP));
 
   parameter Real minLocDp(
     final unit="Pa",
@@ -90,7 +90,7 @@ block Controller
     "Minimum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters",
       group="DP-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP));
 
   parameter Real offTimThr(
     final unit="s",
@@ -136,7 +136,7 @@ block Controller
     "Delay time"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real samPer(
     final unit="s",
@@ -146,7 +146,7 @@ block Controller
     "Sample period of component"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real triAmo(
     final unit="1",
@@ -154,7 +154,7 @@ block Controller
     "Trim amount"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real resAmo(
     final unit="1",
@@ -162,7 +162,7 @@ block Controller
     "Respond amount"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real maxRes(
     final unit="1",
@@ -170,7 +170,7 @@ block Controller
     "Maximum response per time interval"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real twoReqLimLow(
     final unit="K",
@@ -179,7 +179,7 @@ block Controller
     "Lower limit of hysteresis loop sending two requests"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real twoReqLimHig(
     final unit="K",
@@ -188,7 +188,7 @@ block Controller
     "Higher limit of hysteresis loop sending two requests"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real oneReqLimLow(
     final unit="K",
@@ -197,7 +197,7 @@ block Controller
     "Lower limit of hysteresis loop sending one request"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real oneReqLimHig(
     final unit="K",
@@ -206,7 +206,7 @@ block Controller
     "Higher limit of hysteresis loop sending one request"
     annotation (Dialog(tab="Pump control parameters",
       group="Temperature-based speed regulation",
-      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature));
+      enable = speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
 
   parameter Real k(
     final unit="1",
@@ -231,8 +231,8 @@ block Controller
     "Time constant of derivative block"
     annotation (Dialog(tab="Pump control parameters", group="PID parameters"));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes
-    speConTyp = Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl
+    speConTyp = Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP
     "Speed regulation method"
     annotation (Dialog(group="Plant parameters", enable=have_varPriPum));
 
@@ -411,16 +411,16 @@ block Controller
     annotation (Placement(transformation(extent={{-60,-492},{-40,-472}})));
 
 protected
-  parameter Boolean have_remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.remoteDP)
+  parameter Boolean have_remDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
 
-  parameter Boolean have_locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.localDP)
+  parameter Boolean have_locDPReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP)
     "Boolean flag for primary pump speed control with local differential pressure";
 
-  parameter Boolean have_temReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.temperature)
+  parameter Boolean have_temReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Boolean flag for primary pump speed control with temperature readings";
 
-  parameter Boolean have_floReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate)
+  parameter Boolean have_floReg = (speConTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Boolean flag for primary pump speed control with flowrate readings";
 
   parameter Integer pumInd[nPum]={i for i in 1:nPum}

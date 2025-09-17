@@ -6,7 +6,6 @@ model Speed_temperature
     hotPumSpe(
     final nBoi=2,
     final nPum=2,
-    final boiDesFlo={0.25,0.5},
     final twoReqLimLow=1.2,
     final twoReqLimHig=2,
     final oneReqLimLow=0.2,
@@ -19,7 +18,6 @@ model Speed_temperature
     use_priSen=false,
     final nBoi=2,
     final nPum=2,
-    final boiDesFlo={0.25,0.5},
     final twoReqLimLow=1.2,
     final twoReqLimHig=2,
     final oneReqLimLow=0.2,

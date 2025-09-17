@@ -47,7 +47,7 @@ model ClosedLoopTest "Closed loop testing model"
     final have_heaPriPum=true,
     final have_isoValSen=true,
     final have_varPriPum=true,
-    final have_secFloSen=false,
+    final have_secFloSen_select=false,
     final have_priTemSen=true,
     final nLooSec=2,
     final nIgnReq=1,
@@ -63,8 +63,8 @@ model ClosedLoopTest "Closed loop testing model"
     final maxLocDpPri=50000,
     final minLocDpPri=50000,
     final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={boiCapRat*boiDesCap*0.8,(1 - boiCapRat)*boiDesCap*0.8},
     final boiFirMin={0.2,0.3},
@@ -82,7 +82,7 @@ model ClosedLoopTest "Closed loop testing model"
     final k_priPum=10,
     final Ti_priPum=15,
     final minPriPumSpeSta={0,0,0},
-    final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControlTypes.flowrate)
+    final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{-40,-40},{-20,40}})));
 
@@ -121,7 +121,7 @@ model ClosedLoopTest "Closed loop testing model"
     final maxRemDp={5000},
     final k=1,
     final Ti=12.5,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
     enaHeaLeaPum(intGreThr(t=-1)))
     "Secondary pump controller-2"
     annotation (Placement(transformation(extent={{-8,40},{12,80}})));
@@ -137,7 +137,7 @@ model ClosedLoopTest "Closed loop testing model"
     final maxRemDp={5000},
     final k=1,
     final Ti=12.5,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControlTypes.remoteDP,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
     enaHeaLeaPum(intGreThr(t=-1)))
     "Secondary pump controller-1"
     annotation (Placement(transformation(extent={{-10,128},{10,168}})));

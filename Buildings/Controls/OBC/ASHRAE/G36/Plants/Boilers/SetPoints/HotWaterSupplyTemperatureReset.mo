@@ -19,8 +19,8 @@ block HotWaterSupplyTemperatureReset
     annotation(Dialog(group="Trim-and-Respond Logic parameters"));
 
   parameter Integer boiTyp[nBoi]={
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler}
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing}
     "Boiler type vector"
     annotation(Dialog(group="Plant parameters"));
 
@@ -158,7 +158,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing)
     "Check for non-condensing stage type"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
@@ -203,7 +203,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-260},{-100,-240}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold greThr1[nBoi](
-    final t=fill(Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,nBoi))
+    final t=fill(Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,nBoi))
     "Identify non-condensing boilers in plant"
     annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
 
