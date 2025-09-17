@@ -54,7 +54,7 @@ protected
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
     printUnit=false,
-    jsonName="modelicaSystems",
+    jsonName="hvacSystems",
     jsonKeysValues="        \"name\": \""+systemName+"\",\n        \"autosize\": \""+autosizeHVACStr+"\"",
     parOutNames={"QCooSen_flow","QCooLat_flow","TOutCoo",
                  "XOutCoo","TCoo","QHea_flow","TOutHea","XOutHea","mOutCoo_flow",
