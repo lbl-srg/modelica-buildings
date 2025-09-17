@@ -43,6 +43,7 @@ protected
     idfName=idfName,
     epwName=epwName,
     epName=surfaceName,
+    hvacSystemName="n/a",
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     usePrecompiledFMU=usePrecompiledFMU,

@@ -23,16 +23,10 @@ model ThermalZoneAdapter
     "Name of the Energyplus weather file including the epw extension";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter String systemName
+  parameter String hvacSystemName
     "Name of the HVAC system that this zone belongs to for auto-sizing"
     annotation(Dialog(group="Auto-sizing"));
 
-  parameter Boolean autosizeHVAC
-    "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model"
-    annotation(Dialog(group="Auto-sizing"));
-  parameter Boolean use_sizingPeriods
-    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file"
-    annotation(Dialog(group="Auto-sizing"));
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
 
@@ -129,9 +123,7 @@ protected
     idfName=idfName,
     epwName=epwName,
     epName=zoneName,
-    systemName=systemName,
-    autosizeHVAC=autosizeHVAC,
-    use_sizingPeriods=use_sizingPeriods,
+    hvacSystemName=hvacSystemName,
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     usePrecompiledFMU=usePrecompiledFMU,

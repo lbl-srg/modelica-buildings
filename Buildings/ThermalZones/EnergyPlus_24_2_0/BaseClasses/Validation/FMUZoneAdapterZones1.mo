@@ -21,6 +21,7 @@ model FMUZoneAdapterZones1
     final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
+    hvacSystemName="hvac1",
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,

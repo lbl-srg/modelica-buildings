@@ -22,12 +22,8 @@ class SpawnExternalObject
       "Name of the weather file";
     input String epName
       "Name of the object in EnergyPlus";
-    input String systemName
+    input String hvacSystemName
       "Name of the HVAC system to which the thermal zone belongs to, or n/a for other objects. Used for autosizing";
-    input Boolean autosizeHVAC
-      "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model";
-    input Boolean use_sizingPeriods
-    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file";
     input Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration";
     input Real relativeSurfaceTolerance
@@ -81,9 +77,7 @@ class SpawnExternalObject
     idfName,
     epwName,
     epName,
-    systemName,
-    autosizeHVAC,
-    use_sizingPeriods,
+    hvacSystemName,
     runPeriod.startDayOfYear,
     runPeriod.applyWeekEndHolidayRule,
     runPeriod.use_weatherFileDaylightSavingPeriod,
