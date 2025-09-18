@@ -66,6 +66,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA, issue 2015</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+    </td>
+    <td valign=\"top\">Added missing header file.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math.Functions</b>
     </td>
 </tr>

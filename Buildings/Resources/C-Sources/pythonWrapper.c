@@ -19,7 +19,7 @@
  * nStrWri      - Number of strings to write.
  */
 
-#include "ModelicaUtilities.h"
+#include "pythonWrapper.h"
 
 void pythonExchangeValues(const char * moduleName,
                           const char * functionName,
