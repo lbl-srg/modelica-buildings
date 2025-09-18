@@ -7,8 +7,8 @@ block EnableLead
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
-    "Hot water supply reset requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq
+    "Hot water plant requests"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
@@ -27,7 +27,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
-  connect(supResReq, intGreThr.u)
+  connect(plaReq, intGreThr.u)
     annotation (Line(points={{-120,-40},{-82,-40}}, color={255,127,0}));
 
   connect(intGreThr.y, and2.u2) annotation (Line(points={{-58,-40},{-40,-40},{-40,
@@ -61,8 +61,8 @@ annotation (
   <ul>
   <li>
   The lead secondary hot water pump shall be enabled <code>yLea = true</code> when
-  boiler plant is enabled <code>uPlaEna = true</code> and hot water reset requests 
-  are being received from the loads, ie, <code>supResReq &gt; 0</code> and shall 
+  boiler plant is enabled <code>uPlaEna = true</code> and hot water plant requests
+  are being received from the loads, ie, <code>plaReq &gt; 0</code> and shall
   be disabled otherwise.
   </li>
   </ul>

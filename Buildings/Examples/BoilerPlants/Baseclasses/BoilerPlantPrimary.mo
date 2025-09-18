@@ -36,14 +36,14 @@ model BoilerPlantPrimary
     annotation(Dialog(group="Boiler parameters"));
 
   parameter Real boiEff1[6](
-    final unit="1",
-    displayUnit="1") = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
+    final unit=fill("1",6),
+    displayUnit=fill("1",6)) = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
     "Efficiency for boiler-1"
     annotation(Dialog(group="Boiler parameters"));
 
   parameter Real boiEff2[6](
-    final unit="1",
-    displayUnit="1") = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
+    final unit=fill("1",6),
+    displayUnit=fill("1",6)) = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
     "Efficiency for boiler-2"
     annotation(Dialog(group="Boiler parameters"));
 
@@ -248,8 +248,8 @@ model BoilerPlantPrimary
       iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatDp[1](
-    final unit="Pa",
-    displayUnit="Pa")
+    final unit={"Pa"},
+    displayUnit={"Pa"})
     "Hot water differential pressure between supply and return"
     annotation (Placement(transformation(extent={{320,-10},{360,30}}),
       iconTransformation(extent={{100,-40},{140,0}})));
@@ -304,7 +304,7 @@ model BoilerPlantPrimary
     final addPowerToMedium=false,
     final riseTime=60,
     final m_flow_nominal=mSec_flow_nominal/2,
-    dp_nominal=70000)
+    dp_nominal(displayUnit="Pa") = 50000)
     "Hot water primary pump-1"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -344,10 +344,9 @@ model BoilerPlantPrimary
     redeclare package Medium = MediumW,
     final m_flow_nominal=mBoi_flow_nominal2,
     final dpValve_nominal=dpValve_nominal_value,
+    strokeTime=60,
     final init=Modelica.Blocks.Types.Init.InitialState,
-    final y_start=0,
-    final dpFixed_nominal=dpFixed_nominal_value,
-    l=1e-9)
+    final dpFixed_nominal=dpFixed_nominal_value)
     "Isolation valve for boiler-2"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
 
@@ -355,10 +354,9 @@ model BoilerPlantPrimary
     redeclare package Medium = MediumW,
     final m_flow_nominal=mBoi_flow_nominal1,
     final dpValve_nominal=dpValve_nominal_value,
+    strokeTime=60,
     final init=Modelica.Blocks.Types.Init.InitialState,
-    final y_start=0,
-    final dpFixed_nominal=dpFixed_nominal_value,
-    l=1e-9)
+    final dpFixed_nominal=dpFixed_nominal_value)
     "Isolation valve for boiler-1"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
 
@@ -487,7 +485,7 @@ model BoilerPlantPrimary
     final addPowerToMedium=false,
     final riseTime=60,
     m_flow_nominal=mSec_flow_nominal/2,
-    dp_nominal=70000)
+    dp_nominal(displayUnit="Pa") = 50000)
     "Hot water primary pump-2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -499,8 +497,8 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{-300,-10},{-280,10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPriPumSpe[2](
-    final unit="1",
-    displayUnit="1")
+    final unit=fill("1",2),
+    displayUnit=fill("1",2))
     "Measured primary pump speed"
     annotation (Placement(transformation(extent={{320,-220},{360,-180}}),
       iconTransformation(extent={{100,80},{140,120}})));
@@ -551,14 +549,15 @@ model BoilerPlantPrimary
     "Check if isolation valve is opened"
     annotation (Placement(transformation(extent={{280,-160},{300,-140}})));
 
-  Controls.OBC.CDL.Conversions.BooleanToReal           booToRea3[2]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3[2]
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{-300,30},{-280,50}})));
-  Controls.OBC.CDL.Reals.Multiply           mul1
-                                               [2]
+
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1[2]
     "Supply non-zero setpoint only when boiler is enabled"
     annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
-  Fluid.FixedResistances.Junction           spl2(
+
+  Buildings.Fluid.FixedResistances.Junction spl2(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal={mBoi_flow_nominal2,-mSec_flow_nominal,
@@ -568,7 +567,8 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-30,-110})));
-  Fluid.FixedResistances.Junction           spl3(
+
+  Buildings.Fluid.FixedResistances.Junction spl3(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal={mBoi_flow_nominal2,-mSec_flow_nominal,
@@ -578,6 +578,7 @@ model BoilerPlantPrimary
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-66,-30})));
+
 equation
   connect(val1.port_a, spl1.port_3)
     annotation (Line(points={{0,-150},{-20,-150}},    color={0,127,255}));
