@@ -12,6 +12,8 @@ WaterHeater_T
 WaterHeater_u
 WetCoilCounterFlowMassFlow
 WetCoilCounterFlowPControl
+WetCoilCounterFlowPIControlAutoTuning
+WetCoilCounterFlowPIDControlAutoTuning
 WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
 WetCoilEffectivenessNTUMassFlow

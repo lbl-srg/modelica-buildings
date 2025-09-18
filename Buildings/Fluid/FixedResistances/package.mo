@@ -1,6 +1,6 @@
 within Buildings.Fluid;
 package FixedResistances "Package with models for fixed flow resistances"
-  extends Modelica.Icons.VariantsPackage;
+  extends Modelica.Icons.Package;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -46,5 +46,34 @@ The model
 Buildings.Fluid.FixedResistances.Junction</a>
 can be used to model flow splitters or flow merges.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(
+          extent={{-45,19},{45,-19}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          startAngle=0,
+          endAngle=180,
+          origin={59,1},
+          rotation=90),
+        Rectangle(
+          extent={{-60,46},{60,-44}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-80,46},{-40,-44}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{52,45.4},{60,-43.2}},
+          lineColor={255,255,255},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end FixedResistances;
