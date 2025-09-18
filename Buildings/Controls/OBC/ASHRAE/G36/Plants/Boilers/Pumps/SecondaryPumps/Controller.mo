@@ -583,25 +583,24 @@ equation
           {46,230},{46,70},{56,70}}, color={255,127,0}));
 
   connect(enaHeaLeaPum.yLea, chaPumSta1.uNexLagPumSta) annotation (Line(points={{-178,86},
-          {56,86}},                            color={255,0,255}));
+          {56,86}}, color={255,0,255}));
 
   connect(enaHeaLeaPum.yLea, chaPumSta1.uLasLagPumSta) annotation (Line(points={{-178,86},
-          {36,86},{36,83},{56,83}},            color={255,0,255}));
+          {36,86},{36,83},{56,83}}, color={255,0,255}));
 
   connect(uHotWatPum, chaPumSta1.uHotWatPum) annotation (Line(points={{-300,140},
           {26,140},{26,78},{56,78}}, color={255,0,255}));
 
   connect(chaPumSta1.yHotWatPum, chaPumSta2.uHotWatPum) annotation (Line(points={{80,78},
-          {100,78},{100,-16},{46,-16},{46,-34},{58,-34}},         color={255,0,
+          {100,78},{100,-16},{46,-16},{46,-34},{58,-34}}, color={255,0,
           255}));
 
   connect(chaPumSta1.yHotWatPum, chaPumSta3.uHotWatPum) annotation (Line(points={{80,78},
-          {100,78},{100,-154},{44,-154},{44,-172},{60,-172}},         color={
-          255,0,255}));
+          {100,78},{100,-154},{44,-154},{44,-172},{60,-172}}, color={255,0,255}));
 
   connect(uMaxSecPumSpeCon, min.u1)
     annotation (Line(points={{-300,-390},{-72,-390},{-72,-394},{158,-394}},
-                                                      color={0,0,127}));
+          color={0,0,127}));
 
   connect(pumSpeLocDp.yHotWatPumSpe, min.u2) annotation (Line(points={{-38,-330},
           {146,-330},{146,-406},{158,-406}}, color={0,0,127}));
@@ -610,13 +609,13 @@ equation
           {146,-370},{146,-406},{158,-406}}, color={0,0,127}));
 
   connect(uPriPumSta, booToInt1.u) annotation (Line(points={{-300,-156},{-252,-156}},
-                                    color={255,0,255}));
+          color={255,0,255}));
 
   connect(mulSumInt1.y, intGre.u1) annotation (Line(points={{-178,-156},{-124,-156},
-          {-124,-190},{-62,-190}},      color={255,127,0}));
+          {-124,-190},{-62,-190}}, color={255,127,0}));
 
   connect(mulSumInt1.y, intLes.u1) annotation (Line(points={{-178,-156},{-124,-156},
-          {-124,-240},{-52,-240}},      color={255,127,0}));
+          {-124,-240},{-52,-240}}, color={255,127,0}));
 
   connect(intLes.y, not1.u)
     annotation (Line(points={{-28,-240},{0,-240}},  color={255,0,255}));
@@ -625,7 +624,7 @@ equation
           {-220,40},{-220,82},{-202,82}}, color={255,127,0}));
 
   connect(chaPumSta1.yHotWatPum, chaPumSta4.uHotWatPum) annotation (Line(points={{80,78},
-          {100,78},{100,42},{50,42},{50,18},{56,18}},         color={255,0,255}));
+          {100,78},{100,42},{50,42},{50,18},{56,18}}, color={255,0,255}));
 
   connect(uPlaEna, enaHeaLeaPum.uPlaEna)
     annotation (Line(points={{-300,90},{-202,90}}, color={255,0,255}));
@@ -674,7 +673,7 @@ equation
 
   connect(intGreEquThr.y, and2.u1)
     annotation (Line(points={{-90,-150},{-10,-150},{-10,-164},{-2,-164}},
-                                                    color={255,0,255}));
+         color={255,0,255}));
 
   connect(mulSumInt.y, intGreEquThr.u) annotation (Line(points={{-178,-120},{-166,
           -120},{-166,-150},{-114,-150}},color={255,127,0}));
@@ -701,10 +700,9 @@ equation
           {20,-29},{58,-29}}, color={255,0,255}));
 
   connect(not3.y,truDel. u)
-    annotation (Line(points={{-178,118},{-122,118}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-178,118},{-122,118}}, color={255,0,255}));
   connect(truDel.y,booRep. u) annotation (Line(points={{-98,118},{-68,118}},
-                                       color={255,0,255}));
+          color={255,0,255}));
   connect(booRep.y,logSwi. u2) annotation (Line(points={{-44,118},{174,118},{174,
           0},{190,0}},color={255,0,255}));
   connect(con1.y,logSwi. u1) annotation (Line(points={{154,48},{166,48},{166,8},
@@ -865,6 +863,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequenc
 for fixed-speed pumps.
 </li>
 </ul>
+</li>
 <li>
 Subsequences to control pump speed,
 <ul>

@@ -289,8 +289,8 @@ block Controller
     annotation (Placement(transformation(extent={{-320,210},{-280,250}}),
       iconTransformation(extent={{-140,270},{-100,310}})));
 
-  CDL.Interfaces.BooleanInput                     uHotIsoVal[nBoi]
-                     if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotIsoVal[nBoi]
+    if have_heaPriPum
     "Hot water isolation valve status"
     annotation (Placement(transformation(extent={{-320,50},{-280,90}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
@@ -650,8 +650,8 @@ protected
     annotation (Placement(transformation(extent={{50,-250},{70,-230}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.ChangeStatus
-    chaPumSta(final nPum=nPum) if
-                        not have_heaPriPum
+    chaPumSta(final nPum=nPum)
+    if not have_heaPriPum
     "Change lead pump status for dedicated primary pumps"
     annotation (Placement(transformation(extent={{58,100},{80,120}})));
 
@@ -851,10 +851,10 @@ equation
           -270,-156},{-252,-156}}, color={255,0,255}));
 
   connect(booToInt1.y, mulSumInt1.u[1:nPum]) annotation (Line(points={{-228,-156},
-          {-202,-156}},                            color={255,127,0}));
+          {-202,-156}}, color={255,127,0}));
 
   connect(booToInt2.y,mulSumInt2. u[1:nPum]) annotation (Line(points={{-226,-240},
-          {-204,-240}},                            color={255,127,0}));
+          {-204,-240}}, color={255,127,0}));
 
   connect(uHotWatPum, booToInt2.u) annotation (Line(points={{-300,140},{-260,140},
           {-260,-240},{-250,-240}}, color={255,0,255}));
@@ -976,11 +976,9 @@ equation
           {255,0,255}));
 
   connect(chaPumSta1.yHotWatPum, chaPumSta2.uHotWatPum) annotation (Line(points={{80,76},
-          {100,76},{100,-32},{126,-32}},                          color={255,0,
-          255}));
+          {100,76},{100,-32},{126,-32}}, color={255,0,255}));
   connect(chaPumSta1.yHotWatPum, chaPumSta3.uHotWatPum) annotation (Line(points={{80,76},
-          {100,76},{100,-172},{128,-172}},                            color={
-          255,0,255}));
+          {100,76},{100,-172},{128,-172}}, color={255,0,255}));
 
   connect(greThr.u, extIndSig.y)
     annotation (Line(points={{-194,-70},{-200,-70}}, color={0,0,127}));
@@ -1044,8 +1042,7 @@ equation
   connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-340},
           {-264,-340},{-264,96},{28,96},{28,102},{56,102}}, color={255,127,0}));
   connect(uHotWatPum, pumSpeLocDp.uHotWatPum) annotation (Line(points={{-300,
-          140},{-260,140},{-260,-478},{-62,-478}},
-                                              color={255,0,255}));
+          140},{-260,140},{-260,-478},{-62,-478}}, color={255,0,255}));
   connect(uHotWatPum, pumSpeRemDp.uHotWatPum) annotation (Line(points={{-300,140},
           {-260,140},{-260,-512},{-62,-512}}, color={255,0,255}));
   connect(uHotWatPum, pumSpeFlo.uHotWatPum) annotation (Line(points={{-300,140},
@@ -1228,6 +1225,7 @@ for other plants with headered pumps.
 for plants with dedicated pumps.
 </li>
 </ul>
+</li>
 <li>
 Subsequences to control pump speed,
 <ul>
