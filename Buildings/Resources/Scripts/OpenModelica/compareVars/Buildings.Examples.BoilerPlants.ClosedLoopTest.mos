@@ -1,12 +1,12 @@
 compareVars :=
   {
-    "conPumSec1.dpHotWatSet[1]",
+    "conPumSec1.maxRemDp[1]",
     "conPumSec1.dpHotWat_remote[1]",
     "conPumSec1.yPumSpe",
     "secLoo1.conPID.u_s",
     "secLoo1.conPID.u_m",
     "secLoo1.conPID.y",
-    "conPumSec2.dpHotWatSet[1]",
+    "conPumSec2.maxRemDp[1]",
     "conPumSec2.dpHotWat_remote[1]",
     "conPumSec2.yPumSpe",
     "secLoo2.conPID.u_s",
