@@ -40,22 +40,27 @@ model SimplifiedSecondaryLoad
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumEna
     "Pump proven on"
     annotation (Placement(transformation(extent={{100,10},{140,50}}),
-      iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nReq
-    "Number of requests from end load valve"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nReqPla
+    "Number of plant requests from end load valve"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+      iconTransformation(extent={{100,20},{140,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nReqRes
+    "Number of reset requests from end load valve"
+    annotation (Placement(transformation(extent={{100,80},{140,120}}),
+      iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dPSec
     "Differential pressure between secondary loop supply and return"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe
     "Measured pump speed"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-      iconTransformation(extent={{100,-40},{140,0}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = MediumW)
@@ -103,14 +108,9 @@ model SimplifiedSecondaryLoad
     "Cooler valve controller"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=5)
-    "Multiply number of requests to represent requests from multiple zones"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
-    "Convert real signal to required integer format"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
+    "Convert Boolean to required integer format"
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert enable signal to real"
@@ -136,19 +136,34 @@ model SimplifiedSecondaryLoad
     "Determine if pump is proven on"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
+    final t=0.2)
+    "Check if valve command exceeds threshold for sending plant requests"
+    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=300)
+    "Check if  minimum time threshold for generating plant request is exceeded"
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
+    final uLow=0.75,
+    final uHigh=0.9)
+    annotation (Placement(transformation(extent={{10,90},{30,110}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
+    "Convert Boolean to required integer format"
+    annotation (Placement(transformation(extent={{70,90},{90,110}})));
+
 equation
   connect(port_b,coo. port_b) annotation (Line(points={{80,-100},{80,0},{70,0}},
         color={0,127,255}));
   connect(uHotWat_flow, conPID.u_s)
     annotation (Line(points={{-120,60},{-52,60}}, color={0,0,127}));
-  connect(conPID.y, gai.u)
-    annotation (Line(points={{-28,60},{18,60}}, color={0,0,127}));
-  connect(gai.y, reaToInt.u)
-    annotation (Line(points={{42,60},{58,60}}, color={0,0,127}));
   connect(conPID.y, val.y)
     annotation (Line(points={{-28,60},{0,60},{0,12}},      color={0,0,127}));
-  connect(reaToInt.y, nReq)
-    annotation (Line(points={{82,60},{120,60}}, color={255,127,0}));
+  connect(booToInt.y, nReqPla)
+    annotation (Line(points={{92,60},{120,60}}, color={255,127,0}));
   connect(uPum, booToRea.u)
     annotation (Line(points={{-120,-40},{-92,-40}}, color={255,0,255}));
   connect(mul.y, pum.y)
@@ -187,6 +202,18 @@ equation
     annotation (Line(points={{-10,0},{-20,0},{-20,-30}}, color={0,127,255}));
   connect(uPum, conPID.trigger) annotation (Line(points={{-120,-40},{-96,-40},{-96,
           40},{-46,40},{-46,48}}, color={255,0,255}));
+  connect(conPID.y, greThr.u)
+    annotation (Line(points={{-28,60},{8,60}}, color={0,0,127}));
+  connect(greThr.y, tim.u)
+    annotation (Line(points={{32,60},{38,60}}, color={255,0,255}));
+  connect(tim.passed, booToInt.u) annotation (Line(points={{62,52},{64,52},{64,60},
+          {68,60}}, color={255,0,255}));
+  connect(booToInt1.y, nReqRes)
+    annotation (Line(points={{92,100},{120,100}}, color={255,127,0}));
+  connect(conPID.y, hys1.u) annotation (Line(points={{-28,60},{0,60},{0,100},{8,
+          100}}, color={0,0,127}));
+  connect(hys1.y, booToInt1.u)
+    annotation (Line(points={{32,100},{68,100}}, color={255,0,255}));
   annotation (defaultComponentName="secLoo",
     Icon(
       coordinateSystem(
@@ -204,7 +231,7 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}})),
+        extent={{-100,-100},{100,120}})),
     Documentation(info="<html>
       <p>
       This is a simplified load model for a boiler plant secondary loop consisting of 
