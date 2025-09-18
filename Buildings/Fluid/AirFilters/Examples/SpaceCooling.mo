@@ -275,8 +275,7 @@ equation
   connect(out.ports[2], hex.port_b2) annotation (Line(points={{-120,1},{-100,1},
           {-100,-12},{-30,-12}}, color={0,127,255}));
   connect(C_inflow.y, out.C_in[1]) annotation (Line(points={{-119,-40},{-110,
-          -40},{-110,-20},{-150,-20},{-150,-8},{-142,-8}},
-                                                        color={0,0,127}));
+          -40},{-110,-20},{-150,-20},{-150,-8},{-142,-8}}, color={0,0,127}));
   connect(airFil.port_b, C_out.port_a)
     annotation (Line(points={{-80,20},{-70,20}}, color={0,127,255}));
   connect(C_out.port_b, hex.port_a1) annotation (Line(points={{-50,20},{-40,20},
@@ -295,7 +294,7 @@ The major input signals for the air filter are configured as follows:
 </p>
 <ul>
 <li>
-The input trace substance <i>C_inflow.y</i> changes from 10 &#181;g/m&sup3; (7.73e-9 kg/kg, 
+The input trace substance <i>C_inflow.y</i> changes from 10 &#181;g/m&sup3; (7.73e-9 kg/kg,
 assuming an air density of 1.293 kg/m&sup3;) to 15 &#181;g/m&sup3;
 (1.16e-8 kg/kg) at 12:00 (15552000+12*3600 seconds).
 </li>
@@ -312,7 +311,7 @@ The ratio of the outlet trace substance <i>C_out.C</i> to the <i>C_inflow.y</i> 
 reflecting the reduction in filtration efficiency as contaminants accumulate.
 </li>
 <li>
-The fan power <i>fan.P</i> slightly increases, caused by the rising pressure drop across the filter as 
+The fan power <i>fan.P</i> slightly increases, caused by the rising pressure drop across the filter as
 contaminants build up.
 </li>
 </ul>
