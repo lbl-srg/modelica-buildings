@@ -82,5 +82,5 @@ First implementation.
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
-  experiment(Tolerance=1e-6));
+  experiment(Tolerance=1e-6, StopTime=10));
 end ZeroIndexCorrection;

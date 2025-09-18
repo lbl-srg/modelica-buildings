@@ -388,6 +388,6 @@ First implementation.
       StartTime=0,
       StopTime=172800,
       Interval=60,
-      Tolerance=1e-03),
+      Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;

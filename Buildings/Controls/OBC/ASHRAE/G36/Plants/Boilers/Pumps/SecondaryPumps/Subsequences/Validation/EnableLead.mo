@@ -35,7 +35,7 @@ equation
           -10,20},{-10,4},{-2,4}}, color={255,0,255}));
 
 annotation (
-  experiment(StopTime=3600.0, Tolerance=1e-06),
+  experiment(StopTime=30.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Pumps/SecondaryPumps/Subsequences/Validation/EnableLead.mos"
     "Simulate and plot"),
   Documentation(info="<html>
