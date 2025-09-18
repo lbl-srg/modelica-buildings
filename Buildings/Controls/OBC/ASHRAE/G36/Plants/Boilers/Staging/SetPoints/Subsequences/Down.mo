@@ -7,7 +7,7 @@ block Down
     True: The boiler plant is primary-only;
     False: The boiler plant is primary-secondary";
 
-  parameter Boolean have_allNonCon
+  parameter Boolean have_allNonCon=true
     "Autodefined flag indicating all the boilers in a plant are non-condensing boilers"
     annotation(Dialog(enable=false));
 
