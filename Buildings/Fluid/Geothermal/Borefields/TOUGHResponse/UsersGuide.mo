@@ -112,7 +112,7 @@ It inclues:
 and the ground.
 </li>
 <li>
-<code>TBorWal_start[nSeg]</code>: the initial temperature of each borehole wal segement.
+<code>TBorWal_start[nSeg]</code>: the initial temperature of each borehole wall segement.
 </li>
 <li>
 <code>TOut</code>: the outdoor air temperature. It will become the ground surface
