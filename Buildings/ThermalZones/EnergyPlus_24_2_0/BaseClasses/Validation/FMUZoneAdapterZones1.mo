@@ -11,6 +11,7 @@ model FMUZoneAdapterZones1
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    logLevel=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels.Debug,
     computeWetBulbTemperature=false,
     usePrecompiledFMU=false)
     "Building model"
@@ -21,12 +22,12 @@ model FMUZoneAdapterZones1
     final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
+    hvacSystemName="hvac1",
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"),
-    logLevel=building.logLevel,
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_24_2_0/FMUs/Zones1.fmu"),
     setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
     "Adapter to EnergyPlus"

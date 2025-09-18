@@ -23,16 +23,10 @@ model ThermalZoneAdapter
     "Name of the Energyplus weather file including the epw extension";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter String systemName
+  parameter String hvacSystemName
     "Name of the HVAC system that this zone belongs to for auto-sizing"
     annotation(Dialog(group="Auto-sizing"));
 
-  parameter Boolean autosizeHVAC
-    "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model"
-    annotation(Dialog(group="Auto-sizing"));
-  parameter Boolean use_sizingPeriods
-    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file"
-    annotation(Dialog(group="Auto-sizing"));
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
 
@@ -129,9 +123,7 @@ protected
     idfName=idfName,
     epwName=epwName,
     epName=zoneName,
-    systemName=systemName,
-    autosizeHVAC=autosizeHVAC,
-    use_sizingPeriods=use_sizingPeriods,
+    hvacSystemName=hvacSystemName,
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     usePrecompiledFMU=usePrecompiledFMU,
@@ -142,13 +134,11 @@ protected
     jsonName="zones",
     jsonKeysValues="        \"name\": \""+zoneName+"\"",
     parOutNames={"AFlo","V","mSenFac",
-                 "QCooSen_flow","QCooLat_flow","TOutCoo",
-                 "XOutCoo","TCoo","QHea_flow","TOutHea","XOutHea","mOutCoo_flow",
-                 "mOutHea_flow","THea"},
+      "QCooSen_flow", "QCooLat_flow", "TOutCoo", "XOutCoo", "mOutCoo_flow", "tCoo",
+      "QHea_flow",                    "TOutHea", "XOutHea", "mOutHea_flow","tHea"},
     parOutUnits={"m2","m3","1",
-                 "W","W","K",
-                 "1","s","W","K","1","kg/s",
-                 "kg/s","s"},
+      "W", "W", "K", "1", "kg/s", "s",
+      "W",      "K", "1", "kg/s", "s"},
     nParOut=nParOut,
     inpNames={"T","X","mInlets_flow","TAveInlet","QGaiRad_flow"},
     inpUnits={"K","1","kg/s","K","W"},
@@ -229,13 +219,13 @@ initial equation
     isSynchronized=building.isSynchronized);
 
   sizHea.QLat_flow=0;
-  {AFlo,V,mSenFac,sizCoo.QSen_flow,sizCoo.QLat_flow,sizCoo.TOut,sizCoo.XOut,
-    sizCoo.T,sizHea.QSen_flow,sizHea.TOut,sizHea.XOut,sizCoo.mOut_flow,
-    sizHea.mOut_flow,sizHea.T} =
-    Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
-    adapter=adapter,
-    nParOut=nParOut,
-    isSynchronized=nObj);
+  {AFlo,V,mSenFac,
+    sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, sizCoo.XOut, sizCoo.mOut_flow, sizCoo.t,
+    sizHea.QSen_flow,                   sizHea.TOut, sizHea.XOut, sizHea.mOut_flow, sizHea.t} =
+      Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+        adapter=adapter,
+        nParOut=nParOut,
+        isSynchronized=nObj);
 
   m_flow_small=V*3*1.2/3600*1E-10;
   startTime=time;
