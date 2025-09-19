@@ -53,7 +53,7 @@ model FanCoilUnit
     x=0.15,
     nStaRef=5)
     "Material for furniture"
-    annotation (Placement(transformation(extent={{238,190},{258,210}})));
+    annotation (Placement(transformation(extent={{240,190},{260,210}})));
 
   parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
@@ -483,8 +483,8 @@ equation
                                                         color={0,0,127}));
   connect(intGaiFra.y, gai.u) annotation (Line(points={{-219,-220},{-202,-220}},
                                    color={0,0,127}));
-  connect(gai.y, gaiInt.u) annotation (Line(points={{-179,-220},{-168,-220},{
-          -168,-180},{-142,-180}},
+  connect(gai.y, gaiInt.u) annotation (Line(points={{-179,-220},{-160,-220},{
+          -160,-180},{-142,-180}},
                              color={0,0,127}));
   connect(conFCU1.yFan, fanCoiUni1.uFan) annotation (Line(points={{-38,40},{-20,
           40},{-20,46},{18,46}},
@@ -673,7 +673,7 @@ equation
           {60,168},{60,220},{-220,220},{-220,-140},{-202,-140}},
                                                          color={0,0,127}));
   connect(fanCoiUni1.yFan_actual, greThr[2].u) annotation (Line(points={{62,48},
-          {70,48},{70,68},{-220,68},{-220,-140},{-202,-140}},
+          {70,48},{70,74},{-220,74},{-220,-140},{-202,-140}},
                                                         color={0,0,127}));
   connect(fanCoiUni2.yFan_actual, greThr[3].u) annotation (Line(points={{68,-60},
           {80,-60},{80,-160},{-220,-160},{-220,-140},{-202,-140}},
@@ -700,8 +700,8 @@ equation
           145},{152.5,132},{174,132},{174,-88},{152.5,-88},{152.5,-75}},
                                                                     color={191,0,
           0}));
-  connect(gai.y, gaiInt1.u) annotation (Line(points={{-179,-220},{-168,-220},{
-          -168,-180},{-224,-180},{-224,240},{-142,240}},
+  connect(gai.y, gaiInt1.u) annotation (Line(points={{-179,-220},{-160,-220},{
+          -160,-180},{-224,-180},{-224,240},{-142,240}},
                        color={0,0,127}));
   connect(gaiInt1.y, zon1.qGai_flow) annotation (Line(points={{-119,240},{80,
           240},{80,175},{118,175}},  color={0,0,127}));
