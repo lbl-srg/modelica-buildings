@@ -31,6 +31,10 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Total pressure difference across heating coil (Hot-water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
+  parameter Modelica.Units.SI.PressureDifference dpHotWatVal_nominal = dpHotWatCoi_nominal
+    "Design pressure drop of hot water valve (Hot-water side)"
+    annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
+
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal
     "Total pressure difference across supply and return ports in airloop"
     annotation(Dialog(group="System parameters"));
@@ -47,6 +51,10 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   parameter Modelica.Units.SI.PressureDifference dpChiWatCoi_nominal
     "Total pressure difference across cooling coil (Chilled-water side)"
+    annotation(Dialog(group="Cooling coil parameters"));
+
+  parameter Modelica.Units.SI.PressureDifference dpChiWatVal_nominal = dpChiWatCoi_nominal
+    "Design pressure drop of chilled water valve (Chilled-water side)"
     annotation(Dialog(group="Cooling coil parameters"));
 
   parameter Modelica.Units.SI.ThermalConductance UACooCoi_nominal
@@ -137,7 +145,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium2 = MediumA,
     final m1_flow_nominal=mHotWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=dpHotWatCoi_nominal,
+    final dp1_nominal=0,
     final dp2_nominal=0,
     final UA_nominal=UAHeaCoi_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if have_hotWat
@@ -149,8 +157,9 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHW(
     redeclare final package Medium = MediumHW,
     final m_flow_nominal=mHotWat_flow_nominal,
-    final dpValve_nominal=50,
-    dpFixed_nominal=0) if have_hotWat
+    final dpValve_nominal=dpHotWatVal_nominal,
+    dpFixed_nominal=dpHotWatCoi_nominal)
+                       if have_hotWat
     "Hot water flow control valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
@@ -185,7 +194,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium2 = MediumA,
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
-    final dp1_nominal=dpChiWatCoi_nominal,
+    final dp1_nominal=0,
     final dp2_nominal=0,
     final UA_nominal=UACooCoi_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -197,8 +206,8 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valCHW(
     redeclare final package Medium = MediumCHW,
     final m_flow_nominal=mChiWat_flow_nominal,
-    final dpValve_nominal=50,
-    dpFixed_nominal=0)
+    final dpValve_nominal=dpChiWatVal_nominal,
+    dpFixed_nominal=dpChiWatCoi_nominal)
     "Chilled-water flow control valve"
     annotation(Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
@@ -267,7 +276,9 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=0,
-    final Q_flow_nominal=QHeaCoi_flow_nominal) if have_heaEle
+    final Q_flow_nominal=QHeaCoi_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    if have_heaEle
     "Electric heating coil"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
@@ -284,10 +295,9 @@ protected
     "True if a heating coil exists"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
-  Buildings.Fluid.FixedResistances.PressureDrop pipByp(
+  FixedResistances.LosslessPipe                 pipByp(
     redeclare final package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal,
-    final dp_nominal=0,
     final allowFlowReversal=true) if not have_hea
     "Bypass when heating coil is absent"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
