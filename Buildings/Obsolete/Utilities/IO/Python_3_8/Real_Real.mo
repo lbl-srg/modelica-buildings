@@ -1,6 +1,7 @@
 within Buildings.Obsolete.Utilities.IO.Python_3_8;
 model Real_Real
   "Block that exchanges a vector of real values with a Python function"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Modelica.Blocks.Interfaces.DiscreteBlock(
     startTime=0,
     firstTrigger(fixed=true, start=false));
@@ -92,7 +93,9 @@ equation
     uRIntPre= uRInt;
   end when;
 
-  annotation (defaultComponentName="pyt",
+  annotation (
+  obsolete = "Obsolete model - use models from Buildings.Utilities.IO.Python_3_12 instead",
+  defaultComponentName="pyt",
  Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
             extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python_3_8/python.png")}),
