@@ -47,7 +47,7 @@ model FanCoilUnit
     x=0.15,
     nStaRef=5)
     "Material for furniture"
-    annotation (Placement(transformation(extent={{238,190},{258,210}})));
+    annotation (Placement(transformation(extent={{240,190},{260,210}})));
 
   parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
@@ -291,9 +291,7 @@ model FanCoilUnit
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
     heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
-    mHotWat_flow_nominal=0.75*3.75*0.50946*0.25,
     dpAir_nominal=100,
-    UAHeaCoi_nominal=2.25*146.06*3*1.1,
     mChiWat_flow_nominal=0.2984,
     dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
     UACooCoi_nominal=2.25*146.06,
@@ -370,8 +368,8 @@ protected
     "Unoccupied heating temperature setpoint"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[3](final t=fill(0.01,
-        3), final h=fill(0.005, 3))
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[3](final t=fill(0.05,
+        3), final h=fill(0.025, 3))
     "Check if fan speed is above threshold for proven on signal"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 
@@ -416,12 +414,12 @@ equation
   connect(zon1.heaPorAir, temAirNoHeaCoi.port) annotation (Line(points={{143.75,
           165},{106,165},{106,220},{140,220}}, color={191,0,0}));
   connect(temAirNoHeaCoi.T, conFCU.TZon) annotation (Line(points={{161,220},{
-          188,220},{188,100},{-102,100},{-102,138},{-82,138}},
+          188,220},{188,100},{-100,100},{-100,138},{-82,138}},
                                                         color={0,0,127}));
   connect(intGaiFra.y, gai.u) annotation (Line(points={{-219,-220},{-202,-220}},
                                    color={0,0,127}));
-  connect(gai.y, gaiInt.u) annotation (Line(points={{-179,-220},{-168,-220},{
-          -168,-180},{-142,-180}},
+  connect(gai.y, gaiInt.u) annotation (Line(points={{-179,-220},{-160,-220},{
+          -160,-180},{-142,-180}},
                              color={0,0,127}));
   connect(conFCU1.yFan, fanCoiUni1.uFan) annotation (Line(points={{-38,40},{-20,
           40},{-20,52},{18,52}},
@@ -608,7 +606,7 @@ equation
           {60,168},{60,220},{-220,220},{-220,-140},{-202,-140}},
                                                          color={0,0,127}));
   connect(fanCoiUni1.yFan_actual, greThr[2].u) annotation (Line(points={{62,48},
-          {70,48},{70,68},{-220,68},{-220,-140},{-202,-140}},
+          {70,48},{70,74},{-220,74},{-220,-140},{-202,-140}},
                                                         color={0,0,127}));
   connect(fanCoiUni2.yFan_actual, greThr[3].u) annotation (Line(points={{68,-60},
           {80,-60},{80,-160},{-220,-160},{-220,-140},{-202,-140}},
@@ -635,8 +633,8 @@ equation
           145},{152.5,132},{174,132},{174,-88},{152.5,-88},{152.5,-75}},
                                                                     color={191,0,
           0}));
-  connect(gai.y, gaiInt1.u) annotation (Line(points={{-179,-220},{-168,-220},{
-          -168,-180},{-224,-180},{-224,240},{-142,240}},
+  connect(gai.y, gaiInt1.u) annotation (Line(points={{-179,-220},{-160,-220},{
+          -160,-180},{-224,-180},{-224,240},{-142,240}},
                        color={0,0,127}));
   connect(gaiInt1.y, zon1.qGai_flow) annotation (Line(points={{-119,240},{80,
           240},{80,175},{118,175}},  color={0,0,127}));

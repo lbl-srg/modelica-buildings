@@ -191,7 +191,7 @@ block PlantRequests
     final uLow=cooSpe_max - 2*dFanSpe,
     final uHigh=cooSpe_max - dFanSpe) if have_chiWatCoi
     "Check if fan is at max cooling mode speed"
-    annotation (Placement(transformation(extent={{-130,230},{-110,250}})));
+    annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToIntCoo if have_chiWatCoi
     "Output integer 1 when fan is at max cooling mode speed"
@@ -414,9 +414,9 @@ equation
   connect(intSwi1.y, yHotWatPlaReq)
     annotation (Line(points={{82,-220},{220,-220}},  color={255,127,0}));
   connect(uFan, hysFanCoo.u)
-    annotation (Line(points={{-220,240},{-132,240}}, color={0,0,127}));
+    annotation (Line(points={{-220,240},{-142,240}}, color={0,0,127}));
   connect(hysFanCoo.y, booToIntCoo.u)
-    annotation (Line(points={{-108,240},{-82,240}}, color={255,0,255}));
+    annotation (Line(points={{-118,240},{-82,240}}, color={255,0,255}));
   connect(chiWatRes3.y, mulIntCoo.u2) annotation (Line(points={{182,200},{188,200},
           {188,220},{90,220},{90,234},{98,234}}, color={255,127,0}));
   connect(booToIntCoo.y, mulIntCoo.u1) annotation (Line(points={{-58,240},{-20,240},
