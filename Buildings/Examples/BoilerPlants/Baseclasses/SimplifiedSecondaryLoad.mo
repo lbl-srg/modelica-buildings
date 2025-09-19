@@ -89,7 +89,7 @@ model SimplifiedSecondaryLoad
     final addPowerToMedium=true,
     final riseTime=60,
     final m_flow_nominal=mRad_flow_nominal,
-    final dp_nominal=4*dpRad_nominal)
+    final dp_nominal=6*dpRad_nominal)
     "Hot water secondary pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -104,8 +104,8 @@ model SimplifiedSecondaryLoad
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0)));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID
-    "Cooler valve controller"
+  Buildings.Controls.OBC.CDL.Reals.PID conPID
+    "Heating load flowrate controller"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
@@ -137,7 +137,7 @@ model SimplifiedSecondaryLoad
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=0.2)
+    final t=0.05)
     "Check if valve command exceeds threshold for sending plant requests"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
 
@@ -200,8 +200,6 @@ equation
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
   connect(val.port_a, pum.port_b)
     annotation (Line(points={{-10,0},{-20,0},{-20,-30}}, color={0,127,255}));
-  connect(uPum, conPID.trigger) annotation (Line(points={{-120,-40},{-96,-40},{-96,
-          40},{-46,40},{-46,48}}, color={255,0,255}));
   connect(conPID.y, greThr.u)
     annotation (Line(points={{-28,60},{8,60}}, color={0,0,127}));
   connect(greThr.y, tim.u)

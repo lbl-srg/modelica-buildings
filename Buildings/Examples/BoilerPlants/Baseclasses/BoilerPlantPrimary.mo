@@ -303,7 +303,7 @@ model BoilerPlantPrimary
     final allowFlowReversal=true,
     final addPowerToMedium=false,
     final riseTime=60,
-    final m_flow_nominal=mSec_flow_nominal/2,
+    m_flow_nominal=mSec_flow_nominal/2,
     dp_nominal(displayUnit="Pa") = 50000)
     "Hot water primary pump-1"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -348,7 +348,7 @@ model BoilerPlantPrimary
     final init=Modelica.Blocks.Types.Init.InitialState,
     final dpFixed_nominal=dpFixed_nominal_value)
     "Isolation valve for boiler-2"
-    annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
+    annotation (Placement(transformation(extent={{20,-220},{0,-200}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumW,
@@ -358,7 +358,7 @@ model BoilerPlantPrimary
     final init=Modelica.Blocks.Types.Init.InitialState,
     final dpFixed_nominal=dpFixed_nominal_value)
     "Isolation valve for boiler-1"
-    annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
+    annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
     "Boolean to Real conversion"
@@ -580,10 +580,6 @@ model BoilerPlantPrimary
       origin={-66,-30})));
 
 equation
-  connect(val1.port_a, spl1.port_3)
-    annotation (Line(points={{0,-150},{-20,-150}},    color={0,127,255}));
-  connect(val2.port_a, spl1.port_1) annotation (Line(points={{0,-210},{-30,-210},
-          {-30,-160}}, color={0,127,255}));
 
   connect(spl4.port_2, senRelPre.port_a) annotation (Line(points={{-30,50},{-30,
           80},{80,80}},    color={0,127,255}));
@@ -619,10 +615,6 @@ equation
           -86},{-120,-86},{-120,-70},{-260,-70}}, color={191,0,0}));
   connect(boi2.heatPort, TRoo.port) annotation (Line(points={{100,-202.8},{100,-180},
           {84,-180},{84,-86},{-120,-86},{-120,-70},{-260,-70}}, color={191,0,0}));
-  connect(val1.port_b,boi1. port_b)
-    annotation (Line(points={{20,-150},{90,-150}}, color={0,127,255}));
-  connect(val2.port_b, boi2.port_b)
-    annotation (Line(points={{20,-210},{90,-210}}, color={0,127,255}));
   connect(boi1.T, conPIDBoi[1].u_m)
     annotation (Line(points={{89,-142},{50,-142},{50,-132}}, color={0,0,127}));
   connect(boi2.T, conPIDBoi[2].u_m)
@@ -699,11 +691,13 @@ equation
           -160,-186},{10,-186},{10,-198}}, color={0,0,127}));
   connect(yHotWatIsoVal, greThr1.y)
     annotation (Line(points={{340,-150},{302,-150}}, color={255,0,255}));
-  connect(val1.y_actual, greThr1[1].u) annotation (Line(points={{15,-143},{16,-143},
-          {16,-100},{272,-100},{272,-150},{278,-150}}, color={0,0,127}));
-  connect(val2.y_actual, greThr1[2].u) annotation (Line(points={{15,-203},{16,-203},
-          {16,-168},{40,-168},{40,-140},{28,-140},{28,-132},{16,-132},{16,-100},
-          {272,-100},{272,-150},{278,-150}}, color={0,0,127}));
+  connect(val1.y_actual, greThr1[1].u) annotation (Line(points={{5,-143},{16,
+          -143},{16,-100},{272,-100},{272,-150},{278,-150}},
+                                                       color={0,0,127}));
+  connect(val2.y_actual, greThr1[2].u) annotation (Line(points={{5,-203},{16,
+          -203},{16,-168},{40,-168},{40,-140},{28,-140},{28,-132},{16,-132},{16,
+          -100},{272,-100},{272,-150},{278,-150}},
+                                             color={0,0,127}));
   connect(uBoiSta, booToRea1.u)
     annotation (Line(points={{-340,160},{-162,160}}, color={255,0,255}));
   connect(uPumSta, booToRea3.u)
@@ -735,6 +729,14 @@ equation
     annotation (Line(points={{40,240},{40,120},{130,120}}, color={0,127,255}));
   connect(spl4.port_2, port_b) annotation (Line(points={{-30,50},{-32,50},{-32,
           224},{-40,224},{-40,240}}, color={0,127,255}));
+  connect(val2.port_b, spl1.port_1) annotation (Line(points={{0,-210},{0,-212},
+          {-30,-212},{-30,-160}}, color={0,127,255}));
+  connect(val1.port_b, spl1.port_3)
+    annotation (Line(points={{0,-150},{-20,-150}}, color={0,127,255}));
+  connect(boi1.port_b, val1.port_a) annotation (Line(points={{90,-150},{48,-150},
+          {48,-172},{28,-172},{28,-150},{20,-150}}, color={0,127,255}));
+  connect(boi2.port_b, val2.port_a)
+    annotation (Line(points={{90,-210},{20,-210}}, color={0,127,255}));
   annotation (defaultComponentName="boiPlaPri",
     Documentation(info="<html>
       <p>
