@@ -35,8 +35,8 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Design pressure drop of hot water valve (Hot-water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpAir_nominal
-    "Total pressure difference across supply and return ports in airloop"
+  parameter Modelica.Units.SI.PressureDifference dpAir_nominal(displayUnit="Pa")
+    "Total pressure difference across supply and return ports in air loop"
     annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.ThermalConductance UAHeaCoi_nominal(
@@ -95,13 +95,13 @@ model FourPipe "System model for a four-pipe fan coil unit"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{260,50},{300,90}}),
+    annotation (Placement(transformation(extent={{260,-100},{300,-60}}),
       iconTransformation(extent={{200,-100},{240,-60}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_air_a(
     redeclare final package Medium = MediumA)
     "Return air port from zone"
-    annotation (Placement(transformation(extent={{250,80},{270,100}}),
+    annotation (Placement(transformation(extent={{250,50},{270,70}}),
       iconTransformation(extent={{190,30},{210,50}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_air_b(
@@ -270,7 +270,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal)
     "Return air temperature sensor"
-    annotation (Placement(transformation(extent={{-230,-10},{-210,10}})));
+    annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoiEle(
     redeclare final package Medium = MediumA,
@@ -300,7 +300,7 @@ protected
     final m_flow_nominal=mAir_flow_nominal,
     final allowFlowReversal=true) if not have_hea
     "Bypass when heating coil is absent"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-102,38},{-82,58}})));
 
 equation
   connect(valHW.port_a, heaCoiHW.port_b1) annotation (Line(points={{-60,-70},{
@@ -346,8 +346,8 @@ equation
   connect(cooCoi.port_b2, totResAir.port_a)
     annotation (Line(points={{40,-4},{60,-4},{60,0},{80,0}},
                                                  color={0,127,255}));
-  connect(TAirRet.port_a,port_air_a)  annotation (Line(points={{-230,0},{-240,0},
-          {-240,90},{260,90}},                   color={0,127,255}));
+  connect(TAirRet.port_a,port_air_a)  annotation (Line(points={{-180,0},{-200,0},
+          {-200,60},{260,60}},                   color={0,127,255}));
   connect(heaCoiEle.port_b, TAirHea.port_a) annotation (Line(points={{-80,20},{
           -60,20},{-60,0},{-30,0}},
                                   color={0,127,255}));
@@ -360,17 +360,18 @@ equation
     annotation (Line(points={{-80,-16},{-70,-16},{-70,-40},{-120,-40},{-120,-70}},
                                                        color={0,127,255}));
   connect(TAirLvg.T, TAirSup)
-    annotation (Line(points={{170,11},{170,70},{280,70}},  color={0,0,127}));
+    annotation (Line(points={{170,11},{170,20},{190,20},{190,-80},{280,-80}},
+                                                           color={0,0,127}));
   connect(totResAir.port_b, fan.port_a) annotation (Line(points={{100,0},{120,0}},
                                 color={0,127,255}));
-  connect(pipByp.port_b, TAirHea.port_a) annotation (Line(points={{-80,60},{-60,
-          60},{-60,0},{-30,0}}, color={0,127,255}));
-  connect(TAirRet.port_b, heaCoiHW.port_a2) annotation (Line(points={{-210,0},{
-          -108,0},{-108,-4},{-100,-4}}, color={0,127,255}));
-  connect(TAirRet.port_b, heaCoiEle.port_a) annotation (Line(points={{-210,0},{
-          -108,0},{-108,20},{-100,20}}, color={0,127,255}));
-  connect(TAirRet.port_b, pipByp.port_a) annotation (Line(points={{-210,0},{
-          -108,0},{-108,60},{-100,60}}, color={0,127,255}));
+  connect(pipByp.port_b, TAirHea.port_a) annotation (Line(points={{-82,48},{-60,
+          48},{-60,0},{-30,0}}, color={0,127,255}));
+  connect(TAirRet.port_b, heaCoiHW.port_a2) annotation (Line(points={{-160,0},{-108,
+          0},{-108,-4},{-100,-4}},      color={0,127,255}));
+  connect(TAirRet.port_b, heaCoiEle.port_a) annotation (Line(points={{-160,0},{-108,
+          0},{-108,20},{-100,20}},      color={0,127,255}));
+  connect(TAirRet.port_b, pipByp.port_a) annotation (Line(points={{-160,0},{-108,
+          0},{-108,48},{-102,48}},      color={0,127,255}));
   connect(uFan, fan.y) annotation (Line(points={{-280,80},{130,80},{130,12}},
                              color={0,0,127}));
   connect(fan.y_actual, yFan_actual) annotation (Line(points={{141,7},{146,7},{
@@ -378,7 +379,7 @@ equation
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
-          extent={{-200,164},{200,-236}},
+          extent={{-200,200},{200,-200}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -413,12 +414,12 @@ equation
           origin={19.75,-136.25},
           rotation=90),
         Rectangle(
-          extent={{-21.25,4.25},{21.25,-4.25}},
+          extent={{-34.25,4.25},{34.25,-4.25}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={119.75,-179.25},
+          origin={119.75,-166.25},
           rotation=90),
                  Ellipse(
         extent={{106,-10},{166,-70}},
@@ -453,12 +454,12 @@ equation
           rotation=90,
           visible=have_hotWat),
         Rectangle(
-          extent={{-21.25,4.25},{21.25,-4.25}},
+          extent={{-34.25,4.25},{34.25,-4.25}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-40.25,-179.25},
+          origin={-40.25,-166.25},
           rotation=90,
           visible=have_hotWat),
         Rectangle(
@@ -485,15 +486,15 @@ equation
           fillPattern=FillPattern.Solid,
           visible=not have_hea),
         Text(
-          extent={{-190,146},{-148,98}},
+          extent={{-194,158},{-152,110}},
           textColor={0,0,127},
           textString="uFan"),
         Text(
-          extent={{-196,36},{-154,-12}},
+          extent={{-198,-84},{-156,-132}},
           textColor={0,0,127},
           textString="uHea"),
         Text(
-          extent={{-198,-80},{-156,-128}},
+          extent={{-198,38},{-156,-10}},
           textColor={0,0,127},
           textString="uCoo"),
         Text(
@@ -508,12 +509,12 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(points={{-200,120},{124,120},{124,-12}}, color={0,0,0}),
-        Line(points={{-200,0},{-154,0},{-154,-146},{-40,-146}},
-                                                  color={0,0,0},
+        Line(points={{-200,-120},{-40,-120}},     color={0,0,0},
              visible=have_hotWat),
-        Line(points={{-200,-120},{70,-120},{70,-88}}, color={0,0,0}),
+        Line(points={{-200,0},{-154,0},{-154,-100},{70,-100},{70,-120},{120,
+              -120}},                                 color={0,0,0}),
         Polygon(
-          points={{110,-134},{130,-134},{120,-146},{110,-134}},
+          points={{110,-108},{130,-108},{120,-120},{110,-108}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -522,40 +523,40 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={120,-152},
+          origin={120,-126},
           rotation=180),
         Rectangle(
-          extent={{-26.25,4.25},{26.25,-4.25}},
+          extent={{-13,5},{13,-5}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={119.75,-108.25},
+          origin={119,-95},
           rotation=90),
         Polygon(
           points={{-10,6},{10,6},{0,-6},{-10,6}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          origin={-40,-152},
+          origin={-40,-126},
           rotation=180,
           visible=have_hotWat),
         Polygon(
-          points={{-50,-134},{-30,-134},{-40,-146},{-50,-134}},
+          points={{-50,-108},{-30,-108},{-40,-120},{-50,-108}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=have_hotWat),
         Rectangle(
-          extent={{-31,4},{31,-4}},
+          extent={{-18,4},{18,-4}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-40,-103},
+          origin={-40,-90},
           rotation=90,
           visible=have_hotWat),
-        Line(points={{-200,0},{-154,0},{-154,-102},{-88,-102},{-88,-88}},
+        Line(points={{-200,-120},{-90,-120},{-90,-88}},
                                                   color={0,0,0},
           visible=have_heaEle)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
