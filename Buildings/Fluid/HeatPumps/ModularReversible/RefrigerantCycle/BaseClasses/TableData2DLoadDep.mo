@@ -1,6 +1,8 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 block TableData2DLoadDep
   "Calculation of capacity, heat flow rate and power based on load-dependent 2D table data"
+   extends Modelica.Blocks.Icons.Block;
+
   type TypeOfSystem = Integer(final min = 1, final max = 3)
   annotation(choices(
     choice = 1 "Chiller",
@@ -15,19 +17,18 @@ block TableData2DLoadDep
     "=true to use evaporator outlet temperature for table data, false for inlet";
   parameter Boolean use_TConOutForTab
     "=true to use condenser outlet temperature for table data, false for inlet";
-  parameter Real scaFac=1
+  parameter Real scaFac(unit="1")=1
     "Scaling factor for interpolated heat flow rate and power";
-  parameter Real PLRSup[:](each final min=0, each final unit="1")
+  parameter Modelica.Units.SI.DimensionlessRatio PLRSup[:](each final min=0)
     "PLR values at which heat flow rate and power data are provided";
-  final parameter Real PLRUnl_min=min(PLRSup)
+  final parameter Modelica.Units.SI.DimensionlessRatio PLRUnl_min=min(PLRSup)
     "Minimum PLR before false loading the compressor";
-  parameter Real PLRCyc_min(
+  parameter Modelica.Units.SI.DimensionlessRatio PLRCyc_min(
     final max=PLRUnl_min,
-    final min=0,
-    final unit="1")=min(PLRSup)
+    final min=0)=min(PLRSup)
     "Minimum PLR before cycling off the last compressor";
-  parameter Real P_min(final min=0)=0
-    "Stand-by power (system enabled with compressor cycled off)";
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   final parameter Integer nPLR=size(PLRSup, 1)
     "Number of PLR support points"
     annotation (Evaluate=true);
@@ -55,8 +56,8 @@ block TableData2DLoadDep
   parameter Modelica.Units.SI.Temperature TLoa_nominal
     "Load side fluid temperature — Entering or leaving depending on use_T*OutForTab"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TSou_nominal
-    "Source side fluid temperature — Entering or leaving depending on use_T*OutForTab"
+  parameter Modelica.Units.SI.Temperature TAmb_nominal
+    "Ambient side fluid temperature — Entering or leaving depending on use_T*OutForTab"
     annotation (Dialog(group="Nominal condition"));
   // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
   // Binding equations yield incorrect results but no error!
@@ -84,10 +85,9 @@ block TableData2DLoadDep
     "Entering fluid temperature on load side"
     annotation (Placement(transformation(extent={{-140,-48},{-100,-8}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouEnt(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmbEnt(
     final unit="K",
-    displayUnit="degC")
-    "Entering fluid temperature on source side"
+    displayUnit="degC") "Entering fluid temperature on ambient side"
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
@@ -122,15 +122,14 @@ block TableData2DLoadDep
     "Heat flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouLvg(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmbLvg(
     final unit="K",
-    displayUnit="degC")
-    "Leaving fluid temperature on source side"
+    displayUnit="degC") "Leaving fluid temperature on ambient side"
     annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yMea(
     final unit="1")
-    "Compressor part load ratio resulting from equipment internal safeties"
+    "Part load ratio resulting from equipment internal safeties"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cpLoa(
@@ -181,19 +180,19 @@ protected
   // For HRC the same data table is used for both cooling and heating,
   // and the block is necessarily used with chiller data.
   // So the first interpolation variable TLoaTab is always the evaporator temperature,
-  // which is either TLoa(Ent|Lvg) or TSou(Ent|Lvg) depending on the operating mode.
+  // which is either TLoa(Ent|Lvg) or TAmb(Ent|Lvg) depending on the operating mode.
   Modelica.Units.SI.Temperature TLoaTab=if typ==2 then (if coo_internal then
     (if use_TEvaOutForTab then TLoaLvg else TLoaEnt)
-    else (if use_TEvaOutForTab then TSouLvg else TSouEnt))
+    else (if use_TEvaOutForTab then TAmbLvg else TAmbEnt))
     elseif typ==1 then (if use_TEvaOutForTab then TLoaLvg else TLoaEnt)
     else (if use_TConOutForTab then TLoaLvg else TLoaEnt)
     "Fluid temperature on load side used for table data interpolation";
-  Modelica.Units.SI.Temperature TSouTab=if typ==2 then (if coo_internal then
-    (if use_TConOutForTab then TSouLvg else TSouEnt)
-    else (if use_TConOutForTab then TLoaLvg else TLoaEnt))
-    elseif typ==1 then (if use_TConOutForTab then TSouLvg else TSouEnt)
-    else (if use_TEvaOutForTab then TSouLvg else TSouEnt)
-    "Fluid temperature on load side used for table data interpolation";
+  Modelica.Units.SI.Temperature TAmbTab=if typ == 2 then (if coo_internal then (
+    if use_TConOutForTab then TAmbLvg else TAmbEnt) else (if
+    use_TConOutForTab then TLoaLvg else TLoaEnt)) elseif typ == 1 then (if
+    use_TConOutForTab then TAmbLvg else TAmbEnt) else (if use_TEvaOutForTab
+     then TAmbLvg else TAmbEnt)
+    "Fluid temperature on ambient side used for table data interpolation";
   Modelica.Units.SI.Temperature TLoaCtl=if use_TLoaLvgForCtl then TLoaEnt else TLoaLvg
     "Fluid temperature used for load calculation (Delta-T with setpoint)";
   Real sigLoa=if use_TLoaLvgForCtl then 1 else - 1
@@ -201,9 +200,9 @@ protected
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo_internal;
 initial equation
   PInt_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-    tabP, fill(TLoa_nominal, nPLR), fill(TSou_nominal, nPLR));
+    tabP, fill(TLoa_nominal, nPLR), fill(TAmb_nominal, nPLR));
   QInt_flow_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-    tabQ, fill(TLoa_nominal, nPLR), fill(TSou_nominal, nPLR));
+    tabQ, fill(TLoa_nominal, nPLR), fill(TAmb_nominal, nPLR));
 equation
   if typ==2 then
     connect(coo, coo_internal);
@@ -223,7 +222,7 @@ equation
       max(0, sigLoa *(TSet - TLoaCtl) * cpLoa * mLoa_flow)
       else 0;
     QInt_flow=scaFac * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-      tabQ, fill(TLoaTab, nPLR), fill(TSouTab, nPLR));
+      tabQ, fill(TLoaTab, nPLR), fill(TAmbTab, nPLR));
     PLR1=min(PLR_max, Modelica.Math.Vectors.interpolate(
       abs(cat(1, {0}, QInt_flow)),
       cat(1, {0}, PLRSor),
@@ -235,7 +234,7 @@ equation
       cat(1, {0}, QInt_flow),
       yMea);
     PInt=scaFac * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-      tabP, fill(TLoaTab, nPLR), fill(TSouTab, nPLR));
+      tabP, fill(TLoaTab, nPLR), fill(TAmbTab, nPLR));
     P=if PLRCyc_min < PLRSor[1] then
       Modelica.Math.Vectors.interpolate(
         cat(1, {0, PLRCyc_min}, PLRSor),
@@ -268,40 +267,44 @@ Buildings.Fluid.Chillers.ModularReversible</a>.
 <ul>
 <li>
 <b>Ideal controls</b>: The heating or cooling load is calculated based on the block
-inputs. The block returns the required compressor part load ratio <i>PLR</i>
-to meet the load – within the system capacity.<sup>1</sup>
+inputs. The block returns the required part load ratio <code>PLR</code>
+to meet the load, within system capacity.<sup>1</sup>
 </li>
 <li>
 <b>Capacity and power calculation</b>: The capacity and power are interpolated
 from user-provided data along the load side fluid temperature,
-the source side fluid temperature
-and the compressor part load ratio <i>yMea</i> provided as input.<sup>2</sup>
+the ambient side fluid temperature
+and the part load ratio <code>yMea</code> provided as input.<sup>2</sup>
 </li>
 </ul>
 <p>
-<sup>1</sup> At given load and source temperatures,
-the part load ratio is defined as the ratio of the heating (resp. cooling)
-load to the heat pump (resp. chiller) capacity.
-It is dimensionless and bounded by <i>0</i> and <i>max(PLRSup)</i>, where 
-the upper bound is typically equal to <i>1</i> (unless there are some 
+<sup>1</sup> The part load ratio is defined as the ratio of the actual heating
+(or cooling) heat flow rate to the maximum capacity of the heat pump (or chiller)
+at the given load-side and ambient-side fluid temperatures.
+It is dimensionless and bounded by <code>0</code> and <code>max(PLRSup)</code>, where
+the upper bound is typically equal to <code>1</code> (unless there are some
 capacity margins at design conditions that need to be accounted for).
 In this block, the part load ratio is used as a proxy variable
 for the actual capacity modulation observable.
-For systems with VFDs, this is the normalized compressor speed.
-For systems with on/off compressors,
-this is the number of enabled compressors divided by the total number
-of compressors.
+For systems with VFDs, this is the compressor speed.
+For systems with on/off compressors, this is the capacity of the enabled
+compressors divided by the total capacity.
 When meeting the load by cycling on and off a single compressor,
 this is the time fraction the compressor is enabled.
 In all cases, the algorithm assumes continuous operation and only approximates
 the performance on a time average.
+Finally, note that while the part load ratio is used for generalization purposes,
+either the part load ratio or the actual capacity modulation observable
+(e.g., the normalized compressor speed) may be used to map the performance data.
+The only requirement is that this variable be normalized, as the algorithm assumes
+it equals <code>1</code> at design (selection) conditions.
 </p>
 <p>
-<sup>2</sup> The reason why the compressor part load ratio is both calculated (<i>PLR</i>)
-and exposed as an input (<i>yMea</i>) is to allow for modeling internal safeties
+<sup>2</sup> The reason why the part load ratio is both calculated (<code>PLR</code>)
+and exposed as an input (<code>yMea</code>) is to allow for modeling internal safeties
 that can limit operation.
-If no safeties are modeled, a direct feedback of <i>PLR</i> to
-<i>yMea</i> can be used.
+If no safeties are modeled, a direct feedback of <code>PLR</code> to
+<code>yMea</code> can be used.
 </p>
 <h4>Capacity and power calculation</h4>
 <p>
@@ -314,15 +317,15 @@ into three domains, as illustrated in Figure&nbsp;1.
 This domain corresponds to the capacity range where the machine adapts to the
 load without false loading or cycling on and off the last operating compressor.
 Depending on the technology, this is achieved for example by modulating
-the compressor speed, throttling the inlet guide vane
+the compressor speed, throttling the inlet guide vanes
 or staging a varying number of compressors.
 In this domain, both the machine PLR and the compressor PLR vary.
 The capacity and power are linearly interpolated
 based on the performance data provided in an external file, which
 syntax is specified in the following section.
 The interpolation is carried out along three variables: the
-load side fluid temperature, the source side fluid temperature
-and the compressor part load ratio.
+load-side fluid temperature, the ambient-side fluid temperature
+and the part load ratio.
 Note that no extrapolation is performed.
 The capacity and power are limited by the minimum or maximum values
 provided in the performance data file.
@@ -334,26 +337,26 @@ For a chiller, this is achieved by bypassing hot gas directly to the evaporator.
 In this domain, the machine PLR varies while the compressor PLR stays
 roughly the same.
 The input power is considered equal to the interpolated value at
-<code>TLoa</code>, <code>TSou</code>, <code>min(PLRSup)</code>.
-This domain may not exist if the parameter <code>PLRUnl_min</code> is
+<code>TLoa</code>, <code>TAmb</code>, <code>min(PLRSup)</code>.
+This domain may not exist if the parameter <code>PLRCyc_min</code> is
 equal to <code>min(PLRSup)</code>, which is the default setting.
 </li>
 <li><b>Last operating compressor cycling</b><br>
 This domain corresponds to the capacity range where the last
 operating compressor cycles on and off.
 In this domain, the capacity is linearly interpolated between
-<i>0</i> and the value at <code>TLoa</code>, <code>TSou</code>, <code>min(PLRSup)</code>,
+<code>0</code> and the value at <code>TLoa</code>, <code>TAmb</code>, <code>min(PLRSup)</code>,
 while the power is linearly interpolated between
-<code>P_min</code> and the value at <code>TLoa</code>, <code>TSou</code>, 
-<code>min(PLRSup)</code>, where <code>P_min</code> corresponds to the standby power
-when the machine is enabled and all compressors are disabled.
+<code>P_min</code> and the value at <code>TLoa</code>, <code>TAmb</code>,
+<code>min(PLRSup)</code>, where <code>P_min</code> corresponds
+to the remaining power when the machine is enabled and all compressors are disabled.
 </li>
 </ol>
 <p>
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/TableData2DLoadDep.png\" 
-border=\"1\" alt=\"Input power as a function of the compressor part load ratio.\"/>
+<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/TableData2DLoadDep.png\"
+border=\"1\" alt=\"Input power as a function of the part load ratio.\"/>
 </p>
-<p><i>Figure 1. Input power as a function of the compressor part load ratio.</i></p>
+<p><i>Figure 1. Input power as a function of the part load ratio.</i></p>
 <h4>Performance data file</h4>
 <p>
 The performance data are read from an external ASCII file that must meet
@@ -362,24 +365,24 @@ the requirements specified in the documentation of
 Modelica.Blocks.Tables.CombiTable2Ds</a>.
 </p>
 <p>
-This file must contain at least two 2D-tables that provide the maximum
+In addition, this file must contain at least two 2D-tables that provide the maximum
 heating (resp. minimum cooling) heat flow rate and the input power
 of the heat pump (resp. chiller) at <i>100&nbsp;&percnt;</i>
 PLR.
-Each row of these tables corresponds to a value of the load side
+Each row of these tables corresponds to a value of the load-side
 fluid temperature, each column corresponds to a value of the
-source side fluid temperature.
+ambient-side fluid temperature.
 This could be either the leaving temperature if <code>use_T*OutForTab</code>
 is true, or the entering temperature if <code>use_T*OutForTab</code>
 is false.
-The load and source temperatures must cover the whole operating domain,
+The load and ambient temperatures must cover the whole operating domain,
 knowing that the model only performs interpolation and no extrapolation
 of the capacity and power along these variables.
 </p>
 <p>
 The table providing the capacity values must be named <code>q@X.XX</code>
 where <code>X.XX</code> is the PLR value formatted with exactly
-2 decimal places (\"%.2f\").
+2 decimal places (<code>\"%.2f\"</code>).
 Similarly, the table providing the power values must be named
 <code>p@X.XX</code>.
 </p>
@@ -421,22 +424,31 @@ in the array parameter <code>PLRSup[:]</code>.
 <h4>Compressor cycling</h4>
 <p>
 Compressor cycling is not explicitly modeled.
-Instead, the model assumes continuous operation from <i>0</i> to
-<i>100&nbsp;&percnt;</i> PLR.
-The only effect of cycling taken into account is the impact of standby power
+Instead, the model assumes continuous operation from <code>0</code> to <code>max(PLRSup)</code>.
+The only effect of cycling taken into account is the impact of the remaining power
 <code>P_min</code> when the machine is enabled and the last operating
 compressor is cycled off.
-Studies on chillers and heat pumps show that the main driver of efficiency
-loss due to cycling is the standby power (Rivière, 2004).
-This is because a large part of the energy loss when staging on a compressor
-is recovered when staging off the compressor, unless the machine
-is disconnected from the load when compressors are disabled.
+Studies on chillers and heat pumps show that this is the main driver of
+efficiency loss due to cycling (Rivière, 2004).
+When a compressor is staged on, energy losses occur due to the overcoming of the
+refrigerant pressure equalization and the heat exchanger temperature conditioning.
+However, a large part of these losses is recovered when staging off the compressor,
+unless the machine is disconnected from the load when compressors are disabled.
 This disconnection does not happen when staging multiple compressors,
 and the research shows no significant performance degradation when a
 chiller cycles between different stages without completely shutting down.
 And even when disabling the last operating compressor, most plant
 controls require continuous operation of the primary pumps when
 the chillers or heat pumps are enabled.
+The European Standard for performance rating of chillers and heat pumps
+at part load conditions (CEN, 2022) states that the performance degradation due to
+the pressure equalization effect when the unit restarts can be considered
+as negligible for hydronic systems.
+The only effect that will impact the coefficient of performance
+when cycling is the remaining power input when the compressor is switching off.
+If this remaining power is not measured, the Standard prescribes a default
+value of <i>10&nbsp;&percnt;</i> of the effective power input measured
+during continuous operation at part load.
 </p>
 <h4>Heat recovery chillers</h4>
 <p>
@@ -456,14 +468,14 @@ evaporator side variables in cooling mode, and to the condenser side
 variables in heating mode.
 The output connector <code>Q_flow</code> is always the
 <i>cooling</i> heat flow rate, whatever the operating mode.
-The heating heat flow rate in heating mode can be computed 
+The heating heat flow rate in heating mode can be computed
 externally as <code>P-Q_flow</code>.
 </p>
 <h4>Ideal controls</h4>
 <p>
-The block implements ideal controls by solving for the compressor part load ratio
+The block implements ideal controls by solving for the part load ratio
 required to meet the load (more precisely the minimum between the load
-and the actual capacity for the current load and source temperatures).
+and the actual capacity for the current load and ambient temperatures).
 This is done by interpolating the PLR values along the heat flow rate values
 for a given load.
 </p>
@@ -480,8 +492,16 @@ which allows limiting the required PLR to account for equipment internal safetie
 </p>
 <h4>References</h4>
 <ul>
-<li>Rivière, P. (2004). Performances saisonnières des groupes de production d’eau glaçée.
-École Nationale Supérieure des Mines de Paris. French.
+<li>
+CEN, 2022. European Standard EN&nbsp;14825:2022&nbsp;E.
+Air conditioners, liquid chilling packages and heat pumps,
+with electrically driven compressors, for space heating and cooling,
+commercial and process cooling - Testing and rating at part load conditions
+and calculation of seasonal performance.
+</li>
+<li>Rivière, P. (2004). Performances saisonnières des groupes de production d’eau glaçée
+[Seasonal performance of liquid chillers].
+École Nationale Supérieure des Mines de Paris. [In French].
 <a href=\"https://pastel.hal.science/pastel-00001483\">https://pastel.hal.science/pastel-00001483</a>
 </li>
 </ul>

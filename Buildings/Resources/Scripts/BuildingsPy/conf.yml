@@ -248,6 +248,8 @@
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
+  openmodelica:
+    time_out: 600
   optimica:
     translate: false
     comment: Compilation seems to hang, may be related to Modelon ticket 956

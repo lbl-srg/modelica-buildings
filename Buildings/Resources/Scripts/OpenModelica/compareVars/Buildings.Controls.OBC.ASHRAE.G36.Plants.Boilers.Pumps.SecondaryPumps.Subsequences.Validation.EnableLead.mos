@@ -1,6 +1,6 @@
 compareVars :=
   {
     "enaLeaSecPum.uPlaEna",
-    "enaLeaSecPum.supResReq",
+    "enaLeaSecPum.plaReq",
     "enaLeaSecPum.yLea"
   };

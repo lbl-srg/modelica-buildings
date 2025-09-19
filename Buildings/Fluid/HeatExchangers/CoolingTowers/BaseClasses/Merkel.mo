@@ -54,7 +54,7 @@ block Merkel "Model for thermal performance of Merkel cooling tower"
     m_flow_nominal*cpWat_nominal*(TWatIn_nominal - TWatOut_nominal)
     "Nominal heat transfer, (negative)";
   final parameter Modelica.Units.SI.ThermalConductance UA_nominal=NTU_nominal*
-      CMin_flow_nominal
+      CMin_flow_nominal * Buildings.Utilities.Psychrometrics.Constants.cpAir/cpEqu_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal=
     Q_flow_nominal/((TAirInWB_nominal - TWatIn_nominal) * CMin_flow_nominal)
@@ -130,7 +130,7 @@ protected
 
   parameter Real delta=1E-3 "Parameter used for smoothing";
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpe_nominal=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpEqu_nominal=
       Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
       TIn=TAirInWB_nominal, TOut=TAirOutWB_nominal)
     "Specific heat capacity of the equivalent medium on medium 1 side";
@@ -140,9 +140,8 @@ protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpWat_nominal=
       Medium.specificHeatCapacityCp(staWat_default)
     "Specific heat capacity of water at nominal condition";
-
   parameter Modelica.Units.SI.ThermalConductance CAir_flow_nominal=
-      mAir_flow_nominal*cpe_nominal "Nominal capacity flow rate of air";
+      mAir_flow_nominal*cpEqu_nominal "Nominal capacity flow rate of air";
   parameter Modelica.Units.SI.ThermalConductance CWat_flow_nominal=
       m_flow_nominal*cpWat_nominal "Nominal capacity flow rate of water";
   parameter Modelica.Units.SI.ThermalConductance CMin_flow_nominal=min(
@@ -170,7 +169,7 @@ protected
 
 initial equation
   // Heat transferred from air to water at nominal condition
-  Q_flow_nominal = mAir_flow_nominal*cpe_nominal*(TAirInWB_nominal - TAirOutWB_nominal);
+  Q_flow_nominal = mAir_flow_nominal*cpEqu_nominal*(TAirInWB_nominal - TAirOutWB_nominal);
 
   assert(eps_nominal > 0 and eps_nominal < 1,
     "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
@@ -292,6 +291,12 @@ Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 17, 2025, by Michael Wetter:<br/>
+Corrected computation of nominal UA value, which also needs to include the correction for <code>cpEqu_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4189\">#4189</a>.
+</li>
 <li>
 January 20, 2020, by Michael Wetter:<br/>
 First implementation during refactoring of

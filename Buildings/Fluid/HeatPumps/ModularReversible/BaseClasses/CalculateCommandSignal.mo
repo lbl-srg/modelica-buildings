@@ -44,7 +44,10 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+        fillPattern=FillPattern.Solid), Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        textColor={0,0,255})}),           Documentation(info="<html>
 <p>
 This is a helper block developed specifically for models
 that include ideal controls.

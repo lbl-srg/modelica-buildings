@@ -125,17 +125,11 @@ equation
         preserveAspectRatio=false)),
     Documentation(
       revisions="<html>
-  <ul>
-  <li>
-  May 2, 2024, by Michael Wetter:<br/>
-  Refactored check for device identifiers.<br/>
-  This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
-  </li>
-  <li>
-    <i>May 22, 2019,</i> by Julian Matthes:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
-  </li>
+<ul>
+<li>
+March 21, 2025, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </ul>
 </html>",
       info="<html>
@@ -145,10 +139,10 @@ This is the refrigerant cycle model used in
 Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>.
 </p>
 <p>
-In contrast to 
+In contrast to
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle\">
 Buildings.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle</a>,
-this model includes a unique component that can be configured to 
+this model includes a unique component that can be configured to
 either represent a cooling-only chiller (<code>have_switchover=false</code>)
 or a heat recovery chiller (<code>have_switchover=true</code>).
 A unique performance data file is required, providing
