@@ -343,6 +343,34 @@
   openmodelica:
     comment: returned non-zero exit status 139.
     simulate: false
+- model_name: Buildings.Obsolete.Utilities.IO.Python_3_8.Examples.KalmanFilter
+  openmodelica:
+    comment: python incompatible with docker image
+    translate: false
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
+- model_name: Buildings.Obsolete.Utilities.IO.Python_3_8.Examples.SimpleRoom
+  openmodelica:
+    comment: python incompatible with docker image
+    translate: false
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
+- model_name: Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.Examples.Exchange
+  openmodelica:
+    comment: python incompatible with docker image
+    translate: false
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
+- model_name: Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
+  openmodelica:
+    comment: python incompatible with docker image
+    translate: false
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
   optimica:
     comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
@@ -546,31 +574,19 @@
   openmodelica:
     comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)
     simulate: false
-- model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
-  openmodelica:
-    comment: python incompatible with docker image
-    translate: false
+- model_name: Buildings.Utilities.IO.Python_3_12.Examples.KalmanFilter
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
-- model_name: Buildings.Utilities.IO.Python_3_8.Examples.SimpleRoom
-  openmodelica:
-    comment: python incompatible with docker image
-    translate: false
+- model_name: Buildings.Utilities.IO.Python_3_12.Examples.SimpleRoom
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
-- model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
-  openmodelica:
-    comment: python incompatible with docker image
-    translate: false
+- model_name: Buildings.Utilities.IO.Python_3_12.Functions.Examples.Exchange
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
-- model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
-  openmodelica:
-    comment: python incompatible with docker image
-    translate: false
+- model_name: Buildings.Utilities.IO.Python_3_12.Functions.Examples.ExchangeWithPassPythonObject
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
