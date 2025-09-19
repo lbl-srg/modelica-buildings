@@ -4,6 +4,7 @@ Buildings/Airflow/Multizone/BaseClasses/Door.mo
 Buildings/Airflow/Multizone/BaseClasses/DoorDiscretized.mo
 Buildings/Airflow/Multizone/BaseClasses/ErrorControl.mo
 Buildings/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mo
+Buildings/Airflow/Multizone/BaseClasses/Examples/PowerLaw05.mo
 Buildings/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mo
 Buildings/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mo
 Buildings/Airflow/Multizone/BaseClasses/Examples/WindPressureProfile.mo
@@ -17,6 +18,7 @@ Buildings/Airflow/Multizone/BaseClasses/ZonalFlow.mo
 Buildings/Airflow/Multizone/BaseClasses/package.mo
 Buildings/Airflow/Multizone/BaseClasses/package.order
 Buildings/Airflow/Multizone/BaseClasses/powerLaw.mo
+Buildings/Airflow/Multizone/BaseClasses/powerLaw05.mo
 Buildings/Airflow/Multizone/BaseClasses/powerLawFixedM.mo
 Buildings/Airflow/Multizone/BaseClasses/windPressureLowRise.mo
 Buildings/Airflow/Multizone/BaseClasses/windPressureProfile.mo
@@ -2912,6 +2914,7 @@ Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Python-Sources/MakeORCFluidRecord.py
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
+Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw05.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureProfile.mos
