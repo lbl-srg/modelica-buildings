@@ -55,8 +55,8 @@ equation
   // gives higher robustness. The reason may be that for bi-directional flow,
   // (VAB_flow - VBA_flow) may be close to zero.
   if forceErrorControlOnFlow then
-    der(mExcAB) = mAB_flow;
-    der(mExcBA) = mBA_flow;
+    der(mExcAB) = port_a1.m_flow;
+    der(mExcBA) = port_a2.m_flow;
   else
     der(mExcAB) = 0;
     der(mExcBA) = 0;
@@ -82,14 +82,14 @@ equation
 
   VZer_flow = vZer*A;
 
-  mAB_flow = rho_a1_inflow*VAB_flow;
-  mBA_flow = rho_a2_inflow*VBA_flow;
+  mAB_flow = port_a1.m_flow;
+  mBA_flow = port_a2.m_flow;
   // Average velocity (using the whole orifice area)
   vAB = VAB_flow/A;
   vBA = VBA_flow/A;
 
-  port_a1.m_flow = mAB_flow;
-  port_a2.m_flow = mBA_flow;
+  port_a1.m_flow = rho_a1_inflow*VAB_flow;
+  port_a2.m_flow = rho_a2_inflow*VBA_flow;
 
   // Energy balance (no storage, no heat loss/gain)
   port_a1.h_outflow = inStream(port_b1.h_outflow);
