@@ -61,7 +61,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final unit="1") if have_hea
     "Heating loop control signal"
     annotation(Placement(transformation(extent={{-300,-140},{-260,-100}}),
-      iconTransformation(extent={{-240,-80},{-200,-40}})));
+      iconTransformation(extent={{-240,-140},{-200,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final unit="1")
@@ -73,7 +73,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final unit="1")
     "Fan normalized speed control signal"
     annotation(Placement(transformation(extent={{-300,60},{-260,100}}),
-      iconTransformation(extent={{-240,40},{-200,80}})));
+      iconTransformation(extent={{-240,100},{-200,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFan_actual(
     final unit="1",
@@ -336,8 +336,8 @@ equation
   connect(cooCoi.port_b2, totResAir.port_a)
     annotation (Line(points={{40,-4},{60,-4},{60,0},{80,0}},
                                                  color={0,127,255}));
-  connect(TAirRet.port_a,port_air_a)  annotation (Line(points={{-230,0},{-236,0},
-          {-236,90},{260,90}},                   color={0,127,255}));
+  connect(TAirRet.port_a,port_air_a)  annotation (Line(points={{-230,0},{-240,0},
+          {-240,90},{260,90}},                   color={0,127,255}));
   connect(heaCoiEle.port_b, TAirHea.port_a) annotation (Line(points={{-80,20},{
           -60,20},{-60,0},{-30,0}},
                                   color={0,127,255}));
@@ -368,7 +368,7 @@ equation
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
-          extent={{-200,200},{200,-200}},
+          extent={{-200,164},{200,-236}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -403,21 +403,21 @@ equation
           origin={19.75,-136.25},
           rotation=90),
         Rectangle(
-          extent={{-64.25,4.25},{64.25,-4.25}},
+          extent={{-21.25,4.25},{21.25,-4.25}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={119.75,-136.25},
+          origin={119.75,-179.25},
           rotation=90),
                  Ellipse(
-        extent={{120,-10},{180,-70}},
+        extent={{106,-10},{166,-70}},
         lineColor={0,0,0},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid), Polygon(
-        points={{150,-10},{150,-70},{180,-40},{150,-10}},
+        points={{124,-12},{124,-66},{166,-40},{124,-12}},
         lineColor={0,0,0},
-        fillColor={0,0,0},
+        fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-148,45},{200,34}},
@@ -443,12 +443,12 @@ equation
           rotation=90,
           visible=have_hotWat),
         Rectangle(
-          extent={{-64.25,4.25},{64.25,-4.25}},
+          extent={{-21.25,4.25},{21.25,-4.25}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-40.25,-136.25},
+          origin={-40.25,-179.25},
           rotation=90,
           visible=have_hotWat),
         Rectangle(
@@ -473,7 +473,81 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          visible=not have_hea)}),
+          visible=not have_hea),
+        Text(
+          extent={{-190,146},{-148,98}},
+          textColor={0,0,127},
+          textString="uFan"),
+        Text(
+          extent={{-196,36},{-154,-12}},
+          textColor={0,0,127},
+          textString="uHea"),
+        Text(
+          extent={{-198,-80},{-156,-128}},
+          textColor={0,0,127},
+          textString="uCoo"),
+        Text(
+          extent={{146,122},{188,74}},
+          textColor={0,0,127},
+          textString="uFan"),
+        Line(points={{136,-10},{136,80},{200,80}}, color={0,0,0}),
+        Line(points={{180,-46},{180,-80},{200,-80}}, color={0,0,0}),
+        Ellipse(
+          extent={{174,-54},{186,-66}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-200,120},{124,120},{124,-12}}, color={0,0,0}),
+        Line(points={{-200,0},{-154,0},{-154,-146},{-40,-146}},
+                                                  color={0,0,0},
+             visible=have_hotWat),
+        Line(points={{-200,-120},{70,-120},{70,-88}}, color={0,0,0}),
+        Polygon(
+          points={{110,-134},{130,-134},{120,-146},{110,-134}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-10,6},{10,6},{0,-6},{-10,6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={120,-152},
+          rotation=180),
+        Rectangle(
+          extent={{-26.25,4.25},{26.25,-4.25}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={119.75,-108.25},
+          rotation=90),
+        Polygon(
+          points={{-10,6},{10,6},{0,-6},{-10,6}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={-40,-152},
+          rotation=180,
+          visible=have_hotWat),
+        Polygon(
+          points={{-50,-134},{-30,-134},{-40,-146},{-50,-134}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-31,4},{31,-4}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-40,-103},
+          rotation=90,
+          visible=have_hotWat),
+        Line(points={{-200,0},{-154,0},{-154,-102},{-88,-102},{-88,-88}},
+                                                  color={0,0,0},
+          visible=have_heaEle)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-260,-140},{260,140}})),
 Documentation(info="<html>
@@ -483,12 +557,12 @@ following components:
 </p>
 <ul>
 <li>
-a supply fan <code>fan</code> of class
+A supply fan <code>fan</code> of class
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 </li>
 <li>
-heating coil options for no heating coil, a hot-water heating coil or an electric
+Heating coil options for no heating coil, a hot-water heating coil or an electric
 heating coil determined by the user selection for parameter <code>heaCoiTyp</code>
 as follows:
 <ol>
@@ -513,7 +587,7 @@ is set to <code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric</co
 </ol>
 </li>
 <li>
-a chilled-water cooling coil <code>cooCoi</code> of class
+A chilled-water cooling coil <code>cooCoi</code> of class
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
 Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
 </li>
@@ -537,11 +611,12 @@ drop across the two respective coils.
 </ul>
 <p>
 The figure below shows the schematic diagram of the four pipe system when
-<code>heaCoiTyp</code> is set to
-<code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased</code>.
+<code>heaCoiTyp</code> is set to water based using the enumeration
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil\">
+Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil</a>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic.png\" width=\"25%\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
