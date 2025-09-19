@@ -355,13 +355,11 @@ equation
           fillPattern=FillPattern.Solid,
           extent={{180,70},{200,-70}}),
         Text(
-          fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
+          textColor={61,61,61},
           extent={{120,148},{170,120}},
           textString="TRad"),
         Text(
-          fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
+          textColor={61,61,61},
           extent={{-60,12},{-22,-10}},
           textString="air"),
         Rectangle(
@@ -378,8 +376,7 @@ equation
           extent={{-188,-94},{-112,-126}},
           textString="C_flow"),
         Text(
-          fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
+          textColor={61,61,61},
           extent={{124,182},{174,154}},
           textString="TAir",
           horizontalAlignment=TextAlignment.Right),
@@ -396,16 +393,13 @@ equation
           extent={{134,-176},{174,-146}},
           fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/EnergyPlusLogo.png"),
         Text(
-          fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
+          textColor={61,61,61},
           extent={{132,114},{182,86}},
           textString="phi"),
         Text(
-          fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           extent={{-56,-48},{-20,-68}},
-          textString="rad",
-          textColor={0,0,0})}),
+          textString="rad")}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -550,6 +544,10 @@ is not possible.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 17, 2025, by Michael Wetter:<br/>
+Corrected graphical annotation for <code>Text</code>.
+</li>
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
