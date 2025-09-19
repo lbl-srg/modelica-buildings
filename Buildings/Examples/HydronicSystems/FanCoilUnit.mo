@@ -3,17 +3,11 @@ model FanCoilUnit
   "Model of a five zone floor with fan coil units"
   extends Modelica.Icons.Example;
 
-  replaceable package MediumA = Buildings.Media.Air(T_default=293.15)
+  replaceable package MediumA = Buildings.Media.Air
     "Medium for air";
 
   replaceable package MediumW = Buildings.Media.Water
     "Medium for hot-water and chilled-water";
-
-  parameter Boolean sampleModel = false
-    "Set to true to time-sample the model, which can give shorter simulation time
-    if there is already time sampling in the system model"
-    annotation (Evaluate=true,Dialog(
-      tab="Experimental (may be changed in future releases)"));
 
   parameter Modelica.Units.SI.Length hRoo=2.74
     "Room height";
@@ -238,36 +232,7 @@ model FanCoilUnit
     "Fan coil unit controller"
     annotation (Placement(transformation(extent={{-80,-112},{-40,-40}})));
 
-  Buildings.ThermalZones.Detailed.MixedAir zon1(
-    redeclare package Medium = MediumA,
-    AFlo=AFlo,
-    hRoo=hRoo,
-    nConExt=0,
-    nConExtWin=1,
-    datConExtWin(
-      layers={conExtWal},
-      A={wExt*hRoo},
-      glaSys={glaSys},
-      wWin={winWalRat/hWin*wExt*hRoo},
-      each hWin=hWin,
-      fFra={0.1},
-      til={Buildings.Types.Tilt.Wall},
-      azi={Buildings.Types.Azimuth.N}),
-    nConPar=2,
-    datConPar(
-      layers={conFlo,conFur},
-      A={AFlo,414.68},
-      til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
-    nConBou=3,
-    datConBou(
-      layers={conIntWal,conIntWal,conIntWal},
-      A={6.47,40.76,6.47}*hRoo,
-      til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall}),
-    nSurBou=0,
-    intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final sampleModel=sampleModel,
-    nPorts=3)
+  MixedAir zon1(nPorts=3)
     "Zone-1"
     annotation (Placement(transformation(extent={{120,140},{170,190}})));
 
@@ -313,36 +278,7 @@ model FanCoilUnit
     "Fan coil unit with hot-water heating coil"
     annotation (Placement(transformation(extent={{20,20},{60,60}})));
 
-  Buildings.ThermalZones.Detailed.MixedAir zon2(
-    redeclare package Medium = MediumA,
-    AFlo=AFlo,
-    hRoo=hRoo,
-    nConExt=0,
-    nConExtWin=1,
-    datConExtWin(
-      layers={conExtWal},
-      A={wExt*hRoo},
-      glaSys={glaSys},
-      wWin={winWalRat/hWin*wExt*hRoo},
-      each hWin=hWin,
-      fFra={0.1},
-      til={Buildings.Types.Tilt.Wall},
-      azi={Buildings.Types.Azimuth.N}),
-    nConPar=2,
-    datConPar(
-      layers={conFlo,conFur},
-      A={AFlo,414.68},
-      til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
-    nConBou=3,
-    datConBou(
-      layers={conIntWal,conIntWal,conIntWal},
-      A={6.47,40.76,6.47}*hRoo,
-      til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall}),
-    nSurBou=0,
-    nPorts=3,
-    intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final sampleModel=sampleModel)
+  MixedAir zon2(nPorts=3)
     "Zone-2"
     annotation (Placement(transformation(extent={{120,20},{170,70}})));
 
@@ -366,7 +302,24 @@ model FanCoilUnit
     "Fan coil unit with electric heating coil"
     annotation (Placement(transformation(extent={{26,-88},{66,-48}})));
 
-  Buildings.ThermalZones.Detailed.MixedAir zon3(
+  MixedAir zon3(nPorts=3)
+    "Zone-3"
+    annotation (Placement(transformation(extent={{120,-80},{170,-30}})));
+
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNoHeaCoi2
+    "Air temperature sensor"
+    annotation (Placement(transformation(extent={{230,-60},{250,-40}})));
+
+  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage lea(
+    redeclare package Medium = MediumA,
+    VRoo=VRoo,
+    s=49.91/33.27,
+    azi=Buildings.Types.Azimuth.N,
+    final use_windPressure=false)
+    "Model for air infiltration through the envelope"
+    annotation (Placement(transformation(extent={{0,260},{40,300}})));
+
+  model MixedAir = Buildings.ThermalZones.Detailed.MixedAir(
     redeclare package Medium = MediumA,
     AFlo=AFlo,
     hRoo=hRoo,
@@ -392,28 +345,10 @@ model FanCoilUnit
       A={6.47,40.76,6.47}*hRoo,
       til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall}),
     nSurBou=0,
-    nPorts=3,
     intConMod=intConMod,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final sampleModel=sampleModel)
-    "Zone-3"
-    annotation (Placement(transformation(extent={{120,-80},{170,-30}})));
-
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNoHeaCoi2
-    "Air temperature sensor"
-    annotation (Placement(transformation(extent={{230,-60},{250,-40}})));
-
-  Buildings.Examples.VAVReheat.BaseClasses.RoomLeakage lea(
-    redeclare package Medium = MediumA,
-    VRoo=VRoo,
-    s=49.91/33.27,
-    azi=Buildings.Types.Azimuth.N,
-    final use_windPressure=false)
-    "Model for air infiltration through the envelope"
-    annotation (Placement(transformation(extent={{0,260},{40,300}})));
-
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Thermal zone model";
 protected
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant LimLev(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant limLev(
     final k=0)
     "Cooling and heating demand limit level"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
@@ -463,8 +398,8 @@ protected
     annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
 
 equation
-  connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{-38,160},{-20,
-          160},{-20,166},{-2,166}},  color={0,0,127}));
+  connect(conFCU.yFan, fanCoiUni.uFan) annotation (Line(points={{-38,160},{-20,160},
+          {-20,172},{-2,172}},       color={0,0,127}));
   connect(greThr.y, tim.u) annotation (Line(points={{-178,-140},{-162,-140}},
                color={255,0,255}));
   connect(fanCoiUni.TAirSup, conFCU.TSup) annotation (Line(points={{42,152},{66,
@@ -489,14 +424,13 @@ equation
           -168,-180},{-142,-180}},
                              color={0,0,127}));
   connect(conFCU1.yFan, fanCoiUni1.uFan) annotation (Line(points={{-38,40},{-20,
-          40},{-20,46},{18,46}},
+          40},{-20,52},{18,52}},
                             color={0,0,127}));
   connect(conFCU1.yCooCoi, fanCoiUni1.uCoo)
     annotation (Line(points={{-38,24},{-14,24},{-14,40},{18,40}},
                                                 color={0,0,127}));
-  connect(conFCU1.yHeaCoi, fanCoiUni1.uHea) annotation (Line(points={{-38,28},{
-          -20,28},{-20,34},{18,34}},
-                                color={0,0,127}));
+  connect(conFCU1.yHeaCoi, fanCoiUni1.uHea) annotation (Line(points={{-38,28},{-20,
+          28},{-20,28},{18,28}},color={0,0,127}));
   connect(fanCoiUni1.port_air_b,zon2. ports[1]) annotation (Line(points={{60,36},
           {80,36},{80,30.8333},{126.25,30.8333}},
                                             color={0,127,255}));
@@ -518,14 +452,13 @@ equation
           67.375}},
       color={255,204,51},
       thickness=0.5));
-  connect(conFCU2.yFan, fanCoiUni2.uFan) annotation (Line(points={{-38,-60},{
-          -20,-60},{-20,-62},{24,-62}},
-                                   color={0,0,127}));
+  connect(conFCU2.yFan, fanCoiUni2.uFan) annotation (Line(points={{-38,-60},{-20,
+          -60},{-20,-56},{24,-56}},color={0,0,127}));
   connect(conFCU2.yCooCoi, fanCoiUni2.uCoo) annotation (Line(points={{-38,-76},
           {-20,-76},{-20,-68},{24,-68}},
                                       color={0,0,127}));
-  connect(conFCU2.yHeaCoi, fanCoiUni2.uHea) annotation (Line(points={{-38,-72},
-          {-14,-72},{-14,-74},{24,-74}},              color={0,0,127}));
+  connect(conFCU2.yHeaCoi, fanCoiUni2.uHea) annotation (Line(points={{-38,-72},{
+          -14,-72},{-14,-80},{24,-80}},               color={0,0,127}));
   connect(fanCoiUni2.port_air_a,zon3. ports[1]) annotation (Line(points={{66,-64},
           {76,-64},{76,-69.1667},{126.25,-69.1667}},
                                                color={0,127,255}));
@@ -594,20 +527,20 @@ equation
   connect(cooWarTim.y, conFCU2.cooDowTim) annotation (Line(points={{-178,160},{
           -140,160},{-140,-46},{-82,-46}},
         color={0,0,127}));
-  connect(LimLev.y, conFCU.uCooDemLimLev) annotation (Line(points={{-178,90},{
+  connect(limLev.y, conFCU.uCooDemLimLev) annotation (Line(points={{-178,90},{
           -170,90},{-170,150},{-82,150}},
         color={255,127,0}));
-  connect(LimLev.y, conFCU.uHeaDemLimLev) annotation (Line(points={{-178,90},{
+  connect(limLev.y, conFCU.uHeaDemLimLev) annotation (Line(points={{-178,90},{
           -170,90},{-170,146},{-82,146}},
         color={255,127,0}));
-  connect(LimLev.y, conFCU1.uCooDemLimLev) annotation (Line(points={{-178,90},{
+  connect(limLev.y, conFCU1.uCooDemLimLev) annotation (Line(points={{-178,90},{
           -170,90},{-170,30},{-82,30}},
                                    color={255,127,0}));
-  connect(LimLev.y, conFCU1.uHeaDemLimLev) annotation (Line(points={{-178,90},{
+  connect(limLev.y, conFCU1.uHeaDemLimLev) annotation (Line(points={{-178,90},{
           -170,90},{-170,26},{-82,26}},              color={255,127,0}));
-  connect(LimLev.y, conFCU2.uCooDemLimLev) annotation (Line(points={{-178,90},{
+  connect(limLev.y, conFCU2.uCooDemLimLev) annotation (Line(points={{-178,90},{
           -170,90},{-170,-70},{-82,-70}},              color={255,127,0}));
-  connect(LimLev.y, conFCU2.uHeaDemLimLev) annotation (Line(points={{-178,90},{
+  connect(limLev.y, conFCU2.uHeaDemLimLev) annotation (Line(points={{-178,90},{
           -170,90},{-170,-74},{-82,-74}},
         color={255,127,0}));
   connect(occSch.tNexOcc, conFCU.tNexOcc) annotation (Line(points={{-179,56},{
@@ -728,7 +661,7 @@ This model consists of
 </p>
 <ul>
 <li>
-3 thermal zone models with considerations for a building envelope and air flow
+3 identical thermal zone models with air flow
 through building leakage.
 </li>
 <li>
