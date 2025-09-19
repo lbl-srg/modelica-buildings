@@ -1,4 +1,4 @@
-within Buildings.Examples.HydronicHeating;
+within Buildings.Examples.HydronicSystems;
 model TwoRoomsWithStorage
   "Model of a hydronic heating system with energy storage"
   extends Modelica.Icons.Example;
@@ -1200,8 +1200,8 @@ room air temperature.
 </p>
 <p>
 The cooling control is implemented in the model
-<a href=\"modelica://Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl\">
-Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
+<a href=\"modelica://Buildings.Examples.HydronicSystems.TwoRoomsWithStorage.CoolingControl\">
+Buildings.Examples.HydronicSystems.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -1300,7 +1300,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating/TwoRoomsWithStorage.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/TwoRoomsWithStorage.mos"
         "Simulate and plot"),
     experiment(StopTime=604800, Tolerance=1e-6));
 end TwoRoomsWithStorage;
