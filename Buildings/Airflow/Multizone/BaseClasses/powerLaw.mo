@@ -23,7 +23,7 @@ algorithm
    -C*(-dp)^m
  else
    C *dp_turbulent^m * pi *
-     ( (gamma) + pi2 *
+     ( gamma + pi2 *
      ( (1/8*m^2 - 3*gamma - 3/2*m + 35.0/8) + pi2 *
      ( (-1/4*m^2 + 3*gamma + 5/2*m - 21.0/4) + pi2 *
      (1/8*m^2 - gamma - m + 15.0/8))));

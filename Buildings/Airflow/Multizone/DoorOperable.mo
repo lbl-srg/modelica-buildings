@@ -68,34 +68,34 @@ equation
   VABpOpeClo_flow[1] = if Modelica.Math.isEqual(mOpe, 0.5, 1E-10)
     then
       Buildings.Airflow.Multizone.BaseClasses.powerLaw05(
-        C=CVal,
+        C=CVal[1],
         dp=port_a1.p-port_a2.p,
-        a=a,
-        b=b,
-        c=c,
-        d=d,
+        a=a[1],
+        b=b[1],
+        c=c[1],
+        d=d[1],
         dp_turbulent=dp_turbulent,
         sqrt_dp_turbulent=sqrt_dp_turbulent)
     else
       Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
-        C=CVal,
+        C=CVal[1],
         dp=port_a1.p-port_a2.p,
         m=mOpe,
-        a=a,
-        b=b,
-        c=c,
-        d=d,
+        a=a[1],
+        b=b[1],
+        c=c[1],
+        d=d[1],
         dp_turbulent=dp_turbulent);
   // mClo is hardly ever 0.5, as the default is 0.65 because the flow in the crack is
   // not fully turbulent. Hence, we don't try to optimize this call
   VABpOpeClo_flow[2] = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
-    C=CVal,
+    C=CVal[2],
     dp=port_a1.p-port_a2.p,
     m=mClo,
-    a=a,
-    b=b,
-    c=c,
-    d=d,
+    a=a[2],
+    b=b[2],
+    c=c[2],
+    d=d[2],
     dp_turbulent=dp_turbulent);
   VABp_flow = y*VABpOpeClo_flow[1] + (1-y)*VABpOpeClo_flow[2];
   A = y*AOpe + (1-y)*AClo;
