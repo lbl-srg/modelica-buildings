@@ -355,9 +355,7 @@ model FanCoilUnit
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
     heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
-    mHotWat_flow_nominal=0.75*3.75*0.50946*0.25,
     dpAir_nominal=100,
-    UAHeaCoi_nominal=2.25*146.06*3*1.1,
     mChiWat_flow_nominal=0.2984,
     dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
     UACooCoi_nominal=2.25*146.06,
@@ -435,8 +433,8 @@ protected
     "Unoccupied heating temperature setpoint"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[3](final t=fill(0.01,
-        3), final h=fill(0.005, 3))
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[3](final t=fill(0.05,
+        3), final h=fill(0.025, 3))
     "Check if fan speed is above threshold for proven on signal"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 
@@ -481,7 +479,7 @@ equation
   connect(zon1.heaPorAir, temAirNoHeaCoi.port) annotation (Line(points={{143.75,
           165},{106,165},{106,220},{140,220}}, color={191,0,0}));
   connect(temAirNoHeaCoi.T, conFCU.TZon) annotation (Line(points={{161,220},{
-          188,220},{188,100},{-102,100},{-102,138},{-82,138}},
+          188,220},{188,100},{-100,100},{-100,138},{-82,138}},
                                                         color={0,0,127}));
   connect(intGaiFra.y, gai.u) annotation (Line(points={{-219,-220},{-202,-220}},
                                    color={0,0,127}));
