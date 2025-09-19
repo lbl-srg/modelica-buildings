@@ -145,6 +145,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium2 = MediumA,
     final m1_flow_nominal=mHotWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
+    show_T=true,
     final dp1_nominal=0,
     final dp2_nominal=0,
     final UA_nominal=UAHeaCoi_nominal,
@@ -194,6 +195,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare final package Medium2 = MediumA,
     final m1_flow_nominal=mChiWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
+    show_T=true,
     final dp1_nominal=0,
     final dp2_nominal=0,
     final UA_nominal=UACooCoi_nominal,
@@ -275,6 +277,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoiEle(
     redeclare final package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal,
+    show_T=true,
     final dp_nominal=0,
     final Q_flow_nominal=QHeaCoi_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
