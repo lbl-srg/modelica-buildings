@@ -8,9 +8,7 @@ model AirToWater
       final yPumHeaWatPriSet=yPumHeaWatPriSet,
       final yPumChiWatPriSet=yPumChiWatPriSet)),
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
-    final is_rev=have_chiWat,
-    final cfg(
-      final typMod=hp.typMod));
+    final is_rev=have_chiWat);
   parameter Boolean is_dpBalYPumSetCal(start=false)=false
     "Set to true to automatically size balancing valves or evaluate pump speed providing design flow"
     annotation(Evaluate=true, Dialog(tab="Advanced",
@@ -79,7 +77,8 @@ model AirToWater
     final have_dpSou=false,
     final dat=dat.hp,
     final allowFlowReversal=allowFlowReversal,
-    final allowFlowReversalSou=false)
+    final allowFlowReversalSou=false,
+    final show_T=show_T)
     "Heat pump group"
     annotation (Placement(transformation(extent={{-540,-210},{-60,-130}})));
   Components.PumpsPrimaryDedicated pumPri(
@@ -1226,6 +1225,18 @@ The pressure drops of the heat pump CHW and HW heat exchangers are calculated
 within the isolation valve component <code>valIso</code> based on lumped flow
 coefficients for the sake of computational efficiency.
 </p>
+<p>
+The template uses a heat pump model that interpolates capacity and power 
+from manufacturer data along the CHW/HW temperature, the outdoor 
+air temperature and the part load ratio.
+The heat pump performance data are provided via the subrecords
+<code>dat.hp.perHeaHp</code> and <code>dat.hp.perCooHp</code> for the
+heating mode and the cooling mode, respectively.
+For the required format of the performance data files, 
+please refer to the documentation of the block
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
+</p>
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2021\">
@@ -1235,6 +1246,12 @@ for HVAC Systems. Atlanta, GA.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
 Added sidestream heat recovery chiller, primary-only pumping,

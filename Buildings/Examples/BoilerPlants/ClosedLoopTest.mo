@@ -1,0 +1,402 @@
+within Buildings.Examples.BoilerPlants;
+model ClosedLoopTest "Closed loop testing model"
+  extends Modelica.Icons.Example;
+
+  replaceable package MediumW = Buildings.Media.Water
+    "Medium model";
+
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=30
+    "Radiator nominal mass flow rate";
+
+  parameter Real boiDesCap(
+    final unit="W",
+    displayUnit="W",
+    final quantity="Power")= 3000000*0.5
+    "Total boiler plant design capacity";
+
+  parameter Real boiCapRat(
+    final unit="1",
+    displayUnit="1") = 0.4
+    "Ratio of boiler-1 capacity to total capacity";
+
+  Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary boiPlaPri(
+    final nSec=2,
+    final Q_flow_nominal=boiDesCap,
+    final boiCap1=(1 - boiCapRat)*boiDesCap,
+    final boiCap2=boiCapRat*boiDesCap,
+    final mSec_flow_nominal=secLoo1.mRad_flow_nominal + secLoo2.mRad_flow_nominal,
+    final TBoiSup_nominal=333.15,
+    final TBoiRet_min=323.15,
+    final dpValve_nominal_value(displayUnit="Pa") = 2000,
+    final dpFixed_nominal_value(displayUnit="Pa") = 1000,
+    final controllerTypeBoi1=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final kBoi1=0.1,
+    final TiBoi1=30,
+    final controllerTypeBoi2=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final kBoi2=0.1,
+    final TiBoi2=30,
+    final pum2(dp_nominal=5000),
+    final pum1(dp_nominal=5000))
+    "Boiler plant primary loop model"
+    annotation (Placement(transformation(extent={{40,-20},{60,12}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController conBoiPri(
+    final controllerType_priPum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final controllerType_bypVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final have_priOnl=false,
+    final have_heaPriPum=true,
+    final have_isoValSen=true,
+    final have_varPriPum=true,
+    final have_secFloSen_select=false,
+    final have_priTemSen=true,
+    final nLooSec=2,
+    final nHotWatResReqIgn=6,
+    final nSenPri=1,
+    final nPumPri_nominal=1,
+    plaOffThrTim=1800,
+    plaOnThrTim=7200,
+    final TPlaHotWatSetMax=273.15 + 50,
+    final triAmoVal=-1.111,
+    final resAmoVal=1.667,
+    final maxResVal=3.889,
+    final minPumSpePri=0.1,
+    final VHotWatPri_flow_nominal=0.02,
+    final maxLocDpPri=50000,
+    final minLocDpPri=50000,
+    final nBoi=2,
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
+    final staMat=[1,0; 0,1; 1,1],
+    final boiDesCap={boiCapRat*boiDesCap*0.8,(1 - boiCapRat)*boiDesCap*0.8},
+    final boiFirMin={0.2,0.3},
+    final minFloSet={0.2*boiCapRat*mRad_flow_nominal/2000,0.3*(1 - boiCapRat)*
+        mRad_flow_nominal/2000},
+    final maxFloSet={boiCapRat*mRad_flow_nominal/2000,(1 - boiCapRat)*
+        mRad_flow_nominal/2000},
+    final bypSetRat=0.000005,
+    final nPumPri=2,
+    final TMinSupNonConBoi=333.2,
+    final k_bypVal=1,
+    final Ti_bypVal=90,
+    final Td_bypVal=10e-9,
+    final boiDesFlo=conBoiPri.maxFloSet,
+    final k_priPum=10,
+    final Ti_priPum=15,
+    final minPriPumSpeSta={0,0,0},
+    final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
+    "Boiler plant primary loop controller"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,40}})));
+
+  Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo2(
+    final mRad_flow_nominal=1.25*0.6*20,
+    final dpRad_nominal(displayUnit="Pa") = 10000,
+    conPID(
+      final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+      final k=0.05,
+      final Ti=60))
+    "Secondary loop-2"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+
+  Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo1(
+    final mRad_flow_nominal=1.25*0.4*20,
+    final dpRad_nominal(displayUnit="Pa") = 10000,
+    conPID(
+      final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+      final k=0.05,
+      final Ti=60))
+    "Secondary loop-1"
+    annotation (Placement(transformation(extent={{40,140},{60,160}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Add addIntReqPla
+    "Sum plant requests from both secondary loops"
+    annotation (Placement(transformation(extent={{140,20},{160,40}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
+    conPumSec2(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final have_secFloSen=false,
+    final have_looPriNonCon=false,
+    final nPum=1,
+    final nSen=1,
+    final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
+    final maxRemDp={5000},
+    final k=1,
+    final Ti=12.5,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
+    enaHeaLeaPum(intGreThr(t=-1)))
+    "Secondary pump controller-2"
+    annotation (Placement(transformation(extent={{-8,40},{12,80}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
+    conPumSec1(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final have_secFloSen=false,
+    final have_looPriNonCon=false,
+    final nPum=1,
+    final nSen=1,
+    final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
+    final maxRemDp={5000},
+    final k=1,
+    final Ti=12.5,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
+    enaHeaLeaPum(intGreThr(t=-1)))
+    "Secondary pump controller-1"
+    annotation (Placement(transformation(extent={{-10,128},{10,168}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonUnc(
+    final k=273.15 + 18)
+    "Unconditioned zone temperature"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+
+  Buildings.Fluid.FixedResistances.Junction spl4(
+    redeclare package Medium = MediumW,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final m_flow_nominal={secLoo2.mRad_flow_nominal + secLoo1.mRad_flow_nominal,
+        -secLoo2.mRad_flow_nominal,-secLoo1.mRad_flow_nominal},
+    final dp_nominal={0,0,0})
+    "Splitter"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={46,38})));
+
+  Buildings.Fluid.FixedResistances.Junction spl1(
+    redeclare package Medium = MediumW,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final m_flow_nominal={secLoo1.mRad_flow_nominal,-secLoo2.mRad_flow_nominal -
+        secLoo1.mRad_flow_nominal,secLoo2.mRad_flow_nominal},
+    final dp_nominal={0,0,0})
+    "Splitter"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=270,
+      origin={130,70})));
+
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3[2](
+    final k=fill(true,2))
+    "Constant boiler availability status"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    final filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Weather data reader"
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Weather bus"
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}}),
+        iconTransformation(extent={{-60,50},{-40,70}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable timTab(
+    final tableOnFile=true,
+    final tableName="EnergyPlus",
+    final fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://Buildings/Resources/Data/Examples/BoilerPlant/loads.dat"),
+    final columns={2,3,4},
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    final table=[-6,0;8,10000;18,0],
+    final timeScale=1)
+    "Time table for heating load"
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=0.4)
+    "Split load between two secondary loops"
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
+
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
+    final p=273.15)
+    "Convert temperature to Kelvin"
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
+    final k=0.6)
+    "Split load between two secondary loops"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[2](
+    final k=fill(false, 2))
+    "Constant boiler availability status"
+    annotation (Placement(transformation(extent={{4,14},{24,34}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg[2]
+    "Detect completion of valve open commands"
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[2]
+    "Detect completion of valve close commands"
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Add addIntReqRes
+    "Sum reset requests from both secondary loops"
+    annotation (Placement(transformation(extent={{100,140},{120,160}})));
+
+equation
+
+  connect(weaDat.weaBus,weaBus)  annotation (Line(
+      points={{-100,60},{-80,60}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+
+  connect(weaBus.TDryBul, conBoiPri.TOut) annotation (Line(
+      points={{-79.95,60.05},{-72,60.05},{-72,26},{-42,26}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+
+  connect(boiPlaPri.ySupTem, conBoiPri.TSupPri) annotation (Line(points={{62,2},
+          {100,2},{100,-68},{-68,-68},{-68,22},{-42,22}}, color={0,0,127}));
+
+  connect(boiPlaPri.yRetTem, conBoiPri.TRetPri) annotation (Line(points={{62,-2},
+          {104,-2},{104,-72},{-72,-72},{-72,18},{-42,18}}, color={0,0,127}));
+
+  connect(boiPlaPri.VHotWatPri_flow, conBoiPri.VHotWatPri_flow) annotation (
+      Line(points={{62,-10},{112,-10},{112,-80},{-80,-80},{-80,14},{-42,14}},
+        color={0,0,127}));
+
+
+  connect(boiPlaPri.yPumSta, conBoiPri.uPriPum) annotation (Line(points={{62,-18},
+          {124,-18},{124,-92},{-92,-92},{-92,-26},{-42,-26}}, color={255,0,255}));
+
+  connect(conBoiPri.yPriPum, boiPlaPri.uPumSta) annotation (Line(points={{-18,-10},
+          {-6,-10},{-6,-8},{38,-8}}, color={255,0,255}));
+  connect(conBoiPri.yBoi, boiPlaPri.uBoiSta)
+    annotation (Line(points={{-18,10},{10,10},{10,8},{38,8}},
+                                              color={255,0,255}));
+  connect(conBoiPri.TBoiHotWatSupSet, boiPlaPri.TBoiHotWatSupSet)
+    annotation (Line(points={{-18,6},{10,6},{10,4},{38,4}},
+                                              color={0,0,127}));
+  connect(conBoiPri.yPriPumSpe, boiPlaPri.uPumSpe) annotation (Line(points={{-18,-14},
+          {0,-14},{0,-12},{38,-12}},      color={0,0,127}));
+  connect(con3[1].y, conBoiPri.uSchEna) annotation (Line(points={{-98,0},{-90,0},
+          {-90,38},{-42,38}}, color={255,0,255}));
+  connect(secLoo1.nReqPla, addIntReqPla.u1) annotation (Line(points={{62,154},{
+          84,154},{84,36},{138,36}}, color={255,127,0}));
+  connect(secLoo2.nReqPla, addIntReqPla.u2) annotation (Line(points={{62,74},{
+          80,74},{80,24},{138,24}}, color={255,127,0}));
+  connect(addIntReqPla.y, conBoiPri.plaReq) annotation (Line(points={{162,30},{
+          170,30},{170,90},{-50,90},{-50,30},{-42,30}}, color={255,127,0}));
+  connect(secLoo1.nReqPla, conPumSec1.plaReq) annotation (Line(points={{62,154},
+          {70,154},{70,174},{-20,174},{-20,154},{-12,154}}, color={255,127,0}));
+  connect(secLoo2.nReqPla, conPumSec2.plaReq) annotation (Line(points={{62,74},
+          {80,74},{80,86},{-18,86},{-18,66},{-10,66}}, color={255,127,0}));
+  connect(secLoo1.dPSec,conPumSec1. dpHotWat_remote[1]) annotation (Line(points={{62,142},
+          {72,142},{72,176},{-22,176},{-22,138},{-12,138}},          color={0,0,
+          127}));
+  connect(conPumSec1.yHotWatPum[1], secLoo1.uPum) annotation (Line(points={{12,148},
+          {38,148}},                   color={255,0,255}));
+  connect(conPumSec1.yPumSpe, secLoo1.uPumSpe) annotation (Line(points={{12,138},
+          {26,138},{26,144},{38,144}}, color={0,0,127}));
+  connect(conPumSec2.yHotWatPum[1], secLoo2.uPum) annotation (Line(points={{14,60},
+          {26,60},{26,68},{38,68}}, color={255,0,255}));
+  connect(conPumSec2.yPumSpe, secLoo2.uPumSpe) annotation (Line(points={{14,50},
+          {32,50},{32,64},{38,64}}, color={0,0,127}));
+  connect(secLoo2.dPSec,conPumSec2. dpHotWat_remote[1]) annotation (Line(points={{62,62},
+          {72,62},{72,88},{-20,88},{-20,50},{-10,50}},         color={0,0,127}));
+  connect(conBoiPri.yPla,conPumSec2. uPlaEna) annotation (Line(points={{-18,14},
+          {-16,14},{-16,70},{-10,70}}, color={255,0,255}));
+  connect(conBoiPri.yPla,conPumSec1. uPlaEna) annotation (Line(points={{-18,14},
+          {-16,14},{-16,158},{-12,158}}, color={255,0,255}));
+  connect(secLoo2.yPumEna,conPumSec2. uHotWatPum[1]) annotation (Line(points={{62,70},
+          {74,70},{74,92},{-22,92},{-22,74},{-10,74}},     color={255,0,255}));
+  connect(secLoo1.yPumEna,conPumSec1. uHotWatPum[1]) annotation (Line(points={{62,150},
+          {74,150},{74,178},{-26,178},{-26,162},{-12,162}},      color={255,0,255}));
+  connect(boiPlaPri.VDec_flow, conBoiPri.VHotWatDec_flow) annotation (Line(
+        points={{62,10},{72,10},{72,-52},{-52,-52},{-52,-6},{-42,-6}}, color={0,
+          0,127}));
+  connect(TZonUnc.y, boiPlaPri.TZon) annotation (Line(points={{22,-30},{30,-30},
+          {30,-16},{38,-16}}, color={0,0,127}));
+  connect(addPar.y, secLoo1.THotWatRet) annotation (Line(points={{-38,120},{24,120},
+          {24,152},{38,152}}, color={0,0,127}));
+  connect(addPar.y, secLoo2.THotWatRet) annotation (Line(points={{-38,120},{24,120},
+          {24,72},{38,72}}, color={0,0,127}));
+  connect(timTab.y[1], addPar.u) annotation (Line(points={{-99,100},{-92,100},{
+          -92,120},{-62,120}}, color={0,0,127}));
+  connect(timTab.y[2], gai.u) annotation (Line(points={{-99,100},{-92,100},{-92,
+          180},{-82,180}}, color={0,0,127}));
+  connect(timTab.y[2], gai1.u)
+    annotation (Line(points={{-99,100},{-82,100}}, color={0,0,127}));
+  connect(gai.y, secLoo1.uHotWat_flow) annotation (Line(points={{-58,180},{-30,180},
+          {-30,190},{30,190},{30,156},{38,156}}, color={0,0,127}));
+  connect(gai1.y, secLoo2.uHotWat_flow) annotation (Line(points={{-58,100},{30,100},
+          {30,76},{38,76}}, color={0,0,127}));
+  connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,14},
+          {70,14},{70,-46},{-54,-46},{-54,10},{-42,10}}, color={0,0,127}));
+  connect(boiPlaPri.port_b, spl4.port_1) annotation (Line(points={{43,10},{43,24},
+          {46,24},{46,28}}, color={0,127,255}));
+  connect(spl4.port_2, secLoo2.port_a)
+    annotation (Line(points={{46,48},{46,60}}, color={0,127,255}));
+  connect(spl4.port_3, secLoo1.port_a) annotation (Line(points={{56,38},{82,38},
+          {82,134},{46,134},{46,140}}, color={0,127,255}));
+  connect(secLoo1.port_b, spl1.port_1) annotation (Line(points={{54,140},{54,136},
+          {86,136},{86,86},{130,86},{130,80}}, color={0,127,255}));
+  connect(spl1.port_3, secLoo2.port_b) annotation (Line(points={{120,70},{114,70},
+          {114,34},{78,34},{78,54},{54,54},{54,60}}, color={0,127,255}));
+  connect(spl1.port_2, boiPlaPri.port_a) annotation (Line(points={{130,60},{130,
+          22},{57,22},{57,10}}, color={0,127,255}));
+  connect(conBoiPri.yHotWatIsoVal, boiPlaPri.uHotIsoVal) annotation (Line(
+        points={{-18,2},{30,2},{30,0},{38,0}}, color={255,0,255}));
+  connect(edg.y, conBoiPri.uHotWatIsoValOpe)
+    annotation (Line(points={{-98,-30},{-42,-30}}, color={255,0,255}));
+  connect(falEdg.y, conBoiPri.uHotWatIsoValClo) annotation (Line(points={{-98,-60},
+          {-60,-60},{-60,-34.2},{-42,-34.2}}, color={255,0,255}));
+  connect(boiPlaPri.yHotWatIsoVal, edg.u) annotation (Line(points={{62,-22},{80,
+          -22},{80,-100},{-130,-100},{-130,-30},{-122,-30}}, color={255,0,255}));
+  connect(boiPlaPri.yHotWatIsoVal, falEdg.u) annotation (Line(points={{62,-22},{
+          80,-22},{80,-100},{-130,-100},{-130,-60},{-122,-60}}, color={255,0,255}));
+  connect(secLoo1.nReqRes, addIntReqRes.u1) annotation (Line(points={{62,158},{
+          90,158},{90,156},{98,156}}, color={255,127,0}));
+  connect(secLoo2.nReqRes, addIntReqRes.u2) annotation (Line(points={{62,78},{
+          70,78},{70,32},{116,32},{116,136},{98,136},{98,144}}, color={255,127,
+          0}));
+  connect(addIntReqRes.y, conBoiPri.resReq) annotation (Line(points={{122,150},
+          {130,150},{130,182},{-28,182},{-28,92},{-52,92},{-52,34},{-42,34}},
+        color={255,127,0}));
+  annotation (Documentation(info="<html>
+<p>
+This model couples the boiler plant model for a primary-secondary, condensing boiler
+plant with variable speed primary and secondary pumps with controllers for the
+primary loop and the secondary loops.
+<br>
+The primary loop is modeled by the
+<a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary\">
+Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary</a> instance <code>boiPlaPri</code>
+and is coupled with the secondary loop instances <code>secLoo1</code> and <code>secLoo2</code>
+of class <a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad\">
+Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad</a>. The primary
+loop is controlled by the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a> instance
+<code>conBoiPlaPri</code>, and the secondary loops <code>secLoo1</code> and <code>secLoo2</code>
+are controlled by the secondary loop controller
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller</a> instances
+<code>secPumCon1</code> and <code>secPumCon2</code>, respectively.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 25, 2025, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-140,-120},{180,
+            200}})),
+    __Dymola_Commands(file=
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/ClosedLoopTest.mos"
+        "Simulate and plot"),
+    experiment(
+      StartTime=172800,
+      StopTime=259200,
+      Interval=60,
+      Tolerance=1e-05),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+end ClosedLoopTest;

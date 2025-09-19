@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "THeaWatRet.T",
+    "THeaWatSup.T",
+    "ctl.THeaWatConSupSet.y",
+    "busPla.boiCon[1].y1",
+    "busPla.boiCon[1].y_actual",
+    "mHeaWat_flow_nominal",
+    "mHeaWat_flow.m_flow"
+  };
