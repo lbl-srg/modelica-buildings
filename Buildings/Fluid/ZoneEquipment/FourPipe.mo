@@ -176,7 +176,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     Q_flow_nominal=QCoiCoo_flow_nominal,
     T_a1_nominal=279.83,
     T_a2_nominal=296.15,
-    w_a2_nominal=0.065,
+    w_a2_nominal=0.012,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Chilled-water cooling coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},

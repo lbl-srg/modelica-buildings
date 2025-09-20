@@ -169,7 +169,7 @@ model FanCoilUnit
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
     heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None,
-    QCoiCoo_flow_nominal=-80000,
+    QCoiCoo_flow_nominal=-20000,
     dpAir_nominal=100,
     mChiWat_flow_nominal=4*0.2984,
     dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
