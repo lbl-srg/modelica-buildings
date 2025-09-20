@@ -272,7 +272,7 @@ model FanCoilUnit
     mHotWat_flow_nominal=0.75*3.75*0.50946*0.25,
     dpHotWatCoi_nominal(displayUnit="Pa") = 1000,
     dpAir_nominal=100,
-    mChiWat_flow_nominal=0.2984,
+    mChiWat_flow_nominal=4*0.2984,
     dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
     mAir_flow_nominal=0.21303*2*3)
     "Fan coil unit with hot-water heating coil"
@@ -293,7 +293,7 @@ model FanCoilUnit
     heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
     QCoiCoo_flow_nominal=-20000,
     dpAir_nominal=100,
-    mChiWat_flow_nominal=0.2984,
+    mChiWat_flow_nominal=4*0.2984,
     dpChiWatCoi_nominal(displayUnit="Pa") = 1000,
     mAir_flow_nominal=0.21303*2*3,
     QCoiHea_flow_nominal=10000)
