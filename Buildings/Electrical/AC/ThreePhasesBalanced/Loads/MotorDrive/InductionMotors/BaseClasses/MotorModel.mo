@@ -101,13 +101,11 @@ equation
   connect(v_ds, i_ds_block.v_ds) annotation (Line(points={{-160,70},{-20,70},{-20,59},{58,59}},
       color={0,0,127}, pattern=LinePattern.Dash, thickness=0.5));
   connect(i_dr_block.der_i_dr, int_dr.u) annotation (Line(points={{82,-100},{98,
-          -100}},                        color={0,0,127}));
+          -100}}, color={0,0,127}));
   connect(i_qr_block.i_dr, i_qs_block.i_dr) annotation (Line(points={{58,-46},{
-          40,-46},{40,84},{58,84}},
-                                 color={0,0,127}));
+          40,-46},{40,84},{58,84}}, color={0,0,127}));
   connect(i_dr_block.i_dr, I_dr.y) annotation (Line(points={{58,-94},{40,-94},{
-          40,-130},{-59,-130}},
-                             color={0,0,127}));
+          40,-130},{-59,-130}}, color={0,0,127}));
   connect(i_dr_block.i_qs, I_qs.y) annotation (Line(points={{58,-109},{-10,-109},
           {-10,120},{-59,120}}, color={0,0,127}));
   connect(I_qr.y, i_qr_block.i_qr) annotation (Line(points={{-59,-30},{-20,-30},
@@ -121,17 +119,13 @@ equation
   connect(v_qs, i_qs_block.v_qs)
     annotation (Line(points={{-160,110},{50,110},{50,99},{58,99}}, color={0,0,127}));
   connect(omega, i_ds_block.omega) annotation (Line(points={{-160,30},{-40,30},
-          {-40,48},{58,48}},
-                        color={0,0,127}));
+          {-40,48},{58,48}}, color={0,0,127}));
   connect(omega, i_qs_block.omega) annotation (Line(points={{-160,30},{-40,30},
-          {-40,88},{58,88}},
-                        color={0,0,127}));
+          {-40,88},{58,88}}, color={0,0,127}));
   connect(omega_r, i_qr_block.omega_r) annotation (Line(points={{-160,-120},{
-          -30,-120},{-30,-42},{58,-42}},
-                                     color={0,0,127}));
+          -30,-120},{-30,-42},{58,-42}}, color={0,0,127}));
   connect(omega_r, i_dr_block.omega_r) annotation (Line(points={{-160,-120},{
-          -30,-120},{-30,-102},{58,-102}},
-                                       color={0,0,127}));
+          -30,-120},{-30,-102},{58,-102}}, color={0,0,127}));
   connect(I_qr.y, i_ds_block.i_qr) annotation (Line(points={{-59,-30},{-20,-30},
           {-20,44},{58,44}}, color={0,0,127}));
   connect(I_qs.y, i_ds_block.i_qs) annotation (Line(points={{-59,120},{-10,120},
@@ -171,8 +165,128 @@ Initial Implementation.
 </ul>
 </html>", info="<html>
 <p>
-Induction Machine Model
+This block implements a dynamic model of a three-phase induction machine in the synchronous rotating d–q reference frame. 
+It computes the stator and rotor currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i>) 
+from the applied d–q stator voltages (<i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i>) and the electrical 
+(<i>&omega;</i>) and mechanical (<i>&omega;<sub>r</sub></i>) rotor speeds, given the machine parameters.
 </p>
-</html>"));
-end MotorModel;
 
+<p>
+The stator and rotor voltage equations in d–q matrix form are:
+</p>
+
+<p>
+\\[
+\\begin{bmatrix}
+v_{ds} \\\\[4pt]
+v_{qs}
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+R_s & 0 \\\\[4pt]
+0 & R_s
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{ds} \\\\[4pt]
+i_{qs}
+\\end{bmatrix}
++
+\\frac{d}{dt}
+\\begin{bmatrix}
+\\psi_{ds} \\\\[4pt]
+\\psi_{qs}
+\\end{bmatrix}
++
+\\begin{bmatrix}
+0 & -\\omega \\\\[4pt]
+\\omega & 0
+\\end{bmatrix}
+\\begin{bmatrix}
+\\psi_{ds} \\\\[4pt]
+\\psi_{qs}
+\\end{bmatrix}
+\\]
+</p>
+
+<p>
+\\[
+\\begin{bmatrix}
+0 \\\\[4pt]
+0
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+R_r & 0 \\\\[4pt]
+0 & R_r
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{dr} \\\\[4pt]
+i_{qr}
+\\end{bmatrix}
++
+\\frac{d}{dt}
+\\begin{bmatrix}
+\\psi_{dr} \\\\[4pt]
+\\psi_{qr}
+\\end{bmatrix}
++
+\\begin{bmatrix}
+0 & -(\\omega - \\omega_r) \\\\[4pt]
+(\\omega - \\omega_r) & 0
+\\end{bmatrix}
+\\begin{bmatrix}
+\\psi_{dr} \\\\[4pt]
+\\psi_{qr}
+\\end{bmatrix}
+\\]
+</p>
+
+<p>
+where the flux linkages are:
+</p>
+
+<p>
+\\[
+\\begin{bmatrix}
+\\psi_{ds} \\\\[4pt]
+\\psi_{qs}
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+L_s & L_m \\\\[4pt]
+L_m & L_r
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{ds} \\\\[4pt]
+i_{dr}
+\\end{bmatrix},
+\\qquad
+\\begin{bmatrix}
+\\psi_{qs} \\\\[4pt]
+\\psi_{qr}
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+L_s & L_m \\\\[4pt]
+L_m & L_r
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{qs} \\\\[4pt]
+i_{qr}
+\\end{bmatrix}
+\\]
+</p>
+
+<p>
+<b>Inputs:</b> <i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i> [V], <i>&omega;</i> [rad/s], <i>&omega;<sub>r</sub></i> [rad/s] &nbsp; | &nbsp;
+<b>Outputs:</b> <i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i> [A]
+</p>
+
+<p>
+This block is part of 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>
+"));
+end MotorModel;

@@ -56,11 +56,49 @@ equation
     annotation (Line(points={{81,40},{118,40}}, color={0,0,127}));
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block computes the VFD by maintaining constant ratio for the models in 
+This block models a simple Variable Frequency Drive (VFD) that maintains a constant V/f ratio.  
+It adjusts the output voltage <i>V<sub>out</sub></i> proportionally to the reference speed <i>N<sub>ref</sub></i> while maintaining the ratio with respect to the synchronous speed <i>N<sub>s</sub></i> and nominal frequency <i>f</i>.
+</p>
+
+<p>
+The main relations are:
+</p>
+
+<p>
+\\[
+\\text{V/f ratio} = \\frac{V_{in}}{f}
+\\qquad\\Longrightarrow\\qquad
+V_{out} = \\frac{V_{in}}{f} \\times f_{out}
+\\]
+</p>
+
+<p>
+\\[
+f_{out} = \\frac{p \\times N_{ref}}{120}
+\\qquad\\text{ and }\\qquad
+\\omega_{out} = 2\\pi f_{out}
+\\]
+</p>
+
+<p>
+where  
+<i>p</i> is the number of poles,  
+<i>f_{out}</i> is the generated output frequency,  
+and <i>\\omega_{out}</i> is its corresponding angular frequency.
+</p>
+
+<p>
+<b>Inputs:</b> <i>N<sub>ref</sub></i> [rpm], <i>V<sub>in</sub></i> [V], <i>f</i> [Hz] &nbsp; | &nbsp;
+<b>Outputs:</b> <i>V<sub>out</sub></i> [V], <i>f<sub>out</sub></i> [Hz]
+</p>
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

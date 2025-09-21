@@ -2,13 +2,16 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 block VoltageConversion
   "Convert the stator voltage from its root mean square (RMS) value into q-axis and d-axis voltages"
   extends Modelica.Blocks.Icons.Block;
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms "RMS voltage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms
+    "RMS voltage"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput v_qs "Q-axis stator voltage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput v_qs
+    "Q-axis stator voltage"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput v_ds "D-axis stator voltage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput v_ds
+    "D-axis stator voltage"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
@@ -18,12 +21,33 @@ algorithm
   v_qs:= 0;
  annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block convert the stator voltage from its root mean square (RMS) value into
-q-axis and d-axis voltages for the models in 
+This block converts the stator voltage from its root mean square (RMS) value into d–q axis components.  
+It assumes the entire applied RMS stator voltage is aligned along the d-axis, while the q-axis component is set to zero.
+</p>
+
+<p>
+The implemented relation is:
+</p>
+
+<p>
+\\[
+v_{ds} = V_{rms}
+\\qquad\\text{ and }\\qquad
+v_{qs} = 0
+\\]
+</p>
+
+<p>
+This simplification is commonly used for initializing induction machine models where the stator voltage space vector is aligned with the d-axis.
+</p>
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
