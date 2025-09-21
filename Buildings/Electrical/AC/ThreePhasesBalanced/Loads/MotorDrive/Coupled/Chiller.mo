@@ -205,8 +205,8 @@ equation
           {-42,50}}, color={0,0,127}));
   connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,20},{-50,20},{
           -50,42},{-42,42}},  color={0,0,127}));
-  connect(simMot.terminal, terminal) annotation (Line(points={{-30,60},{-30,86},
-          {0,86},{0,100}}, color={0,120,120}));
+  connect(simMot.terminal, terminal) annotation (Line(points={{-30,60},{-30,80},
+          {0,80},{0,100}}, color={0,120,120}));
   connect(mecChi.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},{
           -20,50}}, color={0,0,0}));
   connect(mecChi.P, P)
@@ -301,9 +301,18 @@ annotation (defaultComponentName="chi",
         Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},color={0,0,255}),
         Line(points={{62,0},{100,0}},color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255})}),
-    Documentation(info="<html>
-<p>This is a model of a squirrel cage induction motor coupled chiller with ideal speed control. The chiller operation is regulated such that TMea is able to reach the TSet. The model has electrical interfaces and can be used for simulating microgrids and discussing grid interactions.</p>
-<p>Using the &apos;per&apos; parameter, the user can set desired equivalent motor that closely matches with the chiller&apos;s rating based on manufacturer datasheet.</p>
+Documentation(info="<html>
+<p>
+This is a model of a squirrel cage induction motor coupled chiller with ideal
+speed control. The chiller operation is regulated such that the measured evaporator
+leaving water temperature (<code>TMea</code>) is able to reach its setpoint (<code>TSet</code>)
+The model has electrical interfaces and can be used for simulating microgrids and
+discussing grid interactions.
+</p>
+<p>
+Using the parameter <code>per</code>, the user can set desired equivalent motor that
+closely matches with the chiller&apos;s rating based on manufacturer datasheet.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

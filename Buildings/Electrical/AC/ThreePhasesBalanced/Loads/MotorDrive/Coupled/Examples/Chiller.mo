@@ -1,7 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Examples;
-model Chiller "This example shows how to use the motor coupled chiller model"
+model Chiller "Example showing how to use the motor coupled chiller model"
   extends Modelica.Icons.Example;
-  package MediumW = Buildings.Media.Water "Medium model";
+  package MediumW = Buildings.Media.Water "Water medium";
 
   parameter Modelica.Units.SI.Power P_nominal=2.5E3
     "Nominal compressor power (at y=1)";
@@ -34,25 +34,26 @@ model Chiller "This example shows how to use the motor coupled chiller model"
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid Sou(f=50, V=400)
     "Voltage source"
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        Buildings.Media.Water,
-      m_flow_nominal=m2_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium =Buildings.Media.Water,
+    m_flow_nominal=m2_flow_nominal,
     T_start(displayUnit="K") = 280.15)
-                                      "Temperature sensor"
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Step TSet(
     height=-2,
     offset=273.15 + 7,
     startTime=300) "Evaporator side leaving water temperature set point"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
-  Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium =
-        Buildings.Media.Water, nPorts=1)
-                "Water sink 2" annotation (Placement(transformation(
-      extent={{-80,-40},{-60,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium =
-        Buildings.Media.Water, nPorts=1)
-                "Water sink 1" annotation (Placement(transformation(
-      extent={{50,0},{30,20}})));
+  Buildings.Fluid.Sources.Boundary_pT sin2(
+    redeclare package Medium = Buildings.Media.Water,
+    nPorts=1)
+    "Water sink 2"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sin1(
+    redeclare package Medium = Buildings.Media.Water, nPorts=1)
+    "Water sink 1"
+    annotation (Placement(transformation(extent={{50,0},{30,20}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller
     chi(
@@ -63,9 +64,7 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     dp1_nominal=1000,
     dp2_nominal=1000,
     etaCarnot_nominal=0.5,
-    redeclare
-      Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-      per,
+    redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
     k=0.001,
     Ti=0.65)
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
@@ -73,29 +72,31 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     height=10,
     duration=60,
     offset=273.15 + 20,
-    startTime=60) "Condenser inlet temperature"
+    startTime=60)
+    "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-94,24},{-74,44}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=10,
     duration=60,
     startTime=900,
-    offset=273.15 + 15) "Evaporator inlet temperature"
+    offset=273.15 + 15)
+    "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{80,-36},{60,-16}})));
 equation
   connect(Sou.terminal, chi.terminal)
-    annotation (Line(points={{0,22},{0,0}},               color={0,120,120}));
+    annotation (Line(points={{0,22},{0,0}}, color={0,120,120}));
   connect(TCon_in.y, sou1.T_in)
     annotation (Line(points={{-73,34},{-62,34}}, color={0,0,127}));
   connect(chi.port_a1, sou1.ports[1]) annotation (Line(points={{-10,-4},{-30,-4},
-          {-30,30},{-40,30}},                color={0,127,255}));
+          {-30,30},{-40,30}}, color={0,127,255}));
   connect(senTem.port_a, chi.port_b2) annotation (Line(points={{-20,-30},{-14,
-          -30},{-14,-16},{-10,-16}},           color={0,127,255}));
+          -30},{-14,-16},{-10,-16}}, color={0,127,255}));
   connect(senTem.port_b, sin2.ports[1])
     annotation (Line(points={{-40,-30},{-60,-30}}, color={0,127,255}));
   connect(chi.port_a2, sou2.ports[1]) annotation (Line(points={{10,-16},{20,-16},
-          {20,-30},{28,-30}},                  color={0,127,255}));
+          {20,-30},{28,-30}}, color={0,127,255}));
   connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{10,-4},{20,-4},
-          {20,10},{30,10}},           color={0,127,255}));
+          {20,10},{30,10}}, color={0,127,255}));
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{59,-26},{50,-26}}, color={0,0,127}));
   connect(TSet.y, chi.TSet) annotation (Line(points={{-69,70},{-20,70},{-20,-1},
