@@ -1,3 +1,4 @@
+
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model MotorMachineInterface
   "Calculates the electromagnetic torque based on voltage and frequency"
