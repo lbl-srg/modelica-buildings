@@ -1,3 +1,4 @@
+Advanced.FMI.ShortDefaultModelIdentifier = false;
 simulateModel("Buildings.Fluid.FMI.Validation.HeaterFanPressureDriven", method="CVode", tolerance=1e-6, stopTime=1.0, resultFile="HeaterFanPressureDriven");
 createPlot(id=1, position={15, 10, 702, 652},
  y={"hea.com.vol.T", "sou.T_in", "sin.T_in"},

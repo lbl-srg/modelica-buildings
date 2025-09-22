@@ -1,3 +1,4 @@
+Advanced.FMI.ShortDefaultModelIdentifier = false;
 translateModelFMU(
   modelToOpen="Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.IdealSource_m_flow",
   storeResult=false,

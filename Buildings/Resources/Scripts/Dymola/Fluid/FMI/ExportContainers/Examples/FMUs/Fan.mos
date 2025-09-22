@@ -1,3 +1,5 @@
+Advanced.FMI.ShortDefaultModelIdentifier = false;
+Advanced.FMI.ShortDefaultModelIdentifier = false;
 translateModelFMU(
   modelToOpen="Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Fan",
   storeResult=false,

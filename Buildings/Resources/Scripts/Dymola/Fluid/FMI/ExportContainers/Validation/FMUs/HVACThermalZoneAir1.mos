@@ -1,3 +1,4 @@
+Advanced.FMI.ShortDefaultModelIdentifier = false;
 translateModelFMU(
   modelToOpen="Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.HVACThermalZoneAir1",
   storeResult=false,
