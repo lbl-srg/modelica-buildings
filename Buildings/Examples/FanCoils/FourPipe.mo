@@ -1,5 +1,5 @@
-within Buildings.Examples.HydronicSystems;
-model FanCoilUnit
+within Buildings.Examples.FanCoils;
+model FourPipe
   "Model of a five zone floor with fan coil units"
   extends Modelica.Icons.Example;
 
@@ -670,9 +670,9 @@ Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a
 description of the fan coil unit and the controller.
 </p>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicSystems/FanCoilUnit.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/FanCoils/FourPipe.mos"
         "Simulate and plot"),
     experiment(
       StopTime=86400,
       Tolerance=1e-06));
-end FanCoilUnit;
+end FourPipe;

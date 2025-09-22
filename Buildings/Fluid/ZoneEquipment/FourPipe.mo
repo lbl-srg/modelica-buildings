@@ -546,8 +546,8 @@ Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>.
 </ul>
 <p>
 For examples of how to use the model, refer to
-<a href=\"modelica://Buildings.Examples.HydronicSystems.FanCoilUnit\">
-Buildings.Examples.HydronicSystems.FanCoilUnit</a>. The following points are salient
+<a href=\"modelica://Buildings.Examples.FanCoils.FourPipe\">
+Buildings.Examples.FanCoils.FourPipe</a>. The following points are salient
 when using the model:
 </p>
 <ul>
