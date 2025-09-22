@@ -23,7 +23,6 @@ model Pump "This example shows how to use the heat pump with mechanical interfac
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
     addPowerToMedium=false,
-    pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     redeclare package Medium = MediumW,
     redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per)
