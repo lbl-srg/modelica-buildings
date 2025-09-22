@@ -20,10 +20,10 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Nominal heat flow rate of heating coil"
     annotation(Dialog(enable=have_hea, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.Temperature THotWatSup_nominal=333.15
+  parameter Modelica.Units.SI.Temperature TCoiHeaWatSup_nominal=333.15
     "Design water temperature entering heating coil"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
-  parameter Modelica.Units.SI.Temperature THeaAirEnt_nominal=296.15
+  parameter Modelica.Units.SI.Temperature TCoiHeaAirEnt_nominal=293.15
     "Design air temperature entering heating coil"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
@@ -33,49 +33,46 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Nominal heat flow rate of cooling coil"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.Temperature TChiWatEnt_nominal=279.83
+  parameter Modelica.Units.SI.Temperature TCoiCooWatEnt_nominal=279.83
     "Design water inlet temperature of cooling coil"
     annotation(Dialog(group="Cooling coil parameters"));
-  parameter Modelica.Units.SI.Temperature TCooAirEnt_nominal=296.15
+  parameter Modelica.Units.SI.Temperature TCoiCooAirEnt_nominal=296.15
     "Design air inlet temperature of cooling coil"
     annotation(Dialog(group="Cooling coil parameters"));
-  parameter Modelica.Units.SI.MassFraction wCooAirEnt_nominal=0.012
+  parameter Modelica.Units.SI.MassFraction wCoiCooAirEnt_nominal=0.012
     "Design humidity ratio of inlet air of cooling coil (in kg/kg dry air)"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal(
-    final min=0,
-    final start=0)
-    "Nominal mass flow rate of heating hot water"
+  parameter Modelica.Units.SI.MassFlowRate mCoiHeaWat_flow_nominal(final min=0,
+      final start=0) "Nominal mass flow rate of heating hot water"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpHotWatCoi_nominal(
-    displayUnit="Pa",
-    final start=0)
-    "Total pressure difference across heating coil (Hot-water side)"
+  parameter Modelica.Units.SI.PressureDifference dpCoiHeaWat_nominal(
+      displayUnit="Pa", final start=0)
+    "Total pressure difference across heating coil (water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpHotWatVal_nominal(
-    displayUnit="Pa") = dpHotWatCoi_nominal
-    "Design pressure drop of hot water valve (Hot-water side)"
+  parameter Modelica.Units.SI.PressureDifference dpHeaCoiVal_nominal(
+      displayUnit="Pa") = dpCoiHeaWat_nominal
+    "Design pressure drop of heating water valve"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal(displayUnit="Pa")
     "Total pressure difference across supply and return ports in air loop"
     annotation(Dialog(group="System parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCoiCooWat_flow_nominal
     "Nominal mass flow rate of chilled water"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpChiWatCoi_nominal(
-    displayUnit="Pa")
-    "Total pressure difference across cooling coil (Chilled-water side)"
+  parameter Modelica.Units.SI.PressureDifference dpCooCoiWat_nominal(
+      displayUnit="Pa")
+    "Total pressure difference across cooling coil (water side)"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpChiWatVal_nominal(
-    displayUnit="Pa") = dpChiWatCoi_nominal
-    "Design pressure drop of chilled water valve (Chilled-water side)"
+  parameter Modelica.Units.SI.PressureDifference dpCooCoiVal_nominal(
+      displayUnit="Pa") = dpCooCoiWat_nominal
+    "Design pressure drop of chilled water valve"
     annotation(Dialog(group="Cooling coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
@@ -160,7 +157,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1 = MediumHW,
     redeclare final package Medium2 = MediumA,
-    final m1_flow_nominal=mHotWat_flow_nominal,
+    final m1_flow_nominal=mCoiHeaWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
     show_T=true,
     final dp1_nominal=0,
@@ -168,52 +165,51 @@ model FourPipe "System model for a four-pipe fan coil unit"
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     use_Q_flow_nominal=true,
     final Q_flow_nominal=QCoiHea_flow_nominal,
-    final T_a1_nominal=THotWatSup_nominal,
-    final T_a2_nominal=THeaAirEnt_nominal)
-    if have_hotWat
-    "Hot water heating coil"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=180,
-      origin={-90,-6})));
+    final T_a1_nominal=TCoiHeaWatSup_nominal,
+    final T_a2_nominal=TCoiHeaAirEnt_nominal) if have_hotWat
+    "Hot water heating coil" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-90,-6})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHW(
     redeclare final package Medium = MediumHW,
-    final m_flow_nominal=mHotWat_flow_nominal,
-    final dpValve_nominal=dpHotWatVal_nominal,
-    dpFixed_nominal=dpHotWatCoi_nominal) if have_hotWat
-    "Hot water flow control valve"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-      rotation=90,
-      origin={-60,-80})));
+    final m_flow_nominal=mCoiHeaWat_flow_nominal,
+    final dpValve_nominal=dpHeaCoiVal_nominal,
+    dpFixed_nominal=dpCoiHeaWat_nominal) if have_hotWat
+    "Hot water flow control valve" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-60,-80})));
 
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNtu(
     redeclare final package Medium1 = MediumCHW,
     redeclare final package Medium2 = MediumA,
-    final m1_flow_nominal=mChiWat_flow_nominal,
+    final m1_flow_nominal=mCoiCooWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
     show_T=true,
     final dp1_nominal=0,
     final dp2_nominal=0,
     use_Q_flow_nominal=true,
     final Q_flow_nominal=QCoiCoo_flow_nominal,
-    final T_a1_nominal=TChiWatEnt_nominal,
-    final T_a2_nominal=TCooAirEnt_nominal,
-    final w_a2_nominal=wCooAirEnt_nominal,
+    final T_a1_nominal=TCoiCooWatEnt_nominal,
+    final T_a2_nominal=TCoiCooAirEnt_nominal,
+    final w_a2_nominal=wCoiCooAirEnt_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Chilled-water cooling coil"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=180,
-      origin={30,-6})));
+    "Chilled-water cooling coil" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={30,-6})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valCHW(
     redeclare final package Medium = MediumCHW,
-    final m_flow_nominal=mChiWat_flow_nominal,
-    final dpValve_nominal=dpChiWatVal_nominal,
-    dpFixed_nominal=dpChiWatCoi_nominal)
-    "Chilled-water flow control valve"
-    annotation(Placement(transformation(extent={{10,-10},{-10,10}},
-      rotation=90,
-      origin={60,-80})));
+    final m_flow_nominal=mCoiCooWat_flow_nominal,
+    final dpValve_nominal=dpCooCoiVal_nominal,
+    dpFixed_nominal=dpCooCoiWat_nominal) "Chilled-water flow control valve"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={60,-80})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirLvg(
     redeclare final package Medium = MediumA,
