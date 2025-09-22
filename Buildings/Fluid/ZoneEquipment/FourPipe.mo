@@ -28,7 +28,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.HeatFlowRate QCoiCoo_flow_nominal(
-    final max=1e-9,
+    final max=0,
     final start=0)
     "Nominal heat flow rate of cooling coil"
     annotation(Dialog(group="Cooling coil parameters"));
@@ -43,8 +43,9 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Design humidity ratio of inlet air of cooling coil (in kg/kg dry air)"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mCoiHeaWat_flow_nominal(final min=0,
-      final start=0) "Nominal mass flow rate of heating hot water"
+  parameter Modelica.Units.SI.MassFlowRate mCoiHeaWat_flow_nominal(
+    final min=0,
+    final start=0) "Nominal mass flow rate of heating hot water"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpCoiHeaWat_nominal(
