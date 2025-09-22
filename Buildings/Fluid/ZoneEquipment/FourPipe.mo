@@ -33,11 +33,13 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpHotWatCoi_nominal(
+    displayUnit="Pa",
     final start=0)
     "Total pressure difference across heating coil (Hot-water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpHotWatVal_nominal = dpHotWatCoi_nominal
+  parameter Modelica.Units.SI.PressureDifference dpHotWatVal_nominal(
+    displayUnit="Pa") = dpHotWatCoi_nominal
     "Design pressure drop of hot water valve (Hot-water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
@@ -49,11 +51,13 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Nominal mass flow rate of chilled water"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpChiWatCoi_nominal
+  parameter Modelica.Units.SI.PressureDifference dpChiWatCoi_nominal(
+    displayUnit="Pa")
     "Total pressure difference across cooling coil (Chilled-water side)"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpChiWatVal_nominal = dpChiWatCoi_nominal
+  parameter Modelica.Units.SI.PressureDifference dpChiWatVal_nominal(
+    displayUnit="Pa") = dpChiWatCoi_nominal
     "Design pressure drop of chilled water valve (Chilled-water side)"
     annotation(Dialog(group="Cooling coil parameters"));
 
@@ -62,19 +66,19 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation(Dialog(group="System parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea(
-    final unit="1") if have_hea
+    final min=0, final max=1, final unit="1") if have_hea
     "Heating loop control signal"
     annotation(Placement(transformation(extent={{-300,-140},{-260,-100}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
-    final unit="1")
+    final min=0, final max=1, final unit="1")
     "Cooling loop control signal"
     annotation(Placement(transformation(extent={{-300,-70},{-260,-30}}),
       iconTransformation(extent={{-240,-20},{-200,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFan(
-    final unit="1")
+    final min=0, final max=1, final unit="1")
     "Fan normalized speed control signal"
     annotation(Placement(transformation(extent={{-300,60},{-260,100}}),
       iconTransformation(extent={{-240,100},{-200,140}})));
