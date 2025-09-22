@@ -484,7 +484,17 @@ September 12, 2025, by Viswanathan Ganesh:<br>First Implementation.
 </ul>
 </html>", info="<html>
 <p>
-An example of induction motor start-up sequence (Figure 9) <a href=\"https://ieeexplore.ieee.org/document/11045278\">[1]</a>.
+An example of induction motor start-up sequence (Figure 9) <a href=\"https://ieeexplore.ieee.org/document/11045278\">[1]</a>. The reference data plotted is from the simulation setup as decribed in <a href=\"https://webthesis.biblio.polito.it/17858/\">[2]</a>.
+To ensure consistency with the model used in <a href=\"https://webthesis.biblio.polito.it/17858/\">[2]</a>, the induction motor model adopted in this study also neglects iron losses and magnetic saturation.
+</p>
+<li>Figure 'a' provides a plot of rotor speed response. It shows that the CEAIM model is able to simulate the non linear start-up condition with very high accuracy.</li> 
+<li>Figure 'b' provides a plot of electromagnetic torque response with high level of accuracy.</li>
+<li>Figure 'c' provides a plot of input current. CEAIM model is able to capture the transients condition of input current as the starting current is approximately 8 times higher than the steady state condition. Once IM reaches the nominal operating condition,
+input current fall down to a periodic sine wave with magnitude of 10A. </li>
+<li>Figure 'd' illustrates the variations of active power consumption and indicates that the proposed model 
+ can achieve high accuracy in estimating the active power consumption at both the start-up and steady-state periods.</li>
+<p>
+
 </p>
 
 <h4>References</h4>
@@ -495,6 +505,7 @@ An example of induction motor start-up sequence (Figure 9) <a href=\"https://iee
     <i>IEEE Access</i>, vol. 13, pp. 107745–107763, 2025. 
     doi:<a href=\"https://doi.org/10.1109/ACCESS.2025.3581502\">10.1109/ACCESS.2025.3581502</a>
   </li>
+<li> Le Fosse, R., 2021. Dynamic modeling of induction motors in developing tool for automotive applications (Doctoral dissertation, Politecnico di Torino).<a href=\"https://webthesis.biblio.polito.it/17858/\">Thesis</a> </li>
 </ol>
 </html>
 "));

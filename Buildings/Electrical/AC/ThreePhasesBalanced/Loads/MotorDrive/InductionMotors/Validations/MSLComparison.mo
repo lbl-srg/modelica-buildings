@@ -4289,7 +4289,8 @@ September 12, 2025, by Viswanathan Ganesh:<br>First Implementation.
 </ul>
 </html>", info="<html>
 <p>
-Comparison of Induction Machine Models with Modelica Standard Library (Figure 13)  <a href=\"https://ieeexplore.ieee.org/document/11045278\">[1]</a>.
+Comparison of Induction Machine Models with Modelica Standard Library (Figure 13)  <a href=\"https://ieeexplore.ieee.org/document/11045278\">[1]</a>. The reference data of MSL is simulated reference data from the model 
+<a href=\"Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL\">Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL</a>. The LeFosse reference data plotted is from the simulation setup as decribed in <a href=\"https://webthesis.biblio.polito.it/17858/\">[2]</a>.
 </p>
 
 <h4>References</h4>
@@ -4300,6 +4301,7 @@ Comparison of Induction Machine Models with Modelica Standard Library (Figure 13
     <i>IEEE Access</i>, vol. 13, pp. 107745–107763, 2025. 
     doi:<a href=\"https://doi.org/10.1109/ACCESS.2025.3581502\">10.1109/ACCESS.2025.3581502</a>
   </li>
+<li> Le Fosse, R., 2021. Dynamic modeling of induction motors in developing tool for automotive applications (Doctoral dissertation, Politecnico di Torino).<a href=\"https://webthesis.biblio.polito.it/17858/\">Thesis</a> </li>
 </ol>
 </html>
 "));
