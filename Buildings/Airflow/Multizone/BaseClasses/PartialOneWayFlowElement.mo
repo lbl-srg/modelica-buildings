@@ -36,11 +36,10 @@ protected
 
   Medium.ThermodynamicState sta "State of the medium in the component";
   Modelica.Units.SI.DynamicViscosity dynVis "Dynamic viscosity";
-  Real mExc(quantity="Mass", final unit="kg")
+  Modelica.Units.SI.Mass mExc(start=0, fixed=true, unbounded=true)
     "Air mass exchanged (for purpose of error control only)";
 
 initial equation
-  mExc=0;
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
@@ -112,6 +111,18 @@ not in the equation section since this model sets both
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 22, 2025, by Michael Wetter:<br/>
+Set <code>unbounded=true</code> for <code>mExc_flow</code>.
+This is to have the same implementation as in
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.TwoWayFlowElement\">
+Buildings.Airflow.Multizone.BaseClasses.TwoWayFlowElement</a>
+where this change was done to avoid spikes in <code>port_a.m_flow</code> in
+<a href=\"modelica://Buildings.Airflow.Multizone.Examples.OneOpenDoor\">
+Buildings.Airflow.Multizone.Examples.OneOpenDoor</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4360\">Buildings, #4360</a>.
+</li>
 <li>
 September 19, 2025, by Michael Wetter:<br/>
 Introduced protected parameter <code>sqrt_dp_turbulent</code>,
