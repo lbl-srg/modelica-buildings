@@ -20,10 +20,27 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Nominal heat flow rate of heating coil"
     annotation(Dialog(enable=have_hea, group="Heating coil parameters"));
 
+  parameter Modelica.Units.SI.Temperature THotWatSup_nominal=333.15
+    "Design water temperature entering heating coil"
+    annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
+  parameter Modelica.Units.SI.Temperature THeaAirEnt_nominal=296.15
+    "Design air temperature entering heating coil"
+    annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
+
   parameter Modelica.Units.SI.HeatFlowRate QCoiCoo_flow_nominal(
     final max=1e-9,
     final start=0)
     "Nominal heat flow rate of cooling coil"
+    annotation(Dialog(group="Cooling coil parameters"));
+
+  parameter Modelica.Units.SI.Temperature TChiWatEnt_nominal=279.83
+    "Design water inlet temperature of cooling coil"
+    annotation(Dialog(group="Cooling coil parameters"));
+  parameter Modelica.Units.SI.Temperature TCooAirEnt_nominal=296.15
+    "Design air inlet temperature of cooling coil"
+    annotation(Dialog(group="Cooling coil parameters"));
+  parameter Modelica.Units.SI.MassFraction wCooAirEnt_nominal=0.012
+    "Design humidity ratio of inlet air of cooling coil (in kg/kg dry air)"
     annotation(Dialog(group="Cooling coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal(
@@ -150,9 +167,10 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final dp2_nominal=0,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     use_Q_flow_nominal=true,
-    Q_flow_nominal=QCoiHea_flow_nominal,
-    T_a1_nominal=333.15,
-    T_a2_nominal=296.15) if have_hotWat
+    final Q_flow_nominal=QCoiHea_flow_nominal,
+    final T_a1_nominal=THotWatSup_nominal,
+    final T_a2_nominal=THeaAirEnt_nominal)
+    if have_hotWat
     "Hot water heating coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=180,
@@ -177,10 +195,10 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final dp1_nominal=0,
     final dp2_nominal=0,
     use_Q_flow_nominal=true,
-    Q_flow_nominal=QCoiCoo_flow_nominal,
-    T_a1_nominal=279.83,
-    T_a2_nominal=296.15,
-    w_a2_nominal=0.012,
+    final Q_flow_nominal=QCoiCoo_flow_nominal,
+    final T_a1_nominal=TChiWatEnt_nominal,
+    final T_a2_nominal=TCooAirEnt_nominal,
+    final w_a2_nominal=wCooAirEnt_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Chilled-water cooling coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -557,6 +575,12 @@ Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 22, 2025, by Michael Wetter:<br/>
+Exposed parameters, reviewed model for first release.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
+</li>
 <li>
 August 03, 2022 by Karthik Devaprasad, Sen Huang:<br/>
 First implementation.
