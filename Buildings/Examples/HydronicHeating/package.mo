@@ -1,6 +1,6 @@
 within Buildings.Examples;
-package HydronicSystems
-  "Package with two examples for hydronic heating and cooling zonal systems"
+package HydronicHeating
+  "Package with an example of a hydronic heating system"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (
@@ -10,4 +10,4 @@ This package demonstrates the implementation of two different hydronic heating a
 cooling zonal systems.
 </p>
 </html>"));
-end HydronicSystems;
+end HydronicHeating;
