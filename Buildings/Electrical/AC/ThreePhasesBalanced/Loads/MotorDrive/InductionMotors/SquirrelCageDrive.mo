@@ -135,22 +135,37 @@ equation
  annotation(defaultComponentName="motDri",
     Documentation(info="<html>
 <p>
-This model implements an induction motor model with a built-in idealized 
-frequency control that tracks the set point and adjust the input frequency of 
-motor.
+This block implements a dynamic model of a three-phase squirrel-cage induction motor 
+with a built-in closed-loop speed control. It adjusts the applied electrical frequency 
+to track the given speed or frequency setpoint while driving a mechanical load 
+(<i>&tau;<sub>m</sub></i>).
 </p>
+
 <p>
-The model is identical to 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors1.SquirrelCage\">
-Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors1.SquirrelCage</a>,
-except that it takes the set point, as an input and adjust 
-the motor torque output to meet the set point. This set point is maintained 
-if the motor allows sufficient torque to meet the load requirement. The built-in 
-control is an ideal speed controller, implemented using a PI controller. 
-The controller adjusts the torque output of the motor to meet the set point 
-within its work area.
+<b>
+The model extends 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.PartialSquirrelCage\">
+PartialSquirrelCage</a> with <code>have_speCon = true</code> and includes 
+an internal PI-based variable frequency drive (VFD) controller that regulates 
+the electrical input frequency and voltage to maintain the desired rotor speed.
+</b>
 </p>
-</html>", revisions="<html>
+
+<p>
+<b>Inputs:</b> Setpoint (<i>&omega;<sub>ref</sub></i> or speed) [rad/s], 
+Measured speed (<i>&omega;<sub>r</sub></i>) [rad/s], Load torque (<i>&tau;<sub>m</sub></i>) [N·m] &nbsp; | &nbsp;
+<b>Outputs:</b> Rotor speed (<i>&omega;<sub>r</sub></i>) [rad/s], 
+Electromagnetic torque (<i>&tau;<sub>e</sub></i>) [N·m], 
+Stator currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>) [A]
+</p>
+
+<p>
+This block is part of 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

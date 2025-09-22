@@ -1,0 +1,21 @@
+within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors;
+package Validations "Contains Validations of the Induction Motor"
+  extends Modelica.Icons.ExamplesPackage;
+
+  annotation (Documentation(info="<html>
+<body>
+  <p>
+    This package contains validations for the models that can be found in
+    <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors </a>,
+    from the journal article: V. Ganesh, Z. He, J. Hu, S. Huang and W. Zuo,\"Coupled Induction Machine and HVAC Models for Simulating HVAC Performance Considering Grid Dynamics in Buildings,\" IEEE Access, vol. 13, pp. 107745–107763, 2025.
+    doi: <a href=\"https://doi.org/10.1109/ACCESS.2025.3581502\">10.1109/ACCESS.2025.3581502</a>
+  </p>
+
+  <h3>Revisions</h3>
+  <ul>
+    <li>September 12, 2025, by Viswanathan Ganesh: First Implementation.</li>
+  </ul>
+</body>
+</html>
+"));
+end Validations;

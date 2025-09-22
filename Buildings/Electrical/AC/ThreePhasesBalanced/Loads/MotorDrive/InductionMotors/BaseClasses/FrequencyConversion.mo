@@ -13,11 +13,20 @@ algorithm
   omega := 2*Modelica.Constants.pi*f;
  annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block computes the angular frequency for the models in 
+This block computes the angular frequency from the electrical frequency using:
+</p>
+
+<p>
+&omega; = 2 &times; &pi; &times; f
+</p>
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

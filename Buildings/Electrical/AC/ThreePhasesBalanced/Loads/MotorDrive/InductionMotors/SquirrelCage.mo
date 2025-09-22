@@ -44,11 +44,39 @@ equation
 annotation(defaultComponentName="motDri",
     Documentation(info="<html>
 <p>
-This model implements an induction motor model. The model takes the set point of load torque, 
-as an input and simulates a transient simulation when the motor is operating in its
-rated speed and setpoint load torque.
+This block implements a dynamic model of a three-phase squirrel-cage induction motor 
+with an electrical interface. It computes the electromagnetic torque 
+(<i>&tau;<sub>e</sub></i>) and rotor speed (<i>&omega;<sub>r</sub></i>) 
+based on the applied stator voltages (<i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i>), 
+electrical frequency (<i>&omega;</i>), and the externally applied load torque 
+(<i>&tau;<sub>m</sub></i>).
 </p>
-</html>", revisions="<html>
+
+<p>
+<b>
+The model extends 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.PartialSquirrelCage\">
+PartialSquirrelCage</a> and disables its internal speed controller 
+(<code>have_speCon = false</code>), allowing the rotor speed to evolve 
+from the torque balance between the electrical machine dynamics and the 
+applied mechanical load.
+</b>
+</p>
+
+<p>
+<b>Inputs:</b> <i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i> [V], 
+<i>&omega;</i> [rad/s], <i>&tau;<sub>m</sub></i> [N·m] &nbsp; | &nbsp;
+<b>Outputs:</b> <i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i> [A], 
+<i>&tau;<sub>e</sub></i> [N·m], <i>&omega;<sub>r</sub></i> [rad/s]
+</p>
+
+<p>
+This block is part of 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

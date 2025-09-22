@@ -32,11 +32,31 @@ equation
   der_i_qs =(((v_qs)/Ls)-((Rs*i_qs)/Ls)-((der_i_qr*Lm)/Ls)-(omega*i_ds)-((omega*Lm*i_dr)/Ls));
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block computes q-axis stator current for the models in 
+This block computes the time derivative of the q-axis stator current in the synchronous d–q frame. The implemented relation is:
+</p>
+
+<p>
+\\[
+\\frac{d i_{qs}}{dt}
+=
+\\frac{1}{L_s}\\Big(
+v_{qs}
+- R_s\\, i_{qs}
+- L_m\\, \\frac{d i_{qr}}{dt}
+- \\omega\\, L_s\\, i_{ds}
+- \\omega\\, L_m\\, i_{dr}
+\\Big)
+\\]
+</p>
+
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

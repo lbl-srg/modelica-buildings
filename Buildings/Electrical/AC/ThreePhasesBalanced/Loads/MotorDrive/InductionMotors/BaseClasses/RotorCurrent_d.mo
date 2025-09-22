@@ -31,11 +31,30 @@ equation
   der_i_dr = (((v_dr)/Lr)-((Rr*i_dr)/Lr)-((der_i_ds*Lm)/Lr)+(omega_r*i_qr)+((omega_r*Lm*i_qs)/Lr));
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block computes d-axis rotor current for the models in 
+This block computes the time derivative of the d-axis rotor current in the synchronous d–q frame. The implemented relation is:
+</p>
+
+<p>
+\\[
+\\frac{d i_{dr}}{dt}
+=
+\\frac{1}{L_r}\\Big(
+v_{dr}
+- R_r\\, i_{dr}
+- L_m\\, \\frac{d i_{ds}}{dt}
++ \\omega_r\\, L_r\\, i_{qr}
++ \\omega_r\\, L_m\\, i_{qs}
+\\Big)
+\\]
+</p>
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

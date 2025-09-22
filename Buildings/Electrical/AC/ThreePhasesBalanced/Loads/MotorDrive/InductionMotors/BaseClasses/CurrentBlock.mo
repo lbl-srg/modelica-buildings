@@ -19,11 +19,40 @@ equation
   I_c = sin(wt+2.0933)*i_ds+cos(wt+2.0933)*i_qs;
  annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block computes 3 phase current for the models in 
+This block computes 3-phase currents from D-Q currents using the inverse Park transformation:
+</p>
+
+<p>
+\\[
+\\begin{bmatrix}
+I_a \\\\[4pt]
+I_b \\\\[4pt]
+I_c
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+\\sin(\\omega t) & \\cos(\\omega t) \\\\[4pt]
+\\sin(\\omega t - 120^\\circ) & \\cos(\\omega t - 120^\\circ) \\\\[4pt]
+\\sin(\\omega t + 120^\\circ) & \\cos(\\omega t + 120^\\circ)
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{ds} \\\\[4pt]
+i_{qs}
+\\end{bmatrix}
+\\]
+</p>
+
+<p>
+Here, 120° ≈ 2.0933 radians.
+</p>
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

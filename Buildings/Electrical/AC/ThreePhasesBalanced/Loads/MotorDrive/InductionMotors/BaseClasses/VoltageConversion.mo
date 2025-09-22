@@ -21,12 +21,33 @@ algorithm
   v_qs:= 0;
  annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block convert the stator voltage from its root mean square (RMS) value into
-q-axis and d-axis voltages for the models in 
+This block converts the stator voltage from its root mean square (RMS) value into d–q axis components.  
+It assumes the entire applied RMS stator voltage is aligned along the d-axis, while the q-axis component is set to zero.
+</p>
+
+<p>
+The implemented relation is:
+</p>
+
+<p>
+\\[
+v_{ds} = V_{rms}
+\\qquad\\text{ and }\\qquad
+v_{qs} = 0
+\\]
+</p>
+
+<p>
+This simplification is commonly used for initializing induction machine models where the stator voltage space vector is aligned with the d-axis.
+</p>
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

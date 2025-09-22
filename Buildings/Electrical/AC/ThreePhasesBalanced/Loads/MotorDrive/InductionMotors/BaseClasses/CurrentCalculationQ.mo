@@ -22,4 +22,3 @@ First Implementation.
 </ul>
 </html>"));
 end CurrentCalculationQ;
-
