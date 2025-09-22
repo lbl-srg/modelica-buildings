@@ -36,14 +36,27 @@ protected
 
 equation
   // Air flow rate due to static pressure difference
-  VABp_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(C=CVal,
-      dp=port_a1.p-port_a2.p,
-      m=m,
-      a=a,
-      b=b,
-      c=c,
-      d=d,
-      dp_turbulent=dp_turbulent);
+  VABp_flow = if Modelica.Math.isEqual(m, 0.5, 1E-10)
+    then
+      Buildings.Airflow.Multizone.BaseClasses.powerLaw05(
+        C=CVal,
+        dp=port_a1.p-port_a2.p,
+        a=a,
+        b=b,
+        c=c,
+        d=d,
+        dp_turbulent=dp_turbulent,
+        sqrt_dp_turbulent=sqrt_dp_turbulent)
+    else
+      Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
+        C=CVal,
+        dp=port_a1.p-port_a2.p,
+        m=m,
+        a=a,
+        b=b,
+        c=c,
+        d=d,
+        dp_turbulent=dp_turbulent);
   // Air flow rate due to buoyancy
   // Because powerLawFixedM requires as an input a pressure difference pa-pb,
   // we convert Ta-Tb by multiplying it with rho*R, and we divide
@@ -194,6 +207,12 @@ https://nrc-publications.canada.ca/eng/view/ft/?id=081c0ace-7c31-449c-9b3b-e6c14
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Revised implementation to improve computing efficiency if flow exponent is <i>0.5</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 January 22, 2020, by Michael Wetter:<br/>
 Revised buoyancy-driven flow based on Brown and Solvason (1962).
