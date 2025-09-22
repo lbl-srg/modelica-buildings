@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Data;
 package TableData2DLoadDepSHC
-  "Package with load-dependent 2D table data recors"
+  "Package with load-dependent 2D table data records"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
   annotation (Documentation(info="<html>
