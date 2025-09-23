@@ -165,7 +165,7 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 <ul>
 <li>
 July 18, 2025, by Hongxiang Fu:<br/>
-Added two-port temperature sensors to replace <code>vol[.].T</code>
+Added two-port temperature sensors to replace <code>vol[:].T</code>
 from reference results.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
