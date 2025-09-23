@@ -364,7 +364,7 @@ However, the model includes the calculation of the flow characteristic
 of an equivalent actuator model to simplify the modeling of isolation valves.
 The model also provides control variables for these valves, or for primary pumps
 that are not controlled based on &Delta;p.
-See Section \"Implementation details\" for further precision.
+See Section \"Implementation details\" for further explanations.
 </p>
 <p>
 The model includes ideal controls that solve for the HW or CHW supply
@@ -379,7 +379,7 @@ For a comprehensive description of the algorithm and underlying assumptions,
 please refer to the documentation of
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
-This documentation also details the required format for the performance data file.
+This documentation also explains the required format for the performance data file.
 </p>
 <h5>Footnotes</h5>
 <p>
@@ -390,9 +390,9 @@ for systems with multiple on/off compressors is converted into
 a continuous PLR value and the model only approximates the system
 performance on a time average.
 </p>
-<h4>Control points</h4>
+<h4>Control signals</h4>
 <p>
-The following input points are available.
+The following input signals are available.
 </p>
 <ul>
 <li>
@@ -422,7 +422,7 @@ depending on the value of <code>use_TLoaLvgForCtl</code>.
 </li>
 </ul>
 <p>
-The following output points are available.
+The following output signals are available.
 </p>
 <ul>
 <li>

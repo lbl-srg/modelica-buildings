@@ -728,20 +728,20 @@ Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableDa
 Users should be familiar with this latter block before continuing with this documentation.
 </p>
 <p>
-The block implements the following functionalities.
+The block implements the following functionalities:
 </p>
 <ul>
 <li>
-Ideal controls
+Ideal controls.
 </li>
 <li>
-Capacity and power calculation
+Capacity and power calculation.
 </li>
 <li>
-Module staging
+Module staging.
 </li>
 <li>
-Load balancing between the HW and CHW side
+Load balancing between the HW and CHW side.
 </li>
 </ul>
 <h4>System and module operating mode</h4>
@@ -839,7 +839,7 @@ The number of modules required to run to meet the load is then calculated for ea
 </p>
 <ul>
 <li>
-Number of modules required to run in SHC mode to meet the heating load:<br/>
+Number of modules required to run in SHC mode to meet the heating load as<br/>
 <code>nUniHeaShcRaw = ceil(QHeaSetMea_flow / max(QHeaShcInt_flow) / SPLR)</code>,<br/>
 where <code>max(QHeaShcInt_flow)</code> is the heating capacity of one module in SHC mode
 and <code>SPLR</code> is a parameter representing the staging part load ratio.
@@ -851,25 +851,25 @@ single module, practically preventing the system from staging up until the
 return temperature exceeds the design value.
 </li>
 <li>
-Number of modules required to run in SHC mode to meet the cooling load:<br/>
+Number of modules required to run in SHC mode to meet the cooling load as<br/>
 <code>nUniCooShcRaw = ceil(QCooSetMea_flow / min(QCooSHcInt_flow) / SPLR)</code>,<br/>
 where <code>min(QCooSHcInt_flow)</code> is the cooling capacity of one module in SHC mode.
 </li>
 <li>
-Number of modules required to run in SHC mode:<br/>
+Number of modules required to run in SHC mode as<br/>
 <code>nUniShcRaw = min(nUniCooShcRaw, nUniHeaShcRaw)</code>.<br/>
 This condition means that the system stops staging modules in SHC mode
 when either the cooling load or the heating load is met.
 </li>
 <li>
-Number of modules required to run in heating mode:<br/>
+Number of modules required to run in heating mode as<br/>
 <code>nUniHeaRaw = ceil(QHeaSetResMea_flow / max(QHeaInt_flow) / SPLR)</code>,<br/>
 where <code>QHeaSetResMea_flow</code> is the residual heating load, calculated as the
 time-averaged heating load minus the heating output of modules in SHC mode,
 and <code>max(QHeaInt_flow)</code> is the capacity of one module in heating-only mode.
 </li>
 <li>
-Number of modules required to run in cooling mode:<br/>
+Number of modules required to run in cooling mode as<br/>
 <code>nUniCooRaw = ceil(QCooSetResMea_flow / min(QCooInt_flow) / SPLR)</code>,<br/>
 where <code>QCooSetResMea_flow</code> is the residual cooling load, calculated as the
 time-averaged cooling load minus the cooling output of modules in SHC mode,
@@ -909,7 +909,7 @@ the compensating module.
 </p>
 <p>
 Based on this assumption, on the dominant side, the heating or cooling load of each
-module in SHC mode can be calculated as:</p>
+module in SHC mode can be calculated as</p>
 <code>Q&lt;Hea|Coo&gt;SetUniShc_flow = Q&lt;Hea|Coo&gt;Set_flow / (nUniShc + nUni&lt;Hea|Coo&gt;)</code>.
 <p>
 In order to achieve load balancing between the CHW and HW sides for the
@@ -925,7 +925,7 @@ This logic is inspired from the sequence of operation of a multipipe heat pump s
 SHC and single-mode operation to balance the heating and cooling loads.
 </p>
 <p>
-The part load ratio of each module in SHC mode to satisfy the most demanding side is:</p>
+The part load ratio of each module in SHC mode to satisfy the most demanding side is</p>
 <code>PLRShcLoa = min(PLRShcSup, max(fHeaShc<sup>-1</sup>(QHeaSetUniShc_flow),
 fCooShc<sup>-1</sup>(QCooSetUniShc_flow)))</code>,
 <p>
@@ -939,44 +939,44 @@ minimum runtime requirement and the possible flow variations resulting from modu
 pump speed and/or the minimum flow bypass valve.
 This logic uses a temperature deviation from setpoint <code>dTSaf</code>, which is converted to
 limiting heat flow rates <code>Q&lt;Hea|Coo&gt;Saf_flow</code>.
-The limiting part load ratio is calculated as:</p>
+The limiting part load ratio is calculated as</p>
 <code>PLRShcSaf = min(fHeaShc<sup>-1</sup>(QHeaSaf_flow / (nUniShc + nUniHea)),
 fCooShc<sup>-1</sup>(QCooSaf_flow / (nUniShc + nUniCoo)))</code>.
 <p>
 The effective part load ratio of each module in SHC mode is then the minimum of the load-based and
-safety-limited values:</p>
+safety-limited values</p>
 <code>PLRShc = min(PLRShcLoa, PLRShcSaf)</code>.
 <p>
 The excess heating or cooling heat flow rate (non-dominant side) of the modules in SHC mode
-is then calculated as:</p>
+is then calculated as</p>
 <code>Q&lt;Hea|Coo&gt;ShcExc_flow = nUniShc * (f&lt;Hea|Coo&gt;Shc(PLRShc) -
 Q&lt;Hea|Coo&gt;SetUniShc_flow)</code>,
 <p>where <code>f&lt;Hea|Coo&gt;Shc</code> is the linear interpolation of the module heating or
 cooling capacity along the part load ratio at the actual source and sink temperature,
 based on the performance data provided for SHC operation.</p>
 <p>
-This excess heat flow rate is compensated by cycling a single module, which gives the following
-expression of the cycling ratio for this module:</p>
+This excess heat flow rate is compensated by cycling a single module, which gives theg
+expression of the cycling ratio for this module as</p>
 <code>ratCycShc = 1 - min(1, max(QHeaShcExc_flow / fHeaShc(PLRShc), QCooShcExc_flow / fCooShc(PLRShc)))</code>,
 <p>where <code>ratCycShc = 1</code> means perfect balance, i.e., the module does not cycle and
 continuously runs in SHC mode, and <code>ratCycShc = 0</code> means that the module continuously
 runs in single mode.</p>
 <p>
-The actual heating or cooling heat flow rate of the modules in SHC mode is:</p>
+The actual heating or cooling heat flow rate of the modules in SHC mode is</p>
 <code>Q&lt;Hea|Coo&gt;Shc_flow = (nUniShc - 1 + ratCycShc) * f&lt;Hea|Coo&gt;Shc(PLRShc)</code>.
 <p>
-The residual load that the module which cycles between SHC and single-mode must handle is:</p>
+The residual load that the module which cycles between SHC and single-mode must handle is</p>
 <code>Q&lt;Hea|Coo&gt;SetUniShc_flow * nUniShc - Q&lt;Hea|Coo&gt;Shc_flow</code>,
 <p>which gives the part load ratio <code>PLR&lt;Hea|Coo&gt;ShcCyc</code> of this module while
 it runs in single mode.
-The corresponding heating or cooling heat flow rate is then:</p>
+The corresponding heating or cooling heat flow rate is then</p>
 <code>Q&lt;Hea|Coo&gt;ShcCyc_flow = (1 - ratCycShc) * f&lt;Hea|Coo&gt;(PLR&lt;Hea|Coo&gt;ShcCyc)</code>,
 <p>where <code>f&lt;Hea|Coo&gt;</code> is the linear interpolation of the module capacity along
 the part load ratio at the actual source and sink temperature,
 based on the performance data provided for single-mode operation.</p>
 <p>
 The residual heating or cooling loads that the modules running in single mode must meet
-can now be calculated as:</p>
+can now be calculated as</p>
 <code>Q&lt;Hea|Coo&gt;SetRes_flow = Q&lt;Hea|Coo&gt;Set_flow -
 (Q&lt;Hea|Coo&gt;Shc_flow + Q&lt;Hea|Coo&gt;ShcCyc_flow)</code>,
 <p>
@@ -991,8 +991,8 @@ The fundamental assumption of even load between modules therefore breaks down on
 the non-dominant side.
 In a real system where the modules are hydronically balanced, this load imbalance yields
 varying leaving temperatures across modules.
-In the worst case, the deviation from setpoint is <code>SPLR / 2</code> times the
-design &Delta;T.
+In the worst case, the deviation from setpoint is <code>&Delta;T&sdot;SPLR / 2</code>,
+where <code>&Delta;T</code> is the design temperature difference.
 </p>
 <p>
 These temperature discrepancies are neglected in the model which \"numerically absorbs\"

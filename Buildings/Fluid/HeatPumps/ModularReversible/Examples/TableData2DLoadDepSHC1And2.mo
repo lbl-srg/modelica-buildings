@@ -880,23 +880,23 @@ cooling loads.
 The heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
-The plant model includes the following components.
+The plant model includes the following components:
 </p>
 <ul>
 <li>
-Modular four-pipe heat pump with three units
+Modular four-pipe heat pump with three units.
 </li>
 <li>
-HW and CHW isolation valves represented by an equivalent actuator
+HW and CHW isolation valves represented by an equivalent actuator.
 </li>
 <li>
-Three headered constant-speed primary HW and CHW pumps
+Three headered constant-speed primary HW and CHW pumps.
 </li>
 <li>
-HW and CHW common legs
+HW and CHW common legs.
 </li>
 <li>
-Three headered variable-speed secondary HW and CHW pumps
+Three headered variable-speed secondary HW and CHW pumps.
 </li>
 </ul>
 <p>
@@ -943,7 +943,7 @@ staging or unstaging the heat pump modules in various modes,
 actuating the corresponding isolation valves,
 </li>
 <li>
-staging and rotating the primary pumps,
+staging and rotating the primary pumps, and
 </li>
 <li>
 staging, rotating and controlling the secondary pumps to meet the

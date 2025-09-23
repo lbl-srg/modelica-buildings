@@ -10,11 +10,11 @@ record Generic
   parameter Modelica.Units.SI.DimensionlessRatio PLRShcSup[:](each final min=0)
     "PLR values at which heat flow rate and power data are provided - SHC mode";
   parameter String fileNameHea
-    "File where performance data are stored - Heating mode (single module)"
+    "File where performance data are stored - heating mode (single module)"
     annotation (Dialog(loadSelector(filter="Text files (*.txt)",caption=
       "Open file in which table is present")));
   parameter String fileNameCoo
-    "File where performance data are stored - Cooling mode (single module)"
+    "File where performance data are stored - cooling mode (single module)"
     annotation (Dialog(loadSelector(filter="Text files (*.txt)",caption=
       "Open file in which table is present")));
   parameter String fileNameShc
