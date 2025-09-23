@@ -37,8 +37,8 @@ Library.
 </p>
 <p>
 The figure below shows a section of the schematic view of the model
-<a href=\"modelica://Buildings.Examples.HydronicSystems\">
-Buildings.Examples.HydronicSystems</a>.
+<a href=\"modelica://Buildings.Examples.HydronicHeating\">
+Buildings.Examples.HydronicHeating</a>.
 In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler and its pump on and off.
 The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
 </p>
