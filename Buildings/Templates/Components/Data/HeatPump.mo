@@ -8,9 +8,6 @@ record HeatPump "Record for heat pump model"
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod
-    "Type of heat pump model"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   // Default fluid properties
   parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default=
@@ -27,7 +24,8 @@ record HeatPump "Record for heat pump model"
     cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default=
-    if typ==Buildings.Templates.Components.Types.HeatPump.AirToWater then
+    if typ==Buildings.Templates.Components.Types.HeatPump.AirToWater
+      or typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC then
        Buildings.Utilities.Psychrometrics.Constants.cpAir else
        Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Source fluid default specific heat capacity"
@@ -58,20 +56,24 @@ record HeatPump "Record for heat pump model"
     start=0,
     final min=0)
     "CHW mass flow rate"
-    annotation(Dialog(group="Nominal condition", enable=is_rev));
-  final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal=
+    annotation(Dialog(group="Nominal condition",
+    enable=is_rev or typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC));
+  parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal=
     dpHeaWat_nominal * (mChiWat_flow_nominal/mHeaWat_flow_nominal)^2
     "Pressure drop at design CHW mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition",
+    enable=typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC));
   parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal(
     start=0)
     "Cooling capacity"
-    annotation(Dialog(group="Nominal condition", enable=is_rev));
+    annotation(Dialog(group="Nominal condition",
+    enable=is_rev or typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC));
   parameter Modelica.Units.SI.Temperature TChiWatSup_nominal(
     start=Buildings.Templates.Data.Defaults.TChiWatSup,
     final min=253.15)
     "(Lowest) CHW supply temperature"
-    annotation(Dialog(group="Nominal condition", enable=is_rev));
+    annotation(Dialog(group="Nominal condition",
+    enable=is_rev or typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC));
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
     if is_rev then
     TChiWatSup_nominal+abs(capCoo_nominal)/cpChiWat_default/mChiWat_flow_nominal
@@ -109,7 +111,7 @@ record HeatPump "Record for heat pump model"
     final min=273.15)
     "OAT or source fluid supply temperature (condenser entering) in cooling mode"
     annotation(Dialog(group="Nominal condition",
-    enable=is_rev));
+    enable=is_rev or typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC));
   parameter Modelica.Units.SI.MassFlowRate mSouWwCoo_flow_nominal(
     start=mChiWat_flow_nominal,
     final min=0)
@@ -125,35 +127,70 @@ record HeatPump "Record for heat pump model"
   final parameter Modelica.Units.SI.PressureDifference dpSouCoo_nominal=
     dpSouHea_nominal * (mSouCoo_flow_nominal/mSouHea_flow_nominal)^2
     "Source fluid pressure drop in cooling mode";
+  // Propagation of mass flow rate and pressure drop to the subrecords perHea
+  // and perCoo is for reference only. The mass flow rate and pressure drop in
+  // the HP component are parameterized by the values from this record,
+  // not from those subrecords.
   replaceable parameter
-    Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic perFit(
-    dpHeaLoa_nominal=dpHeaWat_nominal,
-    dpHeaSou_nominal=dpSouHea_nominal,
-    hea(
-      Q_flow=abs(capHea_nominal),
-      P=0,
-      mLoa_flow=mHeaWat_flow_nominal,
-      mSou_flow=mSouHea_flow_nominal,
-      coeQ={1,0,0,0,0},
-      coeP={1,0,0,0,0},
-      TRefLoa=THeaWatRet_nominal,
-      TRefSou=TSouHea_nominal),
-    coo(
-      Q_flow=if is_rev then -abs(capCoo_nominal) else -1,
-      P=0,
-      mLoa_flow=mChiWat_flow_nominal,
-      mSou_flow=mSouCoo_flow_nominal,
-      coeQ={1,0,0,0,0},
-      coeP={1,0,0,0,0},
-      TRefLoa=TChiWatRet_nominal,
-      TRefSou=TSouCoo_nominal)) constrainedby
-    Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic
-    "Performance data - Equation fit model"
+    Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump perHea(
+    fileName="",
+    PLRSup={1},
+      mCon_flow_nominal=mHeaWat_flow_nominal,
+      mEva_flow_nominal=mSouHea_flow_nominal,
+      dpCon_nominal=dpHeaWat_nominal,
+      dpEva_nominal=dpSouHea_nominal,
+      devIde="",
+    use_TEvaOutForTab=true,
+    use_TConOutForTab=true,
+    tabUppBou=[TSouHea_nominal - 5,THeaWatSup_nominal - 10; TSouHea_nominal +
+        30,THeaWatSup_nominal + 10])
+    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump
+    "Performance data in heating mode"
     annotation (
-    Dialog(enable=typMod == Buildings.Templates.Components.Types.HeatPumpModel.EquationFit),
-    choicesAllMatching=true,
-    Placement(transformation(extent={{-8,-40},{8,-24}})));
+      choicesAllMatching=true,
+      Dialog(enable= not typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC),
+      Placement(transformation(extent={{-38,0},{-22,16}})));
+  replaceable parameter
+    Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic perCoo(
+      mCon_flow_nominal=mSouCoo_flow_nominal,
+      mEva_flow_nominal=mChiWat_flow_nominal,
+      dpCon_nominal=dpSouCoo_nominal,
+      dpEva_nominal=dpChiWat_nominal,
+      fileName="",
+    PLRSup={1},
+      tabLowBou=[TSouCoo_nominal-30, TChiWatSup_nominal-2;
+        TSouCoo_nominal+10, TChiWatSup_nominal-2],
+      devIde="",
+      use_TConOutForTab=false,
+      use_TEvaOutForTab=true)
+    constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic
+    "Performance data in cooling mode"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(enable=is_rev),
+      Placement(transformation(extent={{22,0},{38,16}})));
+   replaceable parameter
+    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perSHC(
+    PLRHeaSup={1},
+    PLRCooSup={1},
+    PLRShcSup={1},
+    fileNameHea="",
+    fileNameCoo="",
+    fileNameShc="",
+    mCon_flow_nominal=mHeaWat_flow_nominal,
+    mEva_flow_nominal=mSouHea_flow_nominal,
+    dpCon_nominal=dpHeaWat_nominal,
+    dpEva_nominal=dpSouHea_nominal,
+    devIde="",
+    use_TEvaOutForTab=true,
+    use_TConOutForTab=true) "Performance data in SHC mode"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC),
+      Placement(transformation(extent={{-8,-38},{8,-22}})));
 
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
 annotation (
   defaultComponentPrefixes="parameter",
   defaultComponentName="datHp",
@@ -164,32 +201,19 @@ heat pump models that can be found within
 <a href=\"modelica://Buildings.Templates.Components.HeatPumps\">
 Buildings.Templates.Components.HeatPumps</a>.
 </p>
-<h4>Performance data for the equation fit model</h4>
-<p>When using
-<code>typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit</code>,
-the design values declared at the top-level
-are propagated by default to the performance data record <code>per</code>
-under the assumption that the reference conditions used for assessing the
-performance data match the design conditions.
-This avoids duplicate parameter assignments when manually entering
-the performance curve coefficients.
+<h4>Performance data</h4>
+<p>
+The design capacity is used to parameterize the heat pump model.
+The capacity (and power) computed from the external performance data file
+will be scaled to match the value provided at design conditions.
 </p>
 <p>
-Note that this propagation does not persist when redeclaring or
-reassigning the record.
-This is because the equation fit method uses reference values that
-must match the ones used to compute the performance curve coefficients.
-</p>
-<p>
-Also note that placeholders values are assigned to the performance curves,
-the reference source temperature and the input power in
-cooling mode to avoid assigning these parameters in case of non-reversible
-heat pumps.
-These values are unrealistic and must be overwritten for reversible heat pumps, which
-is always the case when redeclaring or
-reassigning the performance record <code>per</code>.
-Models that use this record will issue a warning if these placeholders values
-are not overwritten in case of reversible heat pumps.
+Also note that placeholders values are assigned to some parameters
+of the subrecord <code>perCoo</code> which is used to specify
+the performance data in cooling mode.
+These values should be overwritten for reversible heat pumps.
+This overwriting happens automatically when redeclaring or reassigning 
+the performance record <code>perCoo</code>.
 </p>
 </html>"));
 end HeatPump;

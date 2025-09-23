@@ -3,8 +3,8 @@ PartialChiller
 PartialCoil
 PartialFan
 PartialHeatPump
-PartialHeatPumpEquationFit
 PartialPump
 PartialPumpMultiple
 PartialPumpSingle
 PartialSensor
+PartialHeatPumpSHC

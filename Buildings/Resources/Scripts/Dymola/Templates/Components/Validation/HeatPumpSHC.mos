@@ -1,0 +1,108 @@
+simulateModel("Buildings.Templates.Components.Validation.HeatPumpSHC",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=86400,
+    method="CVode",
+    resultFile="HeatPumpSHC");
+createPlot(
+    id=1,
+    position={5, 5, 400, 600},
+    subPlot=1,
+    y={"hpSHC.hp.on", "hpSHC.hp.mode"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"THwSup.T", "hpSHC.hp.THwSet", "THwRet.T", "THwRetPla.T"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"TChwSup.T", "hpSHC.hp.TChwSet", "TChwRet.T", "TChwRetPla.T"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={415, 5, 400, 400},
+    y={"hpSHC.hp.QCon_flow", "hpSHC.hp.QHea_flow_nominal", "hpSHC.hp.QHeaShc_flow_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"hpSHC.hp.QEva_flow", "hpSHC.hp.QCoo_flow_nominal", "hpSHC.hp.QCooShc_flow_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=3,
+    position={825, 5, 400, 250},
+    subPlot=1,
+    y={"hpSHC.hp.refCyc.sigBus.nUniCoo", "hpSHC.hp.refCyc.sigBus.nUniHea", "hpSHC.hp.refCyc.sigBus.nUniShc"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    position={50, 50, 400, 400},
+    subPlot=1,
+    y={"ctlValHwByp.u_m", "ctlValHwByp.u_s", "ctlValChwByp.u_m", "ctlValChwByp.u_s"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"ctlValHwByp.y", "ctlValChwByp.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    position={460, 50, 400, 400},
+    subPlot=1,
+    y={"ctlPumHwPri.dpRem[1]", "ctlPumHwPri.dpRem[1]", "ctlPumChwPri.dpRem[1]", "ctlPumChwPri.dpRem[1]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"ctlPumHwPri.y", "ctlPumChwPri.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=6,
+    position={870, 50, 400, 400},
+    subPlot=1,
+    y={"mHw_flow.m_flow", "hpSHC.hp.refCyc.sigBus.mConMea_flow", "hpSHC.hp.mCon_flow_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=6,
+    subPlot=2,
+    y={"mChw_flow.m_flow", "hpSHC.hp.refCyc.sigBus.mEvaMea_flow", "hpSHC.hp.mEva_flow_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);

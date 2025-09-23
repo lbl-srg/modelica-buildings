@@ -1,5 +1,5 @@
-within Buildings.Templates.Components.Chillers.Validation;
-model Compression
+within Buildings.Templates.Components.Validation;
+model ChillersCompression
   "Validation model for compression chiller component"
   extends Modelica.Icons.Example;
   replaceable package MediumLiq=Buildings.Media.Water
@@ -249,7 +249,7 @@ equation
         extent={{-140,-140},{140,140}})),
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Components/Chillers/Validation/Compression.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Components/Validation/ChillersCompression.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
@@ -292,4 +292,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Compression;
+end ChillersCompression;
