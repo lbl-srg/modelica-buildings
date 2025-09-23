@@ -1,38 +1,52 @@
 within Buildings.Templates.Components.BaseClasses;
 partial model PartialHeatPumpTableData2DLoadDepSHC
-  "Interface for simultaneous heating and cooling (SHC) air-to-water heat pump using load-dependent 2D table data"
+  "Interface for simultaneous heating and cooling (SHC) air-to-water heat pump
+  using load-dependent 2D table data"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPump;
 
-  Controls.StatusEmulator y1_actual
+  parameter Integer nUni=1
+    "Number of modules";
+
+  Buildings.Templates.Components.Controls.StatusEmulator y1_actual
     "Compute heat pump status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,120})));
-  Fluid.Sensors.MassFlowRate mChiHeaWat_flow(redeclare final package Medium =
-        MediumHeaWat) "CHW/HW mass flow rate"
+
+  Buildings.Fluid.Sensors.MassFlowRate mChiHeaWat_flow(
+    redeclare final package Medium = MediumHeaWat)
+    "CHW/HW mass flow rate"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Fluid.Sensors.TemperatureTwoPort TChiHeaWatEnt(redeclare final package Medium =
-        MediumHeaWat, final m_flow_nominal=max(mChiWat_flow_nominal,
-        mHeaWat_flow_nominal)) "CHW/HW entering temperature"
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort TChiHeaWatEnt(
+    redeclare final package Medium=MediumHeaWat,
+    final m_flow_nominal=max(mChiWat_flow_nominal,mHeaWat_flow_nominal))
+    "CHW/HW entering temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Fluid.Sensors.TemperatureTwoPort TChiHeaWatLvg(redeclare final package Medium =
-        MediumHeaWat, final m_flow_nominal=max(mChiWat_flow_nominal,
-        mHeaWat_flow_nominal)) "CHW/HW leaving temperature"
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort TChiHeaWatLvg(
+    redeclare final package Medium=MediumHeaWat,
+    final m_flow_nominal=max(mChiWat_flow_nominal,mHeaWat_flow_nominal))
+    "CHW/HW leaving temperature"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Fluid.Sensors.TemperatureTwoPort TSouEnt(
-    redeclare final package Medium = MediumSou, final m_flow_nominal=
-        mSouHea_flow_nominal) "Source fluid entering temperature"
-    annotation (Placement(transformation(extent={{40,-30},{20,-10}})));
-  Fluid.Sensors.TemperatureTwoPort TSouLvg(
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort TSouEnt(
     redeclare final package Medium = MediumSou,
-    final m_flow_nominal=
-        mSouHea_flow_nominal) "Source fluid leaving temperature"
+    final m_flow_nominal=mSouHea_flow_nominal)
+    "Source fluid entering temperature"
+    annotation (Placement(transformation(extent={{40,-30},{20,-10}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort TSouLvg(
+    redeclare final package Medium = MediumSou,
+    final m_flow_nominal=mSouHea_flow_nominal)
+    "Source fluid leaving temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-20})));
-  Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC hp(
+
+  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC hp(
     redeclare final package MediumCon = MediumHeaWat,
     redeclare final package MediumEva = MediumSou,
     dTEva_nominal=QCoo_flow_nominal/dat.cpChiWat_default/mChiWat_flow_nominal,
@@ -61,7 +75,7 @@ partial model PartialHeatPumpTableData2DLoadDepSHC
     TEvaCoo_nominal=TSouCoo_nominal)
     "Heat pump"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  parameter Integer nUni=1 "Number of modules";
+
 equation
   connect(port_a, mChiHeaWat_flow.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
@@ -125,22 +139,28 @@ equation
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>
-<p>This is the base class for SHC air-to-water heat pump model where the capacity and input power are computed by interpolating manufacturer data along the condenser entering or leaving temperature, the evaporator entering or leaving temperature and the part load ratio. </p>
-<p>This model is a wrapper for <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC\">Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC</a>, which the user may refer to for the modeling assumptions. </p>
+  <p>This is the base class for SHC air-to-water heat pump model where the capacity
+  and input power are computed by interpolating manufacturer data along the condenser
+  entering or leaving temperature, the evaporator entering or leaving temperature
+  and the part load ratio. </p>
+  <p>This model is a wrapper for
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC\">
+  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC</a>, which the
+  user may refer to for the modeling assumptions. </p>
 <h4>Control points</h4>
 <p>The following input and output points are available. </p>
 <ul>
-<li>Heat pump on/off command signal: <span style=\"font-family: Courier New;\">y1</span>, DO signal, with a dimensionality of zero </li>
-<li>Heat pump chilled water supply temperature setpoint: <span style=\"font-family: Courier New;\">TChwSet</span>, AO signal, with a dimensionality of zero</li>
-<li>Heat pump hot water supply temperature setpoint: <span style=\"font-family: Courier New;\">THwSet</span>, AO signal, with a dimensionality of zero</li>
-<li>Heat pump status: <span style=\"font-family: Courier New;\">y1_actual</span>, DI signal, with a dimensionality of zero </li>
-<li>Number of modules in heating mode: <span style=\"font-family: Courier New;\">nUniHea</span>, AI signal, with a dimensionality of zero </li>
-<li>Number of modules in cooling mode: <span style=\"font-family: Courier New;\">nUniCoo</span>, AI signal, with a dimensionality of zero </li>
-<li>Number of modules in SHC mode: <span style=\"font-family: Courier New;\">nUniShc</span>, AI signal, with a dimensionality of zero </li>
-<li>CHW isolation valve or primary pump signal: <span style=\"font-family: Courier New;\">y1ChwValIsoPumPri</span>, DI signal, with a dimensionality of nUni </li>
-<li>HW isolation valve or primary pump signal: <span style=\"font-family: Courier New;\">y1HwValIsoPumPri</span>, DI signal, with a dimensionality of nUni </li>
-<li>Equivalent CHW isolation valve signal: <span style=\"font-family: Courier New;\">yValChwIso</span>, AI signal, with a dimensionality of zero </li>
-<li>Equivalent HW isolation valve signal: <span style=\"font-family: Courier New;\">yValHwIso</span>, AI signal, with a dimensionality of zero </li>
+<li>Heat pump on/off command signal: <code>y1</code>, DO signal, with a dimensionality of zero </li>
+<li>Heat pump chilled water supply temperature setpoint: <code>TChwSet</code>, AO signal, with a dimensionality of zero</li>
+<li>Heat pump hot water supply temperature setpoint: <code>THwSet</code>, AO signal, with a dimensionality of zero</li>
+<li>Heat pump status: <code>y1_actual</code>, DI signal, with a dimensionality of zero </li>
+<li>Number of modules in heating mode: <code>nUniHea</code>, AI signal, with a dimensionality of zero </li>
+<li>Number of modules in cooling mode: <code>nUniCoo</code>, AI signal, with a dimensionality of zero </li>
+<li>Number of modules in SHC mode: <code>nUniShc</code>, AI signal, with a dimensionality of zero </li>
+<li>CHW isolation valve or primary pump signal: <code>y1ChwValIsoPumPri</code>, DI signal, with a dimensionality of nUni </li>
+<li>HW isolation valve or primary pump signal: <code>y1HwValIsoPumPri</code>, DI signal, with a dimensionality of nUni </li>
+<li>Equivalent CHW isolation valve signal: <code>yValChwIso</code>, AI signal, with a dimensionality of zero </li>
+<li>Equivalent HW isolation valve signal: <code>yValHwIso</code>, AI signal, with a dimensionality of zero </li>
 
 </ul>
 </html>", revisions="<html>

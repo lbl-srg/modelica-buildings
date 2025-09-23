@@ -57,7 +57,7 @@ model HeatPumpSHC
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
-  parameter Data.HeatPump datHpSHC(
+  parameter Buildings.Templates.Components.Data.HeatPump datHpSHC(
     final cpHeaWat_default=hpSHC.cpHeaWat_default,
     final cpSou_default=hpSHC.cpSou_default,
     final typ=hpSHC.typ,

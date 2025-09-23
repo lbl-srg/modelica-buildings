@@ -12,7 +12,8 @@ equation
       info="<html>
 <p>
 This is a model for a simultaneous heating and cooling (SHC) air-to-water heat pump 
-where the capacity and power are interpolated from manufacturer data along the source and sink temperature and the part load ratio.
+where the capacity and power are interpolated from manufacturer data along the
+source and sink temperature and the part load ratio.
 </p>
 <p>
 This model is a wrapper for
