@@ -64,14 +64,38 @@ protected
   Modelica.Units.SI.Area A "Current opening area";
 equation
   // Air flow rate due to static pressure difference
-  VABpOpeClo_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
-    C=CVal,
+
+  VABpOpeClo_flow[1] = if Modelica.Math.isEqual(mOpe, 0.5, 1E-10)
+    then
+      Buildings.Airflow.Multizone.BaseClasses.powerLaw05(
+        C=CVal[1],
+        dp=port_a1.p-port_a2.p,
+        a=a[1],
+        b=b[1],
+        c=c[1],
+        d=d[1],
+        dp_turbulent=dp_turbulent,
+        sqrt_dp_turbulent=sqrt_dp_turbulent)
+    else
+      Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
+        C=CVal[1],
+        dp=port_a1.p-port_a2.p,
+        m=mOpe,
+        a=a[1],
+        b=b[1],
+        c=c[1],
+        d=d[1],
+        dp_turbulent=dp_turbulent);
+  // mClo is hardly ever 0.5, as the default is 0.65 because the flow in the crack is
+  // not fully turbulent. Hence, we don't try to optimize this call
+  VABpOpeClo_flow[2] = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
+    C=CVal[2],
     dp=port_a1.p-port_a2.p,
-    m={mOpe, mClo},
-    a=a,
-    b=b,
-    c=c,
-    d=d,
+    m=mClo,
+    a=a[2],
+    b=b[2],
+    c=c[2],
+    d=d[2],
     dp_turbulent=dp_turbulent);
   VABp_flow = y*VABpOpeClo_flow[1] + (1-y)*VABpOpeClo_flow[2];
   A = y*AOpe + (1-y)*AClo;
@@ -172,6 +196,12 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Revised implementation to improve computing efficiency if flow exponent is <i>0.5</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 June 11, 2021, by Michael Wetter:<br/>
 Removed duplicate declaration of <code>VABp_flow</code>.<br/>
