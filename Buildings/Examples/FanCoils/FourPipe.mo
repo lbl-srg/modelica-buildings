@@ -591,12 +591,6 @@ equation
           {68,151.25},{126.25,151.25}},   color={0,127,255}));
   connect(fanCoiUni.port_air_a, zon1.ports[2]) annotation (Line(points={{68,164},
           {92,164},{92,153.75},{126.25,153.75}}, color={0,127,255}));
-  connect(zon1.surf_conBou, zon2.surf_conBou) annotation (Line(points={{152.5,145},
-          {152.5,132},{176,132},{176,10},{152.5,10},{152.5,25}},
-                                                             color={191,0,0}));
-  connect(zon1.surf_conBou, zon3.surf_conBou) annotation (Line(points={{152.5,145},
-          {152.5,132},{176,132},{176,-88},{152.5,-88},{152.5,-75}}, color={191,0,
-          0}));
   connect(gai.y, gaiInt1.u) annotation (Line(points={{-179,-220},{-160,-220},{
           -160,-180},{-224,-180},{-224,240},{-142,240}},
                        color={0,0,127}));
@@ -628,8 +622,8 @@ This model consists of
 </p>
 <ul>
 <li>
-3 identical thermal zone models with air flow
-through building leakage.
+3 identical thermal zone models with time-varying internal heat gains and interaction
+with ambient air through building envelope.
 </li>
 <li>
 3 fan-coil units serving each zone.
@@ -667,8 +661,15 @@ See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FourPipe\">
 Buildings.Fluid.ZoneEquipment.FourPipe</a> and 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a
-description of the fan coil unit and the controller.
+description of the fan coil unit and the controller, respectively.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 23, 2025, by Cerrina Mouchref, Karthik Devaprasad and Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/FanCoils/FourPipe.mos"
         "Simulate and plot"),
