@@ -665,7 +665,7 @@ to avoid unecessary heating and cooling use and avoid extreme temperature fluctu
 </p>
 <p>
 See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FourPipe\">
-Buildings.Fluid.ZoneEquipment.FourPipe</a> and 
+Buildings.Fluid.ZoneEquipment.FourPipe</a> and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a
 description of the fan coil unit and the controller, respectively.
@@ -673,7 +673,7 @@ description of the fan coil unit and the controller, respectively.
 <p>
 The thermal zone is a south-facing thermal zone of the medium office building that is also used
 in
-<a href=\\\"modelica://Buildings.Examples.VAVReheat\\\">Buildings.Examples.VAVReheat</a>,
+<a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>,
 but here only this one room is modeled, and instanciated three times for the three different fan
 coil units.
 The external facade is <i>49.91</i> meters long, the north-facing interior wall is
