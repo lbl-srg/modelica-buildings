@@ -622,7 +622,7 @@ This model consists of
 </p>
 <ul>
 <li>
-3 identical thermal zone models with time-varying internal gains and interaction
+3 identical thermal zone models with time-varying internal heat gains and interaction
 with ambient air through building envelope.
 </li>
 <li>
@@ -661,8 +661,15 @@ See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FourPipe\">
 Buildings.Fluid.ZoneEquipment.FourPipe</a> and 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a
-description of the fan coil unit and the controller.
+description of the fan coil unit and the controller, respectively.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 23, 2025, by Cerrina Mouchref, Karthik Devaprasad and Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/FanCoils/FourPipe.mos"
         "Simulate and plot"),
