@@ -622,8 +622,8 @@ This model consists of
 </p>
 <ul>
 <li>
-3 identical thermal zone models with air flow
-through building leakage.
+3 identical thermal zone models with time-varying internal gains and interaction
+with ambient air through building envelope.
 </li>
 <li>
 3 fan-coil units serving each zone.
