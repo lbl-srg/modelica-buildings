@@ -26,7 +26,7 @@ def doStep(dblInp, state):
     tim = dblInp[-1]
 
     # Find the depth of each layer
-    meshFile = os.path.join(py_dir, 'ToughFiles', 'MESH')
+    meshFile = os.path.join(py_dir, 'TOUGH', 'MESH')
     toughLayers = find_layer_depth(meshFile)
 
     add_grid_boundary(toughLayers)
@@ -40,7 +40,7 @@ def doStep(dblInp, state):
         empty_folder(tou_tmp)
         # Copy files in the folder 'TougFiles', which includes the initial temperature of
         # simulation domain, template files for TOUGH simulation, and utility programs
-        copy_files(os.path.join(py_dir, 'ToughFiles'), tou_tmp)
+        copy_files(os.path.join(py_dir, 'TOUGH'), tou_tmp)
         # Initialize the state
         T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
         state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start}
