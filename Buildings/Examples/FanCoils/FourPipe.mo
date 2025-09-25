@@ -9,25 +9,27 @@ model FourPipe
   replaceable package MediumW = Buildings.Media.Water
     "Medium for hot-water and chilled-water";
 
+  parameter Modelica.Units.SI.Length wSou=49.91
+    "Length of south facing exterior wall";
+  parameter Modelica.Units.SI.Length wNor=40.76
+    "Lenght of north facing interior wall";
+  parameter Modelica.Units.SI.Length wSid=6.47
+    "Length of each of the two side walls";
+  parameter Modelica.Units.SI.Length dRoo = sqrt(wSid^2-((wSou-wNor)/2)^2)
+    "Room depth";
   parameter Modelica.Units.SI.Length hRoo=2.74
     "Room height";
 
-  parameter Modelica.Units.SI.Area AFlo=568.77/hRoo
-    "Area of each zone";
+  parameter Modelica.Units.SI.Area AFlo=(wSou+wNor)/2 * dRoo
+    "Floor area";
 
   parameter Modelica.Units.SI.Volume VRoo=AFlo*hRoo
-    "Volume of each zone";
-
-  parameter Modelica.Units.SI.Length wExt=49.91
-    "Exterior wall width of each zone";
-
-  parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
-    "Convective heat transfer model for room-facing surfaces of opaque constructions";
+    "Room volume";
 
   parameter Real winWalRat(
     min=0.01,
     max=0.99) = 0.33
-    "Window to wall ratio for exterior walls";
+    "Window to wall ratio for exterior wall";
 
   parameter Modelica.Units.SI.Length hWin=1.5
     "Height of windows";
@@ -247,8 +249,17 @@ model FourPipe
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
 
   Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
-    table=[0,0.05; 8,0.05; 9,0.9; 12,0.9; 12,0.8; 13,0.8; 13,1; 17,1; 19,0.1; 24,
-        0.05],
+    table=[
+       0,0.05;
+       8,0.05;
+       9,0.9;
+      12,0.9;
+      12,0.8;
+      13,0.8;
+      13,1;
+      17,1;
+      19,0.1;
+      24,0.05],
     timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
@@ -313,25 +324,21 @@ model FourPipe
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={wExt*hRoo},
+      A={wSou*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*wExt*hRoo},
-      each hWin=hWin,
+      wWin={winWalRat*wSou*hRoo/hWin},
+      hWin={hWin},
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
       azi={Buildings.Types.Azimuth.N}),
-    nConPar=2,
+    nConPar=3,
     datConPar(
-      layers={conFlo,conFur},
-      A={AFlo,414.68},
-      til={Buildings.Types.Tilt.Floor,Buildings.Types.Tilt.Wall}),
-    nConBou=3,
-    datConBou(
-      layers={conIntWal,conIntWal,conIntWal},
-      A={6.47,40.76,6.47}*hRoo,
-      til={Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall}),
+      layers={conFlo, conIntWal, conFur},
+      A={AFlo, (wSid+wNor+wSid)/2 * hRoo, 414.68},
+      til={Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall}),
+    nConBou=0,
     nSurBou=0,
-    intConMod=intConMod,
+    intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Thermal zone model";
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant limLev(
@@ -658,10 +665,20 @@ to avoid unecessary heating and cooling use and avoid extreme temperature fluctu
 </p>
 <p>
 See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FourPipe\">
-Buildings.Fluid.ZoneEquipment.FourPipe</a> and 
+Buildings.Fluid.ZoneEquipment.FourPipe</a> and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a
 description of the fan coil unit and the controller, respectively.
+</p>
+<p>
+The thermal zone is a south-facing thermal zone of the medium office building that is also used
+in
+<a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>,
+but here only this one room is modeled, and instanciated three times for the three different fan
+coil units.
+The external facade is <i>49.91</i> meters long, the north-facing interior wall is
+<i>40.76</i> meters, and the room width is <i>4.58</i> meters.
+The room height is <i>2.74</i> meters.
 </p>
 </html>", revisions="<html>
 <ul>
