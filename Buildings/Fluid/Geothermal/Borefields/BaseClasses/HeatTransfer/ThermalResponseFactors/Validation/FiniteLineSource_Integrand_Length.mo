@@ -3,6 +3,7 @@ model FiniteLineSource_Integrand_Length
   "Test case for finite line source integrand function"
   extends Modelica.Icons.Example;
 
+  constant Real small = 1E-60 "Small number used to bound calculation of log10";
   parameter Real dis_over_len = 0.0005 "Radial distance between borehole axes";
   parameter Modelica.Units.SI.Height len150=150.0 "Length of emitting borehole";
   parameter Modelica.Units.SI.Height len75=75.0 "Length of emitting borehole";
@@ -17,10 +18,9 @@ model FiniteLineSource_Integrand_Length
   Real logy25 "Logarithm of finite line source integrand";
   Real logy5 "Logarithm of finite line source integrand";
   Real logy1 "Logarithm of finite line source integrand";
-
 equation
   u = time;
-  logy150 = log10(max(Modelica.Constants.small,
+  logy150 = log10(max(small,
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
       u=u,
       dis=dis_over_len*len150,
@@ -28,7 +28,7 @@ equation
       burDep1=burDep,
       len2=len150,
       burDep2=burDep)));
-  logy75 = log10(max(Modelica.Constants.small,
+  logy75 = log10(max(small,
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
       u=u,
       dis=dis_over_len*len75,
@@ -36,7 +36,7 @@ equation
       burDep1=burDep,
       len2=len75,
       burDep2=burDep)));
-  logy25 = log10(max(Modelica.Constants.small,
+  logy25 = log10(max(small,
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
       u=u,
       dis=dis_over_len*len25,
@@ -44,7 +44,7 @@ equation
       burDep1=burDep,
       len2=len25,
       burDep2=burDep)));
-  logy5 = log10(max(Modelica.Constants.small,
+  logy5 = log10(max(small,
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
       u=u,
       dis=dis_over_len*len5,
@@ -52,7 +52,7 @@ equation
       burDep1=burDep,
       len2=len5,
       burDep2=burDep)));
-  logy1 = log10(max(Modelica.Constants.small,
+  logy1 = log10(max(small,
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
       u=u,
       dis=dis_over_len*len1,
@@ -73,6 +73,12 @@ finite line source integrand function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2025, by Michael Wetter:<br/>
+Changed value of small number that bounds log10.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2051\">IBPSA, #2051</a>.
+</li>
 <li>
 March 15, 2019, by Massimo Cimmino:<br/>
 First implementation.

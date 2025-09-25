@@ -77,6 +77,9 @@ model PlugFlowPipeDiscretized
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean disableComputeFlowResistance=false
+    "=false to disable computation of flow resistance"
+    annotation (Dialog(tab="Advanced"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPorts[nSeg]
     "Heat transfer to or from surrounding for each pipe segment (positive if pipe is colder than surrounding)"
@@ -108,6 +111,7 @@ model PlugFlowPipeDiscretized
     final v_nominal=v_nominal,
     final allowFlowReversal=allowFlowReversal,
     final show_T=false,
+    final disableComputeFlowResistance=disableComputeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
     dp(nominal= if rho_default > 500 then totLen * fac * 200 else totLen * fac * 2))
@@ -250,6 +254,11 @@ equation
           thickness=0.5)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 29, 2025, by Fabian Wuelhorst:<br/>
+Add option to <code>disableComputeFlowResistance</code>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">#2035</a>.
+</li>
 <li>
 May 17, 2021, by Baptiste Ravache:<br/>
 First implementation.

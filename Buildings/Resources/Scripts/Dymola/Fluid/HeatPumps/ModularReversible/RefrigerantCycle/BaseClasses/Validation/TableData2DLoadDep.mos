@@ -1,0 +1,76 @@
+simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDep",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=100,
+    method="CVode",
+    resultFile="TableData2DLoadDepRefCyc");
+createPlot(
+    id=1,
+    position={5, 5, 300, 400},
+    subPlot=1,
+    y={"chiSupLvg.TSet", "chiSupLvg.TLoaEnt", "chiSupLvg.TLoaLvg"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"chiSupLvg.Q_flow", "chiSupLvg.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={315, 5, 300, 400},
+    y={"chiRetEnt.TSet", "chiRetEnt.TLoaEnt", "chiRetEnt.TLoaLvg"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"chiRetEnt.Q_flow", "chiRetEnt.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=1,
+    position={625, 5, 300, 400},
+    y={"chiHeaSupLvg.TSet", "chiHeaSupLvg.TLoaEnt", "chiHeaSupLvg.TLoaLvg"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"chiHeaSupLvg.Q_flow", "chiHeaSupLvg.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+plotExpression(
+  apply(TableData2DLoadDepRefCyc[end].chiHeaSupLvg.P - TableData2DLoadDepRefCyc[end].chiHeaSupLvg.Q_flow),
+  false,
+  "chiHeaSupLvg.QHea_flow",
+  3);
+plotExpression(
+    apply(TableData2DLoadDepRefCyc[end].chiHeaSupLvg.P_nominal - TableData2DLoadDepRefCyc[end].chiHeaSupLvg.Q_flow_nominal),
+    false,
+    "chiHeaSupLvg.QHea_flow_nominal",
+    3);
+createPlot(
+    id=4,
+    subPlot=1,
+    position={935, 5, 300, 400},
+    y={"hpSupLvg.TSet", "hpSupLvg.TLoaEnt", "hpSupLvg.TLoaLvg"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"hpSupLvg.Q_flow", "hpSupLvg.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
