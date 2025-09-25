@@ -3,46 +3,45 @@ block FanSpeed
   "Validation model for fan speed subsequence"
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe(
-    final have_cooCoi=true,
-    final have_heaCoi=true)
+    have_cooCoi=true,
+    have_heaCoi=true)
     "Instance demonstrating variation of heating loop signal"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe2(
-    final have_cooCoi=true,
-    final have_heaCoi=true)
+    have_cooCoi=true,
+    have_heaCoi=true)
     "Instance demonstrating variation of operating mode"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe1(
-    final have_cooCoi=true,
-    final have_heaCoi=true)
+    have_cooCoi=true,
+    have_heaCoi=true)
     "Instance demonstrating variation of cooling loop signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe3(
-    final have_cooCoi=true,
-    final have_heaCoi=false)
+    have_cooCoi=true,
+    have_heaCoi=false)
     "Instance demonstrating variation of cooling loop signal with no heating coil"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe4(
-    final have_cooCoi=false,
-    final have_heaCoi=true)
+    have_cooCoi=false,
+    have_heaCoi=true)
     "Instance demonstrating variation of heating loop signal with no cooling coil"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe5(
-    final have_cooCoi=false,
-    final have_heaCoi=false)
+    have_cooCoi=false,
+    have_heaCoi=false)
     "Instance demonstrating variation of operating mode with no heating and cooling coils"
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
 
-protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
-    final height=6,
-    final duration=70,
-    final offset=1)
+    height=6,
+    duration=70,
+    offset=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
 
@@ -51,12 +50,12 @@ protected
     annotation (Placement(transformation(extent={{-70,160},{-50,180}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final period=100)
+    period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
-    final freqHz=1/50)
+    freqHz=1/50)
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 
@@ -65,12 +64,12 @@ protected
     annotation (Placement(transformation(extent={{-70,100},{-50,120}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    final k=0)
+    k=0)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
-    final k=1)
+    k=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
 
@@ -79,12 +78,12 @@ protected
     annotation (Placement(transformation(extent={{50,160},{70,180}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final period=100)
+    period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{20,130},{40,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
-    final k=0)
+    k=0)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
@@ -93,12 +92,12 @@ protected
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-    final period=100)
+    period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2(
-    final freqHz=1/50)
+    freqHz=1/50)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
@@ -107,17 +106,17 @@ protected
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
-    final k=0)
+    k=0)
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
-    final k=1)
+    k=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5(
-    final k=0.75)
+    k=0.75)
     "Heating loop signal"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
@@ -126,12 +125,12 @@ protected
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
-    final period=100)
+    period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
-    final freqHz=1/50)
+    freqHz=1/50)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
@@ -140,7 +139,7 @@ protected
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con7(
-    final k=1)
+    k=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
@@ -149,12 +148,12 @@ protected
     annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
-    final period=100)
+    period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin3(
-    final freqHz=1/50)
+    freqHz=1/50)
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 
@@ -163,14 +162,14 @@ protected
     annotation (Placement(transformation(extent={{-70,-160},{-50,-140}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con8(
-    final k=1)
+    k=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
-    final height=6,
-    final duration=70,
-    final offset=1)
+    height=6,
+    duration=70,
+    offset=1)
     "Operating mode signal"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
@@ -179,7 +178,7 @@ protected
     annotation (Placement(transformation(extent={{50,-100},{70,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
-    final period=100)
+    period=100)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 
