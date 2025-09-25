@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
-block StageChangeCommand
-  "Generate stage change command"
+block StageChangeCommand "Generate stage change command"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
@@ -17,17 +16,13 @@ block StageChangeCommand
     unit="1")=0.9
     "Staging part load ratio"
     annotation (Dialog(enable=not have_inpPlrSta));
-  final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
+  final Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix";
-  parameter Real staEqu[:,:](
-    each final max=1,
-    each final min=0,
-    each final unit="1")
-    "Staging matrix – Equipment required for each stage";
-  final parameter Integer nSta=size(staEqu, 1)
+
+  parameter Integer nSta
     "Number of stages"
     annotation (Evaluate=true);
-  final parameter Integer nEqu=size(staEqu, 2)
+  parameter Integer nEqu
     "Number of equipment"
     annotation (Evaluate=true);
   parameter Real capEqu[nEqu](
@@ -60,8 +55,8 @@ block StageChangeCommand
     annotation(Dialog(enable=have_pumSec));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaSta[nSta]
     "Stage available signal"
-    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1StaPro
     "Staging process in progress"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
@@ -75,6 +70,15 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   // We allow the stage index to be zero, e.g., when the plant is disabled.
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
+    each final max=1,
+    each final min=0,
+    each final unit="1")
+    "Staging matrix – Equipment required for each stage"
+    annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
     final min=0,
     final max=nSta)
@@ -104,8 +108,7 @@ block StageChangeCommand
     "Stage down command"
     annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
-    final k=traStaEqu)
+  Modelica.Blocks.Sources.RealExpression traMatStaEqu[nEqu, nSta](y=traStaEqu)
     "Transpose of staging matrix"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor reqEquSta[nEqu](
@@ -245,7 +248,7 @@ equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-88,200},{0,200},{0,208}},color={255,127,0}));
   connect(traMatStaEqu.y, reqEquSta.u)
-    annotation (Line(points={{-58,220},{-12,220}},color={0,0,127}));
+    annotation (Line(points={{-59,220},{-12,220}},color={0,0,127}));
   connect(reqEquSta.y, capEquSta.u1)
     annotation (Line(points={{12,220},{20,220},{20,226},{28,226}},color={0,0,127}));
   connect(capEquPar.y, capEquSta.u2)
@@ -263,7 +266,7 @@ equation
   connect(idxStaLesAct.y, idxStaLesActAva.u1)
     annotation (Line(points={{-128,100},{-120,100},{-120,80},{-112,80}},color={255,0,255}));
   connect(u1AvaSta, idxStaLesActAva.u2)
-    annotation (Line(points={{-220,60},{-120,60},{-120,72},{-112,72}},color={255,0,255}));
+    annotation (Line(points={{-220,80},{-122,80},{-122,72},{-112,72}},color={255,0,255}));
   connect(idxStaLesActAva.y, idxLasTru.u1)
     annotation (Line(points={{-88,80},{-82,80}},color={255,0,255}));
   connect(idxLasTru.y, maxInt1.u2)
@@ -279,7 +282,7 @@ equation
   connect(intScaRep2.y, reqEquStaLow.index)
     annotation (Line(points={{32,120},{40,120},{40,140},{0,140},{0,168}},color={255,127,0}));
   connect(traMatStaEqu.y, reqEquStaLow.u)
-    annotation (Line(points={{-58,220},{-20,220},{-20,180},{-12,180}},color={0,0,127}));
+    annotation (Line(points={{-59,220},{-20,220},{-20,180},{-12,180}},color={0,0,127}));
   connect(reqEquStaLow.y, capEquStaLow.u2)
     annotation (Line(points={{12,180},{16,180},{16,174},{28,174}},color={0,0,127}));
   connect(capEquPar.y, capEquStaLow.u1)
