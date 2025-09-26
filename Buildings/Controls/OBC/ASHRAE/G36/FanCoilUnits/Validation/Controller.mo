@@ -336,15 +336,18 @@ Documentation(info="<html>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a>.
-<br>
+</p>
+<p>
 <code>conFCU</code> represents an instance of the controller with heating mode 
 operation, with the open-loop signals for measured zone temperature and measured 
 supply air temperature increasing with time.
-<br>
+</p>
+<p>
 <code>conFCU1</code> represents an instance of the controller with cooling mode 
 operation, with the open-loop signals for measured zone temperature and measured 
 supply air temperature decreasing with time.
-<br>
+</p>
+<p>
 <code>conFCU2</code> and <code>conFCU3</code> represent instances of the controller 
 with cooling mode operation, with different parameter settings for the window and occupancy sensors.
 </p>

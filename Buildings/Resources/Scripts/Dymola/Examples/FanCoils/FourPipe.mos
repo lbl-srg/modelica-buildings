@@ -1,20 +1,20 @@
 simulateModel("Buildings.Examples.FanCoils.FourPipe", stopTime=86400, method="CVode", tolerance=1e-06, resultFile="fanCoilUnit");
 removePlots(false);
 
-createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU.u1Occ"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU.TZonHeaSet", "conFCU.TZonCooSet", "conFCU.TZon"}, range={0.0, 88000.0, 18.0, 26.0}, grid=true, subPlot=102, colors={{162,29,33}, {244,125,35}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
-createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU.yCooCoi"}, range={0.0, 88000.0, -0.2, 0.6}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU.TSup", "conFCU.TSupSet"}, range={0.0, 88000.0, 10.0, 50.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
-createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU.yFan"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU1.u1Occ"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU1.TZonHeaSet", "conFCU1.TZonCooSet", "conFCU1.TZon"}, range={0.0, 88000.0, 18.0, 26.0}, grid=true, subPlot=102, colors={{162,29,33}, {244,125,35}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU1.yCooCoi"}, range={0.0, 88000.0, -0.2, 0.6}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU1.TSup", "conFCU1.TSupSet"}, range={0.0, 88000.0, 10.0, 50.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={0, 0, 1581, 962}, y={"conFCU1.yFan"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
 
-createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU1.u1Occ"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU1.TZonHeaSet", "conFCU1.TZonCooSet", "conFCU1.TZon"}, range={0.0, 88000.0, 18.0, 26.0}, grid=true, subPlot=102, colors={{162,29,33}, {244,125,35}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
-createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU1.yCooCoi", "conFCU1.yHeaCoi"}, range={0.0, 88000.0, -0.2, 0.6}, grid=true, subPlot=105, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
-createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU1.TSup", "conFCU1.TSupSet"}, range={0.0, 88000.0, 10.0, 50.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
-createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU1.yFan"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU2.u1Occ"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU2.TZonHeaSet", "conFCU2.TZonCooSet", "conFCU2.TZon"}, range={0.0, 88000.0, 18.0, 26.0}, grid=true, subPlot=102, colors={{162,29,33}, {244,125,35}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
+createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU2.yCooCoi", "conFCU2.yHeaCoi"}, range={0.0, 88000.0, -0.2, 0.6}, grid=true, subPlot=105, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU2.TSup", "conFCU2.TSupSet"}, range={0.0, 88000.0, 10.0, 50.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=2, position={0, 0, 1581, 962}, y={"conFCU2.yFan"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
 
-createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU2.u1Occ"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU2.TZonHeaSet", "conFCU2.TZonCooSet", "conFCU2.TZon"}, range={0.0, 88000.0, 18.0, 26.0}, grid=true, subPlot=102, colors={{162,29,33}, {244,125,35}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
-createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU2.yCooCoi", "conFCU2.yHeaCoi"}, range={0.0, 88000.0, -0.2, 0.6}, grid=true, subPlot=105, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
-createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU2.TSup", "conFCU2.TSupSet"}, range={0.0, 88000.0, 10.0, 50.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
-createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU2.yFan"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU3.u1Occ"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU3.TZonHeaSet", "conFCU3.TZonCooSet", "conFCU3.TZon"}, range={0.0, 88000.0, 18.0, 26.0}, grid=true, subPlot=102, colors={{162,29,33}, {244,125,35}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
+createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU3.yCooCoi", "conFCU3.yHeaCoi"}, range={0.0, 88000.0, -0.2, 0.6}, grid=true, subPlot=105, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU3.TSup", "conFCU3.TSupSet"}, range={0.0, 88000.0, 10.0, 50.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=3, position={0, 0, 1581, 962}, y={"conFCU3.yFan"}, range={0.0, 88000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});

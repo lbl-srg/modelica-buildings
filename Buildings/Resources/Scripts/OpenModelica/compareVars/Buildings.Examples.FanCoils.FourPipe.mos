@@ -1,19 +1,10 @@
 compareVars :=
   {
-    "conFCU.u1Occ",
-    "conFCU.TZonHeaSet",
-    "conFCU.TZonCooSet",
-    "conFCU.TZon",
-    "conFCU.yCooCoi",
-    "conFCU.TSup",
-    "conFCU.TSupSet",
-    "conFCU.yFan",
     "conFCU1.u1Occ",
     "conFCU1.TZonHeaSet",
     "conFCU1.TZonCooSet",
     "conFCU1.TZon",
     "conFCU1.yCooCoi",
-    "conFCU1.yHeaCoi",
     "conFCU1.TSup",
     "conFCU1.TSupSet",
     "conFCU1.yFan",
@@ -25,5 +16,14 @@ compareVars :=
     "conFCU2.yHeaCoi",
     "conFCU2.TSup",
     "conFCU2.TSupSet",
-    "conFCU2.yFan"
+    "conFCU2.yFan",
+    "conFCU3.u1Occ",
+    "conFCU3.TZonHeaSet",
+    "conFCU3.TZonCooSet",
+    "conFCU3.TZon",
+    "conFCU3.yCooCoi",
+    "conFCU3.yHeaCoi",
+    "conFCU3.TSup",
+    "conFCU3.TSupSet",
+    "conFCU3.yFan"
   };
