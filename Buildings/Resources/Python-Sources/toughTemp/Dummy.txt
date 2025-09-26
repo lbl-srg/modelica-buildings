@@ -1,3 +1,0 @@
-Save this file in the toughTemp/ folder so that the folder can be pushed to Github.
-
-The folder is required by the TOUGH simulation.

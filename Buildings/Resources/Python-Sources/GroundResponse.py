@@ -26,13 +26,13 @@ def doStep(dblInp, state):
     tim = dblInp[-1]
 
     # Find the depth of each layer
-    meshFile = os.path.join(py_dir, 'TOUGH', 'MESH')
-    toughLayers = find_layer_depth(meshFile)
+    # meshFile = os.path.join(py_dir, 'TOUGH', 'MESH')
+    # toughLayers = find_layer_depth(meshFile)
 
-    add_grid_boundary(toughLayers)
+    # add_grid_boundary(toughLayers)
 
     # Find Modelica layers
-    modelicaLayers = modelica_mesh()
+    # modelicaLayers = modelica_mesh()
 
     # This is the first call of this python module. There is no state yet.
     if state == None:
@@ -42,7 +42,11 @@ def doStep(dblInp, state):
         # simulation domain, template files for TOUGH simulation, and utility programs
         copy_files(os.path.join(py_dir, 'TOUGH'), tou_tmp)
         # Initialize the state
-        T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
+        # T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
+        T_tough_start = [280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
+                         280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
+                         280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
+                         280.15,280.15,280.15]
         state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start}
         T_toModelica = T_start
         p_Int = ident_set(101343.01, 10)
@@ -63,18 +67,22 @@ def doStep(dblInp, state):
         if dt > 1e-2:
 
             # Change current directory to working directory
-            os.chdir(tou_tmp)
+            # os.chdir(tou_tmp)
             # T_toTough = mesh_to_mesh(toughLayer, modelicaLayers, state['T'], 'Mo2To')
-            Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
+            # Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
+            Q_toTough = [150,150,150,150,150,150,150,150,150,150,
+                         150,150,150,150,150,150,150,150,150,150,
+                         150,150,150,150,150,150,150,150,150,150,
+                         150,150,150]
 
             # Check if there is 'GENER'. If the file does not exist, it means this is 
             # the first call of TOUGH simulation. There is no 'SAVE' yet so cannot call
             # `writeincon` to generate input files for TOUGH simulation.
             if not os.path.exists('GENER'):
                 # create initial 'GENER' file
-                initialize_gener(toughLayers, Q_toTough, 'GENER')
+                # initialize_gener(toughLayers, Q_toTough, 'GENER')
                 # update existing 'INFILE'
-                update_infile(tLast, tim, 'INFILE', 'newINFILE')
+                # update_infile(tLast, tim, 'INFILE', 'newINFILE')
 
             # It's not the first call of TOUGH simulation. So there is 'SAVE' file from
             # previous TOUGH call and we can use `writeincon` to generate TOUGH input
@@ -118,7 +126,8 @@ def doStep(dblInp, state):
             data = extract_data('out.txt')
             T_tough = data['T_Bor']
             # Output to Modelica simulation
-            T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
+            # T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
+            T_toModelica = [281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15]
 
             # Outputs to Modelica
             ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
@@ -637,3 +646,19 @@ def fortranstyle(sciFor):
 #     import getpass
 #     worDir = tempfile.mkdtemp(prefix=flag+'-' + getpass.getuser())
 #     return worDir
+
+# Main function
+if __name__ == '__main__':
+    dblInp = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 
+              283.15,283.15,283.15,283.15,283.15,283.15,283.15,283.15,283.15,283.15,
+              288.15, 10]
+    tim = 5
+    Q = [150,150,150,150,150,150,150,150,150,150]
+    T_tough = [281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,
+               281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,
+               281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,
+               280.15,280.15,280.15]
+    state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
+    
+    doStep(dblInp, state)
+

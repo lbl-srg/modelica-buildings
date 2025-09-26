@@ -68,9 +68,6 @@ partial model PartialBorefieldWithTough
   parameter Modelica.Units.SI.Time samplePeriod=60
     "Sample period of component"
     annotation (Dialog(group="Ground response"));
-  parameter Integer flag=0
-    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
-    annotation (Dialog(group="Ground response"));
 
   Modelica.Blocks.Interfaces.RealOutput TBorAve(
     final quantity="ThermodynamicTemperature",
@@ -105,8 +102,7 @@ partial model PartialBorefieldWithTough
   Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse touRes(
     final nSeg=nSeg,
     final nInt=nInt,
-    final samplePeriod=samplePeriod,
-    final flag=flag)
+    final samplePeriod=samplePeriod)
     "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{8,40},{28,60}})));
 
@@ -115,7 +111,7 @@ partial model PartialBorefieldWithTough
     displayUnit="degC",
     quantity="ThermodynamicTemperature") "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-120,40},{-100,60}})));
+        iconTransformation(extent={{-120,30},{-100,50}})));
 
 protected
   parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}

@@ -1,12 +1,9 @@
 within Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses;
-model GroundResponse
+model GroundResponse "Ground response calculated by the TOUGH simulator"
 
   parameter Integer nSeg=10 "Total number of segments";
   parameter Integer nInt=10 "Number of points in the ground to be investigated";
   parameter Modelica.Units.SI.Time samplePeriod=60 "Sample period of component"
-    annotation(Dialog(group="Sampling"));
-  parameter Integer flag=0
-    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
     annotation(Dialog(group="Sampling"));
 
   Modelica.Blocks.Interfaces.RealInput QBor_flow[nSeg](
@@ -57,7 +54,7 @@ model GroundResponse
     nDblRea=nSeg+3*nInt,
     nDblWri=2*nSeg+2,
     samplePeriod=samplePeriod,
-    flag=flag,
+    final flag=0,
     passPythonObject=true)
     "Python interface model to call TOUGH simulator"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
