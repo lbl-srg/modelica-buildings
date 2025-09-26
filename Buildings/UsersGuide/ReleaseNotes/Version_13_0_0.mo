@@ -40,6 +40,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditions
+    </td>
+    <td valign=\"top\">Explicitly assigned value to the roughness of the exterior constructions.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4367\">issue 4367</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
