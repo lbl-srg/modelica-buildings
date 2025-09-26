@@ -138,7 +138,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Components.Chillers.Compression<br/>
                        Buildings.Templates.Components.HeatPumps.AirToWater<br/>
                        Buildings.Templates.Components.HeatPumps.WaterToWater<br/>
-	               Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
                        Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater<br/>
                        Buildings.Templates.Plants.HeatPumps.Components.HeatRecoveryChiller
     </td>
