@@ -171,9 +171,9 @@ model FourPipe
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
     heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None,
-    QCoiCoo_flow_nominal=-20000,
+    QCooCoi_flow_nominal=-20000,
     dpAir_nominal=100,
-    mCoiCooWat_flow_nominal=4*0.2984,
+    mCooCoiWat_flow_nominal=4*0.2984,
     dpCooCoiWat_nominal(displayUnit="Pa") = 1000,
     mAir_flow_nominal=0.21303*2*3)
     "Fan coil unit with no heating coil"
@@ -288,12 +288,12 @@ model FourPipe
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
-    QCoiHea_flow_nominal=10000,
-    QCoiCoo_flow_nominal=-20000,
-    mCoiHeaWat_flow_nominal=0.75*3.75*0.50946*0.25,
-    dpCoiHeaWat_nominal(displayUnit="Pa") = 1000,
+    QHeaCoi_flow_nominal=10000,
+    QCooCoi_flow_nominal=-20000,
+    mHeaCoiWat_flow_nominal=0.75*3.75*0.50946*0.25,
+    dpHeaCoiWat_nominal(displayUnit="Pa") = 1000,
     dpAir_nominal=100,
-    mCoiCooWat_flow_nominal=4*0.2984,
+    mCooCoiWat_flow_nominal=4*0.2984,
     dpCooCoiWat_nominal(displayUnit="Pa") = 1000,
     mAir_flow_nominal=0.21303*3*1.5)
     "Fan coil unit with hot-water heating coil"
@@ -311,12 +311,12 @@ model FourPipe
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
     heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
-    QCoiCoo_flow_nominal=-20000,
+    QCooCoi_flow_nominal=-20000,
     dpAir_nominal=100,
-    mCoiCooWat_flow_nominal=4*0.2984,
+    mCooCoiWat_flow_nominal=4*0.2984,
     dpCooCoiWat_nominal(displayUnit="Pa") = 1000,
     mAir_flow_nominal=0.21303*1.5*3,
-    QCoiHea_flow_nominal=10000)
+    QHeaCoi_flow_nominal=10000)
     "Fan coil unit with electric heating coil"
     annotation (Placement(transformation(extent={{26,-88},{66,-48}})));
 
