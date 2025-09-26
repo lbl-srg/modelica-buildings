@@ -14,47 +14,42 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Heating coil type"
     annotation (Dialog(group="System parameters"));
 
-  parameter Modelica.Units.SI.HeatFlowRate QCoiHea_flow_nominal(
-    final min=0,
-    final start=0)
-    "Nominal heat flow rate of heating coil"
+  parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(final min=0,
+      final start=0) "Nominal heat flow rate of heating coil"
     annotation(Dialog(enable=have_hea, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.Temperature TCoiHeaWatSup_nominal=333.15
+  parameter Modelica.Units.SI.Temperature THeaCoiWatSup_nominal=333.15
     "Design water temperature entering heating coil"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
-  parameter Modelica.Units.SI.Temperature TCoiHeaAirEnt_nominal=293.15
+  parameter Modelica.Units.SI.Temperature THeaCoiAirEnt_nominal=293.15
     "Design air temperature entering heating coil"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.HeatFlowRate QCoiCoo_flow_nominal(
-    final max=0,
-    final start=0)
-    "Nominal heat flow rate of cooling coil"
+  parameter Modelica.Units.SI.HeatFlowRate QCooCoi_flow_nominal(final max=0,
+      final start=0) "Nominal heat flow rate of cooling coil"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.Temperature TCoiCooWatEnt_nominal=279.83
+  parameter Modelica.Units.SI.Temperature TCooCoiWatEnt_nominal=279.83
     "Design water inlet temperature of cooling coil"
     annotation(Dialog(group="Cooling coil parameters"));
-  parameter Modelica.Units.SI.Temperature TCoiCooAirEnt_nominal=296.15
+  parameter Modelica.Units.SI.Temperature TCooCoiAirEnt_nominal=296.15
     "Design air inlet temperature of cooling coil"
     annotation(Dialog(group="Cooling coil parameters"));
-  parameter Modelica.Units.SI.MassFraction wCoiCooAirEnt_nominal=0.012
+  parameter Modelica.Units.SI.MassFraction wCooCoiAirEnt_nominal=0.012
     "Design humidity ratio of inlet air of cooling coil (in kg/kg dry air)"
     annotation(Dialog(group="Cooling coil parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mCoiHeaWat_flow_nominal(
-    final min=0,
-    final start=0) "Nominal mass flow rate of heating hot water"
+  parameter Modelica.Units.SI.MassFlowRate mHeaCoiWat_flow_nominal(final min=0,
+      final start=0) "Nominal mass flow rate of heating hot water"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpCoiHeaWat_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpHeaCoiWat_nominal(
       displayUnit="Pa", final start=0)
     "Total pressure difference across heating coil (water side)"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpHeaCoiVal_nominal(
-      displayUnit="Pa") = dpCoiHeaWat_nominal
+      displayUnit="Pa") =dpHeaCoiWat_nominal
     "Design pressure drop of heating water valve"
     annotation(Dialog(enable=have_hotWat, group="Heating coil parameters"));
 
@@ -62,7 +57,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Total pressure difference across supply and return ports in air loop"
     annotation(Dialog(group="System parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mCoiCooWat_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCooCoiWat_flow_nominal
     "Nominal mass flow rate of chilled water"
     annotation(Dialog(group="Cooling coil parameters"));
 
@@ -129,25 +124,25 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare package Medium = Buildings.Media.Water)
     "Chilled water supply port"
     annotation (Placement(transformation(extent={{-10,-150},{10,-130}}),
-      iconTransformation(extent={{110,-210},{130,-190}})));
+      iconTransformation(extent={{10,-208},{30,-188}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(
     redeclare final package Medium = Buildings.Media.Water)
     "Chilled water return port"
     annotation (Placement(transformation(extent={{50,-150},{70,-130}}),
-      iconTransformation(extent={{10,-210},{30,-190}})));
+      iconTransformation(extent={{90,-210},{110,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(
     redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water supply port"
     annotation (Placement(transformation(extent={{-130,-150},{-110,-130}}),
-      iconTransformation(extent={{-50,-210},{-30,-190}})));
+      iconTransformation(extent={{-150,-210},{-130,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(
     redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water return port"
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}}),
-      iconTransformation(extent={{-150,-210},{-130,-190}})));
+      iconTransformation(extent={{-70,-210},{-50,-190}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirHea(
     redeclare final package Medium = MediumA,
@@ -158,16 +153,16 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     redeclare final package Medium1 = MediumHW,
     redeclare final package Medium2 = MediumA,
-    final m1_flow_nominal=mCoiHeaWat_flow_nominal,
+    final m1_flow_nominal=mHeaCoiWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
     show_T=true,
     final dp1_nominal=0,
     final dp2_nominal=0,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     use_Q_flow_nominal=true,
-    final Q_flow_nominal=QCoiHea_flow_nominal,
-    final T_a1_nominal=TCoiHeaWatSup_nominal,
-    final T_a2_nominal=TCoiHeaAirEnt_nominal) if have_hotWat
+    final Q_flow_nominal=QHeaCoi_flow_nominal,
+    final T_a1_nominal=THeaCoiWatSup_nominal,
+    final T_a2_nominal=THeaCoiAirEnt_nominal) if have_hotWat
     "Hot water heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -175,9 +170,9 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHW(
     redeclare final package Medium = MediumHW,
-    final m_flow_nominal=mCoiHeaWat_flow_nominal,
+    final m_flow_nominal=mHeaCoiWat_flow_nominal,
     final dpValve_nominal=dpHeaCoiVal_nominal,
-    dpFixed_nominal=dpCoiHeaWat_nominal) if have_hotWat
+    dpFixed_nominal=dpHeaCoiWat_nominal) if have_hotWat
     "Hot water flow control valve" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -186,16 +181,16 @@ model FourPipe "System model for a four-pipe fan coil unit"
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hexWetNtu(
     redeclare final package Medium1 = MediumCHW,
     redeclare final package Medium2 = MediumA,
-    final m1_flow_nominal=mCoiCooWat_flow_nominal,
+    final m1_flow_nominal=mCooCoiWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal,
     show_T=true,
     final dp1_nominal=0,
     final dp2_nominal=0,
     use_Q_flow_nominal=true,
-    final Q_flow_nominal=QCoiCoo_flow_nominal,
-    final T_a1_nominal=TCoiCooWatEnt_nominal,
-    final T_a2_nominal=TCoiCooAirEnt_nominal,
-    final w_a2_nominal=wCoiCooAirEnt_nominal,
+    final Q_flow_nominal=QCooCoi_flow_nominal,
+    final T_a1_nominal=TCooCoiWatEnt_nominal,
+    final T_a2_nominal=TCooCoiAirEnt_nominal,
+    final w_a2_nominal=wCooCoiAirEnt_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Chilled-water cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -204,7 +199,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valCHW(
     redeclare final package Medium = MediumCHW,
-    final m_flow_nominal=mCoiCooWat_flow_nominal,
+    final m_flow_nominal=mCooCoiWat_flow_nominal,
     final dpValve_nominal=dpCooCoiVal_nominal,
     dpFixed_nominal=dpCooCoiWat_nominal) "Chilled-water flow control valve"
     annotation (Placement(transformation(
@@ -240,7 +235,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final m_flow_nominal=mAir_flow_nominal,
     show_T=true,
     final dp_nominal=0,
-    final Q_flow_nominal=QCoiHea_flow_nominal,
+    final Q_flow_nominal=QHeaCoi_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     if have_heaEle
     "Electric heating coil"
@@ -347,20 +342,20 @@ equation
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-64.25,4.25},{64.25,-4.25}},
+          extent={{-20.25,4.25},{20.25,-4.25}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={19.75,-136.25},
+          origin={19.75,-180.25},
           rotation=90),
         Rectangle(
-          extent={{-34.25,4.25},{34.25,-4.25}},
+          extent={{-30.25,4.25},{30.25,-4.25}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={119.75,-166.25},
+          origin={99.75,-170.25},
           rotation=90),
                  Ellipse(
         extent={{106,-10},{166,-70}},
@@ -386,21 +381,21 @@ equation
           origin={-142,-1},
           rotation=90),
         Rectangle(
-          extent={{-64.25,4.25},{64.25,-4.25}},
+          extent={{-19.25,4.25},{19.25,-4.25}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-140.25,-136.25},
+          origin={-140.25,-181.25},
           rotation=90,
           visible=have_hotWat),
         Rectangle(
-          extent={{-34.25,4.25},{34.25,-4.25}},
+          extent={{-30.25,5.25},{30.25,-5.25}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-40.25,-166.25},
+          origin={-59.25,-170.25},
           rotation=90,
           visible=have_hotWat),
         Rectangle(
@@ -499,7 +494,86 @@ equation
           visible=have_hotWat),
         Line(points={{-200,-120},{-90,-120},{-90,-88}},
                                                   color={0,0,0},
-          visible=have_heaEle)}),
+          visible=have_heaEle),
+        Rectangle(
+          extent={{-38.25,5},{38.25,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-106.25,-165},
+          rotation=180,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-34,5},{34,-5}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-141,-106},
+          rotation=90,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-18,4},{18,-4}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-40,-150},
+          rotation=90,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-46,5},{46,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-100,-143},
+          rotation=180,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-7.25,5},{7.25,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-43.25,-165},
+          rotation=180,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{16,-140},{102,-150}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{16,-160},{92,-170}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-18,5},{18,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={119,-150},
+          rotation=90),
+        Rectangle(
+          extent={{108,-160},{124,-170}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-38,4},{38,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={20,-110},
+          rotation=90)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-260,-140},{260,140}})),
 Documentation(info="<html>
