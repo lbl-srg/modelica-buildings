@@ -3,8 +3,8 @@ package TOUGHResponse "Borefield model with ground response calculated by TOUGH 
   extends Modelica.Icons.VariantsPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-Package with models for geothermal borefields with the ground response captured by
-the simulator <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH</a>.
+Package with models for geothermal borefields with the ground response simulated by
+the simulator <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH 3</a>.
 </p>
 </html>"));
 end TOUGHResponse;

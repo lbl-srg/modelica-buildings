@@ -5,40 +5,42 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains models demonstrating the coupling between Modelica simulation
-and <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH</a> simulation.
+This package contains models demonstrating the co-simulation coupling between Modelica
+and <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH 3</a>.
+</p>
+<p>
 The model <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTube\">
 Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTube</a> assumes that in the
-borefield, all the boreholes has the same heat transfer with ground, with the ground
-thermal response being captured by the TOUGH simulator through
+borefield, all the boreholes have the same heat transfer with the ground, with the ground
+thermal response being simulated by the TOUGH simulator through
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse\">
 Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse</a>.
 </p>
 <p>
-Note that to use the coupled simulation model, the TOUGH simulator should be installed.
-However, for the demonstration purpose, the test models in this package calls the
+Note that for this co-simulation, the TOUGH 3 simulator must be installed.
+However, for demonstration purpose, the test models in this package calls a
 code that imitates the TOUGH response.
 </p>
 
 <h4>When to use the model</h4>
 <p>
-The coupled models would be needed for modeling borefield-based geothermal energy
+TOUGH 3 simulations are needed for modeling geothermal energy
 systems in which the underground geologic is complicated. For instance, when there
-is strong underground waterflow, the models like the g-function based approaches
-that assume heat transfer in the ground is purely by conduction become less
-accurate as it cannot model the advective heat tranfer due to the water flow.
+is strong underground waterflow, other models such as those based on g-functions
+that assume heat transfer in the ground is purely by conduction are less
+accurate as these g-function based models do not model the advective heat tranfer due to the water flow.
 </p>
 
 <h4>How the coupling works</h4>
 <p>
-The coupling is conducted through the instance <code>pyt</code> in class
+The coupling is conducted through the instance <code>pyt</code> in the class
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse\">
 Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse</a>.
-It instantiates the Pyhton interface model
+It instantiates the Python interface model
 <a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
 Buildings.Utilities.IO.Python_3_8.Real_Real</a>, which can send data to Python
 functions and obtain data from it. It allows doing the computations inside a Python
-module that calls an external simulator like TOUGH.
+module that calls an external simulator, in this package the TOUGH 3 simulator.
 </p>
 <h5>Python interface</h5>
 <p>
@@ -56,14 +58,18 @@ Through the interface instance as below,
 </pre>
 <p>
 the coupled simulation calls the function
-<code>doStep</code> of the Python module <code>GroundReponse</code> (see
+<code>doStep</code> of the Python module <code>GroundReponse</code>.
+The interface specifies through <code>nDblRea</code> the number of values that are read from the Python function,
+and through <code>nDblWri</code> the number of values written to the Python function.
+The argument <code>samplePeriod</code> defines the sampling period, and <code>flag</code>
+configures whether to use the current value, an average over the interval, or the integral over the
+interval.
+More explanation about the Python setup can be found in
 <a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">
-Buildings.Utilities.IO.Python_3_8.UsersGuide</a> for how to setup the Python interface).
-The interface also specifies the number of values that are read from (<code>nDblRea</code>)
-and written to (<code>nDblWri</code>) the Python function; sample period <code>samplePeriod</code>
-that defines how often Modelica should call the Python interface; flag (<code>flag</code>)
-that specifies the type values (current value, average over interval, or integral over
-interval) written to the Python function.
+Buildings.Utilities.IO.Python_3_8.UsersGuide</a>.
+</p>
+<p>
+The above interface calls the Python function <code>doStep</code>, which is implemented as
 </p>
 <pre>
   def doStep(dblInp, state):
@@ -108,18 +114,18 @@ It inclues:
 </p>
 <ul>
 <li>
-<code>QBor_flow[nSeg]</code>: the heat exchange flow rate between each borehole segment
+<code>QBor_flow[nSeg]</code>: The heat exchange flow rate between each borehole segment
 and the ground.
 </li>
 <li>
-<code>TBorWal_start[nSeg]</code>: the initial temperature of each borehole wall segement.
+<code>TBorWal_start[nSeg]</code>: The initial temperature of each borehole wall segement.
 </li>
 <li>
-<code>TOut</code>: the outdoor air temperature. It will become the ground surface
+<code>TOut</code>: The outdoor air temperature. It will become the ground surface
 temperature for the TOUGH simulation.
 </li>
 <li>
-<code>clock.y</code>: the current simulation time.
+<code>clock.y</code>: The current simulation time.
 </li>
 </ul>
 
@@ -127,56 +133,57 @@ temperature for the TOUGH simulation.
 <p>
 The borehole wall
 is the boundary between the Modelica simulation and the TOUGH simulation.
-Modelica simulation provide the heat flow rate through the wall as the boundary condition
-for the TOUGH simulation, while the TOUGH simulation returns the wall temperature
-as the boundary condition for Modelica simulation.
+Modelica provides the heat flow rate through the wall as the boundary condition
+for TOUGH, and TOUGH returns the wall temperature
+as the boundary condition for Modelica.
 The flow chart below shows the overall coupling workflow at each time step.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/Borefields/TOUGHResponse/workFlow.png\" width=\"2000\"/>
 </p>
 <p>
-When the Modelica variable <code>sampleTirgger</code>
+When the Modelica variable <code>sampleTrigger</code>
 (see <a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
-Buildings.Utilities.IO.Python_3_8.Real_Real</a>) is true, Modelica calls the
-TOUGH simulation through the ground response model as described in the above section.
-The Python module invokes heat flow rates from the ground <code>QBor_flow</code>,
+Buildings.Utilities.IO.Python_3_8.Real_Real</a>) is <code>true</code>, Modelica calls the
+TOUGH simulation through the ground response model as described above.
+The Python module sends to TOUGH the heat flow rates from the ground <code>QBor_flow</code>,
 the initial borehole wall temperature <code>TBorWal_start</code>, the ambient
 air temperature <code>TOut</code> and the current simulation time. 
+Then, the following steps are done inside the Python function:
 </p>
 <ol>
 <li>
 In the first invocation of Python, this object is not yet initialized. Python
-therefore takes the initial temperature from the Modelica to initialize the object.
+therefore takes the initial temperature from Modelica to initialize the object.
 </li>
 <li>
-With the function <code>write_incon</code>, it then updates the TOUGH input files.
+The function <code>write_incon</code> updates the TOUGH input files.
 Note that the initial input files are in
-<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/ToughFiles</code>:
+<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/TOUGH</code>:
 <ul>
 <li>
-<code>writeincon.inp</code>: the file contains the initial borehole wall temperature and 
+<code>writeincon.inp</code>: This file contains the initial borehole wall temperature and 
 the heat flow rate. The initial borehole wall temperature will be updated with the
 borehole wall temperature stored in the state. The heat flow rate is the heat flow rate
-measured in the Modelica model.
+computed by the Modelica model.
 </li>
 <li>
-<code>INFILE</code>: the start and stop TOUGH simulation time will be updated.
+<code>INFILE</code>: The start and stop TOUGH simulation time will be updated.
 The start time is the one stored in the state. The stop time is the current
 simulation time.
 </li>
 <li>
-<code>INCON</code>: it has the same format as the TOUGH output file <code>SAVE</code>. But
+<code>INCON</code>: This file has the same format as the TOUGH output file <code>SAVE</code>. But
 the initial borehole wall temperature will be updated with the one in <code>writeincon.inp</code>.
 </li>
 <li>
-<code>GENER</code>: the file defines the heat flow rate on the borehole hole. It will
+<code>GENER</code>: This file defines the heat flow rate of the borehole hole. It will
 be updated with the one in <code>writeincon.inp</code>.
 </li>
 </ul>
 </li>
 <li>
-Then it invokes TOUGH simulator.
+Then a TOUGH simulation is started.
 </li>
 <li>
 After the TOUGH simulation is done, with the function <code>readsave</code>, it
@@ -191,12 +198,15 @@ new borehole wall temperatures at each section.
 </ol>
 
 <h4>Assumptions</h4>
+<p>
+This implementation of TOUGH is based on the following assumptions:
+</p>
 <ul>
 <li>
-Boreholes are connected in parallel.
+All boreholes are connected in parallel.
 </li>
 <li>
-Boreholes are uniformly distributed and the distances between them are the same.
+All boreholes are uniformly distributed and the distances between them are the same.
 </li>
 <li>
 All boreholes have the same inlet water flow rate and temperature.
@@ -210,7 +220,7 @@ The conductivity, capacitance and density of the grout and pipe material are
 constant, homogeneous and isotropic.
 </li>
 <li>
-Inside the borehole, the non-advective heat transfer is only in the radial direction.
+Inside the borehole grout, the heat conduction is only in the radial direction.
 </li>
 <li>
 Each borehole assumes to have multiple segments and each segment has a uniform
