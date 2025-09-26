@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
 model TableData2DLoadDep
-  "Data-based model dependent on condenser and evaporator entering or leaving temperarure and PLR"
+  "Data-based model dependent on condenser and evaporator entering or leaving temperature and PLR"
   extends Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
     final devIde=dat.devIde,
     PEle_nominal=calQUseP.P_nominal * scaFac);
@@ -244,8 +244,8 @@ This model serves as a wrapper class to integrate the block
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>
 into heat pump models.
-For a complete description of all modeling assumptions, 
-please refer to the documentation of this block.
+For a complete description of all modeling assumptions,
+please refer to the documentation of this latter block.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-120},{140,120}})));
