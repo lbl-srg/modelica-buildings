@@ -3,156 +3,155 @@ model Controller
     "Validation of the top-level controller"
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU(
-    final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
-    final have_winSen=false,
-    final kHea=1,
-    final cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final have_occSen=true,
-    final TSupSet_max=297.15,
-    final TSupSet_min=285.15,
-    final heaSpe_max=0.6,
-    final heaSpe_min=0.2,
-    final cooSpe_min=0.2,
-    final have_locAdj=false)
+    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    have_winSen=false,
+    kHea=1,
+    cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    have_occSen=true,
+    TSupSet_max=297.15,
+    TSupSet_min=285.15,
+    heaSpe_max=0.6,
+    heaSpe_min=0.2,
+    cooSpe_min=0.2,
+    have_locAdj=false)
     "Validate the heating case"
     annotation (Placement(transformation(extent={{20,76},{60,136}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU1(
-    final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
-    final have_winSen=true,
-    final kCoo=1,
-    final kHea=1,
-    final cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final have_occSen=false,
-    final TSupSet_max=297.15,
-    final TSupSet_min=285.15,
-    final heaSpe_max=0.6,
-    final heaSpe_min=0.2,
-    final cooSpe_min=0.2,
-    final have_locAdj=false)
+    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    have_winSen=true,
+    kCoo=1,
+    kHea=1,
+    cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    have_occSen=false,
+    TSupSet_max=297.15,
+    TSupSet_min=285.15,
+    heaSpe_max=0.6,
+    heaSpe_min=0.2,
+    cooSpe_min=0.2,
+    have_locAdj=false)
     "Validate the cooling case for a system with a window sensor but no occupancy sensor"
     annotation (Placement(transformation(extent={{20,0},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU2(
-    final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
-    final have_winSen=false,
-    final kCoo=1,
-    final kHea=1,
-    final cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final have_occSen=true,
-    final TSupSet_max=297.15,
-    final TSupSet_min=285.15,
-    final heaSpe_max=0.6,
-    final heaSpe_min=0.2,
-    final cooSpe_min=0.2,
-    final have_locAdj=false)
+    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    have_winSen=false,
+    kCoo=1,
+    kHea=1,
+    cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    have_occSen=true,
+    TSupSet_max=297.15,
+    TSupSet_min=285.15,
+    heaSpe_max=0.6,
+    heaSpe_min=0.2,
+    cooSpe_min=0.2,
+    have_locAdj=false)
     "Validate the cooling case for a system with an occupancy sensor but no window sensor"
     annotation (Placement(transformation(extent={{20,-78},{60,-18}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU3(
-    final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
-    final have_winSen=true,
-    final kCoo=1,
-    final kHea=1,
-    final cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final have_occSen=true,
-    final TSupSet_max=297.15,
-    final TSupSet_min=285.15,
-    final heaSpe_max=0.6,
-    final heaSpe_min=0.2,
-    final cooSpe_min=0.2,
-    final have_locAdj=false)
+    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    have_winSen=true,
+    kCoo=1,
+    kHea=1,
+    cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    have_occSen=true,
+    TSupSet_max=297.15,
+    TSupSet_min=285.15,
+    heaSpe_max=0.6,
+    heaSpe_min=0.2,
+    cooSpe_min=0.2,
+    have_locAdj=false)
     "Validate the cooling case for a system with both a window sensor and an occupancy sensor"
     annotation (Placement(transformation(extent={{20,-154},{60,-94}})));
 
-protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccHeaSet(
-    final k=293.15)
+    k=293.15)
     "Occupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccCooSet(
-    final k=297.15)
+    k=297.15)
     "Occupied cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnoHeaSet(
-    final k=285.15)
+    k=285.15)
     "Unoccupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnoCooSet(
-    final k=303.15)
+    k=303.15)
     "Unoccupied cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TZon(
-    final duration=86400,
-    final height=6,
-    final offset=273.15 + 16,
+    duration=86400,
+    height=6,
+    offset=273.15 + 16,
     y(unit="K"))
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
-    final occupancy=3600*{4,20})
+    occupancy=3600*{4,20})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-120,44},{-100,64}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant nOcc(
-    final k=2)
+    k=2)
     "Number of occupants"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant win(
-    final k=true)
+    k=true)
     "True window status"
     annotation (Placement(transformation(extent={{-180,-152},{-160,-132}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TZon1(
-    final duration=86400,
-    final height=-3,
-    final offset=273.15 + 26,
+    duration=86400,
+    height=-3,
+    offset=273.15 + 26,
     y(unit="K"))
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup(
-    final height=2,
-    final duration=86400,
-    final offset=273.15 + 22.5,
+    height=2,
+    duration=86400,
+    offset=273.15 + 22.5,
     y(unit="K"))
     "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup1(
-    final height=-3,
-    final duration=86400,
-    final offset=273.15 + 24,
+    height=-3,
+    duration=86400,
+    offset=273.15 + 24,
     y(unit="K"))
     "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(
-    final k=0)
+    k=0)
     "Cooling and heating demand imit level"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooWarTim(
-    final k=0)
+    k=0)
     "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant win1(
-    final k=false)
+    k=false)
     "Negative window status"
     annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
 

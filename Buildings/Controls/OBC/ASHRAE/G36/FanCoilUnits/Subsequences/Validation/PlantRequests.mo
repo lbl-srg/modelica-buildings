@@ -7,102 +7,101 @@ model PlantRequests
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests plaReq1(
-    final have_hotWatCoi=false)
+    have_hotWatCoi=false)
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.PlantRequests plaReq2(
-    final have_chiWatCoi=false)
+    have_chiWatCoi=false)
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
 
-protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse fanSpe(
-    final width=0.8,
-    final period=3600)
+    width=0.8,
+    period=3600)
     "Fan speed signal"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse fanSpe1(
-    final width=0.8,
-    final period=3600)
+    width=0.8,
+    period=3600)
     "Fan speed signal"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse fanSpe2(
-    final width=0.8,
-    final period=3600)
+    width=0.8,
+    period=3600)
     "Fan speed signal"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTem(
-    final height=16,
-    final offset=273.15 + 15,
-    final duration=3600)
+    height=16,
+    offset=273.15 + 15,
+    duration=3600)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTemSet(
-    final height=6,
-    final offset=273.15 + 14.5,
-    final duration=3600)
+    height=6,
+    offset=273.15 + 14.5,
+    duration=3600)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp cooCoi(
-    final height=-0.3,
-    final offset=0.96,
-    final duration=3600,
-    final startTime=1000)
+    height=-0.3,
+    offset=0.96,
+    duration=3600,
+    startTime=1000)
     "Cooling coil position"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp heaCoi(
-    final height=-0.3,
-    final offset=0.96,
-    final duration=3600,
-    final startTime=1000)
+    height=-0.3,
+    offset=0.96,
+    duration=3600,
+    startTime=1000)
     "Heating coil position"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTem1(
-    final height=8,
-    final offset=273.15 + 12,
-    final duration=3600)
+    height=8,
+    offset=273.15 + 12,
+    duration=3600)
     "Cooling supply air temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTemSet1(
-    final height=25,
-    final offset=273.15 + 20,
-    final duration=3600)
+    height=25,
+    offset=273.15 + 20,
+    duration=3600)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooCoi1(
-    final k=0)
+    k=0)
     "Cooling coil position"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTem3(
-    final height=8,
-    final offset=273.15 + 15,
-    final duration=3600)
+    height=8,
+    offset=273.15 + 15,
+    duration=3600)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTemSet2(
-    final height=6,
-    final offset=273.15 + 14.5,
-    final duration=3600)
+    height=6,
+    offset=273.15 + 14.5,
+    duration=3600)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp heaCoi2(
-    final height=-0.3,
-    final offset=0.96,
-    final duration=3600,
-    final startTime=1000)
+    height=-0.3,
+    offset=0.96,
+    duration=3600,
+    startTime=1000)
     "Heating coil position"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
 
