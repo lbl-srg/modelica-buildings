@@ -129,25 +129,25 @@ model FourPipe "System model for a four-pipe fan coil unit"
     redeclare package Medium = Buildings.Media.Water)
     "Chilled water supply port"
     annotation (Placement(transformation(extent={{-10,-150},{10,-130}}),
-      iconTransformation(extent={{110,-210},{130,-190}})));
+      iconTransformation(extent={{10,-208},{30,-188}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(
     redeclare final package Medium = Buildings.Media.Water)
     "Chilled water return port"
     annotation (Placement(transformation(extent={{50,-150},{70,-130}}),
-      iconTransformation(extent={{10,-210},{30,-190}})));
+      iconTransformation(extent={{90,-210},{110,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(
     redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water supply port"
     annotation (Placement(transformation(extent={{-130,-150},{-110,-130}}),
-      iconTransformation(extent={{-50,-210},{-30,-190}})));
+      iconTransformation(extent={{-150,-210},{-130,-190}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(
     redeclare final package Medium = Buildings.Media.Water) if have_hotWat
     "Hot water return port"
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}}),
-      iconTransformation(extent={{-150,-210},{-130,-190}})));
+      iconTransformation(extent={{-70,-210},{-50,-190}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirHea(
     redeclare final package Medium = MediumA,
@@ -347,20 +347,20 @@ equation
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-64.25,4.25},{64.25,-4.25}},
+          extent={{-20.25,4.25},{20.25,-4.25}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={19.75,-136.25},
+          origin={19.75,-180.25},
           rotation=90),
         Rectangle(
-          extent={{-34.25,4.25},{34.25,-4.25}},
+          extent={{-30.25,4.25},{30.25,-4.25}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={119.75,-166.25},
+          origin={99.75,-170.25},
           rotation=90),
                  Ellipse(
         extent={{106,-10},{166,-70}},
@@ -386,21 +386,21 @@ equation
           origin={-142,-1},
           rotation=90),
         Rectangle(
-          extent={{-64.25,4.25},{64.25,-4.25}},
+          extent={{-19.25,4.25},{19.25,-4.25}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-140.25,-136.25},
+          origin={-140.25,-181.25},
           rotation=90,
           visible=have_hotWat),
         Rectangle(
-          extent={{-34.25,4.25},{34.25,-4.25}},
+          extent={{-30.25,5.25},{30.25,-5.25}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-40.25,-166.25},
+          origin={-59.25,-170.25},
           rotation=90,
           visible=have_hotWat),
         Rectangle(
@@ -499,7 +499,86 @@ equation
           visible=have_hotWat),
         Line(points={{-200,-120},{-90,-120},{-90,-88}},
                                                   color={0,0,0},
-          visible=have_heaEle)}),
+          visible=have_heaEle),
+        Rectangle(
+          extent={{-38.25,5},{38.25,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-106.25,-165},
+          rotation=180,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-34,5},{34,-5}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-141,-106},
+          rotation=90,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-18,4},{18,-4}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-40,-150},
+          rotation=90,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-46,5},{46,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-100,-143},
+          rotation=180,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{-7.25,5},{7.25,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-43.25,-165},
+          rotation=180,
+          visible=have_hotWat),
+        Rectangle(
+          extent={{16,-140},{102,-150}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{16,-160},{92,-170}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-18,5},{18,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={119,-150},
+          rotation=90),
+        Rectangle(
+          extent={{108,-160},{124,-170}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-38,4},{38,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={20,-110},
+          rotation=90)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-260,-140},{260,140}})),
 Documentation(info="<html>
