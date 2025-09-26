@@ -7,7 +7,7 @@ block PlantRequests "Output plant requests for multizone air handling unit"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Cooling coil type"
     annotation (__cdl(ValueInReference=false));
-  parameter Real Thys = 0.1
+  parameter Real THys = 0.1
     "Hysteresis for checking temperature difference"
     annotation(__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
@@ -72,12 +72,12 @@ protected
     annotation (Placement(transformation(extent={{-170,190},{-150,210}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=3,
-    final h=Thys)
+    final h=THys)
     "Check if the supply temperature is greater than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=2,
-    final h=Thys)
+    final h=THys)
     "Check if the supply temperature is greater than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
@@ -149,13 +149,13 @@ protected
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3(
     final t=17,
-    final h=Thys)
+    final h=THys)
     if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr4(
     final t=8,
-    final h=Thys)
+    final h=THys)
     if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
@@ -457,6 +457,12 @@ If the hot water valve position <code>uHeaCoiSet</code> is less than 95%, send 0
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+September 26, 2025, by Jianjun Hu:<br/>
+Renamed the parameter <code>Thys</code> to <code>THys</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
+</li>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Renamed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code> to <code>uCooCoiSet</code> and <code>uHeaCoiSet</code>.<br/>
