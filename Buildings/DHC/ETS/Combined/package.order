@@ -1,8 +1,11 @@
 ChillerBorefield
+ConnectedETS
 HeatPumpHeatExchanger
 HeatPumpHeatExchangerDHWTank
+HeatPumpThreeUtilities
 Controls
 Subsystems
+Data
 Examples
 Validation
 BaseClasses
