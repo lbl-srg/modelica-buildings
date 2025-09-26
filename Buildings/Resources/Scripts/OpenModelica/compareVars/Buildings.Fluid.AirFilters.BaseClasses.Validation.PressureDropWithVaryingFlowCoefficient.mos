@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "fixRes.m_flow",
+    "varRes.port_a.m_flow",
+    "fixRes.k",
+    "varRes.k",
+    "kCor.y"
+  };

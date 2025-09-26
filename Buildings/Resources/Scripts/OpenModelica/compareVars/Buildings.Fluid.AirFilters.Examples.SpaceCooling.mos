@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "C_inflow.y",
+    "C_out.C",
+    "fan.P"
+  };
