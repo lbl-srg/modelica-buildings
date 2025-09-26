@@ -86,7 +86,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
-</tr>     
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
     </td>
 </tr>
@@ -132,6 +132,21 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Chillers.Compression<br/>
+                       Buildings.Templates.Components.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Components.HeatPumps.WaterToWater<br/>
+	               Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.HeatRecoveryChiller
+    </td>
+    <td valign=\"top\">Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+    </td>
+</tr>
  <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
