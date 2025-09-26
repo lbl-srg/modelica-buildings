@@ -182,18 +182,21 @@ model FourPipe
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU1(
     cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None,
-    TiCoo=200,
+    cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    kCoo=0.25,
+    TiCoo=60,
     heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     kHea=0.05,
     TiHea=120,
-    kCooCoi=0.05,
-    TiCooCoi=90,
+    cooCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    kCooCoi=0.1,
+    TiCooCoi=120,
     kHeaCoi=0.005,
     TiHeaCoi=200,
     TSupSet_max=308.15,
     TSupSet_min=285.85)
     "Fan coil unit controller"
-    annotation (Placement(transformation(extent={{-80,108},{-40,180}})));
+    annotation (Placement(transformation(extent={{-80,106},{-40,178}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
@@ -205,14 +208,17 @@ model FourPipe
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU2(
     cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     TiCoo=200,
     heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    kHea=0.05,
-    TiHea=120,
+    kHea=0.25,
+    TiHea=60,
+    cooCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kCooCoi=0.05,
     TiCooCoi=200,
-    kHeaCoi=0.005,
-    TiHeaCoi=90,
+    heaCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    kHeaCoi=0.1,
+    TiHeaCoi=120,
     TSupSet_max=308.15,
     TSupSet_min=285.85)
     "Fan coil unit controller"
@@ -221,14 +227,17 @@ model FourPipe
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU3(
     cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
+    cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     TiCoo=200,
     heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    kHea=0.05,
-    TiHea=200,
+    kHea=0.1,
+    TiHea=90,
+    cooCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kCooCoi=0.05,
     TiCooCoi=200,
-    kHeaCoi=0.005,
-    TiHeaCoi=150,
+    heaCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    kHeaCoi=0.05,
+    TiHeaCoi=600,
     TSupSet_max=308.15,
     TSupSet_min=285.85)
     "Fan coil unit controller"
@@ -285,7 +294,7 @@ model FourPipe
     dpAir_nominal=100,
     mCoiCooWat_flow_nominal=4*0.2984,
     dpCooCoiWat_nominal(displayUnit="Pa") = 1000,
-    mAir_flow_nominal=0.21303*2*3)
+    mAir_flow_nominal=0.21303*3*1.5)
     "Fan coil unit with hot-water heating coil"
     annotation (Placement(transformation(extent={{28,20},{68,60}})));
 
@@ -306,7 +315,7 @@ model FourPipe
     dpAir_nominal=100,
     mCoiCooWat_flow_nominal=4*0.2984,
     dpCooCoiWat_nominal(displayUnit="Pa") = 1000,
-    mAir_flow_nominal=0.21303*2*3,
+    mAir_flow_nominal=0.21303*1.5*3,
     QCoiHea_flow_nominal=10000)
     "Fan coil unit with electric heating coil"
     annotation (Placement(transformation(extent={{26,-88},{66,-48}})));
@@ -401,12 +410,12 @@ model FourPipe
     annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
 
 equation
-  connect(conFCU1.yFan, fanCoiUni1.uFan) annotation (Line(points={{-38,160},{-20,
-          160},{-20,172},{26,172}}, color={0,0,127}));
+  connect(conFCU1.yFan, fanCoiUni1.uFan) annotation (Line(points={{-38,158},{-20,
+          158},{-20,172},{26,172}}, color={0,0,127}));
   connect(greThr.y, tim.u) annotation (Line(points={{-178,-140},{-162,-140}},
                color={255,0,255}));
   connect(fanCoiUni1.TAirSup, conFCU1.TSup) annotation (Line(points={{70,152},{82,
-          152},{82,224},{-92,224},{-92,142},{-82,142}}, color={0,0,127}));
+          152},{82,224},{-92,224},{-92,140},{-82,140}}, color={0,0,127}));
   connect(uSha.y, replicator.u)
     annotation (Line(points={{-179,200},{-162,200}}, color={0,0,127}));
   connect(replicator.y, zon1.uSha) annotation (Line(points={{-139,200},{100,200},
@@ -418,7 +427,7 @@ equation
   connect(zon1.heaPorAir, temAirNoHeaCoi.port) annotation (Line(points={{143.75,
           165},{144,165},{144,164},{200,164}}, color={191,0,0}));
   connect(temAirNoHeaCoi.T, conFCU1.TZon) annotation (Line(points={{221,164},{230,
-          164},{230,100},{-130,100},{-130,138},{-82,138}}, color={0,0,127}));
+          164},{230,100},{-130,100},{-130,136},{-82,136}}, color={0,0,127}));
   connect(intGaiFra.y, gai.u) annotation (Line(points={{-219,-220},{-202,-220}},
                                    color={0,0,127}));
   connect(gai.y, gaiInt.u) annotation (Line(points={{-179,-220},{-160,-220},{
@@ -495,16 +504,16 @@ equation
           76,-76},{76,-140},{-100,-140},{-100,-78},{-82,-78}},
                                                           color={0,0,127}));
   connect(cooWarTim.y, conFCU1.warUpTim) annotation (Line(points={{-178,160},{-140,
-          160},{-140,178},{-82,178}}, color={0,0,127}));
+          160},{-140,176},{-82,176}}, color={0,0,127}));
   connect(cooWarTim.y, conFCU1.cooDowTim) annotation (Line(points={{-178,160},{-140,
-          160},{-140,174},{-82,174}}, color={0,0,127}));
+          160},{-140,172},{-82,172}}, color={0,0,127}));
   connect(cooWarTim.y,conFCU2. warUpTim) annotation (Line(points={{-178,160},{
           -140,160},{-140,58},{-82,58}},                         color={0,0,127}));
   connect(cooWarTim.y,conFCU2. cooDowTim) annotation (Line(points={{-178,160},{
           -140,160},{-140,54},{-82,54}},
                      color={0,0,127}));
   connect(TSetAdj.y, conFCU1.setAdj) annotation (Line(points={{-178,130},{-158,130},
-          {-158,166},{-82,166}}, color={0,0,127}));
+          {-158,164},{-82,164}}, color={0,0,127}));
   connect(TSetAdj.y,conFCU2. setAdj) annotation (Line(points={{-178,130},{-158,
           130},{-158,46},{-82,46}},
                                color={0,0,127}));
@@ -517,9 +526,9 @@ equation
           -140,160},{-140,-46},{-82,-46}},
         color={0,0,127}));
   connect(limLev.y, conFCU1.uCooDemLimLev) annotation (Line(points={{-178,90},{-170,
-          90},{-170,150},{-82,150}}, color={255,127,0}));
+          90},{-170,148},{-82,148}}, color={255,127,0}));
   connect(limLev.y, conFCU1.uHeaDemLimLev) annotation (Line(points={{-178,90},{-170,
-          90},{-170,146},{-82,146}}, color={255,127,0}));
+          90},{-170,144},{-82,144}}, color={255,127,0}));
   connect(limLev.y,conFCU2. uCooDemLimLev) annotation (Line(points={{-178,90},{
           -170,90},{-170,30},{-82,30}},
                                    color={255,127,0}));
@@ -531,7 +540,7 @@ equation
           -170,90},{-170,-74},{-82,-74}},
         color={255,127,0}));
   connect(occSch.tNexOcc, conFCU1.tNexOcc) annotation (Line(points={{-179,56},{-164,
-          56},{-164,170},{-82,170}}, color={0,0,127}));
+          56},{-164,168},{-82,168}}, color={0,0,127}));
   connect(occSch.tNexOcc,conFCU2. tNexOcc) annotation (Line(points={{-179,56},{
           -164,56},{-164,50},{-82,50}},
                                   color={0,0,127}));
@@ -544,9 +553,9 @@ equation
   connect(occSch.occupied,conFCU3. u1Occ) annotation (Line(points={{-179,44},{
           -146,44},{-146,-65.8},{-82,-65.8}},               color={255,0,255}));
   connect(occSch.occupied, conFCU1.u1Occ) annotation (Line(points={{-179,44},{-146,
-          44},{-146,154.2},{-82,154.2}}, color={255,0,255}));
+          44},{-146,152.2},{-82,152.2}}, color={255,0,255}));
   connect(TOccHeaSetPoi.y, conFCU1.TOccHeaSet) annotation (Line(points={{-178,20},
-          {-114,20},{-114,134},{-82,134}}, color={0,0,127}));
+          {-114,20},{-114,132},{-82,132}}, color={0,0,127}));
   connect(conFCU2.TOccHeaSet, TOccHeaSetPoi.y) annotation (Line(points={{-82,14},
           {-114,14},{-114,20},{-178,20}},                 color={0,0,127}));
   connect(conFCU3.TOccHeaSet, TOccHeaSetPoi.y) annotation (Line(points={{-82,-86},
@@ -558,14 +567,14 @@ equation
           -30},{-120,-30},{-120,10},{-82,10}},
                             color={0,0,127}));
   connect(TOccCooSetPoi.y, conFCU1.TOccCooSet) annotation (Line(points={{-178,-30},
-          {-120,-30},{-120,130},{-82,130}}, color={0,0,127}));
+          {-120,-30},{-120,128},{-82,128}}, color={0,0,127}));
   connect(TUnOccCooSet.y,conFCU3. TUnoCooSet) annotation (Line(points={{-178,
           -60},{-128,-60},{-128,-98},{-82,-98}},                color={0,0,127}));
   connect(TUnOccCooSet.y,conFCU2. TUnoCooSet) annotation (Line(points={{-178,
           -60},{-128,-60},{-128,2},{-82,2}},
                                         color={0,0,127}));
   connect(TUnOccCooSet.y, conFCU1.TUnoCooSet) annotation (Line(points={{-178,-60},
-          {-128,-60},{-128,122},{-82,122}}, color={0,0,127}));
+          {-128,-60},{-128,120},{-82,120}}, color={0,0,127}));
   connect(TUnOccHeaSet.y,conFCU3. TUnoHeaSet) annotation (Line(points={{-178,
           -100},{-152,-100},{-152,-94},{-82,-94}},
                                            color={0,0,127}));
@@ -573,7 +582,7 @@ equation
           -100},{-152,-100},{-152,6},{-82,6}},
                                          color={0,0,127}));
   connect(TUnOccHeaSet.y, conFCU1.TUnoHeaSet) annotation (Line(points={{-178,-100},
-          {-152,-100},{-152,126},{-82,126}}, color={0,0,127}));
+          {-152,-100},{-152,124},{-82,124}}, color={0,0,127}));
   connect(souCoo.ports[3], fanCoiUni1.port_CHW_a) annotation (Line(points={{150.667,
           -220},{150.667,-200},{0,-200},{0,124},{60,124},{60,140}}, color={0,127,
           255}));
@@ -589,7 +598,7 @@ equation
           {80,-60},{80,-160},{-220,-160},{-220,-140},{-202,-140}},
                   color={0,0,127}));
   connect(tim[1].passed, conFCU1.u1Fan) annotation (Line(points={{-138,-148},{-108,
-          -148},{-108,114},{-82,114}}, color={255,0,255}));
+          -148},{-108,112},{-82,112}}, color={255,0,255}));
   connect(tim[2].passed,conFCU2. u1Fan) annotation (Line(points={{-138,-148},{
           -108,-148},{-108,-6},{-82,-6}},
                                      color={255,0,255}));
@@ -606,8 +615,8 @@ equation
   connect(gaiInt1.y, zon1.qGai_flow) annotation (Line(points={{-119,240},{108,240},
           {108,176},{114,176},{114,175},{118,175}},
                                      color={0,0,127}));
-  connect(conFCU1.yCooCoi, fanCoiUni1.uCoo) annotation (Line(points={{-38,144},{
-          -14,144},{-14,160},{26,160}}, color={0,0,127}));
+  connect(conFCU1.yCooCoi, fanCoiUni1.uCoo) annotation (Line(points={{-38,142},{
+          -14,142},{-14,160},{26,160}}, color={0,0,127}));
   connect(fanCoiUni3.port_air_b, zon3.ports[1]) annotation (Line(points={{66,-72},
           {96,-72},{96,-68.75},{126.25,-68.75}}, color={0,127,255}));
   connect(fanCoiUni3.port_air_a, zon3.ports[2]) annotation (Line(points={{66,-64},
