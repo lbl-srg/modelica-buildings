@@ -46,7 +46,7 @@ block SupplyAirTemperature
 
   parameter Real heaDea(
     unit="1",
-    displayUnit="1")=0.075
+    displayUnit="1")=0.1
     "Heating loop signal limit above which setpoint operation changes from deadband
     mode to heating mode"
     annotation(__cdl(ValueInReference=false),
@@ -54,7 +54,7 @@ block SupplyAirTemperature
 
   parameter Real cooDea(
     unit="1",
-    displayUnit="1")=0.075
+    displayUnit="1")=0.1
     "Cooling loop signal limit above which setpoint operation changes from deadband
     mode to cooling mode"
     annotation(__cdl(ValueInReference=false),
