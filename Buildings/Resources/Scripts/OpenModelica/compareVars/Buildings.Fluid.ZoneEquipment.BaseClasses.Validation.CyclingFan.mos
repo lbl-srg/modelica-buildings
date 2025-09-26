@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "conFanCyc.heaCooOpe",
+    "conFanCyc.uFan",
+    "conFanCyc.fanOpeMod",
+    "conFanCyc.yFan",
+    "conFanCyc.yFanSpe"
+  };
