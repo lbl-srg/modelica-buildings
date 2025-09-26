@@ -59,7 +59,7 @@ model TableData2DLoadDep_AirCooled
     tableOnFile=true,
     tableName="tab",
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/ElectricEIR_AirCooled.csv"),
+      "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/ElectricEIR_AirCooled.mos"),
     columns=2:4,
     timeEvents=Modelica.Blocks.Types.TimeEvents.NoTimeEvents)
     "Reference results"

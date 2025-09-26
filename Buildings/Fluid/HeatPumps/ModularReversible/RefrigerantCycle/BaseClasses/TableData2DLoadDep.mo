@@ -129,7 +129,7 @@ block TableData2DLoadDep
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yMea(
     final unit="1")
-    "Part load ratio resulting from equipment internal safeties"
+    "Capacity limiting signal yielded by internal safety logic"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cpLoa(
