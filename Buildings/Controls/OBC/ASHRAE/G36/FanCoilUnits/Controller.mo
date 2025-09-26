@@ -22,7 +22,7 @@ block Controller
 
   parameter Real heaDea(
     final unit="1",
-    displayUnit="1")=0.05
+    displayUnit="1")=0.1
     "Heating loop signal limit above which controller operation changes from deadband mode to heating mode"
     annotation (__cdl(ValueInReference=false),
       Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
@@ -30,7 +30,7 @@ block Controller
 
   parameter Real cooDea(
     final unit="1",
-    displayUnit="1")=0.05
+    displayUnit="1")=0.1
     "Cooling loop signal limit above which controller operation changes from deadband mode to cooling mode"
     annotation(__cdl(ValueInReference=false),
       Dialog(enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
@@ -433,7 +433,7 @@ block Controller
 
   parameter Real deaHysLim(
     final unit="1",
-    displayUnit="1")=0.01
+    displayUnit="1")=0.05
     "Hysteresis limits for cooling and heating loop signals for deadband mode transitions"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
