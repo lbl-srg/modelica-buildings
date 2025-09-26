@@ -70,7 +70,7 @@ block FanSpeed
 
   parameter Real heaDea(
     unit="1",
-    displayUnit="1")=0.05
+    displayUnit="1")=0.1
     "Heating loop signal limit above which fan operation changes from deadband
     mode to heating mode"
     annotation(__cdl(ValueInReference=false),
@@ -78,7 +78,7 @@ block FanSpeed
 
   parameter Real cooDea(
     unit="1",
-    displayUnit="1")=0.05
+    displayUnit="1")=0.1
     "Cooling loop signal limit above which fan operation changes from deadband
     mode to cooling mode"
     annotation(__cdl(ValueInReference=false),
@@ -86,7 +86,7 @@ block FanSpeed
 
   parameter Real deaHysLim(
     unit="1",
-    displayUnit="1")=0.01
+    displayUnit="1")=0.05
     "Hysteresis limits for deadband mode transitions"
     annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
