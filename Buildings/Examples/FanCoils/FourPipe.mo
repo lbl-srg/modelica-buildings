@@ -137,7 +137,7 @@ model FourPipe
     nPorts=1)
     "Source for hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90, origin={70,-230})));
+      rotation=90, origin={-10,-230})));
 
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
@@ -164,7 +164,7 @@ model FourPipe
     nPorts=3)
     "Source for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90, origin={152,-230})));
+      rotation=90, origin={78,-230})));
 
   Buildings.Fluid.ZoneEquipment.FourPipe fanCoiUni1(
     redeclare package MediumA = MediumA,
@@ -474,22 +474,21 @@ equation
   connect(conFCU3.TZon, senTRooAir3.T) annotation (Line(points={{-82,-82},{-124,
           -82},{-124,-120},{232,-120},{232,-56},{219,-56}}, color={0,0,127}));
   connect(sinHea.ports[1],fanCoiUni2. port_HW_b) annotation (Line(points={{20,-220},
-          {20,12},{34,12},{34,20}},
+          {20,-210},{10,-210},{10,12},{42,12},{42,20}},
         color={0,127,255}));
-  connect(souHea.ports[1],fanCoiUni2. port_HW_a) annotation (Line(points={{70,-220},
-          {70,-194},{8,-194},{8,0},{44,0},{44,20}},
+  connect(souHea.ports[1],fanCoiUni2. port_HW_a) annotation (Line(points={{-10,
+          -220},{-10,-210},{8,-210},{8,16},{34,16},{34,20}},
                    color={0,127,255}));
   connect(sinCoo.ports[1],fanCoiUni3. port_CHW_b) annotation (Line(points={{111.333,
-          -220},{111.333,-206},{48,-206},{48,-88}},               color={0,127,255}));
+          -220},{111.333,-182},{56,-182},{56,-88}},               color={0,127,255}));
   connect(sinCoo.ports[2],fanCoiUni2. port_CHW_b) annotation (Line(points={{110,
-          -220},{110,-206},{-8,-206},{-8,-6},{50,-6},{50,20}},
+          -220},{110,-190},{18,-190},{18,-6},{58,-6},{58,20}},
                                color={0,127,255}));
-  connect(souCoo.ports[1],fanCoiUni3. port_CHW_a) annotation (Line(points={{153.333,
-          -220},{153.333,-204},{152,-204},{152,-186},{58,-186},{58,-88}},
-                                                                      color={0,127,
+  connect(souCoo.ports[1],fanCoiUni3. port_CHW_a) annotation (Line(points={{79.3333,
+          -220},{79.3333,-186},{48,-186},{48,-87.8}},                 color={0,127,
           255}));
-  connect(souCoo.ports[2],fanCoiUni2. port_CHW_a) annotation (Line(points={{152,
-          -220},{152,-186},{16,-186},{16,-12},{60,-12},{60,20}},
+  connect(souCoo.ports[2],fanCoiUni2. port_CHW_a) annotation (Line(points={{78,-220},
+          {78,-194},{16,-194},{16,-2},{50,-2},{50,20.2}},
                                    color={0,127,255}));
   connect(weaDat.weaBus,zon3. weaBus) annotation (Line(
       points={{248,188},{240,188},{240,-34},{167.375,-34},{167.375,-32.625}},
@@ -581,11 +580,13 @@ equation
                                          color={0,0,127}));
   connect(TUnOccHeaSet.y, conFCU1.TUnoHeaSet) annotation (Line(points={{-178,-100},
           {-152,-100},{-152,124},{-82,124}}, color={0,0,127}));
-  connect(souCoo.ports[3], fanCoiUni1.port_CHW_a) annotation (Line(points={{150.667,
-          -220},{150.667,-200},{0,-200},{0,124},{60,124},{60,140}}, color={0,127,
+  connect(souCoo.ports[3], fanCoiUni1.port_CHW_a) annotation (Line(points={{76.6667,
+          -220},{76.6667,-214},{76,-214},{76,-208},{-12,-208},{-12,136},{50,136},
+          {50,140.2}},                                              color={0,127,
           255}));
   connect(sinCoo.ports[3], fanCoiUni1.port_CHW_b) annotation (Line(points={{108.667,
-          -220},{108.667,-206},{-8,-206},{-8,130},{50,130},{50,140}}, color={0,127,
+          -220},{108.667,-206},{-10,-206},{-10,130},{58,130},{58,140}},
+                                                                      color={0,127,
           255}));
   connect(fanCoiUni1.yFan_actual, greThr[1].u) annotation (Line(points={{70,168},
           {76,168},{76,220},{-220,220},{-220,-140},{-202,-140}}, color={0,0,127}));
