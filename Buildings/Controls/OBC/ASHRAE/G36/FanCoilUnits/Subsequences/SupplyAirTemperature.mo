@@ -122,7 +122,7 @@ block SupplyAirTemperature
 
   parameter Real deaHysLim(
     unit="1",
-    displayUnit="1")=0.01
+    displayUnit="1")=0.05
     "Hysteresis limits for deadband mode transitions"
     annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
