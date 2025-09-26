@@ -248,9 +248,8 @@ model FourPipe
   MixedAir zon1(nPorts=2) "Zone-1"
     annotation (Placement(transformation(extent={{120,140},{170,190}})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNoHeaCoi(
-    T(displayUnit="degC"))
-    "Air temperature sensor"
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTRooAir1(T(
+        displayUnit="degC")) "Air temperature sensor"
     annotation (Placement(transformation(extent={{200,154},{220,174}})));
 
   Modelica.Blocks.Sources.Constant uSha(k=0)
@@ -303,9 +302,8 @@ model FourPipe
   MixedAir zon2(nPorts=2) "Zone-2"
     annotation (Placement(transformation(extent={{120,20},{170,70}})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNoHeaCoi1(
-    T(displayUnit="degC"))
-    "Air temperature sensor"
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTRooAir2(T(
+        displayUnit="degC")) "Air temperature sensor"
     annotation (Placement(transformation(extent={{200,34},{220,54}})));
 
   Buildings.Fluid.ZoneEquipment.FourPipe fanCoiUni3(
@@ -325,9 +323,8 @@ model FourPipe
   MixedAir zon3(nPorts=2) "Zone-3"
     annotation (Placement(transformation(extent={{120,-80},{170,-30}})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNoHeaCoi2(
-    T(displayUnit="degC"))
-    "Air temperature sensor"
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTRooAir3(T(
+        displayUnit="degC")) "Air temperature sensor"
     annotation (Placement(transformation(extent={{198,-66},{218,-46}})));
 
   model MixedAir = Buildings.ThermalZones.Detailed.MixedAir(
@@ -426,9 +423,9 @@ equation
       points={{248,188},{167.375,188},{167.375,187.375}},
       color={255,204,51},
       thickness=0.5));
-  connect(zon1.heaPorAir, temAirNoHeaCoi.port) annotation (Line(points={{143.75,
+  connect(zon1.heaPorAir, senTRooAir1.port) annotation (Line(points={{143.75,
           165},{144,165},{144,164},{200,164}}, color={191,0,0}));
-  connect(temAirNoHeaCoi.T, conFCU1.TZon) annotation (Line(points={{221,164},{230,
+  connect(senTRooAir1.T, conFCU1.TZon) annotation (Line(points={{221,164},{230,
           164},{230,100},{-130,100},{-130,136},{-82,136}}, color={0,0,127}));
   connect(intGaiFra.y, gai.u) annotation (Line(points={{-219,-220},{-202,-220}},
                                    color={0,0,127}));
@@ -449,10 +446,10 @@ equation
   connect(fanCoiUni2.port_air_a,zon2. ports[2]) annotation (Line(points={{68,44},
           {94,44},{94,34},{110,34},{110,33.75},{126.25,33.75}},
                                                         color={0,127,255}));
-  connect(zon2.heaPorAir, temAirNoHeaCoi1.port) annotation (Line(points={{143.75,
-          45},{188,45},{188,44},{200,44}},          color={191,0,0}));
-  connect(conFCU2.TZon, temAirNoHeaCoi1.T) annotation (Line(points={{-82,18},{-92,
-          18},{-92,-20},{232,-20},{232,44},{221,44}},   color={0,0,127}));
+  connect(zon2.heaPorAir, senTRooAir2.port) annotation (Line(points={{143.75,45},
+          {144,45},{144,44},{200,44}}, color={191,0,0}));
+  connect(conFCU2.TZon, senTRooAir2.T) annotation (Line(points={{-82,18},{-92,
+          18},{-92,-20},{232,-20},{232,44},{221,44}}, color={0,0,127}));
   connect(replicator.y,zon2. uSha) annotation (Line(points={{-139,200},{100,200},
           {100,67.5},{118,67.5}},                                      color={0,
           0,127}));
@@ -469,14 +466,13 @@ equation
                                       color={0,0,127}));
   connect(conFCU3.yHeaCoi,fanCoiUni3. uHea) annotation (Line(points={{-38,-72},{
           -14,-72},{-14,-80},{24,-80}},               color={0,0,127}));
-  connect(zon3.heaPorAir, temAirNoHeaCoi2.port) annotation (Line(points={{143.75,
-          -55},{143.75,-56},{198,-56}},                            color={191,0,
-          0}));
+  connect(zon3.heaPorAir, senTRooAir3.port) annotation (Line(points={{143.75,-55},
+          {143.75,-56},{198,-56}}, color={191,0,0}));
   connect(gaiInt.y,zon3. qGai_flow) annotation (Line(points={{-119,-180},{100,
           -180},{100,-45},{118,-45}},
         color={0,0,127}));
-  connect(conFCU3.TZon, temAirNoHeaCoi2.T) annotation (Line(points={{-82,-82},{-124,
-          -82},{-124,-120},{232,-120},{232,-56},{219,-56}},  color={0,0,127}));
+  connect(conFCU3.TZon, senTRooAir3.T) annotation (Line(points={{-82,-82},{-124,
+          -82},{-124,-120},{232,-120},{232,-56},{219,-56}}, color={0,0,127}));
   connect(sinHea.ports[1],fanCoiUni2. port_HW_b) annotation (Line(points={{20,-220},
           {20,12},{34,12},{34,20}},
         color={0,127,255}));
