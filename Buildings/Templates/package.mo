@@ -2,7 +2,9 @@ within Buildings;
 package Templates "Package with templates for various HVAC systems"
   extends Modelica.Icons.Package;
 
-  annotation (Documentation(info="<html>
+  annotation (
+  __ctrlFlow(routing="root"),
+  Documentation(info="<html>
 <p>
 This package contains templates for common HVAC systems.
 A template is defined as a user-configurable model that can represent various

@@ -148,7 +148,7 @@ of the input pulse, and different initial values for the input signal.
 August 26, 2024, by Antoine Gautier:<br/>
 Added a case with a unit impulse signal.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">issue 3966</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">Buildings, issue 3966</a>.
 </li>
 <li>
 June 14, 2017, by Michael Wetter:<br/>

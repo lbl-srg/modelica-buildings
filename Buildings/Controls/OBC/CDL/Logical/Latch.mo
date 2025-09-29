@@ -26,7 +26,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Ellipse(
@@ -121,13 +120,13 @@ At initial time, if <code>clr = false</code>, then the output will be
 <li>
 April 15, 2024, by Antoine Gautier:<br/>
 Simplified the implementation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">issue 3796</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">Buildings, issue 3796</a>.
 </li>
 <li>
 October 13, 2020, by Jianjun Hu:<br/>
 Removed the parameter <code>pre_y_start</code>, and made the initial output to be
 equal to latch input when the clear input is <code>false</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">issue 2177</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">Buildings, issue 2177</a>.
 </li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
@@ -136,7 +135,7 @@ Simplified implementation, and made model work with OpenModelica.
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
 Corrected implementation that causes wrong output at initial stage.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">Buildings, issue 1402</a>.
 </li>
 <li>
 December 1, 2017, by Michael Wetter:<br/>

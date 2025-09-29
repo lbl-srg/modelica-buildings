@@ -2,13 +2,13 @@ within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice;
 model IdealHeatingCoolingWinter
   "Building with constant fresh air and ideal heating/cooling that exactly meets set point"
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned;
-  Controls.OBC.CDL.Reals.Sources.Constant THeaSet[5](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSet[5](
     each k(
       final unit="K",
       displayUnit="degC")=293.15)
     "Set point temperature for heating"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Controls.OBC.CDL.Reals.Sources.Constant THeaCoo[5](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaCoo[5](
     each k(
       final unit="K",
       displayUnit="degC")=299.15)
@@ -22,14 +22,14 @@ model IdealHeatingCoolingWinter
     Q_flow_nominal=-50*{flo.AFloSou,flo.AFloEas,flo.AFloNor,flo.AFloWes,flo.AFloCor})
     "Ideal cooling device for sensible cooling"
     annotation (Placement(transformation(rotation=0,extent={{-80,130},{-60,150}})));
-  Controls.OBC.CDL.Reals.MultiSum QHea_flow(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum QHea_flow(
     nin=5)
     "Total heat flow rate"
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Modelica.Blocks.Continuous.Integrator EHea
     "Heating energy"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Controls.OBC.CDL.Reals.MultiSum QCoo_flow(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum QCoo_flow(
     nin=5)
     "Total heat flow rate"
     annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
@@ -73,14 +73,14 @@ equation
   connect(QCoo_flow.y,ECoo.u)
     annotation (Line(points={{-8,160},{-2,160}},color={0,0,127}));
   connect(QCoo_flow.u[1:5],coo.Q_flow)
-    annotation (Line(points={{-32,158.4},{-46,158.4},{-46,146},{-58,146}},color={0,0,127}));
+    annotation (Line(points={{-32,160.8},{-46,160.8},{-46,146},{-58,146}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SmallOffice/IdealHeatingCoolingWinter.mos" "Simulate and plot"),
     experiment(
       StartTime=432000,
       StopTime=864000,
-      Tolerance=1e-06),
+      Tolerance=1e-07),
     Documentation(
       info="<html>
 <p>
@@ -90,6 +90,12 @@ but an ideal heating/cooling device that exactly meets the load.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 25, 2024, by Jianjun Hu:<br/>
+Changed tolerance to 1e-07.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4063\">issue #4063</a>.
+</li>
 <li>
 March 4, 2021, by Michael Wetter:<br/>
 First implementation.<br/>

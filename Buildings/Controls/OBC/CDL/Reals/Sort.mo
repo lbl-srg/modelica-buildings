@@ -71,7 +71,7 @@ controller to access the position of the dampers that are most open.
 <li>
 April 18, 2024, by Jianjun Hu:<br/>
 Added an output variable with the indices of the sorted elements.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">Buildings, issue 3809</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

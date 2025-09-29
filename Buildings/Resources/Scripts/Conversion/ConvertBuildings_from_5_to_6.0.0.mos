@@ -1,9 +1,6 @@
 //  Conversion script for Buildings library
 //  from: Version 5
 //  to:   Version 6.0.0
-clear
-
-convertClear();
 
 convertClass("Buildings.Fluid.Sources.FixedBoundary",
              "Buildings.Obsolete.Fluid.Sources.FixedBoundary");

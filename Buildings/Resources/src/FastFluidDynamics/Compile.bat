@@ -50,8 +50,11 @@ if exist "%DIR%\%MSbuildName%.lib" (
 ::Set Default Compiler Version and Toolset (edited by user)
 ::-------------------------------------------------------------------
 ::Note: Toolset: V100 for VC10.0, v110 for VC11.0
-set VCVersion=14.0
-set Toolset=v140
+::      Toolset: V160 for VC 2019
+::set VCVersion=14.0
+::set Toolset=v140
+set VCVersion=2019
+set Toolset=v142
 
 ::-------------------------------------------------------------------
 ::Call vcvarsall.bat (Not user editable)
@@ -62,10 +65,24 @@ if %PROCESSOR_ARCHITECTURE%==AMD64 set VCDIR=C:\Program Files (x86)\Microsoft Vi
 ::Note: IA64 is not supported
 
 ::Set Environment Variable
-if exist "%VCDIR% %VCVersion%\VC\vcvarsall.bat" (
-  call "%VCDIR% %VCVersion%\VC\vcvarsall.bat" x86
+if %Platform%==Win32 (
+  set Conf=x86
+  set Conf_Platform=Win32
+  )
+if %Platform%==Win64 (
+  set conf=x64
+  set Conf_Platform=x64
+  )
+
+::if exist "%VCDIR% %VCVersion%\VC\vcvarsall.bat" (
+::  call "%VCDIR% %VCVersion%\VC\vcvarsall.bat" %Conf%
+::  goto MSbuildSetting
+::  )
+if exist "%VCDIR%\%VCVersion%\Community\VC\Auxiliary\Build\vcvarsall.bat" (
+  call "%VCDIR%\%VCVersion%\Community\VC\Auxiliary\Build\vcvarsall.bat" %Conf%
   goto MSbuildSetting
   )
+
 
 goto missing
 
@@ -93,7 +110,7 @@ goto missing
 ::      Debug mode emitted symbolic debug information,and the code execution is not optimized.
 ::      Release mode does not emitted debug information,and the code execution is optimized.
 ::Note: WIN32 in Preprocessor Definitions: Defined for applications for Win32 and Win64. Always defined.
-if /i %BuildConfiguration%_%Platform%==Debug_Win32 (
+if /i %BuildConfiguration%_%Conf_Platform%==Debug_Win32 (
   set UseDebugLibrariesSetValue=true
   set WholeProgramOptimizationSetValue=false
   set CharacterSetSetValue=Unicode
@@ -113,8 +130,29 @@ if /i %BuildConfiguration%_%Platform%==Debug_Win32 (
   goto compile
   )
 
+if /i %BuildConfiguration%_%Conf_Platform%==Debug_x64 (
+  set UseDebugLibrariesSetValue=true
+  set WholeProgramOptimizationSetValue=false
+  set CharacterSetSetValue=Unicode
+  set LinkIncrementalSetValue=true
+
+  set WarningLevelSetValue=Level3
+  set OptimizationSetValue=Disabled
+  set FunctionLevelLinkingSetValue=false
+  set IntrinsicFunctionsSetValue=false
+  set PreprocessorDefinitionsSetValue=Win64;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;
+
+  set SubSystemSetValue=Windows
+  set GenerateDebugInformationSetValue=true
+  set EnableCOMDATFoldingSetValue=false
+  set OptimizeReferencesSetValue=false
+
+  goto compile
+  )
+
+echo BuildingConfig is %BuildConfiguration% and the platform is %Platform%
 ::Note: To better understand code optimization, recommend to read "Optimization Best Practices"  http://msdn.microsoft.com/en-us/library/ms235601.aspx
-if /i %BuildConfiguration%_%Platform%==Release_Win32 (
+if /i %BuildConfiguration%_%Conf_Platform%==Release_Win32 (
   set UseDebugLibrariesSetValue=false
   set WholeProgramOptimizationSetValue=true
   set CharacterSetSetValue=Unicode
@@ -134,7 +172,11 @@ if /i %BuildConfiguration%_%Platform%==Release_Win32 (
   goto compile
   )
 
+<<<<<<< HEAD
 if /i %BuildConfiguration%_%Platform%==Release_x64 (
+=======
+if /i %BuildConfiguration%_%Conf_Platform%==Release_x64 (
+>>>>>>> master
   set UseDebugLibrariesSetValue=false
   set WholeProgramOptimizationSetValue=true
   set CharacterSetSetValue=Unicode
@@ -144,7 +186,11 @@ if /i %BuildConfiguration%_%Platform%==Release_x64 (
   set OptimizationSetValue=MaxSpeed
   set FunctionLevelLinkingSetValue=true
   set IntrinsicFunctionsSetValue=true
+<<<<<<< HEAD
   set PreprocessorDefinitionsSetValue=x64;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;
+=======
+  set PreprocessorDefinitionsSetValue=Win64;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;
+>>>>>>> master
 
   set SubSystemSetValue=Windows
   set GenerateDebugInformationSetValue=true
@@ -170,6 +216,7 @@ msbuild %MSbuildName%.vcxproj /t:rebuild /p:PlatformToolset=%Toolset%;Configurat
 ::Copy ffd.dll to Output Directory
 ::*******************************************************************
 echo Copy %MSbuildName%.dll and %MSbuildName%.lib to %DIR%
+<<<<<<< HEAD
 if /i %Platform%==Win32 (
   copy "%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
   copy "%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
@@ -177,18 +224,38 @@ if /i %Platform%==Win32 (
 if /i %Platform%==x64 (
   copy "%Platform%\%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
   copy "%Platform%\%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
+=======
+echo %Platform%
+pause
+if %Platform%==x86 (
+  copy "%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
+  copy "%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
+  )
+if %Platform%==x64 (
+  copy "X64\%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
+  copy "X64\%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
+>>>>>>> master
   )
 ::Note: /y: Suppresses prompting to confirm that you want to overwrite an existing destination file.
 
 ::*******************************************************************
 ::Clean Build Folder
 ::*******************************************************************
+<<<<<<< HEAD
 echo Clean Build Folder
 if /i %Platform%==Win32 (
   rmdir %BuildConfiguration% /s /q
   )
 if /i %Platform%==x64 (
   rmdir %Platform% /s /q
+=======
+echo Clean %BuildConfiguration% Build Folder
+if %Platform%==x86 (
+  rmdir %BuildConfiguration% /s /q
+  )
+if %Platform%==x64 (
+  rmdir X64 /s /q
+>>>>>>> master
   )
 goto :eof
 ::Note: /s: Removes the specified directory and all subdirectories including any files.

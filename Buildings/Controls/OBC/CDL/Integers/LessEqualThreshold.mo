@@ -22,7 +22,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
@@ -68,7 +67,7 @@ Otherwise the output is <code>false</code>.
 <li>
 August 6, 2020, by Michael Wetter:<br/>
 Renamed <code>threshold</code> to <code>t</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">Buildings, issue 2076</a>.
 </li>
 <li>
 August 30, 2017, by Jianjun Hu:<br/>

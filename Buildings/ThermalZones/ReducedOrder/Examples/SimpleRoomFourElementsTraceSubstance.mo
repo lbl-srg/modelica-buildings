@@ -99,6 +99,12 @@ and buildings - modelling of rooms.</p>
 </html>",   revisions="<html>
 <ul>
 <li>
+September 23, 2025, by Michael Wetter:<br/>
+Added missing annotation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4359\">Buildings, #4359</a>.
+</li>
+<li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
 This is for
@@ -110,7 +116,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(Tolerance=1e-6, StopTime=604800),
+  experiment(Tolerance=1e-6, StopTime=604800, Interval=3600),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElementsTraceSubstance.mos"
         "Simulate and plot"),

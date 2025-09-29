@@ -32,7 +32,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
@@ -71,13 +70,13 @@ When the input <code>u</code> decreases, the output <code>down</code> will be
 May 3, 2022, by Michael Wetter:<br/>
 Renamed parameter <code>y_start</code> to <code>pre_u_start</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">#2990</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2990\">Buildings, issue 2990</a>.
 </li>
 <li>
 January 26, 2021, by Michael Wetter:<br/>
 Changed initialization of <code>pre(u)</code> to use the initial value of the input rather than <code>0</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2294\">#2294</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2294\">Buildings, issue 2294</a>.
 </li>
 <li>
 July 18, 2018, by Michael Wetter:<br/>

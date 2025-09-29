@@ -25,7 +25,7 @@ revisions="<html>
 <li>
 February 3, 2022, by Jianjun Hu:<br/>
 Removed input gain factor.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">issue 2876</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">Buildings, issue 2876</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

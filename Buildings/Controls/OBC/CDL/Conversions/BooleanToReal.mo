@@ -40,7 +40,7 @@ and <code>realTrue</code> and <code>realFalse</code> are parameters.
 May 17, 2022, by Hongxiang Fu:<br/>
 Corrected documentation texts where the variables were described with wrong types.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">Buildings, issue 3016</a>.
 </li>
 <li>
 April 10, 2017, by Jianjun Hu:<br/>
@@ -57,7 +57,6 @@ Modelica Standard Library.
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5.0,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Ellipse(

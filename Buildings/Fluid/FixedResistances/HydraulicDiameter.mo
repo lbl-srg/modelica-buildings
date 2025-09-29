@@ -2,7 +2,8 @@ within Buildings.Fluid.FixedResistances;
 model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flow as parameter"
   extends Buildings.Fluid.FixedResistances.PressureDrop(
     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
-    final dp_nominal=fac*dpStraightPipe_nominal);
+    final dp_nominal=fac*dpStraightPipe_nominal,
+    final disableComputeFlowResistance_internal=disableComputeFlowResistance);
 
   parameter Modelica.Units.SI.Length dh=sqrt(4*m_flow_nominal/rho_default/
       v_nominal/Modelica.Constants.pi)
@@ -23,6 +24,10 @@ model HydraulicDiameter "Fixed flow resistance with hydraulic diameter and m_flo
 
   parameter Real fac(min=1) = 2
     "Factor to take into account resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
+
+  parameter Boolean disableComputeFlowResistance=false
+    "=false to disable computation of flow resistance"
+    annotation(Dialog(tab="Advanced"), Evaluate=true);
 
   final parameter Modelica.Units.SI.PressureDifference dpStraightPipe_nominal(
       displayUnit="Pa") =
@@ -125,6 +130,13 @@ then the pressure drop is computed as a linear function of the
 mass flow rate.
 </p>
 <p>
+If the parameter <code>disableComputeFlowResistance</code> is set to <code>true</code>,
+then the pressure drop is not computed. This allows to aggregate <code>dp_nominal</code>
+in other components such as in an actuator using its parameter <code>dpFixed_nominal</code>.
+See <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">Buildings.Fluid.Actuators.UsersGuide</a>
+for further information on <code>dpFixed_nominal</code>.
+</p>
+<p>
 Setting <code>allowFlowReversal=false</code> can lead to simpler
 equations. However, this should only be set to <code>false</code>
 if one can guarantee that the flow never reverses its direction.
@@ -176,6 +188,11 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 07, 2025, by Fabian Wuelhorst and Michael Wetter:<br/>
+Add option to <code>disableComputeFlowResistance</code>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2001\">#2001</a>.
+</li>
 <li>
 September 21, 2021, by Michael Wetter:<br/>
 Corrected typo in comments.<br/>

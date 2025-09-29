@@ -493,7 +493,7 @@ block Controller
   parameter Real posHys=0.01 "Hysteresis for damper position check"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced", group="Hysteresis"));
-  parameter Real Thys(unit="K")=0.25
+  parameter Real THys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced", group="Hysteresis"));
@@ -856,7 +856,6 @@ block Controller
     final maxHeaSpe=maxHeaSpe,
     final maxCooSpe=maxCooSpe,
     final minSpe=minSpe,
-    final looHys=looHys,
     final temPoiOne=temPoiOne,
     final temPoiTwo=temPoiTwo,
     final temPoiThr=temPoiThr,
@@ -922,7 +921,7 @@ block Controller
     final VMin_flow=0,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
-    final dTHys=Thys) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
+    final dTHys=THys) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Output the minimum outdoor airflow rate setpoint, when using ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-20,240},{0,260}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta "Zone state"
@@ -979,11 +978,11 @@ block Controller
     final Td=TdFreHea,
     final yMax=yMaxFreHea,
     final yMin=yMinFreHea,
-    final Thys=Thys) "Freeze protection"
+    final THys=THys) "Freeze protection"
     annotation (Placement(transformation(extent={{140,-150},{160,-110}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests plaReq(
     final heaCoi=heaCoi,
-    final Thys=Thys,
+    final THys=THys,
     final posHys=posHys) "Plant request"
     annotation (Placement(transformation(extent={{60,-420},{80,-400}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefDamper relDam(
@@ -1747,6 +1746,12 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 26, 2025, by Jianjun Hu:<br/>
+Renamed the parameter <code>Thys</code> to <code>THys</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
+</li>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Added coil type enumeration so to avoid using flag parameters.<br/>

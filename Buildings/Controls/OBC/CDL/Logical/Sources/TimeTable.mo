@@ -89,7 +89,7 @@ Removed writing output value in icon (as it is an array of values).
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 October 8, 2020, by Michael Wetter:<br/>
@@ -106,7 +106,6 @@ Initial CDL implementation based on continuous time table implementation in CDL.
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
-          lineThickness=5,
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised,
           lineColor={0,0,0}),

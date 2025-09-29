@@ -99,13 +99,13 @@ to use consistent naming with
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sin\">
 Buildings.Controls.OBC.CDL.Reals.Sin</a>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">Buildings, issue 3339</a>
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "EHea.y",
+    "ECoo.y"
+  };
