@@ -269,6 +269,14 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1And2
+  openmodelica:
+    comment: Translation fails with ubuntu-2204-omc:1.24.0-1 but succeeds with 1.25.1 (simulation succeeds as well).
+    translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1Only
+  openmodelica:
+    comment: Translation fails with ubuntu-2204-omc:1.24.0-1 but succeeds with 1.25.1 (simulation succeeds as well).
+    translate: false
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDep
   openmodelica:
     comment: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed].
