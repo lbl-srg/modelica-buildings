@@ -137,7 +137,7 @@ the input is numerically differentiated with derivative time constant <code>Td</
 revisions="<html>
 <ul>
 <li>
-August 22, 2025, by Jianjun Hu:<br/>
+September 15, 2025, by Jianjun Hu:<br/>
 Updated documentation to clarify the difference with the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
 Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>.
