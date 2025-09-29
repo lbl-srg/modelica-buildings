@@ -4,243 +4,174 @@ block G36
   extends Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.Chillers.Types.Controller.G36);
   final parameter Boolean closeCoupledPlant=is_clsCpl
-    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
-    annotation (Dialog(tab="General"));
+    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet";
   // ---- General: Chiller configuration ----
   final parameter Boolean have_parChi=
     cfg.typArrChi == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
-    "Flag: true means that the plant has parallel chillers"
-    annotation (Dialog(tab="General",group="Chillers configuration"));
+    "Flag: true means that the plant has parallel chillers";
   parameter Boolean have_ponyChiller=false
     "True: have pony chiller"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
   parameter Boolean use_loadShed = false
     "Set to true if a load shed logic is used"
-    annotation (Dialog(tab="General", group="Chillers configuration",
+    annotation (Dialog(tab="General", group="Chiller configuration",
     enable=cfg.typDisChiWat<>Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages
     chiTyp[cfg.nChi]=fill(
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.VariableSpeedCentrifugal,
     cfg.nChi)
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
-    annotation (Dialog(tab="General",group="Chillers configuration"));
+    annotation (Dialog(tab="General",group="Chiller configuration"));
   final parameter Real chiDesCap[cfg.nChi](
     each final unit="W")=dat.capChi_nominal
-    "Design chiller capacities vector"
-    annotation (Dialog(tab="General",group="Chillers configuration"));
+    "Design chiller capacities vector";
   final parameter Real chiMinCap[cfg.nChi](
     each final unit="W") = dat.capUnlChi_min
-    "Chiller minimum cycling loads vector"
-    annotation (Dialog(tab="General",group="Chillers configuration"));
+    "Chiller minimum cycling loads vector";
   final parameter Real TChiWatSupMin[cfg.nChi](
     each final unit="K",
     each displayUnit="degC")=dat.TChiWatSupChi_nominal
-    "Minimum chilled water supply temperature"
-    annotation (Dialog(tab="General",group="Chillers configuration"));
+    "Minimum chilled water supply temperature";
   final parameter Real dTChiMinLif[cfg.nChi]=
     dat.dTLifChi_min
-    "Minimum LIFT of each chiller"
-    annotation (Dialog(group="Chillers configuration"));
+    "Minimum LIFT of each chiller";
   final parameter Real dTChiMaxLif[cfg.nChi]=dat.dTLifChi_nominal
-    "Maximum LIFT of each chiller"
-    annotation (Dialog(group="Chillers configuration"));
+    "Maximum LIFT of each chiller";
   // ---- General: Waterside economizer ----
   final parameter Boolean have_WSE=
     cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-    "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable"
-    annotation (Dialog(tab="General",group="Waterside economizer"));
+    "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable";
   final parameter Real heaExcAppDes(
     unit="K",
     displayUnit="K")=dat.dTAppEco_nominal
-    "Design heat exchanger approach"
-    annotation (Evaluate=true,
-    Dialog(tab="General",group="Waterside economizer",
-      enable=have_WSE));
+    "Design heat exchanger approach";
   final parameter Boolean have_byPasValCon=
     cfg.typEco == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
-    "True: chilled water flow through economizer is controlled using heat exchanger bypass valve"
-    annotation (Dialog(group="Waterside economizer",
-      enable=have_WSE));
+    "True: chilled water flow through economizer is controlled using heat exchanger bypass valve";
   // ----- General: Chilled water pump ---
   final parameter Integer nChiWatPum=cfg.nPumChiWatPri
-    "Total number of chilled water pumps"
-    annotation (Dialog(tab="General",group="Chilled water pump"));
+    "Total number of chilled water pumps";
   final parameter Boolean have_heaChiWatPum=cfg.typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-    "Flag of headered chilled water pumps design: true=headered, false=dedicated"
-    annotation (Dialog(tab="General",group="Chilled water pump"));
+    "Flag of headered chilled water pumps design: true=headered, false=dedicated";
   final parameter Boolean have_locSenChiWatPum=not cfg.have_senDpChiWatRemWir
-    "True: there is local differential pressure sensor hardwired to the plant controller"
-    annotation (Dialog(tab="General",group="Chilled water pump"));
+    "True: there is local differential pressure sensor hardwired to the plant controller";
   final parameter Integer nSenChiWatPum=cfg.nSenDpChiWatRem
-    "Total number of remote differential pressure sensors hardwired to the plant controller"
-    annotation (Dialog(tab="General",group="Chilled water pump"));
+    "Total number of remote differential pressure sensors hardwired to the plant controller";
   // ---- General: Condenser water pump ----
   final parameter Integer nConWatPum=cfg.nPumConWat
-    "Total number of condenser water pumps"
-    annotation (Dialog(tab="General",group="Condenser water pump"));
+    "Total number of condenser water pumps";
   final parameter Boolean have_fixSpeConWatPum=not cfg.have_pumConWatVar
-    "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false"
-    annotation (Dialog(tab="General",group="Condenser water pump",
-      enable=not have_WSE));
+    "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false";
   final parameter Boolean have_heaConWatPum=cfg.typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered
-    "True: headered condenser water pumps"
-    annotation (Dialog(tab="General",group="Condenser water pump"));
+    "True: headered condenser water pumps";
   // ---- General: Chiller staging settings ----
   final parameter Integer nStaChiOnl=
     if cfg.typEco == Buildings.Templates.Plants.Chillers.Types.Economizer.None
       then nSta - 1
     else sum({if sta[i, nUniSta] > 0 then 0 else 1 for i in 2:nSta})
-    "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
-    annotation (Evaluate=true,
-    Dialog(tab="General",group="Staging configuration"));
+    "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included";
   final parameter Integer totSta=nSta
-    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable"
-    annotation (Evaluate=true,
-    Dialog(tab="General",group="Staging configuration"));
+    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   final parameter Integer staMat[nStaChiOnl, cfg.nChi](
     each fixed=false)
-    "Chiller staging matrix, excluding stage 0 and stages with WSE"
-    annotation (Dialog(tab="General",group="Staging configuration"));
-  // FIXME #2299: Should only be enabled in case of water-cooled plants with variable speed condenser pumps.
+    "Chiller staging matrix, excluding stage 0 and stages with WSE";
   final parameter Real desConWatPumSpe[nSta](
     final min=fill(0, nSta),
     final max=fill(1, nSta)) = dat.yPumConWatSta_nominal
-    "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
-    annotation (Dialog(tab="General",group="Staging configuration"));
-  // FIXME #2299: For dedicated CW pumps this should be a 2-D array [nSta, nPumConWat] which is more aligned with §5.20.9.6.
+    "Design condenser water pump speed setpoints, according to current chiller stage and WSE status";
   final parameter Integer desConWatPumNum[nSta] = dat.staPumConWat
-    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
-    annotation (Dialog(tab="General",group="Staging configuration"));
+    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status";
   final parameter Integer towCelOnSet[nSta] = dat.staCoo
-    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
-    annotation (Dialog(tab="General",group="Staging configuration"));
+    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
   // ---- General: Cooling tower ----
   final parameter Integer nTowCel = cfg.nCoo
-    "Total number of cooling tower cells"
-    annotation (Dialog(tab="General",group="Cooling tower"));
+    "Total number of cooling tower cells";
   final parameter Real cooTowAppDes(
     unit="K",
     displayUnit="K")=dat.dTAppCoo_nominal
-    "Design cooling tower approach"
-    annotation (Evaluate=true,
-    Dialog(tab="General",group="Cooling tower"));
+    "Design cooling tower approach";
   // ---- Plant enable ----
   final parameter Real TChiLocOut(
     final unit="K",
     displayUnit="degC")=dat.TOutChiWatLck
-    "Outdoor air lockout temperature below which the chiller plant should be disabled"
-    annotation (Dialog(tab="Plant enable"));
+    "Outdoor air lockout temperature below which the chiller plant should be disabled";
   // ---- Waterside economizer ----
   final parameter Real TOutWetDes(
     final unit="K",
     displayUnit="degC")=dat.TWetBulCooEnt_nominal
-    "Design outdoor air wet bulb temperature"
-    annotation (Evaluate=true,
-    Dialog(tab="Waterside economizer",group="Design parameters"));
+    "Design outdoor air wet bulb temperature";
   final parameter Real VHeaExcDes_flow(
     final unit="m3/s")=dat.VChiWatEco_flow_nominal
-    "Design heat exchanger chilled water volume flow rate"
-    annotation (Evaluate=true,
-    Dialog(tab="Waterside economizer",group="Design parameters"));
+    "Design heat exchanger chilled water volume flow rate";
   final parameter Real dpDes=dat.dpChiWatEco_nominal
-    "Design pressure difference across the chilled water side economizer"
-    annotation (Dialog(tab="Waterside economizer",group="Valve or pump control"));
+    "Design pressure difference across the chilled water side economizer";
   // ---- Head pressure ----
   final parameter Real minConWatPumSpe(
     final unit="1")=dat.yPumConWat_min
-    "Minimum condenser water pump speed"
-    annotation (Dialog(enable=not
-                                 ((not have_WSE) and
-                                                    have_fixSpeConWatPum),tab=
-    "Head pressure",group="Limits"));
+    "Minimum condenser water pump speed";
   final parameter Real minHeaPreValPos(
     final unit="1")=dat.yValConWatChiIso_min
-    "Minimum head pressure control valve position"
-    annotation (Dialog(enable=(not
-                                  ((not have_WSE) and
-                                                     (not have_fixSpeConWatPum))),tab=
-    "Head pressure",group="Limits"));
+    "Minimum head pressure control valve position";
   // ---- Minimum flow bypass ----
   final parameter Real minFloSet[cfg.nChi](
     each final unit="m3/s")=dat.VChiWatChi_flow_min
-    "Minimum chilled water flow through each chiller"
-    annotation (Dialog(tab="Minimum flow bypass",group="Flow limits"));
+    "Minimum chilled water flow through each chiller";
   final parameter Real maxFloSet[cfg.nChi](
     each final unit="m3/s")=dat.VChiWatChi_flow_nominal
-    "Maximum chilled water flow through each chiller"
-    annotation (Dialog(tab="Minimum flow bypass",group="Flow limits"));
+    "Maximum chilled water flow through each chiller";
   // ---- Chilled water pumps ----
   // FIXME #2299: Dependency to stage and plant configuration not addressed.
   final parameter Real minChiWatPumSpe(
     unit="1")=dat.yPumChiWatPri_min
-    "Minimum pump speed"
-    annotation (Dialog(tab="Chilled water pumps",group="Speed controller"));
+    "Minimum pump speed";
   // FIXME #2299: Dependency to stage and plant configuration not addressed.
   final parameter Real maxChiWatPumSpe(
     unit="1")=1
-    "Maximum pump speed"
-    annotation (Dialog(tab="Chilled water pumps",group="Speed controller"));
+    "Maximum pump speed";
   final parameter Integer nPum_nominal(
     final max=nChiWatPum,
     final min=1)=dat.cfg.nPumChiWatPri
-    "Total number of pumps that operate at design conditions"
-    annotation (Dialog(tab="Chilled water pumps",group="Nominal conditions"));
-  // FIXME #2299: Dependency to plant configuration not addressed.
+    "Total number of pumps that operate at design conditions";
   final parameter Real VChiWat_flow_nominal(
     unit="m3/s")=dat.VChiWatPri_flow_nominal
-    "Total plant design chilled water flow rate"
-    annotation (Dialog(tab="Chilled water pumps",group="Nominal conditions"));
+    "Total plant design chilled water flow rate";
   final parameter Real maxLocDp(
     unit="Pa")=dat.dpChiWatLocSet_max
-    "Maximum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(tab="Chilled water pumps",group=
-      "Pump speed control when there is local DP sensor"));
+    "Maximum chilled water loop local differential pressure setpoint";
   // ---- Plant reset ----
   final parameter Real dpChiWatMin[nSenChiWatPum](
     each final unit="Pa",
     each displayUnit="Pa")=dat.dpChiWatRemSet_min
-    "Minimum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
-    annotation (Dialog(tab="Plant Reset",group="Chilled water supply"));
+    "Minimum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor";
   final parameter Real dpChiWatMax[nSenChiWatPum](
     each final unit="Pa",
     each displayUnit="Pa")=dat.dpChiWatRemSet_max
-    "Maximum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
-    annotation (Dialog(tab="Plant Reset",group="Chilled water supply"));
+    "Maximum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor";
   final parameter Real TPlaChiWatSupMax(
     final unit="K",
     displayUnit="degC")=dat.TChiWatSup_max
-    "Maximum chilled water supply temperature setpoint used in plant reset logic"
-    annotation (Dialog(tab="Plant Reset",group="Chilled water supply"));
+    "Maximum chilled water supply temperature setpoint used in plant reset logic";
   // ---- Cooling tower: fan speed ----
   final parameter Real fanSpeMin(
     unit="1")=dat.yFanCoo_min
-    "Minimum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers",group="Fan speed"));
+    "Minimum tower fan speed";
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
   final parameter Real TConWatSup_nominal[cfg.nChi](
     each final unit="K",
     each displayUnit="degC")=dat.TConWatSupChi_nominal
-    "Condenser water supply temperature (condenser entering) of each chiller"
-    annotation (Evaluate=true,
-    Dialog(tab="Cooling Towers",group="Fan speed: Return temperature control"));
+    "Condenser water supply temperature (condenser entering) of each chiller";
   final parameter Real TConWatRet_nominal[cfg.nChi](
     each final unit="K",
     each displayUnit="degC")=dat.TConWatRetChi_nominal
-    "Condenser water return temperature (condenser leaving) of each chiller"
-    annotation (Evaluate=true,
-    Dialog(tab="Cooling Towers",group="Fan speed: Return temperature control"));
+    "Condenser water return temperature (condenser leaving) of each chiller";
   // ---- Cooling tower: Water level control ----
-  // FIXME #2299: Should be homogenous to [m].
   final parameter Real watLevMin(
-    unit="1")=dat.hLevCoo_min / dat.hLevAlaCoo_max
-    "Minimum cooling tower water level recommended by manufacturer"
-    annotation (Dialog(tab="Cooling Towers",group="Makeup water"));
-  // FIXME #2299: Should be homogenous to [m].
+    unit="1")=dat.hLevCoo_min
+    "Minimum cooling tower water level recommended by manufacturer";
   final parameter Real watLevMax(
-    unit="1")=dat.hLevCoo_max / dat.hLevAlaCoo_max
-    "Maximum cooling tower water level recommended by manufacturer"
-    annotation (Dialog(tab="Cooling Towers",group="Makeup water"));
+    unit="1")=dat.hLevCoo_max
+    "Maximum cooling tower water level recommended by manufacturer";
   Buildings.Templates.Plants.Chillers.Components.Controls.patchController ctl(
     final have_airCoo=cfg.typChi == Buildings.Templates.Components.Types.Chiller.AirCooled,
     final chiDesCap=chiDesCap,
@@ -346,10 +277,6 @@ block G36
     Ti=60) if not cfg.have_senDpChiWatRemWir
     "Local CHW differential pressure reset"
     annotation (Placement(transformation(extent={{-60,16},{-40,36}})));
-  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter FIXME_TChiWatChiSup(nin=
-        cfg.nChi, nout=cfg.nChi) if typCtlHea <> Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired
-    "#2299 Chiller CHW supply temperature, missing input connector"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Buildings.Controls.OBC.CDL.Routing.RealVectorFilter FIXME_uChiWatIsoVal(nin=cfg.nChi,
       nout=cfg.nChi) if typCtlHea <> Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired
     "#2299 Depends on plant configuration, should rather be the commanded position"
@@ -387,6 +314,7 @@ equation
   connect(bus.dpChiWatRem, ctl.dpChiWat_remote);
   connect(bus.VChiWatPri_flow, ctl.VChiWat_flow);
   connect(bus.TConWatRet, ctl.TConWatTowRet);
+  connect(busChi.TChiWatSup, ctl.TChiWatSupChi);
   connect(busChi.TConWatRet, ctl.TConWatRet);
   connect(busChi.y1_actual, ctl.uChi);
   connect(bus.TChiWatEcoAft, ctl.TChiWatRetDow);
@@ -477,10 +405,6 @@ equation
           -140},{-20,-34},{-2,-34}}, color={0,0,127}));
   connect(resDpChiWatLoc.dpChiWatPumSet_local, ctl.dpChiWatSet_local)
     annotation (Line(points={{-38,26},{-2,26}},                     color={0,0,127}));
-  connect(busChi.TChiWatSup, FIXME_TChiWatChiSup.u) annotation (Line(
-      points={{-240,200},{-210,200},{-210,0},{-112,0}},
-      color={255,204,51},
-      thickness=0.5));
   connect(ctl.FIXME_dpChiWatPumSet, resDpChiWatLoc.dpChiWatSet_remote)
     annotation (Line(points={{26,23},{30,23},{30,50},{-70,50},{-70,21},{-62,21}},
         color={0,0,127}));
