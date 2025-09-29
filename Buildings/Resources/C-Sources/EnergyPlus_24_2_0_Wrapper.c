@@ -1,7 +1,7 @@
 #ifndef Spawn_declared
 #define Spawn_declared
 
-#include "EnergyPlus_9_6_0_Wrapper.h"
+#include "EnergyPlus_24_2_0_Wrapper.h"
 
 /* *********************************************************
    Wrapper functions that connect to the library which
@@ -27,7 +27,7 @@ void my_printf(const char *fmt, ...) {
 }
 */
 
-void* allocate_Modelica_EnergyPlus_9_6_0(
+void* allocate_Modelica_EnergyPlus_24_2_0(
   const int objectType,
   double startTime,
   const char* modelicaNameBuilding,
@@ -36,7 +36,7 @@ void* allocate_Modelica_EnergyPlus_9_6_0(
   const char* idfVersion,
   const char* idfName,
   const char* epwName,
-  int runPeriod_startDayOfYear,
+  int runPeriod_dayOfWeekForStartDay,
   int runPeriod_applyWeekEndHolidayRule,
   int runPeriod_use_weatherFileDaylightSavingPeriod,
   int runPeriod_use_weatherFileHolidaysAndSpecialDays,
@@ -71,7 +71,7 @@ void* allocate_Modelica_EnergyPlus_9_6_0(
 
 
     runPeriod runPer;
-    runPer.startDayOfYear = runPeriod_startDayOfYear;
+    runPer.dayOfWeekForStartDay = runPeriod_dayOfWeekForStartDay;
     runPer.applyWeekEndHolidayRule = runPeriod_applyWeekEndHolidayRule;
     runPer.use_weatherFileDaylightSavingPeriod = runPeriod_use_weatherFileDaylightSavingPeriod;
     runPer.use_weatherFileHolidaysAndSpecialDays = runPeriod_use_weatherFileHolidaysAndSpecialDays;
@@ -79,7 +79,7 @@ void* allocate_Modelica_EnergyPlus_9_6_0(
     runPer.use_weatherFileSnowIndicators = runPeriod_use_weatherFileSnowIndicators;
 
 
-    return allocate_Spawn_EnergyPlus_9_6_0(
+    return allocate_Spawn_EnergyPlus_24_2_0(
       objectType,
       startTime,
       modelicaNameBuilding,
@@ -121,35 +121,35 @@ void* allocate_Modelica_EnergyPlus_9_6_0(
       ModelicaFormatError);
   }
 
-void initialize_Modelica_EnergyPlus_9_6_0(
+void initialize_Modelica_EnergyPlus_24_2_0(
     void* object,
     double isSynchronized,
     int *nObj){
-      initialize_Spawn_EnergyPlus_9_6_0(object, nObj);
+      initialize_Spawn_EnergyPlus_24_2_0(object, nObj);
 }
 
-void getParameters_Modelica_EnergyPlus_9_6_0(
+void getParameters_Modelica_EnergyPlus_24_2_0(
     void* object,
     double isSynchronized,
     double *parOut){
-      getParameters_Spawn_EnergyPlus_9_6_0(object, parOut);
+      getParameters_Spawn_EnergyPlus_24_2_0(object, parOut);
 }
 
-void exchange_Modelica_EnergyPlus_9_6_0(
+void exchange_Modelica_EnergyPlus_24_2_0(
   void* object,
   const double* u,
   double dummy,
   double* y){
 
-    exchange_Spawn_EnergyPlus_9_6_0(
+    exchange_Spawn_EnergyPlus_24_2_0(
       object,
       0, /* Argument initialCall is hard-coded to false, and can be removed when binaries need to be recompiled. */
       u,
       y);
   }
 
-void free_Modelica_EnergyPlus_9_6_0(void* object){
-    free_Spawn_EnergyPlus_9_6_0(object);
+void free_Modelica_EnergyPlus_24_2_0(void* object){
+    free_Spawn_EnergyPlus_24_2_0(object);
 }
 
 #endif
