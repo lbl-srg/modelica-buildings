@@ -4,9 +4,9 @@ record FiltrationEfficiencyParameters
   extends Modelica.Icons.Record;
 
   parameter Real rat[:,:](each final max=1, each final min=0)
-    "Relative mass of the contaminant captured by the filter";
+    "Relative mass of the contaminant captured by the filter. The row size equals the number of contaminant types";
   parameter Real eps[:,:](each final max=1, each final min=0)
-    "Filtration efficiency";
+    "Filtration efficiency. The row size equals the number of contaminant types";
 
   annotation (Documentation(info="<html>
 <p>

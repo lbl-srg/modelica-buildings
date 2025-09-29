@@ -1,14 +1,14 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model MassTransfer
-  "Component that sets the trace substance at port_b based on an input trace substance mass flow rate and an input mass transfer efficiency"
+  "Component that sets the trace substance at the filter outlet"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-  parameter String namCon[:]={"CO2"}
-    "Name of trace substance";
+  parameter String namCon[:]
+    "Name of contaminant substance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput eps[nConSub](
     each final unit = "1",
     each final min = 0,
     each final max= 1)
-    "Mass transfer coefficient"
+    "Filtration efficiency of each contaminant"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon_flow[nConSub](
     each final unit = "kg/s")
@@ -28,7 +28,7 @@ protected
     annotation(Evaluate=true);
 initial equation
   assert(abs(sum(s) - nConSub) < 0.1,
-         "In " + getInstanceName() + ":Some specified trace substances are 
+         "In " + getInstanceName() + ": Some specified trace substances are
          not present in medium '" + Medium.mediumName + "'.\n"
          + "Check filter parameter and medium model.",
          level = AssertionLevel.warning)

@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
-  "Component that calculates the flow coefficient correction factor"
+  "Flow coefficient correction factor due to the contaminant accumulation"
   parameter Real b=1.1
     "Resistance coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(

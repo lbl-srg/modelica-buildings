@@ -272,27 +272,24 @@ define filter behavior:
 </p>
 <ul>
 <li>
-<b>Contaminant Name</b> (<code>per.namCon</code>): 
-This array defines the type of contaminants that the filter is designed to capture.
+<b>Contaminant Name</b>: The array <code>per.namCon</code> defines the type of
+contaminants that can be captured by the filter.
 </li>
 <li>
-<b>Nominal Conditions</b>:
-This includes the nominal pressure drop(<code>dp_nominal</code>), the nominal mass
-flow rate(<code>m_flow_nominal</code>),
-and the maximum total mass of contaminants (<code>mCon_nominal</code>) that the filter can hold.
+<b>Nominal Conditions</b>: It includes the nominal pressure drop <code>dp_nominal</code>,
+the nominal mass flow rate<code>m_flow_nominal</code>, and the maximum total mass
+of contaminants <code>mCon_nominal</code> that the filter can hold.
 </li>
 <li>
-<b>Resistance Coefficient</b> (<code>per.b</code>):
-This parameter describes how the pressure drop of the filter increases as 
-the filter collects more contaminants over time.
+<b>Resistance Coefficient</b>: The parameter <code>per.b</code> describes how the
+pressure drop of the filter increases as the contaminants accumulate over time.
 (see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
 Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>).
 </li>
 <li>
-<b>Filtration Efficiency Curves</b> (<code>per.filEffPar</code>):
-This array contains filtration efficiency curves.
-Each curve defines the filtration efficiencies at capturing each contaminant that is 
-defined in <code>per.namCon</code>.
+<b>Filtration Efficiency Curves</b>: The array <code>per.filEffPar</code> contains
+the filtration efficiency curves. Each curve defines the efficiencies for capturing
+each contaminant that is defined in <code>per.namCon</code>.
 (see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
 Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 </li>

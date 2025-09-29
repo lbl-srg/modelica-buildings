@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model MassAccumulation
-  "Component that mimics the accumulation of the contaminants"
+  "Mass of the contaminants capatured by the filter"
   parameter Integer nConSub(
     final min=1)=1
     "Total number of contaminant substance types";
