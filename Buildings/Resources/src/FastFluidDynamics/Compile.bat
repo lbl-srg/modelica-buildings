@@ -3,19 +3,10 @@
 ::*******************************************************************
 ::Set the Output Directory, Compile Mode and MSbuild File Name
 ::*******************************************************************
-::-------------------------------------------------------------------
-::To run with JModelica version 2.1
 set DIR=..\..\Library\win32
-set Platform=Win32
-::-------------------------------------------------------------------
-::To run with JModelica after version 2.1
-::set DIR=..\..\Library\win64
-::set Platform=x64
-::-------------------------------------------------------------------
 set MSbuildName=ffd
 set BuildConfiguration=Release
-
-
+set Platform=Win32
 ::Note: Two build mode, Debug or Release
 
 ::*******************************************************************
@@ -172,11 +163,7 @@ if /i %BuildConfiguration%_%Conf_Platform%==Release_Win32 (
   goto compile
   )
 
-<<<<<<< HEAD
-if /i %BuildConfiguration%_%Platform%==Release_x64 (
-=======
 if /i %BuildConfiguration%_%Conf_Platform%==Release_x64 (
->>>>>>> master
   set UseDebugLibrariesSetValue=false
   set WholeProgramOptimizationSetValue=true
   set CharacterSetSetValue=Unicode
@@ -186,11 +173,7 @@ if /i %BuildConfiguration%_%Conf_Platform%==Release_x64 (
   set OptimizationSetValue=MaxSpeed
   set FunctionLevelLinkingSetValue=true
   set IntrinsicFunctionsSetValue=true
-<<<<<<< HEAD
-  set PreprocessorDefinitionsSetValue=x64;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;
-=======
   set PreprocessorDefinitionsSetValue=Win64;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;
->>>>>>> master
 
   set SubSystemSetValue=Windows
   set GenerateDebugInformationSetValue=true
@@ -216,15 +199,6 @@ msbuild %MSbuildName%.vcxproj /t:rebuild /p:PlatformToolset=%Toolset%;Configurat
 ::Copy ffd.dll to Output Directory
 ::*******************************************************************
 echo Copy %MSbuildName%.dll and %MSbuildName%.lib to %DIR%
-<<<<<<< HEAD
-if /i %Platform%==Win32 (
-  copy "%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
-  copy "%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
-  )
-if /i %Platform%==x64 (
-  copy "%Platform%\%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
-  copy "%Platform%\%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
-=======
 echo %Platform%
 pause
 if %Platform%==x86 (
@@ -234,28 +208,18 @@ if %Platform%==x86 (
 if %Platform%==x64 (
   copy "X64\%BuildConfiguration%\%MSbuildName%.dll" "%DIR%" /Y
   copy "X64\%BuildConfiguration%\%MSbuildName%.lib" "%DIR%" /Y
->>>>>>> master
   )
 ::Note: /y: Suppresses prompting to confirm that you want to overwrite an existing destination file.
 
 ::*******************************************************************
 ::Clean Build Folder
 ::*******************************************************************
-<<<<<<< HEAD
-echo Clean Build Folder
-if /i %Platform%==Win32 (
-  rmdir %BuildConfiguration% /s /q
-  )
-if /i %Platform%==x64 (
-  rmdir %Platform% /s /q
-=======
 echo Clean %BuildConfiguration% Build Folder
 if %Platform%==x86 (
   rmdir %BuildConfiguration% /s /q
   )
 if %Platform%==x64 (
   rmdir X64 /s /q
->>>>>>> master
   )
 goto :eof
 ::Note: /s: Removes the specified directory and all subdirectories including any files.
