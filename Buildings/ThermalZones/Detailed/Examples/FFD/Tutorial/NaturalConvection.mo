@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
-model NaturalConvection "Tutorial for Natural Convection case"
+model NaturalConvection "Tutorial for the natural convection case"
   extends Modelica.Icons.Example;
   package MediumA =
       Buildings.Media.Air (
@@ -42,6 +42,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
    hRoo = 1,
    linearizeRadiation = false,
    useCFD = true,
+   nSou=0,
    sensorName = {"Occupied zone air temperature", "Velocity"},
    cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.ffd",
    nConExt = nConExt,
@@ -94,9 +95,9 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
           preserveAspectRatio=false)),
-          __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
+          __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
-        experiment(Tolerance=1e-06, StopTime=3600),
+        experiment(Tolerance=1e-06, StopTime=7200),
        Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions for building and simulating a natural convection model.
@@ -363,7 +364,7 @@ First implementation.
 <p>
 <a name=\"ZuoEtAl2012\"/>
 Wangda Zuo, Mingang Jin, Qingyan Chen, 2012.<br/>
-<a href=\"http://doi.org/10.1080/19942060.2012.11015418\">
+<a href=\"https://doi.org/10.1080/19942060.2012.11015418\">
 Reduction of numerical viscosity in FFD model.</a><br/>
 Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247.
 </p>

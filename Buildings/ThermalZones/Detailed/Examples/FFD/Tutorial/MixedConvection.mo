@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
-model MixedConvection "Tutorial for Mixed Convection case"
+model MixedConvection "Tutorial for the mixed convection case"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air (
         T_default=283.15) "Medium model";
@@ -9,7 +9,7 @@ model MixedConvection "Tutorial for Mixed Convection case"
   parameter Integer nSurBou=6
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -38,6 +38,7 @@ model MixedConvection "Tutorial for Mixed Convection case"
     hRoo = 1,
     linearizeRadiation = false,
     useCFD = true,
+    nSou=0,
     sensorName = {"Occupied zone air temperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.ffd",
     nConExt = nConExt,
@@ -92,27 +93,27 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(TFlo.port, roo.surf_surBou[6]) annotation (Line(
-      points={{140,-90},{96.2,-90},{96.2,-32}},
+      points={{140,-90},{96.2,-90},{96.2,-31.1667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[1].port, roo.surf_surBou[1]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[2].port, roo.surf_surBou[2]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[3].port, roo.surf_surBou[3]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-32.1667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[4].port, roo.surf_surBou[4]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-31.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[5].port, roo.surf_surBou[5]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32}},
+      points={{140,-50},{96.2,-50},{96.2,-31.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bouIn.ports[1], roo.ports[1]) annotation (Line(
@@ -387,7 +388,8 @@ First implementation.
 </ul>
 </html>"),
     experiment(Tolerance=1e-06, StopTime=180),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvection.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));

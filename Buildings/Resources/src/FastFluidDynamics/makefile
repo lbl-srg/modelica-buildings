@@ -43,6 +43,6 @@ all: clean
 clean:
 	rm -f $(OBJS) $(BINDIR)$(LIB)
 
-# To enable RootMakefile, add fellow empty targets
+# To enable RootMakefile, add follow empty targets
 doc:
 cleandoc:

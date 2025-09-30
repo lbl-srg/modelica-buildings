@@ -42,24 +42,24 @@ void *cfdcosim() {
   ****************************************************************************/
   cosim = NULL;
   cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
-  if (cosim == NULL){
+  if (cosim == NULL) {
     ModelicaError("Failed to allocate memory for cosim in cfdcosim.c");
   }
   cosim->para = NULL;
   cosim->para = (ParameterSharedData *) malloc(sizeof(ParameterSharedData));
-  if (cosim->para == NULL){
+  if (cosim->para == NULL) {
     ModelicaError("Failed to allocate memory for cosim->para in cfdcosim.c");
   }
 
   cosim->modelica = NULL;
   cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
-  if (cosim->para == NULL){
+  if (cosim->para == NULL) {
     ModelicaError("Failed to allocate memory for cosim->modelica in cfdcosim.c");
   }
 
   cosim->ffd = NULL;
   cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData));
-    if (cosim->para == NULL){
+    if (cosim->para == NULL) {
     ModelicaError("Failed to allocate memory for cosim->ffd in cfdcosim.c");
   }
 
@@ -98,7 +98,10 @@ void *cfdcosim() {
   cosim->modelica->shaConSig = NULL;
   cosim->modelica->shaAbsRad = NULL;
   cosim->ffd->TSha = NULL;
-  cosim->started = 0;
+  cosim->para->Sou = 0;
+  cosim->para->nSou = 0;
+  cosim->para->souName = NULL;
+  cosim->modelica->sourceHeat = NULL;
 
   return (void*) cosim;
 } /* End of cfdcosim()*/

@@ -6,10 +6,15 @@ CFDThread
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 HeatGain
+ISATAirHeatMassBalance
+ISATExchange
+ISATThread
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
 MixedAirHeatMassBalance
 PartialAirHeatMassBalance
+PartialCFD
+PartialExchange
 PartialSurfaceInterface
 PartialSurfaceInterfaceRadiative
 RadiationAdapter
@@ -17,8 +22,6 @@ RadiationTemperature
 RoomHeatMassBalance
 SkyRadiationExchange
 SolarRadiationExchange
-cfdExchangeData
-cfdStartCosimulation
 to_W
 CFDSurfaceIdentifier
 ConstructionNumbers

@@ -19,7 +19,8 @@ if __name__ == "__main__":
                  'stop', 'stop.',
                  'fmiModelIdentifier.h', 'modelDescription.xml',
                  'fmiFunctions.o',
-                 'CSVWriter.csvWriter.csv', 'test.csv']
+                 'CSVWriter.csvWriter.csv', 'test.csv',
+                 'isat_1.op', 'log.ffd', 'log.isat', 'result.plt']
     # Directories to be deleted. This will be non-recursive
     DELETEDIRS=['binaries', 'funnel_comp']
 
