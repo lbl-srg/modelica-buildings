@@ -2,7 +2,9 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowPIControlAutoTuning
   "Model that demonstrates the use of a heat exchanger with condensation and with autotuning PI feedback control"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.HeatExchangers.Examples.BaseClasses.PartialWetCoilCounterFlow;
+  extends Buildings.Fluid.HeatExchangers.Examples.BaseClasses.PartialWetCoilCounterFlow(TSet(
+        table=[0,288.15; 600,288.15; 600,298.15; 1200,298.15; 1500,283.15; 1600,
+          283.15; 1600,288.15; 3000,288.15; 3000,298.15]));
 
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
     con(
