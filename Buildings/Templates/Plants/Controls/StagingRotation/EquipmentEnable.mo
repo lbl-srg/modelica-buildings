@@ -1,38 +1,53 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentEnable
   "Return array of equipment to be enabled at given stage"
-  parameter Real staEqu[:,:](
-    each unit="1",
-    each min=0,
-    each max=1)
-    "Staging matrix – Equipment required for each stage"
-    annotation (Evaluate=true);
-  parameter Integer nEquAlt=if nEqu==1 then 1 else
-    max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
+  parameter Boolean is_pumApp
+    "Is the equipment enable block used for a pump control module application?";
+
+  parameter Integer nEquAlt
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
-  final parameter Integer nSta=size(staEqu, 1)
+
+  parameter Integer nSta
     "Number of stages"
     annotation (Evaluate=true);
-  final parameter Integer nEqu=size(staEqu, 2)
+
+  parameter Integer nEqu
     "Number of equipment"
     annotation (Evaluate=true);
-  final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
+
+  final Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix";
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
+    "Equipment available signal"
+    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if not is_pumApp
+    "Detect plant switching to heating-cooling mode"
+    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
     "Indices of lead/lag alternate equipment sorted by increasing runtime"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
     "Stage index"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
-    "Equipment available signal"
-    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
-    final k=traStaEqu)
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1)
+    "Staging matrix – Equipment required for each stage"
+    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Modelica.Blocks.Sources.RealExpression traMatStaEqu[nEqu, nSta](y=traStaEqu)
     "Transpose of staging matrix"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1[nEqu]
@@ -106,7 +121,8 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Integers.Less intLes
     "Compare to required number of equipment"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or swiEna
+  Buildings.Controls.OBC.CDL.Logical.MultiOr swiEna(
+    final nin=if is_pumApp then 2 else 3)
     "Evaluate condition to switch to newly computed enable signal"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
@@ -140,12 +156,17 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Reals.Multiply voiStaZer[nEqu]
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha1 if not is_pumApp
+    "Detect if plant enters simultaneous heating and cooling operation"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-108,0},{-100,0},{-100,60},{-150,60},{-150,68}},
       color={255,127,0}));
   connect(traMatStaEqu.y, reqEquSta.u)
-    annotation (Line(points={{-168,80},{-162,80}},color={0,0,127}));
+    annotation (Line(points={{-169,80},{-162,80}},color={0,0,127}));
   connect(isReq.y, isReqAva.u1)
     annotation (Line(points={{-38,-40},{-12,-40}},color={255,0,255}));
   connect(u1Ava, isReqAva.u2)
@@ -191,10 +212,6 @@ equation
     annotation (Line(points={{12,80},{20,80},{20,-108},{28,-108}},color={255,127,0}));
   connect(swiEna.y, booScaRep.u)
     annotation (Line(points={{102,-60},{108,-60}},color={255,0,255}));
-  connect(cha.y, swiEna.u1)
-    annotation (Line(points={{52,-60},{78,-60}},color={255,0,255}));
-  connect(intLes.y, swiEna.u2)
-    annotation (Line(points={{52,-100},{60,-100},{60,-68},{78,-68}},color={255,0,255}));
   connect(isEnaPreAva.y, nEnaAvaPre.u1)
     annotation (Line(points={{108,-100},{102,-100}},color={255,0,255}));
   connect(y1Pre.y, isEnaPreAva.u2)
@@ -233,6 +250,15 @@ equation
     annotation (Line(points={{-78,80},{-70,80},{-70,0},{-62,0}},color={0,0,127}));
   connect(voiStaZer.y, isReq.u)
     annotation (Line(points={{-78,80},{-70,80},{-70,-40},{-62,-40}},color={0,0,127}));
+  connect(cha.y, swiEna.u[1]) annotation (Line(points={{52,-60},{66,-60},{66,-60},
+          {78,-60}},                color={255,0,255}));
+  connect(intLes.y, swiEna.u[2]) annotation (Line(points={{52,-100},{62,-100},{
+          62,-60},{78,-60}}, color={255,0,255}));
+  connect(u1HeaCoo, cha1.u) annotation (Line(points={{-220,-120},{-180,-120},{
+          -180,-100},{-142,-100}}, color={255,0,255}));
+  connect(cha1.y, swiEna.u[3]) annotation (Line(points={{-118,-100},{-40,-100},{
+          -40,-116},{62,-116},{62,-58},{78,-58},{78,-60}},       color={255,0,
+          255}));
   annotation (
     defaultComponentName="enaEqu",
     Icon(
