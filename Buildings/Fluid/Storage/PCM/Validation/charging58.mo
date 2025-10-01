@@ -51,7 +51,7 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Modelica.Blocks.Math.Product m3s_kgs
     annotation (Placement(transformation(extent={{-46,40},{-66,60}})));
   CoilRegisterFourPort pcmFourPort(
-    redeclare Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Q3 Design,
+    redeclare Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design,
     redeclare Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.PCM58
       Material,
     m1_flow_nominal=m_flow_nominal,
