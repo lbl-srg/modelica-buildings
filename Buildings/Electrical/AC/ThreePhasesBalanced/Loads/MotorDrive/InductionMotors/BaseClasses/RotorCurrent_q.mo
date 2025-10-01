@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model RotorCurrent_q "q-axis rotor current calculation block"
   extends Modelica.Blocks.Icons.Block;
-  parameter Real Lr "Rotor Inductance";
-  parameter Real Rr "Rotor Resistance";
-  parameter Real Lm "Mutual Inductance";
+  parameter Real Lr(unit="H",quantity="Inductance") "Rotor Inductance";
+  parameter Real Rr(unit="Ohm",quantity="Resistance") "Rotor Resistance";
+  parameter Real Lm(unit="H",quantity="Inductance") "Mutual Inductance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_qr
     "Q-axis rotor voltage"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));

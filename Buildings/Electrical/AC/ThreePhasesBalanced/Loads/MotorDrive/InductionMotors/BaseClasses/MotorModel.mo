@@ -1,10 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model MotorModel "Induction Machine Model"
-  parameter Modelica.Units.SI.Reactance Lr "Rotor Inductance";
-  parameter Modelica.Units.SI.Reactance Ls "Stator Inductance";
-  parameter Modelica.Units.SI.Resistance Rr "Rotor Resistance";
-  parameter Modelica.Units.SI.Reactance Lm "Mutual Inductance";
-  parameter Modelica.Units.SI.Reactance Rs "Stator Resistance";
+  parameter Real Lr(unit="H", quantity="Inductance") "Rotor Inductance";
+  parameter Real Ls(unit="H", quantity="Inductance") "Stator Inductance";
+  parameter Real Rr(unit="Ohm", quantity="Resistance") "Rotor Resistance";
+  parameter Real Lm(unit="H", quantity="Inductance") "Mutual Inductance";
+  parameter Real Rs(unit="Ohm", quantity="Resistance") "Stator Resistance";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_ds "D-axis stator voltage"
     annotation (Placement(transformation(extent={{-180,50},{-140,90}}),

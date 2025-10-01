@@ -1,16 +1,14 @@
-
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model MotorMachineInterface
   "Calculates the electromagnetic torque based on voltage and frequency"
 
   parameter Integer P=4 "Number of poles";
-
-  parameter Real J "Moment of Inertia [Kg/m2]";
-  parameter Real Lr "Rotor Inductance [H]";
-  parameter Real Ls "Stator Inductance [H]";
-  parameter Real Rr "Rotor Resistance [ohm]";
-  parameter Real Lm "Mutual Inductance [H]";
-  parameter Real Rs "Stator Resistance [ohm]";
+  parameter Real J(unit="kg.m2", quantity="MomentOfInertia");
+  parameter Real Lr(unit="H", quantity="Inductance") "Rotor Inductance";
+  parameter Real Ls(unit="H", quantity="Inductance") "Stator Inductance";
+  parameter Real Rr(unit="Ohm", quantity="Resistance") "Rotor Resistance";
+  parameter Real Lm(unit="H", quantity="Inductance") "Mutual Inductance";
+  parameter Real Rs(unit="Ohm", quantity="Resistance") "Stator Resistance";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms(unit="V")
     "Prescribed RMS voltage"

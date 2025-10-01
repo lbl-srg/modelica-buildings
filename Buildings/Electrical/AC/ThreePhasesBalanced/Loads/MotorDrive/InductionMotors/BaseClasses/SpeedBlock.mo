@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 model SpeedBlock "Calculate speed and slip using electromagnetic torque, load torque and frequency"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real J( start=0.0131, fixed=true) "Moment of Inertia";
+  parameter Real J( start=0.0131, fixed=true, unit="kg.m2", quantity="MomentOfInertia") "Moment of Inertia";
   parameter Integer P( start=4, fixed=true) "Number of poles";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_e "Electromagnetic torque"

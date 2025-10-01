@@ -1,11 +1,11 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model StatorCurrent_d "d-axis stator current calculation block"
   extends Modelica.Blocks.Icons.Block;
-   parameter Real Lr "Rotor Inductance";
-   parameter Real Rr "Rotor Resistance";
-   parameter Real Lm "Mutual Inductance";
-   parameter Real Rs "Stator Resistance";
-   parameter Real Ls "Stator Inductance";
+   parameter Real Lr(unit="H",quantity="Inductance") "Rotor Inductance";
+   parameter Real Rr(unit="Ohm",quantity="Resistance") "Rotor Resistance";
+   parameter Real Lm(unit="H",quantity="Inductance") "Mutual Inductance";
+   parameter Real Rs(unit="Ohm",quantity="Resistance") "Stator Resistance";
+   parameter Real Ls(unit="H",quantity="Inductance") "Stator Inductance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_ds
     "D-axis stator voltage"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
