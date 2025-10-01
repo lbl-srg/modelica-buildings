@@ -85,15 +85,14 @@ partial model PartialBoilerPlant
     annotation (Evaluate=true, Dialog(group="Boilers",
     enable=have_boiNon));
 
+  // Only variable primary-only and variable primary-variable secondary are compatible with
+  // condensing boilers per G36 (to avoid primary flow recirculation).
+  final parameter Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary typPumHeaWatPriCon=
+    Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable
+    "Type of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
   // The template implementation does not support primary pumps provided with boilers.
   // We only limit the choices here but keep all choices in the enumeration for future support.
-  parameter Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary typPumHeaWatPriCon(
-    start=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable)
-    "Type of primary HW pumps"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers",
-    enable=have_boiCon), choices(
-    choice = Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Constant "Constant speed pump",
-    choice = Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable "Variable speed pump"));
   parameter Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary typPumHeaWatPriNon(
     start=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable)
     "Type of primary HW pumps"

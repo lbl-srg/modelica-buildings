@@ -22,21 +22,22 @@ model BoilerPlant
   Buildings.Templates.Plants.Boilers.HotWater.BoilerPlant pla(
     redeclare final package Medium = Medium,
     nBoiCon_select=2,
-    typPumHeaWatPriCon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable,
     typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing,
     nBoiNon_select=2,
-    typPumHeaWatPriNon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable,
+    typPumHeaWatPriNon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Constant,
     typArrPumHeaWatPriNon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized,
     final energyDynamics=energyDynamics,
     final tau=tau,
     final dat=datAll.pla,
+    show_T=true,
     ctl(
       nAirHan=1,
       nEquZon=0,
       typMeaCtlHeaWatPri=Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler,
-      have_senDpHeaWatRemWir=true))
+      have_senDpHeaWatRemWir=true),
+    THeaWatPriSupNon(show_T=true))
     "Boiler plant"
     annotation (Placement(transformation(extent={{-60,-100},{-20,-60}})));
 
