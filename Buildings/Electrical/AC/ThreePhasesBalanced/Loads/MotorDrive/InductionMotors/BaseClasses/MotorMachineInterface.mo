@@ -3,13 +3,12 @@ model MotorMachineInterface
   "Calculates the electromagnetic torque based on voltage and frequency"
 
   parameter Integer P=4 "Number of poles";
-
-  parameter Real J "Moment of Inertia [Kg/m2]";
-  parameter Real Lr "Rotor Inductance [H]";
-  parameter Real Ls "Stator Inductance [H]";
-  parameter Real Rr "Rotor Resistance [ohm]";
-  parameter Real Lm "Mutual Inductance [H]";
-  parameter Real Rs "Stator Resistance [ohm]";
+  parameter Real J(unit="kg.m2", quantity="MomentOfInertia");
+  parameter Real Lr(unit="H", quantity="Inductance") "Rotor Inductance";
+  parameter Real Ls(unit="H", quantity="Inductance") "Stator Inductance";
+  parameter Real Rr(unit="Ohm", quantity="Resistance") "Rotor Resistance";
+  parameter Real Lm(unit="H", quantity="Inductance") "Mutual Inductance";
+  parameter Real Rs(unit="Ohm", quantity="Resistance") "Stator Resistance";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms(unit="V")
     "Prescribed RMS voltage"
@@ -97,8 +96,37 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
+<p>
+This block computes the electromagnetic torque, stator and rotor currents of an induction machine from a prescribed RMS voltage and frequency, given machine parameters. It chains together:
+</p>
 
-</html>", revisions="<html>
+<ul>
+  <li><b>VoltageConversion</b>: converts the prescribed RMS stator voltage <i>V<sub>rms</sub></i> to d–q stator voltages <i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i>.</li>
+  <li><b>FrequencyConversion</b>: converts electrical frequency <i>f</i> (Hz) to electrical angular speed <i>&omega;</i> (rad/s) using <i>&omega; = 2 &pi; f</i>.</li>
+  <li><b>MotorModel</b>: computes stator and rotor currents in the d–q frame (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i>) using the parameters <i>L<sub>s</sub></i>, <i>L<sub>r</sub></i>, <i>R<sub>s</sub></i>, <i>R<sub>r</sub></i>, <i>L<sub>m</sub></i>, the electrical speed <i>&omega;</i>, and the rotor mechanical speed <i>&omega;<sub>r</sub></i>.</li>
+  <li><b>TorqueBlock</b>: computes the electromagnetic torque <i>&tau;<sub>e</sub></i>.</li>
+</ul>
+
+<p>
+The electromagnetic torque (in the synchronous d–q reference frame) is:
+</p>
+
+<p>
+&tau;<sub>e</sub> = (3/2) &middot; (P/2) &middot; L<sub>m</sub> &middot; ( i<sub>ds</sub> i<sub>qr</sub> &minus; i<sub>qs</sub> i<sub>dr</sub> )
+</p>
+
+<p>
+<b>Inputs:</b> <i>V<sub>rms</sub></i> [V], <i>f</i> [Hz], <i>&omega;<sub>r</sub></i> [rad/s] &nbsp; | &nbsp;
+<b>Outputs:</b> <i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i> [A], <i>&tau;<sub>e</sub></i> [N&middot;m]
+</p>
+
+<p>
+This block is part of 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 January, 2025, by Viswanathan Ganesh:<br/>

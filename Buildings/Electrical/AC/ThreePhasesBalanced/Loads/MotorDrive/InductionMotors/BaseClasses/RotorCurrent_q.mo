@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model RotorCurrent_q "q-axis rotor current calculation block"
   extends Modelica.Blocks.Icons.Block;
-  parameter Real Lr "Rotor Inductance";
-  parameter Real Rr "Rotor Resistance";
-  parameter Real Lm "Mutual Inductance";
+  parameter Real Lr(unit="H",quantity="Inductance") "Rotor Inductance";
+  parameter Real Rr(unit="Ohm",quantity="Resistance") "Rotor Resistance";
+  parameter Real Lm(unit="H",quantity="Inductance") "Mutual Inductance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_qr
     "Q-axis rotor voltage"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
@@ -29,11 +29,31 @@ equation
   der_i_qr = (((v_qr)/Lr)-((Rr*i_qr)/Lr)-((der_i_qs*Lm)/Lr)-(omega_r*i_dr)-((omega_r*Lm*i_ds)/Lr));
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block computes q-axis rotor current for the models in 
+This block computes the time derivative of the q-axis rotor current in the synchronous d–q frame. The implemented relation is:
+</p>
+
+<p>
+\\[
+\\frac{d i_{qr}}{dt}
+=
+\\frac{1}{L_r}\\Big(
+v_{qr}
+- R_r\\, i_{qr}
+- L_m\\, \\frac{d i_{qs}}{dt}
+- \\omega_r\\, L_r\\, i_{dr}
+- \\omega_r\\, L_m\\, i_{ds}
+\\Big)
+\\]
+</p>
+
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

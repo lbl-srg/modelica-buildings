@@ -1,10 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model MotorModel "Induction Machine Model"
-  parameter Modelica.Units.SI.Reactance Lr "Rotor Inductance";
-  parameter Modelica.Units.SI.Reactance Ls "Stator Inductance";
-  parameter Modelica.Units.SI.Resistance Rr "Rotor Resistance";
-  parameter Modelica.Units.SI.Reactance Lm "Mutual Inductance";
-  parameter Modelica.Units.SI.Reactance Rs "Stator Resistance";
+  parameter Real Lr(unit="H", quantity="Inductance") "Rotor Inductance";
+  parameter Real Ls(unit="H", quantity="Inductance") "Stator Inductance";
+  parameter Real Rr(unit="Ohm", quantity="Resistance") "Rotor Resistance";
+  parameter Real Lm(unit="H", quantity="Inductance") "Mutual Inductance";
+  parameter Real Rs(unit="Ohm", quantity="Resistance") "Stator Resistance";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_ds "D-axis stator voltage"
     annotation (Placement(transformation(extent={{-180,50},{-140,90}}),
@@ -165,7 +165,128 @@ Initial Implementation.
 </ul>
 </html>", info="<html>
 <p>
-Induction Machine Model
+This block implements a dynamic model of a three-phase induction machine in the synchronous rotating d–q reference frame. 
+It computes the stator and rotor currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i>) 
+from the applied d–q stator voltages (<i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i>) and the electrical 
+(<i>&omega;</i>) and mechanical (<i>&omega;<sub>r</sub></i>) rotor speeds, given the machine parameters.
 </p>
-</html>"));
+
+<p>
+The stator and rotor voltage equations in d–q matrix form are:
+</p>
+
+<p>
+\\[
+\\begin{bmatrix}
+v_{ds} \\\\[4pt]
+v_{qs}
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+R_s & 0 \\\\[4pt]
+0 & R_s
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{ds} \\\\[4pt]
+i_{qs}
+\\end{bmatrix}
++
+\\frac{d}{dt}
+\\begin{bmatrix}
+\\psi_{ds} \\\\[4pt]
+\\psi_{qs}
+\\end{bmatrix}
++
+\\begin{bmatrix}
+0 & -\\omega \\\\[4pt]
+\\omega & 0
+\\end{bmatrix}
+\\begin{bmatrix}
+\\psi_{ds} \\\\[4pt]
+\\psi_{qs}
+\\end{bmatrix}
+\\]
+</p>
+
+<p>
+\\[
+\\begin{bmatrix}
+0 \\\\[4pt]
+0
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+R_r & 0 \\\\[4pt]
+0 & R_r
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{dr} \\\\[4pt]
+i_{qr}
+\\end{bmatrix}
++
+\\frac{d}{dt}
+\\begin{bmatrix}
+\\psi_{dr} \\\\[4pt]
+\\psi_{qr}
+\\end{bmatrix}
++
+\\begin{bmatrix}
+0 & -(\\omega - \\omega_r) \\\\[4pt]
+(\\omega - \\omega_r) & 0
+\\end{bmatrix}
+\\begin{bmatrix}
+\\psi_{dr} \\\\[4pt]
+\\psi_{qr}
+\\end{bmatrix}
+\\]
+</p>
+
+<p>
+where the flux linkages are:
+</p>
+
+<p>
+\\[
+\\begin{bmatrix}
+\\psi_{ds} \\\\[4pt]
+\\psi_{qs}
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+L_s & L_m \\\\[4pt]
+L_m & L_r
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{ds} \\\\[4pt]
+i_{dr}
+\\end{bmatrix},
+\\qquad
+\\begin{bmatrix}
+\\psi_{qs} \\\\[4pt]
+\\psi_{qr}
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+L_s & L_m \\\\[4pt]
+L_m & L_r
+\\end{bmatrix}
+\\begin{bmatrix}
+i_{qs} \\\\[4pt]
+i_{qr}
+\\end{bmatrix}
+\\]
+</p>
+
+<p>
+<b>Inputs:</b> <i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i> [V], <i>&omega;</i> [rad/s], <i>&omega;<sub>r</sub></i> [rad/s] &nbsp; | &nbsp;
+<b>Outputs:</b> <i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i> [A]
+</p>
+
+<p>
+This block is part of 
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
+</p>
+</html>
+"));
 end MotorModel;

@@ -1,11 +1,11 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model StatorCurrent_d "d-axis stator current calculation block"
   extends Modelica.Blocks.Icons.Block;
-   parameter Real Lr "Rotor Inductance";
-   parameter Real Rr "Rotor Resistance";
-   parameter Real Lm "Mutual Inductance";
-   parameter Real Rs "Stator Resistance";
-   parameter Real Ls "Stator Inductance";
+   parameter Real Lr(unit="H",quantity="Inductance") "Rotor Inductance";
+   parameter Real Rr(unit="Ohm",quantity="Resistance") "Rotor Resistance";
+   parameter Real Lm(unit="H",quantity="Inductance") "Mutual Inductance";
+   parameter Real Rs(unit="Ohm",quantity="Resistance") "Stator Resistance";
+   parameter Real Ls(unit="H",quantity="Inductance") "Stator Inductance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_ds
     "D-axis stator voltage"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
@@ -32,11 +32,30 @@ equation
   der_i_ds =(((v_ds)/Ls)-((Rs*i_ds)/Ls)-((der_i_dr*Lm)/Ls)+(omega*i_qs)+((omega*Lm*i_qr)/Ls));
  annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block computes d-axis stator current for the models in 
+This block computes the time derivative of the d-axis stator current in the synchronous d–q frame. The implemented relation is:
+</p>
+
+<p>
+\\[
+\\frac{d i_{ds}}{dt}
+=
+\\frac{1}{L_s}\\Big(
+v_{ds}
+- R_s\\, i_{ds}
+- L_m\\, \\frac{d i_{dr}}{dt}
++ \\omega\\, L_s\\, i_{qs}
++ \\omega\\, L_m\\, i_{qr}
+\\Big)
+\\]
+</p>
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>

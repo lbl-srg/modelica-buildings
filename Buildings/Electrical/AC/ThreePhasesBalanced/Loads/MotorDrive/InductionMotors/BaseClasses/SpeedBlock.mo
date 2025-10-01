@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 model SpeedBlock "Calculate speed and slip using electromagnetic torque, load torque and frequency"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real J( start=0.0131, fixed=true) "Moment of Inertia";
+  parameter Real J( start=0.0131, fixed=true, unit="kg.m2", quantity="MomentOfInertia") "Moment of Inertia";
   parameter Integer P( start=4, fixed=true) "Number of poles";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_e "Electromagnetic torque"
@@ -55,11 +55,56 @@ equation
           {38,0}}, color={0,0,127}));
  annotation (preferredView="info", Documentation(info="<html>
 <p>
-This block computes the rotor speed for the models in 
+This block computes the rotor mechanical speed and slip of an induction machine using the electromagnetic torque, mechanical load torque, and electrical supply frequency.
+It integrates the acceleration derived from the torque difference and converts it to speed.
+</p>
+
+<p>
+The fundamental mechanical equation used is:
+</p>
+
+<p>
+\\[
+J \\frac{d\\omega_r}{dt} = \\tau_e - \\tau_m
+\\qquad\\Longrightarrow\\qquad
+\\frac{d\\omega_r}{dt} = \\frac{\\tau_e - \\tau_m}{J}
+\\]
+</p>
+
+<p>
+The rotor speed in revolutions per minute (rpm) is:
+</p>
+
+<p>
+\\[
+N = \\frac{60}{2\\pi} \\, \\omega_r
+\\qquad\\text{ and }\\qquad
+\\omega_{syn} = \\frac{2\\pi f}{P/2}
+\\]
+</p>
+
+<p>
+Slip can be computed from:
+</p>
+
+<p>
+\\[
+s = \\frac{\\omega_{syn} - \\omega_r}{\\omega_{syn}}
+\\]
+</p>
+
+<p>
+<b>Inputs:</b> <i>\\tau<sub>e</sub></i> [N·m], <i>\\tau<sub>m</sub></i> [N·m], <i>\\omega</i> [rad/s] &nbsp; | &nbsp;
+<b>Outputs:</b> <i>\\omega<sub>r</sub></i> [rad/s], <i>N</i> [rpm], <i>s</i> [-]
+</p>
+
+<p>
+This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>", revisions="<html>
+</html>
+",        revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
