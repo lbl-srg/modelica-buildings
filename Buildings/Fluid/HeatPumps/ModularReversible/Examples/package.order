@@ -2,4 +2,7 @@ AirToWater2D_OneRoomRadiator
 CarnotWithLosses_OneRoomRadiator
 LargeScaleWaterToWater_OneRoomRadiator
 Modular_OneRoomRadiator
+TableData2DLoadDep
+TableData2DLoadDepSHC1And2
+TableData2DLoadDepSHC1Only
 BaseClasses
