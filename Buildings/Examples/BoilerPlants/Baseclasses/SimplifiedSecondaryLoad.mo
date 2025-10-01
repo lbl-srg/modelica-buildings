@@ -89,7 +89,7 @@ model SimplifiedSecondaryLoad
     final addPowerToMedium=true,
     final riseTime=60,
     final m_flow_nominal=mRad_flow_nominal,
-    final dp_nominal=4*dpRad_nominal)
+    dp_nominal=1.1*dpRad_nominal + 1000)
     "Hot water secondary pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -104,8 +104,8 @@ model SimplifiedSecondaryLoad
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0)));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID
-    "Cooler valve controller"
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(r=mRad_flow_nominal)
+    "Heating load flowrate controller"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
@@ -131,13 +131,13 @@ model SimplifiedSecondaryLoad
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
-    final uLow=0.05,
-    final uHigh=0.1)
+    final uLow=0.05, final uHigh=0.075)
     "Determine if pump is proven on"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
+    uLow=0.05,
+    uHigh=0.8)
     "Check if valve command exceeds threshold for sending plant requests"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
 
@@ -147,8 +147,9 @@ model SimplifiedSecondaryLoad
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
-    final uLow=0.75,
-    final uHigh=0.9)
+    uLow=0.7,
+    uHigh=0.8)
+    "Check if valve exceeds threshold for generating reset requests"
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
@@ -200,11 +201,9 @@ equation
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
   connect(val.port_a, pum.port_b)
     annotation (Line(points={{-10,0},{-20,0},{-20,-30}}, color={0,127,255}));
-  connect(uPum, conPID.trigger) annotation (Line(points={{-120,-40},{-96,-40},{-96,
-          40},{-46,40},{-46,48}}, color={255,0,255}));
-  connect(conPID.y, greThr.u)
+  connect(conPID.y, hys2.u)
     annotation (Line(points={{-28,60},{8,60}}, color={0,0,127}));
-  connect(greThr.y, tim.u)
+  connect(hys2.y, tim.u)
     annotation (Line(points={{32,60},{38,60}}, color={255,0,255}));
   connect(tim.passed, booToInt.u) annotation (Line(points={{62,52},{64,52},{64,60},
           {68,60}}, color={255,0,255}));

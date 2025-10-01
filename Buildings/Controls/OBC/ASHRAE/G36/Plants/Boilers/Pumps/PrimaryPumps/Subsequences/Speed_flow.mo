@@ -6,12 +6,21 @@ block Speed_flow
     "Type of controller"
     annotation(Dialog(group="Speed controller"));
 
-  parameter Boolean use_priSecSen = true
+  parameter Boolean use_priSecSen
     "True: Use flowrate sensor in primary and secondary circuits for regulation;
     False: Use flowrate sensor in decoupler for regulation";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of hot water pumps";
+
+  parameter Real VHotWat_flow_nominal(
+    final min=1e-6,
+    final unit="m3/s",
+    displayUnit="m3/s",
+    final quantity="VolumeFlowRate",
+    final start=1e-6)
+    "Total plant design hot water flow rate"
+    annotation(Dialog(enable=not use_priSecSen));
 
   parameter Real minPumSpe(
     final unit="1",
@@ -137,6 +146,12 @@ protected
     "Ensure divisor is non-zero"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=1/VHotWat_flow_nominal)
+    if not use_priSecSen
+    "Normalize decoupler volume flowrate value"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+
 equation
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{-58,90},{40,90},{40,8},{58,8}}, color={0,0,127}));
@@ -166,9 +181,8 @@ equation
 
   connect(zer.y, conPID.u_s) annotation (Line(points={{-58,90},{-28,90},{-28,0},
           {-12,0}},color={0,0,127}));
-  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-68,0},{-68,-12},{
-          -70,-12},{-70,-20},{-62,-20}},
-                     color={255,0,255}));
+  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-70,0},{-70,-20},{-62,
+          -20}},     color={255,0,255}));
   connect(edg.y, conPID.trigger)
     annotation (Line(points={{-38,-20},{-6,-20},{-6,-12}}, color={255,0,255}));
   connect(div.y, conPID.u_m)
@@ -177,8 +191,10 @@ equation
     annotation (Line(points={{12,0},{58,0}},                 color={0,0,127}));
   connect(pumSpe.y, yHotWatPumSpe)
     annotation (Line(points={{82,0},{140,0}}, color={0,0,127}));
-  connect(VHotWatDec_flow, conPID.u_m)
-    annotation (Line(points={{-140,-100},{0,-100},{0,-12}}, color={0,0,127}));
+  connect(VHotWatDec_flow, gai.u)
+    annotation (Line(points={{-140,-100},{-62,-100}}, color={0,0,127}));
+  connect(gai.y, conPID.u_m)
+    annotation (Line(points={{-38,-100},{0,-100},{0,-12}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

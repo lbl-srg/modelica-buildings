@@ -495,6 +495,7 @@ protected
     final controllerType=controllerType,
     final use_priSecSen=use_priSecFloSen,
     final nPum=nPum,
+    final VHotWat_flow_nominal=VHotWat_flow_nominal,
     final minPumSpe=minPumSpe,
     final k=k,
     final Ti=Ti,
