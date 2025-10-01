@@ -1,8 +1,9 @@
 within Buildings.Fluid.Storage.PCM.Validation;
 model charging58
   extends ChargingDischarging(
-    pcmFourPort(redeclare Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Q3
-        Design, redeclare
+    pcmFourPort(
+      redeclare Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design,
+                redeclare
         Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.PCM58 Material,
       pcm_new=true,
       redeclare package pcm_data = slPCMlib.Media_Rubitherm_RT.Rubitherm_RT60),
