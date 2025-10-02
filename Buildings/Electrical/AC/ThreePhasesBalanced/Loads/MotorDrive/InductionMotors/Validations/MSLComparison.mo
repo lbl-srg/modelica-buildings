@@ -54,7 +54,7 @@ equation
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(Tolerance=1e-6,StartTime=0,StopTime=1),
+    experiment(Tolerance=1e-6,StartTime=0,StopTime=0.8),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Validations/MSLComparison.mos"
         "Simulate and PLot"),
 Documentation(revisions="<html>
