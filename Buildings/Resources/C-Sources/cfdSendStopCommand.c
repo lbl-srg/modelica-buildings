@@ -15,6 +15,7 @@
 
 #include "cfdCosimulation.h"
 
+#include <stdlib.h>
 /*
  * Send a stop command to terminate the CFD simulation
  *
