@@ -21,13 +21,13 @@ block SimVFD "Simple VFD maintaing constant V/F ratio"
     annotation (Placement(transformation(extent={{-64,50},{-44,70}})));
   Modelica.Blocks.Math.Division VFD_Ratio "VFD ratio"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=N_s*p/120)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=N_s*p/120) "Rated frequency"
     annotation (Placement(transformation(extent={{-60,8},{-40,30}})));
-  Modelica.Blocks.Math.Product product1
+  Modelica.Blocks.Math.Product product1 "VFD voltage"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Modelica.Blocks.Math.Product product2
+  Modelica.Blocks.Math.Product product2 "VFD frequency"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Modelica.Blocks.Math.Gain gain(k=2*Modelica.Constants.pi)
+  Modelica.Blocks.Math.Gain gain(k=2*Modelica.Constants.pi) "VFD angular frequency"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
 equation

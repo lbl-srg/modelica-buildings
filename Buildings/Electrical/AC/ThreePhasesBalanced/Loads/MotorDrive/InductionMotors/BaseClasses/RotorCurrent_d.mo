@@ -26,7 +26,7 @@ model RotorCurrent_d "d-axis rotor current calculation block"
     "Derivative of D-axis rotor current"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-initial equation
+
 equation
   der_i_dr = (((v_dr)/Lr)-((Rr*i_dr)/Lr)-((der_i_ds*Lm)/Lr)+(omega_r*i_qr)+((omega_r*Lm*i_qs)/Lr));
 annotation (preferredView="info", Documentation(info="<html>

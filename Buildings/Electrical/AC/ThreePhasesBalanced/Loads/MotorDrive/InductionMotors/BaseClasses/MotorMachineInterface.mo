@@ -41,7 +41,7 @@ model MotorMachineInterface
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.FrequencyConversion
     freCon "Convert the frequency from Hertz to radians per second"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorModel motMod(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.Motor motMod(
     final Lr=Lr,
     final Ls=Ls,
     final Rr=Rr,

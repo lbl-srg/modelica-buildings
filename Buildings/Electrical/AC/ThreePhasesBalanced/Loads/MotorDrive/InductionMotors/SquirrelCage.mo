@@ -9,7 +9,7 @@ model SquirrelCage
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=1/(2*Modelica.Constants.pi))
+    final k=1/(2*Modelica.Constants.pi)) "Frequency"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation

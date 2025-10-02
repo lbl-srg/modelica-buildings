@@ -1,10 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 function RMS_Voltage "Function to compute RMS voltage"
 
-  input Real a;
-  input Real b;
+  input Real a "voltage in d axis";
+  input Real b "voltage in q axis";
 
-  output Real v;
+  output Real v "RMS voltage";
 
 algorithm
   v :=sqrt(a^2+b^2);

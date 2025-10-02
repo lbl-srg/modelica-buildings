@@ -31,9 +31,9 @@ I_c
 \\end{bmatrix}
 =
 \\begin{bmatrix}
-\\sin(\\omega t) & \\cos(\\omega t) \\\\[4pt]
-\\sin(\\omega t - 120^\\circ) & \\cos(\\omega t - 120^\\circ) \\\\[4pt]
-\\sin(\\omega t + 120^\\circ) & \\cos(\\omega t + 120^\\circ)
+\\sin(\\omega t) &amp \\cos(\\omega t) \\\\[4pt]
+\\sin(\\omega t - 120^\\circ) &amp \\cos(\\omega t - 120^\\circ) \\\\[4pt]
+\\sin(\\omega t + 120^\\circ) &amp \\cos(\\omega t + 120^\\circ)
 \\end{bmatrix}
 \\begin{bmatrix}
 i_{ds} \\\\[4pt]

@@ -48,7 +48,7 @@ model PartialSquirrelCage
   Modelica.Blocks.Sources.RealExpression volPhaAng(final y=theta_s)
     "Supply voltage phase angle"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Continuous.Integrator int
+  Modelica.Blocks.Continuous.Integrator int "Integrator for voltage angular fequency"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   replaceable Modelica.Blocks.Sources.RealExpression conVol
     "Supply voltage phase angle"
@@ -58,11 +58,11 @@ equation
   theta_s = PhaseSystem.thetaRef(terminal.theta) "phase angle";
   v_rms=Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.RMS_Voltage(v[1],v[2]);
   if have_speCon then
-    i[1] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentCalculationD_VFD(torSpe.motMod.i_ds,conVol.y,v_rms);
-    i[2] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentCalculationQ_VFD(torSpe.motMod.i_qs,conVol.y,v_rms);
+    i[1] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentD_VFD(torSpe.motMod.i_ds,conVol.y,v_rms);
+    i[2] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentQ_VFD(torSpe.motMod.i_qs,conVol.y,v_rms);
   else
-    i[1] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentCalculationD(torSpe.motMod.i_ds);
-    i[2] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentCalculationQ(torSpe.motMod.i_qs);
+    i[1] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentD(torSpe.motMod.i_ds);
+    i[2] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentQ(torSpe.motMod.i_qs);
   end if;
 annotation(Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
