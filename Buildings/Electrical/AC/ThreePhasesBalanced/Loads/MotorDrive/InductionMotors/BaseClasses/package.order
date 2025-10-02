@@ -1,11 +1,11 @@
 CurrentBlock
-CurrentCalculationD
-CurrentCalculationD_VFD
-CurrentCalculationQ
-CurrentCalculationQ_VFD
+CurrentD
+CurrentD_VFD
+CurrentQ
+CurrentQ_VFD
 FrequencyConversion
 MotorMachineInterface
-MotorModel
+Motor
 PartialSquirrelCage
 RMS_Voltage
 RotorCurrent_d
