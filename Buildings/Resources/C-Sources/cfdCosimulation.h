@@ -23,6 +23,7 @@
 #else /* Linux*/
 #include <dlfcn.h>  /*For load shared library*/
 #include <unistd.h> /*For Linux function*/
+#include <math.h> /*For ceil function*/
 #define Sleep(x) sleep(ceil(x/1000.))
 #endif
 
