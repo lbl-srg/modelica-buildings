@@ -61,7 +61,7 @@ protected
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
-  function sendParameters
+  impure function sendParameters
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
     input Modelica.Units.SI.Area[nSur] A "Surface areas";
@@ -116,7 +116,7 @@ protected
   ///////////////////////////////////////////////////////////////////////////
   // Function that exchanges data during the time stepping between
   // Modelica and CFD.
-  function exchange
+  impure function exchange
     input Integer flag "Communication flag to write to CFD";
     input Modelica.Units.SI.Time t
       "Current simulation time in seconds to write";
@@ -160,7 +160,7 @@ protected
 
   // This function does not work because Dymola 2014 has problems with
   // handling strings in an algorithm section
-  function assertStringsAreUnique
+  impure function assertStringsAreUnique
     input String descriptiveName
       "Descriptive name of what is tested, such as 'sensor' or 'ports'";
     input Integer n(min=2) "Number of strings";
@@ -331,6 +331,10 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 2, 2025, by Michael Wetter:<br/>
+Declared functions as <code>impure</code>.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed <code>Evaluate</code> statement as the model is used with
