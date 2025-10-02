@@ -55,6 +55,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not and1
     "Disable the assert when the tuning is not ongoing"
     annotation (Placement(transformation(extent={{28,-90},{48,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay tunEndDel(
+    final delayTime=0.001)
+    "A small time delay for the autotuning end time to avoid missing events"
+    annotation (Placement(transformation(extent={{58,-90},{78,-70}})));
 equation
   connect(subGamRho.u1, asyLev.y) annotation (Line(points={{18,26},{-50,26},{
           -50,80},{-58,80}}, color={0,0,127}));
@@ -84,12 +88,14 @@ equation
         color={0,0,127}));
   connect(gre.y, or2.u1)
     annotation (Line(points={{2,60},{24,60}}, color={255,0,255}));
-  connect(and1.u, inTun)
-    annotation (Line(points={{26,-80},{0,-80},{0,-120}}, color={255,0,255}));
-  connect(and1.y, or2.u2) annotation (Line(points={{50,-80},{90,-80},{90,40},{20,
-          40},{20,52},{24,52}}, color={255,0,255}));
   connect(or2.y, assMes.u)
     annotation (Line(points={{48,60},{58,60}}, color={255,0,255}));
+  connect(and1.u, inTun)
+    annotation (Line(points={{18,-80},{0,-80},{0,-120}}, color={255,0,255}));
+  connect(and1.y,tunEndDel. u)
+    annotation (Line(points={{42,-80},{56,-80}}, color={255,0,255}));
+  connect(tunEndDel.y, or2.u2) annotation (Line(points={{80,-80},{86,-80},{86,
+          40},{20,40},{20,52},{24,52}}, color={255,0,255}));
   annotation (
         defaultComponentName = "norTimDel",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
