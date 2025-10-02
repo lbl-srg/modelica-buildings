@@ -52,20 +52,27 @@ equation
   connect(sou.terminal, motDri.terminal) annotation (Line(points={{-10,20},{-8,
           20},{-8,8.88178e-16}}, color={0,120,120}));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=1),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Validations/MSLComparison.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Validations/MSLComparison.mos"
         "Simulate and PLot"),
 Documentation(revisions="<html>
 <ul>
 <li>
-September 12, 2025, by Viswanathan Ganesh:<br/>First Implementation.
+September 12, 2025, by Viswanathan Ganesh:<br/>
+First Implementation.
 </li>
 </ul>
 </html>", info="<html>
-Comparison of Induction Machine Models with Modelica Standard Library (Figure 13)  <a href=\"https://ieeexplore.ieee.org/document/11045278\">[1]</a>. The reference data of MSL is simulated reference data from the model 
-<a href=\"Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL\">Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL</a>. The LeFosse reference data plotted is from the simulation setup as decribed in <a href=\"https://webthesis.biblio.polito.it/17858/\">[2]</a>.
-</html>
-"));
+<p>
+Comparison of Induction Machine Models with Modelica Standard Library (Figure 13)
+<a href=\"https://ieeexplore.ieee.org/document/11045278\">[1]</a>. The reference
+data of MSL is simulated reference data from the model 
+<a href=\"modelica://Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL\">
+Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL</a>.
+The LeFosse reference data plotted is from the simulation setup as decribed in
+<a href=\"https://webthesis.biblio.polito.it/17858/\">[2]</a>.
+</p>
+</html>"));
 end MSLComparison;

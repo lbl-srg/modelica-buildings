@@ -165,10 +165,14 @@ Initial Implementation.
 </ul>
 </html>", info="<html>
 <p>
-This block implements a dynamic model of a three-phase induction machine in the synchronous rotating d–q reference frame. 
-It computes the stator and rotor currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i>) 
-from the applied d–q stator voltages (<i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i>) and the electrical 
-(<i>&omega;</i>) and mechanical (<i>&omega;<sub>r</sub></i>) rotor speeds, given the machine parameters.
+This block implements a dynamic model of a three-phase induction machine in the
+synchronous rotating d–q reference frame. 
+It computes the stator and rotor currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>,
+<i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i>) 
+from the applied d–q stator voltages (<i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i>)
+and the electrical 
+(<i>&omega;</i>) and mechanical (<i>&omega;<sub>r</sub></i>) rotor speeds, given
+the machine parameters.
 </p>
 
 <p>
@@ -183,8 +187,8 @@ v_{qs}
 \\end{bmatrix}
 =
 \\begin{bmatrix}
-R_s &amp 0 \\\\[4pt]
-0 &amp R_s
+R_s &amp; 0 \\\\[4pt]
+0 &amp; R_s
 \\end{bmatrix}
 \\begin{bmatrix}
 i_{ds} \\\\[4pt]
@@ -198,8 +202,8 @@ i_{qs}
 \\end{bmatrix}
 +
 \\begin{bmatrix}
-0 &amp -\\omega \\\\[4pt]
-\\omega &amp 0
+0 &amp; -\\omega \\\\[4pt]
+\\omega &amp; 0
 \\end{bmatrix}
 \\begin{bmatrix}
 \\psi_{ds} \\\\[4pt]
@@ -216,8 +220,8 @@ i_{qs}
 \\end{bmatrix}
 =
 \\begin{bmatrix}
-R_r &amp 0 \\\\[4pt]
-0 &amp R_r
+R_r &amp; 0 \\\\[4pt]
+0 &amp; R_r
 \\end{bmatrix}
 \\begin{bmatrix}
 i_{dr} \\\\[4pt]
@@ -231,8 +235,8 @@ i_{qr}
 \\end{bmatrix}
 +
 \\begin{bmatrix}
-0 &amp -(\\omega - \\omega_r) \\\\[4pt]
-(\\omega - \\omega_r) &amp 0
+0 &amp; -(\\omega - \\omega_r) \\\\[4pt]
+(\\omega - \\omega_r) &amp; 0
 \\end{bmatrix}
 \\begin{bmatrix}
 \\psi_{dr} \\\\[4pt]
@@ -253,8 +257,8 @@ where the flux linkages are:
 \\end{bmatrix}
 =
 \\begin{bmatrix}
-L_s &amp L_m \\\\[4pt]
-L_m &amp L_r
+L_s &amp; L_m \\\\[4pt]
+L_m &amp; L_r
 \\end{bmatrix}
 \\begin{bmatrix}
 i_{ds} \\\\[4pt]
@@ -267,8 +271,8 @@ i_{dr}
 \\end{bmatrix}
 =
 \\begin{bmatrix}
-L_s &amp L_m \\\\[4pt]
-L_m &amp L_r
+L_s &amp; L_m \\\\[4pt]
+L_m &amp; L_r
 \\end{bmatrix}
 \\begin{bmatrix}
 i_{qs} \\\\[4pt]
@@ -278,8 +282,10 @@ i_{qr}
 </p>
 
 <p>
-<b>Inputs:</b> <i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i> [V], <i>&omega;</i> [rad/s], <i>&omega;<sub>r</sub></i> [rad/s] &nbsp; | &nbsp;
-<b>Outputs:</b> <i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i> [A]
+<b>Inputs:</b> <i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i> [V], <i>&omega;</i> [rad/s],
+<i>&omega;<sub>r</sub></i> [rad/s] &nbsp; | &nbsp;
+<b>Outputs:</b> <i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>,
+<i>i<sub>qr</sub></i> [A]
 </p>
 
 <p>
