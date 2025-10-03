@@ -29,6 +29,7 @@ model ExteriorBoundaryConditions
   // ceiling (of the room)
   HeatTransfer.Convection.Exterior conOpa[nCon](
     A=AOpa,
+    final roughness=conPar[:].layers.roughness_a,
     final til=Modelica.Constants.pi*ones(nCon) .- conPar[:].til,
     final azi=conPar[:].azi,
     each conMod=conMod,
@@ -232,6 +233,12 @@ Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditionsWithWindow
 </html>",
         revisions="<html>
 <ul>
+<li>
+September 24, 2025, by Jianjun Hu:<br/>
+Explicitly assigned value to the roughness of the exterior constructions.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4367\">issue 4367</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
