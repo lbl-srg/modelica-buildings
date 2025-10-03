@@ -3,10 +3,16 @@ package chw_ntu "Ice tank model"
   extends Modelica.Icons.Package;
 
 annotation (Documentation(info="<html>
-<p>
-Package with ice thermal storage models.
-</p>
-</html>"), Icon(graphics={Line(points={{0,80},{0,-80}},   color={0,128,255},
+<p>Package with ice thermal storage models. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 10, 2025 by Remi Patureau:<br/>
+First implementation.
+</li>
+</ul>
+</html>
+"),        Icon(graphics={Line(points={{0,80},{0,-80}},   color={0,128,255},
           thickness=0.5,
           rotation=180),
         Line(
