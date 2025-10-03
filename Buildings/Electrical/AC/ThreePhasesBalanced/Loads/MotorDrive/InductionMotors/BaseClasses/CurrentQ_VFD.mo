@@ -2,12 +2,12 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 function CurrentQ_VFD "Function to compute current in q axis entering the induction machine"
 
 input Real i_qs "Q-axis stator current";
-input Real VFDvol "VFD voltage";
-input Real vrms "RMS voltage";
+input Real v_VFD "VFD voltage";
+input Real v_rms "Root mean square voltage";
 output Real i "Terminal current interface";
 
 algorithm
-  i :=1.0*i_qs*(VFDvol/vrms);
+  i :=1.0*i_qs*(v_VFD/v_rms);
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -19,7 +19,7 @@ Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Squ
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

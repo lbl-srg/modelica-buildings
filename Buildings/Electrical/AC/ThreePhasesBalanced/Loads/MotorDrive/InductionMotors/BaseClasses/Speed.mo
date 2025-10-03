@@ -125,7 +125,7 @@ s = \\frac{\\omega_{syn} - \\omega_r}{\\omega_{syn}}
 <b>Outputs:</b> <i>&omega;<sub>r</sub></i> [rad/s], <i>N</i> [rpm], <i>s</i> [-]
 </p>
 <p>
-This block is used in 
+This block is used in
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
@@ -133,7 +133,7 @@ Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

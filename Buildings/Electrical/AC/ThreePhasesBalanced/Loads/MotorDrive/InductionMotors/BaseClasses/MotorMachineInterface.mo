@@ -26,7 +26,7 @@ model MotorMachineInterface
   parameter Real Rs(
     final unit="Ohm",
     final quantity="Resistance")
-      "Stator Resistance";
+    "Stator Resistance";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms(
     final unit="V",
@@ -48,21 +48,22 @@ model MotorMachineInterface
     final quantity="ElectricCurrent")
     "Q-axis stator current"
     annotation (Placement(transformation(extent={{100,30},{140,70}}),
-        iconTransformation(extent={{100,30},{140,70}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput i_ds(
     final unit="A",
     final quantity="ElectricCurrent")
     "D-axis stator current"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau_e(
     final quantity="Torque",
     final unit="N.m")
     "Electromagenetic torque of rotor"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.VoltageConversion volCon
-    "Obtain the stator voltage values in q-axis and d-axis"
+    "Stator voltage values in q-axis and d-axis"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.FrequencyConversion
     freCon "Convert the frequency from Hertz to radians per second"
@@ -125,8 +126,8 @@ equation
     Documentation(info="<html>
 <p>
 This block computes the electromagnetic torque, stator and rotor currents of an
-induction machine from a prescribed RMS voltage and frequency, given machine
-parameters. It chains together:
+induction machine from a prescribed root mean square (RMS) voltage and frequency,
+given machine parameters. It composes together:
 </p>
 <ul>
 <li>
@@ -164,7 +165,7 @@ The electromagnetic torque (in the synchronous d–q reference frame) is:
 [N&middot;m]
 </p>
 <p>
-This block is part of 
+This block is part of
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
@@ -172,11 +173,11 @@ Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>
 <ul>
 <li>
 January, 2025, by Viswanathan Ganesh:<br/>
-Updated Icon Layer.
+Updated icon layer.
 </li>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

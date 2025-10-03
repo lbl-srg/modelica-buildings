@@ -12,7 +12,6 @@ Motor
 MotorMachineInterface
 PartialSquirrelCage
 RMS_Voltage
-SimVFD
 Speed
 Torque
 VoltageConversion

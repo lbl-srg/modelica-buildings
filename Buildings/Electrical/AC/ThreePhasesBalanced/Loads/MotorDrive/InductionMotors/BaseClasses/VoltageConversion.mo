@@ -48,7 +48,7 @@ This simplification is commonly used for initializing induction machine models
 where the stator voltage space vector is aligned with the d-axis.
 </p>
 <p>
-This block is used in 
+This block is used in
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
@@ -56,7 +56,7 @@ Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

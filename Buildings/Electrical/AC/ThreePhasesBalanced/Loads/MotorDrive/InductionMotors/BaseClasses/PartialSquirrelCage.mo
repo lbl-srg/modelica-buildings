@@ -11,7 +11,7 @@ model PartialSquirrelCage
 
   parameter Boolean have_speCon "Have the closed loop built-in speed control";
 
-  Real v_rms "RMS voltage";
+  Real v_rms "Root mean square voltage";
   Modelica.Units.SI.Angle theta_s
     "Supply voltage phase angel";
   Modelica.Units.SI.Voltage v[:] = terminal.v
@@ -47,7 +47,7 @@ model PartialSquirrelCage
     "Supply voltage angular frequency"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Modelica.Blocks.Sources.RealExpression rmsVol(
-    final y=v_rms) "RMS voltage"
+    final y=v_rms) "Root mean square voltage"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.RealExpression volPhaAng(
     final y=theta_s)
@@ -112,7 +112,7 @@ This is the base model for the induction motor model.
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model Torque
-  "Calculate Electromagnetic torque using stator and rotor current"
+  "Calculate electromagnetic torque using stator and rotor current"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer P=4 "Number of pole";
@@ -65,13 +65,13 @@ The implemented relation is:
 \\]
 </p>
 <p>
-where  
+where
 <i>P</i> is the number of poles, <i>L<sub>m</sub></i> is the mutual inductance,
 and <i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>,
 <i>i<sub>qr</sub></i> are the d–q stator and rotor currents.
 </p>
 <p>
-This block is used in 
+This block is used in
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
@@ -79,7 +79,7 @@ Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-model Motor "Induction Machine Model"
+model Motor "Induction machine"
   parameter Real Lr(
     final unit="H",
     final quantity="Inductance")
@@ -72,26 +72,18 @@ model Motor "Induction Machine Model"
 
   Modelica.Blocks.Continuous.Integrator qRotCur
     "Q-axis rotor current"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={110,-40})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-40})));
   Modelica.Blocks.Continuous.Integrator dRotCur
     "D-axis rotor current"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={110,-100})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-100})));
   Modelica.Blocks.Sources.Constant v_dr(k=0)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-70,-80})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-110,-80})));
   Modelica.Blocks.Continuous.Integrator qStaCur
     "Q-axis stator current"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={110,90})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,90})));
   Modelica.Blocks.Continuous.Integrator dStaCur
     "D-axis stator current"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={110,50})));
-  Modelica.Blocks.Sources.RealExpression I_qs(y=i_qs)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-70,120})));
-  Modelica.Blocks.Sources.RealExpression I_dr(y=i_dr)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-70,-130})));
-  Modelica.Blocks.Sources.RealExpression I_ds(y=i_ds)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-70,-10})));
-  Modelica.Blocks.Sources.RealExpression I_qr(y=i_qr)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-70,-30})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,50})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentDerivative_qStator
     qStaCurDer(
     final Lr=Lr,
@@ -99,7 +91,7 @@ model Motor "Induction Machine Model"
     final Lm=Lm,
     final Rs=Rs,
     final Ls=Ls) "Time derivative of the Q-axis stator current"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentDerivative_dStator
     dStaCurDer(
     final Lr=Lr,
@@ -107,86 +99,86 @@ model Motor "Induction Machine Model"
     final Lm=Lm,
     final Rs=Rs,
     final Ls=Ls) "Time derivative of the D-axis stator current"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentDerivative_dRotor
     dRotCurDer(
     final Lr=Lr,
     final Rr=Rr,
     final Lm=Lm) "Time derivative of the D-axis rotor current"
-    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentDerivative_qRotor
     qRotCurDer(
     final Lr=Lr,
     final Rr=Rr,
     final Lm=Lm) "Time derivative of the Q-axis rotor current"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 equation
   connect(qRotCurDer.der_i_qr, qRotCur.u)
-    annotation (Line(points={{82,-40},{98,-40}}, color={0,0,127}));
+    annotation (Line(points={{22,-40},{58,-40}}, color={0,0,127}));
   connect(v_dr.y,dRotCurDer. v_dr)
-    annotation (Line(points={{-59,-80},{20,-80},{20,-91},{58,-91}},  color={0,0,127}));
+    annotation (Line(points={{-99,-80},{-40,-80},{-40,-91},{-2,-91}},color={0,0,127}));
   connect(i_ds, dStaCur.y)
-    annotation (Line(points={{160,50},{121,50}}, color={0,0,127}));
+    annotation (Line(points={{160,50},{81,50}},  color={0,0,127}));
   connect(i_qr, qRotCur.y)
-    annotation (Line(points={{160,-40},{121,-40}}, color={0,0,127}));
+    annotation (Line(points={{160,-40},{81,-40}},  color={0,0,127}));
   connect(i_dr, i_dr)
     annotation (Line(points={{160,-100},{160,-100}}, color={0,0,127}));
   connect(dRotCur.y, i_dr)
-    annotation (Line(points={{121,-100},{160,-100}}, color={0,0,127}));
-  connect(I_qs.y,qStaCurDer. i_qs) annotation (Line(points={{-59,120},{-10,120},
-          {-10,96},{58,96}}, color={0,0,127}));
-  connect(I_dr.y,qStaCurDer. i_dr) annotation (Line(points={{-59,-130},{40,-130},
-          {40,84},{58,84}}, color={0,0,127}));
-  connect(I_ds.y,qStaCurDer. i_ds) annotation (Line(points={{-59,-10},{10,-10},{
-          10,81},{58,81}},  color={0,0,127}));
-  connect(dStaCurDer.der_i_ds, dStaCur.u) annotation (Line(points={{82,50},{92,50},
-          {92,50},{98,50}}, color={0,0,127}));
-  connect(v_ds,dStaCurDer. v_ds) annotation (Line(points={{-160,70},{-20,70},{-20,59},{58,59}},
-      color={0,0,127}, pattern=LinePattern.Dash, thickness=0.5));
+    annotation (Line(points={{81,-100},{160,-100}},  color={0,0,127}));
+  connect(dStaCurDer.der_i_ds, dStaCur.u) annotation (Line(points={{22,50},{58,50}},
+          color={0,0,127}));
   connect(dRotCurDer.der_i_dr, dRotCur.u)
-    annotation (Line(points={{82,-100},{98,-100}}, color={0,0,127}));
-  connect(qRotCurDer.i_dr,qStaCurDer. i_dr) annotation (Line(points={{58,-46},{
-          40,-46},{40,84},{58,84}}, color={0,0,127}));
-  connect(dRotCurDer.i_dr, I_dr.y) annotation (Line(points={{58,-94},{40,-94},{
-          40,-130},{-59,-130}}, color={0,0,127}));
-  connect(dRotCurDer.i_qs, I_qs.y) annotation (Line(points={{58,-109},{-10,-109},
-          {-10,120},{-59,120}}, color={0,0,127}));
-  connect(I_qr.y,qRotCurDer. i_qr) annotation (Line(points={{-59,-30},{-20,-30},
-          {-20,-34},{58,-34}}, color={0,0,127}));
-  connect(dRotCurDer.i_qr, I_qr.y) annotation (Line(points={{58,-106},{-20,-106},
-          {-20,-30},{-59,-30}}, color={0,0,127}));
+    annotation (Line(points={{22,-100},{58,-100}}, color={0,0,127}));
   connect(qStaCur.y, i_qs)
-    annotation (Line(points={{121,90},{160,90}}, color={0,0,127}));
-  connect(qStaCur.u, qStaCurDer.der_i_qs) annotation (Line(points={{98,90},{91.35,
-          90},{91.35,90},{82,90}}, color={0,0,127}));
+    annotation (Line(points={{81,90},{160,90}},  color={0,0,127}));
+  connect(qStaCur.u, qStaCurDer.der_i_qs) annotation (Line(points={{58,90},{22,90}},
+          color={0,0,127}));
   connect(v_qs,qStaCurDer. v_qs)
-    annotation (Line(points={{-160,110},{50,110},{50,99},{58,99}}, color={0,0,127}));
-  connect(omega,dStaCurDer. omega) annotation (Line(points={{-160,30},{-40,30},
-          {-40,48},{58,48}}, color={0,0,127}));
-  connect(omega,qStaCurDer. omega) annotation (Line(points={{-160,30},{-40,30},
-          {-40,88},{58,88}}, color={0,0,127}));
-  connect(omega_r,qRotCurDer. omega_r) annotation (Line(points={{-160,-120},{
-          -30,-120},{-30,-42},{58,-42}}, color={0,0,127}));
-  connect(omega_r,dRotCurDer. omega_r) annotation (Line(points={{-160,-120},{
-          -30,-120},{-30,-102},{58,-102}}, color={0,0,127}));
-  connect(I_qr.y,dStaCurDer. i_qr) annotation (Line(points={{-59,-30},{-20,-30},
-          {-20,44},{58,44}}, color={0,0,127}));
-  connect(I_qs.y,dStaCurDer. i_qs) annotation (Line(points={{-59,120},{-10,120},
-          {-10,41},{58,41}}, color={0,0,127}));
-  connect(I_ds.y,dStaCurDer. i_ds) annotation (Line(points={{-59,-10},{10,-10},{
-          10,56},{58,56}}, color={0,0,127}));
-  connect(I_ds.y,qRotCurDer. i_ds) annotation (Line(points={{-59,-10},{10,-10},
-          {10,-49},{58,-49}},color={0,0,127}));
-  connect(qRotCurDer.der_i_qr,qStaCurDer. der_i_qr) annotation (Line(points={{
-          82,-40},{90,-40},{90,-10},{20,-10},{20,92},{58,92}}, color={0,0,127}));
-  connect(dRotCurDer.der_i_dr,dStaCurDer. der_i_dr) annotation (Line(points={{
-          82,-100},{90,-100},{90,-60},{30,-60},{30,52},{58,52}}, color={0,0,127}));
-  connect(qStaCurDer.der_i_qs,qRotCurDer. der_i_qs) annotation (Line(points={{
-          82,90},{90,90},{90,70},{50,70},{50,-38},{58,-38}}, color={0,0,127}));
-  connect(dStaCurDer.der_i_ds,dRotCurDer. der_i_ds) annotation (Line(points={{
-          82,50},{90,50},{90,20},{0,20},{0,-98},{58,-98}}, color={0,0,127}));
-  connect(v_dr.y,qRotCurDer. v_qr) annotation (Line(points={{-59,-80},{20,-80},
-          {20,-31},{58,-31}}, color={0,0,127}));
+    annotation (Line(points={{-160,110},{-10,110},{-10,99},{-2,99}}, color={0,0,127}));
+  connect(omega,dStaCurDer. omega) annotation (Line(points={{-160,30},{-100,30},
+          {-100,48},{-2,48}},color={0,0,127}));
+  connect(omega,qStaCurDer. omega) annotation (Line(points={{-160,30},{-100,30},
+          {-100,88},{-2,88}},color={0,0,127}));
+  connect(omega_r,qRotCurDer. omega_r) annotation (Line(points={{-160,-120},{-90,
+          -120},{-90,-42},{-2,-42}}, color={0,0,127}));
+  connect(omega_r,dRotCurDer. omega_r) annotation (Line(points={{-160,-120},{-90,
+          -120},{-90,-102},{-2,-102}}, color={0,0,127}));
+  connect(qRotCurDer.der_i_qr,qStaCurDer. der_i_qr) annotation (Line(points={{22,-40},
+          {40,-40},{40,-20},{-40,-20},{-40,92},{-2,92}},       color={0,0,127}));
+  connect(dRotCurDer.der_i_dr,dStaCurDer. der_i_dr) annotation (Line(points={{22,-100},
+          {40,-100},{40,-80},{-30,-80},{-30,52},{-2,52}},        color={0,0,127}));
+  connect(qStaCurDer.der_i_qs,qRotCurDer. der_i_qs) annotation (Line(points={{22,90},
+          {40,90},{40,70},{-10,70},{-10,-38},{-2,-38}},      color={0,0,127}));
+  connect(dStaCurDer.der_i_ds,dRotCurDer. der_i_ds) annotation (Line(points={{22,50},
+          {40,50},{40,20},{-60,20},{-60,-98},{-2,-98}},    color={0,0,127}));
+  connect(v_dr.y,qRotCurDer. v_qr) annotation (Line(points={{-99,-80},{-40,-80},
+          {-40,-31},{-2,-31}},color={0,0,127}));
+  connect(qStaCur.y, qStaCurDer.i_qs) annotation (Line(points={{81,90},{100,90},
+          {100,120},{-70,120},{-70,96},{-2,96}}, color={0,0,127}));
+  connect(qStaCur.y, dStaCurDer.i_qs) annotation (Line(points={{81,90},{100,90},
+          {100,120},{-70,120},{-70,41},{-2,41}}, color={0,0,127}));
+  connect(qStaCur.y, dRotCurDer.i_qs) annotation (Line(points={{81,90},{100,90},
+          {100,120},{-70,120},{-70,-109},{-2,-109}}, color={0,0,127}));
+  connect(dStaCur.y, qStaCurDer.i_ds) annotation (Line(points={{81,50},{100,50},
+          {100,10},{-50,10},{-50,81},{-2,81}}, color={0,0,127}));
+  connect(dStaCur.y, dStaCurDer.i_ds) annotation (Line(points={{81,50},{100,50},
+          {100,10},{-50,10},{-50,56},{-2,56}}, color={0,0,127}));
+  connect(dStaCur.y, qRotCurDer.i_ds) annotation (Line(points={{81,50},{100,50},
+          {100,10},{-50,10},{-50,-49},{-2,-49}}, color={0,0,127}));
+  connect(qRotCur.y, dStaCurDer.i_qr) annotation (Line(points={{81,-40},{100,-40},
+          {100,-10},{-80,-10},{-80,44},{-2,44}}, color={0,0,127}));
+  connect(qRotCur.y, qRotCurDer.i_qr) annotation (Line(points={{81,-40},{100,-40},
+          {100,-10},{-80,-10},{-80,-34},{-2,-34}}, color={0,0,127}));
+  connect(qRotCur.y, dRotCurDer.i_qr) annotation (Line(points={{81,-40},{100,-40},
+          {100,-10},{-80,-10},{-80,-106},{-2,-106}}, color={0,0,127}));
+  connect(dRotCur.y, dRotCurDer.i_dr) annotation (Line(points={{81,-100},{100,-100},
+          {100,-60},{-20,-60},{-20,-94},{-2,-94}}, color={0,0,127}));
+  connect(dRotCur.y, qStaCurDer.i_dr) annotation (Line(points={{81,-100},{100,-100},
+          {100,-60},{-20,-60},{-20,84},{-2,84}}, color={0,0,127}));
+  connect(dRotCur.y, qRotCurDer.i_dr) annotation (Line(points={{81,-100},{100,-100},
+          {100,-60},{-20,-60},{-20,-46},{-2,-46}}, color={0,0,127}));
+  connect(v_ds, dStaCurDer.v_ds) annotation (Line(points={{-160,70},{-120,70},{-120,
+          59},{-2,59}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={Rectangle(
@@ -203,25 +195,23 @@ equation
 <ul>
 <li>
 November 10, 2023, by Viswanathan Ganesh:<br/>
-Initial Implementation.
+First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
 This block implements a dynamic model of a three-phase induction machine in the
-synchronous rotating d–q reference frame. 
+synchronous rotating d–q reference frame.
 It computes the stator and rotor currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>,
-<i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i>) 
+<i>i<sub>dr</sub></i>, <i>i<sub>qr</sub></i>)
 from the applied d–q stator voltages (<i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i>)
-and the electrical 
+and the electrical
 (<i>&omega;</i>) and mechanical (<i>&omega;<sub>r</sub></i>) rotor speeds, given
 the machine parameters.
 </p>
-
 <p>
 The stator and rotor voltage equations in d–q matrix form are:
 </p>
-
 <p>
 \\[
 \\begin{bmatrix}
@@ -254,7 +244,6 @@ i_{qs}
 \\end{bmatrix}
 \\]
 </p>
-
 <p>
 \\[
 \\begin{bmatrix}
@@ -287,11 +276,9 @@ i_{qr}
 \\end{bmatrix}
 \\]
 </p>
-
 <p>
 where the flux linkages are:
 </p>
-
 <p>
 \\[
 \\begin{bmatrix}
@@ -323,19 +310,16 @@ i_{qr}
 \\end{bmatrix}
 \\]
 </p>
-
 <p>
 <b>Inputs:</b> <i>v<sub>ds</sub></i>, <i>v<sub>qs</sub></i> [V], <i>&omega;</i> [rad/s],
 <i>&omega;<sub>r</sub></i> [rad/s] &nbsp; | &nbsp;
 <b>Outputs:</b> <i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>, <i>i<sub>dr</sub></i>,
 <i>i<sub>qr</sub></i> [A]
 </p>
-
 <p>
-This block is part of 
+This block is part of
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
-</html>
-"));
+</html>"));
 end Motor;

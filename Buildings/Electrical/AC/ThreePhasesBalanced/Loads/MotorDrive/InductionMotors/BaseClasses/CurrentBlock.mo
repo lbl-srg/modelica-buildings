@@ -1,6 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
 model CurrentBlock "Converts DQ-abc"
   extends Modelica.Blocks.Icons.Block;
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput i_ds(
     final unit="A",
     final quantity="ElectricCurrent")
@@ -59,10 +60,10 @@ i_{qs}
 \\]
 </p>
 <p>
-Here, 120&deg; ≈ 2.0933 radians.
+Here, 120&deg; &asymp; 2.0933 radians.
 </p>
 <p>
-This block is used in 
+This block is used in
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>
@@ -70,7 +71,7 @@ Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

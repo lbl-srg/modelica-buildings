@@ -2,12 +2,12 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 function CurrentD_VFD "Function to compute current in d axis entering the induction machine"
 
 input Real i_ds "D-axis stator current";
-input Real VFDvol "VFD voltage";
-input Real vrms "RMS voltage";
+input Real v_VFD "VFD voltage";
+input Real v_rms "RMS voltage";
 output Real i "Terminal current interface";
 
 algorithm
-  i :=1.5*i_ds*(VFDvol/vrms);
+  i :=1.5*i_ds*(v_VFD/v_rms);
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This function contains script to compute d-axis VFD current for the model
@@ -18,7 +18,7 @@ Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Squ
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

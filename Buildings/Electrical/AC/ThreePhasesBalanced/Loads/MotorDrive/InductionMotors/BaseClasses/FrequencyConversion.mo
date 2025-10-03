@@ -23,7 +23,6 @@ This block computes the angular frequency from the electrical frequency using:
 <p>
 &omega; = 2 &times; &pi; &times; f
 </p>
-
 <p>
 This block is used in 
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
@@ -33,7 +32,7 @@ Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"));
