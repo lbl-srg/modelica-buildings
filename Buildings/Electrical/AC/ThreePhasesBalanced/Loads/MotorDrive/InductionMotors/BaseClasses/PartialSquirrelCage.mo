@@ -7,14 +7,17 @@ model PartialSquirrelCage
   replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per
     constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record with induction machine performance data"
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{60,60}, {80,80}})));
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60}, {80,80}})));
 
   parameter Boolean have_speCon "Have the closed loop built-in speed control";
 
   Real v_rms "RMS voltage";
-  Modelica.Units.SI.Angle theta_s "Supply voltage phase angel";
-  Modelica.Units.SI.Voltage v[:] = terminal.v "Voltage vector";
-  Modelica.Units.SI.Current i[:] = terminal.i "Current vector";
+  Modelica.Units.SI.Angle theta_s
+    "Supply voltage phase angel";
+  Modelica.Units.SI.Voltage v[:] = terminal.v
+    "Voltage vector";
+  Modelica.Units.SI.Current i[:] = terminal.i
+    "Current vector";
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface torSpe(
     final P=per.P,
@@ -33,22 +36,25 @@ model PartialSquirrelCage
     "Mechanical connector"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.SpeedBlock speBlo(
-    final J=per.J,
-    final P=per.P)
-   "Calculates Speed of induction machine rotor"
-   annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.Speed
+    speBlo(final J=per.J, final P=per.P)
+    "Calculates Speed of induction machine rotor"
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentBlock curBlo
     "Calculates current of induction machine rotor"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Modelica.Blocks.Continuous.Der volAngFre "Supply voltage angular frequency"
+  Modelica.Blocks.Continuous.Der volAngFre
+    "Supply voltage angular frequency"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Sources.RealExpression rmsVol(final y=v_rms) "RMS voltage"
+  Modelica.Blocks.Sources.RealExpression rmsVol(
+    final y=v_rms) "RMS voltage"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.RealExpression volPhaAng(final y=theta_s)
+  Modelica.Blocks.Sources.RealExpression volPhaAng(
+    final y=theta_s)
     "Supply voltage phase angle"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Continuous.Integrator int "Integrator for voltage angular fequency"
+  Modelica.Blocks.Continuous.Integrator int
+    "Integrator for voltage angular fequency"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   replaceable Modelica.Blocks.Sources.RealExpression conVol
     "Supply voltage phase angle"

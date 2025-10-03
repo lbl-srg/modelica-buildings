@@ -2,19 +2,30 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 block SimVFD "Simple VFD maintaing constant V/F ratio"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer f( start=50,fixed) "Nominal Frequency in Hz";
-  parameter Integer p(start=4,fixed) " Number of Pole pairs ";
-  parameter Real N_s( start=1500,fixed) "Synchronous Speed in RPM";
+  parameter Integer f(
+    start=50,
+    fixed=true) "Nominal Frequency in Hz";
+  parameter Integer p(
+    start=4,
+    fixed=true) " Number of Pole pairs ";
+  parameter Real N_s(
+    start=1500,
+    fixed=true) "Synchronous Speed in RPM";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput N_ref "Reference speed"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput N_ref
+    "Reference speed"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_in "Input voltage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_in
+    "Input voltage"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput Freq "Nominal frequency"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput Freq
+    "Nominal frequency"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput V_out "Output voltage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput V_out
+    "Output voltage"
     annotation (Placement(transformation(extent={{100,-58},{136,-22}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Freq_out "Output frequency"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Freq_out
+    "Output frequency"
     annotation (Placement(transformation(extent={{100,22},{136,58}})));
 
   Modelica.Blocks.Math.Gain Equivalent_Freq(k=p/(120)) "Equivalent frequency"
