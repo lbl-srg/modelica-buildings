@@ -9,7 +9,7 @@ model WetCoilCounterFlowPIControlAutoTuning
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
     con(
     r=5,
-    yHig=0.91,
+    yHig=0.92,
     yLow=0.1,
     deaBan=0.1,
     yRef=0.5,
@@ -21,8 +21,8 @@ model WetCoilCounterFlowPIControlAutoTuning
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.2,
-    period=2000,
-    shift=100)
+    period=3600,
+    shift=2100)
     "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 equation

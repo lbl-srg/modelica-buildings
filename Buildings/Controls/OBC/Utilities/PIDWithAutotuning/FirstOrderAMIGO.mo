@@ -378,8 +378,6 @@ equation
           80},{120,80},{120,110},{102,110}}, color={255,0,255}));
   connect(resPro.inTun, inTunPro.y) annotation (Line(points={{-10,-62},{-10,-100},
           {90,-100},{90,-140},{82,-140}}, color={255,0,255}));
-  connect(conProMod.inTun, inTunPro.y) annotation (Line(points={{70,-2},{70,
-          -100},{90,-100},{90,-140},{82,-140}}, color={255,0,255}));
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>

@@ -40,10 +40,6 @@ block ControlProcessModel
     "Relay tuning status, true if the tuning ends"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=90, origin={130,-120}),
         iconTransformation(extent={{-20,-20},{20,20}}, rotation=90, origin={60,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput inTun
-    "Check if a tuning is ongoing"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90, origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Gain"
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
@@ -119,8 +115,6 @@ protected
         "Autotuning failed. The controller gains are unchanged.")
     "Warning message when an autotuning fails"
     annotation (Placement(transformation(extent={{134,50},{154,70}})));
-  CDL.Logical.Nand nand1 "Check if an errors occured during tuning"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-122,28},{-140,28},{-140,80},{-180,
           80}},  color={0,0,127}));
@@ -179,12 +173,8 @@ equation
           0},{8,0},{8,-50},{18,-50}}, color={255,0,255}));
   connect(gain.k,samK. u)
     annotation (Line(points={{-98,20},{-62,20}}, color={0,0,127}));
-  connect(nand1.u1, inTun)
-    annotation (Line(points={{98,60},{0,60},{0,-120}}, color={255,0,255}));
-  connect(nand1.u2, timConDel.triFai) annotation (Line(points={{98,52},{86,52},
-          {86,12},{82,12}}, color={255,0,255}));
-  connect(nand1.y, assTunFai.u)
-    annotation (Line(points={{122,60},{132,60}}, color={255,0,255}));
+  connect(not1.y, assTunFai.u) annotation (Line(points={{42,-50},{96,-50},{96,
+          60},{132,60}}, color={255,0,255}));
 annotation (
         defaultComponentName = "conProMod",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
