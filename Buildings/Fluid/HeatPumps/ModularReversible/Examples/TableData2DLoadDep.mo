@@ -351,7 +351,7 @@ equation
     Documentation(
       info="<html>
 <p>
-This model illustrates the use of 
+This model illustrates the use of
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>
 in a configuration in which water-to-water heat pump components are
