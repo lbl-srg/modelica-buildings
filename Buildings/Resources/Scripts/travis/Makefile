@@ -188,10 +188,14 @@ test-optimica:
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification -n $(NPROC))
 	@echo "    Target $@ successful."
 
+# Template testing configuration variable
+COVER_FLAG = $(if $(COVER),--cover $(COVER))
+PACKAGE_FLAG = $(if $(PACKAGE),--single-package $(PACKAGE))
+
 test-templates-dymola:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --single-package $(PACKAGE) --tool Dymola --cover 0.3)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum $(PACKAGE_FLAG) --tool Dymola $(COVER_FLAG))
 	@echo "    Target $@ successful."
 
 test-templates-optimica:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Optimica --cover 0.3)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum $(PACKAGE_FLAG) --tool Optimica $(COVER_FLAG))
 	@echo "    Target $@ successful."
