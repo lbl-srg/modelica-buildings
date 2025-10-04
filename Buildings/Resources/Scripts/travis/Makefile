@@ -193,5 +193,5 @@ test-templates-dymola:
 	@echo "    Target $@ successful."
 
 test-templates-optimica:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Optimica --cover 0.3)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --single-package $(PACKAGE) --tool Optimica --cover 0.3)
 	@echo "    Target $@ successful."
