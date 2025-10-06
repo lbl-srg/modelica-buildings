@@ -67,7 +67,7 @@ model TableData2DLoadDep_HeatRecovery
     tableOnFile=true,
     tableName="tab",
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/ElectricEIR_HeatRecovery.csv"),
+      "modelica://Buildings/Resources/Data/Fluid/Chillers/ModularReversible/Validation/ElectricEIR_HeatRecovery.mos"),
     columns=2:4,
     timeEvents=Modelica.Blocks.Types.TimeEvents.NoTimeEvents)
     "Reference results"
@@ -102,7 +102,7 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep\">
 Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>
-against the polynomial chiller model 
+against the polynomial chiller model
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>
 for heat recovery chiller applications.
@@ -112,7 +112,7 @@ for heat recovery chiller applications.
 The validation setup is duplicated from
 <a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_AirCooled\">
 Buildings.Fluid.Chillers.Examples.ElectricEIR_AirCooled</a>
-and the component <code>ref</code> reads the reference results 
+and the component <code>ref</code> reads the reference results
 obtained from that model.
 </li>
 <li>
@@ -121,10 +121,10 @@ along the evaporator <i>leaving</i> temperature and the condenser
 <i>entering</i> temperature.
 </li>
 <li>
-The performance data are generated with the same polynomial equations as 
+The performance data are generated with the same polynomial equations as
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>,
-using polynomial coefficients from the same data record as the one used 
+using polynomial coefficients from the same data record as the one used
 in the reference example model, that is
 <a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled\">
 Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled</a>.
@@ -135,14 +135,14 @@ Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101
 There is good agreement with the reference results, except during
 the model time interval <i>[7500, 8100]</i>&nbsp;s, where the
 polynomial model computes lower power.
-During this period, the polynomial model calculates lower power 
-due to the evaporator leaving temperature exceeding the maximum threshold 
-upper limit <code>per.TEvaLvgMax</code>. 
+During this period, the polynomial model calculates lower power
+due to the evaporator leaving temperature exceeding the maximum threshold
+upper limit <code>per.TEvaLvgMax</code>.
 While the data table model does not extrapolate beyond the temperature
 values provided in the performance data file,
-the reference model continues using polynomial evaluation of capacity 
-and power outside of the validity range. 
-Consequently, the polynomial model computes a higher capacity, 
+the reference model continues using polynomial evaluation of capacity
+and power outside of the validity range.
+Consequently, the polynomial model computes a higher capacity,
 resulting in a lower PLR and reduced power during this interval.
 </p>
 </html>",
