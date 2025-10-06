@@ -29,9 +29,6 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
-  optimica:
-    comment: 'The system is structurally singular. Modelon #2023012739000252'
-    translate: false
 - model_name: Buildings.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
@@ -77,13 +74,6 @@
     time_out: 600
   openmodelica:
     comment: Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910
-    simulate: false
-  optimica:
-    comment: Timeout after 600 seconds
-    simulate: false
-- model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
-  optimica:
-    comment: Simulation times out
     simulate: false
 - model_name: Buildings.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
@@ -211,9 +201,6 @@
     time_out: 900
 - model_name: Buildings.Fluid.Geothermal.Aquifer.Validation.SimulationTest
   openmodelica:
-    comment: Timeout after 300 s
-    time_out: 600
-  optimica:
     comment: Timeout after 300 s
     time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
