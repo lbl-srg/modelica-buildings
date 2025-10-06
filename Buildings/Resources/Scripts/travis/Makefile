@@ -189,8 +189,7 @@ test-optimica:
 	@echo "    Target $@ successful."
 
 # Template testing configuration variable
-COVER_DEFAULT = 1.0
-COVER_FLAG = $(if $(COVER),--cover $(COVER),--cover $(COVER_DEFAULT))
+COVER_FLAG = $(if $(COVER),--cover $(COVER))
 PACKAGE_FLAG = $(if $(PACKAGE),--single-package $(PACKAGE))
 
 test-templates-dymola:
