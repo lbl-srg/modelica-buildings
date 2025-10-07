@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-function CurrentQ "Function to compute q axis of the electrical current at terminal that connects electric grid with the model"
+function CurrentQ "Q-axis electrical current at terminal that connects electric grid with the model"
 
   input Real i_qs "Q-axis stator current";
 

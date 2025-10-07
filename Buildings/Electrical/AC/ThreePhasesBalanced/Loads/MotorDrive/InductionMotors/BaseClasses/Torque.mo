@@ -9,7 +9,7 @@ model Torque
     final fixed=true,
     final unit="H",
     final quantity="Inductance")
-    "Mutual Inductance";
+    "Mutual inductance";
   parameter Real J(
     start=0.0131,
     final fixed=true,
@@ -46,7 +46,8 @@ model Torque
 equation
   tau_e = ((i_qs*i_dr)-(i_ds*i_qr))*(3/2)*(P/(2))*Lm;
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation (defaultComponentName="eleTor",
+preferredView="info", Documentation(info="<html>
 <p>
 This block computes the electromagnetic torque of an induction machine using the
 stator and rotor currents in the synchronous d–q reference frame.

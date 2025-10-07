@@ -3,23 +3,23 @@ model Motor "Induction machine"
   parameter Real Lr(
     final unit="H",
     final quantity="Inductance")
-    "Rotor Inductance";
+    "Rotor inductance";
   parameter Real Ls(
     final unit="H",
     final quantity="Inductance")
-    "Stator Inductance";
+    "Stator inductance";
   parameter Real Rr(
     final unit="Ohm",
     final quantity="Resistance")
-    "Rotor Resistance";
+    "Rotor resistance";
   parameter Real Lm(
     final unit="H",
     final quantity="Inductance")
-    "Mutual Inductance";
+    "Mutual inductance";
   parameter Real Rs(
     final unit="Ohm",
     final quantity="Resistance")
-    "Stator Resistance";
+    "Stator resistance";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_ds(
     final unit="V",
@@ -76,7 +76,9 @@ model Motor "Induction machine"
   Modelica.Blocks.Continuous.Integrator dRotCur
     "D-axis rotor current"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-100})));
-  Modelica.Blocks.Sources.Constant v_dr(k=0)
+  Modelica.Blocks.Sources.Constant zerRotVol(
+    final k=0)
+    "Zero Q-axis rotor voltage"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-110,-80})));
   Modelica.Blocks.Continuous.Integrator qStaCur
     "Q-axis stator current"
@@ -115,8 +117,8 @@ model Motor "Induction machine"
 equation
   connect(qRotCurDer.der_i_qr, qRotCur.u)
     annotation (Line(points={{22,-40},{58,-40}}, color={0,0,127}));
-  connect(v_dr.y,dRotCurDer. v_dr)
-    annotation (Line(points={{-99,-80},{-40,-80},{-40,-91},{-2,-91}},color={0,0,127}));
+  connect(zerRotVol.y, dRotCurDer.v_dr) annotation (Line(points={{-99,-80},{-40,
+          -80},{-40,-91},{-2,-91}}, color={0,0,127}));
   connect(i_ds, dStaCur.y)
     annotation (Line(points={{160,50},{81,50}},  color={0,0,127}));
   connect(i_qr, qRotCur.y)
@@ -151,8 +153,8 @@ equation
           {40,90},{40,70},{-10,70},{-10,-38},{-2,-38}},      color={0,0,127}));
   connect(dStaCurDer.der_i_ds,dRotCurDer. der_i_ds) annotation (Line(points={{22,50},
           {40,50},{40,20},{-60,20},{-60,-98},{-2,-98}},    color={0,0,127}));
-  connect(v_dr.y,qRotCurDer. v_qr) annotation (Line(points={{-99,-80},{-40,-80},
-          {-40,-31},{-2,-31}},color={0,0,127}));
+  connect(zerRotVol.y, qRotCurDer.v_qr) annotation (Line(points={{-99,-80},{-40,
+          -80},{-40,-31},{-2,-31}}, color={0,0,127}));
   connect(qStaCur.y, qStaCurDer.i_qs) annotation (Line(points={{81,90},{100,90},
           {100,120},{-70,120},{-70,96},{-2,96}}, color={0,0,127}));
   connect(qStaCur.y, dStaCurDer.i_qs) annotation (Line(points={{81,90},{100,90},
@@ -179,7 +181,7 @@ equation
           {100,-60},{-20,-60},{-20,-46},{-2,-46}}, color={0,0,127}));
   connect(v_ds, dStaCurDer.v_ds) annotation (Line(points={{-160,70},{-120,70},{-120,
           59},{-2,59}}, color={0,0,127}));
-  annotation (
+  annotation (defaultComponentName="indMac",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={Rectangle(
           extent={{-100,100},{100,-100}},

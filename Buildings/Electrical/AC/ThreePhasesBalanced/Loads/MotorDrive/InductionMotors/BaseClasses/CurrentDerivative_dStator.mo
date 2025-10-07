@@ -6,23 +6,23 @@ model CurrentDerivative_dStator
   parameter Real Lr(
     final unit="H",
     final quantity="Inductance")
-    "Rotor Inductance";
+    "Rotor inductance";
   parameter Real Rr(
     final unit="Ohm",
     final quantity="Resistance")
-    "Rotor Resistance";
+    "Rotor resistance";
   parameter Real Lm(
     final unit="H",
     final quantity="Inductance")
-    "Mutual Inductance";
+    "Mutual inductance";
   parameter Real Rs(
     final unit="Ohm",
     final quantity="Resistance")
-    "Stator Resistance";
+    "Stator resistance";
   parameter Real Ls(
     final unit="H",
     final quantity="Inductance")
-    "Stator Inductance";
+    "Stator inductance";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v_ds(
     final unit="V",

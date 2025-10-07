@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-model CurrentBlock "Converts DQ-abc"
+model CurrentBlock "Compute 3-phase currents from D-Q currents"
   extends Modelica.Blocks.Icons.Block;
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput i_ds(

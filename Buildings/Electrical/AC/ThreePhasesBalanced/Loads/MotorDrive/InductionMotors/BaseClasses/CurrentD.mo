@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-function CurrentD   "Function to compute d axis of the electrical current at terminal that connects electric grid with the model"
+function CurrentD "D-axis electrical current at terminal that connects electric grid with the model"
 
   input Real i_ds "D-axis stator current";
 

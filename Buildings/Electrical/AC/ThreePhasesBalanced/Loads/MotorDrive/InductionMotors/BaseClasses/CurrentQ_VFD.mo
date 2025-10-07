@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-function CurrentQ_VFD "Function to compute current in q axis entering the induction machine"
+function CurrentQ_VFD "Q-axis VFD electrical current at terminal that connects electric grid with the model"
 
 input Real i_qs "Q-axis stator current";
 input Real v_VFD "VFD voltage";

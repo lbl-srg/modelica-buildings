@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-function CurrentD_VFD "Function to compute current in d axis entering the induction machine"
+function CurrentD_VFD "D-axis VFD electrical current at terminal that connects electric grid with the model"
 
 input Real i_ds "D-axis stator current";
 input Real v_VFD "VFD voltage";
-input Real v_rms "RMS voltage";
+input Real v_rms "Root mean squre voltage";
 output Real i "Terminal current interface";
 
 algorithm

@@ -6,7 +6,7 @@ block VoltageConversion
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms(
     final unit="V",
     final quantity="Voltage")
-    "RMS voltage"
+    "Root mean squre voltage"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput v_qs(
@@ -26,7 +26,8 @@ algorithm
   v_ds:= V_rms;
   v_qs:= 0;
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation (defaultComponentName="volCon",
+preferredView="info", Documentation(info="<html>
 <p>
 This block converts the stator voltage from its root mean square (RMS) value into
 d–q axis components.

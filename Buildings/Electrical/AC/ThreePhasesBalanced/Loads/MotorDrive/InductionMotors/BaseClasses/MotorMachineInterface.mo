@@ -10,28 +10,28 @@ model MotorMachineInterface
   parameter Real Lr(
     final unit="H",
     final quantity="Inductance")
-    "Rotor Inductance";
+    "Rotor inductance";
   parameter Real Ls(
     final unit="H",
     final quantity="Inductance")
-    "Stator Inductance";
+    "Stator inductance";
   parameter Real Rr(
     final unit="Ohm",
     final quantity="Resistance")
-    "Rotor Resistance";
+    "Rotor resistance";
   parameter Real Lm(
     final unit="H",
     final quantity="Inductance")
-    "Mutual Inductance";
+    "Mutual inductance";
   parameter Real Rs(
     final unit="Ohm",
     final quantity="Resistance")
-    "Stator Resistance";
+    "Stator resistance";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms(
     final unit="V",
     final quantity="Voltage")
-    "Prescribed RMS voltage"
+    "Prescribed root mean squre voltage"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput f(
     final quantity="Frequency",

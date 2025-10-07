@@ -1,8 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-function RMS_Voltage "Function to compute the root mean square voltage"
+function RMS_Voltage "Root mean square voltage"
 
-  input Real a "voltage in d axis";
-  input Real b "voltage in q axis";
+  input Real a "Voltage in d axis";
+  input Real b "Voltage in q axis";
 
   output Real v "Root mean square voltage";
 

@@ -27,7 +27,7 @@ model PartialSquirrelCage
     final Rr=per.Rr,
     final Lm=per.Lm,
     final Rs=per.Rs)
-    "Calculates Electromagnetic torque of induction machine"
+    "Electromagnetic torque of induction machine"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Mechanics.Rotational.Sources.Speed spe(
     exact=true) "Speed connector"
@@ -38,10 +38,10 @@ model PartialSquirrelCage
         iconTransformation(extent={{90,-10},{110,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.Speed
     speBlo(final J=per.J, final P=per.P)
-    "Calculates Speed of induction machine rotor"
+    "Speed of induction machine rotor"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentBlock curBlo
-    "Calculates current of induction machine rotor"
+    "Current of induction machine rotor"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Modelica.Blocks.Continuous.Der volAngFre
     "Supply voltage angular frequency"
