@@ -49,7 +49,7 @@ model SquirrelCageDrive
   Modelica.Blocks.Math.Gain vfdEquFre(final k=per.P/120)
     "VFD equivalent frequency"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Controls.OBC.CDL.Reals.PID VFD(
+  Buildings.Controls.OBC.CDL.Reals.PID speCon(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final Td=Td*2,
     final yMax=yMax,
@@ -86,8 +86,7 @@ equation
   connect(speBlo.omega_r, torSpe.omega_r) annotation (Line(points={{2,-74},{10,-74},
           {10,-6},{18,-6}}, color={0,0,127}));
   connect(torSpe.tau_e, speBlo.tau_e) annotation (Line(points={{42,-6},{50,-6},
-          {50,-40},{-30,-40},{-30,-74},{-22,-74}},
-                                               color={0,0,127}));
+          {50,-40},{-30,-40},{-30,-74},{-22,-74}}, color={0,0,127}));
   connect(speBlo.omega_r1, spe.w_ref) annotation (Line(points={{2,-80},{60,-80},
           {60,0},{70,0}}, color={0,0,127}));
   connect(spe.flange, shaft)
@@ -113,12 +112,12 @@ equation
     annotation (Line(points={{-118,20},{-82,20}}, color={255,0,255}));
   connect(setPoi, vfdEquFre.u)
     annotation (Line(points={{-180,90},{-142,90}}, color={0,0,127}));
-  connect(setPoi, VFD.u_s) annotation (Line(points={{-180,90},{-150,90},{-150,60},
-          {-142,60}}, color={0,0,127}));
-  connect(mea, VFD.u_m)
+  connect(setPoi, speCon.u_s) annotation (Line(points={{-180,90},{-150,90},{-150,
+          60},{-142,60}}, color={0,0,127}));
+  connect(mea, speCon.u_m)
     annotation (Line(points={{-180,40},{-130,40},{-130,48}}, color={0,0,127}));
-  connect(VFD.y, swi.u1) annotation (Line(points={{-118,60},{-110,60},{-110,28},
-          {-82,28}}, color={0,0,127}));
+  connect(speCon.y, swi.u1) annotation (Line(points={{-118,60},{-110,60},{-110,
+          28},{-82,28}}, color={0,0,127}));
   connect(setPoi, gai1.u) annotation (Line(points={{-180,90},{-150,90},{-150,-20},
           {-142,-20}}, color={0,0,127}));
   connect(gai1.y, swi.u3) annotation (Line(points={{-118,-20},{-110,-20},{-110,12},
@@ -136,41 +135,32 @@ equation
  annotation(defaultComponentName="motDri",
     Documentation(info="<html>
 <p>
-This block implements a dynamic model of a three-phase squirrel-cage induction motor 
-with a built-in closed-loop speed control. It adjusts the applied electrical frequency 
-to track the given speed or frequency setpoint while driving a mechanical load 
+This block implements a dynamic model of a three-phase squirrel-cage induction motor
+with a built-in closed-loop speed control. It adjusts the applied electrical frequency
+to track the given speed or frequency setpoint while driving a mechanical load
 (<i>&tau;<sub>m</sub></i>).
 </p>
-
 <p>
 <b>
-The model extends 
+The model extends
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.PartialSquirrelCage\">
-PartialSquirrelCage</a> with <code>have_speCon = true</code> and includes 
-an internal PI-based variable frequency drive (VFD) controller that regulates 
+PartialSquirrelCage</a> with <code>have_speCon = true</code> and includes
+an internal PI-based variable frequency drive (VFD) controller that regulates
 the electrical input frequency and voltage to maintain the desired rotor speed.
 </b>
 </p>
-
 <p>
-<b>Inputs:</b> Setpoint (<i>&omega;<sub>ref</sub></i> or speed) [rad/s], 
+<b>Inputs:</b> Setpoint (<i>&omega;<sub>ref</sub></i> or speed) [rad/s],
 Measured speed (<i>&omega;<sub>r</sub></i>) [rad/s], Load torque (<i>&tau;<sub>m</sub></i>) [N·m] &nbsp; | &nbsp;
-<b>Outputs:</b> Rotor speed (<i>&omega;<sub>r</sub></i>) [rad/s], 
-Electromagnetic torque (<i>&tau;<sub>e</sub></i>) [N·m], 
+<b>Outputs:</b> Rotor speed (<i>&omega;<sub>r</sub></i>) [rad/s],
+Electromagnetic torque (<i>&tau;<sub>e</sub></i>) [N·m],
 Stator currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>) [A]
 </p>
-
-<p>
-This block is part of 
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
-Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
-</p>
-</html>
-",        revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>"),

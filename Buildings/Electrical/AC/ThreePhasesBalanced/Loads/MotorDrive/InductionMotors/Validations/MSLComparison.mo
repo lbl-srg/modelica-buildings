@@ -1,5 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Validations;
-model MSLComparison "Comparision between MSL and Proposed Model"
+model MSLComparison
+    "Validate the induction motor model by comparing results with the one from MSL"
     extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=26.5) "Load torque"
@@ -8,43 +9,44 @@ model MSLComparison "Comparision between MSL and Proposed Model"
     "Voltage source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage motDri
+    "Squirrel cage induction motor"
     annotation (Placement(transformation(extent={{-18,-20},{2,0}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable LeFosseTorque(
+  Modelica.Blocks.Sources.CombiTimeTable torRef(
     tableOnFile=true,
     tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/torque.txt"))
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/torque.txt"))
+    "Reference torque from reference"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Modelica.Blocks.Sources.CombiTimeTable LeFosseSpeed(
+  Modelica.Blocks.Sources.CombiTimeTable speRef(
     tableOnFile=true,
     tableName="tab2",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/speed.txt"))
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/speed.txt"))
+    "Reference speed from reference"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Modelica.Blocks.Sources.CombiTimeTable LeFossePower(
+  Modelica.Blocks.Sources.CombiTimeTable powRef(
     tableOnFile=true,
     tableName="tab4",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/power.txt"))
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/power.txt"))
+    "Refrence active power from reference"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Modelica.Blocks.Sources.CombiTimeTable MSLtorque(
+  Modelica.Blocks.Sources.CombiTimeTable torMSL(
     tableOnFile=true,
     tableName="msltorque",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/msltorque.txt"))
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/msltorque.txt"))
+    "Torque data calculated by the models from the Modelica Standard Library"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Sources.CombiTimeTable MSLspeed(
+  Modelica.Blocks.Sources.CombiTimeTable speMSL(
     tableOnFile=true,
     tableName="mslspeed",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/mslspeed.txt"))
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/mslspeed.txt"))
+    "Rotor speed data calculated by the models from the Modelica Standard Library"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Modelica.Blocks.Sources.CombiTimeTable MSLpower(
+  Modelica.Blocks.Sources.CombiTimeTable powMSL(
     tableOnFile=true,
     tableName="mslpower",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/mslpower.txt"))
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/mslpower.txt"))
+    "Active power data calculated by the models from the Modelica Standard Library"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 equation
   connect(loaTor.y, motDri.tau_m)
@@ -61,18 +63,31 @@ Documentation(revisions="<html>
 <ul>
 <li>
 September 12, 2025, by Viswanathan Ganesh:<br/>
-First Implementation.
+First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-Comparison of Induction Machine Models with Modelica Standard Library (Figure 13)
-<a href=\"https://ieeexplore.ieee.org/document/11045278\">[1]</a>. The reference
-data of MSL is simulated reference data from the model 
+This example validates the induction model by comparing its results with the one from
+the models in Modelica Standard Library (MSL), with the setup as described in Ganesh et al.
+(2025). The reference data of MSL is simulated reference data from the model 
 <a href=\"modelica://Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL\">
 Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL</a>.
 The LeFosse reference data plotted is from the simulation setup as decribed in
-<a href=\"https://webthesis.biblio.polito.it/17858/\">[2]</a>.
+Roberta Le Fosse (2021).
+</p>
+<h4>Reference</h4>
+<p>
+Viswanathan Ganesh, Zhanwei He, Jianjun Hu, Sen Huang, Wangda Zuo, 2025.
+<a href=\"https://ieeexplore.ieee.org/document/11045278\">
+<i>Coupled induction machine and HVAC models for simulating HVAC performance
+considering grid dynamics in buildings</i></a>. IEEE Access, vol. 13,
+pp. 107745-107763.
+</p>
+<p>
+Roberta Le Fosse, 2021. <i>Dynamic modeling of induction motors in developing tool
+for automotive applications</i>. <a href=\"https://webthesis.biblio.polito.it/17858/\">
+[Thesis]</a>.
 </p>
 </html>"));
 end MSLComparison;

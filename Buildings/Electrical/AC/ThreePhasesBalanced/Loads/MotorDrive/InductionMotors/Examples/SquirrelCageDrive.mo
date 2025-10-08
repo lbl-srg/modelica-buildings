@@ -22,7 +22,7 @@ model SquirrelCageDrive
     reverseActing=true,
     have_controller=true,
     k=0.1,
-    Ti=0.1)
+    Ti=0.1) "Induction motor with speed control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   Modelica.Blocks.Sources.Step Speed_ref1(
