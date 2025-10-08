@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
-model WetCoilCounterFlowPIControlAutoTuning
-  "Model that demonstrates the use of a heat exchanger with condensation and with autotuning PI feedback control"
+model WetCoilCounterFlowPIControlAutoTuningFailure
+  "Model that demonstrates the use of a heat exchanger with condensation and with autotuning PI feedback control (intentionally designed to fail)"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.HeatExchangers.Examples.BaseClasses.PartialWetCoilCounterFlow(TSet(
         table=[0,288.15; 600,288.15; 600,298.15; 1200,298.15; 1500,283.15; 1600,
@@ -21,15 +21,15 @@ model WetCoilCounterFlowPIControlAutoTuning
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.2,
-    period=3600,
-    shift=2100)
+    period=2000,
+    shift=100)
     "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 equation
   connect(resSig.y, con.triRes) annotation (Line(points={{-58,170},{-20,170},{-20,
           80},{4,80},{4,88}}, color={255,0,255}));
   connect(autTunSig.y, con.triTun) annotation (Line(points={{-58,140},{-28,140},
-          {-28,76},{16,76},{16,88}},color={255,0,255}));
+          {-28,76},{16,76},{16,88}}, color={255,0,255}));
   connect(TSet.y, con.u_s)
     annotation (Line(points={{-59,100},{-2,100}}, color={0,0,127}));
   connect(temSen.T, con.u_m)
@@ -39,19 +39,26 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPIControlAutoTuning.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPIControlAutoTuningFailure.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This example is identical to 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl\">
-Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl</a> except that the PI controller
-is replaced with an autotuning PI controller.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPIControlAutoTuning\">
+Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPIControlAutoTuning</a> except that the
+configuration is intentionally designed to cause a failure, used to test error-handling mechanisms.
 </p>
-<p>
-The autotuning is triggered at <i>2100</i> seconds and the autotuning is successfully completed
-at around <i>2169</i> seconds.
-</p>
+The autotuning is triggered twice.
+<ul>
+<li>
+The first one occurs at <i>100</i> seconds and it completes successfully,
+with the tuned PI parameters taking effect at <i>157</i> seconds.
+</li>
+<li>
+The second one occurs at <i>2100</i> seconds and it fails, resulting in negative calculated gains.
+Consequently, the PI gains remain unchanged from the previous tuning.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
@@ -65,4 +72,4 @@ Replaced the PI controller with an autotuning PI controller.
 </li>
 </ul>
 </html>"));
-end WetCoilCounterFlowPIControlAutoTuning;
+end WetCoilCounterFlowPIControlAutoTuningFailure;

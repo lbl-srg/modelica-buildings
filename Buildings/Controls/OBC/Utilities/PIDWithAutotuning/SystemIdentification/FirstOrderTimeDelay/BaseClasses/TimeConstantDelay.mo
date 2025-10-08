@@ -104,6 +104,9 @@ protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-1)
     "Opposite of the input"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
+  Buildings.Controls.OBC.CDL.Reals.Min min1
+    "Detect a negative input"
+    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 equation
   connect(absk.u, k)
     annotation (Line(points={{-162,10},{-200,10}}, color={0,0,127}));
@@ -153,8 +156,6 @@ equation
           {-90,-50},{-90,-84},{-84,-84}}, color={0,0,127}));
   connect(log.u, max1.y)
     annotation (Line(points={{-42,-90},{-60,-90}},   color={0,0,127}));
-  connect(gre1.u2, div2.y) annotation (Line(points={{38,-138},{-90,-138},{-90,-50},
-          {150,-50},{150,-70},{142,-70}}, color={0,0,127}));
   connect(con.y, max1.u2) annotation (Line(points={{-138,-110},{-120,-110},{-120,
           -96},{-84,-96}}, color={0,0,127}));
   connect(gre1.y, edg.u)
@@ -165,6 +166,12 @@ equation
           {2,-120}}, color={0,0,127}));
   connect(gai.u, con.y) annotation (Line(points={{-22,-120},{-120,-120},{-120,-110},
           {-138,-110}}, color={0,0,127}));
+  connect(min1.u1, div2.y) annotation (Line(points={{-82,-134},{-102,-134},{
+          -102,-40},{162,-40},{162,-70},{142,-70}}, color={0,0,127}));
+  connect(min1.u2, rat) annotation (Line(points={{-82,-146},{-170,-146},{-170,
+          -60},{-200,-60}}, color={0,0,127}));
+  connect(min1.y, gre1.u2) annotation (Line(points={{-58,-140},{30,-140},{30,
+          -138},{38,-138}}, color={0,0,127}));
   annotation (
         defaultComponentName = "timConDel",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
