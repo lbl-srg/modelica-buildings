@@ -31,8 +31,8 @@ First implementation.
       LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");
       annotation (Documentation(info="<html>
 <p>
-Destructor sends stop command to FFD and releases memory for co-simulation variables at the end of the simulation
-
+Destructor sends stop command to FFD and releases memory for co-simulation variables at the end of the simulation.
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>
@@ -47,6 +47,7 @@ First implementation.
 Class derived from <code>ExternalObject</code> having two local external function definition,
 named <code>destructor</code> and <code>constructor</code> respectively.
 To fix the issue FFD fails in JModelica tests due to unsupported OS #612.
+</p>
 </html>",   revisions="<html>
 <ul>
 <li>

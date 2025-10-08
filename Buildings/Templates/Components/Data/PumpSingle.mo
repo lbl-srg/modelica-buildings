@@ -28,8 +28,7 @@ record PumpSingle "Record for single pump model"
     "Performance data"
     annotation(Dialog(enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
-  parameter Modelica.Units.SI.Density rho_default=
-    Modelica.Media.Water.ConstantPropertyLiquidWater.d_const
+  parameter Modelica.Units.SI.Density rho_default=Buildings.Media.Water.d_const
     "Default medium density"
     annotation(Dialog(enable=false));
 
@@ -37,14 +36,14 @@ record PumpSingle "Record for single pump model"
   defaultComponentPrefixes = "parameter",
   defaultComponentName="datPum", Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the single pump model
 <a href=\"modelica://Buildings.Templates.Components.Pumps.Single\">
 Buildings.Templates.Components.Pumps.Single</a>.
 </p>
 <p>
 A default flow characteristic is provided and can be overwritten as
-described in the documentation of 
+described in the documentation of
 <a href=\"modelica://Buildings.Templates.Components.Data.PumpMultiple\">
 Buildings.Templates.Components.Data.PumpMultiple</a>
 in the more generic case of multiple units.
