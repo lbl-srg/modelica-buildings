@@ -23,7 +23,7 @@
     comment: simulation terminated by an assertion at initialization
     simulate: false
   optimica:
-    comment: FMUException Failed to update the events at time 0.000000E+00.
+    comment: Failed to solve nonlinear equations even with 1E-8.
     simulate: false
 - model_name: Buildings.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
