@@ -357,12 +357,12 @@ Claesson, J. and Javed, S. 2012. <i>A load-aggregation method to calculate extra
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
 October 7, 2025, by Matthis Thorade:<br/>
 Reformulated <code>when</code> block to avoid continuous and discrete variable assignment in the same block.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4321\">Buildings, #4321</a>.
 </li>
-<li>
 <li>
 August 30, 2018, by Michael Wetter:<br/>
 Refactored model to compute the temperature difference relative to the initial temperature,
