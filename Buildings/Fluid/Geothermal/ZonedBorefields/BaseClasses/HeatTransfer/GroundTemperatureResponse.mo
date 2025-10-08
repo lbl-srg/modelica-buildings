@@ -90,6 +90,8 @@ protected
 
   final parameter Real[i] rCel(each fixed=false) "Cell widths";
 
+  discrete Boolean sampleLoad "Boolean variable used to trigger sampled load calculation";
+
   discrete Modelica.Units.SI.HeatFlowRate[nSegTot,i] QAgg_flow
     "Vector of aggregated loads";
   discrete Modelica.Units.SI.HeatFlowRate[nSegTot,i] QAggShi_flow
@@ -145,13 +147,16 @@ equation
     end for;
   end for;
 
-  when sample(t_start, tLoaAgg) then
+  sampleLoad = sample(t_start, tLoaAgg);
+  when sampleLoad then
     // Assign average load since last aggregation step to the first cell of the
     // aggregation vector
     U_old = U;
 
     // Store (U - pre(U_old))/tLoaAgg in QAgg_flow[1], and pre(QAggShi_flow) in the other elements
     QAgg_flow = cat(2, (U - pre(U_old))/tLoaAgg, pre(QAggShi_flow[:,2:end]));
+  end when;
+  when sampleLoad then
     // Shift loads in aggregation cells
     (curCel,QAggShi_flow) = Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.shiftAggregationCells(
       i=i,
@@ -160,7 +165,8 @@ equation
       rCel=rCel,
       nu=nu,
       curTim=(time - t_start));
-
+  end when;
+  when sampleLoad then
     // Determine the temperature change at the next aggregation step (assuming
     // no loads until then)
     delTBor0 = Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.temporalSuperposition(
@@ -351,6 +357,12 @@ Claesson, J. and Javed, S. 2012. <i>A load-aggregation method to calculate extra
 </p>
 </html>", revisions="<html>
 <ul>
+October 7, 2025, by Matthis Thorade:<br/>
+Reformulated <code>when</code> block to avoid continuous and discrete variable assignment in the same block.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4321\">Buildings, #4321</a>.
+</li>
+<li>
 <li>
 August 30, 2018, by Michael Wetter:<br/>
 Refactored model to compute the temperature difference relative to the initial temperature,
