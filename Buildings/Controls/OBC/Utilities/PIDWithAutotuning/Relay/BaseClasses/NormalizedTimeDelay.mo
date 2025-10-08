@@ -56,7 +56,7 @@ protected
     "Disable the assert when the tuning is not ongoing"
     annotation (Placement(transformation(extent={{28,-90},{48,-70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tunEndDel(
-    final delayTime=Modelica.Constants.eps)
+    final delayTime=Buildings.Controls.OBC.CDL.Constants.eps)
     "A small time delay for the autotuning end time to avoid missing events"
     annotation (Placement(transformation(extent={{58,-90},{78,-70}})));
 equation
@@ -65,8 +65,7 @@ equation
   connect(subGamRho.u2, rho) annotation (Line(points={{18,14},{-90,14},{-90,0},
           {-120,0}}, color={0,0,127}));
   connect(gai.u, rho) annotation (Line(points={{-82,-60},{-90,-60},{-90,0},{
-          -120,0}},
-               color={0,0,127}));
+          -120,0}}, color={0,0,127}));
   connect(div.u1, subGamRho.y)
     annotation (Line(points={{58,6},{50,6},{50,20},{42,20}}, color={0,0,127}));
   connect(div.u2, mul.y) annotation (Line(points={{58,-6},{50,-6},{50,-38},{42,
@@ -84,16 +83,15 @@ equation
   connect(asyLev.y, gre.u1) annotation (Line(points={{-58,80},{-50,80},{-50,60},
           {-22,60}}, color={0,0,127}));
   connect(rho, gre.u2) annotation (Line(points={{-120,0},{-90,0},{-90,52},{-22,
-          52}},
-        color={0,0,127}));
+          52}}, color={0,0,127}));
   connect(gre.y, or2.u1)
     annotation (Line(points={{2,60},{24,60}}, color={255,0,255}));
   connect(or2.y, assMes.u)
     annotation (Line(points={{48,60},{58,60}}, color={255,0,255}));
   connect(and1.u, inTun)
-    annotation (Line(points={{18,-80},{0,-80},{0,-120}}, color={255,0,255}));
+    annotation (Line(points={{26,-80},{0,-80},{0,-120}}, color={255,0,255}));
   connect(and1.y,tunEndDel. u)
-    annotation (Line(points={{42,-80},{56,-80}}, color={255,0,255}));
+    annotation (Line(points={{50,-80},{56,-80}}, color={255,0,255}));
   connect(tunEndDel.y, or2.u2) annotation (Line(points={{80,-80},{86,-80},{86,
           40},{20,40},{20,52},{24,52}}, color={255,0,255}));
   annotation (

@@ -55,8 +55,9 @@ The first one occurs at <i>100</i> seconds and it completes successfully,
 with the tuned PI parameters taking effect at <i>157</i> seconds.
 </li>
 <li>
-The second one occurs at <i>2100</i> seconds and it fails, resulting in negative calculated gains.
-Consequently, the PI gains remain unchanged from the previous tuning.
+The second one occurs at <i>2100</i> seconds. However, the tuning process yields a
+negative control gains, thus the autotuning fails and a warning is issued.
+The PI gains remain unchanged from the previous tuning.
 </li>
 </ul>
 </html>",

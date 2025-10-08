@@ -9,5 +9,7 @@ compareVars :=
     "hex.QLat2_flow",
     "hex.QSen2_flow",
     "autTunSig.y",
-    "con.inTunPro.y"
+    "con.inTunPro.y",
+    "con.con.k",
+    "con.con.Ti"
   };

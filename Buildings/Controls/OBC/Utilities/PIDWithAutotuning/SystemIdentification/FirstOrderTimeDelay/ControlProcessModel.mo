@@ -70,7 +70,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div
     "The output of samtau divided by that of addPar"
-    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.Gain
     gain(final yHig=yHig, final yLow=yLow) "Block that calculates the gain"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -80,7 +80,7 @@ protected
     final yLow=yLow,
     final deaBan=deaBan)
     "Block that calculate the time constant and the time delay"
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samK(
     final y_start=1)
     "Block that samples the gain when the tuning period ends"
@@ -107,14 +107,14 @@ protected
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if an error occurs during the autotuning process"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if the autotuning completes successfully"
-    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assTunFai(final message=
-        "Autotuning failed. The controller gains are unchanged.")
+    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assTunFai(
+    final message="Autotuning failed. The controller gains are unchanged.")
     "Warning message when an autotuning fails"
-    annotation (Placement(transformation(extent={{134,50},{154,70}})));
+    annotation (Placement(transformation(extent={{120,50},{140,70}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-122,28},{-140,28},{-140,80},{-180,
           80}},  color={0,0,127}));
@@ -125,24 +125,24 @@ equation
   connect(gain.triSta, triSta) annotation (Line(points={{-110,8},{-110,-120}},
          color={255,0,255}));
   connect(timConDel.T, samT.u)
-    annotation (Line(points={{82,28},{100,28},{100,20},{118,20}}, color={0,0,127}));
+    annotation (Line(points={{62,28},{100,28},{100,20},{118,20}}, color={0,0,127}));
   connect(samT.y, T)
     annotation (Line(points={{142,20},{180,20}}, color={0,0,127}));
   connect(samT.trigger, triEnd) annotation (Line(points={{130,8},{130,-120}},
          color={255,0,255}));
   connect(L, samL.y)
     annotation (Line(points={{180,-30},{122,-30}},color={0,0,127}));
-  connect(samL.u, timConDel.L) annotation (Line(points={{98,-30},{90,-30},{90,20},
-          {82,20}}, color={0,0,127}));
+  connect(samL.u, timConDel.L) annotation (Line(points={{98,-30},{80,-30},{80,20},
+          {62,20}}, color={0,0,127}));
   connect(samL.trigger, triEnd) annotation (Line(points={{110,-42},{110,-50},{130,
           -50},{130,-120}},  color={255,0,255}));
   connect(samK.y, timConDel.k)
-    annotation (Line(points={{-38,20},{58,20}}, color={0,0,127}));
+    annotation (Line(points={{-38,20},{38,20}}, color={0,0,127}));
   connect(samK.trigger, triEnd) annotation (Line(points={{-50,8},{-50,-90},{130,
           -90},{130,-120}},color={255,0,255}));
-  connect(samK.y, k) annotation (Line(points={{-38,20},{20,20},{20,80},{180,80}},
+  connect(samK.y, k) annotation (Line(points={{-38,20},{-20,20},{-20,80},{180,80}},
                 color={0,0,127}));
-  connect(timConDel.tOn, samtOn.y) annotation (Line(points={{58,26},{-20,26},{-20,
+  connect(timConDel.tOn, samtOn.y) annotation (Line(points={{38,26},{20,26},{20,
           60},{-78,60}},color={0,0,127}));
   connect(samtOn.u, tOn)
     annotation (Line(points={{-102,60},{-150,60},{-150,40},{-180,40}},
@@ -156,25 +156,25 @@ equation
   connect(samTau.y, gai.u)
     annotation (Line(points={{-118,-60},{-82,-60}},color={0,0,127}));
   connect(samTau.y, div.u1) annotation (Line(points={{-118,-60},{-100,-60},{-100,
-          -14},{18,-14}}, color={0,0,127}));
+          -34},{-2,-34}}, color={0,0,127}));
   connect(triEnd,samTau. trigger) annotation (Line(points={{130,-120},{130,-90},
           {-130,-90},{-130,-72}}, color={255,0,255}));
-  connect(addPar.y, div.u2) annotation (Line(points={{-18,-60},{-6,-60},{-6,-26},
-          {18,-26}},color={0,0,127}));
-  connect(div.y, timConDel.rat) annotation (Line(points={{42,-20},{50,-20},{50,14},
-          {58,14}}, color={0,0,127}));
-  connect(and2.u1, not1.y) annotation (Line(points={{78,-70},{60,-70},{60,-50},{
-          42,-50}}, color={255,0,255}));
-  connect(and2.y, tunSta) annotation (Line(points={{102,-70},{180,-70}},
+  connect(addPar.y, div.u2) annotation (Line(points={{-18,-60},{-10,-60},{-10,-46},
+          {-2,-46}},color={0,0,127}));
+  connect(div.y, timConDel.rat) annotation (Line(points={{22,-40},{28,-40},{28,14},
+          {38,14}}, color={0,0,127}));
+  connect(and2.u1, not1.y) annotation (Line(points={{98,-70},{90,-70},{90,-50},{
+          62,-50}}, color={255,0,255}));
+  connect(and2.y, tunSta) annotation (Line(points={{122,-70},{180,-70}},
           color={255,0,255}));
-  connect(and2.u2, triEnd) annotation (Line(points={{78,-78},{60,-78},{60,-90},{
+  connect(and2.u2, triEnd) annotation (Line(points={{98,-78},{80,-78},{80,-90},{
           130,-90},{130,-120}},  color={255,0,255}));
-  connect(timConDel.triFai, not1.u) annotation (Line(points={{82,12},{86,12},{86,
-          0},{8,0},{8,-50},{18,-50}}, color={255,0,255}));
+  connect(timConDel.triFai, not1.u) annotation (Line(points={{62,12},{70,12},{70,
+          0},{32,0},{32,-50},{38,-50}}, color={255,0,255}));
   connect(gain.k,samK. u)
     annotation (Line(points={{-98,20},{-62,20}}, color={0,0,127}));
-  connect(not1.y, assTunFai.u) annotation (Line(points={{42,-50},{96,-50},{96,
-          60},{132,60}}, color={255,0,255}));
+  connect(not1.y, assTunFai.u) annotation (Line(points={{62,-50},{90,-50},{90,60},
+          {118,60}},     color={255,0,255}));
 annotation (
         defaultComponentName = "conProMod",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
