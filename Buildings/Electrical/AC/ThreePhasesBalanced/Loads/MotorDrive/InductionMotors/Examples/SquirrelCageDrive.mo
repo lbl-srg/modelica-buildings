@@ -20,7 +20,6 @@ model SquirrelCageDrive
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
     reverseActing=true,
-    have_controller=true,
     k=0.1,
     Ti=0.1) "Induction motor with speed control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

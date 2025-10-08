@@ -7,8 +7,6 @@ model SquirrelCageDrive
 
   parameter Boolean reverseActing
     "Default: Set to true in heating and set to false in cooling mode";
-  parameter Boolean have_controller = true
-    "Set to true for enable PID control, False for simple speed control";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(tab="Advanced", group="Controller"));
@@ -46,9 +44,6 @@ model SquirrelCageDrive
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Modelica.Blocks.Math.Gain vfdEquFre(final k=per.P/120)
-    "VFD equivalent frequency"
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Reals.PID speCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final Td=Td*2,
@@ -61,19 +56,10 @@ model SquirrelCageDrive
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Modelica.Blocks.Math.Product conFre "Controlled frequency"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Modelica.Blocks.Logical.Switch swi
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=1/(2*Modelica.Constants.pi))
+    final k=1/(2*Modelica.Constants.pi)) "Convert rad/s to Hz"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant havCon(
-    final k=have_controller)
-    "Have controller"
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
-    final k=1/(120*per.Freq/per.P))
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul "Controllede frequency in rad/s"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
 equation
@@ -100,30 +86,14 @@ equation
           6},{18,6}}, color={0,0,127}));
   connect(rmsVol.y, conVol.u1) annotation (Line(points={{-59,50},{-50,50},{-50,36},
           {-42,36}}, color={0,0,127}));
-  connect(swi.y, conVol.u2) annotation (Line(points={{-59,20},{-50,20},{-50,24},
-          {-42,24}}, color={0,0,127}));
-  connect(swi.y, conFre.u1) annotation (Line(points={{-59,20},{-50,20},{-50,-4},
-          {-42,-4}}, color={0,0,127}));
   connect(gai.y, conFre.u2) annotation (Line(points={{-58,-30},{-50,-30},{-50,-16},
           {-42,-16}},color={0,0,127}));
   connect(volAngFre.y, gai.u) annotation (Line(points={{-19,80},{-10,80},{-10,60},
           {-100,60},{-100,-30},{-82,-30}}, color={0,0,127}));
-  connect(havCon.y, swi.u2)
-    annotation (Line(points={{-118,20},{-82,20}}, color={255,0,255}));
-  connect(setPoi, vfdEquFre.u)
-    annotation (Line(points={{-180,90},{-142,90}}, color={0,0,127}));
   connect(setPoi, speCon.u_s) annotation (Line(points={{-180,90},{-150,90},{-150,
           60},{-142,60}}, color={0,0,127}));
   connect(mea, speCon.u_m)
     annotation (Line(points={{-180,40},{-130,40},{-130,48}}, color={0,0,127}));
-  connect(speCon.y, swi.u1) annotation (Line(points={{-118,60},{-110,60},{-110,
-          28},{-82,28}}, color={0,0,127}));
-  connect(setPoi, gai1.u) annotation (Line(points={{-180,90},{-150,90},{-150,-20},
-          {-142,-20}}, color={0,0,127}));
-  connect(gai1.y, swi.u3) annotation (Line(points={{-118,-20},{-110,-20},{-110,12},
-          {-82,12}}, color={0,0,127}));
-  connect(swi.y, mul.u1) annotation (Line(points={{-59,20},{-50,20},{-50,-4},{-90,
-          -4},{-90,-54},{-82,-54}},color={0,0,127}));
   connect(volAngFre.y, mul.u2) annotation (Line(points={{-19,80},{-10,80},{-10,60},
           {-100,60},{-100,-66},{-82,-66}}, color={0,0,127}));
   connect(mul.y, int.u) annotation (Line(points={{-58,-60},{0,-60},{0,80},{18,80}},
@@ -132,6 +102,12 @@ equation
           -86},{-22,-86}}, color={0,0,127}));
   connect(volPhaAng.y, volAngFre.u)
     annotation (Line(points={{-59,80},{-42,80}}, color={0,0,127}));
+  connect(speCon.y, conVol.u2) annotation (Line(points={{-118,60},{-112,60},{-112,
+          24},{-42,24}}, color={0,0,127}));
+  connect(conFre.u1, speCon.y) annotation (Line(points={{-42,-4},{-60,-4},{-60,24},
+          {-112,24},{-112,60},{-118,60}}, color={0,0,127}));
+  connect(mul.u1, speCon.y) annotation (Line(points={{-82,-54},{-90,-54},{-90,24},
+          {-112,24},{-112,60},{-118,60}}, color={0,0,127}));
  annotation(defaultComponentName="motDri",
     Documentation(info="<html>
 <p>
