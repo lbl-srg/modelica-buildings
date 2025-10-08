@@ -105,7 +105,7 @@ protected
     "Opposite of the input"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1
-    "detect a negative input"
+    "Detect a negative input"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 equation
   connect(absk.u, k)

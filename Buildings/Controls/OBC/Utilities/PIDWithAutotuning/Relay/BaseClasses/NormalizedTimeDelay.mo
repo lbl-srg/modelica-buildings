@@ -56,7 +56,7 @@ protected
     "Disable the assert when the tuning is not ongoing"
     annotation (Placement(transformation(extent={{28,-90},{48,-70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tunEndDel(
-    final delayTime=0.001)
+    final delayTime=Modelica.Constants.eps)
     "A small time delay for the autotuning end time to avoid missing events"
     annotation (Placement(transformation(extent={{58,-90},{78,-70}})));
 equation
@@ -125,6 +125,12 @@ This block calculates the normalized time delay of the output from a relay contr
 <p>
 where <code>&gamma;</code> and <code>&rho;</code> are the asymmetry level of
 the relay controller and the half-period ratio, respectively.
+</p>
+<p>
+Note: A delay block is used to ensure that the signal from <code>inTun</code>
+remains true briefly after the autotuning completes, allowing exceptions to be properly triggered.
+The delay time must be greater than zero to preserve event detection, but it should remain small
+to avoid unintended dynamic effects on the system behavior.
 </p>
 <h4>References</h4>
 <p>
