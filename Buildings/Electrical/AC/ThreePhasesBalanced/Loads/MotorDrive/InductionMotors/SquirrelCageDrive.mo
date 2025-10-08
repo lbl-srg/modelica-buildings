@@ -59,7 +59,7 @@ model SquirrelCageDrive
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1/(2*Modelica.Constants.pi)) "Convert rad/s to Hz"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul "Controllede frequency in rad/s"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul "Controlled frequency in rad/s"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
 equation
