@@ -9,7 +9,7 @@ model SquirrelCageDrive
     "Default: Set to true in heating and set to false in cooling mode";
   parameter Boolean have_controller = true
     "Set to true for enable PID control, False for simple speed control";
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(tab="Advanced", group="Controller"));
   parameter Real k(min=0) = 1
@@ -50,7 +50,7 @@ model SquirrelCageDrive
     "VFD equivalent frequency"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Reals.PID speCon(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final Td=Td*2,
     final yMax=yMax,
     final yMin=yMin,
