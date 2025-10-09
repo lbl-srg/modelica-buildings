@@ -19,7 +19,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-1)
     "Block that calculates the difference between gamma and 1"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar2(
     final p=0.65)
     "Block that calculates the sum of the two inputs"
@@ -51,14 +51,14 @@ protected
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Enable the assert to check the asymmetry level"
-    annotation (Placement(transformation(extent={{26,50},{46,70}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not and1
     "Disable the assert when the tuning is not ongoing"
-    annotation (Placement(transformation(extent={{28,-90},{48,-70}})));
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tunEndDel(
     final delayTime=Buildings.Controls.OBC.CDL.Constants.eps)
     "A small time delay for the autotuning end time to avoid missing events"
-    annotation (Placement(transformation(extent={{58,-90},{78,-70}})));
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
   connect(subGamRho.u1, asyLev.y) annotation (Line(points={{18,26},{-50,26},{
           -50,80},{-58,80}}, color={0,0,127}));
@@ -76,24 +76,24 @@ equation
     annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
   connect(addPar2.y, mul.u2) annotation (Line(points={{-18,-60},{0,-60},{0,-44},
           {18,-44}}, color={0,0,127}));
-  connect(addPar1.u, asyLev.y) annotation (Line(points={{-42,-10},{-50,-10},{
-          -50,80},{-58,80}}, color={0,0,127}));
-  connect(addPar1.y, mul.u1) annotation (Line(points={{-18,-10},{0,-10},{0,-32},
+  connect(addPar1.u, asyLev.y) annotation (Line(points={{-42,-20},{-50,-20},{-50,
+          80},{-58,80}},     color={0,0,127}));
+  connect(addPar1.y, mul.u1) annotation (Line(points={{-18,-20},{0,-20},{0,-32},
           {18,-32}}, color={0,0,127}));
   connect(asyLev.y, gre.u1) annotation (Line(points={{-58,80},{-50,80},{-50,60},
           {-22,60}}, color={0,0,127}));
   connect(rho, gre.u2) annotation (Line(points={{-120,0},{-90,0},{-90,52},{-22,
           52}}, color={0,0,127}));
   connect(gre.y, or2.u1)
-    annotation (Line(points={{2,60},{24,60}}, color={255,0,255}));
+    annotation (Line(points={{2,60},{18,60}}, color={255,0,255}));
   connect(or2.y, assMes.u)
-    annotation (Line(points={{48,60},{58,60}}, color={255,0,255}));
+    annotation (Line(points={{42,60},{58,60}}, color={255,0,255}));
   connect(and1.u, inTun)
-    annotation (Line(points={{26,-80},{0,-80},{0,-120}}, color={255,0,255}));
+    annotation (Line(points={{18,-80},{0,-80},{0,-120}}, color={255,0,255}));
   connect(and1.y,tunEndDel. u)
-    annotation (Line(points={{50,-80},{56,-80}}, color={255,0,255}));
-  connect(tunEndDel.y, or2.u2) annotation (Line(points={{80,-80},{86,-80},{86,
-          40},{20,40},{20,52},{24,52}}, color={255,0,255}));
+    annotation (Line(points={{42,-80},{58,-80}}, color={255,0,255}));
+  connect(tunEndDel.y, or2.u2) annotation (Line(points={{82,-80},{90,-80},{90,40},
+          {10,40},{10,52},{18,52}},     color={255,0,255}));
   annotation (
         defaultComponentName = "norTimDel",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -125,10 +125,10 @@ where <code>&gamma;</code> and <code>&rho;</code> are the asymmetry level of
 the relay controller and the half-period ratio, respectively.
 </p>
 <p>
-Note: A delay block is used to ensure that the signal from <code>inTun</code>
-remains true briefly after the autotuning completes, allowing exceptions to be properly triggered.
-The delay time must be greater than zero to preserve event detection, but it should remain small
-to avoid unintended dynamic effects on the system behavior.
+Note: A delay block is used to maintain the in-tuning process status for a short
+period after the autotuning complete. It allows properly triggering the warning if
+the warning indeed should be triggered. The delay should remain small to avoid
+unintended dynamic effects on the system behavior.
 </p>
 <h4>References</h4>
 <p>
