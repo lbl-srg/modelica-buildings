@@ -50,7 +50,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
     </td>
 </tr>
-
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse<br/>
+                       Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse
+    </td>
+    <td valign=\"top\">Reformulated <code>when</code> block to avoid continuous and discrete variable assignment in the same block.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4321\">#4321</a>
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Filling.Template
     </td>
     <td valign=\"top\">Guarded against division by zero for steady-state simulations.<br/>

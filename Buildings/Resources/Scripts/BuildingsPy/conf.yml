@@ -204,49 +204,39 @@
   openmodelica:
     comment: Translation timeout after 600 s
     translate: false
-  optimica:
-    translate: false
-    comment: Singularity, Modelon ticket 956
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.InletTemperaturePulse
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
-    translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Timeout after 300 s
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
-    translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Timeout after 300 s
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse50
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
-    translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Timeout after 300 s
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRateStep100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
-    translate: false
-    comment: Singularity, likely related to Modelon ticket 956
-- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
-  optimica:
-    translate: false
-    comment: Compilation seems to hang, may be related to Modelon ticket 956
+    comment: Timeout after 300 s
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 600
   openmodelica:
     time_out: 600
-  optimica:
-    translate: false
-    comment: Singularity, likely related to Modelon ticket 956
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
