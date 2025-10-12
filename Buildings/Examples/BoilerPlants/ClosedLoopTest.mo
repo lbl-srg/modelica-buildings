@@ -5,14 +5,14 @@ model ClosedLoopTest "Closed loop testing model"
   replaceable package MediumW = Buildings.Media.Water
     "Medium model";
 
-  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=10.1
-    "Radiator nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mPla_flow_nominal=21
+    "Boiler plant nominal mass flow rate";
 
-  parameter Real boiDesCap(
+  parameter Real QPla_flow_nominal(
     final unit="W",
     displayUnit="W",
-    final quantity="Power")= 1500000*0.75
-    "Total boiler plant design capacity";
+    final quantity="Power")= 1750000
+    "Boiler plant design heating capacity";
 
   parameter Real boiCapRat(
     final unit="1",
@@ -20,22 +20,19 @@ model ClosedLoopTest "Closed loop testing model"
     "Ratio of boiler-1 capacity to total capacity";
 
   Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary boiPlaPri(
-    final nSec=2,
-    final Q_flow_nominal=boiDesCap,
-    final boiCap1=(1 - boiCapRat)*boiDesCap,
-    final boiCap2=boiCapRat*boiDesCap,
-    final mSec_flow_nominal=secLoo1.mRad_flow_nominal + secLoo2.mRad_flow_nominal,
-    final TBoiSup_nominal=333.15,
-    final dpValve_nominal_value(displayUnit="Pa") = 2000,
-    final dpFixed_nominal_value(displayUnit="Pa") = 1000,
+    final Q_flow_nominal=QPla_flow_nominal,
+    final QBoi1_flow_nominal=(1 - boiCapRat)*QPla_flow_nominal,
+    final QBoi2_flow_nominal=boiCapRat*QPla_flow_nominal,
+    final mPla_flow_nominal=secLoo1.mRad_flow_nominal + secLoo2.mRad_flow_nominal,
+    final dpValve_nominal_value(displayUnit="Pa") = 25000,
+    final dpFixed_nominal_value(displayUnit="Pa") = 25000,
+    dpPumPri_nominal_value(displayUnit="Pa") = 100000,
     final controllerTypeBoi1=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final kBoi1=0.1,
     final TiBoi1=60,
     final controllerTypeBoi2=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final kBoi2=0.1,
-    final TiBoi2=60,
-    final pum2(dp_nominal=40000),
-    final pum1(dp_nominal=40000))
+    final TiBoi2=60)
     "Boiler plant primary loop model"
     annotation (Placement(transformation(extent={{40,-20},{60,12}})));
 
@@ -53,7 +50,7 @@ model ClosedLoopTest "Closed loop testing model"
     final nSenPri=1,
     final nPumPri_nominal=1,
     final TPlaHotWatSetMax=273.15 + 60,
-    THotWatSetMinConBoi=323.15,
+    THotWatSetMinConBoi=305.35,
     final triAmoVal=-1.111,
     final resAmoVal=1.667,
     final maxResVal=3.889,
@@ -65,12 +62,12 @@ model ClosedLoopTest "Closed loop testing model"
     final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
         Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
     final staMat=[1,0; 0,1; 1,1],
-    final boiDesCap={boiCapRat*boiDesCap*0.8,(1 - boiCapRat)*boiDesCap*0.8},
+    final boiDesCap={boiCapRat*QPla_flow_nominal*0.8,(1 - boiCapRat)*QPla_flow_nominal*0.8},
     final boiFirMin={0.2,0.3},
-    final minFloSet={0.2*boiCapRat*mRad_flow_nominal/2000,0.3*(1 - boiCapRat)*
-        mRad_flow_nominal/2000},
-    final maxFloSet={boiCapRat*mRad_flow_nominal/2000,(1 - boiCapRat)*
-        mRad_flow_nominal/2000},
+    final minFloSet={0.2*boiCapRat*mPla_flow_nominal/2000,0.3*(1 - boiCapRat)*
+        mPla_flow_nominal/2000},
+    final maxFloSet={boiCapRat*mPla_flow_nominal/2000,(1 - boiCapRat)*
+        mPla_flow_nominal/2000},
     final bypSetRat=0.000005,
     final nPumPri=2,
     final TMinSupNonConBoi=333.2,
@@ -86,24 +83,14 @@ model ClosedLoopTest "Closed loop testing model"
     annotation (Placement(transformation(extent={{-40,-40},{-20,40}})));
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo2(
-    final mRad_flow_nominal=2*0.6*mRad_flow_nominal,
-    final dpRad_nominal(displayUnit="Pa") = 2*10000,
-    conPID(
-      final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-      final k=0.05,
-      final Ti=180),
-    pum(dp_nominal(displayUnit="Pa") = 30000))
+    final mRad_flow_nominal=(1 - boiCapRat)*mPla_flow_nominal,
+    final dpRad_nominal(displayUnit="Pa") = 20000)
     "Secondary loop-2"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo1(
-    final mRad_flow_nominal=2*0.4*mRad_flow_nominal,
-    final dpRad_nominal(displayUnit="Pa") = 2*10000,
-    conPID(
-      final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-      final k=0.1,
-      final Ti=60),
-    pum(dp_nominal(displayUnit="Pa") = 30000))
+    final mRad_flow_nominal=boiCapRat*mPla_flow_nominal,
+    final dpRad_nominal(displayUnit="Pa") = 20000)
     "Secondary loop-1"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
 
@@ -119,7 +106,7 @@ model ClosedLoopTest "Closed loop testing model"
     final nPum=1,
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
-    final maxRemDp={22590.1},
+    final maxRemDp={2*secLoo2.dpRad_nominal},
     final k=0.1,
     final Ti=60,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
@@ -135,7 +122,7 @@ model ClosedLoopTest "Closed loop testing model"
     final nPum=1,
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
-    final maxRemDp={22590.1},
+    final maxRemDp={2*secLoo1.dpRad_nominal},
     final k=0.1,
     final Ti=60,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
@@ -157,7 +144,7 @@ model ClosedLoopTest "Closed loop testing model"
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={40,38})));
+      origin={40,40})));
 
   Buildings.Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = MediumW,
@@ -321,16 +308,16 @@ equation
   connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,14},
           {70,14},{70,-46},{-54,-46},{-54,10},{-42,10}}, color={0,0,127}));
   connect(boiPlaPri.port_b, spl4.port_1) annotation (Line(points={{43,10},{43,24},
-          {40,24},{40,28}}, color={0,127,255}));
+          {40,24},{40,30}}, color={0,127,255}));
   connect(spl4.port_2, secLoo2.port_a)
-    annotation (Line(points={{40,48},{40,54},{46,54},{46,60}},
+    annotation (Line(points={{40,50},{40,54},{46,54},{46,60}},
                                                color={0,127,255}));
-  connect(spl4.port_3, secLoo1.port_a) annotation (Line(points={{50,38},{82,38},
+  connect(spl4.port_3, secLoo1.port_a) annotation (Line(points={{50,40},{82,40},
           {82,134},{46,134},{46,140}}, color={0,127,255}));
   connect(secLoo1.port_b, spl1.port_1) annotation (Line(points={{54,140},{54,136},
-          {86,136},{86,86},{100,86},{100,80}}, color={0,127,255}));
-  connect(spl1.port_3, secLoo2.port_b) annotation (Line(points={{90,70},{90,44},
-          {54,44},{54,60}},                          color={0,127,255}));
+          {100,136},{100,80}},                 color={0,127,255}));
+  connect(spl1.port_3, secLoo2.port_b) annotation (Line(points={{90,70},{86,70},
+          {86,54},{54,54},{54,60}},                  color={0,127,255}));
   connect(spl1.port_2, boiPlaPri.port_a) annotation (Line(points={{100,60},{100,
           22},{57,22},{57,10}}, color={0,127,255}));
   connect(conBoiPri.yHotWatIsoVal, boiPlaPri.uHotIsoVal) annotation (Line(
@@ -362,7 +349,8 @@ equation
 This model couples the boiler plant model for a primary-secondary, condensing boiler
 plant with variable speed primary and secondary pumps with controllers for the
 primary loop and the secondary loops.
-<br>
+</p>
+<p>
 The primary loop is modeled by the
 <a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary\">
 Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary</a> instance <code>boiPlaPri</code>
@@ -376,6 +364,39 @@ are controlled by the secondary loop controller
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller</a> instances
 <code>secPumCon1</code> and <code>secPumCon2</code>, respectively.
+</p>
+<p>
+A few salient points about the default system sizing values.
+<ul>
+<li>
+The boiler plant nominal flowrate <code>mPla_flow_nominal</code> is set to a value
+that corresponds with the maximum mass flowrate of the reference simulated load data.
+</li>
+<li>
+The boiler plant heating capacity <code>QPla_flow_nominal</code> is experimentally set to
+a value that ensures supply temperature setpoint is met at highest reference flowrate.
+</li>
+<li>
+The primary pump pressure head <code>boiPlaPri.dpPumPri_nominal_value</code> is
+set to ensure positive flow through the decoupler leg (as measured by
+<code>boiPlaPri.VDec_flow</code>) when the secondary loops are drawing hot water
+at maximum lowrate. The fixed and valve pressure losses for the
+primary loop, <code>boiPlaPri.dpFixed_nominal_value</code> and
+<code>boiPlaPri.dpValve_nominal_value</code> respectively, are also assigned values
+based off equipment data.
+</li>
+<li>
+The pressure loss across the radiator in the secondary loops, i.e.,
+<code>secLoo1.dpRad_nominal</code> and <code>secLoo2.dpRad_nominal</code>, are
+set to <code>20kPa</code> each, which is an acceptable pressure drop for a heating coil
+in real-world applications. The differential pressure setpoint for the secondary
+pump speed control, <code>conPumSec1.maxRemDp</code> and <code>conPumSec2.maxRemDp</code>,
+are set to twice that value each, i.e., <code>40kPa</code>, to oversome the total
+pressure drop in the secondary loops. The user will need to change that value
+appropriately if they change either <code>dpRad_nominal</code> or <code>dpValve_nominal</code>
+for either secondary loop.
+</li>
+</ul>
 </p>
 </html>", revisions="<html>
 <ul>
@@ -391,7 +412,7 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/ClosedLoopTest.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=172800,
+      StartTime=86400,
       StopTime=259200,
       Interval=60,
       Tolerance=1e-05),
