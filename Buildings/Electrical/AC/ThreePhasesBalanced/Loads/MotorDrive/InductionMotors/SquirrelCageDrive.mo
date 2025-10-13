@@ -2,41 +2,48 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 model SquirrelCageDrive
   "Squirrel cage type induction motor with electrical interface and closed loop built-in speed control"
   extends Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.PartialSquirrelCage(
-    final have_speCon=true,
+    have_speCon=true,
     redeclare final Modelica.Blocks.Math.Product conVol "Controlled voltage");
 
-  parameter Boolean reverseActing
-    "Default: Set to true in heating and set to false in cooling mode";
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Boolean reverseActing=true
+    "Default: Set to true in heating and set to false in cooling mode"
+    annotation(Dialog(enable=have_speCon,group="Controller", tab="Advanced"));
+  parameter Real r=1
+    "Typical range of control error, used for scaling the control error"
+    annotation(Dialog(enable=have_speCon,group="Controller", tab="Advanced"));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="Advanced", group="Controller"));
+    annotation (Dialog(tab="Advanced", group="Controller", enable=have_speCon));
   parameter Real k(min=0) = 1
     "Gain of controller"
-    annotation (Dialog(tab="Advanced", group="Controller"));
+    annotation (Dialog(tab="Advanced", group="Controller", enable=have_speCon));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=1
     "Time constant of Integrator block"
     annotation (Dialog(tab="Advanced", group="Controller",
-                       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                       enable=have_speCon and
+                              controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                               or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(min=0) = 0.1
     "Time constant of Derivative block"
     annotation (Dialog(tab="Advanced", group="Controller",
-                       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                       enable=have_speCon and
+                              controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                               or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
     "Upper limit of output"
-     annotation (Dialog(tab="Advanced", group="Controller"));
+     annotation (Dialog(tab="Advanced", group="Controller", enable=have_speCon));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(tab="Advanced", group="Controller"));
+    annotation (Dialog(tab="Advanced", group="Controller", enable=have_speCon));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput setPoi
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setPoi if have_speCon
     "Set point of control target"
-    annotation (Placement(transformation(extent={{-200,70},{-160,110}}),
+    annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mea
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mea if have_speCon
     "Measured value of control target"
-    annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
+    annotation (Placement(transformation(extent={{-200,10},{-160,50}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_m(
     final unit="N.m")
@@ -46,12 +53,13 @@ model SquirrelCageDrive
 
   Buildings.Controls.OBC.CDL.Reals.PID speCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final Td=Td*2,
+    final Td=Td,
+    final r=r,
     final yMax=yMax,
     final yMin=yMin,
     final k=k,
     final Ti=Ti,
-    final reverseActing=reverseActing)
+    final reverseActing=reverseActing) if have_speCon
     "PI controller as variable frequency drive"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Modelica.Blocks.Math.Product conFre "Controlled frequency"
@@ -61,6 +69,9 @@ model SquirrelCageDrive
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul "Controlled frequency in rad/s"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=1) if not have_speCon
+    "Constant one"
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
 equation
   connect(int.y, curBlo.wt) annotation (Line(points={{41,80},{50,80},{50,48},{58,
@@ -90,10 +101,10 @@ equation
           {-42,-16}},color={0,0,127}));
   connect(volAngFre.y, gai.u) annotation (Line(points={{-19,80},{-10,80},{-10,60},
           {-100,60},{-100,-30},{-82,-30}}, color={0,0,127}));
-  connect(setPoi, speCon.u_s) annotation (Line(points={{-180,90},{-150,90},{-150,
-          60},{-142,60}}, color={0,0,127}));
+  connect(setPoi, speCon.u_s) annotation (Line(points={{-180,60},{-142,60}},
+                          color={0,0,127}));
   connect(mea, speCon.u_m)
-    annotation (Line(points={{-180,40},{-130,40},{-130,48}}, color={0,0,127}));
+    annotation (Line(points={{-180,30},{-130,30},{-130,48}}, color={0,0,127}));
   connect(volAngFre.y, mul.u2) annotation (Line(points={{-19,80},{-10,80},{-10,60},
           {-100,60},{-100,-66},{-82,-66}}, color={0,0,127}));
   connect(mul.y, int.u) annotation (Line(points={{-58,-60},{0,-60},{0,80},{18,80}},
@@ -102,12 +113,18 @@ equation
           -86},{-22,-86}}, color={0,0,127}));
   connect(volPhaAng.y, volAngFre.u)
     annotation (Line(points={{-59,80},{-42,80}}, color={0,0,127}));
-  connect(speCon.y, conVol.u2) annotation (Line(points={{-118,60},{-112,60},{-112,
+  connect(speCon.y, conVol.u2) annotation (Line(points={{-118,60},{-110,60},{-110,
           24},{-42,24}}, color={0,0,127}));
   connect(conFre.u1, speCon.y) annotation (Line(points={{-42,-4},{-60,-4},{-60,24},
-          {-112,24},{-112,60},{-118,60}}, color={0,0,127}));
-  connect(mul.u1, speCon.y) annotation (Line(points={{-82,-54},{-90,-54},{-90,24},
-          {-112,24},{-112,60},{-118,60}}, color={0,0,127}));
+          {-110,24},{-110,60},{-118,60}}, color={0,0,127}));
+  connect(mul.u1, speCon.y) annotation (Line(points={{-82,-54},{-110,-54},{-110,
+          60},{-118,60}},                 color={0,0,127}));
+  connect(con.y, conVol.u2) annotation (Line(points={{-118,0},{-110,0},{-110,24},
+          {-42,24}}, color={0,0,127}));
+  connect(con.y, conFre.u1) annotation (Line(points={{-118,0},{-110,0},{-110,24},
+          {-60,24},{-60,-4},{-42,-4}}, color={0,0,127}));
+  connect(con.y, mul.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-54},{
+          -82,-54}}, color={0,0,127}));
  annotation(defaultComponentName="motDri",
     Documentation(info="<html>
 <p>

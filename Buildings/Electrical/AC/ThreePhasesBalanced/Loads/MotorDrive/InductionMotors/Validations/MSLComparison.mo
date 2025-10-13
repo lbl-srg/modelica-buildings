@@ -8,7 +8,8 @@ model MSLComparison
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(f=50, V=220*1.414)
     "Voltage source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage motDri
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
+      have_speCon=false)
     "Squirrel cage induction motor"
     annotation (Placement(transformation(extent={{-18,-20},{2,0}})));
 
