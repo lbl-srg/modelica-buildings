@@ -17,7 +17,7 @@ model Pump
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{60,60},{80,80}})));
 
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics", group="Conservation equations"));
   parameter Modelica.Units.SI.Time tau=1

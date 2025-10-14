@@ -51,21 +51,19 @@ equation
   connect(gri.terminal, pum.terminal) annotation (Line(points={{10,60},{10,30}},
           color={0,120,120}));
   connect(step.y, pum.m_flow_set) annotation (Line(points={{-59,70},{-6,70},{-6,
-          27.7778},{-2,27.7778}}, color={0,0,127}));
-  connect(dp1.port_b, pum.port_a) annotation (Line(points={{-20,20},{-18,20},{
-          -18,18.8889},{0,18.8889}},
-                                 color={0,127,255}));
+          28},{-2,28}}, color={0,0,127}));
+  connect(dp1.port_b, pum.port_a) annotation (Line(points={{-20,20},{0,20}},
+          color={0,127,255}));
   connect(dp1.port_a, sou.ports[1])
     annotation (Line(points={{-40,20},{-80,20},{-80,19}}, color={0,127,255}));
-  connect(pum.port_b, dp2.port_a) annotation (Line(points={{20,18.8889},{22,
-          18.8889},{22,20},{40,20}},
-                            color={0,127,255}));
+  connect(pum.port_b, dp2.port_a) annotation (Line(points={{20,20},{40,20}},
+          color={0,127,255}));
   connect(dp2.port_b, senMasFlo.port_a) annotation (Line(points={{60,20},{64,20},
           {64,-40},{0,-40}}, color={0,127,255}));
   connect(senMasFlo.port_b, sou.ports[2]) annotation (Line(points={{-20,-40},{
           -50,-40},{-50,21},{-80,21}}, color={0,127,255}));
   connect(senMasFlo.m_flow,pum.m_flow)  annotation (Line(points={{-10,-29},{-10,
-          23.3333},{-2,23.3333}}, color={0,0,127}));
+          24},{-2,24}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"
         "Simulate and plot"),

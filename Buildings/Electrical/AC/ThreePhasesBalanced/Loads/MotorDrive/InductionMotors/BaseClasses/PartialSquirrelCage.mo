@@ -3,7 +3,7 @@ model PartialSquirrelCage
   "Partial model for squirrel cage type induction motor with electrical interface"
   extends Buildings.Electrical.Interfaces.PartialOnePort(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare replaceable Interfaces.Terminal_n terminal);
+    redeclare Interfaces.Terminal_n terminal);
   replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per
     constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record with induction machine performance data"
@@ -56,9 +56,9 @@ model PartialSquirrelCage
   Modelica.Blocks.Continuous.Integrator int
     "Integrator for voltage angular fequency"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  replaceable Modelica.Blocks.Sources.RealExpression conVol
-    "Supply voltage phase angle"
-    annotation (Placement(visible=have_speCon, transformation(extent={{-40,20},{-20,40}})));
+  Modelica.Blocks.Math.Product conVol
+    "Controlled voltage"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
 equation
   theta_s = PhaseSystem.thetaRef(terminal.theta) "phase angle";

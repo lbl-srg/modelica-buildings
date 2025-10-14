@@ -173,15 +173,13 @@ equation
           {0,80},{0,100}}, color={0,120,120}));
   connect(motDri.shaft, pum.shaft)
     annotation (Line(points={{-20,50},{0,50},{0,10}}, color={0,0,0}));
-  connect(port_a, port_a) annotation (Line(points={{-100,0},{-100,0}},
-      color={0,127,255}));
   connect(pum.P, P) annotation (Line(points={{11,9},{80,9},{80,90},{110,90}},
         color={0,0,127}));
   connect(pum.y_actual, y_actual) annotation (Line(points={{11,7},{84,7},{84,70},
           {110,70}}, color={0,0,127}));
   annotation (defaultComponentName="pum",
   Icon(coordinateSystem(preserveAspectRatio=true,
-        extent={{-100,-80},{100,100}}),  graphics={
+        extent={{-100,-100},{100,100}}),  graphics={
         Rectangle(
           extent={{-100,16},{100,-16}},
           lineColor={0,0,0},

@@ -2,8 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 model SquirrelCageDrive
   "Squirrel cage type induction motor with electrical interface and closed loop built-in speed control"
   extends Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.PartialSquirrelCage(
-    have_speCon=true,
-    redeclare final Modelica.Blocks.Math.Product conVol "Controlled voltage");
+    have_speCon=true);
 
   parameter Boolean reverseActing=true
     "Default: Set to true in heating and set to false in cooling mode"
@@ -89,8 +88,7 @@ equation
   connect(spe.flange, shaft)
     annotation (Line(points={{92,0},{100,0}}, color={0,0,0}));
   connect(tau_m, speBlo.tau_m)
-    annotation (Line(points={{-180,-80},{-22,-80}},
-          color={0,0,127}));
+    annotation (Line(points={{-180,-80},{-22,-80}}, color={0,0,127}));
   connect(conFre.y, torSpe.f)
     annotation (Line(points={{-19,-10},{-10,-10},{-10,0},{18,0}}, color={0,0,127}));
   connect(conVol.y, torSpe.V_rms) annotation (Line(points={{-19,30},{10,30},{10,
@@ -102,7 +100,7 @@ equation
   connect(volAngFre.y, gai.u) annotation (Line(points={{-19,80},{-10,80},{-10,60},
           {-100,60},{-100,-30},{-82,-30}}, color={0,0,127}));
   connect(setPoi, speCon.u_s) annotation (Line(points={{-180,60},{-142,60}},
-                          color={0,0,127}));
+          color={0,0,127}));
   connect(mea, speCon.u_m)
     annotation (Line(points={{-180,30},{-130,30},{-130,48}}, color={0,0,127}));
   connect(volAngFre.y, mul.u2) annotation (Line(points={{-19,80},{-10,80},{-10,60},
@@ -113,18 +111,18 @@ equation
           -86},{-22,-86}}, color={0,0,127}));
   connect(volPhaAng.y, volAngFre.u)
     annotation (Line(points={{-59,80},{-42,80}}, color={0,0,127}));
-  connect(speCon.y, conVol.u2) annotation (Line(points={{-118,60},{-110,60},{-110,
-          24},{-42,24}}, color={0,0,127}));
-  connect(conFre.u1, speCon.y) annotation (Line(points={{-42,-4},{-60,-4},{-60,24},
-          {-110,24},{-110,60},{-118,60}}, color={0,0,127}));
-  connect(mul.u1, speCon.y) annotation (Line(points={{-82,-54},{-110,-54},{-110,
-          60},{-118,60}},                 color={0,0,127}));
   connect(con.y, conVol.u2) annotation (Line(points={{-118,0},{-110,0},{-110,24},
           {-42,24}}, color={0,0,127}));
-  connect(con.y, conFre.u1) annotation (Line(points={{-118,0},{-110,0},{-110,24},
-          {-60,24},{-60,-4},{-42,-4}}, color={0,0,127}));
-  connect(con.y, mul.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-54},{
-          -82,-54}}, color={0,0,127}));
+  connect(con.y, conFre.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-4},
+          {-42,-4}},                   color={0,0,127}));
+  connect(con.y, mul.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-54},
+          {-82,-54}}, color={0,0,127}));
+  connect(speCon.y, conVol.u2) annotation (Line(points={{-118,60},{-110,60},{
+          -110,24},{-42,24}}, color={0,0,127}));
+  connect(speCon.y, conFre.u1) annotation (Line(points={{-118,60},{-110,60},{
+          -110,-4},{-42,-4}}, color={0,0,127}));
+  connect(speCon.y, mul.u1) annotation (Line(points={{-118,60},{-110,60},{-110,
+          -54},{-82,-54}}, color={0,0,127}));
  annotation(defaultComponentName="motDri",
     Documentation(info="<html>
 <p>
