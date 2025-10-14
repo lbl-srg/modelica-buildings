@@ -37,8 +37,7 @@ model ClosedLoopTest "Closed loop testing model"
     annotation (Placement(transformation(extent={{40,-20},{60,12}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController conBoiPri(
-    final controllerType_priPum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final controllerType_bypVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    controllerType_priPum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_priOnl=false,
     final have_heaPriPum=true,
     final have_isoValSen=true,
@@ -49,48 +48,39 @@ model ClosedLoopTest "Closed loop testing model"
     nHotWatResReqIgn=0,
     final nSenPri=1,
     final nPumPri_nominal=1,
-    final TPlaHotWatSetMax=273.15 + 60,
+    TPlaHotWatSetMax=273.15 + 60,
     THotWatSetMinConBoi=305.35,
-    final triAmoVal=-1.111,
-    final resAmoVal=1.667,
-    final maxResVal=3.889,
-    final minPumSpePri=0.1,
-    final VHotWatPri_flow_nominal=0.02,
-    final maxLocDpPri=50000,
-    final minLocDpPri=50000,
+    triAmoVal=-1.111,
+    resAmoVal=1.667,
+    maxResVal=3.889,
+    minPumSpePri=0.1,
     final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
-        Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
+    final boiTyp_select=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
     final staMat=[1,0; 0,1; 1,1],
-    final boiDesCap={boiCapRat*QPla_flow_nominal*0.8,(1 - boiCapRat)*QPla_flow_nominal*0.8},
+    final boiDesCap={boiCapRat*QPla_flow_nominal,(1 - boiCapRat)*
+        QPla_flow_nominal},
     final boiFirMin={0.2,0.3},
-    final minFloSet={0.2*boiCapRat*mPla_flow_nominal/2000,0.3*(1 - boiCapRat)*
-        mPla_flow_nominal/2000},
-    final maxFloSet={boiCapRat*mPla_flow_nominal/2000,(1 - boiCapRat)*
-        mPla_flow_nominal/2000},
-    final bypSetRat=0.000005,
+    final minFloSet={0.2*boiCapRat*mPla_flow_nominal/1000,0.3*(1 - boiCapRat)*
+        mPla_flow_nominal/1000},
     final nPumPri=2,
-    final TMinSupNonConBoi=333.2,
-    final k_bypVal=1,
-    final Ti_bypVal=90,
-    final Td_bypVal=10e-9,
-    final boiDesFlo=conBoiPri.maxFloSet,
-    final k_priPum=0.1,
-    final Ti_priPum=60,
-    final minPriPumSpeSta={0,0,0},
+    k_priPum=0.1,
+    Ti_priPum=60,
+    minPriPumSpeSta={0,0,0},
     final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate)
     "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{-40,-40},{-20,40}})));
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo2(
     final mRad_flow_nominal=(1 - boiCapRat)*mPla_flow_nominal,
-    final dpRad_nominal(displayUnit="Pa") = 20000)
+    final dpRad_nominal(displayUnit="Pa") = 20000,
+    dpValve_nominal(displayUnit="Pa") = 60000)
     "Secondary loop-2"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo1(
     final mRad_flow_nominal=boiCapRat*mPla_flow_nominal,
-    final dpRad_nominal(displayUnit="Pa") = 20000)
+    final dpRad_nominal(displayUnit="Pa") = 20000,
+    dpValve_nominal(displayUnit="Pa") = 60000)
     "Secondary loop-1"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
 
@@ -106,7 +96,7 @@ model ClosedLoopTest "Closed loop testing model"
     final nPum=1,
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
-    final maxRemDp={2*secLoo2.dpRad_nominal},
+    final maxRemDp={secLoo2.dpRad_nominal + secLoo2.dpValve_nominal},
     final k=0.1,
     final Ti=60,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
@@ -122,7 +112,7 @@ model ClosedLoopTest "Closed loop testing model"
     final nPum=1,
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
-    final maxRemDp={2*secLoo1.dpRad_nominal},
+    final maxRemDp={secLoo1.dpRad_nominal + secLoo1.dpValve_nominal},
     final k=0.1,
     final Ti=60,
     final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
@@ -241,23 +231,23 @@ equation
           {104,-2},{104,-72},{-72,-72},{-72,18},{-42,18}}, color={0,0,127}));
 
   connect(boiPlaPri.VHotWatPri_flow, conBoiPri.VHotWatPri_flow) annotation (
-      Line(points={{62,-10},{112,-10},{112,-80},{-80,-80},{-80,14},{-42,14}},
+      Line(points={{62,-6},{112,-6},{112,-80},{-80,-80},{-80,14},{-42,14}},
         color={0,0,127}));
 
 
-  connect(boiPlaPri.yPumSta, conBoiPri.uPriPum) annotation (Line(points={{62,-18},
-          {124,-18},{124,-92},{-92,-92},{-92,-26},{-42,-26}}, color={255,0,255}));
+  connect(boiPlaPri.yPumSta, conBoiPri.uPriPum) annotation (Line(points={{62,-10},
+          {124,-10},{124,-92},{-92,-92},{-92,-26},{-42,-26}}, color={255,0,255}));
 
   connect(conBoiPri.yPriPum, boiPlaPri.uPumSta) annotation (Line(points={{-18,-10},
-          {-6,-10},{-6,-8},{38,-8}}, color={255,0,255}));
+          {-6,-10},{-6,-6},{38,-6}}, color={255,0,255}));
   connect(conBoiPri.yBoi, boiPlaPri.uBoiSta)
-    annotation (Line(points={{-18,10},{10,10},{10,8},{38,8}},
+    annotation (Line(points={{-18,10},{10,10},{10,6},{38,6}},
                                               color={255,0,255}));
   connect(conBoiPri.TBoiHotWatSupSet, boiPlaPri.TBoiHotWatSupSet)
-    annotation (Line(points={{-18,6},{10,6},{10,4},{38,4}},
+    annotation (Line(points={{-18,6},{10,6},{10,2},{38,2}},
                                               color={0,0,127}));
   connect(conBoiPri.yPriPumSpe, boiPlaPri.uPumSpe) annotation (Line(points={{-18,-14},
-          {0,-14},{0,-12},{38,-12}},      color={0,0,127}));
+          {0,-14},{0,-10},{38,-10}},      color={0,0,127}));
   connect(con3[1].y, conBoiPri.uSchEna) annotation (Line(points={{-98,0},{-90,0},
           {-90,38},{-42,38}}, color={255,0,255}));
   connect(secLoo1.nReqPla, addIntReqPla.u1) annotation (Line(points={{62,154},{
@@ -292,10 +282,10 @@ equation
   connect(secLoo1.yPumEna,conPumSec1. uHotWatPum[1]) annotation (Line(points={{62,150},
           {74,150},{74,178},{-26,178},{-26,162},{-12,162}},      color={255,0,255}));
   connect(boiPlaPri.VDec_flow, conBoiPri.VHotWatDec_flow) annotation (Line(
-        points={{62,10},{72,10},{72,-52},{-52,-52},{-52,-6},{-42,-6}}, color={0,
+        points={{62,6},{72,6},{72,-52},{-52,-52},{-52,-6},{-42,-6}},   color={0,
           0,127}));
   connect(TZonUnc.y, boiPlaPri.TZon) annotation (Line(points={{22,-30},{30,-30},
-          {30,-16},{38,-16}}, color={0,0,127}));
+          {30,-14},{38,-14}}, color={0,0,127}));
   connect(timTab.y[2], gai.u) annotation (Line(points={{-99,100},{-92,100},{-92,
           180},{-82,180}}, color={0,0,127}));
   connect(timTab.y[2], gai1.u)
@@ -305,10 +295,11 @@ equation
   connect(gai1.y, secLoo2.uHotWat_flow) annotation (Line(points={{-58,100},{30,
           100},{30,76},{38,76}},
                             color={0,0,127}));
-  connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,14},
-          {70,14},{70,-46},{-54,-46},{-54,10},{-42,10}}, color={0,0,127}));
-  connect(boiPlaPri.port_b, spl4.port_1) annotation (Line(points={{43,10},{43,24},
-          {40,24},{40,30}}, color={0,127,255}));
+  connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,10},
+          {70,10},{70,-46},{-54,-46},{-54,10},{-42,10}}, color={0,0,127}));
+  connect(boiPlaPri.port_b, spl4.port_1) annotation (Line(points={{43.4,8},{43.4,
+          24},{40,24},{40,30}},
+                            color={0,127,255}));
   connect(spl4.port_2, secLoo2.port_a)
     annotation (Line(points={{40,50},{40,54},{46,54},{46,60}},
                                                color={0,127,255}));
@@ -319,17 +310,18 @@ equation
   connect(spl1.port_3, secLoo2.port_b) annotation (Line(points={{90,70},{86,70},
           {86,54},{54,54},{54,60}},                  color={0,127,255}));
   connect(spl1.port_2, boiPlaPri.port_a) annotation (Line(points={{100,60},{100,
-          22},{57,22},{57,10}}, color={0,127,255}));
+          22},{57,22},{57,8}},  color={0,127,255}));
   connect(conBoiPri.yHotWatIsoVal, boiPlaPri.uHotIsoVal) annotation (Line(
-        points={{-18,2},{30,2},{30,0},{38,0}}, color={255,0,255}));
+        points={{-18,2},{30,2},{30,-2},{38,-2}},
+                                               color={255,0,255}));
   connect(edg.y, conBoiPri.uHotWatIsoValOpe)
     annotation (Line(points={{-98,-30},{-42,-30}}, color={255,0,255}));
   connect(falEdg.y, conBoiPri.uHotWatIsoValClo) annotation (Line(points={{-98,-60},
           {-60,-60},{-60,-34.2},{-42,-34.2}}, color={255,0,255}));
-  connect(boiPlaPri.yHotWatIsoVal, edg.u) annotation (Line(points={{62,-22},{80,
-          -22},{80,-100},{-130,-100},{-130,-30},{-122,-30}}, color={255,0,255}));
-  connect(boiPlaPri.yHotWatIsoVal, falEdg.u) annotation (Line(points={{62,-22},{
-          80,-22},{80,-100},{-130,-100},{-130,-60},{-122,-60}}, color={255,0,255}));
+  connect(boiPlaPri.yHotWatIsoVal, edg.u) annotation (Line(points={{62,-18},{80,
+          -18},{80,-100},{-130,-100},{-130,-30},{-122,-30}}, color={255,0,255}));
+  connect(boiPlaPri.yHotWatIsoVal, falEdg.u) annotation (Line(points={{62,-18},{
+          80,-18},{80,-100},{-130,-100},{-130,-60},{-122,-60}}, color={255,0,255}));
   connect(secLoo1.nReqRes, addIntReqRes.u1) annotation (Line(points={{62,158},{130,
           158},{130,156},{138,156}},  color={255,127,0}));
   connect(secLoo2.nReqRes, addIntReqRes.u2) annotation (Line(points={{62,78},{70,
@@ -389,11 +381,14 @@ based off equipment data.
 The pressure loss across the radiator in the secondary loops, i.e.,
 <code>secLoo1.dpRad_nominal</code> and <code>secLoo2.dpRad_nominal</code>, are
 set to <code>20kPa</code> each, which is an acceptable pressure drop for a heating coil
-in real-world applications. The differential pressure setpoint for the secondary
+in real-world applications. The fully-open valve pressure drops
+(<code>secLoo1.dpValve_nominal</code> and <code>secLoo2.dpValve_nominal</code>)
+are set to a value of 60kPa to achieve valve authority <code>75%</code>.
+The differential pressure setpoint for the secondary
 pump speed control, <code>conPumSec1.maxRemDp</code> and <code>conPumSec2.maxRemDp</code>,
-are set to twice that value each, i.e., <code>40kPa</code>, to oversome the total
-pressure drop in the secondary loops. The user will need to change that value
-appropriately if they change either <code>dpRad_nominal</code> or <code>dpValve_nominal</code>
+are set to the sum of the fixed and open-valve pressure drops, to overcome the total
+pressure drop in the secondary loops. The setpoint will dynamically change if the
+user chooses to change either <code>dpRad_nominal</code> or <code>dpValve_nominal</code>
 for either secondary loop.
 </li>
 </ul>

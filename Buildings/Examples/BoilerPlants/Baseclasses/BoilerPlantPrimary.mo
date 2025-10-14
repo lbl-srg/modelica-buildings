@@ -145,24 +145,24 @@ model BoilerPlantPrimary
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[2]
     "Boiler status signal"
     annotation (Placement(transformation(extent={{-360,140},{-320,180}}),
-      iconTransformation(extent={{-140,100},{-100,140}})));
+      iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[2]
     "Pump status signal"
     annotation (Placement(transformation(extent={{-360,-20},{-320,20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotIsoVal[2]
     "Hot water isolation valve signal"
     annotation (Placement(transformation(extent={{-360,20},{-320,60}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
     final unit="1",
     displayUnit="1")
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-360,-60},{-320,-20}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TBoiHotWatSupSet[2](
     final unit=fill("K", 2),
@@ -170,7 +170,7 @@ model BoilerPlantPrimary
     final quantity=fill("ThermodynamicTemperature", 2))
     "Boiler hot water supply temperature setpoint vector"
     annotation (Placement(transformation(extent={{-360,60},{-320,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
@@ -178,12 +178,12 @@ model BoilerPlantPrimary
     final quantity="ThermodynamicTemperature")
     "Measured zone air temperature"
     annotation (Placement(transformation(extent={{-360,-180},{-320,-140}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumSta[2]
     "Pump status signal"
     annotation (Placement(transformation(extent={{320,-40},{360,0}}),
-      iconTransformation(extent={{100,-160},{140,-120}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupTem(
     final unit="K",
@@ -207,24 +207,24 @@ model BoilerPlantPrimary
     final quantity="VolumeFlowRate")
     "Measured flowrate in primary circuit"
     annotation (Placement(transformation(extent={{320,-10},{360,30}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatIsoVal[2]
     "Measured boiler hot water isolation valve position"
     annotation (Placement(transformation(extent={{320,-120},{360,-80}}),
-      iconTransformation(extent={{100,-200},{140,-160}})));
+      iconTransformation(extent={{100,-160},{140,-120}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = MediumW)
     "HW return port"
     annotation (Placement(transformation(extent={{30,230},{50,250}}),
-      iconTransformation(extent={{60,130},{80,150}})));
+      iconTransformation(extent={{60,110},{80,130}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare package Medium = MediumW)
     "HW supply port"
     annotation (Placement(transformation(extent={{-50,230},{-30,250}}),
-      iconTransformation(extent={{-80,130},{-60,150}})));
+      iconTransformation(extent={{-76,110},{-56,130}})));
 
   Buildings.Fluid.Sources.Boundary_pT preSou(
     redeclare package Medium = MediumW,
@@ -435,14 +435,14 @@ model BoilerPlantPrimary
     displayUnit=fill("1",2))
     "Measured primary pump speed"
     annotation (Placement(transformation(extent={{320,-80},{360,-40}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VDec_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Measured decoupler flowrate"
     annotation (Placement(transformation(extent={{320,90},{360,130}}),
-      iconTransformation(extent={{100,120},{140,160}})));
+      iconTransformation(extent={{100,80},{140,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TRetSec(
     final quantity="ThermodynamicTemperature",
@@ -450,7 +450,7 @@ model BoilerPlantPrimary
     displayUnit = "degC",
     min = 0) "Measured secondary loop return temperature"
     annotation (Placement(transformation(extent={{320,120},{360,160}}),
-      iconTransformation(extent={{100,160},{140,200}})));
+      iconTransformation(extent={{100,120},{140,160}})));
 
   Buildings.Fluid.FixedResistances.CheckValve cheVal1(
     redeclare package Medium = MediumW,
@@ -705,7 +705,7 @@ equation
       graphics={
         Rectangle(
           extent={{-100,160},{100,-160}},
-          lineColor={28,108,200},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
@@ -713,57 +713,57 @@ equation
           textColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{-40,-18},{40,-98}},
+          extent={{-40,-38},{40,-118}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-60,-54},{60,-60}},
+          extent={{-60,-74},{60,-80}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{0,-60},{60,-54}},
+          extent={{0,-80},{60,-74}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{0,-80},{-12,-98},{14,-98},{0,-80}},
+          points={{0,-100},{-12,-118},{14,-118},{0,-100}},
           pattern=LinePattern.None,
           smooth=Smooth.None,
           fillColor={255,255,0},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
-        Ellipse(extent={{-80,58},{-50,26}}, lineColor={28,108,200}),
+        Ellipse(extent={{-80,38},{-50,6}},  lineColor={28,108,200}),
         Polygon(
-          points={{-80,40},{-50,40},{-66,58},{-80,40}},
+          points={{-80,20},{-50,20},{-66,38},{-80,20}},
           lineColor={28,108,200},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
-        Line(points={{-66,-40},{-66,-12}}, color={28,108,200}),
-        Line(points={{-66,58},{-66,134}},color={28,108,200}),
-        Line(points={{70,132},{70,-44},{70,-50}},color={28,108,200}),
-        Polygon(points={{-80,26},{-80,26}}, lineColor={28,108,200}),
+        Line(points={{-66,-60},{-66,-32}}, color={28,108,200}),
+        Line(points={{-66,38},{-66,114}},color={28,108,200}),
+        Line(points={{70,112},{70,-64},{70,-70}},color={28,108,200}),
+        Polygon(points={{-80,6},{-80,6}},   lineColor={28,108,200}),
         Polygon(
-          points={{-76,-12},{-54,-12},{-66,0},{-76,-12}},
+          points={{-76,-32},{-54,-32},{-66,-20},{-76,-32}},
           lineColor={28,108,200},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-76,12},{-54,12},{-66,0},{-76,12}},
+          points={{-76,-8},{-54,-8},{-66,-20},{-76,-8}},
           lineColor={28,108,200},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
-        Line(points={{-66,12},{-66,26}}, color={28,108,200}),
+        Line(points={{-66,-8},{-66,6}},  color={28,108,200}),
         Ellipse(
-          extent={{-82,-40},{-52,-72}},
+          extent={{-82,-60},{-52,-92}},
           lineColor={28,108,200},
           lineThickness=0.5),
         Ellipse(
-          extent={{56,-38},{86,-70}},
+          extent={{56,-58},{86,-90}},
           lineColor={28,108,200},
           lineThickness=0.5,
           fillColor={28,108,200},
