@@ -69,9 +69,20 @@ block Controller
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
-    "Total plant design hot water flow rate"
+    "Total plant design hot water volume flow rate"
     annotation (Dialog(group="Plant parameters",
-      enable=have_priOnl and have_heaPriPum and (have_remDPReg or have_locDPReg)));
+      enable=have_priOnl and have_heaPriPum));
+
+  parameter Real minFloSet[nBoi](
+    final unit=fill("m3/s",nBoi),
+    displayUnit=fill("m3/s",nBoi),
+    final quantity=fill("VolumeFlowRate",nBoi),
+    final min=fill(1e-6,nBoi))
+    "Design minimum hot water volume flow rate through each boiler"
+    annotation(Dialog(group="Plant parameters"));
+
+  final parameter Real minFlo=sum(minFloSet)
+    "Calculated minimum volume loop flow rate";
 
   parameter Real maxLocDp(
     final unit="Pa",
@@ -321,8 +332,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate")
-    if (have_priOnl and have_heaPriPum) or have_floReg
+    final quantity="VolumeFlowRate") if (have_priOnl and have_heaPriPum) or (
+    have_varPriPum and have_floReg and use_priSecFloSen)
     "Hot water flow"
     annotation (Placement(transformation(extent={{-320,-40},{-280,0}}),
       iconTransformation(extent={{-140,150},{-100,190}})));
@@ -495,7 +506,7 @@ protected
     final controllerType=controllerType,
     final use_priSecSen=use_priSecFloSen,
     final nPum=nPum,
-    final VHotWat_flow_nominal=VHotWat_flow_nominal,
+    final minFlo=minFlo,
     final minPumSpe=minPumSpe,
     final k=k,
     final Ti=Ti,
@@ -810,13 +821,13 @@ equation
     annotation (Line(points={{-178,-120},{-70,-120},{-70,-112}}, color={255,127,0}));
 
   connect(VHotWat_flow,pumSpeFlo. VHotWatPri_flow) annotation (Line(points={{-300,
-          -20},{-266,-20},{-266,-564},{-62,-564}},      color={0,0,127}));
+          -20},{-266,-20},{-266,-562},{-62,-562}},      color={0,0,127}));
 
   connect(VHotWatSec_flow,pumSpeFlo. VHotWatSec_flow) annotation (Line(points={{-300,
-          -580},{-240,-580},{-240,-569},{-62,-569}},       color={0,0,127}));
+          -580},{-240,-580},{-240,-566},{-62,-566}},       color={0,0,127}));
 
   connect(VHotWatDec_flow,pumSpeFlo. VHotWatDec_flow) annotation (Line(points={{-300,
-          -610},{-240,-610},{-240,-569},{-62,-569}},       color={0,0,127}));
+          -610},{-236,-610},{-236,-570},{-62,-570}},       color={0,0,127}));
 
   connect(THotWatPri, pumSpeTem.THotWatPri) annotation (Line(points={{-300,-640},
           {-80,-640},{-80,-596},{-62,-596}}, color={0,0,127}));
@@ -1038,7 +1049,7 @@ equation
   connect(uHotWatPum, pumSpeRemDp.uHotWatPum) annotation (Line(points={{-300,140},
           {-260,140},{-260,-512},{-62,-512}}, color={255,0,255}));
   connect(uHotWatPum, pumSpeFlo.uHotWatPum) annotation (Line(points={{-300,140},
-          {-260,140},{-260,-559},{-62,-559}}, color={255,0,255}));
+          {-260,140},{-260,-558},{-62,-558}}, color={255,0,255}));
   connect(uHotWatPum, pumSpeTem.uHotWatPum) annotation (Line(points={{-300,140},
           {-260,140},{-260,-592},{-62,-592}}, color={255,0,255}));
   connect(max.y, yPumSpe)

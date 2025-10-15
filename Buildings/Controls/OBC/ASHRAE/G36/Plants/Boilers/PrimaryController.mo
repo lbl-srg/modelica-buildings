@@ -8,7 +8,8 @@ model PrimaryController
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_bypVal= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(tab="Bypass valve control parameters"));
+    annotation(Dialog(tab="Bypass valve control parameters",
+      enable=have_priOnl));
 
   parameter Boolean have_priOnl = false
     "Is the boiler plant primary-only?
@@ -28,15 +29,21 @@ model PrimaryController
       group="Boiler plant configuration parameters",
       enable=have_heaPriPum));
 
-  parameter Boolean have_varPriPum = true
+  parameter Boolean have_varPriPum_select(
+    final start=false)
     "True: Variable-speed primary pumps;
     False: Fixed-speed primary pumps"
-    annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
+    annotation(Dialog(tab="General",
+      group="Boiler plant configuration parameters",
+      enable=not have_allCon));
 
-  parameter Boolean have_secFloSen_select=false
-    "Required only for primary-secondary plant with flowrate-based primary pump 
-    speed control.
-    True: Flowrate sensor in secondary loop;
+  final parameter Boolean have_varPriPum = have_allCon or have_varPriPum_select
+    "Parameter selection for variable speed primary pumps in cases where user interface
+    may not be exposed";
+
+  parameter Boolean have_secFloSen_select(
+    final start=false)
+    "True: Flowrate sensor in secondary loop;
     False: Flowrate sensor in decoupler"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters",
@@ -48,24 +55,18 @@ model PrimaryController
     "Parameter selection for secondary flow sensor in cases where user interface
     may not be exposed";
 
-  parameter Boolean have_priTemSen(
+  parameter Boolean have_priTemSen_select(
     final start = false)
-    "Required for primary-secondary boiler plant.
-    True: Temperature sensor in primary loop.
+    "True: Temperature sensor in primary loop.
     False: No temperature sensor in primary loop."
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters",
       enable = not have_priOnl));
 
-  parameter Boolean have_priSecTemSen=false
-    "Required only for primary-secondary plant with temperature differential-based primary pump 
-    speed control.
-    True: Temperature sensor in primary loop;
-    False: Temperature sensors in boiler supply outlets"
-    annotation (Dialog(tab="General",
-      group="Boiler plant configuration parameters",
-      enable = (not have_priOnl) and
-      speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature));
+  final parameter Boolean have_priTemSen(
+    final start = false) = have_priOnl or have_priTemSen_select
+    "Parameter selection for primary loop supply temperature sensor in cases where
+    user interface may not be exposed";
 
   parameter Integer nLooSec(
     final min=1,
@@ -88,11 +89,12 @@ model PrimaryController
     "Number of boilers"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Integer boiTyp[nBoi]={
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing}
-    "Boiler type"
+  parameter Integer boiTyp_select
+    "Boiler type in loop"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
+
+  final parameter Integer boiTyp[nBoi]=fill(boiTyp_select,nBoi)
+    "Boiler type array";
 
   parameter Integer staMat[:, nBoi]
     "Staging matrix with stage as row index and boiler as column index"
@@ -209,7 +211,7 @@ model PrimaryController
   parameter Real dTFai(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 10/1.8
+    final quantity="TemperatureDifference") = 5.56
     "Required temperature difference between setpoint and measured temperature for
     triggering failsafe condition"
     annotation(Dialog(tab="Staging setpoint parameters", group="Failsafe condition parameters"));
@@ -284,7 +286,7 @@ model PrimaryController
   parameter Real dTCir(
     final unit="K",
     displayUnit="K",
-    final quantity="TemperatureDifference") = 3/1.8
+    final quantity="TemperatureDifference") = 1.67
     "Required return water temperature difference between primary and secondary
     circuits for staging down"
     annotation (
@@ -352,7 +354,9 @@ model PrimaryController
     displayUnit="m3/s2",
     final min=0) = 0.001
     "Rate at which to reset bypass valve setpoint during stage change"
-    annotation(Dialog(tab="Staging setpoint parameters", group="General parameters"));
+    annotation(Dialog(tab="Staging setpoint parameters",
+      group="General parameters",
+      enable=have_priOnl));
 
   parameter Real TPlaHotWatSetMax(
     final unit="K",
@@ -495,7 +499,8 @@ model PrimaryController
     final unit="1",
     displayUnit="1") = 1
     "Gain of controller"
-    annotation(Dialog(tab="Bypass valve control parameters"));
+    annotation(Dialog(tab="Bypass valve control parameters",
+      enable=have_priOnl));
 
   parameter Real Ti_bypVal(
     final min=0,
@@ -503,7 +508,8 @@ model PrimaryController
     displayUnit="s",
     final quantity="time") = 0.5
     "Time constant of integrator block"
-    annotation(Dialog(tab="Bypass valve control parameters"));
+    annotation(Dialog(tab="Bypass valve control parameters",
+      enable=have_priOnl));
 
   parameter Real Td_bypVal(
     final min=0,
@@ -511,7 +517,8 @@ model PrimaryController
     displayUnit="s",
     final quantity="time") = 0.1
     "Time constant of derivative block"
-    annotation(Dialog(tab="Bypass valve control parameters"));
+    annotation(Dialog(tab="Bypass valve control parameters",
+      enable=have_priOnl));
 
   parameter Real minPumSpePri(
     final unit="1",
@@ -529,10 +536,10 @@ model PrimaryController
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate",
-    final start=0)
-    "Plant design hot water flow rate thorugh primary loop"
+    final start=1e-6)
+    "Plant design hot water flow rate through primary loop"
     annotation (Dialog(group="Boiler plant configuration parameters",
-      enable=have_priOnl and have_heaPriPum and (have_remDPRegPri or have_locDPRegPri)));
+      enable=have_priOnl and have_heaPriPum));
 
   parameter Real boiDesFlo[nBoi](
     final min=fill(0,nBoi),
@@ -722,14 +729,16 @@ model PrimaryController
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 333.15
     "Minimum hot water return temperature for optimal non-condensing boiler performance"
-    annotation(Dialog(tab="Condensation control parameters"));
+    annotation(Dialog(tab="Condensation control parameters",
+      enable=not have_allCon));
 
   parameter Real TRetMinAll(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 330.35
     "Minimum allowed hot water return temperature for non-condensing boiler"
-    annotation(Dialog(tab="Condensation control parameters"));
+    annotation(Dialog(tab="Condensation control parameters",
+      enable=not have_allCon));
 
   parameter Real minSecPumSpe(
     final unit="1",
@@ -751,7 +760,7 @@ model PrimaryController
       enable=(not have_priOnl) and have_varPriPum));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl
-    speConTypPri = Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP
+    speConTypPri
     "Primary pump speed regulation method"
     annotation (Dialog(group="Boiler plant configuration parameters", enable=have_varPriPum));
 
@@ -815,7 +824,7 @@ model PrimaryController
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
-    if have_priOnl or not have_allNonCon or have_floRegPri
+    if have_priOnl or have_allCon or (have_varPriPum and have_floRegPri)
     "Measured hot water primary circuit flowrate"
     annotation (Placement(transformation(extent={{-440,140},{-400,180}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
@@ -865,8 +874,8 @@ model PrimaryController
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupBoi[nBoi](
     final unit=fill("K", nBoi),
     displayUnit=fill("degC", nBoi),
-    final quantity=fill("ThermodynamicTemperature", nBoi)) if not have_priOnl
-     and (have_varPriPum and have_temRegPri and not have_priSecTemSen or not have_priTemSen)
+    final quantity=fill("ThermodynamicTemperature", nBoi))
+    if not have_priOnl and not have_priTemSen
     "Measured hot water supply temperature at boiler outlets"
     annotation (Placement(transformation(extent={{-440,-210},{-400,-170}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -1086,7 +1095,7 @@ protected
     final have_priOnl=have_priOnl,
     final have_varPriPum=have_varPriPum,
     final use_priSecFloSen=have_secFloSen,
-    final use_priTemSen=have_priSecTemSen,
+    final use_priTemSen=have_priTemSen,
     final nPum=nPumPri,
     final nBoi=nBoi,
     final nSen=nSenPri,
@@ -1094,6 +1103,7 @@ protected
     final nPum_nominal=nPumPri,
     final minPumSpe=minPumSpePri,
     final VHotWat_flow_nominal=VHotWatPri_flow_nominal,
+    final minFloSet=minFloSet,
     final maxLocDp=maxLocDpPri,
     final minLocDp=minLocDpPri,
     final offTimThr=offTimThr_priPum,
@@ -1402,8 +1412,8 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Subsequences.TemperatureSupplyWeightedAverage TWeiAve(
     final nBoi=nBoi,
-    final boiDesFlo=boiDesFlo) if not have_priOnl and (have_varPriPum and
-    have_temRegPri and not have_priSecTemSen or not have_priTemSen)
+    final boiDesFlo=boiDesFlo)
+    if not have_priOnl and not have_priTemSen
     "Calculate weighted average of boiler supply temperatures"
     annotation (Placement(transformation(extent={{-260,-296},{-240,-276}})));
 
@@ -2142,6 +2152,11 @@ modifications will include logic for detecting availability.
 <li>
 The controller currently does not accommodate lead-lag rotation of boilers and
 pumps. Future modifications will include existing sequences for lead-lag rotation.
+</li>
+<li>
+The controller currently supports only a singular primary loop. Future modifications
+will enable the support of hybrid plants with multiple primary loops, with individual
+loops consisting of either condensing or non-condensing boilers.
 </li>
 </ol>
 </p>
