@@ -392,6 +392,31 @@ for either secondary loop.
 </li>
 </ul>
 </p>
+<p>
+The validation plots are as follows.
+<ol>
+<li>
+Represents the operation of the secondary loop-1 <code>secLoo1</code>, with the
+integrated operation of the flow-regulation valve, and secondary pump speed control
+to achieve the required differential pressure setpoint.
+</li>
+<li>
+Represents the operation of the secondary loop-2 <code>secLoo2</code>, with the
+integrated operation of the flow-regulation valve, and secondary pump speed control
+to achieve the required differential pressure setpoint.
+</li>
+<li>
+Represents the temperature setpoint reset, and the subsequent staging operations
+to meet that load. Also shows the enable and disable of the two boilers, and the
+opening and closing of their respective isolation valves.
+</li>
+<li>
+Represents the staging of the primary pumps such that the number of enabled pumps
+is equal to the nunber of enabled boilers. The primary pump speed regulates the flow
+measured in the decoupler leg to zero flowrate.
+</li>
+</ol>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
