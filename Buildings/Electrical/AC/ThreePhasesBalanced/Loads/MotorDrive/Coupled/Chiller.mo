@@ -24,8 +24,8 @@ model Chiller "Motor coupled chiller"
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Pressure dp1_nominal(displayUnit="Pa")
-    "Pressure difference over condenser
-"   annotation (Dialog(group="Nominal condition"));
+    "Pressure difference over condenser"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Pressure dp2_nominal(displayUnit="Pa")
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
@@ -59,9 +59,6 @@ model Chiller "Motor coupled chiller"
     annotation (Dialog(group="Efficiency"));
 
   //Motor parameters
-  parameter Boolean have_controller = true
-    "Set to true for enableing PID control"
-    annotation (Dialog(tab="Motor"));
   parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
     "Nominal rotational speed of compressor"
     annotation (Dialog(tab="Motor"));
@@ -71,30 +68,67 @@ model Chiller "Motor coupled chiller"
     per constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record of induction motor with performance data"
     annotation (choicesAllMatching=true, Dialog(tab="Motor"), Placement(transformation(extent={{30,60},{50,80}})));
+  parameter Boolean reverseActing=false
+    "Default: Set to true in heating and set to false in cooling mode"
+    annotation (Dialog(tab="Motor", group="Controller"));
+  parameter Real r=1
+    "Typical range of control error, used for scaling the control error"
+    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Real k(min=0) = 1
     "Gain of controller"
-    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block"
     annotation (Dialog(tab="Motor", group="Controller",
-                       enable=have_controller and
-                              controllerType == Modelica.Blocks.Types.SimpleController.PI or
+                       enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(min=0) = 0.1
     "Time constant of Derivative block"
     annotation (Dialog(tab="Motor", group="Controller",
-                       enable=have_controller and
-                              controllerType == Modelica.Blocks.Types.SimpleController.PD or
+                       enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
     "Upper limit of output"
-    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller"));
+  parameter Boolean from_dp1=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Boolean linearizeFlowResistance1=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Real deltaM1=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Boolean from_dp2=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Boolean linearizeFlowResistance2=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Real deltaM2=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Modelica.Units.SI.Time tau1=60
+    "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
+  parameter Modelica.Units.SI.Temperature T1_start=Medium1.T_default
+    "Initial or guess value of set point"
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
+  parameter Modelica.Units.SI.Time tau2=60
+    "Time constant at nominal flow rate (used if energyDynamics2 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+  parameter Modelica.Units.SI.Temperature T2_start=Medium2.T_default
+    "Initial or guess value of set point"
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics", group="Evaporator and condenser"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K")
@@ -151,14 +185,26 @@ model Chiller "Motor coupled chiller"
     final P_nominal=P_nominal,
     final QEva_flow_nominal=QEva_flow_nominal,
     final QCon_flow_nominal=QCon_flow_nominal,
-    final Nrpm_nominal=Nrpm_nominal)
+    final Nrpm_nominal=Nrpm_nominal,
+    final from_dp1=from_dp1,
+    final linearizeFlowResistance1=linearizeFlowResistance1,
+    final deltaM1=deltaM1,
+    final from_dp2=from_dp2,
+    final linearizeFlowResistance2=linearizeFlowResistance2,
+    final deltaM2=deltaM2,
+    final tau1=tau1,
+    final T1_start=T1_start,
+    final tau2=tau2,
+    final T2_start=T2_start,
+    final energyDynamics=energyDynamics)
     "Chiller model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
     simMot(
     final per=per,
-    final reverseActing=false,
+    final reverseActing=reverseActing,
+    final r=r,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

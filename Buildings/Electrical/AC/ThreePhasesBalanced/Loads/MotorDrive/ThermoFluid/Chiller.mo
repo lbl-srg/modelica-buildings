@@ -180,12 +180,8 @@ model Chiller "Chiller with mechanical interface"
     annotation (Placement(transformation(extent={{0,20},{-20,40}})));
 
 protected
-  constant Boolean COP_is_for_cooling = true
-    "Set to true if the specified COP is for cooling";
   final parameter Modelica.Units.SI.Temperature TUseAct_nominal=
-    if COP_is_for_cooling
-      then TEva_nominal - TAppEva_nominal
-      else TCon_nominal + TAppCon_nominal
+    TEva_nominal - TAppEva_nominal
     "Nominal evaporator temperature for chiller or condenser temperature for 
     heat pump, taking into account pinch temperature between fluid and refrigerant";
 
@@ -208,7 +204,6 @@ initial equation
 
 equation
   chi.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauChi,spe.w,1e-6,1e-8);
-
   connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-80,60},{-80,
           6},{-10,6}}, color={0,127,255}));
   connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-80,-60},{-80,

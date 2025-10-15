@@ -16,45 +16,45 @@ model Pump "Motor coupled pump"
             {-60,-40}})));
 
   //Motor parameters
+  parameter Modelica.Units.SI.Inertia loaIne=1 "Pump inertia"
+    annotation (Dialog(tab="Motor"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
+    "Nominal rotational speed of pump"
+    annotation (Dialog(tab="Motor"));
   replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     motPer constrainedby
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record of induction machine with performance data"
     annotation (Dialog(tab="Motor"), choicesAllMatching=true, Placement(transformation(extent={{42,60},
             {62,80}})));
-  parameter Boolean have_controller = true
-    "Set to true for enableing motor PID control"
-    annotation (Dialog(tab="Motor"));
+  parameter Boolean reverseActing=true
+    "Default: Set to true in heating and set to false in cooling mode"
+    annotation (Dialog(tab="Motor", group="Motor controller"));
+  parameter Real r=1
+    "Typical range of control error, used for scaling the control error"
+    annotation (Dialog(tab="Motor", group="Motor controller"));
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="Motor", group="Motor controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Motor controller"));
   parameter Real k(min=0) = 1
     "Gain of controller"
-    annotation (Dialog(tab="Motor", group="Motor controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Motor controller"));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block"
     annotation (Dialog(tab="Motor", group="Motor controller",
-                       enable=have_controller and
-                              controllerType == Modelica.Blocks.Types.SimpleController.PI or
+                       enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(min=0) = 0.1
     "Time constant of Derivative block"
     annotation (Dialog(tab="Motor", group="Motor controller",
-                       enable=have_controller and
-                              controllerType == Modelica.Blocks.Types.SimpleController.PD or
+                       enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
     "Upper limit of output"
-    annotation (Dialog(tab="Motor", group="Motor controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Motor controller"));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(tab="Motor", group="Motor controller", enable=have_controller));
-
-  parameter Modelica.Units.SI.Inertia loaIne=1 "Pump inertia"
-    annotation (Dialog(group="Motor"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
-    "Nominal rotational speed of pump"
-    annotation (Dialog(group="Motor"));
+    annotation (Dialog(tab="Motor", group="Motor controller"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics", group="Conservation equations"));
@@ -88,6 +88,9 @@ model Pump "Motor coupled pump"
       fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
     annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small=1E-4*abs(pum.pum.
+      _m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
@@ -114,6 +117,7 @@ model Pump "Motor coupled pump"
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
     redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final loaIne=loaIne,
     final addPowerToMedium=addPowerToMedium,
     final Nrpm_nominal=Nrpm_nominal,
@@ -129,6 +133,7 @@ model Pump "Motor coupled pump"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
+    final m_flow_small=m_flow_small,
     final show_T=show_T)
     "Mechanical pump with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -141,7 +146,8 @@ model Pump "Motor coupled pump"
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
     motDri(
     final per=motPer,
-    final reverseActing=true,
+    final reverseActing=reverseActing,
+    final r=r,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
