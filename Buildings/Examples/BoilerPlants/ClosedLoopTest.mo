@@ -357,6 +357,17 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
 <code>secPumCon1</code> and <code>secPumCon2</code>, respectively.
 </p>
 <p>
+The reference loads for activating the system are calculated by simulating the DOE
+prototype large office building EnergyPlus model (ASHRAE 90.1-2019 version), and then summing
+up the simulated flowrates through each of the heating coils in the building. The
+return temperature to the hot water plant is also noted. The values are then used
+to simulate the loads in this model by enforcing the flowrates and return temperatures
+on the secondary loops. The user must note that the reference values here are only
+being used as realistic time-varying activation signals for the boiler plant, and
+are not meant to exactly recreate the loads in the EnergyPlus model. Therefore,
+a heat transfer comparison between the two may not reflect the loads in each other.
+</p>
+<p>
 A few salient points about the default system sizing values.
 <ul>
 <li>
@@ -371,7 +382,7 @@ a value that ensures supply temperature setpoint is met at highest reference flo
 The primary pump pressure head <code>boiPlaPri.dpPumPri_nominal_value</code> is
 set to ensure positive flow through the decoupler leg (as measured by
 <code>boiPlaPri.VDec_flow</code>) when the secondary loops are drawing hot water
-at maximum lowrate. The fixed and valve pressure losses for the
+at maximum flowrate. The fixed and valve pressure losses for the
 primary loop, <code>boiPlaPri.dpFixed_nominal_value</code> and
 <code>boiPlaPri.dpValve_nominal_value</code> respectively, are also assigned values
 based off equipment data.
@@ -396,24 +407,28 @@ for either secondary loop.
 The validation plots are as follows.
 <ol>
 <li>
-Represents the operation of the secondary loop-1 <code>secLoo1</code>, with the
-integrated operation of the flow-regulation valve, and secondary pump speed control
-to achieve the required differential pressure setpoint.
+Plot-1 represents the operation of the secondary loop-1 <code>secLoo1</code>. The plot
+shows how the valve-position is adjusted to regulate the measured flowrate at the
+reference setpoint when the plant is enabled. The plot also shows the secondary
+pump speed control to achieve the required differential pressure setpoint.
 </li>
 <li>
-Represents the operation of the secondary loop-2 <code>secLoo2</code>, with the
-integrated operation of the flow-regulation valve, and secondary pump speed control
-to achieve the required differential pressure setpoint.
+This plot is similar to plot-1, and demonstrates the same operations for the secondary
+loop-2, <code>secLoo2</code>.
 </li>
 <li>
-Represents the temperature setpoint reset, and the subsequent staging operations
-to meet that load. Also shows the enable and disable of the two boilers, and the
-opening and closing of their respective isolation valves.
+Plot-3 represents the primary loop operation, consisting of plant enable,
+temperature setpoint reset, and the subsequent staging operations
+to meet that load. It shows the enable and disable of the two boilers, and the
+opening and closing of their respective isolation valves based on the staging setpoint.
+The user can observe that the plant operates at the highest stage setpoint when the
+maximum flowrate is drawn by the secondary loops.
 </li>
 <li>
-Represents the staging of the primary pumps such that the number of enabled pumps
-is equal to the nunber of enabled boilers. The primary pump speed regulates the flow
-measured in the decoupler leg to zero flowrate.
+Plot-4 represents the hydronic operations in the primary loop, including the staging
+of the primary pumps such that the number of enabled pumps is equal to the number
+of enabled boilers. The primary pump speed regulates the flow measured in the
+decoupler leg to zero flowrate.
 </li>
 </ol>
 </p>
