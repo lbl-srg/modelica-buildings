@@ -82,7 +82,7 @@ block Controller
     annotation(Dialog(group="Plant parameters"));
 
   final parameter Real minFlo=sum(minFloSet)
-    "Calculated minimum volume loop flow rate";
+    "Calculated loop minimum volume flow rate";
 
   parameter Real maxLocDp(
     final unit="Pa",

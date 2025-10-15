@@ -3,140 +3,130 @@ model PrimaryController
   "Validation model for boiler plant primary control sequence"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller(
-    final have_priOnl=true,
-    final have_isoValSen=true,
-    final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
-    final staMat=[1,0; 0,1; 1,1],
-    final nSenPri=1,
-    final nPumPri_nominal=2,
-    final TPlaHotWatSetMax=343.15,
-    final VHotWatPri_flow_nominal=0.0006,
-    final maxLocDpPri=4100,
-    final minLocDpPri=3900,
-    final maxRemDpPri={42000},
-    final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP,
-    final boiDesCap={15000*0.8,15000*0.8},
-    final boiFirMin={0.2,0.3},
-    final minFloSet={0.2*0.0003,0.3*0.0003},
-    final maxFloSet={0.0003,0.0003},
-    final bypSetRat=0.00001,
-    final nPumPri=2,
-    final have_heaPriPum=true,
-    final TMinSupNonConBoi=333.2,
-    final have_varPriPum=true,
-    final boiDesFlo={0.0003,0.0003},
-    final minPriPumSpeSta={0,0,0})
+    have_priOnl=true,
+    have_isoValSen=true,
+    nBoi=2,
+    boiTyp_select=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+    staMat=[1,0; 0,1; 1,1],
+    nSenPri=1,
+    nPumPri_nominal=2,
+    TPlaHotWatSetMax=343.15,
+    VHotWatPri_flow_nominal=0.0006,
+    maxLocDpPri=4100,
+    minLocDpPri=3900,
+    maxRemDpPri={42000},
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP,
+    boiDesCap={15000*0.8,15000*0.8},
+    boiFirMin={0.2,0.3},
+    minFloSet={0.2*0.0003,0.3*0.0003},
+    maxFloSet={0.0003,0.0003},
+    bypSetRat=0.00001,
+    nPumPri=2,
+    have_heaPriPum=true,
+    TMinSupNonConBoi=333.2,
+    boiDesFlo={0.0003,0.0003},
+    minPriPumSpeSta={0,0,0})
     "Test scenario for primary-only boiler plants with headered variable speed primary pumps"
     annotation (Placement(transformation(extent={{-260,12},{-240,96}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller1(
-    final have_priOnl=false,
-    final have_secFloSen_select=true,
-    final have_priTemSen=true,
-    final nLooSec=1,
-    final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
-    final staMat=[1,0; 0,1; 1,1],
-    final nSenPri=1,
-    final nPumPri_nominal=2,
-    final TPlaHotWatSetMax=343.15,
-    final VHotWatPri_flow_nominal=0.0006,
-    final maxLocDpPri=4100,
-    final minLocDpPri=3900,
-    final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate,
-    final boiDesCap={15000*0.8,15000*0.8},
-    final boiFirMin={0.2,0.3},
-    final minFloSet={0.2*0.0003,0.3*0.0003},
-    final maxFloSet={0.0003,0.0003},
-    final bypSetRat=0.00001,
-    final nPumPri=2,
-    final have_heaPriPum=true,
-    final TMinSupNonConBoi=333.2,
-    final have_varPriPum=true,
-    final boiDesFlo={0.0003,0.0003},
-    final minPriPumSpeSta={0,0,0})
+    have_priOnl=false,
+    have_secFloSen_select=true,
+    have_priTemSen_select=true,
+    nLooSec=1,
+    nBoi=2,
+    boiTyp_select=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+    staMat=[1,0; 0,1; 1,1],
+    nSenPri=1,
+    nPumPri_nominal=2,
+    TPlaHotWatSetMax=343.15,
+    VHotWatPri_flow_nominal=0.0006,
+    maxLocDpPri=4100,
+    minLocDpPri=3900,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate,
+    boiDesCap={15000*0.8,15000*0.8},
+    boiFirMin={0.2,0.3},
+    minFloSet={0.2*0.0003,0.3*0.0003},
+    maxFloSet={0.0003,0.0003},
+    bypSetRat=0.00001,
+    nPumPri=2,
+    have_heaPriPum=true,
+    TMinSupNonConBoi=333.2,
+    boiDesFlo={0.0003,0.0003},
+    minPriPumSpeSta={0,0,0})
     "Test scenario for primary-secondary boiler plants with headered variable speed primary pumps"
     annotation (Placement(transformation(extent={{0,12},{20,96}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller2(
-    final have_priOnl=false,
-    final have_secFloSen_select=true,
-    final have_priTemSen=true,
-    final nLooSec=1,
-    final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
-                  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
-    final staMat=[1,0; 0,1; 1,1],
-    final nSenPri=1,
-    final nPumPri_nominal=2,
-    final TPlaHotWatSetMax=343.15,
-    final VHotWatPri_flow_nominal=0.0006,
-    final maxLocDpPri=4100,
-    final minLocDpPri=3900,
-    final speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate,
-    final boiDesCap={15000*0.8,15000*0.8},
-    final boiFirMin={0.2,0.3},
-    final minFloSet={0.2*0.0003,0.3*0.0003},
-    final maxFloSet={0.0003,0.0003},
-    final bypSetRat=0.00001,
-    final nPumPri=2,
-    final have_heaPriPum=false,
-    final TMinSupNonConBoi=333.2,
-    final have_varPriPum=true,
-    final boiDesFlo={0.0003,0.0003},
-    final minPriPumSpeSta={0,0,0})
+    have_priOnl=false,
+    have_secFloSen_select=true,
+    have_priTemSen_select=true,
+    nLooSec=1,
+    nBoi=2,
+    boiTyp_select=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+    staMat=[1,0; 0,1; 1,1],
+    nSenPri=1,
+    nPumPri_nominal=2,
+    TPlaHotWatSetMax=343.15,
+    VHotWatPri_flow_nominal=0.0006,
+    maxLocDpPri=4100,
+    minLocDpPri=3900,
+    speConTypPri=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate,
+    boiDesCap={15000*0.8,15000*0.8},
+    boiFirMin={0.2,0.3},
+    minFloSet={0.2*0.0003,0.3*0.0003},
+    maxFloSet={0.0003,0.0003},
+    bypSetRat=0.00001,
+    nPumPri=2,
+    have_heaPriPum=false,
+    TMinSupNonConBoi=333.2,
+    boiDesFlo={0.0003,0.0003},
+    minPriPumSpeSta={0,0,0})
     "Test scenario for primary-secondary boiler plants with dedicated variable speed primary pumps"
     annotation (Placement(transformation(extent={{220,12},{240,96}})));
 
 protected
   parameter Integer nSchRow(
-    final min=1) = 4
+    min=1) = 4
     "Number of rows to be created for plant schedule table";
 
   parameter Real schTab[nSchRow,2] = [0,1; 6,1; 18,1; 24,1]
     "Table defining schedule for enabling plant";
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[2](
-    final delayTime=fill(10, 2))
+    delayTime=fill(10, 2))
     "True delay for simulating boiler proven on process"
     annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](
-    final delayTime=fill(20, 2))
+    delayTime=fill(20, 2))
     "True delay for simulating pump proven on process"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2[2](
-    final delayTime=fill(15, 2))
+    delayTime=fill(15, 2))
     "True delay for simulating boiler proven on process"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3[2](
-    final delayTime=fill(20, 2))
+    delayTime=fill(20, 2))
     "True delay for simulating pump proven on process"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5[2](
-    final delayTime=fill(20, 2))
+    delayTime=fill(20, 2))
     "True delay for simulating boiler proven on process"
     annotation (Placement(transformation(extent={{260,120},{280,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6[2](
-    final delayTime=fill(20, 2))
+    delayTime=fill(20, 2))
     "True delay for simulating pump proven on process"
     annotation (Placement(transformation(extent={{260,90},{280,110}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=1)
+    k=1)
     "Number of plant requests"
     annotation (Placement(transformation(extent={{-340,150},{-320,170}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[2]
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{-190,130},{-170,150}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre2[2]
     "Logical pre block"
@@ -151,33 +141,33 @@ protected
     annotation (Placement(transformation(extent={{290,90},{310,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(
-    final k=290)
+    k=290)
     "Measured outdoor air drybulb temperature"
     annotation (Placement(transformation(extent={{-340,90},{-320,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSup(
-    final k=340)
+    k=340)
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-340,60},{-320,80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRet(
-    final k=335)
+    k=335)
     "Measured hot water return temperature"
     annotation (Placement(transformation(extent={{-340,30},{-320,50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow[4](
-    final k={6e-5,9e-5,20e-5,0.0004})
+    k={6e-5,9e-5,20e-5,0.0004})
     "Measured hot water volume flowrate in primary loop"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dPHotWat[1](
-    final k={4000})
+    k={4000})
     "Measured differential pressure between hot water supply and return in primary loop"
     annotation (Placement(transformation(extent={{-340,-30},{-320,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
-    final amplitude=2,
-    final freqHz=1/14400)
+    amplitude=2,
+    freqHz=1/14400)
     "Sine input"
     annotation (Placement(transformation(extent={{-340,120},{-320,140}})));
 
@@ -186,32 +176,32 @@ protected
     annotation (Placement(transformation(extent={{-300,120},{-280,140}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut1(
-    final k=290)
+    k=290)
     "Measured outdoor air drybulb temperature"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSup1(
-    final k=340)
+    k=340)
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRet1(
-    final k=335)
+    k=335)
     "Measured hot water return temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow1[4](
-    final k={6e-5,9e-5,20e-5,0.00029})
+    k={6e-5,9e-5,20e-5,0.00029})
     "Measured hot water volume flowrate in primary loop"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dPHotWat1[1](
-    final k={4000})
+    k={4000})
     "Measured differential pressure between hot water supply and return in secondary loop"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
-    final amplitude=2, final freqHz=1/14400)
+    amplitude=2, freqHz=1/14400)
     "Sine input"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
@@ -220,38 +210,38 @@ protected
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWatSec_flow(
-    final k=0.0003)
+    k=0.0003)
     "Measured hot water volume flowrate in secondary loop"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut2(
-    final k=290)
+    k=290)
     "Measured outdoor air drybulb temperature"
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSup2(
-    final k=340)
+    k=340)
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRet2(
-    final k=335)
+    k=335)
     "Measured hot water return temperature"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow2[4](
-    final k={6e-5,9e-5,20e-5,0.00029})
+    k={6e-5,9e-5,20e-5,0.00029})
     "Measured hot water volume flowrate in primary loop"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dPHotWat2[1](
-    final k={4000})
+    k={4000})
     "Measured differential pressure between hot water supply and return in secondary loop"
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2(
-    final amplitude=2,
-    final freqHz=1/14400)
+    amplitude=2,
+    freqHz=1/14400)
     "Sine input"
     annotation (Placement(transformation(extent={{140,120},{160,140}})));
 
@@ -260,29 +250,25 @@ protected
     annotation (Placement(transformation(extent={{180,120},{200,140}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWatSec_flow1(
-    final k=0.0003)
+    k=0.0003)
     "Measured hot water volume flowrate in secondary loop"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=0.5)
+    t=0.5)
     "Check if schedule lets the controller enable the plant or not"
     annotation (Placement(transformation(extent={{-300,190},{-280,210}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable enaSch(
-    final table=schTab,
-    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    final timeScale=3600)
+    table=schTab,
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    timeScale=3600)
     "Table defining when plant can be enabled"
     annotation (Placement(transformation(extent={{-340,190},{-320,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre5[2]
     "Logical pre block"
     annotation (Placement(transformation(extent={{-220,100},{-200,120}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre8[2]
-    "Logical pre block"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg[2]
     "Detect valve opening commands"
@@ -370,8 +356,6 @@ equation
   connect(truDel6.u, controller2.yPriPum) annotation (Line(points={{258,100},{254,
           100},{254,43.5},{242,43.5}},
                                    color={255,0,255}));
-  connect(truDel.y, pre1.u)
-    annotation (Line(points={{-198,140},{-192,140}}, color={255,0,255}));
   connect(pre2.u, truDel1.y)
     annotation (Line(points={{-192,50},{-198,50}}, color={255,0,255}));
   connect(pre2.y, controller.uPriPum) annotation (Line(points={{-168,50},{-154,50},
@@ -397,11 +381,6 @@ equation
           200},{216,93.9},{218,93.9}},       color={255,0,255}));
   connect(controller.yHotWatIsoVal, pre5.u) annotation (Line(points={{-238,56.1},
           {-228,56.1},{-228,110},{-222,110}}, color={255,0,255}));
-  connect(controller1.yHotWatIsoVal, pre8.u) annotation (Line(points={{22,56.1},
-          {30,56.1},{30,100},{38,100}}, color={255,0,255}));
-  connect(pre8.y, controller1.uHotWatIsoValOpe) annotation (Line(points={{62,
-          100},{120,100},{120,-32},{-14,-32},{-14,22.5},{-2,22.5}}, color={255,
-          0,255}));
   connect(reaToInt.y, controller.resReq) annotation (Line(points={{-278,130},{-270,
           130},{-270,89.7},{-262,89.7}}, color={255,127,0}));
   connect(conInt.y, controller.plaReq) annotation (Line(points={{-318,160},{-272,
