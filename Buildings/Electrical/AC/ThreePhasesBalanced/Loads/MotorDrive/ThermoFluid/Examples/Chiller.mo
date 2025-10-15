@@ -54,7 +54,7 @@ model Chiller "This example shows how to use the chiller with mechanical interfa
     etaCarnot_nominal=0.5,
     dp1_nominal=3000,
     dp2_nominal=3000,
-    chi(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial))
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Chiller"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Modelica.Mechanics.Rotational.Sources.ConstantTorque torSou(
