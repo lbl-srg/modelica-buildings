@@ -88,9 +88,6 @@ model Pump "Motor coupled pump"
       fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Units.SI.MassFlowRate m_flow_small=1E-4*abs(pum.pum.
-      _m_flow_nominal) "Small mass flow rate for regularization of zero flow"
-    annotation (Dialog(tab="Advanced"));
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
@@ -133,7 +130,6 @@ model Pump "Motor coupled pump"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final m_flow_small=m_flow_small,
     final show_T=show_T)
     "Mechanical pump with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
