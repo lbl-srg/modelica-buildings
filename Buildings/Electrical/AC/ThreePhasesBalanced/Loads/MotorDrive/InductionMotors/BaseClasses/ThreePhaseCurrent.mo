@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-model CurrentBlock "Compute 3-phase currents from D-Q currents"
+model ThreePhaseCurrent "3-phase currents from D-Q currents"
   extends Modelica.Blocks.Icons.Block;
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput i_ds(
@@ -35,7 +35,8 @@ equation
   I_a = sin(wt)*i_ds+cos(wt)*i_qs;
   I_b = sin(wt-2.0933)*i_ds+cos(wt-2.0933)*i_qs;
   I_c = sin(wt+2.0933)*i_ds+cos(wt+2.0933)*i_qs;
- annotation (preferredView="info", Documentation(info="<html>
+ annotation (defaultComponentName="thrPhaCur",
+ Documentation(info="<html>
 <p>
 This block computes 3-phase currents from D-Q currents using the inverse Park
 transformation:
@@ -75,4 +76,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CurrentBlock;
+end ThreePhaseCurrent;

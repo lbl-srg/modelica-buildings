@@ -59,7 +59,8 @@ model CurrentDerivative_qStator
 equation
   der_i_qs =(((v_qs)/Ls)-((Rs*i_qs)/Ls)-((der_i_qr*Lm)/Ls)-(omega*i_ds)-((omega*Lm*i_dr)/Ls));
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation (defaultComponentName="qStaCurDer",
+Documentation(info="<html>
 <p>
 This block computes the time derivative of the q-axis stator current in the
 synchronous d–q frame. The implemented relation is:

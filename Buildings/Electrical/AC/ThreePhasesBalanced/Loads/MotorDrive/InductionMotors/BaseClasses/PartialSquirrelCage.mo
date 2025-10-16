@@ -40,8 +40,8 @@ model PartialSquirrelCage
     speBlo(final J=per.J, final P=per.P)
     "Speed of induction machine rotor"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentBlock curBlo
-    "Current of induction machine rotor"
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.ThreePhaseCurrent
+    curBlo "Current of induction machine rotor"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Modelica.Blocks.Continuous.Der volAngFre
     "Supply voltage angular frequency"

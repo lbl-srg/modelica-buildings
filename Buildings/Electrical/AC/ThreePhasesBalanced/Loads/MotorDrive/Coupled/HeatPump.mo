@@ -260,7 +260,8 @@ equation
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
+  annotation (defaultComponentName="heaPum",
+  Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -343,7 +344,6 @@ equation
         Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},color={0,0,255}),
         Line(points={{62,0},{100,0}},color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255})}),
-        defaultComponentName="hea",
 Documentation(info="<html>
 <p>
 This is a model of a squirrel cage induction motor coupled heat pump with ideal

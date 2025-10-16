@@ -51,7 +51,8 @@ model CurrentDerivative_dRotor
 equation
   der_i_dr = (((v_dr)/Lr)-((Rr*i_dr)/Lr)-((der_i_ds*Lm)/Lr)+(omega_r*i_qr)
                 +((omega_r*Lm*i_qs)/Lr));
-annotation (preferredView="info", Documentation(info="<html>
+annotation (defaultComponentName="dRotCurDer",
+Documentation(info="<html>
 <p>
 This block computes the time derivative of the d-axis rotor current in the
 synchronous d–q frame. The implemented relation is:

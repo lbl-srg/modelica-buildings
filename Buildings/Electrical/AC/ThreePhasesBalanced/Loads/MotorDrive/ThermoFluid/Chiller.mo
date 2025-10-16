@@ -239,7 +239,8 @@ equation
           {110,90}}, color={0,0,127}));
   connect(chi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},{70,
           -90},{110,-90}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+annotation (defaultComponentName = "chi",
+Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -324,8 +325,7 @@ equation
         Line(points={{62,0},{100,0}},color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255}),
         Text(extent={{70,24},{120,10}},textString="P",textColor={0,0,127})}),
-        defaultComponentName = "Chi",
-        Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This model describes a chiller with mechanical imterface and uses 
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">Buildings.Fluid.Chillers.Carnot_y</a> 

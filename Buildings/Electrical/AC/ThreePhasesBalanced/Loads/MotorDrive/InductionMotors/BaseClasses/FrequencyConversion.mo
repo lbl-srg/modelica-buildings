@@ -16,7 +16,8 @@ block FrequencyConversion
 algorithm
   omega := 2*Modelica.Constants.pi*f;
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation (defaultComponentName="freCon",
+Documentation(info="<html>
 <p>
 This block computes the angular frequency from the electrical frequency using:
 </p>

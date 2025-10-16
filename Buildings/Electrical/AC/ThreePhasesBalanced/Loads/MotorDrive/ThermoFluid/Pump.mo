@@ -35,11 +35,13 @@ model Pump
   parameter Real y_start=0 "Initial value of speed"
     annotation (Dialog(tab="Dynamics", group="Motor speed"));
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_start=Medium.p_default
-    "Start value of pressure" annotation (Dialog(tab="Initialization"));
+    "Start value of pressure"
+    annotation (Dialog(tab="Initialization"));
   parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
-    "Start value of temperature" annotation (Dialog(tab="Initialization"));
+    "Start value of temperature"
+    annotation (Dialog(tab="Initialization"));
   parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=Medium.X_default
-                       "Start value of mass fractions m_i/m"
+    "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.Media.Interfaces.Types.ExtraProperty C_start[Medium.nC]=
       fill(0, Medium.nC) "Start value of trace substances"
@@ -120,11 +122,9 @@ equation
   pum.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauPum,spe.w,1e-6,1e-8);
 
   connect(port_a, pum.port_a) annotation (Line(points={{-100,0},{-60,0},{-60,
-          -20},{-10,-20}},
-          color={0,127,255}));
+          -20},{-10,-20}}, color={0,127,255}));
   connect(pum.port_b, port_b) annotation (Line(points={{10,-20},{60,-20},{60,0},
-          {100,0}},
-          color={0,127,255}));
+          {100,0}}, color={0,127,255}));
   connect(pum.heatPort, heatPort) annotation (Line(points={{0,-26.8},{0,-100}},
           color={191,0,0}));
   connect(shaft, ine.flange_b) annotation (Line(points={{0,100},{0,90}},
@@ -140,14 +140,13 @@ equation
   connect(pum.P, P) annotation (Line(points={{11,-11},{50,-11},{50,90},{110,90}},
           color={0,0,127}));
   connect(pum.y_actual, y_actual) annotation (Line(points={{11,-13},{92,-13},{
-          92,70},{110,70}},
-                     color={0,0,127}));
+          92,70},{110,70}}, color={0,0,127}));
   connect(to_rpm.y, gaiSpe.u)
     annotation (Line(points={{9,30},{-8,30}}, color={0,0,127}));
   connect(gaiSpe.y, pum.y) annotation (Line(points={{-31,30},{-40,30},{-40,10},
-          {0,10},{0,-8}},
-                  color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+          {0,10},{0,-8}}, color={0,0,127}));
+annotation (defaultComponentName="pum",
+Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,16},{100,-16}},
@@ -191,8 +190,7 @@ equation
           smooth=Smooth.None),
         Text(extent={{50,104},{100,90}},textColor={0,0,127},textString="P"),
         Text(extent={{50,84},{100,70}},textColor={0,0,127},textString="y_actual")}),
-        defaultComponentName="pum",
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This model describes a fan or pump with mechanical imterface and uses 
 the <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
