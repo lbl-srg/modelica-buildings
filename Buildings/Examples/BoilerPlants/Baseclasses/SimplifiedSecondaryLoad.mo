@@ -5,17 +5,18 @@ model SimplifiedSecondaryLoad
   replaceable package MediumW =Buildings.Media.Water
     "Water medium model";
 
-  parameter Boolean have_priOnl = false
-    "Is the primary loop primary-only? (Only allowed for condensing boilers)"
-    annotation(Dialog(group="Plant parameters"));
-
-  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=0.000604*1000
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal
     "Radiator nominal mass flow rate"
-    annotation(Dialog(group="Radiator"));
+    annotation(Dialog(group="Radiator parameters"));
 
-  parameter Modelica.Units.SI.PressureDifference dpRad_nominal = 0
+  parameter Modelica.Units.SI.PressureDifference dpRad_nominal
     "Nominal pressure drop across radiator"
-    annotation(Dialog(group="Radiator"));
+    annotation(Dialog(group="Radiator parameters"));
+
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    final min=val.dpFixed_nominal)=dpRad_nominal
+    "Nominal pressure drop of fully open flow-modulation valve"
+    annotation(Dialog(group="Secondary loop parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPum
     "Secondary pump enable"
@@ -78,7 +79,7 @@ model SimplifiedSecondaryLoad
     redeclare package Medium = MediumW,
     final m_flow_nominal=mRad_flow_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=dpRad_nominal)
+    final dp_nominal=0)
     "Ideal cooler for heating loads"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
@@ -89,7 +90,7 @@ model SimplifiedSecondaryLoad
     final addPowerToMedium=true,
     final riseTime=60,
     final m_flow_nominal=mRad_flow_nominal,
-    dp_nominal=1.1*dpRad_nominal + 1000)
+    dp_nominal=dpRad_nominal + dpValve_nominal)
     "Hot water secondary pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -98,19 +99,22 @@ model SimplifiedSecondaryLoad
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare final package Medium = MediumW,
     final m_flow_nominal=mRad_flow_nominal,
-    final dpValve_nominal(displayUnit="Pa") = 0.1*dpRad_nominal,
-    final dpFixed_nominal(displayUnit="Pa") = 1000)
+    final dpValve_nominal(displayUnit="Pa") = dpValve_nominal,
+    final dpFixed_nominal(displayUnit="Pa") = dpRad_nominal)
     "Minimum flow bypass valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0)));
 
-  Buildings.Controls.OBC.CDL.Reals.PID conPID(r=mRad_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
+    k=0.1,
+    Ti=60,
+    r=mRad_flow_nominal)
     "Heating load flowrate controller"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Convert Boolean to required integer format"
-    annotation (Placement(transformation(extent={{70,50},{90,70}})));
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert enable signal to real"
@@ -135,26 +139,17 @@ model SimplifiedSecondaryLoad
     "Determine if pump is proven on"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
-    uLow=0.05,
-    uHigh=0.8)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(uLow=0.1, uHigh=0.95)
     "Check if valve command exceeds threshold for sending plant requests"
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=300)
-    "Check if  minimum time threshold for generating plant request is exceeded"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
-    uLow=0.7,
-    uHigh=0.8)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(uLow=0.85, uHigh=0.95)
     "Check if valve exceeds threshold for generating reset requests"
-    annotation (Placement(transformation(extent={{10,90},{30,110}})));
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Convert Boolean to required integer format"
-    annotation (Placement(transformation(extent={{70,90},{90,110}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
 equation
   connect(port_b,coo. port_b) annotation (Line(points={{80,-100},{80,0},{70,0}},
@@ -164,7 +159,7 @@ equation
   connect(conPID.y, val.y)
     annotation (Line(points={{-28,60},{0,60},{0,12}},      color={0,0,127}));
   connect(booToInt.y, nReqPla)
-    annotation (Line(points={{92,60},{120,60}}, color={255,127,0}));
+    annotation (Line(points={{82,60},{120,60}}, color={255,127,0}));
   connect(uPum, booToRea.u)
     annotation (Line(points={{-120,-40},{-92,-40}}, color={255,0,255}));
   connect(mul.y, pum.y)
@@ -202,17 +197,15 @@ equation
   connect(val.port_a, pum.port_b)
     annotation (Line(points={{-10,0},{-20,0},{-20,-30}}, color={0,127,255}));
   connect(conPID.y, hys2.u)
-    annotation (Line(points={{-28,60},{8,60}}, color={0,0,127}));
-  connect(hys2.y, tim.u)
-    annotation (Line(points={{32,60},{38,60}}, color={255,0,255}));
-  connect(tim.passed, booToInt.u) annotation (Line(points={{62,52},{64,52},{64,60},
-          {68,60}}, color={255,0,255}));
+    annotation (Line(points={{-28,60},{18,60}},color={0,0,127}));
   connect(booToInt1.y, nReqRes)
-    annotation (Line(points={{92,100},{120,100}}, color={255,127,0}));
-  connect(conPID.y, hys1.u) annotation (Line(points={{-28,60},{0,60},{0,100},{8,
+    annotation (Line(points={{82,100},{120,100}}, color={255,127,0}));
+  connect(conPID.y, hys1.u) annotation (Line(points={{-28,60},{0,60},{0,100},{18,
           100}}, color={0,0,127}));
   connect(hys1.y, booToInt1.u)
-    annotation (Line(points={{32,100},{68,100}}, color={255,0,255}));
+    annotation (Line(points={{42,100},{58,100}}, color={255,0,255}));
+  connect(hys2.y, booToInt.u)
+    annotation (Line(points={{42,60},{58,60}}, color={255,0,255}));
   annotation (defaultComponentName="secLoo",
     Icon(
       coordinateSystem(
@@ -233,7 +226,7 @@ equation
         extent={{-100,-100},{100,120}})),
     Documentation(info="<html>
       <p>
-      This is a simplified load model for a boiler plant secondary loop consisting of 
+      This is a simplified model for a boiler plant secondary loop load consisting of 
       a variable speed pump <code>pum</code>, a flow-control valve <code>val</code>
       and an ideal cooler <code>coo</code>. The heating load on the secondary loop
       is applied via the inputs for load flowrate <code>uHotWat_flow</code> and
@@ -242,6 +235,23 @@ equation
       The flowrate through <code>val</code> is regulated at <code>uHotWat_flow</code>
       by the PID controller <code>conPID</code>. <code>coo</code> enforces the
       return temperature <code>THotWatRet</code>.
+      </p>
+      <p>
+      A few key points when using this class are as follows:
+      <ul>
+      <li>
+      The parameter <code>dpValve_nominal</code> is set to be equal to
+      <code>val.dpFixed_nominal</code> by default to ensure
+      valve authority <code>&ge;50%</code>. The user is encouraged to increase the
+      value as required for stable control.
+      </li>
+      <li>
+      The hysteresis limits for plant request generation as well as reset request
+      generation are both defined per the default values in G36, 2024. The user
+      has the freedom to change those thresholds as required, though it is not
+      mandatory.
+      </li>
+      </ul>
       </p>
       </html>", revisions="<html>
       <ul>
