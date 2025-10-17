@@ -16,6 +16,7 @@ compareVars :=
     "hpAw.mChiWatHp_flow_nominal",
     "hpAw.hp[1].hp.PLR",
     "hpAw.hp[1].hp.COP",
+    "hpAw.hp[1].hp.EER",
     "TRet1[1].T",
     "TSup1[1].T",
     "hpAwNrv.bus.hp[1].TSet",

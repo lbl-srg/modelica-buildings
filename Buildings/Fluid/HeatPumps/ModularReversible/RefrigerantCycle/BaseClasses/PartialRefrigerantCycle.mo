@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialRefrigerantCycle
   "Partial model of refrigerant cycle"
+
   parameter Modelica.Units.SI.Power PEle_nominal
     "Nominal electrical power consumption"
     annotation (Dialog(group="Nominal condition"));

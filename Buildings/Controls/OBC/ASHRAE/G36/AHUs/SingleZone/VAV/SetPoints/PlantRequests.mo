@@ -5,7 +5,7 @@ block PlantRequests
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Heating coil type"
     annotation (__cdl(ValueInReference=false));
-  parameter Real Thys = 0.1
+  parameter Real THys = 0.1
     "Hysteresis for checking temperature difference"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real posHys = 0.05
@@ -73,12 +73,12 @@ protected
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=3,
-    final h=Thys)
+    final h=THys)
     "Check if the supply temperature is greater than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=2,
-    final h=Thys)
+    final h=THys)
     "Check if the supply temperature is greater than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
@@ -141,13 +141,13 @@ protected
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3(
     final t=17,
-    final h=Thys)
+    final h=THys)
     if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr4(
     final t=8,
-    final h=Thys)
+    final h=THys)
     if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
@@ -454,6 +454,12 @@ If the hot water valve position <code>uHeaCoi_actual</code> is less than 95%, se
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+September 26, 2025, by Jianjun Hu:<br/>
+Renamed the parameter <code>Thys</code> to <code>THys</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
+</li>
 <li>
 December 1, 2021, by Jianjun Hu:<br/>
 First implementation.

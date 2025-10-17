@@ -10,6 +10,7 @@ Literature for Users
 --------------------
 The following books are useful for new users to get started:
 
+* Modelica Buildings Library trainings documentation at https://simulationresearch.lbl.gov/modelica/training.html.
 * The online book with interactive examples of Michael Tiller at https://mbe.modelica.university/.
 * The books by Michael Tiller [Til2001]_ and Peter Fritzson ([Fri2011]_ and [Fri2004]_).
 * The tutorials that are listed at https://modelica.org/publications.
@@ -27,9 +28,15 @@ as well as tools for workflow automation.
 It also contains numerous examples that apply these technologies to the
 design and operation of building and community energy systems.
 
+Training Videos
+---------------
+
+Some of the Modelica Buildings Library trainings has posted recordings at https://simulationresearch.lbl.gov/modelica/training.html.
 
 Spoken tutorials for beginners are available at https://spoken-tutorial.org/tutorial-search/?search_foss=OpenModelica&search_language=English.
 
+Modelon has various online tutorials, including getting started with the Modelica Buildings Library, at
+https://help.modelon.com/latest/videos/video_overview/.
 
 Running the First Simulations
 -----------------------------
@@ -72,7 +79,7 @@ Hence, we also recommend reading the paper about the standardization of thermo-f
 
 The `Modelica Web Reference <https://webref.modelica.university>`_ gives a concise overview, explanation and further links about the Modelica language.
 
-See :numref:`sec_sty_gui` for conventions and guidelines of the `Buildings` library.
+See :numref:`Development` for instructions, conventions and guidelines for contributing to the `Buildings` library.
 
 
 References

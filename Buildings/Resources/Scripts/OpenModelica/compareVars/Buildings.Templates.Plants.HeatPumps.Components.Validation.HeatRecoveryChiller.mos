@@ -10,6 +10,7 @@ compareVars :=
     "THeaWatLvg.T",
     "inlHeaWat.T",
     "TSupSet.y",
-    "hrc.hrc.chi.PLR2",
-    "hrc.hrc.chi.COP"
+    "hrc.hrc.chi.PLR",
+    "hrc.hrc.chi.COP",
+    "hrc.hrc.chi.EER"
   };

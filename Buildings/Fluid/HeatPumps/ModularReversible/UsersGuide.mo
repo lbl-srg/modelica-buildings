@@ -17,10 +17,10 @@ package UsersGuide
   based on available variables of the sink and source streams.
   Thus, this model does not enable closed-loop simulations of
   the refrigerant cycle. However, such models are
-  highly demanding in terms computation time, and commercial implementations exist.
+  highly demanding in terms of computation time, and commercial implementations exist.
   When simulating the refrigerant machine in a more complex energy system,
   this modular approach enables detailed performance and
-  dynamic behaviour and fast computating times.
+  dynamic behaviour and fast computation times.
 </p>
 <p>
   This user guide will help understand how to use the models associated
@@ -40,7 +40,8 @@ package UsersGuide
   They may be on/off and inverter driven;
 </li>
 <li>
-  They are able reverse the operation between heating to cooling;
+  They are able to reverse the operation between heating and cooling, 
+  and some systems even provide simultaneous heating and cooling capabilities;
 </li>
 <li>
   They operate in a limited characteristic range (operational envelope);
@@ -53,7 +54,7 @@ package UsersGuide
 </li>
 </ul>
 <p>
-  To what extend all these effects need to be modeled depends
+  To what extent all these effects need to be modeled depends
   on the simulation aim. Sometimes a simple Carnot approach is
   sufficient, sometimes a more detailed performance data
   and a realistic control behaviour is required.
@@ -78,7 +79,7 @@ package UsersGuide
   detailed documentation of each model for further information.
 </p>
 <p>
-  All modular heat pump or chiller models base on the model
+  All modular heat pump or chiller models are based on the model
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle\">
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle</a>.
   This partial model declares all common interfaces, parameters, etc.
@@ -114,6 +115,12 @@ to the section <b>Refrigerant cycle models</b>.
   to check if this approach is suitable.
 </p>
 <ul>
+<li>
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
+  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>: 
+  This is the recommended model for energy simulation and any use case where detailed 
+  modeling of the heat pump onboard controls is not required.
+</li>
 <li>
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater\">
   Buildings.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a>
@@ -160,6 +167,12 @@ to the section <b>Refrigerant cycle models</b>.
 </p>
 <ul>
 <li>
+  <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep\">
+  Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>: 
+  This is the recommended model for energy simulation and any use case where detailed 
+  modeling of the chiller onboard controls is not required.
+</li>
+<li>
   <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater\">
   Buildings.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater</a>
 </li>
@@ -168,7 +181,6 @@ to the section <b>Refrigerant cycle models</b>.
   Buildings.Fluid.Chillers.ModularReversible.CarnotWithLosses</a>
 </li>
 </ul>
-
 
 <h4>Naming and reversible operation</h4>
 
@@ -217,7 +229,7 @@ when adding new datasheets.
 Thinking about the heated and cooled fluid helps.
 </p>
 <p>
-The following tables summarizes the possible options.
+The following table summarizes the possible options.
 </p>
 
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -287,6 +299,14 @@ The following tables summarizes the possible options.
 <h5>Compressor speed</h5>
 
 <p>
+Prefatory note: This section only applies to the models that do not include
+onboard controls. The models that include onboard controls, such as 
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>,
+rather expose a connector <code>TSet</code> representing the temperature setpoint.
+</p>
+
+<p>
   The input <code>ySet</code> represents the relative compressor speed.
   To model both on/off and inverter controlled refrigerant machines,
   the compressor speed is normalised to a relative value between <i>0</i> and <i>1</i>.
@@ -332,7 +352,7 @@ The following tables summarizes the possible options.
   Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle</a>.
 </p>
 <p>
-  Currently, two modules for refrigerant cycle are implemented.
+  Two basic modules for the refrigerant cycle are available.
   First, the <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness\">
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness</a> model
   uses the same equations as the Carnot models, i.e.  <a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_y\">
@@ -349,21 +369,32 @@ The following tables summarizes the possible options.
   the Modelica Standard Library.
   The first approach is similar to <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a>
-  approach buts adds the 3rd dimension of compressor speed.
+  approach but adds the 3rd dimension of compressor speed.
   The second approach is based on white-box stationary Python models
   for closed-loop refrigerant cycles. The model has been empirically
   validated and can take up to n-dimensions.
   If your simulation aim requires more detailed data, be sure
   to check out the models in the AixLib.
 </p>
-
+<p>
+  The Buildings Library provides an alternative modeling option where
+  the third dimension of the performance sensitivity is captured using
+  the part load ratio as a proxy variable for the actual capacity modulation observable.
+  This allows a unified modeling of various technologies such as
+  modulating the compressor speed, throttling the inlet guide vanes 
+  or staging a varying number of compressors.
+  This approach does not rely on any third-party dependency and is fully
+  supported by the existing classes from the Modelica Standard Library.
+  It is implemented in the modular heat pump and chiller models named 
+  <code>TableData2DLoadDep</code>.
+</p>
 
 <h4>Parameterization and naming</h4>
 <p>
   The refrigerant cycle models will output
   varying heat flow rates and electrical power consumptions.
   This is based on the fact that refrigerant cycle performance
-  depend heavily on the boundary conditions.
+  depends heavily on the boundary conditions.
 </p>
 <p>
   Still, the user needs to size the device or the system
@@ -403,7 +434,7 @@ The following tables summarizes the possible options.
   If the performance data is dependent on the compressor speed,
   <code>y_nominal</code> influences the nominal efficiencies.
   In such cases, specifying additional nominal parameters will
-  be nessary.
+  be necessary.
 </p>
 <p>
   Using the nominal conditions and the specified heat flow rate,
@@ -479,7 +510,7 @@ The following tables summarizes the possible options.
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.BaseClasses.PartialInertia\">
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.BaseClasses.PartialInertia
   </a>
-  can be extended to implement a costum model.
+  can be extended to implement a custom model.
 </p>
 
 
@@ -530,7 +561,7 @@ The following tables summarizes the possible options.
   Depending on the application, one may need to model
   the heat losses to the ambient, as those may
   impact the overall efficiency of the heat pump or chiller.
-  Thus, the heat exchangers in the models adds
+  Thus, the heat exchangers in the models add
   thermal capacities to the adiabatic heat exchanger.
   The parameterization may be challenging, as datasheets
   do not contain parameters for the required values.
@@ -555,6 +586,19 @@ Towards an integrated design of heat pump systems: Application of process intens
 Energy Conversion and Management, Volume 250, 2021.<br/>
 <a href=\"https://doi.org/10.1016/j.enconman.2021.114888\">doi:10.1016/j.enconman.2021.114888</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+  June 9, 2025, by Antoine Gautier:<br/>
+  Added description of new models from the Buildings Library.<br/>
+  This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2024\">IBPSA, #2024</a>.
+</li>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
 </html>"));
 
 end UsersGuide;

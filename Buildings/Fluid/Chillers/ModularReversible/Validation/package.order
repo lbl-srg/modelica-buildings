@@ -1,4 +1,7 @@
 Carnot_y
 ConstantCarnotEffectiveness
 TableData2D
+TableData2DLoadDep
+TableData2DLoadDep_AirCooled
+TableData2DLoadDep_HeatRecovery
 BaseClasses

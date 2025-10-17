@@ -649,6 +649,14 @@ The following rules need to be followed, in addition to the guidelines described
        $ node app.js -f Buildings/Controls/OBC/ASHRAE/PrimarySystem/{path to package} -o json -m cdl
 
 
+.. _sec_template:
+
+HVAC and control templates
+--------------------------
+
+Developing HVAC and control templates, such as for `Buildings.Temlates`, is an advanced topic
+which is explained in http://lbl-srg.github.io/modelica-buildings-templates/.
+
 .. _sec_val:
 
 Validation and unit tests

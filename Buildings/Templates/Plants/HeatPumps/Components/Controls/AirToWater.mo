@@ -235,7 +235,7 @@ equation
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
   connect(ctl.y1Hrc, busHrc.y1);
   connect(ctl.y1CooHrc, busHrc.y1Coo);
-  connect(ctl.TSupSetHrc, busHrc.TSupSet);
+  connect(ctl.TSupSetHrc, busHrc.TSet);
   connect(ctl.y1PumChiWatHrc, busPumChiWatHrc.y1);
   connect(ctl.y1PumHeaWatHrc, busPumHeaWatHrc.y1);
   /* Control point connection - stop */
@@ -358,20 +358,19 @@ AI signal (Integer), with a dimensionality of one
 equipment controller <code>bus(AirHan|EquZon)[:].reqResHeaWat</code>:
 AI signal (Integer), with a dimensionality of one
 </li>
+<li>
+CHW plant requests yielded by the air handler or zone equipment controller 
+<code>bus(AirHan|EquZon)[:].reqPlaChiWat</code> – 
+only for heating and cooling plants:
+AI signal (Integer), with a dimensionality of one
+</li>
+<li>
+CHW reset requests yielded by the air handler or zone equipment controller 
+<code>bus(AirHan|EquZon)[:].reqResChiWat</code> – 
+only for heating and cooling plants:
+AI signal (Integer), with a dimensionality of one
+</li>
 </ul>
-</li>
-<li>
-CHW plant requests yielded by the air handler or zone – 
-only for heating and cooling plants:
-equipment controller <code>bus(AirHan|EquZon)[:].reqPlaChiWat</code>:
-AI signal (Integer), with a dimensionality of one
-</li>
-<li>
-CHW reset requests yielded by the air handler or zone – 
-only for heating and cooling plants:
-equipment controller <code>bus(AirHan|EquZon)[:].reqResChiWat</code>:
-AI signal (Integer), with a dimensionality of one
-</li>
 </ul>
 </html>"));
 end AirToWater;

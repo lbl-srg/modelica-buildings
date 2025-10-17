@@ -6,10 +6,6 @@ model MinimalFlowRate "Safety control for minimum mass flow rate"
     "Minimal mass flow rate in evaporator required to operate the device";
   parameter Modelica.Units.SI.MassFlowRate mConMin_flow
     "Minimal mass flow rate in condenser required to operate the device";
-  parameter Boolean onOffMea_start=true
-    "Start value for the on-off signal of the device, true for on";
-  parameter Real ySet_small
-    "Threshold for relative speed for the device to be considered on";
   Modelica.Blocks.Logical.Hysteresis hysCon(
     final uLow=mConMin_flow,
     final uHigh=max(mConMin_flow*1.1, Modelica.Constants.eps),
@@ -30,7 +26,7 @@ equation
           {-22,0}},      color={255,0,255}));
   connect(hysEva.y, and1.u2) annotation (Line(points={{-39,-20},{-30,-20},{-30,-8},
           {-22,-8}},     color={255,0,255}));
-  connect(and1.y, booPasThr.u) annotation (Line(points={{1,0},{38,0}},
+  connect(and1.y, booPasThr.u) annotation (Line(points={{1,0},{78,0}},
              color={255,0,255}));
   connect(hysEva.u, sigBus.mEvaMea_flow) annotation (Line(points={{-62,-20},{
           -84,-20},{-84,-61},{-119,-61}},
@@ -39,15 +35,13 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(hysCon.u, sigBus.mConMea_flow) annotation (Line(points={{-62,20},{-94,
-          20},{-94,-52},{-119,-52},{-119,-61}},
+  connect(hysCon.u, sigBus.mConMea_flow) annotation (Line(points={{-62,20},{-84,
+          20},{-84,-62},{-119,-62},{-119,-61}},
                                      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ySet, swiErr.u1) annotation (Line(points={{-136,0},{-100,0},{-100,40},
-          {68,40},{68,8},{78,8}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   Safety control to prevent the device from turning on
@@ -59,6 +53,11 @@ equation
   or freezing of components.
 </p>
 </html>", revisions="<html><ul>
+  <li>
+    <i>May 27, 2025</i> by Fabian Wuellhorst:<br/>
+    Make safety checks parallel (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA #2015</a>)
+  </li>
   <li>
     <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
     Increase error counter only when device should turn on (see issue <a href=
