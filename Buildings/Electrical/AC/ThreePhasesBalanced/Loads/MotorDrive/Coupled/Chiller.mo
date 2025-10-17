@@ -59,18 +59,15 @@ model Chiller "Motor coupled chiller"
     annotation (Dialog(group="Efficiency"));
 
   //Motor parameters
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal
     "Nominal rotational speed of compressor"
     annotation (Dialog(tab="Motor"));
-  parameter Modelica.Units.SI.Inertia loaIne=1 "Chiller inertia"
+  parameter Modelica.Units.SI.Inertia loaIne "Chiller inertia"
     annotation (Dialog(tab="Motor"));
   replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     per constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record of induction motor with performance data"
     annotation (choicesAllMatching=true, Dialog(tab="Motor"), Placement(transformation(extent={{30,60},{50,80}})));
-  parameter Boolean reverseActing=false
-    "Default: Set to true in heating and set to false in cooling mode"
-    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Real r=1
     "Typical range of control error, used for scaling the control error"
     annotation (Dialog(tab="Motor", group="Controller"));
@@ -203,7 +200,7 @@ model Chiller "Motor coupled chiller"
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
     simMot(
     final per=per,
-    final reverseActing=reverseActing,
+    final reverseActing=false,
     final r=r,
     final controllerType=controllerType,
     final k=k,

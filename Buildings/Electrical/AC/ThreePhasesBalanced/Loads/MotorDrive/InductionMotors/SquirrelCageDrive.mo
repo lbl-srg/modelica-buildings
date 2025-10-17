@@ -5,7 +5,7 @@ model SquirrelCageDrive
     have_speCon=true);
 
   parameter Boolean reverseActing=true
-    "Default: Set to true in heating and set to false in cooling mode"
+    "Set to true for reverse acting, or false for direct acting control action"
     annotation(Dialog(enable=have_speCon,group="Controller", tab="Advanced"));
   parameter Real r=1
     "Typical range of control error, used for scaling the control error"

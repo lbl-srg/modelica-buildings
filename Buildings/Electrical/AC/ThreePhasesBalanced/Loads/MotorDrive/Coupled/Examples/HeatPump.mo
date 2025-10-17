@@ -57,7 +57,8 @@ model HeatPump "Example showing how to use the motor coupled heat pump model"
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
-    k=0.025,
+    loaIne=1,
+    k=0.1,
     Ti=10) "Heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin2(

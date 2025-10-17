@@ -15,12 +15,15 @@ model Pump "Example showing how to use the motor coupled pump model"
       origin={-90,20})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump pum(
     addPowerToMedium=true,
+    loaIne=1,
+    Nrpm_nominal=1500,
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic motPer,
+    r=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = MediumW,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
-    k=0.0012,
-    Ti=0.63) "Pump"
+    k=0.05,
+    Ti=5)    "Pump"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(f=50, V=400)
@@ -50,8 +53,9 @@ model Pump "Example showing how to use the motor coupled pump model"
 equation
   connect(gri.terminal, pum.terminal) annotation (Line(points={{10,60},{10,30}},
           color={0,120,120}));
-  connect(step.y, pum.m_flow_set) annotation (Line(points={{-59,70},{-6,70},{-6,
-          28},{-2,28}}, color={0,0,127}));
+  connect(step.y, pum.m_flow_set) annotation (Line(points={{-59,70},{-10,70},{
+          -10,28},{-2,28}},
+                        color={0,0,127}));
   connect(dp1.port_b, pum.port_a) annotation (Line(points={{-20,20},{0,20}},
           color={0,127,255}));
   connect(dp1.port_a, sou.ports[1])

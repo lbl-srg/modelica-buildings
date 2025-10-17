@@ -8,17 +8,19 @@ model HeatPump "Motor coupled heat pump"
     redeclare final replaceable Interfaces.Terminal_n terminal);
 
   //Heat pump parameters
-  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0)=-P_nominal*
+    COP_nominal
     "Nominal cooling heat flow rate (Negative)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0)=P_nominal
+     - QEva_flow_nominal
     "Nominal heating flow rate (Positive)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
-    final max=0) = -10 "Temperature difference evaporator outlet-inlet"
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(max=0)=-10
+                       "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(
-    final min=0) = 10 "Temperature difference condenser outlet-inlet"
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(min=0)=10
+                      "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
@@ -51,10 +53,12 @@ model HeatPump "Motor coupled heat pump"
   parameter Real a[:] = {1}
     "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
     annotation (Dialog(group="Efficiency"));
-  parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0) = if cp1_default < 1500 then 5 else 2
+  parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)=if
+    cp1_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
-  parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
+  parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0)=if
+    cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
@@ -63,21 +67,18 @@ model HeatPump "Motor coupled heat pump"
     per constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record of Induction Machine with performance data"
     annotation (choicesAllMatching=true, Dialog(tab="Motor"), Placement(transformation(extent={{30,60},{50,80}})));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal
     "Nominal rotational speed of compressor"
     annotation (Dialog(tab="Motor"));
-  parameter Modelica.Units.SI.Inertia loaIne=1 "Heat pump inertia"
+  parameter Modelica.Units.SI.Inertia loaIne "Heat pump inertia"
     annotation (Dialog(tab="Motor"));
-  parameter Boolean reverseActing=true
-    "Default: Set to true in heating and set to false in cooling mode"
-    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Real r=1
     "Typical range of control error, used for scaling the control error"
     annotation (Dialog(tab="Motor", group="Controller"));
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(tab="Motor", group="Controller"));
-  parameter Real k(min=0) = 1
+  parameter Real k(min=0)=1
     "Gain of controller"
     annotation (Dialog(tab="Motor", group="Controller"));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=0.5
@@ -85,7 +86,7 @@ model HeatPump "Motor coupled heat pump"
     annotation (Dialog(tab="Motor", group="Controller",
                        enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
+  parameter Modelica.Units.SI.Time Td(min=0)=0.1
     "Time constant of Derivative block"
     annotation (Dialog(tab="Motor", group="Controller",
                        enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or
@@ -204,7 +205,7 @@ model HeatPump "Motor coupled heat pump"
     final per=per,
     final r=r,
     final controllerType=controllerType,
-    final reverseActing=reverseActing,
+    final reverseActing=true,
     final k=k,
     final Ti=Ti,
     final Td=Td,

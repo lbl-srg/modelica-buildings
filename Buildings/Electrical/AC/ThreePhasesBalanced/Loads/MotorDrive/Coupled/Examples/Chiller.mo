@@ -64,9 +64,10 @@ model Chiller "Example showing how to use the motor coupled chiller model"
     dp1_nominal=1000,
     dp2_nominal=1000,
     etaCarnot_nominal=0.5,
+    loaIne=1,
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
-    k=0.001,
-    Ti=0.65) "Chiller with motor interface"
+    k=0.1,
+    Ti=5)    "Chiller with motor interface"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
