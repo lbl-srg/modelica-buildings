@@ -29,6 +29,9 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+  optimica:
+    comment: 'The system is structurally singular. Modelon #2023012739000252'
+    translate: false
 - model_name: Buildings.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
