@@ -1,6 +1,10 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block NormalizedTimeDelay
   "Calculate the normalized time delay of the response of a relay controller"
+  constant Real delayTime(
+    final quantity="Time",
+    final unit="s") = 0.1
+    "Delay time, used to trigger warning";
   parameter Real gamma(min=1+1E-6) = 4
     "Asymmetry level of the relay controller";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rho
@@ -56,7 +60,7 @@ protected
     "Disable the assert when the tuning is not ongoing"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tunEndDel(
-    final delayTime=0.1)
+    final delayTime=delayTime)
     "A small time delay for the autotuning end time to avoid missing events"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
@@ -126,7 +130,7 @@ the relay controller and the half-period ratio, respectively.
 </p>
 <p>
 Note: A delay block is used to maintain the in-tuning process status for a short
-period after the autotuning complete. It allows properly triggering the warning if
+period after the autotuning completed. It allows properly triggering the warning if
 the warning indeed should be triggered. The delay should remain small to avoid
 unintended dynamic effects on the system behavior.
 </p>
