@@ -56,7 +56,7 @@ protected
     "Disable the assert when the tuning is not ongoing"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tunEndDel(
-    final delayTime=Buildings.Controls.OBC.CDL.Constants.eps)
+    final delayTime=0.1)
     "A small time delay for the autotuning end time to avoid missing events"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
