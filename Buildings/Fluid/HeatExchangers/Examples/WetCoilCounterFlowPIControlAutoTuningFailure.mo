@@ -55,7 +55,7 @@ The first one occurs at <i>100</i> seconds and it completes successfully,
 with the tuned PI parameters taking effect at <i>157</i> seconds.
 </li>
 <li>
-The second one occurs at <i>2100</i> seconds. However, the tuning process yields a
+The second one occurs at <i>2100</i> seconds. However, the tuning process yields
 negative control gains, thus the autotuning fails and a warning is issued.
 The PI gains remain unchanged from the previous tuning.
 </li>
@@ -64,12 +64,8 @@ The PI gains remain unchanged from the previous tuning.
 revisions="<html>
 <ul>
 <li>
-March 8, 2024, by Michael Wetter:<br/>
-Removed wrong normalization.
-</li>
-<li>
-November 28, 2023, by Sen Huang:<br/>
-Replaced the PI controller with an autotuning PI controller.
+October 21, 2025, by Sen Huang:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
