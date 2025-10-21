@@ -10,6 +10,20 @@ TRAVIS_BUILD_DIR ?= $(shell dirname \
   $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))))))
 ROOT = $(TRAVIS_BUILD_DIR)
 
+
+ifdef TRAVIS_WAIT
+# TRAVIS_WAIT is set
+    ifeq ($(TRAVIS_WAIT),true)
+        $(info TRAVIS_WAIT is set to true)
+		_TRAVIS_WAIT="travis_wait"
+    else
+        $(info TRAVIS_WAIT is set to $(TRAVIS_WAIT))
+		_TRAVIS_WAIT="travis_wait $(TRAVIS_WAIT)"
+    endif
+else
+    _TRAVIS_WAIT=""
+endif
+
 # Command to run Dymola tests. This is stored as a variable
 # so it can be tried once more if it fails.
 CMD = "(cd $(ROOT)/Buildings && \
@@ -170,6 +184,7 @@ endef
 
 test-dymola:
 	$(eval BUILDINGSPY_SKIP_STATISTICS_VERIFICATION := $(buiPyMod))
+	$(_TRAVIS_WAIT); \
 	@eval $(CMD) || \
 	if [ $$? <> 0 ]; then \
 	  eval $(CMD); \
@@ -177,13 +192,15 @@ test-dymola:
 	@echo "    Target $@ successful."
 
 test-openmodelica:
-	(cd $(ROOT)/Buildings && \
+	($(_TRAVIS_WAIT); \
+	cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification -n $(NPROC))
 	@echo "    Target $@ successful."
 
 test-optimica:
-	(cd $(ROOT)/Buildings && \
+	($(_TRAVIS_WAIT); \
+	cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification -n $(NPROC))
 	@echo "    Target $@ successful."

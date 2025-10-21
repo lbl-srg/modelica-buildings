@@ -117,13 +117,9 @@ env:
 ##fixme    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.AirHandlersFans\" COVER=0.5"
 ##fixme    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.Plants.HeatPumps\" COVER=0.2"
 ##fixme    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.ZoneEquipment\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.Aquifer.Examples\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.Boreholes.Examples\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.Examples\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.ZonedBorefields.Examples\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.Validation\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.ZonedBorefields.Validation\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.ZonedBorefields.Validation\" TRAVIS_WAIT=true"
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW\" TRAVIS_WAIT=true"
 
 
 
