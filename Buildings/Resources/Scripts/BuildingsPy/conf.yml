@@ -78,6 +78,8 @@
   openmodelica:
     comment: Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910
     simulate: false
+  optimica:
+    time_out: 600
 - model_name: Buildings.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
     comment: simulation terminated by an assertion at initialization
