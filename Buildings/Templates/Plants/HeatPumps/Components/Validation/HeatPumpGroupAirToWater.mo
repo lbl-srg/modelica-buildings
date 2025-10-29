@@ -35,7 +35,6 @@ model HeatPumpGroupAirToWater
       have_valHeaWatMinByp=false,
       have_valHpInlIso=false,
       have_valHpOutIso=false,
-      typMod=hpAwNrv.typMod,
       cpHeaWat_default=hpAwNrv.cpHeaWat_default,
       cpSou_default=hpAwNrv.cpSou_default,
       have_senDpChiWatRemWir=true,
@@ -57,7 +56,7 @@ model HeatPumpGroupAirToWater
     dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, datCtlPlaAwNrv.cfg.nSenDpHeaWatRem),
     staEqu={fill(1, hpAwNrv.nHp)})
     "Controller parameters"
-    annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
+    annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
   parameter Data.Controller datCtlPlaAw(
     cfg(
       have_hrc = false,
@@ -84,7 +83,6 @@ model HeatPumpGroupAirToWater
       have_valHeaWatMinByp=false,
       have_valHpInlIso=true,
       have_valHpOutIso=true,
-      typMod=hpAw.typMod,
       cpHeaWat_default=hpAw.cpHeaWat_default,
       cpSou_default=hpAw.cpSou_default,
       have_senDpChiWatRemWir=true,
@@ -107,7 +105,7 @@ model HeatPumpGroupAirToWater
     dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, datCtlPlaAw.cfg.nSenDpHeaWatRem),
     staEqu={fill(1, hpAw.nHp)})
     "Controller parameters"
-    annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
+    annotation (Placement(transformation(extent={{-260,-180},{-240,-160}})));
 
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup datHpAwNrv(
     final cpHeaWat_default=hpAwNrv.cpHeaWat_default,
@@ -115,29 +113,28 @@ model HeatPumpGroupAirToWater
     final nHp=hpAwNrv.nHp,
     final typ=hpAwNrv.typ,
     final is_rev=hpAwNrv.is_rev,
-    final typMod=hpAwNrv.typMod,
     mHeaWatHp_flow_nominal=datHpAwNrv.capHeaHp_nominal / abs(datHpAwNrv.THeaWatSupHp_nominal -
       Buildings.Templates.Data.Defaults.THeaWatRetMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaHp_nominal=500E3,
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    perFitHp(
-      hea(
-        P=datHpAwNrv.capHeaHp_nominal / Buildings.Templates.Data.Defaults.COPHpAwHea,
-        coeQ={- 4.2670305442, - 0.7381077035, 6.0049480456, 0, 0},
-        coeP={- 4.9107455513, 5.3665308366, 0.5447612754, 0, 0},
-        TRefLoa=Buildings.Templates.Data.Defaults.THeaWatRetMed,
-        TRefSou=Buildings.Templates.Data.Defaults.TOutHpHeaLow)))
+    PHp_min=1.0E3,
+    perHeaHp(
+      fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+      PLRSup={1},
+      use_TEvaOutForTab=false,
+      use_TConOutForTab=true,
+      tabUppBou=[263.15,323.15; 313.15,323.15]))
     "Non-reversible AWHP parameters"
-    annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
+    annotation (Placement(transformation(extent={{-220,60},{-200,80}})));
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup datHpAw(
     final cpHeaWat_default=hpAw.cpHeaWat_default,
     final cpSou_default=hpAw.cpSou_default,
     final nHp=hpAw.nHp,
     final typ=hpAw.typ,
     final is_rev=hpAw.is_rev,
-    final typMod=hpAw.typMod,
     mHeaWatHp_flow_nominal=datHpAw.capHeaHp_nominal / abs(datHpAw.THeaWatSupHp_nominal -
       Buildings.Templates.Data.Defaults.THeaWatRetMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
@@ -149,21 +146,20 @@ model HeatPumpGroupAirToWater
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
-    perFitHp(
-      hea(
-        P=datHpAw.capHeaHp_nominal / Buildings.Templates.Data.Defaults.COPHpAwHea,
-        coeQ={- 4.2670305442, - 0.7381077035, 6.0049480456, 0, 0},
-        coeP={- 4.9107455513, 5.3665308366, 0.5447612754, 0, 0},
-        TRefLoa=Buildings.Templates.Data.Defaults.THeaWatRetMed,
-        TRefSou=Buildings.Templates.Data.Defaults.TOutHpHeaLow),
-      coo(
-        P=datHpAw.capCooHp_nominal / Buildings.Templates.Data.Defaults.COPHpAwCoo,
-        coeQ={- 2.2545246871, 6.9089257665, - 3.6548225094, 0, 0},
-        coeP={- 5.8086010402, 1.6894933858, 5.1167787436, 0, 0},
-        TRefLoa=Buildings.Templates.Data.Defaults.TChiWatRet,
-        TRefSou=Buildings.Templates.Data.Defaults.TOutHpCoo)))
+    PHp_min=1.0E3,
+    perHeaHp(
+      fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+      PLRSup={1},
+      use_TEvaOutForTab=false,
+      use_TConOutForTab=true,
+      tabUppBou=[263.15,323.15; 313.15,323.15]),
+    perCooHp(
+      fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
+      PLRSup={1}))
     "Reversible AWHP parameters"
-    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
+    annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
   Fluid.Sources.Boundary_pT sup(
     redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
@@ -353,7 +349,7 @@ equation
   annotation (
     Diagram(
       coordinateSystem(
-        extent={{-300,-220},{300,220}})),
+        extent={{-300,-200},{300,200}}, grid={2,2})),
     __Dymola_Commands(
       file=
         "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/HeatPumpGroupAirToWater.mos"
@@ -380,6 +376,12 @@ mode.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.

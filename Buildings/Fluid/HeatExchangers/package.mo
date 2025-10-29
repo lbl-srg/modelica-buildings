@@ -20,7 +20,10 @@ This package contains models for heat exchangers with and without humidity conde
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-54,88},{56,-84}},
-          fillColor={135,135,135},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{56,88},{-54,-84}}, color={0,0,0})}));
+        Line(points={{56,88},{-54,-84}}, color={0,0,0},
+          thickness=0.5)}));
 end HeatExchangers;
