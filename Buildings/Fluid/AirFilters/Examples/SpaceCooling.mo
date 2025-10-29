@@ -283,7 +283,7 @@ equation
     annotation (Line(points={{-80,20},{-70,20}}, color={0,127,255}));
   connect(C_out.port_b, hex.port_a1) annotation (Line(points={{-50,20},{-40,20},
           {-40,0},{-30,0}},color={0,127,255}));
-  connect(repSig.y,airFil.uRes)
+  connect(repSig.y,airFil.uRep)
     annotation (Line(points={{-118,30},{-110,30},{-110,26},{-102,26}}, color={255,0,255}));
   connect(C_inflow.y, subDif.u1) annotation (Line(points={{-119,-40},{-74,-40},{
           -74,56},{-42,56}}, color={0,0,127}));

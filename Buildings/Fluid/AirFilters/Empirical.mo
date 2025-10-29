@@ -6,8 +6,8 @@ model Empirical "Empirical air filter model"
   parameter Buildings.Fluid.AirFilters.Data.Generic per
     "Performance dataset"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRes
-    "True: the filter has been replaced and reset the accumulation"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
+    "True: replace the filter and reset the accumulation"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRep
@@ -68,7 +68,7 @@ protected
 equation
   connect(masAcc.mCon, epsCal.mCon)
     annotation (Line(points={{-38,60},{-22,60}},color={0,0,127}));
-  connect(masAcc.uRes,uRes)
+  connect(masAcc.uRep,uRep)
     annotation (Line(points={{-62,54},{-80,54},{-80,80},{-120,80}},
       color={255,0,255}));
   connect(epsCal.rat, coeCor.rat) annotation (Line(points={{2,66},{20,66},{20,60},
@@ -295,7 +295,7 @@ Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 </li>
 </ul>
 <p>
-The input boolean flag, <code>uRes</code>, indicates that the filter has been replaced
+The input boolean flag, <code>uRep</code>, indicates that the filter has been replaced
 and thus reset the mass accumulation to the initial status, i.e.,
 when <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
 mass of the captured contaminants is reset to <code>per.mCon_reset</code>.

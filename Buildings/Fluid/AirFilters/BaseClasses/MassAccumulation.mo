@@ -15,8 +15,8 @@ model MassAccumulation
     each final unit="kg/s")
     "Contaminant mass flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRes
-    "True: the filter has been replaced and reset the accumulation"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
+    "True: replace the filter and reset the accumulation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRep
@@ -74,7 +74,7 @@ equation
           80}}, color={255,0,255}));
   connect(ful.y, yRep)
     annotation (Line(points={{82,80},{120,80}}, color={255,0,255}));
-  connect(edg.u,uRes)
+  connect(edg.u,uRep)
     annotation (Line(points={{-62,-80},{-120,-80}}, color={255,0,255}));
   connect(edg.y, intWitRes.trigger) annotation (Line(points={{-38,-80},{-10,-80},
           {-10,-12}}, color={255,0,255}));
@@ -88,7 +88,7 @@ Documentation(info="<html>
 <p>
 This model mimics the process for a filter to capture the contaminants.
 The mass of the contaminants, <code>mCon</code>, increases by time.
-However, when the input signal <code>uRes</code> changes from <code>false</code>
+However, when the input signal <code>uRep</code> changes from <code>false</code>
 to <code>true</code>, <code>mCon</code> is reset to a constant, <code>mCon_reset</code>.
 </p>
 </html>", revisions="<html>

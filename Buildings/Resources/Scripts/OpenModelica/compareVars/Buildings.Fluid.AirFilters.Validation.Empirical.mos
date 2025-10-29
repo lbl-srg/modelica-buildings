@@ -6,5 +6,5 @@ compareVars :=
     "senTraSubVOCOut.C",
     "airFil.eps[1]",
     "airFil.eps[2]",
-    "airFil.uRes"
+    "airFil.uRep"
   };

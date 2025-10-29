@@ -68,7 +68,7 @@ model Empirical "Example for using the empirical air filter model"
     substanceName="VOC") "Trace substance sensor of VOC in outlet air"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
-  connect(repSig.y,airFil.uRes)  annotation (Line(points={{-18,50},{-10,50},{
+  connect(repSig.y,airFil.uRep)  annotation (Line(points={{-18,50},{-10,50},{
           -10,6},{-2,6}}, color={255,0,255}));
   connect(C_CO2_inflow.y, sou.C_in[2]) annotation (Line(points={{-139,30},{-120,
           30},{-120,-8},{-102,-8}}, color={0,0,127}));
