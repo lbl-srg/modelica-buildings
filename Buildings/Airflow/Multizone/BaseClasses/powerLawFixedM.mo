@@ -18,20 +18,20 @@ function powerLawFixedM
 protected
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
-  Real pi "Normalized pressure";
-  Real pi2 "Square of normalized pressure";
+  Real pi = dp/dp_turbulent "Normalized pressure";
+  Real pi2 = pi*pi "Square of normalized pressure";
 algorithm
- if (dp >= dp_turbulent) then
-   V_flow :=C *dp^m;
- elseif (dp <= -dp_turbulent) then
-   V_flow :=-C*(-dp)^m;
- else
-   pi  := dp/dp_turbulent;
-   pi2 := pi*pi;
-   V_flow :=C *dp_turbulent^m * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d)));
- end if;
+ V_flow :=
+   if (dp >= dp_turbulent) then
+     C*dp^m
+   elseif (dp <= -dp_turbulent) then
+     -C*(-dp)^m
+   else
+     C*dp_turbulent^m*pi*(a + pi2*(b + pi2*(c + pi2*d)));
 
-  annotation (smoothOrder=2,
+  annotation (
+  smoothOrder=2,
+  Inline=true,
 Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
@@ -61,6 +61,12 @@ requires the polynomial coefficients as an input.
 This allows a more efficient simulation if <i>m</i> and therefore also
 <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i> are constant.
 </p>
+<p>
+The model is also identical to
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLaw05\">
+Buildings.Airflow.Multizone.BaseClasses.powerLaw05</a>,
+except that it allows a flow coefficient <i>m</i> that is different from <i>0.5</i>.
+</p>
 <h4>Implementation</h4>
 <p>
 For <i>|&Delta;p| &lt; &Delta;p<sub>t</sub></i>, the equation is regularized
@@ -73,6 +79,11 @@ If <i>m</i>, and therefore also
 it is more convenient and efficient to use
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLaw\">
 Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>.
+</p>
+<p>
+If <i>m = 0.5</i>, use
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLaw05\">
+Buildings.Airflow.Multizone.BaseClasses.powerLaw05</a>.
 </p>
 </html>",
 revisions="<html>
