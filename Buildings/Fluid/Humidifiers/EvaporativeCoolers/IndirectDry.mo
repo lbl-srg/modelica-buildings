@@ -75,7 +75,8 @@ equation
   connect(port_a2, dirEvaCoo.port_a)
     annotation (Line(points={{-100,-60},{-10,-60}}));
   connect(hex.port_b2, port_b2) annotation (
-    Line(points={{-10,4},{-20,4},{-20,-20},{100,-20},{100,-60}}, color = {0, 127, 255}));
+    Line(points={{-10,4},{-20,4},{-20,-20},{80,-20},{80,-60},{100,-60}},
+                                                                 color = {0, 127, 255}));
   connect(port_a1, hex.port_a1) annotation (
     Line(points={{-100,60},{-20,60},{-20,16},{-10,16}}));
   connect(hex.port_b1, port_b1) annotation (

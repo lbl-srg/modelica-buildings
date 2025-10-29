@@ -68,7 +68,7 @@ model IndirectWet "Indirect wet evaporative cooler"
     final dp_nominal=dp1_nominal,
     final m_flow_nominal=m1_flow_nominal)
     "Primary fluid pressure drop"
-    annotation (Placement(transformation(origin={40,20}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={50,20}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volPri(
     redeclare package Medium = Medium1,
@@ -105,7 +105,7 @@ model IndirectWet "Indirect wet evaporative cooler"
     final dp_nominal=dp2_nominal,
     final m_flow_nominal=m2_flow_nominal)
     "Secondary air pressure drop"
-    annotation (Placement(transformation(origin={40,-60}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={50,-60}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFloSec(
     redeclare final package Medium = Medium2,
@@ -138,7 +138,7 @@ equation
   connect(senTemWetPri.port_b, senVolFloPri.port_a)
     annotation (Line(points={{-40,20},{-20,20}}));
   connect(senVolFloPri.port_b, resPri.port_a)
-    annotation (Line(points={{0,20},{30,20}},   color={0,127,255}));
+    annotation (Line(points={{0,20},{40,20}},   color={0,127,255}));
   connect(port_a1, senTemDryPri.port_a) annotation (Line(points={{-100,60},{-94,
           60},{-94,20},{-90,20}}, color={0,127,255}));
   connect(senTemDryPri.T, indWetCal.TDryBulPriIn)
@@ -156,7 +156,7 @@ equation
   connect(senTemWetSec.port_b, senVolFloSec.port_a)
     annotation (Line(points={{-20,-60},{0,-60}},   color={0,127,255}));
   connect(senVolFloSec.port_b, resSec.port_a)
-    annotation (Line(points={{20,-60},{30,-60}}, color={0,127,255}));
+    annotation (Line(points={{20,-60},{40,-60}}, color={0,127,255}));
   connect(senVolFloSec.V_flow, indWetCal.VSec_flow)
     annotation (Line(points={{10,-49},{10,71.6667},{18.3333,71.6667}},
         color={0,0,127}));
@@ -165,9 +165,9 @@ equation
   connect(preTem.port, volPri.heatPort) annotation (Line(points={{80,80},{90,80},
           {90,60},{50,60},{50,40},{60,40}}, color={191,0,0}));
   connect(resSec.port_b, port_b2)
-    annotation (Line(points={{50,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
   connect(resPri.port_b, volPri.ports[1])
-    annotation (Line(points={{50,20},{69,20},{69,30}}, color={0,127,255}));
+    annotation (Line(points={{60,20},{69,20},{69,30}}, color={0,127,255}));
   connect(volPri.ports[2], port_b1) annotation (Line(points={{71,30},{72,30},{
           72,20},{92,20},{92,60},{100,60}}, color={0,127,255}));
 
