@@ -68,10 +68,11 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.2. Running the First Simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.4. Literature for Developers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#training-videos">1.2. Training Videos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.3. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.4. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.5. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.6. References</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bestPractice.html">2. Best Practice</a><ul>
@@ -97,7 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#guidelines-for-contributions">5.2. Guidelines for contributions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#style-guide">5.3. Style guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#adding-a-new-class">5.4. Adding a new class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#validation-and-unit-tests">5.5. Validation and unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hvac-and-control-templates">5.5. HVAC and control templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation-and-unit-tests">5.6. Validation and unit tests</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
@@ -136,7 +138,8 @@
 <li><a class="reference internal" href="#control-sequences-using-the-control-description-language">5.4.3. Control sequences using the Control Description Language</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#validation-and-unit-tests">5.5. Validation and unit tests</a></li>
+<li><a class="reference internal" href="#hvac-and-control-templates">5.5. HVAC and control templates</a></li>
+<li><a class="reference internal" href="#validation-and-unit-tests">5.6. Validation and unit tests</a></li>
 </ul>
 </li>
 </ul>
@@ -784,7 +787,7 @@ Icons should be symmetrical with reference to the grid origin. E.g, the default 
 </li>
 <li><p>For simple, small controllers, provide a unit test in a <code class="docutils literal notranslate"><span class="pre">Validation</span></code> or <code class="docutils literal notranslate"><span class="pre">Examples</span></code> package
 that is in the hierarchy one level below the implemented controller.
-See <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.5</span></a> for unit test implementation.
+See <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.6</span></a> for unit test implementation.
 Because some control logic errors may only be noticed
 when used in a closed loop test,
 for equipment and system controllers, provide also closed loop examples that test the sequence
@@ -792,7 +795,7 @@ for all modes of operation. If the closed loop examples include HVAC models, put
 outside of the <code class="docutils literal notranslate"><span class="pre">Buildings.Controls.OBC</span></code> package.
 Make sure sequences are tested for all modes of operation, and as applicable, for winter, shoulder
 and summer days.</p></li>
-<li><p>For general rules on validation models see <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.5</span></a>. If there are multiple instances of
+<li><p>For general rules on validation models see <a class="reference internal" href="#sec-val"><span class="std std-numref">Section 5.6</span></a>. If there are multiple instances of
 the validated block, preferably list them together as opposed to far apart in the Modelica file.</p></li>
 <li><p>Run the following command to detect various warnings, such as missing comments:</p>
 <blockquote>
@@ -804,8 +807,13 @@ the validated block, preferably list them together as opposed to far apart in th
 </ol>
 </section>
 </section>
+<section id="hvac-and-control-templates">
+<span id="sec-template"></span><h2><span class="section-number">5.5. </span>HVAC and control templates<a class="headerlink" href="#hvac-and-control-templates" title="Permalink to this headline">¶</a></h2>
+<p>Developing HVAC and control templates, such as for <cite>Buildings.Temlates</cite>, is an advanced topic
+which is explained in <a class="reference external" href="http://lbl-srg.github.io/modelica-buildings-templates/">http://lbl-srg.github.io/modelica-buildings-templates/</a>.</p>
+</section>
 <section id="validation-and-unit-tests">
-<span id="sec-val"></span><h2><span class="section-number">5.5. </span>Validation and unit tests<a class="headerlink" href="#validation-and-unit-tests" title="Permalink to this headline">¶</a></h2>
+<span id="sec-val"></span><h2><span class="section-number">5.6. </span>Validation and unit tests<a class="headerlink" href="#validation-and-unit-tests" title="Permalink to this headline">¶</a></h2>
 <p>The developer that introduces a new model, block or a function must:</p>
 <ol class="arabic simple">
 <li><p>Implement at least one example or validation model that serves as a unit test for each model, block and function,
@@ -867,7 +875,7 @@ for an implementation.</p>
       
     </p>
     <p>
-        &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+        &copy; Copyright 2012-2025, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>

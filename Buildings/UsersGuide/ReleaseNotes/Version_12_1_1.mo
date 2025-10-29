@@ -24,6 +24,23 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep
+    </td>
+    <td valign=\"top\">Added new models that integrate ideal controls and capacity modulation effects.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4169\">#4169</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC
+    </td>
+    <td valign=\"top\">Added new model for simultaneous heating and cooling (multipipe) systems.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4283\">#4283</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4169\">#4169</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -64,7 +81,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
 <tr><td valign=\"top\">xxx

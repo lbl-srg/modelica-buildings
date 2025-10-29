@@ -38,7 +38,7 @@ impure function exchange "Function that communicates with Python"
     annotation (Library={"ModelicaBuildingsPython_3_8",  "python3.8"},
       LibraryDirectory="modelica://Buildings/Resources/Library",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Include="#include \"pythonWrapper.c\"");
+      Include="#include <pythonWrapper.c>");
   annotation (Documentation(info="<html>
 <p>
 This function exchanges data with Python.
@@ -52,6 +52,11 @@ for examples.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2025, by Michael Wetter:<br/>
+Added missing header file.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
+</li>
 <li>
 August 27, 2021, by Michael Wetter:<br/>
 Updated to Python 3.8.
