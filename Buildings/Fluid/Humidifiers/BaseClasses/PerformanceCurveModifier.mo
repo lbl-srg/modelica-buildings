@@ -1,27 +1,25 @@
 within Buildings.Fluid.Humidifiers.BaseClasses;
 block PerformanceCurveModifier
-  "Block for calculating modifier curves"
+  "Block for calculating performance curve modifiers"
 
   parameter Buildings.Fluid.Humidifiers.Data.DXDehumidifier.Generic per
     "Data record"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
-  Modelica.Blocks.Interfaces.RealInput T
-    "Temperature"
+  Modelica.Blocks.Interfaces.RealInput T "Inlet air temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Modelica.Blocks.Interfaces.RealInput phi
-    "Relative Humidity"
+  Modelica.Blocks.Interfaces.RealInput phi "Inlet air relative Humidity"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealOutput watRemMod
-    "Water removal modifier value"
+    "Water removal performance curve modifier"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
       iconTransformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput eneFacMod
-    "Energy factor modifier value"
+    "Energy factor performance curve modifier"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
 
@@ -60,14 +58,13 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
-<h4>Performance Curve Modifiers</h4>
 <p>
-This block includes the following performance curve modifiers
+This block calculates the following performance curve modifiers
 </p>
 <p>
-The water removal modifier curve <code>watRemMod</code> is a biquadratic curve
-with two independent variables: dry-bulb temperature and relative humidity of the
-air entering the dehumidifier.
+The water removal performance curve modifier <code>watRemMod</code> is culculated
+by a biquadratic equation with two independent variables: dry-bulb temperature and
+relative humidity of the air entering the dehumidifier.
 </p>
 <p align=\"center\"><i>watRemMod(T<sub>in</sub>, phi<sub>in</sub>) = a<sub>1</sub>
 + a<sub>2</sub> T<sub>in</sub> + a<sub>3</sub> T<sub>in</sub><sup>2</sup>
@@ -75,9 +72,9 @@ air entering the dehumidifier.
 + a<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
 </p>
 <p>
-The energy factor modifier curve <code>eneFacMod</code> is a biquadratic curve
-with two independent variables: dry-bulb temperature and relative humidity of the
-air entering the dehumidifier.
+The energy factor performance curve modifier <code>eneFacMod</code> is culculated
+by a biquadratic equation with two independent variables: dry-bulb temperature and
+relative humidity of the air entering the dehumidifier.
 </p>
 <p align=\"center\"><i>eneFacMod(T<sub>in</sub>, phi<sub>in</sub>) = b<sub>1</sub>
 + b<sub>2</sub> T<sub>in</sub> + b<sub>3</sub> T<sub>in</sub><sup>2</sup>

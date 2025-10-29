@@ -111,8 +111,8 @@ We will now explain how state variables, such as temperature and pressure, can b
 
 Consider a model consisting of a mass flow source ``Modelica.Fluid.Sources.MassFlowSource_T``, a fluid volume ``Buildings.Fluid.MixingVolumes.MixingVolume`` and
 a fixed boundary condition ``Buildings.Fluid.Sources.Boundary_pT``,
-connected in series as shown in the figure below. Note that the instance ``bou``
-implements an equation that sets the medium pressure at its port, i.e., the port pressure ``bou.ports.p`` is fixed.
+connected in series as shown in the figure below. Note that the instance ``sin``
+implements an equation that sets the medium pressure at its port, i.e., the port pressure ``sin.ports.p`` is fixed.
 
 .. figure:: img/MixingVolumeInitialization.*
    :width: 300px

@@ -13,8 +13,8 @@ protected
   Real linTer "Linear part of equation";
   Real gauTer "Gaussian part of equation";
 algorithm
-  linTer :=offLin + sloLin*TEvaInMea;
-  gauTer :=gauFac*Modelica.Math.exp(-(TEvaInMea - gauMea)*(TEvaInMea - gauMea)/
+  linTer :=offLin + sloLin*(TEvaInMea-273.15);
+  gauTer :=gauFac*Modelica.Math.exp(-((TEvaInMea-273.15) - gauMea)*((TEvaInMea-273.15) - gauMea)/
     gauSig);
   fac := gauTer + Buildings.Utilities.Math.Functions.smoothMax(
     x1=1E-5,
@@ -41,6 +41,11 @@ https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf</a>
 </p>
 </html>",
   revisions="<html><ul>
+  <li>
+  April 17, 2025, by Fabian Wuellhorst:<br/>
+  Fix degC unit, for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">IBPSA #1975</a>
+  </li>
   <li>
   December 7, 2023, by Michael Wetter:<br/>
   Reformulated to make function once continuously differentiable, and to avoid

@@ -34,7 +34,7 @@ For a network of <i>n</i> buried pipes that are coaxial, the matrix <i>P</i> of 
 <i>n x n</i> is computed from the system geometry:
 </p>
 <p>
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/BuriedPipes/BaseClasses/groundCouplingFactors.svg\" />
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/BuriedPipes/BaseClasses/groundCouplingFactors.svg\" />
 </p>
 <p>
 where: <br>

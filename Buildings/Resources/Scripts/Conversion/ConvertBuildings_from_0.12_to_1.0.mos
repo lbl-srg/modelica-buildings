@@ -1,9 +1,6 @@
 // Conversion script for Buildings library
 //  from: Version 0.12
 //  to:   Version 1.0
-clear
-
-convertClear();
 
 convertClass("Buildings.Fluid.Sensors.TemperatureDynamicTwoPort",
              "Buildings.Fluid.Sensors.TemperatureTwoPort");
