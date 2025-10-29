@@ -79,8 +79,8 @@ model SpaceCooling
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
-        QRooInt_flow) "Prescribed heat flow"
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(
+    Q_flow=QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
@@ -190,6 +190,9 @@ model SpaceCooling
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant repSig(k=false)
     "Filter replacement signal"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract subDif
+    "Substance difference between inlet and outlet"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{80,70},{120,70}},
@@ -282,6 +285,10 @@ equation
           {-40,0},{-30,0}},color={0,127,255}));
   connect(repSig.y,airFil.uRes)
     annotation (Line(points={{-118,30},{-110,30},{-110,26},{-102,26}}, color={255,0,255}));
+  connect(C_inflow.y, subDif.u1) annotation (Line(points={{-119,-40},{-74,-40},{
+          -74,56},{-42,56}}, color={0,0,127}));
+  connect(C_out.C, subDif.u2)
+    annotation (Line(points={{-60,31},{-60,44},{-42,44}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block is identical to
@@ -307,12 +314,13 @@ The expected output are:
 </p>
 <ul>
 <li>
-The ratio of the outlet trace substance <i>C_out.C</i> to the <i>C_inflow.y</i> shows a slight decrease,
-reflecting the reduction in filtration efficiency as contaminants accumulate.
+The difference between the inlet trace substance <i>C_inflow.y</i> and the outlet
+trace substance <i>C_out.C</i> increases. It indicates the reduction in filtration
+efficiency as contaminants accumulate.
 </li>
 <li>
-The fan power <i>fan.P</i> slightly increases, caused by the rising pressure drop across the filter as
-contaminants build up.
+The fan power <i>fan.P</i> slightly increases, caused by the rising pressure drop
+across the filter as contaminants build up.
 </li>
 </ul>
 <p>

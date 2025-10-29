@@ -2,5 +2,6 @@ compareVars :=
   {
     "C_inflow.y",
     "C_out.C",
+    "subDif.y",
     "fan.P"
   };
