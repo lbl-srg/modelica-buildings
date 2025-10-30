@@ -33,7 +33,7 @@ The filtration efficiency, <code>eps.y</code>, changes from 0.98 to 0.88 during 
 0 to 0.85 seconds.
 After 0.85 seconds, the <code>eps.y</code> remains unchanged when <code>mCon</code> changes.
 This is because the relative mass of contaminant captured by the filter already
-reaches the maximum value.       
+reaches the maximum value.
 </p>
 </html>", revisions="<html>
 <ul>
