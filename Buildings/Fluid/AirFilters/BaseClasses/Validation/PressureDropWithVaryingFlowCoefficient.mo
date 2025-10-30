@@ -70,8 +70,8 @@ identical pressure drop.
 </p>
 <p>
 After 0.5 seconds, the flow rate of the <code>varRes</code> is lower than
-that of <code>fixRes</code> as the flow coefficient 
-of the former decreases by &radic;<span style=\"text-decoration:overline;\">2</span>.      
+that of <code>fixRes</code> as the flow coefficient
+of the former decreases by &radic;<span style=\"text-decoration:overline;\">2</span>.
 </p>
 </html>", revisions="<html>
 <ul>

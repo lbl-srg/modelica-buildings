@@ -25,7 +25,7 @@ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-The mass of the captured contaminant <code>mCon</code> 
+The mass of the captured contaminant <code>mCon</code>
 changes from <i>0</i> to <i>1.2kg/s</i> during the period from 0 to 1 second.
 </p>
 <p>
@@ -33,7 +33,7 @@ The filtration efficiency, <code>eps.y</code>, changes from 0.98 to 0.88 during 
 0 to 0.85 seconds.
 After 0.85 seconds, the <code>eps.y</code> remains unchanged when <code>mCon</code> changes.
 This is because the relative mass of contaminant captured by the filter already
-reaches the maximum value.          
+reaches the maximum value.       
 </p>
 </html>", revisions="<html>
 <ul>
