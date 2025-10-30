@@ -324,8 +324,8 @@ across the filter as contaminants build up.
 </li>
 </ul>
 <p>
-Note that these changes in filtration efficiency and pressure drop are relatively minor over the span of a single day,
-with more pronounced effects expected over weeks or even months.
+Note that these changes in filtration efficiency and pressure drop are relatively minor
+over the span of a single day, with more pronounced effects expected over weeks or even months.
 </p>
 </html>", revisions="<html>
 <ul>

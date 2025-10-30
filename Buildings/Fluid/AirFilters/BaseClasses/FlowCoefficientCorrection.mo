@@ -40,7 +40,7 @@ Documentation(info="<html>
 This model calculates the flow coefficient of the filter by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
- kCor = b<sup>rat</sup>,
+kCor = b<sup>rat</sup>,
 </p>
 <p>
 where <code>b</code> is the resistance coefficient and it must be greater than 1,
