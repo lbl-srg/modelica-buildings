@@ -467,18 +467,6 @@ src=\"modelica://Buildings/Resources/Images/DHC/ETS/Combined/ChillerBorefield.pn
           origin={-7.5,22.5},
           rotation=90),
         Rectangle(
-          extent={{116,-46},{144,-18}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=have_WSE),
-        Rectangle(
-          extent={{118,-44},{146,-16}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=have_WSE),
-        Rectangle(
           extent={{-68,78},{72,-82}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -581,11 +569,24 @@ src=\"modelica://Buildings/Resources/Images/DHC/ETS/Combined/ChillerBorefield.pn
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
+          extent={{116,-46},{144,-18}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),
+        Rectangle(
+          extent={{118,-44},{146,-16}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),
+        Rectangle(
           extent={{100,76},{240,-84}},
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
-          visible=have_WSE),  Rectangle(
+          visible=have_WSE),
+        Rectangle(
           extent={{100,74},{240,-84}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
