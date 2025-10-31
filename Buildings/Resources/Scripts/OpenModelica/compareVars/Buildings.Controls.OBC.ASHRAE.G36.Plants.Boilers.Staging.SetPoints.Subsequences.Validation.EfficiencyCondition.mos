@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "effCon.uCapReq",
+    "effCon.uCapUpMin",
+    "effCon.VHotWat_flow",
+    "effCon.VUpMinSet_flow",
+    "effCon.yEffCon",
+    "effCon1.uCapReq",
+    "effCon1.uCapDes",
+    "effCon1.yEffCon",
+    "effCon2.uCapReq",
+    "effCon2.uCapDes",
+    "effCon2.yEffCon"
+  };

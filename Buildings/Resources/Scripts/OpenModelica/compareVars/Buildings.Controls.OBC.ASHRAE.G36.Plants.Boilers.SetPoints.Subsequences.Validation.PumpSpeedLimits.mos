@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "pumSpeLim.uRegSig",
+    "pumSpeLim.yMaxSecPumSpe",
+    "pumSpeLim.yMinPriPumSpe",
+    "pumSpeLim1.uRegSig",
+    "pumSpeLim1.yMaxSecPumSpe"
+  };
