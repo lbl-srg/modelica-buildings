@@ -121,8 +121,7 @@ equation
     experiment(
       StartTime=7776000,
       StopTime=8640000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Validation model for a single building without DHW integration in the ETS.
