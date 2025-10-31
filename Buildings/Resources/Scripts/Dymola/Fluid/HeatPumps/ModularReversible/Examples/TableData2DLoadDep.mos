@@ -1,0 +1,85 @@
+simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDep",
+    tolerance=1e-6,
+    startTime=10497600,
+    stopTime=10503000,
+    method="CVode",
+    resultFile="TableData2DLoadDepHeatPump");
+createPlot(
+    id=1,
+    position={5, 5, 400, 700},
+    subPlot=1,
+    y={"hp.on", "hp.hea"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"TRet.T", "TSup.T", "hp.TSet", "THeaWatRet_nominal", "TChiWatRet_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"hp.port_a1.m_flow", "hp.mCon_flow_nominal", "hp.mEva_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=4,
+    y={"hp.PLR", "hp.COP", "hp.EER"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={415, 5, 400, 400},
+    y={"hp.QCon_flow", "hp.QHea_flow_nominal", "hp.QCoo_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    x="hp.PLR",
+    y={"hp.P"},
+    range={0.0, 1.0, -50000.0, 300000.0},
+    grid=true,
+    colors={{28,108,200}},
+    patterns={LinePattern.None},
+    markers={MarkerStyle.Cross},
+    timeUnit="1",
+    displayUnits={"W"}
+);
+createPlot(
+    id=3,
+    position={830, 5, 400, 700},
+    subPlot=1,
+    y={"hpNrv.on"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"TRet1.T", "TSup1.T", "hpNrv.TSet", "THeaWatRet_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"hpNrv.port_a1.m_flow", "hpNrv.mCon_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=4,
+    y={"hpNrv.PLR", "hpNrv.COP"},
+    autoscale=true,
+    grid=true
+);
