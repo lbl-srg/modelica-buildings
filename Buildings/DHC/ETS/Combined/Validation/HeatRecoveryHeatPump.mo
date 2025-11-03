@@ -1,5 +1,5 @@
 within Buildings.DHC.ETS.Combined.Validation;
-model HeatPumpOnly
+model HeatRecoveryHeatPump
   "Validation of the ETS model with heat recovery heat pump"
   extends Modelica.Icons.Example;
   extends Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialHeatPump;
@@ -24,7 +24,7 @@ equation
     annotation (Line(points={{-309,160},{280,160},{280,60},{272,60}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Validation/HeatPumpOnly.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Validation/HeatRecoveryHeatPump.mos" "Simulate and plot"),
     experiment(
       StopTime=360000,
       Tolerance=1e-06),
@@ -58,8 +58,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities\">
-Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities</a>
+<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump\">
+Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump</a>
 in a system configuration with no geothermal borefield.
 </p>
 <ul>
@@ -79,4 +79,4 @@ Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefie
 </li>
 </ul>
 </html>"));
-end HeatPumpOnly;
+end HeatRecoveryHeatPump;

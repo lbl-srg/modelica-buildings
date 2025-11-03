@@ -1,7 +1,6 @@
-ConnectedETS
 HeatPumpHeatExchanger
 HeatPumpHeatExchangerDHWTank
-HeatPumpThreeUtilities
+HeatRecoveryHeatPump
 Controls
 Subsystems
 Data

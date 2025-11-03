@@ -1,8 +1,8 @@
-simulateModel("Buildings.DHC.ETS.Combined.Validation.HeatPumpOnly",
+simulateModel("Buildings.DHC.ETS.Combined.Validation.HeatRecoveryHeatPump",
     method="Cvode",
     tolerance=1e-6,
     stopTime=360000,
-    resultFile="HeatPumpOnly");
+    resultFile="HeatRecoveryHeatPump");
 createPlot(id=1,
     position={4, 5, 546, 906},
     y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.heaPum.con.resTHeaSup.TWatSupPreSet", "ets.heaPum.con.resTHeaSup.TWatSupSet"},
@@ -72,5 +72,5 @@ createPlot(
     grid=true,
     color=true,
     subPlot=2);
-plotExpression(apply( -HeatPumpOnly.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 5);
-plotExpression(apply( -HeatPumpOnly.loaHea.Q_flow), false, "-loaHea.Q_flow", 5);
+plotExpression(apply( -HeatRecoveryHeatPump.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 5);
+plotExpression(apply( -HeatRecoveryHeatPump.loaHea.Q_flow), false, "-loaHea.Q_flow", 5);

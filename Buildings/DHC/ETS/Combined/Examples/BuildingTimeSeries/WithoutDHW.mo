@@ -1,5 +1,5 @@
-within Buildings.DHC.ETS.Combined.Examples;
-model ConnectedETSNoDHW "ETS connected to building loads without DHW"
+within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries;
+model WithoutDHW "ETS connected to building loads without DHW"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
@@ -37,7 +37,7 @@ model ConnectedETSNoDHW "ETS connected to building loads without DHW"
       displayUnit="degC") = 288.15)
     "District supply temperature"
     annotation (Placement(transformation(extent={{-92,-16},{-72,4}})));
-  Buildings.DHC.ETS.Combined.ConnectedETS bui(
+  Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingETS bui(
     redeclare package MediumSer = Medium,
     redeclare package MediumBui = Medium,
     facTerUniSizHea=1,
@@ -115,7 +115,7 @@ equation
         coordinateSystem(
         preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Examples/ConnectedETSNoDHW.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Examples/BuildingTimeSeries/WithoutDHW.mos" "Simulate and plot"),
     experiment(
       StartTime=7776000,
       StopTime=8640000,
@@ -127,4 +127,4 @@ The model itself does not impose that DHW integration is not present.
 This information is determined from the load profile.
 </p>
 </html>"));
-end ConnectedETSNoDHW;
+end WithoutDHW;

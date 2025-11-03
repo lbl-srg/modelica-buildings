@@ -1,9 +1,9 @@
-within Buildings.DHC.ETS.Combined;
-model ConnectedETS
+within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses;
+model BuildingETS
   "Load connected to the network via ETS with or without DHW integration"
-  extends Buildings.DHC.ETS.Combined.BaseClasses.PartialConnectedETS
+  extends Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.PartialBuildingETS
                                                              (redeclare
-      Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities
+      Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump
       ets(
       final have_hotWat=QHotWat_flow_nominal > Modelica.Constants.eps,
       have_weaBus=true,
@@ -159,4 +159,4 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName = "bui");
-end ConnectedETS;
+end BuildingETS;

@@ -162,8 +162,8 @@ First implementation.
       info="<html>
 <p>
 This block implements the supervisory control functions of the ETS model
-<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities\">
-Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities</a>.
+<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump\">
+Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump</a>.
 </p>
 <ul>
 <li>

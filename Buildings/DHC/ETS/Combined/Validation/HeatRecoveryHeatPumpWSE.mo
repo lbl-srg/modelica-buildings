@@ -1,5 +1,5 @@
 within Buildings.DHC.ETS.Combined.Validation;
-model HeatPumpWSE
+model HeatRecoveryHeatPumpWSE
   "Validation of the ETS model with heat recovery chiller and waterside economizer"
   extends HeatPumpOnly(
     ets(
@@ -25,7 +25,7 @@ equation
     annotation (Line(points={{-309,160},{280,160},{280,60},{272,60}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Validation/HeatPumpWSE.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Validation/HeatRecoveryHeatPumpWSE.mos"
       "Simulate and plot"),
     experiment(
       StopTime=360000,
@@ -56,8 +56,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities\">
-Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities</a>
+<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump\">
+Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump</a>
 in a system configuration with no geothermal borefield.
 </p>
 <ul>
@@ -77,4 +77,4 @@ Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefie
 </li>
 </ul>
 </html>"));
-end HeatPumpWSE;
+end HeatRecoveryHeatPumpWSE;

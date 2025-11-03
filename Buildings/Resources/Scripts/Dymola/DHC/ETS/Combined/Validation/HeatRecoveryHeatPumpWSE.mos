@@ -1,10 +1,8 @@
-simulateModel("Buildings.DHC.ETS.Combined.Examples.HeatPumpOnly",
+simulateModel("Buildings.DHC.ETS.Combined.Validation.HeatRecoveryHeatRecoveryHeatPumpWSE",
     method="Cvode",
     tolerance=1e-6,
-    startTime=6.5E6,
-    stopTime=7E6,
-    resultFile="HeatPumpOnlyExamples");
-Advanced.FilenameInLegend = true;
+    stopTime=360000,
+    resultFile="HeatRecoveryHeatPumpWSE");
 createPlot(id=1,
     position={4, 5, 546, 906},
     y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.heaPum.con.resTHeaSup.TWatSupPreSet", "ets.heaPum.con.resTHeaSup.TWatSupSet"},
@@ -22,7 +20,7 @@ createPlot(id=1,
     grid=true,
     color=true);
 createPlot(id=1,
-    y={"ets.heaPum.con.hea.y", "ets.heaPum.con.uCoo", "ets.opeEtsHex.y"},
+    y={"ets.heaPum.con.hea.y", "ets.heaPum.con.uCoo", "ets.opeEtsHex.y", "ets.WSE.conWSE.y1"},
     subPlot=3,
     autoscale=true,
     autoerase=true,
@@ -41,6 +39,24 @@ createPlot(
 createPlot(
     id=2,
     y={"ets.valIsoEva.y_actual", "ets.valIsoCon.y_actual"},
+    subPlot=2,
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=6,
+    y={"ets.WSE.senT2WatEnt.T", "ets.WSE.senT2WatLvg.T", "ets.WSE.senT1WatEnt.T"},
+    position={580, 28, 539, 607},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=6,
+    y={"ets.WSE.hex.m1_flow", "ets.WSE.hex.m2_flow", "ets.WSE.hex.m1_flow_nominal", "ets.WSE.hex.m2_flow_nominal"},
     subPlot=2,
     autoscale=true,
     autoerase=true,
@@ -74,14 +90,5 @@ createPlot(
     grid=true,
     color=true,
     subPlot=2);
-createPlot(
-    id=5,
-    position={1117, 559, 545, 347},
-    y={"ets.QChiWat_flow_nominal", "ets.QHeaWat_flow_nominal"},
-    autoscale=true,
-    autoerase=true,
-    autoreplot=true,
-    grid=true,
-    color=true);
-plotExpression(apply( -HeatPumpOnlyExamples.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 5);
-plotExpression(apply( -HeatPumpOnlyExamples.loaHea.Q_flow), false, "-loaHea.Q_flow", 5);
+plotExpression(apply( -HeatRecoveryHeatPumpWSE.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 5);
+plotExpression(apply( -HeatRecoveryHeatPumpWSE.loaHea.Q_flow), false, "-loaHea.Q_flow", 5);

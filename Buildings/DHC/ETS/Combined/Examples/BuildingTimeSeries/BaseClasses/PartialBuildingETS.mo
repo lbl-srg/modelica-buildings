@@ -1,5 +1,5 @@
-within Buildings.DHC.ETS.Combined.BaseClasses;
-partial model PartialConnectedETS
+within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses;
+partial model PartialBuildingETS
   extends Buildings.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     redeclare Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
@@ -81,4 +81,4 @@ partial model PartialConnectedETS
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName = "bui");
-end PartialConnectedETS;
+end PartialBuildingETS;

@@ -1,6 +1,6 @@
-within Buildings.DHC.ETS.Combined.Examples;
-model ConnectedETSWithDHW "ETS connected to building loads without DHW"
-  extends Buildings.DHC.ETS.Combined.Examples.ConnectedETSNoDHW
+within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries;
+model WithDHW "ETS connected to building loads without DHW"
+  extends Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithoutDHW
                                                           (filNam=
         "modelica://Buildings/Resources/Data/DHC/Loads/Examples/JBA_All_futu_tendays.mos");
 
@@ -8,7 +8,7 @@ equation
 
 annotation(
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Examples/ConnectedETSWithDHW.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Examples/BuildingTimeSeries/WithDHW.mos" "Simulate and plot"),
     experiment(
       StartTime=7776000,
       StopTime=8640000,
@@ -20,4 +20,4 @@ The model itself does not impose that DHW integration is present.
 This information is determined from the load profile.
 </p>
 </html>"));
-end ConnectedETSWithDHW;
+end WithDHW;

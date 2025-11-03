@@ -1,3 +1,2 @@
-ConnectedETSNoDHW
-ConnectedETSWithDHW
-HeatPumpOnly
+HeatRecoveryHeatPump
+BuildingTimeSeries

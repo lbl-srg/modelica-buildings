@@ -1,5 +1,5 @@
 within Buildings.DHC.ETS.Combined;
-model HeatPumpThreeUtilities
+model HeatRecoveryHeatPump
   "An ETS model with a heat recovery heat pump producing CHW, HHW, and DHW"
   extends Buildings.DHC.ETS.Combined.BaseClasses.PartialParallelNoControl
                                                          (
@@ -878,4 +878,4 @@ effectively keeping the heating enabled at all times.
 </li>
 </ul>
 </html>"));
-end HeatPumpThreeUtilities;
+end HeatRecoveryHeatPump;

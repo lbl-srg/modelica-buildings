@@ -63,7 +63,7 @@ partial model PartialHeatPump
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,40})));
-  Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities ets(
+  Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump ets(
     have_hotWat=false,
     have_weaBus=true,
     QChiWat_flow_nominal=QCoo_flow_nominal,
