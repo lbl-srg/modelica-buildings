@@ -86,8 +86,6 @@ equation
           {78,50}},                  color={0,0,127}));
   connect(dHHeaWat.y, ENet.u[2]) annotation (Line(points={{61,50},{78,50}},
                                      color={0,0,127}));
-  connect(dHChiWat.y, ENet.u[1]) annotation (Line(points={{61,80},{68,80},{68,50},
-          {78,50}},                  color={0,0,127}));
   connect(dHHotWat.y, ENet.u[3]) annotation (Line(points={{61,20},{68,20},{68,
           50},{78,50}},              color={0,0,127}));
   connect(wea.weaBus, bui.weaBus) annotation (Line(
