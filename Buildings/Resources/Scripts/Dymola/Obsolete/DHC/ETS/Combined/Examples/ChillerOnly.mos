@@ -1,12 +1,11 @@
-simulateModel("Buildings.DHC.ETS.Combined.Examples.ChillerBorefield",
+simulateModel("Buildings.Obsolete.DHC.ETS.Combined.Examples.ChillerOnly",
     method="Cvode",
     tolerance=1e-6,
     startTime=6.5E6,
     stopTime=7E6,
-    resultFile="ChillerBorefieldExamples");
+    resultFile="ChillerOnlyExamples");
 Advanced.FilenameInLegend = true;
-createPlot(
-    id=1,
+createPlot(id=1,
     position={4, 5, 546, 906},
     y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupPreSet", "ets.conSup.THeaWatSupSet"},
     autoscale=true,
@@ -14,8 +13,7 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(
-    id=1,
+createPlot(id=1,
     y={"ets.tanChiWat.TTop", "ets.tanChiWat.TBot", "senTChiWatSup.T", "senTChiWatRet.T", "ets.conSup.TChiWatSupPreSet", "ets.conSup.TChiWatSupSet"},
     subPlot=2,
     autoscale=true,
@@ -23,9 +21,8 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-createPlot(
-    id=1,
-    y={"ets.conSup.yHea", "ets.conSup.yCoo", "ets.conSup.yAmb[1]", "ets.conSup.yAmb[2]"},
+createPlot(id=1,
+    y={"ets.conSup.yHea", "ets.conSup.yCoo", "ets.conSup.yAmb[1]"},
     subPlot=3,
     autoscale=true,
     autoerase=true,
@@ -34,7 +31,7 @@ createPlot(
     color=true);
 createPlot(
     id=2,
-    y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1.m_flow",  "ets.hex.pum2.m_flow", "ets.borFie.pum.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal", "ets.borFie.m_flow_nominal"},
+    y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1.m_flow",  "ets.hex.pum2.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal"},
     position={560, 7, 539, 607},
     autoscale=true,
     autoerase=true,
@@ -63,7 +60,11 @@ createPlot(
     id=4,
     position={1672, 8, 557, 898},
     y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.conSup.THeaWatSupSet", "ets.conSup.TChiWatSupSet"},
-    grid=true);
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
 createPlot(
     id=4,
     y={"ets.chi.chi.COP", "ets.datChi.COP_nominal"},
@@ -91,5 +92,5 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-plotExpression(apply( -ChillerBorefieldExamples.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 5);
-plotExpression(apply( -ChillerBorefieldExamples.loaHea.Q_flow), false, "-loaHea.Q_flow", 5);
+plotExpression(apply( -ChillerOnlyExamples.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 5);
+plotExpression(apply( -ChillerOnlyExamples.loaHea.Q_flow), false, "-loaHea.Q_flow", 5);

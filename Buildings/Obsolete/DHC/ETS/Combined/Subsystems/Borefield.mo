@@ -1,10 +1,11 @@
-within Buildings.DHC.ETS.Combined.Subsystems;
+within Buildings.Obsolete.DHC.ETS.Combined.Subsystems;
 model Borefield
   "Base subsystem with geothermal borefield"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=datBorFie.conDat.mBorFie_flow_nominal);
-  replaceable model BorefieldType=Fluid.Geothermal.Borefields.OneUTube
-    constrainedby Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield(
+  replaceable model BorefieldType=Buildings.Fluid.Geothermal.Borefields.OneUTube
+    constrainedby Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield(
       redeclare package Medium=Medium,
       allowFlowReversal=allowFlowReversal,
       borFieDat=datBorFie,
@@ -136,6 +137,7 @@ equation
   connect(gai1.y,pum.m_flow_in)
     annotation (Line(points={{-40,38},{-40,12}},color={0,0,127}));
   annotation (
+    obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     defaultComponentName="borFie",
     Icon(
       coordinateSystem(

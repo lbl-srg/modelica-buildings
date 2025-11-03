@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Subsystems.Validation;
+within Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Validation;
 model Chiller
   "Validation of the base subsystem model with heat recovery chiller"
   extends Modelica.Icons.Example;
@@ -24,7 +24,7 @@ model Chiller
     TConEntMax=333.15)
     "Chiller performance data"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
-  Buildings.DHC.ETS.Combined.Subsystems.Chiller chi(
+  Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Chiller chi(
     redeclare final package Medium=Medium,
     final dat=datChi,
     dpCon_nominal=15E3,
@@ -133,18 +133,25 @@ equation
   connect(TChiWatRet.y,evaWat.T_in)
     annotation (Line(points={{139,-60},{132,-60},{132,-58},{122,-58}},color={0,0,127}));
   annotation (
+        obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-200,-140},{200,140}})),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Subsystems/Validation/Chiller.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DHC/ETS/Combined/Subsystems/Validation/Chiller.mos" "Simulate and plot"),
     experiment(
       StopTime=5000,
       Tolerance=1e-06),
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 3, 2025, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
@@ -154,8 +161,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.Chiller\">
-Buildings.DHC.ETS.Combined.Subsystems.Chiller</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Chiller\">
+Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Chiller</a>.
 </p>
 </html>"));
 end Chiller;

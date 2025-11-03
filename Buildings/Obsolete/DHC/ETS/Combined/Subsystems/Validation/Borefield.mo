@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Subsystems.Validation;
+within Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Validation;
 model Borefield
   "Validation of the base subsystem model with geothermal borefield"
   extends Modelica.Icons.Example;
@@ -11,7 +11,7 @@ model Borefield
   final parameter Modelica.Units.SI.Distance cooBor[nBorHol,2]=
       Buildings.DHC.ETS.BaseClasses.computeCoordinates(
       nBorHol, dxy) "Coordinates of boreholes";
-  Buildings.DHC.ETS.Combined.Subsystems.Borefield borFie(
+  Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Borefield borFie(
     redeclare final package Medium=Medium,
     final datBorFie=datBorFie,
     dp_nominal=5E4,
@@ -83,18 +83,25 @@ equation
   connect(u.y,borFie.yValIso_actual[1])
     annotation (Line(points={{-88,80},{32,80},{32,3},{38,3}},color={0,0,127}));
   annotation (
+        obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-120,-100},{100,100}})),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Subsystems/Validation/Borefield.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DHC/ETS/Combined/Subsystems/Validation/Borefield.mos" "Simulate and plot"),
     experiment(
       StopTime=20000,
       Tolerance=1e-06),
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 3, 2025, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
@@ -104,8 +111,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.Borefield\">
-Buildings.DHC.ETS.Combined.Subsystems.Borefield</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Borefield\">
+Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Borefield</a>.
 </p>
 </html>"));
 end Borefield;

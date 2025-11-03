@@ -259,6 +259,7 @@ equation
   connect(bou.ports[1], colChiWat.port_aDisSup)
     annotation (Line(points={{180,-34},{140,-34}},            color={0,127,255}));
   annotation (
+      obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     Icon(
       coordinateSystem(
         preserveAspectRatio=false)),

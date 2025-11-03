@@ -1,5 +1,6 @@
-within Buildings.DHC.ETS.Combined;
+within Buildings.Obsolete.DHC.ETS.Combined;
 model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.DHC.ETS.Combined.BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
@@ -135,7 +136,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     annotation (Dialog(group="Supervisory controller"));
 
   replaceable
-    Buildings.DHC.ETS.Combined.Subsystems.Chiller
+    Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Chiller
     chi(
     redeclare final package Medium = MediumBui,
     final dpCon_nominal=dpCon_nominal,
@@ -143,7 +144,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     final dat=datChi) "Chiller" annotation (Dialog(group="Chiller"), Placement(
         transformation(extent={{-10,-16},{10,4}})));
   replaceable
-    Buildings.DHC.ETS.Combined.Subsystems.Borefield
+    Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Borefield
     borFie(
     redeclare final package Medium = MediumBui,
     final datBorFie=datBorFie,
@@ -308,6 +309,7 @@ equation
   connect(port_aSerAmb, splWSE.port_1) annotation (Line(points={{-300,-200},{
           -280,-200},{-280,-260},{-230,-260}}, color={0,127,255}));
   annotation (
+  obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -321,6 +323,12 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 3, 2025, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
 <li>
 March 6, 2025, by Hongxiang Fu:<br/>
 Added parameters to support chilled water temperature reset.<br/>
@@ -358,8 +366,8 @@ below.
 <ul>
 <li>
 The heating and cooling functions are provided by a heat recovery chiller, see
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.Chiller\">
-Buildings.DHC.ETS.Combined.Subsystems.Chiller</a>
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Chiller\">
+Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Chiller</a>
 for the operating principles and modeling assumptions.
 The condenser and evaporator loops are equipped with constant speed pumps.
 </li>
@@ -389,7 +397,7 @@ Buildings.DHC.ETS.Combined.Controls.Reset</a>.
 </p>
 <p align=\"center\">
 <img alt=\"System schematics\"
-src=\"modelica://Buildings/Resources/Images/DHC/ETS/Combined/ChillerBorefield.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/DHC/ETS/Combined/ChillerBorefield.png\"/>
 </p>
 </html>"),
     Icon(graphics={

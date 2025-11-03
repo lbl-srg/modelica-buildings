@@ -1,7 +1,7 @@
-within Buildings.DHC.ETS.Combined.Validation;
+within Buildings.Obsolete.DHC.ETS.Combined.Validation;
 model ChillerOnly
   "Validation of the ETS model with heat recovery chiller"
-  extends Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield;
+  extends Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield;
   Modelica.Blocks.Sources.CombiTimeTable TDisWatSup(
     tableName="tab1",
     table=[
@@ -22,14 +22,21 @@ equation
   connect(loa.y[1],loaCooNor.u)
     annotation (Line(points={{-309,160},{280,160},{280,60},{272,60}},color={0,0,127}));
   annotation (
+        obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Validation/ChillerOnly.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/DHC/ETS/Combined/Validation/ChillerOnly.mos" "Simulate and plot"),
     experiment(
       StopTime=360000,
       Tolerance=1e-06),
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 3, 2025, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
 <li>
 November 22, 2024, by Michael Wetter:<br/>
 Removed duplicate connection.
@@ -43,8 +50,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.DHC.ETS.Combined.ChillerBorefield\">
-Buildings.DHC.ETS.Combined.ChillerBorefield</a>
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.ChillerBorefield\">
+Buildings.Obsolete.DHC.ETS.Combined.ChillerBorefield</a>
 in a system configuration with no geothermal borefield.
 </p>
 <ul>
@@ -59,8 +66,8 @@ temperature, corresponding to typical extreme values over a whole year
 </li>
 <li>
 The other modeling assumptions are described in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield\">
-Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield\">
+Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield</a>.
 </li>
 </ul>
 </html>"));

@@ -855,7 +855,7 @@ equation
 Documentation(info="
 <html>
 <p>
-Adapted from Buildings.DHC.ETS.Combined.ChillerBorefield with the following
+Adapted from Buildings.Obsolete.DHC.ETS.Combined.ChillerBorefield with the following
 modifications, with some at the parent level:
 </p>
 <ul>

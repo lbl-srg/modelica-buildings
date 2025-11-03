@@ -36,6 +36,12 @@ equation
       revisions="<html>
 <ul>
 <li>
+November 3, 2025, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
+<li>
 August 22, 2025, by Hongxiang Fu:<br/>
 Updated the ETS component with modular heat pump model.
 </li>
@@ -52,8 +58,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.DHC.ETS.Combined.ChillerBorefield\">
-Buildings.DHC.ETS.Combined.ChillerBorefield</a>
+<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities\">
+Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities</a>
 in a system configuration with no geothermal borefield.
 </p>
 <ul>
@@ -68,8 +74,8 @@ temperature, corresponding to typical extreme values over a whole year
 </li>
 <li>
 The other modeling assumptions are described in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield\">
-Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield\">
+Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield</a>.
 </li>
 </ul>
 </html>"));

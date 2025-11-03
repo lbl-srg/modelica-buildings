@@ -277,7 +277,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Revised from Buildings.DHC.ETS.Combined.BaseClasses.PartialParallel.
+fixme: Revised from Buildings.DHC.ETS.Combined.BaseClasses.PartialParallel.
 </p>
 </html>"));
 end PartialParallelNoControl;

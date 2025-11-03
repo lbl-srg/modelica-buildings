@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Subsystems;
+within Buildings.Obsolete.DHC.ETS.Combined.Subsystems;
 model Chiller
   "Base subsystem with heat recovery chiller"
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
@@ -296,6 +296,7 @@ equation
   connect(TChiWatSupSet,chi.TSet)
     annotation (Line(points={{-220,140},{-188,140},{-188,-3},{-12,-3}},color={0,0,127}));
   annotation (
+    obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     defaultComponentName="chi",
     Icon(
       graphics={
@@ -420,6 +421,12 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 3, 2025, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
 <li>
 March 27, 2024, by David Blum:<br/>
 Update icon and fix port orientation to align with convention.<br/>

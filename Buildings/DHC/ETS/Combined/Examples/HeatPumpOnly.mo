@@ -81,8 +81,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.DHC.ETS.Combined.ChillerBorefield\">
-Buildings.DHC.ETS.Combined.ChillerBorefield</a>
+<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities\">
+Buildings.DHC.ETS.Combined.HeatPumpThreeUtilities</a>
 in a system configuration with no geothermal borefield.
 </p>
 <ul>
@@ -96,8 +96,8 @@ a minimum in January and a maximum in August.
 </li>
 <li>
 The other modeling assumptions are described in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield\">
-Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield\">
+Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield</a>.
 </li>
 </ul>
 </html>"),

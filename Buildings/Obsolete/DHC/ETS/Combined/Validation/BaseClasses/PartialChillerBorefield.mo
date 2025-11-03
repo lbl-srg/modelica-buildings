@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Validation.BaseClasses;
+within Buildings.Obsolete.DHC.ETS.Combined.Validation.BaseClasses;
 partial model PartialChillerBorefield
   "Partial validation of the ETS model with heat recovery chiller and optional borefield"
   extends Modelica.Icons.Example;
@@ -58,7 +58,7 @@ partial model PartialChillerBorefield
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,40})));
-  Buildings.DHC.ETS.Combined.ChillerBorefield ets(
+  Buildings.Obsolete.DHC.ETS.Combined.ChillerBorefield ets(
     redeclare package MediumSer = Medium,
     redeclare package MediumBui = Medium,
     QChiWat_flow_nominal=QCoo_flow_nominal,
