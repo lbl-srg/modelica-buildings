@@ -1,10 +1,7 @@
 within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries;
 model WithDHW "ETS connected to building loads without DHW"
-  extends Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithoutDHW
-                                                          (filNam=
-        "modelica://Buildings/Resources/Data/DHC/Loads/Examples/JBA_All_futu_tendays.mos");
-
-equation
+  extends Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithoutDHW(
+    filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/JBA_All_futu_tendays.mos");
 
 annotation(
     __Dymola_Commands(
@@ -16,8 +13,8 @@ annotation(
 Documentation(info="<html>
 <p>
 Validation model for a single building with DHW integration in the ETS.
-The model itself does not impose that DHW integration is present.
-This information is determined from the load profile.
+Note that the information that a domestic hot water integration is present
+is obtained from the load profile <code>filNam</code>.
 </p>
 </html>"));
 end WithDHW;

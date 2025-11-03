@@ -44,6 +44,7 @@ model WithoutDHW "ETS connected to building loads without DHW"
     final filNam=filNam,
     allowFlowReversalSer=true,
     have_eleNonHva=true)
+    "Building time series with energy transfer station"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Modelica.Blocks.Continuous.Integrator dHHeaWat
     "Cumulative enthalpy difference of heating hot water"
@@ -123,8 +124,8 @@ equation
     Documentation(info="<html>
 <p>
 Validation model for a single building without DHW integration in the ETS.
-The model itself does not impose that DHW integration is not present.
-This information is determined from the load profile.
+Note that the information that a domestic hot water integration is present
+is obtained from the load profile <code>filNam</code>.
 </p>
 </html>"));
 end WithoutDHW;

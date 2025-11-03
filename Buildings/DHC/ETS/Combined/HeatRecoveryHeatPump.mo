@@ -1,8 +1,7 @@
 within Buildings.DHC.ETS.Combined;
 model HeatRecoveryHeatPump
   "An ETS model with a heat recovery heat pump producing CHW, HHW, and DHW"
-  extends Buildings.DHC.ETS.Combined.BaseClasses.PartialParallelNoControl
-                                                         (
+  extends Buildings.DHC.ETS.Combined.BaseClasses.PartialParallelNoControl(
     final have_eleCoo=true,
     final have_fan=false,
     nSysHea=1,
