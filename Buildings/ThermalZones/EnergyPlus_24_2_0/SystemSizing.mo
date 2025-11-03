@@ -4,7 +4,7 @@ model SystemSizing
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
 
-  parameter String hvacSystemName "Name of HVAC system to group autosizing"
+  parameter String hvacSystemName "Name of HVAC system to group zones in autosizing"
     annotation(Dialog(group="Auto-sizing"));
   parameter Boolean autosizeHVAC
     "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica"
@@ -42,8 +42,8 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
-    epName="hvac_sizing_group_"+systemName,
-    systemName="n/a",
+    epName="hvac_sizing_group_"+hvacSystemName,
+    hvacSystemName="n/a",
     runPeriod=building.runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     usePrecompiledFMU=usePrecompiledFMU,
@@ -52,7 +52,7 @@ protected
     logLevel=logLevel,
     printUnit=false,
     jsonName="hvacSystems",
-    jsonKeysValues="        \"name\": \""+systemName+"\",\n        \"autosize\": \""+autosizeHVACStr+"\"",
+    jsonKeysValues="        \"name\": \""+hvacSystemName+"\",\n        \"autosize\": \""+autosizeHVACStr+"\"",
     parOutNames={"QCooSen_flow", "QCooLat_flow", "TOutCoo", "XOutCoo", "mOutCoo_flow", "tCoo",
                  "QHea_flow",                    "TOutHea", "XOutHea", "mOutHea_flow","tHea"},
     parOutUnits={"W", "W", "K", "1", "kg/s", "s",
