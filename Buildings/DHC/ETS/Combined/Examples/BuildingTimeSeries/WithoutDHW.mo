@@ -13,14 +13,14 @@ model WithoutDHW "ETS connected to building loads without DHW"
     filNam = Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/DHC/Loads/Examples/fTMY_Maryland_Prince_George's_NORESM2_2020_2039.mos"))
     "Weather data reader"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-60,-6},{-40,14}})));
   Buildings.Fluid.Sources.Boundary_pT supAmbWat(
     redeclare package Medium = Medium,
     p(displayUnit="bar"),
     use_T_in=true,
     T=280.15,
     nPorts=1) "Ambient water supply"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-10})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-24})));
   Buildings.Fluid.Sources.Boundary_pT sinAmbWat(
     redeclare package Medium = Medium,
     p(displayUnit="bar"),
@@ -36,7 +36,7 @@ model WithoutDHW "ETS connected to building loads without DHW"
       unit="K",
       displayUnit="degC") = 288.15)
     "District supply temperature"
-    annotation (Placement(transformation(extent={{-92,-16},{-72,4}})));
+    annotation (Placement(transformation(extent={{-92,-30},{-72,-10}})));
   Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingETS bui(
     redeclare package MediumSer = Medium,
     redeclare package MediumBui = Medium,
@@ -76,7 +76,8 @@ model WithoutDHW "ETS connected to building loads without DHW"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
 equation
   connect(TDisSup.y,supAmbWat. T_in)
-    annotation (Line(points={{-71,-6},{-62,-6}}, color={0,0,127}));
+    annotation (Line(points={{-71,-20},{-62,-20}},
+                                                 color={0,0,127}));
   connect(bui.dHHeaWat_flow, dHHeaWat.u) annotation (Line(points={{46,-22},{46,
           -38},{22,-38},{22,50},{38,50}}, color={0,0,127}));
   connect(bui.dHChiWat_flow, dHChiWat.u) annotation (Line(points={{48,-22},{48,
@@ -90,7 +91,7 @@ equation
   connect(dHHotWat.y, ENet.u[3]) annotation (Line(points={{61,20},{68,20},{68,
           50},{78,50}},              color={0,0,127}));
   connect(wea.weaBus, bui.weaBus) annotation (Line(
-      points={{0,70},{10,70},{10,4},{50,4},{50,0}},
+      points={{-40,4},{50,4},{50,0}},
       color={255,204,51},
       thickness=0.5));
   connect(senMasFlo.port_a, bui.port_bSerAmb)
@@ -101,8 +102,8 @@ equation
           14,-36},{14,-60},{70,-60},{70,-50}}, color={0,127,255}));
   connect(senHFlo.port_b1, bui.port_aSerAmb) annotation (Line(points={{0,-24},{
           12,-24},{12,-10},{40,-10}}, color={0,127,255}));
-  connect(supAmbWat.ports[1], senHFlo.port_a1) annotation (Line(points={{-40,
-          -10},{-30,-10},{-30,-24},{-20,-24}}, color={0,127,255}));
+  connect(supAmbWat.ports[1], senHFlo.port_a1) annotation (Line(points={{-40,-24},
+          {-20,-24}},                          color={0,127,255}));
   connect(senHFlo.dH_flow, dHFlo.u) annotation (Line(points={{2,-27},{2,-28},{
           10,-28},{10,-80},{38,-80}}, color={0,0,127}));
   connect(bui.PCoo, EChi.u) annotation (Line(points={{62,-3},{62,-4},{70,-4},{
