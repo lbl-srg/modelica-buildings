@@ -194,6 +194,7 @@ Modelica.Blocks.Sources.CombiTimeTable TDisWatSup(
 
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
+    tableName="tab1",
     fileName=Modelica.Utilities.Files.loadResource(filNam),
     timeScale=1,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
