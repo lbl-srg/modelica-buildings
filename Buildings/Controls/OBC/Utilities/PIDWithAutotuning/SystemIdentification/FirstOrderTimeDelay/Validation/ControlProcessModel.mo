@@ -47,10 +47,6 @@ model ControlProcessModel
     offset=0.4)
     "Ratio between the time constant and the time delay"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(
-    k=true)
-    "True signal"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 equation
   connect(tunSta.y, conProMod.triSta)
     annotation (Line(points={{-18,-40},{44,-40},{44,-12}}, color={255,0,255}));
@@ -64,8 +60,6 @@ equation
           {-18,20}}, color={0,0,127}));
   connect(ratioLT.y, conProMod.tau) annotation (Line(points={{-58,-10},{-20,-10},
           {-20,-8},{38,-8}}, color={0,0,127}));
-  connect(truSig.y, conProMod.inTun)
-    annotation (Line(points={{22,-60},{50,-60},{50,-12}}, color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

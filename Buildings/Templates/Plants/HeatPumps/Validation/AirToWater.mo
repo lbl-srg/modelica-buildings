@@ -11,8 +11,7 @@ model AirToWater
     Dialog(group="Configuration"));
   inner parameter UserProject.Data.AllSystems datAll(
     pla(
-      final cfg=pla.cfg))
-    "Plant parameters"
+      final cfg=pla.cfg)) "Plant parameters"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -107,8 +106,7 @@ model AirToWater
     "AHU control bus"
     annotation (Placement(transformation(extent={{-60,120},{-20,160}}),
       iconTransformation(extent={{-340,-140},{-300,-100}})));
-  Interfaces.Bus busPla
-    "Plant control bus"
+  Interfaces.Bus busPla "Plant control bus"
     annotation (Placement(transformation(extent={{-100,-60},{-60,-20}}),
       iconTransformation(extent={{-370,-70},{-330,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(
@@ -167,19 +165,20 @@ model AirToWater
     "Importance multiplier"
     annotation (Placement(transformation(extent={{0,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[4](
-    each k=10)
-    "Constant"
+    each k=10) "Request multiplier factor"
     annotation (Placement(transformation(extent={{40,170},{20,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(datAll.pla.ctl.dpHeaWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max -
+      max(datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
     annotation (Placement(transformation(extent={{10,-170},{-10,-150}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max - max(datAll.pla.ctl.dpChiWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max -
+      max(datAll.pla.ctl.dpChiWatRemSet_max))
     if have_chiWat
     "Piping"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
@@ -316,10 +315,10 @@ The heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
 Three equally sized heat pumps are modeled, which can all be lead/lag alternated.
-A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>) 
+A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>)
 and connected to the HW and CHW return pipes (sidestream integration).
 A unique aggregated load is modeled on each loop by means of a cooling or heating
-component controlled to maintain a constant <i>&Delta;T</i>
+component controlled to maintain a constant <i>&Delta;T</i>,
 and a modulating valve controlled to track a prescribed flow rate.
 An importance multiplier of <i>10</i> is applied to the plant requests
 and reset requests generated from the valve position.
@@ -336,7 +335,7 @@ Simulating this model shows how the plant responds to a varying load by
 </p>
 <ul>
 <li>
-staging or unstaging the AWHPs and associated primary pumps,
+staging or unstaging the AWHPs and the HRC with the associated primary pumps,
 </li>
 <li>
 rotating lead/lag alternate equipment to ensure even wear,
@@ -350,6 +349,14 @@ staging and controlling the secondary pumps to meet the
 remote differential pressure setpoint.
 </li>
 </ul>
+<p>
+Note that the HRC model does not explicitly represent compressor cycling.
+As a result, the cycling-based disabling condition specified in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>
+is never triggered.
+This limitation may lead to overestimating the HRC operating time.
+</p>
 <h4>Details</h4>
 <p>
 By default, all valves within the plant are modeled considering a linear
@@ -363,6 +370,12 @@ various plant configurations.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
 Added sidestream HRC and refactored the model after updating the HP plant template.

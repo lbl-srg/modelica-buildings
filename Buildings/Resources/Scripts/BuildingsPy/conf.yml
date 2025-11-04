@@ -23,7 +23,7 @@
     comment: simulation terminated by an assertion at initialization
     simulate: false
   optimica:
-    comment: FMUException Failed to update the events at time 0.000000E+00.
+    comment: Failed to solve nonlinear equations even with 1E-8.
     simulate: false
 - model_name: Buildings.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
@@ -79,12 +79,7 @@
     comment: Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910
     simulate: false
   optimica:
-    comment: Timeout after 600 seconds
-    simulate: false
-- model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
-  optimica:
-    comment: Simulation times out
-    simulate: false
+    time_out: 600
 - model_name: Buildings.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -150,6 +145,10 @@
   optimica:
     comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
     translate: false
+- model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
+  openmodelica:
+    comment: CVode is around 10 times faster than dassl
+    solver: cvode
 - model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
   openmodelica:
     comment: 'Error in line 1 when reading numeric data of matrix "tab(532,1)"'
@@ -209,60 +208,61 @@
   openmodelica:
     comment: Timeout after 300 s
     time_out: 600
-  optimica:
-    comment: Timeout after 300 s
-    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
     comment: Translation timeout after 600 s
     translate: false
   optimica:
-    translate: false
-    comment: Singularity, Modelon ticket 956
+    comment: Timeout after 300 s
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.InletTemperaturePulse
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse50
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRateStep100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
-  optimica:
-    translate: false
-    comment: Compilation seems to hang, may be related to Modelon ticket 956
+  openmodelica:
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 600
   openmodelica:
     time_out: 600
-  optimica:
-    translate: false
-    comment: Singularity, likely related to Modelon ticket 956
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1And2
+  openmodelica:
+    comment: Translation fails with ubuntu-2204-omc:1.24.0-1 but succeeds with 1.25.1 (simulation succeeds as well).
+    translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1Only
+  openmodelica:
+    comment: Translation fails with ubuntu-2204-omc:1.24.0-1 but succeeds with 1.25.1 (simulation succeeds as well).
+    translate: false
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDep
   openmodelica:
     comment: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed].
@@ -348,7 +348,7 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.Components.Chillers.Validation.Compression
+- model_name: Buildings.Templates.Components.Validation.ChillersCompression
   openmodelica:
     comment: Translation failed.
     translate: false
