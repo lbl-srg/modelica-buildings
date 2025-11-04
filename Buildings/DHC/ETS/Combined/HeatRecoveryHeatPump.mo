@@ -1112,9 +1112,10 @@ equation
           pattern=LinePattern.None,
           visible=have_WSE),
         Rectangle(extent={{-262,140},{258,-142}}, lineColor={95,95,95})}),
-Documentation(info="
-<html>
+Documentation(info="<html>
 <p>
+fixme: update documentation.
+
 Adapted from Buildings.Obsolete.DHC.ETS.Combined.ChillerBorefield with the following
 modifications, with some at the parent level:
 </p>
@@ -1123,11 +1124,6 @@ modifications, with some at the parent level:
 Added a domestic hot water component and related hydraulic components
 and controls blocks. The DHW consumption is computed within this model
 instead of via external connectors.
-</li>
-<li>
-Replaced the water tank components with a component that includes a charge
-command Boolean signal. This is currently done only with the HHW side.
-The same modification is planned for the CHW side.
 </li>
 <li>
 The supervisory controller heating input signal <code>uHea</code> and
