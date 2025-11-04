@@ -514,8 +514,8 @@
     time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
-    comment: Timeout on travis
-    time_out: 600
+    comment: Timeout on travis after 600 seconds
+    time_out: 900
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   openmodelica:
     comment: returned non-zero exit status 255.
