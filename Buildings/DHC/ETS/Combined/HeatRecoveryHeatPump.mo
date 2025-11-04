@@ -1,28 +1,101 @@
 within Buildings.DHC.ETS.Combined;
 model HeatRecoveryHeatPump
   "An ETS model with a heat recovery heat pump producing CHW, HHW, and DHW"
-  extends Buildings.DHC.ETS.Combined.BaseClasses.PartialParallelNoControl(
+  extends Buildings.DHC.ETS.BaseClasses.PartialETS(
+    final typ=Buildings.DHC.Types.DistrictSystemType.CombinedGeneration5,
+    final have_heaWat=true,
+    final have_chiWat=true,
+    final have_pum=true,
     final have_eleCoo=true,
     final have_fan=false,
-    nSysHea=1,
-    nSouAmb=1,
-    VTanHeaWat=datHeaPum.PLRMin*datHeaPum.mCon_flow_nominal*5*60/1000,
-    VTanChiWat=datHeaPum.PLRMin*datHeaPum.mEva_flow_nominal*5*60/1000,
-    colChiWat(mCon_flow_nominal={colAmbWat.mDis_flow_nominal,datHeaPum.mEva_flow_nominal}),
-    colHeaWat(mCon_flow_nominal={colAmbWat.mDis_flow_nominal,datHeaPum.mCon_flow_nominal}),
-    colAmbWat(mCon_flow_nominal={hex.m2_flow_nominal}),
-    totPHea(nin=1),
-    totPCoo(nin=1),
-    totPPum(nin=if have_hotWat then 3 else 2),
-    tanHeaWat(final T_start=TCon_start),
-    tanChiWat(final T_start=TEva_start),
-    valIsoCon(linearized=true),
-    valIsoEva(linearized=true),
-    hex(val2(linearized={true,true})),
+    final have_eleHea=false,
+    final have_weaBus=false,
     nPorts_aHeaWat=1,
     nPorts_bChiWat=1,
     nPorts_bHeaWat=1,
     nPorts_aChiWat=1);
+
+  parameter Buildings.DHC.ETS.Types.ConnectionConfiguration conCon=
+      Buildings.DHC.ETS.Types.ConnectionConfiguration.Pump
+    "District connection configuration" annotation (Evaluate=true);
+  parameter Integer nSysHea = 1
+    "Number of heating systems"
+    annotation (Evaluate=true);
+  parameter Integer nSysCoo=nSysHea
+    "Number of cooling systems"
+    annotation (Evaluate=true);
+  parameter Integer nSouAmb=1
+    "Number of ambient sources"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.PressureDifference dpValIso_nominal(displayUnit=
+        "Pa") = 2E3 "Nominal pressure drop of ambient circuit isolation valves"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dp1Hex_nominal(displayUnit=
+        "Pa") "Nominal pressure drop across heat exchanger on district side"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.Units.SI.PressureDifference dp2Hex_nominal(displayUnit=
+        "Pa") "Nominal pressure drop across heat exchanger on building side"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.Units.SI.HeatFlowRate QHex_flow_nominal
+    "Nominal heat flow rate through heat exchanger (from district to building)"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.Units.SI.Temperature T_a1Hex_nominal
+    "Nominal water inlet temperature on district side"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.Units.SI.Temperature T_b1Hex_nominal
+    "Nominal water outlet temperature on district side"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.Units.SI.Temperature T_a2Hex_nominal
+    "Nominal water inlet temperature on building side"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.Units.SI.Temperature T_b2Hex_nominal
+    "Nominal water outlet temperature on building side"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.Units.SI.MassFlowRate m1Hex_flow_nominal =
+    abs(QHex_flow_nominal/4200/(T_b1Hex_nominal - T_a1Hex_nominal))
+    "Design mass flow rate for heat exchanger on district side";
+  parameter Real spePum1HexMin(
+    final unit="1",
+    min=0)=0.1
+    "Heat exchanger primary pump minimum speed (fractional)"
+    annotation (Dialog(group="District heat exchanger",enable=not have_val1Hex));
+  parameter Real spePum2HexMin(
+    final unit="1",
+    min=0.01)=0.1
+    "Heat exchanger secondary pump minimum speed (fractional)"
+    annotation (Dialog(group="District heat exchanger"));
+  parameter Modelica.Units.SI.Volume VTanHeaWat =
+   datHeaPum.PLRMin*datHeaPum.mCon_flow_nominal*5*60/1000
+   "Heating water tank volume"
+    annotation (Dialog(group="Buffer Tank"));
+  parameter Modelica.Units.SI.Length hTanHeaWat=(VTanHeaWat*16/Modelica.Constants.pi)^(1/3)
+  "Heating water tank height (without insulation, assuming twice the diameter)"
+    annotation (Dialog(group="Buffer Tank"));
+  parameter Modelica.Units.SI.Length dInsTanHeaWat=0.1
+    "Heating water tank insulation thickness"
+    annotation (Dialog(group="Buffer Tank"));
+  parameter Modelica.Units.SI.Volume VTanChiWat =
+   datHeaPum.PLRMin*datHeaPum.mEva_flow_nominal*5*60/1000
+   "Chilled water tank volume"
+    annotation (Dialog(group="Buffer Tank"));
+  parameter Modelica.Units.SI.Length hTanChiWat=(VTanChiWat*16/Modelica.Constants.pi)^(1/3)
+    "Chilled water tank height (without insulation, assuming twice the diameter)"
+    annotation (Dialog(group="Buffer Tank"));
+  parameter Modelica.Units.SI.Length dInsTanChiWat=0.1
+    "Chilled water tank insulation thickness"
+    annotation (Dialog(group="Buffer Tank"));
+  parameter Integer nSegTan=3
+    "Number of volume segments for tanks"
+    annotation (Dialog(group="Buffer Tank"));
+
+  parameter Modelica.Units.SI.TemperatureDifference dTOffSetHea(
+    min=0.5,
+    displayUnit="K") = 1
+    "Temperature to be added to the set point in order to be slightly above what the heating load requires";
+  parameter Modelica.Units.SI.TemperatureDifference dTOffSetCoo(
+    max=-0.5,
+    displayUnit="K") = -1
+    "Temperature to be added to the set point in order to be slightly below what the cooling load requires";
 
   parameter Buildings.DHC.ETS.Combined.Data.HeatPump datHeaPum
     "Heat pump performance data"
@@ -76,16 +149,16 @@ model HeatRecoveryHeatPump
      = datHeaPum.TConLvgMin
     "Minimum value of heating water supply temperature set point (used for heat pump reset)";
 
-  parameter Modelica.Units.SI.PressureDifference dp1WSE_nominal(displayUnit=
-        "Pa") = 40E3
+  parameter Modelica.Units.SI.PressureDifference dp1WSE_nominal(
+    displayUnit="Pa") = 40E3
     "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  parameter Modelica.Units.SI.PressureDifference dp2WSE_nominal(displayUnit=
-        "Pa") = 40E3
+  parameter Modelica.Units.SI.PressureDifference dp2WSE_nominal(
+    displayUnit="Pa") = 40E3
     "Nominal pressure drop across heat exchanger on building side"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Modelica.Units.SI.HeatFlowRate QWSE_flow_nominal=0
-    "Nominal heat flow rate through heat exchanger (<=0)"
+    "Nominal heat flow rate through water-side economizer exchanger (<=0)"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
   parameter Modelica.Units.SI.Temperature T_a1WSE_nominal=279.15
     "Nominal water inlet temperature on district side"
@@ -114,24 +187,19 @@ model HeatRecoveryHeatPump
     "Temperature start value on the evaporator side"
     annotation(Dialog(tab = "Initialization"));
 
-  replaceable Buildings.DHC.ETS.Combined.Subsystems.HeatPumpModular heaPum(
-    redeclare final package Medium = MediumBui,
-    allowFlowReversal=true,
-    final dpCon_nominal=dpCon_nominal,
-    final dpEva_nominal=dpEva_nominal,
-    final dat=datHeaPum,
-    final THeaWatSupSetMin=THeaWatSupSetMin,
-    final TChiWatSupSetMax=TChiWatSupSetMax,
-    dTOffSetHea=dTOffSetHea,
-    dTOffSetCoo=dTOffSetCoo) "Heat pump" annotation (Dialog(group="Chiller"),
-      Placement(transformation(extent={{-10,-16},{10,4}})));
-  Buildings.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
-    redeclare final package Medium1 = MediumBui,
-    final m_flow_nominal=colHeaWat.mDis_flow_nominal)
-    "Variation of enthalpy flow rate"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-274,170})));
+  // INPUTS and OUTPUTS
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(
+    final unit="K",
+    displayUnit="degC")
+    "Heating water supply temperature set point"
+    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),iconTransformation(extent={{-380,
+            -60},{-300,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
+    final unit="K",
+    displayUnit="degC")
+    "Chilled water supply temperature set point"
+    annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),iconTransformation(extent={{-380,
+            -100},{-300,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHHeaWat_flow(final unit="W")
     "Heating water distributed energy flow rate"
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
@@ -144,6 +212,154 @@ model HeatRecoveryHeatPump
       iconTransformation(extent={{-40,-40},{40,40}},
         rotation=-90,
         origin={280,-340})));
+
+  // COMPONENTS
+  replaceable Buildings.DHC.ETS.Combined.Subsystems.HeatPumpModular heaPum(
+    redeclare final package Medium = MediumBui,
+    allowFlowReversal=true,
+    final dpCon_nominal=dpCon_nominal,
+    final dpEva_nominal=dpEva_nominal,
+    final dat=datHeaPum,
+    final THeaWatSupSetMin=THeaWatSupSetMin,
+    final TChiWatSupSetMax=TChiWatSupSetMax,
+    dTOffSetHea=dTOffSetHea,
+    dTOffSetCoo=dTOffSetCoo) "Heat pump" annotation (Dialog(group="Chiller"),
+      Placement(transformation(extent={{-10,-16},{10,4}})));
+
+  Buildings.DHC.ETS.Combined.Subsystems.HeatExchanger hex(
+    redeclare final package Medium1=MediumSer,
+    redeclare final package Medium2=MediumBui,
+    final allowFlowReversal1=allowFlowReversalSer,
+    final allowFlowReversal2=allowFlowReversalBui,
+    final conCon=conCon,
+    final dp1Hex_nominal=dp1Hex_nominal,
+    final dp2Hex_nominal=dp2Hex_nominal,
+    final Q_flow_nominal=QHex_flow_nominal,
+    final T_a1_nominal=T_a1Hex_nominal,
+    final T_b1_nominal=T_b1Hex_nominal,
+    final T_a2_nominal=T_a2Hex_nominal,
+    final T_b2_nominal=T_b2Hex_nominal,
+    final spePum1Min=spePum1HexMin,
+    final spePum2Min=spePum2HexMin,
+    pum2(dpMax=Modelica.Constants.inf)) "District heat exchanger"
+    annotation (Placement(transformation(extent={{-10,-240},{10,-260}})));
+
+  Buildings.DHC.ETS.Combined.Subsystems.StratifiedTankWithCommand tanChiWat(
+    redeclare final package Medium = MediumBui,
+    final isHotWat=false,
+    final m_flow_nominal=colChiWat.mDis_flow_nominal,
+    final VTan=VTanChiWat,
+    final hTan=hTanChiWat,
+    final dIns=dInsTanChiWat,
+    final nSeg=nSegTan,
+    T_start=TEva_start) "Chilled water tank"
+    annotation (Placement(transformation(extent={{200,100},{180,120}})));
+
+  Buildings.DHC.ETS.Combined.Subsystems.StratifiedTankWithCommand tanHeaWat(
+    redeclare final package Medium = MediumBui,
+    final isHotWat=true,
+    final m_flow_nominal=colHeaWat.mDis_flow_nominal,
+    final VTan=VTanHeaWat,
+    final hTan=hTanHeaWat,
+    final dIns=dInsTanHeaWat,
+    final nSeg=nSegTan,
+    T_start=TCon_start) "Heating hot water tank"
+    annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
+
+  Buildings.DHC.ETS.Combined.Subsystems.DHWConsumption tanDhw(
+    redeclare final package Medium = MediumBui,
+    final dat=datDhw,
+    final QHotWat_flow_nominal=datDhw.QHex_flow_nominal,
+    dT_nominal=6,
+    T_start=TCon_start) if have_hotWat "Tank for domestic hot water"
+    annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
+
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valIsoEva(
+    redeclare final package Medium = MediumBui,
+    final dpValve_nominal=dpValIso_nominal,
+    final m_flow_nominal=colAmbWat.mDis_flow_nominal,
+    linearized=true) "Evaporator to ambient loop isolation valve"
+    annotation (Placement(transformation(extent={{70,-130},{50,-110}})));
+
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valIsoCon(
+    redeclare final package Medium = MediumBui,
+    final dpValve_nominal=dpValIso_nominal,
+    final m_flow_nominal=colAmbWat.mDis_flow_nominal,
+    linearized=true) "Condenser to ambient loop isolation valve"
+    annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
+
+  Buildings.DHC.ETS.BaseClasses.CollectorDistributor colChiWat(
+    redeclare final package Medium = MediumBui,
+    final nCon=1 + nSysCoo,
+    mCon_flow_nominal={colAmbWat.mDis_flow_nominal, datHeaPum.mEva_flow_nominal})
+    "Collector/distributor for chilled water" annotation (Placement(
+        transformation(
+        extent={{-20,10},{20,-10}},
+        rotation=180,
+        origin={120,-50})));
+
+  Buildings.DHC.ETS.BaseClasses.CollectorDistributor colHeaWat(
+    redeclare final package Medium = MediumBui,
+    final nCon=1 + nSysHea,
+    mCon_flow_nominal={colAmbWat.mDis_flow_nominal, datHeaPum.mCon_flow_nominal})
+    "Collector/distributor for heating water" annotation (Placement(
+        transformation(
+        extent={{20,10},{-20,-10}},
+        rotation=180,
+        origin={-120,-50})));
+
+  Buildings.DHC.ETS.BaseClasses.CollectorDistributor colAmbWat(
+    redeclare final package Medium = MediumBui,
+    final nCon=nSouAmb,
+    mCon_flow_nominal={hex.m2_flow_nominal})
+    "Collector/distributor for ambient water" annotation (Placement(
+        transformation(
+        extent={{20,-10},{-20,10}},
+        rotation=180,
+        origin={0,-106})));
+
+  Buildings.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloHeaWat(
+    redeclare final package Medium1 = MediumBui,
+    final m_flow_nominal=colHeaWat.mDis_flow_nominal)
+    "Variation of enthalpy flow rate"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={-274,170})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTHexBuiEnt(
+    redeclare final package Medium = MediumBui,
+    final m_flow_nominal=m1Hex_flow_nominal,
+    final allowFlowReversal=true)
+    "Heat exchanger water entering temperature on building side" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={30,-210})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTHexBuiLvg(
+    redeclare final package Medium = MediumBui,
+    final m_flow_nominal=m1Hex_flow_nominal,
+    final allowFlowReversal=true)
+    "Heat exchanger water leaving temperature on building side" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-20,-210})));
+
+  Buildings.Fluid.Sources.Boundary_pT bou(
+    redeclare final package Medium = MediumBui,
+    nPorts=1)
+    "Pressure boundary condition representing expansion vessel (common to HHW and CHW)"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={190,-50})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPPum(
+    nin=if have_hotWat then 3 else 2)
+    "Total pump power"
+    annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
+
   Buildings.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFloChiWat(
     redeclare final package Medium1 = MediumBui,
     final m_flow_nominal=colChiWat.mDis_flow_nominal)
@@ -154,15 +370,8 @@ model HeatRecoveryHeatPump
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPHea(
     final k=0)
     "Zero power"
-    annotation (Placement(transformation(extent={{210,50},{230,70}})));
+    annotation (Placement(transformation(extent={{260,70},{280,90}})));
 
-  Buildings.DHC.ETS.Combined.Subsystems.DHWConsumption tanDhw(
-    redeclare final package Medium = MediumBui,
-    final dat=datDhw,
-    final QHotWat_flow_nominal=datDhw.QHex_flow_nominal,
-    dT_nominal=6,
-    final T_start=TCon_start) if have_hotWat "Tank for domestic hot water"
-    annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valMixHea(
     redeclare package Medium = MediumBui,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -197,7 +406,7 @@ model HeatRecoveryHeatPump
         extent={{-380,60},{-300,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TColWat(final unit="K",
       displayUnit="degC") if have_hotWat
-    "Cold water temperature" annotation (
+    "Cold water temperature that is fed to domestic hot water preparation" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -206,7 +415,8 @@ model HeatRecoveryHeatPump
         rotation=0,
         origin={-340,60})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QReqHotWat_flow(final unit="W")
-    if have_hotWat          "Service hot water load"
+    if have_hotWat
+    "Domestic hot water load"
     annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -223,17 +433,7 @@ model HeatRecoveryHeatPump
         extent={{-40,-40},{40,40}},
         rotation=-90,
         origin={200,-340})));
-  Buildings.DHC.Plants.Cooling.BaseClasses.ParallelPipes parPip(
-    redeclare final package Medium = MediumBui,
-    m_flow_nominal=datHeaPum.mCon_flow_nominal,
-    dp_nominal=0) if not have_hotWat "Parallel pipes for routing purposes"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-150,60})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasDhwPum if have_hotWat
-    "Routing block"
-    annotation (Placement(transformation(extent={{-80,230},{-60,250}})));
+
   Buildings.DHC.ETS.Combined.Controls.TwoTankCoordination twoTanCoo(final
       have_hotWat=have_hotWat)
     "Controller to coordinate heat rejection vs use in space or DHW tank"
@@ -406,8 +606,8 @@ model HeatRecoveryHeatPump
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={264,170})));
-  Subsystems.WatersideEconomizer
-    WSE(
+
+  Subsystems.WatersideEconomizer WSE(
     redeclare final package Medium1 = MediumSer,
     redeclare final package Medium2 = MediumBui,
     final allowFlowReversal1=allowFlowReversalSer,
@@ -422,30 +622,86 @@ model HeatRecoveryHeatPump
     final T_b2_nominal=T_b2WSE_nominal,
     final y1Min=y1WSEMin) if have_WSE "Waterside economizer"
     annotation (Placement(transformation(extent={{220,120},{240,140}})));
-  Buildings.DHC.ETS.BaseClasses.Junction splWSE(redeclare final package Medium
-      = MediumSer, final m_flow_nominal={hex.m1_flow_nominal +
-        m1WSE_flow_nominal,-hex.m1_flow_nominal,-m1WSE_flow_nominal})
+  Buildings.DHC.ETS.BaseClasses.Junction splWSE(
+    redeclare final package Medium = MediumSer,
+    final m_flow_nominal={
+      hex.m1_flow_nominal + m1WSE_flow_nominal,
+     -hex.m1_flow_nominal,
+     -m1WSE_flow_nominal})
     "Flow splitter for WSE"
     annotation (Placement(transformation(extent={{-180,-266},{-160,-246}})));
-  Buildings.DHC.ETS.BaseClasses.Junction mixWSE(redeclare final package Medium
-      = MediumSer, final m_flow_nominal={hex.m1_flow_nominal,-hex.m1_flow_nominal
-         - m1WSE_flow_nominal,m1WSE_flow_nominal})
+  Buildings.DHC.ETS.BaseClasses.Junction mixWSE(
+    redeclare final package Medium = MediumSer,
+    final m_flow_nominal={
+      hex.m1_flow_nominal,
+      -hex.m1_flow_nominal-m1WSE_flow_nominal,
+      m1WSE_flow_nominal})
     "Flow mixer for WSE"
     annotation (Placement(transformation(extent={{180,-246},{200,-266}})));
+
+protected
+  parameter Boolean have_val1Hex=
+    conCon ==Buildings.DHC.ETS.Types.ConnectionConfiguration.TwoWayValve
+    "True in case of control valve on district side, false in case of a pump";
+  Modelica.Blocks.Routing.RealPassThrough reaPasDhwPum if have_hotWat
+    "Routing block"
+    annotation (Placement(transformation(extent={{-80,230},{-60,250}})));
+
+  Buildings.DHC.Plants.Cooling.BaseClasses.ParallelPipes parPip(
+    redeclare final package Medium = MediumBui,
+    m_flow_nominal=datHeaPum.mCon_flow_nominal,
+    dp_nominal=0) if not have_hotWat "Parallel pipes for routing purposes"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-150,60})));
+
 equation
+  connect(totPPum.y,PPum)
+    annotation (Line(points={{282,-60},{290,-60},{290,-40},{320,-40}},
+                                                  color={0,0,127}));
+  connect(valIsoEva.port_b,colAmbWat.port_bDisSup)
+    annotation (Line(points={{50,-120},{30,-120},{30,-106},{20,-106}},color={0,127,255}));
+  connect(valIsoCon.port_b,colAmbWat.port_aDisSup)
+    annotation (Line(points={{-50,-120},{-30,-120},{-30,-106},{-20,-106}},color={0,127,255}));
+  connect(valIsoEva.port_a,colChiWat.ports_aCon[1])
+    annotation (Line(points={{70,-120},{90,-120},{90,-34},{106,-34},{106,-40},{
+          108,-40}},                                         color={0,127,255}));
+  connect(valIsoCon.port_a,colHeaWat.ports_aCon[1])
+    annotation (Line(points={{-70,-120},{-90,-120},{-90,-34},{-108,-34},{-108,
+          -40}},                                                color={0,127,255}));
+  connect(bou.ports[1], colChiWat.port_aDisSup)
+    annotation (Line(points={{180,-50},{140,-50}},            color={0,127,255}));
+  connect(TChiWatSupSet, tanChiWat.TTanSet) annotation (Line(points={{-320,-60},
+          {-240,-60},{-240,128},{208,128},{208,119},{201,119}},
+                 color={0,0,127}));
+  connect(colAmbWat.port_bDisRet, colHeaWat.ports_bCon[1]) annotation (Line(
+        points={{-20,-100},{-150,-100},{-150,-34},{-132,-34},{-132,-40}}, color
+        ={0,127,255}));
+  connect(colAmbWat.port_aDisRet, colChiWat.ports_bCon[1]) annotation (Line(
+        points={{20,-100},{154,-100},{154,-34},{132,-34},{132,-40}}, color={0,
+          127,255}));
+  connect(THeaWatSupSet, tanHeaWat.TTanSet) annotation (Line(points={{-320,-20},
+          {-244,-20},{-244,119},{-201,119}},            color={0,0,127}));
+  connect(senTHexBuiLvg.port_b, colAmbWat.ports_aCon[1]) annotation (Line(
+        points={{-20,-200},{-20,-146},{12,-146},{12,-116}}, color={0,127,255}));
+  connect(hex.port_b2, senTHexBuiLvg.port_a) annotation (Line(points={{-10,-244},
+          {-20,-244},{-20,-220}}, color={0,127,255}));
+  connect(hex.port_a2, senTHexBuiEnt.port_b) annotation (Line(points={{10,-244},
+          {30,-244},{30,-220}}, color={0,127,255}));
+  connect(senTHexBuiEnt.port_a, colAmbWat.ports_bCon[1]) annotation (Line(
+        points={{30,-200},{30,-152},{-12,-152},{-12,-116}}, color={0,127,255}));
+  connect(totPPum.u[1], hex.PPum) annotation (Line(points={{258,-60},{220,-60},
+          {220,-250},{12,-250}}, color={0,0,127}));
   connect(dHFloHeaWat.dH_flow, dHHeaWat_flow) annotation (Line(points={{-271,
           182},{-271,206},{290,206},{290,160},{320,160}},
                                  color={0,0,127}));
   connect(dHFloChiWat.dH_flow, dHChiWat_flow) annotation (Line(points={{261,142},
           {261,148},{292,148},{292,120},{320,120}}, color={0,0,127}));
-  connect(totPHea.u[1], zerPHea.y)
-    annotation (Line(points={{258,60},{232,60}}, color={0,0,127}));
   connect(heaPum.port_bChiWat, colChiWat.ports_aCon[2]) annotation (Line(points
         ={{-10,-12},{-20,-12},{-20,-40},{108,-40}}, color={0,127,255}));
   connect(colHeaWat.ports_aCon[2], heaPum.port_bHeaWat) annotation (Line(points
         ={{-108,-40},{-108,-24},{20,-24},{20,0},{10,0}}, color={0,127,255}));
-  connect(heaPum.PChi, totPCoo.u[1]) annotation (Line(points={{12,-4},{30,-4},{
-          30,20},{258,20}}, color={0,0,127}));
   connect(heaPum.PPum, totPPum.u[2]) annotation (Line(points={{12,-8},{30,-8},{30,
           -70},{246,-70},{246,-60},{258,-60}},    color={0,0,127}));
   connect(tanDhw.THotWatSupSet, THotWatSupSet) annotation (Line(points={{-202,
@@ -635,6 +891,10 @@ equation
           -178,256},{-36,256},{-36,260},{300,260}}, color={0,127,255}));
   connect(senTSpaCooSup.port_b, ports_aChiWat[1]) annotation (Line(points={{160,
           190},{-40,190},{-40,200},{-300,200}}, color={0,127,255}));
+  connect(heaPum.PChi, PCoo) annotation (Line(points={{12,-4},{40,-4},{40,20},{280,
+          20},{280,40},{320,40}}, color={0,0,127}));
+  connect(zerPHea.y, PHea)
+    annotation (Line(points={{282,80},{320,80}}, color={0,0,127}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{12,-40},{40,-12}},

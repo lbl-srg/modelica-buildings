@@ -13,7 +13,7 @@ annotation(
 Documentation(info="<html>
 <p>
 Validation model for a single building with DHW integration in the ETS.
-Note that the information that a domestic hot water integration is present
+fixme: Note that the information that a domestic hot water integration is present
 is obtained from the load profile <code>filNam</code>.
 </p>
 </html>"));

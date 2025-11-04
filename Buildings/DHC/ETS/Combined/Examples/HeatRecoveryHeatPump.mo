@@ -58,21 +58,22 @@ model HeatRecoveryHeatPump
       displayUnit="degC"))
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(redeclare package
-      Medium = Medium, m_flow_nominal=datHeaPum.mCon_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datHeaPum.mCon_flow_nominal)
     "Heating water supply temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-60,40})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatSup(redeclare package
-      Medium = Medium, m_flow_nominal=datHeaPum.mEva_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatSup(
+    redeclare package Medium = Medium,
+    m_flow_nominal=datHeaPum.mEva_flow_nominal)
     "Chilled water supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,40})));
   Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump ets(
     have_hotWat=false,
-    have_weaBus=true,
     QChiWat_flow_nominal=QCoo_flow_nominal,
     QHeaWat_flow_nominal=QHea_flow_nominal,
     QHotWat_flow_nominal=0,
