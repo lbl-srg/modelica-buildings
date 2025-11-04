@@ -1,6 +1,7 @@
-within Buildings.DHC.ETS.Combined.BaseClasses;
+within Buildings.Obsolete.DHC.ETS.Combined.BaseClasses;
 model PartialParallel
   "Partial ETS model with district heat exchanger and parallel connection of production systems"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.DHC.ETS.BaseClasses.PartialETS(
     final typ=Buildings.DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_heaWat=true,
@@ -274,6 +275,7 @@ equation
           pattern=LinePattern.Dash)}),
     defaultComponentName="ets",
     Documentation(
+      obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
       info="<html>
 <p>
 This is a base model providing the hydronic configuration for an energy transfer
@@ -336,11 +338,17 @@ being hydronically connected.
 </p>
 <p>
 <img alt=\"Sequence chart\"
-src=\"modelica://Buildings/Resources/Images/DHC/ETS/Combined/BaseClasses/PartialParallel.png\"/>
+src=\"modelica://Buildings/Resources/Images/Obsolete/DHC/ETS/Combined/BaseClasses/PartialParallel.png\"/>
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2025, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
 <li>
 July 14, 2021, by Antoine Gautier:<br/>
 Added pressure boundary condition.<br/>

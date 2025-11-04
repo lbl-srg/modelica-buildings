@@ -1,7 +1,7 @@
 within Buildings.Obsolete.DHC.ETS.Combined;
 model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
   extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
-  extends Buildings.DHC.ETS.Combined.BaseClasses.PartialParallel(
+  extends Buildings.Obsolete.DHC.ETS.Combined.BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
     redeclare replaceable Buildings.DHC.ETS.Combined.Controls.Supervisory conSup
