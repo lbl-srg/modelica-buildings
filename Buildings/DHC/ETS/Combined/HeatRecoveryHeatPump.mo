@@ -30,10 +30,11 @@ model HeatRecoveryHeatPump
     Dialog(group="Chiller"),
     choicesAllMatching=true,
     Placement(transformation(extent={{20,220},{40,240}})));
-  parameter
-    Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datDhw
+  parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datDhw
     "Performance data of the domestic hot water component"
-    annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-40,220},{-20,240}})));
   parameter Boolean have_WSE=false
     "Set to true in case a waterside economizer is used"
     annotation (Evaluate=true);

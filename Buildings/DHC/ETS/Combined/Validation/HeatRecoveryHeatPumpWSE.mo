@@ -1,12 +1,12 @@
 within Buildings.DHC.ETS.Combined.Validation;
 model HeatRecoveryHeatPumpWSE
   "Validation of the ETS model with heat recovery chiller and waterside economizer"
-  extends HeatPumpOnly(
-    ets(
-      have_WSE=true), TChiWatSupSet(k=12 + 273.15));
-  Modelica.Blocks.Sources.CombiTimeTable TDisWatSup(
-    tableName="tab1",
-    table=[
+  extends Buildings.DHC.ETS.Combined.Validation.HeatRecoveryHeatPump(
+    ets(have_WSE=true),
+    TChiWatSupSet(k=12 + 273.15),
+    TDisWatSup(
+      tableName="tab1",
+      table=[
       0,11;
       49,11;
       50,20;
@@ -15,14 +15,8 @@ model HeatRecoveryHeatPumpWSE
     timeScale=3600,
     offset={273.15},
     columns={2},
-    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
-    "District water supply temperature"
-    annotation (Placement(transformation(extent={{-330,-150},{-310,-130}})));
-equation
-  connect(loa.y[2],heaLoaNor.u)
-    annotation (Line(points={{-309,160},{-300,160},{-300,60},{-252,60}},color={0,0,127}));
-  connect(loa.y[1],loaCooNor.u)
-    annotation (Line(points={{-309,160},{280,160},{280,60},{272,60}},color={0,0,127}));
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1));
+
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Validation/HeatRecoveryHeatPumpWSE.mos"

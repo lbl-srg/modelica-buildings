@@ -1,6 +1,6 @@
 within Buildings.DHC.ETS.Combined.Validation.BaseClasses;
 partial model PartialHeatPump
-  "Partial validation of the ETS model with heat pump and optional water-side economiser"
+  "fixme: this can be deleted. Partial validation of the ETS model with heat pump and optional water-side economiser"
   package Medium=Buildings.Media.Water
     "Medium model";
   parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=0.9*datHeaPum.mCon_flow_nominal
@@ -160,12 +160,6 @@ partial model PartialHeatPump
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow loaCoo
     "Cooling load as prescribed heat flow rate"
     annotation (Placement(transformation(extent={{182,50},{162,70}})));
-  Modelica.Blocks.Routing.RealPassThrough heaLoaNor
-    "Connect with normalized heating load"
-    annotation (Placement(transformation(extent={{-250,50},{-230,70}})));
-  Modelica.Blocks.Routing.RealPassThrough loaCooNor
-    "Connect with normalized cooling load"
-    annotation (Placement(transformation(extent={{270,50},{250,70}})));
   Modelica.Blocks.Sources.CombiTimeTable TDisWatSup(
     tableName="tab1",
     table=[
@@ -345,14 +339,6 @@ equation
     annotation (Line(points={{162,60},{149,60},{149,10}},color={191,0,0}));
   connect(volHeaWat.ports[2],senTHeaWatRet.port_a)
     annotation (Line(points={{-101,-1},{-101,-28},{-70,-28}},color={0,127,255}));
-  connect(heaLoaNor.y,gai3.u)
-    annotation (Line(points={{-229,60},{-182,60}},color={0,0,127}));
-  connect(heaLoaNor.y,gai1.u)
-    annotation (Line(points={{-229,60},{-220,60},{-220,120},{60,120},{60,100},{42,100}},color={0,0,127}));
-  connect(loaCooNor.y,gai4.u)
-    annotation (Line(points={{249,60},{222,60}},color={0,0,127}));
-  connect(loaCooNor.y,gai2.u)
-    annotation (Line(points={{249,60},{240,60},{240,120},{80,120},{80,100},{88,100}},color={0,0,127}));
   connect(TDisWatSup.y[1],disWat.T_in)
     annotation (Line(points={{-309,-140},{-140,-140},{-140,-136},{-122,-136}},color={0,0,127}));
   connect(disWat.ports[1],senTDisWatSup.port_a)
