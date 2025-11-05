@@ -129,7 +129,8 @@ model WatersideEconomizer
     final m_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpVal2_nominal,
     final dpFixed_nominal={dp2Hex_nominal,0},
-    fraK=1) "Heat exchanger secondary control valve" annotation (Placement(
+    fraK=1) "Heat exchanger secondary actuation valve (open or close)"
+                                                     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

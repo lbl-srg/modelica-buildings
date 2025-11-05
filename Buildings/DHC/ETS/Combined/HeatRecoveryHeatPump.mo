@@ -1114,24 +1114,230 @@ equation
         Rectangle(extent={{-262,140},{258,-142}}, lineColor={95,95,95})}),
 Documentation(info="<html>
 <p>
-fixme: update documentation.
-
-Adapted from Buildings.Obsolete.DHC.ETS.Combined.ChillerBorefield with the following
-modifications, with some at the parent level:
+Model of an Energy Transfer Station with heat recovery heat pump,
+buffer tanks and optional domestic hot water preparation and
+optional water-side economizer.
 </p>
-<ul>
-<li>
-Added a domestic hot water component and related hydraulic components
-and controls blocks. The DHW consumption is computed within this model
-instead of via external connectors.
-</li>
-<li>
-The supervisory controller heating input signal <code>uHea</code> and
-cooling input signal <code>uCoo</code> now come from the tank(s) instead of
-coming externally. This change was made because the synthetic
-hourly DHW load profile from calibrated simulation is always positive,
-effectively keeping the heating enabled at all times.
-</li>
-</ul>
+<p>
+The figure below shows the schematic diagram.
+The heat recovery heat pump preferentially operates
+in heat recovery mode, but if heating (or cooling) demand
+persists while the cold (or hot) water-side buffer tank is fully
+charged, the evaporator (or condenser) temperature is reset,
+the corresponding tank is decoupled to avoid flushing the tank,
+and heat is exchanged with the district energy system.
+</p>
+
+<p align=\"center\">
+    <img src=\"modelica://Buildings/Resources/Images/DHC/ETS/Combined/HeatRecoveryHeatPump.png\"
+         alt=\"Schematic diagram of the ETS.\"
+         style=\"width: 100%; height: auto;\">
+<p>
+The operation is as follows:
+</p>
+<h4>Domestic Hot Water Tank and Buffer Tanks</h4>
+
+<p>
+The chilled water and heating hot water tanks are
+by default sized for five minutes and used as buffer tanks. The
+DHW tank is by default sized for 24 hours of storage. Each tank
+generates a signal to request charging. If the
+temperature of its supply side (top for the hot tank,
+bottom for the cold tank) deviates from the set point
+with hysteresis, charging is enabled until the
+temperature of its return side (bottom for the hot
+tank, top for the cold tank) achieves the set point
+with hysteresis.</p>
+
+<p>
+When the space heating or cooling tank does not
+request charging, the diversion valve <code>VAL_DIV_CON</code>
+or <code>VAL_DIV_EVA</code> to the respective tank is closed, and
+the isolation valve <code>VAL_ISO_CON</code> or <code>VAL_ISO_EVA</code>
+is opened to allow energy exchange with the district
+heat exchanger. The diversion valves are necessary
+because, for example, when the ETS operates cooling
+only mode, rejecting heat to the ambient loop, the
+condenser outputs hot water at the minimum leaving
+temperature is <i>15&deg;C</i>. Without the diversion
+valve, the cool water from the condenser would flush
+out the energy stored in the space heating tank.
+This causes energy waste. It also causes short
+cycling because the tank will request charging
+repeatedly as its temperature falls below the
+heating set point, bring the system into a limit
+cycle.</p>
+
+<h4>Two-tank Coordination on the Condenser Side</h4>
+
+<p>
+The integration of the DHW tank is optional, as
+not all buildings prepare DHW using the ETS. When
+integrated, the space heating and DHW tank share the
+same condenser loop. The table below
+explains how the two loops are coordinated through
+valve control.
+</p>
+
+<table style=\"margin-left: auto; margin-right: auto; border-collapse: collapse; border: 1px solid black;\">
+    <caption>Control signal coordination of the DHW
+        tank and the space heating tank. Depending on the
+        charge signal, the control block computes the position
+        y<sub>mix</sub> of the mixing valve <code>VAL_MIX</code> (position 1 is
+        to the space heating tank, position 0 is to the DHW
+        tank) and y<sub>div</sub> of the condenser-side diversion
+        valve <code>VAL_DIV_CON</code>.</caption>
+    <thead style=\"background-color: #f0f0f0;\">
+        <tr>
+            <th colspan=\"2\"
+                style=\"text-align: center; border: 1px solid black; padding: 5px;\">
+                <strong>Charge signal</strong></th>
+            <th colspan=\"2\"
+                style=\"text-align: center; border: 1px solid black; padding: 5px;\">
+                <strong>Controller output</strong></th>
+        </tr>
+        <tr>
+            <th style=\"text-align: left; border: 1px solid black; padding: 5px;\">DHW</th>
+            <th style=\"text-align: left; border: 1px solid black; padding: 5px;\">HHW</th>
+            <th style=\"text-align: left; border: 1px solid black; padding: 5px;\">y<sub>mix</sub></th>
+            <th style=\"text-align: left; border: 1px solid black; padding: 5px;\">y<sub>div</sub></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style=\"border: 1px solid black; padding: 5px;\">on</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">on</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">0.5</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">1</td>
+        </tr>
+        <tr>
+            <td style=\"border: 1px solid black; padding: 5px;\">on</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">off</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">0</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">1</td>
+        </tr>
+        <tr>
+            <td style=\"border: 1px solid black; padding: 5px;\">off</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">on</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">1</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">1</td>
+        </tr>
+        <tr>
+            <td style=\"border: 1px solid black; padding: 5px;\">off</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">off</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">1</td>
+            <td style=\"border: 1px solid black; padding: 5px;\">0</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Heat Recovery Heat Pump</h4>
+<p>
+The heat recovery heat pump can produce heating,
+cooling, or both simultaneously. The condenser pump
+<code>PUM_CON</code> and the evaporator pump <code>PUM_EVA</code> are enabled
+when any of the respective tanks requests charging.
+The heat pump is turned on <i>30</i> seconds after
+<code>PUM_CON</code> and <code>PUM_EVA</code> are running.
+</p>
+<p>
+When on, the primary pumps are operated at constant
+speed, and the condenser (resp. evaporator) mixing
+valve <code>VAL_CON</code> (resp. <code>VAL_EVA</code>) are modulated with a
+P controller to track the set point for the water
+that leaves the heat pump, with a small offset to
+open first the valve and then ramp up the compressor
+speed.
+</p>
+<p>
+The compressor speed is controlled based on the
+same temperature measurement as the mixing valves.
+Based on a moving average of the compressor speed
+signal for heating and cooling, the heat pump control
+is switched into heating or cooling dominated
+operation, and the respective compressor speed
+setpoint is sent to the heat pump.
+</p>
+<p>
+If only heating (or only cooling) is requested
+from the tank, then the evaporator (or condenser)
+set point temperature is reset to minimize the
+temperature lift across the heat pump.
+</p>
+<h4>District Heat Exchanger</h4>
+<p>
+The district heat exchanger hydraulically decouples
+the buildings system and the district system. Its
+primary and secondary circuits are enabled to operate
+if either any of the tanks request charging, and if
+an isolation valve <code>VAL_ISO_CON</code> or <code>VAL_ISO_EVA</code>
+is open. When enabled, the pumps <code>PUM1_DHX</code> and
+<code>PUM2_DHX</code> operate at a constant speed.
+</p>
+<h4>Temperature Set Points</h4>
+<p>
+The set points for the supply temperatures are input to this
+model.
+For the heating supply water, use <code>THeaWatSupSet</code>,
+for the cooling supply water, use <code>TChiWatSupSet</code>.
+</p>
+<p>
+If a domestic hot water supply is present, as declared
+through the parameter <code>have_hotWat</code>,
+then use <code>THotWatSupSet</code> for the set point
+temperature to the end user (such as shower),
+and use <code>TColWat</code> for the temperature of the cold water supply
+and <code>QReqHotWat_flow</code> for the heat flow rate associated
+with the hot water supply, i.e.,
+<code>QReqHotWat_flow = mHotWat_flow c<sub>wat</sub> (THotWatSupSet-TColWat)</code>, where
+<code>mHotWat_flow</code> is the hot water mass flow rate, and
+<code>c<sub>wat</sub></code> is the specific heat capacity of water.
+</p>
+<h4>Domestic Hot Water Preparation</h4>
+<p>
+The DHW preparation is optional.
+If present, a fresh water station is used.
+The fresh water station allows to
+store heat in the heating rather than the
+domestic hot water, therefore avoiding the potential problem
+of Legionella bacteria getting from the
+hot water tank to the DHW circuit.
+This allows to operate the storage at a lower temperature,
+thereby increasing the heat pump COP.
+</p>
+<p>
+The integration of the domestic hot water is further described in
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.DHWConsumption\">
+Buildings.DHC.ETS.Combined.Subsystems.DHWConsumption</a>,
+which uses the fresh water station that is described and shown
+with a schematic diagram at
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.StorageTankWithExternalHeatExchanger\">
+Buildings.DHC.ETS.Combined.Subsystems.StorageTankWithExternalHeatExchanger</a>.
+</p>
+<h4>Water-side economizer</h4>
+<p>
+The water-side economizer is optional.
+Use of the water-side economizer can improve resilience during heat waves
+when power consumption of the ETS need to be curtailed by switching of the chiller,
+for example during a grid outage when the site operates
+on emergency power.
+</p>
+<p>
+To use the water-side economizer, if the temperature conditions are favorable,
+the valves (or pumps) are activated
+in order to cool the chilled water supply to the building.
+This model and its operation is described in
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.WatersideEconomizer\">
+Buildings.DHC.ETS.Combined.Subsystems.WatersideEconomizer</a>.
+and in Gautier et al. (2022).
+</p>
+<h4>References</h4>
+<p>
+Antoine Gautier, Michael Wetter and Matthias Sulzer.<br/>
+<a href=\"https://doi.org/10.1016/j.apenergy.2022.119880\">
+Resilient cooling through geothermal district energy system</a>.</br>
+<i>Applied Energy</i>, 325, November, 2022.
+</p>
+
 </html>"));
 end HeatRecoveryHeatPump;

@@ -195,5 +195,8 @@ equation
           fillColor={255,255,0},
           fillPattern=FillPattern.Solid)}),
                                           Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+fixme: add documentation.
+</html>"));
 end DHWConsumption;
