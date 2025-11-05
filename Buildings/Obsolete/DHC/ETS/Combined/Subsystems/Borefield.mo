@@ -12,9 +12,9 @@ model Borefield
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Wall heat transfer"
     annotation (choicesAllMatching=true);
-  replaceable parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
+  replaceable parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example())
-    constrainedby Fluid.Geothermal.Borefields.Data.Borefield.Template(
+    constrainedby Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template(
       conDat(
         dp_nominal=0))
     "Borefield parameters"
@@ -38,7 +38,7 @@ model Borefield
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
     iconTransformation(extent={{-140,60},{-100,100}})));
   // COMPONENTS
-  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
+  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=false,
@@ -57,7 +57,7 @@ model Borefield
     final dp_nominal=dpValBorFie_nominal+dp_nominal)
     "Pump with prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-40,0})));
-  Fluid.Sensors.TemperatureTwoPort senTEnt(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTEnt(
     final tau=
       if allowFlowReversal then
         1
@@ -76,7 +76,7 @@ model Borefield
     final m_flow_nominal=m_flow_nominal .* {1,-1,-1})
     "Flow splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={80,0})));
-  Fluid.Sensors.TemperatureTwoPort senTLvg(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTLvg(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal)

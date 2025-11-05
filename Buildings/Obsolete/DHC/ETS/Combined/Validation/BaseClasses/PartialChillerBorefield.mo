@@ -100,7 +100,7 @@ partial model PartialChillerBorefield
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-140})));
-  DHC.ETS.BaseClasses.Pump_m_flow pumChiWat(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumChiWat(
     redeclare package Medium = Medium,
     final m_flow_nominal=mChiWat_flow_nominal,
     dp_nominal=100E3) "Chilled water distribution pump"
@@ -111,7 +111,7 @@ partial model PartialChillerBorefield
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=
         mHeaWat_flow_nominal) "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{40,90},{20,110}})));
-  DHC.ETS.BaseClasses.Pump_m_flow pumHeaWat(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumHeaWat(
     redeclare package Medium = Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
     dp_nominal=100E3) "Heating water distribution pump"
@@ -304,7 +304,7 @@ partial model PartialChillerBorefield
     y(unit="J"))
     "Chiller electricity use"
     annotation (Placement(transformation(extent={{300,-70},{320,-50}})));
-  Fluid.Sensors.TemperatureTwoPort senTDisWatRet(redeclare final package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTDisWatRet(redeclare final package Medium =
         Medium, final m_flow_nominal=ets.hex.m1_flow_nominal)
     "District water return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

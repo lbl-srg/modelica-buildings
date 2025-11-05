@@ -114,7 +114,7 @@ model Chiller
     annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
     iconTransformation(extent={{100,-40},{140,0}})));
   // COMPONENTS
-  Fluid.Chillers.ElectricEIR chi(
+  Buildings.Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium,
     final allowFlowReversal1=allowFlowReversal,
@@ -178,7 +178,7 @@ model Chiller
     final m_flow_nominal=dat.mCon_flow_nominal .* {1,-1,-1})
     "Flow splitter"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=0,origin={120,60})));
-  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valEva(
+  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valEva(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=false,
@@ -191,7 +191,7 @@ model Chiller
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={120,-60})));
-  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valCon(
+  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valCon(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=false,

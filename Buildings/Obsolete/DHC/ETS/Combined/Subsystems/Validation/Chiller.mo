@@ -4,7 +4,7 @@ model Chiller
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
-  parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi(
+  parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi(
     QEva_flow_nominal=-1E6,
     COP_nominal=3,
     PLRMax=1,
@@ -31,13 +31,13 @@ model Chiller
     dpEva_nominal=15E3)
     "Subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{-10,-72},{10,-52}})));
-  Fluid.Sources.Boundary_pT evaWat(
+  Buildings.Fluid.Sources.Boundary_pT evaWat(
     redeclare package Medium=Medium,
     use_T_in=true,
     nPorts=2)
     "Evaporator water boundary conditions"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,-62})));
-  Fluid.Sources.Boundary_pT conWat(
+  Buildings.Fluid.Sources.Boundary_pT conWat(
     redeclare package Medium=Medium,
     use_T_in=true,
     nPorts=2)
@@ -49,22 +49,22 @@ model Chiller
       displayUnit="degC"))
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(
     redeclare final package Medium=Medium,
     m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-80,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatSup(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatSup(
     redeclare final package Medium=Medium,
     m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={70,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
     redeclare final package Medium=Medium,
     m_flow_nominal=datChi.mCon_flow_nominal)
     "Heating water return temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-80,-80})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
     redeclare final package Medium=Medium,
     m_flow_nominal=datChi.mEva_flow_nominal)
     "Chilled water return temperature"

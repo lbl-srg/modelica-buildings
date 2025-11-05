@@ -1,7 +1,6 @@
 within Buildings.Obsolete.DHC.ETS.Combined.BaseClasses;
 model PartialParallel
   "Partial ETS model with district heat exchanger and parallel connection of production systems"
-  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.DHC.ETS.BaseClasses.PartialETS(
     final typ=Buildings.DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_heaWat=true,
@@ -191,7 +190,7 @@ model PartialParallel
         origin={190,-34})));
 protected
   parameter Boolean have_val1Hex=
-    conCon == DHC.ETS.Types.ConnectionConfiguration.TwoWayValve
+    conCon == Buildings.DHC.ETS.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   connect(hex.PPum,totPPum.u[1])
@@ -275,7 +274,6 @@ equation
           pattern=LinePattern.Dash)}),
     defaultComponentName="ets",
     Documentation(
-      obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
       info="<html>
 <p>
 This is a base model providing the hydronic configuration for an energy transfer

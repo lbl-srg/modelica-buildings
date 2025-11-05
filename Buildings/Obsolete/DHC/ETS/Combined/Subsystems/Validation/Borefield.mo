@@ -18,23 +18,23 @@ model Borefield
     TBorWatEntMax=313.15)
     "Subsystem with heat recovery chiller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Fluid.Sources.Boundary_pT conWat(
+  Buildings.Fluid.Sources.Boundary_pT conWat(
     redeclare package Medium=Medium,
     use_T_in=true,
     nPorts=2)
     "Condenser water boundary conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-40,-2})));
-  Fluid.Sensors.TemperatureTwoPort senTInl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTInl(
     redeclare final package Medium=Medium,
     m_flow_nominal=borFie.pum.m_flow_nominal)
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-10,20})));
-  Fluid.Sensors.TemperatureTwoPort senTOut(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTOut(
     redeclare final package Medium=Medium,
     m_flow_nominal=borFie.pum.m_flow_nominal)
     "Water outlet temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-10,-20})));
-  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
+  parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
     conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
       cooBor=cooBor,
       dp_nominal=0))

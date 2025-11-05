@@ -1,6 +1,5 @@
 within Buildings.Obsolete.DHC.ETS.Combined;
 model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
-  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Obsolete.DHC.ETS.Combined.BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
@@ -54,7 +53,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Nominal pressure drop accross evaporator"
     annotation (Dialog(group="Chiller"));
-  replaceable parameter Fluid.Chillers.Data.ElectricEIR.Generic datChi
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic datChi
     "Chiller performance data"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,
     Placement(transformation(extent={{20,222},{40,242}})));
@@ -97,8 +96,8 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
   parameter Modelica.Units.SI.Pressure dpBorFie_nominal(displayUnit="Pa") = 5E4
     "Pressure losses for the entire borefield (control valve excluded)"
     annotation (Dialog(group="Borefield", enable=have_borFie));
-  replaceable parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie
-    constrainedby Fluid.Geothermal.Borefields.Data.Borefield.Template
+  replaceable parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie
+    constrainedby Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template
     "Borefield parameters"
     annotation (Dialog(group="Borefield",enable=have_borFie),
     choicesAllMatching=true,Placement(transformation(extent={{140,222},{160,242}})));
@@ -309,7 +308,7 @@ equation
   connect(port_aSerAmb, splWSE.port_1) annotation (Line(points={{-300,-200},{
           -280,-200},{-280,-260},{-230,-260}}, color={0,127,255}));
   annotation (
-  obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
+    obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,

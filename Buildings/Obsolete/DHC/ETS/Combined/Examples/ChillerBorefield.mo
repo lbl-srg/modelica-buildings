@@ -12,8 +12,8 @@ model ChillerBorefield
   final parameter Modelica.Units.SI.Distance cooBor[nBorHol,2]=
     Buildings.DHC.ETS.BaseClasses.computeCoordinates(nBorHol, dxy)
     "Coordinates of boreholes";
-  parameter Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
-    conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
+  parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
+    conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
       cooBor=cooBor,
       dp_nominal=0))
     "Borefield design data"
