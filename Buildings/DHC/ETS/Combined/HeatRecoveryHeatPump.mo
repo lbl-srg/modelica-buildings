@@ -1128,7 +1128,6 @@ charged, the evaporator (or condenser) temperature is reset,
 the corresponding tank is decoupled to avoid flushing the tank,
 and heat is exchanged with the district energy system.
 </p>
-
 <p align=\"center\">
     <img src=\"modelica://Buildings/Resources/Images/DHC/ETS/Combined/HeatRecoveryHeatPump.png\"
          alt=\"Schematic diagram of the ETS.\"
@@ -1336,7 +1335,7 @@ and in Gautier et al. (2022).
 <p>
 Antoine Gautier, Michael Wetter and Matthias Sulzer.<br/>
 <a href=\"https://doi.org/10.1016/j.apenergy.2022.119880\">
-Resilient cooling through geothermal district energy system</a>.</br>
+Resilient cooling through geothermal district energy system</a>.<br/>
 <i>Applied Energy</i>, 325, November, 2022.
 </p>
 
