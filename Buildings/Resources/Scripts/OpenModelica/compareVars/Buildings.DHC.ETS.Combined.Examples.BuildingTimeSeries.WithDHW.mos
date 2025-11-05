@@ -13,7 +13,6 @@ compareVars :=
     "dHChiWat.y",
     "dHHeaWat.y",
     "dHHotWat.y",
-    "ENet.y",
     "bui.ets.valIsoEva.y_actual",
     "bui.ets.valIsoCon.y_actual",
     "bui.ets.tanChiWat.port_genBot.m_flow",
