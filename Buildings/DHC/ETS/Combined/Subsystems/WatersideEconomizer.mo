@@ -132,9 +132,9 @@ model WatersideEconomizer
     fraK=1) "Heat exchanger secondary actuation valve (open or close)"
                                                      annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={20,-40})));
+        origin={-20,-40})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senT1WatEnt(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
@@ -181,10 +181,9 @@ equation
     annotation (Line(points={{-12,110},{-60,110},{-60,92}},color={0,0,127}));
   connect(PPum, pum1.P) annotation (Line(points={{120,0},{44,0},{44,89},{-49,89}}, color={0,0,127}));
   connect(conWSE.yVal2, val2.y)
-    annotation (Line(points={{52,155},{60,155},{60,-40},{32,-40}},        color={0,0,127}));
+    annotation (Line(points={{52,155},{60,155},{60,-20},{-36,-20},{-36,-40},{
+          -32,-40}},                                                      color={0,0,127}));
   connect(port_a2, senT2WatEnt.port_a) annotation (Line(points={{100,-60},{50,-60}}, color={0,127,255}));
-  connect(hex.port_b2, senT2WatLvg.port_a)
-    annotation (Line(points={{-10,-6},{-20,-6},{-20,-60},{-30,-60}}, color={0,127,255}));
   connect(senT1WatEnt.port_b, hex.port_a1) annotation (Line(points={{-20,30},
           {-20,6},{-10,6}},                                                                       color={0,127,255}));
   connect(senT1WatEnt.port_a, pum1.port_b)
@@ -200,18 +199,20 @@ equation
     annotation (Line(points={{-40,-49},{-40,156},{28,156}}, color={0,0,127}));
   connect(yValIsoEva_actual, conWSE.yValIsoEva_actual)
     annotation (Line(points={{-120,130},{24,130},{24,153},{28,153}}, color={0,0,127}));
-  connect(val2.port_3, senT2WatLvg.port_a)
-    annotation (Line(points={{10,-40},{-20,-40},{-20,-60},{-30,-60}}, color={0,127,255}));
-  connect(val2.port_1, hex.port_a2)
-    annotation (Line(points={{20,-30},{20,-6},{10,-6}}, color={0,127,255}));
-  connect(val2.port_2, senT2WatEnt.port_b)
-    annotation (Line(points={{20,-50},{20,-60},{30,-60}}, color={0,127,255}));
   connect(port_b2, senMasFlo2.port_b)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
   connect(senMasFlo2.port_a, senT2WatLvg.port_b)
     annotation (Line(points={{-70,-60},{-50,-60}}, color={0,127,255}));
   connect(senMasFlo2.m_flow, conWSE.m2_flow)
     annotation (Line(points={{-80,-49},{-80,165},{28,165}}, color={0,0,127}));
+  connect(val2.port_2, senT2WatLvg.port_a) annotation (Line(points={{-20,-50},{
+          -20,-60},{-30,-60}}, color={0,127,255}));
+  connect(val2.port_3, senT2WatEnt.port_b) annotation (Line(points={{-10,-40},{
+          20,-40},{20,-60},{30,-60}}, color={0,127,255}));
+  connect(val2.port_1, hex.port_b2)
+    annotation (Line(points={{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(hex.port_a2, senT2WatEnt.port_b) annotation (Line(points={{10,-6},{20,
+          -6},{20,-60},{30,-60}}, color={0,127,255}));
   annotation (
     defaultComponentName="hex",
     Icon(
