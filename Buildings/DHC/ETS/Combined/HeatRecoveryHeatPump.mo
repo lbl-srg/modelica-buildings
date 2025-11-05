@@ -11,8 +11,8 @@ model HeatRecoveryHeatPump
     final have_eleHea=false,
     final have_weaBus=false,
     nPorts_aHeaWat=1,
-    nPorts_bChiWat=1,
     nPorts_bHeaWat=1,
+    nPorts_bChiWat=1,
     nPorts_aChiWat=1);
 
   parameter Buildings.DHC.ETS.Types.ConnectionConfiguration conCon=
@@ -547,9 +547,9 @@ model HeatRecoveryHeatPump
     allowFlowReversal=true,
     final m_flow_nominal=datHeaPum.mEva_flow_nominal)
     "Supply temperature for space cooling" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={170,190})));
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={220,190})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valTHeaSup(
     redeclare package Medium = MediumBui,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -593,9 +593,9 @@ model HeatRecoveryHeatPump
     dpValve_nominal=3000)
     "Three way valve for cooling supply temperature control" annotation (
       Placement(transformation(
-        extent={{10,10},{-10,-10}},
+        extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={220,170})));
+        origin={220,162})));
   Buildings.Fluid.FixedResistances.Junction junCooWatRet(
     redeclare final package Medium = MediumBui,
     final dp_nominal={0,0,0},
@@ -603,9 +603,9 @@ model HeatRecoveryHeatPump
     final tau=1,
     final m_flow_nominal=datHeaPum.mEva_flow_nominal*{1,-1,-1})
     "Junction at cooling water return" annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
+        extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={264,170})));
+        origin={174,162})));
 
   Subsystems.WatersideEconomizer WSE(
     redeclare final package Medium1 = MediumSer,
@@ -694,7 +694,7 @@ equation
   connect(totPPum.u[1], hex.PPum) annotation (Line(points={{258,-60},{220,-60},
           {220,-250},{12,-250}}, color={0,0,127}));
   connect(dHFloHeaWat.dH_flow, dHHeaWat_flow) annotation (Line(points={{-271,
-          182},{-271,206},{290,206},{290,160},{320,160}},
+          182},{-271,176},{286,176},{286,160},{320,160}},
                                  color={0,0,127}));
   connect(dHFloChiWat.dH_flow, dHChiWat_flow) annotation (Line(points={{261,142},
           {261,148},{292,148},{292,120},{320,120}}, color={0,0,127}));
@@ -845,18 +845,15 @@ equation
           0,0,127}));
   connect(junHeaWatRet.port_2, dHFloHeaWat.port_a2)
     annotation (Line(points={{-280,210},{-280,180}}, color={0,127,255}));
-  connect(dHFloChiWat.port_a2, valTCooSup.port_1) annotation (Line(points={{252,
-          140},{252,150},{220,150},{220,160}}, color={0,127,255}));
-  connect(valTCooSup.port_2, senTSpaCooSup.port_a) annotation (Line(points={{
-          220,180},{220,190},{180,190}}, color={0,127,255}));
-  connect(dHFloChiWat.port_b1, junCooWatRet.port_2)
-    annotation (Line(points={{264,140},{264,160}}, color={0,127,255}));
+  connect(valTCooSup.port_2, senTSpaCooSup.port_a) annotation (Line(points={{220,172},
+          {220,180}},                    color={0,127,255}));
   connect(senTSpaCooSup.T, conPIDTCooWatSup.u_m)
-    annotation (Line(points={{170,201},{170,228}}, color={0,0,127}));
+    annotation (Line(points={{209,190},{200,190},{200,210},{170,210},{170,228}},
+                                                   color={0,0,127}));
   connect(conPIDTCooWatSup.y, valTCooSup.y) annotation (Line(points={{182,240},
-          {190,240},{190,170},{208,170}}, color={0,0,127}));
+          {240,240},{240,162},{232,162}}, color={0,0,127}));
   connect(valTCooSup.port_3, junCooWatRet.port_3)
-    annotation (Line(points={{230,170},{254,170}}, color={0,127,255}));
+    annotation (Line(points={{210,162},{184,162}}, color={0,127,255}));
   connect(conPIDTCooWatSup.u_s, TChiWatSupSet) annotation (Line(points={{158,240},
           {66,240},{66,214},{-26,214},{-26,-24},{-240,-24},{-240,-60},{-320,-60}},
                       color={0,0,127}));
@@ -885,16 +882,20 @@ equation
           {216,124},{216,116},{200,116}}, color={0,127,255}));
   connect(junHeaWatRet.port_1, ports_aHeaWat[1]) annotation (Line(points={{-280,
           230},{-280,260},{-300,260}}, color={0,127,255}));
-  connect(junCooWatRet.port_1, ports_bChiWat[1]) annotation (Line(points={{264,
-          180},{264,200},{300,200}}, color={0,127,255}));
   connect(senTSpaHeaSup.port_b, ports_bHeaWat[1]) annotation (Line(points={{
           -178,256},{-36,256},{-36,260},{300,260}}, color={0,127,255}));
-  connect(senTSpaCooSup.port_b, ports_aChiWat[1]) annotation (Line(points={{160,
-          190},{-40,190},{-40,200},{-300,200}}, color={0,127,255}));
   connect(heaPum.PChi, PCoo) annotation (Line(points={{12,-4},{40,-4},{40,20},{280,
           20},{280,40},{320,40}}, color={0,0,127}));
   connect(zerPHea.y, PHea)
     annotation (Line(points={{282,80},{320,80}}, color={0,0,127}));
+  connect(senTSpaCooSup.port_b, ports_bChiWat[1])
+    annotation (Line(points={{220,200},{300,200}}, color={0,127,255}));
+  connect(junCooWatRet.port_1, ports_aChiWat[1]) annotation (Line(points={{174,
+          172},{174,200},{-300,200}}, color={0,127,255}));
+  connect(dHFloChiWat.port_b1, valTCooSup.port_1) annotation (Line(points={{264,
+          140},{264,150},{220,150},{220,152}}, color={0,127,255}));
+  connect(dHFloChiWat.port_a2, junCooWatRet.port_2) annotation (Line(points={{
+          252,140},{252,146},{174,146},{174,152}}, color={0,127,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{12,-40},{40,-12}},
@@ -1339,5 +1340,13 @@ Resilient cooling through geothermal district energy system</a>.</br>
 <i>Applied Energy</i>, 325, November, 2022.
 </p>
 
+</html>", revisions="<html>
+<ul>
+<li>
+November 5, 2025, by Michael Wetter:<br/>
+Corrected position of cooling supply water temperature valve and sensor,
+which was in return instead of supply pipe.
+</li>
+</ul>
 </html>"));
 end HeatRecoveryHeatPump;
