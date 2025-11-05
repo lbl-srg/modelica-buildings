@@ -187,8 +187,8 @@ which realizes the interface between the building system and the district system
 </p>
 <p>
 The input signal <code>u</code> is yielded by the supervisory controller, see
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.Supervisory\">
-Buildings.DHC.ETS.Combined.Controls.Supervisory</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory</a>.
 The primary and secondary circuits are enabled to operate if this input signal
 is greater than zero and the return position of at least one isolation valve
 is greater than 90%.

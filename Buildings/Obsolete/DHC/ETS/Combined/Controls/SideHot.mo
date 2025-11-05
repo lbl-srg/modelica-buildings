@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Controls;
+within Buildings.Obsolete.DHC.ETS.Combined.Controls;
 block SideHot
   "Control block for hot side"
 
@@ -253,8 +253,8 @@ First implementation.
       info="<html>
 <p>
 This block serves as the controller for the hot side of the ETS in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.Supervisory\">
-Buildings.DHC.ETS.Combined.Controls.Supervisory</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory</a>.
 It computes the following control signals.
 </p>
 <ul>
@@ -297,8 +297,8 @@ When enabled, the controller maintains the temperature at the top of the
 heating water tank at the heating water supply temperature set point.
 The controller yields a signal between <code>0</code> and <code>nSouAmb+1</code>
 which is connected to
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.SideCold\">
-Buildings.DHC.ETS.Combined.Controls.SideCold</a>
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.SideCold\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.SideCold</a>
 where it is used to control in sequence the systems serving as ambient sources
 and ultimately to reset down the chilled water supply temperature.
 </li>

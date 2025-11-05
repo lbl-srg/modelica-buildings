@@ -1,7 +1,7 @@
-within Buildings.DHC.ETS.Combined.Controls;
+within Buildings.Obsolete.DHC.ETS.Combined.Controls;
 model Supervisory
   "Supervisory controller"
-  extends Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory;
+  extends Buildings.Obsolete.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory;
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -54,14 +54,14 @@ model Supervisory
     "Return position of evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.DHC.ETS.Combined.Controls.SideHot conHot(
+  Buildings.Obsolete.DHC.ETS.Combined.Controls.SideHot conHot(
     final k=kHot,
     final Ti=TiHot,
     final nSouAmb=nSouAmb,
     final controllerType=controllerType)
     "Hot side controller"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.DHC.ETS.Combined.Controls.SideCold conCol(
+  Buildings.Obsolete.DHC.ETS.Combined.Controls.SideCold conCol(
     final k=kCol,
     final Ti=TiCol,
     final nSouAmb=nSouAmb,
@@ -185,8 +185,8 @@ The controller resets the heating water supply temperature based on the logic de
 Buildings.DHC.ETS.Combined.Controls.Reset</a>.
 Note that this resetting logic is meant to operate the chiller at low lift.
 The chilled water supply temperature may be also reset down by
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.SideCold\">
-Buildings.DHC.ETS.Combined.Controls.SideCold</a>
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.SideCold\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.SideCold</a>
 to maintain the heating water supply temperature set point.
 This second resetting logic is required for the heating function of the unit,
 but it has a negative impact on the lift.
@@ -194,11 +194,11 @@ but it has a negative impact on the lift.
 <li>
 Eventually the systems serving as ambient sources are controlled based on the
 maximum of the control signals <code>yAmb</code> yielded by
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.SideHot\">
-Buildings.DHC.ETS.Combined.Controls.SideHot</a>
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.SideHot\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.SideHot</a>
 and
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.SideCold\">
-Buildings.DHC.ETS.Combined.Controls.SideCold</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.SideCold\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.SideCold</a>.
 </li>
 </ul>
 </html>"));

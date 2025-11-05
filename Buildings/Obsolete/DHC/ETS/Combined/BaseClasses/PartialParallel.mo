@@ -93,8 +93,8 @@ model PartialParallel
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-340,-80},{-300,-40}}),iconTransformation(extent={{-380,-140},{-300,-60}})));
   // COMPONENTS
-  replaceable Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory conSup
-    constrainedby Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory(
+  replaceable Buildings.Obsolete.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory conSup
+    constrainedby Buildings.Obsolete.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory(
       final nSouAmb=nSouAmb)
     "Supervisory controller"
     annotation (Placement(transformation(extent={{-260,12},{-240,32}})));
@@ -298,8 +298,8 @@ to the systems serving as ambient sources is realized in parallel.
 A replaceable partial class is used to represent a supervisory controller, which
 must be replaced by a control block providing at least the control signals
 listed in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory\">
-Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory</a>.
 </li>
 </ul>
 <p>

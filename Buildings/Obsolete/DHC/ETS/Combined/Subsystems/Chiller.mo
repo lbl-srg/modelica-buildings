@@ -139,7 +139,7 @@ model Chiller
     final dp_nominal=dpEva_nominal+dpValEva_nominal)
     "Evaporator pump"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-100,-60})));
-  Buildings.DHC.ETS.Combined.Controls.Chiller con(
+  Buildings.Obsolete.DHC.ETS.Combined.Controls.Chiller con(
     final TConWatEntMin=TConWatEntMin,
     final TEvaWatEntMax=TEvaWatEntMax)
     "Controller"
@@ -446,8 +446,8 @@ condenser inlet temperature (resp. maximum evaporator inlet temperature).
 </p>
 <p>
 The system is controlled based on the logic described in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.Chiller\">
-Buildings.DHC.ETS.Combined.Controls.Chiller</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.Chiller\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.Chiller</a>.
 The pump flow rate is considered proportional to the pump speed
 under the assumption of a constant flow resistance for both the condenser
 and the evaporator loops. This assumption is justified

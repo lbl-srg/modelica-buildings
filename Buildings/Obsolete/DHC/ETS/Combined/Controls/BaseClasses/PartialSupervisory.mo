@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Controls.BaseClasses;
+within Buildings.Obsolete.DHC.ETS.Combined.Controls.BaseClasses;
 partial block PartialSupervisory
   "Partial model for supervisory controller"
 

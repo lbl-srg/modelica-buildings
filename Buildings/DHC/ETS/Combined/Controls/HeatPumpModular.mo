@@ -368,7 +368,7 @@ loop controlling the minimum (resp. maximum) inlet temperature.
 </ul>
 <h4>ESTCP adaptation</h4>
 <p>
-Adapted from Buildings.DHC.ETS.Combined.Controls.Chiller.
+Adapted from Buildings.Obsolete.DHC.ETS.Combined.Controls.Chiller.
 A PI controller for compressor speed is added in order to use
 the ModularReversible component to replace the original EIR model.
 </p>

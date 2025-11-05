@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Controls;
+within Buildings.Obsolete.DHC.ETS.Combined.Controls;
 model SideCold
   "Control block for cold side"
 
@@ -227,8 +227,8 @@ First implementation.
       info="<html>
 <p>
 This block serves as the controller for the cold side of the ETS in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.Supervisory\">
-Buildings.DHC.ETS.Combined.Controls.Supervisory</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory</a>.
 It computes the following control signals.
 </p>
 <ul>

@@ -82,7 +82,7 @@ model Borefield
     final m_flow_nominal=m_flow_nominal)
     "Leaving temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={50,0})));
-  Buildings.DHC.ETS.Combined.Controls.Borefield con(
+  Buildings.Obsolete.DHC.ETS.Combined.Controls.Borefield con(
     final TBorWatEntMax=TBorWatEntMax,
     final spePumBorMin=spePumBorMin)
     "Controller"
@@ -221,8 +221,8 @@ and a mixing valve modulated to maintain a maximum inlet temperature.
 </p>
 <p>
 The system is controlled based on the logic described in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.Borefield\">
-Buildings.DHC.ETS.Combined.Controls.Borefield</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.Borefield\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.Borefield</a>.
 The pump flow rate is considered proportional to the pump speed
 under the assumption of a constant flow resistance in the borefield loop.
 This assumption is justified by the connection of the loop to the buffer tanks,

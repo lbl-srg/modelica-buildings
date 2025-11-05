@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Controls;
+within Buildings.Obsolete.DHC.ETS.Combined.Controls;
 model Borefield
   "Borefield controller"
 
@@ -166,8 +166,8 @@ First implementation.
 This block implements the control logic for the borefield system.
 The main control signal <code>u</code> is yielded by the hot side
 or cold side controller, see for instance
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.SideHot\">
-Buildings.DHC.ETS.Combined.Controls.SideHot</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.SideHot\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.SideHot</a>.
 </p>
 <p>
 The system is enabled when

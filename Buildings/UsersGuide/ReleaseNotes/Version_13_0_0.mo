@@ -204,7 +204,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.DHC.ETS.Combined.Subsystems.Borefield<br/>
                        Buildings.DHC.ETS.Combined.Subsystems.Chiller<br/>
                        Buildings.DHC.ETS.Combined.Subsystems.Validation.Borefield<br/>
-                       Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller
+                       Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Supervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
+                       Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory
     </td>
     <td valign=\"top\">Moved to <code>Buildings.Obsolete</code> as these are replaced with improved models.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">issue 4354</a>.

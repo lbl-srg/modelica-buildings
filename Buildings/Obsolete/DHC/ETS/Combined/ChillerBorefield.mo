@@ -3,8 +3,8 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
   extends Buildings.Obsolete.DHC.ETS.Combined.BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
-    redeclare replaceable Buildings.DHC.ETS.Combined.Controls.Supervisory conSup
-      constrainedby Buildings.DHC.ETS.Combined.Controls.Supervisory(
+    redeclare replaceable Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory conSup
+      constrainedby Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory(
         final controllerType=controllerType,
         final kHot=kHot,
         final kCol=kCol,
@@ -376,8 +376,8 @@ and the evaporator side of the chiller by controlling in sequence an optional
 geothermal borefield (priority system), the district heat exchanger (second
 priority system), and ultimately the chiller, by resetting down the chilled
 water supply temperature, see
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.Supervisory\">
-Buildings.DHC.ETS.Combined.Controls.Supervisory</a>
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.Supervisory</a>
 for a detailed description.
 The borefield and district heat exchanger loops are equipped with
 variable speed pumps modulated by the supervisory controller.

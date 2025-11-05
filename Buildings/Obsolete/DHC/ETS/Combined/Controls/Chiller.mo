@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Controls;
+within Buildings.Obsolete.DHC.ETS.Combined.Controls;
 model Chiller
   "Chiller controller"
 
