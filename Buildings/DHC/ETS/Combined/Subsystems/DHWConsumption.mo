@@ -25,7 +25,7 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.DHC.Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare final package Medium = Medium, mMix_flow_nominal=1.2*dat.mDom_flow_nominal)
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{60,42},{80,62}})));
   Buildings.Fluid.Sources.Boundary_pT souDCW(
     redeclare final package Medium = Medium,
     use_T_in=true,
@@ -34,7 +34,7 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
       transformation(
       extent={{10,-10},{-10,10}},
       rotation=180,
-      origin={-50,30})));
+      origin={-48,44})));
   Buildings.DHC.ETS.BaseClasses.Junction dcwSpl(
     redeclare final package Medium = Medium,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -45,7 +45,7 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={10,30})));
+        origin={10,44})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(final unit="K",
       displayUnit="degC")
     "Domestic hot water temperature set point for supply to fixtures"
@@ -104,47 +104,47 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={30,-30})));
+        origin={16,-32})));
   Modelica.Blocks.Interfaces.RealOutput dHFlo(unit="W") "Enthalpy flow rate"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,30},{120,50}})));
 equation
   connect(port_a, domHotWatTan.port_aHea) annotation (Line(points={{-100,0},{
           -90,0},{-90,-90},{50,-90},{50,-76},{40,-76}},color={0,127,255}));
-  connect(domHotWatTan.port_bHea, port_b) annotation (Line(points={{20,-76},{10,
-          -76},{10,-96},{92,-96},{92,0},{100,0}},  color={0,127,255}));
+  connect(domHotWatTan.port_bHea, port_b) annotation (Line(points={{20,-76},{8,
+          -76},{8,-96},{90,-96},{90,0},{100,0}},   color={0,127,255}));
   connect(souDCW.ports[1], dcwSpl.port_1)
-    annotation (Line(points={{-40,30},{0,30}}, color={0,127,255}));
-  connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{20,30},{30,
-          30},{30,22},{60,22}},    color={0,127,255}));
-  connect(souDCW.T_in, TColWat) annotation (Line(points={{-62,26},{-80,26},{-80,
-          40},{-120,40}}, color={0,0,127}));
-  connect(theMixVal.yMixSet, gai.y) annotation (Line(points={{59,38},{-30,38},{
+    annotation (Line(points={{-38,44},{0,44}}, color={0,127,255}));
+  connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{20,44},{
+          60,44}},                 color={0,127,255}));
+  connect(souDCW.T_in, TColWat) annotation (Line(points={{-60,40},{-120,40}},
+                          color={0,0,127}));
+  connect(theMixVal.yMixSet, gai.y) annotation (Line(points={{59,60},{-30,60},{
           -30,-40},{-58,-40}},
                         color={0,0,127}));
   connect(QReqHotWat_flow, gai.u) annotation (Line(points={{-120,-40},{-82,-40}},
                              color={0,0,127}));
   connect(THotWatSupSet, theMixVal.TMixSet) annotation (Line(points={{-120,80},
-          {50,80},{50,32},{59,32}},color={0,0,127}));
+          {50,80},{50,54},{59,54}},color={0,0,127}));
   connect(THotWatSupSet, domHotWatTan.TDomSet) annotation (Line(points={{-120,80},
           {-20,80},{-20,-70},{19,-70}}, color={0,0,127}));
   connect(domHotWatTan.PEle, PEle) annotation (Line(points={{41,-70},{80,-70},{
           80,-40},{120,-40}},
                          color={0,0,127}));
   connect(domHotWatTan.charge, charge) annotation (Line(points={{42,-79},{42,
-          -82},{100,-82},{100,-80},{120,-80}},
+          -80},{80,-80},{80,-82},{100,-82},{100,-80},{120,-80}},
                                         color={255,0,255}));
   connect(expTTanTop.y, TTanTop) annotation (Line(points={{81,80},{120,80}},
                          color={0,0,127}));
-  connect(domHotWatTan.port_bDom, dHFlow.port_a1) annotation (Line(points={{40,
-          -64},{50,-64},{50,-40},{36,-40}}, color={0,127,255}));
-  connect(dHFlow.port_b1, theMixVal.port_hot) annotation (Line(points={{36,-20},
-          {50,-20},{50,26},{60,26}}, color={0,127,255}));
-  connect(dcwSpl.port_3, dHFlow.port_a2) annotation (Line(points={{10,20},{10,
-          -14},{24,-14},{24,-20}}, color={0,127,255}));
-  connect(dHFlow.port_b2, domHotWatTan.port_aDom) annotation (Line(points={{24,
-          -40},{10,-40},{10,-64},{20,-64}}, color={0,127,255}));
-  connect(dHFlow.dH_flow, dHFlo) annotation (Line(points={{33,-18},{33,10},{88,
+  connect(domHotWatTan.port_bDom, dHFlow.port_a1) annotation (Line(points={{40,-64},
+          {50,-64},{50,-42},{22,-42}},      color={0,127,255}));
+  connect(dHFlow.port_b1, theMixVal.port_hot) annotation (Line(points={{22,-22},
+          {50,-22},{50,48},{60,48}}, color={0,127,255}));
+  connect(dcwSpl.port_3, dHFlow.port_a2) annotation (Line(points={{10,34},{10,
+          -22}},                   color={0,127,255}));
+  connect(dHFlow.port_b2, domHotWatTan.port_aDom) annotation (Line(points={{10,-42},
+          {10,-64},{20,-64}},               color={0,127,255}));
+  connect(dHFlow.dH_flow, dHFlo) annotation (Line(points={{19,-20},{19,10},{88,
           10},{88,40},{120,40}}, color={0,0,127}));
   annotation (defaultComponentName="dhw",
     Icon(coordinateSystem(preserveAspectRatio=false),

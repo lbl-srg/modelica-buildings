@@ -9,7 +9,7 @@ model HeatRecoveryHeatPump
     final have_eleCoo=true,
     final have_fan=false,
     final have_eleHea=false,
-    final have_weaBus=false,
+    final have_weaBus=true "Set to true as this determines whether the composite ets and building has a weather bus",
     nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
     nPorts_bChiWat=1,

@@ -4,7 +4,6 @@ model BuildingETS
   extends Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.PartialBuildingETS(
     redeclare Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump ets(
       final have_hotWat=QHotWat_flow_nominal > Modelica.Constants.eps,
-      have_weaBus=true,
       QChiWat_flow_nominal=QCoo_flow_nominal,
       QHeaWat_flow_nominal=QHea_flow_nominal,
       QHotWat_flow_nominal=QHot_flow_nominal,

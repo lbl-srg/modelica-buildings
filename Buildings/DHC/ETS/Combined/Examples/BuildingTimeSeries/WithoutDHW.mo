@@ -52,9 +52,6 @@ model WithoutDHW "ETS connected to building loads without DHW"
   Modelica.Blocks.Continuous.Integrator dHChiWat
     "Cumulative enthalpy difference of chilled water"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Modelica.Blocks.Continuous.Integrator dHHotWat if bui.have_hotWat
-    "Cumulative enthalpy difference of domestic hot water"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate senHFlo(
       redeclare final package Medium1 = Medium,
       final m_flow_nominal=bui.ets.hex.m1_flow_nominal)
@@ -66,9 +63,7 @@ model WithoutDHW "ETS connected to building loads without DHW"
     "Cumulative enthalpy difference across the ets hex"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum ENet(
-    nin=if bui.have_hotWat
-        then 3
-        else 2)
+    nin=2)
     "Cumulative net energy consumption, heating + dhw (if present) - cooling"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Continuous.Integrator EChi
@@ -82,14 +77,10 @@ equation
           -38},{22,-38},{22,50},{38,50}}, color={0,0,127}));
   connect(bui.dHChiWat_flow, dHChiWat.u) annotation (Line(points={{48,-22},{48,
           -40},{20,-40},{20,80},{38,80}}, color={0,0,127}));
-  connect(bui.dHHotWat_flow, dHHotWat.u) annotation (Line(points={{44,-22},{44,-36},
-          {24,-36},{24,20},{38,20}}, color={0,0,127}));
-  connect(dHChiWat.y, ENet.u[1]) annotation (Line(points={{61,80},{68,80},{68,50},
-          {78,50}},                  color={0,0,127}));
-  connect(dHHeaWat.y, ENet.u[2]) annotation (Line(points={{61,50},{78,50}},
-                                     color={0,0,127}));
-  connect(dHHotWat.y, ENet.u[3]) annotation (Line(points={{61,20},{68,20},{68,
-          50},{78,50}},              color={0,0,127}));
+  connect(dHChiWat.y, ENet.u[1]) annotation (Line(points={{61,80},{68,80},{68,
+          49.5},{78,49.5}},          color={0,0,127}));
+  connect(dHHeaWat.y, ENet.u[2]) annotation (Line(points={{61,50},{70,50},{70,
+          50.5},{78,50.5}},          color={0,0,127}));
   connect(wea.weaBus, bui.weaBus) annotation (Line(
       points={{-40,4},{50,4},{50,0}},
       color={255,204,51},
