@@ -123,7 +123,7 @@ model HeatRecoveryHeatPump
     annotation (Placement(transformation(extent={{220,90},{200,110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=
         mHeaWat_flow_nominal) "Scale to nominal mass flow rate"
-    annotation (Placement(transformation(extent={{-180,92},{-160,112}})));
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   DHC.ETS.BaseClasses.Pump_m_flow pumHeaWat(
     redeclare package Medium = Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
@@ -231,15 +231,15 @@ Modelica.Blocks.Sources.CombiTimeTable TDisWatSup(
     annotation (Placement(transformation(extent={{60,180},{80,200}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaNorHea(
-    final k=1/ets.QHeaWat_flow_nominal)
+    k=1/ets.QHeaWat_flow_nominal)
     "Normalize by nominal" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-268,102})));
+        origin={-270,100})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaNorCoo(
-    final k=1/ets.QChiWat_flow_nominal) "Normalize by nominal" annotation (Placement(
+    k=1/ets.QChiWat_flow_nominal) "Normalize by nominal" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -258,7 +258,7 @@ equation
   connect(pumHeaWat.port_b,senTHeaWatSup.port_a)
     annotation (Line(points={{-30,40},{-50,40}},color={0,127,255}));
   connect(gai1.y,pumHeaWat.m_flow_in)
-    annotation (Line(points={{-158,102},{-20,102},{-20,52}},
+    annotation (Line(points={{-158,100},{-20,100},{-20,52}},
                                                       color={0,0,127}));
   connect(gai3.y,loaHea.Q_flow)
     annotation (Line(points={{-158,60},{-140,60}},color={0,0,127}));
@@ -298,15 +298,15 @@ equation
   connect(senTDisWatRet.port_b, disWat.ports[2])
    annotation (Line(points={{110,-74},{160,-74},{160,-140},{-100,-140},{-100,-139}},color={0,127,255}));
   connect(loa.y[2],loaNorHea.u)
-    annotation (Line(points={{-309,160},{-300,160},{-300,102},{-280,102}},
+    annotation (Line(points={{-309,160},{-300,160},{-300,100},{-282,100}},
                                                                         color={0,0,127}));
   connect(loa.y[1],loaNorCoo.u)
     annotation (Line(points={{-309,160},{320,160},{320,100},{302,100}},
                                                                      color={0,0,127}));
-  connect(loaNorHea.y, gai3.u) annotation (Line(points={{-256,102},{-220,102},{-220,
+  connect(loaNorHea.y, gai3.u) annotation (Line(points={{-258,100},{-220,100},{-220,
           60},{-182,60}}, color={0,0,127}));
   connect(loaNorHea.y, gai1.u)
-    annotation (Line(points={{-256,102},{-182,102}}, color={0,0,127}));
+    annotation (Line(points={{-258,100},{-182,100}}, color={0,0,127}));
   connect(loaNorCoo.y, gai4.u) annotation (Line(points={{278,100},{254,100},{254,
           60},{222,60}}, color={0,0,127}));
   connect(loaNorCoo.y, gai2.u)

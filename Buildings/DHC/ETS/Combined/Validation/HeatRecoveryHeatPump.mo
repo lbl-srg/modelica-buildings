@@ -117,13 +117,17 @@ model HeatRecoveryHeatPump
       97,0,0.1;
       98,0,0;
       99,0,0],
-        offset={0,0},
-        columns={2,3}));
+      timeScale=3600,
+      offset={0,0},
+      columns={2,3}),
+    loaNorHea(k=1),
+    loaNorCoo(k=1));
 
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Validation/HeatRecoveryHeatPump.mos" "Simulate and plot"),
     experiment(
+      StartTime=0,
       StopTime=360000,
       Tolerance=1e-06),
     Diagram(

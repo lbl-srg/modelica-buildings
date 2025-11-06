@@ -91,6 +91,8 @@ equation
     Documentation(info="<html>
 <p>
 Validation model for a single building without DHW integration in the ETS.
+</p>
+<p>
 Note that the information that a domestic hot water integration is present
 is obtained from the load profile <code>filNam</code>.
 </p>

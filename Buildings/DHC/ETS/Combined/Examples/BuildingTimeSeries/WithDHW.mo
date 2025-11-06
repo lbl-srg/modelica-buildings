@@ -1,8 +1,7 @@
 within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries;
 model WithDHW "ETS connected to building loads without DHW"
   extends Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithoutDHW(
-    filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/JBA_All_futu_tendays.mos",
-    ENet(nin=3));
+    filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/JBA_All_futu_tendays.mos");
 
   Modelica.Blocks.Continuous.Integrator dHHotWat if bui.have_hotWat
     "Cumulative enthalpy difference of domestic hot water"
@@ -20,7 +19,9 @@ annotation(
 Documentation(info="<html>
 <p>
 Validation model for a single building with DHW integration in the ETS.
-fixme: Note that the information that a domestic hot water integration is present
+</p>
+<p>
+Note that the information that a domestic hot water integration is present
 is obtained from the load profile <code>filNam</code>.
 </p>
 </html>"));

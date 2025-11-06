@@ -31,13 +31,10 @@ model BuildingETS
   parameter Boolean have_eleNonHva "The ETS has non-HVAC electricity load"
     annotation (Dialog(group="Configuration"));
 
-  parameter
-    Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
-    datDhw(
-    VTan=datHeaPum.mCon_flow_nominal*datBuiSet.dTHeaWat_nominal*5*60/1000,
-    mDom_flow_nominal=datDhw.QHex_flow_nominal/4200/(datDhw.TDom_nominal -
-        datDhw.TCol_nominal),
-    QHex_flow_nominal=if have_hotWat then QHotWat_flow_nominal else
+  parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datDhw(
+      VTan=datHeaPum.mCon_flow_nominal*datBuiSet.dTHeaWat_nominal*5*60/1000,
+      mDom_flow_nominal=datDhw.QHex_flow_nominal/4200/(datDhw.TDom_nominal-datDhw.TCol_nominal),
+      QHex_flow_nominal=if have_hotWat then QHotWat_flow_nominal else
         QHeaWat_flow_nominal,
     TDom_nominal=datBuiSet.THotWatSupTan_nominal)
     "Performance data of the domestic hot water component"

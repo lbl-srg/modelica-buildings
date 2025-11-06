@@ -69,14 +69,14 @@ partial model PartialBuildingETS
     datBuiSet.TColWat_nominal
     "Cold water temperature (for hot water production)"
     annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
-  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa")=50000
-    "Pressure difference at nominal flow rate (for each flow leg)"
-    annotation (Dialog(group="ETS model parameters"));
-  parameter Real COPHeaWat_nominal(final unit="1") = 4.0
-    "COP of heat pump for heating water production"
-    annotation (Dialog(group="ETS model parameters"));
-  parameter Real COPHotWat_nominal(final unit="1") = 2.3
-    "COP of heat pump for hot water production";
+//fixme  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa")=50000
+//    "Pressure difference at nominal flow rate (for each flow leg)"
+//    annotation (Dialog(group="ETS model parameters"));
+//fixme  parameter Real COPHeaWat_nominal(final unit="1") = 4.0
+//    "COP of heat pump for heating water production"
+//    annotation (Dialog(group="ETS model parameters"));
+//fixme  parameter Real COPHotWat_nominal(final unit="1") = 2.3
+//    "COP of heat pump for hot water production";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
