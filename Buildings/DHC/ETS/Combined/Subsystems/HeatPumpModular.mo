@@ -9,7 +9,7 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  replaceable parameter Buildings.DHC.ETS.Combined.Data.HeatPump dat
+  parameter Buildings.DHC.ETS.Combined.Data.HeatPump dat
     "Chiller performance data" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{60,160},{80,180}})));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")

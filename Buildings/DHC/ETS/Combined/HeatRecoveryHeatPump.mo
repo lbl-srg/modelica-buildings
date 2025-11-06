@@ -100,7 +100,7 @@ model HeatRecoveryHeatPump
   parameter Buildings.DHC.ETS.Combined.Data.HeatPump datHeaPum
     "Heat pump performance data"
     annotation (
-    Dialog(group="Chiller"),
+    Dialog(group="Heat recovery heat pump"),
     choicesAllMatching=true,
     Placement(transformation(extent={{20,220},{40,240}})));
   parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datDhw
@@ -111,12 +111,14 @@ model HeatRecoveryHeatPump
   parameter Boolean have_WSE=false
     "Set to true in case a waterside economizer is used"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa") =
+    datHeaPum.dat.dpCon_nominal
     "Nominal pressure drop across condenser"
-    annotation (Dialog(group="Chiller"));
-  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
+    annotation (Dialog(group="Heat recovery heat pump"));
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa") =
+      datHeaPum.dat.dpEva_nominal
     "Nominal pressure drop across evaporator"
-    annotation (Dialog(group="Chiller"));
+    annotation (Dialog(group="Heat recovery heat pump"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -214,7 +216,7 @@ model HeatRecoveryHeatPump
         origin={280,-340})));
 
   // COMPONENTS
-  replaceable Buildings.DHC.ETS.Combined.Subsystems.HeatPumpModular heaPum(
+  Buildings.DHC.ETS.Combined.Subsystems.HeatPumpModular heaPum(
     redeclare final package Medium = MediumBui,
     allowFlowReversal=true,
     final dpCon_nominal=dpCon_nominal,
@@ -223,7 +225,7 @@ model HeatRecoveryHeatPump
     final THeaWatSupSetMin=THeaWatSupSetMin,
     final TChiWatSupSetMax=TChiWatSupSetMax,
     dTOffSetHea=dTOffSetHea,
-    dTOffSetCoo=dTOffSetCoo) "Heat pump" annotation (Dialog(group="Chiller"),
+    dTOffSetCoo=dTOffSetCoo) "Heat pump" annotation (Dialog(group="Heat recovery heat pump"),
       Placement(transformation(extent={{-10,-16},{10,4}})));
 
   Buildings.DHC.ETS.Combined.Subsystems.HeatExchanger hex(

@@ -86,21 +86,21 @@ model HeatRecoveryHeatPump
     QWSE_flow_nominal=QCoo_flow_nominal,
     VTanHeaWat=datHeaPum.mCon_flow_nominal*dTHeaWat_nominal*5*60/1000,
     VTanChiWat=datHeaPum.mEva_flow_nominal*dTChiWat_nominal*5*60/1000,
-    final datDhw=datDhw,
-    dpCon_nominal=40E3,
-    dpEva_nominal=40E3,
+    datDhw=datDhw,
     TCon_start=THeaWatSup_nominal,
     TEva_start=TChiWatSup_nominal,
     datHeaPum=datHeaPum) "ETS"
     annotation (Placement(transformation(extent={{-10,-84},{50,-24}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(redeclare final
-      package Medium = Medium, m_flow_nominal=datHeaPum.mCon_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=datHeaPum.mCon_flow_nominal)
     "Heating water return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,-28})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatRet(redeclare final
-      package Medium = Medium, m_flow_nominal=datHeaPum.mEva_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=datHeaPum.mEva_flow_nominal)
     "Chilled water return temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
