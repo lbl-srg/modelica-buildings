@@ -1,20 +1,55 @@
 within Buildings.DHC.ETS.Combined.Subsystems;
 model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal=QHotWat_flow_nominal/4200/dT_nominal);
+
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=293.15,
+              X_a=0.40)
+              "Propylene glycol water, 40% mass fraction")));
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
     dat "Performance data"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+    annotation (Placement(transformation(extent={{20,72},{40,92}})));
   parameter Modelica.Units.SI.HeatFlowRate QHotWat_flow_nominal(min=0)
     "Nominal capacity of heat pump condenser for hot water production system (>=0)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=Modelica.Constants.eps)
     "Nominal temperature difference from the condenser"
     annotation(Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=QHotWat_flow_nominal/4200/dT_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Medium.Temperature T_start=Medium.T_default
     "Temperature start value of the tank"
     annotation(Dialog(tab = "Initialization"));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare final package Medium = Medium,
+     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+     h_outflow(
+       start = Medium.h_default,
+       nominal = Medium.h_default),
+     Xi_outflow(each nominal=0.01))
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
+        iconTransformation(extent={{-110,50},{-90,70}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare final package Medium = Medium,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+     h_outflow(
+       start = Medium.h_default,
+       nominal = Medium.h_default),
+     Xi_outflow(each nominal=0.01))
+    "Fluid connector b (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}}),
+        iconTransformation(extent={{-90,-70},{-110,-50}})));
 
   Buildings.DHC.ETS.Combined.Subsystems.StorageTankWithExternalHeatExchanger
     domHotWatTan(
@@ -22,7 +57,7 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
     redeclare final package MediumHea = Medium,
     final dat=dat,
     final TTan_start=T_start)
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    annotation (Placement(transformation(extent={{20,-64},{40,-44}})));
   Buildings.DHC.Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare final package Medium = Medium, mMix_flow_nominal=1.2*dat.mDom_flow_nominal)
     annotation (Placement(transformation(extent={{60,42},{80,62}})));
@@ -53,22 +88,12 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,80}),
+        origin={-120,0}),
         iconTransformation(
-        extent={{-140,60},{-100,100}})));
+        extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TColWat(final unit="K",
       displayUnit="degC")
     "Cold water temperature" annotation (
-      Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,40}),  iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,40})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QReqHotWat_flow(final unit="W")
-                                   "Service hot water load"
-    annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -76,9 +101,19 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-40})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QReqHotWat_flow(final unit="W")
+                                   "Service hot water load"
+    annotation (
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,40}),  iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-120,40})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/
         QHotWat_flow_nominal)
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(unit="W")
     "Electric power required for pumping equipment"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
@@ -104,48 +139,50 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={16,-32})));
+        origin={16,-22})));
   Modelica.Blocks.Interfaces.RealOutput dHFlo(unit="W") "Enthalpy flow rate"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,30},{120,50}})));
 equation
-  connect(port_a, domHotWatTan.port_aHea) annotation (Line(points={{-100,0},{
-          -90,0},{-90,-90},{50,-90},{50,-76},{40,-76}},color={0,127,255}));
-  connect(domHotWatTan.port_bHea, port_b) annotation (Line(points={{20,-76},{8,
-          -76},{8,-96},{90,-96},{90,0},{100,0}},   color={0,127,255}));
+  connect(port_a, domHotWatTan.port_aHea) annotation (Line(points={{-100,60},{-80,
+          60},{-80,-90},{60,-90},{60,-60},{40,-60}},   color={0,127,255}));
+  connect(domHotWatTan.port_bHea, port_b) annotation (Line(points={{20,-60},{-100,
+          -60}},                                   color={0,127,255}));
   connect(souDCW.ports[1], dcwSpl.port_1)
     annotation (Line(points={{-38,44},{0,44}}, color={0,127,255}));
   connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{20,44},{
           60,44}},                 color={0,127,255}));
-  connect(souDCW.T_in, TColWat) annotation (Line(points={{-60,40},{-120,40}},
+  connect(souDCW.T_in, TColWat) annotation (Line(points={{-60,40},{-70,40},{-70,
+          -40},{-120,-40}},
                           color={0,0,127}));
-  connect(theMixVal.yMixSet, gai.y) annotation (Line(points={{59,60},{-30,60},{
-          -30,-40},{-58,-40}},
-                        color={0,0,127}));
-  connect(QReqHotWat_flow, gai.u) annotation (Line(points={{-120,-40},{-82,-40}},
-                             color={0,0,127}));
-  connect(THotWatSupSet, theMixVal.TMixSet) annotation (Line(points={{-120,80},
-          {50,80},{50,54},{59,54}},color={0,0,127}));
-  connect(THotWatSupSet, domHotWatTan.TDomSet) annotation (Line(points={{-120,80},
-          {-20,80},{-20,-70},{19,-70}}, color={0,0,127}));
-  connect(domHotWatTan.PEle, PEle) annotation (Line(points={{41,-70},{80,-70},{
-          80,-40},{120,-40}},
+  connect(theMixVal.yMixSet, gai.y) annotation (Line(points={{59,60},{-30,60},{-30,
+          80},{-38,80}},color={0,0,127}));
+  connect(QReqHotWat_flow, gai.u) annotation (Line(points={{-120,40},{-92,40},{-92,
+          80},{-62,80}},     color={0,0,127}));
+  connect(THotWatSupSet, theMixVal.TMixSet) annotation (Line(points={{-120,0},{-60,
+          0},{-60,20},{40,20},{40,54},{59,54}},
+                                   color={0,0,127}));
+  connect(THotWatSupSet, domHotWatTan.TDomSet) annotation (Line(points={{-120,0},
+          {-60,0},{-60,-54},{19,-54}},  color={0,0,127}));
+  connect(domHotWatTan.PEle, PEle) annotation (Line(points={{41,-54},{80,-54},{80,
+          -40},{120,-40}},
                          color={0,0,127}));
-  connect(domHotWatTan.charge, charge) annotation (Line(points={{42,-79},{42,
-          -80},{80,-80},{80,-82},{100,-82},{100,-80},{120,-80}},
-                                        color={255,0,255}));
+  connect(domHotWatTan.charge, charge) annotation (Line(points={{42,-63},{42,-62},
+          {80,-62},{80,-80},{120,-80}}, color={255,0,255}));
   connect(expTTanTop.y, TTanTop) annotation (Line(points={{81,80},{120,80}},
                          color={0,0,127}));
-  connect(domHotWatTan.port_bDom, dHFlow.port_a1) annotation (Line(points={{40,-64},
-          {50,-64},{50,-42},{22,-42}},      color={0,127,255}));
-  connect(dHFlow.port_b1, theMixVal.port_hot) annotation (Line(points={{22,-22},
-          {50,-22},{50,48},{60,48}}, color={0,127,255}));
-  connect(dcwSpl.port_3, dHFlow.port_a2) annotation (Line(points={{10,34},{10,
-          -22}},                   color={0,127,255}));
-  connect(dHFlow.port_b2, domHotWatTan.port_aDom) annotation (Line(points={{10,-42},
-          {10,-64},{20,-64}},               color={0,127,255}));
-  connect(dHFlow.dH_flow, dHFlo) annotation (Line(points={{19,-20},{19,10},{88,
-          10},{88,40},{120,40}}, color={0,0,127}));
+  connect(domHotWatTan.port_bDom, dHFlow.port_a1) annotation (Line(points={{40,-48},
+          {48,-48},{48,-36},{22,-36},{22,-32}},
+                                            color={0,127,255}));
+  connect(dHFlow.port_b1, theMixVal.port_hot) annotation (Line(points={{22,-12},
+          {22,16},{46,16},{46,48},{60,48}},
+                                     color={0,127,255}));
+  connect(dcwSpl.port_3, dHFlow.port_a2) annotation (Line(points={{10,34},{10,-12}},
+                                   color={0,127,255}));
+  connect(dHFlow.port_b2, domHotWatTan.port_aDom) annotation (Line(points={{10,-32},
+          {10,-48},{20,-48}},               color={0,127,255}));
+  connect(dHFlow.dH_flow, dHFlo) annotation (Line(points={{19,-10},{19,10},{88,10},
+          {88,40},{120,40}},     color={0,0,127}));
   annotation (defaultComponentName="dhw",
     Icon(coordinateSystem(preserveAspectRatio=false),
         graphics={              Rectangle(
@@ -197,6 +234,30 @@ equation
                                           Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-fixme: add documentation.
-</html>"));
+<p>
+Model with fresh water station and domestic hot water load.
+</p>
+<p>
+This model integrates a fresh water station, using
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.StorageTankWithExternalHeatExchanger\">
+Buildings.DHC.ETS.Combined.Subsystems.StorageTankWithExternalHeatExchanger</a>
+with a domestic hot water load.
+The load is served at a specified temperature, using
+<a href=\"modelica://Buildings.DHC.Loads.HotWater.ThermostaticMixingValve\">
+Buildings.DHC.Loads.HotWater.ThermostaticMixingValve</a>
+to mix cold and hot water in order to meet the required hot water load.
+</p>
+<p>
+The hot water load is specified through the input <code>QReqHotWat_flow</code>,
+rather than the hot water mass flow rate, in order to take into account the actual
+temperature of the hot water after the heat exchanger of the fresh water station.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 5, 2025, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html"));
 end DHWConsumption;

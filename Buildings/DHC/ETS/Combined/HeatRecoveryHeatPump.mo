@@ -705,12 +705,12 @@ equation
   connect(heaPum.PPum, totPPum.u[2]) annotation (Line(points={{12,-8},{30,-8},{30,
           -70},{246,-70},{246,-60},{258,-60}},    color={0,0,127}));
   connect(tanDhw.THotWatSupSet, THotWatSupSet) annotation (Line(points={{-202,
-          238},{-228,238},{-228,140},{-320,140}},                       color={
+          230},{-228,230},{-228,140},{-320,140}},                       color={
           0,0,127}));
   connect(TColWat, tanDhw.TColWat) annotation (Line(points={{-320,100},{-224,
-          100},{-224,234},{-202,234}},                color={0,0,127}));
+          100},{-224,226},{-202,226}},                color={0,0,127}));
   connect(QReqHotWat_flow, tanDhw.QReqHotWat_flow) annotation (Line(points={{-320,60},
-          {-222,60},{-222,226},{-202,226}},                             color={
+          {-222,60},{-222,234},{-202,234}},                             color={
           0,0,127}));
   connect(dHFloHeaWat.port_a1, tanHeaWat.port_loaTop) annotation (Line(points={{-268,
           160},{-268,116},{-200,116}},       color={0,127,255}));
@@ -728,10 +728,11 @@ equation
                                              color={255,0,255}));
   connect(tanDhw.dHFlo, dHHotWat_flow) annotation (Line(points={{-179,234},{-170,
           234},{-170,300},{318,300}}, color={0,0,127}));
-  connect(tanDhw.port_b, valMixHea.port_3) annotation (Line(points={{-180,230},
-          {-96,230},{-96,60},{-90,60}}, color={0,127,255}));
+  connect(tanDhw.port_b, valMixHea.port_3) annotation (Line(points={{-200,224},
+          {-208,224},{-208,212},{-98,212},{-98,60},{-90,60}},
+                                        color={0,127,255}));
   connect(tanDhw.port_a, junDomHotWat.port_3) annotation (Line(points={{-200,
-          230},{-208,230},{-208,212},{-100,212},{-100,60},{-106,60}}, color={0,
+          236},{-212,236},{-212,208},{-100,208},{-100,60},{-106,60}}, color={0,
           127,255}));
   connect(tanChiWat.charge, conDivValChi.u) annotation (Line(points={{178,107},
           {90,107},{90,80},{98,80}},                     color={255,0,255}));
