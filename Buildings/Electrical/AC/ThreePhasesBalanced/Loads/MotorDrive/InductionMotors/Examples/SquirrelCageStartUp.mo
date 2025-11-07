@@ -8,7 +8,8 @@ model SquirrelCageStartUp
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(f=50, V=400)
     "Voltage source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCage motDri
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
+      have_speCon=false) "Motor driver with the disabled speed control"
     annotation (Placement(transformation(extent={{-18,-20},{2,0}})));
 
 equation

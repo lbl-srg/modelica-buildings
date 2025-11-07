@@ -8,17 +8,19 @@ model HeatPump "Motor coupled heat pump"
     redeclare final replaceable Interfaces.Terminal_n terminal);
 
   //Heat pump parameters
-  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0) = -P_nominal * COP_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal(max=0)=-P_nominal*
+    COP_nominal
     "Nominal cooling heat flow rate (Negative)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = P_nominal - QEva_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0)=P_nominal
+     - QEva_flow_nominal
     "Nominal heating flow rate (Positive)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(
-    final max=0) = -10 "Temperature difference evaporator outlet-inlet"
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(max=0)=-10
+                       "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(
-    final min=0) = 10 "Temperature difference condenser outlet-inlet"
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(min=0)=10
+                      "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
@@ -51,10 +53,12 @@ model HeatPump "Motor coupled heat pump"
   parameter Real a[:] = {1}
     "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
     annotation (Dialog(group="Efficiency"));
-  parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0) = if cp1_default < 1500 then 5 else 2
+  parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)=if
+    cp1_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
-  parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
+  parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0)=if
+    cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
@@ -63,38 +67,69 @@ model HeatPump "Motor coupled heat pump"
     per constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record of Induction Machine with performance data"
     annotation (choicesAllMatching=true, Dialog(tab="Motor"), Placement(transformation(extent={{30,60},{50,80}})));
-  parameter Boolean have_controller = true
-    "Set to true for enableing PID control"
-    annotation (Dialog(tab="Motor"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal=1500
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm Nrpm_nominal
     "Nominal rotational speed of compressor"
     annotation (Dialog(tab="Motor"));
-  parameter Modelica.Units.SI.Inertia loaIne=1 "Heat pump inertia"
+  parameter Modelica.Units.SI.Inertia loaIne "Heat pump inertia"
     annotation (Dialog(tab="Motor"));
+  parameter Real r=1
+    "Typical range of control error, used for scaling the control error"
+    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
-  parameter Real k(min=0) = 1
+    annotation (Dialog(tab="Motor", group="Controller"));
+  parameter Real k(min=0)=1
     "Gain of controller"
-    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block"
     annotation (Dialog(tab="Motor", group="Controller",
-                       enable=have_controller and
-                              controllerType == Modelica.Blocks.Types.SimpleController.PI or
+                       enable=controllerType == Modelica.Blocks.Types.SimpleController.PI or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
+  parameter Modelica.Units.SI.Time Td(min=0)=0.1
     "Time constant of Derivative block"
     annotation (Dialog(tab="Motor", group="Controller",
-                       enable=have_controller and
-                              controllerType == Modelica.Blocks.Types.SimpleController.PD or
+                       enable=controllerType == Modelica.Blocks.Types.SimpleController.PD or
                               controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
     "Upper limit of output"
-    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller"));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(tab="Motor", group="Controller", enable=have_controller));
+    annotation (Dialog(tab="Motor", group="Controller"));
+  parameter Boolean from_dp1=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Boolean linearizeFlowResistance1=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Real deltaM1=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Boolean from_dp2=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Boolean linearizeFlowResistance2=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Real deltaM2=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Modelica.Units.SI.Time tau1=60
+    "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
+  parameter Modelica.Units.SI.Temperature T1_start=Medium1.T_default
+    "Initial or guess value of set point"
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
+  parameter Modelica.Units.SI.Time tau2=60
+    "Time constant at nominal flow rate (used if energyDynamics2 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+  parameter Modelica.Units.SI.Temperature T2_start=Medium2.T_default
+    "Initial or guess value of set point"
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics", group="Evaporator and condenser"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K")
@@ -151,12 +186,24 @@ model HeatPump "Motor coupled heat pump"
     final TCon_nominal=TCon_nominal,
     final TEva_nominal=TEva_nominal,
     final TAppCon_nominal=TAppCon_nominal,
-    final TAppEva_nominal=TAppEva_nominal)
+    final TAppEva_nominal=TAppEva_nominal,
+    final from_dp1=from_dp1,
+    final linearizeFlowResistance1=linearizeFlowResistance1,
+    final deltaM1=deltaM1,
+    final from_dp2=from_dp2,
+    final linearizeFlowResistance2=linearizeFlowResistance2,
+    final deltaM2=deltaM2,
+    final tau1=tau1,
+    final T1_start=T1_start,
+    final tau2=tau2,
+    final T2_start=T2_start,
+    final energyDynamics=energyDynamics)
     "Heat pump model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive simMot(
     final per=per,
+    final r=r,
     final controllerType=controllerType,
     final reverseActing=true,
     final k=k,
@@ -214,9 +261,9 @@ equation
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
-            {100,100}}),
-                       graphics={
+  annotation (defaultComponentName="heaPum",
+  Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
+            {100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -298,7 +345,6 @@ equation
         Line(points={{20,68},{20,74},{20,90},{90,90},{100,90}},color={0,0,255}),
         Line(points={{62,0},{100,0}},color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255})}),
-        defaultComponentName="hea",
 Documentation(info="<html>
 <p>
 This is a model of a squirrel cage induction motor coupled heat pump with ideal

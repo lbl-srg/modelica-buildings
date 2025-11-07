@@ -64,9 +64,10 @@ model Chiller "Example showing how to use the motor coupled chiller model"
     dp1_nominal=1000,
     dp2_nominal=1000,
     etaCarnot_nominal=0.5,
+    loaIne=1,
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
-    k=0.001,
-    Ti=0.65)
+    k=0.1,
+    Ti=5)    "Chiller with motor interface"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
@@ -74,7 +75,7 @@ model Chiller "Example showing how to use the motor coupled chiller model"
     offset=273.15 + 20,
     startTime=60)
     "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-94,24},{-74,44}})));
+    annotation (Placement(transformation(extent={{-90,24},{-70,44}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=10,
     duration=60,
@@ -86,7 +87,7 @@ equation
   connect(Sou.terminal, chi.terminal)
     annotation (Line(points={{0,22},{0,0}}, color={0,120,120}));
   connect(TCon_in.y, sou1.T_in)
-    annotation (Line(points={{-73,34},{-62,34}}, color={0,0,127}));
+    annotation (Line(points={{-69,34},{-62,34}}, color={0,0,127}));
   connect(chi.port_a1, sou1.ports[1]) annotation (Line(points={{-10,-4},{-30,-4},
           {-30,30},{-40,30}}, color={0,127,255}));
   connect(senTem.port_a, chi.port_b2) annotation (Line(points={{-20,-30},{-14,
@@ -108,8 +109,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example that simulates a motor coupled chiller to track the set point signal 
-as the evaporator entering temperate changes.
+This example sinmulates a motor coupled chiller.
+</p>
+<p>
+To ensure that the chiller energy consumption is in accordance with the manufacture records, we can compare <code>Sou.P.apparent</code> (energy consumption from the grid) and <code>chi.P</code> (energy consumption according to manufacture records).
 </p>
 </html>", revisions="<html>
 <ul>

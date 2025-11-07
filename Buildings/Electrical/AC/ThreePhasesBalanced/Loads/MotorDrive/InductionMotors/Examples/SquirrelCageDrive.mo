@@ -32,14 +32,13 @@ model SquirrelCageDrive
 
 equation
   connect(motDri.terminal, sou.terminal)
-    annotation (Line(points={{10,20},{10,30},{12,30},{12,40}},
-                                               color={0,120,120}));
+    annotation (Line(points={{10,20},{10,30},{12,30},{12,40}}, color={0,120,120}));
   connect(Speed_ref.y, motDri.setPoi)
-    annotation (Line(points={{-39,18},{-2,18}},   color={0,0,127}));
+    annotation (Line(points={{-39,18},{-2,18}}, color={0,0,127}));
   connect(mea.y, motDri.mea) annotation (Line(points={{-39,-26},{-20,-26},{-20,10},
-          {-2,10}},       color={0,0,127}));
+          {-2,10}}, color={0,0,127}));
   connect(Speed_ref1.y, motDri.tau_m) annotation (Line(points={{-37,-66},{-8,-66},
-          {-8,2},{-2,2}},        color={0,0,127}));
+          {-8,2},{-2,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=2),

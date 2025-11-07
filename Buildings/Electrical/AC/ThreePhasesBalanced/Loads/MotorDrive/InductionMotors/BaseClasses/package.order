@@ -1,4 +1,3 @@
-CurrentBlock
 CurrentD
 CurrentD_VFD
 CurrentDerivative_dRotor
@@ -13,5 +12,6 @@ MotorMachineInterface
 PartialSquirrelCage
 RMS_Voltage
 Speed
+ThreePhaseCurrent
 Torque
 VoltageConversion

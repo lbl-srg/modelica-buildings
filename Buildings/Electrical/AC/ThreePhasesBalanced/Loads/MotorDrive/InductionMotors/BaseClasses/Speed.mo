@@ -85,7 +85,9 @@ equation
           30,-30},{30,60},{38,60}}, color={0,0,127}));
   connect(omega_r1, rotSpe.u) annotation (Line(points={{120,-30},{30,-30},{30,60},
           {38,60}}, color={0,0,127}));
- annotation (preferredView="info", Documentation(info="<html>
+
+annotation (defaultComponentName="speSli",
+Documentation(info="<html>
 <p>
 This block computes the rotor mechanical speed and slip of an induction machine
 using the electromagnetic torque, mechanical load torque, and electrical supply frequency.

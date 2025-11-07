@@ -60,6 +60,39 @@ model HeatPump "Heat pump with mechanical interface"
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
+  parameter Boolean from_dp1=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Boolean linearizeFlowResistance1=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Real deltaM1=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Boolean from_dp2=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Boolean linearizeFlowResistance2=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Real deltaM2=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Modelica.Units.SI.Time tau1=60
+    "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
+  parameter Modelica.Units.SI.Temperature T1_start=Medium1.T_default
+    "Initial or guess value of set point"
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
+  parameter Modelica.Units.SI.Time tau2=60
+    "Time constant at nominal flow rate (used if energyDynamics2 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+  parameter Modelica.Units.SI.Temperature T2_start=Medium2.T_default
+    "Initial or guess value of set point"
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics", group="Evaporator and condenser"));
 
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
@@ -87,17 +120,36 @@ model HeatPump "Heat pump with mechanical interface"
   Buildings.Fluid.HeatPumps.Carnot_y heaPum(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
+    final m1_flow_small=m1_flow_small,
+    final m2_flow_small=m2_flow_small,
+    final show_T=show_T,
     final dTEva_nominal=dTEva_nominal,
     final dTCon_nominal=dTCon_nominal,
     final use_eta_Carnot_nominal=use_eta_Carnot_nominal,
+    final COP_nominal=COP_nominal,
+    final TCon_nominal=TCon_nominal,
+    final TEva_nominal=TEva_nominal,
     final etaCarnot_nominal=etaCarnot_nominal,
     final a=a,
     final dp1_nominal=dp1_nominal,
     final dp2_nominal=dp2_nominal,
     final TAppCon_nominal=TAppCon_nominal,
     final TAppEva_nominal=TAppEva_nominal,
+    final from_dp1=from_dp1,
+    final from_dp2=from_dp2,
+    final linearizeFlowResistance1=linearizeFlowResistance1,
+    final linearizeFlowResistance2=linearizeFlowResistance2,
+    final deltaM1=deltaM1,
+    final deltaM2=deltaM2,
+    final tau1=tau1,
+    final tau2=tau2,
+    final T1_start=T1_start,
+    final T2_start=T2_start,
+    final energyDynamics=energyDynamics,
     final P_nominal=P_nominal) "Heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(
@@ -191,7 +243,8 @@ equation
   connect(gaiSpe.y, speCub.u[3]) annotation (Line(points={{-21,30},{-40,30},{
           -40,32.3333}},
                      color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+annotation (defaultComponentName = "heaPum",
+Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -276,8 +329,7 @@ equation
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255}),
         Line(points={{62,0},{100,0}},color={0,0,255}),
         Text(extent={{70,24},{120,10}}, textString="P", textColor={0,0,127})}),
-        defaultComponentName = "hea",
-        Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This model describes a heat pump with mechanical imterface and uses
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_y\">

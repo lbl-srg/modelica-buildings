@@ -22,8 +22,10 @@ model Pump "This example shows how to use the heat pump with mechanical interfac
     dp_nominal=2000) "Resistance"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
+    loaIne=1,
     addPowerToMedium=false,
     redeclare package Medium = MediumW,
+    Nrpm_nominal=3040,
     redeclare
       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per)
     "Pump"

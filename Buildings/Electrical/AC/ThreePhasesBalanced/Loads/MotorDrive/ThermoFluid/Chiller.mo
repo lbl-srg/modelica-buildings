@@ -62,6 +62,39 @@ model Chiller "Chiller with mechanical interface"
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
+  parameter Boolean from_dp1=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Boolean linearizeFlowResistance1=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Real deltaM1=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Boolean from_dp2=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Boolean linearizeFlowResistance2=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Real deltaM2=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Modelica.Units.SI.Time tau1=60
+    "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
+  parameter Modelica.Units.SI.Temperature T1_start=Medium1.T_default
+    "Initial or guess value of set point"
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
+  parameter Modelica.Units.SI.Time tau2=60
+    "Time constant at nominal flow rate (used if energyDynamics2 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+  parameter Modelica.Units.SI.Temperature T2_start=Medium2.T_default
+    "Initial or guess value of set point"
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics", group="Evaporator and condenser"));
 
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
@@ -87,8 +120,13 @@ model Chiller "Chiller with mechanical interface"
   Buildings.Fluid.Chillers.Carnot_y chi(
     redeclare final package Medium1 = Medium1,
     redeclare final package Medium2 = Medium2,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
+    final m1_flow_small=m1_flow_small,
+    final m2_flow_small=m2_flow_small,
+    final show_T=show_T,
     final dTEva_nominal=dTEva_nominal,
     final dTCon_nominal=dTCon_nominal,
     final use_eta_Carnot_nominal=use_eta_Carnot_nominal,
@@ -101,6 +139,17 @@ model Chiller "Chiller with mechanical interface"
     final dp2_nominal=dp2_nominal,
     final TAppCon_nominal=TAppCon_nominal,
     final TAppEva_nominal=TAppEva_nominal,
+    final from_dp1=from_dp1,
+    final from_dp2=from_dp2,
+    final linearizeFlowResistance1=linearizeFlowResistance1,
+    final linearizeFlowResistance2=linearizeFlowResistance2,
+    final deltaM1=deltaM1,
+    final deltaM2=deltaM2,
+    final tau1=tau1,
+    final tau2=tau2,
+    final T1_start=T1_start,
+    final T2_start=T2_start,
+    final energyDynamics=energyDynamics,
     final P_nominal=P_nominal) "Chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
@@ -131,12 +180,8 @@ model Chiller "Chiller with mechanical interface"
     annotation (Placement(transformation(extent={{0,20},{-20,40}})));
 
 protected
-  constant Boolean COP_is_for_cooling = true
-    "Set to true if the specified COP is for cooling";
   final parameter Modelica.Units.SI.Temperature TUseAct_nominal=
-    if COP_is_for_cooling
-      then TEva_nominal - TAppEva_nominal
-      else TCon_nominal + TAppCon_nominal
+    TEva_nominal - TAppEva_nominal
     "Nominal evaporator temperature for chiller or condenser temperature for 
     heat pump, taking into account pinch temperature between fluid and refrigerant";
 
@@ -159,7 +204,6 @@ initial equation
 
 equation
   chi.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauChi,spe.w,1e-6,1e-8);
-
   connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-80,60},{-80,
           6},{-10,6}}, color={0,127,255}));
   connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-80,-60},{-80,
@@ -195,7 +239,8 @@ equation
           {110,90}}, color={0,0,127}));
   connect(chi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},{70,
           -90},{110,-90}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
+annotation (defaultComponentName = "chi",
+Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -280,8 +325,7 @@ equation
         Line(points={{62,0},{100,0}},color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}},color={0,0,255}),
         Text(extent={{70,24},{120,10}},textString="P",textColor={0,0,127})}),
-        defaultComponentName = "Chi",
-        Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This model describes a chiller with mechanical imterface and uses 
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">Buildings.Fluid.Chillers.Carnot_y</a> 

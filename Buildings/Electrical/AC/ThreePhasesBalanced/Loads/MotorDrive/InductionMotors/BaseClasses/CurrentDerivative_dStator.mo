@@ -59,7 +59,9 @@ model CurrentDerivative_dStator
 equation
   der_i_ds =(((v_ds)/Ls)-((Rs*i_ds)/Ls)-((der_i_dr*Lm)/Ls)+(omega*i_qs)
                +((omega*Lm*i_qr)/Ls));
- annotation (preferredView="info", Documentation(info="<html>
+
+annotation (defaultComponentName="dStaCurDer",
+Documentation(info="<html>
 <p>
 This block computes the time derivative of the d-axis stator current in the
 synchronous d–q frame. The implemented relation is:

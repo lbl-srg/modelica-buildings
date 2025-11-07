@@ -27,7 +27,7 @@ algorithm
   v_qs:= 0;
 
 annotation (defaultComponentName="volCon",
-preferredView="info", Documentation(info="<html>
+Documentation(info="<html>
 <p>
 This block converts the stator voltage from its root mean square (RMS) value into
 d–q axis components.

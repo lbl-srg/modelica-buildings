@@ -57,7 +57,8 @@ model HeatPump "Example showing how to use the motor coupled heat pump model"
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
-    k=0.025,
+    loaIne=1,
+    k=0.1,
     Ti=10) "Heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin2(
@@ -112,8 +113,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example that simulates a motor coupled heat pump to track the set point signal 
-as the condenser entering temperate changes. 
+This example sinmulates a motor coupled heat pump.
+</p>
+<p>
+To ensure that the heat pump energy consumption is in accordance with the manufacture records, we can compare <code>Sou.P.apparent</code> (energy consumption from the grid) and <code>hea.P</code> (energy consumption according to manufacture records).
 </p>
 </html>", revisions="<html>
 <ul>

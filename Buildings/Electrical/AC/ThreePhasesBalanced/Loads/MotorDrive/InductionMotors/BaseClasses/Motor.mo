@@ -123,8 +123,6 @@ equation
     annotation (Line(points={{160,50},{81,50}},  color={0,0,127}));
   connect(i_qr, qRotCur.y)
     annotation (Line(points={{160,-40},{81,-40}},  color={0,0,127}));
-  connect(i_dr, i_dr)
-    annotation (Line(points={{160,-100},{160,-100}}, color={0,0,127}));
   connect(dRotCur.y, i_dr)
     annotation (Line(points={{81,-100},{160,-100}},  color={0,0,127}));
   connect(dStaCurDer.der_i_ds, dStaCur.u) annotation (Line(points={{22,50},{58,50}},
