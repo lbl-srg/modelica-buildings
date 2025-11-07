@@ -24,6 +24,7 @@ record HeatPump
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0)
     "Nominal cooling capacity"
     annotation (Dialog(group="Evaporator"));
+  // fixme: verify that all data are indeed used by the model, and delete what is not used.
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
     "Nominal temperature difference in condenser medium"
     annotation (Dialog(group="Condenser"));
