@@ -21,8 +21,7 @@ block HRSGEfficiency
     final quantity = "ThermodynamicTemperature")
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput eta_HRSG(
-    final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput eta(final unit="1")
     "Steam turbine electrical generation efficiency"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -40,11 +39,10 @@ algorithm
   TAmb_degF := (TAmb-273.15)*(9/5) +32;
 
 equation
-  eta_HRSG =Functions.HRSGEffectiveness(
+  eta = Functions.HRSGEffectiveness(
     TExh=TExh_degF,
     TSta=TSta_degF,
-    TAmb=TAmb_degF)
-    "HRSG effectiveness calculation";
+    TAmb=TAmb_degF) "HRSG effectiveness calculation";
 annotation (defaultComponentName="effHRSG",
 Documentation(info="<html>
 <p>

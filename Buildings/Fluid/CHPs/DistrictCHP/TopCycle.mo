@@ -163,20 +163,20 @@ and the heat flow of the exhaust gas.
 </p>
 <p align=\"center\">
 <i>
-Q<sub>fuel</sub> = P<sub>GTG</sub> + Q<sub>exhaust</sub>,
+Q&#775;<sub>fuel</sub> = P<sub>GTG</sub> + Q&#775;<sub>exhaust</sub>,
 </i>
 </p>
 <p>
-where <i>Q<sub>fuel</sub></i> is the fuel combustion energy in the gas turbine,
+where <i>Q&#775;<sub>fuel</sub></i> is the fuel combustion energy in the gas turbine,
 <i>P<sub>GTG</sub></i> denotes the electricity production from the gas turbine
-generator, and <i>Q<sub>exhaust</sub></i> represents the heat flow of the exhaust
+generator, and <i>Q&#775;<sub>exhaust</sub></i> represents the heat flow of the exhaust
 gas. Note that the fuel combustion energy is calculated as the product of the
 mass flow rate of the fuel, <i>m&#775;<sub>fuel</sub></i>, and its lower heating
 value (LHV):
 </p>
 <p align=\"center\">
 <i>
-Q<sub>fuel</sub> = m&#775;<sub>fuel</sub> LHV<sub>fuel</sub>.
+Q&#775;<sub>fuel</sub> = m&#775;<sub>fuel</sub> LHV<sub>fuel</sub>.
 </i>
 </p>
 <p>
@@ -188,25 +188,27 @@ The equations are:
 </p>
 <p align=\"center\">
 <i>
-P<sub>GTG</sub> = Q<sub>fuel</sub> &eta;<sub>GTG</sub>,
+P<sub>GTG</sub> = Q&#775;<sub>fuel</sub> &eta;<sub>GTG</sub>,
 </i>
 </p>
 <p align=\"center\">
 <i>
-Q<sub>exhaust</sub> = Q<sub>fuel</sub> (1 - &eta;<sub>GTG</sub>).
+Q&#775;<sub>exhaust</sub> = Q&#775;<sub>fuel</sub> (1 - &eta;<sub>GTG</sub>).
 </i>
 </p>
 <p>
-In theory, the waste heat <i>Q<sub>exhaust</sub></i> can be expressed by the
+In theory, the waste heat <i>Q&#775;<sub>exhaust</sub></i> can be expressed by the
 equation above. In the model, the corresponding values of exhaust gas mass flow
 rate and exhaust temperature are given to provide the waste heat.
 </p>
 <p>
 This model uses look-up tables to capture the gas turbine's performance. The Solar
-Turbine manufacturer datasheet, available in <code>Data.SolarTurbines</code>, provides
-details on gas turbine performance in terms of electricity generation efficiency,
-exhaust gas mass flow rate, and exhaust gas temperature. These parameters are
-determined based on the ambient temperature <code>TSet</code> and the load factor <code>y</code>.
+Turbine manufacturer datasheet, available in
+<a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines\">
+Data.SolarTurbines</a>, provides details on gas turbine performance in terms of
+electricity generation efficiency, exhaust gas mass flow rate, and exhaust gas
+temperature. These parameters are determined based on the ambient temperature
+<code>TSet</code> and the load factor <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>

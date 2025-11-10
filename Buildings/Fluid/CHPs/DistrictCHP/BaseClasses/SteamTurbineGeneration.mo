@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block SteamTurbineGeneration
-  "Steam turbine electrical generation"
+  "Steam turbine power generation"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real a[3] "Coefficients for exergy efficiency function";
@@ -96,12 +96,16 @@ Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency</
 </p>
 <h4>References</h4>
 <p>
-Gülen, S. (2019). <i> Gas Turbine Combined Cycle Power Plants (1st ed.) </i>. CRC Press.
-<a href=\"https://doi.org/10.1201/9780429244360\">[Link]</a>
+Gülen, S. (2019).
+<a href=\"https://doi.org/10.1201/9780429244360\">
+Gas Turbine Combined Cycle Power Plants (1st ed.)</a>
+CRC Press.
 </p>
 <p>
-Gülen, S. (2019) <i> Gas Turbines for Electric Power Generation.</i> Cambridge University Press.
-<a href=\"https://doi.org/10.1017/9781108241625\">[Link]</a>
+Gülen, S. (2019).
+<a href=\"https://doi.org/10.1017/9781108241625\">
+Gas Turbines for Electric Power Generation.</a>
+Cambridge University Press. 
 </p>
 </html>"));
 end SteamTurbineGeneration;

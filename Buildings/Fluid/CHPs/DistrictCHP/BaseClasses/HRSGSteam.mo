@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
-block HRSGSteam "Superheated steam heat flow from HRSG"
+block HRSGSteam "Superheated steam heat flow from Heat Recovery Steam Generator"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real TSta(
@@ -42,7 +42,8 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Multiply heaRec
     "Heat generation within the engine"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply supSte "Superheated steam energy "
+  Buildings.Controls.OBC.CDL.Reals.Multiply supSte
+    "Superheated steam energy "
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
@@ -54,7 +55,7 @@ equation
           {-120,40}},color={0,0,127}));
   connect(mExh_flow, heaRec.u2) annotation (Line(points={{-120,-40},{-10,-40},{
           -10,-26},{-2,-26}}, color={0,0,127}));
-  connect(heaExcEff.eta_HRSG, supSte.u1)
+  connect(heaExcEff.eta, supSte.u1)
     annotation (Line(points={{-18,40},{0,40},{0,6},{58,6}}, color={0,0,127}));
   connect(heaExcEff.TAmb, TAmb) annotation (Line(points={{-42,36},{-60,36},{-60,
           0},{-120,0}}, color={0,0,127}));
@@ -106,14 +107,15 @@ Q&#775;<sub>ste</sub> = m&#775;<sub>exh</sub> h<sub>exh</sub> &eta;<sub>HRSG</su
 </i>
 </p>
 <p>
-where <i>Q&#775;<sub>ste</sub></i> is the superheated steam heat flow in the outlet of HRSG, 
-and <i>m&#775;<sub>exh</sub></i> is the exhaust gas mass flow rate.
+where <i>Q&#775;<sub>ste</sub></i> is the superheated steam heat flow in the outlet
+of HRSG (Heat Recovery Steam Generator), and <i>m&#775;<sub>exh</sub></i> is the
+exhaust gas mass flow rate.
 <i>h<sub>exh</sub></i> is the specific enthalpy of the exhaust gas, which is calculated
 by the instance of the block
 <a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.WasteHeatEnthalpy\">
 Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.WasteHeatEnthalpy</a>.
-<i>&eta;<sub>HRSG</sub></i> denotes the effectiveness of the HRSG (heat recovery
-steam generator), which is calculated by the instance of the block
+<i>&eta;<sub>HRSG</sub></i> denotes the effectiveness of the HRSG, which is calculated
+by the instance of the block
 <a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HRSGEfficiency\">
 Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.HRSGEfficiency</a>.
 </p>

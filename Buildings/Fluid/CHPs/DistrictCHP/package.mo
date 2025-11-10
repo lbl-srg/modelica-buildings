@@ -39,43 +39,52 @@ As mechanical energy and heat losses in the turbine are neglected, the fuel comb
 energy is considered equal to the sum of the generated electricity and the heat
 flow of the exhaust gas. The energy balance equation for the topping cycle is:
 </p>
-<pre>
-Q_fuel = P_GTG + Q_exhaust
-</pre>
+<p align=\"center\">
+<i>
+Q&#775;<sub>fuel</sub> = P<sub>GTG</sub> + Q&#775;<sub>exhaust</sub>
+</i>
+</p>
 <p>
-Where <code>Q_fuel</code> is the fuel combustion energy, <code>P_GTG</code> is
-the electrical power output of the gas turbine generator, and <code>Q_exhaust</code>
+Where <i>Q&#775;<sub>fuel</sub></i> is the fuel combustion energy, <i>P<sub>GTG</sub></i> is
+the electrical power output of the gas turbine generator, and <i>Q&#775;<sub>exhaust</sub></i>
 is the heat flow of the exhaust gas. The fuel combustion energy is calculated by:
 </p>
-<pre>
-Q_fuel = m_fuel × LHV_fuel
-</pre>
+<p align=\"center\">
+<i>
+Q&#775;<sub>fuel</sub> = m<sub>fuel</sub> × LHV<sub>fuel</sub>
+</i>
+</p>
 <p>
 A portion of the fuel combustion energy is converted into electricity based on the
-gas turbine efficiency <code>η_GTG</code>:
+gas turbine efficiency <i>η<sub>GTG</sub></i>:
 </p>
-<pre>
-P_GTG = Q_fuel × η_GTG
-Q_exhaust = Q_fuel × (1 - η_GTG)
-</pre>
+<p align=\"center\">
+<i>
+P<sub>GTG</sub> = Q&#775;<sub>fuel</sub> × η<sub>GTG</sub></br>
+Q&#775;<sub>exhaust</sub> = Q&#775;<sub>fuel</sub> × (1 - η<sub>GTG</sub>)
+</i>
+</p>
 <p>
 In the bottoming cycle, the inputs are the exhaust gas and feedwater energy, while
 the outputs include electricity from the steam turbine and heating energy from
 saturated steam. Heat losses occur in the exhaust gas stack and during the
 desuperheating process. The energy balance for the bottoming cycle is:
 </p>
-<pre>
-Q_exhaust + Q_water = P_STG + Q_steam_sat + Q_exhaust_loss + Q_steam_loss
-</pre>
+<p align=\"center\">
+<i>
+Q&#775;<sub>exhaust</sub> + Q&#775;<sub>water</sub> = P<sub>STG</sub> +
+Q&#775;<sub>steam,sat</sub> + Q&#775;<sub>exhaust,loss</sub> + Q&#775;<sub>steam,loss</sub>
+</i>
+</p>
 <p>
-Where <code>Q_water</code> is the energy flow from the feedwater, <code>P_STG</code>
-is the electricity from the steam turbine generator, <code>Q_steam_sat</code> is
+Where <i>Q&#775;<sub>water</sub></i> is the energy flow from the feedwater, <i>P<sub>STG</sub></i>
+is the electricity from the steam turbine generator, <i>Q&#775;<sub>steam,sat</sub></i> is
 the heating energy of the saturated steam, and the last two terms represent
 respective energy losses.
 </p>
 <h4>Note</h4>
 <p>
-All energy flows are time-dependent rates (e.g., Watts), and symbols use dot notation.
+All energy flows are time-dependent rates (e.g., Watts).
 </p>
 </html>", revisions="<html>
 <ul>

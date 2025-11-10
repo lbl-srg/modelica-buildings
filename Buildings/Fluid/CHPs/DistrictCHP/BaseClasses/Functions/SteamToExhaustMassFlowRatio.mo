@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions;
 function SteamToExhaustMassFlowRatio
-  "Correlation function used to calculate the ratio of steam to exhaust gas flow rates"
+  "Ratio of mass flow rate between the steam and the exhaust"
   extends Modelica.Icons.Function;
 
   input Modelica.Units.NonSI.Temperature_degF TExh
@@ -26,9 +26,9 @@ y = a<sub>1</sub> + a<sub>2</sub> (T<sub>exh</sub> &frasl; 100 -11) - a<sub>3</s
 </i>
 </p>
 <p>
-where <i>T<sub>exh</sub></i> is the exhaust gas temperature (in Fahrenheit) from the
+where <i>T<sub>exh</sub></i> is the exhaust gas temperature (in &deg;F) from the
 gas turbine in the topping cycle,
-<i>T<sub>ste</sub></i> is the superheated steam temperature (in Fahrenheit) in
+<i>T<sub>ste</sub></i> is the superheated steam temperature (in &deg;F) in
 the outlet of HRSG. 
 </p>
 <h4>References</h4>

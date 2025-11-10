@@ -23,7 +23,7 @@ a<sub>exh</sub> = 0.196 T<sub>exh</sub> - 86.918 [Btu/lb],
 <p>
 where
 <i>a<sub>exh</sub></i> is the exhaust specific exergy (in Btu/lb),
-and <i>T<sub>exh</sub></i> is the exhaust temperature in Fahrenheit.
+and <i>T<sub>exh</sub></i> is the exhaust temperature (in &deg;F).
 </p>
 <h4>References</h4>
 <p>

@@ -29,7 +29,7 @@ y = a<sub>1</sub> + a<sub>2</sub> (T<sub>exh</sub> / 100) + a<sub>3</sub>
 </p>
 <p>
 where
-<i>T<sub>exh</sub></i> is the exhaust gas temperature (in Fahrenheit) from the
+<i>T<sub>exh</sub></i> is the exhaust gas temperature (in &deg;F) from the
 gas turbine in the topping cycle.
 </p>
 <h4>References</h4>

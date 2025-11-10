@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
-package Functions "This package contains functions for used in the blocks."
+package Functions "Package of functions to be used by the blocks."
     extends Modelica.Icons.VariantsPackage;
 
   annotation (Documentation(info="<html>

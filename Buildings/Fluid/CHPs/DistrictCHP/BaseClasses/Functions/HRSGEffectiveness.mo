@@ -22,9 +22,9 @@ algorithm
   end if;
 annotation (Documentation(info="<html>
 <p>
-This correlation function calculates the effectiveness of the HRSG based on a zero
-enthalpy reference temperature of either 59 or 77 degrees of Fahrenheit.
-This correlation function has the form
+This correlation function calculates the effectiveness of the Heat Recovery Steam
+Generator (HRSG) based on a zero enthalpy reference temperature of either 59 &deg;F
+or 77 &deg;F. This correlation function has the form
 </p>
 <p align=\"center\">
 <i>
@@ -61,8 +61,8 @@ h<sub>sta</sub> = 0.2443T<sub>sta</sub> - 17.892 [Btu/lb],
 </p>
 <p>
 where
-<i>T<sub>exh</sub></i> is the exhaust gas temperature (in Fahrenheit) from the gas turbine,
-<i>T<sub>sta</sub></i> is the exhaust stack temperature (in Fahrenheit).
+<i>T<sub>exh</sub></i> is the exhaust gas temperature (in &deg;F) from the gas turbine,
+<i>T<sub>sta</sub></i> is the exhaust stack temperature (in &deg;F).
 </p>
 <h4>References</h4>
 <p>
