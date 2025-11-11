@@ -128,39 +128,47 @@ equation
 <p>
 This block implements a dynamic model of a three-phase squirrel-cage induction motor
 with a built-in closed-loop speed control. It adjusts the applied electrical frequency
-to track the given speed or frequency setpoint while driving a mechanical load
+to track the given setpoint while driving a mechanical load
 (<i>&tau;<sub>m</sub></i>).
 </p>
 <p>
-<b>
 The model extends
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.PartialSquirrelCage\">
 PartialSquirrelCage</a> with <code>have_speCon = true</code> and includes
 an internal PI-based variable frequency drive (VFD) controller that regulates
 the electrical input frequency and voltage to maintain the desired rotor speed.
-</b>
 </p>
 <p>
-<p>
-<b>Inputs:</b> Setpoint (<code>setPoi</code>), Measurement (<code>mea</code>), Load torque (<i>&tau;<sub>m</sub></i>) [N·m]  
+<b>Inputs:</b>
+Setpoint (<code>setPoi</code>), Measurement (<code>mea</code>), Load torque (<i>&tau;<sub>m</sub></i>) [N·m]  
 &nbsp; | &nbsp;
-<b>Outputs:</b> Rotor speed (<i>&omega;<sub>r</sub></i>) [rad/s],
+<b>Outputs:</b>
+Rotor speed (<i>&omega;<sub>r</sub></i>) [rad/s],
 Electromagnetic torque (<i>&tau;<sub>e</sub></i>) [N·m],
 Stator currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>) [A]
 </p>
-
 <p>
 Depending on the context:
-<ul>
-  <li>In <code><a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller\">
-Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller</a></code> and <code><a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.HeatPump\">
-Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.HeatPump</a></code>, 
-      the control variables (<code>setPoi</code>, <code>mea</code>) correspond to temperature signals.</li>
-  <li>In <code><a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump\">
-Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump</a></code>, they represent a mass flow rate.</li>
-  <li>In standalone motor-drive applications, they correspond to speed references and measurements.</li>
-</ul>
 </p>
+<ul>
+<li>
+In <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller</a>
+and <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.HeatPump\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.HeatPump</a>, 
+the control variables (<code>setPoi</code>, <code>mea</code>) are the
+evaporator leaving water temperature, setpoint and measurement.
+</li>
+<li>
+In <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump</a>,
+the control variables are the mass flow rate.
+</li>
+<li>
+In standalone motor-drive applications, they correspond to speed references and
+measurements.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

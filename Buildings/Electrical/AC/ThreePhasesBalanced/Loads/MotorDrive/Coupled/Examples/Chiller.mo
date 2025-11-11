@@ -55,8 +55,7 @@ model Chiller "Example showing how to use the motor coupled chiller model"
     "Water sink 1"
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
 
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller
-    chi(
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller chi(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Water,
     P_nominal=P_nominal,
@@ -67,7 +66,8 @@ model Chiller "Example showing how to use the motor coupled chiller model"
     loaIne=1,
     redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
     k=0.1,
-    Ti=5)    "Chiller with motor interface"
+    Ti=5)
+    "Chiller with motor interface"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
@@ -112,7 +112,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
 This example sinmulates a motor coupled chiller.
 </p>
 <p>
-To ensure that the chiller energy consumption is in accordance with the manufacture records, we can compare <code>Sou.P.apparent</code> (energy consumption from the grid) and <code>chi.P</code> (energy consumption according to manufacture records).
+To ensure that the chiller energy consumption is in accordance with the manufacture
+records, we can compare <code>Sou.P.apparent</code> (energy consumption from
+the grid) and <code>chi.P</code> (energy consumption according to
+manufacture records).
 </p>
 </html>", revisions="<html>
 <ul>

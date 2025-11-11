@@ -54,8 +54,7 @@ equation
   connect(gri.terminal, pum.terminal) annotation (Line(points={{10,60},{10,30}},
           color={0,120,120}));
   connect(step.y, pum.m_flow_set) annotation (Line(points={{-59,70},{-10,70},{
-          -10,28},{-2,28}},
-                        color={0,0,127}));
+          -10,28},{-2,28}}, color={0,0,127}));
   connect(dp1.port_b, pum.port_a) annotation (Line(points={{-20,20},{0,20}},
           color={0,127,255}));
   connect(dp1.port_a, sou.ports[1])
@@ -68,17 +67,27 @@ equation
           -50,-40},{-50,21},{-80,21}}, color={0,127,255}));
   connect(senMasFlo.m_flow,pum.m_flow)  annotation (Line(points={{-10,-29},{-10,
           24},{-2,24}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=200),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"
+
+annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=200),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example simulates a motor coupled pump.
 </p>
-<p>
-<li> <code>pum.riseTime</code> in the dynamics tab, helps to set the response of the fluid by regulating the motor speed to meet the prescribed mass flow. To get the desired equipment response along with riseTime the gains of the controller also needs to be tuned.
-<li> To ensure that the pump energy consumption is in accordance with the manufacture records, we can compare <code>gri.P.real</code>(energy consumption from the grid) and <code>pum.P</code>(energy consumption according to manufacture records).
-</p>
+<ul>
+<li>
+The parameter <code>pum.riseTime</code> in the dynamics tab, helps to set the
+response of the fluid by regulating the motor speed to meet the prescribed mass flow.
+To get the desired equipment response along with riseTime the gains of the controller
+also needs to be tuned.
+</li>
+<li>
+To ensure that the pump energy consumption is in accordance with the manufacture
+records, we can compare <code>gri.P.real</code> (energy consumption from the grid)
+and <code>pum.P</code> (energy consumption according to manufacture records).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
