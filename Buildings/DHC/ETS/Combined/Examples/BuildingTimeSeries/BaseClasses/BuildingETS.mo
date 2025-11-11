@@ -1,7 +1,17 @@
 within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses;
 model BuildingETS
   "Load connected to the network via ETS with or without DHW integration"
-  extends Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.PartialBuildingETS(
+  extends Buildings.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
+    redeclare Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries bui(
+      final filNam=filNam,
+      final T_aHeaWat_nominal=datBuiSet.THeaWatSup_nominal,
+      final T_bHeaWat_nominal=datBuiSet.THeaWatRet_nominal,
+      final T_aChiWat_nominal=datBuiSet.TChiWatSup_nominal,
+      final T_bChiWat_nominal=datBuiSet.TChiWatRet_nominal,
+      final have_hotWat=have_hotWat,
+      QHea_flow_nominal=facTerUniSizHea*Buildings.DHC.Loads.BaseClasses.getPeakLoad(
+          string="#Peak space heating load",
+          filNam=Modelica.Utilities.Files.loadResource(filNam))),
     redeclare Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump ets(
       final have_hotWat=QHotWat_flow_nominal > Modelica.Constants.eps,
       QChiWat_flow_nominal=QCoo_flow_nominal,
@@ -26,10 +36,74 @@ model BuildingETS
       TCon_start=if have_hotWat then min(datBuiSet.THeaWatSup_nominal,
           datBuiSet.THotWatSupTan_nominal) else datBuiSet.THeaWatSup_nominal,
       TEva_start=datBuiSet.TChiWatSup_nominal,
-      datHeaPum=datHeaPum));
+      datHeaPum=datHeaPum),
+    nPorts_heaWat=1,
+    nPorts_chiWat=1);
 
   parameter Boolean have_eleNonHva "The ETS has non-HVAC electricity load"
     annotation (Dialog(group="Configuration"));
+
+  parameter Real facTerUniSizHea(final unit="1")
+    "Factor to increase design capacity of space terminal units for heating";
+  parameter String filNam "File name for the load profile";
+
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(
+    max=-Modelica.Constants.eps)=
+      Buildings.DHC.Loads.BaseClasses.getPeakLoad(
+        string="#Peak space cooling load",
+        filNam=Modelica.Utilities.Files.loadResource(filNam))
+    "Design cooling heat flow rate (<=0)"
+    annotation (Dialog(group="Design parameter"));
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(
+    min=Modelica.Constants.eps)=
+      Buildings.DHC.Loads.BaseClasses.getPeakLoad(
+        string="#Peak space heating load",
+        filNam=Modelica.Utilities.Files.loadResource(filNam))
+    "Design heating heat flow rate (>=0)"
+    annotation (Dialog(group="Design parameter"));
+
+  parameter Buildings.DHC.ETS.Combined.Data.BuildingSetPoints datBuiSet
+    "Building set points" annotation (Placement(
+      transformation(extent={{20,140},{40,160}})));
+  parameter Buildings.DHC.ETS.Combined.Data.HeatPump datHeaPum(
+    PLRMin=0.2/3 "20%, and assume 3 chillers in parallel",
+    QHea_flow_nominal=max(QHea_flow_nominal, abs(QCoo_flow_nominal)*1.2),
+    QCoo_flow_nominal=QCoo_flow_nominal,
+    final dTCon_nominal=datBuiSet.dTHeaWat_nominal,
+    final dTEva_nominal=datBuiSet.dTChiWat_nominal,
+    final TConLvg_nominal=max(datBuiSet.THeaWatSup_nominal, datBuiSet.THotWatSupTan_nominal),
+    final TEvaLvg_nominal=datBuiSet.TChiWatSup_nominal)
+    "Heat recovery heat pump parameters"
+    annotation (Placement(transformation(extent={{20,180},{40,200}})));
+
+  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
+      datBuiSet.TChiWatRet_nominal "Chilled water return temperature from building load"
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.Temperature THeaWatRet_nominal=
+      datBuiSet.THeaWatRet_nominal "Heating water return temperature from building load"
+    annotation (Dialog(group="Nominal condition"));
+//  parameter Modelica.Units.SI.Temperature TDisWatMin=6 + 273.15
+//    "District water minimum temperature"
+//    annotation (Dialog(group="Nominal condition"));
+//  parameter Modelica.Units.SI.Temperature TDisWatMax=17 + 273.15
+//    "District water maximum temperature"
+//    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 4
+    "Water temperature drop/increase accross load and source-side HX (always positive)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal =
+    datBuiSet.TChiWatSup_nominal "Chilled water supply temperature to building load"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature THeaWatSup_nominal =
+    datBuiSet.THeaWatSup_nominal "Heating water supply temperature to building load"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature THotWatSup_nominal =
+    datBuiSet.THotWatSupFix_nominal "Domestic hot water supply temperature to fixtures"
+    annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
+  parameter Modelica.Units.SI.Temperature TColWat_nominal =
+    datBuiSet.TColWat_nominal
+    "Cold water temperature (for hot water production)"
+    annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
 
   parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datDhw(
       VTan=datHeaPum.mCon_flow_nominal*datBuiSet.dTHeaWat_nominal*5*60/1000,
@@ -46,30 +120,43 @@ model BuildingETS
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
 
-  Buildings.Controls.SetPoints.Table THeaWatSupSet(
+  // Replaceable sources for set points and for fresh water supply
+  replaceable Buildings.Controls.SetPoints.Table THeaWatSupSet(
     final table=datBuiSet.tabHeaWatRes,
     final offset=0,
-    final constantExtrapolation=true,
-    y(final unit="K", displayUnit="degC"))
+    final constantExtrapolation=true)
+    constrainedby Modelica.Blocks.Interfaces.SO(
+      y(final unit="K", displayUnit="degC"))
     "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Buildings.Controls.SetPoints.Table TChiWatSupSet(
+  replaceable Buildings.Controls.SetPoints.Table TChiWatSupSet(
     final table=datBuiSet.tabChiWatRes,
     final offset=0,
-    final constantExtrapolation=true,
-    y(final unit="K", displayUnit="degC"))
+    final constantExtrapolation=true)
+    constrainedby Modelica.Blocks.Interfaces.SO(
+      y(final unit="K", displayUnit="degC"))
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(
-    final k=datBuiSet.THotWatSupFix_nominal,
-    y(final unit="K", displayUnit="degC")) if have_hotWat
+
+  replaceable Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(
+    final k(final unit="K", displayUnit="degC")=datBuiSet.THotWatSupFix_nominal)
+    if have_hotWat
+    constrainedby Modelica.Blocks.Interfaces.SO(y(final unit="K", displayUnit="degC"))
     "Domestic hot water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat(
-    final k=datBuiSet.TColWat_nominal,
-    y(final unit="K", displayUnit="degC")) if have_hotWat
+  replaceable Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat(
+    final k(final unit="K", displayUnit="degC")=datBuiSet.TColWat_nominal)
+    if have_hotWat
+    constrainedby Modelica.Blocks.Interfaces.SO(y(final unit="K", displayUnit="degC"))
     "Domestic cold water temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
+
+  // Output connectors for main energy use
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleNonHva(final unit="W")
+    if have_eleNonHva
+    "Power drawn by non-HVAC electricity load" annotation (
+      Placement(transformation(extent={{300,-20},{340,20}}), iconTransformation(
+          extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dHHeaWat_flow(final unit="W")
     "Heating water distributed energy flow rate"
     annotation (Placement(transformation(extent={{300,-140},{340,-100}}),
@@ -89,6 +176,7 @@ model BuildingETS
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-60,-120})));
+
   Modelica.Blocks.Sources.CombiTimeTable loaEleNonHva(
     final tableOnFile=true,
     tableName="tab1",
@@ -101,17 +189,12 @@ model BuildingETS
     smoothness=bui.loa.smoothness) if have_eleNonHva
     "Reader for non-HVAC electricity load"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleNonHva(final unit="W")
-    if have_eleNonHva
-    "Power drawn by non-HVAC electricity load" annotation (
-      Placement(transformation(extent={{300,-20},{340,20}}), iconTransformation(
-          extent={{100,-40},{140,0}})));
+
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPEleNonHva(
     u(final unit="W"),
     final k=facMul) if have_eleNonHva "Scaling"
     annotation (Placement(transformation(extent={{270,-10},{290,10}})));
 equation
-
   connect(ets.QReqHotWat_flow, bui.QReqHotWat_flow) annotation (Line(points={{-34,-54},
           {-40,-54},{-40,-120},{84,-120},{84,-2},{28,-2},{28,4}},      color={0,
           0,127}));
