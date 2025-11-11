@@ -113,8 +113,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example that simulates a motor coupled heat pump to track the set point signal 
-as the condenser entering temperate changes. 
+This example sinmulates a motor coupled heat pump.
+</p>
+<p>
+To ensure that the heat pump energy consumption is in accordance with the manufacture records, we can compare <code>Sou.P.apparent</code> (energy consumption from the grid) and <code>hea.P</code> (energy consumption according to manufacture records).
 </p>
 </html>", revisions="<html>
 <ul>

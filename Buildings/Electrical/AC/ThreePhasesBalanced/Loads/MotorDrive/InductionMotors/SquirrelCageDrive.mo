@@ -141,11 +141,25 @@ the electrical input frequency and voltage to maintain the desired rotor speed.
 </b>
 </p>
 <p>
-<b>Inputs:</b> Setpoint (<i>&omega;<sub>ref</sub></i> or speed) [rad/s],
-Measured speed (<i>&omega;<sub>r</sub></i>) [rad/s], Load torque (<i>&tau;<sub>m</sub></i>) [N·m] &nbsp; | &nbsp;
+<p>
+<b>Inputs:</b> Setpoint (<code>setPoi</code>), Measurement (<code>mea</code>), Load torque (<i>&tau;<sub>m</sub></i>) [N·m]  
+&nbsp; | &nbsp;
 <b>Outputs:</b> Rotor speed (<i>&omega;<sub>r</sub></i>) [rad/s],
 Electromagnetic torque (<i>&tau;<sub>e</sub></i>) [N·m],
 Stator currents (<i>i<sub>ds</sub></i>, <i>i<sub>qs</sub></i>) [A]
+</p>
+
+<p>
+Depending on the context:
+<ul>
+  <li>In <code><a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Chiller</a></code> and <code><a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.HeatPump\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.HeatPump</a></code>, 
+      the control variables (<code>setPoi</code>, <code>mea</code>) correspond to temperature signals.</li>
+  <li>In <code><a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump</a></code>, they represent a mass flow rate.</li>
+  <li>In standalone motor-drive applications, they correspond to speed references and measurements.</li>
+</ul>
 </p>
 </html>", revisions="<html>
 <ul>

@@ -109,8 +109,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example that simulates a motor coupled chiller to track the set point signal 
-as the evaporator entering temperate changes.
+This example sinmulates a motor coupled chiller.
+</p>
+<p>
+To ensure that the chiller energy consumption is in accordance with the manufacture records, we can compare <code>Sou.P.apparent</code> (energy consumption from the grid) and <code>chi.P</code> (energy consumption according to manufacture records).
 </p>
 </html>", revisions="<html>
 <ul>

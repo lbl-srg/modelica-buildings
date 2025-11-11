@@ -73,8 +73,11 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example that simulates a motor coupled pump to track the set point signal as 
-the load changes.
+This example simulates a motor coupled pump.
+</p>
+<p>
+<li> <code>pum.riseTime</code> in the dynamics tab, helps to set the response of the fluid by regulating the motor speed to meet the prescribed mass flow. To get the desired equipment response along with riseTime the gains of the controller also needs to be tuned.
+<li> To ensure that the pump energy consumption is in accordance with the manufacture records, we can compare <code>gri.P.real</code>(energy consumption from the grid) and <code>pum.P</code>(energy consumption according to manufacture records).
 </p>
 </html>", revisions="<html>
 <ul>
