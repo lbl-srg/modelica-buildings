@@ -14,7 +14,7 @@ model ThermalZone
 
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter String hvacSystemName="default"
+  parameter String hvacSystemName="none"
     "Name of the HVAC system that this zone belongs for auto-sizing"
     annotation(Dialog(group="Autosizing"));
   parameter Integer nPorts=0
