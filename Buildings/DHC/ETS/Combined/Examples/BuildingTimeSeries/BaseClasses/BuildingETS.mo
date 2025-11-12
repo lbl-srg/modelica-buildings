@@ -125,7 +125,7 @@ model BuildingETS
     final table=datBuiSet.tabHeaWatRes,
     final offset=0,
     final constantExtrapolation=true)
-    constrainedby Modelica.Blocks.Interfaces.SO(
+    constrainedby Modelica.Blocks.Interfaces.SISO(
       y(final unit="K", displayUnit="degC"))
     "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
@@ -133,7 +133,7 @@ model BuildingETS
     final table=datBuiSet.tabChiWatRes,
     final offset=0,
     final constantExtrapolation=true)
-    constrainedby Modelica.Blocks.Interfaces.SO(
+    constrainedby Modelica.Blocks.Interfaces.SISO(
       y(final unit="K", displayUnit="degC"))
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
