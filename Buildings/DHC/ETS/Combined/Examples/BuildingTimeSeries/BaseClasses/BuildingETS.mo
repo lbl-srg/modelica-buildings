@@ -100,10 +100,6 @@ model BuildingETS
   parameter Modelica.Units.SI.Temperature THotWatSup_nominal =
     datBuiSet.THotWatSupFix_nominal "Domestic hot water supply temperature to fixtures"
     annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
-  parameter Modelica.Units.SI.Temperature TColWat_nominal =
-    datBuiSet.TColWat_nominal
-    "Cold water temperature (for hot water production)"
-    annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
 
   parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datDhw(
       VTan=datHeaPum.mCon_flow_nominal*datBuiSet.dTHeaWat_nominal*5*60/1000,
@@ -145,7 +141,7 @@ model BuildingETS
     "Domestic hot water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   replaceable Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat(
-    final k(final unit="K", displayUnit="degC")=datBuiSet.TColWat_nominal)
+    final k(final unit="K", displayUnit="degC")=288.15)
     if have_hotWat
     constrainedby Modelica.Blocks.Interfaces.SO(y(final unit="K", displayUnit="degC"))
     "Domestic cold water temperature"
