@@ -136,10 +136,13 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
     redeclare package MediumCon = Medium,
     redeclare package MediumEva = Medium,
     redeclare model RefrigerantCycleHeatPumpCooling =
-      Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
+        Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
-        Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
-        redeclare final Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D
+        (
+        redeclare final
+          Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
+          iceFacCal,
         mCon_flow_nominal=dat.mCon_flow_nominal,
         mEva_flow_nominal=dat.mEva_flow_nominal,
         final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
@@ -153,9 +156,11 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
     final allowFlowReversalCon=allowFlowReversal,
     final dTCon_nominal=dat.dTCon_nominal,
     final dTEva_nominal=dat.dTEva_nominal,
-    final QHea_flow_nominal=dat.QHea_flow_nominal,
-    final TConHea_nominal=dat.TConLvg_nominal,
-    final TEvaHea_nominal=dat.TEvaLvg_nominal,
+    final QHea_flow_nominal=dat.QHeaDes_flow_nominal,
+    final TConHea_nominal=dat.THeaConLvg_nominal,
+    final TEvaHea_nominal=dat.THeaEvaLvg_nominal,
+    final TConCoo_nominal=dat.TCooConLvg_nominal,
+    final TEvaCoo_nominal=dat.TCooEvaLvg_nominal,
     final dpCon_nominal(displayUnit="Pa") = dpCon_nominal,
     final dpEva_nominal(displayUnit="Pa") = dpEva_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -312,6 +317,14 @@ protected
   final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
+initial equation
+  assert(dat.QCooAct_flow_nominal <= dat.QCooDes_flow_nominal,
+    "In " + getInstanceName() + ": The heat pump is sized for heating.
+    However, at the cooling design conditions,
+    this results in a cooling capacity of QCooAct_flow_nominal = " + String(dat.QCooAct_flow_nominal) + " W,
+    but the desired cooling capacity is QCooDes_flow_nominal = " + String(dat.QCooDes_flow_nominal) + " W.
+    You need to size the heat pump for a bigger heating load.",
+    level=AssertionLevel.warning);
 equation
   connect(splConMix.port_3,valCon.port_3)
     annotation (Line(points={{120,70},{120,80},{-140,80},{-140,70}},color={0,127,255}));

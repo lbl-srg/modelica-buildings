@@ -39,12 +39,12 @@ model HeatRecoveryHeatPump
 
   parameter Buildings.DHC.ETS.Combined.Data.HeatPump datHeaPum(
     PLRMin=0.2,
-    QHea_flow_nominal=max(QHea_flow_nominal, abs(QCoo_flow_nominal)*1.2),
-    QCoo_flow_nominal=QCoo_flow_nominal,
+    QHeaDes_flow_nominal=max(QHea_flow_nominal, abs(QCoo_flow_nominal)*1.2),
+    QCooDes_flow_nominal=QCoo_flow_nominal,
     final dTCon_nominal=dTHeaWat_nominal,
     final dTEva_nominal=dTChiWat_nominal,
-    final TConLvg_nominal=THeaWatSup_nominal,
-    final TEvaLvg_nominal=TChiWatSup_nominal)
+    final THeaConLvg_nominal=THeaWatSup_nominal,
+    final THeaEvaLvg_nominal=TChiWatSup_nominal)
     "Heat recovery heat pump parameters"
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(

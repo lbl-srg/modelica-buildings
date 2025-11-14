@@ -67,12 +67,14 @@ model BuildingETS
       transformation(extent={{20,140},{40,160}})));
   parameter Buildings.DHC.ETS.Combined.Data.HeatPump datHeaPum(
     PLRMin=0.2/3 "20%, and assume 3 chillers in parallel",
-    QHea_flow_nominal=max(QHea_flow_nominal, abs(QCoo_flow_nominal)*1.2),
-    QCoo_flow_nominal=QCoo_flow_nominal,
+    QHeaDes_flow_nominal=max(QHea_flow_nominal, abs(QCoo_flow_nominal)*1.2),
+    QCooDes_flow_nominal=QCoo_flow_nominal,
     final dTCon_nominal=datBuiSet.dTHeaWat_nominal,
     final dTEva_nominal=datBuiSet.dTChiWat_nominal,
-    final TConLvg_nominal=max(datBuiSet.THeaWatSup_nominal, datBuiSet.THotWatSupTan_nominal),
-    final TEvaLvg_nominal=datBuiSet.TChiWatSup_nominal)
+    THeaConLvg_nominal=max(datBuiSet.THeaWatSup_nominal, datBuiSet.THotWatSupTan_nominal),
+    THeaEvaLvg_nominal=273.15+3.5,
+    TCooConLvg_nominal=273.15+31,
+    TCooEvaLvg_nominal=datBuiSet.TChiWatSup_nominal)
     "Heat recovery heat pump parameters"
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
 
