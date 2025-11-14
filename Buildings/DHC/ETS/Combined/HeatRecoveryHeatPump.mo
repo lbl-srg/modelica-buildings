@@ -753,12 +753,11 @@ equation
   connect(opeEtsHex.yVal2, valIsoCon.y_actual) annotation (Line(points={{-82,
           -238.2},{-94,-238.2},{-94,-178},{-44,-178},{-44,-113},{-55,-113}},
         color={0,0,127}));
-  connect(opeEtsHex.u1, tanChiWat.charge) annotation (Line(points={{-82,-222.2},
-          {-84,-222.2},{-84,-184},{90,-184},{90,107},{178,107}}, color={255,0,
-          255}));
-  connect(twoTanCoo.y, opeEtsHex.u2) annotation (Line(points={{-118,180},{-106,
-          180},{-106,132},{-28,132},{-28,-182},{-88,-182},{-88,-226},{-82,-226}},
-        color={255,0,255}));
+  connect(opeEtsHex.uTan1, tanChiWat.charge) annotation (Line(points={{-82,-224},
+          {-84,-224},{-84,-184},{90,-184},{90,107},{178,107}}, color={255,0,255}));
+  connect(twoTanCoo.y, opeEtsHex.uTan2) annotation (Line(points={{-118,180},{
+          -106,180},{-106,132},{-28,132},{-28,-182},{-88,-182},{-88,-228},{-82,
+          -228}}, color={255,0,255}));
   connect(heaPum.uHeaDhw, twoTanCoo.yDhw) annotation (Line(points={{-12,-4},{
           -22,-4},{-22,130},{-110,130},{-110,175},{-118,175}}, color={255,0,255}));
   connect(tanChiWat.charge, WSE.uCoo) annotation (Line(points={{178,107},{148,107},

@@ -20,7 +20,6 @@ record HeatPump
     "Desired design cooling capacity"
     annotation (Dialog(group="Cooling design condition"));
 
-  // fixme: verify that all data are indeed used by the model, and delete what is not used.
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(
     min=Modelica.Constants.eps)
     "Nominal temperature difference in condenser medium (positive)"
@@ -29,6 +28,7 @@ record HeatPump
     min=Modelica.Constants.eps)
     "Nominal temperature difference in evaporator medium (positive)"
     annotation (Dialog(group="Evaporator"));
+
   parameter Modelica.Units.SI.Temperature THeaConLvg_nominal(
       displayUnit="degC")
     "Nominal condenser leaving temperature at desired heating capacity"
@@ -57,6 +57,7 @@ record HeatPump
     15 + 273.15
     "Maximum value for leaving evaporator temperature"
     annotation (Dialog(group="Evaporator"));
+
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal =
       QHeaDes_flow_nominal/dTCon_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Nominal medium flow rate in the condenser"
