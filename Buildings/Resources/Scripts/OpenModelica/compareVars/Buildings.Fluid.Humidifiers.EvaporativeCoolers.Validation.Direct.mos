@@ -1,8 +1,8 @@
 compareVars :=
   {
     "sou.m_flow_in",
-    "toTotAirOut.XiTotalAir",
-    "mea1.y",
     "to_degCOut.y",
-    "combiTimeTable.y[7]"
+    "combiTimeTable.y[7]",
+    "toTotAirOut.XiTotalAir",
+    "mea1.y"
   };
