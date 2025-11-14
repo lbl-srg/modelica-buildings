@@ -183,7 +183,7 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
     use_riseTime=true,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final dp_nominal=dpCon_nominal + dpValCon_nominal + 2*0.05*dpValCon_nominal,
-    dpMax=3*(dpCon_nominal + dpValCon_nominal + 2*0.05*dpValCon_nominal))
+    dpMax=5*(dpCon_nominal + dpValCon_nominal + 2*0.05*dpValCon_nominal))
     "Condenser pump"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumEva(
@@ -192,7 +192,7 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
     use_riseTime=true,
     final m_flow_nominal=dat.mEva_flow_nominal,
     final dp_nominal=dpEva_nominal + dpValEva_nominal + dpEva_nominal*0.05,
-    dpMax=3*(dpEva_nominal + dpValEva_nominal + dpEva_nominal*0.05))
+    dpMax=5*(dpEva_nominal + dpValEva_nominal + dpEva_nominal*0.05))
     "Evaporator pump"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={-100,-60})));
   Buildings.DHC.ETS.Combined.Controls.HeatPumpModular con(

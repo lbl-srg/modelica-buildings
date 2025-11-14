@@ -41,10 +41,12 @@ model HeatRecoveryHeatPump
     PLRMin=0.2,
     QHeaDes_flow_nominal=max(QHea_flow_nominal, abs(QCoo_flow_nominal)*1.2),
     QCooDes_flow_nominal=QCoo_flow_nominal,
-    final dTCon_nominal=dTHeaWat_nominal,
-    final dTEva_nominal=dTChiWat_nominal,
-    final THeaConLvg_nominal=THeaWatSup_nominal,
-    final THeaEvaLvg_nominal=TChiWatSup_nominal)
+    dTCon_nominal=dTHeaWat_nominal,
+    dTEva_nominal=dTChiWat_nominal,
+    THeaConLvg_nominal=THeaWatSup_nominal,
+    THeaEvaLvg_nominal=TChiWatSup_nominal,
+    TCooConLvg_nominal=273.15+31,
+    TCooEvaLvg_nominal=TChiWatSup_nominal)
     "Heat recovery heat pump parameters"
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
@@ -315,8 +317,8 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Examples/HeatRecoveryHeatPump.mos" "Simulate and plot"),
     experiment(
-      StartTime=6.5E6,
-      StopTime=7E6,
+      StartTime=6500000,
+      StopTime=7000000,
       Tolerance=1e-06),
     Documentation(
       revisions="<html>
