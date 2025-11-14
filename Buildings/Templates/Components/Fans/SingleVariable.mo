@@ -10,11 +10,9 @@ model SingleVariable "Single fan - Variable speed"
     final per=dat.per,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    final allowFlowReversal=allowFlowReversal)
-    "Fan"
-    annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}})));
+    use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal) "Fan"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta
     "Start/stop signal"

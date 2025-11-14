@@ -33,13 +33,12 @@ partial model PartialFanCoil4Pipe
     "PI controller for heating"
     annotation (Placement(transformation(extent={{-10,210},{10,230}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-    redeclare final package Medium=Medium2,
-    final m_flow_nominal=max(
-      {mLoaHea_flow_nominal,mLoaCoo_flow_nominal}),
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=max({mLoaHea_flow_nominal,mLoaCoo_flow_nominal}),
     redeclare final Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     dp_nominal=400,
     final allowFlowReversal=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));

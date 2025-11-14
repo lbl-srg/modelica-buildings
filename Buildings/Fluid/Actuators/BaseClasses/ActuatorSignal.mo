@@ -2,22 +2,23 @@ within Buildings.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
-  constant Integer order(min=1) = 2 "Order of filter";
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve using strokeTime"
+    annotation(Dialog(tab="Dynamics", group="Actuator position"));
 
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to fully open or close actuator"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=use_inputFilter));
+      group="Actuator position",
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Actuator position",
+                      enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Actuator position",
+                      enable=use_strokeTime));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
     "Actuator position (0: closed, 1: open)"
@@ -33,37 +34,36 @@ model ActuatorSignal
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   // Classes used to implement the filtered opening
-protected
-  final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
-      riseTime) "Cut-off frequency of filter";
 
+protected
   parameter Boolean casePreInd = false
     "In case of PressureIndependent the model I/O is modified"
     annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealOutput y_internal(unit="1")
     "Output connector for internal use (= y_actual if not casePreInd)";
-  Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
+  Modelica.Blocks.Interfaces.RealOutput y_filtered if use_strokeTime
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 
-  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
-    final n=order,
-    final f=fCut,
-    final normalized=true,
-    final initType=init,
-    final y_start=y_start) if use_inputFilter
-    "Second order filter to approximate actuator opening time, and to improve numerics"
-    annotation (Placement(transformation(extent={{6,81},{20,95}})));
-
+  Modelica.Blocks.Nonlinear.SlewRateLimiter actPos(
+    Rising=1/strokeTime,
+    Falling=-1/strokeTime,
+    Td=0.001*strokeTime,
+    initType=init,
+    y_start=y_start,
+    strict=true) if use_strokeTime "Actuator position"
+    annotation (Placement(transformation(extent={{14,82},{26,94}})));
 equation
-  connect(filter.y, y_filtered)
-    annotation (Line(points={{20.7,88},{50,88}}, color={0,0,127}));
-  if use_inputFilter then
-    connect(y, filter.u) annotation (Line(points={{1.11022e-15,120},{1.11022e-15,
-            88},{4.6,88}}, color={0,0,127}));
-    connect(filter.y, y_internal) annotation (Line(points={{20.7,88},{30,88},{30,
-            70},{50,70}}, color={0,0,127}));
+  connect(actPos.y, y_filtered)
+    annotation (Line(points={{26.6,88},{50,88}},
+                    color={0,0,127}));
+
+  if use_strokeTime then
+  connect(actPos.u, y)
+    annotation (Line(points={{12.8,88},{0,88},{0,120}}, color={0,0,127}));
+
+    connect(y_filtered, y_internal);
   else
     connect(y, y_internal) annotation (Line(
       points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
@@ -72,6 +72,7 @@ equation
   if not casePreInd then
     connect(y_internal, y_actual);
   end if;
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(
@@ -79,19 +80,19 @@ equation
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-20,94},{22,48}},
           textColor={0,0,0},
           fillColor={135,135,135},
@@ -118,6 +119,12 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear actuator travel dynamics.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+</li>
 <li>
 June 10, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter and changed the parameter <code>order</code> to a constant

@@ -16,6 +16,7 @@
 #ifndef FMI2_ENUMS_H_
 #define FMI2_ENUMS_H_
 
+#include <FMI2/fmi2_function_types.h>
 #include <fmilib_config.h>
 
 #ifdef __cplusplus
@@ -84,13 +85,16 @@ typedef enum fmi2_causality_enu_t {
 /** \brief Convert a #fmi2_causality_enu_t constant into string  */
 FMILIB_EXPORT const char* fmi2_causality_to_string(fmi2_causality_enu_t c);
 
+/** Convert #fmi2_status_t variable to string  */
+FMILIB_EXPORT const char* fmi2_status_to_string(fmi2_status_t status);
+
 /**
  * \brief Get the default variability for a given causality. NOTE: the FMI 2.0
  *        defines the default to always be continuous, but this is incompatible
  *        with causalities "parameter" and "calculatedParameter". These will
  *        instead be treated as having variability "fixed".
  *
- * \return A default variability compatible with the given causality.
+ * @return A default variability compatible with the given causality.
  *
  */
 FMILIB_EXPORT fmi2_variability_enu_t fmi2_get_default_valid_variability(fmi2_causality_enu_t c);
@@ -98,7 +102,7 @@ FMILIB_EXPORT fmi2_variability_enu_t fmi2_get_default_valid_variability(fmi2_cau
 /**
  * \brief Check if a given combination of variablity and causality is valid.
  *
- * \return 0 if not valid, non-zero otherwise
+ * @return 0 if not valid, non-zero otherwise
  */
 FMILIB_EXPORT int fmi2_is_valid_variability_causality(fmi2_variability_enu_t v,
                                                       fmi2_causality_enu_t c);
@@ -116,14 +120,14 @@ FMILIB_EXPORT const char* fmi2_initial_to_string(fmi2_initial_enu_t c);
 
 /**
     \brief Get default initial attribute value for the given variability and causality combination.
-    \return The default initial attribute or fmi2_initial_enu_unknown if combination of causality
+    @return The default initial attribute or fmi2_initial_enu_unknown if combination of causality
             and variability is not valid.
 */
 FMILIB_EXPORT fmi2_initial_enu_t fmi2_get_default_initial(fmi2_variability_enu_t v, fmi2_causality_enu_t c);
 
 /**
     \brief Check if the combination of variability, causality and initial is valid.
-    \return Same initial as submitted if the combination is valid. Otherwise, same as fmi2_get_default_initial.
+    @return Same initial as submitted if the combination is valid. Otherwise, same as fmi2_get_default_initial.
 */
 FMILIB_EXPORT fmi2_initial_enu_t fmi2_get_valid_initial(fmi2_variability_enu_t v, fmi2_causality_enu_t c, fmi2_initial_enu_t i);
 
@@ -144,8 +148,8 @@ typedef enum fmi2_base_type_enu_t
 } fmi2_base_type_enu_t;
 
 /**  \brief Convert base type constant to string
-    \param bt Base type identifier.
-    \return Corresponding base type name.
+    @param bt Base type identifier.
+    @return Corresponding base type name.
     */
 FMILIB_EXPORT const char* fmi2_base_type_to_string(fmi2_base_type_enu_t bt);
 
@@ -183,8 +187,8 @@ typedef enum fmi2_capabilities_enu_t {
 } fmi2_capabilities_enu_t;
 
 /** \brief Convert capability flag to a string
-    \param id Capability flag ID.
-    \return Name of the flag or Unknown if the id is out of range.
+    @param id Capability flag ID.
+    @return Name of the flag or Unknown if the id is out of range.
 */
 FMILIB_EXPORT const char * fmi2_capability_to_string(fmi2_capabilities_enu_t id);
 
@@ -200,17 +204,17 @@ typedef enum fmi2_SI_base_units_enu_t {
 } fmi2_SI_base_units_enu_t;
 
 /** \brief Convert SI base unit ID a string
-    \param id SI base unit ID.
-    \return Name of the base unit or "unknown" if the id is out of range.
+    @param id SI base unit ID.
+    @return Name of the base unit or "unknown" if the id is out of range.
 */
 FMILIB_EXPORT const char * fmi2_SI_base_unit_to_string(fmi2_SI_base_units_enu_t id);
 
 /** \brief Convert a list of SI base unit exponents (corresponding to the IDs from  fmi2_SI_base_units_enu_t)
     to a string of the form kg*m^2/s^2. Prints '-' if all the exponents are zero.
-    \param exp An array of SI base units exponents.
-    \param bufSize Size of the buffer to store the string.
-    \param buf Buffer to store the string
-    \return Required size of the buffer to store the string. This most likely be under [8*fmi2_SI_base_units_Num].
+    @param exp An array of SI base units exponents.
+    @param bufSize Size of the buffer to store the string.
+    @param buf Buffer to store the string
+    @return Required size of the buffer to store the string. This most likely be under [8*fmi2_SI_base_units_Num].
     If the return value is larger or equal than bufSize than the string could not be fitted in the buffer.
 */
 FMILIB_EXPORT size_t fmi2_SI_base_unit_exp_to_string(const int exp[fmi2_SI_base_units_Num], size_t bufSize, char buf[]);
@@ -228,8 +232,8 @@ typedef enum fmi2_dependency_factor_kind_enu_t
 } fmi2_dependency_factor_kind_enu_t;
 
 /**  \brief Convert dependency factor kind constant to string
-    \param fc Dependency factor kind identifier.
-    \return Corresponding factor kind as string.
+    @param fc Dependency factor kind identifier.
+    @return Corresponding factor kind as string.
     */
 FMILIB_EXPORT const char* fmi2_dependency_factor_kind_to_string(fmi2_dependency_factor_kind_enu_t fc);
 /**

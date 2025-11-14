@@ -50,8 +50,8 @@ record Propane "Data record for propane (R290)"
 Record containing properties of propane (R290).
 Its name in CoolProp is \"Propane\".
 A figure in the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
-Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>
 </html>"));

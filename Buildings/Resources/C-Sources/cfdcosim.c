@@ -23,6 +23,7 @@
 
 #include "cfdCosimulation.h"
 
+#include <stdlib.h>
 /*
  * Start the cosimulation
  *
@@ -98,6 +99,7 @@ void *cfdcosim() {
   cosim->modelica->shaConSig = NULL;
   cosim->modelica->shaAbsRad = NULL;
   cosim->ffd->TSha = NULL;
+  cosim->started = 0;
 
   return (void*) cosim;
 } /* End of cfdcosim()*/

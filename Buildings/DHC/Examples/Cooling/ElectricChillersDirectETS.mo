@@ -106,7 +106,7 @@ model ElectricChillersDirectETS "Example model for district cooling system with
     annotation (Placement(transformation(extent={{100,-20},{140,0}})));
   Buildings.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
     each yMin=0.05,
-    each use_inputFilter=true,
+    each use_riseTime=true,
     filNam=filNam,
     mBui_flow_nominal=mBui_flow_nominal,
     each bui(w_aLoaCoo_nominal=0.015))

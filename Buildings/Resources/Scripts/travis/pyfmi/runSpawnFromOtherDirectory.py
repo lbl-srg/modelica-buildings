@@ -79,11 +79,11 @@ def simulate(expectToFail):
 def run_test(pathVariable):
     # List of files to be moved
     fileMoves = [
-        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-0.5.0-c10e8c6d7e", "linux64")),
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-0.6.0-9f1b36b00b", "linux64")),
          "des": "my-bin"},
         {"src": os.path.abspath(os.path.join("Buildings", "Resources", "weatherdata")),
          "des": "some_weather_directory_that_the_fmu_does_not_know_about"},
-        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus_9_6_0")),
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus_24_2_0")),
          "des": "some_idf_directory_that_the_fmu_does_not_know_about"},
     ]
 
@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
     from buildingspy.simulate.Optimica import Simulator
     import sys
-    model = "Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned"
+    model = "Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned"
     #model = "Buildings.Controls.Continuous.Examples.LimPID"
     fmu = model.replace('.', '_') + ".fmu"
     s=Simulator(model)

@@ -7,14 +7,14 @@ model FlowControlled_dp "Fan with zero mass flow rate and head as input"
       nominalValuesDefineDefaultPressureCurve=true,
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      use_inputFilter=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.FlowControlled_dp floMacDyn(
       nominalValuesDefineDefaultPressureCurve=true,
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-      use_inputFilter=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      use_riseTime=false));
 
 equation
   connect(gain.y, floMacSta.dp_in) annotation (Line(

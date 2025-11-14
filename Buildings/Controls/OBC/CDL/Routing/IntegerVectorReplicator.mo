@@ -1,12 +1,14 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block IntegerVectorReplicator "Integer vector signal replicator"
+
   parameter Integer nin=1 "Size of input vector";
   parameter Integer nout=1 "Number of row in output";
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u[nin]
-    "Connector of Integer vector input signal"
+    "Input signal to be replicated"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y[nout, nin]
-    "Connector of Integer matrix output signals"
+    "Output with replicated input signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

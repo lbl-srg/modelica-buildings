@@ -115,7 +115,7 @@ model PartialIndirect
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mDis_flow_nominal,
     final dpValve_nominal=dpConVal_nominal,
-    riseTime(displayUnit="s") = 10,
+    strokeTime(displayUnit="s") = 10,
     y_start=0)
     "Control valve"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));

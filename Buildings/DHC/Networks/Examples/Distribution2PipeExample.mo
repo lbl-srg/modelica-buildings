@@ -105,7 +105,7 @@ model Distribution2PipeExample
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpPum(
@@ -141,7 +141,7 @@ model Distribution2PipeExample
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Fluid.Sources.Boundary_pT supHeaWatPlugFlow(

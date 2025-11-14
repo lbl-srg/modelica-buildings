@@ -1,11 +1,12 @@
 within Buildings.Controls.OBC.CDL.Reals;
-block Atan
-  "Output the arc tangent of the input"
+block Atan "Output the arc tangent of the input"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input for the arc tangent function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(unit="rad")
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    final unit="rad",
+    displayUnit="deg")
+    "Arc tangent of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -68,10 +69,15 @@ Block that outputs <code>y = atan(u)</code>, where <code>u</code> is an input.
 revisions="<html>
 <ul>
 <li>
+November 8, 2024, by Michael Wetter:<br/>
+Added <code>final</code> keyword to unit declaration as block is only valid for this unit.<br/>
+Also added <code>displayUnit</code> keyword.
+</li>
+<li>
 March 7, 2023, by Jianjun Hu:<br/>
 Added unit <code>rad</code> to the output.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">issue 3277</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">Buildings, issue 3277</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

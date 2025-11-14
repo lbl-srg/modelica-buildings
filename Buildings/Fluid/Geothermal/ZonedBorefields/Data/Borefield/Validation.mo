@@ -15,8 +15,8 @@ info="<html>
 <p>
 This record presents an example on how to define borefield records
 using the template in
-<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Template\">
-Buildings.Fluid.Geothermal.ZonedBorefields.Template</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Template\">
+Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Template</a>.
 </p>
 </html>",
 revisions="<html>

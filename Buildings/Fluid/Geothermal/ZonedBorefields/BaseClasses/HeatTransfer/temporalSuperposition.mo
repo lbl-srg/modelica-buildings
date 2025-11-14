@@ -35,8 +35,8 @@ vectors that are not required.
 </p>
 <p>
 This is a vectorized implementation of
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.temporalSuperposition\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.temporalSuperposition</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temporalSuperposition\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temporalSuperposition</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -69,7 +69,7 @@ model MixedAirWithDamper "Mixed air system with return air damper"
   Buildings.Templates.Components.Actuators.Damper damRet(
     redeclare final package Medium = MediumAir,
     final typ=Buildings.Templates.Components.Types.Damper.Modulating,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damRet,
     final text_rotation=90)

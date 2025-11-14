@@ -8,7 +8,7 @@ model SingleDamper
   Buildings.Templates.Components.Actuators.Damper damOut(
     redeclare final package Medium = MediumAir,
     final typ=typDamOut,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
     "Outdoor air damper"

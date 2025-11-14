@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.Examples.SpaceCooling", startTime=15552000, tolerance=1e-6, stopTime=15638400, method="CVode", resultFile="SpaceCooling");
+createPlot(id=1, position={35, 0, 751, 680}, y={"opeSig.y"}, range={15550000.0, 15640000.0, -0.2, 1.2000000000000002}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={35, 0, 751, 680}, y={"TOut.T", "senTemHXOut.T", "TMixSetPoi.y"}, range={15550000.0, 15640000.0, 280.0, 305.0}, grid=true, subPlot=102, colors={{0,128,0}, {28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"K", "K", ""});
+createPlot(id=1, position={35, 0, 751, 680}, y={"whe.senSupMasFlo.m_flow"}, range={15550000.0, 15640000.0, -0.2, 0.6000000000000001}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});

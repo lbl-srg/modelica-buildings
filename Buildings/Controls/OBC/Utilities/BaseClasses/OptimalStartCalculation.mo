@@ -287,7 +287,7 @@ January 30, 2021, by Michael Wetter:<br/>
 Refactored sampling of history of temperature slope to only sample when control error requires optimal start up.
 Refactored guarding against division by zero.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2345\">#2345</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2345\">Buildings, issue 2345</a>.
 </li>
 <li>
 October 20, 2020, by Michael Wetter:<br/>

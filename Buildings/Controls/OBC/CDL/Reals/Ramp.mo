@@ -16,14 +16,14 @@ block Ramp "Limit the changing rate of the input"
     "Derivative time constant";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input that is being rate limited"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput active
     "Set to true to enable rate limiter"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Rate limited output if active is true, else output is equal to input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -33,11 +33,9 @@ protected
     "Internal variable to track the slew limited value";
 
 initial equation
-  assert(
-    raisingSlewRate > 0,
+  assert(raisingSlewRate > 0,
     "raisingSlewRate must be larger than zero.");
-  assert(
-    fallingSlewRate < 0,
+  assert(fallingSlewRate < 0,
     "fallingSlewRate must be less than zero.");
   y_internal = u;
 
@@ -50,10 +48,7 @@ equation
         if thr < fallingSlewRate then
           fallingSlewRate
         else
-          if thr > raisingSlewRate then
-            raisingSlewRate
-          else
-            thr));
+          if thr > raisingSlewRate then raisingSlewRate else thr));
   y = if active then y_internal else u;
 
 annotation (defaultComponentName="ram",
@@ -123,7 +118,14 @@ otherwise, <code>dy/dt = thr</code>.
 A smaller time constant <code>Td &gt; 0</code> means a higher accuracy for the derivative approximation.
 </p>
 <p>
-Note that when the input <code>activate</code> switches to <code>false</code>,
+Note that the block limits the rate of change of the input <code>u</code> in the same
+way as <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
+Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>. However, the
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
+Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>
+has a boolean parameter to flag if the rate of change should be limited, while this
+block has the boolean input <code>activate</code> to enable or disable the functionality.
+When the input <code>activate</code> switches to <code>false</code>,
 the output <code>y</code> can have a discontinuity.
 </p>
 <h4>Implementation</h4>
@@ -134,6 +136,12 @@ the input is numerically differentiated with derivative time constant <code>Td</
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 15, 2025, by Jianjun Hu:<br/>
+Updated documentation to clarify the difference with the block
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
+Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>.
+</li>
 <li>
 February 15, 2024, by Michael Wetter:<br/>
 Updated documentation.

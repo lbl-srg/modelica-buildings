@@ -18,10 +18,10 @@ model WatersideEconomizer "Waterside economizer"
   // Filter opening
   parameter Real yThrWayVal_start=1
    "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_controller and use_inputFilter));
+    annotation(Dialog(tab="Dynamics",group="Time needed to open or close valve",enable=use_controller and use_strokeTime));
   parameter Real yValWSE_start=1
     "Initial value of output from the filter in the shutoff valve"
-    annotation(Dialog(tab="Dynamics",group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics",group="Time needed to open or close valve",enable=use_strokeTime));
 
  // Heat exchanger
   parameter Modelica.Units.SI.Efficiency eta(start=0.8)
@@ -43,7 +43,8 @@ model WatersideEconomizer "Waterside economizer"
         transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
           extent={{-140,-20},{-100,20}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet heaExc(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet
+    heaExc(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final dpThrWayVal_nominal=dpThrWayVal_nominal,
@@ -86,8 +87,8 @@ model WatersideEconomizer "Waterside economizer"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTimeValve,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=initValve,
     final yThrWayVal_start=yThrWayVal_start,
     final eta=eta,
@@ -100,8 +101,7 @@ model WatersideEconomizer "Waterside economizer"
     final portFlowDirection_2=portFlowDirection_2,
     final portFlowDirection_3=portFlowDirection_3,
     final rhoStd=rhoStd[2],
-    final reverseActing=reverseActing)
-    "Water-to-water heat exchanger"
+    final reverseActing=reverseActing) "Water-to-water heat exchanger"
     annotation (Placement(transformation(extent={{-10,-12},{10,4}})));
 
 equation
@@ -145,7 +145,7 @@ around the setpoint.
 <ul>
 <li>
 April 9, 2021, by Kathryn Hinkelman:<br/>
-Moved nominal pressure differences to <code>dpFixed_nominal</code> at isolation valves 
+Moved nominal pressure differences to <code>dpFixed_nominal</code> at isolation valves
 to avoid redundant declarations and algebraic loops.
 </li>
 <li>

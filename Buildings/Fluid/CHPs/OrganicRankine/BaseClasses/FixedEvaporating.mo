@@ -112,7 +112,8 @@ model FixedEvaporating
   Modelica.Blocks.Logical.Hysteresis hys(
     uLow = mWor_flow_min,
     uHigh = mWor_flow_min + mWor_flow_hysteresis,
-    u = mWor_flow_internal)
+    u = mWor_flow_internal,
+    y(start = false))
     "Hysteresis for turning off cycle when working fluid flow too low";
 
 protected
@@ -190,8 +191,8 @@ This model computes the pinch points and the energy exchange,
 and interfaces with the input and output variables.
 The evaporating temperature is fixed as a parameter.
 See the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
-Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 for more details.
 </html>", revisions="<html>
 <ul>

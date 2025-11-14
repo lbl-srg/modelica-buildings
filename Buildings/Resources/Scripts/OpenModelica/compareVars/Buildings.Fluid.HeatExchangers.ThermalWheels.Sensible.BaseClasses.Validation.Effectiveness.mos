@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "VSup.y",
+    "VExh.y",
+    "epsCal.eps"
+  };

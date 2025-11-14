@@ -18,7 +18,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
   parameter Modelica.Units.SI.ThermodynamicTemperature TCol_start = 35 + 273.15
     "Start value for cold fluid temperature";
 
-  Buildings.Fluid.CHPs.OrganicRankine.Cycle orc(
+  Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation orc(
     redeclare final package Medium1 = MediumHot,
     redeclare final package Medium2 = MediumCol,
     T2_start=TCol_start,
@@ -37,9 +37,6 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     etaExp=0.8,
     etaPum=0.6) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
-
-  Modelica.Units.SI.Efficiency etaThe =orc.PExp  / max(orc.QEva_flow,1)
-    "Thermal efficiency of the ORC";
 
   Buildings.Fluid.Sources.MassFlowSource_T souHot(
     redeclare final package Medium = MediumHot,
@@ -95,7 +92,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=TCol_start,
     from_dp=false,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final m_flow_nominal=mCol_flow_nominal,
     final dpValve_nominal=dpValCol_nominal,
     final dpFixed_nominal=fill(dpCon_nominal, 2)) "Control valve"
@@ -123,11 +120,11 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={40,-80})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+  Modelica.Blocks.Math.BooleanToReal booToRea(
     realTrue = mCol_flow_nominal)
     "Constant speed primary pump control signal"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
+  Modelica.Blocks.Logical.Hysteresis hys(
     uLow=mCol_flow_nominal/3,
     uHigh=mCol_flow_nominal/2) "Hysteresis"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
@@ -204,17 +201,12 @@ annotation(experiment(StopTime=900,Tolerance=1E-6),
   Documentation(info="<html>
 <p>
 This example model demonstrates how
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
-Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 can be integrated in a system.
 The three-way valve is controlled to track the hot water
 output temperature, which is the cold fluid of the ORC,
 at a set point of 55&deg;C.
-The system and control are similar to the one implemented in
-<a href=\"Modelica://Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller\">
-Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller</a>.
-</p>
-<p>
 In addition, a safety control sequence prevents the ORC from turning on
 until a minimum flow rate is established in the condenser water loop.
 </p>

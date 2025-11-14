@@ -22,10 +22,10 @@ extern "C" {
 #endif
 
 /**
-	@file fmi_version.h 
-	\brief Enum defining supported FMI versions.
+    @file fmi_version.h 
+    \brief Enum defining supported FMI versions.
 
-	*/
+    */
 /** \addtogroup jm_utils
   * @{
 */
@@ -33,10 +33,11 @@ extern "C" {
 /** \brief Suported versions of FMI standard */
 typedef enum
 { 
-	fmi_version_unknown_enu = 0,
-	fmi_version_1_enu,
-	fmi_version_2_0_enu,
-	fmi_version_unsupported_enu
+    fmi_version_unknown_enu = 0,
+    fmi_version_1_enu,
+    fmi_version_2_0_enu,
+    fmi_version_3_0_enu,
+    fmi_version_unsupported_enu
 } fmi_version_enu_t;
 
 /** Convert version enum into string */

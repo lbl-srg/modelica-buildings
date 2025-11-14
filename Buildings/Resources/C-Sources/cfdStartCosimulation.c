@@ -18,6 +18,9 @@
 
 #include "cfdCosimulation.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 /*
  * Start the cosimulation
  *
@@ -230,6 +233,7 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
   | Implicitly launch DLL module.
   ****************************************************************************/
   ffd_dll(cosim);
+  cosim->started = 1;
 
   return 0;
 } /* End of cfdStartCosimulation()*/

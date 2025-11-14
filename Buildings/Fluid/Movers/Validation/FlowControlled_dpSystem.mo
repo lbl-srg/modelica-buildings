@@ -25,7 +25,7 @@ model FlowControlled_dpSystem
     allowFlowReversal=false,
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=1,
-    use_inputFilter=false) "Regular dp controlled fan"
+    use_riseTime=false) "Regular dp controlled fan"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Fluid.Movers.FlowControlled_dp floConDpSystem(
     redeclare package Medium = Medium,
@@ -33,7 +33,7 @@ model FlowControlled_dpSystem
     allowFlowReversal=false,
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=1,
-    use_inputFilter=false,
+    use_riseTime=false,
     prescribeSystemPressure=true)
     "Dp controlled fan that sets pressure difference at remote point in the system"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
@@ -66,10 +66,9 @@ model FlowControlled_dpSystem
   Actuators.Dampers.Exponential dam2(
     redeclare package Medium = Medium,
     from_dp=true,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpDamper_nominal=10,
-    m_flow_nominal=m_flow_nominal/2)
-    "Damper"
+    m_flow_nominal=m_flow_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   MixingVolumes.MixingVolume zone1(
     redeclare package Medium = Medium,
@@ -82,26 +81,23 @@ model FlowControlled_dpSystem
   Actuators.Dampers.Exponential dam1(
     redeclare package Medium = Medium,
     from_dp=true,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpDamper_nominal=10,
-    m_flow_nominal=m_flow_nominal/2)
-             "Damper"
+    m_flow_nominal=m_flow_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Actuators.Dampers.Exponential dam3(
     redeclare package Medium = Medium,
     from_dp=true,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpDamper_nominal=10,
-    m_flow_nominal=m_flow_nominal/2)
-             "Damper"
+    m_flow_nominal=m_flow_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Actuators.Dampers.Exponential dam4(
     redeclare package Medium = Medium,
     from_dp=true,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpDamper_nominal=10,
-    m_flow_nominal=m_flow_nominal/2)
-             "Damper"
+    m_flow_nominal=m_flow_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   MixingVolumes.MixingVolume zone3(
     redeclare package Medium = Medium,

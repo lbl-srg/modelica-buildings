@@ -68,7 +68,7 @@ model IndirectWet "Indirect wet evaporative cooler"
     final dp_nominal=dp1_nominal,
     final m_flow_nominal=m1_flow_nominal)
     "Primary fluid pressure drop"
-    annotation (Placement(transformation(origin={30,20}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={50,20}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volPri(
     redeclare package Medium = Medium1,
@@ -77,13 +77,12 @@ model IndirectWet "Indirect wet evaporative cooler"
     final V=m1_flow_nominal*tau/rhoPri_default,
     nPorts=2)
     "Mixing volume for primary fluid"
-    annotation (Placement(transformation(origin={80,40}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={70,40}, extent={{-10,-10},{10,10}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations indWetCal(
-    final maxEff=maxEff,
-    final floRat=floRat)
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet
+    indWetCal(final maxEff=maxEff, final floRat=floRat)
     "Indirect wet evaporative cooling calculations"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemDrySec(
     redeclare final package Medium = Medium2,
@@ -106,7 +105,7 @@ model IndirectWet "Indirect wet evaporative cooler"
     final dp_nominal=dp2_nominal,
     final m_flow_nominal=m2_flow_nominal)
     "Secondary air pressure drop"
-    annotation (Placement(transformation(origin={40,-60}, extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={50,-60}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFloSec(
     redeclare final package Medium = Medium2,
@@ -116,7 +115,7 @@ model IndirectWet "Indirect wet evaporative cooler"
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Boundary condition enforcing calculated outlet air drybulb temperature"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
 protected
   parameter Medium1.ThermodynamicState staPri_default=Medium1.setState_pTX(
@@ -139,24 +138,17 @@ equation
   connect(senTemWetPri.port_b, senVolFloPri.port_a)
     annotation (Line(points={{-40,20},{-20,20}}));
   connect(senVolFloPri.port_b, resPri.port_a)
-    annotation (Line(points={{0,20},{20,20}},   color={0,127,255}));
+    annotation (Line(points={{0,20},{40,20}},   color={0,127,255}));
   connect(port_a1, senTemDryPri.port_a) annotation (Line(points={{-100,60},{-94,
           60},{-94,20},{-90,20}}, color={0,127,255}));
   connect(senTemDryPri.T, indWetCal.TDryBulPriIn)
-    annotation (Line(points={{-80,31},{-80,78.3333},{18.3333,78.3333}},
-                                                         color={0,0,127}));
-  connect(senTemWetPri.T, indWetCal.TWetBulPriIn)
-    annotation (Line(points={{-50,31},{-50,75},{18.3333,75}},
-                                                         color={0,0,127}));
+    annotation (Line(points={{-80,31},{-80,88.3333},{18.3333,88.3333}}, color={0,0,127}));
   connect(senTemDrySec.T, indWetCal.TDryBulSecIn)
-    annotation (Line(points={{-64,-49},{-64,71.6667},{18.3333,71.6667}},
-                                                          color={0,0,127}));
+    annotation (Line(points={{-64,-49},{-64,81.6667},{18.3333,81.6667}}, color={0,0,127}));
   connect(senTemWetSec.T, indWetCal.TWetBulSecIn)
-    annotation (Line(points={{-30,-49},{-30,68.3333},{18.3333,68.3333}},
-                                                          color={0,0,127}));
+    annotation (Line(points={{-30,-49},{-30,78.3333},{18.3333,78.3333}}, color={0,0,127}));
   connect(senVolFloPri.V_flow, indWetCal.VPri_flow)
-    annotation (Line(points={{-10,31},{-10,65},{18.3333,65}},
-                                                         color={0,0,127}));
+    annotation (Line(points={{-10,31},{-10,75},{18.3333,75}}, color={0,0,127}));
   connect(port_a2, senTemDrySec.port_a)
     annotation (Line(points={{-100,-60},{-74,-60}}, color={0,127,255}));
   connect(senTemDrySec.port_b, senTemWetSec.port_a)
@@ -164,20 +156,20 @@ equation
   connect(senTemWetSec.port_b, senVolFloSec.port_a)
     annotation (Line(points={{-20,-60},{0,-60}},   color={0,127,255}));
   connect(senVolFloSec.port_b, resSec.port_a)
-    annotation (Line(points={{20,-60},{30,-60}}, color={0,127,255}));
+    annotation (Line(points={{20,-60},{40,-60}}, color={0,127,255}));
   connect(senVolFloSec.V_flow, indWetCal.VSec_flow)
-    annotation (Line(points={{10,-49},{10,61.6667},{18.3333,61.6667}},
-                                                        color={0,0,127}));
-  connect(indWetCal.TDryBulPriOut, preTem.T) annotation (Line(points={{41.6667,
-          70},{58,70}},            color={0,0,127}));
-  connect(preTem.port, volPri.heatPort) annotation (Line(points={{80,70},{90,70},
-          {90,56},{60,56},{60,40},{70,40}}, color={191,0,0}));
+    annotation (Line(points={{10,-49},{10,71.6667},{18.3333,71.6667}},
+        color={0,0,127}));
+  connect(indWetCal.TDryBulPriOut, preTem.T)
+    annotation (Line(points={{41.6667,80},{58,80}}, color={0,0,127}));
+  connect(preTem.port, volPri.heatPort) annotation (Line(points={{80,80},{90,80},
+          {90,60},{50,60},{50,40},{60,40}}, color={191,0,0}));
   connect(resSec.port_b, port_b2)
-    annotation (Line(points={{50,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
   connect(resPri.port_b, volPri.ports[1])
-    annotation (Line(points={{40,20},{79,20},{79,30}}, color={0,127,255}));
-  connect(volPri.ports[2], port_b1) annotation (Line(points={{81,30},{82,30},{82,
-          20},{98,20},{98,60},{100,60}}, color={0,127,255}));
+    annotation (Line(points={{60,20},{69,20},{69,30}}, color={0,127,255}));
+  connect(volPri.ports[2], port_b1) annotation (Line(points={{71,30},{72,30},{
+          72,20},{92,20},{92,60},{100,60}}, color={0,127,255}));
 
 annotation (defaultComponentName = "indWetEva",
 Documentation(info="<html>
@@ -188,7 +180,8 @@ sprayed on to the secondary surface of the heat exchanger to saturate the second
 air-flow. Therefore, it is assumed that the secondary air is completely saturated,
 and simply vented away after use.
 </p>
-<p>This model consists of the following components:
+<p>
+This model consists of the following components:
 </p>
 <ul>
 <li>
@@ -203,8 +196,8 @@ inlet.
 </li>
 <li>
 Indirect wet evaporative cooling calculations for calculating primary outlet drybulb 
-temperature (<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations</a>).
+temperature (<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet</a>).
 </li>
 <li>
 Prescribed temperature block (<a href=\"modelica://Buildings.HeatTransfer.Sources.PrescribedTemperature\">

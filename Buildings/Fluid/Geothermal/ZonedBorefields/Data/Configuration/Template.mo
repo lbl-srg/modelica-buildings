@@ -74,8 +74,8 @@ This record is a template for the records in
 Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration</a>.
 </p>
 <p>
-See <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Example\">
-Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Example</a>
+See <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation\">
+Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation</a>
 for how to use this record.
 </p>
 </html>",

@@ -4,10 +4,10 @@ block Change
   parameter Boolean pre_u_start=false
     "Start value of pre(u) at initial time";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+    "Input to be monitored for a change"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Output with true when the input changes"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -25,7 +25,6 @@ equation
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),

@@ -6,14 +6,21 @@ model Safety "Example for usage of all safety controls"
     mEva_flow_nominal=0.01,
     mCon_flow_nominal=0.01,
     ySet_small=0.01,
-    redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+    redeclare
+      Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
+      use_minOnTime=false,
       minOnTime=5,
+      use_minOffTime=false,
       minOffTime=5,
+      use_maxCycRat=false,
+      use_opeEnv=true,
       use_antFre=true,
-      TAntFre=276.15)) "Safety control"
+      TAntFre=276.15,
+      use_minFlowCtr=true))
+                       "Safety control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=50)
+  Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=47)
     "Pulse signal for ySet"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Modelica.Blocks.Sources.Pulse TConInEmu(
@@ -67,7 +74,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(ySetPul.y, safCtr.ySet) annotation (Line(points={{-69,40},{-8,40},{-8,
-          11.6667},{-1.33333,11.6667}},
+          10},{-1.33333,10}},
                           color={0,0,127}));
   connect(TEvaOutEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-69,-40},{
           -50,-40},{-50,-50}}, color={0,0,127}), Text(
@@ -81,11 +88,11 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(hys.u, safCtr.yOut) annotation (Line(points={{22,-50},{44,-50},{44,
-          11.6667},{20.8333,11.6667}},
+  connect(hys.u, safCtr.yOut) annotation (Line(points={{22,-50},{44,-50},{44,10},
+          {20.8333,10}},
                     color={0,0,127}));
-  connect(safCtr.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{44,
-          11.6667},{44,-40},{110,-40}},
+  connect(safCtr.yOut, yOut) annotation (Line(points={{20.8333,10},{44,10},{44,
+          -40},{110,-40}},
                       color={0,0,127}));
   connect(ySetPul.y, ySet) annotation (Line(points={{-69,40},{110,40}},
                     color={0,0,127}));
@@ -129,6 +136,12 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2025, by Michael Wetter:<br/>
+Changed periodicity of source to avoid simultaneous events.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4339\">Buildings, issue 4339</a>.
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=

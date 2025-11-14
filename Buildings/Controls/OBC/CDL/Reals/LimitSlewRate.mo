@@ -16,10 +16,10 @@ block LimitSlewRate "Limit the increase or decrease rate of input"
   parameter Boolean enable=true
     "Set to false to disable rate limiter";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input signal to be rate of change limited"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Rate of change limited output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -27,11 +27,9 @@ protected
     "Approximation to derivative between input and output";
 
 initial equation
-  assert(
-    raisingSlewRate > 0,
+  assert(raisingSlewRate > 0,
     "raisingSlewRate must be larger than zero.");
-  assert(
-    fallingSlewRate < 0,
+  assert(fallingSlewRate < 0,
     "fallingSlewRate must be less than zero.");
 
   y=u;
@@ -59,8 +57,7 @@ equation
 The block limits the rate of change of the input by a ramp.
 </p>
 <p>
-This block computes a threshold for the rate of change between
-input <code>u</code> and output <code>y</code> as
+This block computes a threshold for the rate of change of the output <code>y</code> as
 <code>thr = (u-y)/Td</code>, where <code>Td &gt; 0</code> is  parameter.
 The output <code>y</code> is computed as follows:
 <ul>
@@ -86,13 +83,13 @@ revisions="<html>
 <li>
 January 27, 2022, by Jianjun Hu:<br/>
 Renamed the block name from SlewRateLimiter to LimitSlewRate.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">issue 2865</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">Buildings, issue 2865</a>.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 April 21, 2020, by Michael Wetter:<br/>
