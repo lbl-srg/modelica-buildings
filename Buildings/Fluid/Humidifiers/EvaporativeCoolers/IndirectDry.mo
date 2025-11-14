@@ -88,7 +88,7 @@ equation
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>
 <p>
-Model for a indirect dry evaporative cooler.
+Model for an indirect dry evaporative cooler.
 </p>
 <p>
 This model contains two components, a direct evaporative cooler 
