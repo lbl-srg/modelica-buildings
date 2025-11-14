@@ -10,20 +10,17 @@ model AntiFreeze "Model to prevent source from freezing"
     final uLow=TAntFre,
     final pre_y_start=true,
     final uHigh=TAntFre + dTHys) "Hysteresis to indicate if freezing occurs"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+    annotation (Placement(transformation(extent={{-6,-10},{14,10}})));
 
   Modelica.Blocks.Math.Min min
     "Minimum of evaporator outlet and condenser inlet temperatures"
-   annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
+   annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
 
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,0},{-100,0},{-100,52},
-          {70,52},{70,8},{78,8}},
-                  color={0,0,127}));
   connect(min.y, hys.u)
-    annotation (Line(points={{-37,20},{-22,20}},   color={0,0,127}));
+    annotation (Line(points={{-23,0},{-8,0}},      color={0,0,127}));
   connect(sigBus.TConInMea, min.u1) annotation (Line(
-      points={{-119,-61},{-119,-60},{-92,-60},{-92,26},{-60,26}},
+      points={{-119,-61},{-64,-61},{-64,6},{-46,6}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -32,7 +29,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus.TEvaOutMea, min.u2) annotation (Line(
-      points={{-119,-61},{-119,-60},{-92,-60},{-92,14},{-60,14}},
+      points={{-119,-61},{-64,-61},{-64,-6},{-46,-6}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -41,19 +38,29 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(hys.y, booPasThr.u) annotation (Line(
-      points={{1,20},{20,20},{20,0},{38,0}},
+      points={{15,0},{78,0}},
       color={255,0,255}));
   annotation (Documentation(revisions="<html><ul>
-<li>
-  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
-  Adapted based on Buildings implementation (see issue <a href=
-  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
-</li>
-<li>
-  <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
-  First implementation (see issue <a href=
-  \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
-</li>
+  <li>
+    <i>May 27, 2025</i> by Fabian Wuellhorst:<br/>
+    Make safety checks parallel (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA #2015</a>)
+  </li>
+  <li>
+    <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
+    Increase error counter only when device should turn on (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2011\">IBPSA #2011</a>)
+  </li>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adapted based on Buildings implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
 </ul>
 </html>", info="<html>
 <p>

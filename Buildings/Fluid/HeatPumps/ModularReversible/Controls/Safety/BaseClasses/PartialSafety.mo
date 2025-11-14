@@ -1,13 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 partial model PartialSafety "Safety control with I/O"
-  Modelica.Blocks.Interfaces.RealInput ySet
-    "Input for relative compressor speed from 0 to 1"
-    annotation (Placement(transformation(extent={{-152,-16},{-120,16}}),
-        iconTransformation(extent={{-152,-16},{-120,16}})));
-  Modelica.Blocks.Interfaces.RealOutput yOut
-    "Output for relative compressor speed from 0 to 1"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
-        iconTransformation(extent={{120,-10},{140,10}})));
+
   Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Bus-connector for the heat pump" annotation (Placement(transformation(
           extent={{-136,-76},{-102,-46}}), iconTransformation(extent={{-136,-88},
@@ -56,6 +49,16 @@ partial model PartialSafety "Safety control with I/O"
           textString="%name")}),     Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>May 27, 2025</i> by Fabian Wuellhorst:<br/>
+    Make safety checks parallel (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA #2015</a>)
+  </li>
+  <li>
+    <i>May 26, 2025</i> by Fabian Wuellhorst and Michael Wetter:<br/>
+    Introduce partial parameters used in all safety blocks (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/2011\">IBPSA #2011</a>)
+  </li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

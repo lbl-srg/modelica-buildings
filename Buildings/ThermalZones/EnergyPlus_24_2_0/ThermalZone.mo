@@ -9,7 +9,7 @@ model ThermalZone
     "Number of fluid ports (equals to 2 for one inlet and one outlet)"
     annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
   ////////////////////////////////////////////////////////////////////////////
-  // Media declaration. This is identical to
+  // Buildings.Media declaration. This is identical to
   // Buildings.Fluid.Interfaces.LumpedVolumeDeclarations, except
   // that the comments have been changed to avoid a confusion about
   // what energyDynamics refers to.
@@ -207,14 +207,14 @@ protected
     y=vol.medium.p)
     "Air pressure"
     annotation (Placement(transformation(extent={{122,2},{142,22}})));
-  Utilities.Psychrometrics.Phi_pTX relHum
+  Buildings.Utilities.Psychrometrics.Phi_pTX relHum
     "Relative humidity"
     annotation (Placement(transformation(extent={{160,12},{180,32}})));
-  Controls.OBC.CDL.Reals.Divide X_w
+  Buildings.Controls.OBC.CDL.Reals.Divide X_w
     "Water vapor mass fraction per kg total air"
     annotation (Placement(transformation(extent={{40,-32},{60,-12}})));
 
-  HeatTransfer.Sources.PrescribedTemperature preRadTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preRadTem
     "Prescribed radiative temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor radHeaFloSen

@@ -29,8 +29,39 @@ model DXDehumidifier "DX dehumidifier"
     "Rated energy factor, in liter/kWh"
     annotation (Dialog(group="Nominal condition"));
 
-  Modelica.Blocks.Interfaces.BooleanInput uEna
-    "Enable signal"
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small=1E-4*abs(deHum.m_flow_nominal)
+    "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
+  parameter Boolean show_T=false
+    "= true, if actual temperature at port is computed"
+    annotation (Dialog(tab="Advanced", group="Diagnostics"));
+  parameter Boolean from_dp=false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Dialog(tab="Flow resistance"));
+  parameter Boolean linearizeFlowResistance=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Dialog(tab="Flow resistance"));
+  parameter Real deltaM=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance"));
+  parameter Modelica.Units.SI.Time tau=30
+    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
+    annotation (Dialog(group="Nominal condition", tab="Dynamics"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics", group="Conservation equations"));
+  parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_start=Medium.p_default
+    "Start value of pressure" annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
+    "Start value of temperature" annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=
+      Medium.X_default "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.Types.ExtraProperty C_start[Medium.nC]=
+      fill(0, Medium.nC) "Start value of trace substances"
+    annotation (Dialog(tab="Initialization"));
+
+  Modelica.Blocks.Interfaces.BooleanInput uEna "True: enable the dehumidifier"
     annotation (Placement(transformation(extent={{-140,-66},{-100,-26}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
 
@@ -46,7 +77,7 @@ model DXDehumidifier "DX dehumidifier"
     final unit="W",
     final quantity="Power")
     "Power consumption rate"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
@@ -70,8 +101,18 @@ model DXDehumidifier "DX dehumidifier"
   Buildings.Fluid.Humidifiers.Humidifier_u deHum(
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final show_T=show_T,
+    final from_dp=from_dp,
     final dp_nominal=dp_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final linearizeFlowResistance=linearizeFlowResistance,
+    final deltaM=deltaM,
+    final tau=tau,
+    final energyDynamics=energyDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
     final mWat_flow_nominal=-mWat_flow_nominal)
     "Baseclass for conditioning fluid medium"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -97,15 +138,15 @@ model DXDehumidifier "DX dehumidifier"
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal)
     "Inlet air relative humidity"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter eneFac(final k=
-        eneFac_nominal/(1000*3600))
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter eneFac(
+    final k=eneFac_nominal/(1000*3600))
     "Multiply energy factor modifier by nominal energy factor"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(final k=
-        mWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(
+    final k=mWat_flow_nominal)
     "Calculate water removal rate by multiplying water removal modifier by nominal removal rate"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
@@ -113,9 +154,10 @@ model DXDehumidifier "DX dehumidifier"
     "Calculate dehumidification power consumption"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
-  Buildings.Fluid.Humidifiers.BaseClasses.PerformanceCurveModifier perCurMod(per=per)
+  Buildings.Fluid.Humidifiers.BaseClasses.PerformanceCurveModifier perCurMod(
+    final per=per)
     "Block for calculating modifier curves"
-    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
+    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
 
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
@@ -136,7 +178,7 @@ equation
   connect(deHum.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(senRelHum.port_b, deHum.port_a)
-    annotation (Line(points={{20,0},{60,0}},color={0,127,255}));
+    annotation (Line(points={{10,0},{60,0}},color={0,127,255}));
   connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-29,40},{-20,40},
           {-20,60},{-10,60}},color={0,0,127}));
   connect(u.y, deHum.u) annotation (Line(points={{-18,-40},{40,-40},{40,6},{59,
@@ -155,18 +197,21 @@ equation
           {38,-86}}, color={0,0,127}));
   connect(PDeh.y, QHea.u) annotation (Line(points={{62,-80},{80,-80},{80,-20},{-56,
           -20},{-56,40},{-52,40}}, color={0,0,127}));
-  connect(PDeh.y, P) annotation (Line(points={{62,-80},{80,-80},{80,-40},{120,-40}},
+  connect(PDeh.y, P) annotation (Line(points={{62,-80},{120,-80}},
         color={0,0,127}));
-  connect(senRelHum.phi, perCurMod.phi) annotation (Line(points={{10.1,11},{10.1,
-          20},{-60,20},{-60,-104},{-52,-104}}, color={0,0,127}));
-  connect(perCurMod.watRemMod, u.u1) annotation (Line(points={{-29,-96},{-20,-96},
-          {-20,-60},{-52,-60},{-52,-34},{-42,-34}}, color={0,0,127}));
-  connect(perCurMod.eneFacMod, eneFac.u) annotation (Line(points={{-29,-104},{-20,
-          -104},{-20,-100},{-2,-100}}, color={0,0,127}));
+  connect(senRelHum.phi, perCurMod.phi) annotation (Line(points={{0.1,11},{0.1,
+          20},{-60,20},{-60,-84},{-52,-84}},   color={0,0,127}));
+  connect(perCurMod.watRemMod, u.u1) annotation (Line(points={{-29,-76},{-20,
+          -76},{-20,-60},{-52,-60},{-52,-34},{-42,-34}},
+                                                    color={0,0,127}));
+  connect(perCurMod.eneFacMod, eneFac.u) annotation (Line(points={{-29,-84},{
+          -20,-84},{-20,-100},{-2,-100}},
+                                       color={0,0,127}));
   connect(senTIn.port_b, senRelHum.port_a)
-    annotation (Line(points={{-70,0},{0,0}},   color={0,127,255}));
-  connect(senTIn.T, perCurMod.T) annotation (Line(points={{-80,11},{-80,20},{-64,
-          20},{-64,-96},{-52,-96}}, color={0,0,127}));
+    annotation (Line(points={{-70,0},{-10,0}}, color={0,127,255}));
+  connect(senTIn.T, perCurMod.T) annotation (Line(points={{-80,11},{-80,20},{
+          -64,20},{-64,-76},{-52,-76}},
+                                    color={0,0,127}));
 
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
         Rectangle(

@@ -16,7 +16,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
 
   Buildings.Fluid.Humidifiers.DXDehumidifier dxDeh(
     redeclare package Medium = Medium,
-    mWat_flow_nominal=5.805556e-5,
+    mWat_flow_nominal=5.805556e-4,
     final addPowerToMedium=true,
     final mAir_flow_nominal=m_flow_nominal,
     final dp_nominal=100,
@@ -131,14 +131,16 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Reader for energy plus reference results"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
-protected
-  Controls.OBC.CDL.Discrete.Sampler           sam(final samplePeriod=3600)
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sam(
+    final samplePeriod=3600)
     "Sampling the part load ratio"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-protected
-  Controls.OBC.CDL.Logical.VariablePulse plrToPul(final period=3600)
+
+  Buildings.Controls.OBC.CDL.Logical.VariablePulse plrToPul(
+    final period=3600)
     "Convert part load ratio signal to on-off signal"
     annotation (Placement(transformation(extent={{-88,60},{-68,80}})));
+
 equation
   connect(watRemRatMod.y, mWatMod.u)
     annotation (Line(points={{41,40},{58,40}}, color={0,0,127}));
@@ -168,7 +170,6 @@ equation
     annotation (Line(points={{-50,-18},{-62,-18}}, color={0,127,255}));
   connect(sin.ports[1], dxDeh.port_b)
     annotation (Line(points={{-20,-18},{-30,-18}}, color={0,127,255}));
-
   connect(datRea.y[8], sam.u)
     annotation (Line(points={{-139,70},{-122,70}}, color={0,0,127}));
   connect(sam.y, plrToPul.u)

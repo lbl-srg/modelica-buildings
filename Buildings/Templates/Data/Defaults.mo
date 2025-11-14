@@ -40,10 +40,10 @@ package Defaults
     "Dry cooler entering air drybulb temperature";
   constant Modelica.Units.SI.Temperature TWetBulTowEnt=24 + 273.15
     "CT entering air wetbulb temperature";
-  constant Real PFanByFloConWatTow(
+  constant Real ratPFanByMFloConWatTow(
     unit="W/(kg/s)")=340
     "CT fan power divided by CW mass flow rate";
-  constant Real mConWatFloByAirTow(
+  constant Real ratMFloConWatByMFloAirTow(
     unit="1")=1.45
     "CT CW mass flow rate divided by air mass flow rate";
   constant Modelica.Units.SI.PressureDifference dpConWatFriTow=1E4
@@ -52,7 +52,7 @@ package Defaults
     "CW elevation head (for open cooling towers only)";
   constant Modelica.Units.SI.PressureDifference dpConWatTowClo=5E4
     "CW flow-friction losses through closed-circuit tower and piping only (without valve)";
-  constant Real mAirFloByCapChi(
+  constant Real ratMFloAirByCapChi(
     unit="(kg/s)/W")=1E-4
     "Air mass flow rate divided by capacity for air-cooled chiller";
   constant Real COPChiAirCoo(
@@ -63,8 +63,8 @@ package Defaults
     "Water-cooled chiller COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
   constant Modelica.Units.SI.PressureDifference dpValIso=1E3
     "Isolation or bypass valve pressure drop";
-  constant Modelica.Units.SI.PressureDifference dpValBypMin=3E4
-    "Minimum flow bypass valve pressure drop at design minimum flow for the largest chiller";
+  constant Modelica.Units.SI.PressureDifference dpValBypMin=3.5E4
+    "Minimum flow bypass valve pressure drop at design minimum flow for the largest unit";
   constant Modelica.Units.SI.PressureDifference dpValChe=1E4
     "Check valve pressure drop";
   constant Modelica.Units.SI.PressureDifference dpChiWatChi=4E4
