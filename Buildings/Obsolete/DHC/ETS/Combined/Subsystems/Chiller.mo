@@ -1,6 +1,6 @@
 within Buildings.Obsolete.DHC.ETS.Combined.Subsystems;
-model Chiller
-  "Base subsystem with heat recovery chiller"
+model Chiller "Base subsystem with heat recovery chiller"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium model"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),

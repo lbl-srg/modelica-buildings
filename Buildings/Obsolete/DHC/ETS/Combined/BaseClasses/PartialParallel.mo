@@ -110,7 +110,7 @@ model PartialParallel
     final m_flow_nominal=colAmbWat.mDis_flow_nominal,
     use_strokeTime=false) "Condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
-  Buildings.DHC.ETS.Combined.Subsystems.HeatExchanger hex(
+  Buildings.Obsolete.DHC.ETS.Combined.Subsystems.HeatExchanger hex(
     redeclare final package Medium1=MediumSer,
     redeclare final package Medium2=MediumBui,
     final allowFlowReversal1=allowFlowReversalSer,
