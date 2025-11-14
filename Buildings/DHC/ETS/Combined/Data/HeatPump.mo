@@ -2,16 +2,12 @@ within Buildings.DHC.ETS.Combined.Data;
 record HeatPump
   "Parameters for the modular expandable heat pump in energy transfer station"
   extends Modelica.Icons.Record;
-  constant Modelica.Units.SI.SpecificHeatCapacity cpWat =
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq;
 
   parameter Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datHea =
     Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW()
     "Performance map for the heat pump"
     annotation (Dialog(group="Performance map"));
-//  parameter Real PLRMax(
-//    min=0, max=1, final unit="1") = 1 "Maximum part load ratio"
-//    annotation (Dialog(group="Part load"));
+
   parameter Real PLRMin(
    min=0, max=1, final unit="1")= 0.3 "Minimum part load ratio"
     annotation (Dialog(group="Part load"));
@@ -49,14 +45,6 @@ record HeatPump
       displayUnit="degC")
     "Nominal evaporator leaving temperature at desired cooling capacity"
     annotation (Dialog(group="Cooling design condition"));
-//  parameter Modelica.Units.SI.Temperature TConEntMin(displayUnit="degC") =
-//    25 + 273.15
-//    "Minimum of condenser water entering temperature"
-//    annotation (Dialog(group="Condenser"));
-//  parameter Modelica.Units.SI.Temperature TEvaEntMax(displayUnit="degC") =
-//    20 + 273.15
-//    "Maximum of evaporator water entering temperature"
-//    annotation (Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.Temperature TConLvgMin(displayUnit="degC") =
     15 + 273.15
     "Minimum value for condenser leaving temperature"
@@ -70,11 +58,11 @@ record HeatPump
     "Maximum value for leaving evaporator temperature"
     annotation (Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal =
-      QHeaDes_flow_nominal/dTCon_nominal/cpWat
+      QHeaDes_flow_nominal/dTCon_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Nominal medium flow rate in the condenser"
     annotation (Dialog(group="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal =
-    abs(QCooDes_flow_nominal/dTEva_nominal)/cpWat
+    abs(QCooDes_flow_nominal/dTEva_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Nominal medium flow rate in the evaporator"
     annotation (Dialog(group="Evaporator"));
 
@@ -132,7 +120,45 @@ record HeatPump
         Modelica.Blocks.Types.Smoothness.LinearSegments,
         Modelica.Blocks.Types.Extrapolation.LastTwoPoints,
         false) "External table object" annotation (HideResult=true);
+
 annotation(defaultComponentName="datHeaPum",
-defaultComponentPrefixes="parameter");
+  defaultComponentPrefixes="parameter",
+  Documentation(info="<html>
+<p>
+Parameters that describe the performance of the heat pump, and design quantities
+such as temperatures and design mass flow rates of the heat pump.
+</p>
+<p>
+The performance table in <code>datHea</code> are used to describe the performance
+change for off-design conditions. The heat pump's heating capacity is, however,
+determined solely by the parameters
+<code>QHeaDes_flow_nominal</code> for the desired heating capacity at the
+leaving condenser temperature <code>THeaConLvg_nominal</code> and the
+leaving evaporator temperature <code>THeaEvaLvg_nominal</code>.
+The performance table for the evaporator heat flow rate and the electricity
+consumption are then scaled up or down to meet this capacity.</p>
+<p>
+The record also compute the cooling capacity at the design conditions
+<code>TCooConLvg_nominal</code> and <code>TCooEvaLvg_nominal</code>,
+and stores it in the parameter <code>QCooAct_flow_nominal</code>.
+This can then be compared to the desired cooling capacity
+<code>QCooDes_flow_nominal</code>.
+</p>
+<p>
+The model also computes the COP for heating and for cooling at the
+design temperatures <code>THeaConLvg_nominal</code> and <code>THeaEvaLvg_nominal</code>
+for heating and
+<code>TCooConLvg_nominal</code> and <code>TCooEvaLvg_nominal</code>
+for cooling. These are for reporting only and not used in the heat pump model.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 14, 2025, by Michael Wetter:<br/>
+First implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
+</ul>
+</html>"));
 
 end HeatPump;

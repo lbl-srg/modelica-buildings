@@ -2,7 +2,7 @@ within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses;
 model BuildingETS
   "Load connected to the network via ETS with or without DHW integration"
   extends Buildings.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
-    redeclare Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries bui(
+    redeclare Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       final T_aHeaWat_nominal=datBuiSet.THeaWatSup_nominal,
       final T_bHeaWat_nominal=datBuiSet.THeaWatRet_nominal,
@@ -10,8 +10,8 @@ model BuildingETS
       final T_bChiWat_nominal=datBuiSet.TChiWatRet_nominal,
       final have_hotWat=have_hotWat,
       QHea_flow_nominal=facTerUniSizHea*Buildings.DHC.Loads.BaseClasses.getPeakLoad(
-          string="#Peak space heating load",
-          filNam=Modelica.Utilities.Files.loadResource(filNam))),
+        string="#Peak space heating load",
+        filNam=Modelica.Utilities.Files.loadResource(filNam))),
     redeclare Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump ets(
       final have_hotWat=QHotWat_flow_nominal > Modelica.Constants.eps,
       QChiWat_flow_nominal=QCoo_flow_nominal,
@@ -40,7 +40,8 @@ model BuildingETS
     nPorts_heaWat=1,
     nPorts_chiWat=1);
 
-  parameter Boolean have_eleNonHva "The ETS has non-HVAC electricity load"
+  parameter Boolean have_eleNonHva
+    "Set to true to enable a data reader and output signal for non-HVAC electrical load"
     annotation (Dialog(group="Configuration"));
 
   parameter Real facTerUniSizHea(final unit="1")
@@ -84,12 +85,6 @@ model BuildingETS
   final parameter Modelica.Units.SI.Temperature THeaWatRet_nominal=
       datBuiSet.THeaWatRet_nominal "Heating water return temperature from building load"
     annotation (Dialog(group="Nominal condition"));
-//  parameter Modelica.Units.SI.Temperature TDisWatMin=6 + 273.15
-//    "District water minimum temperature"
-//    annotation (Dialog(group="Nominal condition"));
-//  parameter Modelica.Units.SI.Temperature TDisWatMax=17 + 273.15
-//    "District water maximum temperature"
-//    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 4
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation (Dialog(group="Nominal condition"));
@@ -231,7 +226,45 @@ equation
     annotation (Line(points={{292,0},{320,0}}, color={0,0,127}));
   connect(loaEleNonHva.y[1], mulPEleNonHva.u)
     annotation (Line(points={{181,0},{268,0}}, color={0,0,127}));
+  connect(bui.THeaSupSet, THeaWatSupSet.y) annotation (Line(points={{-32,58},{-64,
+          58},{-64,70},{-119,70}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, bui.TCooSupSet) annotation (Line(points={{-119,30},{-68,
+          30},{-68,48},{-32,48}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-        defaultComponentName = "bui");
+        defaultComponentName = "bui",
+    Documentation(info="<html>
+<p>
+Model that connects a building thermal and cooling load, specified by time series,
+with an energy transfer station, and exposes the fluid connections of the energy transfer
+station for connecting it to district energy service lines.
+</p>
+<p>
+The model extends from
+<a href=\"modelica://Buildings.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS\">
+Buildings.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS</a>,
+which connects the building and the load, and exposes the fluid connection for connecting
+it to the district service line.
+The building load is modeled by reading time series, and drawing as much heating or cooling
+water as determined by its control. This is implemented through
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingTimeSeries\">
+Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingTimeSeries</a>.
+The energy transfer station uses a heat recovery heat pump, and can optionally have domestic hot water
+preparation.
+This is implemented in
+<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump\">
+Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump</a>.
+</p>
+<p>
+See the respective models for a detailed description.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 14, 2025, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BuildingETS;

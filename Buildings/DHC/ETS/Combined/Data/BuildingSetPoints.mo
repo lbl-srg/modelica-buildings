@@ -36,10 +36,20 @@ record BuildingSetPoints "Set points for the buildings"
   parameter Modelica.Units.SI.ThermodynamicTemperature THotWatSupFix_nominal(displayUnit="degC") =
     45 + 273.15 "Nominal domestic hot water supply temperature to the fixture"
     annotation (Dialog(group="Domestic hot water"));
-    annotation(defaultComponentName="datBuiSet",
-    Documentation(info="<html>
+annotation(
+  defaultComponentName="datBuiSet",
+  defaultComponentPrefixes="parameter",
+  Documentation(info="<html>
 <p>
-Unified set point declarations. All buildings use the same set points.
+Data records with design and control parameters for the building heating, cooling and domestic hot water load.
 </p>    
+</html>", revisions="<html>
+<ul>
+<li>
+November 14, 2025, by Michael Wetter:<br/>
+First implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
+</ul>
 </html>"));
 end BuildingSetPoints;

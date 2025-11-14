@@ -10,8 +10,8 @@ model HeatRecoveryHeatPump
     final have_fan=false,
     final have_eleHea=false,
     final have_weaBus=true "Set to true as this determines whether the composite ets and building has a weather bus",
-    nPorts_aHeaWat=1,
     nPorts_bHeaWat=1,
+    nPorts_aHeaWat=1,
     nPorts_bChiWat=1,
     nPorts_aChiWat=1);
 
@@ -534,78 +534,6 @@ model HeatRecoveryHeatPump
         origin={250,-200})));
   Controls.EtsHex opeEtsHex "Output true to operate ETS heat exchanger"
     annotation (Placement(transformation(extent={{-80,-240},{-60,-220}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTSpaHeaSup(
-    redeclare package Medium = MediumBui,
-    allowFlowReversal=true,
-    final m_flow_nominal=datHeaPum.mCon_flow_nominal)
-    "Supply temperature for space heating" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-188,256})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTSpaCooSup(
-    redeclare package Medium = MediumBui,
-    allowFlowReversal=true,
-    final m_flow_nominal=datHeaPum.mEva_flow_nominal)
-    "Supply temperature for space cooling" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={220,190})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valTHeaSup(
-    redeclare package Medium = MediumBui,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=datHeaPum.mCon_flow_nominal,
-    dpValve_nominal=3000)
-    "Three way valve for heating supply temperature control"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={-250,220})));
-  Buildings.Fluid.FixedResistances.Junction junHeaWatRet(
-    redeclare final package Medium = MediumBui,
-    final dp_nominal={0,0,0},
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final tau=1,
-    final m_flow_nominal=datHeaPum.mCon_flow_nominal*{1,-1,-1})
-    "Junction at heating water return" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-280,220})));
-  Buildings.Controls.OBC.CDL.Reals.PID conPIDTHeaWatSup(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.5,
-    Ti=600,
-    u_s(final unit="K", displayUnit="degC"),
-    u_m(final unit="K", displayUnit="degC"))
-    "Controller for heating water supply temperature"
-    annotation (Placement(transformation(extent={{-256,264},{-236,284}})));
-  Buildings.Controls.OBC.CDL.Reals.PID conPIDTCooWatSup(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.5,
-    Ti=600,
-    reverseActing=false,
-    u_s(final unit="K", displayUnit="degC"),
-    u_m(final unit="K", displayUnit="degC")) "Controller for cooling water supply temperature"
-    annotation (Placement(transformation(extent={{160,230},{180,250}})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valTCooSup(
-    redeclare package Medium = MediumBui,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=datHeaPum.mEva_flow_nominal,
-    dpValve_nominal=3000)
-    "Three way valve for cooling supply temperature control" annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={220,162})));
-  Buildings.Fluid.FixedResistances.Junction junCooWatRet(
-    redeclare final package Medium = MediumBui,
-    final dp_nominal={0,0,0},
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final tau=1,
-    final m_flow_nominal=datHeaPum.mEva_flow_nominal*{1,-1,-1})
-    "Junction at cooling water return" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={174,162})));
 
   Subsystems.WatersideEconomizer WSE(
     redeclare final package Medium1 = MediumSer,
@@ -833,34 +761,6 @@ equation
         color={255,0,255}));
   connect(heaPum.uHeaDhw, twoTanCoo.yDhw) annotation (Line(points={{-12,-4},{
           -22,-4},{-22,130},{-110,130},{-110,175},{-118,175}}, color={255,0,255}));
-  connect(dHFloHeaWat.port_b1, valTHeaSup.port_1) annotation (Line(points={{
-          -268,180},{-268,192},{-250,192},{-250,210}}, color={0,127,255}));
-  connect(valTHeaSup.port_2, senTSpaHeaSup.port_a) annotation (Line(points={{
-          -250,230},{-250,256},{-198,256}}, color={0,127,255}));
-  connect(junHeaWatRet.port_3, valTHeaSup.port_3)
-    annotation (Line(points={{-270,220},{-260,220}}, color={0,127,255}));
-  connect(conPIDTHeaWatSup.y, valTHeaSup.y) annotation (Line(points={{-234,274},
-          {-230,274},{-230,220},{-238,220}}, color={0,0,127}));
-  connect(conPIDTHeaWatSup.u_m, senTSpaHeaSup.T) annotation (Line(points={{-246,
-          262},{-246,260},{-220,260},{-220,280},{-188,280},{-188,267}}, color={
-          0,0,127}));
-  connect(junHeaWatRet.port_2, dHFloHeaWat.port_a2)
-    annotation (Line(points={{-280,210},{-280,180}}, color={0,127,255}));
-  connect(valTCooSup.port_2, senTSpaCooSup.port_a) annotation (Line(points={{220,172},
-          {220,180}},                    color={0,127,255}));
-  connect(senTSpaCooSup.T, conPIDTCooWatSup.u_m)
-    annotation (Line(points={{209,190},{200,190},{200,210},{170,210},{170,228}},
-                                                   color={0,0,127}));
-  connect(conPIDTCooWatSup.y, valTCooSup.y) annotation (Line(points={{182,240},
-          {240,240},{240,162},{232,162}}, color={0,0,127}));
-  connect(valTCooSup.port_3, junCooWatRet.port_3)
-    annotation (Line(points={{210,162},{184,162}}, color={0,127,255}));
-  connect(conPIDTCooWatSup.u_s, TChiWatSupSet) annotation (Line(points={{158,240},
-          {66,240},{66,214},{-26,214},{-26,-24},{-240,-24},{-240,-60},{-320,-60}},
-                      color={0,0,127}));
-  connect(conPIDTHeaWatSup.u_s, THeaWatSupSet) annotation (Line(points={{-258,274},
-          {-288,274},{-288,-20},{-300,-20},{-300,-20},{-320,-20}},      color={
-          0,0,127}));
   connect(tanChiWat.charge, WSE.uCoo) annotation (Line(points={{178,107},{148,107},
           {148,130},{218,130}}, color={255,0,255}));
   connect(valIsoEva.y_actual, WSE.yValIsoEva_actual) annotation (Line(points={{55,
@@ -881,22 +781,18 @@ equation
           244,124},{244,116},{252,116},{252,120}}, color={0,127,255}));
   connect(WSE.port_b2, tanChiWat.port_loaTop) annotation (Line(points={{220,124},
           {216,124},{216,116},{200,116}}, color={0,127,255}));
-  connect(junHeaWatRet.port_1, ports_aHeaWat[1]) annotation (Line(points={{-280,
-          230},{-280,260},{-300,260}}, color={0,127,255}));
-  connect(senTSpaHeaSup.port_b, ports_bHeaWat[1]) annotation (Line(points={{
-          -178,256},{-36,256},{-36,260},{300,260}}, color={0,127,255}));
   connect(heaPum.PChi, PCoo) annotation (Line(points={{12,-4},{40,-4},{40,20},{280,
           20},{280,40},{320,40}}, color={0,0,127}));
   connect(zerPHea.y, PHea)
     annotation (Line(points={{282,80},{320,80}}, color={0,0,127}));
-  connect(senTSpaCooSup.port_b, ports_bChiWat[1])
-    annotation (Line(points={{220,200},{300,200}}, color={0,127,255}));
-  connect(junCooWatRet.port_1, ports_aChiWat[1]) annotation (Line(points={{174,
-          172},{174,200},{-300,200}}, color={0,127,255}));
-  connect(dHFloChiWat.port_b1, valTCooSup.port_1) annotation (Line(points={{264,
-          140},{264,150},{220,150},{220,152}}, color={0,127,255}));
-  connect(dHFloChiWat.port_a2, junCooWatRet.port_2) annotation (Line(points={{
-          252,140},{252,146},{174,146},{174,152}}, color={0,127,255}));
+  connect(dHFloHeaWat.port_b1, ports_bHeaWat[1]) annotation (Line(points={{-268,
+          180},{-268,260},{300,260}}, color={0,127,255}));
+  connect(dHFloHeaWat.port_a2, ports_aHeaWat[1]) annotation (Line(points={{-280,
+          180},{-280,260},{-300,260}}, color={0,127,255}));
+  connect(dHFloChiWat.port_b1, ports_bChiWat[1]) annotation (Line(points={{264,
+          140},{264,200},{300,200}}, color={0,127,255}));
+  connect(ports_aChiWat[1], dHFloChiWat.port_a2) annotation (Line(points={{-300,
+          200},{252,200},{252,140}}, color={0,127,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{12,-40},{40,-12}},
