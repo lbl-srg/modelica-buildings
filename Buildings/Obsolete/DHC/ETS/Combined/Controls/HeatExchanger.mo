@@ -1,8 +1,8 @@
-within Buildings.DHC.ETS.Combined.Controls;
+within Buildings.Obsolete.DHC.ETS.Combined.Controls;
 model HeatExchanger
   "District heat exchanger controller"
 
-  parameter DHC.ETS.Types.ConnectionConfiguration conCon
+  parameter Buildings.DHC.ETS.Types.ConnectionConfiguration conCon
     "District connection configuration" annotation (Evaluate=true);
   parameter Real spePum1Min(
     final unit="1",
@@ -95,7 +95,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
 protected
   parameter Boolean have_val1=conCon ==
-    DHC.ETS.Types.ConnectionConfiguration.TwoWayValve
+    Buildings.DHC.ETS.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   connect(swiOff1.y, y1)
@@ -165,10 +165,17 @@ equation
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-220,-120},{220,120}})),
+    obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     defaultComponentName="con",
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 14, 2025, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
 <li>
 July 14, 2021, by Antoine Gautier:<br/>
 Updated the control logic.<br/>

@@ -56,7 +56,7 @@ model HeatExchanger "Base subsystem with district heat exchanger"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
     iconTransformation(extent={{100,-20},{140,20}})));
   // COMPONENTS
-  Buildings.DHC.ETS.Combined.Controls.HeatExchanger con(
+  Buildings.Obsolete.DHC.ETS.Combined.Controls.HeatExchanger con(
     final conCon=conCon,
     final spePum1Min=spePum1Min,
     final spePum2Min=spePum2Min)
@@ -356,8 +356,8 @@ on the primary side.
 </p>
 <p>
 The system is controlled based on the logic described in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.HeatExchanger\">
-Buildings.DHC.ETS.Combined.Controls.HeatExchanger</a>.
+<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.HeatExchanger\">
+Buildings.Obsolete.DHC.ETS.Combined.Controls.HeatExchanger</a>.
 The pump flow rate is considered proportional to the pump speed
 under the assumption of a constant flow resistance in both the primary and
 the secondary loops.
