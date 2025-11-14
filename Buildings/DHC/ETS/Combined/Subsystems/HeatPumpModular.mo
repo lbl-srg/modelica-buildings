@@ -10,7 +10,8 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
   parameter Buildings.DHC.ETS.Combined.Data.HeatPump dat
-    "Chiller performance data" annotation (choicesAllMatching=true, Placement(
+    "Heat pump performance data"
+                               annotation (choicesAllMatching=true, Placement(
         transformation(extent={{60,160},{80,180}})));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
@@ -131,30 +132,46 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
     annotation (Placement(transformation(extent={{200,-160},{240,-120}}),
     iconTransformation(extent={{100,-40},{140,0}})));
   // COMPONENTS
-  Buildings.Fluid.HeatPumps.ModularReversible.TableData2D heaPum(
+  Buildings.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare package MediumCon = Medium,
     redeclare package MediumEva = Medium,
-    final datTabHea=dat.dat,
+    redeclare model RefrigerantCycleHeatPumpCooling =
+      Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
+    redeclare model RefrigerantCycleHeatPumpHeating =
+        Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
+        redeclare final Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        mCon_flow_nominal=dat.mCon_flow_nominal,
+        mEva_flow_nominal=dat.mEva_flow_nominal,
+        final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+        final extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints,
+        final datTab=dat.datHea),
+    redeclare model RefrigerantCycleInertia =
+        Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
+    final use_rev=false,
     final allowDifferentDeviceIdentifiers=true,
     final allowFlowReversalEva=allowFlowReversal,
     final allowFlowReversalCon=allowFlowReversal,
     final dTCon_nominal=dat.dTCon_nominal,
     final dTEva_nominal=dat.dTEva_nominal,
     final QHea_flow_nominal=dat.QHea_flow_nominal,
-    final QCoo_flow_nominal=dat.QCoo_flow_nominal,
     final TConHea_nominal=dat.TConLvg_nominal,
     final TEvaHea_nominal=dat.TEvaLvg_nominal,
-    final TConCoo_nominal=dat.TEvaLvg_nominal,
-    final TEvaCoo_nominal=dat.TConLvg_nominal,
     final dpCon_nominal(displayUnit="Pa") = dpCon_nominal,
     final dpEva_nominal(displayUnit="Pa") = dpEva_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    GEvaIns=0,
+    GEvaOut=0,
+    CEva=0,
+    use_evaCap=false,
+    GConIns=0,
+    GConOut=0,
+    CCon=0,
+    use_conCap=false,
     show_T=true,
     use_intSafCtr=false,
-    limWarSca=0.98,
-    final datTabCoo=dat.datCoo)
-                    "Heat recovery heat pump"
+    limWarSca=0.98) "Heat recovery heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumCon(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -287,10 +304,6 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
 protected
-  Modelica.Blocks.Sources.BooleanConstant hea(final k=true)
-    "Use the heating mode to use the heat pump performance map"
-    annotation (Placement(transformation(extent={{-70,-12},{-50,8}})));
-protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
     p=Medium.p_default,
@@ -359,8 +372,6 @@ equation
     annotation (Line(points={{-100,102},{-100,72}},color={0,0,127}));
   connect(booToRea.y,gai1.u)
     annotation (Line(points={{-82,180},{-100,180},{-100,126}},color={0,0,127}));
-  connect(hea.y, heaPum.hea) annotation (Line(points={{-49,-2},{-26,-2},{-26,
-          -2.1},{-11.1,-2.1}}, color={255,0,255}));
   connect(con.TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{-72,139},
           {-186,139},{-186,80},{-220,80}},   color={0,0,127}));
   connect(con.TEvaWatLvg, senTEvaLvg.T) annotation (Line(points={{-72,137},{-82,

@@ -5,18 +5,13 @@ record HeatPump
   constant Modelica.Units.SI.SpecificHeatCapacity cpWat =
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq;
 
-  parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump dat
-    = Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW()
+  parameter Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datHea =
+    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW()
     "Performance map for the heat pump"
     annotation (Dialog(group="Performance map"));
-  final parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datCoo
-    = Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW()
-    "Not used - placeholder performance map for the cooling mode, has no influence"
-    annotation (Dialog(group="Performance map"));
-
-  parameter Real PLRMax(
-    min=0, max=1, final unit="1") = 1 "Maximum part load ratio"
-    annotation (Dialog(group="Part load"));
+//  parameter Real PLRMax(
+//    min=0, max=1, final unit="1") = 1 "Maximum part load ratio"
+//    annotation (Dialog(group="Part load"));
   parameter Real PLRMin(
    min=0, max=1, final unit="1")= 0.3 "Minimum part load ratio"
     annotation (Dialog(group="Part load"));
@@ -25,10 +20,12 @@ record HeatPump
     min=Modelica.Constants.eps)
     "Nominal heating capacity"
     annotation (Dialog(group="Condenser"));
+
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(
     max=-Modelica.Constants.eps)
-    "Nominal cooling capacity"
+    "fixme: update value. Nominal cooling capacity"
     annotation (Dialog(group="Evaporator"));
+
   // fixme: verify that all data are indeed used by the model, and delete what is not used.
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(
     min=Modelica.Constants.eps)
@@ -73,6 +70,16 @@ record HeatPump
     "Nominal medium flow rate in the evaporator"
     annotation (Dialog(group="Evaporator"));
 
+   parameter Modelica.Blocks.Types.ExternalCombiTable2D tableID=
+      Modelica.Blocks.Types.ExternalCombiTable2D(
+        "NoName",
+        "NoName",
+        datHea.tabPEle,
+        Modelica.Blocks.Types.Smoothness.LinearSegments,
+        Modelica.Blocks.Types.Extrapolation.LastTwoPoints,
+        false) "External table object";
+
 annotation(defaultComponentName="datHeaPum",
 defaultComponentPrefixes="parameter");
+
 end HeatPump;

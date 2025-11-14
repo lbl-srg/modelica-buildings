@@ -111,13 +111,11 @@ model HeatRecoveryHeatPump
   parameter Boolean have_WSE=false
     "Set to true in case a waterside economizer is used"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa") =
-    datHeaPum.dat.dpCon_nominal
-    "Nominal pressure drop across condenser"
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
+     = datHeaPum.datHea.dpCon_nominal "Nominal pressure drop across condenser"
     annotation (Dialog(group="Heat recovery heat pump"));
-  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa") =
-      datHeaPum.dat.dpEva_nominal
-    "Nominal pressure drop across evaporator"
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
+     = datHeaPum.datHea.dpEva_nominal "Nominal pressure drop across evaporator"
     annotation (Dialog(group="Heat recovery heat pump"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
