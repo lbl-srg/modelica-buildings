@@ -7,8 +7,7 @@ model FiltrationEfficiency
     "Maximum mass of the contaminant that can be captured by the filter";
   parameter String namCon[:]
     "Name of trace substance";
-  parameter
-    Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
+  parameter Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
     filEffPar
     "Filtration efficiency versus relative mass of the contaminant";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon(
@@ -25,7 +24,7 @@ model FiltrationEfficiency
     final unit="1",
     final min=0,
     final max=1)
-    "Relative mass of the contaminant captured by the filter"
+    "Relative mass of the contaminant captured by the filter. It's the total captured contaminant mass divided by the filter's maximum contaminant capacity"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
 protected
   parameter Integer nConSub = size(namCon,1)
@@ -71,7 +70,7 @@ and is calculated by
 rat =  mCon/mCon_nominal,
 </p>
 <p>
-where <i>mCon</i> is the mass of the contaminant that is captured by the filter, and
+where <i>mCon</i> is the mass of all the contaminant that is captured by the filter, and
 <i>mCon_nominal</i> is the filter's maximum contaminant capacity.
 </p>
 <P>

@@ -11,10 +11,15 @@ record FiltrationEfficiencyParameters
   annotation (Documentation(info="<html>
 <p>
 Data record of the relative mass of the contaminant <code>rat</code>
-verves the filtration efficiency <code>eps</code>.
+versus the filtration efficiency <code>eps</code>.
 The elements of the vector <code>rat</code> must be in ascending order,
 i.e., <code>rat[i] &lt; rat[i+1]</code>.
 The vector <code>rat</code> and <code>eps</code> have the same size.
+</p>
+<p>
+Note that the relative mass of the contaminant <code>rat</code> equals the total mass
+of all the contaminants captured by the filter divided by the maximum mass of all the
+contaminants captured by the filter.
 </p>
 </html>", revisions="<html>
 <ul>

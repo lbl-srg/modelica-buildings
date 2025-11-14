@@ -7,7 +7,7 @@ model FlowCoefficientCorrection
     final unit="1",
     final min=0,
     final max=1)
-    "Relative mass of the contaminant captured by the filter"
+    "Relative mass of the contaminant captured by the filter. It's the total captured contaminant mass divided by the filter's maximum contaminant capacity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
