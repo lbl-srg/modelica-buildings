@@ -85,7 +85,7 @@ model SideCold
     final k={(i) for i in 1:nSouAmb})
     "x2"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conTChiWatSup(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conTChiWatSup(
     final k=k,
     final Ti=Ti,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,

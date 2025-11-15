@@ -47,7 +47,7 @@ model Chiller
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCoo
     "Heating or cooling enabled"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conValEva(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conValEva(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,
@@ -58,7 +58,7 @@ model Chiller
     final reverseActing=true)
     "Evaporator three-way valve control"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conValCon(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conValCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,

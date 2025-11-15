@@ -39,7 +39,13 @@ convertClass("Buildings.DHC.ETS.Combined.Controls.SideCold",
 convertClass("Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory",
              "Buildings.Obsolete.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory");
 convertClass("Buildings.DHC.ETS.Combined.Controls.HeatExchanger",
-             "Buildings.Obsolete.DHC.ETS.Combined.Controls.HeatExchanger")
+             "Buildings.Obsolete.DHC.ETS.Combined.Controls.HeatExchanger");
+
+convertClass("Buildings.DHC.ETS.Combined.Controls.PIDWithEnable",
+             "Buildings.Controls.OBC.Utilities.PIDWithEnable");
+
+convertClass("Buildings.Templates.Plants.Controls.Utilities.PIDWithEnable",
+             "Buildings.Controls.OBC.Utilities.PIDWithEnable");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4374
 convertModifiers("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller",

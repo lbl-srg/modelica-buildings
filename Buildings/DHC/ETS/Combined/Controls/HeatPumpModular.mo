@@ -97,7 +97,7 @@ model HeatPumpModular "Modular heat pump controller"
     "Compressor speed control signal"         annotation (Placement(
         transformation(extent={{280,80},{320,120}}),
         iconTransformation(extent={{100,0},{140,40}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conCoo(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conCoo(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final yMax=1,
     final yMin=PLRMin,
@@ -110,7 +110,7 @@ model HeatPumpModular "Modular heat pump controller"
     u_m(final unit="K", displayUnit="degC"))
     "Chiller compressor speed control during cooling mode"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conHea(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conHea(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final yMax=1,
     final yMin=PLRMin,

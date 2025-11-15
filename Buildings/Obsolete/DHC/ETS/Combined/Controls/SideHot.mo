@@ -76,7 +76,7 @@ block SideHot
     annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conColRej(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conColRej(
     final k=k,
     final Ti=Ti,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -93,7 +93,7 @@ block SideHot
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conHeaRej(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conHeaRej(
     final k=k,
     final Ti=Ti,
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
