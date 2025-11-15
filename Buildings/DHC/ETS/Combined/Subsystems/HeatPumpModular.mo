@@ -135,6 +135,8 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
   Buildings.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare package MediumCon = Medium,
     redeclare package MediumEva = Medium,
+    mCon_flow_nominal=dat.mCon_flow_nominal,
+    mEva_flow_nominal=dat.mEva_flow_nominal,
     redeclare model RefrigerantCycleHeatPumpCooling =
         Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
