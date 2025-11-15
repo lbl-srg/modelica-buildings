@@ -730,12 +730,6 @@ equation
     annotation (Line(points={{-300,-200},{-260,-200}}, color={0,127,255}));
   connect(senTSerLinLvg.port_b, port_bSerAmb)
     annotation (Line(points={{260,-200},{300,-200}}, color={0,127,255}));
-  connect(hex.yValIso_actual[1], conAmbCon.y) annotation (Line(points={{-12,
-          -247.5},{-40,-247.5},{-40,152},{-68,152}},                     color=
-          {0,0,127}));
-  connect(hex.yValIso_actual[2], conAmbEva.y) annotation (Line(points={{-12,
-          -248.5},{-40,-248.5},{-40,-140},{40,-140},{40,-88},{166,-88},{166,50},
-          {122,50}}, color={0,0,127}));
   connect(heaPum.uHeaSpa, tanHeaWat.charge) annotation (Line(points={{-12,-2},{
           -20,-2},{-20,107},{-178,107}}, color={255,0,255}));
   connect(heaPum.uCoo, tanChiWat.charge) annotation (Line(points={{-12,-6},{-16,
@@ -745,19 +739,12 @@ equation
   connect(heaPum.TChiWatSupSet, TChiWatSupSet) annotation (Line(points={{-12,-10},
           {-26,-10},{-26,-24},{-240,-24},{-240,-60},{-312,-60},{-312,-56},{-310,
           -56},{-310,-60},{-320,-60}},       color={0,0,127}));
-  connect(opeEtsHex.y, hex.u) annotation (Line(points={{-58,-230},{-50,-230},{
-          -50,-252},{-12,-252}}, color={0,0,127}));
   connect(opeEtsHex.yVal1, valIsoEva.y_actual) annotation (Line(points={{-82,
-          -234},{-92,-234},{-92,-180},{46,-180},{46,-113},{55,-113}}, color={0,
+          -226},{-92,-226},{-92,-180},{46,-180},{46,-113},{55,-113}}, color={0,
           0,127}));
   connect(opeEtsHex.yVal2, valIsoCon.y_actual) annotation (Line(points={{-82,
-          -238.2},{-94,-238.2},{-94,-178},{-44,-178},{-44,-113},{-55,-113}},
+          -234},{-94,-234},{-94,-178},{-44,-178},{-44,-113},{-55,-113}},
         color={0,0,127}));
-  connect(opeEtsHex.uTan1, tanChiWat.charge) annotation (Line(points={{-82,-224},
-          {-84,-224},{-84,-184},{90,-184},{90,107},{178,107}}, color={255,0,255}));
-  connect(twoTanCoo.y, opeEtsHex.uTan2) annotation (Line(points={{-118,180},{
-          -106,180},{-106,132},{-28,132},{-28,-182},{-88,-182},{-88,-228},{-82,
-          -228}}, color={255,0,255}));
   connect(heaPum.uHeaDhw, twoTanCoo.yDhw) annotation (Line(points={{-12,-4},{
           -22,-4},{-22,130},{-110,130},{-110,175},{-118,175}}, color={255,0,255}));
   connect(tanChiWat.charge, WSE.uCoo) annotation (Line(points={{178,107},{148,107},
@@ -784,14 +771,24 @@ equation
           20},{280,40},{320,40}}, color={0,0,127}));
   connect(zerPHea.y, PHea)
     annotation (Line(points={{282,80},{320,80}}, color={0,0,127}));
-  connect(dHFloHeaWat.port_b1, ports_bHeaWat[1]) annotation (Line(points={{-268,
-          180},{-268,260},{300,260}}, color={0,127,255}));
-  connect(dHFloHeaWat.port_a2, ports_aHeaWat[1]) annotation (Line(points={{-280,
-          180},{-280,260},{-300,260}}, color={0,127,255}));
-  connect(dHFloChiWat.port_b1, ports_bChiWat[1]) annotation (Line(points={{264,
-          140},{264,200},{300,200}}, color={0,127,255}));
-  connect(ports_aChiWat[1], dHFloChiWat.port_a2) annotation (Line(points={{-300,
-          200},{252,200},{252,140}}, color={0,127,255}));
+  for i in 1:nPorts_bHeaWat loop
+    connect(dHFloHeaWat.port_b1, ports_bHeaWat[i]) annotation (Line(points={{-268,
+            180},{-268,260},{300,260}}, color={0,127,255}));
+  end for;
+  for i in 1:nPorts_aHeaWat loop
+    connect(dHFloHeaWat.port_a2, ports_aHeaWat[i]) annotation (Line(points={{-280,
+            180},{-280,260},{-300,260}}, color={0,127,255}));
+  end for;
+  for i in 1:nPorts_bChiWat loop
+    connect(dHFloChiWat.port_b1, ports_bChiWat[i]) annotation (Line(points={{264,
+            140},{264,200},{300,200}}, color={0,127,255}));
+  end for;
+  for i in 1:nPorts_aChiWat loop
+    connect(ports_aChiWat[i], dHFloChiWat.port_a2) annotation (Line(points={{-300,
+            200},{252,200},{252,140}}, color={0,127,255}));
+  end for;
+    connect(opeEtsHex.on, hex.on) annotation (Line(points={{-58,-230},{-40,-230},
+            {-40,-252},{-12,-252}}, color={255,0,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{12,-40},{40,-12}},
@@ -1238,9 +1235,8 @@ Resilient cooling through geothermal district energy system</a>.<br/>
 </html>", revisions="<html>
 <ul>
 <li>
-November 5, 2025, by Michael Wetter:<br/>
-Corrected position of cooling supply water temperature valve and sensor,
-which was in return instead of supply pipe.
+November 14, 2025, by Michael Wetter:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

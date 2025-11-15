@@ -14,7 +14,7 @@ compareVars :=
     "ets.heaPum.con.resTCooSup.TWatSupSet",
     "ets.heaPum.con.hea.y",
     "ets.heaPum.con.uCoo",
-    "ets.opeEtsHex.y",
+    "ets.opeEtsHex.on",
     "ets.WSE.conWSE.y1",
     "ets.heaPum.pumCon.m_flow",
     "ets.heaPum.pumEva.m_flow",

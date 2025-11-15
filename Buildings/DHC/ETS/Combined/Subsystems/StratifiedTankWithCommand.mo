@@ -258,6 +258,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+November 14, 2025, by Michael Wetter:<br/>
+Added output for tank charge signal which is used in the ETS supervisory control.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
+<li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
@@ -289,9 +294,5 @@ The model outputs the temperature of the fluid volumes at the top
 and at the bottom of the tank.
 </li>
 </ul>
-<h4>ESTCP modification</h4>
-<p>
-A block is added to also report whether the tank requests charging.
-</p>
 </html>"));
 end StratifiedTankWithCommand;

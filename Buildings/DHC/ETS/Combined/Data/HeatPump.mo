@@ -63,8 +63,8 @@ record HeatPump
     "Nominal medium flow rate in the condenser"
     annotation (Dialog(group="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal =
-    abs(QCooDes_flow_nominal/dTEva_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-    "Nominal medium flow rate in the evaporator"
+    max(abs(QCooDes_flow_nominal/dTEva_nominal), abs(QCooAct_flow_nominal/dTEva_nominal))/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "Nominal medium flow rate in the evaporator, based on larger of required and actual cooling capacity to ensure actual dTEva is not too large"
     annotation (Dialog(group="Evaporator"));
 
   final parameter Modelica.Units.SI.HeatFlowRate QConHeaNoSca_flow_nominal =

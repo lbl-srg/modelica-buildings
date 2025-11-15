@@ -225,10 +225,6 @@ For a model that connects this hot water system to a heat pump, see
 <a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank\">
 Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank</a>.
 </p>
-<h4>ESTCP modification</h4>
-<p>
-Removed <code>allowFlowReversalHea=true</code> at the initial extension.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

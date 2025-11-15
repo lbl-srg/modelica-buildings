@@ -679,24 +679,14 @@ First implementation.
 </html>",
       info="<html>
 <p>
-This is a model for a chiller system with constant speed evaporator and
+This is a model for a heat pump system with constant speed evaporator and
 condenser pumps, and mixing valves modulated to maintain a minimum
 condenser inlet temperature (resp. maximum evaporator inlet temperature).
 </p>
 <p>
 The system is controlled based on the logic described in
-<a href=\"modelica://Buildings.Obsolete.DHC.ETS.Combined.Controls.Chiller\">
-Buildings.Obsolete.DHC.ETS.Combined.Controls.Chiller</a>.
-The pump flow rate is considered proportional to the pump speed
-under the assumption of a constant flow resistance for both the condenser
-and the evaporator loops. This assumption is justified
-by the connection of the loops to the buffer tanks, and the additional
-assumption that the bypass branch of the mixing valves is balanced
-with the direct branch.
-</p>
-<h4>ESTCP Adaptation</h4>
-<p>
-The chiller component is replaced, together with its parameterisation.
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.Chiller\">
+Buildings.DHC.ETS.Combined.Controls.Chiller</a>.
 </p>
 </html>"));
 end HeatPumpModular;
