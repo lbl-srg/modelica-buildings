@@ -95,7 +95,7 @@ model HeatPumpModular "Modular heat pump controller"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCom
     "Compressor speed control signal"         annotation (Placement(
-        transformation(extent={{278,80},{318,120}}),
+        transformation(extent={{280,80},{320,120}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conCoo(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
@@ -156,7 +156,7 @@ model HeatPumpModular "Modular heat pump controller"
         final unit="K",
         displayUnit="degC") = 323.15)
     "Supply water temperature set point during domestic hot water charging"
-    annotation (Placement(transformation(extent={{-134,42},{-114,62}})));
+    annotation (Placement(transformation(extent={{-134,44},{-114,64}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiTSupSetHea(
     u1(final unit="K", displayUnit="degC"),
     u3(final unit="K", displayUnit="degC"),
@@ -189,7 +189,7 @@ model HeatPumpModular "Modular heat pump controller"
   u2(final unit="K", displayUnit="degC"),
   y(final unit="K", displayUnit="degC"))
   "Maximum to pick the larger value of space heating or hot water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-100,36},{-80,56}})));
+    annotation (Placement(transformation(extent={{-100,38},{-80,58}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay delSta(delayTime=30)
     "Delay start of compressor to ensure pumps have sufficient speed"
     annotation (Placement(transformation(extent={{148,90},{168,110}})));
@@ -275,12 +275,12 @@ equation
           -274,120},{-300,120}}, color={255,0,255}));
   connect(resTHeaSup.u, uHeaSpa) annotation (Line(points={{-232,86},{-248,86},{
           -248,200},{-300,200}}, color={255,0,255}));
-  connect(maxTSup.y, swiTSupSetHea.u1) annotation (Line(points={{-78,46},{-70,
-          46},{-70,48},{-62,48}},   color={0,0,127}));
+  connect(maxTSup.y, swiTSupSetHea.u1) annotation (Line(points={{-78,48},{-62,
+          48}},                     color={0,0,127}));
   connect(TSupSetDhw.y, maxTSup.u1)
-    annotation (Line(points={{-112,52},{-102,52}}, color={0,0,127}));
+    annotation (Line(points={{-112,54},{-102,54}}, color={0,0,127}));
   connect(resTHeaSup.TWatSupSet, maxTSup.u2) annotation (Line(points={{-208,80},
-          {-190,80},{-190,30},{-108,30},{-108,40},{-102,40}}, color={0,0,127}));
+          {-190,80},{-190,30},{-108,30},{-108,42},{-102,42}}, color={0,0,127}));
   connect(TEvaWatLvg, conValCoo.u_m) annotation (Line(points={{-300,-50},{-210,-50},
           {-210,-140},{50,-140},{50,-122}},        color={0,0,127}));
   connect(resTCooSup.TWatSupSet, offSetCoo.u) annotation (Line(points={{-208,10},
@@ -293,7 +293,7 @@ equation
           {200,108}}, color={0,0,127}));
   connect(swi1.y, ramLimCom.u)
     annotation (Line(points={{224,100},{238,100}}, color={0,0,127}));
-  connect(ramLimCom.y,yCom)  annotation (Line(points={{262,100},{298,100}},
+  connect(ramLimCom.y,yCom)  annotation (Line(points={{262,100},{300,100}},
                            color={0,0,127}));
   connect(heaOrCoo.y, not1.u)
     annotation (Line(points={{-118,190},{158,190}}, color={255,0,255}));
