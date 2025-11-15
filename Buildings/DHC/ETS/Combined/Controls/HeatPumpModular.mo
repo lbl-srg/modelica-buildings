@@ -342,6 +342,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+November 15, 2025, by Michael Wetter:<br/>
+Refactored implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">#4354</a>.
+</li>
+<li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
@@ -349,37 +354,35 @@ First implementation.
 </html>",
       info="<html>
 <p>
-This is a controller for the chiller system, which includes the dedicated
-condenser and evaporator pumps.
+This is a controller for the heat pump system, which includes controls
+for the valves that ensure a minimum condenser outlet and a maximum
+evaporator outlet temperature.
 </p>
 <p>
-The system is enabled if any of the input control signals <code>uHea</code>
+The system is enabled if any of the input control signals <code>uHeaSpa</code>,
+<code>uHeaDhw</code>,
 or <code>uCoo</code> is <code>true</code>.
-When enabled,
+When enabled, the following control is used:
 </p>
 <ul>
 <li>
-the condenser and evaporator pumps are operated at constant speed,
+Two proportional controllers compute the required compressor speed to track
+the heating or cooling set point.
 </li>
 <li>
-the condenser (resp. evaporator) mixing valve is modulated with a PI
-loop controlling the minimum (resp. maximum) inlet temperature.
+Moving averages of these compressor speed signals determine whether the heating or the
+cooling compressor speed should be taken. The larger of the moving averages determines
+whether the heat pump is controlled to meet the heating or cooling demand.
+</li>
+<li>
+The compressor speed is modulated between a minimum and maximum speed based on
+the heating or cooling control signal.
+A rate limiter is used to avoid step changes in demanded compressor speed.
+</li>
+<li>
+The condenser and evaporator mixing valves are modulated with a proportional controller
+to maintain a minimum (resp. maximum) outlet temperature from the heat pump.
 </li>
 </ul>
-<h4>ESTCP adaptation</h4>
-<p>
-Adapted from Buildings.Obsolete.DHC.ETS.Combined.Controls.Chiller.
-A PI controller for compressor speed is added in order to use
-the ModularReversible component to replace the original EIR model.
-</p>
-<p>
-An additional input has been added for the heating water supply temperature,
-and a PI controller has been added.
-</p>
-<p>
-A rate limiter has been added to avoid a sharp change in cooling load.
-This was done before the heating water supply temperature controller was
-added, and may no longer be needed.
-</p>
 </html>"));
 end HeatPumpModular;
