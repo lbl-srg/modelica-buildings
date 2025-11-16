@@ -1072,7 +1072,7 @@ explains how the two loops are coordinated through
 valve control.
 </p>
 
-<table style=\"margin-left: auto; margin-right: auto; border-collapse: collapse; border: 1px solid black;\">
+<table summary=\"Tank control signals.\" style=\"margin-left: auto; margin-right: auto; border-collapse: collapse; border: 1px solid black;\">
     <caption>Control signal coordination of the DHW
         tank and the space heating tank. Depending on the
         charge signal, the control block computes the position

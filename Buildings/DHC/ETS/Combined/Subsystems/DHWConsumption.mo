@@ -1,16 +1,10 @@
 within Buildings.DHC.ETS.Combined.Subsystems;
 model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
 
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(
+      choice(redeclare package Medium = Buildings.Media.Water "Water")));
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -57,15 +51,17 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
     redeclare final package MediumHea = Medium,
     final dat=dat,
     final TTan_start=T_start)
+    "Storage tank with fresh water station"
     annotation (Placement(transformation(extent={{20,-64},{40,-44}})));
   Buildings.DHC.Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare final package Medium = Medium, mMix_flow_nominal=1.2*dat.mDom_flow_nominal)
+    "Thermostatic mixing valve"
     annotation (Placement(transformation(extent={{60,42},{80,62}})));
   Buildings.Fluid.Sources.Boundary_pT souDCW(
     redeclare final package Medium = Medium,
     use_T_in=true,
     nPorts=1) "Source for domestic cold water"
-                                 annotation (Placement(
+    annotation (Placement(
       transformation(
       extent={{10,-10},{-10,10}},
       rotation=180,
@@ -76,13 +72,14 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final m_flow_nominal=m_flow_nominal*{1,-1,-1})
-                                             "Splitter for domestic cold water"
+    "Splitter for domestic cold water"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,44})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(final unit="K",
-      displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
+    final unit="K",
+    displayUnit="degC")
     "Domestic hot water temperature set point for supply to fixtures"
     annotation (Placement(
         transformation(
@@ -91,8 +88,9 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
         origin={-120,0}),
         iconTransformation(
         extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TColWat(final unit="K",
-      displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TColWat(
+    final unit="K",
+    displayUnit="degC")
     "Cold water temperature" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -101,8 +99,9 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-40})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QReqHotWat_flow(final unit="W")
-                                   "Service hot water load"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QReqHotWat_flow(
+    final unit="W")
+    "Service hot water load"
     annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -111,8 +110,8 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,40})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/
-        QHotWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/QHotWat_flow_nominal)
+    "Gain to normalize hot water signal"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(unit="W")
     "Electric power required for pumping equipment"
@@ -125,17 +124,20 @@ model DHWConsumption "DHW tank, HX, thermostatic mixing valve, and sink"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TTanTop(
     final unit="K",
-    displayUnit="degC") "Temperature at the tank top" annotation (Placement(
+    displayUnit="degC")
+    "Top temperature of tank"
+    annotation (Placement(
         transformation(extent={{100,60},{140,100}}), iconTransformation(extent={{100,60},
             {140,100}})));
   Modelica.Blocks.Sources.RealExpression expTTanTop(
-    y=domHotWatTan.TTanTop.T)
+    y=domHotWatTan.TTanTop.T) "Top temperature of tank"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.DHC.Networks.BaseClasses.DifferenceEnthalpyFlowRate dHFlow(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     final m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=false)             "Variation of enthalpy flow rate"
+    allowFlowReversal=false)
+    "Enthalpy flow rate"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -231,8 +233,7 @@ equation
           pattern=LinePattern.None,
           fillColor={255,255,0},
           fillPattern=FillPattern.Solid)}),
-                                          Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 Model with fresh water station and domestic hot water load.
@@ -252,12 +253,13 @@ The hot water load is specified through the input <code>QReqHotWat_flow</code>,
 rather than the hot water mass flow rate, in order to take into account the actual
 temperature of the hot water after the heat exchanger of the fresh water station.
 </p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 November 5, 2025, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html"));
+</html>"));
 end DHWConsumption;

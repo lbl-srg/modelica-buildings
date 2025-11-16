@@ -97,7 +97,6 @@ This tests the different settings for the controller types.
       revisions="<html>
 <ul>
 <li>
-<li>
 November 15, 2025, by Michael Wetter:<br/>
 First implementation.
 </li>
