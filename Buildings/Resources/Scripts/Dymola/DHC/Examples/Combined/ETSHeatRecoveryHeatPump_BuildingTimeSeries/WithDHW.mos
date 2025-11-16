@@ -1,5 +1,5 @@
 removePlots(true);
-simulateModel("Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithDHW", tolerance=1e-6, startTime=7776000, stopTime=8640000, outputInterval=3600, method="CVode", resultFile="WithDHW");
+simulateModel("Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithDHW", tolerance=1e-6, startTime=7776000, stopTime=8640000, outputInterval=3600, method="CVode", resultFile="WithDHW");
 createPlot(id=1, position={202, 4, 784, 638}, y={"bui.QHeaWat_flow_nominal", "bui.ets.heaPum.heaPum.QCon_flow"}, range={90.0, 100.0, -2000000.0, 4000000.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"W", "W"});
 createPlot(id=1, position={202, 4, 784, 638}, y={"bui.QChiWat_flow_nominal", "bui.ets.heaPum.heaPum.QEva_flow"}, range={90.0, 100.0, -4000000.0, 2000000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"W", "W"});
 createPlot(id=1, position={202, 4, 784, 638}, y={"bui.PCoo", "bui.PPum"}, range={90.0, 100.0, -500000.0, 1000000.0}, grid=true, subPlot=103, colors={{238,46,47}, {0,140,72}}, timeUnit="d", displayUnits={"W", "W"});

@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses;
+within Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.BaseClasses;
 model BuildingTimeSeries
   "Building load with time series and control valve for supply water temperature to the coils"
   extends Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries(

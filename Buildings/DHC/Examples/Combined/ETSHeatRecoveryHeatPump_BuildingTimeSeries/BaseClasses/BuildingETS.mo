@@ -1,8 +1,8 @@
-within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses;
+within Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.BaseClasses;
 model BuildingETS
   "Load connected to the network via ETS with or without DHW integration"
   extends Buildings.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
-    redeclare Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingTimeSeries bui(
+    redeclare Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       final T_aHeaWat_nominal=datBuiSet.THeaWatSup_nominal,
       final T_bHeaWat_nominal=datBuiSet.THeaWatRet_nominal,
@@ -63,7 +63,7 @@ model BuildingETS
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
 
-  parameter Buildings.DHC.ETS.Combined.Data.BuildingSetPoints datBuiSet
+  parameter Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.Data.HVAC datBuiSet
     "Building set points" annotation (Placement(
       transformation(extent={{20,140},{40,160}})));
   parameter Buildings.DHC.ETS.Combined.Data.HeatPump datHeaPum(
@@ -247,8 +247,8 @@ which connects the building and the load, and exposes the fluid connection for c
 it to the district service line.
 The building load is modeled by reading time series, and drawing as much heating or cooling
 water as determined by its control. This is implemented through
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingTimeSeries\">
-Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingTimeSeries</a>.
+<a href=\"modelica://Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.BaseClasses.BuildingTimeSeries\">
+Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.BaseClasses.BuildingTimeSeries</a>.
 The energy transfer station uses a heat recovery heat pump, and can optionally have domestic hot water
 preparation.
 This is implemented in

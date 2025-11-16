@@ -1,5 +1,5 @@
-within Buildings.DHC.ETS.Combined.Examples;
-package BuildingTimeSeries "Package of example models of energy transfer stations for combined heating and cooling connected to building time series loads"
+within Buildings.DHC.Examples.Combined;
+package ETSHeatRecoveryHeatPump_BuildingTimeSeries "Package of example models of energy transfer stations for combined heating and cooling connected to building time series loads"
   extends Modelica.Icons.ExamplesPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -14,4 +14,4 @@ connected to a constant pressure boundary, and the example models contain
 an energy transfer station connected to a building load.
 </p>
 </html>"));
-end BuildingTimeSeries;
+end ETSHeatRecoveryHeatPump_BuildingTimeSeries;

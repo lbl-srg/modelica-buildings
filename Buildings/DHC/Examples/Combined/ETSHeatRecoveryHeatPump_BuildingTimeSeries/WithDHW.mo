@@ -1,6 +1,6 @@
-within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries;
+within Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries;
 model WithDHW "ETS connected to building loads without DHW"
-  extends Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithoutDHW(
+  extends Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithoutDHW(
     filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/JBA_All_futu_tendays.mos");
 
   Modelica.Blocks.Continuous.Integrator dHHotWat if bui.have_hotWat
@@ -11,7 +11,7 @@ equation
           {38,-30}},                 color={0,0,127}));
 annotation(
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Examples/BuildingTimeSeries/WithDHW.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/Examples/Combined/ETSHeatRecoveryHeatPump_BuildingTimeSeries/WithDHW.mos" "Simulate and plot"),
     experiment(
       StartTime=7776000,
       StopTime=8640000,
@@ -40,8 +40,8 @@ the parameter <code>bui.have_hotWat</code> is set to <code>true</code>.
 </ul>
 <p>
 This model is identical to
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithoutDHW\">
-Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithoutDHW</a>,
+<a href=\"modelica://Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithoutDHW\">
+Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithoutDHW</a>,
 except that it has domestic hot water.
 </p>
 </html>"));

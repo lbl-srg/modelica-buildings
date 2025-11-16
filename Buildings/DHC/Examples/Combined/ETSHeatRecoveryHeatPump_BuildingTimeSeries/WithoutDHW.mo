@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries;
+within Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries;
 model WithoutDHW "ETS connected to building loads without DHW"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -23,7 +23,7 @@ model WithoutDHW "ETS connected to building loads without DHW"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,42})));
-  Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.BaseClasses.BuildingETS bui(
+  Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.BaseClasses.BuildingETS bui(
     redeclare package MediumSer = Medium,
     redeclare package MediumBui = Medium,
     facTerUniSizHea=1,
@@ -83,7 +83,7 @@ equation
         coordinateSystem(
         preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/ETS/Combined/Examples/BuildingTimeSeries/WithoutDHW.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/DHC/Examples/Combined/ETSHeatRecoveryHeatPump_BuildingTimeSeries/WithoutDHW.mos" "Simulate and plot"),
     experiment(
       StartTime=7776000,
       StopTime=8640000,
@@ -112,8 +112,8 @@ the parameter <code>bui.have_hotWat</code> is set to <code>false</code>.
 </ul>
 <p>
 This model is identical to
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithDHW\">
-Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithDHW</a>,
+<a href=\"modelica://Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithDHW\">
+Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithDHW</a>,
 except that it has no domestic hot water.
 </p>
 </html>"));

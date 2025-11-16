@@ -1,5 +1,5 @@
-within Buildings.DHC.ETS.Combined.Data;
-record BuildingSetPoints "Set points for the buildings"
+within Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.Data;
+record HVAC "Set points for the HVAC system"
   extends Modelica.Icons.Record;
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TChiWatSup_nominal = 7+273.15
@@ -43,7 +43,8 @@ annotation(
 <p>
 Data records with design and control parameters for the building heating, cooling and domestic hot water load.
 </p>    
-</html>", revisions="<html>
+</html>", revisions=
+        "<html>
 <ul>
 <li>
 November 14, 2025, by Michael Wetter:<br/>
@@ -52,4 +53,4 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\
 </li>
 </ul>
 </html>"));
-end BuildingSetPoints;
+end HVAC;
