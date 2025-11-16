@@ -13,7 +13,7 @@ model ChillerBorefield
       Buildings.DHC.ETS.BaseClasses.computeCoordinates(nBorHol, dxy)
     "Coordinates of boreholes";
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
-    conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
+    conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
       dp_nominal=0,
       cooBor=cooBor))
     "Borefield design data"

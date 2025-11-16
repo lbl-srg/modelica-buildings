@@ -35,7 +35,7 @@ model Borefield
     "Water outlet temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-10,-20})));
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example datBorFie(
-    conDat=Fluid.Geothermal.Borefields.Data.Configuration.Example(
+    conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
       cooBor=cooBor,
       dp_nominal=0))
     "Borefield design data"
@@ -67,9 +67,10 @@ model Borefield
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
 equation
   connect(senTInl.port_b,conWat.ports[1])
-    annotation (Line(points={{-20,20},{-30,20},{-30,0}},color={0,127,255}));
+    annotation (Line(points={{-20,20},{-30,20},{-30,-3}},
+                                                        color={0,127,255}));
   connect(conWat.ports[2],senTOut.port_a)
-    annotation (Line(points={{-30,-4},{-30,-20},{-20,-20}},color={0,127,255}));
+    annotation (Line(points={{-30,-1},{-30,-20},{-20,-20}},color={0,127,255}));
   connect(senTInl.port_a,borFie.port_a)
     annotation (Line(points={{0,20},{20,20},{20,0},{40,0}},color={0,127,255}));
   connect(borFie.port_b,senTOut.port_b)
@@ -77,11 +78,13 @@ equation
   connect(TInlVal.y,conWat.T_in)
     annotation (Line(points={{-89,0},{-70,0},{-70,2},{-52,2}},color={0,0,127}));
   connect(zer.y,borFie.yValIso_actual[2])
-    annotation (Line(points={{-88,40},{30,40},{30,5},{38,5}},color={0,0,127}));
+    annotation (Line(points={{-88,40},{30,40},{30,4.5},{38,4.5}},
+                                                             color={0,0,127}));
   connect(u.y,borFie.u)
     annotation (Line(points={{-88,80},{32,80},{32,8},{38,8}},color={0,0,127}));
   connect(u.y,borFie.yValIso_actual[1])
-    annotation (Line(points={{-88,80},{32,80},{32,3},{38,3}},color={0,0,127}));
+    annotation (Line(points={{-88,80},{32,80},{32,3.5},{38,3.5}},
+                                                             color={0,0,127}));
   annotation (
         obsolete = "Obsolete model - use models from Buildings.DHC.ETC.Combined instead",
     Diagram(
