@@ -89,7 +89,7 @@ block DirectHeatRecovery
     final nout=nChiHea)
     "Replicate"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctl[nChiHea](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctl[nChiHea](
     each final k=k,
     each final Ti=Ti,
     each final reverseActing=false,
