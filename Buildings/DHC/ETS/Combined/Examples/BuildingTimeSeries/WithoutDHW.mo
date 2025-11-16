@@ -90,11 +90,31 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Validation model for a single building without DHW integration in the ETS.
+Validation model for a single building load, modeled as time series,
+connected to an ETS.
 </p>
 <p>
-Note that the information that a domestic hot water integration is present
-is obtained from the load profile <code>filNam</code>.
+Note the following:
+</p>
+<ul>
+<li>
+The model does not contain a district loop. Rather, the service line is
+connected to a constant pressure boundary, and the example model contains
+an energy transfer station connected to a building load.
+</li>
+<li>
+The information that no domestic hot water integration should be modeled
+is obtained from the load profile <code>filNam</code>
+by reading its entry for the peak domestic hot water load.
+As it is zero,
+the parameter <code>bui.have_hotWat</code> is set to <code>false</code>.
+</li>
+</ul>
+<p>
+This model is identical to
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithDHW\">
+Buildings.DHC.ETS.Combined.Examples.BuildingTimeSeries.WithDHW</a>,
+except that it has no domestic hot water.
 </p>
 </html>"));
 end WithoutDHW;

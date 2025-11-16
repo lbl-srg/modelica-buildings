@@ -6,7 +6,12 @@ annotation (preferredView="info", Documentation(info="<html>
 This package contains examples illustrating the use of the models in
 <a href=\"modelica://Buildings.DHC.ETS.Combined\">
 Buildings.DHC.ETS.Combined</a>,
-connected to building loads that aree modeled as time series.
+connected to building loads that are modeled as time series.
+</p>
+<p>
+Note that the models do not contain a district loop. Rather, the service line is
+connected to a constant pressure boundary, and the example models contain
+an energy transfer station connected to a building load.
 </p>
 </html>"));
 end BuildingTimeSeries;
