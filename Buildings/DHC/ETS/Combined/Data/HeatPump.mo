@@ -45,6 +45,7 @@ record HeatPump
       displayUnit="degC")
     "Nominal evaporator leaving temperature at desired cooling capacity"
     annotation (Dialog(group="Cooling design condition"));
+  // fixme: the next 3 parameters are system parameters, not heat pump parameters.
   parameter Modelica.Units.SI.Temperature TConLvgMin(displayUnit="degC") =
     15 + 273.15
     "Minimum value for condenser leaving temperature"
