@@ -15,7 +15,7 @@ model ControlledTank
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
 annotation (
-defaultComponentModel="iceTan",
+defaultComponentName="iceTan",
 Documentation(info="<html>
 <p>
 This model implements an ice tank model with built-in idealized control
