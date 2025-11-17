@@ -1,11 +1,34 @@
 within Buildings.DHC.ETS.Combined.Data;
-record HeatPump
-  "Parameters for the modular expandable heat pump in energy transfer station"
+record GenericHeatPump
+  "Parameters for the heat recovery heat pump in energy transfer station"
   extends Modelica.Icons.Record;
 
-  parameter Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datHea =
-    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW()
-    "Performance map for the heat pump"
+  parameter Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datHea
+    "Performance map for the heat pump without scaling. This map will be scaled based on QHeaDes_flow_nominal using scaFac."
+    annotation (Dialog(group="Performance map"));
+
+  final parameter Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datHeaSca(
+    final use_TEvaOutForOpeEnv=datHea.use_TEvaOutForOpeEnv,
+    final use_TConOutForOpeEnv=datHea.use_TConOutForOpeEnv,
+    final dpEva_nominal=datHea.dpEva_nominal,
+    final dpCon_nominal=datHea.dpCon_nominal,
+    final tabUppBou=datHea.tabUppBou,
+    final mEva_flow_nominal=datHea.mEva_flow_nominal,
+    final mCon_flow_nominal=datHea.mCon_flow_nominal,
+    final tabPEle=scalePerformanceTable(
+      x=datHea.tabPEle,
+      nR = size(datHea.tabPEle, 1),
+      nC = size(datHea.tabPEle, 2),
+      s=scaFac),
+    final tabQCon_flow=scalePerformanceTable(
+      x=datHea.tabQCon_flow,
+      nR = size(datHea.tabQCon_flow, 1),
+      nC = size(datHea.tabQCon_flow, 2),
+      s=scaFac),
+    final devIde=datHea.devIde,
+    final use_TConOutForTab=datHea.use_TConOutForTab,
+    final use_TEvaOutForTab=datHea.use_TEvaOutForTab)
+    "Performance map for the heat pump with scaling. This map determines the actual capacity based on QHeaDes_flow_nominal."
     annotation (Dialog(group="Performance map"));
 
   parameter Real PLRMin(
@@ -45,15 +68,11 @@ record HeatPump
       displayUnit="degC")
     "Nominal evaporator leaving temperature at desired cooling capacity"
     annotation (Dialog(group="Cooling design condition"));
-  // fixme: the next 3 parameters are system parameters, not heat pump parameters.
-  parameter Modelica.Units.SI.Temperature TConLvgMin(displayUnit="degC") =
-    15 + 273.15
-    "Minimum value for condenser leaving temperature"
-    annotation (Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.Temperature TEvaLvgMin(displayUnit="degC") =
-    4 + 273.15
-    "Minimum value for leaving evaporator temperature"
-    annotation (Dialog(group="Evaporator"));
+
+   parameter Modelica.Units.SI.Temperature TConLvgMin(displayUnit="degC") =
+     15 + 273.15
+     "Minimum value for condenser leaving temperature"
+     annotation (Dialog(group="Condenser"));
   parameter Modelica.Units.SI.Temperature TEvaLvgMax(displayUnit="degC") =
     15 + 273.15
     "Maximum value for leaving evaporator temperature"
@@ -63,6 +82,7 @@ record HeatPump
       QHeaDes_flow_nominal/dTCon_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Nominal medium flow rate in the condenser"
     annotation (Dialog(group="Condenser"));
+
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal =
     max(abs(QCooDes_flow_nominal/dTEva_nominal), abs(QCooAct_flow_nominal/dTEva_nominal))/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Nominal medium flow rate in the evaporator, based on larger of required and actual cooling capacity to ensure actual dTEva is not too large"
@@ -73,7 +93,8 @@ record HeatPump
        tableID=tableID_QCon_flow,
        u1=THeaConLvg_nominal,
        u2=THeaEvaLvg_nominal)
-      "Heating capacity based on table at heating design condition, without any scaling";
+      "Heating capacity based on table at heating design condition, without any scaling"
+      annotation(Evaluate=true);
 
   final parameter Real scaFac = QHeaDes_flow_nominal / QConHeaNoSca_flow_nominal
      "Scaling factor at heating design conditions";
@@ -107,7 +128,7 @@ record HeatPump
      -QEvaCooNoSca_flow_nominal / PEleCooNoSca_nominal "COP cooling, at cooling design conditions";
 
   final parameter Modelica.Blocks.Types.ExternalCombiTable2D tableID_QCon_flow=
-      Modelica.Blocks.Types.ExternalCombiTable2D(
+    Modelica.Blocks.Types.ExternalCombiTable2D(
       "NoName",
       "NoName",
       datHea.tabQCon_flow,
@@ -131,16 +152,19 @@ Parameters that describe the performance of the heat pump, and design quantities
 such as temperatures and design mass flow rates of the heat pump.
 </p>
 <p>
-The performance table in <code>datHea</code> are used to describe the performance
-change for off-design conditions. The heat pump's heating capacity is, however,
+The performance table in <code>datHea</code> are used to describe the
+change in performance for off-design conditions.
+The heat pump's heating capacity is, however,
 determined solely by the parameters
 <code>QHeaDes_flow_nominal</code> for the desired heating capacity at the
 leaving condenser temperature <code>THeaConLvg_nominal</code> and the
 leaving evaporator temperature <code>THeaEvaLvg_nominal</code>.
 The performance table for the evaporator heat flow rate and the electricity
-consumption are then scaled up or down to meet this capacity.</p>
+consumption are then scaled up or down to meet this capacity.
+This scaled capacity is stored in <code>datHeaSca</code>, and used during the simulation.
+</p>
 <p>
-The record also compute the cooling capacity at the design conditions
+The record also computes the cooling capacity at the design conditions
 <code>TCooConLvg_nominal</code> and <code>TCooEvaLvg_nominal</code>,
 and stores it in the parameter <code>QCooAct_flow_nominal</code>.
 This can then be compared to the desired cooling capacity
@@ -163,4 +187,4 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\
 </ul>
 </html>"));
 
-end HeatPump;
+end GenericHeatPump;

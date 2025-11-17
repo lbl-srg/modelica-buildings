@@ -37,7 +37,7 @@ model HeatRecoveryHeatPump
     "Nominal heating hot water temperature difference"
     annotation (Dialog(group="Heating hot water"));
 
-  parameter Buildings.DHC.ETS.Combined.Data.HeatPump datHeaPum(
+  parameter Buildings.DHC.ETS.Combined.Data.WAMAK_220kW datHeaPum(
     PLRMin=0.2,
     QHeaDes_flow_nominal=max(QHea_flow_nominal, abs(QCoo_flow_nominal)*1.2),
     QCooDes_flow_nominal=QCoo_flow_nominal,
@@ -45,9 +45,8 @@ model HeatRecoveryHeatPump
     dTEva_nominal=dTChiWat_nominal,
     THeaConLvg_nominal=THeaWatSup_nominal,
     THeaEvaLvg_nominal=TChiWatSup_nominal,
-    TCooConLvg_nominal=273.15+31,
-    TCooEvaLvg_nominal=TChiWatSup_nominal)
-    "Heat recovery heat pump parameters"
+    TCooConLvg_nominal=273.15 + 31,
+    TCooEvaLvg_nominal=TChiWatSup_nominal) "Heat recovery heat pump parameters"
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
     k=THeaWatSup_nominal,

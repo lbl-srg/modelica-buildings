@@ -97,9 +97,8 @@ model HeatRecoveryHeatPump
     displayUnit="K") = -1
     "Temperature to be added to the set point in order to be slightly below what the cooling load requires";
 
-  parameter Buildings.DHC.ETS.Combined.Data.HeatPump datHeaPum
-    "Heat pump performance data"
-    annotation (
+  parameter Buildings.DHC.ETS.Combined.Data.GenericHeatPump datHeaPum
+    "Heat pump performance data" annotation (
     Dialog(group="Heat recovery heat pump"),
     choicesAllMatching=true,
     Placement(transformation(extent={{20,220},{40,240}})));
@@ -107,7 +106,7 @@ model HeatRecoveryHeatPump
     "Performance data of the domestic hot water component"
     annotation (
       choicesAllMatching=true,
-      Placement(transformation(extent={{-40,220},{-20,240}})));
+      Placement(transformation(extent={{60,220},{80,240}})));
   parameter Boolean have_WSE=false
     "Set to true in case a waterside economizer is used"
     annotation (Evaluate=true);
@@ -137,16 +136,13 @@ model HeatRecoveryHeatPump
      = 120 "Time constant of integrator block on cold side" annotation (Dialog(
         group="Supervisory controller", enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Temperature TChiWatSupSetMin(displayUnit="degC")
-     = datHeaPum.TEvaLvgMin
-    "Minimum value of chilled water supply temperature set point"
-    annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.Units.SI.Temperature TChiWatSupSetMax(displayUnit="degC")
-     = datHeaPum.TEvaLvgMax
+
+  parameter Modelica.Units.SI.Temperature TChiWatSupSetMax(displayUnit="degC") =
+    datHeaPum.TEvaLvgMax
     "Maximum value of chilled water supply temperature set point for heat pump (used for heat pump reset)"
     annotation (Dialog(group="Supervisory controller"));
-  parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC")
-     = datHeaPum.TConLvgMin
+  parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC") =
+    datHeaPum.TConLvgMin
     "Minimum value of heating water supply temperature set point (used for heat pump reset)";
 
   parameter Modelica.Units.SI.PressureDifference dp1WSE_nominal(

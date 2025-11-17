@@ -9,10 +9,11 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  parameter Buildings.DHC.ETS.Combined.Data.HeatPump dat
+  parameter Buildings.DHC.ETS.Combined.Data.GenericHeatPump dat
     "Heat pump performance data"
-                               annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{60,160},{80,180}})));
+    annotation (
+      choicesAllMatching=true,
+      Placement(transformation(extent={{60,160},{80,180}})));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Nominal condition"));
@@ -135,8 +136,6 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
   Buildings.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare package MediumCon = Medium,
     redeclare package MediumEva = Medium,
-    mCon_flow_nominal=dat.mCon_flow_nominal,
-    mEva_flow_nominal=dat.mEva_flow_nominal,
     redeclare model RefrigerantCycleHeatPumpCooling =
         Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
@@ -149,7 +148,7 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
         mEva_flow_nominal=dat.mEva_flow_nominal,
         final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
         final extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints,
-        final datTab=dat.datHea),
+        final datTab=dat.datHeaSca),
     redeclare model RefrigerantCycleInertia =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
     final use_rev=false,
@@ -163,6 +162,8 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
     final TEvaHea_nominal=dat.THeaEvaLvg_nominal,
     final TConCoo_nominal=dat.TCooConLvg_nominal,
     final TEvaCoo_nominal=dat.TCooEvaLvg_nominal,
+    mCon_flow_nominal=dat.mCon_flow_nominal,
+    mEva_flow_nominal=dat.mEva_flow_nominal,
     final dpCon_nominal(displayUnit="Pa") = dpCon_nominal,
     final dpEva_nominal(displayUnit="Pa") = dpEva_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
