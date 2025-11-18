@@ -61,12 +61,11 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(senHFlo.port_b1, bui.port_aSerAmb) annotation (Line(points={{-20,46},
-          {-8,46},{-8,56},{0,56}},    color={0,127,255}));
-  connect(senHFlo.dH_flow, dHFlo.u) annotation (Line(points={{-18,43},{-18,42},
-          {-10,42},{-10,-70},{38,-70}},
-                                      color={0,0,127}));
-  connect(bui.PCoo, EChi.u) annotation (Line(points={{22,63},{22,62},{30,62},{
-          30,80},{38,80}},
+          {-10,46},{-10,56},{0,56}},  color={0,127,255}));
+  connect(senHFlo.dH_flow, dHFlo.u) annotation (Line(points={{-18,43},{-10,43},
+          {-10,-70},{38,-70}},        color={0,0,127}));
+  connect(bui.PCoo, EChi.u) annotation (Line(points={{22,63},{22,64},{28,64},{
+          28,80},{38,80}},
                         color={0,0,127}));
   connect(bui.port_bSerAmb, senHFlo.port_a2) annotation (Line(points={{20,56},{
           30,56},{30,34},{-20,34}},
