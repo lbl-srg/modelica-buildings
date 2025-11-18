@@ -15,12 +15,12 @@ record GenericHeatPump
     final tabUppBou=datHea.tabUppBou,
     final mEva_flow_nominal=datHea.mEva_flow_nominal,
     final mCon_flow_nominal=datHea.mCon_flow_nominal,
-    final tabPEle=scalePerformanceTable(
+    final tabPEle=Buildings.DHC.ETS.Combined.Data.BaseClasses.scalePerformanceTable(
       x=datHea.tabPEle,
       nR = size(datHea.tabPEle, 1),
       nC = size(datHea.tabPEle, 2),
       s=scaFac),
-    final tabQCon_flow=scalePerformanceTable(
+    final tabQCon_flow=Buildings.DHC.ETS.Combined.Data.BaseClasses.scalePerformanceTable(
       x=datHea.tabQCon_flow,
       nR = size(datHea.tabQCon_flow, 1),
       nC = size(datHea.tabQCon_flow, 2),
