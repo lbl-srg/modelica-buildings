@@ -311,6 +311,24 @@ model HeatPumpModular "Base subsystem with modular heat recovery heat pump"
     annotation (Placement(transformation(extent={{-240,90},{-200,130}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
+  Fluid.Sensors.TemperatureTwoPort           senTHeaWatRet(
+    redeclare package Medium = Medium,
+    allowFlowReversal=true,
+    final m_flow_nominal=dat.mCon_flow_nominal)
+    "Return heating water temperature to heat pump"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-170,60})));
+  Fluid.Sensors.TemperatureTwoPort           senTChiWatRet(
+    redeclare package Medium = Medium,
+    allowFlowReversal=true,
+    final m_flow_nominal=dat.mCon_flow_nominal)
+    "Return chilled water temperature to chiller, prior to chiller valve"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={170,-60})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -340,7 +358,7 @@ equation
   connect(con.yValEva,valEva.y)
     annotation (Line(points={{-48,133},{160,133},{160,-40},{120,-40},{120,-48}},                    color={0,0,127}));
   connect(con.yValCon,valCon.y)
-    annotation (Line(points={{-48,137},{-44,137},{-44,90},{-160,90},{-160,40},{
+    annotation (Line(points={{-48,137},{-44,137},{-44,90},{-156,90},{-156,40},{
           -140,40},{-140,48}},                                                                     color={0,0,127}));
   connect(uHeaSpa, con.uHeaSpa) annotation (Line(points={{-220,190},{-180,190},
           {-180,150},{-72,150}}, color={255,0,255}));
@@ -350,10 +368,6 @@ equation
     annotation (Line(points={{130,60},{200,60}},color={0,127,255}));
   connect(splEva.port_2,port_bChiWat)
     annotation (Line(points={{-150,-60},{-200,-60}},color={0,127,255}));
-  connect(port_aHeaWat,valCon.port_1)
-    annotation (Line(points={{-200,60},{-150,60}},color={0,127,255}));
-  connect(port_aChiWat,valEva.port_1)
-    annotation (Line(points={{200,-60},{130,-60}},color={0,127,255}));
   connect(valEva.port_2,senTEvaEnt.port_a)
     annotation (Line(points={{110,-60},{20,-60},{20,-50}},color={0,127,255}));
   connect(senTEvaLvg.port_b,pumEva.port_a)
@@ -400,6 +414,14 @@ equation
           {4,106},{-84,106},{-84,142},{-72,142}}, color={0,0,127}));
   connect(con.uHeaDhw, uHeaDhw) annotation (Line(points={{-72,148},{-184,148},{
           -184,170},{-220,170}}, color={255,0,255}));
+  connect(senTHeaWatRet.port_a, port_aHeaWat)
+    annotation (Line(points={{-180,60},{-200,60}}, color={0,127,255}));
+  connect(senTHeaWatRet.port_b, valCon.port_1)
+    annotation (Line(points={{-160,60},{-150,60}}, color={0,127,255}));
+  connect(port_aChiWat, senTChiWatRet.port_a)
+    annotation (Line(points={{200,-60},{180,-60}}, color={0,127,255}));
+  connect(senTChiWatRet.port_b, valEva.port_1)
+    annotation (Line(points={{160,-60},{130,-60}}, color={0,127,255}));
   annotation (
     defaultComponentName="chi",
     Icon(
