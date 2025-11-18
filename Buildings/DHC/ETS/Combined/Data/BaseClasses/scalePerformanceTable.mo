@@ -1,4 +1,4 @@
-within Buildings.DHC.ETS.Combined.Data;
+within Buildings.DHC.ETS.Combined.Data.BaseClasses;
 function scalePerformanceTable
   "Function that scales the heat pump performance table"
   extends Modelica.Icons.Function;
