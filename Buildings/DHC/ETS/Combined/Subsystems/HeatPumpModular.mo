@@ -710,8 +710,8 @@ condenser inlet temperature (resp. maximum evaporator inlet temperature).
 </p>
 <p>
 The system is controlled based on the logic described in
-<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.Chiller\">
-Buildings.DHC.ETS.Combined.Controls.Chiller</a>.
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Controls.HeatPumpModular\">
+Buildings.DHC.ETS.Combined.Controls.HeatPumpModular</a>.
 </p>
 </html>"));
 end HeatPumpModular;
