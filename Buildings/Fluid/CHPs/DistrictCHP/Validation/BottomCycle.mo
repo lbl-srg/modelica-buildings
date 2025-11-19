@@ -143,13 +143,38 @@ model BottomCycle
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
     amplitude=-178,
-    rising=450,
-    width=500,
-    falling=450,
-    period=1900,
+    rising=500,
+    width=3000,
+    falling=500,
+    period=6000,
     offset=500,
     startTime=500) "Exhaust mass flow rate changes (kg/s)"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  Modelica.Blocks.Sources.CombiTimeTable steElec(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/SteElec.txt"))
+    "Validation Data of Electricity Usage"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Modelica.Blocks.Sources.CombiTimeTable steam(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/Steam.txt"))
+    "Validation Data of steam mass flow"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  Modelica.Blocks.Sources.CombiTimeTable water(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/Water.txt"))
+    "Validation Data of water mass flow"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Modelica.Blocks.Sources.CombiTimeTable CPUtime(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/CPUtime.txt"))
+    "Validation Data of CPU time"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 equation
   connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-12,-15},{-30,-15},{
           -30,30},{-59,30}}, color={0,0,127}));
@@ -167,11 +192,9 @@ equation
     Diagram(
       coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
-<ul>
-<li>
-October 1, 2024, by Zhanwei He:<br/>
-First implementation.
-</li>
+    <ul>
+    <li>November 18, 2025, by Viswanathan Ganesh:<br>Included validations data and updated scripts. </li>
+<li>October 1, 2024, by Zhanwei He:<br>First implementation. </li>
 </ul>
 </html>", info= "<html>
 <p>
