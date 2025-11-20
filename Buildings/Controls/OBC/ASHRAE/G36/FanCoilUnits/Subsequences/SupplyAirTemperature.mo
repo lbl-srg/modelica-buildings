@@ -215,7 +215,8 @@ block SupplyAirTemperature
     final controllerType=heaCoiConTyp,
     final k=kHeaCoi,
     final Ti=TiHeaCoi,
-    final Td=TdHeaCoi) if have_heaCoi
+    final Td=TdHeaCoi,
+    final r=12) if have_heaCoi
     "PID controller for heating coil"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
@@ -224,6 +225,7 @@ block SupplyAirTemperature
     final k=kCooCoi,
     final Ti=TiCooCoi,
     final Td=TdCooCoi,
+    final r=11,
     final reverseActing=false) if have_cooCoi
     "PID controller for cooling coil"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));

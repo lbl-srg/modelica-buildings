@@ -687,12 +687,13 @@ block Controller
     annotation (Placement(transformation(origin = {0, -4}, extent = {{-140, 190}, {-120, 230}})));
 
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset cooPI(
+    final r=4,
     final reverseActing=false,
     final controllerType=cooConTyp,
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo) if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
+      or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-40,196},{-20,216}})));
 
@@ -700,8 +701,9 @@ block Controller
     final controllerType=heaConTyp,
     final k=kHea,
     final Ti=TiHea,
-    final Td=TdHea) if heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-     or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+    final Td=TdHea,
+    final r=4) if heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+      or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
 

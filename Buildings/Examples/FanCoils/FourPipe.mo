@@ -233,13 +233,13 @@ model FourPipe
     TiCoo=60,
     heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     kHea=0.1,
-    TiHea=90,
+    TiHea=120,
     cooCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     kCooCoi=0.1,
     TiCooCoi=120,
     heaCoiConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    kHeaCoi=0.05,
-    TiHeaCoi=600,
+    kHeaCoi=0.025,
+    TiHeaCoi=90,
     TSupSet_max=308.15,
     TSupSet_min=285.85)
     "Fan coil unit controller"
