@@ -7,5 +7,7 @@ compareVars :=
     "hex.Q1_flow",
     "hex.Q2_flow",
     "hex.QLat2_flow",
-    "hex.QSen2_flow"
+    "hex.QSen2_flow",
+    "autTunSig.y",
+    "con.inTunPro.y"
   };
