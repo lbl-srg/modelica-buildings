@@ -155,34 +155,14 @@ model BottomCycle
     startTime=500)
     "Exhaust mass flow rate changes (kg/s)"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.CombiTimeTable steElec(
+  Modelica.Blocks.Sources.CombiTimeTable valDat(
     tableOnFile=true,
     tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/SteElec.txt"))
-    "Validation data of electricity usage"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Modelica.Blocks.Sources.CombiTimeTable steam(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/Steam.txt"))
-    "Validation data of steam mass flow"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Modelica.Blocks.Sources.CombiTimeTable water(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/Water.txt"))
-    "Validation data of water mass flow"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Modelica.Blocks.Sources.CombiTimeTable CPUtime(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/CPUtime.txt"))
-    "Validation data of CPU time"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    y(unit={"s","kg/s","W","kg/s"}),
+    columns={2,3,4,5},
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle.mos"))
+    "Validation data from example model in ThermoPower Library"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
 equation
   connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-12,-15},{-30,-15},{
