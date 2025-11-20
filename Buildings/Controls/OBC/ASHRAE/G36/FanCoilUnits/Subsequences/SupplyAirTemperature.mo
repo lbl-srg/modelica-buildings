@@ -494,6 +494,11 @@ alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
 revisions="<html>
 <ul>
 <li>
+November 20, 2025, by Karthik Devaprasad:<br/>
+Added error scaling factors to PI controllers regulating supply air temperature
+at temperature setpoint.
+</li>
+<li>
 March 17, 2022, by Karthik Devaprasad:<br/>
 First implementation.
 </li>

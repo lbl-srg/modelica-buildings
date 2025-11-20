@@ -1158,6 +1158,11 @@ for a detailed description.
 revisions="<html>
 <ul>
 <li>
+November 20, 2025, by Karthik Devaprasad:<br/>
+Added error scaling factors to PI blocks for heating and cooling loop signal
+generation.
+</li>
+<li>
 March 22, 2022, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
