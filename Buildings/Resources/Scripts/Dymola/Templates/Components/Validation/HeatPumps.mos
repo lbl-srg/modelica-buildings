@@ -1,9 +1,9 @@
-simulateModel("Buildings.Templates.Components.HeatPumps.Validation.HeatPumpEquationFit",
+simulateModel("Buildings.Templates.Components.Validation.HeatPumps",
     method="cvode",
     tolerance=1e-6,
     startTime=10497600.0,
     stopTime=10505600.0,
-    resultFile="HeatPumpEquationFit");
+    resultFile="HeatPumps");
 createPlot(
     id=1,
     position={5, 5, 300, 400},
@@ -36,7 +36,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=3,
-    y={"hpAw.hp.PLR", "hpAw.hp.COP"},
+    y={"hpAw.hp.refCyc.sigBus.yMea", "hpAw.hp.COP"},
     autoscale=true,
     grid=true
 );
@@ -58,7 +58,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=3,
-    y={"hpAwNrv.hp.PLR", "hpAwNrv.hp.COP"},
+    y={"hpAwNrv.hp.refCyc.sigBus.yMea", "hpAwNrv.hp.COP"},
     autoscale=true,
     grid=true
 );
@@ -80,7 +80,7 @@ createPlot(
 createPlot(
     id=4,
     subPlot=3,
-    y={"hpWw.hp.PLR", "hpWw.hp.COP"},
+    y={"hpWw.hp.refCyc.sigBus.yMea", "hpWw.hp.COP"},
     autoscale=true,
     grid=true
 );
