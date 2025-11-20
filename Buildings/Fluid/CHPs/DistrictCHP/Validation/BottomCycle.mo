@@ -121,9 +121,11 @@ model BottomCycle
     final T_start=T_start,
     final h_start=h_start,
     steBoi(fixed_p_start=false))
+    "Bottom cycle: feed in water and heated up to produce superheat steam"
     annotation (Placement(transformation(extent={{-10,-30},{10,-12}})));
 
-  Modelica.Blocks.Sources.Constant ambTemp(k=15 + 273.15) "Ambient temperature"
+  Modelica.Blocks.Sources.Constant ambTemp(k=15 + 273.15)
+    "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -132,14 +134,16 @@ model BottomCycle
     p=30000,
     nPorts=1,
     T=504.475)
+    "Water source"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = MediumS,
     p=1000000,
     T=523.15,
-    nPorts=1) "Boundary condition"
+    nPorts=1) "Steam boundary condition"
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
-  Modelica.Blocks.Sources.Constant exhTem(k=750) "Exhaust gas temperature"
+  Modelica.Blocks.Sources.Constant exhTem(k=750)
+    "Temperature of the exhaust gas from top cycle"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
     amplitude=-178,
@@ -148,33 +152,38 @@ model BottomCycle
     falling=500,
     period=6000,
     offset=500,
-    startTime=500) "Exhaust mass flow rate changes (kg/s)"
+    startTime=500)
+    "Exhaust mass flow rate changes (kg/s)"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.CombiTimeTable steElec(
     tableOnFile=true,
     tableName="tab1",
     fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/SteElec.txt"))
-    "Validation Data of Electricity Usage"
+      "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/SteElec.txt"))
+    "Validation data of electricity usage"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.CombiTimeTable steam(
     tableOnFile=true,
     tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/Steam.txt"))
-    "Validation Data of steam mass flow"
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+      "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/Steam.txt"))
+    "Validation data of steam mass flow"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Modelica.Blocks.Sources.CombiTimeTable water(
     tableOnFile=true,
     tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/Water.txt"))
-    "Validation Data of water mass flow"
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+      "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/Water.txt"))
+    "Validation data of water mass flow"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Modelica.Blocks.Sources.CombiTimeTable CPUtime(
     tableOnFile=true,
     tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/CPUtime.txt"))
-    "Validation Data of CPU time"
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+      "modelica://Buildings/Resources/Data/Fluid/CHPs/DistrictCHP/Validation/BottomCycle/CPUtime.txt"))
+    "Validation data of CPU time"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+
 equation
   connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-12,-15},{-30,-15},{
           -30,30},{-59,30}}, color={0,0,127}));
@@ -186,15 +195,19 @@ equation
           70},{-59,70}}, color={0,0,127}));
   connect(trapezoid.y, botCyc.mExh_flow) annotation (Line(points={{-59,-10},{-40,
           -10},{-40,-18},{-12,-18}}, color={0,0,127}));
-  annotation (
-    Icon(
-      coordinateSystem(preserveAspectRatio=false)),
-    Diagram(
-      coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
-    <ul>
-    <li>November 18, 2025, by Viswanathan Ganesh:<br>Included validations data and updated scripts. </li>
-<li>October 1, 2024, by Zhanwei He:<br>First implementation. </li>
+
+annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
+Documentation(revisions="<html>
+<ul>
+<li>
+November 18, 2025, by Viswanathan Ganesh:<br/>
+Included validations data and updated scripts.
+</li>
+<li>
+October 1, 2024, by Zhanwei He:<br/>
+First implementation.
+</li>
 </ul>
 </html>", info= "<html>
 <p>
