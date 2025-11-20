@@ -183,7 +183,7 @@ model FourPipe
     cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None,
     cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    kCoo=0.25,
+    kCoo=0.1,
     TiCoo=60,
     heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     kHea=0.05,
@@ -229,8 +229,8 @@ model FourPipe
     cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
     heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
     cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    kCoo=0.25,
-    TiCoo=60,
+    kCoo=0.1,
+    TiCoo=120,
     heaConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     kHea=0.1,
     TiHea=120,
@@ -632,7 +632,10 @@ This model demonstrates the usage of
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a>,
 a controller for four-pipe fan coil units based on the sequences defined
-in ASHRAE Guideline 36, 2021.
+in ASHRAE Guideline 36, 2021. A generic schematic for such a system is shown below.
+</p>
+<p>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic_full.png\"/>
 </p>
 <p>
 This model consists of
@@ -692,6 +695,11 @@ The room height is <i>2.74</i> meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2025, by Karthik Devaprasad:<br/>
+Updated PI controller parameters on controller instances. Added schematic of generic
+fan coil unit system integration with controller and thermal zone.
+</li>
 <li>
 September 23, 2025, by Cerrina Mouchref, Karthik Devaprasad and Michael Wetter:<br/>
 First implementation.
