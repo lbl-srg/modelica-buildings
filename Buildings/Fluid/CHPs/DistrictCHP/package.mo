@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs;
-package DistrictCHP
+package DistrictCHP "Package of CHP models for district energy systems"
   extends Modelica.Icons.VariantsPackage;
 
   annotation(Documentation(info= "<html>
