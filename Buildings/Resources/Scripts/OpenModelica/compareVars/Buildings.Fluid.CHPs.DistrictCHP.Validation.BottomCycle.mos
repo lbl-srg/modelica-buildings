@@ -5,7 +5,5 @@ compareVars :=
     "valDat.y[4]",
     "valDat.y[2]",
     "botCyc.PEle_ST",
-    "valDat.y[3]",
-    "CPUtime",
-    "valDat.y[1]"
+    "valDat.y[3]"
   };
