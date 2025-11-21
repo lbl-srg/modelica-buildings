@@ -88,7 +88,7 @@ partial model PartialChiller
   final parameter MediumCon.SpecificHeatCapacity cpCon_default=MediumCon.specificHeatCapacityCp(staCon_default)
     "Condenser cooling fluid default specific heat capacity";
   final parameter MediumCon.ThermodynamicState staCon_default=MediumCon.setState_pTX(
-    T=TConEnt_nominal,
+    T=dat.TCon_nominal,
     p=MediumCon.p_default,
     X=MediumCon.X_default)
     "Condenser cooling fluid default state";
@@ -105,6 +105,11 @@ This partial class provides a standard interface for chiller models.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 20, 2025, by Antoine Gautier:<br/>
+Fixed cyclic parameter bindings.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4407\">#4407</a>.
+</li>
 <li>
 April 17, 2025, by Antoine Gautier:<br/>
 Refactored for load-dependent 2D table data chiller model.
