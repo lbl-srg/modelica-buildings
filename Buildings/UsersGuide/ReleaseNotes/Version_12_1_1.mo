@@ -38,6 +38,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Added new model for simultaneous heating and cooling (multipipe) systems.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4283\">#4283</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4169\">#4169</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -111,13 +112,6 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Templates</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Templates.Components.Interfaces.PartialChiller
-    </td>
-    <td valign=\"top\">Fixed cyclic parameter bindings.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4407\">#4407</a>.
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

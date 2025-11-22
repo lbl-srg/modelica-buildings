@@ -106,11 +106,6 @@ This partial class provides a standard interface for chiller models.
       revisions="<html>
 <ul>
 <li>
-November 20, 2025, by Antoine Gautier:<br/>
-Fixed cyclic parameter bindings.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4407\">#4407</a>.
-</li>
-<li>
 April 17, 2025, by Antoine Gautier:<br/>
 Refactored for load-dependent 2D table data chiller model.
 </li>
