@@ -2,9 +2,11 @@ within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialCarnot
   "Model with components for Carnot efficiency calculation"
   parameter Boolean useForChi "=false to use in heat pump models";
-  parameter Real etaCarnot_nominal=0.3 "Constant Carnot effectiveness";
+  parameter Real etaCarnot_nominal=0.3 "Constant Carnot effectiveness"
+    annotation(Dialog(group="Nominal condition"));
   parameter Boolean use_constAppTem=false
-    "=true to fix approach temperatures at nominal values. This can improve simulation speed";
+    "=true to fix approach temperatures at nominal values. This can improve simulation speed"
+    annotation(Evaluate=true, Dialog(group="Efficiency"));
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
@@ -123,7 +125,19 @@ equation
   and chiller with the Carnot approach.
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
+<li>
+May 2, 2025, by Michael Wetter:<br/>
+Set <code>Evaluate=true</code> for <code>use_constAppTem</code>. This is a structural parameter, if evaluated during
+translation, it has shown to remove a 2x2 nonlinear system of equations to compute the approach temperatures.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2005\">IBPSA, #2005</a>.
+</li>
+<li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
