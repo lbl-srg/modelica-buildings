@@ -228,8 +228,8 @@ int ffd(int cosimulation) {
 		*
 		* @return no return
 		*/
-void modelicaError(char *msg) {
-  strcpy(para.cosim->ffd->msg, msg);
+void modelicaError(char *errMsg) {
+  strcpy(para.cosim->ffd->msg, errMsg);
   /* Write the command to stop the cosimulation*/
   para.cosim->para->flag = 2;
   /* Indicate there is an error*/

@@ -87,4 +87,4 @@ int allocate_memory (PARA_DATA *para);
 	*
 	* @return no return
 	*/
-void modelicaError(char *msg);
+void modelicaError(char *errMsg);

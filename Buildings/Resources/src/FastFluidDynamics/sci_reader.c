@@ -16,6 +16,7 @@
 	*/
 
 #include "sci_reader.h"
+FILE *file_params;
 
 /*
 	* Read the basic index information from input.cfd

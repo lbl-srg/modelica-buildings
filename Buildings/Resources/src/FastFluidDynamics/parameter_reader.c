@@ -13,6 +13,7 @@
 	*/
 
 #include "parameter_reader.h"
+FILE *file_para;
 
 	/*
 		* Assign the FFD parameters
