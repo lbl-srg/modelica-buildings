@@ -40,6 +40,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DXSystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialWaterCooledDXCoil
+    </td>
+    <td valign=\"top\">Made instances <code>dxCoi.coiCap</code> and <code>dryCoi.coiCap</code> replaceable
+                       as required by Modelica Language Standard, an needed for Wolfram System Modeler.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4421\">#4421</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
     </td>
 </tr>
