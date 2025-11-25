@@ -151,13 +151,13 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
       redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
       dxCoi(
       redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
-      wetCoi(redeclare final Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled coiCap,
+      wetCoi(redeclare replaceable Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled coiCap,
         redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
         appDewPt(
           redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
           uacp(redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.BaseClasses.NominalValues per))),
       dryCoi(
-        redeclare final Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled coiCap,
+        redeclare replaceable Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled coiCap,
         redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi)),
       final use_mCon_flow=true,
       final dp_nominal=dpEva_nominal,
@@ -461,6 +461,12 @@ for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 25, 2025, by Michael Wetter:<br/>
+Made instances <code>dxCoi.coiCap</code> and <code>dryCoi.coiCap</code> replaceable.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/4421\">issue 4421</a>.
+</li>
 <li>
 April 5 , 2023, by Xing Lu:<br/>
 Changed instance name <code>dxCoo</code> in instance <code>eva</code> to
