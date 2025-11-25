@@ -50,6 +50,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DXSystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialWaterCooledDXCoil
+    </td>
+    <td valign=\"top\">Made instances <code>dxCoi.coiCap</code> and <code>dryCoi.coiCap</code> replaceable
+                       as required by Modelica Language Standard, an needed for Wolfram System Modeler.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4421\">#4421</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
     </td>
 </tr>
