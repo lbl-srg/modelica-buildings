@@ -60,7 +60,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialWaterCooledDXCoil
     </td>
     <td valign=\"top\">Updated redeclare and replaceable statements
-                       as required by Modelica Language Standard, an needed for Wolfram System Modeler.<br/>
+                       as required by Modelica Language Standard, and needed for Wolfram System Modeler.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4421\">#4421</a>.
     </td>
 </tr>
