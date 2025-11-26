@@ -275,7 +275,7 @@ block Controller "Chiller plant controller"
 
   parameter Real minConWatPumSpe(unit="1")=0.1
     "Minimum condenser water pump speed"
-    annotation(Dialog(enable= (not have_airCoo) and not ((not have_WSE) and have_fixSpeConWatPum),
+    annotation(Dialog(enable= (not have_airCoo) and not have_fixSpeConWatPum,
                       tab="Head pressure", group="Limits"));
 
   parameter Real minHeaPreValPos(unit="1")=0.1
@@ -352,11 +352,11 @@ block Controller "Chiller plant controller"
   // ---- Chilled water pumps ----
 
   parameter Real minChiWatPumSpe(unit="1")=0.1
-    "Minimum pump speed"
+    "Minimum chilled pump speed for primary-only plants"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
   parameter Real maxChiWatPumSpe(unit="1")=1
-    "Maximum pump speed"
+    "Maximum chilled pump speed for primary-only plants"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
   parameter Integer nPum_nominal(max=nChiWatPum, min=1)
@@ -1057,19 +1057,20 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{920,330},{960,370}}),
       iconTransformation(extent={{100,90},{140,130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi] if (not
-    have_airCoo) and have_heaConWatPum and (have_chiHeaPreCon or (not
-    have_fixSpeConWatPum and not have_WSE))
-    "Chiller condenser water isolation valve enable command"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi]
+    if (not have_airCoo) and have_heaConWatPum and
+      (not need_heaPreCon or not have_fixSpeConWatPum and not have_WSE)
+    "Chiller condenser water isolation valve command"
     annotation (Placement(transformation(extent={{920,260},{960,300}}),
         iconTransformation(extent={{100,62},{140,102}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi)) if (not have_airCoo) and have_heaConWatPum and
-    not (have_chiHeaPreCon or (not have_fixSpeConWatPum and not have_WSE))
-    "Condenser water isolation valve position setpoint"
+    final unit=fill("1", nChi))
+    if (not have_airCoo) and have_heaConWatPum and
+    not (need_heaPreCon or not have_fixSpeConWatPum and not have_WSE)
+    "Condenser water isolation valve commanded position"
     annotation (Placement(transformation(extent={{920,220},{960,260}}),
       iconTransformation(extent={{100,30},{140,70}})));
 

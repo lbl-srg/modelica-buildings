@@ -378,7 +378,7 @@ protected
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
     final chaTowCelIsoTim=chaTowCelIsoTim)
-                         "Cooling tower staging"
+    "Cooling tower staging"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.WaterLevel makUpWat(
     final watLevMin=watLevMin,
@@ -398,7 +398,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nConWatPum)
     "Check if there is any pump on"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conWatRetCon(
+    final k=have_conWatRetCon)
+    "Fan speed is controlled to maintain the condenser water return temperature setpoint"
+    annotation (Placement(transformation(extent={{0,200},{20,220}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    message="Fan speed should be controlled to maintain the condenser water return temperature setpoint.")
+    "Warning message to flag the fan speed control approach"
+    annotation (Placement(transformation(extent={{40,200},{60,220}})));
 equation
   connect(towSta.yTowSta, yTowSta)
     annotation (Line(points={{22,-54},{30,-54},{30,-110},{120,-110}},color={255,0,255}));
@@ -473,6 +480,8 @@ equation
     annotation (Line(points={{-120,-20},{-42,-20}}, color={255,0,255}));
   connect(mulOr1.y, towSta.uAnyConWatPum) annotation (Line(points={{-18,-20},{-10,
           -20},{-10,-53},{-2,-53}}, color={255,0,255}));
+  connect(conWatRetCon.y, assMes.u)
+    annotation (Line(points={{22,210},{38,210}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
@@ -615,7 +624,8 @@ It includes three subsequences:
 Sequence of controlling tower fan speed, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.Controller</a>
-for a description.
+for a description. Note that in current implementation, the fan speed is controlled
+to maintain the condenser water return temperature at the setpoint.
 </li>
 <li>
 Sequence of cooling tower staging, see

@@ -37,7 +37,7 @@ block EnableLag_primary_dP
     annotation (Placement(transformation(extent={{220,80},{260,120}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDown
-    "Last lag pump status, a falling edge indicates that last lag pump should be disabled"
+    "Last lag pump status, an edge indicates that last lag pump should be disabled"
     annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
