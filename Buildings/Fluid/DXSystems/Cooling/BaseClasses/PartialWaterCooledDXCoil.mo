@@ -462,8 +462,8 @@ for an explanation of the model.
 </html>", revisions="<html>
 <ul>
 <li>
-November 25, 2025, by Michael Wetter:<br/>
-Made instances <code>dxCoi.coiCap</code> and <code>dryCoi.coiCap</code> replaceable.<br/>
+November 26, 2025, by Michael Wetter:<br/>
+Updated redeclare and replaceable statements.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/4421\">issue 4421</a>.
 </li>
