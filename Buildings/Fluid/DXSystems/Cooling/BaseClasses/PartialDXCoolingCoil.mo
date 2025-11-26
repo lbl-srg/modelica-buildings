@@ -68,7 +68,7 @@ equation
           57},{-21,57}}, color={0,0,127}));
   connect(watVapEva.mTotWat_flow, vol.mWat_flow) annotation (Line(points={{11,-62},
           {22,-62},{22,-42},{-20,-42},{-20,-18},{-11,-18}}, color={0,0,127}));
-  connect(pwr.P, P) annotation (Line(points={{41,76},{74,76},{74,90},{110,90}},
+connect(pwr.P, P) annotation (Line(points={{41,76},{74,76},{74,90},{110,90}},
         color={0,0,127}));
   connect(pwr.QSen_flow, QSen_flow) annotation (Line(points={{41,70},{110,70}},
                             color={0,0,127}));
@@ -98,6 +98,12 @@ Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 26, 2025, by Michael Wetter:<br/>
+Updated redeclare and replaceable statements.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/4421\">issue 4421</a>.
+</li>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
 First implementation.

@@ -79,6 +79,12 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
+November 26, 2025, by Michael Wetter:<br/>
+Updated redeclare and replaceable statements.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/4421\">issue 4421</a>.
+</li>
+<li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
 Renamed class to <code>VariableSpeedDXCooling</code> to differentiate it from DX heating coils.<br/>
 Updated connect statement to reflect name change of instance from <code>dxCoo</code>
