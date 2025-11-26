@@ -3,7 +3,6 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
 
   parameter Integer nChi=2 "Total number of chillers";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
-  parameter Real fanSpeMax=1 "Maximum tower fan speed";
   parameter Real chiMinCap[nChi](
     each final unit="W",
     final quantity=fill("HeatFlowRate", nChi))={1e4,1e4}
@@ -84,7 +83,6 @@ protected
     final nChi=nChi,
     final chiMinCap=chiMinCap,
     final fanSpeMin=fanSpeMin,
-    final fanSpeMax=fanSpeMax,
     final conTyp=intOpeCon,
     final k=kIntOpe,
     final Ti=TiIntOpe,
@@ -94,7 +92,6 @@ protected
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation
     wseOpe(
     final fanSpeMin=fanSpeMin,
-    final fanSpeMax=fanSpeMax,
     final fanSpeChe=fanSpeChe,
     final chiWatCon=chiWatCon,
     final k=kWSE,

@@ -585,10 +585,6 @@ block Controller "Chiller plant controller"
     "Minimum tower fan speed"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
 
-  parameter Real fanSpeMax(unit="1")=1
-    "Maximum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
-
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Controller in the mode if WSE and chillers are enabled"
@@ -1296,7 +1292,6 @@ block Controller "Chiller plant controller"
     final have_WSE=have_WSE,
     final desCap=desCap,
     final fanSpeMin=fanSpeMin,
-    final fanSpeMax=fanSpeMax,
     final chiMinCap=chiMinCap,
     final intOpeCon=intOpeCon,
     final kIntOpe=kIntOpeTowFan,

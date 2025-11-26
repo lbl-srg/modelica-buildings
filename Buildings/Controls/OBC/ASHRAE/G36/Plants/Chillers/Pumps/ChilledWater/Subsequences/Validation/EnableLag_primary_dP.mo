@@ -7,7 +7,14 @@ model EnableLag_primary_dP
     final nPum=3,
     final VChiWat_flow_nominal=0.5)
     "Enable lag pump for primary-only plants using differential pressure pump speed control"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler enaEdg
+    "Sampler to show the lag pump enabling edge"
+    annotation (Placement(transformation(extent={{30,50},{50,70}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler disEdg
+    "Sampler to show the lag pump disabling edge"
+    annotation (Placement(transformation(extent={{70,30},{90,50}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
@@ -24,18 +31,25 @@ protected
 
 equation
   connect(con[1].y, enaLagChiPum.uChiWatPum[1])
-    annotation (Line(points={{-38,0},{-20,0},{-20,-4.46667},{18,-4.46667}},
+    annotation (Line(points={{-38,0},{-20,0},{-20,-4.46667},{-2,-4.46667}},
       color={255,0,255}));
   connect(con[2].y, enaLagChiPum.uChiWatPum[2])
-    annotation (Line(points={{-38,0},{-20,0},{-20,-3.8},{18,-3.8}},
+    annotation (Line(points={{-38,0},{-20,0},{-20,-3.8},{-2,-3.8}},
       color={255,0,255}));
   connect(con1.y, enaLagChiPum.uChiWatPum[3])
-    annotation (Line(points={{-38,-40},{0,-40},{0,-3.13333},{18,-3.13333}},
+    annotation (Line(points={{-38,-40},{-20,-40},{-20,-3.13333},{-2,-3.13333}},
       color={255,0,255}));
   connect(sin.y, enaLagChiPum.VChiWat_flow)
-    annotation (Line(points={{-38,40},{-20,40},{-20,4},{18,4}},
+    annotation (Line(points={{-38,40},{-20,40},{-20,4},{-2,4}},
       color={0,0,127}));
-
+  connect(enaLagChiPum.yUp, enaEdg.trigger)
+    annotation (Line(points={{22,4},{40,4},{40,48}}, color={255,0,255}));
+  connect(sin.y, enaEdg.u) annotation (Line(points={{-38,40},{-20,40},{-20,60},{
+          28,60}}, color={0,0,127}));
+  connect(enaLagChiPum.yDown, disEdg.trigger)
+    annotation (Line(points={{22,-4},{80,-4},{80,28}}, color={255,0,255}));
+  connect(sin.y, disEdg.u)
+    annotation (Line(points={{-38,40},{68,40}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Pumps/ChilledWater/Subsequences/Validation/EnableLag_primary_dP.mos"

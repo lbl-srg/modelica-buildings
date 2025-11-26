@@ -23,8 +23,6 @@ block Controller "Cooling tower controller"
     annotation (Dialog(group="Nominal"));
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed"
     annotation (Dialog(group="Nominal"));
-  parameter Real fanSpeMax=1 "Maximum tower fan speed"
-    annotation (Dialog(group="Nominal"));
 
   // Fan speed control: when WSE is enabled
   parameter Real chiMinCap[nChi](unit=fill("W", nChi))={1e4,1e4}
@@ -241,7 +239,7 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if not closeCoupledPlant
     "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -336,7 +334,6 @@ protected
     final have_WSE=have_WSE,
     final desCap=desCap,
     final fanSpeMin=fanSpeMin,
-    final fanSpeMax=fanSpeMax,
     final chiMinCap=chiMinCap,
     final intOpeCon=intOpeCon,
     final kIntOpe=kIntOpe,
@@ -398,14 +395,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nConWatPum)
     "Check if there is any pump on"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conWatRetCon(
-    final k=have_conWatRetCon)
-    "Fan speed is controlled to maintain the condenser water return temperature setpoint"
-    annotation (Placement(transformation(extent={{0,200},{20,220}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    message="Fan speed should be controlled to maintain the condenser water return temperature setpoint.")
-    "Warning message to flag the fan speed control approach"
-    annotation (Placement(transformation(extent={{40,200},{60,220}})));
 equation
   connect(towSta.yTowSta, yTowSta)
     annotation (Line(points={{22,-54},{30,-54},{30,-110},{120,-110}},color={255,0,255}));
@@ -480,8 +469,6 @@ equation
     annotation (Line(points={{-120,-20},{-42,-20}}, color={255,0,255}));
   connect(mulOr1.y, towSta.uAnyConWatPum) annotation (Line(points={{-18,-20},{-10,
           -20},{-10,-53},{-2,-53}}, color={255,0,255}));
-  connect(conWatRetCon.y, assMes.u)
-    annotation (Line(points={{22,210},{38,210}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
