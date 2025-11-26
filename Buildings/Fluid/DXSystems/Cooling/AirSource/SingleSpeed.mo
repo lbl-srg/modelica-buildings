@@ -4,10 +4,10 @@ model SingleSpeed "Single speed DX cooling coil"
     Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil(
     dxCoi(
       final variableSpeedCoil=false,
-      wetCoi(redeclare
+      wetCoi(replaceable
           Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap),
-      dryCoi(redeclare
+      dryCoi(replaceable
           Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap)),
     use_mCon_flow=false);
