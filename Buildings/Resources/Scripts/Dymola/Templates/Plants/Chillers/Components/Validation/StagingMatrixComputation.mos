@@ -1,0 +1,11 @@
+simulateModel("Buildings.Templates.Plants.Chillers.Components.Validation.StagingMatrixComputation",
+  method="cvode",
+  tolerance=1e-6,
+  stopTime=1.0,
+  resultFile="StagingMatrixComputation");
+createPlot(id=1,
+  position={5, 5, 300, 300},
+  y={"staMat[1, 1]", "staMat[1, 2]", "staMat[2, 1]", "staMat[2, 2]"},
+  subPlot=101,
+  autoscale=true,
+  grid=true);

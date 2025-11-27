@@ -343,10 +343,10 @@ equation
 
   connect(ctl.yAla, bus.ala);
 
-  connect(ctl.yChiWatResReq, bus.reqChiWatRes);
-  connect(ctl.yChiPlaReq, bus.reqChiWatPla);
-  connect(ctl.yHotWatResReq, bus.reqHeaWatRes);
-  connect(ctl.yHotWatPlaReq, bus.reqHeaWatPla);
+  connect(ctl.yChiPlaReq, bus.reqPlaChiWat);
+  connect(ctl.yChiWatResReq, bus.reqResChiWat);
+  connect(ctl.yHotWatPlaReq, bus.reqPlaHeaWat);
+  connect(ctl.yHotWatResReq, bus.reqResHeaWat);
 
   // Outputs to terminal unit bus
   connect(TAirSupSet.y, busTer.TAirSupSet);
