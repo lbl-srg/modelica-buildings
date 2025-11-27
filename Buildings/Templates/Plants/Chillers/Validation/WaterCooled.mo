@@ -21,23 +21,23 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     "Outdoor conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-170,-60})));
-  Buildings.Fluid.HeatExchangers.Heater_T loaChiWat(
+  Fluid.HeatExchangers.HeaterCooler_u loaChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     show_T=true,
     final dp_nominal=0,
     final energyDynamics=energyDynamics,
     tau=300,
-    QMax_flow=pla.cap_nominal)
-    "CHW system system approximated by prescribed return temperature"
-    annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
+    Q_flow_nominal=pla.cap_nominal)
+    "Approximation of zone equipment cooling heat flow rate"
+    annotation (Placement(transformation(extent={{92,-70},{112,-50}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valDisChiWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=pla.mChiWat_flow_nominal,
     dpValve_nominal=3E4,
     dpFixed_nominal=datAll.pla.ctl.dpChiWatRemSet_max[1] - 3E4)
     "Distribution system approximated by variable flow resistance"
-    annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
+    annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
   replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
     redeclare final package MediumCon = Medium,
     chi(
@@ -82,7 +82,7 @@ model WaterCooled "Validation of water-cooled chiller plant template"
   HeatPumps.Interfaces.Bus busPla "Plant control bus" annotation (Placement(
         transformation(extent={{-100,-60},{-60,-20}}), iconTransformation(
           extent={{-370,-70},{-330,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratLoa(
     table=[
       0, 0;
       5, 0;
@@ -91,15 +91,16 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       16, 1;
       22, 0.1;
       24, 0],
-    timeScale=3600) "Source signal for CHW flow ratio"
+    timeScale=3600) "Source signal for cooling load"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Reals.PID ctlEquZon(
     k=0.1,
     Ti=60,
     final reverseActing=true) "Zone equipment controller"
-    annotation (Placement(transformation(extent={{90,90},{110,110}})));
+    annotation (Placement(transformation(extent={{110,90},{130,110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo(k=1/pla.mChiWat_flow_nominal)
-    "Normalize flow rate" annotation (Placement(transformation(
+    "Normalize mass flow rate"
+                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={180,0})));
@@ -108,13 +109,6 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     "CHW mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={160,-100})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter TChiWatRet(
-    p=pla.TChiWatRet_nominal - pla.TChiWatSup_nominal)
-    "Prescribed CHW return temperature"
-    annotation (Placement(transformation(extent={{-128,10},{-108,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Min min1
-    "Limit prescribed CHWRT"
-    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt[2]
     "Importance multiplier"
     annotation (Placement(transformation(extent={{10,130},{-10,150}})));
@@ -127,12 +121,31 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max - max(datAll.pla.ctl.dpChiWatRemSet_max))
     "Piping"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    k=293.15) "Constant limiting prescribed return temperature"
-    annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant schEna(k=true)
     "Plant enable schedule"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant supTSup[4](k={pla.TChiWatSup_nominal,
+        1,20 + 273.15,0})
+    "Support points to adjust emission characteristic with regard to supply temperature"
+    annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
+  Buildings.Controls.OBC.CDL.Reals.Line lin
+    "Adjustment of emission characteristic with regard to supply temperature"
+    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
+  Buildings.Controls.OBC.CDL.Reals.Exp exp
+    annotation (Placement(transformation(extent={{70,30},{50,50}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-3)
+    annotation (Placement(transformation(extent={{100,30},{80,50}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(p=-1)
+    annotation (Placement(transformation(extent={{40,30},{20,50}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=-1)
+    annotation (Placement(transformation(extent={{10,30},{-10,50}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter ratLoaAct(k=1/pla.cap_nominal)
+    "Normalize heat flow rate" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={120,0})));
 equation
   connect(mulInt[1].y, busAirHan.reqResChiWat)
     annotation (Line(points={{-12,140},{-40,140}},color={255,127,0}));
@@ -141,9 +154,10 @@ equation
   connect(weaDat.weaBus, pla.busWea)
     annotation (Line(points={{-160,-60},{-60,-60},{-60,-80}},color={255,204,51},thickness=0.5));
   connect(loaChiWat.port_b, valDisChiWat.port_a)
-    annotation (Line(points={{90,-60},{110,-60}},color={0,127,255}));
+    annotation (Line(points={{112,-60},{130,-60}},
+                                                 color={0,127,255}));
   connect(loaChiWat.port_a, dpChiWatRem[1].port_a)
-    annotation (Line(points={{70,-60},{60,-60},{60,-90}},color={0,127,255}));
+    annotation (Line(points={{92,-60},{60,-60},{60,-90}},color={0,127,255}));
   connect(TAirSup.y, reqPlaRes.TAirSup) annotation (Line(points={{-158,160},{
           120,160},{120,146},{112,146}}, color={0,0,127}));
   connect(TAirSup.y, reqPlaRes.TAirSupSet) annotation (Line(points={{-158,160},
@@ -153,15 +167,11 @@ equation
   connect(pla.bus, busPla)
     annotation (Line(points={{-80,-90},{-80,-40}},color={255,204,51},thickness=0.5));
   connect(valDisChiWat.y_actual, reqPlaRes.uCooCoiSet)
-    annotation (Line(points={{125,-53},{140,-53},{140,135},{112,135}}, color={0,0,127}));
+    annotation (Line(points={{145,-53},{160,-53},{160,135},{112,135}}, color={0,0,127}));
   connect(valDisChiWat.port_b, mChiWat_flow.port_a)
-    annotation (Line(points={{130,-60},{160,-60},{160,-90}},color={0,127,255}));
+    annotation (Line(points={{150,-60},{160,-60},{160,-90}},color={0,127,255}));
   connect(mChiWat_flow.port_b, dpChiWatRem[1].port_b)
     annotation (Line(points={{160,-110},{160,-140},{60,-140},{60,-110}},color={0,127,255}));
-  connect(busPla.TChiWatPriSup, TChiWatRet.u)
-    annotation (Line(points={{-80,-40},{-140,-40},{-140,20},{-130,20}},color={255,204,51},thickness=0.5));
-  connect(min1.y, loaChiWat.TSet)
-    annotation (Line(points={{-68,40},{60,40},{60,-52},{68,-52}},color={0,0,127}));
   connect(cst.y, mulInt.u1)
     annotation (Line(points={{88,180},{60,180},{60,146},{12,146}},
                                                                color={255,127,0}));
@@ -176,27 +186,51 @@ equation
           {80,146},{80,134},{12,134}},color={255,127,0}));
   connect(reqPlaRes.yChiPlaReq, mulInt[2].u2) annotation (Line(points={{88,141},
           {80,141},{80,134},{12,134}},color={255,127,0}));
-  connect(ratFlo.y[1], ctlEquZon.u_s)
-    annotation (Line(points={{-158,100},{88,100}}, color={0,0,127}));
+  connect(ratLoa.y[1], ctlEquZon.u_s)
+    annotation (Line(points={{-158,100},{108,100}},color={0,0,127}));
   connect(mChiWat_flow.m_flow, norFlo.u)
     annotation (Line(points={{171,-100},{180,-100},{180,-12}},
                                                              color={0,0,127}));
-  connect(norFlo.y, ctlEquZon.u_m) annotation (Line(points={{180,12},{180,80},{100,
-          80},{100,88}}, color={0,0,127}));
   connect(ctlEquZon.y, valDisChiWat.y)
-    annotation (Line(points={{112,100},{120,100},{120,-48}}, color={0,0,127}));
-  connect(con.y, min1.u1) annotation (Line(points={{-158,40},{-100,40},{-100,46},
-          {-92,46}}, color={0,0,127}));
-  connect(TChiWatRet.y, min1.u2) annotation (Line(points={{-106,20},{-100,20},{-100,
-          34},{-92,34}}, color={0,0,127}));
+    annotation (Line(points={{132,100},{140,100},{140,-48}}, color={0,0,127}));
   connect(pla.port_a, pipChiWat.port_b) annotation (Line(points={{-39.8,-110},{
           -20,-110},{-20,-140},{-10,-140}},
                                         color={0,127,255}));
   connect(pla.port_b, loaChiWat.port_a) annotation (Line(points={{-39.8,-100},{
-          -20,-100},{-20,-60},{70,-60}},
+          -20,-100},{-20,-60},{92,-60}},
                                     color={0,127,255}));
   connect(schEna.y, busPla.u1SchEna) annotation (Line(points={{-158,-20},{-80,
           -20},{-80,-40}}, color={255,0,255}));
+  connect(supTSup[1].y, lin.x1) annotation (Line(points={{-158,40},{-160,40},{
+          -160,48},{-132,48}}, color={0,0,127}));
+  connect(supTSup[2].y, lin.f1) annotation (Line(points={{-158,40},{-160,40},{
+          -160,44},{-132,44}}, color={0,0,127}));
+  connect(supTSup[3].y, lin.x2) annotation (Line(points={{-158,40},{-160,40},{
+          -160,36},{-132,36}}, color={0,0,127}));
+  connect(supTSup[4].y, lin.f2) annotation (Line(points={{-158,40},{-160,40},{
+          -160,32},{-132,32}}, color={0,0,127}));
+  connect(busPla.TChiWatPriSup, lin.u) annotation (Line(
+      points={{-80,-40},{-140,-40},{-140,40},{-132,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(gai.y, exp.u)
+    annotation (Line(points={{78,40},{72,40}}, color={0,0,127}));
+  connect(norFlo.y, gai.u)
+    annotation (Line(points={{180,12},{180,40},{102,40}}, color={0,0,127}));
+  connect(exp.y, addPar.u)
+    annotation (Line(points={{48,40},{42,40}}, color={0,0,127}));
+  connect(addPar.y, gai1.u)
+    annotation (Line(points={{18,40},{12,40}}, color={0,0,127}));
+  connect(gai1.y, mul.u1) annotation (Line(points={{-12,40},{-20,40},{-20,6},{
+          -12,6}}, color={0,0,127}));
+  connect(lin.y, mul.u2) annotation (Line(points={{-108,40},{-22,40},{-22,-6},{
+          -12,-6}}, color={0,0,127}));
+  connect(mul.y, loaChiWat.u) annotation (Line(points={{12,0},{80,0},{80,-54},{
+          90,-54}}, color={0,0,127}));
+  connect(loaChiWat.Q_flow, ratLoaAct.u)
+    annotation (Line(points={{113,-54},{120,-54},{120,-12}}, color={0,0,127}));
+  connect(ratLoaAct.y, ctlEquZon.u_m)
+    annotation (Line(points={{120,12},{120,88}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
@@ -243,14 +277,21 @@ remote differential pressure setpoint.
 </li>
 </ul>
 <h4>Details</h4>
+<h5>Actuators within the plant</h5>
 <p>
 By default, all valves within the plant are modeled considering a linear
-variation of the pressure drop with the flow rate (<code>pla.linearized=true</code>),
+variation of pressure drop with flow rate (<code>pla.linearized=true</code>),
 as opposed to the quadratic relationship usually considered for
 a turbulent flow regime.
 By limiting the size of the system of nonlinear equations, this setting
 reduces the risk of solver failure and the time to solution for testing
 various plant configurations.
+</p>
+<h5>Load model</h5>
+<p>
+All the cooling coils are lumped into a fictitious zone equipment that is appromixated
+by the following emission characteristic (adapted from the epsilon-NTU representation):<br/>
+<i>Q&#775;Coo/Q&#775;Coo_nominal = (1 * exp(-3 * m&#775;Chw/m&#775;Chw_nominal)) * (293.15 - TChwSup) / (293.15 - TChwSup_nominal)</i>.
 </p>
 </html>",
       revisions="<html>
