@@ -70,7 +70,7 @@ protected
     "Minimal value of useful side";
   final parameter Real poi[size(scaTAmbSid, 1),2]=transpose({scaTAmbSidToPoi,
       scaTUseSidToPoi}) "Points for dynamic annotation"
-    annotation (Hide=false, HideResult=false);
+    annotation (HideResult=false, HideResult=false);
   final parameter Modelica.Units.SI.Temperature scaTAmbSid[:]=tab[:, 1]
     "Helper array with only not ambient side temperature values";
   final parameter Modelica.Units.SI.Temperature scaTUseSid[:]=tab[:, 2]
@@ -176,6 +176,11 @@ equation
 </html>",
         revisions="<html>
 <ul>
+<li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on IPBSA guidelines <a href=
