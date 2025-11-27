@@ -367,7 +367,7 @@ heat pump (component <code>hpNrv</code>) or a reversible heat pump
       revisions="<html>
 <ul>
 <li>
-xxxx, 2025, by Antoine Gautier:<br/>
+July 1, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

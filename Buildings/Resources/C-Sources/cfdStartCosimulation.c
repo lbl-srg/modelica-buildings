@@ -18,6 +18,9 @@
 
 #include "cfdCosimulation.h"
 
+#include <stdlib.h>
+#include <string.h>
+
 /*
  * Start the cosimulation
  *

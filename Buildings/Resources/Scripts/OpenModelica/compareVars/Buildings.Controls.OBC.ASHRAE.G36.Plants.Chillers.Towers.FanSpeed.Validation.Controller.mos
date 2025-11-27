@@ -9,8 +9,6 @@ compareVars :=
     "cloCouWitWse.fanSpeRetTem.couTowSpe.ySpeSet",
     "cloCouWitWse.fanSpeRetTem.uSpeWSE",
     "cloCouWitWse.ySpeSet",
-    "cloCouWitWse.uConWatPumSpe[1]",
-    "cloCouWitWse.uConWatPumSpe[2]",
     "lesCouWitWse.TConWatRet",
     "lesCouWitWse.fanSpeRetTem.conWatRetSet.TConWatRetSet",
     "lesCouWitWse.fanSpeRetTem.lesCouTowSpe.ySpeSet",

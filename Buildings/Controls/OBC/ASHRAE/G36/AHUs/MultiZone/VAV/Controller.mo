@@ -522,7 +522,7 @@ block Controller "Multizone VAV air handling unit controller"
            and have_ahuRelFan));
 
   // ----------- Advanced parameters -----------
-  parameter Real Thys=0.25 "Hysteresis for checking temperature difference"
+  parameter Real THys=0.25 "Hysteresis for checking temperature difference"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
   parameter Real posHys=0.01
@@ -897,12 +897,12 @@ block Controller "Multizone VAV air handling unit controller"
     final Td=TdFrePro,
     final yMax=yMaxFrePro,
     final yMin=yMinFrePro,
-    final Thys=Thys) "Freeze protection"
+    final THys=THys) "Freeze protection"
     annotation (Placement(transformation(extent={{180,-220},{200,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq(
     final heaCoi=heaCoi,
     final cooCoi=cooCoi,
-    final Thys=Thys,
+    final THys=THys,
     final posHys=posHys) "Plant requests"
     annotation (Placement(transformation(extent={{-20,-540},{0,-520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller ecoCon(
@@ -1606,6 +1606,12 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 26, 2025, by Jianjun Hu:<br/>
+Renamed the parameter <code>Thys</code> to <code>THys</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
+</li>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Removed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code>,

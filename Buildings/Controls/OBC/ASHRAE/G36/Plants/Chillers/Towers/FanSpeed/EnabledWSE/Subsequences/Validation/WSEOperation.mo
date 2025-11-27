@@ -5,7 +5,6 @@ model WSEOperation
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation
     wseOpe(
     fanSpeMin=0.1,
-    fanSpeMax=1,
     chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     Ti=5)

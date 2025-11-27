@@ -18,8 +18,6 @@ block Controller "Tower fan speed control"
     "Flag to indicate if the plant has waterside economizer";
   parameter Real desCap(unit="W")=1e6  "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
-  parameter Real fanSpeMax=1 "Maximum tower fan speed"
-    annotation (Dialog(enable=have_WSE));
   parameter Real chiMinCap[nChi](
     final unit=fill("W", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
@@ -281,7 +279,6 @@ block Controller "Tower fan speed control"
     final kIntOpe=kIntOpe,
     final TiIntOpe=TiIntOpe,
     final TdIntOpe=TdIntOpe,
-    final fanSpeMax=fanSpeMax,
     final fanSpeChe=speChe,
     final chiWatCon=chiWatCon,
     final kWSE=kWSE,

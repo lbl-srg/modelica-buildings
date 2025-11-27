@@ -3,7 +3,6 @@ block WSEOperation
   "Tower fan speed control when the waterside economizer is running alone"
 
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
-  parameter Real fanSpeMax=1 "Maximum tower fan speed";
   parameter Real fanSpeChe = 0.05 "Lower threshold value to check fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -116,8 +115,7 @@ protected
     final k=yMax)
     "Maximum output from chilled water supply temperature control loop"
     annotation (Placement(transformation(extent={{-20,-190},{0,-170}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(
-    final k=fanSpeMax)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(final k=1)
     "Maximum tower fan speed"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
   Buildings.Controls.OBC.CDL.Reals.Line lin
@@ -284,7 +282,7 @@ according to ASHRAE Guideline 36-2021, section 5.20.12.2, item c.2.
 Fan speed shall be modulated to maintain chilled water supply temperature 
 <code>TChiWatSup</code> at setpoint <code>TChiWatSupSet</code> by a direct acting 
 PID loop that resets fan speed from minimum <code>fanSpeMin</code> at 0% loop output to
-maximum <code>fanSpeMax</code> at 100% loop output.
+maximum at 100% loop output.
 </li>
 <li>
 If chilled water supply temperature <code>TChiWatSup</code> drops below setpoint

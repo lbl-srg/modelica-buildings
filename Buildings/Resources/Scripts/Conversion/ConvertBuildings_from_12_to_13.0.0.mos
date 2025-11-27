@@ -1,0 +1,18 @@
+//  Conversion script for Buildings library
+//  from: Version 12
+//  to:   Version 13.0.0
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4374
+
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller",
+                 {"Thys"}, {"THys"}, true);
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection",
+                 {"Thys"}, {"THys"}, true);
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests",
+                 {"Thys"}, {"THys"}, true);
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller",
+                 {"Thys"}, {"THys"}, true);
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection",
+                 {"Thys"}, {"THys"}, true);
+convertModifiers("Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests",
+                 {"Thys"}, {"THys"}, true);

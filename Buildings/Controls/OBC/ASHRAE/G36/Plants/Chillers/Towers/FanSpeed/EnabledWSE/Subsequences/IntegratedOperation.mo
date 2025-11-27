@@ -8,7 +8,6 @@ block IntegratedOperation
     final quantity=fill("HeatFlowRate", nChi))={1e4, 1e4}
     "Minimum cyclining load below which chiller will begin cycling";
   parameter Real fanSpeMin = 0.1 "Minimum cooling tower fan speed";
-  parameter Real fanSpeMax = 1 "Maximum cooling tower fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -108,8 +107,7 @@ protected
     final k=fanSpeMin)
     "Minimum speed"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(
-    final k=fanSpeMax)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(final k=1)
     "Maximum tower fan speed"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Output true at the moment when input becomes true"

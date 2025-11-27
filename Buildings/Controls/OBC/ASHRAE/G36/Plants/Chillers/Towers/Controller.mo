@@ -23,8 +23,6 @@ block Controller "Cooling tower controller"
     annotation (Dialog(group="Nominal"));
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed"
     annotation (Dialog(group="Nominal"));
-  parameter Real fanSpeMax=1 "Maximum tower fan speed"
-    annotation (Dialog(group="Nominal"));
 
   // Fan speed control: when WSE is enabled
   parameter Real chiMinCap[nChi](unit=fill("W", nChi))={1e4,1e4}
@@ -241,7 +239,7 @@ block Controller "Cooling tower controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if not closeCoupledPlant
     "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -336,7 +334,6 @@ protected
     final have_WSE=have_WSE,
     final desCap=desCap,
     final fanSpeMin=fanSpeMin,
-    final fanSpeMax=fanSpeMax,
     final chiMinCap=chiMinCap,
     final intOpeCon=intOpeCon,
     final kIntOpe=kIntOpe,
@@ -378,7 +375,7 @@ protected
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
     final chaTowCelIsoTim=chaTowCelIsoTim)
-                         "Cooling tower staging"
+    "Cooling tower staging"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.WaterLevel makUpWat(
     final watLevMin=watLevMin,
@@ -398,7 +395,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nConWatPum)
     "Check if there is any pump on"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-
 equation
   connect(towSta.yTowSta, yTowSta)
     annotation (Line(points={{22,-54},{30,-54},{30,-110},{120,-110}},color={255,0,255}));
@@ -615,7 +611,8 @@ It includes three subsequences:
 Sequence of controlling tower fan speed, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.Controller</a>
-for a description.
+for a description. Note that in current implementation, the fan speed is controlled
+to maintain the condenser water return temperature at the setpoint.
 </li>
 <li>
 Sequence of cooling tower staging, see

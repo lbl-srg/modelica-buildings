@@ -37,18 +37,9 @@ block EnableLag_primary_dP
     annotation (Placement(transformation(extent={{220,80},{260,120}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDown
-    "Last lag pump status, a falling edge indicates that last lag pump should be disabled"
+    "Last lag pump status, an edge indicates that last lag pump should be disabled"
     annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=timPer)
-    "Check if the condition for enabling the pump has been constantly satisfied for enough time"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=timPer)
-    "Check if the condition for disabling the pump has been constantly satisfied for enough time"
-    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis enaPum(
     final uLow=(-1)*relFloHys,
@@ -83,20 +74,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Find inputs difference"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch enaNexLag
-    "Enabling next lag pump"
-    annotation (Placement(transformation(extent={{180,90},{200,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch shuLasLag
-    "Shut off last lag pump"
-    annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=true)
-    "Logical true"
-    annotation (Placement(transformation(extent={{120,150},{140,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=false)
-    "Logical false"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nomPum(
     final k=1/nPum_nominal)
     "Pump number ratio"
@@ -120,11 +97,21 @@ protected
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And enaPum1
     "Enable pump"
-    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Buildings.Controls.OBC.CDL.Logical.And disPum1
     "Disable pump"
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
 
+public
+  Generic.TimerWithReset tim(final t=timPer)
+    "Check if it has passed the threshold time"
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+  CDL.Integers.Change cha
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+public
+  Generic.TimerWithReset tim1(final t=timPer)
+    "Check if it has passed the threshold time"
+    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 equation
   connect(VChiWat_flow,chiWatFloRat. u)
     annotation (Line(points={{-240,80},{-202,80}}, color={0,0,127}));
@@ -148,24 +135,10 @@ equation
   connect(chiWatFloRat.y, sub1.u2)
     annotation (Line(points={{-178,80},{-160,80},{-160,-166},{-122,-166}},
       color={0,0,127}));
-  connect(con.y, enaNexLag.u1)
-    annotation (Line(points={{142,160},{160,160},{160,108},{178,108}},
-      color={255,0,255}));
-  connect(shuLasLag.y, yDown)
-    annotation (Line(points={{202,-160},{240,-160}}, color={255,0,255}));
-  connect(enaNexLag.y, yUp)
-    annotation (Line(points={{202,100},{240,100}}, color={255,0,255}));
-  connect(con1.y, enaNexLag.u3)
-    annotation (Line(points={{142,0},{150,0},{150,92},{178,92}},
-      color={255,0,255}));
   connect(intToRea.y, nomPum.u)
     annotation (Line(points={{-78,0},{18,0}}, color={0,0,127}));
   connect(addPar1.y, nomPum1.u)
     annotation (Line(points={{2,-40},{18,-40}}, color={0,0,127}));
-  connect(truDel.y, enaNexLag.u2)
-    annotation (Line(points={{62,100},{178,100}}, color={255,0,255}));
-  connect(truDel1.y, shuLasLag.u2)
-    annotation (Line(points={{62,-160},{178,-160}}, color={255,0,255}));
   connect(nomPum.y, sub3.u1)
     annotation (Line(points={{42,0},{50,0},{50,46},{78,46}}, color={0,0,127}));
   connect(nomPum1.y, sub.u1) annotation (Line(points={{42,-40},{50,-40},{50,-34},
@@ -176,26 +149,35 @@ equation
           -46}}, color={0,0,127}));
   connect(sub3.y, sub2.u2) annotation (Line(points={{102,40},{120,40},{120,70},{
           -140,70},{-140,94},{-122,94}}, color={0,0,127}));
-  connect(sub.y, sub1.u1) annotation (Line(points={{102,-40},{120,-40},{120,-120},
-          {-140,-120},{-140,-154},{-122,-154}}, color={0,0,127}));
-  connect(con.y, shuLasLag.u1) annotation (Line(points={{142,160},{160,160},{160,
-          -152},{178,-152}}, color={255,0,255}));
-  connect(con1.y, shuLasLag.u3) annotation (Line(points={{142,0},{150,0},{150,-168},
-          {178,-168}}, color={255,0,255}));
+  connect(sub.y, sub1.u1) annotation (Line(points={{102,-40},{120,-40},{120,
+          -100},{-140,-100},{-140,-154},{-122,-154}},
+                                                color={0,0,127}));
   connect(numOpePum.y, intGreThr.u) annotation (Line(points={{-118,0},{-110,0},{
           -110,-60},{-102,-60}}, color={255,127,0}));
   connect(enaPum.y, enaPum1.u1)
-    annotation (Line(points={{-58,100},{-22,100}}, color={255,0,255}));
-  connect(enaPum1.y, truDel.u)
-    annotation (Line(points={{2,100},{38,100}}, color={255,0,255}));
+    annotation (Line(points={{-58,100},{-50,100},{-50,120},{-22,120}},
+                                                   color={255,0,255}));
   connect(disPum.y, disPum1.u1)
     annotation (Line(points={{-58,-160},{-22,-160}}, color={255,0,255}));
-  connect(disPum1.y, truDel1.u)
-    annotation (Line(points={{2,-160},{38,-160}}, color={255,0,255}));
   connect(intGreThr.y, enaPum1.u2) annotation (Line(points={{-78,-60},{-40,-60},
-          {-40,92},{-22,92}}, color={255,0,255}));
+          {-40,112},{-22,112}},
+                              color={255,0,255}));
   connect(intGreThr.y, disPum1.u2) annotation (Line(points={{-78,-60},{-40,-60},
           {-40,-168},{-22,-168}}, color={255,0,255}));
+  connect(enaPum1.y, tim.u) annotation (Line(points={{2,120},{20,120},{20,100},
+          {38,100}}, color={255,0,255}));
+  connect(numOpePum.y, cha.u) annotation (Line(points={{-118,0},{-110,0},{-110,
+          40},{-102,40}}, color={255,127,0}));
+  connect(cha.up, tim.reset) annotation (Line(points={{-78,46},{-20,46},{-20,92},
+          {38,92}}, color={255,0,255}));
+  connect(tim.passed, yUp) annotation (Line(points={{62,92},{152,92},{152,100},
+          {240,100}}, color={255,0,255}));
+  connect(disPum1.y, tim1.u) annotation (Line(points={{2,-160},{20,-160},{20,
+          -130},{38,-130}}, color={255,0,255}));
+  connect(cha.down, tim1.reset) annotation (Line(points={{-78,34},{-50,34},{-50,
+          -138},{38,-138}}, color={255,0,255}));
+  connect(tim1.passed, yDown) annotation (Line(points={{62,-138},{152,-138},{
+          152,-160},{240,-160}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLagChiPum",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

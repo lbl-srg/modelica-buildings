@@ -83,18 +83,18 @@ protected
     delayTime=fill(2, 3))
     "Chilled water pump proven status emulator"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  CDL.Reals.Sources.Ramp                        locDpSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp locDpSet(
     final height=1000,
     final duration=1500,
     final offset=57000,
     final startTime=500)
-                       "Local differential pressure setpoint"
+    "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)
     annotation (Line(points={{-38,160},{32,160},{32,158.929},{78,158.929}},
-                                                                    color={255,127,0}));
+      color={255,127,0}));
   connect(chiWatFlo.y, heaNoLoc.VChiWat_flow)
     annotation (Line(points={{-38,-40},{42,-40},{42,140.714},{78,140.714}},
       color={0,0,127}));
@@ -112,60 +112,49 @@ equation
       color={0,0,127}));
   connect(locPreSen.y, dedLoc.dpChiWat_local)
     annotation (Line(points={{-78,-100},{50,-100},{50,-82.5},{78,-82.5}},
-                                                                      color={0,0,127}));
+          color={0,0,127}));
   connect(enaPla.y, dedNoLoc.uPla) annotation (Line(points={{-38,60},{20,60},{
           20,76.7857},{78,76.7857}},
-                           color={255,0,255}));
+                                  color={255,0,255}));
   connect(enaPla.y, dedLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,
           -63.2143},{78,-63.2143}},
                           color={255,0,255}));
   connect(leaChiEna.y, dedNoLoc.uLeaChiEna) annotation (Line(points={{-38,10},{
-          24,10},{24,72.5},{78,72.5}},
-                                   color={255,0,255}));
+          24,10},{24,72.5},{78,72.5}}, color={255,0,255}));
   connect(leaChiEna.y, dedLoc.uLeaChiEna) annotation (Line(points={{-38,10},{24,
-          10},{24,-67.5},{78,-67.5}},
-                                  color={255,0,255}));
+          10},{24,-67.5},{78,-67.5}}, color={255,0,255}));
   connect(leaChiEna.y, leaChiProOn.u) annotation (Line(points={{-38,10},{-30,10},
           {-30,-20},{-22,-20}}, color={255,0,255}));
   connect(leaChiProOn.y, dedNoLoc.uLeaChiSta) annotation (Line(points={{2,-20},
-          {28,-20},{28,70.3571},{78,70.3571}},
-                                    color={255,0,255}));
+          {28,-20},{28,70.3571},{78,70.3571}},color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiSta) annotation (Line(points={{2,-20},{
           28,-20},{28,-69.6429},{78,-69.6429}},
-                                      color={255,0,255}));
+                                             color={255,0,255}));
   connect(leaChiProOn.y, dedNoLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
-          {28,-20},{28,68.2143},{78,68.2143}},
-                                     color={255,0,255}));
+          {28,-20},{28,68.2143},{78,68.2143}}, color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
-          {28,-20},{28,-71.7857},{78,-71.7857}},
-                                       color={255,0,255}));
+          {28,-20},{28,-71.7857},{78,-71.7857}}, color={255,0,255}));
   connect(enaPla.y, booRep.u) annotation (Line(points={{-38,60},{-30,60},{-30,40},
           {-22,40}}, color={255,0,255}));
   connect(booRep.y, dedNoLoc.uChiWatPum) annotation (Line(points={{2,40},{32,40},
-          {32,74.6429},{78,74.6429}},
-                            color={255,0,255}));
+          {32,74.6429},{78,74.6429}}, color={255,0,255}));
   connect(booRep.y, dedLoc.uChiWatPum) annotation (Line(points={{2,40},{32,40},
-          {32,-65.3571},{78,-65.3571}},
-                             color={255,0,255}));
+          {32,-65.3571},{78,-65.3571}},color={255,0,255}));
   connect(difPreSet.y, reaRep.u)
     annotation (Line(points={{-78,-140},{-2,-140}},  color={0,0,127}));
   connect(reaRep.y, heaNoLoc.dpChiWatSet_remote) annotation (Line(points={{22,-140},
-          {56,-140},{56,131.071},{78,131.071}},
-                                        color={0,0,127}));
+          {56,-140},{56,131.071},{78,131.071}}, color={0,0,127}));
   connect(reaRep.y, dedNoLoc.dpChiWatSet_remote) annotation (Line(points={{22,-140},
-          {56,-140},{56,51.0714},{78,51.0714}},
-                                      color={0,0,127}));
+          {56,-140},{56,51.0714},{78,51.0714}}, color={0,0,127}));
   connect(isoVal.y, heaNoLoc.uChiWatIsoVal) annotation (Line(points={{-78,140},
-          {34,140},{34,142.857},{78,142.857}},
-                                      color={0,0,127}));
+          {34,140},{34,142.857},{78,142.857}},color={0,0,127}));
   connect(heaNoLoc.yChiWatPum, sta.y1) annotation (Line(points={{102,145},{110,
-          145},{110,100},{-10,100},{-10,120},{-2,120}},
-                                                   color={255,0,255}));
+          145},{110,100},{-10,100},{-10,120},{-2,120}}, color={255,0,255}));
   connect(sta.y1_actual, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},
-          {38,120},{38,154.643},{78,154.643}},
-                                       color={255,0,255}));
+          {38,120},{38,154.643},{78,154.643}}, color={255,0,255}));
   connect(locDpSet.y, dedLoc.dpChiWatSet_local) annotation (Line(points={{-38,
-          -120},{62,-120},{62,-84.6429},{78,-84.6429}}, color={0,0,127}));
+          -120},{62,-120},{62,-84.6429},{78,-84.6429}},
+                                                  color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Pumps/ChilledWater/Validation/Controller.mos"
