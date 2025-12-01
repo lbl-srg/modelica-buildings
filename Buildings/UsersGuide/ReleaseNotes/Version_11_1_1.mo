@@ -50,6 +50,20 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DXSystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.AirSource.MultiStage<br/>
+                       Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed<br/>
+                       Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed<br/>
+                       Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil<br/>
+                       Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialWaterCooledDXCoil
+    </td>
+    <td valign=\"top\">Updated redeclare and replaceable statements
+                       as required by Modelica Language Standard, and needed for Wolfram System Modeler.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4421\">#4421</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
     </td>
 </tr>
