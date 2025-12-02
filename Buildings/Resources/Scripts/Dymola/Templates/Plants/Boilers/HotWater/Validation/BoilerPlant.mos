@@ -12,6 +12,11 @@ createPlot(
   grid=true,
   timeUnit="h"
 );
+plotExpression(
+  apply(BoilerPlant[end].ratLoa.y[1]*BoilerPlant[end].pla.cap_nominal),
+  false,
+  "ratLoa.y[1]*pla.cap_nominal",
+  1);
 createPlot(
   id=1,
   subPlot=2,

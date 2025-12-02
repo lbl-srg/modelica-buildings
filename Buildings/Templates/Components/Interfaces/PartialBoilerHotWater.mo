@@ -47,7 +47,7 @@ partial model PartialBoilerHotWater "Interface class for hot water boiler models
       "Boiler"
       annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  Plants.Controls.Utilities.PIDWithEnable ctlPID
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable ctlPID
     "HW supply temperature controller"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 initial equation

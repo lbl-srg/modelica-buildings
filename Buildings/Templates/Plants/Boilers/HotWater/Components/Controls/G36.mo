@@ -19,9 +19,11 @@ block G36 "Guideline 36 controller"
     "True: Headered primary hot water pumps;
      False: Dedicated primary hot water pumps";
 
-  final parameter Boolean have_varPriPum = cfg.have_pumHeaWatPriVarCon or cfg.have_pumHeaWatPriVarNon
+  final parameter Boolean have_varPriPum_select =
+    if cfg.typ == Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing
+      then cfg.have_pumHeaWatPriVarNon else true
     "True: Variable-speed primary pumps;
-     False: Fixed-speed primary pumps";
+    False: Fixed-speed primary pumps";
 
   final parameter Boolean have_secFloSen_select = have_senVHeaWatSec
     "Required only for primary-secondary plant with flowrate-based primary pump
@@ -29,9 +31,9 @@ block G36 "Guideline 36 controller"
     True: Flowrate sensor in secondary loop;
     False: Flowrate sensor in decoupler";
 
-  final parameter Boolean have_priSecTemSen = have_senTHeaWatPriSupCon or have_senTHeaWatPriSupNon
-    "True: Temperature sensors in primary and secondary loops;
-    False: Temperature sensors in boiler supply and secondary loop";
+  final parameter Boolean have_priTemSen_select = have_senTHeaWatPriSupCon or have_senTHeaWatPriSupNon
+    "True: Temperature sensor in primary loop.
+    False: No temperature sensor in primary loop.";
 
   final parameter Integer nLooSec = cfg.nLooHeaWatSec
     "Number of secondary loops serviced by primary plant";
@@ -39,10 +41,10 @@ block G36 "Guideline 36 controller"
   final parameter Integer nBoi = cfg.nBoiCon + cfg.nBoiNon
     "Number of boilers";
 
-  final parameter Integer boiTyp[nBoi] = {
-    if i<=cfg.nBoiCon then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing
+  final parameter Integer boiTyp_select =
+    if cfg.typ==Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing
+      then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing
     else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing
-    for i in 1:nBoi}
     "Boiler type";
 
   final parameter Integer staMat[:, nBoi] = dat.sta
@@ -135,17 +137,16 @@ block G36 "Guideline 36 controller"
     "Secondary pump speed regulation method";
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController ctlLooPri(
-    final have_priTemSen=have_senTHeaWatPriSupCon or have_senTHeaWatPriSupNon,
     final boiDesCap=boiDesCap,
     Ti_bypVal=60,
     final boiDesFlo=boiDesFlo,
     final boiFirMin=boiFirMin,
-    final boiTyp=boiTyp,
+    final boiTyp_select=boiTyp_select,
     final have_heaPriPum=have_heaPriPum,
     final have_priOnl=have_priOnl,
-    final have_priSecTemSen=have_priSecTemSen,
+    final have_priTemSen_select=have_priTemSen_select,
     final have_secFloSen_select=have_secFloSen_select,
-    final have_varPriPum=have_varPriPum,
+    final have_varPriPum_select=have_varPriPum_select,
     final maxFloSet=maxFloSet,
     final maxLocDpPri=maxLocDp,
     final maxRemDpPri=maxRemDp,
