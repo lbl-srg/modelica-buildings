@@ -28,7 +28,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=4,
-    y={"hrc.hrc.chi.PLR", "hrc.hrc.chi.EER", "hrc.hrc.chi.COP"},
+    y={"hrc.hrc.chi.PLR", "hrc.hrc.chi.COP", "hrc.hrc.chi.EER"},
     autoscale=true,
     grid=true
 );

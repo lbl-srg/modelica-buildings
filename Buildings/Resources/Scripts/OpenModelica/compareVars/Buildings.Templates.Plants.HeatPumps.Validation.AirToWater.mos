@@ -58,7 +58,6 @@ compareVars :=
     "pla.bus.hrc.y1",
     "pla.bus.hrc.y1Coo",
     "pla.hrc.hrc.chi.PLR",
-    "pla.hrc.hrc.bus.TSet",
     "pla.bus.TChiWatRetUpsHrc",
     "pla.bus.TChiWatSecRet",
     "pla.bus.TChiWatSecSup",

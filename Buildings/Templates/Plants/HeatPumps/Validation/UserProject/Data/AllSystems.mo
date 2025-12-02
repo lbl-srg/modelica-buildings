@@ -21,7 +21,6 @@ class AllSystems
         fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
         PLRSup={1},
-        P_min=1.0E3,
         use_TEvaOutForTab=false,
         use_TConOutForTab=true,
         tabUppBou=[263.15,325.15; 313.15,325.15]),
@@ -29,9 +28,9 @@ class AllSystems
         fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
         PLRSup={1},
-        P_min=1.0E3,
         use_TEvaOutForTab=true,
-        use_TConOutForTab=false)),
+        use_TConOutForTab=false),
+      PHp_min=1.0E3),
     pumHeaWatPri(
       dp_nominal=fill(1.5 *(if pla.cfg.have_chiWat and pla.cfg.typPumChiWatPri ==
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal)
@@ -61,13 +60,13 @@ class AllSystems
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       TCon_nominal=pla.ctl.THeaWatSup_nominal,
       per(
-      fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_Chiller.txt"),
+        fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_Chiller.txt"),
         PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
         PLRCyc_min=0.2,
-        P_min=50,
         use_TEvaOutForTab=true,
-        use_TConOutForTab=true)),
+        use_TConOutForTab=true),
+      P_min=50),
     ctl(
       THeaWatSupSet_min=298.15,
       VHeaWatSec_flow_nominal=pla.cfg.nHp*pla.ctl.VHeaWatHp_flow_nominal/1.1,

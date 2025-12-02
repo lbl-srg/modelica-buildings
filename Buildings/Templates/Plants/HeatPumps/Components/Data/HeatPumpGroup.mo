@@ -166,9 +166,11 @@ record HeatPumpGroup
       dpEva_nominal=dpChiWatHp_nominal)
     "Performance data in cooling mode"
     annotation (
-    choicesAllMatching=true,
-    Dialog(enable=is_rev),
-    Placement(transformation(extent={{22,0},{38,16}})));
+      choicesAllMatching=true,
+      Dialog(enable=is_rev),
+      Placement(transformation(extent={{22,0},{38,16}})));
+  parameter Modelica.Units.SI.Power PHp_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off - Each heat pump";
   annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datHp",
@@ -186,7 +188,7 @@ Only identical heat pumps are currently supported.
 The heat pump performance data are provided via the subrecords
 <code>perHeaHp</code> and <code>perCooHp</code> for the
 heating mode and the cooling mode, respectively.
-For the required format of the performance data files, 
+For the required format of the performance data files,
 please refer to the documentation of the block
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.

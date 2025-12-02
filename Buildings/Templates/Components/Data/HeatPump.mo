@@ -123,8 +123,9 @@ record HeatPump "Record for heat pump model"
     dpSouHea_nominal * (mSouCoo_flow_nominal/mSouHea_flow_nominal)^2
     "Source fluid pressure drop in cooling mode";
   // Propagation of mass flow rate and pressure drop to the subrecords perHea
-  // and perCoo is for reference only. The HP component is parameterized by
-  // the values from this record, not from those subrecords.
+  // and perCoo is for reference only. The mass flow rate and pressure drop in
+  // the HP component are parameterized by the values from this record,
+  // not from those subrecords.
   replaceable parameter
     Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump perHea(
       mCon_flow_nominal=mHeaWat_flow_nominal,
@@ -152,9 +153,11 @@ record HeatPump "Record for heat pump model"
     constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic
     "Performance data in cooling mode"
     annotation (
-    choicesAllMatching=true,
-    Dialog(enable=is_rev),
-    Placement(transformation(extent={{22,0},{38,16}})));
+      choicesAllMatching=true,
+      Dialog(enable=is_rev),
+      Placement(transformation(extent={{22,0},{38,16}})));
+  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
 annotation (
   defaultComponentPrefixes="parameter",
   defaultComponentName="datHp",
@@ -176,7 +179,7 @@ Also note that placeholders values are assigned to some parameters
 of the subrecord <code>perCoo</code> which is used to specify
 the performance data in cooling mode.
 These values should be overwritten for reversible heat pumps.
-This overwriting happens automatically when redeclaring or reassigning 
+This overwriting happens automatically when redeclaring or reassigning
 the performance record <code>perCoo</code>.
 </p>
 </html>"));

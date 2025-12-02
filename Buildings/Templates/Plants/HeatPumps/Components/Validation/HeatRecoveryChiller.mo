@@ -27,9 +27,9 @@ model HeatRecoveryChiller
         "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_Chiller.txt"),
         PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
         PLRCyc_min=0.2,
-        P_min=50,
         use_TEvaOutForTab=true,
-        use_TConOutForTab=true))
+      use_TConOutForTab=true),
+    P_min=50)
     "HRC parameters"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
   parameter Buildings.Templates.Components.Data.PumpSingle datPumChiWatHrc(
@@ -191,7 +191,7 @@ Buildings.Templates.Plants.HeatPumps.Components.HeatRecoveryChiller</a>.
 </p>
 <p>
 The CHW and HW return temperatures and flow rates are at their design values.
-The HRC supply temperature setpoint is switched from the design CHW 
+The HRC supply temperature setpoint is switched from the design CHW
 supply temperature to the design HW supply temperature when the HRC
 operating mode is switched from cooling to heating.
 </p>

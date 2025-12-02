@@ -30,6 +30,7 @@ SKIP=false
 USE_CHECKSUM=false
 SIMULATOR=Dymola
 FRACTION_TEST_COVERAGE=1
+SINGLE_PACKAGE=""
 
 CGREEN='\033[0;32m'
 CRED='\033[0;31m'
@@ -55,6 +56,10 @@ while [[ "$1" != "" ]]; do
         exit 1
       fi
       ;;
+    --single-package )
+      shift
+      SINGLE_PACKAGE="$1"
+      ;;
     --cover )
       shift
       if (( $(echo "$1 > 0.0" | bc -l) )) && (( $(echo "$1 <= 1.0" | bc -l) )); then
@@ -66,12 +71,13 @@ while [[ "$1" != "" ]]; do
       ;;
     * )
         echo "Invalid option: $1"
-        echo "Usage: checkandrun.sh --checksum [--local] [--skip] [--tool SIMULATOR] [--cover FRACTION_TEST_COVERAGE]"
+        echo "Usage: checkandrun.sh --checksum [--local] [--skip] [--tool SIMULATOR] [--cover FRACTION_TEST_COVERAGE] [--single-package PACKAGE_NAME]"
         echo "     --checksum triggers testing based on checksum verification (only method currently available, mandatory option)."
         echo "     --diffhead is to check that the current checksum matches the value from the last commit."
         echo "     --skip disables all simulations (use this option to simply update the checksums locally)."
         echo "     --tool allows specifying the Modelica tool to be used, defaulting to Dymola."
         echo "     --cover allows specifying the fraction of test coverage, defaulting to 1."
+        echo "     --single-package runs tests only for the specified package (e.g., Buildings.Templates.AirHandlersFans)."
         exit 1
        ;;
   esac
@@ -79,33 +85,46 @@ while [[ "$1" != "" ]]; do
 done
 
 # Declare directories that must be checked (with checksum) for each template package.
-# Each key is a Modelica package name under Buildings.Templates (with . as separator).
+# Each key is a full Modelica package name (with . as separator).
 # Each value is a string containing directory paths (relative to `modelica-buildings/Buildings`).
 declare -A checksum_dirs=(
-  ["AirHandlersFans"]="Templates/AirHandlersFans
+  ["Buildings.Templates.AirHandlersFans"]="Templates/AirHandlersFans
                        Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
-  ["ZoneEquipment"]="Templates/ZoneEquipment
+  ["Buildings.Templates.ZoneEquipment"]="Templates/ZoneEquipment
                      Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
                      Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
-  ["Plants.Chillers"]="Templates/Plants/Chillers
-                       Controls/OBC/ASHRAE/G36/Plants/Chillers"
-  ["Plants.HeatPumps"]="Templates/Plants/HeatPumps
+  ["Buildings.Templates.Plants.HeatPumps"]="Templates/Plants/HeatPumps
                         Templates/Plants/Controls"
   ["Plants.Boilers"]="Templates/Plants/Boilers
                       Controls/OBC/ASHRAE/G36/Plants/Boilers"
 )
 # Declare the python script that must be run for each template package.
-# Each key is a Modelica package name under Buildings.Templates (with . as separator).
+# Each key is a full Modelica package name (with . as separator).
 # Each value is a string containing the script path (relative to `modelica-buildings/Buildings`).
 declare -A test_script=(
-  ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
-  ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
-  ["Plants.Chillers"]="./Resources/Scripts/travis/templates/Plants.Chillers.py"
-  ["Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
-  ["Plants.Boilers"]="./Resources/Scripts/travis/templates/Plants.Boilers.py"
+  ["Buildings.Templates.AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
+  ["Buildings.Templates.ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["Buildings.Templates.Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
 )
 
+# Validate single-package argument if provided
+if [[ -n "$SINGLE_PACKAGE" ]]; then
+  if [[ ! ${test_script[$SINGLE_PACKAGE]+isset} ]]; then
+    echo "Error: '$SINGLE_PACKAGE' is not a valid package name." >&2
+    echo "Valid package names are:" >&2
+    for pkg in "${!test_script[@]}"; do
+      echo "  - $pkg" >&2
+    done
+    exit 1
+  fi
+fi
+
 for type in "${!test_script[@]}"; do
+  # Skip if single-package is specified and this is not the package
+  if [[ -n "$SINGLE_PACKAGE" ]] && [[ "$type" != "$SINGLE_PACKAGE" ]]; then
+    continue
+  fi
+
   echo "*** Testing ${type} templates. ***"
   if [ "$USE_CHECKSUM" = true ]; then
     # For each system type: compute checksum of checksum of all mo files under corresponding checksum_dirs, and store value.
@@ -125,7 +144,7 @@ for type in "${!test_script[@]}"; do
     if [ "$DIFFHEAD" = true ]; then
       diff_checksum="$(git diff --name-only HEAD | grep Resources/Scripts/travis/templates/$type.checksum)"
       if (( $? == 0 )); then
-        printf "${CRED}Computed checksum does not match checksum on HEAD${CEND}: please commit updated checksum for Templates.%s.\n" $type
+        printf "${CRED}Computed checksum does not match checksum on HEAD${CEND}: please commit updated checksum for %s.\n" $type
         echo "Computed checksum: $checksum"
         checksum_head=$(git show HEAD:Buildings/Resources/Scripts/travis/templates/$type.checksum 2>/dev/null)
         if [[ -z "$checksum_head" ]]; then

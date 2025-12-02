@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
 model TableData2DLoadDep
-  "Data-based model dependent on condenser and evaporator entering or leaving temperarure and PLR"
+  "Data-based model dependent on condenser and evaporator entering or leaving temperature and PLR"
   extends Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
     final devIde=dat.devIde,
     PEle_nominal=calQUseP.P_nominal * scaFac);

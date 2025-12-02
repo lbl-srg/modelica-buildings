@@ -174,19 +174,18 @@ model ValvesIsolation
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
+    PHp_min=1.0E3,
     perHeaHp(
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
-      P_min=1.0E3,
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
       tabUppBou=[263.15,323.15; 313.15,323.15]),
     perCooHp(
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-      PLRSup={1},
-      P_min=1.0E3))
+      PLRSup={1}))
     "Reversible AWHP parameters"
     annotation (Placement(transformation(extent={{-280,-80},{-260,-60}})));
   Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation valIsoCom(
@@ -459,25 +458,25 @@ for the following configurations.
 <ul>
 <li>
 Heating and cooling system with common dedicated primary HW and CHW pumps
-and isolation valves at both heat pump inlet and outlet: 
+and isolation valves at both heat pump inlet and outlet:
 component <code>valIsoCom</code>.
 </li>
 <li>
-Heating-only system with isolation valves at heat pump inlet: 
+Heating-only system with isolation valves at heat pump inlet:
 component <code>valIsoHeaInl</code>.
 </li>
 <li>
 Heating and cooling system with separate dedicated primary HW and CHW pumps
-and isolation valves at heat pump inlet: 
+and isolation valves at heat pump inlet:
 component <code>valIsoSep</code>.
 </li>
 </ul>
 <p>
-In each configuration, two identical heat pumps are represented by fixed 
-flow resistances (components <code>hp*</code>). 
+In each configuration, two identical heat pumps are represented by fixed
+flow resistances (components <code>hp*</code>).
 </p>
 <p>
-The model uses open loop controls and the simulation allows verifying that design 
+The model uses open loop controls and the simulation allows verifying that design
 flow is obtained in each loop and each heat pump when the valves are open.
 </p>
 </html>"));

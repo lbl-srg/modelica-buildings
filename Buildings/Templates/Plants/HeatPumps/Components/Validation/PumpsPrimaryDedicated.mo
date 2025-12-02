@@ -232,19 +232,18 @@ model PumpsPrimaryDedicated
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
+    PHp_min=1.0E3,
     perHeaHp(
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
-      P_min=1.0E3,
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
       tabUppBou=[263.15,323.15; 313.15,323.15]),
     perCooHp(
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-      PLRSup={1},
-      P_min=1.0E3))
+      PLRSup={1}))
     "Reversible AWHP parameters"
     annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumPriCom(
@@ -641,11 +640,11 @@ for the following configurations.
 </p>
 <ul>
 <li>
-Heating and cooling system with common constant speed dedicated primary pumps: 
+Heating and cooling system with common constant speed dedicated primary pumps:
 component <code>pumPriCom</code>.
 </li>
 <li>
-Heating and cooling system with headered constant speed primary pumps: 
+Heating and cooling system with headered constant speed primary pumps:
 component <code>pumPriHdr</code>.
 </li>
 <li>
@@ -659,31 +658,31 @@ component <code>pumPriHea</code>.
 </ul>
 <p>
 In each configuration, two identical heat pumps are represented by fixed flow resistances
-(components <code>hp*</code>). 
+(components <code>hp*</code>).
 </p>
 <p>
-The model uses open loop controls and the simulation allows verifying that design flow 
+The model uses open loop controls and the simulation allows verifying that design flow
 is obtained in each loop and each heat pump when the pumps are enabled.
 </p>
 <p>
 In the configurations with common constant speed dedicated primary pumps or
-headered constant speed primary pumps, this requires adjusting the 
-design pressure drop of the balancing valves which are modeled by fixed flow 
-resistances in the isolation valve components 
+headered constant speed primary pumps, this requires adjusting the
+design pressure drop of the balancing valves which are modeled by fixed flow
+resistances in the isolation valve components
 <code>valHeaWatIso*</code> and <code>valChiWatIso*</code>.
 This adjustment is done programmatically using the function
 <a href=\"modelica://Buildings.Templates.Utilities.computeBalancingPressureDrop\">
 Buildings.Templates.Utilities.computeBalancingPressureDrop</a>.
 </p>
 <p>
-Similarly, in the configuration with variable speed pumps <code>pumPriHea</code>, 
+Similarly, in the configuration with variable speed pumps <code>pumPriHea</code>,
 the design head of the pumps is voluntarily chosen higher than necessary
-and the required pump speed needed to provide the design HP flow is computed 
+and the required pump speed needed to provide the design HP flow is computed
 at initialization by solving for a balancing valve pressure drop of zero.
 Note that this requires solving a numerical Jacobian at initialization.
 Although this is handled well by various Modelica tools, the parameter
-<code>use_spePumIni</code> allows switching to a default value in 
-this validation model for better integration into the continuous integration 
+<code>use_spePumIni</code> allows switching to a default value in
+this validation model for better integration into the continuous integration
 test workflow.
 </p>
 </html>", revisions="<html>
