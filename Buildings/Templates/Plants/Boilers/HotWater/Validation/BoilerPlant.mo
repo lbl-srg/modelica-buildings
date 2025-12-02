@@ -9,7 +9,7 @@ model BoilerPlant
     Buildings.Templates.Plants.Boilers.HotWater.Validation.UserProject.Data.AllSystems
     datAll(pla(final cfg=pla.cfg))
     "Design and operating parameters"
-    annotation (Placement(transformation(extent={{160,120},{180,140}})));
+    annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -42,70 +42,32 @@ model BoilerPlant
     annotation (Placement(transformation(extent={{-60,-100},{-20,-60}})));
 
   UserProject.BASControlPoints sigBAS "BAS control points"
-    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-  Fluid.HeatExchangers.SensibleCooler_T   loaHeaWat(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=pla.mHeaWat_flow_nominal,
-    show_T=true,
-    final dp_nominal=0,
-    final energyDynamics=energyDynamics,
-    tau=300,
-    QMin_flow=-pla.cap_nominal)
-    "HW system approximated by prescribed return temperature"
-    annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage valDisHeaWat(
-    redeclare final package Medium = Medium,
-    m_flow_nominal=pla.mHeaWat_flow_nominal,
-    dpValve_nominal=3E4,
-    dpFixed_nominal=datAll.pla.ctl.dpHeaWatRemSet_max[1] - 3E4)
-    "Distribution system approximated by variable flow resistance"
-    annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
+    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSup(k=293.15, y(final
         unit="K", displayUnit="degC"))
     "Placeholder signal for request generator"
-    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
+    annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests reqPlaRes(final
       heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
       final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.None)
     "Plant and reset request"
-    annotation (Placement(transformation(extent={{110,90},{90,110}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(table=[0,0; 5,0; 7,
+    annotation (Placement(transformation(extent={{110,30},{90,50}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratLoa(table=[0,0; 5,0; 7,
         1; 12,0.2; 16,0.8; 22,0.1; 24,0],
-                                     timeScale=3600)
-                    "Source signal for CHW flow ratio"
-    annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
-  Buildings.Controls.OBC.CDL.Reals.PID ctlEquZon(
-    k=0.1,
-    Ti=60,
-    final reverseActing=true) "Zone equipment controller"
-    annotation (Placement(transformation(extent={{90,50},{110,70}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo(k=1/pla.mHeaWat_flow_nominal)
-    "Normalize flow rate" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={180,-20})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter THeaWatRet(p=pla.THeaWatRet_nominal
-         - pla.THeaWatSup_nominal) "Prescribed HW return temperature"
-    annotation (Placement(transformation(extent={{-90,-30},{-110,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Max max1(
-    y(unit="K", displayUnit="degC"))
-    "Limit prescribed HWRT"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+                                     timeScale=3600) "Fraction of design load"
+    annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt[2]
     "Importance multiplier"
-    annotation (Placement(transformation(extent={{20,90},{0,110}})));
+    annotation (Placement(transformation(extent={{20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[2](each k=10)
                "Request multiplier factor"
-    annotation (Placement(transformation(extent={{110,130},{90,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=303.15)
-    "Constant limiting prescribed return temperature"
-    annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
+    annotation (Placement(transformation(extent={{110,70},{90,90}})));
   AirHandlersFans.Interfaces.Bus busAirHan
     "AHU control bus"
-    annotation (Placement(transformation(extent={{-40,-60},{0,-20}}),
+    annotation (Placement(transformation(extent={{-40,20},{0,60}}),
       iconTransformation(extent={{-340,-140},{-300,-100}})));
   HeatPumps.Interfaces.Bus busPla "Plant control bus" annotation (Placement(
-        transformation(extent={{-140,-90},{-100,-50}}),iconTransformation(
+        transformation(extent={{-100,-40},{-60,0}}),   iconTransformation(
           extent={{-370,-70},{-330,-30}})));
   Fluid.Sensors.RelativePressure dpHeaWatRem[1](redeclare each final package
       Medium = Medium) "HW differential pressure at one remote location"
@@ -126,75 +88,78 @@ model BoilerPlant
   Fluid.Sensors.TemperatureTwoPort THeaWatSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal)
-    "HW supply temperature" annotation (Placement(transformation(
+    "HW supply temperature"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={20,-40})));
+  Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl
+    loa(
+    redeclare final package MediumLiq = Medium,
+    final typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating,
+    final mLiq_flow_nominal=pla.mHeaWat_flow_nominal,
+    dpBal1_nominal=datAll.pla.ctl.dpHeaWatRemSet_max[1] - loa.dpTer_nominal -
+        loa.dpValve_nominal,
+    final TLiqEnt_nominal=pla.THeaWatSup_nominal,
+    final TLiqLvg_nominal=pla.THeaWatRet_nominal,
+    final energyDynamics=energyDynamics)
+    "Heating load"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(final
+      integerTrue=Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled,
+      final integerFalse=Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.disabled)
+    "Cast enable schedule to integer"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
-  connect(TAirSup.y,reqPlaRes. TAirSup) annotation (Line(points={{-158,120},{
-          120,120},{120,108},{112,108}}, color={0,0,127}));
-  connect(TAirSup.y,reqPlaRes. TAirSupSet) annotation (Line(points={{-158,120},
-          {120,120},{120,103},{112,103}}, color={0,0,127}));
+  connect(TAirSup.y,reqPlaRes. TAirSup) annotation (Line(points={{-158,60},{120,
+          60},{120,48},{112,48}},        color={0,0,127}));
+  connect(TAirSup.y,reqPlaRes. TAirSupSet) annotation (Line(points={{-158,60},{120,
+          60},{120,43},{112,43}},         color={0,0,127}));
   connect(busAirHan, pla.busAirHan[1])
-    annotation (Line(points={{-20,-40},{-20,-66}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-20,40},{-20,-66}}, color={255,204,51},thickness=0.5));
   connect(pla.bus,busPla)
-    annotation (Line(points={{-60,-70},{-120,-70}},
+    annotation (Line(points={{-60,-70},{-80,-70},{-80,-20}},
                                                   color={255,204,51},thickness=0.5));
   connect(cst.y,mulInt. u1)
-    annotation (Line(points={{88,140},{60,140},{60,106},{22,106}},
-                                                               color={255,127,0}));
-  connect(ratFlo.y[1],ctlEquZon. u_s)
-    annotation (Line(points={{-158,60},{88,60}},   color={0,0,127}));
-  connect(norFlo.y,ctlEquZon. u_m) annotation (Line(points={{180,-8},{180,20},{
-          100,20},{100,48}},
-                         color={0,0,127}));
-  connect(ctlEquZon.y,valDisHeaWat. y)
-    annotation (Line(points={{112,60},{120,60},{120,-28}},   color={0,0,127}));
-  connect(con.y,max1. u1) annotation (Line(points={{-158,20},{-80,20},{-80,6},{
-          -62,6}},   color={0,0,127}));
-  connect(THeaWatRet.y, max1.u2) annotation (Line(points={{-112,-20},{-120,-20},
-          {-120,0},{-80,0},{-80,-6},{-62,-6}},
-                             color={0,0,127}));
+    annotation (Line(points={{88,80},{60,80},{60,46},{22,46}}, color={255,127,0}));
   connect(mHeaWatLoo_flow.port_b, dpHeaWatRem[1].port_b) annotation (Line(
         points={{160,-90},{160,-120},{60,-120},{60,-90}}, color={0,127,255}));
   connect(sigBAS.bus, busPla) annotation (Line(
-      points={{-160,-70},{-120,-70}},
+      points={{-160,-20},{-80,-20}},
       color={255,204,51},
       thickness=0.5));
-  connect(mHeaWatLoo_flow.m_flow, norFlo.u)
-    annotation (Line(points={{171,-80},{180,-80},{180,-32}}, color={0,0,127}));
-  connect(valDisHeaWat.port_b, mHeaWatLoo_flow.port_a) annotation (Line(points={
-          {130,-40},{160,-40},{160,-70}}, color={0,127,255}));
-  connect(loaHeaWat.port_b, valDisHeaWat.port_a)
-    annotation (Line(points={{90,-40},{110,-40}}, color={0,127,255}));
   connect(mHeaWatLoo_flow.port_b, pipHeaWat.port_a) annotation (Line(points={{160,
           -90},{160,-120},{30,-120}}, color={0,127,255}));
   connect(pipHeaWat.port_b, pla.port_a) annotation (Line(points={{10,-120},{0,-120},
           {0,-90},{-19.8,-90}}, color={0,127,255}));
-  connect(dpHeaWatRem[1].port_a, loaHeaWat.port_a)
-    annotation (Line(points={{60,-70},{60,-40},{70,-40}}, color={0,127,255}));
-  connect(valDisHeaWat.y_actual, reqPlaRes.uHeaCoiSet) annotation (Line(points={{125,-33},
-          {140,-33},{140,92},{112,92}},           color={0,0,127}));
   connect(mulInt[1].y, busAirHan.reqPlaHeaWat)
-    annotation (Line(points={{-2,100},{-20,100},{-20,-40}},
-                                                          color={255,127,0}));
+    annotation (Line(points={{-2,40},{-20,40}},           color={255,127,0}));
   connect(mulInt[2].y, busAirHan.reqResHeaWat)
-    annotation (Line(points={{-2,100},{-20,100},{-20,-40}},
-                                                          color={255,127,0}));
-  connect(reqPlaRes.yHotWatPlaReq, mulInt[1].u2) annotation (Line(points={{88,92},
-          {80,92},{80,94},{22,94}}, color={255,127,0}));
-  connect(reqPlaRes.yHotWatResReq, mulInt[2].u2) annotation (Line(points={{88,97},
-          {80,97},{80,94},{22,94}}, color={255,127,0}));
-  connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem) annotation (Line(points={{51,
-          -80},{40,-80},{40,-50},{-120,-50},{-120,-70}}, color={0,0,127}));
-  connect(max1.y, loaHeaWat.TSet) annotation (Line(points={{-38,0},{60,0},{60,
-          -32},{68,-32}}, color={0,0,127}));
-  connect(pla.port_b, THeaWatSup.port_a) annotation (Line(points={{-19.8,-80},{
-          0,-80},{0,-40},{10,-40}}, color={0,127,255}));
-  connect(THeaWatSup.port_b, loaHeaWat.port_a)
-    annotation (Line(points={{30,-40},{70,-40}}, color={0,127,255}));
-  connect(THeaWatSup.T, THeaWatRet.u)
-    annotation (Line(points={{20,-29},{20,-20},{-88,-20}}, color={0,0,127}));
+    annotation (Line(points={{-2,40},{-20,40}},           color={255,127,0}));
+  connect(reqPlaRes.yHotWatPlaReq, mulInt[1].u2) annotation (Line(points={{88,32},
+          {80,32},{80,34},{22,34}}, color={255,127,0}));
+  connect(reqPlaRes.yHotWatResReq, mulInt[2].u2) annotation (Line(points={{88,37},
+          {80,37},{80,34},{22,34}}, color={255,127,0}));
+  connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem) annotation (Line(points={{51,-80},
+          {40,-80},{40,-20},{-80,-20}},                  color={0,0,127}));
+  connect(pla.port_b, THeaWatSup.port_a) annotation (Line(points={{-19.8,-80},{0,
+          -80},{0,-40},{10,-40}},   color={0,127,255}));
+  connect(loa.port_b, mHeaWatLoo_flow.port_a) annotation (Line(points={{120,-40},
+          {160,-40},{160,-70}}, color={0,127,255}));
+  connect(THeaWatSup.port_b, loa.port_a)
+    annotation (Line(points={{30,-40},{100,-40}}, color={0,127,255}));
+  connect(dpHeaWatRem[1].port_a, loa.port_a)
+    annotation (Line(points={{60,-70},{60,-40},{100,-40}}, color={0,127,255}));
+  connect(loa.yVal_actual, reqPlaRes.uHeaCoiSet) annotation (Line(points={{122,-32},
+          {140,-32},{140,32},{112,32}}, color={0,0,127}));
+  connect(ratLoa.y[1], loa.u) annotation (Line(points={{-158,20},{80,20},{80,-32},
+          {98,-32}}, color={0,0,127}));
+  connect(booToInt.y, loa.mode) annotation (Line(points={{-28,0},{76,0},{76,-36},
+          {98,-36}}, color={255,127,0}));
+  connect(busPla.u1Sch, booToInt.u) annotation (Line(
+      points={{-80,-20},{-80,0},{-52,0}},
+      color={255,204,51},
+      thickness=0.5));
 annotation (
   __Dymola_Commands(
     file=
@@ -213,9 +178,8 @@ their peak value.
 </p>
 <p>
 Two equally sized condensing boilers are modeled.
-A unique aggregated load is modeled on the HW loop by means of a cooling
-component controlled to maintain a constant <i>&Delta;T</i>,
-and a modulating valve controlled to track a prescribed flow rate.
+A unique aggregated load is modeled on the CHW loop using a heat exchanger component
+exposed to conditioned space air, and a two-way modulating valve.
 An importance multiplier of <i>10</i> is applied to the plant requests
 and reset requests generated from the valve position.
 </p>
@@ -244,5 +208,5 @@ configurations, see
 <code>Buildings/Resources/Scripts/travis/templates/BoilerPlant.py</code>.
 </p>
 </html>"),
-    Diagram(coordinateSystem(extent={{-200,-160},{200,160}})));
+    Diagram(coordinateSystem(extent={{-200,-140},{200,140}})));
 end BoilerPlant;
