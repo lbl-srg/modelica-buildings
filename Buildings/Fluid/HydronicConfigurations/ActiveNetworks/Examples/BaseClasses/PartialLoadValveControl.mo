@@ -55,7 +55,7 @@ partial model PartialLoadValveControl
     60+273.15
     "Liquid entering temperature in change-over mode"
     annotation(Dialog(
-      enable=typ <> Buildings.Fluid.HydronicConfigurations.Types.Control.Heating));
+      enable=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
    (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEnt_nominal, X=MediumLiq.X_default)-

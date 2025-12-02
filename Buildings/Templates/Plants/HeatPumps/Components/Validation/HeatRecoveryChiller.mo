@@ -191,7 +191,7 @@ Buildings.Templates.Plants.HeatPumps.Components.HeatRecoveryChiller</a>.
 </p>
 <p>
 The CHW and HW return temperatures and flow rates are at their design values.
-The HRC supply temperature setpoint is switched from the design CHW 
+The HRC supply temperature setpoint is switched from the design CHW
 supply temperature to the design HW supply temperature when the HRC
 operating mode is switched from cooling to heating.
 </p>
