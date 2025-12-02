@@ -10,6 +10,8 @@ block EnableDevices
     "Total number of condenser water pumps";
   parameter Real iniPumDel(unit="s") = 5
     "Time to delay pump operation when the plant is just initiated";
+  parameter Boolean have_airCoo=false
+    "True: the plant has air cooled chiller";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enable signal"
@@ -32,6 +34,7 @@ block EnableDevices
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    if not have_airCoo
     "Condenser water pump proven on"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -44,6 +47,7 @@ block EnableDevices
     annotation (Placement(transformation(extent={{160,10},{200,50}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatIsoVal
+    if not have_airCoo
     "Lead chiller condenser water isolation valve commanded open"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,20},{140,60}})));
@@ -52,10 +56,12 @@ block EnableDevices
     annotation (Placement(transformation(extent={{160,-50},{200,-10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaConPum
+    if not have_airCoo
     "Lead condenser water pump commanded on"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaTowCel
+    if not have_airCoo
     "Lead cooling tower cell commanded on"
     annotation (Placement(transformation(extent={{160,-110},{200,-70}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -63,7 +69,6 @@ block EnableDevices
     "Lead chiller commanded on"
     annotation (Placement(transformation(extent={{160,-140},{200,-100}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
-
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Check if current stage is initial stage"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -73,7 +78,8 @@ block EnableDevices
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Plant enable edge"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch ecoMod "Plant enabled in economizer mode"
+  Buildings.Controls.OBC.CDL.Logical.Latch ecoMod
+    "Plant enabled in economizer mode"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
@@ -85,18 +91,25 @@ block EnableDevices
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Enabled devices associate with chiller mode operation"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr chiWatPumOn(final nin=nChiWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr chiWatPumOn(
+    final nin=nChiWatPum)
     "Check if there is any chilled water pump proven on"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr conWatPumOn(final nin=nConWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr conWatPumOn(
+    final nin=nConWatPum)
+    if not have_airCoo
     "Check if there is any condenser water pump proven on"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if the lead pumps are proven on"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Enable lead chiller"
-    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
+    annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true) if have_airCoo
+    "Constant true"
+    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
 
 equation
   connect(uPla, edg.u)
@@ -115,36 +128,38 @@ equation
           22},{-42,22}}, color={255,127,0}));
   connect(uIni, intChiMod.u1) annotation (Line(points={{-180,60},{-120,60},{-120,
           30},{-42,30}}, color={255,127,0}));
-  connect(ecoMod.y, and1.u2) annotation (Line(points={{22,100},{40,100},{40,22},
+  connect(ecoMod.y, and1.u2) annotation (Line(points={{22,100},{80,100},{80,22},
           {98,22}}, color={255,0,255}));
   connect(and1.y, yChiWatIsoVal)
     annotation (Line(points={{122,30},{180,30}}, color={255,0,255}));
   connect(and1.y, yConWatIsoVal) annotation (Line(points={{122,30},{140,30},{140,
-          0},{180,0}},     color={255,0,255}));
+          0},{180,0}}, color={255,0,255}));
   connect(uChiWatPum, chiWatPumOn.u)
     annotation (Line(points={{-180,-60},{-122,-60}}, color={255,0,255}));
   connect(uConWatPum, conWatPumOn.u)
     annotation (Line(points={{-180,-110},{-122,-110}}, color={255,0,255}));
   connect(chiWatPumOn.y, and2.u1)
-    annotation (Line(points={{-98,-60},{-62,-60}}, color={255,0,255}));
+    annotation (Line(points={{-98,-60},{-2,-60}},  color={255,0,255}));
   connect(conWatPumOn.y, and2.u2) annotation (Line(points={{-98,-110},{-80,-110},
-          {-80,-68},{-62,-68}}, color={255,0,255}));
-  connect(and2.y, and3.u2) annotation (Line(points={{-38,-60},{-20,-60},{-20,-128},
-          {18,-128}}, color={255,0,255}));
-  connect(and1.y, and3.u1) annotation (Line(points={{122,30},{140,30},{140,0},{0,
-          0},{0,-120},{18,-120}}, color={255,0,255}));
+          {-80,-68},{-2,-68}},  color={255,0,255}));
+  connect(and2.y, and3.u2) annotation (Line(points={{22,-60},{40,-60},{40,-128},
+          {98,-128}}, color={255,0,255}));
+  connect(and1.y, and3.u1) annotation (Line(points={{122,30},{140,30},{140,0},{60,
+          0},{60,-120},{98,-120}},color={255,0,255}));
   connect(and3.y, yLeaChi)
-    annotation (Line(points={{42,-120},{180,-120}}, color={255,0,255}));
+    annotation (Line(points={{122,-120},{180,-120}},color={255,0,255}));
   connect(not1.y, ecoMod.clr) annotation (Line(points={{-38,60},{-20,60},{-20,94},
           {-2,94}}, color={255,0,255}));
   connect(intChiMod.y, and1.u1)
     annotation (Line(points={{-18,30},{98,30}}, color={255,0,255}));
-  connect(ecoMod.y, yLeaPriChiPum) annotation (Line(points={{22,100},{40,100},{
-          40,-30},{180,-30}}, color={255,0,255}));
-  connect(ecoMod.y, yLeaConPum) annotation (Line(points={{22,100},{40,100},{40,
-          -60},{180,-60}}, color={255,0,255}));
-  connect(ecoMod.y, yLeaTowCel) annotation (Line(points={{22,100},{40,100},{40,
-          -90},{180,-90}}, color={255,0,255}));
+  connect(ecoMod.y, yLeaPriChiPum) annotation (Line(points={{22,100},{80,100},{80,
+          -30},{180,-30}},    color={255,0,255}));
+  connect(ecoMod.y, yLeaConPum) annotation (Line(points={{22,100},{80,100},{80,-60},
+          {180,-60}},      color={255,0,255}));
+  connect(ecoMod.y, yLeaTowCel) annotation (Line(points={{22,100},{80,100},{80,-90},
+          {180,-90}},      color={255,0,255}));
+  connect(con.y, and2.u2) annotation (Line(points={{-38,-110},{-20,-110},{-20,-68},
+          {-2,-68}}, color={255,0,255}));
 annotation (defaultComponentName = "enaDev",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={

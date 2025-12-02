@@ -34,9 +34,6 @@ model Controller "Validation sequence of tower cell controller"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not StaTow "Stage tower cells"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatPumSpe[2](
-    final k=fill(0.5, 2)) "Condenser water pump speed"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=false)
     "Constant false"
@@ -67,8 +64,6 @@ equation
           {-40,-5},{38,-5}}, color={255,0,255}));
   connect(wseSta.y, towSta.uWse) annotation (Line(points={{-98,-40},{-34,-40},{-34,
           -7},{38,-7}},   color={255,0,255}));
-  connect(conWatPumSpe.y, towSta.uConWatPumSpe) annotation (Line(points={{-58,-100},
-          {-26,-100},{-26,-13},{38,-13}}, color={0,0,127}));
   connect(towSta.yTowSta, pre1.u) annotation (Line(points={{62,-14},{78,-14}},
           color={255,0,255}));
   connect(con1.y, towSta.uEnaPla) annotation (Line(points={{-98,120},{0,120},{0,
@@ -77,6 +72,8 @@ equation
           {30,-1},{38,-1}}, color={255,127,0}));
   connect(con2.y, towSta.uPla) annotation (Line(points={{-58,-60},{-30,-60},{-30,
           -11},{38,-11}}, color={255,0,255}));
+  connect(con2.y, towSta.uAnyConWatPum) annotation (Line(points={{-58,-60},{-30,
+          -60},{-30,-13},{38,-13}}, color={255,0,255}));
 annotation (experiment(
       StopTime=3600,
       Tolerance=1e-06),

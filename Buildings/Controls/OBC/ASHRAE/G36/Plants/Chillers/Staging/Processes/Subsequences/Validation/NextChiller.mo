@@ -51,14 +51,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi[2](
     final k={true,false}) "Vector of chillers status setpoint at stage one"
     annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
-  CDL.Integers.Sources.Constant                     upSta(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant upSta(
     final k=2) "Stage two"
     annotation (Placement(transformation(extent={{-260,230},{-240,250}})));
-  CDL.Integers.Sources.Constant                     dowSta(
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant dowSta(
     final k=1) "Stage one"
     annotation (Placement(transformation(extent={{-260,190},{-240,210}})));
-  CDL.Integers.Switch                     intSwi
-                                              "Logical switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
+    "Logical switch"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi[2](
     final k={false,true})
@@ -93,8 +93,8 @@ protected
     final k=1)
     "Stage one"
     annotation (Placement(transformation(extent={{40,190},{60,210}})));
-  CDL.Integers.Switch                     intSwi3
-                                               "Logical switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
+    "Logical switch"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi1[2](
     final k={true,true})
@@ -127,8 +127,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant dowSta2(
     final k=1) "Stage one"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
-  CDL.Integers.Switch                     intSwi1
-                                               "Logical switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
+    "Logical switch"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](
     final k={false,true})
@@ -263,8 +263,7 @@ equation
   connect(booRep3.y, chiSet3.u2)
     annotation (Line(points={{142,-220},{158,-220}}, color={255,0,255}));
   connect(staTwoChi3.y, chiSet3.u3) annotation (Line(points={{62,-240},{150,
-          -240},{150,-228},{158,-228}},
-                                  color={255,0,255}));
+          -240},{150,-228},{158,-228}}, color={255,0,255}));
   connect(staDow1.y, inPro3.u2) annotation (Line(points={{102,-160},{110,-160},{
           110,-280},{158,-280}}, color={255,0,255}));
   connect(endPro3.y, inPro3.u3) annotation (Line(points={{102,-300},{140,-300},
@@ -277,7 +276,6 @@ equation
           100,-92},{118,-92}}, color={0,0,127}));
   connect(upSta3.y, intSwi2.u3) annotation (Line(points={{62,-120},{100,-120},{
           100,-108},{118,-108}}, color={0,0,127}));
-
   connect(intSwi.y, nexChi.uStaSet) annotation (Line(points={{-158,220},{-80,220},
           {-80,187},{-62,187}}, color={255,127,0}));
   connect(upSta.y, intSwi.u1) annotation (Line(points={{-238,240},{-220,240},{-220,
@@ -319,14 +317,14 @@ This example validates
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller</a>.
 </p>
 <p>
-It has four instances as below to demonstrate the process of identifying next
-changing chiller(s) when the plant is in staging process.
+It has four instances as below to demonstrate the process of identifying the next
+changing chiller(s) when the plant is in the staging process.
 </p>
 <p>
 The instance <code>nexChi</code> shows how the changing chillers being identified
-in a staging up process that requires a large chiller being enabled and a small
-chiller being disabled. The plant stages up from stage 1 that requires chiller 1
-operating to stage 2 that requires chiller 2 operating.
+in a staging up process that requires a large chiller to be enabled and a small
+chiller to be disabled. The plant stages up from stage 1 that requires chiller 1
+operating, to stage 2 that requires chiller 2 operating.
 </p>
 <ul>
 <li>
@@ -337,8 +335,8 @@ and disabling chiller are the default 1.
 </li>
 <li>
 At 18 seconds, the plant starts staging up (<code>endPro=false</code>,
-<code>yUp=true</code>) and it requires one chiller being enabled and another
-chiller being disabled (<code>yOnOff=true</code>). The next enabling chiller is
+<code>yUp=true</code>) and it requires one chiller to be enabled and another
+chiller to be disabled (<code>yOnOff=true</code>). The next enabling chiller is
 chiller 2 (<code>yNexEnaChi=2</code>) and the next disabling chiller is chiller 1
 (<code>yDisSmaChi=1</code>). The chiller status setpoints are changed accordingly.
 </li>
@@ -349,9 +347,9 @@ At 60 seconds, the staging process is done (<code>endPro=true</code>,
 </ul>
 
 <p>
-The instance <code>nexChi1</code> shows how the changing chillers being identified
-in a staging up process that requires one additional chiller being enabled. The
-plant stages up from stage 1 that requires chiller 1 operating to stage 2 that
+The instance <code>nexChi1</code> shows how the changing chillers are identified
+in a staging up process that requires one additional chiller to be enabled. The
+plant stages up from stage 1 that requires chiller 1 operating, to stage 2 that
 requires both chiller 1 and chiller 2 operating.
 </p>
 <ul>
@@ -401,23 +399,23 @@ At 60 seconds, the staging process is done (<code>endPro=true</code>,
 </ul>
 
 <p>
-The instance <code>nexChi3</code> shows how the changing chillers being identified
-in a staging down process that requires one additional chiller being disabled. The
-plant stages down from stage 2 that requires both chiller 1 and chiller 2 operating
+The instance <code>nexChi3</code> shows how the changing chillers are identified
+in a staging down process that requires one additional chiller to be disabled. The
+plant stages down from stage 2 that requires both chiller 1 and chiller 2 operating,
 to stage 1 that requires just chiller 1 operating.
 </p>
 <ul>
 <li>
 Before 18 seconds, the plant is in stage 2 and is not in the staging process
-(<code>endPro=true</code>). Chiller 2 is enabled (<code>uChiSet[2]=true</code>) and
-chiller 1 is not enabled (<code>uChiSet[1]=false</code>). The next enabling and
+(<code>endPro=true</code>). The chiller 2 is enabled (<code>uChiSet[2]=true</code>) and
+the chiller 1 is not enabled (<code>uChiSet[1]=false</code>). The next enabling and
 disabling chiller are the default 1.
 </li>
 <li>
 At 18 seconds, the plant starts staging down (<code>endPro=false</code>,
 <code>yDow=true</code>) and it does not require one chiller being disabled and
 another chiller being enabled (<code>yOnOff=false</code>). The next additional
-disabling chiller is chiller 2 (<code>yLasDisChi=2</code>) . The chiller status
+disabling chiller is chiller 2 (<code>yLasDisChi=2</code>). The chiller status
 setpoints are changed accordingly.
 </li>
 <li>

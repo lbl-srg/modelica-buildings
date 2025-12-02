@@ -5,7 +5,7 @@ package SetPoints "Package for chiller stage setpoint control sequences"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains chiller stage setpoint control sequences. The implementation
-is based on section 5.20.4. in ASHRAE Guideline36-2021.
+is based on section 5.20.4. in ASHRAE Guideline 36-2021.
 </p>
 </html>"));
 end SetPoints;

@@ -29,6 +29,5 @@ compareVars :=
     "chiPlaCon.towCon.yIsoVal[2]",
     "chiPlaCon.towCon.yTowSta[1]",
     "chiPlaCon.towCon.yTowSta[2]",
-    "chiPlaCon.towCon.ySpeSet[1]",
-    "chiPlaCon.towCon.ySpeSet[2]"
+    "chiPlaCon.towCon.ySpeSet"
   };

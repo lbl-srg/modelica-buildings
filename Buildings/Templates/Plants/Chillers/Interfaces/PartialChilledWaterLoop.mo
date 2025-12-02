@@ -15,28 +15,29 @@ partial model PartialChilledWaterLoop
       final typMeaCtlChiWatPri=ctl.typMeaCtlChiWatPri,
       final have_valChiWatChiBypPar=intChi.have_valChiWatChiBypPar));
 
-  replaceable
-    Buildings.Templates.Plants.Chillers.Components.ChillerGroups.Compression
-    chi(final linearized=linearized, final show_T=show_T)
-        constrainedby
-    Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialChillerGroup(
-    redeclare final package MediumChiWat = MediumChiWat,
-    redeclare final package MediumCon = MediumCon,
-    final nChi=nChi,
-    final typ=typChi,
-    final typArrChi=typArrChi,
-    final typArrPumChiWatPri=typArrPumChiWatPri,
-    final typArrPumConWat=typArrPumConWat,
-    final have_pumConWatVar=have_pumConWatVar,
-    final typCtlHea=ctl.typCtlHea,
-    final typDisChiWat=typDisChiWat,
-    final typMeaCtlChiWatPri=ctl.typMeaCtlChiWatPri,
-    final typEco=typEco,
-    final dat=dat.chi,
-    final tau=tau,
-    final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) "Chillers" annotation (Dialog(
-        group="Chillers"), Placement(transformation(extent={{-40,-196},{40,4}})));
+  replaceable Buildings.Templates.Plants.Chillers.Components.ChillerGroups.Compression chi(
+      final dTLifChi_min=dat.ctl.dTLifChi_min,
+      final linearized=linearized,
+      final show_T=show_T)
+    constrainedby Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialChillerGroup(
+      redeclare final package MediumChiWat = MediumChiWat,
+      redeclare final package MediumCon = MediumCon,
+      final nChi=nChi,
+      final typ=typChi,
+      final typArrChi=typArrChi,
+      final typArrPumChiWatPri=typArrPumChiWatPri,
+      final typArrPumConWat=typArrPumConWat,
+      final have_pumConWatVar=have_pumConWatVar,
+      final typCtlHea=ctl.typCtlHea,
+      final typDisChiWat=typDisChiWat,
+      final typMeaCtlChiWatPri=ctl.typMeaCtlChiWatPri,
+      final typEco=typEco,
+      final dat=dat.chi,
+      final tau=tau,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversal=allowFlowReversal)
+    "Chillers"
+    annotation (Dialog(group="Chillers"), Placement(transformation(extent={{-40,-196},{40,4}})));
 
   // Primary CHW loop
   Plants.Chillers.Components.Routing.ChillersToPrimaryPumps intChi(

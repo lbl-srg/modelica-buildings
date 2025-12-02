@@ -39,7 +39,6 @@ annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/HeadPressure/Subsequences/Validation/MappingWithoutWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
-
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.HeadPressure.Subsequences.MappingWithoutWSE\">
@@ -48,9 +47,9 @@ It demonstrates the setpoints control based on the output
 from the head pressure control loop.
 </p>
 <p>
-The instances <code>fixPumSpe</code> and <code>varPumSpe</code> shows
+The instances <code>fixPumSpe</code> and <code>varPumSpe</code> show
 the control of the plants with the fixed speed condenser water pump
-and the variable speed condenser water pump respectively.
+and the variable speed condenser water pump, respectively.
 </p>
 <ul>
 <li>
@@ -91,7 +90,7 @@ to the minimum speed <code>minConWatPumSpe</code> (0.1).
 For both instances, when the head pressure control loop becomes disabled,
 the head pressure control valve is fully closed; the maximum
 tower speed setpoint and the condenser water pump speed
-setpoint becomes 0.
+setpoints become 0.
 </li>
 </ul>
 </html>", revisions="<html>

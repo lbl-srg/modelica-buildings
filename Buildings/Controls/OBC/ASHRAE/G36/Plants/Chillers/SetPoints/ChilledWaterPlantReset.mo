@@ -31,7 +31,7 @@ block ChilledWaterPlantReset
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TChiWatSupResReq
     "Chilled water supply temperature setpoint reset request"
-    annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
+    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
     "Plant staging status that indicates if the plant is in the staging process"
@@ -49,6 +49,7 @@ block ChilledWaterPlantReset
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
+    final have_hol=true,
     final iniSet=iniSet,
     final minSet=minSet,
     final maxSet=maxSet,
@@ -57,24 +58,12 @@ block ChilledWaterPlantReset
     final numIgnReq=numIgnReq,
     final triAmo=triAmo,
     final resAmo=resAmo,
-    final maxRes=maxRes) "Calculate chilled water plant reset"
+    final maxRes=maxRes,
+    final dtHol=holTim)
+    "Calculate chilled water plant reset"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
-    "Sample last reset value when there is chiller stage change"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
-    final trueHoldDuration=holTim,
-    final falseHoldDuration=0)
-    "Hold the true input with given time"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Check if the input changes from false to true"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi
-    "Switch plant reset value depends on if there is chiller stage change"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nPum] "Logical not"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
@@ -98,36 +87,20 @@ equation
     annotation (Line(points={{-38,60},{-22,60}}, color={255,0,255}));
   connect(uChiWatPum, not1.u)
     annotation (Line(points={{-140,60},{-102,60}}, color={255,0,255}));
-  connect(triRes.y, triSam.u)
-    annotation (Line(points={{-38,20},{-22,20}}, color={0,0,127}));
-  connect(truHol.y, swi.u2)
-    annotation (Line(points={{-58,-40},{38,-40}}, color={255,0,255}));
-  connect(triRes.y, swi.u3)
-    annotation (Line(points={{-38,20},{-30,20},{-30,-48},{38,-48}},
-      color={0,0,127}));
-  connect(triSam.y, swi.u1)
-    annotation (Line(points={{2,20},{10,20},{10,-32},{38,-32}},
-      color={0,0,127}));
-  connect(edg.y, triSam.trigger)
-    annotation (Line(points={{-58,-10},{-10,-10},{-10,8}}, color={255,0,255}));
-  connect(chaPro, truHol.u)
-    annotation (Line(points={{-140,-40},{-82,-40}},color={255,0,255}));
-  connect(chaPro, edg.u)
-    annotation (Line(points={{-140,-40},{-100,-40},{-100,-10},{-82,-10}},
-      color={255,0,255}));
-  connect(TChiWatSupResReq, triRes.numOfReq) annotation (Line(points={{-140,20},
-          {-80,20},{-80,12},{-62,12}}, color={255,127,0}));
+  connect(TChiWatSupResReq, triRes.numOfReq) annotation (Line(points={{-140,0},
+          {-80,0},{-80,12},{-62,12}},  color={255,127,0}));
   connect(not2.y, triRes.uDevSta) annotation (Line(points={{2,60},{20,60},{20,40},
           {-80,40},{-80,28},{-62,28}}, color={255,0,255}));
   connect(not2.y, swi1.u2) annotation (Line(points={{2,60},{20,60},{20,-60},{78,
           -60}}, color={255,0,255}));
-  connect(swi.y, swi1.u1) annotation (Line(points={{62,-40},{70,-40},{70,-52},{78,
-          -52}}, color={0,0,127}));
   connect(con1.y, swi1.u3) annotation (Line(points={{-18,-80},{70,-80},{70,-68},
           {78,-68}}, color={0,0,127}));
   connect(swi1.y, yChiWatPlaRes)
     annotation (Line(points={{102,-60},{140,-60}}, color={0,0,127}));
-
+  connect(chaPro, triRes.uHol) annotation (Line(points={{-140,-40},{-100,-40},{
+          -100,20},{-62,20}}, color={255,0,255}));
+  connect(triRes.y, swi1.u1) annotation (Line(points={{-38,20},{60,20},{60,-52},
+          {78,-52}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiWatPlaRes",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -177,7 +150,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that output chilled water plant reset <code>yChiWatPlaRes</code> according
-to ASHRAE Guideline36-2021, section 5.20.5.2.
+to ASHRAE Guideline 36-2021, section 5.20.5.2.
 </p>
 <p>
 Following implementation is for plants with primary-only and primary-secondary
@@ -186,7 +159,7 @@ systems serving differential pressure controlled pumps.
 <ul>
 <li>
 Chilled water plant reset <code>yChiWatPlaRes</code> shall be reset
-using trim-respond logic with following parameters:
+using trim-respond logic with the following parameters:
 </li>
 </ul>
 <table summary=\"summary\" border=\"1\">
@@ -214,14 +187,14 @@ the plant is disabled (all chilled water pumps are disabled, <code>uChiWatPum</c
 <ul>
 <li>
 When the plant stage change is initiated (<code>uStaCha</code>=true), the plant
-reset <code>yChiWatPlaRes</code> shall be disabled and value fixed at its last
+reset <code>yChiWatPlaRes</code> shall be disabled and the value fixed at its last
 value for the longer of <code>holTim</code> and the time it takes for the plant
 to successfully stage.
 </li>
 </ul>
 <p>
 For primary-secondary plants serving more than one set of differential pressure
-controlled pumps, an unique instance of the reset shall be used for each set of
+controlled pumps, a unique instance of the reset shall be used for each set of
 differential pressure controlled secondary pumps.
 </p>
 <ul>

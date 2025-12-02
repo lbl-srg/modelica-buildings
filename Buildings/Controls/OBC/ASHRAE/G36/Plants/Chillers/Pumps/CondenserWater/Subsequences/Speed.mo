@@ -14,11 +14,11 @@ block Speed
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE";
   parameter Real desConWatPumSpe[totSta] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
     "Design condenser water pump speed setpoint, according to current chiller stage and WSE status"
-    annotation (Dialog(group="Setpoint according to stage"));
-  parameter Real desConWatPumNum[totSta] = {0,1,1,2,2,2}
+    annotation (Dialog(group="Setpoint according to stage", enable=not fixSpe));
+  parameter Integer desConWatPumNum[totSta] = {0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
-  parameter Real desChiNum[nChiSta] = {0, 1, 2}
+  parameter Integer desChiNum[nChiSta] = {0, 1, 2}
     "Design number of chiller that should be ON, according to current chiller stage"
     annotation (Dialog(group="Setpoint according to stage", enable=fixSpe));
 
@@ -41,7 +41,7 @@ block Speed
       iconTransformation(extent={{100,40},{140,80}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumOn(
+  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor conWatPumOn(
     final nin=totSta) if not fixSpe
     "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
@@ -49,14 +49,11 @@ protected
     final nin=totSta) if not fixSpe
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt if not fixSpe
-    "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[totSta](
     final k=desConWatPumSpe) if not fixSpe
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[totSta](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[totSta](
     final k=desConWatPumNum) if not fixSpe
     "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
@@ -97,17 +94,14 @@ protected
     final k=0) if not have_WSE
     "Constant zero"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5[nChiSta](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChiSta](
     final k=desChiNum) if fixSpe
     "Number of chiller should be enabled"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumOn1(
+  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor conWatPumOn1(
     final nin=nChiSta) if fixSpe
     "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 if fixSpe
-    "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Integers.AddParameter addPar(
     final p=1)
     if fixSpe
@@ -117,16 +111,10 @@ protected
 equation
   connect(con1.y,conWatPumSpe. u)
     annotation (Line(points={{62,20},{78,20}}, color={0,0,127}));
-  connect(con2.y,conWatPumOn. u)
-    annotation (Line(points={{2,-20},{18,-20}}, color={0,0,127}));
   connect(uChiSta,intToRea. u)
     annotation (Line(points={{-160,100},{-122,100}}, color={255,127,0}));
   connect(conWatPumSpe.y, yDesConWatPumSpe)
     annotation (Line(points={{102,20},{160,20}}, color={0,0,127}));
-  connect(yConWatPumNum, reaToInt.y)
-    annotation (Line(points={{160,-20},{82,-20}}, color={255,127,0}));
-  connect(conWatPumOn.y, reaToInt.u)
-    annotation (Line(points={{42,-20},{58,-20}}, color={0,0,127}));
   connect(uWSE, booToRea.u)
     annotation (Line(points={{-160,-40},{-122,-40}}, color={255,0,255}));
   connect(intToRea.y, add2.u1)
@@ -149,21 +137,23 @@ equation
       color={255,127,0}));
   connect(con4.y, add2.u2)
     annotation (Line(points={{-98,0},{-90,0},{-90,94},{-82,94}}, color={0,0,127}));
-  connect(con5.y, conWatPumOn1.u)
-    annotation (Line(points={{2,-60},{18,-60}}, color={0,0,127}));
-  connect(conWatPumOn1.y, reaToInt1.u)
-    annotation (Line(points={{42,-60},{58,-60}}, color={0,0,127}));
-  connect(reaToInt1.y, yConWatPumNum) annotation (Line(points={{82,-60},{120,-60},
-          {120,-20},{160,-20}}, color={255,127,0}));
   connect(reaRep.y, sub1.u1) annotation (Line(points={{-18,100},{-10,100},{-10,86},
           {-2,86}}, color={0,0,127}));
   connect(con3.y, sub1.u2) annotation (Line(points={{-18,60},{-10,60},{-10,74},{
           -2,74}}, color={0,0,127}));
-
   connect(addPar.y, conWatPumOn1.index)
     annotation (Line(points={{-58,-80},{30,-80},{30,-72}}, color={255,127,0}));
   connect(uChiSta, addPar.u) annotation (Line(points={{-160,100},{-130,100},{-130,
           -80},{-82,-80}}, color={255,127,0}));
+  connect(conWatPumOn.y, yConWatPumNum)
+    annotation (Line(points={{42,-20},{160,-20}}, color={255,127,0}));
+  connect(conWatPumOn1.y, yConWatPumNum) annotation (Line(points={{42,-60},{120,
+          -60},{120,-20},{160,-20}}, color={255,127,0}));
+  connect(conInt.y, conWatPumOn1.u)
+    annotation (Line(points={{2,-60},{18,-60}}, color={255,127,0}));
+  connect(conInt1.y, conWatPumOn.u)
+    annotation (Line(points={{2,-20},{18,-20}}, color={255,127,0}));
+
 annotation (
   defaultComponentName="conPumSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -200,12 +190,14 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{140,120}})),
   Documentation(info="<html>
 <p>
-Block that outputs number of operating condenser water pumps and design pump speed 
-for current stage, according to ASHRAE Guideline36-2021, 
-section 5.20.9 Condenser water pumps, part 5.20.9.5 and 5.20.9.6.
+Block that outputs the number of operating condenser water pumps and design pump speed 
+for current stage, according to ASHRAE Guideline 36-2021, 
+section 5.20.9 Condenser water pumps, part 5.20.9.5, and 5.20.9.6.
 </p>
-<p>If the plant has fixed speed condenser water pump (<code>fixSpe=true</code>) and
-does not have wateside economizer (<code>have_WSE=false</code>):</p>
+<p>
+If the plant has the fixed speed condenser water pump (<code>fixSpe=true</code>) and
+does not have the wateside economizer (<code>have_WSE=false</code>):
+</p>
 <ul>
 <li>
 The number of operating condenser water pumps shall match the number of operating chillers.
@@ -259,7 +251,7 @@ or 100% speed if design flow cannot be achieved.</td>
 </table>
 <br/>
 <p>
-Note that this sequence is for plants with the condenser water pumps are equally sized.
+Note that this sequence is for the plants with the condenser water pumps are equally sized.
 </p>
 </html>", revisions="<html>
 <ul>

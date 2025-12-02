@@ -97,21 +97,21 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-Block that enable and disable leading primary chilled water pump, for plants
+Block that enables and disables the leading primary chilled water pump, for plants
 with headered primary chilled water pumps and parallel chillers, 
-according to ASHRAE Guideline36-2021, 
+according to ASHRAE Guideline 36-2021, 
 section 5.20.6 Primary chilled water pumps, part 1, 2, and 3.
 </p>
 <ol>
 <li>
 Primary chilled water pumps shall be lead-lag. Note that the lead-lag control is
-implemented in a separated sequence.
+implemented in a separate sequence.
 </li>
 <li>
 The lead primary chilled water pump shall be enabled when any chiller
 CHW isolation valve <code>uChiIsoVal</code> is fully open, or if the plant
-has waterside economizer and the economizer is enabled, shall be disabled
-when chiller CHW isolation valves are commanded closed and the economizer is diabled
+has the waterside economizer and the economizer is enabled, shall be disabled
+when chiller CHW isolation valves are commanded closed and the economizer is disabled
 if the plant has the economizer.
 </li>
 </ol>

@@ -5,7 +5,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains chiller head pressure control sequences.
-The implementation is based on section 5.20.10. in ASHRAE Guideline36-2021.
+The implementation is based on section 5.20.10 in ASHRAE Guideline 36-2021.
 </p>
 </html>"),
 Icon(graphics={

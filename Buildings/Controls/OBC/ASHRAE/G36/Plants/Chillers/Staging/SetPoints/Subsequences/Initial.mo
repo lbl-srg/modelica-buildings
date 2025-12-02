@@ -183,13 +183,13 @@ annotation (defaultComponentName = "iniSta",
           extent={{-240,-140},{240,140}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in Guideline36-2021 as it provides a side
-calculation pertaining to generalization of the staging sequences for any
+This subsequence is not directly specified in Guideline 36-2021 as it provides a side
+calculation about the generalization of the staging sequences for any
 number of chillers and stages provided by the user.
 </p>
 <p>
 Determines the initial stage upon plant startup for both plants with and
-without a WSE. It is implemented according to section 5.20.4.15 of Guideline36-2021,
+without a WSE. It is implemented according to section 5.20.4.15 of Guideline 36-2021,
 under part g. (primary-only) and part p. (primary-secondary) plants.
 </p>
 <p>
@@ -201,7 +201,7 @@ When the plant is enabled and the plant has no waterside economizer
 stage <code>uUp</code>.
 </p>
 <p>
-When the plant is enabled and the plant has waterside economizer
+When the plant is enabled and the plant has the waterside economizer
 (<code>have_WSE</code>=true), the initial stage will be:
 </p>
 <ul>

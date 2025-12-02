@@ -3,7 +3,7 @@ model Speed_primary_localDp
   "Validate sequence of controlling chilled water pump speed for primary-only plants with local DP sensor hardwired to the plant controller"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.Speed_primary_localDp
-    chiPumSpe(nSen=2, nPum=2)
+    chiPumSpe(        nPum=2)
     "Chilled water pump speed control based local pressure difference sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -12,49 +12,28 @@ protected
     final width=fill(0.9, 2),
     final period=fill(10, 2),
     final shift=fill(1, 2)) "Pump status"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant difPreSet(
-    final k=8.5*6894.75)
-    "Pressure difference setpoint"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen1(
-    final offset=8.5*6894.75,
-    final freqHz=1/10,
-    final amplitude=1.5*6894.75) "Remote pressure difference sensor reading"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp locDpSet(
+    final height=20000,
+    final duration=3,
+    final offset=55000,
+    final startTime=5) "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen2(
-    final offset=8.5*6894.75,
-    final freqHz=1/10,
-    final startTime=2,
-    final amplitude=1*6894.75) "Remote pressure difference sensor reading"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin locPreSen(
     final freqHz=1/5,
     final amplitude=1*6894.75,
     final offset=8.5*6894.75)  "Local pressure difference sensor reading"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=2) "Replicate real input"
-    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
+    annotation (Placement(transformation(extent={{-60,52},{-40,72}})));
 
 equation
   connect(locPreSen.y, chiPumSpe.dpChiWat_local)
-    annotation (Line(points={{-38,80},{0,80},{0,8},{18,8}},
-      color={0,0,127}));
-  connect(remPreSen1.y, chiPumSpe.dpChiWat_remote[1])
-    annotation (Line(points={{-38,0},{-20,0},{-20,-4.5},{18,-4.5}},
-      color={0,0,127}));
-  connect(remPreSen2.y, chiPumSpe.dpChiWat_remote[2])
-    annotation (Line(points={{-38,-40},{-20,-40},{-20,-3.5},{18,-3.5}},
+    annotation (Line(points={{-38,62},{0,62},{0,6},{18,6}},
       color={0,0,127}));
   connect(pumSta.y, chiPumSpe.uChiWatPum)
-    annotation (Line(points={{-38,40},{-20,40},{-20,4},{18,4}},
+    annotation (Line(points={{-38,-60},{0,-60},{0,-6},{18,-6}},
       color={255,0,255}));
-  connect(difPreSet.y, reaRep.u)
-    annotation (Line(points={{-38,-80},{-32,-80}}, color={0,0,127}));
-  connect(reaRep.y, chiPumSpe.dpChiWatSet_remote)
-    annotation (Line(points={{-8,-80},{0,-80},{0,-8},{18,-8}}, color={0,0,127}));
-
+  connect(locDpSet.y, chiPumSpe.dpChiWatSet_local)
+    annotation (Line(points={{-38,0},{18,0}}, color={0,0,127}));
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Pumps/ChilledWater/Subsequences/Validation/Speed_primary_localDp.mos"
@@ -72,26 +51,24 @@ remote pressure sensors.
 </p>
 <ul>
 <li>
-Both pumps become enabled at 1 second. Thus the pump speed
+Both pumps become enabled at 1 second. Thus, the pump speed
 setpoint becomes non-zero.
 </li>
 <li>
-After 1 seconds, the two remote pressure sensors have the measured values higher than
-the setpoint. The reverse acting PID controller thus gives the minimum
-output. The local pressure setpoint is at the minimum value (<code>50000 Pa</code>).
+From 1 second to 3 seconds, the measured pressure is greater
+than the setpoint. Thus, the pump speed is at the minimum (0.1).
 </li>
 <li>
-When the remote sensors have the measured values that becoome lower than the setpoint,
-their reverse acting PID controllers give the output greater than the minimum.
-The greater of the two output values from both PID controllers is picked for
-specifying the local pressure setpoint (<code>locDpSet.y</code>).
+From 3 seconds to 4.5 seconds, the measured pressure becomes lower than the setpoint.
+Thus, the pump speed increases.
 </li>
 <li>
-The reverse acting PID controller for the local pressure control gives
-minimum output (<code>0.1</code>) if the measured local pressure value is greater than its
-setpoint. When the measured value becomes greater than its setpoint,
-the PID controller increases its output, thus increases the chilled water
-pump speed.
+From 4.5 seconds to 6.5 seconds, the measured pressure becomes greater than the
+setpoint. Thus, the pump speed becomes the minimum (0.1) again.
+</li>
+<li>
+After 6.5 seconds, the measured pressure becomes lower than the set point.
+The pump speed increases up to the maximum speed (1.0).
 </li>
 </ul>
 </html>", revisions="<html>

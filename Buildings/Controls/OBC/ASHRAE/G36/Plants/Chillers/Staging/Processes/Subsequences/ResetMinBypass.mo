@@ -67,9 +67,6 @@ protected
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg2
-    "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs "Absolute value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract floDif
@@ -103,8 +100,8 @@ protected
     final h=0.5*relFloDif)
     "Check if chiller water flow rate achieves the minimum flow setpoint"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg4
-    "Not in the setpoint changing process"
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2
+    "Edge when the setpoint changing process is done"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
 equation
@@ -113,8 +110,7 @@ equation
   connect(uStaPro, and2.u2) annotation (Line(points={{-180,80},{-140,80},{-140,112},
           {-82,112}}, color={255,0,255}));
   connect(and2.y, and1.u1)
-    annotation (Line(points={{-58,120},{118,120}},
-      color={255,0,255}));
+    annotation (Line(points={{-58,120},{118,120}}, color={255,0,255}));
   connect(uStaPro, not1.u) annotation (Line(points={{-180,80},{-140,80},{-140,60},
           {-122,60}}, color={255,0,255}));
   connect(lat.y, and1.u2)
@@ -132,11 +128,6 @@ equation
   connect(addPar.y, div.u2)
     annotation (Line(points={{-118,-70},{-110,-70},{-110,-56},{-102,-56}},
       color={0,0,127}));
-  connect(and3.y, edg2.u)
-    annotation (Line(points={{22,0},{30,0},{30,80},{38,80}},
-      color={255,0,255}));
-  connect(edg2.y, lat.u)
-    annotation (Line(points={{62,80},{78,80}}, color={255,0,255}));
   connect(VChiWat_flow, floDif.u1)
     annotation (Line(points={{-180,20},{-140,20},{-140,6},{-122,6}}, color={0,0,127}));
   connect(floDif.y, abs.u)
@@ -162,8 +153,6 @@ equation
     annotation (Line(points={{102,0},{118,0}}, color={255,0,255}));
   connect(or2.y, lat1.u)
     annotation (Line(points={{102,-100},{118,-100}}, color={255,0,255}));
-  connect(edg3.y, lat1.clr) annotation (Line(points={{62,-130},{110,-130},{110,-106},
-          {118,-106}},color={255,0,255}));
   connect(lat1.y, yMinBypRes)
     annotation (Line(points={{142,-100},{180,-100}}, color={255,0,255}));
   connect(abs.y, div.u1) annotation (Line(points={{-58,0},{-50,0},{-50,-20},{-110,
@@ -174,9 +163,13 @@ equation
           {-2,-8}}, color={255,0,255}));
   connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-30,80},{-30,
           -130},{38,-130}}, color={255,0,255}));
-  connect(notChaSet1.y, edg4.u)
+  connect(edg3.y, lat1.clr) annotation (Line(points={{62,-130},{110,-130},{110,
+          -106},{118,-106}}, color={255,0,255}));
+  connect(and3.y, lat.u) annotation (Line(points={{22,0},{30,0},{30,80},{78,80}},
+        color={255,0,255}));
+  connect(notChaSet1.y, edg2.u)
     annotation (Line(points={{62,-40},{78,-40}}, color={255,0,255}));
-  connect(edg4.y, or2.u2) annotation (Line(points={{102,-40},{110,-40},{110,-60},
+  connect(edg2.y, or2.u2) annotation (Line(points={{102,-40},{110,-40},{110,-60},
           {60,-60},{60,-108},{78,-108}}, color={255,0,255}));
   connect(edg.y, or2.u1) annotation (Line(points={{142,0},{150,0},{150,-70},{70,
           -70},{70,-100},{78,-100}}, color={255,0,255}));
@@ -232,17 +225,17 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates minimum bypass flow reset status when there is 
-stage-change command.
-This development is based on ASHRAE Guideline36-2021, section 5.20.4.16, item b.
+a stage-change command.
+This development is based on ASHRAE Guideline 36-2021, section 5.20.4.16, item b.
 </p>
 <p>
-When there is stage-change command (<code>uStaPro</code> = true) and the upstream
+When there is a stage-change command (<code>uStaPro</code> = true) and the upstream
 device has finished its adjustment process (<code>uUpsDevSta</code> = true), 
 like in the stage-up process the operating chillers have reduced the demand, 
 check if the minimum chilled water flow rate <code>VChiWat_flow</code> has achieved 
 its new set point <code>VMinChiWat_setpoint</code>. 
 After new setpoint is achieved, wait for 1 minute (<code>byPasSetTim</code>) to 
-allow loop to stabilize. It will then set <code>yMinBypRes</code> to true.
+allow loop to be stabilized. It will then set <code>yMinBypRes</code> to true.
 </p>
 </html>",
 revisions="<html>

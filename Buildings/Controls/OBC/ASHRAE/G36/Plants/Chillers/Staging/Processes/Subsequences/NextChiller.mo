@@ -92,7 +92,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyDisChi(final nin=nChi)
     "Check if there is any disabling chiller"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And enaDis
     "Check if enabling and disabling chillers at the same process"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -167,16 +167,16 @@ equation
   connect(uChiSet, edg.u) annotation (Line(points={{-280,-20},{-250,-20},{-250,40},
           {-242,40}}, color={255,0,255}));
   connect(booRep.y, enaChi.clr) annotation (Line(points={{-118,-190},{-110,-190},
-          {-110,34},{-102,34}},   color={255,0,255}));
+          {-110,34},{-102,34}}, color={255,0,255}));
   connect(booRep.y, disChi.clr) annotation (Line(points={{-118,-190},{-110,-190},
-          {-110,-86},{-102,-86}},   color={255,0,255}));
+          {-110,-86},{-102,-86}}, color={255,0,255}));
   connect(enaChi.y, anyEnaChi.u) annotation (Line(points={{-78,40},{-70,40},{-70,
           -20},{-62,-20}},  color={255,0,255}));
   connect(anyEnaChi.y, enaDis.u1) annotation (Line(points={{-38,-20},{-2,-20}},
           color={255,0,255}));
-  connect(disChi.y, anyDisChi.u) annotation (Line(points={{-78,-80},{-70,-80},{-70,
-          -100},{-62,-100}}, color={255,0,255}));
-  connect(anyDisChi.y, enaDis.u2) annotation (Line(points={{-38,-100},{-10,-100},
+  connect(disChi.y, anyDisChi.u) annotation (Line(points={{-78,-80},{-62,-80}},
+         color={255,0,255}));
+  connect(anyDisChi.y, enaDis.u2) annotation (Line(points={{-38,-80},{-10,-80},
           {-10,-28},{-2,-28}}, color={255,0,255}));
   connect(enaDis.y, yOnOff) annotation (Line(points={{22,-20},{300,-20}},
           color={255,0,255}));
@@ -365,16 +365,16 @@ annotation (
           textString="yDow")}),
 Documentation(info="<html>
 <p>
-This block identifies index of next enabling (<code>yNexEnaChi</code> and 
+This block identifies the index of next enabling (<code>yNexEnaChi</code> and 
 <code>yEnaSmaChi</code>) or disabling chiller (<code>yDisSmaChi</code> and 
-<code>yLasDisChi</code>) based on current chiller stage setpoint
+<code>yLasDisChi</code>) based on the current chiller stage setpoint
 <code>uStaSet</code> and the chiller status setpoint <code>uChiSet</code>.
 </p>
 <p>
 This implementation assumes that the stage-up process (increased <code>uStaSet</code>)
 will enable only one more chiller (<code>yOnOff=false</code>), or enable a larger
 chiller and disable a smaller chiller (<code>yOnOff=true</code>); the stage-down
-process (dicreased <code>uStaSet</code>) will disable only one existing chiller
+process (decreased <code>uStaSet</code>) will disable only one existing chiller
 (<code>yOnOff=false</code>), or disable a larger chiller and enable a smaller
 chiller (<code>yOnOff=true</code>).
 </p>
@@ -389,13 +389,13 @@ The <code>yOnOff</code> is <code>false</code>.
 </li>
 <li>
 If it is in the staging up process (<code>yUp=true</code>), the outputs
-<code>yLasDisChi</code> and <code>yEnaSmaChi</code>, which becomes valid only when
-it is in staging down process, equal to the default 1. 
+<code>yLasDisChi</code> and <code>yEnaSmaChi</code>, which become valid only when
+it is in the staging down process, equal the default 1. 
 </li>
 <li>
 If it is in the staging down process (<code>yDow=true</code>), the outputs
-<code>yNexEnaChi</code> and <code>yDisSmaChi</code>, which becomes valid only when
-it is in staging up process, equal to the default 1. 
+<code>yNexEnaChi</code> and <code>yDisSmaChi</code>, which become valid only when
+it is in the staging up process, equal the default 1. 
 </li>
 </ul>
 </html>", revisions="<html>

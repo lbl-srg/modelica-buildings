@@ -8,7 +8,6 @@ block IntegratedOperation
     final quantity=fill("HeatFlowRate", nChi))={1e4, 1e4}
     "Minimum cyclining load below which chiller will begin cycling";
   parameter Real fanSpeMin = 0.1 "Minimum cooling tower fan speed";
-  parameter Real fanSpeMax = 1 "Maximum cooling tower fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -37,9 +36,10 @@ block IntegratedOperation
     "Vector of chillers proven on status: true=ON"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
-    final unit=fill("W", nChi),
-    final quantity=fill("HeatFlowRate", nChi)) "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
+    final unit="W",
+    final quantity="HeatFlowRate")
+    "Current cooling load"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
@@ -68,7 +68,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nChi](
     final k=fill(0, nChi)) "Zero constant"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset loaCon(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable loaCon(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
@@ -84,9 +84,6 @@ protected
     final nin=nChi)
     "Sum of minimum cycling load for the operating chillers"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiSum totLoa(
-    final nin=nChi) "Total load of operating chillers"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum minCycLoa(final nin=nChi)
     "Sum of minimum cycling load for all chillers"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
@@ -110,8 +107,7 @@ protected
     final k=fanSpeMin)
     "Minimum speed"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(
-    final k=fanSpeMax)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(final k=1)
     "Maximum tower fan speed"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Output true at the moment when input becomes true"
@@ -148,8 +144,6 @@ equation
     annotation (Line(points={{2,140},{20,140},{20,94},{38,94}}, color={0,0,127}));
   connect(minCycLoa.y, div1.u2)
     annotation (Line(points={{2,140},{20,140},{20,54},{38,54}}, color={0,0,127}));
-  connect(totLoa.y, div1.u1)
-    annotation (Line(points={{2,60},{10,60},{10,66},{38,66}}, color={0,0,127}));
   connect(totMinCycLoa.y, div.u1)
     annotation (Line(points={{2,100},{10,100},{10,106},{38,106}}, color={0,0,127}));
   connect(div.y, loaCon.u_s)
@@ -188,8 +182,6 @@ equation
     annotation (Line(points={{-98,140},{-22,140}}, color={0,0,127}));
   connect(swi.y, totMinCycLoa.u)
     annotation (Line(points={{-38,100},{-22,100}}, color={0,0,127}));
-  connect(chiLoa, totLoa.u)
-    annotation (Line(points={{-180,60},{-22,60}},  color={0,0,127}));
   connect(uChi,chiOn. u)
     annotation (Line(points={{-180,100},{-140,100},{-140,20},{-122,20}},
       color={255,0,255}));
@@ -211,8 +203,10 @@ equation
     annotation (Line(points={{-38,20},{-2,20}}, color={255,0,255}));
   connect(uWse, and2.u2)
     annotation (Line(points={{-180,0},{-20,0},{-20,12},{-2,12}}, color={255,0,255}));
-  connect(and2.y, loaCon.trigger)
-    annotation (Line(points={{22,20},{84,20},{84,88}}, color={255,0,255}));
+  connect(and2.y, loaCon.uEna)
+    annotation (Line(points={{22,20},{86,20},{86,88}}, color={255,0,255}));
+  connect(uChiLoa, div1.u1) annotation (Line(points={{-180,60},{0,60},{0,66},{38,
+          66}}, color={0,0,127}));
 annotation (
   defaultComponentName="wseTowSpeIntOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -281,8 +275,8 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> when both waterside 
-economizer and chillers are enabled, i.e. integrated operation. This is implemented 
-according to ASHRAE Guideline36-2021, section 5.20.12.2, item c.1.
+economizer and chillers are enabled, i.e., integrated operation. This is implemented 
+according to ASHRAE Guideline 36-2021, section 5.20.12.2, item c.1.
 </p>
 <p>
 When the waterside economizer is enabled (<code>uWse=true</code>) and chillers
@@ -290,19 +284,19 @@ are running (<code>uChi=true</code>):
 </p>
 <ol>
 <li>
-Fan speed shall be equal to waterside economizer tower maximum speed.
+Fan speed shall be equal to the waterside economizer tower maximum speed.
 </li>
 <li>
 The waterside economizer tower maximum speed shall be reset by a direct acting PID
-loop maintaining the chiller load at 110% of the sum of minimum cycling load for
-the operating chillers. Map the tower maximum speed from minimum speed
+loop maintaining the chiller load at 110% of the sum of the minimum cycling load for
+the operating chillers. Map the tower maximum speed from the minimum speed
 <code>fanSpeMin</code> at 0% loop output to 100% speed at 100% loop output.
 Bias the loop to launch from 100% output.
 </li>
 <li>
 When starting integrated operation after previously operating with only the waterside
 economizer, hold the tower maximum speed at 100% for 10 minutes (<code>intModTim</code>) 
-to give the chiller time to get up to speed and produce at least minimum cycling 
+to give the chiller time to get up to speed and produce at least the minimum cycling 
 load, then enable the loop.
 </li>
 </ol>

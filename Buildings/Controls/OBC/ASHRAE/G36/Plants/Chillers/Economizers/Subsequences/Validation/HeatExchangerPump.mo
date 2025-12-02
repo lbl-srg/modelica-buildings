@@ -15,9 +15,8 @@ model HeatExchangerPump "Validate the control of heat exchanger pump"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pumOn(
     final width=0.8,
-    final period=3600)
-    "Pump proven on"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    final period=3600) "Pump proven on"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp entHexTem(
     final height=8,
     final duration=3600,
@@ -31,11 +30,13 @@ model HeatExchangerPump "Validate the control of heat exchanger pump"
     final width=0.2, final period=3600)
     "Enabled plant"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  CDL.Logical.Sources.Constant notInPro(final k=false) "Not in staging process"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
-  connect(ecoSta.y,wsePum. uWSE) annotation (Line(points={{-38,50},{0,50},{0,4},
-          {18,4}}, color={255,0,255}));
-  connect(pumOn.y, wsePum.uPum) annotation (Line(points={{-38,10},{-10,10},{-10,
-          0},{18,0}}, color={255,0,255}));
+  connect(ecoSta.y,wsePum. uWSE) annotation (Line(points={{-38,50},{0,50},{0,5},
+          {18,5}}, color={255,0,255}));
+  connect(pumOn.y, wsePum.uPum) annotation (Line(points={{-58,20},{-10,20},{-10,
+          2},{18,2}}, color={255,0,255}));
   connect(entWSETem.y, wsePum.TEntWSE) annotation (Line(points={{-38,-30},{-10,-30},
           {-10,-4},{18,-4}}, color={0,0,127}));
   connect(entHexTem.y, wsePum.TEntHex) annotation (Line(points={{-38,-70},{0,-70},
@@ -44,6 +45,8 @@ equation
     annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
   connect(not2.y, wsePum.uPla) annotation (Line(points={{-18,80},{8,80},{8,8},{18,
           8}}, color={255,0,255}));
+  connect(notInPro.y, wsePum.uStaPro) annotation (Line(points={{-18,0},{-10,0},
+          {-10,-1},{18,-1}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Economizers/Subsequences/Validation/HeatExchangerPump.mos"
@@ -53,7 +56,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatExchangerPump\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.HeatExchangerPump</a>.
-It demonstrates the process of controlling the heat exhcnager pump in following scenarios:
+It demonstrates the process of controlling the heat exchanger pump in the following scenarios:
 </p>
 <ul>
 <li>
@@ -64,11 +67,11 @@ At 720 seconds, the plant is enabled in waterside economizer mode. The heat exch
 <li>
 From 720 seconds to 2880 seconds, the pump speed is adjusted by the Trim and Respond sequence
 based on the speed reset requests that are generated based on the temperature difference between
-chilled water return temperature upstream of the economizer and chilled water temperature
-entering heat exchanger.
+the chilled water return temperature upstream of the economizer and the chilled water temperature
+entering the heat exchanger.
 </li>
 <li>
-At 2880 seconds, the economizer becomes disabled. Thus, the pump is disabled and the pump
+At 2880 seconds, the economizer becomes disabled. Thus, the pump is disabled, and the pump
 speed setpoint becomes 0.
 </li>
 </ul>

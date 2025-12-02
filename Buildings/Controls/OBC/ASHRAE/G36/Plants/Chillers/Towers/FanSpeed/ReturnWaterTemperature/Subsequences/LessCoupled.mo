@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnW
 block LessCoupled
   "Sequence of defining cooling tower fan speed when the plant is not close coupled"
 
+  parameter Boolean need_heaPreCon = true
+    "True: the plant requires chiller head pressure being controlled";
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
-  parameter Real pumSpeChe = 0.01
-    "Lower threshold value to check if condenser water pump is proven on";
   parameter Real fanSpeMin(
      final unit="1",
      final min=0,
@@ -63,24 +63,22 @@ block LessCoupled
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
+      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status"
     annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
@@ -88,13 +86,13 @@ block LessCoupled
     "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
@@ -105,7 +103,7 @@ block LessCoupled
     final unit="1")
     "Tower maximum speed that reset based on plant partial load ratio"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatSupSet(
     final unit="K",
     displayUnit="degC",
@@ -120,7 +118,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset supCon(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable supCon(
     final controllerType=supWatCon,
     final k=kSupCon,
     final Ti=TiSupCon,
@@ -132,13 +130,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
-    final uLow=fill(pumSpeChe, nConWatPum),
-    final uHigh=fill(2*pumSpeChe, nConWatPum))
-    "Check if the condenser water pump is proven on"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(
-    final nin=nConWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyProOn(nin=nConWatPum)
     "Check if any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant  minTowSpe(
@@ -155,6 +147,7 @@ protected
     "Fan speed calculated based on supply water temperature control"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin maxSpe(final nin=nChi)
+    if need_heaPreCon
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin fanSpe(final nin=3)
@@ -166,9 +159,10 @@ protected
     "Zero constant"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2[nChi](
-    final k=fill(1,nChi)) "Constant one"
+    final k=fill(1,nChi)) if need_heaPreCon "Constant one"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] if need_heaPreCon
+    "Logical switch"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert chiller status to real number, true becomes 1 and false becomes 0"
@@ -212,12 +206,12 @@ protected
     final k=fill(0.5, nChi))
     "Gain factor"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one3(
+    final k=1) if not need_heaPreCon
+    "Constant one"
+    annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
 
 equation
-  connect(proOn.y,anyProOn. u)
-    annotation (Line(points={{-118,-20},{-102,-20}}, color={255,0,255}));
-  connect(uConWatPumSpe, proOn.u)
-    annotation (Line(points={{-200,-20},{-142,-20}}, color={0,0,127}));
   connect(zer1.y, CWSTSpd.x1)
     annotation (Line(points={{62,0},{80,0},{80,-22},{98,-22}}, color={0,0,127}));
   connect(minTowSpe.y, CWSTSpd.f1)
@@ -233,16 +227,13 @@ equation
     annotation (Line(points={{2,-80},{20,-80},{20,-38},{98,-38}}, color={0,0,127}));
   connect(CWSTSpd.y, fanSpe.u[1])
     annotation (Line(points={{122,-30},{140,-30},{140,-80},{40,-80},{40,
-          -120.667},{58,-120.667}},
-                          color={0,0,127}));
+          -120.667},{58,-120.667}}, color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
-    annotation (Line(points={{22,-120},{58,-120}},color={0,0,127}));
+    annotation (Line(points={{22,-120},{40,-120},{40,-120},{58,-120}},
+         color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
     annotation (Line(points={{-200,-180},{40,-180},{40,-119.333},{58,-119.333}},
       color={0,0,127}));
-  connect(anyProOn.y, supCon.trigger)
-    annotation (Line(points={{-78,-20},{-60,-20},{-60,-50},{-16,-50},{-16,-42}},
-                  color={255,0,255}));
   connect(fanSpe.y, swi.u1)
     annotation (Line(points={{82,-120},{100,-120},{100,-132},{118,-132}},
       color={0,0,127}));
@@ -257,9 +248,8 @@ equation
       color={0,0,127}));
   connect(uChi, swi1.u2)
     annotation (Line(points={{-200,-120},{-42,-120}}, color={255,0,255}));
-  connect(uMaxTowSpeSet, swi1.u1)
-    annotation (Line(points={{-200,-90},{-120,-90},{-120,-112},{-42,-112}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, swi1.u1) annotation (Line(points={{-200,-90},{-120,-90},{-120,
+          -112},{-42,-112}}, color={0,0,127}));
   connect(one2.y, swi1.u3)
     annotation (Line(points={{-138,-150},{-120,-150},{-120,-128},{-42,-128}},
       color={0,0,127}));
@@ -301,9 +291,14 @@ equation
     annotation (Line(points={{-18,50},{-12,50}}, color={0,0,127}));
   connect(gai.y, multiMax.u)
     annotation (Line(points={{12,50},{18,50}}, color={0,0,127}));
-
   connect(truDel.y, delTem.u2)
     annotation (Line(points={{-118,100},{58,100}}, color={255,0,255}));
+  connect(anyProOn.y, supCon.uEna) annotation (Line(points={{-78,-20},{-60,-20},
+          {-60,-50},{-14,-50},{-14,-42}}, color={255,0,255}));
+  connect(uConWatPum, anyProOn.u)
+    annotation (Line(points={{-200,-20},{-102,-20}}, color={255,0,255}));
+  connect(one3.y, fanSpe.u[2]) annotation (Line(points={{22,-160},{32,-160},{32,
+          -120},{58,-120}},       color={0,0,127}));
 annotation (
   defaultComponentName="lesCouTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{160,200}})),
@@ -337,7 +332,7 @@ Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> based on the control
 of condenser water return temperature for the plant that is not closed coupled.
-This is implemented according to ASHRAE Guideline36-2021, section 5.20.12.2,
+This is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.2,
 item a.8-10.
 </p>
 <ul>
@@ -345,11 +340,11 @@ item a.8-10.
 When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water supply temperature setpoint <code>TConWatSupSet</code> shall be
 set equal to the condenser water return temperature setpoint <code>TConWatRetSet</code>
-minus a temperature difference. The temperature difference is the 5 minute rolling
+minus a temperature difference. The temperature difference is the 5-minutes rolling
 average of common condenser water return temperature <code>TConWatRet</code> less
-condenser water supply temperature <code>TConWatSup</code>, sampled at minimum once
+condenser water supply temperature <code>TConWatSup</code>, sampled at the minimum once
 every 30 seconds. When the plant is first enabled, the temperature difference shall
-be fixed equal to 50% of the difference between design condenser water supply
+be fixed equal to 50% of the difference between the design condenser water supply
 (<code>TConWatSup_nominal</code>) and return (<code>TConWatRet_nominal</code>) temperature
 of the enabled chiller for 5 minutes (<code>iniPlaTim</code>).
 </li>
@@ -357,13 +352,14 @@ of the enabled chiller for 5 minutes (<code>iniPlaTim</code>).
 When any condenser water pump is proven on (<code>uConWatPumSpe</code> &gt; 0),
 condenser water supply temperature <code>TConWatSup</code> shall be maintained at
 setpoint by a direct acting PID loop. The loop output shall be mapped to the
-variable tower speed. Reset the tower speed from minimum tower speed <code>fanSpeMin</code>
+variable tower speed. Reset the tower speed from the minimum tower speed <code>fanSpeMin</code>
 at 0% loop output to 100% speed at 100% loop output.
 </li>
 <li>
 Tower speed <code>ySpeSet</code> shall be the lowest value of tower speed
 from loop mapping, maximum cooling tower speed setpoint from each chiller head
-pressure control loop <code>uMaxTowSpeSet</code>, and tower maximum speed that reset
+pressure control loop <code>uMaxSpeSet</code> (if the plant requires the chiller
+head pressure being controlled), and tower maximum speed that resets
 based on plant partial load ratio <code>plrTowMaxSpe</code>. All operating fans shall
 receive the same speed signal.
 </li>

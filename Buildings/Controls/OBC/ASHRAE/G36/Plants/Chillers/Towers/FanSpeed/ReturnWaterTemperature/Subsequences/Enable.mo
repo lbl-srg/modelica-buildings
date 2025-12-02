@@ -1,6 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
 block Enable "Sequence for enabling and disabling tower fan"
 
+  parameter Boolean need_heaPreCon = true
+    "True: the plant requires chiller head pressure being controlled";
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Real fanSpeChe(
@@ -26,13 +28,13 @@ block Enable "Sequence for enabling and disabling tower fan"
     "Threshold time for checking duration when there is no enabled tower fan"
     annotation (Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-320,190},{-280,230}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final min=0,
     final max=1,
@@ -67,31 +69,33 @@ block Enable "Sequence for enabling and disabling tower fan"
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub0[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub0[nChi] if need_heaPreCon
     "Difference between enabled chiller head pressure control maximum tower speed and the minimum tower speed"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys[nChi](
     final uLow=fill(fanSpeChe, nChi),
-    final uHigh=fill(2*fanSpeChe, nChi))
+    final uHigh=fill(2*fanSpeChe, nChi)) if need_heaPreCon
     "Check if chiller head pressure control maximum tower speed is greater than the minimum tower speed "
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nChi)
+    final nin=nChi) if need_heaPreCon
     "Check if any enabled chiller head pressure control maximum tower speed equals to the minimum tower speed"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] if need_heaPreCon
+    "Logical not"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
     final delayTime=cheMaxTowSpe,
-    final delayOnInit=true)
+    final delayOnInit=true) if need_heaPreCon
     "Count the time when the chiller head pressure control maximum tower speed equals tower minimum speed"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1[nChi](
     final uLow=fill(fanSpeChe, nChi),
-    final uHigh=fill(2*fanSpeChe, nChi))
+    final uHigh=fill(2*fanSpeChe, nChi)) if need_heaPreCon
     "Check if chiller has been enabled, an enabled chiller will have the head pressure control maximum cooling tower speed that is greater than zero"
     annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] if need_heaPreCon
+    "Logical switch"
     annotation (Placement(transformation(extent={{-200,170},{-180,190}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Difference between tower fan speed and the minimum fan speed"
@@ -138,7 +142,7 @@ protected
     "Check if tower temperature is above the adjusted setpoint"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
-    final nin=nChi)
+    final nin=nChi) if need_heaPreCon
     "Check if all enabled chillers head pressure control maximum tower speed are greater than tower minimum speed"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Logical.And enaTow
@@ -155,7 +159,8 @@ protected
     "Minimum tower speed"
     annotation (Placement(transformation(extent={{-240,70},{-220,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one[nChi](
-    final k=fill(1, nChi)) "Constant one"
+    final k=fill(1, nChi)) if need_heaPreCon
+    "Constant one"
     annotation (Placement(transformation(extent={{-240,140},{-220,160}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=5/9) "Tower temperature setpoint plus 1 degF"
@@ -172,8 +177,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi2 "Logical switch"
     annotation (Placement(transformation(extent={{240,-170},{260,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant disFan1(
-    final k=false)
-    "Disable tower fan when no condenser water pump is ON"
+    final k=false) "Disable tower fan when no condenser water pump is ON"
     annotation (Placement(transformation(extent={{120,-210},{140,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
@@ -193,6 +197,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre2
     "Break algebraic loop"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(
+    final k=false) if not need_heaPreCon
+    "Logical false"
+    annotation (Placement(transformation(extent={{20,190},{40,210}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conTru(
+    final k=true) if not need_heaPreCon
+    "Logical true"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
 equation
   connect(sub0.y, hys.u)
@@ -201,14 +213,13 @@ equation
     annotation (Line(points={{-98,160},{-62,160}},color={255,0,255}));
   connect(mulOr.y, truDel2.u)
     annotation (Line(points={{2,160},{18,160}}, color={255,0,255}));
-  connect(uMaxTowSpeSet, hys1.u)
+  connect(uMaxSpeSet, hys1.u)
     annotation (Line(points={{-300,210},{-242,210}}, color={0,0,127}));
   connect(hys1.y, swi.u2)
     annotation (Line(points={{-218,210},{-210,210},{-210,180},{-202,180}},
       color={255,0,255}));
-  connect(uMaxTowSpeSet, swi.u1)
-    annotation (Line(points={{-300,210},{-260,210},{-260,188},{-202,188}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, swi.u1) annotation (Line(points={{-300,210},{-260,210},{-260,
+          188},{-202,188}}, color={0,0,127}));
   connect(one.y, swi.u3)
     annotation (Line(points={{-218,150},{-210,150},{-210,172},{-202,172}},
       color={0,0,127}));
@@ -309,6 +320,10 @@ equation
           -180},{230,-180},{230,-210},{238,-210}}, color={255,0,255}));
   connect(pre2.y, yTow)
     annotation (Line(points={{262,-210},{300,-210}}, color={255,0,255}));
+  connect(conFal.y, disTow.u1) annotation (Line(points={{42,200},{50,200},{50,160},
+          {58,160}}, color={255,0,255}));
+  connect(conTru.y, and1.u1) annotation (Line(points={{-38,40},{-20,40},{-20,-10},
+          {-2,-10}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaTow",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -365,8 +380,8 @@ annotation (
           textString="%name")}),
 Documentation(info="<html>
 <p>
-Block that outputs signal <code>yTowSta</code> for enabling and disabling cooling tower 
-fan. This is implemented according to ASHRAE Guideline36-2021,
+Block that outputs signal <code>yTowSta</code> for enabling and disabling the cooling tower 
+fan. This is implemented according to ASHRAE Guideline 36-2021,
 section 5.20.12.2, item a.11-l2.
 </p>
 <ol>
@@ -374,7 +389,8 @@ section 5.20.12.2, item a.11-l2.
 Disable the tower fans if either:
 <ul>
 <li>
-Any enabled chiller’s head pressure control maximum tower fan speed <code>uMaxTowSpeSet</code> 
+If the plant requires chiller head pressure control (<code>need_heaPreCon</code>) and
+any enabled chiller’s head pressure control maximum tower fan speed <code>uMaxSpeSet</code> 
 has equaled tower minimum speed <code>fanSpeMin</code> for 5 minutes, or
 </li>
 <li>
@@ -395,8 +411,9 @@ The tower temperature <code>TTow</code> rises above setpoint <code>TTowSet</code
 by 1 &deg;F, and
 </li>
 <li>
-All enabled chillers’ head pressure control maximum tower fan speed <code>uMaxTowSpeSet</code> 
-are greater than tower minimum speed <code>fanSpeMin</code>.
+If the plant requires chiller head pressure control (<code>need_heaPreCon</code>) and
+all enabled chillers’ head pressure control maximum tower fan speed <code>uMaxSpeSet</code> 
+are greater than the tower minimum speed <code>fanSpeMin</code>.
 </li>
 </ul>
 </li>

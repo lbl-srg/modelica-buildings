@@ -304,12 +304,12 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates chiller head pressure control enabling status array when 
-there is stage change command (<code>chaPro=true</code>). It also generates status 
+there is a stage change command (<code>chaPro=true</code>). It also generates status 
 to indicate if the head pressure control status change process has finished.
 This development is based on ASHRAE Guideline 36-2021.
 </p>
 <p>
-In stage-up process, section 5.20.4.16, item d: 
+In the stage-up process, section 5.20.4.16, item d: 
 </p>
 <ul>
 <li>
@@ -319,7 +319,7 @@ Wait 30 seconds (<code>waiTim=30</code>).
 </li>
 </ul>
 <p>
-In stage-up process when requires smaller chiller being shut off and larger chiller
+In the stage-up process when requires smaller chiller being shut off and larger chiller
 being enabled, section 5.20.4.16, item g.3:
 </p>
 <ul>
@@ -330,7 +330,7 @@ condenser water flow, disable the chiller's head pressure control loop,
 </li>
 </ul>
 <p>
-In stage-down process, section 5.20.4.17, item d:
+In the stage-down process, section 5.20.4.17, item d:
 </p>
 <ul>
 <li>
@@ -340,12 +340,12 @@ water flow, disable the chiller's head pressure control loop,
 </li>
 </ul>
 <p>
-In stage-down process when requires smaller chiller being enabled and larger chiller
-being disabled, section 5.20.4.17, item a.3:
+In the stage-down process when requires smaller chiller to be enabled and larger chiller
+to be disabled, section 5.20.4.17, item a.3:
 </p>
 <ul>
 <li>
-After minimum flow bypass has been changed, enable head pressure control for
+After the minimum flow bypass has been changed, enable head pressure control for
 the chiller being enabled. Wait 30 seconds.
 (<code>thrTimEnb=0</code> and <code>waiTim=30</code>).
 </li>

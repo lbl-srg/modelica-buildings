@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "chiLif.minChiLif[1]",
+    "chiLif.minChiLif[2]",
+    "chiLif.minChiLif[3]",
+    "chiLif.minChiLif[4]",
+    "chiLif.maxChiLif[1]",
+    "chiLif.maxChiLif[2]",
+    "chiLif.maxChiLif[3]",
+    "chiLif.maxChiLif[4]",
+    "chiLif.uChi[1]",
+    "chiLif.uChi[2]",
+    "chiLif.uChi[3]",
+    "chiLif.uChi[4]",
+    "chiLif.yLifMax",
+    "chiLif.yLifMin"
+  };

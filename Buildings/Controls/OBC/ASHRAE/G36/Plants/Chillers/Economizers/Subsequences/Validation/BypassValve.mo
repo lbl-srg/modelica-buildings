@@ -60,9 +60,9 @@ exchanger at the design value (<code>dpDes</code>).
 </li>
 </ul>
 <p>
-If the econimizer is disabled (<code>uWSE=false</code>), the condenser water
-isolation valve to the heat exchanger should be fully closed and the return
-line valve should be disabled in fully open position.
+If the economizer is disabled (<code>uWSE=false</code>), the condenser water
+isolation valve to the heat exchanger should be fully closed, and the return
+line valve should be disabled in the fully open position.
 </p>
 </html>", revisions="<html>
 <ul>

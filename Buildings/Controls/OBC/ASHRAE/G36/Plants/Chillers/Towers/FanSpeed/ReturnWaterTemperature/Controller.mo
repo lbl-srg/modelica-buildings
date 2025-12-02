@@ -2,6 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnW
 block Controller
   "Cooling tower speed control to maintain condenser water return temperature at setpoint"
 
+  parameter Boolean need_heaPreCon = true
+    "True: the plant requires chiller head pressure being controlled";
   parameter Integer nChi=2 "Total number of chillers";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
@@ -128,13 +130,13 @@ block Controller
     annotation (Dialog(tab="Advanced",
                        group="Setpoint: Plant startup"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowSpeWSE(
-     final min=0,
-     final max=1,
-     final unit="1") if have_WSE
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpeWSE(
+    final min=0,
+    final max=1,
+    final unit="1") if have_WSE
     "Cooling tower speed when the waterside economizer is enabled"
     annotation (Placement(transformation(extent={{-200,220},{-160,260}}),
-      iconTransformation(extent={{-240,160},{-200,200}})));
+        iconTransformation(extent={{-240,160},{-200,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller enabling status: true=ON"
     annotation (Placement(transformation(extent={{-200,190},{-160,230}}),
@@ -148,19 +150,13 @@ block Controller
     final quantity="HeatFlowRate") "Current required plant capacity"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-240,70},{-200,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxTowSpeSet[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
-      iconTransformation(extent={{-240,40},{-200,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
-    final min=0,
-    final max=1,
-    final unit="1") "Measured speed of current enabled tower fans"
-    annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
-      iconTransformation(extent={{-240,10},{-200,50}})));
+        iconTransformation(extent={{-240,40},{-200,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTow[nTowCel]
     "Cooling tower operating status: true=running tower cell"
     annotation (Placement(transformation(extent={{-200,-50},{-160,-10}}),
@@ -181,12 +177,10 @@ block Controller
     final unit="K") "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-    final min=fill(0, nConWatPum),
-    final max=fill(1, nConWatPum),
-    final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-200,-220},{-160,-180}}),
-      iconTransformation(extent={{-240,-170},{-200,-130}})));
+  CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status" annotation (Placement(transformation(
+          extent={{-200,-220},{-160,-180}}), iconTransformation(extent={{-240,-170},
+            {-200,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
@@ -210,6 +204,13 @@ block Controller
     "Minimum LIFT among enabled chillers"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
         iconTransformation(extent={{200,-130},{240,-90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatRetSet(
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC",
+    final unit="K")
+    "Condenser water return temperature setpoint"
+    annotation (Placement(transformation(extent={{160,-190},{200,-150}}),
+        iconTransformation(extent={{200,-180},{240,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatSupSet(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
@@ -227,6 +228,7 @@ block Controller
     final TChiWatSupMin=TChiWatSupMin) "Return temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Enable enaTow(
+    final need_heaPreCon=need_heaPreCon,
     final nChi=nChi,
     final nTowCel=nTowCel,
     final fanSpeChe=speChe,
@@ -237,10 +239,10 @@ block Controller
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled
     couTowSpe(
+    final need_heaPreCon=need_heaPreCon,
     final nChi=nChi,
     final nConWatPum=nConWatPum,
     final fanSpeMin=fanSpeMin,
-    final pumSpeChe=speChe,
     final controllerType=couPlaCon,
     final k=kCouPla,
     final Ti=TiCouPla,
@@ -251,9 +253,9 @@ block Controller
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.LessCoupled
     lesCouTowSpe(
+    final need_heaPreCon=need_heaPreCon,
     final nChi=nChi,
     final nConWatPum=nConWatPum,
-    final pumSpeChe=speChe,
     final fanSpeMin=fanSpeMin,
     final samplePeriod=samplePeriod,
     final iniPlaTim=iniPlaTim,
@@ -314,11 +316,6 @@ protected
     final k=0) if not have_WSE
     "Zero constant"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
-    final uLow=fill(speChe, nConWatPum),
-    final uHigh=fill(2*speChe, nConWatPum))
-    "Check if the condenser water pump is proven on"
-    annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nConWatPum]
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
@@ -362,47 +359,35 @@ equation
   connect(conWatRetSet.uPla, uPla)
     annotation (Line(points={{-42,-78},{-60,-78},{-60,-120},{-180,-120}},
       color={255,0,255}));
-  connect(enaTow.uMaxTowSpeSet, uMaxTowSpeSet)
-    annotation (Line(points={{38,29},{-120,29},{-120,40},{-180,40}},
-      color={0,0,127}));
-  connect(enaTow.uFanSpe,uFanSpe)
-    annotation (Line(points={{38,26},{-130,26},{-130,10},{-180,10}},
-      color={0,0,127}));
+  connect(enaTow.uMaxSpeSet, uMaxSpeSet) annotation (Line(points={{38,29},{-120,
+          29},{-120,40},{-180,40}}, color={0,0,127}));
   connect(enaTow.uTow, uTow)
     annotation (Line(points={{38,14},{-110,14},{-110,-30},{-180,-30}},
       color={255,0,255}));
   connect(conWatRetSet.TConWatRetSet, couTowSpe.TConWatRetSet)
-    annotation (Line(points={{-18,-70},{0,-70},{0,-120},{38,-120}},
+    annotation (Line(points={{-18,-70},{0,-70},{0,-121},{38,-121}},
       color={0,0,127}));
   connect(couTowSpe.TConWatRet, TConWatRet)
     annotation (Line(points={{38,-124},{-100,-124},{-100,-160},{-180,-160}},
       color={0,0,127}));
-  connect(couTowSpe.uConWatPumSpe, uConWatPumSpe)
-    annotation (Line(points={{38,-128},{-80,-128},{-80,-200},{-180,-200}},
-      color={0,0,127}));
-  connect(uMaxTowSpeSet, couTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{-180,40},{-120,40},{-120,-132},{38,-132}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, couTowSpe.uMaxSpeSet) annotation (Line(points={{-180,40},
+          {-120,40},{-120,-132},{38,-132}}, color={0,0,127}));
   connect(plrTowMaxSpe.y, couTowSpe.plrTowMaxSpe)
-    annotation (Line(points={{2,100},{20,100},{20,-140},{38,-140}},
+    annotation (Line(points={{2,100},{20,100},{20,-139},{38,-139}},
       color={0,0,127}));
   connect(conWatRetSet.TConWatRetSet, lesCouTowSpe.TConWatRetSet)
-    annotation (Line(points={{-18,-70},{0,-70},{0,-210},{38,-210}},
+    annotation (Line(points={{-18,-70},{0,-70},{0,-211},{38,-211}},
       color={0,0,127}));
   connect(TConWatRet, lesCouTowSpe.TConWatRet)
-    annotation (Line(points={{-180,-160},{-100,-160},{-100,-212},{38,-212}},
-      color={0,0,127}));
-  connect(uConWatPumSpe, lesCouTowSpe.uConWatPumSpe)
-    annotation (Line(points={{-180,-200},{-80,-200},{-80,-218},{38,-218}},
+    annotation (Line(points={{-180,-160},{-100,-160},{-100,-213},{38,-213}},
       color={0,0,127}));
   connect(lesCouTowSpe.TConWatSup, TConWatSup)
     annotation (Line(points={{38,-222},{0,-222},{0,-280},{-180,-280}},
       color={0,0,127}));
-  connect(uMaxTowSpeSet, lesCouTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{-180,40},{-120,40},{-120,-225},{38,-225}},
-      color={0,0,127}));
+  connect(uMaxSpeSet, lesCouTowSpe.uMaxSpeSet) annotation (Line(points={{-180,
+          40},{-120,40},{-120,-225},{38,-225}}, color={0,0,127}));
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)
-    annotation (Line(points={{2,100},{20,100},{20,-230},{38,-230}},
+    annotation (Line(points={{2,100},{20,100},{20,-229},{38,-229}},
       color={0,0,127}));
   connect(enaTow.yTow, swi.u2)
     annotation (Line(points={{62,20},{118,20}}, color={255,0,255}));
@@ -423,9 +408,8 @@ equation
   connect(swi.y, swi1.u1)
     annotation (Line(points={{142,20},{150,20},{150,190},{60,190},{60,218},
       {98,218}}, color={0,0,127}));
-  connect(uTowSpeWSE, swi1.u3)
-    annotation (Line(points={{-180,240},{80,240},{80,202},{98,202}},
-      color={0,0,127}));
+  connect(uSpeWSE, swi1.u3) annotation (Line(points={{-180,240},{80,240},{80,
+          202},{98,202}}, color={0,0,127}));
   connect(zer2.y, swi1.u3)
     annotation (Line(points={{62,170},{80,170},{80,202},{98,202}},
       color={0,0,127}));
@@ -433,11 +417,6 @@ equation
     annotation (Line(points={{122,210},{180,210}}, color={0,0,127}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-180,210},{-122,210}}, color={255,0,255}));
-  connect(uConWatPumSpe, proOn.u)
-    annotation (Line(points={{-180,-200},{-150,-200},{-150,-260},{-142,-260}},
-      color={0,0,127}));
-  connect(proOn.y, booToInt.u)
-    annotation (Line(points={{-118,-260},{-102,-260}}, color={255,0,255}));
   connect(mulSumInt.y, enaTow.uConWatPumNum)
     annotation (Line(points={{-18,-260},{10,-260},{10,11},{38,11}},
       color={255,127,0}));
@@ -455,7 +434,7 @@ equation
     annotation (Line(points={{-180,210},{-140,210},{-140,-227},{38,-227}},
       color={255,0,255}));
   connect(uPla, lesCouTowSpe.uPla)
-    annotation (Line(points={{-180,-120},{-60,-120},{-60,-215},{38,-215}},
+    annotation (Line(points={{-180,-120},{-60,-120},{-60,-216},{38,-216}},
       color={255,0,255}));
   connect(lesCouTowSpe.TConWatSupSet, TConWatSupSet)
     annotation (Line(points={{62,-212},{180,-212}}, color={0,0,127}));
@@ -463,6 +442,16 @@ equation
           {120,-61},{120,-40},{180,-40}}, color={0,0,127}));
   connect(conWatRetSet.yLifMin, yLifMin) annotation (Line(points={{-18,-64},
           {120,-64},{120,-80},{180,-80}}, color={0,0,127}));
+  connect(swi1.y, enaTow.uFanSpe) annotation (Line(points={{122,210},{130,210},
+          {130,60},{30,60},{30,26},{38,26}}, color={0,0,127}));
+  connect(conWatRetSet.TConWatRetSet, TConWatRetSet) annotation (Line(points={{-18,
+          -70},{0,-70},{0,-170},{180,-170}}, color={0,0,127}));
+  connect(uConWatPum, booToInt.u) annotation (Line(points={{-180,-200},{-150,
+          -200},{-150,-260},{-102,-260}}, color={255,0,255}));
+  connect(uConWatPum, couTowSpe.uConWatPum) annotation (Line(points={{-180,-200},
+          {-150,-200},{-150,-128},{38,-128}}, color={255,0,255}));
+  connect(uConWatPum, lesCouTowSpe.uConWatPum) annotation (Line(points={{-180,
+          -200},{-150,-200},{-150,-219},{38,-219}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},
@@ -518,10 +507,10 @@ annotation (
           textColor={255,0,255},
           textString="uChi"),
         Text(
-          extent={{-196,188},{-118,172}},
+          extent={{-196,188},{-142,172}},
           textColor={0,0,127},
-          textString="uTowSpeWSE",
-          visible=have_WSE),
+          visible=have_WSE,
+          textString="uSpeWSE"),
         Text(
           extent={{-200,130},{-154,114}},
           textColor={255,0,255},
@@ -540,13 +529,10 @@ annotation (
           textColor={0,0,127},
           textString="reqPlaCap"),
         Text(
-          extent={{-196,72},{-104,54}},
+          extent={{-198,68},{-124,50}},
           textColor={0,0,127},
-          textString="uMaxTowSpeSet"),
-        Text(
-          extent={{-200,40},{-134,22}},
-          textColor={0,0,127},
-          textString="uFanSpe"),
+          textString="uMaxSpeSet",
+          visible=need_heaPreCon),
         Text(
           extent={{-198,-50},{-118,-68}},
           textColor={0,0,127},
@@ -627,12 +613,12 @@ Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> for maintaining
 condenser water return temperature at setpoint. This is implemented
-according to ASHRAE Guideline36-2021, section 5.20.12.2,
+according to ASHRAE Guideline 36-2021, section 5.20.12.2,
 item a. It includes four subsequences:
 </p>
 <ul>
 <li>
-Reset the tower maximum speed that reset based on plant partial load ratio
+Reset the tower maximum speed that resets based on the plant partial load ratio
 linearly from 100% at 50% operative part load ratio down to 70% at 0%
 load ratio.
 </li>
@@ -649,7 +635,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTem
 for a description.
 </li>
 <li>
-Sequence of controlling tower fan for close coupled plants, see
+Sequence of controlling tower fan for the close coupled plants, see
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Coupled</a>
 for a description.

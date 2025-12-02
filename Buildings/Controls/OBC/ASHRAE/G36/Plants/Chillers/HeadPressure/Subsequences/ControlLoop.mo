@@ -52,7 +52,7 @@ block ControlLoop
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -84,11 +84,10 @@ equation
     annotation (Line(points={{-38,-40},{-22,-40}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{2,-40},{30,-40},{30,48}}, color={0,0,127}));
-  connect(uHeaPreEna, conPID.trigger)
-    annotation (Line(points={{-120,20},{24,20},{24,48}}, color={255,0,255}));
   connect(TChiWatSup, lif.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,
           -46},{-62,-46}}, color={0,0,127}));
-
+  connect(uHeaPreEna, conPID.uEna)
+    annotation (Line(points={{-120,20},{26,20},{26,48}}, color={255,0,255}));
 annotation (
   defaultComponentName= "chiHeaPreLoo",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -123,15 +122,14 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates chiller head pressure control loop signal when the signal
-is not available from chiller controller,
-according to ASHRAE Guideline36-2021,
-section 5.20.10 Head pressure control, part 5.20.10.1 and 5.20.10.2.
+is not available from chiller controller, according to ASHRAE Guideline 36-2021,
+section 5.20.10 head pressure control, part 5.20.10.1, and 5.20.10.2.
 </p>
 <p>
-1. When head pressure control loop is enabled, a reverse acting PID loop shall
+1. When the head pressure control loop is enabled, a reverse acting PID loop shall
 maintain the temperature differential between the chiller condenser water
 return (condenser leaving) temperature <code>TConWatRet</code> and chilled water supply temperature
-<code>TChiWatSup</code> at minimum allowable lift <code>minChiLif</code> (chiller lift
+<code>TChiWatSup</code> at the minimum allowable lift <code>minChiLif</code> (chiller lift
 equals to <code>TConWatRet</code> minus <code>TChiWatSup</code>)
 </p>
 <p>

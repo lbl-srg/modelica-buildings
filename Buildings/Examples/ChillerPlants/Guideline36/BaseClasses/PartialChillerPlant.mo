@@ -50,7 +50,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final dpValve_nominal=15000,
     final dpFixed_nominal=0)
     "Condenser water isolation valve"
-    annotation (Placement(transformation(extent={{370,90},{390,110}})));
+    annotation (Placement(transformation(extent={{350,90},{370,110}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear cwIsoVal2(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mCon_flow_nominal,
@@ -58,7 +58,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final dpValve_nominal=15000,
     final dpFixed_nominal=0)
     "Condenser water isolation valve"
-    annotation (Placement(transformation(extent={{370,0},{390,20}})));
+    annotation (Placement(transformation(extent={{350,0},{370,20}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear chwIsoVal1(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChi_flow_nominal,
@@ -199,12 +199,12 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final dp_nominal={0,0,0}) "Flow junction"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90, origin={440,-220})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatSupTem(redeclare package
-      Medium = MediumW, final m_flow_nominal=mChi_flow_nominal)
-    "Chilled water supply temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={200,-180})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatSupTem(
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=mChi_flow_nominal)
+    "Chilled water supply temperature"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90, origin={200,-180})));
   Buildings.Fluid.Sensors.TemperatureTwoPort chiWatRet(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChi_flow_nominal)
@@ -231,7 +231,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
   Buildings.Fluid.Sensors.TemperatureTwoPort conWatRetTem(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mCon_flow_nominal)
-    "Condenser water supply temperature, from the chiller condenser"
+    "Condenser water return temperature, from the chiller condenser"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,origin={420,280})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
@@ -301,6 +301,31 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     "Check valve to avoid reverse flow"
     annotation (Placement(transformation(extent={{-10,-11},{10,11}},
         rotation=-90, origin={260,-125})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiConWatRetTem1(
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=mCon_flow_nominal)
+    "Condenser water return temperature, from the chiller condenser"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0, origin={390,100})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiConWatRetTem2(
+    redeclare package Medium =  MediumW,
+    final m_flow_nominal=mCon_flow_nominal)
+    "Condenser water return temperature, from the chiller condenser"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0, origin={390,10})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatSupTem1(
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=mChi_flow_nominal)
+    "Chilled water supply temperature, from the chiller evaporator"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0, origin={280,70})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort chiWatSupTem2(
+    redeclare package Medium = MediumW,
+    final m_flow_nominal=mChi_flow_nominal)
+    "Chilled water supply temperature, from the chiller evaporator"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0, origin={280,-20})));
+
 equation
   connect(jun3.port_1, cooTow1.port_b)
     annotation (Line(points={{260,320},{260,380},{320,380}}, color={238,46,47},
@@ -313,12 +338,6 @@ equation
       thickness=1));
   connect(cooTow2.port_a, towIsoVal2.port_b)
     annotation (Line(points={{340,310},{370,310}}, color={238,46,47},
-      thickness=1));
-  connect(cwIsoVal2.port_b, jun4.port_1)
-    annotation (Line(points={{390,10},{420,10},{420,90}}, color={238,46,47},
-      thickness=1));
-  connect(cwIsoVal1.port_b, jun4.port_3)
-    annotation (Line(points={{390,100},{410,100}}, color={238,46,47},
       thickness=1));
   connect(jun5.port_2, towIsoVal1.port_a)
     annotation (Line(points={{420,320},{420,380},{390,380}}, color={238,46,47},
@@ -392,22 +411,16 @@ equation
     annotation (Line(points={{270,100},{320,100}}, color={238,46,47},
       thickness=1));
   connect(chi1.port_b1, cwIsoVal1.port_a)
-    annotation (Line(points={{340,100},{370,100}}, color={238,46,47},
+    annotation (Line(points={{340,100},{350,100}}, color={238,46,47},
       thickness=1));
   connect(jun.port_2, chi2.port_a1)
     annotation (Line(points={{260,90},{260,10},{320,10}}, color={238,46,47},
       thickness=1));
   connect(chi2.port_b1, cwIsoVal2.port_a)
-    annotation (Line(points={{340,10},{370,10}}, color={238,46,47},
-      thickness=1));
-  connect(chwIsoVal1.port_a, chi1.port_b2)
-    annotation (Line(points={{250,70},{300,70},{300,88},{320,88}}, color={0,127,255},
+    annotation (Line(points={{340,10},{350,10}}, color={238,46,47},
       thickness=1));
   connect(chi1.port_a2, jun6.port_2)
     annotation (Line(points={{340,88},{360,88},{360,70},{440,70},{440,-10}}, color={0,127,255},
-      thickness=1));
-  connect(chwIsoVal2.port_a, chi2.port_b2)
-    annotation (Line(points={{250,-20},{300,-20},{300,-2},{320,-2}}, color={0,127,255},
       thickness=1));
   connect(chi2.port_a2, jun6.port_3)
     annotation (Line(points={{340,-2},{360,-2},{360,-20},{430,-20}}, color={0,127,255},
@@ -448,6 +461,38 @@ equation
       thickness=1));
   connect(cheVal3.port_b, jun9.port_3) annotation (Line(
       points={{260,-135},{260,-150},{210,-150}},
+      color={0,127,255},
+      thickness=1));
+  connect(cwIsoVal1.port_b, chiConWatRetTem1.port_a) annotation (Line(
+      points={{370,100},{380,100}},
+      color={238,46,47},
+      thickness=1));
+  connect(chiConWatRetTem1.port_b, jun4.port_3) annotation (Line(
+      points={{400,100},{410,100}},
+      color={238,46,47},
+      thickness=1));
+  connect(cwIsoVal2.port_b, chiConWatRetTem2.port_a) annotation (Line(
+      points={{370,10},{380,10}},
+      color={238,46,47},
+      thickness=1));
+  connect(chiConWatRetTem2.port_b, jun4.port_1) annotation (Line(
+      points={{400,10},{420,10},{420,90}},
+      color={238,46,47},
+      thickness=1));
+  connect(chwIsoVal1.port_a, chiWatSupTem1.port_b) annotation (Line(
+      points={{250,70},{270,70}},
+      color={0,127,255},
+      thickness=1));
+  connect(chiWatSupTem1.port_a, chi1.port_b2) annotation (Line(
+      points={{290,70},{300,70},{300,88},{320,88}},
+      color={0,127,255},
+      thickness=1));
+  connect(chwIsoVal2.port_a, chiWatSupTem2.port_b) annotation (Line(
+      points={{250,-20},{270,-20}},
+      color={0,127,255},
+      thickness=1));
+  connect(chiWatSupTem2.port_a, chi2.port_b2) annotation (Line(
+      points={{290,-20},{300,-20},{300,-2},{320,-2}},
       color={0,127,255},
       thickness=1));
  annotation (

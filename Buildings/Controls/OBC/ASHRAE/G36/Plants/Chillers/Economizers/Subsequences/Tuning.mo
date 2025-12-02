@@ -204,8 +204,7 @@ equation
   connect(and5.y, lat.u) annotation (Line(points={{-178,-150},{-172,-150},{-172,
           -130},{-142,-130}}, color={255,0,255}));
   connect(lat.y, and4.u2) annotation (Line(points={{-118,-130},{-90,-130},{-90,
-          -118},{-82,-118}},
-                       color={255,0,255}));
+          -118},{-82,-118}}, color={255,0,255}));
   connect(not1.y, lat.clr) annotation (Line(points={{-238,-20},{-160,-20},{-160,
           -136},{-142,-136}}, color={255,0,255}));
   connect(tim1.y, lesThr.u)
@@ -217,7 +216,7 @@ equation
   connect(disCou1.y, intToRea1.u)
     annotation (Line(points={{-58,10},{-2,10}}, color={255,127,0}));
   connect(lim.y, y)
-    annotation (Line(points={{182,70},{340,70}},                 color={0,0,127}));
+    annotation (Line(points={{182,70},{340,70}}, color={0,0,127}));
   connect(mulSum.y, lim.u)
     annotation (Line(points={{142,70},{158,70}}, color={0,0,127}));
   connect(lim.y, sub1.u1) annotation (Line(points={{182,70},{190,70},{190,36},{198,
@@ -235,8 +234,7 @@ equation
   connect(intToRea.y, mulSum.u[1]) annotation (Line(points={{82,150},{100,150},
           {100,69.3333},{118,69.3333}},color={0,0,127}));
   connect(intToRea1.y, mulSum.u[2]) annotation (Line(points={{22,10},{80,10},{
-          80,70},{118,70}},
-                         color={0,0,127}));
+          80,70},{118,70}}, color={0,0,127}));
   connect(intWitRes.y, mulSum.u[3]) annotation (Line(points={{262,10},{280,10},
           {280,-40},{110,-40},{110,70.6667},{118,70.6667}},color={0,0,127}));
   connect(intGreEquThr1.y, preRes.u)
@@ -275,7 +273,7 @@ equation
 Documentation(info="<html>
 <p>
 Waterside economizer outlet temperature prediction tuning parameter subsequence 
-per ASHRAE Guideline36-2021, section 5.20.3.3. 
+per ASHRAE Guideline 36-2021, section 5.20.3.3. 
 </p>
 <p>
 The subsequence calculates the tuning parameter <code>y</code> as follows:
@@ -283,22 +281,22 @@ The subsequence calculates the tuning parameter <code>y</code> as follows:
 <ul>
 <li>
 Decrease <code>y</code> in <code>step</code> when the WSE is disabled if the WSE remained
-enabled for greater than <code>wseOnTimDec</code> time period.
+enabled for more than <code>wseOnTimDec</code> period.
 </li>
 <li>
 Increase <code>y</code> in <code>step</code> when the WSE is disabled if the WSE 
-remained enabled for less than <code>wseOnTimInc</code> time period and 
+remained enabled for less than <code>wseOnTimInc</code> period and 
 the cooling tower fan speed signal <code>uTowFanSpeMax</code> did not decrease 
 below 100% speed while the WSE was enabled.
 </li>
 </ul>
 <p>
 <code>y</code> initializes at 0 upon first plant start up,
-it holds its value when the plant is disabled and tuning resumes from that value when the plant is re-enabled. 
-It is limited between -0.2 and 0.5.
+it holds its value when the plant is disabled, and tuning resumes from that value when the
+plant is re-enabled. It is limited between -0.2 and 0.5.
 </p>
 <p>
-In order to avoid large integer values above <code>larInt</code>, the counters 
+To avoid large integer values above <code>larInt</code>, the counters 
 get reset to 0 each time any of them reaches that value.
 </p>
 </html>",

@@ -38,10 +38,6 @@ model Controller
     period=3700)
     "Waterside economizer enabling status"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay fanSpe(
-    samplePeriod=1)
-    "Current fan speed"
-    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
     table=[0,280.4; 400,279.9; 1000,281.65; 1600,280.4],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
@@ -59,23 +55,17 @@ equation
   connect(chiSta1.y, swi1.u2)
     annotation (Line(points={{-18,40},{0,40},{0,110},{18,110}}, color={255,0,255}));
   connect(chiSta2.y, wseOpe.uChi[2])
-    annotation (Line(points={{42,70},{70,70},{70,6},{98,6}}, color={255,0,255}));
+    annotation (Line(points={{42,70},{70,70},{70,5},{98,5}}, color={255,0,255}));
   connect(chiSta1.y, wseOpe.uChi[1])
-    annotation (Line(points={{-18,40},{70,40},{70,6},{98,6}}, color={255,0,255}));
-  connect(swi1.y, wseOpe.chiLoa[1])
-    annotation (Line(points={{42,110},{80,110},{80,9},{98,9}}, color={0,0,127}));
-  connect(con1.y, wseOpe.chiLoa[2])
-    annotation (Line(points={{-78,90},{-60,90},{-60,9},{98,9}}, color={0,0,127}));
+    annotation (Line(points={{-18,40},{70,40},{70,5},{98,5}}, color={255,0,255}));
   connect(wseSta.y, wseOpe.uWse)
-    annotation (Line(points={{-18,-30},{40,-30},{40,2},{98,2}}, color={255,0,255}));
+    annotation (Line(points={{-18,-30},{40,-30},{40,0},{98,0}}, color={255,0,255}));
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
     annotation (Line(points={{-78,-130},{70,-130},{70,-9},{98,-9}},  color={0,0,127}));
-  connect(wseOpe.ySpeSet, fanSpe.u) annotation (Line(points={{122,0},{130,0},{130,
-          -80},{-110,-80},{-110,-60},{-102,-60}}, color={0,0,127}));
-  connect(fanSpe.y, wseOpe.uFanSpe) annotation (Line(points={{-78,-60},{50,-60},
-          {50,-2},{98,-2}},color={0,0,127}));
-  connect(timTab.y[1], wseOpe.TChiWatSup) annotation (Line(points={{-38,-100},{60,
-          -100},{60,-6},{98,-6}},color={0,0,127}));
+  connect(timTab.y[1], wseOpe.TChiWatSup) annotation (Line(points={{-38,-100},{
+          60,-100},{60,-5},{98,-5}}, color={0,0,127}));
+  connect(swi1.y, wseOpe.uChiLoa) annotation (Line(points={{42,110},{80,110},{
+          80,9},{98,9}}, color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/EnabledWSE/Validation/Controller.mos"
     "Simulate and plot"),
@@ -87,8 +77,8 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Con
 </p>
 <p>
 In this example, at 2000 seconds the plant changes from economizer-only mode to integration mode which
-have both the chiller and economizer operating. It then changes to chiller-only mode at 3530 seconds.
-It implements following processes:
+has both the chiller and economizer operating. It then changes to chiller-only mode at 3530 seconds.
+It implements the following processes:
 </p>
 <ul>
 <li>
@@ -106,7 +96,7 @@ meantime, the fan has been cycled off for 180 seconds (ranging from 895 seconds 
 again and the PID control increases the output to maximum and the fan speed setpoint becomes 1.
 </li>
 <li>
-From 1600 to 2000 seconds, the chilled water supply temperature is reduced but still keeps higher than
+From 1600 to 2000 seconds, the chilled water supply temperature is reduced but still remains higher than
 the setpoint and the fan speed setpoint keeps to be 1.
 </li>
 <li>
@@ -118,7 +108,7 @@ From 2600 to 3515 seconds, the direct acting PID maintains to the chiller load a
 cycling load for the operating chiller. 
 </li>
 <li>
-After the 3515 seconds, it becomes chiller only mode and the fan speed control becomes invalide.
+After the 3515 seconds, it becomes chiller-only mode and the fan speed control becomes invalid.
 </li>
 </ul>
 </html>", revisions="<html>

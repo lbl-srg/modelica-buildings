@@ -25,11 +25,8 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa(final k=50)
-                  "Chiller load"
+    "Chiller load"
     annotation (Placement(transformation(extent={{-260,50},{-240,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerLoa(
-    final k=0) "Zero chiller load"
-    annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin(
     final k=0.7)
     "Minimum cycling operative partial load ratio"
@@ -49,10 +46,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn1[2](
     final k=fill(true,2)) "Operating chiller one"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa1(final k=50)
-                  "Chiller load"
+    "Chiller load"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin1(
     final k=0.7)
@@ -62,16 +59,10 @@ protected
     final samplePeriod=20)
     "Output the input signal with zero order hold"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
-    final samplePeriod=fill(20,2))
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
+    final samplePeriod=20)
     "Output the input signal with zero order hold"
     annotation (Placement(transformation(extent={{240,40},{260,60}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=2) "Replicate boolean input"
-    annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=2) "Replicate real input"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
 equation
   connect(booPul.y, limDem.u)
@@ -79,9 +70,6 @@ equation
   connect(limDem.y, chiDemRed.uDemLim)
     annotation (Line(points={{-198,100},{-180,100},{-180,119},{-102,119}},
       color={255,0,255}));
-  connect(chiDemRed.yChiDem[1], zerOrdHol.u)
-    annotation (Line(points={{-78,113.5},{-70,113.5},{-70,100},{-62,100}},
-      color={0,0,127}));
   connect(limDem.y, swi.u2)
     annotation (Line(points={{-198,100},{-180,100},{-180,60},{-162,60}},
       color={255,0,255}));
@@ -91,12 +79,6 @@ equation
   connect(zerOrdHol.y, swi.u1)
     annotation (Line(points={{-38,100},{-30,100},{-30,80},{-170,80},{-170,68},
       {-162,68}}, color={0,0,127}));
-  connect(swi.y, chiDemRed.uChiLoa[1])
-    annotation (Line(points={{-138,60},{-130,60},{-130,114.5},{-102,114.5}},
-      color={0,0,127}));
-  connect(zerLoa.y, chiDemRed.uChiLoa[2])
-    annotation (Line(points={{-238,20},{-126,20},{-126,115.5},{-102,115.5}},
-      color={0,0,127}));
   connect(yOpeParLoaRatMin.y, chiDemRed.yOpeParLoaRatMin)
     annotation (Line(points={{-238,-20},{-122,-20},{-122,111},{-102,111}},
       color={0,0,127}));
@@ -123,23 +105,12 @@ equation
   connect(chiDemRed1.yChiDem, zerOrdHol1.u)
     annotation (Line(points={{222,64},{230,64},{230,50},{238,50}},
       color={0,0,127}));
-  connect(chiLoa1.y, reaRep.u)
-    annotation (Line(points={{62,-40},{78,-40}}, color={0,0,127}));
-  connect(booRep.y, swi1.u2)
-    annotation (Line(points={{162,30},{170,30},{170,10},{120,10},{120,-40},
-      {138,-40}},  color={255,0,255}));
-  connect(reaRep.y, swi1.u3)
-    annotation (Line(points={{102,-40},{110,-40},{110,-48},{138,-48}},
-      color={0,0,127}));
   connect(zerOrdHol1.y, swi1.u1)
     annotation (Line(points={{262,50},{270,50},{270,-10},{130,-10},{130,-32},
       {138,-32}},  color={0,0,127}));
   connect(swi1.y, chiDemRed1.uChiLoa)
     annotation (Line(points={{162,-40},{174,-40},{174,65},{198,65}},
       color={0,0,127}));
-  connect(limDem1.y, booRep.u)
-    annotation (Line(points={{102,100},{120,100},{120,30},{138,30}},
-      color={255,0,255}));
   connect(limDem1.y, chiDemRed1.uStaDow)
     annotation (Line(points={{102,100},{120,100},{120,58},{198,58}},
       color={255,0,255}));
@@ -149,7 +120,14 @@ equation
   connect(chiOn1.y, chiDemRed1.uChi)
     annotation (Line(points={{62,-140},{182,-140},{182,51},{198,51}},
       color={255,0,255}));
-
+  connect(swi.y, chiDemRed.uChiLoa) annotation (Line(points={{-138,60},{-126,60},
+          {-126,115},{-102,115}}, color={0,0,127}));
+  connect(chiLoa1.y, swi1.u3) annotation (Line(points={{62,-40},{100,-40},{100,-48},
+          {138,-48}}, color={0,0,127}));
+  connect(limDem1.y, swi1.u2) annotation (Line(points={{102,100},{120,100},{120,
+          -40},{138,-40}}, color={255,0,255}));
+  connect(chiDemRed.yChiDem, zerOrdHol.u) annotation (Line(points={{-78,114},{
+          -70,114},{-70,100},{-62,100}}, color={0,0,127}));
 annotation (
  experiment(StopTime=600, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/ReduceDemand.mos"
@@ -162,7 +140,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences
 </p>
 <p>
 It has two instances as below to demonstrate the process of reducing chiller demand
-when the plant is in staging process.
+when the plant is in the staging process.
 </p>
 <p>
 The instance <code>chiDemRed</code> shows the process of reducing the chiller

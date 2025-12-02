@@ -49,20 +49,12 @@ protected
     annotation (Placement(transformation(extent={{-360,-170},{-340,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-300,-190},{-280,-170}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe1[2](
-    final height=fill(0.5, 2),
-    final duration=fill(3600, 2),
-    final startTime=fill(300, 2)) "Measured condenser water pump speed"
-    annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(final k=0.5)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-320,-10},{-300,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe2(final k=0)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-360,-70},{-340,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe3(final k=0.2)
-    "Measured tower fan speed"
-    annotation (Placement(transformation(extent={{-320,110},{-300,130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatSupSet(
     final k=273.15 + 6.5)
     "Chilled water supply setpoint"
@@ -111,6 +103,13 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
 
+public
+  CDL.Logical.Sources.Pulse conWatPum[2](final width=fill(0.1, 2), final period
+      =fill(3600, 2)) "Condenser water pump status"
+    annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
+  CDL.Logical.Not                        not2[2]
+  "Logical not"
+    annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
 equation
   connect(ram2.y,add1. u2)
     annotation (Line(points={{-338,-280},{-320,-280},{-320,-266},{-302,-266}},
@@ -147,9 +146,6 @@ equation
   connect(not1.y, swi2.u2)
     annotation (Line(points={{-298,210},{-280,210},{-280,270},{-262,270}},
       color={255,0,255}));
-  connect(con1.y, cloCouWitWse.chiLoa[2])
-    annotation (Line(points={{-338,250},{-210,250},{-210,319},{-82,319}},
-      color={0,0,127}));
   connect(not1.y, cloCouWitWse.uChi[1])
     annotation (Line(points={{-298,210},{-200,210},{-200,316},{-82,316}},
       color={255,0,255}));
@@ -159,9 +155,6 @@ equation
   connect(wseSta.y, cloCouWitWse.uWse)
     annotation (Line(points={{-338,150},{-190,150},{-190,313},{-82,313}},
       color={255,0,255}));
-  connect(towFanSpe3.y, cloCouWitWse.uFanSpe)
-    annotation (Line(points={{-298,120},{-180,120},{-180,310},{-82,310}},
-      color={0,0,127}));
   connect(chiSup.y,add2. u1)
     annotation (Line(points={{-338,90},{-320,90},{-320,76},{-262,76}},
       color={0,0,127}));
@@ -177,12 +170,10 @@ equation
   connect(plaCap.y, cloCouWitWse.reqPlaCap)
     annotation (Line(points={{-338,20},{-150,20},{-150,301},{-82,301}},
       color={0,0,127}));
-  connect(swi1.y, cloCouWitWse.uMaxTowSpeSet[1])
-    annotation (Line(points={{-218,-20},{-140,-20},{-140,298},{-82,298}},
-      color={0,0,127}));
-  connect(hpTowSpe2.y, cloCouWitWse.uMaxTowSpeSet[2])
-    annotation (Line(points={{-338,-60},{-140,-60},{-140,298},{-82,298}},
-      color={0,0,127}));
+  connect(swi1.y, cloCouWitWse.uMaxSpeSet[1]) annotation (Line(points={{-218,-20},
+          {-140,-20},{-140,298},{-82,298}}, color={0,0,127}));
+  connect(hpTowSpe2.y, cloCouWitWse.uMaxSpeSet[2]) annotation (Line(points={{-338,
+          -60},{-140,-60},{-140,298},{-82,298}}, color={0,0,127}));
   connect(booRep.y, cloCouWitWse.uTow)
     annotation (Line(points={{-178,-80},{-130,-80},{-130,295},{-82,295}},
       color={255,0,255}));
@@ -191,18 +182,6 @@ equation
       color={255,0,255}));
   connect(add3.y, cloCouWitWse.TConWatRet)
     annotation (Line(points={{-278,-180},{-110,-180},{-110,286},{-82,286}},
-      color={0,0,127}));
-  connect(conWatPumSpe1.y, cloCouWitWse.uConWatPumSpe)
-    annotation (Line(points={{-278,-220},{-100,-220},{-100,283},{-82,283}},
-      color={0,0,127}));
-  connect(swi2.y, cloCouWitWse.chiLoa[1])
-    annotation (Line(points={{-238,270},{-210,270},{-210,319},{-82,319}},
-      color={0,0,127}));
-  connect(swi2.y, lesCouWitWse.chiLoa[1])
-    annotation (Line(points={{-238,270},{-40,270},{-40,319},{98,319}},
-      color={0,0,127}));
-  connect(con1.y, lesCouWitWse.chiLoa[2])
-    annotation (Line(points={{-338,250},{-40,250},{-40,319},{98,319}},
       color={0,0,127}));
   connect(not1.y, lesCouWitWse.uChi[1])
     annotation (Line(points={{-298,210},{-30,210},{-30,316},{98,316}},
@@ -213,9 +192,6 @@ equation
   connect(wseSta.y, lesCouWitWse.uWse)
     annotation (Line(points={{-338,150},{-10,150},{-10,313},{98,313}},
       color={255,0,255}));
-  connect(towFanSpe3.y, lesCouWitWse.uFanSpe)
-    annotation (Line(points={{-298,120},{0,120},{0,310},{98,310}},
-      color={0,0,127}));
   connect(add2.y, lesCouWitWse.TChiWatSup)
     annotation (Line(points={{-238,70},{10,70},{10,307},{98,307}},
       color={0,0,127}));
@@ -225,12 +201,10 @@ equation
   connect(plaCap.y, lesCouWitWse.reqPlaCap)
     annotation (Line(points={{-338,20},{30,20},{30,301},{98,301}},
       color={0,0,127}));
-  connect(swi1.y, lesCouWitWse.uMaxTowSpeSet[1])
-    annotation (Line(points={{-218,-20},{40,-20},{40,298},{98,298}},
-      color={0,0,127}));
-  connect(hpTowSpe2.y, lesCouWitWse.uMaxTowSpeSet[2])
-    annotation (Line(points={{-338,-60},{40,-60},{40,298},{98,298}},
-      color={0,0,127}));
+  connect(swi1.y, lesCouWitWse.uMaxSpeSet[1]) annotation (Line(points={{-218,-20},
+          {40,-20},{40,298},{98,298}}, color={0,0,127}));
+  connect(hpTowSpe2.y, lesCouWitWse.uMaxSpeSet[2]) annotation (Line(points={{-338,
+          -60},{40,-60},{40,298},{98,298}}, color={0,0,127}));
   connect(booRep.y, lesCouWitWse.uTow)
     annotation (Line(points={{-178,-80},{50,-80},{50,295},{98,295}},
       color={255,0,255}));
@@ -239,9 +213,6 @@ equation
       color={255,0,255}));
   connect(add3.y, lesCouWitWse.TConWatRet)
     annotation (Line(points={{-278,-180},{70,-180},{70,286},{98,286}},
-      color={0,0,127}));
-  connect(conWatPumSpe1.y, lesCouWitWse.uConWatPumSpe)
-    annotation (Line(points={{-278,-220},{80,-220},{80,283},{98,283}},
       color={0,0,127}));
   connect(add1.y, lesCouWitWse.TConWatSup)
     annotation (Line(points={{-278,-260},{90,-260},{90,281},{98,281}},
@@ -252,21 +223,16 @@ equation
   connect(chiSta2.y, cloCouNoWse.uChi[2])
     annotation (Line(points={{-338,180},{140,180},{140,316},{278,316}},
       color={255,0,255}));
-  connect(towFanSpe3.y, cloCouNoWse.uFanSpe)
-    annotation (Line(points={{-298,120},{150,120},{150,310},{278,310}},
-      color={0,0,127}));
   connect(chiWatSupSet.y, cloCouNoWse.TChiWatSupSet)
     annotation (Line(points={{-338,-110},{160,-110},{160,304},{278,304}},
       color={0,0,127}));
   connect(plaCap.y, cloCouNoWse.reqPlaCap)
     annotation (Line(points={{-338,20},{170,20},{170,301},{278,301}},
       color={0,0,127}));
-  connect(swi1.y, cloCouNoWse.uMaxTowSpeSet[1])
-    annotation (Line(points={{-218,-20},{180,-20},{180,298},{278,298}},
-      color={0,0,127}));
-  connect(hpTowSpe2.y, cloCouNoWse.uMaxTowSpeSet[2])
-    annotation (Line(points={{-338,-60},{180,-60},{180,298},{278,298}},
-      color={0,0,127}));
+  connect(swi1.y, cloCouNoWse.uMaxSpeSet[1]) annotation (Line(points={{-218,-20},
+          {180,-20},{180,298},{278,298}}, color={0,0,127}));
+  connect(hpTowSpe2.y, cloCouNoWse.uMaxSpeSet[2]) annotation (Line(points={{-338,
+          -60},{180,-60},{180,298},{278,298}}, color={0,0,127}));
   connect(booRep.y, cloCouNoWse.uTow)
     annotation (Line(points={{-178,-80},{190,-80},{190,295},{278,295}},
       color={255,0,255}));
@@ -276,9 +242,6 @@ equation
   connect(add3.y, cloCouNoWse.TConWatRet)
     annotation (Line(points={{-278,-180},{210,-180},{210,286},{278,286}},
       color={0,0,127}));
-  connect(conWatPumSpe1.y, cloCouNoWse.uConWatPumSpe)
-    annotation (Line(points={{-278,-220},{220,-220},{220,283},{278,283}},
-      color={0,0,127}));
   connect(not1.y, or4.u1) annotation (Line(points={{-298,210},{-280,210},{-280,-80},
           {-262,-80}}, color={255,0,255}));
   connect(chiSta2.y, or4.u2) annotation (Line(points={{-338,180},{-286,180},{-286,
@@ -287,6 +250,18 @@ equation
           -148},{-262,-148}}, color={255,0,255}));
   connect(or4.y, or3.u1) annotation (Line(points={{-238,-80},{-230,-80},{-230,-100},
           {-270,-100},{-270,-140},{-262,-140}}, color={255,0,255}));
+  connect(swi2.y, cloCouWitWse.uChiLoa) annotation (Line(points={{-238,270},{
+          -210,270},{-210,319},{-82,319}}, color={0,0,127}));
+  connect(swi2.y, lesCouWitWse.uChiLoa) annotation (Line(points={{-238,270},{
+          -40,270},{-40,319},{98,319}}, color={0,0,127}));
+  connect(conWatPum.y, not2.u)
+    annotation (Line(points={{-278,-220},{-242,-220}}, color={255,0,255}));
+  connect(not2.y, cloCouWitWse.uConWatPum) annotation (Line(points={{-218,-220},
+          {-100,-220},{-100,283},{-82,283}}, color={255,0,255}));
+  connect(not2.y, lesCouWitWse.uConWatPum) annotation (Line(points={{-218,-220},
+          {80,-220},{80,283},{98,283}}, color={255,0,255}));
+  connect(not2.y, cloCouNoWse.uConWatPum) annotation (Line(points={{-218,-220},
+          {220,-220},{220,283},{278,283}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/Validation/Controller.mos"
     "Simulate and plot"),

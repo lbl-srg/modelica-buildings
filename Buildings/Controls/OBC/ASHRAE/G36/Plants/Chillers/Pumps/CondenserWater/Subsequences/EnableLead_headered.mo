@@ -104,9 +104,8 @@ annotation (
    Diagram(coordinateSystem(preserveAspectRatio=false)),
    Documentation(info="<html>
 <p>
-Block that enable and disable lead condenser water pump, for plants
-with headered condenser water pumps, 
-according to ASHRAE Guideline36-2021, 
+Block that enables and disables the lead condenser water pump, for plants
+with headered condenser water pumps, according to ASHRAE Guideline 36-2021, 
 section 5.20.9 Condenser water pumps, part 5.20.9.2-3.
 </p>
 <ol>
@@ -114,7 +113,7 @@ section 5.20.9 Condenser water pumps, part 5.20.9.2-3.
 Condenser water pumps shall be lead-lag.
 </li>
 <li>
-The lead condenser water pump shall be enabled when condenser water 
+The lead condenser water pump shall be enabled when the condenser water 
 isolation valve of any chiller <code>uChiConIsoVal</code> or water side economizer 
 <code>uWseConIsoVal</code> is commanded open. It shall be disabled when 
 all chiller and water side economizer condenser water isolation valves are 

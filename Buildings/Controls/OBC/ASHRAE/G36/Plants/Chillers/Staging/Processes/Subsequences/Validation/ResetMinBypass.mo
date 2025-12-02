@@ -67,12 +67,12 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences
 </p>
 <p>
 The instance <code>minBypRes</code> shows the process of changing the bypass valve
-when the minimum bypass chilled water flow setpoint has been changed when the
+when the minimum bypass chilled water flow setpoint has been changed, when the
 plant is in a staging up process.
 </p>
 <ul>
 <li>
-Before 90 seconds, the plant is not in staging process. There is no change to the
+Before 90 seconds, the plant is not in the staging process. There is no change to the
 minimum bypass valve (<code>yMinBypRes=true</code>).
 </li>
 <li>
@@ -81,14 +81,14 @@ the bypass valve (<code>yMinBypRes=true</code>). As the upstream subprocess has
 not finished (<code>uUpsDevSta=false</code>).
 </li>
 <li>
-At 120 seconds, the plant is still in staging process and the upstream subprocess
+At 120 seconds, the plant is still in the staging process and the upstream subprocess
 has finished (<code>uUpsDevSta=true</code>). It starts changing the minimum flow
 setpoint (<code>uSetChaPro=true</code>) and changing the bypass valve
 (<code>yMinBypRes=false</code>). The measured chiller water flow becomes different
 from its setpoint.
 </li>
 <li>
-At about 200 seconds, the measured chilled water flow achieved the setpoint. Thus
+At about 200 seconds, the measured chilled water flow achieved the setpoint. Thus,
 the bypass valve position has been changed successfully. After 60 seconds to about
 260 seconds, the minimum bypass valve position changing process is finished
 (<code>yMinBypRes=true</code>).

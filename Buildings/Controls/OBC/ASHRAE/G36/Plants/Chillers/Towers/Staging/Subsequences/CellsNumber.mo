@@ -11,11 +11,8 @@ block CellsNumber
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
-  parameter Real towCelOnSet[totSta] = {0,2,2,4,4,4}
+  parameter Integer towCelOnSet[totSta] = {0,2,2,4,4,4}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
-  parameter Real speChe = 0.01
-    "Lower threshold value to check if condenser water pump is proven on"
-    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
@@ -41,10 +38,10 @@ block CellsNumber
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-300,-150},{-260,-110}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-      final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+  CDL.Interfaces.BooleanInput uAnyConWatPum
+    "True: there is condenser water pump on" annotation (Placement(
+        transformation(extent={{-300,-180},{-260,-140}}), iconTransformation(
+          extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNumCel
     "Total number of enabled cells"
     annotation (Placement(transformation(extent={{260,90},{300,130}}),
@@ -88,15 +85,10 @@ protected
     final nin=totSta)
     "Number of cells should be enabled at current plant stage"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5[totSta](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant con5[totSta](
     final k=towCelOnSet)
     "Number of enabling cells at each stage"
-    annotation (Placement(transformation(extent={{80,140},{100,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
-    final uLow=fill(speChe, nConWatPum),
-    final uHigh=fill(2*speChe, nConWatPum))
-    "Check if the condenser water pump is proven on"
-    annotation (Placement(transformation(extent={{-220,-170},{-200,-150}})));
+    annotation (Placement(transformation(extent={{20,140},{40,160}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     "Convert integer input to real"
     annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
@@ -109,10 +101,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Chiller stage index in the staging process"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nConWatPum)
-    "Check if any condenser water pump is running"
-    annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
@@ -138,6 +126,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And anyPumOn
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[totSta]
+    "Convert to real"
+    annotation (Placement(transformation(extent={{80,140},{100,160}})));
 equation
   connect(uWse, booToRea1.u)
     annotation (Line(points={{-280,-40},{-162,-40}}, color={255,0,255}));
@@ -157,12 +148,8 @@ equation
       color={0,0,127}));
   connect(sub4.y, greEquThr.u)
     annotation (Line(points={{22,-40},{38,-40}}, color={0,0,127}));
-  connect(con5.y, celOnNum.u)
-    annotation (Line(points={{102,150},{118,150}}, color={0,0,127}));
   connect(booToInt.y, mulSumInt.u)
     annotation (Line(points={{142,-40},{158,-40}}, color={255,127,0}));
-  connect(uConWatPumSpe, proOn.u)
-    annotation (Line(points={{-280,-160},{-222,-160}}, color={0,0,127}));
   connect(uChiSta, norOpe.u1)
     annotation (Line(points={{-280,100},{-222,100}}, color={255,127,0}));
   connect(intToRea1.y, swi.u1)
@@ -186,8 +173,6 @@ equation
           {-82,-14}}, color={0,0,127}));
   connect(reaToInt.y, yNumCel)
     annotation (Line(points={{242,110},{280,110}}, color={255,127,0}));
-  connect(proOn.y, mulOr.u) annotation (Line(points={{-198,-160},{-170,-160},{-170,
-          -160},{-142,-160}}, color={255,0,255}));
   connect(uEnaPla, or2.u1)
     annotation (Line(points={{-280,-90},{198,-90}}, color={255,0,255}));
   connect(or2.y, yLeaCel)
@@ -216,12 +201,16 @@ equation
           104},{178,104}}, color={0,0,127}));
   connect(mul.y, reaToInt.u)
     annotation (Line(points={{202,110},{218,110}}, color={0,0,127}));
-  connect(mulOr.y, anyPumOn.u2) annotation (Line(points={{-118,-160},{-80,-160},
-          {-80,-138},{-62,-138}}, color={255,0,255}));
   connect(uPla, anyPumOn.u1)
     annotation (Line(points={{-280,-130},{-62,-130}}, color={255,0,255}));
   connect(anyPumOn.y, or2.u2) annotation (Line(points={{-38,-130},{180,-130},{
           180,-98},{198,-98}}, color={255,0,255}));
+  connect(con5.y, intToRea.u)
+    annotation (Line(points={{42,150},{78,150}}, color={255,127,0}));
+  connect(intToRea.y, celOnNum.u)
+    annotation (Line(points={{102,150},{118,150}}, color={0,0,127}));
+  connect(uAnyConWatPum, anyPumOn.u2) annotation (Line(points={{-280,-160},{-80,
+          -160},{-80,-138},{-62,-138}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -235,10 +224,6 @@ annotation (
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-96,-84},{-18,-96}},
-          textColor={0,0,127},
-          textString="uConWatPumSpe"),
         Text(
           extent={{-98,-2},{-72,-16}},
           textColor={255,0,255},
@@ -272,7 +257,11 @@ annotation (
           extent={{-98,-62},{-72,-76}},
           textColor={255,0,255},
           visible=have_WSE,
-          textString="uPla")}),
+          textString="uPla"),
+        Text(
+          extent={{-96,-84},{-38,-96}},
+          textColor={255,0,255},
+          textString="uAnyConWatPum")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-180},{260,180}}),
         graphics={
           Text(
@@ -287,7 +276,7 @@ annotation (
 <p>
 This block outputs total number of enabling tower cells according to current plant
 stage and generates boolean output to enable or disable lead tower cell(s).
-It is implemented according to ASHRAE Guideline36-2021, section 5.20.12.1,
+It is implemented according to ASHRAE Guideline 36-2021, section 5.20.12.1,
 </p>
 <ul>
 <li>item b which specifies number of enabled cooling tower cells according to

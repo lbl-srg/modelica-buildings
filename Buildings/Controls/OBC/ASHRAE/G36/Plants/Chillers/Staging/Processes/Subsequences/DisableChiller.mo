@@ -420,16 +420,16 @@ annotation (
           textString="Disable chiller when the down-process requires small chiller being enabled")}),
 Documentation(info="<html>
 <p>
-Block that controlles chiller when there is staging down command <code>uStaDow=true</code>.
-This implementation is based on ASHRAE Guideline36-2021, section 5.20.4.17,
-item a.5 and a.6. These two sections specify how to start the smaller chiller and shut
-off larger chiller when the stage change requires large chiller off and small chill on.
+Block that controlls chiller when there is a staging down command <code>uStaDow=true</code>.
+This implementation is based on ASHRAE Guideline 36-2021, section 5.20.4.17,
+items a.5 and a.6. These two sections specify how to start the smaller chiller and shut
+off larger chiller when the stage change requires large chiller off and small chiller on.
 In other stage change, when it does not require chiller on/off, the chiller will then
 be shut off as specified in section 5.20.4.17, item b.
 </p>
 <p>
-When the stage-down process requires a smaller chiller being staged on and a larger
-chiller being staged off:
+When the stage-down process requires a smaller chiller to be staged on and a larger
+chiller to be staged off:
 </p>
 <ul>
 <li>
@@ -442,8 +442,8 @@ it is operating correctly, then shut off the larger chiller and release the dema
 </li>
 </ul>
 <p>
-If staging-down from any other stage that does not require one chiller off and another
-chiller on, then shut off the last stage chiller.
+If it stages down from any other stage that does not require one chiller to be off and another
+chiller to be on, then shut off the last stage chiller.
 </p>
 </html>", revisions="<html>
 <ul>

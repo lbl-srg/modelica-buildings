@@ -6,8 +6,8 @@ partial block PartialController "Interface class for plant controller"
   parameter Buildings.Templates.Plants.Chillers.Configuration.ChillerPlant cfg
     "Plant configuration parameters"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl typCtlHea(
-    start=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None)
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl typCtlHea(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired)
     "Type of head pressure control"
     annotation (Evaluate=true, Dialog(group="Configuration",
        enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36

@@ -48,17 +48,9 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Add conWatRetTem
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-300,-110},{-280,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe1(
-    final height=0.5,
-    final duration=3600,
-    final startTime=300) "Measured condenser water pump speed"
-    annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(final k=0.5)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-320,110},{-300,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe3(final k=0.2)
-    "Measured tower fan speed"
-    annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatSupSet(
     final k=273.15 + 6.5)
     "Chilled water supply setpoint"
@@ -67,7 +59,7 @@ protected
     final period=3600) "Chiller one enabling status"
     annotation (Placement(transformation(extent={{-360,260},{-340,280}})));
   Buildings.Controls.OBC.CDL.Logical.Or or3 "Logical or"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not chiOneSta "Chiller one status"
     annotation (Placement(transformation(extent={{-320,260},{-300,280}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
@@ -95,12 +87,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false)
     "Constant false"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatPumSpe(
-    final nout=2)
-    "Condenser water pump speed"
+  CDL.Routing.BooleanScalarReplicator                     conWatPumSta(
+    final nout=2) "Condenser water pump status"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
-    annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta2(
     final width=0.7,
     final period=3600)
@@ -121,6 +110,16 @@ protected
     table=[0,0; 360,1; 1560,2; 3600,2],
     period=3600) "Chiller stage setpoint"
     annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse conWatPum(
+    final width=0.1,
+    final period=3600) "Condenser water pump status"
+    annotation (Placement(transformation(extent={{-300,-160},{-280,-140}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Logical and"
+    annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
+
 equation
   connect(ram2.y, conWatSupTem.u2) annotation (Line(points={{-338,-220},{-320,-220},
           {-320,-206},{-302,-206}}, color={0,0,127}));
@@ -140,16 +139,14 @@ equation
           92},{-162,92}}, color={0,0,127}));
   connect(chiOneSta.y, towCon.uChi[1]) annotation (Line(points={{-298,270},{-30,
           270},{-30,376.5},{198,376.5}}, color={255,0,255}));
-  connect(towFanSpe3.y,towCon.uFanSpe)  annotation (Line(points={{-298,160},{-10,
-          160},{-10,373},{198,373}},     color={0,0,127}));
   connect(chiWatSupSet.y, towCon.TChiWatSupSet) annotation (Line(points={{-338,
           -40},{10,-40},{10,369},{198,369}}, color={0,0,127}));
   connect(plaCap.y, towCon.reqPlaCap) annotation (Line(points={{-338,140},{20,140},
           {20,367},{198,367}}, color={0,0,127}));
-  connect(maxTowSpe1.y, towCon.uMaxTowSpeSet[1]) annotation (Line(points={{-138,
+  connect(maxTowSpe1.y, towCon.uMaxSpeSet[1]) annotation (Line(points={{-138,
           100},{30,100},{30,364.5},{198,364.5}}, color={0,0,127}));
-  connect(or3.y, towCon.uPla) annotation (Line(points={{-78,-70},{60,-70},{60,
-          361},{198,361}}, color={255,0,255}));
+  connect(or3.y, towCon.uPla) annotation (Line(points={{-118,-70},{60,-70},{60,361},
+          {198,361}},      color={255,0,255}));
   connect(conWatRetTem.y, towCon.TConWatRet) annotation (Line(points={{-278,
           -100},{70,-100},{70,359},{198,359}}, color={0,0,127}));
   connect(conWatSupTem.y, towCon.TConWatSup) annotation (Line(points={{-278,
@@ -172,24 +169,14 @@ equation
           120,-320},{120,347},{198,347}}, color={255,0,255}));
   connect(con3.y, towCon.uEnaPla) annotation (Line(points={{-58,-180},{94,-180},
           {94,353},{198,353}}, color={255,0,255}));
-  connect(or3.y, swi2.u2) annotation (Line(points={{-78,-70},{-40,-70},{-40,
-          -150},{-22,-150}}, color={255,0,255}));
-  connect(zer.y, swi2.u3) annotation (Line(points={{-298,80},{-260,80},{-260,-158},
-          {-22,-158}},       color={0,0,127}));
-  connect(conWatPumSpe1.y, swi2.u1) annotation (Line(points={{-218,-130},{-60,
-          -130},{-60,-142},{-22,-142}}, color={0,0,127}));
-  connect(swi2.y, conWatPumSpe.u)
-    annotation (Line(points={{2,-150},{18,-150}}, color={0,0,127}));
-  connect(conWatPumSpe.y, towCon.uConWatPumSpe) annotation (Line(points={{42,-150},
-          {80,-150},{80,357},{198,357}}, color={0,0,127}));
   connect(chiOneSta.y, or3.u1) annotation (Line(points={{-298,270},{-188,270},{-188,
-          -70},{-102,-70}}, color={255,0,255}));
+          -70},{-142,-70}}, color={255,0,255}));
   connect(chiSta2.y, chiTwoSta1.u)
     annotation (Line(points={{-338,208},{-322,208}}, color={255,0,255}));
   connect(chiTwoSta1.y, towCon.uChi[2]) annotation (Line(points={{-298,208},{-30,
           208},{-30,377.5},{198,377.5}}, color={255,0,255}));
   connect(chiTwoSta1.y, or3.u2) annotation (Line(points={{-298,208},{-200,208},{
-          -200,-78},{-102,-78}}, color={255,0,255}));
+          -200,-78},{-142,-78}}, color={255,0,255}));
   connect(chiTwoSta1.y, chiSta3.u) annotation (Line(points={{-298,208},{-200,208},
           {-200,-250},{-102,-250}}, color={255,0,255}));
   connect(chiSta.y, addInt.u1) annotation (Line(points={{-118,-220},{-60,-220},{
@@ -206,8 +193,18 @@ equation
           120},{-240,48},{-162,48},{-162,48}}, color={0,0,127}));
   connect(zer.y, maxTowSpe2.u3) annotation (Line(points={{-298,80},{-260,80},{-260,
           32},{-162,32}}, color={0,0,127}));
-  connect(maxTowSpe2.y, towCon.uMaxTowSpeSet[2]) annotation (Line(points={{-138,
-          40},{40,40},{40,365.5},{198,365.5}}, color={0,0,127}));
+  connect(maxTowSpe2.y, towCon.uMaxSpeSet[2]) annotation (Line(points={{-138,40},
+          {40,40},{40,365.5},{198,365.5}}, color={0,0,127}));
+  connect(conWatPum.y, not2.u)
+    annotation (Line(points={{-278,-150},{-242,-150}}, color={255,0,255}));
+  connect(not2.y, and2.u1)
+    annotation (Line(points={{-218,-150},{-62,-150}}, color={255,0,255}));
+  connect(or3.y, and2.u2) annotation (Line(points={{-118,-70},{-80,-70},{-80,-158},
+          {-62,-158}}, color={255,0,255}));
+  connect(and2.y, conWatPumSta.u)
+    annotation (Line(points={{-38,-150},{18,-150}}, color={255,0,255}));
+  connect(conWatPumSta.y, towCon.uConWatPum) annotation (Line(points={{42,-150},
+          {80,-150},{80,357},{198,357}}, color={255,0,255}));
 annotation (experiment(StopTime=3500.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/Validation/WithoutWSE.mos"
     "Simulate and plot"),

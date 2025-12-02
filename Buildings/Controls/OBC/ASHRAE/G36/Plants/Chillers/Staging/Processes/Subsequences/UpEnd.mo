@@ -2,39 +2,28 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subse
 block UpEnd "Sequence for ending stage-up process"
 
   parameter Integer nChi=2 "Total number of chillers";
+  parameter Boolean have_airCoo=false
+    "True: the plant has air cooled chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
-
-  parameter Real proOnTim(
-    final unit="s",
-    final quantity="Time") = 300
+  parameter Real delayStaCha(unit="s")=900
+    "Hold period for each stage change";
+  parameter Real proOnTim(unit="s")=300
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
     annotation (Dialog(group="Enable next chiller"));
-  parameter Real chaChiWatIsoTim(
-    final unit="s",
-    final quantity="Time")
+  parameter Real chaChiWatIsoTim(unit="s")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
-  parameter Real byPasSetTim(
-    final unit="s",
-    final quantity="Time")
+  parameter Real byPasSetTim(unit="s")
     "Time to slowly reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real minFloSet[nChi](
-    final unit=fill("m3/s", nChi),
-    final quantity=fill("VolumeFlowRate", nChi),
-    displayUnit=fill("m3/s", nChi))
+  parameter Real minFloSet[nChi](unit=fill("m3/s", nChi), each displayUnit="m3/s")
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real maxFloSet[nChi](
-    final unit=fill("m3/s", nChi),
-    final quantity=fill("VolumeFlowRate", nChi),
-    displayUnit=fill("m3/s", nChi))
+  parameter Real maxFloSet[nChi](unit=fill("m3/s", nChi), each displayUnit="m3/s")
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real aftByPasSetTim(
-    final unit="s",
-    final quantity="Time")=60
+  parameter Real aftByPasSetTim(unit="s")=60
     "Time after minimum bypass flow being resetted to new setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real relFloDif=0.05
@@ -75,10 +64,12 @@ block UpEnd "Sequence for ending stage-up process"
     annotation (Placement(transformation(extent={{-260,10},{-220,50}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
+    if not have_airCoo
     "Condenser water request status for each chiller"
     annotation (Placement(transformation(extent={{-260,-50},{-220,-10}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
+    if not have_airCoo
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-260,-80},{-220,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -104,6 +95,7 @@ block UpEnd "Sequence for ending stage-up process"
     annotation (Placement(transformation(extent={{220,80},{260,120}}),
       iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiHeaCon[nChi]
+    if not have_airCoo
     "Chiller head pressure control enabling status"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
       iconTransformation(extent={{100,-10},{140,30}})));
@@ -111,10 +103,6 @@ block UpEnd "Sequence for ending stage-up process"
     final unit="m3/s") "Chilled water minimum flow setpoint"
     annotation (Placement(transformation(extent={{220,-100},{260,-60}}),
       iconTransformation(extent={{100,-50},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSta
-    "Flag to indicate if the staging process is finished"
-    annotation (Placement(transformation(extent={{220,-240},{260,-200}}),
-      iconTransformation(extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput endStaTri
     "Staging end trigger"
     annotation (Placement(transformation(extent={{220,-280},{260,-240}}),
@@ -141,7 +129,7 @@ protected
     final nChi=nChi,
     final thrTimEnb=0,
     final waiTim=0,
-    final heaStaCha=false)
+    final heaStaCha=false) if not have_airCoo
     "Disable head pressure control of the chiller being disabled"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint
@@ -163,7 +151,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=true) "True constant"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and5 if not have_airCoo
+    "Logical and"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false)
     "False constant"
@@ -174,9 +163,10 @@ protected
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractor curDisChi1(final nin=nChi)
+    if not have_airCoo
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi] if not have_airCoo
     "Logical switch"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
@@ -208,18 +198,19 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Maintain ON signal when the chilled water isolation valve has been closed"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if not have_airCoo
     "Maintain ON signal when the chiller head pressure control has been disabled"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if the disabled chiller is not requiring chilled water"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3
+  Buildings.Controls.OBC.CDL.Logical.Not not3 if not have_airCoo
     "Check if the disabled chiller is not requiring condenser water"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-60,68},{-40,88}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and3 if not have_airCoo
+    "Logical and"
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(
     final t=nChi) "Check if index is in the range"
@@ -236,20 +227,31 @@ protected
     "Dummy index so the extractor will not have out of range index"
     annotation (Placement(transformation(extent={{60,130},{80,150}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat4 "Use the new setpoint"
-    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Staging up process starts"
-    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
+    annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And and6 "Upstream step is done"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   Buildings.Controls.OBC.CDL.Logical.And and7 "Check if the process requires chillers ON and OFF"
-    annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
+    annotation (Placement(transformation(extent={{120,-162},{140,-142}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat5
     "Use the setpoint when the process requires chiller ON and OFF"
-    annotation (Placement(transformation(extent={{180,-160},{200,-140}})));
+    annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
-
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold chiStaHol[nChi](
+    final trueHoldDuration=fill(delayStaCha, nChi))
+    "Hold the chiller commanded status after being changed"
+    annotation (Placement(transformation(extent={{60,250},{80,270}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Staging up edge"
+    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if have_airCoo
+    "To be enabled when it is the air chilled"
+    annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false)
+    if have_airCoo "Dummy "
+    annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
 equation
   connect(lat.y, not2.u)
     annotation (Line(points={{-178,150},{-142,150}}, color={255,0,255}));
@@ -286,7 +288,7 @@ equation
     annotation (Line(points={{82,-16},{140,-16},{140,-8},{178,-8}},
       color={255,0,255}));
   connect(logSwi3.y, yChiHeaCon)
-    annotation (Line(points={{202,0},{240,0}},     color={255,0,255}));
+    annotation (Line(points={{202,0},{240,0}}, color={255,0,255}));
   connect(booRep4.y, logSwi3.u2)
     annotation (Line(points={{62,100},{130,100},{130,0},{178,0}},
       color={255,0,255}));
@@ -317,9 +319,6 @@ equation
   connect(logSwi4.y, logSwi5.u3)
     annotation (Line(points={{202,-190},{210,-190},{210,-240},{60,-240},{60,-268},
           {78,-268}}, color={255,0,255}));
-  connect(logSwi5.y, yEndSta)
-    annotation (Line(points={{102,-260},{120,-260},{120,-220},{240,-220}},
-      color={255,0,255}));
   connect(nexEnaChi, enaChi.nexEnaChi)
     annotation (Line(points={{-240,280},{-106,280},{-106,239},{-82,239}},
       color={255,127,0}));
@@ -337,9 +336,6 @@ equation
   connect(nexDisChi, enaChi.nexDisChi)
     annotation (Line(points={{-240,110},{-90,110},{-90,221},{-82,221}},
       color={255,127,0}));
-  connect(enaChi.yChi, yChi)
-    annotation (Line(points={{-58,238},{-20,238},{-20,260},{240,260}},
-      color={255,0,255}));
   connect(uChi, minChiWatSet.uChi)
     annotation (Line(points={{-240,190},{-150,190},{-150,-86},{58,-86}},
       color={255,0,255}));
@@ -347,10 +343,10 @@ equation
     annotation (Line(points={{-240,110},{-180,110},{-180,-91},{58,-91}},
       color={255,127,0}));
   connect(lat.y, minChiWatSet.uOnOff) annotation (Line(points={{-178,150},{-170,
-          150},{-170,-97},{58,-97}},   color={255,0,255}));
+          150},{-170,-97},{58,-97}}, color={255,0,255}));
   connect(minChiWatSet.yChiWatMinFloSet, minBypSet.VMinChiWat_setpoint)
     annotation (Line(points={{82,-90},{96,-90},{96,-112},{50,-112},{50,-214},{58,
-          -214}},     color={0,0,127}));
+          -214}}, color={0,0,127}));
   connect(con3.y, minChiWatSet.uUpsDevSta)
     annotation (Line(points={{-138,-110},{36,-110},{36,-83},{58,-83}},
       color={255,0,255}));
@@ -389,12 +385,12 @@ equation
       color={255,0,255}));
   connect(lat2.y, and5.u2)
     annotation (Line(points={{162,30},{180,30},{180,14},{-20,14},{-20,-38},{-2,-38}},
-                    color={255,0,255}));
+          color={255,0,255}));
   connect(edg1.y, lat2.clr)
     annotation (Line(points={{202,-260},{210,-260},{210,-280},{-30,-280},{-30,24},
           {138,24}},  color={255,0,255}));
   connect(disHeaCon.yEnaHeaCon, lat3.u)
-    annotation (Line(points={{82,-4},{110,-4},{110,-40},{118,-40}},   color={255,0,255}));
+    annotation (Line(points={{82,-4},{110,-4},{110,-40},{118,-40}}, color={255,0,255}));
   connect(lat3.y, minChiWatSet.uSubCha)
     annotation (Line(points={{142,-40},{160,-40},{160,-54},{40,-54},{40,-94},{58,
           -94}},  color={255,0,255}));
@@ -454,34 +450,50 @@ equation
           color={255,0,255}));
   connect(edg1.y, lat.clr) annotation (Line(points={{202,-260},{210,-260},{210,-280},
           {-210,-280},{-210,144},{-202,144}}, color={255,0,255}));
-  connect(edg.y, lat4.clr) annotation (Line(points={{-78,-170},{20,-170},{20,-136},
-          {58,-136}}, color={255,0,255}));
   connect(edg1.y, lat3.clr) annotation (Line(points={{202,-260},{210,-260},{210,
           -280},{-30,-280},{-30,-46},{118,-46}}, color={255,0,255}));
-  connect(uStaUp, edg.u) annotation (Line(points={{-240,250},{-116,250},{-116,-170},
-          {-102,-170}}, color={255,0,255}));
   connect(uStaUp, and6.u2) annotation (Line(points={{-240,250},{-116,250},{-116,
           -138},{-62,-138}}, color={255,0,255}));
   connect(lat3.y, and6.u1) annotation (Line(points={{142,-40},{160,-40},{160,-54},
           {-80,-54},{-80,-130},{-62,-130}}, color={255,0,255}));
   connect(and6.y, lat4.u)
-    annotation (Line(points={{-38,-130},{58,-130}}, color={255,0,255}));
-  connect(lat4.y, chiWatByp1.u2) annotation (Line(points={{82,-130},{104,-130},{
-          104,-90},{118,-90}}, color={255,0,255}));
+    annotation (Line(points={{-38,-130},{0,-130},{0,-140},{58,-140}},
+          color={255,0,255}));
+  connect(lat4.y, chiWatByp1.u2) annotation (Line(points={{82,-140},{104,-140},
+          {104,-90},{118,-90}},color={255,0,255}));
   connect(and7.y, lat5.u)
-    annotation (Line(points={{142,-150},{178,-150}}, color={255,0,255}));
-  connect(edg.y, lat5.clr) annotation (Line(points={{-78,-170},{160,-170},{160,-156},
-          {178,-156}}, color={255,0,255}));
-  connect(lat.y, and7.u1) annotation (Line(points={{-178,150},{-170,150},{-170,-150},
-          {118,-150}}, color={255,0,255}));
-  connect(and6.y, and7.u2) annotation (Line(points={{-38,-130},{0,-130},{0,-158},
-          {118,-158}}, color={255,0,255}));
+    annotation (Line(points={{142,-152},{160,-152},{160,-160},{178,-160}},
+          color={255,0,255}));
+  connect(lat.y, and7.u1) annotation (Line(points={{-178,150},{-170,150},{-170,
+          -152},{118,-152}}, color={255,0,255}));
+  connect(and6.y, and7.u2) annotation (Line(points={{-38,-130},{0,-130},{0,-160},
+          {118,-160}}, color={255,0,255}));
   connect(chiWatByp1.y, chiWatByp.u1) annotation (Line(points={{142,-90},{150,-90},
           {150,-72},{178,-72}}, color={0,0,127}));
-  connect(lat5.y, chiWatByp.u2) annotation (Line(points={{202,-150},{210,-150},{
-          210,-120},{160,-120},{160,-80},{178,-80}}, color={255,0,255}));
+  connect(lat5.y, chiWatByp.u2) annotation (Line(points={{202,-160},{210,-160},
+          {210,-120},{160,-120},{160,-80},{178,-80}},color={255,0,255}));
   connect(VMinChiWat_setpoint, chiWatByp.u3) annotation (Line(points={{-240,-230},
           {170,-230},{170,-88},{178,-88}}, color={0,0,127}));
+  connect(yChi, chiStaHol.y)
+    annotation (Line(points={{240,260},{82,260}}, color={255,0,255}));
+  connect(chiStaHol.u, enaChi.yChi) annotation (Line(points={{58,260},{-38,260},
+          {-38,238},{-58,238}}, color={255,0,255}));
+  connect(uStaUp, edg.u) annotation (Line(points={{-240,250},{-116,250},{-116,-170},
+          {-62,-170}}, color={255,0,255}));
+  connect(edg.y, lat4.clr) annotation (Line(points={{-38,-170},{24,-170},{24,-146},
+          {58,-146}}, color={255,0,255}));
+  connect(edg.y, lat5.clr) annotation (Line(points={{-38,-170},{24,-170},{24,-166},
+          {178,-166}}, color={255,0,255}));
+  connect(con.y, or2.u1)
+    annotation (Line(points={{-178,-170},{-162,-170}}, color={255,0,255}));
+  connect(lat2.y, or2.u2) annotation (Line(points={{162,30},{180,30},{180,56},{-174,
+          56},{-174,-178},{-162,-178}}, color={255,0,255}));
+  connect(or2.y, and6.u1) annotation (Line(points={{-138,-170},{-126,-170},{-126,
+          -130},{-62,-130}}, color={255,0,255}));
+  connect(or2.y, minChiWatSet.uSubCha) annotation (Line(points={{-138,-170},{-126,
+          -170},{-126,-94},{58,-94}}, color={255,0,255}));
+  connect(or2.y, minBypSet.uUpsDevSta) annotation (Line(points={{-138,-170},{-126,
+          -170},{-126,-202},{58,-202}}, color={255,0,255}));
 annotation (
   defaultComponentName="endUp",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -501,7 +513,7 @@ annotation (
           textString="Close chilled water
 isolation valve"),
           Rectangle(
-          extent={{-218,-22},{218,-58}},
+          extent={{-218,-8},{218,-44}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -534,7 +546,7 @@ bypass setpoint"),
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{-148,-172},{-32,-180}},
+          extent={{-170,-192},{-54,-200}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -672,10 +684,10 @@ bypass setpoint"),
           textString="endStaTri")}),
 Documentation(info="<html>
 <p>
-Block that controls devices at the ending step of chiller staging up process.
+Block that controls devices at the ending step of the chiller staging up process.
 This development is based on ASHRAE Guideline 36-2021,
 section 5.20.4.16, item f and g. These sections specify the controls of
-devices at the ending step of staging up process.
+devices at the ending step of the staging up process.
 </p>
 <p>
 For the stage-up process that does not require a smaller chiller being disabled
@@ -688,13 +700,13 @@ isolation valve is fully open (<code>uEnaChiWatIsoVal=true</code>).
 This is implemented in block <code>enaChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableChiller</a>
-for more decriptions.
+for more descriptions.
 </li>
 </ul>
 <p>
-For any stage change during which a smaller chiller is diabled and a larger chiller
+For any stage change during which a smaller chiller is disabled and a larger chiller
 is enabled (<code>uOnOff=true</code>), after starting the next stage chiller
-specified above, do following:
+specified above, do the following:
 </p>
 <ol>
 <li>
@@ -703,7 +715,7 @@ is operating correctly, then shut off the small chiller (<code>nexDisChi</code>)
 This is implemented in block <code>enaChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableChiller</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 When the controller of the smaller chiller being shut off indicates no request
@@ -713,7 +725,7 @@ operating chillers.
 This is implemented in block <code>disChiIsoVal</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 When the controller of the smaller chiller being shut off indicates no request for
@@ -722,21 +734,21 @@ pressure control loop.
 This is implemented in block <code>disHeaCon</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Change the minimum flow bypass setpoint to that appropriate for the new stage.
 This is implemented in block <code>minChiWatSet</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.MinimumFlowBypass.FlowSetpoint</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Block <code>minBypSet</code> will then check if the new chilled water flow setpoint
 has been achieved. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ResetMinBypass\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ResetMinBypass</a>
-for more decriptions.
+for more descriptions.
 </li>
 </ol>
 </html>", revisions="<html>

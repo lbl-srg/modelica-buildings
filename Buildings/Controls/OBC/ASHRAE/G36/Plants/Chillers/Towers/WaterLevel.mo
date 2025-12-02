@@ -80,13 +80,13 @@ annotation (
           textString="%name")}),
 Documentation(info="<html>
 <p>
-Block that outputs <code>yMakUp</code> to control cooling tower make-up water
-valve. It is implemented according to ASHRAE Guideline36-2021, 
+Block that outputs <code>yMakUp</code> to control the cooling tower make-up water
+valve. It is implemented according to ASHRAE Guideline 36-2021, 
 section 5.20.13, tower make-up water.
 </p>
 <p>
 Make-up water valve shall cycle based on tower water fill level sensor. The
-valve shall open when water level <code>watLev</code> falls below the minimum
+valve shall open when the water level <code>watLev</code> falls below the minimum
 fill level <code>watLevMin</code> recommended by the tower manufacturer. It 
 shall close when the water level goes above the maximum level <code>watLevMax</code>. 
 </p> 

@@ -9,13 +9,10 @@ block Controller "Sequence of staging cooling tower cells"
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
-  parameter Real towCelOnSet[totSta]={0,2,2,4,4,4}
+  parameter Integer towCelOnSet[totSta]={0,2,2,4,4,4}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
   parameter Real chaTowCelIsoTim=90
     "Nominal time needed for open isolation valve of the tower cells";
-  parameter Real speChe=0.01
-    "Lower threshold value to check if condenser water pump is proven on"
-    annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
@@ -41,10 +38,10 @@ block Controller "Sequence of staging cooling tower cells"
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
-      final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAnyConWatPum
+    "True: there is condenser water pump on"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
     final max=fill(1, nTowCel))
     "Vector of tower cells isolation valve position"
@@ -81,8 +78,8 @@ block Controller "Sequence of staging cooling tower cells"
     final nTowCel=nTowCel,
     final totSta=totSta,
     final staVec=staVec,
-    final towCelOnSet=towCelOnSet,
-    final speChe=speChe)  "Total number of enabled cells"
+    final towCelOnSet=towCelOnSet)
+                          "Total number of enabled cells"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
     staPro(
@@ -104,8 +101,6 @@ equation
           92},{-80,70},{-120,70}}, color={255,0,255}));
   connect(uWse, enaCel.uWse) annotation (Line(points={{-120,40},{-74,40},{-74,89},
           {-42,89}}, color={255,0,255}));
-  connect(enaCel.uConWatPumSpe, uConWatPumSpe) annotation (Line(points={{-42,81},
-          {-56,81},{-56,-50},{-120,-50}}, color={0,0,127}));
   connect(enaCel.yLeaCel, yLeaCel) annotation (Line(points={{-18,84},{120,84}},
           color={255,0,255}));
   connect(staPro.yIsoVal, yIsoVal)
@@ -128,6 +123,8 @@ equation
           60,56},{60,20},{-20,20},{-20,8},{-2,8}}, color={255,0,255}));
   connect(uPla, enaCel.uPla) annotation (Line(points={{-120,-20},{-62,-20},{-62,
           83},{-42,83}}, color={255,0,255}));
+  connect(uAnyConWatPum, enaCel.uAnyConWatPum) annotation (Line(points={{-120,-50},
+          {-56,-50},{-56,81},{-42,81}}, color={255,0,255}));
 annotation (
   defaultComponentName="towSta",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -164,10 +161,6 @@ annotation (
           textString="uWse",
           visible=have_WSE),
         Text(
-          extent={{-100,-24},{-22,-36}},
-          textColor={0,0,127},
-          textString="uConWatPumSpe"),
-        Text(
           extent={{-98,-82},{-58,-96}},
           textColor={255,0,255},
           textString="uTowSta"),
@@ -195,11 +188,15 @@ annotation (
           extent={{-100,-4},{-70,-16}},
           textColor={255,0,255},
           visible=have_WSE,
-          textString="uPla")}),
+          textString="uPla"),
+        Text(
+          extent={{-96,-24},{-36,-36}},
+          textColor={255,0,255},
+          textString="uAnyConWatPum")}),
 Documentation(info="<html>
 <p>
 Block controls cooling tower fan staging. This is implemented accoding to 
-ASHRAE Guideline36-2021, section 5.20.12.1, 
+ASHRAE Guideline 36-2021, section 5.20.12.1, 
 which specifies tower fan staging process. It includes two subsequences:
 </p>
 <ul>

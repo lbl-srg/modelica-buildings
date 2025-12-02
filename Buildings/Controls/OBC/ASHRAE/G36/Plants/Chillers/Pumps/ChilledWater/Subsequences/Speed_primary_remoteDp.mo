@@ -55,7 +55,7 @@ block Speed_primary_remoteDp
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Line pumSpe "Pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID[nSen](
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
@@ -97,8 +97,6 @@ protected
 equation
   connect(conPID.y, maxLoo.u)
     annotation (Line(points={{42,0},{58,0}}, color={0,0,127}));
-  connect(booRep.y, conPID.trigger)
-    annotation (Line(points={{2,-40},{24,-40},{24,-12}}, color={255,0,255}));
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{2,80},{20,80},{20,68},{58,68}}, color={0,0,127}));
   connect(pumSpe_min.y, pumSpe.f1)
@@ -137,7 +135,8 @@ equation
     annotation (Line(points={{-140,0},{-102,0}}, color={255,0,255}));
   connect(dpChiWatSet_remote, div.u2) annotation (Line(points={{-140,-100},{-40,
           -100},{-40,-86},{-22,-86}}, color={0,0,127}));
-
+  connect(booRep.y, conPID.uEna)
+    annotation (Line(points={{2,-40},{26,-40},{26,-12}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -174,18 +173,18 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
 <p>
-Block that output chilled water pump speed setpoint for primary-only plants where
+Block that outputs chilled water pump speed setpoint for primary-only plants where
 the remote pressure differential sensor is hardwired to the plant controller, 
-according to ASHRAE Guideline36-2021, 
+according to ASHRAE Guideline 36-2021, 
 section 5.20.6 Primary chilled water pumps, part 5.20.6.7 and 5.20.6.8.
 </p>
 <ol>
 <li>
 When any chilled water pump is proven on, <code>uChiWatPum</code> = true, 
-pump speed will be controlled by a reverse acting PID loop maintaining the
+the pump speed will be controlled by a reverse-acting PID loop, maintaining the
 differential pressure signal at a setpoint <code>dpChiWatSet</code>. All pumps
-receive the same speed signal. PID loop output shall be mapped from minimum
-pump speed (<code>minPumSpe</code>) at 0% to maximum pump speed
+receive the same speed signal. PID loop output shall be mapped from the minimum
+pump speed (<code>minPumSpe</code>) at 0% to the maximum pump speed
 (<code>maxPumSpe</code>) at 100%.
 </li>
 <li>

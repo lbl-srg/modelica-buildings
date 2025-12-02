@@ -15,4 +15,4 @@ createPlot(id=3, position={1581, 7, 838, 1370}, y={"chiPlaCon.chiWatPumCon.yPumS
 createPlot(id=3, position={1581, 7, 838, 1370}, y={"chiPlaCon.towCon.yLeaCel"}, range={0.0, 180.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="min");
 createPlot(id=3, position={1581, 7, 838, 1370}, y={"chiPlaCon.towCon.yIsoVal[1]", "chiPlaCon.towCon.yIsoVal[2]"}, range={0.0, 180.0, -1.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="min", displayUnits={"1", "1"});
 createPlot(id=3, position={1581, 7, 838, 1370}, y={"chiPlaCon.towCon.yTowSta[1]", "chiPlaCon.towCon.yTowSta[2]"}, range={0.0, 180.0, -1.0, 2.0}, grid=true, subPlot=105, colors={{28,108,200}, {28,108,200}}, timeUnit="min");
-createPlot(id=3, position={1581, 7, 838, 1370}, y={"chiPlaCon.towCon.ySpeSet[1]", "chiPlaCon.towCon.ySpeSet[2]"}, range={0.0, 180.0, -1.0, 2.0}, grid=true, subPlot=106, colors={{28,108,200}, {238,46,47}}, timeUnit="min", displayUnits={"1", "1"});
+createPlot(id=3, position={1581, 7, 838, 1370}, y={"chiPlaCon.towCon.ySpeSet"}, range={0.0, 180.0, -1.0, 2.0}, grid=true, subPlot=106, colors={{28,108,200}}, timeUnit="min", displayUnits={"1"});

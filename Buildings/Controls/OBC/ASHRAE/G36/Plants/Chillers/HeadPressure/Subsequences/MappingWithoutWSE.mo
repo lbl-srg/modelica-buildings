@@ -191,8 +191,8 @@ Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code
 controls head pressure control valve position <code>yHeaPreConVal</code> or 
 condenser water pump speed <code>yConWatPumSpeSet</code>
 for plants without water side economizers. The development follows
-ASHRAE Guideline36-2021, 
-section 5.20.10 Head pressure control, part 5.20.10.3, part 5.20.10.4 and 5.20.10.7.
+ASHRAE Guideline 36-2021, 
+section 5.20.10 head pressure control, part 5.20.10.3, part 5.20.10.4, and 5.20.10.7.
 </p>
 <p>
 1. For each chiller, map chiller head pressure control loop signal 
@@ -201,7 +201,7 @@ section 5.20.10 Head pressure control, part 5.20.10.3, part 5.20.10.4 and 5.20.1
 <ul>
 <li>
 When <code>uHeaPreCon</code> changes from 0 to 50%, reset maximum cooling tower
-speed setpoint <code>yMaxTowSpeSet</code> from 100% to minimum speed 
+speed setpoint <code>yMaxTowSpeSet</code> from 100% to the minimum speed 
 <code>minTowSpe</code>.
 </li>
 <li>

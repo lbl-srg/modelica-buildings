@@ -21,11 +21,6 @@ model LessCoupled
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet(
     k=273.15 + 32) "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe[2](
-    height=fill(0.5, 2),
-    duration=fill(3600, 2),
-    startTime=fill(300, 2)) "Measured condenser water pump speed"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp towMaxSpe(
     height=0.25,
     duration=3600,
@@ -70,11 +65,19 @@ model LessCoupled
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(
     k=true) "Plant enable status"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{-16,70},{4,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse conWatPum[2](
+    final width=fill(0.1, 2),
+    final period=fill(3600, 2))
+    "Condenser water pump status"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2[2]
+  "Logical not"
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
 equation
   connect(conRetSet.y, lesCouTowSpe.TConWatRetSet)
-    annotation (Line(points={{2,140},{40,140},{40,90},{58,90}}, color={0,0,127}));
+    annotation (Line(points={{2,140},{40,140},{40,89},{58,89}}, color={0,0,127}));
   connect(conRet.y, add2.u1)
     annotation (Line(points={{-58,140},{-40,140},{-40,116},{-22,116}},
       color={0,0,127}));
@@ -82,10 +85,8 @@ equation
     annotation (Line(points={{-58,110},{-40,110},{-40,104},{-22,104}},
       color={0,0,127}));
   connect(add2.y, lesCouTowSpe.TConWatRet)
-    annotation (Line(points={{2,110},{32,110},{32,88},{58,88}},
+    annotation (Line(points={{2,110},{32,110},{32,87},{58,87}},
       color={0,0,127}));
-  connect(conWatPumSpe.y, lesCouTowSpe.uConWatPumSpe)
-    annotation (Line(points={{-58,60},{20,60},{20,82},{58,82}}, color={0,0,127}));
   connect(conSup.y, add1.u1)
     annotation (Line(points={{-58,30},{-40,30},{-40,36},{-22,36}},
       color={0,0,127}));
@@ -111,16 +112,19 @@ equation
   connect(not1.y, swi.u2)
     annotation (Line(points={{-18,-130},{-12,-130},{-12,-50},{-2,-50}},
       color={255,0,255}));
-  connect(swi.y, lesCouTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{22,-50},{32,-50},{32,75},{58,75}}, color={0,0,127}));
+  connect(swi.y, lesCouTowSpe.uMaxSpeSet) annotation (Line(points={{22,-50},{32,
+          -50},{32,75},{58,75}}, color={0,0,127}));
   connect(not1.y, lesCouTowSpe.uChi)
     annotation (Line(points={{-18,-130},{38,-130},{38,73},{58,73}}, color={255,0,255}));
   connect(plrTowMaxSpe.y, lesCouTowSpe.plrTowMaxSpe)
-    annotation (Line(points={{72,-130},{80,-130},{80,60},{44,60},{44,70},
-      {58,70}}, color={0,0,127}));
-  connect(plaEna.y, lesCouTowSpe.uPla) annotation (Line(points={{2,80},{14,80},{
-          14,85},{58,85}}, color={255,0,255}));
-
+    annotation (Line(points={{72,-130},{80,-130},{80,60},{44,60},{44,71},{58,71}},
+                color={0,0,127}));
+  connect(plaEna.y, lesCouTowSpe.uPla) annotation (Line(points={{6,80},{14,80},{
+          14,84},{58,84}}, color={255,0,255}));
+  connect(conWatPum.y, not2.u)
+    annotation (Line(points={{-58,60},{-42,60}}, color={255,0,255}));
+  connect(not2.y, lesCouTowSpe.uConWatPum) annotation (Line(points={{-18,60},{20,
+          60},{20,81},{58,81}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/LessCoupled.mos"
     "Simulate and plot"),
@@ -141,7 +145,7 @@ temperature setpoint equals to the condenser water return temperature setpoint
 minus 50% of the difference between design condenser water supply 
 (<code>TConWatSup_nominal</code>) and return (<code>TConWatRet_nominal</code>)
 temperature of the enabled chiller. Note that in this period,
-the chiller are not enabled so the fan speed setpoint is 0.
+the chillers are not enabled so the fan speed setpoint is 0.
 </li>
 <li>
 After 5 minutes, the condenser water supply temperature setpoint equals to
@@ -155,17 +159,16 @@ seconds.
 The fan speed setpoint is the minimum of:
 <ul>
 <li>
-the maximum cooling tower speed setpoint from head pressure control loop
+the maximum cooling tower speed setpoint from the head pressure control loop
 of the enabled chiller, <code>uMaxTowSpeSet</code>,
 </li>
 <li>
-the tower maximum speed that reset based on plant partial load ratio,
+the tower maximum speed that resets based on the plant partial load ratio,
 <code>plrTowMaxSpe</code>,
 </li>
 <li>
 and the tower speed from the loop mapping based on the PID control
-for maintaining the condenser water supply temperature to be at its
-setpoint.
+for maintaining the condenser water supply temperature at its setpoint.
 </li>
 </ul>
 </li>

@@ -28,9 +28,6 @@ model CellsNumber
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Controls.OBC.CDL.Logical.Not StaTow "Stage tower cells"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatPumSpe[2](
-    k=fill(0.5, 2)) "Condenser water pump speed"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     k=false)
     "Constant false"
@@ -51,12 +48,12 @@ equation
     annotation (Line(points={{-38,10},{28,10},{28,2},{58,2}}, color={255,0,255}));
   connect(wseSta.y, enaTowCel.uWse)
     annotation (Line(points={{-38,-30},{-8,-30},{-8,-1},{58,-1}}, color={255,0,255}));
-  connect(conWatPumSpe.y, enaTowCel.uConWatPumSpe)
-    annotation (Line(points={{-38,-100},{8,-100},{8,-9},{58,-9}}, color={0,0,127}));
   connect(con.y, enaTowCel.uEnaPla) annotation (Line(points={{42,-100},{50,-100},
           {50,-3},{58,-3}}, color={255,0,255}));
   connect(con1.y, enaTowCel.uPla) annotation (Line(points={{-58,-70},{40,-70},{40,
           -7},{58,-7}}, color={255,0,255}));
+  connect(con1.y, enaTowCel.uAnyConWatPum) annotation (Line(points={{-58,-70},{
+          40,-70},{40,-9},{58,-9}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/Staging/Subsequences/Validation/CellsNumber.mos"
     "Simulate and plot"),

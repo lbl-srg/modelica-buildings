@@ -85,12 +85,12 @@ minimum nominal condenser water return temperature minus
 </li>
 <li>
 In the period from 1140 to 1740 seconds, the setpoint ramps from
-value of previous period to the one caluclated by the
-equations showing in the validating model.
+the value of previous period to the one calculated by the
+equations shown in the validating model.
 </li>
 <li>
 After 1740 seconds, the setpoint is calculated by the equations
-showing in the validating model.
+shown in the validating model.
 </li>
 </ul>
 </html>", revisions="<html>
