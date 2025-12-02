@@ -387,9 +387,6 @@
     comment: Possible chattering detected at t = 3.120112e+03 in state event
     simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
-  optimica:
-    comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
-    translate: false
   openmodelica:
     comment: Translation failed.
     translate: false
