@@ -18,7 +18,8 @@ record HeatPumpGroup
     Dialog(group="Configuration",
       enable=false));
   // Default fluid properties
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default=
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "HW default specific heat capacity"
     annotation (Dialog(group="Configuration",
       enable=false));
@@ -32,7 +33,8 @@ record HeatPumpGroup
     cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default=if typ ==
-    Buildings.Templates.Components.Types.HeatPump.AirToWater then Buildings.Utilities.Psychrometrics.Constants.cpAir
+    Buildings.Templates.Components.Types.HeatPump.AirToWater then
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
     else Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Source fluid default specific heat capacity"
     annotation (Dialog(group="Configuration",

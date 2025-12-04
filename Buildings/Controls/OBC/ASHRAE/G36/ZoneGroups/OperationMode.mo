@@ -846,7 +846,7 @@ Warm-up mode shall start based on the zone with the longest calculated warm-up
 time <code>maxWarUpTim</code> requirement, but no earlier than 3 hours
 (<code>preWarCooTim</code>) before the start of the scheduled occupied period,
 and shall end at the scheduled occupied start time. Zones where the window switch
-indicates that a window is open shall be ignored. Note that for each zone, 
+indicates that a window is open shall be ignored. Note that for each zone,
 the optimal warm-up time shall be obtained from an <i>Optimal Start</i> sequences,
 computed in a separate block. The figure below shows the sequence.
 </p>

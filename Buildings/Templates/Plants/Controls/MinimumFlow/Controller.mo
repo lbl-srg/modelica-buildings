@@ -54,7 +54,7 @@ block Controller
     "Valve command"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Utilities.PIDWithEnable ctl(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable ctl(
     final k=k,
     final Ti=Ti,
     final reverseActing=true,
@@ -171,24 +171,24 @@ First implementation.
 </html>",
       info="<html>
 <p>
-The minimum flow bypass valve is modulated based on a reverse acting control loop 
+The minimum flow bypass valve is modulated based on a reverse acting control loop
 to maintain the primary flow rate at setpoint.
-The setpoint is calculated as described in 
+The setpoint is calculated as described in
 <a href=\"modelica://Buildings.Templates.Plants.Controls.MinimumFlow.Setpoint\">
 Buildings.Templates.Plants.Controls.MinimumFlow.Setpoint</a>.
 </p>
 <p>
 <b>When using isolation valve command signals</b>
 (<code>have_valInlIso=true</code> or <code>have_valOutIso=true</code>):
-When any valve is commanded open, the bypass valve control loop is enabled. 
-The valve is opened <i>100&nbsp;%</i> otherwise. 
+When any valve is commanded open, the bypass valve control loop is enabled.
+The valve is opened <i>100&nbsp;%</i> otherwise.
 When enabled, the bypass valve loop shall be biased to start with the valve <i>100&nbsp;%</i> open.
 </p>
 <p>
 <b>Otherwise</b>
 (<code>have_valInlIso=false</code> and <code>have_valOutIso=false</code>):
-When any primary pump is proven on, the bypass valve control loop is enabled. 
-The valve is opened <i>100&nbsp;%</i> otherwise. 
+When any primary pump is proven on, the bypass valve control loop is enabled.
+The valve is opened <i>100&nbsp;%</i> otherwise.
 When enabled, the bypass valve loop shall be biased to start with the valve <i>100&nbsp;%</i> open.
 </p>
 </html>"));

@@ -89,12 +89,6 @@ package Defaults
     "HHW system gauge pressure at design conditions";
   constant Modelica.Units.SI.PressureDifference dpHeaWatBoi=5E3
     "Boiler HW pressure drop";
-  constant Modelica.Units.SI.Temperature THeaWatSup=80 + 273.15
-    "HW supply temperature";
-  constant Modelica.Units.SI.Temperature THeaWatConSup=65 + 273.15
-    "HW supply temperature for condensing boilers";
-  constant Modelica.Units.SI.Temperature THeaWatRet=55 + 273.15
-    "HW return temperature";
   constant Modelica.Units.SI.Temperature TOutHeaWatLck=21 + 273.15
     "Outdoor air lockout temperature above which the HW system is prevented from operating";
   constant Modelica.Units.SI.PressureDifference dpHeaWatSet_min=5 * 6894

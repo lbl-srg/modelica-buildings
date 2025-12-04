@@ -1,0 +1,118 @@
+simulateModel("Buildings.Templates.Plants.Boilers.HotWater.Validation.BoilerPlant",
+  method="dassl",
+  tolerance=1e-6,
+  startTime=0.0,
+  stopTime=86400.0,
+  resultFile="BoilerPlant");
+createPlot(
+  id=1,
+  position={5, 5, 300, 500},
+  y={"pla.ctl.ctlLooPri.staSetCon.capReq1.y", "pla.cap_nominal"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+plotExpression(
+  apply(BoilerPlant[end].ratLoa.y[1]*BoilerPlant[end].pla.cap_nominal),
+  false,
+  "ratLoa.y[1]*pla.cap_nominal",
+  1);
+createPlot(
+  id=1,
+  subPlot=2,
+  y={"pla.bus.TOut", "pla.ctl.dat.TOutLck"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=2,
+  position={310, 5, 300, 500},
+  y={"pla.ctl.reqPlaHeaWat.y", "pla.ctl.ctlLooPri.yPla"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=2,
+  subPlot=2,
+  y={"pla.ctl.ctlLooPri.staSetCon.ySta"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=3,
+  position={615, 5, 300, 500},
+  subPlot=1,
+  y={"pla.bus.boiCon[1].y1", "pla.bus.boiCon[2].y1"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=3,
+  subPlot=2,
+  y={"pla.bus.valBoiConIso[1].y1", "pla.bus.valBoiConIso[2].y1"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=4,
+  position={920, 5, 300, 600},
+  subPlot=1,
+  y={"pla.bus.pumHeaWatPriCon.y1[1]", "pla.bus.pumHeaWatPriCon.y1[2]"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=4,
+  subPlot=2,
+  y={"pla.bus.pumHeaWatPriCon.y"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=5,
+  position={1225, 5, 300, 600},
+  subPlot=1,
+  y={"pla.ctl.reqResHeaWat.y"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=5,
+  subPlot=2,
+  y={"pla.bus.dpHeaWatRem[1]", "datAll.pla.ctl.dpHeaWatRemSet_max[1]"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=6,
+  position={40, 40, 300, 600},
+  y={"pla.bus.looCon.VHeaWatPri_flow", "datAll.pla.ctl.VHeaWatPriCon_flow_nominal"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=6,
+  subPlot=2,
+  y={"pla.bus.boiCon[1].y_actual", "pla.bus.boiCon[2].y_actual"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=7,
+  position={350, 40, 500, 400},
+  y={"pla.bus.boiCon[1].THeaWatSupSet", "pla.bus.boiCon[2].THeaWatSupSet", "THeaWatSup.T", "pla.bus.looCon.THeaWatPlaRet"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);

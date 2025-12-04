@@ -95,6 +95,8 @@ declare -A checksum_dirs=(
                      Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
   ["Buildings.Templates.Plants.HeatPumps"]="Templates/Plants/HeatPumps
                         Templates/Plants/Controls"
+  ["Plants.Boilers"]="Templates/Plants/Boilers
+                      Controls/OBC/ASHRAE/G36/Plants/Boilers"
 )
 # Declare the python script that must be run for each template package.
 # Each key is a full Modelica package name (with . as separator).

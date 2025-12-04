@@ -1,0 +1,21 @@
+simulateModel("Buildings.Templates.Plants.Chillers.Components.Validation.ChillerGroupAirCooled",
+  method="cvode",
+  tolerance=1e-6,
+  stopTime=2000.0,
+  resultFile="ChillerGroupAirCooled");
+createPlot(id=1,
+  position={5, 5, 400, 600},
+  y={"TChiWatPriRet.T", "TChiWatPriSup.T", "ctl.bus.chi[1].TSet", "TChiWatSup_nominal", "TChiWatRet_nominal"},
+  subPlot=101,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"ctl.bus.chi[1].y1","ctl.bus.chi[2].y1","ctl.bus.chi[3].y1"},
+  subPlot=102,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"chi.chi[1].chi.PLR", "chi.chi[2].chi.PLR", "chi.chi[3].chi.PLR"},
+  subPlot=103,
+  autoscale=true,
+  grid=true);

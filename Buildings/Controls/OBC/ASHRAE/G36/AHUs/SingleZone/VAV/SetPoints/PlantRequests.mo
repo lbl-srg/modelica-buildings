@@ -380,7 +380,7 @@ annotation (
   Documentation(info="<html>
 <p>
 This sequence outputs the system reset requests for single zone air handling unit. The
-implementation is according to the Section 5.18.15 of ASHRAE Guideline 36, May 2020. 
+implementation is according to the Section 5.18.15 of ASHRAE Guideline 36, May 2020.
 </p>
 <h4>chilled water reset request <code>yChiWatResReq</code></h4>
 <ol>

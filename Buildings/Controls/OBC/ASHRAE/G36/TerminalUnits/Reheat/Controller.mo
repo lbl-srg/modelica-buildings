@@ -883,16 +883,16 @@ airflow sensor calibration alarm <code>yFloSenAla</code>.
 <p>
 The subsequence is implementd according to Section 5.3.4. The measured zone
 temperature <code>TZon</code>, zone setpoints temperatures <code>THeaSet</code> and
-<code>TCooSet</code> are inputs to the instance of class 
+<code>TCooSet</code> are inputs to the instance of class
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates\">
 Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates</a> to generate the
-heating and cooling control loop signal. 
+heating and cooling control loop signal.
 </p>
 <h4>b. Active airflow setpoint calculation</h4>
 <p>
 This sequence sets the active maximum and minimum airflow according to
 Section 5.6.4. Depending on operation modes <code>uOpeMod</code>, it sets the
-airflow rate limits for cooling and heating supply. 
+airflow rate limits for cooling and heating supply.
 See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.ActiveAirFlow\">
 Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.ActiveAirFlow</a>.
 </p>
@@ -913,7 +913,7 @@ According to Section 5.6.8, this sequence outputs the system reset requests, i.e
 cooling supply air temperature reset requests <code>yZonTemResReq</code>,
 static pressure reset requests <code>yZonPreResReq</code>, hot water reset
 requests <code>yHeaValResReq</code>, and the hot water plant reset requests
-<code>yHotWatPlaReq</code>. 
+<code>yHotWatPlaReq</code>.
 See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests\">
 Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests</a>.
 </p>

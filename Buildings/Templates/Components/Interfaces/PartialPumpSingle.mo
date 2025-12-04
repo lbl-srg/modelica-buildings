@@ -34,7 +34,7 @@ partial model PartialPumpSingle "Interface class for single pump"
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-This partial class provides a standard interface for 
+This partial class provides a standard interface for
 single pump models.
 </p>
 </html>", revisions="<html>

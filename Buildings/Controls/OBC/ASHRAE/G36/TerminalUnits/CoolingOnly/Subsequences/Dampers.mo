@@ -447,7 +447,7 @@ implementation is according to Section 5.5.5 and 5.5.7 of ASHRAE Guideline 36 (G
 </p>
 <ol>
 <li>
-When the zone state (<code>uZonSta</code>) is cooling, the cooling-loop output 
+When the zone state (<code>uZonSta</code>) is cooling, the cooling-loop output
 (<code>uCoo</code>) shall be mapped to the active airflow setpoint from the
 minimum (<code>VActMin_flow</code>) to the cooling maximum airflow setpoints
 (<code>VActCooMax_flow</code>).

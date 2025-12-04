@@ -179,7 +179,7 @@ Also note that placeholders values are assigned to some parameters
 of the subrecord <code>perCoo</code> which is used to specify
 the performance data in cooling mode.
 These values should be overwritten for reversible heat pumps.
-This overwriting happens automatically when redeclaring or reassigning 
+This overwriting happens automatically when redeclaring or reassigning
 the performance record <code>perCoo</code>.
 </p>
 </html>"));

@@ -392,7 +392,7 @@ on request number"),
           textString="Optional hold of the loop output")}),
    Documentation(info="<html>
 <p>
-This block implements the trim and respond logic according to Section 5.1.14.3 
+This block implements the trim and respond logic according to Section 5.1.14.3
 and 5.1.14.4 of ASHRAE Guideline 36, May 2020.
 </p>
 <p>
@@ -441,25 +441,25 @@ In other words, every time step <code>samplePeriod</code>:
 <p>
 Optionally, if the parameter <code>have_hol</code> is set to true, an additional
 input signal <code>uHol</code> allows for holding the trim and respond loop output
-at a fixed value for the longer of the time the input <code>uHol</code> remains true 
+at a fixed value for the longer of the time the input <code>uHol</code> remains true
 and the duration specified by the parameter <code>dtHol</code>.
 When <code>uHol</code> switches back to false, the hold is released and resetting
 continues from the previously held value (without reinitializing to <code>iniSet</code>
-or going through a delay time of <code>delTim</code>). 
+or going through a delay time of <code>delTim</code>).
 </p>
 <p>
 This is typically used in control sequences to freeze the reset logic during the plant
 staging process.
 Consider for example the following specification:<br/>
 \"When a plant stage change is initiated, the reset logic shall be disabled and value
-fixed at its last value for the longer of <i>15</i> minutes and the time it takes 
+fixed at its last value for the longer of <i>15</i> minutes and the time it takes
 for the plant to successfully stage.\"<br/>
-Using this block with <code>have_hol=true</code> and <code>dtHol=15*60</code> 
+Using this block with <code>have_hol=true</code> and <code>dtHol=15*60</code>
 yields the following sequence of events.
 </p>
 <ul>
 <li>0:00 - Stage change is initiated. T&amp;R loop output is at <i>50&nbsp;%</i>.</li>
-<li>0:12 - Stage change is completed. T&amp;R loop output remains at <i>50&nbsp;%</i> 
+<li>0:12 - Stage change is completed. T&amp;R loop output remains at <i>50&nbsp;%</i>
 since <i>&lt;&nbsp;15&nbsp;</i>minutes have elapsed.</li>
 <li>0:15 - T&amp;R is released and continues resetting from <i>50&nbsp;%</i>.</li>
 </ul>

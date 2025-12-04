@@ -1,0 +1,132 @@
+old_flag = Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables = true;
+simulateModel("Buildings.Templates.Plants.Chillers.Validation.WaterCooled",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0.0,
+    stopTime=86400.0,
+    resultFile="WaterCooledChillerPlant");
+Advanced.StoreProtectedVariables = old_flag;
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    y={"pla.ctl.ctl.staSetCon.capReq.y", "pla.cap_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"pla.ctl.ctl.TOut", "pla.ctl.dat.TOutChiWatLck"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 500},
+    y={"pla.ctl.reqPlaChiWat.y", "pla.ctl.ctl.plaEna.yPla"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"pla.ctl.ctl.staSetCon.ySta"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=3,
+    position={615, 5, 300, 500},
+    subPlot=1,
+    y={"pla.bus.chi[1].y1", "pla.bus.chi[2].y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    position={920, 5, 300, 600},
+    subPlot=1,
+    y={"pla.bus.pumChiWatPri.y1[1]", "pla.bus.pumChiWatPri.y1[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"pla.bus.pumChiWatPri.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    position={1225, 5, 300, 600},
+    subPlot=1,
+    y={"pla.ctl.reqResChiWat.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"pla.bus.dpChiWatRem[1]", "pla.ctl.resDpChiWatLoc.dpChiWatSet_remote[1]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    subPlot=3,
+    y={"pla.ctl.ctl.chiWatPumCon.dpChiWat_local", "pla.ctl.resDpChiWatLoc.dpChiWatPumSet_local"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=6,
+    position={40, 40, 300, 600},
+    y={"pla.bus.VChiWatPri_flow", "datAll.pla.ctl.VChiWatPri_flow_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=6,
+    subPlot=2,
+    y={"pla.chi.chi[1].chi.PLR", "pla.chi.chi[2].chi.PLR"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=7,
+    position={350, 40, 300, 300},
+    y={"pla.bus.TChiWatSupSet[1]", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatPlaRet"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=8,
+    position={660, 40, 300, 600},
+    y={"pla.ctl.ctl.towCon.towFanSpe.fanSpeRetTem.conWatRetSet.TConWatRetSet", "pla.bus.TConWatRet", "pla.bus.TConWatSup"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=8,
+    subPlot=2,
+    y={"pla.bus.y1Coo[1]", "pla.bus.y1Coo[2]", "pla.bus.yCoo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
