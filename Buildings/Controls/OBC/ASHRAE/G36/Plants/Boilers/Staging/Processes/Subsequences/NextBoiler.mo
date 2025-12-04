@@ -10,15 +10,15 @@ block NextBoiler
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStachaPro
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaPro
     "Stage change process completion signal" annotation (Placement(
         transformation(extent={{-260,-180},{-220,-140}}), iconTransformation(
-          extent={{-140,-90},{-100,-50}})));
+          extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
     "Boiler stage setpoint"
     annotation (Placement(transformation(extent={{-260,90},{-220,130}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOnOff
     "True: if the stage change require one boiler to be enabled while another is disabled"
@@ -28,7 +28,7 @@ block NextBoiler
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexEnaBoi
     "Next enabling boiler index"
     annotation (Placement(transformation(extent={{220,140},{260,180}}),
-      iconTransformation(extent={{100,70},{140,110}})));
+      iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yDisSmaBoi
     "Smaller boiler to be disabled in staging-up process"
@@ -43,7 +43,7 @@ block NextBoiler
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yEnaSmaBoi
     "Smaller boiler to be enabled in stage-down process"
     annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
-      iconTransformation(extent={{100,-110},{140,-70}})));
+      iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
@@ -155,11 +155,13 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Edge edg[nBoi](
+    final pre_u_start=fill(true,nBoi))
     "Detect boilers being turned on"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nBoi](
+    final pre_u_start=fill(false,nBoi))
     "Detect boilers being turned off"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
@@ -286,11 +288,11 @@ equation
   connect(cha.down, dowPro.u) annotation (Line(points={{-178,104},{-140,104},{
           -140,90},{-122,90}}, color={255,0,255}));
 
-  connect(uStachaPro, booRep.u)
+  connect(uStaChaPro, booRep.u)
     annotation (Line(points={{-240,-160},{-162,-160}}, color={255,0,255}));
-  connect(uStachaPro, upPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
+  connect(uStaChaPro, upPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
           {-170,124},{-122,124}}, color={255,0,255}));
-  connect(uStachaPro, dowPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
+  connect(uStaChaPro, dowPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
           {-170,84},{-122,84}}, color={255,0,255}));
 annotation (
   defaultComponentName="nexBoi",
@@ -307,7 +309,11 @@ annotation (
           textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-100,76},{-64,66}},
+          extent={{-100,100},{100,-100}},
+          textColor={0,0,0},
+          textString="?"),
+        Text(
+          extent={{-100,66},{-64,56}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uStaSet"),
@@ -317,12 +323,12 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uBoiSet"),
         Text(
-          extent={{50,100},{98,80}},
+          extent={{50,90},{98,70}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yNexEnaBoi"),
         Text(
-          extent={{-98,-62},{-64,-74}},
+          extent={{-98,-52},{-64,-64}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="chaPro"),
@@ -337,7 +343,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yDisLasBoi"),
         Text(
-          extent={{44,-78},{98,-100}},
+          extent={{44,-68},{98,-90}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yEnaSmaBoi"),
@@ -345,11 +351,7 @@ annotation (
           extent={{54,8},{96,-4}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yOnOff"),
-      Text(
-        extent={{-100,100},{100,-100}},
-        textColor={0,0,0},
-          textString="?")}),
+          textString="yOnOff")}),
 Documentation(info="<html>
 <p>
 This block identifies index of next enabled boiler (<code>yNexEnaBoi</code> and 

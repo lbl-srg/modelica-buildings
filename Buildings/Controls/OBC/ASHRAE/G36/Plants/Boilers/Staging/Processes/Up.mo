@@ -255,7 +255,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Check for completion of valve closing process and pump change process"
-    annotation (Placement(transformation(extent={{210,30},{230,50}})));
+    annotation (Placement(transformation(extent={{210,40},{230,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Latch to retain stage-up edge signal till the stage change process is completed"
@@ -376,7 +376,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.And and9
     "Signal stage change completion only after completion of valve closing process
-    and pump change process, if the stage change involves simulatneous enable-disable
+    and pump change process, if the stage change involves simultaneous enable-disable
     of boilers"
     annotation (Placement(transformation(extent={{250,20},{270,40}})));
 
@@ -388,6 +388,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Logical not"
     annotation (Placement(transformation(extent={{210,-20},{230,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and11
+    "Ensures stage change process completion signal is only sent out during stage-up
+    process, and not whenever any simultaneous enable-disable is detected"
+    annotation (Placement(transformation(extent={{212,10},{232,30}})));
 
 equation
   connect(nexBoi.yNexEnaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points={{-148,
@@ -468,8 +473,8 @@ equation
   connect(uPumChaPro, and4.u2) annotation (Line(points={{-260,-190},{-200,-190},
           {-200,-210},{120,-210},{120,-198},{130,-198}}, color={255,0,255}));
 
-  connect(lat4.y, and3.u2) annotation (Line(points={{182,-190},{184,-190},{184,
-          32},{208,32}}, color={255,0,255}));
+  connect(lat4.y, and3.u2) annotation (Line(points={{182,-190},{204,-190},{204,42},
+          {208,42}},     color={255,0,255}));
 
   connect(edg.y, yStaChaPro)
     annotation (Line(points={{332,0},{360,0}},   color={255,0,255}));
@@ -499,7 +504,8 @@ equation
   connect(truDel.y, lat6.u) annotation (Line(points={{122,0},{126,0},{126,40},{148,
           40}}, color={255,0,255}));
 
-  connect(lat6.y, and3.u1) annotation (Line(points={{172,40},{208,40}},
+  connect(lat6.y, and3.u1) annotation (Line(points={{172,40},{200,40},{200,50},{
+          208,50}},
                color={255,0,255}));
 
   connect(truDel.y, booRep1.u) annotation (Line(points={{122,0},{128,0},{128,-80},
@@ -513,7 +519,8 @@ equation
           {42,2},{58,2}}, color={255,0,255}));
 
   connect(disHotWatIsoVal1.yEnaHotWatIsoVal, and3.u1) annotation (Line(points={{172,6},
-          {180,6},{180,40},{208,40}},      color={255,0,255}));
+          {188,6},{188,40},{200,40},{200,50},{208,50}},
+                                           color={255,0,255}));
 
   connect(enaHotWatIsoVal.yEnaHotWatIsoVal, lat1.u) annotation (Line(points={{
           -48,6},{-40,6},{-40,-110},{-34,-110}}, color={255,0,255}));
@@ -523,8 +530,8 @@ equation
 
   connect(con.y, and1.u2) annotation (Line(points={{-158,-150},{-48,-150},{-48,-30},
           {-10,-30},{-10,-8},{-2,-8}}, color={255,0,255}));
-  connect(con.y, and3.u2) annotation (Line(points={{-158,-150},{-48,-150},{-48,
-          -174},{184,-174},{184,32},{208,32}},                 color={255,0,255}));
+  connect(con.y, and3.u2) annotation (Line(points={{-158,-150},{-48,-150},{-48,-30},
+          {-10,-30},{-10,26},{204,26},{204,42},{208,42}},      color={255,0,255}));
   connect(lat2.y, or1.u1)
     annotation (Line(points={{-158,-120},{-132,-120}}, color={255,0,255}));
   connect(minBypRes.yMinBypRes, or1.u2) annotation (Line(points={{-148,20},{-146,
@@ -596,7 +603,7 @@ equation
                                                    color={255,0,255}));
   connect(or4.y, yHotWatIsoVal) annotation (Line(points={{322,-70},{360,-70}},
                                color={255,0,255}));
-  connect(uStaChaPro, nexBoi.uStachaPro) annotation (Line(points={{-260,-150},{-228,
+  connect(uStaChaPro,nexBoi.uStaChaPro)  annotation (Line(points={{-260,-150},{-228,
           -150},{-228,-68},{-172,-68},{-172,-67}}, color={255,0,255}));
   connect(uBoi, enaBoi.uBoi) annotation (Line(points={{-260,80},{48,80},{48,-2},
           {58,-2}}, color={255,0,255}));
@@ -625,10 +632,14 @@ equation
           {190,-10},{208,-10}},color={255,0,255}));
   connect(and10.y, or6.u2) annotation (Line(points={{272,-20},{274,-20},{274,-8},
           {278,-8}}, color={255,0,255}));
-  connect(and3.y, and9.u1) annotation (Line(points={{232,40},{240,40},{240,30},
-          {248,30}}, color={255,0,255}));
-  connect(nexBoi.yOnOff, and9.u2) annotation (Line(points={{-148,-60},{190,-60},
-          {190,22},{248,22}}, color={255,0,255}));
+  connect(and3.y, and9.u1) annotation (Line(points={{232,50},{240,50},{240,30},{
+          248,30}},  color={255,0,255}));
+  connect(nexBoi.yOnOff, and11.u1) annotation (Line(points={{-148,-60},{190,-60},
+          {190,20},{210,20}}, color={255,0,255}));
+  connect(and11.y, and9.u2) annotation (Line(points={{234,20},{240,20},{240,22},
+          {248,22}}, color={255,0,255}));
+  connect(lat.y, and11.u2) annotation (Line(points={{-200,0},{-196,0},{-196,84},
+          {196,84},{196,12},{210,12}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

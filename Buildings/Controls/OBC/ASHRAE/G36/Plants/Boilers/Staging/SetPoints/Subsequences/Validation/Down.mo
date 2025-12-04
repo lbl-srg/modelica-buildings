@@ -5,6 +5,7 @@ model Down
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down
     staDow(
     final have_priOnl=false,
+    final have_allNonCon=false,
     final nSta=1,
     final fraMinFir=1.1,
     final delMinFir=300,
@@ -13,10 +14,7 @@ model Down
     final delDesCapConBoi=300,
     final sigDif=0.01,
     final bypValClo=0,
-    final TCirDif=3,
     final delTRetDif=300,
-    final dTemp=0.1,
-    final TDif=10,
     final delFaiCon=900,
     final boiMinPriPumSpeSta={0})
     "Scenario testing sequence for condensing-type stage"
@@ -25,6 +23,7 @@ model Down
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down
     staDow1(
     final have_priOnl=false,
+    final have_allNonCon=false,
     final nSta=1,
     final fraMinFir=1.1,
     final delMinFir=300,
@@ -33,10 +32,7 @@ model Down
     final delDesCapConBoi=300,
     final sigDif=0.01,
     final bypValClo=0,
-    final TCirDif=3,
     final delTRetDif=300,
-    final dTemp=0.1,
-    final TDif=10,
     final delFaiCon=900,
     final boiMinPriPumSpeSta={0})
     "Scenario testing sequence for non-condensing-type stage"
@@ -45,6 +41,7 @@ model Down
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down
     staDow2(
     final have_priOnl=true,
+    final have_allNonCon=false,
     final nSta=1,
     final fraMinFir=1.1,
     final delMinFir=300,
@@ -53,9 +50,6 @@ model Down
     final sigDif=0.01,
     final delBypVal=300,
     final bypValClo=0,
-    final TCirDif=3,
-    final dTemp=0.1,
-    final TDif=10,
     final delFaiCon=900,
     final boiMinPriPumSpeSta={0})
     "Scenario testing primary-only, condensing-type boiler plant"
@@ -64,6 +58,7 @@ model Down
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down
     staDow3(
     final have_priOnl=true,
+    final have_allNonCon=false,
     final nSta=1,
     final fraMinFir=1.1,
     final delMinFir=300,
@@ -72,9 +67,6 @@ model Down
     final sigDif=0.01,
     final delBypVal=300,
     final bypValClo=0,
-    final TCirDif=3,
-    final dTemp=0.1,
-    final TDif=10,
     final delFaiCon=900,
     final boiMinPriPumSpeSta={0})
     "Scenario testing primary-only, condensing-type boiler plant"

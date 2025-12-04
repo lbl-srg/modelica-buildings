@@ -1,6 +1,7 @@
-within Buildings.Fluid.Movers.Data.Pumps;
-record BoilerPlant "Pump curves for BoilerPlant model in Examples package"
-  extends Generic(
+within Buildings.Examples.BoilerPlants.Baseclasses;
+record PumpData
+  "Pump curves for boiler plant model in Examples package"
+  extends Buildings.Fluid.Movers.Data.Generic(
     use_powerCharacteristic=true,
     speed_rpm_nominal=1450,
     power(V_flow={0, 0.11345, 0.2269}, P={0, 7.5*28985.04, 7.5*57970.08}),
@@ -20,4 +21,4 @@ First added to Buildings library.
 </li>
 </ul>
 </html>"));
-end BoilerPlant;
+end PumpData;
