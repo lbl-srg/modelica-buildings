@@ -124,7 +124,7 @@ equation
   connect(boiAva5.y, conf5.uBoiAva)
     annotation (Line(points={{-18,-100},{18,-100}}, color={255,0,255}));
 annotation (
-  experiment(StopTime=10.0, Tolerance=1e-06),
+  experiment(StopTime=7200.0, Tolerance=1e-06),
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Configurator.mos"
         "Simulate and plot"),

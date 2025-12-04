@@ -90,46 +90,45 @@ equation
           textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
-      <p>
-      This block has been implemented to overcome the zero-index errors being 
-      reported in the block 
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities</a>.
-      The current staging setpoint logic uses an index value of 0 to represent the 
-      block being turned off. This is resulting in errors reported in the instances
-      of the
-      <a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealExtractor\">
-      RealExtractor</a> block.
-      </p>
-      <p>
-      To overcome this, the block accepts input signals <code>uInd</code> for the
-      current index value, and <code>uCap</code> for the current capacity signal. 
-      It outputs a modified index signal <code>yIndMod</code> and a modified 
-      capacity signal <code>yCapMod</code>.
-      <ul>
-      <li>
-      <code>yIndMod</code> is set to 1 and <code>yCapMod</code> is set to zero 
-      when <code>uInd</code> is zero.
-      </li>
-      <li>
-      <code>yIndMod</code> is set to <code>uInd</code> and <code>yCapMod</code> is
-      set to <code>uCap</code> when <code>uInd</code> is not zero.
-      </li>
-      </ul>
-      </p>
-      <p>
-      For an example of usage, check the
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities\">
-      Capacities</a> block.
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      April 3, 2023, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"),
-    experiment(Tolerance=1e-6));
+Documentation(info="<html>
+<p>
+This block has been implemented to overcome the zero-index errors being 
+reported in the block 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities</a>.
+The current staging setpoint logic uses an index value of 0 to represent the 
+block being turned off. This is resulting in errors reported in the instances
+of the
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealExtractor\">
+RealExtractor</a> block.
+</p>
+<p>
+To overcome this, the block accepts input signals <code>uInd</code> for the
+current index value, and <code>uCap</code> for the current capacity signal. 
+It outputs a modified index signal <code>yIndMod</code> and a modified 
+capacity signal <code>yCapMod</code>.
+</p>
+<ul>
+<li>
+<code>yIndMod</code> is set to 1 and <code>yCapMod</code> is set to zero 
+when <code>uInd</code> is zero.
+</li>
+<li>
+<code>yIndMod</code> is set to <code>uInd</code> and <code>yCapMod</code> is
+set to <code>uCap</code> when <code>uInd</code> is not zero.
+</li>
+</ul>
+<p>
+For an example of usage, check the
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities\">
+Capacities</a> block.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 3, 2023, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ZeroIndexCorrection;

@@ -498,9 +498,8 @@ equation
           342,180},{350,180},{350,158},{458,158}}, color={0,0,127}));
 annotation (
  experiment(
-      StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      StopTime=14000,
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Validation/SetpointController.mos"
     "Simulate and plot"),
   Documentation(info="<html>

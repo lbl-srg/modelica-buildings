@@ -26,13 +26,13 @@ model ClosedLoopTest "Closed loop testing model"
     final mPla_flow_nominal=secLoo1.mRad_flow_nominal + secLoo2.mRad_flow_nominal,
     final dpValve_nominal_value(displayUnit="Pa") = 25000,
     final dpFixed_nominal_value(displayUnit="Pa") = 25000,
-    dpPumPri_nominal_value(displayUnit="Pa") = 100000,
+    final dpPumPri_nominal_value(displayUnit="Pa") = 100000,
     final controllerTypeBoi1=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final kBoi1=0.1,
-    final TiBoi1=60,
+    kBoi1=0.1,
+    TiBoi1=60,
     final controllerTypeBoi2=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final kBoi2=0.1,
-    final TiBoi2=60)
+    kBoi2=0.1,
+    TiBoi2=60)
     "Boiler plant primary loop model"
     annotation (Placement(transformation(extent={{40,-20},{60,12}})));
 
@@ -71,14 +71,14 @@ model ClosedLoopTest "Closed loop testing model"
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo2(
     final mRad_flow_nominal=(1 - boiCapRat)*mPla_flow_nominal,
-    final dpRad_nominal(displayUnit="Pa") = 20000,
+    dpRad_nominal(displayUnit="Pa") = 20000,
     dpValve_nominal(displayUnit="Pa") = 60000)
     "Secondary loop-2"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo1(
     final mRad_flow_nominal=boiCapRat*mPla_flow_nominal,
-    final dpRad_nominal(displayUnit="Pa") = 20000,
+    dpRad_nominal(displayUnit="Pa") = 20000,
     dpValve_nominal(displayUnit="Pa") = 60000)
     "Secondary loop-1"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
@@ -96,10 +96,9 @@ model ClosedLoopTest "Closed loop testing model"
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
     final maxRemDp={secLoo2.dpRad_nominal + secLoo2.dpValve_nominal},
-    final k=0.1,
-    final Ti=60,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
-    enaHeaLeaPum(intGreThr(t=-1)))
+    k=0.1,
+    Ti=60,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP)
     "Secondary pump controller-2"
     annotation (Placement(transformation(extent={{-8,40},{12,80}})));
 
@@ -112,10 +111,9 @@ model ClosedLoopTest "Closed loop testing model"
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
     final maxRemDp={secLoo1.dpRad_nominal + secLoo1.dpValve_nominal},
-    final k=0.1,
-    final Ti=60,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
-    enaHeaLeaPum(intGreThr(t=-1)))
+    k=0.1,
+    Ti=60,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP)
     "Secondary pump controller-1"
     annotation (Placement(transformation(extent={{-10,128},{10,168}})));
 
@@ -289,9 +287,9 @@ equation
           180},{-82,180}}, color={0,0,127}));
   connect(timTab.y[2], gai1.u)
     annotation (Line(points={{-99,100},{-82,100}}, color={0,0,127}));
-  connect(gai.y, secLoo1.uHotWat_flow) annotation (Line(points={{-58,180},{-30,180},
+  connect(gai.y,secLoo1.mHotWat_flow)  annotation (Line(points={{-58,180},{-30,180},
           {-30,190},{30,190},{30,156},{38,156}}, color={0,0,127}));
-  connect(gai1.y, secLoo2.uHotWat_flow) annotation (Line(points={{-58,100},{30,
+  connect(gai1.y,secLoo2.mHotWat_flow)  annotation (Line(points={{-58,100},{30,
           100},{30,76},{38,76}},
                             color={0,0,127}));
   connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,10},
@@ -361,11 +359,7 @@ The reference loads for activating the system are calculated by simulating the D
 prototype large office building EnergyPlus model (ASHRAE 90.1-2019 version), and then summing
 up the simulated flowrates through each of the heating coils in the building. The
 return temperature to the hot water plant is also noted. The values are then used
-to simulate the loads in this model by enforcing the flowrates and return temperatures
-on the secondary loops. The user must note that the reference values here are only
-being used as realistic time-varying activation signals for the boiler plant, and
-are not meant to exactly recreate the loads in the EnergyPlus model. Therefore,
-a heat transfer comparison between the two may not reflect the loads in each other.
+to apply loads on this model by simulating equivalent loads on the secondary loops.
 </p>
 <p>
 A few salient points about the default system sizing values.
@@ -408,12 +402,13 @@ The validation plots are as follows.
 <ol>
 <li>
 Plot-1 represents the operation of the secondary loop-1 <code>secLoo1</code>. The plot
-shows how the valve-position is adjusted to regulate the measured flowrate at the
-reference setpoint when the plant is enabled. The plot also shows the secondary
-pump speed control to achieve the required differential pressure setpoint.
+shows how the load model within the secondary loop applies a load fraction proportional
+to the input return temperature and mass flow rate when the plant is enabled. The
+plot also shows the secondary pump speed control to achieve the required differential
+pressure setpoint.
 </li>
 <li>
-This plot is similar to plot-1, and demonstrates the same operations for the secondary
+Plot-2 is similar to plot-1, and demonstrates the same operations for the secondary
 loop-2, <code>secLoo2</code>.
 </li>
 <li>
