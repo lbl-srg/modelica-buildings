@@ -72,7 +72,7 @@ model BoilerPlant
   Fluid.Sensors.RelativePressure dpHeaWatRem[1](redeclare each final package
       Medium = Medium) "HW differential pressure at one remote location"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={60,-80})));
+      origin={80,-80})));
   Fluid.Sensors.MassFlowRate mHeaWatLoo_flow(redeclare final package Medium =
         Medium) "HW loop mass flow rate" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -84,7 +84,7 @@ model BoilerPlant
     final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(
          datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
-    annotation (Placement(transformation(extent={{30,-130},{10,-110}})));
+    annotation (Placement(transformation(extent={{60,-130},{40,-110}})));
   Fluid.Sensors.TemperatureTwoPort THeaWatSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal)
@@ -110,6 +110,12 @@ model BoilerPlant
       final integerFalse=Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.disabled)
     "Cast enable schedule to integer"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+  Fluid.MixingVolumes.MixingVolume vol(
+    m_flow_nominal=pla.mHeaWat_flow_nominal,
+    V=1E-5*pla.cap_nominal,
+    nPorts=2,
+    redeclare package Medium = Medium) "Fluid volume in distribution system"
+    annotation (Placement(transformation(extent={{10,-120},{30,-100}})));
 equation
   connect(TAirSup.y,reqPlaRes. TAirSup) annotation (Line(points={{-158,60},{120,
           60},{120,48},{112,48}},        color={0,0,127}));
@@ -123,15 +129,13 @@ equation
   connect(cst.y,mulInt. u1)
     annotation (Line(points={{88,80},{60,80},{60,46},{22,46}}, color={255,127,0}));
   connect(mHeaWatLoo_flow.port_b, dpHeaWatRem[1].port_b) annotation (Line(
-        points={{160,-90},{160,-120},{60,-120},{60,-90}}, color={0,127,255}));
+        points={{160,-90},{160,-120},{80,-120},{80,-90}}, color={0,127,255}));
   connect(sigBAS.bus, busPla) annotation (Line(
       points={{-160,-20},{-80,-20}},
       color={255,204,51},
       thickness=0.5));
-  connect(mHeaWatLoo_flow.port_b, pipHeaWat.port_a) annotation (Line(points={{160,
-          -90},{160,-120},{30,-120}}, color={0,127,255}));
-  connect(pipHeaWat.port_b, pla.port_a) annotation (Line(points={{10,-120},{0,-120},
-          {0,-90},{-19.8,-90}}, color={0,127,255}));
+  connect(mHeaWatLoo_flow.port_b, pipHeaWat.port_a) annotation (Line(points={{160,-90},
+          {160,-120},{60,-120}},      color={0,127,255}));
   connect(mulInt[1].y, busAirHan.reqPlaHeaWat)
     annotation (Line(points={{-2,40},{-20,40}},           color={255,127,0}));
   connect(mulInt[2].y, busAirHan.reqResHeaWat)
@@ -140,8 +144,8 @@ equation
           {80,32},{80,34},{22,34}}, color={255,127,0}));
   connect(reqPlaRes.yHotWatResReq, mulInt[2].u2) annotation (Line(points={{88,37},
           {80,37},{80,34},{22,34}}, color={255,127,0}));
-  connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem) annotation (Line(points={{51,-80},
-          {40,-80},{40,-20},{-80,-20}},                  color={0,0,127}));
+  connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem) annotation (Line(points={{71,-80},
+          {60,-80},{60,-20},{-80,-20}},                  color={0,0,127}));
   connect(pla.port_b, THeaWatSup.port_a) annotation (Line(points={{-19.8,-80},{0,
           -80},{0,-40},{10,-40}},   color={0,127,255}));
   connect(loa.port_b, mHeaWatLoo_flow.port_a) annotation (Line(points={{120,-40},
@@ -149,7 +153,7 @@ equation
   connect(THeaWatSup.port_b, loa.port_a)
     annotation (Line(points={{30,-40},{100,-40}}, color={0,127,255}));
   connect(dpHeaWatRem[1].port_a, loa.port_a)
-    annotation (Line(points={{60,-70},{60,-40},{100,-40}}, color={0,127,255}));
+    annotation (Line(points={{80,-70},{80,-40},{100,-40}}, color={0,127,255}));
   connect(loa.yVal_actual, reqPlaRes.uHeaCoiSet) annotation (Line(points={{122,-32},
           {140,-32},{140,32},{112,32}}, color={0,0,127}));
   connect(ratLoa.y[1], loa.u) annotation (Line(points={{-158,20},{80,20},{80,-32},
@@ -160,6 +164,10 @@ equation
       points={{-80,-20},{-80,0},{-52,0}},
       color={255,204,51},
       thickness=0.5));
+  connect(pipHeaWat.port_b, vol.ports[1])
+    annotation (Line(points={{40,-120},{19,-120}}, color={0,127,255}));
+  connect(vol.ports[2], pla.port_a) annotation (Line(points={{21,-120},{0,-120},
+          {0,-90},{-19.8,-90}}, color={0,127,255}));
 annotation (
   __Dymola_Commands(
     file=
