@@ -31,7 +31,6 @@ block PIDWithEnable
         enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
           controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-
   parameter Real yMax=1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
@@ -72,15 +71,16 @@ block PIDWithEnable
     annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},
       rotation=270),
       iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of actuator output signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
-    "Actuator output signal"
+    "Enable signal. If true, PID is active and y will be equal to the PID output, otherwise y will be y_neutral"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,
       origin={-60,-120}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-40,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Control output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final k=k,
     final Ti=Ti,
@@ -92,7 +92,7 @@ block PIDWithEnable
     final yMin=yMin,
     final yMax=yMax,
     final reverseActing=reverseActing,
-    final y_reset=y_reset)
+    final y_reset=y_reset) "PID controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiInp
     "Switch to select input signal"
@@ -223,21 +223,22 @@ equation
     Documentation(
       info="<html>
 <p>
-This is an update of
+Controller that is identical to
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>
-with an additional enable signal provided as a Boolean input.
+Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>,
+except that it has an enable input signal that can be used to deactivate
+the PID output and instead output a constant signal.
 </p>
 <ul>
 <li>
-When enabled, the output of the controller is identical to
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>,
-and the integral term is reset to <code>y_reset</code> at
-enable time.
+When the input <code>uEna</code> switches to <code>true</code>,
+the integral term of the PID controller is reset so that the output is
+equal to <code>y_reset</code>, and afterwards this controller
+will produce at its output <code>y</code> the output of the PID controller.
 </li>
 <li>
-When disabled, the output of the controller is set to <code>y_neutral</code>
+When the input <code>uEna=false</code>,
+the output of the controller is set to <code>y_neutral</code>
 and the setpoint is overridden by the measurement signal in order to avoid
 time integration of the control error.
 </li>
