@@ -449,7 +449,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Output new boiler status array:\n1. When the stage change does not require one boiler off and another boiler on.\n2. When the stage change does require one boiler off and another boiler on,\n    but the enabled boiler has not yet finished starting."),
           Text(
@@ -457,7 +457,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Output new boiler status array:\nWhen the stage change does require one boiler off and another boiler on,\nand the enabled boiler has finished starting.")}),
 Documentation(info="<html>

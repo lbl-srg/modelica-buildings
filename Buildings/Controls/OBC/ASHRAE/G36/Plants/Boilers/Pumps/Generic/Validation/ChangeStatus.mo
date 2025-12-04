@@ -109,7 +109,7 @@ equation
   connect(onCouInt.y,subInt. u2) annotation (Line(points={{-86.8,0},{-84,0},{-84,
           -20},{-50,-20},{-50,-46},{-42,-46}}, color={255,127,0}));
 annotation (
-  experiment(StopTime=3600.0, Tolerance=1e-06),
+  experiment(StopTime=35.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Pumps/Generic/Validation/ChangeStatus.mos"
     "Simulate and plot"),
   Documentation(info="<html>

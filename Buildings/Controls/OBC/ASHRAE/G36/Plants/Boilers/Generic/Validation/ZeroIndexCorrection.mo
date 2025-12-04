@@ -29,7 +29,6 @@ protected
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
 equation
-
   connect(conCap.y, zerStaIndCor.uCap) annotation (Line(points={{-58,-40},{-50,-40},
           {-50,-4},{-42,-4}}, color={0,0,127}));
   connect(conCap.y, zerStaIndCor1.uCap) annotation (Line(points={{-58,-40},{50,-40},
@@ -39,35 +38,37 @@ equation
   connect(conIntOne.y, zerStaIndCor1.uInd) annotation (Line(points={{42,40},{50,
           40},{50,4},{58,4}}, color={255,127,0}));
 annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Up.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Up.mos"
     "Simulate and plot"),
-  Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.ZeroIndexCorrection\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.ZeroIndexCorrection</a>.
-    </p>
-    <p>
-    It contains two instances:
-    <ul>
-    <li>
-    zerStaIndCor: Gets a zero index input signal.
-    </li>
-    <li>
-    zerStaIndCor1: Gets a non-zero index input signal.
-    </li>
-    </ul>
-    The model simulates and plots these two instances to demonstrate that the block
-    is performing the modifications correctly.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    April 3, 2023, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.ZeroIndexCorrection\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.ZeroIndexCorrection</a>.
+</p>
+<p>
+It contains two instances:
+</p>
+<ul>
+<li>
+zerStaIndCor: Gets a zero index input signal.
+</li>
+<li>
+zerStaIndCor1: Gets a non-zero index input signal.
+</li>
+</ul>
+<p>
+The model simulates and plots these two instances to demonstrate that the block
+is performing the modifications correctly.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 3, 2023, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
      graphics={
         Ellipse(lineColor = {75,138,73},
@@ -81,5 +82,5 @@ annotation (
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
-  experiment(Tolerance=1e-6));
+  experiment(Tolerance=1e-6, StopTime=10));
 end ZeroIndexCorrection;
