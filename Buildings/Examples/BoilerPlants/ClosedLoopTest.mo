@@ -26,13 +26,13 @@ model ClosedLoopTest "Closed loop testing model"
     final mPla_flow_nominal=secLoo1.mRad_flow_nominal + secLoo2.mRad_flow_nominal,
     final dpValve_nominal_value(displayUnit="Pa") = 25000,
     final dpFixed_nominal_value(displayUnit="Pa") = 25000,
-    dpPumPri_nominal_value(displayUnit="Pa") = 100000,
+    final dpPumPri_nominal_value(displayUnit="Pa") = 100000,
     final controllerTypeBoi1=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final kBoi1=0.1,
-    final TiBoi1=60,
+    kBoi1=0.1,
+    TiBoi1=60,
     final controllerTypeBoi2=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final kBoi2=0.1,
-    final TiBoi2=60)
+    kBoi2=0.1,
+    TiBoi2=60)
     "Boiler plant primary loop model"
     annotation (Placement(transformation(extent={{40,-20},{60,12}})));
 
@@ -71,14 +71,14 @@ model ClosedLoopTest "Closed loop testing model"
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo2(
     final mRad_flow_nominal=(1 - boiCapRat)*mPla_flow_nominal,
-    final dpRad_nominal(displayUnit="Pa") = 20000,
+    dpRad_nominal(displayUnit="Pa") = 20000,
     dpValve_nominal(displayUnit="Pa") = 60000)
     "Secondary loop-2"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad secLoo1(
     final mRad_flow_nominal=boiCapRat*mPla_flow_nominal,
-    final dpRad_nominal(displayUnit="Pa") = 20000,
+    dpRad_nominal(displayUnit="Pa") = 20000,
     dpValve_nominal(displayUnit="Pa") = 60000)
     "Secondary loop-1"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
@@ -96,10 +96,9 @@ model ClosedLoopTest "Closed loop testing model"
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
     final maxRemDp={secLoo2.dpRad_nominal + secLoo2.dpValve_nominal},
-    final k=0.1,
-    final Ti=60,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
-    enaHeaLeaPum(intGreThr(t=-1)))
+    k=0.1,
+    Ti=60,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP)
     "Secondary pump controller-2"
     annotation (Placement(transformation(extent={{-8,40},{12,80}})));
 
@@ -112,10 +111,9 @@ model ClosedLoopTest "Closed loop testing model"
     final nSen=1,
     final VHotWat_flow_nominal=secLoo1.mRad_flow_nominal/1000,
     final maxRemDp={secLoo1.dpRad_nominal + secLoo1.dpValve_nominal},
-    final k=0.1,
-    final Ti=60,
-    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP,
-    enaHeaLeaPum(intGreThr(t=-1)))
+    k=0.1,
+    Ti=60,
+    final speConTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.SecondaryPumpSpeedControl.RemoteDP)
     "Secondary pump controller-1"
     annotation (Placement(transformation(extent={{-10,128},{10,168}})));
 
@@ -289,9 +287,9 @@ equation
           180},{-82,180}}, color={0,0,127}));
   connect(timTab.y[2], gai1.u)
     annotation (Line(points={{-99,100},{-82,100}}, color={0,0,127}));
-  connect(gai.y, secLoo1.uHotWat_flow) annotation (Line(points={{-58,180},{-30,180},
+  connect(gai.y,secLoo1.mHotWat_flow)  annotation (Line(points={{-58,180},{-30,180},
           {-30,190},{30,190},{30,156},{38,156}}, color={0,0,127}));
-  connect(gai1.y, secLoo2.uHotWat_flow) annotation (Line(points={{-58,100},{30,
+  connect(gai1.y,secLoo2.mHotWat_flow)  annotation (Line(points={{-58,100},{30,
           100},{30,76},{38,76}},
                             color={0,0,127}));
   connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,10},
