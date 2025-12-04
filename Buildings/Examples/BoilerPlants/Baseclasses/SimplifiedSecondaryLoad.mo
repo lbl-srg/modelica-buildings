@@ -14,8 +14,18 @@ model SimplifiedSecondaryLoad
     annotation(Dialog(group="Radiator parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
-    final min=val.dpFixed_nominal)=dpRad_nominal
+    final min=dpRad_nominal)=dpRad_nominal
     "Nominal pressure drop of fully open flow-modulation valve"
+    annotation(Dialog(group="Secondary loop parameters"));
+
+  parameter Modelica.Units.SI.Temperature THotWatRet_nominal(
+    displayUnit="degC")=273.15+40
+    "Hot water leaving temperature at design conditions"
+    annotation(Dialog(group="Secondary loop parameters"));
+
+  parameter Modelica.Units.SI.Temperature THotWatSup_nominal(
+    displayUnit="degC")=273.15+60
+    "Hot water leaving temperature at design conditions"
     annotation(Dialog(group="Secondary loop parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPum
@@ -28,8 +38,8 @@ model SimplifiedSecondaryLoad
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWat_flow
-    "Required hot water flowrate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mHotWat_flow
+    "Required hot water mass flowrate"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
@@ -40,7 +50,7 @@ model SimplifiedSecondaryLoad
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumEna
     "Pump proven on"
-    annotation (Placement(transformation(extent={{100,10},{140,50}}),
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nReqPla
@@ -60,13 +70,13 @@ model SimplifiedSecondaryLoad
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe
     "Measured pump speed"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = MediumW)
     "HHW inlet port"
-    annotation (Placement(transformation(extent={{-30,-110},{-10,-90}}),
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
       iconTransformation(extent={{-50,-110},{-30,-90}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
@@ -74,14 +84,6 @@ model SimplifiedSecondaryLoad
     "HHW outlet port"
     annotation (Placement(transformation(extent={{70,-110},{90,-90}}),
       iconTransformation(extent={{30,-110},{50,-90}})));
-
-  Buildings.Fluid.HeatExchangers.SensibleCooler_T coo(
-    redeclare package Medium = MediumW,
-    final m_flow_nominal=mRad_flow_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final dp_nominal=0)
-    "Ideal cooler for heating loads"
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
   Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pum(
     redeclare package Medium = MediumW,
@@ -94,23 +96,7 @@ model SimplifiedSecondaryLoad
     "Hot water secondary pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={-20,-40})));
-
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
-    redeclare final package Medium = MediumW,
-    final m_flow_nominal=mRad_flow_nominal,
-    final dpValve_nominal(displayUnit="Pa") = dpValve_nominal,
-    final dpFixed_nominal(displayUnit="Pa") = dpRad_nominal)
-    "Minimum flow bypass valve"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=0)));
-
-  Buildings.Controls.OBC.CDL.Reals.PID conPID(
-    k=0.1,
-    Ti=60,
-    r=mRad_flow_nominal)
-    "Heating load flowrate controller"
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+      origin={0,-60})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Convert Boolean to required integer format"
@@ -124,20 +110,15 @@ model SimplifiedSecondaryLoad
     "Operate pump at required speed only when enable signal is true"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium = MediumW)
-    "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium = MediumW)
     "Differential pressure sensor"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=0.05, final uHigh=0.075)
     "Determine if pump is proven on"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(uLow=0.1, uHigh=0.95)
     "Check if valve command exceeds threshold for sending plant requests"
@@ -151,61 +132,97 @@ model SimplifiedSecondaryLoad
     "Convert Boolean to required integer format"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
+  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl
+    loa(
+    redeclare package MediumLiq = MediumW,
+    final typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating,
+    final mLiq_flow_nominal=mRad_flow_nominal,
+    final dpTer_nominal=dpRad_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final TLiqLvg_nominal=THotWatRet_nominal)
+    "Heating end load assembly including heating coil and supply air temperature-regulating valve"
+    annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Difference between nominal hot water supply and return temperatures"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSup(
+    final k=THotWatSup_nominal)
+    "Nominal hot water supply temperature signal"
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
+    "Calculate signal proportional to actual heat transfer"
+    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=1/(mRad_flow_nominal*(THotWatSup_nominal-THotWatRet_nominal)))
+    "Normalize heat transfer proportional signal with nominal heat transfer proportional signal"
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=1)
+    "Constant load mode signal"
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+
 equation
-  connect(port_b,coo. port_b) annotation (Line(points={{80,-100},{80,0},{70,0}},
-        color={0,127,255}));
-  connect(uHotWat_flow, conPID.u_s)
-    annotation (Line(points={{-120,60},{-52,60}}, color={0,0,127}));
-  connect(conPID.y, val.y)
-    annotation (Line(points={{-28,60},{0,60},{0,12}},      color={0,0,127}));
   connect(booToInt.y, nReqPla)
     annotation (Line(points={{82,60},{120,60}}, color={255,127,0}));
   connect(uPum, booToRea.u)
     annotation (Line(points={{-120,-40},{-92,-40}}, color={255,0,255}));
   connect(mul.y, pum.y)
-    annotation (Line(points={{-38,-60},{-36,-60},{-36,-40},{-32,-40}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-38,-60},{-12,-60}}, color={0,0,127}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{-68,-40},{-66,-40},{-66,
           -54},{-62,-54}}, color={0,0,127}));
   connect(uPumSpe, mul.u2) annotation (Line(points={{-120,-80},{-66,-80},{-66,
           -66},{-62,-66}}, color={0,0,127}));
-  connect(THotWatRet, coo.TSet) annotation (Line(points={{-120,0},{-40,0},{-40,-14},
-          {46,-14},{46,8},{48,8}},
-                          color={0,0,127}));
-  connect(senMasFlo.port_b, coo.port_a)
-    annotation (Line(points={{40,0},{50,0}},     color={0,127,255}));
-  connect(senMasFlo.m_flow, conPID.u_m) annotation (Line(points={{30,11},{30,20},
-          {-40,20},{-40,48}},     color={0,0,127}));
-  connect(senRelPre.port_a, pum.port_b) annotation (Line(points={{20,-30},{-20,-30}},
+  connect(senRelPre.port_a, pum.port_b) annotation (Line(points={{30,-50},{0,-50}},
                                               color={0,127,255}));
-  connect(senRelPre.port_b, coo.port_b) annotation (Line(points={{40,-30},{80,-30},
-          {80,0},{70,0}},          color={0,127,255}));
   connect(senRelPre.p_rel, dPSec)
-    annotation (Line(points={{30,-39},{30,-80},{120,-80}}, color={0,0,127}));
+    annotation (Line(points={{40,-59},{40,-80},{120,-80}}, color={0,0,127}));
   connect(yPumEna, hys.y)
-    annotation (Line(points={{120,30},{82,30}}, color={255,0,255}));
+    annotation (Line(points={{120,20},{82,20}}, color={255,0,255}));
   connect(pum.y_actual, hys.u)
-    annotation (Line(points={{-27,-29},{-27,-24},{-28,-24},{-28,30},{58,30}},
+    annotation (Line(points={{-7,-49},{-7,-40},{40,-40},{40,20},{58,20}},
                                                           color={0,0,127}));
   connect(port_a, pum.port_a)
-    annotation (Line(points={{-20,-100},{-20,-50}}, color={0,127,255}));
-  connect(pum.y_actual, yPumSpe) annotation (Line(points={{-27,-29},{-27,-24},{-28,
-          -24},{-28,30},{50,30},{50,16},{94,16},{94,-20},{120,-20}}, color={0,0,
+    annotation (Line(points={{0,-100},{0,-70}},     color={0,127,255}));
+  connect(pum.y_actual, yPumSpe) annotation (Line(points={{-7,-49},{-7,-40},{120,
+          -40}},                                                     color={0,0,
           127}));
-  connect(val.port_b, senMasFlo.port_a)
-    annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
-  connect(val.port_a, pum.port_b)
-    annotation (Line(points={{-10,0},{-20,0},{-20,-30}}, color={0,127,255}));
-  connect(conPID.y, hys2.u)
-    annotation (Line(points={{-28,60},{18,60}},color={0,0,127}));
   connect(booToInt1.y, nReqRes)
     annotation (Line(points={{82,100},{120,100}}, color={255,127,0}));
-  connect(conPID.y, hys1.u) annotation (Line(points={{-28,60},{0,60},{0,100},{18,
-          100}}, color={0,0,127}));
   connect(hys1.y, booToInt1.u)
     annotation (Line(points={{42,100},{58,100}}, color={255,0,255}));
   connect(hys2.y, booToInt.u)
     annotation (Line(points={{42,60},{58,60}}, color={255,0,255}));
+  connect(pum.port_b, loa.port_a)
+    annotation (Line(points={{0,-50},{0,-20},{50,-20}},   color={0,127,255}));
+  connect(loa.port_b, port_b) annotation (Line(points={{70,-20},{80,-20},{80,-100}},
+                                             color={0,127,255}));
+  connect(senRelPre.port_b, loa.port_b) annotation (Line(points={{50,-50},{80,-50},
+          {80,-20},{70,-20}},                               color={0,127,255}));
+  connect(loa.yVal_actual, hys1.u) annotation (Line(points={{72,-12},{86,-12},{86,
+          46},{8,46},{8,100},{18,100}},
+                             color={0,0,127}));
+  connect(loa.yVal_actual, hys2.u) annotation (Line(points={{72,-12},{86,-12},{86,
+          46},{8,46},{8,60},{18,60}},
+                           color={0,0,127}));
+  connect(THotWatRet, sub.u2) annotation (Line(points={{-120,0},{-70,0},{-70,24},
+          {-62,24}}, color={0,0,127}));
+  connect(THotWatSup.y, sub.u1) annotation (Line(points={{-68,40},{-66,40},{-66,
+          36},{-62,36}}, color={0,0,127}));
+  connect(sub.y, mul1.u2) annotation (Line(points={{-38,30},{-34,30},{-34,44},{-32,
+          44}}, color={0,0,127}));
+  connect(mHotWat_flow, mul1.u1) annotation (Line(points={{-120,60},{-34,60},{-34,
+          56},{-32,56}}, color={0,0,127}));
+  connect(loa.u, gai.y) annotation (Line(points={{48,-12},{44,-12},{44,0},{32,0}},
+        color={0,0,127}));
+  connect(mul1.y, gai.u)
+    annotation (Line(points={{-8,50},{0,50},{0,0},{8,0}}, color={0,0,127}));
+  connect(conInt.y, loa.mode) annotation (Line(points={{-18,-10},{-10,-10},{-10,
+          -16},{48,-16}}, color={255,127,0}));
   annotation (defaultComponentName="secLoo",
     Icon(
       coordinateSystem(
