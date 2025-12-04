@@ -359,11 +359,7 @@ The reference loads for activating the system are calculated by simulating the D
 prototype large office building EnergyPlus model (ASHRAE 90.1-2019 version), and then summing
 up the simulated flowrates through each of the heating coils in the building. The
 return temperature to the hot water plant is also noted. The values are then used
-to simulate the loads in this model by enforcing the flowrates and return temperatures
-on the secondary loops. The user must note that the reference values here are only
-being used as realistic time-varying activation signals for the boiler plant, and
-are not meant to exactly recreate the loads in the EnergyPlus model. Therefore,
-a heat transfer comparison between the two may not reflect the loads in each other.
+to apply loads on this model by simulating equivalent loads on the secondary loops.
 </p>
 <p>
 A few salient points about the default system sizing values.
@@ -406,12 +402,13 @@ The validation plots are as follows.
 <ol>
 <li>
 Plot-1 represents the operation of the secondary loop-1 <code>secLoo1</code>. The plot
-shows how the valve-position is adjusted to regulate the measured flowrate at the
-reference setpoint when the plant is enabled. The plot also shows the secondary
-pump speed control to achieve the required differential pressure setpoint.
+shows how the load model within the secondary loop applies a load fraction proportional
+to the input return temperature and mass flow rate when the plant is enabled. The
+plot also shows the secondary pump speed control to achieve the required differential
+pressure setpoint.
 </li>
 <li>
-This plot is similar to plot-1, and demonstrates the same operations for the secondary
+Plot-2 is similar to plot-1, and demonstrates the same operations for the secondary
 loop-2, <code>secLoo2</code>.
 </li>
 <li>

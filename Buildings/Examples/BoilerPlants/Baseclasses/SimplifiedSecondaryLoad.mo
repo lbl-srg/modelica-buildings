@@ -244,14 +244,31 @@ equation
     Documentation(info="<html>
       <p>
       This is a simplified model for a boiler plant secondary loop load consisting of 
-      a variable speed pump <code>pum</code>, a flow-control valve <code>val</code>
-      and an ideal cooler <code>coo</code>. The heating load on the secondary loop
-      is applied via the inputs for load flowrate <code>uHotWat_flow</code> and
-      return temperature <code>THotWatRet</code>.
+      a variable speed pump <code>pum</code> and a load assembly <code>loa</code>
+      (<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl\">
+      Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl</a>)
+      that mimics the operation of a hot-water heating coil. The heating load on
+      the secondary loop is applied via the inputs for load flowrate <code>mHotWat_flow</code>
+      and return temperature <code>THotWatRet</code>.
       <br>
-      The flowrate through <code>val</code> is regulated at <code>uHotWat_flow</code>
-      by the PID controller <code>conPID</code>. <code>coo</code> enforces the
-      return temperature <code>THotWatRet</code>.
+      <code>loa</code> requires a Real signal <code>loa.u</code> that represents
+      the fraction of the rated load that is applied at any instant. It is calculated
+      as follows.
+      <ol>
+      <li>
+      The actual load is calculated with the use of <code>mHotWat_flow</code>,
+      <code>THotWatRet</code> and assuming a constant supply temperature
+      <code>THotWatSup_nominal</code>.
+      </li>
+      <li>
+      The rated load is calculated with the use of <code>mRad_flow_nominal</code>,
+      <code>THotWatRet_nominal</code> and <code>THotWatSup_nominal</code>.
+      </li>
+      <li>
+      The ratio of these two values is then used as the input signal for
+      <code>loa.u</code>.
+      </li>
+      </ol>
       </p>
       <p>
       A few key points when using this class are as follows:
