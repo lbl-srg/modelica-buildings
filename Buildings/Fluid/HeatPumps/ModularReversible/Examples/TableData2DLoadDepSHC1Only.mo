@@ -289,7 +289,7 @@ model TableData2DLoadDepSHC1Only
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpHeaSet[2](k={hp.dpHw_nominal,
         hp.dpChw_nominal}) "Module header dp setpoint"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
-  Templates.Plants.Controls.Utilities.PIDWithEnable ctlValChwByp(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctlValChwByp(
     k=1,
     Ti=60,
     r=hp.dpChw_nominal,
@@ -316,7 +316,7 @@ model TableData2DLoadDepSHC1Only
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={40,-240})));
-  Templates.Plants.Controls.Utilities.PIDWithEnable ctlValHwByp(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctlValHwByp(
     k=1,
     Ti=60,
     r=hp.dpHw_nominal,

@@ -4,7 +4,7 @@ model CoolingTowerGroup "Validation of cooling tower group model"
 
   replaceable package MediumConWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "CW medium";
+    "Chilled water medium";
 
   Buildings.DHC.Plants.Combined.Subsystems.CoolingTowerGroup coo(
     redeclare final package Medium = MediumConWat,
@@ -21,7 +21,7 @@ model CoolingTowerGroup "Validation of cooling tower group model"
     "Cooling tower group"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Fluid.Sources.Boundary_pT bouConWat(
+  Buildings.Fluid.Sources.Boundary_pT bouConWat(
     redeclare final package Medium = MediumConWat,
     T=coo.TConWatRet_nominal,
     nPorts=2)
@@ -55,21 +55,21 @@ model CoolingTowerGroup "Validation of cooling tower group model"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-100,20})));
-  Fluid.Sensors.TemperatureTwoPort TConWatSup(
+  Buildings.Fluid.Sensors.TemperatureTwoPort TConWatSup(
     redeclare package Medium =MediumConWat,
     final m_flow_nominal=coo.mConWat_flow_nominal)
     "CW supply temperature" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={30,0})));
-  Fluid.Sensors.TemperatureTwoPort TConWatRet(
+  Buildings.Fluid.Sensors.TemperatureTwoPort TConWatRet(
     redeclare package Medium =MediumConWat,
     final m_flow_nominal=coo.mConWat_flow_nominal)
     "CW return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-40})));
-  ETS.Combined.Controls.PIDWithEnable ctl(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctl(
     k=1,
     Ti=60,
     reverseActing=false) "Controller"
