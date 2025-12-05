@@ -92,7 +92,7 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max - max(datAll.pla.ctl.dpChiWatRemSet_max))
     "Piping"
-    annotation (Placement(transformation(extent={{10,-130},{-10,-110}})));
+    annotation (Placement(transformation(extent={{40,-130},{20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant schEna(k=true)
     "Plant enable schedule"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -113,6 +113,14 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       final integerFalse=Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.disabled)
     "Cast enable schedule to integer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = MediumChiWat,
+    final energyDynamics=energyDynamics,
+    m_flow_nominal=pla.mChiWat_flow_nominal,
+    V=1E-5*pla.cap_nominal,
+    nPorts=2) "Fluid volume in distribution system"
+    annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
+  replaceable package MediumChiWat = Media.Water;
 equation
   connect(mulInt[1].y, busAirHan.reqResChiWat)
     annotation (Line(points={{-12,60},{-40,60}},  color={255,127,0}));
@@ -134,7 +142,7 @@ equation
     annotation (Line(points={{98,100},{60,100},{60,66},{12,66}},
                                                                color={255,127,0}));
   connect(mChiWat_flow.port_b, pipChiWat.port_a)
-    annotation (Line(points={{160,-90},{160,-120},{10,-120}},color={0,127,255}));
+    annotation (Line(points={{160,-90},{160,-120},{40,-120}},color={0,127,255}));
   connect(dpChiWatRem.p_rel, busPla.dpChiWatRem)
     annotation (Line(points={{51,-80},{40.5,-80},{40.5,-20},{-80,-20}},color={0,0,127}),
       Text(string="%second",index=1,extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
@@ -142,8 +150,6 @@ equation
           {80,68},{80,54},{12,54}},   color={255,127,0}));
   connect(reqPlaRes.yChiPlaReq, mulInt[2].u2) annotation (Line(points={{98,63},
           {80,63},{80,54},{12,54}},   color={255,127,0}));
-  connect(pla.port_a, pipChiWat.port_b) annotation (Line(points={{-39.8,-90},{-20,
-          -90},{-20,-120},{-10,-120}},  color={0,127,255}));
   connect(schEna.y, busPla.u1SchEna) annotation (Line(points={{-158,0},{-80,0},{
           -80,-20}},       color={255,0,255}));
   connect(loa.port_b, mChiWat_flow.port_a) annotation (Line(points={{120,-40},{160,
@@ -160,6 +166,10 @@ equation
           {98,-36}}, color={255,127,0}));
   connect(dpChiWatRem[1].port_a, loa.port_a)
     annotation (Line(points={{60,-70},{60,-40},{100,-40}}, color={0,127,255}));
+  connect(pipChiWat.port_b, vol.ports[1])
+    annotation (Line(points={{20,-120},{-1,-120}}, color={0,127,255}));
+  connect(vol.ports[2], pla.port_a) annotation (Line(points={{1,-120},{-20,-120},
+          {-20,-90},{-39.8,-90}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file=
