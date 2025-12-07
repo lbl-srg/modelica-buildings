@@ -109,11 +109,8 @@ model AirToWater
     each k=10) "Request multiplier factor"
     annotation (Placement(transformation(extent={{40,90},{20,110}})));
   // A constant true enable signal yields an initializarion error with OCT.
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable enaLoa(
-    table=[
-      0, Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.disabled;
-      1,Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled],
-    period=1E10) "Load enable"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant   enaLoa(k=true)
+                 "Load enable"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
@@ -135,8 +132,7 @@ model AirToWater
     each final u_internal=0)
     "Placeholder value"
     annotation (Placement(transformation(extent={{40,54},{20,74}})));
-  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl
-    loaCoo(
+  Buildings.Templates.Components.Loads.LoadTwoWayValve loaCoo(
     redeclare final package MediumLiq = Medium,
     final energyDynamics=energyDynamics,
     final typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Cooling,
@@ -147,8 +143,7 @@ model AirToWater
     final TLiqEnt_nominal=pla.TChiWatSup_nominal,
     final TLiqLvg_nominal=pla.TChiWatRet_nominal) if have_chiWat "Cooling load"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
-  Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl
-    loaHea(
+  Buildings.Templates.Components.Loads.LoadTwoWayValve loaHea(
     redeclare final package MediumLiq = Medium,
     final energyDynamics=energyDynamics,
     final typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating,
@@ -253,10 +248,10 @@ equation
     annotation (Line(points={{30,-80},{-1,-80}}, color={0,127,255}));
   connect(volChiWat.ports[2], pla.port_aChiWat) annotation (Line(points={{1,-80},
           {-20,-80},{-20,-84},{-40,-84}}, color={0,127,255}));
-  connect(enaLoa.y[1], loaCoo.mode) annotation (Line(points={{-158,0},{76,0},{76,-36},
-          {88,-36}}, color={255,127,0}));
-  connect(enaLoa.y[1], loaHea.mode) annotation (Line(points={{-158,0},{76,0},{76,-96},
-          {88,-96}}, color={255,127,0}));
+  connect(enaLoa.y, loaCoo.u1) annotation (Line(points={{-158,0},{76,0},{76,-36},
+          {88,-36}}, color={255,0,255}));
+  connect(enaLoa.y, loaHea.u1) annotation (Line(points={{-158,0},{76,0},{76,-96},
+          {88,-96}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=
