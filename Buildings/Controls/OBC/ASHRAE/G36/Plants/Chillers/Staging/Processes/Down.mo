@@ -47,16 +47,16 @@ block Down
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Disable CHW isolation valve"));
   parameter Real staVec[totSta]
-    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
+    "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Disable condenser water pump"));
   parameter Real desConWatPumSpe[totSta]
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(group="Disable condenser water pump", enable=(not have_airCoo) and (not have_fixSpeConWatPum)));
   parameter Integer desConWatPumNum[totSta]
-    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
+    "Design number of condenser water pumps that should be enabled, according to current chiller stage and WSE status"
     annotation (Dialog(group="Disable condenser water pump", enable=not have_airCoo));
   parameter Integer desChiNum[nChiSta]={0,1,2}
-    "Design number of chiller that should be ON, according to current chiller stage"
+    "Design number of chiller that should be enabled, according to current chiller stage"
     annotation (Dialog(group="Disable condenser water pump", enable=have_fixSpeConWatPum));
   parameter Real byPasSetTim(unit="s", displayUnit="s")
     "Time to reset minimum by-pass flow"

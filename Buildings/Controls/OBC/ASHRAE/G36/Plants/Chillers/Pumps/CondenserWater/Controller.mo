@@ -15,16 +15,16 @@ block Controller "Condenser water pump controller"
   parameter Integer nChiSta = 3
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
-    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
+    "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Stage design speed"));
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(group="Stage design speed", enable=not fixSpe));
   parameter Integer desConWatPumNum[totSta]={0,1,1,2,2,2}
-    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
+    "Design number of condenser water pumps that should be enabled, according to current chiller stage and WSE status"
     annotation (Dialog(group="Stage design speed"));
   parameter Integer desChiNum[nChiSta]={0,1,2}
-    "Design number of chiller that should be ON, according to current chiller stage"
+    "Design number of chiller that should be enabled, according to current chiller stage"
     annotation (Dialog(group="Stage design speed", enable=fixSpe));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
