@@ -2075,8 +2075,8 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable</a>.
 </ul>
 <p>
 For correct usage of this block, refer to the example model
-<a href=\"modelica://Buildings.Examples.BoilerPlants.ClosedLoopTest\">
-Buildings.Examples.BoilerPlants.ClosedLoopTest</a>.
+<a href=\"modelica://Buildings.Examples.BoilerPlants.Guideline36\">
+Buildings.Examples.BoilerPlants.Guideline36</a>.
 </p>
 <p>
 The parameter values for valid boiler plant configurations are as follows:

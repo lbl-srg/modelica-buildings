@@ -1,5 +1,5 @@
 within Buildings.Examples.BoilerPlants;
-model ClosedLoopTest "Closed loop testing model"
+model Guideline36 "Closed loop testing model"
   extends Modelica.Icons.Example;
 
   replaceable package MediumW = Buildings.Media.Water
@@ -438,7 +438,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-140,-120},{180,
             200}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/ClosedLoopTest.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/Guideline36.mos"
         "Simulate and plot"),
     experiment(
       StartTime=86400,
@@ -446,4 +446,4 @@ First implementation.
       Interval=60,
       Tolerance=1e-05),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end ClosedLoopTest;
+end Guideline36;
