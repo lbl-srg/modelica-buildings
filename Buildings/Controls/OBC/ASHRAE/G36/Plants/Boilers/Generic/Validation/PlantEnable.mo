@@ -129,24 +129,20 @@ equation
   connect(reaToInt3.u, con2.y)
     annotation (Line(points={{38,-20},{32,-20}},
       color={0,0,127}));
-  connect(plaEna1.supResReq, reaToInt1.y)
-    annotation (Line(points={{-22,-40},{-30,-40},{-30,-20},{-38,-20}},
-      color={255,127,0}));
-  connect(plaEna2.supResReq, reaToInt2.y)
-    annotation (Line(points={{78,60},{70,60},{70,80},{62,80}},
-      color={255,127,0}));
+  connect(plaEna1.plaReq, reaToInt1.y) annotation (Line(points={{-22,-40},{-30,
+          -40},{-30,-20},{-38,-20}}, color={255,127,0}));
+  connect(plaEna2.plaReq, reaToInt2.y) annotation (Line(points={{78,60},{70,60},
+          {70,80},{62,80}}, color={255,127,0}));
   connect(plaEna2.TOut, sin5.y)
     annotation (Line(points={{78,54},{70,54},{70,40},{32,40}},
       color={0,0,127}));
-  connect(plaEna3.supResReq, reaToInt3.y)
-    annotation (Line(points={{78,-40},{70,-40},{70,-20},{62,-20}},
-      color={255,127,0}));
+  connect(plaEna3.plaReq, reaToInt3.y) annotation (Line(points={{78,-40},{70,-40},
+          {70,-20},{62,-20}}, color={255,127,0}));
   connect(plaEna3.TOut, con3.y)
     annotation (Line(points={{78,-46},{70,-46},{70,-60},{32,-60}},
       color={0,0,127}));
-  connect(reaToInt.y, plaEna.supResReq)
-    annotation (Line(points={{-38,80},{-30,80},{-30,60},{-22,60}},
-      color={255,127,0}));
+  connect(reaToInt.y, plaEna.plaReq) annotation (Line(points={{-38,80},{-30,80},
+          {-30,60},{-22,60}}, color={255,127,0}));
   connect(sin1.y, plaEna.TOut)
     annotation (Line(points={{-68,40},{-30,40},{-30,54},{-22,54}},
       color={0,0,127}));

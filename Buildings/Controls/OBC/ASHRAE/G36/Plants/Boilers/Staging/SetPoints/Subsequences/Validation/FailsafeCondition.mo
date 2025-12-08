@@ -4,43 +4,33 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon(
-    final delEna=900,
-    final TDif=10,
-    final TDifHys=1)
+    final delEna=900)
     "Testing scenario with FailsafeCondition unmet"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon1(
-    final delEna=900,
-    final TDif=10,
-    final TDifHys=1)
+    final delEna=900)
     "Testing scenario with FailsafeCondition met"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon2(
-    final delEna=900,
-    final TDif=10,
-    final TDifHys=1)
+    final delEna=900)
     "Testing scenario exhibiting lower limit of hysteresis loop in sequence being
     unmet"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon3(
-    final delEna=900,
-    final TDif=10,
-    final TDifHys=1)
+    final delEna=900)
     "Testing scenario exhibitng lower limit of hysteresis loop in sequence being
     met"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon4(
-    final delEna=900,
-    final TDif=10,
-    final TDifHys=1)
+    final delEna=900)
     "Testing scenario with timer reset"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
 

@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Subsequences.Validation.TemperatureSupplyWeightedAverage", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="TWeightedAverage");
+createPlot(id=1, position={0, 0, 1545, 162}, y={"TWeiAve.THotWatBoiSup[1]", "TWeiAve.THotWatBoiSup[2]"}, range={0.0, 3600.0, 4.0, 12.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1545, 162}, y={"TWeiAve.uBoiSta[1]", "TWeiAve.uBoiSta[2]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1545, 162}, y={"TWeiAve.TSupAveWei"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});

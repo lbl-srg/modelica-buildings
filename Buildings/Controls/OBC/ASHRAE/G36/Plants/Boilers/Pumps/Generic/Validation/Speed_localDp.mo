@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.Validation;
 model Speed_localDp
-  "Validate sequence of controlling hot water pump speed for plants with local DP sensor hardwired to the plant controller"
+  "Validate sequence of controlling hot water pump speed for plants with local DP
+  sensor hardwired to the plant controller"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.Speed_localDp
     hotPumSpe(
@@ -17,8 +18,8 @@ protected
     "Pump status"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant difPreSet(
-    final k=8.5*6894.75)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant difPreSet[2](
+    final k=fill(8.5*6894.75, 2))
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
@@ -49,11 +50,11 @@ equation
     annotation (Line(points={{-38,80},{0,80},{0,8},{18,8}},
       color={0,0,127}));
 
-  connect(remPreSen1.y,hotPumSpe. dpHotWat_remote[1]) annotation (Line(points={
-          {-38,0},{-20,0},{-20,-5},{18,-5}}, color={0,0,127}));
+  connect(remPreSen1.y,hotPumSpe. dpHotWat_remote[1]) annotation (Line(points={{-38,0},
+          {-20,0},{-20,-4.5},{18,-4.5}},     color={0,0,127}));
 
-  connect(remPreSen2.y,hotPumSpe. dpHotWat_remote[2]) annotation (Line(points={
-          {-38,-40},{-20,-40},{-20,-3},{18,-3}}, color={0,0,127}));
+  connect(remPreSen2.y,hotPumSpe. dpHotWat_remote[2]) annotation (Line(points={{-38,-40},
+          {-20,-40},{-20,-3.5},{18,-3.5}},       color={0,0,127}));
 
   connect(difPreSet.y,hotPumSpe.dpHotWatSet)
     annotation (Line(points={{-38,-80},{0,-80},{0,-8},{18,-8}},
