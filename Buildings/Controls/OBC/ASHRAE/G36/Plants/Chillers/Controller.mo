@@ -742,12 +742,12 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
 
   // ---- Cooling tower: staging ----
-  parameter Boolean have_endSwi=false
-    "True: tower cells isolation valve have end switch"
+  parameter Boolean have_inlValEndSwi=false
+    "True: tower cells have the end switch feedback from inlet isolation valve"
     annotation (Dialog(tab="Cooling Towers", group="Staging", enable=not have_airCoo));
-  parameter Boolean have_outIsoVal=false
-    "True: tower cells also have outlet isolation valve"
-    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_endSwi and not have_airCoo));
+  parameter Boolean have_outValEndSwi=false
+    "True: tower cells have the end switch feedback from outlet isolation valve"
+    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_inlValEndSwi and not have_airCoo));
   parameter Real chaTowCelIsoTim(unit="s")=300
     "Time to slowly change isolation valve"
      annotation (Dialog(tab="Cooling Towers", group="Staging", enable=not have_airCoo));
@@ -968,25 +968,25 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{-140,-280},{-100,-240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
-    if have_endSwi and not have_airCoo
+    if have_inlValEndSwi and not have_airCoo
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-940,-680},{-900,-640}}),
         iconTransformation(extent={{-140,-310},{-100,-270}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
-    if have_endSwi and have_outIsoVal and not have_airCoo
+    if have_inlValEndSwi and have_outValEndSwi and not have_airCoo
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-940,-700},{-900,-660}}),
         iconTransformation(extent={{-140,-330},{-100,-290}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
-    if have_endSwi and not have_airCoo
+    if have_inlValEndSwi and not have_airCoo
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-940,-720},{-900,-680}}),
         iconTransformation(extent={{-140,-350},{-100,-310}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
-    if have_endSwi and have_outIsoVal and not have_airCoo
+    if have_inlValEndSwi and have_outValEndSwi and not have_airCoo
     "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-940,-740},{-900,-700}}),
         iconTransformation(extent={{-140,-370},{-100,-330}})));
@@ -1344,8 +1344,8 @@ block Controller "Chiller plant controller"
     final cheTowOff=cheTowOff,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
-    final have_endSwi=have_endSwi,
-    final have_outIsoVal=have_outIsoVal,
+    final have_inlValEndSwi=have_inlValEndSwi,
+    final have_outValEndSwi=have_outValEndSwi,
     final chaTowCelIsoTim=chaTowCelIsoTim,
     final watLevMin=watLevMin,
     final watLevMax=watLevMax) if not have_airCoo
@@ -2429,22 +2429,22 @@ annotation (
           extent={{-98,-284},{-42,-298}},
           textColor={255,0,255},
           textString="u1InlIsoValOpe",
-          visible=have_endSwi and not have_airCoo),
+          visible=have_inlValEndSwi and not have_airCoo),
         Text(
           extent={{-98,-304},{-42,-318}},
           textColor={255,0,255},
           textString="u1OutIsoValOpe",
-          visible=have_endSwi and have_outIsoVal and not have_airCoo),
+          visible=have_inlValEndSwi and have_outValEndSwi and not have_airCoo),
         Text(
           extent={{-98,-344},{-42,-358}},
           textColor={255,0,255},
           textString="u1OutIsoValClo",
-          visible=have_endSwi and have_outIsoVal and not have_airCoo),
+          visible=have_inlValEndSwi and have_outValEndSwi and not have_airCoo),
         Text(
           extent={{-98,-324},{-42,-338}},
           textColor={255,0,255},
           textString="u1InlIsoValClo",
-          visible=have_endSwi and not have_airCoo)}),
+          visible=have_inlValEndSwi and not have_airCoo)}),
     Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>
 <p>

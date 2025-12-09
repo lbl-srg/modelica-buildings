@@ -11,15 +11,15 @@ block Controller "Sequence of staging cooling tower cells"
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
   parameter Integer towCelOnSet[nPlaSta]={0,2,2,4,4,4}
     "Design number of tower fan cells that should be enabled, according to current chiller stage and WSE status";
-  parameter Boolean have_endSwi=false
-    "True: tower cells isolation valve have end switch"
+  parameter Boolean have_inlValEndSwi=false
+    "True: tower cells have the end switch feedback from inlet isolation valve"
     annotation (Dialog(group="Isolation valves"));
-  parameter Boolean have_outIsoVal=false
-    "True: tower cells also have outlet isolation valve"
-    annotation (Dialog(group="Isolation valves", enable=have_endSwi));
+  parameter Boolean have_outValEndSwi=false
+    "True: tower cells have the end switch feedback from outlet isolation valve"
+    annotation (Dialog(group="Isolation valves", enable=have_inlValEndSwi));
   parameter Real chaTowCelIsoTim=90
     "Nominal time needed for open isolation valve of the tower cells"
-    annotation (Dialog(group="Isolation valves", enable=not have_endSwi));
+    annotation (Dialog(group="Isolation valves", enable=not have_inlValEndSwi));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
@@ -50,22 +50,22 @@ block Controller "Sequence of staging cooling tower cells"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
-    if have_endSwi
+    if have_inlValEndSwi
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-78},{-100,-38}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
-    if have_endSwi and have_outIsoVal
+    if have_inlValEndSwi and have_outValEndSwi
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-98},{-100,-58}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
-    if have_endSwi
+    if have_inlValEndSwi
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-140,-128},{-100,-88}}),
         iconTransformation(extent={{-140,-102},{-100,-62}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
-    if have_endSwi and have_outIsoVal
+    if have_inlValEndSwi and have_outValEndSwi
     "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-140,-148},{-100,-108}}),
         iconTransformation(extent={{-140,-122},{-100,-82}})));
@@ -102,8 +102,8 @@ block Controller "Sequence of staging cooling tower cells"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
     staPro(
-    final have_endSwi=have_endSwi,
-    final have_outIsoVal=have_outIsoVal,
+    final have_inlValEndSwi=have_inlValEndSwi,
+    final have_outValEndSwi=have_outValEndSwi,
     final nTowCel=nTowCel,
     final chaTowCelIsoTim=chaTowCelIsoTim) "Tower staging process"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -216,22 +216,22 @@ annotation (
           extent={{-100,-22},{-32,-36}},
           textColor={255,0,255},
           textString="u1InlIsoValOpe",
-          visible=have_endSwi),
+          visible=have_inlValEndSwi),
         Text(
           extent={{-96,-42},{-28,-56}},
           textColor={255,0,255},
           textString="u1OutIsoValOpe",
-          visible=have_endSwi and have_outIsoVal),
+          visible=have_inlValEndSwi and have_outValEndSwi),
         Text(
           extent={{-96,-94},{-28,-108}},
           textColor={255,0,255},
           textString="u1OutIsoValClo",
-          visible=have_endSwi and have_outIsoVal),
+          visible=have_inlValEndSwi and have_outValEndSwi),
         Text(
           extent={{-100,-74},{-32,-88}},
           textColor={255,0,255},
           textString="u1InlIsoValClo",
-          visible=have_endSwi),
+          visible=have_inlValEndSwi),
         Text(
           extent={{60,36},{98,24}},
           textColor={255,0,255},

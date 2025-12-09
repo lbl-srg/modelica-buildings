@@ -3,36 +3,36 @@ block StageProcesses "Sequence for process of staging cells"
 
   parameter Integer nTowCel = 4
     "Total number of cooling tower cells";
-  parameter Boolean have_endSwi=false
-    "True: tower cells isolation valve have end switch";
-  parameter Boolean have_outIsoVal=false
-    "True: tower cells also have outlet isolation valve"
-    annotation (Dialog(enable=have_endSwi));
+  parameter Boolean have_inlValEndSwi=false
+    "True: tower cells have the end switch feedback from inlet isolation valve";
+  parameter Boolean have_outValEndSwi=false
+    "True: tower cells have the end switch feedback from outlet isolation valve"
+    annotation (Dialog(enable=have_inlValEndSwi));
   parameter Real chaTowCelIsoTim(unit="s")=90
     "Nominal time needed for open or close isolation valve"
-    annotation (Dialog(enable=not have_endSwi));
+    annotation (Dialog(enable=not have_inlValEndSwi));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChaCel[nTowCel]
     "Vector of boolean flags to show if a cell should change its status: true = the cell should change status (be enabled or disabled)"
     annotation (Placement(transformation(extent={{-240,390},{-200,430}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
-    if have_endSwi
+    if have_inlValEndSwi
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
-    if have_endSwi and have_outIsoVal
+    if have_inlValEndSwi and have_outValEndSwi
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
-    if have_endSwi
+    if have_inlValEndSwi
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
-    if have_endSwi and have_outIsoVal
+    if have_inlValEndSwi and have_outValEndSwi
     "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -132,18 +132,18 @@ protected
     final nout=nTowCel)
     "In the enabling process"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal opeValFla[nTowCel] if have_endSwi
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal opeValFla[nTowCel] if have_inlValEndSwi
     "1: cell is fully open"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cloValFla[nTowCel] if have_endSwi
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cloValFla[nTowCel] if have_inlValEndSwi
     "1: cell is fully closed"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum totOpe(
-    final nin=nTowCel) if have_endSwi
+    final nin=nTowCel) if have_inlValEndSwi
     "Total number of open valves"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum totClo(
-    final nin=nTowCel) if have_endSwi
+    final nin=nTowCel) if have_inlValEndSwi
     "Total number of closed valves"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch celVec[nTowCel]
@@ -174,67 +174,67 @@ protected
     annotation (Placement(transformation(extent={{-100,260},{-80,280}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay newValCha(
     final delayTime=chaTowCelIsoTim)
-    if not have_endSwi
+    if not have_inlValEndSwi
     "New valve status being fully changed"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam if have_endSwi
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam if have_inlValEndSwi
     "Number of fully open valves at the moment when the valve status needs change"
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1 if have_endSwi
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1 if have_inlValEndSwi
     "Number of fully closed valves at the moment when the valve status needs change"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater newFulOpe if have_endSwi
+  Buildings.Controls.OBC.CDL.Reals.Greater newFulOpe if have_inlValEndSwi
     "New fully open isolation valve"
     annotation (Placement(transformation(extent={{60,150},{80,170}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater newFulClo if have_endSwi
+  Buildings.Controls.OBC.CDL.Reals.Greater newFulClo if have_inlValEndSwi
     "New fully closed isolation valve"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger opeValFla1[nTowCel]
-    if have_endSwi and have_outIsoVal "1: cell is fully open"
+    if have_inlValEndSwi and have_outValEndSwi "1: cell is fully open"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger opeValFla2[nTowCel]
-    if have_endSwi and have_outIsoVal "1: cell is fully open"
+    if have_inlValEndSwi and have_outValEndSwi "1: cell is fully open"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger cloValFla1[nTowCel]
-    if have_endSwi and have_outIsoVal "1: cell is fully closed"
+    if have_inlValEndSwi and have_outValEndSwi "1: cell is fully closed"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger cloValFla2[nTowCel]
-    if have_endSwi and have_outIsoVal "1: cell is fully closed"
+    if have_inlValEndSwi and have_outValEndSwi "1: cell is fully closed"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nTowCel]
-    if have_endSwi and have_outIsoVal
+    if have_inlValEndSwi and have_outValEndSwi
     "Check if inputs equal"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nTowCel]
-    if have_endSwi and have_outIsoVal
+    if have_inlValEndSwi and have_outValEndSwi
     "Check if inputs equal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd botOpe(nin=nTowCel) if have_endSwi and have_outIsoVal
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd botOpe(nin=nTowCel) if have_inlValEndSwi and have_outValEndSwi
     "Inlet and outlet valves have the same switch end"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd botClo(nin=nTowCel) if have_endSwi and have_outIsoVal
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd botClo(nin=nTowCel) if have_inlValEndSwi and have_outValEndSwi
     "Inlet and outlet valves have the same switch end"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.And newFulOpe1 if have_endSwi
+  Buildings.Controls.OBC.CDL.Logical.And newFulOpe1 if have_inlValEndSwi
     "New fully open isolation valve"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Logical.And newFulClo1
-    if have_endSwi and not have_outIsoVal
+    if have_inlValEndSwi and not have_outValEndSwi
     "New fully closed isolation valve"
     annotation (Placement(transformation(extent={{120,30},{140,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=true) if have_endSwi and not have_outIsoVal
+    final k=true) if have_inlValEndSwi and not have_outValEndSwi
     "Constant true"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(
-    final k=true) if have_endSwi and not have_outIsoVal
+    final k=true) if have_inlValEndSwi and not have_outValEndSwi
     "Constant true"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Not difCloEnd if have_endSwi and have_outIsoVal
+  Buildings.Controls.OBC.CDL.Logical.Not difCloEnd if have_inlValEndSwi and have_outValEndSwi
     "Inlet and outlet valves have the different switch end"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Or newFulClo2
-    if have_endSwi and have_outIsoVal
+    if have_inlValEndSwi and have_outValEndSwi
     "New fully closed isolation valve"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
 
@@ -459,22 +459,22 @@ annotation (
         Text(
           extent={{-96,50},{-40,32}},
           textColor={255,0,255},
-          visible=have_endSwi,
+          visible=have_inlValEndSwi,
           textString="u1InlIsoValOpe"),
         Text(
           extent={{-96,-12},{-40,-28}},
           textColor={255,0,255},
-          visible=have_endSwi,
+          visible=have_inlValEndSwi,
           textString="u1InlIsoValClo"),
         Text(
           extent={{-96,28},{-36,12}},
           textColor={255,0,255},
-          visible=have_endSwi and have_outIsoVal,
+          visible=have_inlValEndSwi and have_outValEndSwi,
           textString="u1OutIsoValOpe"),
         Text(
           extent={{-96,-32},{-38,-48}},
           textColor={255,0,255},
-          visible=have_endSwi and have_outIsoVal,
+          visible=have_inlValEndSwi and have_outValEndSwi,
           textString="u1OutIsoValClo")}),
 Documentation(info="<html>
 <p>
