@@ -1,0 +1,22 @@
+last-generated=2025-12-08
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+chiLif.minChiLif[1]=[1.2e+01, 1.2e+01]
+chiLif.minChiLif[2]=[1e+01, 1e+01]
+chiLif.minChiLif[3]=[1.3e+01, 1.3e+01]
+chiLif.minChiLif[4]=[1.1e+01, 1.1e+01]
+chiLif.maxChiLif[1]=[1.8e+01, 1.8e+01]
+chiLif.maxChiLif[2]=[1.8e+01, 1.8e+01]
+chiLif.maxChiLif[3]=[1.8e+01, 1.8e+01]
+chiLif.maxChiLif[4]=[1.8e+01, 1.8e+01]
+chiLif.uChi[1]=[1e+00, 1e+00]
+chiLif.uChi[2]=[1e+00, 1e+00]
+chiLif.uChi[3]=[0e+00, 0e+00]
+chiLif.uChi[4]=[0e+00, 0e+00]
+chiLif.yLifMax=[1.8e+01, 1.8e+01]
+chiLif.yLifMin=[1.1e+01, 1.1e+01]
