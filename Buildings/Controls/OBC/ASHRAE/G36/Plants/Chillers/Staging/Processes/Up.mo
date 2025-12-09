@@ -47,7 +47,7 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Real maxFloSet[nChi](
     unit=fill("m3/s", nChi),
     each displayUnit="m3/s")={0.025,0.025}
-      "Maximum chilled water flow through each chiller"
+    "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     unit="s",
@@ -55,16 +55,16 @@ block Up "Sequence for control devices when there is stage-up command"
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
   parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
-    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
+    "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Enable condenser water pump"));
   parameter Real desConWatPumSpe[totSta]={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(group="Enable condenser water pump", enable=(not have_airCoo) and (not have_fixSpeConWatPum)));
   parameter Integer desConWatPumNum[totSta]={0,1,1,2,2,2}
-    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
+    "Design number of condenser water pumps that should be enabled, according to current chiller stage and WSE status"
     annotation (Dialog(group="Enable condenser water pump", enable=not have_airCoo));
   parameter Integer desChiNum[nChiSta]={0,1,2}
-    "Design number of chiller that should be ON, according to current chiller stage"
+    "Design number of chiller that should be enabled, according to current chiller stage"
     annotation (Dialog(group="Enable condenser water pump", enable=have_fixSpeConWatPum));
   parameter Real thrTimEnb(
     unit="s",

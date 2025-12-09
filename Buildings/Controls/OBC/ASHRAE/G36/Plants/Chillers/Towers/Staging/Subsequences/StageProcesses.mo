@@ -3,399 +3,429 @@ block StageProcesses "Sequence for process of staging cells"
 
   parameter Integer nTowCel = 4
     "Total number of cooling tower cells";
-  parameter Real chaTowCelIsoTim(
-    final quantity="Time",
-    final unit="s") = 90
-    "Nominal time needed for open isolation valve";
+  parameter Boolean have_endSwi=false
+    "True: tower cells isolation valve have end switch";
+  parameter Boolean have_outIsoVal=false
+    "True: tower cells also have outlet isolation valve"
+    annotation (Dialog(enable=have_endSwi));
+  parameter Real chaTowCelIsoTim(unit="s")=90
+    "Nominal time needed for open or close isolation valve"
+    annotation (Dialog(enable=not have_endSwi));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChaCel[nTowCel]
     "Vector of boolean flags to show if a cell should change its status: true = the cell should change status (be enabled or disabled)"
-    annotation (Placement(transformation(extent={{-240,350},{-200,390}}),
+    annotation (Placement(transformation(extent={{-240,390},{-200,430}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
-    final unit=fill("1", nTowCel),
-    final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel)) "Cooling tower cells isolation valve position"
-    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValOpe[nTowCel]
+    if have_endSwi
+    "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
+    annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
+    if have_endSwi and have_outIsoVal
+    "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
+    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValClo[nTowCel]
+    if have_endSwi
+    "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
+    annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
+    if have_endSwi and have_outIsoVal
+    "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
+    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
     "Vector of tower cells proven on status: true=enabled tower cell"
     annotation (Placement(transformation(extent={{-240,-260},{-200,-220}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoVal[nTowCel](
-    final unit=fill("1", nTowCel),
-    final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel)) "Cooling tower cells isolation valve setpoint"
-    annotation (Placement(transformation(extent={{200,80},{240,120}}),
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1IsoVal[nTowCel]
+    "Cooling tower cells isolation valve command"
+    annotation (Placement(transformation(extent={{200,280},{240,320}}),
       iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
-    "Vector of tower cells status setpoint"
-    annotation (Placement(transformation(extent={{200,-280},{240,-240}}),
+    "Vector of tower cells command"
+    annotation (Placement(transformation(extent={{200,-230},{240,-190}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndSta
     "Rising edge to indicate the staging process is done"
-    annotation (Placement(transformation(extent={{200,-380},{240,-340}}),
+    annotation (Placement(transformation(extent={{200,-420},{240,-380}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Switch swi2[nTowCel] "Logical switch"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim
-    "Count the time after changing up-stream device status"
-    annotation (Placement(transformation(extent={{-120,290},{-100,310}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con9(final k=0)
-    "Constant zero"
-    annotation (Placement(transformation(extent={{-40,310},{-20,330}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con7(
-    final k=chaTowCelIsoTim) "Time to change cooling tower isolation valve"
-    annotation (Placement(transformation(extent={{-120,260},{-100,280}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con8(final k=1)
-    "Fully open valve"
-    annotation (Placement(transformation(extent={{-40,260},{-20,280}})));
-  Buildings.Controls.OBC.CDL.Reals.Line lin1
-    "Chilled water isolation valve setpoint"
-    annotation (Placement(transformation(extent={{40,290},{60,310}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=nTowCel)
-    "Replicate real input"
-    annotation (Placement(transformation(extent={{140,220},{160,240}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel] "Logical switch"
-    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=nTowCel)
-    "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3[nTowCel](
-    final uLow=fill(0.025, nTowCel),
-    final uHigh=fill(0.05, nTowCel)) "Check if isolation valve is enabled"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4[nTowCel](
-    final uLow=fill(0.925, nTowCel),
-    final uHigh=fill(0.975, nTowCel)) "Check if isolation valve is open more than 95%"
-    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd fulOpe(
-    final nin=nTowCel)
-    "Enabled valves are fully open"
-    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.And and5
-    "Check if it has fully open the valve and the opening process time has past the threshold"
-    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr(
-    final t=chaTowCelIsoTim)
-    "Check if it has past the target time of open isolation valve "
-    annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
   Buildings.Controls.OBC.CDL.Logical.And and1[nTowCel]
     "True: cells should be enabled"
-    annotation (Placement(transformation(extent={{20,-230},{40,-210}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
-    final nout=nTowCel)
-    "Replicate boolean input"
-    annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
+    annotation (Placement(transformation(extent={{40,-180},{60,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nTowCel](
     final k=fill(true, nTowCel)) "Enable cells"
-    annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
+    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Switch enaNexCel[nTowCel]
     "Enable next cells"
-    annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
+    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
   Buildings.Controls.OBC.CDL.Logical.And and2[nTowCel] "Logical and"
-    annotation (Placement(transformation(extent={{-120,220},{-100,240}})));
+    annotation (Placement(transformation(extent={{-120,310},{-100,330}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nTowCel] "Logical and"
-    annotation (Placement(transformation(extent={{-60,220},{-40,240}})));
+    annotation (Placement(transformation(extent={{-60,310},{-40,330}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd enaCel(
     final nin=nTowCel) "New cells should be enabled"
-    annotation (Placement(transformation(extent={{-20,220},{0,240}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch celPosSet
-    "Slowly change the opening setpoint to 1 of the enabling cells isolation valve, or change the setpoint to 0 of the disabling cells"
-    annotation (Placement(transformation(extent={{100,220},{120,240}})));
+    annotation (Placement(transformation(extent={{-20,310},{0,330}})));
   Buildings.Controls.OBC.CDL.Logical.And enaPro "Enabling cells process"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Not disCel "Disable cell"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-100,210},{-80,230}})));
   Buildings.Controls.OBC.CDL.Logical.And disPro "Disabling cells process"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Logical.Switch newTowCell[nTowCel]
     "New tower cell status"
-    annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
+    annotation (Placement(transformation(extent={{160,-220},{180,-200}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nTowCel) "In the enabling process"
-    annotation (Placement(transformation(extent={{80,-270},{100,-250}})));
+    annotation (Placement(transformation(extent={{-20,-220},{0,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Switch disExiCel[nTowCel]
     "Disable existing cells"
-    annotation (Placement(transformation(extent={{80,-310},{100,-290}})));
+    annotation (Placement(transformation(extent={{100,-330},{120,-310}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
     final nout=nTowCel) "In the disabling process"
-    annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
+    annotation (Placement(transformation(extent={{0,-330},{20,-310}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr staPro(nin=nTowCel)
     "In tower staging process"
-    annotation (Placement(transformation(extent={{60,360},{80,380}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr opeVal(
-    final nin=nTowCel) "Check if there is any opened valve"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3
-    "Check if the opened valves are fully open"
-    annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nTowCel]
-    "Convert boolean input to integer"
-    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nTowCel]
-    "Convert boolean input to integer"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nTowCel]
-    "Check if the opened valves are fully open"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    annotation (Placement(transformation(extent={{60,400},{80,420}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(
     final nout=nTowCel) "In the disabling process"
-    annotation (Placement(transformation(extent={{120,-350},{140,-330}})));
+    annotation (Placement(transformation(extent={{120,-380},{140,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Or celChaSta[nTowCel]
     "True: there are cells changed status"
-    annotation (Placement(transformation(extent={{-80,-370},{-60,-350}})));
+    annotation (Placement(transformation(extent={{-80,-410},{-60,-390}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nTowCel]
     "Check if there is any cell being disabled"
-    annotation (Placement(transformation(extent={{-140,-350},{-120,-330}})));
+    annotation (Placement(transformation(extent={{-140,-390},{-120,-370}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg[nTowCel]
     "Check if there is any cell being enabled"
-    annotation (Placement(transformation(extent={{-140,-390},{-120,-370}})));
+    annotation (Placement(transformation(extent={{-140,-430},{-120,-410}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr endStaPro(
     final nin=nTowCel)
     "Check if there is any cell changed status so it means that the staging process is done"
-    annotation (Placement(transformation(extent={{40,-370},{60,-350}})));
+    annotation (Placement(transformation(extent={{40,-410},{60,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat[nTowCel] "Change cells status"
-    annotation (Placement(transformation(extent={{-120,360},{-100,380}})));
+    annotation (Placement(transformation(extent={{-120,400},{-100,420}})));
   Buildings.Controls.OBC.CDL.Logical.Edge havCha[nTowCel] "Edge"
-    annotation (Placement(transformation(extent={{-180,360},{-160,380}})));
+    annotation (Placement(transformation(extent={{-180,400},{-160,420}})));
   Buildings.Controls.OBC.CDL.Logical.And and4[nTowCel]
     "True: cells should be disabled"
-    annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
+    annotation (Placement(transformation(extent={{-80,-280},{-60,-260}})));
   Buildings.Controls.OBC.CDL.Logical.Switch disExiCel1[nTowCel]
     "Disable existing cells"
-    annotation (Placement(transformation(extent={{-60,-290},{-40,-270}})));
+    annotation (Placement(transformation(extent={{40,-300},{60,-280}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[nTowCel](
     final k=fill(false, nTowCel))
     "Disable cells"
-    annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
+    annotation (Placement(transformation(extent={{-20,-280},{0,-260}})));
+  Buildings.Controls.OBC.CDL.Logical.Not disCelVec[nTowCel]
+    "New cell command when it is to disable cell"
+    annotation (Placement(transformation(extent={{40,260},{60,280}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
+    final nout=nTowCel)
+    "In the enabling process"
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep5(
     final nout=nTowCel)
-    "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  Buildings.Controls.OBC.CDL.Logical.And ideDisCel[nTowCel]
-    "Identifying the cells to be disabled"
-    annotation (Placement(transformation(extent={{60,140},{80,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch offVal[nTowCel]
-    "Shut off valve if it is disabling cell"
-    annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3[nTowCel](
-    final k=fill(0, nTowCel))
-    "Constant zero"
-    annotation (Placement(transformation(extent={{60,180},{80,200}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi3[nTowCel]
-    "Logical switch"
-    annotation (Placement(transformation(extent={{160,90},{180,110}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holDisPro(
-    final trueHoldDuration=chaTowCelIsoTim,
-    final falseHoldDuration=0)
-    "Holding the disable process"
-    annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol2[nTowCel](
-    final trueHoldDuration=fill(chaTowCelIsoTim, nTowCel),
-    final falseHoldDuration=fill(0, nTowCel))
-    "Holding the cell changing signal"
+    "In the enabling process"
+    annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal opeValFla[nTowCel] if have_endSwi
+    "1: cell is fully open"
+    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cloValFla[nTowCel] if have_endSwi
+    "1: cell is fully closed"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totOpe(
+    final nin=nTowCel) if have_endSwi
+    "Total number of open valves"
+    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totClo(
+    final nin=nTowCel) if have_endSwi
+    "Total number of closed valves"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch celVec[nTowCel]
+    "New cell command"
+    annotation (Placement(transformation(extent={{160,290},{180,310}})));
+  Buildings.Controls.OBC.CDL.Logical.Or enaCelVec[nTowCel]
+    "New cell command when it is to enable cell"
+    annotation (Placement(transformation(extent={{60,340},{80,360}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
+    final nout=nTowCel)
+    "Duplicate boolean"
+    annotation (Placement(transformation(extent={{60,290},{80,310}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chaValSta[nTowCel]
+    "1: valve status should be changed"
+    annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nTowCel]
+    "Check if inputs equal"
+    annotation (Placement(transformation(extent={{0,260},{20,280}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch celVec1[nTowCel]
+    "New cell command"
+    annotation (Placement(transformation(extent={{100,190},{120,210}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
+    final nout=nTowCel)
+    "Duplicate boolean"
+    annotation (Placement(transformation(extent={{40,200},{60,220}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger enaCelSta[nTowCel]
+    "1: cell is fully open"
+    annotation (Placement(transformation(extent={{-100,260},{-80,280}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay newValCha(
+    final delayTime=chaTowCelIsoTim)
+    if not have_endSwi
+    "New valve status being fully changed"
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam if have_endSwi
+    "Number of fully open valves at the moment when the valve status needs change"
+    annotation (Placement(transformation(extent={{0,130},{20,150}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1 if have_endSwi
+    "Number of fully closed valves at the moment when the valve status needs change"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater newFulOpe if have_endSwi
+    "New fully open isolation valve"
+    annotation (Placement(transformation(extent={{60,150},{80,170}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater newFulClo if have_endSwi
+    "New fully closed isolation valve"
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger opeValFla1[nTowCel]
+    if have_endSwi and have_outIsoVal "1: cell is fully open"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger opeValFla2[nTowCel]
+    if have_endSwi and have_outIsoVal "1: cell is fully open"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger cloValFla1[nTowCel]
+    if have_endSwi and have_outIsoVal "1: cell is fully closed"
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger cloValFla2[nTowCel]
+    if have_endSwi and have_outIsoVal "1: cell is fully closed"
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nTowCel]
+    if have_endSwi and have_outIsoVal
+    "Check if inputs equal"
+    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nTowCel]
+    if have_endSwi and have_outIsoVal
+    "Check if inputs equal"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd botOpe(nin=nTowCel) if have_endSwi and have_outIsoVal
+    "Inlet and outlet valves have the same switch end"
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd botClo(nin=nTowCel) if have_endSwi and have_outIsoVal
+    "Inlet and outlet valves have the same switch end"
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.And newFulOpe1 if have_endSwi
+    "New fully open isolation valve"
+    annotation (Placement(transformation(extent={{120,150},{140,170}})));
+  Buildings.Controls.OBC.CDL.Logical.And newFulClo1
+    if have_endSwi and not have_outIsoVal
+    "New fully closed isolation valve"
+    annotation (Placement(transformation(extent={{120,30},{140,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true) if have_endSwi and not have_outIsoVal
+    "Constant true"
+    annotation (Placement(transformation(extent={{60,110},{80,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(
+    final k=true) if have_endSwi and not have_outIsoVal
+    "Constant true"
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Not difCloEnd if have_endSwi and have_outIsoVal
+    "Inlet and outlet valves have the different switch end"
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Or newFulClo2
+    if have_endSwi and have_outIsoVal
+    "New fully closed isolation valve"
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
 
 equation
-  connect(con9.y, lin1.x1)
-    annotation (Line(points={{-18,320},{30,320},{30,308},{38,308}},
-      color={0,0,127}));
-  connect(con7.y, lin1.x2)
-    annotation (Line(points={{-98,270},{-60,270},{-60,296},{38,296}},
-      color={0,0,127}));
-  connect(con8.y, lin1.f2)
-    annotation (Line(points={{-18,270},{0,270},{0,292},{38,292}},
-      color={0,0,127}));
-  connect(tim.y, lin1.u)
-    annotation (Line(points={{-98,300},{38,300}}, color={0,0,127}));
-  connect(reaRep.y, swi2.u1)
-    annotation (Line(points={{162,230},{180,230},{180,210},{30,210},{30,38},{58,
-          38}}, color={0,0,127}));
-  connect(swi2.y, swi.u1)
-    annotation (Line(points={{82,30},{100,30},{100,-12},{118,-12}},
-      color={0,0,127}));
-  connect(uIsoVal, swi2.u3)
-    annotation (Line(points={{-220,80},{-160,80},{-160,22},{58,22}},
-      color={0,0,127}));
-  connect(booRep.y, swi.u2)
-    annotation (Line(points={{-18,-10},{80,-10},{80,-20},{118,-20}},
-      color={255,0,255}));
-  connect(greEquThr.y, and5.u2)
-    annotation (Line(points={{22,-170},{70,-170},{70,-158},{98,-158}},
-      color={255,0,255}));
-  connect(uIsoVal, hys4.u)
-    annotation (Line(points={{-220,80},{-160,80},{-160,-140},{-142,-140}},
-      color={0,0,127}));
-  connect(uIsoVal, hys3.u)
-    annotation (Line(points={{-220,80},{-160,80},{-160,-110},{-142,-110}},
-      color={0,0,127}));
-  connect(tim.y, greEquThr.u)
-    annotation (Line(points={{-98,300},{-70,300},{-70,-170},{-2,-170}},
-      color={0,0,127}));
-  connect(and5.y, booRep1.u)
-    annotation (Line(points={{122,-150},{138,-150}}, color={255,0,255}));
-  connect(booRep1.y, and1.u1)
-    annotation (Line(points={{162,-150},{180,-150},{180,-192},{0,-192},{0,-220},
-          {18,-220}}, color={255,0,255}));
   connect(and1.y, enaNexCel.u2)
-    annotation (Line(points={{42,-220},{78,-220}}, color={255,0,255}));
-  connect(con1.y, enaNexCel.u1) annotation (Line(points={{-38,-200},{60,-200},{60,
-          -212},{78,-212}}, color={255,0,255}));
-  connect(uTowSta, enaNexCel.u3) annotation (Line(points={{-220,-240},{60,-240},
-          {60,-228},{78,-228}}, color={255,0,255}));
-  connect(celPosSet.y, reaRep.u)
-    annotation (Line(points={{122,230},{138,230}}, color={0,0,127}));
+    annotation (Line(points={{62,-170},{98,-170}}, color={255,0,255}));
+  connect(con1.y, enaNexCel.u1) annotation (Line(points={{62,-130},{80,-130},{80,
+          -162},{98,-162}}, color={255,0,255}));
+  connect(uTowSta, enaNexCel.u3) annotation (Line(points={{-220,-240},{80,-240},
+          {80,-178},{98,-178}}, color={255,0,255}));
   connect(uTowSta, and2.u2) annotation (Line(points={{-220,-240},{-180,-240},{-180,
-          222},{-122,222}}, color={255,0,255}));
+          312},{-122,312}}, color={255,0,255}));
   connect(and2.y, not1.u)
-    annotation (Line(points={{-98,230},{-62,230}}, color={255,0,255}));
-  connect(not1.y, enaCel.u) annotation (Line(points={{-38,230},{-22,230}},
+    annotation (Line(points={{-98,320},{-62,320}}, color={255,0,255}));
+  connect(not1.y, enaCel.u) annotation (Line(points={{-38,320},{-22,320}},
           color={255,0,255}));
-  connect(lin1.y, celPosSet.u1) annotation (Line(points={{62,300},{80,300},{80,238},
-          {98,238}}, color={0,0,127}));
-  connect(enaCel.y, enaPro.u1) annotation (Line(points={{2,230},{20,230},{20,200},
-          {-120,200},{-120,-60},{-62,-60}}, color={255,0,255}));
-  connect(enaCel.y, disCel.u) annotation (Line(points={{2,230},{20,230},{20,200},
-          {-120,200},{-120,60},{-102,60}}, color={255,0,255}));
+  connect(enaCel.y, enaPro.u1) annotation (Line(points={{2,320},{20,320},{20,300},
+          {-120,300},{-120,-210},{-62,-210}}, color={255,0,255}));
+  connect(enaCel.y, disCel.u) annotation (Line(points={{2,320},{20,320},{20,300},
+          {-120,300},{-120,220},{-102,220}}, color={255,0,255}));
   connect(disCel.y, disPro.u1)
-    annotation (Line(points={{-78,60},{-60,60},{-60,50},{-42,50}}, color={255,0,255}));
+    annotation (Line(points={{-78,220},{-40,220},{-40,210},{-22,210}}, color={255,0,255}));
   connect(booRep2.y, newTowCell.u2)
-    annotation (Line(points={{102,-260},{158,-260}}, color={255,0,255}));
-  connect(enaNexCel.y, newTowCell.u1) annotation (Line(points={{102,-220},{120,-220},
-          {120,-252},{158,-252}}, color={255,0,255}));
+    annotation (Line(points={{2,-210},{158,-210}},   color={255,0,255}));
+  connect(enaNexCel.y, newTowCell.u1) annotation (Line(points={{122,-170},{140,-170},
+          {140,-202},{158,-202}}, color={255,0,255}));
   connect(booRep3.y, disExiCel.u2)
-    annotation (Line(points={{22,-300},{78,-300}},  color={255,0,255}));
-  connect(uTowSta, disExiCel.u3) annotation (Line(points={{-220,-240},{60,-240},
-          {60,-308},{78,-308}}, color={255,0,255}));
-  connect(disPro.y, booRep3.u) annotation (Line(points={{-18,50},{0,50},{0,12},{
-          -110,12},{-110,-300},{-2,-300}}, color={255,0,255}));
-  connect(enaPro.y, booRep2.u) annotation (Line(points={{-38,-60},{-30,-60},{-30,
-          -260},{78,-260}}, color={255,0,255}));
-  connect(disExiCel.y, newTowCell.u3) annotation (Line(points={{102,-300},{140,-300},
-          {140,-268},{158,-268}}, color={255,0,255}));
+    annotation (Line(points={{22,-320},{98,-320}},  color={255,0,255}));
+  connect(uTowSta, disExiCel.u3) annotation (Line(points={{-220,-240},{80,-240},
+          {80,-328},{98,-328}}, color={255,0,255}));
+  connect(disPro.y, booRep3.u) annotation (Line(points={{2,210},{20,210},{20,180},
+          {-110,180},{-110,-320},{-2,-320}}, color={255,0,255}));
+  connect(enaPro.y, booRep2.u) annotation (Line(points={{-38,-210},{-22,-210}},
+          color={255,0,255}));
+  connect(disExiCel.y, newTowCell.u3) annotation (Line(points={{122,-320},{140,-320},
+          {140,-218},{158,-218}}, color={255,0,255}));
   connect(newTowCell.y, yTowSta)
-    annotation (Line(points={{182,-260},{220,-260}}, color={255,0,255}));
-  connect(con9.y, lin1.f1) annotation (Line(points={{-18,320},{30,320},{30,304},
-          {38,304}}, color={0,0,127}));
-  connect(staPro.y, tim.u) annotation (Line(points={{82,370},{100,370},{100,340},
-          {-140,340},{-140,300},{-122,300}}, color={255,0,255}));
-  connect(staPro.y, disPro.u2) annotation (Line(points={{82,370},{100,370},{100,
-          340},{-140,340},{-140,42},{-42,42}}, color={255,0,255}));
-  connect(staPro.y, enaPro.u2) annotation (Line(points={{82,370},{100,370},{100,
-          340},{-140,340},{-140,-68},{-62,-68}}, color={255,0,255}));
-  connect(hys3.y, booToInt.u)
-    annotation (Line(points={{-118,-110},{-2,-110}}, color={255,0,255}));
-  connect(hys4.y, booToInt1.u)
-    annotation (Line(points={{-118,-140},{-2,-140}},color={255,0,255}));
-  connect(booToInt.y, intEqu.u1)
-    annotation (Line(points={{22,-110},{38,-110}}, color={255,127,0}));
-  connect(booToInt1.y, intEqu.u2) annotation (Line(points={{22,-140},{30,-140},{
-          30,-118},{38,-118}}, color={255,127,0}));
-  connect(intEqu.y, fulOpe.u)
-    annotation (Line(points={{62,-110},{78,-110}}, color={255,0,255}));
-  connect(hys3.y, opeVal.u) annotation (Line(points={{-118,-110},{-20,-110},{-20,
-          -80},{-2,-80}}, color={255,0,255}));
-  connect(opeVal.y, and3.u1)
-    annotation (Line(points={{22,-80},{138,-80}}, color={255,0,255}));
-  connect(fulOpe.y, and3.u2) annotation (Line(points={{102,-110},{120,-110},{120,
-          -88},{138,-88}}, color={255,0,255}));
-  connect(and3.y, and5.u1) annotation (Line(points={{162,-80},{180,-80},{180,-130},
-          {70,-130},{70,-150},{98,-150}},color={255,0,255}));
-  connect(staPro.y, booRep.u) annotation (Line(points={{82,370},{100,370},{100,340},
-          {-140,340},{-140,-10},{-42,-10}}, color={255,0,255}));
+    annotation (Line(points={{182,-210},{220,-210}}, color={255,0,255}));
+  connect(staPro.y, disPro.u2) annotation (Line(points={{82,410},{100,410},{100,
+          370},{-140,370},{-140,202},{-22,202}}, color={255,0,255}));
+  connect(staPro.y, enaPro.u2) annotation (Line(points={{82,410},{100,410},{100,
+          370},{-140,370},{-140,-218},{-62,-218}}, color={255,0,255}));
   connect(uTowSta, falEdg.u) annotation (Line(points={{-220,-240},{-180,-240},{-180,
-          -340},{-142,-340}}, color={255,0,255}));
-  connect(uTowSta, edg.u) annotation (Line(points={{-220,-240},{-180,-240},{-180,
           -380},{-142,-380}}, color={255,0,255}));
-  connect(booRep4.y, lat.clr) annotation (Line(points={{142,-340},{180,-340},{180,
-          -318},{-150,-318},{-150,364},{-122,364}}, color={255,0,255}));
-  connect(falEdg.y, celChaSta.u1) annotation (Line(points={{-118,-340},{-100,-340},
-          {-100,-360},{-82,-360}},color={255,0,255}));
-  connect(edg.y, celChaSta.u2) annotation (Line(points={{-118,-380},{-100,-380},
-          {-100,-368},{-82,-368}}, color={255,0,255}));
-  connect(celChaSta.y, endStaPro.u) annotation (Line(points={{-58,-360},{38,-360}},
+  connect(uTowSta, edg.u) annotation (Line(points={{-220,-240},{-180,-240},{-180,
+          -420},{-142,-420}}, color={255,0,255}));
+  connect(booRep4.y, lat.clr) annotation (Line(points={{142,-370},{160,-370},{160,
+          -340},{-150,-340},{-150,404},{-122,404}}, color={255,0,255}));
+  connect(falEdg.y, celChaSta.u1) annotation (Line(points={{-118,-380},{-100,-380},
+          {-100,-400},{-82,-400}},color={255,0,255}));
+  connect(edg.y, celChaSta.u2) annotation (Line(points={{-118,-420},{-100,-420},
+          {-100,-408},{-82,-408}}, color={255,0,255}));
+  connect(celChaSta.y, endStaPro.u) annotation (Line(points={{-58,-400},{38,-400}},
           color={255,0,255}));
-  connect(uChaCel, havCha.u) annotation (Line(points={{-220,370},{-182,370}},
+  connect(uChaCel, havCha.u) annotation (Line(points={{-220,410},{-182,410}},
           color={255,0,255}));
-  connect(havCha.y, lat.u) annotation (Line(points={{-158,370},{-122,370}},
+  connect(havCha.y, lat.u) annotation (Line(points={{-158,410},{-122,410}},
           color={255,0,255}));
   connect(endStaPro.y, yEndSta)
-    annotation (Line(points={{62,-360},{220,-360}},color={255,0,255}));
-  connect(endStaPro.y, booRep4.u) annotation (Line(points={{62,-360},{80,-360},{
-          80,-340},{118,-340}}, color={255,0,255}));
-  connect(uTowSta, and4.u2) annotation (Line(points={{-220,-240},{-180,-240},{-180,
-          -268},{-142,-268}}, color={255,0,255}));
-  connect(uChaCel, and4.u1) annotation (Line(points={{-220,370},{-190,370},{-190,
-          -260},{-142,-260}}, color={255,0,255}));
-  connect(and4.y, disExiCel1.u2) annotation (Line(points={{-118,-260},{-80,-260},
-          {-80,-280},{-62,-280}}, color={255,0,255}));
+    annotation (Line(points={{62,-400},{220,-400}},color={255,0,255}));
+  connect(endStaPro.y, booRep4.u) annotation (Line(points={{62,-400},{80,-400},{
+          80,-370},{118,-370}}, color={255,0,255}));
   connect(uTowSta, disExiCel1.u3) annotation (Line(points={{-220,-240},{-180,-240},
-          {-180,-288},{-62,-288}}, color={255,0,255}));
-  connect(con2.y, disExiCel1.u1) annotation (Line(points={{-118,-210},{-70,-210},
-          {-70,-272},{-62,-272}}, color={255,0,255}));
-  connect(disExiCel1.y, disExiCel.u1) annotation (Line(points={{-38,-280},{50,-280},
-          {50,-292},{78,-292}}, color={255,0,255}));
-  connect(con9.y, celPosSet.u3) annotation (Line(points={{-18,320},{30,320},{30,
-          222},{98,222}}, color={0,0,127}));
-  connect(enaCel.y, celPosSet.u2)
-    annotation (Line(points={{2,230},{98,230}}, color={255,0,255}));
-  connect(uIsoVal, swi.u3) annotation (Line(points={{-220,80},{-160,80},{-160,-28},
-          {118,-28}}, color={0,0,127}));
+          {-180,-298},{38,-298}}, color={255,0,255}));
+  connect(con2.y, disExiCel1.u1) annotation (Line(points={{2,-270},{20,-270},{20,
+          -282},{38,-282}}, color={255,0,255}));
+  connect(disExiCel1.y, disExiCel.u1) annotation (Line(points={{62,-290},{90,-290},
+          {90,-312},{98,-312}}, color={255,0,255}));
   connect(lat.y, staPro.u)
-    annotation (Line(points={{-98,370},{58,370}}, color={255,0,255}));
-  connect(lat.y, and1.u2) annotation (Line(points={{-98,370},{-80,370},{-80,350},
-          {-170,350},{-170,-228},{18,-228}}, color={255,0,255}));
-  connect(lat.y, swi2.u2) annotation (Line(points={{-98,370},{-80,370},{-80,350},
-          {-170,350},{-170,30},{58,30}}, color={255,0,255}));
-  connect(lat.y, and2.u1) annotation (Line(points={{-98,370},{-80,370},{-80,350},
-          {-170,350},{-170,230},{-122,230}}, color={255,0,255}));
-  connect(disPro.y, holDisPro.u) annotation (Line(points={{-18,50},{0,50},{0,130},
-          {-110,130},{-110,150},{-102,150}}, color={255,0,255}));
-  connect(havCha.y, truHol2.u) annotation (Line(points={{-158,370},{-130,370},{-130,
-          100},{-102,100}}, color={255,0,255}));
-  connect(holDisPro.y, booRep5.u)
-    annotation (Line(points={{-78,150},{-42,150}}, color={255,0,255}));
-  connect(booRep5.y, ideDisCel.u1)
-    annotation (Line(points={{-18,150},{58,150}}, color={255,0,255}));
-  connect(truHol2.y, ideDisCel.u2) annotation (Line(points={{-78,100},{20,100},{
-          20,142},{58,142}}, color={255,0,255}));
-  connect(ideDisCel.y, offVal.u2)
-    annotation (Line(points={{82,150},{118,150}}, color={255,0,255}));
-  connect(con3.y, offVal.u1) annotation (Line(points={{82,190},{100,190},{100,158},
-          {118,158}}, color={0,0,127}));
-  connect(uIsoVal, offVal.u3) annotation (Line(points={{-220,80},{100,80},{100,142},
-          {118,142}}, color={0,0,127}));
-  connect(booRep5.y, swi3.u2) annotation (Line(points={{-18,150},{40,150},{40,100},
-          {158,100}}, color={255,0,255}));
-  connect(offVal.y, swi3.u1) annotation (Line(points={{142,150},{150,150},{150,108},
-          {158,108}}, color={0,0,127}));
-  connect(swi.y, swi3.u3) annotation (Line(points={{142,-20},{150,-20},{150,92},
-          {158,92}}, color={0,0,127}));
-  connect(swi3.y, yIsoVal)
-    annotation (Line(points={{182,100},{220,100}}, color={0,0,127}));
+    annotation (Line(points={{-98,410},{58,410}}, color={255,0,255}));
+  connect(lat.y, and1.u2) annotation (Line(points={{-98,410},{-80,410},{-80,380},
+          {-170,380},{-170,-178},{38,-178}}, color={255,0,255}));
+  connect(lat.y, and2.u1) annotation (Line(points={{-98,410},{-80,410},{-80,380},
+          {-170,380},{-170,320},{-122,320}}, color={255,0,255}));
+  connect(u1InIsoValClo, cloValFla.u)
+    annotation (Line(points={{-220,20},{-102,20}}, color={255,0,255}));
+  connect(lat.y, enaCelVec.u1) annotation (Line(points={{-98,410},{-80,410},{-80,
+          380},{-170,380},{-170,350},{58,350}}, color={255,0,255}));
+  connect(enaCel.y, booScaRep.u) annotation (Line(points={{2,320},{20,320},{20,300},
+          {58,300}}, color={255,0,255}));
+  connect(booScaRep.y, celVec.u2)
+    annotation (Line(points={{82,300},{158,300}}, color={255,0,255}));
+  connect(enaCelVec.y, celVec.u1) annotation (Line(points={{82,350},{100,350},{100,
+          308},{158,308}}, color={255,0,255}));
+  connect(lat.y, chaValSta.u) annotation (Line(points={{-98,410},{-80,410},{-80,
+          380},{-170,380},{-170,250},{-62,250}},  color={255,0,255}));
+  connect(chaValSta.y, intEqu1.u2) annotation (Line(points={{-38,250},{-20,250},
+          {-20,262},{-2,262}},  color={255,127,0}));
+  connect(intEqu1.y, disCelVec.u)
+    annotation (Line(points={{22,270},{38,270}},color={255,0,255}));
+  connect(uTowSta, enaCelVec.u2) annotation (Line(points={{-220,-240},{-180,-240},
+          {-180,342},{58,342}}, color={255,0,255}));
+  connect(disPro.y, booScaRep1.u)
+    annotation (Line(points={{2,210},{38,210}}, color={255,0,255}));
+  connect(booScaRep1.y, celVec1.u2) annotation (Line(points={{62,210},{70,210},{
+          70,200},{98,200}}, color={255,0,255}));
+  connect(disCelVec.y, celVec1.u1) annotation (Line(points={{62,270},{80,270},{80,
+          208},{98,208}}, color={255,0,255}));
+  connect(celVec1.y, celVec.u3) annotation (Line(points={{122,200},{140,200},{140,
+          292},{158,292}}, color={255,0,255}));
+  connect(uTowSta, celVec1.u3) annotation (Line(points={{-220,-240},{-180,-240},
+          {-180,192},{98,192}}, color={255,0,255}));
+  connect(u1InIsoValOpe, opeValFla.u)
+    annotation (Line(points={{-220,140},{-102,140}}, color={255,0,255}));
+  connect(enaCelSta.y, intEqu1.u1)
+    annotation (Line(points={{-78,270},{-2,270}},  color={255,127,0}));
+  connect(uTowSta, enaCelSta.u) annotation (Line(points={{-220,-240},{-180,-240},
+          {-180,270},{-102,270}}, color={255,0,255}));
+  connect(celVec.y, y1IsoVal)
+    annotation (Line(points={{182,300},{220,300}}, color={255,0,255}));
+  connect(cloValFla.y, totClo.u)
+    annotation (Line(points={{-78,20},{-62,20}}, color={0,0,127}));
+  connect(opeValFla.y, totOpe.u)
+    annotation (Line(points={{-78,140},{-62,140}}, color={0,0,127}));
+  connect(totOpe.y, triSam.u)
+    annotation (Line(points={{-38,140},{-2,140}}, color={0,0,127}));
+  connect(totClo.y, triSam1.u)
+    annotation (Line(points={{-38,20},{-2,20}}, color={0,0,127}));
+  connect(staPro.y, triSam.trigger) annotation (Line(points={{82,410},{100,410},
+          {100,370},{-140,370},{-140,120},{10,120},{10,128}}, color={255,0,255}));
+  connect(staPro.y, triSam1.trigger) annotation (Line(points={{82,410},{100,410},
+          {100,370},{-140,370},{-140,0},{10,0},{10,8}}, color={255,0,255}));
+  connect(totOpe.y, newFulOpe.u1) annotation (Line(points={{-38,140},{-20,140},{
+          -20,160},{58,160}}, color={0,0,127}));
+  connect(totClo.y, newFulClo.u1) annotation (Line(points={{-38,20},{-20,20},{-20,
+          40},{38,40}}, color={0,0,127}));
+  connect(staPro.y, newValCha.u) annotation (Line(points={{82,410},{100,410},{100,
+          370},{-140,370},{-140,-100},{-102,-100}}, color={255,0,255}));
+  connect(newValCha.y, booRep1.u)
+    annotation (Line(points={{-78,-100},{-22,-100}}, color={255,0,255}));
+  connect(booRep1.y, and1.u1) annotation (Line(points={{2,-100},{20,-100},{20,-170},
+          {38,-170}}, color={255,0,255}));
+  connect(newValCha.y, booRep5.u) annotation (Line(points={{-78,-100},{-50,-100},
+          {-50,-140},{-22,-140}}, color={255,0,255}));
+  connect(booRep5.y, and4.u1) annotation (Line(points={{2,-140},{10,-140},{10,-170},
+          {-100,-170},{-100,-270},{-82,-270}}, color={255,0,255}));
+  connect(lat.y, and4.u2) annotation (Line(points={{-98,410},{-80,410},{-80,380},
+          {-170,380},{-170,-278},{-82,-278}}, color={255,0,255}));
+  connect(triSam.y, newFulOpe.u2) annotation (Line(points={{22,140},{40,140},{40,
+          152},{58,152}}, color={0,0,127}));
+  connect(triSam1.y, newFulClo.u2) annotation (Line(points={{22,20},{30,20},{30,
+          32},{38,32}}, color={0,0,127}));
+  connect(u1InIsoValOpe, opeValFla1.u) annotation (Line(points={{-220,140},{-160,
+          140},{-160,100},{-102,100}}, color={255,0,255}));
+  connect(u1OutIsoValOpe, opeValFla2.u)
+    annotation (Line(points={{-220,60},{-102,60}}, color={255,0,255}));
+  connect(u1InIsoValClo, cloValFla1.u) annotation (Line(points={{-220,20},{-160,
+          20},{-160,-20},{-102,-20}}, color={255,0,255}));
+  connect(u1OutIsoValClo, cloValFla2.u)
+    annotation (Line(points={{-220,-60},{-102,-60}}, color={255,0,255}));
+  connect(cloValFla1.y, intEqu3.u1)
+    annotation (Line(points={{-78,-20},{-42,-20}},
+      color={255,127,0}));
+  connect(cloValFla2.y, intEqu3.u2) annotation (Line(points={{-78,-60},{-60,-60},
+          {-60,-28},{-42,-28}}, color={255,127,0}));
+  connect(opeValFla1.y, intEqu2.u1)
+    annotation (Line(points={{-78,100},{-42,100}}, color={255,127,0}));
+  connect(opeValFla2.y, intEqu2.u2) annotation (Line(points={{-78,60},{-60,60},{
+          -60,92},{-42,92}}, color={255,127,0}));
+  connect(intEqu2.y, botOpe.u)
+    annotation (Line(points={{-18,100},{-2,100}}, color={255,0,255}));
+  connect(intEqu3.y, botClo.u)
+    annotation (Line(points={{-18,-20},{-2,-20}}, color={255,0,255}));
+  connect(botOpe.y, newFulOpe1.u2) annotation (Line(points={{22,100},{100,100},{
+          100,152},{118,152}}, color={255,0,255}));
+  connect(newFulOpe.y, newFulOpe1.u1)
+    annotation (Line(points={{82,160},{118,160}}, color={255,0,255}));
+  connect(newFulClo.y, newFulClo1.u1)
+    annotation (Line(points={{62,40},{118,40}}, color={255,0,255}));
+  connect(newFulOpe1.y, booRep1.u) annotation (Line(points={{142,160},{160,160},
+          {160,-80},{-40,-80},{-40,-100},{-22,-100}}, color={255,0,255}));
+  connect(newFulClo1.y, booRep5.u) annotation (Line(points={{142,40},{150,40},{150,
+          -70},{-50,-70},{-50,-140},{-22,-140}}, color={255,0,255}));
+  connect(con.y, newFulOpe1.u2) annotation (Line(points={{82,120},{100,120},{100,
+          152},{118,152}}, color={255,0,255}));
+  connect(con3.y, newFulClo1.u2) annotation (Line(points={{102,10},{110,10},{110,
+          32},{118,32}}, color={255,0,255}));
+  connect(botClo.y, difCloEnd.u)
+    annotation (Line(points={{22,-20},{38,-20}}, color={255,0,255}));
+  connect(difCloEnd.y, newFulClo2.u1)
+    annotation (Line(points={{62,-20},{118,-20}}, color={255,0,255}));
+  connect(newFulClo.y, newFulClo2.u2) annotation (Line(points={{62,40},{70,40},{
+          70,-28},{118,-28}}, color={255,0,255}));
+  connect(newFulClo2.y, booRep5.u) annotation (Line(points={{142,-20},{150,-20},
+          {150,-70},{-50,-70},{-50,-140},{-22,-140}}, color={255,0,255}));
+  connect(lat.y, disExiCel1.u2) annotation (Line(points={{-98,410},{-80,410},{
+          -80,380},{-170,380},{-170,-290},{38,-290}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCelStaPro",
   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-200,-400},{200,400}}), graphics={
-          Rectangle(
-          extent={{-138,-62},{178,-198}},
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-          Text(
-          extent={{12,-180},{144,-204}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
-          textColor={0,0,127},
-          horizontalAlignment=TextAlignment.Right,
-          textString="Check if all enabled isolation valves 
-          have been fully open")}),
+          extent={{-200,-440},{200,440}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(
@@ -407,21 +437,13 @@ annotation (
           textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,88},{-54,76}},
+          extent={{-102,88},{-58,76}},
           textColor={255,0,255},
           textString="uChaCel"),
-        Text(
-          extent={{-100,6},{-62,-6}},
-          textColor={0,0,127},
-          textString="uIsoVal"),
         Text(
           extent={{-100,-74},{-56,-86}},
           textColor={255,0,255},
           textString="uTowSta"),
-        Text(
-          extent={{62,66},{100,54}},
-          textColor={0,0,127},
-          textString="yIsoVal"),
         Text(
           extent={{56,8},{100,-4}},
           textColor={255,0,255},
@@ -429,7 +451,31 @@ annotation (
         Text(
           extent={{56,-52},{100,-64}},
           textColor={255,0,255},
-          textString="yEndSta")}),
+          textString="yEndSta"),
+        Text(
+          extent={{56,66},{100,54}},
+          textColor={255,0,255},
+          textString="y1IsoVal"),
+        Text(
+          extent={{-96,50},{-40,32}},
+          textColor={255,0,255},
+          visible=have_endSwi,
+          textString="u1InIsoValOpe"),
+        Text(
+          extent={{-96,-12},{-40,-28}},
+          textColor={255,0,255},
+          visible=have_endSwi,
+          textString="u1InIsoValClo"),
+        Text(
+          extent={{-96,28},{-36,12}},
+          textColor={255,0,255},
+          visible=have_endSwi and have_outIsoVal,
+          textString="u1OutIsoValOpe"),
+        Text(
+          extent={{-96,-32},{-38,-48}},
+          textColor={255,0,255},
+          visible=have_endSwi and have_outIsoVal,
+          textString="u1OutIsoValClo")}),
 Documentation(info="<html>
 <p>
 This block outputs new status vector of cells. When staging up cells, the cells

@@ -25,8 +25,8 @@ compareVars :=
     "chiPlaCon.chiWatPumCon.yChiWatPum[2]",
     "chiPlaCon.chiWatPumCon.yPumSpe",
     "chiPlaCon.towCon.yLeaCel",
-    "chiPlaCon.towCon.yIsoVal[1]",
-    "chiPlaCon.towCon.yIsoVal[2]",
+    "chiPlaCon.towCon.y1IsoVal[1]",
+    "chiPlaCon.towCon.y1IsoVal[2]",
     "chiPlaCon.towCon.yTowSta[1]",
     "chiPlaCon.towCon.yTowSta[2]",
     "chiPlaCon.towCon.ySpeSet"

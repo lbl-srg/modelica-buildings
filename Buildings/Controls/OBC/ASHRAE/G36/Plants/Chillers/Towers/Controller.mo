@@ -14,7 +14,7 @@ block Controller "Cooling tower controller"
     "Tower fan speed control type";
   final parameter Boolean have_conWatRetCon = fanSpeCon==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
     "True: the fan speed is controlled to maintain the condenser water return temperature setpoint";
-  parameter Boolean closeCoupledPlant=true
+  parameter Boolean closeCoupledPlant=false
     "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
     annotation (Dialog(enable=have_conWatRetCon));
   parameter Boolean have_WSE=true
@@ -72,17 +72,17 @@ block Controller "Cooling tower controller"
      annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
     unit=fill("K", nChi),
-    displayUnit=fill("degC", nChi))={293.15,293.15}
+    each displayUnit="degC")={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatRet_nominal[nChi](
     unit=fill("K", nChi),
-    displayUnit=fill("degC", nChi))={303.15,303.15}
+    each displayUnit="degC")={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TChiWatSupMin[nChi](
     unit=fill("K", nChi),
-    displayUnit=fill("degC", nChi))={278.15,278.15}
+    each displayUnit="degC")={278.15,278.15}
     "Lowest chilled water supply temperature oc each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
@@ -162,11 +162,17 @@ block Controller "Cooling tower controller"
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="Tower staging", group="Nominal"));
   parameter Integer towCelOnSet[totSta]={0,1,1,2,2}
-    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
+    "Design number of tower fan cells that should be enabled, according to current chiller stage and WSE status"
     annotation (Dialog(tab="Tower staging"));
-  parameter Real chaTowCelIsoTim(unit="s")=300
-    "Time to slowly change isolation valve"
-    annotation (Dialog(tab="Tower staging", group="Enable isolation valve"));
+  parameter Boolean have_endSwi=false
+    "True: tower cells isolation valve have end switch"
+    annotation (Dialog(tab="Tower staging", group="Isolation valves"));
+  parameter Boolean have_outIsoVal=false
+    "True: tower cells also have outlet isolation valve"
+    annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=have_endSwi));
+  parameter Real chaTowCelIsoTim=90
+    "Nominal time needed for open isolation valve of the tower cells"
+    annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=not have_endSwi));
 
   // Water level control
   parameter Real watLevMin(
@@ -182,95 +188,108 @@ block Controller "Cooling tower controller"
     final unit="W",
     final quantity="HeatFlowRate") if have_WSE "Current cooling load"
     annotation (Placement(transformation(extent={{-140,220},{-100,260}}),
-        iconTransformation(extent={{-140,170},{-100,210}})));
+        iconTransformation(extent={{-140,180},{-100,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Vector of chiller proven on status: true=ON"
     annotation (Placement(transformation(extent={{-140,190},{-100,230}}),
-      iconTransformation(extent={{-140,150},{-100,190}})));
+      iconTransformation(extent={{-140,160},{-100,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_WSE
     "Waterside economizer proven on status: true=ON"
     annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
-      iconTransformation(extent={{-140,130},{-100,170}})));
+      iconTransformation(extent={{-140,140},{-100,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_WSE
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
-      iconTransformation(extent={{-140,90},{-100,130}})));
+    annotation (Placement(transformation(extent={{-140,130},{-100,170}}),
+      iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+    annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
+      iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput reqPlaCap(
     final unit="W",
     final quantity="HeatFlowRate") "Current required plant capacity"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-      iconTransformation(extent={{-140,50},{-100,90}})));
+    annotation (Placement(transformation(extent={{-140,90},{-100,130}}),
+      iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSpeSet[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi)) if need_heaPreCon
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
     "Vector of tower cell proven on status: true=running tower cell"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enabling status"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-      iconTransformation(extent={{-140,-10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_conWatRetCon
     "Condenser water return temperature (condenser leaving)"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
     "Current condenser water pump status"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
     "Condenser water supply temperature (condenser entering)"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
     "True: plant is just enabled"
-    annotation(Placement(transformation(extent={{-140,-90},{-100,-50}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+    annotation(Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
-      iconTransformation(extent={{-140,-110},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiStaSet
     "Chiller stage setpoint"
-    annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
-      iconTransformation(extent={{-140,-130},{-100,-90}})));
+    annotation (Placement(transformation(extent={{-140,-130},{-100,-90}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowStaCha
     "Cooling tower stage change command from plant staging process"
-    annotation (Placement(transformation(extent={{-140,-170},{-100,-130}}),
-      iconTransformation(extent={{-140,-150},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
-    final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
-    "Vector of tower cells isolation valve position"
-    annotation (Placement(transformation(extent={{-140,-240},{-100,-200}}),
-      iconTransformation(extent={{-140,-190},{-100,-150}})));
+    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValOpe[nTowCel]
+    if have_endSwi
+    "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
+    annotation (Placement(transformation(extent={{-140,-190},{-100,-150}}),
+        iconTransformation(extent={{-140,-140},{-100,-100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
+    if have_endSwi and have_outIsoVal
+    "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
+    annotation (Placement(transformation(extent={{-140,-210},{-100,-170}}),
+        iconTransformation(extent={{-140,-160},{-100,-120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValClo[nTowCel]
+    if have_endSwi
+    "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
+    annotation (Placement(transformation(extent={{-140,-230},{-100,-190}}),
+        iconTransformation(extent={{-140,-180},{-100,-140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
+    if have_endSwi and have_outIsoVal
+    "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
+    annotation (Placement(transformation(extent={{-140,-250},{-100,-210}}),
+        iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput watLev(
     final unit="m")
     "Measured water level"
-    annotation (Placement(transformation(extent={{-140,-260},{-100,-220}}),
-      iconTransformation(extent={{-140,-210},{-100,-170}})));
+    annotation (Placement(transformation(extent={{-140,-270},{-100,-230}}),
+      iconTransformation(extent={{-140,-220},{-100,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMax(
     final unit="K") if have_conWatRetCon
     "Maximum LIFT among enabled chillers"
@@ -299,10 +318,7 @@ block Controller "Cooling tower controller"
     "Lead tower cell status setpoint"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoVal[nTowCel](
-    final min=fill(0, nTowCel),
-    final max=fill(1, nTowCel),
-    final unit=fill("1", nTowCel))
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1IsoVal[nTowCel]
     "Cooling tower cells isolation valve position"
     annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
       iconTransformation(extent={{100,30},{140,70}})));
@@ -374,14 +390,16 @@ protected
     final totSta=totSta,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
+    final have_endSwi=have_endSwi,
+    final have_outIsoVal=have_outIsoVal,
     final chaTowCelIsoTim=chaTowCelIsoTim)
     "Cooling tower staging"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{0,-68},{20,-40}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.WaterLevel makUpWat(
     final watLevMin=watLevMin,
     final watLevMax=watLevMax)
     "Make up water control"
-    annotation (Placement(transformation(extent={{-20,-250},{0,-230}})));
+    annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi if have_conWatRetCon
     "Logical switch"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
@@ -397,9 +415,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 equation
   connect(towSta.yTowSta, yTowSta)
-    annotation (Line(points={{22,-54},{30,-54},{30,-110},{120,-110}},color={255,0,255}));
-  connect(towSta.yIsoVal, yIsoVal)
-    annotation (Line(points={{22,-50},{40,-50},{40,-70},{120,-70}},color={0,0,127}));
+    annotation (Line(points={{22,-57},{30,-57},{30,-110},{120,-110}},color={255,0,255}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{22,-180},{50,-180},{50,-158},{58,-158}},
       color={0,0,127}));
@@ -410,45 +426,43 @@ equation
   connect(towFanSpe.uWse, uWse) annotation (Line(points={{-22,53},{-48,53},{-48,
           180},{-120,180}}, color={255,0,255}));
   connect(towFanSpe.TChiWatSup, TChiWatSup)
-    annotation (Line(points={{-22,47},{-56,47},{-56,140},{-120,140}}, color={0,0,127}));
+    annotation (Line(points={{-22,47},{-56,47},{-56,150},{-120,150}}, color={0,0,127}));
   connect(towFanSpe.TChiWatSupSet, TChiWatSupSet)
-    annotation (Line(points={{-22,44},{-60,44},{-60,120},{-120,120}}, color={0,0,127}));
+    annotation (Line(points={{-22,44},{-60,44},{-60,130},{-120,130}}, color={0,0,127}));
   connect(towFanSpe.reqPlaCap, reqPlaCap)
-    annotation (Line(points={{-22,41},{-64,41},{-64,100},{-120,100}}, color={0,0,127}));
+    annotation (Line(points={{-22,41},{-64,41},{-64,110},{-120,110}}, color={0,0,127}));
   connect(towFanSpe.uMaxSpeSet, uMaxSpeSet) annotation (Line(points={{-22,38},{
-          -68,38},{-68,70},{-120,70}}, color={0,0,127}));
-  connect(towFanSpe.uTow, uTowSta) annotation (Line(points={{-22,35},{-76,35},{-76,
-          40},{-120,40}},     color={255,0,255}));
+          -68,38},{-68,80},{-120,80}}, color={0,0,127}));
+  connect(towFanSpe.uTow, uTowSta) annotation (Line(points={{-22,35},{-76,35},{
+          -76,60},{-120,60}}, color={255,0,255}));
   connect(towFanSpe.uPla, uPla)
-    annotation (Line(points={{-22,29},{-84,29},{-84,20},{-120,20}}, color={255,0,255}));
+    annotation (Line(points={{-22,29},{-84,29},{-84,40},{-120,40}}, color={255,0,255}));
   connect(towFanSpe.TConWatRet, TConWatRet)
-    annotation (Line(points={{-22,26},{-80,26},{-80,0},{-120,0}},     color={0,0,127}));
+    annotation (Line(points={{-22,26},{-80,26},{-80,10},{-120,10}},  color={0,0,127}));
   connect(towFanSpe.TConWatSup, TConWatSup)
-    annotation (Line(points={{-22,21},{-68,21},{-68,-40},{-120,-40}}, color={0,0,127}));
+    annotation (Line(points={{-22,21},{-68,21},{-68,-30},{-120,-30}}, color={0,0,127}));
   connect(towSta.uChiSta, uChiSta)
-    annotation (Line(points={{-2,-41},{-64,-41},{-64,-100},{-120,-100}},  color={255,127,0}));
-  connect(towSta.uIsoVal, uIsoVal)
-    annotation (Line(points={{-2,-57},{-40,-57},{-40,-220},{-120,-220}},  color={0,0,127}));
+    annotation (Line(points={{-2,-41},{-64,-41},{-64,-90},{-120,-90}}, color={255,127,0}));
   connect(makUpWat.watLev, watLev)
-    annotation (Line(points={{-22,-240},{-120,-240}}, color={0,0,127}));
+    annotation (Line(points={{38,-240},{20,-240},{20,-250},{-120,-250}}, color={0,0,127}));
   connect(makUpWat.yMakUp, yMakUp)
-    annotation (Line(points={{2,-240},{120,-240}}, color={255,0,255}));
+    annotation (Line(points={{62,-240},{120,-240}},color={255,0,255}));
   connect(uTowSta, towSta.uTowSta)
-    annotation (Line(points={{-120,40},{-76,40},{-76,-59},{-2,-59}},  color={255,0,255}));
+    annotation (Line(points={{-120,60},{-76,60},{-76,-67},{-2,-67}},  color={255,0,255}));
   connect(towSta.uChiStaSet, uChiStaSet) annotation (Line(points={{-2,-43},{-60,
-          -43},{-60,-120},{-120,-120}}, color={255,127,0}));
-  connect(towSta.uTowStaCha, uTowStaCha) annotation (Line(points={{-2,-45},{-56,
-          -45},{-56,-150},{-120,-150}}, color={255,0,255}));
+          -43},{-60,-110},{-120,-110}}, color={255,127,0}));
+  connect(towSta.uTowStaCha, uTowStaCha) annotation (Line(points={{-2,-46},{-56,
+          -46},{-56,-140},{-120,-140}}, color={255,0,255}));
   connect(uWse, towSta.uWse) annotation (Line(points={{-120,180},{-48,180},{-48,
-          -47},{-2,-47}},  color={255,0,255}));
+          -48},{-2,-48}},  color={255,0,255}));
   connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{22,-46},{40,-46},{40,
           -30},{120,-30}}, color={255,0,255}));
-  connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-70},{-48,-70},
-          {-48,-49},{-2,-49}},  color={255,0,255}));
+  connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-60},{-48,-60},
+          {-48,-50},{-2,-50}},  color={255,0,255}));
   connect(swi.y, ySpeSet)
     annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
-  connect(uPla, towSta.uPla) annotation (Line(points={{-120,20},{-84,20},{-84,-51},
-          {-2,-51}},  color={255,0,255}));
+  connect(uPla, towSta.uPla) annotation (Line(points={{-120,40},{-84,40},{-84,
+          -52},{-2,-52}}, color={255,0,255}));
   connect(towFanSpe.yLifMax, yLifMax) annotation (Line(points={{2,30},{20,30},{20,
           148},{120,148}},                         color={0,0,127}));
   connect(towFanSpe.yLifMin, yLifMin) annotation (Line(points={{2,27},{30,27},{30,
@@ -457,18 +471,28 @@ equation
           -142},{58,-142}}, color={0,0,127}));
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{42,-150},{58,-150}}, color={255,0,255}));
-  connect(towSta.yTowSta, mulOr.u) annotation (Line(points={{22,-54},{30,-54},{30,
+  connect(towSta.yTowSta, mulOr.u) annotation (Line(points={{22,-57},{30,-57},{30,
           -128},{0,-128},{0,-150},{18,-150}}, color={255,0,255}));
   connect(towFanSpe.TConWatRetSet, TConWatRetSet) annotation (Line(points={{2,23.8},
           {40,23.8},{40,90},{120,90}}, color={0,0,127}));
   connect(towFanSpe.TConWatSupSet, TConWatSupSet) annotation (Line(points={{2,21},
           {60,21},{60,62},{120,62}}, color={0,0,127}));
-  connect(uConWatPum, towFanSpe.uConWatPum) annotation (Line(points={{-120,-20},
-          {-72,-20},{-72,23},{-22,23}}, color={255,0,255}));
+  connect(uConWatPum, towFanSpe.uConWatPum) annotation (Line(points={{-120,-10},
+          {-72,-10},{-72,23},{-22,23}}, color={255,0,255}));
   connect(uConWatPum, mulOr1.u)
-    annotation (Line(points={{-120,-20},{-42,-20}}, color={255,0,255}));
+    annotation (Line(points={{-120,-10},{-82,-10},{-82,-20},{-42,-20}}, color={255,0,255}));
   connect(mulOr1.y, towSta.uAnyConWatPum) annotation (Line(points={{-18,-20},{-10,
-          -20},{-10,-53},{-2,-53}}, color={255,0,255}));
+          -20},{-10,-54},{-2,-54}}, color={255,0,255}));
+  connect(towSta.y1IsoVal, y1IsoVal) annotation (Line(points={{22,-51},{40,-51},
+          {40,-70},{120,-70}}, color={255,0,255}));
+  connect(u1InIsoValOpe, towSta.u1InIsoValOpe) annotation (Line(points={{-120,
+          -170},{-40,-170},{-40,-57},{-2,-57}}, color={255,0,255}));
+  connect(u1OutIsoValOpe, towSta.u1OutIsoValOpe) annotation (Line(points={{-120,
+          -190},{-36,-190},{-36,-59},{-2,-59}}, color={255,0,255}));
+  connect(u1InIsoValClo, towSta.u1InIsoValClo) annotation (Line(points={{-120,
+          -210},{-32,-210},{-32,-62.2},{-2,-62.2}}, color={255,0,255}));
+  connect(u1OutIsoValClo, towSta.u1OutIsoValClo) annotation (Line(points={{-120,
+          -230},{-28,-230},{-28,-64.2},{-2,-64.2}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
@@ -482,20 +506,20 @@ annotation (
           textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-98,-120},{-26,-136}},
+          extent={{-98,-90},{-26,-106}},
           textColor={255,0,255},
           textString="uTowStaCha"),
         Text(
-          extent={{-100,196},{-62,184}},
+          extent={{-100,206},{-62,194}},
           textColor={0,0,127},
           visible=have_WSE,
           textString="uChiLoa"),
         Text(
-          extent={{-98,-82},{-50,-98}},
+          extent={{-98,-52},{-50,-68}},
           textColor={255,127,0},
           textString="uChiSta"),
         Text(
-          extent={{-98,-100},{-32,-118}},
+          extent={{-98,-70},{-32,-88}},
           textColor={255,127,0},
           textString="uChiStaSet"),
         Text(
@@ -503,61 +527,57 @@ annotation (
           textColor={255,0,255},
           textString="yMakUp"),
         Text(
-          extent={{-98,38},{-54,24}},
+          extent={{-98,68},{-54,54}},
           textColor={255,0,255},
           textString="uTowSta"),
         Text(
-          extent={{-98,18},{-68,4}},
+          extent={{-98,48},{-68,34}},
           textColor={255,0,255},
           textString="uPla"),
         Text(
-          extent={{-100,178},{-70,164}},
+          extent={{-100,188},{-70,174}},
           textColor={255,0,255},
           textString="uChi"),
         Text(
-          extent={{-96,158},{-66,144}},
+          extent={{-96,168},{-66,154}},
           textColor={255,0,255},
           textString="uWse",
           visible=have_WSE),
         Text(
-          extent={{-98,118},{-34,102}},
+          extent={{-98,148},{-34,132}},
           textColor={0,0,127},
           textString="TChiWatSup",
           visible=have_WSE),
         Text(
-          extent={{-98,80},{-34,64}},
+          extent={{-98,110},{-34,94}},
           textColor={0,0,127},
           textString="reqPlaCap"),
         Text(
-          extent={{-96,98},{-16,82}},
+          extent={{-96,128},{-16,112}},
           textColor={0,0,127},
           textString="TChiWatSupSet"),
         Text(
-          extent={{-98,60},{-28,44}},
+          extent={{-98,90},{-28,74}},
           textColor={0,0,127},
           textString="uMaxSpeSet",
           visible=need_heaPreCon),
         Text(
-          extent={{-100,-22},{-16,-40}},
+          extent={{-100,8},{-16,-10}},
           textColor={255,0,255},
           textString="uConWatPum"),
         Text(
-          extent={{-100,-2},{-36,-18}},
+          extent={{-100,28},{-36,12}},
           textColor={0,0,127},
           textString="TConWatRet"),
         Text(
-          extent={{-98,-42},{-34,-58}},
+          extent={{-98,-12},{-34,-28}},
           textColor={0,0,127},
           textString="TConWatSup",
           visible=not closeCoupledPlant),
         Text(
-          extent={{-100,-178},{-56,-192}},
+          extent={{-100,-188},{-56,-202}},
           textColor={0,0,127},
           textString="watLev"),
-        Text(
-          extent={{-98,-160},{-54,-176}},
-          textColor={0,0,127},
-          textString="uIsoVal"),
         Text(
           extent={{54,-100},{98,-116}},
           textColor={0,0,127},
@@ -567,15 +587,11 @@ annotation (
           textColor={255,0,255},
           textString="yTowSta"),
         Text(
-          extent={{54,58},{98,42}},
-          textColor={0,0,127},
-          textString="yIsoVal"),
-        Text(
           extent={{48,90},{100,74}},
           textColor={255,0,255},
           textString="yLeaCel"),
         Text(
-          extent={{-96,-64},{-58,-78}},
+          extent={{-96,-34},{-58,-48}},
           textColor={255,0,255},
           textString="uEnaPla"),
         Text(
@@ -595,7 +611,31 @@ annotation (
           extent={{30,130},{98,112}},
           textColor={0,0,127},
           visible=have_conWatRetCon and not closeCoupledPlant,
-          textString="TConWatSupSet")}),
+          textString="TConWatSupSet"),
+        Text(
+          extent={{-100,-112},{-32,-126}},
+          textColor={255,0,255},
+          textString="u1InIsoValOpe",
+          visible=have_endSwi),
+        Text(
+          extent={{-96,-132},{-28,-146}},
+          textColor={255,0,255},
+          textString="u1OutIsoValOpe",
+          visible=have_endSwi and have_outIsoVal),
+        Text(
+          extent={{-100,-154},{-32,-168}},
+          textColor={255,0,255},
+          textString="u1InIsoValClo",
+          visible=have_endSwi),
+        Text(
+          extent={{-96,-174},{-28,-188}},
+          textColor={255,0,255},
+          textString="u1OutIsoValClo",
+          visible=have_endSwi and have_outIsoVal),
+        Text(
+          extent={{48,58},{100,42}},
+          textColor={255,0,255},
+          textString="y1IsoVal")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-260},{100,260}})),
 Documentation(info="<html>
 <p>
