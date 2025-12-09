@@ -74,7 +74,6 @@ partial block PartialController "Interface class for plant controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
           Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
           have_senVChiWatSec));
-
   parameter Boolean have_senTChiWatPriSup_select=false
     "Set to true for plants with primary CHW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
@@ -87,7 +86,6 @@ partial block PartialController "Interface class for plant controller"
     or have_senTChiWatPriSup_select
     "Set to true for plants with CHW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
   parameter Boolean have_senTChiWatPlaRet_select=false
     "Set to true for plants with CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
@@ -102,7 +100,6 @@ partial block PartialController "Interface class for plant controller"
     else have_senTChiWatPlaRet_select
     "Set to true for plants with CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
   // For plants with WSE, TChiWatEcoBef is used in place of TChiWatSecRet.
   final parameter Boolean have_senTChiWatSecRet=
     if cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None
@@ -112,7 +109,6 @@ partial block PartialController "Interface class for plant controller"
       or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
   parameter Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl typCtlFanCoo=
     Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature
     "Cooler fan speed control"
@@ -135,6 +131,14 @@ partial block PartialController "Interface class for plant controller"
     cfg=cfg)
     "Parameter record for controller";
 
+  // FIXME: This is now conWatPumStaMat (used to be plaStaMat): "Matrix for staging condenser water pump and tower,
+  // with stage number as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
+  // We should rather have:
+  // - one Boolean matrix for CW pump staging: with plant stage (chiller+WSE) as row index and CW pump tag as column index (to support unequally sized pumps)
+  // - one real matrix for CW pump speed: with plant stage (chiller+WSE) as row index and a single column
+  // - one integer matrix for tower cell staging: with plant stage (chiller+WSE) as row index and a single column
+  // Each matrix is optional, depending on plant configuration.
+  // TODO once this is refactored: expose staMat = chiller staging matrix (WSE enable logic separate from staging logic)
   final parameter Real sta[:,:]=dat.sta
     "Staging matrix with plant stage as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
     annotation (Evaluate=true, Dialog(group="Plant staging"));
@@ -242,7 +246,7 @@ equation
       thickness=0.5));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                      graphics={
+      graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -250,8 +254,8 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-114},{151,-154}},
-          lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          textString="%name")}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-300},{260,300}})),
     Documentation(info="<html>
 <p>

@@ -165,6 +165,17 @@ block G36
     each final unit="K",
     each displayUnit="degC")=dat.TConWatRetChi_nominal
     "Condenser water return temperature (condenser leaving) of each chiller";
+  // ---- Cooling tower: staging ----
+  parameter Boolean have_endSwi=false
+    "True: tower cells isolation valve have end switch"
+    annotation (Dialog(group="Configuration",
+      enable=cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+      and (cfg.typValCooInlIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        or cfg.typValCooOutIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)));
+  // FIXME: missing parameter for inlet isolation valve configuration.
+  final parameter Boolean have_outIsoVal=
+    cfg.typValCooOutIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    "True: tower cells also have outlet isolation valve";
   // ---- Cooling tower: Water level control ----
   final parameter Real watLevMin(
     unit="1")=dat.hLevCoo_min
@@ -192,10 +203,12 @@ block G36
     final dTChiMaxLif=dTChiMaxLif,
     final fanSpeMin=fanSpeMin,
     final have_byPasValCon=have_byPasValCon,
+    final have_endSwi=have_endSwi,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
     final have_heaChiWatPum=have_heaChiWatPum,
     final have_heaConWatPum=have_heaConWatPum,
     final have_locSenChiWatPum=have_locSenChiWatPum,
+    final have_outIsoVal=have_outIsoVal,
     final have_parChi=have_parChi,
     final have_ponyChiller=have_ponyChiller,
     final have_WSE=have_WSE,
@@ -214,7 +227,7 @@ block G36
     final nSenChiWatPum=nSenChiWatPum,
     final nTowCel=nTowCel,
     final use_loadShed=use_loadShed,
-    final plaStaMat=integer(ceil(sta)),
+    final conWatPumStaMat=integer(ceil(sta)),
     final staMat=staMat,
     final TChiLocOut=TChiLocOut,
     final TChiWatSupMin=TChiWatSupMin,
@@ -257,15 +270,6 @@ block G36
   Buildings.Controls.OBC.CDL.Integers.Add reqResChiWat
     "Sum of CHW reset requests of all loads served"
     annotation (Placement(transformation(extent={{190,104},{170,124}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis FIXME_yTowCelIsoVal[cfg.nCoo](
-    each uLow=0.1, each uHigh=0.2) if cfg.typValCooInlIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
-     or cfg.typValCooOutIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
-    "#2299 Should be Boolean and conditional to a configuration parameter"
-    annotation (Placement(transformation(extent={{50,-28},{70,-8}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal FIXME_uIsoVal[cfg.nCoo]
-    if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-    "#2299 Should be Boolean + missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{-110,-150},{-90,-130}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.LocalDp_setpoint
     resDpChiWatLoc(
     final nSen=cfg.nSenDpChiWatRem,
@@ -349,8 +353,12 @@ equation
   else
     connect(bus.pumChiWatSec.y1_actual, resDpChiWatLoc.uChiWatPum);
   end if;
+  connect(bus.valCooInlIso.y0_actual, ctl.u1InIsoValClo);
+  connect(bus.valCooInlIso.y1_actual, ctl.u1InIsoValOpe);
+  connect(bus.valCooOutIso.y0_actual, ctl.u1OutIsoValClo);
+  connect(bus.valCooOutIso.y1_actual, ctl.u1OutIsoValOpe);
   connect(FIXME_uChiWatIsoVal.y, ctl.uChiWatIsoVal)
-    annotation (Line(points={{-88, 160},{-20,160},{-20,-12},{-2,-12}}, color={0,0,127}));
+    annotation (Line(points={{-88,160},{-20,160},{-20,-10},{-2,-10}},  color={0,0,127}));
 
   // Controller outputs
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
@@ -370,15 +378,15 @@ equation
   connect(ctl.yWseRetVal, bus.valChiWatEcoByp.y);
   connect(ctl.yChiPumSpe, bus.pumChiWatPri.y);
   connect(ctl.yConWatPumSpe, bus.pumConWat.y);
-  connect(FIXME_yTowCelIsoVal.y, busValCooInlIso.y1);
-  connect(FIXME_yTowCelIsoVal.y, busValCooOutIso.y1);
+  connect(ctl.yTowCelIsoVal, busValCooInlIso.y1);
+  connect(ctl.yTowCelIsoVal, busValCooOutIso.y1);
   connect(ctl.yTowFanSpe, bus.yCoo);
 
   /* Control point connection - stop */
   connect(reqPlaChiWat.y, ctl.chiPlaReq)
-    annotation (Line(points={{168,154},{-18,154},{-18,-16},{-2,-16}},color={255,127,0}));
+    annotation (Line(points={{168,154},{-18,154},{-18,-14},{-2,-14}},color={255,127,0}));
   connect(reqResChiWat.y, ctl.TChiWatSupResReq)
-    annotation (Line(points={{168,114},{-16,114},{-16,-14},{-2,-14}},    color={255,127,0}));
+    annotation (Line(points={{168,114},{-16,114},{-16,-12},{-2,-12}},    color={255,127,0}));
   connect(busAirHan.reqPlaChiWat, reqPlaChiWatAirHan.u)
     annotation (Line(points={{260,140},{240,140},{240,160},{232,160}},color={255,204,51},thickness=0.5));
   connect(busAirHan.reqResChiWat, reqResChiWatAirHan.u)
@@ -395,14 +403,6 @@ equation
     annotation (Line(points={{208,-120},{200,-120},{200,148},{192,148}},color={255,127,0}));
   connect(reqResChiWatEquZon.y, reqResChiWat.u2)
     annotation (Line(points={{208,-160},{198,-160},{198,108},{192,108}},color={255,127,0}));
-  connect(ctl.yTowCelIsoVal, FIXME_yTowCelIsoVal.u) annotation (Line(points={{22,-18},
-          {48,-18}},                        color={0,0,127}));
-  connect(busValCooInlIso.y1_actual, FIXME_uIsoVal.u) annotation (Line(
-      points={{-240,-140},{-112,-140}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(FIXME_uIsoVal.y, ctl.uIsoVal) annotation (Line(points={{-88,-140},{-20,
-          -140},{-20,-34},{-2,-34}}, color={0,0,127}));
   connect(resDpChiWatLoc.dpChiWatPumSet_local, ctl.dpChiWatSet_local)
     annotation (Line(points={{-38,26},{-2,26}},                     color={0,0,127}));
   connect(ctl.FIXME_dpChiWatPumSet, resDpChiWatLoc.dpChiWatSet_remote)
@@ -412,8 +412,8 @@ equation
       points={{-240,160},{-112,160}},
       color={255,204,51},
       thickness=0.5));
-  connect(RFE_watLev.y, ctl.watLev) annotation (Line(points={{-88,-180},{-18,
-          -180},{-18,-36},{-2,-36}}, color={0,0,127}));
+  connect(RFE_watLev.y, ctl.watLev) annotation (Line(points={{-88,-180},{-18,-180},
+          {-18,-37},{-2,-37}},       color={0,0,127}));
   annotation (
     Documentation(
       info="<html>
