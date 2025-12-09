@@ -115,51 +115,46 @@ block Controller "Chiller plant controller"
 
   // ---- General: Chiller staging settings ----
 
-  final parameter Integer nUniSta = if have_WSE then nChi+1 else nChi
-    "Number of units to stage";
+  parameter Integer nSta
+    "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
+    annotation (Dialog(tab="General",group="Staging configuration"));
 
-  parameter Integer totSta
-    "Total number of stages for staging condenser water pump and tower, including stage zero and the stages with a WSE, if applicable"
-    annotation (Dialog(tab="General", group="Staging configuration"));
-
-  parameter Integer conWatPumStaMat[totSta, nUniSta]
-    "Matrix for staging condenser water pump and tower, with stage number as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
-    annotation (Evaluate=true, Dialog(group="Staging configuration"));
+  parameter Integer nPlaSta = if have_WSE then 2*(nSta+1) else nSta+1
+    "Number of plant stages, including zero stage and the stages with enabled waterside economizer, if applicable"
+    annotation (Dialog(tab="General", group="Staging configuration", enable=false));
 
   parameter Integer staMat[nSta, nChi]
-    "Chiller staging matrix with chiller stage as row index and chiller as column index, not including stage zero"
-    annotation (Evaluate=true, Dialog(group="Staging configuration"));
+    "Chiller staging matrix with chiller stage as row index and chiller as column index, not including stage zero: 0 for disabled, 1 for enabled"
+    annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration"));
+
+  parameter Integer conWatPumStaMat[nPlaSta, nConWatPum](
+    start=fill(0,nPlaSta,nConWatPum))
+    "Condenser water pump staging matrix, with plant stage as row index and condenser water pump as column index: 0 for disabled, 1 for enabled"
+    annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration", enable=not have_airCoo));
+
+  parameter Real desConWatPumSpe[nPlaSta](
+    max=fill(1, nPlaSta),
+    min=fill(0, nPlaSta),
+    start=fill(0, nPlaSta))
+    "Array of design condenser water pump speed setpoints, according to the plant stage"
+    annotation (Dialog(tab="General", group="Staging configuration", enable=(not have_airCoo) and (not have_fixSpeConWatPum)));
+
+  parameter Integer towCelOnSet[nPlaSta](start=fill(0, nPlaSta))
+    "Array of design number of tower fan cells that should be enabled, according to the plant stage"
+    annotation(Dialog(tab="General", group="Staging configuration", enable=not have_airCoo));
+
+  final parameter Integer desConWatPumNum[nPlaSta](start=fill(0, nPlaSta)) = {
+    sum(conWatPumStaMat[i,:]) for i in 1:nPlaSta}
+    "Design number of condenser water pumps that should be enabled, according to the plant stage"
+    annotation (Dialog(tab="General", group="Staging configuration", enable=not have_airCoo));
 
   final parameter Integer desChiNum[nSta+1]={if i == 0 then 0 else sum(staMat[i]) for i in 0:nSta}
     "Design number of chiller that should be enabled at each chiller stage, including the zero stage"
     annotation (Dialog(tab="General", group="Staging configuration", enable=have_fixSpeConWatPum));
 
-  final parameter Real staTmp[totSta, nUniSta]={{if conWatPumStaMat[i, j] > 0 then (if j <= nChi
-    then conWatPumStaMat[i, j] else 0.5) else 0 for j in 1:nUniSta} for i in 1:totSta}
-    "Intermediary parameter to compute staVec"
-    annotation (Dialog(tab="General",group="Staging configuration"));
-  final parameter Real staVec[totSta]={sum(staTmp[i]) for i in 1:totSta}
+  final parameter Real staVec[nPlaSta]={0.5*(i-1) for i in 1:nPlaSta}
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
-    annotation (Dialog(tab="General",group="Staging configuration"));
-  final parameter Integer nSta = if not have_WSE then totSta-1
-                                 else sum({if conWatPumStaMat[i, nUniSta] > 0 then 0 else 1 for i in 1:totSta}) - 1
-    "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
-    annotation (Dialog(tab="General",group="Staging configuration"));
-
-  parameter Real desConWatPumSpe[totSta](
-    max=fill(1, totSta),
-    min=fill(0, totSta),
-    start=fill(0, totSta))
-    "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
-    annotation (Dialog(tab="General", group="Staging configuration", enable=(not have_airCoo) and (not have_fixSpeConWatPum)));
-
-  parameter Integer desConWatPumNum[totSta](start=fill(0, totSta))
-    "Design number of condenser water pumps that should be enabled, according to current chiller stage and WSE status"
-    annotation (Dialog(tab="General", group="Staging configuration", enable=not have_airCoo));
-
-  parameter Integer towCelOnSet[totSta](start=fill(0, totSta))
-    "Design number of tower fan cells that should be enabled, according to current chiller stage and WSE status"
-    annotation(Dialog(tab="General", group="Staging configuration", enable=not have_airCoo));
+    annotation (Dialog(tab="General", group="Staging configuration"));
 
   // ---- General: Cooling tower ----
 
@@ -972,7 +967,7 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-940,-640},{-900,-600}}),
       iconTransformation(extent={{-140,-280},{-100,-240}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValOpe[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
     if have_endSwi and not have_airCoo
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-940,-680},{-900,-640}}),
@@ -984,7 +979,7 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{-940,-700},{-900,-660}}),
         iconTransformation(extent={{-140,-330},{-100,-290}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValClo[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
     if have_endSwi and not have_airCoo
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-940,-720},{-900,-680}}),
@@ -1307,7 +1302,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Controller towCon(
     final chiHeaPreCon=chiHeaPreCon,
     final nChi=nChi,
-    final totSta=totSta,
+    final nPlaSta=nPlaSta,
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
     final fanSpeCon=fanSpeCon,
@@ -1360,7 +1355,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Down dowProCon(
     final nChi=nChi,
     final nConWatPum=nConWatPum,
-    final totSta=totSta,
+    final nPlaSta=nPlaSta,
     final nChiSta=nSta + 1,
     final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
@@ -1389,7 +1384,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Up upProCon(
     final nChi=nChi,
     final nConWatPum=nConWatPum,
-    final totSta=totSta,
+    final nPlaSta=nPlaSta,
     final nChiSta=nSta + 1,
     final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
@@ -2164,11 +2159,11 @@ equation
                                                    color={0,0,127}));
   connect(chiIso.y, wseSta.uChiIsoVal) annotation (Line(points={{-218,-228},{-180,
           -228},{-180,-172},{-766,-172},{-766,302},{-704,302}}, color={0,0,127}));
-  connect(u1InIsoValOpe, towCon.u1InIsoValOpe) annotation (Line(points={{-920,-660},
+  connect(u1InlIsoValOpe, towCon.u1InlIsoValOpe) annotation (Line(points={{-920,-660},
           {-350,-660},{-350,-688},{-268,-688}}, color={255,0,255}));
   connect(u1OutIsoValOpe, towCon.u1OutIsoValOpe) annotation (Line(points={{-920,
           -680},{-360,-680},{-360,-696},{-268,-696}}, color={255,0,255}));
-  connect(u1InIsoValClo, towCon.u1InIsoValClo) annotation (Line(points={{-920,-700},
+  connect(u1InlIsoValClo, towCon.u1InlIsoValClo) annotation (Line(points={{-920,-700},
           {-360,-700},{-360,-704},{-268,-704}}, color={255,0,255}));
   connect(u1OutIsoValClo, towCon.u1OutIsoValClo) annotation (Line(points={{-920,
           -720},{-360,-720},{-360,-712},{-268,-712}}, color={255,0,255}));
@@ -2433,7 +2428,7 @@ annotation (
         Text(
           extent={{-98,-284},{-42,-298}},
           textColor={255,0,255},
-          textString="u1InIsoValOpe",
+          textString="u1InlIsoValOpe",
           visible=have_endSwi and not have_airCoo),
         Text(
           extent={{-98,-304},{-42,-318}},
@@ -2448,7 +2443,7 @@ annotation (
         Text(
           extent={{-98,-324},{-42,-338}},
           textColor={255,0,255},
-          textString="u1InIsoValClo",
+          textString="u1InlIsoValClo",
           visible=have_endSwi and not have_airCoo)}),
     Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>

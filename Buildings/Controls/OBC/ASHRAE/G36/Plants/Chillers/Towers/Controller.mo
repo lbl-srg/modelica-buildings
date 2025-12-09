@@ -5,7 +5,7 @@ block Controller "Cooling tower controller"
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByPlant
     "Chiller head pressure controlled type";
   parameter Integer nChi=2 "Total number of chillers";
-  parameter Integer totSta=5
+  parameter Integer nPlaSta=5
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Integer nTowCel=2 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
@@ -158,10 +158,10 @@ block Controller "Cooling tower controller"
     annotation (Dialog(tab="Fan speed", group="Advanced"));
 
   // Tower staging
-  parameter Real staVec[totSta]={0,0.5,1,1.5,2}
+  parameter Real staVec[nPlaSta]={0,0.5,1,1.5,2}
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="Tower staging", group="Nominal"));
-  parameter Integer towCelOnSet[totSta]={0,1,1,2,2}
+  parameter Integer towCelOnSet[nPlaSta]={0,1,1,2,2}
     "Design number of tower fan cells that should be enabled, according to current chiller stage and WSE status"
     annotation (Dialog(tab="Tower staging"));
   parameter Boolean have_endSwi=false
@@ -265,7 +265,7 @@ block Controller "Cooling tower controller"
     "Cooling tower stage change command from plant staging process"
     annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValOpe[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
     if have_endSwi
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-190},{-100,-150}}),
@@ -275,7 +275,7 @@ block Controller "Cooling tower controller"
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-210},{-100,-170}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValClo[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
     if have_endSwi
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-140,-230},{-100,-190}}),
@@ -387,7 +387,7 @@ protected
     final have_WSE=have_WSE,
     final nTowCel=nTowCel,
     final nConWatPum=nConWatPum,
-    final totSta=totSta,
+    final nPlaSta=nPlaSta,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
     final have_endSwi=have_endSwi,
@@ -485,11 +485,11 @@ equation
           -20},{-10,-54},{-2,-54}}, color={255,0,255}));
   connect(towSta.y1IsoVal, y1IsoVal) annotation (Line(points={{22,-51},{40,-51},
           {40,-70},{120,-70}}, color={255,0,255}));
-  connect(u1InIsoValOpe, towSta.u1InIsoValOpe) annotation (Line(points={{-120,
+  connect(u1InlIsoValOpe, towSta.u1InlIsoValOpe) annotation (Line(points={{-120,
           -170},{-40,-170},{-40,-57},{-2,-57}}, color={255,0,255}));
   connect(u1OutIsoValOpe, towSta.u1OutIsoValOpe) annotation (Line(points={{-120,
           -190},{-36,-190},{-36,-59},{-2,-59}}, color={255,0,255}));
-  connect(u1InIsoValClo, towSta.u1InIsoValClo) annotation (Line(points={{-120,
+  connect(u1InlIsoValClo, towSta.u1InlIsoValClo) annotation (Line(points={{-120,
           -210},{-32,-210},{-32,-62.2},{-2,-62.2}}, color={255,0,255}));
   connect(u1OutIsoValClo, towSta.u1OutIsoValClo) annotation (Line(points={{-120,
           -230},{-28,-230},{-28,-64.2},{-2,-64.2}}, color={255,0,255}));
@@ -615,7 +615,7 @@ annotation (
         Text(
           extent={{-100,-112},{-32,-126}},
           textColor={255,0,255},
-          textString="u1InIsoValOpe",
+          textString="u1InlIsoValOpe",
           visible=have_endSwi),
         Text(
           extent={{-96,-132},{-28,-146}},
@@ -625,7 +625,7 @@ annotation (
         Text(
           extent={{-100,-154},{-32,-168}},
           textColor={255,0,255},
-          textString="u1InIsoValClo",
+          textString="u1InlIsoValClo",
           visible=have_endSwi),
         Text(
           extent={{-96,-174},{-28,-188}},

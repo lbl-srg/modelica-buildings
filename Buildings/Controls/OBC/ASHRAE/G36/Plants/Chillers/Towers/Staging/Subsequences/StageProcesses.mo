@@ -16,7 +16,7 @@ block StageProcesses "Sequence for process of staging cells"
     "Vector of boolean flags to show if a cell should change its status: true = the cell should change status (be enabled or disabled)"
     annotation (Placement(transformation(extent={{-240,390},{-200,430}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValOpe[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
     if have_endSwi
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
@@ -26,7 +26,7 @@ block StageProcesses "Sequence for process of staging cells"
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValClo[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
     if have_endSwi
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
@@ -309,7 +309,7 @@ equation
           {-170,380},{-170,-178},{38,-178}}, color={255,0,255}));
   connect(lat.y, and2.u1) annotation (Line(points={{-98,410},{-80,410},{-80,380},
           {-170,380},{-170,320},{-122,320}}, color={255,0,255}));
-  connect(u1InIsoValClo, cloValFla.u)
+  connect(u1InlIsoValClo, cloValFla.u)
     annotation (Line(points={{-220,20},{-102,20}}, color={255,0,255}));
   connect(lat.y, enaCelVec.u1) annotation (Line(points={{-98,410},{-80,410},{-80,
           380},{-170,380},{-170,350},{58,350}}, color={255,0,255}));
@@ -337,7 +337,7 @@ equation
           292},{158,292}}, color={255,0,255}));
   connect(uTowSta, celVec1.u3) annotation (Line(points={{-220,-240},{-180,-240},
           {-180,192},{98,192}}, color={255,0,255}));
-  connect(u1InIsoValOpe, opeValFla.u)
+  connect(u1InlIsoValOpe, opeValFla.u)
     annotation (Line(points={{-220,140},{-102,140}}, color={255,0,255}));
   connect(enaCelSta.y, intEqu1.u1)
     annotation (Line(points={{-78,270},{-2,270}},  color={255,127,0}));
@@ -377,11 +377,11 @@ equation
           152},{58,152}}, color={0,0,127}));
   connect(triSam1.y, newFulClo.u2) annotation (Line(points={{22,20},{30,20},{30,
           32},{38,32}}, color={0,0,127}));
-  connect(u1InIsoValOpe, opeValFla1.u) annotation (Line(points={{-220,140},{-160,
+  connect(u1InlIsoValOpe, opeValFla1.u) annotation (Line(points={{-220,140},{-160,
           140},{-160,100},{-102,100}}, color={255,0,255}));
   connect(u1OutIsoValOpe, opeValFla2.u)
     annotation (Line(points={{-220,60},{-102,60}}, color={255,0,255}));
-  connect(u1InIsoValClo, cloValFla1.u) annotation (Line(points={{-220,20},{-160,
+  connect(u1InlIsoValClo, cloValFla1.u) annotation (Line(points={{-220,20},{-160,
           20},{-160,-20},{-102,-20}}, color={255,0,255}));
   connect(u1OutIsoValClo, cloValFla2.u)
     annotation (Line(points={{-220,-60},{-102,-60}}, color={255,0,255}));
@@ -460,12 +460,12 @@ annotation (
           extent={{-96,50},{-40,32}},
           textColor={255,0,255},
           visible=have_endSwi,
-          textString="u1InIsoValOpe"),
+          textString="u1InlIsoValOpe"),
         Text(
           extent={{-96,-12},{-40,-28}},
           textColor={255,0,255},
           visible=have_endSwi,
-          textString="u1InIsoValClo"),
+          textString="u1InlIsoValClo"),
         Text(
           extent={{-96,28},{-36,12}},
           textColor={255,0,255},

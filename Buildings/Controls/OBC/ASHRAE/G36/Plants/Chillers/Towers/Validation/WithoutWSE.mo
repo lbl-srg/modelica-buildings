@@ -5,7 +5,7 @@ model WithoutWSE
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Controller
     towCon(
     nChi=2,
-    totSta=3,
+    nPlaSta=3,
     nTowCel=2,
     nConWatPum=2,
     have_WSE=false,

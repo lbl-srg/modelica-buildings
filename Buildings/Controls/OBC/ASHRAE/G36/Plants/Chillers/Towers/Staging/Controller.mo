@@ -5,11 +5,11 @@ block Controller "Sequence of staging cooling tower cells"
     "Flag to indicate if the plant has waterside economizer";
   parameter Integer nTowCel=4 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
-  parameter Integer totSta=6
+  parameter Integer nPlaSta=6
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
-  parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
+  parameter Real staVec[nPlaSta]={0,0.5,1,1.5,2,2.5}
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
-  parameter Integer towCelOnSet[totSta]={0,2,2,4,4,4}
+  parameter Integer towCelOnSet[nPlaSta]={0,2,2,4,4,4}
     "Design number of tower fan cells that should be enabled, according to current chiller stage and WSE status";
   parameter Boolean have_endSwi=false
     "True: tower cells isolation valve have end switch"
@@ -49,7 +49,7 @@ block Controller "Sequence of staging cooling tower cells"
     "True: there is condenser water pump on"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValOpe[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
     if have_endSwi
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-78},{-100,-38}}),
@@ -59,7 +59,7 @@ block Controller "Sequence of staging cooling tower cells"
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-98},{-100,-58}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InIsoValClo[nTowCel]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
     if have_endSwi
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-140,-128},{-100,-88}}),
@@ -95,7 +95,7 @@ block Controller "Sequence of staging cooling tower cells"
     final have_WSE=have_WSE,
     final nConWatPum=nConWatPum,
     final nTowCel=nTowCel,
-    final totSta=totSta,
+    final nPlaSta=nPlaSta,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet)
     "Total number of enabled cells"
@@ -143,11 +143,11 @@ equation
           {-56,-20},{-56,111},{-42,111}}, color={255,0,255}));
   connect(staPro.y1IsoVal, y1IsoVal)
     annotation (Line(points={{62,-14},{80,-14},{80,36},{120,36}}, color={255,0,255}));
-  connect(u1InIsoValOpe, staPro.u1InIsoValOpe) annotation (Line(points={{-120,
+  connect(u1InlIsoValOpe, staPro.u1InlIsoValOpe) annotation (Line(points={{-120,
           -58},{0,-58},{0,-16},{38,-16}}, color={255,0,255}));
   connect(u1OutIsoValOpe, staPro.u1OutIsoValOpe) annotation (Line(points={{-120,
           -78},{6,-78},{6,-18},{38,-18}}, color={255,0,255}));
-  connect(u1InIsoValClo, staPro.u1InIsoValClo) annotation (Line(points={{-120,
+  connect(u1InlIsoValClo, staPro.u1InlIsoValClo) annotation (Line(points={{-120,
           -108},{12,-108},{12,-22},{38,-22}}, color={255,0,255}));
   connect(u1OutIsoValClo, staPro.u1OutIsoValClo) annotation (Line(points={{-120,
           -128},{18,-128},{18,-24},{38,-24}}, color={255,0,255}));
@@ -215,7 +215,7 @@ annotation (
         Text(
           extent={{-100,-22},{-32,-36}},
           textColor={255,0,255},
-          textString="u1InIsoValOpe",
+          textString="u1InlIsoValOpe",
           visible=have_endSwi),
         Text(
           extent={{-96,-42},{-28,-56}},
@@ -230,7 +230,7 @@ annotation (
         Text(
           extent={{-100,-74},{-32,-88}},
           textColor={255,0,255},
-          textString="u1InIsoValClo",
+          textString="u1InlIsoValClo",
           visible=have_endSwi),
         Text(
           extent={{60,36},{98,24}},

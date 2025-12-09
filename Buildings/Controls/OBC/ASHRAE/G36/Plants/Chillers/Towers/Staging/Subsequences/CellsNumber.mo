@@ -7,11 +7,11 @@ block CellsNumber
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
   parameter Integer nTowCel = 4
     "Total number of cooling tower cells";
-  parameter Integer totSta = 6
+  parameter Integer nPlaSta = 6
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
-  parameter Real staVec[totSta]={0,0.5,1,1.5,2,2.5}
+  parameter Real staVec[nPlaSta]={0,0.5,1,1.5,2,2.5}
     "Plant stage vector with size of total number of stages, element value like x.5 means chiller stage x plus WSE";
-  parameter Integer towCelOnSet[totSta] = {0,2,2,4,4,4}
+  parameter Integer towCelOnSet[nPlaSta] = {0,2,2,4,4,4}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
@@ -65,27 +65,27 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=totSta) "Replicate real input"
+    final nout=nPlaSta) "Replicate real input"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4[totSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4[nPlaSta](
     final k=staVec) "Stage indicator array"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub4[totSta] "Sum of real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub4[nPlaSta] "Sum of real inputs"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[totSta](
-    final t=fill(-0.1,totSta)) "Check stage indicator"
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nPlaSta](
+    final t=fill(-0.1,nPlaSta)) "Check stage indicator"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totSta]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPlaSta]
     "Convert boolean input to integer"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    final nin=totSta) "Sun of input vector "
+    final nin=nPlaSta) "Sun of input vector "
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor celOnNum(
-    final nin=totSta)
+    final nin=nPlaSta)
     "Number of cells should be enabled at current plant stage"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant con5[totSta](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant con5[nPlaSta](
     final k=towCelOnSet)
     "Number of enabling cells at each stage"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
@@ -106,7 +106,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Chiller stage index to identify total number of enabling cells"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[totSta]
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPlaSta]
     "Break algebric loop"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
@@ -126,7 +126,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And anyPumOn
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[totSta]
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPlaSta]
     "Convert to real"
     annotation (Placement(transformation(extent={{80,140},{100,160}})));
 equation

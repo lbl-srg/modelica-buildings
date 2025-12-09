@@ -6,16 +6,16 @@ block Speed
     "Flag to indicate if the plant has water side economizer";
   parameter Boolean fixSpe = false
     "Flag to indicate if the plant has fix speed condenser water pump";
-  parameter Integer totSta = 6
+  parameter Integer nPlaSta = 6
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Integer nChiSta = 3
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
-  parameter Real staVec[totSta] = {0, 0.5, 1, 1.5, 2, 2.5}
+  parameter Real staVec[nPlaSta] = {0, 0.5, 1, 1.5, 2, 2.5}
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE";
-  parameter Real desConWatPumSpe[totSta] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
+  parameter Real desConWatPumSpe[nPlaSta] = {0, 0.5, 0.75, 0.6, 0.75, 0.9}
     "Design condenser water pump speed setpoint, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage", enable=not fixSpe));
-  parameter Integer desConWatPumNum[totSta] = {0,1,1,2,2,2}
+  parameter Integer desConWatPumNum[nPlaSta] = {0,1,1,2,2,2}
     "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status"
     annotation (Dialog(group="Setpoint according to stage"));
   parameter Integer desChiNum[nChiSta] = {0, 1, 2}
@@ -42,25 +42,25 @@ block Speed
 
 protected
   Buildings.Controls.OBC.CDL.Routing.IntegerExtractor conWatPumOn(
-    final nin=totSta) if not fixSpe
+    final nin=nPlaSta) if not fixSpe
     "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor conWatPumSpe(
-    final nin=totSta) if not fixSpe
+    final nin=nPlaSta) if not fixSpe
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[totSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nPlaSta](
     final k=desConWatPumSpe) if not fixSpe
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[totSta](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nPlaSta](
     final k=desConWatPumNum) if not fixSpe
     "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea if not fixSpe
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3[totSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3[nPlaSta](
     final k=staVec) if not fixSpe
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -72,22 +72,22 @@ protected
     "Add two real inputs"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=totSta) if not fixSpe
+    final nout=nPlaSta) if not fixSpe
     "Replicate real input"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub1[totSta] if not fixSpe
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1[nPlaSta] if not fixSpe
     "Add two real inputs"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[totSta](
-    final t=fill(-0.1, totSta)) if not fixSpe
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nPlaSta](
+    final t=fill(-0.1, nPlaSta)) if not fixSpe
     "Identify current stage"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totSta]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPlaSta]
     if not fixSpe
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    final nin=totSta) if not fixSpe
+    final nin=nPlaSta) if not fixSpe
     "Current stage index"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(

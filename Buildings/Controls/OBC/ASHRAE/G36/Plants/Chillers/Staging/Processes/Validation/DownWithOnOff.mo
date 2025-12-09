@@ -5,7 +5,7 @@ model DownWithOnOff
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Down
     dowProCon(
     final nChi=2,
-    final totSta=4,
+    final nPlaSta=4,
     final have_ponyChiller=true,
     final need_reduceChillerDemand=true,
     final chaChiWatIsoTim=300,
