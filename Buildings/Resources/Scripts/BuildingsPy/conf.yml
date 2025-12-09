@@ -8,15 +8,23 @@
     time_out: 600
 - model_name: Buildings.DHC.ETS.Combined.Examples.HeatRecoveryHeatPump
   openmodelica:
-    comment: 'Internal error NFCeval.evalBinaryDiv failed to evaluate ‘datHeaPum.QCooAct_flow_nominal / 5.0‘'
+    comment: "Internal error NFCeval.evalBinaryDiv failed to evaluate datHeaPum.QCooAct_flow_nominal / 5.0"
     translate: false
 - model_name: Buildings.DHC.ETS.Combined.Validation.HeatRecoveryHeatPump
   openmodelica:
-    comment: 'Internal error NFCeval.evalBinaryDiv failed to evaluate ‘datHeaPum.QCooAct_flow_nominal / 5.0‘'
+    comment: "Internal error NFCeval.evalBinaryDiv failed to evaluate datHeaPum.QCooAct_flow_nominal / 5.0"
     translate: false
 - model_name: Buildings.DHC.ETS.Combined.Validation.HeatRecoveryHeatPumpWSE
   openmodelica:
-    comment: 'Internal error NFCeval.evalBinaryDiv failed to evaluate ‘datHeaPum.QCooAct_flow_nominal / 5.0‘'
+    comment: "Internal error NFCeval.evalBinaryDiv failed to evaluate datHeaPum.QCooAct_flow_nominal / 5.0"
+    translate: false
+- model_name: Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithDHW
+  openmodelica:
+    comment: "Internal error NFCeval.evalBinaryDiv failed to evaluate bui.ets.datHeaPum.mEva_flow_nominal / 995.586"
+    translate: false
+- model_name: Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithoutDHW
+  openmodelica:
+    comment: "Internal error NFCeval.evalBinaryDiv failed to evaluate bui.ets.datHeaPum.mEva_flow_nominal / 995.586"
     translate: false
 - model_name: Buildings.DHC.Examples.Combined.SeriesConstantFlow
   openmodelica:
@@ -33,14 +41,6 @@
   optimica:
     comment: Failed to solve nonlinear equations even with 1E-8.
     simulate: false
-- model_name: Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithDHW
-  openmodelica:
-    comment: 'Internal error NFCeval.evalBinaryDiv failed to evaluate ‘bui.ets.datHeaPum.mEva_flow_nominal / 995.586‘'
-    translate: false
-- model_name: Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithoutDHW
-  openmodelica:
-    comment: 'Internal error NFCeval.evalBinaryDiv failed to evaluate ‘bui.ets.datHeaPum.mEva_flow_nominal / 995.586‘'
-    translate: false
 - model_name: Buildings.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization
