@@ -14,7 +14,6 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time, sta
 
     import pandas as pd
     import os
-    import sys
 
     data_file = os.path.join('EnergyPlus', 'eplusout.csv')
 

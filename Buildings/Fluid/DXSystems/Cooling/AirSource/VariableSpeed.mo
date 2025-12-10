@@ -4,10 +4,10 @@ model VariableSpeed "Variable speed DX cooling coil"
     Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil(
     dxCoi(
       final variableSpeedCoil=true,
-      wetCoi(redeclare
+      wetCoi(replaceable
           Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap),
-      dryCoi(redeclare
+      dryCoi(replaceable
           Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap)),
     use_mCon_flow=false);
@@ -78,6 +78,12 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 26, 2025, by Michael Wetter:<br/>
+Updated redeclare and replaceable statements.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/4421\">issue 4421</a>.
+</li>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
 Renamed class to <code>VariableSpeedDXCooling</code> to differentiate it from DX heating coils.<br/>
