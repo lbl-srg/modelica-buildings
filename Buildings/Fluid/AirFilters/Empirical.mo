@@ -1,5 +1,6 @@
 within Buildings.Fluid.AirFilters;
 model Empirical "Empirical air filter model"
+  extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model"
     annotation (choices(
@@ -44,7 +45,7 @@ model Empirical "Empirical air filter model"
     final mCon_max=per.mCon_max,
     final mCon_start=per.mCon_start,
     final nConSub=nConSub) "Contaminant accumulation"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-60,36},{-40,56}})));
 
 protected
   parameter Integer nConSub = size(per.namCon,1)
@@ -54,55 +55,53 @@ protected
     final m_flow_nominal=per.m_flow_nominal,
     final dp_nominal=per.dp_nominal)
     "Pressure resistance"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassTransfer masTra(
     redeclare package Medium = Medium,
-    final m_flow_nominal=per.m_flow_nominal,
     final namCon=per.namCon)
     "Contaminant removal"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency filEff(
     final mCon_max=per.mCon_max,
     final namCon=per.namCon,
     final filEffPar=per.filEffPar) "Filtration efficiency"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+    annotation (Placement(transformation(extent={{-20,36},{0,56}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection floCor(
     final b=per.b)
     "Flow coefficient correction"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+    annotation (Placement(transformation(extent={{40,42},{60,62}})));
 
 equation
   connect(masAcc.mCon,filEff. mCon)
-    annotation (Line(points={{-38,60},{-22,60}},color={0,0,127}));
+    annotation (Line(points={{-38,46},{-22,46}},color={0,0,127}));
   connect(masAcc.uRep,uRep)
-    annotation (Line(points={{-62,54},{-80,54},{-80,80},{-120,80}},
+    annotation (Line(points={{-62,40},{-94,40},{-94,80},{-120,80}},
       color={255,0,255}));
-  connect(filEff.rat,floCor. rat) annotation (Line(points={{2,66},{20,66},{20,60},
-          {38,60}}, color={0,0,127}));
-  connect(floCor.y, res.dpCor) annotation (Line(points={{62,60},{70,60},{70,20},{
-          -50,20},{-50,12}}, color={0,0,127}));
-  connect(masTra.mCon_flow, masAcc.mCon_flow) annotation (Line(points={{62,6},{80,
-          6},{80,30},{-70,30},{-70,60},{-62,60}},   color={0,0,127}));
-  connect(masTra.port_a, res.port_b)
-    annotation (Line(points={{40,0},{-40,0}}, color={0,127,255}));
-  connect(masTra.port_b, port_b)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(res.port_a, port_a)
-    annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
-  connect(filEff.y, eps) annotation (Line(points={{2,54},{20,54},{20,40},{120,40}},
+  connect(filEff.rat,floCor. rat) annotation (Line(points={{2,52},{38,52}},
+                    color={0,0,127}));
+  connect(floCor.y, res.dpCor) annotation (Line(points={{62,52},{70,52},{70,12}},
+                             color={0,0,127}));
+  connect(masTra.mCon_flow, masAcc.mCon_flow) annotation (Line(points={{42,6},{
+          48,6},{48,14},{-72,14},{-72,46},{-62,46}},color={0,0,127}));
+  connect(filEff.y, eps) annotation (Line(points={{2,40},{120,40}},
                 color={0,0,127}));
-  connect(masTra.eps,filEff. y) annotation (Line(points={{38,6},{20,6},{20,54},{
-          2,54}}, color={0,0,127}));
-  connect(masAcc.yRep, yRep) annotation (Line(points={{-38,68},{-30,68},{-30,80},
+  connect(masTra.eps,filEff. y) annotation (Line(points={{18,6},{10,6},{10,40},
+          {2,40}},color={0,0,127}));
+  connect(masAcc.yRep, yRep) annotation (Line(points={{-38,54},{-30,54},{-30,80},
           {120,80}}, color={255,0,255}));
+  connect(port_a, masTra.port_a)
+    annotation (Line(points={{-100,0},{20,0}}, color={0,127,255}));
+  connect(masTra.port_b, res.port_a)
+    annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
+  connect(res.port_b, port_b)
+    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
 annotation (defaultComponentName="airFil",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
+                                Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-20,90},{22,-80}},
           lineColor={28,108,200},
@@ -258,11 +257,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-145,-100},{155,-140}},
-          textColor={0,0,255},
-          textString="%name")}),
+          fillPattern=FillPattern.Solid)}),
 Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

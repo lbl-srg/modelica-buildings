@@ -1,6 +1,8 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
   "Flow coefficient correction factor due to the contaminant accumulation"
+  extends Modelica.Blocks.Icons.Block;
+
   parameter Real b(min=1)=1.1
     "Resistance coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
@@ -23,16 +25,7 @@ equation
   y=b^rat;
 
 annotation (defaultComponentName="coeCor",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-100,140},{100,100}},
-          textColor={0,0,255},
-          textString="%name")}),
+  Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

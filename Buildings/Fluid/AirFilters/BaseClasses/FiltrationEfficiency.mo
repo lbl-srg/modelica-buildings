@@ -1,6 +1,7 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FiltrationEfficiency
   "Filtration efficiencies for capturing each contaminant"
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Units.SI.Mass mCon_max
     "Maximum mass of the contaminant that can be captured by the filter";
@@ -36,16 +37,7 @@ equation
                 ySup=filEffPar.eps[i])
                 "Calculate the filtration efficiency";
   end for;
-annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-100,140},{100,100}},
-          textColor={0,0,255},
-          textString="%name")}),
+annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="eps",
 Documentation(info="<html>

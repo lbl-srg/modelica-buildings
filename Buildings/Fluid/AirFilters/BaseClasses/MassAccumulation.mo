@@ -1,6 +1,8 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model MassAccumulation
   "Mass of the contaminants capatured by the filter"
+  extends Modelica.Blocks.Icons.Block;
+
   parameter Integer nConSub(
     final min=1)=1
     "Total number of contaminant substance types";
@@ -75,10 +77,7 @@ equation
   connect(edg.y, intWitRes.trigger) annotation (Line(points={{-38,-80},{-10,-80},
           {-10,-12}}, color={255,0,255}));
 annotation (defaultComponentName="masAcc",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-     Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200},
-               fillColor={255,255,255}, fillPattern=FillPattern.Solid),
-     Text(extent={{-100,140},{100,100}}, textColor={0,0,255}, textString="%name")}),
+  Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

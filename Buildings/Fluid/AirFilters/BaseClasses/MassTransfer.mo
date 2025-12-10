@@ -1,7 +1,7 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model MassTransfer
   "Component that sets the trace substance at the filter outlet"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
   parameter String namCon[:]
     "Name of contaminant substance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput eps[nConSub](
@@ -37,7 +37,7 @@ initial equation
 equation
   // Modify the substances individually.
   for i in 1:Medium.nC loop
-      if max(s[i]) > 0.9 then
+      if max(s[i]) > 0.9 then // fixme: why max?
         for j in 1:nConSub loop
            if s[i,j]>0.9 then
               port_b.C_outflow[i]=inStream(port_a.C_outflow[i])*(1 - eps[j] * s[i,j]);
@@ -60,21 +60,83 @@ equation
   port_a.h_outflow=inStream(port_b.h_outflow);
   port_b.h_outflow=inStream(port_a.h_outflow);
 
-  if not allowFlowReversal then
-    assert(m_flow>-m_flow_small,
-      "In " + getInstanceName() + ": Reverting flow occurs even though allowFlowReversal is false.",
-      level=AssertionLevel.error);
-  end if;
-
 annotation (defaultComponentName="masTra",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-    Rectangle(extent={{-100,100},{100,-100}}, fillColor={255,255,255},
-              fillPattern=FillPattern.Solid, pattern=LinePattern.None),
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
+                                Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-60,-56},{-54,-62}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-64,-30},{-58,-36}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-48,-34},{-42,-40}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-46,-16},{-40,-22}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-62,-6},{-56,-12}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-62,42},{-56,36}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-50,32},{-44,26}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-64,20},{-58,14}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-54,66},{-48,60}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{40,-20},{46,-26}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{38,34},{44,28}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{0,86},{0,-84}},
+          color={28,108,200},
+          thickness=0.5)}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
