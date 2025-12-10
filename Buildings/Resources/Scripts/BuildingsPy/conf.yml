@@ -230,15 +230,15 @@
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
-    comment: MemoryError during compilatio, it is likely that the process ran out of memory.
+    comment: MemoryError during compilation, it is likely that the process ran out of memory.
     translate: false
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRateStep100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
-    comment: Timeout after 300 s
-    time_out: 600
+    comment: MemoryError during compilation, it is likely that the process ran out of memory.
+    translate: false
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 600
@@ -495,8 +495,8 @@
     time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
-    comment: Timeout on travis
-    time_out: 600
+    comment: Timeout on travis after 600 s
+    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   openmodelica:
     comment: returned non-zero exit status 255.
