@@ -50,6 +50,8 @@ model ThermalZoneAdapter
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
   final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.Units.SI.Volume V(fixed=false) "Zone volume";
+  final parameter Real XOutCoo(fixed=false) "Humidity ratio at cooling design from E+";
+  final parameter Real XOutHea(fixed=false) "Humidity ratio at heating design from E+";
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
@@ -220,12 +222,15 @@ initial equation
 
   sizHea.QLat_flow=0;
   {AFlo,V,mSenFac,
-    sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, sizCoo.XOut, sizCoo.mOut_flow, sizCoo.t,
-    sizHea.QSen_flow,                   sizHea.TOut, sizHea.XOut, sizHea.mOut_flow, sizHea.t} =
+    sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, XOutCoo, sizCoo.mOut_flow, sizCoo.t,
+    sizHea.QSen_flow,                   sizHea.TOut, XOutHea, sizHea.mOut_flow, sizHea.t} =
       Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
         adapter=adapter,
         nParOut=nParOut,
         isSynchronized=nObj);
+  // Below is for conversion from kg/kg_dry_air (EnergyPlus) to kg/kg_total_air (Modelica)
+  (1/XOutCoo)=(1-sizCoo.XOut)/sizCoo.XOut;
+  (1/XOutHea)=(1-sizHea.XOut)/sizHea.XOut;
 
   m_flow_small=V*3*1.2/3600*1E-10;
   startTime=time;
