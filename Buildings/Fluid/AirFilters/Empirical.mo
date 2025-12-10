@@ -61,25 +61,25 @@ protected
     final namCon=per.namCon)
     "Contaminant removal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency epsCal(
+  Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency filEff(
     final mCon_max=per.mCon_max,
     final namCon=per.namCon,
-    final filEffPar=per.filEffPar) "Filter characterization"
+    final filEffPar=per.filEffPar) "Filtration efficiency"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection coeCor(
+  Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection floCor(
     final b=per.b)
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
 equation
-  connect(masAcc.mCon, epsCal.mCon)
+  connect(masAcc.mCon,filEff. mCon)
     annotation (Line(points={{-38,60},{-22,60}},color={0,0,127}));
   connect(masAcc.uRep,uRep)
     annotation (Line(points={{-62,54},{-80,54},{-80,80},{-120,80}},
       color={255,0,255}));
-  connect(epsCal.rat, coeCor.rat) annotation (Line(points={{2,66},{20,66},{20,60},
+  connect(filEff.rat,floCor. rat) annotation (Line(points={{2,66},{20,66},{20,60},
           {38,60}}, color={0,0,127}));
-  connect(coeCor.y, res.dpCor) annotation (Line(points={{62,60},{70,60},{70,20},{
+  connect(floCor.y, res.dpCor) annotation (Line(points={{62,60},{70,60},{70,20},{
           -50,20},{-50,12}}, color={0,0,127}));
   connect(masTra.mCon_flow, masAcc.mCon_flow) annotation (Line(points={{62,6},{80,
           6},{80,30},{-70,30},{-70,60},{-62,60}},   color={0,0,127}));
@@ -89,9 +89,9 @@ equation
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(res.port_a, port_a)
     annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
-  connect(epsCal.y, eps) annotation (Line(points={{2,54},{20,54},{20,40},{120,40}},
+  connect(filEff.y, eps) annotation (Line(points={{2,54},{20,54},{20,40},{120,40}},
                 color={0,0,127}));
-  connect(masTra.eps, epsCal.y) annotation (Line(points={{38,6},{20,6},{20,54},{
+  connect(masTra.eps,filEff. y) annotation (Line(points={{38,6},{20,6},{20,54},{
           2,54}}, color={0,0,127}));
   connect(masAcc.yRep, yRep) annotation (Line(points={{-38,68},{-30,68},{-30,80},
           {120,80}}, color={255,0,255}));
@@ -273,8 +273,8 @@ It provides a set of parameters and performance characteristics
 that describe how the filter works under various conditions.
 The performance of the air filter is characterized by a performance dataset <code>per</code>
 (see <a href=\"modelica://Buildings.Fluid.AirFilters.Data.Generic\">
-Buildings.Fluid.AirFilters.Data.Generic</a>), which contains key parameters that help
-define filter behavior:
+Buildings.Fluid.AirFilters.Data.Generic</a>), which contains key parameters that
+define the filter:
 </p>
 <ul>
 <li>
@@ -282,9 +282,9 @@ define filter behavior:
 contaminants that can be captured by the filter.
 </li>
 <li>
-<b>Nominal Conditions</b>: It includes the nominal pressure drop <code>dp_nominal</code> and
+<b>Nominal Conditions</b>: They include the nominal pressure drop <code>dp_nominal</code> and
 the nominal mass flow rate <code>m_flow_nominal</code> of the clean filter.
-It also includes the maximum total mass
+They also include the maximum total mass
 of contaminants <code>mCon_max</code> that the filter can hold.
 </li>
 <li>
