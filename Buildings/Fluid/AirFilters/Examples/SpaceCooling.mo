@@ -53,16 +53,14 @@ model SpaceCooling
       (TWRet_nominal - TWSup_nominal)/4200 "Nominal water mass flow rate";
 
   parameter Buildings.Fluid.AirFilters.Data.Generic per(
-    mCon_nominal=5,
-    mCon_reset=0,
+    mCon_max=5,
+    mCon_start=0,
     namCon={"PM10"},
-    filEffPar(rat={{0,0.5,1}},
-    eps={{0.5,0.4,0.2}}),
+    filEffPar(rat={{0,0.5,1}}, eps={{0.5,0.4,0.2}}),
     b=1.3,
     m_flow_nominal=mA_flow_nominal,
-    dp_nominal=50)
-    "Performance dataset of the air filter"
-    annotation (Placement(transformation(extent={{-50,84},{-30,104}})));
+    dp_nominal=50) "Performance dataset of the air filter"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -140,9 +138,9 @@ model SpaceCooling
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
     "Weather data reader"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+    annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-90,60},{-70,80}}),
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
@@ -172,7 +170,7 @@ model SpaceCooling
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Fluid.AirFilters.Empirical airFil(
     redeclare package Medium = MediumA,
-    per=per)
+    per=per) "Air filter"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Modelica.Blocks.Sources.Ramp C_inflow(
     duration=87600/2,
@@ -180,7 +178,7 @@ model SpaceCooling
     offset=10/1000000000/1.293,
     startTime=15552000 + 87600/2)
     "Contaminant mass flow rate fraction"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
+    annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort C_out(
     redeclare package Medium =MediumA,
     m_flow_nominal=mA_flow_nominal,
@@ -219,12 +217,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, out.weaBus) annotation (Line(
-      points={{-120,70},{-90,70},{-90,50},{-150,50},{-150,0.2},{-140,0.2}},
+      points={{-180,70},{-150,70},{-150,0.2},{-140,0.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-120,70},{-80,70}},
+      points={{-180,70},{-150,70}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -232,7 +230,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, TOut.T) annotation (Line(
-      points={{-79.95,70.05},{-36,70.05},{-36,70},{18,70}},
+      points={{-149.95,70.05},{-36,70.05},{-36,70},{18,70}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -277,15 +275,15 @@ equation
           -1},{-110,20},{-100,20}},     color={0,127,255}));
   connect(out.ports[2], hex.port_b2) annotation (Line(points={{-120,1},{-100,1},
           {-100,-12},{-30,-12}}, color={0,127,255}));
-  connect(C_inflow.y, out.C_in[1]) annotation (Line(points={{-119,-40},{-110,
-          -40},{-110,-20},{-150,-20},{-150,-8},{-142,-8}}, color={0,0,127}));
+  connect(C_inflow.y, out.C_in[1]) annotation (Line(points={{-179,-40},{-160,-40},
+          {-160,-8},{-142,-8}},                            color={0,0,127}));
   connect(airFil.port_b, C_out.port_a)
     annotation (Line(points={{-80,20},{-70,20}}, color={0,127,255}));
   connect(C_out.port_b, hex.port_a1) annotation (Line(points={{-50,20},{-40,20},
           {-40,0},{-30,0}},color={0,127,255}));
   connect(repSig.y,airFil.uRep)
     annotation (Line(points={{-118,30},{-110,30},{-110,26},{-102,26}}, color={255,0,255}));
-  connect(C_inflow.y, subDif.u1) annotation (Line(points={{-119,-40},{-74,-40},{
+  connect(C_inflow.y, subDif.u1) annotation (Line(points={{-179,-40},{-74,-40},{
           -74,56},{-42,56}}, color={0,0,127}));
   connect(C_out.C, subDif.u2)
     annotation (Line(points={{-60,31},{-60,44},{-42,44}}, color={0,0,127}));
@@ -325,7 +323,7 @@ across the filter as contaminants build up.
 </ul>
 <p>
 Note that these changes in filtration efficiency and pressure drop are relatively minor
-over the span of a single day, with more pronounced effects expected over weeks or even months.
+over the span of a single day, with more pronounced effects expected over months.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -336,7 +334,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-120},{160,
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-220,-120},{160,
             120}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/Examples/SpaceCooling.mos"

@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters.Data.Characteristics;
 record FiltrationEfficiencyParameters
-  "Record for filtration efficiency verse relative mass of the contaminant captured by the filter"
+  "Record for filtration efficiency versus relative mass of the contaminant captured by the filter"
   extends Modelica.Icons.Record;
 
   parameter Real rat[:,:](each final max=1, each final min=0)

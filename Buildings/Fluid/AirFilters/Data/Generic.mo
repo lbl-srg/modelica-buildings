@@ -4,22 +4,19 @@ record Generic "Generic data record for air filters"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    displayUnit="Pa")
     "Nominal pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real mCon_nominal(
-    final unit = "kg")
+  parameter Modelica.Units.SI.Mass mCon_max
     "Maximum mass of the contaminant that can be captured by the filter"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real mCon_reset(
-    final min = 0,
-    final unit="kg")
+  parameter Modelica.Units.SI.Mass mCon_start(final min=0)
     "Initial contaminant mass of the filter after replacement"
     annotation (Dialog(group="Nominal condition"));
   parameter String namCon[:]={"CO2"}
     "Contaminant names";
-  parameter Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
-    filEffPar
+  parameter Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters filEffPar
     "Filtration efficiency versus relative mass of the contaminant";
   parameter Real b=1.1
     "Resistance coefficient";

@@ -4,19 +4,16 @@ model MassAccumulation
   parameter Integer nConSub(
     final min=1)=1
     "Total number of contaminant substance types";
-  parameter Real mCon_nominal(
-    final unit = "kg")
+  parameter Modelica.Units.SI.Mass mCon_max
     "Maximum mass of the contaminant that can be captured by the filter";
-  parameter Real mCon_reset(
-    final min = 0,
-    final unit = "kg")
+  parameter Modelica.Units.SI.Mass mCon_start(final min=0)
     "Initial contaminant mass of the filter after replacement";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon_flow[nConSub](
     each final unit="kg/s")
     "Contaminant mass flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
-    "True: replace the filter and reset the accumulation"
+    "Switch to true to replace the filter and reset the accumulation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRep
@@ -29,18 +26,17 @@ model MassAccumulation
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(
     final k=1,
-    final y_start=mCon_reset)
+    final y_start=mCon_start)
     "Calculate the mass of contaminant"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    final k=mCon_reset)
+    final k=mCon_start)
     "Constant"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater notFul(final h=0.05*mCon_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Greater notFul(final h=0.05*mCon_max)
     "Check if the filter is full"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
-     final k=mCon_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=mCon_max)
     "Constant"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
@@ -87,9 +83,9 @@ annotation (defaultComponentName="masAcc",
 Documentation(info="<html>
 <p>
 This model mimics the process for a filter to capture the contaminants.
-The mass of the contaminants, <code>mCon</code>, increases by time.
+The mass of the contaminants, <code>mCon</code>, increases over time.
 However, when the input signal <code>uRep</code> changes from <code>false</code>
-to <code>true</code>, <code>mCon</code> is reset to a constant, <code>mCon_reset</code>.
+to <code>true</code>, <code>mCon</code> is reset to <code>mCon_start</code>.
 </p>
 </html>", revisions="<html>
 <ul>

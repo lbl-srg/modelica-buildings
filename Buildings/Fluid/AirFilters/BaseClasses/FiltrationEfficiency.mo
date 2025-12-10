@@ -2,13 +2,11 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model FiltrationEfficiency
   "Filtration efficiencies for capturing each contaminant"
 
-  parameter Real mCon_nominal(
-    final unit = "kg")
+  parameter Modelica.Units.SI.Mass mCon_max
     "Maximum mass of the contaminant that can be captured by the filter";
   parameter String namCon[:]
     "Name of trace substance";
-  parameter Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
-    filEffPar
+  parameter Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters filEffPar
     "Filtration efficiency versus relative mass of the contaminant";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon(
     final unit="kg")
@@ -24,17 +22,13 @@ model FiltrationEfficiency
     final unit="1",
     final min=0,
     final max=1)
-    "Relative mass of the contaminant captured by the filter. It's the total captured contaminant mass divided by the filter's maximum contaminant capacity"
+    "Relative mass of the contaminant captured by the filter, which is the total captured contaminant mass divided by the filter's maximum contaminant capacity"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
 protected
   parameter Integer nConSub = size(namCon,1)
     "Total types of contaminant substances";
 equation
-  rat = Buildings.Utilities.Math.Functions.smoothMin(
-                x1=1,
-                x2= mCon/mCon_nominal,
-                deltaX=0.1)
-                "Calculate the relative mass of the contaminant captured by the filter";
+  rat = mCon/mCon_max "Relative mass of the contaminant captured by the filter";
   for i in 1:nConSub loop
      y[i] = Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=rat,
@@ -58,8 +52,8 @@ Documentation(info="<html>
 <p>
 This model calculates the filtration efficiency, <i>eps</i>, using cubic Hermite
 spline interpolation of the filter dataset (see
-<a href=\"modelica://Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters\">
-Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters</a>)
+<a href=\"modelica://Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters\">
+Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters</a>)
 with respect to the input <i>rat</i>.
 </p>
 <p>
@@ -67,18 +61,18 @@ The <i>rat</i> is the relative mass of the contaminant that is captured by the f
 and is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-rat =  mCon/mCon_nominal,
+rat =  mCon/mCon_max,
 </p>
 <p>
 where <i>mCon</i> is the mass of all the contaminant that is captured by the filter, and
-<i>mCon_nominal</i> is the filter's maximum contaminant capacity.
-</p>
-<P>
-<b>Note:</b>
-The upper limit of <i>rat</i> is 1 and any value exceeding 1 will be capped at 1.
+<i>mCon_max</i> is the filter's maximum contaminant capacity.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 10, 2025, by Michael Wetter:<br/>
+Changed <code>rat</code> to be not bounded by <i>1</i> as there is no need for such a bound.
+</li>
 <li>
 December 22, 2023, by Sen Huang:<br/>
 First implementation.

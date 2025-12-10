@@ -4,15 +4,12 @@ model Empirical "Example for using the empirical air filter model"
   package Medium = Buildings.Media.Air(extraPropertiesNames={"VOC","CO2"})
     "Air";
   parameter Buildings.Fluid.AirFilters.Data.Generic per(
-    mCon_nominal=10,
-    mCon_reset=0,
+    mCon_max=10,
+    mCon_start=0,
     namCon={"CO2","VOC"},
-    filEffPar(
-      rat={{0,0.5,1},{0,0.5,1}},
-      eps={{0.7,0.6,0.5},{0.8,0.7,0.5}}),
+    filEffPar(rat={{0,0.5,1},{0,0.5,1}}, eps={{0.7,0.6,0.5},{0.8,0.7,0.5}}),
     m_flow_nominal=1,
-    dp_nominal=100)
-    "Performance dataset"
+    dp_nominal=100) "Performance dataset"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -101,10 +98,10 @@ First implementation.
 </html>", info="<html>
 <p>
 From 0 to 12 seconds, the testing case is warming-up and the inlet trace substances
-are fixed at <i>0.1kg/kg</i>.
+are fixed at <i>0.1</i> kg/kg.
 </p>
 <p>
-From 20 to 50 seconds, the inlet trace substances changes from <i>0.1</i> to <i>0.07kg/kg</i>.
+From 20 to 50 seconds, the inlet trace substances changes from <i>0.1</i> to <i>0.07</i> kg/kg.
 </p>
 <p>
 At the 30 seconds, the filter replacement signal <code>repSig</code> changes from <i>false</i> to <i>true</i>.

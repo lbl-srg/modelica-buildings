@@ -1,7 +1,15 @@
 within Buildings.Fluid.AirFilters;
 model Empirical "Empirical air filter model"
-  replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
-    "Air";
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium model"
+    annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=293.15,
+              X_a=0.40)
+              "Propylene glycol water, 40% mass fraction")));
 
   parameter Buildings.Fluid.AirFilters.Data.Generic per
     "Performance dataset"
@@ -33,10 +41,9 @@ model Empirical "Empirical air filter model"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
-    final mCon_nominal = per.mCon_nominal,
-    final mCon_reset=per.mCon_reset,
-    final nConSub=nConSub)
-    "Contaminant accumulation"
+    final mCon_max=per.mCon_max,
+    final mCon_start=per.mCon_start,
+    final nConSub=nConSub) "Contaminant accumulation"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
 protected
@@ -55,10 +62,9 @@ protected
     "Contaminant removal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency epsCal(
-    final mCon_nominal = per.mCon_nominal,
+    final mCon_max=per.mCon_max,
     final namCon=per.namCon,
-    final filEffPar=per.filEffPar)
-    "Filter characterization"
+    final filEffPar=per.filEffPar) "Filter characterization"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection coeCor(
     final b=per.b)
@@ -73,7 +79,7 @@ equation
       color={255,0,255}));
   connect(epsCal.rat, coeCor.rat) annotation (Line(points={{2,66},{20,66},{20,60},
           {38,60}}, color={0,0,127}));
-  connect(coeCor.y, res.kCor) annotation (Line(points={{62,60},{70,60},{70,20},{
+  connect(coeCor.y, res.dpCor) annotation (Line(points={{62,60},{70,60},{70,20},{
           -50,20},{-50,12}}, color={0,0,127}));
   connect(masTra.mCon_flow, masAcc.mCon_flow) annotation (Line(points={{62,6},{80,
           6},{80,30},{-70,30},{-70,60},{-62,60}},   color={0,0,127}));
@@ -276,35 +282,40 @@ define filter behavior:
 contaminants that can be captured by the filter.
 </li>
 <li>
-<b>Nominal Conditions</b>: It includes the nominal pressure drop <code>dp_nominal</code>,
-the nominal mass flow rate <code>m_flow_nominal</code>, and the maximum total mass
-of contaminants <code>mCon_nominal</code> that the filter can hold.
+<b>Nominal Conditions</b>: It includes the nominal pressure drop <code>dp_nominal</code> and
+the nominal mass flow rate <code>m_flow_nominal</code> of the clean filter.
+It also includes the maximum total mass
+of contaminants <code>mCon_max</code> that the filter can hold.
 </li>
 <li>
 <b>Resistance Coefficient</b>: The parameter <code>per.b</code> describes how the
 pressure drop of the filter increases as the contaminants accumulate over time.
-(see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
-Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>).
+See <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
+Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>
+for more information.
 </li>
 <li>
 <b>Filtration Efficiency Curves</b>: The array <code>per.filEffPar</code> contains
 the filtration efficiency curves. Each curve defines the efficiencies for capturing
 each contaminant that is defined in <code>per.namCon</code>.
-(see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
-Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
+See <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
+Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>
+for more information.
 </li>
 </ul>
 <p>
 The input boolean flag, <code>uRep</code>, indicates that the filter has been replaced
 and thus reset the mass accumulation to the initial status, i.e.,
 when <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
-mass of the captured contaminants is reset to <code>per.mCon_reset</code>.
+mass of the captured contaminants is reset to <code>per.mCon_start</code>.
 </p>
 <b>Note:</b>
-Warnings will be triggered when,
+<p>
+Warnings will be written when,
+</p>
 <ul>
 <li>
-the captured contaminant mass exceeds the <code>mCon_nominal</code>, or
+the captured contaminant mass exceeds the <code>mCon_max</code>, or
 </li>
 <li>
 the <code>extraPropertiesNames</code> in the medium model does not contain all the

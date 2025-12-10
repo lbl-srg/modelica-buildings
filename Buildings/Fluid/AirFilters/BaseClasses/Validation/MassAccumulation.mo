@@ -3,10 +3,8 @@ model MassAccumulation
   "Validation model for the accumulation of the contaminants"
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
-    mCon_nominal=1,
-    mCon_reset=0)
-    "Contaminant accumulation"
+  Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(mCon_max=1,
+      mCon_start=0) "Contaminant accumulation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp mCon_flow[1](
     each duration=1,

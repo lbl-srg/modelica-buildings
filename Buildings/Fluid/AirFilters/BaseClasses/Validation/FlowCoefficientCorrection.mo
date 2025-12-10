@@ -9,12 +9,12 @@ model FlowCoefficientCorrection
     offset=0)
    "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor
+  Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection dpCor
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(rat.y, kCor.rat)
+  connect(rat.y, dpCor.rat)
     annotation (Line(points={{-39,0},{-12,0}}, color={0,0,127}));
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
@@ -26,7 +26,7 @@ The relative mass of the captured contaminant <code>rat</code>
 changes from <i>0</i> to <i>1</i> from 0 to 1 second.
 </p>
 <p>
-The <code>kCor.y</code> changes from 1 to 1.2 during the period from
+The <code>dpCor.y</code> changes from 1 to 1.2 during the period from
 0 to 1 second.
 </p>
 </html>", revisions="<html>

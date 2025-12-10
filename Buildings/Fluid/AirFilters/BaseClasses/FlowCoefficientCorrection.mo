@@ -1,7 +1,7 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
   "Flow coefficient correction factor due to the contaminant accumulation"
-  parameter Real b=1.1
+  parameter Real b(min=1)=1.1
     "Resistance coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
     final unit="1",
@@ -15,9 +15,8 @@ model FlowCoefficientCorrection
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 initial equation
-  assert(b-1.0>0.01,
-          "In " + getInstanceName() + ":The resistance coefficient must be larger
-          than 1",
+  assert(b>1,
+          "In " + getInstanceName() + ":The resistance coefficient must be larger than 1",
          level = AssertionLevel.error)
          "Validate the resistance coefficient";
 equation
@@ -40,14 +39,14 @@ Documentation(info="<html>
 This model calculates the flow coefficient of the filter by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-kCor = b<sup>rat</sup>,
+dpCor = b<sup>rat</sup>,
 </p>
 <p>
-where <code>b</code> is the resistance coefficient and it must be greater than 1,
+where <code>b</code> is the flow resistance coefficient, which must be greater than <i>1</i>,
 <code>rat</code> is the relative mass of the contaminant that is captured by the filter
-(see descriptions in 
+as described in 
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
-Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
+Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>.
 </p>
 <h4>References</h4>
 <p>

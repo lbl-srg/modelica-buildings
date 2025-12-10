@@ -37,7 +37,7 @@ model PressureDropWithVaryingFlowCoefficient
     m_flow_nominal=0.2,
     dp_nominal=10) "Varying resistance"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Modelica.Blocks.Sources.Pulse kCor(
+  Modelica.Blocks.Sources.Pulse dpCor(
     width=100,
     period=0.5,
     offset=1,
@@ -55,7 +55,7 @@ equation
           {-20,1},{-30,1}}, color={0,127,255}));
   connect(varRes.port_b, sin.ports[2]) annotation (Line(points={{10,40},{18,40},
           {18,1},{30,1}}, color={0,127,255}));
-  connect(kCor.y, varRes.kCor)
+  connect(dpCor.y, varRes.dpCor)
     annotation (Line(points={{-59,72},{0,72},{0,52}}, color={0,0,127}));
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),

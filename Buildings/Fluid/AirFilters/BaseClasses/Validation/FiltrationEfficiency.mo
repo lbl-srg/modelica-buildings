@@ -3,11 +3,9 @@ model FiltrationEfficiency
   "Validation model for the calculation of the filtration efficiency"
   extends Modelica.Icons.Example;
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency eps(
-    mCon_nominal=1,
+    mCon_max=1,
     namCon={"CO2"},
-    filEffPar(rat={{0,0.5,1}},
-    eps={{0.7,0.6,0.5}}))
-    "Filtration efficiency"
+    filEffPar(rat={{0,0.5,1}}, eps={{0.7,0.6,0.5}})) "Filtration efficiency"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp mCon(
     duration=1,

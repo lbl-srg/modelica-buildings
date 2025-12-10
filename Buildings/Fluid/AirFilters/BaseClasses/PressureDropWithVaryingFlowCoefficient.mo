@@ -8,7 +8,7 @@ model PressureDropWithVaryingFlowCoefficient
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation(Evaluate=true, Dialog(group = "Transition to laminar", enable = not linearized));
   Real k "Flow coefficient";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput kCor(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpCor(
     final unit = "1",
     final min = 1)
     "Flow coefficient correction factor"
@@ -29,7 +29,7 @@ initial equation
 equation
   // Pressure drop calculation
   if computeFlowResistance then
-    k = m_flow_nominal_pos / sqrt(dp_nominal_pos * kCor);
+    k = m_flow_nominal_pos / sqrt(dp_nominal_pos * dpCor);
     if linearized then
       if from_dp then
         m_flow = dp*(k^2/ m_flow_nominal_pos);
@@ -82,14 +82,17 @@ This block is implemented based on
 <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
 Buildings.Fluid.FixedResistances.PressureDrop</a>
 and inherits most of its configuration.
-However, its mass flow rate is calculated differently by
+However, its mass flow rate is calculated differently by using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m&#775; = m_flow_nominal/(&radic;<span style=\"text-decoration:overline;\">dp_nominal*kCor</span>)
-&radic;<span style=\"text-decoration:overline;\">&Delta;p</span>,
+m_flow / &radic;<span style=\"text-decoration:overline;\">dp</span> = m_flow_nominal / (&radic;<span style=\"text-decoration:overline;\">dp_nominal*dpCor</span>),
 </p>
 <p>
-where <code>kCor</code> is a correction factor of the flow coefficient.
+where <code>dpCor</code> is a correction factor of the flow coefficient.
+Therefore, if <code>dpCor=1.2</code>,
+at the nominal mass flow rate <code>m_flow_nominal</code>,
+there will be 20% more pressure drop
+than <code>dp_nominal</code>.
 </p>
 </html>", revisions="<html>
 <ul>

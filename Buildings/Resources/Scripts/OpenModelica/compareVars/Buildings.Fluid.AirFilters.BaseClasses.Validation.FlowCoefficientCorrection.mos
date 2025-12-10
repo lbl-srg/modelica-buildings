@@ -1,5 +1,5 @@
 compareVars :=
   {
     "rat.y",
-    "kCor.y"
+    "dpCor.y"
   };
