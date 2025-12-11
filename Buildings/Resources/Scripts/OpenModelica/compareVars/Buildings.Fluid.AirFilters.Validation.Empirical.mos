@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "senTraSubCO2In.C",
+    "senTraSubCO2Out.C",
+    "senTraSubVOCIn.C",
+    "senTraSubVOCOut.C",
+    "airFil.eps[1]",
+    "airFil.eps[2]",
+    "airFil.uRep"
+  };
