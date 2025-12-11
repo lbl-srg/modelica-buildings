@@ -19,16 +19,25 @@ model Empirical "Empirical air filter model"
     "True: replace the filter and reset the accumulation"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRep
     "True if the filter is full and should be replaced"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+        iconTransformation(extent={{100,50},{140,90}})));
+
+  Controls.OBC.CDL.Interfaces.RealOutput rat(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Relative mass of the contaminant captured by the filter, which is the total captured contaminant mass divided by the filter's maximum contaminant capacity"
+    annotation (Placement(transformation(extent={{100,20},{140,60}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps[nConSub](
     each final unit="1",
     each final min=0,
     each final max=1)
     "Filtration efficiency"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
@@ -75,7 +84,6 @@ protected
     final b=per.b)
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{40,42},{60,62}})));
-
 equation
   connect(masAcc.mCon,filEff. mCon)
     annotation (Line(points={{-38,46},{-22,46}},color={0,0,127}));
@@ -88,11 +96,11 @@ equation
                              color={0,0,127}));
   connect(masTra.mCon_flow, masAcc.mCon_flow) annotation (Line(points={{42,6},{
           48,6},{48,14},{-72,14},{-72,46},{-62,46}},color={0,0,127}));
-  connect(filEff.y, eps) annotation (Line(points={{2,40},{120,40}},
+  connect(filEff.y, eps) annotation (Line(points={{2,40},{10,40},{10,-50},{120,-50}},
                 color={0,0,127}));
   connect(masTra.eps,filEff. y) annotation (Line(points={{18,6},{10,6},{10,40},
           {2,40}},color={0,0,127}));
-  connect(masAcc.yRep, yRep) annotation (Line(points={{-38,54},{-30,54},{-30,80},
+  connect(masAcc.yRep, yRep) annotation (Line(points={{-38,54},{-34,54},{-34,80},
           {120,80}}, color={255,0,255}));
   connect(port_a, masTra.port_a)
     annotation (Line(points={{-100,0},{20,0}}, color={0,127,255}));
@@ -100,6 +108,8 @@ equation
     annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
   connect(res.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+  connect(filEff.rat, rat) annotation (Line(points={{2,52},{20,52},{20,70},{88,70},
+          {88,40},{120,40}}, color={0,0,127}));
 annotation (defaultComponentName="airFil",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
@@ -262,7 +272,23 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{76,52},{100,30}},
+          textColor={0,0,0},
+          textString="rat"),
+        Text(
+          extent={{72,-48},{96,-70}},
+          textColor={0,0,0},
+          textString="eps"),
+        Text(
+          extent={{72,84},{96,62}},
+          textColor={0,0,0},
+          textString="yRep"),
+        Text(
+          extent={{-96,72},{-72,50}},
+          textColor={0,0,0},
+          textString="uRep")}),
 Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

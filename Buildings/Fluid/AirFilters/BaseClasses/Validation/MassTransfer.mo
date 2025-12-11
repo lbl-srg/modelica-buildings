@@ -10,7 +10,6 @@ model MassTransfer
     annotation (Placement(transformation(extent={{180,-10},{160,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassTransfer masTra(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     namCon={"CO2","VOC"})
     "Mass transfer"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

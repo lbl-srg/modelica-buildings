@@ -7,8 +7,8 @@ model PressureDropWithVaryingFlowCoefficient
     "Air";
   Modelica.Blocks.Sources.Ramp P(
     duration=1,
-    height=20,
-    offset=101325 - 10)
+    height=200,
+    offset=101325)
     "Ramp pressure signal"
     annotation (Placement(transformation(extent={{-92,-2},{-72,18}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -29,14 +29,18 @@ model PressureDropWithVaryingFlowCoefficient
     redeclare package Medium = Medium,
     m_flow_nominal=0.2,
     from_dp=true,
-    dp_nominal=10) "Fixed resistance"
+    dp_nominal=200)
+                   "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient
     varRes(
     redeclare package Medium = Medium,
     m_flow_nominal=0.2,
+    forceErrorControlOnFlow=false,
+    dp_turbulent=10,
     m=0.5,
-    dp_nominal=10) "Varying resistance"
+    dp_nominal=200)
+                   "Varying resistance"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Modelica.Blocks.Sources.Pulse dpCor(
     width=100,

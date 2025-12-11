@@ -5,7 +5,7 @@ record Generic "Generic data record for air filters"
     "Nominal air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
-    displayUnit="Pa")
+    displayUnit="Pa") = 200
     "Nominal pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Real m(min=0.5, max=1) = 0.85
