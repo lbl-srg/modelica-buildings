@@ -9,8 +9,8 @@ model FourPipe "System model for a four-pipe fan coil unit"
   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
     "Medium for chilled water";
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil
-    heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+  parameter Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil
+    heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.WaterBased
     "Heating coil type"
     annotation (Dialog(group="System parameters"));
 
@@ -242,11 +242,11 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
 protected
-  final parameter Boolean have_hotWat=(heaCoiTyp ==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased)
+  final parameter Boolean have_hotWat=(heaCoiTyp ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.WaterBased)
     "True if a hot water heating coil exists"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
-  final parameter Boolean have_heaEle=(heaCoiTyp ==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)
+  final parameter Boolean have_heaEle=(heaCoiTyp ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.Electric)
     "True if an electric heating coil exists"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
@@ -596,19 +596,19 @@ as follows:
 No heating coil with bypass connector <code>pipByp</code> of class
 <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
 Buildings.Fluid.FixedResistances.PressureDrop</a> if <code>heaCoiTyp</code>
-is set to <code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None</code>.
+is set to <code>Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.None</code>.
 </li>
 <li>
 A hot-water heating coil <code>heaCoiHW</code> of class
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
 Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> if <code>heaCoiTyp</code>
-is set to <code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased</code>.
+is set to <code>Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.WaterBased</code>.
 </li>
 <li>
 An electric heating coil <code>heaCoiEle</code> of class
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
 Buildings.Fluid.HeatExchangers.HeaterCooler_u</a> if <code>heaCoiTyp</code>
-is set to <code>Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric</code>.
+is set to <code>Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.Electric</code>.
 </li>
 </ol>
 </li>
@@ -638,8 +638,8 @@ drop across the two respective coils.
 <p>
 The figure below shows the schematic diagram of the four pipe system when
 <code>heaCoiTyp</code> is set to water based using the enumeration
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil\">
-Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil</a>.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FourPipe/FourPipe_schematic.png\"/>

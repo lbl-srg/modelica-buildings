@@ -6,30 +6,30 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
     "Air medium"
     annotation(__ctrlFlow(enable=false));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typ
+  parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.OutdoorAirSection typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Buildings.Templates.Components.Types.Damper typDamOut=
-    if typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper
-    or typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
-    or typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+    if typ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.SingleDamper
+    or typ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersAirflow
+    or typ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersPressure
     then Buildings.Templates.Components.Types.Damper.Modulating
     else Buildings.Templates.Components.Types.Damper.None
     "Outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Buildings.Templates.Components.Types.Damper typDamOutMin=
-    if typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper
+    if typ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.SingleDamper
     then Buildings.Templates.Components.Types.Damper.None
-    elseif typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+    elseif typ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersAirflow
     then Buildings.Templates.Components.Types.Damper.Modulating
-    elseif typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+    elseif typ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersPressure
     then Buildings.Templates.Components.Types.Damper.TwoPosition
     else Buildings.Templates.Components.Types.Damper.None
     "Minimum outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_recHea
     "Set to true in case of heat recovery";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
+  parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
   parameter

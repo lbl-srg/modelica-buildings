@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model DedicatedDampersPressure
   "Separate dampers for ventilation and economizer, with differential pressure sensor"
   extends Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSectionDedicatedDampers(
-    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure);
+    final typ=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersPressure);
 
   annotation (Documentation(info="<html>
 <p>

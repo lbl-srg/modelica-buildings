@@ -27,12 +27,12 @@ block G36VAVMultiZone
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
+  final parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.ASHRAEClimateZone ashCliZon=
     datAll.ashCliZon
     "ASHRAE climate zone"
     annotation (Dialog(group="Configuration"));
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=
+  final parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.Title24ClimateZone tit24CliZon=
     datAll.tit24CliZon
     "California Title 24 climate zone"
     annotation (Dialog(group="Configuration"));
@@ -57,24 +57,24 @@ block G36VAVMultiZone
     "Number of zones that each group contains"
     annotation(Evaluate=true);
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil typCoiCoo=
+  final parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.CoolingCoil typCoiCoo=
     if coiCoo.typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling then
-      Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+      Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.CoolingCoil.WaterBased
     elseif coiCoo.typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
       coiCoo.typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
-      Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
-    else Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.None
+      Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.CoolingCoil.DXCoil
+    else Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.CoolingCoil.None
     "Type of cooling coil"
     annotation(Evaluate=true);
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil typCoiHea=
+  final parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.HeatingCoil typCoiHea=
     if coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
       coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+      then Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.HeatingCoil.WaterBased
     elseif coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
       coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
-    else Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None
+      then Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.HeatingCoil.Electric
+    else Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.HeatingCoil.None
     "Type of cooling coil"
     annotation(Evaluate=true);
 
@@ -83,7 +83,7 @@ block G36VAVMultiZone
     annotation (Dialog(group="Configuration"));
 
   /*
-  *  Parameters for Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller
+  *  Parameters for Buildings.Controls.OBC.ASHRAE.G36-2018-2018.AHUs.MultiZone.VAV.Controller
   */
 
   final parameter Modelica.Units.SI.VolumeFlowRate VOutUnc_flow_nominal=
@@ -150,7 +150,7 @@ block G36VAVMultiZone
     dat.dVFanRet_flow
     "Airflow differential between supply and return fans to maintain building pressure at setpoint";
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctl(
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.AHUs.MultiZone.VAV.Controller ctl(
     final eneStd=stdEne,
     final venStd=stdVen,
     final ashCliZon=ashCliZon,
@@ -183,40 +183,40 @@ block G36VAVMultiZone
     "AHU controller"
     annotation (Placement(transformation(extent={{-40,-72},{40,72}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone
     aggZonVen_A621(
     final nZon=nZon,
     final nGro=nGro,
     final zonGroMat=isZonInGroInt,
     final zonGroMatTra=isZonInGroIntTra)
-    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
+    if stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1
     "Aggregate zone level ventilation signals - ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.SumZone
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.SumZone
     aggZonVen_T24(
     final nZon=nZon,
     final nGro=nGro,
     final zonGroMat=isZonInGroInt,
     final have_CO2Sen=have_CO2Sen)
-    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
+    if stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.California_Title_24
     "Aggregate zone level ventilation signals - California Title 24"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatusDuplicator repSigZon(
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.ZoneStatusDuplicator repSigZon(
     final nZon=nZon,
     final nZonGro=nGro)
     "Replicate zone signals"
     annotation (Placement(transformation(extent={{-190,100},{-182,140}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.GroupStatus staGro[nGro](
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.GroupStatus staGro[nGro](
     final nBuiZon=fill(nZon, nGro),
     final nGroZon=nZonPerGro,
     final zonGroMsk=isZonInGro)
     "Evaluate zone group status"
     annotation (Placement(transformation(extent={{-170,100},{-150,140}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode opeModSel[nGro](
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.OperationMode opeModSel[nGro](
     final nZon=nZonPerGro)
     "Operation mode selection for each zone group"
     annotation (Placement(transformation(extent={{-130,104},{-110,136}})));
@@ -260,7 +260,7 @@ block G36VAVMultiZone
     final k=isZonInGroIntTra)
     "Assign group operating mode to each zone belonging to group"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem ahuMod(
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.ZoneGroupSystem ahuMod(
     final nGro=nGro)
     "Compute the AHU operating mode"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
@@ -271,10 +271,10 @@ equation
   connect(bus.pAirSup_rel, ctl.dpDuc);
   connect(bus.TOut, ctl.TOut);
   connect(bus.TAirSup, ctl.TAirSup);
-  if typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper then
+  if typSecOut==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.SingleDamper then
     connect(bus.VOut_flow, ctl.VAirOut_flow);
   end if;
-  if typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow then
+  if typSecOut==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersAirflow then
     connect(bus.VOutMin_flow, ctl.VAirOut_flow);
   end if;
 
@@ -489,21 +489,21 @@ It contains the following components.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.AHUs.MultiZone.VAV.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.AHUs.MultiZone.VAV.Controller</a>:
 Main controller for the air handler
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.GroupStatus\">
-Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.GroupStatus</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.GroupStatus\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.GroupStatus</a>
 and
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode\">
-Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.OperationMode\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.OperationMode</a>:
 Computation of the zone group operating mode out of zone-level signals
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem\">
-Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.ZoneGroupSystem\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.ZoneGroupSystem</a>:
 Computation of the AHU operating mode
 </li>
 </ul>

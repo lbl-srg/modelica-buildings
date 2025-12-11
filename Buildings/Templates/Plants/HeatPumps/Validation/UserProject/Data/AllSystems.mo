@@ -3,9 +3,9 @@ class AllSystems
   "Top-level (whole building) system parameters"
   extends Buildings.Templates.Data.AllSystems(
     sysUni=Buildings.Templates.Types.Units.SI,
-    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
-    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B);
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.EnergyStandard.ASHRAE90_1,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ASHRAEClimateZone.Zone_3B);
   parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant pla(
     hp(
       capHeaHp_nominal=500E3,

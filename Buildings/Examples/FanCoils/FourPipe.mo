@@ -170,7 +170,7 @@ model FourPipe
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
-    heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None,
+    heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.None,
     QCooCoi_flow_nominal=-20000,
     dpAir_nominal=100,
     mCooCoiWat_flow_nominal=4*0.2984,
@@ -179,9 +179,9 @@ model FourPipe
     "Fan coil unit with no heating coil"
     annotation (Placement(transformation(extent={{28,140},{68,180}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU1(
-    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None,
+  Buildings.Controls.OBC.ASHRAE.G36-2018.FanCoilUnits.Controller conFCU1(
+    cooCoi=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.CoolingCoil.WaterBased,
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.None,
     cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     kCoo=0.25,
     TiCoo=60,
@@ -205,9 +205,9 @@ model FourPipe
     "Weather data reader"
     annotation (Placement(transformation(extent={{268,178},{248,198}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU2(
-    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+  Buildings.Controls.OBC.ASHRAE.G36-2018.FanCoilUnits.Controller conFCU2(
+    cooCoi=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.CoolingCoil.WaterBased,
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.WaterBased,
     cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     kCoo=0.25,
     TiCoo=60,
@@ -225,9 +225,9 @@ model FourPipe
     "Fan coil unit controller"
     annotation (Placement(transformation(extent={{-80,-12},{-40,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller conFCU3(
-    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
+  Buildings.Controls.OBC.ASHRAE.G36-2018.FanCoilUnits.Controller conFCU3(
+    cooCoi=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.CoolingCoil.WaterBased,
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.Electric,
     cooConTyp=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     kCoo=0.25,
     TiCoo=60,
@@ -310,7 +310,7 @@ model FourPipe
     redeclare package MediumA = MediumA,
     redeclare package MediumHW = MediumW,
     redeclare package MediumCHW = MediumW,
-    heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
+    heaCoiTyp=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.Electric,
     QCooCoi_flow_nominal=-20000,
     dpAir_nominal=100,
     mCooCoiWat_flow_nominal=4*0.2984,
@@ -629,8 +629,8 @@ equation
 Documentation(info="<html>
 <p>
 This model demonstrates the usage of
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a>,
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.FanCoilUnits.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.FanCoilUnits.Controller</a>,
 a controller for four-pipe fan coil units based on the sequences defined
 in ASHRAE Guideline 36, 2021.
 </p>
@@ -676,8 +676,8 @@ to avoid unecessary heating and cooling use and avoid extreme temperature fluctu
 <p>
 See the model <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FourPipe\">
 Buildings.Fluid.ZoneEquipment.FourPipe</a> and
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Controller</a> for a
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.FanCoilUnits.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.FanCoilUnits.Controller</a> for a
 description of the fan coil unit and the controller, respectively.
 </p>
 <p>

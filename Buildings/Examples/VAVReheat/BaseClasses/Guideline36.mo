@@ -66,27 +66,27 @@ model Guideline36
       unit="K",
       displayUnit="degC") = 297.15) "Occupied cooling setpoint for zone air"
     annotation (Placement(transformation(extent={{-340,430},{-320,450}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.AHUs.MultiZone.VAV.Controller conAHU(
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.EnergyStandard.ASHRAE90_1,
 
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1,
 
-    final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A,
+    final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ASHRAEClimateZone.Zone_5A,
 
-    final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
+    final freSta=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.FreezeStat.No_freeze_stat,
 
-    final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
+    final minOADes=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.SingleDamper,
 
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief,
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.PressureControl.BarometricRelief,
 
-    final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
+    final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ControlEconomizer.FixedDryBulb,
 
     final have_perZonRehBox=true,
     final VUncDesOutAir_flow=0.644,
     final VDesTotOutAir_flow=1.107) "Air handler unit controller"
     annotation (Placement(transformation(extent={{460,460},{540,636}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.ASHRAE62_1.SumZone
     sumZon(
     final nZon=numZon,
     final nGro=1,
@@ -94,17 +94,17 @@ model Guideline36
     final zonGroMatTra=[1; 1; 1; 1; 1])
     "Sum up zone ventilation setpoints"
     annotation (Placement(transformation(extent={{240,580},{260,600}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode opeModSel(
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.OperationMode opeModSel(
     final nZon=numZon) "Operation mode"
     annotation (Placement(transformation(extent={{-40,380},{-20,420}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus zonSta[numZon]
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.ZoneStatus zonSta[numZon]
     "Status of different zone temperature"
     annotation (Placement(transformation(extent={{-220,380},{-200,408}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.GroupStatus groSta(final nBuiZon=
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.GroupStatus groSta(final nBuiZon=
        numZon)
     "Zone group status"
     annotation (Placement(transformation(extent={{-120,380},{-100,420}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints TZonSet[numZon](
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ThermalZones.Setpoints TZonSet[numZon](
     final have_occSen=fill(false, numZon),
     final have_winSen=fill(false, numZon),
     final have_locAdj=fill(false, numZon)) "Zone setpoint temperature"
@@ -123,8 +123,8 @@ model Guideline36
     final nout=numZon)
     "All zones in same operation mode"
     annotation (Placement(transformation(extent={{20,300},{40,320}})));
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller conVAV[numZon](
-    final venStd=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1, numZon),
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.TerminalUnits.Reheat.Controller conVAV[numZon](
+    final venStd=fill(Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1, numZon),
     final have_winSen=fill(false, numZon),
     final have_occSen=fill(false, numZon),
     final have_CO2Sen=fill(false, numZon),
@@ -171,7 +171,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Reset back to normal after freeze protection"
     annotation (Placement(transformation(extent={{340,350},{360,370}})));
-  Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem ahuMod(
+  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.ZoneGroupSystem ahuMod(
     final nGro=1)
     "AHU operating mode"
     annotation (Placement(transformation(extent={{240,630},{260,650}})));
@@ -427,8 +427,8 @@ for a description of the HVAC system.
 <p>
 The control is based on ASHRAE Guideline 36, and implemented
 using the sequences from the library
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">
-Buildings.Controls.OBC.ASHRAE.G36</a> for
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018\">
+Buildings.Controls.OBC.ASHRAE.G36-2018</a> for
 multi-zone VAV systems with economizer. 
 The figures below shows the schematic diagram and controls of an HVAC system that supplies 5 zones:
 </p>

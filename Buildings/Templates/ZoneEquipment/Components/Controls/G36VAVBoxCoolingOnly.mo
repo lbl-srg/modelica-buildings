@@ -19,18 +19,18 @@ It contains the following components.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.TerminalUnits.CoolingOnly.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.TerminalUnits.CoolingOnly.Controller</a>:
 Main controller for the terminal unit
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints\">
-Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.ThermalZones.Setpoints\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.ThermalZones.Setpoints</a>:
 Computation of the zone temperature setpoints
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus\">
-Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.ZoneStatus\">
+Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.ZoneStatus</a>:
 Computation of the zone warm-up and cooldown time
 </li>
 </ul>
