@@ -1455,8 +1455,7 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{480,110},{500,130}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator uChiSwi(
-    final nout=nChi)
-    "In chiller stage up process"
+    final nout=nChi) "In chiller stage up process"
     annotation (Placement(transformation(extent={{460,340},{480,360}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch chiComSta[nChi]
@@ -1696,6 +1695,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[nTowCel](
     final k=fill(false,nTowCel)) if not have_airCoo "Constant false"
     annotation (Placement(transformation(extent={{740,-650},{760,-630}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And chiEnaPla[nChi] "Chiller enabled"
+    annotation (Placement(transformation(extent={{680,340},{700,360}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator plaSta(
+    final nout=nChi) "Plant staus"
+    annotation (Placement(transformation(extent={{620,550},{640,570}})));
 
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-268,72},{-580,72},
@@ -1955,8 +1961,6 @@ equation
           {-600,720},{940,720}}, color={255,0,255}));
   connect(wseSta.yPumSpe, yWsePumSpe) annotation (Line(points={{-656,310},{-590,
           310},{-590,690},{940,690}}, color={0,0,127}));
-  connect(chiComSta.y, disChi.uChi) annotation (Line(points={{662,350},{710,350},
-          {710,-462},{738,-462}}, color={255,0,255}));
   connect(chiIsoVal.y, disChi.uChiWatIsoVal) annotation (Line(points={{562,-30},
           {660,-30},{660,-466},{738,-466}}, color={0,0,127}));
   connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,640},{
@@ -1993,8 +1997,6 @@ equation
           -24},{-140,280},{-740,280},{-740,326},{-704,326}}, color={255,127,0}));
   connect(chaProUpDown.y, disChi.chaPro) annotation (Line(points={{402,-80},{
           410,-80},{410,-482},{738,-482}}, color={255,0,255}));
-  connect(chiComSta.y, yChi)
-    annotation (Line(points={{662,350},{940,350}}, color={255,0,255}));
   connect(disChi.yTowCel, booScaRep3.u) annotation (Line(points={{762,-490},{
           770,-490},{770,-580},{778,-580}}, color={255,0,255}));
   connect(booScaRep3.y, celCom.u2) annotation (Line(points={{802,-580},{820,
@@ -2171,6 +2173,16 @@ equation
           -628},{878,-628}}, color={255,0,255}));
   connect(towCon.y1IsoVal, logSwi.u1) annotation (Line(points={{-172,-620},{720,
           -620},{720,-612},{878,-612}}, color={255,0,255}));
+  connect(chiComSta.y, chiEnaPla.u1)
+    annotation (Line(points={{662,350},{678,350}}, color={255,0,255}));
+  connect(chiEnaPla.y, yChi)
+    annotation (Line(points={{702,350},{940,350}}, color={255,0,255}));
+  connect(plaEna.yPla, plaSta.u) annotation (Line(points={{-658,-500},{-580,-500},
+          {-580,680},{600,680},{600,560},{618,560}}, color={255,0,255}));
+  connect(plaSta.y, chiEnaPla.u2) annotation (Line(points={{642,560},{670,560},{
+          670,342},{678,342}}, color={255,0,255}));
+  connect(chiEnaPla.y, disChi.uChi) annotation (Line(points={{702,350},{710,350},
+          {710,-462},{738,-462}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
