@@ -164,15 +164,18 @@ block Controller "Cooling tower controller"
   parameter Integer towCelOnSet[nPlaSta]={0,1,1,2,2}
     "Design number of tower fan cells that should be enabled, according to current chiller stage and WSE status"
     annotation (Dialog(tab="Tower staging"));
-  parameter Boolean have_inlValEndSwi=false
-    "True: tower cells have the end switch feedback from inlet isolation valve"
+  parameter Boolean have_inlIsoVal=true
+    "True: tower cells have the inlet isolation valve"
     annotation (Dialog(tab="Tower staging", group="Isolation valves"));
-  parameter Boolean have_outValEndSwi=false
-    "True: tower cells have the end switch feedback from outlet isolation valve"
-    annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=have_inlValEndSwi));
+  parameter Boolean have_outIsoVal=false
+    "True: tower cells have the outlet isolation valve"
+    annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=have_inlIsoVal));
+  parameter Boolean have_endSwi=false
+    "True: tower cells isolatiove valve have the end switch feedback"
+    annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=have_inlIsoVal));
   parameter Real chaTowCelIsoTim=90
     "Nominal time needed for open isolation valve of the tower cells"
-    annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=not have_inlValEndSwi));
+    annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=have_inlIsoVal and not have_endSwi));
 
   // Water level control
   parameter Real watLevMin(
@@ -266,22 +269,22 @@ block Controller "Cooling tower controller"
     annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
-    if have_inlValEndSwi
+    if have_inlIsoVal and have_endSwi
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-190},{-100,-150}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
-    if have_inlValEndSwi and have_outValEndSwi
+    if have_inlIsoVal and have_endSwi and have_outIsoVal
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-210},{-100,-170}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
-    if have_inlValEndSwi
+    if have_inlIsoVal and have_endSwi
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-140,-230},{-100,-190}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
-    if have_inlValEndSwi and have_outValEndSwi
+    if have_inlIsoVal and have_endSwi and have_outIsoVal
     "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-140,-250},{-100,-210}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
@@ -319,6 +322,7 @@ block Controller "Cooling tower controller"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1IsoVal[nTowCel]
+    if have_inlIsoVal
     "Cooling tower cells isolation valve position"
     annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
       iconTransformation(extent={{100,30},{140,70}})));
@@ -390,8 +394,9 @@ protected
     final nPlaSta=nPlaSta,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
-    final have_inlValEndSwi=have_inlValEndSwi,
-    final have_outValEndSwi=have_outValEndSwi,
+    final have_inlIsoVal=have_inlIsoVal,
+    final have_outIsoVal=have_outIsoVal,
+    final have_endSwi=have_endSwi,
     final chaTowCelIsoTim=chaTowCelIsoTim)
     "Cooling tower staging"
     annotation (Placement(transformation(extent={{0,-68},{20,-40}})));
@@ -616,26 +621,27 @@ annotation (
           extent={{-100,-112},{-32,-126}},
           textColor={255,0,255},
           textString="u1InlIsoValOpe",
-          visible=have_inlValEndSwi),
+          visible=have_inlIsoVal and have_endSwi),
         Text(
           extent={{-96,-132},{-28,-146}},
           textColor={255,0,255},
           textString="u1OutIsoValOpe",
-          visible=have_inlValEndSwi and have_outValEndSwi),
+          visible=have_inlIsoVal and have_endSwi and have_outIsoVal),
         Text(
           extent={{-100,-154},{-32,-168}},
           textColor={255,0,255},
           textString="u1InlIsoValClo",
-          visible=have_inlValEndSwi),
+          visible=have_inlIsoVal and have_endSwi),
         Text(
           extent={{-96,-174},{-28,-188}},
           textColor={255,0,255},
           textString="u1OutIsoValClo",
-          visible=have_inlValEndSwi and have_outValEndSwi),
+          visible=have_inlIsoVal and have_endSwi and have_outIsoVal),
         Text(
           extent={{48,58},{100,42}},
           textColor={255,0,255},
-          textString="y1IsoVal")}),
+          textString="y1IsoVal",
+          visible=have_inlIsoVal)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-260},{100,260}})),
 Documentation(info="<html>
 <p>

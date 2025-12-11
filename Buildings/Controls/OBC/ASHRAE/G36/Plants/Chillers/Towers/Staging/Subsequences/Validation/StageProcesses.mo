@@ -2,33 +2,33 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subseque
 model StageProcesses
   "Validation sequence of tower cells staging process"
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    enaPro(have_inlValEndSwi=true, nTowCel=4)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses enaPro(
+    have_endSwi=true,
+    nTowCel=4)
     "Enable tower cells: inlet isolation valve with end switch status feedback"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    disPro(have_inlValEndSwi=true, nTowCel=4)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses disPro(
+    have_endSwi=true,
+    nTowCel=4)
     "Disable tower cells: inlet isolation valve with end switch status feedback"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    enaPro1(final have_inlValEndSwi=false, final nTowCel=4)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses enaPro1(
+    nTowCel=4)
     "Enable tower cells: inlet isolation valve without end switch status feedback"
     annotation (Placement(transformation(extent={{140,250},{160,270}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    disPro1(have_inlValEndSwi=false, nTowCel=4)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses disPro1(
+    nTowCel=4)
     "Disable tower cells: inlet isolation valve without end switch status feedback"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    enaPro2(
-    have_inlValEndSwi=true,
-    have_outValEndSwi=true,
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses enaPro2(
+    have_outIsoVal=true,
+    have_endSwi=true,
     nTowCel=4)
     "Enable tower cells: inlet and outlet isolation valve with end switch status feedback"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    disPro2(
-    have_inlValEndSwi=true,
-    have_outValEndSwi=true,
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses disPro2(
+    have_outIsoVal=true,
+    have_endSwi=true,
     nTowCel=4)
     "Disable tower cells: inlet and outlet isolation valve with end switch status feedback"
     annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
