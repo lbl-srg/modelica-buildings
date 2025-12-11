@@ -1,13 +1,35 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model PressureDropWithVaryingFlowCoefficient
   "Flow resistance with a varying flow coefficient"
-  extends Buildings.Fluid.BaseClasses.PartialResistance(
-    final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
+  extends Buildings.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
+    m_flow=
+      if Modelica.Math.isEqual(m, 0.5, 1E-10) then
+        rho_default/(dpCor^m)*Buildings.Airflow.Multizone.BaseClasses.powerLaw05(
+          C=C,
+          dp=dp,
+          a=a,
+          b=b,
+          c=c,
+          d=d,
+          dp_turbulent=dp_turbulent,
+          sqrt_dp_turbulent=sqrt_dp_turbulent)
+      else
+        rho_default/(dpCor^m)*Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
+          C=C,
+          dp=dp,
+          m=m,
+          a=a,
+          b=b,
+          c=c,
+          d=d,
+          dp_turbulent=dp_turbulent),
+    final m_flow_small=1E-4*abs(m_flow_nominal));
+  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters(
+    m = 0.85);
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+    "Pressure difference of clean filter at m_flow_nominal"
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Real deltaM(min=1E-6) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs"
-    annotation(Evaluate=true, Dialog(group = "Transition to laminar", enable = not linearized));
-  Real k "Flow coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpCor(
     final unit = "1",
     final min = 1)
@@ -16,61 +38,9 @@ model PressureDropWithVaryingFlowCoefficient
       rotation=-90, origin={0,120})));
 
 protected
-  final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
-    "True: enable computation of flow resistance"
-    annotation(Evaluate=true);
+  parameter Real k=m_flow_nominal/(dp_nominal^m) "Flow coefficient, k = m_flow/ dp^m";
+  parameter Real C=k/rho_default "Flow coefficient, C = V_flow/dp^m";
 
-initial equation
-  if computeFlowResistance then
-    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
-  end if;
-
-  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
-equation
-  // Pressure drop calculation
-  if computeFlowResistance then
-    k = m_flow_nominal_pos / sqrt(dp_nominal_pos * dpCor);
-    if linearized then
-      if from_dp then
-        m_flow = dp*(k^2/ m_flow_nominal_pos);
-      else
-        dp = m_flow * (m_flow_nominal_pos /k^2);
-      end if;
-    else
-      if homotopyInitialization then
-        if from_dp then
-          m_flow=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-              dp=dp,
-              k=k,
-              m_flow_turbulent=m_flow_turbulent),
-            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-        else
-          dp=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-              m_flow=m_flow,
-              k=k,
-              m_flow_turbulent=m_flow_turbulent),
-            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-         end if;  // from_dp
-      else // do not use homotopy
-        if from_dp then
-          m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        else
-          dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-            m_flow=m_flow,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        end if;  // from_dp
-      end if; // homotopyInitialization
-    end if; // linearized
-  else // do not compute flow resistance
-    k = 0;
-    dp = 0;
-  end if;  // computeFlowResistance
 
 annotation (defaultComponentName="res",
 Documentation(info="<html>
@@ -97,9 +67,39 @@ than <code>dp_nominal</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+December 10, 2025, by Michael Wetter:<br/>
+Deleted old implementation as it assumed the pressure drop to be quadratic to the flow rate, which
+is not the case for a filter.
+</li>
+<li>
 December 22, 2023, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-50,34},{52,-34}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-94,6},{-58,-6}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{42,8},{94,-6}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-68,14},{70,-12}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end PressureDropWithVaryingFlowCoefficient;

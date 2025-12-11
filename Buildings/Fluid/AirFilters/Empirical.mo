@@ -53,6 +53,11 @@ protected
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient res(
     redeclare package Medium = Medium,
     final m_flow_nominal=per.m_flow_nominal,
+    final show_T=false,
+    final forceErrorControlOnFlow=false,
+    final useDefaultProperties=true,
+    final dp_turbulent=0.3*per.dp_nominal,
+    final m=per.m,
     final dp_nominal=per.dp_nominal)
     "Pressure resistance"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
