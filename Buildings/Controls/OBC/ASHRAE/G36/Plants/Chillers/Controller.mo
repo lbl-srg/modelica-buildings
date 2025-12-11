@@ -115,15 +115,15 @@ block Controller "Chiller plant controller"
 
   // ---- General: Chiller staging settings ----
 
-  parameter Integer nSta
+  parameter Integer nSta=size(staMat,1)
     "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
-    annotation (Dialog(tab="General",group="Staging configuration"));
+    annotation (Dialog(tab="General",group="Staging configuration", enable=false));
 
   parameter Integer nPlaSta = if have_WSE then 2*(nSta+1) else nSta+1
     "Number of plant stages, including zero stage and the stages with enabled waterside economizer, if applicable"
     annotation (Dialog(tab="General", group="Staging configuration", enable=false));
 
-  parameter Integer staMat[nSta, nChi]
+  parameter Integer staMat[:, nChi]
     "Chiller staging matrix with chiller stage as row index and chiller as column index, not including stage zero: 0 for disabled, 1 for enabled"
     annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration"));
 
