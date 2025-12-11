@@ -40,7 +40,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     dTChiMaxLif={18,18},
     nChiWatPum=2,
     nConWatPum=2,
-    nSta=2,
     final conWatPumStaMat=[0,0; 1,1; 1,1],
     final staMat=[1,0; 1,1],
     cooTowAppDes=2,
