@@ -37,7 +37,7 @@ initial equation
 equation
   // Modify the substances individually.
   for i in 1:Medium.nC loop
-      if max(s[i]) > 0.9 then // fixme: why max?
+      if max(s[i]) > 0.9 then
         for j in 1:nConSub loop
            if s[i,j]>0.9 then
               port_b.C_outflow[i]=inStream(port_a.C_outflow[i])*(1 - eps[j] * s[i,j]);
