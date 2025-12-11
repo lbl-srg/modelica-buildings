@@ -24,6 +24,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.CHPs</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.CHPs.DistrictCHP
+    </td>
+    <td valign=\"top\">Package of CHP models for district energy systems.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3284\">issue 3284</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
 </tr>
