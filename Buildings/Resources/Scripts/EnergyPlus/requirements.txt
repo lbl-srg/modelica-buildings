@@ -1,0 +1,2 @@
+# Requirements file to install the pandas version required by energyplus_csv_to_mos.py
+pandas==2.3.3
