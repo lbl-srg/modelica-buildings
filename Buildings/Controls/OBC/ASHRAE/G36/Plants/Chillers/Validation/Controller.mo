@@ -4,7 +4,6 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller chiPlaCon(
     dTChiMinLif={285.15,285.15},
     dTChiMaxLif={291.15,291.15},
-    nSta=2,
     TOutWetDes=288.15,
     minFloSet={0.0089,0.0089},
     maxFloSet={0.025,0.025},
