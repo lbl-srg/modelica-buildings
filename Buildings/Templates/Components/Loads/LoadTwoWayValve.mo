@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Loads;
 model LoadTwoWayValve
-  "Model of a load on hydronic circuit with flow rate modulation by two-way valve"
+  "Model of a load on a hydronic circuit with flow rate modulation by a two-way valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal);
@@ -67,8 +67,7 @@ model LoadTwoWayValve
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Load modulating signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Fraction of design load"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1 "System enable"
@@ -98,8 +97,7 @@ model LoadTwoWayValve
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpBal1_nominal,
     use_lumFloRes=true,
-    final energyDynamics=energyDynamics)
-    "Diversion connection"
+    final energyDynamics=energyDynamics) "Throttle circuit connection"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")
     "Actual load fraction met" annotation (Placement(transformation(extent={{100,20},
@@ -117,27 +115,23 @@ equation
   connect(con.port_b1, port_b)
     annotation (Line(points={{6,0},{100,0}}, color={0,127,255}));
   connect(con.port_b2, loa.port_a) annotation (Line(points={{-6,20},{-6,40},{
-          -10,40},{-10,60.9091}},
+          -10,40},{-10,60}},
                          color={0,127,255}));
   connect(con.port_a2, loa.port_b) annotation (Line(points={{6,20},{6,40},{10,
-          40},{10,60.9091}},
-                        color={0,127,255}));
-  connect(loa.yVal, con.yVal) annotation (Line(points={{12,68.1818},{20,68.1818},
-          {20,80},{-20,80},{-20,10},{-12,10}},
-                                       color={0,0,127}));
-  connect(u, loa.u) annotation (Line(points={{-120,80},{-40,80},{-40,68.1818},{
-          -12,68.1818}},
+          40},{10,60}}, color={0,127,255}));
+  connect(loa.yVal, con.yVal) annotation (Line(points={{12,68},{20,68},{20,80},
+          {-20,80},{-20,10},{-12,10}}, color={0,0,127}));
+  connect(u, loa.u) annotation (Line(points={{-120,80},{-40,80},{-40,68},{-12,
+          68}},
         color={0,0,127}));
-  connect(loa.yLoa_actual, yLoa_actual) annotation (Line(points={{12,64.5455},{
-          90,64.5455},{90,40},{120,40}},
-                             color={0,0,127}));
-  connect(loa.Q_flow, Q_flow) annotation (Line(points={{12,52.7273},{80,52.7273},
-          {80,-60},{120,-60}},
-                      color={0,0,127}));
+  connect(loa.yLoa_actual, yLoa_actual) annotation (Line(points={{12,64},{90,64},
+          {90,40},{120,40}}, color={0,0,127}));
+  connect(loa.Q_flow, Q_flow) annotation (Line(points={{12,51},{80,51},{80,-60},
+          {120,-60}}, color={0,0,127}));
   connect(con.yVal_actual, yVal_actual) annotation (Line(points={{12,10},{70,10},
           {70,80},{120,80}}, color={0,0,127}));
-  connect(u1, loa.u1) annotation (Line(points={{-120,40},{-40,40},{-40,64.5455},
-          {-12,64.5455}}, color={255,0,255}));
+  connect(u1, loa.u1) annotation (Line(points={{-120,40},{-40,40},{-40,64},{-12,
+          64}},           color={255,0,255}));
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -119,8 +119,7 @@ partial model PartialLoadValveControl
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpBal1_nominal,
     use_lumFloRes=true,
-    final energyDynamics=energyDynamics)
-    "Diversion connection"
+    final energyDynamics=energyDynamics) "Hydronic connection"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")

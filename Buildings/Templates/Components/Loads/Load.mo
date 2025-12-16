@@ -68,8 +68,7 @@ model Load "Model of a load on a hydronic circuit"
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Load modulating signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Fraction of design load"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1 "System enable"
@@ -266,7 +265,7 @@ equation
           -40}}, color={255,0,255}));
   annotation (
   defaultComponentName="loa",
-  Icon(coordinateSystem(extent={{-100,-120},{100,100}}),
+  Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -328,25 +327,18 @@ typically a terminal unit with recirculating air such as
 a fan coil unit.
 It takes the fraction of the design load  <code>u</code> as input 
 and returns the control valve demand signal <code>yVal</code> as output.
-The main modeling assumptions are described below.
 </p>
-<ul>
-<li>
-The heat exchanger is modeled in steady-state by default
-(dynamics may be reintroduced with the parameter 
-<code>energyDynamics</code>).
-</li>
-<li>
+<h4>Modeling assumptions</h4>
+<p>
 No pressure drop is considered on the load side.
 The design pressure drop on the source side may be 
 specified with the parameter <code>dpLiq_nominal</code>.
-</li>
-<li>
+</p>
+<p>
 The inlet conditions on the load side are constant and equal to the 
 design conditions. The mass flow rate is modulated based on the input
 signal <code>u</code>, considering a minimum speed <code>u_min</code>.
-</li>
-</ul>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
