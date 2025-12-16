@@ -3,7 +3,7 @@ model FlowCoefficientCorrection
   "Flow coefficient correction factor due to the contaminant accumulation"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real b(min=1)=1.1
+  parameter Real b(min=1)=2.0
     "Resistance coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
     final unit="1",

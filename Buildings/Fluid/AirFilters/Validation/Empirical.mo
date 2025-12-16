@@ -1,13 +1,15 @@
 within Buildings.Fluid.AirFilters.Validation;
 model Empirical "Example for using the empirical air filter model"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air(extraPropertiesNames={"VOC","CO2"})
+  package Medium = Buildings.Media.Air(extraPropertiesNames={"VOC","Particle"})
     "Air";
   parameter Buildings.Fluid.AirFilters.Data.Generic per(
     mCon_max=10,
     mCon_start=0,
-    namCon={"CO2","VOC"},
-    filEffPar(rat={{0,0.5,1},{0,0.5,1}}, eps={{0.7,0.6,0.5},{0.8,0.7,0.5}}),
+    namCon={"Particle","VOC"},
+    filEffPar={
+      Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(rat={0,0.5,1},eps={0.7,0.6,0.5}),
+      Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(rat={0,0.5,1},eps={0.8,0.7,0.5})},
     m_flow_nominal=1,
     dp_nominal=100) "Performance dataset"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -29,11 +31,11 @@ model Empirical "Example for using the empirical air filter model"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse repSig(period=60, shift=30)
     "Filter replacement signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Ramp C_CO2_inflow(
+  Modelica.Blocks.Sources.Ramp C_particle_inflow(
     duration=30,
     height=-0.03,
     offset=0.1,
-    startTime=20) "Contaminant mass flow rate fraction for CO2"
+    startTime=20) "Contaminant mass flow rate fraction for solid particle"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Modelica.Blocks.Sources.Ramp C_VOC_inflow(
     duration=30,
@@ -47,7 +49,8 @@ model Empirical "Example for using the empirical air filter model"
     per=per) "Air filter"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2In(
-    redeclare package Medium = Medium, m_flow_nominal=1)
+    redeclare package Medium = Medium, m_flow_nominal=1,
+    substanceName="Particle")
     "Trace substance sensor of CO2 in inlet air"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubVOCIn(
@@ -56,7 +59,8 @@ model Empirical "Example for using the empirical air filter model"
     substanceName="VOC") "Trace substance sensor of VOC in inlet air"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2Out(
-    redeclare package Medium = Medium, m_flow_nominal=1)
+    redeclare package Medium = Medium, m_flow_nominal=1,
+    substanceName="Particle")
     "Trace substance sensor of CO2 in outlet air"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubVOCOut(
@@ -67,8 +71,8 @@ model Empirical "Example for using the empirical air filter model"
 equation
   connect(repSig.y,airFil.uRep)  annotation (Line(points={{-18,50},{-10,50},{
           -10,6},{-2,6}}, color={255,0,255}));
-  connect(C_CO2_inflow.y, sou.C_in[2]) annotation (Line(points={{-139,30},{-120,
-          30},{-120,-8},{-102,-8}}, color={0,0,127}));
+  connect(C_particle_inflow.y, sou.C_in[2]) annotation (Line(points={{-139,30},
+          {-120,30},{-120,-8},{-102,-8}}, color={0,0,127}));
   connect(C_VOC_inflow.y, sou.C_in[1]) annotation (Line(points={{-139,-30},{
           -120,-30},{-120,-8},{-102,-8}}, color={0,0,127}));
   connect(senTraSubVOCIn.port_b, airFil.port_a)

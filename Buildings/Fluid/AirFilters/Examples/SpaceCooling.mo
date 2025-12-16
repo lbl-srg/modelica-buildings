@@ -56,7 +56,7 @@ model SpaceCooling
     mCon_max=5,
     mCon_start=0,
     namCon={"PM10"},
-    filEffPar(rat={{0,0.5,1}}, eps={{0.5,0.4,0.2}}),
+    filEffPar={Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(rat={0,0.5,1}, eps={0.5,0.4,0.2})},
     b=1.3,
     m_flow_nominal=mA_flow_nominal,
     dp_nominal=50) "Performance dataset of the air filter"

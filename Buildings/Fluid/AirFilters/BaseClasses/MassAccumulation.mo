@@ -1,6 +1,5 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
-model MassAccumulation
-  "Mass of the contaminants capatured by the filter"
+model MassAccumulation "Mass of the contaminants capatured by the filter"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nConSub(
@@ -35,16 +34,14 @@ model MassAccumulation
     final k=mCon_start)
     "Constant"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater notFul(final h=0.05*mCon_max)
+  Buildings.Controls.OBC.CDL.Reals.Greater notFul(
+    final h=0.05*mCon_max)
     "Check if the filter is full"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=mCon_max)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
+    final k=mCon_max)
     "Constant"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="In " + getInstanceName() + ": The filter needs to be replaced.")
-    "Warning message when the filter is full"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=nConSub) "Summation of the inputs"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -58,8 +55,6 @@ equation
     annotation (Line(points={{2,0},{120,0}},  color={0,0,127}));
   connect(con.y, intWitRes.y_reset_in)
     annotation (Line(points={{-58,-40},{-40,-40},{-40,-8},{-22,-8}}, color={0,0,127}));
-  connect(assMes.u, notFul.y)
-    annotation (Line(points={{58,50},{42,50}}, color={255,0,255}));
   connect(notFul.u2, intWitRes.y)
     annotation (Line(points={{18,42},{10,42},{10,0},{2,0}}, color={0,0,127}));
   connect(con1.y, notFul.u1)

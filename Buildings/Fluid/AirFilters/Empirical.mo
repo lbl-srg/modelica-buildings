@@ -1,16 +1,6 @@
 within Buildings.Fluid.AirFilters;
 model Empirical "Empirical air filter model"
-  extends Buildings.BaseClasses.BaseIcon;
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model"
-    annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   parameter Buildings.Fluid.AirFilters.Data.Generic per
     "Performance dataset"
@@ -25,7 +15,7 @@ model Empirical "Empirical air filter model"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,50},{140,90}})));
 
-  Controls.OBC.CDL.Interfaces.RealOutput rat(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput rat(
     final unit="1",
     final min=0,
     final max=1)
@@ -39,16 +29,6 @@ model Empirical "Empirical air filter model"
     "Filtration efficiency"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare final package Medium = Medium,
-    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare final package Medium = Medium,
-    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
     final mCon_max=per.mCon_max,
@@ -88,7 +68,7 @@ equation
   connect(masAcc.mCon,filEff. mCon)
     annotation (Line(points={{-38,46},{-22,46}},color={0,0,127}));
   connect(masAcc.uRep,uRep)
-    annotation (Line(points={{-62,40},{-94,40},{-94,80},{-120,80}},
+    annotation (Line(points={{-62,40},{-80,40},{-80,80},{-120,80}},
       color={255,0,255}));
   connect(filEff.rat,floCor. rat) annotation (Line(points={{2,52},{38,52}},
                     color={0,0,127}));
@@ -100,7 +80,7 @@ equation
                 color={0,0,127}));
   connect(masTra.eps,filEff. y) annotation (Line(points={{18,6},{10,6},{10,40},
           {2,40}},color={0,0,127}));
-  connect(masAcc.yRep, yRep) annotation (Line(points={{-38,54},{-34,54},{-34,80},
+  connect(masAcc.yRep, yRep) annotation (Line(points={{-38,54},{-30,54},{-30,80},
           {120,80}}, color={255,0,255}));
   connect(port_a, masTra.port_a)
     annotation (Line(points={{-100,0},{20,0}}, color={0,127,255}));
@@ -348,12 +328,16 @@ the <code>extraPropertiesNames</code> in the medium model does not contain all t
 contaminants specified in the <code>per.namCon</code>.
 </li>
 </ul>
-
 <h4>References</h4>
 <ul>
 <li>
 <a href=\"https://nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.1887r1.pdf\">
 CONTAM User Guide and Program Documentation Version 3.4</a>
+</li>
+<li>
+<a href=\"https://doi.org/10.1016/j.seppur.2021.120209\">
+Qiang Li ta al., (2022). Experimental study on the synthetic dust loading characteristics
+of air filters. Separation and Purification Technology 284 (2022), 120209.</a>
 </li>
 </ul>
 </html>", revisions="<html>

@@ -55,7 +55,8 @@ and inherits most of its configuration.
 However, its mass flow rate is calculated differently by using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m_flow / &radic;<span style=\"text-decoration:overline;\">dp</span> = m_flow_nominal / (&radic;<span style=\"text-decoration:overline;\">dp_nominal*dpCor</span>),
+m_flow / &radic;<span style=\"text-decoration:overline;\">dp</span> =
+m_flow_nominal / (&radic;<span style=\"text-decoration:overline;\">dp_nominal*dpCor</span>),
 </p>
 <p>
 where <code>dpCor</code> is a correction factor of the flow coefficient.

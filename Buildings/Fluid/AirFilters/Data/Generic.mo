@@ -18,9 +18,9 @@ record Generic "Generic data record for air filters"
     annotation (Dialog(group="Filter accumulated mass"));
   parameter String namCon[:]={"CO2"}
     "Contaminant names";
-  parameter Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters filEffPar
-    "Filtration efficiency versus relative mass of the contaminant";
-  parameter Real b=1.1
+  parameter Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters filEffPar[size(namCon,1)]
+    "Filtration efficiency of each contaminant versus the relative mass of all captured contaminants";
+  parameter Real b=2.0
     "Resistance coefficient (multiplier for pressure drop if filter is fully dirty)";
   annotation (
   defaultComponentPrefixes = "parameter",
