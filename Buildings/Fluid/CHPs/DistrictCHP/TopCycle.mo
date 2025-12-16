@@ -2,7 +2,7 @@ within Buildings.Fluid.CHPs.DistrictCHP;
 model TopCycle "Topping cycle subsystem model"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable parameter Buildings.Fluid.CHPs.DistrictCHP.Data.Generic per
+  parameter Buildings.Fluid.CHPs.DistrictCHP.Data.Generic per
     "Records of gas turbine performance data"
      annotation (choicesAllMatching= true, Placement(transformation(extent={{40,-120},
             {60,-100}})));

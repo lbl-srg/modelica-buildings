@@ -10,15 +10,14 @@ model BottomCycle "Bottoming cycle subsystem model"
 
   // Parameters for the calculation blocks
   parameter Real a[:]={-0.23380344533,0.220477944738,-0.01476897980}
-    "Coefficients for bottoming cycle exergy efficiency function"
+    "Coefficients for calculating exhaust exergy efficiency"
     annotation (Dialog(group="Coefficients for functions"));
   parameter Real a_SteMas[:]={0.153, 0.018, 0.002}
-    "Coefficients for bottoming cycle steam mass flow function"
+    "Coefficients for calculating steam to exhaust mass flow ratio"
     annotation (Dialog(group="Coefficients for functions"));
   parameter Real TSta(
-    displayUnit="degC",
-    final unit="K",
-    final quantity = "ThermodynamicTemperature") = 138+273.15
+    unit="K",
+    displayUnit="degC")=411.15
     "HRSG stack temperature";
   parameter Modelica.Units.SI.Volume watLevSet=V*0.8
     "Water level setpoint in the steam volume";
@@ -27,32 +26,52 @@ model BottomCycle "Bottoming cycle subsystem model"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=55
     "Nominal mass flow rate in fluid ports"
     annotation (Dialog(group="Fluid systems"));
-  parameter Modelica.Units.SI.AbsolutePressure p_a_nominal(
-    displayUnit="Pa")=30000
+  parameter Modelica.Units.SI.AbsolutePressure p_a_nominal(displayUnit="Pa")=30000
     "Nominal inlet pressure for predefined pump characteristics"
     annotation (Dialog(group="Feedwater pump"));
-  parameter Modelica.Units.SI.AbsolutePressure p_b_nominal(
-    displayUnit="Pa")=3000000
+  parameter Modelica.Units.SI.AbsolutePressure p_b_nominal(displayUnit="Pa")=3000000
     "Nominal outlet pressure, fixed if not control_m_flow and not use_p_set"
+    annotation (Dialog(group="Feedwater pump"));
+  parameter Integer nParallel=1 "Number of pumps in parallel"
+    annotation (Dialog(group="Feedwater pump"));
+  replaceable function flowCharacteristic =
+        Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
+    "Head vs. V_flow characteristic at nominal speed and density"
+    annotation (Dialog(group="Feedwater pump"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal=1500
+    "Nominal rotational speed for flow characteristic"
+    annotation (Dialog(group="Feedwater pump"));
+  parameter Modelica.Media.Interfaces.Types.Density rho_nominal=
+      Medium.density_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default) "Nominal fluid density for characteristic"
+    annotation (Dialog(group="Feedwater pump"));
+  parameter Boolean use_powerCharacteristic=false
+    "Use powerCharacteristic (vs. efficiencyCharacteristic)"
     annotation (Dialog(group="Feedwater pump"));
   parameter Modelica.Units.SI.Volume V=12.4
     "Total volume of evaporator"
     annotation (Dialog(group="Evaporator"));
 
-  // Advanced tab: parameters for PI controller
+  // Advanced tab
+  parameter Real TSte(
+    unit="K",
+    displayUnit="degC")=823.15
+    "Superheated steam temperature"
+    annotation (Dialog(group="General",tab="Advanced"));
   parameter Controls.OBC.CDL.Types.SimpleController pumCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="Pump controller", tab="Advanced"));
-  parameter Real k(min=0) = 0.5
+  parameter Real k(min=0)=0.5
     "Gain of controller"
     annotation (Dialog(group="Pump controller", tab="Advanced"));
-  parameter Modelica.Units.SI.Time Ti(
-    min=Modelica.Constants.small) = 5
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=5
     "Time constant of Integrator block"
     annotation (Dialog(group="Pump controller", tab="Advanced",
                        enable=pumCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                               or pumCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Time Td(min=0) = 1
+  parameter Modelica.Units.SI.Time Td(min=0)=1
     "Time constant of Derivative block"
     annotation (Dialog(group="Pump controller", tab="Advanced",
                        enable=pumCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -63,19 +82,12 @@ model BottomCycle "Bottoming cycle subsystem model"
   parameter Real yMin=0
     "Lower limit of output"
     annotation (Dialog(group="Pump controller", tab="Advanced"));
-  parameter Real Ni(min=100*Modelica.Constants.eps) = 1
+  parameter Real Ni(min=100*Modelica.Constants.eps)=1
     "Ni*Ti is time constant of anti-windup compensation"
     annotation (Dialog(group="Pump controller", tab="Advanced"));
-  parameter Real Nd(min=100*Modelica.Constants.eps) = 1
+  parameter Real Nd(min=100*Modelica.Constants.eps)=1
     "The higher Nd, the more ideal the derivative block"
     annotation (Dialog(group="Pump controller", tab="Advanced"));
-
-  parameter Real TSte(
-    displayUnit="degC",
-    final unit="K",
-    final quantity = "ThermodynamicTemperature")=550+273.15
-    "Superheated steam temperature"
-    annotation (Dialog(group="RealExpression block",tab="Advanced"));
 
   // Assumptions tab
   parameter Boolean allowFlowReversal = true
@@ -91,8 +103,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Evaporator dynamic balance"));
 
   // Initialization tab
-  parameter Modelica.Units.SI.AbsolutePressure p_start(
-    displayUnit="Pa") = 3000000
+  parameter Modelica.Units.SI.AbsolutePressure p_start(displayUnit="Pa")=3000000
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization",group="Fluid system"));
   parameter Modelica.Units.SI.Volume VWat_start=V*0.8
@@ -106,12 +117,10 @@ model BottomCycle "Bottoming cycle subsystem model"
     annotation (Evaluate=true, Dialog(tab="Initialization", group="Pump controller"));
   parameter Real y_start=1 "Initial value of output in PI controller"
     annotation (Evaluate=true, Dialog(tab="Initialization", group="Pump controller"));
-  parameter Modelica.Units.SI.AbsolutePressure p_a_start(
-    displayUnit="Pa")=30000
+  parameter Modelica.Units.SI.AbsolutePressure p_a_start(displayUnit="Pa")=30000
     "Start value of inlet pressure for pump"
     annotation (Dialog(tab="Initialization", group="Feedwater pump"));
-  parameter Modelica.Units.SI.AbsolutePressure p_b_start(
-    displayUnit="Pa")=3000000
+  parameter Modelica.Units.SI.AbsolutePressure p_b_start(displayUnit="Pa")=3000000
     "Start value of outlet pressure for pump"
     annotation (Dialog(tab="Initialization", group="Feedwater pump"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_start=55
@@ -121,9 +130,8 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Boolean to indicate if T_start is used"
     annotation (Dialog(tab="Initialization", group="Feedwater pump"));
   parameter Real T_start(
-    displayUnit="degC",
-    final unit="K",
-    final quantity = "ThermodynamicTemperature")=504.475+273.15
+    unit="K",
+    displayUnit="degC")=777.625
     "Start value of temperature for pump"
     annotation (Dialog(tab="Initialization", group="Feedwater pump"));
   parameter Modelica.Units.SI.SpecificEnthalpy h_start=1e5
@@ -196,6 +204,14 @@ model BottomCycle "Bottoming cycle subsystem model"
   // Feedwater pump
   Modelica.Fluid.Machines.ControlledPump pum(
     redeclare package Medium = MediumW,
+    redeclare final function flowCharacteristic = flowCharacteristic,
+    final allowFlowReversal=allowFlowReversal,
+    final nParallel=nParallel,
+    final N_nominal=N_nominal,
+    final rho_nominal=rho_nominal,
+    final use_powerCharacteristic=use_powerCharacteristic,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final p_a_nominal=p_a_nominal,
     final p_b_nominal=p_b_nominal,
     final m_flow_nominal=m_flow_nominal,
@@ -259,7 +275,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert heaDemAss(
     final message="The heating demand is larger than the available heat")
-    "Check if the demand is larger than the avaiable heat"
+    "Check if the demand is larger than the available heat"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   inner Modelica.Fluid.System system(
     T_ambient=288.15,
@@ -274,11 +290,9 @@ equation
   connect(gre.u2, heaInp.Q_flow) annotation (Line(points={{38,52},{30,52},{30,14},
           {-18,14}}, color={0,0,127}));
   connect(steHeaFlo.mExh_flow, mExh_flow) annotation (Line(points={{-42,76},{
-          -60,76},{-60,30},{-120,30}},
-                                   color={0,0,127}));
+          -60,76},{-60,30},{-120,30}}, color={0,0,127}));
   connect(heaInp.mExh_flow, mExh_flow) annotation (Line(points={{-42,14},{-60,
-          14},{-60,30},{-120,30}},
-                               color={0,0,127}));
+          14},{-60,30},{-120,30}}, color={0,0,127}));
   connect(fixSteEnt.y, heaInp.HSte_flow) annotation (Line(points={{-59,-30},{-50,
           -30},{-50,6},{-42,6}}, color={0,0,127}));
   connect(fixWatEnt.y, heaInp.HWat_flow) annotation (Line(points={{-59,-50},{-46,

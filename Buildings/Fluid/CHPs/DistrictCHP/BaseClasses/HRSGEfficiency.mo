@@ -39,7 +39,7 @@ algorithm
   TAmb_degF := (TAmb-273.15)*(9/5) +32;
 
 equation
-  eta = Functions.HRSGEffectiveness(
+  eta = Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.HRSGEffectiveness(
     TExh=TExh_degF,
     TSta=TSta_degF,
     TAmb=TAmb_degF) "HRSG effectiveness calculation";

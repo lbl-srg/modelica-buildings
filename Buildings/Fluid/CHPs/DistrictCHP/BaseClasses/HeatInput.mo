@@ -3,7 +3,7 @@ block HeatInput "Required heat input"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real a_SteMas[:]={0.153, 0.018, 0.002}
-    "Coefficients for the function relating the ratio of the steam flow rate to the exhaust flow rate";
+    "Coefficients for calculating steam to exhaust mass flow ratio";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     displayUnit="degC",
@@ -61,10 +61,11 @@ equation
           72},{-62,72}}, color={0,0,127}));
   connect(heaInp.y, Q_flow)
     annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
-  connect(masSte.y, heaInp.u1) annotation (Line(points={{22,60},{30,60},{30,46},
+  connect(masSte.y, heaInp.u1) annotation (Line(points={{22,60},{40,60},{40,46},
           {58,46}}, color={0,0,127}));
-  connect(entDif.y, heaInp.u2) annotation (Line(points={{-18,-60},{40,-60},{40,34},
-          {58,34}}, color={0,0,127}));
+  connect(entDif.y, heaInp.u2) annotation (Line(points={{-18,-60},{20,-60},{20,
+          34},{58,34}},
+                    color={0,0,127}));
   connect(mExh_flow, masSte.u2) annotation (Line(points={{-120,40},{-20,40},{-20,
           54},{-2,54}}, color={0,0,127}));
   connect(HSte_flow, entDif.u1) annotation (Line(points={{-120,-40},{-60,-40},{-60,
@@ -73,7 +74,7 @@ equation
           -66},{-42,-66}}, color={0,0,127}));
   connect(ratSteToExh.mu, masSte.u1) annotation (Line(points={{-38,76},{-20,76},
           {-20,66},{-2,66}}, color={0,0,127}));
-  connect(masSte.y, mSte_flow) annotation (Line(points={{22,60},{30,60},{30,-40},
+  connect(masSte.y, mSte_flow) annotation (Line(points={{22,60},{40,60},{40,-40},
           {120,-40}}, color={0,0,127}));
   connect(mSte_flow, mSte_flow)
     annotation (Line(points={{120,-40},{120,-40}}, color={0,0,127}));

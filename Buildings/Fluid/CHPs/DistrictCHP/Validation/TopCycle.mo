@@ -2,7 +2,7 @@ within Buildings.Fluid.CHPs.DistrictCHP.Validation;
 model TopCycle "Model validation for the topping cycle subsystem"
   extends Modelica.Icons.Example;
   // Choose differernt gas turbine
-  replaceable parameter Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Taurus70_11101S_NG per
+  parameter Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Taurus70_11101S_NG per
     "Performance curve for the selected gas turbine";
   // Part load parameters for different load levels
   Modelica.Blocks.Sources.Constant parLoa60(k = 0.6)
@@ -44,26 +44,26 @@ model TopCycle "Model validation for the topping cycle subsystem"
 equation
 // Connections for part load and turbine performance tables
   connect(topCycTab60.y, parLoa60.y) annotation(
-    Line(points = {{66, 80}, {9, 80}}, color = {0, 0, 127}));
+    Line(points={{66,80},{9,80}}, color={0,0,127}));
   connect(topCycTab70.y, parLoa70.y) annotation(
-    Line(points = {{66, 40}, {9, 40}}, color = {0, 0, 127}));
+    Line(points={{66,40},{9,40}}, color={0,0,127}));
   connect(topCycTab80.y, parLoa80.y) annotation(
-    Line(points = {{66, 0}, {9, 0}}, color = {0, 0, 127}));
+    Line(points={{66,0},{9,0}}, color={0,0,127}));
   connect(topCycTab90.y, parLoa90.y) annotation(
-    Line(points = {{66, -40}, {9, -40}}, color = {0, 0, 127}));
+    Line(points={{66,-40},{9,-40}}, color={0,0,127}));
   connect(topCycTab100.y, parLoa100.y) annotation(
-    Line(points = {{66, -80}, {9, -80}}, color = {0, 0, 127}));
+    Line(points={{66,-80},{9,-80}}, color={0,0,127}));
 // Ambient temperature connection
   connect(TAmb.y, topCycTab60.TSet) annotation(
-    Line(points = {{-59, 0}, {-40, 0}, {-40, 60}, {60, 60}, {60, 72}, {66, 72}}, color = {0, 0, 127}));
+    Line(points={{-59,0},{-40,0},{-40,60},{60,60},{60,72},{66,72}}, color={0,0,127}));
   connect(topCycTab70.TSet, TAmb.y) annotation(
-    Line(points = {{66, 32}, {60, 32}, {60, 20}, {-40, 20}, {-40, 0}, {-59, 0}}, color = {0, 0, 127}));
+    Line(points={{66,32},{60,32},{60,20},{-40,20},{-40,0},{-59,0}}, color={0,0,127}));
   connect(topCycTab80.TSet, TAmb.y) annotation(
-    Line(points = {{66, -8}, {60, -8}, {60, -20}, {-40, -20}, {-40, 0}, {-59, 0}}, color = {0, 0, 127}));
+    Line(points={{66,-8},{60,-8},{60,-20},{-40,-20},{-40,0},{-59,0}}, color={0,0,127}));
   connect(topCycTab100.TSet, TAmb.y) annotation(
-    Line(points = {{66, -88}, {60, -88}, {60, -100}, {-40, -100}, {-40, 0}, {-59, 0}}, color = {0, 0, 127}));
+    Line(points ={{66,-88},{60,-88},{60,-100},{-40,-100},{-40,0},{-59,0}}, color={0,0,127}));
   connect(TAmb.y, topCycTab90.TSet) annotation(
-    Line(points = {{-59, 0}, {-40, 0}, {-40, -60}, {60, -60}, {60, -48}, {66, -48}}, color = {0, 0, 127}));
+    Line(points={{-59,0},{-40,0},{-40,-60},{60,-60},{60,-48},{66,-48}}, color={0,0,127}));
   annotation(
     Icon(coordinateSystem(preserveAspectRatio = false)),
     Diagram(coordinateSystem(preserveAspectRatio = false)),
@@ -79,7 +79,7 @@ changes from 5°C to 35°C.
 <p>
 The models are configured to compute the following outputs for both nominal and part-load
 conditions: fuel mass flow rate, electricity output, exhaust mass flow rate, and
-exhaust temperature, for 10 gas turbines with capacities ranging from 4 MW to 35 MW.
+exhaust temperature.
 </p>
 </html>", revisions = "<html>
 <ul>

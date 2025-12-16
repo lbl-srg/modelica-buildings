@@ -4,7 +4,7 @@ block SteamToExhaustMassFlowRatio
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real a_SteMas[3]
-    "Coefficients for steam mass flow correlation function";
+    "Coefficients for calculating steam to exhaust mass flow ratio";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     displayUnit="degC",
@@ -34,7 +34,7 @@ algorithm
   TSte_degF := (TSte-273.15)*(9/5) +32;
 
 equation
-  mu =Functions.SteamToExhaustMassFlowRatio(
+  mu =Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.SteamToExhaustMassFlowRatio(
     a=a_SteMas,
     TExh=TExh_degF,
     TSte=TSte_degF)

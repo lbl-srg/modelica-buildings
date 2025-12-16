@@ -45,9 +45,9 @@ Q&#775;<sub>fuel</sub> = P<sub>GTG</sub> + Q&#775;<sub>exhaust</sub>
 </i>
 </p>
 <p>
-Where <i>Q&#775;<sub>fuel</sub></i> is the fuel combustion energy, <i>P<sub>GTG</sub></i> is
+Where <i>Q&#775;<sub>fuel</sub></i> is the fuel combustion energy flow, <i>P<sub>GTG</sub></i> is
 the electrical power output of the gas turbine generator, and <i>Q&#775;<sub>exhaust</sub></i>
-is the heat flow of the exhaust gas. The fuel combustion energy is calculated by:
+is the heat flow of the exhaust gas. The fuel combustion energy flow is calculated by:
 </p>
 <p align=\"center\">
 <i>
@@ -55,7 +55,7 @@ Q&#775;<sub>fuel</sub> = m<sub>fuel</sub> × LHV<sub>fuel</sub>
 </i>
 </p>
 <p>
-A portion of the fuel combustion energy is converted into electricity based on the
+A portion of the fuel combustion energy flow is converted into electricity based on the
 gas turbine efficiency <i>η<sub>GTG</sub></i>:
 </p>
 <p align=\"center\">

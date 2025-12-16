@@ -7,8 +7,13 @@ model Combined "Example of the usage of the combined model"
       Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
+  parameter Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Centaur50_T6200S_NG per
+    "Performance curve for the selected gas turbine"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+
   Buildings.Fluid.CHPs.DistrictCHP.Combined comCyc(
-    botCycExp(steBoi(fixed_p_start=false)))
+    botCycExp(steBoi(fixed_p_start=false)),
+    per=per)
     "Combined cycle CHP plant"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.CombiTimeTable loa(table=[0,1.0; 14400,1.0; 28800,1.0;
