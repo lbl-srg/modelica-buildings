@@ -201,6 +201,37 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.DCH</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Examples.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Examples.ChillerOnly<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerOnly<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerWSE<br/>
+                       Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Validation.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Supervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
+                       Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.HeatExchanger
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Obsolete</code> as these are replaced with improved models.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">issue 4354</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Controls.PIDWithEnable
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Controls.OBC.Utilities.PIDWithEnable</code> as there were two identical implementations.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -212,10 +243,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Templates.Plants.HeatPumps.Components.HeatRecoveryChiller
     </td>
     <td valign=\"top\">Refactored with load-dependent 2D table data heat pump model.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.PIDWithEnable
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Controls.OBC.Utilities.PIDWithEnable</code> as there were two identical implementations.
+    </td>
+</tr>
+
+
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

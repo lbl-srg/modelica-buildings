@@ -39,7 +39,7 @@ package GlazingSystems
       Modelica.Math.BooleanVectors.anyTrue(
         {size(glass[iGla].tauSol, 1) > 1 for iGla in 1:size(glass,1)})
       "Flag, true if the window allows multiple states, such as for electrochromic windows"
-      annotation(Evalute=true);
+      annotation(Evaluate=true);
     annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datGlaSys",
@@ -48,6 +48,11 @@ Generic record that implements thermophysical properties for glazing systems.
 </html>",
   revisions="<html>
 <ul>
+<li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Refactored model to avoid a translation error
