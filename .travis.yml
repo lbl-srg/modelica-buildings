@@ -69,7 +69,7 @@ env:
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Applications\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Applications\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.DHC.{ETS,Loads,Networks,Plants}\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.{ETS,Loads,Networks,Plants}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.{ETS,Loads,Networks,Plants}\"" SINGLEPROC=\"true\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.DHC.{ETS,Loads,Networks,Plants}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.DHC.Examples.Combined\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Examples.Combined\" SINGLEPROC=\"true\""
