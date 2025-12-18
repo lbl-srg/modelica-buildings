@@ -19,8 +19,8 @@ model BottomCycle "Bottoming cycle subsystem model"
     unit="K",
     displayUnit="degC")=411.15
     "HRSG stack temperature";
-  parameter Modelica.Units.SI.Volume watLevSet=V*0.8
-    "Water level setpoint in the steam volume";
+  parameter Modelica.Units.SI.Volume VWat_set=V*0.8
+    "Water volume setpoint in the steam volume";
 
   // Advanced tab: parameters for the fluid systems
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=55
@@ -35,17 +35,19 @@ model BottomCycle "Bottoming cycle subsystem model"
   parameter Integer nParallel=1 "Number of pumps in parallel"
     annotation (Dialog(group="Feedwater pump"));
   replaceable function flowCharacteristic =
-        Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
+        Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow(
+          V_flow_nominal={0, V_flow_op, 1.5*V_flow_op},
+          head_nominal={2*head_op, head_op, 0})
     "Head vs. V_flow characteristic at nominal speed and density"
     annotation (Dialog(group="Feedwater pump"));
   parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal=1500
     "Nominal rotational speed for flow characteristic"
     annotation (Dialog(group="Feedwater pump"));
   parameter Modelica.Media.Interfaces.Types.Density rho_nominal=
-      Medium.density_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default) "Nominal fluid density for characteristic"
+      MediumW.density_pTX(
+      MediumW.p_default,
+      MediumW.T_default,
+      MediumW.X_default) "Nominal fluid density for characteristic"
     annotation (Dialog(group="Feedwater pump"));
   parameter Boolean use_powerCharacteristic=false
     "Use powerCharacteristic (vs. efficiencyCharacteristic)"
@@ -204,24 +206,23 @@ model BottomCycle "Bottoming cycle subsystem model"
   // Feedwater pump
   Modelica.Fluid.Machines.ControlledPump pum(
     redeclare package Medium = MediumW,
-    redeclare final function flowCharacteristic = flowCharacteristic,
-    final allowFlowReversal=allowFlowReversal,
+    allowFlowReversal=allowFlowReversal,
+    final m_flow_start=m_flow_start,
+    redeclare function flowCharacteristic = flowCharacteristic,
     final nParallel=nParallel,
     final N_nominal=N_nominal,
     final rho_nominal=rho_nominal,
     final use_powerCharacteristic=use_powerCharacteristic,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_a_nominal=p_a_nominal,
     final p_b_nominal=p_b_nominal,
     final m_flow_nominal=m_flow_nominal,
     final p_a_start=p_a_start,
     final p_b_start=p_b_start,
-    final m_flow_start=m_flow_start,
     final use_T_start=use_T_start,
     final T_start=T_start,
     final h_start=h_start,
     final use_m_flow_set=true)
+    "Water feeding pump in heat recovery steam generator"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
   // Evaporator
@@ -260,8 +261,8 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Superheated steam temperature"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.RealExpression watLev(
-    final y=watLevSet)
-    "Water level setpoint"
+    final y=VWat_set)
+    "Water volume setpoint"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
  // Others
@@ -282,61 +283,72 @@ model BottomCycle "Bottoming cycle subsystem model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
+protected
+  // exemplary characteristics
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_op = m_flow_nominal/rho_nominal
+    "Operational volume flow rate according to nominal values";
+  parameter Modelica.Units.SI.Position head_op = (p_b_nominal-p_a_nominal)/(rho_nominal*g_n)
+    "Operational pump head according to nominal values";
+  constant Modelica.Units.SI.Acceleration g_n=9.80665
+    "Standard acceleration of gravity on earth";
+
 equation
-  connect(preHeaFlo.port, steBoi.heatPort)
-    annotation (Line(points={{40,-10},{50,-10},{50,-70}}, color={191,0,0}));
-  connect(gre.y, heaDemAss.u)
-    annotation (Line(points={{62,60},{68,60}}, color={255,0,255}));
-  connect(gre.u2, heaInp.Q_flow) annotation (Line(points={{38,52},{30,52},{30,14},
-          {-18,14}}, color={0,0,127}));
-  connect(steHeaFlo.mExh_flow, mExh_flow) annotation (Line(points={{-42,76},{
-          -60,76},{-60,30},{-120,30}}, color={0,0,127}));
-  connect(heaInp.mExh_flow, mExh_flow) annotation (Line(points={{-42,14},{-60,
-          14},{-60,30},{-120,30}}, color={0,0,127}));
-  connect(fixSteEnt.y, heaInp.HSte_flow) annotation (Line(points={{-59,-30},{-50,
-          -30},{-50,6},{-42,6}}, color={0,0,127}));
-  connect(fixWatEnt.y, heaInp.HWat_flow) annotation (Line(points={{-59,-50},{-46,
-          -50},{-46,2},{-42,2}}, color={0,0,127}));
-  connect(steHeaFlo.TAmb, TAmb) annotation (Line(points={{-42,80},{-70,80},{-70,
-          60},{-120,60}}, color={0,0,127}));
-  connect(steHeaFlo.TExh, TExh) annotation (Line(points={{-42,84},{-80,84},{-80,
-          90},{-120,90}}, color={0,0,127}));
-  connect(supSteTem.y, heaInp.TSte) annotation (Line(points={{-59,-10},{-54,-10},
-          {-54,10},{-42,10}}, color={0,0,127}));
-  connect(pumNomFlo.y, masFlo.u1)
-    annotation (Line(points={{-19,-34},{-2,-34}}, color={0,0,127}));
-  connect(masFlo.y, pum.m_flow_set) annotation (Line(points={{21,-40},{30,-40},{
-          30,-60},{5,-60},{5,-71.8}}, color={0,0,127}));
   connect(pum.port_b, steBoi.port_a) annotation (Line(points={{20,-80},{40,-80}},
          color={0,127,255}, thickness=0.5));
-  connect(pum.port_a, port_a) annotation (Line(points={{0,-80},{-90,-80},{-90,0},{-100,0}},
-         color={0,127,255}, thickness=0.5));
-  connect(port_b, steBoi.port_b)
-    annotation (Line(points={{100,0},{90,0},{90,-80},{60,-80}}, color={0,127,255},
-         thickness=0.5));
-  connect(preHeaFlo.Q_flow, heaInp.Q_flow)
-    annotation (Line(points={{20,-10},{0,-10},{0,14},{-18,14}}, color={0,0,127}));
-  connect(watLev.y, conPID.u_s) annotation (Line(points={{-59,-70},{-50,-70},{-50,
-          -60},{-42,-60}}, color={0,0,127}));
-  connect(powGen.TExh, TExh) annotation (Line(points={{-42,44},{-80,44},{-80,90},
-          {-120,90}}, color={0,0,127}));
-  connect(powGen.mExh_flow, mExh_flow) annotation (Line(points={{-42,36},{-60,
-          36},{-60,30},{-120,30}},
-                               color={0,0,127}));
-  connect(powGen.PEle_ST, PEle_ST) annotation (Line(points={{-18,40},{120,40}},
-          color={0,0,127}));
-  connect(steHeaFlo.QSupSte_flow, heaAva.u1) annotation (Line(points={{-18,80},{
-          -10,80},{-10,66},{-2,66}}, color={0,0,127}));
-  connect(heaAva.u2, powGen.PEle_ST) annotation (Line(points={{-2,54},{-10,54},{
-          -10,40},{-18,40}}, color={0,0,127}));
+  connect(TExh, heaInp.TExh) annotation (Line(points={{-120,90},{-80,90},{-80,
+          18},{-42,18}}, color={0,0,127}));
+  connect(TExh, powGen.TExh) annotation (Line(points={{-120,90},{-80,90},{-80,
+          44},{-42,44}}, color={0,0,127}));
+  connect(TExh, steHeaFlo.TExh) annotation (Line(points={{-120,90},{-80,90},{
+          -80,84},{-42,84}}, color={0,0,127}));
+  connect(TAmb, steHeaFlo.TAmb) annotation (Line(points={{-120,60},{-70,60},{
+          -70,80},{-42,80}}, color={0,0,127}));
+  connect(mExh_flow, steHeaFlo.mExh_flow) annotation (Line(points={{-120,30},{
+          -60,30},{-60,76},{-42,76}}, color={0,0,127}));
+  connect(mExh_flow, powGen.mExh_flow) annotation (Line(points={{-120,30},{-60,
+          30},{-60,36},{-42,36}}, color={0,0,127}));
+  connect(mExh_flow, heaInp.mExh_flow) annotation (Line(points={{-120,30},{-60,
+          30},{-60,14},{-42,14}}, color={0,0,127}));
+  connect(supSteTem.y, heaInp.TSte) annotation (Line(points={{-59,-10},{-54,-10},
+          {-54,10},{-42,10}}, color={0,0,127}));
+  connect(fixSteEnt.y, heaInp.HSte_flow) annotation (Line(points={{-59,-30},{
+          -50,-30},{-50,6},{-42,6}}, color={0,0,127}));
+  connect(fixWatEnt.y, heaInp.HWat_flow) annotation (Line(points={{-59,-50},{
+          -46,-50},{-46,2},{-42,2}}, color={0,0,127}));
+  connect(watLev.y, conPID.u_s) annotation (Line(points={{-59,-70},{-50,-70},{
+          -50,-60},{-42,-60}}, color={0,0,127}));
+  connect(pumNomFlo.y, masFlo.u1)
+    annotation (Line(points={{-19,-34},{-2,-34}}, color={0,0,127}));
+  connect(conPID.y, masFlo.u2) annotation (Line(points={{-18,-60},{-10,-60},{
+          -10,-46},{-2,-46}}, color={0,0,127}));
+  connect(steBoi.VLiq, conPID.u_m) annotation (Line(points={{61,-87},{70,-87},{
+          70,-98},{-30,-98},{-30,-72}}, color={0,0,127}));
+  connect(masFlo.y, pum.m_flow_set) annotation (Line(points={{21,-40},{30,-40},
+          {30,-60},{5,-60},{5,-71.8}}, color={0,0,127}));
+  connect(preHeaFlo.port, steBoi.heatPort)
+    annotation (Line(points={{40,-10},{50,-10},{50,-70}}, color={191,0,0}));
+  connect(heaInp.Q_flow, preHeaFlo.Q_flow) annotation (Line(points={{-18,14},{0,
+          14},{0,-10},{20,-10}}, color={0,0,127}));
+  connect(heaInp.Q_flow, gre.u2) annotation (Line(points={{-18,14},{30,14},{30,
+          52},{38,52}}, color={0,0,127}));
+  connect(powGen.PEle_ST, PEle_ST)
+    annotation (Line(points={{-18,40},{120,40}}, color={0,0,127}));
+  connect(powGen.PEle_ST, heaAva.u2) annotation (Line(points={{-18,40},{-10,40},
+          {-10,54},{-2,54}}, color={0,0,127}));
+  connect(steHeaFlo.QSupSte_flow, heaAva.u1) annotation (Line(points={{-18,80},
+          {-10,80},{-10,66},{-2,66}}, color={0,0,127}));
   connect(heaAva.y, gre.u1)
     annotation (Line(points={{22,60},{38,60}}, color={0,0,127}));
-  connect(heaInp.TExh, TExh) annotation (Line(points={{-42,18},{-80,18},{-80,90},
-          {-120,90}}, color={0,0,127}));
-  connect(steBoi.VLiq, conPID.u_m) annotation (Line(points={{61,-87},{64,-87},{64,
-          -98},{-30,-98},{-30,-72}},color={0,0,127}));
-  connect(conPID.y, masFlo.u2) annotation (Line(points={{-18,-60},{-10,-60},{-10,
-          -46},{-2,-46}}, color={0,0,127}));
+  connect(gre.y, heaDemAss.u)
+    annotation (Line(points={{62,60},{68,60}}, color={255,0,255}));
+  connect(steBoi.port_b, port_b) annotation (Line(
+      points={{60,-80},{90,-80},{90,0},{100,0}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(port_a, pum.port_a) annotation (Line(
+      points={{-100,0},{-90,0},{-90,-80},{0,-80}},
+      color={0,127,255},
+      thickness=0.5));
 annotation (
   defaultComponentName="botCyc",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,80}})),

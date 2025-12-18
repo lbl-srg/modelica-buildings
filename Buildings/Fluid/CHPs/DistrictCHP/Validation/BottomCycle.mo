@@ -38,7 +38,7 @@ model BottomCycle
     "Total volume of evaporator";
 
   // Advanced tab: parameters for PI controller
-  parameter Modelica.Units.SI.Volume watLevSet=V*0.8
+  parameter Modelica.Units.SI.Volume VWat_set=V*0.8
     "Water volume setpoint in for PI controller";
   parameter Real k(min=0) = 2
     "Gain of controller";
@@ -79,8 +79,6 @@ model BottomCycle
     "Start value of inlet pressure for pump";
   parameter Modelica.Units.SI.AbsolutePressure p_b_start=3000000
     "Start value of outlet pressure for pump";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_start=55
-    "Start value of mass flow rate for pump";
   parameter Boolean use_T_start=false
     "Boolean to indicate if T_start is used";
   parameter Real T_start(
@@ -113,10 +111,9 @@ model BottomCycle
     final y_start=y_start,
     final VWat_flow_start=VWat_flow_start,
     final TSte=TSte,
-    final watLevSet=watLevSet,
+    final VWat_set=VWat_set,
     final p_a_start=p_a_start,
     final p_b_start=p_b_start,
-    final m_flow_start=m_flow_start,
     final use_T_start=use_T_start,
     final T_start=T_start,
     final h_start=h_start,
@@ -132,8 +129,8 @@ model BottomCycle
     redeclare package Medium = MediumW,
     use_p_in=false,
     p=30000,
-    nPorts=1,
-    T=504.475)
+    T=504.475,
+    nPorts=1)
     "Water source"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
@@ -165,17 +162,17 @@ model BottomCycle
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
 equation
-  connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-12,-15},{-30,-15},{
-          -30,30},{-59,30}}, color={0,0,127}));
-  connect(botCyc.port_a, sou.ports[1]) annotation (Line(points={{-10,-20},{-20,-20},
-          {-20,-40},{-30,-40}}, color={0,127,255}));
-  connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,-20},{20,-20},
-          {20,-40},{30,-40}},color={0,127,255}));
-  connect(botCyc.TExh, exhTem.y) annotation (Line(points={{-12,-12},{-20,-12},{-20,
-          70},{-59,70}}, color={0,0,127}));
-  connect(trapezoid.y, botCyc.mExh_flow) annotation (Line(points={{-59,-10},{-40,
-          -10},{-40,-18},{-12,-18}}, color={0,0,127}));
 
+  connect(exhTem.y, botCyc.TExh) annotation (Line(points={{-59,70},{-20,70},{
+          -20,-12},{-12,-12}}, color={0,0,127}));
+  connect(ambTemp.y, botCyc.TAmb) annotation (Line(points={{-59,30},{-30,30},{
+          -30,-15},{-12,-15}}, color={0,0,127}));
+  connect(trapezoid.y, botCyc.mExh_flow) annotation (Line(points={{-59,-10},{
+          -40,-10},{-40,-18},{-12,-18}}, color={0,0,127}));
+  connect(sou.ports[1], botCyc.port_a) annotation (Line(points={{-30,-40},{-20,
+          -40},{-20,-20},{-10,-20}}, color={0,127,255}));
+  connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,-20},{20,
+          -20},{20,-40},{30,-40}}, color={0,127,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(revisions="<html>

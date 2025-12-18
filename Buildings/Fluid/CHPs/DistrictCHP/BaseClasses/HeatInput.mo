@@ -64,8 +64,7 @@ equation
   connect(masSte.y, heaInp.u1) annotation (Line(points={{22,60},{40,60},{40,46},
           {58,46}}, color={0,0,127}));
   connect(entDif.y, heaInp.u2) annotation (Line(points={{-18,-60},{20,-60},{20,
-          34},{58,34}},
-                    color={0,0,127}));
+          34},{58,34}}, color={0,0,127}));
   connect(mExh_flow, masSte.u2) annotation (Line(points={{-120,40},{-20,40},{-20,
           54},{-2,54}}, color={0,0,127}));
   connect(HSte_flow, entDif.u1) annotation (Line(points={{-120,-40},{-60,-40},{-60,
@@ -76,8 +75,6 @@ equation
           {-20,66},{-2,66}}, color={0,0,127}));
   connect(masSte.y, mSte_flow) annotation (Line(points={{22,60},{40,60},{40,-40},
           {120,-40}}, color={0,0,127}));
-  connect(mSte_flow, mSte_flow)
-    annotation (Line(points={{120,-40},{120,-40}}, color={0,0,127}));
   connect(ratSteToExh.TExh, TExh)
     annotation (Line(points={{-62,80},{-120,80}}, color={0,0,127}));
 

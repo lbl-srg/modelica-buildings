@@ -14,84 +14,101 @@ model Combined "Combined-cycle CHP model"
 
   // Parameters for the calculation blocks
   parameter Real a[:]={-0.23380344533,0.220477944738,-0.01476897980}
-    "Coefficients for calculating exhaust exergy efficiency"
-    annotation (Dialog(group="Coefficients for functions"));
+    "Coefficients for calculating steam turbine exhaust exergy efficiency"
+    annotation (Dialog(group="Steam turbine"));
   parameter Real a_SteMas[:]={0.153, 0.018, 0.002}
-    "Coefficients for calculating steam to exhaust mass flow ratio"
-    annotation (Dialog(group="Coefficients for functions"));
+    "Coefficients for calculating steam turbine steam to exhaust mass flow ratio"
+    annotation (Dialog(group="Steam turbine"));
+
+  // Parameters for the fluid systems
   parameter Real TSta(
     unit="K",
     displayUnit="degC")=411.15
-    "HRSG stack temperature";
-  parameter Modelica.Units.SI.Volume watLevSet=V*0.8
-    "Water level setpoint in the steam volume";
-
-  // Advanced tab: parameters for the fluid systems
+    "HRSG stack temperature"
+    annotation (Dialog(group="Heat recovery steam generator"));
+  parameter Modelica.Units.SI.Volume VWat_set=V*0.8
+    "Water volume setpoint in the steam volume"
+    annotation (Dialog(group="Heat recovery steam generator"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=55
     "Nominal mass flow rate in fluid ports"
-    annotation (Dialog(group="Fluid systems"));
+    annotation (Dialog(group="Heat recovery steam generator"));
+  parameter Modelica.Units.SI.Volume V=12.4
+    "Total volume of HRSG evaporator"
+    annotation (Dialog(group="Heat recovery steam generator"));
   parameter Modelica.Units.SI.AbsolutePressure p_a_nominal(displayUnit="Pa")=30000
     "Nominal inlet pressure for predefined pump characteristics"
-    annotation (Dialog(group="Feedwater pump"));
+    annotation (Dialog(group="HRSG water feeding pump"));
   parameter Modelica.Units.SI.AbsolutePressure p_b_nominal(displayUnit="Pa")=3000000
     "Nominal outlet pressure, fixed if not control_m_flow and not use_p_set"
-    annotation (Dialog(group="Feedwater pump"));
+    annotation (Dialog(group="HRSG water feeding pump"));
   parameter Integer nParallel=1 "Number of pumps in parallel"
-    annotation (Dialog(group="Feedwater pump"));
+    annotation (Dialog(group="HRSG water feeding pump"));
   replaceable function flowCharacteristic =
-        Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow
+    Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow(
+          V_flow_nominal={0, V_flow_op, 1.5*V_flow_op},
+          head_nominal={2*head_op, head_op, 0})
     "Head vs. V_flow characteristic at nominal speed and density"
-    annotation (Dialog(group="Feedwater pump"));
+    annotation (Dialog(group="HRSG water feeding pump"));
   parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal=1500
     "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Feedwater pump"));
+    annotation (Dialog(group="HRSG water feeding pump"));
   parameter Modelica.Media.Interfaces.Types.Density rho_nominal=
-      Medium.density_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default) "Nominal fluid density for characteristic"
-    annotation (Dialog(group="Feedwater pump"));
+      MediumW.density_pTX(
+      MediumW.p_default,
+      MediumW.T_default,
+      MediumW.X_default) "Nominal fluid density for characteristic"
+    annotation (Dialog(group="HRSG water feeding pump"));
   parameter Boolean use_powerCharacteristic=false
     "Use powerCharacteristic (vs. efficiencyCharacteristic)"
-    annotation (Dialog(group="Feedwater pump"));
-  parameter Modelica.Units.SI.Volume V=12.4
-    "Total volume of evaporator"
-    annotation (Dialog(group="Evaporator"));
+    annotation (Dialog(group="HRSG water feeding pump"));
+
+  // exemplary characteristics
+  final parameter Modelica.Units.SI.VolumeFlowRate V_flow_op = m_flow_nominal/rho_nominal
+    "Operational volume flow rate according to nominal values";
+  final parameter Modelica.Units.SI.Position head_op = (p_b_nominal-p_a_nominal)/(rho_nominal*g_n)
+    "Operational pump head according to nominal values";
+  final constant Modelica.Units.SI.Acceleration g_n=9.80665
+    "Standard acceleration of gravity on earth";
 
   // Advanced tab
   parameter Real TSte(
     unit="K",
     displayUnit="degC")=823.15
-    "Superheated steam temperature"
-    annotation (Dialog(group="General",tab="Advanced"));
+    "Temperature of the superheated steam out of the HRSG"
+    annotation (Dialog(group="Heat recovery steam generator",tab="Advanced"));
   parameter Controls.OBC.CDL.Types.SimpleController pumCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(group="Pump controller", tab="Advanced"));
+    annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
   parameter Real k(min=0)=0.5
     "Gain of controller"
-    annotation (Dialog(group="Pump controller", tab="Advanced"));
+    annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=5
     "Time constant of Integrator block"
-    annotation (Dialog(group="Pump controller", tab="Advanced",
+    annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced",
                        enable=pumCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                               or pumCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(min=0)=1
     "Time constant of Derivative block"
-    annotation (Dialog(group="Pump controller", tab="Advanced",
+    annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced",
                        enable=pumCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                               or pumCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
     "Upper limit of output"
-    annotation (Dialog(group="Pump controller", tab="Advanced"));
+    annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(group="Pump controller", tab="Advanced"));
+    annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
   parameter Real Ni(min=100*Modelica.Constants.eps)=1
     "Ni*Ti is time constant of anti-windup compensation"
-    annotation (Dialog(group="Pump controller", tab="Advanced"));
+    annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
   parameter Real Nd(min=100*Modelica.Constants.eps)=1
     "The higher Nd, the more ideal the derivative block"
-    annotation (Dialog(group="Pump controller", tab="Advanced"));
+    annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
+  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
+    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
+    annotation (Evaluate=true, Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
+  parameter Real y_start=1 "Initial value of output in PI controller"
+    annotation (Evaluate=true, Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
 
   // Assumptions tab
   parameter Boolean allowFlowReversal = true
@@ -101,46 +118,38 @@ model Combined "Combined-cycle CHP model"
   //Dynamics tab for evaporator energy and mass balance
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Evaporator dynamic balance"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Evaporator dynamic balance"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics"));
 
   // Initialization tab
   parameter Modelica.Units.SI.AbsolutePressure p_start(displayUnit="Pa")=3000000
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization",group="Fluid system"));
-  parameter Modelica.Units.SI.Volume VWat_start=V*0.8
+  parameter Modelica.Units.SI.Volume VWat_start=VWat_set
     "Start value of liquid volume in the evaporator"
     annotation (Dialog(tab="Initialization",group="Fluid system"));
   parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_start=0.055
     "Start value of volumetric flow rate of liquid water"
     annotation (Dialog(tab="Initialization",group="Fluid system"));
-  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-    annotation (Evaluate=true, Dialog(tab="Initialization", group="Pump controller"));
-  parameter Real y_start=1 "Initial value of output in PI controller"
-    annotation (Evaluate=true, Dialog(tab="Initialization", group="Pump controller"));
   parameter Modelica.Units.SI.AbsolutePressure p_a_start(displayUnit="Pa")=30000
     "Start value of inlet pressure for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
+    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
   parameter Modelica.Units.SI.AbsolutePressure p_b_start(displayUnit="Pa")=3000000
     "Start value of outlet pressure for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
-  parameter Modelica.Units.SI.MassFlowRate m_flow_start=55
-    "Start value of mass flow rate for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
+    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
   parameter Boolean use_T_start=false
     "Boolean to indicate if T_start is used"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
+    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
   parameter Real T_start(
     unit="K",
     displayUnit="degC")=777.625
     "Start value of temperature for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
+    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
   parameter Modelica.Units.SI.SpecificEnthalpy h_start=1e5
     "Start value of specific enthalpy for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
+    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y
     "Part load ratio"
@@ -188,12 +197,12 @@ model Combined "Combined-cycle CHP model"
     final a=a,
     final a_SteMas=a_SteMas,
     final TSta=TSta,
-    final watLevSet=watLevSet,
+    final VWat_set=VWat_set,
     final m_flow_nominal=m_flow_nominal,
     final p_a_nominal=p_a_nominal,
     final p_b_nominal=p_b_nominal,
     final nParallel=nParallel,
-    redeclare final function flowCharacteristic = flowCharacteristic,
+    redeclare function flowCharacteristic = flowCharacteristic,
     final N_nominal=N_nominal,
     final rho_nominal=rho_nominal,
     final use_powerCharacteristic=use_powerCharacteristic,
@@ -217,38 +226,33 @@ model Combined "Combined-cycle CHP model"
     final y_start=y_start,
     final p_a_start=p_a_start,
     final p_b_start=p_b_start,
-    final m_flow_start=m_flow_start,
     final use_T_start=use_T_start,
     final T_start=T_start,
     final h_start=h_start)
     "Bottom cycle"
-    annotation (Placement(transformation(extent={{14,-10},{34,8}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,8}})));
 
 equation
   connect(topCycTab.PEle, PEle) annotation (Line(points={{-38,58},{20,58},{20,90},
           {120,90}}, color={0,0,127}));
   connect(topCycTab.mFue_flow, mFue_flow) annotation (Line(points={{-38,53},{40,
           53},{40,60},{120,60}}, color={0,0,127}));
-  connect(port_b, port_b)
-    annotation (Line(points={{100,0},{100,0}}, color={0,127,255}));
   connect(y, topCycTab.y) annotation (Line(points={{-120,80},{-80,80},{-80,54},{
           -62,54}},  color={0,0,127}));
   connect(TAmb, topCycTab.TSet) annotation (Line(points={{-120,40},{-80,40},{-80,
           46},{-62,46}}, color={0,0,127}));
   connect(port_b, botCycExp.port_b)
-    annotation (Line(points={{100,0},{34,0}}, color={0,127,255}));
-  connect(port_a, botCycExp.port_a) annotation (Line(points={{-100,0},{14,0}},
+    annotation (Line(points={{100,0},{40,0}}, color={0,127,255}));
+  connect(port_a, botCycExp.port_a) annotation (Line(points={{-100,0},{20,0}},
           color={0,127,255}));
-  connect(botCycExp.TAmb, TAmb) annotation (Line(points={{12,5},{-80,5},{-80,40},
+  connect(botCycExp.TAmb, TAmb) annotation (Line(points={{18,5},{-80,5},{-80,40},
           {-120,40}}, color={0,0,127}));
-  connect(topCycTab.mExh_flow, botCycExp.mExh_flow) annotation (Line(points={{-38,
-          42},{-10,42},{-10,2},{12,2}}, color={0,0,127}));
-  connect(PEle_ST, PEle_ST)
-    annotation (Line(points={{120,30},{120,30}}, color={0,0,127}));
-  connect(botCycExp.PEle_ST, PEle_ST) annotation (Line(points={{36,8},{60,8},{60,
+  connect(topCycTab.mExh_flow, botCycExp.mExh_flow) annotation (Line(points={{-38,42},
+          {-10,42},{-10,2},{18,2}},     color={0,0,127}));
+  connect(botCycExp.PEle_ST, PEle_ST) annotation (Line(points={{42,8},{60,8},{60,
           30},{120,30}}, color={0,0,127}));
   connect(topCycTab.TExh, botCycExp.TExh) annotation (Line(points={{-38,47},{0,47},
-          {0,8},{12,8}}, color={0,0,127}));
+          {0,8},{18,8}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="disCHP",
