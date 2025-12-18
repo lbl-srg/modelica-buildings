@@ -23,7 +23,14 @@ if [ ! -f "$EXCLUDE_LIST" ]; then
 fi
 
 TMP_EXCL="$(mktemp)"
+echo $TMP_EXCL
 trap 'rm -f -- "$TMP_EXCL"' EXIT
+
+SRC_REL_PATH="./Controls/OBC/ASHRAE/G36-2018/"
+SRC_ROOT=$(cd "$SRC_REL_PATH" && pwd)
+echo $SRC_ROOT
+mkdir -p -- "$SRC_ROOT/../$DEST"
+DEST_ROOT=$(cd "$SRC_ROOT/../$DEST" && pwd)
 
 # Normalize exclude entries: strip empty lines and comment lines.
 # Paths are interpreted relative to the current base directory.
@@ -38,6 +45,7 @@ awk '
 is_excluded() {
   grep -Fxq -- "$1" "$TMP_EXCL"
 }
+echo $TMP_EXCL
 
 # Treat as text if grep -Iq sees text
 is_text_file() {
@@ -73,13 +81,9 @@ add_do_not_change() {
   ' "$1" > "$1.tmp" && mv -- "$1.tmp" "$1"
 }
 
-SRC_ROOT=$(cd "./Controls/OBC/ASHRAE/G36-2018/" && pwd)
-mkdir -p -- "$SRC_ROOT/../$DEST"
-DEST_ROOT=$(cd "$SRC_ROOT/../$DEST" && pwd)
-
-
 # First: create all necessary directories under DEST, skipping excluded ones
 # We treat directories as excluded if they themselves are listed.
+cd $SRC_ROOT
 find . -type d | while IFS= read -r SRC_DIR; do
   # Remove leading "./"
   REL_DIR=${SRC_DIR#./}
@@ -93,23 +97,50 @@ find . -type d | while IFS= read -r SRC_DIR; do
   if is_excluded "$REL_DIR"; then
     continue
   fi
+  echo $REL_DIR
 
   mkdir -p -- "$DEST_ROOT/$REL_DIR"
 done
 
+is_excluded_or_in_excluded_dir() {
+  rel="$1"
+
+  # If the file itself is excluded
+  if is_excluded "$rel"; then
+    return 0
+  fi
+
+  # Walk up parent directories: a/b/c.txt -> a/b -> a
+  path="$rel"
+  while :; do
+    dir=$(dirname "$path")
+    # If we reach "." or "/" we're done
+    [ "$dir" = "." ] && break
+    if is_excluded "$dir"; then
+      return 0
+    fi
+    # Move one level up
+    path="$dir"
+  done
+
+  return 1
+}
+
 # Then: copy files that are not excluded and modify them if text
+cd $SRC_ROOT
 find . -type f | while IFS= read -r SRC_FILE; do
   # Remove leading "./"
   REL_PATH=${SRC_FILE#./}
+  echo $REL_PATH
 
-  # Skip if this file is in the exclusion list
-  if is_excluded "$REL_PATH"; then
+  # Skip if this file is excluded or is inside an excluded directory
+  if is_excluded_or_in_excluded_dir "$REL_PATH"; then
     continue
   fi
 
   DEST_FILE="$DEST_ROOT/$REL_PATH"
 
-  # Ensure destination directory exists (defensive; should already from dir step)
+  # Ensure destination directory exists (defensive; dirs should already exist)
   DEST_DIR=$(dirname "$DEST_FILE")
   mkdir -p -- "$DEST_DIR"
 
