@@ -131,7 +131,7 @@ model Load "Model of a load on a hydronic circuit"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,20})));
-  Templates.Plants.Controls.Utilities.PIDWithEnable conPID(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
