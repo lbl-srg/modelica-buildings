@@ -104,14 +104,9 @@ model Combined "Combined-cycle CHP model"
   parameter Real Nd(min=100*Modelica.Constants.eps)=1
     "The higher Nd, the more ideal the derivative block"
     annotation (Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
-  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-    annotation (Evaluate=true, Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
-  parameter Real y_start=1 "Initial value of output in PI controller"
-    annotation (Evaluate=true, Dialog(group="HRSG water feeding pump controller", tab="Advanced"));
 
   // Assumptions tab
-  parameter Boolean allowFlowReversal = true
+  parameter Boolean allowFlowReversal = false
     "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
@@ -222,8 +217,6 @@ model Combined "Combined-cycle CHP model"
     final p_start=p_start,
     final VWat_start=VWat_start,
     final VWat_flow_start=VWat_flow_start,
-    final initType=initType,
-    final y_start=y_start,
     final p_a_start=p_a_start,
     final p_b_start=p_b_start,
     final use_T_start=use_T_start,

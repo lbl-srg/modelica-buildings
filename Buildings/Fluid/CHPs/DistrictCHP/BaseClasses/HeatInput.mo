@@ -22,15 +22,15 @@ block HeatInput "Required heat input"
     final quantity= "ThermodynamicTemperature")
     "Steam temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput HSte_flow(
-    final quantity="Energy",
-    final unit="J")
-    "Fixed steam enthalpy"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hSte_flow(
+    final quantity="SpecificEnergy",
+    final unit="J/kg")
+    "Fixed steam specific enthalpy"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput HWat_flow(
-    final quantity="Energy",
-    final unit="J")
-    "Fixed water enthalpy"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput hWat_flow(
+    final quantity="SpecificEnergy",
+    final unit="J/kg")
+    "Fixed water specific enthalpy"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow
     "Heat input"
@@ -67,9 +67,9 @@ equation
           34},{58,34}}, color={0,0,127}));
   connect(mExh_flow, masSte.u2) annotation (Line(points={{-120,40},{-20,40},{-20,
           54},{-2,54}}, color={0,0,127}));
-  connect(HSte_flow, entDif.u1) annotation (Line(points={{-120,-40},{-60,-40},{-60,
+  connect(hSte_flow, entDif.u1) annotation (Line(points={{-120,-40},{-60,-40},{-60,
           -54},{-42,-54}}, color={0,0,127}));
-  connect(HWat_flow, entDif.u2) annotation (Line(points={{-120,-80},{-60,-80},{-60,
+  connect(hWat_flow, entDif.u2) annotation (Line(points={{-120,-80},{-60,-80},{-60,
           -66},{-42,-66}}, color={0,0,127}));
   connect(ratSteToExh.mu, masSte.u1) annotation (Line(points={{-38,76},{-20,76},
           {-20,66},{-2,66}}, color={0,0,127}));

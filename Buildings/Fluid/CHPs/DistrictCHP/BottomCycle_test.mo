@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.DistrictCHP;
-model BottomCycle "Bottoming cycle subsystem model"
+model BottomCycle_test "Bottoming cycle subsystem model"
   extends Modelica.Blocks.Icons.Block;
 
   // Medium declarations
@@ -23,35 +23,21 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Water volume setpoint in the steam volume";
 
   // Advanced tab: parameters for the fluid systems
+  parameter Buildings.Fluid.Movers.Data.Generic per(pressure(
+      V_flow={0,m_flow_nominal/rho_nominal,1.5*m_flow_nominal/rho_nominal},
+      dp={2*dp_nominal,dp_nominal,0})) "Record with performance data";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=55
     "Nominal mass flow rate in fluid ports"
     annotation (Dialog(group="Fluid systems"));
-  parameter Modelica.Units.SI.AbsolutePressure p_a_nominal(displayUnit="Pa")=30000
-    "Nominal inlet pressure for predefined pump characteristics"
-    annotation (Dialog(group="Feedwater pump"));
-  parameter Modelica.Units.SI.AbsolutePressure p_b_nominal(displayUnit="Pa")=3000000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=3000000
     "Nominal outlet pressure, fixed if not control_m_flow and not use_p_set"
-    annotation (Dialog(group="Feedwater pump"));
-  parameter Integer nParallel=1 "Number of pumps in parallel"
-    annotation (Dialog(group="Feedwater pump"));
-  replaceable function flowCharacteristic =
-        Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow(
-          V_flow_nominal={0, V_flow_op, 1.5*V_flow_op},
-          head_nominal={2*head_op, head_op, 0})
-    "Head vs. V_flow characteristic at nominal speed and density"
-    annotation (Dialog(group="Feedwater pump"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal=1500
-    "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Feedwater pump"));
-  parameter Modelica.Media.Interfaces.Types.Density rho_nominal=
+    annotation (Dialog(group="Fluid systems"));
+  final parameter Modelica.Media.Interfaces.Types.Density rho_nominal=
       MediumW.density_pTX(
       MediumW.p_default,
       MediumW.T_default,
       MediumW.X_default) "Nominal fluid density for characteristic"
-    annotation (Dialog(group="Feedwater pump"));
-  parameter Boolean use_powerCharacteristic=false
-    "Use powerCharacteristic (vs. efficiencyCharacteristic)"
-    annotation (Dialog(group="Feedwater pump"));
+    annotation (Dialog(group="Fluid systems"));
   parameter Modelica.Units.SI.Volume V=12.4
     "Total volume of evaporator"
     annotation (Dialog(group="Evaporator"));
@@ -92,7 +78,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     annotation (Dialog(group="Pump controller", tab="Advanced"));
 
   // Assumptions tab
-  parameter Boolean allowFlowReversal = true
+  parameter Boolean allowFlowReversal = false
     "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
@@ -114,25 +100,8 @@ model BottomCycle "Bottoming cycle subsystem model"
   parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_start=0.055
     "Start value of volumetric flow rate of liquid water"
     annotation (Dialog(tab="Initialization",group="Fluid system"));
-  parameter Modelica.Units.SI.AbsolutePressure p_a_start(displayUnit="Pa")=30000
-    "Start value of inlet pressure for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
-  parameter Modelica.Units.SI.AbsolutePressure p_b_start(displayUnit="Pa")=3000000
-    "Start value of outlet pressure for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_start=55
     "Start value of mass flow rate for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
-  parameter Boolean use_T_start=false
-    "Boolean to indicate if T_start is used"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
-  parameter Real T_start(
-    unit="K",
-    displayUnit="degC")=777.625
-    "Start value of temperature for pump"
-    annotation (Dialog(tab="Initialization", group="Feedwater pump"));
-  parameter Modelica.Units.SI.SpecificEnthalpy h_start=1e5
-    "Start value of specific enthalpy for pump"
     annotation (Dialog(tab="Initialization", group="Feedwater pump"));
 
   // Inputs
@@ -200,28 +169,6 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Pump speed controller"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
 
-  // Feedwater pump
-  Modelica.Fluid.Machines.ControlledPump pum(
-    redeclare package Medium = MediumW,
-    allowFlowReversal=allowFlowReversal,
-    final m_flow_start=m_flow_start,
-    redeclare function flowCharacteristic = flowCharacteristic,
-    final nParallel=nParallel,
-    final N_nominal=N_nominal,
-    final rho_nominal=rho_nominal,
-    final use_powerCharacteristic=use_powerCharacteristic,
-    final p_a_nominal=p_a_nominal,
-    final p_b_nominal=p_b_nominal,
-    final m_flow_nominal=m_flow_nominal,
-    final p_a_start=p_a_start,
-    final p_b_start=p_b_start,
-    final use_T_start=use_T_start,
-    final T_start=T_start,
-    final h_start=h_start,
-    final use_m_flow_set=true)
-    "Water feeding pump in heat recovery steam generator"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-
   // Evaporator
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
@@ -241,13 +188,6 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Dynamic volume"
     annotation (Placement(transformation(extent={{50,-30},{70,-50}})));
 
-//   Modelica.Blocks.Sources.RealExpression fixSteEnt(
-//     final y=steBoi.port_b.h_outflow) "Steam enthalpy"
-//     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-//   Modelica.Blocks.Sources.RealExpression fixWatEnt(
-//     final y=pum.port_b.h_outflow)
-//     "Water flow enthalpy"
-//     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumNomFlo(
     final k=m_flow_nominal)
     "Nominal mass flow rate for feedwater pump"
@@ -274,33 +214,36 @@ model BottomCycle "Bottoming cycle subsystem model"
     final message="The heating demand is larger than the available heat")
     "Check if the demand is larger than the available heat"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
-  inner Modelica.Fluid.System system(
-    T_ambient=288.15,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
-protected
-  // exemplary characteristics
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow_op = m_flow_nominal/rho_nominal
-    "Operational volume flow rate according to nominal values";
-  parameter Modelica.Units.SI.Position head_op = (p_b_nominal-p_a_nominal)/(rho_nominal*g_n)
-    "Operational pump head according to nominal values";
-  constant Modelica.Units.SI.Acceleration g_n=9.80665
-    "Standard acceleration of gravity on earth";
-
-public
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort watSpeEnt(
     redeclare package Medium = MediumW,
     final allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m_flow_nominal, initType = Modelica.Blocks.Types.Init.NoInit)
+    final m_flow_nominal=m_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.SteadyState)
     "Water flow specific enthalpy"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort steSpeEnt(
     redeclare package Medium = MediumS,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.NoInit) "Steamspecific enthalpy"
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.SteadyState)
+    "Steamspecific enthalpy"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res(
+    redeclare final package Medium =MediumW,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal)
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+    redeclare final package Medium =MediumW,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final per=per,
+    final addPowerToMedium=false,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal,
+    final m_flow_start=m_flow_start) "Water feeding pump"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
 equation
   connect(TExh, heaInp.TExh) annotation (Line(points={{-160,120},{-120,120},{-120,
           44},{-42,44}}, color={0,0,127}));
@@ -343,16 +286,6 @@ equation
     annotation (Line(points={{42,100},{58,100}}, color={0,0,127}));
   connect(gre.y, heaDemAss.u)
     annotation (Line(points={{82,100},{98,100}}, color={255,0,255}));
-  connect(port_a, pum.port_a) annotation (Line(
-      points={{-140,0},{-120,0},{-120,-40},{-80,-40}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(steBoi.port_a,watSpeEnt. port_b)
-    annotation (Line(points={{50,-40},{-20,-40}},color={0,127,255},
-      thickness=0.5));
-  connect(pum.port_b,watSpeEnt. port_a)
-    annotation (Line(points={{-60,-40},{-40,-40}}, color={0,127,255},
-      thickness=0.5));
   connect(steBoi.port_b, steSpeEnt.port_a) annotation (Line(
       points={{70,-40},{90,-40}},
       color={0,127,255},
@@ -365,8 +298,16 @@ equation
           {-30,0},{-50,0},{-50,28},{-42,28}}, color={0,0,127}));
   connect(steSpeEnt.h_out, heaInp.hSte_flow) annotation (Line(points={{100,-29},
           {100,-10},{-60,-10},{-60,32},{-42,32}}, color={0,0,127}));
-  connect(masFlo.y, pum.m_flow_set) annotation (Line(points={{21,-90},{40,-90},{
-          40,-20},{-75,-20},{-75,-31.8}}, color={0,0,127}));
+  connect(steBoi.port_a, res.port_b)
+    annotation (Line(points={{50,-40},{20,-40}}, color={0,127,255}));
+  connect(res.port_a, watSpeEnt.port_b)
+    annotation (Line(points={{0,-40},{-20,-40}}, color={0,127,255}));
+  connect(port_a,pum. port_a) annotation (Line(points={{-140,0},{-120,0},{-120,-40},
+          {-80,-40}}, color={0,127,255}));
+  connect(pum.port_b, watSpeEnt.port_a)
+    annotation (Line(points={{-60,-40},{-40,-40}}, color={0,127,255}));
+  connect(masFlo.y,pum. m_flow_in) annotation (Line(points={{21,-90},{40,-90},{
+          40,-18},{-70,-18},{-70,-28}}, color={0,0,127}));
 annotation (
   defaultComponentName="botCyc",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
@@ -429,4 +370,4 @@ instead, a constraint is applied to ensure that this value is not negative.
 </li>      
 </ul>
 </html>"));
-end BottomCycle;
+end BottomCycle_test;
