@@ -81,13 +81,15 @@ model AirToWater
       iconTransformation(extent={{-370,-70},{-330,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratLoa(
     table=[
-      0, 0, 0;
-      5, 0, 0;
-      7, 1, 0;
-      12, 0.2, 0.2;
-      16, 0, 1;
-      22, 0.1, 0.1;
-      24, 0, 0],
+    0, 0, 0;
+    5, 0, 0;
+    7, 1, 0;
+    10, 0.5, 0;
+    14, 0, 0.6;
+    16, 0, 1;
+    18, 0, 0.6;
+    22, 0.1, 0.1;
+    24, 0, 0],
     timeScale=3600)
     "Fraction of design load – Index 1 for heating, 2 for cooling"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
@@ -141,7 +143,8 @@ model AirToWater
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=datAll.pla.ctl.dpChiWatRemSet_max[1] - dpTer_nominal - dpValve_nominal,
     final TLiqEnt_nominal=pla.TChiWatSup_nominal,
-    final TLiqLvg_nominal=pla.TChiWatRet_nominal) if have_chiWat "Cooling load"
+    final TLiqLvg_nominal=pla.TChiWatRet_nominal,
+    con(val(y_start=0)))                          if have_chiWat "Cooling load"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Buildings.Templates.Components.Loads.LoadTwoWayValve loaHea(
     redeclare final package MediumLiq = Medium,
@@ -152,22 +155,23 @@ model AirToWater
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=datAll.pla.ctl.dpHeaWatRemSet_max[1] - dpTer_nominal - dpValve_nominal,
     final TLiqEnt_nominal=pla.THeaWatSup_nominal,
-    final TLiqLvg_nominal=pla.THeaWatRet_nominal) "Heating load"
+    final TLiqLvg_nominal=pla.THeaWatRet_nominal,
+    con(val(y_start=0)))                          "Heating load"
     annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volHeaWat(
     energyDynamics=energyDynamics,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.capHea_nominal,
-    nPorts=2,
-    redeclare package Medium = Medium) "Fluid volume in distribution system"
-    annotation (Placement(transformation(extent={{-10,-140},{10,-120}})));
+    redeclare package Medium = Medium,
+    nPorts=2)                          "Fluid volume in distribution system"
+    annotation (Placement(transformation(extent={{-10,-100},{10,-120}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volChiWat(
     energyDynamics=energyDynamics,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.capCoo_nominal,
-    nPorts=2,
-    redeclare package Medium = Medium) "Fluid volume in distribution system"
-    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
+    redeclare package Medium = Medium,
+    nPorts=2)                          "Fluid volume in distribution system"
+    annotation (Placement(transformation(extent={{-10,-40},{10,-60}})));
 equation
   if have_chiWat then
     connect(mulInt[3].y, busAirHan.reqResChiWat)
@@ -236,22 +240,22 @@ equation
           -92},{88,-92}}, color={0,0,127}));
   connect(loaHea.yVal_actual, reqPlaRes.uHeaCoiSet) annotation (Line(points={{112,-92},
           {130,-92},{130,44},{92,44}},      color={0,0,127}));
-  connect(pla.port_bHeaWat, loaHea.port_a) annotation (Line(points={{-40,-90},{
-          60,-90},{60,-100},{90,-100}}, color={0,127,255}));
-  connect(pla.port_bChiWat, loaCoo.port_a) annotation (Line(points={{-40,-76},{
-          -20,-76},{-20,-40},{90,-40}}, color={0,127,255}));
-  connect(pipHeaWat.port_b, volHeaWat.ports[1])
-    annotation (Line(points={{30,-140},{-1,-140}}, color={0,127,255}));
-  connect(volHeaWat.ports[2], pla.port_aHeaWat) annotation (Line(points={{1,
-          -140},{-20,-140},{-20,-98},{-40,-98}}, color={0,127,255}));
-  connect(pipChiWat.port_b, volChiWat.ports[1])
-    annotation (Line(points={{30,-80},{-1,-80}}, color={0,127,255}));
-  connect(volChiWat.ports[2], pla.port_aChiWat) annotation (Line(points={{1,-80},
-          {-20,-80},{-20,-84},{-40,-84}}, color={0,127,255}));
   connect(enaLoa.y, loaCoo.u1) annotation (Line(points={{-158,0},{76,0},{76,-36},
           {88,-36}}, color={255,0,255}));
   connect(enaLoa.y, loaHea.u1) annotation (Line(points={{-158,0},{76,0},{76,-96},
           {88,-96}}, color={255,0,255}));
+  connect(pla.port_bHeaWat, volHeaWat.ports[1]) annotation (Line(points={{-40,-90},
+          {-20,-90},{-20,-100},{-1,-100}},      color={0,127,255}));
+  connect(volHeaWat.ports[2], loaHea.port_a)
+    annotation (Line(points={{1,-100},{90,-100}}, color={0,127,255}));
+  connect(pipHeaWat.port_b, pla.port_aHeaWat) annotation (Line(points={{30,-140},
+          {-30,-140},{-30,-98},{-40,-98}}, color={0,127,255}));
+  connect(pla.port_bChiWat, volChiWat.ports[1]) annotation (Line(points={{-40,
+          -76},{-20,-76},{-20,-40},{-1,-40}}, color={0,127,255}));
+  connect(volChiWat.ports[2], loaCoo.port_a)
+    annotation (Line(points={{1,-40},{90,-40}}, color={0,127,255}));
+  connect(pipChiWat.port_b, pla.port_aChiWat) annotation (Line(points={{30,-80},
+          {-40,-80},{-40,-84}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file=
