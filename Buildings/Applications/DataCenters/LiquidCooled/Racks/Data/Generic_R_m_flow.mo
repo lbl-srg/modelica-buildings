@@ -50,5 +50,12 @@ Eran Dagan, Assaf Dinstag,Jane Yao.
 OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 2023.
 <p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 16, 2025, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Generic_R_m_flow;
