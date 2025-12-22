@@ -2,33 +2,33 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subseque
 model StageProcesses
   "Validation sequence of tower cells staging process"
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    enaPro(have_endSwi=true, nTowCel=4)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses enaPro(
+    have_endSwi=true,
+    nTowCel=4)
     "Enable tower cells: inlet isolation valve with end switch status feedback"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    disPro(have_endSwi=true, nTowCel=4)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses disPro(
+    have_endSwi=true,
+    nTowCel=4)
     "Disable tower cells: inlet isolation valve with end switch status feedback"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    enaPro1(final have_endSwi=false, final nTowCel=4)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses enaPro1(
+    nTowCel=4)
     "Enable tower cells: inlet isolation valve without end switch status feedback"
     annotation (Placement(transformation(extent={{140,250},{160,270}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    disPro1(have_endSwi=false, nTowCel=4)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses disPro1(
+    nTowCel=4)
     "Disable tower cells: inlet isolation valve without end switch status feedback"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    enaPro2(
-    have_endSwi=true,
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses enaPro2(
     have_outIsoVal=true,
+    have_endSwi=true,
     nTowCel=4)
     "Enable tower cells: inlet and outlet isolation valve with end switch status feedback"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses
-    disPro2(
-    have_endSwi=true,
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Staging.Subsequences.StageProcesses disPro2(
     have_outIsoVal=true,
+    have_endSwi=true,
     nTowCel=4)
     "Disable tower cells: inlet and outlet isolation valve with end switch status feedback"
     annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
@@ -172,7 +172,7 @@ equation
           30},{-120,30},{-120,72},{-102,72}}, color={255,0,255}));
   connect(logSwi.y, disPro.uChaCel) annotation (Line(points={{-138,300},{-130,300},
           {-130,88},{-102,88}}, color={255,0,255}));
-  connect(fulClo1.y, disPro.u1InIsoValClo) annotation (Line(points={{-158,50},{-140,
+  connect(fulClo1.y, disPro.u1InlIsoValClo) annotation (Line(points={{-158,50},{-140,
           50},{-140,78},{-102,78}}, color={255,0,255}));
   connect(booRep.y, fulOpe.u2) annotation (Line(points={{-198,300},{-190,300},{-190,
           240},{-162,240}}, color={255,0,255}));
@@ -182,15 +182,15 @@ equation
           {-40,250},{-22,250}}, color={255,0,255}));
   connect(opeEnd.y, fulOpe.u1) annotation (Line(points={{2,250},{20,250},{20,280},
           {-170,280},{-170,248},{-162,248}}, color={255,0,255}));
-  connect(fulOpe.y, enaPro.u1InIsoValOpe) annotation (Line(points={{-138,240},{-120,
+  connect(fulOpe.y, enaPro.u1InlIsoValOpe) annotation (Line(points={{-138,240},{-120,
           240},{-120,264},{-82,264}}, color={255,0,255}));
   connect(booRep.y, fulClo.u2) annotation (Line(points={{-198,300},{-190,300},{-190,
           180},{-162,180}}, color={255,0,255}));
   connect(con1.y, fulClo.u3) annotation (Line(points={{-278,130},{-260,130},{-260,
           172},{-162,172}}, color={255,0,255}));
-  connect(fulClo.y, enaPro.u1InIsoValClo) annotation (Line(points={{-138,180},{-110,
+  connect(fulClo.y, enaPro.u1InlIsoValClo) annotation (Line(points={{-138,180},{-110,
           180},{-110,258},{-82,258}}, color={255,0,255}));
-  connect(fulOpe1.y, disPro.u1InIsoValOpe) annotation (Line(points={{-158,100},{
+  connect(fulOpe1.y, disPro.u1InlIsoValOpe) annotation (Line(points={{-158,100},{
           -140,100},{-140,84},{-102,84}}, color={255,0,255}));
   connect(con3.y,fulClo1. u3) annotation (Line(points={{-278,40},{-222,40},{-222,
           42},{-182,42}}, color={255,0,255}));
@@ -246,7 +246,7 @@ equation
           20,20},{-180,20},{-180,-62},{-162,-62}}, color={255,0,255}));
   connect(logSwi.y, enaPro2.uChaCel) annotation (Line(points={{-138,300},{-130,300},
           {-130,-32},{-82,-32}}, color={255,0,255}));
-  connect(inFulOpe.y, enaPro2.u1InIsoValOpe) annotation (Line(points={{-138,-40},
+  connect(inFulOpe.y, enaPro2.u1InlIsoValOpe) annotation (Line(points={{-138,-40},
           {-120,-40},{-120,-36},{-82,-36}}, color={255,0,255}));
   connect(outFulOpe.y, enaPro2.u1OutIsoValOpe) annotation (Line(points={{-138,-70},
           {-110,-70},{-110,-38},{-82,-38}}, color={255,0,255}));
@@ -256,7 +256,7 @@ equation
           {-40,-90},{-240,-90},{-240,-110},{-224,-110}}, color={255,0,255}));
   connect(clo2.y, fulClo2.u1) annotation (Line(points={{-200,-110},{-180,-110},{
           -180,-122},{-162,-122}}, color={255,0,255}));
-  connect(fulClo2.y, enaPro2.u1InIsoValClo) annotation (Line(points={{-138,-130},
+  connect(fulClo2.y, enaPro2.u1InlIsoValClo) annotation (Line(points={{-138,-130},
           {-100,-130},{-100,-42},{-82,-42}}, color={255,0,255}));
   connect(fulClo2.y, enaPro2.u1OutIsoValClo) annotation (Line(points={{-138,-130},
           {-100,-130},{-100,-44},{-82,-44}}, color={255,0,255}));
@@ -278,7 +278,7 @@ equation
           -260,-238},{-182,-238}}, color={255,0,255}));
   connect(disPro2.y1IsoVal,fulOpe2. u1) annotation (Line(points={{-78,-254},{-60,
           -254},{-60,-210},{-200,-210},{-200,-222},{-182,-222}}, color={255,0,255}));
-  connect(fulOpe2.y, disPro2.u1InIsoValOpe) annotation (Line(points={{-158,-230},
+  connect(fulOpe2.y, disPro2.u1InlIsoValOpe) annotation (Line(points={{-158,-230},
           {-140,-230},{-140,-256},{-102,-256}}, color={255,0,255}));
   connect(fulOpe2.y, disPro2.u1OutIsoValOpe) annotation (Line(points={{-158,-230},
           {-140,-230},{-140,-258},{-102,-258}}, color={255,0,255}));
@@ -292,7 +292,7 @@ equation
           {40,-180},{-210,-180},{-210,-272},{-182,-272}}, color={255,0,255}));
   connect(outCloEnd.y, outFulClo.u1) annotation (Line(points={{22,-240},{50,-240},
           {50,-170},{-220,-170},{-220,-312},{-182,-312}}, color={255,0,255}));
-  connect(inFulClo.y, disPro2.u1InIsoValClo) annotation (Line(points={{-158,-280},
+  connect(inFulClo.y, disPro2.u1InlIsoValClo) annotation (Line(points={{-158,-280},
           {-140,-280},{-140,-262},{-102,-262}}, color={255,0,255}));
   connect(outFulClo.y, disPro2.u1OutIsoValClo) annotation (Line(points={{-158,-320},
           {-130,-320},{-130,-264},{-102,-264}}, color={255,0,255}));
@@ -347,12 +347,12 @@ At 380 seconds, the input <code>uChaCel[2]</code> and <code>uChaCel[3]</code> ar
 Thus, the isolation valve 2 and 3 are commanded on (<code>y1IsoVal[2]</code> and
 <code>y1IsoVal[3]</code> become <code>true</code>);
 the fully closed end switch of valve 2 and 3 become <code>false</code>
-(<code>u1InIsoValClo[2]</code> and <code>u1InIsoValClo[3]</code> become <code>false</code>);
+(<code>u1InlIsoValClo[2]</code> and <code>u1InlIsoValClo[3]</code> become <code>false</code>);
 all the fully open end switch are still <code>false</code>.
 </li>
 <li>
 After 90 seconds at 470 seconds, the fully open end switch of valve 2 and 3 become
-<code>true</code> (<code>u1InIsoValOpe[2]</code> and <code>u1InIsoValOpe[3]</code>
+<code>true</code> (<code>u1InlIsoValOpe[2]</code> and <code>u1InlIsoValOpe[3]</code>
 become <code>true</code>). Thus, the cell 2 and 3 are commanded on
 (<code>yTowSta[2]</code> and <code>yTowSta[3]</code> change to <code>true</code>).
 </li>
@@ -374,12 +374,12 @@ Thus, the cell 2 and 3 are commanded off
 and the isolation valve 2 and 3 are commanded off (<code>y1IsoVal[2]</code> and
 <code>y1IsoVal[3]</code> become <code>false</code>);
 the fully open end switch of valve 2 and 3 become <code>false</code>
-(<code>u1InIsoValOpe[2]</code> and <code>u1InIsoValOpe[3]</code> become <code>false</code>);
+(<code>u1InlIsoValOpe[2]</code> and <code>u1InlIsoValOpe[3]</code> become <code>false</code>);
 all the fully closed end switch are still <code>false</code>.
 </li>
 <li>
 After 90 seconds at 470 seconds, the fully closed end switch of valve 2 and 3 become
-<code>true</code> (<code>u1InIsoValClo[2]</code> and <code>u1InIsoValClo[3]</code>
+<code>true</code> (<code>u1InlIsoValClo[2]</code> and <code>u1InlIsoValClo[3]</code>
 become <code>true</code>).
 </li>
 </ul>
@@ -435,7 +435,7 @@ At 380 seconds, the input <code>uChaCel[2]</code> and <code>uChaCel[3]</code> ar
 Thus, the isolation valve 2 and 3 are commanded on (<code>y1IsoVal[2]</code> and
 <code>y1IsoVal[3]</code> become <code>true</code>);
 the fully closed end switch of valve 2 and 3 become <code>false</code>
-(<code>u1InIsoValClo[2]</code>, <code>u1InIsoValClo[3]</code>,
+(<code>u1InlIsoValClo[2]</code>, <code>u1InlIsoValClo[3]</code>,
 <code>u1OutIsoValClo[2]</code>, <code>u1OutIsoValClo[3]</code>
 become <code>false</code>);
 all the fully open end switch are still <code>false</code>.
@@ -449,7 +449,7 @@ still <code>false</code>. Thus, the cell 2 and 3 are still commanded off
 </li>
 <li>
 After another 30 seconds at 500 seconds, the fully open end switch of inlet valve 2
-and 3 also become <code>true</code> (<code>u1InIsoValOpe[2]</code> and <code>u1InIsoValOpe[3]</code>
+and 3 also become <code>true</code> (<code>u1InlIsoValOpe[2]</code> and <code>u1InlIsoValOpe[3]</code>
 become <code>true</code>). Thus, the cell 2 and 3 can become commanded on
 (<code>yTowSta[2]</code> and <code>yTowSta[3]</code> are <code>true</code>).
 </li>
@@ -471,7 +471,7 @@ Thus, the isolation valve 2 and 3 are commanded off (<code>y1IsoVal[2]</code> an
 and the cell 2 and 3 should be commanded off
 (<code>yTowSta[2]</code> and <code>yTowSta[3]</code> become <code>false</code>);
 the fully open end switch of valve 2 and 3 become <code>false</code>
-(<code>u1InIsoValOpe[2]</code>, <code>u1InIsoValOpe[3]</code>,
+(<code>u1InlIsoValOpe[2]</code>, <code>u1InlIsoValOpe[3]</code>,
 <code>u1OutIsoValOpe[2]</code>, <code>u1OutIsoValOpe[3]</code>
 become <code>false</code>);
 all the fully closed end switch are still <code>false</code>.
@@ -481,7 +481,7 @@ After 90 seconds at 470 seconds, the fully closed end switch of outlet valve 2 a
 <code>true</code> (<code>u1OutIsoValClo[2]</code> and <code>u1OutIsoValClo[3]</code>
 become <code>true</code>), and after another 30 seconds at 500 seconds,
 the fully closed end switch of inlet valve 2 and 3 also become
-<code>true</code> (<code>u1InIsoValClo[2]</code> and <code>u1InIsoValClo[3]</code>
+<code>true</code> (<code>u1InlIsoValClo[2]</code> and <code>u1InlIsoValClo[3]</code>
 become <code>true</code>).
 </li>
 </ul>

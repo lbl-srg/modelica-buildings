@@ -4,7 +4,7 @@ block Down
 
   parameter Integer nChi = 2 "Total number of chillers in the plant";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
-  parameter Integer totSta = 3
+  parameter Integer nPlaSta = 3
     "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
   parameter Integer nChiSta=3
     "Total number of chiller stages, including stage zero but not the stages with a WSE, if applicable";
@@ -46,13 +46,13 @@ block Down
   parameter Real chaChiWatIsoTim(unit="s", displayUnit="s")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Disable CHW isolation valve"));
-  parameter Real staVec[totSta]
+  parameter Real staVec[nPlaSta]
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(group="Disable condenser water pump"));
-  parameter Real desConWatPumSpe[totSta]
+  parameter Real desConWatPumSpe[nPlaSta]
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(group="Disable condenser water pump", enable=(not have_airCoo) and (not have_fixSpeConWatPum)));
-  parameter Integer desConWatPumNum[totSta]
+  parameter Integer desConWatPumNum[nPlaSta]
     "Design number of condenser water pumps that should be enabled, according to current chiller stage and WSE status"
     annotation (Dialog(group="Disable condenser water pump", enable=not have_airCoo));
   parameter Integer desChiNum[nChiSta]={0,1,2}
@@ -258,7 +258,7 @@ protected
     final fixSpe=have_fixSpeConWatPum,
     final nChi=nChi,
     final nConWatPum=nConWatPum,
-    final totSta=totSta,
+    final nPlaSta=nPlaSta,
     final nChiSta=nChiSta,
     final staVec=staVec,
     final desConWatPumSpe=desConWatPumSpe,

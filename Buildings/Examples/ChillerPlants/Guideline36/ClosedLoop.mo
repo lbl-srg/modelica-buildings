@@ -19,7 +19,7 @@ model ClosedLoop
     final mChi_flow_nominal=mWater_flow_nominal,
     final mCon_flow_nominal=mWater_flow_nominal,
     final dTChi=7) "Chiller plant with controller"
-    annotation (Placement(transformation(extent={{104,40},{136,80}})));
+    annotation (Placement(transformation(extent={{90,46},{170,146}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
@@ -29,19 +29,19 @@ model ClosedLoop
     final dp1_nominal=3000,
     final dp2_nominal=600,
     final UA_nominal=UA_nominal) "Air handler unit cooling coil"
-    annotation (Placement(transformation(extent={{110,-20},{130,0}})));
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
     nPorts=1) "Air sink"
-    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
       computeWetBulbTemperature=true)
     "Weather data reader"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{70,80},{90,100}}),
+    annotation (Placement(transformation(extent={{30,170},{50,190}}),
         iconTransformation(extent={{-70,30},{-50,50}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear cooCoiVal(
     redeclare package Medium = MediumW,
@@ -50,7 +50,7 @@ model ClosedLoop
     final dpValve_nominal=20000,
     final dpFixed_nominal=60000) "Cooling coil valve"
     annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},rotation=90,origin={80,20})));
+        extent={{10,-10},{-10,10}},rotation=90,origin={100,20})));
   Buildings.Fluid.FixedResistances.Junction mixAir(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -72,11 +72,11 @@ model ClosedLoop
     nPorts=1) "Return air"
     annotation (Placement(transformation(extent={{240,-130},{220,-110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort supAirTem(
-     redeclare package Medium = MediumA,
-     final m_flow_nominal=mAir_flow_nominal)
-     "Supply air temperature"
+    redeclare package Medium = MediumA,
+    final m_flow_nominal=mAir_flow_nominal)
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=90,origin={80,-100})));
+        rotation=90,origin={100,-100})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant airSupTemSet(
     final k=273.15 + 18)
     "Supply air temperature setpoint"
@@ -146,7 +146,7 @@ model ClosedLoop
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{60,70},{80,70},{80,90}},
+      points={{0,160},{40,160},{40,180}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -154,15 +154,15 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(chiPla.portCooCoiSup, cooCoiVal.port_a) annotation (Line(
-      points={{108,40},{108,34},{80,34},{80,30}},
+      points={{100,46},{100,30}},
       color={0,127,255},
       thickness=0.5));
   connect(cooCoiVal.port_b, cooCoi.port_a1) annotation (Line(
-      points={{80,10},{80,-4},{110,-4}},
+      points={{100,10},{100,-4},{120,-4}},
       color={0,127,255},
       thickness=0.5));
   connect(chiPla.portCooCoiRet, cooCoi.port_b1) annotation (Line(
-      points={{132,40},{132,-4},{130,-4}},
+      points={{160,46},{160,-4},{140,-4}},
       color={0,127,255},
       thickness=0.5));
   connect(retAir.ports[1], mixAir.port_1) annotation (Line(points={{220,-120},{160,
@@ -172,11 +172,11 @@ equation
     annotation (Line(points={{220,-80},{170,-80}}, color={0,127,255},
       thickness=0.5));
   connect(mixAir.port_2, cooCoi.port_a2) annotation (Line(
-      points={{160,-70},{160,-16},{130,-16}},
+      points={{160,-70},{160,-16},{140,-16}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus.TDryBul, outAir.T_in) annotation (Line(
-      points={{80.05,90.05},{250,90.05},{250,-76},{242,-76}},
+      points={{40.05,180.05},{250,180.05},{250,-76},{242,-76}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -184,14 +184,14 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(cooCoi.port_b2, supAirTem.port_a) annotation (Line(
-      points={{110,-16},{80,-16},{80,-90}},
+      points={{120,-16},{100,-16},{100,-90}},
       color={0,127,255},
       thickness=0.5));
-  connect(supAirTem.port_b, sinAir.ports[1]) annotation (Line(points={{80,-110},
-          {80,-120},{20,-120}}, color={0,127,255},
+  connect(supAirTem.port_b, sinAir.ports[1]) annotation (Line(points={{100,-110},
+          {100,-120},{40,-120}},color={0,127,255},
       thickness=0.5));
-  connect(conInt.y, chiWatResReq.u1) annotation (Line(points={{-118,160},{-30,160},
-          {-30,128},{-22,128}}, color={255,127,0}));
+  connect(conInt.y, chiWatResReq.u1) annotation (Line(points={{-118,160},{-60,160},
+          {-60,128},{-22,128}}, color={255,127,0}));
   connect(truDel.y, chiWatResReq.u2)
     annotation (Line(points={{-118,120},{-22,120}}, color={255,0,255}));
   connect(temDif.y, hys.u)
@@ -221,18 +221,18 @@ equation
   connect(intSwi2.y, intSwi1.u3) annotation (Line(points={{-78,-40},{-70,-40},{
           -70,42},{-62,42}}, color={255,127,0}));
   connect(weaDat.weaBus, chiPla.weaBus) annotation (Line(
-      points={{60,70},{80,70},{80,77},{109,77}}, color={255,204,51}, thickness=0.5));
+      points={{0,160},{102.5,160},{102.5,138.5}},color={255,204,51}, thickness=0.5));
   connect(cooCoi.port_b1, bou.ports[1])
-    annotation (Line(points={{130,-4},{180,-4}}, color={0,127,255},
+    annotation (Line(points={{140,-4},{180,-4}}, color={0,127,255},
       thickness=0.5));
   connect(airSupTemSet.y, temDif.u2) annotation (Line(points={{-218,-40},{-210,
           -40},{-210,40},{-240,40},{-240,114},{-222,114}}, color={0,0,127}));
-  connect(supAirTem.T, conPID.u_m) annotation (Line(points={{69,-100},{-190,
-          -100},{-190,-52}}, color={0,0,127}));
-  connect(supAirTem.T, temDif.u1) annotation (Line(points={{69,-100},{-250,-100},
+  connect(supAirTem.T, conPID.u_m) annotation (Line(points={{89,-100},{-190,-100},
+          {-190,-52}},       color={0,0,127}));
+  connect(supAirTem.T, temDif.u1) annotation (Line(points={{89,-100},{-250,-100},
           {-250,126},{-222,126}}, color={0,0,127}));
   connect(conPID.y, cooCoiVal.y) annotation (Line(points={{-178,-40},{-160,-40},
-          {-160,20},{68,20}}, color={0,0,127}));
+          {-160,20},{88,20}}, color={0,0,127}));
   connect(conPID.y, greThr1.u) annotation (Line(points={{-178,-40},{-160,-40},{
           -160,-20},{-62,-20}}, color={0,0,127}));
   connect(greThr1.y, chiPlaReq.u2)
@@ -241,10 +241,10 @@ equation
           -30,-12},{-22,-12}}, color={255,127,0}));
   connect(conInt3.y, chiPlaReq.u3) annotation (Line(points={{-118,-80},{-30,-80},
           {-30,-28},{-22,-28}}, color={255,127,0}));
-  connect(chiWatResReq.y, chiPla.TChiWatSupResReq) annotation (Line(points={{2,
-          120},{20,120},{20,47},{102,47}}, color={255,127,0}));
-  connect(chiPlaReq.y, chiPla.chiPlaReq) annotation (Line(points={{2,-20},{20,
-          -20},{20,43},{102,43}}, color={255,127,0}));
+  connect(chiPlaReq.y, chiPla.chiPlaReq) annotation (Line(points={{2,-20},{10,-20},
+          {10,53.5},{85,53.5}},   color={255,127,0}));
+  connect(chiWatResReq.y, chiPla.TChiWatSupResReq) annotation (Line(points={{2,120},
+          {40,120},{40,63.5},{85,63.5}}, color={255,127,0}));
 annotation (experiment(
       StartTime=15638400,
       StopTime=15897600,

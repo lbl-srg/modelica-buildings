@@ -4,7 +4,7 @@ model UpWithOnOff
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Up upProCon(
     final nChi=2,
-    final totSta=4,
+    final nPlaSta=4,
     final have_ponyChiller=true,
     final have_fixSpeConWatPum=false,
     final need_reduceChillerDemand=true,

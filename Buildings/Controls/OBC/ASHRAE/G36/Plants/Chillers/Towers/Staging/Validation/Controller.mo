@@ -5,7 +5,7 @@ model Controller "Validation sequence of tower cell controller"
     towSta(
     final nTowCel=2,
     final nConWatPum=2,
-    final totSta=5,
+    final nPlaSta=5,
     final staVec={0,0.5,1,1.5,2},
     final towCelOnSet={0,1,1,2,2})
     "Cooling tower staging control, specifies total number of cells and the staging process"
