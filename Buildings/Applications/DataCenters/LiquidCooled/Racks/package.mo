@@ -1,9 +1,9 @@
 within Buildings.Applications.DataCenters.LiquidCooled;
-package Cabinets "Package with IT cabinets"
+package Racks "Package with IT racks"
   extends Modelica.Icons.VariantsPackage;
   annotation (Documentation(info="<html>
 <p>
-This package contains models for liquid cooled data center IT cabinets.
+This package contains models for liquid cooled data center IT racks.
 </p>
 </html>"));
-end Cabinets;
+end Racks;

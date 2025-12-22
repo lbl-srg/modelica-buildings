@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Cabinets.Data;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.Data;
 record Generic_R_m_flow
   "Generic data record for thermal resistance as a function of mass flow rate"
   extends Modelica.Icons.Record;
@@ -23,6 +23,7 @@ Chen et al. (2023). Thus, it is defined as
 <p>
 R = (T<sub>case</sub> - T<sub>inlet</sub>) &frasl; Q&#775;
 </p>
+<p>
 where
 <i>T<sub>case</sub></i> is the case temperature,
 <i>T<sub>inlet</sub></i> is the coolant inlet temperature and
@@ -35,8 +36,8 @@ thermal interface material or heat sink is attached.
 It turns out that the product <i>R V&#775;</i> as a function of
 the volume flow rate <i>V&#775;</i> is close to linear.
 Therefore, the model that computes the case temperature
-<a href=\"Buildings.Applications.DataCenters.LiquidCooled.Cabinets.BaseClasses.CaseTemperature\">
-Buildings.Applications.DataCenters.LiquidCooled.Cabinets.BaseClasses.CaseTemperature</a>
+<a href=\"Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature\">
+Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature</a>
 makes a data fit using <i>R V&#775;</i> versus <i>V&#775;</i>.
 The parameter <code>n</code> determines the order of this polynomial,
 which is by default set to <code>n=1</code>.

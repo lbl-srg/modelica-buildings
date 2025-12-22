@@ -1,0 +1,2 @@
+simulateModel("Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.Examples.CaseTemperature", method="Cvode", tolerance=1e-06, resultFile="CaseTemperature");
+createPlot(id=1, position={15, 15, 804, 417}, x="casTem.V_flow", y={"casTem.TCas"}, range={6.0, 14.0, 45.5, 48.5}, grid=true, colors={{28,108,200}}, timeUnit="l/min", displayUnits={"degC"});

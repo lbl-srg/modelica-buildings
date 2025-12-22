@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Cabinets.BaseClasses;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses;
 block CaseTemperature "Block to compute the case temperature"
   extends Modelica.Blocks.Icons.Block;
 
@@ -8,7 +8,7 @@ block CaseTemperature "Block to compute the case temperature"
     "Case-to-inlet thermal resistance as a function of the mass flow rate"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal
-    "Nominal volume flow rate for one cabinet" annotation (Dialog(group="Nominal condition"));
+    "Nominal volume flow rate for one racks" annotation (Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput V_flow(
      final unit="m3/s")
@@ -46,7 +46,7 @@ protected
   final parameter Integer nSup = size(datRes.V_flow,1)
     "Number of support points";
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_small = delta * V_flow_nominal
-    "Nominal volume flow rate for one cabinet" annotation (Dialog(group="Nominal condition"));
+    "Nominal volume flow rate for one rack" annotation (Dialog(group="Nominal condition"));
   parameter Real RV[nSup](each min=0) =
     {datRes.R[i]*datRes.V_flow[i] for i in 1:nSup}
     "Resistance multipled by volume flow rate";
@@ -80,11 +80,13 @@ equation
   dT = R * Q_flow;
   TCas = TIn + dT;
 
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="casTemp",
+  Documentation(info="<html>
 <p>
 This block computes the case temperature for use in
-<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Cabinets.ColdPlateR_P\">
-Buildings.Applications.DataCenters.LiquidCooled.Cabinets.ColdPlateR_P</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P\">
+Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P</a>.
 </p>
 <p>
 The relative error of the data fit of the thermal resistance <i>R</i>
