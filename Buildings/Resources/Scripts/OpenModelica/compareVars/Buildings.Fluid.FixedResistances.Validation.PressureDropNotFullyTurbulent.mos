@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "res11.m_flow",
+    "res12.m_flow",
+    "res22.m_flow",
+    "res23.m_flow",
+    "res31.m_flow",
+    "res32.m_flow",
+    "res08.m_flow",
+    "res11.dp",
+    "res11.dp_nominal"
+  };

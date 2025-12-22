@@ -74,7 +74,7 @@ Buildings.Fluid.FixedResistances.PressureDrop</a>.
 revisions="<html>
 <ul>
 <li>
-<i>December 18, 2025</i> by Michael Wetter:<br/>
+December 18, 2025 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

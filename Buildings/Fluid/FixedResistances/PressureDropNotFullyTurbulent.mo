@@ -80,7 +80,7 @@ and inherits most of its configuration.
 However, its mass flow rate is calculated differently by using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m_flow  = dp<sup>m</sup> m_flow_nominal / dp_nominal<sup>m</sup>,
+m_flow  = m_flow_nominal &nbsp; (dp &frasl; dp_nominal)<sup>m</sup>,
 </p>
 <p>
 where <i>m</i> is a parameter for the flow exponent.
@@ -90,12 +90,7 @@ Values of <i>m</i> between 0.5 and 1.0 are typical for air filters or microchann
 </html>", revisions="<html>
 <ul>
 <li>
-December 10, 2025, by Michael Wetter:<br/>
-Deleted old implementation as it assumed the pressure drop to be quadratic to the flow rate, which
-is not the case for a filter.
-</li>
-<li>
-December 22, 2023, by Sen Huang:<br/>
+December 22, 2025, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

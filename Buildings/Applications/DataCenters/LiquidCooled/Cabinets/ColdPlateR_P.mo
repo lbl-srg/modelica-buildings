@@ -181,6 +181,6 @@ First implementation.
     Diagram(graphics={Text(
           extent={{-86,-28},{78,-64}},
           textColor={28,108,200},
-          textString=
-              "Todo: use resistance that allows dp = m^n for n=1.85 (see data fit)")}));
+          textString="Todo: use resistance that allows dp = m^n for n=1.85 (see data fit).
+Make PEle a parameter, and use load as an input")}));
 end ColdPlateR_P;
