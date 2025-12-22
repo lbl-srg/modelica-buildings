@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PressureDropNotFullyTurbulent", startTime=-1, stopTime=1, method="Cvode", tolerance=1e-06, resultFile="PressureDropNotFullyTurbulent");
+createPlot(id=1, position={15, 15, 908, 927}, y={"res11.m_flow", "res12.m_flow", "res22.m_flow", "res23.m_flow", "res31.m_flow", "res32.m_flow", "res08.m_flow"}, range={-1.0, 1.0, -6.0, 6.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33},
+{244,125,35}}, timeUnit="s", displayUnits={"kg/s", "kg/s", "kg/s", "kg/s", "kg/s", "kg/s", "kg/s"});
+createPlot(id=1, position={15, 15, 908, 927}, y={"res11.dp", "res11.dp_nominal"}, range={-1.0, 1.0, -15000.0, 15000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"Pa", "Pa"});

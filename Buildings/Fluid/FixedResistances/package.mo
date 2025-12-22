@@ -27,6 +27,21 @@ Buildings.Fluid.FixedResistances.PressureDrop</a>
 is a fixed flow resistance that takes as parameter a nominal flow rate and a nominal pressure drop. The actual resistance is scaled using the above equation.
 </p>
 <p>
+A similar model is
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Validation.PressureDropNotFullyTurbulent\">
+Buildings.Fluid.FixedResistances.Validation.PressureDropNotFullyTurbulent</a>
+except that the actual resistance can be scaled using the equation
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+k = m &frasl;
+&Delta;p<sup>1/m</sup>,
+</p>
+<p>
+where <i>m &isin; [0.5, 1]</i> is a flow exponent, allowing setting values between <i>0.5</i>,
+which would be fully turbulent, and <i>1</i>, which would be fully laminar,
+as such intermediate values are typical for air filters and data center cold plates.
+</p>
+<p>
 The model
 <a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
 Buildings.Fluid.FixedResistances.HydraulicDiameter</a>

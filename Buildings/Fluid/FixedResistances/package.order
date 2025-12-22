@@ -6,6 +6,7 @@ Pipe
 PlugFlowPipe
 PlugFlowPipeDiscretized
 PressureDrop
+PressureDropNotFullyTurbulent
 BuriedPipes
 Examples
 Validation
