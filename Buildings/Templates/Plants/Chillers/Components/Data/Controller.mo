@@ -308,33 +308,29 @@ record Controller
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
       and cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  // RFE: The following parameter has the type Real for future capability to specify lead/lag alternated chillers with 0.5.
-  parameter Real sta[:, :](
+  parameter Integer staChi[:, :](
     each max=1,
-    each min=0,
-    each unit="1")
-    "Staging matrix with plant stage as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
-    annotation (Evaluate=true,
-    Dialog(group="Plant staging"));
-  final parameter Integer nSta = size(sta, 1)
-    "Number of plant stages"
-    annotation (Evaluate=true,
-    Dialog(group="Plant staging"));
-  final parameter Integer nUniSta = size(sta, 2)
-    "Number of units to be staged, including chillers and optional WSE"
-    annotation (Evaluate=true,
-    Dialog(group="Plant staging"));
-  parameter Integer staPumConWat[:](
-    max=fill(cfg.nPumConWat, nSta),
-    min=fill(0, nSta),
-    start=fill(cfg.nPumConWat, nSta))
-    "Number of operating CW pumps - Each plant stage"
-    annotation (Dialog(
-      group="Plant staging",
+    each min=0)
+    "Chiller staging matrix with chiller stage as row index and chiller as column index, excluding stage zero: 0 for disabled, 1 for enabled"
+    annotation (Evaluate=true, Dialog(group="Plant staging"));
+  final parameter Integer nStaChi = size(staChi,1)
+    "Number of chiller stages, excluding stage zero"
+    annotation (Evaluate=true, Dialog(group="Plant staging"));
+  final parameter Integer nSta =
+    if cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None
+    then 2*(nStaChi + 1) else nStaChi + 1
+    "Number of plant stages, including stage zero and distinguishing stages with and without WSE, if applicable"
+    annotation (Evaluate=true, Dialog(group="Plant staging"));
+  parameter Integer staPumConWat[:, :](
+    start=fill(0, nSta, cfg.nPumConWat))
+    "Condenser water pump staging matrix, with plant stage as row index and condenser water pump as column index: 0 for disabled, 1 for enabled"
+    annotation (Evaluate=true, Dialog(group="Plant staging",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-        (cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled)));
-  parameter Integer staCoo[:](max=fill(cfg.nCoo, nSta), start=fill(cfg.nCoo, nSta))
-    "Quantity of enabled cooler units (e.g. cooling tower cells) at each plant Stage"
+      cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Integer staCoo[:](
+    max=fill(cfg.nCoo, nSta),
+    start=fill(cfg.nCoo, nSta))
+    "Number of enabled tower cells for each plant stage"
     annotation (Evaluate=true,
     Dialog(group="Plant staging",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36

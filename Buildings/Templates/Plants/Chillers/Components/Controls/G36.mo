@@ -65,25 +65,6 @@ block G36
     "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false";
   final parameter Boolean have_heaConWatPum=cfg.typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "True: headered condenser water pumps";
-  // ---- General: Chiller staging settings ----
-  final parameter Integer nStaChiOnl=
-    if cfg.typEco == Buildings.Templates.Plants.Chillers.Types.Economizer.None
-      then nSta - 1
-    else sum({if sta[i, nUniSta] > 0 then 0 else 1 for i in 2:nSta})
-    "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included";
-  final parameter Integer totSta=nSta
-    "Total number of plant stages, including stage zero and the stages with a WSE, if applicable";
-  final parameter Integer staMat[nStaChiOnl, cfg.nChi](
-    each fixed=false)
-    "Chiller staging matrix, excluding stage 0 and stages with WSE";
-  final parameter Real desConWatPumSpe[nSta](
-    final min=fill(0, nSta),
-    final max=fill(1, nSta)) = dat.yPumConWatSta_nominal
-    "Design condenser water pump speed setpoints, according to current chiller stage and WSE status";
-  final parameter Integer desConWatPumNum[nSta] = dat.staPumConWat
-    "Design number of condenser water pumps that should be ON, according to current chiller stage and WSE status";
-  final parameter Integer towCelOnSet[nSta] = dat.staCoo
-    "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status";
   // ---- General: Cooling tower ----
   final parameter Integer nTowCel = cfg.nCoo
     "Total number of cooling tower cells";
@@ -172,7 +153,9 @@ block G36
       enable=cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
       and (cfg.typValCooInlIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
         or cfg.typValCooOutIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)));
-  // FIXME: missing parameter for inlet isolation valve configuration.
+  final parameter Boolean have_inlIsoVal=
+    cfg.typValCooInlIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    "True: tower cells also have inlet isolation valve";
   final parameter Boolean have_outIsoVal=
     cfg.typValCooOutIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "True: tower cells also have outlet isolation valve";
@@ -190,9 +173,9 @@ block G36
     final chiMinCap=chiMinCap,
     final chiTyp=chiTyp,
     final closeCoupledPlant=closeCoupledPlant,
+    final conWatPumStaMat=dat.staPumConWat,
     final cooTowAppDes=cooTowAppDes,
-    final desConWatPumNum=desConWatPumNum,
-    final desConWatPumSpe=desConWatPumSpe,
+    final desConWatPumSpe=dat.yPumConWatSta_nominal,
     TiEcoVal=60,
     TiMinFloBypCon=60,
     TiChiWatPum=60,
@@ -207,6 +190,7 @@ block G36
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
     final have_heaChiWatPum=have_heaChiWatPum,
     final have_heaConWatPum=have_heaConWatPum,
+    final have_inlIsoVal=have_inlIsoVal,
     final have_locSenChiWatPum=have_locSenChiWatPum,
     final have_outIsoVal=have_outIsoVal,
     final have_parChi=have_parChi,
@@ -227,15 +211,13 @@ block G36
     final nSenChiWatPum=nSenChiWatPum,
     final nTowCel=nTowCel,
     final use_loadShed=use_loadShed,
-    final conWatPumStaMat=integer(ceil(sta)),
-    final staMat=staMat,
+    final staMat=dat.staChi,
     final TChiLocOut=TChiLocOut,
     final TChiWatSupMin=TChiWatSupMin,
     final TConWatRet_nominal=TConWatRet_nominal,
     final TConWatSup_nominal=TConWatSup_nominal,
-    final totSta=nSta,
     final TOutWetDes=TOutWetDes,
-    final towCelOnSet=towCelOnSet,
+    final towCelOnSet=dat.staCoo,
     final TPlaChiWatSupMax=TPlaChiWatSupMax,
     final VChiWat_flow_nominal=VChiWat_flow_nominal,
     final VHeaExcDes_flow=VHeaExcDes_flow,
@@ -285,30 +267,6 @@ block G36
       nout=cfg.nChi) if typCtlHea <> Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired
     "#2299 Depends on plant configuration, should rather be the commanded position"
     annotation (Placement(transformation(extent={{-110,150},{-90,170}})));
-protected
-  Integer idx
-    "Iteration variable for algorithm section";
-initial algorithm
-  idx := 1;
-  if cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-    then
-    for i in 2:nSta loop
-      if sta[i, nUniSta] < 1 then
-        staMat[idx] := {if sta[i, j] > 0 then 1 else 0 for j in 1:cfg.nChi};
-        idx := idx + 1;
-      end if;
-    end for;
-  else
-    staMat := {{if sta[k + 1, j] > 0 then 1 else 0 for j in 1:cfg.nChi} for k in 1:nStaChiOnl};
-  end if;
-algorithm
-  /*
-  The when clause makes the variable discrete, and when the algorithm is executed,
-  it is initialized with its pre value.
-  */
-  when sample(0, 3E7) then
-    idx := 0;
-  end when;
 equation
   /* Control point connection - start */
   connect(busChi.y1ReqFloChiWat, ctl.uChiWatReq);
@@ -353,13 +311,12 @@ equation
   else
     connect(bus.pumChiWatSec.y1_actual, resDpChiWatLoc.uChiWatPum);
   end if;
-  connect(bus.valCooInlIso.y0_actual, ctl.u1InIsoValClo);
-  connect(bus.valCooInlIso.y1_actual, ctl.u1InIsoValOpe);
+  connect(bus.valCooInlIso.y0_actual, ctl.u1InlIsoValClo);
+  connect(bus.valCooInlIso.y1_actual, ctl.u1InlIsoValOpe);
   connect(bus.valCooOutIso.y0_actual, ctl.u1OutIsoValClo);
   connect(bus.valCooOutIso.y1_actual, ctl.u1OutIsoValOpe);
   connect(FIXME_uChiWatIsoVal.y, ctl.uChiWatIsoVal)
     annotation (Line(points={{-88,160},{-20,160},{-20,-10},{-2,-10}},  color={0,0,127}));
-
   // Controller outputs
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.TChiWatSupSet, busChi.TSet);

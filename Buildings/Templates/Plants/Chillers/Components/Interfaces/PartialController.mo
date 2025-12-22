@@ -131,24 +131,6 @@ partial block PartialController "Interface class for plant controller"
     cfg=cfg)
     "Parameter record for controller";
 
-  // FIXME: This is now conWatPumStaMat (used to be plaStaMat): "Matrix for staging condenser water pump and tower,
-  // with stage number as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
-  // We should rather have:
-  // - one Boolean matrix for CW pump staging: with plant stage (chiller+WSE) as row index and CW pump tag as column index (to support unequally sized pumps)
-  // - one real matrix for CW pump speed: with plant stage (chiller+WSE) as row index and a single column
-  // - one integer matrix for tower cell staging: with plant stage (chiller+WSE) as row index and a single column
-  // Each matrix is optional, depending on plant configuration.
-  // TODO once this is refactored: expose staMat = chiller staging matrix (WSE enable logic separate from staging logic)
-  final parameter Real sta[:,:]=dat.sta
-    "Staging matrix with plant stage as row index and chiller as column index (highest index for optional WSE): 0 for disabled, 1 for enabled"
-    annotation (Evaluate=true, Dialog(group="Plant staging"));
-  final parameter Integer nUniSta=dat.nUniSta
-    "Number of units to stage, including chillers and optional WSE"
-    annotation (Evaluate=true, Dialog(group="Plant staging"));
-  final parameter Integer nSta=dat.nSta
-    "Number of plant stages"
-    annotation (Evaluate=true, Dialog(group="Plant staging"));
-
   Buildings.Templates.Plants.Chillers.Interfaces.Bus bus
     "Plant control bus"
     annotation (Placement(

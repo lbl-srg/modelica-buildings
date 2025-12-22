@@ -37,7 +37,6 @@ partial model PartialCoolerGroup
         "Two-way two-position valve",
       choice=Buildings.Templates.Components.Types.Valve.None
         "No Valve"));
-
   parameter Buildings.Templates.Plants.Chillers.Components.Data.CoolerGroup dat(
     final typCoo=typCoo,
     final nCoo=nCoo)
