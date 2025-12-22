@@ -9,7 +9,7 @@ record Generic_R_m_flow
   parameter Integer n(min=1) = 1
     "Order of desired polynomial that fits the data points (V_flow, R*V_flow)";
   annotation (
-  defaultComponentName="datRes",
+  defaultComponentName="datTheRes",
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>

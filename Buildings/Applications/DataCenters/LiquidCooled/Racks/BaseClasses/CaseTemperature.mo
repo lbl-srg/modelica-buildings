@@ -4,15 +4,15 @@ block CaseTemperature "Block to compute the case temperature"
 
   constant Real delta = 1E-4 "Small value for regularization";
 
-  parameter Data.Generic_R_m_flow datRes
-    "Case-to-inlet thermal resistance as a function of the mass flow rate"
+  parameter Data.Generic_R_m_flow datTheRes
+    "Case-to-inlet thermal resistance as a function of the volume flow rate"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal
-    "Nominal volume flow rate for one racks" annotation (Dialog(group="Nominal condition"));
+    "Nominal volume flow rate for one cold plate" annotation (Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput V_flow(
      final unit="m3/s")
-     "Volume flow rate" annotation (
+     "Volume flow rate for one cold plate" annotation (
       Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
 
@@ -28,7 +28,7 @@ block CaseTemperature "Block to compute the case temperature"
 
   Modelica.Blocks.Interfaces.RealOutput dT(
     final unit="K") "Temperature rise (case to inlet)"
-                                       annotation (Placement(transformation(
+    annotation (Placement(transformation(
           extent={{100,30},{120,50}}),  iconTransformation(extent={{100,-10},{120,
             10}})));
 
@@ -40,48 +40,44 @@ block CaseTemperature "Block to compute the case temperature"
 
   Modelica.Units.SI.ThermalResistance R
     "Case-to-inlet thermal resistance";
-  final parameter Real relErrR[:] = {RFit[i] / datRes.R[i] for i in 1:nSup}
+  final parameter Real relErrR[:]={RFit[i]/datTheRes.R[i] for i in 1:nSup}
     "Relative error of resistance based on data fit at each support point datRes.V_flow";
 protected
-  final parameter Integer nSup = size(datRes.V_flow,1)
+  final parameter Integer nSup=size(datTheRes.V_flow, 1)
     "Number of support points";
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_small = delta * V_flow_nominal
-    "Nominal volume flow rate for one rack" annotation (Dialog(group="Nominal condition"));
-  parameter Real RV[nSup](each min=0) =
-    {datRes.R[i]*datRes.V_flow[i] for i in 1:nSup}
-    "Resistance multipled by volume flow rate";
-  final parameter Real p[:] = Modelica.Math.Polynomials.fitting(
-    u = datRes.V_flow,
-    y = RV,
-    n = datRes.n)
-    "Polynomial coefficients";
-  final parameter Modelica.Units.SI.ThermalResistance RFit[nSup] =
-    {Modelica.Math.Polynomials.evaluateWithRange(
+    "Nominal volume flow rate for one cold plate" annotation (Dialog(group="Nominal condition"));
+  parameter Real RV[nSup](each min=0) = {datTheRes.R[i]*datTheRes.V_flow[i]
+    for i in 1:nSup} "Resistance multipled by volume flow rate";
+  final parameter Real p[:]=Modelica.Math.Polynomials.fitting(
+      u=datTheRes.V_flow,
+      y=RV,
+      n=datTheRes.n) "Polynomial coefficients";
+  final parameter Modelica.Units.SI.ThermalResistance RFit[nSup]={
+      Modelica.Math.Polynomials.evaluateWithRange(
       p=p,
-      uMin=datRes.V_flow[1],
-      uMax=datRes.V_flow[end],
-      u = datRes.V_flow[i]) /
-      Buildings.Utilities.Math.Functions.smoothMax(
-        x1=datRes.V_flow[i],
-        x2=V_flow_small,
-        deltaX=delta/4) for i in 1:nSup}
-     "Resistance based on data fit (used to show error)";
+      uMin=datTheRes.V_flow[1],
+      uMax=datTheRes.V_flow[end],
+      u=datTheRes.V_flow[i])/Buildings.Utilities.Math.Functions.smoothMax(
+      x1=datTheRes.V_flow[i],
+      x2=V_flow_small,
+      deltaX=delta/4) for i in 1:nSup}
+    "Resistance based on data fit (used to show error)";
 
 equation
-  R = Modelica.Math.Polynomials.evaluateWithRange(
+  R =Modelica.Math.Polynomials.evaluateWithRange(
     p=p,
-    uMin=datRes.V_flow[1],
-    uMax=datRes.V_flow[end],
-    u = V_flow) /
-    Buildings.Utilities.Math.Functions.smoothMax(
-      x1=V_flow,
-      x2=V_flow_small,
-      deltaX=delta/4);
+    uMin=datTheRes.V_flow[1],
+    uMax=datTheRes.V_flow[end],
+    u=V_flow)/Buildings.Utilities.Math.Functions.smoothMax(
+    x1=V_flow,
+    x2=V_flow_small,
+    deltaX=delta/4);
   dT = R * Q_flow;
   TCas = TIn + dT;
 
   annotation (
-  defaultComponentName="casTemp",
+  defaultComponentName="casTem",
   Documentation(info="<html>
 <p>
 This block computes the case temperature for use in

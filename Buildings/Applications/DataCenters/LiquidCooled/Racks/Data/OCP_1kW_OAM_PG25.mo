@@ -1,11 +1,10 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.Data;
 record OCP_1kW_OAM_PG25 "OpenCompute example for 1 kW OAM with PG25 as working fluid"
   extends Generic_R_m_flow(
-    V_flow={0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4},
-    R = 1E-3/60*{0.0389, 0.0325, 0.0300, 0.0280, 0.0265, 0.0255, 0.0245, 0.0230, 0.0220, 0.0214, 0.0209, 0.0204, 0.0200, 0.0197},
-    d = 1005);
+    V_flow={0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4}/60/1000,
+    R = {0.0389, 0.0325, 0.0300, 0.0280, 0.0265, 0.0255, 0.0245, 0.0230, 0.0220, 0.0214, 0.0209, 0.0204, 0.0200, 0.0197});
   annotation (
-  defaultComponentName="datRes",
+  defaultComponentName="datTheRes",
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>

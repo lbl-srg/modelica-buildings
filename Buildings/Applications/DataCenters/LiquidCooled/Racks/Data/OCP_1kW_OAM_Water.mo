@@ -2,11 +2,10 @@ within Buildings.Applications.DataCenters.LiquidCooled.Racks.Data;
 record OCP_1kW_OAM_Water
   "OpenCompute example for 1 kW OAM with DI water as working fluid"
   extends Generic_R_m_flow(
-    V_flow={2.0, 3.0, 4.0, 5.0},
-    R = 1E-3/60*{0.0172, 0.0160, 0.0154, 0.0151},
-    d=1000);
+    V_flow={2.0, 3.0, 4.0, 5.0}/60/1000,
+    R = {0.0172, 0.0160, 0.0154, 0.0151});
   annotation (
-  defaultComponentName="datRes",
+  defaultComponentName="datTheRes",
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>

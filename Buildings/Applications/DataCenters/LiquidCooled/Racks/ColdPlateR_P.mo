@@ -1,7 +1,7 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks;
 model ColdPlateR_P
   "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and P is input"
-  extends Fluid.Interfaces.PartialTwoPort;
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
       annotation (choices(
@@ -19,12 +19,11 @@ model ColdPlateR_P
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.TemperatureDifference dT_nominal =
-    Q_flow_nominal/(m_flow_nominal*Medium.cp)
+    Q_flow_nominal/(m_flow_nominal*Medium.cp_const)
     "Design temperature differences, used to compute cold plate temperature"
     annotation(Dialog(group="Case temperature"));
 
-  parameter Data.Generic_R_m_flow datRes
-    "Thermal resistance data record"
+  parameter Data.Generic_R_m_flow datTheRes "Thermal resistance data record"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   // Flow resistance
@@ -38,12 +37,15 @@ model ColdPlateR_P
                   Dialog(group = "Transition to laminar",
                          enable = not linearized));
 
-  parameter Modelica.Units.SI.VolumeFlowRate VCas_flow_nominal = sum(datRes.V_flow)/size(datRes.V_flow, 1)
-     "Design flow rate of one cold plate, used to compute the case temperature"
-     annotation(Dialog(group="Case temperature"));
-  parameter Integer nCas = Q_flow_nominal / (VCas_flow_nominal * Medium.d_constant * Medium.cp * dT_nominal)
+  parameter Modelica.Units.SI.VolumeFlowRate VColPla_flow_nominal=sum(datTheRes.V_flow)
+      /size(datTheRes.V_flow, 1)
+    "Design flow rate of one cold plate, used to compute the case temperature"
+    annotation (Dialog(group="Case temperature"));
+  // For number of rack, we use a Real to simplify solving optimizations that involves this parameter
+  parameter Real nColPla=Q_flow_nominal/(VColPla_flow_nominal*Medium.d_const*
+      Medium.cp_const*dT_nominal)
     "Number of cold plates, used to compute the case temperature"
-    annotation(Dialog(group="Case temperature"));
+    annotation (Dialog(group="Case temperature"));
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -53,47 +55,48 @@ model ColdPlateR_P
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  parameter Modelica.Units.SI.Time tau=5
+  parameter Modelica.Units.SI.Time tau=2
     "Time constant of fluid outlet temperature at nominal flow";
+
+  // Initialization
+  parameter Medium.Temperature T_start = Medium.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization"));
 
   Modelica.Blocks.Interfaces.RealInput u(final unit="1", min=0)
     "Normalized utilization" annotation (Placement(transformation(extent={{-140,30},
             {-100,70}}),     iconTransformation(extent={{-120,50},{-100,70}})));
 
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature casTem(
-    final datRes=datRes, final V_flow_nominal=m_flow_nominal/Medium.d_const/
-        nCas)
-    "Case temperature"
-    annotation (
-      Dialog(group="Case temperature"),
-      Placement(transformation(extent={{20,70},{40,90}})));
+  Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature
+    casTem(final datTheRes=datTheRes, final V_flow_nominal=m_flow_nominal/
+        Medium.d_const/nColPla) "Case temperature"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-protected
-  Fluid.FixedResistances.PressureDropPartiallyTurbulent res(
+  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res(
     redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal,
     final m=m)
     "Flow resistance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
-    final p_start=p_start,
     final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
-    final m_flow_nominal=mR_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
     final prescribedHeatFlowRate=true,
     final nPorts=2) "Fluid control volume"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
+
+protected
   Modelica.Blocks.Math.Gain Q_flow(final k=Q_flow_nominal)
     "Gain to compute actual heat flow rate"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Modelica.Blocks.Sources.RealExpression VCas_flow(y(final unit="m3/s") =
-      port_a.m_flow/Medium.d_constant/nCas) "Volume flow rate per case"
+  Modelica.Blocks.Sources.RealExpression VColPla_flow(y(final unit="m3/s") =
+      port_a.m_flow/Medium.d_const/nColPla) "Volume flow rate per cold plate"
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
   Modelica.Blocks.Sources.RealExpression TIn(
     y(final unit="K",
@@ -105,11 +108,10 @@ protected
       "Inlet temperature"
     annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
 
-protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(final alpha=0)
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-42,10},{-22,30}})));
-  Modelica.Blocks.Math.Gain QCas_flow(final k=1/nCas)
+  Modelica.Blocks.Math.Gain QCas_flow(final k=1/nColPla)
     "Gain to compute heat flow rate per case"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
@@ -122,7 +124,7 @@ equation
                         color={191,0,0}));
   connect(res.port_b,vol. ports[1])
     annotation (Line(points={{-20,0},{19,0}}, color={0,127,255}));
-  connect(casTem.V_flow, VCas_flow.y) annotation (Line(points={{19,86},{-28,86},
+  connect(casTem.V_flow, VColPla_flow.y) annotation (Line(points={{19,86},{-28,86},
           {-28,88},{-39,88}}, color={0,0,127}));
   connect(casTem.TIn, TIn.y) annotation (Line(points={{19,80},{-28,80},{-28,74},
           {-39,74}}, color={0,0,127}));
@@ -135,7 +137,7 @@ equation
   connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-10,50},
           {-10,74},{19,74}}, color={0,0,127}));
 annotation (
-  defaultComponentName="cab",
+  defaultComponentName="rac",
   Documentation(
     info="<html>
 <p>
@@ -154,16 +156,16 @@ Q_flow = u Q_flow_nominal.
 <p>
 The fluid outlet temperature is computed using a first order delay to mimic
 the transient effect. This first order delay is characterized by the user-configurable
-time constant <code>tau</code>, set by default to <code>tau=5</code> seconds.
+time constant <code>tau</code>, set by default to <code>tau=2</code> seconds.
 </p>
 <p>
 To compute the pressure drop, the model uses
 <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent\">
 Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent</a>.
-Therefore, the mass flow rate is
+Therefore, the mass flow rate and pressure drop are related as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m_flow  = m_flow_nominal &nbsp; (dp &frasl; dp_nominal)<sup>m</sup>,
+m_flow &frasl; m_flow_nominal = (dp &frasl; dp_nominal)<sup>m</sup>,
 </p>
 <p>
 where 
@@ -171,7 +173,7 @@ where
 <code>dp</code> is the pressure difference between inlet and outlet,
 <code>dp_nominal</code> is a parameter for the design pressure difference, and
 <code>m</code> is a parameter for the flow exponent.
-Based on Chen et al., (2024), the default value is <code>m=1.85</code>.
+Based on a data fit using the data in Chen et al., (2024), the default value is <code>m=1.85</code>.
 The model assumes a default pressure drop <code>dp_nominal</code> of
 <code>dp_nominal=50</code> kPa, which is the pressure drop of the OCP specified
 cold plate with a 8x1 loop at <i>10</i> l/min flow rate with 25% PGW.
@@ -204,12 +206,12 @@ but the component model takes as a parameter the total design heat flow rate <co
 The model approximates the number of cold plates using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-n_col = Q_flow_nominal / (V_flow_col_nominal * rho * c_p * dT_nominal),
+n_col = Q_flow_nominal / (VColPla_flow_nominal * rho * c_p * dT_nominal),
 </p>
 <p>
 where
-<code>V_flow_col_nominal</code> is the design flow rate of a cold plate, approximated by default as the average
-value of the data record's volume flow rate, <code>V_flow_col_nominal = average(datRes.V_flow)</code>,
+<code>VColPla_flow_nominal</code> is the design flow rate of a cold plate, approximated by default as the average
+value of the data record's volume flow rate, <code>VColPla_flow_nominal = average(datRes.V_flow)</code>,
 <code>rho</code> is the fluid density,
 <code>c_p</code> is the fluid specific heat capacity, and
 <code>dT_nominal</code> is the design temperature difference.
@@ -238,5 +240,41 @@ December 16, 2025, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,60},{40,-60}},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-32,48},{32,34}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-32,26},{32,12}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-32,6},{32,-8}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-32,-36},{32,-50}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-32,-14},{32,-28}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end ColdPlateR_P;
