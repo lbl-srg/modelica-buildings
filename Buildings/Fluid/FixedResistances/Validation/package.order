@@ -1,9 +1,9 @@
 FlowJunctionSteadyState
 FlowJunctionSteadyStateNoPressureDrop
 LosslessPipe
+PressureDropPartiallyTurbulent
 PressureDropsExplicit
 PressureDropsExplicitLinearized
 PressureDropsParallel
 PressureDropsSeries
 PlugFlowPipes
-PressureDropNotFullyTurbulent

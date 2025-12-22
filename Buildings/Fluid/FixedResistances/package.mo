@@ -28,8 +28,8 @@ is a fixed flow resistance that takes as parameter a nominal flow rate and a nom
 </p>
 <p>
 A similar model is
-<a href=\"modelica://Buildings.Fluid.FixedResistances.Validation.PressureDropNotFullyTurbulent\">
-Buildings.Fluid.FixedResistances.Validation.PressureDropNotFullyTurbulent</a>
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Validation.PressureDropPartiallyTurbulent\">
+Buildings.Fluid.FixedResistances.Validation.PressureDropPartiallyTurbulent</a>
 except that the actual resistance can be scaled using the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">

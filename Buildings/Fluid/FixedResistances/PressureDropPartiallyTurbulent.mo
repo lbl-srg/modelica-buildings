@@ -1,5 +1,5 @@
 within Buildings.Fluid.FixedResistances;
-model PressureDropNotFullyTurbulent
+model PressureDropPartiallyTurbulent
   "Flow resistance allowing flow exponent for not fully turbulent flow"
   extends Buildings.Fluid.BaseClasses.PartialResistance(
     final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0,
@@ -99,4 +99,4 @@ First implementation.
           extent={{-48,-46},{48,-90}},
           textColor={0,0,255},
           textString="%m=m")}));
-end PressureDropNotFullyTurbulent;
+end PressureDropPartiallyTurbulent;

@@ -1,5 +1,5 @@
 within Buildings.Fluid.FixedResistances.Validation;
-model PressureDropNotFullyTurbulent
+model PressureDropPartiallyTurbulent
   "Validation model for pressure drop for not fully turbulent flow"
   extends Modelica.Icons.Example;
 
@@ -28,7 +28,7 @@ model PressureDropNotFullyTurbulent
     dp_nominal=5000) "Flow resistance"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
-  Buildings.Fluid.FixedResistances.PressureDropNotFullyTurbulent
+  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent
                                                 res12(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
@@ -62,7 +62,7 @@ model PressureDropNotFullyTurbulent
     dp_nominal=5000,
     linearized=true) "Flow resistance"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Fluid.FixedResistances.PressureDropNotFullyTurbulent res23(
+  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res23(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
@@ -85,7 +85,7 @@ model PressureDropNotFullyTurbulent
     dp_nominal=5000,
     linearized=true) "Flow resistance"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
-  Buildings.Fluid.FixedResistances.PressureDropNotFullyTurbulent res32(
+  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res32(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
@@ -100,7 +100,7 @@ model PressureDropNotFullyTurbulent
   Buildings.Utilities.Diagnostics.AssertEquality assEqu3(threShold=1E-1)
     "Assert equality of the two mass flow rates"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-  Buildings.Fluid.FixedResistances.PressureDropNotFullyTurbulent res08(
+  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res08(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
@@ -192,13 +192,13 @@ equation
 experiment(
       StartTime=-1,
       Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropNotFullyTurbulent.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropPartiallyTurbulent.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the implementation of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropNotFullyTurbulent\">
-Buildings.Fluid.FixedResistances.PressureDropNotFullyTurbulent</a>
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent\">
+Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent</a>
 for different values of the flow coefficient <i>m</i>
 by comparing it against solutions computed by
 <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
@@ -217,4 +217,4 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end PressureDropNotFullyTurbulent;
+end PressureDropPartiallyTurbulent;
