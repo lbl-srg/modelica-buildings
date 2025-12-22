@@ -143,6 +143,10 @@ block Down
     "Water side economizer status: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
       iconTransformation(extent={{-140,-150},{-100,-110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enabling status"
+    annotation (Placement(transformation(extent={{-320,-390},{-280,-350}}),
+      iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaPro
     "Indicate stage-down status: true=in stage-down process"
     annotation (Placement(transformation(extent={{280,340},{320,380}}),
@@ -273,7 +277,7 @@ protected
     final maxFloSet=maxFloSet,
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet) "Minimum chilled water flow setpoint"
-    annotation (Placement(transformation(extent={{100,-332},{120,-312}})));
+    annotation (Placement(transformation(extent={{80,-332},{100,-312}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false)
     "False constant"
@@ -336,10 +340,10 @@ protected
     annotation (Placement(transformation(extent={{-180,350},{-160,370}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{220,-380},{240,-360}})));
+    annotation (Placement(transformation(extent={{200,-360},{220,-340}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Break algebraic loop"
-    annotation (Placement(transformation(extent={{180,-380},{200,-360}})));
+    annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Maintain ON signal when chiller demand has been limited"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
@@ -362,10 +366,15 @@ protected
     annotation (Placement(transformation(extent={{-26,-130},{-6,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not notInPro
     "True: it is not in the setpoint changing process"
-    annotation (Placement(transformation(extent={{140,-380},{160,-360}})));
+    annotation (Placement(transformation(extent={{120,-360},{140,-340}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1 if have_airCoo
     "To be disabled when it is air chilled"
-    annotation (Placement(transformation(extent={{-60,-370},{-40,-350}})));
+    annotation (Placement(transformation(extent={{-60,-360},{-40,-340}})));
+  Buildings.Controls.OBC.CDL.Logical.Not disPla "Disabled plant"
+    annotation (Placement(transformation(extent={{-260,-380},{-240,-360}})));
+  Buildings.Controls.OBC.CDL.Logical.Or staEnd "Staging end"
+    annotation (Placement(transformation(extent={{240,-380},{260,-360}})));
+
 equation
   connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
     annotation (Line(points={{-18,331},{30,331},{30,226},{58,226}},
@@ -460,10 +469,10 @@ equation
     annotation (Line(points={{138,-191},{52,-191},{52,-240},{-300,-240}},
       color={255,0,255}));
   connect(con.y, minChiWatFlo.uStaUp)
-    annotation (Line(points={{-138,200},{-120,200},{-120,-313},{98,-313}},
+    annotation (Line(points={{-138,200},{-120,200},{-120,-313},{78,-313}},
       color={255,0,255}));
   connect(nexChi.yOnOff, minChiWatFlo.uOnOff)
-    annotation (Line(points={{-18,337},{0,337},{0,-329},{98,-329}},
+    annotation (Line(points={{-18,337},{0,337},{0,-329},{78,-329}},
       color={255,0,255}));
   connect(dowSta.yChiDem, yChiDem)
     annotation (Line(points={{82,239},{179.5,239},{179.5,260},{300,260}},
@@ -495,7 +504,7 @@ equation
           360},{-140,328},{-260,328},{-260,-100},{198,-100}}, color={255,0,255}));
   connect(lat.y, minChiWatFlo.uStaDow)
     annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,-331},
-          {98,-331}}, color={255,0,255}));
+          {78,-331}}, color={255,0,255}));
   connect(lat.y,disNexCWP. uStaDow)
     annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,-162},
           {98,-162}}, color={255,0,255}));
@@ -517,20 +526,17 @@ equation
     annotation (Line(points={{162,-182},{240,-182},{240,-180},{300,-180}},
       color={0,0,127}));
   connect(uChi, minChiWatFlo.uChi)
-    annotation (Line(points={{-300,220},{-200,220},{-200,-318},{98,-318}},
+    annotation (Line(points={{-300,220},{-200,220},{-200,-318},{78,-318}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, minChiWatFlo.nexDisChi)
-    annotation (Line(points={{-18,334},{20,334},{20,-323},{98,-323}},
+    annotation (Line(points={{-18,334},{20,334},{20,-323},{78,-323}},
       color={255,127,0}));
   connect(nexChi.yEnaSmaChi, minChiWatFlo.nexEnaChi)
-    annotation (Line(points={{-18,331},{30,331},{30,-321},{98,-321}},
+    annotation (Line(points={{-18,331},{30,331},{30,-321},{78,-321}},
       color={255,127,0}));
   connect(con.y, minChiWatFlo.uSubCha)
-    annotation (Line(points={{-138,200},{-120,200},{-120,-326},{98,-326}},
+    annotation (Line(points={{-138,200},{-120,200},{-120,-326},{78,-326}},
       color={255,0,255}));
-  connect(edg1.y, lat.clr)
-    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
-          354},{-182,354}},     color={255,0,255}));
   connect(conWatPumCon.yConWatPumNum, yConWatPumNum)
     annotation (Line(points={{162,-188},{220,-188},{220,-220},{300,-220}},
       color={255,127,0}));
@@ -541,16 +547,13 @@ equation
     annotation (Line(points={{222,-106},{260,-106},{260,-100},{300,-100}},
       color={255,0,255}));
   connect(pre.y, edg1.u)
-    annotation (Line(points={{202,-370},{218,-370}}, color={255,0,255}));
+    annotation (Line(points={{182,-350},{198,-350}}, color={255,0,255}));
   connect(dowSta.yReaDemLim, yReaDemLim)
     annotation (Line(points={{82,221},{92,221},{92,180},{300,180}},
       color={255,0,255}));
   connect(dowSta.yReaDemLim, lat2.u)
     annotation (Line(points={{82,221},{92,221},{92,160},{118,160}},
       color={255,0,255}));
-  connect(edg1.y, lat2.clr)
-    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
-          154},{118,154}}, color={255,0,255}));
   connect(lat2.y, and4.u1)
     annotation (Line(points={{142,160},{160,160},{160,140},{-80,140},{-80,30},
       {-42,30}}, color={255,0,255}));
@@ -558,7 +561,7 @@ equation
     annotation (Line(points={{82,236},{170,236},{170,-308},{198,-308}},
       color={0,0,127}));
   connect(minChiWatFlo.yChiWatMinFloSet, chiWatMinSet.u1)
-    annotation (Line(points={{122,-322},{140,-322},{140,-292},{198,-292}},
+    annotation (Line(points={{102,-322},{140,-322},{140,-292},{198,-292}},
       color={0,0,127}));
   connect(chiWatMinSet.y, yChiWatMinFloSet)
     annotation (Line(points={{222,-300},{260,-300},{260,-330},{300,-330}},
@@ -566,15 +569,9 @@ equation
   connect(nexChi.yOnOff, dowSta.uOnOff)
     annotation (Line(points={{-18,337},{0,337},{0,228},{58,228}},
       color={255,0,255}));
-  connect(edg1.y, dowSta.clr)
-    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
-          230},{58,230}},   color={255,0,255}));
   connect(disChiIsoVal.yEnaChiWatIsoVal, lat3.u)
     annotation (Line(points={{222,66},{240,66},{240,0},{180,0},{180,-30},
       {198,-30}}, color={255,0,255}));
-  connect(edg1.y, lat3.clr)
-    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
-          -36},{198,-36}},   color={255,0,255}));
   connect(disHeaCon.yEnaHeaCon, lat4.u)
     annotation (Line(points={{222,-94},{240,-94},{240,-114},{180,-114},{180,
           -130},{198,-130}},  color={255,0,255}));
@@ -584,9 +581,6 @@ equation
   connect(lat4.y, disNexCWP.uUpsDevSta)
     annotation (Line(points={{222,-130},{250,-130},{250,-142},{60,-142},{60,-152},
           {98,-152}}, color={255,0,255}));
-  connect(edg1.y, lat4.clr)
-    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
-          -136},{198,-136}},   color={255,0,255}));
   connect(uStaSet, nexChi.uStaSet)
     annotation (Line(points={{-300,380},{-60,380},{-60,347},{-42,347}},
       color={255,127,0}));
@@ -618,10 +612,6 @@ equation
           160,-120},{160,-96},{198,-96}}, color={255,0,255}));
   connect(lat3.y, and3.u2) annotation (Line(points={{222,-30},{240,-30},{240,
           -50},{110,-50},{110,-128},{118,-128}}, color={255,0,255}));
-  connect(edg1.y, yEndStaTri)
-    annotation (Line(points={{242,-370},{300,-370}}, color={255,0,255}));
-  connect(edg1.y, nexChi.endPro) annotation (Line(points={{242,-370},{260,-370},
-          {260,-390},{-190,-390},{-190,333},{-42,333}}, color={255,0,255}));
   connect(lesEquThr.y, and6.u1)
     annotation (Line(points={{-38,-10},{58,-10}}, color={255,0,255}));
   connect(and6.y, and1.u2) annotation (Line(points={{82,-10},{120,-10},{120,12},
@@ -634,22 +624,42 @@ equation
     annotation (Line(points={{-38,-120},{-28,-120}}, color={255,0,255}));
   connect(nexChi.yDow, and7.u2) annotation (Line(points={{-18,347},{10,347},{10,
           -18},{-32,-18},{-32,-128},{-28,-128}}, color={255,0,255}));
-  connect(minChiWatFlo.yChaSet, notInPro.u) annotation (Line(points={{122,-330},
-          {130,-330},{130,-370},{138,-370}}, color={255,0,255}));
+  connect(minChiWatFlo.yChaSet, notInPro.u) annotation (Line(points={{102,-330},
+          {110,-330},{110,-350},{118,-350}}, color={255,0,255}));
   connect(notInPro.y, pre.u)
-    annotation (Line(points={{162,-370},{178,-370}}, color={255,0,255}));
-  connect(con.y, or1.u2) annotation (Line(points={{-138,200},{-120,200},{-120,-368},
-          {-62,-368}}, color={255,0,255}));
+    annotation (Line(points={{142,-350},{158,-350}}, color={255,0,255}));
+  connect(con.y, or1.u2) annotation (Line(points={{-138,200},{-120,200},{-120,-358},
+          {-62,-358}}, color={255,0,255}));
   connect(lat3.y, or1.u1) annotation (Line(points={{222,-30},{240,-30},{240,-50},
-          {-72,-50},{-72,-360},{-62,-360}}, color={255,0,255}));
-  connect(or1.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{-38,-360},{60,
-          -360},{60,-315},{98,-315}}, color={255,0,255}));
-  connect(or1.y, chiWatMinSet.u2) annotation (Line(points={{-38,-360},{60,-360},
+          {-72,-50},{-72,-350},{-62,-350}}, color={255,0,255}));
+  connect(or1.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{-38,-350},{60,
+          -350},{60,-315},{78,-315}}, color={255,0,255}));
+  connect(or1.y, chiWatMinSet.u2) annotation (Line(points={{-38,-350},{60,-350},
           {60,-300},{198,-300}}, color={255,0,255}));
   connect(lat4.y, chiWatMinSet.u2) annotation (Line(points={{222,-130},{250,-130},
           {250,-142},{60,-142},{60,-300},{198,-300}}, color={255,0,255}));
   connect(lat4.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{222,-130},{
-          250,-130},{250,-142},{60,-142},{60,-315},{98,-315}}, color={255,0,255}));
+          250,-130},{250,-142},{60,-142},{60,-315},{78,-315}}, color={255,0,255}));
+  connect(staEnd.y, yEndStaTri)
+    annotation (Line(points={{262,-370},{300,-370}}, color={255,0,255}));
+  connect(edg1.y, staEnd.u2) annotation (Line(points={{222,-350},{230,-350},{230,
+          -378},{238,-378}}, color={255,0,255}));
+  connect(uPla, disPla.u)
+    annotation (Line(points={{-300,-370},{-262,-370}}, color={255,0,255}));
+  connect(disPla.y, staEnd.u1)
+    annotation (Line(points={{-238,-370},{238,-370}}, color={255,0,255}));
+  connect(staEnd.y, lat.clr) annotation (Line(points={{262,-370},{270,-370},{270,
+          -390},{-190,-390},{-190,354},{-182,354}}, color={255,0,255}));
+  connect(staEnd.y, nexChi.endPro) annotation (Line(points={{262,-370},{270,-370},
+          {270,-390},{-190,-390},{-190,333},{-42,333}}, color={255,0,255}));
+  connect(staEnd.y, lat2.clr) annotation (Line(points={{262,-370},{270,-370},{270,
+          -390},{-190,-390},{-190,154},{118,154}}, color={255,0,255}));
+  connect(staEnd.y, lat3.clr) annotation (Line(points={{262,-370},{270,-370},{270,
+          -390},{-190,-390},{-190,-36},{198,-36}}, color={255,0,255}));
+  connect(staEnd.y, lat4.clr) annotation (Line(points={{262,-370},{270,-370},{270,
+          -390},{-190,-390},{-190,-136},{198,-136}}, color={255,0,255}));
+  connect(staEnd.y, dowSta.clr) annotation (Line(points={{262,-370},{270,-370},{
+          270,-390},{-190,-390},{-190,230},{58,230}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
@@ -787,7 +797,11 @@ annotation (
         Text(
           extent={{50,-180},{98,-194}},
           textColor={255,0,255},
-          textString="yEndStaTri")}),
+          textString="yEndStaTri"),
+        Text(
+          extent={{-100,-182},{-70,-194}},
+          textColor={255,0,255},
+          textString="uPla")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-down command. This sequence is for
