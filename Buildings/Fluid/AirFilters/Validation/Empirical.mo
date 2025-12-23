@@ -4,7 +4,7 @@ model Empirical "Example for using the empirical air filter model"
   package Medium = Buildings.Media.Air(extraPropertiesNames={"VOC","Particle"})
     "Air";
   parameter Buildings.Fluid.AirFilters.Data.Generic per(
-    mCon_max=10,
+    mCon_max= 2,
     mCon_start=0,
     namCon={"Particle","VOC"},
     filEffPar={
@@ -28,27 +28,11 @@ model Empirical "Example for using the empirical air filter model"
     "Air sink"
     annotation (Placement(transformation(
     extent={{130,-10},{110,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse repSig(period=60, shift=30)
-    "Filter replacement signal"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Ramp C_particle_inflow(
-    duration=30,
-    height=-0.03,
-    offset=0.1,
-    startTime=20) "Contaminant mass flow rate fraction for solid particle"
-    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  Modelica.Blocks.Sources.Ramp C_VOC_inflow(
-    duration=30,
-    height=-0.03,
-    offset=0.1,
-    startTime=20)
-    "Contaminant mass flow rate fraction for VOC"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Buildings.Fluid.AirFilters.Empirical airFil(
     redeclare package Medium = Medium,
     per=per) "Air filter"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2In(
+  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubParIn(
     redeclare package Medium = Medium, m_flow_nominal=1,
     substanceName="Particle")
     "Trace substance sensor of CO2 in inlet air"
@@ -58,7 +42,7 @@ model Empirical "Example for using the empirical air filter model"
     m_flow_nominal=1,
     substanceName="VOC") "Trace substance sensor of VOC in inlet air"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2Out(
+  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubParOut(
     redeclare package Medium = Medium, m_flow_nominal=1,
     substanceName="Particle")
     "Trace substance sensor of CO2 in outlet air"
@@ -68,27 +52,43 @@ model Empirical "Example for using the empirical air filter model"
     m_flow_nominal=1,
     substanceName="VOC") "Trace substance sensor of VOC in outlet air"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin parSou(
+    amplitude = 25/1000000000/1.293,
+    freqHz = 1/(24*3600*365),
+    offset = 100/1000000000/1.293)
+    "Particle mass flow rate"
+    annotation(Placement(transformation(origin = {-150, 40}, extent = {{-10, -10}, {10, 10}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin vocSou(
+    amplitude = 5/1000000000/1.293,
+    freqHz = 1/(24*3600*365),
+    offset = 10/1000000000/1.293)
+    "VOC mass flow rate"
+    annotation(Placement(transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay resFil(delayTime = 3600)  annotation(
+    Placement(transformation(origin = {50, 30}, extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(repSig.y,airFil.uRep)  annotation (Line(points={{-18,50},{-10,50},{
-          -10,6},{-2,6}}, color={255,0,255}));
-  connect(C_particle_inflow.y, sou.C_in[2]) annotation (Line(points={{-139,30},
-          {-120,30},{-120,-8},{-102,-8}}, color={0,0,127}));
-  connect(C_VOC_inflow.y, sou.C_in[1]) annotation (Line(points={{-139,-30},{
-          -120,-30},{-120,-8},{-102,-8}}, color={0,0,127}));
   connect(senTraSubVOCIn.port_b, airFil.port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
-  connect(senTraSubCO2In.port_b, senTraSubVOCIn.port_a)
+  connect(senTraSubParIn.port_b, senTraSubVOCIn.port_a)
     annotation (Line(points={{-50,0},{-40,0}}, color={0,127,255}));
-  connect(sou.ports[1], senTraSubCO2In.port_a)
+  connect(sou.ports[1], senTraSubParIn.port_a)
     annotation (Line(points={{-80,0},{-70,0}}, color={0,127,255}));
-  connect(airFil.port_b, senTraSubCO2Out.port_a)
+  connect(airFil.port_b, senTraSubParOut.port_a)
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
-  connect(senTraSubCO2Out.port_b, senTraSubVOCOut.port_a)
+  connect(senTraSubParOut.port_b, senTraSubVOCOut.port_a)
     annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
   connect(senTraSubVOCOut.port_b, sin.ports[1])
     annotation (Line(points={{90,0},{110,0}}, color={0,127,255}));
+  connect(vocSou.y, sou.C_in[1]) annotation(
+    Line(points = {{-138, -40}, {-120, -40}, {-120, -8}, {-102, -8}}, color = {0, 0, 127}));
+  connect(parSou.y, sou.C_in[2]) annotation(
+    Line(points = {{-138, 40}, {-120, 40}, {-120, -8}, {-102, -8}}, color = {0, 0, 127}));
+  connect(airFil.yRep, resFil.u) annotation(
+    Line(points = {{22, 8}, {30, 8}, {30, 30}, {38, 30}}, color = {255, 0, 255}));
+  connect(resFil.y, airFil.uRep) annotation(
+    Line(points = {{62, 30}, {70, 30}, {70, 50}, {-10, 50}, {-10, 6}, {-2, 6}}, color = {255, 0, 255}));
   annotation (experiment(
-      StopTime=50,
+      StopTime=63072000,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/Validation/Empirical.mos"
         "Simulate and plot"),
