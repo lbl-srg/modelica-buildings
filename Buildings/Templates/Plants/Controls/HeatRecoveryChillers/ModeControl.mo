@@ -46,7 +46,12 @@ block ModeControl
     final k=1 - 1 / COPHea_nominal)
     "Compute evaporator heat flow rate in heating mode"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Less les
+  /* A fixed hysteresis value is used below, rather than scaling with chiller capacity
+  because OCT simulation time is highly sensitive to this parameter
+  (doubling from h=1 to h=10). For the application types considered, HRC capacity
+  typically ranges from 1E5 to 1E6, providing an appropriate hysteresis estimate
+  without requiring an additional parameter. */
+  Buildings.Controls.OBC.CDL.Reals.Less les(h=1)
     "True (cooling) if CHW load lower than evaporator heat flow rate in heating mode"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Reals.Switch selTSupSet
@@ -89,7 +94,7 @@ equation
       info="<html>
 <h4>Mode control</h4>
 <p>
-If the following equation is true prior to enabling the HRC, set the 
+If the following equation is true prior to enabling the HRC, set the
 control mode to heating. Otherwise, set the control mode to cooling.
 </p>
 <p>
@@ -102,14 +107,14 @@ Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>
 for the definition of <code>QChiWatReq_flow</code> and <code>QHeaWatReq_flow</code>.
 </p>
 <p>
-Write mode via the chiller’s BACnet interface prior to sending the chiller 
+Write mode via the chiller’s BACnet interface prior to sending the chiller
 an enable command.
 </p>
 <h4>Setpoint</h4>
 <p>
-When the control mode is cooling, the active setpoint shall be 
+When the control mode is cooling, the active setpoint shall be
 the CHW supply temperature setpoint.
-When the control mode is heating, the active setpoint shall be 
+When the control mode is heating, the active setpoint shall be
 the HW supply temperature setpoint.
 </p>
 <h4>Details</h4>
