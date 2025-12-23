@@ -96,7 +96,7 @@ model WaterCooled "Validation of water-cooled chiller plant template"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant schEna(k=true)
     "Plant enable schedule"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
-  Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl
+  Buildings.Templates.Components.Loads.LoadTwoWayValve
     loa(
     redeclare final package MediumLiq=Medium,
     final typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Cooling,
@@ -108,18 +108,13 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     final energyDynamics=energyDynamics)
     "Cooling load"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(final
-      integerTrue=Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled,
-      final integerFalse=Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.disabled)
-    "Cast enable schedule to integer"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumChiWat,
     final energyDynamics=energyDynamics,
-    m_flow_nominal=pla.mChiWat_flow_nominal,
-    V=1E-5*pla.cap_nominal,
+    final m_flow_nominal=pla.mChiWat_flow_nominal,
+    V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.cap_nominal,
     nPorts=2) "Fluid volume in distribution system"
-    annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,-60}})));
   replaceable package MediumChiWat = Media.Water;
 equation
   connect(mulInt[1].y, busAirHan.reqResChiWat)
@@ -154,22 +149,20 @@ equation
           -80,-20}},       color={255,0,255}));
   connect(loa.port_b, mChiWat_flow.port_a) annotation (Line(points={{120,-40},{160,
           -40},{160,-70}}, color={0,127,255}));
-  connect(pla.port_b, loa.port_a) annotation (Line(points={{-39.8,-80},{-20,-80},
-          {-20,-40},{100,-40}}, color={0,127,255}));
   connect(ratLoa.y[1], loa.u) annotation (Line(points={{-158,40},{80,40},{80,-32},
           {98,-32}}, color={0,0,127}));
   connect(loa.yVal_actual, reqPlaRes.uCooCoiSet) annotation (Line(points={{122,-32},
           {140,-32},{140,57},{122,57}}, color={0,0,127}));
-  connect(schEna.y, booToInt.u)
-    annotation (Line(points={{-158,0},{-12,0}}, color={255,0,255}));
-  connect(booToInt.y, loa.mode) annotation (Line(points={{12,0},{76,0},{76,-36},
-          {98,-36}}, color={255,127,0}));
   connect(dpChiWatRem[1].port_a, loa.port_a)
     annotation (Line(points={{60,-70},{60,-40},{100,-40}}, color={0,127,255}));
-  connect(pipChiWat.port_b, vol.ports[1])
-    annotation (Line(points={{20,-120},{-1,-120}}, color={0,127,255}));
-  connect(vol.ports[2], pla.port_a) annotation (Line(points={{1,-120},{-20,-120},
-          {-20,-90},{-39.8,-90}}, color={0,127,255}));
+  connect(schEna.y, loa.u1) annotation (Line(points={{-158,0},{76,0},{76,-36},{
+          98,-36}}, color={255,0,255}));
+  connect(pla.port_b, vol.ports[1]) annotation (Line(points={{-39.8,-80},{-20,
+          -80},{-20,-40},{-1,-40}}, color={0,127,255}));
+  connect(vol.ports[2], loa.port_a)
+    annotation (Line(points={{1,-40},{100,-40}}, color={0,127,255}));
+  connect(pipChiWat.port_b, pla.port_a) annotation (Line(points={{20,-120},{-20,
+          -120},{-20,-90},{-39.8,-90}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file=

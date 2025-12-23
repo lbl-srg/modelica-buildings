@@ -102,11 +102,9 @@ block G36
     each final unit="m3/s")=dat.VChiWatChi_flow_nominal
     "Maximum chilled water flow through each chiller";
   // ---- Chilled water pumps ----
-  // FIXME #2299: Dependency to stage and plant configuration not addressed.
   final parameter Real minChiWatPumSpe(
     unit="1")=dat.yPumChiWatPri_min
     "Minimum pump speed";
-  // FIXME #2299: Dependency to stage and plant configuration not addressed.
   final parameter Real maxChiWatPumSpe(
     unit="1")=1
     "Maximum pump speed";
