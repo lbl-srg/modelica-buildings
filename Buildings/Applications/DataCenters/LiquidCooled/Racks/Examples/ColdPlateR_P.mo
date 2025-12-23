@@ -35,7 +35,9 @@ model ColdPlateR_P "Example model for cold plate"
     redeclare package Medium = Medium,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal,
-    datTheRes=datTheRes) "Rack with cold plate heat exchangers"
+    datTheRes=datTheRes,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                         "Rack with cold plate heat exchangers"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
@@ -73,7 +75,24 @@ equation
       __Dymola_Commands(
        file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Racks/Examples/ColdPlateR_P.mos" "Simulate and plot"),
     Documentation(info="<html>
-fixme: add documentation
+<p>
+Example model of a cold plate with different GPU utilization.
+</p>
+<p>
+The GPU utilization is modeled as a pulse that is parameterized based on the data of Patel et al. (2024),
+Figure 6(b) which is for the Llama2-50B LLM, neglecting the very high frequency and approximating
+the change in utilization with a periodic pulse input.
+The cold plate has a constant flow rate at the start of the simulation, and then ramps down to
+half the design flow rate to show the change in case temperature.
+</p>
+<h4>References</h4>
+<p>Pratyush Patel, Esha Choukse, Chaojie Zhang, Íñigo Goiri, Brijesh Warrier, Nithish Mahalingam, and Ricardo Bianchini.<br/>
+Characterizing Power Management Opportunities for LLMs in the Cloud.<br/>
+In Proceedings of the 29th ACM International Conference on
+Architectural Support for Programming Languages and Operating Systems, Volume 3 (ASPLOS '24).<br/>
+Association for Computing Machinery, New York, NY, USA, 207–222. 2024.<br/>
+<a href=\"https://doi.org/10.1145/3620666.3651329\">doi:10.1145/3620666.3651329</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

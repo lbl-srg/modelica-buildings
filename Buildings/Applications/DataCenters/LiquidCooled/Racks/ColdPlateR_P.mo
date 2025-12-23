@@ -157,6 +157,7 @@ Q_flow = u Q_flow_nominal.
 The fluid outlet temperature is computed using a first order delay to mimic
 the transient effect. This first order delay is characterized by the user-configurable
 time constant <code>tau</code>, set by default to <code>tau=2</code> seconds.
+For exact transient response, this value should be identified based on measurements.
 </p>
 <p>
 To compute the pressure drop, the model uses
