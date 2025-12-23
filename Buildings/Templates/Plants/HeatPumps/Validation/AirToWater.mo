@@ -170,7 +170,7 @@ model AirToWater
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.capCoo_nominal,
     redeclare package Medium = Medium,
-    nPorts=2)                          "Fluid volume in distribution system"
+    nPorts=2) if have_chiWat           "Fluid volume in distribution system"
     annotation (Placement(transformation(extent={{-10,-40},{10,-60}})));
 equation
   if have_chiWat then
