@@ -249,33 +249,55 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-40,60},{40,-60}},
+          extent={{-40,62},{40,-58}},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-32,48},{32,34}},
+          extent={{-32,50},{32,36}},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-32,26},{32,12}},
+          extent={{-32,28},{32,14}},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-32,6},{32,-8}},
+          extent={{-32,8},{32,-6}},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-32,-36},{32,-50}},
+          extent={{-32,-34},{32,-48}},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-32,-14},{32,-28}},
+          extent={{-32,-12},{32,-26}},
           pattern=LinePattern.None,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-104,6},{-34,-2}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{34,4},{102,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-96,82},{-82,62}},
+          textColor={0,0,127},
+          textString="u"),
+        Line(
+          points={{-60,0},{0,0}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={-40,60},
+          rotation=360)}));
 end ColdPlateR_P;
