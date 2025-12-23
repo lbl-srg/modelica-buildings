@@ -57,7 +57,7 @@ protected
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(final k=false)
     "Waterside economizer status"
-    annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
+    annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](
     final k={true,true})
     "Vector of chillers status setpoint at stage two"
@@ -104,6 +104,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=2)
     "Check if there is any enabled chiller"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
+    "Plant enabled"
+    annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
 equation
   connect(booPul.y,staDow. u)
     annotation (Line(points={{-118,130},{-102,130}}, color={255,0,255}));
@@ -159,7 +162,7 @@ equation
     annotation (Line(points={{122,40},{140,40},{140,0},{20,0},{20,60},{38,60}},
       color={255,0,255}));
   connect(wseSta.y, dowProCon.uWSE)
-    annotation (Line(points={{-118,-270},{22,-270},{22,57},{38,57}},
+    annotation (Line(points={{-78,-260},{22,-260},{22,57},{38,57}},
       color={255,0,255}));
   connect(staDow.y, booRep2.u)
     annotation (Line(points={{-78,130},{-62,130}}, color={255,0,255}));
@@ -201,6 +204,8 @@ equation
     annotation (Line(points={{-78,-40},{-62,-40}}, color={255,0,255}));
   connect(pre2.y, mulOr.u) annotation (Line(points={{122,40},{140,40},{140,0},{-110,
           0},{-110,-40},{-102,-40}}, color={255,0,255}));
+  connect(plaEna.y, dowProCon.uPla) annotation (Line(points={{-18,-280},{24,-280},
+          {24,51},{38,51}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/DownWithoutOnOff.mos"

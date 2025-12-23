@@ -122,6 +122,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if there is any enabled chiller"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
+    "Plant enabled"
+    annotation (Placement(transformation(extent={{-120,-290},{-100,-270}})));
 equation
   connect(booPul.y, staUp.u)
     annotation (Line(points={{-178,110},{-162,110}}, color={255,0,255}));
@@ -150,7 +153,7 @@ equation
           100,-190},{-140,-190},{-140,-242},{-82,-242}},
                                                        color={0,0,127}));
   connect(IsoVal.y, upProCon.uChiWatIsoVal) annotation (Line(points={{-58,-250},
-          {-38,-250},{-38,51},{-22,51}}, color={0,0,127}));
+          {-38,-250},{-38,54},{-22,54}}, color={0,0,127}));
   connect(staUp.y, booRep1.u)
     annotation (Line(points={{-138,110},{-122,110}}, color={255,0,255}));
   connect(staOneChi.y, chiSet.u3) annotation (Line(points={{-178,72},{-120,72},{
@@ -190,7 +193,7 @@ equation
   connect(wseSta.y, upProCon.uEnaPlaConPum) annotation (Line(points={{-178,-170},
           {-46,-170},{-46,69},{-22,69}}, color={255,0,255}));
   connect(wseSta.y, upProCon.uEnaPlaConIso) annotation (Line(points={{-178,-170},
-          {-46,-170},{-46,58},{-22,58}}, color={255,0,255}));
+          {-46,-170},{-46,59},{-22,59}}, color={255,0,255}));
   connect(con2.y, truDel.u) annotation (Line(points={{62,20},{80,20},{80,40},{98,
           40}}, color={255,0,255}));
   connect(con2.y, chiOneSta.u3) annotation (Line(points={{62,20},{130,20},{130,32},
@@ -214,14 +217,14 @@ equation
           {62,120},{70,120},{70,0},{-50,0},{-50,66.5},{-22,66.5}}, color={255,0,
           255}));
   connect(chiOneSta.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{162,40},
-          {170,40},{170,0},{-48,0},{-48,52.5},{-22,52.5}}, color={255,0,255}));
-  connect(chiTwoSta.y1_actual, upProCon.uChiHeaCon[2]) annotation (Line(points={
-          {62,120},{70,120},{70,0},{-48,0},{-48,53.5},{-22,53.5}}, color={255,0,
+          {170,40},{170,0},{-48,0},{-48,55.5},{-22,55.5}}, color={255,0,255}));
+  connect(chiTwoSta.y1_actual, upProCon.uChiHeaCon[2]) annotation (Line(points={{62,120},
+          {70,120},{70,0},{-48,0},{-48,56.5},{-22,56.5}},          color={255,0,
           255}));
   connect(chiOneSta.y, upProCon.uChiWatReq[1]) annotation (Line(points={{162,40},
-          {170,40},{170,0},{-36,0},{-36,48.5},{-22,48.5}}, color={255,0,255}));
-  connect(chiTwoSta.y1_actual, upProCon.uChiWatReq[2]) annotation (Line(points={
-          {62,120},{70,120},{70,0},{-36,0},{-36,49.5},{-22,49.5}}, color={255,0,
+          {170,40},{170,0},{-36,0},{-36,51.5},{-22,51.5}}, color={255,0,255}));
+  connect(chiTwoSta.y1_actual, upProCon.uChiWatReq[2]) annotation (Line(points={{62,120},
+          {70,120},{70,0},{-36,0},{-36,52.5},{-22,52.5}},          color={255,0,
           255}));
   connect(upProCon.yChi[1], chiOneSta1.y1) annotation (Line(points={{2,50.5},{
           32,50.5},{32,80},{38,80}}, color={255,0,255}));
@@ -233,6 +236,8 @@ equation
           {132,100},{132,112},{138,112}}, color={255,0,255}));
   connect(or2.y, swi1.u2) annotation (Line(points={{162,120},{180,120},{180,-10},
           {-140,-10},{-140,20},{-122,20}}, color={255,0,255}));
+  connect(plaEna.y, upProCon.uPla) annotation (Line(points={{-98,-280},{-34,
+          -280},{-34,49},{-22,49}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2000, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/UpWithoutOnOff.mos"

@@ -56,9 +56,8 @@ protected
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta1(
-    final k=false)
-    "Waterside economizer status"
-    annotation (Placement(transformation(extent={{-200,-300},{-180,-280}})));
+    final k=false) "Waterside economizer status"
+    annotation (Placement(transformation(extent={{-200,-290},{-180,-270}})));
   Buildings.Controls.OBC.CDL.Reals.Switch chiTwoLoa "Chiller two load"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(
@@ -141,6 +140,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if there is any enabled chiller"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true) "Plant enabled"
+    annotation (Placement(transformation(extent={{-118,-310},{-98,-290}})));
 
 equation
   connect(booPul1.y, staDow1.u)
@@ -229,7 +230,7 @@ equation
     annotation (Line(points={{122,0},{132,0},{132,-20},{-20,-20},{-20,70.5},
       {18,70.5}}, color={255,0,255}));
   connect(wseSta1.y, dowProCon.uWSE)
-    annotation (Line(points={{-178,-290},{-10,-290},{-10,67},{18,67}},
+    annotation (Line(points={{-178,-280},{-10,-280},{-10,67},{18,67}},
       color={255,0,255}));
   connect(staDow1.y, booRep2.u)
     annotation (Line(points={{-138,140},{-122,140}}, color={255,0,255}));
@@ -283,6 +284,8 @@ equation
           {130,60},{130,120},{138,120}}, color={255,0,255}));
   connect(chiLoa3.y, chiLoa2.u1) annotation (Line(points={{102,160},{120,160},{
           120,128},{138,128}}, color={0,0,127}));
+  connect(plaEna.y, dowProCon.uPla) annotation (Line(points={{-96,-300},{-8,-300},
+          {-8,61},{18,61}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/DownWithOnOff.mos"
