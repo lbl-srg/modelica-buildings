@@ -156,6 +156,22 @@ equation
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(
       StopTime=7200,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-05),
+      __Dymola_Commands(
+       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Racks/Examples/ColdPlateR_P.mos" "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+Example model of a CDU that serves liquid cooled racks.
+</p>
+<p>
+fixme: add documentation
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 23, 2025, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CDU_epsNTU;
