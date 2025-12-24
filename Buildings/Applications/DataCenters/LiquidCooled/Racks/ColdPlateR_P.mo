@@ -67,9 +67,9 @@ model ColdPlateR_P
     "Normalized utilization" annotation (Placement(transformation(extent={{-140,30},
             {-100,70}}),     iconTransformation(extent={{-120,50},{-100,70}})));
 
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature
-    casTem(final datTheRes=datTheRes, final V_flow_nominal=m_flow_nominal/
-        Medium.d_const/nColPla) "Case temperature"
+  Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature casTem(
+    final datTheRes=datTheRes,
+    final V_flow_nominal=m_flow_nominal/Medium.d_const/nColPla) "Case temperature"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
   Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res(
@@ -89,7 +89,9 @@ model ColdPlateR_P
     final prescribedHeatFlowRate=true,
     final nPorts=2) "Fluid control volume"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
-
+  Modelica.Units.SI.PressureDifference dp(
+    displayUnit="Pa") = res.dp
+    "Pressure difference between port_a and port_b";
 protected
   Modelica.Blocks.Math.Gain Q_flow(final k=Q_flow_nominal)
     "Gain to compute actual heat flow rate"

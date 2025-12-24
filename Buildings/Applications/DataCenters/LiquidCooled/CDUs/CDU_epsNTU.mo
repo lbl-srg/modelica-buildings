@@ -20,27 +20,15 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
    "Heat exchanger configuration"
     annotation (Evaluate=true);
 
-  parameter Boolean use_Q_flow_nominal = true
-    "Set to true to specify Q_flow_nominal and temperatures, or to false to specify effectiveness"
-    annotation (Evaluate=true,
-                Dialog(group="Nominal thermal performance"));
-
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(
-    fixed=use_Q_flow_nominal)
-    "Nominal heat flow rate (positive for heat transfer from 1 to 2)"
-    annotation (Dialog(group="Nominal thermal performance", enable=
-          use_Q_flow_nominal));
-  parameter Modelica.Units.SI.Temperature T_a1_nominal(fixed=use_Q_flow_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
+    "Nominal heat flow rate (negative as it is for cooling)"
+    annotation (Dialog(group="Nominal thermal performance"));
+  parameter Modelica.Units.SI.Temperature T_a1_nominal
     "Nominal temperature at port a1" annotation (Dialog(group=
-          "Nominal thermal performance", enable=use_Q_flow_nominal));
-  parameter Modelica.Units.SI.Temperature T_a2_nominal(fixed=use_Q_flow_nominal)
+          "Nominal thermal performance"));
+  parameter Modelica.Units.SI.Temperature T_a2_nominal
     "Nominal temperature at port a2" annotation (Dialog(group=
-          "Nominal thermal performance", enable=use_Q_flow_nominal));
-
-  parameter Real eps_nominal(fixed=not use_Q_flow_nominal)
-    "Nominal heat transfer effectiveness"
-    annotation (Dialog(group="Nominal thermal performance",
-                       enable=not use_Q_flow_nominal));
+          "Nominal thermal performance"));
 
   // Flow resistance parameters
   parameter Boolean computeFlowResistance1 = true
@@ -52,7 +40,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
                 tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.PressureDifference dpHex1_nominal(
     min=0,
-    displayUnit="Pa") "Pressure difference"
+    displayUnit="Pa")= 80000 "Heat exchanger design pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -72,7 +60,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
                 tab="Flow resistance", group="Medium 2"));
   parameter Modelica.Units.SI.PressureDifference dpHex2_nominal(
     min=0,
-    displayUnit="Pa") "Pressure difference"
+    displayUnit="Pa") = dpHex1_nominal "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -83,17 +71,18 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     annotation(Dialog(enable = computeFlowResistance2,
                       tab="Flow resistance", group="Medium 2"));
 
+  final parameter Medium1.DynamicViscosity eta1_default = Medium1.dynamicViscosity(sta1_default) "Dynamic viscosity";
+  final parameter Medium1.ThermalConductivity k1_default = Medium1.thermalConductivity(sta1_default) "Thermal conductivity";
+  final parameter Medium1.PrandtlNumber Pr1_default = Medium1.prandtlNumber(sta1_default) "Prandtl number";
+  final parameter Medium2.DynamicViscosity eta2_default = Medium2.dynamicViscosity(sta2_default) "Dynamic viscosity";
+  final parameter Medium2.ThermalConductivity k2_default = Medium2.thermalConductivity(sta2_default) "Thermal conductivity";
+  final parameter Medium2.PrandtlNumber Pr2_default = Medium2.prandtlNumber(sta2_default) "Prandtl number";
+
   // Valve
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal = dpHex1_nominal
     "Nominal pressure drop of fully open valve, used if val.CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
     annotation (Dialog(group="Valve"));
 
-  parameter Modelica.Units.SI.Density rhoStd=Medium.density_pTX(
-      101325,
-      273.15 + 4,
-      Medium.X_default)
-    "Inlet density for which valve coefficients are defined"
-    annotation (Dialog(group="Valve"));
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close valve using strokeTime"
     annotation (Dialog(tab="Dynamics", group="Valve"));
@@ -108,7 +97,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
 
   // Pump
   parameter Modelica.Units.SI.PressureDifference dpPum_nominal
-    "Nominal pressure head of pump for configuration of pressure curve (add dpHex_nominal to specify head available outside of CDU)"
+    "Nominal pressure head of pump for configuration of pressure curve, after subtracting dpHex2_nominal. I.e., this is the head for resistances external to the CDU"
     annotation (Dialog(group="Pump"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -133,12 +122,11 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     "Valve position (0: closed, 1: open)" annotation (Placement(transformation(
           extent={{-140,0},{-100,40}}), iconTransformation(extent={{-140,70},{-100,
             110}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yPum(
     min=0,
     max=1,
     final unit="1")
-    "Constant normalized rotational speed of pump" annotation (Placement(
+    "Normalized rotational speed of pump" annotation (Placement(
         transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-140,
             -110},{-100,-70}})));
 
@@ -159,11 +147,10 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     final linearizeFlowResistance2=linearizeFlowResistance2,
     final deltaM2=deltaM2,
     final configuration=configuration,
-    final use_Q_flow_nominal=use_Q_flow_nominal,
+    final use_Q_flow_nominal=true,
     final Q_flow_nominal=Q_flow_nominal,
     final T_a1_nominal=T_a1_nominal,
     final T_a2_nominal=T_a2_nominal,
-    final eps_nominal=eps_nominal,
     final r_nominal=r_nominal,
     final n1=n1,
     final n2=n2)
@@ -171,21 +158,21 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
-    redeclare package Medium = Medium1,
-    allowFlowReversal=allowFlowReversal1,
-    m_flow_nominal=m1_flow_nominal,
-    from_dp=from_dp1,
-    linearized=linearizeFlowResistance1,
-    CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    dpValve_nominal=dpValve_nominal,
-    rhoStd=rhoStd,
-    use_strokeTime=use_strokeTime,
-    strokeTime=strokeTime,
-    init=initVal,
-    y_start=yVal_start) "Control valve on chilled water side"
+    redeclare final package Medium = Medium1,
+    final allowFlowReversal=allowFlowReversal1,
+    final m_flow_nominal=m1_flow_nominal,
+    final from_dp=from_dp1,
+    final linearized=linearizeFlowResistance1,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final dpValve_nominal=dpValve_nominal,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
+    final init=initVal,
+    final y_start=yVal_start) "Control valve on chilled water side"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-40,20})));
+
   Fluid.Movers.Preconfigured.SpeedControlled_y pum(
     redeclare package Medium = Medium2,
     energyDynamics=energyDynamics,
@@ -194,12 +181,20 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     use_riseTime=use_riseTime,
     riseTime=riseTime,
     y_start=yPum_start,
-    m_flow_nominal=m1_flow_nominal,
-    dp_nominal=dpPum_nominal) "Pump on IT side"
+    m_flow_nominal=m2_flow_nominal,
+    dp_nominal=dpPum_nominal+dpHex2_nominal) "Pump on IT side"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,-20})));
-
+protected
+  final parameter Medium1.ThermodynamicState sta1_default=Medium1.setState_pTX(
+      T=Medium1.T_default,
+      p=Medium1.p_default,
+      X=Medium1.X_default[1:Medium1.nXi]) "Default state for medium 1";
+  final parameter Medium2.ThermodynamicState sta2_default=Medium2.setState_pTX(
+      T=Medium2.T_default,
+      p=Medium2.p_default,
+      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 equation
   connect(port_a1, val.port_a)
     annotation (Line(points={{-100,60},{-40,60},{-40,30}}, color={0,127,255}));
