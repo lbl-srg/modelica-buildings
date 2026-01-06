@@ -19,12 +19,13 @@ model MassAccumulation "Mass of the contaminants capatured by the filter"
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRep
     "True if the filter is full and should be replaced"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+    annotation (Placement(transformation(extent={{100,50},{140,90}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon(
     final unit = "kg")
     "Mass of the contaminant captured by the filter"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(
     final k=1,
     final y_start=mCon_start)
@@ -34,10 +35,9 @@ model MassAccumulation "Mass of the contaminants capatured by the filter"
     final k=mCon_start)
     "Constant"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater notFul(
-    final h=0.05*mCon_max)
+  Buildings.Controls.OBC.CDL.Reals.Greater notFul(final h=0.01*mCon_max)
     "Check if the filter is full"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=mCon_max)
     "Constant"
@@ -46,31 +46,39 @@ model MassAccumulation "Mass of the contaminants capatured by the filter"
     final nin=nConSub) "Summation of the inputs"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not ful "Check if the filter is full"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Edge for triggering filter reset"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  Buildings.Controls.OBC.CDL.Reals.Min min1
+    "Captured contaminant"
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+
 equation
-  connect(intWitRes.y, mCon)
-    annotation (Line(points={{2,0},{120,0}},  color={0,0,127}));
   connect(con.y, intWitRes.y_reset_in)
     annotation (Line(points={{-58,-40},{-40,-40},{-40,-8},{-22,-8}}, color={0,0,127}));
   connect(notFul.u2, intWitRes.y)
-    annotation (Line(points={{18,42},{10,42},{10,0},{2,0}}, color={0,0,127}));
+    annotation (Line(points={{18,62},{10,62},{10,0},{2,0}}, color={0,0,127}));
   connect(con1.y, notFul.u1)
-    annotation (Line(points={{-18,50},{18,50}}, color={0,0,127}));
+    annotation (Line(points={{-18,50},{0,50},{0,70},{18,70}}, color={0,0,127}));
   connect(mulSum.y, intWitRes.u)
     annotation (Line(points={{-58,0},{-22,0}}, color={0,0,127}));
   connect(mulSum.u, mCon_flow)
     annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
-  connect(notFul.y, ful.u) annotation (Line(points={{42,50},{50,50},{50,80},{58,
-          80}}, color={255,0,255}));
+  connect(notFul.y, ful.u)
+    annotation (Line(points={{42,70},{58,70}}, color={255,0,255}));
   connect(ful.y, yRep)
-    annotation (Line(points={{82,80},{120,80}}, color={255,0,255}));
+    annotation (Line(points={{82,70},{120,70}}, color={255,0,255}));
   connect(edg.u,uRep)
     annotation (Line(points={{-62,-80},{-120,-80}}, color={255,0,255}));
   connect(edg.y, intWitRes.trigger) annotation (Line(points={{-38,-80},{-10,-80},
           {-10,-12}}, color={255,0,255}));
+  connect(intWitRes.y,min1. u2)
+    annotation (Line(points={{2,0},{10,0},{10,14},{58,14}}, color={0,0,127}));
+  connect(con1.y,min1. u1) annotation (Line(points={{-18,50},{0,50},{0,26},{58,26}},
+        color={0,0,127}));
+  connect(min1.y, mCon)
+    annotation (Line(points={{82,20},{120,20}}, color={0,0,127}));
 annotation (defaultComponentName="masAcc",
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
@@ -89,5 +97,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end MassAccumulation;

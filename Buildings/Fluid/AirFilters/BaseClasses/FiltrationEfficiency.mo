@@ -31,11 +31,15 @@ protected
 equation
   rat = mCon/mCon_max "Relative mass of the contaminant captured by the filter";
   for i in 1:nConSub loop
-     y[i] = Buildings.Utilities.Math.Functions.smoothInterpolation(
+     y[i] = Buildings.Utilities.Math.Functions.smoothLimit(
+        Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=rat,
                 xSup=filEffPar[i].rat,
-                ySup=filEffPar[i].eps)
-                "Calculate the filtration efficiency";
+                ySup=filEffPar[i].eps),
+        0,
+        1,
+        1E-3)
+     "Calculate the filtration efficiency";
   end for;
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
