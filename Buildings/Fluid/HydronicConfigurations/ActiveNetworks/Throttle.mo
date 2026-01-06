@@ -14,6 +14,7 @@ model Throttle "Throttle circuit"
 
   Buildings.Fluid.HydronicConfigurations.Components.TwoWayValve val(
     redeclare final package Medium=Medium,
+    final energyDynamics=energyDynamics,
     final typCha=typCha,
     use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
