@@ -10,14 +10,9 @@ model PlugFlowPipe
       final fac=fac,
       final ReC=ReC,
       final v_nominal=v_nominal,
-      final disableComputeFlowResistance=disableComputeFlowResistance,
       final homotopyInitialization=homotopyInitialization,
       final linearized=linearized,
     dp(nominal=fac*200*length)));
-
-  parameter Boolean disableComputeFlowResistance=false
-    "=false to disable computation of flow resistance"
-    annotation (Dialog(tab="Advanced"));
 
   annotation (
     Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
@@ -66,19 +61,6 @@ model PlugFlowPipe
           textString="L = %length")}),
     Documentation(revisions="<html>
 <ul>
-<li>
-January 5, 2026, by Michael Wetter:<br/>
-In <a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe\">
-Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe</a>,
-conditionally removed connect statements to conditional removed components.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2071\">IBPSA, #2071</a>.
-</li>
-<li>
-July 29, 2025, by Fabian Wuelhorst:<br/>
-Add option to <code>disableComputeFlowResistance</code>.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">#2035</a>.
-</li>
 <li>
 October 05, 2021, by Baptiste Ravache:<br/>
 Made model symmetrical and extends from
