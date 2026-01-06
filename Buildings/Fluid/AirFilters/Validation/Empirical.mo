@@ -64,8 +64,9 @@ model Empirical "Example for using the empirical air filter model"
     offset = 10/1000000000/1.293)
     "VOC mass flow rate"
     annotation(Placement(transformation(origin = {-150, -40}, extent = {{-10, -10}, {10, 10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay resFil(delayTime = 3600)  annotation(
-    Placement(transformation(origin = {50, 30}, extent = {{-10, -10}, {10, 10}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay resFil(
+    delayTime = 3600)
+    annotation(Placement(transformation(origin = {50, 30}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(senTraSubVOCIn.port_b, airFil.port_a)
     annotation (Line(points={{-20,0},{0,0}}, color={0,127,255}));
@@ -80,13 +81,13 @@ equation
   connect(senTraSubVOCOut.port_b, sin.ports[1])
     annotation (Line(points={{90,0},{110,0}}, color={0,127,255}));
   connect(vocSou.y, sou.C_in[1]) annotation(
-    Line(points = {{-138, -40}, {-120, -40}, {-120, -8}, {-102, -8}}, color = {0, 0, 127}));
+    Line(points={{-138,-40},{-120,-40},{-120,-8},{-102,-8}},color={0,0,127}));
   connect(parSou.y, sou.C_in[2]) annotation(
-    Line(points = {{-138, 40}, {-120, 40}, {-120, -8}, {-102, -8}}, color = {0, 0, 127}));
+    Line(points={{-138, 40},{-120, 40}, {-120,-8},{-102,-8}},color={0,0,127}));
   connect(airFil.yRep, resFil.u) annotation(
-    Line(points = {{22, 8}, {30, 8}, {30, 30}, {38, 30}}, color = {255, 0, 255}));
+    Line(points={{22,7},{30,7},{30,30},{38,30}},color = {255, 0, 255}));
   connect(resFil.y, airFil.uRep) annotation(
-    Line(points = {{62, 30}, {70, 30}, {70, 50}, {-10, 50}, {-10, 6}, {-2, 6}}, color = {255, 0, 255}));
+    Line(points={{62,30},{70,30},{70,50},{-10,50},{-10,6},{-2,6}}, color={255,0,255}));
   annotation (experiment(
       StopTime=63072000,
       Tolerance=1e-06),
