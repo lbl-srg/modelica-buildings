@@ -249,7 +249,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
-
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
