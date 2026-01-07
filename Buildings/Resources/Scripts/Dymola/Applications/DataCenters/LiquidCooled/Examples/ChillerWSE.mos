@@ -1,0 +1,5 @@
+simulateModel("Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSE", stopTime=31536000, method="Radau", tolerance=1e-06, resultFile="ChillerWSE");
+createPlot(id=1, position={15, 15, 953, 909}, y={"conVal.u_s", "conVal.u_m", "senTCDU_b.T", "senTTow_b.T", "senTWSE_b1.T", "senTCDU_a.T"}, range={0.0, 400.0, 10.0, 50.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, timeUnit="d", displayUnits={"degC", "degC", "degC", "degC", "degC", "degC"});
+createPlot(id=1, position={15, 15, 953, 909}, y={"EFan.y", "EPum.y", "EChi.y"}, range={0.0, 400.0, -500000000.0, 1000000000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="d", displayUnits={"Wh", "Wh", "Wh"});
+createPlot(id=1, position={15, 15, 953, 909}, y={"PUE.y"}, range={0.0, 500.0, 0.95, 1.15}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="d");
+
