@@ -101,13 +101,19 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack outlet temperature"
     annotation (Placement(transformation(extent={{50,24},{30,44}})));
-  Fluid.Sources.Boundary_pT preSou(redeclare package Medium = MediumRac, nPorts=1)
-          "Pressure boundary condition"
+  Fluid.Sources.Boundary_pT preSou(
+    redeclare package Medium = MediumRac,
+    nPorts=1)
+    "Pressure boundary condition"
     annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
-  Controls.OBC.CDL.Reals.Sources.Constant        yPum(k=1)
+  Controls.OBC.CDL.Reals.Sources.Constant yPum(k=1)
     "Pump control signal"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Controls.OBC.CDL.Reals.PID conVal(
+    u_s(final unit="K",
+        displayUnit="degC"),
+    u_m(final unit="K",
+        displayUnit="degC"),
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=120,
     r=10,
@@ -158,13 +164,19 @@ equation
       StopTime=7200,
       Tolerance=1e-05),
       __Dymola_Commands(
-       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Racks/Examples/ColdPlateR_P.mos" "Simulate and plot"),
+       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/CDUs/Examples/CDU_epsNTU.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Example model of a CDU that serves liquid cooled racks.
 </p>
 <p>
-fixme: add documentation
+The IT load is specified using a periodic pulse input.
+This load is cooled by a propylene glycol loop, which exchanges
+heat through the CDU with a chilled water supply.
+The chilled water is assumed to be delivered at constant temperature.
+A PI controller regulates the chilled water flow rate through the control
+valve in the CDU in order to track the propylene glycol temperature that is sent
+to the IT rack.
 </p>
 </html>", revisions="<html>
 <ul>
