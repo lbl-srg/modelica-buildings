@@ -151,7 +151,6 @@ or electrical connectors
 <code>terminal_p</code> and <code>terminal_n</code>.
 </li>
 </ol>
-
 <h4>Documentation</h4>
 <ol>
 <li>
