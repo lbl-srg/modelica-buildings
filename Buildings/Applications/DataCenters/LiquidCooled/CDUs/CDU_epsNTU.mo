@@ -129,6 +129,11 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     "Normalized rotational speed of pump" annotation (Placement(
         transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-140,
             -110},{-100,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final unit="W")
+    "Electrical power consumed by pump"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{90,70},{110,90}})));
 
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
     redeclare final package Medium1 = Medium1,
@@ -186,6 +191,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,-20})));
+
 protected
   final parameter Medium1.ThermodynamicState sta1_default=Medium1.setState_pTX(
       T=Medium1.T_default,
@@ -212,6 +218,8 @@ equation
     annotation (Line(points={{-52,-20},{-120,-20}}, color={0,0,127}));
   connect(val.y, yVal)
     annotation (Line(points={{-52,20},{-120,20}}, color={0,0,127}));
+  connect(pum.P, P) annotation (Line(points={{-49,-31},{-49,-40},{60,-40},{60,90},
+          {110,90}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

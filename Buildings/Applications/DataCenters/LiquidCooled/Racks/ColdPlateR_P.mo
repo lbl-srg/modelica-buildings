@@ -67,6 +67,12 @@ model ColdPlateR_P
     "Normalized utilization" annotation (Placement(transformation(extent={{-140,30},
             {-100,70}}),     iconTransformation(extent={{-120,50},{-100,70}})));
 
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final unit="W")
+    "Electrical power consumed by IT"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{90,70},{110,90}})));
+
   Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature casTem(
     final datTheRes=datTheRes,
     final V_flow_nominal=m_flow_nominal/Medium.d_const/nColPla) "Case temperature"
@@ -138,6 +144,8 @@ equation
     annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
   connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-10,50},
           {-10,74},{19,74}}, color={0,0,127}));
+  connect(Q_flow.y, P) annotation (Line(points={{-59,50},{-52,50},{-52,32},{88,
+          32},{88,90},{110,90},{110,90}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
