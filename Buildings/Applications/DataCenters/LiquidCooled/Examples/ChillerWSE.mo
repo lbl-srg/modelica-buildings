@@ -246,7 +246,7 @@ model ChillerWSE
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={160,220})));
-  Fluid.Sensors.TemperatureTwoPort senTChi_a(
+  Fluid.Sensors.TemperatureTwoPort senTChi_a2(
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
     m_flow_nominal=mChi_flow_nominal,
@@ -465,6 +465,15 @@ model ChillerWSE
   Modelica.Blocks.Math.Division PUE
     "Power use effectiveness (not taking into account electrical losses)"
     annotation (Placement(transformation(extent={{500,320},{520,340}})));
+  Fluid.Sensors.TemperatureTwoPort senTChi_a1(
+    redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
+    m_flow_nominal=mCW_flow_nominal,
+    tau=0) "Water inlet temperature into heat pump condenser"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={-10,440})));
 equation
   connect(uti.y, rac.u) annotation (Line(points={{-28,-30},{-20,-30},{-20,-54},{
           -1,-54}},  color={0,0,127}));
@@ -500,9 +509,9 @@ equation
           {170,220}}, color={0,127,255}));
   connect(jun3.port_2, jun2.port_1)
     annotation (Line(points={{150,220},{70,220}}, color={0,127,255}));
-  connect(jun2.port_2, senTChi_a.port_a)
+  connect(jun2.port_2, senTChi_a2.port_a)
     annotation (Line(points={{50,220},{0,220}}, color={0,127,255}));
-  connect(senTChi_a.port_b, jun4.port_1)
+  connect(senTChi_a2.port_b, jun4.port_1)
     annotation (Line(points={{-20,220},{-70,220}}, color={0,127,255}));
   connect(jun4.port_2, jun5.port_1) annotation (Line(points={{-90,220},{-170,220}},
                                   color={0,127,255}));
@@ -544,8 +553,6 @@ equation
           440},{-220,480}}, color={0,127,255}));
   connect(jun8.port_1, jun7.port_2)
     annotation (Line(points={{-170,440},{-90,440}}, color={0,127,255}));
-  connect(jun7.port_1, jun6.port_2)
-    annotation (Line(points={{-70,440},{50,440}}, color={0,127,255}));
   connect(jun6.port_1, jun1.port_2)
     annotation (Line(points={{70,440},{150,440}}, color={0,127,255}));
   connect(pumTow.port_b, cooTow.port_a) annotation (Line(points={{-220,500},{-220,
@@ -618,8 +625,8 @@ equation
           140},{260,476},{278,476}}, color={0,0,127}));
   connect(senTTow_b.T, TAppWSE.u2) annotation (Line(points={{70,551},{70,570},{270,
           570},{270,464},{278,464}}, color={0,0,127}));
-  connect(senTChi_a.T, TAppWSE1.u1) annotation (Line(points={{-10,231},{-10,240},
-          {-368,240},{-368,266},{-362,266}}, color={0,0,127}));
+  connect(senTChi_a2.T, TAppWSE1.u1) annotation (Line(points={{-10,231},{-10,
+          240},{-368,240},{-368,266},{-362,266}}, color={0,0,127}));
   connect(TAppWSE1.u2, dTChi.y)
     annotation (Line(points={{-362,254},{-378,254}}, color={0,0,127}));
   connect(TOffSet.y, dTChi.u) annotation (Line(points={{-418,350},{-410,350},{-410,
@@ -648,6 +655,10 @@ equation
           324},{498,324}}, color={0,0,127}));
   connect(EPIT.y, EFac.u[4]) annotation (Line(points={{421,300},{438,300},{438,380},
           {454,380},{454,381.575}}, color={0,0,127}));
+  connect(jun7.port_1, senTChi_a1.port_b)
+    annotation (Line(points={{-70,440},{-20,440}}, color={0,127,255}));
+  connect(senTChi_a1.port_a, jun6.port_2)
+    annotation (Line(points={{0,440},{50,440}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-480,-120},{540,660}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(
@@ -661,6 +672,14 @@ equation
 Example model of liquid cooled data center that is cooled with an economizer and a chiller.
 </p>
 <p>
+The figure below shows the schematic diagram.
+</p>
+<p align=\"center\">
+    <img src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/LiquidCooled/Examples/ChillerWSE.png\"
+         alt=\"Schematic diagram of cooling system.\"
+         style=\"width: 100%; height: auto;\">
+</p>
+<p>
 The IT load is cooled by a propylene glycol loop, which exchanges
 heat through the CDU with a chilled water supply.
 A PI controller regulates the chilled water flow rate through the control
@@ -669,10 +688,11 @@ to the IT rack.
 The chilled water is cooled by an economizer -- if the temperatures permit --
 and if the water temperature after the economizer is higher than a temperature set point,
 the chiller is enabled. The chiller tracks a leaving water set point temperature.
-Note that the control is quite simple.
+Note that the control is quite simple, and multiple parallel equipment as is common in data centers
+is here simplified with one component only.
 </p>
 <p>
-The model also has a parameter <code>dTOffSet</code> which can be used to shift the design temperatures
+The model has a parameter <code>dTOffSet</code> which can be used to shift the design temperatures
 up or down. This allows to push the model into temperature regimes that need no chiller.
 For example, if <code>dTOffSet=0</code>, the chiller never operates, and all cooling is done
 through the economizer.

@@ -356,7 +356,6 @@ water side and pump on the IT side as shown in the figure below.
     <img src=\"modelica://Buildings/Resources/Images/Applications/DataCenters/LiquidCooled/CDUs/CDU_epsNTU.png\"
          alt=\"Schematic diagram of the CDU.\"
          style=\"width: 100%; height: auto;\">
-<p>
 </p>
 <p>
 This CDU models a plate heat exchanger using an instance of
