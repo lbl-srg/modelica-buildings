@@ -1,6 +1,7 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Examples;
 model ChillerWSE
   "Example model of a simple liquid cooled data center with chiller and water-side economizer"
+  import ModelicaServices;
   extends Modelica.Icons.Example;
 
   package MediumChi = Buildings.Media.Water "Medium for chilled water loop";
@@ -11,13 +12,15 @@ model ChillerWSE
     "Medium for rack";
   parameter Modelica.Units.SI.Power PRac = 1E6
     "Total rack design power";
-  parameter Modelica.Units.SI.Temperature TRac_a = 273.15+42
+  parameter Modelica.Units.SI.TemperatureDifference dTOffSet = -5
+    "Offset for cooling supply temperature (used to design model so it requires the chiller sometimes)";
+  parameter Modelica.Units.SI.Temperature TRac_a = 273.15+42+dTOffSet
     "Supply coolant temperature to rack at design conditions";
-  parameter Modelica.Units.SI.Temperature TRac_b = 273.15+47
+  parameter Modelica.Units.SI.Temperature TRac_b = 273.15+47+dTOffSet
     "Return coolant temperature from rack at design conditions";
-  parameter Modelica.Units.SI.Temperature TChi_a = 273.15+36
+  parameter Modelica.Units.SI.Temperature TChi_a = 273.15+36+dTOffSet
     "Supply chilled water temperature to CDU at design conditions";
-  parameter Modelica.Units.SI.Temperature TChi_b = 273.15+41
+  parameter Modelica.Units.SI.Temperature TChi_b = 273.15+41+dTOffSet
     "Return chilled temperature from CDU at design conditions";
 
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal =
@@ -115,9 +118,13 @@ model ChillerWSE
     xi_start=1,
     reverseActing=false) "Controller for valve"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn(k=TRac_a)
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn(
+    y(final unit="K",
+      displayUnit="degC"),
+      k(final unit="K",
+      displayUnit="degC")=TRac_a)
     "Set point for rack inlet temperature"
-    annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   parameter Modelica.Units.SI.PressureDifference dpHexChi_nominal=80000
     "Heat exchanger design pressure drop on chiller side";
   Fluid.HeatExchangers.ConstantEffectiveness           wse(
@@ -130,7 +137,7 @@ model ChillerWSE
     dp1_nominal=dpHexChi_nominal)
                    "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{120,321},{100,341}})));
-  Fluid.Chillers.Carnot_TEva           chi(
+  Fluid.Chillers.Carnot_TEva chi(
     redeclare package Medium1 = MediumChi,
     redeclare package Medium2 = MediumChi,
     m1_flow_nominal=mCW_flow_nominal,
@@ -142,24 +149,27 @@ model ChillerWSE
     dp1_nominal=dpHexChi_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Chiller"
     annotation (Placement(transformation(extent={{-120,321},{-140,341}})));
-  Fluid.HeatExchangers.CoolingTowers.YorkCalc           cooTow(
+  Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
     redeclare package Medium = MediumChi,
     m_flow_nominal=mCW_flow_nominal,
     dp_nominal=dpHexChi_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Cooling tower"                                   annotation (Placement(
+    "Cooling tower"
+    annotation (Placement(
         transformation(
         extent={{-9.5,-9.5},{9.5,9.5}},
         origin={-0.5,539.5})));
-  BoundaryConditions.WeatherData.ReaderTMY3           weaData(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+  BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
+        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-240,570},{-220,590}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-190,570},{-170,590}}),
         iconTransformation(extent={{-176,140},{-156,160}})));
   Fluid.Movers.Preconfigured.FlowControlled_m_flow pumEva(
     redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
     addPowerToMedium=false,
+    use_riseTime=false,
     m_flow_nominal=mChi_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump chiller evaporator"    annotation (
       Placement(transformation(
@@ -168,7 +178,9 @@ model ChillerWSE
         origin={-80,290})));
   Fluid.Movers.Preconfigured.FlowControlled_m_flow pumWSEChi(
     redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
     addPowerToMedium=false,
+    use_riseTime=false,
     m_flow_nominal=mChi_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for water-side economizer" annotation (
       Placement(transformation(
@@ -177,7 +189,9 @@ model ChillerWSE
         origin={160,290})));
   Fluid.Movers.Preconfigured.FlowControlled_m_flow pumTow(
     redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
     addPowerToMedium=false,
+    use_riseTime=false,
     m_flow_nominal=mCW_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for tower loop" annotation (Placement(
         transformation(
@@ -195,7 +209,9 @@ model ChillerWSE
         origin={60,290})));
   Fluid.Movers.Preconfigured.FlowControlled_m_flow pumCon(
     redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
     addPowerToMedium=false,
+    use_riseTime=false,
     m_flow_nominal=mCW_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for chiller condenser" annotation (
       Placement(transformation(
@@ -279,7 +295,9 @@ model ChillerWSE
         origin={60,390})));
   Fluid.Movers.Preconfigured.FlowControlled_m_flow pumWSECW(
     redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
     addPowerToMedium=false,
+    use_riseTime=false,
     m_flow_nominal=mCW_flow_nominal,
     dp_nominal=dpHexChi_nominal)
     "Pump for water side economizer on cooling tower side" annotation (
@@ -289,7 +307,9 @@ model ChillerWSE
         origin={160,390})));
   Fluid.Movers.Preconfigured.FlowControlled_dp pumCDU(
     redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
     addPowerToMedium=false,
+    use_riseTime=false,
     m_flow_nominal=mChi_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump chilled water circuit" annotation (
       Placement(transformation(
@@ -336,7 +356,7 @@ model ChillerWSE
     yMin=0.1,
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     Ti=120,
     r=1,
     xi_start=1,
@@ -362,9 +382,9 @@ model ChillerWSE
   Controls.OBC.CDL.Reals.Sources.Constant TSetEva(y(final unit="K", displayUnit
         ="degC"), k(
       final unit="K",
-      displayUnit="degC") = 309.15)
+      displayUnit="degC") = TChi_a)
     "Set point temperature for evaporator outlet temperature"
-    annotation (Placement(transformation(extent={{-470,380},{-450,400}})));
+    annotation (Placement(transformation(extent={{-472,340},{-452,360}})));
   Controls.OBC.CDL.Reals.Sources.Constant pSetChiWatPum(
     y(final unit="Pa"),
     k(final unit="Pa") = dpHexChi_nominal)
@@ -398,16 +418,6 @@ model ChillerWSE
     p(displayUnit="Pa") = 300000,
     nPorts=1)   "Pressure boundary condition"
     annotation (Placement(transformation(extent={{248,530},{228,550}})));
-  Utilities.Diagnostics.AssertInequality assTem(
-    u1(final unit="K",
-       displayUnit="degC"),
-    u2(final unit="K",
-       displayUnit="degC"),
-    startTime=3600,
-    threShold=1,
-    message="Temperature of coolant to racks is above allowed limit.")
-    "Stop simulation if temperature to racks is not properly controlled"
-    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   Controls.OBC.CDL.Reals.AddParameter TOffSet(p=0)
     "Offset for set point (for testing only)"
     annotation (Placement(transformation(extent={{-440,340},{-420,360}})));
@@ -417,12 +427,12 @@ model ChillerWSE
     amplitude=16,
     freqHz=2*3.14/(3600*24*3600),
     offset=273.15 + 36 - 8)
-    annotation (Placement(transformation(extent={{-472,340},{-452,360}})));
+    annotation (Placement(transformation(extent={{-472,300},{-452,320}})));
   Modelica.Blocks.Sources.RealExpression PFan(y(final unit="W") = cooTow.PFan)
     "Power consumption of tower fans"
     annotation (Placement(transformation(extent={{360,410},{380,430}})));
   Modelica.Blocks.Sources.RealExpression PPum(y(final unit="W") = cdu.P +
-      pumWSEChi.P + pumWSECS.P + pumEva.P + pumCon.P + pumTow.P)
+      pumWSEChi.P + pumWSECW.P + pumEva.P + pumCon.P + pumTow.P)
     "Power consumption of pumps"
     annotation (Placement(transformation(extent={{360,370},{380,390}})));
   Modelica.Blocks.Sources.RealExpression PChi(y(final unit="W") = chi.P)
@@ -431,6 +441,30 @@ model ChillerWSE
   Modelica.Blocks.Sources.RealExpression PIT(y(final unit="W") = rac.P)
     "Power consumption of IT"
     annotation (Placement(transformation(extent={{360,290},{380,310}})));
+  model ElectricalEnergyMeter
+    extends Modelica.Blocks.Continuous.Integrator(
+      u(final unit="W"),
+      y(final unit="J",
+        displayUnit="Wh"),
+      final k = 1,
+      final use_reset=false,
+      final initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0);
+  end ElectricalEnergyMeter;
+  ElectricalEnergyMeter EFan "Energy meter"
+    annotation (Placement(transformation(extent={{400,410},{420,430}})));
+  ElectricalEnergyMeter EPum "Energy meter"
+    annotation (Placement(transformation(extent={{400,370},{420,390}})));
+  ElectricalEnergyMeter EChi "Energy meter"
+    annotation (Placement(transformation(extent={{400,330},{420,350}})));
+  ElectricalEnergyMeter EPIT(y_start=1E-10)
+                             "Energy meter"
+    annotation (Placement(transformation(extent={{400,290},{420,310}})));
+  Modelica.Blocks.Math.MultiSum EFac(nu=4) "Electricity for facility"
+    annotation (Placement(transformation(extent={{454,374},{466,386}})));
+  Modelica.Blocks.Math.Division PUE
+    "Power use effectiveness (not taking into account electrical losses)"
+    annotation (Placement(transformation(extent={{500,320},{520,340}})));
 equation
   connect(uti.y, rac.u) annotation (Line(points={{-28,-30},{-20,-30},{-20,-54},{
           -1,-54}},  color={0,0,127}));
@@ -445,7 +479,7 @@ equation
   connect(yPum.y, cdu.yPum) annotation (Line(points={{-28,0},{-20,0},{-20,31},{-12,
           31}},      color={0,0,127}));
   connect(TSetRacIn.y, conVal.u_s)
-    annotation (Line(points={{-178,70},{-52,70}},color={0,0,127}));
+    annotation (Line(points={{-78,70},{-52,70}}, color={0,0,127}));
   connect(senTRac_a.T, conVal.u_m)
     annotation (Line(points={{-40,45},{-40,58}},  color={0,0,127}));
   connect(conVal.y, cdu.yVal) annotation (Line(points={{-28,70},{-16,70},{-16,49},
@@ -470,8 +504,8 @@ equation
     annotation (Line(points={{50,220},{0,220}}, color={0,127,255}));
   connect(senTChi_a.port_b, jun4.port_1)
     annotation (Line(points={{-20,220},{-70,220}}, color={0,127,255}));
-  connect(jun4.port_2, jun5.port_1) annotation (Line(points={{-90,220},{-130,220},
-          {-130,220},{-170,220}}, color={0,127,255}));
+  connect(jun4.port_2, jun5.port_1) annotation (Line(points={{-90,220},{-170,220}},
+                                  color={0,127,255}));
   connect(jun5.port_2, senTCDU_a.port_a) annotation (Line(points={{-190,220},{-220,
           220},{-220,120},{-50,120}}, color={0,127,255}));
   connect(jun4.port_3,pumEva. port_a)
@@ -580,10 +614,6 @@ equation
           520},{-300,520},{-300,496},{-282,496}}, color={0,0,127}));
   connect(senTTow_b.port_b, bou1.ports[1])
     annotation (Line(points={{80,540},{228,540}}, color={0,127,255}));
-  connect(senTRac_a.T, assTem.u1) annotation (Line(points={{-40,45},{-42,45},{-42,
-          52},{-160,52},{-160,16},{-142,16}}, color={0,0,127}));
-  connect(TSetRacIn.y, assTem.u2) annotation (Line(points={{-178,70},{-170,70},{
-          -170,4},{-142,4}}, color={0,0,127}));
   connect(senTCDU_b.T, TAppWSE.u1) annotation (Line(points={{40,131},{40,140},{260,
           140},{260,476},{278,476}}, color={0,0,127}));
   connect(senTTow_b.T, TAppWSE.u2) annotation (Line(points={{70,551},{70,570},{270,
@@ -596,9 +626,29 @@ equation
           254},{-402,254}}, color={0,0,127}));
   connect(TOffSet.y, chi.TSet) annotation (Line(points={{-418,350},{-110,350},{-110,
           340},{-118,340}}, color={0,0,127}));
-  connect(sin.y, TOffSet.u) annotation (Line(points={{-450,350},{-446,350},{-446,
-          350},{-442,350}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-480,-120},{460,660}})), Icon(
+  connect(TOffSet.u, TSetEva.y)
+    annotation (Line(points={{-442,350},{-450,350}}, color={0,0,127}));
+  connect(PFan.y, EFan.u)
+    annotation (Line(points={{381,420},{398,420}}, color={0,0,127}));
+  connect(PPum.y, EPum.u)
+    annotation (Line(points={{381,380},{398,380}}, color={0,0,127}));
+  connect(PChi.y, EChi.u)
+    annotation (Line(points={{381,340},{398,340}}, color={0,0,127}));
+  connect(PIT.y, EPIT.u)
+    annotation (Line(points={{381,300},{398,300}}, color={0,0,127}));
+  connect(EChi.y, EFac.u[1]) annotation (Line(points={{421,340},{438,340},{438,378.425},
+          {454,378.425}}, color={0,0,127}));
+  connect(EPum.y, EFac.u[2]) annotation (Line(points={{421,380},{438,380},{438,379.475},
+          {454,379.475}}, color={0,0,127}));
+  connect(EFan.y, EFac.u[3]) annotation (Line(points={{421,420},{438,420},{438,380.525},
+          {454,380.525}}, color={0,0,127}));
+  connect(EFac.y, PUE.u1) annotation (Line(points={{467.02,380},{482,380},{482,336},
+          {498,336}}, color={0,0,127}));
+  connect(EPIT.y, PUE.u2) annotation (Line(points={{421,300},{458.5,300},{458.5,
+          324},{498,324}}, color={0,0,127}));
+  connect(EPIT.y, EFac.u[4]) annotation (Line(points={{421,300},{438,300},{438,380},
+          {454,380},{454,381.575}}, color={0,0,127}));
+  annotation (Diagram(coordinateSystem(extent={{-480,-120},{540,660}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(
       StopTime=31536000,
@@ -608,18 +658,55 @@ equation
        file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Examples/ChillerWSE.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model of a CDU that serves liquid cooled racks.
+Example model of liquid cooled data center that is cooled with an economizer and a chiller.
 </p>
 <p>
-fixme
-The IT load is specified using a periodic pulse input.
-This load is cooled by a propylene glycol loop, which exchanges
+The IT load is cooled by a propylene glycol loop, which exchanges
 heat through the CDU with a chilled water supply.
-The chilled water is assumed to be delivered at constant temperature.
 A PI controller regulates the chilled water flow rate through the control
 valve in the CDU in order to track the propylene glycol temperature that is sent
 to the IT rack.
+The chilled water is cooled by an economizer -- if the temperatures permit --
+and if the water temperature after the economizer is higher than a temperature set point,
+the chiller is enabled. The chiller tracks a leaving water set point temperature.
+Note that the control is quite simple.
 </p>
+<p>
+The model also has a parameter <code>dTOffSet</code> which can be used to shift the design temperatures
+up or down. This allows to push the model into temperature regimes that need no chiller.
+For example, if <code>dTOffSet=0</code>, the chiller never operates, and all cooling is done
+through the economizer.
+</p>
+<p>
+For more detailed chilled water plant
+controls, see for example
+<ul>
+<li>
+<a href=\"modelica://Buildings.Examples.ChillerPlant\">Buildings.Examples.ChillerPlant</a>,
+</li>
+<li>
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Examples\">Buildings.Applications.DataCenters.ChillerCooled.Examples</a>, or
+</li>
+<li>
+the papers by Grahovac et al. (2023) or Wetter et al. (2014).
+</li>
+</ul>
+</p>
+<h4>References</h4>
+<ul>
+<li>
+Milica Grahovac, Paul Ehrlich, Jianjun Hu and Michael Wetter.<br/>
+Model-based Data Center Cooling Controls Comparative Co-design.<br/>
+Science and Technology for the Built Environment, 30(4), P. 394-414, 2023.<br/>
+<a href=\"https://doi.org/10.1080/23744731.2023.2276011\">doi:10.1080/23744731.2023.2276011</a>.
+</li>
+<li>
+Michael Wetter, Wangda Zuo, Thierry S. Nouidui and Xiufeng Pang.<br/>
+Modelica Buildings library.<br/>
+Journal of Building Performance Simulation, 7(4):253-270, 2014.<br/>
+<a href=\"https://dx.doi.org/10.1080/19401493.2013.765506\">doi:10.1080/19401493.2013.765506</a>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
