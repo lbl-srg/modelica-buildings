@@ -663,8 +663,7 @@ equation
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(
       StopTime=31536000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-06),
       __Dymola_Commands(
        file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Examples/ChillerWSE.mos" "Simulate and plot"),
     Documentation(info="<html>
