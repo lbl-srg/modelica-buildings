@@ -129,11 +129,12 @@ model WatersideEconomizer
     final m_flow_nominal=m2_flow_nominal,
     final dpValve_nominal=dpVal2_nominal,
     final dpFixed_nominal={dp2Hex_nominal,0},
-    fraK=1) "Heat exchanger secondary control valve" annotation (Placement(
+    fraK=1) "Heat exchanger secondary actuation valve (open or close)"
+                                                     annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={20,-40})));
+        origin={-20,-40})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senT1WatEnt(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
@@ -180,10 +181,9 @@ equation
     annotation (Line(points={{-12,110},{-60,110},{-60,92}},color={0,0,127}));
   connect(PPum, pum1.P) annotation (Line(points={{120,0},{44,0},{44,89},{-49,89}}, color={0,0,127}));
   connect(conWSE.yVal2, val2.y)
-    annotation (Line(points={{52,155},{60,155},{60,-40},{32,-40}},        color={0,0,127}));
+    annotation (Line(points={{52,155},{60,155},{60,-20},{-36,-20},{-36,-40},{
+          -32,-40}},                                                      color={0,0,127}));
   connect(port_a2, senT2WatEnt.port_a) annotation (Line(points={{100,-60},{50,-60}}, color={0,127,255}));
-  connect(hex.port_b2, senT2WatLvg.port_a)
-    annotation (Line(points={{-10,-6},{-20,-6},{-20,-60},{-30,-60}}, color={0,127,255}));
   connect(senT1WatEnt.port_b, hex.port_a1) annotation (Line(points={{-20,30},
           {-20,6},{-10,6}},                                                                       color={0,127,255}));
   connect(senT1WatEnt.port_a, pum1.port_b)
@@ -199,18 +199,20 @@ equation
     annotation (Line(points={{-40,-49},{-40,156},{28,156}}, color={0,0,127}));
   connect(yValIsoEva_actual, conWSE.yValIsoEva_actual)
     annotation (Line(points={{-120,130},{24,130},{24,153},{28,153}}, color={0,0,127}));
-  connect(val2.port_3, senT2WatLvg.port_a)
-    annotation (Line(points={{10,-40},{-20,-40},{-20,-60},{-30,-60}}, color={0,127,255}));
-  connect(val2.port_1, hex.port_a2)
-    annotation (Line(points={{20,-30},{20,-6},{10,-6}}, color={0,127,255}));
-  connect(val2.port_2, senT2WatEnt.port_b)
-    annotation (Line(points={{20,-50},{20,-60},{30,-60}}, color={0,127,255}));
   connect(port_b2, senMasFlo2.port_b)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
   connect(senMasFlo2.port_a, senT2WatLvg.port_b)
     annotation (Line(points={{-70,-60},{-50,-60}}, color={0,127,255}));
   connect(senMasFlo2.m_flow, conWSE.m2_flow)
     annotation (Line(points={{-80,-49},{-80,165},{28,165}}, color={0,0,127}));
+  connect(val2.port_2, senT2WatLvg.port_a) annotation (Line(points={{-20,-50},{
+          -20,-60},{-30,-60}}, color={0,127,255}));
+  connect(val2.port_3, senT2WatEnt.port_b) annotation (Line(points={{-10,-40},{
+          20,-40},{20,-60},{30,-60}}, color={0,127,255}));
+  connect(val2.port_1, hex.port_b2)
+    annotation (Line(points={{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(hex.port_a2, senT2WatEnt.port_b) annotation (Line(points={{10,-6},{20,
+          -6},{20,-60},{30,-60}}, color={0,127,255}));
   annotation (
     defaultComponentName="hex",
     Icon(
@@ -224,116 +226,92 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-34,40},{36,-40}},
+          extent={{2,26},{-2,-26}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-74,-60},
+          rotation=90),
+        Rectangle(
+          extent={{2,28},{-2,-28}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-76,60},
+          rotation=90),
+        Rectangle(
+          extent={{2,26},{-2,-26}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={70,-60},
+          rotation=90),
+        Rectangle(
+          extent={{2,28},{-2,-28}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={68,60},
+          rotation=90),
+        Rectangle(
+          extent={{-52,68},{50,-68}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-26,34},{-22,-34}},
+          extent={{-40,60},{-34,-58}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-22,34},{-14,-34}},
+          extent={{-34,60},{-22,-58}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-10,34},{0,-34}},
+          extent={{-22,60},{-16,-58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-16,60},{-4,-58}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-14,34},{-10,-34}},
+          extent={{14,60},{20,-58}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{4,34},{12,-34}},
+          extent={{20,60},{32,-58}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{0,34},{4,-34}},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Rectangle(
-          extent={{16,34},{24,-34}},
+          extent={{2,60},{14,-58}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{12,34},{16,-34}},
+          extent={{-4,60},{2,-58}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{24,34},{28,-34}},
+          extent={{32,60},{38,-58}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Rectangle(
-          extent={{-1,42},{1,-42}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={-58,61},
-          rotation=90),
-        Rectangle(
-          extent={{-18,62},{-16,40}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-1,42},{1,-42}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={58,61},
-          rotation=90),
-        Rectangle(
-          extent={{16,62},{18,40}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-1,42},{1,-42}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={58,-59},
-          rotation=90),
-        Rectangle(
-          extent={{-1,42},{1,-42}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={-58,-59},
-          rotation=90),
-        Rectangle(
-          extent={{-18,-40},{-16,-60}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{16,-40},{18,-60}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          pattern=LinePattern.None)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
