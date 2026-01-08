@@ -25,22 +25,29 @@ model FiltrationEfficiency
     final max=1)
     "Relative mass of the contaminant captured by the filter, which is the total captured contaminant mass divided by the filter's maximum contaminant capacity"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
+
 protected
   parameter Integer nConSub = size(namCon,1)
     "Total types of contaminant substances";
+  parameter Real filRat[:,:]=filEffPar.rat
+    "Relative mass of captured contaminant";
+  parameter Real filEps[:,:]=filEffPar.eps
+    "Filtration efficiency";
+
 equation
   rat = mCon/mCon_max "Relative mass of the contaminant captured by the filter";
   for i in 1:nConSub loop
      y[i] = Buildings.Utilities.Math.Functions.smoothLimit(
         Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=rat,
-                xSup=filEffPar[i].rat,
-                ySup=filEffPar[i].eps),
+                xSup=filRat[i,:],
+                ySup=filEps[i,:]),
         0,
         1,
         1E-3)
      "Calculate the filtration efficiency";
   end for;
+
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="eps",

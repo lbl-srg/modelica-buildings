@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "senTraSubCO2In.C",
-    "senTraSubCO2Out.C",
+    "senTraSubParIn.C",
+    "senTraSubParOut.C",
     "senTraSubVOCIn.C",
     "senTraSubVOCOut.C",
     "airFil.eps[1]",

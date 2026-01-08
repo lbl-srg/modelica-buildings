@@ -22,9 +22,8 @@ record Generic "Generic data record for air filters"
     "Filtration efficiency of each contaminant versus the relative mass of all captured contaminants";
   parameter Real b=2.0
     "Resistance coefficient (multiplier for pressure drop if filter is fully dirty)";
-  annotation (
-  defaultComponentPrefixes = "parameter",
-  defaultComponentName = "per",
+
+annotation (defaultComponentPrefixes = "parameter", defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
 <li>

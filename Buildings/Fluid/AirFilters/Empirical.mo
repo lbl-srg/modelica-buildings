@@ -5,6 +5,7 @@ model Empirical "Empirical air filter model"
   parameter Buildings.Fluid.AirFilters.Data.Generic per
     "Performance dataset"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
     "True: replace the filter and reset the accumulation"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
@@ -58,7 +59,8 @@ protected
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency filEff(
     final mCon_max=per.mCon_max,
     final namCon=per.namCon,
-    final filEffPar=per.filEffPar) "Filtration efficiency"
+    final filEffPar=per.filEffPar)
+    "Filtration efficiency"
     annotation (Placement(transformation(extent={{-20,36},{0,56}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection floCor(
     final b=per.b)
@@ -71,13 +73,13 @@ equation
     annotation (Line(points={{-62,40},{-80,40},{-80,80},{-120,80}},
       color={255,0,255}));
   connect(filEff.rat,floCor. rat) annotation (Line(points={{2,52},{38,52}},
-                    color={0,0,127}));
+      color={0,0,127}));
   connect(floCor.y, res.dpCor) annotation (Line(points={{62,52},{70,52},{70,12}},
-                             color={0,0,127}));
+      color={0,0,127}));
   connect(masTra.mCon_flow, masAcc.mCon_flow) annotation (Line(points={{42,6},{
           48,6},{48,14},{-72,14},{-72,46},{-62,46}},color={0,0,127}));
   connect(filEff.y, eps) annotation (Line(points={{2,40},{10,40},{10,-50},{120,-50}},
-                color={0,0,127}));
+          color={0,0,127}));
   connect(masTra.eps,filEff. y) annotation (Line(points={{18,6},{10,6},{10,40},
           {2,40}},color={0,0,127}));
   connect(masAcc.yRep, yRep) annotation (Line(points={{-38,54},{-30,54},{-30,80},
@@ -91,8 +93,7 @@ equation
   connect(filEff.rat, rat) annotation (Line(points={{2,52},{20,52},{20,70},{88,70},
           {88,40},{120,40}}, color={0,0,127}));
 annotation (defaultComponentName="airFil",
-Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                Rectangle(
+Icon(coordinateSystem(preserveAspectRatio=false), graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
