@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "conVal.u_s",
+    "conVal.u_m",
+    "senTCDU_b.T",
+    "senTTow_b.T",
+    "senTWSE_b1.T",
+    "senTCDU_a.T",
+    "EFan.y",
+    "EPum.y",
+    "EChi.y",
+    "PUE.y"
+  };
