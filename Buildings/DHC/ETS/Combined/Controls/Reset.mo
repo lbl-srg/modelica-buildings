@@ -56,7 +56,14 @@ equation
         Text(
           textColor={0,0,255},
           extent={{-100,100},{102,140}},
-          textString="%name")}),
+          textString="%name"),
+        Line(
+          points={{-82,-54},{-42,-54},{48,86},{84,86}}, thickness=0.5),
+        Line(points={{-82,-54},{-42,-54},{-42,86},{84,86}}, color={0,0,0}),
+        Text(
+          extent={{-64,-64},{64,-88}},
+          textColor={0,0,88},
+          textString="%raisingSlewRate")}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,

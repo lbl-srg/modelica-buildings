@@ -25,7 +25,13 @@ record Generic "Basic chiller data"
   which serves as the operational envelope of the compressor.
 </p>
 </html>",
-        revisions="<html><ul>
+        revisions="<html>
+<ul>
+<li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
 <li>
 May 22, 2025, by Michael Wetter:<br/>
 Revised comment.<br/>
@@ -37,6 +43,5 @@ This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPS
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
-</html>"),
-   Icon);
+</html>"));
 end Generic;
