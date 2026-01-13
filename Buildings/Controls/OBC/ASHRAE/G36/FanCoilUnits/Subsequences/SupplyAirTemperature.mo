@@ -215,7 +215,8 @@ block SupplyAirTemperature
     final controllerType=heaCoiConTyp,
     final k=kHeaCoi,
     final Ti=TiHeaCoi,
-    final Td=TdHeaCoi) if have_heaCoi
+    final Td=TdHeaCoi,
+    r=10) if have_heaCoi
     "PID controller for heating coil"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
@@ -224,7 +225,8 @@ block SupplyAirTemperature
     final k=kCooCoi,
     final Ti=TiCooCoi,
     final Td=TdCooCoi,
-    final reverseActing=false) if have_cooCoi
+    final reverseActing=false,
+    r=10) if have_cooCoi
     "PID controller for cooling coil"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 
@@ -491,6 +493,11 @@ alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 20, 2025, by Karthik Devaprasad:<br/>
+Added error scaling factors to PI controllers regulating supply air temperature
+at temperature setpoint.
+</li>
 <li>
 March 17, 2022, by Karthik Devaprasad:<br/>
 First implementation.
