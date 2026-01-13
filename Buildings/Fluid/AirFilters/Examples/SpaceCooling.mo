@@ -56,7 +56,9 @@ model SpaceCooling
     mCon_max=5,
     mCon_start=0,
     namCon={"PM10"},
-    filEffPar={Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(rat={0,0.5,1}, eps={0.5,0.4,0.2})},
+    filEffPar={
+        Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(
+         rat={0,0.5,1}, eps={0.75,0.5,0.2})},
     b=1.3,
     m_flow_nominal=mA_flow_nominal,
     dp_nominal=50) "Performance dataset of the air filter"
@@ -312,9 +314,8 @@ The expected output are:
 </p>
 <ul>
 <li>
-The difference between the inlet trace substance <i>C_inflow.y</i> and the outlet
-trace substance <i>C_out.C</i> increases. It indicates the reduction in filtration
-efficiency as contaminants accumulate.
+The filtration efficiency <i>airFil.eps[1]</i> decreases along with the contaminant
+<i>airFil.masAcc.mCon</i> build up.
 </li>
 <li>
 The fan power <i>fan.P</i> slightly increases, caused by the rising pressure drop

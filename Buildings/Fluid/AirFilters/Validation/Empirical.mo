@@ -102,18 +102,17 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-From 0 to 12 seconds, the testing case is warming-up and the inlet trace substances
-are fixed at <i>0.1</i> kg/kg.
+The example shows a filter that captures particles and VOCs. It has different
+filtration efficiencies capturing the particles and VOCs.
 </p>
 <p>
-From 20 to 50 seconds, the inlet trace substances changes from <i>0.1</i> to <i>0.07</i> kg/kg.
+It set up a simulation that shows the performance change of the filter in 2 years operation. The
+filtration efficiencies for both contaminants decrease along with the contaminant
+accumulation on the filtration.
 </p>
 <p>
-At the 30 seconds, the filter replacement signal <code>repSig</code> changes from <i>false</i> to <i>true</i>.
-</p>
-<p>
-From 12 to 30 seconds, the trace substances of the outlet port <code>C_out</code> don't change much;
-From 30 to 45 seconds, the outlet trace substances first decrease and then become relatively smooth.
+When the contaminant accumultion reaches the maximum at around 412 days, the filter
+is replaced and the efficiencies are reset.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),
