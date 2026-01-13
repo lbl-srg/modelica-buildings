@@ -8,6 +8,10 @@ def doStep(dblInp, state):
 
     modelicaWorkingPath = os.getcwd()
     py_dir = os.path.join(modelicaWorkingPath,'Resources/Python-Sources')
+    # py_dir = os.getcwd()
+
+    # tou_tmp1 = os.path.join(py_dir, 'toughTemp1')
+    # copy_files(os.path.join(py_dir, 'TOUGH'), tou_tmp1)
 
     # Temporary folder used primarily for store TOUGH simulation result "SAVE".
     # The "SAVE" file is needed for the next invocation for generating initial
@@ -15,6 +19,7 @@ def doStep(dblInp, state):
     # This temporary folder should be created in advance before calling this 
     # python script.
     tou_tmp = os.path.join(py_dir, 'toughTemp')
+    
     
     # Heat flux from borehole wall to ground: Modelica --> Tough
     Q = dblInp[:10]
@@ -67,7 +72,7 @@ def doStep(dblInp, state):
         if dt > 1e-2:
 
             # Change current directory to working directory
-            # os.chdir(tou_tmp)
+            os.chdir(tou_tmp)
             # T_toTough = mesh_to_mesh(toughLayer, modelicaLayers, state['T'], 'Mo2To')
             # Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
             Q_toTough = [150,150,150,150,150,150,150,150,150,150,
@@ -83,6 +88,7 @@ def doStep(dblInp, state):
                 # initialize_gener(toughLayers, Q_toTough, 'GENER')
                 # update existing 'INFILE'
                 # update_infile(tLast, tim, 'INFILE', 'newINFILE')
+                pass
 
             # It's not the first call of TOUGH simulation. So there is 'SAVE' file from
             # previous TOUGH call and we can use `writeincon` to generate TOUGH input
@@ -137,6 +143,7 @@ def doStep(dblInp, state):
 
             # Change back to original working directory
             os.chdir(modelicaWorkingPath)
+            # os.chdir(py_dir)
 
     return [ToModelica, state]
 
