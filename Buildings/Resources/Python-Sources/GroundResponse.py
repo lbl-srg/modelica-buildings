@@ -8,14 +8,6 @@ def doStep(dblInp, state):
 
     modelicaWorkingPath = os.getcwd()
     py_dir = os.path.join(modelicaWorkingPath,'Resources', 'Python-Sources')
-
-    # Temporary folder used primarily for store TOUGH simulation result "SAVE".
-    # The "SAVE" file is needed for the next invocation for generating initial
-    # conditions for TOUGH simulation.
-    # This temporary folder should be created in advance before calling this 
-    # python script.
-    tou_tmp = os.path.join(py_dir, 'toughTemp')
-    
     
     # Heat flux from borehole wall to ground: Modelica --> Tough
     Q = dblInp[:10]
@@ -37,8 +29,8 @@ def doStep(dblInp, state):
 
     # This is the first call of this python module. There is no state yet.
     if state == None:
-        # Empty the TOUGH temporary folder
-        empty_folder(tou_tmp)
+        # Create the TOUGH working folder
+        tou_tmp = create_working_directory()
         # Copy files in the folder 'TougFiles', which includes the initial temperature of
         # simulation domain, template files for TOUGH simulation, and utility programs
         copy_files(os.path.join(py_dir, 'TOUGH'), tou_tmp)
@@ -48,14 +40,16 @@ def doStep(dblInp, state):
                          280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
                          280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
                          280.15,280.15,280.15]
-        state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start}
+        state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start, 'work_dir': tou_tmp}
         T_toModelica = T_start
         p_Int = ident_set(101343.01, 10)
         x_Int = ident_set(10.5, 10)
         T_Int = ident_set(15.06+273.15, 10)
         ToModelica = T_toModelica + p_Int + x_Int + T_Int
     else:
-        # Use the python object
+        # Obtain the path of working directory
+        tou_tmp = state['work_dir']
+        # Last ending time
         tLast = state['tLast']
         # Find the TOUGH simulation step size
         dt = tim - tLast
@@ -135,11 +129,10 @@ def doStep(dblInp, state):
             ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
 
             # Update state
-            state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
+            state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
 
             # Change back to original working directory
             os.chdir(modelicaWorkingPath)
-            # os.chdir(py_dir)
 
     return [ToModelica, state]
 
@@ -192,6 +185,16 @@ def imitateTemperature(line, T_out):
     if (len(newTem) > len(oldTem)):
         newTem = newTem[0:len(oldTem)]
     return line.replace(oldTem, newTem)
+
+
+def create_working_directory():
+    ''' Create working directory
+    '''
+    import tempfile
+    import getpass
+    worDir = tempfile.mkdtemp( prefix='tmp-modelica-tough-' + getpass.getuser() )
+#    print("Created directory {}".format(worDir))
+    return worDir
 
 ''' Create set of size num with identical value
 '''
