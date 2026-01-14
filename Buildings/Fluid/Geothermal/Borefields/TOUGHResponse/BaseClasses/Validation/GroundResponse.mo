@@ -10,7 +10,7 @@ model GroundResponse
              273.15+11.0,273.15+11.2,273.15+11.4,273.15+11.6,273.15+11.8})
     "Initial borehole wall temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin [10](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin[10](
     each amplitude=1000,
     each freqHz=1/3600) "Heat flow to ground"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));

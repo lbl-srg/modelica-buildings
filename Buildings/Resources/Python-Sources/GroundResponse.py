@@ -7,11 +7,7 @@ import shutil
 def doStep(dblInp, state):
 
     modelicaWorkingPath = os.getcwd()
-    py_dir = os.path.join(modelicaWorkingPath,'Resources/Python-Sources')
-    # py_dir = os.getcwd()
-
-    # tou_tmp1 = os.path.join(py_dir, 'toughTemp1')
-    # copy_files(os.path.join(py_dir, 'TOUGH'), tou_tmp1)
+    py_dir = os.path.join(modelicaWorkingPath,'Resources', 'Python-Sources')
 
     # Temporary folder used primarily for store TOUGH simulation result "SAVE".
     # The "SAVE" file is needed for the next invocation for generating initial
@@ -133,7 +129,7 @@ def doStep(dblInp, state):
             T_tough = data['T_Bor']
             # Output to Modelica simulation
             # T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
-            T_toModelica = [281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15]
+            T_toModelica = [281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15]
 
             # Outputs to Modelica
             ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
@@ -178,6 +174,8 @@ def tough_avatar(heatFlux, T_out):
         else:
             fout.write(line)
     # remove the old SAVE file
+    fin.close()
+    fout.close()
     os.remove('SAVE')
     os.rename('temp_SAVE', 'SAVE')
 
@@ -232,11 +230,11 @@ def copy_files(src, dest):
 
 ''' Create initial `GENER` file for the 1st call of TOUGH
 '''
-def initialize_gener(toughLayesr, Q, fileName):
+def initialize_gener(toughLayers, Q, fileName):
     with open(fileName, 'w') as f:
         f.write("GENER" + os.linesep)
         for i in range(0, len(Q)):
-            f.write("%s  1sou 1" % toughLayesr[i]['layer'] + "                         HEAT %10.3e" % Q[i] + os.linesep)
+            f.write("%s  1sou 1" % toughLayers[i]['layer'] + "                         HEAT %10.3e" % Q[i] + os.linesep)
         f.write("+++" + os.linesep)
         f.write("         1         2         3         4         5         6         7         8" + os.linesep)
         f.write("         9        10        11        12        13        14        15        16" + os.linesep)
@@ -354,7 +352,7 @@ def mesh_to_mesh(layers, modelicaLayers, variables, flag):
                 if (flag == 'Q_Mo2To'):
                     values.append(((cuMe - ub)*variables[j-1] + (lb-cuMe)*variables[j])/(cuMe - preMe))
                 else:
-                    values.append(((cuMe - ub)*variables[j-1] + (lb-cuMe)*variables[j])/(lb - up))
+                    values.append(((cuMe - ub)*variables[j-1] + (lb-cuMe)*variables[j])/(lb - ub))
     else: 
         # (flag == 'To2Mo')
         for i in range(0, len(modelicaLayers)-1):
@@ -645,27 +643,6 @@ def fortranstyle(sciFor):
         newStrLen = len(newValStr)
         
         return sciFor[:(totalLen - newStrLen)] + newValStr
-        
 
 
-# def flag_working_directory(flag):
-#     import tempfile
-#     import getpass
-#     worDir = tempfile.mkdtemp(prefix=flag+'-' + getpass.getuser())
-#     return worDir
-
-# Main function
-if __name__ == '__main__':
-    dblInp = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 
-              283.15,283.15,283.15,283.15,283.15,283.15,283.15,283.15,283.15,283.15,
-              288.15, 10]
-    tim = 5
-    Q = [150,150,150,150,150,150,150,150,150,150]
-    T_tough = [281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,
-               281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,
-               281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,
-               280.15,280.15,280.15]
-    state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
-    
-    doStep(dblInp, state)
 

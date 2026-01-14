@@ -1,7 +1,5 @@
 compareVars :=
   {
-    "TUTubIn.T",
-    "TUTubOut.T",
-    "TUTubOut2.T",
-    "TUTubOut1.T"
+    "sou.T_in",
+    "TOut.T"
   };
