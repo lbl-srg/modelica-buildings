@@ -7,7 +7,9 @@ import shutil
 def doStep(dblInp, state):
 
     modelicaWorkingPath = os.getcwd()
-    py_dir = os.path.join(modelicaWorkingPath,'Resources', 'Python-Sources')
+
+    # Folder that includes the TOUGH input files
+    TOUGH_dir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'TOUGH')
     
     # Heat flux from borehole wall to ground: Modelica --> Tough
     Q = dblInp[:10]
@@ -19,7 +21,7 @@ def doStep(dblInp, state):
     tim = dblInp[-1]
 
     # Find the depth of each layer
-    # meshFile = os.path.join(py_dir, 'TOUGH', 'MESH')
+    # meshFile = os.path.join(TOUGH_dir, 'MESH')
     # toughLayers = find_layer_depth(meshFile)
 
     # add_grid_boundary(toughLayers)
@@ -31,9 +33,8 @@ def doStep(dblInp, state):
     if state == None:
         # Create the TOUGH working folder
         tou_tmp = create_working_directory()
-        # Copy files in the folder 'TougFiles', which includes the initial temperature of
-        # simulation domain, template files for TOUGH simulation, and utility programs
-        copy_files(os.path.join(py_dir, 'TOUGH'), tou_tmp)
+        # Copy the TOUGH input files to working directory
+        copy_files(TOUGH_dir, tou_tmp)
         # Initialize the state
         # T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
         T_tough_start = [280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
