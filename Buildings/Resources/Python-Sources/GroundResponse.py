@@ -11,14 +11,18 @@ def doStep(dblInp, state):
     # Folder that includes the TOUGH input files
     TOUGH_dir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'TOUGH')
     
+    # Number of Modelica cells
+    nSeg = int(dblInp[0])
     # Heat flux from borehole wall to ground: Modelica --> Tough
-    Q = dblInp[:10]
+    Q = dblInp[1:nSeg+1]
     # Initial borehole wall temperature at the start of modelica simulation
-    T_start = [dblInp[i] for i in range(10,20)]
+    T_start = [dblInp[i] for i in range(nSeg+1, 2*nSeg+1)]
     # Current outdoor temperature
-    T_out = dblInp[-2]
+    T_out = dblInp[-3]
     # Current time when needs to call TOUGH. This is also the end time of TOUGH simulation.
-    tim = dblInp[-1]
+    tim = dblInp[-2]
+    # Number of observation points in the TOUGH simulation domain
+    nInt = int(dblInp[-1])
 
     # Find the depth of each layer
     # meshFile = os.path.join(TOUGH_dir, 'MESH')
@@ -43,9 +47,9 @@ def doStep(dblInp, state):
                          280.15,280.15,280.15]
         state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start, 'work_dir': tou_tmp}
         T_toModelica = T_start
-        p_Int = ident_set(101343.01, 10)
-        x_Int = ident_set(10.5, 10)
-        T_Int = ident_set(15.06+273.15, 10)
+        p_Int = ident_set(101343.01, nInt)
+        x_Int = ident_set(10.5, nInt)
+        T_Int = ident_set(15.06+273.15, nInt)
         ToModelica = T_toModelica + p_Int + x_Int + T_Int
     else:
         # Obtain the path of working directory
@@ -214,14 +218,6 @@ def empty_folder(folder):
         # os.remove(os.path.join(folder, f))
         if 'Dummy' not in f:
             os.remove(os.path.join(folder, f))
-
-''' Create working directory
-'''
-def create_working_directory():
-    import tempfile
-    import getpass
-    worDir = tempfile.mkdtemp(prefix='tmp-tough-modelica-' + getpass.getuser())
-    return worDir
 
 ''' Copy files from source directory to destination directory
 '''
@@ -647,6 +643,4 @@ def fortranstyle(sciFor):
         newStrLen = len(newValStr)
         
         return sciFor[:(totalLen - newStrLen)] + newValStr
-
-
 

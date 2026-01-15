@@ -52,38 +52,48 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     moduleName="GroundResponse",
     functionName="doStep",
     nDblRea=nSeg+3*nInt,
-    nDblWri=2*nSeg+2,
+    nDblWri=2*nSeg+4,
     samplePeriod=samplePeriod,
     final flag=0,
     passPythonObject=true)
     "Python interface model to call TOUGH simulator"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Blocks.Routing.Multiplex mul(final n=2*nSeg+2)
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Modelica.Blocks.Routing.Multiplex mul(final n=2*nSeg+4)
     "Multiplex"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.ContinuousClock clock
     "Current time"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant segNum(final k=nSeg)
+    "Total number of segments"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant intNum(final k=nInt)
+    "Total number of interested points"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
   connect(pyt.yR[1:nSeg], TBorWal)
-    annotation (Line(points={{41,0},{60,0},{60,60},{120,60}}, color={0,0,127}));
+    annotation (Line(points={{61,0},{80,0},{80,60},{120,60}}, color={0,0,127}));
   connect(mul.y, pyt.uR)
-    annotation (Line(points={{1,0},{18,0}}, color={0,0,127}));
-  connect(QBor_flow, mul.u[1:nSeg])
-    annotation (Line(points={{-120,80},{-40,80},{-40,0},{-20,0}}, color={0,0,127}));
-  connect(TBorWal_start, mul.u[nSeg+1:2*nSeg]) annotation (Line(points={{-120,40},{-60,40},
-          {-60,0},{-20,0}}, color={0,0,127}));
-  connect(TOut, mul.u[2*nSeg+1])
-    annotation (Line(points={{-120,0},{-20,0}}, color={0,0,127}));
-  connect(clock.y, mul.u[2*nSeg+2]) annotation (Line(points={{-59,-50},{-40,-50},{-40,
-          0},{-20,0}}, color={0,0,127}));
-  connect(pyt.yR[nSeg + 1:nSeg + nInt], pInt) annotation (Line(points={{41,0},{60,
-          0},{60,20},{120,20}}, color={0,0,127}));
+    annotation (Line(points={{21,0},{38,0}},color={0,0,127}));
+  connect(segNum.y, mul.u[1])
+    annotation (Line(points={{-58,-20},{-40,-20},{-40,0},{0,0}},   color={0,0,127}));
+  connect(QBor_flow, mul.u[2:nSeg+1])
+    annotation (Line(points={{-120,80},{-50,80},{-50,0},{0,0}},   color={0,0,127}));
+  connect(TBorWal_start, mul.u[nSeg+2:2*nSeg+1]) annotation (Line(points={{-120,40},
+          {-60,40},{-60,0},{0,0}}, color={0,0,127}));
+  connect(TOut, mul.u[2*nSeg+2])
+    annotation (Line(points={{-120,0},{0,0}},   color={0,0,127}));
+  connect(clock.y, mul.u[2*nSeg+3]) annotation (Line(points={{-39,-50},{-30,-50},
+          {-30,0},{0,0}},   color={0,0,127}));
+  connect(intNum.y, mul.u[2*nSeg+4]) annotation (Line(points={{-58,-80},{-20,
+          -80},{-20,0},{0,0}},
+                            color={0,0,127}));
+  connect(pyt.yR[nSeg + 1:nSeg + nInt], pInt) annotation (Line(points={{61,0},{80,
+          0},{80,20},{120,20}}, color={0,0,127}));
   connect(pyt.yR[nSeg+nInt+1:nSeg+2*nInt], xInt)
-    annotation (Line(points={{41,0},{60,0},{60,-20},{120,-20}}, color={0,0,127}));
+    annotation (Line(points={{61,0},{80,0},{80,-20},{120,-20}}, color={0,0,127}));
   connect(pyt.yR[nSeg+2*nInt+1:nSeg+3*nInt], TInt)
-    annotation (Line(points={{41,0},{60,0},{60,-60},{120,-60}}, color={0,0,127}));
+    annotation (Line(points={{61,0},{80,0},{80,-60},{120,-60}}, color={0,0,127}));
 
 annotation (defaultComponentName="toughRes",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
