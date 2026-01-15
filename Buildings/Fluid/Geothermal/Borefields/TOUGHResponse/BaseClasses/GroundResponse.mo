@@ -1,29 +1,31 @@
 within Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses;
 model GroundResponse "Ground response calculated by the TOUGH simulator"
 
+  parameter Modelica.Units.SI.Height hBor=100 "Total height of the borehole";
   parameter Integer nSeg=10 "Total number of segments";
   parameter Integer nInt=10 "Number of points in the ground to be investigated";
+  parameter Integer nTouSeg=33 "Total number of grids along the entire borehole in the TOUGH mesh";
   parameter Modelica.Units.SI.Time samplePeriod=60 "Sample period of component"
     annotation(Dialog(group="Sampling"));
 
   Modelica.Blocks.Interfaces.RealInput QBor_flow[nSeg](
     final unit=fill("W", nSeg))
     "Heat flow from boreholes (positive if heat from fluid into soil)"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Modelica.Blocks.Interfaces.RealInput TBorWal_start[nSeg](
     final unit=fill("K", nSeg),
     displayUnit=fill("degC", nSeg),
     quantity=fill("ThermodynamicTemperature", nSeg))
     "Initial borehole outer wall temperature at the begining of the simulation"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
     quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput TBorWal[nSeg](
     final unit=fill("K", nSeg),
@@ -52,48 +54,49 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     moduleName="GroundResponse",
     functionName="doStep",
     nDblRea=nSeg+3*nInt,
-    nDblWri=2*nSeg+4,
+    nDblWri=2*nSeg + 6,
     samplePeriod=samplePeriod,
     final flag=0,
     passPythonObject=true)
     "Python interface model to call TOUGH simulator"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Blocks.Routing.Multiplex mul(final n=2*nSeg+4)
+  Modelica.Blocks.Routing.Multiplex mul(
+    final n=2*nSeg + 6)
     "Multiplex"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.ContinuousClock clock
     "Current time"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant segNum(final k=nSeg)
-    "Total number of segments"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant intNum(final k=nInt)
-    "Total number of interested points"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant griNum[3](
+    final k={nSeg,nTouSeg,nInt}) "Total number of grids"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant borHei(final k=hBor)
+    "Total height of the borehole"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+
 equation
   connect(pyt.yR[1:nSeg], TBorWal)
     annotation (Line(points={{61,0},{80,0},{80,60},{120,60}}, color={0,0,127}));
   connect(mul.y, pyt.uR)
     annotation (Line(points={{21,0},{38,0}},color={0,0,127}));
-  connect(segNum.y, mul.u[1])
-    annotation (Line(points={{-58,-20},{-40,-20},{-40,0},{0,0}},   color={0,0,127}));
-  connect(QBor_flow, mul.u[2:nSeg+1])
-    annotation (Line(points={{-120,80},{-50,80},{-50,0},{0,0}},   color={0,0,127}));
-  connect(TBorWal_start, mul.u[nSeg+2:2*nSeg+1]) annotation (Line(points={{-120,40},
-          {-60,40},{-60,0},{0,0}}, color={0,0,127}));
-  connect(TOut, mul.u[2*nSeg+2])
-    annotation (Line(points={{-120,0},{0,0}},   color={0,0,127}));
-  connect(clock.y, mul.u[2*nSeg+3]) annotation (Line(points={{-39,-50},{-30,-50},
-          {-30,0},{0,0}},   color={0,0,127}));
-  connect(intNum.y, mul.u[2*nSeg+4]) annotation (Line(points={{-58,-80},{-20,
-          -80},{-20,0},{0,0}},
-                            color={0,0,127}));
   connect(pyt.yR[nSeg + 1:nSeg + nInt], pInt) annotation (Line(points={{61,0},{80,
           0},{80,20},{120,20}}, color={0,0,127}));
   connect(pyt.yR[nSeg+nInt+1:nSeg+2*nInt], xInt)
     annotation (Line(points={{61,0},{80,0},{80,-20},{120,-20}}, color={0,0,127}));
   connect(pyt.yR[nSeg+2*nInt+1:nSeg+3*nInt], TInt)
     annotation (Line(points={{61,0},{80,0},{80,-60},{120,-60}}, color={0,0,127}));
+  connect(griNum.y, mul.u[1:3]) annotation (Line(points={{-58,70},{-30,70},{-30,
+          0},{0,0}}, color={0,0,127}));
+  connect(QBor_flow, mul.u[4:nSeg+3]) annotation (Line(points={{-120,40},{-40,40},
+          {-40,0},{0,0}}, color={0,0,127}));
+  connect(TBorWal_start, mul.u[nSeg+4:2*nSeg+3]) annotation (Line(points={{-120,0},
+          {0,0}}, color={0,0,127}));
+  connect(TOut, mul.u[2*nSeg+4]) annotation (Line(points={{-120,-30},{-40,-30},{
+          -40,0},{0,0}}, color={0,0,127}));
+  connect(clock.y, mul.u[2*nSeg+5]) annotation (Line(points={{-59,-50},{-30,-50},
+          {-30,0},{0,0}}, color={0,0,127}));
+  connect(borHei.y, mul.u[2*nSeg+6]) annotation (Line(points={{-18,-70},{-10,-70},
+          {-10,0},{0,0}},  color={0,0,127}));
 
 annotation (defaultComponentName="toughRes",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={

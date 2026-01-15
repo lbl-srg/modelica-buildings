@@ -13,25 +13,31 @@ def doStep(dblInp, state):
     
     # Number of Modelica cells
     nSeg = int(dblInp[0])
-    # Heat flux from borehole wall to ground: Modelica --> Tough
-    Q = dblInp[1:nSeg+1]
-    # Initial borehole wall temperature at the start of modelica simulation
-    T_start = [dblInp[i] for i in range(nSeg+1, 2*nSeg+1)]
-    # Current outdoor temperature
-    T_out = dblInp[-3]
-    # Current time when needs to call TOUGH. This is also the end time of TOUGH simulation.
-    tim = dblInp[-2]
+    # Number of TOUGH cells
+    nTouSeg = int(dblInp[1])
     # Number of observation points in the TOUGH simulation domain
-    nInt = int(dblInp[-1])
+    nInt = int(dblInp[2])
 
+    # Heat flux from borehole wall to ground: Modelica --> Tough
+    Q = dblInp[3:nSeg+3]
+    # Initial borehole wall temperature at the start of modelica simulation
+    T_start = [dblInp[i] for i in range(nSeg+3, 2*nSeg+3)]
+    # Current outdoor temperature
+    T_out = dblInp[2*nSeg+3]
+    # Current time when needs to call TOUGH. This is also the end time of TOUGH simulation.
+    tim = dblInp[2*nSeg+4]
+
+    # Total height of the borehole.
+    hBor = dblInp[2*nSeg+5]
+    
     # Find the depth of each layer
     # meshFile = os.path.join(TOUGH_dir, 'MESH')
-    # toughLayers = find_layer_depth(meshFile)
+    # toughLayers = find_layer_depth(meshFile, nTouSeg)
 
     # add_grid_boundary(toughLayers)
 
     # Find Modelica layers
-    # modelicaLayers = modelica_mesh()
+    # modelicaLayers = modelica_mesh(hBor, nSeg)
 
     # This is the first call of this python module. There is no state yet.
     if state == None:
@@ -41,15 +47,12 @@ def doStep(dblInp, state):
         copy_files(TOUGH_dir, tou_tmp)
         # Initialize the state
         # T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
-        T_tough_start = [280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
-                         280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
-                         280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,280.15,
-                         280.15,280.15,280.15]
+        T_tough_start = [280.15] * nTouSeg
         state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start, 'work_dir': tou_tmp}
         T_toModelica = T_start
-        p_Int = ident_set(101343.01, nInt)
-        x_Int = ident_set(10.5, nInt)
-        T_Int = ident_set(15.06+273.15, nInt)
+        p_Int = [101343.01] * nInt
+        x_Int = [10.5] * nInt
+        T_Int = [15.06+273.15] * nInt
         ToModelica = T_toModelica + p_Int + x_Int + T_Int
     else:
         # Obtain the path of working directory
@@ -70,10 +73,7 @@ def doStep(dblInp, state):
             os.chdir(tou_tmp)
             # T_toTough = mesh_to_mesh(toughLayer, modelicaLayers, state['T'], 'Mo2To')
             # Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
-            Q_toTough = [150,150,150,150,150,150,150,150,150,150,
-                         150,150,150,150,150,150,150,150,150,150,
-                         150,150,150,150,150,150,150,150,150,150,
-                         150,150,150]
+            Q_toTough = [150] * nTouSeg
 
             # Check if there is 'GENER'. If the file does not exist, it means this is 
             # the first call of TOUGH simulation. There is no 'SAVE' yet so cannot call
@@ -119,16 +119,16 @@ def doStep(dblInp, state):
             # os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
             # Dummy code to imitate the TOUGH simulation. It is to demonstrate the
             # Modelica-TOUGH coupling process
-            tough_avatar(Q_toTough, T_out)
+            tough_avatar(Q_toTough, T_out, nInt)
 
             # Extract borehole wall temperature
             # os.system("./readsave < readsave.inp > out.txt")
             readsave()
-            data = extract_data('out.txt')
+            data = extract_data('out.txt', nTouSeg, nInt)
             T_tough = data['T_Bor']
             # Output to Modelica simulation
             # T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
-            T_toModelica = [281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15,281.15]
+            T_toModelica = [281.15] * nSeg
 
             # Outputs to Modelica
             ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
@@ -144,7 +144,7 @@ def doStep(dblInp, state):
 ''' Imitate TOUGH simulation. It will copy the SAVE file and update the temperature of the 33 elements
     and the 10 interested points
 '''
-def tough_avatar(heatFlux, T_out):
+def tough_avatar(heatFlux, T_out, nInt):
     totEle = len(heatFlux)
     # Generate temperature of the ground elements and the interested points
     fin = open('SAVE')
@@ -152,18 +152,18 @@ def tough_avatar(heatFlux, T_out):
     count = 0
     for line in fin:
         count += 1
-        if (count > 1 and count < 68):
+        if (count > 1 and count < (2*totEle+2)):
             if (count % 2 == 0):
                 fout.write(line)
             else:
                 # update the temperature
                 fout.write(imitateTemperature(line, T_out))
-        elif (count == 68):
+        elif (count == 2*totEle+2):
             fout.write(line)
-        elif (count == 69):
+        elif (count == 2*totEle+3):
             # update the temperature. It is outdoor air temperature here
             fout.write(imitateTemperature(line, T_out))
-        elif (count > 69 and count < 90):
+        elif (count > 2*totEle+3 and count < 2*(totEle+nInt)+4):
             if (count % 2 == 0):
                 fout.write(line)
             else:
@@ -198,16 +198,7 @@ def create_working_directory():
     import tempfile
     import getpass
     worDir = tempfile.mkdtemp( prefix='tmp-modelica-tough-' + getpass.getuser() )
-#    print("Created directory {}".format(worDir))
     return worDir
-
-''' Create set of size num with identical value
-'''
-def ident_set(value, num):
-    results = []
-    for i in range(0, num):
-        results.append(value)
-    return results
 
 ''' Empty a folder
 '''
@@ -263,7 +254,7 @@ def update_infile(preTim, curTim, infile, outfile):
 
 ''' Find Tough mesh layer depth
 '''
-def find_layer_depth(fileName):
+def find_layer_depth(fileName,nTouSeg):
     fin = open(fileName)
     count = 0
     layers = list()
@@ -280,7 +271,7 @@ def find_layer_depth(fileName):
     layInd = 0
     for line in fin:
         count += 1
-        if count >=3 and count <= 34:
+        if count >=3 and count <= nTouSeg+1:
             layInd += 1
             strSet = line.split()
             z.append(float(strSet[-1]))
@@ -295,10 +286,12 @@ def find_layer_depth(fileName):
 
 ''' Find Modelica mesh size
 ''' 
-def modelica_mesh():
+def modelica_mesh(hBor, nSeg):
+    # length of each element
+    uniLen = hBor/nSeg
     modelicaMeshSize = []
-    for i in range(0,110,10):
-        modelicaMeshSize.append(i)
+    for i in range(nSeg+1):
+        modelicaMeshSize.append(uniLen*i)
     return modelicaMeshSize
 
 ''' Add upper and lower grid boundary
@@ -382,6 +375,7 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux, T_out):
     fin = open(infile)
     fout = open('temp', 'wt')
     count = 0
+    nTouSeg = len(boreholeTem)
     for line in fin:
         count += 1
         # assign initial time
@@ -393,14 +387,14 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux, T_out):
             tempStr = '% 10.0f' % curTim
             fout.write(tempStr.strip() + os.linesep)
         # assign borehole wall temperature to each segment
-        elif (count >= 10 and count <= 42):
+        elif (count >= 10 and count <= (nTouSeg+9)):
             tempStr = '% 10.3f' % (boreholeTem[count-10] - 273.15)
             fout.write(tempStr.strip() + os.linesep)
         # assign heat flux to each segment
-        elif (count >= 44 and count <= 76):
+        elif (count >= nTouSeg+11 and count <= 2*nTouSeg+10):
             tempStr = '% 10.3f' % heatFlux[count-44]
             fout.write(tempStr.strip() + os.linesep)
-        elif (count == 78):
+        elif (count == 2*nTouSeg+12):
             tempStr = '% 10.3f' % (T_out - 273.15)
             fout.write(tempStr.strip() + os.linesep)
         else:
@@ -412,7 +406,7 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux, T_out):
 
 ''' Extract the borehole temperature, and p, x and temperatures of interested points from TOUGH simulation results
 '''
-def extract_data(outFile):
+def extract_data(outFile, nTouSeg, nInt):
     T_Bor = []
     T_Int = []
     p_Int = []
@@ -421,9 +415,9 @@ def extract_data(outFile):
     count = 0
     for line in fin:
         count += 1
-        if count <= 33:
+        if count <= nTouSeg:
             T_Bor.append(float(line.strip())+273.15)
-        if (count > 34 and count <= 44):
+        if (count > nTouSeg+1 and count <= nInt+nTouSeg+1):
             temp = line.split()
             p_Int.append(float(temp[2].replace('D', 'E').strip()))
             x_Int.append(float(temp[3].replace('D', 'E').strip()))
