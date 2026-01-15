@@ -646,8 +646,8 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-       or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
+      if cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+      or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
     "Cooling coil control signal"
     annotation (Placement(transformation(extent={{200,-40},{240,0}}),
       iconTransformation(extent={{200,-20},{240,20}})));
@@ -656,7 +656,8 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+      if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+      or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
     "Heating coil control signal"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
       iconTransformation(extent={{200,20},{240,60}})));
@@ -691,8 +692,10 @@ block Controller
     final controllerType=cooConTyp,
     final k=kCoo,
     final Ti=TiCoo,
-    final Td=TdCoo) if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
+    final Td=TdCoo,
+    r=5)
+      if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+      or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-40,196},{-20,216}})));
 
@@ -700,8 +703,10 @@ block Controller
     final controllerType=heaConTyp,
     final k=kHea,
     final Ti=TiHea,
-    final Td=TdHea) if heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-     or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+    final Td=TdHea,
+    r=5)
+      if heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+      or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
 
@@ -725,8 +730,9 @@ block Controller
     final hotWatResReqLim3=hotWatResReqLim3,
     final hotWatResReqTimLim3=hotWatResReqTimLim3,
     final THys=THys,
-    final dFanSpe=dFanSpe) if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-     or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    final dFanSpe=dFanSpe)
+      if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+      or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Block for generating chilled water requests and hot water requests for their respective plants"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
 
@@ -773,9 +779,9 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe(
     final have_cooCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-         or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
+                   or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
     final have_heaCoi=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-         or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
+                   or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
     final deaSpe=deaSpe,
     final heaSpe_min=heaSpe_min,
     final uHea_min=uHeaFan_min,
@@ -1155,6 +1161,11 @@ for a detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 20, 2025, by Karthik Devaprasad:<br/>
+Added error scaling factors to PI blocks for heating and cooling loop signal
+generation.
+</li>
 <li>
 March 22, 2022, by Karthik Devaprasad:<br/>
 First implementation.
