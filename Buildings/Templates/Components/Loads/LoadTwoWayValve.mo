@@ -60,15 +60,22 @@ model LoadTwoWayValve
     annotation(Evaluate=true);
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+    "Type of controller"
+    annotation(Dialog(group="Valve controller"));
   parameter Real k(min=100 * Modelica.Constants.eps) = 0.1
     "Gain of controller"
-    annotation(Dialog(group="Control gains"));
+    annotation(Dialog(group="Valve controller"));
   parameter Real Ti(unit="s") = 10
     "Time constant of integrator block"
-    annotation(Dialog(group="Control gains",
+    annotation(Dialog(group="Valve controller",
       enable=controllerType ==
         Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerType ==
+          Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real Td(unit="s")=0.1 "Time constant of derivative block"
+    annotation(Dialog(group="Valve controller",
+      enable=controllerType ==
+        Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerType ==
           Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
@@ -99,6 +106,7 @@ model LoadTwoWayValve
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
+    final Td=Td,
     final energyDynamics=energyDynamics)
     "Load"
     annotation(Placement(transformation(extent={{-10,50},{10,70}})));
@@ -241,8 +249,7 @@ is used to modulate the flow rate through the load component.
 <ul>
 <li>
 December 8, 2025, by Antoine Gautier:<br/>
-First
-implementation.
+First implementation.
 </li>
 </ul>
 </html>"));

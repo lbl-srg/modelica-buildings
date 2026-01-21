@@ -57,18 +57,28 @@ model Load
       TLiqLvg_nominal,
       X=MediumLiq.X_default)) * mLiq_flow_nominal
     "Transmitted heat flow rate at design conditions";
-  parameter Real u_min(max=1, min=0, unit="1") = 0.1 "Fan minimum speed";
+  parameter Real u_min(
+    max=1,
+    min=0,
+    unit="1")=0.1 "Fan minimum speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
-  parameter Real k(min=100 * Modelica.Constants.eps) = 0.1
+    "Type of controller"
+    annotation(Dialog(group="Valve controller"));
+  parameter Real k(min=100*Modelica.Constants.eps)=0.1
     "Gain of controller"
-    annotation(Dialog(group="Control gains"));
-  parameter Real Ti(unit="s") = 10
+    annotation(Dialog(group="Valve controller"));
+  parameter Real Ti(unit="s")=10
     "Time constant of integrator block"
-    annotation(Dialog(group="Control gains",
+    annotation(Dialog(group="Valve controller",
       enable=controllerType ==
         Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+        or controllerType ==
+          Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real Td(unit="s")=0.1 "Time constant of derivative block"
+    annotation(Dialog(group="Valve controller",
+      enable=controllerType ==
+        Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerType ==
           Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
@@ -143,6 +153,7 @@ model Load
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
+    final Td=Td,
     final reverseActing=true)
     "Controller"
     annotation(Placement(transformation(extent={{-10,70},{10,90}})));
@@ -197,12 +208,13 @@ model Load
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0,
       origin={30,-60})));
-  protected
-    final parameter Modelica.Units.SI.SpecificHeatCapacity cpLiq_nominal =
+
+protected
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpLiq_nominal =
       MediumLiq.specificHeatCapacityCp(
         MediumLiq.setState_pTX(p=MediumLiq.p_default, T=TLiqEnt_nominal))
       "Liquid specific heat capacity at design conditions";
-    final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal =
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal =
       MediumAir.specificHeatCapacityCp(
         MediumAir.setState_pTX(
           p=MediumAir.p_default,
@@ -361,8 +373,7 @@ signal <code>u</code>, considering a minimum speed <code>u_min</code>.
 <ul>
 <li>
 December 8, 2025, by Antoine Gautier:<br/>
-First
-implementation.
+First implementation.
 </li>
 </ul>
 </html>"),
