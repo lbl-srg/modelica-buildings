@@ -3,7 +3,13 @@ model GroundResponse
   "Validation ground response function with python as interface with TOUGH"
 
   Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse
-    touRes "Ground response calculated by TOUGH simulator"
+    touRes(
+    hBor=100,
+    nSeg=10,
+    nInt=10,
+    nTouSeg=33,
+    samplePeriod=60)
+           "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[10](
     final k={273.15+10,273.15+10.2,273.15+10.4,273.15+10.6,273.15+10.8,
@@ -29,7 +35,7 @@ equation
 annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGHResponse/BaseClasses/Validation/GroundResponse.mos"
         "Simulate and plot"),
   experiment(StopTime=3600,Tolerance=1e-6),
-    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -39,7 +45,7 @@ annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymol
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
 This model demonstrates the calculation of ground response through TOUGH simulator,
@@ -47,8 +53,11 @@ This model demonstrates the calculation of ground response through TOUGH simulat
 Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse</a>.
 </p>
 <p>
-Note that in this model, the dummy function <code>def tough_avatar(heatFlux, T_out)</code>
-is used to imitate the ground response calculated by TOUGH simulator. 
+Note that in this model, the dummy function
+<code>def tough_avatar(heatFlux, T_out, nInt)</code>
+is used to imitate the ground response calculated by TOUGH simulator. See the dummy
+function in
+<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/GroundResponse.py</code>.
 </p>
 </html>", revisions="<html>
 <ul>

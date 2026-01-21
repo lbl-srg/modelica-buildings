@@ -39,8 +39,8 @@ partial model PartialBorefieldWithTough
   parameter Modelica.Units.SI.Temperature TExt0_start=283.15
     "Initial far field temperature"
     annotation (Dialog(tab="Initialization", group="Soil"));
-  parameter Modelica.Units.SI.Temperature TExt_start[nSeg]=
-    {if z[i] >= z0 then TExt0_start + (z[i] - z0)*dT_dz else TExt0_start for i in 1:nSeg}
+  parameter Modelica.Units.SI.Temperature TExt_start[nSeg]={if z[i] >= z0 then
+      TExt0_start + (z[i] - z0)*dT_dz else TExt0_start for i in 1:nSeg}
     "Temperature of the undisturbed ground"
     annotation (Dialog(tab="Initialization", group="Soil"));
 
@@ -55,17 +55,22 @@ partial model PartialBorefieldWithTough
   parameter Modelica.Units.SI.Height z0=10
     "Depth below which the temperature gradient starts"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
-  parameter Real dT_dz(final unit="K/m", min=0) = 0.01
+  parameter Real dT_dz(
+    min=0,
+    unit="K/m")=0.01
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
 
-  parameter Integer nSeg(min=1)=10
+  parameter Integer nTouSeg
+    "Total number of grids along the entire borehole in the TOUGH mesh"
+    annotation (Dialog(group="Ground response"));
+  parameter Integer nSeg(min=1)
     "Number of segments to use in vertical discretization of the boreholes"
     annotation (Dialog(group="Ground response"));
-  parameter Integer nInt=10
+  parameter Integer nInt
     "Number of points in the ground to be investigated"
     annotation (Dialog(group="Ground response"));
-  parameter Modelica.Units.SI.Time samplePeriod=60
+  parameter Modelica.Units.SI.Time samplePeriod
     "Sample period of component"
     annotation (Dialog(group="Ground response"));
 
@@ -100,8 +105,10 @@ partial model PartialBorefieldWithTough
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
   Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse touRes(
+    final hBor=borFieDat.conDat.hBor,
     final nSeg=nSeg,
     final nInt=nInt,
+    final nTouSeg=nTouSeg,
     final samplePeriod=samplePeriod)
     "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{8,40},{28,60}})));

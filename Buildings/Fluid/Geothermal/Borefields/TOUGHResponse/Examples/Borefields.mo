@@ -8,8 +8,9 @@ model Borefields
   parameter Modelica.Units.SI.Temperature TGro = 283.15
     "Ground temperature";
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin floRat(freqHz=1/21600,
-      offset=1.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin floRat(
+    freqHz=1/21600,
+    offset=1.2)
     "Mass flow rate to the borefield"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin watTem(
@@ -42,6 +43,9 @@ model Borefields
     borFieDat=borFieUTubDat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
+    nTouSeg=33,
+    nSeg=10,
+    nInt=10,
     samplePeriod=60)
     "Borefield with a U-tube borehole configuration, with ground response calculated by TOUGH"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -70,7 +74,7 @@ equation
   connect(watTem.y, sou.T_in) annotation (Line(points={{-98,-40},{-80,-40},{-80,
           4},{-62,4}}, color={0,0,127}));
   connect(ambTem.y, borFieUTubWitTou.TOut) annotation (Line(points={{-98,60},{-20,
-          60},{-20,5},{-1,5}},            color={0,0,127}));
+          60},{-20,4},{-1,4}}, color={0,0,127}));
   connect(sou.ports[1], borFieUTubWitTou.port_a)
     annotation (Line(points={{-40,0},{0,0}}, color={0,127,255}));
 annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGHResponse/Examples/Borefields.mos"
@@ -78,14 +82,9 @@ annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymol
   experiment(StopTime=72000, Tolerance=1e-06),
   Documentation(info="<html>
 <p>
-This example shows same borefield but with three different ways to calculate the
-ground response. Two of them use the g-function 
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>
-with different <code>nCel</code> (Number of cells per aggregation level) and
-<code>tLoaAgg</code> (Time resolution of load aggregation). The third one calls
-TOUGH simulator to calculate the ground response.
-However in this example, the dummy function <code>def tough_avatar(heatFlux, T_out)</code>
+This example shows the borefield ground thermal response that is modeled by the
+TOUGH simulator.
+However in this example, the dummy function <code>def tough_avatar(heatFlux, T_out, nInt)</code>
 is used to imitate the ground response calculated by TOUGH simulator.
 </p>
 <p>

@@ -1,11 +1,11 @@
 within Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses;
 model GroundResponse "Ground response calculated by the TOUGH simulator"
 
-  parameter Modelica.Units.SI.Height hBor=100 "Total height of the borehole";
-  parameter Integer nSeg=10 "Total number of segments";
-  parameter Integer nInt=10 "Number of points in the ground to be investigated";
-  parameter Integer nTouSeg=33 "Total number of grids along the entire borehole in the TOUGH mesh";
-  parameter Modelica.Units.SI.Time samplePeriod=60 "Sample period of component"
+  parameter Modelica.Units.SI.Height hBor "Total height of the borehole";
+  parameter Integer nSeg "Total number of segments";
+  parameter Integer nInt "Number of points in the ground to be investigated";
+  parameter Integer nTouSeg "Total number of grids along the entire borehole in the TOUGH mesh";
+  parameter Modelica.Units.SI.Time samplePeriod "Sample period of component"
     annotation(Dialog(group="Sampling"));
 
   Modelica.Blocks.Interfaces.RealInput QBor_flow[nSeg](
@@ -25,7 +25,7 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     displayUnit="degC",
     quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput TBorWal[nSeg](
     final unit=fill("K", nSeg),
@@ -51,13 +51,13 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
       iconTransformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Utilities.IO.Python_3_8.Real_Real pyt(
-    moduleName="GroundResponse",
-    functionName="doStep",
-    nDblRea=nSeg+3*nInt,
-    nDblWri=2*nSeg + 6,
-    samplePeriod=samplePeriod,
+    final moduleName="GroundResponse",
+    final functionName="doStep",
+    final nDblRea=nSeg+3*nInt,
+    final nDblWri=2*nSeg + 6,
+    final samplePeriod=samplePeriod,
     final flag=0,
-    passPythonObject=true)
+    final passPythonObject=true)
     "Python interface model to call TOUGH simulator"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Routing.Multiplex mul(
@@ -66,13 +66,13 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.ContinuousClock clock
     "Current time"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant griNum[3](
     final k={nSeg,nTouSeg,nInt}) "Total number of grids"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant borHei(final k=hBor)
     "Total height of the borehole"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
   connect(pyt.yR[1:nSeg], TBorWal)
@@ -91,11 +91,11 @@ equation
           {-40,0},{0,0}}, color={0,0,127}));
   connect(TBorWal_start, mul.u[nSeg+4:2*nSeg+3]) annotation (Line(points={{-120,0},
           {0,0}}, color={0,0,127}));
-  connect(TOut, mul.u[2*nSeg+4]) annotation (Line(points={{-120,-30},{-40,-30},{
+  connect(TOut, mul.u[2*nSeg+4]) annotation (Line(points={{-120,-40},{-40,-40},{
           -40,0},{0,0}}, color={0,0,127}));
-  connect(clock.y, mul.u[2*nSeg+5]) annotation (Line(points={{-59,-50},{-30,-50},
+  connect(clock.y, mul.u[2*nSeg+5]) annotation (Line(points={{-59,-60},{-30,-60},
           {-30,0},{0,0}}, color={0,0,127}));
-  connect(borHei.y, mul.u[2*nSeg+6]) annotation (Line(points={{-18,-70},{-10,-70},
+  connect(borHei.y, mul.u[2*nSeg+6]) annotation (Line(points={{-18,-80},{-10,-80},
           {-10,0},{0,0}},  color={0,0,127}));
 
 annotation (defaultComponentName="toughRes",
