@@ -126,7 +126,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-151,147},{149,107}},
-          color={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
             textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=
