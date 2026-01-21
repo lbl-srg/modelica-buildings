@@ -228,7 +228,7 @@
   openmodelica:
     comment: Timeout after 300 s
     time_out: 600
-- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.Validation.GroundResponse
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Validation.GroundResponse
   dymola:
     time_out: 600
   openmodelica:
@@ -237,7 +237,7 @@
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
-- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.Examples.Borefields
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields
   dymola:
     time_out: 600
   openmodelica:
