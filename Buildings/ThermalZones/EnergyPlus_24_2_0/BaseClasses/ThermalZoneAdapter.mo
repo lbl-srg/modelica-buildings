@@ -21,14 +21,18 @@ model ThermalZoneAdapter
     "Name of the IDF file that contains this zone";
   parameter String epwName
     "Name of the Energyplus weather file including the epw extension";
+  parameter String zoneName
+    "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter String hvacSystemName
+    "Name of the HVAC system that this zone belongs to for auto-sizing"
+    annotation(Dialog(group="Auto-sizing"));
+
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
+
   parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration"
     annotation (Dialog(tab="Run period"));
-
-  parameter String zoneName
-    "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Boolean usePrecompiledFMU=false
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
@@ -46,10 +50,11 @@ model ThermalZoneAdapter
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
   final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.Units.SI.Volume V(fixed=false) "Zone volume";
+  final parameter Real XOutCoo(fixed=false) "Humidity ratio at cooling design from E+";
+  final parameter Real XOutHea(fixed=false) "Humidity ratio at heating design from E+";
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
-
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -89,9 +94,13 @@ model ThermalZoneAdapter
     final unit="W")
     "Total heat gain from people, to be used for optional computation of CO2 released"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},{120,-50}})));
+  Sizing sizCoo "Sizing parameters for zone cooling load"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Sizing sizHea "Sizing parameters for zone heating load"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
 protected
-  constant Integer nParOut=3
+  constant Integer nParOut=14
     "Number of parameter values retrieved from EnergyPlus";
   constant Integer nInp=5
     "Number of inputs";
@@ -115,9 +124,10 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    epName=zoneName,
+    hvacSystemName=hvacSystemName,
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
-    epName=zoneName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
@@ -125,8 +135,12 @@ protected
     printUnit=false,
     jsonName="zones",
     jsonKeysValues="        \"name\": \""+zoneName+"\"",
-    parOutNames={"AFlo","V","mSenFac"},
-    parOutUnits={"m2","m3","1"},
+    parOutNames={"AFlo","V","mSenFac",
+      "QCooSen_flow", "QCooLat_flow", "TOutCoo", "XOutCoo", "mOutCoo_flow", "tCoo",
+      "QHea_flow",                    "TOutHea", "XOutHea", "mOutHea_flow","tHea"},
+    parOutUnits={"m2","m3","1",
+      "W", "W", "K", "1", "kg/s", "s",
+      "W",      "K", "1", "kg/s", "s"},
     nParOut=nParOut,
     inpNames={"T","X","mInlets_flow","TAveInlet","QGaiRad_flow"},
     inpUnits={"K","1","kg/s","K","W"},
@@ -190,16 +204,11 @@ protected
     output Real y;
 
   algorithm
-    y :=
-      if
-        (u > 0) then
-        floor(
-          u/accuracy+0.5)*accuracy
-      else
-        ceil(
-          u/accuracy-0.5)*accuracy;
+    y := if (u > 0) then
+           floor(u/accuracy+0.5)*accuracy
+         else
+           ceil(u/accuracy-0.5)*accuracy;
   end round;
-
 initial equation
   if usePrecompiledFMU then
     assert(
@@ -211,10 +220,17 @@ initial equation
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  {AFlo, V, mSenFac}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
-    adapter=adapter,
-    nParOut=nParOut,
-    isSynchronized=nObj);
+  sizHea.QLat_flow=0;
+  {AFlo,V,mSenFac,
+    sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, XOutCoo, sizCoo.mOut_flow, sizCoo.t,
+    sizHea.QSen_flow,                   sizHea.TOut, XOutHea, sizHea.mOut_flow, sizHea.t} =
+      Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+        adapter=adapter,
+        nParOut=nParOut,
+        isSynchronized=nObj);
+  // Below is for conversion from kg/kg_dry_air (EnergyPlus) to kg/kg_total_air (Modelica)
+  (1/XOutCoo)=(1-sizCoo.XOut)/sizCoo.XOut;
+  (1/XOutHea)=(1-sizHea.XOut)/sizHea.XOut;
 
   m_flow_small=V*3*1.2/3600*1E-10;
   startTime=time;
@@ -235,7 +251,7 @@ initial equation
   yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
     adapter=adapter,
     nY=nY,
-    u={ T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)},
+    u={T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)},
     dummy=AFlo);
 
   TRad=yEP[1];

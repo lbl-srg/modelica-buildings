@@ -273,7 +273,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
     if (bui->logLevel >= TIMESTEP)
       SpawnFormatMessage("%.3f %s: Calling fmi2_import_new_discrete_states with event iteration counter i = %lu\n", bui->time, modelicaInstanceName,
         i);
-    status = fmi2_import_new_discrete_states(bui->fmu, &eventInfo);
+    status = (fmi2Status)fmi2_import_new_discrete_states(bui->fmu, &eventInfo);
   }
   if (eventInfo.terminateSimulation){
     SpawnFormatError("%.3f %s: FMU requested to terminate the simulation.", bui->time, modelicaInstanceName);
@@ -284,7 +284,7 @@ double do_event_iteration(FMUBuilding* bui, const char* modelicaInstanceName){
 
   if (status != fmi2OK) {
     SpawnFormatError("%.3f %s: Failed during call to fmi2NewDiscreteStates for building %s with status %s.", bui->time, modelicaInstanceName,
-    bui->modelicaNameBuilding, fmi2_status_to_string(status));
+    bui->modelicaNameBuilding, fmi2_status_to_string((fmi2_status_t)status));
   }
 
   if(eventInfo.terminateSimulation == fmi2True){
@@ -324,10 +324,10 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
 
   if (bui->logLevel >= TIMESTEP)
     SpawnFormatMessage("%.3f %s: fmi2_import_enter_continuous_time_mode: Setting EnergyPlus to continuous time mode with time = %.2f\n", bui->time, modelicaInstanceName, time);
-  status = fmi2_import_enter_continuous_time_mode(bui->fmu);
+  status = (fmi2Status)fmi2_import_enter_continuous_time_mode(bui->fmu);
   if ( status != fmi2OK ) {
     SpawnFormatError("%.3f %s: Failed to set time in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
-      fmi2_status_to_string(status));
+      fmi2_status_to_string((fmi2_status_t)status));
   }
   setFMUMode(bui, continuousTimeMode);
 
@@ -336,18 +336,18 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
     time);
 
   bui->time = time;
-  status = fmi2_import_set_time(bui->fmu, time);
+  status = (fmi2Status)fmi2_import_set_time(bui->fmu, time);
   if ( status != fmi2OK ) {
     SpawnFormatError("%.3f %s: Failed to set time in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
-      fmi2_status_to_string(status));
+      fmi2_status_to_string((fmi2_status_t)status));
   }
 
   if (bui->logLevel >= TIMESTEP)
     SpawnFormatMessage("%.3f %s: fmi2_import_completed_integrator_step: Calling completed integrator step\n", bui->time, modelicaInstanceName);
-  status = fmi2_import_completed_integrator_step(bui->fmu, fmi2_true, &enterEventMode, &terminateSimulation);
+  status = (fmi2Status)fmi2_import_completed_integrator_step(bui->fmu, fmi2_true, &enterEventMode, &terminateSimulation);
   if ( status != fmi2OK ) {
     SpawnFormatError("%.3f %s: Failed to complete integrator step in building FMU, returned status is %s.", bui->time, modelicaInstanceName,
-    fmi2_status_to_string(status));
+    fmi2_status_to_string((fmi2_status_t)status));
   }
   if (enterEventMode){
     SpawnFormatError(
@@ -363,10 +363,10 @@ void advanceTime_completeIntegratorStep_enterEventMode(FMUBuilding* bui, const c
   if (bui->logLevel >= TIMESTEP)
     SpawnFormatMessage("%.3f %s: Calling fmi2_import_enter_event_mode: Enter event mode for FMU %s.\n", bui->time, modelicaInstanceName,
       bui->modelicaNameBuilding);
-  status = fmi2_import_enter_event_mode(bui->fmu);
+  status = (fmi2Status)fmi2_import_enter_event_mode(bui->fmu);
   if (status != (fmi2Status)fmi2_status_ok){
     SpawnFormatError("%.3f %s: Failed to enter event mode in SpawnUtil.c, returned status is %s.", bui->time, modelicaInstanceName,
-      fmi2_status_to_string(status));
+      fmi2_status_to_string((fmi2_status_t)status));
   }
   setFMUMode(bui, eventMode);
 
@@ -938,7 +938,7 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
       0);                   /* stopTime */
 
   if (bui->logLevel >= MEDIUM)
-    SpawnFormatMessage("%.3f %s: Returned from setting up experiment with status %s.\n", bui->time, modelicaInstanceName, fmi2_status_to_string(status));
+    SpawnFormatMessage("%.3f %s: Returned from setting up experiment with status %s.\n", bui->time, modelicaInstanceName, fmi2_status_to_string((fmi2_status_t)status));
 
   if( status != fmi2_status_ok ){
     SpawnFormatError("%.3f %s: Failed to setup experiment for FMU with name %s.", bui->time, modelicaInstanceName,  bui->fmuAbsPat);
