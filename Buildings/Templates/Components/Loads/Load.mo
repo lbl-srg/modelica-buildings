@@ -60,7 +60,8 @@ model Load
   parameter Real u_min(
     max=1,
     min=0,
-    unit="1")=0.1 "Fan minimum speed";
+    unit="1")=0.1
+    "Minimum fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -140,9 +141,8 @@ model Load
       origin={0,6})));
   Buildings.Fluid.Sources.MassFlowSource_T souAir(
     redeclare final package Medium=MediumAir,
-    final X={XAirEnt_nominal, 1 - XAirEnt_nominal},
+    final X={XAirEnt_nominal,1 - XAirEnt_nominal},
     use_m_flow_in=true,
-    final m_flow=mAir_flow_nominal,
     final T=TAirEnt_nominal,
     nPorts=1)
     "Source for entering air"
@@ -156,7 +156,7 @@ model Load
     final Td=Td,
     final reverseActing=true)
     "Controller"
-    annotation(Placement(transformation(extent={{-10,70},{10,90}})));
+    annotation(Placement(transformation(extent={{-86,70},{-66,90}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TLiqEnt(
     redeclare final package Medium=MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal,
@@ -239,7 +239,7 @@ equation
     annotation(Line(points={{-20,20},{-16,20},{-16,12},{-10,12}},
       color={0,127,255}));
   connect(conPID.y, yVal)
-    annotation(Line(points={{12,80},{120,80}},
+    annotation(Line(points={{-64,80},{120,80}},
       color={0,0,127}));
   connect(port_a, TLiqEnt.port_a)
     annotation(Line(points={{-100,0},{-90,0}},
@@ -269,13 +269,10 @@ equation
     annotation(Line(points={{120,40},{71,40}},
       color={0,0,127}));
   connect(u, conPID.u_s)
-    annotation(Line(points={{-120,80},{-12,80}},
+    annotation(Line(points={{-120,80},{-88,80}},
       color={0,0,127}));
   connect(loaFra.y, conPID.u_m)
-    annotation(Line(points={{71,40},{80,40},{80,60},{0,60},{0,68}},
-      color={0,0,127}));
-  connect(u, max1.u1)
-    annotation(Line(points={{-120,80},{-60,80},{-60,-74},{-52,-74}},
+    annotation(Line(points={{71,40},{80,40},{80,60},{-76,60},{-76,68}},
       color={0,0,127}));
   connect(uMin.y, max1.u2)
     annotation(Line(points={{-68,-80},{-60,-80},{-60,-86},{-52,-86}},
@@ -293,11 +290,13 @@ equation
     annotation(Line(points={{42,-60},{46,-60},{46,12},{42,12}},
       color={0,0,127}));
   connect(u1, conPID.uEna)
-    annotation(Line(points={{-120,40},{-4,40},{-4,68}},
+    annotation(Line(points={{-120,40},{-80,40},{-80,68}},
       color={255,0,255}));
   connect(u1, enaRea.u)
-    annotation(Line(points={{-120,40},{-56,40},{-56,-40},{-52,-40}},
+    annotation(Line(points={{-120,40},{-60,40},{-60,-40},{-52,-40}},
       color={255,0,255}));
+  connect(conPID.y, max1.u1) annotation (Line(points={{-64,80},{-56,80},{-56,
+          -74},{-52,-74}}, color={0,0,127}));
 annotation(defaultComponentName="loa",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
     graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -359,14 +358,13 @@ valve demand signal <code>yVal</code> as output.
 <h4>Modeling assumptions
 </h4>
 <p>
-No pressure drop is considered on the load side. The design pressure
-drop on the source side may be specified with the parameter <code>dpLiq_nominal
-</code>.
+The design pressure drop on the source side may be specified with 
+the parameter <code>dpLiq_nominal</code>.
 </p>
 <p>
 The inlet conditions on the load side are constant and equal
 to the design conditions. The mass flow rate is modulated based on the input
-signal <code>u</code>, considering a minimum speed <code>u_min</code>.
+signal <code>u</code>, with a minimum value of <code>u_min</code>.
 </p>
 </html>",
     revisions="<html>

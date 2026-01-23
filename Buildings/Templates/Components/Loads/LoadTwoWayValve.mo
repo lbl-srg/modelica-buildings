@@ -17,15 +17,15 @@ model LoadTwoWayValve
           "Cooling"));
   parameter Modelica.Units.SI.MassFlowRate mLiq_flow_nominal = 1
     "Liquid mass flow rate at design conditions";
-  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
-    displayUnit="Pa") = 3E4
+  parameter Modelica.Units.SI.PressureDifference dpTer_nominal(displayUnit="Pa")
+    =3E4
     "Liquid pressure drop across terminal unit at design conditions";
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa") = dpTer_nominal
     "Control valve pressure drop at design conditions"
     annotation(Dialog(group="Control valve"));
-  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(
-    displayUnit="Pa") = 0
+  parameter Modelica.Units.SI.PressureDifference dpBal1_nominal(displayUnit=
+        "Pa")=0
     "Balancing valve pressure drop at design conditions"
     annotation(Dialog(group="Balancing valves"));
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal =
@@ -62,10 +62,10 @@ model LoadTwoWayValve
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation(Dialog(group="Valve controller"));
-  parameter Real k(min=100 * Modelica.Constants.eps) = 0.1
+  parameter Real k(min=100*Modelica.Constants.eps)=0.1
     "Gain of controller"
     annotation(Dialog(group="Valve controller"));
-  parameter Real Ti(unit="s") = 10
+  parameter Real Ti(unit="s")=10
     "Time constant of integrator block"
     annotation(Dialog(group="Valve controller",
       enable=controllerType ==
@@ -77,7 +77,12 @@ model LoadTwoWayValve
       enable=controllerType ==
         Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerType ==
-          Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real u_min(
+    max=1,
+    min=0,
+    unit="1")=0.1
+    "Minimum fan speed";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -103,6 +108,7 @@ model LoadTwoWayValve
     final phiAirEnt_nominal=phiAirEnt_nominal,
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
+    final u_min=u_min,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
