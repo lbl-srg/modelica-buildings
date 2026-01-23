@@ -260,6 +260,11 @@ the opposite mode.
 </html>", revisions="<html>
 <ul>
 <li>
+January 23, 2025, by Antoine Gautier:<br/>
+Refactored to use \"required to run\" conditions.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">#4432</a>.
+</li>
+<li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
