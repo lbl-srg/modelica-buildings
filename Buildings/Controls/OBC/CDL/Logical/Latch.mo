@@ -10,10 +10,11 @@ block Latch
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Output with latched signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
+initial equation
+  y = not clr and u;
 equation
-  when initial() then
-    y=not clr and u;
-  elsewhen {clr, u} then
+  when {clr, u} then
     y=not clr and u;
   end when;
   annotation (
@@ -118,6 +119,11 @@ At initial time, if <code>clr = false</code>, then the output will be
       revisions="<html>
 <ul>
 <li>
+November 3, 2025, by Michael Wetter:<br/>
+Reformulated initialization to enable translation of system model with this block in OpenModelica.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2064\">IBPSA, issue 2064</a>.
+</li>
+<li>
 April 15, 2024, by Antoine Gautier:<br/>
 Simplified the implementation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">Buildings, issue 3796</a>.
@@ -135,7 +141,7 @@ Simplified implementation, and made model work with OpenModelica.
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
 Corrected implementation that causes wrong output at initial stage.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">Buildings, issue 1402</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1402\">Buildings, issue 1402</a>.
 </li>
 <li>
 December 1, 2017, by Michael Wetter:<br/>
