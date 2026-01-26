@@ -46,15 +46,15 @@ module that calls an external simulator, in this package the TOUGH 3 simulator.
 <p>
 Through the interface instance as below,
 </p>
-<pre>
+<pre>    
   Buildings.Utilities.IO.Python_3_8.Real_Real pyt(
-    moduleName=\"GroundResponse\",
-    functionName=\"doStep\",
-    nDblRea=nSeg+3*nInt,
-    nDblWri=2*nSeg+2,
-    samplePeriod=samplePeriod,
-    flag=flag,
-    passPythonObject=true)
+    final moduleName=\"GroundResponse\",
+    final functionName=\"doStep\",
+    final nDblRea=nSeg+3*nInt,
+    final nDblWri=2*nSeg + 6,
+    final samplePeriod=samplePeriod,
+    final flag=0,
+    final passPythonObject=true)
 </pre>
 <p>
 the coupled simulation calls the function
@@ -62,14 +62,17 @@ the coupled simulation calls the function
 The interface specifies through <code>nDblRea</code> the number of values that are read from the Python function,
 and through <code>nDblWri</code> the number of values written to the Python function.
 The argument <code>samplePeriod</code> defines the sampling period, and <code>flag</code>
-configures whether to use the current value, an average over the interval, or the integral over the
-interval.
+configures whether to use the current value, an average over the interval, or
+the integral over the interval. By setting the parameter <code>passPythonObject</code>
+to <code>true</code>, it allows passing a Python object from one invocation to
+another, thus builds up a Python data structure.
 More explanation about the Python setup can be found in
 <a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">
 Buildings.Utilities.IO.Python_3_8.UsersGuide</a>.
 </p>
 <p>
-The above interface calls the Python function <code>doStep</code>, which is implemented as
+The above interface calls the Python function <code>doStep</code> as showing below,
+where only the major sections are demonstrated:
 </p>
 <pre>
   def doStep(dblInp, state):
@@ -77,35 +80,36 @@ The above interface calls the Python function <code>doStep</code>, which is impl
     #   -- the end time of the TOUGH simulation,
     #   -- the heat flow on the borehole wall that was measured in Modelica at last invoke,
     #   -- the borehole wall temperature at the end of last TOUGH simulation.
-    {tLast, Q, T} = {state['tLast'], state['Q'], state['T']}
+    {tLast, Q, T_tough} = {state['tLast'], state['Q'], state['T_tough']}
     
-    # Map the heat flow in the Modelica domain grid points to the TOUGH boundary
-    # grid point
+    # Map the heat flow in the Modelica domain mesh points (borehole segments)
+    # to the TOUGH boundary mesh point
     Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
 
     # update TOUGH input files for each TOUGH call:
     #   -- update the INFILE to specify begining and ending TOUGH simulation time
     #   -- update the GENER for specifying the heat flow boundary condition
-    # os.system(\"./writeincon < writeincon.inp\")
     write_incon()
 
     # conduct one step TOUGH simulation
     os.system(\"/.../tough3-install/bin/tough3-eos1\")
 
-    # extract borehole wall temperature for Modelica simulation
-    # os.system(\" ./readsave < readsave.inp > out.txt\")
-    readsave()
+    # extract borehole wall temperature from TOUGH simulation result, for Modelica simulation
+    read_save()
 
-    data = extract_data('out.txt')
+    data = extract_data('out.txt', nTouSeg, nInt)
     T_tough = data['T_Bor']
     
-    # Map the temperature of the borehole wall in the TOUGH grid points to
-    # the Modelica domain grid point
+    # Map the temperature of the borehole wall in the TOUGH mesh points to
+    # the Modelica domain mesh point
     T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
+    
+    # Outputs to Modelica, including the results of the interested ground points
+    ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
 
     # update state
-    state = {'tLast': tim, 'Q': Q, 'T': T_tough}
-  return [T_toModelica, state]
+    state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
+  return [ToModelica, state]
 </pre>
 
 <p>
@@ -113,6 +117,16 @@ The argument <code>dblInp</code> to the Python function is an array with size <c
 It inclues:
 </p>
 <ul>
+<li>
+<code>nSeg</code>: The total number of borehole segments.
+</li>
+<li>
+<code>nTouSeg</code>: In TOUGH mesh, the total number of mesh points that covers
+the entire borehole length.
+</li>
+<li>
+<code>nInt</code>: The total number of interested points in the TOUGH mesh.
+</li>
 <li>
 <code>QBor_flow[nSeg]</code>: The heat exchange flow rate between each borehole segment
 and the ground.
@@ -127,12 +141,14 @@ temperature for the TOUGH simulation.
 <li>
 <code>clock.y</code>: The current simulation time.
 </li>
+<li>
+<code>hBor</code>: The total height of the borehole.
+</li>
 </ul>
 
 <h5>Coupling workflow</h5>
 <p>
-The borehole wall
-is the boundary between the Modelica simulation and the TOUGH simulation.
+The borehole wall is the boundary between the Modelica simulation and the TOUGH simulation.
 Modelica provides the heat flow rate through the wall as the boundary condition
 for TOUGH, and TOUGH returns the wall temperature
 as the boundary condition for Modelica.
@@ -146,39 +162,47 @@ When the Modelica variable <code>sampleTrigger</code>
 (see <a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
 Buildings.Utilities.IO.Python_3_8.Real_Real</a>) is <code>true</code>, Modelica calls the
 TOUGH simulation through the ground response model as described above.
-The Python module sends to TOUGH the heat flow rates from the ground <code>QBor_flow</code>,
-the initial borehole wall temperature <code>TBorWal_start</code>, the ambient
+Through the function <code>doStep</code>, the Python module sends to TOUGH the heat
+flow rates from the ground <code>QBor_flow</code>, the ambient
 air temperature <code>TOut</code> and the current simulation time. 
-Then, the following steps are done inside the Python function:
+The following steps are done inside the Python function:
 </p>
 <ol>
 <li>
-In the first invocation of Python, this object is not yet initialized. Python
-therefore takes the initial temperature from Modelica to initialize the object.
+In the first invocation of Python function, the Python object is not yet initialized.
+The Python function therefore takes the initial temperature from Modelica to initialize
+the Python object.
 </li>
 <li>
-The function <code>write_incon</code> updates the TOUGH input files.
-Note that the initial input files are in
-<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/TOUGH</code>:
+Before each TOUGH simulation, the function <code>write_incon()</code> edits the
+TOUGH input files in
+<<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/TOUGH</code>>:
 <ul>
 <li>
-<code>writeincon.inp</code>: This file contains the initial borehole wall temperature and 
-the heat flow rate. The initial borehole wall temperature will be updated with the
-borehole wall temperature stored in the state. The heat flow rate is the heat flow rate
-computed by the Modelica model.
+<code>writeincon.inp</code>: It contains the initial borehole wall temperature,
+initial ground surface temperature, and the heat flow rate. The borehole wall
+temperature will be replaced with the borehole wall temperature stored in the
+<code>state</code>. The surface temperature will be replaced by current outdoor
+temperature <code>TOut</code>. The heat flow rate is
+the one computed by the Modelica mode, <code>QBor_flow[nSeg]</code>.
 </li>
 <li>
-<code>INFILE</code>: The start and stop TOUGH simulation time will be updated.
-The start time is the one stored in the state. The stop time is the current
-simulation time.
+<code>INFILE</code>: It is a structured, keyword-based file that contains TOUGH
+simulation settings like the ground material properties and the simulation parameters.
+The simulation times will be edited in the way that the start time is replaced by
+the one stored in the <code>state</code> and the stop time is replaced by the current
+simulation time <code>clock.y</code>.
 </li>
 <li>
-<code>INCON</code>: This file has the same format as the TOUGH output file <code>SAVE</code>. But
-the initial borehole wall temperature will be updated with the one in <code>writeincon.inp</code>.
+<code>INCON</code>: It contains the initial conditions of all the TOUGH mesh
+points, including the borehole wall and surface mesh points, of which the temperature
+will be repalced by the one in <code>writeincon.inp</code>.
 </li>
 <li>
-<code>GENER</code>: This file defines the heat flow rate of the borehole hole. It will
-be updated with the one in <code>writeincon.inp</code>.
+<code>GENER</code>: It includes the heat flow rate from the borehole hole
+segments to the ground. It will be updated with the one in <code>writeincon.inp</code>.
+The file does not exist initially but will be created and then updated after the
+first invocation.
 </li>
 </ul>
 </li>
@@ -186,12 +210,12 @@ be updated with the one in <code>writeincon.inp</code>.
 Then a TOUGH simulation is started.
 </li>
 <li>
-After the TOUGH simulation is done, with the function <code>readsave</code>, it
+After the TOUGH simulation is done, with the function <code>read_save()</code>, it
 extracts the borehole wall temperature, and if needed also the temperature of ground
 on the interested points, from TOUGH simulation result file <code>SAVE</code>.
 </li>
 <li>
-Update the state to store the TOUGH simulation stop time, the heat flow
+Update <code>state</code> to store the TOUGH simulation stop time, the heat flow
 from the borehole wall to ground which is measured by Modelica, and the
 new borehole wall temperatures at each section.
 </li>

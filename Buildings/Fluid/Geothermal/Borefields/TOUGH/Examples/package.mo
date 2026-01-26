@@ -5,7 +5,7 @@ annotation (preferredView="info", Documentation(info="<html>
 <p>
 Package with examples validating models in package
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH\">
-Buildings.Fluid.Geothermal.Borefields.TOUGHResponse</a>.
+Buildings.Fluid.Geothermal.Borefields.TOUGH</a>.
 </p>
 </html>"));
 end Examples;

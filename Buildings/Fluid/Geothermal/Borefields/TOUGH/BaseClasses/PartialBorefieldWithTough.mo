@@ -266,11 +266,8 @@ between each pipe and the borehole wall.
 <p>
 The thermal interaction between the borehole wall and the surrounding soil
 is modeled using
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>,
-which uses a cell-shifting load aggregation technique to calculate the borehole wall
-temperature after calculating and/or read (from a previous calculation) the borefield's
-thermal response factor.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse\">
+Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse</a>.
 </p>
 </html>", revisions="<html>
 <ul>

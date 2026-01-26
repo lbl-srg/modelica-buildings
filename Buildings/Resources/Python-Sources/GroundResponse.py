@@ -123,7 +123,7 @@ def doStep(dblInp, state):
 
             # Extract borehole wall temperature
             # os.system("./readsave < readsave.inp > out.txt")
-            readsave()
+            read_save()
             data = extract_data('out.txt', nTouSeg, nInt)
             T_tough = data['T_Bor']
             # Output to Modelica simulation
@@ -541,7 +541,7 @@ def fortranFloat(val):
     else:
         return tempVal[1:]+'.'
 
-def readsave():
+def read_save():
     freadsave = open('readsave.inp')
     fsave = open('SAVE')
     fout = open('out.txt', 'wt')
