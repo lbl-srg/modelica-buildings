@@ -45,12 +45,10 @@ First implementation.
           extent={{-92,22},{-56,-24}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="T"), Text(
           extent={{54,34},{90,-22}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="p"),
         Polygon(
           points={{-58,80},{-66,58},{-67.0723,52.6387},{-68,46},{-62,40},{-56,

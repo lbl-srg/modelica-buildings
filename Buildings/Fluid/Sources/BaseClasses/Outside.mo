@@ -94,7 +94,6 @@ equation
           extent={{-164,-90},{-62,-130}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="C"),
         Ellipse(
           extent={{-100,100},{100,-100}},

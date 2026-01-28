@@ -709,21 +709,18 @@ equation
           extent={{136,-112},{312,-138}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage-up: turning on a new relief fan"),
         Text(
           extent={{132,-332},{330,-360}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage-down: turning off a lag relief fan"),
         Text(
           extent={{-124,128},{126,110}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 0: open all the damper, but not turn on any relief fan")}),
 Documentation(info="<html>

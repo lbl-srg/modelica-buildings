@@ -67,7 +67,6 @@ equation
           textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="S"),
         Polygon(
           points={{-0.48,33.6},{18,28},{18,59.2},{-0.48,33.6}},
@@ -94,14 +93,12 @@ equation
           textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="V"),
         Text(
           extent={{0,-40},{120,-80}},
           textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="I"),
         Text(
           extent={{-120,100},{120,60}},

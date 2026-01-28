@@ -101,13 +101,11 @@ First implementation.
           extent={{-64,84},{-42,66}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="X"),
         Text(
           extent={{82,-80},{92,-96}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="T"),
         Line(points={{68,-44},{-62,-44}}, color={175,175,175}),
         Line(points={{68,-18},{-10,-18}}, color={175,175,175}),

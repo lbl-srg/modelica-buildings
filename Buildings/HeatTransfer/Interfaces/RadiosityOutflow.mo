@@ -16,7 +16,6 @@ connector RadiosityOutflow = output Real(min=0, final unit="W", nominal=419)
         extent={{-42,122},{34,102}},
         textColor={0,127,0},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid,
         textString="%name")}),
   Documentation(info="<html>
 The nominal value is set to <i>&sigma; T<sup>4</sup> = &sigma; 293.15<sup>4</sup> = 419</i>.

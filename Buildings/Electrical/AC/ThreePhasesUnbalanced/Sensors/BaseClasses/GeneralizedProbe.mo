@@ -16,12 +16,10 @@ partial model GeneralizedProbe
           extent={{40,60},{100,40}},
           textColor={0,0,0},
           fillColor={0,120,120},
-          fillPattern=FillPattern.Solid,
           textString="V"), Text(
           extent={{18,-40},{140,-60}},
           textColor={0,0,0},
           fillColor={0,120,120},
-          fillPattern=FillPattern.Solid,
           textString="theta")}), Documentation(revisions="<html>
 <ul>
 <li>

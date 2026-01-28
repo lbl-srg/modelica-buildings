@@ -428,7 +428,6 @@ First implementation.
           extent={{-34,318},{66,306}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Current fluid setpoint temperatures"),
         Rectangle(
@@ -441,7 +440,6 @@ First implementation.
           extent={{-26,-178},{74,-190}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Computation of qRel^(1/m)"),
         Rectangle(
@@ -454,7 +452,6 @@ First implementation.
           extent={{-84,198},{-36,190}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Nominal values"),
         Rectangle(
@@ -467,7 +464,6 @@ First implementation.
           extent={{-4,98},{56,90}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Guard against 0^(1/m)"),
         Rectangle(
@@ -480,7 +476,6 @@ First implementation.
           extent={{-6,-68},{60,-76}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Numerator for qRel")}));
 end SupplyReturnTemperatureReset;

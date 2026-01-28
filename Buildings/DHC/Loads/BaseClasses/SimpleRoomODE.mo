@@ -133,28 +133,24 @@ First implementation.
           extent={{-88,16},{-8,-14}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="QReq_flow"),
         Text(
           extent={{-88,94},{-52,68}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="TSet"),
         Text(
           extent={{-88,-64},{-8,-94}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="QAct_flow"),
         Text(
           extent={{50,10},{90,-8}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="TAir")}),
     Diagram(

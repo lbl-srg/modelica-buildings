@@ -578,7 +578,6 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         Text(
           extent={{-56,96},{36,66}},
           textString= if controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID then "PID" else "PI",
-          fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Polygon(
           points={{-80,82},{-88,60},{-72,60},{-80,82}},

@@ -157,7 +157,6 @@ First implementation.
           extent={{-60,90},{66,0}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="hA"),
         Ellipse(
           extent={{-32,-10},{-12,-32}},

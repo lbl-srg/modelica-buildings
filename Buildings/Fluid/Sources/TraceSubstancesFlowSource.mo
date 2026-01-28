@@ -190,7 +190,6 @@ First implementation.
           extent={{-54,32},{16,-30}},
           textColor={255,0,0},
           fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
           textString="m"),
         Ellipse(
           extent={{-26,30},{-18,22}},
@@ -201,14 +200,12 @@ First implementation.
           extent={{-212,62},{-72,30}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           visible=use_m_flow_in,
           textString="m_flow"),
         Text(
           extent={{-100,14},{-60,-20}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="C"),
         Text(
           extent={{-150,110},{150,150}},

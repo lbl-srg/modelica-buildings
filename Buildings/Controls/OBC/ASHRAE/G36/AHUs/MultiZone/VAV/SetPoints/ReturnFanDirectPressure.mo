@@ -300,14 +300,12 @@ annotation (
           extent={{-138,210},{-62,192}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Exhaust air damper control"),
         Text(
           extent={{-136,-28},{-12,-50}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Return fan discharge static pressure setpoint"),
         Rectangle(
@@ -320,7 +318,6 @@ annotation (
           extent={{-136,-176},{-60,-194}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Return fan speed")}),
   Documentation(info="<html>

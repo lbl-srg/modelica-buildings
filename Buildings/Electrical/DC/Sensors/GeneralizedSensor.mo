@@ -80,6 +80,5 @@ First implementation.
           textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="P")}));
 end GeneralizedSensor;

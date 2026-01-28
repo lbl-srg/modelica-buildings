@@ -293,14 +293,12 @@ equation
           extent={{-22,60},{58,40}},
           textColor={28,108,200},
           fillColor={170,170,255},
-          fillPattern=FillPattern.Forward,
           textString="Water",
           textStyle={TextStyle.Italic}),
         Text(
           extent={{-20,-40},{60,-60}},
           textColor={28,108,200},
           fillColor={170,170,255},
-          fillPattern=FillPattern.Forward,
           textString="Air",
           textStyle={TextStyle.Italic}),
         Text(

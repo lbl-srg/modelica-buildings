@@ -548,7 +548,6 @@ annotation (
           extent={{-182,238},{-54,216}},
           textColor={0,0,127},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Primary airflow setpoint"),
         Rectangle(
@@ -561,7 +560,6 @@ annotation (
           extent={{-10,-152},{106,-168}},
           textColor={0,0,127},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Heating coil control"),
         Rectangle(
@@ -574,7 +572,6 @@ annotation (
           extent={{10,-370},{126,-386}},
           textColor={0,0,127},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Terminal fan control")}),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

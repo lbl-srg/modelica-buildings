@@ -44,7 +44,6 @@ partial model PartialSafety "Safety control with I/O"
         Text(
           extent={{-151,139},{149,99}},
           textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}),     Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),

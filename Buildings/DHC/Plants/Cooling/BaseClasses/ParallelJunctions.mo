@@ -126,7 +126,6 @@ equation
       Text(
           extent={{-141,-99},{159,-139}},
           textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),

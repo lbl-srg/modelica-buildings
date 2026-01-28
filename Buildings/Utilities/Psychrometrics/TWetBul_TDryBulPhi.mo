@@ -108,7 +108,6 @@ annotation (
           extent={{76,-78},{86,-94}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="T"),
         Line(
           points={{76,-46},{26,-4}},
@@ -122,7 +121,6 @@ annotation (
           extent={{-44,82},{-22,64}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="X"),
         Polygon(
           points={{86,-74},{76,-72},{76,-76},{86,-74}},

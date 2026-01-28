@@ -266,7 +266,6 @@ equation
           extent={{-54,-10},{58,-130}},
           textColor={0,0,0},
           fillColor={0,127,0},
-          fillPattern=FillPattern.Solid,
           textString="Merkel"),
         Ellipse(
           extent={{-54,62},{0,50}},

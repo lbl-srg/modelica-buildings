@@ -357,12 +357,10 @@ equation
           extent={{180,70},{200,-70}}),
         Text(
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           extent={{120,148},{170,120}},
           textString="TRad"),
         Text(
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           extent={{-60,12},{-22,-10}},
           textString="air"),
         Rectangle(
@@ -380,7 +378,6 @@ equation
           textString="C_flow"),
         Text(
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           extent={{124,182},{174,154}},
           textString="TAir",
           horizontalAlignment=TextAlignment.Right),
@@ -398,12 +395,10 @@ equation
           fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png"),
         Text(
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           extent={{132,114},{182,86}},
           textString="phi"),
         Text(
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           extent={{-56,-48},{-20,-68}},
           textString="rad",
           textColor={0,0,0}),            Rectangle(

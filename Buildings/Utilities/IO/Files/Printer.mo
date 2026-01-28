@@ -42,7 +42,6 @@ equation
           extent={{-58,-46},{62,-84}},
           textColor={0,0,255},
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
           textString=
                "%fileName"),
         Polygon(

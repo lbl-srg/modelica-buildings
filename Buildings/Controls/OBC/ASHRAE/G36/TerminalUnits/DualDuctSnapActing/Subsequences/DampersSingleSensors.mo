@@ -432,7 +432,6 @@ annotation (
           extent={{-174,256},{-30,230}},
           textColor={0,0,127},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Discharge airflow setpoint"),
         Rectangle(
@@ -445,7 +444,6 @@ annotation (
           extent={{-298,-140},{-104,-166}},
           textColor={0,0,127},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Dampers control when in deadband state")}),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

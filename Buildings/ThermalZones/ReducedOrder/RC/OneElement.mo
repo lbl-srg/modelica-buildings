@@ -452,7 +452,6 @@ equation
     extent={{-201,180},{-144,152}},
     textColor={0,0,255},
     fillColor={215,215,215},
-    fillPattern=FillPattern.Solid,
     textString="Solar Radiation"),
   Rectangle(
     extent={{-204,-20},{-86,-74}},
@@ -463,13 +462,11 @@ equation
     extent={{-201,-59},{-146,-76}},
     textColor={0,0,255},
     fillColor={215,215,215},
-    fillPattern=FillPattern.Solid,
     textString="Exterior Walls"),
   Text(
     extent={{-202,82},{-168,64}},
     textColor={0,0,255},
     fillColor={215,215,215},
-    fillPattern=FillPattern.Solid,
     textString="Windows"),
   Rectangle(
     extent={{-30,20},{50,-32}},
@@ -480,7 +477,6 @@ equation
     extent={{-11,18},{26,4}},
     textColor={0,0,255},
     fillColor={215,215,215},
-    fillPattern=FillPattern.Solid,
     textString="Indoor Air")}),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,180}},
   grid={2,2}),
@@ -516,7 +512,6 @@ equation
     textColor={0,0,255},
     lineThickness=0.5,
     fillColor={236,99,92},
-    fillPattern=FillPattern.Solid,
     textString="%name"),
   Text(
     extent={{-67,60},{57,-64}},

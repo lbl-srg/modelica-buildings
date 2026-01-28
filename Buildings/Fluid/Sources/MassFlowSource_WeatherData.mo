@@ -130,7 +130,6 @@ equation
           extent={{-54,32},{16,-30}},
           textColor={255,0,0},
           fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
           textString="m"),
         Ellipse(
           extent={{-26,30},{-18,22}},
@@ -142,14 +141,12 @@ equation
           extent={{-185,132},{-45,100}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="m_flow"),
         Text(
           visible=use_C_in,
           extent={{-155,-98},{-35,-126}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="C"),        Text(
           extent={{-161,110},{139,150}},
           textString="%name",

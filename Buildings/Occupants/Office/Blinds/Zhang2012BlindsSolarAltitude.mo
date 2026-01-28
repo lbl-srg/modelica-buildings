@@ -86,7 +86,6 @@ equation
               extent={{-40,20},{40,-20}},
               textColor={28,108,200},
               fillColor={0,0,255},
-              fillPattern=FillPattern.Solid,
               textStyle={TextStyle.Bold},
               textString="Blinds_SA")}),
 defaultComponentName="bli",

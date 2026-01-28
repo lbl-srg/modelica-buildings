@@ -178,14 +178,12 @@ Implementation is based on <code>Modelica.Fluid</code>.
           extent={{-162,34},{-60,-6}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="h"),
         Text(
           visible=use_p_in,
           extent={{-152,134},{-68,94}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="p"),
         Ellipse(
           extent={{-100,100},{100,-100}},

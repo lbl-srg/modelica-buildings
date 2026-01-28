@@ -78,7 +78,6 @@ First implementation.
           extent={{-66,88},{60,-2}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="hA"),
         Rectangle(
           extent={{-74,-12},{76,-72}},

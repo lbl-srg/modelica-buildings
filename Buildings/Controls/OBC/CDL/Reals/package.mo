@@ -28,7 +28,6 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
           extent={{-52,86},{52,-92}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="R"),
         Rectangle(
           lineColor={128,128,128},

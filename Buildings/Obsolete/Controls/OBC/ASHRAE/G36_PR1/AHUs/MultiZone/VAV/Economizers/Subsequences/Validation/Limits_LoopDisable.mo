@@ -153,7 +153,6 @@ annotation (
           textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Fan is off"),
         Text(
@@ -161,7 +160,6 @@ annotation (
           textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Operation mode is other than occupied"),
         Text(
@@ -169,7 +167,6 @@ annotation (
           textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection status is higher than 1")}),
 Documentation(info="<html>

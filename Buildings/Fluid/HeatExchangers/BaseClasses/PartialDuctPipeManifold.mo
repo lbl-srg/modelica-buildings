@@ -58,8 +58,7 @@ partial model PartialDuctPipeManifold
         Text(
           extent={{-84,-48},{84,-120}},
           textColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),
+          fillColor={0,0,255})}),
             Documentation(info="<html>
 <p>
 Partial heat exchanger manifold.

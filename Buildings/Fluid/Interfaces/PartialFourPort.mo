@@ -156,7 +156,6 @@ are often iteration variables in nonlinear equation systems.
       Text(
           extent={{-151,147},{149,107}},
           textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name"),
       Polygon(

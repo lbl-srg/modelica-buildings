@@ -143,14 +143,12 @@ First implementation.
           extent={{-185,132},{-45,100}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="m_flow"),
         Text(
           visible=use_T_in,
           extent={{-162,34},{-60,-6}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="T"),
         Rectangle(
           extent={{35,45},{100,-45}},
@@ -171,7 +169,6 @@ First implementation.
           extent={{-54,32},{16,-30}},
           textColor={255,0,0},
           fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
           textString="m"),
         Ellipse(
           extent={{-26,30},{-18,22}},

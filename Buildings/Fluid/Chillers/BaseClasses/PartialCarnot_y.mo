@@ -145,7 +145,6 @@ equation
           extent={{-130,128},{-78,106}},
           textColor={0,0,127},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="y"),
         Text(extent={{66,28},{116,14}},   textString="P",
           textColor={0,0,127}),

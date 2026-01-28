@@ -122,7 +122,6 @@ equation
     extent={{173,-65},{224,-82}},
     textColor={0,0,255},
     fillColor={215,215,215},
-    fillPattern=FillPattern.Solid,
     textString="Interior Walls")}), Documentation(revisions="<html>
 <ul>
 <li>

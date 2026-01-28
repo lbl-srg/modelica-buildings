@@ -38,7 +38,6 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
           extent={{-74,84},{-52,66}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="X"),
         Line(
           points={{-78,-46},{-64,-42},{-40,-32},{-16,-18},{10,6},{30,40},{38,72}},
@@ -55,6 +54,5 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
           extent={{72,-80},{82,-96}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="T")}));
 end Psychrometrics;

@@ -92,7 +92,6 @@ equation
           extent={{-22,72},{28,58}},
           textColor={0,0,0},
           fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textString="Toggle input"),
         Text(
           extent={{-150,150},{150,110}},
@@ -115,7 +114,6 @@ equation
           extent={{-14,-10},{14,-20}},
           textColor={0,0,0},
           fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textString="Clear")}),
     Documentation(
       info="<html>

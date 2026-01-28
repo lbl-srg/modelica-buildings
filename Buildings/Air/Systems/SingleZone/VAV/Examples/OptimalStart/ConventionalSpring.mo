@@ -124,7 +124,6 @@ equation
           extent={{40,-2},{92,-20}},
           textColor={238,46,47},
           fillColor={229,229,229},
-          fillPattern=FillPattern.Solid,
           textString="System with optimal start"),
         Rectangle(
           extent={{-108,-28},{106,-94}},
@@ -136,7 +135,6 @@ equation
           extent={{40,-80},{98,-96}},
           textColor={238,46,47},
           fillColor={229,229,229},
-          fillPattern=FillPattern.Solid,
           textString="System without optimal start")}),
     experiment(
       StartTime=6393600,

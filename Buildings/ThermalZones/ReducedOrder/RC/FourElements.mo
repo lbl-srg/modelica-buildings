@@ -180,7 +180,6 @@ equation
     extent={{16,168},{46,156}},
     textColor={0,0,255},
     fillColor={215,215,215},
-    fillPattern=FillPattern.Solid,
     textString="Roof")}),
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-240,-180},{240,180}}),

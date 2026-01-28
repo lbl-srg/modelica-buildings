@@ -127,19 +127,16 @@ annotation (
           extent={{-96,78},{-42,40}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uOutDamPos"),
         Text(
           extent={{-94,-48},{-62,-72}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uSupFan"),
         Text(
           extent={{46,18},{96,-18}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yExhDamPos"),
         Polygon(
           points={{-46,92},{-54,70},{-38,70},{-46,92}},

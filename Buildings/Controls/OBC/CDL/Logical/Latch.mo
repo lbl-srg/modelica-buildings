@@ -78,13 +78,11 @@ equation
           extent={{-14,-8},{14,-18}},
           textColor={0,0,0},
           fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textString="Clear"),
         Text(
           extent={{-16,72},{24,58}},
           textColor={0,0,0},
           fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textString="Latch input"),
         Text(
           extent={{-150,150},{150,110}},

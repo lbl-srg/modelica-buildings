@@ -152,7 +152,6 @@ annotation (defaultComponentName = "relCon",
         Text(
           extent={{-62,-10},{84,-52}},
           textColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
         Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color

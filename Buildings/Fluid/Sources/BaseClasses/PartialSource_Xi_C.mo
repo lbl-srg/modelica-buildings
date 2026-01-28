@@ -94,21 +94,18 @@ equation
           extent={{-164,4},{-62,-36}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="X"),
         Text(
           visible=use_Xi_in,
           extent={{-164,4},{-62,-36}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="Xi"),
         Text(
           visible=use_C_in,
           extent={{-164,-90},{-62,-130}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="C")}),
           Documentation(info="<html>
 <p>

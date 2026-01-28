@@ -365,7 +365,6 @@ equation
           pattern=LinePattern.None), Text(
           extent={{-52,184},{-28,156}},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,0},
           textString="PID")}),
     Documentation(

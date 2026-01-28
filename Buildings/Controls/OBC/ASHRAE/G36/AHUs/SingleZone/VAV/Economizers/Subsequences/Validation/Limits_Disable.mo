@@ -152,7 +152,6 @@ annotation (
           textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Fan status"),
         Text(
@@ -160,7 +159,6 @@ annotation (
           textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Operation mode"),
         Text(
@@ -168,7 +166,6 @@ annotation (
           textColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection stage")}),
 Documentation(info="<html>

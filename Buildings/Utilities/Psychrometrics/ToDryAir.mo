@@ -30,11 +30,9 @@ First implementation.
           extent={{34,30},{86,-34}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="XiDry"), Text(
           extent={{-86,48},{-14,-52}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="XiTotal")}));
 end ToDryAir;

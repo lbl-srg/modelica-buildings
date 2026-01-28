@@ -139,14 +139,12 @@ Implemenation is based on <code>Modelica.Fluid</code>.
           extent={{-185,132},{-45,100}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="m_flow"),
         Text(
           visible=use_h_in,
           extent={{-162,34},{-60,-6}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="h"),
         Rectangle(
           extent={{35,45},{100,-45}},
@@ -167,7 +165,6 @@ Implemenation is based on <code>Modelica.Fluid</code>.
           extent={{-54,32},{16,-30}},
           textColor={255,0,0},
           fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
           textString="m"),
         Ellipse(
           extent={{-26,30},{-18,22}},

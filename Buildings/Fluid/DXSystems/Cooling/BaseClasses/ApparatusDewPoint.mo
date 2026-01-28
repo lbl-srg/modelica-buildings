@@ -77,7 +77,6 @@ equation
           textColor={255,0,0},
           lineThickness=0.5,
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
           textString="ADP"),
         Ellipse(
           extent={{54,-6},{58,-10}},

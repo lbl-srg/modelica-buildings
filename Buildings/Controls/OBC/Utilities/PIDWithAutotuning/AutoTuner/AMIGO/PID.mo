@@ -80,7 +80,6 @@ equation
           textColor={0,0,255}),
         Text(
           extent={{-16,20},{84,-20}},
-          fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="PID"),
         Polygon(
@@ -104,17 +103,14 @@ equation
         Text(
           extent={{-16,102},{84,62}},
           textColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="k"),
         Text(
           extent={{-116,26},{-16,-14}},
-          fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Ti"),
         Text(
           extent={{-18,-62},{82,-102}},
-          fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Td")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

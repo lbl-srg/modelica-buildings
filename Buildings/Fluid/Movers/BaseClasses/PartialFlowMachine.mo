@@ -586,7 +586,6 @@ equation
           extent={{-20,92},{22,46}},
           textColor={0,0,0},
           fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold})}),
     Documentation(info="<html>

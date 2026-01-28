@@ -167,7 +167,6 @@ equation
     extent={{6,-152},{48,-166}},
     textColor={0,0,255},
     fillColor={215,215,215},
-    fillPattern=FillPattern.Solid,
     textString="Floor Plate")}), Icon(coordinateSystem(extent={{-240,
       -180},{240,180}}, preserveAspectRatio=false), graphics={Rectangle(
     extent={{-34,52},{34,-40}},

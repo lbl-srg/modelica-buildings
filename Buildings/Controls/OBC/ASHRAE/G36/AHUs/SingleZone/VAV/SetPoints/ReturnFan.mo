@@ -74,31 +74,26 @@ annotation (
           extent={{-96,68},{-34,52}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uSupFan_actual"),
         Text(
           extent={{-98,-52},{-52,-66}},
           textColor={255,0,255},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="u1SupFan"),
         Text(
           extent={{58,8},{98,-6}},
           textColor={0,0,127},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yRetFan"),
         Text(
           extent={{52,70},{98,56}},
           textColor={255,0,255},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="y1ExhDam"),
         Text(
           extent={{52,-52},{98,-66}},
           textColor={255,0,255},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="y1RetFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
  Documentation(info="<html>

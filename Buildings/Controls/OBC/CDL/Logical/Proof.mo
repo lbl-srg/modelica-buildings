@@ -273,7 +273,6 @@ annotation (
           extent={{-248,38},{-174,20}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Output true if u_s has passed
 the feedback delay"),
@@ -281,14 +280,12 @@ the feedback delay"),
           extent={{-90,-182},{-4,-196}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Check if the inputs are different"),
         Text(
           extent={{-252,236},{-130,224}},
           textColor={0,0,255},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Check if there is a stable measured input u_m")}),
     Icon(
@@ -375,25 +372,21 @@ the feedback delay"),
           extent={{-6,-4},{6,-14}},
           textColor={0,0,0},
           fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textString="u_s"),
         Text(
           extent={{-10,-36},{6,-46}},
           textColor={0,0,0},
           fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textString="u_m"),
         Text(
           extent={{22,44},{44,32}},
           textColor={0,0,0},
           fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textString="yLocTru"),
         Text(
           extent={{-40,76},{-18,64}},
           textColor={0,0,0},
           fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textString="yLocFal")}),
 Documentation(info="<html>
 <p>

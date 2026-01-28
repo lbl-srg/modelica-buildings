@@ -571,7 +571,6 @@ annotation (
           extent={{-26,194},{118,168}},
           textColor={0,0,127},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Cold duct airflow setpoint"),
         Rectangle(
@@ -584,7 +583,6 @@ annotation (
           extent={{-50,-210},{94,-236}},
           textColor={0,0,127},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Hot duct airflow setpoint"),
         Rectangle(
@@ -597,7 +595,6 @@ annotation (
           extent={{-182,108},{96,76}},
           textColor={0,0,127},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Cold and hot duct airflow setpoint when in deadband state")}),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

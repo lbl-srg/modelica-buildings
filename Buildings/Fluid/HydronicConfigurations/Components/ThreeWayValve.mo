@@ -304,7 +304,6 @@ equation
           extent={{-20,94},{22,48}},
           textColor={0,0,0},
           fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold}),
         Text(

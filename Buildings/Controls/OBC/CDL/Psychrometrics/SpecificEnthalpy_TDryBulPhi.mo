@@ -102,7 +102,6 @@ First implementation.
           extent={{-44,82},{-22,64}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="X"),
         Polygon(
           points={{-48,88},{-46,74},{-50,74},{-48,88}},
@@ -128,7 +127,6 @@ First implementation.
           extent={{76,-78},{86,-94}},
           textColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="T"),
         Line(
           points={{-48,84},{-48,-74}}),

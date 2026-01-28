@@ -784,7 +784,6 @@ equation
           extent={{-104,210},{84,242}},
           textColor={0,0,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="%name"),
         Text(
           extent={{-220,100},{-144,68}},
@@ -794,7 +793,6 @@ equation
           extent={{-14,-160},{44,-186}},
           textColor={0,0,0},
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           textString="boundary"),
         Rectangle(
           extent={{-160,-160},{160,160}},
@@ -821,19 +819,16 @@ equation
           extent={{-60,12},{-22,-10}},
           textColor={0,0,0},
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           textString="air"),
         Text(
           extent={{-72,-22},{-22,-50}},
           textColor={0,0,0},
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           textString="radiation"),
         Text(
           extent={{-104,-124},{-54,-152}},
           textColor={0,0,0},
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
           textString="surface"),
         Text(
           extent={{-198,144},{-122,112}},
