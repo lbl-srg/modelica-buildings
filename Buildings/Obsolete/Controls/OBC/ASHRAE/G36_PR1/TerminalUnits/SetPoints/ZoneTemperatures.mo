@@ -1095,76 +1095,62 @@ annotation (
         Text(
           extent={{-96,100},{-30,82}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonCooSetOcc"),
         Text(
           extent={{-96,52},{-28,32}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonHeaSetOcc"),
         Text(
           extent={{-96,28},{-30,12}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonHeaSetUno"),
         Text(
           extent={{-96,76},{-30,62}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonCooSetUno"),
         Text(
           visible=heaAdj,
           extent={{-100,-24},{-48,-36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
           visible=cooAdj or sinAdj,
           extent={{-100,0},{-66,-14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
           extent={{-100,138},{-50,126}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{-96,-50},{-20,-68}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uCooDemLimLev"),
         Text(
           extent={{-96,-72},{-24,-88}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uHeaDemLimLev"),
         Text(
           extent={{-19.5,6},{19.5,-6}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           origin={-77.5,-110},
           textString="uOccSen"),
         Text(
           extent={{-19,8.5},{19,-8.5}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           origin={-79,-129.5},
           textString="uWinSta"),
         Text(
           extent={{72,-74},{100,-86}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yAla"),
         Text(
           extent={{50,88},{98,72}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
           extent={{46,10},{96,-8}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonHeaSet"),
         Text(
           extent={{-120,180},{100,140}},

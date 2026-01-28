@@ -140,7 +140,6 @@ equation
         Text(
           extent={{-36,52},{36,82}},
           textColor={0,0,0},
-          pattern=LinePattern.Dash,
           fillColor={255,215,136},
           fillPattern=FillPattern.Solid,
           textString="C",
@@ -148,7 +147,6 @@ equation
         Text(
           extent={{-36,-18},{36,12}},
           textColor={0,0,0},
-          pattern=LinePattern.Dash,
           fillColor={255,215,136},
           fillPattern=FillPattern.Solid,
           textString="V"),
@@ -253,7 +251,6 @@ equation
         Text(
           extent={{-100,-100},{100,-60}},
           textColor={28,108,200},
-          pattern=LinePattern.Dash,
           fillColor={255,215,136},
           fillPattern=FillPattern.Solid,
           textString="Q_flow")}),Documentation(revisions="<html><ul>

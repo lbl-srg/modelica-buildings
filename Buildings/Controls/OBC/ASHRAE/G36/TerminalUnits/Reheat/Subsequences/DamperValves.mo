@@ -754,69 +754,56 @@ in heating state")}),
         Text(
           extent={{-98,96},{-46,82}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{-98,146},{-46,130}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMin_flow"),
         Text(
           extent={{-98,-152},{-48,-168}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{-98,-132},{-50,-148}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActHeaMin_flow"),
         Text(
           extent={{-98,44},{-54,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-98,114},{-78,106}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-100,-86},{-80,-94}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
           extent={{-98,-56},{-70,-64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{-100,64},{-80,56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-13.5,4},{13.5,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDis",
           origin={-87.5,-20}),
         Text(
           extent={{-100,-106},{-80,-114}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{68,96},{98,86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yDam"),
         Text(
           extent={{66,-82},{98,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yVal"),
         Line(points={{-38,64},{-38,-48},{74,-48}}, color={95,95,95}),
@@ -855,39 +842,32 @@ in heating state")}),
         Text(
           extent={{56,148},{98,136}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VSet_flow"),
         Text(
           extent={{60,-134},{98,-146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="TDisHeaSet"),
         Text(
           extent={{-96,-184},{-70,-192}},
           textColor={255,127,27},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{-98,166},{-68,156}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-100,-36},{-68,-44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{-98,194},{-72,186}},
           textColor={255,127,27},
-          pattern=LinePattern.Dash,
           textString="oveFloSet"),
         Text(
           extent={{-100,16},{-72,4}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Fan")}),
   Documentation(info="<html>
 <p>

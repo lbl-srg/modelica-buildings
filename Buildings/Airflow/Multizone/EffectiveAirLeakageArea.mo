@@ -33,7 +33,6 @@ model EffectiveAirLeakageArea "Effective air leakage area"
         Text(
           extent={{-104,92},{-20,54}},
           textColor={0,0,255},
-          pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString=
@@ -41,7 +40,6 @@ model EffectiveAirLeakageArea "Effective air leakage area"
         Text(
           extent={{22,94},{98,56}},
           textColor={0,0,255},
-          pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString=

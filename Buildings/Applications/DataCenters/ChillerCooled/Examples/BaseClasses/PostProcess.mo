@@ -75,27 +75,23 @@ equation
                               Text(
           extent={{174,-164},{282,-192}},
           textColor={0,0,0},
-          pattern=LinePattern.Dash,
           lineThickness=0.5,
           textString="Post-processing"),
         Text(
           extent={{310,120},{254,108}},
           textColor={0,0,0},
-          pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           textString="Economizing Hours"),
         Text(
           extent={{258,-6},{318,-52}},
           textColor={0,0,0},
-          pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           textString="Energy Consumption"),
         Text(
           extent={{262,224},{308,200}},
           textColor={0,0,0},
-          pattern=LinePattern.Dot,
           fillColor={229,229,229},
           fillPattern=FillPattern.Solid,
           textString="Switch Times")}),

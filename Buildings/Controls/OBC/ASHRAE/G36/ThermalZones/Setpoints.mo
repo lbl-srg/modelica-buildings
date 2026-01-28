@@ -1065,76 +1065,62 @@ annotation (
         Text(
           extent={{-98,148},{-32,132}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOccCooSet"),
         Text(
           extent={{-98,70},{-36,50}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOccHeaSet"),
         Text(
           extent={{-96,40},{-38,20}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TUnoHeaSet"),
         Text(
           extent={{-96,116},{-32,100}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TUnoCooSet"),
         Text(
           visible=have_locAdj and sepAdj,
           extent={{-96,-30},{-40,-48}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
           visible=have_locAdj and not sepAdj,
           extent={{-100,12},{-54,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
           extent={{-96,188},{-46,174}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{-96,-70},{-4,-90}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uCooDemLimLev"),
         Text(
           extent={{-96,-100},{-8,-120}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uHeaDemLimLev"),
         Text(
           extent={{-18.5,8},{18.5,-8}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           origin={-78.5,-150},
           textString="u1Occ"),
         Text(
           extent={{-18,7.5},{18,-7.5}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           origin={-80,-178.5},
           textString="u1Win"),
         Text(
           extent={{68,-70},{100,-86}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yAla"),
         Text(
           extent={{54,92},{96,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{50,10},{96,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{-120,240},{100,200}},
@@ -1144,7 +1130,6 @@ annotation (
           visible=have_locAdj and sepAdj,
           extent={{-96,-10},{-40,-28}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="cooSetAdj")}),
   Diagram(coordinateSystem(
         preserveAspectRatio=false,

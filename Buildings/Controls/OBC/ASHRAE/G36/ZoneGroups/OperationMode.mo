@@ -720,17 +720,14 @@ annotation (
         Text(
           extent={{-98,148},{-44,136}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="maxCooDowTim"),
         Text(
           extent={{-98,106},{-50,96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="maxWarUpTim"),
         Text(
           extent={{58,12},{96,-10}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
           extent={{-100,240},{100,200}},
@@ -739,62 +736,50 @@ annotation (
         Text(
           extent={{-100,168},{-68,152}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
           extent={{-100,188},{-76,176}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Occ"),
         Text(
           extent={{-98,128},{-50,116}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1HigOccCoo"),
         Text(
           extent={{-98,86},{-48,74}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1OccHeaHig"),
         Text(
           extent={{-98,26},{-60,16}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="totColZon"),
         Text(
           extent={{-98,-34},{-52,-46}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1EndSetBac"),
         Text(
           extent={{-98,-74},{-64,-84}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonMin"),
         Text(
           extent={{-98,-114},{-62,-124}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="totHotZon"),
         Text(
           extent={{-98,-174},{-52,-186}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1EndSetUp"),
         Text(
           extent={{-98,-14},{-66,-26}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SetBac"),
         Text(
           extent={{-98,-154},{-66,-166}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SetUp"),
         Text(
           extent={{-100,46},{-62,36}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeWin")}),
    Documentation(info="<html>
 <p>
