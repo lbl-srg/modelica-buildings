@@ -169,7 +169,6 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">IBPSA #1050<
           grid={1,1}), graphics={Text(
           extent={{-151,147},{149,107}},
           textColor={0,0,255},
-          fillColor={0,127,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),

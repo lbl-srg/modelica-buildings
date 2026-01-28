@@ -608,19 +608,16 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
           extent={{92,-58},{290,-94}},
-          fillColor={210,210,210},
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Occupied min airflow:
 reset based on CO2 control"),
        Text(extent={{116,-234},{332,-294}},
-          fillColor={210,210,210},
           textColor={0,0,255},
           textString="Occupied min airflow:
 reset based on occupancy",
           horizontalAlignment=TextAlignment.Left),
         Text(extent={{-252,-422},{28,-454}},
-          fillColor={210,210,210},
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Occupied min airflow:
@@ -631,7 +628,6 @@ define based on controllable minimum"),
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(extent={{-190,-492},{32,-564}},
-          fillColor={210,210,210},
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Occupied min airflow:
@@ -641,7 +637,6 @@ reset based on window status"),      Rectangle(
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
           extent={{32,18},{254,-26}},
-          fillColor={210,210,210},
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Define active setpoints

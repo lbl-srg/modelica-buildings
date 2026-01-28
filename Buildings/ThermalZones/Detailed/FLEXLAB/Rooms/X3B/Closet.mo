@@ -178,21 +178,17 @@ model Closet "Model of the closet connected to test cell X3A"
         Text(
           extent={{-60,12},{-22,-10}},
           textColor={0,0,0},
-          fillColor={61,61,61},
           textString="air"),
         Text(
           extent={{-72,-22},{-22,-50}},
           textColor={0,0,0},
-          fillColor={61,61,61},
           textString="radiation"),
         Text(
           extent={{-104,-124},{-54,-152}},
           textColor={0,0,0},
-          fillColor={61,61,61},
           textString="surface"),
         Text(
           extent={{-138,-82},{-96,-100}},
           textColor={0,0,0},
-          fillColor={61,61,61},
           textString="fluid")}));
 end Closet;

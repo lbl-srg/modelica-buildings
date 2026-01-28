@@ -311,37 +311,30 @@ annotation (defaultComponentName = "setPoiVAV",
         Text(
           extent={{-100,16},{-76,6}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uHea"),
         Text(
           extent={{-100,-14},{-80,-24}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uCoo"),
         Text(
           extent={{52,8},{98,-6}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TSupHeaEcoSet"),
         Text(
           extent={{62,-54},{98,-66}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TSupCooSet"),
         Text(
           extent={{86,86},{100,76}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="y"),
         Text(
           extent={{-98,-54},{-72,-64}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TCooSet"),
         Text(
           extent={{-100,46},{-80,36}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TOut"),
     Line(points={{-54,50},{-54,10}},  color={95,95,95}),
     Polygon(
@@ -359,22 +352,18 @@ annotation (defaultComponentName = "setPoiVAV",
         Text(
           extent={{-96,96},{-66,86}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uOpeMod"),
         Text(
           extent={{-98,-84},{-72,-96}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="THeaSet"),
         Text(
           extent={{-100,68},{-80,58}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TZon"),
         Text(
           extent={{70,46},{98,36}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="y1SupFan")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,180}})),
   Documentation(info="<html>

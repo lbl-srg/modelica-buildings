@@ -68,7 +68,6 @@ equation
         Text(
           extent={{-120,-42},{0,-82}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="S"),
         Polygon(
           points={{-0.48,33.6},{18,28},{18,59.2},{-0.48,33.6}},
@@ -93,12 +92,10 @@ equation
         Text(
           extent={{-60,-42},{60,-82}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="V"),
         Text(
           extent={{0,-40},{120,-80}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="I"),
         Text(
           extent={{-120,100},{120,60}},

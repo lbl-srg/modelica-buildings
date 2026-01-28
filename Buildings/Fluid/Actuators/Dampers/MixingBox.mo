@@ -258,7 +258,6 @@ equation
         Text(
           extent={{22,132},{48,110}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="y"),
         Rectangle(
           extent={{28,8},{48,4}},

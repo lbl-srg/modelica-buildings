@@ -78,22 +78,18 @@ equation
         Text(
           extent={{-92,96},{-48,54}},
           textColor={0,0,127},
-          fillColor={255,255,255},
           textString="TSur"),
         Text(
           extent={{-96,22},{-48,-26}},
           textColor={0,0,127},
-          fillColor={255,255,255},
           textString="XMed"),
         Text(
           extent={{-90,-66},{-58,-98}},
           textColor={0,0,127},
-          fillColor={255,255,255},
           textString="Gc"),
         Text(
           extent={{54,10},{94,-6}},
           textColor={0,0,127},
-          fillColor={255,255,255},
           textString="m"),
         Ellipse(
           extent={{72,12},{76,8}},

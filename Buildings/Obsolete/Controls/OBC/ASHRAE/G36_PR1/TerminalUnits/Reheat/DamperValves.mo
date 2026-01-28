@@ -635,34 +635,29 @@ annotation (
         Text(
           extent={{-40,318},{154,280}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Active airflow setpoint
 in cooling state"),
         Text(
           extent={{32,136},{216,104}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Override if TDis is lower than TDisMin
 (e.g., AHU overcools)"),
         Text(
           extent={{-52,42},{154,0}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Active airflow setpoint
 in deadband state"),
         Text(
           extent={{88,-26},{150,-44}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Valve control"),
         Text(
           extent={{-44,-164},{154,-200}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Active airflow setpoint
 in heating state")}),

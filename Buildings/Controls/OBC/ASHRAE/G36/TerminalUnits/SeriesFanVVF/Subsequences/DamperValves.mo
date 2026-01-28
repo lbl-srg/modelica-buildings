@@ -697,7 +697,6 @@ annotation (
         Text(
           extent={{-74,204},{104,162}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Primary discharge airflow setpoint
 and the damper position setpoint"),
@@ -710,7 +709,6 @@ and the damper position setpoint"),
         Text(
           extent={{-38,108},{106,80}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Hot water valve position"),
         Rectangle(
@@ -722,7 +720,6 @@ and the damper position setpoint"),
         Text(
           extent={{-288,-108},{-112,-134}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Series fan rate when in cooling state"),
         Rectangle(
@@ -734,7 +731,6 @@ and the damper position setpoint"),
         Text(
           extent={{-300,-146},{-112,-172}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Series fan rate when in deadband state"),
         Rectangle(
@@ -746,7 +742,6 @@ and the damper position setpoint"),
         Text(
           extent={{-292,-202},{-118,-226}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Series fan rate when in heating state"),
         Rectangle(
@@ -758,7 +753,6 @@ and the damper position setpoint"),
         Text(
           extent={{-296,-466},{-122,-490}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Series fan command on setpoint")}),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

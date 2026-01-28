@@ -128,17 +128,14 @@ protected
         Text(
           extent={{-230,182},{-188,216}},
           textColor={0,0,127},
-          fillColor={0,0,255},
           textString="uSha"),
         Text(
           extent={{-232,82},{-190,116}},
           textColor={0,0,127},
-          fillColor={0,0,255},
           textString="QRadAbs"),
         Text(
           extent={{-228,44},{-186,78}},
           textColor={0,0,127},
-          fillColor={0,0,255},
           textString="TSha"),
           Rectangle(
           extent={{-144,184},{148,-200}},
@@ -149,17 +146,14 @@ protected
         Text(
           extent={{-84,232},{94,282}},
           textColor={0,0,127},
-          fillColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-230,-124},{-180,-74}},
           textColor={0,0,127},
-          fillColor={0,0,255},
           textString="QCon"),
         Text(
           extent={{-228,-184},{-178,-134}},
           textColor={0,0,127},
-          fillColor={0,0,255},
           textString="QLat")}),
     Documentation(info="<html>
 <p>

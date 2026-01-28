@@ -222,7 +222,6 @@ First implementation.
         Text(
           extent={{-62,-18},{80,-54}},
           textColor={0,0,0},
-          fillColor={85,170,255},
           textString="Wet Coil"),
         Ellipse(
           extent={{2,14},{6,8}},

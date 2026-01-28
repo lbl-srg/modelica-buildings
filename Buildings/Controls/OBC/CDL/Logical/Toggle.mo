@@ -91,7 +91,6 @@ equation
         Text(
           extent={{-22,72},{28,58}},
           textColor={0,0,0},
-          fillColor={210,210,210},
           textString="Toggle input"),
         Text(
           extent={{-150,150},{150,110}},
@@ -113,7 +112,6 @@ equation
         Text(
           extent={{-14,-10},{14,-20}},
           textColor={0,0,0},
-          fillColor={210,210,210},
           textString="Clear")}),
     Documentation(
       info="<html>

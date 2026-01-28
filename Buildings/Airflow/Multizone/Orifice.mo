@@ -34,7 +34,6 @@ model Orifice "Orifice"
         Text(
           extent={{24,-24},{96,-100}},
           textColor={0,0,255},
-          fillColor={0,127,0},
           textString="A=%A")}),
 defaultComponentName="ori",
 Documentation(info="<html>

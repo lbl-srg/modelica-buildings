@@ -173,17 +173,14 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{-92,-50},{94,-84}},
-          fillColor={0,127,255},
           textString="%name",
           textColor={0,0,0}),
         Text(
           extent={{-182,-72},{-112,-102}},
-          fillColor={0,127,255},
           textColor={0,0,89},
           textString="nPeo"),
         Text(
           extent={{114,126},{184,96}},
-          fillColor={0,127,255},
           textColor={0,0,89},
           textString="yDam")}),
     Documentation(info="<html>

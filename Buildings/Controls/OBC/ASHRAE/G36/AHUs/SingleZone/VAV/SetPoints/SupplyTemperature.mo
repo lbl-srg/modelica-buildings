@@ -263,32 +263,26 @@ annotation (defaultComponentName = "supTemSet",
         Text(
           extent={{-100,-24},{-76,-34}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uHea"),
         Text(
           extent={{-100,-74},{-80,-84}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uCoo"),
         Text(
           extent={{52,8},{98,-6}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TSupHeaEcoSet"),
         Text(
           extent={{62,-64},{98,-76}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TSupCooSet"),
         Text(
           extent={{-98,86},{-72,76}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TCooSet"),
         Text(
           extent={{-98,36},{-72,24}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="THeaSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,160}})),
   Documentation(info="<html>

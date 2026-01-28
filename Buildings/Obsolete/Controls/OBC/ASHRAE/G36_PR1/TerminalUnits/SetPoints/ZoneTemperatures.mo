@@ -1204,28 +1204,23 @@ annotation (
         Text(
           extent={{124,632},{322,596}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Operation mode recognition"),
         Text(
           extent={{176,550},{324,506}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Setpoints recognition"),
         Text(
           extent={{132,382},{324,332}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Local setpoints adjustment"),
         Text(
           extent={{-254,-290},{-2,-384}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Adjust setpoints due to occupancy"),
         Text(
           extent={{-34,-384},{252,-430}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Adjust setpoints due to window status"),
         Rectangle(
@@ -1243,28 +1238,24 @@ annotation (
         Text(
           extent={{-394,-540},{-184,-584}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Setpoints limited
 in the range"),
         Text(
           extent={{-124,-526},{76,-594}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Limit occupied by
 unoccupied"),
         Text(
           extent={{34,-478},{298,-564}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Confine cooling setpoint
 by heating one"),
         Text(
           extent={{74,192},{326,98}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Demand limit setpoints
 adjustment")}),

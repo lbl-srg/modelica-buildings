@@ -323,7 +323,6 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
           extent={{-52,184},{-28,156}},
-          fillColor={215,215,215},
           textColor={0,0,0},
           textString="PID")}),
     Documentation(

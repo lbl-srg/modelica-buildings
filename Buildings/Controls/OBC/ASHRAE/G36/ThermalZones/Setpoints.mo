@@ -1179,28 +1179,23 @@ annotation (
         Text(
           extent={{124,632},{322,596}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Operation mode recognition"),
         Text(
           extent={{176,550},{324,506}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Setpoints recognition"),
         Text(
           extent={{-350,214},{-188,188}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Local setpoints adjustment"),
         Text(
           extent={{-232,-336},{-28,-358}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Adjust setpoints due to occupancy"),
         Text(
           extent={{26,-396},{236,-420}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Adjust setpoints due to window status"),
         Rectangle(
@@ -1218,28 +1213,24 @@ annotation (
         Text(
           extent={{-388,-542},{-228,-572}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Setpoints limited
 in the range"),
         Text(
           extent={{-88,-502},{60,-540}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Limit occupied by
 unoccupied"),
         Text(
           extent={{152,-506},{298,-564}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Confine cooling setpoint
 by heating one"),
         Text(
           extent={{-384,-150},{-188,-190}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Demand limit setpoints
 adjustment")}),

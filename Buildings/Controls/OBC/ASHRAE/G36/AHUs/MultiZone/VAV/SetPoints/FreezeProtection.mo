@@ -1284,19 +1284,16 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-320,300},{-226,280}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 3"),
         Text(
           extent={{-330,510},{-236,490}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 2"),
         Text(
           extent={{-342,862},{-248,842}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 1")}),
  Documentation(info="<html>

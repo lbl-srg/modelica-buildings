@@ -922,159 +922,130 @@ annotation (defaultComponentName="conFCU",
         Text(
           extent={{-196,276},{-130,248}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="tNexOcc"),
         Text(
           extent={{-200,-48},{-156,-68}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TZon"),
         Text(
           extent={{-200,116},{-134,94}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="u1Occ"),
         Text(
           extent={{-200,-8},{-152,-30}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TSup"),
         Text(
           extent={{-198,-272},{-152,-244}},
           textColor={244,125,35},
-          fillColor={0,0,0},
           textString="nOcc",
           visible=have_occSen),
         Text(
           visible=have_winSen,
           extent={{-196,-326},{-152,-348}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="u1Win"),
         Text(
           extent={{132,-22},{198,-56}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TSupSet"),
         Text(
           extent={{156,178},{198,142}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="yFan"),
         Text(
           extent={{90,136},{194,102}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TZonHeaSet"),
         Text(
           extent={{98,100},{196,60}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TZonCooSet"),
         Text(
           extent={{130,62},{196,22}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="yHeaCoi",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric),
         Text(
           extent={{130,22},{196,-18}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="yCooCoi",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
                or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil),
         Text(
           extent={{-198,356},{-116,324}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="warUpTim"),
         Text(
           extent={{-200,318},{-104,284}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="cooDowTim"),
         Text(
           extent={{-200,72},{-54,48}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="uCooDemLimLev"),
         Text(
           extent={{-200,30},{-56,6}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="uHeaDemLimLev"),
         Text(
           extent={{-196,-290},{-144,-310}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="u1Fan"),
         Text(
           extent={{142,214},{198,190}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="y1Fan"),
         Text(
           extent={{-198,236},{-146,212}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="setAdj",
           visible=have_locAdj and not sepAdj),
         Text(
           extent={{70,-88},{198,-66}},
           textColor={244,125,35},
-          fillColor={0,0,0},
           textString="yChiWatResReq",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased),
         Text(
           extent={{108,-128},{198,-108}},
           textColor={244,125,35},
-          fillColor={0,0,0},
           textString="yChiPlaReq",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased),
         Text(
           extent={{76,-172},{196,-146}},
           textColor={244,125,35},
-          fillColor={0,0,0},
           textString="yHotWatResReq",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{84,-214},{198,-186}},
           textColor={244,125,35},
-          fillColor={0,0,0},
           textString="yHotWatPlaReq",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{-196,-86},{-96,-114}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TOccHeaSet"),
         Text(
           extent={{-196,-128},{-100,-152}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TOccCooSet"),
         Text(
           extent={{-200,-168},{-104,-190}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TUnoHeaSet"),
         Text(
           extent={{-200,-208},{-104,-230}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TUnoCooSet"),
         Text(
           extent={{-196,196},{-124,168}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="cooSetAdj",
           visible=have_locAdj and sepAdj),
         Text(
           extent={{-196,156},{-124,128}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="heaSetAdj",
           visible=have_locAdj and sepAdj)}),
           Diagram(coordinateSystem(

@@ -178,7 +178,6 @@ First implementation.
         Text(
           extent={{-64,-56},{78,-92}},
           textColor={0,0,0},
-          fillColor={85,170,255},
           textString="DXCool"),
         Line(
           points={{-78,26},{-46,26}},

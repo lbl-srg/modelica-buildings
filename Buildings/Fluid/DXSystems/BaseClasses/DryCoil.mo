@@ -49,7 +49,6 @@ First implementation.
         Text(
           extent={{-62,-18},{80,-54}},
           textColor={0,0,0},
-          fillColor={85,170,255},
           textString="Dry Coil"),
         Line(
           points={{-42,48},{-16,48}},

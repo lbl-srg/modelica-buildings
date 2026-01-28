@@ -65,7 +65,6 @@ First implementation.
         Text(
           extent={{-70,84},{-48,66}},
           textColor={0,0,0},
-          fillColor={0,0,0},
           textString="X"),
         Line(points={{-74,86},{-74,-72}}),
         Line(points={{-74,-46},{-60,-42},{-30,-30},{2,-2},{14,22},{22,54},{26,74}},
@@ -79,12 +78,10 @@ First implementation.
         Text(
           extent={{76,-80},{86,-96}},
           textColor={0,0,0},
-          fillColor={0,0,0},
           textString="T"),
         Text(
           extent={{24,-14},{78,-32}},
           textColor={0,0,0},
-          fillColor={0,0,0},
           textString="density"),
         Line(
           points={{36,-72},{6,6}},

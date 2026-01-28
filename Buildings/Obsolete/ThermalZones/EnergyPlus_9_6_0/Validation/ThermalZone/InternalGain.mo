@@ -52,19 +52,16 @@ protected
           Text(
             extent={{-76,60},{64,38}},
             textColor={0,0,255},
-            fillColor={255,255,255},
             horizontalAlignment=TextAlignment.Left,
             textString="qRad_flow = %qRad_flow"),
           Text(
             extent={{-74,14},{66,-8}},
             textColor={0,0,255},
-            fillColor={255,255,255},
             horizontalAlignment=TextAlignment.Left,
             textString="qSen_flow = %qSen_flow"),
           Text(
             extent={{-74,-30},{66,-52}},
             textColor={0,0,255},
-            fillColor={255,255,255},
             horizontalAlignment=TextAlignment.Left,
             textString="qLat_flow = %qLat_flow")}));
   end OneZoneWithGainExposed;

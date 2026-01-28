@@ -703,35 +703,30 @@ annotation (
         Text(
           extent={{-72,136},{102,106}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Airflow setpoint
 in cooling state"),
         Text(
           extent={{-390,50},{-218,14}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Airflow setpoint
 in deadband state"),
         Text(
           extent={{-60,-20},{114,-60}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Check if discharge temperature
 is lower than minimum"),
         Text(
           extent={{16,-222},{132,-258}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Discharge temperature
 setpoint"),
         Text(
           extent={{-48,-378},{126,-408}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Airflow setpoint
 in heating state")}),

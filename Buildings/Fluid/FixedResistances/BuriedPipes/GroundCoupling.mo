@@ -159,53 +159,44 @@ equation
         Text(
           extent={{-76,-54},{-62,-64}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           textString="pos[1]"),
         Text(
           extent={{-26,-64},{-12,-74}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           textString="pos[2]"),
         Text(
           extent={{40,-74},{54,-84}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           textString="pos[3]"),
         Text(
           extent={{7,-3},{-7,3}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           textString="dep[1]",
           origin={-85,7},
           rotation=90),
         Text(
           extent={{7,-3},{-7,3}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           origin={-25,7},
           rotation=90,
           textString="dep[2]"),
         Text(
           extent={{7,-3},{-7,3}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           origin={35,7},
           rotation=90,
           textString="dep[3]"),
         Text(
           extent={{-64,-2},{-52,-8}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           textString="rad[1]"),
         Text(
           extent={{0,-32},{12,-38}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           textString="rad[2]"),
         Text(
           extent={{54,-14},{66,-20}},
           textColor={0,0,0},
-          fillColor={122,20,25},
           textString="rad[3]"),
         Line(
           points={{-84,-52},{-84,-92}},

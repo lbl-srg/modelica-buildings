@@ -81,13 +81,11 @@ equation
           visible=use_Xi_in,
           extent={{-48,98},{54,58}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="Xi"),
         Text(
           visible=use_C_in,
           extent={{-10,98},{92,58}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="C"),
         Rectangle(
           extent={{-100,60},{100,-60}},

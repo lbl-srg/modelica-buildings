@@ -187,13 +187,11 @@ annotation (
         Text(
           extent={{-138,140},{-62,122}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Exhaust air damper control"),
         Text(
           extent={{-136,-98},{-12,-120}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Return fan discharge static pressure setpoint")}),
   Documentation(info="<html>

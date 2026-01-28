@@ -151,19 +151,16 @@ annotation (
         Text(
           extent={{-200,110},{-174,100}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Fan is off"),
         Text(
           extent={{-60,114},{34,100}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Operation mode is other than occupied"),
         Text(
           extent={{80,114},{172,100}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection status is higher than 1")}),
 Documentation(info="<html>

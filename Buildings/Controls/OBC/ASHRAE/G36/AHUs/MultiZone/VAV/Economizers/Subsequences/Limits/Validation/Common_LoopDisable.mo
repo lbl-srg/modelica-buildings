@@ -101,13 +101,11 @@ annotation (
         Text(
           extent={{-120,90},{-94,80}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Fan is off"),
         Text(
           extent={{20,94},{114,80}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Operation mode is other than occupied")}),
 Documentation(info="<html>

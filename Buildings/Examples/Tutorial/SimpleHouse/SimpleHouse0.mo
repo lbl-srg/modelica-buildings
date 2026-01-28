@@ -52,22 +52,18 @@ equation
         Text(
           extent={{57.25,40.25},{2.75,59.75}},
           textColor={0,0,127},
-          fillColor={255,213,170},
           textString="Building"),
         Text(
           extent={{-137,-99},{-203,-81}},
           textColor={0,0,127},
-          fillColor={255,213,170},
           textString="Heating"),
         Text(
           extent={{-102,39},{-198,61}},
           textColor={0,0,127},
-          fillColor={255,213,170},
           textString="Weather inputs"),
         Text(
           extent={{-61,179},{-199,201}},
           textColor={0,0,127},
-          fillColor={255,213,170},
           textString="Cooling and ventilation")}),
     experiment(Tolerance=1E-6, StopTime=1e+06),
     Documentation(revisions="<html>

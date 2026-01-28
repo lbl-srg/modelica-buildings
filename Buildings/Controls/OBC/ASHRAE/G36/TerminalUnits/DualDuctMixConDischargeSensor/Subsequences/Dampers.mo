@@ -482,7 +482,6 @@ annotation (
         Text(
           extent={{-166,300},{-8,276}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Cooling damper position setpoint"),
         Rectangle(
@@ -494,7 +493,6 @@ annotation (
         Text(
           extent={{-150,-226},{20,-256}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Heating damper position setpoint")}),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

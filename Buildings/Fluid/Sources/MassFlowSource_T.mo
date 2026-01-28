@@ -142,13 +142,11 @@ First implementation.
           visible=use_m_flow_in,
           extent={{-185,132},{-45,100}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="m_flow"),
         Text(
           visible=use_T_in,
           extent={{-162,34},{-60,-6}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="T"),
         Rectangle(
           extent={{35,45},{100,-45}},
@@ -168,7 +166,6 @@ First implementation.
         Text(
           extent={{-54,32},{16,-30}},
           textColor={255,0,0},
-          fillColor={255,0,0},
           textString="m"),
         Ellipse(
           extent={{-26,30},{-18,22}},

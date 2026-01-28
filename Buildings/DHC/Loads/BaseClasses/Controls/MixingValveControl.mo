@@ -181,26 +181,22 @@ First implementation.
         Text(
           extent={{-90,96},{-10,66}},
           textColor={244,125,35},
-          fillColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           visible=typDis == Buildings.DHC.Loads.BaseClasses.Types.DistributionType.ChangeOver,
           textString="modChaOve"),
         Text(
           extent={{-90,54},{-22,26}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="TSupSet"),
         Text(
           extent={{-90,-26},{-16,-52}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="TSupMes"),
         Text(
           extent={{50,12},{88,-14}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           horizontalAlignment=TextAlignment.Right,
           textString="yVal")}),
     Diagram(

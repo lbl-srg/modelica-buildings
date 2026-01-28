@@ -21,7 +21,6 @@ equation
         Text(
           extent={{-92,48},{-32,-50}},
           textColor={0,128,255},
-          fillColor={85,170,255},
           textString="vRef"),
         Polygon(
           points={{26,0},{6,20},{6,10},{-24,10},{-24,-10},{6,-10},{6,-20},{26,0}},
@@ -31,7 +30,6 @@ equation
         Text(
           extent={{30,50},{90,-48}},
           textColor={0,128,0},
-          fillColor={85,170,255},
           textString="vLoc")}),Documentation(info="<html>
 <p>
 This model calculates the wind velocity at the location as a function of the height over ground.

@@ -671,37 +671,30 @@ annotation (
         Text(
           extent={{236,372},{326,354}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Occupied mode"),
         Text(
           extent={{158,10},{242,-12}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Setback mode"),
         Text(
           extent={{150,-226},{222,-248}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Setup mode"),
         Text(
           extent={{214,-338},{318,-368}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Unoccupied mode"),
         Text(
           extent={{180,-94},{352,-122}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Freeze protection setback mode"),
         Text(
           extent={{164,174},{252,150}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Warm-up mode"),
         Text(
           extent={{248,258},{336,230}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Cool-down mode")}),
    Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
         graphics={

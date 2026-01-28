@@ -585,7 +585,6 @@ equation
           visible=use_riseTime,
           extent={{-20,92},{22,46}},
           textColor={0,0,0},
-          fillColor={135,135,135},
           textString="M",
           textStyle={TextStyle.Bold})}),
     Documentation(info="<html>

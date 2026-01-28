@@ -80,7 +80,6 @@ equation
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
             textColor={28,108,200},
-            fillColor={0,0,255},
             textStyle={TextStyle.Bold},
             textString="WindowAll_TInTout")}),
 defaultComponentName="win",

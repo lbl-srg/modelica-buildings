@@ -497,7 +497,6 @@ annotation (
         Text(
           extent={{-162,300},{-18,274}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Cold duct airflow setpoint"),
         Rectangle(
@@ -509,7 +508,6 @@ annotation (
         Text(
           extent={{-46,-226},{98,-252}},
           textColor={0,0,127},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Right,
           textString="Hot duct airflow setpoint")}),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

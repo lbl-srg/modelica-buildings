@@ -1276,83 +1276,68 @@ equation
         Text(
           extent={{-198,400},{-166,384}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TOut"),
         Text(
           extent={{-196,370},{-134,354}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="cooDowTim"),
         Text(
           extent={{-198,350},{-136,334}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="warUpTim"),
         Text(
           extent={{-200,322},{-152,302}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="u1Occ"),
         Text(
           extent={{-196,302},{-144,282}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="tNexOcc"),
         Text(
           extent={{-198,270},{-166,254}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TZon"),
         Text(
           visible=have_locAdj and not sepAdj,
           extent={{-200,170},{-160,154}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="setAdj"),
         Text(
           visible=have_locAdj and sepAdj,
           extent={{-196,130},{-140,112}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="heaSetAdj"),
         Text(
           visible=have_occSen,
           extent={{-196,102},{-144,82}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="u1OccSen"),
         Text(
           extent={{-196,72},{-100,54}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="uCooDemLimLev"),
         Text(
           extent={{-196,48},{-100,30}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="uHeaDemLimLev"),
         Text(
           visible=have_CO2Sen,
           extent={{-196,0},{-144,-18}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="ppmCO2"),
         Text(
           extent={{-196,-30},{-158,-46}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TAirSup"),
         Text(
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{-202,-280},{-146,-300}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TAirMix"),
         Text(
           visible=have_winSen,
           extent={{-200,-60},{-158,-78}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="u1Win"),
         Text(
           visible=(ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
@@ -1373,66 +1358,54 @@ equation
         Text(
           extent={{-196,-128},{-164,-148}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           visible=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb,
           textString="TAirRet"),
         Text(
           extent={{110,322},{196,302}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TSupHeaEcoSet"),
         Text(
           extent={{118,272},{196,252}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TSupCooSet"),
         Text(
           extent={{130,50},{200,34}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="ySupFan"),
         Text(
           extent={{126,230},{198,214}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TZonHeaSet"),
         Text(
           extent={{136,198},{194,182}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TZonCooSet"),
         Text(
           extent={{150,-130},{196,-146}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="yHeaCoi",
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{152,-100},{194,-118}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="yCooCoi"),
         Text(
           extent={{128,100},{196,82}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="yOutDam"),
         Text(
           extent={{124,132},{196,114}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="yRetDam"),
         Text(
           visible=have_locAdj and sepAdj,
           extent={{-196,150},{-140,132}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="cooSetAdj"),
         Text(
           visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS,
           extent={{-198,-158},{-146,-178}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="u1FreSta"),
         Text(
           visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
@@ -1454,122 +1427,101 @@ equation
           visible=have_occSen,
           extent={{112,162},{196,144}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="y1EneCHWPum"),
         Text(
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
                and not have_ahuRelFan,
           extent={{-198,-250},{-134,-272}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uRelFan"),
         Text(
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper,
           extent={{-196,-298},{-130,-320}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uOutDam"),
         Text(
           extent={{-194,-326},{-66,-356}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uSupFan_actual"),
         Text(
           extent={{-196,-354},{-94,-376}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uCooCoi_actual"),
         Text(
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{-196,-378},{-90,-400}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="uHeaCoi_actual"),
         Text(
           extent={{130,-2},{200,-18}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp),
           textString="yRetFan"),
         Text(
           extent={{128,-50},{198,-66}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan,
           textString="yRelFan"),
         Text(
           extent={{130,-200},{200,-216}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
                or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan),
           textString="yRelDam"),
         Text(
           extent={{116,-280},{198,-298}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="yChiWatResReq"),
         Text(
           extent={{114,-308},{196,-326}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="yChiPlaReq"),
         Text(
           extent={{116,-340},{198,-358}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="yHotWatResReq",
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{116,-368},{198,-386}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="yHotWatPlaReq",
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{166,-156},{194,-176}},
           textColor={255,127,0},
-          fillColor={0,0,0},
           textString="yAla"),
         Text(
           visible=have_CO2Sen,
           extent={{-196,20},{-144,2}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="ppmCO2Set"),
         Text(
           extent={{-200,248},{-128,232}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TOccHeaSet"),
         Text(
           extent={{-200,228},{-128,212}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TOccCooSet"),
         Text(
           extent={{-200,188},{-128,172}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TUnoCooSet"),
         Text(
           extent={{-200,208},{-128,192}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="TUnoHeaSet"),
         Text(
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
                and not have_ahuRelFan,
           extent={{-196,-228},{-144,-248}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="u1RelFan"),
         Text(
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan,
           extent={{144,-30},{196,-50}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="y1RelFan"),
         Text(
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
@@ -1582,14 +1534,12 @@ equation
         Text(
           extent={{144,72},{196,52}},
           textColor={255,0,255},
-          fillColor={0,0,0},
           textString="y1SupFan"),
         Text(
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
                and not have_ahuRelFan,
           extent={{-198,-206},{-134,-228}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="dpBui")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-500},{260,500}})),
 Documentation(info="<html>

@@ -75,7 +75,6 @@ equation
         Text(
           extent={{-86,12},{-2,-50}},
           textColor={255,0,0},
-          fillColor={0,0,255},
           textString="ADP"),
         Ellipse(
           extent={{54,-6},{58,-10}},

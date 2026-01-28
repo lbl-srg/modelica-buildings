@@ -157,19 +157,16 @@ equation
         Text(
           extent={{-160,110},{-130,100}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Fan status"),
         Text(
           extent={{-40,110},{4,98}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Operation mode"),
         Text(
           extent={{80,112},{146,96}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Freeze protection stage")}),
 Documentation(info="<html>

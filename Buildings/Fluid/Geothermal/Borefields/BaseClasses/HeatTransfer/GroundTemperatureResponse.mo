@@ -187,8 +187,7 @@ equation
         Text(
           extent={{-151,147},{149,107}},
           textColor={0,0,255},
-          fillColor={0,127,255},
-            textString="%name")}),
+          textString="%name")}),
   Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>

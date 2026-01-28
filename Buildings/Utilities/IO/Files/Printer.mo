@@ -41,7 +41,6 @@ equation
         Text(
           extent={{-58,-46},{62,-84}},
           textColor={0,0,255},
-          fillColor={0,0,255},
           textString=
                "%fileName"),
         Polygon(

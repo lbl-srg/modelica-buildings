@@ -93,19 +93,16 @@ equation
           visible=use_X_in,
           extent={{-164,4},{-62,-36}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="X"),
         Text(
           visible=use_Xi_in,
           extent={{-164,4},{-62,-36}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="Xi"),
         Text(
           visible=use_C_in,
           extent={{-164,-90},{-62,-130}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="C")}),
           Documentation(info="<html>
 <p>

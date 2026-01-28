@@ -49,17 +49,14 @@ equation
         Text(
           extent={{-90,82},{-42,42}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="TBoi"),
         Text(
           extent={{38,-38},{86,-78}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="onPum"),
         Text(
           extent={{-92,-40},{-44,-80}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="onSys"),
         Text(
           textColor={0,0,255},
@@ -68,7 +65,6 @@ equation
         Text(
           extent={{44,82},{92,42}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="onBoi")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)),

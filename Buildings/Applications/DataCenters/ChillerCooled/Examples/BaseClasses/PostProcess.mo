@@ -79,17 +79,14 @@ equation
         Text(
           extent={{310,120},{254,108}},
           textColor={0,0,0},
-          fillColor={229,229,229},
           textString="Economizing Hours"),
         Text(
           extent={{258,-6},{318,-52}},
           textColor={0,0,0},
-          fillColor={229,229,229},
           textString="Energy Consumption"),
         Text(
           extent={{262,224},{308,200}},
           textColor={0,0,0},
-          fillColor={229,229,229},
           textString="Switch Times")}),
     Documentation(info="<html>
 <p>

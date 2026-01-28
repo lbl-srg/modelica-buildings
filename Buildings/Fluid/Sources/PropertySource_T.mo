@@ -42,7 +42,6 @@ annotation (defaultComponentName="proSou",
           visible=use_T_in,
           extent={{-90,98},{12,58}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="T")}),
     Documentation(info="<html>
 <p>

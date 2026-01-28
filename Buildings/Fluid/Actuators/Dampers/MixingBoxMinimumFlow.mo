@@ -115,7 +115,6 @@ equation
         Text(
           extent={{-126,144},{-86,112}},
           textColor={0,0,127},
-          fillColor={0,0,0},
           textString="yMin"),
         Rectangle(
           extent={{-98,98},{-54,92}},

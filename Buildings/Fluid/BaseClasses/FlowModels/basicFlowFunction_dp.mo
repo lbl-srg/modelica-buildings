@@ -34,7 +34,6 @@ algorithm
           thickness=1), Text(
           extent={{-40,-40},{40,-80}},
           textColor={0,0,0},
-          fillColor={232,0,0},
           textString="%name")}),
 Documentation(info="<html>
 <p>

@@ -323,24 +323,20 @@ annotation (
         Text(
           extent={{42,156},{124,134}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Check current operation mode"),
         Text(
           extent={{54,-26},{124,-38}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Reset pressure setpoint"),
         Text(
           extent={{-34,-106},{20,-136}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           textString="Control fan speed"),
         Text(
           extent={{42,142},{96,126}},
           textColor={0,0,255},
-          fillColor={215,215,215},
           horizontalAlignment=TextAlignment.Left,
           textString="Check fan on or off")}),
   Icon(graphics={

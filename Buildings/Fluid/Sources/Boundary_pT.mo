@@ -188,13 +188,11 @@ Implementation is based on <code>Modelica.Fluid</code>.
           visible=use_p_in,
           extent={{-152,134},{-68,94}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="p"),
         Text(
           visible=use_T_in,
           extent={{-162,34},{-60,-6}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="T"),
         Text(
           extent={{-150,110},{150,150}},

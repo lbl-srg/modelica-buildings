@@ -257,7 +257,6 @@ equation
         Text(
           extent={{-149,141},{151,101}},
           textColor={0,0,255},
-          fillColor={0,127,255},
           textString="%name"),
         Line(points={{-114,60},{-68,60},{-84,70}}, color={0,0,255}),
         Line(points={{-68,60},{-84,52}}, color={0,0,255}),

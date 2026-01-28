@@ -31,12 +31,10 @@ equation
         Text(
           extent={{-200,-110},{200,-140}},
           textColor={0,0,0},
-          fillColor={255,213,170},
           textString="%k"),
         Text(
           extent={{-82,90},{82,-46}},
           textColor={0,0,0},
-          fillColor={255,213,170},
           textString="+"),
         Text(
           extent={{-144,150},{156,110}},

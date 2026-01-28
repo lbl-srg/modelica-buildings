@@ -29,10 +29,8 @@ First implementation.
             100}}), graphics={Text(
           extent={{34,30},{86,-34}},
           textColor={0,0,0},
-          fillColor={0,0,0},
           textString="XiDry"), Text(
           extent={{-86,48},{-14,-52}},
           textColor={0,0,0},
-          fillColor={0,0,0},
           textString="XiTotal")}));
 end ToDryAir;

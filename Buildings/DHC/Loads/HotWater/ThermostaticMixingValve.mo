@@ -293,7 +293,6 @@ Initial Implementation.
       Text(
           extent={{-153,147},{147,107}},
           textColor={0,0,255},
-          fillColor={0,127,255},
           textString="%name"),
         Polygon(points={{-10,30},{-10,30}}, lineColor={28,108,200}),
         Polygon(

@@ -239,17 +239,14 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
         Text(
           extent={{126,24},{194,-20}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="yDam"),
         Text(
           extent={{144,194},{184,168}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="p_rel"),
         Text(
           extent={{144,154},{192,122}},
           textColor={0,0,0},
-          fillColor={255,255,255},
           textString="TRooAir")}),
      Documentation(info="<html>
 <p>

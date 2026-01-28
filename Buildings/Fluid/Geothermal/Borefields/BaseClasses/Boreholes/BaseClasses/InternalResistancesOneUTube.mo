@@ -127,6 +127,5 @@ First implementation.
           thickness=1),          Text(
           extent={{-100,144},{100,106}},
           textColor={0,0,255},
-          fillColor={0,127,255},
           textString="%name")}));
 end InternalResistancesOneUTube;
