@@ -59,8 +59,6 @@ First implementation.
         Text(
           extent={{-70,84},{-48,66}},
           textColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="X"),
         Line(points={{-74,86},{-74,-72}}),
         Line(points={{-74,-46},{-60,-42},{-30,-30},{2,-2},{14,22},{22,54},{26,74}},
@@ -74,8 +72,6 @@ First implementation.
         Text(
           extent={{76,-80},{86,-96}},
           textColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="T"),
         Line(
           points={{-74,-62},{-12,-46},{28,-16},{52,12}},
@@ -84,7 +80,5 @@ First implementation.
         Text(
           extent={{34,-10},{56,-28}},
           textColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="phi")}));
 end Phi_pTX;
