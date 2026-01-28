@@ -219,7 +219,6 @@ First implementation.
                               Text(
           extent={{78,98},{124,84}},
           textColor={0,0,0},
-          lineThickness=0.5,
           textStyle={TextStyle.Bold},
           textString="Post-processing")}));
 end ElectricalFollowing;

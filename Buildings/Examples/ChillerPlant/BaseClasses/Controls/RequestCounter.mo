@@ -54,19 +54,16 @@ First implementation.
         Text(
           extent={{-49,13},{-23,-15}},
           textColor={0,0,0},
-          lineThickness=1,
           textString="1",
           fillColor={0,0,0}),
         Text(
           extent={{-15,13},{11,-15}},
           textColor={0,0,0},
-          lineThickness=1,
           fillColor={0,0,0},
           textString="2"),
         Text(
           extent={{21,13},{47,-15}},
           textColor={0,0,0},
-          lineThickness=1,
           fillColor={0,0,0},
           textString="3")}));
 end RequestCounter;

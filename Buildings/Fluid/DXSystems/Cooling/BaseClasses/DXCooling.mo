@@ -178,7 +178,6 @@ First implementation.
         Text(
           extent={{-64,-56},{78,-92}},
           textColor={0,0,0},
-          lineThickness=0.5,
           fillColor={85,170,255},
           textString="DXCool"),
         Line(

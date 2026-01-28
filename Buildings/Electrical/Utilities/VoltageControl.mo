@@ -50,13 +50,11 @@ equation
           fillPattern=FillPattern.Solid), Text(
           extent={{-100,-40},{100,-80}},
           textColor={0,0,0},
-          lineThickness=0.5,
           fillColor={0,0,255},
           textString="Voltage
 CTRL"),                                   Text(
           extent={{-100,72},{100,40}},
           textColor={0,0,0},
-          lineThickness=0.5,
           fillColor={0,0,255},
           textString="%name")}), Documentation(revisions="<html>
 <ul>

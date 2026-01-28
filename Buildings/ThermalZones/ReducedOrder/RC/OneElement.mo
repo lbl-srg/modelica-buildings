@@ -510,7 +510,6 @@ equation
   Text(
     extent={{-260,266},{24,182}},
     textColor={0,0,255},
-    lineThickness=0.5,
     fillColor={236,99,92},
     textString="%name"),
   Text(

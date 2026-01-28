@@ -75,7 +75,6 @@ equation
                               Text(
           extent={{174,-164},{282,-192}},
           textColor={0,0,0},
-          lineThickness=0.5,
           textString="Post-processing"),
         Text(
           extent={{310,120},{254,108}},
