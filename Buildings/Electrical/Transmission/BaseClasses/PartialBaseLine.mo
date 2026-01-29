@@ -37,7 +37,7 @@ partial model PartialBaseLine "Partial cable line dispersion model"
                choicesAllMatching = true);
 
   final parameter Modelica.Units.SI.Temperature T_ref=commercialCable.T_ref
-    "Reference temperature of the line" annotation (Evaluate = true);
+    "Reference temperature of the line";
   final parameter Modelica.Units.SI.Temperature M=commercialCable.M
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
   final parameter Modelica.Units.SI.Resistance R=commercialCable.lineResistance(
@@ -158,6 +158,11 @@ show how this can be done.
 
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2026, by Michael Wetter:<br/>
+Removed <code>Evaluate=true</code> annotation due to translation error with OpenModelica.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2082\">IBPSA, #2082</a>.
+</li>
 <li>
 November 17, 2025, by Michael Wetter:<br/>
 Corrected typo in annotation.<br/>
