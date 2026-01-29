@@ -405,7 +405,6 @@ protected
           Text(
             extent={{-52,-60},{58,-120}},
             textString="m=%m_flow_nominal",
-            pattern=LinePattern.None,
             textColor={0,0,127}),
           Rectangle(
             extent={{-100,61},{-70,58}},
