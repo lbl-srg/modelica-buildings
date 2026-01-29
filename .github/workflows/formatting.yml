@@ -53,11 +53,11 @@ jobs:
         run : |
               for FILE in `find Buildings -name '*.mo'`; do
                 sed -i -z -E \
-                    -e 's/(Text[^)]*)(lineThickness[^,)]*[,]*[[:space:]]*)([^)]*)\)/\1\3)/g' \
-                    -e 's/(Text[^)]*)(fillColor[^})]*[},]*[[:space:]]*)([^)]*)\)/\1\3)/g' \
-                    -e 's/(Text[^)]*)(fillPattern[^,)]*[,]*[[:space:]]*)([^)]*)\)/\1\3)/g' \
-                    -e 's/(Text[^)]*)(pattern[^,)]*[,]*[[:space:]]*)([^)]*)\)/\1\3)/g' \
-                    -e 's/(Text\([^)]*),[[:space:]]*\)/\1)/g' \
+                    -e "s/(Text[^)]*)(lineThickness[^,)]*[,]*[[:space:]]*)([^)]*)\)/\1\3)/g" \
+                    -e "s/(Text[^)]*)(fillColor[^})]*[},]*[[:space:]]*)([^)]*)\)/\1\3)/g" \
+                    -e "s/(Text[^)]*)(fillPattern[^,)]*[,]*[[:space:]]*)([^)]*)\)/\1\3)/g" \
+                    -e "s/(Text[^)]*)(pattern[^,)]*[,]*[[:space:]]*)([^)]*)\)/\1\3)/g" \
+                    -e "s/(Text\([^)]*),[[:space:]]*\)/\1)/g" \
                     "$FILE"
               done;
               git diff --exit-code --quiet Buildings
