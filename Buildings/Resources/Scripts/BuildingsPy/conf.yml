@@ -570,6 +570,9 @@
     comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)
     simulate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
+  dymola:
+    comment: Python 3.8 not available in docker image
+    simulate: false
   openmodelica:
     comment: python incompatible with docker image
     translate: false
@@ -577,6 +580,9 @@
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.SimpleRoom
+  dymola:
+    comment: Python 3.8 not available in docker image
+    simulate: false
   openmodelica:
     comment: python incompatible with docker image
     translate: false
@@ -584,6 +590,9 @@
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
+  dymola:
+    comment: Python 3.8 not available in docker image
+    simulate: false
   openmodelica:
     comment: python incompatible with docker image
     translate: false
@@ -591,6 +600,9 @@
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
+  dymola:
+    comment: Python 3.8 not available in docker image
+    simulate: false
   openmodelica:
     comment: python incompatible with docker image
     translate: false

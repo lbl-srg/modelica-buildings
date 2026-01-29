@@ -1,4 +1,4 @@
-last-generated=2022-09-10
+last-generated=2025-09-22
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -62,7 +62,12 @@ statistics-fmu-dependencies=
     ]
   },
   "InitialUnknowns": {
-    "TOut": [],
+    "TOut": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax"
+    ],
     "TRad1": [
       "vol1.p_start",
       "vol1.T_start",
@@ -84,6 +89,10 @@ statistics-fmu-dependencies=
       "fluPor[1,3].forward.T",
       "fluPor[1,3].forward.X_w",
       "QRooInt_flow",
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax",
       "theCon1.G",
       "preHea1.T_ref",
       "preHea1.alpha",
@@ -118,6 +127,10 @@ statistics-fmu-dependencies=
       "fluPor[2,3].forward.T",
       "fluPor[2,3].forward.X_w",
       "QRooInt_flow",
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax",
       "theCon2.G",
       "preHea2.T_ref",
       "preHea2.alpha",
@@ -189,6 +202,12 @@ statistics-fmu-dependencies=
     "fluPor[2,3].backward.X_w": [
       "vol2.X_start[1]"
     ],
+    "theZonAda[1].assEqu.t0": [
+      "theZonAda[1].assEqu.startTime"
+    ],
+    "theZonAda[2].assEqu.t0": [
+      "theZonAda[2].assEqu.startTime"
+    ],
     "vol1.dynBal.U": [
       "V",
       "vol1.p_start",
@@ -215,31 +234,113 @@ statistics-fmu-dependencies=
     "vol2.dynBal.medium.Xi[1]": [
       "vol2.X_start[1]"
     ],
-    "weaBus.HDifHor": [],
-    "weaBus.HDirNor": [],
-    "weaBus.HGloHor": [],
-    "weaBus.HHorIR": [],
-    "weaBus.TBlaSky": [],
-    "weaBus.TDewPoi": [],
-    "weaBus.TDryBul": [],
+    "weaBus.HDifHor": [
+      "weaDat.add30Min.k1",
+      "weaDat.add30Min.k2",
+      "weaDat.datRea30Min.nHeaderLines",
+      "weaDat.datRea30Min.verboseRead"
+    ],
+    "weaBus.HDirNor": [
+      "weaDat.add30Min.k1",
+      "weaDat.add30Min.k2",
+      "weaDat.datRea30Min.nHeaderLines",
+      "weaDat.datRea30Min.verboseRead"
+    ],
+    "weaBus.HGloHor": [
+      "weaDat.add30Min.k1",
+      "weaDat.add30Min.k2",
+      "weaDat.datRea30Min.nHeaderLines",
+      "weaDat.datRea30Min.verboseRead"
+    ],
+    "weaBus.HHorIR": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
+    "weaBus.TBlaSky": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax",
+      "weaDat.cheTemDewPoi.TMin",
+      "weaDat.cheTemDewPoi.TMax",
+      "weaDat.cheTemBlaSky.TMin",
+      "weaDat.cheTemBlaSky.TMax"
+    ],
+    "weaBus.TDewPoi": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDewPoi.TMin",
+      "weaDat.cheTemDewPoi.TMax"
+    ],
+    "weaBus.TDryBul": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax"
+    ],
     "weaBus.alt": [],
-    "weaBus.ceiHei": [],
+    "weaBus.ceiHei": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
     "weaBus.cloTim": [],
     "weaBus.lat": [],
     "weaBus.lon": [],
-    "weaBus.nOpa": [],
-    "weaBus.nTot": [],
+    "weaBus.nOpa": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
+    "weaBus.nTot": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
     "weaBus.pAtm": [
       "weaDat.pAtm"
     ],
-    "weaBus.relHum": [],
-    "weaBus.solAlt": [],
-    "weaBus.solDec": [],
-    "weaBus.solHouAng": [],
-    "weaBus.solTim": [],
-    "weaBus.solZen": [],
-    "weaBus.winDir": [],
-    "weaBus.winSpe": []
+    "weaBus.relHum": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
+    "weaBus.solAlt": [
+      "weaDat.locTim.weaDatStaTim",
+      "weaDat.locTim.weaDatEndTim",
+      "weaDat.eqnTim.weaDatStaTim",
+      "weaDat.eqnTim.weaDatEndTim",
+      "weaDat.decAng.weaDatStaTim",
+      "weaDat.decAng.weaDatEndTim"
+    ],
+    "weaBus.solDec": [
+      "weaDat.decAng.weaDatStaTim",
+      "weaDat.decAng.weaDatEndTim"
+    ],
+    "weaBus.solHouAng": [
+      "weaDat.locTim.weaDatStaTim",
+      "weaDat.locTim.weaDatEndTim",
+      "weaDat.eqnTim.weaDatStaTim",
+      "weaDat.eqnTim.weaDatEndTim"
+    ],
+    "weaBus.solTim": [
+      "weaDat.locTim.weaDatStaTim",
+      "weaDat.locTim.weaDatEndTim",
+      "weaDat.eqnTim.weaDatStaTim",
+      "weaDat.eqnTim.weaDatEndTim"
+    ],
+    "weaBus.solZen": [
+      "weaDat.locTim.weaDatStaTim",
+      "weaDat.locTim.weaDatEndTim",
+      "weaDat.eqnTim.weaDatStaTim",
+      "weaDat.eqnTim.weaDatEndTim",
+      "weaDat.decAng.weaDatStaTim",
+      "weaDat.decAng.weaDatEndTim"
+    ],
+    "weaBus.winDir": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
+    "weaBus.winSpe": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ]
   },
   "Outputs": {
     "TOut": [],
