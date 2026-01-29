@@ -167,27 +167,22 @@ annotation (
         Text(
           extent={{-96,-72},{-54,-88}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{34,90},{98,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{50,6},{98,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{34,-70},{98,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{-98,88},{-36,72}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOccMin_flow")}),
 Documentation(info="<html>
 <p>

@@ -121,27 +121,22 @@ annotation (defaultComponentName="actAirSet",
         Text(
           extent={{-98,-54},{-32,-68}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOccMin_flow"),
         Text(
           extent={{-96,8},{-60,-4}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{32,-52},{98,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{32,68},{98,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{48,8},{98,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActMin_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
 Documentation(info="<html>

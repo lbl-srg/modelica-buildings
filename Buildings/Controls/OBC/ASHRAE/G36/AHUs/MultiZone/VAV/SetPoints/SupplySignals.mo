@@ -183,33 +183,27 @@ annotation (
         Text(
           extent={{-96,8},{-50,-8}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TAirSupSet"),
         Text(
           extent={{-98,-52},{-62,-68}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TAirSup"),
         Text(
           extent={{62,8},{100,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=have_heaCoi,
           textString="yHeaCoi"),
         Text(
           extent={{74,66},{96,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uTSup"),
         Text(
           extent={{62,-50},{96,-64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yCooCoi"),
         Text(
           extent={{-96,66},{-56,52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-124,146},{96,108}},

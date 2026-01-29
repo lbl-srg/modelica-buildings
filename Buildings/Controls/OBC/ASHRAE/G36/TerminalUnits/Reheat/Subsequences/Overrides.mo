@@ -121,32 +121,26 @@ annotation (defaultComponentName="ove",
         Text(
           extent={{-98,46},{-68,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{-96,88},{-46,74}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="oveDamPos"),
         Text(
           extent={{58,46},{98,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yDam"),
         Text(
           extent={{-98,-62},{-70,-74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uVal"),
         Text(
           extent={{-98,-34},{-58,-46}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uHeaOff"),
         Text(
           extent={{58,-32},{98,-44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yVal")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
 Documentation(info="<html>
