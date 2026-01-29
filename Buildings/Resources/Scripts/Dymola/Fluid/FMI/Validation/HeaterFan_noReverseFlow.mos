@@ -1,4 +1,3 @@
-Advanced.FMI.ShortDefaultModelIdentifier = false;
 simulateModel("Buildings.Fluid.FMI.Validation.HeaterFan_noReverseFlow", method="CVode", tolerance=1e-6, stopTime=1.0, resultFile="HeaterFan_noReverseFlow");
 createPlot(id=1, position={15, 10, 702, 652},
  y={"hea.com.vol.T", "sou.T_in"},

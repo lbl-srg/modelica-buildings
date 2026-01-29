@@ -1,4 +1,3 @@
-Advanced.FMI.ShortDefaultModelIdentifier = false;
 translateModelFMU(
   modelToOpen="Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.FlowSplitter_u",
   storeResult=false,
