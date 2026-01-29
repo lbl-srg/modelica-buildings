@@ -457,8 +457,6 @@ equation
         Text(
           extent={{6,16},{16,8}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textStyle={TextStyle.Bold},
           textString="T"),
         Line(points={{-90,60},{-76,60},{-76,40},{-72,40}}, color={28,108,200}),

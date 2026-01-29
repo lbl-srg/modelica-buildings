@@ -85,7 +85,6 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),   Text(
           extent={{-57.5,-35},{57.5,35}},
-          pattern=LinePattern.Dash,
           textString="%name", origin={2.5,153},
           rotation=180)}),Diagram(coordinateSystem(extent={
             {-120,-120},{120,120}})),
