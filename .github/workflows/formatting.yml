@@ -49,7 +49,7 @@ jobs:
               done;
               test -z "${ff}"
 
-      - name: "Test for old Text annotations (see https://github.com/lbl-srg/modelica-buildings/issues/4456)"
+      - name: "Test for old Text annotations (see https://github.com/lbl-srg/modelica-buildings/issues/4456). If it fails, correct library with sed command below."
         run : |
               for FILE in `find . -name '*.mo'`; do
                 sed -i -z -E \
