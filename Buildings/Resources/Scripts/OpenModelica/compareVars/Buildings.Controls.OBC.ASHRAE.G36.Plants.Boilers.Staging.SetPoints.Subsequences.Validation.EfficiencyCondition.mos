@@ -10,5 +10,6 @@ compareVars :=
     "effCon1.yEffCon",
     "effCon2.uCapReq",
     "effCon2.uCapDes",
+    "booPul.y",
     "effCon2.yEffCon"
   };

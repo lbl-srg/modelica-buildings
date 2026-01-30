@@ -162,11 +162,11 @@ protected
     final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Stage change hold"
-    annotation (Placement(transformation(extent={{360,-120},{380,-100}})));
+    annotation (Placement(transformation(extent={{-280,-120},{-260,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
-    annotation (Placement(transformation(extent={{400,-120},{420,-100}})));
+    annotation (Placement(transformation(extent={{-200,-120},{-180,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Previous value"
@@ -233,11 +233,21 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Logical Or"
-    annotation (Placement(transformation(extent={{-340,-190},{-320,-170}})));
+    annotation (Placement(transformation(extent={{-320,-190},{-300,-170}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Logical Not"
     annotation (Placement(transformation(extent={{-380,-190},{-360,-170}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or5
+    "Logical or"
+    annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol1(
+    final trueHoldDuration=delStaCha,
+    final falseHoldDuration=0)
+    "Stage change hold"
+    annotation (Placement(transformation(extent={{-280,-150},{-260,-130}})));
 
 equation
   connect(reaToInt.y,ySta)
@@ -257,7 +267,7 @@ equation
           {260,40},{260,62},{278,62}},       color={255,0,255}));
   connect(uUp, lat.u) annotation (Line(points={{-460,-40},{-380,-40},{-380,60},{
           -322,60}}, color={255,0,255}));
-  connect(uDow, lat.clr) annotation (Line(points={{-460,-140},{-340,-140},{-340,
+  connect(uDow, lat.clr) annotation (Line(points={{-460,-140},{-350,-140},{-350,
           54},{-322,54}}, color={255,0,255}));
   connect(uUp, or2.u1) annotation (Line(points={{-460,-40},{-400,-40},{-400,-80},
           {-382,-80}}, color={255,0,255}));
@@ -282,8 +292,6 @@ equation
     annotation (Line(points={{-460,160},{-382,160}}, color={255,0,255}));
   connect(lat.y, switch1.u2)
     annotation (Line(points={{-298,60},{-202,60}}, color={255,0,255}));
-  connect(staChaHol3.y, not1.u)
-    annotation (Line(points={{382,-110},{398,-110}}, color={255,0,255}));
   connect(lat1.y, switch2.u2)
     annotation (Line(points={{-58,150},{38,150}}, color={255,0,255}));
   connect(switch2.y, triSam.u)
@@ -299,11 +307,8 @@ equation
                                   color={255,0,255}));
   connect(mulAnd.y, and3.u1) annotation (Line(points={{-138,-80},{40,-80},{40,
           70},{278,70}}, color={255,0,255}));
-  connect(pre1.y, staChaHol3.u)
-    annotation (Line(points={{342,-110},{358,-110}}, color={255,0,255}));
-  connect(not1.y, mulAnd.u[2]) annotation (Line(points={{422,-110},{430,-110},{430,
-          -140},{-200,-140},{-200,-80.875},{-162,-80.875}},
-                                                          color={255,0,255}));
+  connect(not1.y, mulAnd.u[2]) annotation (Line(points={{-178,-110},{-168,-110},
+          {-168,-84},{-162,-84},{-162,-80.875}},          color={255,0,255}));
   connect(lat2.y, mulAnd.u[3]) annotation (Line(points={{-258,-180},{-166,-180},
           {-166,-79.125},{-162,-79.125}},
                                         color={255,0,255}));
@@ -360,13 +365,23 @@ equation
   connect(cha.y, pre1.u) annotation (Line(points={{362,0},{370,0},{370,-80},{
           310,-80},{310,-110},{318,-110}}, color={255,0,255}));
   connect(or4.y, lat2.u)
-    annotation (Line(points={{-318,-180},{-282,-180}}, color={255,0,255}));
+    annotation (Line(points={{-298,-180},{-282,-180}}, color={255,0,255}));
   connect(not2.y, or4.u1)
-    annotation (Line(points={{-358,-180},{-342,-180}}, color={255,0,255}));
+    annotation (Line(points={{-358,-180},{-322,-180}}, color={255,0,255}));
   connect(uPla, not2.u) annotation (Line(points={{-460,160},{-388,160},{-388,-180},
           {-382,-180}}, color={255,0,255}));
-  connect(uStaChaProEnd, or4.u2) annotation (Line(points={{-460,-240},{-350,-240},
-          {-350,-188},{-342,-188}}, color={255,0,255}));
+  connect(uStaChaProEnd, or4.u2) annotation (Line(points={{-460,-240},{-340,-240},
+          {-340,-188},{-322,-188}}, color={255,0,255}));
+  connect(staChaHol3.y, or5.u1)
+    annotation (Line(points={{-258,-110},{-242,-110}}, color={255,0,255}));
+  connect(or5.y, not1.u)
+    annotation (Line(points={{-218,-110},{-202,-110}}, color={255,0,255}));
+  connect(staChaHol1.y, or5.u2) annotation (Line(points={{-258,-140},{-250,-140},
+          {-250,-118},{-242,-118}}, color={255,0,255}));
+  connect(uStaChaProEnd, staChaHol3.u) annotation (Line(points={{-460,-240},{-340,
+          -240},{-340,-110},{-282,-110}}, color={255,0,255}));
+  connect(pre1.y, staChaHol1.u) annotation (Line(points={{342,-110},{350,-110},{
+          350,-200},{-290,-200},{-290,-140},{-282,-140}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
     Icon(graphics={
       Rectangle(

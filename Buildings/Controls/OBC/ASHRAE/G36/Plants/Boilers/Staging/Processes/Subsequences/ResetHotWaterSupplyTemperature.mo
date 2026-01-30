@@ -64,7 +64,7 @@ protected
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(
-    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing)
     "Pass True if all preceding stages are condensing boiler type stages"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
@@ -114,7 +114,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
-    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler)
+    final t=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing)
     "Identify if current stage setpoint is a non-condensing boiler stage"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 

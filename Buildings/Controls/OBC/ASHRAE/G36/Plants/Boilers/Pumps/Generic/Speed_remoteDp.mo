@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic;
 block Speed_remoteDp
-  "Pump speed control for plants where the remote DP sensor(s) is hardwired to the plant controller"
+  "Pump speed control for plants where the remote DP sensor(s) is hardwired to the
+  plant controller"
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -48,10 +49,10 @@ block Speed_remoteDp
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet(
-    final unit="Pa",
-    displayUnit="Pa",
-    final quantity="PressureDifference")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSet[nSen](
+    final unit=fill("Pa", nSen),
+    displayUnit=fill("Pa", nSen),
+    final quantity=fill("PressureDifference", nSen))
     "Hot water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -85,19 +86,10 @@ protected
     "PID controller for regulating remote differential pressure"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Reset PID loop when it is activated"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
     "Check if any hot water primary pumps are enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=nSen)
-    "Replicate real input"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nSen)
@@ -138,8 +130,6 @@ protected
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
 equation
-  connect(dpHotWatSet, reaRep.u)
-    annotation (Line(points={{-140,-100},{-102,-100}}, color={0,0,127}));
 
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{2,80},{20,80},{20,68},{58,68}}, color={0,0,127}));
@@ -161,10 +151,6 @@ equation
     annotation (Line(points={{-140,-60},{-40,-60},{-40,-74},{-22,-74}},
       color={0,0,127}));
 
-  connect(reaRep.y, div.u2)
-    annotation (Line(points={{-78,-100},{-40,-100},{-40,-86},{-22,-86}},
-      color={0,0,127}));
-
   connect(one.y, reaRep1.u)
     annotation (Line(points={{-58,40},{-40,40},{-40,0},{-22,0}},
       color={0,0,127}));
@@ -180,10 +166,6 @@ equation
           -122,0},{-102,0}},       color={255,0,255}));
   connect(mulOr.y, swi.u2) annotation (Line(points={{-78,0},{-50,0},{-50,100},{78,
           100}}, color={255,0,255}));
-  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-50,0},{-50,-40},{-42,
-          -40}}, color={255,0,255}));
-  connect(edg.y, booRep.u)
-    annotation (Line(points={{-18,-40},{-12,-40}}, color={255,0,255}));
   connect(booRep.y, conPID.trigger)
     annotation (Line(points={{12,-40},{24,-40},{24,-12}}, color={255,0,255}));
   connect(reaRep1.y, conPID.u_s)
@@ -192,8 +174,12 @@ equation
     annotation (Line(points={{2,-80},{30,-80},{30,-12}}, color={0,0,127}));
   connect(conPID.y, maxLoo.u[1:nSen])
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
-  connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
-          {78,92}}, color={0,0,127}));
+  connect(mulOr.y, booRep.u) annotation (Line(points={{-78,0},{-50,0},{-50,-40},
+          {-12,-40}}, color={255,0,255}));
+  connect(dpHotWatSet, div.u2) annotation (Line(points={{-140,-100},{-40,-100},{
+          -40,-86},{-22,-86}}, color={0,0,127}));
+  connect(pumSpe_min.y, swi.u3) annotation (Line(points={{-58,80},{-40,80},{-40,
+          64},{50,64},{50,92},{78,92}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

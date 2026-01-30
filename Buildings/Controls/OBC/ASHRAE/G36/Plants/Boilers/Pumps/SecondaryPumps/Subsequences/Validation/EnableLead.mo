@@ -4,7 +4,8 @@ model EnableLead
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLead
     enaLeaSecPum
-    "Enable lead hot water pump based on the status of plant and hot water requests"
+    "Enable lead hot water pump based on the status of plant and hot water plant
+    requests"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected
@@ -28,8 +29,8 @@ equation
   connect(pul.y, reaToInt.u)
     annotation (Line(points={{-68,-20},{-52,-20}}, color={0,0,127}));
 
-  connect(reaToInt.y, enaLeaSecPum.supResReq) annotation (Line(points={{-28,-20},
-          {-10,-20},{-10,-4},{-2,-4}}, color={255,127,0}));
+  connect(reaToInt.y, enaLeaSecPum.plaReq) annotation (Line(points={{-28,-20},{-10,
+          -20},{-10,-4},{-2,-4}}, color={255,127,0}));
 
   connect(booPul.y, enaLeaSecPum.uPlaEna) annotation (Line(points={{-28,20},{
           -10,20},{-10,4},{-2,4}}, color={255,0,255}));

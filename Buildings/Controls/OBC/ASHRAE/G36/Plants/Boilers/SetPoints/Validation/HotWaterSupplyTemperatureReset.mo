@@ -8,11 +8,11 @@ block HotWaterSupplyTemperatureReset
     final nSta=1,
     final nBoi=2,
     final nHotWatResReqIgn=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
-    final TConBoiHotWatSetOff=-10,
+    final dTConBoiHotWatSet=-10,
     final THotWatSetMinNonConBoi=341.48,
     final THotWatSetMinConBoi=305.37,
     final delTimVal=600,
@@ -30,11 +30,11 @@ block HotWaterSupplyTemperatureReset
     final nSta=1,
     final nBoi=2,
     final nHotWatResReqIgn=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
-    final TConBoiHotWatSetOff=-10,
+    final dTConBoiHotWatSet=-10,
     final THotWatSetMinNonConBoi=341.48,
     final THotWatSetMinConBoi=305.37,
     final delTimVal=600,
@@ -52,11 +52,11 @@ block HotWaterSupplyTemperatureReset
     final nSta=1,
     final nBoi=2,
     final nHotWatResReqIgn=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
-    final TConBoiHotWatSetOff=-10,
+    final dTConBoiHotWatSet=-10,
     final THotWatSetMinNonConBoi=341.48,
     final THotWatSetMinConBoi=305.37,
     final delTimVal=600,
@@ -74,11 +74,11 @@ block HotWaterSupplyTemperatureReset
     final nSta=1,
     final nBoi=2,
     final nHotWatResReqIgn=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing},
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
-    final TConBoiHotWatSetOff=-10,
+    final dTConBoiHotWatSet=-10,
     final THotWatSetMinNonConBoi=341.48,
     final THotWatSetMinConBoi=305.37,
     final delTimVal=600,
@@ -96,11 +96,11 @@ block HotWaterSupplyTemperatureReset
     final nSta=3,
     final nBoi=2,
     final nHotWatResReqIgn=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler},
+    final boiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing},
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
-    final TConBoiHotWatSetOff=-10,
+    final dTConBoiHotWatSet=-10,
     final THotWatSetMinNonConBoi=341.48,
     final THotWatSetMinConBoi=305.37,
     final delTimVal=600,
@@ -298,19 +298,21 @@ equation
     annotation (Line(points={{-158,-80},{-152,-80}},
                                                  color={0,0,127}));
   connect(con.y, hotWatSupTemRes.uHotWatPumSta[1]) annotation (Line(points={{-128,
-          160},{-126,160},{-126,107},{-122,107}}, color={255,0,255}));
+          160},{-126,160},{-126,107.5},{-122,107.5}},
+                                                  color={255,0,255}));
   connect(con1.y, hotWatSupTemRes.uHotWatPumSta[2]) annotation (Line(points={{-128,
-          130},{-124,130},{-124,109},{-122,109}}, color={255,0,255}));
+          130},{-124,130},{-124,108.5},{-122,108.5}},
+                                                  color={255,0,255}));
   connect(conInt.y, hotWatSupTemRes.nHotWatSupResReq) annotation (Line(points={{-130,
           100},{-130,104},{-122,104}},                 color={255,127,0}));
   connect(con2.y, hotWatSupTemRes.uStaCha) annotation (Line(points={{-128,70},{-128,
           100},{-122,100}},           color={255,0,255}));
   connect(conInt1.y, hotWatSupTemRes.uTyp) annotation (Line(points={{-128,40},{-126,
           40},{-126,96},{-122,96}}, color={255,127,0}));
-  connect(con6.y, hotWatSupTemRes2.uHotWatPumSta[1]) annotation (Line(points={{-38,
-          160},{-30,160},{-30,107},{-22,107}}, color={255,0,255}));
-  connect(con7.y, hotWatSupTemRes2.uHotWatPumSta[2]) annotation (Line(points={{-38,
-          130},{-30,130},{-30,109},{-22,109}}, color={255,0,255}));
+  connect(con6.y, hotWatSupTemRes2.uHotWatPumSta[1]) annotation (Line(points={{-38,160},
+          {-30,160},{-30,107.5},{-22,107.5}},  color={255,0,255}));
+  connect(con7.y, hotWatSupTemRes2.uHotWatPumSta[2]) annotation (Line(points={{-38,130},
+          {-30,130},{-30,108.5},{-22,108.5}},  color={255,0,255}));
   connect(conInt2.y, hotWatSupTemRes2.nHotWatSupResReq) annotation (Line(points=
          {{-38,100},{-30,100},{-30,104},{-22,104}}, color={255,127,0}));
   connect(con8.y, hotWatSupTemRes2.uStaCha) annotation (Line(points={{-38,70},{-28,
@@ -321,10 +323,10 @@ equation
           10},{-124,10},{-124,92},{-122,92}}, color={255,127,0}));
   connect(conInt5.y, hotWatSupTemRes2.uCurStaSet) annotation (Line(points={{-38,
           10},{-24,10},{-24,92},{-22,92}}, color={255,127,0}));
-  connect(con3.y, hotWatSupTemRes1.uHotWatPumSta[1]) annotation (Line(points={{82,
-          160},{92,160},{92,107},{98,107}}, color={255,0,255}));
-  connect(con4.y, hotWatSupTemRes1.uHotWatPumSta[2]) annotation (Line(points={{82,
-          130},{92,130},{92,109},{98,109}}, color={255,0,255}));
+  connect(con3.y, hotWatSupTemRes1.uHotWatPumSta[1]) annotation (Line(points={{82,160},
+          {92,160},{92,107.5},{98,107.5}},  color={255,0,255}));
+  connect(con4.y, hotWatSupTemRes1.uHotWatPumSta[2]) annotation (Line(points={{82,130},
+          {92,130},{92,108.5},{98,108.5}},  color={255,0,255}));
   connect(reaToInt.y, hotWatSupTemRes1.nHotWatSupResReq) annotation (Line(
         points={{82,100},{88,100},{88,104},{98,104}}, color={255,127,0}));
   connect(con5.y, hotWatSupTemRes1.uStaCha) annotation (Line(points={{82,70},{90,
@@ -334,9 +336,10 @@ equation
   connect(conInt7.y, hotWatSupTemRes1.uCurStaSet) annotation (Line(points={{82,
           10},{96,10},{96,92},{98,92}}, color={255,127,0}));
   connect(con9.y, hotWatSupTemRes3.uHotWatPumSta[1]) annotation (Line(points={{-128,
-          -20},{-124,-20},{-124,-73},{-122,-73}}, color={255,0,255}));
-  connect(con10.y, hotWatSupTemRes3.uHotWatPumSta[2]) annotation (Line(points={{
-          -128,-50},{-126,-50},{-126,-71},{-122,-71}}, color={255,0,255}));
+          -20},{-124,-20},{-124,-72.5},{-122,-72.5}},
+                                                  color={255,0,255}));
+  connect(con10.y, hotWatSupTemRes3.uHotWatPumSta[2]) annotation (Line(points={{-128,
+          -50},{-126,-50},{-126,-71.5},{-122,-71.5}},  color={255,0,255}));
   connect(reaToInt1.y, hotWatSupTemRes3.nHotWatSupResReq) annotation (Line(
         points={{-128,-80},{-128,-76},{-122,-76}}, color={255,127,0}));
   connect(booPul.y, hotWatSupTemRes3.uStaCha) annotation (Line(points={{-128,-110},
@@ -345,10 +348,10 @@ equation
           {-124,-140},{-124,-84},{-122,-84}}, color={255,127,0}));
   connect(conInt9.y, hotWatSupTemRes3.uCurStaSet) annotation (Line(points={{-128,
           -170},{-122,-170},{-122,-88}}, color={255,127,0}));
-  connect(con11.y, hotWatSupTemRes4.uHotWatPumSta[1]) annotation (Line(points={{
-          -38,-20},{-30,-20},{-30,-73},{-22,-73}}, color={255,0,255}));
-  connect(con12.y, hotWatSupTemRes4.uHotWatPumSta[2]) annotation (Line(points={{
-          -38,-50},{-30,-50},{-30,-71},{-22,-71}}, color={255,0,255}));
+  connect(con11.y, hotWatSupTemRes4.uHotWatPumSta[1]) annotation (Line(points={{-38,-20},
+          {-30,-20},{-30,-72.5},{-22,-72.5}},      color={255,0,255}));
+  connect(con12.y, hotWatSupTemRes4.uHotWatPumSta[2]) annotation (Line(points={{-38,-50},
+          {-30,-50},{-30,-71.5},{-22,-71.5}},      color={255,0,255}));
   connect(ram2.y,reaToInt2. u)
     annotation (Line(points={{-68,-80},{-62,-80}},
                                                  color={0,0,127}));

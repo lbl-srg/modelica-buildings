@@ -4,40 +4,40 @@ model Up
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up
     staUp(
+    final nBoi=2,
+    final boiTyp={1,1},
     final nSta=2,
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,
     final delEffCon=600,
     final delFaiCon=900,
-    final sigDif=0.1,
-    final TDif=10,
-    final TDifHys=1)
+    final sigDif=0.1)
     "Scenario testing activation by efficiency condition"
     annotation (Placement(transformation(extent={{-100,-16},{-80,16}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up
     staUp1(
+    final nBoi=2,
+    final boiTyp={1,1},
     final nSta=2,
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,
     final delEffCon=600,
     final delFaiCon=900,
-    final sigDif=0.1,
-    final TDif=10,
-    final TDifHys=1)
+    final sigDif=0.1)
     "Scenario testing activation by failsafe condition"
     annotation (Placement(transformation(extent={{30,-16},{50,16}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up
     staUp2(
+    final nBoi=2,
+    final boiTyp={1,1},
     final nSta=2,
     final fraNonConBoi=0.9,
     final fraConBoi=1.5,
     final delEffCon=600,
     final delFaiCon=900,
-    final sigDif=0.1,
-    final TDif=10,
-    final TDifHys=1)
+    final sigDif=0.1)
     "Scenario testing activation due to current stage unavailability"
     annotation (Placement(transformation(extent={{160,-16},{180,16}})));
 

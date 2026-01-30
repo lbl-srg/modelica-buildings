@@ -6,12 +6,19 @@ block Speed_flow
     "Type of controller"
     annotation(Dialog(group="Speed controller"));
 
-  parameter Boolean use_priSecSen = true
+  parameter Boolean use_priSecSen
     "True: Use flowrate sensor in primary and secondary circuits for regulation;
     False: Use flowrate sensor in decoupler for regulation";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of hot water pumps";
+
+  parameter Real minFlo(
+    final unit="m3/s",
+    displayUnit="m3/s",
+    final quantity="VolumeFlowRate",
+    final min=1e-6)
+    "Calculated minimum loop flow rate";
 
   parameter Real minPumSpe(
     final unit="1",
@@ -45,7 +52,7 @@ block Speed_flow
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatPum[nPum]
     "Hot water pump status"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatPri_flow(
     final unit="m3/s",
@@ -53,7 +60,7 @@ block Speed_flow
     final quantity="VolumeFlowRate") if use_priSecSen
     "Measured hot water flow rate through primary circuit"
     annotation (Placement(transformation(extent={{-160,-50},{-120,-10}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatSec_flow(
     final unit="m3/s",
@@ -61,7 +68,7 @@ block Speed_flow
     final quantity="VolumeFlowRate") if use_priSecSen
     "Measured hot water flow rate through secondary circuit"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatDec_flow(
     final unit="m3/s",
@@ -69,7 +76,7 @@ block Speed_flow
     final quantity="VolumeFlowRate") if not use_priSecSen
     "Measured hot water flow rate through decoupler"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatPumSpe(
     final min=minPumSpe,
@@ -86,6 +93,7 @@ protected
     final k=k,
     final Ti=Ti,
     final Td=Td,
+    final r=minFlo,
     final yMax=1,
     final yMin=0)
     "PID loop to regulate flow through decoupler leg"
@@ -102,10 +110,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2 if use_priSecSen
     "Compare measured flowrate in primary and secondary loops"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Divide div if use_priSecSen
-    "Normalize flow-rate value"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
@@ -132,11 +136,6 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
-    final p=1e-6) if use_priSecSen
-    "Ensure divisor is non-zero"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-
 equation
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{-58,90},{40,90},{40,8},{58,8}}, color={0,0,127}));
@@ -157,26 +156,19 @@ equation
           {-110,-34},{-102,-34}}, color={0,0,127}));
   connect(VHotWatSec_flow,sub2. u2) annotation (Line(points={{-140,-60},{-106,-60},
           {-106,-46},{-102,-46}}, color={0,0,127}));
-  connect(sub2.y, div.u1) annotation (Line(points={{-78,-40},{-70,-40},{-70,-64},
-          {-62,-64}}, color={0,0,127}));
-  connect(addPar.y, div.u2) annotation (Line(points={{-78,-70},{-70,-70},{-70,-76},
-          {-62,-76}}, color={0,0,127}));
-  connect(VHotWatPri_flow, addPar.u) annotation (Line(points={{-140,-30},{-110,-30},
-          {-110,-70},{-102,-70}}, color={0,0,127}));
 
   connect(zer.y, conPID.u_s) annotation (Line(points={{-58,90},{-28,90},{-28,0},
           {-12,0}},color={0,0,127}));
-  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-68,0},{-68,-12},{
-          -70,-12},{-70,-20},{-62,-20}},
-                     color={255,0,255}));
+  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-70,0},{-70,-20},{-62,
+          -20}},     color={255,0,255}));
   connect(edg.y, conPID.trigger)
     annotation (Line(points={{-38,-20},{-6,-20},{-6,-12}}, color={255,0,255}));
-  connect(div.y, conPID.u_m)
-    annotation (Line(points={{-38,-70},{0,-70},{0,-12}},   color={0,0,127}));
   connect(conPID.y, pumSpe.u)
     annotation (Line(points={{12,0},{58,0}},                 color={0,0,127}));
   connect(pumSpe.y, yHotWatPumSpe)
     annotation (Line(points={{82,0},{140,0}}, color={0,0,127}));
+  connect(sub2.y, conPID.u_m)
+    annotation (Line(points={{-78,-40},{0,-40},{0,-12}}, color={0,0,127}));
   connect(VHotWatDec_flow, conPID.u_m)
     annotation (Line(points={{-140,-100},{0,-100},{0,-12}}, color={0,0,127}));
 annotation (

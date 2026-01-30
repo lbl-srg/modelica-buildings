@@ -8,23 +8,23 @@ block Configurator "Configures boiler staging"
     "Number of boilers";
 
   parameter Integer boiTyp[nBoi]={
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.condensingBoiler,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes.nonCondensingBoiler}
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing,
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing}
     "Boiler type. Recommended staging order: 1. condensing boilers, 2. non-codensing boilers";
 
   parameter Integer staMat[nSta, nBoi] = {{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}}
     "Staging matrix with stage as row index and boiler as column index";
 
   parameter Real boiDesCap[nBoi](
-    final unit="W",
-    displayUnit="W",
-    final quantity="Power")
+    final unit=fill("W",nBoi),
+    displayUnit=fill("W",nBoi),
+    final quantity=fill("Power",nBoi))
     "Design boiler capacities vector";
 
   parameter Real boiFirMin[nBoi](
-    final unit="1",
-    displayUnit="1")
+    final unit=fill("1",nBoi),
+    displayUnit=fill("1",nBoi))
     "Boiler minimum firing ratios vector";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
@@ -342,8 +342,8 @@ equation
       <li>
       Stage type vector <code>yTyp</code> from the boiler type vector input
       parameter <code>boiTyp</code>. Boiler types are defined in
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.BoilerTypes</a>.<br/>
+      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers\">
+      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers</a>.<br/>
       Stage type is based on the boiler types in that stage, and is classified
       as:
       <ol>
