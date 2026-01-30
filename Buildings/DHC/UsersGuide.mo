@@ -126,9 +126,10 @@ documentation of the model and subpackages for further modeling and implementati
 <tr><td valign=\"top\" rowspan=\"3\">Combined
     </td>
     <td valign=\"top\">
-    <a href=\"modelica://Buildings.DHC.ETS.Combined.ChillerBorefield\">ChillerBorefield</a>
+    <a href=\"modelica://Buildings.DHC.ETS.Combined.HeatRecoveryHeatPump\">
+    HeatRecoveryHeatPump</a>
     </td>
-    <td valign=\"top\">ETS with heat recovery chiller and optional borefield.
+    <td valign=\"top\">ETS with heat recovery heat pump and optional domestic hot water generation.
     </td>
 </tr>
 <tr><td valign=\"top\">

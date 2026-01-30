@@ -125,7 +125,7 @@ equation
           {-54,-70},{-42,-70}}, color={0,0,127}));
   connect(vol.heatPort, temSen.port) annotation (Line(points={{-9,-10},{-26,-10},
           {-26,-40},{-30,-40}}, color={191,0,0}));
-  annotation (defaultComponentModel="iceTan", Icon(graphics={
+  annotation (defaultComponentName="iceTan", Icon(graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
