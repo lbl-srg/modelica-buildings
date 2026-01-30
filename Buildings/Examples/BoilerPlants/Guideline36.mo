@@ -166,22 +166,20 @@ protected
     final tableName="EnergyPlus",
     final fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Examples/BoilerPlant/loads.dat"),
-    final columns={2,3,4},
+    final columns={9},
     final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     final table=[-6,0;8,10000;18,0],
     final timeScale=1)
     "Time table for heating load"
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=boiCapRat)
-    "Split load between two secondary loops"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=boiCapRat)
+    "Normalize and sS"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
-    final k=1-boiCapRat)
-    "Split load between two secondary loops"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=1 -
+        boiCapRat) "Split load between two secondary loops"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg[2]
@@ -196,24 +194,10 @@ protected
     "Sum reset requests from both secondary loops"
     annotation (Placement(transformation(extent={{140,140},{160,160}})));
 
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
-    final p=273.15)
-    "Convert return temperature from Celsius to Kelvin"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
-
 equation
 
-  connect(weaDat.weaBus,weaBus)  annotation (Line(
-      points={{-100,60},{-80,60}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-
   connect(weaBus.TDryBul, conBoiPri.TOut) annotation (Line(
-      points={{-79.95,60.05},{-72,60.05},{-72,26},{-42,26}},
+      points={{-79.95,60.05},{-60,60.05},{-60,26},{-42,26}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -283,15 +267,10 @@ equation
           0,127}));
   connect(TZonUnc.y, boiPlaPri.TZon) annotation (Line(points={{22,-30},{30,-30},
           {30,-14},{38,-14}}, color={0,0,127}));
-  connect(timTab.y[2], gai.u) annotation (Line(points={{-99,100},{-92,100},{-92,
-          180},{-82,180}}, color={0,0,127}));
-  connect(timTab.y[2], gai1.u)
-    annotation (Line(points={{-99,100},{-82,100}}, color={0,0,127}));
-  connect(gai.y,secLoo1.mHotWat_flow)  annotation (Line(points={{-58,180},{-30,180},
+  connect(gai.y, secLoo1.QLoa_flow) annotation (Line(points={{-58,180},{-30,180},
           {-30,190},{30,190},{30,156},{38,156}}, color={0,0,127}));
-  connect(gai1.y,secLoo2.mHotWat_flow)  annotation (Line(points={{-58,100},{30,
-          100},{30,76},{38,76}},
-                            color={0,0,127}));
+  connect(gai1.y, secLoo2.QLoa_flow) annotation (Line(points={{-58,100},{30,100},
+          {30,76},{38,76}}, color={0,0,127}));
   connect(boiPlaPri.TRetSec, conBoiPri.TRetSec) annotation (Line(points={{62,10},
           {70,10},{70,-46},{-54,-46},{-54,10},{-42,10}}, color={0,0,127}));
   connect(boiPlaPri.port_b, spl4.port_1) annotation (Line(points={{43.4,8},{43.4,
@@ -327,12 +306,15 @@ equation
   connect(addIntReqRes.y, conBoiPri.resReq) annotation (Line(points={{162,150},{
           170,150},{170,182},{-28,182},{-28,92},{-52,92},{-52,34},{-42,34}},
         color={255,127,0}));
-  connect(addPar.y, secLoo1.THotWatRet) annotation (Line(points={{-38,120},{24,120},
-          {24,152},{38,152}}, color={0,0,127}));
-  connect(addPar.y, secLoo2.THotWatRet) annotation (Line(points={{-38,120},{24,120},
-          {24,72},{38,72}}, color={0,0,127}));
-  connect(timTab.y[1], addPar.u) annotation (Line(points={{-99,100},{-92,100},{-92,
-          120},{-62,120}}, color={0,0,127}));
+  connect(timTab.y[1], gai1.u)
+    annotation (Line(points={{-99,140},{-90,140},{-90,100},{-82,100}},
+                                                   color={0,0,127}));
+  connect(timTab.y[1], gai.u) annotation (Line(points={{-99,140},{-90,140},{-90,
+          180},{-82,180}}, color={0,0,127}));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-100,60},{-80,60}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Documentation(info="<html>
 <p>
 This model couples the boiler plant model for a primary-secondary, condensing boiler
