@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "zerStaIndCor.uInd",
+    "zerStaIndCor.yIndMod",
+    "zerStaIndCor.yCapMod",
+    "zerStaIndCor1.uInd",
+    "zerStaIndCor1.yIndMod",
+    "zerStaIndCor1.yCapMod"
+  };

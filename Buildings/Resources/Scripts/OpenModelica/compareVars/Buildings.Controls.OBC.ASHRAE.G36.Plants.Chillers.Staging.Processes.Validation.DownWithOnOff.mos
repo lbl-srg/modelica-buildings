@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "dowProCon.uStaSet",
+    "dowProCon.uChi[1]",
+    "dowProCon.uChi[2]",
+    "dowProCon.yStaPro",
+    "dowProCon.uChiLoa[1]",
+    "dowProCon.uChiLoa[2]",
+    "dowProCon.yChiWatIsoVal[1]",
+    "dowProCon.yChiWatIsoVal[2]",
+    "dowProCon.yChiHeaCon[1]",
+    "dowProCon.yChiHeaCon[2]",
+    "dowProCon.yChiWatMinFloSet",
+    "dowProCon.yDesConWatPumSpe",
+    "dowProCon.yConWatPumNum"
+  };

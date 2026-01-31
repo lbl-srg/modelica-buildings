@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "chaPumSta.uNexLagPum",
+    "chaPumSta.uLasLagPum",
+    "chaPumSta.yHotWatPum[1]",
+    "chaPumSta.yHotWatPum[2]",
+    "chaPumSta.yHotWatPum[3]"
+  };
