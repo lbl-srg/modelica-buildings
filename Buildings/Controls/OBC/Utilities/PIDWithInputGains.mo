@@ -297,30 +297,22 @@ equation
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.P),
           extent={{-32,-22},{68,-62}},
           textColor={0,0,0},
-          textString="P",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="P"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-26,-22},{74,-62}},
           textColor={0,0,0},
-          textString="PI",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="PI"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD),
           extent={{-16,-22},{88,-62}},
           textColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175},
           textString="P D"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
           extent={{-14,-22},{86,-62}},
           textColor={0,0,0},
-          textString="PID",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="PID"),
         Polygon(
           points={{-80,82},{-88,60},{-72,60},{-80,82}},
           lineColor={192,192,192},
@@ -540,13 +532,13 @@ revisions="<html>
 June 5, 2023, by Jianjun Hu:<br/>
 Changed the instance <code>antWinGai2</code> to be conditional.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3423\">issue 3423</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3423\">Buildings, issue 3423</a>.
 </li>       
 <li>
 May 17, 2022, by Sen Huang:<br/>
 Changing the gains from parameters to inputs<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2993\">issue 2993</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2993\">Buildings, issue 2993</a>.
 </li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
@@ -555,7 +547,7 @@ when reset trigger is <code>true</code>.<br/>
 Refactored implementation to have separate blocks that show the P, I and D contribution,
 each with the control gain applied.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2475\">issue 2475</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2475\">Buildings, issue 2475</a>.
 </li>
 </ul>
 </html>"));
