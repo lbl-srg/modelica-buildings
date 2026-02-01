@@ -269,8 +269,6 @@ First implementation.
                               Text(
           extent={{86,98},{132,84}},
           textColor={0,0,0},
-          pattern=LinePattern.Dash,
-          lineThickness=0.5,
           textStyle={TextStyle.Bold},
           textString="Post-processing")}));
 end ThermalFollowing;
