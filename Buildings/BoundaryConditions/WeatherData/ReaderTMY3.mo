@@ -870,9 +870,9 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
 
-  connect(latitude.y, zenAng.lat) annotation (Line(points={{-129,-280},{-124,
-          -280},{-124,-290},{-90,-290},{-90,-216},{-72,-216}}, color={0,0,127}));
-    annotation (
+  connect(latitude.y, zenAng.lat)
+    annotation (Line(points={{-129,-280},{-124,-280},{-124,-290},{-90,-290},{-90,-216},{-72,-216}}, color={0,0,127}));
+  annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -890,41 +890,34 @@ equation
         Text(
           visible=(pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-190,216},{-164,184}},
-          lineColor={0,0,127},
           textString="p"),
         Text(
           visible=(TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-194,162},{-118,118}},
-          lineColor={0,0,127},
           textString="TDryBul"),
         Text(
           visible=(relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-190,92},{-104,66}},
-          lineColor={0,0,127},
           textString="relHum"),
         Text(
-        visible=(winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          visible=(winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-196,44},{-110,2}},
-          lineColor={0,0,127},
           textString="winSpe"),
         Text(
           visible=(winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-192,-18},{-106,-60}},
-          lineColor={0,0,127},
           textString="winDir"),
         Text(
-        visible=(HSou ==  Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor),
-        extent={{-202,-88},{-112,-108}},
-          lineColor={0,0,127},
+          visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor),
+          extent={{-202,-88},{-112,-108}},
           textString="HGloHor"),
-        Text(visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
-        extent={{-202,-142},{-116,-164}},
-          lineColor={0,0,127},
+        Text(
+          visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
+          extent={{-202,-142},{-116,-164}},
           textString="HDifHor"),
         Text(
-        visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
-        extent={{-200,-186},{-126,-214}},
-          lineColor={0,0,127},
+          visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
+          extent={{-200,-186},{-126,-214}},
           textString="HDirNor"),
         Ellipse(
           extent={{-146,154},{28,-20}},
@@ -933,9 +926,8 @@ equation
           fillPattern=FillPattern.Sphere,
           fillColor={255,255,0}),
         Polygon(
-          points={{94,106},{77.9727,42.9844},{78,42},{110,52},{138,50},{164,38},
-              {182,-28},{138,-102},{10,-110},{-140,-106},{-166,-30},{-150,24},{-102,
-              26},{-78.2109,8.1582},{-78,8},{-92,70},{-58,120},{34,140},{94,106}},
+          points={{94,106},{77.9727,42.9844},{78,42},{110,52},{138,50},{164,38},{182,-28},{138,-102},{10,-110},{-140,-106},{-166,-30},
+              {-150,24},{-102,26},{-78.2109,8.1582},{-78,8},{-92,70},{-58,120},{34,140},{94,106}},
           lineColor={220,220,220},
           lineThickness=0.1,
           fillPattern=FillPattern.Sphere,
@@ -944,7 +936,7 @@ equation
         Text(
           extent={{140,-106},{-126,-192}},
           textColor={255,255,255},
-          textString=DynamicSelect("", String(weaBus.TDryBul-273.15, format=".1f")))}),
+          textString=DynamicSelect("", String(weaBus.TDryBul - 273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
@@ -1256,35 +1248,59 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 </tr>
 </table>
 <!-- ============================================== -->
-<h4>Adding new weather data</h4>
+<h4>Using new weather data</h4>
 <p>
-To add new weather data, proceed as follows:
+To use new weather data, there are two supported ways:
+</p>
+<ul>
+<li>
+<p>
+You can use the Python tool AixWeather
+(<a href=\"https://github.com/RWTH-EBC/AixWeather\">https://github.com/RWTH-EBC/AixWeather</a>),
+which is installable via <code>pip</code> or accessible via a WebApp (<a href=\"https://aixweather.eonerc.rwth-aachen.de/\">https://aixweather.eonerc.rwth-aachen.de/</a>).
+Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data 
+to the desired <code>mos</code> format is supported.
+</p>
+</li>
+<li>
+<p>
+You can use a Java application to convert <code>epw</code> to <code>mos</code> format by following these steps:
 </p>
 <ol>
 <li>
+<p>
 Download the weather data file with the <code>epw</code> extension from
 <a href=\"http://energyplus.net/weather\">
 http://energyplus.net/weather</a>.
+</p>
 </li>
 <li>
+<p>
 Add the file to <code>Buildings/Resources/weatherdata</code> (or to any directory
 for which you have write permission).
+</p>
 </li>
 <li>
-On a console window, type<pre>
+<p>
+On a console window, type</p><pre>
   cd Buildings/Resources/weatherdata
   java -jar ../bin/ConvertWeatherData.jar inputFile.epw
 </pre>
-  if inputFile contains space in the name:
+<p>
+or if <code>inputFile.epw</code> contains space in the name:
+</p>
 <pre>
   java -jar ../bin/ConvertWeatherData.jar \"inputFile .epw\"
 </pre>
+<p>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+</p>
 </li>
 </ol>
+</ul>
 <!-- ============================================== -->
 <h4>Location data that are read automatically from the weather data file</h4>
 <p>
@@ -1598,6 +1614,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
+May 28, 2025, by Fabian Wuellhorst:<br/>
+Added information on AixWeather to documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2017\">IBPSA, #2017</a>.
+</li>
+<li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed alt and lat to real inputs.<br/>
 This is for
@@ -1830,6 +1852,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-     extent={{-200,-300},{300,300}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{300,300}})));
 end ReaderTMY3;
