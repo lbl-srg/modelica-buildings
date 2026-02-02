@@ -44,7 +44,7 @@ The default value for the flow exponent is set to <code>m=0.85</code>, which is 
 the inverse of the value <code>a</code> in Li et al., 2022.
 </p>
 <p>
-The filter flow resistance model is increasing the pressure drop based
+The filter flow resistance model increases the pressure drop based
 on the mass accumulated in the filter. This is computed in
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient\">
 Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient</a>
