@@ -987,7 +987,7 @@ model PrimaryController
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
-protected
+// protected
   parameter Boolean have_remDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
 
@@ -2028,137 +2028,159 @@ valve
 controller")}),
 Documentation(info="<html>
 <p>
-Block that controls the primary loop of a boiler plant according to section 5.21
-in ASHRAE Guideline 36, 2021. It consists of the following components:
-</p>
-<ul>
-<li>
-Plant enable controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable</a>.
-</li>
-<li>
-Staging setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController</a>.
-</li>
-<li>
-Stage-up process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Up\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Up</a>.
-</li>
-<li>
-Stage-down process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Down\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Down</a>.
-</li>
-<li>
-Primary pump controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Controller</a>.
-</li>
-<li>
-Bypass valve controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.BypassValvePosition\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.BypassValvePosition</a>.
-</li>
-<li>
-Minimum flow setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint</a>.
-</li>
-<li>
-Hot water supply temperature setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset</a>.
-</li>
-<li>
-Condensation control setpoint calculator: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl</a>.
-</li>
-<li>
-Plant disable process controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable</a>.
-</li>
-</ul>
-<p>
-For correct usage of this block, refer to the example model
-<a href=\"modelica://Buildings.Examples.BoilerPlants.Guideline36\">
-Buildings.Examples.BoilerPlants.Guideline36</a>.
-</p>
-<p>
-The parameter values for valid boiler plant configurations are as follows:
-</p>
-<br>
-<table summary=\"allowedConfigurations\" border=\"1\">
-<thead>
-  <tr>
-    <th>Boolean Parameters/Plant configurations</th>
-    <th>1</th>
-    <th>2</th>
-    <th>3</th>
-    <th>4</th>
-    <th>5</th>
-    <th>6</th>
-    <th>7</th>
-    <th>8</th>
-  </tr></thead>
-<tbody>
-  <tr>
-    <td>have_priOnl</td>
-    <td>True</td>
-    <td>True</td>
-    <td>False</td>
-    <td>False</td>
-    <td>False</td>
-    <td>False</td>
-    <td>False</td>
-    <td>False</td>
-  </tr>
-  <tr>
-    <td>have_heaPriPum</td>
-    <td>True</td>
-    <td>True</td>
-    <td>True</td>
-    <td>True</td>
-    <td>True</td>
-    <td>False</td>
-    <td>False</td>
-    <td>False</td>
-  </tr>
-  <tr>
-    <td>have_varPriPum</td>
-    <td>True</td>
-    <td>True</td>
-    <td>True</td>
-    <td>True</td>
-    <td>False</td>
-    <td>True</td>
-    <td>True</td>
-    <td>False</td>
-  </tr>
-  <tr>
-    <td>speConTypPri</td>
-    <td>localDP</td>
-    <td>remoteDP</td>
-    <td>flowrate</td>
-    <td>temperature</td>
-    <td>NA</td>
-    <td>flowrate</td>
-    <td>temperature</td>
-    <td>NA</td>
-  </tr>
-</tbody>
-</table>
-<p>
-Note:
-<ol>
-<li>
-The controller currently assumes the boilers are constantly available. Future
-modifications will include logic for detecting availability.
-</li>
-<li>
-The controller currently does not accommodate lead-lag rotation of boilers and
-pumps. Future modifications will include existing sequences for lead-lag rotation.
-</li>
-<li>
-The controller currently supports only a singular primary loop. Future modifications
-will enable the support of hybrid plants with multiple primary loops, with individual
-loops consisting of either condensing or non-condensing boilers.
-</li>
-</ol>
-</p>
+      Block that controls the primary loop of a boiler plant according to section 5.21
+      in ASHRAE Guideline 36, 2021. It consists of the following components:
+    </p>
+
+    <ul>
+      <li>
+        Plant enable controller:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable
+        </a>.
+      </li>
+      <li>
+        Staging setpoint calculator:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController
+        </a>.
+      </li>
+      <li>
+        Stage-up process controller:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Up\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Up
+        </a>.
+      </li>
+      <li>
+        Stage-down process controller:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Down\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Down
+        </a>.
+      </li>
+      <li>
+        Primary pump controller:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Controller\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Controller
+        </a>.
+      </li>
+      <li>
+        Bypass valve controller:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.BypassValvePosition\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.BypassValvePosition
+        </a>.
+      </li>
+      <li>
+        Minimum flow setpoint calculator:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint
+        </a>.
+      </li>
+      <li>
+        Hot water supply temperature setpoint calculator:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset
+        </a>.
+      </li>
+      <li>
+        Condensation control setpoint calculator:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl
+        </a>.
+      </li>
+      <li>
+        Plant disable process controller:
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable\">
+          Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable
+        </a>.
+      </li>
+    </ul>
+
+    <p>
+      For correct usage of this block, refer to the example model
+      <a href=\"modelica://Buildings.Examples.BoilerPlants.Guideline36\">
+        Buildings.Examples.BoilerPlants.Guideline36
+      </a>.
+    </p>
+
+    <p>The parameter values for valid boiler plant configurations are as follows:</p>
+
+    <table summary=\"allowedConfigurations\" border=\"1\">
+      <thead>
+        <tr>
+          <th>Boolean Parameters/Plant configurations</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>have_priOnl</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>False</td>
+          <td>False</td>
+          <td>False</td>
+          <td>False</td>
+        </tr>
+        <tr>
+          <td>have_heaPriPum</td>
+          <td>True</td>
+          <td>True</td>
+          <td>True</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>False</td>
+        </tr>
+        <tr>
+          <td>have_varPriPum</td>
+          <td>True</td>
+          <td>True</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+        </tr>
+        <tr>
+          <td>speConTypPri</td>
+          <td>localDP</td>
+          <td>remoteDP</td>
+          <td>flowrate</td>
+          <td>temperature</td>
+          <td>NA</td>
+          <td>flowrate</td>
+          <td>temperature</td>
+          <td>NA</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Note:</p>
+    <ol>
+      <li>
+        The controller currently assumes the boilers are constantly available. Future
+        modifications will include logic for detecting availability.
+      </li>
+      <li>
+        The controller currently does not accommodate lead-lag rotation of boilers and
+        pumps. Future modifications will include existing sequences for lead-lag rotation.
+      </li>
+      <li>
+        The controller currently supports only a singular primary loop. Future modifications
+        will enable the support of hybrid plants with multiple primary loops, with individual
+        loops consisting of either condensing or non-condensing boilers.
+      </li>
+    </ol>
 </html>"));
 end PrimaryController;

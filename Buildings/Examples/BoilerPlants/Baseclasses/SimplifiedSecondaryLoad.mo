@@ -243,50 +243,51 @@ equation
         extent={{-100,-100},{100,120}})),
     Documentation(info="<html>
       <p>
-      This is a simplified model for a boiler plant secondary loop load consisting of 
+      This is a simplified model for a boiler plant secondary loop load consisting of
       a variable speed pump <code>pum</code> and a load assembly <code>loa</code>
       (<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl\">
-      Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl</a>)
+        Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.LoadTwoWayValveControl
+      </a>)
       that mimics the operation of a hot-water heating coil. The heating load on
       the secondary loop is applied via the inputs for load flowrate <code>mHotWat_flow</code>
       and return temperature <code>THotWatRet</code>.
-      <br>
+      <br />
       <code>loa</code> requires a Real signal <code>loa.u</code> that represents
       the fraction of the rated load that is applied at any instant. It is calculated
       as follows.
-      <ol>
+    </p>
+
+    <ol>
       <li>
-      The actual load is calculated with the use of <code>mHotWat_flow</code>,
-      <code>THotWatRet</code> and assuming a constant supply temperature
-      <code>THotWatSup_nominal</code>.
+        The actual load is calculated with the use of <code>mHotWat_flow</code>,
+        <code>THotWatRet</code> and assuming a constant supply temperature
+        <code>THotWatSup_nominal</code>.
       </li>
       <li>
-      The rated load is calculated with the use of <code>mRad_flow_nominal</code>,
-      <code>THotWatRet_nominal</code> and <code>THotWatSup_nominal</code>.
+        The rated load is calculated with the use of <code>mRad_flow_nominal</code>,
+        <code>THotWatRet_nominal</code> and <code>THotWatSup_nominal</code>.
       </li>
       <li>
-      The ratio of these two values is then used as the input signal for
-      <code>loa.u</code>.
+        The ratio of these two values is then used as the input signal for
+        <code>loa.u</code>.
       </li>
-      </ol>
-      </p>
-      <p>
-      A few key points when using this class are as follows:
-      <ul>
+    </ol>
+
+    <p>A few key points when using this class are as follows:</p>
+    <ul>
       <li>
-      The parameter <code>dpValve_nominal</code> is set to be equal to
-      <code>val.dpFixed_nominal</code> by default to ensure
-      valve authority <code>&ge;50%</code>. The user is encouraged to increase the
-      value as required for stable control.
+        The parameter <code>dpValve_nominal</code> is set to be equal to
+        <code>val.dpFixed_nominal</code> by default to ensure
+        valve authority <code>&ge;50%</code>. The user is encouraged to increase the
+        value as required for stable control.
       </li>
       <li>
-      The hysteresis limits for plant request generation as well as reset request
-      generation are both defined per the default values in G36, 2024. The user
-      has the freedom to change those thresholds as required, though it is not
-      mandatory.
+        The hysteresis limits for plant request generation as well as reset request
+        generation are both defined per the default values in G36, 2024. The user
+        has the freedom to change those thresholds as required, though it is not
+        mandatory.
       </li>
-      </ul>
-      </p>
+    </ul>
       </html>", revisions="<html>
       <ul>
       <li>

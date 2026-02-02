@@ -144,7 +144,7 @@ model Guideline36 "Closed loop testing model"
       rotation=270,
       origin={100,70})));
 
-protected
+// protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3[2](
     final k=fill(true,2))
     "Constant boiler availability status"
@@ -342,18 +342,25 @@ primary loop and the secondary loops.
 <p>
 The primary loop is modeled by the
 <a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary\">
-Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary</a> instance <code>boiPlaPri</code>
-and is coupled with the secondary loop instances <code>secLoo1</code> and <code>secLoo2</code>
-of class <a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad\">
-Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad</a>. The primary
-loop is controlled by the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a> instance
-<code>conBoiPlaPri</code>, and the secondary loops <code>secLoo1</code> and <code>secLoo2</code>
-are controlled by the secondary loop controller
+Buildings.Examples.BoilerPlants.Baseclasses.BoilerPlantPrimary
+</a>
+instance <code>boiPlaPri</code> and is coupled with the secondary loop instances
+<code>secLoo1</code> and <code>secLoo2</code> of class
+<a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad\">
+Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad
+</a>.
+The primary loop is controlled by the
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController
+</a>
+instance <code>conBoiPlaPri</code>, and the secondary loops <code>secLoo1</code> and
+<code>secLoo2</code> are controlled by the secondary loop controller
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller</a> instances
-<code>secPumCon1</code> and <code>secPumCon2</code>, respectively.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
+</a>
+instances <code>secPumCon1</code> and <code>secPumCon2</code>, respectively.
 </p>
+
 <p>
 The reference loads for activating the system are calculated by simulating the DOE
 prototype large office building EnergyPlus model (ASHRAE 90.1-2019 version), and then summing
@@ -361,8 +368,8 @@ up the simulated flowrates through each of the heating coils in the building. Th
 return temperature to the hot water plant is also noted. The values are then used
 to apply loads on this model by simulating equivalent loads on the secondary loops.
 </p>
-<p>
-A few salient points about the default system sizing values.
+
+<p>A few salient points about the default system sizing values.</p>
 <ul>
 <li>
 The boiler plant nominal flowrate <code>mPla_flow_nominal</code> is set to a value
@@ -388,17 +395,16 @@ set to <code>20kPa</code> each, which is an acceptable pressure drop for a heati
 in real-world applications. The fully-open valve pressure drops
 (<code>secLoo1.dpValve_nominal</code> and <code>secLoo2.dpValve_nominal</code>)
 are set to a value of 60kPa to achieve valve authority <code>75%</code>.
-The differential pressure setpoint for the secondary
-pump speed control, <code>conPumSec1.maxRemDp</code> and <code>conPumSec2.maxRemDp</code>,
+The differential pressure setpoint for the secondary pump speed control,
+<code>conPumSec1.maxRemDp</code> and <code>conPumSec2.maxRemDp</code>,
 are set to the sum of the fixed and open-valve pressure drops, to overcome the total
 pressure drop in the secondary loops. The setpoint will dynamically change if the
 user chooses to change either <code>dpRad_nominal</code> or <code>dpValve_nominal</code>
 for either secondary loop.
 </li>
 </ul>
-</p>
-<p>
-The validation plots are as follows.
+
+<p>The validation plots are as follows.</p>
 <ol>
 <li>
 Plot-1 represents the operation of the secondary loop-1 <code>secLoo1</code>. The plot
