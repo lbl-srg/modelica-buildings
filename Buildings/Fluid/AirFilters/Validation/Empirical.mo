@@ -116,8 +116,9 @@ filtration efficiencies for both contaminants decrease along with the contaminan
 accumulation on the filtration.
 </p>
 <p>
-When the contaminant accumultion reaches the maximum at around 412 days, the filter
-is replaced and the efficiencies are reset.
+When the contaminant accumulation reaches the maximum at around 412 days, the filter
+is replaced and the contaminants accumulated the the filter, and
+hence the filtration efficiencies, are reset.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),
