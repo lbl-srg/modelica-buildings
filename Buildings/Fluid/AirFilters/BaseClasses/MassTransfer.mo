@@ -31,7 +31,7 @@ initial equation
          "In " + getInstanceName() + ": Some specified trace substances are
          not present in medium '" + Medium.mediumName + "'.\n"
          + "Check filter parameter and medium model.",
-         level = AssertionLevel.warning)
+         level = AssertionLevel.error)
          "Check if all the specified substances are included in the medium";
 
 equation
