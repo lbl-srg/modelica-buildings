@@ -18,8 +18,7 @@ model Empirical "Empirical air filter model"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rat(
     final unit="1",
-    final min=0,
-    final max=1)
+    final min=0)
     "Relative mass of the contaminant captured by the filter, which is the total captured contaminant mass divided by the filter's maximum contaminant capacity"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
 
