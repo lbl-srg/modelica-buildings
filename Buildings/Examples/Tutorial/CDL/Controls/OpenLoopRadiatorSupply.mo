@@ -34,20 +34,14 @@ equation
         Text(
           extent={{-90,82},{-42,42}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="TRoo"),
         Text(
           extent={{40,24},{88,-16}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="yVal"),
         Text(
           extent={{-92,-40},{-44,-80}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="TOut"),
         Text(
           textColor={0,0,255},

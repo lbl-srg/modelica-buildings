@@ -280,6 +280,16 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4378\">issue 4378</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.HeatPumps.AirToWater<br/>
+                     Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability
+    </td>
+    <td valign=\"top\">Refactored to use \"required to run\" conditions in the equipment availability logic.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">issue 4432</a>.
+    </td>
+</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
