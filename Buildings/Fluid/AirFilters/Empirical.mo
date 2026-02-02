@@ -272,10 +272,12 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={Rectangle(
 Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This model empirically simulates the performance of air filters,
+Component that empirically models the performance of air filters,
 focusing on key factors such as contamination and pressure drop,
-without requiring geometric data. 
-It provides a set of parameters and performance characteristics 
+without requiring geometric data.
+</p>
+<p>
+The model uses as parameters performance characteristics
 that describe how the filter works under various conditions.
 The performance of the air filter is characterized by a performance dataset <code>per</code>
 (see <a href=\"modelica://Buildings.Fluid.AirFilters.Data.Generic\">
@@ -284,7 +286,7 @@ define the filter:
 </p>
 <ul>
 <li>
-<b>Contaminant Name</b>: The array <code>per.namCon</code> defines the type of
+<b>Contaminant Names</b>: The array <code>per.namCon</code> defines the type of
 contaminants that can be captured by the filter.
 </li>
 <li>
