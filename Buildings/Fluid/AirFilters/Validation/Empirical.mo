@@ -8,8 +8,12 @@ model Empirical "Example for using the empirical air filter model"
     mCon_start=0,
     namCon={"Particle","VOC"},
     filEffPar={
-      Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(rat={0,0.5,1},eps={0.7,0.6,0.5}),
-      Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(rat={0,0.5,1},eps={0.8,0.7,0.5})},
+      Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(
+        rat={0,0.5,1},
+        eps={0.7,0.6,0.5}),
+      Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters(
+        rat={0,0.5,1},
+        eps={0.8,0.7,0.5})},
     m_flow_nominal=1,
     dp_nominal=100) "Performance dataset"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -43,7 +47,8 @@ model Empirical "Example for using the empirical air filter model"
     substanceName="VOC") "Trace substance sensor of VOC in inlet air"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubParOut(
-    redeclare package Medium = Medium, m_flow_nominal=1,
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
     substanceName="Particle")
     "Trace substance sensor of CO2 in outlet air"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
