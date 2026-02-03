@@ -17,11 +17,6 @@ record HeatPumpGroup
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=false));
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod
-    "Type of heat pump model"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration",
-      enable=false));
   // Default fluid properties
   parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "HW default specific heat capacity"
@@ -114,7 +109,7 @@ record HeatPumpGroup
       enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Modelica.Units.SI.MassFlowRate mSouHeaHp_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then mSouWwHeaHp_flow_nominal
-    else Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capHeaHp_nominal)
+    else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(capHeaHp_nominal)
     "Source fluid mass flow rate in heating mode - Each heat pump"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouHeaHp_nominal=if typ ==
@@ -136,50 +131,65 @@ record HeatPumpGroup
       enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and is_rev));
   final parameter Modelica.Units.SI.MassFlowRate mSouCooHp_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then mSouWwCooHp_flow_nominal
-    else Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capCooHp_nominal)
+    else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(capCooHp_nominal)
     "Source fluid mass flow rate in cooling mode - Each heat pump"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouCooHp_nominal=
     dpSouHeaHp_nominal *(mSouCooHp_flow_nominal / mSouHeaHp_flow_nominal) ^ 2
     "Source fluid pressure drop in cooling mode - Each heat pump";
-  replaceable parameter Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic perFitHp(
-    dpHeaLoa_nominal=dpHeaWatHp_nominal,
-    dpHeaSou_nominal=dpSouHeaHp_nominal,
-    hea(
-      Q_flow=abs(capHeaHp_nominal),
-      P=0,
-      mLoa_flow=mHeaWatHp_flow_nominal,
-      mSou_flow=mSouHeaHp_flow_nominal,
-      coeQ={1, 0, 0, 0, 0},
-      coeP={1, 0, 0, 0, 0},
-      TRefLoa=THeaWatRetHp_nominal,
-      TRefSou=TSouHeaHp_nominal),
-    coo(
-      Q_flow=if is_rev then - abs(capCooHp_nominal) else - 1,
-      P=0,
-      mLoa_flow=mChiWatHp_flow_nominal,
-      mSou_flow=mSouCooHp_flow_nominal,
-      coeQ={1, 0, 0, 0, 0},
-      coeP={1, 0, 0, 0, 0},
-      TRefLoa=TChiWatRetHp_nominal,
-      TRefSou=TSouCooHp_nominal))
-    constrainedby Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic
-    "Performance data - Equation fit model - Each heat pump"
-    annotation (Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.EquationFit),
-  choicesAllMatching=true,
-  Placement(transformation(extent={{-8,-40},{8,-24}})));
+
+  replaceable parameter
+    Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump perHeaHp(
+      devIde="")
+    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump(
+      mCon_flow_nominal=mHeaWatHp_flow_nominal,
+      mEva_flow_nominal=mSouHeaHp_flow_nominal,
+      dpCon_nominal=dpHeaWatHp_nominal,
+      dpEva_nominal=dpSouHeaHp_nominal)
+    "Performance data in heating mode"
+    annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{-38,0},{-22,16}})));
+  replaceable parameter
+    Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic perCooHp(
+      fileName="",
+      PLRSup={1},
+      tabLowBou=[TSouCooHp_nominal-30, TChiWatSupHp_nominal; TSouCooHp_nominal+10, TChiWatSupHp_nominal],
+      devIde="",
+      use_TConOutForTab=false,
+      use_TEvaOutForTab=true)
+    constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic(
+      mCon_flow_nominal=mSouCooHp_flow_nominal,
+      mEva_flow_nominal=mChiWatHp_flow_nominal,
+      dpCon_nominal=dpSouCooHp_nominal,
+      dpEva_nominal=dpChiWatHp_nominal)
+    "Performance data in cooling mode"
+    annotation (
+      choicesAllMatching=true,
+      Dialog(enable=is_rev),
+      Placement(transformation(extent={{22,0},{38,16}})));
+  parameter Modelica.Units.SI.Power PHp_min(final min=0)=0
+    "Minimum power when system is enabled with compressor cycled off - Each heat pump";
   annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datHp",
     Documentation(info="<html>
 <p>
-This record provides the set of parameters for heat pump group models 
+This record provides the set of parameters for heat pump group models
 that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups\">
 Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups</a>.
 </p>
 <p>
 Only identical heat pumps are currently supported.
+</p>
+<p>
+The heat pump performance data are provided via the subrecords
+<code>perHeaHp</code> and <code>perCooHp</code> for the
+heating mode and the cooling mode, respectively.
+For the required format of the performance data files,
+please refer to the documentation of the block
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
 </p>
 </html>"));
 end HeatPumpGroup;
