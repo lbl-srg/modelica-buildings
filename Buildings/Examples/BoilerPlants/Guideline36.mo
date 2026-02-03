@@ -144,7 +144,7 @@ model Guideline36 "Closed loop testing model"
       rotation=270,
       origin={100,70})));
 
-// protected
+protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3[2](
     final k=fill(true,2))
     "Constant boiler availability status"
