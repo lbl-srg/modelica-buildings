@@ -665,32 +665,33 @@ equation
       2 variable-speed primary pumps, and a common decoupler leg.
       Additionally, it includes PID loops to operate the boilers at the required
       supply temperature setpoint signal.
-      </p>
-      <p>
+    </p>
+
+    <p>
       The intended use-case for this class is to combine it with single or multiple
       instances of the secondary loop class
       <a href=\"modelica://Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad\">
-      Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad</a> to create
-      a primary-secondary boiler plant with variable-primary and variable-secondary
+        Buildings.Examples.BoilerPlants.Baseclasses.SimplifiedSecondaryLoad
+      </a>
+      to create a primary-secondary boiler plant with variable-primary and variable-secondary
       pumps.
-      </p>
-      <p>
-      A few key points when using this class are as follows:
-      <ul>
+    </p>
+
+    <p>A few key points when using this class are as follows:</p>
+    <ul>
       <li>
-      the parameter <code>dpFixed_nominal_value</code> must be provided an appropriate
-      value to represent the cumulative pressure drop in the primary loop.
-      The parameter <code>dpValve_nominal_value</code> must be provided a value
-      that is at minimum equal to <code>dpFixed_nominal_value</code>, to ensure
-      valve authority <code>&ge;50%</code>.
+        The parameter <code>dpFixed_nominal_value</code> must be provided an appropriate
+        value to represent the cumulative pressure drop in the primary loop.
+        The parameter <code>dpValve_nominal_value</code> must be provided a value
+        that is at minimum equal to <code>dpFixed_nominal_value</code>, to ensure
+        valve authority <code>&ge;50%</code>.
       </li>
       <li>
-      the parameter <code>dpPumPri_nominal_value</code> must be tuned to provide
-      positive flow in the decoupler leg measured by signal <code>VDec_flow</code>
-      when the secondary loops are drawing maximum hot-water.
+        The parameter <code>dpPumPri_nominal_value</code> must be tuned to provide
+        positive flow in the decoupler leg measured by signal <code>VDec_flow</code>
+        when the secondary loops are drawing maximum hot-water.
       </li>
-      </ul>
-      </p>
+    </ul>
       </html>", revisions="<html>
       <ul>
       <li>

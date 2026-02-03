@@ -215,7 +215,7 @@ equation
         extent={{-100,-100},{100,120}})),
     Documentation(info="<html>
       <p>
-      This is a simplified model for a boiler plant secondary loop load consisting of 
+      This is a simplified model for a boiler plant secondary loop load consisting of
       a variable speed pump <code>pum</code> and a load assembly <code>loa</code>
       (<a href=\"modelica://Buildings.Templates.Components.Loads.LoadTwoWayValve\">
       Buildings.Templates.Components.Loads.LoadTwoWayValve</a>)
@@ -225,19 +225,18 @@ equation
       A few key points when using this class are as follows:
       <ul>
       <li>
-      The parameter <code>dpValve_nominal</code> is set to be equal to
-      <code>val.dpFixed_nominal</code> by default to ensure
-      valve authority <code>&ge;50%</code>. The user is encouraged to increase the
-      value as required for stable control.
+        The parameter <code>dpValve_nominal</code> is set to be equal to
+        <code>val.dpFixed_nominal</code> by default to ensure
+        valve authority <code>&ge;50%</code>. The user is encouraged to increase the
+        value as required for stable control.
       </li>
       <li>
-      The hysteresis limits for plant request generation as well as reset request
-      generation are both defined per the default values in G36, 2024. The user
-      has the freedom to change those thresholds as required, though it is not
-      mandatory.
+        The hysteresis limits for plant request generation as well as reset request
+        generation are both defined per the default values in G36, 2024. The user
+        has the freedom to change those thresholds as required, though it is not
+        mandatory.
       </li>
-      </ul>
-      </p>
+    </ul>
       </html>", revisions="<html>
       <ul>
       <li>
