@@ -987,7 +987,7 @@ model PrimaryController
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
-// protected
+protected
   parameter Boolean have_remDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
 
