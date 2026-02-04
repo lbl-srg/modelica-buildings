@@ -34,24 +34,24 @@ graphics={
         points = {{18,-15},{14,-25},{13,-34},{15,-42},{21,-49},{29,-51},{36,-51},{46,-50},{36,-47},{28,-45},{22,-40},{19,-33},{17,-23},{18,-15},{18,-15}}),
       Polygon(
         origin = {13.758,27.517},
-        lineColor = {191,0,0},
-        fillColor = {191,0,0},
-        fillPattern = FillPattern.Solid,
+        lineColor={0,0,0},
+        fillColor={0,0,0},
+        fillPattern=FillPattern.Solid,
         points = {{-9,-23},{-9,-10},{18,-17},{-9,-23}}),
       Line(
         origin = {13.758,27.517},
         points = {{-41,-17},{-9,-17}},
-        color = {191,0,0},
+        color={0,0,0},
         thickness = 0.5),
       Line(
         origin = {13.758,27.517},
         points = {{-17,-40},{15,-40}},
-        color = {191,0,0},
+        color={0,0,0},
         thickness = 0.5),
       Polygon(
         origin = {13.758,27.517},
-        lineColor = {191,0,0},
-        fillColor = {191,0,0},
-        fillPattern = FillPattern.Solid,
+        lineColor={0,0,0},
+        fillColor={0,0,0},
+        fillPattern=FillPattern.Solid,
         points = {{-17,-46},{-17,-34},{-40,-40},{-17,-46}})}));
 end HeatTransfer;

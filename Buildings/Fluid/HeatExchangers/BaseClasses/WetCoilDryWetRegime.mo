@@ -229,7 +229,6 @@ equation
         Text(
           extent={{24,36},{96,2}},
           textStyle={TextStyle.Bold},
-          pattern=LinePattern.None,
           textString="WET",
           textColor={0,0,0}),
         Line(
@@ -280,8 +279,7 @@ equation
         Text(
           extent={{-16,-4},{56,-38}},
           textStyle={TextStyle.Bold},
-          textString="CALCS",
-          pattern=LinePattern.None),
+          textString="CALCS"),
         Line(
           points={{-80,0},{20,0}},
           color={28,108,200},
@@ -290,20 +288,15 @@ equation
         Text(
           extent={{-56,36},{16,2}},
           textStyle={TextStyle.Bold},
-          textString="DRY",
-          pattern=LinePattern.None),
+          textString="DRY"),
         Text(
           extent={{-22,60},{58,40}},
           textColor={28,108,200},
-          fillColor={170,170,255},
-          fillPattern=FillPattern.Forward,
           textString="Water",
           textStyle={TextStyle.Italic}),
         Text(
           extent={{-20,-40},{60,-60}},
           textColor={28,108,200},
-          fillColor={170,170,255},
-          fillPattern=FillPattern.Forward,
           textString="Air",
           textStyle={TextStyle.Italic}),
         Text(

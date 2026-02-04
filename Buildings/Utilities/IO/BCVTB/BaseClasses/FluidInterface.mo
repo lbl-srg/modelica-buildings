@@ -100,8 +100,6 @@ equation
         Text(
           extent={{-168,50},{-66,10}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="T"),
         Rectangle(
           extent={{35,45},{100,-45}},
@@ -121,8 +119,6 @@ equation
         Text(
           extent={{-54,32},{16,-30}},
           textColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
           textString="m"),
         Ellipse(
           extent={{-26,30},{-18,22}},

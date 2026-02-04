@@ -25,14 +25,14 @@ model HeatPump
     nPorts=1) "Ambient water supply" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={60,-60})));
+        origin={70,-8})));
   Fluid.Sources.Boundary_pT sinAmb(
     redeclare package Medium = Medium,
     p(displayUnit="bar"),
     nPorts=1) "Sink for ambient water" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={60,10})));
+        origin={-70,-60})));
   Fluid.Sources.Boundary_pT souLoa(
     redeclare final package Medium = Medium,
     T=TCon_nominal - heaPum.dT_nominal,
@@ -41,63 +41,67 @@ model HeatPump
       transformation(
       extent={{10,-10},{-10,10}},
       rotation=180,
-      origin={-110,-52})));
+      origin={-70,4})));
 
   Modelica.Blocks.Sources.Sine sin(f=1/(86400/2)) "Load signal"
-    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+    annotation (Placement(transformation(extent={{-112,62},{-92,82}})));
   Modelica.Blocks.Nonlinear.Limiter limiter(uMax=1, uMin=0)
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,62},{-60,82}})));
   Modelica.Blocks.Math.Gain gain(k=QLoa_nominal/(4200*5))
-    annotation (Placement(transformation(extent={{-48,80},{-28,100}})));
+    annotation (Placement(transformation(extent={{-48,62},{-28,82}})));
   Modelica.Blocks.Sources.Step TSetCon(
     height=-2,
     offset=TCon_nominal,
     startTime=86400/2) "Set point of condenser outlet"
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Fluid.Sources.Boundary_pT sinLoa(redeclare final package Medium = Medium,
       nPorts=1) "Sink for load" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-110,0})));
+        origin={70,40})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold enaHea(t=1e-4)
     "Threshold comparison to enable heating"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Fluid.Sensors.TemperatureTwoPort senTLoaSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=QLoa_nominal/(4200*5),
     tau=0) "Load supply temperature sensor"
                                          annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,0})));
+        origin={30,40})));
   Fluid.Sensors.MassFlowRate senMasFloAmb(redeclare package Medium = Medium)
     "Mass flow rate sensor for ambient loop"
-    annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{40,-18},{20,2}})));
 equation
-  connect(sinAmb.ports[1], heaPum.port_b2) annotation (Line(points={{50,10},{22,
-          10},{22,4},{10,4}}, color={0,127,255}));
+  connect(sinAmb.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-60},{
+          -16,-60},{-16,-8},{-10,-8}},
+                              color={0,127,255}));
   connect(sin.y, limiter.u)
-    annotation (Line(points={{-99,90},{-82,90}}, color={0,0,127}));
+    annotation (Line(points={{-91,72},{-82,72}}, color={0,0,127}));
   connect(limiter.y, gain.u)
-    annotation (Line(points={{-59,90},{-50,90}}, color={0,0,127}));
-  connect(heaPum.m1_flow, gain.y) annotation (Line(points={{-12,-2},{-27,-2},{-27,
-          90}},          color={0,0,127}));
-  connect(TSetCon.y, heaPum.TSupSet) annotation (Line(points={{-99,30},{-22,30},
-          {-22,1},{-12,1}}, color={0,0,127}));
-  connect(souLoa.ports[1], heaPum.port_a1) annotation (Line(points={{-100,-52},{
-          -20,-52},{-20,-8},{-10,-8}}, color={0,127,255}));
-  connect(enaHea.y, heaPum.uEna) annotation (Line(points={{-58,50},{-18,50},{-18,
-          8},{-12,8},{-12,7}}, color={255,0,255}));
-  connect(limiter.y, enaHea.u) annotation (Line(points={{-59,90},{-56,90},{-56,68},
-          {-92,68},{-92,50},{-82,50}}, color={0,0,127}));
-  connect(sinLoa.ports[1], senTLoaSup.port_b) annotation (Line(points={{-100,
-          -8.88178e-16},{-90,-8.88178e-16},{-90,0},{-80,0}}, color={0,127,255}));
-  connect(senTLoaSup.port_a, heaPum.port_b1) annotation (Line(points={{-60,0},{
-          -40,0},{-40,4},{-10,4}}, color={0,127,255}));
+    annotation (Line(points={{-59,72},{-50,72}}, color={0,0,127}));
+  connect(heaPum.m1_flow, gain.y) annotation (Line(points={{-12,-2},{-16,-2},{
+          -16,72},{-27,72}},
+                         color={0,0,127}));
+  connect(TSetCon.y, heaPum.TSupSet) annotation (Line(points={{-59,-30},{-20,
+          -30},{-20,1},{-12,1}},
+                            color={0,0,127}));
+  connect(souLoa.ports[1], heaPum.port_a1) annotation (Line(points={{-60,4},{
+          -10,4}},                     color={0,127,255}));
+  connect(enaHea.y, heaPum.uEna) annotation (Line(points={{-58,30},{-20,30},{
+          -20,7},{-12,7}},     color={255,0,255}));
+  connect(limiter.y, enaHea.u) annotation (Line(points={{-59,72},{-54,72},{-54,
+          50},{-88,50},{-88,30},{-82,30}},
+                                       color={0,0,127}));
+  connect(sinLoa.ports[1], senTLoaSup.port_b) annotation (Line(points={{60,40},
+          {40,40}},                                          color={0,127,255}));
+  connect(senTLoaSup.port_a, heaPum.port_b1) annotation (Line(points={{20,40},{
+          14,40},{14,4},{10,4}},   color={0,127,255}));
   connect(heaPum.port_a2, senMasFloAmb.port_b)
-    annotation (Line(points={{10,-8},{20,-8},{20,-60}}, color={0,127,255}));
+    annotation (Line(points={{10,-8},{20,-8}},          color={0,127,255}));
   connect(senMasFloAmb.port_a, supAmb.ports[1])
-    annotation (Line(points={{40,-60},{50,-60}}, color={0,127,255}));
+    annotation (Line(points={{40,-8},{60,-8}},   color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(

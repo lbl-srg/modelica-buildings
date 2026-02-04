@@ -94,20 +94,14 @@ annotation (
         Text(
           extent={{-94,74},{-64,46}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="dpBui"),
         Text(
           extent={{-94,-48},{-70,-70}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uSupFan"),
         Text(
           extent={{52,16},{96,-18}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yExhDamPos"),
         Polygon(
           points={{-80,92},{-88,70},{-72,70},{-80,92}},

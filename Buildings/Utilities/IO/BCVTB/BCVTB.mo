@@ -279,8 +279,6 @@ algorithm
         Text(
           extent={{-82,108},{30,40}},
           textColor={0,0,0},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid,
           textString="tS=%samplePeriod%")}),
     Documentation(info="<html>
 Block that exchanges data with the

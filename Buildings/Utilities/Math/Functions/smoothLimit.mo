@@ -9,12 +9,13 @@ function smoothLimit
   output Real y "Result";
 
 protected
-  Real cor;
+  Real cor = deltaX/10;
 algorithm
-  cor :=deltaX/10;
-  y := Buildings.Utilities.Math.Functions.smoothMax(x,l+deltaX,cor);
-  y := Buildings.Utilities.Math.Functions.smoothMin(y,u-deltaX,cor);
-  annotation (smoothOrder = 1,
+  y := Buildings.Utilities.Math.Functions.smoothMin(
+         Buildings.Utilities.Math.Functions.smoothMax(
+           x,l+deltaX,cor),
+         u-deltaX,cor);
+  annotation (smoothOrder = 1, Inline=true,
   Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <code>limit(.,.)</code> function.
@@ -27,6 +28,12 @@ Buildings.Utilities.Math.Examples.SmoothMin</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 21, 2025 by Hongxiang Fu:<br/>
+Made the function inlined.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4278\">#4278</a>.
+</li>
 <li>
 March 12, 2015, by Filip Jorissen:<br/>
 Added documentation reference demonstrating overshoot.

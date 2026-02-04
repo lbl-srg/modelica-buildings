@@ -13,7 +13,8 @@ model HeatRecoveryChiller
   which allows better integration into the HP plant diagram.
   Ideally, with PR#1781, port_a1 and port_b1 should be moved to be vertically
   aligned with port_a2 and port_b2, respectively.
-  */replaceable package MediumChiWat=Buildings.Media.Water
+  */
+    replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
     annotation (__Linkage(enable=false));
@@ -30,6 +31,26 @@ model HeatRecoveryChiller
   parameter Buildings.Templates.Components.Data.Chiller datHrc
     "HRC parameters"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=hrc.mChiWat_flow_nominal
+    "Design CHW mass flow rate";
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=hrc.mCon_flow_nominal
+    "Design condenser cooling fluid mass flow rate";
+  final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=hrc.QChiWat_flow_nominal
+    "Design cooling heat flow rate";
+  final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal=hrc.dpChiWat_nominal
+    "Design CHW pressure drop";
+  final parameter Modelica.Units.SI.PressureDifference dpCon_nominal=hrc.dpCon_nominal
+    "Design condenser cooling fluid pressure drop";
+  final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=hrc.TChiWatSup_nominal
+    "Design CHW supply temperature";
+  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=hrc.TChiWatRet_nominal
+    "Design CHW return temperature";
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal=hrc.QCon_flow_nominal
+    "Design condenser heat flow rate";
+  parameter Modelica.Units.SI.Temperature TConEnt_nominal=hrc.TConEnt_nominal
+    "Design condenser entering fluid temperature";
+  parameter Modelica.Units.SI.Temperature TConLvg_nominal=hrc.TConLvg_nominal
+    "Design condenser leaving fluid temperature";
   parameter Modelica.Units.SI.Time tauHrc=30
     "HRC – Time constant at nominal flow, used if energy or mass balance is dynamic"
     annotation (Dialog(tab="Dynamics",group="Nominal condition",
@@ -204,6 +225,12 @@ Buildings.Templates.Components.Pumps.Single</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 18, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat recovery chiller model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
 First implementation.

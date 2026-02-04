@@ -83,6 +83,14 @@ model OnOff
   BaseClasses.OnOffFuzzyLogic onOffFuzLog(ySetRed=ySetRed)
     "Fuzzy logic to device for output"
     annotation (Placement(transformation(extent={{74,-20},{114,20}})));
+  Modelica.Blocks.Interfaces.RealInput ySet
+    "Input for relative compressor speed from 0 to 1"
+    annotation (Placement(transformation(extent={{-152,-16},{-120,16}}),
+        iconTransformation(extent={{-152,-16},{-120,16}})));
+  Modelica.Blocks.Interfaces.RealOutput yOut
+    "Output for relative compressor speed from 0 to 1"
+    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
+        iconTransformation(extent={{120,-10},{140,10}})));
 equation
   connect(preOnOff.y, cycRatBou.u) annotation (Line(points={{-79,-90},{-66,-90},{-66,
           -50},{-2,-50}},                     color={255,0,255}));
@@ -146,8 +154,8 @@ equation
           70},{28,90},{38,90}}, color={255,0,255}));
   connect(onOffFuzLog.yOut, yOut)
     annotation (Line(points={{116,0},{130,0}},   color={0,0,127}));
-  connect(onOffFuzLog.ySet, ySet) annotation (Line(points={{70.8,0},{56,0},{56,
-          36},{-58,36},{-58,6},{-114,6},{-114,0},{-136,0}},
+  connect(onOffFuzLog.ySet, ySet) annotation (Line(points={{70.8,0},{24,0},{24,
+          4},{-6,4},{-6,-6},{-114,-6},{-114,0},{-136,0}},
                                         color={0,0,127}));
   connect(onOffFuzLog.staOff, andStaOff.y) annotation (Line(points={{70.8,-6},{
           36,-6},{36,-30},{-19,-30}},

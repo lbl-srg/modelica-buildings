@@ -29,9 +29,15 @@ protected
 algorithm
   y :=H0*y1 + H1*y1d*h  + H2*y1dd*hpow2 + H3*y2dd*hpow2 + H4*y2d*h + H5*y2;
 
-annotation (smoothOrder=99,
+annotation (smoothOrder=99, Inline=true,
 Documentation(revisions="<html>
 <ul>
+<li>
+July 21, 2025 by Hongxiang Fu:<br/>
+Made the function inlined.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4278\">#4278</a>.
+</li>
 <li>
 April 19, 2017, by Filip Jorissen:<br/>
 First implementation.
