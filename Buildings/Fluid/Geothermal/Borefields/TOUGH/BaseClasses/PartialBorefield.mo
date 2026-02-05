@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses;
-partial model PartialBorefieldWithTough
+partial model PartialBorefield
   "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
 
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -277,4 +277,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialBorefieldWithTough;
+end PartialBorefield;
