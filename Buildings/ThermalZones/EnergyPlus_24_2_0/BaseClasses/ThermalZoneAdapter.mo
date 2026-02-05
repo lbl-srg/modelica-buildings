@@ -229,8 +229,17 @@ initial equation
         nParOut=nParOut,
         isSynchronized=nObj);
   // Below is for conversion from kg/kg_dry_air (EnergyPlus) to kg/kg_total_air (Modelica)
-  (1/XOutCoo)=(1-sizCoo.XOut)/sizCoo.XOut;
-  (1/XOutHea)=(1-sizHea.XOut)/sizHea.XOut;
+  if XOutCoo > 0 then
+    (1/XOutCoo)=(1-sizCoo.XOut)/sizCoo.XOut;
+  else
+    sizCoo.XOut = 0;
+  end if;
+
+  if XOutHea > 0 then
+    (1/XOutHea)=(1-sizHea.XOut)/sizHea.XOut;
+  else
+    sizHea.XOut = 0;
+  end if;
 
   m_flow_small=V*3*1.2/3600*1E-10;
   startTime=time;
