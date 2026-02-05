@@ -461,7 +461,6 @@ annotation (
         Text(
           extent={{-98,48},{-68,32}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TAirSup"),
         Text(
           extent={{-100,160},{100,120}},
@@ -470,47 +469,39 @@ annotation (
         Text(
           extent={{-98,8},{-50,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TAirSupSet"),
         Text(
           extent={{-98,-32},{-40,-46}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=have_chiWatCoi,
           textString="uCooCoiSet"),
         Text(
           extent={{34,72},{98,50}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yChiWatResReq",
           visible=have_chiWatCoi),
         Text(
           extent={{52,32},{98,10}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yChiPlaReq",
           visible=have_chiWatCoi),
         Text(
           extent={{34,-8},{98,-30}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yHotWatResReq",
           visible=have_hotWatCoi),
         Text(
           extent={{38,-48},{98,-70}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yHotWatPlaReq",
           visible=have_hotWatCoi),
         Text(
           extent={{-100,90},{-68,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uFan"),
         Text(
           extent={{-100,-72},{-40,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=have_hotWatCoi,
           textString="uHeaCoiSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}})),
