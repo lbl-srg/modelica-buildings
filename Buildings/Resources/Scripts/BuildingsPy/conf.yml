@@ -139,6 +139,10 @@
   openmodelica:
     comment: Timeout after 300 seconds.
     simulate: false
+- model_name: Buildings.Examples.FanCoils.FourPipe
+  optimica:
+    comment: Solves six times faster if tolerance is set to 1e-07
+    rtol: 1.0e-07
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
     comment: Times out after 900 seconds.
@@ -407,9 +411,6 @@
     comment: Possible chattering detected at t = 3.120112e+03 in state event
     simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
-  optimica:
-    comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
-    translate: false
   openmodelica:
     comment: Translation failed.
     translate: false

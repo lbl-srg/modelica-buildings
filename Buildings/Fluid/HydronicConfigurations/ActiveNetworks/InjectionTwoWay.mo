@@ -41,6 +41,7 @@ model InjectionTwoWay "Injection circuit with two-way valve"
         origin={-60,40})));
   Components.TwoWayValve val(
     redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
     final typCha=typCha,
     use_strokeTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
