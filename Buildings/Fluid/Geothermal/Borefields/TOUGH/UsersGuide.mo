@@ -77,14 +77,18 @@ where only the major sections are demonstrated:
 <pre>
   def doStep(dblInp, state):
     # retrieve state of last invoke, including
-    #   -- the end time of the TOUGH simulation,
+    #   -- the path of working directory
+    #   -- the end time of the lat TOUGH simulation,
     #   -- the heat flow on the borehole wall that was measured in Modelica at last invoke,
     #   -- the borehole wall temperature at the end of last TOUGH simulation.
-    {tLast, Q, T_tough} = {state['tLast'], state['Q'], state['T_tough']}
+    tou_tmp = state['work_dir']
+    tLast = state['tLast']
+    Q_stored = state['Q']
+    T_stored = state['T_tough']
     
     # Map the heat flow in the Modelica domain mesh points (borehole segments)
     # to the TOUGH boundary mesh point
-    Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
+    Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, Q_stored, 'Q_Mo2To')
 
     # update TOUGH input files for each TOUGH call:
     #   -- update the INFILE to specify begining and ending TOUGH simulation time
@@ -108,7 +112,7 @@ where only the major sections are demonstrated:
     ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
 
     # update state
-    state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
+    state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
   return [ToModelica, state]
 </pre>
 
@@ -170,8 +174,8 @@ The following steps are done inside the Python function:
 <ol>
 <li>
 In the first invocation of Python function, the Python object is not yet initialized.
-The Python function therefore takes the initial temperature from Modelica to initialize
-the Python object.
+The Python function therefore takes the initial temperature and the heat flow rate
+from Modelica to initialize the Python object. It does not start the TOUGH simulation.
 </li>
 <li>
 Before each TOUGH simulation, the function <code>write_incon()</code> edits the

@@ -31,13 +31,13 @@ def doStep(dblInp, state):
     hBor = dblInp[2*nSeg+5]
     
     # Find the depth of each layer
-    # meshFile = os.path.join(TOUGH_dir, 'MESH')
-    # toughLayers = find_layer_depth(meshFile, nTouSeg)
+    meshFile = os.path.join(TOUGH_dir, 'MESH')
+    toughLayers = find_layer_depth(meshFile, nTouSeg)
 
-    # add_grid_boundary(toughLayers)
+    add_grid_boundary(toughLayers)
 
     # Find Modelica layers
-    # modelicaLayers = modelica_mesh(hBor, nSeg)
+    modelicaLayers = modelica_mesh(hBor, nSeg)
 
     # This is the first call of this python module. There is no state yet.
     if state == None:
@@ -46,19 +46,24 @@ def doStep(dblInp, state):
         # Copy the TOUGH input files to working directory
         copy_files(TOUGH_dir, tou_tmp)
         # Initialize the state
-        # T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
-        T_tough_start = [280.15] * nTouSeg
+        T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
         state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start, 'work_dir': tou_tmp}
-        T_toModelica = T_start
         p_Int = [101343.01] * nInt
         x_Int = [10.5] * nInt
         T_Int = [15.06+273.15] * nInt
+        T_toModelica = T_start
         ToModelica = T_toModelica + p_Int + x_Int + T_Int
     else:
-        # Obtain the path of working directory
+        # retrieve state of last invoke, including
+        #   -- the path of working directory
+        #   -- the end time of the lat TOUGH simulation,
+        #   -- the heat flow on the borehole wall that was measured in Modelica at last invoke,
+        #   -- the borehole wall temperature at the end of last TOUGH simulation.
         tou_tmp = state['work_dir']
-        # Last ending time
         tLast = state['tLast']
+        Q_stored = state['Q']
+        T_stored = state['T_tough']
+
         # Find the TOUGH simulation step size
         dt = tim - tLast
 
@@ -72,8 +77,8 @@ def doStep(dblInp, state):
             # Change current directory to working directory
             os.chdir(tou_tmp)
             # T_toTough = mesh_to_mesh(toughLayer, modelicaLayers, state['T'], 'Mo2To')
-            # Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
-            Q_toTough = [150] * nTouSeg
+            Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, Q_stored, 'Q_Mo2To')
+            # Q_toTough = [150] * nTouSeg
 
             # Check if there is 'GENER'. If the file does not exist, it means this is 
             # the first call of TOUGH simulation. There is no 'SAVE' yet so cannot call
@@ -101,7 +106,7 @@ def doStep(dblInp, state):
                 # each borehole segment to ground, from Modeica in previous call.
                 # The `T_tough` is the wall temperature of each borehole segment from
                 # last TOUGH simulation
-                update_writeincon('writeincon.inp', tLast, tim, state['T_tough'], Q_toTough, T_out)
+                update_writeincon('writeincon.inp', tLast, tim, T_stored, Q_toTough, T_out)
 
                 # Generate TOUGH input files
                 # os.system("./writeincon < writeincon.inp")
@@ -127,8 +132,8 @@ def doStep(dblInp, state):
             data = extract_data('out.txt', nTouSeg, nInt)
             T_tough = data['T_Bor']
             # Output to Modelica simulation
-            # T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
-            T_toModelica = [281.15] * nSeg
+            T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
+            # T_toModelica = [281.15] * nSeg
 
             # Outputs to Modelica
             ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
