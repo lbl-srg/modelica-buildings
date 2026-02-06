@@ -585,8 +585,6 @@ annotation (
         Text(
           extent={{-152,244},{-24,222}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Discharge airflow setpoint"),
         Rectangle(
@@ -598,8 +596,6 @@ annotation (
         Text(
           extent={{-10,-132},{106,-148}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Heating coil control"),
         Rectangle(
@@ -611,8 +607,6 @@ annotation (
         Text(
           extent={{-246,-374},{-130,-390}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Terminal fan control")}),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
@@ -629,59 +623,48 @@ annotation (
         Text(
           extent={{-98,96},{-46,82}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{-96,-182},{-46,-198}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{-98,24},{-54,14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-100,126},{-80,116}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,-64},{-78,-76}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
           extent={{-98,-34},{-60,-44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{-100,64},{-80,56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-12.5,6},{12.5,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDis",
           origin={-88.5,-102}),
         Text(
           extent={{-100,44},{-80,36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{68,96},{98,86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yDam"),
         Text(
           extent={{66,-132},{98,-146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yVal"),
         Line(points={{-38,64},{-38,-48},{74,-48}}, color={95,95,95}),
@@ -704,34 +687,28 @@ annotation (
         Text(
           extent={{56,148},{98,136}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VPri_flow_Set"),
         Text(
           extent={{60,-84},{98,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="TDisHeaSet"),
         Text(
           extent={{-96,-124},{-60,-136}},
           textColor={255,127,27},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{-98,156},{-68,146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VPri_flow"),
         Text(
           extent={{-100,-16},{-68,-24}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{64,-180},{96,-194}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="y1Fan"),
         Line(
@@ -746,18 +723,15 @@ annotation (
         Text(
           extent={{-98,-152},{-54,-168}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="u1TerFan"),
         Text(
           extent={{-96,196},{-60,184}},
           textColor={255,127,27},
-          pattern=LinePattern.Dash,
           textString="oveFloSet"),
         Text(
           extent={{-98,6},{-72,-8}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Fan")}),
   Documentation(info="<html>
 <p>
