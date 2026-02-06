@@ -52,6 +52,12 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Fluid.AirFilters
+    </td>
+    <td valign=\"top\">Package of models for air filters.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
