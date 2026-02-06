@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "masAcc.mCon_flow[1]",
+    "masAcc.yRep",
+    "masAcc.mCon",
+    "masAcc.mCon_max"
+  };
