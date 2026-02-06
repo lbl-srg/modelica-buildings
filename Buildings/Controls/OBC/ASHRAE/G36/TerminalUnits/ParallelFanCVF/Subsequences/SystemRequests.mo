@@ -536,79 +536,65 @@ annotation (
         Text(
           extent={{-98,76},{-70,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{-102,56},{-74,46}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-100,36},{-76,26}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,18},{-66,6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
           extent={{-100,-4},{-66,-14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VPri_flow"),
         Text(
           extent={{-98,-24},{-56,-34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{36,88},{98,72}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
           extent={{40,40},{98,24}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
           extent={{-98,98},{-64,84}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uAftSup"),
         Text(
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{-98,-42},{-74,-54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDisSet"),
         Text(
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{-102,-64},{-76,-74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
           extent={{-98,-84},{-60,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uVal"),
         Text(
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{40,-20},{98,-36}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHeaValResReq"),
         Text(
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{40,-70},{98,-86}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHotWatPlaReq")}),
   Documentation(info="<html>
