@@ -192,10 +192,10 @@ block Controller "Tower fan speed control"
     "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
-  CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
-    "Current condenser water pump status" annotation (Placement(transformation(
-          extent={{-140,-160},{-100,-120}}), iconTransformation(extent={{-140,-190},
-            {-100,-150}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status"
+    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
+      iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final unit="K",
     displayUnit="degC",
@@ -286,6 +286,14 @@ block Controller "Tower fan speed control"
     final TdWSE=TdWSE) if have_WSE
     "Tower fan speed when waterside economizer is enabled"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=fanSpeCon == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure)
+    "Check if the speed control is for returning water temperature"
+    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="The tower speed control should be for controlling the return temperature setpoint.")
+    "Tower speed control warning"
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
 equation
   connect(fanSpeWse.ySpeSet, fanSpeRetTem.uSpeWSE) annotation (Line(points={{-18,50},
@@ -339,6 +347,8 @@ equation
           {60,-59},{60,-170},{120,-170}},      color={0,0,127}));
   connect(uConWatPum, fanSpeRetTem.uConWatPum) annotation (Line(points={{-120,
           -140},{-52,-140},{-52,-55},{-2,-55}}, color={255,0,255}));
+  connect(con1.y, assMes.u)
+    annotation (Line(points={{2,110},{18,110}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
