@@ -112,6 +112,7 @@ model BoilerPlant
     "Heating load"
     annotation(Placement(transformation(extent={{110,-70},{130,-50}})));
   Fluid.MixingVolumes.MixingVolume vol(
+    final energyDynamics=energyDynamics,
     m_flow_nominal=pla.mHeaWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap * pla.cap_nominal,
     redeclare package Medium=Medium,

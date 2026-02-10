@@ -24,7 +24,15 @@ record Controller
     "Outdoor air lockout temperature above which the plant is prevented from operating"
     annotation(Dialog(group="Temperature setpoints",
       enable=cfg.typCtl ==
-        Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36));
+      Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36));
+  /* HACK(AntoineGautier):
+   * We use an unknown dimension [:] in the declarations below to avoid Dymola's
+   * error "evaluate and check the size declaration".
+   * However, this requires explicitly providing a value with OCT, 
+   * even if enable=false (the start attribute is not enough for OCT).
+   * Using fill instead of each for the start attribute also enhances tool
+   * compatibility.
+   */
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiCon_flow_nominal[:](
     start=fill(0.1, cfg.nBoiCon),
     each displayUnit="L/s",

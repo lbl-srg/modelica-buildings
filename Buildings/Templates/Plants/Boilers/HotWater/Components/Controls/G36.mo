@@ -79,14 +79,11 @@ block G36
     "Design (highest) HW supply temperature setpoint";
   final parameter Real TConBoiHotWatSetMax = dat.THeaWatConSup_nominal
     "Design (highest) HW supply temperature setpoint for condensing boilers";
-  // FIXME: Missing enable condition.
   final parameter Real minPumSpePri = dat.yPumHeaWatPri_min
     "Minimum pump speed";
-  // FIXME: Missing enable condition: only required for primary-only plants with headered variable speed pumps using differential pressure pump speed control, see G36 3.1.8.4.
   final parameter Real VHotWatPri_flow_nominal =
     max(dat.VHeaWatPriCon_flow_nominal, dat.VHeaWatPriNon_flow_nominal)
     "Plant design hot water flow rate through  primary loop";
-  // FIXME: Missing enable condition: only required for primary-only hot water plants with a minimum flow bypass valve, see G36 3.1.8.2.
   final parameter Real boiDesFlo[nBoi] =
     {if i <= cfg.nBoiCon
     then dat.VHeaWatBoiCon_flow_nominal[i]
@@ -210,13 +207,12 @@ equation
   connect(bus.dpHeaWatLoc, ctlLooPri.dpHotWatPri_loc);
   connect(bus.dpHeaWatRem, ctlLooPri.dpHotWatPri_rem);
   connect(bus.TOut, ctlLooPri.TOut);
-  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.THeaWatPlaRet, ctlLooPri.TRetPri);
   connect(busLooNon.THeaWatPlaRet, ctlLooPri.TRetPri);
   connect(bus.THeaWatSecRet, ctlLooPri.TRetSec);
+  connect(bus.VHeaWatSec_flow, ctlLooPri.VHotWatSec_flow[1]);
   connect(busBoiCon.THeaWatSup, ctlLooPri.TSupBoi[1:cfg.nBoiCon]);
   connect(busBoiNon.THeaWatSup, ctlLooPri.TSupBoi[(cfg.nBoiCon + 1):nBoi]);
-  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.THeaWatPriSup, ctlLooPri.TSupPri);
   connect(busLooNon.THeaWatPriSup, ctlLooPri.TSupPri);
   connect(bus.THeaWatSecSup, ctlLooPri.TSupSec);
@@ -224,10 +220,8 @@ equation
   connect(busPumHeaWatPriNon.y1_actual, ctlLooPri.uPriPum[(cfg.nBoiCon +
     1):nBoi]);
   connect(bus.u1Sch, ctlLooPri.uSchEna);
-  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.VHeaWatByp_flow, ctlLooPri.VHotWatDec_flow);
   connect(busLooNon.VHeaWatByp_flow, ctlLooPri.VHotWatDec_flow);
-  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(busLooCon.VHeaWatPri_flow, ctlLooPri.VHotWatPri_flow);
   connect(busLooNon.VHeaWatPri_flow, ctlLooPri.VHotWatPri_flow);
   connect(busValBoiConIso.y1_actual, ctlLooPri.uHotWatIsoValOpe[1:cfg.nBoiCon]);
@@ -239,6 +233,7 @@ equation
   // Secondary HW pump controller inputs from plant control bus
   connect(bus.dpHeaWatLoc, ctlPumHeaWatSec.dpHotWat_local);
   connect(bus.dpHeaWatRem, ctlPumHeaWatSec.dpHotWat_remote);
+  connect(bus.VHeaWatSec_flow, ctlPumHeaWatSec.VHotWat_flow);
   connect(busPumHeaWatSec.y1_actual, ctlPumHeaWatSec.uHotWatPum);
   // Primary loop controller outputs to plant control bus
   connect(ctlLooPri.TBoiHotWatSupSet[1:cfg.nBoiCon], busBoiCon.THeaWatSupSet);
@@ -251,7 +246,6 @@ equation
   connect(ctlLooPri.yHotWatIsoVal[(cfg.nBoiCon + 1):nBoi], busValBoiNonIso.y1);
   connect(ctlLooPri.yPriPum[1:cfg.nBoiCon], busPumHeaWatPriCon.y1);
   connect(ctlLooPri.yPriPum[(cfg.nBoiCon + 1):nBoi], busPumHeaWatPriNon.y1);
-  // FIXME: There should be distinct connectors in the controller for condensing and non-condensing groups.
   connect(ctlLooPri.yPriPumSpe, busPumHeaWatPriCon.y);
   connect(ctlLooPri.yPriPumSpe, busPumHeaWatPriNon.y);
   // Secondary HW pump controller outputs to plant control bus
@@ -307,12 +301,6 @@ equation
   connect(reqResHeaWat.y, ctlLooPri.resReq)
     annotation(Line(points={{170,120},{-18,120},{-18,26.9},{-12,26.9}},
       color={255,127,0}));
-  connect(VHeaWatSec_flow.y, ctlLooPri.VHotWatSec_flow)
-    annotation(Line(points={{-188,-80},{-20,-80},{-20,-3.7},{-12,-3.7}},
-      color={0,0,127}));
-  connect(VHeaWatSec_flow.y[1], ctlPumHeaWatSec.VHotWat_flow)
-    annotation(Line(points={{-188,-80},{40,-80},{40,82},{48,82}},
-      color={0,0,127}));
 annotation(Documentation(
   info="<html>
 <h4>Description</h4>

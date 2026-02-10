@@ -563,9 +563,8 @@ equation
   connect(VHeaWatPriRetCon_flow.y, busLooCon.VHeaWatPri_flow);
   connect(VHeaWatPriSupNon_flow.y, busLooNon.VHeaWatPri_flow);
   connect(VHeaWatPriRetNon_flow.y, busLooNon.VHeaWatPri_flow);
-  // bus.VHeaWatSec_flow is an array for future support of distributed pumps.
-  connect(VHeaWatSecSup_flow.y, bus.VHeaWatSec_flow[1]);
-  connect(VHeaWatSecRet_flow.y, bus.VHeaWatSec_flow[1]);
+  connect(VHeaWatSecSup_flow.y, bus.VHeaWatSec_flow);
+  connect(VHeaWatSecRet_flow.y, bus.VHeaWatSec_flow);
   connect(VHeaWatBypCon_flow.y, busLooCon.VHeaWatByp_flow);
   connect(VHeaWatBypNon_flow.y, busLooNon.VHeaWatByp_flow);
   connect(THeaWatPriSupCon.y, busLooCon.THeaWatPriSup);
@@ -843,7 +842,10 @@ annotation(Documentation(
       <font color=\"gray\"><em>Constant speed, provided with boiler with factory controls</em></font><br />
       <font color=\"gray\"><em>Variable speed, provided with boiler with factory controls</em></font>
     </td>
-    <td></td>
+    <td>
+    This setting is only available for non-condensing boilers.
+    Condensing boilers require variable speed primary HW pumps to prevent primary flow recirculation.
+    </td>
   </tr>
   <tr>
     <td>Type of primary HW pump arrangement</td>

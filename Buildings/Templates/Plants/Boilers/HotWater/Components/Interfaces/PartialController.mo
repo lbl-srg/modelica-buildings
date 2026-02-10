@@ -177,13 +177,6 @@ block PartialController
       iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={100,-60})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal VHeaWatSec_flow(
-    nin=cfg.nLooHeaWatSec,
-    nout=cfg.nLooHeaWatSec)
-    if cfg.typPumHeaWatSec <>
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-    "Secondary HW flow (handles none, single or multiple sensors)"
-    annotation(Placement(transformation(extent={{-210,-90},{-190,-70}})));
   protected
   Buildings.Templates.Components.Interfaces.Bus busBoiCon[cfg.nBoiCon]
     if cfg.have_boiCon
@@ -279,14 +272,6 @@ equation
       thickness=0.5));
   connect(busLooNon, bus.looNon)
     annotation(Line(points={{-160,200},{-180,200},{-180,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  // HACK: Using an explicit range for bus.VHeaWatSec_flow avoids Dymola's warning
-  // "Note: since there are connections to elements of pla.bus.VHeaWatSec_flow[]
-  // we have to expand pla.boiCon.bus.VHeaWatSec_flow[] (which is connected to it)."
-  connect(bus.VHeaWatSec_flow[1:cfg.nLooHeaWatSec], VHeaWatSec_flow.u)
-    annotation (Line(
-      points={{-260,0},{-260,-14},{-240,-14},{-240,-80},{-212,-80}},
       color={255,204,51},
       thickness=0.5));
 annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
