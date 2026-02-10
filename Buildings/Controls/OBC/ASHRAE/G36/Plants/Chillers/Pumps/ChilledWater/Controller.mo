@@ -545,8 +545,6 @@ annotation (
           Text(
           extent={{66,252},{140,236}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable lead pump"),
@@ -558,16 +556,12 @@ annotation (
           Text(
           extent={{70,58},{154,44}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable next lag pump"),
           Text(
           extent={{70,-116},{152,-134}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable last lag pump"),
@@ -579,8 +573,6 @@ annotation (
           Text(
           extent={{70,-154},{152,-168}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enabled pump speed")}),

@@ -293,8 +293,6 @@ annotation (
           Text(
           extent={{-38,184},{172,150}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Check if all enabled CHW isolation valves 

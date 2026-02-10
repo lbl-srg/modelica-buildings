@@ -138,16 +138,12 @@ annotation (
           Text(
           extent={{-26,118},{74,106}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Chilled water pump differential pressure setpoint"),
           Text(
           extent={{-22,-104},{74,-116}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Chilled water supply temperature setpoint")}),

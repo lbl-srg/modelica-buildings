@@ -89,21 +89,13 @@ equation
           textString="t=%t"),
         Ellipse(
           extent={{-83,7},{-69,-7}},
-          lineColor=DynamicSelect({235,235,235},if u then
-                                                         {0,255,0} else
-                                                                      {235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if u then
-                                                         {0,255,0} else
-                                                                      {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if u then {0,255,0} else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if u then {0,255,0} else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{71,-73},{85,-87}},
-          lineColor=DynamicSelect({235,235,235},if passed then
-                                                              {0,255,0} else
-                                                                           {235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if passed then
-                                                              {0,255,0} else
-                                                                           {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if passed then {0,255,0} else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if passed then {0,255,0} else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{226,60},{106,10}},

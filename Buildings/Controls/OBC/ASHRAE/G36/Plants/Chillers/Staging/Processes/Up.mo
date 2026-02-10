@@ -662,8 +662,6 @@ annotation (
           Text(
           extent={{-40,302},{138,260}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="The Change block in default has initial input of zero.

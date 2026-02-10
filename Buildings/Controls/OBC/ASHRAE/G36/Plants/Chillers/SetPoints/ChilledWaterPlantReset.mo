@@ -112,8 +112,6 @@ annotation (
           Text(
           extent={{-108,96},{44,80}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Calculate the plant reset, hold its last value when there is chiller stage change")}),

@@ -506,8 +506,6 @@ annotation (
           Text(
           extent={{72,72},{214,54}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Close chilled water
@@ -520,8 +518,6 @@ isolation valve"),
           Text(
           extent={{100,-24},{216,-40}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable head
@@ -534,8 +530,6 @@ pressure control"),
           Text(
           extent={{-130,-100},{-12,-116}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Reset minimum
@@ -548,8 +542,6 @@ bypass setpoint"),
           Text(
           extent={{-170,-192},{-54,-200}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="End stage-up process"),
@@ -561,8 +553,6 @@ bypass setpoint"),
           Text(
           extent={{68,238},{210,230}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable next chiller")}),

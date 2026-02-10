@@ -317,16 +317,12 @@ annotation (
           Text(
           extent={{14,174},{94,166}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
           extent={{40,-72},{120,-88}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable 
@@ -334,8 +330,6 @@ small chiller"),
           Text(
           extent={{16,168},{208,148}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString=
@@ -343,8 +337,6 @@ small chiller"),
           Text(
           extent={{16,154},{208,136}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="2. When the stage change does require one chiller off and another chiller on, 
@@ -352,16 +344,12 @@ but the enabled chiller has not yet finished starting."),
           Text(
           extent={{-24,-132},{56,-140}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
           extent={{-20,-142},{152,-158}},
           pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="When the stage change does require one chiller off
