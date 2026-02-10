@@ -6,21 +6,24 @@ simulateModel("Buildings.Templates.Plants.Boilers.HotWater.Validation.BoilerPlan
   resultFile="BoilerPlant");
 createPlot(
   id=1,
-  position={5, 5, 300, 500},
+  position={5, 5, 300, 600},
+  y={"pla.bus.TOut", "pla.ctl.dat.TOutLck"},
+  autoscale=true,
+  grid=true,
+  timeUnit="h"
+);
+createPlot(
+  id=1,
+  subPlot=2,
   y={"pla.ctl.ctlLooPri.staSetCon.capReq1.y", "pla.cap_nominal"},
   autoscale=true,
   grid=true,
   timeUnit="h"
 );
-plotExpression(
-  apply(BoilerPlant[end].ratLoa.y[1]*BoilerPlant[end].pla.cap_nominal),
-  false,
-  "ratLoa.y[1]*pla.cap_nominal",
-  1);
 createPlot(
   id=1,
-  subPlot=2,
-  y={"pla.bus.TOut", "pla.ctl.dat.TOutLck"},
+  subPlot=3,
+  y={"loa.u", "loa.yLoa_actual"},
   autoscale=true,
   grid=true,
   timeUnit="h"
