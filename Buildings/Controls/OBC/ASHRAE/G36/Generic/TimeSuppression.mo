@@ -209,17 +209,14 @@ annotation (defaultComponentName="timSup",
         Text(
           extent={{-100,48},{-62,30}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSet"),
         Text(
           extent={{52,12},{96,-8}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yAftSup"),
         Text(
           extent={{-100,-30},{-62,-48}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-180,-200},{180,200}}),
     graphics={

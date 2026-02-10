@@ -87,7 +87,5 @@ First implementation.
 </html>"),Icon(graphics={Text(
           extent={{-100,98},{98,-98}},
           textColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
           textString="Qs/Q")}));
 end SensibleHeatRatio;

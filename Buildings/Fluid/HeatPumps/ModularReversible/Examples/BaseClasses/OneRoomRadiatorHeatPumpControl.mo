@@ -204,8 +204,6 @@ equation
       Text(
           extent={{-153,163},{147,123}},
           textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255},
           textString="%name"),
         Rectangle(
           extent={{-120,120},{120,-120}},
