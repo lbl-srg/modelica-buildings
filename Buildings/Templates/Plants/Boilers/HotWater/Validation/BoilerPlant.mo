@@ -198,7 +198,8 @@ annotation(__Dymola_Commands(
 <p>
   This model validates
   <a href=\"modelica://Buildings.Templates.Plants.Boilers.HotWater.BoilerPlant\">
-    Buildings.Templates.Plants.Boilers.HotWater.BoilerPlant</a> by simulating a
+    Buildings.Templates.Plants.Boilers.HotWater.BoilerPlant</a> by
+  simulating a
   <i>24</i>-hour period during which the heating loads reach their peak value.
 </p>
 <p>

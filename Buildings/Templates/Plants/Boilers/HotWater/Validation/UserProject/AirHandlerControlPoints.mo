@@ -2,31 +2,32 @@ within Buildings.Templates.Plants.Boilers.HotWater.Validation.UserProject;
 block AirHandlerControlPoints
   "Emulation of AHU control points"
   extends Modelica.Blocks.Icons.Block;
-
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     "AHU control bus"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={100,0}), iconTransformation(
-        extent={{-20,-20},{20,20}},
+    annotation(Placement(transformation(extent={{-20,-20},{20,20}},
+      rotation=-90,
+      origin={100,0}),
+      iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={100,0})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant reqResHeaWat(k=0)
     "HW reset request"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant reqPlaHeaWat(k=1)
     "HW plant request"
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    annotation(Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(reqResHeaWat.y, bus.reqResHeaWat)
-    annotation (Line(points={{12,0},{100,0}}, color={255,127,0}));
-  connect(reqPlaHeaWat.y, bus.reqPlaHeaWat) annotation (Line(points={{12,-40},{
-          80,-40},{80,0},{100,0}}, color={255,127,0}));
-  annotation (Documentation(info="<html>
+    annotation(Line(points={{12,0},{100,0}},
+      color={255,127,0}));
+  connect(reqPlaHeaWat.y, bus.reqPlaHeaWat)
+    annotation(Line(points={{12,-40},{80,-40},{80,0},{100,0}},
+      color={255,127,0}));
+annotation(Documentation(
+  info="<html>
 <p>
-This class generates signals typically provided by the AHU controller.
-It is aimed for validation purposes only.
+  This class generates signals typically provided by the AHU controller. It is
+  aimed for validation purposes only.
 </p>
 </html>"));
 end AirHandlerControlPoints;
