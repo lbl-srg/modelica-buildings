@@ -289,7 +289,6 @@ annotation (
         Text(
           extent={{74,86},{100,76}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChi"),
         Text(
           extent={{60,-72},{98,-84}},
