@@ -43,7 +43,8 @@ block PartialController
           and cfg.typPumHeaWatSec <>
             Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
           and (cfg.have_boiCon and cfg.have_pumHeaWatPriVarCon
-            or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
+          or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
+  // At least one flow sensor is needed, either in primary or secondary loop for staging.
   final parameter Boolean have_senVHeaWatPriCon =
     cfg.have_boiCon
       and (if cfg.have_pumHeaWatPriVarCon and
@@ -280,8 +281,12 @@ equation
     annotation(Line(points={{-160,200},{-180,200},{-180,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.VHeaWatSec_flow, VHeaWatSec_flow.u)
-    annotation(Line(points={{-260,0},{-220,0},{-220,-80},{-212,-80}},
+  // HACK: Using an explicit range for bus.VHeaWatSec_flow avoids Dymola's warning
+  // "Note: since there are connections to elements of pla.bus.VHeaWatSec_flow[]
+  // we have to expand pla.boiCon.bus.VHeaWatSec_flow[] (which is connected to it)."
+  connect(bus.VHeaWatSec_flow[1:cfg.nLooHeaWatSec], VHeaWatSec_flow.u)
+    annotation (Line(
+      points={{-260,0},{-260,-14},{-240,-14},{-240,-80},{-212,-80}},
       color={255,204,51},
       thickness=0.5));
 annotation(Icon(coordinateSystem(preserveAspectRatio=false)),

@@ -169,7 +169,7 @@ equation
     annotation(Line(points={{170,120},{200,120}},
       color={0,127,255}));
   connect(busBoiCon, boiPol.bus)
-    annotation(Line(points={{-40,160},{-40,-40},{0,-40},{0,10}},
+    annotation(Line(points={{-40,160},{-40,10},{0,10}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.boiCon, busBoiCon)
@@ -207,7 +207,7 @@ equation
     annotation(Line(points={{10,-50},{20,-50},{20,120},{150,120}},
       color={0,127,255}));
   connect(busBoiCon, boiTab.bus)
-    annotation(Line(points={{-40,160},{-40,10},{0,10},{0,-40}},
+    annotation(Line(points={{-40,160},{-40,-40},{0,-40}},
       color={255,204,51},
       thickness=0.5),
       Text(string="%first",
