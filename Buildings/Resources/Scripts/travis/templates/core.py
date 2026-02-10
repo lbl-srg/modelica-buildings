@@ -266,7 +266,7 @@ def generate_modif_list(dic):
     to_return = []
     for param, val in dic.items():
         if 'redeclare' in param:
-            modif_val = re.search('(.*)\((.*)\)', val)
+            modif_val = re.search(r'(.*)\((.*)\)', val)
             if modif_val is not None:
                 comp_type = modif_val.group(1)
                 comp_modif = '(' + modif_val.group(2)
