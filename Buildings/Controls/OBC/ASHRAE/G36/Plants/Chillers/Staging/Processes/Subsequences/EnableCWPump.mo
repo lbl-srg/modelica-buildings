@@ -94,27 +94,22 @@ annotation (
         Text(
           extent={{-96,-82},{-62,-94}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uStaSet"),
         Text(
           extent={{-98,88},{-50,72}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uUpsDevSta"),
         Text(
           extent={{-98,28},{-64,16}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
           extent={{68,8},{98,-8}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yChiSta"),
         Text(
           extent={{-98,-12},{-60,-24}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaDow"),
         Ellipse(
           extent={{-60,60},{60,-60}},
@@ -129,7 +124,6 @@ annotation (
         Text(
           extent={{-96,-46},{-62,-58}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uChiSta")}),
   Documentation(info="<html>
 <p>

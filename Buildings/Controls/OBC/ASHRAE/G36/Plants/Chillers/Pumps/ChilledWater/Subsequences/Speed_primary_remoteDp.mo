@@ -153,22 +153,18 @@ annotation (
         Text(
           extent={{-98,92},{-44,70}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
           extent={{-98,10},{-26,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpChiWat_remote"),
         Text(
           extent={{22,12},{98,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatPumSpe"),
         Text(
           extent={{-98,-68},{-10,-88}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpChiWatSet_remote")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>

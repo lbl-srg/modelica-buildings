@@ -661,7 +661,6 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{-40,302},{138,260}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="The Change block in default has initial input of zero.
@@ -715,18 +714,15 @@ This is to avoid the initial edge.")}),
         Text(
           extent={{-96,128},{-60,116}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiLoa",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-96,84},{-40,70}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-96,-134},{-36,-146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{60,198},{100,186}},
@@ -751,24 +747,20 @@ This is to avoid the initial edge.")}),
         Text(
           extent={{60,158},{96,146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiDem",
           visible=need_reduceChillerDemand),
         Text(
           extent={{28,118},{98,104}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
         Text(
           extent={{18,-4},{98,-14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yDesConWatPumSpe",
           visible=not have_fixSpeConWatPum),
         Text(
           extent={{36,-130},{96,-146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatIsoVal"),
         Text(
           extent={{34,-42},{96,-56}},

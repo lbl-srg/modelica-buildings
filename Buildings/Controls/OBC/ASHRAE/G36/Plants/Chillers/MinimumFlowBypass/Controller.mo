@@ -146,17 +146,14 @@ annotation (
         Text(
           extent={{-98,6},{-54,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{68,6},{102,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yValPos"),
         Text(
           extent={{-98,-74},{-42,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWatSet_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-140,-100},{140,100}})),

@@ -505,7 +505,6 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{72,72},{214,54}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Close chilled water
@@ -517,7 +516,6 @@ isolation valve"),
           pattern=LinePattern.None),
           Text(
           extent={{100,-24},{216,-40}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable head
@@ -529,7 +527,6 @@ pressure control"),
           pattern=LinePattern.None),
           Text(
           extent={{-130,-100},{-12,-116}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Reset minimum
@@ -541,7 +538,6 @@ bypass setpoint"),
           pattern=LinePattern.None),
           Text(
           extent={{-170,-192},{-54,-200}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="End stage-up process"),
@@ -552,7 +548,6 @@ bypass setpoint"),
           pattern=LinePattern.None),
           Text(
           extent={{68,238},{210,230}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable next chiller")}),
@@ -585,92 +580,74 @@ bypass setpoint"),
         Text(
           extent={{-98,122},{-66,112}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexEnaChi"),
         Text(
           extent={{-98,104},{-76,92}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
           extent={{-98,86},{-46,72}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uEnaChiWatIsoVal"),
         Text(
           extent={{-98,62},{-84,54}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChi"),
         Text(
           extent={{-98,42},{-76,34}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{-98,24},{-68,14}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexDisChi"),
         Text(
           extent={{-98,4},{-64,-10}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiWatReq"),
         Text(
           extent={{-98,-14},{-56,-26}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{-98,-34},{-64,-48}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uConWatReq"),
         Text(
           extent={{-98,-56},{-64,-70}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiHeaCon"),
         Text(
           extent={{-98,-74},{-56,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{56,-22},{98,-34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatMinSet"),
         Text(
           extent={{72,-62},{96,-74}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yEndSta"),
         Text(
           extent={{64,18},{98,4}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChiHeaCon"),
         Text(
           extent={{56,58},{98,46}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatIsoVal"),
         Text(
           extent={{82,96},{96,88}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChi"),
         Text(
           extent={{-98,-90},{-30,-100}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VMinChiWat_setpoint"),
         Text(
           extent={{68,-82},{96,-96}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="endStaTri")}),
 Documentation(info="<html>
 <p>

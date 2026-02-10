@@ -170,22 +170,18 @@ annotation (
         Text(
           extent={{36,74},{96,50}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yConWatPumSpe"),
         Text(
           extent={{-98,-32},{-54,-48}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uWSE"),
         Text(
           extent={{36,14},{96,-10}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yConWatPumNum"),
         Text(
           extent={{-96,52},{-36,28}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uChiSta")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{140,120}})),
   Documentation(info="<html>

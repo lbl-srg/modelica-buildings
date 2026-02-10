@@ -563,37 +563,31 @@ annotation (
           extent={{-160,-300},{160,280}}), graphics={
           Text(
           extent={{-148,280},{-78,262}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="When there is no WSE:"),
           Text(
           extent={{-148,264},{-24,258}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="- if no chiller is enabled, then tower fan speed should be zero;"),
           Text(
           extent={{-148,258},{-14,248}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="- if any chiller is enabled, then control fan speed with sequence here;"),
           Text(
           extent={{6,278},{70,266}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="When there is WSE:"),
           Text(
           extent={{6,264},{150,256}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="- if WSE is not enabled, then control fan speed with sequence here;"),
           Text(
           extent={{6,256},{150,248}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="- if WSE is enabled, then fan speed will be controlled by uTowSpeWSE;")}),

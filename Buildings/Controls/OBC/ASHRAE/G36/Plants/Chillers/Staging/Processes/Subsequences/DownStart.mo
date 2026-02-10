@@ -424,91 +424,74 @@ annotation (
         Text(
           extent={{-98,-90},{-58,-102}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexDisChi"),
         Text(
           extent={{-98,-72},{-46,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{-98,28},{-46,16}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="vChiWat_flow"),
         Text(
           extent={{-98,86},{-58,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-100,66},{-64,56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiLoa",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-102,46},{-74,36}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChi"),
         Text(
           extent={{-98,102},{-64,90}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaDow"),
         Text(
           extent={{-100,-12},{-66,-22}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{-98,-32},{-54,-44}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexEnaChi"),
         Text(
           extent={{-98,-54},{-52,-64}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiHeaCon"),
         Text(
           extent={{64,98},{100,88}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiDem",
           visible=need_reduceChillerDemand),
         Text(
           extent={{60,-14},{96,-24}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiIsoVal"),
         Text(
           extent={{54,26},{96,14}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChiHeaCon"),
         Text(
           extent={{66,-54},{104,-64}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChi"),
         Text(
           extent={{54,-82},{96,-94}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yReaDemLim",
           visible=need_reduceChillerDemand),
         Text(
           extent={{32,66},{98,56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
         Text(
           extent={{-100,6},{-84,-4}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="clr")}),
 Documentation(info="<html>
 <p>

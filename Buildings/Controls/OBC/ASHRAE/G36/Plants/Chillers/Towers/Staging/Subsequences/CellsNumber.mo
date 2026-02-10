@@ -266,7 +266,6 @@ annotation (
         graphics={
           Text(
           extent={{-228,178},{-106,158}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Identify total number of operation cells")}),

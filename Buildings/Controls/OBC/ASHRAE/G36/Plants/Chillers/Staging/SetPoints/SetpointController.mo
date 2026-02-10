@@ -612,158 +612,128 @@ equation
         Text(
           extent={{-96,98},{-8,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TChiWatSupSet"),
         Text(
           extent={{-96,76},{-24,44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TChiWatSup"),
         Text(
           extent={{-96,-182},{-40,-198}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TWsePre"),
         Text(
           extent={{-98,-160},{-24,-178}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TChiWatRet"),
         Text(
           extent={{-98,-196},{-14,-222}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-96,-128},{8,-152}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uTowFanSpeMax"),
         Text(
           extent={{-94,-10},{0,-32}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpChiWatPumSet_local",
           visible=(not have_serChi) and have_locSen),
         Text(
           extent={{-96,-28},{-10,-48}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpChiWatPum_local",
           visible=(not have_serChi) and have_locSen),
         Text(
           extent={{-96,8},{-48,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uLifMin",
           visible=anyVsdCen),
         Text(
           extent={{-96,32},{-46,14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uLifMax",
           visible=anyVsdCen),
         Text(
           extent={{-98,112},{-68,92}},
           textColor={244,125,35},
-          pattern=LinePattern.Dash,
           textString="uSta"),
         Text(
           extent={{-98,200},{-46,180}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="uWseSta"),
         Text(
           extent={{-100,180},{-50,164}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{-96,142},{-68,120}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="uPla"),
         Text(
           extent={{-96,160},{-44,142}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="uChiAva"),
         Text(
           extent={{62,-116},{94,-100}},
           textColor={244,125,35},
-          pattern=LinePattern.Dash,
           textString="ySta"),
         Text(
           extent={{42,74},{94,50}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yChaEdg"),
         Text(
           extent={{40,-24},{92,-52}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yChiSet[]"),
         Text(
           extent={{-98,-110},{-48,-126}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uTunPar"),
         Text(
           extent={{-98,-90},{-46,-108}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOutWet"),
         Text(
           extent={{28,112},{94,70}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yChaUpEdg"),
         Text(
           extent={{16,50},{94,14}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yChaDowEdg"),
         Text(
           extent={{-12,-154},{96,-200}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin"),
         Text(
           extent={{54,194},{98,170}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yUp"),
         Text(
           extent={{52,164},{100,140}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yDow"),
         Text(
           extent={{42,-198},{94,-220}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yCapReq"),
         Text(
           extent={{-96,-48},{8,-72}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpChiWatPumSet_remote",
           visible=(not have_serChi) and (not have_locSen)),
         Text(
           extent={{-96,-68},{8,-92}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpChiWatPum_remote",
           visible=(not have_serChi) and (not have_locSen)),
         Text(
           extent={{62,-98},{94,-82}},
           textColor={244,125,35},
-          pattern=LinePattern.Dash,
           textString="yIni"),
         Text(
           extent={{-98,56},{-26,24}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TConWatRet")}),
                                  Diagram(
         coordinateSystem(preserveAspectRatio=false,

@@ -872,7 +872,6 @@ annotation (
         Text(
           extent={{44,6},{98,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
         Text(
           extent={{58,-68},{96,-88}},
@@ -945,8 +944,6 @@ annotation (
         Text(
           extent={{-88,402},{14,386}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint according to"),
         Text(
