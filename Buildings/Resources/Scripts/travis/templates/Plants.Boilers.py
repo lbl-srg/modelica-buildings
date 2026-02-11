@@ -46,9 +46,13 @@ MODIF_GRID = {
         pla__nBoiNon_select=[
             '2',
         ],
-        pla__typPumHeaWatPriCon=[
-            'Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable',
-            'Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Constant',
+        pla__have_boiConZerFlo=[
+            'true',
+            'false',
+        ],
+        pla__have_boiNonZerFlo=[
+            'true',
+            'false',
         ],
         pla__typPumHeaWatPriNon=[
             'Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Variable',
@@ -142,6 +146,7 @@ REMOVE_MODIF = {
                 'typArrPumHeaWatPriNon_select',
                 'nBoiNon_select',
                 'typPumHeaWatPriNon',
+                'have_boiNonZerFlo',
             ],
         ),
         (
@@ -152,6 +157,7 @@ REMOVE_MODIF = {
                 'typArrPumHeaWatPriCon_select',
                 'nBoiCon_select',
                 'typPumHeaWatPriCon',
+                'have_boiConZerFlo',
             ],
         ),
     ],
@@ -159,4 +165,9 @@ REMOVE_MODIF = {
 
 
 if __name__ == '__main__':
-    core.main(models=MODELS, modif_grid=MODIF_GRID, exclude=EXCLUDE, remove_modif=REMOVE_MODIF)
+    core.main(
+        models=MODELS,
+        modif_grid=MODIF_GRID,
+        exclude=EXCLUDE,
+        remove_modif=REMOVE_MODIF,
+    )

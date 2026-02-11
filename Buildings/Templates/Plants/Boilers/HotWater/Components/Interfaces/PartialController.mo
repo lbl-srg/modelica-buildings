@@ -44,7 +44,6 @@ block PartialController
             Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
           and (cfg.have_boiCon and cfg.have_pumHeaWatPriVarCon
           or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
-  // At least one flow sensor is needed, either in primary or secondary loop for staging.
   final parameter Boolean have_senVHeaWatPriCon =
     cfg.have_boiCon
       and (if cfg.have_pumHeaWatPriVarCon and

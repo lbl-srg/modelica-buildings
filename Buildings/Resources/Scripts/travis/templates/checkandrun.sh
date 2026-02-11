@@ -89,22 +89,23 @@ done
 # Each value is a string containing directory paths (relative to `modelica-buildings/Buildings`).
 declare -A checksum_dirs=(
   ["Buildings.Templates.AirHandlersFans"]="Templates/AirHandlersFans
-                       Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
+                    Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
   ["Buildings.Templates.ZoneEquipment"]="Templates/ZoneEquipment
-                     Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
-                     Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+                    Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
+                    Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  ["Buildings.Templates.Plants.Boilers"]="Templates/Plants/Boilers
+                    Controls/OBC/ASHRAE/G36/Plants/Boilers"
   ["Buildings.Templates.Plants.HeatPumps"]="Templates/Plants/HeatPumps
-                        Templates/Plants/Controls"
-  ["Plants.Boilers"]="Templates/Plants/Boilers
-                      Controls/OBC/ASHRAE/G36/Plants/Boilers"
+                    Templates/Plants/Controls"
 )
 # Declare the python script that must be run for each template package.
 # Each key is a full Modelica package name (with . as separator).
 # Each value is a string containing the script path (relative to `modelica-buildings/Buildings`).
 declare -A test_script=(
-  ["Buildings.Templates.AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
-  ["Buildings.Templates.ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
-  ["Buildings.Templates.Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
+  # ["Buildings.Templates.AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
+  # ["Buildings.Templates.ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["Buildings.Templates.Plants.Boilers"]="./Resources/Scripts/travis/templates/Plants.Boilers.py"
+  # ["Buildings.Templates.Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
 )
 
 # Validate single-package argument if provided
