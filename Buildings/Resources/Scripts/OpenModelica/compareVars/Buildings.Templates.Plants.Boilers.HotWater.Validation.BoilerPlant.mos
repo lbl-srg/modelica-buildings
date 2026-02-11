@@ -1,9 +1,11 @@
 compareVars :=
   {
-    "pla.ctl.ctlLooPri.staSetCon.capReq1.y",
-    "pla.cap_nominal",
     "pla.bus.TOut",
     "pla.ctl.dat.TOutLck",
+    "pla.ctl.ctlLooPri.staSetCon.capReq1.y",
+    "pla.cap_nominal",
+    "loa.u",
+    "loa.yLoa_actual",
     "pla.ctl.reqPlaHeaWat.y",
     "pla.ctl.ctlLooPri.yPla",
     "pla.ctl.ctlLooPri.staSetCon.ySta",
@@ -23,6 +25,6 @@ compareVars :=
     "pla.bus.boiCon[2].y_actual",
     "pla.bus.boiCon[1].THeaWatSupSet",
     "pla.bus.boiCon[2].THeaWatSupSet",
-    "pla.bus.looCon.THeaWatPriSup",
+    "THeaWatSup.T",
     "pla.bus.looCon.THeaWatPlaRet"
   };
