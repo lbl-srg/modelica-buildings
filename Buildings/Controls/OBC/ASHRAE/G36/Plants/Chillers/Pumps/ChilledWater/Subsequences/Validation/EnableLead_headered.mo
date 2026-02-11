@@ -7,27 +7,29 @@ model EnableLead_headered
     "Enable lead chilled water pump based on the status of chilled water isolation valves"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal1(
-    duration=3000,
-    startTime=300)
-    "Chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal2(
-    duration=3000,
-    startTime=900)
-    "Chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wse(k=false)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal1(
+    width=0.3,
+    period=3600,
+    shift=300) "Valve 1 commanded posiiton"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal2(
+    width=0.4,
+    period=3600,
+    shift=500) "Valve 2 commanded posiiton"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+
 equation
-  connect(isoVal1.y, enaLeaChiPum.uChiWatIsoVal[1]) annotation (Line(points={{-18,
-          20},{0,20},{0,-0.5},{18,-0.5}}, color={0,0,127}));
-  connect(isoVal2.y, enaLeaChiPum.uChiWatIsoVal[2]) annotation (Line(points={{-18,
-          -20},{0,-20},{0,0.5},{18,0.5}}, color={0,0,127}));
   connect(wse.y, enaLeaChiPum.uWse) annotation (Line(points={{-18,-60},{10,-60},
           {10,-6},{18,-6}}, color={255,0,255}));
+  connect(isoVal1.y, enaLeaChiPum.u1ChiWatIsoVal[1]) annotation (Line(points={{-18,
+          20},{0,20},{0,-0.5},{18,-0.5}}, color={255,0,255}));
+  connect(isoVal2.y, enaLeaChiPum.u1ChiWatIsoVal[2]) annotation (Line(points={{-18,
+          -20},{0,-20},{0,0.5},{18,0.5}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Pumps/ChilledWater/Subsequences/Validation/EnableLead_headered.mos"

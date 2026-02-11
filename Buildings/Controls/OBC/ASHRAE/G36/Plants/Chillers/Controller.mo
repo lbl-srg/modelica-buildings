@@ -746,18 +746,18 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
 
   // ---- Cooling tower: staging ----
-  parameter Boolean have_inlIsoVal=true
+  parameter Boolean have_towInlIsoVal=true
     "True: tower cells have the inlet isolation valve"
     annotation (Dialog(tab="Cooling Towers", group="Staging", enable=not have_airCoo));
-  parameter Boolean have_outIsoVal=false
+  parameter Boolean have_towOutIsoVal=false
     "True: tower cells have the outlet isolation valve"
-    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_inlIsoVal and not have_airCoo));
-  parameter Boolean have_endSwi=false
+    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_towInlIsoVal and not have_airCoo));
+  parameter Boolean have_towIsoValEndSwi=false
     "True: tower cells isolatiove valve have the end switch feedback"
-    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_inlIsoVal and not have_airCoo));
+    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_towInlIsoVal and not have_airCoo));
   parameter Real chaTowCelIsoTim(unit="s")=300
     "Time to slowly change isolation valve"
-     annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_inlIsoVal and not have_endSwi and not have_airCoo));
+     annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_towInlIsoVal and not have_towIsoValEndSwi and not have_airCoo));
 
   // ---- Cooling tower: Water level control ----
   parameter Real watLevMin(
@@ -967,26 +967,26 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-940,-640},{-900,-600}}),
       iconTransformation(extent={{-140,-280},{-100,-240}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
-    if have_inlIsoVal and have_endSwi and not have_airCoo
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1TowInlIsoValOpe[nTowCel]
+    if have_towInlIsoVal and have_towIsoValEndSwi and not have_airCoo
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-940,-680},{-900,-640}}),
         iconTransformation(extent={{-140,-310},{-100,-270}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
-    if have_inlIsoVal and have_endSwi and have_outIsoVal and not have_airCoo
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1TowOutIsoValOpe[nTowCel]
+    if have_towInlIsoVal and have_towIsoValEndSwi and have_towOutIsoVal and not have_airCoo
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-940,-700},{-900,-660}}),
         iconTransformation(extent={{-140,-330},{-100,-290}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
-    if have_inlIsoVal and have_endSwi and not have_airCoo
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1TowInlIsoValClo[nTowCel]
+    if have_towInlIsoVal and have_towIsoValEndSwi and not have_airCoo
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-940,-720},{-900,-680}}),
         iconTransformation(extent={{-140,-350},{-100,-310}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
-    if have_inlIsoVal and have_endSwi and have_outIsoVal and not have_airCoo
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1TowOutIsoValClo[nTowCel]
+    if have_towInlIsoVal and have_towIsoValEndSwi and have_towOutIsoVal and not have_airCoo
     "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-940,-740},{-900,-700}}),
         iconTransformation(extent={{-140,-370},{-100,-330}})));
@@ -1140,7 +1140,7 @@ block Controller "Chiller plant controller"
         iconTransformation(extent={{100,-200},{140,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowCelIsoVal[nTowCel]
-    if have_inlIsoVal and not have_airCoo
+    if have_towInlIsoVal and not have_airCoo
     "Cooling tower cells isolation valve position setpoints"
     annotation (Placement(transformation(extent={{920,-640},{960,-600}}),
       iconTransformation(extent={{100,-250},{140,-210}})));
@@ -1351,9 +1351,9 @@ block Controller "Chiller plant controller"
     final cheTowOff=cheTowOff,
     final staVec=staVec,
     final towCelOnSet=towCelOnSet,
-    final have_inlIsoVal=have_inlIsoVal,
-    final have_outIsoVal=have_outIsoVal,
-    final have_endSwi=have_endSwi,
+    final have_inlIsoVal=have_towInlIsoVal,
+    final have_outIsoVal=have_towOutIsoVal,
+    final have_endSwi=have_towIsoValEndSwi,
     final chaTowCelIsoTim=chaTowCelIsoTim,
     final watLevMin=watLevMin,
     final watLevMax=watLevMax) if not have_airCoo
@@ -1555,7 +1555,7 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{840,-670},{860,-650}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nTowCel]
-    if have_inlIsoVal and not have_airCoo
+    if have_towInlIsoVal and not have_airCoo
     "Tower cell isolation valve position setpoint"
     annotation (Placement(transformation(extent={{880,-630},{900,-610}})));
 
@@ -1702,7 +1702,7 @@ protected
     annotation (Placement(transformation(extent={{-480,-460},{-460,-440}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[nTowCel](
-    final k=fill(false,nTowCel)) if have_inlIsoVal and not have_airCoo
+    final k=fill(false,nTowCel)) if have_towInlIsoVal and not have_airCoo
     "Constant false"
     annotation (Placement(transformation(extent={{740,-650},{760,-630}})));
 
@@ -2173,18 +2173,15 @@ equation
     annotation (Line(points={{-218,-228},{172,-228}}, color={0,0,127}));
   connect(chiIso.y, upProCon.uChiWatIsoVal) annotation (Line(points={{-218,-228},
           {100,-228},{100,304},{172,304}}, color={0,0,127}));
-  connect(chiIso.y, chiWatPumCon.uChiWatIsoVal) annotation (Line(points={{-218,
-          -228},{100,-228},{100,500.571},{414,500.571}},
-                                                   color={0,0,127}));
   connect(chiIso.y, wseSta.uChiIsoVal) annotation (Line(points={{-218,-228},{-180,
           -228},{-180,-172},{-766,-172},{-766,302},{-704,302}}, color={0,0,127}));
-  connect(u1InlIsoValOpe, towCon.u1InlIsoValOpe) annotation (Line(points={{-920,-660},
+  connect(u1TowInlIsoValOpe, towCon.u1InlIsoValOpe) annotation (Line(points={{-920,-660},
           {-350,-660},{-350,-688},{-268,-688}}, color={255,0,255}));
-  connect(u1OutIsoValOpe, towCon.u1OutIsoValOpe) annotation (Line(points={{-920,
+  connect(u1TowOutIsoValOpe, towCon.u1OutIsoValOpe) annotation (Line(points={{-920,
           -680},{-360,-680},{-360,-696},{-268,-696}}, color={255,0,255}));
-  connect(u1InlIsoValClo, towCon.u1InlIsoValClo) annotation (Line(points={{-920,-700},
+  connect(u1TowInlIsoValClo, towCon.u1InlIsoValClo) annotation (Line(points={{-920,-700},
           {-360,-700},{-360,-704},{-268,-704}}, color={255,0,255}));
-  connect(u1OutIsoValClo, towCon.u1OutIsoValClo) annotation (Line(points={{-920,
+  connect(u1TowOutIsoValClo, towCon.u1OutIsoValClo) annotation (Line(points={{-920,
           -720},{-360,-720},{-360,-712},{-268,-712}}, color={255,0,255}));
   connect(con2.y, logSwi.u3) annotation (Line(points={{762,-640},{800,-640},{800,
           -628},{878,-628}}, color={255,0,255}));
@@ -2219,6 +2216,10 @@ equation
   connect(locDpSet.dpChiWatPumSet_local, staSetCon.dpChiWatPumSet_local)
     annotation (Line(points={{-300,440},{-280,440},{-280,320},{-290,320},{-290,12},
           {-268,12}}, color={0,0,127}));
+  connect(disChi.y1ChiWatIsoVal, chiWatPumCon.u1ChiWatIsoVal) annotation (Line(
+        points={{762,-466},{800,-466},{800,-340},{20,-340},{20,500.571},{414,
+          500.571}},
+        color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2381,7 +2382,7 @@ annotation (
           extent={{52,-222},{100,-236}},
           textColor={255,0,255},
           textString="yTowCelIsoVal",
-          visible=have_inlIsoVal and not have_airCoo),
+          visible=have_towInlIsoVal and not have_airCoo),
         Text(
           extent={{52,-282},{100,-296}},
           textColor={0,0,127},
@@ -2472,25 +2473,25 @@ annotation (
         Text(
           extent={{-98,-284},{-42,-298}},
           textColor={255,0,255},
-          textString="u1InlIsoValOpe",
-          visible=have_inlIsoVal and have_endSwi and not have_airCoo),
+          textString="u1TowInlIsoValOpe",
+          visible=have_towInlIsoVal and have_towIsoValEndSwi and not have_airCoo),
         Text(
           extent={{-98,-304},{-42,-318}},
           textColor={255,0,255},
-          textString="u1OutIsoValOpe",
-          visible=have_inlIsoVal and have_endSwi and have_outIsoVal and not
+          textString="u1TowOutIsoValOpe",
+          visible=have_towInlIsoVal and have_towIsoValEndSwi and have_towOutIsoVal and not
               have_airCoo),
         Text(
           extent={{-98,-344},{-42,-358}},
           textColor={255,0,255},
-          textString="u1OutIsoValClo",
-          visible=have_inlIsoVal and have_endSwi and have_outIsoVal and not
+          textString="u1TowOutIsoValClo",
+          visible=have_towInlIsoVal and have_towIsoValEndSwi and have_towOutIsoVal and not
               have_airCoo),
         Text(
           extent={{-98,-324},{-42,-338}},
           textColor={255,0,255},
-          textString="u1InlIsoValClo",
-          visible=have_inlIsoVal and have_endSwi and not have_airCoo),
+          textString="u1TowInlIsoValClo",
+          visible=have_towInlIsoVal and have_towIsoValEndSwi and not have_airCoo),
         Text(
           extent={{4,214},{98,190}},
           textColor={0,0,125},

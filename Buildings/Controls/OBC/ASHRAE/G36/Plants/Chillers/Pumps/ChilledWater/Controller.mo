@@ -74,11 +74,8 @@ block Controller
     "True: the plant has waterside economizer"
     annotation (Placement(transformation(extent={{-320,-20},{-280,20}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
-    final unit=fill("1", nChi),
-    final min=fill(0, nChi),
-    final max=fill(1, nChi)) if have_heaPum
-    "Chilled water isolation valve position"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoVal[nChi] if have_heaPum
+    "Chilled water isolation valve commanded position"
     annotation (Placement(transformation(extent={{-320,10},{-280,50}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
@@ -483,8 +480,6 @@ equation
     annotation (Line(points={{262,40},{300,40}}, color={255,0,255}));
   connect(pumSta1.y, pre1.u) annotation (Line(points={{262,40},{272,40},{272,-100},
           {210,-100},{210,-120},{218,-120}}, color={255,0,255}));
-  connect(uChiWatIsoVal, enaHeaLeaPum.uChiWatIsoVal) annotation (Line(points={{-300,30},
-          {-222,30},{-222,70},{-202,70}},     color={0,0,127}));
   connect(uChiWatPum, mulOr.u) annotation (Line(points={{-300,150},{-140,150},{-140,
           120},{-102,120}}, color={255,0,255}));
   connect(mulOr.y, or2.u1) annotation (Line(points={{-78,120},{-70,120},{-70,100},
@@ -533,6 +528,8 @@ equation
           24},{-2,24}}, color={255,0,255}));
   connect(edg.y, disLasLag.clr) annotation (Line(points={{-78,-20},{-60,-20},{-60,
           -6},{-42,-6}}, color={255,0,255}));
+  connect(u1ChiWatIsoVal, enaHeaLeaPum.u1ChiWatIsoVal) annotation (Line(points={
+          {-300,30},{-220,30},{-220,70},{-202,70}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,

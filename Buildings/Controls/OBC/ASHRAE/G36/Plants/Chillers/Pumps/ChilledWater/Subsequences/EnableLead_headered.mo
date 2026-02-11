@@ -7,10 +7,8 @@ block EnableLead_headered
   parameter Boolean have_WSE
     "True: the plant has waterside economizer";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
-    final unit=fill("1", nChi),
-    final min=fill(0, nChi),
-    final max=fill(1, nChi)) "Chilled water isolation valve position"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoVal[nChi]
+    "Chilled water isolation valve commanded position"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_WSE
@@ -30,13 +28,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4[nChi](
-    final uLow=fill(0.925,nChi),
-    final uHigh=fill(0.975, nChi))
-    "Check if isolation valve is open more than 95%"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyIsoVal(final nin=nChi)
-    "Check if any chilled water isolation valve is proven on"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyIsoVal(nin=nChi)
+    "Check if any chilled water isolation valve is commanded on"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=false)
@@ -55,10 +48,6 @@ equation
       color={255,0,255}));
   connect(leaPumSta.y, yLea)
     annotation (Line(points={{82,0},{120,0}}, color={255,0,255}));
-  connect(uChiWatIsoVal, hys4.u)
-    annotation (Line(points={{-120,0},{-82,0}}, color={0,0,127}));
-  connect(hys4.y, anyIsoVal.u)
-    annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
   connect(anyIsoVal.y, or2.u1)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(uWse, or2.u2) annotation (Line(points={{-120,-40},{-10,-40},{-10,-8},{
@@ -67,6 +56,8 @@ equation
     annotation (Line(points={{22,0},{58,0}}, color={255,0,255}));
   connect(con2.y, or2.u2) annotation (Line(points={{-38,-70},{-10,-70},{-10,-8},
           {-2,-8}}, color={255,0,255}));
+  connect(u1ChiWatIsoVal, anyIsoVal.u)
+    annotation (Line(points={{-120,0},{-42,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLeaChiPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -81,8 +72,8 @@ annotation (
           textString="%name"),
         Text(
           extent={{-96,12},{-20,-8}},
-          textColor={0,0,127},
-          textString="uChiWatIsoVal"),
+          textColor={255,0,255},
+          textString="u1ChiWatIsoVal"),
         Text(
           extent={{42,12},{96,-10}},
           textColor={255,0,255},
@@ -105,11 +96,15 @@ Primary chilled water pumps shall be lead-lag. Note that the lead-lag control is
 implemented in a separate sequence.
 </li>
 <li>
-The lead primary chilled water pump shall be enabled when any chiller
-CHW isolation valve <code>uChiIsoVal</code> is fully open, or if the plant
-has the waterside economizer and the economizer is enabled, shall be disabled
-when chiller CHW isolation valves are commanded closed and the economizer is disabled
-if the plant has the economizer.
+Enable lead primary chilled water pump when any chiller CHW isolation valve
+<code>uChiIsoVal</code> is commanded open. Disable the lead primary chilled water
+pump when all chiller CHW isolation valves are commanded closed.
+</li>
+<li>
+Or if the plant has the waterside economizer, enable lead primary CHW pump when any
+chiller CHW isolation valve is commanded open or waterside economizer is enabled.
+Disable the lead primary CHW pump when all chiller CHW isolation valves are commanded
+closed and WSE is disabled.
 </li>
 </ol>
 </html>", revisions="<html>
