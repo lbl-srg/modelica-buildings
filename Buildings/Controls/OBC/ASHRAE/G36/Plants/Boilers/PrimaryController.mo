@@ -69,7 +69,7 @@ model PrimaryController
     user interface may not be exposed";
 
   parameter Integer nLooSec(
-    final min=1,
+    final min=0,
     final start=1)
     "Number of secondary loops serviced by primary plant"
     annotation (Dialog(tab="General",

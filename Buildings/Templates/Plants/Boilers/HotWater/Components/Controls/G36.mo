@@ -210,7 +210,6 @@ equation
   connect(busLooCon.THeaWatPlaRet, ctlLooPri.TRetPri);
   connect(busLooNon.THeaWatPlaRet, ctlLooPri.TRetPri);
   connect(bus.THeaWatSecRet, ctlLooPri.TRetSec);
-  connect(bus.VHeaWatSec_flow, ctlLooPri.VHotWatSec_flow[1]);
   connect(busBoiCon.THeaWatSup, ctlLooPri.TSupBoi[1:cfg.nBoiCon]);
   connect(busBoiNon.THeaWatSup, ctlLooPri.TSupBoi[(cfg.nBoiCon + 1):nBoi]);
   connect(busLooCon.THeaWatPriSup, ctlLooPri.TSupPri);
@@ -233,7 +232,6 @@ equation
   // Secondary HW pump controller inputs from plant control bus
   connect(bus.dpHeaWatLoc, ctlPumHeaWatSec.dpHotWat_local);
   connect(bus.dpHeaWatRem, ctlPumHeaWatSec.dpHotWat_remote);
-  connect(bus.VHeaWatSec_flow, ctlPumHeaWatSec.VHotWat_flow);
   connect(busPumHeaWatSec.y1_actual, ctlPumHeaWatSec.uHotWatPum);
   // Primary loop controller outputs to plant control bus
   connect(ctlLooPri.TBoiHotWatSupSet[1:cfg.nBoiCon], busBoiCon.THeaWatSupSet);
@@ -301,6 +299,10 @@ equation
   connect(reqResHeaWat.y, ctlLooPri.resReq)
     annotation(Line(points={{170,120},{-18,120},{-18,26.9},{-12,26.9}},
       color={255,127,0}));
+  connect(VHeaWatSec_flow.y, ctlLooPri.VHotWatSec_flow) annotation (Line(points
+        ={{-188,-80},{-20,-80},{-20,-3.7},{-12,-3.7}}, color={0,0,127}));
+  connect(VHeaWatSec_flow.y[1], ctlPumHeaWatSec.VHotWat_flow) annotation (Line(
+        points={{-188,-80},{40,-80},{40,82},{48,82}}, color={0,0,127}));
 annotation(Documentation(
   info="<html>
 <h4>Description</h4>
