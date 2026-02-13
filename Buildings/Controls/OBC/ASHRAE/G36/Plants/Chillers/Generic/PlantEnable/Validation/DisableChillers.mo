@@ -10,8 +10,8 @@ model DisableChillers
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staPro(
     final k=false) "Staging change process"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiIsoVal[2](
-    final k={1,0})
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiIsoVal[2](
+    final k={true,false})
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conIsoVal1[2](
@@ -30,8 +30,8 @@ model DisableChillers
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIsoValSta[2](
     final k={true,false}) "Condenser water isolation valve commanded setpoint"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant watPum[2](final k={true,
-        false}) "Water pump commanded setpoint"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant watPum[2](
+    final k={true,false}) "Water pump commanded setpoint"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
@@ -42,8 +42,7 @@ equation
   connect(chiSta.y, disPlaFroChi.uConWatReq) annotation (Line(points={{-18,80},
           {40,80},{40,23},{58,23}},  color={255,0,255}));
   connect(staPro.y, disPlaFroChi.chaPro) annotation (Line(points={{-58,-60},{30,
-          -60},{30,10},{58,10}},
-                               color={255,0,255}));
+          -60},{30,10},{58,10}}, color={255,0,255}));
   connect(watPum.y, disPlaFroChi.uConWatPum) annotation (Line(points={{-18,-80},
           {40,-80},{40,5},{58,5}}, color={255,0,255}));
   connect(pumSpe.y, disPlaFroChi.uChiWatPumSpe) annotation (Line(points={{-18,
@@ -56,8 +55,8 @@ equation
           {{-58,0},{10,0},{10,19},{58,19}}, color={255,0,255}));
   connect(conIsoVal1.y, disPlaFroChi.uConWatIsoVal) annotation (Line(points={{
           -18,30},{0,30},{0,21},{58,21}}, color={0,0,127}));
-  connect(chiIsoVal.y, disPlaFroChi.uChiWatIsoVal) annotation (Line(points={{
-          -58,50},{20,50},{20,26},{58,26}}, color={0,0,127}));
+  connect(chiIsoVal.y, disPlaFroChi.u1ChiWatIsoVal) annotation (Line(points={{-58,
+          50},{30,50},{30,26},{58,26}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Generic/PlantEnable/Validation/DisableChillers.mos"

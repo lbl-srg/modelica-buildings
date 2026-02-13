@@ -3,7 +3,7 @@ model ResetMinBypass
   "Validate sequence of reseting minimum flow bypass"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ResetMinBypass
-    minBypRes
+    minBypRes(byPasSetTim=120)
     "Check if the setpoint has achieved"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

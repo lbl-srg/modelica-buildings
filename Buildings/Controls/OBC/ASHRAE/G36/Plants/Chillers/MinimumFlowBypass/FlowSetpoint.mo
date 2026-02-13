@@ -757,12 +757,12 @@ equation
           114},{338,114}}, color={255,0,255}));
   connect(triSam1.y, byPasSet3.u3) annotation (Line(points={{362,80},{380,80},{380,
           112},{398,112}}, color={0,0,127}));
-  connect(byPasSet3.y, yChiWatMinFloSet)
-    annotation (Line(points={{422,120},{460,120}}, color={0,0,127}));
   connect(logSwi.y, staChaSet1.u)
     annotation (Line(points={{142,-440},{178,-440}}, color={255,0,255}));
   connect(staChaSet1.y, lat.u)
     annotation (Line(points={{202,-440},{238,-440}}, color={255,0,255}));
+  connect(byPasSet1.y, yChiWatMinFloSet) annotation (Line(points={{422,240},{
+          430,240},{430,120},{460,120}}, color={0,0,127}));
 annotation (
   defaultComponentName="minChiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

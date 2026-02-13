@@ -5,12 +5,13 @@ model UpEndWithOff
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.UpEnd
     endUp1(
     final nChi=2,
+    have_isoValEndSwi=false,
     final chaChiWatIsoTim=300,
     final byPasSetTim=300,
     final minFloSet={0.5,1},
     final maxFloSet={1,1.5})
     "End staging up process which does require one chiller on and another chiller off"
-    annotation (Placement(transformation(extent={{0,150},{20,170}})));
+    annotation (Placement(transformation(extent={{0,140},{20,180}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
@@ -49,16 +50,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant nexDisChi2(final k=1)
     "Next disable chiller"
     annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe(final k=1)
-    "Full open"
-    annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch chiIsoVal1
-    "Chilled water isolation valve one"
-    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
-    final samplePeriod=fill(10, 2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaHeaCon(final k=true)
     "Enable head pressure control"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
@@ -114,13 +105,13 @@ equation
     annotation (Line(points={{-178,90},{-170,90},{-170,160},{-162,160}},
       color={255,0,255}));
   connect(reaToInt1.y, endUp1.nexEnaChi)
-    annotation (Line(points={{-98,160},{-80,160},{-80,172},{-2,172}},
+    annotation (Line(points={{-98,160},{-80,160},{-80,177},{-2,177}},
       color={255,127,0}));
   connect(upStrDev1.y, endUp1.uEnaChiWatIsoVal)
-    annotation (Line(points={{-178,50},{-72,50},{-72,168},{-2,168}},
+    annotation (Line(points={{-178,50},{-72,50},{-72,170},{-2,170}},
       color={255,0,255}));
   connect(staUp1.y, endUp1.uOnOff)
-    annotation (Line(points={{-178,90},{-60,90},{-60,164},{-2,164}},
+    annotation (Line(points={{-178,90},{-60,90},{-60,165},{-2,165}},
       color={255,0,255}));
   connect(nexDisChi2.y, swi3.u1)
     annotation (Line(points={{-218,10},{-200,10},{-200,-2},{-162,-2}},
@@ -136,21 +127,6 @@ equation
   connect(reaToInt2.y, endUp1.nexDisChi)
     annotation (Line(points={{-98,-10},{-56,-10},{-56,162},{-2,162}},
       color={255,127,0}));
-  connect(fulOpe.y, chiIsoVal1.u3)
-    annotation (Line(points={{-218,-70},{-200,-70},{-200,-78},{-162,-78}},
-      color={0,0,127}));
-  connect(staUp1.y, chiIsoVal1.u2)
-    annotation (Line(points={{-178,90},{-170,90},{-170,-70},{-162,-70}},
-      color={255,0,255}));
-  connect(endUp1.yChiWatIsoVal, zerOrdHol1.u)
-    annotation (Line(points={{22,165},{64,165},{64,-10},{78,-10}},
-      color={0,0,127}));
-  connect(zerOrdHol1[1].y, chiIsoVal1.u1)
-    annotation (Line(points={{102,-10},{106,-10},{106,-40},{-180,-40},{-180,-62},
-          {-162,-62}}, color={0,0,127}));
-  connect(chiIsoVal1.y, endUp1.uChiWatIsoVal[1])
-    annotation (Line(points={{-138,-70},{-44,-70},{-44,157.5},{-2,157.5}},
-      color={0,0,127}));
   connect(enaHeaCon.y, chiOneHeaCon.u3)
     annotation (Line(points={{-218,-160},{-200,-160},{-200,-168},{-162,-168}},
       color={255,0,255}));
@@ -164,49 +140,50 @@ equation
     annotation (Line(points={{102,-120},{110,-120},{110,-140},{-180,-140},{-180,
           -152},{-162,-152}},   color={255,0,255}));
   connect(chiOneHeaCon.y, endUp1.uChiHeaCon[1])
-    annotation (Line(points={{-138,-160},{-28,-160},{-28,153.5},{-2,153.5}},
+    annotation (Line(points={{-138,-160},{-28,-160},{-28,147.5},{-2,147.5}},
       color={255,0,255}));
   connect(chiWatFlo1.y, endUp1.VChiWat_flow)
-    annotation (Line(points={{-218,-200},{-20,-200},{-20,152},{-2,152}},
+    annotation (Line(points={{-218,-200},{-20,-200},{-20,145},{-2,145}},
       color={0,0,127}));
-  connect(fulOpe.y, endUp1.uChiWatIsoVal[2])
-    annotation (Line(points={{-218,-70},{-200,-70},{-200,-100},{-40,-100},{-40,158.5},
-          {-2,158.5}}, color={0,0,127}));
   connect(enaHeaCon.y, endUp1.uChiHeaCon[2])
-    annotation (Line(points={{-218,-160},{-200,-160},{-200,-180},{-24,-180},{-24,
-          154.5},{-2,154.5}}, color={255,0,255}));
+    annotation (Line(points={{-218,-160},{-200,-160},{-200,-180},{-24,-180},{
+          -24,148.5},{-2,148.5}},
+                              color={255,0,255}));
   connect(chiWatFlo2.y, endUp1.VMinChiWat_setpoint)
-    annotation (Line(points={{-218,-240},{-16,-240},{-16,150},{-2,150}}, color={0,0,127}));
+    annotation (Line(points={{-218,-240},{-16,-240},{-16,143},{-2,143}}, color={0,0,127}));
   connect(staUp1.y, lat.u) annotation (Line(points={{-178,90},{-170,90},{-170,120},
           {-122,120}},color={255,0,255}));
   connect(endUp1.endStaTri, lat.clr) annotation (Line(points={{22,151},{40,151},
           {40,80},{-140,80},{-140,114},{-122,114}}, color={255,0,255}));
-  connect(lat.y, endUp1.uStaUp) annotation (Line(points={{-98,120},{-76,120},{-76,
-          170},{-2,170}}, color={255,0,255}));
+  connect(lat.y, endUp1.uStaUp) annotation (Line(points={{-98,120},{-76,120},{
+          -76,173},{-2,173}},
+                          color={255,0,255}));
   connect(endUp1.yChi[2], chiTwoSta.y1) annotation (Line(points={{22,169.5},{70,
           169.5},{70,90},{78,90}}, color={255,0,255}));
   connect(chiTwoSta.y1_actual, endUp1.uChi[2]) annotation (Line(points={{102,90},
-          {110,90},{110,60},{-68,60},{-68,166.5},{-2,166.5}}, color={255,0,255}));
-  connect(chiTwoSta.y1_actual, endUp1.uChiWatReq[2]) annotation (Line(points={{102,
-          90},{110,90},{110,60},{-52,60},{-52,160.5},{-2,160.5}}, color={255,0,255}));
+          {110,90},{110,60},{-68,60},{-68,167.5},{-2,167.5}}, color={255,0,255}));
+  connect(chiTwoSta.y1_actual, endUp1.uChiWatReq[2]) annotation (Line(points={{102,90},
+          {110,90},{110,60},{-52,60},{-52,159.5},{-2,159.5}},     color={255,0,255}));
   connect(con2.y, chiOneSta.u3) annotation (Line(points={{102,170},{170,170},{170,
           212},{178,212}}, color={255,0,255}));
   connect(truDel.y, chiOneSta.u2)
     annotation (Line(points={{162,220},{178,220}}, color={255,0,255}));
   connect(con2.y, truDel.u) annotation (Line(points={{102,170},{120,170},{120,220},
           {138,220}}, color={255,0,255}));
-  connect(chiOneSta.y, endUp1.uChi[1]) annotation (Line(points={{202,220},{210,220},
-          {210,50},{-64,50},{-64,165.5},{-2,165.5}}, color={255,0,255}));
+  connect(chiOneSta.y, endUp1.uChi[1]) annotation (Line(points={{202,220},{210,
+          220},{210,50},{-64,50},{-64,166.5},{-2,166.5}},
+                                                     color={255,0,255}));
   connect(chiOneSta.y, endUp1.uChiWatReq[1]) annotation (Line(points={{202,220},
-          {210,220},{210,50},{-48,50},{-48,159.5},{-2,159.5}}, color={255,0,255}));
+          {210,220},{210,50},{-48,50},{-48,158.5},{-2,158.5}}, color={255,0,255}));
   connect(chiOneSta.y, endUp1.uConWatReq[1]) annotation (Line(points={{202,220},
-          {210,220},{210,50},{-36,50},{-36,155.5},{-2,155.5}}, color={255,0,255}));
-  connect(endUp1.yChi[1], chiOneSta1.y1) annotation (Line(points={{22,168.5},{70,
-          168.5},{70,240},{78,240}}, color={255,0,255}));
+          {210,220},{210,50},{-36,50},{-36,150.5},{-2,150.5}}, color={255,0,255}));
+  connect(endUp1.yChi[1], chiOneSta1.y1) annotation (Line(points={{22,168.5},{
+          70,168.5},{70,240},{78,240}},
+                                     color={255,0,255}));
   connect(chiOneSta1.y1_actual, chiOneSta.u1) annotation (Line(points={{102,240},
           {170,240},{170,228},{178,228}}, color={255,0,255}));
-  connect(chiTwoSta.y1_actual, endUp1.uConWatReq[2]) annotation (Line(points={{102,
-          90},{110,90},{110,60},{-32,60},{-32,156.5},{-2,156.5}}, color={255,0,255}));
+  connect(chiTwoSta.y1_actual, endUp1.uConWatReq[2]) annotation (Line(points={{102,90},
+          {110,90},{110,60},{-32,60},{-32,151.5},{-2,151.5}},     color={255,0,255}));
 annotation (
  experiment(StopTime=2400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/UpEndWithOff.mos"
