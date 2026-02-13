@@ -526,79 +526,65 @@ annotation (
         Text(
           extent={{-98,78},{-66,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{-102,56},{-74,46}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-98,36},{-74,26}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,18},{-60,4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
           extent={{-98,-4},{-60,-14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-98,-24},{-56,-36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{36,88},{98,72}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
           extent={{40,40},{98,24}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
           extent={{-98,98},{-64,84}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uAftSup"),
         Text(
           visible=have_hotWatCoi,
           extent={{-98,-42},{-68,-56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDisSet"),
         Text(
           visible=have_hotWatCoi,
           extent={{-102,-64},{-76,-74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
           extent={{-98,-82},{-60,-94}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uVal"),
         Text(
           visible=have_hotWatCoi,
           extent={{40,-20},{98,-36}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHeaValResReq"),
         Text(
           visible=have_hotWatCoi,
           extent={{40,-70},{98,-86}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHotWatPlaReq")}),
   Documentation(info="<html>

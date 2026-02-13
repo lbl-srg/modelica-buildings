@@ -764,95 +764,77 @@ annotation (defaultComponentName="ala",
         Text(
           extent={{-98,94},{-48,80}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActSet_flow"),
         Text(
           extent={{-102,100},{-62,90}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VPri_flow"),
         Text(
           extent={{-100,-4},{-70,-16}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{-98,76},{-72,64}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Fan"),
         Text(
           extent={{46,98},{96,84}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLowFloAla"),
         Text(
           extent={{48,68},{98,54}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yFloSenAla"),
         Text(
           extent={{48,-12},{98,-26}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLeaDamAla"),
         Text(
           extent={{-100,-24},{-72,-36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uVal"),
         Text(
           extent={{-100,-44},{-74,-54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-98,-64},{-66,-76}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           visible=have_hotWatCoi,
           textString="u1HotPla"),
         Text(
           extent={{-100,-80},{-76,-90}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
           extent={{-102,-90},{-64,-100}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDisSet",
           visible=have_hotWatCoi),
         Text(
           extent={{48,-42},{98,-56}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLeaValAla"),
         Text(
           extent={{42,-82},{98,-96}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLowTemAla",
           visible=have_hotWatCoi),
         Text(
           extent={{-98,56},{-62,40}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1FanCom"),
         Text(
           extent={{48,30},{98,16}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yFanStaAla"),
         Text(
           extent={{-98,38},{-62,24}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1TerFan"),
         Text(
           extent={{-98,18},{-48,4}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-480},{240,480}})),
 Documentation(info="<html>

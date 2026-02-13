@@ -1011,27 +1011,23 @@ annotation (defaultComponentName="ecoHigLim",
         Text(
           extent={{-100,68},{-72,52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TRet",
           visible=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb),
         Text(
           extent={{-100,-52},{-72,-68}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="hRet",
           visible=(eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
                and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)),
         Text(
           extent={{70,-50},{98,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="hCut",
           visible=(ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)),
         Text(
           extent={{70,70},{98,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCut")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-540,-1260},{540,
             1260}})),

@@ -307,7 +307,6 @@ annotation (
         Text(
           extent={{-98,88},{-70,72}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TAirSup"),
         Text(
           extent={{-100,140},{100,100}},
@@ -316,39 +315,32 @@ annotation (
         Text(
           extent={{-98,40},{-52,20}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TAirSupSet"),
         Text(
           extent={{-98,-22},{-38,-38}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCooCoi_actual"),
         Text(
           extent={{-98,-72},{-36,-88}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=have_hotWatCoi,
           textString="uHeaCoi_actual"),
         Text(
           extent={{34,92},{98,70}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yChiWatResReq"),
         Text(
           extent={{52,42},{98,20}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yChiPlaReq"),
         Text(
           extent={{34,-18},{98,-40}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yHotWatResReq",
           visible=have_hotWatCoi),
         Text(
           extent={{38,-66},{98,-88}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yHotWatPlaReq",
           visible=have_hotWatCoi)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}})),
