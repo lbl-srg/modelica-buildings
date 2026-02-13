@@ -4,40 +4,37 @@ model AirCooledOpenLoop
   extends Buildings.Templates.Plants.Chillers.Validation.WaterCooledOpenLoop(
     redeclare Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsAirCooled datAll,
     redeclare Buildings.Templates.Plants.Chillers.AirCooled pla(
-      redeclare package MediumCon = MediumAir,
+      redeclare package MediumCon=MediumAir,
       redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Controls.OpenLoop ctl));
 
-  replaceable package MediumAir=Buildings.Media.Air
+  replaceable package MediumAir = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
-
-  annotation (
-  experiment(
-    StartTime=19612800,
-    StopTime=19615000,
-    Tolerance=1e-06),
-  __Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Validation/AirCooledOpenLoop.mos"
-  "Simulate and plot"),
-  Documentation(revisions="<html>
+annotation(experiment(StartTime=19612800,
+  StopTime=19615000,
+  Tolerance=1e-06),
+  __Dymola_Commands(
+    file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Validation/AirCooledOpenLoop.mos"
+      "Simulate and plot"),
+  Documentation(
+    revisions="<html>
 <ul>
-<li>
-November 18, 2022, by Antoine Gautier:<br/>
-First implementation.
-</li>
+  <li>
+    November 18, 2022, by Antoine Gautier:<br />
+    First implementation.
+  </li>
 </ul>
-</html>", info="<html>
+</html>",
+    info="<html>
 <p>
-This is a validation model for the air-cooled chiller plant model
-<a href=\"modelica://Buildings.Templates.Plants.Chillers.AirCooled\">
-Buildings.Templates.Plants.Chillers.AirCooled</a>
-with open-loop controls.
+  This is a validation model for the air-cooled chiller plant model
+  <a href=\"modelica://Buildings.Templates.Plants.Chillers.AirCooled\">
+    Buildings.Templates.Plants.Chillers.AirCooled</a> with open-loop controls.
 </p>
 <p>
-It is intended to check that the plant model is well-defined for
-various plant configurations.
-However, due to the open-loop controls a correct physical behavior
-is not expected.
+  It is intended to check that the plant model is well-defined for various
+  plant configurations. However, due to the open-loop controls a correct
+  physical behavior is not expected.
 </p>
 </html>"));
 end AirCooledOpenLoop;
