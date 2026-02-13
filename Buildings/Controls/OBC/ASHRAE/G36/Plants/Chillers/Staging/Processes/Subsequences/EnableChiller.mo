@@ -265,42 +265,34 @@ annotation (
         Text(
           extent={{-98,96},{-50,84}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexEnaChi"),
         Text(
           extent={{-98,-84},{-50,-96}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexDisChi"),
         Text(
           extent={{-100,66},{-68,56}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
           extent={{-98,26},{-34,14}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uEnaChiWatIsoVal"),
         Text(
           extent={{-100,-14},{-78,-24}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChi"),
         Text(
           extent={{-98,-54},{-72,-66}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{74,86},{100,76}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChi"),
         Text(
           extent={{60,-72},{98,-84}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yNewChiEna")}),                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}}),
         graphics={
@@ -316,52 +308,34 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{14,174},{94,166}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
           extent={{40,-72},{120,-88}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable 
 small chiller"),
           Text(
           extent={{16,168},{208,148}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString=
               "1. When the stage change does not require one chiller off and another chiller on."),
           Text(
           extent={{16,154},{208,136}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="2. When the stage change does require one chiller off and another chiller on, 
 but the enabled chiller has not yet finished starting."),
           Text(
           extent={{-24,-132},{56,-140}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
           extent={{-20,-142},{152,-158}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="When the stage change does require one chiller off

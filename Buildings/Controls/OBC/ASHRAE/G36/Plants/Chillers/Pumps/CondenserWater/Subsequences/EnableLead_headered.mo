@@ -84,22 +84,18 @@ annotation (
         Text(
           extent={{-98,72},{-44,50}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiConIsoVal"),
         Text(
           extent={{42,12},{96,-10}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yLeaPum"),
         Text(
           extent={{-98,12},{-44,-10}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uWseConIsoVal"),
         Text(
           extent={{-98,-50},{-58,-68}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uEnaPla")}),
    Diagram(coordinateSystem(preserveAspectRatio=false)),
    Documentation(info="<html>

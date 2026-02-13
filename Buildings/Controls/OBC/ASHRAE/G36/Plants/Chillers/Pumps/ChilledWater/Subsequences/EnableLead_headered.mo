@@ -82,17 +82,14 @@ annotation (
         Text(
           extent={{-96,12},{-20,-8}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{42,12},{96,-10}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yLeaPum"),
         Text(
           extent={{-98,-48},{-44,-70}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uWse")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>

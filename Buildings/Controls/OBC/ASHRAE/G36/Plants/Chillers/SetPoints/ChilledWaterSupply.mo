@@ -137,17 +137,11 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{-26,118},{74,106}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Chilled water pump differential pressure setpoint"),
           Text(
           extent={{-22,-104},{74,-116}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Chilled water supply temperature setpoint")}),
@@ -189,23 +183,23 @@ annotation (
     Text(
       extent={{-20,-66},{22,-82}},
       textColor={95,95,95},
-          textString="Plant reset"),
+      textString="Plant reset"),
     Text(
       extent={{14,26},{68,6}},
       textColor={95,95,95},
-          horizontalAlignment=TextAlignment.Right,
-          textString="Temperature
+      horizontalAlignment=TextAlignment.Right,
+      textString="Temperature
 setpoint"),
     Text(
       extent={{-76,22},{-42,8}},
       textColor={95,95,95},
-          horizontalAlignment=TextAlignment.Right,
-          textString="DP
+      horizontalAlignment=TextAlignment.Right,
+      textString="DP
 setpoint"),
     Text(
       extent={{-14,-56},{12,-62}},
       textColor={95,95,95},
-          textString="0.5")}),
+      textString="0.5")}),
 Documentation(info="<html>
 <p>
 Block that outputs setpoints for the chilled water supply of primary-only and

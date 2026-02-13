@@ -177,7 +177,6 @@ annotation (defaultComponentName = "iniSta",
         Text(
           extent={{-68,-44},{58,-114}},
           textColor={0,0,0},
-          lineThickness=0.5,
           textString="At Enable")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-240,-140},{240,140}})),

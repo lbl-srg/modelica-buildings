@@ -241,46 +241,38 @@ annotation (
         Text(
           extent={{-15,9.5},{15,-9.5}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           origin={-83,49.5},
           rotation=0,
           textString="uChiLoa"),
         Text(
           extent={{-98,98},{-66,86}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uDemLim"),
         Text(
           extent={{-18,6.5},{18,-6.5}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           origin={78,42.5},
           rotation=0,
           textString="yChiDem"),
         Text(
           extent={{46,-34},{96,-46}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChiDemRed"),
         Text(
           extent={{-100,-84},{-76,-94}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChi"),
         Text(
           extent={{-98,-42},{-74,-56}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{-98,-12},{-64,-28}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaDow"),
         Text(
           extent={{-23,8.5},{23,-8.5}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           origin={-75,10.5},
           rotation=0,
           textString="yOpeParLoaRatMin")}),

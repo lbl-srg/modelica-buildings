@@ -110,9 +110,8 @@ model AirToWater
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[4](
     each k=10) "Request multiplier factor"
     annotation (Placement(transformation(extent={{40,90},{20,110}})));
-  // A constant true enable signal yields an initializarion error with OCT.
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant   enaLoa(k=true)
-                 "Load enable"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaLoa(k=true)
+    "Load enable"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
@@ -144,7 +143,9 @@ model AirToWater
     final dpBal1_nominal=datAll.pla.ctl.dpChiWatRemSet_max[1] - dpTer_nominal - dpValve_nominal,
     final TLiqEnt_nominal=pla.TChiWatSup_nominal,
     final TLiqLvg_nominal=pla.TChiWatRet_nominal,
-    con(val(y_start=0)))                          if have_chiWat "Cooling load"
+    con(val(y_start=0)),
+    loa(coi(show_T=true))) if have_chiWat
+    "Cooling load"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Buildings.Templates.Components.Loads.LoadTwoWayValve loaHea(
     redeclare final package MediumLiq = Medium,
@@ -170,7 +171,7 @@ model AirToWater
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.capCoo_nominal,
     redeclare package Medium = Medium,
-    nPorts=2)                          "Fluid volume in distribution system"
+    nPorts=2) if have_chiWat           "Fluid volume in distribution system"
     annotation (Placement(transformation(extent={{-10,-40},{10,-60}})));
 equation
   if have_chiWat then

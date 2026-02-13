@@ -259,32 +259,26 @@ annotation (
         Text(
           extent={{-98,-34},{-54,-46}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexChaChi"),
         Text(
           extent={{-96,52},{-44,38}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uUpsDevSta"),
         Text(
           extent={{-100,6},{-66,-6}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{-98,-72},{-46,-86}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiHeaCon"),
         Text(
           extent={{44,68},{96,54}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yEnaHeaCon"),
         Text(
           extent={{44,-50},{96,-64}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChiHeaCon"),
         Polygon(
           points={{-60,40},{-60,-40},{0,0},{-60,40}},
@@ -299,7 +293,6 @@ annotation (
         Text(
           extent={{-100,88},{-48,74}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uEnaPla")}),
   Documentation(info="<html>
 <p>

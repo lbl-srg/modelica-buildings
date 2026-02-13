@@ -312,56 +312,46 @@ annotation (
         Text(
           extent={{-100,76},{-64,66}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uStaSet"),
         Text(
           extent={{-100,8},{-58,-4}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiSet"),
         Text(
           extent={{50,50},{98,30}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yNexEnaChi"),
         Text(
           extent={{-98,-62},{-64,-74}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="endPro"),
         Text(
           extent={{50,20},{98,0}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yDisSmaChi"),
         Text(
           extent={{50,-48},{98,-68}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yDisLasChi"),
         Text(
           extent={{44,-78},{98,-100}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yEnaSmaChi"),
         Text(
           extent={{54,-22},{96,-34}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yOnOff"),
-      Text(
-        extent={{-100,100},{100,-100}},
-        textColor={0,0,0},
+        Text(
+          extent={{-100,100},{100,-100}},
+          textColor={0,0,0},
           textString="?"),
         Text(
           extent={{60,96},{102,84}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yUp"),
         Text(
           extent={{60,76},{102,64}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yDow")}),
 Documentation(info="<html>
 <p>

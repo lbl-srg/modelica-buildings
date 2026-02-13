@@ -691,13 +691,11 @@ annotation (
         Text(
           extent={{-96,138},{-26,124}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin",
           visible=need_reduceChillerDemand),
         Text(
           extent={{-96,116},{-60,104}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiLoa",
           visible=need_reduceChillerDemand),
         Text(
@@ -707,12 +705,10 @@ annotation (
         Text(
           extent={{-98,76},{-44,62}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-100,-14},{-40,-26}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{-100,-44},{-50,-56}},
@@ -738,7 +734,6 @@ annotation (
         Text(
           extent={{60,158},{96,146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiDem",
           visible=need_reduceChillerDemand),
         Text(
@@ -748,7 +743,6 @@ annotation (
         Text(
           extent={{36,50},{96,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatIsoVal"),
         Text(
           extent={{42,8},{96,-4}},
@@ -765,7 +759,6 @@ annotation (
         Text(
           extent={{18,-104},{98,-114}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yDesConWatPumSpe",
           visible=not have_fixSpeConWatPum),
         Text(
@@ -775,7 +768,6 @@ annotation (
         Text(
           extent={{28,-150},{98,-164}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
         Text(
           extent={{40,88},{96,74}},

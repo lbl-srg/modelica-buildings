@@ -181,24 +181,18 @@ First implementation.
         Text(
           extent={{40,90},{106,74}},
           textColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Disable plant 
 due to inactive schedule"),
         Text(
           extent={{40,-12},{98,-24}},
           textColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Disable plant 
 due to zero request"),
         Text(
           extent={{40,-102},{120,-116}},
           textColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Disable plant 
 due to low outdoor temperature")}));

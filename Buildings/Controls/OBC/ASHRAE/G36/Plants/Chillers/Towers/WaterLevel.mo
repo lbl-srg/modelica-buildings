@@ -67,12 +67,10 @@ annotation (
         Text(
           extent={{-96,6},{-56,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="watLev"),
         Text(
           extent={{58,8},{98,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yMakUp"),
         Text(
           extent={{-120,146},{100,108}},

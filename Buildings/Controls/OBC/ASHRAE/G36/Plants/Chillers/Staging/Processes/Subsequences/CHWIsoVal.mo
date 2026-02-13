@@ -292,9 +292,6 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{-38,184},{172,150}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Check if all enabled CHW isolation valves 
@@ -311,27 +308,22 @@ have been fully open")}),
         Text(
           extent={{-96,-74},{-60,-86}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaPro"),
         Text(
           extent={{-96,-42},{-46,-56}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uUpsDevSta"),
         Text(
           extent={{-96,86},{-48,74}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexChaChi"),
         Text(
           extent={{-96,58},{-42,46}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{32,70},{96,54}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yEnaChiWatIsoVal"),
         Polygon(
           points={{-60,40},{-60,-40},{0,0},{-60,40}},
@@ -346,7 +338,6 @@ have been fully open")}),
         Text(
           extent={{44,-54},{98,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatIsoVal")}),
  Documentation(info="<html>
 <p>

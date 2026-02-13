@@ -194,22 +194,18 @@ annotation (
         Text(
           extent={{-98,52},{-38,30}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-98,-24},{-34,-48}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
           extent={{64,48},{98,34}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yUp"),
         Text(
           extent={{62,-26},{96,-50}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yDown")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-200},{220,200}})),
   Documentation(info="<html>
