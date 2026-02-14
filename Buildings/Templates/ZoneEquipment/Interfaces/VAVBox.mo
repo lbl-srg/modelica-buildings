@@ -92,7 +92,6 @@ protected
   parameter Buildings.Templates.Components.Data.Coil datCoiHea(
     final typ=coiHea.typ,
     final typVal=coiHea.typVal,
-    final have_sou=coiHea.have_sou,
     final mAir_flow_nominal=dat.coiHea.mAir_flow_nominal,
     final mWat_flow_nominal=dat.coiHea.mWat_flow_nominal,
     final dpWat_nominal=dat.coiHea.dpWat_nominal,
