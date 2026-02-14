@@ -103,7 +103,7 @@ equation
 <p>
 This is a model for air-cooled or water-cooled compression chillers
 where the capacity and input power are computed by interpolating manufacturer data
-along the evaporator entering or leaving temperature, the 
+along the evaporator entering or leaving temperature, the
 condenser entering or leaving temperature and the part load ratio.
 The model can be configured to represent either a cooling-only
 chiller (<code>have_switchover=false</code>) or a heat-recovery chiller
@@ -130,7 +130,7 @@ On/off command: <code>y1</code>, DO signal
 DO signal, true for cooling, false for heating
 </li>
 <li>
-Supply or return temperature setpoint <code>TSet</code>  
+Supply or return temperature setpoint <code>TSet</code>
 (the choice between supply and return temperature tracking
 depends on the parameter: <code>use_TChiWatSupForCtl</code>),
 AO signal corresponding to

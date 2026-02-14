@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "locDpSet.dpChiWat_remote[1]",
+    "locDpSet.dpChiWat_remote[2]",
+    "locDpSet.dpChiWatSet_remote[1]",
+    "locDpSet.dpChiWatSet_remote[2]",
+    "locDpSet.dpChiWatPumSet_local",
+    "locDpSet.minLocDp",
+    "locDpSet.maxLocDp",
+    "locDpSet.uChiWatPum[1]",
+    "locDpSet.uChiWatPum[2]",
+    "locDpSet.conPID[1].y",
+    "locDpSet.conPID[2].y"
+  };

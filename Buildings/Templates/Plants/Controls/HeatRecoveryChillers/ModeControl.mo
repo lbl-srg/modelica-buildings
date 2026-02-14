@@ -101,6 +101,12 @@ control mode to heating. Otherwise, set the control mode to cooling.
 <code>QChiWatReq_flow > QHeaWatReq_flow * (1 - 1 / COPHea_nominal)</code>
 </p>
 <p>
+Refer to the documentation of
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>
+for the definition of <code>QChiWatReq_flow</code> and <code>QHeaWatReq_flow</code>.
+</p>
+<p>
 Write mode via the chiller’s BACnet interface prior to sending the chiller
 an enable command.
 </p>

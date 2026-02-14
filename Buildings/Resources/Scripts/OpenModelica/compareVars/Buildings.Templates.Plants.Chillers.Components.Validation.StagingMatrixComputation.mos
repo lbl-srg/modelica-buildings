@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "staMat[1, 1]",
+    "staMat[1, 2]",
+    "staMat[2, 1]",
+    "staMat[2, 2]"
+  };

@@ -171,18 +171,15 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-150})));
-  Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
+  Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.SimplifiedRoom roo(
     redeclare replaceable package Medium = MediumA,
     rooLen=50,
     rooWid=30,
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
     QRoo_flow=500000,
-    nPorts=2)
-    "Room model"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        origin={4,-180})));
+    nPorts=2) "Room model" annotation (Placement(transformation(extent={{10,-10},
+            {-10,10}}, origin={4,-180})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,

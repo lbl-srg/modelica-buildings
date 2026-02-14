@@ -1,0 +1,27 @@
+
+simulateModel("Buildings.Templates.Plants.Chillers.Validation.WaterCooledOpenLoop",
+  method="cvode",
+  tolerance=1e-6,
+  startTime=19612800,
+  stopTime=19615000,
+  resultFile="WaterCooledOpenLoop");
+createPlot(id=1,
+  position={5, 5, 400, 600},
+  y={"TChiWatRet.T", "pla.bus.TChiWatPlaRet", "pla.bus.TChiWatPriSup", "pla.bus.chi[1].TSet", "pla.bus.TChiWatChiRet[1]", "pla.bus.TChiWatChiSup[1]"},
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"pla.bus.chi[1].y1"},
+  subPlot=2,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"pla.chi.chi[1].chi.PLR"},
+  subPlot=3,
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  position={415, 5, 400, 300},
+  y={"pla.bus.VChiWatPri_flow", "VChiWat_flow.V_flow"},
+  autoscale=true,
+  grid=true);
