@@ -8,9 +8,9 @@ model HybridAirToWater "Validation of AWHP plant template"
     "Set to true if the plant provides CHW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  inner parameter UserProject.Data.AllSystems datAll(
-    pla(
-      final cfg=pla.cfg)) "Plant parameters"
+  inner parameter UserProject.Data.AllSystems datAll(pla(final cfg=pla.cfg, ctl(
+          staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1], staEquOneMod=[1/2,1/2,0; 1,1,
+            0; 1,1,1])))  "Plant parameters"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
     displayUnit="Pa")=3E4
@@ -34,17 +34,19 @@ model HybridAirToWater "Validation of AWHP plant template"
       origin={-170,-40})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
-    have_hrc_select=true,
+    cfg(has_fouPip=true),
+    typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
+    redeclare Buildings.Templates.Plants.HeatPumps.Components.Controls.HybridAirToWater ctl(
+      nAirHan=1,
+      nEquZon=0),
+    have_hrc_select=false,
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
-    nHp=3,
+    nHp=2,
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
-    ctl(
-      nAirHan=1,
-      nEquZon=0),
     is_dpBalYPumSetCal=true)
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));

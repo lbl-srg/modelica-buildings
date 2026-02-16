@@ -132,7 +132,7 @@ block StageChangeCommand "Generate stage change command"
     annotation (Placement(transformation(extent={{70,210},{90,230}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(h=1E-4*min(capEqu))
     "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
-    annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
+    annotation (Placement(transformation(extent={{-90,-112},{-70,-92}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timUp(
     final t=dtRun)
     "Timer"
@@ -300,10 +300,10 @@ equation
   connect(intToRea.y, setZer.u2)
     annotation (Line(points={{32,80},{100,80},{100,174},{108,174}},color={0,0,127}));
   connect(hol.y, gre.u1)
-    annotation (Line(points={{-108,-100},{-92,-100}},
+    annotation (Line(points={{-108,-100},{-100,-100},{-100,-102},{-92,-102}},
                                                 color={0,0,127}));
   connect(splTimCapSta.y, gre.u2)
-    annotation (Line(points={{-108,-140},{-106,-140},{-106,-108},{-92,-108}},
+    annotation (Line(points={{-108,-140},{-106,-140},{-106,-110},{-92,-110}},
                                                                     color={0,0,127}));
   connect(capSta.y, splTimCapSta.u2)
     annotation (Line(points={{92,220},{136,220},{136,-160},{-136,-160},{-136,-146},
@@ -320,7 +320,7 @@ equation
     annotation (Line(points={{-108,-100},{-100,-100},{-100,-140},{-92,-140}},
                                                                     color={0,0,127}));
   connect(gre.y, timUp.u)
-    annotation (Line(points={{-68,-100},{-52,-100}},
+    annotation (Line(points={{-68,-102},{-60,-102},{-60,-100},{-52,-100}},
                                                 color={255,0,255}));
   connect(les.y, timDow.u)
     annotation (Line(points={{-68,-140},{-52,-140}},

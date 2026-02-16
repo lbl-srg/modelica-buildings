@@ -286,12 +286,24 @@ record Controller
   // Furthermore, a start value cannot be provided as the number of plant stages is not known beforehand.
   // If provided, there will likely be a mismatch between assigned value and start value.
   // Therefore, no enable annotation can be used.
-  parameter Real staEqu[:, :](
+  parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
     each final min=0,
     each final unit="1")
     "Staging matrix – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation"));
+    annotation (Dialog(group="Equipment staging and rotation"),enable=not cfg.has_fouPip);
+  parameter Real staEquCooHea[:, cfg.nHpTot](
+    each final max=1,
+    each final min=0,
+    each final unit="1")={fill(0,cfg.nHpTot)}
+    "Staging matrix for heating-cooling mode – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation", enable=cfg.has_fouPip));
+  parameter Real staEquOneMod[:, cfg.nHpTot](
+    each final max=1,
+    each final min=0,
+    each final unit="1")={fill(0,cfg.nHpTot)}
+    "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation", enable=cfg.has_fouPip));
   parameter Real plrSta(
     final max=1,
     final min=0,

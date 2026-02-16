@@ -18,7 +18,7 @@ block HybridPlantControlModule
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  parameter Boolean is_fouPip[nHp]=fill(false,nHp)
+  parameter Boolean is_fouPip[nHp,1]=fill(false,nHp)
     "Vector indicating if each HP is a 4-pipe ASHP; True=Is 4-pipe ASHP;False=Not 4-pipe ASHP"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
@@ -169,7 +169,7 @@ protected
     "Output mode for 2-pipe and 4-pipe ASHPs"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isFouPip[nHp](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isFouPip[nHp,1](
     final k=is_fouPip)
     "Is the heat pump a 4-pipe ASHP?"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
@@ -358,8 +358,6 @@ equation
   connect(booToInt.y, intSwi.u3)
     annotation (Line(points={{-58,-180},{180,-180},{180,-98},{198,-98}},
                                                    color={255,127,0}));
-  connect(isFouPip.y, intSwi.u2) annotation (Line(points={{82,-40},{160,-40},{160,
-          -90},{198,-90}}, color={255,0,255}));
   connect(and2.y, booToInt1.u) annotation (Line(points={{-198,-20},{-180,-20},{-180,
           -90},{-62,-90}},                     color={255,0,255}));
   connect(and2.y, not1.u) annotation (Line(points={{-198,-20},{-180,-20},{-180,-150},
@@ -395,8 +393,6 @@ equation
         color={255,0,255}));
   connect(u1EnaCoo, and2.u2) annotation (Line(points={{-280,-50},{-230,-50},{-230,
           -28},{-222,-28}},                            color={255,0,255}));
-  connect(isFouPip.y, pre1.u) annotation (Line(points={{82,-40},{160,-40},{160,70},
-          {188,70}},       color={255,0,255}));
   connect(intEqu.y, or3.u1)
     annotation (Line(points={{-98,230},{-62,230}}, color={255,0,255}));
   connect(intEqu1.y, or3.u2) annotation (Line(points={{122,310},{132,310},{132,248},
@@ -445,8 +441,6 @@ equation
   connect(intEqu1.y, and8.u1) annotation (Line(points={{122,310},{198,310}},
                                                                    color={255,0,
           255}));
-  connect(isFouPip.y, and8.u2) annotation (Line(points={{82,-40},{160,-40},{160,
-          302},{198,302}},                color={255,0,255}));
   connect(intEqu1.y, or4.u2) annotation (Line(points={{122,310},{132,310},{132,248},
           {-72,248},{-72,132},{-62,132}},
                       color={255,0,255}));
@@ -505,6 +499,12 @@ equation
           {258,352}}, color={255,0,255}));
   connect(or5.y, and9.u1)
     annotation (Line(points={{142,360},{258,360}}, color={255,0,255}));
+  connect(isFouPip[:, 1].y, intSwi.u2) annotation (Line(points={{82,-40},{160,
+          -40},{160,-90},{198,-90}}, color={255,0,255}));
+  connect(isFouPip[:, 1].y, pre1.u) annotation (Line(points={{82,-40},{160,-40},
+          {160,70},{188,70}}, color={255,0,255}));
+  connect(isFouPip[:, 1].y, and8.u2) annotation (Line(points={{82,-40},{160,-40},
+          {160,302},{198,302}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctlPlaHyb",
     Icon(
