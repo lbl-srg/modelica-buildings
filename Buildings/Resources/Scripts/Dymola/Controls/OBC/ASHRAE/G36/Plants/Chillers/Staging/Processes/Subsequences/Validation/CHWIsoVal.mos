@@ -1,12 +1,15 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.Validation.CHWIsoVal", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="CHWIsoVal");
-createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"enaChiIsoVal.uChiWatIsoVal[1]","enaChiIsoVal.uChiWatIsoVal[2]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"enaChiIsoVal.uStaPro","enaChiIsoVal.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"enaChiIsoVal.nexChaChi"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 800, 1200}, subPlot=4, y={"enaChiIsoVal.yChiWatIsoVal[1]","enaChiIsoVal.yChiWatIsoVal[2]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 800, 1200}, subPlot=5, y={"enaChiIsoVal.yEnaChiWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"disChiIsoVal.uChiWatIsoVal[1]","disChiIsoVal.uChiWatIsoVal[2]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"disChiIsoVal.uStaPro","disChiIsoVal.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"disChiIsoVal.nexChaChi"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={830, 10, 800, 1200}, subPlot=4, y={"disChiIsoVal.yChiWatIsoVal[1]","disChiIsoVal.yChiWatIsoVal[2]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={830, 10, 800, 1200}, subPlot=5, y={"disChiIsoVal.yEnaChiWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={9, 13, 667, 1013}, y={"enaChiIsoVal.uChi[1]", "enaChiIsoVal.uChi[2]"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={9, 13, 667, 1013}, y={"enaChiIsoVal.uUpsDevSta", "enaChiIsoVal.uStaPro"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={9, 13, 667, 1013}, y={"enaChiIsoVal.y1ChiWatIsoVal[1]", "enaChiIsoVal.y1ChiWatIsoVal[2]"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={9, 13, 667, 1013}, y={"enaChiIsoVal.yChaChiWatIsoVal"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={684, 15, 641, 1006}, y={"disChiIsoVal.uChi[1]", "disChiIsoVal.uChi[2]"}, range={0.0, 4000.0, 0.8, 1.2}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={684, 15, 641, 1006}, y={"disChiIsoVal.uUpsDevSta", "disChiIsoVal.uStaPro"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={684, 15, 641, 1006}, y={"disChiIsoVal.y1ChiWatIsoVal[1]", "disChiIsoVal.y1ChiWatIsoVal[2]"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={684, 15, 641, 1006}, y={"disChiIsoVal.yChaChiWatIsoVal"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1334, 20, 766, 1002}, y={"enaChiIsoVal1.uChi[1]", "enaChiIsoVal1.uChi[2]"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1334, 20, 766, 1002}, y={"enaChiIsoVal1.u1ChiIsoOpe[1]", "enaChiIsoVal1.u1ChiIsoOpe[2]"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1334, 20, 766, 1002}, y={"enaChiIsoVal1.u1ChiIsoClo[1]", "enaChiIsoVal1.u1ChiIsoClo[2]"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1334, 20, 766, 1002}, y={"enaChiIsoVal1.y1ChiWatIsoVal[1]", "enaChiIsoVal1.y1ChiWatIsoVal[2]"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1334, 20, 766, 1002}, y={"enaChiIsoVal1.yChaChiWatIsoVal"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s");
 

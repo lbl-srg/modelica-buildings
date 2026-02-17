@@ -8,6 +8,7 @@ model UpWithOnOff
     final have_ponyChiller=true,
     final have_fixSpeConWatPum=false,
     final need_reduceChillerDemand=true,
+    have_isoValEndSwi=false,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
@@ -39,10 +40,6 @@ protected
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
   Buildings.Controls.OBC.CDL.Reals.Switch loaOne "Chiller load one"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
-    final samplePeriod=fill(10, 2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(
     final k=false)
     "Waterside economizer status"
@@ -61,16 +58,6 @@ protected
   Buildings.Templates.Components.Controls.StatusEmulator chiTwoSta(delayTime=0)
     "Chiller two status"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerOpe(
-    final k=0) "Closed isolation valve"
-    annotation (Placement(transformation(extent={{-200,-270},{-180,-250}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe(
-    final k=1) "Full open isolation valve"
-    annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch IsoValOne "Logical switch"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch IsoValTwo "Logical switch"
-    annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(
     final pre_u_start=true)
     "Chiller one head pressure control"
@@ -167,36 +154,19 @@ equation
           {138,132}},      color={0,0,127}));
   connect(chiTwoSta.y1_actual, upProCon.uChi[2]) annotation (Line(points={{92,20},
           {100,20},{100,0},{-54,0},{-54,110.5},{18,110.5}},   color={255,0,255}));
-  connect(zerOpe.y, IsoValTwo.u3) annotation (Line(points={{-178,-260},{-160,-260},
-          {-160,-268},{-122,-268}}, color={0,0,127}));
-  connect(fulOpe.y, IsoValOne.u3) annotation (Line(points={{-178,-220},{-160,-220},
-          {-160,-228},{-122,-228}}, color={0,0,127}));
-  connect(staUp.y, IsoValOne.u2) annotation (Line(points={{-138,130},{-130,130},
-          {-130,-220},{-122,-220}}, color={255,0,255}));
-  connect(staUp.y, IsoValTwo.u2) annotation (Line(points={{-138,130},{-130,130},
-          {-130,-260},{-122,-260}}, color={255,0,255}));
-  connect(upProCon.yChiWatIsoVal, zerOrdHol.u) annotation (Line(points={{42,86},
-          {56,86},{56,-180},{78,-180}},  color={0,0,127}));
-  connect(zerOrdHol[1].y, IsoValOne.u1) annotation (Line(points={{102,-180},{120,
-          -180},{120,-200},{-140,-200},{-140,-212},{-122,-212}}, color={0,0,127}));
-  connect(zerOrdHol[2].y, IsoValTwo.u1) annotation (Line(points={{102,-180},{120,
-          -180},{120,-200},{-140,-200},{-140,-252},{-122,-252}}, color={0,0,127}));
   connect(chiTwoSta.y1_actual, upProCon.uChiConIsoVal[2]) annotation (Line(points={{92,20},
           {100,20},{100,0},{-48,0},{-48,105.5},{18,105.5}},   color={255,0,255}));
   connect(chiTwoSta.y1_actual, upProCon.uConWatReq[2]) annotation (Line(points={{92,20},
           {100,20},{100,0},{-42,0},{-42,98.5},{18,98.5}},   color={255,0,255}));
   connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-178,-180},{-40,-180},
           {-40,96},{18,96}},   color={255,0,255}));
-  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,-100},
-          {120,-100},{120,-116},{-32,-116},{-32,87.5},{18,87.5}}, color={255,0,255}));
+  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,
+          -100},{120,-100},{120,-116},{-32,-116},{-32,89.5},{18,89.5}},
+                                                                  color={255,0,255}));
   connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90.5},
           {50,90.5},{50,-100},{78,-100}}, color={255,0,255}));
-  connect(IsoValOne.y, upProCon.uChiWatIsoVal[1]) annotation (Line(points={{-98,
-          -220},{-30,-220},{-30,85.5},{18,85.5}}, color={0,0,127}));
-  connect(IsoValTwo.y, upProCon.uChiWatIsoVal[2]) annotation (Line(points={{-98,
-          -260},{-28,-260},{-28,86.5},{18,86.5}}, color={0,0,127}));
   connect(chiTwoSta.y1_actual, upProCon.uChiWatReq[2]) annotation (Line(points={{92,20},
-          {100,20},{100,0},{-24,0},{-24,84.5},{18,84.5}},   color={255,0,255}));
+          {100,20},{100,0},{-24,0},{-24,83.5},{18,83.5}},   color={255,0,255}));
   connect(upProCon.yChiWatMinFloSet, zerOrdHol3.u) annotation (Line(points={{42,111},
           {48,111},{48,-220},{78,-220}},      color={0,0,127}));
   connect(chiWatFlo.y, chiWatFlo1.u3) annotation (Line(points={{-178,-60},{-160,
@@ -243,7 +213,7 @@ equation
   connect(wseSta.y, upProCon.uEnaPlaConPum) annotation (Line(points={{-178,-180},
           {-40,-180},{-40,101},{18,101}}, color={255,0,255}));
   connect(wseSta.y, upProCon.uEnaPlaConIso) annotation (Line(points={{-178,-180},
-          {-40,-180},{-40,91},{18,91}}, color={255,0,255}));
+          {-40,-180},{-40,93},{18,93}}, color={255,0,255}));
   connect(upProCon.yStaPro, falEdg.u) annotation (Line(points={{42,119},{52,119},
           {52,200},{118,200}}, color={255,0,255}));
   connect(upProCon.yChi[1], chiOneSta.y1) annotation (Line(points={{42,82.5},{60,
@@ -253,7 +223,7 @@ equation
   connect(upProCon.yChiHeaCon[2], chiTwoHea.y1) annotation (Line(points={{42,
           91.5},{52,91.5},{52,-140},{78,-140}}, color={255,0,255}));
   connect(chiTwoHea.y1_actual, upProCon.uChiHeaCon[2]) annotation (Line(points={{102,
-          -140},{120,-140},{120,-120},{-34,-120},{-34,88.5},{18,88.5}},
+          -140},{120,-140},{120,-120},{-34,-120},{-34,90.5},{18,90.5}},
         color={255,0,255}));
   connect(upProCon.yTowStaUp, towStaUp.y1) annotation (Line(points={{42,107},{46,
           107},{46,-42},{-12,-42},{-12,-60},{-2,-60}}, color={255,0,255}));
@@ -266,7 +236,7 @@ equation
           {{92,70},{96,70},{96,54},{-44,54},{-44,97.5},{18,97.5}}, color={255,0,
           255}));
   connect(chiOneSta.y1_actual, upProCon.uChiWatReq[1]) annotation (Line(points={{92,70},
-          {96,70},{96,54},{-26,54},{-26,83.5},{18,83.5}},          color={255,0,
+          {96,70},{96,54},{-26,54},{-26,82.5},{18,82.5}},          color={255,0,
           255}));
   connect(con2.y, truDel.u) annotation (Line(points={{142,-30},{150,-30},{150,-10},
           {130,-10},{130,20},{138,20}}, color={255,0,255}));

@@ -11,7 +11,7 @@ model DownStartWithOn
     final maxFloSet={1.5,1.5},
     final chaChiWatIsoTim=300)
     "Chiller stage down when the process does require one chiller on and another chiller off"
-    annotation (Placement(transformation(extent={{0,130},{20,150}})));
+    annotation (Placement(transformation(extent={{0,120},{20,160}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler demLimRel
     "To indicate if the demand limit has been released"
     annotation (Placement(transformation(extent={{20,190},{40,210}})));
@@ -65,25 +65,9 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe(
-    final k=1) "Full open"
-    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerOpe(
-    final k=0) "Zero open"
-    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch chiIsoVal2
-    "Chilled water isolation valve one"
-    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch chiIsoVal1
-    "Chilled water isolation valve one"
-    annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
     final samplePeriod=10) "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{60,150},{80,170}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
-    final samplePeriod=fill(10,2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Buildings.Controls.OBC.CDL.Reals.Switch chiLoa1 "Chiller load"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer3(final k=0)
@@ -139,19 +123,21 @@ equation
     annotation (Line(points={{22,134.5},{48,134.5},{48,30},{78,30}},
       color={255,0,255}));
   connect(staDow1.y, staStaDow1.uStaDow)
-    annotation (Line(points={{-118,220},{-110,220},{-110,150},{-2,150}},
+    annotation (Line(points={{-118,220},{-110,220},{-110,157},{-2,157}},
       color={255,0,255}));
   connect(yOpeParLoaRatMin1.y, staStaDow1.yOpeParLoaRatMin)
-    annotation (Line(points={{-158,180},{-100,180},{-100,148},{-2,148}},
+    annotation (Line(points={{-158,180},{-100,180},{-100,152.2},{-2,152.2}},
       color={0,0,127}));
   connect(chiOneSta.y, staStaDow1.uChi[1])
-    annotation (Line(points={{102,60},{120,60},{120,0},{-52,0},{-52,143.5},{-2,143.5}},
+    annotation (Line(points={{102,60},{120,60},{120,0},{-52,0},{-52,147.7},{-2,
+          147.7}},
       color={255,0,255}));
   connect(chiTwoSta.y, staStaDow1.uChi[2])
-    annotation (Line(points={{102,30},{110,30},{110,4},{-48,4},{-48,144.5},{-2,144.5}},
+    annotation (Line(points={{102,30},{110,30},{110,4},{-48,4},{-48,148.7},{-2,
+          148.7}},
       color={255,0,255}));
   connect(onOff1.y, staStaDow1.uOnOff)
-    annotation (Line(points={{-158,-20},{-40,-20},{-40,138},{-2,138}},
+    annotation (Line(points={{-158,-20},{-40,-20},{-40,140},{-2,140}},
       color={255,0,255}));
   connect(zer4.y, swi4.u3)
     annotation (Line(points={{-158,-100},{-140,-100},{-140,-88},{-102,-88}},
@@ -165,37 +151,10 @@ equation
     annotation (Line(points={{-118,220},{-110,220},{-110,-80},{-102,-80}},
       color={255,0,255}));
   connect(reaToInt2.y, staStaDow1.nexEnaChi)
-    annotation (Line(points={{-38,-80},{-36,-80},{-36,136},{-2,136}},
+    annotation (Line(points={{-38,-80},{-36,-80},{-36,137},{-2,137}},
       color={255,127,0}));
-  connect(fulOpe.y, chiIsoVal2.u3)
-    annotation (Line(points={{-158,-180},{-140,-180},{-140,-188},{-102,-188}},
-      color={0,0,127}));
-  connect(zerOpe.y, chiIsoVal1.u3)
-    annotation (Line(points={{-158,-140},{-140,-140},{-140,-148},{-102,-148}},
-      color={0,0,127}));
-  connect(staDow1.y, chiIsoVal1.u2)
-    annotation (Line(points={{-118,220},{-110,220},{-110,-140},{-102,-140}},
-      color={255,0,255}));
-  connect(staDow1.y, chiIsoVal2.u2)
-    annotation (Line(points={{-118,220},{-110,220},{-110,-180},{-102,-180}},
-      color={255,0,255}));
-  connect(staStaDow1.yChiWatIsoVal, zerOrdHol1.u)
-    annotation (Line(points={{22,138},{44,138},{44,-110},{118,-110}},
-      color={0,0,127}));
-  connect(zerOrdHol1[1].y, chiIsoVal1.u1)
-    annotation (Line(points={{142,-110},{160,-110},{160,-160},{-120,-160},
-      {-120,-132},{-102,-132}}, color={0,0,127}));
-  connect(zerOrdHol1[2].y, chiIsoVal2.u1)
-    annotation (Line(points={{142,-110},{160,-110},{160,-200},{-120,-200},
-      {-120,-172},{-102,-172}}, color={0,0,127}));
-  connect(chiIsoVal1.y, staStaDow1.uChiWatIsoVal[1])
-    annotation (Line(points={{-78,-140},{-24,-140},{-24,131.5},{-2,131.5}},
-      color={0,0,127}));
-  connect(chiIsoVal2.y, staStaDow1.uChiWatIsoVal[2])
-    annotation (Line(points={{-78,-180},{-20,-180},{-20,132.5},{-2,132.5}},
-      color={0,0,127}));
   connect(reaToInt1.y, staStaDow1.nexDisChi)
-    annotation (Line(points={{-38,-240},{-16,-240},{-16,130},{-2,130}},
+    annotation (Line(points={{-38,-240},{-16,-240},{-16,124},{-2,124}},
       color={255,127,0}));
   connect(zer3.y, chiLoa1.u3)
     annotation (Line(points={{82,120},{100,120},{100,152},{118,152}},
@@ -207,11 +166,13 @@ equation
     annotation (Line(points={{22,142.5},{40,142.5},{40,-50},{58,-50}},
       color={255,0,255}));
   connect(chiOneHea.y, staStaDow1.uChiHeaCon[1])
-    annotation (Line(points={{82,-20},{90,-20},{90,-36},{-32,-36},{-32,133.5},{-2,
-          133.5}}, color={255,0,255}));
+    annotation (Line(points={{82,-20},{90,-20},{90,-36},{-32,-36},{-32,134.5},{
+          -2,134.5}},
+                   color={255,0,255}));
   connect(chiTwoHea.y, staStaDow1.uChiHeaCon[2])
-    annotation (Line(points={{82,-50},{90,-50},{90,-70},{-28,-70},{-28,134.5},{-2,
-          134.5}},color={255,0,255}));
+    annotation (Line(points={{82,-50},{90,-50},{90,-70},{-28,-70},{-28,135.5},{
+          -2,135.5}},
+                  color={255,0,255}));
   connect(one.y, demLimRel.u)
     annotation (Line(points={{2,200},{18,200}}, color={0,0,127}));
   connect(staStaDow1.yReaDemLim, demLimRel.trigger)
@@ -219,16 +180,19 @@ equation
   connect(booPul2.y, staDow2.u)
     annotation (Line(points={{-158,140},{-142,140}}, color={255,0,255}));
   connect(staDow2.y, staStaDow1.clr)
-    annotation (Line(points={{-118,140},{-2,140}},
+    annotation (Line(points={{-118,140},{-60,140},{-60,142},{-2,142}},
       color={255,0,255}));
-  connect(staStaDow1.yChiWatMinFloSet, zerOrdHol3.u) annotation (Line(points={{22,
-          146},{154,146},{154,150},{158,150}}, color={0,0,127}));
+  connect(staStaDow1.yChiWatMinFloSet, zerOrdHol3.u) annotation (Line(points={{22,146},
+          {154,146},{154,150},{158,150}},      color={0,0,127}));
   connect(zerOrdHol3.y, staStaDow1.VChiWat_flow) annotation (Line(points={{182,150},
-          {196,150},{196,180},{-20,180},{-20,142},{-2,142}}, color={0,0,127}));
-  connect(chiTwoLoa.y, staStaDow1.uChiLoa) annotation (Line(points={{-78,70},{-56,
-          70},{-56,146},{-2,146}}, color={0,0,127}));
-  connect(staStaDow1.yChiDem, zerOrdHol.u) annotation (Line(points={{22,149},{40,
-          149},{40,160},{58,160}}, color={0,0,127}));
+          {196,150},{196,180},{-20,180},{-20,146.2},{-2,146.2}},
+                                                             color={0,0,127}));
+  connect(chiTwoLoa.y, staStaDow1.uChiLoa) annotation (Line(points={{-78,70},{
+          -56,70},{-56,150.2},{-2,150.2}},
+                                   color={0,0,127}));
+  connect(staStaDow1.yChiDem, zerOrdHol.u) annotation (Line(points={{22,149},{
+          40,149},{40,160},{58,160}},
+                                   color={0,0,127}));
   connect(zerOrdHol.y, chiLoa1.u1) annotation (Line(points={{82,160},{100,160},{
           100,168},{118,168}}, color={0,0,127}));
   connect(chiLoa1.y, chiTwoLoa.u1) annotation (Line(points={{142,160},{150,160},

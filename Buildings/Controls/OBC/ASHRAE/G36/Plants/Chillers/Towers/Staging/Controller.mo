@@ -55,22 +55,22 @@ block Controller "Sequence of staging cooling tower cells"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValOpe[nTowCel]
     if have_inlIsoVal and have_endSwi
     "Tower cells inlet isolation valve open end switch. True: the isolation valve is fully open"
-    annotation (Placement(transformation(extent={{-140,-78},{-100,-38}}),
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
     if have_inlIsoVal and have_endSwi and have_outIsoVal
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
-    annotation (Placement(transformation(extent={{-140,-98},{-100,-58}}),
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1InlIsoValClo[nTowCel]
     if have_inlIsoVal and have_endSwi
     "Tower cells inlet isolation valve close end switch. True: the isolation valve is fully closed"
-    annotation (Placement(transformation(extent={{-140,-128},{-100,-88}}),
+    annotation (Placement(transformation(extent={{-140,-130},{-100,-90}}),
         iconTransformation(extent={{-140,-102},{-100,-62}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
     if have_inlIsoVal and have_endSwi and have_outIsoVal
     "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
-    annotation (Placement(transformation(extent={{-140,-148},{-100,-108}}),
+    annotation (Placement(transformation(extent={{-140,-150},{-100,-110}}),
         iconTransformation(extent={{-140,-122},{-100,-82}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
     "Vector of tower cells proven on status: true=proven on"
@@ -147,13 +147,13 @@ equation
   connect(staPro.y1IsoVal, y1IsoVal)
     annotation (Line(points={{62,-14},{80,-14},{80,36},{120,36}}, color={255,0,255}));
   connect(u1InlIsoValOpe, staPro.u1InlIsoValOpe) annotation (Line(points={{-120,
-          -58},{0,-58},{0,-16},{38,-16}}, color={255,0,255}));
+          -60},{0,-60},{0,-16},{38,-16}}, color={255,0,255}));
   connect(u1OutIsoValOpe, staPro.u1OutIsoValOpe) annotation (Line(points={{-120,
-          -78},{6,-78},{6,-18},{38,-18}}, color={255,0,255}));
+          -80},{6,-80},{6,-18},{38,-18}}, color={255,0,255}));
   connect(u1InlIsoValClo, staPro.u1InlIsoValClo) annotation (Line(points={{-120,
-          -108},{12,-108},{12,-22},{38,-22}}, color={255,0,255}));
+          -110},{12,-110},{12,-22},{38,-22}}, color={255,0,255}));
   connect(u1OutIsoValClo, staPro.u1OutIsoValClo) annotation (Line(points={{-120,
-          -128},{18,-128},{18,-24},{38,-24}}, color={255,0,255}));
+          -130},{18,-130},{18,-24},{38,-24}}, color={255,0,255}));
 annotation (
   defaultComponentName="towSta",
   Diagram(coordinateSystem(preserveAspectRatio=false,

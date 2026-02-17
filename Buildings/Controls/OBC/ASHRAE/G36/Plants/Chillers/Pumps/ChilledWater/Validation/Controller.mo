@@ -24,11 +24,6 @@ model Controller "Validate chiller water pump control sequence"
     annotation (Placement(transformation(extent={{80,-90},{100,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal[2](
-    duration=fill(1200, 2),
-    startTime={0,300})
-    "Chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
     final k={2,1,3})
     "Chilled water pump operating priority"
@@ -90,7 +85,11 @@ protected
     final startTime=500)
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal1[2](
+    width={0.3,0.4},
+    period=fill(3600, 2),
+    shift={300,500}) "Isolation valves commanded posiiton"
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)
     annotation (Line(points={{-38,160},{32,160},{32,158.929},{78,158.929}},
@@ -146,8 +145,6 @@ equation
           {56,-140},{56,131.071},{78,131.071}}, color={0,0,127}));
   connect(reaRep.y, dedNoLoc.dpChiWatSet_remote) annotation (Line(points={{22,-140},
           {56,-140},{56,51.0714},{78,51.0714}}, color={0,0,127}));
-  connect(isoVal.y, heaNoLoc.uChiWatIsoVal) annotation (Line(points={{-78,140},
-          {34,140},{34,142.857},{78,142.857}},color={0,0,127}));
   connect(heaNoLoc.yChiWatPum, sta.y1) annotation (Line(points={{102,145},{110,
           145},{110,100},{-10,100},{-10,120},{-2,120}}, color={255,0,255}));
   connect(sta.y1_actual, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},
@@ -155,6 +152,8 @@ equation
   connect(locDpSet.y, dedLoc.dpChiWatSet_local) annotation (Line(points={{-38,
           -120},{62,-120},{62,-84.6429},{78,-84.6429}},
                                                   color={0,0,127}));
+  connect(isoVal1.y, heaNoLoc.u1ChiWatIsoVal) annotation (Line(points={{-38,120},
+          {-20,120},{-20,142.857},{78,142.857}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Pumps/ChilledWater/Validation/Controller.mos"

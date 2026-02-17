@@ -2,7 +2,7 @@ simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Process
 
 createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=1, y={"upProCon.uStaSet","upProCon.uChi[1]","upProCon.uChi[2]","upProCon.yStaPro"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
 createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=2, y={"upProCon.yChiDem"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=3, y={"upProCon.yChiWatIsoVal[1]","upProCon.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=3, y={"upProCon.y1ChiWatIsoVal[1]","upProCon.y1ChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=4, y={"upProCon.yChiHeaCon[1]","upProCon.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=5, y={"upProCon.yChiWatMinFloSet"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=6, y={"upProCon.yDesConWatPumSpe","upProCon.yConWatPumNum"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});

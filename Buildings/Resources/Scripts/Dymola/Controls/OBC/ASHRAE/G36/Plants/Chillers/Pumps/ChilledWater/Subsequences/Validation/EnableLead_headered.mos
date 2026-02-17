@@ -1,3 +1,4 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.Validation.EnableLead_headered", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="enaLeaChiPum_headered");
-createPlot(id=1, position={20, 10, 700, 900}, y={"enaLeaChiPum.uChiWatIsoVal[1]", "enaLeaChiPum.uChiWatIsoVal[2]","enaLeaChiPum.yLea"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={15, 15, 1002, 757}, y={"enaLeaChiPum.u1ChiWatIsoVal[1]", "enaLeaChiPum.u1ChiWatIsoVal[2]", "enaLeaChiPum.uWse"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1002, 757}, y={"enaLeaChiPum.yLea"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
 

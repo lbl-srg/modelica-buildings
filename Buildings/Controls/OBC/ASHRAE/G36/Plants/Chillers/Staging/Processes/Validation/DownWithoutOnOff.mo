@@ -24,9 +24,6 @@ protected
     final offset=2,
     final startTime=800) "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=2) "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(final width=0.05,
     final period=1500) "Boolean pulse"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
@@ -38,9 +35,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin(
     final k=0.78) "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe[2](
-    final k=fill(1, 2)) "Full open isolation valve"
-    annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
@@ -49,12 +43,6 @@ protected
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch IsoVal[2] "Logical switch"
-    annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
-    final samplePeriod=fill(10, 2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(final k=false)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
@@ -134,35 +122,17 @@ equation
   connect(pre2.y, dowProCon.uChiHeaCon)
     annotation (Line(points={{122,40},{140,40},{140,0},{12,0},{12,71},{38,71}},
       color={255,0,255}));
-  connect(staDow.y, booRep.u)
-    annotation (Line(points={{-78,130},{-70,130},{-70,-200},{-62,-200}},
-      color={255,0,255}));
-  connect(booRep.y, IsoVal.u2)
-    annotation (Line(points={{-38,-200},{-30,-200},{-30,-230},{-22,-230}},
-      color={255,0,255}));
-  connect(fulOpe.y, IsoVal.u3)
-    annotation (Line(points={{-118,-230},{-100,-230},{-100,-238},{-22,-238}},
-      color={0,0,127}));
-  connect(dowProCon.yChiWatIsoVal, zerOrdHol.u)
-    annotation (Line(points={{62,74},{88,74},{88,-30},{98,-30}},
-      color={0,0,127}));
-  connect(zerOrdHol.y, IsoVal.u1)
-    annotation (Line(points={{122,-30},{150,-30},{150,-190},{-26,-190},{-26,-222},
-          {-22,-222}}, color={0,0,127}));
-  connect(IsoVal.y, dowProCon.uChiWatIsoVal)
-    annotation (Line(points={{2,-230},{14,-230},{14,68},{38,68}},
-      color={0,0,127}));
   connect(pre2.y, dowProCon.uChiWatReq)
-    annotation (Line(points={{122,40},{140,40},{140,0},{16,0},{16,65},{38,65}},
+    annotation (Line(points={{122,40},{140,40},{140,0},{16,0},{16,63},{38,63}},
       color={255,0,255}));
   connect(pre2.y, dowProCon.uConWatReq)
-    annotation (Line(points={{122,40},{140,40},{140,0},{18,0},{18,63},{38,63}},
+    annotation (Line(points={{122,40},{140,40},{140,0},{18,0},{18,61},{38,61}},
       color={255,0,255}));
   connect(pre2.y, dowProCon.uChiConIsoVal)
-    annotation (Line(points={{122,40},{140,40},{140,0},{20,0},{20,60},{38,60}},
+    annotation (Line(points={{122,40},{140,40},{140,0},{20,0},{20,58},{38,58}},
       color={255,0,255}));
   connect(wseSta.y, dowProCon.uWSE)
-    annotation (Line(points={{-78,-260},{22,-260},{22,57},{38,57}},
+    annotation (Line(points={{-78,-260},{22,-260},{22,55},{38,55}},
       color={255,0,255}));
   connect(staDow.y, booRep2.u)
     annotation (Line(points={{-78,130},{-62,130}}, color={255,0,255}));

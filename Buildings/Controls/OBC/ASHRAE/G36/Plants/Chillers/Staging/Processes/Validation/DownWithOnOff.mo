@@ -43,18 +43,9 @@ protected
     final k=0.78)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe1(final k=1)
-    "Full open isolation valve"
-    annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta(
     final pre_u_start=false) "Chiller one status"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch IsoValOne "Logical switch"
-    annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol3[2](
-    final samplePeriod=fill(10, 2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta1(
     final k=false) "Waterside economizer status"
     annotation (Placement(transformation(extent={{-200,-290},{-180,-270}})));
@@ -83,11 +74,6 @@ protected
     final pre_u_start=true)
     "Chiller two head pressure control"
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerOpe2(
-    final k=0) "Closed isolation valve"
-    annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch IsoValTwo "Logical switch"
-    annotation (Placement(transformation(extent={{-120,-260},{-100,-240}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](
     final k={false,true})
     "Vector of chillers status setpoint at stage two"
@@ -184,53 +170,26 @@ equation
   connect(chiTwoHea.y, dowProCon.uChiHeaCon[2])
     annotation (Line(points={{122,-130},{140,-130},{140,-112},{-34,-112},{-34,81.5},
           {18,81.5}}, color={255,0,255}));
-  connect(zerOpe2.y, IsoValOne.u3)
-    annotation (Line(points={{-178,-210},{-160,-210},{-160,-218},{-122,-218}},
-      color={0,0,127}));
-  connect(fulOpe1.y, IsoValTwo.u3)
-    annotation (Line(points={{-178,-250},{-160,-250},{-160,-258},{-122,-258}},
-      color={0,0,127}));
-  connect(staDow1.y, IsoValOne.u2)
-    annotation (Line(points={{-138,140},{-130,140},{-130,-210},{-122,-210}},
-      color={255,0,255}));
-  connect(staDow1.y, IsoValTwo.u2)
-    annotation (Line(points={{-138,140},{-130,140},{-130,-250},{-122,-250}},
-      color={255,0,255}));
-  connect(dowProCon.yChiWatIsoVal, zerOrdHol3.u)
-    annotation (Line(points={{42,84},{72,84},{72,-170},{98,-170}},
-      color={0,0,127}));
-  connect(zerOrdHol3[1].y, IsoValOne.u1)
-    annotation (Line(points={{122,-170},{140,-170},{140,-190},{-140,-190},
-      {-140, -202},{-122,-202}}, color={0,0,127}));
-  connect(zerOrdHol3[2].y, IsoValTwo.u1)
-    annotation (Line(points={{122,-170},{140,-170},{140,-190},{-140,-190},
-      {-140,-242},{-122,-242}}, color={0,0,127}));
-  connect(IsoValOne.y, dowProCon.uChiWatIsoVal[1])
-    annotation (Line(points={{-98,-210},{-44,-210},{-44,77.5},{18,77.5}},
-      color={0,0,127}));
-  connect(IsoValTwo.y, dowProCon.uChiWatIsoVal[2])
-    annotation (Line(points={{-98,-250},{-42,-250},{-42,78.5},{18,78.5}},
-      color={0,0,127}));
   connect(chiOneSta.y, dowProCon.uChiWatReq[1])
-    annotation (Line(points={{122,40},{130,40},{130,20},{-30,20},{-30,74.5},
-      {18,74.5}}, color={255,0,255}));
+    annotation (Line(points={{122,40},{130,40},{130,20},{-30,20},{-30,72.5},{18,
+          72.5}}, color={255,0,255}));
   connect(chiTwoSta.y, dowProCon.uChiWatReq[2])
-    annotation (Line(points={{122,0},{132,0},{132,-20},{-28,-20},{-28,75.5},
-      {18,75.5}}, color={255,0,255}));
+    annotation (Line(points={{122,0},{132,0},{132,-20},{-28,-20},{-28,73.5},{18,
+          73.5}}, color={255,0,255}));
   connect(chiOneSta.y, dowProCon.uConWatReq[1])
-    annotation (Line(points={{122,40},{130,40},{130,20},{-26,20},{-26,72.5},
-      {18,72.5}}, color={255,0,255}));
+    annotation (Line(points={{122,40},{130,40},{130,20},{-26,20},{-26,70.5},{18,
+          70.5}}, color={255,0,255}));
   connect(chiTwoSta.y, dowProCon.uConWatReq[2])
-    annotation (Line(points={{122,0},{132,0},{132,-20},{-24,-20},{-24,73.5},
-      {18,73.5}}, color={255,0,255}));
+    annotation (Line(points={{122,0},{132,0},{132,-20},{-24,-20},{-24,71.5},{18,
+          71.5}}, color={255,0,255}));
   connect(chiOneSta.y, dowProCon.uChiConIsoVal[1])
-    annotation (Line(points={{122,40},{130,40},{130,20},{-22,20},{-22,69.5},
-      {18,69.5}}, color={255,0,255}));
+    annotation (Line(points={{122,40},{130,40},{130,20},{-22,20},{-22,67.5},{18,
+          67.5}}, color={255,0,255}));
   connect(chiTwoSta.y, dowProCon.uChiConIsoVal[2])
-    annotation (Line(points={{122,0},{132,0},{132,-20},{-20,-20},{-20,70.5},
-      {18,70.5}}, color={255,0,255}));
+    annotation (Line(points={{122,0},{132,0},{132,-20},{-20,-20},{-20,68.5},{18,
+          68.5}}, color={255,0,255}));
   connect(wseSta1.y, dowProCon.uWSE)
-    annotation (Line(points={{-178,-280},{-10,-280},{-10,67},{18,67}},
+    annotation (Line(points={{-178,-280},{-10,-280},{-10,65},{18,65}},
       color={255,0,255}));
   connect(staDow1.y, booRep2.u)
     annotation (Line(points={{-138,140},{-122,140}}, color={255,0,255}));
