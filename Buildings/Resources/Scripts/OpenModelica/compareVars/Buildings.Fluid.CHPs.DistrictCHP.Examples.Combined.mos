@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "loa.y[1]",
+    "comCyc.PEle",
+    "ambTem.y[1]",
+    "comCyc.PEle_ST"
+  };

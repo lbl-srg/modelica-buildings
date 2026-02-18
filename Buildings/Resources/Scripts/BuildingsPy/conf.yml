@@ -169,6 +169,14 @@
   openmodelica:
     comment: CVode is around 10 times faster than dassl
     solver: cvode
+- model_name: Buildings.Fluid.CHPs.DistrictCHP.Examples.Combined
+  openmodelica:
+    comment: 'Failed to solve the initialization problem with global homotopy with equidistant step size.'
+    simulate: false
+- model_name: Buildings.Fluid.CHPs.DistrictCHP.Validation.BottomCycle
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-66808.20974144296) / (b=0), where divisor b expression is: botCyc.pum.m_flow * (if botCyc.pum.m_flow > 0.0 then 0.0 else 1.0) - botCyc.pum.m_flow'
+    simulate: false
 - model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
   openmodelica:
     comment: Error in line 1 when reading numeric data of matrix "tab(532,1)"
