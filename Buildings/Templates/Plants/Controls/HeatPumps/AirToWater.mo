@@ -1388,7 +1388,7 @@ block AirToWater
     each final have_chiWat=have_chiWat,
     each final dtOff=dtOff)
     "Evaluate equipment availability in heating or cooling mode"
-    annotation (Placement(transformation(extent={{-152,210},{-132,230}})));
+    annotation (Placement(transformation(extent={{-150,210},{-130,230}})));
   Buildings.Controls.OBC.CDL.Logical.Pre y1HeaPre[nHp]
     if have_heaWat and have_chiWat
     "Left-limit of command signal to break algebraic loop"
@@ -1867,7 +1867,7 @@ equation
   connect(u1Hp_actual, comStaCoo.u1_actual)
     annotation (Line(points={{-280,300},{-60,300},{-60,-4},{-42,-4}},color={255,0,255}));
   connect(y1HpPre.y, comStaCoo.u1)
-    annotation (Line(points={{178,380},{-158,380},{-158,0},{-42,0}},color={255,0,255}));
+    annotation (Line(points={{178,380},{-160,380},{-160,0},{-42,0}},color={255,0,255}));
   connect(idxStaHea.y, comStaHea.uSta)
     annotation (Line(points={{12,360},{20,360},{20,248},{-44,248},{-44,264},{-42,264}},
       color={255,127,0}));
@@ -1876,8 +1876,8 @@ equation
   connect(y1HpPre.y, comStaHea.u1)
     annotation (Line(points={{178,380},{-60,380},{-60,260},{-42,260}},color={255,0,255}));
   connect(comStaHea.y1, chaStaHea.u1StaPro)
-    annotation (Line(points={{-18,254},{-10,254},{-10,306},{-44,306},{-44,324},{
-          -42,324}},
+    annotation (Line(points={{-18,254},{-10,254},{-10,308},{-44,308},{-44,324},
+          {-42,324}},
       color={255,0,255}));
   connect(resHeaWat.dpSet, dpHeaWatRemSet)
     annotation (Line(points={{72,246},{280,246},{280,-60},{320,-60}}, color={0,0,127}));
@@ -1949,7 +1949,7 @@ equation
     annotation (Line(points={{-280,-280},{184,-280},{184,-28},{188,-28}},
                                                                        color={0,0,127}));
   connect(u1AvaHp.y, avaEquHeaCoo.u1Ava) annotation (Line(points={{-208,220},{
-          -154,220}},                       color={255,0,255}));
+          -152,220}}, color={255,0,255}));
   connect(repTChiWatSupSet.y, swiTSupSet.u3) annotation (Line(points={{172,-140},
           {178,-140},{178,-128},{188,-128}}, color={0,0,127}));
   connect(repTHeaWatSupSet.y, swiTSupSet.u1) annotation (Line(points={{172,-100},
@@ -2416,6 +2416,11 @@ for HVAC Systems. Atlanta, GA.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2025, by Antoine Gautier:<br/>
+Refactored to use \"required to run\" conditions in the equipment availability logic.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">#4432</a>.
+</li>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
 Added sidestream heat recovery chiller, primary-only pumping and

@@ -8,9 +8,6 @@ record Coil "Record for coil model"
   parameter Buildings.Templates.Components.Types.Valve typVal
     "Type of valve"
     annotation (Dialog(group="Configuration", enable=false), Evaluate=true);
-  parameter Boolean have_sou
-    "Set to true for fluid ports on the source side"
-    annotation (Dialog(group="Configuration"), Evaluate=true);
 
   /*
 For evaporator coils this is also provided by the performance data record.
@@ -47,7 +44,9 @@ the maximum value from the performance data record.
       0)
     "Liquid mass flow rate"
     annotation (
-      Dialog(group="Nominal condition", enable=have_sou));
+      Dialog(group="Nominal condition",
+        enable=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+          typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling));
   parameter Modelica.Units.SI.PressureDifference dpWat_nominal(
     final min=0,
     displayUnit="Pa",
@@ -57,7 +56,8 @@ the maximum value from the performance data record.
     0)
     "Liquid pressure drop across coil"
     annotation(Dialog(group="Nominal condition",
-      enable=have_sou));
+      enable=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+        typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling));
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     final min=0,
     displayUnit="Pa",
@@ -65,7 +65,9 @@ the maximum value from the performance data record.
     else dpWat_nominal / 2)
     "Liquid pressure drop across fully open valve"
     annotation(Dialog(group="Nominal condition",
-      enable=have_sou and typVal<>Buildings.Templates.Components.Types.Valve.None));
+      enable=(typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+        typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling) and
+        typVal<>Buildings.Templates.Components.Types.Valve.None));
   parameter Modelica.Units.SI.HeatFlowRate cap_nominal(
     start=if typ==Buildings.Templates.Components.Types.Coil.None then 0
     elseif typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
@@ -98,7 +100,8 @@ the maximum value from the performance data record.
     "Nominal entering liquid temperature"
     annotation (Dialog(
       group="Nominal condition",
-      enable=have_sou));
+      enable=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+        typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling));
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal(
     final min=243.15,
     displayUnit="degC",
@@ -107,7 +110,8 @@ the maximum value from the performance data record.
     "Nominal entering air temperature"
     annotation (Dialog(
       group="Nominal condition",
-      enable=have_sou));
+      enable=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+        typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling));
   parameter Modelica.Units.SI.MassFraction wAirEnt_nominal(
     final min=0,
     start=0.01)

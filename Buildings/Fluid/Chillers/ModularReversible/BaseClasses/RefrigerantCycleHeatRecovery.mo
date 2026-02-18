@@ -117,8 +117,6 @@ equation
         Text(
           extent={{-151,147},{149,107}},
           textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255},
           textString="%name")}),
     Diagram(
       coordinateSystem(
@@ -139,10 +137,10 @@ This is the refrigerant cycle model used in
 Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>.
 </p>
 <p>
-In contrast to 
+In contrast to
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle\">
 Buildings.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle</a>,
-this model includes a unique component that can be configured to 
+this model includes a unique component that can be configured to
 either represent a cooling-only chiller (<code>have_switchover=false</code>)
 or a heat recovery chiller (<code>have_switchover=true</code>).
 A unique performance data file is required, providing
