@@ -23,7 +23,7 @@ equation
   when {initial(), canRepeatWeatherFile and modTimAux > pre(tNext)} then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
-    tNext = if canRepeatWeatherFile then integer(modTimAux/lenWea)*lenWea + lenWea else time;
+    tNext = if canRepeatWeatherFile then integer(modTimAux/lenWea+0.5)*lenWea + lenWea else time;
   end when;
   calTimAux = if canRepeatWeatherFile then modTimAux - tNext + lenWea else modTimAux;
 
@@ -37,6 +37,11 @@ or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 18, 2026, by Jianjun Hu:<br/>
+Improved ill-posed integer rounding.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4480\">#4480</a>.
+</li>
 <li>
 March 27, 2023, by Ettore Zanetti:<br/>
 Added partial class for conversion from simulation time to calendar time, to be
