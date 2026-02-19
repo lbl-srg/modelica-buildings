@@ -17,7 +17,7 @@ block Controller "Chiller plant controller"
     "Flag: true means that the plant has parallel chillers"
     annotation(Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Boolean have_ponyChiller=false
+  parameter Boolean have_ponChi=false
     "True: have pony chiller"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -127,8 +127,7 @@ block Controller "Chiller plant controller"
     "Chiller staging matrix with chiller stage as row index and chiller as column index, not including stage zero: 0 for disabled, 1 for enabled"
     annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration"));
 
-  parameter Integer conWatPumStaMat[nPlaSta, nConWatPum](start=fill(0, nPlaSta,
-        nConWatPum))
+  parameter Integer conWatPumStaMat[nPlaSta, nConWatPum](start=fill(0, nPlaSta, nConWatPum))
     "Condenser water pump staging matrix, with plant stage as row index and condenser water pump as column index: 0 for disabled, 1 for enabled"
     annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration", enable=not have_airCoo));
 
@@ -458,7 +457,7 @@ block Controller "Chiller plant controller"
     "Time period for the capacity requirement rolling average"
     annotation (Dialog(tab="Staging", group="Hold and delay"));
 
-  parameter Real delayStaCha(unit="s")=900
+  parameter Real delStaCha(unit="s")=900
     "Hold period for each stage change"
     annotation (Dialog(tab="Staging", group="Hold and delay"));
 
@@ -564,7 +563,7 @@ block Controller "Chiller plant controller"
 
   parameter Real proOnTim(unit="s")=300
     "Threshold time to check after newly enabled chiller being operated"
-    annotation (Dialog(tab="Staging", group="Up and down process", enable=have_ponyChiller));
+    annotation (Dialog(tab="Staging", group="Up and down process", enable=have_ponChi));
 
   parameter Real thrTimEnb(unit="s")=10
     "Threshold time to enable head pressure control after condenser water pump being reset"
@@ -1295,7 +1294,7 @@ block Controller "Chiller plant controller"
     final nSta=nSta,
     final staMat=staMat,
     final avePer=avePer,
-    final delayStaCha=delayStaCha,
+    final delStaCha=delStaCha,
     final parLoaRatDelay=parLoaRatDelay,
     final faiSafTruDelay=faiSafTruDelay,
     final effConTruDelay=effConTruDelay,
@@ -1379,7 +1378,7 @@ block Controller "Chiller plant controller"
     final nChiSta=nSta + 1,
     final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
-    final have_ponyChiller=have_ponyChiller,
+    final have_ponChi=have_ponChi,
     final have_parChi=have_parChi,
     final have_heaConWatPum=have_heaConWatPum,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
@@ -1409,12 +1408,12 @@ block Controller "Chiller plant controller"
     final nChiSta=nSta + 1,
     final have_airCoo=have_airCoo,
     final have_WSE=have_WSE,
-    final have_ponyChiller=have_ponyChiller,
+    final have_ponChi=have_ponChi,
     final have_parChi=have_parChi,
     final have_heaConWatPum=have_heaConWatPum,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
     final need_reduceChillerDemand=have_priOnl or use_loadShed,
-    final delayStaCha=delayStaCha,
+    final delStaCha=delStaCha,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final byPasSetTim=byPasSetTim,

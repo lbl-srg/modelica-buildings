@@ -11,7 +11,7 @@ model Controller "Validation head pressure controller"
     final closeCoupledPlant=false,
     final nChi=2,
     final have_parChi=true,
-    final have_ponyChiller=false,
+    final have_ponChi=false,
     final TChiWatSupMin={278.15,278.15},
     final heaExcAppDes=2,
     final nChiWatPum=2,

@@ -3,15 +3,15 @@ block SetpointController
   "Calculates the chiller stage status setpoint signal"
 
   parameter Boolean have_WSE = false
-    "true = plant has a WSE, false = plant does not have WSE"
+    "True = plant has a WSE, false = plant does not have WSE"
     annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
   parameter Boolean have_serChi = false
-    "true = series chillers plant; false = parallel chillers plant"
+    "True = series chillers plant; false = parallel chillers plant"
     annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
   parameter Boolean have_senDpChiWatRemWir=true
-    "True=remote DP sensor hardwired to controller"
+    "True = remote DP sensor hardwired to controller"
     annotation (Dialog(tab="General", group="Plant configuration parameters", enable=not have_serChi));
 
   parameter Integer nRemSen=2
@@ -56,7 +56,7 @@ block SetpointController
       "Time period for the capacity requirement rolling average"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
-  parameter Real delayStaCha(
+  parameter Real delStaCha(
     unit="s",
     displayUnit="h")=900
       "Hold period for each stage change"
@@ -379,7 +379,7 @@ block SetpointController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.CapacityRequirement capReq(
     final avePer = avePer,
-    final holPer = delayStaCha) "Capacity requirement"
+    final holPer = delStaCha) "Capacity requirement"
     annotation (Placement(transformation(extent={{-320,300},{-300,320}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Capacities cap(
@@ -428,7 +428,7 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Change cha(
     final nSta=nSta,
-    final delayStaCha=delayStaCha) "Stage change assignment"
+    final delStaCha=delStaCha) "Stage change assignment"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.ChillerIndices chiInd(

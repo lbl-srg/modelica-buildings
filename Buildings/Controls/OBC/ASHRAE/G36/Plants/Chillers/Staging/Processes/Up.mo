@@ -12,7 +12,7 @@ block Up "Sequence for control devices when there is stage-up command"
   parameter Boolean have_WSE=true
     "True: have waterside economizer"
     annotation (Dialog(enable=not have_airCoo));
-  parameter Boolean have_ponyChiller=false
+  parameter Boolean have_ponChi=false
     "True: have pony chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
@@ -24,7 +24,7 @@ block Up "Sequence for control devices when there is stage-up command"
     annotation (Dialog(enable=not have_airCoo));
   parameter Boolean need_reduceChillerDemand=false
     "True: need limit chiller demand when chiller staging";
-  parameter Real delayStaCha(unit="s")=900
+  parameter Real delStaCha(unit="s")=900
     "Hold period for each stage change";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
@@ -89,7 +89,7 @@ block Up "Sequence for control devices when there is stage-up command"
     unit="s",
     displayUnit="s")=300
     "Threshold time to check after newly enabled chiller being operated"
-    annotation (Dialog(group="Enable next chiller",enable=have_ponyChiller));
+    annotation (Dialog(group="Enable next chiller",enable=have_ponChi));
   parameter Real relFloDif=0.05
     "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
     annotation (Dialog(tab="Advanced", group="Reset bypass"));
@@ -292,7 +292,7 @@ protected
     final nChi=nChi,
     final have_airCoo=have_airCoo,
     final have_parChi=have_parChi,
-    final delayStaCha=delayStaCha,
+    final delStaCha=delStaCha,
     final have_isoValEndSwi=have_isoValEndSwi,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final maxFloSet=maxFloSet,
@@ -819,7 +819,7 @@ devices during the chiller staging up process.
 </p>
 <ol>
 <li>
-Identify the chiller(s) that should be enabled (and disabled, if <code>have_ponyChiller=true</code>).
+Identify the chiller(s) that should be enabled (and disabled, if <code>have_ponChi=true</code>).
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller</a>

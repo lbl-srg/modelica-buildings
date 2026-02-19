@@ -4,7 +4,7 @@ block Change "Calculates the chiller stage signal"
   parameter Integer nSta = 3
     "Number of chiller stages, does not include zero stage";
 
-  parameter Real delayStaCha(
+  parameter Real delStaCha(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=900
@@ -96,7 +96,7 @@ protected
     annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(
-    final trueHoldDuration=delayStaCha,
+    final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{-320,160},{-300,180}})));
@@ -119,7 +119,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
 
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesEquThr(
-    final t=delayStaCha) "Less equal threshold"
+    final t=delStaCha) "Less equal threshold"
     annotation (Placement(transformation(extent={{-40,-240},{-20,-220}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
@@ -142,7 +142,7 @@ protected
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol1(
-    final trueHoldDuration=delayStaCha,
+    final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Ensures stage change delay is kept at long stage up or down signals that cause multiple consecutive stage changes "
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
@@ -165,13 +165,13 @@ protected
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol2(
-    final trueHoldDuration=delayStaCha,
+    final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Stage change hold"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol3(
-    final trueHoldDuration=delayStaCha,
+    final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Stage change hold"
     annotation (Placement(transformation(extent={{340,-260},{360,-240}})));
@@ -446,16 +446,16 @@ subsequence
 If stage down and stage up happen at the same time for any faulty reason the staging down is performed.
 </p>
 <p>
-If stage down or stage up signal is held for a time longer than <code>delayStaCha</code>
+If stage down or stage up signal is held for a time longer than <code>delStaCha</code>
 multiple consecutive stage change signals are issued.
 </p>
 <p>
-At plant enable the intial stage <code>uIni</code> is held for at least <code>delayStaCha</code>
+At plant enable the intial stage <code>uIni</code> is held for at least <code>delStaCha</code>
 and until any stage up or down signal is generated.
 </p>
 <p>
 Per Guideline 36-2021, section 5.20.4.15.a. Each stage shall have a minimum runtime
-of <code>delayStaCha</code>.
+of <code>delStaCha</code>.
 </p>
 </html>",
 revisions="<html>

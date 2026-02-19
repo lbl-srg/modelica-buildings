@@ -6,7 +6,7 @@ block UpEnd "Sequence for ending stage-up process"
     "True: the plant has air cooled chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
-  parameter Real delayStaCha(unit="s")=900
+  parameter Real delStaCha(unit="s")=900
     "Hold period for each stage change";
   parameter Real proOnTim(unit="s")=300
     "Threshold time to check if newly enabled chiller being operated by more than 5 minutes"
@@ -242,7 +242,7 @@ protected
     "Indicate if the stage require one chiller to be enabled while another is disabled"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold chiStaHol[nChi](
-    final trueHoldDuration=fill(delayStaCha, nChi))
+    final trueHoldDuration=fill(delStaCha, nChi))
     "Hold the chiller commanded status after being changed"
     annotation (Placement(transformation(extent={{60,250},{80,270}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg

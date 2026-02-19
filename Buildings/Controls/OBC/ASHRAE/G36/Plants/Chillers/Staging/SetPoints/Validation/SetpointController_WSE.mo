@@ -5,7 +5,7 @@ model SetpointController_WSE
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.SetpointController
     staSetCon(
     final have_WSE=true,
-    have_senDpChiWatRemWir=false,
+    final have_senDpChiWatRemWir=false,
     final chiDesCap={500000,700000},
     final chiMinCap={100000,200000},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement,
@@ -16,7 +16,7 @@ model SetpointController_WSE
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.SetpointController
     staSetCon1(
     final have_WSE=true,
-    have_senDpChiWatRemWir=false,
+    final have_senDpChiWatRemWir=false,
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{0,1,0},{1,1,0},{1,1,1}},
