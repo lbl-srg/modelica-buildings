@@ -4,8 +4,8 @@ block Controller
 
   parameter Boolean have_heaPum=true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated";
-  parameter Boolean have_locSen = false
-    "Flag of local DP sensor: true=local DP sensor hardwired to controller";
+  parameter Boolean have_senDpChiWatRemWir = true
+    "True=remote DP sensor hardwired to controller";
   parameter Boolean have_WSE = false
     "True: the plant has waterside economizer";
   parameter Integer nPum = 2
@@ -14,7 +14,7 @@ block Controller
     "Total number of chillers";
   parameter Integer nSen=2
     "Total number of remote differential pressure sensors"
-    annotation (Dialog(enable=not have_locSen));
+    annotation (Dialog(enable=have_senDpChiWatRemWir));
   parameter Real minPumSpe=0.1 "Minimum pump speed";
   parameter Real maxPumSpe=1 "Maximum pump speed";
   parameter Integer nPum_nominal(
@@ -85,26 +85,26 @@ block Controller
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
-    final quantity="PressureDifference") if have_locSen
+    final quantity="PressureDifference") if not have_senDpChiWatRemWir
     "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_local(
     final unit="Pa",
     final quantity="PressureDifference")
-    if have_locSen
+    if not have_senDpChiWatRemWir
     "Chilled water differential static pressure setpoint for local sensor"
     annotation (Placement(transformation(extent={{-320,-210},{-280,-170}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nSen](
     final unit=fill("Pa", nSen),
-    final quantity=fill("PressureDifference", nSen)) if not have_locSen
+    final quantity=fill("PressureDifference", nSen)) if have_senDpChiWatRemWir
     "Chilled water differential static pressure from remote sensor"
     annotation (Placement(transformation(extent={{-320,-238},{-280,-198}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nSen](
     final unit=fill("Pa", nSen),
-    final quantity=fill("PressureDifference",nSen)) if not have_locSen
+    final quantity=fill("PressureDifference",nSen)) if have_senDpChiWatRemWir
     "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-320,-270},{-280,-230}}),
         iconTransformation(extent={{-140,-150},{-100,-110}})));
@@ -150,7 +150,7 @@ block Controller
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if have_locSen
+    final Td=Td) if not have_senDpChiWatRemWir
     "Chilled water pump speed control with local DP sensor"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.Speed_primary_remoteDp
@@ -162,7 +162,7 @@ block Controller
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    final Td=Td) if not have_locSen
+    final Td=Td) if have_senDpChiWatRemWir
     "Chilled water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
 
@@ -171,7 +171,7 @@ protected
     final unit="Pa",
     final quantity="PressureDifference")=5*6894.75
     "Minimum chilled water loop local differential pressure setpoint"
-    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=have_locSen));
+    annotation (Dialog(group="Pump speed control when there is local DP sensor", enable=not have_senDpChiWatRemWir));
   final parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 

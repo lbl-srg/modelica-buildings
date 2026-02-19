@@ -10,8 +10,8 @@ block SetpointController
     "true = series chillers plant; false = parallel chillers plant"
     annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
-  parameter Boolean have_locSen=false
-    "Flag of local DP sensor: true=local DP sensor hardwired to controller"
+  parameter Boolean have_senDpChiWatRemWir=true
+    "True=remote DP sensor hardwired to controller"
     annotation (Dialog(tab="General", group="Plant configuration parameters", enable=not have_serChi));
 
   parameter Integer nRemSen=2
@@ -243,33 +243,30 @@ block SetpointController
     annotation (Placement(transformation(extent={{-440,264},{-400,304}}),
         iconTransformation(extent={{-140,-230},{-100,-190}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_local(
     final unit="Pa",
-    final quantity="PressureDifference")
-    if (not have_serChi) and have_locSen
-    "Chilled water pump differential static pressure setpoint for local sensor"
+    final quantity="PressureDifference") if (not have_serChi) and not have_senDpChiWatRemWir
+    "Chilled water local differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-440,234},{-400,274}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
-    final quantity="PressureDifference") if (not have_serChi) and have_locSen
+    final quantity="PressureDifference") if (not have_serChi) and not have_senDpChiWatRemWir
     "Chilled water pump differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-440,204},{-400,244}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet_remote[nRemSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nRemSen](
     final unit=fill("Pa", nRemSen),
-    final quantity=fill("PressureDifference",nRemSen))
-    if (not have_serChi) and (not have_locSen)
-    "Chilled water differential pressure setpoint for remote sensor"
+    final quantity=fill("PressureDifference",nRemSen)) if (not have_serChi) and (have_senDpChiWatRemWir)
+    "Chilled water remote differential pressure setpoint"
     annotation (Placement(transformation(extent={{-440,174},{-400,214}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum_remote[nRemSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nRemSen](
     final unit=fill("Pa", nRemSen),
-    final quantity=fill("PressureDifference",nRemSen))
-    if (not have_serChi) and (not have_locSen)
+    final quantity=fill("PressureDifference",nRemSen)) if (not have_serChi) and (have_senDpChiWatRemWir)
     "Chilled water differential pressure from remote sensor"
     annotation (Placement(transformation(extent={{-440,144},{-400,184}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -352,7 +349,7 @@ block SetpointController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Up staUp(
     final have_WSE=have_WSE,
     final have_serChi=have_serChi,
-    final have_locSen=have_locSen,
+    final have_senDpChiWatRemWir=have_senDpChiWatRemWir,
     final nRemSen=nRemSen,
     final effConTruDelay=effConTruDelay,
     final faiSafTruDelay=faiSafTruDelay,
@@ -370,7 +367,7 @@ block SetpointController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Down staDow(
     final have_WSE=have_WSE,
     final have_serChi=have_serChi,
-    final have_locSen=have_locSen,
+    final have_senDpChiWatRemWir=have_senDpChiWatRemWir,
     final nRemSen=nRemSen,
     final parLoaRatDelay=parLoaRatDelay,
     final faiSafTruDelay=faiSafTruDelay,
@@ -500,18 +497,18 @@ equation
   connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{-260,
           340},{-260,284},{-164,284},{-164,-105},{-102,-105}},
           color={0,0,127}));
-  connect(dpChiWatPumSet_local, staUp.dpChiWatPumSet_local) annotation (Line(
-        points={{-420,254},{-144,254},{-144,-107},{-102,-107}}, color={0,0,127}));
-  connect(dpChiWatPum_local, staUp.dpChiWatPum_local) annotation (Line(points={{-420,
+  connect(dpChiWatSet_local, staUp.dpChiWatSet_local) annotation (Line(points={
+          {-420,254},{-144,254},{-144,-107},{-102,-107}}, color={0,0,127}));
+  connect(dpChiWat_local, staUp.dpChiWat_local) annotation (Line(points={{-420,
           224},{-146,224},{-146,-109},{-102,-109}}, color={0,0,127}));
   connect(PLRs.yOpeDow, staDow.uOpeDow) annotation (Line(points={{-160,-176},{
           -142,-176},{-142,-219},{-102,-219}}, color={0,0,127}));
   connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{-102,-221},{
           -144,-221},{-144,-183},{-160,-183}}, color={0,0,127}));
-  connect(dpChiWatPumSet_local, staDow.dpChiWatPumSet_local) annotation (Line(
-        points={{-420,254},{-144,254},{-144,-223},{-102,-223}}, color={0,0,127}));
-  connect(dpChiWatPum_local, staDow.dpChiWatPum_local) annotation (Line(points={{-420,
-          224},{-146,224},{-146,-225},{-102,-225}},       color={0,0,127}));
+  connect(dpChiWatSet_local, staDow.dpChiWatSet_local) annotation (Line(points=
+          {{-420,254},{-144,254},{-144,-223},{-102,-223}}, color={0,0,127}));
+  connect(dpChiWat_local, staDow.dpChiWat_local) annotation (Line(points={{-420,
+          224},{-146,224},{-146,-225},{-102,-225}}, color={0,0,127}));
   connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-422,370},
           {-152,370},{-152,-231.2},{-102,-231.2}}, color={0,0,127}));
   connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-422,340},{-260,
@@ -583,14 +580,14 @@ equation
           -202,40},{-238,40}}, color={0,0,127}));
   connect(capReq.y, yCapReq) annotation (Line(points={{-298,310},{-194,310},{-194,
           390},{140,390}}, color={0,0,127}));
-  connect(dpChiWatPumSet_remote, staUp.dpChiWatPumSet_remote) annotation (Line(
-        points={{-420,194},{-148,194},{-148,-111},{-102,-111}}, color={0,0,127}));
-  connect(dpChiWatPumSet_remote, staDow.dpChiWatPumSet_remote) annotation (Line(
+  connect(dpChiWatSet_remote, staUp.dpChiWatSet_remote) annotation (Line(points
+        ={{-420,194},{-148,194},{-148,-111},{-102,-111}}, color={0,0,127}));
+  connect(dpChiWatSet_remote, staDow.dpChiWatSet_remote) annotation (Line(
         points={{-420,194},{-148,194},{-148,-227},{-102,-227}}, color={0,0,127}));
-  connect(dpChiWatPum_remote, staUp.dpChiWatPum_remote) annotation (Line(points={{-420,
+  connect(dpChiWat_remote, staUp.dpChiWat_remote) annotation (Line(points={{-420,
           164},{-150,164},{-150,-113},{-102,-113}}, color={0,0,127}));
-  connect(dpChiWatPum_remote, staDow.dpChiWatPum_remote) annotation (Line(
-        points={{-420,164},{-150,164},{-150,-229},{-102,-229}}, color={0,0,127}));
+  connect(dpChiWat_remote, staDow.dpChiWat_remote) annotation (Line(points={{-420,
+          164},{-150,164},{-150,-229},{-102,-229}}, color={0,0,127}));
   connect(iniSta.yIni, yIni) annotation (Line(points={{-59,110},{-30,110},{-30,300},
           {140,300}}, color={255,127,0}));
   connect(uPla, staUp.uPla) annotation (Line(points={{-420,-100},{-280,-100},{
@@ -636,13 +633,13 @@ equation
         Text(
           extent={{-94,-10},{0,-32}},
           textColor={0,0,127},
-          textString="dpChiWatPumSet_local",
-          visible=(not have_serChi) and have_locSen),
+          textString="dpChiWatSet_local",
+          visible=(not have_serChi) and not have_senDpChiWatRemWir),
         Text(
           extent={{-96,-28},{-10,-48}},
           textColor={0,0,127},
-          textString="dpChiWatPum_local",
-          visible=(not have_serChi) and have_locSen),
+          textString="dpChiWat_local",
+          visible=(not have_serChi) and not have_senDpChiWatRemWir),
         Text(
           extent={{-96,8},{-48,-10}},
           textColor={0,0,127},
@@ -720,13 +717,13 @@ equation
         Text(
           extent={{-96,-48},{8,-72}},
           textColor={0,0,127},
-          textString="dpChiWatPumSet_remote",
-          visible=(not have_serChi) and (not have_locSen)),
+          visible=(not have_serChi) and (have_senDpChiWatRemWir),
+          textString="dpChiWatSet_remote"),
         Text(
           extent={{-96,-68},{8,-92}},
           textColor={0,0,127},
-          textString="dpChiWatPum_remote",
-          visible=(not have_serChi) and (not have_locSen)),
+          visible=(not have_serChi) and (have_senDpChiWatRemWir),
+          textString="dpChiWat_remote"),
         Text(
           extent={{62,-98},{94,-82}},
           textColor={244,125,35},

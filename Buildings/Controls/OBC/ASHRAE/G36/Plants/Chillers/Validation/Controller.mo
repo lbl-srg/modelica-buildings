@@ -16,7 +16,6 @@ model Controller "Validation head pressure controller"
     final heaExcAppDes=2,
     final nChiWatPum=2,
     final have_heaChiWatPum=true,
-    final have_locSenChiWatPum=false,
     final nSenChiWatPum=1,
     final nConWatPum=2,
     final have_heaConWatPum=true,

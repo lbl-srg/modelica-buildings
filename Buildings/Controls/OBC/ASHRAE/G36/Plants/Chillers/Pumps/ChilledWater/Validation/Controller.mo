@@ -17,7 +17,7 @@ model Controller "Validate chiller water pump control sequence"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Controller
     dedLoc(
     final have_heaPum=false,
-    final have_locSen=true,
+    final have_senDpChiWatRemWir=false,
     final nPum=3,
     final nPum_nominal=3)
     "Pump speed control for plant with dedicated primary chilled water pump and with local DP sensor"
@@ -113,11 +113,9 @@ equation
     annotation (Line(points={{-78,-100},{50,-100},{50,-82.5},{78,-82.5}},
           color={0,0,127}));
   connect(enaPla.y, dedNoLoc.uPla) annotation (Line(points={{-38,60},{20,60},{
-          20,76.7857},{78,76.7857}},
-                                  color={255,0,255}));
+          20,76.7857},{78,76.7857}}, color={255,0,255}));
   connect(enaPla.y, dedLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,
-          -63.2143},{78,-63.2143}},
-                          color={255,0,255}));
+          -63.2143},{78,-63.2143}}, color={255,0,255}));
   connect(leaChiEna.y, dedNoLoc.uLeaChiEna) annotation (Line(points={{-38,10},{
           24,10},{24,72.5},{78,72.5}}, color={255,0,255}));
   connect(leaChiEna.y, dedLoc.uLeaChiEna) annotation (Line(points={{-38,10},{24,
@@ -127,8 +125,7 @@ equation
   connect(leaChiProOn.y, dedNoLoc.uLeaChiSta) annotation (Line(points={{2,-20},
           {28,-20},{28,70.3571},{78,70.3571}},color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiSta) annotation (Line(points={{2,-20},{
-          28,-20},{28,-69.6429},{78,-69.6429}},
-                                             color={255,0,255}));
+          28,-20},{28,-69.6429},{78,-69.6429}}, color={255,0,255}));
   connect(leaChiProOn.y, dedNoLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
           {28,-20},{28,68.2143},{78,68.2143}}, color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
@@ -150,8 +147,7 @@ equation
   connect(sta.y1_actual, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},
           {38,120},{38,154.643},{78,154.643}}, color={255,0,255}));
   connect(locDpSet.y, dedLoc.dpChiWatSet_local) annotation (Line(points={{-38,
-          -120},{62,-120},{62,-84.6429},{78,-84.6429}},
-                                                  color={0,0,127}));
+          -120},{62,-120},{62,-84.6429},{78,-84.6429}}, color={0,0,127}));
   connect(isoVal1.y, heaNoLoc.u1ChiWatIsoVal) annotation (Line(points={{-38,120},
           {-20,120},{-20,142.857},{78,142.857}}, color={255,0,255}));
 annotation (

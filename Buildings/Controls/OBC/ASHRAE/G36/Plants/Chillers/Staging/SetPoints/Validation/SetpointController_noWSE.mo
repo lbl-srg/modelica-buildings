@@ -4,7 +4,7 @@ model SetpointController_noWSE
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.SetpointController
     staSetCon(
-    have_locSen=true,
+    have_senDpChiWatRemWir=false,
     final chiDesCap={500000,700000},
     final chiMinCap={100000,200000},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement,
@@ -15,7 +15,7 @@ model SetpointController_noWSE
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.SetpointController
     staSetCon1(
     final have_WSE=false,
-    have_locSen=true,
+    have_senDpChiWatRemWir=false,
     final nSta=4,
     final nChi=3,
     final staMat={{1,0,0},{0,1,0},{1,1,0},{1,1,1}},
@@ -206,10 +206,10 @@ protected
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 
 equation
-  connect(dpChiWatSet.y, staSetCon.dpChiWatPumSet_local) annotation (Line(
-        points={{-98,70},{-92,70},{-92,159.048},{58,159.048}},   color={0,0,127}));
-  connect(dpChiWat.y, staSetCon.dpChiWatPum_local) annotation (Line(points={{-98,20},
-          {-90,20},{-90,157.143},{58,157.143}}, color={0,0,127}));
+  connect(dpChiWatSet.y, staSetCon.dpChiWatSet_local) annotation (Line(points={
+          {-98,70},{-92,70},{-92,159.048},{58,159.048}}, color={0,0,127}));
+  connect(dpChiWat.y, staSetCon.dpChiWat_local) annotation (Line(points={{-98,
+          20},{-90,20},{-90,157.143},{58,157.143}}, color={0,0,127}));
   connect(TCWSupSet.y, staSetCon.TChiWatSupSet) annotation (Line(points={{-98,170},
           {-32,170},{-32,168.571},{58,168.571}}, color={0,0,127}));
   connect(chiAva.y, staSetCon.uChiAva) annotation (Line(points={{-98,210},{-28,
@@ -248,10 +248,9 @@ equation
     annotation (Line(points={{-38,70},{-22,70}}, color={255,0,255}));
   connect(truDel.y, staSetCon.uPla) annotation (Line(points={{2,70},{34,70},{34,
           173.333},{58,173.333}}, color={255,0,255}));
-  connect(dpChiWatSet1.y, staSetCon1.dpChiWatPumSet_local) annotation (Line(
-        points={{-98,-170},{-92,-170},{-92,-80.9524},{58,-80.9524}},   color={0,
-          0,127}));
-  connect(dpChiWat1.y, staSetCon1.dpChiWatPum_local) annotation (Line(points={{-98,
+  connect(dpChiWatSet1.y, staSetCon1.dpChiWatSet_local) annotation (Line(points
+        ={{-98,-170},{-92,-170},{-92,-80.9524},{58,-80.9524}}, color={0,0,127}));
+  connect(dpChiWat1.y, staSetCon1.dpChiWat_local) annotation (Line(points={{-98,
           -220},{-90,-220},{-90,-82.8571},{58,-82.8571}}, color={0,0,127}));
   connect(TCWSupSet1.y, staSetCon1.TChiWatSupSet) annotation (Line(points={{-98,-70},
           {-32,-70},{-32,-71.4286},{58,-71.4286}}, color={0,0,127}));
