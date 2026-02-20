@@ -24,6 +24,15 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.EvaporativeCoolers
+    </td>
+    <td valign=\"top\">Package with evaporative cooler models based on EnergyPlus v23.1.0 Engineering Reference.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3492\">issue 3492</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
 </tr>
