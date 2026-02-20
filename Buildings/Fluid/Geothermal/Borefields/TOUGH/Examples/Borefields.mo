@@ -50,14 +50,9 @@ model Borefields
     samplePeriod=60)
     "Borefield with a U-tube borehole configuration, with ground response calculated by TOUGH"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
-    redeclare package Medium = Medium,
-    m_flow_nominal=borFieUTubDat.conDat.mBorFie_flow_nominal,
-    tau=0) "Outlet temperature of the borefield with UTube configuration"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
-    nPorts=1) "Sink"
+    redeclare package Medium = Medium, nPorts=1)
+    "Sink"
     annotation (Placement(transformation(extent={{100,-10},{80,10}}, rotation=0)));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin ambTem(
     amplitude=5,
@@ -66,10 +61,6 @@ model Borefields
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
 equation
-  connect(borFieUTubWitTou.port_b, TOut.port_a)
-    annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
-  connect(TOut.port_b, sin.ports[1])
-    annotation (Line(points={{60,0},{80,0}}, color={0,127,255}));
   connect(floRat.y, sou.m_flow_in) annotation (Line(points={{-98,20},{-80,20},{-80,
           8},{-62,8}}, color={0,0,127}));
   connect(watTem.y, sou.T_in) annotation (Line(points={{-98,-40},{-80,-40},{-80,
@@ -78,6 +69,8 @@ equation
           60},{-20,4},{-1,4}}, color={0,0,127}));
   connect(sou.ports[1], borFieUTubWitTou.port_a)
     annotation (Line(points={{-40,0},{0,0}}, color={0,127,255}));
+  connect(borFieUTubWitTou.port_b, sin.ports[1])
+    annotation (Line(points={{20,0},{80,0}}, color={0,127,255}));
 annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGH/Examples/Borefields.mos"
         "Simulate and plot"),
   experiment(StopTime=72000, Tolerance=1e-06),

@@ -1,2 +1,2 @@
 simulateModel("Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields", startTime=0, method="Cvode", tolerance=1e-6, stopTime=72000, resultFile="ToughResponseBorefield");
-createPlot(id=1, position={41, 25, 1490, 650}, y={"sou.T_in", "TOut.T"}, range={0.0, 20.0, 7.0, 14.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
+createPlot(id=1, position={41, 25, 1490, 650}, y={"borFieUTubWitTou.sta_a.T", "borFieUTubWitTou.sta_b.T"}, range={0.0, 20.0, 7.0, 14.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});

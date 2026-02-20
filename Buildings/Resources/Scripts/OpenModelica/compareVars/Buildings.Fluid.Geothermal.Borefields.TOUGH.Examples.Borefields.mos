@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "sou.T_in",
-    "TOut.T"
+    "borFieUTubWitTou.sta_a.T",
+    "borFieUTubWitTou.sta_b.T"
   };
