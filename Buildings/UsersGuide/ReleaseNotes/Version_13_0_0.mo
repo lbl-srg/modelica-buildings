@@ -34,6 +34,16 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.TOUGH
+    </td>
+    <td valign=\"top\">Created models and the user guide for coupled simulation between
+                       Modelica simulation and the TOUGH simulation that calculates
+                       the ground response.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
