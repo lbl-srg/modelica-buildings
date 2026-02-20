@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "gri.P.real",
+    "senMasFlo.m_flow",
+    "pum.m_flow_set",
+    "pum.motDri.torSpe.tau_e"
+  };
