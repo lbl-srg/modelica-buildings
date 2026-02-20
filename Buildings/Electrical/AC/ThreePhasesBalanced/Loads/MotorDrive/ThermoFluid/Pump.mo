@@ -192,9 +192,9 @@ Icon(coordinateSystem(preserveAspectRatio=true,
         Text(extent={{50,84},{100,70}},textColor={0,0,127},textString="y_actual")}),
 Documentation(info="<html>
 <p>
-This model describes a fan or pump with mechanical imterface and uses 
-the <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> as a base model. 
+This model describes a fan or pump with mechanical interface and uses 
+the <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a> as a base model. 
 </p>
 <p>
 The governing equation of this implementation is based on the relationship 

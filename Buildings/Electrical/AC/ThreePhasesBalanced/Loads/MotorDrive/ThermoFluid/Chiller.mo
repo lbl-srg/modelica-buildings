@@ -225,13 +225,11 @@ equation
   connect(to_rpm.y, gaiSpe.u) annotation (Line(points={{19,30},{2,30}},
           color={0,0,127}));
   connect(gaiSpe.y, speCub.u[1]) annotation (Line(points={{-21,30},{-40,30},{
-          -40,27.6667}},
-                     color={0,0,127}));
+          -40,27.6667}}, color={0,0,127}));
   connect(gaiSpe.y, speCub.u[2])
     annotation (Line(points={{-21,30},{-40,30}}, color={0,0,127}));
   connect(gaiSpe.y, speCub.u[3]) annotation (Line(points={{-21,30},{-40,30},{
-          -40,32.3333}},
-                     color={0,0,127}));
+          -40,32.3333}}, color={0,0,127}));
   connect(speCub.y, chi.y) annotation (Line(points={{-61.7,30},{-70,30},{-70,9},
           {-12,9}}, color={0,0,127}));
   connect(chi.P, P) annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
@@ -327,7 +325,7 @@ Icon(coordinateSystem(preserveAspectRatio=true,
         Text(extent={{70,24},{120,10}},textString="P",textColor={0,0,127})}),
 Documentation(info="<html>
 <p>
-This model describes a chiller with mechanical imterface and uses 
+This model describes a chiller with mechanical interface and uses 
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">Buildings.Fluid.Chillers.Carnot_y</a> 
 as a base model. The governing equation of this implementation is based on the 
 relationship between the power and torque of the rotating object, which is 

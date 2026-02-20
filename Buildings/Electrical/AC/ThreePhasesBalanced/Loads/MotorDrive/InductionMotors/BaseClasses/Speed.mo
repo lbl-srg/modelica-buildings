@@ -43,7 +43,7 @@ model Speed
     final quantity="AngularVelocity",
     final unit="rad/s")
     "Rotor angular frequency"
-    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Modelica.Blocks.Math.Feedback torDif
@@ -79,13 +79,13 @@ equation
         color={0,0,127}));
   connect(angFreDif.u1, omega) annotation (Line(points={{-68,-60},{-120,-60}},
           color={0,0,127}));
-  connect(angFreDif.y, omega_r) annotation (Line(points={{-51,-60},{90,-60},{90,
+  connect(angFreDif.y, omega_r) annotation (Line(points={{-51,-60},{80,-60},{80,
           70},{120,70}}, color={0,0,127}));
-  connect(angFreDif.u2, rotSpe.u) annotation (Line(points={{-60,-52},{-60,-30},{
-          30,-30},{30,60},{38,60}}, color={0,0,127}));
-  connect(omega_r1, rotSpe.u) annotation (Line(points={{120,-30},{30,-30},{30,60},
-          {38,60}}, color={0,0,127}));
 
+  connect(angFre.y, omega_r1) annotation (Line(points={{21,60},{30,60},{30,-20},
+          {120,-20}}, color={0,0,127}));
+  connect(angFre.y, angFreDif.u2) annotation (Line(points={{21,60},{30,60},{30,
+          -20},{-60,-20},{-60,-52}}, color={0,0,127}));
 annotation (defaultComponentName="speSli",
 Documentation(info="<html>
 <p>

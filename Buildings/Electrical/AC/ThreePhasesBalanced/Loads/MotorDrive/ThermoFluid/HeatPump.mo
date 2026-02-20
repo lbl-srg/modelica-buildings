@@ -236,13 +236,11 @@ equation
   connect(heaPum.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
           {70,-90},{110,-90}}, color={0,0,127}));
   connect(gaiSpe.y, speCub.u[1]) annotation (Line(points={{-21,30},{-40,30},{
-          -40,27.6667}},
-                     color={0,0,127}));
+          -40,27.6667}}, color={0,0,127}));
   connect(gaiSpe.y, speCub.u[2]) annotation (Line(points={{-21,30},{-30,30},{-30,
           30},{-40,30}}, color={0,0,127}));
   connect(gaiSpe.y, speCub.u[3]) annotation (Line(points={{-21,30},{-40,30},{
-          -40,32.3333}},
-                     color={0,0,127}));
+          -40,32.3333}}, color={0,0,127}));
 annotation (defaultComponentName = "heaPum",
 Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
@@ -331,7 +329,7 @@ Icon(coordinateSystem(preserveAspectRatio=true,
         Text(extent={{70,24},{120,10}}, textString="P", textColor={0,0,127})}),
 Documentation(info="<html>
 <p>
-This model describes a heat pump with mechanical imterface and uses
+This model describes a heat pump with mechanical interface and uses
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_y\">
 Buildings.Fluid.HeatPumps.Carnot_y</a>
 as a base model.The governing equation of this implementation is based on the

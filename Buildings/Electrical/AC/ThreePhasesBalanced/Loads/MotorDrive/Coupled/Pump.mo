@@ -146,7 +146,7 @@ model Pump "Motor coupled pump"
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin)
+    final yMin=yMin) "Motor model"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
 protected
