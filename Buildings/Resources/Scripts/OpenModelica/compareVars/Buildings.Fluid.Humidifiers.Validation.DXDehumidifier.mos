@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "mWat_engPlu.y",
+    "mWatMod.y",
+    "QHea_engPlu.y",
+    "QHeaMod.y",
+    "P_engPlu.y",
+    "PMod.y"
+  };
