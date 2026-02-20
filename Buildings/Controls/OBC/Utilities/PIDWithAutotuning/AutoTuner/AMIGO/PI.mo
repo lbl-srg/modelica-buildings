@@ -66,9 +66,7 @@ equation
           textColor={0,0,255}),
         Text(
           extent={{-16,-12},{84,-52}},
-          textString="PI",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="PI"),
         Polygon(
           points={{12,-30},{-10,-22},{-10,-38},{12,-30}},
           lineColor={192,192,192},
@@ -83,13 +81,9 @@ equation
         Line(points={{-42,-30},{-10,-30}}, color={28,108,200}),
         Text(
           extent={{-18,80},{82,40}},
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175},
           textString="k"),
         Text(
           extent={{-116,-10},{-16,-50}},
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175},
           textString="Ti")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>

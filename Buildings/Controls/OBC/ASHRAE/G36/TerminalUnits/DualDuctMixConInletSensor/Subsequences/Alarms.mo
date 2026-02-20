@@ -525,67 +525,54 @@ annotation (defaultComponentName="ala",
         Text(
           extent={{-96,98},{-46,84}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActSet_flow"),
         Text(
           extent={{-98,-12},{-44,-28}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCooDam"),
         Text(
           extent={{-98,48},{-58,34}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1CooFan"),
         Text(
           extent={{46,90},{96,76}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLowFloAla"),
         Text(
           extent={{-98,68},{-28,52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VColDucDis_flow"),
         Text(
           extent={{-100,-68},{-28,-88}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uHeaDam"),
         Text(
           extent={{-96,-50},{-52,-68}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1HeaFan"),
         Text(
           extent={{-96,-32},{-26,-48}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VHotDucDis_flow"),
         Text(
           extent={{36,40},{96,24}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yColFloSenAla"),
         Text(
           extent={{34,10},{98,-6}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yColLeaDamAla"),
         Text(
           extent={{36,-30},{96,-46}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yHotFloSenAla"),
         Text(
           extent={{34,-60},{98,-76}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yHotLeaDamAla"),
         Text(
           extent={{-98,18},{-46,2}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-380},{240,380}})),
 Documentation(info="<html>
