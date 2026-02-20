@@ -42,6 +42,12 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Fluid.AirFilters
+    </td>
+    <td valign=\"top\">Package of models for air filters.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -71,17 +77,23 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe<br/>
+                     Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized
+    </td>
+    <td valign=\"top\">Added option to disable pressure drop calculation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA, issue 2015</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe
+    </td>
+    <td valign=\"top\">Removed stray <code>Line</code> annotation. Added <code>if-then</code> to conditional connections.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2071\">IBPSA, #2071</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible
     </td>
     <td valign=\"top\">Improved implementation and diagnostics of safety checks.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">IBPSA, issue 2035</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.PlugFlowPipe<br/>
-                       Buildings.Fluid.PlugFlowPipeDiscretized
-    </td>
-    <td valign=\"top\">Added option to disable pressure drop calculation.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA, issue 2015</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
@@ -191,6 +203,37 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.DCH</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Examples.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Examples.ChillerOnly<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerOnly<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerWSE<br/>
+                       Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Validation.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Supervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
+                       Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.HeatExchanger
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Obsolete</code> as these are replaced with improved models.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">issue 4354</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Controls.PIDWithEnable
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Controls.OBC.Utilities.PIDWithEnable</code> as there were two identical implementations.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -202,10 +245,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Templates.Plants.HeatPumps.Components.HeatRecoveryChiller
     </td>
     <td valign=\"top\">Refactored with load-dependent 2D table data heat pump model.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.PIDWithEnable
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Controls.OBC.Utilities.PIDWithEnable</code> as there were two identical implementations.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -229,6 +278,16 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Add error-handling mechanism to capture negative control gains.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4378\">issue 4378</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.HeatPumps.AirToWater<br/>
+                     Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability
+    </td>
+    <td valign=\"top\">Refactored to use \"required to run\" conditions in the equipment availability logic.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">issue 4432</a>.
     </td>
 </tr>
 </table>

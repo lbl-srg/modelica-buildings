@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialRefrigerantCycle
   "Partial model of refrigerant cycle"
-
   parameter Modelica.Units.SI.Power PEle_nominal
     "Nominal electrical power consumption"
     annotation (Dialog(group="Nominal condition"));
@@ -85,7 +84,6 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),   Text(
           extent={{-57.5,-35},{57.5,35}},
-          pattern=LinePattern.Dash,
           textString="%name", origin={2.5,153},
           rotation=180)}),Diagram(coordinateSystem(extent={
             {-120,-120},{120,120}})),

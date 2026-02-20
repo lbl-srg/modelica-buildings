@@ -695,108 +695,88 @@ annotation (
         Text(
           extent={{-98,170},{-52,152}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
           extent={{-100,138},{-72,126}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-98,108},{-74,94}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-96,80},{-28,62}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VColDuc_flow_Set"),
         Text(
           extent={{-96,28},{-56,14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCooDam"),
         Text(
           extent={{20,92},{98,70}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonCooTemResReq"),
         Text(
           extent={{-96,200},{-44,182}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uAftSupCoo"),
         Text(
           extent={{40,-170},{98,-186}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHeaFanReq"),
         Text(
           extent={{24,42},{98,22}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yColDucPreResReq"),
         Text(
           extent={{24,-66},{98,-86}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHotDucPreResReq"),
         Text(
           extent={{20,-16},{98,-38}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonHeaTemResReq"),
         Text(
           extent={{-96,60},{-30,42}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VColDucDis_flow"),
         Text(
           extent={{-96,-20},{-44,-38}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uAftSupHea"),
         Text(
           extent={{-96,-50},{-50,-68}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonHeaSet"),
         Text(
           extent={{-96,-82},{-72,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
           extent={{-94,-112},{-26,-130}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VHotDuc_flow_Set"),
         Text(
           extent={{-94,-132},{-28,-150}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VHotDucDis_flow"),
         Text(
           extent={{-96,-162},{-56,-176}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uHeaDam"),
         Text(
           extent={{-96,10},{-44,-8}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uCooDamSta",
           visible=not have_duaSen),
         Text(
           extent={{-96,-182},{-44,-200}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uHeaDamSta",
           visible=not have_duaSen)}),
   Documentation(info="<html>

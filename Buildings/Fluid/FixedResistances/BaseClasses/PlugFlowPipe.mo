@@ -273,27 +273,34 @@ equation
     annotation (Line(points={{-50,10},{-50,86},{0,86},{0,100}},
       color={191,0,0}));
 
-  connect(heaLos_b.port_b, vol_b.ports[1])
-    annotation (Line(points={{60,0},{78,0},{78,20}}, color={0,127,255}));
-  connect(vol_b.ports[2], port_b)
-    annotation (Line(points={{82,20},{82,0},{100,0}}, color={0,127,255}));
-  connect(heaLos_b.port_b, noMixPip_b.port_a)
-    annotation (Line(points={{60,0},{66,0},{66,-20},{70,-20}},
+  if have_pipCap then
+    connect(heaLos_b.port_b, vol_b.ports[1])
+      annotation (Line(points={{60,0},{78,0},{78,20}}, color={0,127,255}));
+    connect(vol_b.ports[2], port_b)
+      annotation (Line(points={{82,20},{82,0},{100,0}}, color={0,127,255}));
+  else
+    connect(heaLos_b.port_b, noMixPip_b.port_a)
+      annotation (Line(points={{60,0},{66,0},{66,-20},{70,-20}},
+        color={0,127,255}));
+    connect(noMixPip_b.port_b, port_b)
+      annotation (Line(points={{90,-20},{94,-20},{94,0},{100,0}},
       color={0,127,255}));
-  connect(noMixPip_b.port_b, port_b)
-    annotation (Line(points={{90,-20},{94,-20},{94,0},{100,0}},
-      color={0,127,255}));
+  end if;
 
-  connect(port_a, vol_a.ports[1])
-    annotation (Line(points={{-100,0},{-82,0},{-82,20}}, color={0,127,255}));
-  connect(vol_a.ports[2], heaLos_a.port_b)
-    annotation (Line(points={{-78,20},{-78,0},{-60,0}}, color={0,127,255}));
-  connect(port_a, noMixPip_a.port_a) annotation (Line(points={{-100,0},{-94,0},{
-          -94,-20},{-90,-20}}, color={0,127,255}));
-  connect(noMixPip_a.port_b, heaLos_a.port_b) annotation (Line(points={{-70,-20},
-          {-64,-20},{-64,0},{-60,0}}, color={0,127,255}));
+  if have_pipCap_a then
+    connect(port_a, vol_a.ports[1])
+      annotation (Line(points={{-100,0},{-82,0},{-82,20}}, color={0,127,255}));
+    connect(vol_a.ports[2], heaLos_a.port_b)
+      annotation (Line(points={{-78,20},{-78,0},{-60,0}}, color={0,127,255}));
+  else
+    connect(port_a, noMixPip_a.port_a) annotation (Line(points={{-100,0},{-94,0},{
+            -94,-20},{-90,-20}}, color={0,127,255}));
+    connect(noMixPip_a.port_b, heaLos_a.port_b) annotation (Line(points={{-70,-20},
+            {-64,-20},{-64,0},{-60,0}}, color={0,127,255}));
+  end if;
+
+
   annotation (
-    Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -339,6 +346,12 @@ equation
           textString="L = %length")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 5, 2026, by Michael Wetter:<br/>
+Conditionally removed connect statements to conditional removed components.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2071\">IBPSA, #2071</a>.
+</li>
 <li>
 October 15, 2021, by Michael Wetter:<br/>
 Moved model to <code>BaseClasses</code>. This allows

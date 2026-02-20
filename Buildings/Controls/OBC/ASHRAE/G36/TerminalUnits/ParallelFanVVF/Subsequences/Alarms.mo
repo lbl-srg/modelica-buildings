@@ -765,95 +765,77 @@ annotation (defaultComponentName="ala",
         Text(
           extent={{-98,92},{-48,78}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActSet_flow"),
         Text(
           extent={{-100,102},{-60,92}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VPri_flow"),
         Text(
           extent={{-100,-4},{-74,-16}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{-98,74},{-80,64}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Fan"),
         Text(
           extent={{46,98},{96,84}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLowFloAla"),
         Text(
           extent={{48,68},{98,54}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yFloSenAla"),
         Text(
           extent={{48,-12},{98,-26}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLeaDamAla"),
         Text(
           extent={{-100,-24},{-78,-36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uVal"),
         Text(
           extent={{-100,-44},{-74,-54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-98,-64},{-66,-76}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           textString="u1HotPla"),
         Text(
           extent={{-100,-80},{-76,-90}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDis"),
         Text(
           extent={{-102,-92},{-64,-102}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDisSet",
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{48,-42},{98,-56}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLeaValAla"),
         Text(
           extent={{42,-82},{98,-96}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLowTemAla",
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{-98,56},{-58,42}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1FanCom"),
         Text(
           extent={{48,30},{98,16}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yFanStaAla"),
         Text(
           extent={{-96,34},{-66,22}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1TerFan"),
         Text(
           extent={{-98,16},{-48,2}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-480},{240,480}})),
 Documentation(info="<html>
