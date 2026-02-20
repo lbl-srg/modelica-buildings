@@ -101,8 +101,6 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=true,
         Text(
           extent={{-100,-100},{100,-140}},
           textColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="%name")}),
 Documentation(info="<html>
 <p>
