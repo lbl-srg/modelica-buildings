@@ -42,10 +42,7 @@ model HybridAirToWater "Controller for AWHP plant"
     Dialog(group="Configuration"));
   final parameter Integer nPumChiWatPri = cfg.nPumHeaWatPri
     "Parameter specifically for hybrid heat pump plant configuration";
-  final parameter Integer idxEquAlt[ctl.nEquAlt]=Modelica.Math.BooleanVectors.index(
-    {Modelica.Math.BooleanVectors.anyTrue({
-      nHp==1 or staEqu[i,j] > 0 and staEqu[i,j] < 1 for i in 1:nSta})
-      for j in 1:nHp})
+  final parameter Integer idxEquAlt[ctl.nEquAlt]={1,2}
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
