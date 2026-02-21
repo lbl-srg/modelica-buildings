@@ -2,7 +2,25 @@ within Buildings.Templates.Plants.HeatPumps.Components.Controls;
 model HybridAirToWater "Controller for AWHP plant"
   extends
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
-    cfg(final has_fouPip=true),
+    cfg(
+      have_heaWat=true,
+      have_hotWat=false,
+      have_chiWat=true,
+      have_hrc=false,
+      have_fouPip=true,
+      is_rev=true,
+      have_valHpInlIso=true,
+      have_valHpOutIso=true,
+      have_valHeaWatMinByp=false,
+      typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
+      typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+      typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2,
+      have_valChiWatMinByp=false,
+      typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
+      typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+      nPumHeaWatSec=nPumHeaWatSec,
+      nPumChiWatSec=nPumChiWatSec),
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
   final parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
@@ -14,6 +32,14 @@ model HybridAirToWater "Controller for AWHP plant"
     final min=1)=size(staEqu, 1)
     "Number of stages"
     annotation (Evaluate=true);
+  parameter Integer nPumHeaWatSec
+    "Number of secondary HW pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
+  parameter Integer nPumChiWatSec
+    "Number of secondary CHW pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
   final parameter Integer nPumChiWatPri = cfg.nPumHeaWatPri
     "Parameter specifically for hybrid heat pump plant configuration";
   final parameter Integer idxEquAlt[ctl.nEquAlt]=Modelica.Math.BooleanVectors.index(
@@ -25,8 +51,8 @@ model HybridAirToWater "Controller for AWHP plant"
     Dialog(group="Equipment staging and rotation"));
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
     final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
-    final have_hrc_select=false,
-    final has_fouPip=true,
+    final have_hrc_select=cfg.have_hrc,
+    final have_fouPip=cfg.have_fouPip,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -48,18 +74,18 @@ model HybridAirToWater "Controller for AWHP plant"
     final dpChiWatRemSet_min=dat.dpChiWatRemSet_min,
     final dpHeaWatRemSet_max=dat.dpHeaWatRemSet_max,
     final dpHeaWatRemSet_min=dat.dpHeaWatRemSet_min,
-    staEquCooHea=dat.staEquCooHea,
-    staEquOneMod=dat.staEquOneMod,
+    staEquDouMod=dat.staEquDouMod,
+    staEquSinMod=dat.staEquSinMod,
     final capCooHrc_min=dat.capCooHrc_min,
     final capHeaHrc_min=dat.capHeaHrc_min,
     final COPHeaHrc_nominal=dat.COPHeaHrc_nominal,
     final TChiWatSupHrc_min=dat.TChiWatSupHrc_min,
     final THeaWatSupHrc_max=dat.THeaWatSupHrc_max,
-    final have_chiWat=true,
-    final have_heaWat=true,
+    final have_chiWat=cfg.have_chiWat,
+    final have_heaWat=cfg.have_heaWat,
     final have_inpSch=have_inpSch,
     final have_pumChiWatPriDed_select=cfg.have_pumChiWatPriDed,
-    final have_pumPriHdr=cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    final have_pumPriHdr=cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final have_pumHeaWatPriVar_select=cfg.have_pumHeaWatPriVar,
     final have_pumChiWatPriVar_select=cfg.have_pumChiWatPriVar,
     final have_senDpChiWatRemWir=cfg.have_senDpChiWatRemWir,
@@ -210,7 +236,7 @@ equation
   connect(busPumFouPipHeaWatPri.y1_actual, ctl.u1PumHeaWatPriFouPip_actual);
   connect(busPumChiWatSec.y1_actual, ctl.u1PumChiWatSec_actual);
   connect(busPumHeaWatPri.y1_actual, ctl.u1PumHeaWatPri_actual);
-  if cfg.has_fouPip then
+  if cfg.have_fouPip then
     connect(busPumHeaWatPri.y1_actual, ctl.u1PumChiWatPri_actual);
   end if;
   connect(busPumHeaWatSec.y1_actual, ctl.u1PumHeaWatSec_actual);
@@ -338,6 +364,8 @@ equation
   connect(ctl.u1HpFouPip_actual, busHpFouPip.y1_actual);
   connect(ctl.y1HpFouPip, busHpFouPip.y1);
   connect(ctl.TSupSetFouPip, busHpFouPip.TSet);
+  connect(ctl.THeaWatSupSet, busHpFouPip.THeaWatSupSet);
+  connect(ctl.TChiWatSupSet, busHpFouPip.TChiWatSupSet);
   connect(ctl.yMod, busHpFouPip.yMod);
   connect(ctl.y1ValHeaWatHpFouPipInlIso, busValHeaWatHpFouPipInlIso.y1);
   connect(ctl.y1ValHeaWatHpFouPipOutIso, busValHeaWatHpFouPipOutIso.y1);
@@ -345,6 +373,7 @@ equation
   connect(ctl.y1ValChiWatHpFouPipOutIso, busValChiWatHpFouPipOutIso.y1);
   connect(ctl.y1PumHeaWatPriFouPip, busPumFouPipHeaWatPri.y1);
   connect(ctl.y1PumChiWatPriFouPip, busPumFouPipChiWatPri.y1);
+  connect(busHpFouPip, bus.hpFouPip);
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

@@ -2,9 +2,9 @@ within Buildings.Templates.Plants.Controls.HeatPumps;
 block AirToWater
   "Controller for AWHP plant"
 
-  final parameter Boolean has_sort=true
-    "Does the staging order algorithm have sorting by runtime for equipment
-    rotation?";
+  final parameter Boolean have_sorRunTim=true
+    "Set to true if the staging order algorithm includes the sequence of sorting
+    runtime for equipment rotation";
 
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
@@ -175,17 +175,16 @@ block AirToWater
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  final parameter Integer nHpTot=if has_fouPip then nHp+1 else nHp
+  final parameter Integer nHpTot=if have_fouPip then nHp+1 else nHp
     "Number of heat pumps calculation used for internal logic blocks";
 
-  parameter Boolean has_fouPip=false
-    "Is the plant a hybrid heat pump plant?"
+  parameter Boolean have_fouPip=false
+    "True: The plant is a hybrid heat pump plant with a four-pipe heat pump"
     annotation (Evaluate=true,
       Dialog(group="Plant configuration"));
 
-  final parameter Boolean is_fouPip[nHpTot,1]=if has_fouPip then [fill(false,nHp);has_fouPip] else [fill(false,nHp)]
-    "Vector indicating if each HP is a 4-pipe air-source heat pump (ASHP);
-    True= Is 4-pipe ASHP;False=Is not 4-pipe ASHP";
+  final parameter Boolean is_fouPip[nHpTot,1]=if have_fouPip then [fill(false,nHp);have_fouPip] else [fill(false,nHp)]
+    "Vector of flag for each heat pump: true - the heat pump is a 4-pipe heat pump";
 
   parameter Integer nPumHeaWatPri(
     min=if have_pumHeaWatPri then 1 else 0,
@@ -195,7 +194,7 @@ block AirToWater
     Dialog(group="Plant configuration",
       enable=have_pumHeaWatPri));
 
-  final parameter Integer nPumHeaWatPriTot = if has_fouPip then nPumHeaWatPri+1 else nPumHeaWatPri
+  final parameter Integer nPumHeaWatPriTot = if have_fouPip then nPumHeaWatPri+1 else nPumHeaWatPri
     "Total number of HW primary pumps to assume for internal logic processing";
 
   parameter Integer nPumChiWatPri(
@@ -206,7 +205,7 @@ block AirToWater
     Dialog(group="Plant configuration",
       enable=have_pumChiWatPri));
 
-  final parameter Integer nPumChiWatPriTot = if has_fouPip then nPumChiWatPri+1 else nPumChiWatPri
+  final parameter Integer nPumChiWatPriTot = if have_fouPip then nPumChiWatPri+1 else nPumChiWatPri
     "Total number of CHW primary pumps to assume for internal logic processing";
 
   parameter Integer nPumHeaWatSec(
@@ -471,25 +470,28 @@ block AirToWater
   parameter Real staEqu[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")={fill(0,nHpTot)}
+    each final unit="1",
+    start=if have_fouPip then {fill(0,nHpTot)} else staEqu)
     "Staging matrix – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation", enable=not has_fouPip));
+    annotation (Dialog(group="Equipment staging and rotation", enable=not have_fouPip));
 
-  parameter Real staEquCooHea[:, nHpTot](
+  parameter Real staEquDouMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")={fill(0,nHpTot)}
-    "Staging matrix for heating-cooling mode – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation", enable=has_fouPip));
+    each final unit="1",
+    start=if not have_fouPip then {fill(0,nHpTot)} else staEquDouMod)
+   "Staging matrix for heating-cooling mode – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation", enable=have_fouPip));
 
-  parameter Real staEquOneMod[:, nHpTot](
+  parameter Real staEquSinMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")={fill(0,nHpTot)}
+    each final unit="1",
+    start=if not have_fouPip then {fill(0,nHpTot)} else staEquSinMod)
     "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation", enable=has_fouPip));
+    annotation (Dialog(group="Equipment staging and rotation", enable=have_fouPip));
 
-  final parameter Real staEquTem[:,:]=if has_fouPip then staEquCooHea else staEqu
+  final parameter Real staEquTem[:,:]=if have_fouPip then staEquDouMod else staEqu
     "Temporary placeholder";
 
   final parameter Integer nSta(
@@ -497,7 +499,7 @@ block AirToWater
     "Number of stages"
     annotation (Evaluate=true);
 
-  parameter Integer nEquAlt(
+  final parameter Integer nEquAlt(
     final min=0)=if nHpTot==1 then 1 else
     max({sum({(if staEquTem[i, j] > 0 and staEquTem[i, j] < 1 then 1 else 0) for j in 1:nHpTot}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
@@ -875,7 +877,7 @@ block AirToWater
       iconTransformation(extent={{-240,260},{-200,300}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual[nPumChiWatPri]
-    if have_pumChiWatPri or has_fouPip
+    if have_pumChiWatPri or have_fouPip
                          "Primary CHW pump status"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
       iconTransformation(extent={{-240,240},{-200,280}})));
@@ -1110,7 +1112,7 @@ block AirToWater
       iconTransformation(extent={{200,210},{240,250}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri[nPumChiWatPri]
-    if have_chiWat and (have_pumChiWatPri or has_fouPip)
+    if have_chiWat and (have_pumChiWatPri or have_fouPip)
                                          "Primary CHW pump start command"
     annotation (Placement(transformation(extent={{300,160},{340,200}}),
       iconTransformation(extent={{200,190},{240,230}})));
@@ -1160,7 +1162,7 @@ block AirToWater
     annotation (Placement(transformation(extent={{300,-300},{340,-260}}),
       iconTransformation(extent={{200,-230},{240,-190}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod if has_fouPip
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod if have_fouPip
     "Operation mode integer signal for each HP"
     annotation (Placement(transformation(extent={{300,320},{340,360}}),
       iconTransformation(extent={{200,330},{240,370}})));
@@ -1245,13 +1247,13 @@ block AirToWater
       iconTransformation(extent={{200,-310},{240,-270}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp(
-    final unit="1") if have_heaWat and is_priOnl and not has_fouPip
+    final unit="1") if have_heaWat and is_priOnl and not have_fouPip
     "HW minimum flow bypass valve command"
     annotation (Placement(transformation(extent={{300,-240},{340,-200}}),
       iconTransformation(extent={{200,-50},{240,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(
-    final unit="1") if have_chiWat and is_priOnl and not has_fouPip
+    final unit="1") if have_chiWat and is_priOnl and not have_fouPip
     "CHW minimum flow bypass valve command"
     annotation (Placement(transformation(extent={{300,-260},{340,-220}}),
       iconTransformation(extent={{200,-70},{240,-30}})));
@@ -1280,7 +1282,9 @@ block AirToWater
     if have_heaWat
     "Compute heating stage index"
     annotation (Placement(transformation(extent={{-10,350},{10,370}})));
-  StagingRotation.StageAvailability avaStaHea(nSta=nSta, nEqu=nHpTot)
+  StagingRotation.StageAvailability avaStaHea(
+    final nSta=nSta,
+    final nEqu=nHpTot)
     if have_heaWat
     "Evaluate heating stage availability"
     annotation (Placement(transformation(extent={{-110,320},{-90,340}})));
@@ -1295,7 +1299,7 @@ block AirToWater
   StagingRotation.EventSequencing seqEve[nHpTot](
     each final have_heaWat=have_heaWat,
     each final have_chiWat=have_chiWat,
-    each final has_fouPip=has_fouPip,
+    each final have_fouPip=have_fouPip,
     each final have_valInlIso=have_valHpInlIso,
     each final have_valOutIso=have_valHpOutIso,
     each final have_pumHeaWatPri=have_pumHeaWatPri,
@@ -1328,7 +1332,7 @@ block AirToWater
     annotation (Placement(transformation(extent={{-40,308},{-20,332}})));
   StagingRotation.SortRuntime sorRunTimHea(
     idxEquAlt=idxEquAlt, nin=nHpTot)
-             if have_heaWat and has_sort
+             if have_heaWat and have_sorRunTim
     "Sort lead/lag alternate equipment by staging runtime – Heating mode"
     annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
   Enabling.Enable enaCoo(
@@ -1384,7 +1388,7 @@ block AirToWater
     "Left-limit of command signal to break algebraic loop"
     annotation (Placement(transformation(extent={{230,350},{210,370}})));
   StagingRotation.SortRuntime sorRunTimCoo(
-    final idxEquAlt=idxEquAlt, nin=nHpTot) if have_chiWat and has_sort
+    final idxEquAlt=idxEquAlt, nin=nHpTot) if have_chiWat and have_sorRunTim
     "Sort lead/lag alternate equipment by staging runtime – Cooling mode"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Pumps.Generic.StagingHeadered staPumHeaWatPri(
@@ -1425,7 +1429,7 @@ block AirToWater
     final dtRunFaiSafLowY=dtRunFaiSafLowYPumSta,
     final dpOff=dpOffPumSta,
     final yUp=yUpPumSta,
-    final yDow=yDowPumSta) if have_pumChiWatPri or has_fouPip
+    final yDow=yDowPumSta) if have_pumChiWatPri or have_fouPip
     "Primary CHW pump staging"
     annotation (Placement(transformation(extent={{190,170},{210,190}})));
   Pumps.Generic.StagingHeadered staPumChiWatSec(
@@ -1630,7 +1634,7 @@ block AirToWater
     final VChiWat_flow_nominal=VChiWatHp_flow_nominal,
     final VHeaWat_flow_min=VHeaWatHp_flow_min,
     final VHeaWat_flow_nominal=VHeaWatHp_flow_nominal)
-    if is_priOnl and not has_fouPip
+    if is_priOnl and not have_fouPip
     "CHW/HW minimum flow bypass valve controller"
     annotation (Placement(transformation(extent={{260,-248},{280,-224}})));
   Utilities.PlaceholderReal VHeaWatLoa_flow(final have_inp=is_priOnl, final
@@ -1649,37 +1653,37 @@ block AirToWater
     "Generate cooling mode availability signal for both 2-pipe and 4-pipe modules"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Logical.Or or6[nPumHeaWatPriTot]
-    if have_pumHeaWatPri and has_fouPip
+    if have_pumHeaWatPri and have_fouPip
     "Combine primary pump signals for 4-pipe HP with other HPs in heating mode"
     annotation (Placement(transformation(extent={{-80,-420},{-60,-400}})));
   Buildings.Controls.OBC.CDL.Logical.Or or7[nPumChiWatPriTot]
-    if have_chiWat and has_fouPip
+    if have_chiWat and have_fouPip
     "Combine primary pump signals for 4-pipe HP with primary pump signals for other HPs in cooling mode"
     annotation (Placement(transformation(extent={{-80,-450},{-60,-430}})));
   HybridPlantControlModule ctlPlaHyb(
     have_heaWat=have_heaWat,
-    has_sort=has_sort,
+    have_sorRunTim=have_sorRunTim,
     have_chiWat=have_chiWat,
     nHp=nHpTot,
     is_fouPip=is_fouPip,
-    staEquCooHea=staEquCooHea,
-    staEquOneMod=staEquOneMod,
-    idxEquAlt=idxEquAlt) if has_fouPip "Hybrid plant control module"
+    staEquDouMod=staEquDouMod,
+    staEquSinMod=staEquSinMod,
+    idxEquAlt=idxEquAlt) if have_fouPip "Hybrid plant control module"
     annotation (Placement(transformation(extent={{60,-114},{80,-86}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu if has_fouPip
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu if have_fouPip
     "Check status of 4-pipe ASHP"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating)
-    if has_fouPip "Constant Integer signal indicating heating-only mode"
+    if have_fouPip "Constant Integer signal indicating heating-only mode"
     annotation (Placement(transformation(extent={{50,-170},{70,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant staMat[nSta,nHpTot](k=staEqu)
-    if not has_fouPip "Staging matrix signal"
+    if not have_fouPip "Staging matrix signal"
     annotation (Placement(transformation(extent={{-220,250},{-200,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
-    if not has_fouPip "Constant Boolean false signal"
+    if not have_fouPip "Constant Boolean false signal"
     annotation (Placement(transformation(extent={{-240,390},{-220,410}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(nout=nHpTot)
-    if not has_fouPip "Replicate signal by number of heat pumps"
+    if not have_fouPip "Replicate signal by number of heat pumps"
     annotation (Placement(transformation(extent={{-150,260},{-130,280}})));
   Buildings.Controls.OBC.CDL.Logical.And andHeaEna[nHpTot]
     "Check if heat pumps are commanded enabled in heating mode"
@@ -1694,48 +1698,48 @@ block AirToWater
         nHpTot, nout=nHpTot) "Pass-through block for actual heat pump status"
     annotation (Placement(transformation(extent={{-220,290},{-200,310}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HpFouPip_actual
-    if has_fouPip "4-pipe air-source heat pump status" annotation (Placement(
+    if have_fouPip "4-pipe air-source heat pump status" annotation (Placement(
         transformation(extent={{-300,210},{-260,250}}), iconTransformation(
           extent={{-240,280},{-200,320}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpFouPip if has_fouPip
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpFouPip if have_fouPip
     "4-pipe air-source heat pump enable command" annotation (Placement(
         transformation(extent={{300,410},{340,450}}), iconTransformation(extent={{200,390},
             {240,430}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpFouPipInlIso
-    if have_heaWat and have_valHpInlIso and has_fouPip
+    if have_heaWat and have_valHpInlIso and have_fouPip
                   "Heat pump inlet HW isolation valve command" annotation (
       Placement(transformation(extent={{300,-440},{340,-400}}),
         iconTransformation(extent={{200,-330},{240,-290}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpFouPipOutIso
-    if have_heaWat and have_valHpOutIso and has_fouPip
+    if have_heaWat and have_valHpOutIso and have_fouPip
                   "Heat pump outlet HW isolation valve command" annotation (
       Placement(transformation(extent={{300,-460},{340,-420}}),
         iconTransformation(extent={{200,-350},{240,-310}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpFouPipInlIso
-    if have_chiWat and have_valHpInlIso and has_fouPip
+    if have_chiWat and have_valHpInlIso and have_fouPip
                   "Heat pump inlet CHW isolation valve command" annotation (
       Placement(transformation(extent={{300,-480},{340,-440}}),
         iconTransformation(extent={{200,-370},{240,-330}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpFouPipOutIso
-    if have_chiWat and have_valHpOutIso and has_fouPip
+    if have_chiWat and have_valHpOutIso and have_fouPip
                   "Heat pump outlet CHW isolation valve command" annotation (
       Placement(transformation(extent={{300,-500},{340,-460}}),
         iconTransformation(extent={{200,-390},{240,-350}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriFouPip
-    if has_fouPip "Primary HW pump start command" annotation (Placement(
+    if have_fouPip "Primary HW pump start command" annotation (Placement(
         transformation(extent={{300,-540},{340,-500}}), iconTransformation(
           extent={{200,-410},{240,-370}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriFouPip
-    if has_fouPip "Primary CHW pump start command" annotation (Placement(
+    if have_fouPip "Primary CHW pump start command" annotation (Placement(
         transformation(extent={{300,-560},{340,-520}}), iconTransformation(
           extent={{200,-430},{240,-390}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPriFouPip_actual
-    if has_fouPip "Primary CHW pump status for 4-pipe HP in hybrid plant"
+    if have_fouPip "Primary CHW pump status for 4-pipe HP in hybrid plant"
                                             annotation (Placement(
         transformation(extent={{-300,-500},{-260,-460}}), iconTransformation(
           extent={{-240,200},{-200,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriFouPip_actual
-    if have_pumHeaWatPri and has_fouPip
+    if have_pumHeaWatPri and have_fouPip
                   "Primary HW pump status for 4-pipe HP in hybrid plant"
     annotation (Placement(transformation(extent={{-300,-480},{-260,-440}}),
         iconTransformation(extent={{-240,220},{-200,260}})));
@@ -1745,7 +1749,7 @@ block AirToWater
     annotation (Placement(transformation(extent={{-240,190},{-220,210}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal pasPumChiWatPriSta(nin=
         nPumChiWatPriTot, nout=nPumChiWatPriTot)
-    if have_pumChiWatPri or has_fouPip
+    if have_pumChiWatPri or have_fouPip
     "Pass-through block for actual primary CHW pump status"
     annotation (Placement(transformation(extent={{-208,170},{-188,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSetFouPip(
@@ -2243,7 +2247,7 @@ equation
                                                           color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{72,-160},{72,-158},{78,
           -158}}, color={255,127,0}));
-if has_fouPip then
+if have_fouPip then
   connect(intEqu.y, swiTSupSet[nHpTot].u2) annotation (Line(points={{102,-150},{110,
           -150},{110,-120},{188,-120}}, color={255,0,255}));
 end if;

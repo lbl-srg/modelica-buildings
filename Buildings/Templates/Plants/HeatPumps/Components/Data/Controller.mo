@@ -289,21 +289,24 @@ record Controller
   parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")
+    each final unit="1",
+    start=if cfg.have_fouPip then {fill(0,cfg.nHpTot)} else staEqu)
     "Staging matrix – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation"),enable=not cfg.has_fouPip);
-  parameter Real staEquCooHea[:, cfg.nHpTot](
+    annotation (Dialog(group="Equipment staging and rotation",enable=not cfg.have_fouPip));
+  parameter Real staEquDouMod[:, cfg.nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")={fill(0,cfg.nHpTot)}
+    each final unit="1",
+    start=if not cfg.have_fouPip then {fill(0,cfg.nHpTot)} else staEquDouMod)
     "Staging matrix for heating-cooling mode – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation", enable=cfg.has_fouPip));
-  parameter Real staEquOneMod[:, cfg.nHpTot](
+    annotation (Dialog(group="Equipment staging and rotation", enable=cfg.have_fouPip));
+  parameter Real staEquSinMod[:, cfg.nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")={fill(0,cfg.nHpTot)}
+    each final unit="1",
+    start=if not cfg.have_fouPip then {fill(0,cfg.nHpTot)} else staEquSinMod)
     "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation", enable=cfg.has_fouPip));
+    annotation (Dialog(group="Equipment staging and rotation", enable=cfg.have_fouPip));
   parameter Real plrSta(
     final max=1,
     final min=0,

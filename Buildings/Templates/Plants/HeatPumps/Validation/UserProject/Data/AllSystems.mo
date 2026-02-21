@@ -92,7 +92,6 @@ class AllSystems
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then pla.hp.mHeaWatHp_flow_nominal
           /max(pla.hp.mHeaWatHp_flow_nominal, pla.hp.mChiWatHp_flow_nominal)
            else 1,
-      staEqu={fill(i/pla.cfg.nHpTot, pla.cfg.nHpTot) for i in 1:pla.cfg.nHpTot},
       TChiWatSupHrc_min=Buildings.Templates.Data.Defaults.TChiWatSup_min,
       THeaWatSupHrc_max=pla.ctl.THeaWatSup_nominal + 5,
       COPHeaHrc_nominal=4.6,

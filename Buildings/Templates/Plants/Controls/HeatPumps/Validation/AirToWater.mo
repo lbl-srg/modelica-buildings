@@ -100,7 +100,7 @@ model AirToWater
     have_senTHeaWatPriRet_select=false,
     have_senTChiWatPriRet_select=false,
     nHp=2,
-    has_fouPip=true,
+    have_fouPip=true,
     nPumChiWatPri=ctl1.nHp,
     have_senDpHeaWatRemWir=false,
     nSenDpHeaWatRem=1,
@@ -122,15 +122,14 @@ model AirToWater
     yPumHeaWatPriSet=0.8,
     yPumChiWatPriSet=0.7,
     dpChiWatRemSet_max={5E4},
-    staEqu=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1],
     idxEquAlt={1,2},
     TChiWatSupHrc_min=277.15,
     THeaWatSupHrc_max=333.15,
     COPHeaHrc_nominal=2.8,
     capCooHrc_min=ctl.capHeaHrc_min *(1 - 1 / ctl.COPHeaHrc_nominal),
     capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal),
-    staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1],
-    staEquOneMod=[1/2,1/2,0; 1,1,0; 1,1,1])
+    staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1],
+    staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1])
     "Plant controller-2"
     annotation (Placement(transformation(extent={{148,-22},{188,50}})));
 

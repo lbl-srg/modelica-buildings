@@ -21,10 +21,13 @@ record HeatPumpPlant
   parameter Integer nHp
     "Number of heat pumps"
     annotation (Evaluate=true);
-  final parameter Integer nHpTot=if has_fouPip then nHp+1 else nHp
+
+  final parameter Integer nHpTot=if have_fouPip then nHp+1 else nHp
     "Number of heat pumps calculation used for internal logic blocks in controller module";
-  parameter Boolean has_fouPip=false
-    "Is the plant a hybrid heat pump plant with a four-pipe heat pump?";
+
+  parameter Boolean have_fouPip=false
+    "True: The plant is a hybrid heat pump plant with a four-pipe heat pump";
+
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true);

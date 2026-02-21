@@ -156,14 +156,16 @@ model PartialHeatPump
     redeclare final package Medium = MediumSou)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(
-      iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
+      iconVisible=(typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater) or
+        (typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC),
       transformation(extent={{70,-150},{90,-130}}),
       iconTransformation(extent={{90,-110},{110,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
     redeclare final package Medium = MediumSou)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(
-      iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
+      iconVisible=(typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater) or
+        (typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC),
       transformation(extent={{-70,-150},{-90,-130}}),
       iconTransformation(extent={{-90,-110},{-110,-90}})));
   Buildings.Templates.Components.Interfaces.Bus bus
@@ -171,7 +173,8 @@ model PartialHeatPump
     annotation (Placement(transformation(extent={{-20,140},{20,180}}),
      iconTransformation(extent={{-20,80},{20, 120}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea
-    if typ==Buildings.Templates.Components.Types.HeatPump.AirToWater
+    if (typ==Buildings.Templates.Components.Types.HeatPump.AirToWater) or
+       (typ==Buildings.Templates.Components.Types.HeatPump.AirToWaterSHC)
     "Weather bus"
     annotation (Placement(transformation(extent={{-60,-160},{-20,-120}}),
         iconTransformation(extent={{-80,80},{-40,120}})));

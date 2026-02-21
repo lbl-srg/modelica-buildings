@@ -9,9 +9,9 @@ model HybridAirToWater "Validation of AWHP plant template"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
   inner parameter UserProject.Data.AllSystems datAll(pla(final cfg=pla.cfg, ctl(
-          staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1], staEquOneMod=[1/2,1/2,0; 1,1,
+          staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1], staEquSinMod=[1/2,1/2,0; 1,1,
             0; 1,1,1])))  "Plant parameters"
-    annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
+    annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
     displayUnit="Pa")=3E4
     "Liquid pressure drop across terminal unit at design conditions";
@@ -26,19 +26,50 @@ model HybridAirToWater "Validation of AWHP plant template"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
+  parameter Buildings.Templates.Components.Data.HeatPump datHpSHC(
+    final cpHeaWat_default=hpSHC.cpHeaWat_default,
+    final cpSou_default=hpSHC.cpSou_default,
+    final typ=hpSHC.typ,
+    final is_rev=hpSHC.is_rev,
+    mChiWat_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal,
+    dpChiWat_nominal(displayUnit="bar") = datAll.pla.hp.dpHeaWatHp_nominal,
+    capCoo_nominal=datAll.pla.hp.capCooHp_nominal,
+    TChiWatSup_nominal=datAll.pla.hp.TChiWatSupHp_nominal,
+    TSouCoo_nominal=datAll.pla.hp.TSouCooHp_nominal,
+    perHea=datAll.pla.hp.perHeaHp,
+    perCoo=datAll.pla.hp.perCooHp,
+    perSHC(
+      fileNameHea=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+      fileNameCoo=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+      fileNameShc=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")),
+    mHeaWat_flow_nominal=datAll.pla.hp.mHeaWatHp_flow_nominal,
+    dpHeaWat_nominal(displayUnit="bar") = datAll.pla.hp.dpHeaWatHp_nominal,
+    capHea_nominal=datAll.pla.hp.capHeaHp_nominal,
+    THeaWatSup_nominal=datAll.pla.hp.THeaWatSupHp_nominal,
+    TSouHea_nominal=datAll.pla.hp.TSouHeaHp_nominal,
+    dpSouWwHea_nominal(displayUnit="Pa"))
+    "Simultaneous heating and cooling (SHC) air-to-water heat pump record"
+    annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Outdoor conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-170,-40})));
+      origin={-190,-20})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
-    cfg(has_fouPip=true),
+    cfg(have_fouPip=true),
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
+    typTanHeaWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
+    typTanChiWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
     redeclare Buildings.Templates.Plants.HeatPumps.Components.Controls.HybridAirToWater ctl(
       nAirHan=1,
-      nEquZon=0),
+      nEquZon=0,
+      nPumHeaWatSec=pumHeaWatSec.nPum,
+      nPumChiWatSec=pumChiWatSec.nPum),
     have_hrc_select=false,
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
@@ -49,36 +80,36 @@ model HybridAirToWater "Validation of AWHP plant template"
     show_T=true,
     is_dpBalYPumSetCal=true)
     "Heat pump plant"
-    annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
     k=293.15,
     y(final unit="K",
       displayUnit="degC"))
     "Placeholder signal for request generator"
-    annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
+    annotation (Placement(transformation(extent={{-200,90},{-180,110}})));
   Fluid.Sensors.RelativePressure dpHeaWatRem[1](
     redeclare each final package Medium=Medium)
     "HW differential pressure at one remote location"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={60,-118})));
+      origin={140,-98})));
   Fluid.Sensors.RelativePressure dpChiWatRem[1](
     redeclare each final package Medium=Medium)
     if have_chiWat
     "CHW differential pressure at one remote location"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={60,-58})));
+      origin={140,-18})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests reqPlaRes(
     final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final cooCoi=if have_chiWat then Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
       else Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.None)
     "Plant and reset request"
-    annotation (Placement(transformation(extent={{90,42},{70,62}})));
+    annotation (Placement(transformation(extent={{140,62},{120,82}})));
   AirHandlersFans.Interfaces.Bus busAirHan
     "AHU control bus"
-    annotation (Placement(transformation(extent={{-60,40},{-20,80}}),
+    annotation (Placement(transformation(extent={{-10,60},{30,100}}),
       iconTransformation(extent={{-340,-140},{-300,-100}})));
   Interfaces.Bus busPla "Plant control bus"
-    annotation (Placement(transformation(extent={{-100,-40},{-60,0}}),
+    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
       iconTransformation(extent={{-370,-70},{-330,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratLoa(
     table=[
@@ -93,34 +124,34 @@ model HybridAirToWater "Validation of AWHP plant template"
     24, 0, 0],
     timeScale=3600)
     "Fraction of design load – Index 1 for heating, 2 for cooling"
-    annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
+    annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
   Fluid.Sensors.MassFlowRate mChiWat_flow(
     redeclare final package Medium=Medium)
     if have_chiWat
     "CHW mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={160,-60})));
+      origin={240,-20})));
   Fluid.Sensors.MassFlowRate mHeaWat_flow(
     redeclare final package Medium=Medium)
     "HW mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={160,-120})));
+      origin={240,-100})));
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt[4]
     "Importance multiplier"
-    annotation (Placement(transformation(extent={{0,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{50,70},{30,90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[4](
     each k=10) "Request multiplier factor"
-    annotation (Placement(transformation(extent={{40,90},{20,110}})));
+    annotation (Placement(transformation(extent={{90,110},{70,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaLoa(k=true)
     "Load enable"
-    annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
+    annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max -
       max(datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
-    annotation (Placement(transformation(extent={{50,-150},{30,-130}})));
+    annotation (Placement(transformation(extent={{130,-130},{110,-110}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
@@ -128,12 +159,12 @@ model HybridAirToWater "Validation of AWHP plant template"
       max(datAll.pla.ctl.dpChiWatRemSet_max))
     if have_chiWat
     "Piping"
-    annotation (Placement(transformation(extent={{50,-90},{30,-70}})));
+    annotation (Placement(transformation(extent={{130,-50},{110,-30}})));
   Controls.Utilities.PlaceholderInteger ph[2](
     each final have_inp=have_chiWat,
     each final u_internal=0)
     "Placeholder value"
-    annotation (Placement(transformation(extent={{40,54},{20,74}})));
+    annotation (Placement(transformation(extent={{90,74},{70,94}})));
   Buildings.Templates.Components.Loads.LoadTwoWayValve loaCoo(
     redeclare final package MediumLiq = Medium,
     final energyDynamics=energyDynamics,
@@ -147,7 +178,7 @@ model HybridAirToWater "Validation of AWHP plant template"
     con(val(y_start=0)),
     loa(coi(show_T=true))) if have_chiWat
     "Cooling load"
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Buildings.Templates.Components.Loads.LoadTwoWayValve loaHea(
     redeclare final package MediumLiq = Medium,
     final energyDynamics=energyDynamics,
@@ -159,109 +190,328 @@ model HybridAirToWater "Validation of AWHP plant template"
     final TLiqEnt_nominal=pla.THeaWatSup_nominal,
     final TLiqLvg_nominal=pla.THeaWatRet_nominal,
     con(val(y_start=0)))                          "Heating load"
-    annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
+    annotation (Placement(transformation(extent={{170,-90},{190,-70}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volHeaWat(
     energyDynamics=energyDynamics,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.capHea_nominal,
     redeclare package Medium = Medium,
     nPorts=2)                          "Fluid volume in distribution system"
-    annotation (Placement(transformation(extent={{-10,-100},{10,-120}})));
+    annotation (Placement(transformation(extent={{80,-80},{100,-100}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volChiWat(
     energyDynamics=energyDynamics,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.capCoo_nominal,
     redeclare package Medium = Medium,
     nPorts=2) if have_chiWat           "Fluid volume in distribution system"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-60}})));
+    annotation (Placement(transformation(extent={{80,0},{100,-20}})));
+  Fluid.FixedResistances.Junction junHWPriSup(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,pla.mHeaWat_flow_nominal},
+    dp_nominal={0,0,0})
+    "Primary supply junction between 2-pipe and 4-pipe ASHPs"
+    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
+  Fluid.FixedResistances.Junction junHWPriRet(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal},
+    dp_nominal={0,0,0})
+    "Primary return junction between 2-pipe and 4-pipe ASHPs"
+    annotation (Placement(transformation(extent={{-70,-130},{-90,-110}})));
+  Buildings.Templates.Components.HeatPumps.AirToWaterSHC hpSHC(
+    redeclare package MediumHeaWat = Medium,
+    redeclare package MediumSou = Medium,
+    is_rev=true,
+    dat=datHpSHC)
+    "4-pipe ASHP with simultaneous HW and CHW supply"
+    annotation (Placement(transformation(extent={{-94,-200},{-74,-180}})));
+  Fluid.FixedResistances.Junction junCHWPriSup(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,pla.mChiWat_flow_nominal},
+    dp_nominal={0,0,0})
+    "Primary CHW supply junction between 2-pipe and 4-pipe ASHPs"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Fluid.FixedResistances.Junction junCHWPriRet(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal},
+    dp_nominal={0,0,0})
+    "Primary CHW return junction between 2-pipe and 4-pipe ASHPs"
+    annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
+  Buildings.Templates.Components.Pumps.Single pumHWFouPip(
+    have_var=false,
+    have_valChe=true,
+    redeclare package Medium = Medium,
+    dat(
+      m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
+      dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
+      per=datAll.pla.pumHeaWatPri.per[1])) "HW primary pump for 4-pipe ASHP"
+    annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
+  Buildings.Templates.Components.Pumps.Single pumCHWFouPip(
+    have_var=false,
+    have_valChe=true,
+    redeclare package Medium = Medium,
+    dat(
+      m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
+      dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
+      per=datAll.pla.pumHeaWatPri.per[1])) "CHW primary pump for 4-pipe ASHP"
+    annotation (Placement(transformation(extent={{-50,-210},{-70,-190}})));
+  Fluid.FixedResistances.Junction junCHWBypSup(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal},
+    dp_nominal={0,0,0}) "CHW supply bypass leg junction"
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+  Fluid.FixedResistances.Junction junCHWBypRet(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,pla.mChiWat_flow_nominal},
+    dp_nominal={0,0,0}) "CHW return bypass leg junction" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-20,-40})));
+  Fluid.FixedResistances.Junction junHWBypSup(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal},
+    dp_nominal={0,0,0}) "HW supply bypass leg junction"
+    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
+  Fluid.FixedResistances.Junction junHWBypRet(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,pla.mHeaWat_flow_nominal},
+    dp_nominal={0,0,0}) "HW return bypass leg junction" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-20,-120})));
+  Buildings.Templates.Components.Pumps.Multiple pumChiWatSec(
+    redeclare package Medium = Medium,
+    nPum=2,
+    dat(m_flow_nominal=fill(pla.mChiWat_flow_nominal/pumChiWatSec.dat.nPum,
+          pumChiWatSec.dat.nPum), dp_nominal=fill(max(pla.hp.dpHeaWatHp_nominal,
+          pla.hp.dpChiWatHp_nominal), pumChiWatSec.dat.nPum)))
+    "CHW secondary pumps"
+    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
+  Buildings.Templates.Components.Pumps.Multiple pumHeaWatSec(
+    redeclare package Medium = Medium,
+    nPum=2,
+    dat(m_flow_nominal=fill(pla.mHeaWat_flow_nominal/pumHeaWatSec.dat.nPum,
+          pumHeaWatSec.dat.nPum), dp_nominal=fill(max(pla.hp.dpHeaWatHp_nominal,
+          pla.hp.dpChiWatHp_nominal), pumHeaWatSec.dat.nPum)))
+    "HW secondary pumps"
+    annotation (Placement(transformation(extent={{26,-90},{46,-70}})));
+  Buildings.Templates.Components.Routing.SingleToMultiple pumChiWatSecInl(
+    redeclare package Medium = Medium,
+    nPorts=pumChiWatSec.nPum,
+    m_flow_nominal=pla.mChiWat_flow_nominal) "Inlet to CHW secondary pumps"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Templates.Components.Routing.MultipleToSingle pumChiWatSecOut(
+    redeclare package Medium = Medium,
+    nPorts=pumChiWatSec.nPum,
+    m_flow_nominal=pla.mChiWat_flow_nominal) "Outlet from CHW secondary pumps"
+    annotation (Placement(transformation(extent={{54,-10},{74,10}})));
+  Buildings.Templates.Components.Routing.SingleToMultiple pumHeaWatSecInl(
+    redeclare package Medium = Medium,
+    nPorts=pumHeaWatSec.nPum,
+    m_flow_nominal=pla.mHeaWat_flow_nominal) "Inlet to HW secondary pumps"
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+  Buildings.Templates.Components.Routing.MultipleToSingle pumHeaWatSecOut(
+    redeclare package Medium = Medium,
+    nPorts=pumHeaWatSec.nPum,
+    m_flow_nominal=pla.mHeaWat_flow_nominal) "Outlet from HW secondary pumps"
+    annotation (Placement(transformation(extent={{54,-90},{74,-70}})));
 equation
   if have_chiWat then
     connect(mulInt[3].y, busAirHan.reqResChiWat)
-      annotation (Line(points={{-22,60},{-40,60}},  color={255,127,0}));
+      annotation (Line(points={{28,80},{10,80}},    color={255,127,0}));
     connect(mulInt[4].y, busAirHan.reqPlaChiWat)
-      annotation (Line(points={{-22,60},{-40,60}},  color={255,127,0}));
+      annotation (Line(points={{28,80},{10,80}},    color={255,127,0}));
   end if;
   connect(weaDat.weaBus, pla.busWea)
-    annotation (Line(points={{-160,-40},{-60,-40},{-60,-60}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-180,-20},{-140,-20},{-140,-40}},
+                                                             color={255,204,51},thickness=0.5));
   connect(TDum.y, reqPlaRes.TAirSup)
-    annotation (Line(points={{-158,80},{100,80},{100,60},{92,60}},    color={0,0,127}));
+    annotation (Line(points={{-178,100},{150,100},{150,80},{142,80}}, color={0,0,127}));
   connect(TDum.y, reqPlaRes.TAirSupSet)
-    annotation (Line(points={{-158,80},{100,80},{100,55},{92,55}},    color={0,0,127}));
+    annotation (Line(points={{-178,100},{150,100},{150,74},{142,74},{142,75}},
+                                                                      color={0,0,127}));
   connect(busAirHan, pla.busAirHan[1])
-    annotation (Line(points={{-40,60},{-40,-62}}, color={255,204,51},thickness=0.5));
+    annotation (Line(points={{10,80},{-120,80},{-120,-42}},
+                                                  color={255,204,51},thickness=0.5));
   connect(pla.bus, busPla)
-    annotation (Line(points={{-80,-62},{-80,-20}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-160,-42},{-160,0}},color={255,204,51},thickness=0.5));
   connect(mChiWat_flow.port_b, dpChiWatRem[1].port_b)
-    annotation (Line(points={{160,-70},{160,-80},{60,-80},{60,-68}},  color={0,127,255}));
+    annotation (Line(points={{240,-30},{240,-40},{140,-40},{140,-28}},color={0,127,255}));
   connect(mHeaWat_flow.port_b, dpHeaWatRem[1].port_b)
-    annotation (Line(points={{160,-130},{160,-140},{60,-140},{60,-128}},color={0,127,255}));
+    annotation (Line(points={{240,-110},{240,-120},{140,-120},{140,-108}},
+                                                                        color={0,127,255}));
   connect(cst.y, mulInt.u1)
-    annotation (Line(points={{18,100},{6,100},{6,66},{2,66}},  color={255,127,0}));
+    annotation (Line(points={{68,120},{52,120},{52,86}},       color={255,127,0}));
   connect(mulInt[1].y, busAirHan.reqResHeaWat)
-    annotation (Line(points={{-22,60},{-40,60}},  color={255,127,0}));
+    annotation (Line(points={{28,80},{10,80}},    color={255,127,0}));
   connect(mulInt[2].y, busAirHan.reqPlaHeaWat)
-    annotation (Line(points={{-22,60},{-40,60}},  color={255,127,0}));
+    annotation (Line(points={{28,80},{10,80}},    color={255,127,0}));
   connect(mChiWat_flow.port_b, pipChiWat.port_a)
-    annotation (Line(points={{160,-70},{160,-80},{50,-80}},  color={0,127,255}));
+    annotation (Line(points={{240,-30},{240,-40},{130,-40}}, color={0,127,255}));
   connect(mHeaWat_flow.port_b, pipHeaWat.port_a)
-    annotation (Line(points={{160,-130},{160,-140},{50,-140}},color={0,127,255}));
+    annotation (Line(points={{240,-110},{240,-120},{130,-120}},
+                                                              color={0,127,255}));
   connect(reqPlaRes.yChiWatResReq, ph[1].u)
-    annotation (Line(points={{68,60},{50,60},{50,64},{42,64}},    color={255,127,0}));
+    annotation (Line(points={{118,80},{92,80},{92,84}},           color={255,127,0}));
   connect(reqPlaRes.yChiPlaReq, ph[2].u)
-    annotation (Line(points={{68,55},{50,55},{50,64},{42,64}},    color={255,127,0}));
+    annotation (Line(points={{118,75},{92,75},{92,84}},           color={255,127,0}));
   connect(reqPlaRes.yHotWatResReq, mulInt[1].u2)
-    annotation (Line(points={{68,49},{12,49},{12,54},{2,54}},    color={255,127,0}));
+    annotation (Line(points={{118,69},{52,69},{52,74}},          color={255,127,0}));
   connect(reqPlaRes.yHotWatPlaReq, mulInt[2].u2)
-    annotation (Line(points={{68,44},{12,44},{12,54},{2,54}},    color={255,127,0}));
+    annotation (Line(points={{118,64},{52,64},{52,74}},          color={255,127,0}));
   connect(ph[1].y, mulInt[3].u2)
-    annotation (Line(points={{18,64},{12,64},{12,54},{2,54}},    color={255,127,0}));
+    annotation (Line(points={{68,84},{52,84},{52,74}},           color={255,127,0}));
   connect(ph[2].y, mulInt[4].u2)
-    annotation (Line(points={{18,64},{12,64},{12,54},{2,54}},    color={255,127,0}));
+    annotation (Line(points={{68,84},{52,84},{52,74}},           color={255,127,0}));
   connect(dpChiWatRem.p_rel, busPla.dpChiWatRem)
-    annotation (Line(points={{51,-58},{22,-58},{22,-18},{-80,-18},{-80,-20}},
+    annotation (Line(points={{131,-18},{106,-18},{106,30},{-160,30},{-160,0}},
                                                                        color={0,0,127}),
       Text(string="%second",index=1,extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
   connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem)
-    annotation (Line(points={{51,-118},{20,-118},{20,-20},{-80,-20}},
+    annotation (Line(points={{131,-98},{106,-98},{106,30},{-160,30},{-160,0}},
       color={0,0,127}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(loaCoo.port_b, mChiWat_flow.port_a) annotation (Line(points={{110,-40},
-          {160,-40},{160,-50}}, color={0,127,255}));
+  connect(loaCoo.port_b, mChiWat_flow.port_a) annotation (Line(points={{190,0},{
+          240,0},{240,-10}},    color={0,127,255}));
   connect(dpChiWatRem[1].port_a, loaCoo.port_a)
-    annotation (Line(points={{60,-48},{60,-40},{90,-40}}, color={0,127,255}));
-  connect(loaCoo.yVal_actual, reqPlaRes.uCooCoiSet) annotation (Line(points={{112,-32},
-          {126,-32},{126,49},{92,49}},      color={0,0,127}));
-  connect(loaHea.port_b, mHeaWat_flow.port_a) annotation (Line(points={{110,
-          -100},{160,-100},{160,-110}},
-                                  color={0,127,255}));
-  connect(dpHeaWatRem[1].port_a, loaHea.port_a) annotation (Line(points={{60,-108},
-          {60,-100},{90,-100}}, color={0,127,255}));
-  connect(ratLoa.y[2], loaCoo.u) annotation (Line(points={{-158,40},{80,40},{80,
-          -32},{88,-32}}, color={0,0,127}));
-  connect(ratLoa.y[1], loaHea.u) annotation (Line(points={{-158,40},{80,40},{80,
-          -92},{88,-92}}, color={0,0,127}));
-  connect(loaHea.yVal_actual, reqPlaRes.uHeaCoiSet) annotation (Line(points={{112,-92},
-          {130,-92},{130,44},{92,44}},      color={0,0,127}));
-  connect(enaLoa.y, loaCoo.u1) annotation (Line(points={{-158,0},{76,0},{76,-36},
-          {88,-36}}, color={255,0,255}));
-  connect(enaLoa.y, loaHea.u1) annotation (Line(points={{-158,0},{76,0},{76,-96},
-          {88,-96}}, color={255,0,255}));
-  connect(pla.port_bHeaWat, volHeaWat.ports[1]) annotation (Line(points={{-40,-90},
-          {-20,-90},{-20,-100},{-1,-100}},      color={0,127,255}));
-  connect(volHeaWat.ports[2], loaHea.port_a)
-    annotation (Line(points={{1,-100},{90,-100}}, color={0,127,255}));
-  connect(pipHeaWat.port_b, pla.port_aHeaWat) annotation (Line(points={{30,-140},
-          {-30,-140},{-30,-98},{-40,-98}}, color={0,127,255}));
-  connect(pla.port_bChiWat, volChiWat.ports[1]) annotation (Line(points={{-40,
-          -76},{-20,-76},{-20,-40},{-1,-40}}, color={0,127,255}));
-  connect(volChiWat.ports[2], loaCoo.port_a)
-    annotation (Line(points={{1,-40},{90,-40}}, color={0,127,255}));
-  connect(pipChiWat.port_b, pla.port_aChiWat) annotation (Line(points={{30,-80},
-          {-40,-80},{-40,-84}}, color={0,127,255}));
+    annotation (Line(points={{140,-8},{140,0},{170,0}},   color={0,127,255}));
+  connect(loaCoo.yVal_actual, reqPlaRes.uCooCoiSet) annotation (Line(points={{192,8},
+          {200,8},{200,69},{142,69}},       color={0,0,127}));
+  connect(loaHea.port_b, mHeaWat_flow.port_a) annotation (Line(points={{190,-80},
+          {240,-80},{240,-90}},   color={0,127,255}));
+  connect(dpHeaWatRem[1].port_a, loaHea.port_a) annotation (Line(points={{140,-88},
+          {140,-80},{170,-80}}, color={0,127,255}));
+  connect(ratLoa.y[2], loaCoo.u) annotation (Line(points={{-178,60},{160,60},{160,
+          8},{168,8}},    color={0,0,127}));
+  connect(ratLoa.y[1], loaHea.u) annotation (Line(points={{-178,60},{160,60},{160,
+          -72},{168,-72}},color={0,0,127}));
+  connect(loaHea.yVal_actual, reqPlaRes.uHeaCoiSet) annotation (Line(points={{192,-72},
+          {210,-72},{210,64},{142,64}},     color={0,0,127}));
+  connect(enaLoa.y, loaCoo.u1) annotation (Line(points={{-178,20},{150,20},{150,
+          4},{168,4}},
+                     color={255,0,255}));
+  connect(enaLoa.y, loaHea.u1) annotation (Line(points={{-178,20},{150,20},{150,
+          -76},{168,-76}},
+                     color={255,0,255}));
+  connect(volHeaWat.ports[1], loaHea.port_a)
+    annotation (Line(points={{89,-80},{170,-80}}, color={0,127,255}));
+  connect(volChiWat.ports[1], loaCoo.port_a)
+    annotation (Line(points={{89,0},{170,0}},   color={0,127,255}));
+  connect(pla.port_bHeaWat, junHWPriSup.port_1) annotation (Line(points={{-120,-70},
+          {-100,-70},{-100,-80},{-90,-80}},      color={0,127,255}));
+  connect(junHWPriRet.port_2, pla.port_aHeaWat) annotation (Line(points={{-90,-120},
+          {-114,-120},{-114,-78},{-120,-78}},
+                                            color={0,127,255}));
+  connect(weaDat.weaBus, hpSHC.busWea) annotation (Line(
+      points={{-180,-20},{-170,-20},{-170,-146},{-90,-146},{-90,-180}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.busHpFouPip, hpSHC.bus) annotation (Line(
+      points={{-160,0},{-160,-42},{-166,-42},{-166,-136},{-84,-136},{-84,-180}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(pla.port_bChiWat, junCHWPriSup.port_1) annotation (Line(points={{-120,
+          -56},{-114,-56},{-114,0},{-60,0}},     color={0,127,255}));
+  connect(hpSHC.port_bSou, junCHWPriSup.port_3) annotation (Line(points={{-94,-200},
+          {-106,-200},{-106,-20},{-50,-20},{-50,-10}},       color={0,127,255}));
+  connect(junCHWPriRet.port_2, pla.port_aChiWat) annotation (Line(points={{-60,-40},
+          {-110,-40},{-110,-64},{-120,-64}},      color={0,127,255}));
+  connect(hpSHC.port_a, pumHWFouPip.port_b)
+    annotation (Line(points={{-94,-190},{-100,-190}},color={0,127,255}));
+  connect(junHWPriRet.port_3, pumHWFouPip.port_a) annotation (Line(points={{-80,
+          -130},{-120,-130},{-120,-190}},            color={0,127,255}));
+  connect(hpSHC.port_b, junHWPriSup.port_3) annotation (Line(points={{-74,-190},
+          {-40,-190},{-40,-110},{-80,-110},{-80,-90}},  color={0,127,255}));
+  connect(hpSHC.port_aSou, pumCHWFouPip.port_b)
+    annotation (Line(points={{-74,-200},{-70,-200}}, color={0,127,255}));
+  connect(pumCHWFouPip.port_a, junCHWPriRet.port_3) annotation (Line(points={{-50,
+          -200},{-50,-50}},                                      color={0,127,
+          255}));
+  connect(busPla.busPumFouPipHeaWatPri, pumHWFouPip.bus) annotation (Line(
+      points={{-160,0},{-160,-42},{-166,-42},{-166,-136},{-110,-136},{-110,-180}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busPla.busPumFouPipChiWatPri, pumCHWFouPip.bus) annotation (Line(
+      points={{-160,0},{-160,-42},{-166,-42},{-166,-136},{-60,-136},{-60,-190}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(junCHWPriSup.port_2, junCHWBypSup.port_1)
+    annotation (Line(points={{-40,0},{-30,0}},     color={0,127,255}));
+  connect(pipChiWat.port_b, junCHWBypRet.port_1)
+    annotation (Line(points={{110,-40},{-10,-40}},
+                                                 color={0,127,255}));
+  connect(junCHWBypRet.port_2, junCHWPriRet.port_1)
+    annotation (Line(points={{-30,-40},{-40,-40}}, color={0,127,255}));
+  connect(junCHWBypRet.port_3, junCHWBypSup.port_3)
+    annotation (Line(points={{-20,-30},{-20,-10}},
+                                               color={0,127,255}));
+  connect(junHWPriSup.port_2, junHWBypSup.port_1)
+    annotation (Line(points={{-70,-80},{-30,-80}},   color={0,127,255}));
+  connect(junHWPriRet.port_1, junHWBypRet.port_2)
+    annotation (Line(points={{-70,-120},{-30,-120}}, color={0,127,255}));
+  connect(junHWBypRet.port_1, pipHeaWat.port_b)
+    annotation (Line(points={{-10,-120},{110,-120}},
+                                                   color={0,127,255}));
+  connect(junHWBypRet.port_3, junHWBypSup.port_3)
+    annotation (Line(points={{-20,-110},{-20,-90}},
+                                                 color={0,127,255}));
+  connect(busPla.busPumChiWatSec, pumChiWatSec.bus) annotation (Line(
+      points={{-160,0},{-116,0},{-116,16},{36,16},{36,10}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busPla.busPumHeaWatSec, pumHeaWatSec.bus) annotation (Line(
+      points={{-160,0},{-134,0},{-134,-4},{-66,-4},{-66,-56},{36,-56},{36,-70}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(junCHWBypSup.port_2, pumChiWatSecInl.port_a)
+    annotation (Line(points={{-10,0},{0,0}}, color={0,127,255}));
+  connect(pumChiWatSecInl.ports_b, pumChiWatSec.ports_a)
+    annotation (Line(points={{20,0},{26,0}}, color={0,127,255}));
+  connect(pumChiWatSec.ports_b, pumChiWatSecOut.ports_a)
+    annotation (Line(points={{46,0},{54,0}}, color={0,127,255}));
+  connect(pumChiWatSecOut.port_b, volChiWat.ports[2])
+    annotation (Line(points={{74,0},{91,0}}, color={0,127,255}));
+  connect(junHWBypSup.port_2, pumHeaWatSecInl.port_a)
+    annotation (Line(points={{-10,-80},{0,-80}}, color={0,127,255}));
+  connect(pumHeaWatSecInl.ports_b, pumHeaWatSec.ports_a)
+    annotation (Line(points={{20,-80},{26,-80}}, color={0,127,255}));
+  connect(pumHeaWatSec.ports_b, pumHeaWatSecOut.ports_a)
+    annotation (Line(points={{46,-80},{54,-80}}, color={0,127,255}));
+  connect(pumHeaWatSecOut.port_b, volHeaWat.ports[2])
+    annotation (Line(points={{74,-80},{91,-80}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWater.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/HybridAirToWater.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
@@ -333,30 +583,13 @@ various plant configurations.
       revisions="<html>
 <ul>
 <li>
-December 2, 2025, by Antoine Gautier:<br/>
-Updated load model.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">#4432</a>.
-</li>
-<li>
-August 21, 2025, by Antoine Gautier:<br/>
-Refactored with load-dependent 2D table data heat pump model.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
-</li>
-<li>
-May 31, 2024, by Antoine Gautier:<br/>
-Added sidestream HRC and refactored the model after updating the HP plant template.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
-</li>
-<li>
-March 29, 2024, by Antoine Gautier:<br/>
+February 18, 2026, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-200,-160},{200,160}})));
+        extent={{-240,-220},{260,180}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end HybridAirToWater;

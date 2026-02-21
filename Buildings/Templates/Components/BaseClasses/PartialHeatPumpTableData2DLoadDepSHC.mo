@@ -101,15 +101,15 @@ equation
       points={{0,160},{0,20},{-20,20},{-20,-8},{-12,-8}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.THwSet, hp.THwSet) annotation (Line(
+  connect(bus.THeaWatSupSet, hp.THwSet) annotation (Line(
       points={{0,160},{0,20},{-20,20},{-20,-2},{-12,-2}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TChwSet, hp.TChwSet) annotation (Line(
+  connect(bus.TChiWatSupSet, hp.TChwSet) annotation (Line(
       points={{0,160},{0,20},{-20,20},{-20,-6},{-12,-6}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.mode, hp.mode) annotation (Line(
+  connect(bus.yMod, hp.mode) annotation (Line(
       points={{0,160},{0,20},{-20,20},{-20,-10},{-12,-10}},
       color={255,204,51},
       thickness=0.5));

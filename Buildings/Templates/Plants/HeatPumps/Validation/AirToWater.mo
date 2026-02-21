@@ -9,9 +9,9 @@ model AirToWater
     "Set to true if the plant provides CHW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  inner parameter UserProject.Data.AllSystems datAll(
-    pla(
-      final cfg=pla.cfg)) "Plant parameters"
+  inner parameter UserProject.Data.AllSystems datAll(pla(final cfg=pla.cfg, ctl(
+          staEqu={fill(i/pla.cfg.nHpTot, pla.cfg.nHpTot) for i in 1:pla.cfg.nHpTot})))
+                          "Plant parameters"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
     displayUnit="Pa")=3E4

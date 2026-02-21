@@ -13,7 +13,7 @@ block HybridPlantControlModule
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  parameter Boolean has_sort=true
+  parameter Boolean have_sorRunTim=true
     "Are the lead-lag equipment rotated based on runtime?"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
@@ -33,14 +33,14 @@ block HybridPlantControlModule
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
 
-  parameter Real staEquCooHea[:, nHp](
+  parameter Real staEquDouMod[:, nHp](
     each final max=1,
     each final min=0,
     each final unit="1")
     "Staging matrix for heating-cooling mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
 
-  parameter Real staEquOneMod[:, nHp](
+  parameter Real staEquSinMod[:, nHp](
     each final max=1,
     each final min=0,
     each final unit="1")
@@ -48,13 +48,13 @@ block HybridPlantControlModule
     annotation (Dialog(group="Equipment staging and rotation"));
 
   final parameter Integer nSta(
-    final min=1)=size(staEquCooHea, 1)
+    final min=1)=size(staEquDouMod, 1)
     "Number of stages"
     annotation (Evaluate=true);
 
   final parameter Integer nEquAlt(
     final min=0)=if nHp==1 then 1 else
-    max({sum({(if staEquCooHea[i, j] > 0 and staEquCooHea[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
+    max({sum({(if staEquDouMod[i, j] > 0 and staEquDouMod[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
 
@@ -115,7 +115,7 @@ block HybridPlantControlModule
       iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdxSta[nEquAlt]
-    if not has_sort
+    if not have_sorRunTim
     "Staging index if runtime sorting is absent"
     annotation (Placement(transformation(extent={{320,-380},{360,-340}}),
       iconTransformation(extent={{100,-140},{140,-100}})));
@@ -130,12 +130,12 @@ block HybridPlantControlModule
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nSta,nHp](
-    final k=staEquCooHea)
+    final k=staEquDouMod)
     "Staging matrix for heating-cooling mode"
     annotation (Placement(transformation(extent={{-10,-240},{10,-220}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nSta,nHp](
-    final k=staEquOneMod)
+    final k=staEquSinMod)
     "Staging matrix for heating-only and cooling-only mode"
     annotation (Placement(transformation(extent={{-10,-300},{10,-280}})));
 
@@ -209,22 +209,22 @@ protected
     "Vectorize mode signal with dimension equal to number of heat pumps"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not has_sort
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not have_sorRunTim
     "Switch between two staging orders when runtime sorting is not used"
     annotation (Placement(transformation(extent={{30,-370},{50,-350}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nEquAlt](
-    final k={i for i in 1:nEquAlt}) if not has_sort
+    final k={i for i in 1:nEquAlt}) if not have_sorRunTim
     "Sort components in direct order when runtime sorting is not used"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nEquAlt](
-    final k={i for i in nEquAlt:-1:1}) if not has_sort
+    final k={i for i in nEquAlt:-1:1}) if not have_sorRunTim
     "Sort components in reverse order when runtime sorting is not used"
     annotation (Placement(transformation(extent={{-10,-350},{10,-330}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
-    final nout=nEquAlt) if not has_sort
+    final nout=nEquAlt) if not have_sorRunTim
     "Generate vector with size equal to list of lead-lag equipment"
     annotation (Placement(transformation(extent={{-50,-370},{-30,-350}})));
 
@@ -554,8 +554,8 @@ as required between the three operation modes.
 </p>
 <h4>Details</h4>
 <p>
-Staging matrices <code>staEqu</code>, <code>staEquCooHea</code>, and
-<code>staEquOneMod</code> are required as parameters.
+Staging matrices <code>staEqu</code>, <code>staEquDouMod</code>, and
+<code>staEquSinMod</code> are required as parameters.
 See the documentation of
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
