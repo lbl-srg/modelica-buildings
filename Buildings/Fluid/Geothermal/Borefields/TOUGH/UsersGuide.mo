@@ -78,7 +78,7 @@ where only the major sections are demonstrated:
   def doStep(dblInp, state):
     # retrieve state of last invoke, including
     #   -- the path of working directory
-    #   -- the end time of the lat TOUGH simulation,
+    #   -- the end time of the last TOUGH simulation,
     #   -- the heat flow on the borehole wall that was measured in Modelica at last invoke,
     #   -- the borehole wall temperature at the end of last TOUGH simulation.
     tou_tmp = state['work_dir']
