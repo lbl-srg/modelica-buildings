@@ -19,15 +19,14 @@ protected
   discrete Modelica.Units.SI.Time tNext(start=0, fixed=true)
     "Start time of next period";
 
-  Integer k(start=0, fixed=true)
-    "Period index";
-
 equation
   when {initial(), canRepeatWeatherFile and modTimAux > pre(tNext)} then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
-    k = if (integer(modTimAux/lenWea) == pre(k)) then pre(k)+1 else integer(modTimAux/lenWea)+1;
-    tNext = if canRepeatWeatherFile then k*lenWea else time;
+    tNext = if canRepeatWeatherFile
+            then if modTimAux >=0 then floor(modTimAux/lenWea + 0.5)*lenWea + lenWea
+                 else ceil(modTimAux/lenWea - 0.5)*lenWea + lenWea
+            else time;
   end when;
   calTimAux = if canRepeatWeatherFile then modTimAux - tNext + lenWea else modTimAux;
 
