@@ -88,10 +88,10 @@ equation
     annotation (Line(points={{-110,66},{-68,66},{-68,79.9385},{-59.2667,79.9385}},
         color={255,0,255}));
   connect(multiple_zone_ratchet_load_response.TZonHeaSetCom,
-    setpoint_processing.TZonHeaSetCom) annotation (Line(points={{-21.2667,72.8},
+    setpoint_processing.TZonHeaSetCom) annotation (Line(points={{-18.7333,72.8},
           {-14,72.8},{-14,75},{-4,75}}, color={0,0,127}));
   connect(multiple_zone_ratchet_load_response.TZonCooSetCom,
-    setpoint_processing.TZonCooSetCom) annotation (Line(points={{-21.2667,
+    setpoint_processing.TZonCooSetCom) annotation (Line(points={{-18.7333,
           62.4615},{-14,62.4615},{-14,65.8},{-4,65.8}}, color={0,0,127}));
   connect(setpoint_processing.TZonHeaSetPro, custom_air_conditioner_OnOff_timer.THeaSet)
     annotation (Line(points={{20,74.6},{50,74.6},{50,75.4667},{54.8889,75.4667}},
@@ -133,10 +133,10 @@ equation
           -24.0615},{-59.2667,-24.0615}}, color={255,0,255}));
   connect(multiple_zone_ratchet_load_response1.TZonHeaSetCom,
     setpoint_processing_baseline.TZonHeaSetCom) annotation (Line(points={{
-          -21.2667,-31.2},{-14,-31.2},{-14,-29},{-4,-29}}, color={0,0,127}));
+          -18.7333,-31.2},{-14,-31.2},{-14,-29},{-4,-29}}, color={0,0,127}));
   connect(multiple_zone_ratchet_load_response1.TZonCooSetCom,
     setpoint_processing_baseline.TZonCooSetCom) annotation (Line(points={{
-          -21.2667,-41.5385},{-14,-41.5385},{-14,-38.2},{-4,-38.2}}, color={0,0,
+          -18.7333,-41.5385},{-14,-41.5385},{-14,-38.2},{-4,-38.2}}, color={0,0,
           127}));
   connect(setpoint_processing_baseline.TZonHeaSetPro,
     custom_air_conditioner_OnOff_timer_baseline.THeaSet) annotation (Line(

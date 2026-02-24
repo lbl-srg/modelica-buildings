@@ -96,7 +96,7 @@ block multiple_zone_ratchet_load_response "multiple zone ratchet load response"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature setpoint command" annotation (Placement(transformation(
-          extent={{320,32},{360,72}}), iconTransformation(extent={{280,18},{320,
+          extent={{320,32},{360,72}}), iconTransformation(extent={{320,18},{360,
             58}})),
             __cdl(semantic(
           metadataLanguage="Brick 1.3 text/turtle"
@@ -146,8 +146,8 @@ block multiple_zone_ratchet_load_response "multiple zone ratchet load response"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone temperature setpoint command" annotation (Placement(transformation(
-          extent={{320,-144},{360,-104}}), iconTransformation(extent={{280,-150},
-            {320,-110}})),
+          extent={{320,-144},{360,-104}}), iconTransformation(extent={{320,-150},
+            {360,-110}})),
             __cdl(semantic(
           metadataLanguage="Brick 1.3 text/turtle"
             "@prefix brick: <https://brickschema.org/schema/Brick#> .
