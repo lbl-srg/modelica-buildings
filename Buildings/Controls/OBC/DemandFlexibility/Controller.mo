@@ -135,20 +135,21 @@ block Controller
     timeScale=3600,
     period=86400)
     annotation (Placement(transformation(extent={{-174,142},{-154,162}})));
-  Buildings.Controls.OBC.DemandFlexibility.Subsequences.single_zone_ratchet_base single_zone_ratchet_base(
+  Buildings.Controls.OBC.DemandFlexibility.Subsequences.SingleZoneRatchetBase
+    single_zone_ratchet_base(
     loadShedHourStart=loadShedHourStart,
     loadShedHourEnd=loadShedHourEnd,
-   TZonHeaSetNomOcc=TZonHeaSetNomOcc,
-   TZonHeaSetNomUnocc=TZonHeaSetNomUnocc,
-   TZonCooSetNomOcc=TZonCooSetNomOcc,
-   TZonCooSetNomUnocc=TZonCooSetNomUnocc,
-     reboundDuration=reboundDuration,
-     loadShedTempAmount=loadShedTempAmount,
- loaSheHeaAct=loaSheHeaAct,
-loaSheCooAct=loaSheCooAct,
-      TRatThreshold=TRatThreshold,
-     TRat=TRat,
-        TReb=TReb)
+    TZonHeaSetNomOcc=TZonHeaSetNomOcc,
+    TZonHeaSetNomUnocc=TZonHeaSetNomUnocc,
+    TZonCooSetNomOcc=TZonCooSetNomOcc,
+    TZonCooSetNomUnocc=TZonCooSetNomUnocc,
+    reboundDuration=reboundDuration,
+    loadShedTempAmount=loadShedTempAmount,
+    loaSheHeaAct=loaSheHeaAct,
+    loaSheCooAct=loaSheCooAct,
+    TRatThreshold=TRatThreshold,
+    TRat=TRat,
+    TReb=TReb)
     annotation (Placement(transformation(extent={{-88,-52},{118,96}})));
 
 

@@ -1,5 +1,5 @@
 within Buildings.Examples.DemandFlexibility.HVAC;
-block setpoint_processing
+block SetpointProcessing
 
   parameter Real temRes=0.5556
     "temperature setpoint resolution";
@@ -8,7 +8,7 @@ block setpoint_processing
     final unit="s",
     min=1E-3) = 10
     "Sample period of component";
-  Subsequences.thermostatSetpointResolution thermostatSetpointResolutionCoo(temRes=
+  Subsequences.ThermostatSetpointResolution thermostatSetpointResolutionCoo(temRes=
         temRes)
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=
@@ -23,7 +23,7 @@ block setpoint_processing
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={32,-52})));
-  Subsequences.thermostatSetpointResolution thermostatSetpointResolutionHea(temRes=
+  Subsequences.ThermostatSetpointResolution thermostatSetpointResolutionHea(temRes=
         temRes)
     annotation (Placement(transformation(extent={{-66,40},{-46,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput  TZonHeaSetCom(
@@ -148,4 +148,4 @@ equation
           {94,-60},{120,-60}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end setpoint_processing;
+end SetpointProcessing;

@@ -1,5 +1,5 @@
-DF_SimpleRatchet_OnOffLoad_1Zone
-DF_SimpleRatchet_OnOffLoad_5Zone
-DF_LoadRatchet_OnOffLoad_5Zone
+DFSimpleRatchetOnOffLoad1Zone
+DFSimpleRatchetOnOffLoad5Zone
+DFLoadRatchetOnOffLoad5Zone
 ThermalZones
 HVAC

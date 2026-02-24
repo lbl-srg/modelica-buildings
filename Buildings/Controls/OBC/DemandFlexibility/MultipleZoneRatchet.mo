@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility;
-block multiple_zone_ratchet "multiple zone ratchet"
+block MultipleZoneRatchet "multiple zone ratchet"
 
   parameter Integer nZones=4;
   parameter Real loadShedHourStart=16;
@@ -23,7 +23,7 @@ block multiple_zone_ratchet "multiple zone ratchet"
     "Sample period of the demand flexibility control";
           parameter Real samplePeriodRebound(unit="s")=reboundDuration*TReb/loadShedTempAmount/nZones
     "Sample period of rebound";
-  Subsequences.one_zone_ratchet_heating single_zone_ratchet_heating[nZones](
+  Subsequences.OneZoneRatchetHeating single_zone_ratchet_heating[nZones](
     samplePeriodRatchet=samplePeriodRatchet,
     samplePeriodRebound=samplePeriodRebound,
     TRatThreshold=TRatThreshold,
@@ -31,9 +31,11 @@ block multiple_zone_ratchet "multiple zone ratchet"
     TReb=TReb,
     reboundDuration=reboundDuration)
     annotation (Placement(transformation(extent={{204,-12},{254,16}})));
-  Subsequences.temDifSelectionMin temDifSelectionMinHeaRat(nZones=nZones)
+  Subsequences.MinTemperatureDifferenceSelection temDifSelectionMinHeaRat(
+      nZones=nZones)
     annotation (Placement(transformation(extent={{118,96},{138,116}})));
-  Subsequences.temDifSelectionMax temDifSelectionMaxHeaReb(nZones=nZones)
+  Subsequences.MaxTemperatureDifferenceSelection temDifSelectionMaxHeaReb(
+      nZones=nZones)
     annotation (Placement(transformation(extent={{116,66},{136,86}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZones](
     final unit="K",
@@ -137,9 +139,11 @@ block multiple_zone_ratchet "multiple zone ratchet"
     annotation (Placement(transformation(extent={{-128,-200},{-108,-180}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract subt[nZones]
     annotation (Placement(transformation(extent={{-64,68},{-44,88}})));
-  Subsequences.temDifSelectionMin temDifSelectionMinCooReb(nZones=nZones)
+  Subsequences.MinTemperatureDifferenceSelection temDifSelectionMinCooReb(
+      nZones=nZones)
     annotation (Placement(transformation(extent={{116,-158},{136,-138}})));
-  Subsequences.temDifSelectionMax temDifSelectionMaxCooRat(nZones=nZones)
+  Subsequences.MaxTemperatureDifferenceSelection temDifSelectionMaxCooRat(
+      nZones=nZones)
     annotation (Placement(transformation(extent={{116,-118},{136,-98}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSetCom[nZones](
     final unit="K",
@@ -169,7 +173,7 @@ block multiple_zone_ratchet "multiple zone ratchet"
                 sh:path ref:hasExternalReference .",
           naturalLanguage="en"
             "<cdl_instance_name> is a temperature cooling setpoint input")));
-  Subsequences.one_zone_ratchet_cooling single_zone_ratchet_cooling[nZones](
+  Subsequences.OneZoneRatchetCooling single_zone_ratchet_cooling[nZones](
     samplePeriodRatchet=samplePeriodRatchet,
     samplePeriodRebound=samplePeriodRebound,
     TRatThreshold=TRatThreshold,
@@ -311,36 +315,33 @@ equation
      Line(points={{-300,14},{-252,14},{-252,-88},{-196,-88},{-196,-116},{-36,-116},
           {-36,-130},{144,-130},{144,-128},{182,-128},{182,-125.3},{190,-125.3}},
         color={0,0,127}));
-  connect(temDifSelectionMinHeaRat.actionFlag, single_zone_ratchet_heating.ratSig)
+  connect(temDifSelectionMinHeaRat.yAcnFla, single_zone_ratchet_heating.ratSig)
     annotation (Line(points={{139.379,106.2},{192,106.2},{192,10.54},{202,10.54}},
         color={255,0,255}));
-  connect(temDifSelectionMaxHeaReb.actionFlag, single_zone_ratchet_heating.rebSig)
-    annotation (Line(points={{137.379,76},{186,76},{186,8.3},{202,8.3}},
-                                                                       color={
-          255,0,255}));
-  connect(single_zone_ratchet_heating.reachTZonHeaSetMin,
-    temDifSelectionMinHeaRat.ignoreFlag) annotation (Line(points={{256,2.42},{
-          264,2.42},{264,124},{100,124},{100,100.2},{116.621,100.2}},
-                                   color={255,0,255}));
-  connect(single_zone_ratchet_heating.reachTZonHeaSetNom,
-    temDifSelectionMaxHeaReb.ignoreFlag) annotation (Line(points={{256,-0.52},{
-          266,-0.52},{266,0},{274,0},{274,-30},{94,-30},{94,70.2},{114.621,70.2}},
-                                                      color={255,0,255}));
-  connect(temDifSelectionMaxCooRat.actionFlag, single_zone_ratchet_cooling.ratSig)
-    annotation (Line(points={{137.379,-108},{182,-108},{182,-117.46},{190,
-          -117.46}},                                     color={255,0,255}));
-  connect(temDifSelectionMinCooReb.actionFlag, single_zone_ratchet_cooling.rebSig)
-    annotation (Line(points={{137.379,-147.8},{146,-147.8},{146,-122},{182,-122},
-          {182,-119.7},{190,-119.7}},
+  connect(temDifSelectionMaxHeaReb.yAcnFla, single_zone_ratchet_heating.rebSig)
+    annotation (Line(points={{137.379,76},{186,76},{186,8.3},{202,8.3}}, color=
+          {255,0,255}));
+  connect(single_zone_ratchet_heating.reach_TZonHeaSetMin,
+    temDifSelectionMinHeaRat.uIgnFla) annotation (Line(points={{256,2.42},{264,
+          2.42},{264,124},{100,124},{100,100.2},{116.621,100.2}}, color={255,0,
+          255}));
+  connect(single_zone_ratchet_heating.reach_TZonHeaSetNom,
+    temDifSelectionMaxHeaReb.uIgnFla) annotation (Line(points={{256,-0.52},{266,
+          -0.52},{266,0},{274,0},{274,-30},{94,-30},{94,70.2},{114.621,70.2}},
         color={255,0,255}));
-  connect(single_zone_ratchet_cooling.reachTZonCooSetNom,
-    temDifSelectionMinCooReb.ignoreFlag) annotation (Line(points={{244,-128.52},
-          {244,-128},{248,-128},{248,-162},{106,-162},{106,-153.8},{114.621,
-          -153.8}},                    color={255,0,255}));
-  connect(temDifSelectionMaxCooRat.ignoreFlag, single_zone_ratchet_cooling.reachTZonCooSetMax)
+  connect(temDifSelectionMaxCooRat.yAcnFla, single_zone_ratchet_cooling.ratSig)
+    annotation (Line(points={{137.379,-108},{182,-108},{182,-117.46},{190,
+          -117.46}}, color={255,0,255}));
+  connect(temDifSelectionMinCooReb.yAcnFla, single_zone_ratchet_cooling.rebSig)
+    annotation (Line(points={{137.379,-147.8},{146,-147.8},{146,-122},{182,-122},
+          {182,-119.7},{190,-119.7}}, color={255,0,255}));
+  connect(single_zone_ratchet_cooling.reach_TZonCooSetNom,
+    temDifSelectionMinCooReb.uIgnFla) annotation (Line(points={{244,-128.52},{
+          244,-128},{248,-128},{248,-162},{106,-162},{106,-153.8},{114.621,
+          -153.8}}, color={255,0,255}));
+  connect(temDifSelectionMaxCooRat.uIgnFla, single_zone_ratchet_cooling.reach_TZonCooSetMax)
     annotation (Line(points={{114.621,-113.8},{106,-113.8},{106,-92},{254,-92},
-          {254,-125.58},{244,-125.58}},
-                                   color={255,0,255}));
+          {254,-125.58},{244,-125.58}}, color={255,0,255}));
   connect(TZonHeaSetCur, subt.u2) annotation (Line(points={{-300,46},{-148,46},{
           -148,72},{-66,72}},                     color={0,0,127}));
   connect(TZon, subt1.u1) annotation (Line(points={{-300,78},{-252,78},{-252,50},
@@ -398,4 +399,4 @@ equation
 <p><span style=\"font-family: Arial; font-size: 9pt;\"><a name=\"docs-internal-guid-3a81ef97-7fff-7d02-c8a4-7cad7029a02b\">B</a><span style=\"background-color: #ffffff;\">asically, the model dynamically adjusts how fast the zone cooling setpoint is ratchated up based on the number of zones, the length of the DF event, and the amount of temperature delta that the cooling setpoint is allowed to change. For example, if we have 10 zones, the DF event lasts for 2 hours, and the temperature delta is 5 degF, if the ratchet amount is 1 degF and one zone at each iteration, then&nbsp; we need 50 iterations for all 10 zones to raise the zone cooling setpoint by 5degF. I specifically say that, all zones should have its zone cooling setpoint raised by 5 degF during the first one-third of 2 hours (0.67 hours, or 40 minutes). Thus, the ratcheting frequency (aka the time period between 2 consecutive iterations) would be 0.8 minutes / iteration (= 40 minutes / 50 iterations).&nbsp;</span></p>
 <p><span style=\"font-family: Arial; font-size: 9pt; background-color: #ffffff;\">For rebound, using the same example, we need 50 iterations for all 10 zones to reduce the zone cooling setpoint by 5degF. If we specify that the total time for rebound is 1 hour, then the rebounding frequency should be 1.2 minutes / iteration (=60 minutes / 50 iterations).</span></p>
 </html>"));
-end multiple_zone_ratchet;
+end MultipleZoneRatchet;

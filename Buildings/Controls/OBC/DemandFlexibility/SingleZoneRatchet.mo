@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility;
-block single_zone_ratchet "single zone ratchet"
+block SingleZoneRatchet "single zone ratchet"
 
   parameter Real loadShedHourStart=16;
   parameter Real loadShedHourEnd=21;
@@ -175,22 +175,21 @@ block single_zone_ratchet "single zone ratchet"
     timeScale=3600,
     period=86400)
     annotation (Placement(transformation(extent={{-174,142},{-154,162}})));
-  Subsequences.single_zone_ratchet_base single_zone_ratchet_base(
+  Subsequences.SingleZoneRatchetBase single_zone_ratchet_base(
     loadShedHourStart=loadShedHourStart,
     loadShedHourEnd=loadShedHourEnd,
-   TZonHeaSetNomOcc=TZonHeaSetNomOcc,
-   TZonHeaSetNomUnocc=TZonHeaSetNomUnocc,
-   TZonCooSetNomOcc=TZonCooSetNomOcc,
-   TZonCooSetNomUnocc=TZonCooSetNomUnocc,
-     reboundDuration=reboundDuration,
-     loadShedTempAmount=loadShedTempAmount,
- loaSheHeaAct=loaSheHeaAct,
-loaSheCooAct=loaSheCooAct,
-      TRatThreshold=TRatThreshold,
-     TRat=TRat,
-        TReb=TReb)
+    TZonHeaSetNomOcc=TZonHeaSetNomOcc,
+    TZonHeaSetNomUnocc=TZonHeaSetNomUnocc,
+    TZonCooSetNomOcc=TZonCooSetNomOcc,
+    TZonCooSetNomUnocc=TZonCooSetNomUnocc,
+    reboundDuration=reboundDuration,
+    loadShedTempAmount=loadShedTempAmount,
+    loaSheHeaAct=loaSheHeaAct,
+    loaSheCooAct=loaSheCooAct,
+    TRatThreshold=TRatThreshold,
+    TRat=TRat,
+    TReb=TReb)
     annotation (Placement(transformation(extent={{-88,-52},{118,96}})));
-
 
 equation
   connect(single_zone_ratchet_base.TZonHeaSetCom, TZonHeaSetCom) annotation (
@@ -221,4 +220,4 @@ equation
 <p><span style=\"font-family: Arial; font-size: 9pt;\">Basically, the model dynamically adjusts how fast the zone cooling setpoint is ratchated up based on the number of zones, the length of the DF event, and the amount of temperature delta that the cooling setpoint is allowed to change. For example, if we have 10 zones, the DF event lasts for 2 hours, and the temperature delta is 5 degF, if the ratchet amount is 1 degF and one zone at each iteration, then we need 50 iterations for all 10 zones to raise the zone cooling setpoint by 5degF. I specifically say that, all zones should have its zone cooling setpoint raised by 5 degF during the first one-third of 2 hours (0.67 hours, or 40 minutes). Thus, the ratcheting frequency (aka the time period between 2 consecutive iterations) would be 0.8 minutes / iteration (= 40 minutes / 50 iterations). </span></p>
 <p><span style=\"font-family: Arial; font-size: 9pt;\">For rebound, using the same example, we need 50 iterations for all 10 zones to reduce the zone cooling setpoint by 5degF. If we specify that the total time for rebound is 1 hour, then the rebounding frequency should be 1.2 minutes / iteration (=60 minutes / 50 iterations).</span></p>
 </html>"));
-end single_zone_ratchet;
+end SingleZoneRatchet;

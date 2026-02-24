@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block temDifSelectionMin "temDifSelectionMin"
+block MinTemperatureDifferenceSelection "temDifSelectionMin"
              parameter Integer nZones=3
     "Number of values to compare";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonTemDif[nZones]
@@ -14,12 +14,12 @@ block temDifSelectionMin "temDifSelectionMin"
     annotation (Placement(transformation(extent={{64,-30},{84,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nZones]
     annotation (Placement(transformation(extent={{138,20},{158,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput actionFlag[nZones]
-    annotation (Placement(transformation(extent={{190,-18},{230,22}}),
-        iconTransformation(extent={{190,-18},{230,22}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput ignoreFlag[nZones]
-    annotation (Placement(transformation(extent={{-142,-90},{-102,-50}}),
-        iconTransformation(extent={{-140,-78},{-100,-38}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAcnFla[nZones]
+    "action flag" annotation (Placement(transformation(extent={{190,-18},{230,
+            22}}), iconTransformation(extent={{190,-18},{230,22}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uIgnFla[nZones]
+    "ignore flag" annotation (Placement(transformation(extent={{-142,-90},{-102,
+            -50}}), iconTransformation(extent={{-140,-78},{-100,-38}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nZones]
     annotation (Placement(transformation(extent={{-56,30},{-36,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nZones](k=1000)
@@ -38,8 +38,8 @@ equation
   connect(gre.y, not1.u)
     annotation (Line(points={{114,30},{136,30}},
                                                color={255,0,255}));
-  connect(ignoreFlag, swi.u2) annotation (Line(points={{-122,-70},{-94,-70},{
-          -94,40},{-58,40}},      color={255,0,255}));
+  connect(uIgnFla, swi.u2) annotation (Line(points={{-122,-70},{-94,-70},{-94,
+          40},{-58,40}}, color={255,0,255}));
   connect(con.y, swi.u1) annotation (Line(points={{-66,72},{-58,72},{-58,48}},
                     color={0,0,127}));
   connect(TZonTemDif, swi.u3) annotation (Line(points={{-120,36},{-62,36},{-62,
@@ -55,8 +55,8 @@ equation
                                                           color={0,0,127}));
   connect(add2.y, mulMin.u) annotation (Line(points={{8,-6},{22,-6},{22,-20},{
           30,-20}},            color={0,0,127}));
-  connect(not1.y, actionFlag) annotation (Line(points={{160,30},{184,30},{184,2},
-          {210,2}}, color={255,0,255}));
+  connect(not1.y, yAcnFla) annotation (Line(points={{160,30},{184,30},{184,2},{
+          210,2}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {190,100}},
         grid={2,2})),                                            Diagram(
@@ -65,4 +65,4 @@ equation
     Documentation(info="<html>
 hello
 </html>"));
-end temDifSelectionMin;
+end MinTemperatureDifferenceSelection;

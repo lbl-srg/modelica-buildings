@@ -1,5 +1,5 @@
 within Buildings.Examples.DemandFlexibility;
-model DF_LoadRatchet_OnOffLoad_5Zone
+model DFLoadRatchetOnOffLoad5Zone
     extends Modelica.Icons.Example;
            parameter Integer nZones=5;
 replaceable package MediumAir = Buildings.Media.Air;
@@ -21,11 +21,14 @@ replaceable package MediumAir = Buildings.Media.Air;
         ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-134,10},{-114,30}})));
-  Buildings.Examples.DemandFlexibility.ThermalZones.building_5_zone building_5_zone
+  Buildings.Examples.DemandFlexibility.ThermalZones.Building5Zone
+    building_5_zone
     annotation (Placement(transformation(extent={{6,2},{26,24}})));
-  Buildings.Examples.DemandFlexibility.HVAC.custom_air_conditioner_OnOff_timer custom_air_conditioner_OnOff_timer[5]
+  Buildings.Examples.DemandFlexibility.HVAC.CustomAirConditionerOnOffTimer
+    custom_air_conditioner_OnOff_timer[5]
     annotation (Placement(transformation(extent={{56,60},{76,80}})));
-  Buildings.Controls.OBC.DemandFlexibility.multiple_zone_ratchet_load_response multiple_zone_ratchet_load_response(
+  Buildings.Controls.OBC.DemandFlexibility.MultipleZoneRatchetLoadResponse
+    MultipleZoneRatchetLoadResponse(
     nZones=5,
     TZonHeaSetNomOcc=THeaSetOcc,
     TZonHeaSetNomUnocc=THeaSetUnocc,
@@ -38,13 +41,17 @@ replaceable package MediumAir = Buildings.Media.Air;
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput
                                         totalElectricPower
     annotation (Placement(transformation(extent={{160,58},{180,78}})));
-  Buildings.Examples.DemandFlexibility.HVAC.setpoint_processing setpoint_processing[5]
+  Buildings.Examples.DemandFlexibility.HVAC.SetpointProcessing
+    setpoint_processing[5]
     annotation (Placement(transformation(extent={{-2,60},{18,80}})));
-  Buildings.Examples.DemandFlexibility.ThermalZones.building_5_zone building_5_zone_baseline
+  Buildings.Examples.DemandFlexibility.ThermalZones.Building5Zone
+    building_5_zone_baseline
     annotation (Placement(transformation(extent={{6,-102},{26,-80}})));
-  Buildings.Examples.DemandFlexibility.HVAC.custom_air_conditioner_OnOff_timer custom_air_conditioner_OnOff_timer_baseline[5]
+  Buildings.Examples.DemandFlexibility.HVAC.CustomAirConditionerOnOffTimer
+    custom_air_conditioner_OnOff_timer_baseline[5]
     annotation (Placement(transformation(extent={{56,-44},{76,-24}})));
-  Buildings.Controls.OBC.DemandFlexibility.multiple_zone_ratchet_load_response multiple_zone_ratchet_load_response1(
+  Buildings.Controls.OBC.DemandFlexibility.MultipleZoneRatchetLoadResponse
+    MultipleZoneRatchetLoadResponseBaseline(
     nZones=5,
     TZonHeaSetNomOcc=THeaSetOcc,
     TZonHeaSetNomUnocc=THeaSetUnocc,
@@ -56,9 +63,10 @@ replaceable package MediumAir = Buildings.Media.Air;
     annotation (Placement(transformation(extent={{-58,-52},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum_baseline(nin=5)
     annotation (Placement(transformation(extent={{104,-46},{124,-26}})));
-  Buildings.Examples.DemandFlexibility.HVAC.setpoint_processing setpoint_processing_baseline[5]
+  Buildings.Examples.DemandFlexibility.HVAC.SetpointProcessing
+    setpoint_processing_baseline[5]
     annotation (Placement(transformation(extent={{-2,-44},{18,-24}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput totalElectricPower_baseline
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput totalElectricPowerBaseline
     annotation (Placement(transformation(extent={{160,-46},{180,-26}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=390)
     annotation (Placement(transformation(extent={{-128,-34},{-108,-14}})));
@@ -72,7 +80,7 @@ equation
   connect(building_5_zone.TZon, custom_air_conditioner_OnOff_timer.ZAT)
     annotation (Line(points={{27,13.22},{34,13.22},{34,70.6667},{55,70.6667}},
                      color={0,0,127}));
-  connect(building_5_zone.TZon, multiple_zone_ratchet_load_response.TZon)
+  connect(building_5_zone.TZon, MultipleZoneRatchetLoadResponse.TZon)
     annotation (Line(points={{27,13.22},{34,13.22},{34,84},{-16,84},{-16,88},{
           -66,88},{-66,74.2769},{-59.3933,74.2769}}, color={0,0,127}));
   connect(weaDat1.weaBus,building_5_zone. weaBus) annotation (Line(
@@ -84,28 +92,26 @@ equation
                             color={0,0,127}));
   connect(mulSum.y,totalElectricPower)  annotation (Line(points={{126,68},{170,
           68}},                      color={0,0,127}));
-  connect(occupancyMode.y[1], multiple_zone_ratchet_load_response.occSta)
+  connect(occupancyMode.y[1], MultipleZoneRatchetLoadResponse.occSta)
     annotation (Line(points={{-110,66},{-68,66},{-68,79.9385},{-59.2667,79.9385}},
         color={255,0,255}));
-  connect(multiple_zone_ratchet_load_response.TZonHeaSetCom,
-    setpoint_processing.TZonHeaSetCom) annotation (Line(points={{-18.7333,72.8},
-          {-14,72.8},{-14,75},{-4,75}}, color={0,0,127}));
-  connect(multiple_zone_ratchet_load_response.TZonCooSetCom,
-    setpoint_processing.TZonCooSetCom) annotation (Line(points={{-18.7333,
-          62.4615},{-14,62.4615},{-14,65.8},{-4,65.8}}, color={0,0,127}));
+  connect(MultipleZoneRatchetLoadResponse.TZonHeaSetCom, setpoint_processing.TZonHeaSetCom)
+    annotation (Line(points={{-18.7333,72.8},{-14,72.8},{-14,75},{-4,75}},
+        color={0,0,127}));
+  connect(MultipleZoneRatchetLoadResponse.TZonCooSetCom, setpoint_processing.TZonCooSetCom)
+    annotation (Line(points={{-18.7333,62.4615},{-14,62.4615},{-14,65.8},{-4,
+          65.8}}, color={0,0,127}));
   connect(setpoint_processing.TZonHeaSetPro, custom_air_conditioner_OnOff_timer.THeaSet)
     annotation (Line(points={{20,74.6},{50,74.6},{50,75.4667},{54.8889,75.4667}},
         color={0,0,127}));
   connect(custom_air_conditioner_OnOff_timer.TCooSet, setpoint_processing.TZonCooSetPro)
     annotation (Line(points={{54.8889,65.8667},{52,66},{20,66}}, color={0,0,127}));
-  connect(setpoint_processing.TZonHeaSetPro,
-    multiple_zone_ratchet_load_response.TZonHeaSetCur) annotation (Line(points={{20,74.6},
-          {28,74.6},{28,90},{-70,90},{-70,72.3077},{-59.3933,72.3077}},
-        color={0,0,127}));
-  connect(setpoint_processing.TZonCooSetPro,
-    multiple_zone_ratchet_load_response.TZonCooSetCur) annotation (Line(points={{20,66},
-          {28,66},{28,46},{-62,46},{-62,70.2154},{-59.2667,70.2154}},
-        color={0,0,127}));
+  connect(setpoint_processing.TZonHeaSetPro, MultipleZoneRatchetLoadResponse.TZonHeaSetCur)
+    annotation (Line(points={{20,74.6},{28,74.6},{28,90},{-70,90},{-70,72.3077},
+          {-59.3933,72.3077}}, color={0,0,127}));
+  connect(setpoint_processing.TZonCooSetPro, MultipleZoneRatchetLoadResponse.TZonCooSetCur)
+    annotation (Line(points={{20,66},{28,66},{28,46},{-62,46},{-62,70.2154},{
+          -59.2667,70.2154}}, color={0,0,127}));
   connect(custom_air_conditioner_OnOff_timer_baseline.port_b,
     building_5_zone_baseline.port_a) annotation (Line(points={{76.3333,-42.1333},
           {80,-42.1333},{80,-108},{2,-108},{2,-84.62},{6.2,-84.62}}, color={0,
@@ -116,9 +122,10 @@ equation
   connect(building_5_zone_baseline.TZon,
     custom_air_conditioner_OnOff_timer_baseline.ZAT) annotation (Line(points={{27,
           -90.78},{34,-90.78},{34,-33.3333},{55,-33.3333}},    color={0,0,127}));
-  connect(building_5_zone_baseline.TZon, multiple_zone_ratchet_load_response1.TZon)
-    annotation (Line(points={{27,-90.78},{34,-90.78},{34,-20},{-16,-20},{-16,
-          -16},{-66,-16},{-66,-29.7231},{-59.3933,-29.7231}}, color={0,0,127}));
+  connect(building_5_zone_baseline.TZon,
+    MultipleZoneRatchetLoadResponseBaseline.TZon) annotation (Line(points={{27,
+          -90.78},{34,-90.78},{34,-20},{-16,-20},{-16,-16},{-66,-16},{-66,
+          -29.7231},{-59.3933,-29.7231}}, color={0,0,127}));
   connect(weaDat1.weaBus, building_5_zone_baseline.weaBus) annotation (Line(
       points={{-114,20},{-74,20},{-74,-94.96},{5.4,-94.96}},
       color={255,204,51},
@@ -126,15 +133,15 @@ equation
   connect(mulSum_baseline.u[1:5], custom_air_conditioner_OnOff_timer_baseline.electricPower)
     annotation (Line(points={{102,-35.2},{82,-35.2},{82,-27.8667},{77.1111,
           -27.8667}}, color={0,0,127}));
-  connect(mulSum_baseline.y, totalElectricPower_baseline)
+  connect(mulSum_baseline.y, totalElectricPowerBaseline)
     annotation (Line(points={{126,-36},{170,-36}}, color={0,0,127}));
-  connect(occupancyMode.y[1], multiple_zone_ratchet_load_response1.occSta)
+  connect(occupancyMode.y[1], MultipleZoneRatchetLoadResponseBaseline.occSta)
     annotation (Line(points={{-110,66},{-68,66},{-68,-18},{-64,-18},{-64,
           -24.0615},{-59.2667,-24.0615}}, color={255,0,255}));
-  connect(multiple_zone_ratchet_load_response1.TZonHeaSetCom,
+  connect(MultipleZoneRatchetLoadResponseBaseline.TZonHeaSetCom,
     setpoint_processing_baseline.TZonHeaSetCom) annotation (Line(points={{
           -18.7333,-31.2},{-14,-31.2},{-14,-29},{-4,-29}}, color={0,0,127}));
-  connect(multiple_zone_ratchet_load_response1.TZonCooSetCom,
+  connect(MultipleZoneRatchetLoadResponseBaseline.TZonCooSetCom,
     setpoint_processing_baseline.TZonCooSetCom) annotation (Line(points={{
           -18.7333,-41.5385},{-14,-41.5385},{-14,-38.2},{-4,-38.2}}, color={0,0,
           127}));
@@ -146,24 +153,24 @@ equation
     setpoint_processing_baseline.TZonCooSetPro) annotation (Line(points={{54.8889,
           -38.1333},{52,-38},{20,-38}},         color={0,0,127}));
   connect(setpoint_processing_baseline.TZonHeaSetPro,
-    multiple_zone_ratchet_load_response1.TZonHeaSetCur) annotation (Line(points={{20,
-          -29.4},{28,-29.4},{28,-14},{-70,-14},{-70,-31.6923},{-59.3933,
-          -31.6923}}, color={0,0,127}));
+    MultipleZoneRatchetLoadResponseBaseline.TZonHeaSetCur) annotation (Line(
+        points={{20,-29.4},{28,-29.4},{28,-14},{-70,-14},{-70,-31.6923},{
+          -59.3933,-31.6923}}, color={0,0,127}));
   connect(setpoint_processing_baseline.TZonCooSetPro,
-    multiple_zone_ratchet_load_response1.TZonCooSetCur) annotation (Line(points={{20,-38},
-          {28,-38},{28,-58},{-62,-58},{-62,-33.7846},{-59.2667,-33.7846}},
-                      color={0,0,127}));
-  connect(mulSum.y, multiple_zone_ratchet_load_response.Pel) annotation (Line(
+    MultipleZoneRatchetLoadResponseBaseline.TZonCooSetCur) annotation (Line(
+        points={{20,-38},{28,-38},{28,-58},{-62,-58},{-62,-33.7846},{-59.2667,
+          -33.7846}}, color={0,0,127}));
+  connect(mulSum.y, MultipleZoneRatchetLoadResponse.Pel) annotation (Line(
         points={{126,68},{130,68},{130,40},{-78,40},{-78,57.9077},{-59.2667,
           57.9077}}, color={0,0,127}));
-  connect(mulSum_baseline.y, multiple_zone_ratchet_load_response1.Pel)
+  connect(mulSum_baseline.y, MultipleZoneRatchetLoadResponseBaseline.Pel)
     annotation (Line(points={{126,-36},{138,-36},{138,-70},{-70,-70},{-70,
           -46.0923},{-59.2667,-46.0923}}, color={0,0,127}));
-  connect(con.y, multiple_zone_ratchet_load_response.Pel_limit) annotation (
-      Line(points={{-106,-24},{-82,-24},{-82,54.3385},{-59.2667,54.3385}},
-        color={0,0,127}));
-  connect(con.y, multiple_zone_ratchet_load_response1.Pel_limit) annotation (
-      Line(points={{-106,-24},{-102,-24},{-102,-50},{-59.2667,-50},{-59.2667,
+  connect(con.y, MultipleZoneRatchetLoadResponse.Pel_limit) annotation (Line(
+        points={{-106,-24},{-82,-24},{-82,54.3385},{-59.2667,54.3385}}, color={
+          0,0,127}));
+  connect(con.y, MultipleZoneRatchetLoadResponseBaseline.Pel_limit) annotation
+    (Line(points={{-106,-24},{-102,-24},{-102,-50},{-59.2667,-50},{-59.2667,
           -49.6615}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{160,100}})),                                  Diagram(
@@ -173,4 +180,4 @@ equation
       StopTime=8640,
       Interval=60,
       __Dymola_Algorithm="Dassl"));
-end DF_LoadRatchet_OnOffLoad_5Zone;
+end DFLoadRatchetOnOffLoad5Zone;

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block single_zone_ratchet_base "single_zone_ratchet_base"
+block SingleZoneRatchetBase "single_zone_ratchet_base"
 
   parameter Real loadShedHourStart=16;
   parameter Real loadShedHourEnd=21;
@@ -22,7 +22,8 @@ block single_zone_ratchet_base "single_zone_ratchet_base"
     "Sample period of the demand flexibility control";
           parameter Real samplePeriodRebound(unit="s")=reboundDuration*TReb/loadShedTempAmount
     "Sample period of rebound";
-  Buildings.Controls.OBC.DemandFlexibility.Subsequences.one_zone_ratchet_heating_single_zone ratHea(
+  Buildings.Controls.OBC.DemandFlexibility.Subsequences.OneZoneRatchetHeatingSingleZone
+    ratHea(
     samplePeriodRatchet=samplePeriodRatchet,
     samplePeriodRebound=samplePeriodRebound,
     TRatThreshold=TRatThreshold,
@@ -61,7 +62,8 @@ block single_zone_ratchet_base "single_zone_ratchet_base"
     "Zone temperature setpoint command" annotation (Placement(transformation(
           extent={{202,-128},{242,-88}}),  iconTransformation(extent={{200,-118},
             {240,-78}})));
-  Buildings.Controls.OBC.DemandFlexibility.Subsequences.one_zone_ratchet_cooling_single_zone ratCoo(
+  Buildings.Controls.OBC.DemandFlexibility.Subsequences.OneZoneRatchetCoolingSingleZone
+    ratCoo(
     samplePeriodRatchet=samplePeriodRatchet,
     samplePeriodRebound=samplePeriodRebound,
     TRatThreshold=TRatThreshold,
@@ -165,4 +167,4 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,220}},
         grid={2,2})));
-end single_zone_ratchet_base;
+end SingleZoneRatchetBase;

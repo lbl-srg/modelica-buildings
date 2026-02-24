@@ -1,5 +1,5 @@
-custom_air_conditioner
-custom_air_conditioner_OnOff_timer
-setpoint_processing
+CustomAirConditioner
+CustomAirConditionerOnOffTimer
+SetpointProcessing
 Subsequences
 Validation

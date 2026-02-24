@@ -1,5 +1,5 @@
 within Buildings.Examples.DemandFlexibility.HVAC.Subsequences;
-block thermostatSetpointResolution
+block ThermostatSetpointResolution
   parameter Real temRes=0.5556
     "temperature setpoint resolution";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setpointCommand annotation (
@@ -51,4 +51,4 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{150,
             100}},
         grid={2,2})));
-end thermostatSetpointResolution;
+end ThermostatSetpointResolution;

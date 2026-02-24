@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block one_zone_ratchet_heating "one_zone_ratchet_heating"
+block OneZoneRatchetHeating "one_zone_ratchet_heating"
 
       parameter Real samplePeriodRatchet(unit="s")=300
     "Sample period of the demand flexibility control";
@@ -43,10 +43,10 @@ block one_zone_ratchet_heating "one_zone_ratchet_heating"
     "Current zone temperature setpoint" annotation (Placement(transformation(
           extent={{-240,-110},{-200,-70}}), iconTransformation(extent={{-240,-110},
             {-200,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reachTZonHeaSetMin
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_TZonHeaSetMin
     annotation (Placement(transformation(extent={{300,-114},{340,-74}}),
         iconTransformation(extent={{300,-114},{340,-74}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reachTZonHeaSetNom
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_TZonHeaSetNom
     annotation (Placement(transformation(extent={{300,-156},{340,-116}}),
         iconTransformation(extent={{300,-156},{340,-116}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=
@@ -157,9 +157,9 @@ equation
   connect(TZonHeaSetNom, les1.u2) annotation (Line(points={{-220,-174},{-220,
           -176},{-140,-176},{-140,-192},{116,-192},{116,-208},{134,-208},{134,
           -212}}, color={0,0,127}));
-  connect(not1.y, reachTZonHeaSetNom) annotation (Line(points={{200,-204},{292,
+  connect(not1.y, reach_TZonHeaSetNom) annotation (Line(points={{200,-204},{292,
           -204},{292,-136},{320,-136}}, color={255,0,255}));
-  connect(not2.y, reachTZonHeaSetMin)
+  connect(not2.y, reach_TZonHeaSetMin)
     annotation (Line(points={{198,-94},{320,-94}}, color={255,0,255}));
   connect(TZonHeaSetNom, min1.u2) annotation (Line(points={{-220,-174},{-140,
           -174},{-140,-172},{-136,-172},{-136,-132},{68,-132},{68,28},{90,28},{
@@ -197,4 +197,4 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{300,100}},
         grid={2,2})));
-end one_zone_ratchet_heating;
+end OneZoneRatchetHeating;

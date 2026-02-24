@@ -1,5 +1,5 @@
 within Buildings.Examples.DemandFlexibility.HVAC;
-block custom_air_conditioner
+block CustomAirConditioner
 
           package MediumAir = Buildings.Media.Air;
   package MediumWater = Buildings.Media.Water;
@@ -165,4 +165,4 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{260,
             200}},
         grid={2,2})));
-end custom_air_conditioner;
+end CustomAirConditioner;

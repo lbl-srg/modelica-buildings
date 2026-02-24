@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block temDifSelectionMax "temDifSelectionMax"
+block MaxTemperatureDifferenceSelection "temDifSelectionMax"
              parameter Integer nZones=3
     "Number of values to compare";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonTemDif[nZones]
@@ -14,12 +14,12 @@ block temDifSelectionMax "temDifSelectionMax"
     annotation (Placement(transformation(extent={{72,-26},{92,-6}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nZones]
     annotation (Placement(transformation(extent={{150,22},{170,42}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput actionFlag[nZones]
-    annotation (Placement(transformation(extent={{190,-20},{230,20}}),
-        iconTransformation(extent={{190,-20},{230,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput ignoreFlag[nZones]
-    annotation (Placement(transformation(extent={{-142,-86},{-102,-46}}),
-        iconTransformation(extent={{-140,-78},{-100,-38}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAcnFla[nZones]
+    "action flag" annotation (Placement(transformation(extent={{190,-20},{230,
+            20}}), iconTransformation(extent={{190,-20},{230,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uIgnFla[nZones]
+    "ignore flag" annotation (Placement(transformation(extent={{-142,-86},{-102,
+            -46}}), iconTransformation(extent={{-140,-78},{-100,-38}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nZones]
     annotation (Placement(transformation(extent={{-46,30},{-26,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nZones](k=-1000)
@@ -53,13 +53,13 @@ equation
           32}},                       color={0,0,127}));
   connect(add2.y, mulMax.u) annotation (Line(points={{10,-2},{24,-2},{24,-16},{
           34,-16}},  color={0,0,127}));
-  connect(swi.u2, ignoreFlag) annotation (Line(points={{-48,40},{-62,40},{-62,
-          -66},{-122,-66}}, color={255,0,255}));
-  connect(not1.y, actionFlag) annotation (Line(points={{172,32},{184,32},{184,0},
-          {210,0}}, color={255,0,255}));
+  connect(swi.u2, uIgnFla) annotation (Line(points={{-48,40},{-62,40},{-62,-66},
+          {-122,-66}}, color={255,0,255}));
+  connect(not1.y, yAcnFla) annotation (Line(points={{172,32},{184,32},{184,0},{
+          210,0}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {190,100}},
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{190,100}},
         grid={2,2})));
-end temDifSelectionMax;
+end MaxTemperatureDifferenceSelection;

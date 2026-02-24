@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block one_zone_ratchet_cooling "one_zone_ratchet_cooling"
+block OneZoneRatchetCooling "one_zone_ratchet_cooling"
 
       parameter Real samplePeriodRatchet(unit="s")=300
     "Sample period of the demand flexibility control";
@@ -43,10 +43,10 @@ block one_zone_ratchet_cooling "one_zone_ratchet_cooling"
     "Current zone temperature setpoint" annotation (Placement(transformation(
           extent={{-240,-110},{-200,-70}}), iconTransformation(extent={{-240,-110},
             {-200,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reachTZonCooSetMax
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_TZonCooSetMax
     annotation (Placement(transformation(extent={{300,-114},{340,-74}}),
         iconTransformation(extent={{300,-114},{340,-74}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reachTZonCooSetNom
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_TZonCooSetNom
     annotation (Placement(transformation(extent={{300,-156},{340,-116}}),
         iconTransformation(extent={{300,-156},{340,-116}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=
@@ -155,10 +155,10 @@ equation
           -264},{104,-250},{136,-250}},                       color={0,0,127}));
   connect(gre2.y, not4.u)
     annotation (Line(points={{160,-242},{178,-242}}, color={255,0,255}));
-  connect(not3.y, reachTZonCooSetMax) annotation (Line(points={{202,-132},{288,-132},
-          {288,-94},{320,-94}}, color={255,0,255}));
-  connect(not4.y, reachTZonCooSetNom) annotation (Line(points={{202,-242},{292,-242},
-          {292,-136},{320,-136}}, color={255,0,255}));
+  connect(not3.y, reach_TZonCooSetMax) annotation (Line(points={{202,-132},{288,
+          -132},{288,-94},{320,-94}}, color={255,0,255}));
+  connect(not4.y, reach_TZonCooSetNom) annotation (Line(points={{202,-242},{292,
+          -242},{292,-136},{320,-136}}, color={255,0,255}));
   connect(and2.y, booToRea.u) annotation (Line(points={{-64,28},{-54,28},{-54,
           54},{-56,54},{-56,62},{-48,62}},
                          color={255,0,255}));
@@ -194,4 +194,4 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{300,100}},
         grid={2,2})));
-end one_zone_ratchet_cooling;
+end OneZoneRatchetCooling;

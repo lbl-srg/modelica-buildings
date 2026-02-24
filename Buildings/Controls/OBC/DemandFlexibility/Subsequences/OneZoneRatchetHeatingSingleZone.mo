@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block one_zone_ratchet_heating_single_zone "one_zone_ratchet_heating_single_zone"
+block OneZoneRatchetHeatingSingleZone "one_zone_ratchet_heating_single_zone"
 
       parameter Real samplePeriodRatchet(unit="s")=300
     "Sample period of the demand flexibility control";
@@ -52,7 +52,8 @@ block one_zone_ratchet_heating_single_zone "one_zone_ratchet_heating_single_zone
     "nominal zone temperature setpoint" annotation (Placement(transformation(
           extent={{-240,-256},{-200,-216}}), iconTransformation(extent={{-240,
             -256},{-200,-216}})));
-  Buildings.Controls.OBC.DemandFlexibility.Subsequences.one_zone_ratchet_heating one_zone_ratchet_heating1(
+  Buildings.Controls.OBC.DemandFlexibility.Subsequences.OneZoneRatchetHeating
+    one_zone_ratchet_heating1(
     samplePeriodRatchet=samplePeriodRatchet,
     samplePeriodRebound=samplePeriodRebound,
     TRatThreshold=TRatThreshold,
@@ -87,4 +88,4 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{300,100}},
         grid={2,2})));
-end one_zone_ratchet_heating_single_zone;
+end OneZoneRatchetHeatingSingleZone;

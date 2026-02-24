@@ -1,5 +1,5 @@
 within Buildings.Examples.DemandFlexibility.ThermalZones;
-block building_1_zone
+block Building1Zone
             package MediumAir = Buildings.Media.Air;
   package MediumWater = Buildings.Media.Water;
     package MediumPropyleneGlycol =
@@ -51,4 +51,4 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end building_1_zone;
+end Building1Zone;

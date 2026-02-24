@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.DemandFlexibility.Validation;
-model multiple_zone_ratchet_load_response
+model MultipleZoneRatchetLoadResponse
   extends Modelica.Icons.Example;
   parameter Integer nZones=4;
-  Buildings.Controls.OBC.DemandFlexibility.multiple_zone_ratchet_load_response
-    multiple_zone_ratchet_load_response(nZones=nZones)
+  Buildings.Controls.OBC.DemandFlexibility.MultipleZoneRatchetLoadResponse
+    MultipleZoneRatchetLoadResponse(nZones=nZones)
     annotation (Placement(transformation(extent={{28,-26},{84,18}})));
   CDL.Reals.Sources.TimeTable timTab(
     table=[0,273.15 + 14; 7,273.15 + 20; 17,273.15 + 19; 20,273.15 + 14; 24,273.15
@@ -49,26 +49,26 @@ model multiple_zone_ratchet_load_response
 equation
   connect(TZon.y, reaScaRep.u)
     annotation (Line(points={{-68,50},{-44,50}}, color={0,0,127}));
-  connect(reaScaRep.y, multiple_zone_ratchet_load_response.TZon) annotation (
-      Line(points={{-20,50},{12,50},{12,4.63077},{25.9467,4.63077}}, color={0,0,
+  connect(reaScaRep.y, MultipleZoneRatchetLoadResponse.TZon) annotation (Line(
+        points={{-20,50},{12,50},{12,4.63077},{25.9467,4.63077}}, color={0,0,
           127}));
   connect(timTab.y[1], reaScaRep1.u)
     annotation (Line(points={{-68,6},{-52,6}}, color={0,0,127}));
   connect(timTab1.y[1], reaScaRep2.u)
     annotation (Line(points={{-68,-26},{-52,-26}}, color={0,0,127}));
-  connect(reaScaRep1.y, multiple_zone_ratchet_load_response.TZonHeaSetCur)
+  connect(reaScaRep1.y, MultipleZoneRatchetLoadResponse.TZonHeaSetCur)
     annotation (Line(points={{-28,6},{10,6},{10,1.92308},{25.9467,1.92308}},
         color={0,0,127}));
-  connect(reaScaRep2.y, multiple_zone_ratchet_load_response.TZonCooSetCur)
+  connect(reaScaRep2.y, MultipleZoneRatchetLoadResponse.TZonCooSetCur)
     annotation (Line(points={{-28,-26},{22,-26},{22,-0.953846},{26.1333,
           -0.953846}}, color={0,0,127}));
-  connect(booTimTab.y[1], multiple_zone_ratchet_load_response.occSta)
-    annotation (Line(points={{-68,82},{18,82},{18,12.4154},{26.1333,12.4154}},
-        color={255,0,255}));
-  connect(Pel.y, multiple_zone_ratchet_load_response.Pel) annotation (Line(
-        points={{-28,-54},{-12,-54},{-12,-17.8769},{26.1333,-17.8769}}, color={
-          0,0,127}));
-  connect(Pel_limit.y, multiple_zone_ratchet_load_response.Pel_limit)
-    annotation (Line(points={{-28,-88},{24,-88},{24,-22.7846},{26.1333,-22.7846}},
-        color={0,0,127}));
-end multiple_zone_ratchet_load_response;
+  connect(booTimTab.y[1], MultipleZoneRatchetLoadResponse.occSta) annotation (
+      Line(points={{-68,82},{18,82},{18,12.4154},{26.1333,12.4154}}, color={255,
+          0,255}));
+  connect(Pel.y, MultipleZoneRatchetLoadResponse.Pel) annotation (Line(points={
+          {-28,-54},{-12,-54},{-12,-17.8769},{26.1333,-17.8769}}, color={0,0,
+          127}));
+  connect(Pel_limit.y, MultipleZoneRatchetLoadResponse.Pel_limit) annotation (
+      Line(points={{-28,-88},{24,-88},{24,-22.7846},{26.1333,-22.7846}}, color=
+          {0,0,127}));
+end MultipleZoneRatchetLoadResponse;
