@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.Validation.TimerWithReset", stopTime=5.0, method="Cvode", tolerance=1e-06, resultFile="TimerWithReset");
+simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.TimerWithReset", stopTime=5.0, method="Cvode", tolerance=1e-06, resultFile="TimerWithReset");
 createPlot(id=1, position={15, 15, 300, 500}, y={"noThr.u", "res.y"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=1);
 createPlot(id=1, position={15, 15, 300, 500}, y={"noThr.t", "noThr.y", "noThrRes.y"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=2);
 createPlot(id=1, position={15, 15, 300, 500}, y={"noThr.passed", "noThrRes.passed"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=3);

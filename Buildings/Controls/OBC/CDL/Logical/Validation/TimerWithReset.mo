@@ -1,12 +1,12 @@
-within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.Validation;
+within Buildings.Controls.OBC.CDL.Logical.Validation;
 model TimerWithReset "Validation model for the Timer block"
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset noThr
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset noThr
     "Timer that do not compare threshold – No Reset"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset thrTim(
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset thrTim(
     final t=0.3) "Timer that compares threshold – No Reset"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset thrTim1(
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset thrTim1(
     final t=0.3) "Timer that compares threshold – No Reset"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
@@ -21,21 +21,20 @@ model TimerWithReset "Validation model for the Timer block"
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant
-                                                   con(k=false) "Constant"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false) "Constant"
     annotation (Placement(transformation(extent={{-40,-38},{-20,-18}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset noThrRes
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset noThrRes
     "Timer that do not compare threshold – With Reset"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset thrTimRes(final t=
-        0.3) "Timer that compares threshold – With Reset"
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset thrTimRes(
+    final t=0.3) "Timer that compares threshold – With Reset"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset thrTim1Res(final t=
-        0.3) "Timer that compares threshold – With Reset"
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset thrTim1Res(
+    final t=0.3) "Timer that compares threshold – With Reset"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger
-                                                   samTri(final period=1.5,
-      shift=1.2) "Block that generates periodic reset signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
+    final period=1.5,
+    shift=1.2) "Block that generates periodic reset signal"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold res(trueHoldDuration=0.01,
       falseHoldDuration=0) "Hold signal for plotting"
@@ -48,13 +47,11 @@ equation
   connect(booPul1.y,thrTim1.u)
     annotation (Line(points={{-18,-60},{18,-60}},color={255,0,255}));
   connect(con.y, noThr.reset) annotation (Line(points={{-18,-28},{10,-28},{10,
-          12},{18,12}},
-                    color={255,0,255}));
+          12},{18,12}}, color={255,0,255}));
   connect(con.y, thrTim.reset) annotation (Line(points={{-18,-28},{18,-28}},
-                     color={255,0,255}));
+          color={255,0,255}));
   connect(con.y, thrTim1.reset) annotation (Line(points={{-18,-28},{10,-28},{10,
-          -68},{18,-68}},
-                     color={255,0,255}));
+          -68},{18,-68}}, color={255,0,255}));
   connect(samTri.y, noThrRes.reset) annotation (Line(points={{-18,60},{60,60},{
           60,32},{68,32}}, color={255,0,255}));
   connect(booPul.y, noThrRes.u) annotation (Line(points={{-18,20},{0,20},{0,40},
@@ -74,18 +71,18 @@ equation
       StopTime=5.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Generic/Validation/TimerWithReset.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/TimerWithReset.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation model for the block
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.TimerWithReset\">
+Buildings.Controls.OBC.CDL.Logical.TimerWithReset</a>.
 </p>
 </html>",
-      revisions="<html>
-      <ul>
-      <li>
+revisions="<html>
+<ul>
+<li>
 March 29, 2024, by Antoine Gautier:<br/>
 Updated implementation to reset timer with boolean input.
 </li>

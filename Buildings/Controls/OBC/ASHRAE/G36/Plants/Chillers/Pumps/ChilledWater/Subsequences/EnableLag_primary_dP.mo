@@ -101,17 +101,18 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And disPum1
     "Disable pump"
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
-
-public
-  Generic.TimerWithReset tim(final t=timPer)
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset tim(
+    final t=timPer)
     "Check if it has passed the threshold time"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  CDL.Integers.Change cha
+  Buildings.Controls.OBC.CDL.Integers.Change cha
+    "Check if there is change in the number of enabled pumps"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-public
-  Generic.TimerWithReset tim1(final t=timPer)
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset tim1(
+    final t=timPer)
     "Check if it has passed the threshold time"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
+
 equation
   connect(VChiWat_flow,chiWatFloRat. u)
     annotation (Line(points={{-240,80},{-202,80}}, color={0,0,127}));
@@ -150,18 +151,16 @@ equation
   connect(sub3.y, sub2.u2) annotation (Line(points={{102,40},{120,40},{120,70},{
           -140,70},{-140,94},{-122,94}}, color={0,0,127}));
   connect(sub.y, sub1.u1) annotation (Line(points={{102,-40},{120,-40},{120,
-          -100},{-140,-100},{-140,-154},{-122,-154}},
-                                                color={0,0,127}));
+          -100},{-140,-100},{-140,-154},{-122,-154}}, color={0,0,127}));
   connect(numOpePum.y, intGreThr.u) annotation (Line(points={{-118,0},{-110,0},{
           -110,-60},{-102,-60}}, color={255,127,0}));
   connect(enaPum.y, enaPum1.u1)
     annotation (Line(points={{-58,100},{-50,100},{-50,120},{-22,120}},
-                                                   color={255,0,255}));
+          color={255,0,255}));
   connect(disPum.y, disPum1.u1)
     annotation (Line(points={{-58,-160},{-22,-160}}, color={255,0,255}));
   connect(intGreThr.y, enaPum1.u2) annotation (Line(points={{-78,-60},{-40,-60},
-          {-40,112},{-22,112}},
-                              color={255,0,255}));
+          {-40,112},{-22,112}}, color={255,0,255}));
   connect(intGreThr.y, disPum1.u2) annotation (Line(points={{-78,-60},{-40,-60},
           {-40,-168},{-22,-168}}, color={255,0,255}));
   connect(enaPum1.y, tim.u) annotation (Line(points={{2,120},{20,120},{20,100},
