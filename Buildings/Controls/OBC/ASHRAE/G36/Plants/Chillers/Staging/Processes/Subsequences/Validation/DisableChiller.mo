@@ -197,7 +197,7 @@ The chiller 2 is disabled immediately.
 </html>", revisions="<html>
 <ul>
 <li>
-September 24, by Jianjun Hu:<br/>
+September 24, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
