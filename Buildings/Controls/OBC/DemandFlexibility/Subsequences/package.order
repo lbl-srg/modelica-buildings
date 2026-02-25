@@ -5,3 +5,5 @@ OneZoneRatchetCoolingSingleZone
 MinTemperatureDifferenceSelection
 MaxTemperatureDifferenceSelection
 SingleZoneRatchetBase
+SelectLargestValues
+SelectSmallestValues
