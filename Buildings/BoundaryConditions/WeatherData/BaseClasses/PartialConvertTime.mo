@@ -20,12 +20,12 @@ protected
     "Start time of next period";
 
 equation
-  // simulation time stamp went over the end time of the weather file
-  //(last time stamp of the weather file + average increment)
   when initial() then
     tNext = if canRepeatWeatherFile
-            then integer(modTimAux/lenWea)*lenWea + lenWea
+            then floor(modTimAux/lenWea)*lenWea + lenWea
             else time;
+  // simulation time stamp went over the end time of the weather file
+  // (last time stamp of the weather file + average increment)
   elsewhen (canRepeatWeatherFile and modTimAux > pre(tNext)) then
     tNext = if canRepeatWeatherFile
             then if modTimAux >=0 then floor(modTimAux/lenWea + 0.5)*lenWea + lenWea
