@@ -51,4 +51,8 @@ equation
           {0,0,127}));
   connect(booTimTab.y[1], MultipleZoneRatchet.occSta) annotation (Line(points={
           {-68,82},{18,82},{18,11.4},{26,11.4}}, color={255,0,255}));
+  annotation (experiment(
+      StopTime=172800,
+      Interval=60,
+      __Dymola_Algorithm="Dassl"));
 end MultipleZoneRatchet;

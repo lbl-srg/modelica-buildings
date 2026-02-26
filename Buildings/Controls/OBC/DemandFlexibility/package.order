@@ -2,5 +2,6 @@ MultipleZoneRatchet
 MultipleZoneRatchetLoadResponse
 SingleZoneRatchet
 Controller
+PrecoolMZVAVSimple
 Subsequences
 Validation

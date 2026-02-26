@@ -409,12 +409,12 @@ equation
   connect(booScaRep2.y, logSwi.u2) annotation (Line(points={{-132,-252},{-88,
           -252},{-88,-28},{-40,-28},{-40,-12},{0,-12},{0,12},{160,12},{160,98},
           {206,98}}, color={255,0,255}));
-  connect(temDifSelectionMinHeaRat.yAcnFla, logSwi.u1) annotation (Line(points=
-          {{139.379,106.2},{192,106.2},{192,106},{206,106}}, color={255,0,255}));
+  connect(temDifSelectionMinHeaRat.yAcnFla, logSwi.u1) annotation (Line(points={{139.379,
+          106.2},{192,106.2},{192,106},{206,106}},           color={255,0,255}));
   connect(logSwi.y, single_zone_ratchet_heating.ratSig) annotation (Line(points
         ={{230,98},{232,98},{232,10.54},{248,10.54}}, color={255,0,255}));
-  connect(temDifSelectionMaxCooRat.yAcnFla, logSwi1.u1) annotation (Line(points
-        ={{137.379,-108},{144,-108},{144,-52},{200,-52}}, color={255,0,255}));
+  connect(temDifSelectionMaxCooRat.yAcnFla, logSwi1.u1) annotation (Line(points={{137.379,
+          -108},{144,-108},{144,-52},{200,-52}},          color={255,0,255}));
   connect(booScaRep2.y, logSwi1.u2) annotation (Line(points={{-132,-252},{164,
           -252},{164,-60},{200,-60}}, color={255,0,255}));
   connect(con4.y, logSwi.u3) annotation (Line(points={{148,36},{192,36},{192,90},

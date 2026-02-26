@@ -15,8 +15,8 @@ block SelectLargestValues
     annotation (Placement(transformation(extent={{-88,-68},{-68,-48}})));
   Buildings.Controls.OBC.CDL.Reals.Sort sort(ascending=false, nin=nNumbers)
     annotation (Placement(transformation(extent={{14,-10},{34,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr[nNumbers]
-    (t=nSelections)
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr[nNumbers](
+     t=nSelections)
     annotation (Placement(transformation(extent={{56,-16},{76,4}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nNumbers]
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
