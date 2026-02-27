@@ -15,12 +15,10 @@ model HybridAirToWater "Controller for AWHP plant"
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
-      typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2,
+      typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       have_valChiWatMinByp=false,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
-      typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
-      nPumHeaWatSec=nPumHeaWatSec,
-      nPumChiWatSec=nPumChiWatSec),
+      typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized),
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
   final parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
@@ -32,22 +30,16 @@ model HybridAirToWater "Controller for AWHP plant"
     final min=1)=size(staEqu, 1)
     "Number of stages"
     annotation (Evaluate=true);
-  parameter Integer nPumHeaWatSec
-    "Number of secondary HW pumps"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration"));
-  parameter Integer nPumChiWatSec
-    "Number of secondary CHW pumps"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration"));
+
   final parameter Integer nPumChiWatPri = cfg.nPumHeaWatPri
     "Parameter specifically for hybrid heat pump plant configuration";
   final parameter Integer idxEquAlt[ctl.nEquAlt]={1,2}
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
+
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
-    final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
+    final is_priOnl=(cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) and (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
     final have_hrc_select=cfg.have_hrc,
     final have_fouPip=cfg.have_fouPip,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
@@ -98,9 +90,9 @@ model HybridAirToWater "Controller for AWHP plant"
     final idxEquAlt=idxEquAlt,
     final nHp=cfg.nHp,
     final nPumChiWatPri=nPumChiWatPri,
-    final nPumChiWatSec=cfg.nPumChiWatSec,
+    final nPumChiWatSec=if have_PumHeaWatSec_override then nPumHeaWatSec_override else cfg.nPumChiWatSec,
     final nPumHeaWatPri=cfg.nPumHeaWatPri,
-    final nPumHeaWatSec=cfg.nPumHeaWatSec,
+    final nPumHeaWatSec=if have_PumHeaWatSec_override then nPumHeaWatSec_override else cfg.nPumHeaWatSec,
     final nSenDpChiWatRem=nSenDpChiWatRem,
     final nSenDpHeaWatRem=nSenDpHeaWatRem,
     final plrSta=dat.plrSta,

@@ -23,7 +23,8 @@ record HeatPumpPlant
     annotation (Evaluate=true);
 
   final parameter Integer nHpTot=if have_fouPip then nHp+1 else nHp
-    "Number of heat pumps calculation used for internal logic blocks in controller module";
+    "Number of heat pumps calculation used for internal logic blocks in controller module"
+    annotation(Evaluate=true);
 
   parameter Boolean have_fouPip=false
     "True: The plant is a hybrid heat pump plant with a four-pipe heat pump";

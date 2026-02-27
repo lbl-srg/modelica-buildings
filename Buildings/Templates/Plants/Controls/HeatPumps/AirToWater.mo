@@ -176,7 +176,8 @@ block AirToWater
     Dialog(group="Plant configuration"));
 
   final parameter Integer nHpTot=if have_fouPip then nHp+1 else nHp
-    "Number of heat pumps calculation used for internal logic blocks";
+    "Number of heat pumps calculation used for internal logic blocks"
+    annotation (Evaluate=true);
 
   parameter Boolean have_fouPip=false
     "True: The plant is a hybrid heat pump plant with a four-pipe heat pump"
@@ -504,10 +505,12 @@ block AirToWater
     max({sum({(if staEquTem[i, j] > 0 and staEquTem[i, j] < 1 then 1 else 0) for j in 1:nHpTot}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
+
   parameter Integer idxEquAlt[nEquAlt](final min=fill(1, nEquAlt))
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
+
   parameter Real plrSta(
     max=1,
     min=0,
