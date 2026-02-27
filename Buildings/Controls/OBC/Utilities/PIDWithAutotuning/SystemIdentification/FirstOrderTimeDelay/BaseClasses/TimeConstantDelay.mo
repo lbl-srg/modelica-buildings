@@ -20,7 +20,7 @@ block TimeConstantDelay
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat
     "Ratio between the time constant and the time delay"
-    annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
+    annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput T(
     final quantity="Time",
@@ -41,12 +41,11 @@ block TimeConstantDelay
     annotation (Placement(transformation(extent={{180,-150},{220,-110}}),
     iconTransformation(extent={{100,-100},{140,-60}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Abs absk
-    "Absoulte value of the gain"
+  Buildings.Controls.OBC.CDL.Reals.Abs absGai "Absoulte value of the gain"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Exp exp
     "Exponential value of the ratio between time constant and the time delay"
-    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yHigSig(
     final k=yHig)
     "Higher value for the output"
@@ -69,7 +68,7 @@ protected
     "Quotient of deadband divided by the absolute value of the gain"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div2
-    "Blocks that calculates input 1 by input 2"
+    "Blocks that calculates input 1 divided by input 2"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div3
     "Blocks that calculates the time constant"
@@ -82,89 +81,104 @@ protected
     annotation (Placement(transformation(extent={{100,120},{120,140}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Blocks that calculates the difference of the two inputs"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Blocks that calculates the difference of the two inputs"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Log log
     "Natural logarithm of the input"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre1(final h=1e-6)
     "Check if the input is less than 0"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
     "Avoid a negative input for the log function"
-    annotation (Placement(transformation(extent={{-82,-100},{-62,-80}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "True when an negative input is given for the log function"
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=1e-6)
     "Constant"
-    annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
+    annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-1)
     "Opposite of the input"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
+  Buildings.Controls.OBC.CDL.Reals.Min min1
+    "Detect a negative input"
+    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 equation
-  connect(absk.u, k)
+  connect(absGai.u, k)
     annotation (Line(points={{-162,10},{-200,10}}, color={0,0,127}));
   connect(rat, exp.u)
-    annotation (Line(points={{-200,-60},{-162,-60}},color={0,0,127}));
+    annotation (Line(points={{-200,-50},{-162,-50}},color={0,0,127}));
   connect(relDeaBan.y, div1.u1) annotation (Line(points={{-78,10},{-40,10},{-40,
           -4},{-22,-4}}, color={0,0,127}));
-  connect(sub2.u1, div1.y) annotation (Line(points={{38,-24},{10,-24},{10,-10},{
-          2,-10}},  color={0,0,127}));
+  connect(sub2.u1, div1.y) annotation (Line(points={{38,-24},{20,-24},{20,-10},
+          {2,-10}}, color={0,0,127}));
   connect(sub2.u2, yLowSig.y) annotation (Line(points={{38,-36},{-70,-36},{-70,70},
           {-78,70}}, color={0,0,127}));
   connect(yHigSig.y, add2.u1) annotation (Line(points={{-138,70},{-130,70},{-130,
           46},{-62,46}}, color={0,0,127}));
   connect(add2.u2, yLowSig.y) annotation (Line(points={{-62,34},{-70,34},{-70,70},
           {-78,70}},color={0,0,127}));
-  connect(add2.y, mul1.u2) annotation (Line(points={{-38,40},{0,40},{0,54},{38,54}},
+  connect(add2.y, mul1.u2) annotation (Line(points={{-38,40},{-20,40},{-20,54},
+          {38,54}},
           color={0,0,127}));
-  connect(exp.y, mul1.u1) annotation (Line(points={{-138,-60},{-30,-60},{-30,66},
+  connect(exp.y, mul1.u1) annotation (Line(points={{-138,-50},{-30,-50},{-30,66},
           {38,66}}, color={0,0,127}));
   connect(sub2.y, add1.u2) annotation (Line(points={{62,-30},{70,-30},{70,-16},{
           78,-16}}, color={0,0,127}));
   connect(add1.u1, mul1.y) annotation (Line(points={{78,-4},{70,-4},{70,60},{62,
           60}}, color={0,0,127}));
-  connect(sub1.y, div2.u2) annotation (Line(points={{62,-80},{80,-80},{80,-76},{
-          118,-76}}, color={0,0,127}));
-  connect(div2.u1, add1.y) annotation (Line(points={{118,-64},{110,-64},{110,-10},
-          {102,-10}}, color={0,0,127}));
+  connect(sub1.y, div2.u2) annotation (Line(points={{62,-70},{80,-70},{80,-76},
+          {118,-76}},color={0,0,127}));
+  connect(div2.u1, add1.y) annotation (Line(points={{118,-64},{110,-64},{110,
+          -10},{102,-10}},
+                      color={0,0,127}));
   connect(tOn, div3.u1) annotation (Line(points={{-200,120},{-140,120},{-140,116},
           {38,116}}, color={0,0,127}));
   connect(div3.y, T) annotation (Line(points={{62,110},{200,110}},
         color={0,0,127}));
   connect(mul2.u2, T) annotation (Line(points={{98,124},{80,124},{80,110},{200,110}},
           color={0,0,127}));
-  connect(mul2.u1, exp.u) annotation (Line(points={{98,136},{-170,136},{-170,-60},
-          {-162,-60}}, color={0,0,127}));
+  connect(mul2.u1, exp.u) annotation (Line(points={{98,136},{-170,136},{-170,
+          -50},{-162,-50}},
+                       color={0,0,127}));
   connect(mul2.y, L) annotation (Line(points={{122,130},{130,130},{130,10},{200,
           10}},  color={0,0,127}));
-  connect(sub1.u2, div1.y) annotation (Line(points={{38,-86},{10,-86},{10,-10},{
-          2,-10}}, color={0,0,127}));
-  connect(absk.y, div1.u2) annotation (Line(points={{-138,10},{-110,10},{-110,-16},
-          {-22,-16}},color={0,0,127}));
-  connect(yHigSig.y, sub1.u1) annotation (Line(points={{-138,70},{-130,70},{-130,
-          -74},{38,-74}}, color={0,0,127}));
-  connect(log.y, div3.u2) annotation (Line(points={{-18,-90},{20,-90},{20,104},{
-          38,104}}, color={0,0,127}));
-  connect(div2.y, max1.u1) annotation (Line(points={{142,-70},{150,-70},{150,-50},
-          {-90,-50},{-90,-84},{-84,-84}}, color={0,0,127}));
+  connect(sub1.u2, div1.y) annotation (Line(points={{38,-76},{20,-76},{20,-10},
+          {2,-10}},color={0,0,127}));
+  connect(absGai.y, div1.u2) annotation (Line(points={{-138,10},{-110,10},{-110,
+          -16},{-22,-16}}, color={0,0,127}));
+  connect(yHigSig.y, sub1.u1) annotation (Line(points={{-138,70},{-130,70},{
+          -130,-64},{38,-64}},
+                          color={0,0,127}));
+  connect(log.y, div3.u2) annotation (Line(points={{-18,-80},{10,-80},{10,104},
+          {38,104}},color={0,0,127}));
+  connect(div2.y, max1.u1) annotation (Line(points={{142,-70},{160,-70},{160,
+          -100},{-100,-100},{-100,-74},{-82,-74}},
+                                          color={0,0,127}));
   connect(log.u, max1.y)
-    annotation (Line(points={{-42,-90},{-60,-90}},   color={0,0,127}));
-  connect(gre1.u2, div2.y) annotation (Line(points={{38,-138},{-90,-138},{-90,-50},
-          {150,-50},{150,-70},{142,-70}}, color={0,0,127}));
-  connect(con.y, max1.u2) annotation (Line(points={{-138,-110},{-120,-110},{-120,
-          -96},{-84,-96}}, color={0,0,127}));
+    annotation (Line(points={{-42,-80},{-58,-80}},   color={0,0,127}));
+  connect(con.y, max1.u2) annotation (Line(points={{-138,-100},{-120,-100},{
+          -120,-86},{-82,-86}},
+                           color={0,0,127}));
   connect(gre1.y, edg.u)
     annotation (Line(points={{62,-130},{98,-130}},  color={255,0,255}));
   connect(edg.y, triFai)
     annotation (Line(points={{122,-130},{200,-130}}, color={255,0,255}));
   connect(gre1.u1, gai.y) annotation (Line(points={{38,-130},{20,-130},{20,-120},
           {2,-120}}, color={0,0,127}));
-  connect(gai.u, con.y) annotation (Line(points={{-22,-120},{-120,-120},{-120,-110},
-          {-138,-110}}, color={0,0,127}));
+  connect(gai.u, con.y) annotation (Line(points={{-22,-120},{-120,-120},{-120,
+          -100},{-138,-100}},
+                        color={0,0,127}));
+  connect(min1.u1, div2.y) annotation (Line(points={{-82,-134},{-100,-134},{
+          -100,-100},{160,-100},{160,-70},{142,-70}},
+                                                    color={0,0,127}));
+  connect(min1.u2, rat) annotation (Line(points={{-82,-146},{-170,-146},{-170,
+          -50},{-200,-50}}, color={0,0,127}));
+  connect(min1.y, gre1.u2) annotation (Line(points={{-58,-140},{30,-140},{30,
+          -138},{38,-138}}, color={0,0,127}));
   annotation (
         defaultComponentName = "timConDel",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

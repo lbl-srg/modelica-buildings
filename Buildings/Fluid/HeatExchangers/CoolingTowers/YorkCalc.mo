@@ -143,8 +143,6 @@ equation
         Text(
           extent={{-50,4},{42,-110}},
           textColor={255,255,255},
-          fillColor={0,127,0},
-          fillPattern=FillPattern.Solid,
           textString="York"),
         Rectangle(
           extent={{-100,81},{-70,78}},

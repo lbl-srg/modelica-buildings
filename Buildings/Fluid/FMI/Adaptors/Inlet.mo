@@ -129,8 +129,6 @@ equation
         Text(
           extent={{-20,6},{14,-12}},
           textColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
           textString="m"),
         Ellipse(
           extent={{-6,8},{-2,4}},

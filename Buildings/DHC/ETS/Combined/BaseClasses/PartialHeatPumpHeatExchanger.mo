@@ -241,7 +241,7 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=
         m1HexChi_flow_nominal)
     annotation (Placement(transformation(extent={{-108,-210},{-88,-190}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conTChiWat(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conTChiWat(
     k=0.05,
     Ti=120,
     yMax=1,

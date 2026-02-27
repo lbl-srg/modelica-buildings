@@ -88,7 +88,7 @@ partial model PartialChiller
   final parameter MediumCon.SpecificHeatCapacity cpCon_default=MediumCon.specificHeatCapacityCp(staCon_default)
     "Condenser cooling fluid default specific heat capacity";
   final parameter MediumCon.ThermodynamicState staCon_default=MediumCon.setState_pTX(
-    T=TConEnt_nominal,
+    T=dat.TCon_nominal,
     p=MediumCon.p_default,
     X=MediumCon.X_default)
     "Condenser cooling fluid default state";

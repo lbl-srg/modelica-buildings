@@ -360,42 +360,34 @@ annotation (
         Text(
           extent={{-98,66},{-52,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{-98,6},{-68,-6}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uZonSta"),
         Text(
           extent={{-98,186},{-54,174}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-100,96},{-74,84}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,-132},{-62,-146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-100,156},{-76,146}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-100,126},{-78,116}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{68,-84},{96,-94}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yDam"),
         Line(points={{-50,64},{-50,-48},{62,-48}}, color={95,95,95}),
@@ -418,7 +410,6 @@ annotation (
         Text(
           extent={{60,98},{98,86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VSet_flow"),
         Line(
@@ -428,17 +419,14 @@ annotation (
         Text(
           extent={{-100,-84},{-56,-96}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="oveFloSet"),
         Text(
           extent={{-96,-172},{-52,-184}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="oveDamPos"),
         Text(
           extent={{-98,-34},{-68,-46}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Fan")}),
 Documentation(info="<html>
 <p>

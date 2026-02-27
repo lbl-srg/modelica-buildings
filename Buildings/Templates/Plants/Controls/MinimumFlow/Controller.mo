@@ -54,7 +54,7 @@ block Controller
     "Valve command"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Utilities.PIDWithEnable ctl(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctl(
     final k=k,
     final Ti=Ti,
     final reverseActing=true,

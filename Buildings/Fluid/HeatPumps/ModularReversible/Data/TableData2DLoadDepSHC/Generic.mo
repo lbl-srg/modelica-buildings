@@ -106,10 +106,15 @@ of the above block.
 revisions="<html>
 <ul>
 <li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
+<li>
 March 21, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
 </html>
-"),Icon);
+"));
 end Generic;

@@ -194,27 +194,22 @@ annotation (defaultComponentName="conLoo",
         Text(
           extent={{-96,68},{-52,52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{-96,-52},{-52,-68}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{-98,6},{-72,-8}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{74,66},{98,56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yCoo"),
         Text(
           extent={{76,-54},{100,-64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yHea")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-140},{160,140}})),
