@@ -54,6 +54,14 @@ block EnableLag_primary_dP
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter chiWatFloRat(
     final k=1/VChiWat_flow_nominal) "Chiller water flow ratio"
     annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset tim(
+    final t=timPer)
+    "Check if it has passed the threshold time"
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+  Buildings.Controls.OBC.CDL.Logical.TimerWithReset tim1(
+    final t=timPer)
+    "Check if it has passed the threshold time"
+    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
@@ -101,17 +109,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And disPum1
     "Disable pump"
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.TimerWithReset tim(
-    final t=timPer)
-    "Check if it has passed the threshold time"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Controls.OBC.CDL.Integers.Change cha
     "Check if there is change in the number of enabled pumps"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Logical.TimerWithReset tim1(
-    final t=timPer)
-    "Check if it has passed the threshold time"
-    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
 equation
   connect(VChiWat_flow,chiWatFloRat. u)

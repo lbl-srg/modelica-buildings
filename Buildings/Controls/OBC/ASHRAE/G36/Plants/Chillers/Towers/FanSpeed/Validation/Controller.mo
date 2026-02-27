@@ -102,14 +102,14 @@ protected
     annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
-
-public
-  CDL.Logical.Sources.Pulse conWatPum[2](final width=fill(0.1, 2), final period
-      =fill(3600, 2)) "Condenser water pump status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse conWatPum[2](
+    final width=fill(0.1, 2),
+    final period=fill(3600, 2)) "Condenser water pump status"
     annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
-  CDL.Logical.Not                        not2[2]
+  Buildings.Controls.OBC.CDL.Logical.Not not2[2]
   "Logical not"
     annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
+
 equation
   connect(ram2.y,add1. u2)
     annotation (Line(points={{-338,-280},{-320,-280},{-320,-266},{-302,-266}},

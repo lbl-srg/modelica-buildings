@@ -110,8 +110,10 @@ protected
     "New isolation valve command"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nChi) if have_isoValEndSwi
+    "Total number of full open valves"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(nin=nChi) if have_isoValEndSwi
+    "Total number of full closed valves"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1[2] if have_isoValEndSwi "Output the difference"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
