@@ -22,13 +22,13 @@ protected
   Integer k "Period index";
 
 initial equation
-  k = if (modTimAux >= 0) then integer(modTimAux/lenWea) else integer(modTimAux/lenWea)+1;
-  tNext = k * lenWea;
+  k = integer(modTimAux/lenWea) + 1;
+  tNext = if canRepeatWeatherFile then k * lenWea else time;
 
 equation
   // simulation time stamp went over the end time of the weather file
   // (last time stamp of the weather file + average increment)
-  when (canRepeatWeatherFile and modTimAux > pre(tNext)) then
+  when (not initial() and canRepeatWeatherFile and modTimAux > pre(tNext)) then
     k = pre(k) + 1;
     tNext = if canRepeatWeatherFile then k * lenWea else time;
   end when;
