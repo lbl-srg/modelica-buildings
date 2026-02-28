@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps.Validation.temp;
+within Buildings.Templates.Plants.HeatPumps.Validation;
 model AirToWater
   "Validation of AWHP plant template"
   extends Modelica.Icons.Example;
@@ -258,7 +258,7 @@ equation
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/temp/AirToWater.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWater.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
