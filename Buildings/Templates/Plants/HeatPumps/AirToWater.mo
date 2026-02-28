@@ -1059,8 +1059,8 @@ and a sidestream heat recovery chiller.
 For a detailed schematic of the actual plant configuration, refer to the diagram
 view of the plant component. In Dymola, for example, you can access this by right-clicking
 the component <code>pla</code> in the model
-<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.AirToWater\">
-Buildings.Templates.Plants.HeatPumps.Validation.AirToWater</a>
+<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.temp.AirToWater\">
+Buildings.Templates.Plants.HeatPumps.Validation.temp.AirToWater</a>
 and selecting \"Show Component\" from the context menu.
 </p>
 <p align=\"center\">
