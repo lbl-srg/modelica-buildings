@@ -7,3 +7,5 @@ MaxTemperatureDifferenceSelection
 SingleZoneRatchetBase
 SelectLargestValues
 SelectSmallestValues
+SetpointMultipleStepChange
+SetpointSingleStepChange
