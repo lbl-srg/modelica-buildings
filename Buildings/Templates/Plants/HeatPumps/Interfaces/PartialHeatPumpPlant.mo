@@ -511,7 +511,8 @@ partial model PartialHeatPumpPlant
     "Weather bus"
     annotation (Placement(transformation(extent={{-20,380},{20,420}}),
       iconTransformation(extent={{-20,180},{20,220}})));
-  replaceable Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController ctl
+  replaceable Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController ctl(
+    typDis_override=typDis_select1)
     constrainedby
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
       final cfg=cfg,

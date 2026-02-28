@@ -43,9 +43,7 @@ model AirToWater
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
-    ctl(
-      nAirHan=1,
-      nEquZon=0),
+    ctl(nAirHan=1, nEquZon=0),
     is_dpBalYPumSetCal=true)
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));

@@ -70,12 +70,12 @@ block PartialController "Interface for heat pump plant controller"
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
       cfg.have_heaWat and not cfg.have_hrc and have_senVHeaWatSec
-      and cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-      and typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
+      and (cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+      or typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)));
   final parameter Boolean have_senVHeaWatPri=cfg.have_heaWat and
     (if cfg.have_hrc or not have_senVHeaWatSec
-    or cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-    or typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    or (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    and typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)
     then true else have_senVHeaWatPri_select)
     "Set to true for plants with primary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -91,12 +91,12 @@ block PartialController "Interface for heat pump plant controller"
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
       cfg.have_chiWat and not cfg.have_hrc and have_senVChiWatSec
-      and cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-      and typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
+      and (cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+      or typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)));
   final parameter Boolean have_senVChiWatPri=cfg.have_chiWat and
     (if cfg.have_hrc or not have_senVChiWatSec
-     or cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-     or typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+     or (cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+     or typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)
      then true else have_senVChiWatPri_select)
     "Set to true for plants with primary CHW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
