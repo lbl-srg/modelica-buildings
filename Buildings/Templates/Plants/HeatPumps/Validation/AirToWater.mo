@@ -36,6 +36,7 @@ model AirToWater
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
     have_hrc_select=true,
+    cfg(have_fouPip=false),
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
     nHp=3,

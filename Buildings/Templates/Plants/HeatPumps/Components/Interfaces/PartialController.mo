@@ -294,28 +294,8 @@ protected
     "Four-pipe heat pump control bus" annotation (Placement(transformation(
           extent={{-260,280},{-220,320}}), iconTransformation(extent={{-466,50},
             {-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpFouPipInlIso
-    if cfg.have_heaWat and cfg.have_valHpInlIso and cfg.have_fouPip
-    "Heat pump inlet HW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-180,180},{-140,220}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpFouPipOutIso
-    if cfg.have_heaWat and cfg.have_valHpOutIso and cfg.have_fouPip
-    "Heat pump outlet HW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-180,140},{-140,180}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatHpFouPipInlIso
-    if cfg.have_chiWat and cfg.have_valHpInlIso and cfg.have_fouPip
-    "Heat pump inlet CHW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-180,-60},{-140,-20}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatHpFouPipOutIso
-    if cfg.have_chiWat and cfg.have_valHpOutIso and cfg.have_fouPip
-    "Heat pump outlet CHW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-180,-100},{-140,-60}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumFouPipHeaWatPri if cfg.typPumHeaWatPri
-     <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None and cfg.have_fouPip
+  Buildings.Templates.Components.Interfaces.Bus busPumFouPipHeaWatPri
+    if cfg.have_fouPip
     "Primary HW pump control bus" annotation (Placement(transformation(extent={{
             -180,60},{-140,100}}), iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumFouPipChiWatPri
@@ -337,10 +317,6 @@ equation
   connect(busValHeaWatHpOutIso, bus.valHeaWatHpOutIso);
   connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso);
   connect(busValChiWatHpOutIso, bus.valChiWatHpOutIso);
-  connect(busValHeaWatHpFouPipInlIso, bus.valHeaWatHpFouPipInlIso);
-  connect(busValHeaWatHpFouPipOutIso, bus.valHeaWatHpFouPipOutIso);
-  connect(busValChiWatHpFouPipInlIso, bus.valChiWatHpFouPipInlIso);
-  connect(busValChiWatHpFouPipOutIso, bus.valChiWatHpFouPipOutIso);
   connect(busValHeaWatMinByp, bus.valHeaWatMinByp);
   connect(busValChiWatMinByp, bus.valChiWatMinByp);
   connect(busHrc, bus.hrc);

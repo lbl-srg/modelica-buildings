@@ -1708,26 +1708,6 @@ block AirToWater
     "4-pipe air-source heat pump enable command" annotation (Placement(
         transformation(extent={{300,410},{340,450}}), iconTransformation(extent={{200,390},
             {240,430}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpFouPipInlIso
-    if have_heaWat and have_valHpInlIso and have_fouPip
-                  "Heat pump inlet HW isolation valve command" annotation (
-      Placement(transformation(extent={{300,-440},{340,-400}}),
-        iconTransformation(extent={{200,-330},{240,-290}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpFouPipOutIso
-    if have_heaWat and have_valHpOutIso and have_fouPip
-                  "Heat pump outlet HW isolation valve command" annotation (
-      Placement(transformation(extent={{300,-460},{340,-420}}),
-        iconTransformation(extent={{200,-350},{240,-310}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpFouPipInlIso
-    if have_chiWat and have_valHpInlIso and have_fouPip
-                  "Heat pump inlet CHW isolation valve command" annotation (
-      Placement(transformation(extent={{300,-480},{340,-440}}),
-        iconTransformation(extent={{200,-370},{240,-330}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpFouPipOutIso
-    if have_chiWat and have_valHpOutIso and have_fouPip
-                  "Heat pump outlet CHW isolation valve command" annotation (
-      Placement(transformation(extent={{300,-500},{340,-460}}),
-        iconTransformation(extent={{200,-390},{240,-350}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriFouPip
     if have_fouPip "Primary HW pump start command" annotation (Placement(
         transformation(extent={{300,-540},{340,-500}}), iconTransformation(
@@ -1758,7 +1738,8 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSetFouPip(
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
-    each displayUnit="degC") "Active HP supply temperature setpoint"
+    each displayUnit="degC") if have_fouPip
+                             "Active HP supply temperature setpoint"
     annotation (Placement(transformation(extent={{300,-580},{340,-540}}),
         iconTransformation(extent={{200,-450},{240,-410}})));
 equation
@@ -2323,18 +2304,6 @@ end if;
     annotation (Line(points={{162,200},{320,200}}, color={255,0,255}));
   connect(staPumChiWatPri.y1[1:nPumChiWatPri], y1PumChiWatPri)
     annotation (Line(points={{212,180},{320,180}}, color={255,0,255}));
-  connect(seqEve[nHpTot].y1ValHeaWatInlIso, y1ValHeaWatHpFouPipInlIso)
-    annotation (Line(points={{162,300},{246,300},{246,-420},{320,-420}}, color=
-          {255,0,255}));
-  connect(seqEve[nHpTot].y1ValHeaWatOutIso, y1ValHeaWatHpFouPipOutIso)
-    annotation (Line(points={{162,298},{244,298},{244,-440},{320,-440}}, color=
-          {255,0,255}));
-  connect(seqEve[nHpTot].y1ValChiWatInlIso, y1ValChiWatHpFouPipInlIso)
-    annotation (Line(points={{162,296},{242,296},{242,-460},{320,-460}}, color=
-          {255,0,255}));
-  connect(seqEve[nHpTot].y1ValChiWatOutIso, y1ValChiWatHpFouPipOutIso)
-    annotation (Line(points={{162,294},{240,294},{240,-480},{320,-480}}, color=
-          {255,0,255}));
   connect(or6[nHpTot].y, y1PumHeaWatPriFouPip) annotation (Line(points={{-58,
           -410},{150,-410},{150,-520},{320,-520}}, color={255,0,255}));
   connect(or7[nHpTot].y, y1PumChiWatPriFouPip) annotation (Line(points={{-58,

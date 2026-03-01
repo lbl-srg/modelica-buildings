@@ -356,10 +356,6 @@ equation
   connect(ctl.THeaWatSupSet, busHpFouPip.THeaWatSupSet);
   connect(ctl.TChiWatSupSet, busHpFouPip.TChiWatSupSet);
   connect(ctl.yMod, busHpFouPip.yMod);
-  connect(ctl.y1ValHeaWatHpFouPipInlIso, busValHeaWatHpFouPipInlIso.y1);
-  connect(ctl.y1ValHeaWatHpFouPipOutIso, busValHeaWatHpFouPipOutIso.y1);
-  connect(ctl.y1ValChiWatHpFouPipInlIso, busValChiWatHpFouPipInlIso.y1);
-  connect(ctl.y1ValChiWatHpFouPipOutIso, busValChiWatHpFouPipOutIso.y1);
   connect(ctl.y1PumHeaWatPriFouPip, busPumFouPipHeaWatPri.y1);
   connect(ctl.y1PumChiWatPriFouPip, busPumFouPipChiWatPri.y1);
   connect(busHpFouPip, bus.hpFouPip);

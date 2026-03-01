@@ -5,7 +5,6 @@ model AirToWater
     redeclare final package MediumChiWat=MediumHeaWat,
     redeclare final package MediumSou=MediumAir,
     redeclare Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater ctl(
-      typDis_override=typDis_select1,
       ctl(
       final yPumHeaWatPriSet=yPumHeaWatPriSet,
       final yPumChiWatPriSet=yPumChiWatPriSet)),
