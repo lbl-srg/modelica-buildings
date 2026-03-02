@@ -276,52 +276,42 @@ annotation (
         Text(
           extent={{-98,88},{-14,70}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOutMinSet_flow_normalized"),
         Text(
           extent={{-98,48},{-34,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOut_flow_normalized"),
         Text(
           extent={{-98,8},{-56,-6}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-100,-74},{-50,-88}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{46,100},{98,82}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam_min"),
         Text(
           extent={{46,66},{98,52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam_max"),
         Text(
           extent={{48,26},{96,10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam_min"),
         Text(
           extent={{48,-2},{96,-18}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam_max"),
         Text(
           extent={{38,-40},{98,-58}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDamPhy_max"),
         Text(
           extent={{54,-82},{96,-96}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yEnaMinOut")}),
     Diagram(coordinateSystem(extent={{-180,-240},{180,240}}), graphics={
         Rectangle(

@@ -178,9 +178,6 @@ First implementation.
         Text(
           extent={{-64,-56},{78,-92}},
           textColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
           textString="DXCool"),
         Line(
           points={{-78,26},{-46,26}},

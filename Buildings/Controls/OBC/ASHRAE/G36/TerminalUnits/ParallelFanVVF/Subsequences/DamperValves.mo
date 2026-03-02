@@ -689,8 +689,6 @@ annotation (
         Text(
           extent={{-74,204},{104,162}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Primary discharge airflow setpoint
 and the damper position setpoint"),
@@ -703,8 +701,6 @@ and the damper position setpoint"),
         Text(
           extent={{-38,108},{106,80}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Hot water valve position"),
         Rectangle(
@@ -716,8 +712,6 @@ and the damper position setpoint"),
         Text(
           extent={{-270,-144},{-94,-170}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Parallel fan rate when in cooling state"),
         Rectangle(
@@ -729,8 +723,6 @@ and the damper position setpoint"),
         Text(
           extent={{-298,-270},{-110,-296}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Parallel fan rate when in deadband state"),
         Rectangle(
@@ -742,8 +734,6 @@ and the damper position setpoint"),
         Text(
           extent={{-302,-330},{-128,-354}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Parallel fan rate when in heating state")}),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
@@ -760,59 +750,48 @@ and the damper position setpoint"),
         Text(
           extent={{-98,106},{-46,92}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{-98,-132},{-48,-148}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOAMin_flow"),
         Text(
           extent={{-98,14},{-54,4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-100,136},{-80,126}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,-76},{-76,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
           extent={{-100,-46},{-62,-56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{-100,76},{-80,66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-13.5,4},{13.5,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDis",
           origin={-87.5,-110}),
         Text(
           extent={{-100,46},{-78,36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{68,96},{98,86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yDam"),
         Text(
           extent={{68,-112},{98,-124}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yVal"),
         Line(points={{-38,64},{-38,-48},{74,-48}}, color={95,95,95}),
@@ -835,34 +814,28 @@ and the damper position setpoint"),
         Text(
           extent={{56,148},{98,136}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VPri_flow_Set"),
         Text(
           extent={{54,-84},{98,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="TDisHeaSet"),
         Text(
           extent={{-96,-184},{-70,-196}},
           textColor={255,127,27},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{-98,166},{-68,156}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VPri_flow"),
         Text(
           extent={{-100,-24},{-68,-34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{42,-152},{98,-168}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VFan_flow_Set"),
         Line(
@@ -891,18 +864,15 @@ and the damper position setpoint"),
         Text(
           extent={{64,-180},{96,-194}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yFan"),
         Text(
           extent={{-96,194},{-70,182}},
           textColor={255,127,27},
-          pattern=LinePattern.Dash,
           textString="oveFloSet"),
         Text(
           extent={{-98,-2},{-66,-16}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Fan")}),
   Documentation(info="<html>
 <p>

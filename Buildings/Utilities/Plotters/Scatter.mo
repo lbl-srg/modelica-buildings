@@ -72,14 +72,10 @@ equation
         Text(
           extent={{48,-70},{74,-94}},
           textColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Solid,
           textString="x"),
         Text(
           extent={{-102,96},{-76,72}},
           textColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Solid,
           textString="y"),
         Ellipse(
           extent={{-12,-44},{-6,-50}},

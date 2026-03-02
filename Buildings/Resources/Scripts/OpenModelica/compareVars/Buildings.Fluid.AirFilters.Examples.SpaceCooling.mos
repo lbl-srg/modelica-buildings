@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "C_inflow.y",
+    "C_out.C",
+    "fan.P",
+    "airFil.eps[1]",
+    "airFil.masAcc.mCon"
+  };
