@@ -2,23 +2,6 @@ within Buildings.Templates.Plants.HeatPumps.Components.Controls;
 model HybridAirToWater "Controller for AWHP plant"
   extends
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
-    cfg(
-      have_heaWat=true,
-      have_hotWat=false,
-      have_chiWat=true,
-      have_hrc=false,
-      have_fouPip=true,
-      is_rev=true,
-      have_valHpInlIso=true,
-      have_valHpOutIso=true,
-      have_valHeaWatMinByp=false,
-      typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-      typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
-      typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
-      typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
-      have_valChiWatMinByp=false,
-      typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
-      typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized),
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
   final parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
@@ -39,7 +22,7 @@ model HybridAirToWater "Controller for AWHP plant"
     Dialog(group="Equipment staging and rotation"));
 
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
-    final is_priOnl=(cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) and (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
+    final is_priOnl=if is_typDis_override then (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) else (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
     final have_hrc_select=cfg.have_hrc,
     final have_fouPip=cfg.have_fouPip,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,

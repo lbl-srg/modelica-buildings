@@ -27,7 +27,8 @@ record HeatPumpPlant
     annotation(Evaluate=true);
 
   parameter Boolean have_fouPip=false
-    "True: The plant is a hybrid heat pump plant with a four-pipe heat pump";
+    "True: The plant is a hybrid heat pump plant with a four-pipe heat pump"
+    annotation(Evaluate=true);
 
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"

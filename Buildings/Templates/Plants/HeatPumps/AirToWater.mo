@@ -4,7 +4,7 @@ model AirToWater
   extends Buildings.Templates.Plants.HeatPumps.Interfaces.PartialHeatPumpPlant(
     redeclare final package MediumChiWat=MediumHeaWat,
     redeclare final package MediumSou=MediumAir,
-    redeclare Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater ctl(
+    redeclare Buildings.Templates.Plants.HeatPumps.Components.Controls.HybridAirToWater ctl(
       ctl(
       final yPumHeaWatPriSet=yPumHeaWatPriSet,
       final yPumChiWatPriSet=yPumChiWatPriSet)),
