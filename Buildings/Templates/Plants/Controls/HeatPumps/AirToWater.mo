@@ -1742,6 +1742,11 @@ block AirToWater
                              "Active HP supply temperature setpoint"
     annotation (Placement(transformation(extent={{300,-580},{340,-540}}),
         iconTransformation(extent={{200,-450},{240,-410}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=true)
+    if not is_priOnl
+    annotation (Placement(transformation(extent={{380,-260},{400,-240}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(k=true) if is_priOnl
+    annotation (Placement(transformation(extent={{420,-260},{440,-240}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));
