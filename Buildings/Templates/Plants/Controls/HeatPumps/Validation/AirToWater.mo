@@ -128,6 +128,7 @@ model AirToWater
     COPHeaHrc_nominal=2.8,
     capCooHrc_min=ctl.capHeaHrc_min *(1 - 1 / ctl.COPHeaHrc_nominal),
     capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal),
+    staEqu=ctl1.staEquSinMod,
     staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1],
     staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1])
     "Plant controller-2"

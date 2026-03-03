@@ -471,24 +471,21 @@ block AirToWater
   parameter Real staEqu[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    start=if have_fouPip then {fill(0,nHpTot)} else staEqu)
+    each final unit="1")
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=not have_fouPip));
 
   parameter Real staEquDouMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    start=if not have_fouPip then {fill(0,nHpTot)} else staEquDouMod)
+    each final unit="1")=staEqu
    "Staging matrix for heating-cooling mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_fouPip));
 
   parameter Real staEquSinMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    start=if not have_fouPip then {fill(0,nHpTot)} else staEquSinMod)
+    each final unit="1")=staEqu
     "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_fouPip));
 
