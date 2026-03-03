@@ -514,8 +514,8 @@ partial model PartialHeatPumpPlant
   replaceable Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController ctl
     constrainedby
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
-      cfg=cfg,
-      dat=dat.ctl)
+      final cfg=cfg,
+      final dat=dat.ctl)
     "Plant controller"
     annotation (
     Dialog(group="Controls"),

@@ -286,30 +286,25 @@ record Controller
   // Furthermore, a start value cannot be provided as the number of plant stages is not known beforehand.
   // If provided, there will likely be a mismatch between assigned value and start value.
   // Therefore, no enable annotation can be used.
-  parameter Real staEqu[:, cfg.nHpTot](
+  parameter Real staEqu[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    start=if cfg.have_fouPip then {fill(0,cfg.nHpTot)} else staEqu)
-    "Staging matrix – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation",
-      enable=not cfg.have_fouPip));
-  parameter Real staEquDouMod[:, cfg.nHpTot](
+    each final unit="1")
+    "Staging matrix – Equipment required for each stage;
+    Manually assign this to be equal to StaEquSinMod in a hybrid plant"
+    annotation (Dialog(group="Equipment staging and rotation"));
+  parameter Real staEquDouMod[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    start=if not cfg.have_fouPip then {fill(0,cfg.nHpTot)} else staEquDouMod)
+    each final unit="1")=staEqu
     "Staging matrix for heating-cooling mode – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation",
-      enable=cfg.have_fouPip));
-  parameter Real staEquSinMod[:, cfg.nHpTot](
+    annotation (Dialog(group="Equipment staging and rotation"));
+  parameter Real staEquSinMod[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1",
-    start=if not cfg.have_fouPip then {fill(0,cfg.nHpTot)} else staEquSinMod)
+    each final unit="1")=staEqu
     "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation",
-      enable=cfg.have_fouPip));
+    annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real plrSta(
     final max=1,
     final min=0,

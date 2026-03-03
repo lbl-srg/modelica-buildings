@@ -9,13 +9,10 @@ model AirToWater
     "Set to true if the plant provides CHW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  inner parameter UserProject.Data.AllSystems datAll(pla(
-      final cfg=pla.cfg,
-      ctl(
+  inner parameter UserProject.Data.AllSystems datAll(pla(final cfg=pla.cfg, ctl(
         yPumHeaWatPriSet=1,
         yPumChiWatPriSet=1,
-          staEqu={fill(i/datAll.pla.cfg.nHp, datAll.pla.cfg.nHp) for i in 1:
-            datAll.pla.cfg.nHp})))
+        staEqu={fill(i/pla.nHp, pla.nHp) for i in 1:pla.nHp})))
                           "Plant parameters"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
@@ -43,8 +40,7 @@ model AirToWater
     have_hrc_select=true,
     cfg(have_fouPip=false),
     ctl(
-      cfg=pla.cfg,
-      dat=pla.dat.ctl,
+      is_typDis_override=false,
       nAirHan=1,
       nEquZon=0),
     final dat=datAll.pla,

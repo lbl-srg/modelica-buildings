@@ -13,6 +13,7 @@ model HybridAirToWater "Validation of AWHP plant template"
       ctl(
         yPumHeaWatPriSet=1,
         yPumChiWatPriSet=1,
+        staEqu=datAll.pla.ctl.staEquSinMod,
         staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1],
         staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1]),
       hp(
@@ -78,8 +79,6 @@ model HybridAirToWater "Validation of AWHP plant template"
     typTanHeaWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
     typTanChiWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
     ctl(
-      cfg=pla.cfg,
-      dat=pla.dat.ctl,
       is_typDis_override=true,
       typDis_override=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       have_PumHeaWatSec_override=true,
@@ -509,7 +508,7 @@ equation
   connect(pumHeaWatSecOut.port_b, volHeaWat.ports[2])
     annotation (Line(points={{74,-80},{91,-80}}, color={0,127,255}));
   connect(busPla.pumHeaWatSec, pumHeaWatSec.bus) annotation (Line(
-      points={{-160,0},{-160,16},{-90,16},{-90,-56},{36,-56},{36,-70}},
+      points={{-160,0},{-116,0},{-116,-18},{12,-18},{12,-64},{36,-64},{36,-70}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -517,7 +516,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(busPla.pumChiWatSec, pumChiWatSec.bus) annotation (Line(
-      points={{-160,0},{-160,16},{36,16},{36,10}},
+      points={{-160,0},{-134,0},{-134,4},{-66,4},{-66,16},{36,16},{36,10}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

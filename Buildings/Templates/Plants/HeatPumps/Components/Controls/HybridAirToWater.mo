@@ -3,12 +3,14 @@ model HybridAirToWater "Controller for AWHP plant"
   extends
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
+
   final parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")=dat.staEqu
+    each final unit="1")=if cfg.have_fouPip then dat.staEquSinMod else dat.staEqu
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
+
   final parameter Integer nSta(
     final min=1)=size(staEqu, 1)
     "Number of stages"
@@ -16,7 +18,11 @@ model HybridAirToWater "Controller for AWHP plant"
 
   final parameter Integer nPumChiWatPri = cfg.nPumHeaWatPri
     "Parameter specifically for hybrid heat pump plant configuration";
-  final parameter Integer idxEquAlt[ctl.nEquAlt]={1,2}
+
+  final parameter Integer idxEquAlt[ctl.nEquAlt]=Modelica.Math.BooleanVectors.index(
+    {Modelica.Math.BooleanVectors.anyTrue({
+      nHp==1 or staEqu[i,j] > 0 and staEqu[i,j] < 1 for i in 1:nSta})
+      for j in 1:nHp})
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
@@ -46,8 +52,8 @@ model HybridAirToWater "Controller for AWHP plant"
     final dpChiWatRemSet_min=dat.dpChiWatRemSet_min,
     final dpHeaWatRemSet_max=dat.dpHeaWatRemSet_max,
     final dpHeaWatRemSet_min=dat.dpHeaWatRemSet_min,
-    staEquDouMod=dat.staEquDouMod,
-    staEquSinMod=dat.staEquSinMod,
+    final staEquDouMod=dat.staEquDouMod,
+    final staEquSinMod=dat.staEquSinMod,
     final capCooHrc_min=dat.capCooHrc_min,
     final capHeaHrc_min=dat.capHeaHrc_min,
     final COPHeaHrc_nominal=dat.COPHeaHrc_nominal,
