@@ -220,10 +220,12 @@ block StagingHeadered "Generic staging logic for headered pumps"
     "Reset number of enabled pumps to zero if lead pump disabled"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
   StagingRotation.EquipmentEnable enaHdr(
-    is_pumApp=true,
-    nEquAlt=nPum,
-    nSta=nPum,
-    nEqu=nPum)
+    final is_pumApp=true,
+    final have_fouPip=false,
+    final nEquAlt=nPum,
+    final nSta=nPum,
+    final nEqu=nPum,
+    final staEqu=staPum)
     if is_hdr
     "Enable headered pumps"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
@@ -239,9 +241,6 @@ block StagingHeadered "Generic staging logic for headered pumps"
       ="Pa") if is_hdr and is_ctlDp "Loop differential pressure setpoint"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nPum,nPum](k=staPum)
-    if is_hdr
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 equation
   connect(u1Pum_actual, staHdrDp.u1_actual)
     annotation (Line(points={{-180,40},{-152,40},{-152,8},{-132,8}},color={255,0,255}));
@@ -307,14 +306,15 @@ equation
   connect(enaHdr.y1, y1)
     annotation (Line(points={{72,0},{140,0},{140,-60},{180,-60}},    color={255,0,255}));
   connect(nPumHdrDp.y, enaHdr.uSta)
-    annotation (Line(points={{12,0},{48,0}},    color={255,127,0}));
+    annotation (Line(points={{12,0},{20,0},{20,2},{48,2}},
+                                                color={255,127,0}));
   connect(nPumHdrPriNotDp.y, enaHdr.uSta)
-    annotation (Line(points={{12,120},{20,120},{20,0},{48,0}},    color={255,127,0}));
+    annotation (Line(points={{12,120},{20,120},{20,2},{48,2}},    color={255,127,0}));
   connect(u1Ava.y, enaHdr.u1Ava)
-    annotation (Line(points={{12,-100},{20,-100},{20,-4},{48,-4}},
+    annotation (Line(points={{12,-100},{20,-100},{20,-2},{48,-2}},
       color={255,0,255}));
   connect(sorRunTimHdr.yIdx, enaHdr.uIdxAltSor)
-    annotation (Line(points={{12,34},{40,34},{40,8},{48,8}},    color={255,127,0}));
+    annotation (Line(points={{12,34},{40,34},{40,6},{48,6}},    color={255,127,0}));
   connect(sigPumPriDed.y, y1) annotation (Line(points={{12,-160},{140,-160},{140,
           -60},{180,-60}},     color={255,0,255}));
   connect(dpSet, staHdrDp.dpSet) annotation (Line(points={{-180,-20},{-140,-20},
@@ -323,8 +323,6 @@ equation
           -4},{-132,-4}}, color={0,0,127}));
   connect(y, staHdrDp.y) annotation (Line(points={{-180,-60},{-136,-60},{-136,-8},
           {-132,-8}}, color={0,0,127}));
-  connect(con.y, enaHdr.staEqu) annotation (Line(points={{12,-50},{26,-50},{26,
-          4},{48,4}}, color={0,0,127}));
   annotation (
     defaultComponentName="staPum",
     Icon(
