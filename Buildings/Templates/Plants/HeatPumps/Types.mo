@@ -2,6 +2,18 @@ within Buildings.Templates.Plants.HeatPumps;
 package Types
   "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
+  type Plant = enumeration(
+    HeatingOnly
+     "Heating-only with non-reversible heat pumps",
+    HeatingAltCooling
+      "Non-simultaneous heating and cooling (changeover) with reversible heat pumps",
+    HeatingAltCoolingHeatRecovery
+      "Non-simultaneous heating and cooling with reversible heat pumps and heat recovery chiller",
+    HeatingAndCoolingHybrid
+      "Simultaneous heating and cooling with reversible heat pumps and heat recovery units",
+    HeatingAndCoolingHeatRecovery
+      "Simultaneous heating and cooling with heat recovery units only")
+    "Enumeration to specify the type of plant";
   type Controller = enumeration(
     AirToWater
       "Controller for AWHP plant",

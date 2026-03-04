@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Validation;
-model ValvesIsolation
-  "Validation model for isolation valve component"
+model ValvesIsolationSHC
+  "Validation model for isolation valve component with SHC units"
   extends Modelica.Icons.Example;
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typCtl =
     Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop;
@@ -68,59 +68,6 @@ model ValvesIsolation
     staEqu={fill(1, datCtl.cfg.nHp)})
     "Controller parameters"
     annotation(Placement(transformation(extent={{-80,370},{-60,390}})));
-  parameter Data.Controller datCtlHeaInl(
-    cfg(
-      have_pumHeaWatPriVar=true,
-      have_pumChiWatPriVar=false,
-      have_inpSch=false,
-      have_hrc=false,
-      have_valHpOutIso=valIsoHeaInl.have_valHpOutIso,
-      have_valHpInlIso=valIsoHeaInl.have_valHpInlIso,
-      have_chiWat=valIsoHeaInl.have_chiWat,
-      have_pumChiWatPriDed=valIsoHeaInl.have_pumChiWatPriDed,
-      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-      typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
-      typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
-      is_rev=false,
-      typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-      typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only,
-      nPumChiWatSec=0,
-      rhoHeaWat_default=Buildings.Media.Water.d_const,
-      typCtl=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop,
-      typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
-      rhoChiWat_default=Buildings.Media.Water.d_const,
-      cpChiWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_hotWat=false,
-      have_valChiWatMinByp=false,
-      have_valHeaWatMinByp=false,
-      cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_senDpChiWatRemWir=true,
-      typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-      nHp=2,
-      nPumHeaWatPri=2,
-      have_heaWat=true,
-      nPumHeaWatSec=0,
-      rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatRemWir=true,
-      typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-      nPumChiWatPri=0,
-      nSenDpHeaWatRem=0,
-      nSenDpChiWatRem=0,
-      nAirHan=0,
-      nEquZon=0),
-    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    dpChiWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-      datCtlHeaInl.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-      datCtlHeaInl.cfg.nSenDpHeaWatRem),
-    staEqu={fill(1, datCtlHeaInl.cfg.nHp)})
-    "Controller parameters"
-    annotation(Placement(transformation(extent={{-80,110},{-60,130}})));
   parameter Data.Controller datCtlSep(
     cfg(
       have_pumHeaWatPriVar=true,
@@ -176,7 +123,7 @@ model ValvesIsolation
     annotation(Placement(transformation(extent={{-80,-130},{-60,-110}})));
   parameter Data.HeatPumpGroup datHp(
     final have_hp=true,
-    final have_shc=false,
+    final have_shc=true,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
     mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal / abs(
@@ -205,30 +152,58 @@ model ValvesIsolation
     perCooHp(
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-      PLRSup={1}))
+      PLRSup={1}),
+        mHeaWatShc_flow_nominal=datHp.capHeaShc_nominal / abs(
+      datHp.THeaWatSupShc_nominal -
+        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    dpHeaWatShc_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
+    capHeaShc_nominal=500E3,
+    THeaWatSupShc_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    TSouHeaShc_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
+    mChiWatShc_flow_nominal=datHp.capCooShc_nominal / abs(
+      datHp.TChiWatSupShc_nominal -
+        Buildings.Templates.Data.Defaults.TChiWatRet) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    capCooShc_nominal=500E3,
+    TChiWatSupShc_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
+    TSouCooShc_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
+    PShc_min=1.0E3,
+    capHeaHrShc_nominal=1,
+    capCooHrShc_nominal=1,
+    perShc(
+      fileNameHea=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+      fileNameCoo=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+      fileNameShc=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
     "Reversible AWHP parameters"
     annotation(Placement(transformation(extent={{-280,-80},{-260,-60}})));
   Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation valIsoCom(
     redeclare final package Medium=Medium,
+    have_shc=true,
     nHp=2,
     have_chiWat=true,
-    nShc=0,
+    nShc=2,
     have_valHpInlIso=true,
     have_valHpOutIso=true,
-    have_pumChiWatPriDed=false,
-    final mHeaWatUni_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
-    dpHeaWatUni_nominal=fill(datHp.dpHeaWatHp_nominal, valIsoCom.nHp),
-    mChiWatUni_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, valIsoCom.nHp),
+    final mHeaWatUni_flow_nominal=cat(1, fill(datHp.mHeaWatHp_flow_nominal,
+        valIsoCom.nHp), fill(datHp.mHeaWatShc_flow_nominal, valIsoCom.nShc)),
+    dpHeaWatUni_nominal=cat(1, fill(datHp.dpHeaWatHp_nominal, valIsoCom.nHp),
+        fill(datHp.dpHeaWatShc_nominal, valIsoCom.nShc)),
+    mChiWatUni_flow_nominal=cat(1, fill(datHp.mChiWatHp_flow_nominal, valIsoCom.nHp),
+        fill(datHp.mChiWatShc_flow_nominal, valIsoCom.nShc)),
     final energyDynamics=energyDynamics,
     y_start=0)
-    "Isolation valves - Heating and cooling system with common dedicated primary HW and CHW pumps"
+    "Isolation valves – Heat pumps with common dedicated primary HW and CHW pumps, SHC units with dedicated primary pumps"
     annotation(Placement(transformation(extent={{-240,220},{240,360}})));
   Fluid.FixedResistances.PressureDrop hpCom[valIsoCom.nHp](
     redeclare each final package Medium=Medium,
-    m_flow_nominal=valIsoCom.mHeaWatUni_flow_nominal,
+    m_flow_nominal=valIsoCom.mHeaWatUni_flow_nominal[1:valIsoCom.nHp],
     dp_nominal=fill(0, valIsoCom.nHp))
     "Heat pump HX with zero fluid resistance: pressure drop computed in valve component"
-    annotation(Placement(transformation(extent={{10,210},{-10,230}})));
+    annotation(Placement(transformation(extent={{-30,190},{-50,210}})));
   Fluid.Sources.Boundary_pT retChiWat(
     redeclare final package Medium=Medium,
     p=supChiWat.p + max(valIsoCom.dpChiWat_nominal),
@@ -258,45 +233,6 @@ model ValvesIsolation
   Controls.OpenLoop ctl(final cfg=datCtl.cfg, final dat=datCtl)
     "Plant controller"
     annotation(Placement(transformation(extent={{-30,370},{-50,390}})));
-  Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation valIsoHeaInl(
-    redeclare final package Medium=Medium,
-    nHp=2,
-    have_chiWat=false,
-    nShc=0,
-    have_pumChiWatPriDed=false,
-    have_valHpInlIso=true,
-    have_valHpOutIso=false,
-    final mHeaWatUni_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
-    dpHeaWatUni_nominal=fill(datHp.dpHeaWatHp_nominal, valIsoCom.nHp),
-    mChiWatUni_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, valIsoCom.nHp),
-    final energyDynamics=energyDynamics,
-    y_start=0)
-    "Isolation valves - Heating-only system with isolation valves at HP inlet"
-    annotation(Placement(transformation(extent={{-240,-40},{240,100}})));
-  Fluid.FixedResistances.PressureDrop hpHea[valIsoHeaInl.nHp](
-    redeclare each final package Medium=Medium,
-    m_flow_nominal=valIsoHeaInl.mHeaWatUni_flow_nominal,
-    dp_nominal=fill(0, valIsoHeaInl.nHp))
-    "Heat pump HX with zero fluid resistance: pressure drop computed in valve component"
-    annotation(Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Fluid.Sources.Boundary_pT retHeaWat1(
-    redeclare final package Medium=Medium,
-    p=supHeaWat1.p + max(valIsoHeaInl.dpHeaWat_nominal),
-    T=Buildings.Templates.Data.Defaults.THeaWatRetMed,
-    nPorts=1)
-    "Boundary condition at HW return"
-    annotation(Placement(transformation(extent={{-280,60},{-260,80}})));
-  Fluid.Sources.Boundary_pT supHeaWat1(
-    redeclare final package Medium=Medium,
-    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
-    nPorts=1)
-    "Boundary condition at HW supply"
-    annotation(Placement(transformation(extent={{-280,20},{-260,40}})));
-  Controls.OpenLoop ctlHeaInl(
-    final cfg=datCtlHeaInl.cfg,
-    final dat=datCtlHeaInl)
-    "Plant controller"
-    annotation(Placement(transformation(extent={{-30,110},{-50,130}})));
   Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation valIsoSep(
     redeclare final package Medium=Medium,
     nHp=2,
@@ -385,6 +321,20 @@ model ValvesIsolation
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-34,-306})));
+  Fluid.FixedResistances.PressureDrop shcEvaCom[valIsoCom.nShc](
+    redeclare each final package Medium = Medium,
+    m_flow_nominal=valIsoCom.mChiWatUni_flow_nominal[valIsoCom.nHp + 1:
+        valIsoCom.nHp + valIsoCom.nShc],
+    dp_nominal=fill(0, valIsoCom.nShc))
+    "SHC unit evaporator with zero fluid resistance: pressure drop computed in valve component"
+    annotation (Placement(transformation(extent={{40,170},{20,190}})));
+  Fluid.FixedResistances.PressureDrop shcConCom[valIsoCom.nShc](
+    redeclare each final package Medium = Medium,
+    m_flow_nominal=valIsoCom.mHeaWatUni_flow_nominal[valIsoCom.nHp + 1:
+        valIsoCom.nHp + valIsoCom.nShc],
+    dp_nominal=fill(0, valIsoCom.nShc))
+    "SHC unit condenser with zero fluid resistance: pressure drop computed in valve component"
+    annotation (Placement(transformation(extent={{10,150},{-10,170}})));
 equation
   connect(retHeaWat.ports[1], valIsoCom.port_aHeaWat)
     annotation(Line(points={{-260,330},{-240,330}},
@@ -402,27 +352,11 @@ equation
     annotation(Line(points={{-30,380},{0,380},{0,330}},
       color={255,204,51},
       thickness=0.5));
-  connect(retHeaWat1.ports[1], valIsoHeaInl.port_aHeaWat)
-    annotation(Line(points={{-260,70},{-240,70}},
-      color={0,127,255}));
-  connect(valIsoHeaInl.port_bHeaWat, supHeaWat1.ports[1])
-    annotation(Line(points={{-240,30},{-260,30}},
-      color={0,127,255}));
-  connect(ctlHeaInl.bus, valIsoHeaInl.bus)
-    annotation(Line(points={{-30,120},{0,120},{0,70}},
-      color={255,204,51},
-      thickness=0.5));
   connect(valIsoCom.ports_bChiHeaWatHp, hpCom.port_a)
-    annotation(Line(points={{34,220},{10,220}},
+    annotation(Line(points={{34,220},{34,200},{-30,200}},
       color={0,127,255}));
   connect(hpCom.port_b, valIsoCom.ports_aChiHeaWatHp)
-    annotation(Line(points={{-10,220},{-50,220}},
-      color={0,127,255}));
-  connect(valIsoHeaInl.ports_bChiHeaWatHp, hpHea.port_a)
-    annotation(Line(points={{34,-40},{10,-40}},
-      color={0,127,255}));
-  connect(hpHea.port_b, valIsoHeaInl.ports_aChiHeaWatHp)
-    annotation(Line(points={{-10,-40},{-50,-40}},
+    annotation(Line(points={{-50,200},{-52,200},{-52,220}},
       color={0,127,255}));
   connect(valIsoSep.port_bHeaWat, supHeaWat2.ports[1])
     annotation(Line(points={{-240,-210},{-260,-210},{-260,-191}},
@@ -467,10 +401,10 @@ equation
     annotation(Line(points={{-66,-310},{-66,-306}},
       color={0,127,255}));
   connect(cheValHeaWat.port_b, valIsoSep.ports_aHeaWatHp)
-    annotation(Line(points={{-66,-286},{-66,-280}},
+    annotation(Line(points={{-66,-286},{-66,-284},{-66,-280},{-68,-280}},
       color={0,127,255}));
   connect(cheValChiWat.port_b, valIsoSep.ports_aChiWatHp)
-    annotation(Line(points={{-34,-296},{-34,-280}},
+    annotation(Line(points={{-34,-296},{-34,-288},{-34,-280},{-36,-280}},
       color={0,127,255}));
   connect(pumChiWatPri.port_b, cheValChiWat.port_a)
     annotation(Line(points={{-34,-324},{-34,-316}},
@@ -485,6 +419,14 @@ equation
     annotation(Line(
       points={{240,-150},{260,-150},{260,-190},{240,-190},{240,-190}},
       color={0,127,255}));
+  connect(valIsoCom.ports_bChiWatShc, shcEvaCom.port_a)
+    annotation (Line(points={{66,220},{66,180},{40,180}}, color={0,127,255}));
+  connect(shcEvaCom.port_b, valIsoCom.ports_aChiWatShc)
+    annotation (Line(points={{20,180},{-4,180},{-4,220}}, color={0,127,255}));
+  connect(valIsoCom.ports_bHeaWatShc, shcConCom.port_a)
+    annotation (Line(points={{50,220},{50,160},{10,160}}, color={0,127,255}));
+  connect(shcConCom.port_b, valIsoCom.ports_aHeaWatShc) annotation (Line(points
+        ={{-10,160},{-20,160},{-20,220}}, color={0,127,255}));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/ValvesIsolation.mos"
     "Simulate and plot"),
@@ -533,4 +475,4 @@ annotation(__Dymola_Commands(
   open.
 </p>
 </html>"));
-end ValvesIsolation;
+end ValvesIsolationSHC;

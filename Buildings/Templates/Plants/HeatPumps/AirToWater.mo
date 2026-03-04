@@ -2,13 +2,13 @@ within Buildings.Templates.Plants.HeatPumps;
 model AirToWater
   "Air-to-water heat pump plant"
   extends Buildings.Templates.Plants.HeatPumps.Interfaces.PartialHeatPumpPlant(
-    redeclare final package MediumChiWat=MediumHeaWat,
-    redeclare final package MediumSou=MediumAir,
-    redeclare Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater ctl(ctl(
-      final yPumHeaWatPriSet=yPumHeaWatPriSet,
-      final yPumChiWatPriSet=yPumChiWatPriSet)),
-    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
-    final is_rev=have_chiWat);
+    redeclare final package MediumChiWat = MediumHeaWat,
+    redeclare final package MediumSou = MediumAir,
+    redeclare
+      Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater ctl(
+        ctl(final yPumHeaWatPriSet=yPumHeaWatPriSet, final yPumChiWatPriSet=
+            yPumChiWatPriSet)),
+    final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater);
   parameter Boolean is_dpBalYPumSetCal(start=false)=false
     "Set to true to automatically size balancing valves or evaluate pump speed providing design flow"
     annotation(Evaluate=true, Dialog(tab="Advanced",
@@ -99,21 +99,20 @@ model AirToWater
     "Dedicated primary pumps"
     annotation (Placement(transformation(extent={{-540,-130},{-60,-50}})));
   Components.ValvesIsolation valIso(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final nHp=nHp,
     final have_chiWat=have_chiWat,
     final have_valHpInlIso=have_valHpInlIso,
     final have_valHpOutIso=have_valHpOutIso,
     final have_pumChiWatPriDed=have_pumChiWatPriDed,
-    final mHeaWatHp_flow_nominal=fill(dat.hp.mHeaWatHp_flow_nominal, nHp),
-    final dpHeaWatHp_nominal=fill(dat.hp.dpHeaWatHp_nominal, nHp),
-    final dpBalHeaWatHp_nominal=fill(dpBalHeaWatHp_nominal, nHp),
-    final mChiWatHp_flow_nominal=fill(dat.hp.mChiWatHp_flow_nominal, nHp),
-    final dpBalChiWatHp_nominal=fill(dpBalChiWatHp_nominal, nHp),
+    final mHeaWatUni_flow_nominal=fill(dat.hp.mHeaWatHp_flow_nominal, nHp),
+    final dpHeaWatUni_nominal=fill(dat.hp.dpHeaWatHp_nominal, nHp),
+    final dpBalHeaWatUni_nominal=fill(dpBalHeaWatHp_nominal, nHp),
+    final mChiWatUni_flow_nominal=fill(dat.hp.mChiWatHp_flow_nominal, nHp),
+    final dpBalChiWatUni_nominal=fill(dpBalChiWatHp_nominal, nHp),
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    linearized=linearized)
-    "Heat pump isolation valves"
+    linearized=linearized) "Heat pump isolation valves"
     annotation (Placement(transformation(extent={{-540,-50},{-60,90}})));
   // Primary CHW loop
   Buildings.Templates.Components.Pumps.Multiple pumChiWatPri(
@@ -793,7 +792,7 @@ equation
       thickness=0.5,
       visible=have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
   connect(valIso.ports_bChiHeaWatHp, pumPri.ports_aChiHeaWat)
-    annotation (Line(points={{-250,-50},{-250,-50}},
+    annotation (Line(points={{-266,-50},{-250,-50}},
                                                   color={0,127,255}));
   connect(pumPri.ports_bChiHeaWatHp, hp.ports_aChiHeaWat)
     annotation (Line(points={{-250,-130},{-250,-130}},

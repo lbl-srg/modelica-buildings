@@ -35,7 +35,8 @@ partial model PartialHeatPumpPlant
     "Set to true if the plant provides HW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  parameter Boolean have_chiWat=true
+  final parameter Boolean have_chiWat=
+    typ <> Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingOnly
     "Set to true if the plant provides CHW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
@@ -43,37 +44,47 @@ partial model PartialHeatPumpPlant
   final parameter Boolean have_hotWat=false
     "Set to true if the plant provides DHW"
     annotation (Evaluate=true,
-    Dialog(group="Configuration"));
-  parameter Boolean have_hrc_select(
-    start=false)=false
-    "Set to true for plants with a sidestream heat recovery chiller"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration",
-    enable=have_heaWat and have_chiWat));
-  final parameter Boolean have_hrc=if have_heaWat and have_chiWat then have_hrc_select
-    else false
+      Dialog(group="Configuration"));
+  final parameter Boolean have_hp =
+    typ<>Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAndCoolingHeatRecovery
+    "Set to true for plants with non-reversible or reversible heat pumps"
+    annotation (Evaluate=true);
+  final parameter Boolean have_shc =
+    typ==Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCoolingHeatRecovery
+    "Set to true for plants with simultaneous (multi-pipe) units"
+    annotation (Evaluate=true);
+  final parameter Boolean have_hrc=
+    typ==Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCoolingHeatRecovery
     "Set to true for plants with sidestream heat recovery chiller"
     annotation (Evaluate=true);
-  parameter Buildings.Templates.Components.Types.HeatPump typ
+  parameter Buildings.Templates.Plants.HeatPumps.Types.Plant typ =
+    Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCooling
+    "Type of plant"
+    annotation (Evaluate=true);
+  parameter Buildings.Templates.Components.Types.HeatPump typHp
     "Type of heat pump"
     annotation (Evaluate=true,
     Dialog(group="Heat pumps"));
-  parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg(
+  parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant
+    cfg(
     final cpChiWat_default=cpChiWat_default,
     final cpHeaWat_default=cpHeaWat_default,
     final cpSou_default=cpSou_default,
     final have_chiWat=have_chiWat,
     final have_heaWat=have_heaWat,
+    final have_hp=have_hp,
     final have_hrc=have_hrc,
     final have_hotWat=have_hotWat,
     final have_pumHeaWatPriVar=have_pumHeaWatPriVar,
     final have_pumChiWatPriVar=have_pumChiWatPriVar,
     final have_pumChiWatPriDed=have_pumChiWatPriDed,
+    final have_shc=have_shc,
     final have_valChiWatMinByp=have_valChiWatMinByp,
     final have_valHeaWatMinByp=have_valHeaWatMinByp,
     final have_valHpInlIso=have_valHpInlIso,
     final have_valHpOutIso=have_valHpOutIso,
     final is_rev=is_rev,
+    final is_shcMod=is_shcMod,
     final nHp=nHp,
     final nPumChiWatPri=nPumChiWatPri,
     final nPumChiWatSec=nPumChiWatSec,
@@ -82,7 +93,7 @@ partial model PartialHeatPumpPlant
     final rhoChiWat_default=rhoChiWat_default,
     final rhoHeaWat_default=rhoHeaWat_default,
     final rhoSou_default=rhoSou_default,
-    final typ=typ,
+    final typ=typHp,
     final typArrPumPri=typArrPumPri,
     final typDis=typDis,
     final typPumChiWatPri=typPumChiWatPri,
@@ -98,8 +109,7 @@ partial model PartialHeatPumpPlant
     final nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
     final have_senDpChiWatRemWir=ctl.have_senDpChiWatRemWir,
     final nSenDpChiWatRem=ctl.nSenDpChiWatRem,
-    final have_inpSch=ctl.have_inpSch)
-    "Configuration parameters"
+    final have_inpSch=ctl.have_inpSch) "Configuration parameters"
     annotation (__ctrlFlow(enable=false));
   parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(
     cfg=cfg)
@@ -107,15 +117,29 @@ partial model PartialHeatPumpPlant
     annotation (Placement(transformation(extent={{-120,360},{-100,380}})));
   // RFE(AntoineGautier): Allow specifying subset of units dedicated to HW, CHW or DHW production.
   parameter Integer nHp(
-    final min=1,
-    start=1)
+    start=0,
+    final min=if have_hp then 1 else 0,
+    final max=if have_hp then 10 else 0)
     "Total number of heat pumps"
     annotation (Evaluate=true,
-    Dialog(group="Heat pumps"));
-  parameter Boolean is_rev
-    "Set to true for reversible heat pumps, false for heating only"
+      Dialog(group="Heat pumps", enable=have_hp));
+  parameter Integer nShc(
+    start=0,
+    final min=if have_shc then 1 else 0,
+    final max=if have_shc then (if is_shcMod then 1 else 10) else 0)
+    "Total number of SHC (multi-pipe) units"
     annotation (Evaluate=true,
-    Dialog(group="Heat pumps"));
+      Dialog(group="Heat pumps", enable=have_shc));
+  parameter Boolean is_shcMod(start=false)
+    "Set to true for modular SHC unit"
+    annotation (Evaluate=true,
+      Dialog(group="Heat pumps", enable=have_shc));
+  final parameter Boolean is_rev=
+    typ==Buildings.Templates.Plants.HeatPumps.Plant.HeatingAltCooling or
+    typ==Buildings.Templates.Plants.HeatPumps.Plant.HeatingAltCoolingHeatRecovery or
+    typ==Buildings.Templates.Plants.HeatPumps.Plant.HeatingAndCoolingHybrid
+    "Set to true for reversible heat pumps, false for heating only"
+    annotation (Evaluate=true);
   // Plants with AWHP.
   parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis_select1(
     start=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)=
@@ -123,7 +147,7 @@ partial model PartialHeatPumpPlant
     "Type of distribution system"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
-    enable=typ==Buildings.Templates.Components.Types.HeatPump.AirToWater),
+    enable=typHp == Buildings.Templates.Components.Types.HeatPump.AirToWater),
     choices(
       choice=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
       "Variable primary-only",
@@ -135,11 +159,10 @@ partial model PartialHeatPumpPlant
     "Type of distribution system"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
-    enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
-  final parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis=
-    if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater then typDis_select1
-    else typDis_select2
-    "Type of distribution system"
+    enable=typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+  final parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution
+    typDis=if typHp == Buildings.Templates.Components.Types.HeatPump.AirToWater
+       then typDis_select1 else typDis_select2 "Type of distribution system"
     annotation (Evaluate=true);
   final parameter Boolean have_valHpInlIso=if not have_chiWat and typArrPumPri ==
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated then false

@@ -43,7 +43,7 @@ model PumpsPrimaryDedicated
     nPum=nPum)
     "HW pump parameters"
     annotation (Dialog(enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated),
-      Placement(transformation(extent={{170,170},{190,190}})));
+      Placement(transformation(extent={{-10,160},{10,180}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWat(
     typ=if have_pumChiWatPriDed then Buildings.Templates.Components.Types.Pump.Multiple
       else Buildings.Templates.Components.Types.Pump.None,
@@ -51,7 +51,7 @@ model PumpsPrimaryDedicated
     "CHW pump parameters"
     annotation (Dialog(enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
       and have_pumChiWatPriDed),
-      Placement(transformation(extent={{170,130},{190,150}})));
+      Placement(transformation(extent={{-10,120},{10,140}})));
   parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal[nPum](
     each final min=0,
     start=fill(if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
@@ -94,18 +94,17 @@ model PumpsPrimaryDedicated
       and not have_pumChiWatPriDed
     "CHW/HW supply (to primary loop)"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-      origin={-100,200}),
-      iconTransformation(extent={{-10,-40},{10,40}},rotation=270,origin={-500,400})));
+      origin={-180,200}),
+      iconTransformation(extent={{-10,-40},{10,40}},rotation=270,origin={-660,400})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiHeaWat[nHp](
     redeclare each final package Medium=Medium,
     each m_flow(
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default))
-    "CHW/HW return (from primary loop)"
+      nominal=Medium.h_default)) "CHW/HW return (from primary loop)"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-      origin={100,200}),
+      origin={60,200}),
       iconTransformation(extent={{-10,-40},{10,40}},rotation=270,origin={500,400})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiHeaWatHp[nHp](
     redeclare each final package Medium=Medium,
@@ -113,10 +112,9 @@ model PumpsPrimaryDedicated
       max=if allowFlowReversal then + Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default))
-    "CHW/HW return (HP entering)"
+      nominal=Medium.h_default)) "CHW/HW return – HP entering"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-      origin={100,-200}),
+      origin={60,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={500,-400})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWat[nHp](
     redeclare each final package Medium=Medium,
@@ -124,25 +122,23 @@ model PumpsPrimaryDedicated
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default))
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      and have_pumChiWatPriDed
+      nominal=Medium.h_default)) if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+     and have_pumChiWatPriDed
     "HW supply (to primary loop)"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-      origin={-180,200}),
-      iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-660,400})));
+      origin={-140,200}),
+      iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-500,400})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWat[nHp](
     redeclare each final package Medium=Medium,
     each m_flow(
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default))
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      and have_pumChiWatPriDed
+      nominal=Medium.h_default)) if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+     and have_pumChiWatPriDed
     "CHW supply (to primary loop)"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-      origin={-20,200}),
+      origin={-100,200}),
       iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-340,400})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiHeaWatHp[nHp](
     redeclare each final package Medium=Medium,
@@ -150,14 +146,13 @@ model PumpsPrimaryDedicated
       min=if allowFlowReversal then - Modelica.Constants.inf else 0),
     each h_outflow(
       start=Medium.h_default,
-      nominal=Medium.h_default))
-    "CHW/HW supply (HP leaving)"
+      nominal=Medium.h_default)) "CHW/HW supply (HP leaving)"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
       origin={-100,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-500,-400})));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
     "Plant control bus"
-    annotation (Placement(transformation(extent={{20,180},{60,220}}),
+    annotation (Placement(transformation(extent={{0,180},{40,220}}),
       iconTransformation(extent={{-20,380},{20,420}})));
   Buildings.Templates.Components.Pumps.Multiple pumHeaWat(
     redeclare final package Medium=Medium,
@@ -226,6 +221,78 @@ model PumpsPrimaryDedicated
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-120,-140})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nShc](
+    redeclare each final package Medium = Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_shc "HW return (from primary loop) to SHC unit" annotation (
+      Placement(transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={120,200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=270,
+        origin={500,400})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nShc](
+    redeclare each final package Medium = Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_shc "CHW return (from primary loop) to SHC unit" annotation (
+      Placement(transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={180,200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=270,
+        origin={500,400})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatShc[nShc](
+    redeclare each final package Medium = Medium,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_shc "HW return – SHC unit entering" annotation (Placement(
+        transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={120,-200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={500,-400})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWatShc[nShc](
+    redeclare each final package Medium = Medium,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_shc "CHW return – SHC unit entering" annotation (Placement(
+        transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={180,-200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={500,-400})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatShc[nShc](
+    redeclare each final package Medium = Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_shc "HW supply – SHC unit leaving" annotation (Placement(
+        transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-180,-200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-500,-400})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatShc[nShc](
+    redeclare each final package Medium = Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_shc "CHW supply – SHC unit leaving" annotation (Placement(
+        transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-20,-200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-500,-400})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri
     "Primary HW pump control bus"
@@ -238,30 +305,30 @@ protected
       iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   connect(bus.pumHeaWatPri, busPumHeaWatPri)
-    annotation (Line(points={{40,200},{40,-100},{0,-100}},
+    annotation (Line(points={{20,200},{20,-100},{0,-100}},
                                                         color={255,204,51},thickness=0.5));
   connect(bus.pumChiWatPri, busPumChiWatPri)
-    annotation (Line(points={{40,200},{40,-50},{0,-50}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{20,200},{20,-50},{0,-50}},color={255,204,51},thickness=0.5));
   connect(pumHeaWat.ports_b, ports_bHeaWat)
-    annotation (Line(points={{-150,-60},{-180,-60},{-180,200}},
+    annotation (Line(points={{-150,-60},{-150,200},{-140,200}},
       color={0,127,255}));
   connect(pumHeaWat.ports_b, ports_bChiHeaWat)
-    annotation (Line(points={{-150,-60},{-160,-60},{-160,180},{-100,180},{-100,
-          200}},
+    annotation (Line(points={{-150,-60},{-160,-60},{-160,200},{-180,200}},
       color={0,127,255}));
   connect(pumChiWat.ports_b, ports_bChiWat)
-    annotation (Line(points={{-28,-60},{-20,-60},{-20,200}},
+    annotation (Line(points={{-28,-60},{-100,-60},{-100,200}},
       color={0,127,255}));
   connect(busPumHeaWatPri, pumHeaWat.bus)
     annotation (Line(points={{0,-100},{-140,-100},{-140,-50}},       color={255,204,51},thickness=0.5));
   connect(busPumChiWatPri, pumChiWat.bus)
     annotation (Line(points={{0,-50},{-38,-50}},color={255,204,51},thickness=0.5));
   connect(ports_aChiHeaWat, ports_bChiHeaWatHp)
-    annotation (Line(points={{100,200},{100,-200}},color={0,127,255}));
+    annotation (Line(points={{60,200},{60,-200}},  color={0,127,255}));
   connect(ports_aChiHeaWatHp, pasHdr.port_a)
     annotation (Line(points={{-100,-200},{-100,-150}}, color={0,127,255}));
   connect(pasHdr.port_b, ports_bChiHeaWat)
-    annotation (Line(points={{-100,-130},{-100,200}}, color={0,127,255}));
+    annotation (Line(points={{-100,-130},{-100,200},{-180,200}},
+                                                      color={0,127,255}));
   connect(junDedSep.port_3, pumChiWat.ports_a) annotation (Line(points={{-70,
           -140},{-60,-140},{-60,-60},{-48,-60}},
                                             color={0,127,255}));
@@ -275,6 +342,16 @@ equation
   connect(junDedSep.port_2, pumHeaWat.ports_a) annotation (Line(points={{-80,
           -130},{-80,-60},{-130,-60}},
                                  color={0,127,255}));
+  connect(ports_aHeaWat, ports_bHeaWatShc)
+    annotation (Line(points={{120,200},{120,-200}}, color={0,127,255}));
+  connect(ports_aChiWat, ports_bChiWatShc)
+    annotation (Line(points={{180,200},{180,-200}}, color={0,127,255}));
+  connect(ports_aHeaWatShc, pumHeaWat.ports_a[nHp + 1:nHp + nShc]) annotation (
+      Line(points={{-180,-200},{-180,-140},{-130,-140},{-130,-60}}, color={0,
+          127,255}));
+  connect(ports_aChiWatShc, pumChiWat.ports_a[nHp + 1:nHp + nShc]) annotation (
+      Line(points={{-20,-200},{-20,-140},{-48,-140},{-48,-64}}, color={0,127,
+          255}));
   annotation (
     defaultComponentName="pumPri",
     Diagram(
