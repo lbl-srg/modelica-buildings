@@ -13,12 +13,12 @@ block HybridPlantControlModule
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  parameter Boolean has_sort=true
+  parameter Boolean have_sorRunTim=true
     "Are the lead-lag equipment rotated based on runtime?"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  parameter Boolean is_fouPip[nHp]=fill(false,nHp)
+  parameter Boolean is_fouPip[nHp,1]=fill(false,nHp)
     "Vector indicating if each HP is a 4-pipe ASHP; True=Is 4-pipe ASHP;False=Not 4-pipe ASHP"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
@@ -33,14 +33,14 @@ block HybridPlantControlModule
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
 
-  parameter Real staEquCooHea[:, nHp](
+  parameter Real staEquDouMod[:, nHp](
     each final max=1,
     each final min=0,
     each final unit="1")
     "Staging matrix for heating-cooling mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
 
-  parameter Real staEquOneMod[:, nHp](
+  parameter Real staEquSinMod[:, nHp](
     each final max=1,
     each final min=0,
     each final unit="1")
@@ -48,13 +48,13 @@ block HybridPlantControlModule
     annotation (Dialog(group="Equipment staging and rotation"));
 
   final parameter Integer nSta(
-    final min=1)=size(staEquCooHea, 1)
+    final min=1)=size(staEquDouMod, 1)
     "Number of stages"
     annotation (Evaluate=true);
 
   final parameter Integer nEquAlt(
     final min=0)=if nHp==1 then 1 else
-    max({sum({(if staEquCooHea[i, j] > 0 and staEquCooHea[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
+    max({sum({(if staEquDouMod[i, j] > 0 and staEquDouMod[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
 
@@ -115,7 +115,7 @@ block HybridPlantControlModule
       iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdxSta[nEquAlt]
-    if not has_sort
+    if not have_sorRunTim
     "Staging index if runtime sorting is absent"
     annotation (Placement(transformation(extent={{320,-380},{360,-340}}),
       iconTransformation(extent={{100,-140},{140,-100}})));
@@ -130,12 +130,12 @@ block HybridPlantControlModule
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nSta,nHp](
-    final k=staEquCooHea)
+    final k=staEquDouMod)
     "Staging matrix for heating-cooling mode"
     annotation (Placement(transformation(extent={{-10,-240},{10,-220}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nSta,nHp](
-    final k=staEquOneMod)
+    final k=staEquSinMod)
     "Staging matrix for heating-only and cooling-only mode"
     annotation (Placement(transformation(extent={{-10,-300},{10,-280}})));
 
@@ -169,7 +169,7 @@ protected
     "Output mode for 2-pipe and 4-pipe ASHPs"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isFouPip[nHp](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isFouPip[nHp,1](
     final k=is_fouPip)
     "Is the heat pump a 4-pipe ASHP?"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
@@ -209,22 +209,22 @@ protected
     "Vectorize mode signal with dimension equal to number of heat pumps"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not has_sort
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not have_sorRunTim
     "Switch between two staging orders when runtime sorting is not used"
     annotation (Placement(transformation(extent={{30,-370},{50,-350}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nEquAlt](
-    final k={i for i in 1:nEquAlt}) if not has_sort
+    final k={i for i in 1:nEquAlt}) if not have_sorRunTim
     "Sort components in direct order when runtime sorting is not used"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nEquAlt](
-    final k={i for i in nEquAlt:-1:1}) if not has_sort
+    final k={i for i in nEquAlt:-1:1}) if not have_sorRunTim
     "Sort components in reverse order when runtime sorting is not used"
     annotation (Placement(transformation(extent={{-10,-350},{10,-330}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
-    final nout=nEquAlt) if not has_sort
+    final nout=nEquAlt) if not have_sorRunTim
     "Generate vector with size equal to list of lead-lag equipment"
     annotation (Placement(transformation(extent={{-50,-370},{-30,-350}})));
 
@@ -358,8 +358,6 @@ equation
   connect(booToInt.y, intSwi.u3)
     annotation (Line(points={{-58,-180},{180,-180},{180,-98},{198,-98}},
                                                    color={255,127,0}));
-  connect(isFouPip.y, intSwi.u2) annotation (Line(points={{82,-40},{160,-40},{160,
-          -90},{198,-90}}, color={255,0,255}));
   connect(and2.y, booToInt1.u) annotation (Line(points={{-198,-20},{-180,-20},{-180,
           -90},{-62,-90}},                     color={255,0,255}));
   connect(and2.y, not1.u) annotation (Line(points={{-198,-20},{-180,-20},{-180,-150},
@@ -395,8 +393,6 @@ equation
         color={255,0,255}));
   connect(u1EnaCoo, and2.u2) annotation (Line(points={{-280,-50},{-230,-50},{-230,
           -28},{-222,-28}},                            color={255,0,255}));
-  connect(isFouPip.y, pre1.u) annotation (Line(points={{82,-40},{160,-40},{160,70},
-          {188,70}},       color={255,0,255}));
   connect(intEqu.y, or3.u1)
     annotation (Line(points={{-98,230},{-62,230}}, color={255,0,255}));
   connect(intEqu1.y, or3.u2) annotation (Line(points={{122,310},{132,310},{132,248},
@@ -445,8 +441,6 @@ equation
   connect(intEqu1.y, and8.u1) annotation (Line(points={{122,310},{198,310}},
                                                                    color={255,0,
           255}));
-  connect(isFouPip.y, and8.u2) annotation (Line(points={{82,-40},{160,-40},{160,
-          302},{198,302}},                color={255,0,255}));
   connect(intEqu1.y, or4.u2) annotation (Line(points={{122,310},{132,310},{132,248},
           {-72,248},{-72,132},{-62,132}},
                       color={255,0,255}));
@@ -505,6 +499,12 @@ equation
           {258,352}}, color={255,0,255}));
   connect(or5.y, and9.u1)
     annotation (Line(points={{142,360},{258,360}}, color={255,0,255}));
+  connect(isFouPip[:, 1].y, intSwi.u2) annotation (Line(points={{82,-40},{160,
+          -40},{160,-90},{198,-90}}, color={255,0,255}));
+  connect(isFouPip[:, 1].y, pre1.u) annotation (Line(points={{82,-40},{160,-40},
+          {160,70},{188,70}}, color={255,0,255}));
+  connect(isFouPip[:, 1].y, and8.u2) annotation (Line(points={{82,-40},{160,-40},
+          {160,302},{198,302}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctlPlaHyb",
     Icon(
@@ -554,8 +554,8 @@ as required between the three operation modes.
 </p>
 <h4>Details</h4>
 <p>
-Staging matrices <code>staEqu</code>, <code>staEquCooHea</code>, and
-<code>staEquOneMod</code> are required as parameters.
+Staging matrices <code>staEqu</code>, <code>staEquDouMod</code>, and
+<code>staEquSinMod</code> are required as parameters.
 See the documentation of
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>

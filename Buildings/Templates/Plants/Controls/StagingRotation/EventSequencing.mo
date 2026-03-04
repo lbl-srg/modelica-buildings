@@ -6,6 +6,9 @@ block EventSequencing "Staging event sequencing"
   parameter Boolean have_chiWat
     "Set to true for plants that provide CHW"
     annotation (Evaluate=true);
+  parameter Boolean have_fouPip=false
+    "Is the plant a hybrid heat pump plant?"
+    annotation (Evaluate=true);
   parameter Boolean have_valInlIso
     "Set to true if the system as inlet isolation valves"
     annotation (Evaluate=true);
@@ -50,7 +53,7 @@ block EventSequencing "Staging event sequencing"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual
-    if have_chiWat and have_pumChiWatPri
+    if have_chiWat and (have_pumChiWatPri or have_fouPip)
     "Primary CHW pump status – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -90,7 +93,7 @@ block EventSequencing "Staging event sequencing"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri
-    if have_chiWat and have_pumChiWatPri
+    if have_chiWat and (have_pumChiWatPri or have_fouPip)
     "Primary CHW pump start command – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{160,-120},{200,-80}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
@@ -137,7 +140,7 @@ block EventSequencing "Staging event sequencing"
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
   Utilities.PlaceholderLogical u1PumChiWatPri_internal(
-    final have_inp=have_chiWat and have_pumChiWatPri,
+    final have_inp=have_chiWat and (have_pumChiWatPri or have_fouPip),
     final have_inpPh=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
@@ -213,7 +216,7 @@ block EventSequencing "Staging event sequencing"
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch latPumChiWatPri
-    if have_chiWat and have_pumChiWatPri
+    if have_chiWat and (have_pumChiWatPri or have_fouPip)
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
 equation

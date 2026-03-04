@@ -290,7 +290,20 @@ record Controller
     each final max=1,
     each final min=0,
     each final unit="1")
-    "Staging matrix – Equipment required for each stage"
+    "Staging matrix – Equipment required for each stage;
+    Manually assign this to be equal to StaEquSinMod in a hybrid plant"
+    annotation (Dialog(group="Equipment staging and rotation"));
+  parameter Real staEquDouMod[:, :](
+    each final max=1,
+    each final min=0,
+    each final unit="1")=staEqu
+    "Staging matrix for heating-cooling mode – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation"));
+  parameter Real staEquSinMod[:, :](
+    each final max=1,
+    each final min=0,
+    each final unit="1")=staEqu
+    "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real plrSta(
     final max=1,

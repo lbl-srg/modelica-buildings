@@ -5,7 +5,6 @@ model HybridPlantControlModule
   Buildings.Templates.Plants.Controls.HeatPumps.HybridPlantControlModule
     ctl(
     final have_heaWat=true,
-    final has_sort=true,
     final have_chiWat=true,
     final nHp=3,
     final is_fouPip={false,false,true},
