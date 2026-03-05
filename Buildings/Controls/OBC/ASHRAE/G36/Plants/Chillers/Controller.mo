@@ -1544,10 +1544,8 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{240,180},{260,200}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable.EnableDevices enaDev(
-    final nSta=nSta,
     final nChiWatPum=nChiWatPum,
     final nConWatPum=nConWatPum,
-    final iniPumDel=iniPumDel,
     final have_airCoo=have_airCoo)
     "Enable devices when plant is enabled"
     annotation (Placement(transformation(extent={{-540,-430},{-520,-410}})));
@@ -1960,8 +1958,8 @@ equation
           -410},{-720,-428},{-542,-428}}, color={255,0,255}));
   connect(uChiWatPum, enaDev.uChiWatPum) annotation (Line(points={{-920,574},{-790,
           574},{-790,-424},{-542,-424}}, color={255,0,255}));
-  connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-500},{
-          -580,-500},{-580,542.357},{414,542.357}}, color={255,0,255}));
+  connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-500},
+          {-580,-500},{-580,542.357},{414,542.357}},color={255,0,255}));
   connect(enaDev.yLeaConPum, upProCon.uEnaPlaConPum) annotation (Line(points={{-518,
           -423},{-110,-423},{-110,364},{172,364}}, color={255,0,255}));
   connect(enaDev.yConWatIsoVal, upProCon.uEnaPlaConIso) annotation (Line(points={{-518,
@@ -2019,8 +2017,8 @@ equation
           255}));
   connect(wseSta.y, disChi.uWSE) annotation (Line(points={{-656,334},{-630,334},
           {-630,-490},{738,-490}}, color={255,0,255}));
-  connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,334},{-630,
-          334},{-630,510.214},{414,510.214}},      color={255,0,255}));
+  connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,334},{
+          -630,334},{-630,510.214},{414,510.214}}, color={255,0,255}));
   connect(staSetCon.yChiSet, upProCon.uChiConIsoVal) annotation (Line(points={{
           -172,4},{-130,4},{-130,380},{172,380}}, color={255,0,255}));
   connect(staSetCon.yChiSet, dowProCon.uChiConIsoVal) annotation (Line(points={{-172,4},
@@ -2033,8 +2031,8 @@ equation
           364},{-862,364}}, color={0,0,127}));
   connect(conInt1.y, chiWatPumCon.uPumLeaLag) annotation (Line(points={{382,640},
           {400,640},{400,548.786},{414,548.786}}, color={255,127,0}));
-  connect(uChiWatPum, chiWatPumCon.uChiWatPum) annotation (Line(points={{-920,574},
-          {-790,574},{-790,535.929},{414,535.929}},      color={255,0,255}));
+  connect(uChiWatPum, chiWatPumCon.uChiWatPum) annotation (Line(points={{-920,
+          574},{-790,574},{-790,535.929},{414,535.929}}, color={255,0,255}));
   connect(disChi.y1ChiWatIsoVal, wseSta.u1ChiIsoVal) annotation (Line(points={{762,
           -466},{800,-466},{800,-340},{-746,-340},{-746,306},{-704,306}},
         color={255,0,255}));
@@ -2183,7 +2181,8 @@ equation
   connect(plaEna.yPla, upProCon.uPla) annotation (Line(points={{-658,-500},{
           -580,-500},{-580,284},{172,284}}, color={255,0,255}));
   connect(disChi.y1ChiWatIsoVal, chiWatPumCon.u1ChiWatIsoVal) annotation (Line(
-        points={{762,-466},{800,-466},{800,-340},{20,-340},{20,500.571},{414,500.571}},
+        points={{762,-466},{800,-466},{800,-340},{20,-340},{20,500.571},{414,
+          500.571}},
         color={255,0,255}));
   connect(u1ChiIsoOpe, upProCon.u1ChiIsoOpe) annotation (Line(points={{-920,-210},
           {50,-210},{50,312},{172,312}}, color={255,0,255}));

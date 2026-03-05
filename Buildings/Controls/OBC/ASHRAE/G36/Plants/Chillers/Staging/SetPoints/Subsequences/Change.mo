@@ -25,9 +25,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{-480,-160},{-440,-120}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(
-    final min=0,
-    final max=nSta)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni
     "Initial chiller stage (at plant enable)"
     annotation (Placement(transformation(extent={{-480,220},{-440,260}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
@@ -61,9 +59,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{440,-142},{480,-102}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
-    final min=0,
-    final max = nSta)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta
     "Chiller stage integer setpoint"
     annotation (Placement(transformation(extent={{440,150},{480,190}}),
         iconTransformation(extent={{100,20},{140,60}})));
