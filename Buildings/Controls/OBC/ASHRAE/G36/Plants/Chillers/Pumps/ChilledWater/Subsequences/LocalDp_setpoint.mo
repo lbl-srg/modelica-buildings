@@ -53,9 +53,9 @@ block LocalDp_setpoint
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatSet_local(
     final quantity="PressureDifference",
     final unit="Pa",
-    displayUnit="Pa") "Local differential pressure setpoint" annotation (
-      Placement(transformation(extent={{140,0},{180,40}}), iconTransformation(
-          extent={{100,-20},{140,20}})));
+    displayUnit="Pa") "Local differential pressure setpoint"
+    annotation (Placement(transformation(extent={{140,0},{180,40}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax maxRemDP(
     final nin=nSen)
@@ -64,7 +64,7 @@ block LocalDp_setpoint
   Buildings.Controls.OBC.CDL.Reals.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID[nSen](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),

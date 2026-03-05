@@ -55,7 +55,7 @@ block Controller
     annotation (Placement(transformation(extent={{140,30},{180,70}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable valPos(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valPos(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

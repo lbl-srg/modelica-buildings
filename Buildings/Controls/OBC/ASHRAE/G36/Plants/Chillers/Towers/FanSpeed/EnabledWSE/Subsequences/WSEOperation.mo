@@ -96,7 +96,7 @@ protected
     final uHigh=1.5*5/9)
     "Check if chilled water supply temperature is greater than setpoint by a threshold delta"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable chiWatTemCon(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable chiWatTemCon(
     final controllerType=chiWatCon,
     final k=k,
     final Ti=Ti,
