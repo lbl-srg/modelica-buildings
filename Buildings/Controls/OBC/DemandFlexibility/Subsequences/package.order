@@ -9,3 +9,6 @@ SelectLargestValues
 SelectSmallestValues
 SetpointMultipleStepChange
 SetpointSingleStepChange
+SingleTemperatureSetpointControl
+SingleTemperatureSetpointModeSelection
+DualTemperatureSetpointControl
