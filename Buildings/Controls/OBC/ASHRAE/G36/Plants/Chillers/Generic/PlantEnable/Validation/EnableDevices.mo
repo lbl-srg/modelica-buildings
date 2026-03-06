@@ -30,7 +30,7 @@ model EnableDevices "Validation sequence for enabling plant devices"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(final k=2)
     "Stage 2"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi "Current stage"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.7,
