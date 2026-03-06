@@ -1,9 +1,9 @@
 within Buildings.Templates.Components.HeatPumps;
 model WaterToWater
   "Water-to-water heat pump"
-  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep
-                                                                                     (
-    final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater, hp(
+  extends
+    Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep(
+      final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater, hp(
         use_intSafCtr=false));
 equation
   connect(port_aSou, TSouEnt.port_a)

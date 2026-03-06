@@ -1,8 +1,9 @@
 within Buildings.Templates.Components.HeatPumps;
 model AirToWater
   "Air-to-water heat pump"
-  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep (
-    redeclare final package MediumSou=MediumAir,
+  extends
+    Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep(
+    redeclare final package MediumSou = MediumAir,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final allowFlowReversalSou=false,
     hp(use_intSafCtr=false));
@@ -29,13 +30,31 @@ equation
   connect(y1Rea.y, mAir_flow.u)
     annotation (Line(points={{60,8},{60,-48}}, color={0,0,127}));
   connect(floSou.port_b, TSouEnt.port_a)
-    annotation (Line(points={{80,-80},{80,-20},{40,-20}},color={0,127,255}));
+    annotation (Line(points={{80,-80},{80,-40},{40,-40}},color={0,127,255}));
   connect(port_aSou, floSou.port_a)
     annotation (Line(points={{80,-140},{80,-100}},color={0,127,255}));
   connect(mAir_flow.y, floSou.m_flow_in)
     annotation (Line(points={{60,-72},{60,-96},{72,-96}},color={0,0,127}));
   connect(hp.on, y1Rea.u) annotation (Line(points={{-12,-6},{-14,-6},{-14,12},{40,
           12},{40,40},{60,40},{60,32}},     color={255,0,255}));
+  connect(bus.THeaWatSupSet, shc.THwSet) annotation (Line(
+      points={{0,160},{0,140},{-20,140},{-20,70},{-14,70}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.TChiWatSupSet, shc.TChwSet) annotation (Line(
+      points={{0,160},{0,140},{-20,140},{-20,66},{-14,66}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.y1, shc.on) annotation (Line(
+      points={{0,160},{0,140},{-20,140},{-20,64},{-14,64}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.mode, shc.mode) annotation (Line(
+      points={{0,160},{0,140},{-20,140},{-20,62},{-14,62}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(shc.on, y1Rea.u) annotation (Line(points={{-14,64},{-14,40},{60,40},{
+          60,32}}, color={255,0,255}));
   annotation (
     defaultComponentName="hp",
     Documentation(
