@@ -30,7 +30,7 @@ equation
   // (last time stamp of the weather file + average increment)
   when (canRepeatWeatherFile and modTimAux > pre(tNext)) then
     k = pre(k) + 1;
-    tNext = if canRepeatWeatherFile then k * lenWea else time;
+    tNext = k * lenWea;
   end when;
 
   calTimAux = if canRepeatWeatherFile then modTimAux - tNext + lenWea else modTimAux;
