@@ -53,6 +53,9 @@ model PartialEffectivenessNTU
   final parameter Real NTU_nominal(min=0, fixed=false)
     "Nominal number of transfer units";
 
+  Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
+    "Heat exchanger flow regime";
+
 protected
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
      T=Medium1.T_default,
@@ -85,10 +88,8 @@ protected
     "Nominal temperature at port b2";
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-  Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
-    "Heat exchanger flow regime";
 
-  parameter Real mPro_flow_nominal(unit="kg*kg/s/s") = m1_flow_nominal*m2_flow_nominal
+  parameter Real mPro_flow_nominal(unit="kg.kg/(s.s)") = m1_flow_nominal*m2_flow_nominal
     "Product of nominal mass flow rates, used for scaling";
 
 initial equation
@@ -160,45 +161,46 @@ initial equation
     Z=Z_nominal,
     flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
-equation
-  // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
-  if use_dynamicFlowRegime then
-    if (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
-      // ParallelFlow vs CounterFlow
-      when(flowRegime==flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.01)) then
-        flowRegime = Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
-      elsewhen(flowRegime==Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.01)) then
-        flowRegime = flowRegime_nominal;
-      end when;
 
-    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
-      // CounterFlow vs ParallelFlow
-      when(flowRegime == flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.01)) then
-        flowRegime = Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
-      elsewhen(flowRegime == Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.01)) then
-        flowRegime = flowRegime_nominal;
-      end when;
+  flowRegime = flowRegime_nominal;
 
-    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
-      flowRegime = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
+algorithm
+  // Assign the flow regime for the given heat exchanger configuration and
+  // mass flow rates
 
-    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
-      // have ( configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed)
-      when(flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
-        flowRegime = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
-      elsewhen( (flowRegime == Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed and (C1_flow > 1.05*C2_flow)) ) then
-        flowRegime = flowRegime_nominal;
-      end when;
-    else
-      // have ( configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
-      when(flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
-        flowRegime = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
-      elsewhen( (flowRegime == Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed and (C1_flow > 1.05*C2_flow)) ) then
-        flowRegime = flowRegime_nominal;
-      end when;
-    end if;
-  else
-    flowRegime = flowRegime_nominal;
+  // ParallelFlow vs CounterFlow
+  when(use_dynamicFlowRegime and (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) and
+        flowRegime==flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.001)) then
+    flowRegime := Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+  elsewhen(use_dynamicFlowRegime and (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) and
+      flowRegime==Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.001)) then
+    flowRegime := flowRegime_nominal;
+
+  // CounterFlow vs ParallelFlow
+  elsewhen(use_dynamicFlowRegime and (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow) and
+    flowRegime == flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.001)) then
+      flowRegime := Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+  elsewhen(use_dynamicFlowRegime and (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow) and
+    flowRegime == Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.001)) then
+      flowRegime := flowRegime_nominal;
+
+  // have ( configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed)
+  elsewhen(use_dynamicFlowRegime and (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) and
+    flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
+      flowRegime := Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
+  elsewhen(use_dynamicFlowRegime and (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) and
+    (flowRegime == Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed and (C1_flow > 1.05*C2_flow))) then
+      flowRegime := flowRegime_nominal;
+  // have ( configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
+  elsewhen(use_dynamicFlowRegime and (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and
+    flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
+      flowRegime := Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
+  elsewhen(use_dynamicFlowRegime and (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and
+    (flowRegime == Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed and (C1_flow > 1.05*C2_flow))) then
+      flowRegime := flowRegime_nominal;
+  end when;
+
+  if not use_dynamicFlowRegime then
     assert(noEvent(m1_flow > -0.1 * m1_flow_nominal)
        and noEvent(m2_flow > -0.1 * m2_flow_nominal),
 "*** Warning in " + getInstanceName() +
@@ -211,6 +213,7 @@ equation
       level = AssertionLevel.warning);
   end if;
 
+equation
   // Effectiveness
   eps = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
     UA=UA,
