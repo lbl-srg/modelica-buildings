@@ -19,18 +19,29 @@ model AirToWater
 equation
   for i in 1:nHp loop
     connect(busWea, hp[i].busWea)
-      annotation (Line(points={{40,200},{40,10},{6,10}},color={255,204,51},thickness=0.5));
+      annotation (Line(points={{20,200},{20,40},{6,40},{6,10}},
+                                                        color={255,204,51},thickness=0.5));
   end for;
-  connect(ports_aChiHeaWat, hp.port_a)
-    annotation (Line(points={{120,200},{120,0},{10,0}},color={0,127,255}));
-  connect(hp.port_b, ports_bChiHeaWat)
-    annotation (Line(points={{-10,0},{-120,0},{-120,200}},color={0,127,255}));
   connect(busHp, hp.bus)
     annotation (Line(points={{0,160},{0,10}},color={255,204,51},thickness=0.5));
   connect(ports_aSou, hp.port_aSou)
     annotation (Line(points={{-120,-200},{-120,-10},{-10,-10}},color={0,127,255}));
   connect(ports_bSou, hp.port_bSou)
     annotation (Line(points={{120,-200},{120,-10},{10,-10}},color={0,127,255}));
+  connect(ports_aHeaWatShc, hp[nHp + 1:nHp + nShc].port_a)
+    annotation (Line(points={{120,200},{120,0},{10,0}}, color={0,127,255}));
+  connect(ports_aChiWatShc, hp[nHp + 1:nHp + nShc].port_aChiWat) annotation (
+      Line(points={{60,200},{60,20},{-20,20},{-20,10},{-10,10}}, color={0,127,
+          255}));
+  connect(hp[nHp + 1:nHp + nShc].port_bChiWat, ports_bChiWatShc) annotation (
+      Line(points={{10,10},{20,10},{20,30},{-60,30},{-60,200}}, color={0,127,
+          255}));
+  connect(ports_aChiHeaWatHp, hp[1:nHp].port_a)
+    annotation (Line(points={{180,200},{180,0},{10,0}}, color={0,127,255}));
+  connect(hp[1:nHp].port_b, ports_bChiHeaWatHp)
+    annotation (Line(points={{-10,0},{-180,0},{-180,200}}, color={0,127,255}));
+  connect(hp[nHp + 1:nHp + nShc].port_b, ports_bHeaWatShc)
+    annotation (Line(points={{-10,0},{-120,0},{-120,202}}, color={0,127,255}));
   annotation (
     defaultComponentName="hp", Documentation(info="<html>
 <p>

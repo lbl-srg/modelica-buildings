@@ -46,7 +46,7 @@ model PartialHeatPumpGroup "Interface for heat pump group"
     cpHeaWat_default=cpHeaWat_default,
     cpSou_default=cpSou_default)
     "Design and operating parameters"
-    annotation (Placement(transformation(extent={{170,170},{190,190}})),
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})),
     __ctrlFlow(enable=false));
   final parameter Buildings.Templates.Components.Data.HeatPump datHp[nHp](
     each final is_rev=is_rev,
@@ -151,28 +151,30 @@ model PartialHeatPumpGroup "Interface for heat pump group"
     p=MediumSou.p_default,
     X=MediumSou.X_default)
     "Source fluid default state";
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiHeaWat[nHp](
-    redeclare each final package Medium=MediumHeaWat,
-    each m_flow(
-      max=if allowFlowReversal then + Modelica.Constants.inf else 0),
-    each h_outflow(
-      start=MediumHeaWat.h_default,
-      nominal=MediumHeaWat.h_default))
-    "CHW/HW supply"
-    annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-      origin={-120,200}),
-      iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-500,400})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiHeaWat[nHp](
-    redeclare each final package Medium=MediumHeaWat,
-    each m_flow(
-      min=if allowFlowReversal then - Modelica.Constants.inf else 0),
-    each h_outflow(
-      start=MediumHeaWat.h_default,
-      nominal=MediumHeaWat.h_default))
-    "CHW/HW return"
-    annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
-      origin={120,200}),
-      iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={500,400})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiHeaWatHp[nHp](
+    redeclare each final package Medium = MediumHeaWat,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    if have_hp "CHW/HW supply – Heat pumps" annotation (Placement(
+        transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-180,200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-820,400})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiHeaWatHp[nHp](
+    redeclare each final package Medium = MediumHeaWat,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    if have_hp "CHW/HW return – Heat pumps" annotation (Placement(
+        transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={180,200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={820,400})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bSou[nHp](
     redeclare each final package Medium=MediumSou,
     each m_flow(
@@ -197,26 +199,26 @@ model PartialHeatPumpGroup "Interface for heat pump group"
       iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-500,-400})));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
     "Plant control bus"
-    annotation (Placement(transformation(extent={{-20,180},{20,220}}),
+    annotation (Placement(transformation(extent={{-40,180},{0,220}}),
       iconTransformation(extent={{-20,380},{20,420}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
     "Weather bus"
-    annotation (Placement(transformation(extent={{20,180},{60,220}}),
+    annotation (Placement(transformation(extent={{0,180},{40,220}}),
       iconTransformation(extent={{-220,380},{-180,420}})));
   // Diagnostics
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"),HideResult=true);
-  MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=
-    MediumHeaWat.setState_phX(ports_aChiHeaWat.p,
-      noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow)))
-    if show_T
+  MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(
+      ports_aChiHeaWatHp.p,
+      noEvent(actualStream(ports_aChiHeaWatHp.h_outflow)),
+      noEvent(actualStream(ports_aChiHeaWatHp.Xi_outflow))) if show_T
     "CHW/HW medium properties in port_aChiHeaWat";
-  MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=
-    MediumHeaWat.setState_phX(ports_bChiHeaWat.p,
-      noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow)))
-    if show_T
+  MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(
+      ports_bChiHeaWatHp.p,
+      noEvent(actualStream(ports_bChiHeaWatHp.h_outflow)),
+      noEvent(actualStream(ports_bChiHeaWatHp.Xi_outflow))) if show_T
     "CHW/HW medium properties in port_bChiHeaWat";
   MediumSou.ThermodynamicState sta_aSou[nHp]=
     MediumSou.setState_phX(ports_aSou.p,
@@ -228,6 +230,50 @@ model PartialHeatPumpGroup "Interface for heat pump group"
       noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow)))
     if show_T
     "Source medium properties in port_bSou";
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatShc[nShc](
+    redeclare each final package Medium = MediumHeaWat,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    if have_shc "HW supply – SHC units" annotation (Placement(transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-120,200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-660,400})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWatShc[nShc](
+    redeclare each final package Medium = MediumChiWat,
+    each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    each h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    if have_shc "CHW supply – SHC units" annotation (Placement(transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-60,200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-500,400})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatShc[nShc](
+    redeclare each final package Medium = MediumHeaWat,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    if have_shc "HW return – SHC units" annotation (Placement(transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={120,200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={660,400})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatShc[nShc](
+    redeclare each final package Medium = MediumChiWat,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    if have_shc "CHW return – SHC units" annotation (Placement(transformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={60,200}), iconTransformation(
+        extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={500,400})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busHp[nHp]
     "Heat pump control bus"
@@ -235,7 +281,8 @@ protected
       iconTransformation(extent={{-522,206},{-482,246}})));
 equation
   connect(bus.hp, busHp)
-    annotation (Line(points={{0,200},{0,200},{0,160}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-20,200},{-20,160},{0,160}},
+                                                      color={255,204,51},thickness=0.5));
   annotation (Diagram(coordinateSystem(extent={{-200,-200},{200,200}})), Icon(
         coordinateSystem(preserveAspectRatio=false, extent={{-2400,-400},{2400,
             400}}), graphics={

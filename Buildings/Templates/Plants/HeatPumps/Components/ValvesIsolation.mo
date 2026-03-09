@@ -46,30 +46,30 @@ model ValvesIsolation
     "Number of heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Integer nShc=0
+  parameter Integer nShc = 0
     "Number of SHC (4-pipe) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean is_shcMod=false
+  parameter Boolean is_shcMod = false
     "Set to true for modular SHC unit"
-    annotation (Evaluate=true);
-  parameter Boolean have_valHpInlIso=false
+    annotation(Evaluate=true);
+  parameter Boolean have_valHpInlIso = false
     "Set to true for isolation valves at HP inlet"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_valHpOutIso=false
+  parameter Boolean have_valHpOutIso = false
     "Set to true for isolation valves at HP outlet"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_valShcInlIso=false
+  parameter Boolean have_valShcInlIso = false
     "Set to true for isolation valves at SHC unit inlet"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_valShcOutIso=false
+  parameter Boolean have_valShcOutIso = false
     "Set to true for isolation valves at SHC unit outlet"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_pumChiWatPriDed=false
+  parameter Boolean have_pumChiWatPriDed = false
     "Set to true for plants with separate dedicated primary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -311,15 +311,15 @@ model ValvesIsolation
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiHeaWatHp[nHp](
     redeclare each final package Medium=Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    have_hp
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_hp
     "CHW/HW return – HP entering"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={40,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
-        origin={340,-700})));
+        origin={660,-700})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiHeaWatHp[nHp](
     redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -328,34 +328,34 @@ model ValvesIsolation
     "CHW/HW supply – HP leaving"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
+      origin={-140,-200}),
+      iconTransformation(extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-440,-700})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatHp[nHp](
+    redeclare each final package Medium=Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_hp and have_pumChiWatPriDed
+    "HW supply – HP leaving"
+    annotation(Placement(transformation(extent={{-10,-40},{10,40}},
+      rotation=90,
+      origin={-180,-200}),
+      iconTransformation(extent={{-10,-40},{10,40}},
+        rotation=90,
+        origin={-760,-700})));
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatHp[nHp](
+    redeclare each final package Medium=Medium,
+    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    if have_hp and have_pumChiWatPriDed
+    "CHW supply – HP leaving"
+    annotation(Placement(transformation(extent={{-10,-40},{10,40}},
+      rotation=90,
       origin={-100,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
-        origin={-520,-700})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatHp[nHp](
-    redeclare each final package Medium = Medium,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_hp and have_pumChiWatPriDed "HW supply – HP leaving" annotation (
-      Placement(transformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-140,-200}), iconTransformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-680,-700})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatHp[nHp](
-    redeclare each final package Medium = Medium,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_hp and have_pumChiWatPriDed "CHW supply – HP leaving" annotation
-    (Placement(transformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-60,-200}), iconTransformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-360,-700})));
+        origin={-600,-700})));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
     "Plant control bus"
     annotation(Placement(transformation(extent={{-20,180},{20,220}}),
@@ -479,7 +479,7 @@ model ValvesIsolation
       origin={160,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
-        origin={660,-700})));
+        origin={340,-700})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatShc[nShc](
     redeclare each final package Medium=Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -493,29 +493,29 @@ model ValvesIsolation
         rotation=90,
         origin={500,-700})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatShc[nShc](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_shc "HW supply – SHC unit leaving" annotation (Placement(
-        transformation(
-        extent={{-10,-40},{10,40}},
+    if have_shc
+    "HW supply – SHC unit leaving"
+    annotation(Placement(transformation(extent={{-10,-40},{10,40}},
+      rotation=90,
+      origin={-60,-200}),
+      iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
-        origin={-180,-200}), iconTransformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-200,-700})));
+        origin={-280,-700})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatShc[nShc](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_shc "CHW supply – SHC unit leaving" annotation (Placement(
-        transformation(
-        extent={{-10,-40},{10,40}},
+    if have_shc
+    "CHW supply – SHC unit leaving"
+    annotation(Placement(transformation(extent={{-10,-40},{10,40}},
+      rotation=90,
+      origin={-20,-200}),
+      iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
-        origin={-20,-200}), iconTransformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-40,-700})));
+        origin={-120,-700})));
   protected
   Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpInlIso[nHp]
     if have_valHpInlIso
@@ -553,11 +553,11 @@ model ValvesIsolation
     "SHC unit inlet HW isolation valve control bus"
     annotation(Placement(transformation(extent={{20,80},{60,120}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatShcInlIso[nHp]
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatShcInlIso[nShc]
     if have_shc and have_valShcInlIso
-    "SHC unit inlet CHW isolation valve control bus"
-    annotation(Placement(transformation(extent={{20,140},{60,180}}),
-      iconTransformation(extent={{-466,50},{-426,90}})));
+    "SHC unit inlet CHW isolation valve control bus" annotation (Placement(
+        transformation(extent={{20,140},{60,180}}), iconTransformation(extent={
+            {-466,50},{-426,90}})));
 equation
   connect(bus.valHeaWatHpInlIso, busValHeaWatHpInlIso)
     annotation(Line(points={{0,200},{0,120},{40,120}},
@@ -653,24 +653,30 @@ equation
     annotation(Line(points={{-40,100},{-140,100},{-140,0},{-150,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(ports_aChiWatHp, valChiWatUniOutIso[1:nHp].port_a) annotation (Line(
-        points={{-60,-200},{-60,-20},{-80,-20},{-80,-10}}, color={0,127,255}));
-  connect(ports_aHeaWatHp, valHeaWatUniOutIso[1:nHp].port_a) annotation (Line(
-        points={{-140,-200},{-140,-20},{-160,-20},{-160,-10}}, color={0,127,255}));
+  connect(ports_aChiWatHp, valChiWatUniOutIso[1:nHp].port_a)
+    annotation(Line(points={{-100,-200},{-100,-20},{-80,-20},{-80,-10}},
+      color={0,127,255}));
+  connect(ports_aHeaWatHp, valHeaWatUniOutIso[1:nHp].port_a)
+    annotation(Line(points={{-180,-200},{-180,-20},{-160,-20},{-160,-10}},
+      color={0,127,255}));
   connect(ports_aChiWatShc, valChiWatUniOutIso[nHp + 1:nHp + nShc].port_a)
-    annotation (Line(points={{-20,-200},{-20,-20},{-80,-20},{-80,-10}}, color={0,
-          127,255}));
+    annotation(Line(points={{-20,-200},{-20,-20},{-80,-20},{-80,-10}},
+      color={0,127,255}));
   connect(ports_aHeaWatShc, valHeaWatUniOutIso[nHp + 1:nHp + nShc].port_a)
-    annotation (Line(points={{-180,-200},{-180,-20},{-160,-20},{-160,-10}},
-        color={0,127,255}));
-  connect(ports_aChiHeaWatHp, valChiWatUniOutIso[1:nHp].port_a) annotation (
-      Line(points={{-100,-200},{-100,-20},{-80,-20},{-80,-10}}, color={0,127,255}));
-  connect(ports_aChiHeaWatHp, valHeaWatUniOutIso[1:nHp].port_a) annotation (
-      Line(points={{-100,-200},{-100,-20},{-160,-20},{-160,-10}}, color={0,127,255}));
-  connect(valHeaWatUniInlIso[1:nHp].port_b, ports_bChiHeaWatHp) annotation (
-      Line(points={{80,-10},{80,-20},{40,-20},{40,-200}}, color={0,127,255}));
-  connect(valChiWatUniInlIso[1:nHp].port_b, ports_bChiHeaWatHp) annotation (
-      Line(points={{160,-10},{160,-40},{40,-40},{40,-200}}, color={0,127,255}));
+    annotation(Line(points={{-60,-200},{-60,-40},{-160,-40},{-160,-10}},
+      color={0,127,255}));
+  connect(ports_aChiHeaWatHp, valChiWatUniOutIso[1:nHp].port_a)
+    annotation(Line(points={{-140,-200},{-140,-20},{-80,-20},{-80,-10}},
+      color={0,127,255}));
+  connect(ports_aChiHeaWatHp, valHeaWatUniOutIso[1:nHp].port_a)
+    annotation(Line(points={{-140,-200},{-140,-20},{-160,-20},{-160,-10}},
+      color={0,127,255}));
+  connect(valHeaWatUniInlIso[1:nHp].port_b, ports_bChiHeaWatHp)
+    annotation(Line(points={{80,-10},{80,-20},{40,-20},{40,-200}},
+      color={0,127,255}));
+  connect(valChiWatUniInlIso[1:nHp].port_b, ports_bChiHeaWatHp)
+    annotation(Line(points={{160,-10},{160,-40},{40,-40},{40,-200}},
+      color={0,127,255}));
 annotation(defaultComponentName="valIso",
   Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,

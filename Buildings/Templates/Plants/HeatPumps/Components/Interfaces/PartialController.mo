@@ -23,8 +23,10 @@ block PartialController "Interface for heat pump plant controller"
     "Parameter record for controller";
   final parameter Integer nHp=cfg.nHp
     "Number of heat pumps"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration"));
+    annotation (Evaluate=true);
+  final parameter Integer nShc=cfg.nShc
+    "Number of SHC units"
+    annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true,
@@ -196,7 +198,7 @@ block PartialController "Interface for heat pump plant controller"
       origin={260,-140}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={100,-60})));
 protected
-  Buildings.Templates.Components.Interfaces.Bus busHp[nHp]
+  Buildings.Templates.Components.Interfaces.Bus busHp[nHp] if cfg.have_hp
     "Heat pump control bus"
     annotation (Placement(transformation(extent={{-260,320},{-220,360}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
@@ -221,22 +223,22 @@ protected
     annotation (Placement(transformation(extent={{-260,-220},{-220,-180}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpInlIso[nHp]
-    if cfg.have_heaWat and cfg.have_valHpInlIso
+    if cfg.have_hp and cfg.have_heaWat and cfg.have_valHpInlIso
     "Heat pump inlet HW isolation valve control bus"
     annotation (Placement(transformation(extent={{-260,180},{-220,220}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpOutIso[nHp]
-    if cfg.have_heaWat and cfg.have_valHpOutIso
+    if cfg.have_hp and cfg.have_heaWat and cfg.have_valHpOutIso
     "Heat pump outlet HW isolation valve control bus"
     annotation (Placement(transformation(extent={{-260,140},{-220,180}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatHpInlIso[nHp]
-    if cfg.have_chiWat and cfg.have_valHpInlIso
+    if cfg.have_hp and cfg.have_chiWat and cfg.have_valHpInlIso
     "Heat pump inlet CHW isolation valve control bus"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatHpOutIso[nHp]
-    if cfg.have_chiWat and cfg.have_valHpOutIso
+    if cfg.have_hp and cfg.have_chiWat and cfg.have_valHpOutIso
     "Heat pump outlet CHW isolation valve control bus"
     annotation (Placement(transformation(extent={{-260,-100},{-220,-60}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
@@ -259,22 +261,46 @@ protected
     if cfg.have_valChiWatMinByp "CHW minimum flow bypass valve control bus"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
         iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatShcInlIso[nShc]
+    if cfg.have_shc and cfg.have_heaWat and cfg.have_valShcInlIso
+    "SHC unit inlet HW isolation valve control bus" annotation (Placement(
+        transformation(extent={{-180,180},{-140,220}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatShcOutIso[nShc]
+    if cfg.have_shc and cfg.have_heaWat and cfg.have_valShcOutIso
+    "SHC unit outlet HW isolation valve control bus" annotation (Placement(
+        transformation(extent={{-180,140},{-140,180}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatShcInlIso[nShc]
+    if cfg.have_shc and cfg.have_chiWat and cfg.have_valShcInlIso
+    "SHC unit inlet CHW isolation valve control bus" annotation (Placement(
+        transformation(extent={{-180,-60},{-140,-20}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatShcOutIso[nShc]
+    if cfg.have_shc and cfg.have_chiWat and cfg.have_valShcOutIso
+    "SHC unit outlet CHW isolation valve control bus" annotation (Placement(
+        transformation(extent={{-180,-100},{-140,-60}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
-  connect(busPumHeaWatPri, bus.pumHeaWatPri);
-  connect(busPumChiWatPri, bus.pumChiWatPri);
-  connect(busPumChiWatSec, bus.pumChiWatSec);
-  connect(busPumHeaWatSec, bus.pumHeaWatSec);
   connect(busHp, bus.hp);
-  connect(busValHeaWatHpInlIso, bus.valHeaWatHpInlIso);
-  connect(busValHeaWatHpOutIso, bus.valHeaWatHpOutIso);
-  connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso);
-  connect(busValChiWatHpOutIso, bus.valChiWatHpOutIso);
-  connect(busValHeaWatMinByp, bus.valHeaWatMinByp);
-  connect(busValChiWatMinByp, bus.valChiWatMinByp);
   connect(busHrc, bus.hrc);
   connect(busPumChiWatHrc, bus.pumChiWatHrc);
+  connect(busPumChiWatPri, bus.pumChiWatPri);
+  connect(busPumChiWatSec, bus.pumChiWatSec);
   connect(busPumHeaWatHrc, bus.pumHeaWatHrc);
+  connect(busPumHeaWatPri, bus.pumHeaWatPri);
+  connect(busPumHeaWatSec, bus.pumHeaWatSec);
+  connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso);
+  connect(busValChiWatHpOutIso, bus.valChiWatHpOutIso);
+  connect(busValChiWatShcInlIso, bus.valChiWatShcInlIso);
+  connect(busValChiWatShcOutIso, bus.valChiWatShcOutIso);
+  connect(busValChiWatMinByp, bus.valChiWatMinByp);
+  connect(busValHeaWatHpInlIso, bus.valHeaWatHpInlIso);
+  connect(busValHeaWatHpOutIso, bus.valHeaWatHpOutIso);
+  connect(busValHeaWatShcInlIso, bus.valHeaWatShcInlIso);
+  connect(busValHeaWatShcOutIso, bus.valHeaWatShcOutIso);
+  connect(busValHeaWatMinByp, bus.valHeaWatMinByp);
   /* Control point connection - stop */
 annotation (
     Icon(

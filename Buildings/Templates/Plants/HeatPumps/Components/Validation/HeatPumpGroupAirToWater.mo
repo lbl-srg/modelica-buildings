@@ -296,10 +296,10 @@ equation
                                                         color={255,204,51},thickness=0.5));
   connect(inlHp1.ports, TRet1.port_a)
     annotation (Line(points={{-100,160},{-80,160}},color={0,127,255}));
-  connect(TRet1.port_b, hpAwNrv.ports_aChiHeaWat)
-    annotation (Line(points={{-60,160},{-10,160},{-10,120}},color={0,127,255}));
-  connect(hpAwNrv.ports_bChiHeaWat, TSup1.port_a)
-    annotation (Line(points={{90,120},{90,140},{60,140}},color={0,127,255}));
+  connect(TRet1.port_b, hpAwNrv.ports_aChiHeaWatHp) annotation (Line(points={{-60,
+          160},{-10,160},{-10,120}}, color={0,127,255}));
+  connect(hpAwNrv.ports_bChiHeaWatHp, TSup1.port_a) annotation (Line(points={{
+          120,120},{120,140},{60,140}}, color={0,127,255}));
   connect(TSup1.port_b, sup.ports)
     annotation (Line(points={{80,140},{100,140}},color={0,127,255}));
   connect(weaDat.weaBus, hpAwNrv.busWea)
@@ -316,14 +316,12 @@ equation
                                                         color={255,204,51},thickness=0.5));
   connect(inlHp.ports, TRet.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}},color={0,127,255}));
-  connect(TRet.port_b, hpAw.ports_aChiHeaWat)
-    annotation (Line(points={{-60,-40},{-10,-40},{-10,-120}},
-                                                            color={0,127,255}));
+  connect(TRet.port_b, hpAw.ports_aChiHeaWatHp) annotation (Line(points={{-60,-40},
+          {-10,-40},{-10,-120}}, color={0,127,255}));
   connect(TSup.port_b, sup1.ports)
     annotation (Line(points={{80,-40},{100,-40}},color={0,127,255}));
-  connect(hpAw.ports_bChiHeaWat, TSup.port_a)
-    annotation (Line(points={{90,-120},{90,-40},{60,-40}},
-                                                         color={0,127,255}));
+  connect(hpAw.ports_bChiHeaWatHp, TSup.port_a) annotation (Line(points={{120,
+          -120},{120,-40},{60,-40}}, color={0,127,255}));
   connect(THeaWatRet1.y, TRetAct.u1)
     annotation (Line(points={{-268,-60},{-260,-60},{-260,-72},{-242,-72}},color={0,0,127}));
   connect(TChiWatRet.y, TRetAct.u3)

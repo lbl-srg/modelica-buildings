@@ -165,7 +165,7 @@ model ValvesIsolationSHC
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
       PLRSup={1}),
-        mHeaWatShc_flow_nominal=datHp.capHeaShc_nominal / abs(
+    mHeaWatShc_flow_nominal=datHp.capHeaShc_nominal / abs(
       datHp.THeaWatSupShc_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
@@ -365,10 +365,10 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(valIsoCom.ports_bChiHeaWatHp, hpCom.port_a)
-    annotation(Line(points={{34,220},{34,200},{-30,200}},
+    annotation(Line(points={{66,220},{66,200},{-30,200}},
       color={0,127,255}));
   connect(hpCom.port_b, valIsoCom.ports_aChiHeaWatHp)
-    annotation(Line(points={{-50,200},{-52,200},{-52,220}},
+    annotation(Line(points={{-50,200},{-44,200},{-44,220}},
       color={0,127,255}));
   connect(valIsoSep.port_bHeaWat, supHeaWat2.ports[1])
     annotation(Line(points={{-240,-210},{-260,-210},{-260,-191}},
@@ -378,7 +378,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(valIsoSep.ports_bChiHeaWatHp, hpSep.port_a)
-    annotation(Line(points={{34,-280},{34,-360},{10,-360}},
+    annotation(Line(points={{66,-280},{66,-360},{10,-360}},
       color={0,127,255}));
   connect(supHeaWat2.ports[2], valIsoSep.port_aHeaWat)
     annotation(Line(points={{-260,-189},{-260,-170},{-240,-170}},
@@ -413,10 +413,10 @@ equation
     annotation(Line(points={{-66,-310},{-66,-306}},
       color={0,127,255}));
   connect(cheValHeaWat.port_b, valIsoSep.ports_aHeaWatHp)
-    annotation(Line(points={{-66,-286},{-66,-284},{-66,-280},{-68,-280}},
+    annotation(Line(points={{-66,-286},{-66,-284},{-66,-280},{-76,-280}},
       color={0,127,255}));
   connect(cheValChiWat.port_b, valIsoSep.ports_aChiWatHp)
-    annotation(Line(points={{-34,-296},{-34,-288},{-34,-280},{-36,-280}},
+    annotation(Line(points={{-34,-296},{-34,-288},{-34,-280},{-60,-280}},
       color={0,127,255}));
   connect(pumChiWatPri.port_b, cheValChiWat.port_a)
     annotation(Line(points={{-34,-324},{-34,-316}},
@@ -432,13 +432,14 @@ equation
       points={{240,-150},{260,-150},{260,-190},{240,-190},{240,-190}},
       color={0,127,255}));
   connect(valIsoCom.ports_bChiWatShc, shcEvaCom.port_a)
-    annotation (Line(points={{66,220},{66,180},{40,180}}, color={0,127,255}));
+    annotation (Line(points={{34,220},{34,180},{40,180}}, color={0,127,255}));
   connect(shcEvaCom.port_b, valIsoCom.ports_aChiWatShc)
-    annotation (Line(points={{20,180},{-4,180},{-4,220}}, color={0,127,255}));
+    annotation (Line(points={{20,180},{-12,180},{-12,220}},
+                                                          color={0,127,255}));
   connect(valIsoCom.ports_bHeaWatShc, shcConCom.port_a)
     annotation (Line(points={{50,220},{50,160},{10,160}}, color={0,127,255}));
-  connect(shcConCom.port_b, valIsoCom.ports_aHeaWatShc) annotation (Line(points
-        ={{-10,160},{-20,160},{-20,220}}, color={0,127,255}));
+  connect(shcConCom.port_b, valIsoCom.ports_aHeaWatShc) annotation (Line(points={{-10,160},
+          {-28,160},{-28,220}},           color={0,127,255}));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/ValvesIsolation.mos"
     "Simulate and plot"),

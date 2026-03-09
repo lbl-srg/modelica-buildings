@@ -1,5 +1,6 @@
 HeatPumpGroupAirToWater
 HeatRecoveryChiller
 PumpsPrimaryDedicated
+PumpsPrimaryDedicatedSHC
 ValvesIsolation
 ValvesIsolationSHC

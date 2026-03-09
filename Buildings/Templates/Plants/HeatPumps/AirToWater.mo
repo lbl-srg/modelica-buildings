@@ -759,8 +759,8 @@ equation
       color={0,0,0},
       thickness=0.5,
       visible=have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  connect(hp.ports_bChiHeaWat, pumPri.ports_aChiHeaWatHp)
-    annotation (Line(points={{-350,-130},{-350,-130}},color={0,127,255}));
+  connect(hp.ports_bChiHeaWatHp, pumPri.ports_aChiHeaWatHp)
+    annotation (Line(points={{-350,-130},{-350,-130}}, color={0,127,255}));
   connect(pumPri.ports_bChiHeaWat, valIso.ports_aChiHeaWatHp)
     annotation (Line(points={{-350,-50},{-350,-50}},color={0,127,255}));
   connect(pumPri.ports_bHeaWat, valIso.ports_aHeaWatHp)
@@ -794,9 +794,8 @@ equation
   connect(valIso.ports_bChiHeaWatHp, pumPri.ports_aChiHeaWat)
     annotation (Line(points={{-266,-50},{-250,-50}},
                                                   color={0,127,255}));
-  connect(pumPri.ports_bChiHeaWatHp, hp.ports_aChiHeaWat)
-    annotation (Line(points={{-250,-130},{-250,-130}},
-                                                    color={0,127,255}));
+  connect(pumPri.ports_bChiHeaWatHp, hp.ports_aChiHeaWatHp)
+    annotation (Line(points={{-250,-130},{-250,-130}}, color={0,127,255}));
   connect(supChiWatSec.port_b, VChiWatSec_flow.port_a)
     annotation (Line(
       points={{270,80},{288,80}},
