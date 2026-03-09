@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block MaxTemperatureDifferenceSelection "temDifSelectionMax"
+block SelectLargestTemperatureDifference "temDifSelectionMax"
              parameter Integer nZones=3
     "Number of values to compare";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonTemDif[nZones]
@@ -62,4 +62,4 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{190,100}},
         grid={2,2})));
-end MaxTemperatureDifferenceSelection;
+end SelectLargestTemperatureDifference;

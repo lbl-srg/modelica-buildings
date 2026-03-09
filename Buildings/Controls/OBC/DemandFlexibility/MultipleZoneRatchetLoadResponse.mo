@@ -31,10 +31,10 @@ block MultipleZoneRatchetLoadResponse "multiple zone ratchet load response"
     TReb=TReb,
     reboundDuration=reboundDuration)
     annotation (Placement(transformation(extent={{250,-12},{300,16}})));
-  Subsequences.MinTemperatureDifferenceSelection temDifSelectionMinHeaRat(
+  Subsequences.SelectSmallestTemperatureDifference temDifSelectionMinHeaRat(
       nZones=nZones)
     annotation (Placement(transformation(extent={{118,96},{138,116}})));
-  Subsequences.MaxTemperatureDifferenceSelection temDifSelectionMaxHeaReb(
+  Subsequences.SelectLargestTemperatureDifference temDifSelectionMaxHeaReb(
       nZones=nZones)
     annotation (Placement(transformation(extent={{116,66},{136,86}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZones](
@@ -139,10 +139,10 @@ block MultipleZoneRatchetLoadResponse "multiple zone ratchet load response"
     annotation (Placement(transformation(extent={{-128,-200},{-108,-180}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract subt[nZones]
     annotation (Placement(transformation(extent={{-64,68},{-44,88}})));
-  Subsequences.MinTemperatureDifferenceSelection temDifSelectionMinCooReb(
+  Subsequences.SelectSmallestTemperatureDifference temDifSelectionMinCooReb(
       nZones=nZones)
     annotation (Placement(transformation(extent={{116,-158},{136,-138}})));
-  Subsequences.MaxTemperatureDifferenceSelection temDifSelectionMaxCooRat(
+  Subsequences.SelectLargestTemperatureDifference temDifSelectionMaxCooRat(
       nZones=nZones)
     annotation (Placement(transformation(extent={{116,-118},{136,-98}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonCooSetCom[nZones](

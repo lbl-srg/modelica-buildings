@@ -1,6 +1,5 @@
-within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
+within Buildings.Controls.OBC.DemandFlexibility;
 block DualTemperatureSetpointControl
-
 
   parameter Boolean demFleHeaAct=true "the demand flexibility for heating is active";
     parameter Boolean demFleCooAct=true "the demand flexibility for cooling is active";
@@ -19,7 +18,11 @@ block DualTemperatureSetpointControl
         parameter Real samPerRebHea(unit="s")=300
     "Sample period for rebound for heating";
 
+    parameter Real delRatThoHea=0.5
+    "Threshold below which heating ratcheting is triggerd. This is an absolute value, so it is always positive";
 
+        parameter Real delRatThoCoo=0.5
+    "Threshold below which cooling ratcheting is triggerd. This is an absolute value, so it is always positive";
 
        parameter Real delChaRatCoo=1
     "Change amount for ratchet for cooling";
@@ -35,15 +38,16 @@ block DualTemperatureSetpointControl
         parameter Real samPerRebCoo(unit="s")=300
     "Sample period for rebound for cooling";
 
-
-  SingleTemperatureSetpointControl sinTemSetConHea(
+  Buildings.Controls.OBC.DemandFlexibility.SingleTemperatureSetpointControl
+    sinTemSetConHea(
     delChaRat=delChaRatHea,
     delChaReb=delChaRebHea,
+    delRatTho=delRatThoHea,
+    setMod=true,
     samPerPre=samPerPreHea,
     samPerNom=samPerNomHea,
     samPerRat=samPerRatHea,
-    samPerReb=samPerRebHea)
-    "single temperature setpoint control for heating"
+    samPerReb=samPerRebHea) "single temperature setpoint control for heating"
     annotation (Placement(transformation(extent={{44,54},{64,74}})));
   CDL.Interfaces.BooleanInput
                            have_pri "have priority"
@@ -61,21 +65,23 @@ block DualTemperatureSetpointControl
     annotation (Placement(transformation(extent={{-140,-62},{-100,-22}})));
   CDL.Interfaces.RealInput TSetCurHea "current setpoint"
     annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
-  SingleTemperatureSetpointControl sinTemSetConCoo(
+  Buildings.Controls.OBC.DemandFlexibility.SingleTemperatureSetpointControl
+    sinTemSetConCoo(
     delChaRat=delChaRatCoo,
     delChaReb=delChaRebCoo,
+    delRatTho=delRatThoCoo,
+    setMod=false,
     samPerPre=samPerPreCoo,
     samPerNom=samPerNomCoo,
     samPerRat=samPerRatCoo,
-    samPerReb=samPerRebCoo)
-    "single temperature setpoint control for cooling"
+    samPerReb=samPerRebCoo) "single temperature setpoint control for cooling"
     annotation (Placement(transformation(extent={{-8,-92},{12,-72}})));
   CDL.Interfaces.RealInput TSetTarPreCoo "setpoint target for precool"
-    annotation (Placement(transformation(extent={{-140,-116},{-100,-76}})));
+    annotation (Placement(transformation(extent={{-140,-150},{-100,-110}})));
   CDL.Interfaces.RealInput TSetTarSheCoo "setpoint target for load shed"
-    annotation (Placement(transformation(extent={{-140,-142},{-100,-102}})));
+    annotation (Placement(transformation(extent={{-140,-176},{-100,-136}})));
   CDL.Interfaces.RealInput TSetNomCoo "nominal setpoint"
-    annotation (Placement(transformation(extent={{-140,-178},{-100,-138}})));
+    annotation (Placement(transformation(extent={{-140,-212},{-100,-172}})));
   CDL.Interfaces.BooleanOutput reach_TSetTarSheHea annotation (Placement(
         transformation(extent={{100,60},{140,100}}), iconTransformation(extent={
             {100,60},{140,100}})));
@@ -104,7 +110,9 @@ block DualTemperatureSetpointControl
   CDL.Logical.Switch logSwi1
     annotation (Placement(transformation(extent={{-40,-162},{-20,-142}})));
   CDL.Interfaces.RealInput TSetCurCoo "current setpoint"
-    annotation (Placement(transformation(extent={{-140,-212},{-100,-172}})));
+    annotation (Placement(transformation(extent={{-140,-246},{-100,-206}})));
+  CDL.Interfaces.RealInput TCur "current zone temperature"
+    annotation (Placement(transformation(extent={{-140,-118},{-100,-78}})));
 equation
   connect(sinTemSetConHea.reach_TSetTarShe,reach_TSetTarSheHea)
     annotation (Line(points={{66,71.2},{66,80},{120,80}}, color={255,0,255}));
@@ -149,16 +157,22 @@ equation
   connect(TSetCurHea,sinTemSetConHea.TSetCur)  annotation (Line(points={{-120,
           -66},{12,-66},{12,30},{42,30},{42,55}}, color={0,0,127}));
   connect(TSetTarPreCoo,sinTemSetConCoo.TSetTarPre)  annotation (Line(points={{-120,
-          -96},{-36,-96},{-36,-80.8},{-10,-80.8}}, color={0,0,127}));
+          -130},{-36,-130},{-36,-80.8},{-10,-80.8}},
+                                                   color={0,0,127}));
   connect(TSetTarSheCoo,sinTemSetConCoo.TSetTarShe)  annotation (Line(points={{-120,
-          -122},{-32,-122},{-32,-84},{-10,-84}}, color={0,0,127}));
-  connect(TSetNomCoo,sinTemSetConCoo.TSetNom)  annotation (Line(points={{-120,
-          -158},{-120,-132},{-30,-132},{-30,-87.2},{-10,-87.2}},     color={0,0,
+          -156},{-32,-156},{-32,-84},{-10,-84}}, color={0,0,127}));
+  connect(TSetNomCoo,sinTemSetConCoo.TSetNom)  annotation (Line(points={{-120,-192},
+          {-120,-132},{-30,-132},{-30,-87.2},{-10,-87.2}},           color={0,0,
           127}));
-  connect(TSetCurCoo, sinTemSetConCoo.TSetCur) annotation (Line(points={{-120,
-          -192},{-10,-192},{-10,-91}}, color={0,0,127}));
+  connect(TSetCurCoo, sinTemSetConCoo.TSetCur) annotation (Line(points={{-120,-226},
+          {-10,-226},{-10,-91}},       color={0,0,127}));
+  connect(TCur, sinTemSetConCoo.TCur) annotation (Line(points={{-120,-98},{-38,-98},
+          {-38,-78},{-24,-78},{-24,-95.6},{-10,-95.6}}, color={0,0,127}));
+  connect(TCur, sinTemSetConHea.TCur) annotation (Line(points={{-120,-98},{-38,-98},
+          {-38,-78},{-24,-78},{-24,34},{34,34},{34,50.4},{42,50.4}}, color={0,0,
+          127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -220},{100,100}})),
+            -260},{100,120}})),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-220},{100,100}})));
+          extent={{-100,-260},{100,120}})));
 end DualTemperatureSetpointControl;

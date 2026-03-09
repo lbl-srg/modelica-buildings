@@ -3,5 +3,8 @@ MultipleZoneRatchetLoadResponse
 SingleZoneRatchet
 Controller
 PrecoolMZVAVSimple
+SingleTemperatureSetpointControl
+DualTemperatureSetpointControl
+MultipleZoneRatchet2
 Subsequences
 Validation

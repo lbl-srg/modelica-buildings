@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block MinTemperatureDifferenceSelection "temDifSelectionMin"
+block SelectSmallestTemperatureDifference "temDifSelectionMin"
              parameter Integer nZones=3
     "Number of values to compare";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonTemDif[nZones]
@@ -65,4 +65,4 @@ equation
     Documentation(info="<html>
 hello
 </html>"));
-end MinTemperatureDifferenceSelection;
+end SelectSmallestTemperatureDifference;

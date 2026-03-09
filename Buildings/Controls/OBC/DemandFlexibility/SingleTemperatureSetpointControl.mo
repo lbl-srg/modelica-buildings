@@ -1,9 +1,5 @@
-within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
+within Buildings.Controls.OBC.DemandFlexibility;
 block SingleTemperatureSetpointControl
-
-
-
-
 
    parameter Real delChaRat=1
     "Change amount for ratchet";
@@ -12,7 +8,10 @@ block SingleTemperatureSetpointControl
     "Change amount for rebound";
 
     parameter Real delRatTho=0.5
-    "Threshold of below which ratcheting is triggerd";
+    "Threshold below which ratcheting is triggerd. This is an absolute value, so it is always positive";
+
+       parameter Boolean setMod=true
+       "mode of controller. True for heating, false for cooling.";
         parameter Real samPerPre(unit="s")=300
     "Sample period for precool or preheat";
             parameter Real samPerNom(unit="s")=300
@@ -21,11 +20,13 @@ block SingleTemperatureSetpointControl
     "Sample period for ratchet";
         parameter Real samPerReb(unit="s")=300
     "Sample period for rebound";
-  SetpointMultipleStepChange setRat(delCha=delChaRat, samPer=samPerRat)
+  Subsequences.SetpointMultipleStepChange setRat(delCha=delChaRat, samPer=
+        samPerRat)
     annotation (Placement(transformation(extent={{-26,-20},{-6,0}})));
-  SetpointMultipleStepChange setReb(delCha=delChaReb, samPer=samPerReb)
+  Subsequences.SetpointMultipleStepChange setReb(delCha=delChaReb, samPer=
+        samPerReb)
     annotation (Placement(transformation(extent={{-22,-80},{-2,-60}})));
-  SetpointSingleStepChange setPre(samPer=samPerPre)
+  Subsequences.SetpointSingleStepChange setPre(samPer=samPerPre)
     annotation (Placement(transformation(extent={{-20,94},{0,114}})));
   CDL.Interfaces.BooleanInput
                            have_pri "have priority"
@@ -53,15 +54,26 @@ block SingleTemperatureSetpointControl
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
   CDL.Discrete.Sampler setNom(samplePeriod=samPerNom)
     annotation (Placement(transformation(extent={{-20,26},{0,46}})));
-  SingleTemperatureSetpointModeSelection singleTemperatureSetpointModeSelection
+  Subsequences.SingleTemperatureSetpointModeSelection singleTemperatureSetpointModeSelection
     annotation (Placement(transformation(extent={{32,36},{52,56}})));
+  CDL.Interfaces.RealInput TCur "current zone temperature"
+    annotation (Placement(transformation(extent={{-140,-156},{-100,-116}})));
+  CDL.Reals.Subtract sub
+    annotation (Placement(transformation(extent={{-74,-140},{-54,-120}})));
+  CDL.Reals.GreaterThreshold greThr(t=-1*delRatTho)
+    annotation (Placement(transformation(extent={{-18,-158},{2,-138}})));
+  CDL.Reals.LessThreshold lesThr(t=delRatTho)
+    annotation (Placement(transformation(extent={{-18,-126},{2,-106}})));
+  CDL.Logical.Switch logSwi
+    annotation (Placement(transformation(extent={{50,-138},{70,-118}})));
+  CDL.Logical.Sources.Constant con(k=setMod)
+    annotation (Placement(transformation(extent={{16,-142},{36,-122}})));
+  CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{-64,6},{-44,26}})));
 equation
   connect(have_pri, setPre.have_pri) annotation (Line(points={{-120,80},{-30,80},
           {-30,112.2},{-22,112.2}},
                                   color={255,0,255}));
-  connect(have_pri, setRat.have_pri) annotation (Line(points={{-120,80},{-36,80},
-          {-36,-2},{-28,-2}},
-                            color={255,0,255}));
   connect(have_pri, setReb.have_pri) annotation (Line(points={{-120,80},{-36,80},
           {-36,-12},{-38,-12},{-38,-62},{-24,-62}},
                               color={255,0,255}));
@@ -114,6 +126,26 @@ equation
         color={0,0,127}));
   connect(singleTemperatureSetpointModeSelection.y,TSetCom)  annotation (Line(
         points={{54,46},{94,46},{94,0},{120,0}}, color={0,0,127}));
+  connect(TCur, sub.u1) annotation (Line(points={{-120,-136},{-86,-136},{-86,
+          -124},{-76,-124}}, color={0,0,127}));
+  connect(TSetCur, sub.u2) annotation (Line(points={{-120,-90},{-44,-90},{-44,
+          -146},{-76,-146},{-76,-136}}, color={0,0,127}));
+  connect(sub.y, lesThr.u) annotation (Line(points={{-52,-130},{-28,-130},{-28,
+          -116},{-20,-116}}, color={0,0,127}));
+  connect(sub.y, greThr.u) annotation (Line(points={{-52,-130},{-30,-130},{-30,
+          -148},{-20,-148}}, color={0,0,127}));
+  connect(con.y, logSwi.u2) annotation (Line(points={{38,-132},{44,-132},{44,
+          -128},{48,-128}}, color={255,0,255}));
+  connect(lesThr.y, logSwi.u1) annotation (Line(points={{4,-116},{40,-116},{40,
+          -112},{48,-112},{48,-120}}, color={255,0,255}));
+  connect(greThr.y, logSwi.u3) annotation (Line(points={{4,-148},{48,-148},{48,
+          -136}}, color={255,0,255}));
+  connect(have_pri, and2.u1) annotation (Line(points={{-120,80},{-36,80},{-36,0},
+          {-74,0},{-74,16},{-66,16}}, color={255,0,255}));
+  connect(logSwi.y, and2.u2) annotation (Line(points={{72,-128},{72,-6},{-66,-6},
+          {-66,8}}, color={255,0,255}));
+  connect(and2.y, setRat.have_pri)
+    annotation (Line(points={{-42,16},{-28,16},{-28,-2}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SingleTemperatureSetpointControl;

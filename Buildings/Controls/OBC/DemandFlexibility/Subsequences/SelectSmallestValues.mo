@@ -1,24 +1,24 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
 block SelectSmallestValues
 
-  parameter Integer nNumbers=5;
-  parameter Integer nSelections=3;
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nNumbers]
+  parameter Integer nNum=5;
+  parameter Integer nSel=3;
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nNum]
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Add add2[nNumbers]
+  Buildings.Controls.OBC.CDL.Reals.Add add2[nNum]
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai[nNumbers](k=0.000001
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai[nNum](k=0.000001
         *Buildings.Controls.OBC.CDL.Constants.pi)
     annotation (Placement(transformation(extent={{-56,-68},{-36,-48}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const[nNumbers](k=1:1:
-        nNumbers)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const[nNum](k=1:1:
+        nNum)
     annotation (Placement(transformation(extent={{-88,-68},{-68,-48}})));
-  Buildings.Controls.OBC.CDL.Reals.Sort sort(ascending=true, nin=nNumbers)
+  Buildings.Controls.OBC.CDL.Reals.Sort sort(ascending=true, nin=nNum)
     annotation (Placement(transformation(extent={{14,-10},{34,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr[nNumbers](
-     t=nSelections)
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr[nNum](
+     t=nSel)
     annotation (Placement(transformation(extent={{56,-16},{76,4}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nNumbers]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nNum]
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
   connect(const.y, gai.u)
