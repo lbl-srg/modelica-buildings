@@ -304,77 +304,62 @@ equation
         Text(
           extent={{-96,118},{-54,104}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCooTim"),
         Text(
           extent={{-96,98},{-56,86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uWarTim"),
         Text(
           extent={{-94,60},{-44,44}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1OccHeaHig"),
         Text(
           extent={{-94,40},{-44,26}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1HigOccCoo"),
         Text(
           extent={{-94,-80},{-42,-96}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1HigUnoCoo"),
         Text(
           extent={{-94,-40},{-44,-54}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1EndSetBac"),
         Text(
           extent={{-94,-122},{-46,-136}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1EndSetUp"),
         Text(
           extent={{-94,-2},{-44,-16}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1UnoHeaHig"),
         Text(
           extent={{-94,-162},{-72,-174}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-96,-102},{-46,-118}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSetOff"),
         Text(
           extent={{-96,-22},{-48,-36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSetOff"),
         Text(
           extent={{-96,158},{-54,144}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
           extent={{-96,200},{-60,188}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="ZonOcc"),
         Text(
           extent={{-96,180},{-70,166}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Occ"),
         Text(
           extent={{-98,-182},{-68,-194}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Win"),
         Text(
           extent={{-100,240},{100,200}},

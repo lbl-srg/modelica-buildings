@@ -22,7 +22,7 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
     then m_flow_nominal / sqrt(dpFixed_nominal) else 0
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-  Real kVal(unit="", min=Modelica.Constants.small)
+  Real kVal(unit="1", min=Modelica.Constants.small)
     "Flow coefficient of valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
   Real k(unit="", min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
@@ -96,7 +96,11 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
-
+<li>
+January 19, 2026, by Jelger Jansen:<br/>
+Added unit 1 to parameter <code>kVal</code> to avoid FMU unit errors.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2074\">#2074</a>.
+</li>
 <li>
 April 2, 2020, by Filip Jorissen:<br/>
 Added model name in assert message.<br/>

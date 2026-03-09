@@ -67,6 +67,14 @@ model PlugFlowPipe
     Documentation(revisions="<html>
 <ul>
 <li>
+January 5, 2026, by Michael Wetter:<br/>
+In <a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe\">
+Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe</a>,
+conditionally removed connect statements to conditional removed components.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2071\">IBPSA, #2071</a>.
+</li>
+<li>
 July 29, 2025, by Fabian Wuelhorst:<br/>
 Add option to <code>disableComputeFlowResistance</code>.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">#2035</a>.

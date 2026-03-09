@@ -28,7 +28,9 @@ model DoorDiscretizedOperable
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
     "Opening signal, 0=closed, 1=open"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(
+      transformation(extent={{-120,-10},{-100,10}}),
+      iconTransformation(extent={{-120,-10},{-100,10}})));
 protected
   parameter Modelica.Units.SI.Area AOpe=wOpe*hOpe "Open aperture area";
   parameter Modelica.Units.SI.Area AClo(fixed=false) "Closed aperture area";
@@ -53,7 +55,8 @@ equation
 
   // orifice equation
   for i in 1:nCom loop
-    dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLaw(C=CVal,
+    dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLaw(
+      C=CVal,
       dp=dpAB[i],
       m=m,
       dp_turbulent=dp_turbulent);
@@ -106,6 +109,12 @@ for a door that is always closed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Revised implementation to improve computing efficiency if flow exponent is <i>0.5</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 June 27, 2018, by Michael Wetter:<br/>
 Corrected old parameter annotation.

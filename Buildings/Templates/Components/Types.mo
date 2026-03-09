@@ -4,8 +4,6 @@ package Types "Package with type definitions"
   type Chiller = enumeration(
       AirCooled
       "Air-cooled compression chiller",
-      None
-      "No chiller",
       WaterCooled
       "Water-cooled compression chiller")
     "Enumeration to specify the type of chiller";
@@ -75,10 +73,6 @@ package Types "Package with type definitions"
       WaterToWater
       "Water(or brine)-to-water heat pump")
     "Enumeration to specify the type of heat pump";
-  type HeatPumpModel = enumeration(
-      EquationFit
-      "Heat pump model based on the equation fit method")
-    "Enumeration to specify the heat pump model";
   type IntegrationPoint = enumeration(
       None
       "None",

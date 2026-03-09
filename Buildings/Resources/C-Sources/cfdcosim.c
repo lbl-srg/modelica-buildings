@@ -23,6 +23,7 @@
 
 #include "cfdCosimulation.h"
 
+#include <stdlib.h>
 /*
  * Start the cosimulation
  *

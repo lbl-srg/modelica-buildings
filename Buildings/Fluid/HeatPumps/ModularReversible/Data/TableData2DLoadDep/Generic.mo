@@ -21,20 +21,13 @@ partial record Generic
     "=true to use evaporator outlet temperature for table data, false for inlet";
   parameter Boolean use_TConOutForTab
     "=true to use condenser outlet temperature for table data, false for inlet";
-  parameter String tabNamQ[nPLR]={"q@" + String(p,
-    format=".2f") for p in PLRSor}
+  parameter String tabNamQ[:]={"q@" + String(p, format=".2f") for p in PLRSor}
     "Table names with heat flow rate data"
-    annotation (Evaluate=true,
-    Dialog(tab="Advanced"));
-  parameter String tabNamP[nPLR]={"p@" + String(p,
-    format=".2f") for p in PLRSor}
+    annotation (Dialog(tab="Advanced"));
+  parameter String tabNamP[:]={"p@" + String(p, format=".2f") for p in PLRSor}
     "Table names with power data"
-    annotation (Evaluate=true,
-    Dialog(tab="Advanced"));
-  final parameter Integer nPLR=size(PLRSup, 1)
-    "Number of PLR support points"
-    annotation (Evaluate=true);
-  final parameter Real PLRSor[nPLR]=Modelica.Math.Vectors.sort(PLRSup)
+    annotation (Dialog(tab="Advanced"));
+  final parameter Real PLRSor[:]=Modelica.Math.Vectors.sort(PLRSup)
     "PLR values in increasing order";
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
@@ -56,10 +49,15 @@ of the parameter <code>PLRCyc_min</code>.
 revisions="<html>
 <ul>
 <li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
+<li>
 March 21, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
 </html>
-"),Icon);
+"));
 end Generic;

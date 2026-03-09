@@ -321,47 +321,38 @@ annotation (defaultComponentName="ove",
         Text(
           extent={{-98,56},{-40,42}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActSet_flow"),
         Text(
           extent={{-98,88},{-48,74}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="oveFloSet"),
         Text(
           extent={{-100,-22},{-46,-36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCooDam"),
         Text(
           extent={{-96,10},{-26,-6}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="oveCooDamPos"),
         Text(
           extent={{50,8},{100,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yCooDam"),
         Text(
           extent={{58,68},{98,56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
           extent={{-100,-82},{-46,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uHeaDam"),
         Text(
           extent={{-96,-50},{-26,-66}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="oveHeaDamPos"),
         Text(
           extent={{50,-52},{100,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yHeaDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-240},{140,240}})),
 Documentation(info="<html>

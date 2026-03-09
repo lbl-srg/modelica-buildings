@@ -1,5 +1,6 @@
 UsersGuide
 Actuators
+AirFilters
 Boilers
 CHPs
 Chillers
@@ -20,6 +21,7 @@ SolarCollectors
 Sources
 Storage
 Utilities
+ZoneEquipment
 Data
 Types
 Examples

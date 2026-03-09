@@ -55,7 +55,7 @@ partial model PartialLoadValveControl
     60+273.15
     "Liquid entering temperature in change-over mode"
     annotation(Dialog(
-      enable=typ <> Buildings.Fluid.HydronicConfigurations.Types.Control.Heating));
+      enable=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.ChangeOver));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
    (MediumLiq.specificEnthalpy_pTX(MediumLiq.p_default, TLiqEnt_nominal, X=MediumLiq.X_default)-
@@ -119,8 +119,7 @@ partial model PartialLoadValveControl
     final dpValve_nominal=dpValve_nominal,
     final dpBal1_nominal=dpBal1_nominal,
     use_lumFloRes=true,
-    final energyDynamics=energyDynamics)
-    "Diversion connection"
+    final energyDynamics=energyDynamics) "Hydronic connection"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLoa_actual(final unit="1")

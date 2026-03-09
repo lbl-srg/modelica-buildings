@@ -447,14 +447,10 @@ equation
         Text(
           extent={{-66,122},{-36,130}},
           textColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="South"),
         Text(
           extent={{34,122},{64,130}},
           textColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="North"),
         Rectangle(
           extent={{-100,-80},{-20,-160}},
@@ -469,14 +465,10 @@ equation
         Text(
           extent={{-64,-156},{-34,-148}},
           textColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Heat"),
         Text(
           extent={{36,-156},{66,-148}},
           textColor={28,108,200},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Cold")}),
     experiment(
       Tolerance=1e-6, StopTime=1000),

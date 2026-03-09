@@ -1,4 +1,5 @@
 OptimalStart
+PIDWithEnable
 PIDWithInputGains
 PIDWithAutotuning
 SetPoints
