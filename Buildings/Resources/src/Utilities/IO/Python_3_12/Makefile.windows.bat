@@ -39,8 +39,8 @@ REM   activate {name of Python 64-bit environment}
 REM   set PYTHONHOME=%HOME%\Miniconda2\envs\{name of Python 64-bit environment}
 REM   set CLPATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
-REM SET PYTHONHOME="C:\Python38"
-SET CLPATH="C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat"
+SET PYTHONHOME="C:\Python3.12.10"
+SET CLPATH="C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 IF NOT -%1-==-- (
   IF "%~1"=="x86" SET ARCH=%~1
@@ -84,10 +84,10 @@ IF %ARCH%==x64 (
 )
 ECHO DLL will be saved in: %BINDIR%.
 
-REM SET PYTHONInc=%PYTHONHOME%\include
-REM SET PYTHONLibs=%PYTHONHOME%\libs\python38.lib
-SET PYTHONInc=C:\Python38\include
-SET PYTHONLibs=C:\Python38\libs\python38.lib
+SET PYTHONInc=%PYTHONHOME%\include
+SET PYTHONLibs=%PYTHONHOME%\libs\python312.lib
+REM SET PYTHONInc=C:\Python38\include
+REM SET PYTHONLibs=C:\Python38\libs\python38.lib
 
 CALL %CLPATH%
 IF %ERRORLEVEL% neq 0 (
