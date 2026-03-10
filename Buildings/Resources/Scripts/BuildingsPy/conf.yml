@@ -11,10 +11,24 @@
     comment: initialization system is structurally singular
     translate: false
 - model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.Validation.CHWIsoVal
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    time_out: 600
   optimica:
     comment: initialization system is structurally singular
     translate: false
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Validation.SetpointController_WSE
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    time_out: 600
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Validation.SetpointController_noWSE
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    time_out: 600
 - model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Validation.Controller
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    time_out: 600
   optimica:
     comment: initialization system is structurally singular
     translate: false
