@@ -203,6 +203,8 @@ def create_working_directory():
     import tempfile
     import getpass
     worDir = tempfile.mkdtemp( prefix='tmp-modelica-tough-' + getpass.getuser() )
+    # Change the folder permission: owner has full permissions; group and others can read and execute.
+    os.chmod(worDir, 0o777)
     return worDir
 
 ''' Empty a folder
