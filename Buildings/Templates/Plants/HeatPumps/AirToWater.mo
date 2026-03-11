@@ -70,7 +70,10 @@ model AirToWater
   Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater hp(
     redeclare final package MediumHeaWat=MediumHeaWat,
     redeclare final package MediumAir=MediumAir,
+    final have_hp=have_hp,
+    final have_shc=have_shc,
     final nHp=nHp,
+    final nShc=nShc,
     final is_rev=is_rev,
     final energyDynamics=energyDynamics,
     final have_dpChiHeaWatHp=false,
@@ -80,30 +83,38 @@ model AirToWater
     final allowFlowReversalSou=false,
     final show_T=show_T)
     "Heat pump group"
-    annotation (Placement(transformation(extent={{-540,-210},{-60,-130}})));
+    annotation (Placement(transformation(extent={{-540,-232},{-60,-152}})));
   Components.PumpsPrimaryDedicated pumPri(
     redeclare final package Medium=MediumHeaWat,
+    final have_hp=have_hp,
+    final have_shc=have_shc,
     final nHp=nHp,
+    final nShc=nShc,
     final typArrPumPri=typArrPumPri,
     final have_pumChiWatPriDed=have_pumChiWatPriDed,
     final have_pumHeaWatPriVar=have_pumHeaWatPriVar,
     final have_pumChiWatPriVar=have_pumChiWatPriVar,
     final datPumHeaWat=dat.pumHeaWatPri,
     final datPumChiWat=dat.pumChiWatPri,
-    final dpValCheHeaWat_nominal=fill(dat.dpValCheHeaWat_nominal,
-      pumPri.nPum),
-    final dpValCheChiWat_nominal=fill(dat.dpValCheChiWat_nominal,
-      if have_pumChiWatPriDed then pumPri.nPum else 0),
+    final dpValCheHeaWat_nominal=fill(dat.dpValCheHeaWat_nominal, pumPri.nPumHeaWat),
+    final dpValCheChiWat_nominal=fill(dat.dpValCheChiWat_nominal, if
+      have_pumChiWatPriDed then pumPri.nPumChiWat else 0),
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Dedicated primary pumps"
-    annotation (Placement(transformation(extent={{-540,-130},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-540,-140},{-60,-60}})));
   Components.ValvesIsolation valIso(
     redeclare final package Medium = MediumHeaWat,
+    final have_hp=have_hp,
+    final have_shc=have_shc,
     final nHp=nHp,
     final have_chiWat=have_chiWat,
+    final nShc=nShc,
+    final is_shcMod=is_shcMod,
     final have_valHpInlIso=have_valHpInlIso,
     final have_valHpOutIso=have_valHpOutIso,
+    final have_valShcInlIso=have_valShcInlIso,
+    final have_valShcOutIso=have_valShcOutIso,
     final have_pumChiWatPriDed=have_pumChiWatPriDed,
     final mHeaWatUni_flow_nominal=fill(dat.hp.mHeaWatHp_flow_nominal, nHp),
     final dpHeaWatUni_nominal=fill(dat.hp.dpHeaWatHp_nominal, nHp),
@@ -760,13 +771,13 @@ equation
       thickness=0.5,
       visible=have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered));
   connect(hp.ports_bChiHeaWatHp, pumPri.ports_aChiHeaWatHp)
-    annotation (Line(points={{-350,-130},{-350,-130}}, color={0,127,255}));
+    annotation (Line(points={{-382,-152},{-382,-140}}, color={0,127,255}));
   connect(pumPri.ports_bChiHeaWat, valIso.ports_aChiHeaWatHp)
-    annotation (Line(points={{-350,-50},{-350,-50}},color={0,127,255}));
+    annotation (Line(points={{-344,-60},{-344,-50}},color={0,127,255}));
   connect(pumPri.ports_bHeaWat, valIso.ports_aHeaWatHp)
-    annotation (Line(points={{-366,-50},{-366,-50}},color={0,127,255}));
+    annotation (Line(points={{-376,-60},{-376,-50}},color={0,127,255}));
   connect(pumPri.ports_bChiWat, valIso.ports_aChiWatHp)
-    annotation (Line(points={{-334,-50},{-334,-50}},  color={0,127,255}));
+    annotation (Line(points={{-360,-60},{-360,-50}},  color={0,127,255}));
   connect(outPumChiWatPri.port_b, VChiWatPri_flow.port_a)
     annotation (Line(points={{20,80},{20,80}},color={0,127,255}));
   connect(VChiWatPri_flow.port_b, TChiWatPriSup.port_a)
@@ -792,10 +803,10 @@ equation
       thickness=0.5,
       visible=have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
   connect(valIso.ports_bChiHeaWatHp, pumPri.ports_aChiHeaWat)
-    annotation (Line(points={{-266,-50},{-250,-50}},
+    annotation (Line(points={{-234,-50},{-234,-60},{-234.2,-60}},
                                                   color={0,127,255}));
   connect(pumPri.ports_bChiHeaWatHp, hp.ports_aChiHeaWatHp)
-    annotation (Line(points={{-250,-130},{-250,-130}}, color={0,127,255}));
+    annotation (Line(points={{-218,-140},{-218,-152}}, color={0,127,255}));
   connect(supChiWatSec.port_b, VChiWatSec_flow.port_a)
     annotation (Line(
       points={{270,80},{288,80}},
@@ -1046,6 +1057,22 @@ equation
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
+  connect(pumPri.ports_bHeaWatRetShc, hp.ports_aHeaWatShc)
+    annotation (Line(points={{-234,-140},{-234,-152}}, color={0,127,255}));
+  connect(pumPri.ports_bChiWatRetShc, hp.ports_aChiWatShc)
+    annotation (Line(points={{-250,-140},{-250,-152}}, color={0,127,255}));
+  connect(hp.ports_bHeaWatShc, pumPri.ports_aHeaWatShc)
+    annotation (Line(points={{-366,-152},{-366,-140}}, color={0,127,255}));
+  connect(hp.ports_bChiWatShc, pumPri.ports_aChiWatShc)
+    annotation (Line(points={{-350,-152},{-350,-140}}, color={0,127,255}));
+  connect(pumPri.ports_bHeaWatSupShc, valIso.ports_aHeaWatShc)
+    annotation (Line(points={{-328,-60},{-328,-50}}, color={0,127,255}));
+  connect(pumPri.ports_bChiWatSupShc, valIso.ports_aChiWatShc)
+    annotation (Line(points={{-312,-60},{-312,-50}}, color={0,127,255}));
+  connect(pumPri.ports_aChiWat, valIso.ports_bChiWatShc)
+    annotation (Line(points={{-266,-60},{-266,-50}}, color={0,127,255}));
+  connect(pumPri.ports_aHeaWat, valIso.ports_bHeaWatShc)
+    annotation (Line(points={{-250,-60},{-250,-50}}, color={0,127,255}));
   annotation (
     defaultComponentName="pla",
     Documentation(

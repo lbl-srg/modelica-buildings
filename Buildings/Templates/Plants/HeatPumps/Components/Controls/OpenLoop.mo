@@ -4,17 +4,13 @@ block OpenLoop
   extends
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop);
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp](
-    y(each final unit="K",
-      each displayUnit="degC"),
-    each k=Buildings.Templates.Data.Defaults.THeaWatSupMed)
-    "Heat pump HW supply temperature set point"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp + nShc](y(
+        each final unit="K", each displayUnit="degC"), each k=Buildings.Templates.Data.Defaults.THeaWatSupMed)
+    "HW supply temperature set point"
     annotation (Placement(transformation(extent={{0,330},{-20,350}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nHp](
-    y(each final unit="K",
-      each displayUnit="degC"),
-    each k=Buildings.Templates.Data.Defaults.TChiWatSup)
-    "Heat pump CHW supply temperature set point"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nHp + nShc](y(
+        each final unit="K", each displayUnit="degC"), each k=Buildings.Templates.Data.Defaults.TChiWatSup)
+    "CHW supply temperature set point"
     annotation (Placement(transformation(extent={{0,290},{-20,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpInlIso[nHp](
     each table=[
@@ -65,8 +61,7 @@ block OpenLoop
       1, 1;
       5, 1],
     each timeScale=1000,
-    each period=5000)
-    "Heat pump start/stop command"
+    each period=5000) "Heat pump start/stop command"
     annotation (Placement(transformation(extent={{-100,330},{-120,350}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaHp[nHp](
     each table=[
@@ -193,9 +188,23 @@ block OpenLoop
     if cfg.have_shc and cfg.have_heaWat and cfg.have_valShcOutIso
     "SHC unit outlet HW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-60,210},{-80,230}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Shc[nShc](
+    each table=[0,0; 1,0; 1,1; 5,1],
+    each timeScale=1000,
+    each period=5000) if cfg.have_shc "SHC unit start/stop command"
+    annotation (Placement(transformation(extent={{-60,350},{-80,370}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable modShc[nShc](
+    each table=[0,1; 2,2; 3,3; 4,1],
+    each timeScale=1000,
+    each period=5000) if cfg.have_shc
+    "SHC operating mode"
+    annotation (Placement(transformation(extent={{40,350},{20,370}})));
 equation
   /* Control point connection - start */
+  connect(modShc.y[1], busShc.mode);
   connect(TSet.y, busHp.TSet);
+  connect(TChiWatSupSet[nHp+1:nHp+nShc].y, busShc.TChiWatSupSet);
+  connect(THeaWatSupSet[nHp+1:nHp+nShc].y, busShc.THeaWatSupSet);
   connect(y1Hp.y[1], busHp.y1);
   connect(y1HeaHp.y[1], busHp.y1Hea);
   connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1);
@@ -208,6 +217,7 @@ equation
   connect(yPumHeaWatPriDed.y, busPumHeaWatPri.y);
   connect(y1PumHeaWatSec.y[1], busPumHeaWatSec.y1);
   connect(yPumHeaWatSec.y, busPumHeaWatSec.y);
+  connect(y1Shc.y[1], busShc.y1);
   connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
   connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
   connect(y1ValHeaWatHpInlIso.y[1], busValHeaWatHpInlIso.y1);
@@ -217,16 +227,16 @@ equation
   connect(y1ValHeaWatShcInlIso.y[1], busValHeaWatShcInlIso.y1);
   connect(y1ValHeaWatShcOutIso.y[1], busValHeaWatShcOutIso.y1);
   /* Control point connection - stop */
-                                       connect(TChiWatSupSet.y, TSet.u3)
-    annotation (Line(points={{-22,300},{-40,300},{-40,312},{-58,312}},    color={0,0,127}));
-  connect(THeaWatSupSet.y, TSet.u1)
-    annotation (Line(points={{-22,340},{-40,340},{-40,328},{-58,328}},    color={0,0,127}));
   connect(y1HeaHp.y[1], TSet.u2)
     annotation (Line(points={{-122,300},{-130,300},{-130,280},{-50,280},{-50,320},
           {-58,320}},
       color={255,0,255}));
   connect(tru.y, TSet.u2)
     annotation (Line(points={{-22,260},{-50,260},{-50,320},{-58,320}},    color={255,0,255}));
+  connect(THeaWatSupSet[1:nHp].y, TSet.u1) annotation (Line(points={{-22,340},{-40,
+          340},{-40,328},{-58,328}}, color={0,0,127}));
+  connect(TChiWatSupSet[1:nHp].y, TSet.u3) annotation (Line(points={{-22,300},{-40,
+          300},{-40,312},{-58,312}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

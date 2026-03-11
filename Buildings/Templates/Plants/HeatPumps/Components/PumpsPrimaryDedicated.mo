@@ -29,19 +29,19 @@ model PumpsPrimaryDedicated
     "Lowest index to connect SHC unit ports to primary CHW pump ports"
     annotation(Evaluate=true);
   parameter Boolean have_hp = true
-    "Set to true if the plant includes SHC (4-pipe) units"
+    "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_shc = false
-    "Set to true if the plant includes SHC (4-pipe) units"
+    "Set to true for plants with SHC (multi-pipe) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nHp
-    "Number of heat pumps"
+    "Number of heat pumps (excluding SHC units)"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nShc = 0
-    "Number of SHC (4-pipe) units"
+    "Number of SHC (multi-pipe) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri
@@ -158,7 +158,7 @@ model PumpsPrimaryDedicated
       origin={180,200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=270,
-        origin={820,400})));
+        origin={658,400})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiHeaWatHp[nHp](
     redeclare each final package Medium=Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -298,7 +298,7 @@ model PumpsPrimaryDedicated
       origin={120,200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=270,
-        origin={660,400})));
+        origin={500,400})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nShc](
     redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -310,7 +310,7 @@ model PumpsPrimaryDedicated
       origin={60,200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=270,
-        origin={500,400})));
+        origin={340,400})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatRetShc[nShc](
     redeclare each final package Medium=Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -496,7 +496,8 @@ annotation(defaultComponentName="pumPri",
   Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-2400,-400},{2400,400}}),
-    graphics={Line(points={{2000,60},{2000,-400}},
+    graphics={
+              Line(points={{2000,60},{2000,-400}},
       color={0,0,0},
       thickness=5,
       visible=typArrPumPri ==

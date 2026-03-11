@@ -1,7 +1,7 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Data;
 record HeatPumpGroup
   extends Modelica.Icons.Record;
-  parameter Buildings.Templates.Components.Types.HeatPump typ
+  parameter Buildings.Templates.Components.Types.HeatPump typHp
     "Equipment type"
     annotation(Evaluate=true,
       Dialog(group="Configuration",
@@ -12,7 +12,7 @@ record HeatPumpGroup
       Dialog(group="Configuration",
         enable=false));
   parameter Boolean have_shc
-    "Set to true for plants with simultaneous (multi-pipe) units"
+    "Set to true for plants with SHC (multi-pipe) units"
     annotation (Evaluate=true,
       Dialog(group="Configuration",
         enable=false));
@@ -37,7 +37,8 @@ record HeatPumpGroup
     cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default =
-    if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
+    if typHp
+           == Buildings.Templates.Components.Types.HeatPump.AirToWater
     then Buildings.Utilities.Psychrometrics.Constants.cpAir
     else Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Source fluid default specific heat capacity"
@@ -104,18 +105,16 @@ record HeatPumpGroup
     "Source fluid mass flow rate in heating mode - Each heat pump"
     annotation(Evaluate=true,
       Dialog(group="Nominal condition – Heat pumps",
-        enable=have_hp
-          and typ ==
-            Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+        enable=have_hp and typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   parameter Modelica.Units.SI.PressureDifference dpSouWwHeaHp_nominal(min=0,
       start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "Source fluid pressure drop in heating mode - Each heat pump"
     annotation(Dialog(group="Nominal condition – Heat pumps",
-      enable=have_hp
-        and typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+      enable=have_hp and typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Modelica.Units.SI.MassFlowRate mSouHeaHp_flow_nominal =
     if have_hp
-    then (if typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
+    then (if typHp
+                 == Buildings.Templates.Components.Types.HeatPump.WaterToWater
       then mSouWwHeaHp_flow_nominal
       else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(
         capHeaHp_nominal))
@@ -123,7 +122,8 @@ record HeatPumpGroup
     "Source fluid mass flow rate in heating mode - Each heat pump"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouHeaHp_nominal =
-    if typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
+    if typHp
+           == Buildings.Templates.Components.Types.HeatPump.WaterToWater
     then dpSouWwHeaHp_nominal else Buildings.Templates.Data.Defaults.dpAirChi
     "Source fluid pressure drop in heating mode - Each heat pump";
   parameter Modelica.Units.SI.Temperature TSouCooHp_nominal(min=273.15, start=
@@ -136,11 +136,11 @@ record HeatPumpGroup
     "Source fluid mass flow rate in cooling mode - Each heat pump"
     annotation(Evaluate=true,
       Dialog(group="Nominal condition – Heat pumps",
-        enable=have_hp
-          and typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
-          and is_rev));
+        enable=have_hp and typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater
+           and is_rev));
   final parameter Modelica.Units.SI.MassFlowRate mSouCooHp_flow_nominal =
-    if typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
+    if typHp
+           == Buildings.Templates.Components.Types.HeatPump.WaterToWater
     then mSouWwCooHp_flow_nominal
     else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(
       capCooHp_nominal)
@@ -150,7 +150,14 @@ record HeatPumpGroup
     dpSouHeaHp_nominal * (mSouCooHp_flow_nominal / mSouHeaHp_flow_nominal) ^ 2
     "Source fluid pressure drop in cooling mode - Each heat pump";
   replaceable parameter Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump perHeaHp(
-    devIde="")
+    fileName="",
+    PLRSup={1},
+    tabUppBou=[
+      TSouHeaHp_nominal - 5, THeaWatSupHp_nominal;
+      TSouHeaHp_nominal + 30, THeaWatSupHp_nominal],
+    devIde="",
+    use_TConOutForTab=false,
+    use_TEvaOutForTab=true)
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump(
       mCon_flow_nominal=mHeaWatHp_flow_nominal,
       mEva_flow_nominal=mSouHeaHp_flow_nominal,
@@ -244,18 +251,16 @@ record HeatPumpGroup
     "Source fluid mass flow rate in heating mode - Each SHC unit"
     annotation(Evaluate=true,
       Dialog(group="Nominal condition – SHC units",
-        enable=have_shc
-          and typ ==
-            Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+        enable=have_shc and typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   parameter Modelica.Units.SI.PressureDifference dpSouWwHeaShc_nominal(min=0,
       start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "Source fluid pressure drop in heating mode - Each SHC unit"
     annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc
-        and typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+      enable=have_shc and typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Modelica.Units.SI.MassFlowRate mSouHeaShc_flow_nominal =
     if have_shc
-    then (if typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
+    then (if typHp
+                 == Buildings.Templates.Components.Types.HeatPump.WaterToWater
       then mSouWwHeaShc_flow_nominal
       else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(
         capHeaShc_nominal))
@@ -264,7 +269,8 @@ record HeatPumpGroup
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouHeaShc_nominal =
     if have_shc
-      and typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
+      and typHp
+              == Buildings.Templates.Components.Types.HeatPump.WaterToWater
     then dpSouWwHeaShc_nominal else Buildings.Templates.Data.Defaults.dpAirChi
     "Source fluid pressure drop in heating mode - Each SHC unit";
   parameter Modelica.Units.SI.Temperature TSouCooShc_nominal(min=273.15, start=
@@ -277,11 +283,10 @@ record HeatPumpGroup
     "Source fluid mass flow rate in cooling mode - Each SHC unit"
     annotation(Evaluate=true,
       Dialog(group="Nominal condition – SHC units",
-        enable=have_shc
-          and typ ==
-            Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+        enable=have_shc and typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Modelica.Units.SI.MassFlowRate mSouCooShc_flow_nominal =
-    if typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
+    if typHp
+           == Buildings.Templates.Components.Types.HeatPump.WaterToWater
     then mSouWwCooShc_flow_nominal
     else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(
       capCooShc_nominal)

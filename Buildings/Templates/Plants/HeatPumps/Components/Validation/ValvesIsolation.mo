@@ -195,37 +195,31 @@ model ValvesIsolation
   parameter Data.HeatPumpGroup datHp(
     final have_hp=true,
     final have_shc=false,
-    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
+    final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
-    mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal / abs(
-      datHp.THeaWatSupHp_nominal -
-        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal/abs(datHp.THeaWatSupHp_nominal
+         - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaHp_nominal=500E3,
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatHp_flow_nominal=datHp.capCooHp_nominal / abs(
-      datHp.TChiWatSupHp_nominal -
-        Buildings.Templates.Data.Defaults.TChiWatRet) /
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mChiWatHp_flow_nominal=datHp.capCooHp_nominal/abs(datHp.TChiWatSupHp_nominal
+         - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
     PHp_min=1.0E3,
     perHeaHp(
       fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
-      tabUppBou=[263.15, 323.15; 313.15, 323.15]),
-    perCooHp(
-      fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-      PLRSup={1}))
-    "Reversible AWHP parameters"
-    annotation(Placement(transformation(extent={{-280,-80},{-260,-60}})));
+      tabUppBou=[263.15,323.15; 313.15,323.15]),
+    perCooHp(fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
+        PLRSup={1})) "Reversible AWHP parameters"
+    annotation (Placement(transformation(extent={{-280,-80},{-260,-60}})));
   Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation valIsoCom(
     redeclare final package Medium=Medium,
     nHp=2,

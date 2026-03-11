@@ -15,8 +15,9 @@ record HeatPumpPlant
     annotation (Dialog(group="Controls"));
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup
     hp(
-    final typ=cfg.typ,
-    final nHp=cfg.nHp,
+    final have_hp=cfg.have_hp,
+    final have_shc=cfg.have_shc,
+    final typHp=cfg.typHp,
     final is_rev=cfg.is_rev,
     final cpHeaWat_default=cfg.cpHeaWat_default,
     final cpSou_default=cfg.cpSou_default,
@@ -42,7 +43,7 @@ record HeatPumpPlant
     final rho_default=cfg.rhoHeaWat_default,
     final typ=if cfg.typPumHeaWatPri <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
       then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None,
-    m_flow_nominal=fill(hp.nHp * (
+    m_flow_nominal=fill(cfg.nHp * (
       if cfg.have_chiWat and cfg.typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then
         max(hp.mHeaWatHp_flow_nominal, hp.mChiWatHp_flow_nominal) else hp.mHeaWatHp_flow_nominal) /
         max(cfg.nPumHeaWatPri, 1),
@@ -95,7 +96,7 @@ record HeatPumpPlant
     final rho_default=cfg.rhoChiWat_default,
     final typ=if cfg.typPumChiWatPri <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
       then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None,
-    m_flow_nominal=fill(hp.mChiWatHp_flow_nominal * hp.nHp / max(cfg.nPumChiWatPri, 1), cfg.nPumChiWatPri))
+    m_flow_nominal=fill(hp.mChiWatHp_flow_nominal * cfg.nHp / max(cfg.nPumChiWatPri, 1), cfg.nPumChiWatPri))
     "Primary CHW pumps"
     annotation (Dialog(group="Primary CHW loop",
       enable=cfg.typPumChiWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None));

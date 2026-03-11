@@ -12,7 +12,7 @@ model PartialHeatPump
   replaceable package MediumChiWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
-    annotation(Dialog(enable=is_shc),
+    annotation(Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery),
       __ctrlFlow(enable=false));
 
   /*
@@ -39,20 +39,9 @@ model PartialHeatPump
   parameter Buildings.Templates.Components.Types.HeatPumpCapability typMod
     "Heat pump operating mode capability"
     annotation(Evaluate=true);
-  final parameter Boolean is_rev =
-    typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Reversible
-    "Set to true for reversible heat pumps, false for heating only"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-  final parameter Boolean is_shc =
-    typMod ==
-      Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
-    "Set to true for SHC (multi-pipe) unit"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Data.HeatPump dat(
     typ=typ,
-    is_rev=is_rev,
+    typMod=typMod,
     cpHeaWat_default=cpHeaWat_default,
     cpSou_default=cpSou_default)
     "Design and operating parameters"
@@ -157,13 +146,13 @@ model PartialHeatPump
     "Source fluid default state";
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium=MediumChiWat)
-    if is_shc
+    if typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
     "CHW fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation(Placement(transformation(extent={{90,50},{110,70}}),
       iconTransformation(extent={{90,90},{110,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium=MediumChiWat)
-    if is_shc
+    if typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
     "CHW fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation(Placement(transformation(extent={{-90,50},{-110,70}}),
       iconTransformation(extent={{-90,90},{-110,110}})));

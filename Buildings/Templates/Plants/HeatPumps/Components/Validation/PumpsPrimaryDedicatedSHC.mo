@@ -7,8 +7,12 @@ model PumpsPrimaryDedicatedSHC
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW/HW medium";
 
-  parameter Integer nHp = 2 "Number of heat pumps" annotation(Evaluate=true);
-  parameter Integer nShc = 2 "Number of SHC units" annotation(Evaluate=true);
+  parameter Integer nHp = 2
+    "Number of heat pumps (excluding SHC units)"
+    annotation(Evaluate=true);
+  parameter Integer nShc = 2
+    "Number of SHC (multi-pipe) units"
+    annotation(Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -195,7 +199,7 @@ model PumpsPrimaryDedicatedSHC
   parameter Data.HeatPumpGroup datHp(
     have_hp=true,
     have_shc=true,
-    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
+    final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
     mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal / abs(
       datHp.THeaWatSupHp_nominal -

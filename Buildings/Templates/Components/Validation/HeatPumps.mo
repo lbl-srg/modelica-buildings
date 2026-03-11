@@ -17,8 +17,7 @@ model HeatPumps
     final cpHeaWat_default=hpAwNrv.cpHeaWat_default,
     final cpSou_default=hpAwNrv.cpSou_default,
     final typ=hpAwNrv.typ,
-    final is_rev=hpAwNrv.is_rev,
-    final is_shc=hpAwNrv.is_shc,
+    final typMod=hpAwNrv.typMod,
     mHeaWat_flow_nominal=datHpAw.capHea_nominal / abs(
       datHpAw.THeaWatSup_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /
@@ -41,8 +40,7 @@ model HeatPumps
     final cpHeaWat_default=hpAw.cpHeaWat_default,
     final cpSou_default=hpAw.cpSou_default,
     final typ=hpAw.typ,
-    final is_rev=hpAw.is_rev,
-    final is_shc=hpAw.is_shc,
+    final typMod=hpAw.typMod,
     mHeaWat_flow_nominal=datHpAw.capHea_nominal / abs(
       datHpAw.THeaWatSup_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /
@@ -77,8 +75,7 @@ model HeatPumps
     final cpHeaWat_default=shc.cpHeaWat_default,
     final cpSou_default=shc.cpSou_default,
     final typ=shc.typ,
-    final is_rev=shc.is_rev,
-    final is_shc=shc.is_shc,
+    final typMod=shc.typMod,
     mHeaWat_flow_nominal=datShc.capHea_nominal / abs(
       datShc.THeaWatSup_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /
@@ -234,8 +231,7 @@ model HeatPumps
     final cpHeaWat_default=hpWw.cpHeaWat_default,
     final cpSou_default=hpWw.cpSou_default,
     final typ=hpWw.typ,
-    final is_rev=hpWw.is_rev,
-    final is_shc=hpWw.is_shc,
+    final typMod=hpWw.typMod,
     mHeaWat_flow_nominal=datHpAw.capHea_nominal / abs(
       datHpAw.THeaWatSup_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /

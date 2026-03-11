@@ -7,7 +7,9 @@ model PumpsPrimaryDedicated
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW/HW medium";
 
-  parameter Integer nHp = 2 "Number of heat pumps" annotation(Evaluate=true);
+  parameter Integer nHp = 2
+    "Number of heat pumps (excluding SHC units)"
+    annotation(Evaluate=true);
   parameter Boolean use_spePumIni = false
     "Set to true to compute pump speed at initialization, false to use default value"
     annotation(Evaluate=true);
@@ -265,7 +267,7 @@ model PumpsPrimaryDedicated
   parameter Data.HeatPumpGroup datHp(
     have_hp=true,
     have_shc=false,
-    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
+    final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
     mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal / abs(
       datHp.THeaWatSupHp_nominal -
@@ -313,8 +315,10 @@ model PumpsPrimaryDedicated
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     nPum=nHp,
     m_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, nHp),
-    dp_nominal=fill(datHp.dpHeaWatHp_nominal + Buildings.Templates.Data.Defaults.dpValChe
-         + max(valHeaWatIsoCom.dpValve_nominal), nHp))
+    dp_nominal=fill(
+      datHp.dpHeaWatHp_nominal + Buildings.Templates.Data.Defaults.dpValChe +
+        max(valHeaWatIsoCom.dpValve_nominal),
+      nHp))
     "Dedicated primary HW pump parameters"
     annotation(Placement(transformation(extent={{-160,-200},{-140,-180}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWat(
@@ -554,25 +558,27 @@ model PumpsPrimaryDedicated
     "Primary HW loop"
     annotation(Placement(transformation(extent={{-10,-350},{10,-330}})));
   Fluid.Sources.Boundary_pT ret2(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=nHp)
     "Boundary condition at return"
     annotation(Placement(transformation(extent={{122,-150},{102,-130}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatIsoSep[nHp](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=Medium,
     each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-    dat(each m_flow_nominal=datHp.mHeaWatHp_flow_nominal, each dpValve_nominal=
-          Buildings.Templates.Data.Defaults.dpValIso),
+    dat(
+      each m_flow_nominal=datHp.mHeaWatHp_flow_nominal,
+      each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso),
     each from_dp=true,
     each linearized=true)
     "Primary HW loop isolation valve"
     annotation(Placement(transformation(extent={{10,-150},{30,-130}})));
   Buildings.Templates.Components.Actuators.Valve valChiWatIsoSep[nHp](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium=Medium,
     each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-    dat(each m_flow_nominal=datHp.mChiWatHp_flow_nominal, each dpValve_nominal=
-          Buildings.Templates.Data.Defaults.dpValIso),
+    dat(
+      each m_flow_nominal=datHp.mChiWatHp_flow_nominal,
+      each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso),
     each from_dp=true,
     each linearized=true)
     "Primary CHW loop isolation valve"
@@ -699,15 +705,15 @@ equation
   connect(valHeaWatIsoCom.port_b, ret.ports)
     annotation(Line(points={{-10,280},{100,280}},
       color={0,127,255}));
-  connect(busPla2.valHeaWatHpInlIso,valHeaWatIsoSep. bus)
+  connect(busPla2.valHeaWatHpInlIso, valHeaWatIsoSep.bus)
     annotation(Line(points={{-80,-120},{20,-120},{20,-130}},
       color={255,204,51},
       thickness=0.5));
-  connect(busPla2.valChiWatHpInlIso,valChiWatIsoSep. bus)
+  connect(busPla2.valChiWatHpInlIso, valChiWatIsoSep.bus)
     annotation(Line(points={{-80,-120},{60,-120},{60,-150}},
       color={255,204,51},
       thickness=0.5));
-  connect(pumPriSep.ports_bHeaWat,valHeaWatIsoSep. port_a)
+  connect(pumPriSep.ports_bHeaWat, valHeaWatIsoSep.port_a)
     annotation(Line(points={{-76,-180},{-76,-140},{10,-140}},
       color={0,127,255}));
   connect(valHeaWatIsoSep.port_b, pumPriSep.ports_aChiHeaWat)
@@ -718,8 +724,9 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(valHeaWatIsoSep.port_b, ret2.ports)
-    annotation (Line(points={{30,-140},{102,-140}}, color={0,127,255}));
-  connect(pumPriSep.ports_bChiWat,valChiWatIsoSep. port_a)
+    annotation(Line(points={{30,-140},{102,-140}},
+      color={0,127,255}));
+  connect(pumPriSep.ports_bChiWat, valChiWatIsoSep.port_a)
     annotation(Line(points={{-60,-180},{-60,-160},{50,-160}},
       color={0,127,255}));
   connect(valChiWatIsoSep.port_b, pumPriSep.ports_aChiHeaWat)

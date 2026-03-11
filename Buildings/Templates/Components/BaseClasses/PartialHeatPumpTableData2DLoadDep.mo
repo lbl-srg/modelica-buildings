@@ -39,7 +39,7 @@ partial model PartialHeatPumpTableData2DLoadDep
     final datHea=dat.perHea,
     final datCoo=dat.perCoo,
     final P_min=dat.P_min,
-    final use_rev=is_rev,
+    final use_rev=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHea_flow_nominal=QHea_flow_nominal,
     final TConHea_nominal=THeaWatSup_nominal,
@@ -58,7 +58,7 @@ partial model PartialHeatPumpTableData2DLoadDep
     final show_T=show_T,
     use_conCap=false,
     use_evaCap=false)
-    if not is_shc
+    if not typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
     "Heat pump"
     annotation(Placement(transformation(extent={{-10,-16},{10,4}})));
   Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC shc(
@@ -84,13 +84,13 @@ partial model PartialHeatPumpTableData2DLoadDep
     final show_T=show_T,
     use_conCap=false,
     use_evaCap=false)
-    if is_shc
+    if typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
     "SHC (multi-pipe) unit"
     annotation(Placement(transformation(extent={{-12,56},{8,76}})));
   Routing.PassThroughFluid pas(redeclare final package Medium=MediumSou)
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
-      and is_shc
-    "Direct fluid pass through in case of air-source SHC unit (4-pipe)"
+      and typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
+    "Direct fluid pass through in case of air-source SHC unit"
     annotation(Placement(transformation(extent={{10,-50},{-10,-30}})));
 equation
   connect(port_a, mHeaWat_flow.port_a)
@@ -168,7 +168,7 @@ annotation(defaultComponentName="heaPum",
   power are computed by interpolating manufacturer data along the condenser
   entering or leaving temperature, the evaporator entering or leaving
   temperature and the part load ratio. Toggling the Boolean parameter
-  <code>is_rev</code> enables representing either a non-reversible
+  <code>typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible</code> enables representing either a non-reversible
   (heating-only) heat pump or a reversible heat pump.
 </p>
 <p>
@@ -185,7 +185,7 @@ annotation(defaultComponentName="heaPum",
     dimensionality of zero
   </li>
   <li>
-    For reversible heat pumps only (<code>is_rev=true</code>), heat pump
+    For reversible heat pumps only (<code>typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible=true</code>), heat pump
     operating mode command signal: <code>y1Hea</code>, DO signal, with a
     dimensionality of zero<br />
     Set <code>y1Hea=true</code> for heating mode, <code>y1Hea=false</code> for

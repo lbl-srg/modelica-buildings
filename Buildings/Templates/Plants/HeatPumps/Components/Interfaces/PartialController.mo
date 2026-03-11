@@ -22,10 +22,10 @@ block PartialController "Interface for heat pump plant controller"
     cfg=cfg)
     "Parameter record for controller";
   final parameter Integer nHp=cfg.nHp
-    "Number of heat pumps"
+    "Number of heat pumps (excluding SHC units)"
     annotation (Evaluate=true);
   final parameter Integer nShc=cfg.nShc
-    "Number of SHC units"
+    "Number of SHC (multi-pipe) units"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typ
     "Type of controller"
@@ -281,6 +281,10 @@ protected
     "SHC unit outlet CHW isolation valve control bus" annotation (Placement(
         transformation(extent={{-180,-100},{-140,-60}}), iconTransformation(
           extent={{-466,50},{-426,90}})));
+protected
+  Buildings.Templates.Components.Interfaces.Bus busShc[nShc] if cfg.have_shc
+    "SHC unit control bus" annotation (Placement(transformation(extent={{-180,320},
+            {-140,360}}), iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
   connect(busHp, bus.hp);
@@ -291,6 +295,7 @@ equation
   connect(busPumHeaWatHrc, bus.pumHeaWatHrc);
   connect(busPumHeaWatPri, bus.pumHeaWatPri);
   connect(busPumHeaWatSec, bus.pumHeaWatSec);
+  connect(busShc, bus.shc);
   connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso);
   connect(busValChiWatHpOutIso, bus.valChiWatHpOutIso);
   connect(busValChiWatShcInlIso, bus.valChiWatShcInlIso);

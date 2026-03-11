@@ -35,24 +35,25 @@ model ValvesIsolation
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_hp = true
-    "Set to true if the plant includes SHC (4-pipe) units"
+    "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_shc = false
-    "Set to true if the plant includes SHC (4-pipe) units"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-  parameter Integer nHp
-    "Number of heat pumps"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-  parameter Integer nShc = 0
-    "Number of SHC (4-pipe) units"
+    "Set to true for plants with SHC (multi-pipe) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean is_shcMod = false
     "Set to true for modular SHC unit"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
+  parameter Integer nHp
+    "Number of heat pumps (excluding SHC units)"
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
+  parameter Integer nShc = 0
+    "Number of SHC (multi-pipe) units"
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
   parameter Boolean have_valHpInlIso = false
     "Set to true for isolation valves at HP inlet"
     annotation(Evaluate=true,

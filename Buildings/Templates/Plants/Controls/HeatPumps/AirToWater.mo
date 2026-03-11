@@ -162,7 +162,7 @@ block AirToWater
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation (Evaluate=true);
   parameter Integer nHp(min=1)
-    "Number of heat pumps"
+    "Number of heat pumps (excluding SHC units)"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
   parameter Integer nPumHeaWatPri(

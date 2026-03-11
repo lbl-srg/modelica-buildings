@@ -7,16 +7,9 @@ record HeatPump
     annotation(Evaluate=true,
       Dialog(group="Configuration",
         enable=false));
-  parameter Boolean is_rev
-    "Set to true for reversible heat pumps, false for heating only"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration",
-        enable=false));
-  parameter Boolean is_shc
-    "Set to true for SHC (multi-pipe) unit"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration",
-        enable=false));
+  parameter Buildings.Templates.Components.Types.HeatPumpCapability typMod
+    "Heat pump operating mode capability"
+    annotation(Evaluate=true);
   // Default fluid properties
   parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default =
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
@@ -63,7 +56,7 @@ record HeatPump
     final min=0)
     "CHW mass flow rate"
     annotation(Dialog(group="Nominal condition",
-      enable=is_rev));
+      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible));
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal =
     dpHeaWat_nominal * (mChiWat_flow_nominal / mHeaWat_flow_nominal) ^ 2
     "Pressure drop at design CHW mass flow rate"
@@ -71,29 +64,29 @@ record HeatPump
   parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal(start=0)
     "Cooling capacity"
     annotation(Dialog(group="Nominal condition",
-      enable=is_rev));
+      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible));
   parameter Modelica.Units.SI.Temperature TChiWatSup_nominal(
     start=Buildings.Templates.Data.Defaults.TChiWatSup,
     final min=253.15)
     "(Lowest) CHW supply temperature"
     annotation(Dialog(group="Nominal condition",
-      enable=is_rev));
+      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible));
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal =
-    if is_rev
+    if typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible
     then TChiWatSup_nominal + abs(capCoo_nominal) / cpChiWat_default /
       mChiWat_flow_nominal
     else Buildings.Templates.Data.Defaults.TChiWatRet
     "CHW return temperature"
     annotation(Dialog(group="Nominal condition",
-      enable=is_rev));
+      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible));
   parameter Modelica.Units.SI.HeatFlowRate capHeaShc_nominal(start=0)
     "Heating capacity in SHC mode"
     annotation(Dialog(group="Nominal condition",
-      enable=is_shc));
+      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery));
   parameter Modelica.Units.SI.HeatFlowRate capCooShc_nominal(start=0)
     "Cooling capacity in SHC mode"
     annotation(Dialog(group="Nominal condition",
-      enable=is_shc));
+      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery));
   parameter Modelica.Units.SI.Temperature TSouHea_nominal(
     start=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
     final min=220)
@@ -128,14 +121,14 @@ record HeatPump
     final min=273.15)
     "OAT or source fluid supply temperature (condenser entering) in cooling mode"
     annotation(Dialog(group="Nominal condition",
-      enable=is_rev));
+      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible));
   parameter Modelica.Units.SI.MassFlowRate mSouWwCoo_flow_nominal(
     start=mChiWat_flow_nominal,
     final min=0)
     "Source fluid mass flow rate in cooling mode"
     annotation(Dialog(group="Nominal condition",
       enable=typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
-        and is_rev));
+        and typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible));
   final parameter Modelica.Units.SI.MassFlowRate mSouCoo_flow_nominal =
     if typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater
     then mSouWwCoo_flow_nominal
@@ -159,13 +152,12 @@ record HeatPump
     PLRSup={1},
     tabUppBou=[
       TSouHea_nominal - 10, THeaWatSup_nominal + 5;
-      TSouHea_nominal + 20, THeaWatSup_nominal + 5
-    ],
+      TSouHea_nominal + 20, THeaWatSup_nominal + 5],
     use_TConOutForTab=false,
     use_TEvaOutForTab=true)
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump
     "Performance data in heating mode"
-    annotation(Dialog(enable=not is_shc),
+    annotation(Dialog(enable=not typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery),
       choicesAllMatching=true,
       Placement(transformation(extent={{-40,0},{-20,20}})));
   replaceable parameter Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic perCoo(
@@ -177,15 +169,14 @@ record HeatPump
     PLRSup={1},
     tabLowBou=[
       TSouCoo_nominal - 30, TChiWatSup_nominal - 2;
-      TSouCoo_nominal + 10, TChiWatSup_nominal - 2
-    ],
+      TSouCoo_nominal + 10, TChiWatSup_nominal - 2],
     devIde="",
     use_TConOutForTab=false,
     use_TEvaOutForTab=true)
     constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic
     "Performance data in cooling mode"
     annotation(choicesAllMatching=true,
-      Dialog(enable=is_rev),
+      Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible),
       Placement(transformation(extent={{20,0},{40,20}})));
   replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perShc(
     mCon_flow_nominal=mHeaWat_flow_nominal,
@@ -203,7 +194,7 @@ record HeatPump
     devIde="")
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic
     "Performance data"
-    annotation(Dialog(enable=is_shc),
+    annotation(Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery),
       choicesAllMatching=true,
       Placement(transformation(extent={{-40,0},{-20,20}})));
   parameter Modelica.Units.SI.Power P_min(final min=0) = 0

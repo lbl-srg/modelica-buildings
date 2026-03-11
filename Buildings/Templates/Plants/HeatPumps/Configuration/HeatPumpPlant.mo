@@ -19,14 +19,14 @@ record HeatPumpPlant
     "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true);
   parameter Boolean have_shc
-    "Set to true for plants with simultaneous (multi-pipe) units"
+    "Set to true for plants with SHC (multi-pipe) units"
     annotation(Evaluate=true);
   parameter Boolean have_hrc
     "Set to true for plants with a sidestream heat recovery chiller"
     annotation(Evaluate=true);
-  parameter Integer nHp "Number of heat pumps" annotation(Evaluate=true);
+  parameter Integer nHp "Number of heat pumps (excluding SHC units)" annotation(Evaluate=true);
   parameter Integer nShc
-    "Total number of SHC (multi-pipe) units"
+    "Number of SHC (multi-pipe) units"
     annotation(Evaluate=true);
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"

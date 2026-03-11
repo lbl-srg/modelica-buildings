@@ -21,32 +21,32 @@ record Generic
     "File where performance data are stored - SHC mode (single module)"
     annotation (Dialog(loadSelector(filter="Text files (*.txt)",caption=
       "Open file in which table is present")));
-  parameter String tabNamQHea[nPLRHea]={"q@" + String(p,
+  parameter String tabNamQHea[:]={"q@" + String(p,
     format=".2f") for p in PLRHeaSor}
     "Table names with heat flow rate data - Heating mode"
     annotation (Evaluate=true,
     Dialog(tab="Advanced"));
-  parameter String tabNamPHea[nPLRHea]={"p@" + String(p,
+  parameter String tabNamPHea[:]={"p@" + String(p,
     format=".2f") for p in PLRHeaSor}
     "Table names with power data - Heating mode"
     annotation (Evaluate=true,
     Dialog(tab="Advanced"));
-  parameter String tabNamQCoo[nPLRCoo]={"q@" + String(p,
+  parameter String tabNamQCoo[:]={"q@" + String(p,
     format=".2f") for p in PLRCooSor}
     "Table names with heat flow rate data - Cooling mode"
     annotation (Evaluate=true,
     Dialog(tab="Advanced"));
-  parameter String tabNamPCoo[nPLRCoo]={"p@" + String(p,
+  parameter String tabNamPCoo[:]={"p@" + String(p,
     format=".2f") for p in PLRCooSor}
     "Table names with power data - Cooling mode"
     annotation (Evaluate=true,
     Dialog(tab="Advanced"));
-  parameter String tabNamQShc[nPLRShc]={"q@" + String(p,
+  parameter String tabNamQShc[:]={"q@" + String(p,
     format=".2f") for p in PLRShcSor}
     "Table names with cooling heat flow rate data - SHC mode"
     annotation (Evaluate=true,
     Dialog(tab="Advanced"));
-  parameter String tabNamPShc[nPLRShc]={"p@" + String(p,
+  parameter String tabNamPShc[:]={"p@" + String(p,
     format=".2f") for p in PLRShcSor}
     "Table names with power data - SHC mode"
     annotation (Evaluate=true,
@@ -74,15 +74,15 @@ record Generic
   final parameter Integer nPLRShc=size(PLRShcSup, 1)
     "Number of PLR support points - SHC"
     annotation (Evaluate=true);
-  final parameter Real PLRHeaSor[nPLRHea]=Modelica.Math.Vectors.sort(PLRHeaSup)
+  final parameter Real PLRHeaSor[:]=Modelica.Math.Vectors.sort(PLRHeaSup)
     "PLR values in increasing order - Heating";
   final parameter Real PLRHea_max=PLRHeaSor[nPLRHea]
     "Maximum PLR";
-  final parameter Real PLRCooSor[nPLRCoo]=Modelica.Math.Vectors.sort(PLRCooSup)
+  final parameter Real PLRCooSor[:]=Modelica.Math.Vectors.sort(PLRCooSup)
     "PLR values in increasing order - Cooling";
   final parameter Real PLRCoo_max=PLRCooSor[nPLRCoo]
     "Maximum PLR - Cooling mode";
-  final parameter Real PLRShcSor[nPLRShc]=Modelica.Math.Vectors.sort(PLRShcSup)
+  final parameter Real PLRShcSor[:]=Modelica.Math.Vectors.sort(PLRShcSup)
     "PLR values in increasing order - SHC";
   annotation (
   defaultComponentPrefixes="parameter",

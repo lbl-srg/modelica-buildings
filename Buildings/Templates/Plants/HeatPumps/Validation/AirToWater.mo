@@ -5,10 +5,9 @@ model AirToWater
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Main medium (common for CHW and HW)";
-  parameter Boolean have_chiWat=true
+  final parameter Boolean have_chiWat = pla.have_chiWat
     "Set to true if the plant provides CHW"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration"));
+    annotation (Evaluate=true);
   inner parameter UserProject.Data.AllSystems datAll(
     pla(
       final cfg=pla.cfg)) "Plant parameters"
@@ -35,10 +34,11 @@ model AirToWater
       origin={-170,-40})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
-    have_hrc_select=true,
+    typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCooling,
     final dat=datAll.pla,
-    final have_chiWat=have_chiWat,
-    nHp=3,
+    nHp_select=3,
+    is_shcMod=false,
+    nShc_select=1,
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
@@ -277,17 +277,18 @@ The heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
 Three equally sized heat pumps are modeled, which can all be lead/lag alternated.
-A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>)
-and connected to the HW and CHW return pipes (sidestream integration).
+A heat recovery chiller (HRC) can be included by setting
+<code>pla.typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCoolingHeatRecovery</code>.
+The HRC is connected to the HW and CHW return pipes (sidestream integration).
 A unique aggregated load is modeled on each loop using a heat exchanger component
 exposed to conditioned space air, and a two-way modulating valve.
 An importance multiplier of <i>10</i> is applied to the plant requests
 and reset requests generated from the valve position.
 </p>
 <p>
-The user can toggle the top-level parameter <code>have_chiWat</code>
+The user can modify the plant parameter <code>pla.typ</code>
 to switch between a cooling and heating system (the default setting)
-to a heating-only system.
+and a heating-only system.
 Advanced equipment and control options can be modified via the parameter
 dialog of the plant component.
 </p>
