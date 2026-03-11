@@ -6,13 +6,13 @@ block TemperatureModeSelectionBool
         iconTransformation(extent={{-140,68},{-100,108}})));
   CDL.Logical.Switch
                    logSwi
-    annotation (Placement(transformation(extent={{0,52},{20,72}})));
+    annotation (Placement(transformation(extent={{14,56},{34,76}})));
   CDL.Logical.Switch
                    logSwi1
-    annotation (Placement(transformation(extent={{18,4},{38,24}})));
+    annotation (Placement(transformation(extent={{54,4},{74,24}})));
   CDL.Logical.Switch
                    logSwi2
-    annotation (Placement(transformation(extent={{6,-48},{26,-28}})));
+    annotation (Placement(transformation(extent={{92,-48},{112,-28}})));
   CDL.Interfaces.BooleanInput
                            uPre
     annotation (Placement(transformation(extent={{-140,26},{-100,66}})));
@@ -24,54 +24,60 @@ block TemperatureModeSelectionBool
     annotation (Placement(transformation(extent={{-140,-98},{-100,-58}})));
   CDL.Interfaces.BooleanOutput
                             y
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{130,-20},{170,20}})));
   CDL.Integers.Equal intEqu
-    annotation (Placement(transformation(extent={{-48,90},{-28,110}})));
+    annotation (Placement(transformation(extent={{-24,86},{-4,106}})));
   CDL.Integers.Sources.Constant conInt(k=-1)
-    annotation (Placement(transformation(extent={{-82,58},{-62,78}})));
+    annotation (Placement(transformation(extent={{-92,96},{-72,116}})));
   CDL.Integers.Equal intEqu1
-    annotation (Placement(transformation(extent={{-40,8},{-20,28}})));
+    annotation (Placement(transformation(extent={{6,-18},{26,2}})));
   CDL.Integers.Sources.Constant conInt1(k=1)
-    annotation (Placement(transformation(extent={{-82,2},{-62,22}})));
+    annotation (Placement(transformation(extent={{-50,-26},{-30,-6}})));
   CDL.Integers.Equal intEqu2
-    annotation (Placement(transformation(extent={{-52,-112},{-32,-92}})));
+    annotation (Placement(transformation(extent={{30,-48},{50,-28}})));
   CDL.Integers.Sources.Constant conInt2(k=2)
-    annotation (Placement(transformation(extent={{-86,-144},{-66,-124}})));
+    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   CDL.Logical.Sources.Constant con(k=false)
-    annotation (Placement(transformation(extent={{-122,2},{-102,22}})));
+    annotation (Placement(transformation(extent={{-58,58},{-38,78}})));
 equation
-  connect(uMod, intEqu.u1) annotation (Line(points={{-120,88},{-60,88},{-60,100},
-          {-50,100}}, color={255,127,0}));
-  connect(conInt.y, intEqu.u2) annotation (Line(points={{-60,68},{-52,68},{-52,
-          84},{-50,84},{-50,92}}, color={255,127,0}));
-  connect(intEqu.y, logSwi.u2) annotation (Line(points={{-26,100},{-16,100},{-16,
-          62},{-2,62}}, color={255,0,255}));
-  connect(conInt1.y, intEqu1.u2) annotation (Line(points={{-60,12},{-54,12},{
-          -54,10},{-42,10}}, color={255,127,0}));
-  connect(uMod, intEqu1.u1) annotation (Line(points={{-120,88},{-86,88},{-86,26},
-          {-56,26},{-56,18},{-42,18}}, color={255,127,0}));
-  connect(uMod, intEqu2.u1) annotation (Line(points={{-120,88},{-86,88},{-86,
-          -102},{-54,-102}}, color={255,127,0}));
-  connect(conInt2.y, intEqu2.u2) annotation (Line(points={{-64,-134},{-56,-134},
-          {-56,-118},{-54,-118},{-54,-110}}, color={255,127,0}));
-  connect(intEqu1.y, logSwi1.u2) annotation (Line(points={{-18,18},{6,18},{6,14},
-          {16,14}}, color={255,0,255}));
-  connect(intEqu2.y, logSwi2.u2) annotation (Line(points={{-30,-102},{-6,-102},
-          {-6,-38},{4,-38}}, color={255,0,255}));
-  connect(logSwi2.y, y) annotation (Line(points={{28,-38},{94,-38},{94,0},{120,
-          0}}, color={255,0,255}));
-  connect(logSwi1.y, logSwi2.u3) annotation (Line(points={{40,14},{48,14},{48,
-          -54},{4,-54},{4,-46}}, color={255,0,255}));
-  connect(uShe, logSwi1.u1) annotation (Line(points={{-120,-32},{-6,-32},{-6,22},
-          {16,22}}, color={255,0,255}));
-  connect(logSwi.y, logSwi1.u3) annotation (Line(points={{22,62},{30,62},{30,32},
-          {8,32},{8,6},{16,6}}, color={255,0,255}));
-  connect(uPre, logSwi.u1) annotation (Line(points={{-120,46},{-12,46},{-12,70},
-          {-2,70}}, color={255,0,255}));
-  connect(uReb, logSwi2.u1) annotation (Line(points={{-120,-78},{-8,-78},{-8,
-          -34},{-4,-34},{-4,-30},{4,-30}}, color={255,0,255}));
-  connect(con.y, logSwi.u3) annotation (Line(points={{-100,12},{-88,12},{-88,54},
-          {-2,54}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  connect(intEqu.y, logSwi.u2) annotation (Line(points={{-2,96},{4,96},{4,66},{
+          12,66}},      color={255,0,255}));
+  connect(conInt1.y, intEqu1.u2) annotation (Line(points={{-28,-16},{4,-16}},
+                             color={255,127,0}));
+  connect(uMod, intEqu1.u1) annotation (Line(points={{-120,88},{-72,88},{-72,26},
+          {-16,26},{-16,-8},{4,-8}},   color={255,127,0}));
+  connect(uMod, intEqu2.u1) annotation (Line(points={{-120,88},{-72,88},{-72,
+          -38},{28,-38}},    color={255,127,0}));
+  connect(conInt2.y, intEqu2.u2) annotation (Line(points={{-28,-60},{14,-60},{
+          14,-46},{28,-46}},                 color={255,127,0}));
+  connect(intEqu1.y, logSwi1.u2) annotation (Line(points={{28,-8},{34,-8},{34,
+          14},{52,14}},
+                    color={255,0,255}));
+  connect(intEqu2.y, logSwi2.u2) annotation (Line(points={{52,-38},{90,-38}},
+                             color={255,0,255}));
+  connect(logSwi2.y, y) annotation (Line(points={{114,-38},{124,-38},{124,0},{
+          150,0}},
+               color={255,0,255}));
+  connect(logSwi1.y, logSwi2.u3) annotation (Line(points={{76,14},{82,14},{82,
+          -46},{90,-46}},        color={255,0,255}));
+  connect(logSwi.y, logSwi1.u3) annotation (Line(points={{36,66},{44,66},{44,6},
+          {52,6}},              color={255,0,255}));
+  connect(uPre, logSwi.u1) annotation (Line(points={{-120,46},{-12,46},{-12,74},
+          {12,74}}, color={255,0,255}));
+  connect(uReb, logSwi2.u1) annotation (Line(points={{-120,-78},{62,-78},{62,
+          -30},{90,-30}},                  color={255,0,255}));
+  connect(con.y, logSwi.u3) annotation (Line(points={{-36,68},{-22,68},{-22,58},
+          {12,58}}, color={255,0,255}));
+  connect(logSwi1.u1, uShe) annotation (Line(points={{52,22},{-66,22},{-66,-32},
+          {-120,-32}}, color={255,0,255}));
+  connect(conInt.y, intEqu.u1) annotation (Line(points={{-70,106},{-48,106},{
+          -48,96},{-26,96}}, color={255,127,0}));
+  connect(uMod, intEqu.u2)
+    annotation (Line(points={{-120,88},{-26,88}}, color={255,127,0}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+        extent={{-100,-120},{130,120}},
+        grid={2,2})),                                            Diagram(
+        coordinateSystem(preserveAspectRatio=false,
+        extent={{-100,-120},{130,120}},
+        grid={2,2})));
 end TemperatureModeSelectionBool;

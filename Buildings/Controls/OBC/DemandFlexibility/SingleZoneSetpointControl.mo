@@ -57,13 +57,17 @@ block SingleZoneSetpointControl
     annotation (Placement(transformation(extent={{-140,34},{-100,74}}),
         iconTransformation(extent={{-140,26},{-100,66}})));
   CDL.Interfaces.RealInput TSetTarPreHea "setpoint target for preheat"
-    annotation (Placement(transformation(extent={{-140,2},{-100,42}})));
+    annotation (Placement(transformation(extent={{-140,-96},{-100,-56}}),
+        iconTransformation(extent={{-140,-96},{-100,-56}})));
   CDL.Interfaces.RealInput TSetTarSheHea "setpoint target for load shed"
-    annotation (Placement(transformation(extent={{-140,-34},{-100,6}})));
+    annotation (Placement(transformation(extent={{-140,-132},{-100,-92}}),
+        iconTransformation(extent={{-140,-132},{-100,-92}})));
   CDL.Interfaces.RealInput TSetNomHea "nominal setpoint"
-    annotation (Placement(transformation(extent={{-140,-62},{-100,-22}})));
+    annotation (Placement(transformation(extent={{-140,-166},{-100,-126}}),
+        iconTransformation(extent={{-140,-166},{-100,-126}})));
   CDL.Interfaces.RealInput TSetCurHea "current setpoint"
-    annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
+    annotation (Placement(transformation(extent={{-140,-2},{-100,38}}),
+        iconTransformation(extent={{-140,-2},{-100,38}})));
   Buildings.Controls.OBC.DemandFlexibility.Subsequences.SingleTemperatureSetpointControl
     sinTemSetConCoo(
     delChaShe=delChaSheCoo,
@@ -76,11 +80,11 @@ block SingleZoneSetpointControl
     samPerReb=samPerRebCoo) "single temperature setpoint control for cooling"
     annotation (Placement(transformation(extent={{-8,-92},{12,-72}})));
   CDL.Interfaces.RealInput TSetTarPreCoo "setpoint target for precool"
-    annotation (Placement(transformation(extent={{-140,-150},{-100,-110}})));
+    annotation (Placement(transformation(extent={{-140,-202},{-100,-162}})));
   CDL.Interfaces.RealInput TSetTarSheCoo "setpoint target for load shed"
-    annotation (Placement(transformation(extent={{-140,-176},{-100,-136}})));
+    annotation (Placement(transformation(extent={{-140,-242},{-100,-202}})));
   CDL.Interfaces.RealInput TSetNomCoo "nominal setpoint"
-    annotation (Placement(transformation(extent={{-140,-212},{-100,-172}})));
+    annotation (Placement(transformation(extent={{-140,-276},{-100,-236}})));
   CDL.Interfaces.BooleanOutput reach_TSetTarSheHea annotation (Placement(
         transformation(extent={{100,34},{140,74}}),  iconTransformation(extent={{100,34},
             {140,74}})));
@@ -95,11 +99,11 @@ block SingleZoneSetpointControl
                                                       iconTransformation(extent={{100,
             -150},{140,-110}})));
   CDL.Interfaces.BooleanOutput reach_TSetNomCoo annotation (Placement(
-        transformation(extent={{100,-204},{140,-164}}), iconTransformation(
+        transformation(extent={{100,-242},{140,-202}}), iconTransformation(
           extent={{100,-184},{140,-144}})));
   CDL.Interfaces.RealOutput TSetComCoo "setpoint command"
-    annotation (Placement(transformation(extent={{100,-234},{140,-194}}),
-        iconTransformation(extent={{100,-234},{140,-194}})));
+    annotation (Placement(transformation(extent={{100,-198},{140,-158}}),
+        iconTransformation(extent={{100,-198},{140,-158}})));
   CDL.Logical.Sources.Constant con(k=demFleHeaAct)
     annotation (Placement(transformation(extent={{-70,68},{-50,88}})));
   CDL.Logical.Switch logSwi
@@ -111,82 +115,98 @@ block SingleZoneSetpointControl
   CDL.Logical.Switch logSwi1
     annotation (Placement(transformation(extent={{-40,-162},{-20,-142}})));
   CDL.Interfaces.RealInput TSetCurCoo "current setpoint"
-    annotation (Placement(transformation(extent={{-140,-246},{-100,-206}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   CDL.Interfaces.RealInput TCur "current zone temperature"
-    annotation (Placement(transformation(extent={{-140,-118},{-100,-78}})));
+    annotation (Placement(transformation(extent={{-140,-32},{-100,8}}),
+        iconTransformation(extent={{-140,-32},{-100,8}})));
   CDL.Interfaces.BooleanOutput reach_TSetTarPreHea annotation (Placement(
         transformation(extent={{100,72},{140,112}}), iconTransformation(extent={
             {100,76},{140,116}})));
   CDL.Interfaces.BooleanOutput reach_TSetTarPreCoo annotation (Placement(
-        transformation(extent={{100,-78},{140,-38}}), iconTransformation(extent
+        transformation(extent={{100,-96},{140,-56}}), iconTransformation(extent
           ={{100,-108},{140,-68}})));
   CDL.Interfaces.BooleanInput have_priCoo "have priority" annotation (Placement(
         transformation(extent={{-140,64},{-100,104}}), iconTransformation(
           extent={{-140,60},{-100,100}})));
 equation
   connect(sinTemSetConHea.reach_TSetTarShe,reach_TSetTarSheHea)
-    annotation (Line(points={{66,67},{94,67},{94,54},{120,54}},
+    annotation (Line(points={{65.1429,67.3333},{94,67.3333},{94,54},{120,54}},
                                                           color={255,0,255}));
-  connect(sinTemSetConHea.TSetCom,TSetComHea)  annotation (Line(points={{66,61.8},
-          {90,61.8},{90,20},{120,20}},
+  connect(sinTemSetConHea.TSetCom,TSetComHea)  annotation (Line(points={{65.1429,
+          62.6667},{90,62.6667},{90,20},{120,20}},
                                      color={0,0,127}));
   connect(sinTemSetConHea.reach_TSetNom,reach_TSetNomHea)
-    annotation (Line(points={{66,57.4},{88,57.4},{88,-20},{120,-20}},
+    annotation (Line(points={{56.5714,58.1333},{88,58.1333},{88,-20},{120,-20}},
                                                         color={255,0,255}));
   connect(sinTemSetConCoo.reach_TSetTarShe,reach_TSetTarSheCoo)  annotation (
-      Line(points={{14,-79},{14,-80},{94,-80},{94,-130},{120,-130}},
-                                                   color={255,0,255}));
-  connect(sinTemSetConCoo.TSetCom,TSetComCoo)  annotation (Line(points={{14,-84.2},
-          {28,-84.2},{28,-214},{120,-214}},
+      Line(points={{13.1429,-78.6667},{13.1429,-80},{94,-80},{94,-130},{120,
+          -130}},                                  color={255,0,255}));
+  connect(sinTemSetConCoo.TSetCom,TSetComCoo)  annotation (Line(points={{13.1429,
+          -83.3333},{90,-83.3333},{90,-178},{120,-178}},
                                         color={0,0,127}));
   connect(sinTemSetConCoo.reach_TSetNom,reach_TSetNomCoo)  annotation (Line(
-        points={{14,-88.6},{88,-88.6},{88,-184},{120,-184}},
+        points={{4.57143,-87.8667},{88,-87.8667},{88,-222},{120,-222}},
                                                   color={255,0,255}));
   connect(uMod, sinTemSetConHea.uMod) annotation (Line(points={{-120,54},{32,54},
-          {32,68.6},{42,68.6}},   color={255,127,0}));
-  connect(uMod, sinTemSetConCoo.uMod) annotation (Line(points={{-120,54},{-20,54},
-          {-20,-77.4},{-10,-77.4}}, color={255,127,0}));
+          {32,70.4},{42.8571,70.4}},
+                                  color={255,127,0}));
+  connect(uMod, sinTemSetConCoo.uMod) annotation (Line(points={{-120,54},{-20,
+          54},{-20,-75.6},{-9.14286,-75.6}},
+                                    color={255,127,0}));
   connect(con.y, logSwi.u2) annotation (Line(points={{-48,78},{-32,78},{-32,80},
           {-24,80}}, color={255,0,255}));
   connect(con1.y, logSwi.u3) annotation (Line(points={{-48,16},{-40,16},{-40,72},
           {-24,72}}, color={255,0,255}));
-  connect(logSwi.y, sinTemSetConHea.have_pri) annotation (Line(points={{0,80},{32,
-          80},{32,72},{42,72}}, color={255,0,255}));
-  connect(logSwi1.y, sinTemSetConCoo.have_pri) annotation (Line(points={{-18,-152},
-          {-16,-152},{-16,-74},{-10,-74}}, color={255,0,255}));
+  connect(logSwi.y, sinTemSetConHea.have_pri) annotation (Line(points={{0,80},{
+          32,80},{32,72.6667},{42.8571,72.6667}},
+                                color={255,0,255}));
+  connect(logSwi1.y, sinTemSetConCoo.have_pri) annotation (Line(points={{-18,
+          -152},{-16,-152},{-16,-73.3333},{-9.14286,-73.3333}},
+                                           color={255,0,255}));
   connect(con2.y, logSwi1.u2)
     annotation (Line(points={{-56,-152},{-42,-152}}, color={255,0,255}));
   connect(con1.y, logSwi1.u3) annotation (Line(points={{-48,16},{-48,-160},{-42,
           -160}}, color={255,0,255}));
   connect(TSetTarPreHea,sinTemSetConHea.TSetTarPre)  annotation (Line(points={{-120,
-          22},{-76,22},{-76,32},{32,32},{32,52},{34,52},{34,65.2},{42,65.2}},
+          -76},{-120,-44},{-10,-44},{-10,64},{34,64},{34,61.6},{42.8571,61.6}},
         color={0,0,127}));
   connect(TSetTarSheHea,sinTemSetConHea.TSetTarShe)  annotation (Line(points={{-120,
-          -14},{-16,-14},{-16,62},{42,62}}, color={0,0,127}));
+          -112},{-16,-112},{-16,58.2667},{42.8571,58.2667}},
+                                            color={0,0,127}));
   connect(TSetNomHea,sinTemSetConHea.TSetNom)  annotation (Line(points={{-120,
-          -42},{-12,-42},{-12,58.8},{42,58.8}},
+          -146},{-12,-146},{-12,55.0667},{42.8571,55.0667}},
                                            color={0,0,127}));
-  connect(TSetCurHea,sinTemSetConHea.TSetCur)  annotation (Line(points={{-120,
-          -66},{12,-66},{12,30},{42,30},{42,55}}, color={0,0,127}));
+  connect(TSetCurHea,sinTemSetConHea.TSetCur)  annotation (Line(points={{-120,18},
+          {-84,18},{-84,56},{-14,56},{-14,60},{34,60},{34,65.0667},{42.8571,
+          65.0667}},                              color={0,0,127}));
   connect(TSetTarPreCoo,sinTemSetConCoo.TSetTarPre)  annotation (Line(points={{-120,
-          -130},{-36,-130},{-36,-80.8},{-10,-80.8}},
+          -182},{-120,-84},{-36,-84},{-36,-84.4},{-9.14286,-84.4}},
                                                    color={0,0,127}));
   connect(TSetTarSheCoo,sinTemSetConCoo.TSetTarShe)  annotation (Line(points={{-120,
-          -156},{-32,-156},{-32,-84},{-10,-84}}, color={0,0,127}));
-  connect(TSetNomCoo,sinTemSetConCoo.TSetNom)  annotation (Line(points={{-120,-192},
-          {-120,-132},{-30,-132},{-30,-87.2},{-10,-87.2}},           color={0,0,
+          -222},{-120,-196},{-84,-196},{-84,-136},{-44,-136},{-44,-132},{-18,
+          -132},{-18,-87.7333},{-9.14286,-87.7333}},
+                                                 color={0,0,127}));
+  connect(TSetNomCoo,sinTemSetConCoo.TSetNom)  annotation (Line(points={{-120,
+          -256},{-120,-182},{-88,-182},{-88,-98},{-22,-98},{-22,-94},{-20,-94},
+          {-20,-90.9333},{-9.14286,-90.9333}},                       color={0,0,
           127}));
-  connect(TSetCurCoo, sinTemSetConCoo.TSetCur) annotation (Line(points={{-120,-226},
-          {-10,-226},{-10,-91}},       color={0,0,127}));
-  connect(TCur, sinTemSetConCoo.TCur) annotation (Line(points={{-120,-98},{-38,-98},
-          {-38,-78},{-24,-78},{-24,-95.6},{-10,-95.6}}, color={0,0,127}));
-  connect(TCur, sinTemSetConHea.TCur) annotation (Line(points={{-120,-98},{-38,-98},
-          {-38,-78},{-24,-78},{-24,34},{34,34},{34,50.4},{42,50.4}}, color={0,0,
+  connect(TSetCurCoo, sinTemSetConCoo.TSetCur) annotation (Line(points={{-120,
+          -40},{-74,-40},{-74,-88},{-22,-88},{-22,-80.9333},{-9.14286,-80.9333}},
+                                       color={0,0,127}));
+  connect(TCur, sinTemSetConCoo.TCur) annotation (Line(points={{-120,-12},{-120,
+          -26},{-46,-26},{-46,-86},{-24,-86},{-24,-78.1333},{-9.14286,-78.1333}},
+                                                        color={0,0,127}));
+  connect(TCur, sinTemSetConHea.TCur) annotation (Line(points={{-120,-12},{-120,
+          -26},{-46,-26},{-46,-46},{34,-46},{34,67.8667},{42.8571,67.8667}},
+                                                                     color={0,0,
           127}));
   connect(sinTemSetConHea.reach_TSetTarPre, reach_TSetTarPreHea)
-    annotation (Line(points={{66,71.4},{66,92},{120,92}}, color={255,0,255}));
+    annotation (Line(points={{65.1429,71.6},{65.1429,92},{120,92}},
+                                                          color={255,0,255}));
   connect(sinTemSetConCoo.reach_TSetTarPre, reach_TSetTarPreCoo) annotation (
-      Line(points={{14,-74.6},{14,-58},{120,-58}}, color={255,0,255}));
+      Line(points={{13.1429,-74.4},{13.1429,-74},{94,-74},{94,-76},{120,-76}},
+                                                   color={255,0,255}));
   connect(have_priHea, logSwi.u1) annotation (Line(points={{-120,120},{-72,120},
           {-72,88},{-24,88}}, color={255,0,255}));
   connect(have_priCoo, logSwi1.u1) annotation (Line(points={{-120,84},{-88,84},{
@@ -195,5 +215,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -260},{100,120}})),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-260},{100,120}})));
+          extent={{-100,-260},{100,120}})),
+    Documentation(info="<html>
+<p><span style=\"font-size: 9pt;\">This block controls the cooling setpoint and the heating setpoint for a single building zone.</span></p>
+</html>"));
 end SingleZoneSetpointControl;

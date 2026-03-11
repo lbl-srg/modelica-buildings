@@ -7,8 +7,8 @@ block SelectSmallestTemperatureDifference "temDifSelectionMin"
       Placement(transformation(extent={{-140,46},{-100,86}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAcnFla[nZon]
-    "action flag" annotation (Placement(transformation(extent={{190,-18},{230,
-            22}}), iconTransformation(extent={{190,-18},{230,22}})));
+    "action flag" annotation (Placement(transformation(extent={{100,-20},{140,
+            20}}), iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uIgnFla[nZon]
     "ignore flag" annotation (Placement(transformation(extent={{-140,-90},{-100,
             -50}}), iconTransformation(extent={{-140,-78},{-100,-38}})));
@@ -22,7 +22,7 @@ block SelectSmallestTemperatureDifference "temDifSelectionMin"
   CDL.Reals.Subtract sub[nZon]
     annotation (Placement(transformation(extent={{-74,-10},{-54,10}})));
   SelectSmallestValues selectSmallestValues(nNum=nZon, nSel=nSel)
-    annotation (Placement(transformation(extent={{38,12},{58,32}})));
+    annotation (Placement(transformation(extent={{38,-10},{58,10}})));
 equation
   connect(uIgnFla, swi.u2) annotation (Line(points={{-120,-70},{-84,-70},{-84,42},
           {-44,42}},     color={255,0,255}));
@@ -34,14 +34,14 @@ equation
           -6}}, color={0,0,127}));
   connect(sub.y, swi.u3)
     annotation (Line(points={{-52,0},{-44,0},{-44,34}}, color={0,0,127}));
-  connect(swi.y, selectSmallestValues.u) annotation (Line(points={{-20,42},{26,42},
-          {26,22},{36,22}}, color={0,0,127}));
-  connect(selectSmallestValues.y, yAcnFla) annotation (Line(points={{60,22},{184,
-          22},{184,2},{210,2}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {190,100}},
+  connect(swi.y, selectSmallestValues.u) annotation (Line(points={{-20,42},{26,
+          42},{26,0},{36,0}},
+                            color={0,0,127}));
+  connect(selectSmallestValues.y, yAcnFla) annotation (Line(points={{60,0},{120,
+          0}},                  color={255,0,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
         grid={2,2})),                                            Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{190,100}},
+        coordinateSystem(preserveAspectRatio=false,
         grid={2,2})),
     Documentation(info="<html>
 hello

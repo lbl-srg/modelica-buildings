@@ -37,62 +37,65 @@ model ZoneSetpointSource
     table=[0,0; occStaHouSta,1; occStaHouEnd,0; 24,0],
     timeScale=3600,
     period=86400)
-    annotation (Placement(transformation(extent={{-80,26},{-60,46}})));
+    annotation (Placement(transformation(extent={{-86,8},{-66,28}})));
   CDL.Conversions.BooleanToReal booToRea(realTrue=TSetNomHeaOcc, realFalse=
         TSetNomHeaUno)
-    annotation (Placement(transformation(extent={{-8,32},{12,52}})));
+    annotation (Placement(transformation(extent={{-8,8},{12,28}})));
   CDL.Conversions.BooleanToReal booToRea1(realTrue=TSetNomCooOcc, realFalse=
         TSetNomCooUno)
-    annotation (Placement(transformation(extent={{-10,-104},{10,-84}})));
+    annotation (Placement(transformation(extent={{-6,-92},{14,-72}})));
   CDL.Reals.Add add2
-    annotation (Placement(transformation(extent={{46,-58},{66,-38}})));
+    annotation (Placement(transformation(extent={{46,-56},{66,-36}})));
   CDL.Reals.Subtract sub
-    annotation (Placement(transformation(extent={{50,48},{70,68}})));
+    annotation (Placement(transformation(extent={{60,36},{80,56}})));
   CDL.Reals.Add add1
-    annotation (Placement(transformation(extent={{46,80},{66,100}})));
+    annotation (Placement(transformation(extent={{62,70},{82,90}})));
   CDL.Reals.Subtract sub1
-    annotation (Placement(transformation(extent={{48,-22},{68,-2}})));
+    annotation (Placement(transformation(extent={{46,-30},{66,-10}})));
   CDL.Reals.Sources.Constant con(k=delTSetPreHea)
-    annotation (Placement(transformation(extent={{-42,94},{-22,114}})));
+    annotation (Placement(transformation(extent={{-84,64},{-64,84}})));
   CDL.Reals.Sources.Constant con1(k=delTSetSheHea)
-    annotation (Placement(transformation(extent={{-42,56},{-22,76}})));
+    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   CDL.Reals.Sources.Constant con2(k=delTSetPreCoo)
-    annotation (Placement(transformation(extent={{-6,-20},{14,0}})));
+    annotation (Placement(transformation(extent={{-72,-28},{-52,-8}})));
   CDL.Reals.Sources.Constant con3(k=delTSetSheCoo)
-    annotation (Placement(transformation(extent={{-8,-64},{12,-44}})));
+    annotation (Placement(transformation(extent={{-74,-62},{-54,-42}})));
 equation
-  connect(booTimTab.y[1], booToRea.u) annotation (Line(points={{-58,36},{-20,36},
-          {-20,42},{-10,42}}, color={255,0,255}));
-  connect(booTimTab.y[1], booToRea1.u) annotation (Line(points={{-58,36},{-22,36},
-          {-22,-94},{-12,-94}}, color={255,0,255}));
-  connect(booToRea.y, TSetNomHea) annotation (Line(points={{14,42},{94,42},{94,18},
-          {120,18}}, color={0,0,127}));
-  connect(booToRea1.y, TSetNomCoo) annotation (Line(points={{12,-94},{94,-94},{94,
-          -82},{120,-82}}, color={0,0,127}));
-  connect(add1.y, TSetTarPreHea) annotation (Line(points={{68,90},{94,90},{94,80},
-          {120,80}}, color={0,0,127}));
-  connect(sub.y, TSetTarSheHea) annotation (Line(points={{72,58},{94,58},{94,46},
-          {120,46}}, color={0,0,127}));
-  connect(sub1.y, TSetTarPreCoo) annotation (Line(points={{70,-12},{94,-12},{94,
-          -20},{120,-20}}, color={0,0,127}));
-  connect(add2.y, TSetTarSheCoo) annotation (Line(points={{68,-48},{96,-48},{96,
-          -46},{120,-46}}, color={0,0,127}));
-  connect(booToRea.y, add1.u1) annotation (Line(points={{14,42},{36,42},{36,96},
-          {44,96}}, color={0,0,127}));
-  connect(booToRea.y, sub.u1) annotation (Line(points={{14,42},{36,42},{36,64},{
-          48,64}}, color={0,0,127}));
-  connect(booToRea1.y, sub1.u1) annotation (Line(points={{12,-94},{34,-94},{34,-6},
-          {46,-6}}, color={0,0,127}));
-  connect(booToRea1.y, add2.u1) annotation (Line(points={{12,-94},{28,-94},{28,-42},
-          {44,-42}}, color={0,0,127}));
-  connect(con.y, add1.u2) annotation (Line(points={{-20,104},{34,104},{34,84},{44,
-          84}}, color={0,0,127}));
-  connect(con2.y, sub1.u2) annotation (Line(points={{16,-10},{36,-10},{36,-18},{
-          46,-18}}, color={0,0,127}));
+  connect(booTimTab.y[1], booToRea.u) annotation (Line(points={{-64,18},{-10,18}},
+                              color={255,0,255}));
+  connect(booTimTab.y[1], booToRea1.u) annotation (Line(points={{-64,18},{-22,
+          18},{-22,-82},{-8,-82}},
+                                color={255,0,255}));
+  connect(booToRea.y, TSetNomHea) annotation (Line(points={{14,18},{120,18}},
+                     color={0,0,127}));
+  connect(booToRea1.y, TSetNomCoo) annotation (Line(points={{16,-82},{120,-82}},
+                           color={0,0,127}));
+  connect(add1.y, TSetTarPreHea) annotation (Line(points={{84,80},{120,80}},
+                     color={0,0,127}));
+  connect(sub.y, TSetTarSheHea) annotation (Line(points={{82,46},{120,46}},
+                     color={0,0,127}));
+  connect(sub1.y, TSetTarPreCoo) annotation (Line(points={{68,-20},{120,-20}},
+                           color={0,0,127}));
+  connect(add2.y, TSetTarSheCoo) annotation (Line(points={{68,-46},{120,-46}},
+                           color={0,0,127}));
+  connect(booToRea.y, add1.u1) annotation (Line(points={{14,18},{36,18},{36,86},
+          {60,86}}, color={0,0,127}));
+  connect(booToRea.y, sub.u1) annotation (Line(points={{14,18},{36,18},{36,52},
+          {58,52}},color={0,0,127}));
+  connect(booToRea1.y, sub1.u1) annotation (Line(points={{16,-82},{34,-82},{34,
+          -14},{44,-14}},
+                    color={0,0,127}));
+  connect(booToRea1.y, add2.u1) annotation (Line(points={{16,-82},{28,-82},{28,
+          -40},{44,-40}},
+                     color={0,0,127}));
+  connect(con.y, add1.u2) annotation (Line(points={{-62,74},{60,74}},
+                color={0,0,127}));
+  connect(con2.y, sub1.u2) annotation (Line(points={{-50,-18},{-4,-18},{-4,-26},
+          {44,-26}},color={0,0,127}));
   connect(con3.y, add2.u2)
-    annotation (Line(points={{14,-54},{44,-54}}, color={0,0,127}));
-  connect(con1.y, sub.u2) annotation (Line(points={{-20,66},{38,66},{38,52},{48,
-          52}}, color={0,0,127}));
+    annotation (Line(points={{-52,-52},{44,-52}},color={0,0,127}));
+  connect(con1.y, sub.u2) annotation (Line(points={{-28,50},{12,50},{12,40},{58,
+          40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ZoneSetpointSource;

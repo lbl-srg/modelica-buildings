@@ -8,93 +8,98 @@ block SetpointSingleStepChange
     parameter Real samPer(unit="s")=300
     "Sample period";
   CDL.Discrete.Sampler                        sam(samplePeriod=samPer)
-    annotation (Placement(transformation(extent={{68,36},{88,56}})));
+    annotation (Placement(transformation(extent={{166,-10},{186,10}})));
   CDL.Reals.Min                        min1
-    annotation (Placement(transformation(extent={{-68,36},{-48,56}})));
+    annotation (Placement(transformation(extent={{50,50},{70,70}})));
   CDL.Reals.Max                        max1
-    annotation (Placement(transformation(extent={{-60,-6},{-40,14}})));
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   CDL.Logical.Sources.Constant
                              con(k=setChaMod)
-    annotation (Placement(transformation(extent={{-76,-50},{-56,-30}})));
+    annotation (Placement(transformation(extent={{-92,-144},{-72,-124}})));
   CDL.Reals.Switch swi
-    annotation (Placement(transformation(extent={{-12,-86},{8,-66}})));
+    annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   CDL.Reals.Min                        min2
-    annotation (Placement(transformation(extent={{8,-34},{28,-14}})));
+    annotation (Placement(transformation(extent={{92,-16},{112,4}})));
   CDL.Reals.Max                        max2
-    annotation (Placement(transformation(extent={{58,-40},{78,-20}})));
+    annotation (Placement(transformation(extent={{132,-10},{152,10}})));
   CDL.Interfaces.RealInput uSetTar "setpoint target"
-    annotation (Placement(transformation(extent={{-140,14},{-100,54}})));
-  CDL.Interfaces.RealInput uSetNom "nominal setpoint"
     annotation (Placement(transformation(extent={{-140,-38},{-100,2}})));
+  CDL.Interfaces.RealInput uSetNom "nominal setpoint"
+    annotation (Placement(transformation(extent={{-140,-88},{-100,-48}})));
   CDL.Interfaces.RealOutput ySetCom "setpoint command"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{200,-20},{240,20}})));
   CDL.Interfaces.BooleanInput
                            have_pri "have priority"
     annotation (Placement(transformation(extent={{-140,62},{-100,102}}),
         iconTransformation(extent={{-140,62},{-100,102}})));
   CDL.Interfaces.RealInput uSetCur "current setpoint"
-    annotation (Placement(transformation(extent={{-140,-84},{-100,-44}})));
+    annotation (Placement(transformation(extent={{-140,12},{-100,52}})));
   CDL.Reals.Switch swi1
-    annotation (Placement(transformation(extent={{-42,-48},{-22,-28}})));
+    annotation (Placement(transformation(extent={{10,-46},{30,-26}})));
   CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
-        transformation(extent={{100,60},{140,100}}),iconTransformation(extent={{
-            100,52},{140,92}})));
+        transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,52},
+            {240,92}})));
   CDL.Interfaces.BooleanOutput reach_uSetNom annotation (Placement(
-        transformation(extent={{100,-92},{140,-52}}), iconTransformation(extent={{100,-92},
-            {140,-52}})));
+        transformation(extent={{200,-94},{240,-54}}), iconTransformation(extent={{200,-94},
+            {240,-54}})));
   ExactEqualReal exactEqualReal
-    annotation (Placement(transformation(extent={{16,88},{36,108}})));
+    annotation (Placement(transformation(extent={{18,94},{38,114}})));
   ExactEqualReal exactEqualReal1
-    annotation (Placement(transformation(extent={{32,-122},{52,-102}})));
+    annotation (Placement(transformation(extent={{144,-112},{164,-92}})));
 equation
-  connect(uSetTar,min1. u1) annotation (Line(points={{-120,34},{-80,34},{-80,52},
-          {-70,52}}, color={0,0,127}));
-  connect(uSetNom,min1. u2) annotation (Line(points={{-120,-18},{-78,-18},{-78,40},
-          {-70,40}}, color={0,0,127}));
-  connect(uSetTar,max1. u1) annotation (Line(points={{-120,34},{-80,34},{-80,10},
-          {-62,10}},color={0,0,127}));
-  connect(uSetNom,max1. u2) annotation (Line(points={{-120,-18},{-78,-18},{-78,-2},
-          {-62,-2}}, color={0,0,127}));
-  connect(have_pri,swi. u2) annotation (Line(points={{-120,82},{-88,82},{-88,
-          -62},{-22,-62},{-22,-76},{-14,-76}},
-                                          color={255,0,255}));
-  connect(uSetCur,swi. u3) annotation (Line(points={{-120,-64},{-24,-64},{-24,
-          -84},{-14,-84}},
-                      color={0,0,127}));
-  connect(max1.y,min2. u1) annotation (Line(points={{-38,4},{-2,4},{-2,-18},{6,-18}},
+  connect(uSetNom,max1. u2) annotation (Line(points={{-120,-68},{-78,-68},{-78,
+          -44},{-26,-44},{-26,-6},{48,-6}},
+                     color={0,0,127}));
+  connect(have_pri,swi. u2) annotation (Line(points={{-120,82},{-58,82},{-58,
+          -74},{46,-74}},                 color={255,0,255}));
+  connect(uSetCur,swi. u3) annotation (Line(points={{-120,32},{-6,32},{-6,-82},
+          {46,-82}},  color={0,0,127}));
+  connect(max1.y,min2. u1) annotation (Line(points={{72,0},{90,0}},
         color={0,0,127}));
   connect(swi.y,min2. u2)
-    annotation (Line(points={{10,-76},{18,-76},{18,-38},{6,-38},{6,-30}},
+    annotation (Line(points={{70,-74},{76,-74},{76,-12},{90,-12}},
                                                         color={0,0,127}));
-  connect(min2.y,max2. u2) annotation (Line(points={{30,-24},{48,-24},{48,-36},{
-          56,-36}}, color={0,0,127}));
-  connect(min1.y,max2. u1) annotation (Line(points={{-46,46},{40,46},{40,-14},{56,
-          -14},{56,-24}}, color={0,0,127}));
-  connect(sam.y,ySetCom)  annotation (Line(points={{90,46},{98,46},{98,24},{96,24},
-          {96,0},{120,0}},   color={0,0,127}));
-  connect(max2.y,sam. u) annotation (Line(points={{80,-30},{88,-30},{88,32},{56,
-          32},{56,46},{66,46}}, color={0,0,127}));
-  connect(con.y, swi1.u2) annotation (Line(points={{-54,-40},{-54,-38},{-44,-38}},
+  connect(min2.y,max2. u2) annotation (Line(points={{114,-6},{130,-6}},
+                    color={0,0,127}));
+  connect(min1.y,max2. u1) annotation (Line(points={{72,60},{118,60},{118,6},{
+          130,6}},        color={0,0,127}));
+  connect(sam.y,ySetCom)  annotation (Line(points={{188,0},{220,0}},
+                             color={0,0,127}));
+  connect(max2.y,sam. u) annotation (Line(points={{154,0},{164,0}},
+                                color={0,0,127}));
+  connect(con.y, swi1.u2) annotation (Line(points={{-70,-134},{2,-134},{2,-36},
+          {8,-36}},
         color={255,0,255}));
-  connect(uSetTar, swi1.u1) annotation (Line(points={{-120,34},{-80,34},{-80,
-          -22},{-44,-22},{-44,-30}}, color={0,0,127}));
-  connect(uSetNom, swi1.u3) annotation (Line(points={{-120,-18},{-82,-18},{-82,
-          -54},{-44,-54},{-44,-46}}, color={0,0,127}));
-  connect(swi1.y, swi.u1) annotation (Line(points={{-20,-38},{-12,-38},{-12,-60},
-          {-14,-60},{-14,-68}}, color={0,0,127}));
-  connect(uSetCur, exactEqualReal.u1) annotation (Line(points={{-120,-64},{-24,
-          -64},{-24,-56},{-10,-56},{-10,104},{14,104}}, color={0,0,127}));
-  connect(uSetTar, exactEqualReal.u2) annotation (Line(points={{-120,34},{-80,
-          34},{-80,60},{6,60},{6,92},{14,92}}, color={0,0,127}));
-  connect(exactEqualReal.yEquFla, reach_uSetTar) annotation (Line(points={{38,
-          98},{94,98},{94,80},{120,80}}, color={255,0,255}));
-  connect(uSetCur, exactEqualReal1.u1) annotation (Line(points={{-120,-64},{-24,
-          -64},{-24,-106},{30,-106}}, color={0,0,127}));
-  connect(uSetNom, exactEqualReal1.u2) annotation (Line(points={{-120,-18},{-82,
-          -18},{-82,-54},{-14,-54},{-14,-58},{22,-58},{22,-118},{30,-118}},
+  connect(uSetTar, swi1.u1) annotation (Line(points={{-120,-18},{-72,-18},{-72,
+          -28},{8,-28}},             color={0,0,127}));
+  connect(uSetNom, swi1.u3) annotation (Line(points={{-120,-68},{-78,-68},{-78,
+          -44},{8,-44}},             color={0,0,127}));
+  connect(uSetCur, exactEqualReal.u1) annotation (Line(points={{-120,32},{-50,
+          32},{-50,110},{16,110}},                      color={0,0,127}));
+  connect(uSetTar, exactEqualReal.u2) annotation (Line(points={{-120,-18},{-72,
+          -18},{-72,98},{16,98}},              color={0,0,127}));
+  connect(exactEqualReal.yEquFla, reach_uSetTar) annotation (Line(points={{40,104},
+          {194,104},{194,80},{220,80}},  color={255,0,255}));
+  connect(uSetCur, exactEqualReal1.u1) annotation (Line(points={{-120,32},{-88,
+          32},{-88,-96},{142,-96}},   color={0,0,127}));
+  connect(uSetNom, exactEqualReal1.u2) annotation (Line(points={{-120,-68},{-78,
+          -68},{-78,-108},{142,-108}},
         color={0,0,127}));
-  connect(exactEqualReal1.yEquFla, reach_uSetNom) annotation (Line(points={{54,
-          -112},{94,-112},{94,-72},{120,-72}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  connect(exactEqualReal1.yEquFla, reach_uSetNom) annotation (Line(points={{166,
+          -102},{194,-102},{194,-74},{220,-74}},
+                                               color={255,0,255}));
+  connect(swi1.y, swi.u1) annotation (Line(points={{32,-36},{38,-36},{38,-66},{
+          46,-66}}, color={0,0,127}));
+  connect(min1.u2, uSetNom) annotation (Line(points={{48,54},{-26,54},{-26,-44},
+          {-78,-44},{-78,-68},{-120,-68}}, color={0,0,127}));
+  connect(uSetTar, max1.u1) annotation (Line(points={{-120,-18},{-42,-18},{-42,
+          6},{48,6}}, color={0,0,127}));
+  connect(uSetTar, min1.u1) annotation (Line(points={{-120,-18},{-42,-18},{-42,
+          66},{48,66}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+        extent={{-100,-150},{200,120}},
+        grid={2,2})),                                            Diagram(
+        coordinateSystem(preserveAspectRatio=false,
+        extent={{-100,-150},{200,120}},
+        grid={2,2})));
 end SetpointSingleStepChange;

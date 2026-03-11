@@ -125,137 +125,145 @@ equation
           0}));
   connect(TCur,selectSmallestTemperatureDifferenceSheHea. TCur) annotation (
       Line(points={{-122,-138},{-40,-138},{-40,-54},{-44,-54},{-44,-14},{-48,
-          -14},{-48,4},{-38,4},{-38,26},{-29.3793,26}},
+          -14},{-48,4},{-38,4},{-38,26},{-30,26}},
                 color={0,0,127}));
   connect(TSetCurHea,selectSmallestTemperatureDifferenceSheHea. TSetCur)
     annotation (Line(points={{-120,-92},{-92,-92},{-92,-18},{-42,-18},{-42,24},
-          {-34,24},{-34,20},{-29.3793,20}},
-                                          color={0,0,127}));
+          {-34,24},{-34,20},{-30,20}},    color={0,0,127}));
   connect(dualTemperatureSetpointControl.reach_TSetTarSheHea,
     selectSmallestTemperatureDifferenceSheHea.uIgnFla) annotation (Line(points={{218.2,
           34.1263},{218.2,74},{52,74},{52,42},{-34,42},{-34,26},{-36,26},{-36,
-          14.2},{-29.3793,14.2}},      color={255,0,255}));
+          14.2},{-30,14.2}},           color={255,0,255}));
   connect(TCur, selectSmallestTemperatureDifferenceRebHea.TCur) annotation (
       Line(points={{-122,-138},{-40,-138},{-40,-54},{-44,-54},{-44,-30},{-32,
-          -30},{-32,-12},{-27.3793,-12}},
+          -30},{-32,-12},{-28,-12}},
                  color={0,0,127}));
   connect(TSetCurHea, selectSmallestTemperatureDifferenceRebHea.TSetCur)
-    annotation (Line(points={{-120,-92},{-92,-92},{-92,-18},{-27.3793,-18}},
+    annotation (Line(points={{-120,-92},{-92,-92},{-92,-18},{-28,-18}},
         color={0,0,127}));
   connect(dualTemperatureSetpointControl.reach_TSetNomHea,
     selectSmallestTemperatureDifferenceRebHea.uIgnFla) annotation (Line(points={{218.2,
           0.631579},{236,0.631579},{236,60},{212,60},{212,70},{-30,70},{-30,74},
-          {-38,74},{-38,52},{-40,52},{-40,8},{-36,8},{-36,-23.8},{-27.3793,
-          -23.8}}, color={255,0,255}));
+          {-38,74},{-38,52},{-40,52},{-40,8},{-36,8},{-36,-23.8},{-28,-23.8}},
+                   color={255,0,255}));
   connect(TCur, selectSmallestTemperatureDifferencePreHea.TCur) annotation (
       Line(points={{-122,-138},{-40,-138},{-40,-54},{-44,-54},{-44,-14},{-48,
-          -14},{-48,54},{-36,54},{-36,62},{-27.3793,62}},        color={0,0,127}));
+          -14},{-48,54},{-36,54},{-36,62},{-28,62}},             color={0,0,127}));
   connect(TSetCurHea, selectSmallestTemperatureDifferencePreHea.TSetCur)
     annotation (Line(points={{-120,-92},{-92,-92},{-92,-18},{-42,-18},{-42,24},
-          {-38,24},{-38,50},{-34,50},{-34,56},{-27.3793,56}}, color={0,0,127}));
+          {-38,24},{-38,50},{-34,50},{-34,56},{-28,56}},      color={0,0,127}));
   connect(dualTemperatureSetpointControl.reach_TSetTarPreHea,
     selectSmallestTemperatureDifferencePreHea.uIgnFla) annotation (Line(points={{218.2,
-          53.1368},{218.2,50.2},{-27.3793,50.2}},        color={255,0,255}));
+          53.1368},{218.2,50.2},{-28,50.2}},             color={255,0,255}));
   connect(TCur, selectLargestTemperatureDifferencePreCoo.TCur) annotation (Line(
-        points={{-122,-138},{-40,-138},{-40,-58},{-22.069,-58}}, color={0,0,127}));
+        points={{-122,-138},{-40,-138},{-40,-58},{-23,-58}},     color={0,0,127}));
   connect(TSetCurCoo, selectLargestTemperatureDifferencePreCoo.TSetCur)
     annotation (Line(points={{-118,-302},{-90,-302},{-90,-190},{-28,-190},{-28,
-          -78},{-30,-78},{-30,-64},{-22.069,-64}},
-                                              color={0,0,127}));
+          -78},{-30,-78},{-30,-64},{-23,-64}},color={0,0,127}));
   connect(TCur, selectLargestTemperatureDifferenceSheCoo.TCur) annotation (Line(
-        points={{-122,-138},{-26,-138},{-26,-120},{-18.069,-120}}, color={0,0,127}));
+        points={{-122,-138},{-26,-138},{-26,-120},{-19,-120}},     color={0,0,127}));
   connect(TSetCurCoo, selectLargestTemperatureDifferenceSheCoo.TSetCur)
     annotation (Line(points={{-118,-302},{-90,-302},{-90,-190},{-28,-190},{-28,
-          -126},{-18.069,-126}},
+          -126},{-19,-126}},
                            color={0,0,127}));
   connect(TCur, selectLargestTemperatureDifferenceRebCoo.TCur) annotation (Line(
-        points={{-122,-138},{-30,-138},{-30,-184},{-20.069,-184}}, color={0,0,127}));
+        points={{-122,-138},{-30,-138},{-30,-184},{-21,-184}},     color={0,0,127}));
   connect(TSetCurCoo, selectLargestTemperatureDifferenceRebCoo.TSetCur)
-    annotation (Line(points={{-118,-302},{-90,-302},{-90,-190},{-20.069,-190}},
+    annotation (Line(points={{-118,-302},{-90,-302},{-90,-190},{-21,-190}},
         color={0,0,127}));
   connect(dualTemperatureSetpointControl.reach_TSetTarPreCoo,
     selectLargestTemperatureDifferencePreCoo.uIgnFla) annotation (Line(points={{218.2,
-          -30.1474},{-26,-30.1474},{-26,-69.8},{-22.069,-69.8}},       color={255,
+          -30.1474},{-26,-30.1474},{-26,-69.8},{-23,-69.8}},           color={255,
           0,255}));
   connect(dualTemperatureSetpointControl.reach_TSetTarSheCoo,
     selectLargestTemperatureDifferenceSheCoo.uIgnFla) annotation (Line(points={{218.2,
-          -49.1579},{232,-49.1579},{232,-131.8},{-18.069,-131.8}},       color={
+          -49.1579},{232,-49.1579},{232,-131.8},{-19,-131.8}},           color={
           255,0,255}));
   connect(dualTemperatureSetpointControl.reach_TSetNomCoo,
     selectLargestTemperatureDifferenceRebCoo.uIgnFla) annotation (Line(points={{218.2,
-          -64.5474},{246,-64.5474},{246,-228},{-20.069,-228},{-20.069,-195.8}},
+          -64.5474},{246,-64.5474},{246,-228},{-21,-228},{-21,-195.8}},
         color={255,0,255}));
   connect(TSetTarPreHea, dualTemperatureSetpointControl.TSetTarPreHea)
-    annotation (Line(points={{-122,22},{-42,22},{-42,30},{-36,30},{-36,36},{50,36},
-          {50,19.6421},{71.8,19.6421}}, color={0,0,127}));
+    annotation (Line(points={{-122,22},{-42,22},{-42,30},{-36,30},{-36,36},{50,
+          36},{50,-24.7158},{71.8,-24.7158}},
+                                        color={0,0,127}));
   connect(TSetTarSheHea, dualTemperatureSetpointControl.TSetTarSheHea)
-    annotation (Line(points={{-122,-14},{-50,-14},{-50,-12},{-34,-12},{-34,0},{52,
-          0},{52,3.34737},{71.8,3.34737}}, color={0,0,127}));
+    annotation (Line(points={{-122,-14},{-50,-14},{-50,-12},{-34,-12},{-34,0},{
+          52,0},{52,-41.0105},{71.8,-41.0105}},
+                                           color={0,0,127}));
   connect(TSetNomHea, dualTemperatureSetpointControl.TSetNomHea) annotation (
-      Line(points={{-122,-56},{-48,-56},{-48,-42},{2,-42},{2,-18},{52,-18},{52,-9.32632},
-          {71.8,-9.32632}}, color={0,0,127}));
+      Line(points={{-122,-56},{-48,-56},{-48,-42},{2,-42},{2,-18},{52,-18},{52,
+          -56.4},{71.8,-56.4}},
+                            color={0,0,127}));
   connect(TSetCurHea, dualTemperatureSetpointControl.TSetCurHea) annotation (
       Line(points={{-120,-92},{-92,-92},{-92,-18},{-42,-18},{-42,24},{-34,24},{
-          -34,4},{50,4},{50,-20.1895},{71.8,-20.1895}},
+          -34,4},{50,4},{50,17.8316},{71.8,17.8316}},
                                                     color={0,0,127}));
   connect(TCur, dualTemperatureSetpointControl.TCur) annotation (Line(points={{-122,
-          -138},{-40,-138},{-40,-54},{-44,-54},{-44,-44},{54,-44},{54,-34.6737},
-          {71.8,-34.6737}}, color={0,0,127}));
+          -138},{-40,-138},{-40,-54},{-44,-54},{-44,-44},{54,-44},{54,4.25263},
+          {71.8,4.25263}},  color={0,0,127}));
   connect(TSetTarPreCoo, dualTemperatureSetpointControl.TSetTarPreCoo)
-    annotation (Line(points={{-122,-184},{-38,-184},{-38,-80},{50,-80},{50,-49.1579},
-          {71.8,-49.1579}}, color={0,0,127}));
+    annotation (Line(points={{-122,-184},{-38,-184},{-38,-80},{50,-80},{50,
+          -72.6947},{71.8,-72.6947}},
+                            color={0,0,127}));
   connect(TSetTarSheCoo, dualTemperatureSetpointControl.TSetTarSheCoo)
     annotation (Line(points={{-124,-220},{-42,-220},{-42,-56},{-30,-56},{-30,
-          -48},{52,-48},{52,-60.9263},{71.8,-60.9263}},
-                                                   color={0,0,127}));
+          -48},{52,-48},{52,-90.8},{71.8,-90.8}},  color={0,0,127}));
   connect(TSetNomCoo, dualTemperatureSetpointControl.TSetNomCoo) annotation (
-      Line(points={{-124,-258},{-22,-258},{-22,-77.2211},{71.8,-77.2211}},
+      Line(points={{-124,-258},{-22,-258},{-22,-106.189},{71.8,-106.189}},
         color={0,0,127}));
   connect(TSetCurCoo, dualTemperatureSetpointControl.TSetCurCoo) annotation (
       Line(points={{-118,-302},{-90,-302},{-90,-190},{-28,-190},{-28,-86},{54,
-          -86},{54,-106},{71.8,-106},{71.8,-92.6105}},
+          -86},{54,-106},{71.8,-106},{71.8,-8.42105}},
                                                   color={0,0,127}));
   connect(intScaRep.y, singleTemperatureSetpointModeSelectionBoolHea.uMod)
-    annotation (Line(points={{-24,100},{8,100},{8,92.8},{16,92.8}}, color={255,127,
+    annotation (Line(points={{-24,100},{8,100},{8,91.3333},{16.2609,91.3333}},
+                                                                    color={255,127,
           0}));
   connect(selectSmallestTemperatureDifferencePreHea.yAcnFla,
-    singleTemperatureSetpointModeSelectionBoolHea.uPre) annotation (Line(points
-        ={{-4.62069,56.2},{2,56.2},{2,88.6},{16,88.6}}, color={255,0,255}));
+    singleTemperatureSetpointModeSelectionBoolHea.uPre) annotation (Line(points={{-4,56},
+          {2,56},{2,87.8333},{16.2609,87.8333}},        color={255,0,255}));
   connect(selectSmallestTemperatureDifferenceSheHea.yAcnFla,
-    singleTemperatureSetpointModeSelectionBoolHea.uShe) annotation (Line(points
-        ={{-6.62069,20.2},{-2,20.2},{-2,40},{14,40},{14,68},{8,68},{8,80.8},{16,
-          80.8}}, color={255,0,255}));
+    singleTemperatureSetpointModeSelectionBoolHea.uShe) annotation (Line(points={{-6,20},
+          {-2,20},{-2,40},{14,40},{14,68},{8,68},{8,81.3333},{16.2609,81.3333}},
+                  color={255,0,255}));
   connect(selectSmallestTemperatureDifferenceRebHea.yAcnFla,
-    singleTemperatureSetpointModeSelectionBoolHea.uReb) annotation (Line(points
-        ={{-4.62069,-17.8},{-4.62069,76.2},{16,76.2}}, color={255,0,255}));
+    singleTemperatureSetpointModeSelectionBoolHea.uReb) annotation (Line(points={{-4,-18},
+          {-4,77.5},{16.2609,77.5}},                   color={255,0,255}));
   connect(singleTemperatureSetpointModeSelectionBoolHea.y,
-    dualTemperatureSetpointControl.have_priHea) annotation (Line(points={{40,84},
-          {71.8,84},{71.8,60.3789}}, color={255,0,255}));
+    dualTemperatureSetpointControl.have_priHea) annotation (Line(points={{39.7391,
+          84},{71.8,84},{71.8,60.3789}},
+                                     color={255,0,255}));
   connect(selectLargestTemperatureDifferencePreCoo.yAcnFla,
-    singleTemperatureSetpointModeSelectionBoolCoo.uPre) annotation (Line(points={{12.069,
-          -63.8},{52,-63.8},{52,-140},{60,-140},{60,-172},{20,-172},{20,-151.4},
-          {28,-151.4}},         color={255,0,255}));
+    singleTemperatureSetpointModeSelectionBoolCoo.uPre) annotation (Line(points={{13,-64},
+          {52,-64},{52,-140},{60,-140},{60,-172},{20,-172},{20,-152.167},{
+          28.2609,-152.167}},   color={255,0,255}));
   connect(selectLargestTemperatureDifferenceSheCoo.yAcnFla,
-    singleTemperatureSetpointModeSelectionBoolCoo.uShe) annotation (Line(points={{16.069,
-          -125.8},{26,-125.8},{26,-140},{20,-140},{20,-150},{18,-150},{18,
-          -159.2},{28,-159.2}}, color={255,0,255}));
+    singleTemperatureSetpointModeSelectionBoolCoo.uShe) annotation (Line(points={{17,-126},
+          {26,-126},{26,-140},{20,-140},{20,-150},{18,-150},{18,-158.667},{
+          28.2609,-158.667}},   color={255,0,255}));
   connect(selectLargestTemperatureDifferenceRebCoo.yAcnFla,
-    singleTemperatureSetpointModeSelectionBoolCoo.uReb) annotation (Line(points={{14.069,
-          -189.8},{28,-189.8},{28,-163.8}},         color={255,0,255}));
+    singleTemperatureSetpointModeSelectionBoolCoo.uReb) annotation (Line(points={{15,-190},
+          {28.2609,-190},{28.2609,-162.5}},         color={255,0,255}));
   connect(intScaRep.y, singleTemperatureSetpointModeSelectionBoolCoo.uMod)
     annotation (Line(points={{-24,100},{54,100},{54,6},{0,6},{0,2},{-46,2},{-46,
-          -147.2},{28,-147.2}}, color={255,127,0}));
+          -148.667},{28.2609,-148.667}},
+                                color={255,127,0}));
   connect(singleTemperatureSetpointModeSelectionBoolCoo.y,
-    dualTemperatureSetpointControl.have_priCoo) annotation (Line(points={{52,-156},
-          {64,-156},{64,45.8947},{71.8,45.8947}}, color={255,0,255}));
+    dualTemperatureSetpointControl.have_priCoo) annotation (Line(points={{51.7391,
+          -156},{64,-156},{64,45.8947},{71.8,45.8947}},
+                                                  color={255,0,255}));
   connect(dualTemperatureSetpointControl.TSetComHea, TSetComHea) annotation (
       Line(points={{218.2,18.7368},{256,18.7368},{256,10},{282,10}}, color={0,0,
           127}));
   connect(dualTemperatureSetpointControl.TSetComCoo, TSetComCoo) annotation (
-      Line(points={{218.2,-87.1789},{218.2,-134},{256,-134},{256,-186},{280,
+      Line(points={{218.2,-70.8842},{218.2,-134},{256,-134},{256,-186},{280,
           -186}},
         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-320},
             {260,100}})), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-320},{260,100}})));
+          extent={{-100,-320},{260,100}})),
+    Documentation(info="<html>
+<p><span style=\"font-size: 9pt;\">This block controls the cooling setpoint and the heating setpoint for multiple building zones.</span></p>
+</html>"));
 end MultipleZoneSetpointControl;
