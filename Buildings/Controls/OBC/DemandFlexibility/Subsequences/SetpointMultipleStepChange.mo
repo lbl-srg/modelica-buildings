@@ -40,18 +40,10 @@ block SetpointMultipleStepChange
   CDL.Interfaces.BooleanOutput reach_uSetNom annotation (Placement(
         transformation(extent={{100,-94},{140,-54}}), iconTransformation(extent
           ={{100,-86},{140,-46}})));
-  CDL.Reals.Greater gre
-    annotation (Placement(transformation(extent={{24,-86},{44,-66}})));
-  CDL.Reals.Less les
-    annotation (Placement(transformation(extent={{28,-124},{48,-104}})));
-  CDL.Logical.Nor nor
-    annotation (Placement(transformation(extent={{58,-100},{78,-80}})));
-  CDL.Reals.Greater gre1
-    annotation (Placement(transformation(extent={{24,138},{44,158}})));
-  CDL.Reals.Less les1
-    annotation (Placement(transformation(extent={{28,100},{48,120}})));
-  CDL.Logical.Nor nor1
-    annotation (Placement(transformation(extent={{58,124},{78,144}})));
+  ExactEqualReal exactEqualReal
+    annotation (Placement(transformation(extent={{-4,110},{16,130}})));
+  ExactEqualReal exactEqualReal1
+    annotation (Placement(transformation(extent={{42,-96},{62,-76}})));
 equation
   connect(uSetCur, add.u1) annotation (Line(points={{-120,-66},{-70,-66},{-70,-32},
           {-62,-32}}, color={0,0,127}));
@@ -85,35 +77,18 @@ equation
           30},{56,44},{66,44}}, color={0,0,127}));
   connect(reach_uSetNom, reach_uSetNom)
     annotation (Line(points={{120,-74},{120,-74}}, color={255,0,255}));
-  connect(uSetCur, gre.u1) annotation (Line(points={{-120,-66},{-36,-66},{-36,-80},
-          {12,-80},{12,-76},{22,-76}}, color={0,0,127}));
-  connect(uSetNom, gre.u2) annotation (Line(points={{-120,-20},{-86,-20},{-86,-72},
-          {-88,-72},{-88,-100},{14,-100},{14,-84},{22,-84}}, color={0,0,127}));
-  connect(uSetCur, les.u1) annotation (Line(points={{-120,-66},{-36,-66},{-36,-80},
-          {12,-80},{12,-114},{26,-114}}, color={0,0,127}));
-  connect(uSetNom, les.u2) annotation (Line(points={{-120,-20},{-86,-20},{-86,-72},
-          {-88,-72},{-88,-100},{10,-100},{10,-122},{26,-122}}, color={0,0,127}));
-  connect(gre.y, nor.u1) annotation (Line(points={{46,-76},{54,-76},{54,-84},{48,
-          -84},{48,-90},{56,-90}}, color={255,0,255}));
-  connect(les.y, nor.u2) annotation (Line(points={{50,-114},{58,-114},{58,-106},
-          {56,-106},{56,-98}}, color={255,0,255}));
-  connect(nor.y, reach_uSetNom) annotation (Line(points={{80,-90},{96,-90},{96,-74},
-          {120,-74}}, color={255,0,255}));
-  connect(uSetCur, gre1.u1) annotation (Line(points={{-120,-66},{-70,-66},{-70,18},
-          {-24,18},{-24,148},{22,148}}, color={0,0,127}));
-  connect(uSetCur, les1.u1) annotation (Line(points={{-120,-66},{-70,-66},{-70,18},
-          {-24,18},{-24,110},{26,110}}, color={0,0,127}));
-  connect(uSetTar, gre1.u2) annotation (Line(points={{-120,32},{-80,32},{-80,112},
-          {12,112},{12,140},{22,140}}, color={0,0,127}));
-  connect(uSetTar, les1.u2) annotation (Line(points={{-120,32},{-80,32},{-80,112},
-          {12,112},{12,102},{26,102}}, color={0,0,127}));
-  connect(gre1.y, nor1.u1) annotation (Line(points={{46,148},{54,148},{54,164},{
-          12,164},{12,142},{14,142},{14,132},{48,132},{48,134},{56,134}}, color
-        ={255,0,255}));
-  connect(les1.y, nor1.u2) annotation (Line(points={{50,110},{58,110},{58,118},{
-          56,118},{56,126}}, color={255,0,255}));
-  connect(nor1.y, reach_uSetTar) annotation (Line(points={{80,134},{94,134},{94,
-          78},{120,78}}, color={255,0,255}));
+  connect(uSetCur, exactEqualReal.u1) annotation (Line(points={{-120,-66},{-70,
+          -66},{-70,20},{-24,20},{-24,126},{-6,126}}, color={0,0,127}));
+  connect(uSetTar, exactEqualReal.u2) annotation (Line(points={{-120,32},{-80,
+          32},{-80,114},{-6,114}}, color={0,0,127}));
+  connect(exactEqualReal.yEquFla, reach_uSetTar)
+    annotation (Line(points={{18,120},{120,120},{120,78}}, color={255,0,255}));
+  connect(uSetCur, exactEqualReal1.u1) annotation (Line(points={{-120,-66},{-36,
+          -66},{-36,-80},{40,-80}}, color={0,0,127}));
+  connect(uSetNom, exactEqualReal1.u2) annotation (Line(points={{-120,-20},{-88,
+          -20},{-88,-100},{30,-100},{30,-92},{40,-92}}, color={0,0,127}));
+  connect(exactEqualReal1.yEquFla, reach_uSetNom) annotation (Line(points={{64,
+          -86},{94,-86},{94,-74},{120,-74}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SetpointMultipleStepChange;

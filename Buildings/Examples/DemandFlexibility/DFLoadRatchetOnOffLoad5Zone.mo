@@ -27,7 +27,7 @@ replaceable package MediumAir = Buildings.Media.Air;
   Buildings.Examples.DemandFlexibility.HVAC.CustomAirConditionerOnOffTimer
     custom_air_conditioner_OnOff_timer[5]
     annotation (Placement(transformation(extent={{56,60},{76,80}})));
-  Buildings.Controls.OBC.DemandFlexibility.MultipleZoneRatchetLoadResponse
+  cdl_models.Controls.MultipleZoneRatchetLoadResponse
     MultipleZoneRatchetLoadResponse(
     nZones=5,
     TZonHeaSetNomOcc=THeaSetOcc,
@@ -50,7 +50,7 @@ replaceable package MediumAir = Buildings.Media.Air;
   Buildings.Examples.DemandFlexibility.HVAC.CustomAirConditionerOnOffTimer
     custom_air_conditioner_OnOff_timer_baseline[5]
     annotation (Placement(transformation(extent={{56,-44},{76,-24}})));
-  Buildings.Controls.OBC.DemandFlexibility.MultipleZoneRatchetLoadResponse
+  cdl_models.Controls.MultipleZoneRatchetLoadResponse
     MultipleZoneRatchetLoadResponseBaseline(
     nZones=5,
     TZonHeaSetNomOcc=THeaSetOcc,

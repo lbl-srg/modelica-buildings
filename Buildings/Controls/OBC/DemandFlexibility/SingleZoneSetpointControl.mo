@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.DemandFlexibility;
-block DualTemperatureSetpointControl
+block SingleZoneSetpointControl
 
   parameter Boolean demFleHeaAct=true "the demand flexibility for heating is active";
     parameter Boolean demFleCooAct=true "the demand flexibility for cooling is active";
 
-       parameter Real delChaRatHea=-1
+       parameter Real delChaSheHea=-1
     "Change amount for ratchet for heating";
 
    parameter Real delChaRebHea=1
@@ -13,18 +13,18 @@ block DualTemperatureSetpointControl
     "Sample period for preheat";
             parameter Real samPerNomHea(unit="s")=300
     "Sample period for the nominal condition for heating";
-        parameter Real samPerRatHea(unit="s")=300
+        parameter Real samPerSheHea(unit="s")=300
     "Sample period for ratche for heatingt";
         parameter Real samPerRebHea(unit="s")=300
     "Sample period for rebound for heating";
 
-    parameter Real delRatThoHea=0.5
+    parameter Real delSheThoHea=0.5
     "Threshold below which heating ratcheting is triggerd. This is an absolute value, so it is always positive";
 
-        parameter Real delRatThoCoo=0.5
+        parameter Real delSheThoCoo=0.5
     "Threshold below which cooling ratcheting is triggerd. This is an absolute value, so it is always positive";
 
-       parameter Real delChaRatCoo=1
+       parameter Real delChaSheCoo=1
     "Change amount for ratchet for cooling";
 
    parameter Real delChaRebCoo=-1
@@ -33,26 +33,25 @@ block DualTemperatureSetpointControl
     "Sample period for precool";
             parameter Real samPerNomCoo(unit="s")=300
     "Sample period for the nominal condition for cooling";
-        parameter Real samPerRatCoo(unit="s")=300
+        parameter Real samPerSheCoo(unit="s")=300
     "Sample period for ratchet for cooling";
         parameter Real samPerRebCoo(unit="s")=300
     "Sample period for rebound for cooling";
 
-  Buildings.Controls.OBC.DemandFlexibility.SingleTemperatureSetpointControl
+  Buildings.Controls.OBC.DemandFlexibility.Subsequences.SingleTemperatureSetpointControl
     sinTemSetConHea(
-    delChaRat=delChaRatHea,
+    delChaShe=delChaSheHea,
     delChaReb=delChaRebHea,
-    delRatTho=delRatThoHea,
+    delSheTho=delSheThoHea,
     setMod=true,
     samPerPre=samPerPreHea,
     samPerNom=samPerNomHea,
-    samPerRat=samPerRatHea,
+    samPerShe=samPerSheHea,
     samPerReb=samPerRebHea) "single temperature setpoint control for heating"
     annotation (Placement(transformation(extent={{44,54},{64,74}})));
-  CDL.Interfaces.BooleanInput
-                           have_pri "have priority"
-    annotation (Placement(transformation(extent={{-140,64},{-100,104}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+  CDL.Interfaces.BooleanInput have_priHea "have priority" annotation (Placement(
+        transformation(extent={{-140,100},{-100,140}}), iconTransformation(
+          extent={{-140,92},{-100,132}})));
   CDL.Interfaces.IntegerInput uMod
     "setpoint mode; 0 = normal; -1 = precool or preheat; 1 = ratchet; 2 = rebound"
     annotation (Placement(transformation(extent={{-140,34},{-100,74}}),
@@ -65,15 +64,15 @@ block DualTemperatureSetpointControl
     annotation (Placement(transformation(extent={{-140,-62},{-100,-22}})));
   CDL.Interfaces.RealInput TSetCurHea "current setpoint"
     annotation (Placement(transformation(extent={{-140,-86},{-100,-46}})));
-  Buildings.Controls.OBC.DemandFlexibility.SingleTemperatureSetpointControl
+  Buildings.Controls.OBC.DemandFlexibility.Subsequences.SingleTemperatureSetpointControl
     sinTemSetConCoo(
-    delChaRat=delChaRatCoo,
+    delChaShe=delChaSheCoo,
     delChaReb=delChaRebCoo,
-    delRatTho=delRatThoCoo,
+    delSheTho=delSheThoCoo,
     setMod=false,
     samPerPre=samPerPreCoo,
     samPerNom=samPerNomCoo,
-    samPerRat=samPerRatCoo,
+    samPerShe=samPerSheCoo,
     samPerReb=samPerRebCoo) "single temperature setpoint control for cooling"
     annotation (Placement(transformation(extent={{-8,-92},{12,-72}})));
   CDL.Interfaces.RealInput TSetTarPreCoo "setpoint target for precool"
@@ -83,22 +82,24 @@ block DualTemperatureSetpointControl
   CDL.Interfaces.RealInput TSetNomCoo "nominal setpoint"
     annotation (Placement(transformation(extent={{-140,-212},{-100,-172}})));
   CDL.Interfaces.BooleanOutput reach_TSetTarSheHea annotation (Placement(
-        transformation(extent={{100,60},{140,100}}), iconTransformation(extent={
-            {100,60},{140,100}})));
+        transformation(extent={{100,34},{140,74}}),  iconTransformation(extent={{100,34},
+            {140,74}})));
   CDL.Interfaces.RealOutput TSetComHea "setpoint command" annotation (Placement(
-        transformation(extent={{100,26},{140,66}}), iconTransformation(extent={{
-            100,26},{140,66}})));
+        transformation(extent={{100,0},{140,40}}),  iconTransformation(extent={{100,0},
+            {140,40}})));
   CDL.Interfaces.BooleanOutput reach_TSetNomHea annotation (Placement(
-        transformation(extent={{100,-14},{140,26}}), iconTransformation(extent={
-            {100,-14},{140,26}})));
+        transformation(extent={{100,-40},{140,0}}),  iconTransformation(extent={{100,-40},
+            {140,0}})));
   CDL.Interfaces.BooleanOutput reach_TSetTarSheCoo annotation (Placement(
-        transformation(extent={{100,-72},{140,-32}}), iconTransformation(extent
-          ={{100,-72},{140,-32}})));
+        transformation(extent={{100,-150},{140,-110}}),
+                                                      iconTransformation(extent={{100,
+            -150},{140,-110}})));
   CDL.Interfaces.BooleanOutput reach_TSetNomCoo annotation (Placement(
-        transformation(extent={{100,-160},{140,-120}}), iconTransformation(
-          extent={{100,-150},{140,-110}})));
+        transformation(extent={{100,-204},{140,-164}}), iconTransformation(
+          extent={{100,-184},{140,-144}})));
   CDL.Interfaces.RealOutput TSetComCoo "setpoint command"
-    annotation (Placement(transformation(extent={{100,-112},{140,-72}})));
+    annotation (Placement(transformation(extent={{100,-234},{140,-194}}),
+        iconTransformation(extent={{100,-234},{140,-194}})));
   CDL.Logical.Sources.Constant con(k=demFleHeaAct)
     annotation (Placement(transformation(extent={{-70,68},{-50,88}})));
   CDL.Logical.Switch logSwi
@@ -113,27 +114,40 @@ block DualTemperatureSetpointControl
     annotation (Placement(transformation(extent={{-140,-246},{-100,-206}})));
   CDL.Interfaces.RealInput TCur "current zone temperature"
     annotation (Placement(transformation(extent={{-140,-118},{-100,-78}})));
+  CDL.Interfaces.BooleanOutput reach_TSetTarPreHea annotation (Placement(
+        transformation(extent={{100,72},{140,112}}), iconTransformation(extent={
+            {100,76},{140,116}})));
+  CDL.Interfaces.BooleanOutput reach_TSetTarPreCoo annotation (Placement(
+        transformation(extent={{100,-78},{140,-38}}), iconTransformation(extent
+          ={{100,-108},{140,-68}})));
+  CDL.Interfaces.BooleanInput have_priCoo "have priority" annotation (Placement(
+        transformation(extent={{-140,64},{-100,104}}), iconTransformation(
+          extent={{-140,60},{-100,100}})));
 equation
   connect(sinTemSetConHea.reach_TSetTarShe,reach_TSetTarSheHea)
-    annotation (Line(points={{66,71.2},{66,80},{120,80}}, color={255,0,255}));
-  connect(sinTemSetConHea.TSetCom,TSetComHea)  annotation (Line(points={{66,64},
-          {94,64},{94,46},{120,46}}, color={0,0,127}));
+    annotation (Line(points={{66,67},{94,67},{94,54},{120,54}},
+                                                          color={255,0,255}));
+  connect(sinTemSetConHea.TSetCom,TSetComHea)  annotation (Line(points={{66,61.8},
+          {90,61.8},{90,20},{120,20}},
+                                     color={0,0,127}));
   connect(sinTemSetConHea.reach_TSetNom,reach_TSetNomHea)
-    annotation (Line(points={{66,57.4},{66,6},{120,6}}, color={255,0,255}));
+    annotation (Line(points={{66,57.4},{88,57.4},{88,-20},{120,-20}},
+                                                        color={255,0,255}));
   connect(sinTemSetConCoo.reach_TSetTarShe,reach_TSetTarSheCoo)  annotation (
-      Line(points={{14,-74.8},{14,-52},{120,-52}}, color={255,0,255}));
-  connect(sinTemSetConCoo.TSetCom,TSetComCoo)  annotation (Line(points={{14,-82},
-          {94,-82},{94,-92},{120,-92}}, color={0,0,127}));
+      Line(points={{14,-79},{14,-80},{94,-80},{94,-130},{120,-130}},
+                                                   color={255,0,255}));
+  connect(sinTemSetConCoo.TSetCom,TSetComCoo)  annotation (Line(points={{14,-84.2},
+          {28,-84.2},{28,-214},{120,-214}},
+                                        color={0,0,127}));
   connect(sinTemSetConCoo.reach_TSetNom,reach_TSetNomCoo)  annotation (Line(
-        points={{14,-88.6},{14,-140},{120,-140}}, color={255,0,255}));
+        points={{14,-88.6},{88,-88.6},{88,-184},{120,-184}},
+                                                  color={255,0,255}));
   connect(uMod, sinTemSetConHea.uMod) annotation (Line(points={{-120,54},{32,54},
           {32,68.6},{42,68.6}},   color={255,127,0}));
   connect(uMod, sinTemSetConCoo.uMod) annotation (Line(points={{-120,54},{-20,54},
           {-20,-77.4},{-10,-77.4}}, color={255,127,0}));
   connect(con.y, logSwi.u2) annotation (Line(points={{-48,78},{-32,78},{-32,80},
           {-24,80}}, color={255,0,255}));
-  connect(have_pri, logSwi.u1) annotation (Line(points={{-120,84},{-76,84},{-76,
-          92},{-34,92},{-34,88},{-24,88}}, color={255,0,255}));
   connect(con1.y, logSwi.u3) annotation (Line(points={{-48,16},{-40,16},{-40,72},
           {-24,72}}, color={255,0,255}));
   connect(logSwi.y, sinTemSetConHea.have_pri) annotation (Line(points={{0,80},{32,
@@ -142,8 +156,6 @@ equation
           {-16,-152},{-16,-74},{-10,-74}}, color={255,0,255}));
   connect(con2.y, logSwi1.u2)
     annotation (Line(points={{-56,-152},{-42,-152}}, color={255,0,255}));
-  connect(have_pri, logSwi1.u1) annotation (Line(points={{-120,84},{-76,84},{-76,
-          92},{-34,92},{-34,-136},{-42,-136},{-42,-144}}, color={255,0,255}));
   connect(con1.y, logSwi1.u3) annotation (Line(points={{-48,16},{-48,-160},{-42,
           -160}}, color={255,0,255}));
   connect(TSetTarPreHea,sinTemSetConHea.TSetTarPre)  annotation (Line(points={{-120,
@@ -171,8 +183,17 @@ equation
   connect(TCur, sinTemSetConHea.TCur) annotation (Line(points={{-120,-98},{-38,-98},
           {-38,-78},{-24,-78},{-24,34},{34,34},{34,50.4},{42,50.4}}, color={0,0,
           127}));
+  connect(sinTemSetConHea.reach_TSetTarPre, reach_TSetTarPreHea)
+    annotation (Line(points={{66,71.4},{66,92},{120,92}}, color={255,0,255}));
+  connect(sinTemSetConCoo.reach_TSetTarPre, reach_TSetTarPreCoo) annotation (
+      Line(points={{14,-74.6},{14,-58},{120,-58}}, color={255,0,255}));
+  connect(have_priHea, logSwi.u1) annotation (Line(points={{-120,120},{-72,120},
+          {-72,88},{-24,88}}, color={255,0,255}));
+  connect(have_priCoo, logSwi1.u1) annotation (Line(points={{-120,84},{-88,84},{
+          -88,24},{-78,24},{-78,-100},{-34,-100},{-34,-136},{-42,-136},{-42,-144}},
+        color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -260},{100,120}})),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-260},{100,120}})));
-end DualTemperatureSetpointControl;
+end SingleZoneSetpointControl;
