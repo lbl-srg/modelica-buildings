@@ -139,6 +139,10 @@
   openmodelica:
     comment: Timeout after 300 seconds.
     simulate: false
+- model_name: Buildings.Examples.FanCoils.FourPipe
+  optimica:
+    comment: Solves six times faster if tolerance is set to 1e-07
+    rtol: 1.0e-07
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
     comment: Times out after 900 seconds.
@@ -213,7 +217,7 @@
     simulate: false
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT
   dymola:
-    time_out: 600
+    time_out: 900
   openmodelica:
     time_out: 600
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
@@ -407,9 +411,6 @@
     comment: Possible chattering detected at t = 3.120112e+03 in state event
     simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
-  optimica:
-    comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
-    translate: false
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -569,6 +570,9 @@
     comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)
     simulate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
+  dymola:
+    comment: Python 3.8 not available in docker image
+    simulate: false
   openmodelica:
     comment: python incompatible with docker image
     translate: false
@@ -576,6 +580,9 @@
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.SimpleRoom
+  dymola:
+    comment: Python 3.8 not available in docker image
+    simulate: false
   openmodelica:
     comment: python incompatible with docker image
     translate: false
@@ -583,6 +590,9 @@
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
+  dymola:
+    comment: Python 3.8 not available in docker image
+    simulate: false
   openmodelica:
     comment: python incompatible with docker image
     translate: false
@@ -590,6 +600,9 @@
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
+  dymola:
+    comment: Python 3.8 not available in docker image
+    simulate: false
   openmodelica:
     comment: python incompatible with docker image
     translate: false

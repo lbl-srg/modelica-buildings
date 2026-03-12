@@ -250,30 +250,22 @@ equation
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.P),
           extent={{-32,-22},{68,-62}},
           textColor={0,0,0},
-          textString="P",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="P"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-26,-22},{74,-62}},
           textColor={0,0,0},
-          textString="PI",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="PI"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD),
           extent={{-16,-22},{88,-62}},
           textColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175},
           textString="P D"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
           extent={{-14,-22},{86,-62}},
           textColor={0,0,0},
-          textString="PID",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="PID"),
         Polygon(
           points={{-80,82},{-88,60},{-72,60},{-80,82}},
           lineColor={192,192,192},
@@ -323,9 +315,6 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
           extent={{-52,184},{-28,156}},
-          pattern=LinePattern.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,0},
           textString="PID")}),
     Documentation(

@@ -646,8 +646,8 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-       or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
+      if cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+      or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
     "Cooling coil control signal"
     annotation (Placement(transformation(extent={{200,-40},{240,0}}),
       iconTransformation(extent={{200,-20},{240,20}})));
@@ -656,7 +656,8 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+      if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+      or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
     "Heating coil control signal"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
       iconTransformation(extent={{200,20},{240,60}})));
@@ -691,8 +692,10 @@ block Controller
     final controllerType=cooConTyp,
     final k=kCoo,
     final Ti=TiCoo,
-    final Td=TdCoo) if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
+    final Td=TdCoo,
+    r=5)
+      if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+      or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-40,196},{-20,216}})));
 
@@ -700,8 +703,10 @@ block Controller
     final controllerType=heaConTyp,
     final k=kHea,
     final Ti=TiHea,
-    final Td=TdHea) if heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-     or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+    final Td=TdHea,
+    r=5)
+      if heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+      or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
 
@@ -725,8 +730,9 @@ block Controller
     final hotWatResReqLim3=hotWatResReqLim3,
     final hotWatResReqTimLim3=hotWatResReqTimLim3,
     final THys=THys,
-    final dFanSpe=dFanSpe) if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-     or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    final dFanSpe=dFanSpe)
+      if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+      or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Block for generating chilled water requests and hot water requests for their respective plants"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
 
@@ -773,9 +779,9 @@ block Controller
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits.Subsequences.FanSpeed fanSpe(
     final have_cooCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-         or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
+                   or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
     final have_heaCoi=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-         or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
+                   or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
     final deaSpe=deaSpe,
     final heaSpe_min=heaSpe_min,
     final uHea_min=uHeaFan_min,
@@ -916,188 +922,130 @@ annotation (defaultComponentName="conFCU",
         Text(
           extent={{-196,276},{-130,248}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="tNexOcc"),
         Text(
           extent={{-200,-48},{-156,-68}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
           extent={{-200,116},{-134,94}},
           textColor={255,0,255},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="u1Occ"),
         Text(
           extent={{-200,-8},{-152,-30}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TSup"),
         Text(
           extent={{-198,-272},{-152,-244}},
           textColor={244,125,35},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="nOcc",
           visible=have_occSen),
         Text(
           visible=have_winSen,
           extent={{-196,-326},{-152,-348}},
           textColor={255,0,255},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="u1Win"),
         Text(
           extent={{132,-22},{198,-56}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TSupSet"),
         Text(
           extent={{156,178},{198,142}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yFan"),
         Text(
           extent={{90,136},{194,102}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TZonHeaSet"),
         Text(
           extent={{98,100},{196,60}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TZonCooSet"),
         Text(
           extent={{130,62},{196,22}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yHeaCoi",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric),
         Text(
           extent={{130,22},{196,-18}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yCooCoi",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
                or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil),
         Text(
           extent={{-198,356},{-116,324}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="warUpTim"),
         Text(
           extent={{-200,318},{-104,284}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="cooDowTim"),
         Text(
           extent={{-200,72},{-54,48}},
           textColor={255,127,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uCooDemLimLev"),
         Text(
           extent={{-200,30},{-56,6}},
           textColor={255,127,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uHeaDemLimLev"),
         Text(
           extent={{-196,-290},{-144,-310}},
           textColor={255,0,255},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="u1Fan"),
         Text(
           extent={{142,214},{198,190}},
           textColor={255,0,255},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="y1Fan"),
         Text(
           extent={{-198,236},{-146,212}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="setAdj",
           visible=have_locAdj and not sepAdj),
         Text(
           extent={{70,-88},{198,-66}},
           textColor={244,125,35},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yChiWatResReq",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased),
         Text(
           extent={{108,-128},{198,-108}},
           textColor={244,125,35},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yChiPlaReq",
           visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased),
         Text(
           extent={{76,-172},{196,-146}},
           textColor={244,125,35},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yHotWatResReq",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{84,-214},{198,-186}},
           textColor={244,125,35},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yHotWatPlaReq",
           visible=heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{-196,-86},{-96,-114}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TOccHeaSet"),
         Text(
           extent={{-196,-128},{-100,-152}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TOccCooSet"),
         Text(
           extent={{-200,-168},{-104,-190}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TUnoHeaSet"),
         Text(
           extent={{-200,-208},{-104,-230}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TUnoCooSet"),
         Text(
           extent={{-196,196},{-124,168}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="cooSetAdj",
           visible=have_locAdj and sepAdj),
         Text(
           extent={{-196,156},{-124,128}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="heaSetAdj",
           visible=have_locAdj and sepAdj)}),
           Diagram(coordinateSystem(
@@ -1155,6 +1103,11 @@ for a detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 20, 2025, by Karthik Devaprasad:<br/>
+Added error scaling factors to PI blocks for heating and cooling loop signal
+generation.
+</li>
 <li>
 March 22, 2022, by Karthik Devaprasad:<br/>
 First implementation.

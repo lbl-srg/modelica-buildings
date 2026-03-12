@@ -190,8 +190,6 @@ First implementation.
     Icon(graphics={                       Text(
           extent={{-66,88},{60,-2}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="hA"),
         Rectangle(
           extent={{-62,-26},{64,-72}},
