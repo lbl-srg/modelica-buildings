@@ -18,6 +18,7 @@
 	*/
 
 #include "data_writer.h"
+#include <string.h>
 
 /*
 	* Write standard output data in a format for tecplot
@@ -45,7 +46,7 @@ int write_tecplot_data(PARA_DATA *para, REAL **var, char *name) {
   | Length of filename should be sizeof(ActualName) + 1
   | Using sizeof(ActualName) will cause memory fault in free(filename)
   ****************************************************************************/
-  filename = (char *) malloc((strlen(name)+5)*sizeof(char));
+  filename = (char *) malloc((strlen(name)+15)*sizeof(char));
   if(filename==NULL) {
     ffd_log("write_tecplot_data(): Failed to allocate memory for file name",
             FFD_ERROR);
@@ -113,7 +114,7 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
   | Length of filename should be sizeof(ActualName) + 1
   | Using sizeof(ActualName) will cause memory fault in free(filename)
   ****************************************************************************/
-  filename = (char *) malloc((strlen(name)+5)*sizeof(char));
+  filename = (char *) malloc((strlen(name)+15)*sizeof(char));
   if(filename==NULL) {
     ffd_log("write_tecplot_all_data(): Failed to allocate memory for file name",
             FFD_ERROR);
@@ -334,7 +335,7 @@ int write_unsteady(PARA_DATA *para, REAL **var, char *name){
   | Length of filename should be sizeof(ActualName) + 1
   | Using sizeof(ActualName) will cause memory fault in free(filename)
   ****************************************************************************/
-  filename = (char *) malloc((strlen(name)+5)*sizeof(char));
+  filename = (char *) malloc((strlen(name)+15)*sizeof(char));
   if(filename==NULL) {
     ffd_log("write_unsteady(): Failed to allocate memory for file name",
             FFD_ERROR);
@@ -391,7 +392,7 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
   | Length of filename should be sizeof(ActualName) + 1
   | Using sizeof(ActualName) will cause memory fault in free(filename)
   ****************************************************************************/
-  filename = (char *) malloc((strlen(name)+5)*sizeof(char));
+  filename = (char *) malloc((strlen(name)+15)*sizeof(char));
   if(filename==NULL) {
     ffd_log("write_SCI(): Failed to allocate memory for file name",
             FFD_ERROR);

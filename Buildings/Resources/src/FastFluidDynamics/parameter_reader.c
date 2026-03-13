@@ -12,8 +12,16 @@
 	*
 	*/
 
+#include <string.h>
 #include "parameter_reader.h"
 FILE *file_para;
+
+#ifdef _WIN32
+  #define DIR_SEP '\\'
+#else
+  #define DIR_SEP '/'
+#endif
+
 
 	/*
 		* Assign the FFD parameters
@@ -422,7 +430,7 @@ int assign_parameter(PARA_DATA *para, char *string) {
     ------------------------------------------------------------------------*/
     sscanf(string, "%s%s", tmp, tmp2);
     senId++;
-    para->sens->sensorName[senId] = (char *) malloc(sizeof(tmp2)*sizeof(char));
+    para->sens->sensorName[senId] = (char *) malloc((strlen(tmp2)+5)*sizeof(char));
     if(para->sens->sensorName[senId]==NULL) {
       sprintf(msg, "assign_parameter(): Could not allocate memory for %s",
               tmp2);
@@ -477,7 +485,7 @@ int read_parameter(PARA_DATA *para) {
       return 1;
     }
     else {
-      char *lastSlash = strrchr(para->cosim->para->fileName, '/');
+      char *lastSlash = strrchr(para->cosim->para->fileName, DIR_SEP);
       int nPath = strlen(para->cosim->para->fileName) - (strlen(lastSlash) - 1);
 
       para->cosim->para->filePath = (char*) calloc(nPath+1, sizeof(char));

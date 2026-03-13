@@ -565,6 +565,8 @@ void free_index(int **BINDEX) {
   if(BINDEX[0]) free(BINDEX[0]);
   if(BINDEX[1]) free(BINDEX[1]);
   if(BINDEX[2]) free(BINDEX[2]);
+  if(BINDEX[3]) free(BINDEX[3]);
+  if(BINDEX[4]) free(BINDEX[4]);
 } /* End of free_index ()*/
 
 	/*

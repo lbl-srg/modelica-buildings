@@ -15,6 +15,7 @@
 	*
 	*/
 
+#include <string.h>
 #include "sci_reader.h"
 FILE *file_params;
 
@@ -226,7 +227,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
-      para->bc->inletName[i] = (char*)malloc((j+1)*sizeof(char));
+      para->bc->inletName[i] = (char*) malloc((j+1)*sizeof(char));
       if(para->bc->inletName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory for "
                 "para->bc->inletName[%d].", i);
@@ -324,7 +325,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
-      para->bc->outletName[i] = (char*)malloc((j+1)*sizeof(char));
+      para->bc->outletName[i] = (char*) malloc((j+1)*sizeof(char));
       if(para->bc->outletName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory "
           "for para->bc->outletName[%d].", i);
@@ -567,7 +568,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
-      para->bc->blockName[i] = (char*)malloc((j+1)*sizeof(char));
+      para->bc->blockName[i] = (char*) malloc((j+1)*sizeof(char));
       if(para->bc->blockName[i]==NULL) {
         sprintf(msg,"read_sci_input(): Could not allocate memory for "
           "para->bc->blockName[%d].", i);
@@ -661,14 +662,14 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*-------------------------------------------------------------------------
     | Allocate the memory for bc name and id
     -------------------------------------------------------------------------*/
-    para->bc->wallName = (char**)malloc(para->bc->nb_wall*sizeof(char*));
+    para->bc->wallName = (char**) malloc(para->bc->nb_wall*sizeof(char*));
     if(para->bc->wallName==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
       "para->bc->wallName.", FFD_ERROR);
       return 1;
     }
 
-    para->bc->wallId = (int *)malloc(sizeof(int)*para->bc->nb_wall);
+    para->bc->wallId = (int *) malloc(sizeof(int)*para->bc->nb_wall);
     if(para->bc->wallId==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
       "para->bc->wallId.", FFD_ERROR);
@@ -719,7 +720,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
-      para->bc->wallName[i] = (char*)malloc((j+1)*sizeof(char));
+      para->bc->wallName[i] = (char*) malloc((j+1)*sizeof(char));
       if(para->bc->wallName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory for "
                 "para->bc->wallName[%d].", i);

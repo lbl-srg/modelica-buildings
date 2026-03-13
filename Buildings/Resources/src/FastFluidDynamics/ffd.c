@@ -16,6 +16,7 @@
 	*/
 
 #include "ffd.h"
+#include <string.h>
 
 /* global variables */
 REAL **var;
@@ -75,7 +76,7 @@ int allocate_memory (PARA_DATA *para) {
   | BINDEX[3]: Fixed temperature or fixed heat flux
   | BINDEX[4]: Boundary ID to identify which boundary it belongs to
   ****************************************************************************/
-  BINDEX = (int **)malloc(5*sizeof(int*));
+  BINDEX = (int **) malloc(5*sizeof(int*));
   if(BINDEX==NULL) {
     ffd_log("allocate_memory(): Could not allocate memory for BINDEX.",
             FFD_ERROR);
