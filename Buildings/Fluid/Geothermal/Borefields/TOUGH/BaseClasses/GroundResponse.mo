@@ -50,7 +50,7 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
 
-  Buildings.Utilities.IO.Python_3_8.Real_Real pyt(
+  Buildings.Utilities.IO.Python_3_12.Real_Real pyt(
     final moduleName="GroundResponse",
     final functionName="doStep",
     final nDblRea=nSeg+3*nInt,
