@@ -405,6 +405,9 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+  optimica:
+    comment: Translation warning. Access to component not in constrained type, https://github.com/lbl-srg/modelica-buildings/issues/4497.
+    translate: false
 - model_name: Buildings.Templates.Components.Validation.ChillersCompression
   openmodelica:
     comment: Translation failed.
