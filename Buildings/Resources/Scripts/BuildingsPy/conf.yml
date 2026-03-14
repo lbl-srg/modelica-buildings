@@ -239,9 +239,6 @@
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
-  optimica:
-    translate: false
-    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRateStep100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
