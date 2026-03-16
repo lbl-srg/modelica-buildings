@@ -83,6 +83,43 @@ int allocate_memory (PARA_DATA *para) {
     return 1;
   }
 
+  BINDEX[0] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[0]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[0]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+  BINDEX[1] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[1]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[1]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+  BINDEX[2] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[2]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[2]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+  BINDEX[3] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[3]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[3]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+  BINDEX[4] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[4]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[4]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+
+  /*
   for(i=0; i<5; i++) {
     BINDEX[i] = (int *) malloc(size*sizeof(int));
     if(BINDEX[i]==NULL) {
@@ -92,6 +129,7 @@ int allocate_memory (PARA_DATA *para) {
       return 1;
     }
   }
+  */
   return 0;
 } /* End of allocate_memory()*/
 
@@ -212,6 +250,7 @@ int ffd(int cosimulation) {
   /* Free the memory*/
   free_data(var);
   free_index(BINDEX);
+  free_para(&para);
 
   /* Inform Modelica the stopping command has been received*/
   if(para.solv->cosimulation==1) {

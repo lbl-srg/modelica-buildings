@@ -733,3 +733,57 @@ REAL V_global_min(PARA_DATA *para, REAL **var) {
 
   return sqrt(Vmin);
 } /* End of V_global_min()*/
+
+
+/*
+		* Free memory for FFD simulation variables
+		*
+		* @param var Pointer to FFD simulation variables
+		*
+		* @return 0 if no error occurred
+		*/
+void free_para(PARA_DATA *para) {
+  int i;
+  /****************************************************************************
+  | Free memory for sensor data if there is at least one sensor
+  ****************************************************************************/
+  if(para->sens->nb_sensor>0) {
+    if(para->sens->senVal) free(para->sens->senVal);
+    if(para->sens->senValMean) free(para->sens->senValMean);
+  }
+  /****************************************************************************
+  | Free memory for Species
+  ****************************************************************************/
+  if(para->bc->nb_port>0&&para->bc->nb_Xi>0) {
+    if(para->bc->XiPort) free(para->bc->XiPort);
+    if(para->bc->XiPortAve) free(para->bc->XiPortAve);
+    if(para->bc->XiPortMean) free(para->bc->XiPortMean);
+
+    for(i=0; i<para->bc->nb_port; i++) {
+      if(para->bc->XiPort[i]) free(para->bc->XiPort[i]);
+      if(para->bc->XiPortAve[i]) free(para->bc->XiPortAve[i]);
+      if(para->bc->XiPortMean[i]) free(para->bc->XiPortMean[i]);
+    }
+  }
+  /****************************************************************************
+  | Free memory for Substances
+  ****************************************************************************/
+  if(para->bc->nb_port>0&&para->bc->nb_C>0) {
+    if(para->bc->CPort) free(para->bc->CPort);
+    if(para->bc->CPortAve) free(para->bc->CPortAve);
+    if(para->bc->CPortMean) free(para->bc->CPortMean);
+
+    for(i=0; i<para->bc->nb_port; i++) {
+      if(para->bc->CPort[i]) free(para->bc->CPort[i]);
+      if(para->bc->CPortAve[i]) free(para->bc->CPortAve[i]);
+      if(para->bc->CPortMean[i]) free(para->bc->CPortMean[i]);
+    }
+  }
+  /*------------------------------------------------------------------------
+  | Free memory for para->sens->sensorName
+  ------------------------------------------------------------------------*/
+    if(para->sens->sensorName) free(para->sens->sensorName);
+
+    if(para->cosim) free(para->cosim);
+
+} /* End of free_para()*/
