@@ -21,6 +21,7 @@ partial model PartialAirHandler "Interface class for air handler"
 
   replaceable parameter
     Buildings.Templates.AirHandlersFans.Configuration.PartialAirHandler cfg(
+    final nZon=nZon,
     final typ=typ,
     final typFanSup=typFanSup,
     final typFanRel=typFanRel,
