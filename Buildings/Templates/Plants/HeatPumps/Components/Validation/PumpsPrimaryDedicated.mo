@@ -602,7 +602,7 @@ equation
       annotation(Line(points={{-44,-380},{-44,-340},{-10,-340}},
         color={0,127,255}));
     connect(priHeaWat.port_b, pumPriHea.ports_aChiHeaWat[i])
-      annotation(Line(points={{10,-340},{82,-340},{82,-380}},
+      annotation(Line(points={{10,-340},{65.8,-340},{65.8,-380}},
         color={0,127,255}));
   end for;
   connect(pumPriCom.ports_bChiHeaWatHp, hpCom.port_a)
@@ -638,13 +638,13 @@ equation
     annotation(Line(points={{-44,240},{-44,280},{-30,280}},
       color={0,127,255}));
   connect(valHeaWatIsoCom.port_b, pumPriCom.ports_aChiHeaWat)
-    annotation(Line(points={{-10,280},{82,280},{82,240}},
+    annotation(Line(points={{-10,280},{65.8,280},{65.8,240}},
       color={0,127,255}));
   connect(pumPriCom.ports_bChiHeaWat, valChiWatIsoCom.port_a)
     annotation(Line(points={{-44,240},{-44,260},{10,260}},
       color={0,127,255}));
   connect(valChiWatIsoCom.port_b, pumPriCom.ports_aChiHeaWat)
-    annotation(Line(points={{30,260},{82,260},{82,240}},
+    annotation(Line(points={{30,260},{65.8,260},{65.8,240}},
       color={0,127,255}));
   connect(ctl.bus, busPla1)
     annotation(Line(points={{-100,300},{-70,300}},
@@ -665,10 +665,10 @@ equation
     annotation(Line(points={{-50,60},{-40,60},{-40,80},{-30,80}},
       color={0,127,255}));
   connect(valHeaWatIsoHdr.port_b, pumPriNoDed.ports_aChiHeaWat)
-    annotation(Line(points={{-10,80},{82,80},{82,20}},
+    annotation(Line(points={{-10,80},{65.8,80},{65.8,20}},
       color={0,127,255}));
   connect(valChiWatIsoHdr.port_b, pumPriNoDed.ports_aChiHeaWat)
-    annotation(Line(points={{30,60},{82,60},{82,20}},
+    annotation(Line(points={{30,60},{65.8,60},{65.8,20}},
       color={0,127,255}));
   connect(ret1.ports, valHeaWatIsoHdr.port_b)
     annotation(Line(points={{100,80},{-10,80}},
@@ -717,7 +717,7 @@ equation
     annotation(Line(points={{-76,-180},{-76,-140},{10,-140}},
       color={0,127,255}));
   connect(valHeaWatIsoSep.port_b, pumPriSep.ports_aChiHeaWat)
-    annotation(Line(points={{30,-140},{82,-140},{82,-180}},
+    annotation(Line(points={{30,-140},{65.8,-140},{65.8,-180}},
       color={0,127,255}));
   connect(busPla2, pumPriSep.bus)
     annotation(Line(points={{-80,-120},{0,-120},{0,-180}},
@@ -730,7 +730,7 @@ equation
     annotation(Line(points={{-60,-180},{-60,-160},{50,-160}},
       color={0,127,255}));
   connect(valChiWatIsoSep.port_b, pumPriSep.ports_aChiHeaWat)
-    annotation(Line(points={{70,-160},{82,-160},{82,-180}},
+    annotation(Line(points={{70,-160},{65.8,-160},{65.8,-180}},
       color={0,127,255}));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/PumpsPrimaryDedicated.mos"

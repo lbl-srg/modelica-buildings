@@ -85,7 +85,7 @@ partial model PartialHeatPumpTableData2DLoadDep
     use_conCap=false,
     use_evaCap=false)
     if typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
-    "SHC (multi-pipe) unit"
+    "Polyvalent (SHC) unit"
     annotation(Placement(transformation(extent={{-12,56},{8,76}})));
   Routing.PassThroughFluid pas(redeclare final package Medium=MediumSou)
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater

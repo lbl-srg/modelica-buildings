@@ -11,7 +11,7 @@ model HeatPumpGroupAirToWaterSHC
     "Number of heat pumps (excluding SHC units)"
     annotation(Evaluate=true);
   final parameter Integer nShc = 1
-    "Number of SHC (multi-pipe) units"
+    "Number of polyvalent (SHC) units"
     annotation(Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -63,7 +63,7 @@ model HeatPumpGroupAirToWaterSHC
       nEquZon=0,
       final have_hp=shc.have_hp,
       final have_shc=shc.have_shc,
-      final is_shcMod=shc.is_shcMod,
+      is_shcMod=false,
       final nShc=nShc,
       have_valShcInlIso=false,
       have_valShcOutIso=false),
@@ -121,7 +121,7 @@ model HeatPumpGroupAirToWaterSHC
       nEquZon=0,
       final have_hp=hpAw.have_hp,
       final have_shc=hpAw.have_shc,
-      final is_shcMod=hpAw.is_shcMod,
+      final is_shcMod=false,
       final nShc=nShc,
       have_valShcInlIso=false,
       have_valShcOutIso=false),

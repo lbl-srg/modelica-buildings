@@ -12,7 +12,7 @@ record HeatPumpGroup
       Dialog(group="Configuration",
         enable=false));
   parameter Boolean have_shc
-    "Set to true for plants with SHC (multi-pipe) units"
+    "Set to true for plants with polyvalent (SHC) units"
     annotation (Evaluate=true,
       Dialog(group="Configuration",
         enable=false));

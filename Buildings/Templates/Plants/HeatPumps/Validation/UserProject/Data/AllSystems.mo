@@ -12,17 +12,30 @@ class AllSystems
       capCooHp_nominal=500E3,
       capHeaShc_nominal=500E3,
       capCooShc_nominal=500E3,
+      capHeaHrShc_nominal=500E3,
+      capCooHrShc_nominal=500E3,
       mHeaWatHp_flow_nominal=pla.hp.capHeaHp_nominal / abs(
         pla.ctl.THeaWatSup_nominal -
           Buildings.Templates.Data.Defaults.THeaWatRetMed) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      mHeaWatShc_flow_nominal=pla.hp.capHeaShc_nominal / abs(
+        pla.ctl.THeaWatSup_nominal -
+        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       mChiWatHp_flow_nominal=pla.hp.capCooHp_nominal / abs(
         pla.ctl.TChiWatSup_nominal -
           Buildings.Templates.Data.Defaults.TChiWatRet) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      mChiWatShc_flow_nominal=pla.hp.capCooShc_nominal / abs(
+        pla.ctl.TChiWatSup_nominal -
+          Buildings.Templates.Data.Defaults.TChiWatRet) /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
+      dpHeaWatShc_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
       TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
+      TSouHeaShc_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
       TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
+      TSouCooShc_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
       perHeaHp(
         fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
@@ -36,7 +49,15 @@ class AllSystems
         PLRSup={1},
         use_TEvaOutForTab=true,
         use_TConOutForTab=false),
-      PHp_min=1.0E3),
+      PHp_min=1.0E3,
+      PShc_min=1.0E3,
+      perShc(
+        fileNameHea=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+        fileNameCoo=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+        fileNameShc=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt"))),
     pumHeaWatPri(
       dp_nominal=fill(
         1.5 * (if pla.cfg.have_chiWat and

@@ -37,7 +37,7 @@ model PartialHeatPumpGroup
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_shc = false
-    "Set to true for plants with SHC (multi-pipe) units"
+    "Set to true for plants with polyvalent (SHC) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nHp
@@ -45,7 +45,7 @@ model PartialHeatPumpGroup
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nShc = 0
-    "Number of SHC (multi-pipe) units"
+    "Number of polyvalent (SHC) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.HeatPump typHp
@@ -308,14 +308,14 @@ model PartialHeatPumpGroup
     annotation(Dialog(tab="Advanced",
       group="Diagnostics"),
       HideResult=true);
-  MediumSou.ThermodynamicState sta_aSou[nHp] =
+  MediumSou.ThermodynamicState sta_aSou[nHp + nShc] =
     MediumSou.setState_phX(
       ports_aSou.p,
       noEvent(actualStream(ports_aSou.h_outflow)),
       noEvent(actualStream(ports_aSou.Xi_outflow)))
     if show_T
     "Source medium properties in port_aSou";
-  MediumSou.ThermodynamicState sta_bSou[nHp] =
+  MediumSou.ThermodynamicState sta_bSou[nHp + nShc] =
     MediumSou.setState_phX(
       ports_bSou.p,
       noEvent(actualStream(ports_bSou.h_outflow)),

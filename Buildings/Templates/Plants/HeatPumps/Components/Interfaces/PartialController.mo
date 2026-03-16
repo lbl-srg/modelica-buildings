@@ -25,7 +25,7 @@ block PartialController "Interface for heat pump plant controller"
     "Number of heat pumps (excluding SHC units)"
     annotation (Evaluate=true);
   final parameter Integer nShc=cfg.nShc
-    "Number of SHC (multi-pipe) units"
+    "Number of polyvalent (SHC) units"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typ
     "Type of controller"

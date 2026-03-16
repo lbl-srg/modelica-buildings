@@ -11,7 +11,7 @@ model PumpsPrimaryDedicatedSHC
     "Number of heat pumps (excluding SHC units)"
     annotation(Evaluate=true);
   parameter Integer nShc = 2
-    "Number of SHC (multi-pipe) units"
+    "Number of polyvalent (SHC) units"
     annotation(Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.FixedInitial

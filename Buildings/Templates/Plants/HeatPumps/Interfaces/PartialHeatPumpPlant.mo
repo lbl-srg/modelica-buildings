@@ -53,26 +53,20 @@ partial model PartialHeatPumpPlant
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   final parameter Boolean have_hp =
-    typ <>
-      Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAndCoolingHeatRecovery
+    typ <>Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent
     "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true);
   final parameter Boolean have_hrc =
-    typ ==
-      Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCoolingHeatRecovery
+    typ ==Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversibleHeatRecovery
     "Set to true for plants with sidestream heat recovery chiller"
     annotation(Evaluate=true);
   final parameter Boolean have_shc =
-    typ ==
-      Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAndCoolingHybrid
-      or typ ==
-        Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAndCoolingHeatRecovery
-    "Set to true for plants with SHC (multi-pipe) units"
+    typ ==Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent
+      or typ ==Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent
+    "Set to true for plants with polyvalent (SHC) units"
     annotation(Evaluate=true);
-  parameter Buildings.Templates.Plants.HeatPumps.Types.Plant typ =
-    Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCooling
-    "Type of plant"
-    annotation(Evaluate=true);
+  parameter Buildings.Templates.Plants.HeatPumps.Types.Plant typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.Reversible
+    "Type of plant" annotation (Evaluate=true);
   parameter Buildings.Templates.Components.Types.HeatPump typHp
     "Type of heat pump"
     annotation(Evaluate=true,
@@ -130,40 +124,36 @@ partial model PartialHeatPumpPlant
     "Design and operating parameters"
     annotation(Placement(transformation(extent={{-120,360},{-100,380}})));
   // RFE(AntoineGautier): Allow specifying subset of units dedicated to HW, CHW or DHW production.
-  parameter Integer nHp_select(
-    max=if have_hp then 10 else 0,
-    min=if have_hp then 1 else 0,
-    start=0)
+  parameter Integer nHp_select(start=0)
     "Number of heat pumps (excluding SHC units)"
     annotation(Evaluate=true,
       Dialog(group="Heat pumps",
         enable=have_hp));
-  final parameter Integer nHp = if have_hp then nHp_select else 0
+  final parameter Integer nHp(
+    final max=if have_hp then 10 else 0,
+    final min=if have_hp then 1 else 0) = if have_hp then nHp_select else 0
     "Number of heat pumps (excluding SHC units)"
     annotation(Evaluate=true);
   parameter Boolean is_shcMod(start=false)
-    "Set to true for modular SHC (multi-pipe) unit"
+    "Set to true for modular polyvalent (SHC) unit"
     annotation(Evaluate=true,
-      Dialog(group="Polyvalent units",
+      Dialog(group="Polyvalent (SHC) units",
         enable=have_shc));
-  parameter Integer nShc_select(
-    max=if have_shc then (if is_shcMod then 1 else 10) else 0,
-    min=if have_shc then 1 else 0,
-    start=0)
-    "Number of SHC (multi-pipe) units"
+  parameter Integer nShc_select(start=0)
+    "Number of polyvalent (SHC) units"
     annotation(Evaluate=true,
-      Dialog(group="Polyvalent units",
+      Dialog(group="Polyvalent (SHC) units",
         enable=have_shc and not is_shcMod));
-  final parameter Integer nShc =
+  final parameter Integer nShc(
+    final max=if have_shc then (if is_shcMod then 1 else 10) else 0,
+    final min=if have_shc then 1 else 0) =
     if have_shc then (if is_shcMod then 1 else nShc_select) else 0
-    "Number of SHC (multi-pipe) units"
+    "Number of polyvalent (SHC) units"
     annotation(Evaluate=true);
   final parameter Boolean is_rev =
-    typ == Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCooling
-      or typ ==
-        Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCoolingHeatRecovery
-      or typ ==
-        Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAndCoolingHybrid
+    typ ==Buildings.Templates.Plants.HeatPumps.Types.Plant.Reversible
+      or typ ==Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversibleHeatRecovery
+      or typ ==Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent
     "Set to true for reversible heat pumps, false for heating only"
     annotation(Evaluate=true);
   // Plants with AWHP.
@@ -397,7 +387,8 @@ partial model PartialHeatPumpPlant
           "Variable speed pump specified separately"));
   // Constant primary-only plants and variable primary plants require variable speed pumps.
   final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri =
-    if have_pumChiWatPriDed
+    if have_shc
+      or have_pumChiWatPriDed
       or have_chiWat
         and typArrPumPri ==
           Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -696,25 +687,6 @@ partial model PartialHeatPumpPlant
     warnAboutOnePortConnection=false)
     "OA temperature"
     annotation(Placement(transformation(extent={{-30,370},{-10,390}})));
-initial equation
-  if typArrPumPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-  then
-    assert(
-      nPumHeaWatPri == nHp,
-      "In " + getInstanceName() + ": " +
-        "In case of dedicated primary HW pumps, the number pumps (=" + String(
-        nPumHeaWatPri) + ") must be equal to the number of heat pumps (=" +
-        String(nHp) + ").");
-  end if;
-  if have_pumChiWatPriDed then
-    assert(
-      nPumChiWatPri == nHp,
-      "In " + getInstanceName() + ": " +
-        "In case of separate dedicated primary CHW pumps, the number pumps (=" +
-        String(nPumChiWatPri) +
-        ") must be equal to the number of heat pumps (=" + String(nHp) + ").");
-  end if;
 equation
   /* Control point connection - start */
   connect(TOut.T, bus.TOut);

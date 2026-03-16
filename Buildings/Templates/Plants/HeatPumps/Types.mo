@@ -21,14 +21,14 @@ package Types
   type Plant = enumeration(
     HeatingOnly
      "Heating-only with non-reversible heat pumps",
-    HeatingAltCooling
-      "Non-simultaneous heating and cooling (changeover) with reversible heat pumps",
-    HeatingAltCoolingHeatRecovery
-      "Non-simultaneous heating and cooling with reversible heat pumps and heat recovery chiller",
-    HeatingAndCoolingHybrid
-      "Simultaneous heating and cooling with reversible heat pumps and heat recovery units",
-    HeatingAndCoolingHeatRecovery
-      "Simultaneous heating and cooling with heat recovery units only")
+    Reversible
+      "Heating and cooling with reversible heat pumps",
+    ReversibleHeatRecovery
+      "Heating and cooling with reversible heat pumps and heat recovery chiller",
+    ReversiblePolyvalent
+      "Heating and cooling with reversible heat pumps and polyvalent (SHC) units",
+    Polyvalent
+      "Heating and cooling with polyvalent (SHC) units")
     "Enumeration to specify the type of plant";
   type PumpsPrimary = enumeration(
     Constant

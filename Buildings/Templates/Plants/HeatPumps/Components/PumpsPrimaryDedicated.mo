@@ -6,18 +6,14 @@ model PumpsPrimaryDedicated
     "Medium model"
     annotation(__ctrlFlow(enable=false));
 
-  /*
-   * RFE(AntoineGautier): Add support for multiple pumps for each unit.
-   * Currently, only one dedicated CHW or HW pump for each unit is supported.
-   */
-  final parameter Integer nPumHeaWat =
+  parameter Integer nPumHeaWat =
     (if typArrPumPri ==
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then 1 else 0) * ((if have_hp then nHp else 0) + (if have_shc
       then nShc else 0))
     "Number of primary HW pumps"
     annotation(Evaluate=true);
-  final parameter Integer nPumChiWat =
+  parameter Integer nPumChiWat =
     (if typArrPumPri ==
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then 1 else 0) * ((if have_hp and have_pumChiWatPriDed then nHp else 0) +
@@ -33,7 +29,7 @@ model PumpsPrimaryDedicated
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_shc = false
-    "Set to true for plants with SHC (multi-pipe) units"
+    "Set to true for plants with polyvalent (SHC) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nHp
@@ -41,7 +37,7 @@ model PumpsPrimaryDedicated
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nShc = 0
-    "Number of SHC (multi-pipe) units"
+    "Number of polyvalent (SHC) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri

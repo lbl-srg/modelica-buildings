@@ -39,7 +39,7 @@ model ValvesIsolation
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_shc = false
-    "Set to true for plants with SHC (multi-pipe) units"
+    "Set to true for plants with polyvalent (SHC) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean is_shcMod = false
@@ -51,7 +51,7 @@ model ValvesIsolation
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nShc = 0
-    "Number of SHC (multi-pipe) units"
+    "Number of polyvalent (SHC) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_valHpInlIso = false

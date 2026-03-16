@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Validation;
-model AirToWater
-  "Validation of AWHP plant template"
+model AirToWaterSHC
+  "Validation of AWHP plant template with polyvalent units"
   extends Modelica.Icons.Example;
 
   replaceable package Medium = Buildings.Media.Water
@@ -38,7 +38,7 @@ model AirToWater
       origin={-170,-40})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
-    typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.Reversible,
+    typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent,
     final dat=datAll.pla,
     nHp_select=3,
     is_shcMod=false,
@@ -405,4 +405,4 @@ annotation(__Dymola_Commands(
 </ul>
 </html>"),
   Diagram(coordinateSystem(extent={{-200,-160},{200,160}})));
-end AirToWater;
+end AirToWaterSHC;
