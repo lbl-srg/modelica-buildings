@@ -142,7 +142,7 @@ int allocate_memory (PARA_DATA *para) {
 		* @return 0 if no error occurred
 		*/
 int ffd_cosimulation(CosimulationData *cosim) {
-  para.cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
+  /* para.cosim = (CosimulationData *) malloc(sizeof(CosimulationData)); */
   para.cosim = cosim;
 
   if(ffd(1)!=0) {

@@ -784,6 +784,6 @@ void free_para(PARA_DATA *para) {
   ------------------------------------------------------------------------*/
     if(para->sens->sensorName) free(para->sens->sensorName);
 
-    if(para->cosim) free(para->cosim);
+    /* if(para->cosim) free(para->cosim); */
 
 } /* End of free_para()*/
