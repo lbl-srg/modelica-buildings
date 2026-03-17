@@ -38,7 +38,12 @@ def create_working_directory():
     '''
     import tempfile
     import getpass
-    worDir = tempfile.mkdtemp( prefix='tmp-simple-room-' + getpass.getuser() )
+
+    modelicaWorkingPath = os.getcwd()
+    worDir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'touWor')
+
+    # worDir = tempfile.mkdtemp( dir=TOUGH_worDir, prefix='tmp-simple-room-' + getpass.getuser() )
+    os.mkdir(worDir)
     
     file_name = "example_file.txt"
     content = "Hello, world!"
