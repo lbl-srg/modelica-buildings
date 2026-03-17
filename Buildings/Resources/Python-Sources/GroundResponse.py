@@ -10,6 +10,9 @@ def doStep(dblInp, state):
 
     # Folder that includes the TOUGH input files
     TOUGH_dir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'TOUGH')
+
+    # Temp TOUGH working directory
+    TOUGH_worDir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources')
     
     # Number of Modelica cells
     nSeg = int(dblInp[0])
@@ -42,7 +45,7 @@ def doStep(dblInp, state):
     # This is the first call of this python module. There is no state yet.
     if state == None:
         # Create the TOUGH working folder
-        tou_tmp = create_working_directory()
+        tou_tmp = create_working_directory(TOUGH_worDir)
         # Copy the TOUGH input files to working directory
         copy_files(TOUGH_dir, tou_tmp)
         # Initialize the state
@@ -197,12 +200,13 @@ def imitateTemperature(line, T_out):
     return line.replace(oldTem, newTem)
 
 
-def create_working_directory():
+def create_working_directory(TOUGH_worDir):
     ''' Create working directory
     '''
     import tempfile
     import getpass
-    worDir = tempfile.mkdtemp( prefix='tmp-modelica-tough-' + getpass.getuser() )
+    # worDir = tempfile.mkdtemp( prefix='tmp-modelica-tough-' + getpass.getuser() )
+    worDir = tempfile.mkdtemp(dir=TOUGH_worDir, prefix='tmp-modelica-tough-' + getpass.getuser() )
     # Change the folder permission: owner has full permissions; group and others can read and execute.
     os.chmod(worDir, 0o777)
     return worDir

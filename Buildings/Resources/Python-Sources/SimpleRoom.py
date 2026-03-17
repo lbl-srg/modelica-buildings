@@ -1,6 +1,8 @@
 ''' Python module that is used for the example
     Buildings.Utilities.IO.Python_*.Examples.SimpleRoom
 '''
+import os
+
 def doStep(dblInp, state):
     # Function with a state, that computes a response
     # for the simple first order room model
@@ -10,6 +12,7 @@ def doStep(dblInp, state):
     if state == None:
         # Initialize the state
         state = {'tLast': tim, 'T': T0, 'E': 0.0}
+        create_working_directory()
     else:
         # Use the python object
         dt = tim - state['tLast']
@@ -28,3 +31,22 @@ def doStep(dblInp, state):
     # state. The object 'state' is not accessible in Modelica, but it
     # will be passed to this function so it can be used in the next invocation.
     return [[state['T'], state['E']], state]
+
+
+def create_working_directory():
+    ''' Create working directory
+    '''
+    import tempfile
+    import getpass
+    worDir = tempfile.mkdtemp( prefix='tmp-simple-room-' + getpass.getuser() )
+    
+    file_name = "example_file.txt"
+    content = "Hello, world!"
+
+    # 1. Combine directory path and file name portably
+    file_path = os.path.join(worDir, file_name)
+
+    with open(file_path, "w") as f:
+        f.write(content)
+
+    return worDir
