@@ -10,9 +10,6 @@ def doStep(dblInp, state):
 
     # Folder that includes the TOUGH input files
     TOUGH_dir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'TOUGH')
-
-    # Temp TOUGH working directory
-    TOUGH_worDir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources')
     
     # Number of Modelica cells
     nSeg = int(dblInp[0])
@@ -45,12 +42,14 @@ def doStep(dblInp, state):
     # This is the first call of this python module. There is no state yet.
     if state == None:
         # Create the TOUGH working folder
-        tou_tmp = create_working_directory(TOUGH_worDir)
+        # The working folder will be removed at the end of Modelica run.
+        touWorDir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'tmp-tou-work')
+        os.mkdir(touWorDir)
         # Copy the TOUGH input files to working directory
-        copy_files(TOUGH_dir, tou_tmp)
+        copy_files(TOUGH_dir, touWorDir)
         # Initialize the state
         T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
-        state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start, 'work_dir': tou_tmp}
+        state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start, 'work_dir': touWorDir}
         p_Int = [101343.01] * nInt
         x_Int = [10.5] * nInt
         T_Int = [15.06+273.15] * nInt
@@ -198,28 +197,6 @@ def imitateTemperature(line, T_out):
     if (len(newTem) > len(oldTem)):
         newTem = newTem[0:len(oldTem)]
     return line.replace(oldTem, newTem)
-
-
-def create_working_directory(TOUGH_worDir):
-    ''' Create working directory
-    '''
-    import tempfile
-    import getpass
-    # worDir = tempfile.mkdtemp( prefix='tmp-modelica-tough-' + getpass.getuser() )
-    worDir = tempfile.mkdtemp(dir=TOUGH_worDir, prefix='tmp-modelica-tough-' + getpass.getuser() )
-    # Change the folder permission: owner has full permissions; group and others can read and execute.
-    os.chmod(worDir, 0o777)
-    return worDir
-
-''' Empty a folder
-'''
-def empty_folder(folder):
-    # empty the 'toughTemp' folder
-    touTmpFil = os.listdir(folder)
-    for f in touTmpFil:
-        # os.remove(os.path.join(folder, f))
-        if 'Dummy' not in f:
-            os.remove(os.path.join(folder, f))
 
 ''' Copy files from source directory to destination directory
 '''
