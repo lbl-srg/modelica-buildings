@@ -37,8 +37,8 @@ The coupling is conducted through the instance <code>pyt</code> in the class
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse\">
 Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse</a>.
 It instantiates the Python interface model
-<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
-Buildings.Utilities.IO.Python_3_8.Real_Real</a>, which can send data to Python
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_12.Real_Real\">
+Buildings.Utilities.IO.Python_3_12.Real_Real</a>, which can send data to Python
 functions and obtain data from it. It allows doing the computations inside a Python
 module that calls an external simulator, in this package the TOUGH 3 simulator.
 </p>
@@ -47,7 +47,7 @@ module that calls an external simulator, in this package the TOUGH 3 simulator.
 Through the interface instance as below,
 </p>
 <pre>    
-  Buildings.Utilities.IO.Python_3_8.Real_Real pyt(
+  Buildings.Utilities.IO.Python_3_12.Real_Real pyt(
     final moduleName=\"GroundResponse\",
     final functionName=\"doStep\",
     final nDblRea=nSeg+3*nInt,
@@ -67,8 +67,8 @@ the integral over the interval. By setting the parameter <code>passPythonObject<
 to <code>true</code>, it allows passing a Python object from one invocation to
 another, thus builds up a Python data structure.
 More explanation about the Python setup can be found in
-<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">
-Buildings.Utilities.IO.Python_3_8.UsersGuide</a>.
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_12.UsersGuide\">
+Buildings.Utilities.IO.Python_3_12.UsersGuide</a>.
 </p>
 <p>
 The above interface calls the Python function <code>doStep</code> as showing below,
@@ -77,8 +77,8 @@ where only the major sections are demonstrated:
 <pre>
   def doStep(dblInp, state):
     # retrieve state of last invoke, including
-    #   -- the path of working directory
-    #   -- the end time of the last TOUGH simulation,
+    #   -- the path of TOUGH working directory
+    #   -- the end clock time of the last TOUGH simulation,
     #   -- the heat flow on the borehole wall that was measured in Modelica at last invoke,
     #   -- the borehole wall temperature at the end of last TOUGH simulation.
     tou_tmp = state['work_dir']
@@ -143,7 +143,7 @@ and the ground.
 temperature for the TOUGH simulation.
 </li>
 <li>
-<code>clock.y</code>: The current simulation time.
+<code>clock.y</code>: The current clock time.
 </li>
 <li>
 <code>hBor</code>: The total height of the borehole.
@@ -163,12 +163,12 @@ The flow chart below shows the overall coupling workflow at each time step.
 </p>
 <p>
 When the Modelica variable <code>sampleTrigger</code>
-(see <a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
-Buildings.Utilities.IO.Python_3_8.Real_Real</a>) is <code>true</code>, Modelica calls the
+(see <a href=\"modelica://Buildings.Utilities.IO.Python_3_12.Real_Real\">
+Buildings.Utilities.IO.Python_3_12.Real_Real</a>) is <code>true</code>, Modelica calls the
 TOUGH simulation through the ground response model as described above.
 Through the function <code>doStep</code>, the Python module sends to TOUGH the heat
 flow rates from the ground <code>QBor_flow</code>, the ambient
-air temperature <code>TOut</code> and the current simulation time. 
+air temperature <code>TOut</code> and the current clock time.
 The following steps are done inside the Python function:
 </p>
 <ol>
@@ -195,7 +195,7 @@ the one computed by the Modelica mode, <code>QBor_flow[nSeg]</code>.
 simulation settings like the ground material properties and the simulation parameters.
 The simulation times will be edited in the way that the start time is replaced by
 the one stored in the <code>state</code> and the stop time is replaced by the current
-simulation time <code>clock.y</code>.
+clock time <code>clock.y</code>.
 </li>
 <li>
 <code>INCON</code>: It contains the initial conditions of all the TOUGH mesh
@@ -215,8 +215,8 @@ Then a TOUGH simulation is started.
 </li>
 <li>
 After the TOUGH simulation is done, with the function <code>read_save()</code>, it
-extracts the borehole wall temperature, and if needed also the temperature of ground
-on the interested points, from TOUGH simulation result file <code>SAVE</code>.
+extracts the borehole wall temperature, and if needed also the temperature of the
+ground interested points, from TOUGH simulation result file <code>SAVE</code>.
 </li>
 <li>
 Update <code>state</code> to store the TOUGH simulation stop time, the heat flow
@@ -302,8 +302,7 @@ simply calling the <code>doStep</code> function with dummy <code>Q</code> inputs
 The class
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields\">
 Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields</a>
-shows the comparisons between the g-function based ground response model and the
-TOUGH ground response model.
+demonstrates the usage of the coupling model.
 In the case when the TOUGH simulator is not installed, for the demonstration purpose
 the Python interface model includes a dummy code to imitate the TOUGH response for
 updating the ground temperatures, <code>def tough_avatar(heatFlux, T_out)</code>.

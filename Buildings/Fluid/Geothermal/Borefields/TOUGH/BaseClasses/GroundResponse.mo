@@ -35,18 +35,18 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput pInt[nInt]
-    "Pressure of the interested points"
+    "Pressure of the interested points in the ground"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
       iconTransformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput xInt[nInt]
-    "Satuation of the interested points"
+    "Satuation of the interested points in the ground"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TInt[nInt](
     final unit=fill("K", nInt),
     displayUnit=fill("degC", nInt),
     quantity=fill("ThermodynamicTemperature", nInt))
-    "Temperature at the interested points"
+    "Temperature at the interested points in the ground"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
 
@@ -76,6 +76,7 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
 
 equation
   // Delete the TOUGH temporary working folder
+  // Note that the working folder path is specified in the Python function.
   when {terminal()} then
     Modelica.Utilities.Files.remove("Resources/Python-Sources/tmp-tou-work");
   end when;
@@ -144,8 +145,8 @@ extracted from the ground.
 The instance <code>pyt</code> finds the ground response with the
 <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH</a> simulator
 through the Python interface
-<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
-Buildings.Utilities.IO.Python_3_8.Real_Real</a>. See
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_12.Real_Real\">
+Buildings.Utilities.IO.Python_3_12.Real_Real</a>. See
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.UsersGuide\">
 Buildings.Fluid.Geothermal.Borefields.TOUGH.UsersGuide</a>
 for instructions.

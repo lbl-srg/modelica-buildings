@@ -3,7 +3,7 @@ package BaseClasses "Base classes used in Buildings.Fluid.Geothermal.Borefields.
   extends Modelica.Icons.BasesPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-Package with base classes for geothermal borefields with the ground response captured by
+Package with base classes for geothermal borefields with the ground response calculated by
 the simulator <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH</a>.
 </p>
 </html>"));

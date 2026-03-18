@@ -1,6 +1,6 @@
 within Buildings.Fluid.Geothermal.Borefields.TOUGH;
 model OneUTube
-  "Borefield model containing single U-tube boreholes, with ground response calcuted by TOUGH"
+  "Borefield model containing single U-tube boreholes, with ground response calculated by TOUGH"
   extends Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.PartialBorefield (
     redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube borHol);
 

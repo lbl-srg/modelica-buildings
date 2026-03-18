@@ -56,6 +56,8 @@ Note that in this model, the dummy function
 is used to imitate the ground response calculated by TOUGH simulator. See the dummy
 function in
 <code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/GroundResponse.py</code>.
+It assumes the response temperature increased by 0.1 &deg;C everytime when invoking
+the Python interface.
 </p>
 </html>", revisions="<html>
 <ul>

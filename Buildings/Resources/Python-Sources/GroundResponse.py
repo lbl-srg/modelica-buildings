@@ -42,7 +42,7 @@ def doStep(dblInp, state):
     # This is the first call of this python module. There is no state yet.
     if state == None:
         # Create the TOUGH working folder
-        # The working folder will be removed at the end of Modelica run.
+        # The working folder will be removed at the end of simulation.
         touWorDir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'tmp-tou-work')
         os.mkdir(touWorDir)
         # Copy the TOUGH input files to working directory
@@ -184,6 +184,8 @@ def tough_avatar(heatFlux, T_out, nInt):
     os.remove('SAVE')
     os.rename('temp_SAVE', 'SAVE')
 
+''' It increases all temperature by 0.1 degC.
+'''
 def imitateTemperature(line, T_out):
     lastE = line.rindex('E')
     trail = line[lastE+1:]
@@ -582,9 +584,6 @@ def read_save():
         fout.write(intEle[i] + ' '*5 + fortranstyle('%20.12e'%p_int[i]) \
                    + ' '*5 + fortranstyle('%20.12e'%x_int[i]) \
                    + ' '*5 + fortranstyle('%20.12e'%T_int[i]) + os.linesep)
-        # fout.write(intEle[i] + ' '*5 + '%20.12e'%p_int[i] \
-        #            + ' '*5 + '%20.12e'%x_int[i] \
-        #            + ' '*5 + '%20.12e'%T_int[i] + os.linesep)
     fout.write(' Number steps' + i1 + ' Number iterations ' + i2 + ' Final time' + tfinal)
     fout.close()
 

@@ -6,7 +6,7 @@ model Borefields
   package Medium = Buildings.Media.Water;
 
   parameter Modelica.Units.SI.Temperature TGro = 283.15
-    "Ground temperature";
+    "Initial ground temperature";
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFieUTubDat(
     filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
@@ -82,8 +82,9 @@ However in this example, the dummy function <code>def tough_avatar(heatFlux, T_o
 is used to imitate the ground response calculated by TOUGH simulator.
 </p>
 <p>
-Note the dummy function cannot run the ground modeling as TOUGH. It is created
-to show the coupling workflow.
+Note the dummy function cannot run the ground modeling as TOUGH. It assumes the
+response temperature increased by 0.1 &deg;C everytime when invoking the Python
+interface. It is created to show the coupling workflow.
 </p>
 </html>",
 revisions="<html>
