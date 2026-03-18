@@ -38,7 +38,7 @@ block SingleZoneSetpointControl
         parameter Real samPerRebCoo(unit="s")=300
     "Sample period for rebound for cooling";
 
-  Buildings.Controls.OBC.DemandFlexibility.Subsequences.SingleTemperatureSetpointControl
+  Buildings.Controls.OBC.DemandFlexibility.Subsequences.SingleTemperatureZoneSetpointControl
     sinTemSetConHea(
     delChaShe=delChaSheHea,
     delChaReb=delChaRebHea,
@@ -68,7 +68,7 @@ block SingleZoneSetpointControl
   CDL.Interfaces.RealInput TSetCurHea "current setpoint"
     annotation (Placement(transformation(extent={{-140,-2},{-100,38}}),
         iconTransformation(extent={{-140,-2},{-100,38}})));
-  Buildings.Controls.OBC.DemandFlexibility.Subsequences.SingleTemperatureSetpointControl
+  Buildings.Controls.OBC.DemandFlexibility.Subsequences.SingleTemperatureZoneSetpointControl
     sinTemSetConCoo(
     delChaShe=delChaSheCoo,
     delChaReb=delChaRebCoo,
@@ -131,81 +131,77 @@ block SingleZoneSetpointControl
           extent={{-140,60},{-100,100}})));
 equation
   connect(sinTemSetConHea.reach_TSetTarShe,reach_TSetTarSheHea)
-    annotation (Line(points={{65.1429,67.3333},{94,67.3333},{94,54},{120,54}},
+    annotation (Line(points={{65,66.5},{94,66.5},{94,54},{120,54}},
                                                           color={255,0,255}));
-  connect(sinTemSetConHea.TSetCom,TSetComHea)  annotation (Line(points={{65.1429,
-          62.6667},{90,62.6667},{90,20},{120,20}},
+  connect(sinTemSetConHea.TSetCom,TSetComHea)  annotation (Line(points={{65,
+          62.125},{90,62.125},{90,20},{120,20}},
                                      color={0,0,127}));
   connect(sinTemSetConHea.reach_TSetNom,reach_TSetNomHea)
-    annotation (Line(points={{56.5714,58.1333},{88,58.1333},{88,-20},{120,-20}},
+    annotation (Line(points={{65,58},{88,58},{88,-20},{120,-20}},
                                                         color={255,0,255}));
   connect(sinTemSetConCoo.reach_TSetTarShe,reach_TSetTarSheCoo)  annotation (
-      Line(points={{13.1429,-78.6667},{13.1429,-80},{94,-80},{94,-130},{120,
-          -130}},                                  color={255,0,255}));
-  connect(sinTemSetConCoo.TSetCom,TSetComCoo)  annotation (Line(points={{13.1429,
-          -83.3333},{90,-83.3333},{90,-178},{120,-178}},
+      Line(points={{13,-79.5},{13,-80},{94,-80},{94,-130},{120,-130}},
+                                                   color={255,0,255}));
+  connect(sinTemSetConCoo.TSetCom,TSetComCoo)  annotation (Line(points={{13,
+          -83.875},{90,-83.875},{90,-178},{120,-178}},
                                         color={0,0,127}));
   connect(sinTemSetConCoo.reach_TSetNom,reach_TSetNomCoo)  annotation (Line(
-        points={{4.57143,-87.8667},{88,-87.8667},{88,-222},{120,-222}},
+        points={{13,-88},{88,-88},{88,-222},{120,-222}},
                                                   color={255,0,255}));
   connect(uMod, sinTemSetConHea.uMod) annotation (Line(points={{-120,54},{32,54},
-          {32,70.4},{42.8571,70.4}},
-                                  color={255,127,0}));
+          {32,69.25},{43,69.25}}, color={255,127,0}));
   connect(uMod, sinTemSetConCoo.uMod) annotation (Line(points={{-120,54},{-20,
-          54},{-20,-75.6},{-9.14286,-75.6}},
+          54},{-20,-76.75},{-9,-76.75}},
                                     color={255,127,0}));
   connect(con.y, logSwi.u2) annotation (Line(points={{-48,78},{-32,78},{-32,80},
           {-24,80}}, color={255,0,255}));
   connect(con1.y, logSwi.u3) annotation (Line(points={{-48,16},{-40,16},{-40,72},
           {-24,72}}, color={255,0,255}));
   connect(logSwi.y, sinTemSetConHea.have_pri) annotation (Line(points={{0,80},{
-          32,80},{32,72.6667},{42.8571,72.6667}},
+          32,80},{32,71.5},{43,71.5}},
                                 color={255,0,255}));
   connect(logSwi1.y, sinTemSetConCoo.have_pri) annotation (Line(points={{-18,
-          -152},{-16,-152},{-16,-73.3333},{-9.14286,-73.3333}},
+          -152},{-16,-152},{-16,-74.5},{-9,-74.5}},
                                            color={255,0,255}));
   connect(con2.y, logSwi1.u2)
     annotation (Line(points={{-56,-152},{-42,-152}}, color={255,0,255}));
   connect(con1.y, logSwi1.u3) annotation (Line(points={{-48,16},{-48,-160},{-42,
           -160}}, color={255,0,255}));
   connect(TSetTarPreHea,sinTemSetConHea.TSetTarPre)  annotation (Line(points={{-120,
-          -76},{-120,-44},{-10,-44},{-10,64},{34,64},{34,61.6},{42.8571,61.6}},
+          -76},{-120,-44},{-10,-44},{-10,64},{34,64},{34,61.125},{42.9,61.125}},
         color={0,0,127}));
   connect(TSetTarSheHea,sinTemSetConHea.TSetTarShe)  annotation (Line(points={{-120,
-          -112},{-16,-112},{-16,58.2667},{42.8571,58.2667}},
+          -112},{-16,-112},{-16,58},{42.9,58}},
                                             color={0,0,127}));
   connect(TSetNomHea,sinTemSetConHea.TSetNom)  annotation (Line(points={{-120,
-          -146},{-12,-146},{-12,55.0667},{42.8571,55.0667}},
+          -146},{-12,-146},{-12,55},{42.9,55}},
                                            color={0,0,127}));
   connect(TSetCurHea,sinTemSetConHea.TSetCur)  annotation (Line(points={{-120,18},
-          {-84,18},{-84,56},{-14,56},{-14,60},{34,60},{34,65.0667},{42.8571,
-          65.0667}},                              color={0,0,127}));
+          {-84,18},{-84,56},{-14,56},{-14,60},{34,60},{34,64.375},{43,64.375}},
+                                                  color={0,0,127}));
   connect(TSetTarPreCoo,sinTemSetConCoo.TSetTarPre)  annotation (Line(points={{-120,
-          -182},{-120,-84},{-36,-84},{-36,-84.4},{-9.14286,-84.4}},
+          -182},{-120,-84},{-36,-84},{-36,-84.875},{-9.1,-84.875}},
                                                    color={0,0,127}));
   connect(TSetTarSheCoo,sinTemSetConCoo.TSetTarShe)  annotation (Line(points={{-120,
           -222},{-120,-196},{-84,-196},{-84,-136},{-44,-136},{-44,-132},{-18,
-          -132},{-18,-87.7333},{-9.14286,-87.7333}},
-                                                 color={0,0,127}));
+          -132},{-18,-88},{-9.1,-88}},           color={0,0,127}));
   connect(TSetNomCoo,sinTemSetConCoo.TSetNom)  annotation (Line(points={{-120,
           -256},{-120,-182},{-88,-182},{-88,-98},{-22,-98},{-22,-94},{-20,-94},
-          {-20,-90.9333},{-9.14286,-90.9333}},                       color={0,0,
+          {-20,-91},{-9.1,-91}},                                     color={0,0,
           127}));
   connect(TSetCurCoo, sinTemSetConCoo.TSetCur) annotation (Line(points={{-120,
-          -40},{-74,-40},{-74,-88},{-22,-88},{-22,-80.9333},{-9.14286,-80.9333}},
+          -40},{-74,-40},{-74,-88},{-22,-88},{-22,-81.625},{-9,-81.625}},
                                        color={0,0,127}));
   connect(TCur, sinTemSetConCoo.TCur) annotation (Line(points={{-120,-12},{-120,
-          -26},{-46,-26},{-46,-86},{-24,-86},{-24,-78.1333},{-9.14286,-78.1333}},
+          -26},{-46,-26},{-46,-86},{-24,-86},{-24,-79},{-9,-79}},
                                                         color={0,0,127}));
   connect(TCur, sinTemSetConHea.TCur) annotation (Line(points={{-120,-12},{-120,
-          -26},{-46,-26},{-46,-46},{34,-46},{34,67.8667},{42.8571,67.8667}},
-                                                                     color={0,0,
+          -26},{-46,-26},{-46,-46},{34,-46},{34,67},{43,67}},        color={0,0,
           127}));
   connect(sinTemSetConHea.reach_TSetTarPre, reach_TSetTarPreHea)
-    annotation (Line(points={{65.1429,71.6},{65.1429,92},{120,92}},
-                                                          color={255,0,255}));
+    annotation (Line(points={{65,70.5},{65,92},{120,92}}, color={255,0,255}));
   connect(sinTemSetConCoo.reach_TSetTarPre, reach_TSetTarPreCoo) annotation (
-      Line(points={{13.1429,-74.4},{13.1429,-74},{94,-74},{94,-76},{120,-76}},
+      Line(points={{13,-75.5},{13,-74},{94,-74},{94,-76},{120,-76}},
                                                    color={255,0,255}));
   connect(have_priHea, logSwi.u1) annotation (Line(points={{-120,120},{-72,120},
           {-72,88},{-24,88}}, color={255,0,255}));
@@ -217,6 +213,6 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-260},{100,120}})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This block controls the cooling setpoint and the heating setpoint for a single building zone.</span></p>
+<p><span style=\"font-size: 9pt;\">This is a utility block that controls both the cooling setpoint and the heating setpoint for a single building zone. It works by having the &quot;has_priHea&quot; and &quot;has_priCoo&quot; to True. We still maintain the &quot;has_pri&quot; variables to be inputs because in the MultipleZoneSetpointControl, it references this block. </span></p>
 </html>"));
 end SingleZoneSetpointControl;

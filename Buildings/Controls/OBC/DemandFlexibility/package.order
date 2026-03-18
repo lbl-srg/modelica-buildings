@@ -1,4 +1,6 @@
 SingleZoneSetpointControl
 MultipleZoneSetpointControl
+SingleChillerSetpointControl
+MultipleChillerSetpointControl
 Subsequences
 Validation

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block TemperatureModeSelectionBool
+block ZoneTemperatureModeSelectionBool
   CDL.Interfaces.IntegerInput uMod
     "setpoint mode; 0 = normal; -1 = precool or preheat; 1 = ratchet; 2 = rebound"
     annotation (Placement(transformation(extent={{-140,68},{-100,108}}),
@@ -80,4 +80,4 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-120},{130,120}},
         grid={2,2})));
-end TemperatureModeSelectionBool;
+end ZoneTemperatureModeSelectionBool;

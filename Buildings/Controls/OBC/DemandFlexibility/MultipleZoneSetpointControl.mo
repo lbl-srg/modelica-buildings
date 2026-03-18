@@ -111,10 +111,10 @@ block MultipleZoneSetpointControl
   Subsequences.SelectLargestTemperatureDifference
     selectLargestTemperatureDifferenceRebCoo(nZon=nZon, nSel=1)
     annotation (Placement(transformation(extent={{-18,-200},{12,-180}})));
-  Subsequences.TemperatureModeSelectionBool
+  Subsequences.ZoneTemperatureModeSelectionBool
     singleTemperatureSetpointModeSelectionBoolHea[nZon]
     annotation (Placement(transformation(extent={{18,74},{38,94}})));
-  Subsequences.TemperatureModeSelectionBool
+  Subsequences.ZoneTemperatureModeSelectionBool
     singleTemperatureSetpointModeSelectionBoolCoo[nZon]
     annotation (Placement(transformation(extent={{30,-166},{50,-146}})));
 equation

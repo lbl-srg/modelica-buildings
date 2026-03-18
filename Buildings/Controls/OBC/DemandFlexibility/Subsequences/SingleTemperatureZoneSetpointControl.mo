@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block SingleTemperatureSetpointControl
+block SingleTemperatureZoneSetpointControl
 
    parameter Real delChaShe=1
     "Change amount for load shed";
@@ -7,7 +7,7 @@ block SingleTemperatureSetpointControl
    parameter Real delChaReb=-1
     "Change amount for rebound";
 
-    parameter Real delSheTho=0.5
+    parameter Real delSheTho(min=0)=0.5
     "Threshold below which ratcheting is triggerd. This is an absolute value, so it is always positive";
 
        parameter Boolean setMod=true
@@ -35,13 +35,13 @@ block SingleTemperatureSetpointControl
   CDL.Interfaces.IntegerInput uMod
     "setpoint mode; 0 = normal; -1 = precool or preheat; 1 = ratchet; 2 = rebound"
     annotation (Placement(transformation(extent={{-190,24},{-150,64}}),
-        iconTransformation(extent={{-140,26},{-100,66}})));
+        iconTransformation(extent={{-190,24},{-150,64}})));
   CDL.Interfaces.BooleanOutput reach_TSetTarShe annotation (Placement(
         transformation(extent={{250,-20},{290,20}}),iconTransformation(extent={{250,-20},
             {290,20}})));
   CDL.Interfaces.BooleanOutput reach_TSetNom annotation (Placement(
         transformation(extent={{250,-170},{290,-130}}),iconTransformation(
-          extent={{100,-158},{140,-118}})));
+          extent={{250,-156},{290,-116}})));
   CDL.Interfaces.RealOutput TSetCom "setpoint command"
     annotation (Placement(transformation(extent={{250,-90},{290,-50}}),
         iconTransformation(extent={{250,-90},{290,-50}})));
@@ -57,7 +57,7 @@ block SingleTemperatureSetpointControl
         iconTransformation(extent={{-192,-156},{-152,-116}})));
   CDL.Discrete.Sampler setNom(samplePeriod=samPerNom)
     annotation (Placement(transformation(extent={{170,48},{190,68}})));
-  TemperatureModeSelection singleTemperatureSetpointModeSelection
+  ZoneTemperatureModeSelection singleTemperatureSetpointModeSelection
     annotation (Placement(transformation(extent={{216,-78},{236,-58}})));
   CDL.Interfaces.RealInput TCur "current zone temperature"
     annotation (Placement(transformation(extent={{-190,-12},{-150,28}})));
@@ -168,4 +168,4 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         extent={{-150,-200},{250,120}},
         grid={2,2})));
-end SingleTemperatureSetpointControl;
+end SingleTemperatureZoneSetpointControl;
