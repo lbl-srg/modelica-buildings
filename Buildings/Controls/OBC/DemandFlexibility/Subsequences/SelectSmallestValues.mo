@@ -20,5 +20,8 @@ equation
   connect(u, sort.u)
     annotation (Line(points={{-120,0},{-60,0}},color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p><span style=\"font-size: 9pt;\">This block selects the nSel smallest values out of a total of nNum values. The output is an array, where 1 means the value is one of the smallest values, and 0 means otherwise.</span></p>
+</html>"));
 end SelectSmallestValues;

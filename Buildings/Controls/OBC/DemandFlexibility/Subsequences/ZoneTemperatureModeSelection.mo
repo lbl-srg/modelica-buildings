@@ -72,5 +72,8 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-120},{130,120}},
-        grid={2,2})));
+        grid={2,2})),
+    Documentation(info="<html>
+<p><span style=\"font-size: 9pt;\">This block serves to choose which of the input variables, including uPre, uNom, uShe, uReb, to output as the output variable y, based on the mode of the system uMod. A &quot;Table&quot; block from the Modelica Standard Library would have easily achieved this task in a more concise way, but because the OBC CDL library does not have such a Table block, an elaborate logic block such as this one needs to be created. </span></p>
+</html>"));
 end ZoneTemperatureModeSelection;

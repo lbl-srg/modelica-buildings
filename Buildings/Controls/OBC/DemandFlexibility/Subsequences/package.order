@@ -14,4 +14,3 @@ ZoneSetpointSource
 ExactEqualReal
 SingleZoneSetpointControlBase
 SingleChillerSetpointControlBase
-FanValveLimitingControlBase
