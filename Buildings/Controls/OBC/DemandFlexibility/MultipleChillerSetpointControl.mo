@@ -4,7 +4,8 @@ block MultipleChillerSetpointControl
   parameter Integer nChi=4;
 
 
-
+parameter Real movAvgTimRan(unit="s")=1800
+    "time range for moving average";
      parameter Real delChaShe=1
     "Change amount for load shed";
 
@@ -39,7 +40,9 @@ block MultipleChillerSetpointControl
   CDL.Interfaces.RealOutput TSetCom[nChi] "setpoint command" annotation (
       Placement(transformation(extent={{220,-26},{260,14}}), iconTransformation(
           extent={{250,-90},{290,-50}})));
-  SingleChillerSetpointControl singleChillerSetpointControl[nChi](
+  Subsequences.SingleChillerSetpointControlBase
+                               singleChillerSetpointControlBase
+                                                           [nChi](
     delChaShe=delChaShe,
     delChaReb=delChaReb,
     uCooCoiValTho=uCooCoiValTho,
@@ -49,23 +52,56 @@ block MultipleChillerSetpointControl
     annotation (Placement(transformation(extent={{90,22},{130,54}})));
   CDL.Routing.IntegerScalarReplicator intScaRep(nout=nChi)
     annotation (Placement(transformation(extent={{-22,90},{-2,110}})));
+  Subsequences.SelectSmallestValvePosition selectSmallestValvePositionShe(nChi=nChi,
+      movAvgTimRan=movAvgTimRan)
+    annotation (Placement(transformation(extent={{4,-14},{24,6}})));
+  Subsequences.GeneralModeSelectionBool chillerTemperatureModeSelectionBool[
+    nChi] annotation (Placement(transformation(extent={{48,-30},{70,-6}})));
+  Subsequences.SelectSmallestValvePosition selectSmallestValvePositionReb(nChi=nChi,
+      movAvgTimRan=movAvgTimRan)
+    annotation (Placement(transformation(extent={{12,-68},{32,-48}})));
 equation
   connect(uMod, intScaRep.u) annotation (Line(points={{-120,88},{-74,88},{-74,100},
           {-24,100}}, color={255,127,0}));
-  connect(intScaRep.y, singleChillerSetpointControl.uMod) annotation (Line(
+  connect(intScaRep.y, singleChillerSetpointControlBase.uMod) annotation (Line(
         points={{0,100},{44,100},{44,46.4},{88,46.4}}, color={255,127,0}));
-  connect(uCooCoiValCur, singleChillerSetpointControl.uCooCoiValCur)
+  connect(uCooCoiValCur, singleChillerSetpointControlBase.uCooCoiValCur)
     annotation (Line(points={{-120,52},{-16,52},{-16,42.8},{88,42.8}}, color={0,
           0,127}));
-  connect(TSetCur, singleChillerSetpointControl.TSetCur) annotation (Line(
+  connect(TSetCur, singleChillerSetpointControlBase.TSetCur) annotation (Line(
         points={{-120,10},{-15,10},{-15,38.6},{88,38.6}}, color={0,0,127}));
-  connect(TSetTarShe, singleChillerSetpointControl.TSetTarShe) annotation (Line(
-        points={{-122,-92},{-86,-92},{-86,-90},{76,-90},{76,28.4},{87.8,28.4}},
+  connect(TSetTarShe, singleChillerSetpointControlBase.TSetTarShe) annotation (
+      Line(points={{-122,-92},{-86,-92},{-86,-90},{76,-90},{76,28.4},{87.8,28.4}},
         color={0,0,127}));
-  connect(TSetNom, singleChillerSetpointControl.TSetNom) annotation (Line(
+  connect(TSetNom, singleChillerSetpointControlBase.TSetNom) annotation (Line(
         points={{-122,-140},{-16,-140},{-16,23.6},{87.8,23.6}}, color={0,0,127}));
-  connect(singleChillerSetpointControl.TSetCom, TSetCom) annotation (Line(
+  connect(singleChillerSetpointControlBase.TSetCom, TSetCom) annotation (Line(
         points={{132,35},{182,35},{182,-6},{240,-6}}, color={0,0,127}));
+  connect(uCooCoiValCur, selectSmallestValvePositionShe.uCooCoiValCur)
+    annotation (Line(points={{-120,52},{-60,52},{-60,-4},{2,-4}}, color={0,0,
+          127}));
+  connect(selectSmallestValvePositionReb.uCooCoiValCur, uCooCoiValCur)
+    annotation (Line(points={{10,-58},{-50,-58},{-50,52},{-120,52}}, color={0,0,
+          127}));
+  connect(singleChillerSetpointControlBase.reach_TSetTarShe,
+    selectSmallestValvePositionShe.uIgnFla) annotation (Line(points={{132,42},{
+          -38,42},{-38,-9.8},{2,-9.8}}, color={255,0,255}));
+  connect(singleChillerSetpointControlBase.reach_TSetNom,
+    selectSmallestValvePositionReb.uIgnFla) annotation (Line(points={{132,28.4},
+          {142,28.4},{142,28},{150,28},{150,-108},{10,-108},{10,-63.8}}, color=
+          {255,0,255}));
+  connect(selectSmallestValvePositionShe.yAcnFla,
+    chillerTemperatureModeSelectionBool.uShe) annotation (Line(points={{26,-4},
+          {36,-4},{36,-21.2},{46.087,-21.2}}, color={255,0,255}));
+  connect(selectSmallestValvePositionReb.yAcnFla,
+    chillerTemperatureModeSelectionBool.uReb) annotation (Line(points={{34,-58},
+          {40,-58},{40,-25.8},{46.087,-25.8}}, color={255,0,255}));
+  connect(intScaRep.y, chillerTemperatureModeSelectionBool.uMod) annotation (
+      Line(points={{0,100},{30,100},{30,-10},{38,-10},{38,-9.2},{46.087,-9.2}},
+        color={255,127,0}));
+  connect(chillerTemperatureModeSelectionBool.y,
+    singleChillerSetpointControlBase.have_pri) annotation (Line(points={{71.913,
+          -18},{74,-18},{74,50},{88,50}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},
             {220,120}})), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-160},{220,120}})));

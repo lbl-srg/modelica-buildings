@@ -3,6 +3,9 @@ block SelectSmallestValvePosition "temDifSelectionMin"
              parameter Integer nChi=3
     "Number of values to compare";
     parameter Integer nSel=1;
+
+    parameter Real movAvgTimRan(unit="s")=1800
+    "time range for moving average";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAcnFla[nChi]
     "action flag" annotation (Placement(transformation(extent={{100,-20},{140,
             20}}), iconTransformation(extent={{100,-20},{140,20}})));
@@ -18,7 +21,7 @@ block SelectSmallestValvePosition "temDifSelectionMin"
           extent={{-140,-20},{-100,20}})));
   CDL.Reals.MovingAverage
                      movAve
-                        [nChi]
+                        [nChi](delta=movAvgTimRan)
     annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   SelectSmallestValues selectSmallestValues(nNum=nChi, nSel=nSel)
     annotation (Placement(transformation(extent={{38,-10},{58,10}})));

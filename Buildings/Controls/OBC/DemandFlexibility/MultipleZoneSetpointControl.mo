@@ -73,7 +73,8 @@ block MultipleZoneSetpointControl
   CDL.Interfaces.RealOutput TSetComCoo[nZon] "setpoint command"
     annotation (Placement(transformation(extent={{260,-206},{300,-166}}),
         iconTransformation(extent={{260,-206},{300,-166}})));
-  SingleZoneSetpointControl dualTemperatureSetpointControl[nZon](
+  Subsequences.SingleZoneSetpointControlBase
+                            dualTemperatureSetpointControl[nZon](
     demFleHeaAct=demFleHeaAct,
     demFleCooAct=demFleCooAct,
     delChaSheHea=delChaSheHea,

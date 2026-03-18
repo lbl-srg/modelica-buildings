@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Subsequences;
-block ChillerTemperatureModeSelection
+block GeneralModeSelection
   CDL.Interfaces.IntegerInput uMod
     "setpoint mode; 0 = normal;  1 = shed; 2 = rebound"
     annotation (Placement(transformation(extent={{-140,68},{-100,108}}),
@@ -55,4 +55,4 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-120},{130,120}},
         grid={2,2})));
-end ChillerTemperatureModeSelection;
+end GeneralModeSelection;
