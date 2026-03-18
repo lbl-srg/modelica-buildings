@@ -51,9 +51,11 @@ model DXDehumidifier "DX dehumidifier"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics", group="Conservation equations"));
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_start=Medium.p_default
-    "Start value of pressure" annotation (Dialog(tab="Initialization"));
+    "Start value of pressure"
+    annotation (Dialog(tab="Initialization"));
   parameter Modelica.Media.Interfaces.Types.Temperature T_start=Medium.T_default
-    "Start value of temperature" annotation (Dialog(tab="Initialization"));
+    "Start value of temperature"
+    annotation (Dialog(tab="Initialization"));
   parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=
       Medium.X_default "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization"));
@@ -61,24 +63,30 @@ model DXDehumidifier "DX dehumidifier"
       fill(0, Medium.nC) "Start value of trace substances"
     annotation (Dialog(tab="Initialization"));
 
-  Modelica.Blocks.Interfaces.BooleanInput uEna "True: enable the dehumidifier"
-    annotation (Placement(transformation(extent={{-140,-66},{-100,-26}}),
-      iconTransformation(extent={{-120,30},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
+    "True: enable the dehumidifier"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Modelica.Blocks.Interfaces.RealOutput T(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput T(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outlet air medium temperature"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
-      iconTransformation(extent={{100,30},{120,50}})));
+      iconTransformation(extent={{100,40},{140,80}})));
 
-  Modelica.Blocks.Interfaces.RealOutput P(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mWat_flow(
+    unit="kg/s") "Water removed from the fluid"
+    annotation (Placement(transformation(extent={{100,10},{140,50}}),
+      iconTransformation(extent={{100,10},{140,50}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W",
     final quantity="Power")
     "Power consumption rate"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
-      iconTransformation(extent={{100,-50},{120,-30}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Heat transfer into medium from dehumidifying action"
@@ -96,7 +104,7 @@ model DXDehumidifier "DX dehumidifier"
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal)
     "Inlet air temperature sensor"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
   Buildings.Fluid.Humidifiers.Humidifier_u deHum(
     redeclare package Medium = Medium,
@@ -115,49 +123,53 @@ model DXDehumidifier "DX dehumidifier"
     final C_start=C_start,
     final mWat_flow_nominal=-mWat_flow_nominal)
     "Baseclass for conditioning fluid medium"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) if not addPowerToMedium
     "Zero source for heat flow rate if power is not added to fluid medium"
-    annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert enable signal from Boolean to Real"
-    annotation (Placement(transformation(extent={{-90,-56},{-70,-36}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
   Modelica.Blocks.Routing.RealPassThrough QHea if addPowerToMedium
     "Heat transfer into medium only if required"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Multiply u
     "Calculate non-zero humidity removal from inlet air only when component is enabled"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal)
     "Inlet air relative humidity"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter eneFac(
     final k=eneFac_nominal/(1000*3600))
     "Multiply energy factor modifier by nominal energy factor"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+    annotation (Placement(transformation(extent={{20,-114},{40,-94}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(
     final k=mWat_flow_nominal)
     "Calculate water removal rate by multiplying water removal modifier by nominal removal rate"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Divide PDeh
     "Calculate dehumidification power consumption"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
   Buildings.Fluid.Humidifiers.BaseClasses.PerformanceCurveModifier perCurMod(
     final per=per)
     "Block for calculating modifier curves"
-    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRem(final k=-1)
+    "Water removal flow rate"
+    annotation (Placement(transformation(extent={{70,20},{90,40}})));
 
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
@@ -168,51 +180,49 @@ equation
     annotation (Line(points={{10,60},{20,60}},color={191,0,0}));
   connect(senTem.T, T)
     annotation (Line(points={{81,60},{120,60}}, color={0,0,127}));
-  connect(heaFloSen.port_b, deHum.heatPort)
-    annotation (Line(points={{40,60},{50,60},{50,-6},{60,-6}},
-       color={191,0,0}));
   connect(heaFloSen.port_b, senTem.port)
     annotation (Line(points={{40,60},{60,60}}, color={191,0,0}));
   connect(port_a, senTIn.port_a)
-    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
   connect(deHum.port_b, port_b)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(senRelHum.port_b, deHum.port_a)
-    annotation (Line(points={{10,0},{60,0}},color={0,127,255}));
-  connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-29,40},{-20,40},
-          {-20,60},{-10,60}},color={0,0,127}));
-  connect(u.y, deHum.u) annotation (Line(points={{-18,-40},{40,-40},{40,6},{59,
-          6}}, color={0,0,127}));
-  connect(uEna, booToRea.u)
-    annotation (Line(points={{-120,-46},{-92,-46}}, color={255,0,255}));
-  connect(booToRea.y, u.u2) annotation (Line(points={{-68,-46},{-42,-46}},
+    annotation (Line(points={{0,0},{40,0}}, color={0,127,255}));
+  connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-39,60},{-10,60}},
           color={0,0,127}));
-  connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-28,90},{-20,90},{
-          -20,60},{-10,60}}, color={0,0,127}));
-  connect(u.y, watRemRat.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,
-          -60},{-2,-60}}, color={0,0,127}));
-  connect(watRemRat.y, PDeh.u1) annotation (Line(points={{22,-60},{30,-60},{30,-74},
-          {38,-74}}, color={0,0,127}));
-  connect(eneFac.y, PDeh.u2) annotation (Line(points={{22,-100},{30,-100},{30,-86},
-          {38,-86}}, color={0,0,127}));
-  connect(PDeh.y, QHea.u) annotation (Line(points={{62,-80},{80,-80},{80,-20},{-56,
-          -20},{-56,40},{-52,40}}, color={0,0,127}));
-  connect(PDeh.y, P) annotation (Line(points={{62,-80},{120,-80}},
-        color={0,0,127}));
-  connect(senRelHum.phi, perCurMod.phi) annotation (Line(points={{0.1,11},{0.1,
-          20},{-60,20},{-60,-84},{-52,-84}},   color={0,0,127}));
-  connect(perCurMod.watRemMod, u.u1) annotation (Line(points={{-29,-76},{-20,
-          -76},{-20,-60},{-52,-60},{-52,-34},{-42,-34}},
-                                                    color={0,0,127}));
-  connect(perCurMod.eneFacMod, eneFac.u) annotation (Line(points={{-29,-84},{
-          -20,-84},{-20,-100},{-2,-100}},
-                                       color={0,0,127}));
+  connect(u.y, deHum.u) annotation (Line(points={{2,-40},{10,-40},{10,6},{39,6}},
+          color={0,0,127}));
+  connect(uEna, booToRea.u)
+    annotation (Line(points={{-120,-60},{-82,-60}}, color={255,0,255}));
+  connect(booToRea.y, u.u2) annotation (Line(points={{-58,-60},{-50,-60},{-50,-46},
+         {-22,-46}}, color={0,0,127}));
+  connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-38,100},{-20,100},
+          {-20,60},{-10,60}}, color={0,0,127}));
+  connect(u.y, watRemRat.u) annotation (Line(points={{2,-40},{18,-40}},
+          color={0,0,127}));
+  connect(watRemRat.y, PDeh.u1) annotation (Line(points={{42,-40},{50,-40},{50,-74},
+          {58,-74}}, color={0,0,127}));
+  connect(eneFac.y, PDeh.u2) annotation (Line(points={{42,-104},{50,-104},{50,-86},
+          {58,-86}}, color={0,0,127}));
+  connect(PDeh.y, QHea.u) annotation (Line(points={{82,-80},{90,-80},{90,-20},{-80,
+          -20},{-80,60},{-62,60}}, color={0,0,127}));
+  connect(PDeh.y, P) annotation (Line(points={{82,-80},{120,-80}}, color={0,0,127}));
+  connect(senRelHum.phi, perCurMod.phi) annotation (Line(points={{-9.9,11},{-9.9,
+          20},{-40,20},{-40,-104},{-22,-104}}, color={0,0,127}));
+  connect(perCurMod.watRemMod, u.u1) annotation (Line(points={{1,-96},{10,-96},{
+          10,-80},{-30,-80},{-30,-34},{-22,-34}},   color={0,0,127}));
+  connect(perCurMod.eneFacMod, eneFac.u) annotation (Line(points={{1,-104},{18,-104}},
+          color={0,0,127}));
   connect(senTIn.port_b, senRelHum.port_a)
-    annotation (Line(points={{-70,0},{-10,0}}, color={0,127,255}));
-  connect(senTIn.T, perCurMod.T) annotation (Line(points={{-80,11},{-80,20},{
-          -64,20},{-64,-76},{-52,-76}},
-                                    color={0,0,127}));
-
+    annotation (Line(points={{-50,0},{-20,0}}, color={0,127,255}));
+  connect(senTIn.T, perCurMod.T) annotation (Line(points={{-60,11},{-60,20},{-90,
+          20},{-90,-96},{-22,-96}}, color={0,0,127}));
+  connect(deHum.heatPort, heaFloSen.port_b) annotation (Line(points={{40,-6},{30,
+          -6},{30,40},{50,40},{50,60},{40,60}}, color={191,0,0}));
+  connect(watRem.y, mWat_flow)
+    annotation (Line(points={{92,30},{120,30}}, color={0,0,127}));
+  connect(deHum.mWat_flow, watRem.u)
+    annotation (Line(points={{61,6},{66,6},{66,30},{68,30}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},

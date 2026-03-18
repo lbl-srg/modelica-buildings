@@ -60,7 +60,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Modelica.Blocks.Sources.RealExpression watRemRatMod(
-    final y=-dxDeh.deHum.mWat_flow)
+    final y=dxDeh.mWat_flow)
     "Water removal mass flow rate (Modelica)"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 

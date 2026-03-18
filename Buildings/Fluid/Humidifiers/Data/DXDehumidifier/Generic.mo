@@ -12,18 +12,19 @@ record Generic
     "Biquadratic coefficients for energy factor modifier curve"
     annotation (Dialog(group="Performance curves"));
 
-  annotation (defaultComponentName="dxDehRec",
-  preferredView="info",
-  Documentation(info="<html>
-<p>This is the base record for the DX dehumidifier which has the following data. </p>
+annotation (defaultComponentName="dxDehRec", preferredView="info",
+Documentation(info="<html>
+<p>
+This is the base record for the DX dehumidifier which has the following data.
+</p>
 <ul>
 <li>
 <code>watRem</code> - Coefficients of biquadratic polynomial for water 
-removal flow rate as a function of temperature and relative humidity.
+removal flow rate as a function of air flow dry-bulb temperature and relative humidity.
 </li>
 <li>
 <code>eneFac</code> - Coefficients of biquadratic polynomial for energy factor 
-as a function of temperature and relative humidity.
+as a function of air flow dry-bulb temperature and relative humidity.
 </li>
 </ul>
 </html>",
