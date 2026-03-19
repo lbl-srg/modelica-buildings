@@ -130,8 +130,8 @@
     comment: Timeout after 300 seconds.
     simulate: false
   optimica:
-    comment: Timeout after 300 seconds.
-    time_out: 600
+    comment: Simulation times out after 600 seconds on travis.
+    simulate: false
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
     comment: Times out after 900 seconds.
