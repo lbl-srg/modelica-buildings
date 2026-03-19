@@ -15,7 +15,6 @@ record VAVBox "Record for VAV terminal unit"
   parameter Buildings.Templates.Components.Data.Coil coiHea(
     final typ=cfg.typCoiHea,
     final typVal=cfg.typValCoiHea,
-    final have_sou=cfg.have_souHeaWat,
     mAir_flow_nominal=ctl.VAirHeaSet_flow_max*1.2)
     "Reheat coil"
     annotation (Dialog(group="Equipment",

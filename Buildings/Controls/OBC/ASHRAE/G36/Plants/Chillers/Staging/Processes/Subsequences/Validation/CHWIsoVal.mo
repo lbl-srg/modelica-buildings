@@ -77,10 +77,6 @@ equation
       color={255,0,255}));
   connect(staCha.y, enaChiIsoVal.uStaPro) annotation (Line(points={{-138,-70},{-110,
           -70},{-110,-8},{-102,-8}}, color={255,0,255}));
-  connect(con.y, enaChiIsoVal.uChi) annotation (Line(points={{-138,40},{-130,40},
-          {-130,5},{-102,5}}, color={255,0,255}));
-  connect(con1.y, disChiIsoVal.uChi) annotation (Line(points={{-78,40},{-70,40},
-          {-70,5},{-42,5}}, color={255,0,255}));
   connect(chaChi.y, disChiIsoVal.nexChaChi) annotation (Line(points={{-138,80},{
           -60,80},{-60,8},{-42,8}}, color={255,127,0}));
   connect(upsDevSta.y, disChiIsoVal.uUpsDevSta) annotation (Line(points={{-138,-30},
@@ -117,6 +113,10 @@ equation
           {110,-20},{110,-51},{138,-51}}, color={255,0,255}));
   connect(enaChiIsoVal1.y1ChiWatIsoVal, cloVal.u) annotation (Line(points={{162,
           -56},{170,-56},{170,-100},{30,-100},{30,-80},{38,-80}}, color={255,0,255}));
+  connect(con.y, enaChiIsoVal.uChi) annotation (Line(points={{-138,40},{-130,40},
+          {-130,5},{-102,5}}, color={255,0,255}));
+  connect(con1.y, disChiIsoVal.uChi) annotation (Line(points={{-78,40},{-70,40},
+          {-70,5},{-42,5}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/CHWIsoVal.mos"
@@ -128,43 +128,34 @@ This example validates
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal</a>.
 </p>
 <p>
-It has two instances <code>enaChiIsoVal</code> and <code>disChiIsoVal</code> that
+It has three instances <code>enaChiIsoVal</code>, <code>disChiIsoVal</code> and
+<code>enaChiIsoVal1</code> that
 shows the process of controlling chiller chilled water isolation valves during the
 chiller staging process.
 </p>
-<p>
-Note that when using the subsequences, 
-</p>
-<ul>
-<li>
-specify the parameter <code>iniValPos=0</code> and <code>endValPos=1</code>
-if instantiating the class in the staging up process controller, and
-</li>
-<li>
-specify the parameter <code>iniValPos=1</code> and <code>endValPos=0</code>
-if instantiating the class in the staging down process controller.
-</li>
-</ul>
 <p>
 For the instance <code>enaChiIsoVal</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in the staging up process. The isolation value 1
-is fully open (<code>yChiWatIsoVal[1]=1</code>) and the valve 2 is closed
-(<code>yChiWatIsoVal[2]=0</code>).
+Before 600 seconds, the plant is not in the staging up process. The isolation value 1
+is fully open (<code>y1ChiWatIsoVal[1]=true</code>) and the valve 2 is closed
+(<code>y1ChiWatIsoVal[2]=false</code>).
 </li>
 <li>
-Between 540 seconds and 720 seconds, the plant is in the staging process. However, the
+Between 600 seconds and 800 seconds, the plant is in the staging process. However, the
 process is not yet requiring the chilled water isolation values to change their
 status, as the <code>uUpsDevSta=false</code>.
 </li>
 <li>
-Since 720 seconds, the plant staging process requires the isolation valve to change
-their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being enabled.
+Since 800 seconds, the plant staging process requires the isolation valve to change
+their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being enabled
+(<code>y1ChiWatIsoVal[2]=false</code>).
+</li>
+<li>
 Thus, the process starts opening the isolation valve 2. As specified by
 <code>chaChiWatIsoTim=300 seconds</code>, it takes 5 minutes to fully open isolation
-valve 2 at 1020 seconds, and <code>yEnaChiWatIsoVal</code> becomes <code>true</code>.
+valve 2 at 1100 seconds, and <code>yChaChiWatIsoVal</code> becomes <code>true</code>.
 </li>
 </ul>
 <p>
@@ -172,27 +163,56 @@ For the instance <code>disChiIsoVal</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in the staging down process. Both the isolation
-value 1 and 2 are fully open (<code>yChiWatIsoVal[1]=1</code>,
-<code>yChiWatIsoVal[2]=1</code>).
+Before 600 seconds, the plant is not in the staging down process. Both the isolation
+value 1 and 2 are fully open (<code>y1ChiWatIsoVal[1]=true</code>,
+<code>y1ChiWatIsoVal[2]=true</code>).
 </li>
 <li>
-Between 540 seconds and 720 seconds, the plant is in the staging process. However,
+Between 600 seconds and 800 seconds, the plant is in the staging process. However,
 the process is not yet requiring the chilled water isolation values to change their
 status, as the <code>uUpsDevSta=false</code>.
 </li>
 <li>
-Since 720 seconds, the plant staging process requires the isolation valve to change
-their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being disabled.
+Since 800 seconds, the plant staging process requires the isolation valve to change
+their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being disabled
+(<code>y1ChiWatIsoVal[2]=false</code>).
+</li>
+<li>
 Thus, the process starts closing the isolation valve 2. As specified by
 <code>chaChiWatIsoTim=300 seconds</code>, it takes 5 minutes to fully close isolation
-valve 2 at 1020 seconds, and <code>yEnaChiWatIsoVal</code> becomes <code>true</code>.
+valve 2 at 1100 seconds, and <code>yChaChiWatIsoVal</code> becomes <code>true</code>.
+</li>
+</ul>
+<p>
+For the instance <code>enaChiIsoVal1</code>,
+</p>
+<ul>
+<li>
+Before 600 seconds, the plant is not in the staging up process. The isolation value 1
+is fully open (<code>y1ChiWatIsoVal[1]=true</code>) and the valve 2 is closed
+(<code>y1ChiWatIsoVal[2]=false</code>).
+</li>
+<li>
+Between 600 seconds and 800 seconds, the plant is in the staging process. However, the
+process is not yet requiring the chilled water isolation values to change their
+status, as the <code>uUpsDevSta=false</code>.
+</li>
+<li>
+Since 800 seconds, the plant staging process requires the isolation valve to change
+their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being enabled
+(<code>y1ChiWatIsoVal[2]=true</code>). The valve 2 fully closed input becomes
+false (<code>u1ChiIsoClo[2]=false</code>).
+</li>
+<li>
+At 920 seconds, the valve 2 fully open input becomes true
+(<code>u1ChiIsoOpe[2]=true</code>) and the valve change process is completed
+(<code>yChaChiWatIsoVal=true</code>).
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-September 24, by Jianjun Hu:<br/>
+September 24, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

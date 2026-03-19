@@ -83,7 +83,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false)
     "Constant false"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  CDL.Routing.BooleanScalarReplicator                     conWatPumSta(
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator conWatPumSta(
     final nout=2) "Condenser water pump status"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta2(
@@ -138,8 +138,7 @@ equation
   connect(chiWatSupSet.y, towCon.TChiWatSupSet) annotation (Line(points={{-338,
           -40},{10,-40},{10,372},{198,372}}, color={0,0,127}));
   connect(plaCap.y, towCon.reqPlaCap) annotation (Line(points={{-338,140},{20,
-          140},{20,370},{198,370}},
-                               color={0,0,127}));
+          140},{20,370},{198,370}}, color={0,0,127}));
   connect(maxTowSpe1.y, towCon.uMaxSpeSet[1]) annotation (Line(points={{-138,
           100},{30,100},{30,367.5},{198,367.5}}, color={0,0,127}));
   connect(or3.y, towCon.uPla) annotation (Line(points={{-118,-70},{60,-70},{60,
@@ -167,8 +166,7 @@ equation
   connect(chiSta2.y, chiTwoSta1.u)
     annotation (Line(points={{-338,208},{-322,208}}, color={255,0,255}));
   connect(chiTwoSta1.y, towCon.uChi[2]) annotation (Line(points={{-298,208},{
-          -30,208},{-30,378.5},{198,378.5}},
-                                         color={255,0,255}));
+          -30,208},{-30,378.5},{198,378.5}}, color={255,0,255}));
   connect(chiTwoSta1.y, or3.u2) annotation (Line(points={{-298,208},{-200,208},{
           -200,-78},{-142,-78}}, color={255,0,255}));
   connect(chiTwoSta1.y, chiSta3.u) annotation (Line(points={{-298,208},{-200,208},
@@ -178,8 +176,7 @@ equation
   connect(chiSta3.y, addInt.u2) annotation (Line(points={{-78,-250},{-62,-250},{
           -62,-246},{-42,-246}}, color={255,127,0}));
   connect(addInt.y, towCon.uChiSta) annotation (Line(points={{-18,-240},{100,
-          -240},{100,354},{198,354}},
-                                color={255,127,0}));
+          -240},{100,354},{198,354}}, color={255,127,0}));
   connect(intTimTab.y[1], towCon.uChiStaSet) annotation (Line(points={{-18,-280},
           {108,-280},{108,352},{198,352}}, color={255,127,0}));
   connect(chiTwoSta1.y, maxTowSpe2.u2) annotation (Line(points={{-298,208},{-270,

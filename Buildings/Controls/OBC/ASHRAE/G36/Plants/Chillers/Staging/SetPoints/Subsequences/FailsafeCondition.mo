@@ -5,8 +5,8 @@ block FailsafeCondition
   parameter Boolean have_serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
-  parameter Boolean have_locSen = false
-    "Flag of local DP sensor: true=local DP sensor hardwired to controller"
+  parameter Boolean have_senDpChiWatRemWir = true
+    "True=remote DP sensor hardwired to controller"
     annotation (Dialog(enable=not have_serChi));
 
   parameter Integer nRemSen=2
@@ -57,33 +57,30 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_local(
     final unit="Pa",
-    final quantity="PressureDifference")
-    if (not have_serChi) and have_locSen
-    "Chilled water differential pressure setpoint for local pressure sensor"
+    final quantity="PressureDifference") if (not have_serChi) and not have_senDpChiWatRemWir
+    "Chilled water local differential pressure setpoint"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
-    final quantity="PressureDifference") if (not have_serChi) and have_locSen
+    final quantity="PressureDifference") if (not have_serChi) and not have_senDpChiWatRemWir
     "Chilled water differential pressure from local pressure sensor"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet_remote[nRemSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nRemSen](
     final unit=fill("Pa", nRemSen),
-    final quantity=fill("PressureDifference", nRemSen))
-    if (not have_serChi) and (not have_locSen)
-    "Chilled water differential pressure setpoint for remote sensor"
+    final quantity=fill("PressureDifference", nRemSen)) if (not have_serChi) and (have_senDpChiWatRemWir)
+    "Chilled water remote differential pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum_remote[nRemSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nRemSen](
     final unit=fill("Pa", nRemSen),
-    final quantity=fill("PressureDifference", nRemSen))
-    if (not have_serChi) and (not have_locSen)
+    final quantity=fill("PressureDifference",nRemSen)) if (not have_serChi) and (have_senDpChiWatRemWir)
     "Chilled water differential pressure from remote sensor"
     annotation (Placement(transformation(extent={{-180,-120},{-140,-80}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
@@ -95,7 +92,7 @@ block FailsafeCondition
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
-    final uHigh=dpDif) if (not have_serChi) and have_locSen
+    final uHigh=dpDif) if (not have_serChi) and not have_senDpChiWatRemWir
     "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
@@ -108,7 +105,7 @@ block FailsafeCondition
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysdpSup1[nRemSen](
     final uLow=fill(dpDif - dpDifHys, nRemSen),
     final uHigh=fill(dpDif, nRemSen))
-    if (not have_serChi) and (not have_locSen)
+    if (not have_serChi) and (have_senDpChiWatRemWir)
     "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
@@ -132,48 +129,48 @@ protected
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
-    if (not have_serChi) and have_locSen
+    if (not have_serChi) and not have_senDpChiWatRemWir
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nRemSen)
-    if (not have_serChi) and (not have_locSen)
+    if (not have_serChi) and (have_senDpChiWatRemWir)
     "Check if there is any true input"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2[nRemSen]
-    if (not have_serChi) and (not have_locSen)
+    if (not have_serChi) and (have_senDpChiWatRemWir)
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[nRemSen](
     final delayTime=fill(faiSafTruDelay,nRemSen),
     final delayOnInit=fill(false, nRemSen))
-    if (not have_serChi) and (not have_locSen) "Delays a true signal"
+    if (not have_serChi) and (have_senDpChiWatRemWir) "Delays a true signal"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
     final delayTime=faiSafTruDelay,
     final delayOnInit=false)
-    if (not have_serChi) and have_locSen "Delays a true signal"
+    if (not have_serChi) and not have_senDpChiWatRemWir "Delays a true signal"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
   connect(sub1.y, hysdpSup.u)
     annotation (Line(points={{-78,0},{-62,0}}, color={0,0,127}));
-  connect(dpChiWatPumSet_local, sub1.u1) annotation (Line(points={{-160,20},{-120,
-          20},{-120,6},{-102,6}}, color={0,0,127}));
-  connect(dpChiWatPum_local, sub1.u2) annotation (Line(points={{-160,-20},{-120,
-          -20},{-120,-6},{-102,-6}}, color={0,0,127}));
+  connect(dpChiWatSet_local, sub1.u1) annotation (Line(points={{-160,20},{-120,20},
+          {-120,6},{-102,6}}, color={0,0,127}));
+  connect(dpChiWat_local, sub1.u2) annotation (Line(points={{-160,-20},{-120,-20},
+          {-120,-6},{-102,-6}}, color={0,0,127}));
   connect(sub0.y, hysTSup.u)
     annotation (Line(points={{-78,80},{-62,80}},   color={0,0,127}));
   connect(sub2.y, hysdpSup1.u)
     annotation (Line(points={{-78,-80},{-62,-80}}, color={0,0,127}));
-  connect(dpChiWatPumSet_remote, sub2.u1) annotation (Line(points={{-160,-60},{-120,
+  connect(dpChiWatSet_remote, sub2.u1) annotation (Line(points={{-160,-60},{-120,
           -60},{-120,-74},{-102,-74}}, color={0,0,127}));
-  connect(dpChiWatPum_remote, sub2.u2) annotation (Line(points={{-160,-100},{-120,
-          -100},{-120,-86},{-102,-86}}, color={0,0,127}));
+  connect(dpChiWat_remote, sub2.u2) annotation (Line(points={{-160,-100},{-120,-100},
+          {-120,-86},{-102,-86}}, color={0,0,127}));
   connect(or1.y, y)
     annotation (Line(points={{122,0},{160,0}}, color={255,0,255}));
   connect(hysTSup.y, truDel.u)

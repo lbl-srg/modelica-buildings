@@ -13,7 +13,7 @@ block Down
   parameter Boolean have_WSE=true
     "True: have waterside economizer"
     annotation (Dialog(enable=not have_airCoo));
-  parameter Boolean have_ponyChiller=false
+  parameter Boolean have_ponChi=false
     "True: have pony chiller";
   parameter Boolean have_parChi=true
     "True: the plant has parallel chillers";
@@ -27,22 +27,22 @@ block Down
     "True: need limit chiller demand when chiller staging";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller and need_reduceChillerDemand));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponChi and need_reduceChillerDemand));
   parameter Real holChiDemTim(
     unit="s",
     displayUnit="s")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller and need_reduceChillerDemand));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponChi and need_reduceChillerDemand));
   parameter Real waiTim(
     unit="s",
     displayUnit="s")=30
     "Waiting time after enabling next head pressure control"
-    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponChi));
   parameter Real proOnTim(
     unit="s",
     displayUnit="s")=300
     "Enabled chiller operation time to indicate if it is proven on"
-    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponChi));
   parameter Boolean have_isoValEndSwi=false
     "True: chiller chilled water isolatiove valve have the end switch feedback"
     annotation (Dialog(group="Disable CHW isolation valve"));
@@ -67,12 +67,11 @@ block Down
   parameter Real byPasSetTim(unit="s", displayUnit="s")
     "Time to reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real minFloSet[nChi](unit=fill("m3/s", nChi), each displayUnit=
-        "m3/s")
+  parameter Real minFloSet[nChi](
+    unit=fill("m3/s", nChi))
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real maxFloSet[nChi](unit=fill("m3/s", nChi), each displayUnit=
-        "m3/s")
+  parameter Real maxFloSet[nChi](unit=fill("m3/s", nChi))
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
@@ -815,7 +814,7 @@ devices during the chiller staging down process.
 </p>
 <ol>
 <li>
-Identify the chiller(s) that should be enabled (and disabled, if <code>have_ponyChiller=true</code>).
+Identify the chiller(s) that should be enabled (and disabled, if <code>have_ponChi=true</code>).
 This is implemented in block <code>nexChi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller</a>

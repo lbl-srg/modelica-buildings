@@ -12,9 +12,17 @@ Version X.Y.Z is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buidings.Utilities.IO.Python_3_12
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package to call Python 3.12 modules from a Modelica block.<br/>
+                       This package replaces <code>Buidings.Utilities.IO.Python_3_8</code> which has
+                       been moved to the <code>Buildings.Obsolete</code> package.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4347\">issue 4347</a>.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Plants
+    </td>
+    <td valign=\"top\">Package of sequences for chiller and boiler plants
     </td>
     </tr>
 </table>
@@ -103,6 +111,15 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Explicitly assigned value to the roughness of the exterior constructions.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4367\">issue 4367</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+    </td>
+    <td valign=\"top\">Added missing header file.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
@@ -254,13 +271,14 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved to <code>Buildings.Controls.OBC.Utilities.PIDWithEnable</code> as there were two identical implementations.
     </td>
 </tr>
-
-<tr><td colspan=\"2\"><b>xxx</b>
+ <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Moved package to <code>Buildings.Obsolete.Utilities.IO.Python_3_8</code>
+                       as it is replaced by <code>Buildings.Utilities.IO.Python_3_12</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4347\">issue 4347</a>.
     </td>
 </tr>
 </table>

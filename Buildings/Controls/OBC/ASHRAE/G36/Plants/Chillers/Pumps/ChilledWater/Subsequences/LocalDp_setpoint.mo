@@ -50,11 +50,10 @@ block LocalDp_setpoint
     "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatPumSet_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatSet_local(
     final quantity="PressureDifference",
     final unit="Pa",
-    displayUnit="Pa")
-    "Local differential pressure setpoint"
+    displayUnit="Pa") "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{140,0},{180,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -65,7 +64,7 @@ block LocalDp_setpoint
   Buildings.Controls.OBC.CDL.Reals.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID[nSen](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
@@ -135,7 +134,7 @@ equation
     annotation (Line(points={{-160,0},{-122,0}}, color={255,0,255}));
   connect(dpChiWatSet_remote, div.u2) annotation (Line(points={{-160,-80},{-80,-80},
           {-80,-66},{-62,-66}},         color={0,0,127}));
-  connect(locDpSet.y, dpChiWatPumSet_local)
+  connect(locDpSet.y, dpChiWatSet_local)
     annotation (Line(points={{122,20},{160,20}}, color={0,0,127}));
   connect(booRep.y, conPID.uEna)
     annotation (Line(points={{-58,0},{-14,0},{-14,8}}, color={255,0,255}));

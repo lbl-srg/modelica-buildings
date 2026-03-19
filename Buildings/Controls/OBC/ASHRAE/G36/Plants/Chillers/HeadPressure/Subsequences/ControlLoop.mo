@@ -52,7 +52,7 @@ block ControlLoop
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

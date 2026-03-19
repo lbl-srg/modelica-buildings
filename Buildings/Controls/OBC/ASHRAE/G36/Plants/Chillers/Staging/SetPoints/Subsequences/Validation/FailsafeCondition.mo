@@ -2,12 +2,12 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subse
 model FailsafeCondition "Validate failsafe condition sequence"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.FailsafeCondition
-    faiSafCon0(have_locSen=true)
+    faiSafCon0(have_senDpChiWatRemWir=false)
     "Failsafe condition to test for the current stage availability input"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.FailsafeCondition
-    faiSafCon1(have_locSen=true)
+    faiSafCon1(have_senDpChiWatRemWir=false)
     "Failsafe condition to test for the chilled water supply temperature and differential pressure inputs"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
 
@@ -79,18 +79,18 @@ equation
           -110,70},{-110,96},{-42,96}},                    color={0,0,127}));
   connect(TCWSupSet.y, faiSafCon0.TChiWatSupSet) annotation (Line(points={{-118,
           110},{-60,110},{-60,99},{-42,99}},                     color={0,0,127}));
-  connect(dpChiWatSet.y, faiSafCon0.dpChiWatPumSet_local) annotation (Line(
-        points={{-78,70},{-60,70},{-60,91},{-42,91}}, color={0,0,127}));
-  connect(dpChiWat.y, faiSafCon0.dpChiWatPum_local) annotation (Line(points={{
-          -78,30},{-56,30},{-56,88},{-42,88}}, color={0,0,127}));
+  connect(dpChiWatSet.y, faiSafCon0.dpChiWatSet_local) annotation (Line(points={
+          {-78,70},{-60,70},{-60,91},{-42,91}}, color={0,0,127}));
+  connect(dpChiWat.y, faiSafCon0.dpChiWat_local) annotation (Line(points={{-78,30},
+          {-56,30},{-56,88},{-42,88}}, color={0,0,127}));
   connect(TCWSupSet1.y, faiSafCon1.TChiWatSupSet) annotation (Line(points={{42,110},
           {100,110},{100,99},{118,99}},                 color={0,0,127}));
-  connect(dpChiWatSet1.y, faiSafCon1.dpChiWatPumSet_local) annotation (Line(
-        points={{82,70},{90,70},{90,91},{118,91}}, color={0,0,127}));
+  connect(dpChiWatSet1.y, faiSafCon1.dpChiWatSet_local) annotation (Line(points
+        ={{82,70},{90,70},{90,91},{118,91}}, color={0,0,127}));
   connect(TCWSup1.y, faiSafCon1.TChiWatSup) annotation (Line(points={{42,70},{
           50,70},{50,96},{118,96}},                    color={0,0,127}));
-  connect(dpChiWat2.y, faiSafCon1.dpChiWatPum_local) annotation (Line(points={{
-          82,30},{100,30},{100,88},{118,88}}, color={0,0,127}));
+  connect(dpChiWat2.y, faiSafCon1.dpChiWat_local) annotation (Line(points={{82,30},
+          {100,30},{100,88},{118,88}}, color={0,0,127}));
   connect(TCWSupSet2.y,faiSafCon2. TChiWatSupSet) annotation (Line(points={{-118,
           -30},{-100,-30},{-100,-21},{-42,-21}},                       color={0,0,127}));
   connect(TCWSup2.y,faiSafCon2. TChiWatSup) annotation (Line(points={{-118,-70},

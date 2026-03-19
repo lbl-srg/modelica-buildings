@@ -1,17 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Validation;
 model Down "Validate change stage down condition sequence"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Down
-    withWSE(have_locSen=true)
+    withWSE(have_senDpChiWatRemWir=false)
             "Generates stage down signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Down
-    withWSE1(have_locSen=true)
+    withWSE1(have_senDpChiWatRemWir=false)
              "Generates stage down signal"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Down
-    noWSE(have_WSE=false, have_locSen=true)
+    noWSE(have_WSE=false, have_senDpChiWatRemWir=false)
                           "Generates stage down signal for a plant with a WSE"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
@@ -121,10 +121,10 @@ equation
   connect(TCWSup.y, withWSE.TChiWatSup) annotation (Line(points={{-138,-50},{
           -68,-50},{-68,46.8},{-42,46.8}},
                                        color={0,0,127}));
-  connect(dpChiWatSet.y, withWSE.dpChiWatPumSet_local) annotation (Line(points=
-          {{-98,10},{-76,10},{-76,57},{-42,57}}, color={0,0,127}));
-  connect(dpChiWat.y, withWSE.dpChiWatPum_local) annotation (Line(points={{-98,
-          -30},{-72,-30},{-72,55},{-42,55}}, color={0,0,127}));
+  connect(dpChiWatSet.y, withWSE.dpChiWatSet_local) annotation (Line(points={{-98,
+          10},{-76,10},{-76,57},{-42,57}}, color={0,0,127}));
+  connect(dpChiWat.y, withWSE.dpChiWat_local) annotation (Line(points={{-98,-30},
+          {-72,-30},{-72,55},{-42,55}}, color={0,0,127}));
   connect(oplrDown.y, withWSE.uOpeDow) annotation (Line(points={{-98,130},{-70,
           130},{-70,61},{-42,61}}, color={0,0,127}));
   connect(splrDown.y, withWSE.uStaDow) annotation (Line(points={{-138,110},{-72,
@@ -143,10 +143,10 @@ equation
   connect(TCWSup1.y, withWSE1.TChiWatSup) annotation (Line(points={{42,-50},{
           112,-50},{112,46.8},{138,46.8}},
                                        color={0,0,127}));
-  connect(dpChiWatSet1.y, withWSE1.dpChiWatPumSet_local) annotation (Line(
-        points={{82,10},{104,10},{104,57},{138,57}}, color={0,0,127}));
-  connect(dpChiWat1.y, withWSE1.dpChiWatPum_local) annotation (Line(points={{82,
-          -30},{108,-30},{108,55},{138,55}}, color={0,0,127}));
+  connect(dpChiWatSet1.y, withWSE1.dpChiWatSet_local) annotation (Line(points={
+          {82,10},{104,10},{104,57},{138,57}}, color={0,0,127}));
+  connect(dpChiWat1.y, withWSE1.dpChiWat_local) annotation (Line(points={{82,-30},
+          {108,-30},{108,55},{138,55}}, color={0,0,127}));
   connect(oplrDown1.y, withWSE1.uOpeDow) annotation (Line(points={{82,130},{110,
           130},{110,61},{138,61}}, color={0,0,127}));
   connect(WSESta1.y, withWSE1.uWseSta) annotation (Line(points={{82,-70},{114,
@@ -162,10 +162,10 @@ equation
           130},{-70,101},{-42,101}}, color={0,0,127}));
   connect(splrDown.y, noWSE.uStaDow) annotation (Line(points={{-138,110},{-72,
           110},{-72,99},{-42,99}},   color={0,0,127}));
-  connect(dpChiWatSet.y, noWSE.dpChiWatPumSet_local) annotation (Line(points={{
-          -98,10},{-82,10},{-82,86},{-56,86},{-56,97},{-42,97}}, color={0,0,127}));
-  connect(dpChiWat.y, noWSE.dpChiWatPum_local) annotation (Line(points={{-98,
-          -30},{-86,-30},{-86,84},{-54,84},{-54,95},{-42,95}}, color={0,0,127}));
+  connect(dpChiWatSet.y, noWSE.dpChiWatSet_local) annotation (Line(points={{-98,
+          10},{-82,10},{-82,86},{-56,86},{-56,97},{-42,97}}, color={0,0,127}));
+  connect(dpChiWat.y, noWSE.dpChiWat_local) annotation (Line(points={{-98,-30},
+          {-86,-30},{-86,84},{-54,84},{-54,95},{-42,95}}, color={0,0,127}));
   connect(TCWSup.y, noWSE.TChiWatSup) annotation (Line(points={{-138,-50},{-88,
           -50},{-88,82},{-50,82},{-50,86.8},{-42,86.8}},
                                                      color={0,0,127}));

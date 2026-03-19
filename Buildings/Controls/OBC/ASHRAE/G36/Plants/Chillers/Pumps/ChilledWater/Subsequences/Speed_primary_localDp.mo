@@ -48,8 +48,7 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{140,-90},{180,-50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

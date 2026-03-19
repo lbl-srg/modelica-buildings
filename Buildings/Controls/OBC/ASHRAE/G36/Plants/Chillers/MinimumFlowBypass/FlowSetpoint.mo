@@ -326,10 +326,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endSta
     "End staging change"
     annotation (Placement(transformation(extent={{240,50},{260,70}})));
-
   Buildings.Controls.OBC.CDL.Logical.Edge staChaSet1
     "Start changing the setpoint"
     annotation (Placement(transformation(extent={{180,-450},{200,-430}})));
+
 equation
   connect(uStaDow, not2.u)
     annotation (Line(points={{-460,-290},{-410,-290},{-410,-320},{-222,-320}},

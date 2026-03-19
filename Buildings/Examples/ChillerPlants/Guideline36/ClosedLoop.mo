@@ -37,7 +37,7 @@ model ClosedLoop
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-      computeWetBulbTemperature=true)
+    computeWetBulbTemperature=true)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"

@@ -68,7 +68,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nChi](
     final k=fill(0, nChi)) "Zero constant"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable loaCon(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable loaCon(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,

@@ -90,14 +90,14 @@ protected
     annotation (Placement(transformation(extent={{-240,150},{-220,170}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-240,-20},{-220,0}})));
-
-public
-  CDL.Logical.Sources.Pulse conWatPum[2](final width=fill(0.1, 2), final period
-      =fill(3600, 2)) "Condenser water pump status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse conWatPum[2](
+    final width=fill(0.1, 2),
+    final period=fill(3600, 2)) "Condenser water pump status"
     annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
-  CDL.Logical.Not                        not2[2]
+  Buildings.Controls.OBC.CDL.Logical.Not not2[2]
   "Logical not"
     annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
+
 equation
   connect(ram2.y,add1. u2)
     annotation (Line(points={{-338,-280},{-320,-280},{-320,-266},{-302,-266}},
@@ -171,8 +171,7 @@ equation
   connect(booRep.y, towFanSpe.uTow) annotation (Line(points={{-178,-80},{-164,-80},
           {-164,200},{-122,200}}, color={255,0,255}));
   connect(booRep.y, towFanSpe1.uTow) annotation (Line(points={{-178,-80},{56,
-          -80},{56,200},{96,200}},
-                              color={255,0,255}));
+          -80},{56,200},{96,200}}, color={255,0,255}));
   connect(booRep.y, towFanSpe2.uTow) annotation (Line(points={{-178,-80},{264,-80},
           {264,200},{318,200}}, color={255,0,255}));
   connect(chiSta1.y, not1.u)
