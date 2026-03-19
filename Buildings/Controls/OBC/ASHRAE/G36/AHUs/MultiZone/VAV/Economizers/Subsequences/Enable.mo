@@ -317,74 +317,60 @@ annotation (
         Text(
           extent={{-98,38},{-56,24}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-100,18},{-44,4}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uFreProSta"),
         Text(
           extent={{-100,68},{-56,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="hOutCut",
           visible=use_enthalpy),
         Text(
           extent={{-100,86},{-70,72}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="hOut",
           visible=use_enthalpy),
         Text(
           extent={{-100,116},{-56,102}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOutCut"),
         Text(
           extent={{-100,138},{-72,124}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-96,-100},{-32,-118}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uRetDam_max"),
         Text(
           extent={{-96,-10},{-28,-28}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uOutDam_max"),
         Text(
           extent={{-96,-30},{-28,-48}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uOutDam_min"),
         Text(
           extent={{-96,-80},{-12,-98}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uRetDamPhy_max"),
         Text(
           extent={{-96,-120},{-32,-138}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uRetDam_min"),
         Text(
           extent={{36,110},{96,92}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam_max"),
         Text(
           extent={{36,12},{96,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam_max"),
         Text(
           extent={{36,-88},{96,-106}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam_min")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,

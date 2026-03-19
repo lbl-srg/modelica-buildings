@@ -71,13 +71,9 @@ equation
                    extent={{-100,-100},{100,100}}), graphics={Text(
           extent={{32,104},{102,78}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="HSen"), Text(
           extent={{30,72},{100,46}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="HLat")}),
 defaultComponentName="airInt",
 Documentation(info="<html>

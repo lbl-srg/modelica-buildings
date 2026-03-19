@@ -93,8 +93,6 @@ equation
         Text(
           extent={{50,-70},{76,-94}},
           textColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Solid,
           textString="t"),
     Line(origin={4.061,6.184},
         points={{81.939,36.056},{65.362,36.056},{43.939,27.816},{11.939,75.816},

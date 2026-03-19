@@ -383,67 +383,54 @@ annotation (
         Text(
           extent={{-98,68},{-34,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOut_flow_normalized"),
         Text(
           extent={{-98,98},{-30,80}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOutMinSet_flow_normalized"),
         Text(
           extent={{-98,38},{-56,24}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-100,-22},{-50,-36}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{-98,-52},{-62,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uOutDam"),
         Text(
           extent={{-100,-82},{-56,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
           extent={{30,-78},{98,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDamPhy_max"),
         Text(
           extent={{38,-40},{98,-58}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam_max"),
         Text(
           extent={{38,-20},{98,-38}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam_min"),
         Text(
           extent={{42,20},{98,2}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam_max"),
         Text(
           extent={{42,40},{98,22}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam_min"),
         Text(
           extent={{46,100},{98,82}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yMinOutDam"),
         Text(
           extent={{54,78},{96,64}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yEnaMinOut")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-300},{220,300}})),
   Documentation(info="<html>
