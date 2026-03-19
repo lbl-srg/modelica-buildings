@@ -1314,17 +1314,23 @@ block AirToWater
     each final dtOff=dtOffHp)
     "Event sequencing"
     annotation (Placement(transformation(extent={{140,284},{160,312}})));
-  StagingRotation.StageAvailability avaStaCoo(nSta=nSta, nEqu=nHpTot)
+  StagingRotation.StageAvailability avaStaCoo(
+    final nSta=nSta,
+    final nEqu=nHpTot)
     if have_chiWat
     "Evaluate cooling stage availability"
     annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
   StagingRotation.StageChangeCommand chaStaHea(
-    typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+    final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+    final have_fouPip=have_fouPip,
     final have_pumSec=have_pumHeaWatSec,
     final have_inpPlrSta=false,
     final plrSta=plrSta,
-    nSta=nSta,
-    nEqu=nHpTot,
+    final staEqu=staEqu,
+    final staEquSinMod=staEquSinMod,
+    final staEquDouMod=staEquDouMod,
+    final nSta=nSta,
+    final nEqu=nHpTot,
     final capEqu=capHeaHp_nominal,
     final dtRun=dtRunSta,
     final cp_default=cp_default,
@@ -1335,8 +1341,8 @@ block AirToWater
     "Generate heating stage transition command"
     annotation (Placement(transformation(extent={{-40,308},{-20,332}})));
   StagingRotation.SortRuntime sorRunTimHea(
-    idxEquAlt=idxEquAlt, nin=nHpTot)
-             if have_heaWat and have_sorRunTim
+    final idxEquAlt=idxEquAlt,
+    final nin=nHpTot) if have_heaWat and have_sorRunTim
     "Sort lead/lag alternate equipment by staging runtime – Heating mode"
     annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
   Enabling.Enable enaCoo(
@@ -1353,11 +1359,15 @@ block AirToWater
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   StagingRotation.StageChangeCommand chaStaCoo(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
+    final have_fouPip=have_fouPip,
     final have_pumSec=have_pumChiWatSec,
     final have_inpPlrSta=false,
     final plrSta=plrSta,
-    nSta=nSta,
-    nEqu=nHpTot,
+    final staEqu=staEqu,
+    final staEquSinMod=staEquSinMod,
+    final staEquDouMod=staEquDouMod,
+    final nSta=nSta,
+    final nEqu=nHpTot,
     final capEqu=capCooHp_nominal,
     final dtRun=dtRunSta,
     final cp_default=cp_default,
@@ -1478,31 +1488,35 @@ block AirToWater
     if have_pumHeaWatSec
     "Secondary HW pump staging"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
-  Utilities.PlaceholderReal THeaWatRet(final have_inp=have_senTHeaWatPriRet,
-      final have_inpPh=true)
-                       if have_heaWat "Select HW return temperature sensor"
+  Utilities.PlaceholderReal THeaWatRet(
+    final have_inp=have_senTHeaWatPriRet,
+    final have_inpPh=true) if have_heaWat
+    "Select HW return temperature sensor"
     annotation (Placement(transformation(extent={{-230,30},{-210,50}})));
-  Utilities.PlaceholderReal VHeaWatSta_flow(final have_inp=have_senVHeaWatPri,
-      final have_inpPh=true) if have_heaWat
+  Utilities.PlaceholderReal VHeaWatSta_flow(
+    final have_inp=have_senVHeaWatPri,
+    final have_inpPh=true) if have_heaWat
     "For staging logic select primary flow sensor if both primary and secondary sensors available"
     annotation (Placement(transformation(extent={{-190,10},{-170,30}})));
-  Utilities.PlaceholderReal TChiWatRet(final have_inp=have_senTChiWatPriRet,
-      final have_inpPh=true)
-                       if have_chiWat "Select CHW return temperature sensor"
+  Utilities.PlaceholderReal TChiWatRet(
+    final have_inp=have_senTChiWatPriRet,
+    final have_inpPh=true) if have_chiWat
+    "Select CHW return temperature sensor"
     annotation (Placement(transformation(extent={{-230,-30},{-210,-10}})));
-  Utilities.PlaceholderReal VChiWatSta_flow(final have_inp=have_senVChiWatPri,
-      final have_inpPh=true) if have_chiWat
+  Utilities.PlaceholderReal VChiWatSta_flow(
+    final have_inp=have_senVChiWatPri,
+    final have_inpPh=true) if have_chiWat
     "For staging logic select primary flow sensor if both primary and secondary sensors available"
     annotation (Placement(transformation(extent={{-190,-52},{-170,-32}})));
   Buildings.Controls.OBC.CDL.Logical.Pre y1HpPre[nHpTot]
     "Left-limit of command signal to break algebraic loop"
     annotation (Placement(transformation(extent={{200,370},{180,390}})));
-  StagingRotation.StageCompletion comStaCoo(nin=nHpTot)
-    if have_chiWat
+  StagingRotation.StageCompletion comStaCoo(
+    final nin=nHpTot) if have_chiWat
     "Check successful completion of cooling stage change"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  StagingRotation.StageCompletion comStaHea(nin=nHpTot)
-    if have_heaWat
+  StagingRotation.StageCompletion comStaHea(
+    final nin=nHpTot) if have_heaWat
     "Check successful completion of heating stage change"
     annotation (Placement(transformation(extent={{-40,246},{-20,266}})));
   Setpoints.PlantReset resHeaWat(
@@ -1522,7 +1536,8 @@ block AirToWater
     final res_min=res_min,
     final rsp=rspHeaWat,
     final rsp_max=rspHeaWat_max,
-    final tri=triHeaWat) if have_heaWat "HW plant reset"
+    final tri=triHeaWat) if have_heaWat
+    "HW plant reset"
     annotation (Placement(transformation(extent={{50,230},{70,250}})));
   Setpoints.PlantReset resChiWat(
     final TSup_nominal=TChiWatSup_nominal,
@@ -1541,7 +1556,8 @@ block AirToWater
     final res_min=res_min,
     final rsp=rspChiWat,
     final rsp_max=rspChiWat_max,
-    final tri=triChiWat) if have_chiWat "CHW plant reset"
+    final tri=triChiWat) if have_chiWat
+    "CHW plant reset"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
   Pumps.Primary.VariableSpeed ctlPumPri(
     final have_heaWat=have_heaWat,
@@ -1922,12 +1938,12 @@ equation
   connect(comStaCoo.y1, resChiWat.u1StaPro)
     annotation (Line(points={{-18,-6},{-10,-6},{-10,-46},{48,-46}},color={255,0,255}));
   connect(resChiWat.TSupSet, chaStaCoo.TSupSet)
-    annotation (Line(points={{72,-46},{116,-46},{116,-20},{-52,-20},{-52,62},{
-          -42,62}},
+    annotation (Line(points={{72,-46},{116,-46},{116,-20},{-52,-20},{-52,64},{-42,
+          64}},
       color={0,0,127}));
   connect(resHeaWat.TSupSet, chaStaHea.TSupSet)
-    annotation (Line(points={{72,234},{118,234},{118,220},{-52,220},{-52,320},{
-          -42,320}},
+    annotation (Line(points={{72,234},{118,234},{118,220},{-52,220},{-52,322},{-42,
+          322}},
       color={0,0,127}));
   connect(ctlPumPri.yPumHeaWatPriHdr, yPumHeaWatPriHdr)
     annotation (Line(points={{212,84},{260,84},{260,100},{320,100}},color={0,0,127}));
@@ -2167,12 +2183,12 @@ equation
           0,255}));
   connect(avaEquHeaCoo.y1Coo, or1.u1) annotation (Line(points={{-128,214},{-124,
           214},{-124,20},{-122,20}}, color={255,0,255}));
-  connect(or1.y, enaEquCoo.u1Ava) annotation (Line(points={{-98,20},{-56,20},{
-          -56,68},{-52,68},{-52,84},{28,84},{28,98},{38,98}}, color={255,0,255}));
+  connect(or1.y, enaEquCoo.u1Ava) annotation (Line(points={{-98,20},{-54,20},{-54,
+          88},{28,88},{28,98},{38,98}},                       color={255,0,255}));
   connect(or1.y, avaStaCoo.u1Ava) annotation (Line(points={{-98,20},{-92,20},{-92,
           52},{-120,52},{-120,74},{-112,74}},     color={255,0,255}));
-  connect(or1.y, sorRunTimCoo.u1Ava) annotation (Line(points={{-98,20},{-56,20},
-          {-56,24},{-42,24}}, color={255,0,255}));
+  connect(or1.y, sorRunTimCoo.u1Ava) annotation (Line(points={{-98,20},{-54,20},
+          {-54,24},{-42,24}}, color={255,0,255}));
   connect(staPumChiWatPri.y1, or7.u2) annotation (Line(points={{212,180},{226,
           180},{226,-56},{-106,-56},{-106,-448},{-82,-448}},
                  color={255,0,255}));
@@ -2209,13 +2225,9 @@ equation
   connect(ctlPlaHyb.yHeaCoo, enaEquCoo.u1HeaCoo) annotation (Line(points={{82,-100},
           {104,-100},{104,-12},{72,-12},{72,84},{36,84},{36,94},{38,94}},
                                                                   color={255,0,255}));
-  connect(ctlPlaHyb.yStaEqu, chaStaCoo.staEqu) annotation (Line(points={{82,-108},
-          {88,-108},{88,-128},{-72,-128},{-72,68},{-42,68}}, color={0,0,127}));
   connect(ctlPlaHyb.yStaEqu, avaStaCoo.staEqu) annotation (Line(points={{82,-108},
           {88,-108},{88,-128},{-72,-128},{-72,44},{-128,44},{-128,66},{-112,66}},
         color={0,0,127}));
-  connect(ctlPlaHyb.yStaEqu, chaStaHea.staEqu) annotation (Line(points={{82,-108},
-          {88,-108},{88,-128},{-72,-128},{-72,326},{-42,326}}, color={0,0,127}));
   connect(ctlPlaHyb.yStaEqu, avaStaHea.staEqu) annotation (Line(points={{82,-108},
           {88,-108},{88,-128},{-72,-128},{-72,290},{-128,290},{-128,326},{-112,326}},
         color={0,0,127}));
@@ -2236,18 +2248,14 @@ if have_fouPip then
 end if;
   connect(staMat.y, avaStaHea.staEqu) annotation (Line(points={{-198,260},{-164,
           260},{-164,326},{-112,326}},                       color={0,0,127}));
-  connect(staMat.y, chaStaHea.staEqu) annotation (Line(points={{-198,260},{-164,
-          260},{-164,204},{-72,204},{-72,326},{-42,326}}, color={0,0,127}));
   connect(staMat.y, avaStaCoo.staEqu) annotation (Line(points={{-198,260},{-164,
           260},{-164,204},{-72,204},{-72,44},{-128,44},{-128,66},{-112,66}},
         color={0,0,127}));
-  connect(staMat.y, chaStaCoo.staEqu) annotation (Line(points={{-198,260},{-164,
-          260},{-164,204},{-72,204},{-72,68},{-42,68}}, color={0,0,127}));
   connect(con.y, enaEquHea.u1HeaCoo) annotation (Line(points={{-218,400},{-66,
           400},{-66,344},{38,344},{38,354}},
                                     color={255,0,255}));
-  connect(con.y, enaEquCoo.u1HeaCoo) annotation (Line(points={{-218,400},{-66,
-          400},{-66,94},{38,94}}, color={255,0,255}));
+  connect(con.y, enaEquCoo.u1HeaCoo) annotation (Line(points={{-218,400},{16,400},
+          {16,94},{38,94}},       color={255,0,255}));
   connect(con.y, booScaRep.u) annotation (Line(points={{-218,400},{-190,400},{
           -190,270},{-152,270}}, color={255,0,255}));
   connect(booScaRep.y, or2.u1)
@@ -2317,6 +2325,12 @@ end if;
   connect(ctlPumPri.yPumChiWatPriDed[1:nPumChiWatPri], yPumChiWatPriDed)
     annotation (Line(points={{212,72},{260,72},{260,40},{320,40}}, color={0,0,
           127}));
+  connect(ctlPlaHyb.yHeaCoo, chaStaCoo.u1HeaCoo) annotation (Line(points={{82,-100},
+          {104,-100},{104,-12},{72,-12},{72,84},{-52,84},{-52,68},{-42,68}},
+        color={255,0,255}));
+  connect(ctlPlaHyb.yHeaCoo, chaStaHea.u1HeaCoo) annotation (Line(points={{82,-100},
+          {104,-100},{104,-12},{72,-12},{72,224},{38,224},{38,344},{-52,344},{-52,
+          326},{-42,326}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl",
     Icon(

@@ -22,7 +22,7 @@ model HybridAirToWater "Validation of AWHP plant template"
         capHeaHp_nominal=1e6,
         mChiWatHp_flow_nominal=datAll.pla.hp.capCooHp_nominal/abs(datAll.pla.ctl.TChiWatSup_nominal
              - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-        capCooHp_nominal=1e6)))
+        capCooHp_nominal=1.2e6)))
                           "Plant parameters"
     annotation (Placement(transformation(extent={{-220,140},{-200,160}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
@@ -85,7 +85,8 @@ model HybridAirToWater "Validation of AWHP plant template"
       nPumHeaWatSec_override=pumHeaWatSec.nPum,
       nPumChiWatSec_override=pumChiWatSec.nPum,
       nAirHan=1,
-      nEquZon=0),
+      nEquZon=0,
+      have_senDpHeaWatRemWir=true),
     have_hrc_select=false,
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,

@@ -3,6 +3,9 @@ block StageChangeCommand "Generate stage change command"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
+  parameter Boolean have_fouPip=false
+    "True: The logic block is used in a hybrid heat pump plant"
+    annotation (Evaluate=true);
   parameter Boolean have_pumSec
     "Set to true for primary-secondary distribution, false for primary-only"
     annotation (Evaluate=true);
@@ -16,8 +19,45 @@ block StageChangeCommand "Generate stage change command"
     unit="1")=0.9
     "Staging part load ratio"
     annotation (Dialog(enable=not have_inpPlrSta));
-  final Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
-    "Transpose of staging matrix";
+
+  parameter Real staEqu[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for non-hybrid plant – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=not have_fouPip));
+
+  parameter Real staEquSinMod[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for hybrid plant in single-operation mode – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=have_fouPip));
+
+  parameter Real staEquDouMod[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for hybrid plant in heating-cooling mode – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=have_fouPip));
+
+  final parameter Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for non-hybrid plant"
+    annotation (Evaluate=true);
+
+  final parameter Real traStaEquSinMod[nEqu, nSta]= {{staEquSinMod[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for hybrid plant in single-operation mode"
+    annotation (Evaluate=true);
+
+  final parameter Real traStaEquDouMod[nEqu, nSta]= {{staEquDouMod[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for hybrid plant in heating-cooling mode"
+    annotation (Evaluate=true);
 
   parameter Integer nSta
     "Number of stages"
@@ -71,14 +111,6 @@ block StageChangeCommand "Generate stage change command"
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   // We allow the stage index to be zero, e.g., when the plant is disabled.
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
-    each final max=1,
-    each final min=0,
-    each final unit="1")
-    "Staging matrix – Equipment required for each stage"
-    annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
     final min=0,
     final max=nSta)
@@ -95,7 +127,7 @@ block StageChangeCommand "Generate stage change command"
     displayUnit="degC")
     "Active supply temperature setpoint used to compute required capacity"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s") "Volume flow rate used to compute required capacity"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
@@ -108,9 +140,6 @@ block StageChangeCommand "Generate stage change command"
     "Stage down command"
     annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
-  Modelica.Blocks.Sources.RealExpression traMatStaEqu[nEqu, nSta](y=traStaEqu)
-    "Transpose of staging matrix"
-    annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor reqEquSta[nEqu](
     each final nin=nSta)
     "Extract equipment required at given stage"
@@ -132,7 +161,7 @@ block StageChangeCommand "Generate stage change command"
     annotation (Placement(transformation(extent={{70,210},{90,230}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(h=1E-4*min(capEqu))
     "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
-    annotation (Placement(transformation(extent={{-90,-112},{-70,-92}})));
+    annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timUp(
     final t=dtRun)
     "Timer"
@@ -244,11 +273,37 @@ block StageChangeCommand "Generate stage change command"
   Buildings.Controls.OBC.CDL.Logical.And effAndNotFaiSaf
     "Efficiency condition met AND failsafe stage up condition is not true"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
+    final k=traStaEquDouMod) if have_fouPip
+    "Constant signal for tranverse of staging equation matrix in heating-cooling mode"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
+    final k=traStaEquSinMod) if have_fouPip
+    "Constant signal for tranverse of staging equation matrix in single-operation mode"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta] if have_fouPip
+    "Switch between transverse matrices for heating-cooling mode and single-operation mode"
+    annotation (Placement(transformation(extent={{32,20},{52,40}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
+    final k=traStaEqu) if not have_fouPip
+    "Constant signal for tranverse of staging equation matrix in non-hybrid plants"
+    annotation (Placement(transformation(extent={{32,-20},{52,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_fouPip
+    "Detect plant switching to heating-cooling mode"
+    annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCol(
+    final nout=nSta) if have_fouPip
+    "Replicate heating-cooling signal to match number of columns"
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
+    final nin=nSta,
+    final nout=nEqu) if have_fouPip
+    "Replicate heating-cooling signal vector to match number of rows"
+    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-88,200},{0,200},{0,208}},color={255,127,0}));
-  connect(traMatStaEqu.y, reqEquSta.u)
-    annotation (Line(points={{-59,220},{-12,220}},color={0,0,127}));
   connect(reqEquSta.y, capEquSta.u1)
     annotation (Line(points={{12,220},{20,220},{20,226},{28,226}},color={0,0,127}));
   connect(capEquPar.y, capEquSta.u2)
@@ -281,8 +336,6 @@ equation
     annotation (Line(points={{-158,180},{-150,180},{-150,194},{-142,194}},color={255,127,0}));
   connect(intScaRep2.y, reqEquStaLow.index)
     annotation (Line(points={{32,120},{40,120},{40,140},{0,140},{0,168}},color={255,127,0}));
-  connect(traMatStaEqu.y, reqEquStaLow.u)
-    annotation (Line(points={{-59,220},{-20,220},{-20,180},{-12,180}},color={0,0,127}));
   connect(reqEquStaLow.y, capEquStaLow.u2)
     annotation (Line(points={{12,180},{16,180},{16,174},{28,174}},color={0,0,127}));
   connect(capEquPar.y, capEquStaLow.u1)
@@ -300,10 +353,10 @@ equation
   connect(intToRea.y, setZer.u2)
     annotation (Line(points={{32,80},{100,80},{100,174},{108,174}},color={0,0,127}));
   connect(hol.y, gre.u1)
-    annotation (Line(points={{-108,-100},{-100,-100},{-100,-102},{-92,-102}},
+    annotation (Line(points={{-108,-100},{-92,-100}},
                                                 color={0,0,127}));
   connect(splTimCapSta.y, gre.u2)
-    annotation (Line(points={{-108,-140},{-106,-140},{-106,-110},{-92,-110}},
+    annotation (Line(points={{-108,-140},{-106,-140},{-106,-108},{-92,-108}},
                                                                     color={0,0,127}));
   connect(capSta.y, splTimCapSta.u2)
     annotation (Line(points={{92,220},{136,220},{136,-160},{-136,-160},{-136,-146},
@@ -320,7 +373,7 @@ equation
     annotation (Line(points={{-108,-100},{-100,-100},{-100,-140},{-92,-140}},
                                                                     color={0,0,127}));
   connect(gre.y, timUp.u)
-    annotation (Line(points={{-68,-102},{-60,-102},{-60,-100},{-52,-100}},
+    annotation (Line(points={{-68,-100},{-52,-100}},
                                                 color={255,0,255}));
   connect(les.y, timDow.u)
     annotation (Line(points={{-68,-140},{-52,-140}},
@@ -372,11 +425,28 @@ equation
           {-56,-40},{-52,-40}}, color={255,0,255}));
   connect(timDow.passed, effAndNotFaiSaf.u2)
     annotation (Line(points={{-28,-148},{8,-148}}, color={255,0,255}));
-  connect(notFaiSaf.y, effAndNotFaiSaf.u1) annotation (Line(points={{-28,-40},{
-          -20,-40},{-20,-140},{8,-140}},
-                                     color={255,0,255}));
+  connect(notFaiSaf.y, effAndNotFaiSaf.u1) annotation (Line(points={{-28,-40},{-20,
+          -40},{-20,-140},{8,-140}}, color={255,0,255}));
   connect(effAndNotFaiSaf.y, y1Dow) annotation (Line(points={{32,-140},{180,
           -140},{180,-80},{220,-80}}, color={255,0,255}));
+  connect(conTraMatStaEquSinMod.y, swiMod.u3) annotation (Line(points={{-18,10},
+          {20,10},{20,22},{30,22}}, color={0,0,127}));
+  connect(conTraMatStaEquDouMod.y, swiMod.u1) annotation (Line(points={{-18,50},
+          {20,50},{20,38},{30,38}}, color={0,0,127}));
+  connect(swiMod.y, reqEquSta.u) annotation (Line(points={{54,30},{60,30},{60,236},
+          {-20,236},{-20,220},{-12,220}}, color={0,0,127}));
+  connect(conTraMatStaEqu.y, reqEquSta.u) annotation (Line(points={{54,-10},{60,
+          -10},{60,236},{-20,236},{-20,220},{-12,220}}, color={0,0,127}));
+  connect(swiMod.y, reqEquStaLow.u) annotation (Line(points={{54,30},{60,30},{60,
+          236},{-20,236},{-20,180},{-12,180}}, color={0,0,127}));
+  connect(conTraMatStaEqu.y, reqEquStaLow.u) annotation (Line(points={{54,-10},{
+          60,-10},{60,236},{-20,236},{-20,180},{-12,180}}, color={0,0,127}));
+  connect(u1HeaCoo, booScaRepCol.u)
+    annotation (Line(points={{-220,50},{-162,50}}, color={255,0,255}));
+  connect(booScaRepCol.y, booVecRepRow.u)
+    annotation (Line(points={{-138,50},{-122,50}}, color={255,0,255}));
+  connect(booVecRepRow.y, swiMod.u2) annotation (Line(points={{-98,50},{-60,50},
+          {-60,30},{30,30}}, color={255,0,255}));
   annotation (
     defaultComponentName="chaSta",
     Icon(
