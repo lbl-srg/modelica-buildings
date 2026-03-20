@@ -82,6 +82,8 @@ model HybridAirToWater "Validation of AWHP plant template"
       is_typDis_override=true,
       typDis_override=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       have_PumHeaWatSec_override=true,
+      have_senTHeaWatPriRet_override=false,
+      have_senTChiWatPriRet_override=false,
       nPumHeaWatSec_override=pumHeaWatSec.nPum,
       nPumChiWatSec_override=pumChiWatSec.nPum,
       nAirHan=1,
@@ -599,6 +601,33 @@ equation
     annotation (Line(points={{-64,-80},{-58,-80}}, color={0,127,255}));
   connect(VHeaWatPri_flow.port_b, junHWBypSup.port_1)
     annotation (Line(points={{-38,-80},{-34,-80}}, color={0,127,255}));
+  connect(senTemChiWatSecSup.T, busPla.TChiWatSecSup) annotation (Line(points={
+          {80,11},{80,16},{-154,16},{-154,0},{-180,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(senTemHeaWatSecSup.T, busPla.THeaWatSecSup) annotation (Line(points={
+          {84,-69},{84,-64},{-126,-64},{-126,16},{-154,16},{-154,0},{-180,0}},
+        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(senTemHeaWatPriRet.T, busPla.THeaWatPriRet) annotation (Line(points={
+          {-72,-109},{-72,-104},{-120,-104},{-120,-122},{-228,-122},{-228,0},{
+          -180,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(senTemChiWatPriRet.T, busPla.TChiWatPriRet) annotation (Line(points={
+          {-74,-29},{-74,-16},{-122,-16},{-122,-8},{-154,-8},{-154,0},{-180,0}},
+        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     __Dymola_Commands(
       file=
