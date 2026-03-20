@@ -94,8 +94,7 @@ model AirToWaterSHC
       16, 0, 1;
       18, 0, 0.6;
       22, 0.1, 0.1;
-      24, 0, 0
-    ],
+      24, 0, 0],
     timeScale=3600)
     "Fraction of design load – Index 1 for heating, 2 for cooling"
     annotation(Placement(transformation(extent={{-180,30},{-160,50}})));
@@ -315,7 +314,7 @@ equation
     annotation(Line(points={{30,-80},{-40,-80},{-40,-84}},
       color={0,127,255}));
 annotation(__Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWater.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterSHC.mos"
     "Simulate and plot"),
   experiment(Tolerance=1e-6,
     StopTime=86400.0),
