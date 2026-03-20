@@ -193,13 +193,11 @@ block EventSequencing "Staging event sequencing"
     "Return true if enabled in cooling mode"
     annotation (Placement(transformation(extent={{130,60},{150,80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rou(
-    final nout=1)
-    if have_pumChiWatPri
+    final nout=1) if have_pumChiWatPri or have_fouPip
     "Signal routing for plants with dedicated primary CHW pumps"
-    annotation (Placement(transformation(extent={{60,-76},{80,-56}})));
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rou1(
-    final nout=1)
-    if not have_pumChiWatPri
+    final nout=1) if not have_pumChiWatPri and not have_fouPip
     "Signal routing for plants without dedicated primary CHW pumps"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Nor off
@@ -264,10 +262,6 @@ equation
     annotation (Line(points={{112,100},{124,100},{124,140},{180,140}},color={255,0,255}));
   connect(u1Hea, u1Hea_internal.u)
     annotation (Line(points={{-180,140},{-152,140}},color={255,0,255}));
-  connect(u1Coo_internal.y, u1HeaOrCoo.u2)
-    annotation (Line(points={{-128,80},{-100,80},{-100,112},{-92,112}},color={255,0,255}));
-  connect(u1Hea_internal.y, u1HeaOrCoo.u1)
-    annotation (Line(points={{-128,140},{-120,140},{-120,120},{-92,120}},color={255,0,255}));
   connect(u1HeaOrCoo.y, timVal.u)
     annotation (Line(points={{-68,120},{-60,120},{-60,100},{-52,100}},color={255,0,255}));
   connect(u1HeaOrCoo.y, timVal_internal.uPh) annotation (Line(points={{-68,120},
@@ -292,7 +286,7 @@ equation
   connect(enaAndCoo.y, y1AndCoo)
     annotation (Line(points={{152,70},{156,70},{156,80},{180,80}},color={255,0,255}));
   connect(u1Hea_internal.y, rou.u)
-    annotation (Line(points={{-128,140},{-120,140},{-120,-66},{58,-66}},color={255,0,255}));
+    annotation (Line(points={{-128,140},{-120,140},{-120,-70},{58,-70}},color={255,0,255}));
   connect(u1HeaOrCoo.y, rou1.u)
     annotation (Line(points={{-68,120},{44,120},{44,-40},{58,-40}},  color={255,0,255}));
   connect(u1Hea_internal.y, off.u1)
@@ -317,7 +311,7 @@ equation
     annotation (Line(points={{82,-40},{90,-40},{90,-60},{108,-60}},
                                                 color={255,0,255}));
   connect(rou.y[1], latPumHeaWatPri.u)
-    annotation (Line(points={{82,-66},{90,-66},{90,-60},{108,-60}},
+    annotation (Line(points={{82,-70},{90,-70},{90,-60},{108,-60}},
                                                                   color={255,0,255}));
   connect(timHp.passed, latPumHeaWatPri.clr)
     annotation (Line(points={{12,12},{40,12},{40,-20},{100,-20},{100,-66},{108,
@@ -336,12 +330,16 @@ equation
                                                                       color={255,0,255}));
   connect(u1Hea_internal.y, truDelHea.u) annotation (Line(points={{-128,140},{-120,
           140},{-120,40},{-82,40}}, color={255,0,255}));
-  connect(truDelHea.y, latValHeaWatIso.u)
-    annotation (Line(points={{-58,40},{98,40}}, color={255,0,255}));
   connect(u1Coo_internal.y, truDelCoo.u) annotation (Line(points={{-128,80},{-100,
           80},{-100,-30},{-82,-30}}, color={255,0,255}));
-  connect(truDelCoo.y, latValChiWatIso.u) annotation (Line(points={{-58,-30},{-50,
-          -30},{-50,0},{98,0}}, color={255,0,255}));
+  connect(u1Hea_internal.y, u1HeaOrCoo.u1) annotation (Line(points={{-128,140},
+          {-120,140},{-120,120},{-92,120}}, color={255,0,255}));
+  connect(u1Coo_internal.y, u1HeaOrCoo.u2) annotation (Line(points={{-128,80},{
+          -100,80},{-100,112},{-92,112}}, color={255,0,255}));
+  connect(truDelHea.y, latValHeaWatIso.u)
+    annotation (Line(points={{-58,40},{98,40}}, color={255,0,255}));
+  connect(truDelCoo.y, latValChiWatIso.u) annotation (Line(points={{-58,-30},{
+          -40,-30},{-40,0},{98,0}}, color={255,0,255}));
   annotation (
     defaultComponentName="seqEve",
     Icon(
