@@ -201,7 +201,7 @@ annotation(Documentation(
     <td>
       No valve<br />
       Two-way modulating valve<br />
-      Two-way modulating valve
+      Two-way two-position valve
     </td>
     <td>
       If the CW pumps are dedicated, the option with no isolation valve is
