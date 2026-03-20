@@ -11,7 +11,7 @@ createPlot(
     id=1,
     subPlot=1,
     position={5, 5, 400, 600},
-    y={"hpSup.on", "hpSup.mode"},
+    y={"hpSup.onHea", "hpSup.onCoo"},
     autoscale=true,
     grid=true
 );

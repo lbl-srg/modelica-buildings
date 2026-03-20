@@ -182,14 +182,12 @@ block TableData2DLoadDepSHC
     PHeaInt1_nominal, scaFacCoo * PCooInt1_nominal, scaFacCooShc *
     PShcInt1_nominal})
     "Maximum power at nominal conditions (external use) - All modes";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
-    "On/off command: true to enable heat pump, false to disable heat pump"
-    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
-      iconTransformation(extent={{-140,120},{-100,160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode
-    "Operating mode command (from Buildings.Fluid.HeatPumps.Types.OperatingModes)"
-    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-      iconTransformation(extent={{-140,100},{-100,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onHea
+    "Heating on/off command" annotation (Placement(transformation(extent={{-140,
+      120},{-100,160}}), iconTransformation(extent={{-140,120},{-100,160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onCoo
+    "Cooling on/off command" annotation (Placement(transformation(extent={{-140,
+            100},{-100,140}}), iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THwEnt(
     final unit="K",
     displayUnit="degC")
@@ -512,12 +510,10 @@ equation
     useHeaShc=if nUniShcRaw < nUni and nUniHeaShcRaw > nUniShcRaw then 1 else 0;
     useCooShc=if nUniShcRaw < nUni and nUniCooShcRaw > nUniShcRaw then 1 else 0;
   end when;
-  if on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.heating
-       then
+  if onHea and not onCoo then
     useHea=1;
     useCoo=0;
-  elseif on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.cooling
-       then
+  elseif not onHea and onCoo then
     useHea=0;
     useCoo=1;
   else
@@ -541,8 +537,7 @@ equation
   QHeaShcInt_flow=scaFacHeaShc *(PShcInt .- QCooShcInt_flow) / scaFacCooShc;
   // Calculate number of modules in SHC mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions near zero load)
-  if on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc
-       then
+  if onHea and onCoo then
     nUniHeaShcRaw = integer(ceil((QHeaSetMea_flow - 10 * deltaX *
       QHeaShc_flow_nominal) / SPLR / max(
       cat(

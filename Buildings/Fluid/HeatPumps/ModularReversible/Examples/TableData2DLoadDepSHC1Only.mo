@@ -332,38 +332,22 @@ model TableData2DLoadDepSHC1Only
     annotation (Placement(transformation(extent={{170,-270},{150,-250}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold valChwReq(t=1E-1, h=5E-2)
     "CHW plant request from terminal valve"
-    annotation (Placement(transformation(extent={{120,190},{100,210}})));
+    annotation (Placement(transformation(extent={{120,210},{100,230}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold valHwReq(t=1E-1, h=5E-2)
     "HW plant request from terminal valve"
-    annotation (Placement(transformation(extent={{120,230},{100,250}})));
+    annotation (Placement(transformation(extent={{120,250},{100,270}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger reqHea
     "Heating plant request"
-    annotation (Placement(transformation(extent={{90,230},{70,250}})));
+    annotation (Placement(transformation(extent={{90,250},{70,270}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger reqCoo
     "Cooling plant request"
-    annotation (Placement(transformation(extent={{92,190},{72,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Or on "HP commanded on"
-    annotation (Placement(transformation(extent={{10,210},{-10,230}})));
-  Buildings.Controls.OBC.CDL.Logical.And onAndHea
-    "HP commanded on and heating enabled"
-    annotation (Placement(transformation(extent={{-30,230},{-50,250}})));
-  Buildings.Controls.OBC.CDL.Logical.And onAndCoo
-    "HP commanded on and cooling enabled"
-    annotation (Placement(transformation(extent={{-30,190},{-50,210}})));
+    annotation (Placement(transformation(extent={{92,210},{72,230}})));
   Templates.Plants.Controls.Enabling.Enable enaHea(typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
       TOutLck=295.15) "Enable heating"
-    annotation (Placement(transformation(extent={{50,230},{30,250}})));
+    annotation (Placement(transformation(extent={{50,250},{30,270}})));
   Templates.Plants.Controls.Enabling.Enable enaCoo(typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
       TOutLck=290.15) "Enable cooling"
-    annotation (Placement(transformation(extent={{50,190},{30,210}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger intModCoo(integerTrue
-      =2) "Cast to integer for operating mode command"
-    annotation (Placement(transformation(extent={{-90,190},{-110,210}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger intModHea(integerTrue
-      =1) "Cast to integer for operating mode command"
-    annotation (Placement(transformation(extent={{-90,230},{-110,250}})));
-  Buildings.Controls.OBC.CDL.Integers.Add mode "Operating mode"
-    annotation (Placement(transformation(extent={{-130,230},{-150,250}})));
+    annotation (Placement(transformation(extent={{50,210},{30,230}})));
   Templates.Components.Routing.SingleToMultiple inlPumChwPri(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -631,51 +615,23 @@ equation
   connect(THwSup.T, THwRetPre.u) annotation (Line(points={{-90,-209},{-90,-160},
           {-216,-160},{-216,140},{-212,140}},          color={0,0,127}));
   connect(valDisChw.y_actual, valChwReq.u) annotation (Line(points={{165,-13},{
-          170,-13},{170,200},{122,200}},
+          170,-13},{170,220},{122,220}},
                                      color={0,0,127}));
   connect(valDisHw.y_actual, valHwReq.u) annotation (Line(points={{165,-213},{
-          176,-213},{176,240},{122,240}},
+          176,-213},{176,260},{122,260}},
                                       color={0,0,127}));
-  connect(on.y, hp.on) annotation (Line(points={{-12,220},{-224,220},{-224,-56},
-          {-192,-56}}, color={255,0,255}));
   connect(valHwReq.y, reqHea.u)
-    annotation (Line(points={{98,240},{92,240}},   color={255,0,255}));
+    annotation (Line(points={{98,260},{92,260}},   color={255,0,255}));
   connect(valChwReq.y, reqCoo.u)
-    annotation (Line(points={{98,200},{94,200}},   color={255,0,255}));
+    annotation (Line(points={{98,220},{94,220}},   color={255,0,255}));
   connect(reqHea.y, enaHea.nReqPla)
-    annotation (Line(points={{68,240},{52,240}},  color={255,127,0}));
+    annotation (Line(points={{68,260},{52,260}},  color={255,127,0}));
   connect(reqCoo.y, enaCoo.nReqPla)
-    annotation (Line(points={{70,200},{52,200}},  color={255,127,0}));
+    annotation (Line(points={{70,220},{52,220}},  color={255,127,0}));
   connect(con.y, enaHea.TOut) annotation (Line(points={{-238,160},{60,160},{60,
-          236},{52,236}},     color={0,0,127}));
+          256},{52,256}},     color={0,0,127}));
   connect(con.y, enaCoo.TOut) annotation (Line(points={{-238,160},{60,160},{60,
-          196},{52,196}},     color={0,0,127}));
-  connect(enaHea.y1, on.u1) annotation (Line(points={{28,240},{20,240},{20,220},
-          {12,220}}, color={255,0,255}));
-  connect(enaCoo.y1, on.u2) annotation (Line(points={{28,200},{20,200},{20,212},
-          {12,212}}, color={255,0,255}));
-  connect(enaHea.y1, onAndHea.u1)
-    annotation (Line(points={{28,240},{-28,240}},color={255,0,255}));
-  connect(on.y, onAndHea.u2) annotation (Line(points={{-12,220},{-20,220},{-20,
-          232},{-28,232}},
-                     color={255,0,255}));
-  connect(enaCoo.y1, onAndCoo.u1)
-    annotation (Line(points={{28,200},{-28,200}},color={255,0,255}));
-  connect(on.y, onAndCoo.u2) annotation (Line(points={{-12,220},{-20,220},{-20,
-          192},{-28,192}},
-                     color={255,0,255}));
-  connect(onAndHea.y, intModHea.u)
-    annotation (Line(points={{-52,240},{-88,240}}, color={255,0,255}));
-  connect(onAndCoo.y, intModCoo.u)
-    annotation (Line(points={{-52,200},{-88,200}}, color={255,0,255}));
-  connect(intModHea.y, mode.u1) annotation (Line(points={{-112,240},{-120,240},
-          {-120,246},{-128,246}},
-                               color={255,127,0}));
-  connect(intModCoo.y, mode.u2) annotation (Line(points={{-112,200},{-120,200},
-          {-120,234},{-128,234}},
-                               color={255,127,0}));
-  connect(mode.y, hp.mode) annotation (Line(points={{-152,240},{-226,240},{-226,
-          -58},{-192,-58}}, color={255,127,0}));
+          216},{52,216}},     color={0,0,127}));
 
   connect(ctlPumChwPri.y, busPumChwPri.y) annotation (Line(points={{-38,50},{
           -32,50},{-32,72},{-42,72},{-42,76},{-50,76}},
@@ -802,6 +758,10 @@ equation
     annotation (Line(points={{-20,-20},{-20,12}}, color={0,127,255}));
   connect(outPumChwPri.ports_a, pumChwPri.ports_b)
     annotation (Line(points={{0,-20},{0,12}}, color={0,127,255}));
+  connect(enaCoo.y1, hp.onCoo) annotation (Line(points={{28,220},{-222,220},{
+          -222,-58},{-192,-58}}, color={255,0,255}));
+  connect(enaHea.y1, hp.onHea) annotation (Line(points={{28,260},{-224,260},{
+          -224,-56},{-192,-56}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=

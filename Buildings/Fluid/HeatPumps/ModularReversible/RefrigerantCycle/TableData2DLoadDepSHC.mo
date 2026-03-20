@@ -150,11 +150,11 @@ equation
     annotation (Line(points={{52,-60},{64,-60},{64,-78}}, color={0,0,127}));
   connect(calQUseP.QHea_flow, addQEvaQCon.u1) annotation (Line(points={{112,54},
           {124,54},{124,-4},{20,-4},{20,-54},{28,-54}}, color={0,0,127}));
-  connect(sigBus.onOffMea, calQUseP.on) annotation (Line(
+  connect(sigBus.onHea, calQUseP.onHea) annotation (Line(
       points={{1,120},{0,120},{0,54},{88,54}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigBus.mode, calQUseP.mode) annotation (Line(
+  connect(sigBus.onCoo, calQUseP.onCoo) annotation (Line(
       points={{1,120},{0,120},{0,52},{88,52}},
       color={255,204,51},
       thickness=0.5));
