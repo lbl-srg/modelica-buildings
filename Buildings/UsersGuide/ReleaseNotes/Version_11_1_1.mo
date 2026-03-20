@@ -170,14 +170,14 @@ units are wrong or errors in documentation):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4455\">#4455</a>.
     </td>
 </tr>
-<tr><td valign=\\\"top\\\">Buildings.Fluid.Geothermal.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix<br/>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix<br/>
                        Buildings.Fluid.Geothermal.BaseClasses.HeatTransfer.LoadAggregation.aggregationWeightingFactors<br/>
                        Buildings.Fluid.Geothermal.BaseClasses.HeatTransfer.LoadAggregation.temperatureResponseMatrix<br/>
                        Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.Validation.TemperatureResponseMatrix<br/>
                        Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.temperatureResponseMatrix
     </td>
-    <td valign=\\\"top\\\">Corrected type specification for g-function.<br/>
-                       This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/4501\\\">#4501</a>.
+    <td valign=\"top\">Corrected type specification for g-function.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4501\">#4501</a>.
     </td>
 </tr>
 </table>
