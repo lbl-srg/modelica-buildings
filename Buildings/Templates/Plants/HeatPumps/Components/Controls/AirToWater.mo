@@ -210,7 +210,8 @@ equation
   connect(bus.TChiWatRetUpsHrc, ctl.TChiWatRetUpsHrc);
   connect(bus.THeaWatRetUpsHrc, ctl.THeaWatRetUpsHrc);
   // Outputs to plant control bus
-  connect(ctl.TSupSet, busHp.TSet);
+  connect(ctl.THeaWatSupHpSet, busHp.THeaWatSet);
+  connect(ctl.TChiWatSupHpSet, busHp.TChiWatSet);
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.THeaWatSupSet, bus.THeaWatSupSet);
   connect(ctl.dpChiWatRemSet, bus.dpChiWatRemSet);
@@ -235,7 +236,8 @@ equation
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
   connect(ctl.y1Hrc, busHrc.y1);
   connect(ctl.y1CooHrc, busHrc.y1Coo);
-  connect(ctl.TSupSetHrc, busHrc.TSet);
+  connect(ctl.THeaWatHrcSupSet, busHrc.THeaWatSet);
+  connect(ctl.TChiWatHrcSupSet, busHrc.TChiWatSet);
   connect(ctl.y1PumChiWatHrc, busPumChiWatHrc.y1);
   connect(ctl.y1PumHeaWatHrc, busPumHeaWatHrc.y1);
   /* Control point connection - stop */
@@ -316,11 +318,11 @@ equation
           {-48.2,0},{-40,0},{-40,-22},{-22,-22}}, color={0,0,127}));
   connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet) annotation (Line(points={
           {-48.2,-40},{-40,-40},{-40,-28},{-22,-28}}, color={0,0,127}));
-  connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet) annotation (Line(points={
-          {22,-12},{40,-12},{40,-60},{-80,-60},{-80,-34},{-72,-34}}, color={0,0,
+  connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet) annotation (Line(points={{22,-8},
+          {40,-8},{40,-60},{-80,-60},{-80,-34},{-72,-34}},           color={0,0,
           127}));
-  connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={
-          {22,-10},{34,-10},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
+  connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={{22,-6},
+          {34,-6},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
         color={0,0,127}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
