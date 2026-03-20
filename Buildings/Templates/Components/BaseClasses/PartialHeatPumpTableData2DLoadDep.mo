@@ -87,7 +87,7 @@ equation
       points={{0,160},{0,20},{-20,20},{-20,-8},{-12,-8}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TSet, hp.TSet) annotation (Line(
+  connect(bus.TSet, hp.THwSet) annotation (Line(
       points={{0,160},{0,20},{-20,20},{-20,-2},{-12,-2}},
       color={255,204,51},
       thickness=0.5));

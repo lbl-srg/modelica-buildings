@@ -75,17 +75,16 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable chiller, false to disable chiller"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-138,-18},{-102,18}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
-    final unit="K",
-    displayUnit="degC")
-    "Temperature setpoint"
+      iconTransformation(extent={{-138,-38},{-102,-2}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChwSet(final unit="K",
+      displayUnit="degC")
+    "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-138,22},{-102,58}})));
+        iconTransformation(extent={{-138,-18},{-102,18}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo
     if have_switchover "Switchover signal: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-138,-38},{-102,-2}})));
+      iconTransformation(extent={{-138,-58},{-102,-22}})));
   Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.CalculateCommandSignal calYSet(
     final use_rev=false,
     final useInHeaPum=false)
@@ -108,6 +107,14 @@ model TableData2DLoadDep
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-110})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(final unit="K",
+      displayUnit="degC") if have_switchover
+    "HW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+        iconTransformation(extent={{-138,22},{-102,58}})));
+  Templates.Plants.Controls.Utilities.PlaceholderReal phTHwSet(final have_inp=
+        have_switchover, u_internal=273.15) "Placeholder value"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 equation
   if not use_intSafCtr then
     connect(calYSet.ySet, sigBus.yMea)
@@ -117,9 +124,6 @@ equation
   connect(on, sigBus.onOffMea)
     annotation (Line(points={{-160,-20},{-132,-20},{-132,-38},{-141,-38},{-141,
           -41}},                                               color={255,0,255}));
-  connect(TSet, sigBus.TSet)
-    annotation (Line(points={{-160,40},{-120,40},{-120,-38},{-141,-38},{-141,-41}},
-                                                             color={0,0,127}));
   connect(coo, sigBus.coo)
     annotation (Line(points={{-160,-80},{-132,-80},{-132,-42},{-142,-42},{-142,-41},
           {-141,-41}},                                         color={255,0,255}),
@@ -157,6 +161,12 @@ equation
       points={{-141,-41},{-44,-41},{-44,-16},{-48,-16}},
       color={255,204,51},
       thickness=0.5));
+  connect(THwSet, phTHwSet.u) annotation (Line(points={{-160,60},{-132,60},{
+          -132,80},{-122,80}}, color={0,0,127}));
+  connect(phTHwSet.y, sigBus.THwSet) annotation (Line(points={{-98,80},{-80,80},
+          {-80,-41},{-141,-41}}, color={0,0,127}));
+  connect(TChwSet, sigBus.TChwSet) annotation (Line(points={{-160,40},{-122,40},
+          {-122,-41},{-141,-41}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(

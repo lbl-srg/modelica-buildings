@@ -46,7 +46,7 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cp[2](
     k={cpEva, cpCon})
     "Specific heat capacity"
-    annotation (Placement(transformation(extent={{60,88},{80,108}})));
+    annotation (Placement(transformation(extent={{60,94},{80,114}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator coo(
     nout=1)
     if have_switchover
@@ -88,7 +88,7 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
     nout=6)
     "Replicate selection index"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Logical.Not notHea if not useInChi
     "Heating disabled (if used in reversible heat pump)"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
@@ -98,6 +98,9 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Logical.And onAndCoo
     "True if on and (used in chiller or used in HP and enabled in cooling mode)"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch TSetAct
+    "Switch between CHW and HW temperature setpoint"
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
 equation
   connect(sigBus.TConInMea, extBusSig[1].u[1])
     annotation (Line(points={{1,120},{99.5,120},{99.5,92}},color={255,204,51},thickness=0.5));
@@ -125,9 +128,10 @@ equation
     annotation (Line(points={{1,120},{100.5,120},{100.5,92}},
                                                            color={255,204,51},thickness=0.5));
   connect(cp[1].y, extBusSig[6].u[1])
-    annotation (Line(points={{82,98},{99.5,98},{99.5,92}},color={0,0,127}));
+    annotation (Line(points={{82,104},{99.5,104},{99.5,92}},
+                                                          color={0,0,127}));
   connect(cp[2].y, extBusSig[6].u[2])
-    annotation (Line(points={{82,98},{100.5,98},{100.5,92}},
+    annotation (Line(points={{82,104},{100.5,104},{100.5,92}},
                                                           color={0,0,127}));
   connect(extBusSig[1].y,calQUseP.TAmbEnt)
     annotation (Line(points={{100,68},{100,60},{121,60},{121,12}},
@@ -147,8 +151,6 @@ equation
   connect(extBusSig[6].y, calQUseP.cpLoa)
     annotation (Line(points={{100,68},{100,60},{111,60},{111,12}},
                                                               color={0,0,127}));
-  connect(sigBus.TSet, calQUseP.TSet)
-    annotation (Line(points={{1,120},{125,120},{125,12}},              color={255,204,51},thickness=0.5));
   connect(calQUseP.PLR, sigBus.PLRCoo)
     annotation (Line(points={{126,-12},{126,-20},{134,-20},{134,120},{1,120}},
                                                                          color={0,0,127}));
@@ -185,9 +187,9 @@ equation
   connect(cooLoaAndUseChi.y, intSwi.u2)
     annotation (Line(points={{2,0},{18,0}},   color={255,0,255}));
   connect(extBusSig.index, intScaRep.y)
-    annotation (Line(points={{88,80},{84,80},{84,60},{82,60}},color={255,127,0}));
+    annotation (Line(points={{88,80},{84,80},{84,70},{82,70}},color={255,127,0}));
   connect(intScaRep.u, intSwi.y)
-    annotation (Line(points={{58,60},{50,60},{50,0},{42,0}},color={255,127,0}));
+    annotation (Line(points={{58,70},{50,70},{50,0},{42,0}},color={255,127,0}));
   connect(cst[1].y, intSwi.u1)
     annotation (Line(points={{2,-28},{10,-28},{10,8},{18,8}},     color={255,127,0}));
   connect(cst[2].y, intSwi.u3)
@@ -209,6 +211,18 @@ equation
           -116,12},{-102,12}}, color={255,0,255}));
   connect(onAndCoo.y, calQUseP.on)
     annotation (Line(points={{-78,20},{129,20},{129,12}}, color={255,0,255}));
+  connect(cooLoa.y, TSetAct.u2) annotation (Line(points={{42,60},{44,60},{44,40},
+          {58,40}}, color={255,0,255}));
+  connect(sigBus.TChwSet, TSetAct.u1) annotation (Line(
+      points={{1,120},{54,120},{54,48},{58,48}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(sigBus.THwSet, TSetAct.u3) annotation (Line(
+      points={{1,120},{54,120},{54,32},{58,32}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(TSetAct.y, calQUseP.TSet)
+    annotation (Line(points={{82,40},{125,40},{125,12}}, color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={{-46,90},{-46,40}}),
     Rectangle(fillColor={255,215,136},

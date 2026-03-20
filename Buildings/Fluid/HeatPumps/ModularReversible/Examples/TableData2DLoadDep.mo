@@ -45,11 +45,6 @@ model TableData2DLoadDep
     period=5400)
     "Heat pump enable and heating mode command"
     annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch TSetAct(
-    y(final unit="K",
-      displayUnit="degC"))
-    "Active supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
     amplitude=TChiWatRet_nominal - hp.TConCoo_nominal,
     freqHz=3 / 3000,
@@ -255,10 +250,6 @@ model TableData2DLoadDep
     nPorts=1) "Boundary conditions of ambient-side fluid at HP inlet"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
 equation
-  connect(TChiWatSupSet.y, TSetAct.u3)
-    annotation (Line(points={{-68,120},{-64,120},{-64,112},{-42,112}},color={0,0,127}));
-  connect(THeaWatSupSet.y, TSetAct.u1)
-    annotation (Line(points={{-68,160},{-60,160},{-60,128},{-42,128}},color={0,0,127}));
   connect(THeaWatRet.y, TRetAct.u1)
     annotation (Line(points={{-68,80},{-60,80},{-60,68},{-42,68}},color={0,0,127}));
   connect(TChiWatRet.y, TRetAct.u3)
@@ -283,8 +274,6 @@ equation
     annotation (Line(points={{-18,-80},{0,-80},{0,-36},{8,-36}},color={0,0,127}));
   connect(pInl_rel1.y,inlHpAmb. p_in)
     annotation (Line(points={{-18,-160},{-10,-160},{-10,-32},{8,-32}},color={0,0,127}));
-  connect(TSetAct.y, hp.TSet)
-    annotation (Line(points={{-18,120},{80,120},{80,-2.3},{97.9,-2.3}}, color={0,0,127}));
   connect(TRet.port_b, hp.port_a1)
     annotation (Line(points={{70,0},{86,0},{86,-0.2},{100,-0.2}},color={0,127,255}));
   connect(TSup.port_a, hp.port_b1)
@@ -296,7 +285,7 @@ equation
   connect(retAmb.ports[1], hp.port_b2)
     annotation (Line(points={{170,-61},{90,-61},{90,-12.8},{100,-12.8}},color={0,127,255}));
   connect(y1.y[1], hp.on)
-    annotation (Line(points={{-158,140},{82,140},{82,-6.5},{97.9,-6.5}}, color={255,0,255}));
+    annotation (Line(points={{-158,140},{82,140},{82,-8.6},{97.9,-8.6}}, color={255,0,255}));
   connect(inlHp.ports[1], TRet.port_a)
     annotation (Line(points={{30,0},{50,0}},color={0,127,255}));
   connect(TRet1.port_b, hpNrv.port_a1)
@@ -305,7 +294,7 @@ equation
     annotation (Line(points={{130,-100},{126,-100},{126,-100.2},{121,-100.2}},
       color={0,127,255}));
   connect(y1.y[1], hpNrv.on)
-    annotation (Line(points={{-158,140},{82,140},{82,-106.5},{97.9,-106.5}},
+    annotation (Line(points={{-158,140},{82,140},{82,-108.6},{97.9,-108.6}},
       color={255,0,255}));
   connect(inlHp1.ports[1], TRet1.port_a)
     annotation (Line(points={{30,-100},{50,-100}},color={0,127,255}));
@@ -320,11 +309,8 @@ equation
     annotation (Line(points={{-108,-80},{-60,-80},{-60,-136},{8,-136}},color={0,0,127}));
   connect(THeaWatRet.y, inlHp1.T_in)
     annotation (Line(points={{-68,80},{-4,80},{-4,-96},{8,-96}},color={0,0,127}));
-  connect(THeaWatSupSet.y, hpNrv.TSet)
-    annotation (Line(points={{-68,160},{84,160},{84,-102.3},{97.9,-102.3}},
-      color={0,0,127}));
-  connect(y1.y[2], TSetAct.u2)
-    annotation (Line(points={{-158,140},{-50,140},{-50,120},{-42,120}},color={255,0,255}));
+  connect(THeaWatSupSet.y, hpNrv.THwSet) annotation (Line(points={{-68,160},{84,
+          160},{84,-102.3},{97.9,-102.3}}, color={0,0,127}));
   connect(y1.y[2], TRetAct.u2)
     annotation (Line(points={{-158,140},{-50,140},{-50,60},{-42,60}},color={255,0,255}));
   connect(y1.y[2], pInl_rel.u2)
@@ -332,10 +318,15 @@ equation
   connect(y1.y[2], pInl_rel1.u2)
     annotation (Line(points={{-158,140},{-50,140},{-50,-160},{-42,-160}},color={255,0,255}));
   connect(y1.y[2], hp.hea)
-    annotation (Line(points={{-158,140},{82,140},{82,-8.6},{97.9,-8.6}}, color={255,0,255}));
+    annotation (Line(points={{-158,140},{82,140},{82,-10.7},{97.9,-10.7}},
+                                                                         color={255,0,255}));
   connect(y1.y[2],TAmbAct. u2)
     annotation (Line(points={{-158,140},{-86,140},{-86,146},{-50,146},{-50,-80},{-42,-80}},
       color={255,0,255}));
+  connect(TChiWatSupSet.y, hp.TChwSet) annotation (Line(points={{-68,120},{80,
+          120},{80,-6.5},{97.9,-6.5}}, color={0,0,127}));
+  connect(THeaWatSupSet.y, hp.THwSet) annotation (Line(points={{-68,160},{84,
+          160},{84,-2.3},{97.9,-2.3}}, color={0,0,127}));
   annotation (
     Diagram(
       coordinateSystem(

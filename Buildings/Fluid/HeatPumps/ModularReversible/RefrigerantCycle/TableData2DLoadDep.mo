@@ -73,6 +73,9 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Logical.And onAndHea
     "True if enabled in heating mode"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch TSetAct
+    "Switch between CHW and HW temperature setpoint"
+    annotation (Placement(transformation(extent={{50,10},{70,30}})));
 equation
   connect(sigBus.TConInMea, extBusSig[1].u[1])
     annotation (Line(points={{1,120},{99.5,120},{99.5,92}},color={255,204,51},thickness=0.5));
@@ -122,8 +125,6 @@ equation
   connect(extBusSig[6].y, calQUseP.cpLoa)
     annotation (Line(points={{100,68},{100,60},{111,60},{111,12}},
                                                               color={0,0,127}));
-  connect(sigBus.TSet, calQUseP.TSet)
-    annotation (Line(points={{1,120},{125,120},{125,12}},              color={255,204,51},thickness=0.5));
   connect(calQUseP.PLR, sigBus.PLRHea)
     annotation (Line(points={{126,-12},{126,-20},{136,-20},{136,120},{1,120}},
                                                                          color={0,0,127}));
@@ -173,6 +174,18 @@ equation
       thickness=0.5));
   connect(notCoo.y, onAndHea.u2) annotation (Line(points={{-78,90},{-68,90},{
           -68,32},{-52,32}}, color={255,0,255}));
+  connect(TSetAct.y, calQUseP.TSet)
+    annotation (Line(points={{72,20},{125,20},{125,12}}, color={0,0,127}));
+  connect(onAndHea.u2, TSetAct.u2) annotation (Line(points={{-52,32},{-60,32},{
+          -60,20},{48,20}}, color={255,0,255}));
+  connect(sigBus.THwSet, TSetAct.u1) annotation (Line(
+      points={{1,120},{44,120},{44,28},{48,28}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(sigBus.TChwSet, TSetAct.u3) annotation (Line(
+      points={{1,120},{44,120},{44,12},{48,12}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Icon(graphics={
     Line(points={{-44,90},{-44,40}}),
     Rectangle(fillColor={255,215,136},
