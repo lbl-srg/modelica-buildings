@@ -20,6 +20,14 @@ block PartialController "Interface for heat pump plant controller"
     opposite of condition required for hybrid plant"
     annotation(Evaluate=true,
       Dialog(tab="Temporary overrides"));
+  parameter Boolean have_senTHeaWatPriRet_override=true
+    "HW primary return temperature sensor override used in hybrid plant"
+    annotation(Evaluate=true,
+      Dialog(tab="Temporary overrides"));
+  parameter Boolean have_senTChiWatPriRet_override=true
+    "CHW primary return temperature sensor override used in hybrid plant"
+    annotation(Evaluate=true,
+      Dialog(tab="Temporary overrides"));
   parameter Integer nPumHeaWatSec_override=0
     "Number of secondary HW pumps override used in hybrid plant"
     annotation(Evaluate=true,
@@ -117,7 +125,9 @@ block PartialController "Interface for heat pump plant controller"
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
       cfg.have_heaWat and not cfg.have_hrc and have_senTHeaWatSecRet));
   final parameter Boolean have_senTHeaWatPriRet=cfg.have_heaWat and
-    (if cfg.have_hrc or not have_senTHeaWatSecRet then true else have_senTHeaWatPriRet_select)
+    (if not have_senTHeaWatPriRet_override then false
+     elseif cfg.have_hrc or not have_senTHeaWatSecRet then true
+     else have_senTHeaWatPriRet_select)
     "Set to true for plants with primary HW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_senTChiWatPriRet_select(start=false)=have_senTHeaWatPriRet_select
@@ -127,19 +137,19 @@ block PartialController "Interface for heat pump plant controller"
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
       cfg.have_chiWat and not cfg.have_hrc and have_senTChiWatSecRet));
   final parameter Boolean have_senTChiWatPriRet=cfg.have_chiWat and
-    (if cfg.have_hrc or not have_senTChiWatSecRet then true else have_senTChiWatPriRet_select)
+    (if not have_senTChiWatPriRet_override then false
+     elseif cfg.have_hrc or not have_senTChiWatSecRet then true
+     else have_senTChiWatPriRet_select)
     "Set to true for plants with primary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // For primary-secondary plants, SHWST sensor is required for plant staging.
   final parameter Boolean have_senTHeaWatSecSup=
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    or have_PumHeaWatSec_override
     "Set to true for plants with secondary HW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // For primary-secondary plants, SCHWST sensor is required for plant staging.
   final parameter Boolean have_senTChiWatSecSup=
     cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    or have_PumHeaWatSec_override
     "Set to true for plants with secondary CHW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
