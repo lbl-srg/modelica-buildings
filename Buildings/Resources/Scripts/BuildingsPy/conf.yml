@@ -144,7 +144,7 @@
     comment: Timeout during translation
     time_out: 600
   optimica:
-    comment: MemoryError: The compilation process was unexpectedly killed by the system on travis
+    comment: 'MemoryError: The compilation process was unexpectedly killed by the system on travis'
     translate: false
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
