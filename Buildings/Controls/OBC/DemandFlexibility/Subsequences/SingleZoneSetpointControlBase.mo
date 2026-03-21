@@ -213,6 +213,7 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-260},{100,120}})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This is a utility block that controls both the cooling setpoint and the heating setpoint for a single building zone. It works by having the &quot;has_priHea&quot; and &quot;has_priCoo&quot; to True. We still maintain the &quot;has_pri&quot; variables to be inputs because in the MultipleZoneSetpointControl, it references this block. </span></p>
+<p><span style=\"font-size: 9pt;\">This is a utility block that controls both the cooling setpoint and the heating setpoint for a single building zone. It reference the sub-block </span>SingleTemperatureZoneSetpointControl twice, one for the heating setpoint and one for the cooling setpoint. </p>
+<p>This block will be referenced by the main blocks SingleZoneSetpointControl and MultipleZoneSetpointControl. For SingleZoneSetpointControl, this block is called once with variables have_priHea and have_priCoo setting to true. For MultipleZoneSetpointControl, this block is called the same amount of times as the number of zones to control temperature setpoints. </p>
 </html>"));
 end SingleZoneSetpointControlBase;

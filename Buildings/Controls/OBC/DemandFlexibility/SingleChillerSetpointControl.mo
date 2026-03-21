@@ -67,5 +67,8 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-150,-200},{250,120}},
-        grid={2,2})));
+        grid={2,2})),
+    Documentation(info="<html>
+<p><span style=\"font-size: 9pt;\">This is a utility block that controls the chiller temperature setpoint for a single chiller, based on the current mode uMod:  1 = load shed mode, 2 = load rebound mode, and 0 = baseline mode. </span></p>
+</html>"));
 end SingleChillerSetpointControl;

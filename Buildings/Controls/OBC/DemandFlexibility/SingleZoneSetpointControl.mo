@@ -135,6 +135,7 @@ equation
           extent={{-100,-260},{130,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This is a utility block that controls both the cooling setpoint and the heating setpoint for a single building zone. It works by having the &quot;has_priHea&quot; and &quot;has_priCoo&quot; to True. We still maintain the &quot;has_pri&quot; variables to be inputs because in the MultipleZoneSetpointControl, it references this block. </span></p>
+<p><span style=\"font-size: 9pt;\">This is a utility block that controls both the cooling setpoint and the heating setpoint for a single building zone, based on the current mode uMod: -1 = pre-cool/pre-heat mode, 1 = load shed mode, 2 = load rebound mode, and 0 = baseline mode. </span></p>
+<p><span style=\"font-size: 9pt;\">The heating setpoint and the cooling setpoint are controlled independently.</span></p>
 </html>"));
 end SingleZoneSetpointControl;

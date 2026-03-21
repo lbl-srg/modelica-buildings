@@ -104,5 +104,9 @@ equation
           -18},{74,-18},{74,50},{88,50}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},
             {220,120}})), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-160},{220,120}})));
+          extent={{-100,-160},{220,120}})),
+    Documentation(info="<html>
+<p><span style=\"font-size: 9pt;\">This is a utility block that controls the chiller temperature setpoint for multiple chillers, based on the current mode uMod: 1 = load shed mode, 2 = load rebound mode, and 0 = baseline mode. </span></p>
+<p><span style=\"font-size: 9pt;\">In this block, out of the many chillers, we need to decide which zone has the priority to perform the chiller setpoint change via the variables have_pri. For the one zone with the **smallest** cooling coil valve position, this chiller will have its have_pri variable set to true, and the other chillers will have their have_pri variable set to false. This applies for both the  load shed mode and the load rebound mode. </span></p>
+</html>"));
 end MultipleChillerSetpointControl;

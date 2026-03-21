@@ -44,6 +44,7 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         grid={2,2})),
     Documentation(info="<html>
-hello
+<p>This block is used to select the nSel smallest fan speed or valve position values, then output the action flag yAcnFla on which fans or valves are selected to take some output action. </p>
+<p><br>The inputs also include an ignore flag uIgnFla. This is especially useful when controlling fan speed or valve position ratchets. When a fan speed or valve position has reached the target value, it is possible that the fan speed or valve position is still one of the smallest. Therefore, we would like this fan or valve to be temporarily ignored such that we can give the priority to other fans or valves.</p>
 </html>"));
 end SelectSmallestValvePosition;

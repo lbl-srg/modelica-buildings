@@ -97,5 +97,8 @@ equation
   connect(con1.y, sub.u2) annotation (Line(points={{-28,50},{12,50},{12,40},{58,
           40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>This block creates outputs for the zone&apos;s cooling and heating setpoint under different occupancy and different demand flexibility (pre-cool/pre-heat, baseline, load shed, load rebound) conditions. The pre-set variables are heating and cooling occupied and unoccupied setpoints under the baseline scenario. Then, adjustment variables such as <span style=\"font-family: Courier New;\">delTSetPreHea </span>and <span style=\"font-family: Courier New;\">delTSetSheHea </span>are applied to the heating and cooling occupied and unoccupied setpoints to output the desired setpoints. </p>
+</html>"));
 end ZoneSetpointSource;

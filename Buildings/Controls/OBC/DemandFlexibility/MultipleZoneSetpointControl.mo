@@ -265,6 +265,10 @@ equation
             {260,100}})), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-320},{260,100}})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This block controls the cooling setpoint and the heating setpoint for multiple building zones.</span></p>
+<p><span style=\"font-size: 9pt;\">This is a utility block that controls both the cooling setpoint and the heating setpoint for multiple building zones, based on the current demand flexibility mode (uMod): -1 = pre-cool/pre-heat mode, 1 = load shed mode, 2 = load rebound mode, and 0 = baseline mode. </span></p>
+<p>In this block, out of the many building zones, we need to decide which zone has the priority to perform the zone setpoint change via the variables have_priHea and have_priCoo. The zone temperature difference is defined as the current zone temperature minus the current zone temperature heating or cooling setpoint. </p>
+<p>For the heating mode, for the one zone with the **smallest** zone temperature difference, this zone will have its have_priHea variable set to true, and the other zones will have their have_priHea variable set to false. This applies for the pre-heat mode, load shed mode and load rebound mode. </p>
+<p>For the cooling mode, for the one zone with the **largest** zone temperature difference, this zone will have its have_priCoo variable set to true, and the other zones will have their have_priCoo variable set to false. This applies for the pre-cool mode, load shed mode and load rebound mode. </p>
+<p>The heating setpoint and the cooling setpoint are controlled independently. This means that one zone might have the priority have_priHea =true, while another zone might have the priority have_priCoo =true at the same time.</p>
 </html>"));
 end MultipleZoneSetpointControl;

@@ -167,5 +167,9 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-150,-200},{250,120}},
-        grid={2,2})));
+        grid={2,2})),
+    Documentation(info="<html>
+<p>This is a block that brings the full suite of control for a single temperature setpoint. It can be either a heating zone temperature setpoint or a cooling zone temperature setpoint. It contains the pre-cool/pre-heat mode, load shed mode, load rebound mode, and baseline mode. Each of the 4 modes includes a sampler block, where users can set the sampling period independently for each mode.</p>
+<p>For the load shed mode specifically, there are specific elements in this logic block that checks whether a zone has reached a threshold (delSheTho) for ratcheting zone setpoints. The zone temperature difference is defined as the current zone temperature minus the current zone temperature heating or cooling setpoint. For heating mode and the heating setpoint, if the temperature difference is less than the threshold delSheTho, the load shed mode will be activated. For cooling mode and the cooling setpoint, if the temperature difference is more than the negative of the threshold delSheTho, the load shed mode will be activated. </p>
+</html>"));
 end SingleTemperatureZoneSetpointControl;

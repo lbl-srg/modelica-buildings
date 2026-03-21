@@ -44,5 +44,8 @@ equation
   connect(and2.y, yEquFla) annotation (Line(points={{88,0},{120,0}},
                color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p><span style=\"font-family: Courier New;\">This block compares 2 real input variables, and if these 2 real input variables are equal to each other with a deviation less than alwDev, then the output is true. Otherwise, the output is false. </span></p>
+</html>"));
 end ExactEqualReal;
