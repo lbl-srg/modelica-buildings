@@ -247,12 +247,16 @@ Set <code>coo=true</code> for cooling mode,
 <code>coo=false</code> for heating mode.
 </li>
 <li>
-Chiller temperature setpoint: <code>TSet</code>
+CHW temperature setpoint: <code>TChwSet</code>
 (real, scalar)<br/>
-This is the supply or return temperature setpoint
+This is either the supply or return temperature setpoint
 depending on the value of <code>use_TLoaLvgForCtl</code>.
-For heat recovery chillers, the active setpoint must be
-switched externally between CHW and HW temperature.
+</li>
+<li>For heat recovery chillers only (<code>have_switchover=true</code>),
+HW temperature setpoint: <code>THwSet</code>
+(real, scalar)<br/>
+This is either the supply or return temperature setpoint
+depending on the value of <code>use_TLoaLvgForCtl</code>.
 </li>
 </ul>
 <h4>Implementation details</h4>

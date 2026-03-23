@@ -290,12 +290,16 @@ heat pump switchover signal: <code>hea</code>
 Set <code>hea=true</code> for heating mode, <code>hea=false</code> for cooling mode.
 </li>
 <li>
-Heat pump temperature setpoint: <code>TSet</code>
+HW temperature setpoint: <code>THwSet</code>
 (real, scalar)<br/>
-This is the supply or return temperature setpoint
+This is either the supply or return temperature setpoint
 depending on the value of <code>use_TLoaLvgForCtl</code>.
-For reversible heat pumps, the active setpoint must be
-switched externally between HW and CHW temperature.
+</li>
+<li>For reversible heat pumps only (<code>use_rev=true</code>),
+CHW temperature setpoint: <code>TChwSet</code>
+(real, scalar)<br/>
+This is either the supply or return temperature setpoint
+depending on the value of <code>use_TLoaLvgForCtl</code>.
 </li>
 </ul>
 <h4>Implementation details</h4>

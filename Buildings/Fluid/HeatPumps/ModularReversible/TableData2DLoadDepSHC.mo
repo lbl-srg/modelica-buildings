@@ -390,17 +390,12 @@ The following input signals are available.
 </p>
 <ul>
 <li>
-On/off command signal: <code>on</code>
+Heating on/off command: <code>onHea</code>
 (Boolean, scalar)
 </li>
-<li>System operating mode command: <code>mode</code>
-(integer, scalar)<br/>
-Based on the mode definitions from
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes\">
-Buildings.Fluid.HeatPumps.Types.OperatingModes</a>
-and the logic described in
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
-Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
+<li>
+Cooling on/off command: <code>onCoo</code>
+(Boolean, scalar)
 </li>
 <li>
 HW temperature setpoint: <code>THwSet</code>

@@ -741,7 +741,8 @@ Load balancing between the HW and CHW side.
 </ul>
 <h4>System and module operating mode</h4>
 <p>
-The block input <code>mode</code> allows switching between three system operating modes.
+The block inputs <code>onHea</code> and <code>onCoo</code> allow switching between 
+three <i>system</i> operating modes.
 </p>
 <ol>
 <li>
@@ -749,8 +750,8 @@ Heating-only: In this mode, all modules operate as heat pumps, tracking
 the HW temperature setpoint and sourcing heat from the ambient-side fluid.
 </li>
 <li>
-Cooling-only: In this mode, all modules operate as chillers, tracking the CHW temperature
-setpoint and rejecting heat to the ambient-side fluid.
+Cooling-only: In this mode, all modules operate as chillers, tracking 
+the CHW temperature setpoint and rejecting heat to the ambient-side fluid.
 </li>
 <li>
 Simultaneous heating and cooling: In this mode, some modules operate as  heat recovery chillers,
