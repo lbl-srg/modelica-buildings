@@ -59,7 +59,7 @@ model PartialHeatPumpGroup
   final parameter Buildings.Templates.Components.Types.HeatPumpCapability typModUni[nHp +
     nShc] =
     {if have_shc and i > nHp
-    then Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
+    then Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
     elseif is_rev
     then Buildings.Templates.Components.Types.HeatPumpCapability.Reversible
     else Buildings.Templates.Components.Types.HeatPumpCapability.HeatingOnly for i in 1:nHp +

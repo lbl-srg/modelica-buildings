@@ -35,26 +35,10 @@ equation
     annotation (Line(points={{80,-140},{80,-100}},color={0,127,255}));
   connect(mAir_flow.y, floSou.m_flow_in)
     annotation (Line(points={{60,-72},{60,-96},{72,-96}},color={0,0,127}));
-  connect(hp.on, y1Rea.u) annotation (Line(points={{-12,-6},{-14,-6},{-14,12},{40,
+  connect(hp.on, y1Rea.u) annotation (Line(points={{-12,-8},{-14,-8},{-14,12},{40,
           12},{40,40},{60,40},{60,32}},     color={255,0,255}));
-  connect(bus.THeaWatSupSet, shc.THwSet) annotation (Line(
-      points={{0,160},{0,140},{-20,140},{-20,70},{-14,70}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.TChiWatSupSet, shc.TChwSet) annotation (Line(
-      points={{0,160},{0,140},{-20,140},{-20,66},{-14,66}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.y1, shc.on) annotation (Line(
-      points={{0,160},{0,140},{-20,140},{-20,64},{-14,64}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.mode, shc.mode) annotation (Line(
-      points={{0,160},{0,140},{-20,140},{-20,62},{-14,62}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(shc.on, y1Rea.u) annotation (Line(points={{-14,64},{-14,40},{60,40},{
-          60,32}}, color={255,0,255}));
+  connect(onHeaOrCoo.y, y1Rea.u)
+    annotation (Line(points={{10,100},{60,100},{60,32}}, color={255,0,255}));
   annotation (
     defaultComponentName="hp",
     Documentation(

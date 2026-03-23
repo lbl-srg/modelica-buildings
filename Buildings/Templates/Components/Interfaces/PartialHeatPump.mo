@@ -146,13 +146,13 @@ model PartialHeatPump
     "Source fluid default state";
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium=MediumChiWat)
-    if typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
+    if typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
     "CHW fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation(Placement(transformation(extent={{90,50},{110,70}}),
       iconTransformation(extent={{90,90},{110,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium=MediumChiWat)
-    if typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery
+    if typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
     "CHW fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation(Placement(transformation(extent={{-90,50},{-110,70}}),
       iconTransformation(extent={{-90,90},{-110,110}})));

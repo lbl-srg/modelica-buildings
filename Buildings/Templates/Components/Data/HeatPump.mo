@@ -82,11 +82,11 @@ record HeatPump
   parameter Modelica.Units.SI.HeatFlowRate capHeaShc_nominal(start=0)
     "Heating capacity in SHC mode"
     annotation(Dialog(group="Nominal condition",
-      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery));
+      enable=typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent));
   parameter Modelica.Units.SI.HeatFlowRate capCooShc_nominal(start=0)
     "Cooling capacity in SHC mode"
     annotation(Dialog(group="Nominal condition",
-      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery));
+      enable=typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent));
   parameter Modelica.Units.SI.Temperature TSouHea_nominal(
     start=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
     final min=220)
@@ -157,7 +157,7 @@ record HeatPump
     use_TEvaOutForTab=true)
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump
     "Performance data in heating mode"
-    annotation(Dialog(enable=not typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery),
+    annotation(Dialog(enable=not typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent),
       choicesAllMatching=true,
       Placement(transformation(extent={{-40,0},{-20,20}})));
   replaceable parameter Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic perCoo(
@@ -194,7 +194,7 @@ record HeatPump
     devIde="")
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic
     "Performance data"
-    annotation(Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.HeatRecovery),
+    annotation(Dialog(enable=typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent),
       choicesAllMatching=true,
       Placement(transformation(extent={{-40,0},{-20,20}})));
   parameter Modelica.Units.SI.Power P_min(final min=0) = 0

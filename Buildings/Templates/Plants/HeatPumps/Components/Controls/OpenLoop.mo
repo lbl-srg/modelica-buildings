@@ -7,11 +7,11 @@ block OpenLoop
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp + nShc](y(
         each final unit="K", each displayUnit="degC"), each k=Buildings.Templates.Data.Defaults.THeaWatSupMed)
     "HW supply temperature set point"
-    annotation (Placement(transformation(extent={{0,330},{-20,350}})));
+    annotation (Placement(transformation(extent={{-20,310},{-40,330}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nHp + nShc](y(
         each final unit="K", each displayUnit="degC"), each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature set point"
-    annotation (Placement(transformation(extent={{0,290},{-20,310}})));
+    annotation (Placement(transformation(extent={{-20,270},{-40,290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpInlIso[nHp](
     each table=[
       0, 0;
@@ -178,23 +178,20 @@ block OpenLoop
     if cfg.have_shc and cfg.have_heaWat and cfg.have_valShcOutIso
     "SHC unit outlet HW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-60,210},{-80,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Shc[nShc](
-    each table=[0,0; 1,0; 1,1; 5,1],
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaShc[nShc](
+    each table=[0,0; 1,1; 4,0],
     each timeScale=1000,
-    each period=5000) if cfg.have_shc "SHC unit start/stop command"
+    each period=5000) if cfg.have_shc "SHC unit heating on/off command"
     annotation (Placement(transformation(extent={{-60,350},{-80,370}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable modShc[nShc](
-    each table=[0,1; 2,2; 3,3; 4,1],
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1CooShc[nShc](
+    each table=[0,0; 2.5,1],
     each timeScale=1000,
-    each period=5000) if cfg.have_shc
-    "SHC operating mode"
-    annotation (Placement(transformation(extent={{40,350},{20,370}})));
+    each period=5000) if cfg.have_shc "SHC unit cooling on/off command"
+    annotation (Placement(transformation(extent={{-60,310},{-80,330}})));
 equation
   /* Control point connection - start */
-  connect(modShc.y[1], busShc.mode);
-  connect(TSet.y, busHp.TSet);
-  connect(TChiWatSupSet[nHp+1:nHp+nShc].y, busShc.TChiWatSupSet);
-  connect(THeaWatSupSet[nHp+1:nHp+nShc].y, busShc.THeaWatSupSet);
+  connect(TChiWatSupSet[nHp+1:nHp+nShc].y, busShc.TChiWatSet);
+  connect(THeaWatSupSet[nHp+1:nHp+nShc].y, busShc.THeaWatSet);
   connect(y1Hp.y[1], busHp.y1);
   connect(y1HeaHp.y[1], busHp.y1Hea);
   connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1);
@@ -207,9 +204,10 @@ equation
   connect(yPumHeaWatPriDed.y, busPumHeaWatPri.y);
   connect(y1PumHeaWatSec.y[1], busPumHeaWatSec.y1);
   connect(yPumHeaWatSec.y, busPumHeaWatSec.y);
-  connect(TChiWatSupSet.y, busHp.TChiWatSet);
-  connect(THeaWatSupSet.y, busHp.THeaWatSet);
-  connect(y1Shc.y[1], busShc.y1);
+  connect(TChiWatSupSet[1:nHp].y, busHp.TChiWatSet);
+  connect(THeaWatSupSet[1:nHp].y, busHp.THeaWatSet);
+  connect(y1CooShc.y[1], busShc.y1Coo);
+  connect(y1HeaShc.y[1], busShc.y1Hea);
   connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
   connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
   connect(y1ValHeaWatHpInlIso.y[1], busValHeaWatHpInlIso.y1);

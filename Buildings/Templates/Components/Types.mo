@@ -58,7 +58,7 @@ package Types
   type HeatPumpCapability = enumeration(
     HeatingOnly "Heating-only heat pump",
     Reversible "Reversible (cooling/heating changeover) heat pump",
-    HeatRecovery "Simultaneous heating and cooling (multi-pipe) heat pump")
+    Polyvalent "Polyvalent (simultaneous heating and cooling) unit")
     "Enumeration to specify the operating mode capability of the heat pump";
 
   type IntegrationPoint = enumeration(
