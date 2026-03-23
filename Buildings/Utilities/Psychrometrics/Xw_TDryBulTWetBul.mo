@@ -1,5 +1,5 @@
 within Buildings.Utilities.Psychrometrics;
-block XW_TDryBulTWetBul "Compute the water vapor mass fraction"
+block Xw_TDryBulTWetBul "Compute the water vapor mass fraction"
 
   extends Modelica.Blocks.Icons.Block;
 
@@ -172,4 +172,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end XW_TDryBulTWetBul;
+end Xw_TDryBulTWetBul;
