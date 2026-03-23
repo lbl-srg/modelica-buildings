@@ -1500,27 +1500,33 @@ annotation(defaultComponentName="pla",
     for HVAC Systems. Atlanta, GA.
   </li>
 </ul>
-</html>",
-    revisions="<html>
+</html>", revisions=" wi<html>
 <ul>
-  <li>
-    August 21, 2025, by Antoine Gautier:<br />
-    Refactored with load-dependent 2D table data heat pump model.<br />
-    This is for
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
-  </li>
-  <li>
-    May 31, 2024, by Antoine Gautier:<br />
-    Added sidestream heat recovery chiller, primary-only pumping, buffer
-    tanks, failsafe staging conditions and internal computation of pump speed
-    or balancing valve ∆p to meet design flow.<br />
-    This is for
-    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
-  </li>
-  <li>
-    March 29, 2024, by Antoine Gautier:<br />
-    First implementation.
-  </li>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored HP and HRC components with two separate connectors
+for HW and CHW supply temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
+<li>
+August 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
+<li>
+May 31, 2024, by Antoine Gautier:<br/>
+Added sidestream heat recovery chiller, primary-only pumping,
+buffer tanks, failsafe staging conditions and internal computation
+of pump speed or balancing valve ∆p to meet design flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
+</li>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
   Diagram(graphics={Polygon(points={{560,80},{560,44},{561,44},{561,80}},

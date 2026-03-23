@@ -182,14 +182,12 @@ block TableData2DLoadDepSHC
     PHeaInt1_nominal, scaFacCoo * PCooInt1_nominal, scaFacCooShc *
     PShcInt1_nominal})
     "Maximum power at nominal conditions (external use) - All modes";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
-    "On/off command: true to enable heat pump, false to disable heat pump"
-    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
-      iconTransformation(extent={{-140,120},{-100,160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode
-    "Operating mode command (from Buildings.Fluid.HeatPumps.Types.OperatingModes)"
-    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-      iconTransformation(extent={{-140,100},{-100,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onHea
+    "Heating on/off command" annotation (Placement(transformation(extent={{-140,
+      120},{-100,160}}), iconTransformation(extent={{-140,120},{-100,160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onCoo
+    "Cooling on/off command" annotation (Placement(transformation(extent={{-140,
+            100},{-100,140}}), iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THwEnt(
     final unit="K",
     displayUnit="degC")
@@ -512,12 +510,10 @@ equation
     useHeaShc=if nUniShcRaw < nUni and nUniHeaShcRaw > nUniShcRaw then 1 else 0;
     useCooShc=if nUniShcRaw < nUni and nUniCooShcRaw > nUniShcRaw then 1 else 0;
   end when;
-  if on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.heating
-       then
+  if onHea and not onCoo then
     useHea=1;
     useCoo=0;
-  elseif on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.cooling
-       then
+  elseif not onHea and onCoo then
     useHea=0;
     useCoo=1;
   else
@@ -541,8 +537,7 @@ equation
   QHeaShcInt_flow=scaFacHeaShc *(PShcInt .- QCooShcInt_flow) / scaFacCooShc;
   // Calculate number of modules in SHC mode and PLR for these modules
   // (deltaX guards against numerical residuals influencing stage transitions near zero load)
-  if on and mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc
-       then
+  if onHea and onCoo then
     nUniHeaShcRaw = integer(ceil((QHeaSetMea_flow - 10 * deltaX *
       QHeaShc_flow_nominal) / SPLR / max(
       cat(
@@ -746,7 +741,8 @@ Load balancing between the HW and CHW side.
 </ul>
 <h4>System and module operating mode</h4>
 <p>
-The block input <code>mode</code> allows switching between three system operating modes.
+The block inputs <code>onHea</code> and <code>onCoo</code> allow switching between 
+three <i>system</i> operating modes.
 </p>
 <ol>
 <li>
@@ -754,8 +750,8 @@ Heating-only: In this mode, all modules operate as heat pumps, tracking
 the HW temperature setpoint and sourcing heat from the ambient-side fluid.
 </li>
 <li>
-Cooling-only: In this mode, all modules operate as chillers, tracking the CHW temperature
-setpoint and rejecting heat to the ambient-side fluid.
+Cooling-only: In this mode, all modules operate as chillers, tracking 
+the CHW temperature setpoint and rejecting heat to the ambient-side fluid.
 </li>
 <li>
 Simultaneous heating and cooling: In this mode, some modules operate as  heat recovery chillers,
@@ -1017,6 +1013,13 @@ YORK.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors 
+for heating and cooling on/off commands.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 July 1, 2025, by Antoine Gautier:<br/>
 First implementation.

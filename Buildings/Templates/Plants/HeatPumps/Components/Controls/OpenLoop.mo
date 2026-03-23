@@ -130,17 +130,7 @@ block OpenLoop
     k=1)
     if cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary CHW pump speed signal"
-    annotation (Placement(transformation(extent={{-60,-250},{-80,-230}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch TSet[nHp](
-    y(each final unit="K",
-      each displayUnit="degC"))
-    "Active supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-60,310},{-80,330}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru[nHp](
-    each final k=true)
-    if not cfg.is_rev
-    "Constant"
-    annotation (Placement(transformation(extent={{0,250},{-20,270}})));
+    annotation (Placement(transformation(extent={{-140,-250},{-160,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(k=1)
     if cfg.have_heaWat and cfg.have_pumHeaWatPriVar and
       cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -217,6 +207,8 @@ equation
   connect(yPumHeaWatPriDed.y, busPumHeaWatPri.y);
   connect(y1PumHeaWatSec.y[1], busPumHeaWatSec.y1);
   connect(yPumHeaWatSec.y, busPumHeaWatSec.y);
+  connect(TChiWatSupSet.y, busHp.TChiWatSet);
+  connect(THeaWatSupSet.y, busHp.THeaWatSet);
   connect(y1Shc.y[1], busShc.y1);
   connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
   connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
@@ -227,16 +219,6 @@ equation
   connect(y1ValHeaWatShcInlIso.y[1], busValHeaWatShcInlIso.y1);
   connect(y1ValHeaWatShcOutIso.y[1], busValHeaWatShcOutIso.y1);
   /* Control point connection - stop */
-  connect(y1HeaHp.y[1], TSet.u2)
-    annotation (Line(points={{-122,300},{-130,300},{-130,280},{-50,280},{-50,320},
-          {-58,320}},
-      color={255,0,255}));
-  connect(tru.y, TSet.u2)
-    annotation (Line(points={{-22,260},{-50,260},{-50,320},{-58,320}},    color={255,0,255}));
-  connect(THeaWatSupSet[1:nHp].y, TSet.u1) annotation (Line(points={{-22,340},{-40,
-          340},{-40,328},{-58,328}}, color={0,0,127}));
-  connect(TChiWatSupSet[1:nHp].y, TSet.u3) annotation (Line(points={{-22,300},{-40,
-          300},{-40,312},{-58,312}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

@@ -96,7 +96,7 @@ model TableData2DLoadDep
     annotation (choicesAllMatching=true,
     Dialog(enable=use_rev),
     Placement(transformation(extent={{114,-18},{130,-2}})));
-  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+  parameter Modelica.Units.SI.Power P_min(min=0)=0
     "Minimum power when system is enabled with compressor cycled off";
   parameter Modelica.Units.SI.Temperature TConHea_nominal
     "HW temperature: leaving if datHea.use_TConOutForTab=true, entering otherwise"
@@ -124,17 +124,16 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-138,-18},{-102,18}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
-    final unit="K",
-    displayUnit="degC")
-    "Temperature setpoint"
-    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-138,22},{-102,58}})));
+      iconTransformation(extent={{-138,-38},{-102,-2}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(final unit="K",
+      displayUnit="degC")
+    "HW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+        iconTransformation(extent={{-138,22},{-102,58}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput hea
     if use_rev "Switchover signal: true for heating, false for cooling"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-138,-38},{-102,-2}})));
+      iconTransformation(extent={{-138,-58},{-102,-22}})));
   Modelica.Blocks.Sources.BooleanConstant conHeaBus(final k=true)
     if use_busConOnl and not use_rev
     "Locks the device in heating mode if not reversible - Case with use_busConOnl=true"
@@ -148,6 +147,14 @@ model TableData2DLoadDep
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-110})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChwSet(final unit="K",
+      displayUnit="degC") if use_rev
+    "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
+        iconTransformation(extent={{-138,-18},{-102,18}})));
+  Templates.Plants.Controls.Utilities.PlaceholderReal phTChwSet(final have_inp=
+        use_rev, u_internal=273.15) "Placeholder value"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 equation
   if not use_intSafCtr then
     connect(calYSet.ySet, sigBus.yMea)
@@ -186,14 +193,21 @@ equation
   connect(on, sigBus.onOffMea)
     annotation (Line(points={{-160,-20},{-130,-20},{-130,-38},{-142,-38},{-142,
           -41},{-141,-41}},                                    color={255,0,255}));
-  connect(TSet, sigBus.TSet)
-    annotation (Line(points={{-160,40},{-120,40},{-120,-38},{-141,-38},{-141,-41}},
-                                                             color={0,0,127}));
   connect(conHeaBus.y, sigBus.hea) annotation (Line(points={{-99,-90},{-76,-90},
           {-76,-41},{-141,-41}}, color={255,0,255}));
   connect(PLR, sigBus.yMea) annotation (Line(points={{150,-60},{130,-60},{130,
           -36},{-138,-36},{-138,-40},{-140,-40},{-140,-41},{-141,-41}}, color={
           0,0,127}));
+  connect(THwSet, sigBus.THwSet) annotation (Line(points={{-160,60},{-120,60},{
+          -120,-41},{-141,-41}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(TChwSet, phTChwSet.u) annotation (Line(points={{-160,40},{-134,40},{
+          -134,80},{-122,80}}, color={0,0,127}));
+  connect(phTChwSet.y, sigBus.TChwSet) annotation (Line(points={{-98,80},{-80,
+          80},{-80,-41},{-141,-41}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -210,6 +224,13 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors
+for HW and CHW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 March 21, 2025, by Antoine Gautier:<br/>
 First implementation.
@@ -276,12 +297,16 @@ heat pump switchover signal: <code>hea</code>
 Set <code>hea=true</code> for heating mode, <code>hea=false</code> for cooling mode.
 </li>
 <li>
-Heat pump temperature setpoint: <code>TSet</code>
+HW temperature setpoint: <code>THwSet</code>
 (real, scalar)<br/>
-This is the supply or return temperature setpoint
+This is either the supply or return temperature setpoint
 depending on the value of <code>use_TLoaLvgForCtl</code>.
-For reversible heat pumps, the active setpoint must be
-switched externally between HW and CHW temperature.
+</li>
+<li>For reversible heat pumps only (<code>use_rev=true</code>),
+CHW temperature setpoint: <code>TChwSet</code>
+(real, scalar)<br/>
+This is either the supply or return temperature setpoint
+depending on the value of <code>use_TLoaLvgForCtl</code>.
 </li>
 </ul>
 <h4>Implementation details</h4>
