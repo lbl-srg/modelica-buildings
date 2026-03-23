@@ -137,6 +137,9 @@
   openmodelica:
     comment: Timeout during translation
     time_out: 600
+  optimica:
+    comment: MemoryError during compilation on travis
+    translate: false
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
