@@ -178,7 +178,7 @@ Model for an indirect wet evaporative cooler. In this component, the primary air
 is cooled within the heat exchanger by an evaporative effect when water is directly
 sprayed on to the secondary surface of the heat exchanger to saturate the secondary
 air-flow. Therefore, it is assumed that the secondary air is completely saturated,
-and simply vented away after use.
+and typically vented away after use.
 </p>
 <p>
 This model consists of the following components:
@@ -208,7 +208,7 @@ air temperature.
 </li>
 </ul>
 <p>
-Note: The model works correctly only when the ports a1 and a2 are used as inlet ports, 
+<b>Note:</b> The model works correctly only when the ports a1 and a2 are used as inlet ports, 
 and ports b1 and b2 are used as outlet ports, for the primary and secondary flow 
 respectively. Also, the secondary air outlet conditions are not validated,
 and it is recommended that it be vented to an object acting as a sink without

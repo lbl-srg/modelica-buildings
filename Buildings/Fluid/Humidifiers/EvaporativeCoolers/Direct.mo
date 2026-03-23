@@ -1,10 +1,8 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model Direct
   "Direct evaporative cooler"
-
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    show_T=true,
     redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
 
   parameter Modelica.Units.SI.Area padAre
@@ -116,7 +114,7 @@ Model for a direct evaporative cooler.
 </p>
 <p>
 The cooler cools down the airstream by adiabatically increasing the humidity 
-mass fraction of the air. The mass of water vapour added to the air is reported by the 
+mass fraction of the air. The mass of water vapor added to the air is reported by the 
 output signal <code>dmWat_flow</code>.
 </p>
 </html>", revisions="<html>

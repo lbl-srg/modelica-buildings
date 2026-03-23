@@ -127,7 +127,7 @@ Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>.
 </p>
 <p>
 The EnergyPlus results were generated using the example file <code>Direct.idf</code>
-from EnergyPlus 23.1. The results were then used to set-up the boundary conditions
+from EnergyPlus The results were then used to set-up the boundary conditions
 for the model as well as the input signals. To compare the results, the Modelica
 outputs are averaged over 600 seconds.
 </p>

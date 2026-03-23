@@ -1,7 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model IndirectDry
   "Indirect dry evaporative cooler"
-
   extends Buildings.Fluid.Interfaces.PartialFourPortParallel;
 
   replaceable package Medium1 =
@@ -102,7 +101,7 @@ cooler and enters the air-to-air heat exchanger where it cools the primary air
 flowing through the heat exchanger tubes.
 </p>
 <p>
-Note: The model works correctly only when the ports a1 and a2 are used as inlet ports, 
+<b>Note:</b> The model works correctly only when the ports a1 and a2 are used as inlet ports, 
 and ports b1 and b2 are used as outlet ports, for the primary and secondary flow
 respectively.
 </p>
