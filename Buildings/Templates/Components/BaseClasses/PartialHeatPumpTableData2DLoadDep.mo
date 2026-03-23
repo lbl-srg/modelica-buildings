@@ -103,7 +103,7 @@ equation
 <p>
 This is the base class for heat pump models where the capacity
 and input power are computed by interpolating manufacturer data
-along the condenser entering or leaving temperature, the 
+along the condenser entering or leaving temperature, the
 evaporator entering or leaving temperature and the part load ratio.
 Toggling the Boolean parameter <code>is_rev</code> enables
 representing either a non-reversible (heating-only) heat pump or a
@@ -145,6 +145,13 @@ DI signal, with a dimensionality of zero
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors
+for HW and CHW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 March 21, 2025, by Antoine Gautier:<br/>
 First implementation.

@@ -358,6 +358,13 @@ heat pump (component <code>hpNrv</code>) or a reversible heat pump
       revisions="<html>
 <ul>
 <li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors 
+for HW and CHW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
+<li>
 July 1, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>

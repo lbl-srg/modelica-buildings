@@ -107,7 +107,7 @@ equation
 <p>
 This is a model for air-cooled or water-cooled compression chillers
 where the capacity and input power are computed by interpolating manufacturer data
-along the evaporator entering or leaving temperature, the 
+along the evaporator entering or leaving temperature, the
 condenser entering or leaving temperature and the part load ratio.
 The model can be configured to represent either a cooling-only
 chiller (<code>have_switchover=false</code>) or a heat-recovery chiller
@@ -164,6 +164,13 @@ Buildings.Templates.Components.Data.Chiller</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors
+for CHW and HW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 April 17, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data chiller model.

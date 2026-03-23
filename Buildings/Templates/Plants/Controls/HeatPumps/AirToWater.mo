@@ -2097,6 +2097,13 @@ for HVAC Systems. Atlanta, GA.
 </html>", revisions="<html>
 <ul>
 <li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored HP and HRC points with two separate outputs
+for HW and CHW supply temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
+<li>
 January 23, 2025, by Antoine Gautier:<br/>
 Refactored to use \"required to run\" conditions in the equipment availability logic.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">#4432</a>.

@@ -154,6 +154,13 @@ resulting in a lower PLR and reduced power during this interval.
       revisions="<html>
 <ul>
 <li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors 
+for CHW and HW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
+<li>
 March 21, 2025, by Antoine Gautier:<br/>
 First implementation.
 </li>
