@@ -1,0 +1,7 @@
+ExactEqualReal
+SelectSmallestValues
+SelectLargestValues
+SetpointSingleStepChange
+SetpointMultipleStepChange
+GeneralModeSelection
+GeneralModeSelectionBool

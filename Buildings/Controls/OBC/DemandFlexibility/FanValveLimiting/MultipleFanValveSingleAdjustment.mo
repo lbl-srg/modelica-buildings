@@ -1,9 +1,8 @@
-within Buildings.Controls.OBC.DemandFlexibility;
-block MultipleFanValveLimitingSingleAdjustment
+within Buildings.Controls.OBC.DemandFlexibility.FanValveLimiting;
+block MultipleFanValveSingleAdjustment
 
     parameter Integer nEqu=4
     "number of pieces of fan or valve equipment";
-
 
             parameter Real samPerNom(unit="s")=300
     "Sample period for the nominal condition";
@@ -25,8 +24,7 @@ block MultipleFanValveLimitingSingleAdjustment
   CDL.Interfaces.RealOutput uSetCom[nEqu] "setpoint command" annotation (
       Placement(transformation(extent={{100,-20},{140,20}}), iconTransformation(
           extent={{250,-90},{290,-50}})));
-  SingleFanValveLimitingSingleAdjustment singleFanValveLimitingSingleAdjustment[
-    nEqu](
+  SingleFanValveSingleAdjustment singleFanValveLimitingSingleAdjustment[nEqu](
     samPerNom=samPerNom,
     samPerShe=samPerShe,
     samPerReb=samPerReb)
@@ -44,7 +42,7 @@ equation
     annotation (Line(points={{-122,-70},{-74,-70},{-74,0.4},{-24.2,0.4}}, color
         ={0,0,127}));
   connect(uSetNom, singleFanValveLimitingSingleAdjustment.uSetNom) annotation (
-      Line(points={{-122,-118},{-74,-118},{-74,-4.4},{-24.2,-4.4}}, color={0,0,
+      Line(points={{-122,-118},{-48,-118},{-48,-4.4},{-24.2,-4.4}}, color={0,0,
           127}));
   connect(singleFanValveLimitingSingleAdjustment.uSetCom, uSetCom)
     annotation (Line(points={{20,7},{66,7},{66,0},{120,0}}, color={0,0,127}));
@@ -54,4 +52,4 @@ equation
     Documentation(info="<html>
 <p>This block controls the fan or valve limiting for multiple fans or valves. It offers a one-step change for the maximum fan or valve position setpoint. This block is simply repeating the SingleFanValveLimitingSingleAdjustment by the same number of times as the number of fans or valves.</p>
 </html>"));
-end MultipleFanValveLimitingSingleAdjustment;
+end MultipleFanValveSingleAdjustment;

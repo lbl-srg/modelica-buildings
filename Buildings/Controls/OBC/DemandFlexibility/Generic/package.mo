@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility;
-package Subsequences
+package Generic
     annotation (
     Documentation(
       info="<html>
@@ -55,4 +55,4 @@ package Subsequences
     Diagram(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
-end Subsequences;
+end Generic;

@@ -41,7 +41,7 @@ replaceable package MediumAir = Buildings.Media.Air;
     annotation (Placement(transformation(extent={{2,-54},{22,-34}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput totalElectricPowerBaseline
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
-  Controls.OBC.DemandFlexibility.SingleZoneSetpointControl
+  Controls.OBC.DemandFlexibility.ZoneSetpointControl.SingleZone
     singleZoneSetpointControl(
     delChaSheHea=-0.5556,
     delChaRebHea=0.5556,
@@ -57,15 +57,16 @@ replaceable package MediumAir = Buildings.Media.Air;
     timeScale=3600,
     period=86400)
     annotation (Placement(transformation(extent={{-142,68},{-122,88}})));
-  Controls.OBC.DemandFlexibility.Subsequences.ZoneSetpointSource
+  Controls.OBC.DemandFlexibility.ZoneSetpointControl.ZoneSetpointSource
     zoneSetpointSource(
     TSetNomHeaOcc=THeaSetOcc,
     TSetNomHeaUno=THeaSetUno,
     TSetNomCooOcc=TCooSetOcc,
     TSetNomCooUno=TCooSetUno,
-                       occStaHouSta=6, occStaHouEnd=19)
+    occStaHouSta=6,
+    occStaHouEnd=19)
     annotation (Placement(transformation(extent={{-150,40},{-130,60}})));
-  Controls.OBC.DemandFlexibility.SingleZoneSetpointControl
+  Controls.OBC.DemandFlexibility.ZoneSetpointControl.SingleZone
     singleZoneSetpointControl_baseline(
     demFleHeaAct=false,
     demFleCooAct=false,
@@ -83,12 +84,14 @@ replaceable package MediumAir = Buildings.Media.Air;
     timeScale=3600,
     period=86400)
     annotation (Placement(transformation(extent={{-160,-76},{-140,-56}})));
-  Controls.OBC.DemandFlexibility.Subsequences.ZoneSetpointSource
+  Controls.OBC.DemandFlexibility.ZoneSetpointControl.ZoneSetpointSource
     zoneSetpointSource_baseline(
     TSetNomHeaOcc=THeaSetOcc,
     TSetNomHeaUno=THeaSetUno,
     TSetNomCooOcc=TCooSetOcc,
-    TSetNomCooUno=TCooSetUno,   occStaHouSta=6, occStaHouEnd=19)
+    TSetNomCooUno=TCooSetUno,
+    occStaHouSta=6,
+    occStaHouEnd=19)
     annotation (Placement(transformation(extent={{-104,-56},{-84,-36}})));
 equation
   connect(custom_air_conditioner_OnOff_timer.port_b,building_1_zone. port_a)

@@ -1,0 +1,4 @@
+within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences;
+package BaseTemperatureSetpointElements
+  extends Modelica.Icons.VariantsPackage;
+end BaseTemperatureSetpointElements;

@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.DemandFlexibility;
-block SingleChillerSetpointControl
+within Buildings.Controls.OBC.DemandFlexibility.ChillerSetpointControl;
+block SingleChiller
 
    parameter Real delChaShe=1
     "Change amount for load shed";
@@ -32,8 +32,7 @@ block SingleChillerSetpointControl
         iconTransformation(extent={{-192,-156},{-152,-116}})));
   CDL.Interfaces.RealInput uCooCoiValCur "current cooling coil valve signal"
     annotation (Placement(transformation(extent={{-190,-12},{-150,28}})));
-  Subsequences.SingleChillerSetpointControlBase
-    singleChillerSetpointControlBase(
+  Subsequences.SingleChillerBase singleChillerSetpointControlBase(
     delChaShe=delChaShe,
     delChaReb=delChaReb,
     uCooCoiValTho=uCooCoiValTho,
@@ -56,10 +55,10 @@ equation
       Line(points={{-172,-136},{-110,-136},{-110,-89.6},{-51,-89.6}}, color={0,
           0,127}));
   connect(TSetNom, singleChillerSetpointControlBase.TSetNom) annotation (Line(
-        points={{-172,-184},{-111,-184},{-111,-112.4},{-51,-112.4}}, color={0,0,
+        points={{-172,-184},{-78,-184},{-78,-112.4},{-51,-112.4}},   color={0,0,
           127}));
-  connect(uMod, singleChillerSetpointControlBase.uMod) annotation (Line(points=
-          {{-170,44},{-112,44},{-112,-4.1},{-50,-4.1}}, color={255,127,0}));
+  connect(uMod, singleChillerSetpointControlBase.uMod) annotation (Line(points={{-170,44},
+          {-80,44},{-80,-4.1},{-50,-4.1}},              color={255,127,0}));
   connect(con1.y, singleChillerSetpointControlBase.have_pri) annotation (Line(
         points={{-70,88},{-62,88},{-62,14},{-50,14},{-50,13}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
@@ -71,4 +70,4 @@ equation
     Documentation(info="<html>
 <p><span style=\"font-size: 9pt;\">This is a utility block that controls the chiller temperature setpoint for a single chiller, based on the current mode uMod:  1 = load shed mode, 2 = load rebound mode, and 0 = baseline mode. </span></p>
 </html>"));
-end SingleChillerSetpointControl;
+end SingleChiller;

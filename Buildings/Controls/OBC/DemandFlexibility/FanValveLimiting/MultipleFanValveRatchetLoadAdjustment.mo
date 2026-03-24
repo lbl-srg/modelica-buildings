@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.DemandFlexibility;
-block MultipleFanValveLimitingRatchetLoadAdjustment
+within Buildings.Controls.OBC.DemandFlexibility.FanValveLimiting;
+block MultipleFanValveRatchetLoadAdjustment
 
     parameter Integer nEqu=4
     "number of pieces of fan or valve equipment";
@@ -30,7 +30,7 @@ block MultipleFanValveLimitingRatchetLoadAdjustment
   CDL.Interfaces.RealOutput uSetCom[nEqu] "setpoint command" annotation (
       Placement(transformation(extent={{100,-20},{140,20}}), iconTransformation(
           extent={{250,-90},{290,-50}})));
-  SingleFanValveLimitingRatchetLoadAdjustment
+  SingleFanValveRatchetLoadAdjustment
     singleFanValveLimitingRatchetLoadAdjustment[nEqu](
     delChaShe=delChaShe,
     delChaReb=delChaReb,
@@ -39,7 +39,7 @@ block MultipleFanValveLimitingRatchetLoadAdjustment
     samPerReb=samPerReb)
     annotation (Placement(transformation(extent={{-22,-6},{18,26}})));
   CDL.Routing.IntegerScalarReplicator intScaRep(nout=nEqu)
-    annotation (Placement(transformation(extent={{-62,90},{-42,110}})));
+    annotation (Placement(transformation(extent={{-62,100},{-42,120}})));
   CDL.Interfaces.RealInput PBui "building electric power"
     annotation (Placement(transformation(extent={{-140,-108},{-100,-68}})));
   CDL.Interfaces.RealInput PBuiMaxTar "building electric power maximum target"
@@ -49,20 +49,21 @@ block MultipleFanValveLimitingRatchetLoadAdjustment
   CDL.Routing.RealScalarReplicator    reaScaRep1(nout=nEqu)
     annotation (Placement(transformation(extent={{-66,-132},{-46,-112}})));
 equation
-  connect(uMod, intScaRep.u) annotation (Line(points={{-120,110},{-92,110},{-92,
-          100},{-64,100}}, color={255,127,0}));
+  connect(uMod, intScaRep.u) annotation (Line(points={{-120,110},{-64,110}},
+                           color={255,127,0}));
   connect(intScaRep.y, singleFanValveLimitingRatchetLoadAdjustment.uMod)
-    annotation (Line(points={{-40,100},{-34,100},{-34,23},{-24,23}}, color={255,
+    annotation (Line(points={{-40,110},{-34,110},{-34,23},{-24,23}}, color={255,
           127,0}));
   connect(uSetCur, singleFanValveLimitingRatchetLoadAdjustment.uSetCur)
-    annotation (Line(points={{-120,50},{-36,50},{-36,17.8},{-24,17.8}}, color={
+    annotation (Line(points={{-120,50},{-48,50},{-48,17.8},{-24,17.8}}, color={
           0,0,127}));
   connect(uSetTarShe, singleFanValveLimitingRatchetLoadAdjustment.uSetTarShe)
-    annotation (Line(points={{-120,2},{-34,2},{-34,10.4},{-24.2,10.4}}, color={
+    annotation (Line(points={{-120,2},{-80,2},{-80,10},{-24.2,10},{-24.2,10.4}},
+                                                                        color={
           0,0,127}));
   connect(uSetNom, singleFanValveLimitingRatchetLoadAdjustment.uSetNom)
-    annotation (Line(points={{-120,-46},{-34,-46},{-34,0},{-32,0},{-32,5.8},{
-          -24,5.8}}, color={0,0,127}));
+    annotation (Line(points={{-120,-46},{-64,-46},{-64,6},{-24,6},{-24,5.8}},
+                     color={0,0,127}));
   connect(singleFanValveLimitingRatchetLoadAdjustment.uSetCom, uSetCom)
     annotation (Line(points={{20,7},{66,7},{66,0},{120,0}}, color={0,0,127}));
   connect(PBui, reaScaRep.u) annotation (Line(points={{-120,-88},{-76,-88},{-76,
@@ -70,8 +71,8 @@ equation
   connect(PBuiMaxTar, reaScaRep1.u) annotation (Line(points={{-120,-128},{-78,
           -128},{-78,-122},{-68,-122}}, color={0,0,127}));
   connect(reaScaRep.y, singleFanValveLimitingRatchetLoadAdjustment.PBui)
-    annotation (Line(points={{-44,-76},{-34,-76},{-34,-46},{-32,-46},{-32,1},{
-          -24,1}}, color={0,0,127}));
+    annotation (Line(points={{-44,-76},{-38,-76},{-38,2},{-24,2},{-24,1}},
+                   color={0,0,127}));
   connect(reaScaRep1.y, singleFanValveLimitingRatchetLoadAdjustment.PBuiMaxTar)
     annotation (Line(points={{-44,-122},{-24,-122},{-24,-4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},
@@ -80,4 +81,4 @@ equation
     Documentation(info="<html>
 <p>This block controls the fan or valve limiting for multiple fans or valves. It offers multiple step changes for the maximum fan or valve position setpoint, with consideration to the building electricity demand. This block is simply repeating the SingleFanValveLimitingRatchetLoadAdjustment by the same number of times as the number of fans or valves.</p>
 </html>"));
-end MultipleFanValveLimitingRatchetLoadAdjustment;
+end MultipleFanValveRatchetLoadAdjustment;

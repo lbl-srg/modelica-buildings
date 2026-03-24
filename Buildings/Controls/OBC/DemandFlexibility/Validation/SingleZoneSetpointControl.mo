@@ -20,13 +20,12 @@ model SingleZoneSetpointControl
     final offset=273.15 + 22)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-86,42},{-66,62}})));
-  Buildings.Controls.OBC.DemandFlexibility.SingleZoneSetpointControl
+  Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.SingleZone
     singleZoneSetpointControl
     annotation (Placement(transformation(extent={{12,4},{32,42}})));
   CDL.Logical.Sources.Constant con(k=true)
     annotation (Placement(transformation(extent={{-38,76},{-18,96}})));
-  Subsequences.ZoneSetpointSource zoneSetpointSource(occStaHouSta=6,
-      occStaHouEnd=19)
+  Generic.ZoneSetpointSource zoneSetpointSource(occStaHouSta=6, occStaHouEnd=19)
     annotation (Placement(transformation(extent={{-46,22},{-26,42}})));
   CDL.Integers.Sources.TimeTable intTimTab(
     table=[0,0; 14,-1; 16,1; 21,2; 22,0; 24,0],

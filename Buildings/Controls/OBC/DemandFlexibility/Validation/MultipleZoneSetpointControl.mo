@@ -26,10 +26,10 @@ model MultipleZoneSetpointControl
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     timeScale=3600)
     annotation (Placement(transformation(extent={{-92,-92},{-72,-72}})));
-  Subsequences.ZoneSetpointSource zoneSetpointSource[nZon](occStaHouSta=6,
+  Generic.ZoneSetpointSource zoneSetpointSource[nZon](occStaHouSta=6,
       occStaHouEnd=19)
     annotation (Placement(transformation(extent={{-34,0},{-14,20}})));
-  Buildings.Controls.OBC.DemandFlexibility.MultipleZoneSetpointControl
+  Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.MultipleZones
     multipleZoneSetpointControl(nZon=nZon)
     annotation (Placement(transformation(extent={{20,-2},{56,32}})));
   CDL.Routing.RealScalarReplicator reaScaRep1(nout=nZon)
