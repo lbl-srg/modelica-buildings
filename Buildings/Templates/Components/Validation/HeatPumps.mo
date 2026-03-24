@@ -379,15 +379,15 @@ equation
           -90},{86,-100},{50,-100}},  color={0,127,255}));
   connect(inlHpSou.ports[1], resSou.port_a) annotation (Line(points={{-10,-100},
           {30,-100}},                     color={0,127,255}));
-  connect(THeaWatSupSet.y, bus1.THwSet) annotation (Line(points={{-98,140},{40,
+  connect(THeaWatSupSet.y, bus1.THeaWatSet) annotation (Line(points={{-98,140},{40,
           140},{40,130},{40,130},{40,120}}, color={0,0,127}));
-  connect(TChiWatSupSet.y, bus.TChwSet) annotation (Line(points={{-68,120},{-4,
+  connect(TChiWatSupSet.y, bus.TChiWatSet) annotation (Line(points={{-68,120},{-4,
           120},{-4,40},{40,40}}, color={0,0,127}));
-  connect(THeaWatSupSet.y, bus.THwSet) annotation (Line(points={{-98,140},{-2,
+  connect(THeaWatSupSet.y, bus.THeaWatSet) annotation (Line(points={{-98,140},{-2,
           140},{-2,40},{40,40}}, color={0,0,127}));
-  connect(THeaWatSupSet.y, bus2.THwSet) annotation (Line(points={{-98,140},{-2,
+  connect(THeaWatSupSet.y, bus2.THeaWatSet) annotation (Line(points={{-98,140},{-2,
           140},{-2,-40},{40,-40}}, color={0,0,127}));
-  connect(TChiWatSupSet.y, bus2.TChwSet) annotation (Line(points={{-68,120},{-4,
+  connect(TChiWatSupSet.y, bus2.TChiWatSet) annotation (Line(points={{-68,120},{-4,
           120},{-4,-40},{40,-40}}, color={0,0,127}));
   annotation (
     Diagram(

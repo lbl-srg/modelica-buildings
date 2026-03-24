@@ -240,9 +240,9 @@ equation
     annotation (Line(points={{-98,-96},{-72,-96}},color={0,0,127}));
   connect(retChiWat1.ports[1], TRet2.port_a)
     annotation (Line(points={{-50,-100},{-30,-100}},color={0,127,255}));
-  connect(TChiWatSupSet.y, bus.TChwSet)
+  connect(TChiWatSupSet.y, bus.TChiWatSet)
     annotation (Line(points={{-98,80},{0,80}}, color={0,0,127}));
-  connect(TChiWatSupSet1.y, bus2.TChwSet)
+  connect(TChiWatSupSet1.y, bus2.TChiWatSet)
     annotation (Line(points={{-98,-40},{0,-40}}, color={0,0,127}));
   annotation (
     Diagram(
