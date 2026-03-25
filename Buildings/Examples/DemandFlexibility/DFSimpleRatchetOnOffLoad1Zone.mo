@@ -26,7 +26,7 @@ replaceable package MediumAir = Buildings.Media.Air;
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput
                                         totalElectricPower
     annotation (Placement(transformation(extent={{140,42},{160,62}})));
-  Buildings.Examples.DemandFlexibility.HVAC.SetpointProcessing
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DualTemperatureSetpointMock
     setpoint_processing
     annotation (Placement(transformation(extent={{10,38},{30,58}})));
   Buildings.Examples.DemandFlexibility.ThermalZones.Building1Zone
@@ -36,7 +36,7 @@ replaceable package MediumAir = Buildings.Media.Air;
     custom_air_conditioner_OnOff_timer_baseline(heater_thermal_power_nominal=
         3000, cooler_thermal_power_nominal=5000)
     annotation (Placement(transformation(extent={{72,-54},{92,-34}})));
-  Buildings.Examples.DemandFlexibility.HVAC.SetpointProcessing
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DualTemperatureSetpointMock
     setpoint_processing_baseline
     annotation (Placement(transformation(extent={{2,-54},{22,-34}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput totalElectricPowerBaseline
@@ -111,10 +111,10 @@ equation
   connect(totalElectricPower, custom_air_conditioner_OnOff_timer.electricPower)
     annotation (Line(points={{150,52},{106,52},{106,54.1333},{101.111,54.1333}},
                                                                color={0,0,127}));
-  connect(setpoint_processing.TZonHeaSetPro, custom_air_conditioner_OnOff_timer.THeaSet)
+  connect(setpoint_processing.yTSetHea, custom_air_conditioner_OnOff_timer.THeaSet)
     annotation (Line(points={{32,52.6},{74,52.6},{74,53.4667},{78.8889,53.4667}},
         color={0,0,127}));
-  connect(setpoint_processing.TZonCooSetPro, custom_air_conditioner_OnOff_timer.TCooSet)
+  connect(setpoint_processing.yTSetCoo, custom_air_conditioner_OnOff_timer.TCooSet)
     annotation (Line(points={{32,44},{34,43.8667},{78.8889,43.8667}}, color={0,
           0,127}));
   connect(custom_air_conditioner_OnOff_timer_baseline.port_b,
@@ -135,20 +135,19 @@ equation
     custom_air_conditioner_OnOff_timer_baseline.electricPower) annotation (Line(
         points={{150,-40},{98,-40},{98,-37.8667},{93.1111,-37.8667}}, color={0,
           0,127}));
-  connect(setpoint_processing_baseline.TZonHeaSetPro,
+  connect(setpoint_processing_baseline.yTSetHea,
     custom_air_conditioner_OnOff_timer_baseline.THeaSet) annotation (Line(
         points={{24,-39.4},{66,-39.4},{66,-38.5333},{70.8889,-38.5333}}, color=
           {0,0,127}));
-  connect(setpoint_processing_baseline.TZonCooSetPro,
+  connect(setpoint_processing_baseline.yTSetCoo,
     custom_air_conditioner_OnOff_timer_baseline.TCooSet) annotation (Line(
         points={{24,-48},{26,-48.1333},{70.8889,-48.1333}}, color={0,0,127}));
-  connect(singleZoneSetpointControl.TSetComHea, setpoint_processing.TZonHeaSetCom)
-    annotation (Line(points={{-20.2609,58},{-2,58},{-2,53},{8,53}},
-                                                               color={0,0,127}));
-  connect(singleZoneSetpointControl.TSetComCoo, setpoint_processing.TZonCooSetCom)
+  connect(singleZoneSetpointControl.TSetComHea, setpoint_processing.uTSetHea)
+    annotation (Line(points={{-20.2609,58},{-2,58},{-2,53},{8,53}}, color={0,0,
+          127}));
+  connect(singleZoneSetpointControl.TSetComCoo, setpoint_processing.uTSetCoo)
     annotation (Line(points={{-20.2609,38.2},{-20.2609,34},{0,34},{0,43.8},{8,
-          43.8}},
-        color={0,0,127}));
+          43.8}}, color={0,0,127}));
   connect(con.y, singleZoneSetpointControl.have_priHea) annotation (Line(points
         ={{-92,102},{-52,102},{-52,67.2},{-44,67.2}}, color={255,0,255}));
   connect(con.y, singleZoneSetpointControl.have_priCoo) annotation (Line(points
@@ -179,11 +178,10 @@ equation
     annotation (Line(points={{-128,41.8},{-128,40},{-54,40},{-54,30.4},{
           -43.7391,30.4}},
         color={0,0,127}));
-  connect(setpoint_processing.TZonHeaSetPro, singleZoneSetpointControl.TSetCurHea)
-    annotation (Line(points={{32,52.6},{40,52.6},{40,26},{-66,26},{-66,57.8},{
-          -43.7391,57.8}},
-                  color={0,0,127}));
-  connect(setpoint_processing.TZonCooSetPro, singleZoneSetpointControl.TSetCurCoo)
+  connect(setpoint_processing.yTSetHea, singleZoneSetpointControl.TSetCurHea)
+    annotation (Line(points={{32,52.6},{40,52.6},{40,26},{-66,26},{-66,57.8},{-43.7391,
+          57.8}}, color={0,0,127}));
+  connect(setpoint_processing.yTSetCoo, singleZoneSetpointControl.TSetCurCoo)
     annotation (Line(points={{32,44},{30,44},{30,14},{-43.7391,14},{-43.7391,52}},
         color={0,0,127}));
   connect(building_1_zone.TZon, singleZoneSetpointControl.TCur) annotation (
@@ -191,13 +189,11 @@ equation
                                                                        color={0,
           0,127}));
   connect(singleZoneSetpointControl_baseline.TSetComHea,
-    setpoint_processing_baseline.TZonHeaSetCom) annotation (Line(points={{
-          -20.2609,-36},{-10,-36},{-10,-39},{0,-39}},
-                                        color={0,0,127}));
+    setpoint_processing_baseline.uTSetHea) annotation (Line(points={{-20.2609,-36},
+          {-10,-36},{-10,-39},{0,-39}}, color={0,0,127}));
   connect(singleZoneSetpointControl_baseline.TSetComCoo,
-    setpoint_processing_baseline.TZonCooSetCom) annotation (Line(points={{
-          -20.2609,-55.8},{-20.2609,-60},{-10,-60},{-10,-48.2},{0,-48.2}},
-                                                      color={0,0,127}));
+    setpoint_processing_baseline.uTSetCoo) annotation (Line(points={{-20.2609,-55.8},
+          {-20.2609,-60},{-10,-60},{-10,-48.2},{0,-48.2}}, color={0,0,127}));
   connect(con_baseline.y, singleZoneSetpointControl_baseline.have_priHea)
     annotation (Line(points={{-130,-24},{-52,-24},{-52,-26.8},{-44,-26.8}},
         color={255,0,255}));
@@ -227,15 +223,13 @@ equation
     singleZoneSetpointControl_baseline.TSetNomCoo) annotation (Line(points={{-82,
           -54.2},{-82,-68},{-52,-68},{-52,-63.6},{-43.7391,-63.6}},
                                                                color={0,0,127}));
-  connect(setpoint_processing_baseline.TZonHeaSetPro,
+  connect(setpoint_processing_baseline.yTSetHea,
     singleZoneSetpointControl_baseline.TSetCurHea) annotation (Line(points={{24,
-          -39.4},{32,-39.4},{32,-38},{34,-38},{34,-74},{-58,-74},{-58,-36.2},{
-          -43.7391,-36.2}},
-                   color={0,0,127}));
-  connect(setpoint_processing_baseline.TZonCooSetPro,
-    singleZoneSetpointControl_baseline.TSetCurCoo) annotation (Line(points={{24,-48},
-          {30,-48},{30,-80},{-43.7391,-80},{-43.7391,-42}},
-                                                         color={0,0,127}));
+          -39.4},{32,-39.4},{32,-38},{34,-38},{34,-74},{-58,-74},{-58,-36.2},{-43.7391,
+          -36.2}}, color={0,0,127}));
+  connect(setpoint_processing_baseline.yTSetCoo,
+    singleZoneSetpointControl_baseline.TSetCurCoo) annotation (Line(points={{24,
+          -48},{30,-48},{30,-80},{-43.7391,-80},{-43.7391,-42}}, color={0,0,127}));
   connect(building_1_zone_baseline.TZon, singleZoneSetpointControl_baseline.TCur)
     annotation (Line(points={{59,-94.78},{66,-94.78},{66,-42},{38,-42},{38,-16},
           {-56,-16},{-56,-46},{-50,-46},{-50,-39.2},{-43.7391,-39.2}},

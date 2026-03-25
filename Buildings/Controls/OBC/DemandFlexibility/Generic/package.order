@@ -5,3 +5,6 @@ SetpointSingleStepChange
 SetpointMultipleStepChange
 GeneralModeSelection
 GeneralModeSelectionBool
+TemperatureSetpointResolution
+SingleTemperatureSetpointMock
+DualTemperatureSetpointMock
