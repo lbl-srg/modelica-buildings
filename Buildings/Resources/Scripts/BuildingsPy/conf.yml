@@ -34,8 +34,8 @@
     comment: simulation terminated by an assertion at initialization
     simulate: false
   optimica:
-    comment: 'The system is structurally singular. Modelon #2023012739000252'
-    translate: false
+    comment: 'FMUException: Failed to update the events at time: 1.578082E+07.'
+    simulate: false
 - model_name: Buildings.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
@@ -83,8 +83,8 @@
     comment: Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910
     simulate: false
   optimica:
-    comment: Timeout after 600 seconds
-    simulate: false
+    time_out: 900
+    comment: 'RuntimeError: Process timeout after 600 seconds'
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
   optimica:
     comment: Simulation times out
@@ -126,11 +126,11 @@
     comment: simulation terminated by an assertion at initialization.
     simulate: false
 - model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
-  optimica:
-    comment: CVode and Radau5ODE hang since https://github.com/lbl-srg/modelica-buildings/pull/3109, likely because Xi rather than mXi is a state
-    simulate: false
   openmodelica:
     comment: Timeout after 300 seconds.
+    simulate: false
+  optimica:
+    comment: Simulation times out after 600 seconds on travis.
     simulate: false
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
@@ -144,16 +144,13 @@
     comment: Timeout during translation
     time_out: 600
   optimica:
-    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
+    comment: 'MemoryError: The compilation process was unexpectedly killed by the system on travis'
     translate: false
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
     time_out: 600
-  optimica:
-    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
-    translate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -250,8 +247,8 @@
     simulate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   optimica:
-    comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start...'
-    translate: false
+    comment: 'CVodeError: The rootfinding function failed in an unrecoverable manner. At time 32392.196613.'
+    simulate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start, isEna.u = loa1.ctl.cha.pre_u_start'
@@ -323,11 +320,11 @@
     comment: returned non-zero exit status 139.
     simulate: false
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
-  optimica:
-    comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
-    translate: false
   openmodelica:
     comment: Translation failed.
+    translate: false
+  optimica:
+    comment: Translation warning. Access to component not in constrained type, https://github.com/lbl-srg/modelica-buildings/issues/4497.
     translate: false
 - model_name: Buildings.Templates.Components.Chillers.Validation.Compression
   openmodelica:
@@ -353,16 +350,10 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-  optimica:
-    comment: PyModelicaException due to NullPointerException
-    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
   openmodelica:
     comment: Translation failed.
     translate: false
-  optimica:
-    comment: Possible chattering detected at t = 3.120112e+03 in state event
-    simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
   optimica:
     comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
@@ -378,10 +369,6 @@
   openmodelica:
     comment: Time out after 300 s.
     translate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231
-    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.NaturalConvectionWithControl
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -403,9 +390,6 @@
     time_out: 600
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.NaturalConvection
   openmodelica:
