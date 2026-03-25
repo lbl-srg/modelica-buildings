@@ -178,7 +178,7 @@ The Python function therefore takes the initial temperature and the heat flow ra
 from Modelica to initialize the Python object. It does not start the TOUGH simulation.
 </li>
 <li>
-Before each TOUGH simulation, the function <code>write_incon()</code> edits the
+Before each TOUGH simulation, the function <code>write_incon()</code> edits the following
 TOUGH input files in
 <<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/TOUGH</code>>:
 <ul>
