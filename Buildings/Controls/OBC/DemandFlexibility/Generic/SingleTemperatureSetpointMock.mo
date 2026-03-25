@@ -47,8 +47,7 @@ block SingleTemperatureSetpointMock
     final quantity="ThermodynamicTemperature")
     "Temperature setpoint processed output" annotation (Placement(
         transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
-            {100,-20},{140,20}})), __cdl(semantic(metadataLanguage="Brick 1.3 text/turtle"
-          "@prefix brick: <https://brickschema.org/schema/Brick#> .
+            {100,-20},{140,20}})), __cdl(semantic(metadataLanguage="Brick 1.3 text/turtle" "@prefix brick: <https://brickschema.org/schema/Brick#> .
             @prefix hpfs: <http://hpflex/shapes#> .
             @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
             @prefix sh: <http://www.w3.org/ns/shacl#> .
