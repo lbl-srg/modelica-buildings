@@ -43,7 +43,13 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         grid={2,2})),
     Documentation(info="<html>
-<p>This block is used to select the nSel smallest temperature difference values, then output the action flag yAcnFla on which temperature difference values are selected to take some output action. The temperature difference is calculated by the current temperature (TCur) minus the current tempearture setpoint (TSetCur).</p>
-<p>The inputs also include an ignore flag uIgnFla. This is especially useful when controlling temperature ratchets. When a temperature setpoint has reached the target temperature setpoint, it is possible that the tamperature difference is still one of the smallest. Therefore, we would like this temperature setpoint to be temporarily ignored such that we can give the priority to other temperature setpoints</p>
+<p>This block is used to select the <code>nSel</code> smallest temperature difference values, then output the action 
+flag <code>yAcnFla</code> on which temperature difference values are selected to take some output action. The 
+temperature difference is calculated by the current temperature (<code>TCur</code>) minus the current tempearture 
+setpoint (<code>TSetCur</code>).</p>
+<p>The inputs also include an ignore flag <code>uIgnFla</code>. This is especially useful when controlling temperature 
+ratchets. When a temperature setpoint has reached the target temperature setpoint, it is possible 
+that the tamperature difference is still one of the smallest. Therefore, we would like this temperature 
+setpoint to be temporarily ignored such that we can give the priority to other temperature setpoints</p>
 </html>"));
 end SelectSmallestTemperatureDifference;

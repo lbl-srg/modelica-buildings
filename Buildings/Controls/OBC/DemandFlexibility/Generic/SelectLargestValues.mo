@@ -22,6 +22,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This block selects the nSel largest values out of a total of nNum values. The output is an array, where 1 means the value is one of the largest values, and 0 means otherwise.</span></p>
+<p>This block selects the <code>nSel</code> largest values out of a total of <code>nNum</code> 
+values. The output is an array, where 1 means the value is one of the largest values, and 0 means 
+otherwise.</p>
 </html>"));
 end SelectLargestValues;

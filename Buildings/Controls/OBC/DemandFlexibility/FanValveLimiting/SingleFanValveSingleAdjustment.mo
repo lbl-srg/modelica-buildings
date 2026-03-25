@@ -64,7 +64,11 @@ equation
         extent={{-150,-200},{250,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block controls the fan or valve limiting for a single fan or valve. It offers a one-step change for the maximum fan or valve position setpoint. This is based on the current mode uMod: 0 = baseline mode, 1 = load shed mode, and 2 = load rebound mode. </p>
-<p>At the baseline mode and the load rebound mode, the maximum fan or valve position setpoint is equal to uSetNom. At the load shed mode, the maximum fan or valve position setpoint is equal to uSetTarShe.</p>
+<p>This block controls the fan or valve limiting for a single fan or valve. It offers a one-step 
+change for the maximum fan or valve position setpoint. This is based on the current mode <code>uMod</code>: 
+0 = baseline mode, 1 = load shed mode, and 2 = load rebound mode. </p>
+<p>At the baseline mode and the load rebound mode, the maximum fan or valve position setpoint 
+is equal to <code>uSetNom</code>. At the load shed mode, the maximum fan or valve position setpoint is equal 
+to uSetTarShe.</p>
 </html>"));
 end SingleFanValveSingleAdjustment;

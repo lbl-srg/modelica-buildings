@@ -60,6 +60,8 @@ equation
             {100,140}})), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-140},{100,140}})),
     Documentation(info="<html>
-<p>This block controls the fan or valve limiting for multiple fans or valves. It offers multiple step changes for the maximum fan or valve position setpoint. This block is simply repeating the SingleFanValveLimitingRatchetAdjustment by the same number of times as the number of fans or valves.</p>
+<p>This block controls the fan or valve limiting for multiple fans or valves. It offers multiple step 
+changes for the maximum fan or valve position setpoint. This block is simply repeating the 
+<code>SingleFanValveLimitingRatchetAdjustment</code> by the same number of times as the number of fans or valves.</p>
 </html>"));
 end MultipleFanValveRatchetAdjustment;

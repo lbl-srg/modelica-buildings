@@ -214,7 +214,12 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-180,-280},{100,140}})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This is a utility block that controls both the cooling setpoint and the heating setpoint for a single building zone. It reference the sub-block </span>SingleTemperatureZoneSetpointControl twice, one for the heating setpoint and one for the cooling setpoint. </p>
-<p>This block will be referenced by the main blocks SingleZoneSetpointControl and MultipleZoneSetpointControl. For SingleZoneSetpointControl, this block is called once with variables have_priHea and have_priCoo setting to true. For MultipleZoneSetpointControl, this block is called the same amount of times as the number of zones to control temperature setpoints. </p>
+<p>This is a utility block that controls both the cooling setpoint and the heating setpoint for a 
+single building zone. It reference the sub-block <code>SingleTemperatureZoneSetpointControl</code> 
+twice, one for the heating setpoint and one for the cooling setpoint. </p>
+<p>This block will be referenced by the main blocks SingleZoneSetpointControl and 
+MultipleZoneSetpointControl. For SingleZoneSetpointControl, this block is called once with variables 
+<code>have_priHea</code> and <code>have_priCoo</code> setting to true. For <code>MultipleZoneSetpointControl</code>, this block is called 
+the same amount of times as the number of zones to control temperature setpoints. </p>
 </html>"));
 end DualTemperatureSetpoint;

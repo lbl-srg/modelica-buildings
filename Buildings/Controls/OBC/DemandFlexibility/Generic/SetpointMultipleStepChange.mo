@@ -100,9 +100,20 @@ equation
         extent={{-100,-130},{200,130}},
         grid={2,2})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This block serves to change the setpoint between the nominal setpoint uSetNom and the target setpoint uSetTar in multiple smaller steps. Each smaller step is taken every samPer seconds. The amount of change in each smaller step is delCha, with positive values indicating setpoint increase while negative values indicating setpoint decrease.</span></p>
-<p><span style=\"font-size: 9pt;\">This block provides the freedom to account for both uSetNom &gt;= uSetTar and uSetNom &lt; uSetTar cases, because we want to use the same block for both heating setpoint and cooling setpoint, and for both load shed and load rebound, for example. Setpoint increase and decrease is entirely determined by the delCha value.</span></p>
-<p><br><br><span style=\"font-size: 9pt;\">The have_pri input specifies whether the setpoint change operation will be executed or not every samPer seconds. This is useful in multiple-zone or multiple-equipment scenarios where we want to prioritize which zone or equipment will go through the setpoint change.</span></p>
-<p><span style=\"font-size: 9pt;\">Outputs include the new setpoint that we want the equipment or zone to have, as well as boolean flags that specify whether the current setpoint has reached the nominal setpoint or the target setpoint. </span></p>
+<p>This block serves to change the setpoint between the nominal setpoint 
+uSetNom and the target setpoint <code>uSetTar</code> in multiple smaller steps. Each smaller step is taken every 
+samPer seconds. The amount of change in each smaller step is delCha, with positive values indicating 
+setpoint increase while negative values indicating setpoint decrease.</p>
+<p>This block provides the freedom to account for both <code>uSetNom</code> &gt;= 
+<code>uSetTar</code> and <code>uSetNom</code> &lt; <code>uSetTar</code> cases, because we want to use the same block for both heating 
+setpoint and cooling setpoint, and for both load shed and load rebound, for example. Setpoint 
+increase and decrease is entirely determined by the <code>delCha</code> value.</p>
+<p>The have_pri input specifies whether the setpoint 
+change operation will be executed or not every samPer seconds. This is useful in multiple-zone 
+or multiple-equipment scenarios where we want to prioritize which zone or equipment will go 
+through the setpoint change.</p>
+<p>Outputs include the new setpoint that we want the equipment 
+or zone to have, as well as boolean flags that specify whether the current setpoint has reached 
+the nominal setpoint or the target setpoint. </p>
 </html>"));
 end SetpointMultipleStepChange;

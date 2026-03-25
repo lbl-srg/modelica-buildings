@@ -102,9 +102,19 @@ equation
         extent={{-100,-150},{200,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This block serves to change the setpoint between the nominal setpoint uSetNom and the target setpoint uSetTar in a single step. The setChaMod variable specifies whether we would like the current setpoint uSetCur to go to the uSetNom value or the uSetTar value. </span></p>
-<p><span style=\"font-size: 9pt;\">This block provides the freedom to account for both uSetNom &gt;= uSetTar and uSetNom &lt; uSetTar cases, because we want to use the same block for both heating setpoint and cooling setpoint, and for both load shed and load rebound, for example. Setpoint increase and decrease is entirely determined by the setChaMod value.</span></p>
-<p><br><br><span style=\"font-size: 9pt;\">The have_pri input specifies whether the setpoint change operation will be executed or not every samPer seconds. This is useful in multiple-zone or multiple-equipment scenarios where we want to prioritize which zone or equipment will go through the setpoint change. The single step change will execute every samPer seconds, and the single step change will be realized as long as have_pri is true. </span></p>
-<p><span style=\"font-size: 9pt;\">Outputs include the new setpoint that we want the equipment or zone to have, as well as boolean flags that specify whether the current setpoint has reached the nominal setpoint or the target setpoint. </span></p>
+<p>This block serves to change the setpoint between the nominal setpoint <code>uSetNom</code> and the target setpoint 
+uSetTar in a single step. The <code>setChaMod</code> variable specifies whether we would like the current setpoint 
+uSetCur to go to the uSetNom value or the <code>uSetTar</code> value. </p>
+<p>This block provides the freedom to account for both <code>uSetNom</code> &gt;= <code>uSetTar</code> and <code>uSetNom</code> &lt; <code>uSetTar</code> 
+cases, because we want to use the same block for both heating setpoint and cooling setpoint, and 
+for both load shed and load rebound, for example. Setpoint increase and decrease is entirely determined 
+by the <code>setChaMod</code> value.</p>
+<p>The <code>have_pri</code> input specifies whether the setpoint change operation will be executed or 
+not every <code>samPer</code> seconds. This is useful in multiple-zone or multiple-equipment scenarios where we 
+want to prioritize which zone or equipment will go through the setpoint change. The single step 
+change will execute every samPer seconds, and the single step change will be realized as long as 
+<code>have_pri</code> is true. </p>
+<p>Outputs include the new setpoint that we want the equipment or zone to have, as well as boolean 
+flags that specify whether the current setpoint has reached the nominal setpoint or the target setpoint. </p>
 </html>"));
 end SetpointSingleStepChange;

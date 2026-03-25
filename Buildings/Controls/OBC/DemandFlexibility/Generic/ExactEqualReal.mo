@@ -46,6 +46,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p><span style=\"font-family: Courier New;\">This block compares 2 real input variables, and if these 2 real input variables are equal to each other with a deviation less than alwDev, then the output is true. Otherwise, the output is false. </span></p>
+<p>This block compares 2 real input variables, and if these 2 real input variables are equal to each 
+other with a deviation less than <code>alwDev</code>, then the output is true. Otherwise, the output is false. </p>
 </html>"));
 end ExactEqualReal;

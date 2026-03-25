@@ -114,7 +114,12 @@ equation
         extent={{-150,-200},{250,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This is a block that brings the full suite of control for a single chiller temperature setpoint. It contains the load shed mode, load rebound mode, and baseline mode. Each of the 3 modes includes a sampler block, where users can set the sampling period independently for each mode.</p>
-<p>For the load shed mode specifically, there are specific elements in this logic block that checks whether a zone has remained under a cooling coil valve maximum signal (uCooCoiValCur) for ratcheting the chiller setpoint.  If the current cooling coil valve signal is less than uCooCoiValCur, the load shed mode will be activated. Otherwise, it will not be activated.</p>
+<p>This is a block that brings the full suite of control for a single chiller temperature setpoint. 
+It contains the load shed mode, load rebound mode, and baseline mode. Each of the 3 modes includes a 
+sampler block, where users can set the sampling period independently for each mode.</p>
+<p>For the load shed mode specifically, there are specific elements in this logic block that checks 
+whether a zone has remained under a cooling coil valve maximum signal (<code>uCooCoiValCur</code>) for ratcheting 
+the chiller setpoint.  If the current cooling coil valve signal is less than uCooCoiValCur, the 
+load shed mode will be activated. Otherwise, it will not be activated.</p>
 </html>"));
 end SingleChillerBase;

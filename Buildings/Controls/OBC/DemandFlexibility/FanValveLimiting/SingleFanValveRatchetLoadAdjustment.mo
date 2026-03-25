@@ -94,7 +94,16 @@ equation
         extent={{-150,-200},{250,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block controls the fan or valve limiting for a single fan or valve. It offers multiple step changes for the maximum fan or valve position setpoint, with consideration to the building electricity demand. This is based on the current mode uMod: 0 = baseline mode, 1 = load shed mode, and 2 = load rebound mode. </p>
-<p>At the baseline mode , the maximum fan or valve position setpoint is equal to uSetNom. At the load shed mode, if the building electricity demand (PBui) is higher than the building electricity demand limit (PBuiMaxTar), the maximum fan or valve position setpoint will gradually decrease from uSetNom to uSetTarShe in multiple steps. However, if the building electricity demand is lower than the building electricity demand limit, the maximum fan or valve position setpoint will maintain at the current maximum fan or valve position setpoint. At the load rebound mode, the maximum fan or valve position setpoint will gradually increase from uSetTarShe to uSetNom in multiple steps.</p>
+<p>This block controls the fan or valve limiting for a single fan or valve. It offers multiple step 
+changes for the maximum fan or valve position setpoint, with consideration to the building electricity 
+demand. This is based on the current mode <code>uMod</code>: 0 = baseline mode, 1 = load shed mode, and 2 = load 
+rebound mode. </p>
+<p>At the baseline mode , the maximum fan or valve position setpoint is equal to <code>uSetNom</code>. At the 
+load shed mode, if the building electricity demand (<code>PBui</code>) is higher than the building electricity 
+demand limit (<code>PBuiMaxTar</code>), the maximum fan or valve position setpoint will gradually decrease from 
+uSetNom to uSetTarShe in multiple steps. However, if the building electricity demand is lower than 
+the building electricity demand limit, the maximum fan or valve position setpoint will maintain 
+at the current maximum fan or valve position setpoint. At the load rebound mode, the maximum fan 
+or valve position setpoint will gradually increase from uSetTarShe to uSetNom in multiple steps.</p>
 </html>"));
 end SingleFanValveRatchetLoadAdjustment;

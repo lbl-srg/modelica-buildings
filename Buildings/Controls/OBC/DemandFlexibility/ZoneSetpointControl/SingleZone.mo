@@ -98,48 +98,55 @@ block SingleZone
     annotation (Placement(transformation(extent={{-92,94},{-72,114}})));
 equation
   connect(con1.y, dualTemperatureSetpoint.have_priCoo) annotation (Line(points=
-          {{-70,104},{-56,104},{-56,-14},{-44.2,-14}}, color={255,0,255}));
+          {{-70,104},{-56,104},{-56,-18.2667},{-41.2857,-18.2667}}, color={255,
+          0,255}));
   connect(uMod, dualTemperatureSetpoint.uMod) annotation (Line(points={{-180,84},
-          {-68,84},{-68,-28},{-44.2,-28},{-44.2,-27.6}}, color={255,127,0}));
+          {-68,84},{-68,-28},{-41.2857,-28},{-41.2857,-30.5714}}, color={255,
+          127,0}));
   connect(TSetCurHea, dualTemperatureSetpoint.TSetCurHea) annotation (Line(
-        points={{-180,46},{-76,46},{-76,-38},{-44.2,-38},{-44.2,-38.8}}, color=
-          {0,0,127}));
+        points={{-180,46},{-76,46},{-76,-38},{-40.5571,-38},{-40.5571,-42.1524}},
+        color={0,0,127}));
   connect(TCur, dualTemperatureSetpoint.TCur) annotation (Line(points={{-180,16},
-          {-86,16},{-86,-50.8},{-44.2,-50.8}}, color={0,0,127}));
+          {-86,16},{-86,-53.0095},{-40.5571,-53.0095}}, color={0,0,127}));
   connect(TSetCurCoo, dualTemperatureSetpoint.TSetCurCoo) annotation (Line(
-        points={{-180,-12},{-98,-12},{-98,-62},{-44.2,-62}}, color={0,0,127}));
+        points={{-180,-12},{-98,-12},{-98,-63.1429},{-40.5571,-63.1429}}, color
+        ={0,0,127}));
   connect(TSetTarSheHea, dualTemperatureSetpoint.TSetTarSheHea) annotation (
-      Line(points={{-180,-84},{-141,-84},{-141,-90.8},{-44.2,-90.8}}, color={0,
-          0,127}));
+      Line(points={{-180,-84},{-141,-84},{-141,-89.2},{-40.5571,-89.2}}, color=
+          {0,0,127}));
   connect(TSetNomHea, dualTemperatureSetpoint.TSetNomHea) annotation (Line(
-        points={{-180,-118},{-114,-118},{-114,-104.4},{-44.2,-104.4}}, color={0,
-          0,127}));
+        points={{-180,-118},{-114,-118},{-114,-101.505},{-40.5571,-101.505}},
+        color={0,0,127}));
   connect(TSetTarPreCoo, dualTemperatureSetpoint.TSetTarPreCoo) annotation (
-      Line(points={{-180,-154},{-94,-154},{-94,-118.8},{-44.2,-118.8}}, color={
-          0,0,127}));
+      Line(points={{-180,-154},{-94,-154},{-94,-114.533},{-40.5571,-114.533}},
+        color={0,0,127}));
   connect(TSetTarSheCoo, dualTemperatureSetpoint.TSetTarSheCoo) annotation (
-      Line(points={{-180,-194},{-74,-194},{-74,-134},{-44.2,-134},{-44.2,-134.8}},
-        color={0,0,127}));
+      Line(points={{-180,-194},{-74,-194},{-74,-134},{-40.5571,-134},{-40.5571,
+          -129.01}}, color={0,0,127}));
   connect(TSetNomCoo, dualTemperatureSetpoint.TSetNomCoo) annotation (Line(
-        points={{-180,-228},{-60,-228},{-60,-148},{-44.2,-148},{-44.2,-148.4}},
-        color={0,0,127}));
+        points={{-180,-228},{-60,-228},{-60,-148},{-40.5571,-148},{-40.5571,
+          -141.314}}, color={0,0,127}));
   connect(dualTemperatureSetpoint.TSetComHea, TSetComHea) annotation (Line(
-        points={{78.2,-38},{111.1,-38},{111.1,20},{150,20}}, color={0,0,127}));
+        points={{75.2857,-41.4286},{111.1,-41.4286},{111.1,20},{150,20}}, color
+        ={0,0,127}));
   connect(con1.y, dualTemperatureSetpoint.have_priHea) annotation (Line(points=
-          {{-70,104},{-56,104},{-56,-1.2},{-44.2,-1.2}}, color={255,0,255}));
+          {{-70,104},{-56,104},{-56,-6.68571},{-41.2857,-6.68571}}, color={255,
+          0,255}));
   connect(dualTemperatureSetpoint.TSetComCoo, TSetComCoo) annotation (Line(
-        points={{78.2,-116.4},{78.2,-116},{110,-116},{110,-178},{150,-178}},
-        color={0,0,127}));
+        points={{75.2857,-112.362},{75.2857,-116},{110,-116},{110,-178},{150,
+          -178}}, color={0,0,127}));
   connect(TSetTarPreHea, dualTemperatureSetpoint.TSetTarPreHea) annotation (
-      Line(points={{-180,-48},{-124,-48},{-124,-76},{-44.2,-76},{-44.2,-76.4}},
-        color={0,0,127}));
+      Line(points={{-180,-48},{-124,-48},{-124,-76},{-40.5571,-76},{-40.5571,
+          -76.1714}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
             -260},{130,120}},
         grid={2,2})),     Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-260},{130,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This is a utility block that controls both the cooling setpoint and the heating setpoint for a single building zone, based on the current mode uMod: -1 = pre-cool/pre-heat mode, 1 = load shed mode, 2 = load rebound mode, and 0 = baseline mode. </span></p>
-<p><span style=\"font-size: 9pt;\">The heating setpoint and the cooling setpoint are controlled independently.</span></p>
+<p>This is a utility block that controls both the cooling setpoint and the heating setpoint 
+for a single building zone, based on the current mode uMod: -1 = pre-cool/pre-heat mode, 1 = 
+load shed mode, 2 = load rebound mode, and 0 = baseline mode. </p>
+<p>The heating setpoint and the cooling setpoint are controlled independently.</p>
 </html>"));
 end SingleZone;
