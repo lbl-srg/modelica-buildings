@@ -3,7 +3,7 @@ model TemperatureResponseMatrix
   "This validation case tests the calculation of thermal resposne factors"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.Units.SI.Time kappa[8,8,7]=
+  parameter Real kappa[8,8,7]=
       Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.temperatureResponseMatrix(
       nBor=3,
       cooBor={{0,0}, {0,5}, {5,0}},
@@ -30,6 +30,13 @@ boreholes divided into 2 zones.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 20, 2026, by Michael Wetter:<br/>
+Corrected type declaration of g-function.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4501\">
+Buildings, #4501</a>.
+</li>
 <li>
 February 2024, by Massimo Cimmino:<br/>
 First implementation.
