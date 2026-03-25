@@ -21,7 +21,7 @@ impure function temperatureResponseMatrix
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
   input String sha "SHA-1 encryption of the arguments of this function";
 
-  output Modelica.Units.SI.ThermalResistance kappa[nZon*nSeg,nZon*nSeg,nTim] "Thermal response factor matrix";
+  output Real kappa[nZon*nSeg,nZon*nSeg,nTim] "Thermal response factor matrix";
 
 protected
   String fileName[nZon*nSeg] = {
@@ -274,6 +274,13 @@ doi:10.1080/19401493.2021.1968953</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 20, 2026, by Michael Wetter:<br/>
+Corrected type declaration of g-function.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4501\">
+Buildings, #4501</a>.
+</li>
 <li>
 February 2024, by Massimo Cimmino:<br/>
 First implementation.

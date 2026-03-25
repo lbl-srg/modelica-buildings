@@ -8,7 +8,7 @@ preferredView="info",
 version="13.0.0",
 versionDate="2025-05-29",
 dateModified="2025-05-29",
-uses(Modelica(version="4.0.0")),
+uses(Modelica(version="4.1.0")),
 conversion(
   noneFromVersion="12.1.0",
   noneFromVersion="12.0.0",
