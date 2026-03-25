@@ -133,10 +133,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
   Buildings.Templates.Components.Controls.StatusEmulator pre6[2] "Break algebraic loop"
     annotation (Placement(transformation(extent={{-360,-110},{-340,-90}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
-    final samplePeriod=fill(120, 2))
-    "Sample value and break algebric loop"
-    annotation (Placement(transformation(extent={{-460,300},{-440,320}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
     "Plant enable"
     annotation (Placement(transformation(extent={{-280,150},{-260,170}})));
@@ -220,8 +216,8 @@ equation
           {280,280},{280,260},{-330,260},{-330,26},{-144,26}}, color={0,0,127}));
   connect(TWetBul.y, cooTow1.TAir) annotation (Line(points={{-499,80},{-490,80},
           {-490,350},{360,350},{360,384},{342,384}}, color={0,0,127}));
-  connect(chiPlaCon.yMinValPosSet, valByp.y) annotation (Line(points={{-96,44},
-          {0,44},{0,-200},{330,-200},{330,-208}},       color={0,0,127}));
+  connect(chiPlaCon.yMinValPosSet, valByp.y) annotation (Line(points={{-96,40},
+          {0,40},{0,-200},{330,-200},{330,-208}},       color={0,0,127}));
   connect(jun10.port_2, portCooCoiSup) annotation (Line(
       points={{200,-230},{200,-360}},
       color={0,127,255},
@@ -269,13 +265,6 @@ equation
           92.6},{10,20},{310,20},{310,97},{318,97}},  color={255,0,255}));
   connect(chiPlaCon.yChi[2], chi2.on) annotation (Line(points={{-96,94.6},{10,
           94.6},{10,20},{310,20},{310,7},{318,7}},  color={255,0,255}));
-  connect(chwIsoVal1.y_actual, zerOrdHol1[1].u) annotation (Line(points={{235,77},
-          {100,77},{100,360},{-480,360},{-480,310},{-462,310}}, color={0,0,127}));
-  connect(chwIsoVal2.y_actual, zerOrdHol1[2].u) annotation (Line(points={{235,-13},
-          {220,-13},{220,-4},{100,-4},{100,360},{-480,360},{-480,310},{-462,310}},
-        color={0,0,127}));
-  connect(zerOrdHol1.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{-438,
-          310},{-360,310},{-360,64},{-144,64}}, color={0,0,127}));
   connect(senRelPre.p_rel, chiPlaCon.dpChiWat_remote[1]) annotation (Line(
         points={{330,-329},{330,-380},{-480,-380},{-480,128},{-144,128}}, color
         ={0,0,127}));

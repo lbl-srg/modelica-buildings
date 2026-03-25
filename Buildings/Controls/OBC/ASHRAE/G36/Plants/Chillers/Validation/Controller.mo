@@ -92,10 +92,6 @@ model Controller "Validation head pressure controller"
     final duration=3600,
     final offset=0.5) "Water level in cooling tower"
     annotation (Placement(transformation(extent={{-260,-270},{-240,-250}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol2[2](
-    final samplePeriod=fill(5, 2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if the WSE pump should be enabled"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
@@ -124,8 +120,6 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
     "Plant enable"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
-  CDL.Conversions.BooleanToReal booToRea[2] "Convert valve command to position"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
 equation
   connect(chiPlaCon.uChiWatPum, uChiWatPum.y) annotation (Line(points={{-30,180},
           {-190,180},{-190,132},{-238,132}}, color={255,0,255}));
@@ -150,8 +144,6 @@ equation
           -220},{-120,-220},{-120,-115},{-30,-115}}, color={0,0,127}));
   connect(watLev.y, chiPlaCon.watLev) annotation (Line(points={{-238,-260},{-90,
           -260},{-90,-165},{-30,-165}}, color={0,0,127}));
-  connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{182,-60},
-          {200,-60},{200,-220},{-80,-220},{-80,-20},{-30,-20}}, color={0,0,127}));
   connect(dpChiWat.y, chiPlaCon.dpChiWat_remote[1]) annotation (Line(points={{-238,90},
           {-180,90},{-180,140},{-30,140}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.chiPlaReq) annotation (Line(points={{-258,-70},
@@ -212,10 +204,6 @@ equation
           -278,10},{-144,10},{-144,67.5},{-30,67.5}}, color={0,0,127}));
   connect(TChiWatSup.y, chiPlaCon.TChiWatSupChi[2]) annotation (Line(points={{
           -278,10},{-144,10},{-144,72.5},{-30,72.5}}, color={0,0,127}));
-  connect(chiPlaCon.y1ChiWatIsoVal, booToRea.u) annotation (Line(points={{90,
-          -55},{100,-55},{100,-60},{118,-60}}, color={255,0,255}));
-  connect(booToRea.y, zerOrdHol2.u)
-    annotation (Line(points={{142,-60},{158,-60}}, color={0,0,127}));
 annotation (
   experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Validation/Controller.mos"

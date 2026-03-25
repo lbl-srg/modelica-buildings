@@ -7,6 +7,8 @@ compareVars :=
     "enaChiIsoVal.y1ChiWatIsoVal[1]",
     "enaChiIsoVal.y1ChiWatIsoVal[2]",
     "enaChiIsoVal.yChaChiWatIsoVal",
+    "enaChiIsoVal.yChiWatIsoVal[1]",
+    "enaChiIsoVal.yChiWatIsoVal[2]",
     "disChiIsoVal.uChi[1]",
     "disChiIsoVal.uChi[2]",
     "disChiIsoVal.uUpsDevSta",
@@ -14,6 +16,8 @@ compareVars :=
     "disChiIsoVal.y1ChiWatIsoVal[1]",
     "disChiIsoVal.y1ChiWatIsoVal[2]",
     "disChiIsoVal.yChaChiWatIsoVal",
+    "disChiIsoVal.yChiWatIsoVal[1]",
+    "disChiIsoVal.yChiWatIsoVal[2]",
     "enaChiIsoVal1.uChi[1]",
     "enaChiIsoVal1.uChi[2]",
     "enaChiIsoVal1.u1ChiIsoOpe[1]",
@@ -22,5 +26,7 @@ compareVars :=
     "enaChiIsoVal1.u1ChiIsoClo[2]",
     "enaChiIsoVal1.y1ChiWatIsoVal[1]",
     "enaChiIsoVal1.y1ChiWatIsoVal[2]",
-    "enaChiIsoVal1.yChaChiWatIsoVal"
+    "enaChiIsoVal1.yChaChiWatIsoVal",
+    "enaChiIsoVal1.yChiWatIsoVal[1]",
+    "enaChiIsoVal1.yChiWatIsoVal[2]"
   };

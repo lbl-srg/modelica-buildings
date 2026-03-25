@@ -16,7 +16,7 @@ block UpEnd "Sequence for ending stage-up process"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Real chaChiWatIsoTim(start=120, unit="s")
     "Time to slowly change isolation valve, should be determined in the field"
-    annotation (Dialog(group="Chilled water isolation valve", enable=not have_isoValEndSwi));
+    annotation (Dialog(group="Chilled water isolation valve"));
   parameter Real byPasSetTim(unit="s")
     "Time to slowly reset minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
@@ -93,18 +93,25 @@ block UpEnd "Sequence for ending stage-up process"
     annotation (Placement(transformation(extent={{220,240},{260,280}}),
       iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiWatIsoVal[nChi]
-    "Chiller chilled water isolation valve position"
+    "Chiller chilled water isolation valve commanded on"
     annotation (Placement(transformation(extent={{220,90},{260,130}}),
       iconTransformation(extent={{100,30},{140,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
+    final unit=fill("1", nChi),
+    final min=fill(0, nChi),
+    final max=fill(1, nChi))
+    "Chilled water isolation valve position setpoint"
+    annotation (Placement(transformation(extent={{220,60},{260,100}}),
+      iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiHeaCon[nChi]
     if not have_airCoo
     "Chiller head pressure control enabling status"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
-      iconTransformation(extent={{100,-10},{140,30}})));
+      iconTransformation(extent={{100,-34},{140,6}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatMinSet(
     final unit="m3/s") "Chilled water minimum flow setpoint"
     annotation (Placement(transformation(extent={{220,-100},{260,-60}}),
-      iconTransformation(extent={{100,-50},{140,-10}})));
+      iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput endStaTri
     "Staging end trigger"
     annotation (Placement(transformation(extent={{220,-280},{260,-240}}),
@@ -255,6 +262,13 @@ protected
     final k=false)
     if have_airCoo "Dummy "
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch isoValPos[nChi]
+    "Chilled water isolation valve position setpoint"
+    annotation (Placement(transformation(extent={{180,70},{200,90}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
+    "Convert boolean input to real output"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
 equation
   connect(lat.y, not2.u)
     annotation (Line(points={{-178,150},{-142,150}}, color={255,0,255}));
@@ -262,7 +276,7 @@ equation
     annotation (Line(points={{-240,120},{-180,120},{-180,48},{58,48}},
       color={255,127,0}));
   connect(and4.y,disChiIsoVal.uUpsDevSta)
-    annotation (Line(points={{22,70},{50,70},{50,35},{58,35}}, color={255,0,255}));
+    annotation (Line(points={{22,70},{40,70},{40,35},{58,35}}, color={255,0,255}));
   connect(and5.y, disHeaCon.uUpsDevSta)
     annotation (Line(points={{22,-30},{26,-30},{26,-6},{58,-6}},
       color={255,0,255}));
@@ -415,9 +429,9 @@ equation
   connect(conInt.y, intSwi.u3) annotation (Line(points={{82,140},{110,140},{110,
           152},{118,152}}, color={255,127,0}));
   connect(intSwi.y, curDisChi.index) annotation (Line(points={{142,160},{150,160},
-          {150,120},{-160,120},{-160,40},{-130,40},{-130,58}}, color={255,127,0}));
+          {150,122},{-160,122},{-160,40},{-130,40},{-130,58}}, color={255,127,0}));
   connect(intSwi.y, curDisChi1.index) annotation (Line(points={{142,160},{150,160},
-          {150,120},{-160,120},{-160,-46},{-130,-46},{-130,-42}}, color={255,127,0}));
+          {150,122},{-160,122},{-160,-46},{-130,-46},{-130,-42}}, color={255,127,0}));
   connect(not1.y, and1.u2)
     annotation (Line(points={{-78,70},{-62,70}}, color={255,0,255}));
   connect(and1.y, and4.u2) annotation (Line(points={{-38,78},{-20,78},{-20,62},{
@@ -498,6 +512,16 @@ equation
           0},{-120,0},{-120,39},{58,39}}, color={255,0,255}));
   connect(uChi, disChiIsoVal.uChi) annotation (Line(points={{-240,190},{-150,190},
           {-150,45},{58,45}}, color={255,0,255}));
+  connect(isoValPos.y, yChiWatIsoVal)
+    annotation (Line(points={{202,80},{240,80}}, color={0,0,127}));
+  connect(booRep4.y, isoValPos.u2) annotation (Line(points={{82,100},{120,100},{
+          120,80},{178,80}}, color={255,0,255}));
+  connect(disChiIsoVal.yChiWatIsoVal, isoValPos.u3) annotation (Line(points={{82,
+          40},{100,40},{100,72},{178,72}}, color={0,0,127}));
+  connect(uChi, booToRea1.u) annotation (Line(points={{-240,190},{-150,190},{-150,
+          118},{50,118},{50,70},{58,70}}, color={255,0,255}));
+  connect(booToRea1.y, isoValPos.u1) annotation (Line(points={{82,70},{90,70},{90,
+          88},{178,88}}, color={0,0,127}));
 annotation (
   defaultComponentName="endUp",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -508,7 +532,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{72,72},{214,54}},
+          extent={{72,58},{214,40}},
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Close chilled water
@@ -622,11 +646,11 @@ bypass setpoint"),
           textColor={0,0,127},
           textString="VChiWat_flow"),
         Text(
-          extent={{56,-22},{98,-34}},
+          extent={{56,-42},{98,-54}},
           textColor={0,0,127},
           textString="yChiWatMinSet"),
         Text(
-          extent={{64,18},{98,4}},
+          extent={{64,-6},{98,-20}},
           textColor={255,0,255},
           textString="yChiHeaCon"),
         Text(
@@ -654,7 +678,11 @@ bypass setpoint"),
           extent={{-98,-54},{-64,-68}},
           textColor={255,0,255},
           visible=have_isoValEndSwi,
-          textString="u1ChiIsoClo")}),
+          textString="u1ChiIsoClo"),
+        Text(
+          extent={{56,36},{98,24}},
+          textColor={0,0,127},
+          textString="yChiWatIsoVal")}),
 Documentation(info="<html>
 <p>
 Block that controls devices at the ending step of the chiller staging up process.

@@ -274,7 +274,7 @@ block Controller "Cooling tower controller"
     annotation (Placement(transformation(extent={{-140,-190},{-100,-150}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValOpe[nTowCel]
-    if have_inlIsoVal and have_endSwi and have_outIsoVal
+    if have_endSwi and have_outIsoVal
     "Tower cells outlet isolation valve open end switch. True: the isolation valve is fully open"
     annotation (Placement(transformation(extent={{-140,-210},{-100,-170}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -284,7 +284,7 @@ block Controller "Cooling tower controller"
     annotation (Placement(transformation(extent={{-140,-230},{-100,-190}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OutIsoValClo[nTowCel]
-    if have_inlIsoVal and have_endSwi and have_outIsoVal
+    if have_endSwi and have_outIsoVal
     "Tower cells outlet isolation valve close end switch. True: the isolation valve is fully closed"
     annotation (Placement(transformation(extent={{-140,-250},{-100,-210}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
@@ -626,7 +626,7 @@ annotation (
           extent={{-96,-132},{-28,-146}},
           textColor={255,0,255},
           textString="u1OutIsoValOpe",
-          visible=have_inlIsoVal and have_endSwi and have_outIsoVal),
+          visible=have_endSwi and have_outIsoVal),
         Text(
           extent={{-100,-154},{-32,-168}},
           textColor={255,0,255},
@@ -636,7 +636,7 @@ annotation (
           extent={{-96,-174},{-28,-188}},
           textColor={255,0,255},
           textString="u1OutIsoValClo",
-          visible=have_inlIsoVal and have_endSwi and have_outIsoVal),
+          visible=have_endSwi and have_outIsoVal),
         Text(
           extent={{48,58},{100,42}},
           textColor={255,0,255},

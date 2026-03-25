@@ -57,6 +57,8 @@ equation
           -18,30},{0,30},{0,21},{58,21}}, color={0,0,127}));
   connect(chiIsoVal.y, disPlaFroChi.u1ChiWatIsoVal) annotation (Line(points={{-58,
           50},{30,50},{30,26},{58,26}}, color={255,0,255}));
+  connect(conIsoVal1.y, disPlaFroChi.uChiWatIsoVal) annotation (Line(points={{
+          -18,30},{0,30},{0,25},{58,25}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Generic/PlantEnable/Validation/DisableChillers.mos"
