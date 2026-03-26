@@ -120,6 +120,10 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
     "Plant enable"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
+protected
+  CDL.Discrete.ZeroOrderHold zerOrdHol7[2](final samplePeriod=fill(10, 2))
+    "Output the input signal with a zero order hold"
+    annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
 equation
   connect(chiPlaCon.uChiWatPum, uChiWatPum.y) annotation (Line(points={{-30,180},
           {-190,180},{-190,132},{-238,132}}, color={255,0,255}));
@@ -204,6 +208,11 @@ equation
           -278,10},{-144,10},{-144,67.5},{-30,67.5}}, color={0,0,127}));
   connect(TChiWatSup.y, chiPlaCon.TChiWatSupChi[2]) annotation (Line(points={{
           -278,10},{-144,10},{-144,72.5},{-30,72.5}}, color={0,0,127}));
+  connect(chiPlaCon.yChiWatIsoVal, zerOrdHol7.u) annotation (Line(points={{90,
+          -65},{120,-65},{120,-80},{138,-80}}, color={0,0,127}));
+  connect(zerOrdHol7.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{162,
+          -80},{200,-80},{200,-220},{-80,-220},{-80,-20},{-30,-20}}, color={0,0,
+          127}));
 annotation (
   experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Validation/Controller.mos"

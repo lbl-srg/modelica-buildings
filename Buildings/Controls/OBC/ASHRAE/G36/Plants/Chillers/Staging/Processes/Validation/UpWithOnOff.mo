@@ -8,7 +8,6 @@ model UpWithOnOff
     final have_ponChi=true,
     final have_fixSpeConWatPum=false,
     final need_reduceChillerDemand=true,
-    final have_isoValEndSwi=false,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},

@@ -338,6 +338,12 @@ equation
           {60,100},{240,100},{240,82}}, color={0,0,127}));
   connect(booToRea4[2].y, chwIsoVal2.y) annotation (Line(points={{42,50},{60,50},
           {60,10},{240,10},{240,-8}}, color={0,0,127}));
+  connect(chwIsoVal1.y_actual, chiPlaCon.uChiWatIsoVal[1]) annotation (Line(
+        points={{235,77},{100,77},{100,360},{-420,360},{-420,63},{-144,63}},
+        color={0,0,127}));
+  connect(chwIsoVal2.y_actual, chiPlaCon.uChiWatIsoVal[2]) annotation (Line(
+        points={{235,-13},{220,-13},{220,-4},{100,-4},{100,360},{-420,360},{
+          -420,65},{-144,65}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
             {160,-200}}), graphics={
         Rectangle(

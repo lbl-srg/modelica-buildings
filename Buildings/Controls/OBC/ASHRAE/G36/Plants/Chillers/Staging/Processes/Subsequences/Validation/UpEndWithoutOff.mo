@@ -5,7 +5,6 @@ model UpEndWithoutOff
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.UpEnd
     endUp(
     final nChi=2,
-    have_isoValEndSwi=false,
     final chaChiWatIsoTim=300,
     final byPasSetTim=300,
     final minFloSet={0.5,1},

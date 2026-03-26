@@ -1,8 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences;
 block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 
-  parameter Boolean have_isoValEndSwi=false
-    "True: chiller chilled water isolatiove valve have the end switch feedback";
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator valTyp=
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
+    "Isolation valve type";
+  parameter Boolean have_twoPosEndSwi=false
+    "True: it is the two position valve with end switches"
+    annotation (Dialog(enable=valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
+
   parameter Integer nChi=2
     "Total number of chiller, which is also the total number of chilled water isolation valve";
   parameter Real chaChiWatIsoTim(
@@ -18,11 +23,11 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-260,130},{-220,170}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoOpe[nChi] if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoOpe[nChi] if have_twoPosEndSwi
     "Chiller chilled water isolation valve open end switch. True: the valve is fully open"
     annotation (Placement(transformation(extent={{-260,90},{-220,130}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoClo[nChi] if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoClo[nChi] if have_twoPosEndSwi
     "Chiller chilled water isolation valve close end switch. True: the valve is fully closed"
     annotation (Placement(transformation(extent={{-260,30},{-220,70}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
@@ -41,7 +46,7 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    unit=fill("1", nChi))
+    unit=fill("1", nChi)) if valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chiller chilled water isolation valve position setpoint"
     annotation (Placement(transformation(extent={{220,-120},{260,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -64,7 +69,7 @@ protected
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
-    if have_isoValEndSwi
+    if have_twoPosEndSwi
     "Record the old chiller chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -79,7 +84,7 @@ protected
     final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-120,240},{-100,260}})));
-  Buildings.Controls.OBC.CDL.Logical.And and5 if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Logical.And and5 if have_twoPosEndSwi
     "Check if the isolation valve has been fully open"
     annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
@@ -88,20 +93,20 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{0,-180},{20,-160}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat2 if not have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Logical.Latch lat2 if not have_twoPosEndSwi
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{140,-260},{160,-240}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=5) "Delay the true input"
     annotation (Placement(transformation(extent={{-80,-280},{-60,-260}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cloVal[nChi] if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cloVal[nChi] if have_twoPosEndSwi
     "1: valve is fully closed"
     annotation (Placement(transformation(extent={{-200,40},{-180,60}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal opeVal[nChi] if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal opeVal[nChi] if have_twoPosEndSwi
     "1: valve is fully open"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
-    if have_isoValEndSwi
+    if have_twoPosEndSwi
     "Record the old chiller chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
@@ -117,18 +122,19 @@ protected
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nChi](t=fill(0.5, nChi))
     "New isolation valve command"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nChi) if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nChi) if have_twoPosEndSwi
     "Total number of full open valves"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(nin=nChi) if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(nin=nChi) if have_twoPosEndSwi
     "Total number of full closed valves"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub1[2] if have_isoValEndSwi "Output the difference"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1[2] if have_twoPosEndSwi
+    "Output the difference"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1[2](final t=fill(0.5, 2))
-    if have_isoValEndSwi "Check if the isolation valve position has changed"
+    if have_twoPosEndSwi "Check if the isolation valve position has changed"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Abs abs2[2] if have_isoValEndSwi "Output the absolute"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs2[2] if have_twoPosEndSwi "Output the absolute"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Next enabled or disabled chiller"
@@ -145,7 +151,7 @@ protected
     final nin=nChi)
     "New valve should be enabled"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch isoValCha if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch isoValCha if have_twoPosEndSwi
     "Check if isolation valve change is completed"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Logical.Switch isoValCha1[nChi] "Isolation valve command"
@@ -349,11 +355,9 @@ equation
   connect(endPos.y, lin.f2) annotation (Line(points={{-58,-70},{0,-70},{0,-48},{
           78,-48}}, color={0,0,127}));
   connect(reaScaRep.y, swi.u1) annotation (Line(points={{142,-40},{160,-40},{
-          160,-70},{100,-70},{100,-112},{118,-112}},
-                                                 color={0,0,127}));
+          160,-70},{100,-70},{100,-112},{118,-112}}, color={0,0,127}));
   connect(swi.y, swi1.u3) annotation (Line(points={{142,-120},{160,-120},{160,
-          -108},{178,-108}},
-                       color={0,0,127}));
+          -108},{178,-108}}, color={0,0,127}));
   connect(booToRea1.y, swi1.u1) annotation (Line(points={{-138,190},{-120,190},{
           -120,-92},{178,-92}}, color={0,0,127}));
   connect(swi1.y, yChiWatIsoVal)
@@ -412,16 +416,17 @@ annotation (
           extent={{-98,28},{-48,14}},
           textColor={255,0,255},
           textString="u1ChiIsoOpe",
-          visible=have_isoValEndSwi),
+          visible=have_twoPosEndSwi),
         Text(
           extent={{-98,-4},{-52,-18}},
           textColor={255,0,255},
-          visible=have_isoValEndSwi,
+          visible=have_twoPosEndSwi,
           textString="u1ChiIsoClo"),
         Text(
           extent={{44,8},{98,-4}},
           textColor={0,0,127},
-          textString="yChiWatIsoVal")}),
+          textString="yChiWatIsoVal",
+          visible=valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)}),
  Documentation(info="<html>
 <p>
 Block updates chiller chilled water isolation valve enabling-disabling status when 

@@ -19,6 +19,9 @@ block DisableChillers
   parameter Boolean have_fixSpeConWatPum = false
     "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false"
     annotation (Dialog(enable=not have_airCoo));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp=
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
+    "Chilled water isolation valve type";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller commanded on"
@@ -35,7 +38,7 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
+    final unit=fill("1", nChi)) if chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chiller chilled water isolation valve position"
     annotation (Placement(transformation(extent={{-240,150},{-200,190}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
@@ -89,7 +92,7 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
     final unit=fill("1", nChi),
     final min=fill(0, nChi),
-    final max=fill(1, nChi))
+    final max=fill(1, nChi)) if chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chiller chilled water isolation valve position setpoints"
     annotation (Placement(transformation(extent={{200,190},{240,230}}),
         iconTransformation(extent={{100,60},{140,100}})));
@@ -258,7 +261,8 @@ block DisableChillers
     final k=fill(false, nChi))
     "Logical false"
     annotation (Placement(transformation(extent={{80,280},{100,300}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi4[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4[nChi] if chiIsoValTyp ==
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Close valve"
     annotation (Placement(transformation(extent={{160,200},{180,220}})));
 
