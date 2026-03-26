@@ -5,7 +5,7 @@ function aggregationWeightingFactors
 
   input Integer i "Size of aggregation vector";
   input Integer nTimTot "Size of g-function time table";
-  input Modelica.Units.SI.ThermalResistance TStep[nTimTot,2]
+  input Real TStep[nTimTot,2]
     "Time matrix with TStep";
   input Modelica.Units.SI.Time nu[i] "Aggregation time vector nu";
 
@@ -75,6 +75,13 @@ borefield as an input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 20, 2026, by Michael Wetter:<br/>
+Corrected type declaration of g-function.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4501\">
+Buildings, #4501</a>.
+</li>
 <li>
 March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

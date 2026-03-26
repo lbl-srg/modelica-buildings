@@ -1,19 +1,19 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.Validation;
 model CHWIsoVal "Validate isolation valve enable and disable sequence"
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal enaChiIsoVal(
-    final nChi=2,
-    final chaChiWatIsoTim=300) "Enable isolation valve"
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal
+    enaChiIsoVal(final nChi=2, final chaChiWatIsoTim=300)
+    "Enable isolation valve"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal disChiIsoVal(
-    final nChi=2,
-    final chaChiWatIsoTim=300)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal
+    disChiIsoVal(final nChi=2, final chaChiWatIsoTim=300)
     "Disable isolation valve"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal enaChiIsoVal1(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal
+    enaChiIsoVal1(
     final have_isoValEndSwi=true,
-    final nChi=2)
-    "Enable isolation valve, with end switch feedback"
+    final nChi=2,
+    chaChiWatIsoTim=300) "Enable isolation valve, with end switch feedback"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
 protected
@@ -55,8 +55,8 @@ protected
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Logical.Not cloVal[2] "Closed valve"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Templates.Components.Controls.StatusEmulator valSta[2](
-    delayTime=fill(120, 2))
+  Buildings.Templates.Components.Controls.StatusEmulator valSta[2](delayTime=
+        fill(300, 2))
     "Valve status"
     annotation (Placement(transformation(extent={{180,-66},{200,-46}})));
   Buildings.Controls.OBC.CDL.Logical.Switch opeEnd[2] "Full open end"
