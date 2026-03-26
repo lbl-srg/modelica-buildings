@@ -17,7 +17,8 @@ model SingleZone
     delChaSheCoo=0.5556,
     delChaRebCoo=-0.5556)
     annotation (Placement(transformation(extent={{50,-68},{96,-2}})));
-  ZoneSetpointSource zoneSetpointSource(occStaHouSta=6, occStaHouEnd=19)
+  .Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.ZoneSetpointSource
+    zoneSetpointSource(occStaHouSta=6, occStaHouEnd=19)
     annotation (Placement(transformation(extent={{-72,-78},{-52,-58}})));
   CDL.Integers.Sources.TimeTable intTimTab(
     table=[0,0; 14,-1; 16,1; 21,2; 22,0; 24,0],

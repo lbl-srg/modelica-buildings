@@ -120,8 +120,8 @@ block MultipleZones
 equation
   connect(uMod, intScaRep.u) annotation (Line(points={{-280,158},{-242,158}},
                            color={255,127,0}));
-  connect(intScaRep.y, dualTemperatureSetpoint.uMod) annotation (Line(points={{
-          -218,158},{-208,158},{-208,-20},{61.2857,-20},{61.2857,-22.8571}},
+  connect(intScaRep.y, dualTemperatureSetpoint.uMod) annotation (Line(points={{-218,
+          158},{-208,158},{-208,-20},{61.2857,-20},{61.2857,-22.8571}},
         color={255,127,0}));
   connect(TCur,selectSmallestTemperatureDifferenceSheHea. TCur) annotation (
       Line(points={{-280,58},{-200,58},{-200,94},{-124,94}},
@@ -130,9 +130,9 @@ equation
     annotation (Line(points={{-280,114},{-192,114},{-192,88},{-124,88}},
                                           color={0,0,127}));
   connect(dualTemperatureSetpoint.reach_TSetTarSheHea,
-    selectSmallestTemperatureDifferenceSheHea.uIgnFla) annotation (Line(points=
-          {{200.714,-21.219},{232,-21.219},{232,64},{-140,64},{-140,82.2},{-124,
-          82.2}}, color={255,0,255}));
+    selectSmallestTemperatureDifferenceSheHea.uIgnFla) annotation (Line(points={{200.714,
+          -21.219},{232,-21.219},{232,64},{-140,64},{-140,82.2},{-124,82.2}},
+                  color={255,0,255}));
   connect(TCur, selectSmallestTemperatureDifferenceRebHea.TCur) annotation (
       Line(points={{-280,58},{-200,58},{-200,52},{-124,52}},
                  color={0,0,127}));
@@ -140,18 +140,18 @@ equation
     annotation (Line(points={{-280,114},{-192,114},{-192,46},{-124,46}},
         color={0,0,127}));
   connect(dualTemperatureSetpoint.reach_TSetNomHea,
-    selectSmallestTemperatureDifferenceRebHea.uIgnFla) annotation (Line(points=
-          {{200.714,-51.5238},{200.714,-50},{242,-50},{242,28},{-132,28},{-132,
-          40.2},{-124,40.2}}, color={255,0,255}));
+    selectSmallestTemperatureDifferenceRebHea.uIgnFla) annotation (Line(points={{200.714,
+          -51.5238},{200.714,-50},{242,-50},{242,28},{-132,28},{-132,40.2},{
+          -124,40.2}},        color={255,0,255}));
   connect(TCur, selectSmallestTemperatureDifferencePreHea.TCur) annotation (
       Line(points={{-280,58},{-200,58},{-200,140},{-124,140}},   color={0,0,127}));
   connect(TSetCurHea, selectSmallestTemperatureDifferencePreHea.TSetCur)
     annotation (Line(points={{-280,114},{-192,114},{-192,134},{-124,134}},
                                                               color={0,0,127}));
   connect(dualTemperatureSetpoint.reach_TSetTarPreHea,
-    selectSmallestTemperatureDifferencePreHea.uIgnFla) annotation (Line(points=
-          {{200.714,-4.01905},{200.714,-4},{214,-4},{214,114},{-162,114},{-162,
-          128.2},{-124,128.2}}, color={255,0,255}));
+    selectSmallestTemperatureDifferencePreHea.uIgnFla) annotation (Line(points={{200.714,
+          -4.01905},{200.714,-4},{214,-4},{214,114},{-162,114},{-162,128.2},{
+          -124,128.2}},         color={255,0,255}));
   connect(TCur, selectLargestTemperatureDifferencePreCoo.TCur) annotation (Line(
         points={{-280,58},{-150,58},{-150,-188},{-122,-188}},    color={0,0,127}));
   connect(TSetCurCoo, selectLargestTemperatureDifferencePreCoo.TSetCur)
@@ -169,17 +169,17 @@ equation
     annotation (Line(points={{-280,10},{-232,10},{-232,-280},{-120,-280}},
         color={0,0,127}));
   connect(dualTemperatureSetpoint.reach_TSetTarPreCoo,
-    selectLargestTemperatureDifferencePreCoo.uIgnFla) annotation (Line(points={
-          {200.714,-79.3714},{200.714,-80},{228,-80},{228,-216},{-136,-216},{
-          -136,-199.8},{-122,-199.8}}, color={255,0,255}));
+    selectLargestTemperatureDifferencePreCoo.uIgnFla) annotation (Line(points={{200.714,
+          -79.3714},{200.714,-80},{228,-80},{228,-216},{-136,-216},{-136,-199.8},
+          {-122,-199.8}},              color={255,0,255}));
   connect(dualTemperatureSetpoint.reach_TSetTarSheCoo,
-    selectLargestTemperatureDifferenceSheCoo.uIgnFla) annotation (Line(points={
-          {200.714,-96.5714},{218,-96.5714},{218,-266},{-128,-266},{-128,-249.8},
-          {-120,-249.8}}, color={255,0,255}));
+    selectLargestTemperatureDifferenceSheCoo.uIgnFla) annotation (Line(points={{200.714,
+          -96.5714},{218,-96.5714},{218,-266},{-128,-266},{-128,-249.8},{-120,
+          -249.8}},       color={255,0,255}));
   connect(dualTemperatureSetpoint.reach_TSetNomCoo,
-    selectLargestTemperatureDifferenceRebCoo.uIgnFla) annotation (Line(points={
-          {200.714,-135.067},{200.714,-300},{-128,-300},{-128,-285.8},{-120,
-          -285.8}}, color={255,0,255}));
+    selectLargestTemperatureDifferenceRebCoo.uIgnFla) annotation (Line(points={{200.714,
+          -135.067},{200.714,-300},{-128,-300},{-128,-285.8},{-120,-285.8}},
+                    color={255,0,255}));
   connect(TSetTarPreHea, dualTemperatureSetpoint.TSetTarPreHea) annotation (
       Line(points={{-280,-42},{-172,-42},{-172,-74},{62.1571,-74},{62.1571,
           -74.4571}}, color={0,0,127}));
@@ -244,8 +244,8 @@ equation
       Line(points={{-280,-184},{-186,-184},{-186,-118},{62.1571,-118},{62.1571,
           -117.867}}, color={0,0,127}));
   connect(selectSmallestTemperatureDifferenceSheHea.yAcnFla,
-    singleTemperatureSetpointModeSelectionBoolHea.uShe) annotation (Line(points
-        ={{-100,88},{-82,88},{-82,95.3333},{-39.7391,95.3333}}, color={255,0,
+    singleTemperatureSetpointModeSelectionBoolHea.uShe) annotation (Line(points={{-100,88},
+          {-82,88},{-82,95.3333},{-39.7391,95.3333}},           color={255,0,
           255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-260,
             -320},{260,180}},

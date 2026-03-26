@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SingleTemperatureSetpointMock
 
-    parameter Real TRes(unit="K")=0.5556
+    parameter Real TRes(unit="K")=1
     "temperature setpoint resolution";
   parameter Real delSetCha(
     final quantity="Time",

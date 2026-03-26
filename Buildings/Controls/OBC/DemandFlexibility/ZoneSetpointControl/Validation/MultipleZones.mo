@@ -14,7 +14,8 @@ model MultipleZones
     final offset=273.15 + 36)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-92,6},{-72,26}})));
-  ZoneSetpointSource zoneSetpointSource[nZon](occStaHouSta=6, occStaHouEnd=19)
+  .Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.ZoneSetpointSource
+    zoneSetpointSource[nZon](occStaHouSta=6, occStaHouEnd=19)
     annotation (Placement(transformation(extent={{-92,-84},{-72,-64}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.MultipleZones
     multipleZoneSetpointControl(nZon=nZon,
