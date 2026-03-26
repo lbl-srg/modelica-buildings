@@ -7,7 +7,7 @@ simulateModel("Buildings.Templates.Components.Validation.HeatPumps",
 createPlot(
     id=1,
     position={5, 5, 300, 400},
-    y={"y1.y[1]", "y1Hea.y[1]"},
+    y={"y1.y[1]", "y1Hea.y[1]", "y1Coo.y[1]"},
     autoscale=true,
     grid=true
 );
@@ -81,6 +81,28 @@ createPlot(
     id=4,
     subPlot=3,
     y={"hpWw.hp.refCyc.sigBus.yMea", "hpWw.hp.COP"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    position={350, 50, 300, 600},
+    subPlot=1,
+    y={"THeaWatRetShc.T", "THeaWatSupShc.T", "shc.bus.THeaWatSet", "shc.THeaWatRet_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"TChiWatRetShc.T", "TChiWatSupShc.T", "shc.bus.TChiWatSet", "shc.TChiWatRet_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    subPlot=3,
+    y={"shc.port_a.m_flow", "shc.port_aChiWat.m_flow", "shc.mHeaWat_flow_nominal", "shc.mChiWat_flow_nominal"},
     autoscale=true,
     grid=true
 );

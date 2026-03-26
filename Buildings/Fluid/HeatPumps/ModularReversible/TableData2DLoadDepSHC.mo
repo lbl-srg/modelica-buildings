@@ -104,7 +104,7 @@ model TableData2DLoadDepSHC
     "Performance data"
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{82,-18},{98,-2}})));
-  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+  parameter Modelica.Units.SI.Power P_min(min=0)=0
     "Remaining power when system is enabled with all compressors cycled off";
   parameter Modelica.Units.SI.Temperature TConHea_nominal
     "HW temperature: leaving if dat.use_TConOutForTab=true, entering otherwise"
@@ -148,22 +148,21 @@ model TableData2DLoadDepSHC
     "Equivalent CHW isolation valve flow characteristic"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Real dtRun(
-    final min=0,
-    final unit="s") = 300
+    min=0,
+    unit="s")=300
     "Minimum stage runtime"
     annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real dtMea(
-    final min=0,
-    final unit="s") = 120
+    min=0,
+    unit="s")=120
     "Load averaging time window"
     annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real SPLR(
     max=1,
-    min=0) = 0.9
+    min=0)=0.9
     "Staging part load ratio"
     annotation (Dialog(tab="Advanced", group="Staging logic"));
-  parameter Modelica.Units.SI.TemperatureDifference dTSaf(
-    final min=0) = 2
+  parameter Modelica.Units.SI.TemperatureDifference dTSaf(min=0)=2
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
     annotation (Dialog(tab="Advanced", group="Safeties"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onHea
