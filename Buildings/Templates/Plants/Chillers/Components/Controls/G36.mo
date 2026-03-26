@@ -12,11 +12,10 @@ block G36
     "Flag: true means that the plant has parallel chillers";
   parameter Boolean have_ponChi=false
     "True: have pony chiller"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Chiller configuration"));
   parameter Boolean use_loadShed = false
     "Set to true if a load shed logic is used"
-    annotation(Dialog(tab="General",
-      group="Configuration",
+    annotation(Dialog(group="Plant configuration",
       enable=cfg.typDisChiWat <>
         Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages chiTyp[cfg.nChi] =
@@ -24,8 +23,7 @@ block G36
       Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.VariableSpeedCentrifugal,
       cfg.nChi)
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
-    annotation(Dialog(tab="General",
-      group="Chiller configuration"));
+    annotation(Dialog(group="Chiller configuration"));
   final parameter Real chiDesCap[cfg.nChi](each final unit="W") =
     dat.capChi_nominal
     "Design chiller capacities vector";
@@ -127,7 +125,8 @@ block G36
     "Maximum chilled water supply temperature setpoint used in plant reset logic";
   // ---- Staging up and down process ----
   parameter Boolean have_isoValEndSwi=false
-    "True: chiller chilled water isolation valves have end switch status feedback";
+    "True: chiller chilled water isolation valves have end switch status feedback"
+    annotation(Evaluate=true, Dialog(group="Chiller configuration"));
   // ---- Cooling tower: fan speed ----
   final parameter Real fanSpeMin(unit="1") = dat.yFanCoo_min
     "Minimum tower fan speed";
@@ -143,13 +142,15 @@ block G36
   // ---- Cooling tower: staging ----
   parameter Boolean have_towInlIsoVal= cfg.typValCooInlIso ==
       Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
-    "True: tower cells have the inlet isolation valve";
+    "True: tower cells have the inlet isolation valve"
+    annotation(Evaluate=true, Dialog(group="Cooling tower configuration"));
   parameter Boolean have_towOutIsoVal=cfg.typValCooOutIso ==
       Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
-    "True: tower cells have the outlet isolation valve";
+    "True: tower cells have the outlet isolation valve"
+    annotation(Evaluate=true, Dialog(group="Cooling tower configuration"));
   parameter Boolean have_towIsoValEndSwi=false
     "True: tower cells isolation valves have end switch status feedback"
-    annotation(Dialog(group="Configuration",
+    annotation(Dialog(group="Cooling tower configuration",
       enable=cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
            and (cfg.typValCooInlIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
            or cfg.typValCooOutIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)));
@@ -257,13 +258,6 @@ block G36
     if not have_senDpChiWatRemWir
     "Local CHW differential pressure reset"
     annotation(Placement(transformation(extent={{-60,16},{-40,36}})));
-  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter FIXME_uChiWatIsoVal(
-    nin=cfg.nChi,
-    nout=cfg.nChi)
-    if typCtlHea <>
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.NotRequired
-    "#2299 Depends on plant configuration, should rather be the commanded position"
-    annotation(Placement(transformation(extent={{-110,150},{-90,170}})));
 equation
   /* Control point connection - start */
   connect(busChi.y1ReqFloChiWat, ctl.uChiWatReq);
@@ -310,19 +304,18 @@ equation
   else
     connect(bus.pumChiWatSec.y1_actual, resDpChiWatLoc.uChiWatPum);
   end if;
+  connect(bus.valChiWatChiIso.y0_actual, ctl.u1ChiIsoClo);
+  connect(bus.valChiWatChiIso.y1_actual, ctl.u1ChiIsoOpe);
   connect(bus.valCooInlIso.y0_actual, ctl.u1TowInlIsoValClo);
   connect(bus.valCooInlIso.y1_actual, ctl.u1TowInlIsoValOpe);
   connect(bus.valCooOutIso.y0_actual, ctl.u1TowOutIsoValClo);
   connect(bus.valCooOutIso.y1_actual, ctl.u1TowOutIsoValOpe);
-  connect(FIXME_uChiWatIsoVal.y, ctl.uChiWatIsoVal)
-    annotation(Line(points={{-88,160},{-20,160},{-20,-8},{-2,-8}},
-      color={0,0,127}));
   // Controller outputs
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.TChiWatSupSet, busChi.TSet);
   connect(ctl.y1WseChiWatBypVal, bus.valChiWatChiByp.y1);
   connect(ctl.yChi, busChi.y1);
-  connect(ctl.y1ChiWatIsoVal, busValChiWatChiIso.y);
+  connect(ctl.yChiWatIsoVal, busValChiWatChiIso.y);
   connect(ctl.yChiWatPum, bus.pumChiWatPri.y1);
   connect(ctl.y1ConWatIsoVal, busValConWatChiIso.y1);
   connect(ctl.yConWatIsoVal, busValConWatChiIso.y);
@@ -376,15 +369,12 @@ equation
   connect(resDpChiWatLoc.dpChiWatSet_local, ctl.dpChiWatSet_local)
     annotation(Line(points={{-38,26},{-20,26},{-20,27},{-2,27}},
       color={0,0,127}));
-  connect(busValChiWatChiIso.y_actual, FIXME_uChiWatIsoVal.u)
-    annotation(Line(points={{-240,160},{-112,160}},
-      color={255,204,51},
-      thickness=0.5));
   connect(RFE_watLev.y, ctl.watLev)
     annotation(Line(points={{-88,-180},{-18,-180},{-18,-37},{-2,-37}},
       color={0,0,127}));
-  connect(ctl.FIXME_dpChiWatSet, resDpChiWatLoc.dpChiWatSet_remote) annotation
-    (Line(points={{24,20},{40,20},{40,60},{-80,60},{-80,21},{-62,21}}, color={0,
+  connect(ctl.dpChiWatSet, resDpChiWatLoc.dpChiWatSet_remote) annotation
+    (Line(points={{22,22.8},{40,22.8},{40,60},{-80,60},{-80,21},{-62,21}},
+                                                                       color={0,
           0,127}));
 annotation(Documentation(
   info="<html>

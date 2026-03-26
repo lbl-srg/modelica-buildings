@@ -380,26 +380,25 @@ record Controller
           Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Integer staChi[:, :](each max=1, each min=0)
     "Chiller staging matrix with chiller stage as row index and chiller as column index, excluding stage zero: 0 for disabled, 1 for enabled"
-    annotation(Evaluate=true,
-      Dialog(group="Plant staging"));
+    annotation(Dialog(group="Plant staging"));
   final parameter Integer nStaChi = size(staChi, 1)
     "Number of chiller stages, excluding stage zero"
-    annotation(Evaluate=true,
-      Dialog(group="Plant staging"));
+    annotation(Dialog(group="Plant staging"));
   final parameter Integer nSta =
     if cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
     then 2 * (nStaChi + 1) else nStaChi + 1
     "Number of plant stages, including stage zero and distinguishing stages with and without WSE, if applicable"
     annotation(Evaluate=true,
       Dialog(group="Plant staging"));
-  parameter Integer staPumConWat[:, :](start=fill(0, nSta, cfg.nPumConWat))
+  parameter Integer staPumConWat[:, :](each start=0)
+    if cfg.typCtl == Buildings.Templates.Plants.Chillers.Types.Controller.G36
+      and cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
     "Condenser water pump staging matrix, with plant stage as row index and condenser water pump as column index: 0 for disabled, 1 for enabled"
-    annotation(Evaluate=true,
-      Dialog(group="Plant staging",
-        enable=cfg.typCtl ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36
-          and cfg.typChi ==
-            Buildings.Templates.Components.Types.Chiller.WaterCooled));
+    annotation(Dialog(group="Plant staging",
+      enable=cfg.typCtl ==
+        Buildings.Templates.Plants.Chillers.Types.Controller.G36
+        and cfg.typChi ==
+          Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Integer staCoo[:](
     max=fill(cfg.nCoo, nSta),
     start=fill(cfg.nCoo, nSta))

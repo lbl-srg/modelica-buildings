@@ -123,11 +123,11 @@ block Controller "Chiller plant controller"
     "Number of plant stages, including zero stage and the stages with enabled waterside economizer, if applicable"
     annotation (Dialog(tab="General", group="Staging configuration", enable=false));
 
-  parameter Integer staMat[:, nChi]
+  parameter Integer staMat[:, :]
     "Chiller staging matrix with chiller stage as row index and chiller as column index, not including stage zero: 0 for disabled, 1 for enabled"
     annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration"));
 
-  parameter Integer conWatPumStaMat[nPlaSta, nConWatPum](start=fill(0, nPlaSta, nConWatPum))
+  parameter Integer conWatPumStaMat[:, :](start=fill(0, nPlaSta, nConWatPum))
     "Condenser water pump staging matrix, with plant stage as row index and condenser water pump as column index: 0 for disabled, 1 for enabled"
     annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration", enable=not have_airCoo));
 

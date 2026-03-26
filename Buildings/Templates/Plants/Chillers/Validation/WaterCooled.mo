@@ -31,8 +31,9 @@ model WaterCooled
   replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
     redeclare final package MediumCon=Medium,
     chi(have_senTConWatChiSup=true, have_senTConWatChiRet_select=true),
-    redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithPump eco
-      "Heat exchanger with pump for CHW flow control",
+    redeclare replaceable
+      Buildings.Templates.Plants.Chillers.Components.Economizers.None eco
+      "No waterside economizer",
     ctl(
       typCtlHea=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller,
       typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
