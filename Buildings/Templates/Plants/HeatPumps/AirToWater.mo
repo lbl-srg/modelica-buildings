@@ -113,22 +113,21 @@ model AirToWater
   // Heat pumps, dedicated primary pumps and isolation valves
   // The handling of HP pressure drop is accounted for within the isolation valve component.
   Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater hp(
-    redeclare final package MediumHeaWat=MediumHeaWat,
-    redeclare final package MediumAir=MediumAir,
+    redeclare final package MediumHeaWat = MediumHeaWat,
+    redeclare final package MediumAir = MediumAir,
     final have_hp=have_hp,
     final have_shc=have_shc,
     final nHp=nHp,
     final nShc=nShc,
     final is_rev=is_rev,
     final energyDynamics=energyDynamics,
-    final have_dpChiHeaWatHp=false,
+    final have_dpChiHeaWat=false,
     final have_dpSou=false,
     final dat=dat.hp,
     final allowFlowReversal=allowFlowReversal,
     final allowFlowReversalSou=false,
-    final show_T=show_T)
-    "Heat pump group"
-    annotation(Placement(transformation(extent={{-540,-232},{-60,-152}})));
+    final show_T=show_T) "Heat pump group"
+    annotation (Placement(transformation(extent={{-540,-232},{-60,-152}})));
   Components.PumpsPrimaryDedicated pumPri(
     redeclare final package Medium=MediumHeaWat,
     final have_hp=have_hp,

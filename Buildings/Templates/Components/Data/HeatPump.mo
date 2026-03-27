@@ -13,14 +13,15 @@ record HeatPump
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "HW default specific heat capacity"
     annotation(Dialog(group="Configuration"));
-  /*
-   * cpChiWat_default is for internal use only.
-   * It is the same as cpChiWat_default for reversible HP.
-   * Non-reversible HP that can be controlled to produce either HW or CHW
-   * shall be modeled with chiller components (as a chiller/heater).
-   */
-  final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default =
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWatShc_default =
     cpHeaWat_default
+    "CHW default specific heat capacity"
+    annotation(Dialog(group="Configuration",
+      enable=typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent));
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default =
+    if typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
+    then cpChiWatShc_default
+    else cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default =
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater

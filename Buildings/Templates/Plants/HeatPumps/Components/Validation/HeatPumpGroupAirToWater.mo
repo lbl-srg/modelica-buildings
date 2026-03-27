@@ -60,7 +60,7 @@ model HeatPumpGroupAirToWater
       nEquZon=0,
       final have_hp=hpAwNrv.have_hp,
       final have_shc=hpAwNrv.have_shc,
-      final is_shcMod=hpAwNrv.is_shcMod,
+      final is_shcMod=false,
       final nShc=hpAwNrv.nShc,
       have_valShcInlIso=false,
       have_valShcOutIso=false),
@@ -118,7 +118,7 @@ model HeatPumpGroupAirToWater
       nEquZon=0,
       final have_hp=hpAw.have_hp,
       final have_shc=hpAw.have_shc,
-      final is_shcMod=hpAw.is_shcMod,
+      final is_shcMod=false,
       final nShc=hpAw.nShc,
       have_valShcInlIso=false,
       have_valShcOutIso=false),
@@ -418,12 +418,12 @@ annotation(Diagram(coordinateSystem(extent={{-300,-200},{300,200}},
   This model validates the model
   <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater\">
     Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater</a>
-  in a configuration in which the heat pump components are exposed to a
+  in a configuration in which the heat pump group components are exposed to a
   constant differential pressure and a varying return temperature.
 </p>
 <p>
-  The model is configured to represent either a non-reversible heat pump
-  (component <code>hpAwNrv</code>) or a reversible heat pump (component
+  The model is configured to represent either a non-reversible heat pump group
+  (component <code>hpAwNrv</code>) or a reversible heat pump group (component
   <code>hpAw</code>) that switches between cooling and heating mode.
 </p>
 </html>",

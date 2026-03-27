@@ -9,7 +9,7 @@ model PartialHeatPump
     "HW medium"
     annotation(__ctrlFlow(enable=false));
 
-  replaceable package MediumChiWat = Buildings.Media.Water
+  replaceable package MediumChiWat = MediumHeaWat
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
     annotation(Dialog(enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent),

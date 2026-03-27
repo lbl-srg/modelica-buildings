@@ -6,13 +6,13 @@ model PartialHeatPumpGroup
     "HW medium"
     annotation(__ctrlFlow(enable=false));
 
-  /*
-   * MediumChiWat is for internal use only.
-   * It is the same as MediumHeaWat for reversible HP.
-   * Non-reversible HP that can be controlled to produce either HW or CHW
-   * shall be modeled with chiller components (as a chiller/heater).
-   */
-  final package MediumChiWat = MediumHeaWat "CHW medium";
+  replaceable package MediumChiWat = MediumHeaWat
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "CHW medium"
+    annotation(Dialog(
+      enable=typMod ==
+        Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent),
+      __ctrlFlow(enable=false));
 
   /*
    * Derived classes representing AWHP shall use:
@@ -56,81 +56,66 @@ model PartialHeatPumpGroup
     "Set to true for reversible heat pumps, false for heating only"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  final parameter Buildings.Templates.Components.Types.HeatPumpCapability typModUni[nHp +
-    nShc] =
-    {if have_shc and i > nHp
-    then Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
-    elseif is_rev
-    then Buildings.Templates.Components.Types.HeatPumpCapability.Reversible
-    else Buildings.Templates.Components.Types.HeatPumpCapability.HeatingOnly for i in 1:nHp +
-      nShc}
-    "Heat pump operating mode capability – Each unit"
-    annotation(Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup dat(
     have_hp=have_hp,
     have_shc=have_shc,
     typHp=typHp,
     is_rev=is_rev,
     cpHeaWat_default=cpHeaWat_default,
+    cpChiWatShc_default=cpChiWat_default,
     cpSou_default=cpSou_default)
     "Design and operating parameters"
     annotation(Placement(transformation(extent={{-10,-120},{10,-100}})),
       __ctrlFlow(enable=false));
-  final parameter Buildings.Templates.Components.Data.HeatPump datUni[nHp +
-    nShc](
-    final typMod=typModUni,
+  final parameter Buildings.Templates.Components.Data.HeatPump datHp[nHp](
+    each final typMod=if is_rev
+      then Buildings.Templates.Components.Types.HeatPumpCapability.Reversible
+      else Buildings.Templates.Components.Types.HeatPumpCapability.HeatingOnly,
     each final typ=typHp,
     each final cpHeaWat_default=cpHeaWat_default,
     each final cpSou_default=cpSou_default,
-    final mHeaWat_flow_nominal=cat(
-      1,
-      fill(dat.mHeaWatHp_flow_nominal, nHp),
-      fill(dat.mHeaWatShc_flow_nominal, nShc)),
-    final mSouWwCoo_flow_nominal=cat(
-      1,
-      fill(dat.mSouWwCooHp_flow_nominal, nHp),
-      fill(dat.mSouWwCooShc_flow_nominal, nShc)),
-    final TSouHea_nominal=cat(
-      1, fill(dat.TSouHeaHp_nominal, nHp), fill(dat.TSouHeaShc_nominal, nShc)),
-    final mChiWat_flow_nominal=cat(
-      1,
-      fill(dat.mChiWatHp_flow_nominal, nHp),
-      fill(dat.mChiWatShc_flow_nominal, nShc)),
-    final dpSouWwHea_nominal=cat(
-      1,
-      fill(dat.dpSouWwHeaHp_nominal, nHp),
-      fill(dat.dpSouWwHeaShc_nominal, nShc)),
-    final THeaWatSup_nominal=cat(
-      1,
-      fill(dat.THeaWatSupHp_nominal, nHp),
-      fill(dat.THeaWatSupShc_nominal, nShc)),
-    final dpHeaWat_nominal=cat(
-      1,
-      fill(dat.dpHeaWatHp_nominal, nHp),
-      fill(dat.dpHeaWatShc_nominal, nShc)),
-    final mSouWwHea_flow_nominal=cat(
-      1,
-      fill(dat.mSouWwHeaHp_flow_nominal, nHp),
-      fill(dat.mSouWwHeaShc_flow_nominal, nShc)),
-    final TSouCoo_nominal=cat(
-      1, fill(dat.TSouCooHp_nominal, nHp), fill(dat.TSouCooShc_nominal, nShc)),
+    final mHeaWat_flow_nominal=fill(dat.mHeaWatHp_flow_nominal, nHp),
+    final mSouWwCoo_flow_nominal=fill(dat.mSouWwCooHp_flow_nominal, nHp),
+    final TSouHea_nominal=fill(dat.TSouHeaHp_nominal, nHp),
+    final mChiWat_flow_nominal=fill(dat.mChiWatHp_flow_nominal, nHp),
+    final dpSouWwHea_nominal=fill(dat.dpSouWwHeaHp_nominal, nHp),
+    final THeaWatSup_nominal=fill(dat.THeaWatSupHp_nominal, nHp),
+    final dpHeaWat_nominal=fill(dat.dpHeaWatHp_nominal, nHp),
+    final mSouWwHea_flow_nominal=fill(dat.mSouWwHeaHp_flow_nominal, nHp),
+    final TSouCoo_nominal=fill(dat.TSouCooHp_nominal, nHp),
     each final perHea=dat.perHeaHp,
     each final perCoo=dat.perCooHp,
+    final capCoo_nominal=fill(dat.capCooHp_nominal, nHp),
+    final TChiWatSup_nominal=fill(dat.TChiWatSupHp_nominal, nHp),
+    final capHea_nominal=fill(dat.capHeaHp_nominal, nHp),
+    final P_min=fill(dat.PHp_min, nHp))
+    if have_hp
+    "Design and operating parameters - Each HP";
+  final parameter Buildings.Templates.Components.Data.HeatPump datShc[nShc](
+    each final typMod=Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent,
+    each final typ=typHp,
+    each final cpHeaWat_default=cpHeaWat_default,
+    each final cpChiWatShc_default=cpChiWat_default,
+    each final cpSou_default=cpSou_default,
+    final mHeaWat_flow_nominal=fill(dat.mHeaWatShc_flow_nominal, nShc),
+    final mSouWwCoo_flow_nominal=fill(dat.mSouWwCooShc_flow_nominal, nShc),
+    final TSouHea_nominal=fill(dat.TSouHeaShc_nominal, nShc),
+    final mChiWat_flow_nominal=fill(dat.mChiWatShc_flow_nominal, nShc),
+    final dpSouWwHea_nominal=fill(dat.dpSouWwHeaShc_nominal, nShc),
+    final THeaWatSup_nominal=fill(dat.THeaWatSupShc_nominal, nShc),
+    final dpHeaWat_nominal=fill(dat.dpHeaWatShc_nominal, nShc),
+    final dpChiWatShc_nominal=fill(dat.dpChiWatShc_nominal, nShc),
+    final mSouWwHea_flow_nominal=fill(dat.mSouWwHeaShc_flow_nominal, nShc),
+    final TSouCoo_nominal=fill(dat.TSouCooShc_nominal, nShc),
     each final perShc=dat.perShc,
-    final capCoo_nominal=cat(
-      1, fill(dat.capCooHp_nominal, nHp), fill(dat.capCooShc_nominal, nShc)),
-    final TChiWatSup_nominal=cat(
-      1,
-      fill(dat.TChiWatSupHp_nominal, nHp),
-      fill(dat.TChiWatSupShc_nominal, nShc)),
-    final capHea_nominal=cat(
-      1, fill(dat.capHeaHp_nominal, nHp), fill(dat.capHeaShc_nominal, nShc)),
-    final capCooShc_nominal=cat(
-      1, fill(0, nHp), fill(dat.capCooHrShc_nominal, nShc)),
-    final capHeaShc_nominal=cat(
-      1, fill(0, nHp), fill(dat.capHeaHrShc_nominal, nShc)),
-    final P_min=cat(1, fill(dat.PHp_min, nHp), fill(dat.PShc_min, nShc)))
-    "Design and operating parameters - Each unit";
+    final capCoo_nominal=fill(dat.capCooShc_nominal, nShc),
+    final TChiWatSup_nominal=fill(dat.TChiWatSupShc_nominal, nShc),
+    final capHea_nominal=fill(dat.capHeaShc_nominal, nShc),
+    final capCooShc_nominal=fill(dat.capCooHrShc_nominal, nShc),
+    final capHeaShc_nominal=fill(dat.capHeaHrShc_nominal, nShc),
+    final P_min=fill(dat.PShc_min, nShc))
+    if have_shc
+    "Design and operating parameters - Each SHC unit";
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatHp_flow_nominal =
     dat.mHeaWatHp_flow_nominal
     "Design HW mass flow rate - Each heat pump";
@@ -201,8 +186,8 @@ model PartialHeatPumpGroup
     annotation(Dialog(tab="Assumptions",
       enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater),
       Evaluate=true);
-  parameter Boolean have_dpChiHeaWatHp = true
-    "Set to true for HP CHW/HW pressure drop computed by this model, false for external computation"
+  parameter Boolean have_dpChiHeaWat = true
+    "Set to true for CHW/HW pressure drop computed by this model, false for external computation"
     annotation(Evaluate=true,
       Dialog(tab="Assumptions"));
   parameter Boolean have_dpSou = true
@@ -235,6 +220,12 @@ model PartialHeatPumpGroup
     MediumSou.setState_pTX(
       T=TSouHeaHp_nominal, p=MediumSou.p_default, X=MediumSou.X_default)
     "Source fluid default state";
+  // Diagnostics
+  parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed"
+    annotation(Dialog(tab="Advanced",
+      group="Diagnostics"),
+      HideResult=true);
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiHeaWatHp[nHp](
     redeclare each final package Medium=MediumHeaWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -293,35 +284,6 @@ model PartialHeatPumpGroup
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={-500,-400})));
-  Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
-    "Plant control bus"
-    annotation(Placement(transformation(extent={{-40,180},{0,220}}),
-      iconTransformation(extent={{-20,380},{20,420}})));
-  Buildings.BoundaryConditions.WeatherData.Bus busWea
-    if typHp == Buildings.Templates.Components.Types.HeatPump.AirToWater
-    "Weather bus"
-    annotation(Placement(transformation(extent={{0,180},{40,220}}),
-      iconTransformation(extent={{-220,380},{-180,420}})));
-  // Diagnostics
-  parameter Boolean show_T = false
-    "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced",
-      group="Diagnostics"),
-      HideResult=true);
-  MediumSou.ThermodynamicState sta_aSou[nHp + nShc] =
-    MediumSou.setState_phX(
-      ports_aSou.p,
-      noEvent(actualStream(ports_aSou.h_outflow)),
-      noEvent(actualStream(ports_aSou.Xi_outflow)))
-    if show_T
-    "Source medium properties in port_aSou";
-  MediumSou.ThermodynamicState sta_bSou[nHp + nShc] =
-    MediumSou.setState_phX(
-      ports_bSou.p,
-      noEvent(actualStream(ports_bSou.h_outflow)),
-      noEvent(actualStream(ports_bSou.Xi_outflow)))
-    if show_T
-    "Source medium properties in port_bSou";
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatShc[nShc](
     redeclare each final package Medium=MediumHeaWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -340,8 +302,8 @@ model PartialHeatPumpGroup
     redeclare each final package Medium=MediumChiWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(
-      start=MediumHeaWat.h_default,
-      nominal=MediumHeaWat.h_default))
+      start=MediumChiWat.h_default,
+      nominal=MediumChiWat.h_default))
     if have_shc
     "CHW supply – SHC units"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
@@ -368,8 +330,8 @@ model PartialHeatPumpGroup
     redeclare each final package Medium=MediumChiWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(
-      start=MediumHeaWat.h_default,
-      nominal=MediumHeaWat.h_default))
+      start=MediumChiWat.h_default,
+      nominal=MediumChiWat.h_default))
     if have_shc
     "CHW return – SHC units"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
@@ -378,6 +340,71 @@ model PartialHeatPumpGroup
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={500,400})));
+  Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
+    "Plant control bus"
+    annotation(Placement(transformation(extent={{-40,180},{0,220}}),
+      iconTransformation(extent={{-20,380},{20,420}})));
+  Buildings.BoundaryConditions.WeatherData.Bus busWea
+    if typHp == Buildings.Templates.Components.Types.HeatPump.AirToWater
+    "Weather bus"
+    annotation(Placement(transformation(extent={{0,180},{40,220}}),
+      iconTransformation(extent={{-220,380},{-180,420}})));
+  MediumSou.ThermodynamicState sta_aSou[nHp + nShc] =
+    MediumSou.setState_phX(
+      ports_aSou.p,
+      noEvent(actualStream(ports_aSou.h_outflow)),
+      noEvent(actualStream(ports_aSou.Xi_outflow)))
+    if show_T
+    "Source medium properties in port_aSou";
+  MediumSou.ThermodynamicState sta_bSou[nHp + nShc] =
+    MediumSou.setState_phX(
+      ports_bSou.p,
+      noEvent(actualStream(ports_bSou.h_outflow)),
+      noEvent(actualStream(ports_bSou.Xi_outflow)))
+    if show_T
+    "Source medium properties in port_bSou";
+  MediumHeaWat.ThermodynamicState sta_aChiHeaWatHp[nHp] =
+    MediumHeaWat.setState_phX(
+      ports_aChiHeaWatHp.p,
+      noEvent(actualStream(ports_aChiHeaWatHp.h_outflow)),
+      noEvent(actualStream(ports_aChiHeaWatHp.Xi_outflow)))
+    if show_T
+    "Source medium properties in port_aChiHeaWatHp";
+  MediumHeaWat.ThermodynamicState sta_bChiHeaWatHp[nHp] =
+    MediumHeaWat.setState_phX(
+      ports_bChiHeaWatHp.p,
+      noEvent(actualStream(ports_bChiHeaWatHp.h_outflow)),
+      noEvent(actualStream(ports_bChiHeaWatHp.Xi_outflow)))
+    if show_T
+    "Source medium properties in port_bChiHeaWatHp";
+  MediumHeaWat.ThermodynamicState sta_aHeaWatShc[nShc] =
+    MediumHeaWat.setState_phX(
+      ports_aHeaWatShc.p,
+      noEvent(actualStream(ports_aHeaWatShc.h_outflow)),
+      noEvent(actualStream(ports_aHeaWatShc.Xi_outflow)))
+    if show_T and have_shc
+    "Source medium properties in port_aHeaWatShc";
+  MediumHeaWat.ThermodynamicState sta_bHeaWatShc[nShc] =
+    MediumHeaWat.setState_phX(
+      ports_bHeaWatShc.p,
+      noEvent(actualStream(ports_bHeaWatShc.h_outflow)),
+      noEvent(actualStream(ports_bHeaWatShc.Xi_outflow)))
+    if show_T and have_shc
+    "Source medium properties in port_bHeaWatShc";
+  MediumChiWat.ThermodynamicState sta_aChiWatShc[nShc] =
+    MediumChiWat.setState_phX(
+      ports_aChiWatShc.p,
+      noEvent(actualStream(ports_aChiWatShc.h_outflow)),
+      noEvent(actualStream(ports_aChiWatShc.Xi_outflow)))
+    if show_T and have_shc
+    "Source medium properties in port_aChiWatShc";
+  MediumChiWat.ThermodynamicState sta_bChiWatShc[nShc] =
+    MediumChiWat.setState_phX(
+      ports_bChiWatShc.p,
+      noEvent(actualStream(ports_bChiWatShc.h_outflow)),
+      noEvent(actualStream(ports_bChiWatShc.Xi_outflow)))
+    if show_T and have_shc
+    "Source medium properties in port_bChiWatShc";
   protected
   Buildings.Templates.Components.Interfaces.Bus busHp[nHp]
     if have_hp
