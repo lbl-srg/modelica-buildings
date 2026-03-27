@@ -3,9 +3,6 @@ SelectSmallestValues
 SelectLargestValues
 SetpointSingleStepChange
 SetpointMultipleStepChange
-GeneralModeSelection
-GeneralModeSelectionBool
 TemperatureSetpointResolution
 SingleTemperatureSetpointMock
-DualTemperatureSetpointMock
 Validation
