@@ -1,0 +1,69 @@
+simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicatedSHC",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0.0,
+    stopTime=5000.0,
+    resultFile="PumpsPrimaryDedicated");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    y={"pumPriCom.bus.pumHeaWatPri.y1[1]", "pumPriCom.bus.pumHeaWatPri.y1[2]", "pumPriCom.bus.pumHeaWatPri.y1[3]", "pumPriCom.bus.pumHeaWatPri.y1[4]", "pumPriCom.bus.pumChiWatPri.y1[1]", "pumPriCom.bus.pumChiWatPri.y1[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"valHeaWatIsoCom[1].m_flow", "valChiWatIsoCom[1].m_flow", "hpCom[1].m_flow", "hpCom[2].m_flow", "datHpShc.mHeaWatHp_flow_nominal", "datHpShc.mChiWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"shcConCom[1].m_flow", "shcConCom[2].m_flow", "shcEvaCom[1].m_flow", "shcEvaCom[2].m_flow", "datHpShc.mHeaWatShc_flow_nominal", "datHpShc.mChiWatShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 600},
+    y={"pumHeaWatPriHdr.bus.y1[1]", "pumHeaWatPriHdr.bus.y1[2]", "pumHeaWatPriHdr.bus.y1[3]", "pumHeaWatPriHdr.bus.y1[4]", "pumChiWatPriHdr.bus.y1[1]", "pumChiWatPriHdr.bus.y1[2]", "pumChiWatPriHdr.bus.y1[3]", "pumChiWatPriHdr.bus.y1[4]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"valHeaWatIsoHdr[1].m_flow", "valChiWatIsoHdr[1].m_flow", "hpHdr[1].m_flow", "hpHdr[2].m_flow", "datHpShc.mHeaWatHp_flow_nominal", "datHpShc.mChiWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"shcConHdr[1].m_flow", "shcConHdr[2].m_flow", "shcEvaHdr[1].m_flow", "shcEvaHdr[2].m_flow", "datHpShc.mHeaWatShc_flow_nominal", "datHpShc.mChiWatShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={615, 5, 300, 600},
+    y={"pumPriSep.bus.pumHeaWatPri.y1[1]", "pumPriSep.bus.pumHeaWatPri.y1[2]", "pumPriSep.bus.pumHeaWatPri.y1[3]", "pumPriSep.bus.pumHeaWatPri.y1[4]", "pumPriSep.bus.pumChiWatPri.y1[1]", "pumPriSep.bus.pumChiWatPri.y1[2]", "pumPriSep.bus.pumChiWatPri.y1[3]", "pumPriSep.bus.pumChiWatPri.y1[4]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"valHeaWatIsoSep[1].m_flow", "valChiWatIsoSep[1].m_flow", "hpSep[1].m_flow", "hpSep[2].m_flow", "datHpShc.mHeaWatHp_flow_nominal", "datHpShc.mChiWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"shcConSep[1].m_flow", "shcConSep[2].m_flow", "shcEvaSep[1].m_flow", "shcEvaSep[2].m_flow", "datHpShc.mHeaWatShc_flow_nominal", "datHpShc.mChiWatShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

@@ -258,7 +258,8 @@ model HeatPumpGroupAirToWaterSHC
     final nShc=nShc,
     is_rev=false,
     final dat=datShc,
-    final energyDynamics=energyDynamics)
+    final energyDynamics=energyDynamics,
+    show_T=true)
     "SHC units only"
     annotation(Placement(transformation(extent={{280,40},{-200,120}})));
   HeatPumpGroups.AirToWater hpShc(

@@ -7,10 +7,10 @@ model PumpsPrimaryDedicatedSHC
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW/HW medium";
 
-  parameter Integer nHp = 2
+  final parameter Integer nHp = 2
     "Number of heat pumps (excluding SHC units)"
     annotation(Evaluate=true);
-  parameter Integer nShc = 2
+  final parameter Integer nShc = 2
     "Number of polyvalent (SHC) units"
     annotation(Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
@@ -85,7 +85,7 @@ model PumpsPrimaryDedicatedSHC
       have_inpSch=false,
       have_hp=true,
       have_hrc=false,
-      have_valHpOutIso=false,
+      have_valHpOutIso=true,
       have_valHpInlIso=true,
       have_valShcOutIso=false,
       have_valShcInlIso=true,
@@ -128,15 +128,13 @@ model PumpsPrimaryDedicatedSHC
       nEquZon=0),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    dpChiWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-      datCtlNoDed.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-      datCtlNoDed.cfg.nSenDpHeaWatRem),
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+        datCtlNoDed.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+        datCtlNoDed.cfg.nSenDpHeaWatRem),
     staEqu={fill(1, datCtlNoDed.cfg.nHp)})
     "Controller parameters"
-    annotation(Placement(transformation(extent={{-180,-10},{-160,10}})));
+    annotation(Placement(transformation(extent={{-280,-10},{-260,10}})));
   parameter Data.Controller datCtlSep(
     cfg(
       have_pumHeaWatPriVar=false,
@@ -196,21 +194,21 @@ model PumpsPrimaryDedicatedSHC
     staEqu={fill(1, datCtlSep.cfg.nHp)})
     "Controller parameters"
     annotation(Placement(transformation(extent={{-180,-290},{-160,-270}})));
-  parameter Data.HeatPumpGroup datHp(
+  parameter Data.HeatPumpGroup datHpShc(
     have_hp=true,
     have_shc=true,
     final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
-    mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal / abs(
-      datHp.THeaWatSupHp_nominal -
+    mHeaWatHp_flow_nominal=datHpShc.capHeaHp_nominal / abs(
+      datHpShc.THeaWatSupHp_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaHp_nominal=500E3,
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatHp_flow_nominal=datHp.capCooHp_nominal / abs(
-      datHp.TChiWatSupHp_nominal -
+    mChiWatHp_flow_nominal=datHpShc.capCooHp_nominal / abs(
+      datHpShc.TChiWatSupHp_nominal -
         Buildings.Templates.Data.Defaults.TChiWatRet) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capCooHp_nominal=500E3,
@@ -228,19 +226,20 @@ model PumpsPrimaryDedicatedSHC
       fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
       PLRSup={1}),
-    mHeaWatShc_flow_nominal=datHp.capHeaShc_nominal / abs(
-      datHp.THeaWatSupShc_nominal -
+    mHeaWatShc_flow_nominal=datHpShc.capHeaShc_nominal / abs(
+      datHpShc.THeaWatSupShc_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatShc_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaShc_nominal=500E3,
     THeaWatSupShc_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaShc_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatShc_flow_nominal=datHp.capCooShc_nominal / abs(
-      datHp.TChiWatSupShc_nominal -
+    mChiWatShc_flow_nominal=datHpShc.capCooShc_nominal / abs(
+      datHpShc.TChiWatSupShc_nominal -
         Buildings.Templates.Data.Defaults.TChiWatRet) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capCooShc_nominal=500E3,
+    dpChiWatShc_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     TChiWatSupShc_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooShc_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
     PShc_min=1.0E3,
@@ -253,26 +252,28 @@ model PumpsPrimaryDedicatedSHC
         "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
       fileNameShc=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
-    "Reversible AWHP parameters"
-    annotation(Placement(transformation(extent={{-220,-120},{-200,-100}})));
+    "Parameters for reversible AWHP and SHC unit"
+    annotation(Placement(transformation(extent={{-280,-120},{-260,-100}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumPriCom(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     nPum=nHp + nShc,
     m_flow_nominal=cat(
       1,
       fill(
-        max(datHp.mHeaWatHp_flow_nominal, datHp.mChiWatHp_flow_nominal), nHp),
-      fill(datHp.mHeaWatShc_flow_nominal, nShc)),
+        max(datHpShc.mHeaWatHp_flow_nominal, datHpShc.mChiWatHp_flow_nominal),
+        nHp),
+      fill(datHpShc.mHeaWatShc_flow_nominal, nShc)),
     dp_nominal=cat(
       1,
       fill(
-        max(datHp.dpHeaWatHp_nominal, datHp.dpChiWatHp_nominal) +
+        max(datHpShc.dpHeaWatHp_nominal, datHpShc.dpChiWatHp_nominal) +
           Buildings.Templates.Data.Defaults.dpValChe + max(
           max(valChiWatIsoCom.dpValve_nominal),
           max(valHeaWatIsoCom.dpValve_nominal)),
         nHp),
       fill(
-        datHp.dpHeaWatHp_nominal + Buildings.Templates.Data.Defaults.dpValChe,
+        datHpShc.dpHeaWatHp_nominal +
+          Buildings.Templates.Data.Defaults.dpValChe,
         nShc)))
     "Primary pump parameters – Configuration with common HW/CHW pump for HP"
     annotation(Placement(transformation(extent={{-160,240},{-140,260}})));
@@ -281,16 +282,18 @@ model PumpsPrimaryDedicatedSHC
     nPum=nHp + nShc,
     m_flow_nominal=cat(
       1,
-      fill(datHp.mHeaWatHp_flow_nominal, nHp),
-      fill(datHp.mHeaWatShc_flow_nominal, nShc)),
+      fill(datHpShc.mHeaWatHp_flow_nominal, nHp),
+      fill(datHpShc.mHeaWatShc_flow_nominal, nShc)),
     dp_nominal=cat(
       1,
       fill(
-        datHp.dpHeaWatHp_nominal + Buildings.Templates.Data.Defaults.dpValChe +
-          max(valHeaWatIsoCom.dpValve_nominal),
+        datHpShc.dpHeaWatHp_nominal +
+          Buildings.Templates.Data.Defaults.dpValChe + max(
+          valHeaWatIsoCom.dpValve_nominal),
         nHp),
       fill(
-        datHp.dpHeaWatShc_nominal + Buildings.Templates.Data.Defaults.dpValChe,
+        datHpShc.dpHeaWatShc_nominal +
+          Buildings.Templates.Data.Defaults.dpValChe,
         nShc)))
     "Dedicated primary HW pump parameters – HP and SHC units"
     annotation(Placement(transformation(extent={{-160,-360},{-140,-340}})));
@@ -299,55 +302,57 @@ model PumpsPrimaryDedicatedSHC
     final nPum=nHp + nShc,
     m_flow_nominal=cat(
       1,
-      fill(datHp.mChiWatHp_flow_nominal, nHp),
-      fill(datHp.mChiWatShc_flow_nominal, nShc)),
+      fill(datHpShc.mChiWatHp_flow_nominal, nHp),
+      fill(datHpShc.mChiWatShc_flow_nominal, nShc)),
     dp_nominal=cat(
       1,
       fill(
-        datHp.dpChiWatHp_nominal + Buildings.Templates.Data.Defaults.dpValChe +
-          max(valHeaWatIsoCom.dpValve_nominal),
+        datHpShc.dpChiWatHp_nominal +
+          Buildings.Templates.Data.Defaults.dpValChe + max(
+          valHeaWatIsoCom.dpValve_nominal),
         nHp),
       fill(
-        datHp.dpChiWatShc_nominal + Buildings.Templates.Data.Defaults.dpValChe,
+        datHpShc.dpChiWatShc_nominal +
+          Buildings.Templates.Data.Defaults.dpValChe,
         nShc)))
     "Dedicated primary CHW pump parameters – HP and SHC units"
     annotation(Placement(transformation(extent={{-120,-360},{-100,-340}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumHeaWatHdr(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     nPum=nHp + nShc,
-    m_flow_nominal=cat(
-      1,
-      fill(datHp.mHeaWatHp_flow_nominal, nHp),
-      fill(datHp.mHeaWatShc_flow_nominal, nShc)),
-    dp_nominal=cat(
-      1,
-      fill(datHp.dpHeaWatHp_nominal, nHp),
-      fill(datHp.dpHeaWatShc_nominal, nShc)) .+
-      Buildings.Templates.Data.Defaults.dpValChe .+ max(
-      valHeaWatIsoCom.dpValve_nominal))
+    m_flow_nominal=fill(
+      (datHpShc.mHeaWatHp_flow_nominal * nHp + datHpShc.mHeaWatShc_flow_nominal * nShc) /
+      datPumHeaWatHdr.nPum,
+      nHp + nShc),
+    dp_nominal=fill(
+      max(datHpShc.dpHeaWatHp_nominal, datHpShc.dpHeaWatShc_nominal) +
+        Buildings.Templates.Data.Defaults.dpValChe + max(
+        valHeaWatIsoHdr.dpValve_nominal) + max(
+        valHeaWatIsoHpHdr.dpValve_nominal),
+      nHp + nShc))
     "Headered primary HW pump parameters – HP and SHC units"
-    annotation(Placement(transformation(extent={{-160,-80},{-140,-60}})));
+    annotation(Placement(transformation(extent={{-240,-80},{-220,-60}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWatHdr(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     final nPum=nHp + nShc,
-    m_flow_nominal=cat(
-      1,
-      fill(datHp.mChiWatHp_flow_nominal, nHp),
-      fill(datHp.mChiWatShc_flow_nominal, nShc)),
-    dp_nominal=cat(
-      1,
-      fill(datHp.dpChiWatHp_nominal, nHp),
-      fill(datHp.dpChiWatShc_nominal, nShc)) .+
-      Buildings.Templates.Data.Defaults.dpValChe .+ max(
-      valChiWatIsoHdr.dpValve_nominal))
+    m_flow_nominal=fill(
+      (datHpShc.mChiWatHp_flow_nominal * nHp + datHpShc.mChiWatShc_flow_nominal * nShc) /
+      datPumChiWatHdr.nPum,
+      nHp + nShc),
+    dp_nominal=fill(
+      max(datHpShc.dpChiWatHp_nominal, datHpShc.dpChiWatShc_nominal) +
+        Buildings.Templates.Data.Defaults.dpValChe + max(
+        valChiWatIsoHdr.dpValve_nominal) + max(
+        valChiWatIsoHpHdr.dpValve_nominal),
+      nHp + nShc))
     "Headered primary CHW pump parameters – HP and SHC units"
-    annotation(Placement(transformation(extent={{-120,-80},{-100,-60}})));
+    annotation(Placement(transformation(extent={{-200,-80},{-180,-60}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWatShc(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     final nPum=nShc,
-    m_flow_nominal=fill(datHp.mChiWatShc_flow_nominal, nShc),
+    m_flow_nominal=fill(datHpShc.mChiWatShc_flow_nominal, nShc),
     dp_nominal=fill(
-      datHp.dpChiWatShc_nominal + Buildings.Templates.Data.Defaults.dpValChe,
+      datHpShc.dpChiWatShc_nominal + Buildings.Templates.Data.Defaults.dpValChe,
       nShc))
     "Dedicated primary CHW pump parameters – SHC units"
     annotation(Placement(transformation(extent={{-120,240},{-100,260}})));
@@ -397,8 +402,8 @@ model PumpsPrimaryDedicatedSHC
     annotation(Placement(transformation(extent={{-240,160},{240,240}})));
   Fluid.FixedResistances.PressureDrop hpCom[nHp](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mHeaWatHp_flow_nominal,
-    each dp_nominal=datHp.dpHeaWatHp_nominal)
+    each m_flow_nominal=datHpShc.mHeaWatHp_flow_nominal,
+    each dp_nominal=datHpShc.dpHeaWatHp_nominal)
     "Heat pump HX"
     annotation(Placement(transformation(extent={{10,130},{-10,150}})));
   Fluid.Sources.Boundary_pT ret(
@@ -428,32 +433,24 @@ model PumpsPrimaryDedicatedSHC
     annotation(Placement(transformation(extent={{-240,-180},{240,-100}})));
   Fluid.FixedResistances.PressureDrop hpHdr[nHp](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mHeaWatHp_flow_nominal,
-    each dp_nominal=datHp.dpHeaWatHp_nominal)
+    each m_flow_nominal=datHpShc.mHeaWatHp_flow_nominal,
+    each dp_nominal=datHpShc.dpHeaWatHp_nominal)
     "Heat pump HX"
     annotation(Placement(transformation(extent={{10,-210},{-10,-190}})));
-  Fluid.Sources.Boundary_pT ret1(
-    redeclare final package Medium=Medium,
-    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
-    nPorts=nHp + nShc)
-    "Boundary condition at return"
-    annotation(Placement(transformation(extent={{10,-10},{-10,10}},
-      rotation=90,
-      origin={100,-30})));
   Controls.OpenLoop ctlNoDed(final cfg=datCtlNoDed.cfg, final dat=datCtlNoDed)
     "Plant controller"
-    annotation(Placement(transformation(extent={{-120,-10},{-140,10}})));
+    annotation(Placement(transformation(extent={{-220,-10},{-240,10}})));
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatPriHdr(
     have_var=false,
     final energyDynamics=energyDynamics,
     nPum=nHp + nShc,
-    dat=datPumHeaWat)
+    dat=datPumHeaWatHdr)
     "Headered primary HW pumps"
-    annotation(Placement(transformation(extent={{-70,-50},{-50,-30}})));
+    annotation(Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus busPla
     "Plant control bus"
     annotation(Placement(iconVisible=false,
-      transformation(extent={{-120,-20},{-80,20}}),
+      transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-332,42},{-292,82}})));
   Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated pumPriSep(
     redeclare final package Medium=Medium,
@@ -483,23 +480,23 @@ model PumpsPrimaryDedicatedSHC
     annotation(Placement(transformation(extent={{-120,-290},{-140,-270}})));
   Fluid.FixedResistances.PressureDrop hpSep[nHp](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mHeaWatHp_flow_nominal,
-    each dp_nominal=datHp.dpHeaWatHp_nominal)
+    each m_flow_nominal=datHpShc.mHeaWatHp_flow_nominal,
+    each dp_nominal=datHpShc.dpHeaWatHp_nominal)
     "Heat pump HX"
     annotation(Placement(transformation(extent={{10,-450},{-10,-430}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatIsoCom[nHp](
     redeclare each final package Medium=Medium,
     each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     dat(
-      each m_flow_nominal=datHp.mHeaWatHp_flow_nominal,
+      each m_flow_nominal=datHpShc.mHeaWatHp_flow_nominal,
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, nHp),
+        m_flow_nominal=fill(datHpShc.mHeaWatHp_flow_nominal, nHp),
         dp_nominal=pumPriCom.dpValCheHeaWat_nominal[1:nHp] *
-          (datHp.mHeaWatHp_flow_nominal / max(
-            datHp.mHeaWatHp_flow_nominal,
-            datHp.mChiWatHp_flow_nominal)) ^ 2 .+ fill(
-            datHp.dpHeaWatHp_nominal,
+          (datHpShc.mHeaWatHp_flow_nominal / max(
+            datHpShc.mHeaWatHp_flow_nominal,
+            datHpShc.mChiWatHp_flow_nominal)) ^ 2 .+ fill(
+            datHpShc.dpHeaWatHp_nominal,
             nHp) .+ valHeaWatIsoCom.dpValve_nominal,
         datPum=datPumComSin[1:nHp])),
     each from_dp=true)
@@ -509,15 +506,15 @@ model PumpsPrimaryDedicatedSHC
     redeclare each final package Medium=Medium,
     each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     dat(
-      each m_flow_nominal=datHp.mChiWatHp_flow_nominal,
+      each m_flow_nominal=datHpShc.mChiWatHp_flow_nominal,
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, nHp),
+        m_flow_nominal=fill(datHpShc.mChiWatHp_flow_nominal, nHp),
         dp_nominal=pumPriCom.dpValCheHeaWat_nominal[1:nHp] *
-          (datHp.mChiWatHp_flow_nominal / max(
-            datHp.mHeaWatHp_flow_nominal,
-            datHp.mChiWatHp_flow_nominal)) ^ 2 .+ fill(
-            datHp.dpChiWatHp_nominal,
+          (datHpShc.mChiWatHp_flow_nominal / max(
+            datHpShc.mHeaWatHp_flow_nominal,
+            datHpShc.mChiWatHp_flow_nominal)) ^ 2 .+ fill(
+            datHpShc.dpChiWatHp_nominal,
             nHp) .+ valChiWatIsoCom.dpValve_nominal,
         datPum=datPumComSin[1:nHp])),
     each from_dp=true)
@@ -534,51 +531,51 @@ model PumpsPrimaryDedicatedSHC
     dat(
       m_flow_nominal=cat(
         1,
-        fill(datHp.mChiWatHp_flow_nominal, nHp),
-        fill(datHp.mChiWatShc_flow_nominal, nShc)),
+        fill(datHpShc.mChiWatHp_flow_nominal, nHp),
+        fill(datHpShc.mChiWatShc_flow_nominal, nShc)),
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=cat(
-          1,
-          fill(datHp.mChiWatHp_flow_nominal, nHp),
-          fill(datHp.mChiWatShc_flow_nominal, nShc)),
+        m_flow_nominal=valChiWatIsoHdr.m_flow_nominal,
         dp_nominal=pumChiWatPriHdr.dpValChe_nominal .+ cat(
             1,
-            fill(datHp.dpChiWatHp_nominal, nHp),
-            fill(datHp.dpChiWatShc_nominal, nShc)) .+
-          valChiWatIsoHdr.dpValve_nominal,
+            fill(datHpShc.dpChiWatHp_nominal, nHp),
+            fill(datHpShc.dpChiWatShc_nominal, nShc)) .+
+          valChiWatIsoHdr.dpValve_nominal .+ cat(
+            1,
+            valChiWatIsoHpHdr.dpValve_nominal,
+            fill(0, nShc)),
         datPum=datPumChiWatHdrSin)),
     each from_dp=true)
     "CHW isolation valve"
-    annotation(Placement(transformation(extent={{30,-70},{50,-50}})));
+    annotation(Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatIsoHdr[nHp + nShc](
     redeclare each final package Medium=Medium,
     each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     dat(
       m_flow_nominal=cat(
         1,
-        fill(datHp.mHeaWatHp_flow_nominal, nHp),
-        fill(datHp.mHeaWatShc_flow_nominal, nShc)),
+        fill(datHpShc.mHeaWatHp_flow_nominal, nHp),
+        fill(datHpShc.mHeaWatShc_flow_nominal, nShc)),
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=cat(
-          1,
-          fill(datHp.mHeaWatHp_flow_nominal, nHp),
-          fill(datHp.mHeaWatShc_flow_nominal, nShc)),
+        m_flow_nominal=valHeaWatIsoHdr.m_flow_nominal,
         dp_nominal=pumHeaWatPriHdr.dpValChe_nominal .+ cat(
             1,
-            fill(datHp.dpHeaWatHp_nominal, nHp),
-            fill(datHp.dpHeaWatShc_nominal, nShc)) .+
-          valHeaWatIsoHdr.dpValve_nominal,
+            fill(datHpShc.dpHeaWatHp_nominal, nHp),
+            fill(datHpShc.dpHeaWatShc_nominal, nShc)) .+
+          valHeaWatIsoHdr.dpValve_nominal .+ cat(
+            1,
+            valHeaWatIsoHpHdr.dpValve_nominal,
+            fill(0, nShc)),
         datPum=datPumHeaWatHdrSin)),
     each from_dp=true)
     "HW isolation valve"
-    annotation(Placement(transformation(extent={{10,-50},{30,-30}})));
+    annotation(Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatIsoSep[nHp](
     redeclare each final package Medium=Medium,
     each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     dat(
-      each m_flow_nominal=datHp.mHeaWatHp_flow_nominal,
+      each m_flow_nominal=datHpShc.mHeaWatHp_flow_nominal,
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso),
     each from_dp=true,
     each linearized=true)
@@ -588,7 +585,7 @@ model PumpsPrimaryDedicatedSHC
     redeclare each final package Medium=Medium,
     each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     dat(
-      each m_flow_nominal=datHp.mChiWatHp_flow_nominal,
+      each m_flow_nominal=datHpShc.mChiWatHp_flow_nominal,
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso),
     each from_dp=true,
     each linearized=true)
@@ -598,43 +595,43 @@ model PumpsPrimaryDedicatedSHC
     have_var=false,
     final energyDynamics=energyDynamics,
     nPum=nHp + nShc,
-    dat=datPumChiWat)
+    dat=datPumChiWatHdr)
     "Headered primary CHW pumps"
     annotation(Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Fluid.FixedResistances.PressureDrop shcConSep[nShc](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mHeaWatShc_flow_nominal,
-    each dp_nominal=datHp.dpHeaWatShc_nominal)
+    each m_flow_nominal=datHpShc.mHeaWatShc_flow_nominal,
+    each dp_nominal=datHpShc.dpHeaWatShc_nominal)
     "SHC unit condenser"
     annotation(Placement(transformation(extent={{-20,-470},{-40,-450}})));
   Fluid.FixedResistances.PressureDrop shcEvaSep[nShc](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mChiWatShc_flow_nominal,
-    each dp_nominal=datHp.dpChiWatShc_nominal)
+    each m_flow_nominal=datHpShc.mChiWatShc_flow_nominal,
+    each dp_nominal=datHpShc.dpChiWatShc_nominal)
     "SHC unit evaporator"
     annotation(Placement(transformation(extent={{10,-490},{-10,-470}})));
   Fluid.FixedResistances.PressureDrop shcConHdr[nShc](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mHeaWatShc_flow_nominal,
-    each dp_nominal=datHp.dpHeaWatShc_nominal)
+    each m_flow_nominal=datHpShc.mHeaWatShc_flow_nominal,
+    each dp_nominal=datHpShc.dpHeaWatShc_nominal)
     "SHC unit condenser"
     annotation(Placement(transformation(extent={{-20,-230},{-40,-210}})));
   Fluid.FixedResistances.PressureDrop shcEvaHdr[nShc](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mChiWatShc_flow_nominal,
-    each dp_nominal=datHp.dpChiWatShc_nominal)
+    each m_flow_nominal=datHpShc.mChiWatShc_flow_nominal,
+    each dp_nominal=datHpShc.dpChiWatShc_nominal)
     "SHC unit evaporator"
     annotation(Placement(transformation(extent={{10,-250},{-10,-230}})));
-  Fluid.FixedResistances.PressureDrop shcConHdr1[nShc](
+  Fluid.FixedResistances.PressureDrop shcConCom[nShc](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mHeaWatShc_flow_nominal,
-    each dp_nominal=datHp.dpHeaWatShc_nominal)
+    each m_flow_nominal=datHpShc.mHeaWatShc_flow_nominal,
+    each dp_nominal=datHpShc.dpHeaWatShc_nominal)
     "SHC unit condenser"
     annotation(Placement(transformation(extent={{-20,110},{-40,130}})));
-  Fluid.FixedResistances.PressureDrop shcEvaHdr1[nShc](
+  Fluid.FixedResistances.PressureDrop shcEvaCom[nShc](
     redeclare each final package Medium=Medium,
-    each m_flow_nominal=datHp.mChiWatShc_flow_nominal,
-    each dp_nominal=datHp.dpChiWatShc_nominal)
+    each m_flow_nominal=datHpShc.mChiWatShc_flow_nominal,
+    each dp_nominal=datHpShc.dpChiWatShc_nominal)
     "SHC unit evaporator"
     annotation(Placement(transformation(extent={{10,90},{-10,110}})));
   Fluid.Sources.Boundary_pT ret3(
@@ -653,14 +650,6 @@ model PumpsPrimaryDedicatedSHC
     annotation(Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
       origin={180,-290})));
-  Fluid.Sources.Boundary_pT ret6(
-    redeclare final package Medium=Medium,
-    p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
-    nPorts=nShc)
-    "Boundary condition at return"
-    annotation(Placement(transformation(extent={{10,-10},{-10,10}},
-      rotation=90,
-      origin={180,-30})));
   Fluid.Sources.Boundary_pT ret7(
     redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
@@ -677,15 +666,74 @@ model PumpsPrimaryDedicatedSHC
     annotation(Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
       origin={180,290})));
-  protected
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatShcInlIso[nShc]
-    "SHC unit inlet HW isolation valve control bus"
-    annotation(Placement(transformation(extent={{0,-20},{40,20}}),
-      iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatShcInlIso[nShc]
-    "SHC unit inlet CHW isolation valve control bus"
-    annotation(Placement(transformation(extent={{20,-40},{60,0}}),
-      iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Routing.MultipleToMultiple hdrDisPumChiWatPri(
+    redeclare final package Medium=Medium,
+    final nPorts_a=nHp + nShc,
+    have_comLeg=true,
+    final m_flow_nominal=sum(pumChiWatPriHdr.m_flow_nominal),
+    final energyDynamics=energyDynamics,
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
+    "Primary CHW pump discharge header"
+    annotation(Placement(transformation(extent={{-10,-70},{10,-50}})));
+  Buildings.Templates.Components.Routing.MultipleToMultiple hdrDisPumHeaWatPri(
+    redeclare final package Medium=Medium,
+    final nPorts_a=nHp + nShc,
+    have_comLeg=true,
+    final m_flow_nominal=sum(pumHeaWatPriHdr.m_flow_nominal),
+    final energyDynamics=energyDynamics,
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
+    "Primary HW pump discharge header"
+    annotation(Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Templates.Components.Routing.MultipleToMultiple hdrSucPumChiWatPri(
+    redeclare final package Medium=Medium,
+    final nPorts_a=nHp + nShc,
+    have_comLeg=true,
+    final m_flow_nominal=sum(pumChiWatPriHdr.m_flow_nominal),
+    final energyDynamics=energyDynamics,
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
+    "Primary CHW pump suction header"
+    annotation(Placement(transformation(extent={{-70,-70},{-50,-50}})));
+  Buildings.Templates.Components.Routing.MultipleToMultiple hdrSucPumHeaWatPri(
+    redeclare final package Medium=Medium,
+    final nPorts_a=nHp + nShc,
+    have_comLeg=true,
+    final m_flow_nominal=sum(pumHeaWatPriHdr.m_flow_nominal),
+    final energyDynamics=energyDynamics,
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
+    "Primary HW pump suction header"
+    annotation(Placement(transformation(extent={{-140,-50},{-120,-30}})));
+  Fluid.Sources.Boundary_pT ret1(
+    redeclare final package Medium=Medium,
+    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
+    nPorts=1)
+    "Boundary condition at return"
+    annotation(Placement(transformation(extent={{10,-10},{-10,10}},
+      rotation=90,
+      origin={100,-10})));
+  Buildings.Templates.Components.Actuators.Valve valHeaWatIsoHpHdr[nHp](
+    redeclare each final package Medium=Medium,
+    each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+    dat(
+      each m_flow_nominal=datHpShc.mHeaWatHp_flow_nominal,
+      each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
+      each dpFixed_nominal=0),
+    each from_dp=true)
+    "HP outlet HW isolation valve"
+    annotation(Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-144,-80})));
+  Buildings.Templates.Components.Actuators.Valve valChiWatIsoHpHdr[nHp](
+    redeclare each final package Medium=Medium,
+    each typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+    dat(
+      each m_flow_nominal=datHpShc.mChiWatHp_flow_nominal,
+      each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
+      each dpFixed_nominal=0),
+    each from_dp=true)
+    "HP outlet CHW isolation valve"
+    annotation(Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-74,-80})));
 equation
   connect(pumPriCom.ports_bChiHeaWatHp, hpCom.port_a)
     annotation(Line(points={{82,160},{82,140},{10,140}},
@@ -700,11 +748,11 @@ equation
     annotation(Line(points={{-10,-200},{-82,-200},{-82,-180}},
       color={0,127,255}));
   connect(ctlNoDed.bus, busPla)
-    annotation(Line(points={{-120,0},{-100,0}},
+    annotation(Line(points={{-220,0},{-200,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla.pumHeaWatPri, pumHeaWatPriHdr.bus)
-    annotation(Line(points={{-100,0},{-60,0},{-60,-30}},
+    annotation(Line(points={{-200,0},{-100,0},{-100,-30}},
       color={255,204,51},
       thickness=0.5));
   connect(pumPriSep.ports_bChiHeaWatHp, hpSep.port_a)
@@ -717,13 +765,13 @@ equation
     annotation(Line(points={{-44,240},{-44,280},{10,280}},
       color={0,127,255}));
   connect(valHeaWatIsoCom.port_b, pumPriCom.ports_aChiHeaWat)
-    annotation(Line(points={{30,280},{82,280},{82,240}},
+    annotation(Line(points={{30,280},{65.8,280},{65.8,240}},
       color={0,127,255}));
   connect(pumPriCom.ports_bChiHeaWat, valChiWatIsoCom.port_a)
     annotation(Line(points={{-44,240},{-44,260},{30,260}},
       color={0,127,255}));
   connect(valChiWatIsoCom.port_b, pumPriCom.ports_aChiHeaWat)
-    annotation(Line(points={{50,260},{82,260},{82,240}},
+    annotation(Line(points={{50,260},{65.8,260},{65.8,240}},
       color={0,127,255}));
   connect(ctl.bus, busPla1)
     annotation(Line(points={{-120,300},{-100,300}},
@@ -751,45 +799,19 @@ equation
     annotation(Line(points={{-60,-340},{-60,-320},{10,-320}},
       color={0,127,255}));
   connect(valHeaWatIsoSep.port_b, pumPriSep.ports_aChiHeaWat)
-    annotation(Line(points={{-10,-300},{82,-300},{82,-340}},
+    annotation(Line(points={{-10,-300},{65.8,-300},{65.8,-340}},
       color={0,127,255}));
   connect(valChiWatIsoSep.port_b, pumPriSep.ports_aChiHeaWat)
-    annotation(Line(points={{30,-320},{82,-320},{82,-340}},
+    annotation(Line(points={{30,-320},{65.8,-320},{65.8,-340}},
       color={0,127,255}));
   connect(ret2.ports, valHeaWatIsoSep.port_b)
     annotation(Line(points={{100,-300},{-10,-300}},
       color={0,127,255}));
-  connect(pumChiWatPriHdr.ports_b, valChiWatIsoHdr.port_a)
-    annotation(Line(points={{-20,-60},{30,-60}},
-      color={0,127,255}));
-  connect(pumHeaWatPriHdr.ports_b, valHeaWatIsoHdr.port_a)
-    annotation(Line(points={{-50,-40},{10,-40}},
-      color={0,127,255}));
-  connect(pumPriNoDed.ports_bChiHeaWat, pumChiWatPriHdr.ports_a[1:nHp])
-    annotation(Line(points={{-44,-100},{-80,-100},{-80,-60},{-40,-60}},
-      color={0,127,255}));
-  connect(pumPriNoDed.ports_bChiHeaWat, pumHeaWatPriHdr.ports_a[1:nHp])
-    annotation(Line(points={{-44,-100},{-80,-100},{-80,-40},{-70,-40}},
-      color={0,127,255}));
-  connect(pumPriNoDed.ports_bHeaWatSupShc, pumHeaWatPriHdr.ports_a[nHp + 1:nHp +
-    nShc])
-    annotation(Line(points={{-28,-100},{-28,-90},{-70,-90},{-70,-40}},
-      color={0,127,255}));
-  connect(pumPriNoDed.ports_bChiWatSupShc, pumChiWatPriHdr.ports_a[nHp + 1:nHp +
-    nShc])
-    annotation(Line(points={{-12,-100},{-12,-80},{-40,-80},{-40,-60}},
-      color={0,127,255}));
-  connect(valHeaWatIsoHdr[1:nHp].port_b, pumPriNoDed.ports_aChiHeaWat)
-    annotation(Line(points={{30,-40},{82,-40},{82,-100}},
-      color={0,127,255}));
-  connect(valChiWatIsoHdr[1:nHp].port_b, pumPriNoDed.ports_aChiHeaWat)
-    annotation(Line(points={{50,-60},{82,-60},{82,-100}},
-      color={0,127,255}));
   connect(valChiWatIsoHdr[nHp + 1:nHp + nShc].port_b, pumPriNoDed.ports_aChiWat)
-    annotation(Line(points={{50,-60},{50,-100}},
+    annotation(Line(points={{40,-60},{40,-100},{34,-100}},
       color={0,127,255}));
   connect(valHeaWatIsoHdr[nHp + 1:nHp + nShc].port_b, pumPriNoDed.ports_aHeaWat)
-    annotation(Line(points={{30,-40},{66,-40},{66,-100}},
+    annotation(Line(points={{10,-40},{50,-40},{50,-100}},
       color={0,127,255}));
   connect(shcConSep.port_b, pumPriSep.ports_aHeaWatShc)
     annotation(Line(points={{-40,-460},{-66,-460},{-66,-420}},
@@ -815,80 +837,50 @@ equation
   connect(shcConHdr.port_b, pumPriNoDed.ports_aHeaWatShc)
     annotation(Line(points={{-40,-220},{-66,-220},{-66,-180}},
       color={0,127,255}));
-  connect(pumPriCom.ports_bChiWatRetShc, shcEvaHdr1.port_a)
+  connect(pumPriCom.ports_bChiWatRetShc, shcEvaCom.port_a)
     annotation(Line(points={{50,160},{50,100},{10,100}},
       color={0,127,255}));
-  connect(shcEvaHdr1.port_b, pumPriCom.ports_aChiWatShc)
+  connect(shcEvaCom.port_b, pumPriCom.ports_aChiWatShc)
     annotation(Line(points={{-10,100},{-50,100},{-50,160}},
       color={0,127,255}));
-  connect(pumPriCom.ports_bHeaWatRetShc, shcConHdr1.port_a)
+  connect(pumPriCom.ports_bHeaWatRetShc, shcConCom.port_a)
     annotation(Line(points={{66,160},{66,120},{-20,120}},
       color={0,127,255}));
-  connect(shcConHdr1.port_b, pumPriCom.ports_aHeaWatShc)
+  connect(shcConCom.port_b, pumPriCom.ports_aHeaWatShc)
     annotation(Line(points={{-40,120},{-66,120},{-66,160}},
       color={0,127,255}));
-  connect(valHeaWatIsoHdr.port_b, ret1.ports)
-    annotation(Line(points={{30,-40},{100,-40}},
-      color={0,127,255}));
   connect(pumPriCom.ports_bHeaWatSupShc, pumPriCom.ports_aHeaWat)
-    annotation(Line(points={{-28,240},{-28,254},{66,254},{66,240}},
+    annotation(Line(points={{-28,240},{-28,254},{50,254},{50,240}},
       color={0,127,255}));
   connect(pumPriCom.ports_bChiWatSupShc, pumPriCom.ports_aChiWat)
-    annotation(Line(points={{-12,240},{-12,248},{50,248},{50,240}},
+    annotation(Line(points={{-12,240},{-12,248},{34,248},{34,240}},
       color={0,127,255}));
   connect(pumPriSep.ports_bHeaWatSupShc, pumPriSep.ports_aHeaWat)
-    annotation(Line(points={{-28,-340},{-28,-326},{66,-326},{66,-340}},
+    annotation(Line(points={{-28,-340},{-28,-326},{50,-326},{50,-340}},
       color={0,127,255}));
   connect(pumPriSep.ports_bChiWatSupShc, pumPriSep.ports_aChiWat)
-    annotation(Line(points={{-12,-340},{-12,-332},{50,-332},{50,-340}},
+    annotation(Line(points={{-12,-340},{-12,-332},{34,-332},{34,-340}},
       color={0,127,255}));
   connect(busPla.pumChiWatPri, pumChiWatPriHdr.bus)
-    annotation(Line(points={{-100,0},{-30,0},{-30,-50}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPla.valHeaWatHpInlIso, valHeaWatIsoHdr[1:nHp].bus)
-    annotation(Line(points={{-100,0},{20,0},{20,-30}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPla.valChiWatHpInlIso, valChiWatIsoHdr[1:nHp].bus)
-    annotation(Line(points={{-100,0},{40,0},{40,-50}},
+    annotation(Line(points={{-200,0},{-30,0},{-30,-50}},
       color={255,204,51},
       thickness=0.5));
   connect(ret3.ports, pumPriSep.ports_aHeaWat)
-    annotation(Line(points={{140,-300},{140,-326},{66,-326},{66,-340}},
+    annotation(Line(points={{140,-300},{140,-326},{50,-326},{50,-340}},
       color={0,127,255}));
   connect(ret4.ports, pumPriSep.ports_aChiWat)
-    annotation(Line(points={{180,-300},{180,-332},{50,-332},{50,-340}},
+    annotation(Line(points={{180,-300},{180,-332},{34,-332},{34,-340}},
       color={0,127,255}));
   connect(ret7.ports, pumPriCom.ports_aHeaWat)
-    annotation(Line(points={{140,280},{140,254},{66,254},{66,240}},
+    annotation(Line(points={{140,280},{140,254},{50,254},{50,240}},
       color={0,127,255}));
   connect(ret8.ports, pumPriCom.ports_aChiWat)
-    annotation(Line(points={{180,280},{180,248},{50,248},{50,240}},
-      color={0,127,255}));
-  connect(ret6.ports, pumPriNoDed.ports_aChiWat)
-    annotation(Line(points={{180,-40},{180,-90},{50,-90},{50,-100}},
+    annotation(Line(points={{180,280},{180,248},{34,248},{34,240}},
       color={0,127,255}));
   // HACK(AntoineGautier): Connecting busPla.valHeaWatShcInlIso directly
   // to valHeaWatIsoHdr[nHp + 1:nHp + nShc].bus i.e.
   // connect(busPla.valHeaWatShcInlIso, valHeaWatIsoHdr[nHp + 1:nHp + nShc].bus)
   // yields a translation error with OCT 1.55.
-  connect(busPla.valHeaWatShcInlIso, busValHeaWatShcInlIso)
-    annotation(Line(points={{-100,0},{20,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValHeaWatShcInlIso, valHeaWatIsoHdr[nHp + 1:nHp + nShc].bus)
-    annotation(Line(points={{20,0},{20,-16},{20,-16},{20,-30}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPla.valChiWatShcInlIso, busValChiWatShcInlIso)
-    annotation(Line(points={{-100,0},{40,0},{40,-20}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatShcInlIso, valChiWatIsoHdr[nHp + 1:nHp + nShc].bus)
-    annotation(Line(points={{40,-20},{40,-26},{40,-26},{40,-50}},
-      color={255,204,51},
-      thickness=0.5));
   connect(busPla2, pumPriSep.bus)
     annotation(Line(points={{-80,-280},{0,-280},{0,-340}},
       color={255,204,51},
@@ -907,11 +899,86 @@ equation
     annotation(Line(points={{-80,-280},{20,-280},{20,-310}},
       color={255,204,51},
       thickness=0.5));
+  connect(hdrDisPumChiWatPri.ports_b, valChiWatIsoHdr.port_a)
+    annotation(Line(points={{10,-60},{20,-60}},
+      color={0,127,255}));
+  connect(pumPriNoDed.ports_bChiWatSupShc, hdrSucPumChiWatPri.ports_a[nHp +
+    1:nHp + nShc])
+    annotation(Line(points={{-12,-100},{-12,-80},{-70,-80},{-70,-60}},
+      color={0,127,255}));
+  connect(valHeaWatIsoHdr[1:nHp].port_b, pumPriNoDed.ports_aChiHeaWat)
+    annotation(Line(points={{10,-40},{68,-40},{68,-100},{65.8,-100}},
+      color={0,127,255}));
+  connect(valChiWatIsoHdr[1:nHp].port_b, pumPriNoDed.ports_aChiHeaWat)
+    annotation(Line(points={{40,-60},{62,-60},{62,-100},{65.8,-100}},
+      color={0,127,255}));
+  connect(pumChiWatPriHdr.ports_b, hdrDisPumChiWatPri.ports_a)
+    annotation(Line(points={{-20,-60},{-10,-60}},
+      color={0,127,255}));
+  connect(hdrSucPumChiWatPri.ports_b, pumChiWatPriHdr.ports_a)
+    annotation(Line(points={{-50,-60},{-40,-60}},
+      color={0,127,255}));
+  connect(hdrSucPumHeaWatPri.ports_b, pumHeaWatPriHdr.ports_a)
+    annotation(Line(points={{-120,-40},{-110,-40}},
+      color={0,127,255}));
+  connect(pumHeaWatPriHdr.ports_b, hdrDisPumHeaWatPri.ports_a)
+    annotation(Line(points={{-90,-40},{-80,-40}},
+      color={0,127,255}));
+  connect(hdrDisPumHeaWatPri.ports_b, valHeaWatIsoHdr.port_a)
+    annotation(Line(points={{-60,-40},{-10,-40}},
+      color={0,127,255}));
+  connect(valHeaWatIsoHdr[1].port_b, ret1.ports[1])
+    annotation(Line(points={{10,-40},{100,-40},{100,-20}},
+      color={0,127,255}));
+  connect(pumPriNoDed.ports_bHeaWatSupShc, hdrSucPumHeaWatPri.ports_a[nHp +
+    1:nHp + nShc])
+    annotation(Line(points={{-28,-100},{-28,-96},{-140,-96},{-140,-40}},
+      color={0,127,255}));
+  connect(pumPriNoDed.ports_bChiHeaWat, valHeaWatIsoHpHdr.port_a)
+    annotation(Line(points={{-44,-100},{-144,-100},{-144,-90}},
+      color={0,127,255}));
+  connect(valHeaWatIsoHpHdr.port_b, hdrSucPumHeaWatPri.ports_a[1:nHp])
+    annotation(Line(points={{-144,-70},{-144,-40},{-140,-40}},
+      color={0,127,255}));
+  connect(pumPriNoDed.ports_bChiHeaWat, valChiWatIsoHpHdr.port_a)
+    annotation(Line(points={{-44,-100},{-74,-100},{-74,-90}},
+      color={0,127,255}));
+  connect(valChiWatIsoHpHdr.port_b, hdrSucPumChiWatPri.ports_a[1:nHp])
+    annotation(Line(points={{-74,-70},{-74,-60},{-70,-60}},
+      color={0,127,255}));
+  connect(busPla.valHeaWatShcInlIso, valHeaWatIsoHdr[nHp + 1:nHp + nShc].bus)
+    annotation(Line(points={{-200,0},{6,0},{6,-30},{0,-30}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.valChiWatShcInlIso, valChiWatIsoHdr[nHp + 1:nHp + nShc].bus)
+    annotation(Line(points={{-200,0},{36,0},{36,-50},{30,-50}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.valHeaWatHpOutIso, valHeaWatIsoHpHdr.bus) annotation (Line(
+      points={{-200,0},{-154,0},{-154,-80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.valChiWatHpOutIso, valChiWatIsoHpHdr.bus) annotation (Line(
+      points={{-200,0},{-84,0},{-84,-80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.valHeaWatHpInlIso[1:nHp], valHeaWatIsoHdr[1:nHp].bus)
+    annotation (Line(
+      points={{-200,0},{0,0},{0,-30}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.valChiWatHpInlIso[1:nHp], valChiWatIsoHdr[1:nHp].bus)
+    annotation (Line(
+      points={{-200,0},{30,0},{30,-50}},
+      color={255,204,51},
+      thickness=0.5));
 annotation(__Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/PumpsPrimaryDedicated.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/PumpsPrimaryDedicatedSHC.mos"
     "Simulate and plot"),
-  experiment(Tolerance=1e-6,
-    StopTime=5000.0),
+  experiment(
+      StopTime=5000,
+      Tolerance=1e-09,
+      __Dymola_Algorithm="Cvode"),
   Diagram(coordinateSystem(extent={{-300,-520},{300,360}})),
   Documentation(
     info="<html>

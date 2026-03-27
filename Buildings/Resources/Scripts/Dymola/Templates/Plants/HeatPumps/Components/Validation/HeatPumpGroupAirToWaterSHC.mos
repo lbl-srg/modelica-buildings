@@ -3,7 +3,7 @@ simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPu
     tolerance=1e-6,
     startTime=10497600.0,
     stopTime=10505600.0,
-    resultFile="HeatPumpGroupAirToWater");
+    resultFile="HeatPumpGroupAirToWaterSHC");
 createPlot(
     id=1,
     position={5, 5, 300, 600},
@@ -29,41 +29,63 @@ createPlot(
     id=2,
     position={310, 5, 300, 600},
     subPlot=1,
-    y={"TChiHeaWatRetHp[1].T", "TChiHeaWatSupHp[1].T", "hpShc.busHp[1].TChiWatSet", "hpShc.busHp[1].THeaWatSet", "hpShc.THeaWatRetHp_nominal", "hpShc.TChiWatRetHp_nominal"},
+    y={"shc.sta_aHeaWatShc[1].T", "shc.sta_bHeaWatShc[1].T", "shc.bus.shc[1].THeaWatSet", "datShc.THeaWatRetShc_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
     subPlot=2,
-    y={"hpShc.hp[1].port_a.m_flow", "hpShc.mHeaWatHp_flow_nominal", "hpShc.mChiWatHp_flow_nominal"},
+    y={"shc.sta_aChiWatShc[1].T", "shc.sta_bChiWatShc[1].T", "shc.bus.shc[1].TChiWatSet", "datShc.TChiWatRetShc_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
     subPlot=3,
-    y={"hpShc.hp[1].hp.PLR", "hpShc.hp[1].hp.COP", "hpShc.hp[1].hp.EER"},
+    y={"shc.shc[1].port_a.m_flow", "shc.shc[1].port_aChiWat.m_flow", "datShc.mHeaWatShc_flow_nominal", "datShc.mChiWatShc_flow_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
-    position={615, 5, 300, 600},
+    position={620, 5, 300, 600},
     subPlot=1,
-    y={"hpShc.sta_aHeaWatShc[1].T", "hpShc.sta_bHeaWatShc[1].T", "hpShc.bus.shc[1].THeaWatSet", "datHpShc.THeaWatRetShc_nominal"},
+    y={"TChiHeaWatRetHp[1].T", "TChiHeaWatSupHp[1].T", "hpShc.bus.hp[1].TChiWatSet", "hpShc.bus.hp[1].THeaWatSet", "hpShc.THeaWatRetHp_nominal", "hpShc.TChiWatRetHp_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
     subPlot=2,
-    y={"hpShc.sta_aChiWatShc[1].T", "hpShc.sta_bChiWatShc[1].T", "hpShc.bus.shc[1].TChiWatSet", "datHpShc.TChiWatRetShc_nominal"},
+    y={"hpShc.hp[1].port_a.m_flow", "hpShc.mHeaWatHp_flow_nominal", "hpShc.mChiWatHp_flow_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
+    subPlot=3,
+    y={"hpShc.hp[1].hp.PLR", "hpShc.hp[1].hp.COP", "hpShc.hp[1].hp.EER"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    position={930, 5, 300, 600},
+    subPlot=1,
+    y={"hpShc.sta_aHeaWatShc[1].T", "hpShc.sta_bHeaWatShc[1].T", "hpShc.bus.shc[1].THeaWatSet", "datHpShc.THeaWatRetShc_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"hpShc.sta_aChiWatShc[1].T", "hpShc.sta_bChiWatShc[1].T", "hpShc.bus.shc[1].TChiWatSet", "datHpShc.TChiWatRetShc_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
     subPlot=3,
     y={"hpShc.shc[1].port_a.m_flow", "hpShc.shc[1].port_aChiWat.m_flow", "datHpShc.mHeaWatShc_flow_nominal", "datHpShc.mChiWatShc_flow_nominal"},
     autoscale=true,

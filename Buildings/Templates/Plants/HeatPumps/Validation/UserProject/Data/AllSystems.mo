@@ -32,6 +32,7 @@ class AllSystems
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
       dpHeaWatShc_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
+      dpChiWatShc_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
       TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
       TSouHeaShc_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
       TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,

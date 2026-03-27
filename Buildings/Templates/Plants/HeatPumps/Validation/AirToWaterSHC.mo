@@ -43,6 +43,7 @@ model AirToWaterSHC
     nHp_select=3,
     is_shcMod=false,
     nShc_select=1,
+    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
