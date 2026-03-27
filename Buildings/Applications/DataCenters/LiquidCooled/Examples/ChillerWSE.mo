@@ -1,7 +1,6 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Examples;
 model ChillerWSE
   "Example model of a simple liquid cooled data center with chiller and water-side economizer"
-  import ModelicaServices;
   extends Modelica.Icons.Example;
 
   package MediumChi = Buildings.Media.Water "Medium for chilled water loop";
@@ -15,7 +14,7 @@ model ChillerWSE
 
   parameter Modelica.Units.SI.Power PRac = 1E6
     "Total rack design power";
-  parameter Real fraWSE = 0.4 "Fraction of peak load covered by water side economizer";
+  parameter Real fraWSE = 0.5 "Fraction of peak load covered by water side economizer";
   parameter Real fraChi = 1-fraWSE "Fraction of peak load covered by chiller";
 
   parameter Modelica.Units.SI.TemperatureDifference dTRac_nominal(max=0) = -5
@@ -57,7 +56,7 @@ model ChillerWSE
     "Temperature difference condenser outlet-inlet";
 
   parameter Real COPc_nominal=3 "Chiller COP";
-  parameter Real epsWSE_nominal(min=0.5, max=0.9) = 0.8
+  parameter Real epsWSE_nominal(min=0.5, max=0.95) = 0.9
     "Effectiveness of water side economizer";
 
   parameter Modelica.Units.SI.Temperature TSetCooTowOut_nominal =
@@ -69,7 +68,7 @@ model ChillerWSE
     "Nominal mass flow rate at condenser water";
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
-    annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
   Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
@@ -416,7 +415,7 @@ model ChillerWSE
     "Pressure setpoint for chilled water pump"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   Controls.OBC.CDL.Reals.Hysteresis hysChi(
-    uLow=0,
+    uLow=-1,
     uHigh=1,
     u(final unit="K")) "Hysteresis for chiller staging"
     annotation (Placement(transformation(extent={{-400,250},{-380,270}})));
@@ -430,9 +429,6 @@ model ChillerWSE
       realTrue(final unit="kg/s") = fraChi*mChi_flow_nominal)
     "Flow rate set point for evaporator"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
-  Controls.OBC.CDL.Reals.AddParameter dTChi(p=-1.5)
-                                                  "Offset for chiller staging"
-    annotation (Placement(transformation(extent={{-494,256},{-474,276}})));
   Controls.OBC.CDL.Conversions.BooleanToReal mConSet(y(final unit="kg/s"),
       realTrue(final unit="kg/s") = fraChi*mCW_flow_nominal)
     "Flow rate set point for condenser"
@@ -571,9 +567,12 @@ model ChillerWSE
   Controls.OBC.CDL.Reals.Sources.Constant yPum1(k=0.3)
     "Pump control signal"
     annotation (Placement(transformation(extent={{-78,630},{-58,650}})));
+  Controls.OBC.CDL.Reals.Sources.Ramp ram(
+    height=0.7,
+    duration(displayUnit="d") = 31536000,
+    offset=0.3)
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 equation
-  connect(uti.y, rac.u) annotation (Line(points={{-28,-30},{-20,-30},{-20,-54},{
-          -1,-54}},  color={0,0,127}));
   connect(senTCDU_a.port_b, cdu.port_a1) annotation (Line(points={{-30,120},{-20,
           120},{-20,46},{-10,46}},color={0,127,255}));
   connect(cdu.port_b1, senTCDU_b.port_a) annotation (Line(points={{10,46},{20,46},
@@ -712,8 +711,6 @@ equation
           140},{260,476},{278,476}}, color={0,0,127}));
   connect(senTTow_b.T, TAppWSE.u2) annotation (Line(points={{70,631},{70,650},{272,
           650},{272,464},{278,464}}, color={0,0,127}));
-  connect(TOffSet.y, dTChi.u) annotation (Line(points={{-508,350},{-500,350},{-500,
-          266},{-496,266}}, color={0,0,127}));
   connect(TOffSet.y, chi.TSet) annotation (Line(points={{-508,350},{-108,350},{-108,
           340},{-118,340}}, color={0,0,127}));
   connect(TOffSet.u, TSetEva.y)
@@ -781,10 +778,12 @@ equation
   connect(conTowFan.y, cooTow.y) annotation (Line(points={{-38,680},{-26,680},{-26,
           627.1},{-11.9,627.1}},
                            color={0,0,127}));
-  connect(dTChi.y, TAppWSE1.u1)
-    annotation (Line(points={{-472,266},{-442,266}}, color={0,0,127}));
-  connect(senTEvaIn.T, TAppWSE1.u2) annotation (Line(points={{-10,231},{-10,240},
-          {-460,240},{-460,254},{-442,254}}, color={0,0,127}));
+  connect(senTEvaIn.T, TAppWSE1.u1) annotation (Line(points={{-10,231},{-10,240},
+          {-460,240},{-460,266},{-442,266}}, color={0,0,127}));
+  connect(ram.y, rac.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,-54},{
+          -1,-54}}, color={0,0,127}));
+  connect(TOffSet.y, TAppWSE1.u2) annotation (Line(points={{-508,350},{-480,350},
+          {-480,254},{-442,254}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,740}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
