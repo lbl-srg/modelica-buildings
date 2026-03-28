@@ -14,7 +14,7 @@ model ChillerWSE
 
   parameter Modelica.Units.SI.Power PRac = 1E6
     "Total rack design power";
-  parameter Real fraWSE = 0.5 "Fraction of peak load covered by water side economizer";
+  parameter Real fraWSE = 0.8 "Fraction of peak load covered by water side economizer";
   parameter Real fraChi = 1-fraWSE "Fraction of peak load covered by chiller";
 
   parameter Modelica.Units.SI.TemperatureDifference dTRac_nominal(max=0) = -5
@@ -68,7 +68,7 @@ model ChillerWSE
     "Nominal mass flow rate at condenser water";
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
-    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
@@ -189,53 +189,46 @@ model ChillerWSE
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-190,650},{-170,670}}),
         iconTransformation(extent={{-176,140},{-156,160}})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow pumEva(
+  Fluid.Movers.Preconfigured.SpeedControlled_y     pumEva(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     addPowerToMedium=false,
-    use_riseTime=false,
     m_flow_nominal=fraChi*mChi_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump chiller evaporator"    annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-80,290})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow pumWSEChi(
+  Fluid.Movers.Preconfigured.SpeedControlled_y     pumWSEChi(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     addPowerToMedium=false,
-    use_riseTime=false,
     m_flow_nominal=fraWSE*mChi_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for water-side economizer" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={160,290})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow pumTow(
+  Fluid.Movers.Preconfigured.SpeedControlled_y     pumTow(
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
     addPowerToMedium=false,
-    use_riseTime=false,
+    riseTime=5,
     m_flow_nominal=mCW_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for tower loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-220,570})));
+        origin={-220,600})));
   Fluid.Sensors.TemperatureTwoPort senTWSE_b2(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     m_flow_nominal=fraWSE*mChi_flow_nominal,
     tau=0) "Chilled water outlet temperature of water side economizer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={60,290})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow pumCon(
+  Fluid.Movers.Preconfigured.SpeedControlled_y     pumCon(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     addPowerToMedium=false,
-    use_riseTime=false,
     final m_flow_nominal=fraChi*mCW_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for chiller condenser" annotation (
       Placement(transformation(
@@ -292,7 +285,6 @@ model ChillerWSE
         origin={-180,220})));
   Fluid.Sensors.TemperatureTwoPort senTEvaOut(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     m_flow_nominal=fraChi*mChi_flow_nominal,
     tau=0) "Chilled water outlet temperature of chiller" annotation (Placement(
         transformation(
@@ -301,7 +293,6 @@ model ChillerWSE
         origin={-180,290})));
   Fluid.Sensors.TemperatureTwoPort senTChi_b1(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     m_flow_nominal=mCW_flow_nominal,
     tau=0) "Cooling tower water outlet temperature of chiller" annotation (
       Placement(transformation(
@@ -310,25 +301,22 @@ model ChillerWSE
         origin={-180,370})));
   Fluid.Sensors.TemperatureTwoPort senTWSE_b1(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     m_flow_nominal=fraWSE*mCW_flow_nominal,
     tau=0) "Cooling tower water outlet temperature of water side economizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,390})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow pumWSECW(
+        origin={60,370})));
+  Fluid.Movers.Preconfigured.SpeedControlled_y     pumWSECW(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     addPowerToMedium=false,
-    use_riseTime=false,
     m_flow_nominal=fraWSE*mCW_flow_nominal,
     dp_nominal=dpHexChi_nominal)
     "Pump for water side economizer on cooling tower side" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={160,390})));
+        origin={160,420})));
   Fluid.Movers.Preconfigured.FlowControlled_dp pumCDU(
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
@@ -387,8 +375,8 @@ model ChillerWSE
     reverseActing=false) "Controller for tower fan"
     annotation (Placement(transformation(extent={{-60,670},{-40,690}})));
   Controls.OBC.CDL.Reals.Hysteresis hysWSE(
-    uLow=4,
-    uHigh=5,
+    uLow=2,
+    uHigh=4,
     u(final unit="K")) "Hysteresis for water side economizer"
     annotation (Placement(transformation(extent={{320,460},{340,480}})));
   Controls.OBC.CDL.Reals.Subtract TAppWSE(
@@ -399,9 +387,9 @@ model ChillerWSE
    y(final unit="K"))
    "Approach temperature for economizer"
     annotation (Placement(transformation(extent={{280,460},{300,480}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal mWSESet(
-    y(final unit="kg/s"), realTrue(final unit="kg/s") = fraWSE*mCW_flow_nominal)
-    "Flow rate set point for water side economizer"
+  Controls.OBC.CDL.Conversions.BooleanToReal yWSESet(
+    y(final unit="kg/s"), realTrue(final unit="kg/s"))
+    "Pump signal for water side economizer"
     annotation (Placement(transformation(extent={{360,460},{380,480}})));
   Controls.OBC.CDL.Reals.Sources.Constant TSetEva(y(final unit="K", displayUnit
         ="degC"), k(
@@ -425,16 +413,12 @@ model ChillerWSE
     y(final unit="K"))
    "Approach temperature for economizer"
     annotation (Placement(transformation(extent={{-440,250},{-420,270}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal mEvaSet(y(final unit="kg/s"),
-      realTrue(final unit="kg/s") = fraChi*mChi_flow_nominal)
-    "Flow rate set point for evaporator"
+  Controls.OBC.CDL.Conversions.BooleanToReal yPumChi(y(final unit="kg/s"),
+      realTrue(final unit="kg/s"))
+    "Control signal for chiller circulation pumps"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal mConSet(y(final unit="kg/s"),
-      realTrue(final unit="kg/s") = fraChi*mCW_flow_nominal)
-    "Flow rate set point for condenser"
-    annotation (Placement(transformation(extent={{-300,290},{-280,310}})));
-  Controls.OBC.CDL.Reals.Max mTowSet "Mass flow rate set point for tower"
-    annotation (Placement(transformation(extent={{-280,560},{-260,580}})));
+  Controls.OBC.CDL.Reals.Add mTowSet "Mass flow rate set point for tower"
+    annotation (Placement(transformation(extent={{-320,590},{-300,610}})));
   Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = MediumChi,
     p(displayUnit="Pa") = 300000,
@@ -499,12 +483,14 @@ model ChillerWSE
   Fluid.Actuators.Valves.TwoWayLinear valByp(
     redeclare package Medium = MediumChi,
     final m_flow_nominal=fraChi*mCW_flow_nominal,
-    final dpValve_nominal=dpVal_nominal) "Valve for condenser loop bypass"
+    final dpValve_nominal=dpVal_nominal,
+    strokeTime=30)                       "Valve for condenser loop bypass"
     annotation (Placement(transformation(extent={{-140,450},{-120,470}})));
   Fluid.Actuators.Valves.TwoWayLinear valThr(
     redeclare package Medium = MediumChi,
     final m_flow_nominal=fraChi*mCW_flow_nominal,
     final dpValve_nominal=dpVal_nominal,
+    strokeTime=30,
     y_start=0) "Valve for condenser loop from cooling tower" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -530,7 +516,6 @@ model ChillerWSE
         origin={-180,460})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTChi_a1(
     redeclare package Medium = MediumChi,
-    allowFlowReversal=false,
     m_flow_nominal=mCW_flow_nominal,
     tau=0) "Cooling tower water inlet temperature of chiller" annotation (
       Placement(transformation(
@@ -538,7 +523,7 @@ model ChillerWSE
         rotation=90,
         origin={-80,370})));
   Controls.OBC.CDL.Reals.PIDWithReset conPIDCon(
-    Ti=120,
+    Ti=60,
     r=1,
     reverseActing=false,
     u_s(
@@ -564,14 +549,42 @@ model ChillerWSE
   Controls.OBC.CDL.Reals.AddParameter invValSig2(p=1)
     "Invert valve control signal"
     annotation (Placement(transformation(extent={{-280,470},{-260,490}})));
-  Controls.OBC.CDL.Reals.Sources.Constant yPum1(k=0.3)
-    "Pump control signal"
-    annotation (Placement(transformation(extent={{-78,630},{-58,650}})));
   Controls.OBC.CDL.Reals.Sources.Ramp ram(
-    height=0.7,
+    height=-0.7,
     duration(displayUnit="d") = 31536000,
-    offset=0.3)
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    offset=1)
+    annotation (Placement(transformation(extent={{-140,-6},{-120,14}})));
+  Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = MediumChi)
+    "Mass flow rate sensor" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-180,420})));
+  Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium = MediumChi)
+    "Mass flow rate sensor" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,420})));
+  Controls.OBC.CDL.Reals.PID conPumTow(
+    yMin=0.1,
+    u_s(final unit="kg/s"),
+    u_m(final unit="kg/s"),
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=10,
+    r=mCW_flow_nominal,
+    xi_start=1,
+    reverseActing=false) "Controller for tower pump"
+    annotation (Placement(transformation(extent={{-280,590},{-260,610}})));
+  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumChi)
+    "Mass flow rate sensor" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-220,560})));
+  Fluid.Sensors.TemperatureTwoPort senTTow_a(
+    redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
+    m_flow_nominal=mCW_flow_nominal,
+    tau=0) "Inlet water temperature of tower"
+    annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
 equation
   connect(senTCDU_a.port_b, cdu.port_a1) annotation (Line(points={{-30,120},{-20,
           120},{-20,46},{-10,46}},color={0,127,255}));
@@ -630,23 +643,17 @@ equation
   connect(senTWSE_b2.port_b, jun2.port_3)
     annotation (Line(points={{60,280},{60,230}}, color={0,127,255}));
   connect(wse.port_b1, senTWSE_b1.port_a)
-    annotation (Line(points={{100,337},{60,337},{60,380}}, color={0,127,255}));
+    annotation (Line(points={{100,337},{60,337},{60,360}}, color={0,127,255}));
   connect(wse.port_a1, pumWSECW.port_b) annotation (Line(points={{120,337},{160,
-          337},{160,380}}, color={0,127,255}));
+          337},{160,410}}, color={0,127,255}));
   connect(chi.port_b1, senTChi_b1.port_a) annotation (Line(points={{-140,337},{-180,
           337},{-180,360}}, color={0,127,255}));
-  connect(jun6.port_3, senTWSE_b1.port_b)
-    annotation (Line(points={{60,530},{60,400}}, color={0,127,255}));
   connect(jun1.port_3, pumWSECW.port_a)
-    annotation (Line(points={{160,530},{160,400}}, color={0,127,255}));
-  connect(jun8.port_2, pumTow.port_a) annotation (Line(points={{-190,540},{-220,
-          540},{-220,560}}, color={0,127,255}));
+    annotation (Line(points={{160,530},{160,430}}, color={0,127,255}));
   connect(jun8.port_1, jun7.port_2)
     annotation (Line(points={{-170,540},{-90,540}}, color={0,127,255}));
   connect(jun6.port_1, jun1.port_2)
     annotation (Line(points={{70,540},{150,540}}, color={0,127,255}));
-  connect(pumTow.port_b, cooTow.port_a) annotation (Line(points={{-220,580},{-220,
-          619.5},{-10,619.5}}, color={0,127,255}));
   connect(cooTow.port_b, senTTow_b.port_a) annotation (Line(points={{9,619.5},{28.5,
           619.5},{28.5,620},{60,620}},
                                      color={0,127,255}));
@@ -660,8 +667,8 @@ equation
       index=-1,
       extent={{2,2},{2,5}},
       horizontalAlignment=TextAlignment.Left));
-  connect(cooTow.TAir, weaBus.TWetBul) annotation (Line(points={{-11.9,623.3},{-179.95,
-          623.3},{-179.95,660.05}},
+  connect(cooTow.TAir, weaBus.TWetBul) annotation (Line(points={{-11.9,623.3},{
+          -34,623.3},{-34,640},{-179.95,640},{-179.95,660.05}},
                                   color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -681,30 +688,14 @@ equation
           {-50,650},{-50,668}}, color={0,0,127}));
   connect(hysWSE.u, TAppWSE.y)
     annotation (Line(points={{318,470},{302,470}}, color={0,0,127}));
-  connect(hysWSE.y, mWSESet.u)
+  connect(hysWSE.y,yWSESet. u)
     annotation (Line(points={{342,470},{358,470}}, color={255,0,255}));
-  connect(mWSESet.y, pumWSECW.m_flow_in) annotation (Line(points={{382,470},{400,
-          470},{400,520},{240,520},{240,390},{172,390}}, color={0,0,127}));
-  connect(mWSESet.y, pumWSEChi.m_flow_in) annotation (Line(points={{382,470},{400,
-          470},{400,520},{240,520},{240,290},{172,290}}, color={0,0,127}));
   connect(pSetChiWatPum.y, pumCDU.dp_in)
     annotation (Line(points={{182,170},{208,170}}, color={0,0,127}));
   connect(hysChi.u, TAppWSE1.y)
     annotation (Line(points={{-402,260},{-418,260}}, color={0,0,127}));
-  connect(hysChi.y, mEvaSet.u)
+  connect(hysChi.y,yPumChi. u)
     annotation (Line(points={{-378,260},{-302,260}}, color={255,0,255}));
-  connect(mEvaSet.y,pumEva. m_flow_in) annotation (Line(points={{-278,260},{-50,
-          260},{-50,290},{-68,290}}, color={0,0,127}));
-  connect(hysChi.y, mConSet.u) annotation (Line(points={{-378,260},{-356,260},{-356,
-          300},{-302,300}}, color={255,0,255}));
-  connect(mConSet.y, pumCon.m_flow_in) annotation (Line(points={{-278,300},{-240,
-          300},{-240,388},{-56,388},{-56,420},{-68,420}}, color={0,0,127}));
-  connect(mTowSet.y, pumTow.m_flow_in)
-    annotation (Line(points={{-258,570},{-232,570}}, color={0,0,127}));
-  connect(mConSet.y, mTowSet.u2) annotation (Line(points={{-278,300},{-240,300},
-          {-240,548},{-296,548},{-296,564},{-282,564}}, color={0,0,127}));
-  connect(mWSESet.y, mTowSet.u1) annotation (Line(points={{382,470},{400,470},{400,
-          520},{-300,520},{-300,576},{-282,576}}, color={0,0,127}));
   connect(senTTow_b.port_b, bou1.ports[1])
     annotation (Line(points={{80,620},{228,620}}, color={0,127,255}));
   connect(senTCDU_b.T, TAppWSE.u1) annotation (Line(points={{40,131},{40,140},{260,
@@ -743,8 +734,6 @@ equation
     annotation (Line(points={{-80,530},{-80,510}}, color={0,127,255}));
   connect(jun8.port_3, jun10.port_1)
     annotation (Line(points={{-180,530},{-180,470}}, color={0,127,255}));
-  connect(jun10.port_2, senTChi_b1.port_b)
-    annotation (Line(points={{-180,450},{-180,380}}, color={0,127,255}));
   connect(jun10.port_3, valByp.port_a)
     annotation (Line(points={{-170,460},{-140,460}}, color={0,127,255}));
   connect(valThr.port_b, jun9.port_1)
@@ -758,7 +747,7 @@ equation
   connect(senTChi_a1.port_a, pumCon.port_b)
     annotation (Line(points={{-80,380},{-80,410}}, color={0,127,255}));
   connect(senTChi_a1.T, conPIDCon.u_m) annotation (Line(points={{-91,370},{-100,
-          370},{-100,404},{-350,404},{-350,418}}, color={0,0,127}));
+          370},{-100,388},{-350,388},{-350,418}}, color={0,0,127}));
   connect(senTEvaIn.T, TLifMin.u) annotation (Line(points={{-10,231},{-10,240},{
           -460,240},{-460,430},{-402,430}}, color={0,0,127}));
   connect(hysChi.y, conPIDCon.trigger) annotation (Line(points={{-378,260},{-356,
@@ -780,10 +769,44 @@ equation
                            color={0,0,127}));
   connect(senTEvaIn.T, TAppWSE1.u1) annotation (Line(points={{-10,231},{-10,240},
           {-460,240},{-460,266},{-442,266}}, color={0,0,127}));
-  connect(ram.y, rac.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,-54},{
-          -1,-54}}, color={0,0,127}));
   connect(TOffSet.y, TAppWSE1.u2) annotation (Line(points={{-508,350},{-480,350},
           {-480,254},{-442,254}}, color={0,0,127}));
+  connect(yWSESet.y, pumWSECW.y) annotation (Line(points={{382,470},{398,470},{398,
+          468},{400,468},{400,520},{180,520},{180,420},{172,420}}, color={0,0,127}));
+  connect(yWSESet.y, pumWSEChi.y) annotation (Line(points={{382,470},{400,470},{
+          400,520},{180,520},{180,290},{172,290}}, color={0,0,127}));
+  connect(pumEva.y, yPumChi.y) annotation (Line(points={{-68,290},{-60,290},{-60,
+          260},{-278,260}}, color={0,0,127}));
+  connect(pumCon.y, yPumChi.y) annotation (Line(points={{-68,420},{-60,420},{-60,
+          260},{-278,260}}, color={0,0,127}));
+  connect(jun10.port_2, senMasFlo1.port_b)
+    annotation (Line(points={{-180,450},{-180,430}}, color={0,127,255}));
+  connect(senMasFlo1.port_a, senTChi_b1.port_b)
+    annotation (Line(points={{-180,410},{-180,380}}, color={0,127,255}));
+  connect(jun6.port_3, senMasFlo2.port_b)
+    annotation (Line(points={{60,530},{60,430}}, color={0,127,255}));
+  connect(senMasFlo2.port_a, senTWSE_b1.port_b)
+    annotation (Line(points={{60,410},{60,380}}, color={0,127,255}));
+  connect(senMasFlo1.m_flow, mTowSet.u1) annotation (Line(points={{-191,420},{-240,
+          420},{-240,520},{-352,520},{-352,606},{-322,606}}, color={0,0,127}));
+  connect(senMasFlo2.m_flow, mTowSet.u2) annotation (Line(points={{49,420},{40,420},
+          {40,524},{-348,524},{-348,594},{-322,594}}, color={0,0,127}));
+  connect(mTowSet.y, conPumTow.u_s)
+    annotation (Line(points={{-298,600},{-282,600}}, color={0,0,127}));
+  connect(jun8.port_2, senMasFlo.port_a) annotation (Line(points={{-190,540},{-220,
+          540},{-220,550}}, color={0,127,255}));
+  connect(senMasFlo.port_b, pumTow.port_a)
+    annotation (Line(points={{-220,570},{-220,590}}, color={0,127,255}));
+  connect(senMasFlo.m_flow, conPumTow.u_m) annotation (Line(points={{-231,560},{
+          -270,560},{-270,588}}, color={0,0,127}));
+  connect(conPumTow.y, pumTow.y)
+    annotation (Line(points={{-258,600},{-232,600}}, color={0,0,127}));
+  connect(cooTow.port_a, senTTow_a.port_b) annotation (Line(points={{-10,619.5},
+          {-35,619.5},{-35,620},{-60,620}}, color={0,127,255}));
+  connect(senTTow_a.port_a, pumTow.port_b) annotation (Line(points={{-80,620},{
+          -220,620},{-220,610}}, color={0,127,255}));
+  connect(uti.y, rac.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,-54},{
+          -1,-54}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,740}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
