@@ -283,6 +283,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone<br/>
+                       Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController<br/>
+                       Buildings.Templates.AirHandlersFans.Configuration.PartialAirHandler<br/>
+                       Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler<br/>
+                       Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
+    </td>
+    <td valign=\"top\">Moved zoning parameter declarations into controller data record.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4497\">#4497</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Templates.Components.Chillers.Compression<br/>
                        Buildings.Templates.Components.HeatPumps.AirToWater<br/>
                        Buildings.Templates.Components.HeatPumps.WaterToWater<br/>
