@@ -126,7 +126,7 @@ model TableData2DLoadDepSHCVariable
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSwSupNom(k=THwSup_nominal,
       y(final unit="K", displayUnit="degC")) "Design HW supply temperature"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable  mode(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable mode(
     table=[0,1; 2,1; 4,0; 6,1; 7,0],
     timeScale=1000,
     period=7200)

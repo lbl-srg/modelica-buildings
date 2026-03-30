@@ -183,11 +183,13 @@ block TableData2DLoadDepSHC
     PShcInt1_nominal})
     "Maximum power at nominal conditions (external use) - All modes";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onHea
-    "Heating on/off command" annotation (Placement(transformation(extent={{-140,
-      120},{-100,160}}), iconTransformation(extent={{-140,120},{-100,160}})));
+    "Heating on/off command"
+    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
+      iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onCoo
-    "Cooling on/off command" annotation (Placement(transformation(extent={{-140,
-            100},{-100,140}}), iconTransformation(extent={{-140,100},{-100,140}})));
+    "Cooling on/off command"
+    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
+      iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THwEnt(
     final unit="K",
     displayUnit="degC")

@@ -125,15 +125,27 @@ model TableData2DLoadDep
     "On/off command: true to enable heat pump, false to disable heat pump"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-138,-38},{-102,-2}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(final unit="K",
-      displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(
+    final unit="K",
+    displayUnit="degC")
     "HW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
         iconTransformation(extent={{-138,22},{-102,58}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChwSet(
+    final unit="K",
+    displayUnit="degC") if use_rev
+    "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
+        iconTransformation(extent={{-138,-18},{-102,18}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput hea
     if use_rev "Switchover signal: true for heating, false for cooling"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-138,-58},{-102,-22}})));
+  Modelica.Blocks.Interfaces.RealOutput PLR(
+    final unit="1")
+    "Compressor part load ratio"
+    annotation (Placement(transformation(extent={{140,-70},{160,-50}}),
+      iconTransformation(extent={{-10,-10},{10,10}}, rotation=-90, origin={80,-110})));
   Modelica.Blocks.Sources.BooleanConstant conHeaBus(final k=true)
     if use_busConOnl and not use_rev
     "Locks the device in heating mode if not reversible - Case with use_busConOnl=true"
@@ -141,19 +153,9 @@ model TableData2DLoadDep
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-90})));
-  Modelica.Blocks.Interfaces.RealOutput PLR(final unit="1")
-    "Compressor part load ratio" annotation (Placement(transformation(extent={{
-            140,-70},{160,-50}}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={80,-110})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChwSet(final unit="K",
-      displayUnit="degC") if use_rev
-    "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
-    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-        iconTransformation(extent={{-138,-18},{-102,18}})));
-  Templates.Plants.Controls.Utilities.PlaceholderReal phTChwSet(final have_inp=
-        use_rev, u_internal=273.15) "Placeholder value"
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal phTChwSet(
+    final have_inp=use_rev,
+    u_internal=273.15) "Placeholder value"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 equation
   if not use_intSafCtr then

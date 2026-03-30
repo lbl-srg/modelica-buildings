@@ -1131,6 +1131,18 @@ block AirToWater
     "CHW minimum flow bypass valve command" annotation (Placement(
         transformation(extent={{260,-260},{300,-220}}), iconTransformation(
           extent={{200,-100},{240,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHpSet[nHp](
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC") if have_chiWat
+    "HP CHW supply temperature setpoint" annotation (Placement(transformation(
+          extent={{260,-140},{300,-100}}), iconTransformation(extent={{200,-180},
+            {240,-140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatHrcSupSet(final unit=
+        "K", displayUnit="degC") if have_hrc
+    "Sidestream HRC CHW supply temperature setpoint" annotation (Placement(
+        transformation(extent={{260,-360},{300,-320}}), iconTransformation(
+          extent={{200,-360},{240,-320}})));
 
   Enabling.Enable enaHea(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
@@ -1499,18 +1511,6 @@ block AirToWater
       have_inpPh=true) if have_chiWat
     "For HRC logic select either primary or secondary sensor depending on plant configuration"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHpSet[nHp](
-    each final unit="K",
-    each final quantity="ThermodynamicTemperature",
-    each displayUnit="degC") if have_chiWat
-    "HP CHW supply temperature setpoint" annotation (Placement(transformation(
-          extent={{260,-140},{300,-100}}), iconTransformation(extent={{200,-180},
-            {240,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatHrcSupSet(final unit=
-        "K", displayUnit="degC") if have_hrc
-    "Sidestream HRC CHW supply temperature setpoint" annotation (Placement(
-        transformation(extent={{260,-360},{300,-320}}), iconTransformation(
-          extent={{200,-360},{240,-320}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));

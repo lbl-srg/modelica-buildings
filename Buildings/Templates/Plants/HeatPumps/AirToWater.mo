@@ -1246,7 +1246,7 @@ ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>
-</html>", revisions=" wi<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 23, 2026, by Antoine Gautier:<br/>
