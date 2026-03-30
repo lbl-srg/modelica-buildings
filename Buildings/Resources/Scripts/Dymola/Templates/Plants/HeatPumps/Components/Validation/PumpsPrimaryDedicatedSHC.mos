@@ -3,7 +3,7 @@ simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsP
     tolerance=1e-6,
     startTime=0.0,
     stopTime=5000.0,
-    resultFile="PumpsPrimaryDedicated");
+    resultFile="PumpsPrimaryDedicatedSHC");
 createPlot(
     id=1,
     position={5, 5, 300, 600},

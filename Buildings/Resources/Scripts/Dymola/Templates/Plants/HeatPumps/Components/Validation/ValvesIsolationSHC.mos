@@ -1,0 +1,48 @@
+simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolationSHC",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0.0,
+    stopTime=5000.0,
+    resultFile="ValvesIsolationSHC");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    y={"valIsoCom.bus.valHeaWatHpInlIso[1].y1", "valIsoCom.bus.valHeaWatHpInlIso[2].y1", "valIsoCom.bus.valChiWatHpInlIso[1].y1", "valIsoCom.bus.valChiWatHpInlIso[2].y1"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"valIsoCom.valHeaWatUniInlIso[1].m_flow", "valIsoCom.valHeaWatUniInlIso[2].m_flow", "valIsoCom.valHeaWatUniInlIso[3].m_flow", "valIsoCom.valHeaWatUniInlIso[4].m_flow", "datHpShc.mHeaWatHp_flow_nominal", "datHpShc.mHeaWatShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"valIsoCom.valChiWatUniInlIso[1].m_flow", "valIsoCom.valChiWatUniInlIso[2].m_flow", "valIsoCom.valChiWatUniInlIso[3].m_flow", "valIsoCom.valChiWatUniInlIso[4].m_flow", "datHpShc.mChiWatHp_flow_nominal", "datHpShc.mChiWatShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 600},
+    y={"valIsoSep.bus.valHeaWatHpInlIso[1].y1", "valIsoSep.bus.valHeaWatHpInlIso[2].y1", "valIsoSep.bus.valChiWatHpInlIso[1].y1", "valIsoSep.bus.valChiWatHpInlIso[2].y1", "busPumHeaWatPri.y1[1]", "busPumChiWatPri.y1[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"valIsoSep.valHeaWatUniOutIso[1].m_flow", "valIsoSep.valHeaWatUniOutIso[2].m_flow", "valIsoSep.valHeaWatUniOutIso[3].m_flow", "valIsoSep.valHeaWatUniOutIso[4].m_flow", "datHpShc.mHeaWatHp_flow_nominal", "datHpShc.mHeaWatShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"valIsoSep.valChiWatUniOutIso[1].m_flow", "valIsoSep.valChiWatUniOutIso[2].m_flow", "valIsoSep.valChiWatUniOutIso[3].m_flow", "valIsoSep.valChiWatUniOutIso[4].m_flow", "datHpShc.mChiWatHp_flow_nominal", "datHpShc.mChiWatShc_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

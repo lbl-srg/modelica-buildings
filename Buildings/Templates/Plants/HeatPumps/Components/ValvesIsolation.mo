@@ -75,8 +75,7 @@ model ValvesIsolation
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Modelica.Units.SI.MassFlowRate mHeaWatUni_flow_nominal[nHp + nShc](
-    each final min=0,
-    each start=0)
+    each final min=0)
     "HW mass flow rate - Each unit "
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatUni_nominal[nHp +
@@ -95,49 +94,66 @@ model ValvesIsolation
     "CHW mass flow rate - Each unit"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
+  parameter Modelica.Units.SI.PressureDifference dpChiWatShc_nominal[nShc](
+    each final min=0,
+    each start=0)
+    "Pressure drop at design CHW mass flow rate - Each SHC unit"
+    annotation(Dialog(group="Nominal condition",
+      enable=have_chiWat and have_shc));
   final parameter Modelica.Units.SI.PressureDifference dpChiWatUni_nominal[nHp +
     nShc] =
-    dpHeaWatUni_nominal .*
-      (mChiWatUni_flow_nominal ./ mHeaWatUni_flow_nominal) .^ 2
-    "Pressure drop at design CHW mass flow rate - Each unit"
-    annotation(Dialog(group="Nominal condition",
-      enable=have_chiWat));
+    cat(
+      1,
+      if have_hp
+      then dpHeaWatUni_nominal[1:nHp] .*
+        (mChiWatUni_flow_nominal[1:nHp] ./ mHeaWatUni_flow_nominal[1:nHp]) .^ 2
+      else fill(0, 0),
+      if have_shc then dpChiWatShc_nominal else fill(0, 0))
+    "Pressure drop at design CHW mass flow rate - Each unit";
   parameter Modelica.Units.SI.PressureDifference dpBalChiWatUni_nominal[nHp +
     nShc](each final min=0, each start=0) = fill(0, nHp + nShc)
     "Balancing valve pressure drop at design CHW mass flow rate - Each unit"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
   parameter Modelica.Units.SI.PressureDifference dpValveHeaWat_nominal[nHp +
-    nShc] = fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nShc)
+    nShc](each final min=0) =
+    fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nShc)
     "HW isolation valve pressure drop (identical for inlet and outlet valves)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpFixedHeaWat_nominal[nHp +
     nShc] = dpHeaWatUni_nominal + dpBalHeaWatUni_nominal
     "Fixed HW pressure drop: HP + balancing valve"
     annotation(Dialog(group="Nominal condition"));
-  // The following parameter is intended for external use.
-  final parameter Modelica.Units.SI.PressureDifference dpHeaWat_nominal[nHp +
+  // The following two parameters are intended for external use.
+  /*
+   * HACK(AntoineGautier)
+   * The annotation 'Evaluate=true' below is required to avoid a compilation
+   * error in the validation model with OCT 1.66.
+   */
+  final parameter Modelica.Units.SI.PressureDifference dpHeaWatVal_nominal[nHp +
     nShc] =
-    dpFixedHeaWat_nominal + (if have_shc
-      then cat(
-          1,
-          if have_valHpOutIso
-            then dpValveHeaWat_nominal[1:nHp] else fill(0, nHp),
-          if have_valShcOutIso
-            then dpValveHeaWat_nominal[nHp + 1:nHp + nShc] else fill(0, nShc)) +
-        cat(
-          1,
-          if have_valHpInlIso
-            then dpValveHeaWat_nominal[1:nHp] else fill(0, nHp),
-          if have_valShcInlIso
-            then dpValveHeaWat_nominal[nHp + 1:nHp + nShc] else fill(0, nShc))
-      else (if have_valHpOutIso then dpValveHeaWat_nominal else fill(0, nHp)) +
-        (if have_valHpInlIso then dpValveHeaWat_nominal else fill(0, nHp)))
-    "Total HW pressure drop: fixed + valves"
-    annotation(Dialog(group="Nominal condition"));
+    if have_hp and have_shc
+    then cat(
+      1,
+      dpValveHeaWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
+        (if have_valHpOutIso then 1 else 0)),
+      dpValveHeaWat_nominal[nHp + 1:nHp + nShc] * ((if have_valShcInlIso
+      then 1 else 0) + (if have_valShcOutIso then 1 else 0)))
+    elseif have_hp
+    then dpValveHeaWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
+      (if have_valHpOutIso then 1 else 0))
+    else dpValveHeaWat_nominal[nHp + 1:nHp + nShc] * ((if have_valShcInlIso
+        then 1 else 0) + (if have_valShcOutIso then 1 else 0))
+    "Total HW pressure drop for inlet and outlet valves"
+    annotation(Evaluate=true);
+  final parameter Modelica.Units.SI.PressureDifference dpHeaWat_nominal[nHp +
+    nShc] = dpFixedHeaWat_nominal .+ dpHeaWatVal_nominal
+    "Total HW pressure drop: fixed + valves";
   parameter Modelica.Units.SI.PressureDifference dpValveChiWat_nominal[nHp +
     nShc](each final min=0, each start=0) =
-    fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nShc)
+    if have_chiWat
+    then fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nShc)
+    else fill(0, nHp + nShc)
     "Isolation valve CHW pressure drop (identical for inlet and outlet valves)"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
@@ -148,26 +164,27 @@ model ValvesIsolation
     "Total fixed CHW pressure drop"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
-  // The following parameter is intended for external use.
+  // The following two parameters are intended for external use.
+  final parameter Modelica.Units.SI.PressureDifference dpChiWatVal_nominal[nHp +
+    nShc] =
+    if have_hp and have_shc
+    then cat(
+      1,
+      dpValveChiWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
+        (if have_valHpOutIso then 1 else 0)),
+      dpValveChiWat_nominal[nHp + 1:nHp + nShc] * ((if have_valShcInlIso
+      then 1 else 0) + (if have_valShcOutIso then 1 else 0)))
+    elseif have_hp
+    then dpValveChiWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
+      (if have_valHpOutIso then 1 else 0))
+    else dpValveChiWat_nominal[nHp + 1:nHp + nShc] * ((if have_valShcInlIso
+        then 1 else 0) + (if have_valShcOutIso then 1 else 0))
+    "Total CHW pressure drop for inlet and outlet valves"
+    annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal[nHp +
     nShc] =
     if have_chiWat
-    then dpFixedChiWat_nominal + (if have_shc
-      then cat(
-          1,
-          if have_valHpOutIso
-            then dpValveChiWat_nominal[1:nHp] else fill(0, nHp),
-          if have_valShcOutIso
-            then dpValveChiWat_nominal[nHp + 1:nHp + nShc] else fill(0, nShc)) +
-        cat(
-          1,
-          if have_valHpInlIso
-            then dpValveChiWat_nominal[1:nHp] else fill(0, nHp),
-          if have_valShcInlIso
-            then dpValveChiWat_nominal[nHp + 1:nHp + nShc] else fill(0, nShc))
-      else (if have_valHpOutIso then dpValveChiWat_nominal else fill(0, nHp)) +
-        (if have_valHpInlIso then dpValveChiWat_nominal else fill(0, nHp)))
-    else fill(0, nHp)
+    then dpFixedChiWat_nominal .+ dpChiWatVal_nominal else fill(0, nHp + nShc)
     "Total CHW pressure drop: fixed + valves"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
@@ -178,9 +195,20 @@ model ValvesIsolation
     typ=cat(1, fill(typValHpOutIso, nHp), fill(typValShcOutIso, nShc)),
     m_flow_nominal=mHeaWatUni_flow_nominal,
     dpValve_nominal=dpValveHeaWat_nominal,
-    dpFixed_nominal=if have_valHpOutIso
-      or not have_valHpOutIso and not have_valHpInlIso
-      then dpFixedHeaWat_nominal else fill(0, nHp + nShc))
+    dpFixed_nominal=dpFixedHeaWat_nominal .* cat(
+      1,
+      fill(
+        if have_hp
+          and (have_valHpOutIso
+            or not have_valHpOutIso and not have_valHpInlIso)
+        then 1 else 0,
+        nHp),
+      fill(
+        if have_shc
+          and (have_valShcOutIso
+            or not have_valShcOutIso and not have_valShcInlIso)
+        then 1 else 0,
+        nShc)))
     "Unit outlet HW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,0},{10,20}})));
   final parameter Buildings.Templates.Components.Data.Valve datValHeaWatUniInlIso[nHp +
@@ -188,8 +216,15 @@ model ValvesIsolation
     typ=cat(1, fill(typValHpInlIso, nHp), fill(typValShcInlIso, nShc)),
     m_flow_nominal=mHeaWatUni_flow_nominal,
     dpValve_nominal=dpValveHeaWat_nominal,
-    dpFixed_nominal=if not have_valHpOutIso and have_valHpInlIso
-      then dpFixedHeaWat_nominal else fill(0, nHp + nShc))
+    dpFixed_nominal=dpFixedHeaWat_nominal .* cat(
+      1,
+      fill(
+        if have_hp and not have_valHpOutIso and have_valHpInlIso then 1 else 0,
+        nHp),
+      fill(
+        if have_shc and not have_valShcOutIso and have_valShcInlIso
+        then 1 else 0,
+        nShc)))
     "Unit inlet HW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,30},{10,50}})));
   final parameter Buildings.Templates.Components.Data.Valve datValChiWatUniOutIso[nHp +
@@ -197,9 +232,20 @@ model ValvesIsolation
     typ=cat(1, fill(typValHpOutIso, nHp), fill(typValShcOutIso, nShc)),
     m_flow_nominal=mChiWatUni_flow_nominal,
     dpValve_nominal=dpValveChiWat_nominal,
-    dpFixed_nominal=if have_valHpOutIso
-      or not have_valHpOutIso and not have_valHpInlIso
-      then dpFixedChiWat_nominal else fill(0, nHp + nShc))
+    dpFixed_nominal=dpFixedChiWat_nominal .* cat(
+      1,
+      fill(
+        if have_hp
+          and (have_valHpOutIso
+            or not have_valHpOutIso and not have_valHpInlIso)
+        then 1 else 0,
+        nHp),
+      fill(
+        if have_shc
+          and (have_valShcOutIso
+            or not have_valShcOutIso and not have_valShcInlIso)
+        then 1 else 0,
+        nShc)))
     "Unit outlet CHW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,-30},{10,-10}})));
   final parameter Buildings.Templates.Components.Data.Valve datValChiWatUniInlIso[nHp +
@@ -207,8 +253,15 @@ model ValvesIsolation
     typ=cat(1, fill(typValHpInlIso, nHp), fill(typValShcInlIso, nShc)),
     m_flow_nominal=mChiWatUni_flow_nominal,
     dpValve_nominal=dpValveChiWat_nominal,
-    dpFixed_nominal=if not have_valHpOutIso and have_valHpInlIso
-      then dpFixedChiWat_nominal else fill(0, nHp + nShc))
+    dpFixed_nominal=dpFixedChiWat_nominal .* cat(
+      1,
+      fill(
+        if have_hp and not have_valHpOutIso and have_valHpInlIso then 1 else 0,
+        nHp),
+      fill(
+        if have_shc and not have_valShcOutIso and have_valShcInlIso
+        then 1 else 0,
+        nShc)))
     "Heat pump inlet CHW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,-60},{10,-40}})));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
@@ -556,10 +609,55 @@ model ValvesIsolation
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatShcInlIso[nShc]
     if have_shc and have_valShcInlIso
-    "SHC unit inlet CHW isolation valve control bus" annotation (Placement(
-        transformation(extent={{20,140},{60,180}}), iconTransformation(extent={
-            {-466,50},{-426,90}})));
+    "SHC unit inlet CHW isolation valve control bus"
+    annotation(Placement(transformation(extent={{20,140},{60,180}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
 equation
+  /*
+   * HACK(AntoineGautier)
+   * Array slice expansion with potential heterogeneous conditionality
+   * is not supported in connect statements: a for loop is required.
+   */
+  if have_hp then
+    for i in 1:nHp loop
+      connect(busValHeaWatHpInlIso[i], valHeaWatUniInlIso[i].bus)
+        annotation(Line(points={{40,120},{60,120},{60,0},{70,0}},
+          color={255,204,51},
+          thickness=0.5));
+      connect(busValChiWatHpInlIso[i], valChiWatUniInlIso[i].bus)
+        annotation(Line(points={{40,180},{140,180},{140,0},{150,0}},
+          color={255,204,51},
+          thickness=0.5));
+      connect(busValHeaWatHpOutIso[i], valHeaWatUniOutIso[i].bus)
+        annotation(Line(points={{-40,120},{-140,120},{-140,0},{-150,0}},
+          color={255,204,51},
+          thickness=0.5));
+      connect(busValChiWatHpOutIso[i], valChiWatUniOutIso[i].bus)
+        annotation(Line(points={{-40,180},{-120,180},{-120,0},{-90,0}},
+          color={255,204,51},
+          thickness=0.5));
+    end for;
+  end if;
+  if have_shc then
+    for i in 1:nShc loop
+      connect(busValChiWatShcOutIso[i], valChiWatUniOutIso[nHp + i].bus)
+        annotation(Line(points={{-40,160},{-120,160},{-120,0},{-90,0}},
+          color={255,204,51},
+          thickness=0.5));
+      connect(busValChiWatShcInlIso[i], valChiWatUniInlIso[nHp + i].bus)
+        annotation(Line(points={{40,160},{140,160},{140,0},{150,0}},
+          color={255,204,51},
+          thickness=0.5));
+      connect(busValHeaWatShcInlIso[i], valHeaWatUniInlIso[nHp + i].bus)
+        annotation(Line(points={{40,100},{60,100},{60,0},{70,0}},
+          color={255,204,51},
+          thickness=0.5));
+      connect(busValHeaWatShcOutIso[i], valHeaWatUniOutIso[nHp + i].bus)
+        annotation(Line(points={{-40,100},{-140,100},{-140,0},{-150,0}},
+          color={255,204,51},
+          thickness=0.5));
+    end for;
+  end if;
   connect(bus.valHeaWatHpInlIso, busValHeaWatHpInlIso)
     annotation(Line(points={{0,200},{0,120},{40,120}},
       color={255,204,51},
@@ -622,38 +720,6 @@ equation
     annotation(Line(points={{0,200},{0,160},{40,160}},
       color={255,204,51},
       thickness=0.5));
-  connect(busValHeaWatHpInlIso, valHeaWatUniInlIso[1:nHp].bus)
-    annotation(Line(points={{40,120},{60,120},{60,0},{70,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatHpInlIso, valChiWatUniInlIso[1:nHp].bus)
-    annotation(Line(points={{40,180},{140,180},{140,0},{150,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValHeaWatHpOutIso, valHeaWatUniOutIso[1:nHp].bus)
-    annotation(Line(points={{-40,120},{-140,120},{-140,0},{-150,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatHpOutIso, valChiWatUniOutIso[1:nHp].bus)
-    annotation(Line(points={{-40,180},{-120,180},{-120,0},{-90,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatShcOutIso, valChiWatUniOutIso[nHp + 1:nHp + nShc].bus)
-    annotation(Line(points={{-40,160},{-120,160},{-120,0},{-90,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatShcInlIso, valChiWatUniInlIso[nHp + 1:nHp + nShc].bus)
-    annotation(Line(points={{40,160},{140,160},{140,0},{150,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValHeaWatShcInlIso, valHeaWatUniInlIso[nHp + 1:nHp + nShc].bus)
-    annotation(Line(points={{40,100},{60,100},{60,0},{70,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValHeaWatShcOutIso, valHeaWatUniOutIso[nHp + 1:nHp + nShc].bus)
-    annotation(Line(points={{-40,100},{-140,100},{-140,0},{-150,0}},
-      color={255,204,51},
-      thickness=0.5));
   connect(ports_aChiWatHp, valChiWatUniOutIso[1:nHp].port_a)
     annotation(Line(points={{-100,-200},{-100,-20},{-80,-20},{-80,-10}},
       color={0,127,255}));
@@ -682,8 +748,7 @@ annotation(defaultComponentName="valIso",
   Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-2400,-700},{2400,700}}),
-    graphics={
-              Line(points={{240,150},{0,150},{0,-50}},
+    graphics={Line(points={{240,150},{0,150},{0,-50}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 1,

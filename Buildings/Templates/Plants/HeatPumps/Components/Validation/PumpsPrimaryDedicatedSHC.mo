@@ -896,33 +896,31 @@ annotation(__Dymola_Commands(
   This model validates the model
   <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated\">
     Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated</a>
-  for the following configurations.
+  for the following plant configurations.
 </p>
 <ul>
   <li>
-    Heating and cooling system with common constant speed dedicated primary
+    Heat pumps with common constant speed dedicated primary
+    pumps, polyvalent units with constant speed dedicated primary
     pumps: component <code>pumPriCom</code>.
   </li>
   <li>
-    Heating and cooling system with headered constant speed primary pumps:
+    Plant with headered constant speed primary pumps:
     component <code>pumPriHdr</code>.
   </li>
   <li>
-    Heating and cooling system with separate constant speed dedicated HW and
+    Plant with separate constant speed dedicated HW and
     CHW pumps: component <code>pumPriSep</code>.
-  </li>
-  <li>
-    Heating-only system with variable speed dedicated primary pumps: component
-    <code>pumPriHea</code>.
   </li>
 </ul>
 <p>
-  In each configuration, two identical heat pumps are represented by fixed
-  flow resistances (components <code>hp*</code>).
+  In each configuration, two identical heat pumps and two identical polyvalent 
+  units are represented by fixed flow resistances (components <code>hp*</code>,
+  <code>shcCon*</code> and <code>shcEva*</code>).
 </p>
 <p>
   The model uses open loop controls and the simulation allows verifying that
-  design flow is obtained in each loop and each heat pump when the pumps are
+  design flow is obtained in each loop and each unit when the pumps are
   enabled.
 </p>
 <p>
@@ -935,22 +933,11 @@ annotation(__Dymola_Commands(
   <a href=\"modelica://Buildings.Templates.Utilities.computeBalancingPressureDrop\">
     Buildings.Templates.Utilities.computeBalancingPressureDrop</a>.
 </p>
-<p>
-  Similarly, in the configuration with variable speed pumps
-  <code>pumPriHea</code>, the design head of the pumps is voluntarily chosen
-  higher than necessary and the required pump speed needed to provide the
-  design HP flow is computed at initialization by solving for a balancing
-  valve pressure drop of zero. Note that this requires solving a numerical
-  Jacobian at initialization. Although this is handled well by various
-  Modelica tools, the parameter <code>use_spePumIni</code> allows switching to
-  a default value in this validation model for better integration into the
-  continuous integration test workflow.
-</p>
 </html>",
     revisions="<html>
 <ul>
   <li>
-    March 29, 2024, by Antoine Gautier:<br />
+    XXXX, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

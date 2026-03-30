@@ -23,7 +23,7 @@ model ValvesIsolation
       have_hrc=false,
       have_hp=true,
       have_shc=false,
-      is_shcMod = false,
+      is_shcMod=false,
       have_valHpOutIso=valIsoCom.have_valHpOutIso,
       have_valHpInlIso=valIsoCom.have_valHpInlIso,
       have_valShcOutIso=valIsoCom.have_valShcOutIso,
@@ -82,7 +82,7 @@ model ValvesIsolation
       have_hrc=false,
       have_hp=true,
       have_shc=false,
-      is_shcMod = false,
+      is_shcMod=false,
       have_valHpOutIso=valIsoHeaInl.have_valHpOutIso,
       have_valHpInlIso=valIsoHeaInl.have_valHpInlIso,
       have_valShcOutIso=valIsoHeaInl.have_valShcOutIso,
@@ -141,7 +141,7 @@ model ValvesIsolation
       have_hrc=false,
       have_hp=true,
       have_shc=false,
-      is_shcMod = false,
+      is_shcMod=false,
       have_valHpOutIso=valIsoSep.have_valHpOutIso,
       have_valHpInlIso=valIsoSep.have_valHpInlIso,
       have_valShcInlIso=valIsoSep.have_valShcInlIso,
@@ -197,29 +197,35 @@ model ValvesIsolation
     final have_shc=false,
     final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
-    mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal/abs(datHp.THeaWatSupHp_nominal
-         - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mHeaWatHp_flow_nominal=datHp.capHeaHp_nominal / abs(
+      datHp.THeaWatSupHp_nominal -
+        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaHp_nominal=500E3,
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatHp_flow_nominal=datHp.capCooHp_nominal/abs(datHp.TChiWatSupHp_nominal
-         - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mChiWatHp_flow_nominal=datHp.capCooHp_nominal / abs(
+      datHp.TChiWatSupHp_nominal -
+        Buildings.Templates.Data.Defaults.TChiWatRet) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
     PHp_min=1.0E3,
     perHeaHp(
       fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
-      tabUppBou=[263.15,323.15; 313.15,323.15]),
-    perCooHp(fileName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-        PLRSup={1})) "Reversible AWHP parameters"
-    annotation (Placement(transformation(extent={{-280,-80},{-260,-60}})));
+      tabUppBou=[263.15, 323.15; 313.15, 323.15]),
+    perCooHp(
+      fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
+      PLRSup={1}))
+    "Reversible AWHP parameters"
+    annotation(Placement(transformation(extent={{-280,-80},{-260,-60}})));
   Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation valIsoCom(
     redeclare final package Medium=Medium,
     nHp=2,
@@ -228,7 +234,8 @@ model ValvesIsolation
     have_valHpInlIso=true,
     have_valHpOutIso=true,
     have_pumChiWatPriDed=false,
-    final mHeaWatUni_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
+    final mHeaWatUni_flow_nominal=fill(
+      datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
     dpHeaWatUni_nominal=fill(datHp.dpHeaWatHp_nominal, valIsoCom.nHp),
     mChiWatUni_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, valIsoCom.nHp),
     final energyDynamics=energyDynamics,
@@ -278,7 +285,8 @@ model ValvesIsolation
     have_pumChiWatPriDed=false,
     have_valHpInlIso=true,
     have_valHpOutIso=false,
-    final mHeaWatUni_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
+    final mHeaWatUni_flow_nominal=fill(
+      datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
     dpHeaWatUni_nominal=fill(datHp.dpHeaWatHp_nominal, valIsoCom.nHp),
     mChiWatUni_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, valIsoCom.nHp),
     final energyDynamics=energyDynamics,
@@ -425,16 +433,16 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(valIsoCom.ports_bChiHeaWatHp, hpCom.port_a)
-    annotation(Line(points={{34,220},{10,220}},
+    annotation(Line(points={{66,220},{10,220}},
       color={0,127,255}));
   connect(hpCom.port_b, valIsoCom.ports_aChiHeaWatHp)
-    annotation(Line(points={{-10,220},{-50,220}},
+    annotation(Line(points={{-10,220},{-44,220}},
       color={0,127,255}));
   connect(valIsoHeaInl.ports_bChiHeaWatHp, hpHea.port_a)
-    annotation(Line(points={{34,-40},{10,-40}},
+    annotation(Line(points={{66,-40},{10,-40}},
       color={0,127,255}));
   connect(hpHea.port_b, valIsoHeaInl.ports_aChiHeaWatHp)
-    annotation(Line(points={{-10,-40},{-50,-40}},
+    annotation(Line(points={{-10,-40},{-44,-40}},
       color={0,127,255}));
   connect(valIsoSep.port_bHeaWat, supHeaWat2.ports[1])
     annotation(Line(points={{-240,-210},{-260,-210},{-260,-191}},
@@ -444,7 +452,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(valIsoSep.ports_bChiHeaWatHp, hpSep.port_a)
-    annotation(Line(points={{34,-280},{34,-360},{10,-360}},
+    annotation(Line(points={{66,-280},{66,-360},{10,-360}},
       color={0,127,255}));
   connect(supHeaWat2.ports[2], valIsoSep.port_aHeaWat)
     annotation(Line(points={{-260,-189},{-260,-170},{-240,-170}},
@@ -479,10 +487,10 @@ equation
     annotation(Line(points={{-66,-310},{-66,-306}},
       color={0,127,255}));
   connect(cheValHeaWat.port_b, valIsoSep.ports_aHeaWatHp)
-    annotation(Line(points={{-66,-286},{-66,-280}},
+    annotation(Line(points={{-66,-286},{-66,-284},{-66,-280},{-76,-280}},
       color={0,127,255}));
   connect(cheValChiWat.port_b, valIsoSep.ports_aChiWatHp)
-    annotation(Line(points={{-34,-296},{-34,-280}},
+    annotation(Line(points={{-34,-296},{-34,-288},{-34,-280},{-60,-280}},
       color={0,127,255}));
   connect(pumChiWatPri.port_b, cheValChiWat.port_a)
     annotation(Line(points={{-34,-324},{-34,-316}},
@@ -540,9 +548,9 @@ annotation(__Dymola_Commands(
   flow resistances (components <code>hp*</code>).
 </p>
 <p>
-  The model uses open loop controls and the simulation allows verifying that
-  design flow is obtained in each loop and each heat pump when the valves are
-  open.
+  Open-loop controls are used throughout. The simulation allows verifying that
+  design flow is achieved in each loop and each heat pump when the valves are
+  open and the primary pumps are on.
 </p>
 </html>"));
 end ValvesIsolation;
