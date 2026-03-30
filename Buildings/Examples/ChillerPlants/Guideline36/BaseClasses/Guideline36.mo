@@ -167,10 +167,6 @@ protected
       realTrue=fill(1, 2))
     "Tower cell enabling status"
     annotation (Placement(transformation(extent={{140,320},{160,340}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal           booToRea4
-                                                               [2](final
-      realTrue=fill(1, 2)) "Chiller chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
 equation
   connect(chwIsoVal1.y_actual, chiWatIso[1].u) annotation (Line(points={{235,77},
@@ -332,18 +328,16 @@ equation
           330},{200,400},{380,400},{380,392}}, color={0,0,127}));
   connect(booToRea3[2].y, towIsoVal2.y)
     annotation (Line(points={{162,330},{380,330},{380,322}}, color={0,0,127}));
-  connect(chiPlaCon.y1ChiWatIsoVal, booToRea4.u)
-    annotation (Line(points={{-96,50},{18,50}}, color={255,0,255}));
-  connect(booToRea4[1].y, chwIsoVal1.y) annotation (Line(points={{42,50},{60,50},
-          {60,100},{240,100},{240,82}}, color={0,0,127}));
-  connect(booToRea4[2].y, chwIsoVal2.y) annotation (Line(points={{42,50},{60,50},
-          {60,10},{240,10},{240,-8}}, color={0,0,127}));
   connect(chwIsoVal1.y_actual, chiPlaCon.uChiWatIsoVal[1]) annotation (Line(
         points={{235,77},{100,77},{100,360},{-420,360},{-420,63},{-144,63}},
         color={0,0,127}));
   connect(chwIsoVal2.y_actual, chiPlaCon.uChiWatIsoVal[2]) annotation (Line(
         points={{235,-13},{220,-13},{220,-4},{100,-4},{100,360},{-420,360},{
           -420,65},{-144,65}}, color={0,0,127}));
+  connect(chiPlaCon.yChiWatIsoVal[1], chwIsoVal1.y) annotation (Line(points={{
+          -96,45},{60,45},{60,100},{240,100},{240,82}}, color={0,0,127}));
+  connect(chiPlaCon.yChiWatIsoVal[2], chwIsoVal2.y) annotation (Line(points={{
+          -96,47},{60,47},{60,10},{240,10},{240,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
             {160,-200}}), graphics={
         Rectangle(

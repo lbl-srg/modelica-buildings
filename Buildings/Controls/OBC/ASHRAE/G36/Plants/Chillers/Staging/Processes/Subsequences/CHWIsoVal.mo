@@ -200,7 +200,15 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi]
     "Chilled water isolation valve position setpoint"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
-
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="It cannot have end switches feedback when it is the modulating valve.")
+    "Generate warning"
+    annotation (Placement(transformation(extent={{140,270},{160,290}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
+    final k=not (have_twoPosEndSwi and
+                 valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating))
+    "Not have ends switches feedback when it is the modulating valve"
+    annotation (Placement(transformation(extent={{80,270},{100,290}})));
 equation
   connect(uUpsDevSta, edg.u)
     annotation (Line(points={{-240,-190},{-182,-190}}, color={255,0,255}));
@@ -325,11 +333,9 @@ equation
   connect(intRep1.y, isoValCha1.u2) annotation (Line(points={{62,170},{110,170},
           {110,190},{178,190}},color={255,0,255}));
   connect(intEqu.y, swi.u2) annotation (Line(points={{-58,250},{-30,250},{-30,
-          -120},{118,-120}},
-                       color={255,0,255}));
+          -120},{118,-120}}, color={255,0,255}));
   connect(booToRea1.y, swi.u3) annotation (Line(points={{-138,190},{-120,190},{
-          -120,-128},{118,-128}},
-                             color={0,0,127}));
+          -120,-128},{118,-128}}, color={0,0,127}));
   connect(lin.y, reaScaRep.u)
     annotation (Line(points={{102,-40},{118,-40}}, color={0,0,127}));
   connect(con.y, lin.x1) annotation (Line(points={{42,-10},{60,-10},{60,-32},{78,
@@ -364,6 +370,8 @@ equation
     annotation (Line(points={{202,-100},{240,-100}}, color={0,0,127}));
   connect(intRep1.y, swi1.u2) annotation (Line(points={{62,170},{110,170},{110,-100},
           {178,-100}}, color={255,0,255}));
+  connect(con2.y, assMes.u)
+    annotation (Line(points={{102,280},{138,280}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaChiIsoVal",
   Diagram(coordinateSystem(preserveAspectRatio=false,

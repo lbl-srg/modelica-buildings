@@ -486,8 +486,6 @@ equation
     annotation (Line(points={{-200,10},{-102,10}},   color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-118,-20},{-110,-20},{-110,
           2},{-102,2}},     color={255,127,0}));
-  connect(intEqu.y, and1.u2) annotation (Line(points={{-78,10},{-70,10},{-70,32},
-          {-62,32}},  color={255,0,255}));
   connect(uIni, intEqu1.u1) annotation (Line(points={{-200,10},{-150,10},{-150,-40},
           {-102,-40}}, color={255,127,0}));
   connect(uChiSta, intEqu1.u2)
@@ -528,10 +526,9 @@ equation
           150,60},{-160,60},{-160,95},{-142,95}},color={255,0,255}));
   connect(pre2.y, enaEco.u2) annotation (Line(points={{82,40},{100,40},{100,32},
           {118,32}},       color={255,0,255}));
-  connect(not1.y, lat.clr) annotation (Line(points={{-38,-40},{0,-40},{0,34},{18,
-          34}}, color={255,0,255}));
-  connect(and1.y, lat.u)
-    annotation (Line(points={{-38,40},{18,40}},   color={255,0,255}));
+  connect(not1.y, lat.clr) annotation (Line(points={{-38,-40},{10,-40},{10,34},{
+          18,34}},
+                color={255,0,255}));
   connect(uPla, enaWSE.u2) annotation (Line(points={{-200,40},{-154,40},{-154,72},
           {18,72}},     color={255,0,255}));
   connect(enaWSE.y, pre1.u)
@@ -568,6 +565,10 @@ equation
           {160,-64},{160,-30},{200,-30}}, color={255,0,255}));
   connect(wsePum.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-104},
           {160,-104},{160,-30},{200,-30}}, color={255,0,255}));
+  connect(intEqu.y, and1.u2) annotation (Line(points={{-78,10},{-70,10},{-70,32},
+          {-62,32}}, color={255,0,255}));
+  connect(and1.y, lat.u)
+    annotation (Line(points={{-38,40},{18,40}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
              graphics={

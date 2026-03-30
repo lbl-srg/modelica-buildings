@@ -87,7 +87,7 @@ block Controller "Chiller plant controller"
     "Total number of primary chilled water pumps"
     annotation (Dialog(tab="General", group="Chilled water pump", enable=have_heaChiWatPum));
 
-  parameter Boolean have_heaChiWatPum=true
+  final parameter Boolean have_heaChiWatPum=true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated"
     annotation (Dialog(tab="General", group="Chilled water pump"));
 
@@ -542,13 +542,14 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Staging", group="Up and down process"));
 
   parameter Boolean have_twoPosEndSwiChiVal=false
-    "True: the chilled water isolation valve is two-position with end switches"
+    "True: the chilled water isolation valve is two-position with end switches feedback"
     annotation (Dialog(tab="Staging", group="Up and down process",
                        enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
 
-//   parameter Boolean have_isoValEndSwi=false
-//     "True: chilled water isolation valve have the end switch feedback"
-//     annotation (Dialog(tab="Staging", group="Up and down process"));
+  parameter Boolean have_modPosChiVal=true
+    "True: the chilled water isolation valve is modulating with position feedback"
+    annotation (Dialog(tab="Staging", group="Up and down process",
+                       enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating));
 
   parameter Real chiDemRedFac(unit="1")=0.75
     "Demand reducing factor of current operating chillers"
@@ -819,7 +820,7 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{-140,320},{-100,360}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nChiWatPum]
-    "True: chilled water pump is enabled"
+    "True: chilled water pump proven on status"
     annotation(Placement(transformation(extent={{-940,554},{-900,594}}),
       iconTransformation(extent={{-140,300},{-100,340}})));
 
@@ -937,7 +938,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
     final unit="1",
     min=fill(0, nChi),
-    max=fill(1, nChi)) if chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
+    max=fill(1, nChi)) if have_modPosChiVal
     "Chilled water isolvation valve position feedback"
     annotation (Placement(transformation(extent={{-940,-190},{-900,-150}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -1752,6 +1753,21 @@ protected
     "Chilled water isolation valve position"
     annotation (Placement(transformation(extent={{540,-62},{560,-42}})));
 
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3[nChi](
+    final k=fill(1, nChi))
+    if not have_modPosChiVal "Dummy block"
+    annotation (Placement(transformation(extent={{-420,-240},{-400,-220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=not (
+        have_modPosChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition))
+    "Not have position feedback when it is the 2-position valve"
+    annotation (Placement(transformation(extent={{460,-570},{480,-550}})));
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    final message="It cannot have position feedback when it is the 2-position valve.")
+    "Generate warning"
+    annotation (Placement(transformation(extent={{520,-570},{540,-550}})));
+
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-268,72},{-580,72},
           {-580,-500},{-658,-500}}, color={255,0,255}));
@@ -1795,9 +1811,6 @@ equation
           -184},{172,-184}}, color={255,0,255}));
   connect(towCon.yMakUp, yMakUp) annotation(Line(points={{-172,-708},{-140,-708},
           {-140,-760},{940,-760}}, color={255,0,255}));
-  connect(uChiWatPum, chiWatPlaRes.uChiWatPum) annotation(Line(points={{-920,574},
-          {-790,574},{-790,-288},{-704,-288}},
-        color={255,0,255}));
   connect(mulOr.y, minBypValCon.uChiWatPum) annotation(Line(points={{-718,-124},
           {-684,-124}}, color={255,0,255}));
   connect(uChiWatPum, mulOr.u) annotation(Line(points={{-920,574},{-790,574},{-790,
@@ -2249,6 +2262,16 @@ equation
           {814,-468},{814,-60},{940,-60}}, color={0,0,127}));
   connect(uChiWatIsoVal, chiIso.u1) annotation (Line(points={{-920,-170},{-260,-170},
           {-260,-168},{-242,-168}}, color={0,0,127}));
+  connect(gai3.y, chiIso.u1) annotation (Line(points={{-398,-230},{-260,-230},{-260,
+          -168},{-242,-168}}, color={0,0,127}));
+  connect(dowProCon.yChiWatIsoVal, gai3.u) annotation (Line(points={{268,-200},{
+          306,-200},{306,-310},{-440,-310},{-440,-230},{-422,-230}}, color={0,0,
+          127}));
+  connect(con3.y, assMes.u)
+    annotation (Line(points={{482,-560},{518,-560}}, color={255,0,255}));
+  connect(disChi.yChiWatPum, chiWatPlaRes.uChiWatPum) annotation (Line(points={{
+          762,-478},{830,-478},{830,-350},{-734,-350},{-734,-288},{-704,-288}},
+        color={0,0,127}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2541,7 +2564,7 @@ annotation (
           extent={{-98,-72},{-50,-86}},
           textColor={0,0,127},
           textString="uChiWatIsoVal",
-          visible=chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)}),
+          visible=have_modPosChiVal)}),
     Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>
 <p>
