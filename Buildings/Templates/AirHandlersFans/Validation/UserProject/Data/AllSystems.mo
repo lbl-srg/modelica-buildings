@@ -42,6 +42,9 @@ class AllSystems "Top-level (whole building) system parameters"
       TWatEnt_nominal=7 + 273.15,
       wAirEnt_nominal=0.012),
     ctl(
+      idZon={"Box_1", "Box_2"},
+      namGro={"Floor_1", "Floor_2"},
+      namGroZon={"Floor_1","Floor_2"},
       VOutUnc_flow_nominal=0.4,
       VOutTot_flow_nominal=0.5,
       VOutAbsMin_flow_nominal=0.3,
