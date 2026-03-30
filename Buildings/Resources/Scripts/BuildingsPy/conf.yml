@@ -43,8 +43,8 @@
     simulate: false
 - model_name: Buildings.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
+    comment: translation failed on travis
+    translate: false
   optimica:
     comment: 'FMUException: Failed to update the events at time: 1.578082E+07.'
     simulate: false
@@ -54,8 +54,8 @@
     simulate: false
 - model_name: Buildings.DHC.Networks.Examples.Distribution2PipeExample
   openmodelica:
-    comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.DHC.Networks.Examples.Distribution2PipeExample_simulate.mos'']'' timed out after 300 seconds'
-    time_out: 600
+    comment: 'simulation fails'
+    simulate: false
 - model_name: Buildings.DHC.Plants.Combined.Examples.AllElectricCWStorage
   dymola:
     time_out: 600
@@ -171,6 +171,10 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes
+  openmodelica:
+    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes_simulate.mos'']'' returned non-zero exit status 255.'
+    simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe_simulate.mos'']'' returned non-zero exit status 255.'
@@ -230,6 +234,10 @@
     time_out: 600
   openmodelica:
     time_out: 600
+- model_name: Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2
+  openmodelica:
+    comment: 'Translation failed. See https://github.com/OpenModelica/OpenModelica/issues/14791'
+    translate: false
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDep
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDep_translate.mos'']'' returned non-zero exit status 2.'
@@ -487,6 +495,10 @@
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Spring
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer
   openmodelica:
     comment: timed out after 300 seconds
