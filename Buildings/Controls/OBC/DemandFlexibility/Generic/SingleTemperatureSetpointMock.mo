@@ -66,12 +66,19 @@ block SingleTemperatureSetpointMock
                 sh:path ref:hasExternalReference .", naturalLanguage="en"
           "<cdl_instance_name> is a temperature heating setpoint input")));
 equation
-  connect(uTSet, thermostatSetpointResolutionHea.uSet)
+  connect(uTSet, thermostatSetpointResolutionHea.uTSet)
     annotation (Line(points={{-120,0},{-67.6,0}}, color={0,0,127}));
-  connect(thermostatSetpointResolutionHea.ySet,uniDel. u) annotation (Line(
-        points={{-44.4,0},{12,0}},                 color={0,0,127}));
+  connect(thermostatSetpointResolutionHea.yTSet, uniDel.u)
+    annotation (Line(points={{-44.4,0},{12,0}}, color={0,0,127}));
   connect(uniDel.y, yTSet)
     annotation (Line(points={{36,0},{120,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p><span style=\"font-size: 9pt;\">This block is used to represent how a temperature setpoint in a typical Building Management System (BMS) changes.</span></p>
+<p><span style=\"font-size: 9pt;\">First, a temperature setpoint can only fall into specific resolution intervals. The parameter <span style=\"font-family: Courier New;\">TRes</span> specifies the temperature resolution interval, which can be 0.5K, 1K, etc. when using temperature in Kelvin or Celsius units, or 0.5556K, 0.2778K, etc. when using temperature in the Fehrenheit unit. While the input variable <span style=\"font-family: Courier New; font-size: 9pt;\">uTSet</span> can take on any temperature value, the output variable <span style=\"font-family: Courier New; font-size: 9pt;\">yTSet</span> needs to be equal to an integer multiple of <span style=\"font-family: Courier New; font-size: 9pt;\">TRes</span> plus the base temperature of 273.15 + 20 K.</p>
+
+<p>Second, when changing the temperature setpoint, the BMS likely has a small time delay before the actual temperature setpoint is successfully changed. This time delay is specified from the setpoint change delay parameter delSetCha, which can be around 10 seconds, for example. In this block, this is implemented such that with a change of value for the input variable uTSet, the output variable yTSet will be changed a delay of delSetCha later. This functionality also serves to prevent close-loop short-circuiting when performing a continuous Modelica simulation.</p>
+
+</html>"));
 end SingleTemperatureSetpointMock;

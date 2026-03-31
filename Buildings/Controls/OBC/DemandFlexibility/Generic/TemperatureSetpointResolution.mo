@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block TemperatureSetpointResolution
   parameter Real TRes(unit="K")=0.5556
     "temperature setpoint resolution";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSet "setpoint command"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSet "setpoint command"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySet
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTSet
     "actual setpoint command" annotation (Placement(transformation(extent={{150,
             -20},{190,20}}), iconTransformation(extent={{150,-20},{190,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=293.15)
@@ -23,7 +23,7 @@ block TemperatureSetpointResolution
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=TRes)
     annotation (Placement(transformation(extent={{-34,4},{-14,24}})));
 equation
-  connect(uSet, sub.u1) annotation (Line(points={{-120,0},{-62,0},{-62,54},{-52,
+  connect(uTSet, sub.u1) annotation (Line(points={{-120,0},{-62,0},{-62,54},{-52,
           54}}, color={0,0,127}));
   connect(con.y, sub.u2)
     annotation (Line(points={{-66,-50},{-52,-50},{-52,42}}, color={0,0,127}));
@@ -33,7 +33,7 @@ equation
     annotation (Line(points={{28,42},{44,42}},            color={0,0,127}));
   connect(rou.y, mul.u1) annotation (Line(points={{68,42},{84,42}},
                     color={0,0,127}));
-  connect(add2.y, ySet)
+  connect(add2.y, yTSet)
     annotation (Line(points={{140,0},{170,0}}, color={0,0,127}));
   connect(con1.y, div1.u2) annotation (Line(points={{-12,14},{-4,14},{-4,36},{4,
           36}},            color={0,0,127}));
@@ -48,5 +48,9 @@ equation
         grid={2,2})),                                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{150,
             100}},
-        grid={2,2})));
+        grid={2,2})),
+    Documentation(info="<html>
+<p><span style=\"font-size: 9pt;\">This block adds resolution to a temperature setpoint, such that the temperature setpoint value can only fall into specific resolution intervals.</span></p>
+<p><span style=\"font-size: 9pt;\">The input variable <span style=\"font-family: Courier New;\">uTSet</span> can take on any temperature value, and the output variable <span style=\"font-family: Courier New; font-size: 9pt;\">yTSet</span> can only take specific temperature values from the resolution intervals. The parameter <span style=\"font-family: Courier New; font-size: 9pt;\">TRes</span> specifies the temperature resolution interval, which can be 0.5K, 1K, etc. when using temperature in Kelvin or Celsius units, or 0.5556K, 0.2778K, etc. when using temperature in the Fehrenheit unit. The base temperature is 273.15 + 20 K. The output variable <span style=\"font-family: Courier New; font-size: 9pt;\">yTSet</span> is equal to an integer multiple of <span style=\"font-family: Courier New; font-size: 9pt;\">TRes</span> plus the base temperature that is the closest value to <span style=\"font-family: Courier New; font-size: 9pt;\">uTSet</span>.</p>
+</html>"));
 end TemperatureSetpointResolution;

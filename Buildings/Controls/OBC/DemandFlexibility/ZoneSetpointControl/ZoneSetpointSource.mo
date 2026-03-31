@@ -94,11 +94,6 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block creates outputs for the zone&apos;s cooling and heating setpoint under different occupancy 
-and different demand flexibility (pre-cool/pre-heat, baseline, load shed, load rebound) conditions. 
-The pre-set variables are heating and cooling occupied and unoccupied setpoints under the baseline 
-scenario. Then, adjustment variables such as <code>delTSetPreHea </code>and 
-<code>delTSetSheHea </code> are applied to the heating and cooling occupied and unoccupied setpoints 
-to output the desired setpoints. </p>
+<p>This block creates outputs for a zone&apos;s cooling and heating setpoint under different occupancy conditions and different demand flexibility modes (pre-cool/pre-heat, baseline, load shed, load rebound). The pre-set variables are heating and cooling occupied and unoccupied setpoints under the baseline scenario. Then, adjustment variables such as <span style=\"font-family: Courier New;\">delTSetPreHea </span>and <span style=\"font-family: Courier New;\">delTSetSheHea </span>are applied to the heating and cooling occupied and unoccupied setpoints to output the desired setpoints. </p>
 </html>"));
 end ZoneSetpointSource;

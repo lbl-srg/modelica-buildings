@@ -74,10 +74,6 @@ equation
         extent={{-100,-120},{130,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block serves to choose which of the input variables, including <code>uPre</code>, <code>uNom</code>, <code>uShe</code>, <code>uReb</code>, 
-to output as the output variable y, based on the mode of the system <code>uMod</code>. A &quot;Table&quot; 
-block from the Modelica Standard Library would have easily achieved this task in a more concise way, 
-but because the OBC CDL library does not have such a Table block, an elaborate logic block such as 
-this one needs to be created. </p>
+<p>This block serves to choose which of the input variables, including <span style=\"font-family: Courier New;\">uPre</span>, <span style=\"font-family: Courier New;\">uNom</span>, <span style=\"font-family: Courier New;\">uShe</span>, <span style=\"font-family: Courier New;\">uReb</span>, to output as the output variable <span style=\"font-family: Courier New;\">y</span>, based on the mode of the system <span style=\"font-family: Courier New;\">uMod</span>. </p>
 </html>"));
 end ModeSelection;

@@ -100,9 +100,36 @@ equation
         extent={{-100,-130},{200,130}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block serves to change the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span> between the original setpoint <span style=\"font-family: Courier New;\">uSetOrg</span> and the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span> in multiple smaller steps. The amount of change in each smaller step is represented by the parameter delCha, with positive value indicating setpoint increase while negative value indicating setpoint decrease. Each smaller step is taken every <span style=\"font-family: Courier New;\">samPer</span> seconds. The resultant setpoint will be outputted as the <span style=\"font-family: Courier New;\">ySetCom</span> output variable, which represents the new setpoint that a zone or a piece of equipment shall have. This in turn changes the value of the current setpoint uSetCur from outside this block, completing a full control loop.</p>
-<p>This block provides the freedom to account for both uSetOrg &gt;= uSetTar and uSetOrg &lt; uSetTar cases. Setpoint increase and decrease is entirely determined by the delCha parameter.</p>
-<p><br>The <span style=\"font-family: Courier New;\">have_pri</span> boolean input variable specifies whether the setpoint change operation will be executed or not. This is useful in multiple-zone or multiple-equipment scenarios where there is a need to prioritize which zone or equipment will go through the setpoint step change. When the <span style=\"font-family: Courier New;\">have_pri</span> input variable is set to <span style=\"font-family: Courier New;\">false</span> from a previous <span style=\"font-family: Courier New;\">true</span> value, the resultant setpoint ySetCom will stay at the current uSetCur value and will not be reverted to the previous value before the setpoint step change. Therefore, the changes to the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span> is unidirectional (either more positive or more negative), and reversing these unidirectional changes to the current setpoint uSetCur needs to happen outside of this block. </p>
-<p>Output variables also include boolean flags that specify whether the current setpoint has reached the original setpoint <span style=\"font-family: Courier New;\">uSetOrg</span> or the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span>. </p>
+<p>This block serves to change the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span>
+ between the original setpoint <span style=\"font-family: Courier New;\">uSetOrg</span>
+ and the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span> in
+ multiple smaller steps. The amount of change in each smaller step is represented
+ by the parameter <code>delCha</code>, with positive value indicating setpoint increase while
+ negative value indicating setpoint decrease. Each smaller step is taken every
+ <span style=\"font-family: Courier New;\">samPer</span> seconds. The resultant
+ setpoint will be outputted as the <span style=\"font-family: Courier New;\">ySetCom</span>
+ output variable, which represents the new setpoint that a zone or a piece of equipment
+ shall have. This in turn changes the value of the current setpoint <code>uSetCur</code> from outside
+ this block, completing a full control loop.</p>
+<p>This block provides the freedom to account for both <code>uSetOrg &gt;= uSetTar</code> and <code>uSetOrg
+ &lt; uSetTar</code> cases. Setpoint increase and decrease is entirely determined by the <code>delCha</code>
+ parameter.</p>
+<p><br>The <span style=\"font-family: Courier New;\">have_pri</span> boolean input variable
+ specifies whether the setpoint change operation will be executed or not. This is useful
+ in multiple-zone or multiple-equipment scenarios where there is a need to prioritize
+ which zone or equipment will go through the setpoint step change. When the 
+<span style=\"font-family: Courier New;\">have_pri</span> input variable is set 
+to <span style=\"font-family: Courier New;\">false</span> from a previous 
+<span style=\"font-family: Courier New;\">true</span> value, the resultant 
+setpoint <code>ySetCom</code> will stay at the current <code>uSetCur</code> value and will not be 
+reverted to the previous value before the setpoint step change. Therefore, 
+the changes to the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span>
+ is unidirectional (either more positive or more negative), and reversing these 
+unidirectional changes to the current setpoint <code>uSetCur</code> needs to happen outside 
+of this block. </p>
+<p>Output variables also include boolean flags that specify whether the 
+current setpoint has reached the original setpoint 
+<span style=\"font-family: Courier New;\">uSetOrg</span> or the target 
+setpoint <span style=\"font-family: Courier New;\">uSetTar</span>. </p>
 </html>"));
 end SetpointMultipleStepChange;

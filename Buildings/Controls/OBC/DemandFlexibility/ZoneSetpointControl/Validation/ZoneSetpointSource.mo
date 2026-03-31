@@ -7,5 +7,8 @@ model ZoneSetpointSource
   annotation (experiment(
       StopTime=172800,
       Interval=60,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"), Documentation(info="<html>
+<p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.ZoneSetpointSource\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.ZoneSetpointSource</a>.</p>
+</html>"));
 end ZoneSetpointSource;

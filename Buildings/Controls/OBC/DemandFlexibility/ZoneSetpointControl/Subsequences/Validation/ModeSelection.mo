@@ -45,5 +45,8 @@ equation
    annotation (experiment(
       StopTime=172800,
       Interval=60,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"), Documentation(info="<html>
+<p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.ModeSelection\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.ModeSelection</a>.</p>
+</html>"));
 end ModeSelection;
