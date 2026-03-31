@@ -1,6 +1,4 @@
 ExactEqualReal
-SelectSmallestValues
-SelectLargestValues
 SetpointSingleStepChange
 SetpointMultipleStepChange
 TemperatureSetpointResolution

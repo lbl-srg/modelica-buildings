@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block ExactEqualReal
   parameter Real alwDev(min=0)=0.01
-    "allowed deviations for equality";
+    "allowed deviation for equality";
   CDL.Interfaces.RealInput u1
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   CDL.Interfaces.RealInput u2
@@ -46,7 +46,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block compares 2 real input variables, and if these 2 real input variables are equal to each 
-other with a deviation less than <code>alwDev</code>, then the output is true. Otherwise, the output is false. </p>
+<p>This block checks whether the values of 2 real input variables, <code>u1</code> and <code>u2</code>, are equal to each other. 
+The allowed deviation is represented by the parameter <code>alwDev</code>. If <code>u1 &lt; u2 + alwDev</code> and <code>u1 &gt; 
+u2 - alwDev</code>, then the output <code>yEuqFla</code> is <code>true</code>. Otherwise, the output <code>yEuqFla</code> is <code>false</code>. </p>
 </html>"));
 end ExactEqualReal;

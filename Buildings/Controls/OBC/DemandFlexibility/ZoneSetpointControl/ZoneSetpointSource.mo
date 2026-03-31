@@ -18,8 +18,7 @@ model ZoneSetpointSource
   CDL.Interfaces.RealOutput TSetTarSheHea
                                          "setpoint target for load shed"
     annotation (Placement(transformation(extent={{100,26},{140,66}})));
-  CDL.Interfaces.RealOutput TSetNomHea
-                                      "nominal setpoint"
+  CDL.Interfaces.RealOutput TSetOrgHea "original setpoint"
     annotation (Placement(transformation(extent={{100,-2},{140,38}})));
   CDL.Interfaces.RealOutput TSetTarPreCoo
                                          "setpoint target for precool"
@@ -27,8 +26,7 @@ model ZoneSetpointSource
   CDL.Interfaces.RealOutput TSetTarSheCoo
                                          "setpoint target for load shed"
     annotation (Placement(transformation(extent={{100,-66},{140,-26}})));
-  CDL.Interfaces.RealOutput TSetNomCoo
-                                      "nominal setpoint"
+  CDL.Interfaces.RealOutput TSetOrgCoo "original setpoint"
     annotation (Placement(transformation(extent={{100,-102},{140,-62}})));
   CDL.Logical.Sources.TimeTable booTimTab(
     table=[0,0; occStaHouSta,1; occStaHouEnd,0; 24,0],
@@ -63,9 +61,9 @@ equation
   connect(booTimTab.y[1], booToRea1.u) annotation (Line(points={{-64,18},{-22,
           18},{-22,-82},{-8,-82}},
                                 color={255,0,255}));
-  connect(booToRea.y, TSetNomHea) annotation (Line(points={{14,18},{120,18}},
+  connect(booToRea.y,TSetOrgHea)  annotation (Line(points={{14,18},{120,18}},
                      color={0,0,127}));
-  connect(booToRea1.y, TSetNomCoo) annotation (Line(points={{16,-82},{120,-82}},
+  connect(booToRea1.y,TSetOrgCoo)  annotation (Line(points={{16,-82},{120,-82}},
                            color={0,0,127}));
   connect(add1.y, TSetTarPreHea) annotation (Line(points={{84,80},{120,80}},
                      color={0,0,127}));

@@ -10,7 +10,7 @@ block SetpointMultipleStepChange
     annotation (Placement(transformation(extent={{166,-10},{186,10}})));
   CDL.Interfaces.RealInput uSetTar "setpoint target"
     annotation (Placement(transformation(extent={{-140,-46},{-100,-6}})));
-  CDL.Interfaces.RealInput uSetNom "nominal setpoint"
+  CDL.Interfaces.RealInput uSetOrg "original setpoint"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.RealOutput ySetCom "setpoint command"
     annotation (Placement(transformation(extent={{200,-20},{240,20}})));
@@ -37,7 +37,7 @@ block SetpointMultipleStepChange
   CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
         transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,56},
             {240,96}})));
-  CDL.Interfaces.BooleanOutput reach_uSetNom annotation (Placement(
+  CDL.Interfaces.BooleanOutput reach_uSetOrg annotation (Placement(
         transformation(extent={{200,-92},{240,-52}}), iconTransformation(extent={{200,-88},
             {240,-48}})));
   ExactEqualReal exactEqualReal
@@ -47,10 +47,10 @@ block SetpointMultipleStepChange
 equation
   connect(con.y, add.u2) annotation (Line(points={{-64,-58},{-50,-58}},
                                 color={0,0,127}));
-  connect(uSetNom, min1.u2) annotation (Line(points={{-120,-80},{-88,-80},{-88,
+  connect(uSetOrg, min1.u2) annotation (Line(points={{-120,-80},{-88,-80},{-88,
           -100},{16,-100},{16,-8},{78,-8},{78,40},{84,40}},
                      color={0,0,127}));
-  connect(uSetNom, max1.u2) annotation (Line(points={{-120,-80},{-88,-80},{-88,
+  connect(uSetOrg, max1.u2) annotation (Line(points={{-120,-80},{-88,-80},{-88,
           -100},{16,-100},{16,12},{44,12}},
                      color={0,0,127}));
   connect(have_pri, swi.u2) annotation (Line(points={{-120,80},{-10,80},{-10,
@@ -68,14 +68,14 @@ equation
                              color={0,0,127}));
   connect(max2.y, sam.u) annotation (Line(points={{154,0},{164,0}},
                                 color={0,0,127}));
-  connect(reach_uSetNom, reach_uSetNom)
+  connect(reach_uSetOrg,reach_uSetOrg)
     annotation (Line(points={{220,-72},{220,-72}}, color={255,0,255}));
   connect(exactEqualReal.yEquFla, reach_uSetTar)
     annotation (Line(points={{70,108},{194,108},{194,80},{220,80}},
                                                            color={255,0,255}));
-  connect(uSetNom, exactEqualReal1.u2) annotation (Line(points={{-120,-80},{-88,
+  connect(uSetOrg, exactEqualReal1.u2) annotation (Line(points={{-120,-80},{-88,
           -80},{-88,-118},{52,-118}},                   color={0,0,127}));
-  connect(exactEqualReal1.yEquFla, reach_uSetNom) annotation (Line(points={{76,-112},
+  connect(exactEqualReal1.yEquFla,reach_uSetOrg)  annotation (Line(points={{76,-112},
           {194,-112},{194,-72},{220,-72}},   color={255,0,255}));
   connect(max1.y, min2.u1) annotation (Line(points={{68,18},{72,18},{72,-16},{
           86,-16}}, color={0,0,127}));
@@ -100,20 +100,9 @@ equation
         extent={{-100,-130},{200,130}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block serves to change the setpoint between the nominal setpoint 
-uSetNom and the target setpoint <code>uSetTar</code> in multiple smaller steps. Each smaller step is taken every 
-samPer seconds. The amount of change in each smaller step is delCha, with positive values indicating 
-setpoint increase while negative values indicating setpoint decrease.</p>
-<p>This block provides the freedom to account for both <code>uSetNom</code> &gt;= 
-<code>uSetTar</code> and <code>uSetNom</code> &lt; <code>uSetTar</code> cases, because we want to use the same block for both heating 
-setpoint and cooling setpoint, and for both load shed and load rebound, for example. Setpoint 
-increase and decrease is entirely determined by the <code>delCha</code> value.</p>
-<p>The have_pri input specifies whether the setpoint 
-change operation will be executed or not every samPer seconds. This is useful in multiple-zone 
-or multiple-equipment scenarios where we want to prioritize which zone or equipment will go 
-through the setpoint change.</p>
-<p>Outputs include the new setpoint that we want the equipment 
-or zone to have, as well as boolean flags that specify whether the current setpoint has reached 
-the nominal setpoint or the target setpoint. </p>
+<p>This block serves to change the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span> between the original setpoint <span style=\"font-family: Courier New;\">uSetOrg</span> and the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span> in multiple smaller steps. The amount of change in each smaller step is represented by the parameter delCha, with positive value indicating setpoint increase while negative value indicating setpoint decrease. Each smaller step is taken every <span style=\"font-family: Courier New;\">samPer</span> seconds. The resultant setpoint will be outputted as the <span style=\"font-family: Courier New;\">ySetCom</span> output variable, which represents the new setpoint that a zone or a piece of equipment shall have. This in turn changes the value of the current setpoint uSetCur from outside this block, completing a full control loop.</p>
+<p>This block provides the freedom to account for both uSetOrg &gt;= uSetTar and uSetOrg &lt; uSetTar cases. Setpoint increase and decrease is entirely determined by the delCha parameter.</p>
+<p><br>The <span style=\"font-family: Courier New;\">have_pri</span> boolean input variable specifies whether the setpoint change operation will be executed or not. This is useful in multiple-zone or multiple-equipment scenarios where there is a need to prioritize which zone or equipment will go through the setpoint step change. When the <span style=\"font-family: Courier New;\">have_pri</span> input variable is set to <span style=\"font-family: Courier New;\">false</span> from a previous <span style=\"font-family: Courier New;\">true</span> value, the resultant setpoint ySetCom will stay at the current uSetCur value and will not be reverted to the previous value before the setpoint step change. Therefore, the changes to the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span> is unidirectional (either more positive or more negative), and reversing these unidirectional changes to the current setpoint uSetCur needs to happen outside of this block. </p>
+<p>Output variables also include boolean flags that specify whether the current setpoint has reached the original setpoint <span style=\"font-family: Courier New;\">uSetOrg</span> or the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span>. </p>
 </html>"));
 end SetpointMultipleStepChange;

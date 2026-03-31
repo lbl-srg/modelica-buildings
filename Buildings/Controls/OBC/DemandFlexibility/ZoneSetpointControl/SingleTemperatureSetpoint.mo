@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.BaseTemperatureSetpointElements;
+within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl;
 block SingleTemperatureSetpoint
 
    parameter Real delChaShe=1
@@ -37,7 +37,7 @@ block SingleTemperatureSetpoint
   CDL.Interfaces.BooleanOutput reach_TSetTarShe annotation (Placement(
         transformation(extent={{250,-20},{290,20}}),iconTransformation(extent={{250,-20},
             {290,20}})));
-  CDL.Interfaces.BooleanOutput reach_TSetNom annotation (Placement(
+  CDL.Interfaces.BooleanOutput reach_TSetOrg annotation (Placement(
         transformation(extent={{250,-170},{290,-130}}),iconTransformation(
           extent={{250,-156},{290,-116}})));
   CDL.Interfaces.RealOutput TSetCom "setpoint command"
@@ -46,7 +46,7 @@ block SingleTemperatureSetpoint
   CDL.Interfaces.RealInput TSetTarPre "setpoint target for precool or preheat"
     annotation (Placement(transformation(extent={{-192,-106},{-152,-66}}),
         iconTransformation(extent={{-192,-106},{-152,-66}})));
-  CDL.Interfaces.RealInput TSetNom "nominal setpoint"
+  CDL.Interfaces.RealInput TSetOrg "original setpoint"
     annotation (Placement(transformation(extent={{-192,-204},{-152,-164}})));
   CDL.Interfaces.RealInput TSetCur "current setpoint"
     annotation (Placement(transformation(extent={{-190,-54},{-150,-14}})));
@@ -55,7 +55,7 @@ block SingleTemperatureSetpoint
         iconTransformation(extent={{-192,-156},{-152,-116}})));
   CDL.Discrete.Sampler setNom(samplePeriod=samPerNom)
     annotation (Placement(transformation(extent={{170,48},{190,68}})));
-  Subsequences.ModeSelection singleTemperatureSetpointModeSelection
+  Subsequences.ModeSelection modeSelection
     annotation (Placement(transformation(extent={{216,-78},{236,-58}})));
   CDL.Interfaces.RealInput TCur "current zone temperature"
     annotation (Placement(transformation(extent={{-190,-12},{-150,28}})));
@@ -81,7 +81,7 @@ equation
   connect(have_pri, setReb.have_pri) annotation (Line(points={{-170,80},{-74,80},
           {-74,-98},{78,-98},{78,-97.8462},{180.667,-97.8462}},
                               color={255,0,255}));
-  connect(setShe.reach_uSetNom,reach_TSetNom)  annotation (Line(points={{183.333,
+  connect(setShe.reach_uSetOrg,reach_TSetOrg)  annotation (Line(points={{183.333,
           -29.2308},{198,-29.2308},{198,-86},{210,-86},{210,-150},{270,-150}},
                                                  color={255,0,255}));
   connect(setShe.reach_uSetTar,reach_TSetTarShe)
@@ -93,7 +93,7 @@ equation
   connect(TSetCur, setShe.uSetCur) annotation (Line(points={{-170,-34},{140,-34},
           {140,-21.3846},{160.667,-21.3846}},
                                   color={0,0,127}));
-  connect(TSetNom, setPre.uSetNom) annotation (Line(points={{-172,-184},{-126,
+  connect(TSetOrg,setPre.uSetOrg)  annotation (Line(points={{-172,-184},{-126,
           -184},{-126,86},{168,86},{168,86.0741},{168.667,86.0741}},
                                                 color={0,0,127}));
   connect(TSetTarShe, setShe.uSetTar) annotation (Line(points={{-172,-136},{
@@ -105,22 +105,17 @@ equation
   connect(TSetTarPre, setPre.uSetTar) annotation (Line(points={{-172,-86},{-136,
           -86},{-136,89.7778},{168.667,89.7778}},
                                  color={0,0,127}));
-  connect(uMod, singleTemperatureSetpointModeSelection.uMod) annotation (Line(
-        points={{-170,44},{-24,44},{-24,50},{86,50},{86,-60.6667},{214.261,
-          -60.6667}},                                     color={255,127,0}));
-  connect(setPre.ySetCom, singleTemperatureSetpointModeSelection.uPre)
-    annotation (Line(points={{191.333,91.1111},{210,91.1111},{210,-64.1667},{
-          214.261,-64.1667}},                                       color={0,0,
+  connect(uMod, modeSelection.uMod) annotation (Line(points={{-170,44},{-24,44},
+          {-24,50},{86,50},{86,-60.6667},{214.261,-60.6667}}, color={255,127,0}));
+  connect(setPre.ySetCom, modeSelection.uPre) annotation (Line(points={{191.333,
+          91.1111},{210,91.1111},{210,-64.1667},{214.261,-64.1667}}, color={0,0,
           127}));
-  connect(setNom.y, singleTemperatureSetpointModeSelection.uNom) annotation (
-      Line(points={{192,58},{204,58},{204,-67.3333},{214.261,-67.3333}},
-                                                        color={0,0,127}));
-  connect(setReb.ySetCom, singleTemperatureSetpointModeSelection.uReb)
-    annotation (Line(points={{203.333,-104},{203.333,-74.5},{214.261,-74.5}},
-        color={0,0,127}));
-  connect(singleTemperatureSetpointModeSelection.y,TSetCom)  annotation (Line(
-        points={{237.739,-68},{244,-68},{244,-70},{270,-70}},
-                                                 color={0,0,127}));
+  connect(setNom.y, modeSelection.uOrg) annotation (Line(points={{192,58},{204,
+          58},{204,-67.3333},{214.261,-67.3333}}, color={0,0,127}));
+  connect(setReb.ySetCom, modeSelection.uReb) annotation (Line(points={{203.333,
+          -104},{203.333,-74.5},{214.261,-74.5}}, color={0,0,127}));
+  connect(modeSelection.y, TSetCom) annotation (Line(points={{237.739,-68},{244,
+          -68},{244,-70},{270,-70}}, color={0,0,127}));
   connect(TCur, sub.u1) annotation (Line(points={{-170,8},{-58,8}},
                              color={0,0,127}));
   connect(TSetCur, sub.u2) annotation (Line(points={{-170,-34},{-84,-34},{-84,
@@ -150,16 +145,16 @@ equation
     annotation (Line(points={{270,64},{270,64}}, color={255,0,255}));
   connect(setPre.uSetCur, TSetCur) annotation (Line(points={{168.667,93.4815},{
           168,93.4815},{168,94},{-84,94},{-84,-34},{-170,-34}}, color={0,0,127}));
-  connect(setNom.u, TSetNom) annotation (Line(points={{168,58},{-106,58},{-106,
+  connect(setNom.u,TSetOrg)  annotation (Line(points={{168,58},{-106,58},{-106,
           -184},{-172,-184}}, color={0,0,127}));
-  connect(TSetNom, setReb.uSetNom) annotation (Line(points={{-172,-184},{-28,
+  connect(TSetOrg,setReb.uSetOrg)  annotation (Line(points={{-172,-184},{-28,
           -184},{-28,-110},{76,-110},{76,-110.154},{180.667,-110.154}}, color={
           0,0,127}));
-  connect(TSetNom, setShe.uSetNom) annotation (Line(points={{-172,-184},{-28,
+  connect(TSetOrg,setShe.uSetOrg)  annotation (Line(points={{-172,-184},{-28,
           -184},{-28,-30.1538},{160.667,-30.1538}}, color={0,0,127}));
-  connect(setShe.ySetCom, singleTemperatureSetpointModeSelection.uShe)
-    annotation (Line(points={{183.333,-24},{192,-24},{192,-70},{214.261,-70},{
-          214.261,-70.6667}}, color={0,0,127}));
+  connect(setShe.ySetCom, modeSelection.uShe) annotation (Line(points={{183.333,
+          -24},{192,-24},{192,-70},{214.261,-70},{214.261,-70.6667}}, color={0,
+          0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-150,-200},{250,120}},
         grid={2,2})),                                            Diagram(
