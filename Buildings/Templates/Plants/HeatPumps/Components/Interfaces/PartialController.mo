@@ -203,7 +203,8 @@ protected
     annotation (Placement(transformation(extent={{-260,320},{-220,360}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri
-    if cfg.typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    if cfg.typPumHeaWatPriHp <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    or cfg.have_shc
     "Primary HW pump control bus"
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
@@ -212,8 +213,8 @@ protected
     "Secondary HW pump control bus"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri if cfg.typPumChiWatPri
-     <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri if cfg.typPumChiWatPriHp
+    <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None or cfg.have_shc
     "Primary CHW pump control bus"
     annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-466,50},{-426,90}})));

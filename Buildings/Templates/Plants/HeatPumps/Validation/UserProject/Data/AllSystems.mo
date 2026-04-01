@@ -62,7 +62,7 @@ class AllSystems
     pumHeaWatPri(
       dp_nominal=fill(
         1.5 * (if pla.cfg.have_chiWat and
-          pla.cfg.typPumChiWatPri ==
+          pla.cfg.typPumChiWatPriHp ==
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
           then max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal)
           else pla.hp.dpHeaWatHp_nominal),
@@ -135,15 +135,15 @@ class AllSystems
       capHeaHp_nominal=pla.hp.capHeaHp_nominal,
       capCooHp_nominal=pla.hp.capCooHp_nominal,
       TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-      yPumChiWatPriSet=if pla.cfg.have_chiWat
-        and pla.cfg.typPumChiWatPri ==
+      yPumChiWatPriHpSet=if pla.cfg.have_chiWat
+        and pla.cfg.typPumChiWatPriHp ==
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
         then pla.hp.mChiWatHp_flow_nominal / max(
             pla.hp.mHeaWatHp_flow_nominal,
             pla.hp.mChiWatHp_flow_nominal)
         else 1,
-      yPumHeaWatPriSet=if pla.cfg.have_chiWat
-        and pla.cfg.typPumChiWatPri ==
+      yPumHeaWatPriHpSet=if pla.cfg.have_chiWat
+        and pla.cfg.typPumChiWatPriHp ==
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
         then pla.hp.mHeaWatHp_flow_nominal / max(
             pla.hp.mHeaWatHp_flow_nominal,

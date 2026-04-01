@@ -17,8 +17,6 @@ model ValvesIsolation
         group="Conservation equations"));
   parameter Data.Controller datCtl(
     cfg(
-      have_pumHeaWatPriVar=true,
-      have_pumChiWatPriVar=false,
       have_inpSch=false,
       have_hrc=false,
       have_hp=true,
@@ -29,9 +27,10 @@ model ValvesIsolation
       have_valShcOutIso=valIsoCom.have_valShcOutIso,
       have_valShcInlIso=valIsoCom.have_valShcInlIso,
       have_chiWat=valIsoCom.have_chiWat,
-      have_pumChiWatPriDed=valIsoCom.have_pumChiWatPriDed,
-      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -62,7 +61,8 @@ model ValvesIsolation
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
-      nEquZon=0),
+      nEquZon=0,
+      have_pumPriComHp=true),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -76,8 +76,6 @@ model ValvesIsolation
     annotation(Placement(transformation(extent={{-80,370},{-60,390}})));
   parameter Data.Controller datCtlHeaInl(
     cfg(
-      have_pumHeaWatPriVar=true,
-      have_pumChiWatPriVar=false,
       have_inpSch=false,
       have_hrc=false,
       have_hp=true,
@@ -88,9 +86,10 @@ model ValvesIsolation
       have_valShcOutIso=valIsoHeaInl.have_valShcOutIso,
       have_valShcInlIso=valIsoHeaInl.have_valShcInlIso,
       have_chiWat=valIsoHeaInl.have_chiWat,
-      have_pumChiWatPriDed=valIsoHeaInl.have_pumChiWatPriDed,
-      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       is_rev=false,
@@ -121,7 +120,8 @@ model ValvesIsolation
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
-      nEquZon=0),
+      nEquZon=0,
+      have_pumPriComHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -135,8 +135,6 @@ model ValvesIsolation
     annotation(Placement(transformation(extent={{-80,110},{-60,130}})));
   parameter Data.Controller datCtlSep(
     cfg(
-      have_pumHeaWatPriVar=true,
-      have_pumChiWatPriVar=false,
       have_inpSch=false,
       have_hrc=false,
       have_hp=true,
@@ -147,9 +145,10 @@ model ValvesIsolation
       have_valShcInlIso=valIsoSep.have_valShcInlIso,
       have_valShcOutIso=valIsoSep.have_valShcOutIso,
       have_chiWat=valIsoSep.have_chiWat,
-      have_pumChiWatPriDed=valIsoSep.have_pumChiWatPriDed,
-      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -180,7 +179,8 @@ model ValvesIsolation
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
-      nEquZon=0),
+      nEquZon=0,
+      have_pumPriComHp=valIsoSep.have_pumPriComHp),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -233,9 +233,8 @@ model ValvesIsolation
     nShc=0,
     have_valHpInlIso=true,
     have_valHpOutIso=true,
-    have_pumChiWatPriDed=false,
-    final mHeaWatUni_flow_nominal=fill(
-      datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
+    have_pumPriComHp=true,
+    final mHeaWatUni_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
     dpHeaWatUni_nominal=fill(datHp.dpHeaWatHp_nominal, valIsoCom.nHp),
     mChiWatUni_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, valIsoCom.nHp),
     final energyDynamics=energyDynamics,
@@ -282,11 +281,10 @@ model ValvesIsolation
     nHp=2,
     have_chiWat=false,
     nShc=0,
-    have_pumChiWatPriDed=false,
+    have_pumPriComHp=false,
     have_valHpInlIso=true,
     have_valHpOutIso=false,
-    final mHeaWatUni_flow_nominal=fill(
-      datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
+    final mHeaWatUni_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
     dpHeaWatUni_nominal=fill(datHp.dpHeaWatHp_nominal, valIsoCom.nHp),
     mChiWatUni_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, valIsoCom.nHp),
     final energyDynamics=energyDynamics,
@@ -323,9 +321,8 @@ model ValvesIsolation
     have_chiWat=true,
     have_valHpInlIso=true,
     have_valHpOutIso=false,
-    have_pumChiWatPriDed=true,
-    final mHeaWatUni_flow_nominal=fill(
-      datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
+    have_pumPriComHp=false,
+    final mHeaWatUni_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, valIsoCom.nHp),
     dpHeaWatUni_nominal=fill(datHp.dpHeaWatHp_nominal, valIsoCom.nHp),
     mChiWatUni_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, valIsoCom.nHp),
     final energyDynamics=energyDynamics,

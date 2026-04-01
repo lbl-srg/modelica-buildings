@@ -44,7 +44,7 @@ model AirToWater
     have_hrc_select=true,
     have_valHpInlIso=true,
     have_valHpOutIso=true,
-    have_pumChiWatPriDed_select=true,
+    have_pumPriComHp_select=false,
     have_pumPriHdr=false,
     is_priOnl=false,
     have_pumHeaWatPriVar_select=false,
@@ -306,10 +306,11 @@ equation
   connect(dpHeaWatRem.y, ctl.dpHeaWatRem)
     annotation (Line(points={{-58,-80},{-20,-80},{-20,-10},{-2,-10}},color={0,0,127}));
   connect(ctl.dpHeaWatRemSet, dpHeaWatRem.u1)
-    annotation (Line(points={{42,0},{50,0},{50,-60},{-100,-60},{-100,-74},{-82,-74}},
+    annotation (Line(points={{42,4},{50,4},{50,-60},{-100,-60},{-100,-74},{-82,-74}},
       color={0,0,127}));
   connect(ctl.dpChiWatRemSet, dpChiWatRem.u1)
-    annotation (Line(points={{42,-2},{48,-2},{48,-100},{-90,-100},{-90,-114},{-82,-114}},
+    annotation (Line(points={{42,2},{48,2},{48,-100},{-90,-100},{-90,-114},{-82,
+          -114}},
       color={0,0,127}));
   connect(sin1.y, dpChiWatRem.u2)
     annotation (Line(points={{-138,-126},{-82,-126}},color={0,0,127}));
@@ -317,13 +318,15 @@ equation
     annotation (Line(points={{-58,-80},{-52,-80},{-52,-140},{-86,-140},{-86,-160},{-82,-160}},
       color={0,0,127}));
   connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet)
-    annotation (Line(points={{42,0},{50,0},{50,-60},{-100,-60},{-100,-134},{-42,-134}},
+    annotation (Line(points={{42,4},{50,4},{50,-60},{-100,-60},{-100,-134},{-42,
+          -134}},
       color={0,0,127}));
   connect(dpChiWatRem[1].y, dpChiWatLoc.u)
     annotation (Line(points={{-58,-120},{-54,-120},{-54,-180},{-90,-180},{-90,-200},{-82,-200}},
       color={0,0,127}));
   connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet)
-    annotation (Line(points={{42,-2},{47.9167,-2},{47.9167,-100},{-90,-100},{-90,-174},{-42,-174}},
+    annotation (Line(points={{42,2},{47.9167,2},{47.9167,-100},{-90,-100},{-90,-174},
+          {-42,-174}},
       color={0,0,127}));
   connect(dpHeaWatRem.y, resDpHeaWatLoc.dpRem)
     annotation (Line(points={{-58,-80},{-52,-80},{-52,-146},{-42,-146}},color={0,0,127}));

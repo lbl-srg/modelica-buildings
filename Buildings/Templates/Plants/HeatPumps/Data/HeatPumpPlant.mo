@@ -26,38 +26,31 @@ record HeatPumpPlant
     mChiWatHp_flow_nominal=ctl.VChiWatHp_flow_nominal * cfg.rhoChiWat_default,
     THeaWatSupHp_nominal=ctl.THeaWatSup_nominal,
     THeaWatSupShc_nominal=ctl.THeaWatSup_nominal)
-    "Heat pumps"
-    annotation(Dialog(group="Heat pumps"));
+    "Nominal conditions and performance data"
+    annotation(Dialog(group="Heat pumps and polyvalent units"));
   parameter Modelica.Units.SI.PressureDifference dpBalHeaWatHp_nominal(
-    start=0) = 0
+    final min=0, start=0) = 0
     "HP HW balancing valve pressure drop at design HW flow"
-    annotation(Dialog(group="Heat pumps",
-      enable=cfg.typPumHeaWatPri ==
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant));
+    annotation(Dialog(group="Heat pumps and polyvalent units"));
   parameter Modelica.Units.SI.PressureDifference dpBalChiWatHp_nominal(
-    start=0) = 0
+    final min=0, start=0) = 0
     "HP CHW balancing valve pressure drop at design CHW flow"
-    annotation(Dialog(group="Heat pumps",
-      enable=cfg.typPumChiWatPri ==
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant));
+    annotation(Dialog(group="Heat pumps and polyvalent units"));
   parameter Modelica.Units.SI.PressureDifference dpBalHeaWatShc_nominal(
-    start=0) = 0
-    "Polyvalent (SHC) unit HW balancing valve pressure drop at design HW flow"
-    annotation(Dialog(group="Polyvalent (SHC) units",
-      enable=cfg.typPumHeaWatPri ==
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant));
+    final min=0, start=0) = 0
+    "Polyvalent unit HW balancing valve pressure drop at design HW flow"
+    annotation(Dialog(group="Heat pumps and polyvalent units"));
   parameter Modelica.Units.SI.PressureDifference dpBalChiWatShc_nominal(
-    start=0) = 0
-    "Polyvalent (SHC) unit CHW balancing valve pressure drop at design CHW flow"
-    annotation(Dialog(group="Polyvalent (SHC) units",
-      enable=cfg.typPumChiWatPri ==
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant));
+    final min=0, start=0) = 0
+    "Polyvalent unit CHW balancing valve pressure drop at design CHW flow"
+    annotation(Dialog(group="Heat pumps and polyvalent units"));
   // HW loop
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
     final nPum=cfg.nPumHeaWatPri,
     final rho_default=cfg.rhoHeaWat_default,
-    final typ=if cfg.typPumHeaWatPri <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    final typ=if cfg.typPumHeaWatPriHp <>
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None or
+    cfg.have_shc
       then Buildings.Templates.Components.Types.Pump.Multiple
       else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=if cfg.typArrPumPri ==
@@ -66,18 +59,14 @@ record HeatPumpPlant
         1,
         fill(
           if cfg.have_chiWat and
-          cfg.typPumChiWatPri ==
+          cfg.typPumChiWatPriHp ==
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
             then max(hp.mHeaWatHp_flow_nominal, hp.mChiWatHp_flow_nominal)
             else hp.mHeaWatHp_flow_nominal,
           cfg.nHp),
         fill(hp.mHeaWatShc_flow_nominal, cfg.nShc))
       else fill(
-        (cfg.nHp * (if cfg.have_chiWat and
-          cfg.typPumChiWatPri ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-          then max(hp.mHeaWatHp_flow_nominal, hp.mChiWatHp_flow_nominal)
-          else hp.mHeaWatHp_flow_nominal) + cfg.nShc *
+        (cfg.nHp * hp.mHeaWatHp_flow_nominal + cfg.nShc *
           hp.mHeaWatShc_flow_nominal) / max(cfg.nPumHeaWatPri, 1),
         cfg.nPumHeaWatPri))
     "Primary HW pumps"
@@ -100,9 +89,10 @@ record HeatPumpPlant
           then [0] else pumHeaWatPri.per.pressure.dp)),
     each rho_default=pumHeaWatPri.rho_default)
     "Cast multiple pump record into single pump record array";
-  parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal(
-    start=0) = Buildings.Templates.Data.Defaults.dpValChe
-    "Primary (HW or common HW and CHW) pump check valve pressure drop at design flow rate (selection conditions)"
+  parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal[
+    cfg.nPumHeaWatPri](
+    each start=0) = fill(Buildings.Templates.Data.Defaults.dpValChe, cfg.nPumHeaWatPri)
+    "Primary (HW or common HW and CHW) pump check valve pressure drop at design flow rate (selection conditions) – Each unit"
     annotation(Dialog(group="Primary HW loop"));
   parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
@@ -137,25 +127,16 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
     final nPum=cfg.nPumChiWatPri,
     final rho_default=cfg.rhoChiWat_default,
-    final typ=if cfg.typPumChiWatPri <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-      then Buildings.Templates.Components.Types.Pump.Multiple
-      else Buildings.Templates.Components.Types.Pump.None,
-    m_flow_nominal=if cfg.typArrPumPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      then cat(
-        1,
-        fill(hp.mChiWatHp_flow_nominal, if cfg.have_pumChiWatPriDed
-          then cfg.nHp else 0),
-        fill(hp.mChiWatShc_flow_nominal, cfg.nShc))
-      else fill(
-        (hp.mChiWatHp_flow_nominal * cfg.nHp + hp.mChiWatShc_flow_nominal *
-          cfg.nShc) / max(cfg.nPumChiWatPri, 1),
-        cfg.nPumChiWatPri))
-    "Primary CHW pumps"
-    annotation(Dialog(group="Primary CHW loop",
-      enable=cfg.typPumChiWatPri <>
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None));
+    final typ=if cfg.typPumChiWatPriHp <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    or cfg.have_shc
+         then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None,
+    m_flow_nominal=if cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+         then cat(1, fill(hp.mChiWatHp_flow_nominal, if cfg.have_pumPriComHp
+      then 0 else cfg.nHp), fill(hp.mChiWatShc_flow_nominal, cfg.nShc))
+         else fill((hp.mChiWatHp_flow_nominal*cfg.nHp + hp.mChiWatShc_flow_nominal
+        *cfg.nShc)/max(cfg.nPumChiWatPri, 1), cfg.nPumChiWatPri))
+    "Primary CHW pumps" annotation (Dialog(group="Primary CHW loop", enable=cfg.typPumChiWatPriHp
+      <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None or cfg.have_shc));
   final parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatPriSin[max(
     cfg.nPumChiWatPri, 1)](
     each typ=pumChiWatPri.typ,
@@ -174,11 +155,13 @@ record HeatPumpPlant
           then [0] else pumChiWatPri.per.pressure.dp)),
     each rho_default=pumChiWatPri.rho_default)
     "Cast multiple pump record into single pump record array";
-  parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal(
-    start=0) = Buildings.Templates.Data.Defaults.dpValChe
-    "Primary CHW pump check valve pressure drop at design CHW flow rate"
+  parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[cfg.nPumChiWatPri](
+    each start=0) = fill(Buildings.Templates.Data.Defaults.dpValChe, cfg.nPumChiWatPri)
+    "Primary CHW pump check valve pressure drop at design CHW flow rate – Each unit"
     annotation(Dialog(group="Primary CHW loop",
-      enable=cfg.typPumChiWatPri <>
+      enable=cfg.typPumChiWatPriHp <>
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None or
+      cfg.typPumChiWatPriShc <>
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None));
   parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,

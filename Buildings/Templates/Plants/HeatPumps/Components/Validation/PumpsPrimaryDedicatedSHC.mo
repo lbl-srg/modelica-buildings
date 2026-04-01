@@ -21,8 +21,6 @@ model PumpsPrimaryDedicatedSHC
         group="Conservation equations"));
   parameter Data.Controller datCtl(
     cfg(
-      have_pumHeaWatPriVar=false,
-      have_pumChiWatPriVar=false,
       have_inpSch=false,
       have_hp=true,
       have_hrc=false,
@@ -31,12 +29,13 @@ model PumpsPrimaryDedicatedSHC
       have_valShcOutIso=false,
       have_valShcInlIso=false,
       have_chiWat=true,
-      have_pumChiWatPriDed=false,
       have_shc=true,
       final nShc=nShc,
       is_shcMod=false,
-      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -66,7 +65,8 @@ model PumpsPrimaryDedicatedSHC
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
-      nEquZon=0),
+      nEquZon=0,
+      have_pumPriComHp=true),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -80,8 +80,6 @@ model PumpsPrimaryDedicatedSHC
     annotation(Placement(transformation(extent={{-180,290},{-160,310}})));
   parameter Data.Controller datCtlNoDed(
     cfg(
-      have_pumHeaWatPriVar=false,
-      have_pumChiWatPriVar=false,
       have_inpSch=false,
       have_hp=true,
       have_hrc=false,
@@ -90,12 +88,13 @@ model PumpsPrimaryDedicatedSHC
       have_valShcOutIso=false,
       have_valShcInlIso=true,
       have_chiWat=true,
-      have_pumChiWatPriDed=false,
       have_shc=true,
       final nShc=nShc,
       is_shcMod=false,
-      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -125,7 +124,8 @@ model PumpsPrimaryDedicatedSHC
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
-      nEquZon=0),
+      nEquZon=0,
+      have_pumPriComHp=true),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -137,8 +137,6 @@ model PumpsPrimaryDedicatedSHC
     annotation(Placement(transformation(extent={{-280,-10},{-260,10}})));
   parameter Data.Controller datCtlSep(
     cfg(
-      have_pumHeaWatPriVar=false,
-      have_pumChiWatPriVar=false,
       have_inpSch=false,
       have_hp=true,
       have_hrc=false,
@@ -147,12 +145,13 @@ model PumpsPrimaryDedicatedSHC
       have_valShcOutIso=false,
       have_valShcInlIso=false,
       have_chiWat=true,
-      have_pumChiWatPriDed=true,
       have_shc=true,
       final nShc=nShc,
       is_shcMod=false,
-      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -182,7 +181,8 @@ model PumpsPrimaryDedicatedSHC
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
-      nEquZon=0),
+      nEquZon=0,
+      have_pumPriComHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -320,29 +320,21 @@ model PumpsPrimaryDedicatedSHC
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumHeaWatHdr(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     nPum=nHp + nShc,
-    m_flow_nominal=fill(
-      (datHpShc.mHeaWatHp_flow_nominal * nHp + datHpShc.mHeaWatShc_flow_nominal * nShc) /
-      datPumHeaWatHdr.nPum,
-      nHp + nShc),
-    dp_nominal=fill(
-      max(datHpShc.dpHeaWatHp_nominal, datHpShc.dpHeaWatShc_nominal) +
-        Buildings.Templates.Data.Defaults.dpValChe + max(
-        valHeaWatIsoHdr.dpValve_nominal),
-      nHp + nShc))
+    m_flow_nominal=fill((datHpShc.mHeaWatHp_flow_nominal*nHp + datHpShc.mHeaWatShc_flow_nominal
+        *nShc)/datPumHeaWatHdr.nPum, datPumHeaWatHdr.nPum),
+    dp_nominal=fill(max(datHpShc.dpHeaWatHp_nominal, datHpShc.dpHeaWatShc_nominal)
+         + Buildings.Templates.Data.Defaults.dpValChe + max(valHeaWatIsoHdr.dpValve_nominal),
+        datPumHeaWatHdr.nPum))
     "Headered primary HW pump parameters – HP and SHC units"
     annotation(Placement(transformation(extent={{-240,-80},{-220,-60}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWatHdr(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     final nPum=nHp + nShc,
-    m_flow_nominal=fill(
-      (datHpShc.mChiWatHp_flow_nominal * nHp + datHpShc.mChiWatShc_flow_nominal * nShc) /
-      datPumChiWatHdr.nPum,
-      nHp + nShc),
-    dp_nominal=fill(
-      max(datHpShc.dpChiWatHp_nominal, datHpShc.dpChiWatShc_nominal) +
-        Buildings.Templates.Data.Defaults.dpValChe + max(
-        valChiWatIsoHdr.dpValve_nominal),
-      nHp + nShc))
+    m_flow_nominal=fill((datHpShc.mChiWatHp_flow_nominal*nHp + datHpShc.mChiWatShc_flow_nominal
+        *nShc)/datPumChiWatHdr.nPum, datPumChiWatHdr.nPum),
+    dp_nominal=fill(max(datHpShc.dpChiWatHp_nominal, datHpShc.dpChiWatShc_nominal)
+         + Buildings.Templates.Data.Defaults.dpValChe + max(valChiWatIsoHdr.dpValve_nominal),
+        datPumChiWatHdr.nPum))
     "Headered primary CHW pump parameters – HP and SHC units"
     annotation(Placement(transformation(extent={{-200,-80},{-180,-60}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWatShc(
@@ -385,12 +377,14 @@ model PumpsPrimaryDedicatedSHC
       iconTransformation(extent={{-332,42},{-292,82}})));
   Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated pumPriCom(
     redeclare final package Medium=Medium,
+    final nPumHeaWat=nHp + nShc,
+    final nPumChiWat=nShc,
     have_hp=true,
     have_shc=true,
     final nHp=nHp,
     final nShc=nShc,
     typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    have_pumChiWatPriDed=false,
+    have_pumPriComHp=true,
     have_pumHeaWatPriVar=false,
     have_pumChiWatPriVar=false,
     datPumHeaWat=datPumPriCom,
@@ -417,12 +411,14 @@ model PumpsPrimaryDedicatedSHC
     annotation(Placement(transformation(extent={{-120,290},{-140,310}})));
   Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated pumPriNoDed(
     redeclare final package Medium=Medium,
+    final nPumHeaWat=0,
+    final nPumChiWat=0,
     have_hp=true,
     have_shc=true,
     final nHp=nHp,
     final nShc=nShc,
     typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    have_pumChiWatPriDed=false,
+    have_pumPriComHp=false,
     have_pumHeaWatPriVar=false,
     have_pumChiWatPriVar=false,
     datPumHeaWat=datPumPriCom,
@@ -452,12 +448,14 @@ model PumpsPrimaryDedicatedSHC
       iconTransformation(extent={{-332,42},{-292,82}})));
   Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated pumPriSep(
     redeclare final package Medium=Medium,
+    final nPumHeaWat=nHp + nShc,
+    final nPumChiWat=nHp + nShc,
     have_hp=true,
     have_shc=true,
     final nHp=nHp,
     final nShc=nShc,
     typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    have_pumChiWatPriDed=true,
+    have_pumPriComHp=false,
     have_pumHeaWatPriVar=false,
     have_pumChiWatPriVar=false,
     datPumHeaWat=datPumHeaWat,
@@ -900,9 +898,9 @@ annotation(__Dymola_Commands(
 </p>
 <ul>
   <li>
-    Heat pumps with common constant speed dedicated primary
-    pumps, polyvalent units with constant speed dedicated primary
-    pumps: component <code>pumPriCom</code>.
+    Heat pumps with a single dedicated primary pump serving both CHW and HW circuits, 
+    polyvalent units with constant speed dedicated primary pumps: 
+    component <code>pumPriCom</code>.
   </li>
   <li>
     Plant with headered constant speed primary pumps:
@@ -924,8 +922,9 @@ annotation(__Dymola_Commands(
   enabled.
 </p>
 <p>
-  In the configurations with common constant speed dedicated primary pumps or
-  headered constant speed primary pumps, this requires adjusting the design
+  In the configurations with headered pumps, or with a single dedicated primary 
+  pump serving both CHW and HW circuits, 
+  this requires adjusting the design
   pressure drop of the balancing valves which are modeled by fixed flow
   resistances in the isolation valve components <code>valHeaWatIso*</code> and
   <code>valChiWatIso*</code>. This adjustment is done programmatically using

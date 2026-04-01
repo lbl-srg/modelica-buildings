@@ -21,7 +21,7 @@ createPlot(
 createPlot(
     id=2,
     position={310, 5, 300, 400},
-    y={"pumPriHdr.bus.y1[1]", "pumPriHdr.bus.y1[2]"},
+    y={"pumChiWatPriHdr.bus.y1[1]", "pumHeaWatPriHdr.bus.y1[1]", "valChiWatIsoHdr[1].bus.y1", "valHeaWatIsoHdr[1].bus.y1"},
     autoscale=true,
     grid=true
 );

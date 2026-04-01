@@ -22,7 +22,7 @@ model AirToWater
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
-    final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
+    final is_priOnl=cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     final have_hrc_select=cfg.have_hrc,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
@@ -53,10 +53,14 @@ model AirToWater
     final have_chiWat=cfg.have_chiWat,
     final have_heaWat=cfg.have_heaWat,
     final have_inpSch=have_inpSch,
-    final have_pumChiWatPriDed_select=cfg.have_pumChiWatPriDed,
-    final have_pumPriHdr=cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    final have_pumHeaWatPriVar_select=cfg.have_pumHeaWatPriVar,
-    final have_pumChiWatPriVar_select=cfg.have_pumChiWatPriVar,
+    final have_pumPriComHp_select=cfg.have_pumPriComHp,
+    final have_pumPriHdr=cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    final have_pumHeaWatPriVar_select=
+      cfg.typPumHeaWatPriHp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+      or cfg.typPumHeaWatPriShc==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+    final have_pumChiWatPriVar_select=
+      cfg.typPumChiWatPriHp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+      or cfg.typPumChiWatPriShc==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     final have_senDpChiWatRemWir=cfg.have_senDpChiWatRemWir,
     final have_senDpHeaWatRemWir=cfg.have_senDpHeaWatRemWir,
     final have_senTChiWatPriRet_select=have_senTChiWatPriRet_select,
@@ -81,12 +85,13 @@ model AirToWater
     final schHea=dat.schHea,
     final staEqu=dat.staEqu,
     final yPumChiWatPri_min=dat.yPumChiWatPri_min,
-    yPumChiWatPriSet=dat.yPumChiWatPriSet,
+    yPumChiWatPriSet=if cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+      then dat.yPumChiWatPriHdrSet else dat.yPumChiWatPriHpSet,
     final yPumChiWatSec_min=dat.yPumChiWatSec_min,
     final yPumHeaWatPri_min=dat.yPumHeaWatPri_min,
-    yPumHeaWatPriSet=dat.yPumHeaWatPriSet,
-    final yPumHeaWatSec_min=dat.yPumHeaWatSec_min)
-    "Plant controller"
+    yPumHeaWatPriSet=if cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+      then dat.yPumHeaWatPriHdrSet else dat.yPumHeaWatPriHpSet,
+    final yPumHeaWatSec_min=dat.yPumHeaWatSec_min) "Plant controller"
     annotation (Placement(transformation(extent={{-20,-32},{20,40}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaHeaWatAirHan(
     final nin=nAirHan) if cfg.have_heaWat "Sum of HW plant requests from AHU"

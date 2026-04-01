@@ -31,17 +31,18 @@ block AirToWater
   final parameter Boolean have_pumHeaWatPri=have_heaWat
     "Set to true for plants with primary HW pumps"
     annotation (Evaluate=true);
-  parameter Boolean have_pumChiWatPriDed_select(start=false)=false
-    "Set to true for plants with separate dedicated primary CHW pumps"
-    annotation (Evaluate=true,
-    Dialog(enable=have_chiWat and not have_pumPriHdr, group="Plant configuration"));
-  final parameter Boolean have_pumChiWatPriDed=
-    if have_chiWat and not have_pumPriHdr then have_pumChiWatPriDed_select else false
-    "Set to true for plants with separate dedicated primary CHW pumps"
+  parameter Boolean have_pumPriComHp_select(start=true) = true
+    "Set to true for HP with single dedicated primary pump serving both CHW and HW circuits"
+    annotation(Evaluate=true,
+      Dialog(group="Primary loop",
+        enable=have_chiWat and not have_pumPriHdr));
+  final parameter Boolean have_pumPriComHp =
+    if have_chiWat and not have_pumPriHdr then have_pumPriComHp_select else false
+    "Set to true for HP with separate dedicated primary CHW pumps"
     annotation (Evaluate=true);
   final parameter Boolean have_pumChiWatPri=
-    have_chiWat and (have_pumPriHdr or have_pumChiWatPriDed)
-    "Set to true for plants with separate primary CHW pumps"
+    have_chiWat and (have_pumPriHdr or not have_pumPriComHp)
+    "Set to true for HP with separate primary CHW pumps"
     annotation (Evaluate=true);
   parameter Boolean have_pumPriHdr
     "Set to true for headered primary pumps, false for dedicated pumps"
@@ -1019,12 +1020,14 @@ block AirToWater
     annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
       iconTransformation(extent={{-240,282},{-200,322}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri](
-    each final unit="1") if have_pumHeaWatPriVar and not have_pumPriHdr
+    each final unit="1")
+    if have_pumHeaWatPriVar and not have_pumPriHdr
     "Primary dedicated HW pump speed command"
     annotation (Placement(transformation(extent={{260,40},{300,80}}),
       iconTransformation(extent={{200,0},{240,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri](
-    each final unit="1") if have_pumChiWatPriVar and have_pumChiWatPriDed
+    each final unit="1")
+    if have_pumChiWatPriVar and not have_pumPriHdr and not have_pumPriComHp
     "Primary dedicated CHW pump speed command"
     annotation (Placement(transformation(extent={{260,20},{300,60}}),
       iconTransformation(extent={{200,-20},{240,20}})));

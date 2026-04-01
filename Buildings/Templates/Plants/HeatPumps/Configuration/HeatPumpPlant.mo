@@ -24,7 +24,8 @@ record HeatPumpPlant
   parameter Boolean have_hrc
     "Set to true for plants with a sidestream heat recovery chiller"
     annotation(Evaluate=true);
-  parameter Integer nHp "Number of heat pumps (excluding SHC units)" annotation(Evaluate=true);
+  parameter Integer nHp "Number of heat pumps (excluding SHC units)"
+    annotation(Evaluate=true);
   parameter Integer nShc
     "Number of polyvalent (SHC) units"
     annotation(Evaluate=true);
@@ -75,8 +76,11 @@ record HeatPumpPlant
     "Source fluid default specific heat capacity"
     annotation(Evaluate=true);
   // HW loop
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri
-    "Type of primary HW pumps"
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriHp
+    "Type of HP primary HW pumps"
+    annotation(Evaluate=true);
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriShc
+    "Type of SHC unit primary HW pumps"
     annotation(Evaluate=true);
   parameter Integer nPumHeaWatPri
     "Number of primary HW pumps"
@@ -89,9 +93,6 @@ record HeatPumpPlant
     annotation(Evaluate=true);
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri
     "Type of primary pump arrangement"
-    annotation(Evaluate=true);
-  parameter Boolean have_pumHeaWatPriVar
-    "Set to true for variable speed primary HW pumps"
     annotation(Evaluate=true);
   parameter Buildings.Templates.Components.Types.IntegrationPoint typTanHeaWat
     "Specify if there is a HW buffer tank and where it is integrated into the system"
@@ -109,11 +110,14 @@ record HeatPumpPlant
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation(Evaluate=true);
   // CHW loop
-  parameter Boolean have_pumChiWatPriDed
-    "Set to true for plants with separate dedicated primary CHW pumps"
+  parameter Boolean have_pumPriComHp
+    "Set to true for HP with single dedicated primary pump serving both CHW and HW circuits"
     annotation(Evaluate=true);
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri
-    "Type of primary CHW pumps"
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriHp
+    "Type of HP primary CHW pumps"
+    annotation(Evaluate=true);
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriShc
+    "Type of SHC unit primary CHW pumps"
     annotation(Evaluate=true);
   parameter Integer nPumChiWatPri
     "Number of primary CHW pumps"
@@ -123,9 +127,6 @@ record HeatPumpPlant
     annotation(Evaluate=true);
   parameter Boolean have_valChiWatMinByp
     "Set to true if the CHW loop has a minimum flow bypass valve"
-    annotation(Evaluate=true);
-  parameter Boolean have_pumChiWatPriVar
-    "Set to true for variable speed primary CHW pumps"
     annotation(Evaluate=true);
   parameter Buildings.Templates.Components.Types.IntegrationPoint typTanChiWat
     "Specify if there is a CHW buffer tank and where it is integrated into the system"
