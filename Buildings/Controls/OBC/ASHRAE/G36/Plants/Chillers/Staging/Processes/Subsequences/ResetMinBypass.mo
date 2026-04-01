@@ -25,14 +25,14 @@ block ResetMinBypass
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured chilled water flow rate"
-    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
+    annotation (Placement(transformation(extent={{-200,6},{-160,46}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinChiWat_setpoint(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Minimum chiller water flow setpoint"
-    annotation (Placement(transformation(extent={{-200,-90},{-160,-50}}),
+    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSetChaPro
     "True: it is in the setpoint change process"
@@ -59,11 +59,11 @@ protected
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div
     "Flow rate error divided by its setpoint"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1e-6)
     "Add a small positive to avoid zero output"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
@@ -79,7 +79,7 @@ protected
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not notChaSet
     "Not in the setpoint changing process"
-    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and6 "Logical and"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not notChaSet1
@@ -101,7 +101,7 @@ protected
     final t=relFloDif,
     final h=0.5*relFloDif)
     "Check if chiller water flow rate achieves the minimum flow setpoint"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg2
     "Edge when the setpoint changing process is done"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
@@ -125,7 +125,7 @@ equation
     annotation (Line(points={{102,80},{108,80},{108,112},{118,112}},
       color={255,0,255}));
   connect(VMinChiWat_setpoint, addPar.u)
-    annotation (Line(points={{-180,-70},{-142,-70}}, color={0,0,127}));
+    annotation (Line(points={{-180,-60},{-142,-60}}, color={0,0,127}));
   connect(not1.y, edg1.u)
     annotation (Line(points={{-98,60},{-82,60}}, color={255,0,255}));
   connect(edg1.y, lat.clr)
@@ -135,27 +135,27 @@ equation
     annotation (Line(points={{22,20},{38,20}},
                                              color={255,0,255}));
   connect(addPar.y, div.u2)
-    annotation (Line(points={{-118,-70},{-110,-70},{-110,-56},{-102,-56}},
+    annotation (Line(points={{-118,-60},{-110,-60},{-110,-26},{-102,-26}},
       color={0,0,127}));
   connect(VChiWat_flow, floDif.u1)
-    annotation (Line(points={{-180,20},{-152,20},{-152,26},{-122,26}},
-                                                                     color={0,0,127}));
+    annotation (Line(points={{-180,26},{-122,26}},                   color={0,0,127}));
   connect(floDif.y, abs.u)
     annotation (Line(points={{-98,20},{-82,20}},
                                                color={0,0,127}));
   connect(and2.y, and3.u1)
     annotation (Line(points={{-58,120},{-10,120},{-10,20},{-2,20}},
       color={255,0,255}));
-  connect(VMinChiWat_setpoint, floDif.u2) annotation (Line(points={{-180,-70},{-150,
-          -70},{-150,14},{-122,14}}, color={0,0,127}));
+  connect(VMinChiWat_setpoint, floDif.u2) annotation (Line(points={{-180,-60},{
+          -150,-60},{-150,14},{-122,14}},
+                                     color={0,0,127}));
   connect(tim.passed, and4.u2)
     annotation (Line(points={{62,12},{78,12}}, color={255,0,255}));
   connect(uSetChaPro, notChaSet.u)
-    annotation (Line(points={{-180,-110},{-122,-110}}, color={255,0,255}));
+    annotation (Line(points={{-180,-110},{-142,-110}}, color={255,0,255}));
   connect(and2.y, and6.u1) annotation (Line(points={{-58,120},{-10,120},{-10,-20},
           {-2,-20}}, color={255,0,255}));
-  connect(notChaSet.y, and6.u2) annotation (Line(points={{-98,-110},{-20,-110},{
-          -20,-28},{-2,-28}}, color={255,0,255}));
+  connect(notChaSet.y, and6.u2) annotation (Line(points={{-118,-110},{-20,-110},
+          {-20,-28},{-2,-28}},color={255,0,255}));
   connect(and6.y, notChaSet1.u)
     annotation (Line(points={{22,-20},{38,-20}}, color={255,0,255}));
   connect(and1.y, and4.u1) annotation (Line(points={{142,120},{150,120},{150,40},
@@ -166,12 +166,11 @@ equation
                                                color={255,0,255}));
   connect(or2.y, lat1.u)
     annotation (Line(points={{62,-120},{78,-120}},   color={255,0,255}));
-  connect(abs.y, div.u1) annotation (Line(points={{-58,20},{-50,20},{-50,-20},{-110,
-          -20},{-110,-44},{-102,-44}}, color={0,0,127}));
+  connect(abs.y, div.u1) annotation (Line(points={{-58,20},{-50,20},{-50,0},{
+          -110,0},{-110,-14},{-102,-14}},
+                                       color={0,0,127}));
   connect(div.y, lesThr.u)
-    annotation (Line(points={{-78,-50},{-62,-50}}, color={0,0,127}));
-  connect(lesThr.y, and3.u2) annotation (Line(points={{-38,-50},{-24,-50},{-24,12},
-          {-2,12}}, color={255,0,255}));
+    annotation (Line(points={{-78,-20},{-62,-20}}, color={0,0,127}));
   connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-30,80},{-30,-140},
           {-22,-140}},      color={255,0,255}));
   connect(edg3.y, lat1.clr) annotation (Line(points={{2,-140},{70,-140},{70,-126},
@@ -196,6 +195,8 @@ equation
           -80},{100,-80},{100,-68},{118,-68}}, color={255,0,255}));
   connect(and7.y, yMinBypRes)
     annotation (Line(points={{142,-60},{180,-60}}, color={255,0,255}));
+  connect(lesThr.y, and3.u2) annotation (Line(points={{-38,-20},{-20,-20},{-20,
+          12},{-2,12}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

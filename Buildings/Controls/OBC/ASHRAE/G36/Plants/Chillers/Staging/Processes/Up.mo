@@ -395,6 +395,9 @@ protected
      == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chilled water isolation valve position setpoint"
     annotation (Placement(transformation(extent={{200,-210},{220,-190}})));
+  CDL.Logical.Or                        or3
+    "In staging up process or just enabling plant"
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
 
 equation
   connect(lat.y,chiDemRed.uDemLim)
@@ -452,7 +455,7 @@ equation
     annotation (Line(points={{-260,-70},{-82,-70}},
       color={255,0,255}));
   connect(chiDemRed.yChiDem, yChiDem)
-    annotation (Line(points={{-58,124},{40,124},{40,180},{260,180}},
+    annotation (Line(points={{-58,124},{12,124},{12,180},{260,180}},
       color={0,0,127}));
   connect(conWatPumCon.yLeaPum, yLeaPum)
     annotation (Line(points={{82,-54},{120,-54},{120,-30},{260,-30}}, color={255,0,255}));
@@ -484,7 +487,7 @@ equation
     annotation (Line(points={{-58,187},{-44,187},{-44,-255},{18,-255}},
       color={255,0,255}));
   connect(con.y, enaNexCWP.uStaDow)
-    annotation (Line(points={{-178,30},{-96,30},{-96,-12},{-2,-12}},
+    annotation (Line(points={{-178,30},{-96,30},{-96,-10},{-2,-10}},
       color={255,0,255}));
   connect(lat.y, yStaPro)
     annotation (Line(points={{-118,150},{-100,150},{-100,210},{260,210}},
@@ -534,10 +537,6 @@ equation
   connect(minChiWatFlo.yChiWatMinFloSet, endUp.VMinChiWat_setpoint)
     annotation (Line(points={{42,40},{50,40},{50,20},{-92,20},{-92,-277},{18,-277}},
       color={0,0,127}));
-  connect(lat1.y, minBypSet.uUpsDevSta) annotation (Line(points={{2,100},{10,100},
-          {10,88},{58,88}},   color={255,0,255}));
-  connect(lat1.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{2,100},{10,
-          100},{10,47},{18,47}}, color={255,0,255}));
   connect(lat2.y, yTowStaUp) annotation (Line(points={{182,70},{190,70},{190,0},
           {260,0}},  color={255,0,255}));
   connect(lat2.y, enaNexCWP.uUpsDevSta) annotation (Line(points={{182,70},{190,70},
@@ -564,7 +563,7 @@ equation
   connect(uStaSet, enaNexCWP.uStaSet) annotation (Line(points={{-260,200},{-104,
           200},{-104,-19},{-2,-19}}, color={255,127,0}));
   connect(uChiSta, enaNexCWP.uChiSta) annotation (Line(points={{-260,-10},{-180,
-          -10},{-180,-15},{-2,-15}}, color={255,127,0}));
+          -10},{-180,-16},{-2,-16}}, color={255,127,0}));
   connect(enaHeaCon.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,-148},{
           -48,-148},{-48,-160},{-260,-160}}, color={255,0,255}));
   connect(uChiHeaCon, endUp.uChiHeaCon) annotation (Line(points={{-260,-160},{-48,
@@ -574,10 +573,6 @@ equation
       color={255,0,255}));
   connect(con.y, or2.u2) annotation (Line(points={{-178,30},{-96,30},{-96,162},{
           -22,162}}, color={255,0,255}));
-  connect(or2.y, minBypSet.uUpsDevSta) annotation (Line(points={{2,170},{6,170},
-          {6,88},{58,88}},    color={255,0,255}));
-  connect(or2.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{2,170},{6,170},
-          {6,47},{18,47}},  color={255,0,255}));
   connect(intEqu.y, and1.u2) annotation (Line(points={{-118,280},{-110,280},{-110,
           292},{-102,292}}, color={255,0,255}));
   connect(conInt.y, intEqu.u1) annotation (Line(points={{-198,300},{-180,300},{-180,
@@ -681,6 +676,18 @@ equation
           {82,-200},{160,-200},{160,-208},{198,-208}}, color={0,0,127}));
   connect(endUp.yChiWatIsoVal, chiWatIsoVal.u1) annotation (Line(points={{42,-257},
           {192,-257},{192,-192},{198,-192}}, color={0,0,127}));
+  connect(or2.y, or3.u2) annotation (Line(points={{2,170},{6,170},{6,112},{18,
+          112}}, color={255,0,255}));
+  connect(lat1.y, or3.u2) annotation (Line(points={{2,100},{6,100},{6,112},{18,
+          112}}, color={255,0,255}));
+  connect(uEnaPlaConPum, or3.u1) annotation (Line(points={{-260,-36},{-48,-36},
+          {-48,120},{18,120}}, color={255,0,255}));
+  connect(or3.y, minBypSet.uUpsDevSta) annotation (Line(points={{42,120},{50,
+          120},{50,88},{58,88}}, color={255,0,255}));
+  connect(or3.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{42,120},{50,
+          120},{50,88},{10,88},{10,47},{18,47}}, color={255,0,255}));
+  connect(uEnaPlaConPum, enaNexCWP.uEnaPla) annotation (Line(points={{-260,-36},
+          {-48,-36},{-48,-13},{-2,-13}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

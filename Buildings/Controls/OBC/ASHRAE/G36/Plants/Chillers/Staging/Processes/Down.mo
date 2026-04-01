@@ -516,8 +516,9 @@ equation
     annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,-331},
           {78,-331}}, color={255,0,255}));
   connect(lat.y,disNexCWP. uStaDow)
-    annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,-162},
-          {78,-162}}, color={255,0,255}));
+    annotation (Line(points={{-158,360},{-140,360},{-140,330},{-260,330},{-260,
+          -160},{78,-160}},
+                      color={255,0,255}));
   connect(lat.y, yStaPro)
     annotation (Line(points={{-158,360},{300,360}},color={255,0,255}));
   connect(dowSta.yOpeParLoaRatMin, yOpeParLoaRatMin)
@@ -697,6 +698,8 @@ equation
           {230,138},{238,138}}, color={0,0,127}));
   connect(disChiIsoVal.yChiWatIsoVal, isoValPos1.u1) annotation (Line(points={{222,
           70},{230,70},{230,122},{192,122},{192,188},{198,188}}, color={0,0,127}));
+  connect(con.y, disNexCWP.uEnaPla) annotation (Line(points={{-138,200},{-120,
+          200},{-120,-163},{78,-163}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),

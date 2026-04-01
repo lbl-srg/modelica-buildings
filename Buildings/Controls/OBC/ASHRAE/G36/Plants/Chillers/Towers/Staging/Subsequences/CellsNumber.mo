@@ -129,6 +129,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPlaSta]
     "Convert to real"
     annotation (Placement(transformation(extent={{80,140},{100,160}})));
+  CDL.Logical.Or                        or1 "Logical or"
+    annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
 equation
   connect(uWse, booToRea1.u)
     annotation (Line(points={{-280,-40},{-162,-40}}, color={255,0,255}));
@@ -155,8 +157,6 @@ equation
   connect(intToRea1.y, swi.u1)
     annotation (Line(points={{-198,140},{-170,140},{-170,108},{-122,108}},
       color={0,0,127}));
-  connect(uTowStaCha, swi1.u2)
-    annotation (Line(points={{-280,20},{-162,20}}, color={255,0,255}));
   connect(uChiSta, intToRea1.u) annotation (Line(points={{-280,100},{-240,100},
           {-240,140},{-222,140}}, color={255,127,0}));
   connect(uChiStaSet, norOpe.u2) annotation (Line(points={{-280,60},{-240,60},{
@@ -211,6 +211,12 @@ equation
     annotation (Line(points={{102,150},{118,150}}, color={0,0,127}));
   connect(uAnyConWatPum, anyPumOn.u2) annotation (Line(points={{-280,-160},{-80,
           -160},{-80,-138},{-62,-138}}, color={255,0,255}));
+  connect(uTowStaCha, or1.u1)
+    annotation (Line(points={{-280,20},{-222,20}}, color={255,0,255}));
+  connect(uEnaPla, or1.u2) annotation (Line(points={{-280,-90},{-240,-90},{-240,
+          12},{-222,12}}, color={255,0,255}));
+  connect(or1.y, swi1.u2)
+    annotation (Line(points={{-198,20},{-162,20}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
