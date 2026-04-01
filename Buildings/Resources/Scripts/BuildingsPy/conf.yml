@@ -50,11 +50,11 @@
     simulate: false
 - model_name: Buildings.DHC.Examples.Steam.SingleBoiler
   openmodelica:
-    comment: 'Timeout after 600 s'
+    comment: Timeout after 600 s
     simulate: false
 - model_name: Buildings.DHC.Networks.Examples.Distribution2PipeExample
   openmodelica:
-    comment: 'simulation fails'
+    comment: simulation fails
     simulate: false
 - model_name: Buildings.DHC.Plants.Combined.Examples.AllElectricCWStorage
   dymola:
@@ -171,13 +171,13 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes
-  openmodelica:
-    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes_simulate.mos'']'' returned non-zero exit status 255.'
-    simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe_simulate.mos'']'' returned non-zero exit status 255.'
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes
+  openmodelica:
+    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes_simulate.mos'']'' returned non-zero exit status 255.'
     simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoPipesConduit
   openmodelica:
@@ -236,7 +236,7 @@
     time_out: 600
 - model_name: Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2
   openmodelica:
-    comment: 'Translation failed. See https://github.com/OpenModelica/OpenModelica/issues/14791'
+    comment: Translation failed. See https://github.com/OpenModelica/OpenModelica/issues/14791
     translate: false
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDep
   openmodelica:
@@ -248,7 +248,7 @@
     translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
-    comment: 'Timeout after 300 s. See also OpenModelica, issue 13341'
+    comment: Timeout after 300 s. See also OpenModelica, issue 13341
     simulate: false
   optimica:
     comment: 'CVodeError: ''The rootfinding function failed in an unrecoverable manner. At time 32392.196613.'''
