@@ -166,8 +166,9 @@ model TableData2DLoadDepSHC
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
     annotation (Dialog(tab="Advanced", group="Safeties"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onHea
-    "Heating on/off command" annotation (Placement(transformation(extent={{-180,
-            -40},{-140,0}}), iconTransformation(extent={{-138,-38},{-102,-2}})));
+    "Heating on/off command"
+    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
+      iconTransformation(extent={{-138,-38},{-102,-2}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(
     final unit="K",
     displayUnit="degC")
@@ -183,7 +184,7 @@ model TableData2DLoadDepSHC
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onCoo
     "Cooling on/off command"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
-                                iconTransformation(extent={{-138,-58},{-102,-22}})));
+      iconTransformation(extent={{-138,-58},{-102,-22}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniHea(start=0)
     "Number of modules in heating mode"
     annotation (Placement(transformation(extent={{140,-80},{180,-40}}),

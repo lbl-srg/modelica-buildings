@@ -1499,7 +1499,7 @@ annotation(defaultComponentName="pla",
     for HVAC Systems. Atlanta, GA.
   </li>
 </ul>
-</html>", revisions=" wi<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 23, 2026, by Antoine Gautier:<br/>

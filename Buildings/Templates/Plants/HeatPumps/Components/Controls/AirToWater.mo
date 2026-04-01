@@ -236,8 +236,8 @@ equation
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
   connect(ctl.y1Hrc, busHrc.y1);
   connect(ctl.y1CooHrc, busHrc.y1Coo);
-  connect(ctl.THeaWatHrcSupSet, busHrc.THeaWatSet);
-  connect(ctl.TChiWatHrcSupSet, busHrc.TChiWatSet);
+  connect(ctl.THeaWatSupHrcSet, busHrc.THeaWatSet);
+  connect(ctl.TChiWatSupHrcSet, busHrc.TChiWatSet);
   connect(ctl.y1PumChiWatHrc, busPumChiWatHrc.y1);
   connect(ctl.y1PumHeaWatHrc, busPumHeaWatHrc.y1);
   /* Control point connection - stop */
@@ -322,7 +322,7 @@ equation
           {40,-8},{40,-60},{-80,-60},{-80,-34},{-72,-34}},           color={0,0,
           127}));
   connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={{22,-6},
-          {34,-6},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
+          {42,-6},{42,-62},{-82,-62},{-82,6},{-72,6}},
         color={0,0,127}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>

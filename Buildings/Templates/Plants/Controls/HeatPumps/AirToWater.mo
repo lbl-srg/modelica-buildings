@@ -1092,7 +1092,7 @@ block AirToWater
     "Sidestream HRC HW pump enable command" annotation (Placement(
         transformation(extent={{260,-400},{300,-360}}), iconTransformation(
           extent={{200,-320},{240,-280}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatHrcSupSet(final unit=
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupHrcSet(final unit=
         "K", displayUnit="degC") if have_hrc
     "Sidestream HRC HW supply temperature setpoint" annotation (Placement(
         transformation(extent={{260,-340},{300,-300}}), iconTransformation(
@@ -1131,6 +1131,18 @@ block AirToWater
     "CHW minimum flow bypass valve command" annotation (Placement(
         transformation(extent={{260,-260},{300,-220}}), iconTransformation(
           extent={{200,-100},{240,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHpSet[nHp](
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC") if have_chiWat
+    "HP CHW supply temperature setpoint" annotation (Placement(transformation(
+          extent={{260,-140},{300,-100}}), iconTransformation(extent={{200,-180},
+            {240,-140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHrcSet(final unit=
+        "K", displayUnit="degC") if have_hrc
+    "Sidestream HRC CHW supply temperature setpoint" annotation (Placement(
+        transformation(extent={{260,-360},{300,-320}}), iconTransformation(
+          extent={{200,-360},{240,-320}})));
 
   Enabling.Enable enaHea(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
@@ -1499,18 +1511,6 @@ block AirToWater
       have_inpPh=true) if have_chiWat
     "For HRC logic select either primary or secondary sensor depending on plant configuration"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHpSet[nHp](
-    each final unit="K",
-    each final quantity="ThermodynamicTemperature",
-    each displayUnit="degC") if have_chiWat
-    "HP CHW supply temperature setpoint" annotation (Placement(transformation(
-          extent={{260,-140},{300,-100}}), iconTransformation(extent={{200,-180},
-            {240,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatHrcSupSet(final unit=
-        "K", displayUnit="degC") if have_hrc
-    "Sidestream HRC CHW supply temperature setpoint" annotation (Placement(
-        transformation(extent={{260,-360},{300,-320}}), iconTransformation(
-          extent={{200,-360},{240,-320}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));
@@ -1939,9 +1939,9 @@ equation
     annotation (Line(points={{172,-100},{280,-100}}, color={0,0,127}));
   connect(repTChiWatSupSet.y, TChiWatSupHpSet)
     annotation (Line(points={{222,-120},{280,-120}}, color={0,0,127}));
-  connect(TChiWatSupSet, TChiWatHrcSupSet) annotation (Line(points={{280,-180},
+  connect(TChiWatSupSet,TChiWatSupHrcSet)  annotation (Line(points={{280,-180},
           {250,-180},{250,-340},{280,-340}}, color={0,0,127}));
-  connect(THeaWatSupSet, THeaWatHrcSupSet) annotation (Line(points={{280,-160},
+  connect(THeaWatSupSet,THeaWatSupHrcSet)  annotation (Line(points={{280,-160},
           {248,-160},{248,-320},{280,-320}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctl",

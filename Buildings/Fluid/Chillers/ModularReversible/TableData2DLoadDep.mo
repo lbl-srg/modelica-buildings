@@ -76,15 +76,26 @@ model TableData2DLoadDep
     "On/off command: true to enable chiller, false to disable chiller"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-138,-38},{-102,-2}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChwSet(final unit="K",
-      displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChwSet(
+    final unit="K",
+    displayUnit="degC")
     "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
         iconTransformation(extent={{-138,-18},{-102,18}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(
+    final unit="K",
+    displayUnit="degC") if have_switchover
+    "HW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+        iconTransformation(extent={{-138,22},{-102,58}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo
     if have_switchover "Switchover signal: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-138,-58},{-102,-22}})));
+  Modelica.Blocks.Interfaces.RealOutput PLR(final unit="1")
+    "Compressor part load ratio"
+    annotation (Placement(transformation(extent={{140,-70},{160,-50}}),
+      iconTransformation(extent={{-10,-10},{10,10}}, rotation=-90, origin={80,-110})));
   Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.CalculateCommandSignal calYSet(
     final use_rev=false,
     final useInHeaPum=false)
@@ -101,19 +112,10 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Reals.Switch QUse_flow
     "Select useful heat flow rate depending on operating mode"
     annotation (Placement(transformation(extent={{92,-30},{72,-10}})));
-  Modelica.Blocks.Interfaces.RealOutput PLR(final unit="1")
-    "Compressor part load ratio" annotation (Placement(transformation(extent={{
-            140,-70},{160,-50}}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={80,-110})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(final unit="K",
-      displayUnit="degC") if have_switchover
-    "HW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-        iconTransformation(extent={{-138,22},{-102,58}})));
-  Templates.Plants.Controls.Utilities.PlaceholderReal phTHwSet(final have_inp=
-        have_switchover, u_internal=273.15) "Placeholder value"
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal phTHwSet(
+    final have_inp=have_switchover,
+    u_internal=273.15)
+    "Placeholder value"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 equation
   if not use_intSafCtr then
@@ -272,7 +274,8 @@ This model introduces structural changes compared to other models within
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible\">
 Buildings.Fluid.Chillers.ModularReversible</a>.
 </p>
-<p>First, there is no replaceable heating cycle component.
+<p>
+First, there is no replaceable heating cycle component.
 Instead, the Boolean parameter <code>have_switchover</code> is used
 for toggling between cooling-only and heat recovery chillers.
 A major implication is that a single performance data file is used

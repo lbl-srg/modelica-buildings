@@ -82,11 +82,15 @@ model TableData2DLoadDepSHC
         THwSup_nominal, y(final unit="K", displayUnit="degC"))
     "Design HW supply temperature"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable onCoo(table=[0,0; 500,1;
-        2400,0; 3600,1; 5000,0], period=5400) "Cooling on/off command"
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable onCoo(
+    table=[0,0; 500,1; 2400,0; 3600,1; 5000,0],
+    period=5400)
+    "Cooling on/off command"
     annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable onHea(table=[0,0; 500,1;
-        1200,0; 2400,1; 4800,0], period=5400) "Heating on/off command"
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable onHea(
+    table=[0,0; 500,1; 1200,0; 2400,1; 4800,0],
+    period=5400)
+    "Heating on/off command"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC hp(
     redeclare final package MediumCon=Medium,
