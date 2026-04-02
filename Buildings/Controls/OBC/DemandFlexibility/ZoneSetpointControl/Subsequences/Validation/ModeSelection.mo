@@ -36,7 +36,7 @@ model ModeSelection
 equation
   connect(intTimTab.y[1], modeSelection.uMod) annotation (Line(points={{-60,64},
           {-38,64},{-38,34.8},{31.913,34.8}}, color={255,127,0}));
-  connect(sin.y,modeSelection.uOrg)  annotation (Line(points={{-34,6},{-4,6},{
+  connect(sin.y,modeSelection.uBas)  annotation (Line(points={{-34,6},{-4,6},{
           -4,26.8},{31.913,26.8}}, color={0,0,127}));
   connect(sin1.y, modeSelection.uShe) annotation (Line(points={{-34,-34},{-2,
           -34},{-2,22.8},{31.913,22.8}}, color={0,0,127}));

@@ -23,7 +23,7 @@ block SetpointSingleStepChange
     annotation (Placement(transformation(extent={{132,-10},{152,10}})));
   CDL.Interfaces.RealInput uSetTar "setpoint target"
     annotation (Placement(transformation(extent={{-140,-38},{-100,2}})));
-  CDL.Interfaces.RealInput uSetOrg "original setpoint"
+  CDL.Interfaces.RealInput uSetBas "baseline setpoint"
     annotation (Placement(transformation(extent={{-140,-88},{-100,-48}})));
   CDL.Interfaces.RealOutput ySetCom "setpoint command"
     annotation (Placement(transformation(extent={{200,-20},{240,20}})));
@@ -38,7 +38,7 @@ block SetpointSingleStepChange
   CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
         transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,52},
             {240,92}})));
-  CDL.Interfaces.BooleanOutput reach_uSetOrg annotation (Placement(
+  CDL.Interfaces.BooleanOutput reach_uSetBas annotation (Placement(
         transformation(extent={{200,-94},{240,-54}}), iconTransformation(extent={{200,-94},
             {240,-54}})));
   ExactEqualReal exactEqualReal
@@ -46,7 +46,7 @@ block SetpointSingleStepChange
   ExactEqualReal exactEqualReal1
     annotation (Placement(transformation(extent={{144,-112},{164,-92}})));
 equation
-  connect(uSetOrg,max1. u2) annotation (Line(points={{-120,-68},{-78,-68},{-78,
+  connect(uSetBas,max1. u2) annotation (Line(points={{-120,-68},{-78,-68},{-78,
           -44},{-26,-44},{-26,-6},{48,-6}},
                      color={0,0,127}));
   connect(have_pri,swi. u2) annotation (Line(points={{-120,82},{-58,82},{-58,
@@ -71,7 +71,7 @@ equation
         color={255,0,255}));
   connect(uSetTar, swi1.u1) annotation (Line(points={{-120,-18},{-72,-18},{-72,
           -28},{8,-28}},             color={0,0,127}));
-  connect(uSetOrg, swi1.u3) annotation (Line(points={{-120,-68},{-78,-68},{-78,
+  connect(uSetBas, swi1.u3) annotation (Line(points={{-120,-68},{-78,-68},{-78,
           -44},{8,-44}},             color={0,0,127}));
   connect(uSetCur, exactEqualReal.u1) annotation (Line(points={{-120,32},{-50,
           32},{-50,110},{16,110}},                      color={0,0,127}));
@@ -81,15 +81,15 @@ equation
           {194,104},{194,80},{220,80}},  color={255,0,255}));
   connect(uSetCur, exactEqualReal1.u1) annotation (Line(points={{-120,32},{-88,
           32},{-88,-96},{142,-96}},   color={0,0,127}));
-  connect(uSetOrg, exactEqualReal1.u2) annotation (Line(points={{-120,-68},{-78,
+  connect(uSetBas, exactEqualReal1.u2) annotation (Line(points={{-120,-68},{-78,
           -68},{-78,-108},{142,-108}},
         color={0,0,127}));
-  connect(exactEqualReal1.yEquFla,reach_uSetOrg)  annotation (Line(points={{166,
+  connect(exactEqualReal1.yEquFla,reach_uSetBas)  annotation (Line(points={{166,
           -102},{194,-102},{194,-74},{220,-74}},
                                                color={255,0,255}));
   connect(swi1.y, swi.u1) annotation (Line(points={{32,-36},{38,-36},{38,-66},{
           46,-66}}, color={0,0,127}));
-  connect(min1.u2,uSetOrg)  annotation (Line(points={{48,54},{-26,54},{-26,-44},
+  connect(min1.u2,uSetBas)  annotation (Line(points={{48,54},{-26,54},{-26,-44},
           {-78,-44},{-78,-68},{-120,-68}}, color={0,0,127}));
   connect(uSetTar, max1.u1) annotation (Line(points={{-120,-18},{-42,-18},{-42,
           6},{48,6}}, color={0,0,127}));
@@ -103,11 +103,11 @@ equation
         grid={2,2})),
     Documentation(info="<html>
 <p>This block serves to change the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span> 
-between the original setpoint <span style=\"font-family: Courier New;\">uSetOrg</span> and the target 
+between the baseline setpoint <span style=\"font-family: Courier New;\">uSetBas</span> and the target 
 setpoint <span style=\"font-family: Courier New;\">uSetTar</span> in a single step. The 
 <span style=\"font-family: Courier New;\">setChaMod</span> variable specifies whether the current 
 setpoint <span style=\"font-family: Courier New;\">uSetCur</span> shall change to the 
-<span style=\"font-family: Courier New;\">uSetOrg</span> value or the 
+<span style=\"font-family: Courier New;\">uSetBas</span> value or the 
 <span style=\"font-family: Courier New;\">uSetTar</span> value. The setpoint change operation 
 will be executed every <span style=\"font-family: Courier New;\">samPer</span> seconds. 
 The resultant setpoint will be outputted as the 
@@ -123,11 +123,11 @@ which zone or equipment will go through the setpoint change. When the
 <span style=\"font-family: Courier New;\">false</span> from a previous 
 <span style=\"font-family: Courier New;\">true</span> value, the single-step setpoint 
 change will stay at the current value 
-(<span style=\"font-family: Courier New;\">uSetOrg</span> or 
+(<span style=\"font-family: Courier New;\">uSetBas</span> or 
 <span style=\"font-family: Courier New;\">uSetTar</span>) and will not be revert to 
 the previous value before the setpoint step change. Reversing this unidirectional 
 change to the current setpoint <code>uSetCur</code> needs to happen outside of this block. </p>
 <p>Output variables also include boolean flags that specify whether the current 
-setpoint has reached the original setpoint <span style=\"font-family: Courier New;\">uSetOrg</span> or the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span>. </p>
+setpoint has reached the baseline setpoint <span style=\"font-family: Courier New;\">uSetBas</span> or the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span>. </p>
 </html>"));
 end SetpointSingleStepChange;

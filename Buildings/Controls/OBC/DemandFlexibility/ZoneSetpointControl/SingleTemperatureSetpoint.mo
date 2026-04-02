@@ -1,28 +1,28 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl;
 block SingleTemperatureSetpoint
 
-   parameter Real delChaShe=1
-    "Change amount for load shed";
+   parameter Real delTSetShe=1
+    "temperature setpoint change amount for load shed";
 
-   parameter Real delChaReb=-1
-    "Change amount for rebound";
+   parameter Real delTSetReb=-1
+    "temperature setpoint change amount for rebound";
 
-    parameter Real delSheTho(min=0)=0.5
+    parameter Real delTSetSheTho(min=0)=0.5
     "Threshold below which ratcheting is triggerd. This is an absolute value, so it is always positive";
 
        parameter Boolean setMod=true
        "mode of controller. True for heating, false for cooling.";
         parameter Real samPerPre(unit="s")=300
     "Sample period for precool or preheat";
-            parameter Real samPerNom(unit="s")=300
+            parameter Real samPerBas(unit="s")=300
     "Sample period for the nominal condition";
         parameter Real samPerShe(unit="s")=300
     "Sample period for ratchet";
         parameter Real samPerReb(unit="s")=300
     "Sample period for rebound";
-  Generic.SetpointMultipleStepChange setShe(delCha=delChaShe, samPer=samPerShe)
+  Generic.SetpointMultipleStepChange setShe(delSet=delTSetShe, samPer=samPerShe)
     annotation (Placement(transformation(extent={{162,-34},{182,-14}})));
-  Generic.SetpointMultipleStepChange setReb(delCha=delChaReb, samPer=samPerReb)
+  Generic.SetpointMultipleStepChange setReb(delSet=delTSetReb, samPer=samPerReb)
     annotation (Placement(transformation(extent={{182,-114},{202,-94}})));
   Generic.SetpointSingleStepChange setPre(samPer=samPerPre)
     annotation (Placement(transformation(extent={{170,80},{190,100}})));
@@ -37,7 +37,7 @@ block SingleTemperatureSetpoint
   CDL.Interfaces.BooleanOutput reach_TSetTarShe annotation (Placement(
         transformation(extent={{250,-20},{290,20}}),iconTransformation(extent={{250,-20},
             {290,20}})));
-  CDL.Interfaces.BooleanOutput reach_TSetOrg annotation (Placement(
+  CDL.Interfaces.BooleanOutput reach_TSetBas annotation (Placement(
         transformation(extent={{250,-170},{290,-130}}),iconTransformation(
           extent={{250,-156},{290,-116}})));
   CDL.Interfaces.RealOutput TSetCom "setpoint command"
@@ -46,14 +46,14 @@ block SingleTemperatureSetpoint
   CDL.Interfaces.RealInput TSetTarPre "setpoint target for precool or preheat"
     annotation (Placement(transformation(extent={{-192,-106},{-152,-66}}),
         iconTransformation(extent={{-192,-106},{-152,-66}})));
-  CDL.Interfaces.RealInput TSetOrg "original setpoint"
+  CDL.Interfaces.RealInput TSetBas "baseline setpoint"
     annotation (Placement(transformation(extent={{-192,-204},{-152,-164}})));
   CDL.Interfaces.RealInput TSetCur "current setpoint"
     annotation (Placement(transformation(extent={{-190,-54},{-150,-14}})));
   CDL.Interfaces.RealInput TSetTarShe "setpoint target for load shed"
     annotation (Placement(transformation(extent={{-192,-156},{-152,-116}}),
         iconTransformation(extent={{-192,-156},{-152,-116}})));
-  CDL.Discrete.Sampler setNom(samplePeriod=samPerNom)
+  CDL.Discrete.Sampler setNom(samplePeriod=samPerBas)
     annotation (Placement(transformation(extent={{170,48},{190,68}})));
   Subsequences.ModeSelection modeSelection
     annotation (Placement(transformation(extent={{216,-78},{236,-58}})));
@@ -61,9 +61,9 @@ block SingleTemperatureSetpoint
     annotation (Placement(transformation(extent={{-190,-12},{-150,28}})));
   CDL.Reals.Subtract sub
     annotation (Placement(transformation(extent={{-56,-8},{-36,12}})));
-  CDL.Reals.GreaterThreshold greThr(t=-1*delSheTho)
+  CDL.Reals.GreaterThreshold greThr(t=-1*delTSetSheTho)
     annotation (Placement(transformation(extent={{-16,-20},{4,0}})));
-  CDL.Reals.LessThreshold lesThr(t=delSheTho)
+  CDL.Reals.LessThreshold lesThr(t=delTSetSheTho)
     annotation (Placement(transformation(extent={{-16,16},{4,36}})));
   CDL.Logical.Switch logSwi
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
@@ -81,7 +81,7 @@ equation
   connect(have_pri, setReb.have_pri) annotation (Line(points={{-170,80},{-74,80},
           {-74,-98},{78,-98},{78,-97.8462},{180.667,-97.8462}},
                               color={255,0,255}));
-  connect(setShe.reach_uSetOrg,reach_TSetOrg)  annotation (Line(points={{183.333,
+  connect(setShe.reach_uSetBas,reach_TSetBas)  annotation (Line(points={{183.333,
           -29.2308},{198,-29.2308},{198,-86},{210,-86},{210,-150},{270,-150}},
                                                  color={255,0,255}));
   connect(setShe.reach_uSetTar,reach_TSetTarShe)
@@ -93,7 +93,7 @@ equation
   connect(TSetCur, setShe.uSetCur) annotation (Line(points={{-170,-34},{140,-34},
           {140,-21.3846},{160.667,-21.3846}},
                                   color={0,0,127}));
-  connect(TSetOrg,setPre.uSetOrg)  annotation (Line(points={{-172,-184},{-126,
+  connect(TSetBas,setPre.uSetBas)  annotation (Line(points={{-172,-184},{-126,
           -184},{-126,86},{168,86},{168,86.0741},{168.667,86.0741}},
                                                 color={0,0,127}));
   connect(TSetTarShe, setShe.uSetTar) annotation (Line(points={{-172,-136},{
@@ -110,7 +110,7 @@ equation
   connect(setPre.ySetCom, modeSelection.uPre) annotation (Line(points={{191.333,
           91.1111},{210,91.1111},{210,-64.1667},{214.261,-64.1667}}, color={0,0,
           127}));
-  connect(setNom.y, modeSelection.uOrg) annotation (Line(points={{192,58},{204,
+  connect(setNom.y,modeSelection.uBas)  annotation (Line(points={{192,58},{204,
           58},{204,-67.3333},{214.261,-67.3333}}, color={0,0,127}));
   connect(setReb.ySetCom, modeSelection.uReb) annotation (Line(points={{203.333,
           -104},{203.333,-74.5},{214.261,-74.5}}, color={0,0,127}));
@@ -145,12 +145,12 @@ equation
     annotation (Line(points={{270,64},{270,64}}, color={255,0,255}));
   connect(setPre.uSetCur, TSetCur) annotation (Line(points={{168.667,93.4815},{
           168,93.4815},{168,94},{-84,94},{-84,-34},{-170,-34}}, color={0,0,127}));
-  connect(setNom.u,TSetOrg)  annotation (Line(points={{168,58},{-106,58},{-106,
+  connect(setNom.u,TSetBas)  annotation (Line(points={{168,58},{-106,58},{-106,
           -184},{-172,-184}}, color={0,0,127}));
-  connect(TSetOrg,setReb.uSetOrg)  annotation (Line(points={{-172,-184},{-28,
+  connect(TSetBas,setReb.uSetBas)  annotation (Line(points={{-172,-184},{-28,
           -184},{-28,-110},{76,-110},{76,-110.154},{180.667,-110.154}}, color={
           0,0,127}));
-  connect(TSetOrg,setShe.uSetOrg)  annotation (Line(points={{-172,-184},{-28,
+  connect(TSetBas,setShe.uSetBas)  annotation (Line(points={{-172,-184},{-28,
           -184},{-28,-30.1538},{160.667,-30.1538}}, color={0,0,127}));
   connect(setShe.ySetCom, modeSelection.uShe) annotation (Line(points={{183.333,
           -24},{192,-24},{192,-70},{214.261,-70},{214.261,-70.6667}}, color={0,
@@ -162,16 +162,16 @@ equation
         extent={{-150,-200},{250,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This is a block that brings the full suite of control for a single temperature setpoint. It can be 
-either a heating zone temperature setpoint or a cooling zone temperature setpoint. It contains the 
-pre-cool/pre-heat mode, load shed mode, load rebound mode, and baseline mode. Each of the 4 modes 
-includes a sampler block, where users can set the sampling period independently for each mode.</p>
-<p>For the load shed mode specifically, there are specific elements in this logic block that 
-checks whether a zone has reached a threshold (<code>delSheTho</code>) for ratcheting zone setpoints. The zone 
-temperature difference is defined as the current zone temperature minus the current zone temperature 
-heating or cooling setpoint. For heating mode and the heating setpoint, if the temperature 
-difference is less than the threshold delSheTho, the load shed mode will be activated. For 
-cooling mode and the cooling setpoint, if the temperature difference is more than the negative 
-of the threshold <code>delSheTho</code>, the load shed mode will be activated. </p>
+<p>This is a sequence that brings the full suite of control for a single zone temperature setpoint. It can be either a heating zone temperature setpoint or a cooling zone temperature setpoint. </p>
+<p>The demand flexibility mode of the system, represented by the input variable <code>uMod</code>, include the pre-cool/pre-heat mode (<code>uMod</code> = -1), the baseline mode (<code>uMod</code> = 0), the load-shed mode (<code>uMod</code> = 1), and the load-rebound mode (<code>uMod</code> = 2).</p>
+<p>The <code>have_pri</code> boolean input variable specifies whether the setpoint change operation will be executed or not. This is useful in multiple-zone or multiple-equipment scenarios where there is a need to prioritize which zone or equipment will go through the setpoint change. </p>
+<p>If <code>has_pri</code> = <code>false</code>, the output variable <code>TSetCom</code> will take the value of the input variable <code>TSetCur</code>.</p>
+<p>If <code>has_pri</code> = <code>true</code> and <code>uMod</code> = -1, the output variable <code>TSetCom</code> will take the value of the input variable <code>TSetTarPre</code>. This operation is executed every <code>samPerPre</code> seconds.</p>
+<p>If <code>has_pri</code> = <code>true</code> and <code>uMod</code> = 0, the output variable <code>TSetCom</code> will take the value of the input variable <code>TSetBas</code>. This operation is executed every <code>samPerBas</code> seconds.</p>
+<p>If <code>has_pri</code> = <code>true</code> and <code>uMod</code> = 1, there are specific elements in this sequence that checks whether a zone&apos;s actual zone temperature difference has reached a zone temperature difference threshold (<code>delTSetSheTho</code>) for changing zone setpoints. On one hand, the threshold <code>delTSetSheTho</code> always takes positive values. On the other hand, a zone&apos;s actual zone temperature difference is defined as the current zone temperature minus the current zone temperature heating or cooling setpoint. </p>
+<p>For heating mode and the heating setpoint, if the actual zone temperature difference is less than the threshold <code>delTSetSheTho</code>, the condition to perform load-shed operation will be met. For cooling mode and the cooling setpoint, if the actual zone temperature difference is more than the negative of the threshold <code>delTSetSheTho</code>, the condition to perform load-shed operation will be met. </p>
+<p>If the condition to perform load-shed operation is met, the output variable <code>TSetCom</code> will take the value <code>TSetCur + delTSetShe</code>, limited by the range between the input variable <code>TSetBas</code> and the input variable <code>TSetTarShe</code>. If the condition to perform load-shed operation is not met, the output variable <code>TSetCom</code> will take the value <code>TSetCur</code>. This operation is executed every <code>samPerShe</code> seconds.</p>
+<p>If <code>has_pri </code> = <code>true</code> and <code>uMod</code> = 2, the output variable <code>TSetCom</code> will take the value <code>TSetCur + delTSetReb</code>, limited by the range between the input variable <code>TSetBas</code> and the input variable <code>TSetTarShe</code>. This operation is executed every <code>samPerReb</code> seconds.</p>
+<p><br>Output variables also include boolean flags that specify whether the current setpoint has reached the baseline setpoint <code>reach_TSetBas</code> or the target setpoints <code>reach_TSetTarShe</code> and <code>reach_TSetTarReb</code>. </p>
 </html>"));
 end SingleTemperatureSetpoint;

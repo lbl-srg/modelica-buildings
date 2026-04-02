@@ -5,11 +5,11 @@ model ZoneSetpointSource
   parameter Real TSetNomHeaUno(unit="K")=273.15+15.5556;
   parameter Real TSetNomCooOcc(unit="K")=273.15+25.5556;
   parameter Real TSetNomCooUno(unit="K")=273.15+32.2222;
-  parameter Real delTSetSheHea(unit="K")=5.5556 "zone temperature setpoint delta for heating load shed";
-  parameter Real delTSetSheCoo(unit="K")=5.5556 "zone temperature setpoint delta for cooling load shed";
+  parameter Real TSetAdjSheHea(unit="K")=5.5556 "zone temperature setpoint adjustment for heating load shed";
+  parameter Real TSetAdjSheCoo(unit="K")=5.5556 "zone temperature setpoint adjustment for cooling load shed";
 
-  parameter Real delTSetPreHea(unit="K")=1.1111 "zone temperature setpoint delta for heating pre-heat";
-  parameter Real delTSetPreCoo(unit="K")=1.1111 "zone temperature setpoint delta for cooling pre-cool";
+  parameter Real TSetAdjPreHea(unit="K")=1.1111 "zone temperature setpoint adjustment for heating pre-heat";
+  parameter Real TSetAdjPreCoo(unit="K")=1.1111 "zone temperature setpoint adjustment for cooling pre-cool";
 
   parameter Real occStaHouSta=7;
   parameter Real occStaHouEnd=20;
@@ -18,7 +18,7 @@ model ZoneSetpointSource
   CDL.Interfaces.RealOutput TSetTarSheHea
                                          "setpoint target for load shed"
     annotation (Placement(transformation(extent={{100,26},{140,66}})));
-  CDL.Interfaces.RealOutput TSetOrgHea "original setpoint"
+  CDL.Interfaces.RealOutput TSetBasHea "baseline setpoint"
     annotation (Placement(transformation(extent={{100,-2},{140,38}})));
   CDL.Interfaces.RealOutput TSetTarPreCoo
                                          "setpoint target for precool"
@@ -26,7 +26,7 @@ model ZoneSetpointSource
   CDL.Interfaces.RealOutput TSetTarSheCoo
                                          "setpoint target for load shed"
     annotation (Placement(transformation(extent={{100,-66},{140,-26}})));
-  CDL.Interfaces.RealOutput TSetOrgCoo "original setpoint"
+  CDL.Interfaces.RealOutput TSetBasCoo "baseline setpoint"
     annotation (Placement(transformation(extent={{100,-102},{140,-62}})));
   CDL.Logical.Sources.TimeTable booTimTab(
     table=[0,0; occStaHouSta,1; occStaHouEnd,0; 24,0],
@@ -47,13 +47,13 @@ model ZoneSetpointSource
     annotation (Placement(transformation(extent={{62,70},{82,90}})));
   CDL.Reals.Subtract sub1
     annotation (Placement(transformation(extent={{46,-30},{66,-10}})));
-  CDL.Reals.Sources.Constant con(k=delTSetPreHea)
+  CDL.Reals.Sources.Constant con(k=TSetAdjPreHea)
     annotation (Placement(transformation(extent={{-84,64},{-64,84}})));
-  CDL.Reals.Sources.Constant con1(k=delTSetSheHea)
+  CDL.Reals.Sources.Constant con1(k=TSetAdjSheHea)
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-  CDL.Reals.Sources.Constant con2(k=delTSetPreCoo)
+  CDL.Reals.Sources.Constant con2(k=TSetAdjPreCoo)
     annotation (Placement(transformation(extent={{-72,-28},{-52,-8}})));
-  CDL.Reals.Sources.Constant con3(k=delTSetSheCoo)
+  CDL.Reals.Sources.Constant con3(k=TSetAdjSheCoo)
     annotation (Placement(transformation(extent={{-74,-62},{-54,-42}})));
 equation
   connect(booTimTab.y[1], booToRea.u) annotation (Line(points={{-64,18},{-10,18}},
@@ -61,9 +61,9 @@ equation
   connect(booTimTab.y[1], booToRea1.u) annotation (Line(points={{-64,18},{-22,
           18},{-22,-82},{-8,-82}},
                                 color={255,0,255}));
-  connect(booToRea.y,TSetOrgHea)  annotation (Line(points={{14,18},{120,18}},
+  connect(booToRea.y,TSetBasHea)  annotation (Line(points={{14,18},{120,18}},
                      color={0,0,127}));
-  connect(booToRea1.y,TSetOrgCoo)  annotation (Line(points={{16,-82},{120,-82}},
+  connect(booToRea1.y,TSetBasCoo)  annotation (Line(points={{16,-82},{120,-82}},
                            color={0,0,127}));
   connect(add1.y, TSetTarPreHea) annotation (Line(points={{84,80},{120,80}},
                      color={0,0,127}));
@@ -94,6 +94,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block creates outputs for a zone&apos;s cooling and heating setpoint under different occupancy conditions and different demand flexibility modes (pre-cool/pre-heat, baseline, load shed, load rebound). The pre-set variables are heating and cooling occupied and unoccupied setpoints under the baseline scenario. Then, adjustment variables such as <span style=\"font-family: Courier New;\">delTSetPreHea </span>and <span style=\"font-family: Courier New;\">delTSetSheHea </span>are applied to the heating and cooling occupied and unoccupied setpoints to output the desired setpoints. </p>
+<p>This block creates output variables for a zone&apos;s cooling and heating setpoint under different occupancy conditions (occupied and unoccupied) and different demand flexibility modes (pre-cool/pre-heat, baseline, load-shed, load-rebound). </p>
+<p>The parameters for this block are heating or cooling, and occupied or unoccupied setpoints under the baseline mode. Then, adjustment parameters such as <span style=\"font-family: Courier New;\">TSetAdjPreHea </span>and <span style=\"font-family: Courier New;\">TSetAdjSheHea </span>are applied to the setpoints under the baseline mode to output the desired setpoints for all demand flexibility modes. </p>
 </html>"));
 end ZoneSetpointSource;

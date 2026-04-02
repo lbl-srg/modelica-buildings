@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SetpointMultipleStepChange
 
-   parameter Real delCha=1
-    "Change amount";
+   parameter Real delSet=1
+    "setpoint change amount";
 
     parameter Real samPer(unit="s")=300
     "Sample period";
@@ -10,7 +10,7 @@ block SetpointMultipleStepChange
     annotation (Placement(transformation(extent={{166,-10},{186,10}})));
   CDL.Interfaces.RealInput uSetTar "setpoint target"
     annotation (Placement(transformation(extent={{-140,-46},{-100,-6}})));
-  CDL.Interfaces.RealInput uSetOrg "original setpoint"
+  CDL.Interfaces.RealInput uSetBas "baseline setpoint"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   CDL.Interfaces.RealOutput ySetCom "setpoint command"
     annotation (Placement(transformation(extent={{200,-20},{240,20}})));
@@ -26,7 +26,7 @@ block SetpointMultipleStepChange
     annotation (Placement(transformation(extent={{86,36},{106,56}})));
   CDL.Reals.Max                        max1
     annotation (Placement(transformation(extent={{46,8},{66,28}})));
-  CDL.Reals.Sources.Constant con(k=delCha)
+  CDL.Reals.Sources.Constant con(k=delSet)
     annotation (Placement(transformation(extent={{-86,-68},{-66,-48}})));
   CDL.Reals.Switch swi
     annotation (Placement(transformation(extent={{38,-70},{58,-50}})));
@@ -37,7 +37,7 @@ block SetpointMultipleStepChange
   CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
         transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,56},
             {240,96}})));
-  CDL.Interfaces.BooleanOutput reach_uSetOrg annotation (Placement(
+  CDL.Interfaces.BooleanOutput reach_uSetBas annotation (Placement(
         transformation(extent={{200,-92},{240,-52}}), iconTransformation(extent={{200,-88},
             {240,-48}})));
   ExactEqualReal exactEqualReal
@@ -47,10 +47,10 @@ block SetpointMultipleStepChange
 equation
   connect(con.y, add.u2) annotation (Line(points={{-64,-58},{-50,-58}},
                                 color={0,0,127}));
-  connect(uSetOrg, min1.u2) annotation (Line(points={{-120,-80},{-88,-80},{-88,
+  connect(uSetBas, min1.u2) annotation (Line(points={{-120,-80},{-88,-80},{-88,
           -100},{16,-100},{16,-8},{78,-8},{78,40},{84,40}},
                      color={0,0,127}));
-  connect(uSetOrg, max1.u2) annotation (Line(points={{-120,-80},{-88,-80},{-88,
+  connect(uSetBas, max1.u2) annotation (Line(points={{-120,-80},{-88,-80},{-88,
           -100},{16,-100},{16,12},{44,12}},
                      color={0,0,127}));
   connect(have_pri, swi.u2) annotation (Line(points={{-120,80},{-10,80},{-10,
@@ -68,14 +68,14 @@ equation
                              color={0,0,127}));
   connect(max2.y, sam.u) annotation (Line(points={{154,0},{164,0}},
                                 color={0,0,127}));
-  connect(reach_uSetOrg,reach_uSetOrg)
+  connect(reach_uSetBas,reach_uSetBas)
     annotation (Line(points={{220,-72},{220,-72}}, color={255,0,255}));
   connect(exactEqualReal.yEquFla, reach_uSetTar)
     annotation (Line(points={{70,108},{194,108},{194,80},{220,80}},
                                                            color={255,0,255}));
-  connect(uSetOrg, exactEqualReal1.u2) annotation (Line(points={{-120,-80},{-88,
+  connect(uSetBas, exactEqualReal1.u2) annotation (Line(points={{-120,-80},{-88,
           -80},{-88,-118},{52,-118}},                   color={0,0,127}));
-  connect(exactEqualReal1.yEquFla,reach_uSetOrg)  annotation (Line(points={{76,-112},
+  connect(exactEqualReal1.yEquFla,reach_uSetBas)  annotation (Line(points={{76,-112},
           {194,-112},{194,-72},{220,-72}},   color={255,0,255}));
   connect(max1.y, min2.u1) annotation (Line(points={{68,18},{72,18},{72,-16},{
           86,-16}}, color={0,0,127}));
@@ -101,18 +101,18 @@ equation
         grid={2,2})),
     Documentation(info="<html>
 <p>This block serves to change the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span>
- between the original setpoint <span style=\"font-family: Courier New;\">uSetOrg</span>
+ between the baseline setpoint <span style=\"font-family: Courier New;\">uSetBas</span>
  and the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span> in
  multiple smaller steps. The amount of change in each smaller step is represented
- by the parameter <code>delCha</code>, with positive value indicating setpoint increase while
+ by the parameter <code>delSet</code>, with positive value indicating setpoint increase while
  negative value indicating setpoint decrease. Each smaller step is taken every
  <span style=\"font-family: Courier New;\">samPer</span> seconds. The resultant
  setpoint will be outputted as the <span style=\"font-family: Courier New;\">ySetCom</span>
  output variable, which represents the new setpoint that a zone or a piece of equipment
  shall have. This in turn changes the value of the current setpoint <code>uSetCur</code> from outside
  this block, completing a full control loop.</p>
-<p>This block provides the freedom to account for both <code>uSetOrg &gt;= uSetTar</code> and <code>uSetOrg
- &lt; uSetTar</code> cases. Setpoint increase and decrease is entirely determined by the <code>delCha</code>
+<p>This block provides the freedom to account for both <code>uSetBas &gt;= uSetTar</code> and <code>uSetBas
+ &lt; uSetTar</code> cases. Setpoint increase and decrease is entirely determined by the <code>delSet</code>
  parameter.</p>
 <p><br>The <span style=\"font-family: Courier New;\">have_pri</span> boolean input variable
  specifies whether the setpoint change operation will be executed or not. This is useful
@@ -128,8 +128,8 @@ the changes to the current setpoint <span style=\"font-family: Courier New;\">uS
 unidirectional changes to the current setpoint <code>uSetCur</code> needs to happen outside 
 of this block. </p>
 <p>Output variables also include boolean flags that specify whether the 
-current setpoint has reached the original setpoint 
-<span style=\"font-family: Courier New;\">uSetOrg</span> or the target 
+current setpoint has reached the baseline setpoint 
+<span style=\"font-family: Courier New;\">uSetBas</span> or the target 
 setpoint <span style=\"font-family: Courier New;\">uSetTar</span>. </p>
 </html>"));
 end SetpointMultipleStepChange;

@@ -22,7 +22,7 @@ equation
         points={{-48,0},{-30,0},{-30,-51},{16,-51}}, color={255,0,255}));
   connect(con.y, setpointMultipleStepChange.uSetTar) annotation (Line(points={{
           -50,-58},{-30,-58},{-30,-61.6},{16,-61.6}}, color={0,0,127}));
-  connect(con1.y,setpointMultipleStepChange.uSetOrg)  annotation (Line(points={
+  connect(con1.y,setpointMultipleStepChange.uSetBas)  annotation (Line(points={
           {-56,-92},{-32,-92},{-32,-67},{16,-67}}, color={0,0,127}));
   connect(setpointMultipleStepChange.ySetCom, singleTemperatureSetpointMock.uTSet)
     annotation (Line(points={{50,-59},{50,-60},{68,-60},{68,-18},{48,-18}},

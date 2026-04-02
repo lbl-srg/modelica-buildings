@@ -12,7 +12,7 @@ block ModeSelection
     annotation (Placement(transformation(extent={{88,-48},{108,-28}})));
   CDL.Interfaces.RealInput uPre
     annotation (Placement(transformation(extent={{-140,26},{-100,66}})));
-  CDL.Interfaces.RealInput uOrg
+  CDL.Interfaces.RealInput uBas
     annotation (Placement(transformation(extent={{-140,-12},{-100,28}})));
   CDL.Interfaces.RealInput uShe
     annotation (Placement(transformation(extent={{-140,-52},{-100,-12}})));
@@ -61,7 +61,7 @@ equation
   connect(swi1.y, swi2.u3) annotation (Line(points={{78,10},{82,10},{82,-46},{
           86,-46}},
                  color={0,0,127}));
-  connect(uOrg, swi.u3) annotation (Line(points={{-120,8},{-94,8},{-94,30},{18,
+  connect(uBas, swi.u3) annotation (Line(points={{-120,8},{-94,8},{-94,30},{18,
           30},{18,62}},          color={0,0,127}));
   connect(uMod, intEqu.u2) annotation (Line(points={{-120,88},{-86,88},{-86,62},
           {-28,62}}, color={255,127,0}));
@@ -74,6 +74,6 @@ equation
         extent={{-100,-120},{130,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block serves to choose which of the input variables, including <span style=\"font-family: Courier New;\">uPre</span>, <span style=\"font-family: Courier New;\">uNom</span>, <span style=\"font-family: Courier New;\">uShe</span>, <span style=\"font-family: Courier New;\">uReb</span>, to output as the output variable <span style=\"font-family: Courier New;\">y</span>, based on the mode of the system <span style=\"font-family: Courier New;\">uMod</span>. </p>
+<p>This block serves to choose which of the input variables, including <span style=\"font-family: Courier New;\">uPre</span>, <span style=\"font-family: Courier New;\">uBas</span>, <span style=\"font-family: Courier New;\">uShe</span>, <span style=\"font-family: Courier New;\">uReb</span>, to output as the output variable <span style=\"font-family: Courier New;\">y</span>, based on the demand flexibility mode of the system <span style=\"font-family: Courier New;\">uMod</span>. Demand flexibility modes include the pre-cool/pre-heat mode (<span style=\"font-family: Courier New;\">uMod</span> = -1), the baseline mode (<span style=\"font-family: Courier New;\">uMod</span> = 0), the load-shed mode (<span style=\"font-family: Courier New;\">uMod</span> = 1), and the load-rebound mode (<span style=\"font-family: Courier New;\">uMod</span> = 2).</p>
 </html>"));
 end ModeSelection;
