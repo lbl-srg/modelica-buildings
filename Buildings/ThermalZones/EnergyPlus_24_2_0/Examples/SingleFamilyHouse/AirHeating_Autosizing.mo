@@ -66,7 +66,7 @@ model AirHeating_Autosizing
     dp_nominal=200,
     tau=0,
     show_T=true,
-    QMax_flow=sysSiz1.sizHea.QSen_flow)
+    QMax_flow=sizSys1.sizHea.QSen_flow)
     "Ideal heater"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Fluid.Sources.Boundary_pT pAtm(
@@ -123,7 +123,7 @@ model AirHeating_Autosizing
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=8) "Gain factor"
     annotation (Placement(transformation(extent={{-6,-90},{14,-70}})));
-  SystemSizing sysSiz1(hvacSystemName="sys1", autosizeHVAC=true)
+  SystemSizing sizSys1(hvacSystemName="sys1", autosizeHVAC=true)
     "Block for sizing of sys 1"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 initial equation
