@@ -81,6 +81,10 @@ initial equation
     isSynchronized=building.isSynchronized);
 
   sizHea.QLat_flow=0;
+  sizCoo.TSet=0;
+  sizCoo.XSet=0;
+  sizHea.TSet=0;
+  sizHea.XSet=0;
   {sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, sizCoo.XOut, sizCoo.mOut_flow, sizCoo.t,
     sizHea.QSen_flow,                   sizHea.TOut, sizHea.XOut, sizHea.mOut_flow, sizHea.t} =
     Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(

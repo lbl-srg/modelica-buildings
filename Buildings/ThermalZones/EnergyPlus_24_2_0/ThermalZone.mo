@@ -54,6 +54,8 @@ model ThermalZone
   BaseClasses.Sizing sizCoo(
     final QSen_flow(fixed=true)=fmuZon.sizCoo.QSen_flow,
     final QLat_flow(fixed=true)=fmuZon.sizCoo.QLat_flow,
+    final TSet(fixed=true)=fmuZon.sizCoo.TSet,
+    final XSet(fixed=true)=fmuZon.sizCoo.XSet,
     final TOut(fixed=true)=fmuZon.sizCoo.TOut,
     final XOut(fixed=true)=fmuZon.sizCoo.XOut,
     final t(fixed=true)=fmuZon.sizCoo.t,
@@ -63,6 +65,8 @@ model ThermalZone
   BaseClasses.Sizing sizHea(
     final QSen_flow(fixed=true)=fmuZon.sizHea.QSen_flow,
     final QLat_flow(fixed=true)=fmuZon.sizHea.QLat_flow,
+    final TSet(fixed=true)=fmuZon.sizHea.TSet,
+    final XSet(fixed=true)=fmuZon.sizHea.XSet,
     final TOut(fixed=true)=fmuZon.sizHea.TOut,
     final XOut(fixed=true)=fmuZon.sizHea.XOut,
     final t(fixed=true)=fmuZon.sizHea.t,

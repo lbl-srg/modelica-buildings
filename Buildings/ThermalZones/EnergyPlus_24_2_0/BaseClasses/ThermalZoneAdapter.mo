@@ -52,6 +52,8 @@ model ThermalZoneAdapter
   final parameter Modelica.Units.SI.Volume V(fixed=false) "Zone volume";
   final parameter Real XOutCoo(fixed=false) "Humidity ratio at cooling design from E+";
   final parameter Real XOutHea(fixed=false) "Humidity ratio at heating design from E+";
+  final parameter Real XSetCoo(fixed=false) "Zone cooling set point humidity used for sizing from E+";
+  final parameter Real XSetHea(fixed=false) "Zone heating set point humidity used for sizing from E+";
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
@@ -100,7 +102,7 @@ model ThermalZoneAdapter
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
 protected
-  constant Integer nParOut=14
+  constant Integer nParOut=18
     "Number of parameter values retrieved from EnergyPlus";
   constant Integer nInp=5
     "Number of inputs";
@@ -136,11 +138,11 @@ protected
     jsonName="zones",
     jsonKeysValues="        \"name\": \""+zoneName+"\"",
     parOutNames={"AFlo","V","mSenFac",
-      "QCooSen_flow", "QCooLat_flow", "TOutCoo", "XOutCoo", "mOutCoo_flow", "tCoo",
-      "QHea_flow",                    "TOutHea", "XOutHea", "mOutHea_flow","tHea"},
+      "QCooSen_flow", "QCooLat_flow", "TOutCoo", "TSetCoo", "XSetCoo", "XOutCoo", "mOutCoo_flow", "tCoo",
+      "QHea_flow",                    "TOutHea", "TSetHea", "XSetHea", "XOutHea", "mOutHea_flow","tHea"},
     parOutUnits={"m2","m3","1",
-      "W", "W", "K", "1", "kg/s", "s",
-      "W",      "K", "1", "kg/s", "s"},
+      "W", "W", "K", "K", "1", "1", "kg/s", "s",
+      "W",      "K", "K", "1", "1", "kg/s", "s"},
     nParOut=nParOut,
     inpNames={"T","X","mInlets_flow","TAveInlet","QGaiRad_flow"},
     inpUnits={"K","1","kg/s","K","W"},
@@ -222,25 +224,19 @@ initial equation
 
   sizHea.QLat_flow=0;
   {AFlo,V,mSenFac,
-    sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, XOutCoo, sizCoo.mOut_flow, sizCoo.t,
-    sizHea.QSen_flow,                   sizHea.TOut, XOutHea, sizHea.mOut_flow, sizHea.t} =
+    sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, sizCoo.TSet, XSetCoo, XOutCoo, sizCoo.mOut_flow, sizCoo.t,
+    sizHea.QSen_flow,                   sizHea.TOut, sizHea.TSet, XSetHea, XOutHea, sizHea.mOut_flow, sizHea.t} =
       Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
         adapter=adapter,
         nParOut=nParOut,
         isSynchronized=nObj);
   // Below is for conversion from kg/kg_dry_air (EnergyPlus) to kg/kg_total_air (Modelica)
-  if XOutCoo > 0 then
-    (1/XOutCoo)=(1-sizCoo.XOut)/sizCoo.XOut;
-  else
-    sizCoo.XOut = 0;
-  end if;
+  XOutCoo=sizCoo.XOut/(1-sizCoo.XOut);
+  XOutHea=sizHea.XOut/(1-sizHea.XOut);
+  XSetCoo=sizCoo.XSet/(1-sizCoo.XSet);
+  XOutHea=sizHea.XSet/(1-sizHea.XSet);
 
-  if XOutHea > 0 then
-    (1/XOutHea)=(1-sizHea.XOut)/sizHea.XOut;
-  else
-    sizHea.XOut = 0;
-  end if;
-
+  // m_flow_small
   m_flow_small=V*3*1.2/3600*1E-10;
   startTime=time;
 

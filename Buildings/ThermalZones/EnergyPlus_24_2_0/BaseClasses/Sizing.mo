@@ -5,10 +5,14 @@ record Sizing "Record of sizing parameters"
     "Design sensible load";
   parameter Modelica.Units.SI.Power QLat_flow(fixed=false)
     "Design latent load";
+  parameter Modelica.Units.SI.Temperature TSet(fixed=false)
+    "Indoor temperature set point at the design load";
+  parameter Modelica.Units.SI.DimensionlessRatio XSet(fixed=false)
+    "Indoor humidity ratio set point at the design load per total air mass";
   parameter Modelica.Units.SI.Temperature TOut(fixed=false)
     "Outdoor drybulb temperature at the design load";
   parameter Modelica.Units.SI.DimensionlessRatio XOut(fixed=false)
-    "Outdoor humidity ratio at the design load per total air mass of the zone";
+    "Outdoor humidity ratio at the design load per total air mass";
   parameter Modelica.Units.SI.MassFlowRate mOut_flow(fixed=false)
     "Minimum outdoor air flow rate during the design load";
   parameter Modelica.Units.SI.Time t(fixed=false)
