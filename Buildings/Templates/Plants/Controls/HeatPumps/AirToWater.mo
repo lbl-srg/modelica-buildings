@@ -1605,19 +1605,22 @@ block AirToWater
     if have_heaWat and have_chiWat
     "Select supply temperature setpoint based on operating mode"
     annotation (Placement(transformation(extent={{190,-130},{210,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTChiWatSupSet(final
-      nout=nHpTot) if have_chiWat "Replicate CHWST setpoint"
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTChiWatSupSet(
+    final nout=nHpTot) if have_chiWat
+    "Replicate CHWST setpoint"
     annotation (Placement(transformation(extent={{150,-150},{170,-130}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupSet(final
-      nout=nHpTot) if have_heaWat "Replicate HWST setpoint"
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupSet(
+    final nout=nHpTot) if have_heaWat
+    "Replicate HWST setpoint"
     annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasTHeaWatSupSet(final nin
-      =nHpTot,                                                             final
-      nout=nHpTot) if have_heaWat and not have_chiWat
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasTHeaWatSupSet(
+    final nin=nHpTot,
+    final nout=nHpTot) if have_heaWat and not have_chiWat
     "Direct pass through for HWST setpoint"
     annotation (Placement(transformation(extent={{214,-110},{234,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasTChiWatSupSet(final nin
-      =nHpTot, final nout=nHpTot) if have_chiWat and not have_heaWat
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasTChiWatSupSet(
+    final nin=nHpTot,
+    final nout=nHpTot) if have_chiWat and not have_heaWat
     "Direct pass through for CHWST setpoint"
     annotation (Placement(transformation(extent={{214,-150},{234,-130}})));
   HeatRecoveryChillers.Controller hrc(
@@ -1635,13 +1638,15 @@ block AirToWater
     final rho_default=rho_default) if have_hrc
     "Sidestream heat recovery chiller control"
     annotation (Placement(transformation(extent={{200,-320},{220,-288}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasDpHeaWatRemSet(final
-      nin=nSenDpHeaWatRem, final nout=nSenDpHeaWatRem)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasDpHeaWatRemSet(
+    final nin=nSenDpHeaWatRem,
+    final nout=nSenDpHeaWatRem)
     if have_heaWat and have_senDpHeaWatRemWir
     "Direct pass through for HW ∆p setpoint"
     annotation (Placement(transformation(extent={{90,110},{110,130}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasDpChiWatRemSet(final
-      nin=nSenDpChiWatRem, final nout=nSenDpChiWatRem)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasDpChiWatRemSet(
+    final nin=nSenDpChiWatRem,
+    final nout=nSenDpChiWatRem)
     if have_chiWat and have_senDpChiWatRemWir
     "Direct pass through for CHW ∆p setpoint"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
@@ -1661,12 +1666,14 @@ block AirToWater
     if is_priOnl and not have_fouPip
     "CHW/HW minimum flow bypass valve controller"
     annotation (Placement(transformation(extent={{260,-248},{280,-224}})));
-  Utilities.PlaceholderReal VHeaWatLoa_flow(final have_inp=is_priOnl, final
-      have_inpPh=true) if have_heaWat
+  Utilities.PlaceholderReal VHeaWatLoa_flow(
+    final have_inp=is_priOnl,
+    final have_inpPh=true) if have_heaWat
     "For HRC logic select either primary or secondary sensor depending on plant configuration"
     annotation (Placement(transformation(extent={{-140,-84},{-120,-64}})));
-  Utilities.PlaceholderReal VChiWatLoa_flow(final have_inp=is_priOnl, final
-      have_inpPh=true) if have_chiWat
+  Utilities.PlaceholderReal VChiWatLoa_flow(
+    final have_inp=is_priOnl,
+    final have_inpPh=true) if have_chiWat
     "For HRC logic select either primary or secondary sensor depending on plant configuration"
     annotation (Placement(transformation(extent={{-140,-124},{-120,-104}})));
 
