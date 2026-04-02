@@ -184,6 +184,10 @@ model HybridAirToWater "Controller for AWHP plant"
     if cfg.have_chiWat and not have_senDpChiWatRemWir
     "Local CHW DP reset"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2[cfg.nPumHeaWatPri]
+    if cfg.have_fouPip
+    "Combine primary pump signals for heating and cooling mode"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 equation
   /* Control point connection - start */
   // Inputs from plant control bus
@@ -233,7 +237,11 @@ equation
   connect(ctl.y1Hp, busHp.y1);
   connect(ctl.y1PumChiWatPri, busPumChiWatPri.y1);
   connect(ctl.y1PumChiWatSec, busPumChiWatSec.y1);
+  if cfg.have_fouPip then
+    connect(or2.y, busPumHeaWatPri.y1);
+  else
   connect(ctl.y1PumHeaWatPri, busPumHeaWatPri.y1);
+  end if;
   connect(ctl.y1PumHeaWatSec, busPumHeaWatSec.y1);
   connect(ctl.y1ValChiWatHpInlIso, busValChiWatHpInlIso.y1);
   connect(ctl.y1ValChiWatHpOutIso, busValChiWatHpOutIso.y1);
@@ -348,6 +356,10 @@ equation
   connect(ctl.y1PumHeaWatPriFouPip, busPumFouPipHeaWatPri.y1);
   connect(ctl.y1PumChiWatPriFouPip, busPumFouPipChiWatPri.y1);
   connect(busHpFouPip, bus.hpFouPip);
+  connect(ctl.y1PumHeaWatPri, or2.u1) annotation (Line(points={{22,27},{52,27},{
+          52,10},{58,10}}, color={255,0,255}));
+  connect(ctl.y1PumChiWatPri, or2.u2) annotation (Line(points={{22,25},{44,25},{
+          44,2},{58,2}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>
