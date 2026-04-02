@@ -1,11 +1,14 @@
 ASHRAE2006Spring
 ASHRAE2006Summer
 ASHRAE2006Winter
+ASHRAE2006Winter_Autosizing
 Guideline36Spring
 Guideline36Summer
 Guideline36Winter
+Guideline36Winter_Autosizing
 IdealHeatingCoolingSpring
 IdealHeatingCoolingSummer
 IdealHeatingCoolingWinter
 Unconditioned
+Unconditioned_Autosizing_MultipleSystems
 BaseClasses
