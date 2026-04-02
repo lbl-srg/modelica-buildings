@@ -22,33 +22,42 @@ partial model PartialChiller
   parameter Boolean have_switchover=false
     "Set to true for heat recovery chiller with built-in switchover"
     annotation (Evaluate=true,
-    Dialog(group="Configuration",
-      enable=false));
+    Dialog(group="Configuration", enable=false));
+  parameter Boolean use_TChiWatSupForCtl=true
+    "Set to true for CHW supply temperature control, false for CHW return temperature control"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Data.Chiller dat(
-    typ=typ,
-    cpChiWat_default=cpChiWat_default,
-    cpCon_default=cpCon_default)
+    typ=typ)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,80},{90,100}})),
     __ctrlFlow(enable=false));
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=dat.mChiWat_flow_nominal
-    "CHW mass flow rate";
+    "Design CHW mass flow rate";
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=dat.mCon_flow_nominal
-    "Condenser cooling fluid mass flow rate";
+    "Design condenser cooling fluid mass flow rate";
   final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=dat.cap_nominal
-    "Cooling capacity";
+    "Design cooling capacity";
+  final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=-abs(cap_nominal)
+    "Design cooling heat flow rate";
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal=dat.dpChiWat_nominal
-    "CHW pressure drop";
+    "Design CHW pressure drop";
   final parameter Modelica.Units.SI.PressureDifference dpCon_nominal=dat.dpCon_nominal
-    "Condenser cooling fluid pressure drop";
+    "Design condenser cooling fluid pressure drop";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=dat.TChiWatSup_nominal
-    "CHW supply temperature";
-  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=dat.TChiWatRet_nominal
-    "CHW return temperature";
-  final parameter Modelica.Units.SI.Temperature TConEnt_nominal=dat.TConEnt_nominal
-    "Condenser entering fluid temperature";
-  final parameter Modelica.Units.SI.Temperature TConLvg_nominal=dat.TConLvg_nominal
-    "Condenser leaving fluid temperature";
+    "Design CHW supply temperature";
+  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
+    TChiWatSup_nominal - QChiWat_flow_nominal / cpChiWat_default / mChiWat_flow_nominal
+    "Design CHW return temperature";
+  // Derived classes must provide bindings for the condenser variables and COP at design.
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal
+    "Design condenser heat flow rate";
+  parameter Modelica.Units.SI.Temperature TConEnt_nominal
+    "Design condenser entering fluid temperature";
+  parameter Modelica.Units.SI.Temperature TConLvg_nominal
+    "Design condenser leaving fluid temperature";
+  parameter Modelica.Units.SI.Efficiency COP_nominal
+    "Coefficient of performance at design cooling conditions";
   parameter Boolean have_dpChiWat=true
     "Set to true for CHW pressure drop computed by this model, false for external computation"
     annotation (Evaluate=true,
@@ -79,7 +88,7 @@ partial model PartialChiller
   final parameter MediumCon.SpecificHeatCapacity cpCon_default=MediumCon.specificHeatCapacityCp(staCon_default)
     "Condenser cooling fluid default specific heat capacity";
   final parameter MediumCon.ThermodynamicState staCon_default=MediumCon.setState_pTX(
-    T=TConEnt_nominal,
+    T=dat.TCon_nominal,
     p=MediumCon.p_default,
     X=MediumCon.X_default)
     "Condenser cooling fluid default state";
@@ -96,6 +105,10 @@ This partial class provides a standard interface for chiller models.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 17, 2025, by Antoine Gautier:<br/>
+Refactored for load-dependent 2D table data chiller model.
+</li>
 <li>
 November 18, 2022, by Antoine Gautier:<br/>
 First implementation.

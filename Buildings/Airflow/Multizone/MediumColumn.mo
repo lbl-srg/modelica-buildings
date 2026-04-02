@@ -113,8 +113,6 @@ equation
         Text(
           extent={{36,26},{88,-10}},
           textColor={0,0,127},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
           textString="h=%h"),
         Rectangle(
           extent={{-16,80},{16,-80}},

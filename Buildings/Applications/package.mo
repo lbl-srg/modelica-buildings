@@ -1,6 +1,6 @@
 within Buildings;
 package Applications "Package with models for different application domains"
-  extends Modelica.Icons.VariantsPackage;
+  extends Modelica.Icons.Package;
 
 annotation (
 preferredView="info",
@@ -13,5 +13,11 @@ Buildings.Applications.DataCenters</a>
 with models for data centers.
 It is intented that other application domains will be added in the future.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={       Text(
+          extent={{-100,100},{100,-100}},
+          textColor={0,0,0},
+          fontName="monospace",
+          textStyle={TextStyle.Bold},
+          textString="A")}));
 end Applications;

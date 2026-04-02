@@ -362,49 +362,40 @@ annotation (
         Text(
           extent={{-98,70},{-64,52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{-100,46},{-72,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-100,26},{-72,14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-98,-22},{-54,-38}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VSet_flow"),
         Text(
           extent={{-100,-54},{-58,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-96,-84},{-46,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{36,68},{98,52}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonTemResReq"),
         Text(
           extent={{40,-50},{98,-66}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yZonPreResReq"),
         Text(
           extent={{-98,98},{-58,84}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uAftSup")}),
   Documentation(info="<html>
 <p>

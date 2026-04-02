@@ -14,32 +14,31 @@ function powerLaw "Power law used in orifice equations"
 protected
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
-  Real a
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  Real b
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  Real c
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  Real d
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  Real pi "Normalized pressure";
-  Real pi2 "Square of normalized pressure";
+  Real pi = dp/dp_turbulent "Normalized pressure";
+  Real pi2 = pi*pi "Square of normalized pressure";
 algorithm
- if (dp >= dp_turbulent) then
-   V_flow :=C *dp^m;
+ V_flow := if (dp >= dp_turbulent) then
+   C *dp^m
  elseif (dp <= -dp_turbulent) then
-   V_flow :=-C*(-dp)^m;
+   -C*(-dp)^m
  else
+   C *dp_turbulent^m * pi *
+     ( gamma + pi2 *
+     ( (1/8*m^2 - 3*gamma - 3/2*m + 35.0/8) + pi2 *
+     ( (-1/4*m^2 + 3*gamma + 5/2*m - 21.0/4) + pi2 *
+     (1/8*m^2 - gamma - m + 15.0/8))));
+   /*
    a := gamma;
    b := 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8;
    c := -1/4*m^2 + 3*gamma + 5/2*m - 21.0/4;
    d := 1/8*m^2 - gamma - m + 15.0/8;
-   pi  := dp/dp_turbulent;
-   pi2 := pi*pi;
    V_flow :=C *dp_turbulent^m * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d)));
- end if;
+   */
 
-  annotation (smoothOrder=2,
+
+  annotation (
+  smoothOrder=2,
+  Inline=true,
 Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
@@ -81,6 +80,16 @@ of a model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Refactored implementation to allow function to be inlined.
+This leads to a 20% faster simulation of
+<a href=\"modelica://Buildings.Airflow.Multizone.Examples.OneOpenDoor\">
+Buildings.Airflow.Multizone.Examples.OneOpenDoor</a> compared to the previous
+implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 February 8, 2022, by Michael Wetter:<br/>
 Changed to use <code>C</code> for volume flow coefficient (<i>C = V_flow/dp^m</i>),

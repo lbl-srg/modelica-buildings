@@ -6,9 +6,6 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Types.HeatPump typ
     "Type of heat pump"
     annotation (Evaluate=true);
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod
-    "Type of heat pump model"
-    annotation (Evaluate=true);
   parameter Boolean have_heaWat
     "Set to true if the plant provides HW"
     annotation (Evaluate=true);

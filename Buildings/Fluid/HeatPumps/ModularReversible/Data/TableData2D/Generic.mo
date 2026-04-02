@@ -73,7 +73,13 @@ heating and cooling and process chillers, with electrically driven compressors
 https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>
 </p>
 </html>",
-        revisions="<html><ul>
+        revisions="<html>
+<ul>
+<li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
 <li>
 May 22, 2025, by Michael Wetter:<br/>
 Revised comment.<br/>
@@ -94,5 +100,5 @@ This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPS
   </li>
 </ul>
 </html>
-"),Icon);
+"));
 end Generic;

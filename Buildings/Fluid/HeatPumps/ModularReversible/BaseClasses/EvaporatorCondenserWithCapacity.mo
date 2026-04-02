@@ -140,17 +140,11 @@ equation
         Text(
           extent={{-36,52},{36,82}},
           textColor={0,0,0},
-          pattern=LinePattern.Dash,
-          fillColor={255,215,136},
-          fillPattern=FillPattern.Solid,
           textString="C",
           visible=use_cap),
         Text(
           extent={{-36,-18},{36,12}},
           textColor={0,0,0},
-          pattern=LinePattern.Dash,
-          fillColor={255,215,136},
-          fillPattern=FillPattern.Solid,
           textString="V"),
         Rectangle(
           extent={{-107,5},{-44,-4}},
@@ -253,9 +247,6 @@ equation
         Text(
           extent={{-100,-100},{100,-60}},
           textColor={28,108,200},
-          pattern=LinePattern.Dash,
-          fillColor={255,215,136},
-          fillPattern=FillPattern.Solid,
           textString="Q_flow")}),Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018,</i> by Fabian Wuellhorst:<br/>

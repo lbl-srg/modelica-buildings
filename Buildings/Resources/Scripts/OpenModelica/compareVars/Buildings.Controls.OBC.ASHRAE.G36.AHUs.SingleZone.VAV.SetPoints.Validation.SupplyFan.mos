@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "setPoiVAV.uHea",
+    "setPoiVAV.uCoo",
+    "setPoiVAV.y",
+    "setPoiVAV1.y",
+    "setPoiVAV2.y",
+    "setPoiVAV.TZon",
+    "setPoiVAV.TOut"
+  };

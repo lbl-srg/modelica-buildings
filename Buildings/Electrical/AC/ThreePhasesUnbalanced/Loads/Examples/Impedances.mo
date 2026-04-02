@@ -76,11 +76,9 @@ equation
             -100},{100,100}}),      graphics={Text(
           extent={{-80,80},{0,74}},
           textColor={0,0,0},
-          pattern=LinePattern.Dash,
           textString="Without neutral"), Text(
           extent={{-80,-10},{0,-16}},
           textColor={0,0,0},
-          pattern=LinePattern.Dash,
           textString="With neutral")}),        Documentation(info="<html>
 <p>
 This example model shows how to use three-phase unbalanced impedances with and without neutral cable.

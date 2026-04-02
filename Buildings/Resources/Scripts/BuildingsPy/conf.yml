@@ -6,10 +6,26 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
-- model_name: Buildings.DHC.ETS.Combined.Validation.ChillerBorefield
+- model_name: Buildings.DHC.ETS.Combined.Examples.HeatRecoveryHeatPump
   openmodelica:
-    comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
-    simulate: false
+    comment: Internal error NFCeval.evalBinaryDiv failed to evaluate datHeaPum.QCooAct_flow_nominal / 5.0
+    translate: false
+- model_name: Buildings.DHC.ETS.Combined.Validation.HeatRecoveryHeatPump
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryDiv failed to evaluate datHeaPum.QCooAct_flow_nominal / 5.0
+    translate: false
+- model_name: Buildings.DHC.ETS.Combined.Validation.HeatRecoveryHeatPumpWSE
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryDiv failed to evaluate datHeaPum.QCooAct_flow_nominal / 5.0
+    translate: false
+- model_name: Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithDHW
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryDiv failed to evaluate bui.ets.datHeaPum.mEva_flow_nominal / 995.586
+    translate: false
+- model_name: Buildings.DHC.Examples.Combined.ETSHeatRecoveryHeatPump_BuildingTimeSeries.WithoutDHW
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryDiv failed to evaluate bui.ets.datHeaPum.mEva_flow_nominal / 995.586
+    translate: false
 - model_name: Buildings.DHC.Examples.Combined.SeriesConstantFlow
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -23,15 +39,15 @@
     comment: simulation terminated by an assertion at initialization
     simulate: false
   optimica:
-    comment: FMUException Failed to update the events at time 0.000000E+00.
+    comment: Failed to solve nonlinear equations even with 1E-8.
     simulate: false
 - model_name: Buildings.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
   optimica:
-    comment: 'The system is structurally singular. Modelon #2023012739000252'
-    translate: false
+    comment: 'FMUException: Failed to update the events at time: 1.578082E+07.'
+    simulate: false
 - model_name: Buildings.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
@@ -79,12 +95,8 @@
     comment: Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910
     simulate: false
   optimica:
-    comment: Timeout after 600 seconds
-    simulate: false
-- model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
-  optimica:
-    comment: Simulation times out
-    simulate: false
+    time_out: 900
+    comment: 'RuntimeError: Process timeout after 600 seconds'
 - model_name: Buildings.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -122,12 +134,13 @@
     comment: simulation terminated by an assertion at initialization.
     simulate: false
 - model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
-  optimica:
-    comment: CVode and Radau5ODE hang since https://github.com/lbl-srg/modelica-buildings/pull/3109, likely because Xi rather than mXi is a state
-    simulate: false
   openmodelica:
     comment: Timeout after 300 seconds.
     simulate: false
+- model_name: Buildings.Examples.FanCoils.FourPipe
+  optimica:
+    comment: Solves six times faster if tolerance is set to 1e-07
+    rtol: 1.0e-07
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
     comment: Times out after 900 seconds.
@@ -139,17 +152,27 @@
   openmodelica:
     comment: Timeout during translation
     time_out: 600
-  optimica:
-    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
-    translate: false
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
     time_out: 600
-  optimica:
-    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
-    translate: false
+- model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
+  openmodelica:
+    comment: CVode is around 10 times faster than dassl
+    solver: cvode
+- model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
+  openmodelica:
+    comment: Error in line 1 when reading numeric data of matrix "tab(532,1)"
+    simulate: false
+- model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_AirCooled
+  openmodelica:
+    comment: Error in line 1 when reading numeric data of matrix "tab(598,1)"
+    simulate: false
+- model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_HeatRecovery
+  openmodelica:
+    comment: Error in line 1 when reading numeric data of matrix "tab(532,1)"
+    simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -186,7 +209,7 @@
     simulate: false
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT
   dymola:
-    time_out: 600
+    time_out: 900
   openmodelica:
     time_out: 600
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
@@ -197,64 +220,69 @@
   openmodelica:
     comment: Timeout after 300 s
     time_out: 600
-  optimica:
-    comment: Timeout after 300 s
-    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
     comment: Translation timeout after 600 s
     translate: false
   optimica:
-    translate: false
-    comment: Singularity, Modelon ticket 956
+    comment: Timeout after 300 s
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.InletTemperaturePulse
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse50
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRateStep100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
-    comment: Singularity, likely related to Modelon ticket 956
+    comment: Not enough memory on travis
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
-  optimica:
-    translate: false
-    comment: Compilation seems to hang, may be related to Modelon ticket 956
+  openmodelica:
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 600
   openmodelica:
     time_out: 600
-  optimica:
-    translate: false
-    comment: Singularity, likely related to Modelon ticket 956
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1And2
+  openmodelica:
+    comment: Translation fails with ubuntu-2204-omc:1.24.0-1 but succeeds with 1.25.1 (simulation succeeds as well).
+    translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1Only
+  openmodelica:
+    comment: Translation fails with ubuntu-2204-omc:1.24.0-1 but succeeds with 1.25.1 (simulation succeeds as well).
+    translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDep
+  openmodelica:
+    comment: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed].
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   optimica:
-    comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start...'
-    translate: false
+    comment: 'CVodeError: ''The rootfinding function failed in an unrecoverable manner. At time 32392.196613.'''
+    simulate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start, isEna.u = loa1.ctl.cha.pre_u_start'
@@ -271,6 +299,14 @@
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
     translate: false
+- model_name: Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Validation.Borefield
+  openmodelica:
+    comment: Errors as borefield leaving temperature drops below freezing
+    simulate: false
+- model_name: Buildings.Obsolete.DHC.ETS.Combined.Validation.ChillerBorefield
+  openmodelica:
+    comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
+    simulate: false
 - model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
@@ -325,14 +361,54 @@
   openmodelica:
     comment: returned non-zero exit status 139.
     simulate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
-  optimica:
-    comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
+- model_name: Buildings.Obsolete.Utilities.IO.Python_3_8.Examples.KalmanFilter
+  dymola:
+    comment: Python 3.8 not available in docker image.
     translate: false
+  openmodelica:
+    comment: python incompatible with docker image
+    translate: false
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
+- model_name: Buildings.Obsolete.Utilities.IO.Python_3_8.Examples.SimpleRoom
+  dymola:
+    comment: Python 3.8 not available in docker image.
+    translate: false
+  openmodelica:
+    comment: python incompatible with docker image
+    translate: false
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
+- model_name: Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.Examples.Exchange
+  dymola:
+    comment: Python 3.8 not available in docker image.
+    translate: false
+  openmodelica:
+    comment: python incompatible with docker image
+    translate: false
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
+- model_name: Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
+  dymola:
+    comment: Python 3.8 not available in docker image.
+    translate: false
+  openmodelica:
+    comment: python incompatible with docker image
+    translate: false
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
   openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.Components.Chillers.Validation.Compression
+  optimica:
+    comment: Translation warning. Access to component not in constrained type, https://github.com/lbl-srg/modelica-buildings/issues/4497.
+    translate: false
+- model_name: Buildings.Templates.Components.Validation.ChillersCompression
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -356,20 +432,11 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-  optimica:
-    comment: PyModelicaException due to NullPointerException
-    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
   openmodelica:
     comment: Translation failed.
     translate: false
-  optimica:
-    comment: Possible chattering detected at t = 3.120112e+03 in state event
-    simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
-  optimica:
-    comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
-    translate: false
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -381,10 +448,6 @@
   openmodelica:
     comment: Time out after 300 s.
     translate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231
-    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.NaturalConvectionWithControl
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -406,9 +469,6 @@
     time_out: 600
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.NaturalConvection
   openmodelica:
@@ -498,8 +558,8 @@
     time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
-    comment: Timeout on travis
-    time_out: 600
+    comment: Timeout on travis after 600 seconds
+    time_out: 900
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   openmodelica:
     comment: returned non-zero exit status 255.
@@ -528,31 +588,31 @@
   openmodelica:
     comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)
     simulate: false
-- model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
+- model_name: Buildings.Utilities.IO.Python_3_12.Examples.KalmanFilter
   openmodelica:
     comment: python incompatible with docker image
     translate: false
   optimica:
-    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    comment: Optimica uses Python 3.11, while the examples use Python 3.12
     translate: false
-- model_name: Buildings.Utilities.IO.Python_3_8.Examples.SimpleRoom
+- model_name: Buildings.Utilities.IO.Python_3_12.Examples.SimpleRoom
   openmodelica:
     comment: python incompatible with docker image
     translate: false
   optimica:
-    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    comment: Optimica uses Python 3.11, while the examples use Python 3.12
     translate: false
-- model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
+- model_name: Buildings.Utilities.IO.Python_3_12.Functions.Examples.Exchange
   openmodelica:
     comment: python incompatible with docker image
     translate: false
   optimica:
-    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    comment: Optimica uses Python 3.11, while the examples use Python 3.12
     translate: false
-- model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
+- model_name: Buildings.Utilities.IO.Python_3_12.Functions.Examples.ExchangeWithPassPythonObject
   openmodelica:
     comment: python incompatible with docker image
     translate: false
   optimica:
-    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    comment: Optimica uses Python 3.11, while the examples use Python 3.12
     translate: false

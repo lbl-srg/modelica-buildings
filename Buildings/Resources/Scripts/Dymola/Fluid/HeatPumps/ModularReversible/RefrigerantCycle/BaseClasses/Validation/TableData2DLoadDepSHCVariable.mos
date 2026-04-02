@@ -1,0 +1,68 @@
+old_flag = Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables = true;
+simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDepSHCVariable",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=7200,
+    method="CVode",
+    resultFile="TableData2DLoadDepSHCRefCycVar");
+Advanced.StoreProtectedVariables = old_flag;
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 600},
+    y={"hpSup.on", "hpSup.mode"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"hpSup.THwSet", "hpSup.THwEnt", "hpSup.THwLvg"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"hpSup.TChwSet", "hpSup.TChwEnt", "hpSup.TChwLvg"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={415, 5, 400, 600},
+    y={"hpSup.nUniHea", "hpSup.nUniCoo", "hpSup.nUniShc"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"hpSup.QHeaSet_flow", "hpSup.QHea_flow", "hpSup.QHeaShc_flow", "hpSup.QHeaShcCyc_flow"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"hpSup.QCooSet_flow", "hpSup.QCoo_flow", "hpSup.QCooShc_flow", "hpSup.QCooShcCyc_flow"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=1,
+    position={825, 5, 400, 400},
+    y={"hpSup.PLRHea", "hpSup.PLRCoo"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"hpSup.PLRShc", "hpSup.PLRHeaShcCyc", "hpSup.PLRCooShcCyc", "hpSup.ratCycShc"},
+    autoscale=true,
+    grid=true
+);

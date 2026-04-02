@@ -47,8 +47,9 @@ model Supply_u "Validation model for temperature and fan speed"
     final height=-1,
     final offset=1) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(final duration=900,
-      final startTime=2700)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
+    final duration=900,
+    final startTime=2700)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZon1(
@@ -59,8 +60,8 @@ model Supply_u "Validation model for temperature and fan speed"
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSet(final k=273.15
-         + 22)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSet(
+    final k=273.15 + 22)
     "Zone heating set point"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonCooSet(
@@ -70,8 +71,7 @@ model Supply_u "Validation model for temperature and fan speed"
 
 equation
   connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-58,20},{-39.5,20},{
-          -39.5,56.4},{58,56.4}},
-      color={0,0,127}, pattern=LinePattern.Dash));
+          -39.5,56.4},{58,56.4}}, color={0,0,127}, pattern=LinePattern.Dash));
   connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-58,-10},{-34,-10},{
           -34,54},{58,54}}, color={0,0,127}));
   connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-58,80},{-12,80},{-12,
@@ -91,8 +91,7 @@ equation
   connect(uCoo.y, setPoiVAV2.uCoo) annotation (Line(points={{-58,50},{-16,50},{-16,
           -32},{58,-32}}, color={0,0,127}));
   connect(TOut.y, setPoiVAV1.TZon) annotation (Line(points={{-58,-10},{-30,-10},
-          {-30,16.4},{58,16.4}},
-      color={0,0,127}, pattern=LinePattern.Dash));
+          {-30,16.4},{58,16.4}}, color={0,0,127}, pattern=LinePattern.Dash));
   connect(TZon1.y, setPoiVAV2.TZon)
      annotation (Line(points={{-58,-40},{-20,-40},{-20,-23.6},{58,-23.6}}, color={0,0,127},
        pattern=LinePattern.Dash));

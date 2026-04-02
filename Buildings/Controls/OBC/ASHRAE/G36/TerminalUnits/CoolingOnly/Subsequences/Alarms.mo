@@ -390,42 +390,34 @@ annotation (defaultComponentName="ala",
         Text(
           extent={{-98,46},{-48,32}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActSet_flow"),
         Text(
           extent={{-98,84},{-58,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
           extent={{-100,-74},{-72,-84}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDam"),
         Text(
           extent={{-100,6},{-74,-4}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uFan"),
         Text(
           extent={{46,68},{96,54}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLowFloAla"),
         Text(
           extent={{48,8},{98,-6}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yFloSenAla"),
         Text(
           extent={{48,-50},{98,-64}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yLeaDamAla"),
         Text(
           extent={{-100,-32},{-50,-46}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-240},{240,240}})),
 Documentation(info="<html>
