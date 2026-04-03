@@ -82,16 +82,15 @@ model TableData2DLoadDepSHC
         THwSup_nominal, y(final unit="K", displayUnit="degC"))
     "Design HW supply temperature"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable mode(
-    table=[0,3; 1,2; 2,1],
-    timeScale=1200,
-    period=3600)
-    "Operating mode command"
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable onCoo(
+    table=[0,0; 500,1; 2400,0; 3600,1; 5000,0],
+    period=5400)
+    "Cooling on/off command"
     annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable on(
-    table=[0,0; 500,1; 5000,0],
-    timeScale=1,
-    period=5400)  "On/off command"
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable onHea(
+    table=[0,0; 500,1; 1200,0; 2400,1; 4800,0],
+    period=5400)
+    "Heating on/off command"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC hp(
     redeclare final package MediumCon=Medium,
@@ -218,10 +217,8 @@ equation
   connect(TChiWatSet.y[1], hp.TChwSet) annotation (Line(points={{-88,60},{14,60},
           {14,-20},{28,-20}},
                            color={0,0,127}));
-  connect(on.y[1], hp.on) annotation (Line(points={{-88,100},{10,100},{10,-22},{
-          28,-22}}, color={255,0,255}));
-  connect(mode.y[1], hp.mode) annotation (Line(points={{-128,80},{16,80},{16,-24},
-          {28,-24}},color={255,127,0}));
+  connect(onHea.y[1], hp.onHea) annotation (Line(points={{-88,100},{10,100},{10,
+          -22},{28,-22}}, color={255,0,255}));
   connect(TOut.y, weaBus.TDryBul) annotation (Line(points={{-128,120},{-98,120},
           {-98,120.1},{20.1,120.1}}, color={0,0,127}));
   connect(weaBus, hp.weaBus) annotation (Line(
@@ -275,6 +272,8 @@ equation
   connect(intLesEquThr.y, assMes.u)
     annotation (Line(points={{122,-20},{128,-20}},
                                                color={255,0,255}));
+  connect(onCoo.y[1], hp.onCoo) annotation (Line(points={{-128,80},{8,80},{8,
+          -24},{28,-24}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,160}}, grid={2,2})),
     __Dymola_Commands(
       file=
@@ -313,6 +312,13 @@ that vary linearly with the number of enabled modules on each side.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors 
+for heating and cooling on/off commands.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 July 1, 2025, by Antoine Gautier:<br/>
 First implementation.
