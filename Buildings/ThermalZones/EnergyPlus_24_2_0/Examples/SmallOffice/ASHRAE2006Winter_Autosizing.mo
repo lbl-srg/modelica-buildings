@@ -18,12 +18,20 @@ model ASHRAE2006Winter_Autosizing
            THeaAirDis_nominal,
            THeaAirDis_nominal}),
       mCooAir_flow_nominal=flo.sysVAV1.sizCoo.QSen_flow/(cpAir*(TZonSetAve - hvac.TCooAirSup_nominal)),
-      mHeaVAV_flow_nominal=
-        {flo.sou.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[1].THeaAirDis_nominal - flo.sou.sizHea.TSet)),
-         flo.eas.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[2].THeaAirDis_nominal - flo.eas.sizHea.TSet)),
-         flo.nor.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[3].THeaAirDis_nominal - flo.nor.sizHea.TSet)),
-         flo.wes.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[4].THeaAirDis_nominal - flo.wes.sizHea.TSet)),
-         flo.cor.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[5].THeaAirDis_nominal - flo.cor.sizHea.TSet))}),
+      mHeaVAV_flow_nominal={flo.sou.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[1].THeaAirDis_nominal
+           - flo.sou.sizHea.TSet)),flo.eas.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[
+          2].THeaAirDis_nominal - flo.eas.sizHea.TSet)),flo.nor.sizHea.QSen_flow
+          /(cpAir*(hvac.VAVBox[3].THeaAirDis_nominal - flo.nor.sizHea.TSet)),
+          flo.wes.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[4].THeaAirDis_nominal -
+          flo.wes.sizHea.TSet)),flo.cor.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[5].THeaAirDis_nominal
+           - flo.cor.sizHea.TSet))},
+      TCooAirMix_nominal=flo.sysVAV1.sizCoo.TOut,
+      wCooAirMix_nominal=flo.sysVAV1.sizCoo.XOut,
+      QCooAHU_flow_nominal = 1.3 * hvac.mCooAir_flow_nominal * cpAir *(hvac.TCooAirSup_nominal-hvac.TCooAirMix_nominal),
+      Vot_flow_nominal=flo.sysVAV1.sizCoo.mOut_flow/1.2,
+      VZonOA_flow_nominal={flo.sou.sizHea.mOut_flow/1.2,flo.eas.sizHea.mOut_flow
+          /1.2,flo.nor.sizHea.mOut_flow/1.2,flo.wes.sizHea.mOut_flow/1.2,flo.cor.sizHea.mOut_flow
+          /1.2}),
     redeclare Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing flo);
 
   parameter Modelica.Units.SI.Temperature
