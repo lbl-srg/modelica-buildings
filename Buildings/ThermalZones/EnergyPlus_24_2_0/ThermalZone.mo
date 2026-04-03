@@ -3,11 +3,6 @@ model ThermalZone
   "Model to connect to an EnergyPlus thermal zone"
   extends
     Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
-  parameter String zoneName
-    "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter Integer nPorts=0
-    "Number of fluid ports (equals to 2 for one inlet and one outlet)"
-    annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
   ////////////////////////////////////////////////////////////////////////////
   // Buildings.Media declaration. This is identical to
   // Buildings.Fluid.Interfaces.LumpedVolumeDeclarations, except
@@ -16,11 +11,18 @@ model ThermalZone
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
     annotation (choicesAllMatching=true);
-  // Ports
+
+  parameter String zoneName
+    "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter String hvacSystemName="none"
+    "Name of the HVAC system that this zone belongs for auto-sizing"
+    annotation(Dialog(group="Autosizing"));
+  parameter Integer nPorts=0
+    "Number of fluid ports (equals to 2 for one inlet and one outlet)"
+    annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
   parameter Boolean use_C_flow=false
     "Set to true to enable input connector for trace substance that is connected to room air"
     annotation (Dialog(group="Ports"));
-  // Initialization
   parameter Medium.AbsolutePressure p_start=Medium.p_default
     "Start value of zone air pressure"
     annotation (Dialog(tab="Initialization"));
@@ -49,6 +51,28 @@ model ThermalZone
     min=1)=fmuZon.mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume"
     annotation (Dialog(tab="Dynamics",group="Zone air"));
+  BaseClasses.Sizing sizCoo(
+    final QSen_flow(fixed=true)=fmuZon.sizCoo.QSen_flow,
+    final QLat_flow(fixed=true)=fmuZon.sizCoo.QLat_flow,
+    final TSet(fixed=true)=fmuZon.sizCoo.TSet,
+    final XSet(fixed=true)=fmuZon.sizCoo.XSet,
+    final TOut(fixed=true)=fmuZon.sizCoo.TOut,
+    final XOut(fixed=true)=fmuZon.sizCoo.XOut,
+    final t(fixed=true)=fmuZon.sizCoo.t,
+    final mOut_flow(fixed=true)=fmuZon.sizCoo.mOut_flow)
+    "Sizing parameters for zone cooling load"
+    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
+  BaseClasses.Sizing sizHea(
+    final QSen_flow(fixed=true)=fmuZon.sizHea.QSen_flow,
+    final QLat_flow(fixed=true)=fmuZon.sizHea.QLat_flow,
+    final TSet(fixed=true)=fmuZon.sizHea.TSet,
+    final XSet(fixed=true)=fmuZon.sizHea.XSet,
+    final TOut(fixed=true)=fmuZon.sizHea.TOut,
+    final XOut(fixed=true)=fmuZon.sizHea.XOut,
+    final t(fixed=true)=fmuZon.sizHea.t,
+    final mOut_flow(fixed=true)=fmuZon.sizHea.mOut_flow)
+    "Sizing parameters for zone heating load"
+    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](
     each unit="W/m2")
     "Radiant, convective sensible and latent heat input into room (positive if heat gain)"
@@ -56,7 +80,6 @@ model ThermalZone
   Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
     "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),iconTransformation(extent={{-240,-120},{-200,-80}})));
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -64,7 +87,6 @@ model ThermalZone
     "Heat port to radiative temperature and radiative energy balance"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}}),
         iconTransformation(extent={{-10,-70},{10,-50}})));
-
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
     redeclare each package Medium=Medium)
     "Fluid inlets and outlets"
@@ -83,17 +105,14 @@ model ThermalZone
     final unit="1")
     "Relative humidity"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
-
 protected
   constant Modelica.Units.SI.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
       273.15 + 37) "Latent heat of water vapor";
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V*3/3600
     "Nominal mass flow rate (used for regularization)";
-
   final parameter Boolean setInitialRadiativeHeatGainToZero = building.setInitialRadiativeHeatGainToZero
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
-
   Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,
@@ -101,10 +120,11 @@ protected
     final idfVersion=idfVersion,
     final idfName=idfName,
     final epwName=epwName,
+    final zoneName=zoneName,
+    final hvacSystemName=hvacSystemName,
     final runPeriod=runPeriod,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final setInitialRadiativeHeatGainToZero=setInitialRadiativeHeatGainToZero,
-    final zoneName=zoneName,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
     final fmuName=fmuName,
@@ -173,8 +193,7 @@ protected
         3.82E-8*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM/Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
       else
         0 for i in 1:Medium.nC},
-    u1(
-      each final unit="W")) if use_C_flow
+    u1(each final unit="W")) if use_C_flow
     "Total trace substance flow rate"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nPorts](
@@ -213,7 +232,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Divide X_w
     "Water vapor mass fraction per kg total air"
     annotation (Placement(transformation(extent={{40,-32},{60,-12}})));
-
   Buildings.HeatTransfer.Sources.PrescribedTemperature preRadTem
     "Prescribed radiative temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -235,8 +253,6 @@ initial equation
   assert(
     zoneName <> "",
     "Must provide the name of the zone.");
-// assert(nPorts >= 2, "The zone must have at least one air inlet and outlet.");
-
 equation
   connect(heaGai.qGai_flow,qGai_flow)
     annotation (Line(points={{-182,100},{-220,100}},color={0,0,127}));
@@ -322,7 +338,7 @@ equation
           116},{-140,106},{-158,106}}, color={0,0,127}));
   connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},
           {26,104},{26,40},{0,40},{0,49}},  color={0,0,127}));
-  annotation (
+    annotation(Dialog(group="Autosizing"),
     defaultComponentName="zon",
     Icon(
       coordinateSystem(
@@ -395,8 +411,7 @@ equation
           textString="phi"),
         Text(
           extent={{-56,-48},{-20,-68}},
-          textString="rad",
-          textColor={0,0,0})}),
+          textString="rad")}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -542,6 +557,10 @@ is not possible.
       revisions="<html>
 <ul>
 <li>
+September 17, 2025, by Michael Wetter:<br/>
+Corrected graphical annotation for <code>Text</code>.
+</li>
+<li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
 synchronization time step rather than the instantaneuous value, and set the initial value by default to zero.
@@ -579,4 +598,5 @@ First implementation for <a href=\"https://github.com/lbl-srg/modelica-buildings
 </li>
 </ul>
 </html>"));
+
 end ThermalZone;

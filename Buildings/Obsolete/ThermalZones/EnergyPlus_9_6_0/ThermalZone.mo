@@ -395,8 +395,8 @@ equation
           textString="phi"),
         Text(
           extent={{-56,-48},{-20,-68}},
-          textString="rad",
-          textColor={0,0,0}),            Rectangle(
+          textString="rad"),
+        Rectangle(
           extent={{-204,204},{204,-204}},
           lineColor={255,0,0},
           pattern=LinePattern.Dash,
@@ -545,6 +545,10 @@ is not possible.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 17, 2025, by Michael Wetter:<br/>
+Corrected graphical annotation for <code>Text</code>.
+</li>
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
