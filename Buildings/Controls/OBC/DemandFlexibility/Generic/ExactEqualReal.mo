@@ -1,24 +1,24 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
-block ExactEqualReal
+block ExactEqualReal "Exact equal block for real numbers"
   parameter Real alwDev(min=0)=0.01
     "allowed deviation for equality";
-  CDL.Interfaces.RealInput u1
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  CDL.Interfaces.RealInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  CDL.Interfaces.BooleanOutput yEquFla "equal flag"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEquFla "equal flag"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  CDL.Reals.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     annotation (Placement(transformation(extent={{-36,4},{-16,24}})));
-  CDL.Reals.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     annotation (Placement(transformation(extent={{-36,-76},{-16,-56}})));
-  CDL.Reals.Sources.Constant con(k=alwDev)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=alwDev)
     annotation (Placement(transformation(extent={{-94,-28},{-74,-8}})));
-  CDL.Reals.Greater gre
+  Buildings.Controls.OBC.CDL.Reals.Greater gre
     annotation (Placement(transformation(extent={{18,-68},{38,-48}})));
-  CDL.Reals.Less les
+  Buildings.Controls.OBC.CDL.Reals.Less les
     annotation (Placement(transformation(extent={{16,12},{36,32}})));
-  CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{66,-10},{86,10}})));
 equation
   connect(u2, add2.u1) annotation (Line(points={{-120,-60},{-66,-60},{-66,20},{
@@ -49,5 +49,14 @@ equation
 <p>This block checks whether the values of 2 real input variables, <code>u1</code> and <code>u2</code>, are equal to each other. 
 The allowed deviation is represented by the parameter <code>alwDev</code>. If <code>u1 &lt; u2 + alwDev</code> and <code>u1 &gt; 
 u2 - alwDev</code>, then the output <code>yEuqFla</code> is <code>true</code>. Otherwise, the output <code>yEuqFla</code> is <code>false</code>. </p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end ExactEqualReal;

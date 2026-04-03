@@ -1,49 +1,52 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
-block SetpointSingleStepChange
+block SetpointSingleStepChange "Single-step setpoint change"
 
-     parameter Boolean setChaMod=true
+  parameter Real samPer(unit="s")=300
+    "Sample period";
+  parameter Boolean setChaMod=true
     "setpoint change mode; true to go to the target setpoint value, false to go to the nominal setpoint value";
 
-    parameter Real samPer(unit="s")=300
-    "Sample period";
-  CDL.Discrete.Sampler                        sam(samplePeriod=samPer)
-    annotation (Placement(transformation(extent={{166,-10},{186,10}})));
-  CDL.Reals.Min                        min1
-    annotation (Placement(transformation(extent={{50,50},{70,70}})));
-  CDL.Reals.Max                        max1
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  CDL.Logical.Sources.Constant
-                             con(k=setChaMod)
-    annotation (Placement(transformation(extent={{-92,-144},{-72,-124}})));
-  CDL.Reals.Switch swi
-    annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
-  CDL.Reals.Min                        min2
-    annotation (Placement(transformation(extent={{92,-16},{112,4}})));
-  CDL.Reals.Max                        max2
-    annotation (Placement(transformation(extent={{132,-10},{152,10}})));
-  CDL.Interfaces.RealInput uSetTar "setpoint target"
+
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetTar "setpoint target"
     annotation (Placement(transformation(extent={{-140,-38},{-100,2}})));
-  CDL.Interfaces.RealInput uSetBas "baseline setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetBas "baseline setpoint"
     annotation (Placement(transformation(extent={{-140,-88},{-100,-48}})));
-  CDL.Interfaces.RealOutput ySetCom "setpoint command"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySetCom "setpoint command"
     annotation (Placement(transformation(extent={{200,-20},{240,20}})));
-  CDL.Interfaces.BooleanInput
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetCur "current setpoint"
+    annotation (Placement(transformation(extent={{-140,12},{-100,52}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput
                            have_pri "have priority"
     annotation (Placement(transformation(extent={{-140,62},{-100,102}}),
         iconTransformation(extent={{-140,62},{-100,102}})));
-  CDL.Interfaces.RealInput uSetCur "current setpoint"
-    annotation (Placement(transformation(extent={{-140,12},{-100,52}})));
-  CDL.Reals.Switch swi1
-    annotation (Placement(transformation(extent={{10,-46},{30,-26}})));
-  CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
         transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,52},
             {240,92}})));
-  CDL.Interfaces.BooleanOutput reach_uSetBas annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uSetBas annotation (Placement(
         transformation(extent={{200,-94},{240,-54}}), iconTransformation(extent={{200,-94},
             {240,-54}})));
-  ExactEqualReal exactEqualReal
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
+    annotation (Placement(transformation(extent={{10,-46},{30,-26}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler                        sam(samplePeriod=samPer)
+    annotation (Placement(transformation(extent={{166,-10},{186,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Min                        min1
+    annotation (Placement(transformation(extent={{50,50},{70,70}})));
+  Buildings.Controls.OBC.CDL.Reals.Max                        max1
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant
+                             con(k=setChaMod)
+    annotation (Placement(transformation(extent={{-92,-144},{-72,-124}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
+    annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
+  Buildings.Controls.OBC.CDL.Reals.Min                        min2
+    annotation (Placement(transformation(extent={{92,-16},{112,4}})));
+  Buildings.Controls.OBC.CDL.Reals.Max                        max2
+    annotation (Placement(transformation(extent={{132,-10},{152,10}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal exactEqualReal
     annotation (Placement(transformation(extent={{18,94},{38,114}})));
-  ExactEqualReal exactEqualReal1
+  Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal exactEqualReal1
     annotation (Placement(transformation(extent={{144,-112},{164,-92}})));
 equation
   connect(uSetBas,max1. u2) annotation (Line(points={{-120,-68},{-78,-68},{-78,
@@ -102,32 +105,42 @@ equation
         extent={{-100,-150},{200,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block serves to change the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span> 
-between the baseline setpoint <span style=\"font-family: Courier New;\">uSetBas</span> and the target 
-setpoint <span style=\"font-family: Courier New;\">uSetTar</span> in a single step. The 
-<span style=\"font-family: Courier New;\">setChaMod</span> variable specifies whether the current 
-setpoint <span style=\"font-family: Courier New;\">uSetCur</span> shall change to the 
-<span style=\"font-family: Courier New;\">uSetBas</span> value or the 
-<span style=\"font-family: Courier New;\">uSetTar</span> value. The setpoint change operation 
-will be executed every <span style=\"font-family: Courier New;\">samPer</span> seconds. 
+<p>This block serves to change the current setpoint <code>uSetCur</code> 
+between the baseline setpoint <code>uSetBas</code> and the target 
+setpoint <code>uSetTar</code> in a single step. 
+This block can be used ... The <code>setChaMod</code> variable specifies whether the current 
+setpoint <code>uSetCur</code> shall change to the 
+<code>uSetBas</code> value or the 
+<code>uSetTar</code> value. The setpoint change operation 
+will be executed every <code>samPer</code> seconds. 
+Provide some reason on why this is used, even though in real world BAS, this might be used once and not used anymore...
 The resultant setpoint will be outputted as the 
-<span style=\"font-family: Courier New;\">ySetCom</span> output variable, which 
+<code>ySetCom</code> output variable, which 
 represents the new setpoint that a zone or a piece of equipment shall have. This 
 in turn changes the value of the current setpoint <code>uSetCur</code> from outside this block, 
 completing a full control loop.</p>
-<p>The <span style=\"font-family: Courier New;\">have_pri</span> boolean input variable 
+<p>The <code>have_pri</code> boolean input variable 
 specifies whether the setpoint change operation will be executed or not. This is useful 
 in multiple-zone or multiple-equipment scenarios where there is a need to prioritize 
 which zone or equipment will go through the setpoint change. When the 
-<span style=\"font-family: Courier New;\">have_pri</span> input variable is set to 
-<span style=\"font-family: Courier New;\">false</span> from a previous 
-<span style=\"font-family: Courier New;\">true</span> value, the single-step setpoint 
+<code>have_pri</code> input variable is set to 
+<code>false</code> from a previous 
+<code>true</code> value, the single-step setpoint 
 change will stay at the current value 
-(<span style=\"font-family: Courier New;\">uSetBas</span> or 
-<span style=\"font-family: Courier New;\">uSetTar</span>) and will not be revert to 
+(<code>uSetBas</code> or 
+<code>uSetTar</code>) and will not be revert to 
 the previous value before the setpoint step change. Reversing this unidirectional 
 change to the current setpoint <code>uSetCur</code> needs to happen outside of this block. </p>
 <p>Output variables also include boolean flags that specify whether the current 
-setpoint has reached the baseline setpoint <span style=\"font-family: Courier New;\">uSetBas</span> or the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span>. </p>
+setpoint has reached the baseline setpoint <code>uSetBas</code> or the target setpoint <code>uSetTar</code>. </p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end SetpointSingleStepChange;

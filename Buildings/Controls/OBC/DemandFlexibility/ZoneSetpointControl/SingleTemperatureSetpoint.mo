@@ -1,79 +1,84 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl;
-block SingleTemperatureSetpoint
+block SingleTemperatureSetpoint "Single temperature setpoint"
 
-   parameter Real delTSetShe=1
-    "temperature setpoint change amount for load shed";
+  parameter Real delTSetShe=1
+    "Temperature setpoint change amount for the load-shed mode";
 
-   parameter Real delTSetReb=-1
-    "temperature setpoint change amount for rebound";
+  parameter Real delTSetReb=-1
+    "Temperature setpoint change amount for the load-rebound mode";
 
-    parameter Real delTSetSheTho(min=0)=0.5
-    "Threshold below which ratcheting is triggerd. This is an absolute value, so it is always positive";
+  parameter Real delTSetSheTho(min=0)=0.5
+    "Threshold of zone temperature setpoint difference below which the zone temperature setpoint change for the load-shed mode is activated. This is an absolute value, so it is always positive";
 
-       parameter Boolean setMod=true
-       "mode of controller. True for heating, false for cooling.";
-        parameter Real samPerPre(unit="s")=300
-    "Sample period for precool or preheat";
-            parameter Real samPerBas(unit="s")=300
-    "Sample period for the nominal condition";
-        parameter Real samPerShe(unit="s")=300
-    "Sample period for ratchet";
-        parameter Real samPerReb(unit="s")=300
-    "Sample period for rebound";
-  Generic.SetpointMultipleStepChange setShe(delSet=delTSetShe, samPer=samPerShe)
-    annotation (Placement(transformation(extent={{162,-34},{182,-14}})));
-  Generic.SetpointMultipleStepChange setReb(delSet=delTSetReb, samPer=samPerReb)
-    annotation (Placement(transformation(extent={{182,-114},{202,-94}})));
-  Generic.SetpointSingleStepChange setPre(samPer=samPerPre)
-    annotation (Placement(transformation(extent={{170,80},{190,100}})));
-  CDL.Interfaces.BooleanInput
+
+  parameter Real samPerPre(unit="s")=300
+    "Sample period for the pre-cool or pre-heat mode";
+  parameter Real samPerBas(unit="s")=300
+    "Sample period for the baseline mode";
+  parameter Real samPerShe(unit="s")=300
+    "Sample period for the load-shed mode";
+  parameter Real samPerReb(unit="s")=300
+    "Sample period for the load-rebound mode";
+  parameter Boolean setMod=true
+    "Type of setpoint. True for heating, false for cooling";
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCur "current zone temperature"
+    annotation (Placement(transformation(extent={{-190,-12},{-150,28}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetTarPre "setpoint target for precool or preheat"
+    annotation (Placement(transformation(extent={{-192,-106},{-152,-66}}),
+        iconTransformation(extent={{-192,-106},{-152,-66}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetBas "baseline setpoint"
+    annotation (Placement(transformation(extent={{-192,-204},{-152,-164}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetCur "current setpoint"
+    annotation (Placement(transformation(extent={{-190,-54},{-150,-14}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetTarShe "setpoint target for load shed"
+    annotation (Placement(transformation(extent={{-192,-156},{-152,-116}}),
+        iconTransformation(extent={{-192,-156},{-152,-116}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput
                            have_pri "have priority"
     annotation (Placement(transformation(extent={{-190,60},{-150,100}}),
         iconTransformation(extent={{-190,60},{-150,100}})));
-  CDL.Interfaces.IntegerInput uMod
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uMod
     "setpoint mode; 0 = normal; -1 = precool or preheat; 1 = ratchet; 2 = rebound"
     annotation (Placement(transformation(extent={{-190,24},{-150,64}}),
         iconTransformation(extent={{-190,24},{-150,64}})));
-  CDL.Interfaces.BooleanOutput reach_TSetTarShe annotation (Placement(
-        transformation(extent={{250,-20},{290,20}}),iconTransformation(extent={{250,-20},
-            {290,20}})));
-  CDL.Interfaces.BooleanOutput reach_TSetBas annotation (Placement(
-        transformation(extent={{250,-170},{290,-130}}),iconTransformation(
-          extent={{250,-156},{290,-116}})));
-  CDL.Interfaces.RealOutput TSetCom "setpoint command"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetCom "setpoint command"
     annotation (Placement(transformation(extent={{250,-90},{290,-50}}),
         iconTransformation(extent={{250,-90},{290,-50}})));
-  CDL.Interfaces.RealInput TSetTarPre "setpoint target for precool or preheat"
-    annotation (Placement(transformation(extent={{-192,-106},{-152,-66}}),
-        iconTransformation(extent={{-192,-106},{-152,-66}})));
-  CDL.Interfaces.RealInput TSetBas "baseline setpoint"
-    annotation (Placement(transformation(extent={{-192,-204},{-152,-164}})));
-  CDL.Interfaces.RealInput TSetCur "current setpoint"
-    annotation (Placement(transformation(extent={{-190,-54},{-150,-14}})));
-  CDL.Interfaces.RealInput TSetTarShe "setpoint target for load shed"
-    annotation (Placement(transformation(extent={{-192,-156},{-152,-116}}),
-        iconTransformation(extent={{-192,-156},{-152,-116}})));
-  CDL.Discrete.Sampler setNom(samplePeriod=samPerBas)
-    annotation (Placement(transformation(extent={{170,48},{190,68}})));
-  Subsequences.ModeSelection modeSelection
-    annotation (Placement(transformation(extent={{216,-78},{236,-58}})));
-  CDL.Interfaces.RealInput TCur "current zone temperature"
-    annotation (Placement(transformation(extent={{-190,-12},{-150,28}})));
-  CDL.Reals.Subtract sub
-    annotation (Placement(transformation(extent={{-56,-8},{-36,12}})));
-  CDL.Reals.GreaterThreshold greThr(t=-1*delTSetSheTho)
-    annotation (Placement(transformation(extent={{-16,-20},{4,0}})));
-  CDL.Reals.LessThreshold lesThr(t=delTSetSheTho)
-    annotation (Placement(transformation(extent={{-16,16},{4,36}})));
-  CDL.Logical.Switch logSwi
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  CDL.Logical.Sources.Constant con(k=setMod)
-    annotation (Placement(transformation(extent={{18,0},{38,20}})));
-  CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{122,8},{142,28}})));
-  CDL.Interfaces.BooleanOutput reach_TSetTarPre annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_TSetTarShe annotation (Placement(
+        transformation(extent={{250,-20},{290,20}}),iconTransformation(extent={{250,-20},
+            {290,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_TSetBas annotation (Placement(
+        transformation(extent={{250,-170},{290,-130}}),iconTransformation(
+          extent={{250,-156},{290,-116}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_TSetTarPre annotation (Placement(
         transformation(extent={{250,44},{290,84}}),  iconTransformation(extent={{250,44},
             {290,84}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointMultipleStepChange setShe(delSet=delTSetShe, samPer=samPerShe)
+    annotation (Placement(transformation(extent={{162,-34},{182,-14}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointMultipleStepChange setReb(delSet=delTSetReb, samPer=samPerReb)
+    annotation (Placement(transformation(extent={{182,-114},{202,-94}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointSingleStepChange setPre(samPer=samPerPre)
+    annotation (Placement(transformation(extent={{170,80},{190,100}})));
+  Buildings.Controls.OBC.CDL.Discrete.Sampler setNom(samplePeriod=samPerBas)
+    annotation (Placement(transformation(extent={{170,48},{190,68}})));
+  Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.ModeSelection modeSelection
+    annotation (Placement(transformation(extent={{216,-78},{236,-58}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    annotation (Placement(transformation(extent={{-56,-8},{-36,12}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=-1*delTSetSheTho)
+    annotation (Placement(transformation(extent={{-16,-20},{4,0}})));
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(t=delTSetSheTho)
+    annotation (Placement(transformation(extent={{-16,16},{4,36}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=setMod)
+    annotation (Placement(transformation(extent={{18,0},{38,20}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{122,8},{142,28}})));
+
 equation
   connect(have_pri, setPre.have_pri) annotation (Line(points={{-170,80},{28,80},
           {28,97.1852},{168.667,97.1852}},
@@ -173,5 +178,14 @@ equation
 <p>If the condition to perform load-shed operation is met, the output variable <code>TSetCom</code> will take the value <code>TSetCur + delTSetShe</code>, limited by the range between the input variable <code>TSetBas</code> and the input variable <code>TSetTarShe</code>. If the condition to perform load-shed operation is not met, the output variable <code>TSetCom</code> will take the value <code>TSetCur</code>. This operation is executed every <code>samPerShe</code> seconds.</p>
 <p>If <code>has_pri </code> = <code>true</code> and <code>uMod</code> = 2, the output variable <code>TSetCom</code> will take the value <code>TSetCur + delTSetReb</code>, limited by the range between the input variable <code>TSetBas</code> and the input variable <code>TSetTarShe</code>. This operation is executed every <code>samPerReb</code> seconds.</p>
 <p><br>Output variables also include boolean flags that specify whether the current setpoint has reached the baseline setpoint <code>reach_TSetBas</code> or the target setpoints <code>reach_TSetTarShe</code> and <code>reach_TSetTarReb</code>. </p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end SingleTemperatureSetpoint;

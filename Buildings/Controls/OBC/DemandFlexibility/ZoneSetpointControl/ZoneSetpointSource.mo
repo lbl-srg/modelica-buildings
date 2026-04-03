@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl;
-model ZoneSetpointSource
+model ZoneSetpointSource "Zone setpoint source"
 
-    parameter Real TSetNomHeaOcc(unit="K")=273.15+20;
+  parameter Real TSetNomHeaOcc(unit="K")=273.15+20;
   parameter Real TSetNomHeaUno(unit="K")=273.15+15.5556;
   parameter Real TSetNomCooOcc(unit="K")=273.15+25.5556;
   parameter Real TSetNomCooUno(unit="K")=273.15+32.2222;
@@ -13,47 +13,49 @@ model ZoneSetpointSource
 
   parameter Real occStaHouSta=7;
   parameter Real occStaHouEnd=20;
-  CDL.Interfaces.RealOutput TSetTarPreHea
+
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetTarPreHea
     annotation (Placement(transformation(extent={{100,60},{140,100}})));
-  CDL.Interfaces.RealOutput TSetTarSheHea
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetTarSheHea
                                          "setpoint target for load shed"
     annotation (Placement(transformation(extent={{100,26},{140,66}})));
-  CDL.Interfaces.RealOutput TSetBasHea "baseline setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetBasHea "baseline setpoint"
     annotation (Placement(transformation(extent={{100,-2},{140,38}})));
-  CDL.Interfaces.RealOutput TSetTarPreCoo
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetTarPreCoo
                                          "setpoint target for precool"
     annotation (Placement(transformation(extent={{100,-40},{140,0}})));
-  CDL.Interfaces.RealOutput TSetTarSheCoo
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetTarSheCoo
                                          "setpoint target for load shed"
     annotation (Placement(transformation(extent={{100,-66},{140,-26}})));
-  CDL.Interfaces.RealOutput TSetBasCoo "baseline setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSetBasCoo "baseline setpoint"
     annotation (Placement(transformation(extent={{100,-102},{140,-62}})));
-  CDL.Logical.Sources.TimeTable booTimTab(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTab(
     table=[0,0; occStaHouSta,1; occStaHouEnd,0; 24,0],
     timeScale=3600,
     period=86400)
     annotation (Placement(transformation(extent={{-86,8},{-66,28}})));
-  CDL.Conversions.BooleanToReal booToRea(realTrue=TSetNomHeaOcc, realFalse=
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=TSetNomHeaOcc, realFalse=
         TSetNomHeaUno)
     annotation (Placement(transformation(extent={{-8,8},{12,28}})));
-  CDL.Conversions.BooleanToReal booToRea1(realTrue=TSetNomCooOcc, realFalse=
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=TSetNomCooOcc, realFalse=
         TSetNomCooUno)
     annotation (Placement(transformation(extent={{-6,-92},{14,-72}})));
-  CDL.Reals.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     annotation (Placement(transformation(extent={{46,-56},{66,-36}})));
-  CDL.Reals.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     annotation (Placement(transformation(extent={{60,36},{80,56}})));
-  CDL.Reals.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     annotation (Placement(transformation(extent={{62,70},{82,90}})));
-  CDL.Reals.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     annotation (Placement(transformation(extent={{46,-30},{66,-10}})));
-  CDL.Reals.Sources.Constant con(k=TSetAdjPreHea)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=TSetAdjPreHea)
     annotation (Placement(transformation(extent={{-84,64},{-64,84}})));
-  CDL.Reals.Sources.Constant con1(k=TSetAdjSheHea)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=TSetAdjSheHea)
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-  CDL.Reals.Sources.Constant con2(k=TSetAdjPreCoo)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(k=TSetAdjPreCoo)
     annotation (Placement(transformation(extent={{-72,-28},{-52,-8}})));
-  CDL.Reals.Sources.Constant con3(k=TSetAdjSheCoo)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(k=TSetAdjSheCoo)
     annotation (Placement(transformation(extent={{-74,-62},{-54,-42}})));
 equation
   connect(booTimTab.y[1], booToRea.u) annotation (Line(points={{-64,18},{-10,18}},
@@ -95,6 +97,15 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>This block creates output variables for a zone&apos;s cooling and heating setpoint under different occupancy conditions (occupied and unoccupied) and different demand flexibility modes (pre-cool/pre-heat, baseline, load-shed, load-rebound). </p>
-<p>The parameters for this block are heating or cooling, and occupied or unoccupied setpoints under the baseline mode. Then, adjustment parameters such as <span style=\"font-family: Courier New;\">TSetAdjPreHea </span>and <span style=\"font-family: Courier New;\">TSetAdjSheHea </span>are applied to the setpoints under the baseline mode to output the desired setpoints for all demand flexibility modes. </p>
+<p>The parameters for this block are heating or cooling, and occupied or unoccupied setpoints under the baseline mode. Then, adjustment parameters such as <code>TSetAdjPreHea </code>and <code>TSetAdjSheHea </code>are applied to the setpoints under the baseline mode to output the desired setpoints for all demand flexibility modes. </p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end ZoneSetpointSource;

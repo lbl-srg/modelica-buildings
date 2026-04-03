@@ -1,48 +1,47 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
-block SetpointMultipleStepChange
+block SetpointMultipleStepChange "Multiple-step setpoint change"
 
-   parameter Real delSet=1
+  parameter Real delSet=1
     "setpoint change amount";
-
-    parameter Real samPer(unit="s")=300
+  parameter Real samPer(unit="s")=300
     "Sample period";
-  CDL.Discrete.Sampler                        sam(samplePeriod=samPer)
-    annotation (Placement(transformation(extent={{166,-10},{186,10}})));
-  CDL.Interfaces.RealInput uSetTar "setpoint target"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetTar "setpoint target"
     annotation (Placement(transformation(extent={{-140,-46},{-100,-6}})));
-  CDL.Interfaces.RealInput uSetBas "baseline setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetBas "baseline setpoint"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  CDL.Interfaces.RealOutput ySetCom "setpoint command"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetCur "current setpoint"
+    annotation (Placement(transformation(extent={{-140,14},{-100,54}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySetCom "setpoint command"
     annotation (Placement(transformation(extent={{200,-20},{240,20}})));
-  CDL.Interfaces.BooleanInput
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput
                            have_pri "have priority"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  CDL.Interfaces.RealInput uSetCur "current setpoint"
-    annotation (Placement(transformation(extent={{-140,14},{-100,54}})));
-  CDL.Reals.Add                        add
-    annotation (Placement(transformation(extent={{-48,-62},{-28,-42}})));
-  CDL.Reals.Min                        min1
-    annotation (Placement(transformation(extent={{86,36},{106,56}})));
-  CDL.Reals.Max                        max1
-    annotation (Placement(transformation(extent={{46,8},{66,28}})));
-  CDL.Reals.Sources.Constant con(k=delSet)
-    annotation (Placement(transformation(extent={{-86,-68},{-66,-48}})));
-  CDL.Reals.Switch swi
-    annotation (Placement(transformation(extent={{38,-70},{58,-50}})));
-  CDL.Reals.Min                        min2
-    annotation (Placement(transformation(extent={{88,-32},{108,-12}})));
-  CDL.Reals.Max                        max2
-    annotation (Placement(transformation(extent={{132,-10},{152,10}})));
-  CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
         transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,56},
             {240,96}})));
-  CDL.Interfaces.BooleanOutput reach_uSetBas annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uSetBas annotation (Placement(
         transformation(extent={{200,-92},{240,-52}}), iconTransformation(extent={{200,-88},
             {240,-48}})));
-  ExactEqualReal exactEqualReal
+  Buildings.Controls.OBC.CDL.Discrete.Sampler                        sam(samplePeriod=samPer)
+    annotation (Placement(transformation(extent={{166,-10},{186,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Add                        add
+    annotation (Placement(transformation(extent={{-48,-62},{-28,-42}})));
+  Buildings.Controls.OBC.CDL.Reals.Min                        min1
+    annotation (Placement(transformation(extent={{86,36},{106,56}})));
+  Buildings.Controls.OBC.CDL.Reals.Max                        max1
+    annotation (Placement(transformation(extent={{46,8},{66,28}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=delSet)
+    annotation (Placement(transformation(extent={{-86,-68},{-66,-48}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
+    annotation (Placement(transformation(extent={{38,-70},{58,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Min                        min2
+    annotation (Placement(transformation(extent={{88,-32},{108,-12}})));
+  Buildings.Controls.OBC.CDL.Reals.Max                        max2
+    annotation (Placement(transformation(extent={{132,-10},{152,10}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal exactEqualReal
     annotation (Placement(transformation(extent={{48,98},{68,118}})));
-  ExactEqualReal exactEqualReal1
+  Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal exactEqualReal1
     annotation (Placement(transformation(extent={{54,-122},{74,-102}})));
 equation
   connect(con.y, add.u2) annotation (Line(points={{-64,-58},{-50,-58}},
@@ -100,36 +99,45 @@ equation
         extent={{-100,-130},{200,130}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block serves to change the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span>
- between the baseline setpoint <span style=\"font-family: Courier New;\">uSetBas</span>
- and the target setpoint <span style=\"font-family: Courier New;\">uSetTar</span> in
+<p>This block serves to change the current setpoint <code>uSetCur</code>
+ between the baseline setpoint <code>uSetBas</code>
+ and the target setpoint <code>uSetTar</code> in
  multiple smaller steps. The amount of change in each smaller step is represented
  by the parameter <code>delSet</code>, with positive value indicating setpoint increase while
  negative value indicating setpoint decrease. Each smaller step is taken every
- <span style=\"font-family: Courier New;\">samPer</span> seconds. The resultant
- setpoint will be outputted as the <span style=\"font-family: Courier New;\">ySetCom</span>
+ <code>samPer</code> seconds. The resultant
+ setpoint will be outputted as the <code>ySetCom</code>
  output variable, which represents the new setpoint that a zone or a piece of equipment
  shall have. This in turn changes the value of the current setpoint <code>uSetCur</code> from outside
  this block, completing a full control loop.</p>
 <p>This block provides the freedom to account for both <code>uSetBas &gt;= uSetTar</code> and <code>uSetBas
  &lt; uSetTar</code> cases. Setpoint increase and decrease is entirely determined by the <code>delSet</code>
  parameter.</p>
-<p><br>The <span style=\"font-family: Courier New;\">have_pri</span> boolean input variable
+<p><br>The <code>have_pri</code> boolean input variable
  specifies whether the setpoint change operation will be executed or not. This is useful
  in multiple-zone or multiple-equipment scenarios where there is a need to prioritize
  which zone or equipment will go through the setpoint step change. When the 
-<span style=\"font-family: Courier New;\">have_pri</span> input variable is set 
-to <span style=\"font-family: Courier New;\">false</span> from a previous 
-<span style=\"font-family: Courier New;\">true</span> value, the resultant 
+<code>have_pri</code> input variable is set 
+to <code>false</code> from a previous 
+<code>true</code> value, the resultant 
 setpoint <code>ySetCom</code> will stay at the current <code>uSetCur</code> value and will not be 
 reverted to the previous value before the setpoint step change. Therefore, 
-the changes to the current setpoint <span style=\"font-family: Courier New;\">uSetCur</span>
+the changes to the current setpoint <code>uSetCur</code>
  is unidirectional (either more positive or more negative), and reversing these 
 unidirectional changes to the current setpoint <code>uSetCur</code> needs to happen outside 
 of this block. </p>
 <p>Output variables also include boolean flags that specify whether the 
 current setpoint has reached the baseline setpoint 
-<span style=\"font-family: Courier New;\">uSetBas</span> or the target 
-setpoint <span style=\"font-family: Courier New;\">uSetTar</span>. </p>
+<code>uSetBas</code> or the target 
+setpoint <code>uSetTar</code>. </p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end SetpointMultipleStepChange;

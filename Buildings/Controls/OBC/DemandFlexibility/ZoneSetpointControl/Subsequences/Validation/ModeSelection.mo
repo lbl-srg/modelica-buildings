@@ -1,33 +1,33 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.Validation;
-model ModeSelection
+model ModeSelection "Mode selection"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.ModeSelection
     modeSelection
     annotation (Placement(transformation(extent={{34,14},{58,38}})));
-  CDL.Integers.Sources.TimeTable intTimTab(
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab(
     table=[0,0; 16,1; 21,2; 22,0; 24,0],
     timeScale=3600,
     period=86400)
     annotation (Placement(transformation(extent={{-82,54},{-62,74}})));
-  CDL.Reals.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final freqHz=1/86400,
     final amplitude=1,
     phase=3.1415926535898,
     final offset=273.15 + 20)
     annotation (Placement(transformation(extent={{-56,-4},{-36,16}})));
-  CDL.Reals.Sources.Sin sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final freqHz=1/43200,
     final amplitude=10,
     phase=1.5707963267949,
     final offset=273.15 + 25)
     annotation (Placement(transformation(extent={{-56,-44},{-36,-24}})));
-  CDL.Reals.Sources.Sin sin2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2(
     final freqHz=1/21600,
     final amplitude=2,
     phase=0,
     final offset=273.15 + 15)
     annotation (Placement(transformation(extent={{-54,-88},{-34,-68}})));
-  CDL.Reals.Sources.Sin sin3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin3(
     final freqHz=1/21600,
     final amplitude=2,
     phase=0,
@@ -48,5 +48,14 @@ equation
       __Dymola_Algorithm="Dassl"), Documentation(info="<html>
 <p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.ModeSelection\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.ModeSelection</a>.</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end ModeSelection;

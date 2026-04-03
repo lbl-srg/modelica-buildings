@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
-block TemperatureSetpointResolution
-  parameter Real TRes(unit="K")=0.5556
+block TemperatureSetpointResolution "Temperature setpoint resolution"
+  parameter Real TRes(unit="K")=0.5
     "temperature setpoint resolution";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSet "setpoint command"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -50,7 +50,24 @@ equation
             100}},
         grid={2,2})),
     Documentation(info="<html>
-<p><span style=\"font-size: 9pt;\">This block adds resolution to a temperature setpoint, such that the temperature setpoint value can only fall into specific resolution intervals.</span></p>
-<p><span style=\"font-size: 9pt;\">The input variable <span style=\"font-family: Courier New;\">uTSet</span> can take on any temperature value, and the output variable <span style=\"font-family: Courier New; font-size: 9pt;\">yTSet</span> can only take specific temperature values from the resolution intervals. The parameter <span style=\"font-family: Courier New; font-size: 9pt;\">TRes</span> specifies the temperature resolution interval, which can be 0.5K, 1K, etc. when using temperature in Kelvin or Celsius units, or 0.5556K, 0.2778K, etc. when using temperature in the Fehrenheit unit. The base temperature is 273.15 + 20 K. The output variable <span style=\"font-family: Courier New; font-size: 9pt;\">yTSet</span> is equal to an integer multiple of <span style=\"font-family: Courier New; font-size: 9pt;\">TRes</span> plus the base temperature that is the closest value to <span style=\"font-family: Courier New; font-size: 9pt;\">uTSet</span>.</p>
+<p>This block adds resolution to a temperature setpoint, such that the temperature 
+setpoint value can only fall into specific resolution intervals.</p>
+<p>The input variable <code>uTSet</code> can take on any temperature 
+value, and the output variable <code>yTSet</code> can only take specific 
+temperature values from the resolution intervals. The parameter <code>TRes</code> 
+specifies the temperature resolution interval, which can be 0.5K, 1K, etc. when using 
+temperature in Kelvin or Celsius units, or 0.5556K, 0.2778K, etc. when using 
+temperature in the Fehrenheit unit. The base temperature is 273.15 + 20 K. The 
+output variable <code>yTSet</code> is equal to an integer multiple of <code>TRes</code> 
+plus the base temperature that is the closest value to <code>uTSet</code>.</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end TemperatureSetpointResolution;

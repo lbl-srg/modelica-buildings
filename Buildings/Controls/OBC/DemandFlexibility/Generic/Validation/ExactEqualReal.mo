@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
-model ExactEqualReal
+model ExactEqualReal "Exact equal block for real numbers"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal
     exactEqualReal
     annotation (Placement(transformation(extent={{-6,-12},{14,8}})));
-  CDL.Reals.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final freqHz=1/86400,
     final amplitude=1,
     phase=3.1415926535898,
     final offset=273.15 + 20)
     annotation (Placement(transformation(extent={{-72,0},{-52,20}})));
-  CDL.Reals.Sources.Sin sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final freqHz=1/21600,
     final amplitude=10,
     final offset=273.15 + 25)
@@ -27,5 +27,14 @@ equation
       __Dymola_Algorithm="Dassl"), Documentation(info="<html>
 <p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal</a>.</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end ExactEqualReal;

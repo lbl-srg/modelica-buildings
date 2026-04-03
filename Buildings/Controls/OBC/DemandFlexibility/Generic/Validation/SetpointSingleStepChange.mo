@@ -1,21 +1,21 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
-model SetpointSingleStepChange
+model SetpointSingleStepChange "Single-step setpoint change"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointSingleStepChange
     setpointSingleStepChange
     annotation (Placement(transformation(extent={{18,-62},{48,-36}})));
-  CDL.Logical.Sources.Pulse booPul(period=86400, shift=43200)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=86400, shift=43200)
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
-  CDL.Reals.Sources.Constant con(k=273.15 + 25)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=273.15 + 25)
     annotation (Placement(transformation(extent={{-72,-58},{-52,-38}})));
-  CDL.Reals.Sources.Constant con1(k=273.15 + 20)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=273.15 + 20)
     annotation (Placement(transformation(extent={{-78,-92},{-58,-72}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SingleTemperatureSetpointMock
     singleTemperatureSetpointMock annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={36,-8})));
-  CDL.Interfaces.RealOutput TSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSet
     annotation (Placement(transformation(extent={{100,-10},{140,30}})));
 equation
   connect(booPul.y, setpointSingleStepChange.have_pri) annotation (Line(points={{-48,10},
@@ -37,5 +37,14 @@ equation
       __Dymola_Algorithm="Dassl"), Documentation(info="<html>
 <p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointSingleStepChange\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointSingleStepChange</a>.</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end SetpointSingleStepChange;

@@ -1,12 +1,13 @@
 within Buildings.Controls.OBC;
-package DemandFlexibility
+package DemandFlexibility "Demand flexibility control sequences"
     annotation (
     Documentation(
       info="<html>
-        <p>
-        This package contains demand flexibility control sequences.
-        </p>
-        </html>",
+<p>
+This package contains demand flexibility control sequences, including zone temperature setpoint control, chiller 
+supply water temperature reset, supply fan and air handling unit (AHU) cooling coil valve limiting.
+</p>
+</html>",
       revisions="<html>
         <ul>
         <li>

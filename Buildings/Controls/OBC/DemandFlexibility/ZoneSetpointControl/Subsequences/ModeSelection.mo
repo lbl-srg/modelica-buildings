@@ -1,36 +1,38 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences;
-block ModeSelection
-  CDL.Interfaces.IntegerInput uMod
+block ModeSelection "Mode selection"
+
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uPre
+    annotation (Placement(transformation(extent={{-140,26},{-100,66}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uBas
+    annotation (Placement(transformation(extent={{-140,-12},{-100,28}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uShe
+    annotation (Placement(transformation(extent={{-140,-52},{-100,-12}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uReb
+    annotation (Placement(transformation(extent={{-140,-98},{-100,-58}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uMod
     "setpoint mode; 0 = normal; -1 = precool or preheat; 1 = ratchet; 2 = rebound"
     annotation (Placement(transformation(extent={{-140,68},{-100,108}}),
         iconTransformation(extent={{-140,68},{-100,108}})));
-  CDL.Reals.Switch swi
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  CDL.Reals.Switch swi1
-    annotation (Placement(transformation(extent={{56,0},{76,20}})));
-  CDL.Reals.Switch swi2
-    annotation (Placement(transformation(extent={{88,-48},{108,-28}})));
-  CDL.Interfaces.RealInput uPre
-    annotation (Placement(transformation(extent={{-140,26},{-100,66}})));
-  CDL.Interfaces.RealInput uBas
-    annotation (Placement(transformation(extent={{-140,-12},{-100,28}})));
-  CDL.Interfaces.RealInput uShe
-    annotation (Placement(transformation(extent={{-140,-52},{-100,-12}})));
-  CDL.Interfaces.RealInput uReb
-    annotation (Placement(transformation(extent={{-140,-98},{-100,-58}})));
-  CDL.Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{130,-20},{170,20}})));
-  CDL.Integers.Equal intEqu
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
+    annotation (Placement(transformation(extent={{56,0},{76,20}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
+    annotation (Placement(transformation(extent={{88,-48},{108,-28}})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     annotation (Placement(transformation(extent={{-26,60},{-6,80}})));
-  CDL.Integers.Sources.Constant conInt(k=-1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=-1)
     annotation (Placement(transformation(extent={{-66,80},{-46,100}})));
-  CDL.Integers.Equal intEqu1
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     annotation (Placement(transformation(extent={{-6,0},{14,20}})));
-  CDL.Integers.Sources.Constant conInt1(k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=1)
     annotation (Placement(transformation(extent={{-58,-24},{-38,-4}})));
-  CDL.Integers.Equal intEqu2
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
     annotation (Placement(transformation(extent={{42,-48},{62,-28}})));
-  CDL.Integers.Sources.Constant conInt2(k=2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(k=2)
     annotation (Placement(transformation(extent={{-56,-70},{-36,-50}})));
 equation
   connect(uPre, swi.u1) annotation (Line(points={{-120,46},{0,46},{0,78},{18,78}},
@@ -74,6 +76,15 @@ equation
         extent={{-100,-120},{130,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block serves to choose which of the input variables, including <span style=\"font-family: Courier New;\">uPre</span>, <span style=\"font-family: Courier New;\">uBas</span>, <span style=\"font-family: Courier New;\">uShe</span>, <span style=\"font-family: Courier New;\">uReb</span>, to output as the output variable <span style=\"font-family: Courier New;\">y</span>, based on the demand flexibility mode of the system <span style=\"font-family: Courier New;\">uMod</span>. Demand flexibility modes include the pre-cool/pre-heat mode (<span style=\"font-family: Courier New;\">uMod</span> = -1), the baseline mode (<span style=\"font-family: Courier New;\">uMod</span> = 0), the load-shed mode (<span style=\"font-family: Courier New;\">uMod</span> = 1), and the load-rebound mode (<span style=\"font-family: Courier New;\">uMod</span> = 2).</p>
+<p>This block serves to choose which of the input variables, including <code>uPre</code>, <code>uBas</code>, <code>uShe</code>, <code>uReb</code>, to output as the output variable <code>y</code>, based on the demand flexibility mode of the system <code>uMod</code>. Demand flexibility modes include the pre-cool/pre-heat mode (<code>uMod</code> = -1), the baseline mode (<code>uMod</code> = 0), the load-shed mode (<code>uMod</code> = 1), and the load-rebound mode (<code>uMod</code> = 2).</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+
+</ul>
 </html>"));
 end ModeSelection;

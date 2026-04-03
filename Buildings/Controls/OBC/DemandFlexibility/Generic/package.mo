@@ -1,12 +1,13 @@
 within Buildings.Controls.OBC.DemandFlexibility;
-package Generic
+package Generic "Generic control sequences"
     annotation (
     Documentation(
       info="<html>
-        <p>
-        This package contains demand flexibility control sequences.
-        </p>
-        </html>",
+<p>
+This package contains generic control sequences that are used in various places within 
+the demand flexibility control sequence package.
+</p>
+</html>",
       revisions="<html>
         <ul>
         <li>
