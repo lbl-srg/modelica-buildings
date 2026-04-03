@@ -21,7 +21,7 @@ impure function temperatureResponseMatrix
   input Boolean forceGFunCalc
     "Set to true to force the thermal response to be calculated at the start";
 
-  output Modelica.Units.SI.ThermalResistance TStep[nTimTot,2]
+  output Real TStep[nTimTot,2]
     "Temperature step-response time series";
 
 protected
@@ -102,6 +102,13 @@ conductivity of the soil.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 20, 2026, by Michael Wetter:<br/>
+Corrected type declaration of g-function.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4501\">
+Buildings, #4501</a>.
+</li>
 <li>
 December 11, 2021, by Michael Wetter:<br/>
 Added <code>impure</code> declaration for MSL 4.0.0.
