@@ -267,7 +267,9 @@ model HybridAirToWater "Validation of AWHP plant template"
     dat(
       m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
       dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
-      per=datAll.pla.pumHeaWatPri.per[1])) "HW primary pump for 4-pipe ASHP"
+      per=datAll.pla.pumHeaWatPri.per[1]),
+    dpValChe_nominal=3.25*Buildings.Templates.Data.Defaults.dpValChe)
+                                           "HW primary pump for 4-pipe ASHP"
     annotation (Placement(transformation(extent={{-130,-200},{-110,-180}})));
   Buildings.Templates.Components.Pumps.Single pumCHWFouPip(
     have_var=false,
@@ -276,7 +278,9 @@ model HybridAirToWater "Validation of AWHP plant template"
     dat(
       m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
       dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
-      per=datAll.pla.pumHeaWatPri.per[1])) "CHW primary pump for 4-pipe ASHP"
+      per=datAll.pla.pumHeaWatPri.per[1]),
+    dpValChe_nominal=12*Buildings.Templates.Data.Defaults.dpValChe)
+                                           "CHW primary pump for 4-pipe ASHP"
     annotation (Placement(transformation(extent={{-60,-210},{-80,-190}})));
   Fluid.FixedResistances.Junction junCHWBypSup(
     redeclare package Medium = Medium,
