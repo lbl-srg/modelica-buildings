@@ -234,7 +234,7 @@ initial equation
   XOutCoo=sizCoo.XOut/(1-sizCoo.XOut);
   XOutHea=sizHea.XOut/(1-sizHea.XOut);
   XSetCoo=sizCoo.XSet/(1-sizCoo.XSet);
-  XOutHea=sizHea.XSet/(1-sizHea.XSet);
+  XSetHea=sizHea.XSet/(1-sizHea.XSet);
 
   // m_flow_small
   m_flow_small=V*3*1.2/3600*1E-10;
