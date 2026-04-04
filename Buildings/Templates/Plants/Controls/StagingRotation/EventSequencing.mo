@@ -285,8 +285,6 @@ equation
       color={255,0,255}));
   connect(enaAndCoo.y, y1AndCoo)
     annotation (Line(points={{152,70},{156,70},{156,80},{180,80}},color={255,0,255}));
-  connect(u1Hea_internal.y, rou.u)
-    annotation (Line(points={{-128,140},{-120,140},{-120,-70},{58,-70}},color={255,0,255}));
   connect(u1HeaOrCoo.y, rou1.u)
     annotation (Line(points={{-68,120},{44,120},{44,-40},{58,-40}},  color={255,0,255}));
   connect(u1Hea_internal.y, off.u1)
@@ -325,21 +323,22 @@ equation
   connect(timHp.passed, latPumChiWatPri.clr)
     annotation (Line(points={{12,12},{40,12},{40,-106},{108,-106}},
                                                                  color={255,0,255}));
-  connect(u1Coo_internal.y, latPumChiWatPri.u)
-    annotation (Line(points={{-128,80},{-100,80},{-100,-100},{108,-100}},
-                                                                      color={255,0,255}));
   connect(u1Hea_internal.y, truDelHea.u) annotation (Line(points={{-128,140},{-120,
           140},{-120,40},{-82,40}}, color={255,0,255}));
   connect(u1Coo_internal.y, truDelCoo.u) annotation (Line(points={{-128,80},{-100,
           80},{-100,-30},{-82,-30}}, color={255,0,255}));
-  connect(u1Hea_internal.y, u1HeaOrCoo.u1) annotation (Line(points={{-128,140},
-          {-120,140},{-120,120},{-92,120}}, color={255,0,255}));
-  connect(u1Coo_internal.y, u1HeaOrCoo.u2) annotation (Line(points={{-128,80},{
-          -100,80},{-100,112},{-92,112}}, color={255,0,255}));
   connect(truDelHea.y, latValHeaWatIso.u)
     annotation (Line(points={{-58,40},{98,40}}, color={255,0,255}));
   connect(truDelCoo.y, latValChiWatIso.u) annotation (Line(points={{-58,-30},{
           -40,-30},{-40,0},{98,0}}, color={255,0,255}));
+  connect(truDelHea.y, rou.u) annotation (Line(points={{-58,40},{20,40},{20,-70},
+          {58,-70}}, color={255,0,255}));
+  connect(truDelCoo.y, latPumChiWatPri.u) annotation (Line(points={{-58,-30},{
+          -40,-30},{-40,-100},{108,-100}}, color={255,0,255}));
+  connect(u1Hea_internal.y, u1HeaOrCoo.u1) annotation (Line(points={{-128,140},
+          {-120,140},{-120,120},{-92,120}}, color={255,0,255}));
+  connect(u1Coo_internal.y, u1HeaOrCoo.u2) annotation (Line(points={{-128,80},{
+          -100,80},{-100,112},{-92,112}}, color={255,0,255}));
   annotation (
     defaultComponentName="seqEve",
     Icon(

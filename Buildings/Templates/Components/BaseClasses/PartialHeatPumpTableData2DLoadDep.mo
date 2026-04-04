@@ -32,13 +32,10 @@ partial model PartialHeatPumpTableData2DLoadDep
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-20})));
-  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep hp(
+  replaceable Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep hp(
     redeclare final package MediumCon = MediumHeaWat,
     redeclare final package MediumEva = MediumSou,
-    final datHea=dat.perHea,
-    final datCoo=dat.perCoo,
     final P_min=dat.P_min,
-    final use_rev=is_rev,
     final QCoo_flow_nominal=QCoo_flow_nominal,
     final QHea_flow_nominal=QHea_flow_nominal,
     final TConHea_nominal=THeaWatSup_nominal,
@@ -49,8 +46,6 @@ partial model PartialHeatPumpTableData2DLoadDep
     final allowFlowReversalEva=allowFlowReversalSou,
     final dTCon_nominal=THeaWatSup_nominal - THeaWatRet_nominal,
     dTEva_nominal=0,
-    final dpCon_nominal=if have_dpChiHeaWat then dpHeaWat_nominal else 0,
-    final dpEva_nominal=if have_dpSou then dpSouHea_nominal else 0,
     final energyDynamics=energyDynamics,
     final mCon_flow_nominal=mHeaWat_flow_nominal,
     final mEva_flow_nominal=mSouHea_flow_nominal,
@@ -80,18 +75,18 @@ equation
     annotation (Line(points={{40,132},{40,156},{0,156},{0,160}},
                                                          color={255,0,255}));
   connect(bus.y1, hp.on) annotation (Line(
-      points={{0,160},{0,20},{-20,20},{-20,-6},{-12,-6}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.y1Hea, hp.hea) annotation (Line(
       points={{0,160},{0,20},{-20,20},{-20,-8},{-12,-8}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TSet, hp.TSet) annotation (Line(
+  connect(bus.y1Hea, hp.hea) annotation (Line(
+      points={{0,160},{0,20},{-20,20},{-20,-10},{-12,-10}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.TSet, hp.THwSet) annotation (Line(
       points={{0,160},{0,20},{-20,20},{-20,-2},{-12,-2}},
       color={255,204,51},
       thickness=0.5));
-  connect(hp.on, y1_actual.y1) annotation (Line(points={{-12,-6},{-14,-6},{-14,12},
+  connect(hp.on, y1_actual.y1) annotation (Line(points={{-12,-8},{-14,-8},{-14,12},
           {40,12},{40,108}},     color={255,0,255}));
   annotation (
   defaultComponentName="heaPum",

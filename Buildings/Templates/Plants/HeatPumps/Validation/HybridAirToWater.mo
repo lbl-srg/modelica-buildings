@@ -39,31 +39,32 @@ model HybridAirToWater "Validation of AWHP plant template"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
-  parameter Buildings.Templates.Components.Data.HeatPump datHpSHC(
+  parameter Buildings.Templates.Components.Data.HeatPump datHpShc(
+    typMod=Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent,
     final cpHeaWat_default=hpSHC.cpHeaWat_default,
     final cpSou_default=hpSHC.cpSou_default,
-    final typ=hpSHC.typ,
-    final is_rev=hpSHC.is_rev,
+    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWaterShc,
+    dpChiWatShc_nominal=datHpShc.dpHeaWat_nominal,
+    capHeaShc_nominal=datAll.pla.hp.capHeaHp_nominal,
+    capCooShc_nominal=datAll.pla.hp.capCooHp_nominal,
+    perShc(
+        fileNameHea=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+        fileNameCoo=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+        fileNameShc=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")),
     mChiWat_flow_nominal=datAll.pla.hp.mChiWatHp_flow_nominal,
-    dpChiWat_nominal(displayUnit="bar") = datAll.pla.hp.dpHeaWatHp_nominal,
     capCoo_nominal=datAll.pla.hp.capCooHp_nominal,
     TChiWatSup_nominal=datAll.pla.hp.TChiWatSupHp_nominal,
     TSouCoo_nominal=datAll.pla.hp.TSouCooHp_nominal,
     perHea=datAll.pla.hp.perHeaHp,
     perCoo=datAll.pla.hp.perCooHp,
-    perSHC(
-      fileNameHea=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
-      fileNameCoo=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
-      fileNameShc=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")),
     mHeaWat_flow_nominal=datAll.pla.hp.mHeaWatHp_flow_nominal,
     dpHeaWat_nominal(displayUnit="bar") = datAll.pla.hp.dpHeaWatHp_nominal,
     capHea_nominal=datAll.pla.hp.capHeaHp_nominal,
     THeaWatSup_nominal=datAll.pla.hp.THeaWatSupHp_nominal,
-    TSouHea_nominal=datAll.pla.hp.TSouHeaHp_nominal,
-    dpSouWwHea_nominal(displayUnit="Pa"))
+    TSouHea_nominal=datAll.pla.hp.TSouHeaHp_nominal)
     "Simultaneous heating and cooling (SHC) air-to-water heat pump record"
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -97,7 +98,8 @@ model HybridAirToWater "Validation of AWHP plant template"
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
-    is_dpBalYPumSetCal=true)
+    is_dpBalYPumSetCal=true,
+    valIso(strokeTime=60))
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
@@ -239,11 +241,10 @@ model HybridAirToWater "Validation of AWHP plant template"
     dp_nominal={0,0,0})
     "Primary return junction between 2-pipe and 4-pipe ASHPs"
     annotation (Placement(transformation(extent={{-90,-130},{-110,-110}})));
-  Buildings.Templates.Components.HeatPumps.AirToWaterSHC hpSHC(
+  Buildings.Templates.Components.HeatPumps.AirToWaterShc hpSHC(
     redeclare package MediumHeaWat = Medium,
-    redeclare package MediumSou = Medium,
     is_rev=true,
-    dat=datHpSHC)
+    dat=datHpShc)
     "4-pipe ASHP with simultaneous HW and CHW supply"
     annotation (Placement(transformation(extent={{-104,-200},{-84,-180}})));
   Fluid.FixedResistances.Junction junCHWPriSup(
@@ -268,7 +269,7 @@ model HybridAirToWater "Validation of AWHP plant template"
       m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
       dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
       per=datAll.pla.pumHeaWatPri.per[1]),
-    dpValChe_nominal=3.25*Buildings.Templates.Data.Defaults.dpValChe)
+    dpValChe_nominal=Buildings.Templates.Data.Defaults.dpValChe)
                                            "HW primary pump for 4-pipe ASHP"
     annotation (Placement(transformation(extent={{-130,-200},{-110,-180}})));
   Buildings.Templates.Components.Pumps.Single pumCHWFouPip(
@@ -279,7 +280,7 @@ model HybridAirToWater "Validation of AWHP plant template"
       m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
       dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
       per=datAll.pla.pumHeaWatPri.per[1]),
-    dpValChe_nominal=12*Buildings.Templates.Data.Defaults.dpValChe)
+    dpValChe_nominal=Buildings.Templates.Data.Defaults.dpValChe)
                                            "CHW primary pump for 4-pipe ASHP"
     annotation (Placement(transformation(extent={{-60,-210},{-80,-190}})));
   Fluid.FixedResistances.Junction junCHWBypSup(

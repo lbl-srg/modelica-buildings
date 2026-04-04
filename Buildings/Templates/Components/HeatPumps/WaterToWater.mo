@@ -1,10 +1,16 @@
 within Buildings.Templates.Components.HeatPumps;
 model WaterToWater
   "Water-to-water heat pump"
-  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep
-                                                                                     (
-    final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater, hp(
-        use_intSafCtr=false));
+  extends
+    Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep(
+      final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater, hp(
+        use_intSafCtr=false,
+      datHea=dat.perHea,
+      datCoo=dat.perCoo));
+initial equation
+  assert(typMod <> Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent,
+    "In " + getInstanceName() +
+    ": Water-to-water polyvalent units (6-pipe) are not yet supported.");
 equation
   connect(port_aSou, TSouEnt.port_a)
     annotation (Line(points={{80,-140},{80,-20},{40,-20}},color={0,127,255}));

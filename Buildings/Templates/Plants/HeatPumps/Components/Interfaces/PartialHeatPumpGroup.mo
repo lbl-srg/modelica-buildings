@@ -49,7 +49,6 @@ model PartialHeatPumpGroup "Interface for heat pump group"
     annotation (Placement(transformation(extent={{170,170},{190,190}})),
     __ctrlFlow(enable=false));
   final parameter Buildings.Templates.Components.Data.HeatPump datHp[nHp](
-    each final is_rev=is_rev,
     each final typ=typ,
     each final cpHeaWat_default=cpHeaWat_default,
     each final cpSou_default=cpSou_default,

@@ -104,7 +104,7 @@ model TableData2DLoadDepSHC
     "Performance data"
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{82,-18},{98,-2}})));
-  parameter Modelica.Units.SI.Power P_min(final min=0)=0
+  parameter Modelica.Units.SI.Power P_min(min=0)=0
     "Remaining power when system is enabled with all compressors cycled off";
   parameter Modelica.Units.SI.Temperature TConHea_nominal
     "HW temperature: leaving if dat.use_TConOutForTab=true, entering otherwise"
@@ -148,32 +148,27 @@ model TableData2DLoadDepSHC
     "Equivalent CHW isolation valve flow characteristic"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Real dtRun(
-    final min=0,
-    final unit="s") = 300
+    min=0,
+    unit="s")=300
     "Minimum stage runtime"
     annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real dtMea(
-    final min=0,
-    final unit="s") = 120
+    min=0,
+    unit="s")=120
     "Load averaging time window"
     annotation (Dialog(tab="Advanced", group="Staging logic"));
   parameter Real SPLR(
     max=1,
-    min=0) = 0.9
+    min=0)=0.9
     "Staging part load ratio"
     annotation (Dialog(tab="Advanced", group="Staging logic"));
-  parameter Modelica.Units.SI.TemperatureDifference dTSaf(
-    final min=0) = 2
+  parameter Modelica.Units.SI.TemperatureDifference dTSaf(min=0)=2
     "Maximum temperature deviation from setpoint before limiting demand for safety (>0)"
     annotation (Dialog(tab="Advanced", group="Safeties"));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
-    "On/off command: true to enable heat pump, false to disable heat pump"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onHea
+    "Heating on/off command"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-        iconTransformation(extent={{-138,-38},{-102,-2}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode
-    "System operating mode command"
-    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-        iconTransformation(extent={{-138,-58},{-102,-22}})));
+      iconTransformation(extent={{-138,-38},{-102,-2}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(
     final unit="K",
     displayUnit="degC")
@@ -185,25 +180,11 @@ model TableData2DLoadDepSHC
     displayUnit="degC")
     "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-        iconTransformation(extent={{-138,-18},{-102,18}})));
-  BoundaryConditions.WeatherData.Bus weaBus
-    if typ == Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump.AirToWater
-    "Weather bus"
-    annotation (Placement(
-        transformation(extent={{-20,160},{20,200}}), iconTransformation(extent={{-10,90},
-            {10,110}})));
-  // The following block is to prepare future support of six-pipe systems.
-  Templates.Plants.Controls.Utilities.PlaceholderReal TAmbIn(final have_inp=typ
-         == Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump.AirToWater,
-      have_inpPh=true) "Ambient-side fluid inlet temperature" annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-16,144})));
-  Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
-    "Placeholder signal"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
-      origin={-100,-88})));
+      iconTransformation(extent={{-138,-18},{-102,18}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput onCoo
+    "Cooling on/off command"
+    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
+      iconTransformation(extent={{-138,-58},{-102,-22}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nUniHea(start=0)
     "Number of modules in heating mode"
     annotation (Placement(transformation(extent={{140,-80},{180,-40}}),
@@ -247,41 +228,55 @@ model TableData2DLoadDepSHC
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-60,-110})));
-  Modelica.Blocks.Sources.BooleanExpression calY1ValChwIso[nUni](y={on and (
-        mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.cooling
-         or mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
-         and (i == 1 or nUniShc + nUniCoo >= i) for i in 1:nUni})
-    "Calculate CHW isolation valve command" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
+  BoundaryConditions.WeatherData.Bus weaBus
+    if typ == Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump.AirToWater
+    "Weather bus"
+    annotation (Placement(
+        transformation(extent={{-20,160},{20,200}}), iconTransformation(extent={{-10,90},
+            {10,110}})));
+  // The following block is to prepare future support of six-pipe systems.
+  Templates.Plants.Controls.Utilities.PlaceholderReal TAmbIn(final have_inp=typ
+         == Buildings.Fluid.HeatPumps.ModularReversible.Types.HeatPump.AirToWater,
+      have_inpPh=true) "Ambient-side fluid inlet temperature" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={120,50})));
-  Modelica.Blocks.Sources.RealExpression calYValHwIso(y=if on and (mode ==
-        Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.heating
-         or mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
-         then max(1, nUniShc + nUniHea)/nUni else 0)
-    "Calculate equivalent HW isolation valve command" annotation (Placement(
+        origin={-16,144})));
+  Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
+    "Placeholder signal"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
+      origin={-100,-88})));
+  Modelica.Blocks.Sources.RealExpression calYValHwIso(
+    y=if onHea then max(1, nUniShc + nUniHea)/nUni else 0)
+    "Calculate equivalent HW isolation valve command"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,110})));
-  Modelica.Blocks.Sources.RealExpression calYValChwIso(y=if on and (mode ==
-        Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.cooling
-         or mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
-         then max(1, nUniShc + nUniCoo)/nUni else 0)
-    "Calculate equivalent CHW isolation valve command" annotation (Placement(
+  Modelica.Blocks.Sources.RealExpression calYValChwIso(
+    y=if onCoo then max(1, nUniShc + nUniCoo)/nUni else 0)
+    "Calculate equivalent CHW isolation valve command"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,90})));
-  Modelica.Blocks.Sources.BooleanExpression calY1ValHwIso[nUni](y={on and (mode
-         == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.heating
-         or mode == Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
-         and (i == 1 or nUniShc + nUniHea >= i) for i in 1:nUni})
-    "Calculate HW isolation valve command" annotation (Placement(transformation(
+  Modelica.Blocks.Sources.BooleanExpression calY1ValHwIso[nUni](
+    y={onHea and (i == 1 or nUniShc + nUniHea >= i) for i in 1:nUni})
+    "Calculate HW isolation valve command"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={120,70})));
+      origin={120,70})));
+  Modelica.Blocks.Sources.BooleanExpression calY1ValChwIso[nUni](
+    y={onCoo and (i == 1 or nUniShc + nUniCoo >= i) for i in 1:nUni})
+    "Calculate CHW isolation valve command"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={120,50})));
 equation
   connect(eff.QUse_flow, refCycIneCon.y)
     annotation (Line(points={{98,37},{48,37},{48,66},{8.88178e-16,66},{8.88178e-16,61}},
@@ -290,9 +285,10 @@ equation
     annotation (Line(points={{98,30},{48,30},{48,0},{26,0},{26,-30},{-20,-30},{-20,-41},{-141,-41}},
       color={255,0,255}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(on, sigBus.onOffMea)
-    annotation (Line(points={{-160,-20},{-130,-20},{-130,-38},{-142,-38},{-142,
-          -41},{-141,-41}},                                    color={255,0,255}));
+  connect(onHea, sigBus.onHea) annotation (Line(points={{-160,-20},{-130,-20},
+    {-130,-38},{-142,-38},{-142,-41},{-141,-41}}, color={255,0,255}));
+  connect(onCoo, sigBus.onCoo) annotation (Line(points={{-160,-60},{-130,-60},{
+          -130,-38},{-142,-38},{-142,-41},{-141,-41}},  color={255,0,255}));
   connect(THwSet, sigBus.THwSet) annotation (Line(points={{-160,60},{-122,60},{-122,
           -41},{-141,-41}}, color={0,0,127}));
   connect(TChwSet, sigBus.TChwSet) annotation (Line(points={{-160,40},{-124,40},
@@ -303,8 +299,6 @@ equation
       thickness=0.5));
   connect(TAmbIn.y, sigBus.TAmbInMea) annotation (Line(points={{-28,144},{-34,144},
           {-34,-40},{-141,-40},{-141,-41}}, color={0,0,127}));
-  connect(mode, sigBus.mode) annotation (Line(points={{-160,-80},{-130,-80},{-130,
-          -41},{-141,-41}}, color={255,127,0}));
   connect(conHea.y, sigBus.hea) annotation (Line(points={{-111,-88},{-128,-88},{
           -128,-41},{-141,-41}}, color={255,0,255}));
   connect(nUniHea, sigBus.nUniHea) annotation (Line(points={{160,-60},{130,-60},
@@ -338,6 +332,13 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors 
+for heating and cooling on/off commands.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 July 1, 2025, by Antoine Gautier:<br/>
 First implementation.
@@ -396,17 +397,12 @@ The following input signals are available.
 </p>
 <ul>
 <li>
-On/off command signal: <code>on</code>
+Heating on/off command: <code>onHea</code>
 (Boolean, scalar)
 </li>
-<li>System operating mode command: <code>mode</code>
-(integer, scalar)<br/>
-Based on the mode definitions from
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes\">
-Buildings.Fluid.HeatPumps.Types.OperatingModes</a>
-and the logic described in
-<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
-Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
+<li>
+Cooling on/off command: <code>onCoo</code>
+(Boolean, scalar)
 </li>
 <li>
 HW temperature setpoint: <code>THwSet</code>
