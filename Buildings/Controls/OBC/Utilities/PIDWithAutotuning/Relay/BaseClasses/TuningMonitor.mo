@@ -155,11 +155,6 @@ Corrected unit propagation error that causes Dymola 2026x to not show certain un
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
 </li>
 <li>
-March 31, 2026, by Michael Wetter:<br/>
-Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
-</li>
-<li>
 September 20, 2023, by Sen Huang:<br/>
 First implementation.<br/>
 </li>
