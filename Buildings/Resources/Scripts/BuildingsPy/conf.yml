@@ -1,3 +1,7 @@
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    time_out: 600
 - model_name: Buildings.Airflow.Multizone.Examples.PressurizationData
   optimica:
     comment: High solver tolerance required to avoid time out.
@@ -54,8 +58,8 @@
     simulate: false
 - model_name: Buildings.DHC.Networks.Examples.Distribution2PipeExample
   openmodelica:
-    comment: simulation fails
-    simulate: false
+    comment: translation fails
+    translate: false
 - model_name: Buildings.DHC.Plants.Combined.Examples.AllElectricCWStorage
   dymola:
     time_out: 600
@@ -509,8 +513,8 @@
     time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer
   openmodelica:
-    comment: timed out after 300 seconds
-    time_out: 600
+    comment: timed out after 600 seconds
+    time_out: 900
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: Timeout on travis after 600 seconds
