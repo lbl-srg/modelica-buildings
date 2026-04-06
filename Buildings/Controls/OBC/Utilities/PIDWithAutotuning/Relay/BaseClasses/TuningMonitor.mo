@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
-  constant Modelica.Units.SI.Time eps = 1E-5
+  constant Modelica.Units.SI.Time minHorLen = 1E-5
     "A small tolerance applied to determine whether a variable is greater than zero";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
@@ -33,7 +33,7 @@ protected
     "Check if either the length for the on period or the length for the off period are larger than 0"
     annotation (Placement(transformation(origin={-40,10}, extent = {{-40, 40}, {-20, 60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(
-    final k=eps)
+    final k=minHorLen)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
@@ -149,11 +149,6 @@ annotation (defaultComponentName = "tunMon",
           textColor={0,0,255})}),
     Documentation(revisions="<html>
 <ul>
-<li>
-March 31, 2026, by Michael Wetter:<br/>
-Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
-</li>
 <li>
 March 31, 2026, by Michael Wetter:<br/>
 Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
