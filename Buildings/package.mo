@@ -322,6 +322,12 @@ units are wrong or errors in documentation):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4455\">#4455</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialCapacity
+    </td>
+    <td valign=\"top\">Avoided unsafe array access that relied on short-circuiting.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4516\">#4516</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Geothermal.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix<br/>
                        Buildings.Fluid.Geothermal.BaseClasses.HeatTransfer.LoadAggregation.aggregationWeightingFactors<br/>
                        Buildings.Fluid.Geothermal.BaseClasses.HeatTransfer.LoadAggregation.temperatureResponseMatrix
