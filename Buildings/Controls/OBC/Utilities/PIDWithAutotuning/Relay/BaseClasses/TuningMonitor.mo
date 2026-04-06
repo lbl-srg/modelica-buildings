@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
-  constant Modelica.Units.SI.Time minHorLen = 1E-5
+  constant Modelica.Units.SI.Time eps = 1E-5
     "A small tolerance applied to determine whether a variable is greater than zero";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
@@ -33,19 +33,23 @@ protected
     "Check if either the length for the on period or the length for the off period are larger than 0"
     annotation (Placement(transformation(origin={-40,10}, extent = {{-40, 40}, {-20, 60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(
-    final k=minHorLen)
+    final k=eps)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
     "Sample the minimum period when the minimum period is greater than 0"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater tInc
+  Buildings.Controls.OBC.CDL.Reals.Greater tInc(
+    u1(unit="s"),
+    u2(unit="s"))
     "Check if either the length for the on period or the length for the off period increases after they both become positive"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Reals.Add addtOntOff
     "Block that calculates the sum of the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-130,-20},{-110,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater tDec
+  Buildings.Controls.OBC.CDL.Reals.Greater tDec(
+    u1(unit="s"),
+    u2(unit="s"))
     "Check if either the length for the on period or the length for the off period decreases after they both become positive"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or tCha
@@ -145,6 +149,16 @@ annotation (defaultComponentName = "tunMon",
           textColor={0,0,255})}),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 September 20, 2023, by Sen Huang:<br/>
 First implementation.<br/>
