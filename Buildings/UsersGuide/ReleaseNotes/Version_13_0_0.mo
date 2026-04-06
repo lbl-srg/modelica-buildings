@@ -256,7 +256,41 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved to <code>Buildings.Controls.OBC.Utilities.PIDWithEnable</code> as there were two identical implementations.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep<br/>
+                       Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DLoadDep<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep
+    </td>
+    <td valign=\"top\">Refactored with two separate connectors for HW and CHW temperature setpoints.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DLoadDepSHC<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC
+    </td>
+    <td valign=\"top\">Refactored with two separate connectors for heating and cooling on/off commands.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep<br/>
+                       Buildings.Templates.Components.Chillers.Compression<br/>
+                       Buildings.Templates.Plants.Controls.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Controls.OpenLoop
+    </td>
+    <td valign=\"top\">Refactored with two separate connectors for HW and CHW temperature setpoints.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone<br/>

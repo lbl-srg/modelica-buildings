@@ -117,9 +117,9 @@ equation
     // Hence, the test starts with stage == iSta.
     for iSta in 1:nSta loop
    // Check whether data are outside of bounds
-      when ( stage == iSta and pre(checkBoundsTEva[stage])) then
+      when ( stage == iSta and pre(checkBoundsTEva[iSta])) then
       assert(
-        not (TEvaIn > sta[stage].perCur.TEvaInMax or TEvaIn < sta[stage].perCur.TEvaInMin),
+        not (TEvaIn > sta[iSta].perCur.TEvaInMax or TEvaIn < sta[iSta].perCur.TEvaInMin),
         "*** Warning: Evaporator temperature TEvaIn is out of bounds in DX coil model at time = "
            + String(time) + ".
     stage     = " + String(iSta) + "
@@ -134,9 +134,9 @@ equation
         level=AssertionLevel.warning);
         checkBoundsTEva[iSta] = false;
       end when;
-      when ( stage == iSta and pre(checkBoundsTCon[stage])) then
+      when ( stage == iSta and pre(checkBoundsTCon[iSta])) then
       assert(
-        not (TConIn > sta[stage].perCur.TConInMax or TConIn < sta[stage].perCur.TConInMin),
+        not (TConIn > sta[iSta].perCur.TConInMax or TConIn < sta[iSta].perCur.TConInMin),
         "*** Warning: Condenser temperature TConIn is out of bounds in DX coil model at time = "
            + String(time) + ".
     stage     = " + String(iSta) + "
@@ -153,7 +153,7 @@ equation
       end when;
     end for;
 
-if stage > 0 then
+  if stage > 0 then
     for iSta in 1:nSta loop
 
     // Compute performance
@@ -394,6 +394,12 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 30, 2026, by Michael Wetter:<br/>
+Avoided unsafe array access that relied on short-circuiting.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/4516\">issue 4516</a>.
+</li>
 <li>
 April 5, 2023, by Xing Lu:<br/>
 Changed class name from <code>PartialCoolingCapacity</code> to

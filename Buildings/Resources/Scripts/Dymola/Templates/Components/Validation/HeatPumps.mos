@@ -22,7 +22,7 @@ createPlot(
     id=2,
     position={310, 5, 300, 600},
     subPlot=1,
-    y={"TRet.T", "TSup.T", "hpAw.bus.TSet", "hpAw.THeaWatRet_nominal", "hpAw.TChiWatRet_nominal"},
+    y={"TRet.T", "TSup.T", "hpAw.bus.TChiWatSet", "hpAw.bus.THeaWatSet", "hpAw.THeaWatRet_nominal", "hpAw.TChiWatRet_nominal"},
     autoscale=true,
     grid=true
 );
@@ -44,7 +44,7 @@ createPlot(
     id=3,
     position={615, 5, 300, 600},
     subPlot=1,
-    y={"TRet1.T", "TSup1.T", "hpAwNrv.bus.TSet", "hpAwNrv.THeaWatRet_nominal", "hpAwNrv.TChiWatRet_nominal"},
+    y={"TRet1.T", "TSup1.T", "hpAwNrv.bus.THeaWatSet", "hpAwNrv.THeaWatRet_nominal", "hpAwNrv.TChiWatRet_nominal"},
     autoscale=true,
     grid=true
 );
@@ -66,7 +66,7 @@ createPlot(
     id=4,
     position={920, 5, 300, 600},
     subPlot=1,
-    y={"TRet2.T", "TSup2.T", "hpWw.bus.TSet", "hpWw.THeaWatRet_nominal", "hpWw.TChiWatRet_nominal"},
+    y={"TRet2.T", "TSup2.T", "hpWw.bus.TChiWatSet", "hpWw.bus.THeaWatSet", "hpWw.THeaWatRet_nominal", "hpWw.TChiWatRet_nominal"},
     autoscale=true,
     grid=true
 );
