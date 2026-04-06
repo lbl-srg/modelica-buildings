@@ -22,7 +22,7 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
     then m_flow_nominal / sqrt(dpFixed_nominal) else 0
     "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-  Real kVal(unit="1", min=Modelica.Constants.small)
+  Real kVal(unit="", min=Modelica.Constants.small)
     "Flow coefficient of valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
   Real k(unit="", min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
@@ -47,12 +47,12 @@ initial equation
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid),
     Line(
-      visible=use_inputFilter,
+      visible=use_strokeTime,
       points={{-30,40},{30,40}}),
     Line(
       points={{0,40},{0,0}}),
     Line(
-      visible=not use_inputFilter,
+      visible=not use_strokeTime,
       points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
@@ -96,6 +96,11 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 January 19, 2026, by Jelger Jansen:<br/>
 Added unit 1 to parameter <code>kVal</code> to avoid FMU unit errors.<br/>

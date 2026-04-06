@@ -12,7 +12,7 @@ model ResistanceVolumeFlowReversal
   Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     allowFlowReversal=allowFlowReversal.k,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -28,7 +28,10 @@ model ResistanceVolumeFlowReversal
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Modelica.Blocks.Sources.Pulse pulse(period=1000) "Pulse input"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Math.Gain gain(k=m_flow_nominal) "Gain for m_flow_nominal"
+  Modelica.Blocks.Math.Gain gain(
+    k=m_flow_nominal,
+    u(unit="1"),
+    y(unit="kg/s")) "Gain for m_flow_nominal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Medium,
@@ -103,7 +106,6 @@ equation
                                           color={0,127,255}));
     connect(senTem[i].port_b, val.port_3) annotation (Line(
        points={{10,-70},{0,-70},{0,-30}}, color={0,127,255}));
-
   end for;
 
   annotation (experiment(
@@ -164,8 +166,13 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 </html>", revisions="<html>
 <ul>
 <li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
+<li>
 July 18, 2025, by Hongxiang Fu:<br/>
-Added two-port temperature sensors to replace <code>vol[.].T</code>
+Added two-port temperature sensors to replace <code>vol[:].T</code>
 from reference results.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.

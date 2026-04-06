@@ -7,9 +7,6 @@ model WetCoilEffectivenessNTU
     final computeFlowResistance1=true,
     final computeFlowResistance2=true);
 
-  import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
-  import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
-
   constant Boolean use_dynamicFlowRegime = false
     "If true, flow regime is determined using actual flow rates";
   // This switch is declared as a constant instead of a parameter
@@ -18,7 +15,7 @@ model WetCoilEffectivenessNTU
   //   See discussions in https://github.com/ibpsa/modelica-ibpsa/pull/1683
 
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
-    con.CounterFlow
+    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
     "Heat exchanger configuration";
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient";
@@ -81,6 +78,9 @@ model WetCoilEffectivenessNTU
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
 
 protected
+  constant Real kUniConHeaCoo(final unit="1/W") = 1 "Constant for unit conversion";
+  constant Real kUniConHum(final unit="s/kg") = 1 "Constant for unit conversion";
+
   final parameter Modelica.Units.SI.MassFraction X_w_a2_nominal=w_a2_nominal/(1
        + w_a2_nominal)
     "Water mass fraction of inlet air at a rated condition (in kg/kg total air)";
@@ -125,8 +125,7 @@ protected
     final dp_nominal = dp1_nominal,
     final m_flow_nominal = m1_flow_nominal,
     final energyDynamics = energyDynamics,
-    final Q_flow_nominal=-1,
-    u(final unit="W"))
+    final Q_flow_nominal=-1)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
@@ -135,10 +134,9 @@ protected
     final mWat_flow_nominal = 1,
     final dp_nominal = dp2_nominal,
     final m_flow_nominal = m2_flow_nominal,
-    final energyDynamics = energyDynamics,
-    u(final unit="kg/s"))
+    final energyDynamics = energyDynamics)
     "Heat and moisture exchange with air stream"
-    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
+    annotation (Placement(transformation(extent={{-62,-94},{-82,-74}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
     final UA_nominal = UA_nominal,
     final m_flow_nominal_a = m2_flow_nominal,
@@ -220,14 +218,14 @@ protected
     Buildings.Fluid.HeatExchangers.BaseClasses.determineWaterIndex(
       Medium2.substanceNames)
     "Index of water";
-  parameter flo flowRegime_nominal(fixed=false)
+  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-  flo flowRegime(fixed=false, start=flowRegime_nominal)
+  Buildings.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
+    annotation (Placement(transformation(extent={{18,-100},{-2,-80}})));
   Real fra_a1(min=0, max=1) = if allowFlowReversal1
     then Modelica.Fluid.Utilities.regStep(
       m1_flow,
@@ -284,6 +282,13 @@ protected
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
+  Modelica.Blocks.Math.Gain uniConHum(
+    final k=kUniConHum) "Unit conversion for input to humidifier"
+    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
+  Modelica.Blocks.Math.Gain uniConHeaCoo(
+    final k=kUniConHeaCoo)
+    "Unit conversion for input to heater and cooler model"
+    annotation (Placement(transformation(extent={{12,70},{32,90}})));
 initial equation
   assert(m1_flow_nominal > Modelica.Constants.eps,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
@@ -296,29 +301,29 @@ initial equation
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
   C2_flow_nominal = m2_flow_nominal*cp2_nominal;
-  if (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+  if (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
     flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal)
       then
-        flo.CrossFlowCMinMixedCMaxUnmixed
+        Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed
       else
-        flo.CrossFlowCMinUnmixedCMaxMixed;
-  elseif (configuration == con.CrossFlowStream1UnmixedStream2Mixed) then
+        Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
+  elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) then
     flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal)
       then
-        flo.CrossFlowCMinUnmixedCMaxMixed
+        Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed
       else
-        flo.CrossFlowCMinMixedCMaxUnmixed;
-  elseif (configuration == con.ParallelFlow) then
-    flowRegime_nominal = flo.ParallelFlow;
-  elseif (configuration == con.CounterFlow) then
-    flowRegime_nominal = flo.CounterFlow;
-  elseif (configuration == con.CrossFlowUnmixed) then
-    flowRegime_nominal = flo.CrossFlowUnmixed;
+        Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
+  elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
+    flowRegime_nominal = Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+  elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
+    flowRegime_nominal = Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+  elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
+    flowRegime_nominal = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
   else
     // Invalid flow regime. Assign a value to flowRegime_nominal, and stop with an assert
-    flowRegime_nominal = flo.CrossFlowUnmixed;
-    assert(configuration >= con.ParallelFlow and
-      configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
+    flowRegime_nominal = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
+    assert(configuration >= Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow and
+      configuration <= Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
 
@@ -326,33 +331,33 @@ equation
   // Assign the flow regime for the given heat exchanger configuration and
   // mass flow rates
   if use_dynamicFlowRegime then
-    if (configuration == con.ParallelFlow) then
+    if (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
       flowRegime = if (C1_flow*C2_flow >= 0)
         then
-          flo.ParallelFlow
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow
         else
-          flo.CounterFlow;
-    elseif (configuration == con.CounterFlow) then
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
       flowRegime = if (C1_flow*C2_flow >= 0)
         then
-          flo.CounterFlow
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow
         else
-          flo.ParallelFlow;
-    elseif (configuration == con.CrossFlowUnmixed) then
-      flowRegime = flo.CrossFlowUnmixed;
-    elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
+      flowRegime = Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
+    elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
       flowRegime = if (C1_flow < C2_flow)
         then
-          flo.CrossFlowCMinMixedCMaxUnmixed
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed
         else
-          flo.CrossFlowCMinUnmixedCMaxMixed;
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
     else
-      // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+      // have ( configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
       flowRegime = if (C1_flow < C2_flow)
         then
-          flo.CrossFlowCMinUnmixedCMaxMixed
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed
         else
-          flo.CrossFlowCMinMixedCMaxUnmixed;
+          Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
     end if;
   else
     flowRegime = flowRegime_nominal;
@@ -371,36 +376,34 @@ equation
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
       thickness=1));
   connect(heaCooHum_u.port_b, port_b2) annotation (Line(
-      points={{-80,-60},{-90,-60},{-100,-60}},
+      points={{-82,-84},{-90,-84},{-90,-60},{-100,-60}},
       color={0,127,255},
       thickness=1));
   connect(hA.hA_1, dryWetCalcs.UAWat) annotation (Line(points={{-49.1,5.7},{-46,
           5.7},{-46,36.6667},{-22.8571,36.6667}},  color={0,0,127}));
-  connect(hA.hA_2, dryWetCalcs.UAAir) annotation (Line(points={{-49.1,-9.7},{
-          -46,-9.7},{-46,-36},{-46,-36.6667},{-22.8571,-36.6667}},
+  connect(hA.hA_2, dryWetCalcs.UAAir) annotation (Line(points={{-49.1,-9.7},{-46,
+          -9.7},{-46,-36},{-46,-36.6667},{-22.8571,-36.6667}},
                                                      color={0,0,127}));
-  connect(cp_a1Exp.y, dryWetCalcs.cpWat) annotation (Line(points={{-29.3,24},{
-          -22.8571,24},{-22.8571,23.3333}},
-                                   color={0,0,127}));
+  connect(cp_a1Exp.y, dryWetCalcs.cpWat) annotation (Line(points={{-29.3,24},{-22.8571,
+          24},{-22.8571,23.3333}}, color={0,0,127}));
   connect(XWat_a2Exp.y, dryWetCalcs.X_wAirIn) annotation (Line(points={{-29.3,4},
           {-22.8571,4},{-22.8571,3.33333}},  color={0,0,127}));
-  connect(p_a2Exp.y, dryWetCalcs.pAir) annotation (Line(points={{-29.3,-4},{
-          -22.8571,-4},{-22.8571,-3.33333}},
+  connect(p_a2Exp.y, dryWetCalcs.pAir) annotation (Line(points={{-29.3,-4},{-22.8571,
+          -4},{-22.8571,-3.33333}},
                                   color={0,0,127}));
-  connect(h_a2Exp.y, dryWetCalcs.hAirIn) annotation (Line(points={{-29.3,-12},{
-          -22,-12},{-22,-10},{-22.8571,-10}},
+  connect(h_a2Exp.y, dryWetCalcs.hAirIn) annotation (Line(points={{-29.3,-12},{-22,
+          -12},{-22,-10},{-22.8571,-10}},
                                     color={0,0,127}));
-  connect(cp_a2Exp.y, dryWetCalcs.cpAir) annotation (Line(points={{-29.3,-24},{
-          -22.8571,-24},{-22.8571,-23.3333}},
-                                     color={0,0,127}));
+  connect(cp_a2Exp.y, dryWetCalcs.cpAir) annotation (Line(points={{-29.3,-24},{-22.8571,
+          -24},{-22.8571,-23.3333}}, color={0,0,127}));
   connect(TIn_a1Exp.y, hA.T_1) annotation (Line(points={{-83.3,22},{-80,22},{-80,
           1.3},{-68.9,1.3}},       color={0,0,127}));
-  connect(TIn_a1Exp.y, dryWetCalcs.TWatIn) annotation (Line(points={{-83.3,22},
-          {-50,22},{-50,16.6667},{-22.8571,16.6667}}, color={0,0,127}));
+  connect(TIn_a1Exp.y, dryWetCalcs.TWatIn) annotation (Line(points={{-83.3,22},{
+          -50,22},{-50,16.6667},{-22.8571,16.6667}},  color={0,0,127}));
   connect(TIn_a2Exp.y, hA.T_2) annotation (Line(points={{-83.3,-2},{-76,-2},{-76,
           -5.3},{-68.9,-5.3}},   color={0,0,127}));
-  connect(TIn_a2Exp.y, dryWetCalcs.TAirIn) annotation (Line(points={{-83.3,-2},
-          {-76,-2},{-76,-16.6667},{-22.8571,-16.6667}}, color={0,0,127}));
+  connect(TIn_a2Exp.y, dryWetCalcs.TAirIn) annotation (Line(points={{-83.3,-2},{
+          -76,-2},{-76,-16.6667},{-22.8571,-16.6667}},  color={0,0,127}));
   connect(m_flow_a1Exp.y, hA.m1_flow) annotation (Line(points={{-83.3,36},{-76,36},
           {-76,5.7},{-68.9,5.7}},       color={0,0,127}));
   connect(m_flow_a1Exp.y, dryWetCalcs.mWat_flow) annotation (Line(points={{-83.3,
@@ -415,19 +418,21 @@ equation
   connect(m_flow_a2Exp.y, dryWetCalcs.mAir_flow) annotation (Line(points={{-83.3,
           -30},{-22.8571,-30}},                      color={0,0,127}));
   connect(port_a2, heaCooHum_u.port_a) annotation (Line(
-      points={{100,-60},{20,-60},{-60,-60}},
+      points={{100,-60},{72,-60},{72,-76},{-52,-76},{-52,-84},{-62,-84}},
       color={0,127,255},
       thickness=1));
-  connect(preHea.port, heaCooHum_u.heatPort) annotation (Line(points={{0,-80},{-40,
-          -80},{-40,-66},{-60,-66}}, color={191,0,0}));
-  connect(dryWetCalcs.QTot_flow, heaCoo.u) annotation (Line(points={{62.8571,
-          -6.66667},{80,-6.66667},{80,44},{40,44},{40,66},{58,66}},
-                                                          color={0,0,127}));
-  connect(dryWetCalcs.mCon_flow, heaCooHum_u.u) annotation (Line(points={{62.8571,
-          -33.3333},{70,-33.3333},{70,-54},{-59,-54}}, color={0,0,127}));
-  connect(preHea.Q_flow, dryWetCalcs.QTot_flow) annotation (Line(points={{20,-80},
-          {44,-80},{80,-80},{80,-6.66667},{62.8571,-6.66667}},
-                                                           color={0,0,127}));
+  connect(preHea.port, heaCooHum_u.heatPort) annotation (Line(points={{-2,-90},{
+          -62,-90}},                 color={191,0,0}));
+  connect(preHea.Q_flow, dryWetCalcs.QTot_flow) annotation (Line(points={{18,-90},
+          {80,-90},{80,-6.66667},{62.8571,-6.66667}},      color={0,0,127}));
+  connect(dryWetCalcs.mCon_flow, uniConHum.u) annotation (Line(points={{62.8571,
+          -33.3333},{70,-33.3333},{70,-60},{-18,-60}}, color={0,0,127}));
+  connect(uniConHum.y, heaCooHum_u.u) annotation (Line(points={{-41,-60},{-56,-60},
+          {-56,-78},{-61,-78}}, color={0,0,127}));
+  connect(dryWetCalcs.QTot_flow, uniConHeaCoo.u) annotation (Line(points={{62.8571,
+          -6.66667},{80,-6.66667},{80,44},{4,44},{4,80},{10,80}}, color={0,0,127}));
+  connect(uniConHeaCoo.y, heaCoo.u) annotation (Line(points={{33,80},{48,80},{48,
+          66},{58,66}}, color={0,0,127}));
   annotation (
     defaultComponentName="hexWetNtu",
     Icon(graphics={
@@ -525,7 +530,7 @@ equation
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier)}),
         Diagram(graphics={Text(
-          extent={{44,84},{86,76}},
+          extent={{-80,70},{-38,62}},
           textColor={28,108,200},
           textString="Water Side",
           textStyle={TextStyle.Italic},
@@ -652,6 +657,17 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 February 3, 2023, by Jianjun Hu:<br/>
 Added <code>noEvent()</code> in the assertion function to avoid Optimica to not converge.<br/>
