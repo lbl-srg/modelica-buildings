@@ -1,6 +1,3 @@
-ExactEqualReal
 SetpointSingleStepChange
-SetpointMultipleStepChange
-TemperatureSetpointResolution
-SingleTemperatureSetpointMock
+Subsequences
 Validation

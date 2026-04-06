@@ -44,9 +44,11 @@ block SetpointSingleStepChange "Single-step setpoint change"
     annotation (Placement(transformation(extent={{92,-16},{112,4}})));
   Buildings.Controls.OBC.CDL.Reals.Max                        max2
     annotation (Placement(transformation(extent={{132,-10},{152,10}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal exactEqualReal
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal
+    exactEqualReal
     annotation (Placement(transformation(extent={{18,94},{38,114}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal exactEqualReal1
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal
+    exactEqualReal1
     annotation (Placement(transformation(extent={{144,-112},{164,-92}})));
 equation
   connect(uSetBas,max1. u2) annotation (Line(points={{-120,-68},{-78,-68},{-78,
@@ -105,34 +107,41 @@ equation
         extent={{-100,-150},{200,120}},
         grid={2,2})),
     Documentation(info="<html>
-<p>This block serves to change the current setpoint <code>uSetCur</code> 
-between the baseline setpoint <code>uSetBas</code> and the target 
-setpoint <code>uSetTar</code> in a single step. 
-This block can be used ... The <code>setChaMod</code> variable specifies whether the current 
-setpoint <code>uSetCur</code> shall change to the 
-<code>uSetBas</code> value or the 
-<code>uSetTar</code> value. The setpoint change operation 
+<p>This block represents an elementary sequence that changes the value of a setpoint between 
+the baseline setpoint and the target setpoint in a single step when a priority signal is received.
+This block is helpful when controlling the setpoints of multiple zones or multiple pieces of equipment,
+where setpoints are changed in sequential steps based on some priority signals. </p>
+
+<p>Input variables <code>uSetCur</code>, <code>uSetBas</code>, and <code>uSetTar</code> are the
+current setpoint, the baseline setpoint, and the target setpoint, respectively. 
+The internal parameter <code>setChaMod</code> specifies whether the current 
+setpoint <code>uSetCur</code> shall change to the <code>uSetBas</code> value or the 
+<code>uSetTar</code> value in a single step. The setpoint change operation 
 will be executed every <code>samPer</code> seconds. 
-Provide some reason on why this is used, even though in real world BAS, this might be used once and not used anymore...
 The resultant setpoint will be outputted as the 
 <code>ySetCom</code> output variable, which 
-represents the new setpoint that a zone or a piece of equipment shall have. This 
-in turn changes the value of the current setpoint <code>uSetCur</code> from outside this block, 
-completing a full control loop.</p>
+represents the new setpoint that a zone or a piece of equipment shall have. 
+It is expected that outside of this block, a Building Automation System (BAS) will receive
+the output variable <code>ySetCom</code>, execute the setpoint change, and output the new BAS setpoint
+back to the input variable <code>uSetCur</code> in this block, completing a full control loop.</p>
+
+
 <p>The <code>have_pri</code> boolean input variable 
-specifies whether the setpoint change operation will be executed or not. This is useful 
-in multiple-zone or multiple-equipment scenarios where there is a need to prioritize 
+specifies whether a setpoint has a priority to execute the single-step setpoint change operation.
+This is useful in multiple-zone or multiple-equipment scenarios where there is a need to prioritize 
 which zone or equipment will go through the setpoint change. When the 
-<code>have_pri</code> input variable is set to 
-<code>false</code> from a previous 
-<code>true</code> value, the single-step setpoint 
-change will stay at the current value 
-(<code>uSetBas</code> or 
-<code>uSetTar</code>) and will not be revert to 
-the previous value before the setpoint step change. Reversing this unidirectional 
+<code>have_pri</code> input variable is set to <code>true</code>, either <code>uSetBas</code> or 
+<code>uSetTar</code> is passed to <code>ySetCom</code>, depending on the parameter value of <code>setChaMod</code>.
+When <code>have_pri</code> is changed to <code>false</code> from a previous 
+<code>true</code> value, <code>ySetCom</code> will simply take the value <code>uSetCur</code> 
+and will not be reverted to the previous value before the setpoint change. Reversing this unidirectional 
 change to the current setpoint <code>uSetCur</code> needs to happen outside of this block. </p>
+
 <p>Output variables also include boolean flags that specify whether the current 
-setpoint has reached the baseline setpoint <code>uSetBas</code> or the target setpoint <code>uSetTar</code>. </p>
+setpoint has reached the baseline setpoint <code>uSetBas</code> or the target setpoint 
+<code>uSetTar</code>. </p>
+
+
 </html>",
         revisions="<html>
 <ul>

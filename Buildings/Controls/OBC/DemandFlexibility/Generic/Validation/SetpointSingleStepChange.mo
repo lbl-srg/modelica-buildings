@@ -10,8 +10,8 @@ model SetpointSingleStepChange "Single-step setpoint change"
     annotation (Placement(transformation(extent={{-72,-58},{-52,-38}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=273.15 + 20)
     annotation (Placement(transformation(extent={{-78,-92},{-58,-72}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleTemperatureSetpointMock
-    singleTemperatureSetpointMock annotation (Placement(transformation(
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.SingleTemperatureSetpointBAS
+    singleTemperatureSetpointBAS annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={36,-8})));
@@ -24,12 +24,12 @@ equation
           {-30,-48},{-30,-49.2889},{16,-49.2889}},          color={0,0,127}));
   connect(con1.y,setpointSingleStepChange.uSetBas)  annotation (Line(points={{
           -56,-82},{-32,-82},{-32,-54.1037},{16,-54.1037}}, color={0,0,127}));
-  connect(setpointSingleStepChange.ySetCom, singleTemperatureSetpointMock.uTSet)
+  connect(setpointSingleStepChange.ySetCom, singleTemperatureSetpointBAS.uTSet)
     annotation (Line(points={{50,-47.5556},{50,-8},{48,-8}}, color={0,0,127}));
-  connect(singleTemperatureSetpointMock.yTSet, setpointSingleStepChange.uSetCur)
+  connect(singleTemperatureSetpointBAS.yTSet, setpointSingleStepChange.uSetCur)
     annotation (Line(points={{24,-8},{-22,-8},{-22,-44.4741},{16,-44.4741}},
         color={0,0,127}));
-  connect(singleTemperatureSetpointMock.yTSet, TSet) annotation (Line(points={{
+  connect(singleTemperatureSetpointBAS.yTSet, TSet) annotation (Line(points={{
           24,-8},{-16,-8},{-16,10},{120,10}}, color={0,0,127}));
    annotation (experiment(
       StopTime=172800,

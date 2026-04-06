@@ -1,7 +1,7 @@
-within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
+within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.Validation;
 model ExactEqualReal "Exact equal block for real numbers"
   extends Modelica.Icons.Example;
-  Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal
     exactEqualReal
     annotation (Placement(transformation(extent={{-6,-12},{14,8}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
@@ -25,8 +25,8 @@ equation
       StopTime=172800,
       Interval=60,
       __Dymola_Algorithm="Dassl"), Documentation(info="<html>
-<p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal\">
-Buildings.Controls.OBC.DemandFlexibility.Generic.ExactEqualReal</a>.</p>
+<p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal\">
+Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal</a>.</p>
 </html>",
         revisions="<html>
 <ul>

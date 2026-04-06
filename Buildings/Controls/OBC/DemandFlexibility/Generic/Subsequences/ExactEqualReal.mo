@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.DemandFlexibility.Generic;
+within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences;
 block ExactEqualReal "Exact equal block for real numbers"
   parameter Real alwDev(min=0)=0.01
     "allowed deviation for equality";
@@ -46,9 +46,12 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block checks whether the values of 2 real input variables, <code>u1</code> and <code>u2</code>, are equal to each other. 
-The allowed deviation is represented by the parameter <code>alwDev</code>. If <code>u1 &lt; u2 + alwDev</code> and <code>u1 &gt; 
-u2 - alwDev</code>, then the output <code>yEuqFla</code> is <code>true</code>. Otherwise, the output <code>yEuqFla</code> is <code>false</code>. </p>
+<p>This block checks whether the values of 2 real input variables are equal to each other. </p>
+<p>The 2 real input variables are <code>u1</code> and <code>u2</code>.
+The allowed deviation is represented by the parameter <code>alwDev</code>. 
+If <code>u1 &lt; u2 + alwDev</code> and <code>u1 &gt; 
+u2 - alwDev</code>, then the output <code>yEuqFla</code> is <code>true</code>. 
+Otherwise, the output <code>yEuqFla</code> is <code>false</code>. </p>
 </html>",
         revisions="<html>
 <ul>

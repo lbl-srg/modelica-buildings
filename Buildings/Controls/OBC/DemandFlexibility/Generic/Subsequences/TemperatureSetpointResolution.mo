@@ -1,5 +1,6 @@
-within Buildings.Controls.OBC.DemandFlexibility.Generic;
-block TemperatureSetpointResolution "Temperature setpoint resolution"
+within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences;
+block TemperatureSetpointResolution
+  "Temperature setpoint resolution"
   parameter Real TRes(unit="K")=0.5
     "temperature setpoint resolution";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSet "setpoint command"
@@ -55,9 +56,9 @@ setpoint value can only fall into specific resolution intervals.</p>
 <p>The input variable <code>uTSet</code> can take on any temperature 
 value, and the output variable <code>yTSet</code> can only take specific 
 temperature values from the resolution intervals. The parameter <code>TRes</code> 
-specifies the temperature resolution interval, which can be 0.5K, 1K, etc. when using 
-temperature in Kelvin or Celsius units, or 0.5556K, 0.2778K, etc. when using 
-temperature in the Fehrenheit unit. The base temperature is 273.15 + 20 K. The 
+specifies the temperature resolution interval, which can be <code>0.5K</code>, <code>1K</code>, etc. when using 
+temperature in Kelvin or Celsius units, or <code>0.5556K</code>, <code>0.2778K</code>, etc. when using 
+temperature in the Fehrenheit unit. The base temperature is <code>273.15 + 20 K</code>. The 
 output variable <code>yTSet</code> is equal to an integer multiple of <code>TRes</code> 
 plus the base temperature that is the closest value to <code>uTSet</code>.</p>
 </html>",

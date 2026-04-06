@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.DemandFlexibility.Generic;
-block SingleTemperatureSetpointMock "Single temperature setpoint mock"
+within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences;
+block SingleTemperatureSetpointBAS "Single temperature setpoint in a BAS"
 
   parameter Real TRes(unit="K")=1
     "temperature setpoint resolution";
@@ -27,7 +27,7 @@ block SingleTemperatureSetpointMock "Single temperature setpoint mock"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={24,0})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.TemperatureSetpointResolution
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.TemperatureSetpointResolution
     thermostatSetpointResolutionHea(TRes=TRes)
     annotation (Placement(transformation(extent={{-66,-10},{-46,10}})));
 
@@ -42,16 +42,17 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>This block is used to represent how a temperature setpoint in a typical 
-Building Management System (BMS) changes.</p>
+Building Automation System (BAS) changes.</p>
 <p>First, a temperature setpoint can only fall into specific resolution 
 intervals. The parameter <code>TRes</code> specifies the temperature resolution 
-interval, which can be 0.5K, 1K, etc. when using temperature in Kelvin or Celsius 
-units, or 0.5556K, 0.2778K, etc. when using temperature in the Fehrenheit unit. 
+interval, which can be <code>0.5K</code>, <code>1K</code>, etc. when using 
+temperature in Kelvin or Celsius units, or <code>0.5556K</code>, <code>0.2778K</code>, etc. when using temperature in the Fehrenheit unit. 
 While the input variable <code>uTSet</code> can take on any temperature value, 
 the output variable <code>yTSet</code> needs to be equal to an integer multiple 
-of <code>TRes</code> plus the base temperature of 273.15 + 20 K.</p>
+of <code>TRes</code> plus the base temperature of <code>273.15 + 20 K</code> 
+that is the closest value to <code>uTSet</code>.</p>
 
-<p>Second, when changing the temperature setpoint, the BMS likely has a small 
+<p>Second, when changing the temperature setpoint, the BAS likely has a small 
 time delay before the actual temperature setpoint is successfully changed. 
 This time delay is specified from the setpoint change delay parameter <code>setChaDel</code>, 
 which can be around 10 seconds, for example. In this block, this is implemented 
@@ -69,4 +70,4 @@ First implementation.
 
 </ul>
 </html>"));
-end SingleTemperatureSetpointMock;
+end SingleTemperatureSetpointBAS;
