@@ -66,9 +66,9 @@ model TableData2DLoadDep
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 equation
   connect(greaterThreshold.y, chi.on)
-    annotation (Line(points={{-19,90},{-6,90},{-6,-10.5},{-2.31,-10.5}},color={255,0,255}));
-  connect(TSet.y, chi.TSet)
-    annotation (Line(points={{-59,60},{-12,60},{-12,-8.4},{-2.31,-8.4}},color={0,0,127}));
+    annotation (Line(points={{-19,90},{-6,90},{-6,-12.6},{-2.1,-12.6}}, color={255,0,255}));
+  connect(TSet.y, chi.TChwSet) annotation (Line(points={{-59,60},{-12,60},{-12,
+          -10.5},{-2.1,-10.5}}, color={0,0,127}));
   connect(sou1.ports[1], chi.port_a1)
     annotation (Line(points={{-40,16},{-20,16},{-20,-4.2},{0,-4.2}},color={0,127,255}));
   connect(sou2.ports[1], chi.port_a2)
