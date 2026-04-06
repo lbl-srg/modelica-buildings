@@ -353,6 +353,10 @@
   openmodelica:
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261256
     time_out: 600
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case980FF
+  openmodelica:
+    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/638741086
+    time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case995
   dymola:
     comment: Timeout on jenkins
