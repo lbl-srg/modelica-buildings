@@ -7,6 +7,9 @@ model WetCoilEffectivenessNTU
     final computeFlowResistance1=true,
     final computeFlowResistance2=true);
 
+  import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
+  import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
+
   constant Boolean use_dynamicFlowRegime = false
     "If true, flow regime is determined using actual flow rates";
   // This switch is declared as a constant instead of a parameter
@@ -661,12 +664,6 @@ Fuzzy identification of systems and its applications to modeling and control.
 March 31, 2026, by Michael Wetter:<br/>
 Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
-</li>
-<li>
-February 7, 2025, by Jelger Jansen:<br/>
-Removed <code>import</code> statement.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
 </li>
 <li>
 February 3, 2023, by Jianjun Hu:<br/>
