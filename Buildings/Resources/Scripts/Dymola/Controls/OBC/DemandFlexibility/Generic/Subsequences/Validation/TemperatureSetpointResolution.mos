@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.Validation.TemperatureSetpointResolution", method="Cvode", tolerance=1e-06, stopTime=172800, resultFile="TemperatureSetpointResolution");
+createPlot(id=1, position={0, 0, 738, 293}, y={"temperatureSetpointResolution.uTSet", "temperatureSetpointResolution.yTSet"}, range={0.0, 50.0, 12.0, 28.0}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});

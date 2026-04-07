@@ -17,7 +17,8 @@ equation
    annotation (experiment(
       StopTime=172800,
       Interval=60,
-      __Dymola_Algorithm="Dassl"), Documentation(info="<html>
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"), Documentation(info="<html>
 <p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.TemperatureSetpointResolution\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.TemperatureSetpointResolution</a> by
 providing a varying real number input through a sine wave.</p>

@@ -24,7 +24,8 @@ equation
     annotation (experiment(
       StopTime=172800,
       Interval=60,
-      __Dymola_Algorithm="Dassl"), Documentation(info="<html>
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"), Documentation(info="<html>
 <p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal</a> by
 providing 2 varying real number inputs through sine waves.</p>

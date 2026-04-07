@@ -10,17 +10,17 @@ model SetpointSingleStepChange "Single-step setpoint change"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=86400, shift=43200)
     "Have priority boolean value"
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=273.15 + 20)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=273.15 + 20.718)
     "Baseline setpoint example value"
     annotation (Placement(transformation(extent={{-58,-92},{-38,-72}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.SingleTemperatureSetpointBAS
-    singleTemperatureSetpointBAS
+    singleTemperatureSetpointBAS(TRes=0.5, T_start=295.15)
     "Represent a single temperature setpoint in a Building Automation System"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={36,-8})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(k=273.15 + 25)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(k=273.15 + 16.385)
     "Target setpoint example value"
     annotation (Placement(transformation(extent={{-84,-60},{-64,-40}})));
 equation
@@ -41,7 +41,8 @@ equation
    annotation (experiment(
       StopTime=172800,
       Interval=60,
-      __Dymola_Algorithm="Dassl"), Documentation(info="<html>
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"), Documentation(info="<html>
 <p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointSingleStepChange\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointSingleStepChange</a>.</p>
 <p>This validation test uses two constant temperature values as the baseline temperature setpoint

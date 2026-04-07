@@ -2,9 +2,11 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences;
 block SingleTemperatureSetpointBAS "Single temperature setpoint in a BAS"
 
   parameter Real TRes(unit="K")=1
-    "temperature setpoint resolution";
+    "Temperature setpoint resolution";
+  parameter Real T_start(unit="K",displayUnit="degC",quantity="ThermodynamicTemperature")=293.15
+    "Starting temperature";
   parameter Real setChaDel(quantity="Time",unit="s",min=1E-3) = 10
-    "setpoint change delay";
+    "Setpoint change delay";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSet(unit="K",displayUnit="degC",quantity="ThermodynamicTemperature") "Temperature setpoint input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -12,7 +14,8 @@ block SingleTemperatureSetpointBAS "Single temperature setpoint in a BAS"
     annotation (Placement(
       transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
         {100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=setChaDel, y_start=293.15) "Small time delay"
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=setChaDel, y_start=
+        T_start)                                                                               "Small time delay"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
