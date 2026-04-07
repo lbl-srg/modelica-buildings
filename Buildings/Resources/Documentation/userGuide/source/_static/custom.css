@@ -113,6 +113,11 @@ body{
   overflow: visible;
   width: calc(100% - 30px);
   left: 15px;
+  display: none;
+}
+
+.navbar-collapse.in {
+  display: block;
 }
 
 /* Dropdown menu styling */
