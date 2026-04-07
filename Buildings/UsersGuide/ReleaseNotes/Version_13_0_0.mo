@@ -108,6 +108,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4367\">issue 4367</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter
+    </td>
+    <td valign=\"top\">Added an assertion that stops the simulation if the air pressure is unreasonable, which may
+                       be the case if a user provides fresh air but not exhaust air path.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">issue 3319</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
     </td>
 </tr>
