@@ -42,8 +42,8 @@ jobs:
       - name: "Install BuildingsPy"
         run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v5.2.0
 
-#      - name: "Test user guide"
-#        run : (cd Resources/Documentation/userGuide; make regressiontest)
+      - name: "Test user guide"
+        run : (cd Resources/Documentation/userGuide; make regressiontest)
 
-      - name: "Test heat pump documentation"
-        run : (cd Resources/src/fluid/heatpumps/calibration/doc; make regressiontest)
+#      - name: "Test heat pump documentation"
+#        run : (cd Resources/src/fluid/heatpumps/calibration/doc; make regressiontest)
