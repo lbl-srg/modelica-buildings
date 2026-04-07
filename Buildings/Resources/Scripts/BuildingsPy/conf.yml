@@ -277,6 +277,10 @@
   openmodelica:
     comment: Errors as borefield leaving temperature drops below freezing
     simulate: false
+- model_name: Buildings.Obsolete.DHC.ETS.Combined.Examples.ChillerBorefield
+  openmodelica:
+    comment: Simulation fails on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/638765271
+    simulate: false
 - model_name: Buildings.Obsolete.DHC.ETS.Combined.Validation.ChillerBorefield
   openmodelica:
     comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
