@@ -48,10 +48,6 @@ regressiontest: clean
 	source virEnv/bin/activate
 	pip install -r requirements.txt --no-deps
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
-	@echo "Updating logo URLs in build directory..."
-	for ff in $$(find build -name "*.html"); do \
-	   sed -i '/navbar-brand/ s/$$/<img src="_static\/lbl-logo.png">/' $$ff; \
-	done;
 	rm -rf virEnv
 	git diff --exit-code .
 
