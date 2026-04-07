@@ -37,7 +37,7 @@ jobs:
           architecture: 'x64'      # optional x64 or x86. Defaults to x64 if not specified
 
       - name: "Install pip"
-        run: pip3 install --upgrade pip wheel
+        run: pip3 install --upgrade pip
 
       - name: "Install BuildingsPy"
         run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v5.2.0
