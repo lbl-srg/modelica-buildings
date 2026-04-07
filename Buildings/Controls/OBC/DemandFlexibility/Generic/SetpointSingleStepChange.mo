@@ -1,54 +1,57 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SetpointSingleStepChange "Single-step setpoint change"
 
-  parameter Real samPer(unit="s")=300
+  parameter Real samPer(unit="s",quantity="Time")=300
     "Sample period";
   parameter Boolean setChaMod=true
-    "setpoint change mode; true to go to the target setpoint value, false to go to the nominal setpoint value";
-
-
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetTar "setpoint target"
+    "Setpoint change mode; true to go to the target setpoint value, false to go to the baseline setpoint value";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetTar "Target setpoint"
     annotation (Placement(transformation(extent={{-140,-38},{-100,2}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetBas "baseline setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetBas "Baseline setpoint"
     annotation (Placement(transformation(extent={{-140,-88},{-100,-48}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySetCom "setpoint command"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySetCom "Setpoint command output"
     annotation (Placement(transformation(extent={{200,-20},{240,20}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetCur "current setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSetCur "Current setpoint input"
     annotation (Placement(transformation(extent={{-140,12},{-100,52}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput
-                           have_pri "have priority"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput have_pri "Have priority"
     annotation (Placement(transformation(extent={{-140,62},{-100,102}}),
-        iconTransformation(extent={{-140,62},{-100,102}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uSetTar annotation (Placement(
-        transformation(extent={{200,60},{240,100}}),iconTransformation(extent={{200,52},
-            {240,92}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uSetBas annotation (Placement(
-        transformation(extent={{200,-94},{240,-54}}), iconTransformation(extent={{200,-94},
-            {240,-54}})));
+      iconTransformation(extent={{-140,62},{-100,102}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uSetTar "Reached the target setpoint"
+    annotation (Placement(transformation(extent={{200,60},{240,100}}),
+      iconTransformation(extent={{200,52},{240,92}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uSetBas "Reached the baseline setpoint" annotation (Placement(
+    transformation(extent={{200,-94},{240,-54}}), iconTransformation(extent={{200,-94},
+      {240,-54}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
+    "Switch between the baseline setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{10,-46},{30,-26}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler                        sam(samplePeriod=samPer)
+    "Sample period for the single-step change"
     annotation (Placement(transformation(extent={{166,-10},{186,10}})));
   Buildings.Controls.OBC.CDL.Reals.Min                        min1
+    "Minimum of baseline setpoint and target setpoint"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
   Buildings.Controls.OBC.CDL.Reals.Max                        max1
+    "Maximum of baseline setpoint and target setpoint"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant
-                             con(k=setChaMod)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=setChaMod)
+    "Setpoint change mode boolean constant"
     annotation (Placement(transformation(extent={{-92,-144},{-72,-124}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch for having priority"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Buildings.Controls.OBC.CDL.Reals.Min                        min2
+    "Current setpoint should be no smaller than the minimum of the baseline setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{92,-16},{112,4}})));
   Buildings.Controls.OBC.CDL.Reals.Max                        max2
+    "Current setpoint should be no larger than the maximum of the baseline setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{132,-10},{152,10}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal
     exactEqualReal
+    "Whether the current setpoint is equal to the target setpoint"
     annotation (Placement(transformation(extent={{18,94},{38,114}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal
     exactEqualReal1
+    "Whether the current setpoint is equal to the baseline setpoint"
     annotation (Placement(transformation(extent={{144,-112},{164,-92}})));
 equation
   connect(uSetBas,max1. u2) annotation (Line(points={{-120,-68},{-78,-68},{-78,

@@ -1,24 +1,27 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences;
 block ExactEqualReal "Exact equal block for real numbers"
-  parameter Real alwDev(min=0)=0.01
-    "allowed deviation for equality";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
+  parameter Real alwDev(min=1E-6)=0.01
+    "Allowed deviation for equality";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u1 "Input real number 1"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u2 "Input real number 2"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEquFla "equal flag"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEquFla "Equal flag"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Input u2 plus allowed deviation"
     annotation (Placement(transformation(extent={{-36,4},{-16,24}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Input u2 minus allowed deviation"
     annotation (Placement(transformation(extent={{-36,-76},{-16,-56}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=alwDev)
+    "Allowed deviation constant"
     annotation (Placement(transformation(extent={{-94,-28},{-74,-8}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre
+  Buildings.Controls.OBC.CDL.Reals.Greater gre "Greater than"
     annotation (Placement(transformation(extent={{18,-68},{38,-48}})));
-  Buildings.Controls.OBC.CDL.Reals.Less les
+  Buildings.Controls.OBC.CDL.Reals.Less les "Less than"
     annotation (Placement(transformation(extent={{16,12},{36,32}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "Input u1 within input u2 plus or minus allowed deviation"
     annotation (Placement(transformation(extent={{66,-10},{86,10}})));
 equation
   connect(u2, add2.u1) annotation (Line(points={{-120,-60},{-66,-60},{-66,20},{

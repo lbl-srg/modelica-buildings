@@ -3,38 +3,28 @@ block SingleTemperatureSetpointBAS "Single temperature setpoint in a BAS"
 
   parameter Real TRes(unit="K")=1
     "temperature setpoint resolution";
-  parameter Real setChaDel(
-    final quantity="Time",
-    final unit="s",
-    min=1E-3) = 10
+  parameter Real setChaDel(quantity="Time",unit="s",min=1E-3) = 10
     "setpoint change delay";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Temperature setpoint command"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSet(unit="K",displayUnit="degC",quantity="ThermodynamicTemperature") "Temperature setpoint input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Temperature setpoint processed output" annotation (Placement(
-        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
-            {100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=
-        setChaDel, y_start=293.15)
-                      annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={24,0})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTSet(unit="K",displayUnit="degC",quantity="ThermodynamicTemperature") "Temperature setpoint output"
+    annotation (Placement(
+      transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
+        {100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=setChaDel, y_start=293.15) "Small time delay"
+    annotation (Placement(transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=0,
+      origin={24,0})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.TemperatureSetpointResolution
-    thermostatSetpointResolutionHea(TRes=TRes)
+    thermostatSetpointResolution(TRes=TRes) "Thermostat setpoint resolution"
     annotation (Placement(transformation(extent={{-66,-10},{-46,10}})));
 
 equation
-  connect(uTSet, thermostatSetpointResolutionHea.uTSet)
+  connect(uTSet, thermostatSetpointResolution.uTSet)
     annotation (Line(points={{-120,0},{-67.6,0}}, color={0,0,127}));
-  connect(thermostatSetpointResolutionHea.yTSet, uniDel.u)
+  connect(thermostatSetpointResolution.yTSet, uniDel.u)
     annotation (Line(points={{-44.4,0},{12,0}}, color={0,0,127}));
   connect(uniDel.y, yTSet)
     annotation (Line(points={{36,0},{120,0}}, color={0,0,127}));

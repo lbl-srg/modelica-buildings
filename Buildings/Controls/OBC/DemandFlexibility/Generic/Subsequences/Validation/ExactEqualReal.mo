@@ -2,18 +2,18 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.Validation;
 model ExactEqualReal "Exact equal block for real numbers"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal
-    exactEqualReal
+    exactEqualReal "Exact equal block"
     annotation (Placement(transformation(extent={{-6,-12},{14,8}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final freqHz=1/86400,
     final amplitude=1,
     phase=3.1415926535898,
-    final offset=273.15 + 20)
+    final offset=273.15 + 20) "Sine wave"
     annotation (Placement(transformation(extent={{-72,0},{-52,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final freqHz=1/21600,
     final amplitude=10,
-    final offset=273.15 + 25)
+    final offset=273.15 + 25) "Sine wave"
     annotation (Placement(transformation(extent={{-70,-48},{-50,-28}})));
 equation
   connect(sin.y, exactEqualReal.u1) annotation (Line(points={{-50,10},{-30,10},{
@@ -26,7 +26,8 @@ equation
       Interval=60,
       __Dymola_Algorithm="Dassl"), Documentation(info="<html>
 <p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal\">
-Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal</a>.</p>
+Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.ExactEqualReal</a> by
+providing 2 varying real number inputs through sine waves.</p>
 </html>",
         revisions="<html>
 <ul>

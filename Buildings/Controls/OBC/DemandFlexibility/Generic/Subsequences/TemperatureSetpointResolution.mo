@@ -3,25 +3,33 @@ block TemperatureSetpointResolution
   "Temperature setpoint resolution"
   parameter Real TRes(unit="K")=0.5
     "temperature setpoint resolution";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSet "setpoint command"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSet(unit="K",displayUnit="degC",quantity="ThermodynamicTemperature")
+    "Temperature setpoint input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTSet
-    "actual setpoint command" annotation (Placement(transformation(extent={{150,
-            -20},{190,20}}), iconTransformation(extent={{150,-20},{190,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTSet(unit="K",displayUnit="degC",quantity="ThermodynamicTemperature")
+    "Temperature setpoint output"
+      annotation (Placement(transformation(extent={{150,
+        -20},{190,20}}), iconTransformation(extent={{150,-20},{190,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=293.15)
+    "Base setpoint value"
     annotation (Placement(transformation(extent={{-88,-60},{-68,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Difference from the base setpoint value"
     annotation (Placement(transformation(extent={{-50,38},{-30,58}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div1
+    "How many temperature resolutions are in the temperature difference"
     annotation (Placement(transformation(extent={{6,32},{26,52}})));
   Buildings.Controls.OBC.CDL.Reals.Round rou(n=0)
+    "Round to the nearest integer"
     annotation (Placement(transformation(extent={{46,32},{66,52}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
+    "Integer multiple of the temperature resolution"
     annotation (Placement(transformation(extent={{86,26},{106,46}})));
-  Buildings.Controls.OBC.CDL.Reals.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add to the base setpoint"
     annotation (Placement(transformation(extent={{118,-10},{138,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=TRes)
+    "Temperature resolution value"
     annotation (Placement(transformation(extent={{-34,4},{-14,24}})));
 equation
   connect(uTSet, sub.u1) annotation (Line(points={{-120,0},{-62,0},{-62,54},{-52,
