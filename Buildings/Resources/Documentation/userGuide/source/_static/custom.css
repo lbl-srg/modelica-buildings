@@ -251,5 +251,65 @@ table.citation{
 .page-content{
   margin: 10px;
 }
+
+/* Sidebar list styling fix */
+.bs-sidenav ul {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.bs-sidenav li {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.bs-sidenav > ul > li {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+  line-height: 1.5;
+}
+
+.bs-sidenav > ul > li > a {
+  display: block;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.bs-sidenav ul ul {
+  list-style: none;
+  padding-left: 20px;
+  margin-left: 0;
+}
+
+.bs-sidenav ul ul li {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* Fix for navigation list items (Previous/Next Chapter) outside ul */
+.bs-sidenav > li {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+  display: block;
+}
+
+.bs-sidenav > li > a {
+  display: block;
+  color: #716b7a;
+  padding: 5px 20px;
+  text-decoration: none;
+}
+
+.bs-sidenav > li > a:hover,
+.bs-sidenav > li > a:focus {
+  text-decoration: none;
+  background-color: #e5e3e9;
+  border-right: 1px solid #dbd8e0;
+}
 /* End stylesheet from main web site -------------------- */
 /* ------------------------------------------------------ */
