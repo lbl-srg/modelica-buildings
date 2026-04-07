@@ -1,4 +1,0 @@
-within Buildings.Controls.OBC.DemandFlexibility.ZoneSetpointControl.Subsequences.BaseTemperatureSetpointElements.Validation;
-model SingleTemperatureSetpoint
-  extends Modelica.Icons.Example;
-end SingleTemperatureSetpoint;
