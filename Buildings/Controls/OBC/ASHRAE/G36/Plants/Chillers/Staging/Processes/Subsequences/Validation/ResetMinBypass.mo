@@ -26,16 +26,19 @@ protected
     final duration=60,
     final offset=1,
     final startTime=120) "Minimum chiller water flow setpoint"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp meaFlo(
-    final height=0.5,
+    final height=0.7,
     final duration=80,
     final offset=1,
     final startTime=120) "Measured chiller water flow"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not upStrDev1
-    "Upstream device reset status"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  CDL.Logical.And inPro "In setpoint changing process"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  CDL.Logical.Sources.Pulse                        booPul3(final width=0.5,
+      final period=600)
+                      "Boolean pulse"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
 equation
   connect(booPul2.y, upStrDev.u)
@@ -47,14 +50,16 @@ equation
   connect(staUp.y, minBypRes.uStaPro) annotation (Line(points={{-18,40},{-10,40},
           {-10,4},{18,4}}, color={255,0,255}));
   connect(meaFlo.y, minBypRes.VChiWat_flow)
-    annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{18,0}}, color={0,0,127}));
   connect(minFloSet.y, minBypRes.VMinChiWat_setpoint)
-    annotation (Line(points={{-18,-40},{0,-40},{0,-4},{18,-4}}, color={0,0,127}));
-  connect(upStrDev.y, upStrDev1.u) annotation (Line(points={{-18,80},{0,80},{0,20},
-          {-50,20},{-50,-80},{-42,-80}}, color={255,0,255}));
-  connect(upStrDev1.y, minBypRes.uSetChaPro)
-    annotation (Line(points={{-18,-80},{10,-80},{10,-8},{18,-8}}, color={255,0,255}));
+    annotation (Line(points={{-18,-30},{0,-30},{0,-4},{18,-4}}, color={0,0,127}));
+  connect(inPro.y, minBypRes.uSetChaPro) annotation (Line(points={{-18,-70},{10,
+          -70},{10,-8},{18,-8}}, color={255,0,255}));
 
+  connect(booPul3.y, inPro.u1)
+    annotation (Line(points={{-58,-70},{-42,-70}}, color={255,0,255}));
+  connect(upStrDev.y, inPro.u2) annotation (Line(points={{-18,80},{0,80},{0,8},{
+          -50,8},{-50,-78},{-42,-78}}, color={255,0,255}));
 annotation (
  experiment(StopTime=600, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/ResetMinBypass.mos"
@@ -88,10 +93,12 @@ setpoint (<code>uSetChaPro=true</code>) and changing the bypass valve
 from its setpoint.
 </li>
 <li>
-At about 200 seconds, the measured chilled water flow achieved the setpoint. Thus,
-the bypass valve position has been changed successfully. After 60 seconds to about
-260 seconds, the minimum bypass valve position changing process is finished
-(<code>yMinBypRes=true</code>).
+At 300 seconds, it finished the setpoint changing process and the <code>uSetChaPro</code>
+becomes false. The chilled water flow has been greater than the setpoint.
+</li>
+<li>
+After 60 seconds to 360 seconds, the minimum bypass valve position changing process
+is finished (<code>yMinBypRes=true</code>).
 </li>
 </ul>
 </html>", revisions="<html>

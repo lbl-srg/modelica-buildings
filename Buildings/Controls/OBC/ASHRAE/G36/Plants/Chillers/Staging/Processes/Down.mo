@@ -253,7 +253,8 @@ protected
     disChiIsoVal(
     final have_twoPosEndSwi=have_twoPosEndSwiChiVal,
     final nChi=nChi,
-    final chaChiWatIsoTim=chaChiWatIsoTim)
+    final chaChiWatIsoTim=chaChiWatIsoTim,
+    is_inUpEnd=true)
     "Disable isolation valve of the chiller being disabled"
     annotation (Placement(transformation(extent={{200,60},{220,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl

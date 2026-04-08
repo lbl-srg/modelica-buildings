@@ -13,6 +13,10 @@ block EnableCWPump
     "Stage-down command"
     annotation (Placement(transformation(extent={{-160,-30},{-120,10}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
+    "Just enabling plant"
+    annotation (Placement(transformation(extent={{-160,-50},{-120,-10}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage, does not include stages like X + WSE"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
@@ -39,15 +43,10 @@ protected
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Controls.OBC.CDL.Integers.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-protected
-  CDL.Integers.Switch                        swi4
-                                                 "Logical switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch swi4
+    "Logical switch"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
-public
-  CDL.Interfaces.BooleanInput uEnaPla "Just enabling plant" annotation (
-      Placement(transformation(extent={{-160,-50},{-120,-10}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
 equation
   connect(uUpsDevSta, and2.u1)
     annotation (Line(points={{-140,80},{-82,80}}, color={255,0,255}));
@@ -67,26 +66,19 @@ equation
   connect(uStaUp, swi.u2)
     annotation (Line(points={{-140,40},{38,40}}, color={255,0,255}));
   connect(uStaSet, swi3.u3) annotation (Line(points={{-140,-90},{-54,-90},{-54,
-          -18},{-2,-18}},
-                     color={255,127,0}));
+          -18},{-2,-18}}, color={255,127,0}));
   connect(uStaSet, swi2.u1) annotation (Line(points={{-140,-90},{-54,-90},{-54,
-          18},{-42,18}},
-                     color={255,127,0}));
+          18},{-42,18}}, color={255,127,0}));
   connect(uStaSet, swi1.u1) annotation (Line(points={{-140,-90},{-54,-90},{-54,
-          88},{-42,88}},
-                     color={255,127,0}));
+          88},{-42,88}}, color={255,127,0}));
   connect(uChiSta, swi2.u3) annotation (Line(points={{-140,-60},{-48,-60},{-48,
-          2},{-42,2}},
-                    color={255,127,0}));
+          2},{-42,2}}, color={255,127,0}));
   connect(uChiSta, swi1.u3) annotation (Line(points={{-140,-60},{-48,-60},{-48,
-          72},{-42,72}},
-                     color={255,127,0}));
+          72},{-42,72}}, color={255,127,0}));
   connect(swi2.y, swi3.u1) annotation (Line(points={{-18,10},{-10,10},{-10,-2},
-          {-2,-2}},
-        color={255,127,0}));
+    {-2,-2}}, color={255,127,0}));
   connect(swi1.y, swi.u1) annotation (Line(points={{-18,80},{30,80},{30,48},{38,
-          48}},
-        color={255,127,0}));
+          48}}, color={255,127,0}));
   connect(uStaDow, swi3.u2)
     annotation (Line(points={{-140,-10},{-2,-10}}, color={255,0,255}));
   connect(swi3.y, swi.u3) annotation (Line(points={{22,-10},{30,-10},{30,32},{

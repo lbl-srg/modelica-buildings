@@ -129,9 +129,10 @@ model Controller "Validation head pressure controller"
     final samplePeriod=fill(10, 2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
-
-  CDL.Reals.MultiplyByParameter gai(k=0.5) "Times the nominal flow rate"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    k=0.5) "Times the nominal flow rate"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
+
 equation
   connect(timTabLin1.y[1], reaToInt1.u)
     annotation (Line(points={{-298,-70},{-282,-70}}, color={0,0,127}));
@@ -180,21 +181,17 @@ equation
   connect(chiTwo.y1_actual, chiPlaCon.uChi[2]) annotation (Line(points={{162,120},
           {200,120},{200,250},{-60,250},{-60,122.5},{-30,122.5}}, color={255,0,255}));
   connect(chiPlaCon.yConWatPum, conWatPum.y1) annotation (Line(points={{90,-25},
-          {120,-25},{120,0},{138,0}},
-                                    color={255,0,255}));
+          {120,-25},{120,0},{138,0}}, color={255,0,255}));
   connect(conWatPum.y1_actual, chiPlaCon.uConWatPum) annotation (Line(points={{162,0},
           {210,0},{210,-230},{-100,-230},{-100,-70},{-30,-70}},    color={255,0,
           255}));
   connect(chiPlaCon.yTowCel, towSta.y1) annotation (Line(points={{90,-110},{100,
-          -110},{100,-170},{118,-170}},
-                                  color={255,0,255}));
+          -110},{100,-170},{118,-170}}, color={255,0,255}));
   connect(towSta.y1_actual, chiPlaCon.uTowSta) annotation (Line(points={{142,
-          -170},{170,-170},{170,-190},{-50,-190},{-50,-175},{-30,-175}},
-                                                                   color={255,0,
+          -170},{170,-170},{170,-190},{-50,-190},{-50,-175},{-30,-175}}, color={255,0,
           255}));
   connect(plaEna.y, chiPlaCon.uPlaSchEna) annotation (Line(points={{-178,210},{
-          -90,210},{-90,-80},{-30,-80}},
-                                     color={255,0,255}));
+          -90,210},{-90,-80},{-30,-80}}, color={255,0,255}));
   connect(TConWatRet.y, chiPlaCon.TConWatTowRet) annotation (Line(points={{-198,
           -240},{-134,-240},{-134,-105},{-30,-105}}, color={0,0,127}));
   connect(TConWatRet.y, chiPlaCon.TConWatRet[1]) annotation (Line(points={{-198,

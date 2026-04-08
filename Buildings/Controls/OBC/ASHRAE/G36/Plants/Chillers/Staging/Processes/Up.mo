@@ -395,7 +395,7 @@ protected
      == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chilled water isolation valve position setpoint"
     annotation (Placement(transformation(extent={{200,-210},{220,-190}})));
-  CDL.Logical.Or                        or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "In staging up process or just enabling plant"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
 
@@ -448,9 +448,6 @@ equation
   connect(uConWatReq, endUp.uConWatReq)
     annotation (Line(points={{-260,-70},{-164,-70},{-164,-269},{18,-269}},
       color={255,0,255}));
-  connect(VChiWat_flow, endUp.VChiWat_flow)
-    annotation (Line(points={{-260,50},{-156,50},{-156,-275},{18,-275}},
-      color={0,0,127}));
   connect(uConWatReq, mulOr1.u)
     annotation (Line(points={{-260,-70},{-82,-70}},
       color={255,0,255}));

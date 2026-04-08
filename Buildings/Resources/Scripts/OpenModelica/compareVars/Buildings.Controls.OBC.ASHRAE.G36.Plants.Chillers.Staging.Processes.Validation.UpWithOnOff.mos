@@ -12,5 +12,7 @@ compareVars :=
     "upProCon.yChiWatMinFloSet",
     "upProCon.VChiWat_flow",
     "upProCon.yDesConWatPumSpe",
-    "upProCon.yConWatPumNum"
+    "upProCon.yConWatPumNum",
+    "upProCon.yChiWatIsoVal[1]",
+    "upProCon.yChiWatIsoVal[2]"
   };

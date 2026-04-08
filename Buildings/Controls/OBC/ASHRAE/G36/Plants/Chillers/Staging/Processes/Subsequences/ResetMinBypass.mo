@@ -25,14 +25,14 @@ block ResetMinBypass
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured chilled water flow rate"
-    annotation (Placement(transformation(extent={{-200,6},{-160,46}}),
+    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinChiWat_setpoint(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Minimum chiller water flow setpoint"
-    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
+    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSetChaPro
     "True: it is in the setpoint change process"
@@ -49,154 +49,117 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=aftByPasSetTim)
     "Check if it has been over threshold time after new setpoint achieved"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "In staging process and the upstream device status has been changed"
+    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Divide div
-    "Flow rate error divided by its setpoint"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
-    final p=1e-6)
-    "Add a small positive to avoid zero output"
-    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Abs abs "Absolute value"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract floDif
-    "Checkout the flow rate difference"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+    "Find the flow rate difference"
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Logical and"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not notChaSet
     "Not in the setpoint changing process"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.And and6 "Logical and"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notChaSet1
-    "Not in the setpoint changing process"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Minimum flow valve should not be changed"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.And and6
+    "Check if it is not in the setpoint changing process and the setpoint has been achieved"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Check if the valve is being changed"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Edge when the valve has been resetted successfully"
-    annotation (Placement(transformation(extent={{120,10},{140,30}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg3
     "Edge when it starts changing the minimum bypass flow valve"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
+  Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
+    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.And and7 "Logical and"
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=byPasSetTim)
+    "Check the flow setpoint after changing time"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=relFloDif,
     final h=0.5*relFloDif)
     "Check if chiller water flow rate achieves the minimum flow setpoint"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg2
-    "Edge when the setpoint changing process is done"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
-    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
-  CDL.Logical.And                        and7 "Logical and"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  CDL.Logical.TrueDelay truDel(final delayTime=byPasSetTim)
-    "Check the flow setpoint after changing time"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 equation
   connect(uUpsDevSta, and2.u1)
-    annotation (Line(points={{-180,120},{-82,120}}, color={255,0,255}));
-  connect(uStaPro, and2.u2) annotation (Line(points={{-180,80},{-140,80},{-140,112},
-          {-82,112}}, color={255,0,255}));
+    annotation (Line(points={{-180,120},{-142,120}},color={255,0,255}));
+  connect(uStaPro, and2.u2) annotation (Line(points={{-180,80},{-150,80},{-150,112},
+          {-142,112}},color={255,0,255}));
   connect(and2.y, and1.u1)
-    annotation (Line(points={{-58,120},{118,120}}, color={255,0,255}));
-  connect(uStaPro, not1.u) annotation (Line(points={{-180,80},{-140,80},{-140,60},
-          {-122,60}}, color={255,0,255}));
+    annotation (Line(points={{-118,120},{118,120}},color={255,0,255}));
+  connect(uStaPro, not1.u) annotation (Line(points={{-180,80},{-150,80},{-150,60},
+          {-142,60}}, color={255,0,255}));
   connect(lat.y, and1.u2)
     annotation (Line(points={{102,80},{108,80},{108,112},{118,112}},
       color={255,0,255}));
-  connect(VMinChiWat_setpoint, addPar.u)
-    annotation (Line(points={{-180,-60},{-142,-60}}, color={0,0,127}));
   connect(not1.y, edg1.u)
-    annotation (Line(points={{-98,60},{-82,60}}, color={255,0,255}));
+    annotation (Line(points={{-118,60},{-102,60}}, color={255,0,255}));
   connect(edg1.y, lat.clr)
-    annotation (Line(points={{-58,60},{70,60},{70,74},{78,74}},
+    annotation (Line(points={{-78,60},{70,60},{70,74},{78,74}},
       color={255,0,255}));
-  connect(and3.y, tim.u)
-    annotation (Line(points={{22,20},{38,20}},
-                                             color={255,0,255}));
-  connect(addPar.y, div.u2)
-    annotation (Line(points={{-118,-60},{-110,-60},{-110,-26},{-102,-26}},
-      color={0,0,127}));
   connect(VChiWat_flow, floDif.u1)
-    annotation (Line(points={{-180,26},{-122,26}},                   color={0,0,127}));
-  connect(floDif.y, abs.u)
-    annotation (Line(points={{-98,20},{-82,20}},
-                                               color={0,0,127}));
+    annotation (Line(points={{-180,20},{-150,20},{-150,6},{-142,6}},
+      color={0,0,127}));
   connect(and2.y, and3.u1)
-    annotation (Line(points={{-58,120},{-10,120},{-10,20},{-2,20}},
+    annotation (Line(points={{-118,120},{-50,120},{-50,0},{-42,0}},
       color={255,0,255}));
-  connect(VMinChiWat_setpoint, floDif.u2) annotation (Line(points={{-180,-60},{
-          -150,-60},{-150,14},{-122,14}},
-                                     color={0,0,127}));
+  connect(VMinChiWat_setpoint, floDif.u2) annotation (Line(points={{-180,-20},{-150,
+          -20},{-150,-6},{-142,-6}}, color={0,0,127}));
   connect(tim.passed, and4.u2)
-    annotation (Line(points={{62,12},{78,12}}, color={255,0,255}));
+    annotation (Line(points={{62,-8},{78,-8}}, color={255,0,255}));
   connect(uSetChaPro, notChaSet.u)
     annotation (Line(points={{-180,-110},{-142,-110}}, color={255,0,255}));
-  connect(and2.y, and6.u1) annotation (Line(points={{-58,120},{-10,120},{-10,-20},
-          {-2,-20}}, color={255,0,255}));
-  connect(notChaSet.y, and6.u2) annotation (Line(points={{-118,-110},{-20,-110},
-          {-20,-28},{-2,-28}},color={255,0,255}));
-  connect(and6.y, notChaSet1.u)
-    annotation (Line(points={{22,-20},{38,-20}}, color={255,0,255}));
+  connect(notChaSet.y, and6.u2) annotation (Line(points={{-118,-110},{-10,-110},
+          {-10,-8},{-2,-8}},  color={255,0,255}));
   connect(and1.y, and4.u1) annotation (Line(points={{142,120},{150,120},{150,40},
-          {70,40},{70,20},{78,20}},
-                                  color={255,0,255}));
+          {70,40},{70,0},{78,0}},   color={255,0,255}));
   connect(and4.y, edg.u)
-    annotation (Line(points={{102,20},{118,20}},
-                                               color={255,0,255}));
-  connect(or2.y, lat1.u)
-    annotation (Line(points={{62,-120},{78,-120}},   color={255,0,255}));
-  connect(abs.y, div.u1) annotation (Line(points={{-58,20},{-50,20},{-50,0},{
-          -110,0},{-110,-14},{-102,-14}},
-                                       color={0,0,127}));
-  connect(div.y, lesThr.u)
-    annotation (Line(points={{-78,-20},{-62,-20}}, color={0,0,127}));
-  connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-30,80},{-30,-140},
+    annotation (Line(points={{102,0},{118,0}},   color={255,0,255}));
+  connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-60,80},{-60,-140},
           {-22,-140}},      color={255,0,255}));
   connect(edg3.y, lat1.clr) annotation (Line(points={{2,-140},{70,-140},{70,-126},
           {78,-126}},        color={255,0,255}));
-  connect(and3.y, lat.u) annotation (Line(points={{22,20},{30,20},{30,80},{78,80}},
-        color={255,0,255}));
-  connect(notChaSet1.y, edg2.u)
-    annotation (Line(points={{62,-20},{78,-20}}, color={255,0,255}));
-  connect(edg2.y, or2.u2) annotation (Line(points={{102,-20},{110,-20},{110,-36},
-          {10,-36},{10,-128},{38,-128}}, color={255,0,255}));
-  connect(edg.y, or2.u1) annotation (Line(points={{142,20},{150,20},{150,-40},{20,
-          -40},{20,-120},{38,-120}}, color={255,0,255}));
   connect(lat1.y, and5.u2) annotation (Line(points={{102,-120},{110,-120},{110,-108},
           {118,-108}},color={255,0,255}));
-  connect(uStaPro, and5.u1) annotation (Line(points={{-180,80},{-30,80},{-30,-100},
+  connect(uStaPro, and5.u1) annotation (Line(points={{-180,80},{-60,80},{-60,-100},
           {118,-100}},color={255,0,255}));
-  connect(and2.y, truDel.u) annotation (Line(points={{-58,120},{-10,120},{-10,-60},
-          {58,-60}}, color={255,0,255}));
+  connect(and2.y, truDel.u) annotation (Line(points={{-118,120},{-50,120},{-50,-60},
+          {38,-60}}, color={255,0,255}));
   connect(truDel.y, and7.u1)
-    annotation (Line(points={{82,-60},{118,-60}}, color={255,0,255}));
+    annotation (Line(points={{62,-60},{118,-60}}, color={255,0,255}));
   connect(and5.y, and7.u2) annotation (Line(points={{142,-100},{150,-100},{150,
           -80},{100,-80},{100,-68},{118,-68}}, color={255,0,255}));
   connect(and7.y, yMinBypRes)
     annotation (Line(points={{142,-60},{180,-60}}, color={255,0,255}));
-  connect(lesThr.y, and3.u2) annotation (Line(points={{-38,-20},{-20,-20},{-20,
-          12},{-2,12}}, color={255,0,255}));
+  connect(floDif.y, greThr.u)
+    annotation (Line(points={{-118,0},{-102,0}}, color={0,0,127}));
+  connect(greThr.y, and3.u2) annotation (Line(points={{-78,0},{-70,0},{-70,-8},{
+          -42,-8}}, color={255,0,255}));
+  connect(and3.y, and6.u1)
+    annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
+  connect(and6.y, tim.u)
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
+  connect(and6.y, lat.u) annotation (Line(points={{22,0},{30,0},{30,80},{78,80}},
+        color={255,0,255}));
+  connect(edg.y, lat1.u) annotation (Line(points={{142,0},{150,0},{150,-40},{70,
+          -40},{70,-120},{78,-120}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

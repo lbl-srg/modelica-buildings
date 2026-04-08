@@ -117,7 +117,7 @@ block Initial "Outputs the initial stage"
     "Design heat exchanger chiller water flow rate"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1 if have_WSE
     "Samples the difference at plant enable"
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
 equation
