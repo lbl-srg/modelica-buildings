@@ -6,38 +6,37 @@ model SetpointSingleStepChange "Single-step setpoint change"
     annotation (Placement(transformation(extent={{100,-10},{140,30}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointSingleStepChange
     setpointSingleStepChange "Setpoint single-step change block"
-    annotation (Placement(transformation(extent={{18,-62},{48,-36}})));
+    annotation (Placement(transformation(extent={{8,-4},{38,22}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(period=86400, shift=43200)
     "Have priority boolean value"
-    annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
+    annotation (Placement(transformation(extent={{-86,56},{-66,76}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=273.15 + 20.718)
     "Baseline setpoint example value"
-    annotation (Placement(transformation(extent={{-58,-92},{-38,-72}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.SingleTemperatureSetpointBAS
-    singleTemperatureSetpointBAS(TRes=0.5, T_start=295.15)
-    "Represent a single temperature setpoint in a Building Automation System"
+    annotation (Placement(transformation(extent={{-86,-48},{-66,-28}})));
+  CDL.Discrete.UnitDelay
+    uniDel(samplePeriod=10, y_start=273.15 + 20.718)
+    "Represent a time delay of the temperature setpoint actually changes after the temperature setpoint is asked to change"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={36,-8})));
+        rotation=0,
+        origin={60,10})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(k=273.15 + 16.385)
     "Target setpoint example value"
-    annotation (Placement(transformation(extent={{-84,-60},{-64,-40}})));
+    annotation (Placement(transformation(extent={{-86,0},{-66,20}})));
 equation
-  connect(booPul.y, setpointSingleStepChange.have_pri) annotation (Line(points={{-48,10},
-          {-30,10},{-30,-39.6593},{16,-39.6593}},           color={255,0,255}));
-  connect(con1.y,setpointSingleStepChange.uSetBas)  annotation (Line(points={{-36,-82},
-          {-6,-82},{-6,-54.1037},{16,-54.1037}},            color={0,0,127}));
-  connect(singleTemperatureSetpointBAS.yTSet, setpointSingleStepChange.uSetCur)
-    annotation (Line(points={{24,-8},{-22,-8},{-22,-44.4741},{16,-44.4741}},
-        color={0,0,127}));
-  connect(singleTemperatureSetpointBAS.yTSet, TSet) annotation (Line(points={{24,
-          -8},{-16,-8},{-16,10},{120,10}}, color={0,0,127}));
-  connect(con2.y, setpointSingleStepChange.uSetTar) annotation (Line(points={{-62,-50},
-          {16,-50},{16,-49.2889}},      color={0,0,127}));
-  connect(singleTemperatureSetpointBAS.uTSet, setpointSingleStepChange.ySetCom)
-    annotation (Line(points={{48,-8},{80,-8},{80,-47.5556},{50,-47.5556}},
-        color={0,0,127}));
+  connect(booPul.y, setpointSingleStepChange.have_pri) annotation (Line(points={{-64,66},
+          {-30,66},{-30,18.3407},{6,18.3407}},              color={255,0,255}));
+  connect(con1.y,setpointSingleStepChange.uSetBas)  annotation (Line(points={{-64,-38},
+          {-28,-38},{-28,3.8963},{6,3.8963}},               color={0,0,127}));
+  connect(con2.y, setpointSingleStepChange.uSetTar) annotation (Line(points={{-64,10},
+          {6,10},{6,8.71111}},          color={0,0,127}));
+  connect(setpointSingleStepChange.ySetCom, uniDel.u)
+    annotation (Line(points={{40,10.4444},{40,10},{48,10}}, color={0,0,127}));
+  connect(uniDel.y, setpointSingleStepChange.uSetCur) annotation (Line(points={
+          {72,10},{96,10},{96,-14},{-2,-14},{-2,13.5259},{6,13.5259}}, color={0,
+          0,127}));
+  connect(uniDel.y, TSet)
+    annotation (Line(points={{72,10},{120,10}}, color={0,0,127}));
    annotation (experiment(
       StopTime=172800,
       Interval=60,
@@ -47,7 +46,7 @@ equation
 Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointSingleStepChange</a>.</p>
 <p>This validation test uses two constant temperature values as the baseline temperature setpoint
 and the target temperature setpoint. It uses a boolean pulse signal to represent the \"have priority\" 
-signal. It also uses an instance of <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.SingleTemperatureSetpointBAS\">
+signal. It also uses an instance of <a href=\"modelica://cdl_models.Move.Generic.Subsequences.SingleTemperatureSetpointBAS\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.SingleTemperatureSetpointBAS</a> to represent
 the behavior of a temperature setpoint within a Building Automation System (BAS).
 This validation test forms a close loop between the temperature setpoint within the BAS and the single-step
