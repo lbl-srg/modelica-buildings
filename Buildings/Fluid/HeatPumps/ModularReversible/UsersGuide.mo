@@ -303,7 +303,8 @@ Prefatory note: This section only applies to the models that do not include
 onboard controls. The models that include onboard controls, such as 
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>,
-rather expose a connector <code>TSet</code> representing the temperature setpoint.
+rather expose a connector <code>THwSet</code> or <code>TChwSet</code> representing
+the HW or CHW temperature setpoint.
 </p>
 
 <p>

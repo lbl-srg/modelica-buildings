@@ -8,7 +8,7 @@ createPlot(
     id=1,
     position={5, 5, 400, 600},
     subPlot=1,
-    y={"hp.on", "hp.mode"},
+    y={"hp.onHea", "hp.onCoo"},
     autoscale=true,
     grid=true
 );
