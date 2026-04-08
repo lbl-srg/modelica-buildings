@@ -123,11 +123,11 @@ block Controller "Chiller plant controller"
     "Number of plant stages, including zero stage and the stages with enabled waterside economizer, if applicable"
     annotation (Dialog(tab="General", group="Staging configuration", enable=false));
 
-  parameter Integer staMat[:, nChi]
+  parameter Integer staMat[:, :]
     "Chiller staging matrix with chiller stage as row index and chiller as column index, not including stage zero: 0 for disabled, 1 for enabled"
     annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration"));
 
-  parameter Integer conWatPumStaMat[nPlaSta, nConWatPum](start=fill(0, nPlaSta, nConWatPum))
+  parameter Integer conWatPumStaMat[:, :](start=fill(0, nPlaSta, nConWatPum))
     "Condenser water pump staging matrix, with plant stage as row index and condenser water pump as column index: 0 for disabled, 1 for enabled"
     annotation (Evaluate=true, Dialog(tab="General",group="Staging configuration", enable=not have_airCoo));
 
@@ -1768,9 +1768,66 @@ protected
     "Generate warning"
     annotation (Placement(transformation(extent={{520,-570},{540,-550}})));
 
-public
-  CDL.Logical.Pre chiEna[nChi] "Chiller enabling status"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiEna[nChi]
+    "Chiller enabling status"
     annotation (Placement(transformation(extent={{760,370},{780,390}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=nChi) "Number of chillers"
+    annotation (Placement(transformation(extent={{-880,770},{-860,790}})));
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
+    final message="The number of columns of the chiller staging matrix should equal the number of chillers.")
+    "Warning when the chiller staging matrix size is incorrect"
+    annotation (Placement(transformation(extent={{-740,770},{-720,790}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+    "Check the columns of the chiller staging matrix"
+    annotation (Placement(transformation(extent={{-780,770},{-760,790}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
+    final k=size(staMat, 2))
+    "Columns of the chiller staging matrix"
+    annotation (Placement(transformation(extent={{-840,750},{-820,770}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
+    final k=nPlaSta)
+    "Number of plant stages"
+    annotation (Placement(transformation(extent={{-880,730},{-860,750}})));
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
+    final message="The number of rows of the condenser water pump staging matrix should equal the number of plant stages.")
+    "Warning when the rows of the condenser water pump staging matrix is incorrect"
+    annotation (Placement(transformation(extent={{-740,730},{-720,750}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+    "Check the rows of the condenser water pump staging matrix"
+    annotation (Placement(transformation(extent={{-780,730},{-760,750}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
+    final k=size(conWatPumStaMat, 1))
+    "Rows of the condenser water pump staging matrix"
+    annotation (Placement(transformation(extent={{-840,710},{-820,730}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
+    final k=nConWatPum)
+    "Number of condenser water pumps"
+    annotation (Placement(transformation(extent={{-880,690},{-860,710}})));
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
+    final message="The number of columns of the condenser water pump staging matrix should equal the number of condenser water pumps.")
+    "Warning when the columns of the condenser water pump staging matrix is incorrect"
+    annotation (Placement(transformation(extent={{-740,690},{-720,710}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
+    "Check the columns of the condenser water pump staging matrix"
+    annotation (Placement(transformation(extent={{-780,690},{-760,710}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
+    final k=size(conWatPumStaMat, 2))
+    "Columns of the condenser water pump staging matrix"
+    annotation (Placement(transformation(extent={{-840,670},{-820,690}})));
+
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-268,72},{-580,72},
           {-580,-500},{-658,-500}}, color={255,0,255}));
@@ -2280,6 +2337,24 @@ equation
           800,454},{-290,454},{-290,-568},{-268,-568}}, color={255,0,255}));
   connect(chiEna.y, ideSta.uChi) annotation (Line(points={{782,380},{800,380},{
           800,454},{-560,454},{-560,130},{-522,130}}, color={255,0,255}));
+  connect(conInt.y, intEqu.u1)
+    annotation (Line(points={{-858,780},{-782,780}}, color={255,127,0}));
+  connect(intEqu.y, assMes1.u)
+    annotation (Line(points={{-758,780},{-742,780}}, color={255,0,255}));
+  connect(conInt2.y, intEqu.u2) annotation (Line(points={{-818,760},{-800,760},{
+          -800,772},{-782,772}}, color={255,127,0}));
+  connect(conInt3.y, intEqu1.u1)
+    annotation (Line(points={{-858,740},{-782,740}}, color={255,127,0}));
+  connect(intEqu1.y, assMes2.u)
+    annotation (Line(points={{-758,740},{-742,740}}, color={255,0,255}));
+  connect(conInt4.y, intEqu1.u2) annotation (Line(points={{-818,720},{-800,720},
+          {-800,732},{-782,732}}, color={255,127,0}));
+  connect(conInt5.y, intEqu2.u1)
+    annotation (Line(points={{-858,700},{-782,700}}, color={255,127,0}));
+  connect(intEqu2.y, assMes3.u)
+    annotation (Line(points={{-758,700},{-742,700}}, color={255,0,255}));
+  connect(conInt6.y, intEqu2.u2) annotation (Line(points={{-818,680},{-800,680},
+          {-800,692},{-782,692}}, color={255,127,0}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
