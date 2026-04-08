@@ -102,7 +102,10 @@ model MixingVolumeZeroFlow
     use_m_flow_in=true,
     use_T_in=true) "Source"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasThr
+  Modelica.Blocks.Math.Gain reaPasThr(
+    final k=1,
+    u(unit="kg/s"),
+    y(unit="W"))
     "Real pass through for unit conversion"
     annotation (Placement(transformation(extent={{-66,74},{-54,86}})));
 equation
@@ -174,6 +177,11 @@ equation
       Tolerance=1E-6, StopTime=2),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 January 27, 2016, by Filip Jorissen:<br/>
 Changed heat flow rate at zero flow to avoid triggering of
