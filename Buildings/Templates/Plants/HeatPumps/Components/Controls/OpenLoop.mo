@@ -44,14 +44,13 @@ block OpenLoop
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Hp[nHp](
     each table=[0, 0; 1, 1],
     each timeScale=1000,
-    each period=5000)
+    each period=5000) if cfg.have_hp
     "Heat pump start/stop command"
     annotation(Placement(transformation(extent={{-100,330},{-120,350}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaHp[nHp](
     each table=[0, 1; 3, 0],
     each timeScale=1000,
-    each period=5000)
-    if cfg.is_rev
+    each period=5000) if cfg.have_hp and cfg.is_rev
     "Heat pump heating mode command"
     annotation(Placement(transformation(extent={{-100,290},{-120,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPri[cfg.nPumHeaWatPri](

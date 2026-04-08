@@ -5,9 +5,7 @@ model AirToWaterSHCOnly
     pla(
       typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent));
 
-annotation(__Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterSHC.mos"
-    "Simulate and plot"),
+annotation(
   experiment(Tolerance=1e-6,
     StopTime=86400.0));
 end AirToWaterSHCOnly;

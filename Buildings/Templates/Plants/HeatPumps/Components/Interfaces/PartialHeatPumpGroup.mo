@@ -368,14 +368,14 @@ model PartialHeatPumpGroup
       ports_aChiHeaWatHp.p,
       noEvent(actualStream(ports_aChiHeaWatHp.h_outflow)),
       noEvent(actualStream(ports_aChiHeaWatHp.Xi_outflow)))
-    if show_T
+    if show_T and have_hp
     "Source medium properties in port_aChiHeaWatHp";
   MediumHeaWat.ThermodynamicState sta_bChiHeaWatHp[nHp] =
     MediumHeaWat.setState_phX(
       ports_bChiHeaWatHp.p,
       noEvent(actualStream(ports_bChiHeaWatHp.h_outflow)),
       noEvent(actualStream(ports_bChiHeaWatHp.Xi_outflow)))
-    if show_T
+    if show_T and have_hp
     "Source medium properties in port_bChiHeaWatHp";
   MediumHeaWat.ThermodynamicState sta_aHeaWatShc[nShc] =
     MediumHeaWat.setState_phX(

@@ -862,12 +862,21 @@ model AirToWater
   Fluid.Sources.Boundary_pT bouHeaWat(
     redeclare final package Medium=MediumHeaWat,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
-    nPorts=1)
-    if have_heaWat
+    nPorts=1) if have_heaWat
     "Pressure boundary condition mimicking expansion tank"
     annotation(Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
       origin={0,-340})));
+  Fluid.Sources.Boundary_pT bouChiWat(
+    redeclare final package Medium = MediumChiWat,
+    p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
+    nPorts=1)
+    if typ == Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent
+    "Pressure boundary condition mimicking expansion tank" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-22})));
 initial equation
   // Calculation of pump speed providing design flow
   if have_heaWat then
@@ -1227,7 +1236,9 @@ equation
       thickness=0.5,
       visible=have_heaWat
         and typPumHeaWatSec <>
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
+  connect(bouChiWat.ports[1], TChiWatPriRet.port_b)
+    annotation (Line(points={{0,-12},{0,0},{50,0}}, color={0,127,255}));
   connect(TChiWatSecSup.port_b, supChiWatSec.port_a)
     annotation(Line(points={{230,80},{250,80}},
       color={0,0,0},
