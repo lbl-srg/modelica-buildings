@@ -37,7 +37,7 @@ record Controller
           Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatPri_flow_nominal(
     final min=0,
-    start=VHeaWatHp_flow_nominal * cfg.nHp) =
+    start=VHeaWatHp_flow_nominal * cfg.nHp + VHeaWatShc_flow_nominal * cfg.nShc) =
     VHeaWatHp_flow_nominal * cfg.nHp + VHeaWatShc_flow_nominal * cfg.nShc
     "Design primary HW volume flow rate"
     annotation(Evaluate=true,
@@ -100,7 +100,7 @@ record Controller
           Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatPri_flow_nominal(
     final min=0,
-    start=VChiWatHp_flow_nominal * cfg.nHp) =
+    start=VChiWatHp_flow_nominal * cfg.nHp + VChiWatShc_flow_nominal * cfg.nShc) =
     VChiWatHp_flow_nominal * cfg.nHp + VChiWatShc_flow_nominal * cfg.nShc
     "Design primary CHW volume flow rate"
     annotation(Evaluate=true,
@@ -339,7 +339,7 @@ record Controller
         and cfg.typCtl ==
           Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and not cfg.have_senDpHeaWatRemWir));
-  parameter Real yPumHeaWatPriHdrSet(final max=2, final min=0, start=1, final unit="1")
+  parameter Real yPumHeaWatPriHdrSet(final max=2, final min=0, start=1, final unit="1") = 1
     "Headered primary HW pump speed providing design flow in heating mode"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
@@ -354,7 +354,7 @@ record Controller
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
           or cfg.typPumHeaWatPriShc ==
             Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)));
-  parameter Real yPumHeaWatPriHpSet(final max=2, final min=0, start=1, final unit="1")
+  parameter Real yPumHeaWatPriHpSet(final max=2, final min=0, start=1, final unit="1") = 1
     "Heat pump dedicated primary pump speed providing design flow in heating mode"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
@@ -367,7 +367,7 @@ record Controller
           Buildings.Templates.Components.Types.PumpArrangement.Dedicated
         and cfg.typPumHeaWatPriHp ==
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
-  parameter Real yPumHeaWatPriShcSet(final max=2, final min=0, start=1, final unit="1")
+  parameter Real yPumHeaWatPriShcSet(final max=2, final min=0, start=1, final unit="1") = 1
     "Polyvalent unit dedicated primary HW pump speed providing design flow"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
@@ -437,7 +437,7 @@ record Controller
         and cfg.typCtl ==
           Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and not cfg.have_senDpChiWatRemWir));
-  parameter Real yPumChiWatPriHdrSet(final max=2, final min=0, start=1, final unit="1")
+  parameter Real yPumChiWatPriHdrSet(final max=2, final min=0, start=1, final unit="1") = 1
     "Headered primary pump speed providing design flow in cooling mode"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
@@ -452,7 +452,7 @@ record Controller
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
           or cfg.typPumChiWatPriShc ==
             Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)));
-  parameter Real yPumChiWatPriHpSet(final max=2, final min=0, start=1, final unit="1")
+  parameter Real yPumChiWatPriHpSet(final max=2, final min=0, start=1, final unit="1") = 1
     "Heat pump dedicated primary pump speed providing design flow in cooling mode"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
@@ -465,7 +465,7 @@ record Controller
           Buildings.Templates.Components.Types.PumpArrangement.Dedicated
         and cfg.typPumChiWatPriHp ==
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
-  parameter Real yPumChiWatPriShcSet(final max=2, final min=0, start=1, final unit="1")
+  parameter Real yPumChiWatPriShcSet(final max=2, final min=0, start=1, final unit="1") = 1
     "Polyvalent unit dedicated primary pump speed providing design flow in cooling mode"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",

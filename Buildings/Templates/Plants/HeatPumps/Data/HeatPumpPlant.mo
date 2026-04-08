@@ -56,6 +56,11 @@ record HeatPumpPlant
     "Polyvalent unit CHW balancing valve pressure drop at design CHW flow"
     annotation(Dialog(group="Heat pumps and polyvalent units"));
   // HW loop
+  /* HACK(AntoineGautier)
+   * Dymola 2026x fails to check the size of m_flow_nominal (freezes)
+   * in case of *headered* pumps. Using 'nPumHeaWatPri - nShc' for
+   * the case with *dedicated* pumps somehow helps the compiler...
+   */
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
     final nPum=cfg.nPumHeaWatPri,
     final rho_default=cfg.rhoHeaWat_default,
@@ -74,7 +79,7 @@ record HeatPumpPlant
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
             then max(hp.mHeaWatHp_flow_nominal, hp.mChiWatHp_flow_nominal)
             else hp.mHeaWatHp_flow_nominal,
-          cfg.nHp),
+        cfg.nPumHeaWatPri - cfg.nShc),
         fill(hp.mHeaWatShc_flow_nominal, cfg.nShc))
       else fill(
         (cfg.nHp * hp.mHeaWatHp_flow_nominal + cfg.nShc *
@@ -142,6 +147,11 @@ record HeatPumpPlant
         and cfg.typPumHeaWatSec ==
           Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   // CHW loop
+  /* HACK(AntoineGautier)
+   * Dymola 2026x fails to check the size of m_flow_nominal (freezes)
+   * in case of *headered* pumps. Using 'nPumChiWatPri - nShc' for
+   * the case with *dedicated* pumps somehow helps the compiler...
+   */
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
     final nPum=cfg.nPumChiWatPri,
     final rho_default=cfg.rhoChiWat_default,
@@ -156,7 +166,7 @@ record HeatPumpPlant
         1,
         fill(
           hp.mChiWatHp_flow_nominal,
-          if cfg.have_pumPriComHp then 0 else cfg.nHp),
+          cfg.nPumChiWatPri - cfg.nShc),
         fill(hp.mChiWatShc_flow_nominal, cfg.nShc))
       else fill(
         (hp.mChiWatHp_flow_nominal * cfg.nHp + hp.mChiWatShc_flow_nominal *

@@ -3,7 +3,10 @@ model AirToWaterSHC
   "Validation of AWHP plant template with polyvalent units"
   extends Buildings.Templates.Plants.HeatPumps.Validation.AirToWater(
     pla(
-      typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent));
+      typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent,
+      typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
+      typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+      typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
 
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterSHC.mos"

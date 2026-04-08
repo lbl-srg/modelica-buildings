@@ -96,14 +96,16 @@ block OpenLoop
       Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary CHW pump speed signal"
     annotation(Placement(transformation(extent={{-140,-250},{-160,-230}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(
+    k=dat.yPumHeaWatPriHdrSet)
     if (cfg.typPumHeaWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     or cfg.typPumHeaWatPriShc == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     and cfg.typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary HW pump speed signal"
     annotation(Placement(transformation(extent={{-60,170},{-80,190}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriHdr(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriHdr(
+    k=dat.yPumChiWatPriHdrSet)
     if (cfg.typPumChiWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     or cfg.typPumChiWatPriShc == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     and cfg.typArrPumPri ==
@@ -111,7 +113,8 @@ block OpenLoop
     "Headered primary CHW pump speed signal"
     annotation(Placement(transformation(extent={{-60,-210},{-80,-190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriDed[cfg.nPumHeaWatPri](
-    each k=1)
+    k=cat(1, fill(dat.yPumHeaWatPriHpSet, cfg.nHp),
+      fill(dat.yPumHeaWatPriShcSet, cfg.nShc)))
     if (cfg.typPumHeaWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     or cfg.typPumHeaWatPriShc == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
       and cfg.typArrPumPri ==
@@ -119,7 +122,10 @@ block OpenLoop
     "Dedicated primary HW pump speed signal"
     annotation(Placement(transformation(extent={{-20,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriDed[cfg.nPumChiWatPri](
-    each k=1)
+    k=if cfg.have_hp and not cfg.have_pumPriComHp then
+      cat(1, fill(dat.yPumChiWatPriHpSet, cfg.nHp),
+      fill(dat.yPumChiWatPriShcSet, cfg.nShc)) else
+      fill(dat.yPumChiWatPriShcSet, cfg.nShc))
     if cfg.typArrPumPri ==
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     and (cfg.typPumChiWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable

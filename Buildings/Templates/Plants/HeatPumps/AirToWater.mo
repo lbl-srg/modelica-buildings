@@ -138,14 +138,14 @@ model AirToWater
     start=1,
     final unit="1")
     "Heat pump dedicated primary pump speed providing design flow in cooling mode";
-  parameter Real yPumHeaWatPriShcSet(
+  final parameter Real yPumHeaWatPriShcSet(
     final fixed=false,
     final max=2,
     final min=0,
     start=1,
     final unit="1")
     "Polyvalent unit dedicated primary HW pump speed providing design flow";
-  parameter Real yPumChiWatPriShcSet(
+  final parameter Real yPumChiWatPriShcSet(
     final fixed=false,
     final max=2,
     final min=0,
@@ -191,8 +191,14 @@ model AirToWater
     final have_pumPriComHp=have_pumPriComHp,
     final datPumHeaWat=dat.pumHeaWatPri,
     final datPumChiWat=dat.pumChiWatPri,
-    final dpValCheHeaWat_nominal=dat.dpValCheHeaWat_nominal,
-    final dpValCheChiWat_nominal=dat.dpValCheChiWat_nominal,
+    final dpValCheHeaWat_nominal=if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      then dat.dpValCheHeaWat_nominal
+      else fill(0, 0),
+    final dpValCheChiWat_nominal=if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      then dat.dpValCheChiWat_nominal
+      else fill(0, 0),
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Dedicated primary pumps"
