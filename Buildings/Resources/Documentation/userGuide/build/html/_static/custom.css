@@ -293,7 +293,30 @@ table.citation{
   margin: 10px;
 }
 
+/* Adjust main content for fixed sidebar */
+.body.col-md-9 {
+  margin-left: 26%;
+  margin-top: 10px;
+}
+
+/* Position sidebar column to not interfere */
+.col-md-3 {
+  width: 0;
+  padding: 0;
+  margin: 0;
+}
+
 /* Sidebar list styling fix */
+.bs-sidenav {
+  position: fixed;
+  top: 100px;
+  left: 15px;
+  width: 25%;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .bs-sidenav ul {
   list-style: none;
   padding-left: 0;
