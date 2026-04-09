@@ -173,9 +173,9 @@ equation
         grid={2,2})),
     Documentation(info="<html>
 <p>This block changes the value of a setpoint between 
-the baseline setpoint and the target setpoint in a single step when a priority signal is received.
+the baseline setpoint and the target setpoint in a single step when an \"enable\" signal is received.
 This block is helpful when controlling the setpoints of multiple zones or multiple pieces of equipment,
-where setpoints are changed in sequential steps based on some priority signals. </p>
+where setpoints are changed in sequential steps based on some \"enable\" signals. </p>
 
 <p>Input variables <code>uCurSet</code>, <code>uBasSet</code>, and <code>uTarSet</code> are the
 current setpoint, the baseline setpoint, and the target setpoint, respectively. 
