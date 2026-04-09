@@ -74,10 +74,6 @@ block Initial "Outputs the initial stage"
     "Samples first available stage up at plant enable"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg(
-    final pre_u_start=false) "Rising edge"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-
 //protected
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.PredictedOutletTemperature
     wseTOut(
@@ -89,48 +85,49 @@ block Initial "Outputs the initial stage"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Type converter"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Type converter"
-    annotation (Placement(transformation(extent={{160,30},{180,50}})));
+    annotation (Placement(transformation(extent={{160,80},{180,100}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant staZer(
     final k=0)
     "Zero stage"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+    annotation (Placement(transformation(extent={{40,100},{60,120}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=0,
     final uHigh=wseDt) if have_WSE
     "Check if the initial predicted heat exchange leaving water temperature is greater than chilled water supply temperature setpoint less offset"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if have_WSE
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(
     final k=false) if not have_WSE "Replacement signal for no WSE case"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=VHeaExcDes_flow) if have_WSE
     "Design heat exchanger chiller water flow rate"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
 
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1 if have_WSE
+    "Samples the difference at plant enable"
+    annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
 equation
   connect(reaToInt.y, yIni)
-    annotation (Line(points={{182,40},{200,40},{200,0},{250,0}}, color={255,127,0}));
-  connect(sub1.y,hys1. u)
-    annotation (Line(points={{-78,90},{-62,90}}, color={0,0,127}));
+    annotation (Line(points={{182,90},{200,90},{200,0},{250,0}}, color={255,127,0}));
   connect(noWSE.y,swi. u2)
-    annotation (Line(points={{-38,50},{-20,50},{-20,90},{58,90}},
+    annotation (Line(points={{22,50},{70,50},{70,90},{98,90}},
       color={255,0,255}));
   connect(hys1.y,swi. u2)
-    annotation (Line(points={{-38,90},{58,90}}, color={255,0,255}));
+    annotation (Line(points={{22,90},{98,90}},  color={255,0,255}));
   connect(wseTOut.TOutWet,TOutWet)
     annotation (Line(points={{-162,38},{-180,38},{-180,70},{-260,70}},
       color={0,0,127}));
@@ -144,21 +141,25 @@ equation
     annotation (Line(points={{-260,110},{-170,110},{-170,96},{-102,96}},
       color={0,0,127}));
   connect(staZer.y,swi. u1)
-    annotation (Line(points={{22,110},{40,110},{40,98},{58,98}}, color={0,0,127}));
-  connect(uUp, intToRea.u) annotation (Line(points={{-260,-40},{-100,-40},{-100,
-          0},{-62,0}}, color={255,127,0}));
-  connect(swi.y, reaToInt.u) annotation (Line(points={{82,90},{140,90},{140,40},
-          {158,40}}, color={0,0,127}));
+    annotation (Line(points={{62,110},{80,110},{80,98},{98,98}}, color={0,0,127}));
+  connect(uUp, intToRea.u) annotation (Line(points={{-260,-40},{-140,-40},{-140,
+          0},{-102,0}},color={255,127,0}));
+  connect(swi.y, reaToInt.u) annotation (Line(points={{122,90},{158,90}},
+                     color={0,0,127}));
   connect(intToRea.y, triSam.u)
-    annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
+    annotation (Line(points={{-78,0},{-12,0}}, color={0,0,127}));
   connect(triSam.y, swi.u3)
-    annotation (Line(points={{12,0},{40,0},{40,82},{58,82}}, color={0,0,127}));
-  connect(uPla, edg.u)
-    annotation (Line(points={{-260,-90},{-62,-90}}, color={255,0,255}));
-  connect(edg.y, triSam.trigger)
-    annotation (Line(points={{-38,-90},{0,-90},{0,-12}},   color={255,0,255}));
+    annotation (Line(points={{12,0},{80,0},{80,82},{98,82}}, color={0,0,127}));
   connect(wseTOut.y, sub1.u2) annotation (Line(points={{-138,30},{-120,30},{
           -120,84},{-102,84}}, color={0,0,127}));
+  connect(sub1.y, triSam1.u)
+    annotation (Line(points={{-78,90},{-52,90}}, color={0,0,127}));
+  connect(triSam1.y, hys1.u)
+    annotation (Line(points={{-28,90},{-2,90}}, color={0,0,127}));
+  connect(uPla, triSam.trigger)
+    annotation (Line(points={{-260,-90},{0,-90},{0,-12}}, color={255,0,255}));
+  connect(uPla, triSam1.trigger) annotation (Line(points={{-260,-90},{-40,-90},{
+          -40,78}}, color={255,0,255}));
 annotation (defaultComponentName = "iniSta",
         Icon(graphics={
         Rectangle(

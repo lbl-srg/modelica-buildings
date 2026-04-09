@@ -80,18 +80,22 @@ equation
     annotation (Line(points={{40,132},{40,156},{0,156},{0,160}},
                                                          color={255,0,255}));
   connect(bus.y1, hp.on) annotation (Line(
-      points={{0,160},{0,20},{-20,20},{-20,-6},{-12,-6}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.y1Hea, hp.hea) annotation (Line(
       points={{0,160},{0,20},{-20,20},{-20,-8},{-12,-8}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TSet, hp.TSet) annotation (Line(
-      points={{0,160},{0,20},{-20,20},{-20,-2},{-12,-2}},
+  connect(bus.y1Hea, hp.hea) annotation (Line(
+      points={{0,160},{0,20},{-20,20},{-20,-10},{-12,-10}},
       color={255,204,51},
       thickness=0.5));
-  connect(hp.on, y1_actual.y1) annotation (Line(points={{-12,-6},{-14,-6},{-14,12},
+  connect(bus.THeaWatSet, hp.THwSet) annotation (Line(
+      points={{0,160},{0,20},{-20,20},{-20,-2},{-12,-2}},
+      color={255,204,51},
+    thickness=0.5));
+  connect(bus.TChiWatSet, hp.TChwSet) annotation (Line(
+      points={{0,160},{0,20},{-20,20},{-20,-6},{-12,-6}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(hp.on, y1_actual.y1) annotation (Line(points={{-12,-8},{-14,-8},{-14,12},
           {40,12},{40,108}},     color={255,0,255}));
   annotation (
   defaultComponentName="heaPum",
@@ -99,7 +103,7 @@ equation
 <p>
 This is the base class for heat pump models where the capacity
 and input power are computed by interpolating manufacturer data
-along the condenser entering or leaving temperature, the 
+along the condenser entering or leaving temperature, the
 evaporator entering or leaving temperature and the part load ratio.
 Toggling the Boolean parameter <code>is_rev</code> enables
 representing either a non-reversible (heating-only) heat pump or a
@@ -127,10 +131,12 @@ Set <code>y1Hea=true</code> for heating mode,
 <code>y1Hea=false</code> for cooling mode.
 </li>
 <li>
-Heat pump supply temperature setpoint: <code>TSet</code>,
-AO signal, with a dimensionality of zero<br/>
-For reversible heat pumps, the setpoint value must be
-switched externally between HW and CHW supply temperature.
+Heat pump HW supply temperature setpoint: <code>THeaWatSet</code>,
+AO signal, with a dimensionality of zero
+</li>
+<li>For reversible heat pumps only (<code>is_rev=true</code>),
+Heat pump CHW supply temperature setpoint: <code>TChiWatSet</code>,
+AO signal, with a dimensionality of zero
 </li>
 <li>
 Heat pump status: <code>y1_actual</code>,
@@ -139,6 +145,13 @@ DI signal, with a dimensionality of zero
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors
+for HW and CHW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 March 21, 2025, by Antoine Gautier:<br/>
 First implementation.

@@ -14,6 +14,5 @@ createPlot(id=3, position={1334, 20, 766, 1085}, y={"enaChiIsoVal1.u1ChiIsoOpe[1
 createPlot(id=3, position={1334, 20, 766, 1085}, y={"enaChiIsoVal1.u1ChiIsoClo[1]", "enaChiIsoVal1.u1ChiIsoClo[2]"}, range={0.0, 4000.0, -2.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
 createPlot(id=3, position={1334, 20, 766, 1085}, y={"enaChiIsoVal1.y1ChiWatIsoVal[1]", "enaChiIsoVal1.y1ChiWatIsoVal[2]"}, range={0.0, 4000.0, -2.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
 createPlot(id=3, position={1334, 20, 766, 1085}, y={"enaChiIsoVal1.yChaChiWatIsoVal"}, range={0.0, 4000.0, -2.0, 2.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=3, position={1334, 20, 766, 1085}, y={"enaChiIsoVal1.yChiWatIsoVal[1]", "enaChiIsoVal1.yChiWatIsoVal[2]"}, range={0.0, 4000.0, -2.0, 2.0}, grid=true, subPlot=106, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
 
 

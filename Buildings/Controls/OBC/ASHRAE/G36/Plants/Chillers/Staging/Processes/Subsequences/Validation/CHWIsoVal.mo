@@ -11,7 +11,8 @@ model CHWIsoVal "Validate isolation valve enable and disable sequence"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal
     enaChiIsoVal1(
-    final have_isoValEndSwi=true,
+    valTyp=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition,
+    have_twoPosEndSwi=true,
     final nChi=2,
     chaChiWatIsoTim=300) "Enable isolation valve, with end switch feedback"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));

@@ -11,5 +11,7 @@ compareVars :=
     "dowProCon.yChiHeaCon[2]",
     "dowProCon.yChiWatMinFloSet",
     "dowProCon.yDesConWatPumSpe",
-    "dowProCon.yConWatPumNum"
+    "dowProCon.yConWatPumNum",
+    "dowProCon.yChiWatIsoVal[1]",
+    "dowProCon.yChiWatIsoVal[2]"
   };

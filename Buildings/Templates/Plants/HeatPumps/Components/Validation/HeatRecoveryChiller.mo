@@ -96,11 +96,6 @@ model HeatRecoveryChiller
     period=1000)
     "Source for DO signals"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch TSupSet(
-    y(unit="K",
-      displayUnit="degC"))
-    "HRC supply temperature setpoint"
-    annotation (Placement(transformation(extent={{30,150},{50,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     final k=datHrc.TChiWatSup_nominal)
     "CHW supply temperature setpoint"
@@ -134,12 +129,6 @@ equation
     annotation (Line(points={{-38,140},{40,140},{40,100}},color={255,0,255}));
   connect(y1.y[2], busHrc.y1Coo)
     annotation (Line(points={{-38,140},{40,140},{40,100}},color={255,0,255}));
-  connect(y1.y[2], TSupSet.u2)
-    annotation (Line(points={{-38,140},{20,140},{20,160},{28,160}},color={255,0,255}));
-  connect(TChiWatSupSet.y, TSupSet.u1)
-    annotation (Line(points={{-108,180},{20,180},{20,168},{28,168}},color={0,0,127}));
-  connect(THeaWatSupSet.y, TSupSet.u3)
-    annotation (Line(points={{-78,160},{0,160},{0,152},{28,152}},color={0,0,127}));
   connect(outHeaWat.ports[1], THeaWatLvg.port_b)
     annotation (Line(points={{130,-40},{100,-40}},color={0,127,255}));
   connect(THeaWatLvg.port_a, hrc.port_b1)
@@ -158,8 +147,18 @@ equation
     annotation (Line(points={{80,80},{0,80},{0,60}},color={255,204,51},thickness=0.5));
   connect(busPumHeaWatHrc, bus.pumHeaWatHrc)
     annotation (Line(points={{80,120},{0,120},{0,60}},color={255,204,51},thickness=0.5));
-  connect(TSupSet.y, busHrc.TSet) annotation (Line(points={{52,160},{60,160},{60,
-          100},{40,100}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, busHrc.TChiWatSet) annotation (Line(points={{-108,
+          180},{38,180},{38,100},{40,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(THeaWatSupSet.y, busHrc.THeaWatSet) annotation (Line(points={{-78,160},
+          {36,160},{36,100},{40,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (
     __Dymola_Commands(
       file=

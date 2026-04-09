@@ -5,7 +5,6 @@ model UpEndWithoutOff
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.UpEnd
     endUp(
     final nChi=2,
-    have_isoValEndSwi=false,
     final chaChiWatIsoTim=300,
     final byPasSetTim=300,
     final minFloSet={0.5,1},
@@ -110,9 +109,6 @@ equation
   connect(nexDisChi.y, endUp.nexDisChi)
     annotation (Line(points={{-178,-40},{-16,-40},{-16,142},{38,142}},
       color={255,127,0}));
-  connect(chiWatFlo.y, endUp.VChiWat_flow)
-    annotation (Line(points={{-178,-240},{12,-240},{12,125},{38,125}},
-      color={0,0,127}));
   connect(chiHea.y, endUp.uChiHeaCon)
     annotation (Line(points={{-178,-160},{8,-160},{8,128},{38,128}},
       color={255,0,255}));

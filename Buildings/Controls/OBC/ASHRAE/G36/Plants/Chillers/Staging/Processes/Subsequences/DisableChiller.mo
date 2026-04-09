@@ -75,19 +75,22 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,40},{180,60}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
+    final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=proOnTim)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=proOnTim)
     "Count the time after new chiller has been enabled"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
     "Record the old chiller chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
@@ -197,9 +200,8 @@ equation
   connect(greEquThr.y, logSwi.u3)
     annotation (Line(points={{42,100},{60,100},{60,192},{98,192}},
       color={255,0,255}));
-  connect(and2.y, tim.u)
-    annotation (Line(points={{-138,140},{-120,140},{-120,0},{-102,0}},
-      color={255,0,255}));
+  connect(and2.y, tim.u) annotation (Line(points={{-138,140},{-120,140},{-120,0},
+          {-102,0}}, color={255,0,255}));
   connect(booRep2.y, and3.u1)
     annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
   connect(and3.y, logSwi1.u2)
@@ -300,17 +302,14 @@ equation
   connect(logSwi7.y,yRelDemLim)
     annotation (Line(points={{182,-52},{202,-52},{202,-50},{220,-50}},
       color={255,0,255}));
-  connect(tim.passed, not1.u)
-    annotation (Line(points={{-78,-8},{-40,-8},{-40,50},{-22,50}},
-      color={255,0,255}));
-  connect(tim.passed, booRep2.u)
-    annotation (Line(points={{-78,-8},{-40,-8},{-40,0},{-22,0}},
-      color={255,0,255}));
-  connect(tim.passed, logSwi7.u1)
-    annotation (Line(points={{-78,-8},{-40,-8},{-40,-44},{158,-44}},
-      color={255,0,255}));
   connect(con3.y, logSwi7.u3) annotation (Line(points={{42,-70},{90,-70},{90,-60},
           {158,-60}}, color={255,0,255}));
+  connect(tim.passed, not1.u) annotation (Line(points={{-78,-8},{-40,-8},{-40,50},
+          {-22,50}}, color={255,0,255}));
+  connect(tim.passed, booRep2.u) annotation (Line(points={{-78,-8},{-40,-8},{-40,
+          0},{-22,0}}, color={255,0,255}));
+  connect(tim.passed, logSwi7.u1) annotation (Line(points={{-78,-8},{-40,-8},{-40,
+          -44},{158,-44}}, color={255,0,255}));
 annotation (
   defaultComponentName="disChi",
   Icon(graphics={

@@ -26,7 +26,5 @@ compareVars :=
     "enaChiIsoVal1.u1ChiIsoClo[2]",
     "enaChiIsoVal1.y1ChiWatIsoVal[1]",
     "enaChiIsoVal1.y1ChiWatIsoVal[2]",
-    "enaChiIsoVal1.yChaChiWatIsoVal",
-    "enaChiIsoVal1.yChiWatIsoVal[1]",
-    "enaChiIsoVal1.yChiWatIsoVal[2]"
+    "enaChiIsoVal1.yChaChiWatIsoVal"
   };

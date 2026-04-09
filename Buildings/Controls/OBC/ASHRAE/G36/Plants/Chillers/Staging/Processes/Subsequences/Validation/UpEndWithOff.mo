@@ -5,7 +5,6 @@ model UpEndWithOff
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.UpEnd
     endUp1(
     final nChi=2,
-    have_isoValEndSwi=false,
     final chaChiWatIsoTim=300,
     final byPasSetTim=300,
     final minFloSet={0.5,1},
@@ -13,6 +12,9 @@ model UpEndWithOff
     "End staging up process which does require one chiller on and another chiller off"
     annotation (Placement(transformation(extent={{0,140},{20,180}})));
 
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler demLimRel
+    "To indicate if the demand limit has been released"
+    annotation (Placement(transformation(extent={{40,230},{60,250}})));
 protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real input to integer output"
@@ -59,9 +61,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea1(final pre_u_start=true)
     "Chiller one head pressure control"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatFlo1(final k=1)
-    "Chilled water flow rate"
-    annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatFlo2(final k=1.667)
     "Minimum chilled water flow setpoint calculated from upstream process"
     annotation (Placement(transformation(extent={{-240,-250},{-220,-230}})));
@@ -88,6 +87,9 @@ protected
     final delayTime=0)
     "Chiller one status"
     annotation (Placement(transformation(extent={{80,230},{100,250}})));
+  CDL.Reals.Sources.Constant                        one(final k=1)
+               "Constant one"
+    annotation (Placement(transformation(extent={{0,230},{20,250}})));
 equation
   connect(booPul3.y, staUp1.u)
     annotation (Line(points={{-218,90},{-202,90}}, color={255,0,255}));
@@ -134,7 +136,7 @@ equation
     annotation (Line(points={{-178,90},{-170,90},{-170,-160},{-162,-160}},
       color={255,0,255}));
   connect(endUp1.yChiHeaCon[1], chiOneHea1.u)
-    annotation (Line(points={{22,160.5},{60,160.5},{60,-120},{78,-120}},
+    annotation (Line(points={{22,158.1},{60,158.1},{60,-120},{78,-120}},
       color={255,0,255}));
   connect(chiOneHea1.y, chiOneHeaCon.u1)
     annotation (Line(points={{102,-120},{110,-120},{110,-140},{-180,-140},{-180,
@@ -142,9 +144,6 @@ equation
   connect(chiOneHeaCon.y, endUp1.uChiHeaCon[1])
     annotation (Line(points={{-138,-160},{-28,-160},{-28,147.5},{-2,147.5}},
       color={255,0,255}));
-  connect(chiWatFlo1.y, endUp1.VChiWat_flow)
-    annotation (Line(points={{-218,-200},{-20,-200},{-20,145},{-2,145}},
-      color={0,0,127}));
   connect(enaHeaCon.y, endUp1.uChiHeaCon[2])
     annotation (Line(points={{-218,-160},{-200,-160},{-200,-180},{-24,-180},{
           -24,148.5},{-2,148.5}},
@@ -155,9 +154,6 @@ equation
           {-122,120}},color={255,0,255}));
   connect(endUp1.endStaTri, lat.clr) annotation (Line(points={{22,151},{40,151},
           {40,80},{-140,80},{-140,114},{-122,114}}, color={255,0,255}));
-  connect(lat.y, endUp1.uStaUp) annotation (Line(points={{-98,120},{-76,120},{
-          -76,173},{-2,173}},
-                          color={255,0,255}));
   connect(endUp1.yChi[2], chiTwoSta.y1) annotation (Line(points={{22,169.5},{70,
           169.5},{70,90},{78,90}}, color={255,0,255}));
   connect(chiTwoSta.y1_actual, endUp1.uChi[2]) annotation (Line(points={{102,90},
@@ -184,6 +180,12 @@ equation
           {170,240},{170,228},{178,228}}, color={255,0,255}));
   connect(chiTwoSta.y1_actual, endUp1.uConWatReq[2]) annotation (Line(points={{102,90},
           {110,90},{110,60},{-32,60},{-32,151.5},{-2,151.5}},     color={255,0,255}));
+  connect(one.y, demLimRel.u)
+    annotation (Line(points={{22,240},{38,240}}, color={0,0,127}));
+  connect(endUp1.endStaTri, demLimRel.trigger)
+    annotation (Line(points={{22,151},{50,151},{50,228}}, color={255,0,255}));
+  connect(staUp1.y, endUp1.uStaUp) annotation (Line(points={{-178,90},{-60,90},
+          {-60,173},{-2,173}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/UpEndWithOff.mos"
@@ -225,11 +227,8 @@ It starts slowly closing the chilled water isolation valve of chiller 1.
 After 300 seconds (<code>chaChiWatIsoTim</code>) at 1725 seconds, the chilled water
 isolation valve of chiller 1 is fully closed. The head pressure control of chiller
 1 becomes disabled (<code>yChiHeaCon[1]</code>). The chilled water minimum flow
-setpoint changes to the new setpoint.
-</li>
-<li>
-After 60 seconds (<code>aftByPasSetTim</code>) at 1785 seconds, the ending process
-is done (<code>yEndSta=true</code>).
+setpoint changes to the new setpoint. The ending process
+is done (<code>endStaTri=true</code>).
 </li>
 </ul>
 </html>", revisions="<html>

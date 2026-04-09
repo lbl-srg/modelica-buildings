@@ -31,13 +31,14 @@ protected
     final startTime=800) "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
-    final width=0.05, final period=2400)
+    final width=0.05,
+    final period=2400)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{-200,130},{-180,150}})));
   Buildings.Controls.OBC.CDL.Logical.Not staDow1 "Stage down command"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa1(
-    final k=2) "Chiller load"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa1(final k=2000)
+    "Chiller load"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin1(
     final k=0.78)
@@ -57,7 +58,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer3(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa3(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa3(final k=1000)
     "Chiller load"
     annotation (Placement(transformation(extent={{80,150},{100,170}})));
   Buildings.Controls.OBC.CDL.Reals.Switch chiLoa2 "Chiller load"
@@ -126,9 +127,17 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if there is any enabled chiller"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true) "Plant enabled"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(
+    final k=true) "Plant enabled"
     annotation (Placement(transformation(extent={{-118,-310},{-98,-290}})));
-
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol3(
+    final samplePeriod=10)
+    "Output the input signal with a zero order hold"
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
+    final p=0.1)
+    "Chilled water flow rate through bypass valve"
+    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 equation
   connect(booPul1.y, staDow1.u)
     annotation (Line(points={{-178,140},{-162,140}}, color={255,0,255}));
@@ -155,9 +164,6 @@ equation
   connect(chiTwoSta.y, dowProCon.uChi[2])
     annotation (Line(points={{122,0},{132,0},{132,-20},{-78,-20},{-78,89.5},
       {18,89.5}}, color={255,0,255}));
-  connect(chiWatFlo1.y, dowProCon.VChiWat_flow)
-    annotation (Line(points={{-178,-90},{-76,-90},{-76,87},{18,87}},
-      color={0,0,127}));
   connect(dowProCon.yChiHeaCon[1], chiOneHea.u)
     annotation (Line(points={{42,76.5},{58,76.5},{58,-90},{98,-90}},
       color={255,0,255}));
@@ -165,7 +171,7 @@ equation
     annotation (Line(points={{42,77.5},{56,77.5},{56,-130},{98,-130}},
       color={255,0,255}));
   connect(chiOneHea.y, dowProCon.uChiHeaCon[1])
-    annotation (Line(points={{122,-90},{140,-90},{140,-60},{-32,-60},{-32,80.5},
+    annotation (Line(points={{122,-90},{140,-90},{140,-70},{-32,-70},{-32,80.5},
           {18,80.5}}, color={255,0,255}));
   connect(chiTwoHea.y, dowProCon.uChiHeaCon[2])
     annotation (Line(points={{122,-130},{140,-130},{140,-112},{-34,-112},{-34,81.5},
@@ -245,6 +251,12 @@ equation
           120,128},{138,128}}, color={0,0,127}));
   connect(plaEna.y, dowProCon.uPla) annotation (Line(points={{-96,-300},{-8,-300},
           {-8,61},{18,61}}, color={255,0,255}));
+  connect(dowProCon.yChiWatMinFloSet, zerOrdHol3.u) annotation (Line(points={{42,
+          64},{66,64},{66,-50},{98,-50}}, color={0,0,127}));
+  connect(zerOrdHol3.y, addPar.u)
+    annotation (Line(points={{122,-50},{138,-50}}, color={0,0,127}));
+  connect(addPar.y, dowProCon.VChiWat_flow) annotation (Line(points={{162,-50},{
+          180,-50},{180,-66},{-60,-66},{-60,87},{18,87}}, color={0,0,127}));
 annotation (
  experiment(StopTime=2400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/DownWithOnOff.mos"
@@ -280,40 +292,37 @@ Before 120 seconds, the plant is not in the staging process.
 </li>
 <li>
 At 120 seconds, the plant starts staging down from stage 2 to stage 1. The operating
-chiller load is reduced from 2 A to 1.56 A (which is lower than 80% of the operating
+chiller load is reduced from 2000 to 1000 w (which is lower than 80% of the operating
 chiller load). It then slowly increases the minimum chilled water flow setpoint from
 1 m3/s to both 1.667 m3/s. The setpoint change takes 300 seconds
-(<code>byPasSetTim</code>) and it ends at about 394 seconds.
+(<code>byPasSetTim</code>) and it ends at about 720 seconds.
 </li>
 <li>
 After the new setpoint being achieved, wait 60 seconds (<code>aftByPasSetTim</code>)
-to 454 seconds, it enables chiller 1 head pressure control (<code>yChiHeaCon[1]=true</code>).
+to 780 seconds, it enables chiller 1 head pressure control (<code>yChiHeaCon[1]=true</code>).
 </li>
 <li>
-After 30 seconds (<code>waiTim</code>) to 484 seconds, it starts slowly opening the
+After 30 seconds (<code>waiTim</code>) to 810 seconds, it starts slowly opening the
 chiller 1 isolation valve (<code>yChiWatIsoVal[1]</code>). It takes 300 seconds
-(<code>chaChiWatIsoTim</code>) to fully open the valve, till 784 seconds.
+(<code>chaChiWatIsoTim</code>) to fully open the valve, till 1110 seconds.
 </li>
 <li>
-At 784 seconds, the chiller 1 isolation valve is fully open and the chiller becomes
+At 1110 seconds, the chiller 1 isolation valve is fully open and the chiller becomes
 enabled (<code>uChi[1]=true</code>).
 </li>
 <li>
-After 5 minutes (<code>proOnTim</code>) to 1084 seconds, the chiller 2 becomes
+After 5 minutes (<code>proOnTim</code>) to 1410 seconds, the chiller 2 becomes
 disabled (<code>uChi[2]=false</code>, <code>uChiLoa[2]=0</code>).
 </li>
 <li>
 After the chiller 2 is disabled and it has no request for chilled water flow, it
-starts slowly closing the isolation valve of chiller 2. At 1384 seconds, the valve
+starts slowly closing the isolation valve of chiller 2. At 1710 seconds, the valve
 is fully closed.
 </li>
 <li>
-At 1384 seconds, the chiller 2 head pressure control becomes disabled
+At 1710 seconds, the chiller 2 head pressure control becomes disabled
 (<code>yChiHeaCon[2]=false</code>). It also changes the minimum flow setpoint to
-the new one for the stage 1, which is 1 m3/s.
-</li>
-<li>
-After the new setpoint is achieved for 60 seconds, to 1684 seconds, the staging
+the new one for the stage 1, which is 1 m3/s. The staging
 process is done.
 </li>
 </ul>

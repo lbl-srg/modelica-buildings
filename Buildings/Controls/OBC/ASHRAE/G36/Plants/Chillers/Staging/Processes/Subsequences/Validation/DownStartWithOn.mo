@@ -46,7 +46,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta(
     final pre_u_start=false) "Break algebraic loop"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa2(final k=20)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa2(final k=2000)
     "Chiller load"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.Controls.OBC.CDL.Reals.Switch chiTwoLoa "Chiller two load"
@@ -82,8 +82,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-20,190},{0,210}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-    final width=0.95,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(final width=0.99,
     final period=1200) "Boolean pulse"
     annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
   Buildings.Controls.OBC.CDL.Logical.Not staDow2 "Stage down command"
@@ -95,7 +94,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Any enabled chiller"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
-
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
+    final p=0.1)
+    "Chilled water flow rate through bypass valve"
+    annotation (Placement(transformation(extent={{140,200},{160,220}})));
 equation
   connect(booPul1.y, staDow1.u)
     annotation (Line(points={{-158,220},{-142,220}}, color={255,0,255}));
@@ -117,10 +119,10 @@ equation
     annotation (Line(points={{-158,70},{-140,70},{-140,62},{-102,62}},
       color={0,0,127}));
   connect(staStaDow1.yChi[1], chiOneSta.u)
-    annotation (Line(points={{22,133.5},{52,133.5},{52,60},{78,60}},
+    annotation (Line(points={{22,131.5},{52,131.5},{52,60},{78,60}},
       color={255,0,255}));
   connect(staStaDow1.yChi[2], chiTwoSta.u)
-    annotation (Line(points={{22,134.5},{48,134.5},{48,30},{78,30}},
+    annotation (Line(points={{22,132.5},{48,132.5},{48,30},{78,30}},
       color={255,0,255}));
   connect(staDow1.y, staStaDow1.uStaDow)
     annotation (Line(points={{-118,220},{-110,220},{-110,157},{-2,157}},
@@ -167,16 +169,14 @@ equation
       color={255,0,255}));
   connect(chiOneHea.y, staStaDow1.uChiHeaCon[1])
     annotation (Line(points={{82,-20},{90,-20},{90,-36},{-32,-36},{-32,134.5},{
-          -2,134.5}},
-                   color={255,0,255}));
+          -2,134.5}}, color={255,0,255}));
   connect(chiTwoHea.y, staStaDow1.uChiHeaCon[2])
     annotation (Line(points={{82,-50},{90,-50},{90,-70},{-28,-70},{-28,135.5},{
-          -2,135.5}},
-                  color={255,0,255}));
+          -2,135.5}}, color={255,0,255}));
   connect(one.y, demLimRel.u)
     annotation (Line(points={{2,200},{18,200}}, color={0,0,127}));
   connect(staStaDow1.yReaDemLim, demLimRel.trigger)
-    annotation (Line(points={{22,131},{30,131},{30,188}},   color={255,0,255}));
+    annotation (Line(points={{22,129},{30,129},{30,188}},   color={255,0,255}));
   connect(booPul2.y, staDow2.u)
     annotation (Line(points={{-158,140},{-142,140}}, color={255,0,255}));
   connect(staDow2.y, staStaDow1.clr)
@@ -184,15 +184,10 @@ equation
       color={255,0,255}));
   connect(staStaDow1.yChiWatMinFloSet, zerOrdHol3.u) annotation (Line(points={{22,146},
           {154,146},{154,150},{158,150}},      color={0,0,127}));
-  connect(zerOrdHol3.y, staStaDow1.VChiWat_flow) annotation (Line(points={{182,150},
-          {196,150},{196,180},{-20,180},{-20,146.2},{-2,146.2}},
-                                                             color={0,0,127}));
   connect(chiTwoLoa.y, staStaDow1.uChiLoa) annotation (Line(points={{-78,70},{
-          -56,70},{-56,150.2},{-2,150.2}},
-                                   color={0,0,127}));
+          -56,70},{-56,150.2},{-2,150.2}}, color={0,0,127}));
   connect(staStaDow1.yChiDem, zerOrdHol.u) annotation (Line(points={{22,149},{
-          40,149},{40,160},{58,160}},
-                                   color={0,0,127}));
+          40,149},{40,160},{58,160}}, color={0,0,127}));
   connect(zerOrdHol.y, chiLoa1.u1) annotation (Line(points={{82,160},{100,160},{
           100,168},{118,168}}, color={0,0,127}));
   connect(chiLoa1.y, chiTwoLoa.u1) annotation (Line(points={{142,160},{150,160},
@@ -203,6 +198,10 @@ equation
           {138,52}}, color={255,0,255}));
   connect(or2.y, chiLoa1.u2) annotation (Line(points={{162,60},{170,60},{170,120},
           {110,120},{110,160},{118,160}}, color={255,0,255}));
+  connect(zerOrdHol3.y, addPar.u) annotation (Line(points={{182,150},{190,150},{
+          190,180},{130,180},{130,210},{138,210}}, color={0,0,127}));
+  connect(addPar.y, staStaDow1.VChiWat_flow) annotation (Line(points={{162,210},
+          {170,210},{170,240},{-30,240},{-30,146.2},{-2,146.2}}, color={0,0,127}));
 annotation (
  experiment(StopTime=1200, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/DownStartWithOn.mos"
@@ -225,7 +224,7 @@ The staging process begins at 180 seconds. Before the moment, the chiller 1 is
 disabled and the chiller 2 is enabled.
 </li>
 <li>
-Since 180 seconds, the operating chiller load is reduced from 20 A to 15 A (75%
+Since 180 seconds, the operating chiller load is reduced from 2000 W to 1500 W (75%
 of the command load).
 </li>
 <li>
@@ -234,19 +233,19 @@ changes from 1 m3/s to 2 m3/s, which are the minimal flow setpoints for 1 chille
 operation and 2 chiller operations.
 </li>
 <li>
-After the minimum chilled water flow setpoint is changed at 480 seconds, the
-head pressure control for the chiller 1 becomes enabled
+After the minimum chilled water flow setpoint is changed at 480 seconds, wait for another
+60 seconds at 540 seconds, the head pressure control for the chiller 1 becomes enabled
 (<code>yChiHeaCon[1]=true</code>).
 </li>
 <li>
-After 30 seconds at 510 seconds, the isolation valve of chiller 1 starts
-opening and becomes fully open at 810 seconds.
+After 30 seconds at 570 seconds, the isolation valve of chiller 1 starts
+opening and becomes fully open at 870 seconds.
 </li>
 <li>
-At 810 seconds, the chiller 1 becomes enabled.
+At 870 seconds, the chiller 1 becomes enabled.
 </li>
 <li>
-After 300 seconds at 1110 seconds, the chiller 2 becomes disabled. The chiller
+After 300 seconds at 1170 seconds, the chiller 2 becomes disabled. The chiller
 demand limit is released, and the minimum chiller water flow setpoint then changes
 to the one for only chiller 1 operating.
 </li>

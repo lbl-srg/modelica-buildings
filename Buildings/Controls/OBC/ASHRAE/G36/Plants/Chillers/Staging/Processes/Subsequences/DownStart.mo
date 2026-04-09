@@ -29,9 +29,14 @@ block DownStart "Sequence for starting stage-down process"
   parameter Real waiTim(unit="s")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
-  parameter Boolean have_isoValEndSwi=false
-    "True: chiller chilled water isolatiove valve have the end switch feedback"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp=
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
+    "Isolation valve type"
     annotation (Dialog(group="Chilled water isolation valve"));
+  parameter Boolean have_twoPosEndSwiChiVal=false
+    "True: it is the two position valve with end switches"
+    annotation (Dialog(group="Chilled water isolation valve",
+                       enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
   parameter Real chaChiWatIsoTim(start=120, unit="s")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
@@ -86,11 +91,11 @@ block DownStart "Sequence for starting stage-down process"
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoOpe[nChi] if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoOpe[nChi] if have_twoPosEndSwiChiVal
     "Chiller chilled water isolation valve open end switch. True: the valve is fully open"
     annotation (Placement(transformation(extent={{-200,-110},{-160,-70}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoClo[nChi] if have_isoValEndSwi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoClo[nChi] if have_twoPosEndSwiChiVal
     "Chiller chilled water isolation valve close end switch. True: the valve is fully closed"
     annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
@@ -119,7 +124,7 @@ block DownStart "Sequence for starting stage-down process"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
     final unit=fill("1", nChi),
     final min=fill(0, nChi),
-    final max=fill(1, nChi))
+    final max=fill(1, nChi)) if chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chilled water isolation valve position setpoint"
     annotation (Placement(transformation(extent={{180,-100},{220,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
@@ -157,7 +162,8 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.CHWIsoVal
     enaChiIsoVal(
-    final have_isoValEndSwi=have_isoValEndSwi,
+    final valTyp=chiIsoValTyp,
+    final have_twoPosEndSwi=have_twoPosEndSwiChiVal,
     final nChi=nChi,
     final chaChiWatIsoTim=chaChiWatIsoTim)
     "Enable chiller chilled water isolation valve "
@@ -215,10 +221,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1 if have_airCoo
     "To be disabled when it is air chilled"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch isoValPos[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch isoValPos[nChi] if chiIsoValTyp ==
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chilled water isolation valve position"
     annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi] if
+    chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
 
@@ -518,11 +526,11 @@ annotation (
           extent={{-100,-74},{-54,-84}},
           textColor={255,0,255},
           textString="u1ChiIsoOpe",
-          visible=have_isoValEndSwi),
+          visible=have_twoPosEndSwiChiVal),
         Text(
           extent={{-100,-106},{-54,-116}},
           textColor={255,0,255},
-          visible=have_isoValEndSwi,
+          visible=have_twoPosEndSwiChiVal,
           textString="u1ChiIsoClo"),
         Text(
           extent={{48,-102},{100,-114}},
@@ -531,7 +539,8 @@ annotation (
         Text(
           extent={{44,-34},{102,-44}},
           textColor={0,0,127},
-          textString="yChiWatIsoVal")}),
+          textString="yChiWatIsoVal",
+          visible=chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)}),
 Documentation(info="<html>
 <p>
 Block that controls devices at the first step of the chiller staging down process.
