@@ -52,10 +52,6 @@ block G36
   // ----- General: Chilled water pump ---
   final parameter Integer nChiWatPum = cfg.nPumChiWatPri
     "Total number of chilled water pumps";
-  final parameter Boolean have_heaChiWatPum =
-    cfg.typArrPumChiWatPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered
-    "Flag of headered chilled water pumps design: true=headered, false=dedicated";
   final parameter Integer nSenChiWatPum = cfg.nSenDpChiWatRem
     "Total number of remote differential pressure sensors hardwired to the plant controller";
   // ---- General: Condenser water pump ----
@@ -124,9 +120,20 @@ block G36
     dat.TChiWatSup_max
     "Maximum chilled water supply temperature setpoint used in plant reset logic";
   // ---- Staging up and down process ----
-  parameter Boolean have_isoValEndSwi=false
-    "True: chiller chilled water isolation valves have end switch status feedback"
-    annotation(Evaluate=true, Dialog(group="Chiller configuration"));
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp=
+    if cfg.typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    then Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
+    else Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
+    "Chilled water isolation valve type"
+    annotation(Evaluate=true);
+  parameter Boolean have_twoPosEndSwiChiVal=false
+    "True for chiller CHW isolation valves with end switch status feedback"
+    annotation (Dialog(group="Chiller configuration",
+      enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
+  parameter Boolean have_modPosChiVal=false
+    "True for chiller CHW isolation valves with position feedback"
+    annotation (Dialog(group="Chiller configuration",
+      enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating));
   // ---- Cooling tower: fan speed ----
   final parameter Real fanSpeMin(unit="1") = dat.yFanCoo_min
     "Minimum tower fan speed";
@@ -159,15 +166,15 @@ block G36
     "Minimum cooling tower water level recommended by manufacturer";
   final parameter Real watLevMax(unit="1") = dat.hLevCoo_max
     "Maximum cooling tower water level recommended by manufacturer";
-  Buildings.Templates.Plants.Chillers.Components.Controls.patchController ctl(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller ctl(
     final have_airCoo=cfg.typChi ==
       Buildings.Templates.Components.Types.Chiller.AirCooled,
     final chiDesCap=chiDesCap,
     final chiHeaPreCon=typCtlHea,
+    final chiIsoValTyp=chiIsoValTyp,
     final chiMinCap=chiMinCap,
     final chiTyp=chiTyp,
     final have_senDpChiWatRemWir=have_senDpChiWatRemWir,
-    final have_isoValEndSwi=have_isoValEndSwi,
     final closeCoupledPlant=closeCoupledPlant,
     final conWatPumStaMat=dat.staPumConWat,
     final cooTowAppDes=cooTowAppDes,
@@ -183,10 +190,11 @@ block G36
     final fanSpeMin=fanSpeMin,
     final have_byPasValCon=have_byPasValCon,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
-    final have_heaChiWatPum=have_heaChiWatPum,
     final have_heaConWatPum=have_heaConWatPum,
+    final have_modPosChiVal=have_modPosChiVal,
     final have_towInlIsoVal=have_towInlIsoVal,
     final have_towOutIsoVal=have_towOutIsoVal,
+    final have_twoPosEndSwiChiVal=have_twoPosEndSwiChiVal,
     final have_parChi=have_parChi,
     final have_ponChi=have_ponChi,
     final have_WSE=have_WSE,
@@ -306,13 +314,14 @@ equation
   end if;
   connect(bus.valChiWatChiIso.y0_actual, ctl.u1ChiIsoClo);
   connect(bus.valChiWatChiIso.y1_actual, ctl.u1ChiIsoOpe);
+  connect(bus.valChiWatChiIso.y_actual, ctl.uChiWatIsoVal);
   connect(bus.valCooInlIso.y0_actual, ctl.u1TowInlIsoValClo);
   connect(bus.valCooInlIso.y1_actual, ctl.u1TowInlIsoValOpe);
   connect(bus.valCooOutIso.y0_actual, ctl.u1TowOutIsoValClo);
   connect(bus.valCooOutIso.y1_actual, ctl.u1TowOutIsoValOpe);
   // Controller outputs
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
-  connect(ctl.TChiWatSupSet, busChi.TSet);
+  connect(ctl.TChiWatSupSet, busChi.TChiWatSet);
   connect(ctl.y1WseChiWatBypVal, bus.valChiWatChiByp.y1);
   connect(ctl.yChi, busChi.y1);
   connect(ctl.yChiWatIsoVal, busValChiWatChiIso.y);
@@ -367,7 +376,7 @@ equation
     annotation(Line(points={{208,-160},{198,-160},{198,108},{192,108}},
       color={255,127,0}));
   connect(resDpChiWatLoc.dpChiWatSet_local, ctl.dpChiWatSet_local)
-    annotation(Line(points={{-38,26},{-20,26},{-20,27},{-2,27}},
+    annotation(Line(points={{-38,26},{-2,26},{-2,27}},
       color={0,0,127}));
   connect(RFE_watLev.y, ctl.watLev)
     annotation(Line(points={{-88,-180},{-18,-180},{-18,-37},{-2,-37}},
