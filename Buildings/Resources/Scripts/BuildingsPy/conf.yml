@@ -273,13 +273,13 @@
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
     translate: false
-- model_name: Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Validation.Borefield
-  openmodelica:
-    comment: Errors as borefield leaving temperature drops below freezing
-    simulate: false
 - model_name: Buildings.Obsolete.DHC.ETS.Combined.Examples.ChillerBorefield
   openmodelica:
     comment: Simulation fails on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/638765271
+    simulate: false
+- model_name: Buildings.Obsolete.DHC.ETS.Combined.Subsystems.Validation.Borefield
+  openmodelica:
+    comment: Errors as borefield leaving temperature drops below freezing
     simulate: false
 - model_name: Buildings.Obsolete.DHC.ETS.Combined.Validation.ChillerBorefield
   openmodelica:
