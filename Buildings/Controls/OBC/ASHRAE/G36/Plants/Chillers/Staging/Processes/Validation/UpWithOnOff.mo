@@ -216,8 +216,7 @@ equation
           {{92,70},{96,70},{96,54},{-44,54},{-44,97.5},{18,97.5}}, color={255,0,
           255}));
   connect(chiOneSta.y1_actual, upProCon.uChiWatReq[1]) annotation (Line(points={{92,70},
-          {96,70},{96,54},{-26,54},{-26,82.5},{18,82.5}},          color={255,0,
-          255}));
+          {96,70},{96,54},{-26,54},{-26,82.5},{18,82.5}}, color={255,0,255}));
   connect(con2.y, truDel.u) annotation (Line(points={{142,-30},{150,-30},{150,-10},
           {130,-10},{130,20},{138,20}}, color={255,0,255}));
   connect(truDel.y, logSwi1.u2)
@@ -248,6 +247,8 @@ equation
     annotation (Line(points={{102,-220},{138,-220}}, color={0,0,127}));
   connect(addPar.y, upProCon.VChiWat_flow) annotation (Line(points={{162,-220},{
           180,-220},{180,-80},{-52,-80},{-52,107.6},{18,107.6}}, color={0,0,127}));
+  connect(falEdg.y, upProCon.uEndPro) annotation (Line(points={{142,200},{160,
+          200},{160,220},{10,220},{10,114},{18,114}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2000, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/UpWithOnOff.mos"

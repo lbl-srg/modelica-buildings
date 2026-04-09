@@ -69,6 +69,7 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     chaTowCelIsoTim=120,
     watLevMin=0.7,
     watLevMax=1,
+    relFloDif=0.05,
     final speChe=speChe)
     "Chiller plant controller"
     annotation (Placement(transformation(extent={{-140,0},{-100,160}})));

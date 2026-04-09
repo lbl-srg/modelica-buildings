@@ -107,6 +107,10 @@ block Up "Sequence for control devices when there is stage-up command"
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndPro
+    "Rising edge: the staging up or down process is done"
+    annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
+      iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
     final quantity="HeatFlowRate",
     final unit="W") if need_reduceChillerDemand
@@ -555,10 +559,11 @@ equation
   connect(uStaSet, nexChi.uStaSet) annotation (Line(points={{-260,200},{-104,200},
           {-104,197},{-82,197}}, color={255,127,0}));
   connect(nexChi.uChiSet, uChiSet)
-    annotation (Line(points={{-82,190},{-180,190},{-180,170},{-260,170}},
+    annotation (Line(points={{-82,190},{-230,190},{-230,170},{-260,170}},
       color={255,0,255}));
-  connect(uStaSet, cha.u) annotation (Line(points={{-260,200},{-220,200},{-220,150},
-          {-202,150}}, color={255,127,0}));
+  connect(uStaSet, cha.u) annotation (Line(points={{-260,200},{-210,200},{-210,
+          150},{-202,150}},
+                       color={255,127,0}));
   connect(uStaSet, enaNexCWP.uStaSet) annotation (Line(points={{-260,200},{-104,
           200},{-104,-19},{-2,-19}}, color={255,127,0}));
   connect(uChiSta, enaNexCWP.uChiSta) annotation (Line(points={{-260,-10},{-180,
@@ -647,8 +652,6 @@ equation
           -310},{-160,-310},{-160,94},{-22,94}},     color={255,0,255}));
   connect(staEnd.y, lat.clr) annotation (Line(points={{102,-290},{180,-290},{180,
           -310},{-160,-310},{-160,144},{-142,144}},     color={255,0,255}));
-  connect(staEnd.y, nexChi.endPro) annotation (Line(points={{102,-290},{180,-290},
-          {180,-310},{-160,-310},{-160,183},{-82,183}}, color={255,0,255}));
   connect(endUp.y1ChiWatIsoVal, logSwi2.u1) annotation (Line(points={{42,-255},{
           184,-255},{184,-152},{198,-152}}, color={255,0,255}));
   connect(enaChiIsoVal.y1ChiWatIsoVal, logSwi2.u3) annotation (Line(points={{82,-206},
@@ -687,6 +690,8 @@ equation
           120},{50,88},{10,88},{10,47},{18,47}}, color={255,0,255}));
   connect(uEnaPlaConPum, enaNexCWP.uEnaPla) annotation (Line(points={{-260,-36},
           {-48,-36},{-48,-13},{-2,-13}}, color={255,0,255}));
+  connect(uEndPro, nexChi.endPro) annotation (Line(points={{-260,140},{-220,140},
+          {-220,183},{-82,183}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -841,7 +846,11 @@ This is to avoid the initial edge.")}),
           extent={{42,-132},{96,-146}},
           textColor={0,0,127},
           textString="yChiWatIsoVal",
-          visible=chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)}),
+          visible=chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating),
+        Text(
+          extent={{-100,146},{-60,134}},
+          textColor={255,0,255},
+          textString="uEndPro")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for

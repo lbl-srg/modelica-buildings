@@ -82,19 +82,22 @@ protected
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Check if the down process has ended"
-    annotation (Placement(transformation(extent={{80,130},{100,150}})));
+    annotation (Placement(transformation(extent={{80,180},{100,200}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
     "Logical false"
-    annotation (Placement(transformation(extent={{80,100},{100,120}})));
+    annotation (Placement(transformation(extent={{80,150},{100,170}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "True when it is not in process"
-    annotation (Placement(transformation(extent={{120,130},{140,150}})));
+    annotation (Placement(transformation(extent={{120,180},{140,200}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=2)
     "Check if there is any enabled chiller"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
     "Plant enabled"
     annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge endPro
+    "Processing is done"
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
 equation
   connect(booPul.y,staDow. u)
     annotation (Line(points={{-118,130},{-102,130}}, color={255,0,255}));
@@ -161,13 +164,13 @@ equation
   connect(chiSta.y, sta.u)
     annotation (Line(points={{-38,-160},{-22,-160}}, color={0,0,127}));
   connect(dowProCon.yStaPro, falEdg.u) annotation (Line(points={{62,89},{70,89},
-          {70,140},{78,140}}, color={255,0,255}));
+          {70,190},{78,190}}, color={255,0,255}));
   connect(falEdg.y, lat.u)
-    annotation (Line(points={{102,140},{118,140}}, color={255,0,255}));
-  connect(fal.y, lat.clr) annotation (Line(points={{102,110},{110,110},{110,134},
-          {118,134}}, color={255,0,255}));
-  connect(lat.y, chiSta.u2) annotation (Line(points={{142,140},{154,140},{154,-180},
-          {-80,-180},{-80,-160},{-62,-160}}, color={255,0,255}));
+    annotation (Line(points={{102,190},{118,190}}, color={255,0,255}));
+  connect(fal.y, lat.clr) annotation (Line(points={{102,160},{110,160},{110,184},
+          {118,184}}, color={255,0,255}));
+  connect(lat.y, chiSta.u2) annotation (Line(points={{142,190},{154,190},{154,
+          -180},{-80,-180},{-80,-160},{-62,-160}}, color={255,0,255}));
   connect(sta.y, dowProCon.uChiSta) annotation (Line(points={{2,-160},{10,-160},
           {10,74},{38,74}}, color={255,127,0}));
   connect(mulOr.y, swi1.u2)
@@ -176,6 +179,10 @@ equation
           0},{-110,-40},{-102,-40}}, color={255,0,255}));
   connect(plaEna.y, dowProCon.uPla) annotation (Line(points={{-18,-280},{24,-280},
           {24,51},{38,51}}, color={255,0,255}));
+  connect(dowProCon.yStaPro, endPro.u) annotation (Line(points={{62,89},{70,89},
+          {70,100},{98,100}}, color={255,0,255}));
+  connect(endPro.y, dowProCon.uEndPro) annotation (Line(points={{122,100},{130,
+          100},{130,120},{30,120},{30,85},{38,85}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/DownWithoutOnOff.mos"

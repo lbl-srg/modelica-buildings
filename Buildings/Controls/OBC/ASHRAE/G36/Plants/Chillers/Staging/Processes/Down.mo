@@ -92,6 +92,10 @@ block Down
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-320,320},{-280,360}}),
       iconTransformation(extent={{-140,150},{-100,190}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndPro
+    "Rising edge: the staging up or down process is done"
+    annotation (Placement(transformation(extent={{-320,290},{-280,330}}),
+      iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
     final min=0,
     final max=1,
@@ -519,7 +523,7 @@ equation
     annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,-331},
           {78,-331}}, color={255,0,255}));
   connect(lat.y,disNexCWP. uStaDow)
-    annotation (Line(points={{-158,360},{-140,360},{-140,330},{-260,330},{-260,
+    annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,
           -160},{78,-160}}, color={255,0,255}));
   connect(lat.y, yStaPro)
     annotation (Line(points={{-158,360},{300,360}},color={255,0,255}));
@@ -606,7 +610,7 @@ equation
     annotation (Line(points={{-300,380},{-130,380},{-130,-169},{78,-169}},
       color={255,127,0}));
   connect(uChiSta, disNexCWP.uChiSta)
-    annotation (Line(points={{-300,160},{-150,160},{-150,-165},{78,-165}},
+    annotation (Line(points={{-300,160},{-150,160},{-150,-166},{78,-166}},
       color={255,127,0}));
   connect(dowSta.uChiHeaCon, uChiHeaCon) annotation (Line(points={{38,215},{-110,
           215},{-110,130},{-300,130}},      color={255,0,255}));
@@ -660,8 +664,6 @@ equation
     annotation (Line(points={{-238,-370},{238,-370}}, color={255,0,255}));
   connect(staEnd.y, lat.clr) annotation (Line(points={{262,-370},{270,-370},{270,
           -390},{-190,-390},{-190,354},{-182,354}}, color={255,0,255}));
-  connect(staEnd.y, nexChi.endPro) annotation (Line(points={{262,-370},{270,-370},
-          {270,-390},{-190,-390},{-190,333},{-42,333}}, color={255,0,255}));
   connect(staEnd.y, lat2.clr) annotation (Line(points={{262,-370},{270,-370},{270,
           -390},{-190,-390},{-190,174},{118,174}}, color={255,0,255}));
   connect(staEnd.y, lat3.clr) annotation (Line(points={{262,-370},{270,-370},{270,
@@ -702,6 +704,8 @@ equation
           70},{230,70},{230,122},{192,122},{192,188},{198,188}}, color={0,0,127}));
   connect(con.y, disNexCWP.uEnaPla) annotation (Line(points={{-138,200},{-120,
           200},{-120,-163},{78,-163}}, color={255,0,255}));
+  connect(uEndPro, nexChi.endPro) annotation (Line(points={{-300,310},{-60,310},
+          {-60,333},{-42,333}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
@@ -846,7 +850,11 @@ annotation (
           extent={{40,58},{96,44}},
           textColor={0,0,127},
           textString="yChiWatIsoVal",
-          visible=chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)}),
+          visible=chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating),
+        Text(
+          extent={{-98,158},{-58,146}},
+          textColor={255,0,255},
+          textString="uEndPro")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-down command. This sequence is for

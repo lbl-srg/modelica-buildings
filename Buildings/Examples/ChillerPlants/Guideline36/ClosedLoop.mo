@@ -115,6 +115,8 @@ model ClosedLoop
     final k=2) "Constant two"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Controls.OBC.CDL.Reals.PID conPID(
+    k=0.1,
+    Ti=5,
     final reverseActing=false)
     "Chilled water valve control"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));

@@ -146,8 +146,8 @@ equation
     annotation (Line(points={{-98,200},{-82,200}}, color={0,0,127}));
   connect(staSet.y, upProCon.uStaSet) annotation (Line(points={{-58,200},{-30,200},
           {-30,87},{-22,87}}, color={255,127,0}));
-  connect(chiSet.y, upProCon.uChiSet) annotation (Line(points={{-58,110},{-40,110},
-          {-40,84},{-22,84}}, color={255,0,255}));
+  connect(chiSet.y, upProCon.uChiSet) annotation (Line(points={{-58,110},{-50,
+          110},{-50,84},{-22,84}}, color={255,0,255}));
   connect(staTwo.y, chiSta.u1) annotation (Line(points={{-178,-90},{-160,-90},{-160,
           -102},{-122,-102}},color={0,0,127}));
   connect(staOne.y, chiSta.u3) annotation (Line(points={{-178,-130},{-160,-130},
@@ -193,13 +193,11 @@ equation
   connect(chiOneSta.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{162,40},
           {170,40},{170,0},{-48,0},{-48,57.5},{-22,57.5}}, color={255,0,255}));
   connect(chiTwoSta.y1_actual, upProCon.uChiHeaCon[2]) annotation (Line(points={{62,120},
-          {70,120},{70,0},{-48,0},{-48,58.5},{-22,58.5}},          color={255,0,
-          255}));
+          {70,120},{70,0},{-48,0},{-48,58.5},{-22,58.5}}, color={255,0,255}));
   connect(chiOneSta.y, upProCon.uChiWatReq[1]) annotation (Line(points={{162,40},
           {170,40},{170,0},{-36,0},{-36,50.5},{-22,50.5}}, color={255,0,255}));
   connect(chiTwoSta.y1_actual, upProCon.uChiWatReq[2]) annotation (Line(points={{62,120},
-          {70,120},{70,0},{-36,0},{-36,51.5},{-22,51.5}},          color={255,0,
-          255}));
+          {70,120},{70,0},{-36,0},{-36,51.5},{-22,51.5}}, color={255,0,255}));
   connect(upProCon.yChi[1], chiOneSta1.y1) annotation (Line(points={{2,50.5},{
           32,50.5},{32,80},{38,80}}, color={255,0,255}));
   connect(chiOneSta1.y1_actual, chiOneSta.u1) annotation (Line(points={{62,80},
@@ -218,6 +216,8 @@ equation
     annotation (Line(points={{82,-100},{118,-100}}, color={0,0,127}));
   connect(addPar.y, upProCon.VChiWat_flow) annotation (Line(points={{142,-100},{
           160,-100},{160,-40},{-60,-40},{-60,75.6},{-22,75.6}}, color={0,0,127}));
+  connect(falEdg.y, upProCon.uEndPro) annotation (Line(points={{42,180},{50,180},
+          {50,220},{-40,220},{-40,82},{-22,82}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2000, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/UpWithoutOnOff.mos"
