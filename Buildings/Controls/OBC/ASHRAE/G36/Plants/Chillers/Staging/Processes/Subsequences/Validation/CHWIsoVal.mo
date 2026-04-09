@@ -98,8 +98,8 @@ equation
           {210,50},{70,50},{70,38},{78,38}}, color={255,0,255}));
   connect(con2.y,opeEnd. u3) annotation (Line(points={{22,70},{30,70},{30,22},{78,
           22}}, color={255,0,255}));
-  connect(opeEnd.y, enaChiIsoVal1.u1ChiIsoOpe) annotation (Line(points={{102,30},
-          {120,30},{120,-48},{138,-48}}, color={255,0,255}));
+  connect(opeEnd.y, enaChiIsoVal1.u1ChiWatIsoValOpe) annotation (Line(points={{
+          102,30},{120,30},{120,-48},{138,-48}}, color={255,0,255}));
   connect(booRep.y,opeEnd. u2)
     annotation (Line(points={{22,30},{78,30}}, color={255,0,255}));
   connect(staCha.y, booRep.u) annotation (Line(points={{-138,-70},{-50,-70},{-50,
@@ -110,8 +110,8 @@ equation
           {78,-20}}, color={255,0,255}));
   connect(cloVal.y, cloEnd.u1) annotation (Line(points={{62,-80},{70,-80},{70,-12},
           {78,-12}}, color={255,0,255}));
-  connect(cloEnd.y, enaChiIsoVal1.u1ChiIsoClo) annotation (Line(points={{102,-20},
-          {110,-20},{110,-51},{138,-51}}, color={255,0,255}));
+  connect(cloEnd.y, enaChiIsoVal1.u1ChiWatIsoValClo) annotation (Line(points={{
+          102,-20},{110,-20},{110,-51},{138,-51}}, color={255,0,255}));
   connect(enaChiIsoVal1.y1ChiWatIsoVal, cloVal.u) annotation (Line(points={{162,
           -56},{170,-56},{170,-100},{30,-100},{30,-80},{38,-80}}, color={255,0,255}));
   connect(con.y, enaChiIsoVal.uChi) annotation (Line(points={{-138,40},{-130,40},
@@ -202,11 +202,11 @@ status, as the <code>uUpsDevSta=false</code>.
 Since 800 seconds, the plant staging process requires the isolation valve to change
 their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being enabled
 (<code>y1ChiWatIsoVal[2]=true</code>). The valve 2 fully closed input becomes
-false (<code>u1ChiIsoClo[2]=false</code>).
+false (<code>u1ChiWatIsoClo[2]=false</code>).
 </li>
 <li>
 At 920 seconds, the valve 2 fully open input becomes true
-(<code>u1ChiIsoOpe[2]=true</code>) and the valve change process is completed
+(<code>u1ChiWatIsoOpe[2]=true</code>) and the valve change process is completed
 (<code>yChaChiWatIsoVal=true</code>).
 </li>
 </ul>

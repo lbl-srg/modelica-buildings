@@ -3,9 +3,9 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator valTyp=
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
-    "Isolation valve type";
+    "Chiller CHW isolation valve type";
   parameter Boolean have_twoPosEndSwi=false
-    "True: it is the two position valve with end switches"
+    "True for chiller CHW isolation valves with end switch status feedback"
     annotation (Dialog(enable=valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
 
   parameter Integer nChi=2
@@ -26,11 +26,13 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-260,130},{-220,170}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoOpe[nChi] if have_twoPosEndSwi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoValOpe[nChi] if
+    have_twoPosEndSwi and valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     "Chiller chilled water isolation valve open end switch. True: the valve is fully open"
     annotation (Placement(transformation(extent={{-260,90},{-220,130}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoClo[nChi] if have_twoPosEndSwi
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoValClo[nChi] if
+    have_twoPosEndSwi and valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     "Chiller chilled water isolation valve close end switch. True: the valve is fully closed"
     annotation (Placement(transformation(extent={{-260,30},{-220,70}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
@@ -270,10 +272,10 @@ equation
          color={255,0,255}));
   connect(tim.passed, lat2.u) annotation (Line(points={{22,-248},{120,-248},{
           120,-260},{138,-260}}, color={255,0,255}));
-  connect(u1ChiIsoOpe, opeVal.u)
+  connect(u1ChiWatIsoValOpe, opeVal.u)
     annotation (Line(points={{-240,110},{-202,110}}, color={255,0,255}));
-  connect(u1ChiIsoClo, cloVal.u)
-    annotation (Line(points={{-240,50},{-202,50}},   color={255,0,255}));
+  connect(u1ChiWatIsoValClo, cloVal.u)
+    annotation (Line(points={{-240,50},{-202,50}}, color={255,0,255}));
   connect(intEqu.y, booToRea.u)
     annotation (Line(points={{-58,250},{-22,250}}, color={255,0,255}));
   connect(uChi, booToRea1.u)
@@ -480,13 +482,13 @@ annotation (
         Text(
           extent={{-98,28},{-48,14}},
           textColor={255,0,255},
-          textString="u1ChiIsoOpe",
-          visible=have_twoPosEndSwi),
+          textString="u1ChiWatIsoValOpe",
+          visible=have_twoPosEndSwi and valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition),
         Text(
           extent={{-98,-4},{-52,-18}},
           textColor={255,0,255},
-          visible=have_twoPosEndSwi,
-          textString="u1ChiIsoClo"),
+          visible=have_twoPosEndSwi and valTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition,
+          textString="u1ChiWatIsoValClo"),
         Text(
           extent={{44,8},{98,-4}},
           textColor={0,0,127},

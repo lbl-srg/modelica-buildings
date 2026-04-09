@@ -31,10 +31,10 @@ block DownStart "Sequence for starting stage-down process"
     annotation (Dialog(group="Head pressure control"));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp=
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
-    "Isolation valve type"
+    "Chiller CHW isolation valve type"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Boolean have_twoPosEndSwiChiVal=false
-    "True: it is the two position valve with end switches"
+    "True for chiller CHW isolation valves with end switch status feedback"
     annotation (Dialog(group="Chilled water isolation valve",
                        enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
   parameter Real chaChiWatIsoTim(start=120, unit="s")
@@ -91,11 +91,13 @@ block DownStart "Sequence for starting stage-down process"
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoOpe[nChi] if have_twoPosEndSwiChiVal
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoValOpe[nChi] if
+    have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     "Chiller chilled water isolation valve open end switch. True: the valve is fully open"
     annotation (Placement(transformation(extent={{-200,-110},{-160,-70}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoClo[nChi] if have_twoPosEndSwiChiVal
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoValClo[nChi] if
+    have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     "Chiller chilled water isolation valve close end switch. True: the valve is fully closed"
     annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
@@ -407,10 +409,10 @@ equation
           {70,-106},{70,-42},{138,-42}},           color={255,0,255}));
   connect(uChi, chiWatIsoVal.u3) annotation (Line(points={{-180,120},{-40,120},{
           -40,-58},{138,-58}}, color={255,0,255}));
-  connect(u1ChiIsoOpe, enaChiIsoVal.u1ChiIsoOpe) annotation (Line(points={{-180,
-          -90},{-100,-90},{-100,-98},{38,-98}}, color={255,0,255}));
-  connect(u1ChiIsoClo, enaChiIsoVal.u1ChiIsoClo) annotation (Line(points={{-180,
-          -130},{-100,-130},{-100,-101},{38,-101}}, color={255,0,255}));
+  connect(u1ChiWatIsoValOpe, enaChiIsoVal.u1ChiWatIsoValOpe) annotation (Line(
+        points={{-180,-90},{-100,-90},{-100,-98},{38,-98}}, color={255,0,255}));
+  connect(u1ChiWatIsoValClo, enaChiIsoVal.u1ChiWatIsoValClo) annotation (Line(
+        points={{-180,-130},{-100,-130},{-100,-101},{38,-101}}, color={255,0,255}));
   connect(uChi, enaChiIsoVal.uChi) annotation (Line(points={{-180,120},{-40,120},
           {-40,-95},{38,-95}}, color={255,0,255}));
   connect(minBypRes.yMinBypRes, lat1.u) annotation (Line(points={{82,110},{100,
@@ -525,13 +527,13 @@ annotation (
         Text(
           extent={{-100,-74},{-54,-84}},
           textColor={255,0,255},
-          textString="u1ChiIsoOpe",
-          visible=have_twoPosEndSwiChiVal),
+          textString="u1ChiWatIsoValOpe",
+          visible=have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition),
         Text(
           extent={{-100,-106},{-54,-116}},
           textColor={255,0,255},
-          visible=have_twoPosEndSwiChiVal,
-          textString="u1ChiIsoClo"),
+          visible=have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition,
+          textString="u1ChiWatIsoValClo"),
         Text(
           extent={{48,-102},{100,-114}},
           textColor={255,0,255},

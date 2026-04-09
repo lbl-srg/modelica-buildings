@@ -61,6 +61,7 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     final TiMinFloBypCon=100,
     final VChiWat_flow_nominal=mChi_flow_nominal/1000,
     final TiChiWatPum=100,
+    have_modPosChiVal=true,
     chaChiWatIsoTim=120,
     TConWatSup_nominal={293.15,293.15},
     TConWatRet_nominal={303.15,303.15},

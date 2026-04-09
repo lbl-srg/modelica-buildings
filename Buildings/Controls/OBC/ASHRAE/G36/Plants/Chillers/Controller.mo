@@ -64,6 +64,21 @@ block Controller "Chiller plant controller"
     "Chiller head pressure controlled type"
     annotation(Dialog(tab="General", group="Chillers configuration"));
 
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp=
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
+    "Chiller CHW isolation valve type"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
+
+  parameter Boolean have_twoPosEndSwiChiVal=false
+    "True for chiller CHW isolation valves with end switch status feedback"
+    annotation (Dialog(tab="General", group="Chillers configuration",
+                       enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
+
+  parameter Boolean have_modPosChiVal=false
+    "True for chiller CHW isolation valves with position feedback"
+    annotation (Dialog(tab="General", group="Chillers configuration",
+                       enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating));
+
   // ---- General: Waterside economizer ----
 
   parameter Boolean have_WSE=true
@@ -536,21 +551,6 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Staging", group="Value comparison"));
 
   // ---- Staging up and down process ----
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp=
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
-    "Chilled water isolation valve type"
-    annotation (Dialog(tab="Staging", group="Up and down process"));
-
-  parameter Boolean have_twoPosEndSwiChiVal=false
-    "True: the chilled water isolation valve is two-position with end switches feedback"
-    annotation (Dialog(tab="Staging", group="Up and down process",
-                       enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
-
-  parameter Boolean have_modPosChiVal=true
-    "True: the chilled water isolation valve is modulating with position feedback"
-    annotation (Dialog(tab="Staging", group="Up and down process",
-                       enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating));
-
   parameter Real chiDemRedFac(unit="1")=0.75
     "Demand reducing factor of current operating chillers"
     annotation (Dialog(tab="Staging", group="Up and down process", enable=have_priOnl or use_loadShed));
@@ -936,24 +936,24 @@ block Controller "Chiller plant controller"
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
-    final unit="1",
+    final unit=fill("1", nChi),
     min=fill(0, nChi),
-    max=fill(1, nChi)) if have_modPosChiVal
+    max=fill(1, nChi)) if have_modPosChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chilled water isolvation valve position feedback"
     annotation (Placement(transformation(extent={{-940,-190},{-900,-150}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoOpe[nChi]
-    if have_twoPosEndSwiChiVal
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoValOpe[nChi] if
+    have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     "Chiller chilled water isolation valve open end switch. True: the valve is fully open"
     annotation (Placement(transformation(extent={{-940,-230},{-900,-190}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoClo[nChi]
-    if have_twoPosEndSwiChiVal
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoValClo[nChi] if
+    have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     "Chiller chilled water isolation valve close end switch. True: the valve is fully closed"
     annotation (Placement(transformation(extent={{-940,-270},{-900,-230}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
+        iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TChiWatSupResReq
     "Chilled water supply temperature setpoint reset request"
@@ -1754,8 +1754,9 @@ protected
     annotation (Placement(transformation(extent={{540,-62},{560,-42}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3[nChi](
-    final k=fill(1, nChi))
-    if not have_modPosChiVal "Dummy block"
+    final k=fill(1, nChi)) if not (have_modPosChiVal and chiIsoValTyp ==
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)
+                             "Dummy block"
     annotation (Placement(transformation(extent={{-420,-240},{-400,-220}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=not (
@@ -2277,14 +2278,14 @@ equation
         points={{762,-466},{800,-466},{800,-340},{20,-340},{20,500.571},{414,
           500.571}},
         color={255,0,255}));
-  connect(u1ChiIsoOpe, upProCon.u1ChiIsoOpe) annotation (Line(points={{-920,-210},
-          {50,-210},{50,312},{172,312}}, color={255,0,255}));
-  connect(u1ChiIsoOpe, dowProCon.u1ChiIsoOpe) annotation (Line(points={{-920,-210},
-          {50,-210},{50,-228},{172,-228}}, color={255,0,255}));
-  connect(u1ChiIsoClo, upProCon.u1ChiIsoClo) annotation (Line(points={{-920,-250},
-          {60,-250},{60,304},{172,304}}, color={255,0,255}));
-  connect(u1ChiIsoClo, dowProCon.u1ChiIsoClo) annotation (Line(points={{-920,-250},
-          {60,-250},{60,-236},{172,-236}}, color={255,0,255}));
+  connect(u1ChiWatIsoValOpe, upProCon.u1ChiWatIsoValOpe) annotation (Line(
+        points={{-920,-210},{50,-210},{50,312},{172,312}}, color={255,0,255}));
+  connect(u1ChiWatIsoValOpe, dowProCon.u1ChiWatIsoValOpe) annotation (Line(
+        points={{-920,-210},{50,-210},{50,-228},{172,-228}}, color={255,0,255}));
+  connect(u1ChiWatIsoValClo, upProCon.u1ChiWatIsoValClo) annotation (Line(
+        points={{-920,-250},{60,-250},{60,304},{172,304}}, color={255,0,255}));
+  connect(u1ChiWatIsoValClo, dowProCon.u1ChiWatIsoValClo) annotation (Line(
+        points={{-920,-250},{60,-250},{60,-236},{172,-236}}, color={255,0,255}));
   connect(dowProCon.y1ChiWatIsoVal, chiIsoVal.u3) annotation (Line(points={{268,
           -208},{280,-208},{280,-28},{538,-28}}, color={255,0,255}));
   connect(upProCon.y1ChiWatIsoVal, chiIsoVal.u1) annotation (Line(points={{268,312},
@@ -2626,13 +2627,13 @@ annotation (
         Text(
           extent={{-98,-92},{-50,-106}},
           textColor={255,0,255},
-          textString="u1ChiIsoOpe",
-          visible=have_twoPosEndSwiChiVal),
+          textString="u1ChiWatIsoValOpe",
+          visible=have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition),
         Text(
           extent={{-98,-114},{-50,-128}},
           textColor={255,0,255},
-          visible=have_twoPosEndSwiChiVal,
-          textString="u1ChiIsoClo"),
+          visible=have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition,
+          textString="u1ChiWatIsoValClo"),
         Text(
           extent={{-98,276},{-50,262}},
           textColor={0,0,127},
@@ -2647,7 +2648,7 @@ annotation (
           extent={{-98,-72},{-50,-86}},
           textColor={0,0,127},
           textString="uChiWatIsoVal",
-          visible=have_modPosChiVal)}),
+          visible=have_modPosChiVal and chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)}),
     Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>
 <p>
@@ -2663,9 +2664,9 @@ to the system type.
 <th bgcolor=\"silver\">Primary<br>Secondary</th>
 <th bgcolor=\"silver\">Parallel<br>chillers</th>
 <th bgcolor=\"silver\">Series<br>chillers</th>
-<th bgcolor=\"silver\">Headed<br>CHWP</th>
+<th bgcolor=\"silver\">Headered<br>CHWP</th>
 <th bgcolor=\"silver\">Dedicated<br>CHWP</th>
-<th bgcolor=\"silver\">Headed<br>CWP</th>
+<th bgcolor=\"silver\">Headered<br>CWP</th>
 <th bgcolor=\"silver\">Dedicated<br>CWP</th>
 <th bgcolor=\"silver\">VarSpe<br>CWP</th>
 <th bgcolor=\"silver\">ConSpe<br>CWP</th>
