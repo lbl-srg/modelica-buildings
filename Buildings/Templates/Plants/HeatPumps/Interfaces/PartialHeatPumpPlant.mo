@@ -228,8 +228,20 @@ partial model PartialHeatPumpPlant
   final parameter Boolean have_valShcOutIso = false
     "Set to true for isolation valves at SHC unit outlet"
     annotation(Evaluate=true);
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri =
+  // Constant-primary hybrid plants require dedicated pumps.
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri_select =
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    "Type of primary pump arrangement"
+    annotation(Evaluate=true,
+      Dialog(group="Primary loop", enable=not
+                                             (
+        typ==Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent
+        and typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)));
+  final parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri =
+    if typ==Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent
+    and typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+    then Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    else typArrPumPri_select
     "Type of primary pump arrangement"
     annotation(Evaluate=true,
       Dialog(group="Primary loop"));
@@ -258,7 +270,7 @@ partial model PartialHeatPumpPlant
     annotation(Evaluate=true,
       Dialog(group="Primary loop",
         enable=typDis ==
-          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2),
+        Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2),
       choices(
         choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant
           "Constant speed pump specified separately",

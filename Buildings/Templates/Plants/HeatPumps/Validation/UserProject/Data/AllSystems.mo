@@ -125,8 +125,6 @@ class AllSystems
       capHeaShc_nominal=pla.hp.capHeaShc_nominal,
       capCooShc_nominal=pla.hp.capCooShc_nominal,
       TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-      yPumChiWatPriHdrSet=1.03,
-      yPumHeaWatPriHdrSet=1.03,
       yPumChiWatPriHpSet=0.90,
       yPumChiWatPriShcSet=0.69,
       yPumHeaWatPriHpSet=0.57,

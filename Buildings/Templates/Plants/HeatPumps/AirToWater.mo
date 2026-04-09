@@ -23,12 +23,8 @@ model AirToWater
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant
         or have_hp
           and have_shc
-          and (typDis ==
-            Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-            or typDis ==
-              Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-              and typArrPumPri ==
-                Buildings.Templates.Components.Types.PumpArrangement.Headered))
+          and typDis ==
+            Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)
     "Set to true to automatically size balancing valves"
     annotation(Evaluate=true);
   final parameter Boolean is_yPumSetCal =
