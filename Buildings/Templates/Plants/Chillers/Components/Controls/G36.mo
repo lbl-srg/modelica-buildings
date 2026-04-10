@@ -312,8 +312,8 @@ equation
   else
     connect(bus.pumChiWatSec.y1_actual, resDpChiWatLoc.uChiWatPum);
   end if;
-  connect(bus.valChiWatChiIso.y0_actual, ctl.u1ChiIsoClo);
-  connect(bus.valChiWatChiIso.y1_actual, ctl.u1ChiIsoOpe);
+  connect(bus.valChiWatChiIso.y0_actual, ctl.u1ChiWatIsoValClo);
+  connect(bus.valChiWatChiIso.y1_actual, ctl.u1ChiWatIsoValOpe);
   connect(bus.valChiWatChiIso.y_actual, ctl.uChiWatIsoVal);
   connect(bus.valCooInlIso.y0_actual, ctl.u1TowInlIsoValClo);
   connect(bus.valCooInlIso.y1_actual, ctl.u1TowInlIsoValOpe);
