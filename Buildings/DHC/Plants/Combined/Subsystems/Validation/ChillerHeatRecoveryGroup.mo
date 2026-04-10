@@ -246,7 +246,7 @@ model ChillerHeatRecoveryGroup
         origin={-30,-160})));
   Fluid.HeatExchangers.SensibleCooler_T disHeaWat(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=THeaWatRet.k,
+    final m_flow_nominal=chi.mConWat_flow_nominal,
     final dp_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=300,
@@ -264,7 +264,7 @@ model ChillerHeatRecoveryGroup
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Fluid.HeatExchangers.SensibleCooler_T disConWatCon(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=TConWatConSup.k,
+    final m_flow_nominal=chi.mConWat_flow_nominal,
     final dp_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=300,
@@ -286,7 +286,7 @@ model ChillerHeatRecoveryGroup
     annotation (Placement(transformation(extent={{220,-30},{200,-10}})));
   Fluid.HeatExchangers.Heater_T disChiWat(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=TChiWatRet.k,
+    final m_flow_nominal=chi.mChiWat_flow_nominal,
     final dp_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=300,
@@ -467,6 +467,11 @@ in a configuration with two HRCs.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected assignment of nominal mass flow rate.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 February 24, 2023, by Antoine Gautier:<br/>
 First implementation.
