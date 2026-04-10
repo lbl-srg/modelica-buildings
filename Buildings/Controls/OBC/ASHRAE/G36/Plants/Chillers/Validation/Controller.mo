@@ -8,6 +8,7 @@ model Controller "Validation head pressure controller"
     minFloSet={0.0089,0.0089},
     maxFloSet={0.025,0.025},
     nPum_nominal=2,
+    have_modPosChiVal=true,
     final closeCoupledPlant=false,
     final nChi=2,
     final have_parChi=true,

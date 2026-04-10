@@ -60,7 +60,7 @@ protected
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa3(final k=1000)
     "Chiller load"
-    annotation (Placement(transformation(extent={{80,150},{100,170}})));
+    annotation (Placement(transformation(extent={{80,160},{100,180}})));
   Buildings.Controls.OBC.CDL.Reals.Switch chiLoa2 "Chiller load"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol7(
@@ -138,6 +138,9 @@ protected
     final p=0.1)
     "Chilled water flow rate through bypass valve"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge endPro
+    "Processing is done"
+    annotation (Placement(transformation(extent={{60,110},{80,130}})));
 equation
   connect(booPul1.y, staDow1.u)
     annotation (Line(points={{-178,140},{-162,140}}, color={255,0,255}));
@@ -247,8 +250,8 @@ equation
           {158,32}}, color={255,0,255}));
   connect(or2.y, chiLoa2.u2) annotation (Line(points={{182,40},{190,40},{190,60},
           {130,60},{130,120},{138,120}}, color={255,0,255}));
-  connect(chiLoa3.y, chiLoa2.u1) annotation (Line(points={{102,160},{120,160},{
-          120,128},{138,128}}, color={0,0,127}));
+  connect(chiLoa3.y, chiLoa2.u1) annotation (Line(points={{102,170},{120,170},{120,
+          128},{138,128}},     color={0,0,127}));
   connect(plaEna.y, dowProCon.uPla) annotation (Line(points={{-96,-300},{-8,-300},
           {-8,61},{18,61}}, color={255,0,255}));
   connect(dowProCon.yChiWatMinFloSet, zerOrdHol3.u) annotation (Line(points={{42,
@@ -257,6 +260,10 @@ equation
     annotation (Line(points={{122,-50},{138,-50}}, color={0,0,127}));
   connect(addPar.y, dowProCon.VChiWat_flow) annotation (Line(points={{162,-50},{
           180,-50},{180,-66},{-60,-66},{-60,87},{18,87}}, color={0,0,127}));
+  connect(dowProCon.yStaPro, endPro.u) annotation (Line(points={{42,99},{50,99},
+          {50,120},{58,120}}, color={255,0,255}));
+  connect(endPro.y, dowProCon.uEndPro) annotation (Line(points={{82,120},{90,120},
+          {90,140},{0,140},{0,95},{18,95}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/DownWithOnOff.mos"

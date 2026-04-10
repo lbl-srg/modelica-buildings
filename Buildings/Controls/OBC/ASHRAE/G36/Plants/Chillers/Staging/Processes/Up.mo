@@ -78,10 +78,10 @@ block Up "Sequence for control devices when there is stage-up command"
     annotation (Dialog(group="Enable head pressure control"));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp=
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
-    "Isolation valve type"
+    "Chiller CHW isolation valve type"
     annotation (Dialog(group="Enable CHW isolation valve"));
   parameter Boolean have_twoPosEndSwiChiVal=false
-    "True: it is the two position valve with end switches"
+    "True for chiller CHW isolation valves with end switch status feedback"
     annotation (Dialog(group="Enable CHW isolation valve",
                        enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
   parameter Real chaChiWatIsoTim(
@@ -107,6 +107,10 @@ block Up "Sequence for control devices when there is stage-up command"
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-280,150},{-240,190}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEndPro
+    "Rising edge: the staging up or down process is done"
+    annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
+      iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
     final quantity="HeatFlowRate",
     final unit="W") if need_reduceChillerDemand
@@ -157,14 +161,16 @@ block Up "Sequence for control devices when there is stage-up command"
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoOpe[nChi] if have_twoPosEndSwiChiVal
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoValOpe[nChi] if
+    have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     "Chiller chilled water isolation valve open end switch. True: the valve is fully open"
     annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiIsoClo[nChi] if have_twoPosEndSwiChiVal
+        iconTransformation(extent={{-140,-140},{-100,-100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoValClo[nChi] if
+    have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     "Chiller chilled water isolation valve close end switch. True: the valve is fully closed"
     annotation (Placement(transformation(extent={{-280,-240},{-240,-200}}),
-      iconTransformation(extent={{-140,-160},{-100,-120}})));
+        iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
     "Chilled water requst status for each chiller"
     annotation (Placement(transformation(extent={{-280,-290},{-240,-250}}),
@@ -553,10 +559,11 @@ equation
   connect(uStaSet, nexChi.uStaSet) annotation (Line(points={{-260,200},{-104,200},
           {-104,197},{-82,197}}, color={255,127,0}));
   connect(nexChi.uChiSet, uChiSet)
-    annotation (Line(points={{-82,190},{-180,190},{-180,170},{-260,170}},
+    annotation (Line(points={{-82,190},{-230,190},{-230,170},{-260,170}},
       color={255,0,255}));
-  connect(uStaSet, cha.u) annotation (Line(points={{-260,200},{-220,200},{-220,150},
-          {-202,150}}, color={255,127,0}));
+  connect(uStaSet, cha.u) annotation (Line(points={{-260,200},{-210,200},{-210,
+          150},{-202,150}},
+                       color={255,127,0}));
   connect(uStaSet, enaNexCWP.uStaSet) annotation (Line(points={{-260,200},{-104,
           200},{-104,-19},{-2,-19}}, color={255,127,0}));
   connect(uChiSta, enaNexCWP.uChiSta) annotation (Line(points={{-260,-10},{-180,
@@ -645,8 +652,6 @@ equation
           -310},{-160,-310},{-160,94},{-22,94}},     color={255,0,255}));
   connect(staEnd.y, lat.clr) annotation (Line(points={{102,-290},{180,-290},{180,
           -310},{-160,-310},{-160,144},{-142,144}},     color={255,0,255}));
-  connect(staEnd.y, nexChi.endPro) annotation (Line(points={{102,-290},{180,-290},
-          {180,-310},{-160,-310},{-160,183},{-82,183}}, color={255,0,255}));
   connect(endUp.y1ChiWatIsoVal, logSwi2.u1) annotation (Line(points={{42,-255},{
           184,-255},{184,-152},{198,-152}}, color={255,0,255}));
   connect(enaChiIsoVal.y1ChiWatIsoVal, logSwi2.u3) annotation (Line(points={{82,-206},
@@ -655,14 +660,14 @@ equation
           {90,-194},{90,-220},{98,-220}}, color={255,0,255}));
   connect(enaChiIsoVal.yChaChiWatIsoVal, swi1.u2) annotation (Line(points={{82,-194},
           {90,-194},{90,40},{198,40}},   color={255,0,255}));
-  connect(u1ChiIsoClo, endUp.u1ChiIsoClo) annotation (Line(points={{-260,-220},{
-          -172,-220},{-172,-266},{18,-266}}, color={255,0,255}));
-  connect(u1ChiIsoOpe, endUp.u1ChiIsoOpe) annotation (Line(points={{-260,-190},{
-          -168,-190},{-168,-264},{18,-264}}, color={255,0,255}));
-  connect(u1ChiIsoClo, enaChiIsoVal.u1ChiIsoClo) annotation (Line(points={{-260,
-          -220},{-172,-220},{-172,-201},{58,-201}}, color={255,0,255}));
-  connect(u1ChiIsoOpe, enaChiIsoVal.u1ChiIsoOpe) annotation (Line(points={{-260,
-          -190},{-168,-190},{-168,-198},{58,-198}}, color={255,0,255}));
+  connect(u1ChiWatIsoValClo, endUp.u1ChiWatIsoValClo) annotation (Line(points={{
+          -260,-220},{-172,-220},{-172,-266},{18,-266}}, color={255,0,255}));
+  connect(u1ChiWatIsoValOpe, endUp.u1ChiWatIsoValOpe) annotation (Line(points={{
+          -260,-190},{-168,-190},{-168,-264},{18,-264}}, color={255,0,255}));
+  connect(u1ChiWatIsoValClo, enaChiIsoVal.u1ChiWatIsoValClo) annotation (Line(
+        points={{-260,-220},{-172,-220},{-172,-201},{58,-201}}, color={255,0,255}));
+  connect(u1ChiWatIsoValOpe, enaChiIsoVal.u1ChiWatIsoValOpe) annotation (Line(
+        points={{-260,-190},{-168,-190},{-168,-198},{58,-198}}, color={255,0,255}));
   connect(uChi, enaChiIsoVal.uChi) annotation (Line(points={{-260,80},{-206,80},
           {-206,-195},{58,-195}}, color={255,0,255}));
   connect(chiWatIsoVal.y, yChiWatIsoVal)
@@ -685,6 +690,8 @@ equation
           120},{50,88},{10,88},{10,47},{18,47}}, color={255,0,255}));
   connect(uEnaPlaConPum, enaNexCWP.uEnaPla) annotation (Line(points={{-260,-36},
           {-48,-36},{-48,-13},{-2,-13}}, color={255,0,255}));
+  connect(uEndPro, nexChi.endPro) annotation (Line(points={{-260,140},{-220,140},
+          {-220,183},{-82,183}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -828,18 +835,22 @@ This is to avoid the initial edge.")}),
         Text(
           extent={{-98,-114},{-48,-126}},
           textColor={255,0,255},
-          textString="u1ChiIsoOpe",
-          visible=have_twoPosEndSwiChiVal),
+          textString="u1ChiWatIsoValOpe",
+          visible=have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition),
         Text(
           extent={{-98,-134},{-48,-146}},
           textColor={255,0,255},
-          visible=have_twoPosEndSwiChiVal,
-          textString="u1ChiIsoClo"),
+          visible=have_twoPosEndSwiChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition,
+          textString="u1ChiWatIsoValClo"),
         Text(
           extent={{42,-132},{96,-146}},
           textColor={0,0,127},
           textString="yChiWatIsoVal",
-          visible=chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)}),
+          visible=chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating),
+        Text(
+          extent={{-100,146},{-60,134}},
+          textColor={255,0,255},
+          textString="uEndPro")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for

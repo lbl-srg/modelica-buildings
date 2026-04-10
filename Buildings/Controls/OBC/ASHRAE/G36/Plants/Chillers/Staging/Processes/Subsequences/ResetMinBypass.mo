@@ -93,7 +93,7 @@ protected
     "Check the flow setpoint after changing time"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=relFloDif,
+    final t=0.5*relFloDif,
     final h=0.5*relFloDif)
     "Check if chiller water flow rate achieves the minimum flow setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));

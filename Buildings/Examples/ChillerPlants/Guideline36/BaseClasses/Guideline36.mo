@@ -61,6 +61,7 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     final TiMinFloBypCon=100,
     final VChiWat_flow_nominal=mChi_flow_nominal/1000,
     final TiChiWatPum=100,
+    have_modPosChiVal=true,
     chaChiWatIsoTim=120,
     TConWatSup_nominal={293.15,293.15},
     TConWatRet_nominal={303.15,303.15},
@@ -68,6 +69,7 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     chaTowCelIsoTim=120,
     watLevMin=0.7,
     watLevMax=1,
+    relFloDif=0.05,
     final speChe=speChe)
     "Chiller plant controller"
     annotation (Placement(transformation(extent={{-140,0},{-100,160}})));
