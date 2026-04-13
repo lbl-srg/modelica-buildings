@@ -2,24 +2,23 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Heat pump models &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <title>Heat pump models &#8212; Heat Pump Calibration User Guide</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a6255d24" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap.css?v=0cb5a744" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css?v=18a45976" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css?v=b7c6d2d5" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=ed534ff7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css?v=eb9de370" />
+    <script src="_static/documentation_options.js?v=292eb321"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Refrigerant thermodynamic properties" href="refrigerants.html" />
@@ -28,14 +27,14 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
-  <div id="navbar" class="navbar navbar-default ">
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
@@ -44,15 +43,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
-           </a>
+        <a class="navbar-brand" href="index.html">
+          <img src="_static/lbl-logo.png" class="navbar-logo" alt="Logo"> </a>
         <span class="navbar-text navbar-version pull-left"><b></b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
-                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="https://simulationresearch.lbl.gov/modelica">Home</a></li>
                 <li><a href="index.html">Heat Pump Calibration User Guide</a></li>
             
             
@@ -65,14 +64,39 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="calibrate.html">Calibrate heat pump models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibrate.html">Calibrate heat pump models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.ManufacturerData"><code class="docutils literal notranslate"><span class="pre">ManufacturerData</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.SimulationResults"><code class="docutils literal notranslate"><span class="pre">SimulationResults</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.calibrate_model"><code class="docutils literal notranslate"><span class="pre">calibrate_model()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.compare_data_sets"><code class="docutils literal notranslate"><span class="pre">compare_data_sets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.cost_function"><code class="docutils literal notranslate"><span class="pre">cost_function()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.simulate"><code class="docutils literal notranslate"><span class="pre">simulate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.simulate_in_dymola"><code class="docutils literal notranslate"><span class="pre">simulate_in_dymola()</span></code></a></li>
+</ul>
+</li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fluids.html">Thermodynamic properties of heat carrier fluids</a></li>
-<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Heat pump models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html#PythonModel.compressors.ReciprocatingCompressor"><code class="docutils literal notranslate"><span class="pre">ReciprocatingCompressor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html#PythonModel.compressors.ScrollCompressor"><code class="docutils literal notranslate"><span class="pre">ScrollCompressor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fluids.html">Thermodynamic properties of heat carrier fluids</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fluids.html#PythonModel.fluids.ConstantPropertyWater"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="heatexchangers.html#PythonModel.heatexchangers.EvaporatorCondenser"><code class="docutils literal notranslate"><span class="pre">EvaporatorCondenser</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Heat pump models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refrigerants.html#PythonModel.refrigerants.R410A"><code class="docutils literal notranslate"><span class="pre">R410A</span></code></a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dummy_performance_data.html">Generate performance data from heat pump model</a></li>
@@ -90,7 +114,25 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Heat pump models</a></li>
+<li><a class="reference internal" href="#">Heat pump models</a><ul>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump</span></code></a><ul>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Capacity"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_Capacity()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_CondenserHeatTransferRate()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_EvaporatorHeatTransferRate()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Power"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_Power()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_SourceSideTransferRate()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.initialGuessParameters"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.initialGuessParameters()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaCalibrationModelPath"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.modelicaCalibrationModelPath()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelName"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.modelicaModelName()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelPath"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.modelicaModelPath()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.printParameters"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.printParameters()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.reinitializeParameters"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.reinitializeParameters()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.set_ModelicaParameters"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.set_ModelicaParameters()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.set_State"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.set_State()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -132,13 +174,53 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Heat pump models</a><ul>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump</span></code></a><ul>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Capacity"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_Capacity()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_CondenserHeatTransferRate()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_EvaporatorHeatTransferRate()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Power"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_Power()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.get_SourceSideTransferRate()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.initialGuessParameters"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.initialGuessParameters()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaCalibrationModelPath"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.modelicaCalibrationModelPath()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelName"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.modelicaModelName()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelPath"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.modelicaModelPath()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.printParameters"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.printParameters()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.reinitializeParameters"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.reinitializeParameters()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.set_ModelicaParameters"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.set_ModelicaParameters()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.heatpumps.SingleStageHeatPump.set_State"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump.set_State()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="heatexchangers.html" title="Previous Chapter: Evaporator and condenser models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Evaporator an...</span>
+    </a>
+  </li>
+  <li>
+    <a href="refrigerants.html" title="Next Chapter: Refrigerant thermodynamic properties"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Refrigerant t... &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <section id="module-PythonModel.heatpumps">
-<span id="heat-pump-models"></span><h1>Heat pump models<a class="headerlink" href="#module-PythonModel.heatpumps" title="Permalink to this headline">¶</a></h1>
+<span id="heat-pump-models"></span><h1>Heat pump models<a class="headerlink" href="#module-PythonModel.heatpumps" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.heatpumps.</span></span><span class="sig-name descname"><span class="pre">SingleStageHeatPump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eva</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluCon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluEva</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CoolingMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.heatpumps.</span></span><span class="sig-name descname"><span class="pre">SingleStageHeatPump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eva</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluCon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluEva</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CoolingMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="simple">
 <dt>Object for heat pump model based on Jin (2002):</dt><dd><p>H. Jin. Parameter estimation based models of water source heat pumps.
@@ -146,7 +228,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>eva</strong> – Evaporator model.</p></li>
 <li><p><strong>con</strong> – Condenser model.</p></li>
@@ -161,10 +243,10 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.get_Capacity">
-<span class="sig-name descname"><span class="pre">get_Capacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Capacity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_Capacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Capacity" title="Link to this definition">¶</a></dt>
 <dd><p>Return heat pump capacity.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>EWT_Source</strong> – Entering water temperature on the source side (K).</p></li>
 <li><p><strong>EWT_Load</strong> – Entering water temperature on the load side (K).</p></li>
@@ -172,15 +254,15 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 <li><p><strong>flowLoad</strong> – Fluid mass flow rate on the load side (kg/s).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Heat pump capacity (W).</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
@@ -197,10 +279,10 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate">
-<span class="sig-name descname"><span class="pre">get_CondenserHeatTransferRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_CondenserHeatTransferRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate condenser heat transfer rate.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>EWT_Source</strong> – Entering water temperature on the source side (K).</p></li>
 <li><p><strong>EWT_Load</strong> – Entering water temperature on the load side (K).</p></li>
@@ -208,15 +290,15 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 <li><p><strong>flowLoad</strong> – Fluid mass flow rate on the load side (kg/s).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>condenser heat transfer rate (W).</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
@@ -233,10 +315,10 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate">
-<span class="sig-name descname"><span class="pre">get_EvaporatorHeatTransferRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_EvaporatorHeatTransferRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate evaporator heat transfer rate.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>EWT_Source</strong> – Entering water temperature on the source side (K).</p></li>
 <li><p><strong>EWT_Load</strong> – Entering water temperature on the load side (K).</p></li>
@@ -244,15 +326,15 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 <li><p><strong>flowLoad</strong> – Fluid mass flow rate on the load side (kg/s).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Evaporator heat transfer rate (W).</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
@@ -269,10 +351,10 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.get_Power">
-<span class="sig-name descname"><span class="pre">get_Power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Power" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_Power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Power" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate heat pump power input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>EWT_Source</strong> – Entering water temperature on the source side (K).</p></li>
 <li><p><strong>EWT_Load</strong> – Entering water temperature on the load side (K).</p></li>
@@ -280,15 +362,15 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 <li><p><strong>flowLoad</strong> – Fluid mass flow rate on the load side (kg/s).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Heat pump power input (W).</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
@@ -305,10 +387,10 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate">
-<span class="sig-name descname"><span class="pre">get_SourceSideTransferRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_SourceSideTransferRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate" title="Link to this definition">¶</a></dt>
 <dd><p>Return heat pump source side heat transfer rate.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>EWT_Source</strong> – Entering water temperature on the source side (K).</p></li>
 <li><p><strong>EWT_Load</strong> – Entering water temperature on the load side (K).</p></li>
@@ -316,15 +398,15 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 <li><p><strong>flowLoad</strong> – Fluid mass flow rate on the load side (kg/s).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Heat pump source side heat transfer rate (W).</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
@@ -341,13 +423,13 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.initialGuessParameters">
-<span class="sig-name descname"><span class="pre">initialGuessParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">initialGuessParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.initialGuessParameters" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize guess parameters for calibration of the heat pump model.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> – Heat pump performance data.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of parameters to the compressor model, a list of tuples
 of the bounds of the parameters (min, max) for the calibration
 routine.</p>
@@ -357,21 +439,21 @@ routine.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.modelicaCalibrationModelPath">
-<span class="sig-name descname"><span class="pre">modelicaCalibrationModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaCalibrationModelPath" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">modelicaCalibrationModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaCalibrationModelPath" title="Link to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Returns the full path to the heat pump model for calibration in the</dt><dd><p>Buildings library.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Full path to the compressor model in the Buildings library.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
@@ -388,21 +470,21 @@ routine.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.modelicaModelName">
-<span class="sig-name descname"><span class="pre">modelicaModelName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">modelicaModelName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelName" title="Link to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Returns the name of the heat pump model for calibration in the</dt><dd><p>Buildings library.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Full path to the compressor model in the Buildings library.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
@@ -419,19 +501,19 @@ routine.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.modelicaModelPath">
-<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.modelicaModelPath" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the full path to the heat pump model in the Buildings
 library.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Full path to the compressor model in the Buildings library.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">heatexchangers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">compressors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">heatexchangers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">fluids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">con</span> <span class="o">=</span> <span class="n">heatexchangers</span><span class="o">.</span><span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mf">2840.4</span><span class="p">])</span>
@@ -448,16 +530,16 @@ library.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.printParameters">
-<span class="sig-name descname"><span class="pre">printParameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.printParameters" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">printParameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.printParameters" title="Link to this definition">¶</a></dt>
 <dd><p>Prints the value of the model parameters.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.reinitializeParameters">
-<span class="sig-name descname"><span class="pre">reinitializeParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reinitializeParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.reinitializeParameters" title="Link to this definition">¶</a></dt>
 <dd><p>Reinitializes the heat pump using new parameters.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>parameters</strong> – Heat pump parameters.</p>
 </dd>
 </dl>
@@ -465,13 +547,13 @@ library.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.set_ModelicaParameters">
-<span class="sig-name descname"><span class="pre">set_ModelicaParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.set_ModelicaParameters" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_ModelicaParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.set_ModelicaParameters" title="Link to this definition">¶</a></dt>
 <dd><p>Set parameter values for simulation in dymola.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>simulator</strong> – Simulator object (BuildingsPy)</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Simulator object (BuildingsPy)</p>
 </dd>
 </dl>
@@ -479,10 +561,10 @@ library.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.heatpumps.SingleStageHeatPump.set_State">
-<span class="sig-name descname"><span class="pre">set_State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.set_State" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.set_State" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluates the current state of the heat pump.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>EWT_Source</strong> – Entering water temperature on the source side (K).</p></li>
 <li><p><strong>EWT_Load</strong> – Entering water temperature on the load side (K).</p></li>
@@ -516,11 +598,12 @@ heat pump power input (-).</p></li>
       
     </p>
     <p>
-        &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
+        &copy; Copyright 2012-2026, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
     </p>
   </div>
 </footer>
+  <script type="text/javascript" src="_static/dropdown-fix.js"></script>
 
   </body>
 </html>
