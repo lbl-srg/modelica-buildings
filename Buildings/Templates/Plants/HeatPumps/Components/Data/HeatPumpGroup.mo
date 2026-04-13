@@ -161,8 +161,7 @@ record HeatPumpGroup
     PLRSup={1},
     tabUppBou=[
       TSouHeaHp_nominal - 5, THeaWatSupHp_nominal;
-      TSouHeaHp_nominal + 30, THeaWatSupHp_nominal
-    ],
+      TSouHeaHp_nominal + 30, THeaWatSupHp_nominal],
     devIde="",
     use_TConOutForTab=false,
     use_TEvaOutForTab=true)
@@ -181,8 +180,7 @@ record HeatPumpGroup
     PLRSup={1},
     tabLowBou=[
       TSouCooHp_nominal - 30, TChiWatSupHp_nominal;
-      TSouCooHp_nominal + 10, TChiWatSupHp_nominal
-    ],
+      TSouCooHp_nominal + 10, TChiWatSupHp_nominal],
     devIde="",
     use_TConOutForTab=false,
     use_TEvaOutForTab=true)

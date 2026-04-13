@@ -209,8 +209,11 @@ partial model PartialHeatPumpPlant
     then false
     elseif nHp == 1
     then false
-    elseif have_pumPriComHp
-    then true
+    elseif have_chiWat
+      and typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        not have_pumPriComHp
+    then false
     else true
     "Set to true for isolation valves at HP outlet"
     annotation(Evaluate=true);

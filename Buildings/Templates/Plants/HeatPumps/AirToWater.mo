@@ -166,7 +166,7 @@ model AirToWater
     final allowFlowReversalSou=false,
     final show_T=show_T)
     "Heat pump group"
-    annotation(Placement(transformation(extent={{-540,-232},{-60,-152}})));
+    annotation(Placement(transformation(extent={{-540,-210},{-60,-130}})));
   Components.PumpsPrimaryDedicated pumPri(
     redeclare final package Medium=MediumHeaWat,
     final have_hp=have_hp,
@@ -198,7 +198,7 @@ model AirToWater
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Dedicated primary pumps"
-    annotation(Placement(transformation(extent={{-540,-140},{-60,-60}})));
+    annotation(Placement(transformation(extent={{-540,-130},{-60,-50}})));
   Components.ValvesIsolation valIso(
     redeclare final package Medium=MediumHeaWat,
     final have_hp=have_hp,
@@ -1079,23 +1079,23 @@ equation
     annotation(Line(points={{-20,80},{-20,80}},
       color={0,127,255}));
   connect(valIso.port_bChiWat, inlPumChiWatPri.port_a)
-    annotation(Line(points={{-60,80},{-60,80},{-40,80}},
+    annotation(Line(points={{-60,80},{-40,80}},
       color={0,0,0},
       thickness=0.5,
       visible=have_chiWat
         and typArrPumPri ==
           Buildings.Templates.Components.Types.PumpArrangement.Headered));
   connect(hp.ports_bChiHeaWatHp, pumPri.ports_aChiHeaWatHp)
-    annotation(Line(points={{-382,-152},{-382,-140}},
+    annotation(Line(points={{-382,-130},{-382,-130}},
       color={0,127,255}));
   connect(pumPri.ports_bChiHeaWat, valIso.ports_aChiHeaWatHp)
-    annotation(Line(points={{-344,-60},{-344,-50}},
+    annotation(Line(points={{-344,-50},{-344,-50}},
       color={0,127,255}));
   connect(pumPri.ports_bHeaWat, valIso.ports_aHeaWatHp)
-    annotation(Line(points={{-376,-60},{-376,-50}},
+    annotation(Line(points={{-376,-50},{-376,-50}},
       color={0,127,255}));
   connect(pumPri.ports_bChiWat, valIso.ports_aChiWatHp)
-    annotation(Line(points={{-360,-60},{-360,-50}},
+    annotation(Line(points={{-360,-50},{-360,-50}},
       color={0,127,255}));
   connect(outPumChiWatPri.port_b, VChiWatPri_flow.port_a)
     annotation(Line(points={{20,80},{20,80}},
@@ -1112,7 +1112,7 @@ equation
     annotation(Line(points={{250,80},{250,80}},
       color={0,127,255}));
   connect(valIso.port_bChiWat, supChiWatPri.port_a)
-    annotation(Line(points={{-60,80},{-60,80},{-20,80}},
+    annotation(Line(points={{-60,80},{-20,80}},
       color={0,0,0},
       thickness=0.5,
       visible=have_chiWat
@@ -1126,10 +1126,10 @@ equation
         and typArrPumPri ==
           Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
   connect(valIso.ports_bChiHeaWatHp, pumPri.ports_aChiHeaWat)
-    annotation(Line(points={{-234,-50},{-234,-60},{-234.2,-60}},
+    annotation(Line(points={{-234,-50},{-234.2,-50}},
       color={0,127,255}));
   connect(pumPri.ports_bChiHeaWatHp, hp.ports_aChiHeaWatHp)
-    annotation(Line(points={{-218,-140},{-218,-152}},
+    annotation(Line(points={{-218,-130},{-218,-130}},
       color={0,127,255}));
   connect(supChiWatSec.port_b, VChiWatSec_flow.port_a)
     annotation(Line(points={{270,80},{288,80}},
@@ -1399,28 +1399,28 @@ equation
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(pumPri.ports_bHeaWatRetShc, hp.ports_aHeaWatShc)
-    annotation(Line(points={{-234,-140},{-234,-152}},
+    annotation(Line(points={{-234,-130},{-234,-130}},
       color={0,127,255}));
   connect(pumPri.ports_bChiWatRetShc, hp.ports_aChiWatShc)
-    annotation(Line(points={{-250,-140},{-250,-152}},
+    annotation(Line(points={{-250,-130},{-250,-130}},
       color={0,127,255}));
   connect(hp.ports_bHeaWatShc, pumPri.ports_aHeaWatShc)
-    annotation(Line(points={{-366,-152},{-366,-140}},
+    annotation(Line(points={{-366,-130},{-366,-130}},
       color={0,127,255}));
   connect(hp.ports_bChiWatShc, pumPri.ports_aChiWatShc)
-    annotation(Line(points={{-350,-152},{-350,-140}},
+    annotation(Line(points={{-350,-130},{-350,-130}},
       color={0,127,255}));
   connect(pumPri.ports_bHeaWatSupShc, valIso.ports_aHeaWatShc)
-    annotation(Line(points={{-328,-60},{-328,-50}},
+    annotation(Line(points={{-328,-50},{-328,-50}},
       color={0,127,255}));
   connect(pumPri.ports_bChiWatSupShc, valIso.ports_aChiWatShc)
-    annotation(Line(points={{-312,-60},{-312,-50}},
+    annotation(Line(points={{-312,-50},{-312,-50}},
       color={0,127,255}));
   connect(pumPri.ports_aChiWat, valIso.ports_bChiWatShc)
-    annotation(Line(points={{-266,-60},{-266,-50}},
+    annotation(Line(points={{-266,-50},{-266,-50}},
       color={0,127,255}));
   connect(pumPri.ports_aHeaWat, valIso.ports_bHeaWatShc)
-    annotation(Line(points={{-250,-60},{-250,-50}},
+    annotation(Line(points={{-250,-50},{-250,-50}},
       color={0,127,255}));
 annotation(defaultComponentName="pla",
   Documentation(

@@ -3,7 +3,8 @@ model AirToWaterSHCOnly
   "Validation of AWHP plant template with polyvalent units only (without 2-pipe AWHP)"
   extends Buildings.Templates.Plants.HeatPumps.Validation.AirToWater(
     pla(
-      typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent));
+      typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent,
+        typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered));
 
 annotation(
   experiment(Tolerance=1e-6,

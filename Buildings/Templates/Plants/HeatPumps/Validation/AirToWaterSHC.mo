@@ -4,6 +4,7 @@ model AirToWaterSHC
   extends Buildings.Templates.Plants.HeatPumps.Validation.AirToWater(
     pla(
       typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent,
+      nShc_select=2,
       typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
 

@@ -12,10 +12,10 @@ model PumpsPrimaryDedicated
   parameter Integer nPumChiWat
     "Number of primary CHW pumps"
     annotation(Evaluate=true);
-  final parameter Integer idxConPumChiWat=if have_pumChiWatDedHp then nHp + 1
-       else 1
+  final parameter Integer idxConPumChiWat =
+    if have_pumChiWatDedHp then nHp + 1 else 1
     "Lowest index to connect SHC unit ports to primary CHW pump ports"
-    annotation (Evaluate=true);
+    annotation(Evaluate=true);
   parameter Boolean have_hp = true
     "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true,
@@ -44,14 +44,19 @@ model PumpsPrimaryDedicated
           and typArrPumPri ==
             Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
   final parameter Boolean have_pumChiWatDedHp =
-    have_hp and nPumChiWat > 0 and
-      typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-       and not have_pumPriComHp
+    have_hp
+      and nPumChiWat > 0
+      and typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and not have_pumPriComHp
     "Set to true for HP with separate dedicated primary CHW pumps"
     annotation(Evaluate=true);
   final parameter Boolean is_heaOnlHp =
-    have_hp and nPumHeaWat > 0 and nPumChiWat == 0 and
-      typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    have_hp
+      and nPumHeaWat > 0
+      and nPumChiWat == 0
+      and typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Set to true for heating-only (non-reversible) HP with dedicated primary HW pumps"
     annotation(Evaluate=true);
   parameter Boolean have_pumHeaWatPriVar(start=false)
@@ -64,8 +69,9 @@ model PumpsPrimaryDedicated
     "Set to true for variable speed primary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration",
-        enable=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-           and (have_pumChiWatDedHp or have_shc)));
+        enable=typArrPumPri ==
+          Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+          and (have_pumChiWatDedHp or have_shc)));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumHeaWat(
     typ=if nPumHeaWat > 0
       then Buildings.Templates.Components.Types.Pump.Multiple
@@ -83,7 +89,7 @@ model PumpsPrimaryDedicated
     annotation(Dialog(enable=nPumChiWat > 0),
       Placement(transformation(extent={{30,0},{50,20}})));
   parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal[nPumHeaWat](
-    each final min=0,
+    min=0,
     start=fill(
       if typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated
@@ -98,18 +104,25 @@ model PumpsPrimaryDedicated
     annotation(Dialog(group="Nominal condition",
       enable=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
-  parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[
-    nPumChiWat](
-    each final min=0,
-    start=fill(if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-         and (have_pumChiWatDedHp or have_shc) then Buildings.Templates.Data.Defaults.dpValChe
-         else 0, nPumChiWat)) = fill(if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-     and (have_pumChiWatDedHp or have_shc) then Buildings.Templates.Data.Defaults.dpValChe
-     else 0, nPumChiWat)
+  parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[nPumChiWat](
+    min=0,
+    start=fill(
+      if typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+        and (have_pumChiWatDedHp or have_shc)
+      then Buildings.Templates.Data.Defaults.dpValChe else 0,
+      nPumChiWat)) =
+    fill(
+      if typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+        and (have_pumChiWatDedHp or have_shc)
+      then Buildings.Templates.Data.Defaults.dpValChe else 0,
+      nPumChiWat)
     "CHW pump check valve pressure drop at design pump flow rate (selection conditions)"
-    annotation (Dialog(group="Nominal condition", enable=typArrPumPri ==
-          Buildings.Templates.Components.Types.PumpArrangement.Dedicated and (
-          have_pumChiWatDedHp or have_shc)));
+    annotation(Dialog(group="Nominal condition",
+      enable=typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+        and (have_pumChiWatDedHp or have_shc)));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -246,9 +259,10 @@ model PumpsPrimaryDedicated
       origin={-180,-140})));
   Fluid.FixedResistances.Junction junDedSep[nHp](
     redeclare each final package Medium=Medium,
-    final m_flow_nominal={{max(datPumHeaWat.m_flow_nominal[i], datPumChiWat.m_flow_nominal[
-        i]),-datPumHeaWat.m_flow_nominal[i],-datPumChiWat.m_flow_nominal[i]}
-        for i in 1:nHp},
+    final m_flow_nominal={{max(
+      datPumHeaWat.m_flow_nominal[i], datPumChiWat.m_flow_nominal[i]),
+      -datPumHeaWat.m_flow_nominal[i],
+      -datPumChiWat.m_flow_nominal[i]} for i in 1:nHp},
     dp_nominal=fill(fill(0, 3), nHp),
     each final energyDynamics=energyDynamics,
     each final portFlowDirection_1=if allowFlowReversal
@@ -259,8 +273,8 @@ model PumpsPrimaryDedicated
       else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     each final portFlowDirection_3=if allowFlowReversal
       then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Leaving) if
-    have_pumChiWatDedHp
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    if have_pumChiWatDedHp
     "Fluid junction for separate dedicated primary pumps"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -482,47 +496,51 @@ annotation(defaultComponentName="pumPri",
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-2400,-400},{2400,400}}),
     graphics={
-              Line(points={{2000,60},{2000,-400}},
-      color={0,0,0},
-      thickness=5,
-      visible=typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Headered and
-        nHp >= 1),
-    Line(points={{2000,400},{2000,60}},
-      color={0,0,0},
-      thickness=5,
-      visible=nHp >= 1),
+              Line(
+          points={{2000,400},{2000,-40}},
+          color={0,0,0},
+          thickness=5,
+          visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nHp + nShc >= 1),
+    Line(
+          points={{1980,400},{1980,60}},
+          color={0,0,0},
+          thickness=5,
+          visible=nHp + nShc >= 1),
     Line(points={{2200,400},{2200,-400}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp >= 1),
+      visible=nHp + nShc >= 1),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 1,
+      nHp + nShc >= 1,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
-      origin={2022,10},
+      origin={2002,10},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 1,
+      nHp + nShc >= 1,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
-      origin={2000,260},
+      origin={1980,260},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      have_pumHeaWatPriVar and nHp >= 1,
-      extent={{2080,-50},{2180,50}},
+      have_pumHeaWatPriVar and nHp + nShc >= 1,
+      extent={{2060,-50},{2160,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
-    Line(points={{2020,-40},{2020,-400}},
-      color={0,0,0},
-      thickness=5,
-      visible=typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 1),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 1,
+    Line(
+          points={{2000,-40},{2000,-400}},
+          color={0,0,0},
+          thickness=5,
+          visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+               and nHp + nShc >= 1),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 1 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 1 and nHp < 1,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={1822,10},
@@ -530,67 +548,91 @@ annotation(defaultComponentName="pumPri",
     Line(points={{1800,400},{1800,60}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 1),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 1,
+      visible=have_pumChiWatDedHp and nHp >= 1 or nHp + nShc >= 1 and nHp < 1),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 1 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 1 and nHp < 1,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={1800,260},
       rotation=90),
-    Line(points={{1820,-40},{1820,-200},{2020,-200}},
+    Line(points=if have_pumChiWatDedHp and nHp >= 1
+      then {{1820,-40},{1820,-200},{2020,-200}} else {{1820,-40},{1820,-400}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 1),
-    Bitmap(visible=have_pumChiWatDedHp and have_pumChiWatPriVar and nHp >= 1,
+      visible=have_pumChiWatDedHp and nHp >= 1 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 1 and nHp < 1),
+        Line(
+          points={{1800,60},{1800,-400}},
+          color={0,0,0},
+          thickness=5,
+          visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nHp + nShc >= 1 and nHp < 1),
+    Bitmap(visible=have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 1 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 1 and nHp < 1),
       extent={{1660,-50},{1760,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
-    Line(points={{2066,0},{2080,0}},
+    Line(points={{2046,0},{2060,0}},
       color={0,0,0},
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 1),
+        nHp + nShc >= 1),
     Line(points={{1760,0},{1778,0}},
       color={0,0,0},
-      visible=have_pumChiWatDedHp and nHp >= 1),
+      visible=have_pumChiWatDedHp and nHp >= 1 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 1 and nHp < 1),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      not have_pumHeaWatPriVar and nHp >= 1,
-      extent={{2080,-50},{2180,50}},
+      not have_pumHeaWatPriVar and nHp + nShc >= 1,
+      extent={{2060,-50},{2160,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
-    Bitmap(visible=have_pumChiWatDedHp and not have_pumChiWatPriVar and nHp >= 1,
-      extent={{1660,-104},{1760,-4}},
+    Bitmap(visible=not have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 1 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 1 and nHp < 1),
+      extent={{1660,-50},{1760,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
     Line(points={{-2000,60},{-2000,-400}},
       color={0,0,0},
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered and
-        nHp >= 6),
+        nHp + nShc >= 6),
     Line(points={{-2000,400},{-2000,60}},
       color={0,0,0},
       thickness=5,
-      visible=nHp >= 6),
+      visible=nHp + nShc >= 6),
     Line(points={{-1800,400},{-1800,-400}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp >= 6),
+      visible=nHp + nShc >= 6),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 6,
+      nHp + nShc >= 6,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={-1978,10},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 6,
+      nHp + nShc >= 6,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={-2000,260},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      have_pumHeaWatPriVar and nHp >= 6,
+      have_pumHeaWatPriVar and nHp + nShc >= 6,
       extent={{-1920,-50},{-1820,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{-1980,-40},{-1980,-400}},
@@ -598,8 +640,11 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 6),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 6,
+        nHp + nShc >= 6),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 6 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 6 and nHp < 6,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={-2178,10},
@@ -607,33 +652,54 @@ annotation(defaultComponentName="pumPri",
     Line(points={{-2200,400},{-2200,60}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 6),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 6,
+      visible=have_pumChiWatDedHp and nHp >= 6 or nHp + nShc >= 6 and nHp < 6),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 6 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 6 and nHp < 6,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={-2200,260},
       rotation=90),
-    Line(points={{-2180,-40},{-2180,-200},{-1980,-200}},
+    Line(points=if have_pumChiWatDedHp and nHp >= 6
+      then {{-2180,-40},{-2180,-200},{-1980,-200}}
+      else {{-2180,-40},{-2180,-400}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 6),
-    Bitmap(visible=have_pumChiWatDedHp and have_pumChiWatPriVar and nHp >= 6,
+      visible=have_pumChiWatDedHp and nHp >= 6 or nHp + nShc >= 6 and nHp < 6),
+    Line( points={{-2200,60},{-2200,-400}},
+          color={0,0,0},
+          thickness=5,
+          visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nHp + nShc >= 6 and nHp < 6),
+    Bitmap(visible=have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 6 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 6 and nHp < 6),
       extent={{-2340,-50},{-2240,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{-1934,0},{-1920,0}},
       color={0,0,0},
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 6),
+        nHp + nShc >= 6),
     Line(points={{-2240,0},{-2222,0}},
       color={0,0,0},
-      visible=have_pumChiWatDedHp and nHp >= 6),
+      visible=have_pumChiWatDedHp and nHp >= 6 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 6 and nHp < 6),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      not have_pumHeaWatPriVar and nHp >= 6,
+      not have_pumHeaWatPriVar and nHp + nShc >= 6,
       extent={{-1920,-50},{-1820,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
-    Bitmap(visible=have_pumChiWatDedHp and not have_pumChiWatPriVar and nHp >= 6,
+    Bitmap(visible=not have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 6 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 6 and nHp < 6),
       extent={{-2340,-50},{-2240,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
     Line(points={{-1200,60},{-1200,-400}},
@@ -641,33 +707,33 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered and
-        nHp >= 5),
+        nHp + nShc >= 5),
     Line(points={{-1200,400},{-1200,60}},
       color={0,0,0},
       thickness=5,
-      visible=nHp >= 5),
+      visible=nHp + nShc >= 5),
     Line(points={{-1000,400},{-1000,-400}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp >= 5),
+      visible=nHp + nShc >= 5),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 5,
+      nHp + nShc >= 5,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={-1178,10},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 5,
+      nHp + nShc >= 5,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={-1200,260},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      have_pumHeaWatPriVar and nHp >= 5,
+      have_pumHeaWatPriVar and nHp + nShc >= 5,
       extent={{-1120,-50},{-1020,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{-1180,-40},{-1180,-400}},
@@ -675,8 +741,11 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 5),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 5,
+        nHp + nShc >= 5),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 5 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 5 and nHp < 5,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={-1378,10},
@@ -684,33 +753,55 @@ annotation(defaultComponentName="pumPri",
     Line(points={{-1400,400},{-1400,60}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 5),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 5,
+      visible=have_pumChiWatDedHp and nHp >= 5 or nHp + nShc >= 5 and nHp < 5),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 5 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 5 and nHp < 5,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={-1400,260},
       rotation=90),
-    Line(points={{-1380,-40},{-1380,-200},{-1180,-200}},
+    Line(points=if have_pumChiWatDedHp and nHp >= 5
+      then {{-1380,-40},{-1380,-200},{-1180,-200}}
+      else {{-1380,-40},{-1380,-400}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 5),
-    Bitmap(visible=have_pumChiWatDedHp and have_pumChiWatPriVar and nHp >= 5,
+      visible=have_pumChiWatDedHp and nHp >= 5 or nHp + nShc >= 5 and nHp < 5),
+      Line(
+          points={{-1400,60},{-1400,-400}},
+          color={0,0,0},
+          thickness=5,
+          visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nHp + nShc >= 5 and nHp < 5),
+    Bitmap(visible=have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 5 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 5 and nHp < 5),
       extent={{-1540,-50},{-1440,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{-1134,0},{-1120,0}},
       color={0,0,0},
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 5),
+        nHp + nShc >= 5),
     Line(points={{-1440,0},{-1422,0}},
       color={0,0,0},
-      visible=have_pumChiWatDedHp and nHp >= 5),
+      visible=have_pumChiWatDedHp and nHp >= 5 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 5 and nHp < 5),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      not have_pumHeaWatPriVar and nHp >= 5,
+      not have_pumHeaWatPriVar and nHp + nShc >= 5,
       extent={{-1120,-50},{-1020,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
-    Bitmap(visible=have_pumChiWatDedHp and not have_pumChiWatPriVar and nHp >= 5,
+    Bitmap(visible=not have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 5 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 5 and nHp < 5),
       extent={{-1540,-50},{-1440,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
     Line(points={{-400,60},{-400,-400}},
@@ -718,33 +809,33 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered and
-        nHp >= 4),
+        nHp + nShc >= 4),
     Line(points={{-400,400},{-400,60}},
       color={0,0,0},
       thickness=5,
-      visible=nHp >= 4),
+      visible=nHp + nShc >= 4),
     Line(points={{-200,400},{-200,-400}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp >= 4),
+      visible=nHp + nShc >= 4),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 4,
+      nHp + nShc >= 4,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={-378,10},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 4,
+      nHp + nShc >= 4,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={-400,260},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      have_pumHeaWatPriVar and nHp >= 4,
+      have_pumHeaWatPriVar and nHp + nShc >= 4,
       extent={{-320,-50},{-220,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{-380,-40},{-380,-400}},
@@ -752,8 +843,11 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 4),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 4,
+        nHp + nShc >= 4),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 4 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 4 and nHp < 4,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={-578,10},
@@ -761,33 +855,53 @@ annotation(defaultComponentName="pumPri",
     Line(points={{-600,400},{-600,60}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 4),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 4,
+      visible=have_pumChiWatDedHp and nHp >= 4 or nHp + nShc >= 4 and nHp < 4),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 4 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 4 and nHp < 4,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={-600,260},
       rotation=90),
-    Line(points={{-580,-40},{-580,-200},{-380,-200}},
+    Line(points=if have_pumChiWatDedHp and nHp >= 4
+      then {{-580,-40},{-580,-200},{-380,-200}} else {{-580,-40},{-580,-400}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 4),
-    Bitmap(visible=have_pumChiWatDedHp and have_pumChiWatPriVar and nHp >= 4,
+      visible=have_pumChiWatDedHp and nHp >= 4 or nHp + nShc >= 4 and nHp < 4),
+      Line(points={{-600,60},{-600,-400}},
+      color={0,0,0},
+      thickness=5,
+      visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+                     and  nHp + nShc >= 4 and nHp < 4),
+    Bitmap(visible=have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 4 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 4 and nHp < 4),
       extent={{-740,-50},{-640,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{-334,0},{-320,0}},
       color={0,0,0},
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 4),
+        nHp + nShc >= 4),
     Line(points={{-640,0},{-622,0}},
       color={0,0,0},
-      visible=have_pumChiWatDedHp and nHp >= 4),
+      visible=have_pumChiWatDedHp and nHp >= 4 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 4 and nHp < 4),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      not have_pumHeaWatPriVar and nHp >= 4,
+      not have_pumHeaWatPriVar and nHp + nShc >= 4,
       extent={{-320,-50},{-220,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
-    Bitmap(visible=have_pumChiWatDedHp and not have_pumChiWatPriVar and nHp >= 4,
+    Bitmap(visible=not have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 4 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 4 and nHp < 4),
       extent={{-740,-50},{-640,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
     Line(points={{400,60},{400,-400}},
@@ -795,33 +909,33 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered and
-        nHp >= 3),
+        nHp + nShc >= 3),
     Line(points={{400,400},{400,60}},
       color={0,0,0},
       thickness=5,
-      visible=nHp >= 3),
+      visible=nHp + nShc >= 3),
     Line(points={{600,400},{600,-400}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp >= 3),
+      visible=nHp + nShc >= 3),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 3,
+      nHp + nShc >= 3,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={422,10},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 3,
+      nHp + nShc >= 3,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={400,260},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      have_pumHeaWatPriVar and nHp >= 3,
+      have_pumHeaWatPriVar and nHp + nShc >= 3,
       extent={{480,-50},{580,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{420,-40},{420,-400}},
@@ -829,8 +943,11 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 3),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 3,
+        nHp + nShc >= 3),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 3 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 3 and nHp < 3,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={222,10},
@@ -838,33 +955,53 @@ annotation(defaultComponentName="pumPri",
     Line(points={{200,400},{200,60}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 3),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 3,
+      visible=have_pumChiWatDedHp and nHp >= 3 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 3 and nHp < 3),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 3 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 3 and nHp < 3,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={200,260},
       rotation=90),
-    Line(points={{220,-40},{220,-200},{420,-200}},
+    Line(points=if have_pumChiWatDedHp and nHp >= 3
+      then {{220,-40},{220,-200},{420,-200}} else {{220,-40},{220,-400}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 3),
-    Bitmap(visible=have_pumChiWatDedHp and have_pumChiWatPriVar and nHp >= 3,
+      visible=have_pumChiWatDedHp and nHp >= 3 or nHp + nShc >= 3 and nHp < 3),
+      Line(points={{200,60},{200,-400}},
+      color={0,0,0},
+      thickness=5,
+      visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+                     and  nHp + nShc >= 3 and nHp < 3),
+    Bitmap(visible=have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 3 or nHp + nShc >= 3 and nHp < 3),
       extent={{60,-50},{160,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
-    Line(points={{466,0},{480,0}},
+    Line(points={{468,0},{482,0}},
       color={0,0,0},
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 3),
+        nHp + nShc >= 3),
     Line(points={{160,0},{178,0}},
       color={0,0,0},
-      visible=have_pumChiWatDedHp and nHp >= 3),
+      visible=have_pumChiWatDedHp and nHp >= 3 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 3 and nHp < 3),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      not have_pumHeaWatPriVar and nHp >= 3,
+      not have_pumHeaWatPriVar and nHp + nShc >= 3,
       extent={{480,-50},{580,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
-    Bitmap(visible=have_pumChiWatDedHp and not have_pumChiWatPriVar and nHp >= 3,
+    Bitmap(visible=not have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 3 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 3 and nHp < 3),
       extent={{60,-50},{160,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
     Line(points={{1200,60},{1200,-400}},
@@ -872,33 +1009,33 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered and
-        nHp >= 2),
+        nHp + nShc >= 2),
     Line(points={{1200,400},{1200,60}},
       color={0,0,0},
       thickness=5,
-      visible=nHp >= 2),
+      visible=nHp + nShc >= 2),
     Line(points={{1400,400},{1400,-400}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp >= 2),
+      visible=nHp + nShc >= 2),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 2,
+      nHp + nShc >= 2,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={1222,10},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      nHp >= 2,
+      nHp + nShc >= 2,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={1200,260},
       rotation=90),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      have_pumHeaWatPriVar and nHp >= 2,
+      have_pumHeaWatPriVar and nHp + nShc >= 2,
       extent={{1280,-50},{1380,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{1220,-40},{1220,-400}},
@@ -906,8 +1043,11 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 2),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 2,
+        nHp + nShc >= 2),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 2 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 2 and nHp < 2,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
       origin={1022,10},
@@ -915,35 +1055,88 @@ annotation(defaultComponentName="pumPri",
     Line(points={{1000,400},{1000,60}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 2),
-    Bitmap(visible=have_pumChiWatDedHp and nHp >= 2,
+      visible=have_pumChiWatDedHp and nHp >= 2 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 2 and nHp < 2),
+    Bitmap(visible=have_pumChiWatDedHp and nHp >= 2 or
+      typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 2 and nHp < 2,
       extent={{-40,-40},{40,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
       origin={1000,260},
       rotation=90),
-    Line(points={{1020,-40},{1020,-200},{1220,-200}},
+    Line(points=if have_pumChiWatDedHp and nHp >= 2
+      then {{1020,-40},{1020,-200},{1220,-200}} else {{1020,-40},{1020,-400}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 2),
-    Bitmap(visible=have_pumChiWatDedHp and have_pumChiWatPriVar and nHp >= 2,
+      visible=have_pumChiWatDedHp and nHp >= 2 or nHp + nShc >= 2 and nHp < 2),
+      Line(points={{1000,60},{1000,-400}},
+      color={0,0,0},
+      thickness=5,
+      visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+                     and  nHp + nShc >= 2 and nHp < 2),
+    Bitmap(visible=have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 2 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 2 and nHp < 2),
       extent={{860,-50},{960,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{1266,0},{1280,0}},
       color={0,0,0},
       visible=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp >= 2),
-    Line(points={{960,0},{978,0}},
+        nHp + nShc >= 2),
+    Line(points={{962,0},{980,0}},
       color={0,0,0},
-      visible=have_pumChiWatDedHp and nHp >= 2),
+      visible=have_pumChiWatDedHp and nHp >= 2 or
+        typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+        nHp + nShc >= 2 and nHp < 2),
     Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-      not have_pumHeaWatPriVar and nHp >= 2,
+      not have_pumHeaWatPriVar and nHp + nShc >= 2,
       extent={{1280,-50},{1380,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
-    Bitmap(visible=have_pumChiWatDedHp and not have_pumChiWatPriVar and nHp >= 2,
+    Bitmap(visible=not have_pumChiWatPriVar and
+      (have_pumChiWatDedHp and nHp >= 2 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nShc >= 2 and nHp < 2),
       extent={{860,-50},{960,50}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg")}),
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
+    Line(points={{2400,400},{2400,-400}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 1 and nHp < 1),
+    Line(points={{1600,400},{1600,-400}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 2 and nHp < 2),
+    Line(points={{820,400},{820,-400}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 3 and nHp < 3),
+    Line(points={{0,400},{0,-400}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 4 and nHp < 4),
+    Line(points={{-800,400},{-800,-400}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 5 and nHp < 5),
+    Line(points={{-1600,400},{-1600,-400}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 6 and nHp < 6)}),
   Documentation(
     revisions="<html>
 <ul>
@@ -956,11 +1149,12 @@ annotation(defaultComponentName="pumPri",
     info="<html>
 <p>
   This model represents dedicated primary HW pumps and, optionally, separate
-  dedicated primary CHW pumps if the parameter <code>have_pumChiWatDedHp</code>
-  is set to true. The pump components are connected to the heat pump outlet,
-  in a \"pump away\" configuration. Variable speed or constant speed pumps can
-  be modeled by setting the parameters <code>have_pumHeaWatPriVar</code> and
-  <code>have_pumChiWatPriVar</code>. If headered pumps are modeled
+  dedicated primary CHW pumps if the parameter
+  <code>have_pumChiWatDedHp</code> is set to true. The pump components are
+  connected to the heat pump outlet, in a \"pump away\" configuration. Variable
+  speed or constant speed pumps can be modeled by setting the parameters
+  <code>have_pumHeaWatPriVar</code> and <code>have_pumChiWatPriVar</code>. If
+  headered pumps are modeled
   (<code>typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered</code>),
   this component resolves to a direct fluid pass-through.
 </p>
