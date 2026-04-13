@@ -223,8 +223,10 @@ html_css_files = [
 # typographically correct entities.
 #html_use_smartypants = True
 
-# Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+# Remove the sidebars on all pages
+html_sidebars = {
+    '**': []
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
