@@ -42,7 +42,8 @@ model ChillerWSE
     "Chilled water mass flow rate at design conditions";
 
 
-  parameter Modelica.Units.SI.PressureDifference dpVal_nominal=20000
+  parameter Modelica.Units.SI.PressureDifference dpVal_nominal(
+    displayUnit="Pa")=20000
     "Valve design pressure drop";
    parameter Modelica.Units.SI.PressureDifference dpHexChi_nominal=80000
     "Heat exchanger design pressure drop on chiller side";
@@ -50,7 +51,7 @@ model ChillerWSE
     "Rack design pressure drop";
   parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.OCP_1kW_OAM_PG25 datTheRes
     "Thermal resistance data"
-    annotation (Placement(transformation(extent={{60,-108},{80,-88}})));
+    annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
 
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
@@ -78,7 +79,8 @@ model ChillerWSE
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Rack with cold plate heat exchangers, modeled for simplicity as one large rack"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium = MediumChi,
+  Buildings.Fluid.Sources.Boundary_pT bou(
+    redeclare package Medium = MediumChi,
     p(displayUnit="Pa") = 300000,
       nPorts=1) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{292,110},{272,130}})));
@@ -92,15 +94,9 @@ model ChillerWSE
   Buildings.Applications.DataCenters.LiquidCooled.CDUs.CDU_epsNTU cdu(
     redeclare package Medium1 = MediumChi,
     redeclare package Medium2 = MediumRac,
+    final dat=datCDU,
     allowFlowReversal1=false,
     allowFlowReversal2=false,
-    m1_flow_nominal=mChi_flow_nominal,
-    m2_flow_nominal=mRac_flow_nominal,
-    Q_flow_nominal=-PRac,
-    T_a1_nominal=TChiSup_nominal,
-    T_a2_nominal=TRacSup_nominal,
-    dpHex1_nominal=dpHexChi_nominal,
-    dpPum_nominal=dPRac_nominal,
     yPum_start=1) "CDU, modeled for simplicity as one large CDU"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Fluid.Sensors.TemperatureTwoPort senTCDU_b(
@@ -170,7 +166,7 @@ model ChillerWSE
     dp1_nominal=dpHexChi_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Chiller"
     annotation (Placement(transformation(extent={{-120,321},{-140,341}})));
-  Fluid.HeatExchangers.CoolingTowers.Merkel   cooTow(
+  Fluid.HeatExchangers.CoolingTowers.Merkel cooTow(
     redeclare package Medium = MediumChi,
     m_flow_nominal=mCW_flow_nominal,
     show_T=true,
@@ -585,6 +581,16 @@ model ChillerWSE
     m_flow_nominal=mCW_flow_nominal,
     tau=0) "Inlet water temperature of tower"
     annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
+  parameter CDUs.Data.Generic_2MW datCDU(redeclare package Medium1 = MediumChi,
+      redeclare package Medium2 = MediumRac,
+    Q_flow_nominal=-PRac,
+    T_a1_nominal=TChiSup_nominal,
+    T_a2_nominal=TRacSup_nominal,
+    m1_flow_nominal=mChi_flow_nominal,
+    m2_flow_nominal=mRac_flow_nominal,
+    dpHex1_nominal=dpHexChi_nominal,
+    dpPum_nominal=dPRac_nominal) "Data record for CDU"
+    annotation (Placement(transformation(extent={{60,62},{80,82}})));
 equation
   connect(senTCDU_a.port_b, cdu.port_a1) annotation (Line(points={{-30,120},{-20,
           120},{-20,46},{-10,46}},color={0,127,255}));

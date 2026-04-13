@@ -27,9 +27,20 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     "Chilled water mass flow rate at design conditions";
   parameter Modelica.Units.SI.PressureDifference dPRac_nominal = 60000
     "Rack design pressure drop";
+  parameter Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU datCDU(
+    redeclare package Medium1 = MediumChi,
+    redeclare package Medium2 = MediumRac,
+    Q_flow_nominal=-PRac,
+    T_a1_nominal=TChi_b,
+    T_a2_nominal=TRac_b,
+    m1_flow_nominal=mChi_flow_nominal,
+    m2_flow_nominal=mRac_flow_nominal,
+    dpHex1_nominal=dpHexChi_nominal,
+    dpPum_nominal=dPRac_nominal) "Data performance record for CDU"
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.OCP_1kW_OAM_PG25 datTheRes
     "Thermal resistance data"
-    annotation (Placement(transformation(extent={{60,-108},{80,-88}})));
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uti(
     amplitude=0.4,
@@ -63,15 +74,9 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
   Buildings.Applications.DataCenters.LiquidCooled.CDUs.CDU_epsNTU cdu(
     redeclare package Medium1 = MediumChi,
     redeclare package Medium2 = MediumRac,
+    final dat=datCDU,
     allowFlowReversal1=false,
     allowFlowReversal2=false,
-    m1_flow_nominal=mChi_flow_nominal,
-    m2_flow_nominal=mRac_flow_nominal,
-    Q_flow_nominal=-PRac,
-    T_a1_nominal=TChi_a,
-    T_a2_nominal=TRac_a,
-    dpHex1_nominal=dpHexChi_nominal,
-    dpPum_nominal=dPRac_nominal,
     yPum_start=1)
     "CDU, modeled for simplicity as one large CDU"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -126,6 +131,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   parameter Modelica.Units.SI.PressureDifference dpHexChi_nominal=80000
     "Heat exchanger design pressure drop on chiller side";
+
 equation
   connect(uti.y, rac.u) annotation (Line(points={{-28,-30},{-20,-30},{-20,-54},{
           -1,-54}},  color={0,0,127}));
