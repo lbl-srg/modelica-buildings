@@ -5,4 +5,5 @@
 {# Add some extra stuff before and use existing with 'super()' call. #}
 {% block footer %}
   {{ super() }}
+  <script type="text/javascript" src="{{ pathto('_static/dropdown-fix.js', 1) }}"></script>
 {% endblock %}
