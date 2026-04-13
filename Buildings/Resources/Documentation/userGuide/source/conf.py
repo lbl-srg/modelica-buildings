@@ -138,7 +138,7 @@ html_theme_options = {
     'navbar_sidebarrel': True,
 
     # Render the current pages TOC in the navbar. (Default: true)
-    'navbar_pagenav': True,
+    'navbar_pagenav': False,
 
     # Tab name for the current pages TOC. (Default: "Page")
     'navbar_pagenav_name': "Page",
@@ -224,9 +224,9 @@ html_css_files = [
 #html_use_smartypants = True
 
 # Remove the sidebars on all pages
-html_sidebars = {
-    '**': []
-}
+#html_sidebars = {
+#    '**': []
+#}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
