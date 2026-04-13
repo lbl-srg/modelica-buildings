@@ -481,7 +481,7 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 <ul>
 <li>
 April 13, 2026, by Michael Wetter:<br/>
-Added value for <coded>nominal</code> attribute for integrator state <code>I.y</code><br/>
+Added value for <code>nominal</code> attribute for integrator state <code>I.y</code><br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2106\">IBPSA, issue 2106</a>.
 </li>
