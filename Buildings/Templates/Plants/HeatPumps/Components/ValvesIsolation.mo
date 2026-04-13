@@ -70,8 +70,8 @@ model ValvesIsolation
     "Set to true for isolation valves at SHC unit outlet"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_pumPriComHp = true
-    "Set to true for HP with single dedicated primary pump serving both CHW and HW circuits"
+  parameter Boolean have_pumChiWatDedHp = false
+    "Set to true for HP with separate dedicated primary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Modelica.Units.SI.MassFlowRate mHeaWatUni_flow_nominal[nHp + nShc](
@@ -378,7 +378,7 @@ model ValvesIsolation
     redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_hp and have_pumPriComHp
+    if have_hp and not have_pumChiWatDedHp
     "CHW/HW supply – HP leaving"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
@@ -390,7 +390,7 @@ model ValvesIsolation
     redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_hp and not have_pumPriComHp
+    if have_hp and have_pumChiWatDedHp
     "HW supply – HP leaving"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
@@ -402,7 +402,7 @@ model ValvesIsolation
     redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_hp and have_chiWat and not have_pumPriComHp
+    if have_hp and have_chiWat and have_pumChiWatDedHp
     "CHW supply – HP leaving"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
@@ -753,69 +753,69 @@ annotation(defaultComponentName="valIso",
           points={{240,150},{0,150},{0,-50}},
           color={0,0,0},
           thickness=5,
-          visible=have_chiWat and have_pumPriComHp and nHp >= 1,
+          visible=have_chiWat and not have_pumChiWatDedHp and nHp >= 1,
           origin={1950,-400},
           rotation=90),
     Line(points={{240,150},{0,150},{0,-50}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and have_pumPriComHp and nHp >= 2,
+      visible=have_chiWat and not have_pumChiWatDedHp and nHp >= 2,
       origin={1150,-400},
       rotation=90),
     Line(points={{240,150},{0,150},{0,-50}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and have_pumPriComHp and nHp >= 3,
+      visible=have_chiWat and not have_pumChiWatDedHp and nHp >= 3,
       origin={350,-400},
       rotation=90),
     Line(points={{240,150},{0,150},{0,-50}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and have_pumPriComHp and nHp >= 4,
+      visible=have_chiWat and not have_pumChiWatDedHp and nHp >= 4,
       origin={-450,-400},
       rotation=90),
     Line(points={{240,150},{0,150},{0,-50}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and have_pumPriComHp and nHp >= 5,
+      visible=have_chiWat and not have_pumChiWatDedHp and nHp >= 5,
       origin={-1250,-400},
       rotation=90),
     Line(points={{240,150},{0,150},{0,-50}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and have_pumPriComHp and nHp >= 6,
+      visible=have_chiWat and not have_pumChiWatDedHp and nHp >= 6,
       origin={-2050,-400},
       rotation=90),
     Line(points={{1000,-160},{1000,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (not have_pumPriComHp and nHp >= 2 or nHp + nShc >= 2 and nHp < 2)),
+        (have_pumChiWatDedHp and nHp >= 2 or nHp + nShc >= 2 and nHp < 2)),
     Line(points={{200,-160},{200,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (not have_pumPriComHp and nHp >= 3 or nHp + nShc >= 3 and nHp < 3)),
+        (have_pumChiWatDedHp and nHp >= 3 or nHp + nShc >= 3 and nHp < 3)),
     Line(points={{-600,-160},{-600,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (not have_pumPriComHp and nHp >= 4 or nHp + nShc >= 4 and nHp < 4)),
+        (have_pumChiWatDedHp and nHp >= 4 or nHp + nShc >= 4 and nHp < 4)),
     Line(points={{-1400,-160},{-1400,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (not have_pumPriComHp and nHp >= 5 or nHp + nShc >= 5 and nHp < 5)),
+        (have_pumChiWatDedHp and nHp >= 5 or nHp + nShc >= 5 and nHp < 5)),
     Line(points={{-2200,-160},{-2200,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (not have_pumPriComHp and nHp >= 6 or nHp + nShc >= 6 and nHp < 6)),
+        (have_pumChiWatDedHp and nHp >= 6 or nHp + nShc >= 6 and nHp < 6)),
     Line(points={{1800,-160},{1800,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (not have_pumPriComHp and nHp >= 1 or nHp + nShc >= 1 and nHp < 1)),
+        (have_pumChiWatDedHp and nHp >= 1 or nHp + nShc >= 1 and nHp < 1)),
     Line(points=if nHp >= 1
       then {{2400,200},{2400,-400},{2200,-400}}
       else {{2400,200},{2400,-400},{2400,-700}},
@@ -1219,8 +1219,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       origin={-2030,-200},
       rotation=-90),
-    Line(
-          points={{-2400,0},{2000,0},{2000,-700}},
+    Line( points={{-2400,0},{2000,0},{2000,-700}},
           color={0,0,0},
           thickness=5),
     Bitmap(visible=have_valHpOutIso and nHp >= 1,

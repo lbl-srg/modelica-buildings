@@ -31,18 +31,17 @@ block AirToWater
   final parameter Boolean have_pumHeaWatPri=have_heaWat
     "Set to true for plants with primary HW pumps"
     annotation (Evaluate=true);
-  parameter Boolean have_pumPriComHp_select(start=true) = true
-    "Set to true for HP with single dedicated primary pump serving both CHW and HW circuits"
-    annotation(Evaluate=true,
-      Dialog(group="Primary loop",
-        enable=have_chiWat and not have_pumPriHdr));
-  final parameter Boolean have_pumPriComHp =
-    if have_chiWat and not have_pumPriHdr then have_pumPriComHp_select else false
+  parameter Boolean have_pumChiWatDedHp_select(start=false) = false
+    "Set to true for HP with separate dedicated primary CHW pumps"
+    annotation (Evaluate=true,
+    Dialog(enable=have_chiWat and not have_pumPriHdr, group="Plant configuration"));
+  final parameter Boolean have_pumChiWatDedHp=if have_chiWat and not
+      have_pumPriHdr then have_pumChiWatDedHp_select else false
     "Set to true for HP with separate dedicated primary CHW pumps"
     annotation (Evaluate=true);
-  final parameter Boolean have_pumChiWatPri=
-    have_chiWat and (have_pumPriHdr or not have_pumPriComHp)
-    "Set to true for HP with separate primary CHW pumps"
+  final parameter Boolean have_pumChiWatPri=have_chiWat and (have_pumPriHdr or
+      have_pumChiWatDedHp)
+    "Set to true for plants with separate primary CHW pumps"
     annotation (Evaluate=true);
   parameter Boolean have_pumPriHdr
     "Set to true for headered primary pumps, false for dedicated pumps"
@@ -163,7 +162,7 @@ block AirToWater
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation (Evaluate=true);
   parameter Integer nHp(min=1)
-    "Number of heat pumps (excluding SHC units)"
+    "Number of heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
   parameter Integer nPumHeaWatPri(
@@ -1020,14 +1019,12 @@ block AirToWater
     annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
       iconTransformation(extent={{-240,282},{-200,322}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri](
-    each final unit="1")
-    if have_pumHeaWatPriVar and not have_pumPriHdr
+    each final unit="1") if have_pumHeaWatPriVar and not have_pumPriHdr
     "Primary dedicated HW pump speed command"
     annotation (Placement(transformation(extent={{260,40},{300,80}}),
       iconTransformation(extent={{200,0},{240,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri](
-    each final unit="1")
-    if have_pumChiWatPriVar and not have_pumPriHdr and not have_pumPriComHp
+    each final unit="1") if have_pumChiWatPriVar and have_pumChiWatDedHp
     "Primary dedicated CHW pump speed command"
     annotation (Placement(transformation(extent={{260,20},{300,60}}),
       iconTransformation(extent={{200,-20},{240,20}})));
@@ -1419,7 +1416,7 @@ block AirToWater
     final have_heaWat=have_heaWat,
     final have_chiWat=have_chiWat,
     final have_pumPriCtlDp=have_pumPriCtlDp,
-    final have_pumChiWatPriDed=have_pumChiWatPriDed,
+    final have_pumChiWatPriDed=have_pumChiWatDedHp,
     final have_pumPriHdr=have_pumPriHdr,
     final nEqu=nHp,
     final nPumHeaWatPri=nPumHeaWatPri,

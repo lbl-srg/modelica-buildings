@@ -54,8 +54,8 @@ block OpenLoop
     "Heat pump heating mode command"
     annotation(Placement(transformation(extent={{-100,290},{-120,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPri[cfg.nPumHeaWatPri](
-    each table=if cfg.have_pumPriComHp then [0,0; 1,1; 3,0; 3.1,1; 5,0]
-      else [0,0; 1, 1; 3,0; 5,0],
+    each table=if cfg.have_pumChiWatDedHp or not cfg.have_chiWat then [0,0; 1, 1; 3,0; 5,0]
+    else [0,0; 1,1; 3,0; 3.1,1; 5,0],
     each timeScale=1000,
     each period=5000) if cfg.have_heaWat
     "Primary CHW pump start/stop command"
@@ -122,7 +122,7 @@ block OpenLoop
     "Dedicated primary HW pump speed signal"
     annotation(Placement(transformation(extent={{-20,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriDed[cfg.nPumChiWatPri](
-    k=if cfg.have_hp and not cfg.have_pumPriComHp then
+    k=if cfg.have_pumChiWatDedHp then
       cat(1, fill(dat.yPumChiWatPriHpSet, cfg.nHp),
       fill(dat.yPumChiWatPriShcSet, cfg.nShc)) else
       fill(dat.yPumChiWatPriShcSet, cfg.nShc))

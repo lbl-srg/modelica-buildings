@@ -44,7 +44,7 @@ model AirToWater
     have_hrc_select=true,
     have_valHpInlIso=true,
     have_valHpOutIso=true,
-    have_pumPriComHp_select=false,
+    have_pumChiWatDedHp_select=true,
     have_pumPriHdr=false,
     is_priOnl=false,
     have_pumHeaWatPriVar_select=false,

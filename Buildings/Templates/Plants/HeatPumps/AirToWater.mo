@@ -211,7 +211,7 @@ model AirToWater
     final have_valHpOutIso=have_valHpOutIso,
     final have_valShcInlIso=have_valShcInlIso,
     final have_valShcOutIso=have_valShcOutIso,
-    final have_pumPriComHp=have_pumPriComHp,
+    final have_pumChiWatDedHp=have_pumChiWatDedHp,
     final mHeaWatUni_flow_nominal=cat(1, fill(dat.hp.mHeaWatHp_flow_nominal,
         nHp), fill(dat.hp.mHeaWatShc_flow_nominal, nShc)),
     final dpHeaWatUni_nominal=cat(1, fill(dat.hp.dpHeaWatHp_nominal, nHp), fill(

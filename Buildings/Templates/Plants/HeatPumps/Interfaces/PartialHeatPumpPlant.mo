@@ -83,7 +83,7 @@ partial model PartialHeatPumpPlant
     final have_hp=have_hp,
     final have_hrc=have_hrc,
     final have_hotWat=have_hotWat,
-    final have_pumPriComHp=have_pumPriComHp,
+    final have_pumChiWatDedHp=have_pumChiWatDedHp,
     final have_shc=have_shc,
     final have_valChiWatMinByp=have_valChiWatMinByp,
     final have_valHeaWatMinByp=have_valHeaWatMinByp,
@@ -376,6 +376,14 @@ partial model PartialHeatPumpPlant
     "Set to true for HP with single dedicated primary pump serving both CHW and HW circuits"
     annotation(Evaluate=true,
       Dialog(group="Primary loop"));
+  final parameter Boolean have_pumChiWatDedHp =
+    have_hp
+      and have_chiWat
+      and typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and not have_pumPriComHp
+    "Set to true for HP with separate dedicated primary CHW pumps"
+    annotation(Evaluate=true);
   final parameter Boolean have_bypChiWatFix =
     have_chiWat
       and (typDis ==

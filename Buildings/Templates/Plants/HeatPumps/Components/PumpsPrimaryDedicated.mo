@@ -57,6 +57,7 @@ model PumpsPrimaryDedicated
       and nPumChiWat == 0
       and typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and not have_pumPriComHp
     "Set to true for heating-only (non-reversible) HP with dedicated primary HW pumps"
     annotation(Evaluate=true);
   parameter Boolean have_pumHeaWatPriVar(start=false)
@@ -90,34 +91,21 @@ model PumpsPrimaryDedicated
       Placement(transformation(extent={{30,0},{50,20}})));
   parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal[nPumHeaWat](
     min=0,
-    start=fill(
-      if typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      then Buildings.Templates.Data.Defaults.dpValChe else 0,
-      nPumHeaWat)) =
-    fill(
-      if typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      then Buildings.Templates.Data.Defaults.dpValChe else 0,
-      nPumHeaWat)
+    start=fill(if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+         then Buildings.Templates.Data.Defaults.dpValChe else 0, nPumHeaWat))=
+    fill(if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+     then Buildings.Templates.Data.Defaults.dpValChe else 0, nPumHeaWat)
     "HW pump check valve pressure drop at design pump flow rate (selection conditions)"
     annotation(Dialog(group="Nominal condition",
       enable=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
   parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[nPumChiWat](
     min=0,
-    start=fill(
-      if typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-        and (have_pumChiWatDedHp or have_shc)
-      then Buildings.Templates.Data.Defaults.dpValChe else 0,
-      nPumChiWat)) =
-    fill(
-      if typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-        and (have_pumChiWatDedHp or have_shc)
-      then Buildings.Templates.Data.Defaults.dpValChe else 0,
-      nPumChiWat)
+    start=fill(if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+         and (have_pumChiWatDedHp or have_shc) then Buildings.Templates.Data.Defaults.dpValChe
+         else 0, nPumChiWat))=fill(if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+     and (have_pumChiWatDedHp or have_shc) then Buildings.Templates.Data.Defaults.dpValChe
+     else 0, nPumChiWat)
     "CHW pump check valve pressure drop at design pump flow rate (selection conditions)"
     annotation(Dialog(group="Nominal condition",
       enable=typArrPumPri ==
@@ -143,10 +131,7 @@ model PumpsPrimaryDedicated
     redeclare each final package Medium=Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_hp
-      and (typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Headered
-        or have_pumPriComHp)
+    if have_hp and not have_pumChiWatDedHp
     "CHW/HW supply (to primary loop)"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
@@ -502,8 +487,7 @@ annotation(defaultComponentName="pumPri",
           thickness=5,
           visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
                and nHp + nShc >= 1),
-    Line(
-          points={{1980,400},{1980,60}},
+    Line( points={{1980,400},{1980,60}},
           color={0,0,0},
           thickness=5,
           visible=nHp + nShc >= 1),
@@ -531,8 +515,7 @@ annotation(defaultComponentName="pumPri",
       have_pumHeaWatPriVar and nHp + nShc >= 1,
       extent={{2060,-50},{2160,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
-    Line(
-          points={{2000,-40},{2000,-400}},
+    Line( points={{2000,-40},{2000,-400}},
           color={0,0,0},
           thickness=5,
           visible=typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated

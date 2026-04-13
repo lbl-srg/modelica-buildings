@@ -68,7 +68,7 @@ model ValvesIsolationSHC
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumPriComHp=valIsoCom.have_pumPriComHp),
+      have_pumChiWatDedHp=valIsoCom.have_pumChiWatDedHp),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -127,7 +127,7 @@ model ValvesIsolationSHC
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumPriComHp=valIsoSep.have_pumPriComHp),
+      have_pumChiWatDedHp=valIsoSep.have_pumChiWatDedHp),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -208,7 +208,7 @@ model ValvesIsolationSHC
     final nShc=nShc,
     have_valHpInlIso=true,
     have_valHpOutIso=true,
-    have_pumPriComHp=true,
+    have_pumChiWatDedHp=false,
     final mHeaWatUni_flow_nominal=cat(1, fill(datHpShc.mHeaWatHp_flow_nominal,
         nHp), fill(datHpShc.mHeaWatShc_flow_nominal, nShc)),
     dpHeaWatUni_nominal=cat(1, fill(datHpShc.dpHeaWatHp_nominal, nHp), fill(
@@ -244,7 +244,7 @@ model ValvesIsolationSHC
     have_chiWat=true,
     have_valHpInlIso=true,
     have_valShcOutIso=true,
-    have_pumPriComHp=false,
+    have_pumChiWatDedHp=true,
     final mHeaWatUni_flow_nominal=cat(1, fill(datHpShc.mHeaWatHp_flow_nominal,
         nHp), fill(datHpShc.mHeaWatShc_flow_nominal, nShc)),
     dpHeaWatUni_nominal=cat(1, fill(datHpShc.dpHeaWatHp_nominal, nHp), fill(

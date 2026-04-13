@@ -110,8 +110,8 @@ record HeatPumpPlant
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation(Evaluate=true);
   // CHW loop
-  parameter Boolean have_pumPriComHp
-    "Set to true for HP with single dedicated primary pump serving both CHW and HW circuits"
+  parameter Boolean have_pumChiWatDedHp
+    "Set to true for HP with separate dedicated primary CHW pumps"
     annotation(Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriHp
     "Type of HP primary CHW pumps"
