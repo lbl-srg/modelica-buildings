@@ -40,6 +40,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.PID<br/>
+                       Buildings.Controls.OBC.CDL.Reals.PIDWithReset
+    </td>
+    <td valign=\"top\">Added value for <code>nominal</code> attribute of integrator state variable <code>I.y</code>.
+                       This was done to improve robustness in some models.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2106\">IBPSA #2106</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DXSystems</b>
     </td>
 </tr>
