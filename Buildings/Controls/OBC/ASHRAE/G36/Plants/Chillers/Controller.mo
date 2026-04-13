@@ -802,8 +802,8 @@ block Controller "Chiller plant controller"
     "Pressure difference hysteresis deadband"
     annotation (Dialog(tab="Advanced", group="Staging"));
 
-  parameter Real relFloDif=0.01
-    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
+  parameter Real relFloThr=0.95
+    "Relative flow rate to check if the flow has achieved setpoint"
     annotation (Dialog(tab="Advanced", group="Staging"));
 
   parameter Real speChe=0.01
@@ -1032,7 +1032,7 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{-140,-390},{-100,-350}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
-    "Vector of tower cell proven on status: true=running tower cell"
+    "Vector of tower cell proven on status: true=running tower cell. Note that the tower fan could be disabled"
     annotation(Placement(transformation(extent={{-940,-800},{-900,-760}}),
       iconTransformation(extent={{-140,-410},{-100,-370}})));
 
@@ -1419,7 +1419,7 @@ block Controller "Chiller plant controller"
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
     final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif,
+    final relFloThr=relFloThr,
     final desChiNum=desChiNum)
     "Staging down process controller"
     annotation(Placement(transformation(extent={{180,-300},{260,-140}})));
@@ -1452,7 +1452,7 @@ block Controller "Chiller plant controller"
     final have_twoPosEndSwiChiVal=have_twoPosEndSwiChiVal,
     final chaChiWatIsoTim=chaChiWatIsoTim,
     final proOnTim=proOnTim,
-    final relFloDif=relFloDif,
+    final relFloThr=relFloThr,
     final desChiNum=desChiNum)
     "Staging up process controller"
     annotation(Placement(transformation(extent={{180,280},{260,440}})));

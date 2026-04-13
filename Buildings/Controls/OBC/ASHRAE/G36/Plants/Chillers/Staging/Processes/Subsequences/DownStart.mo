@@ -43,8 +43,8 @@ block DownStart "Sequence for starting stage-down process"
   parameter Real proOnTim(unit="s")=300
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller"));
-  parameter Real relFloDif=0.05
-    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
+  parameter Real relFloThr=0.95
+    "Relative flow rate to check if the flow has achieved setpoint"
     annotation (Dialog(tab="Advanced", group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaDow
@@ -151,7 +151,7 @@ protected
     minBypRes(
     final byPasSetTim=byPasSetTim,
     final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif)
+    final relFloThr=relFloThr)
     "Slowly change the minimum flow bypass setpoint"
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl

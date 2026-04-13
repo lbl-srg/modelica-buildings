@@ -177,10 +177,10 @@ block Controller
     final unit="K") "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
-  CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
-    "Current condenser water pump status" annotation (Placement(transformation(
-          extent={{-200,-220},{-160,-180}}), iconTransformation(extent={{-240,-170},
-            {-200,-130}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatPum[nConWatPum]
+    "Current condenser water pump status"
+    annotation (Placement(transformation(extent={{-200,-220},{-160,-180}}),
+      iconTransformation(extent={{-240,-170},{-200,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatSup(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
