@@ -2,7 +2,7 @@ within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
 model HybridPlantControlModule
   "Validation model for 4-pipe ASHP integration block"
 
-  Buildings.Templates.Plants.Controls.HeatPumps.HybridPlantControlModule
+  Buildings.Templates.Plants.Controls.StagingRotation.HybridOperation
     ctl(
     final have_heaWat=true,
     final have_chiWat=true,
@@ -115,8 +115,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.HybridPlantControlModule\">
-Buildings.Templates.Plants.Controls.HeatPumps.HybridPlantControlModule</a>
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.HybridOperation\">
+Buildings.Templates.Plants.Controls.StagingRotation.HybridOperation</a>
 in a configuration with two equally sized lead/lag alternate
 2-pipe air-source heat pumps and a 4-pipe air-source heat pump, which can operate
 in one of heating-only, cooling-only, or heating-cooling modes.

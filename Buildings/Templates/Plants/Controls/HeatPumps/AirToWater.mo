@@ -1691,7 +1691,7 @@ block AirToWater
     if have_chiWat and have_fouPip
     "Combine primary pump signals for 4-pipe HP with primary pump signals for other HPs in cooling mode"
     annotation (Placement(transformation(extent={{-80,-450},{-60,-430}})));
-  HybridPlantControlModule ctlPlaHyb(
+  StagingRotation.HybridOperation ctlPlaHyb(
     final have_heaWat=have_heaWat,
     final have_sorRunTim=have_sorRunTim,
     final have_chiWat=have_chiWat,

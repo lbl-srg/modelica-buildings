@@ -1,5 +1,5 @@
-within Buildings.Templates.Plants.Controls.HeatPumps;
-block HybridPlantControlModule
+within Buildings.Templates.Plants.Controls.StagingRotation;
+block HybridOperation
   "Controller for additional calculations required for hybrid plant with modular
   2-pipe ASHPs and 4-pipe ASHP"
 
@@ -569,4 +569,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HybridPlantControlModule;
+end HybridOperation;
