@@ -13,8 +13,10 @@
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css?v=0cb5a744" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css?v=18a45976" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css?v=b7c6d2d5" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=ed534ff7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=1cc63dce" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css?v=eb9de370" />
+    <script src="_static/jquery.js?v=5d32c60e"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
     <script src="_static/documentation_options.js?v=d45e8c67"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -67,10 +69,11 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.2. Running the First Simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.4. Literature for Developers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#training-videos">1.2. Training Videos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.3. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.4. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.5. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.6. References</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. Best Practice</a><ul>
@@ -96,7 +99,8 @@
 <li class="toctree-l2"><a class="reference internal" href="development.html#guidelines-for-contributions">5.2. Guidelines for contributions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="development.html#style-guide">5.3. Style guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.4. Adding a new class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#validation-and-unit-tests">5.5. Validation and unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#hvac-and-control-templates">5.5. HVAC and control templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#validation-and-unit-tests">5.6. Validation and unit tests</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
@@ -104,35 +108,6 @@
 <li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">8. Acknowledgments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="disclaimer.html">9. Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
-</ul>
-</ul>
-</li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">2. Best Practice</a><ul>
-<li><a class="reference internal" href="#organization-of-packages">2.1. Organization of packages</a></li>
-<li><a class="reference internal" href="#building-large-system-models">2.2. Building large system models</a></li>
-<li><a class="reference internal" href="#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
-<li><a class="reference internal" href="#thermo-fluid-systems">2.4. Thermo-fluid systems</a><ul>
-<li><a class="reference internal" href="#overdetermined-initialization-problem-and-inconsistent-equations">2.4.1. Overdetermined initialization problem and inconsistent equations</a></li>
-<li><a class="reference internal" href="#modeling-of-fluid-junctions">2.4.2. Modeling of fluid junctions</a></li>
-<li><a class="reference internal" href="#use-of-sensors-in-fluid-flow-systems">2.4.3. Use of sensors in fluid flow systems</a></li>
-<li><a class="reference internal" href="#reference-pressure-for-incompressible-fluids-such-as-water">2.4.4. Reference pressure for incompressible fluids such as water</a></li>
-<li><a class="reference internal" href="#nominal-values">2.4.5. Nominal Values</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#controls">2.5. Controls</a></li>
-<li><a class="reference internal" href="#start-values-of-iteration-variables">2.6. Start values of iteration variables</a></li>
-</ul>
-</li>
 </ul>
 </ul>
 </li>
@@ -248,9 +223,9 @@ the development of the <cite>Buildings</cite> library, as described in the secti
 <p>When creating a large system model, it is typically easier to build the system model
 through the composition of subsystem models that can be tested in isolation. For example,
 the package
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples">Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples">Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples</a>
 contains small test models that are used to test individual components in the large system model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant">Buildings.Examples.ChillerPlant</a>.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant">Buildings.Examples.ChillerPlant</a>.
 Creating small test models typically saves time as the proper response of controls, and the proper operation of subsystems, can be tested in isolation of complex system-interactions that are often present in large models.</p>
 </section>
 <section id="propagating-parameters-and-media-packages">
@@ -299,8 +274,8 @@ a drop-down menu with all medium models that extend from <code class="docutils l
 <p>We will now explain how state variables, such as temperature and pressure, can be initialized.</p>
 <p>Consider a model consisting of a mass flow source <code class="docutils literal notranslate"><span class="pre">Modelica.Fluid.Sources.MassFlowSource_T</span></code>, a fluid volume <code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.MixingVolumes.MixingVolume</span></code> and
 a fixed boundary condition <code class="docutils literal notranslate"><span class="pre">Buildings.Fluid.Sources.Boundary_pT</span></code>,
-connected in series as shown in the figure below. Note that the instance <code class="docutils literal notranslate"><span class="pre">bou</span></code>
-implements an equation that sets the medium pressure at its port, i.e., the port pressure <code class="docutils literal notranslate"><span class="pre">bou.ports.p</span></code> is fixed.</p>
+connected in series as shown in the figure below. Note that the instance <code class="docutils literal notranslate"><span class="pre">sin</span></code>
+implements an equation that sets the medium pressure at its port, i.e., the port pressure <code class="docutils literal notranslate"><span class="pre">sin.ports.p</span></code> is fixed.</p>
 <figure class="align-default" id="id9">
 <a class="reference internal image-reference" href="_images/MixingVolumeInitialization.svg"><img alt="_images/MixingVolumeInitialization.svg" src="_images/MixingVolumeInitialization.svg" style="width: 300px;" />
 </a>
@@ -504,9 +479,9 @@ a fluid port represents the physical phenomena that was intended to model.</p>
 </figure>
 <p>However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix.
 This may be achieved by using an instance of the model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction">Junction</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction">Junction</a>
 as shown in the left figure below, which is derived from the test model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop">BoilerPolynomialClosedLoop</a></p>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop">BoilerPolynomialClosedLoop</a></p>
 <figure class="align-default" id="id11">
 <span id="fig-flu-cor-wro"></span><a class="reference internal image-reference" href="_images/fluidJunctionMixingSplitter.svg"><img alt="_images/fluidJunctionMixingSplitter.svg" src="_images/fluidJunctionMixingSplitter.svg" style="width: 1200px;" />
 </a>
@@ -516,7 +491,7 @@ as shown in the left figure below, which is derived from the test model
 </figure>
 <p>In <a class="reference internal" href="#fig-flu-cor-wro"><span class="std std-numref">Fig. 2.3</span></a> (a), the mixing points have been correctly defined by
 use of the model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction">Junction</a>.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction">Junction</a>.
 However, in <a class="reference internal" href="#fig-flu-cor-wro"><span class="std std-numref">Fig. 2.3</span></a> (b), all connections are made to the port of the instance <code class="docutils literal notranslate"><span class="pre">spl2</span></code>.
 This results in the same configuration as is shown in <a class="reference internal" href="#fig-flu-cor-wro"><span class="std std-numref">Fig. 2.3</span></a> (c).
 This is certainly not the intention of the modeler, as this causes all flows to be mixed in the port.
@@ -531,13 +506,13 @@ which will remove the pressure drop equation.</p>
 <p>When selecting a sensor model, a distinction needs to be made whether the measured quantity depends on
 the direction of the flow or not. If the quantity depends on the flow direction,
 such as temperature or relative humidity, then sensors with two ports from the
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>
 library should be used. These sensors have a more efficient implementation than sensors with
 one port for situations where the flow reverses its direction.
 The proper use sensors is described in the
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Sensors_UsersGuide.html">User’s Guide</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sensors_UsersGuide.html">User’s Guide</a>
 of the
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors">Buildings.Fluid.Sensors</a>
 package.</p>
 </section>
 <section id="reference-pressure-for-incompressible-fluids-such-as-water">
@@ -545,9 +520,9 @@ package.</p>
 <p>This section explains how to set a reference pressure for fluids that model
 the flow as <a class="reference internal" href="glossary.html#term-incompressible-flow"><span class="xref std std-term">incompressible flow</span></a>,
 such as
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Media_Water.html#Buildings.Media.Water">Buildings.Media.Water</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Media_Water.html#Buildings.Media.Water">Buildings.Media.Water</a>
 and
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Media_Antifreeze_PropyleneGlycolWater.html#Buildings.Media.Antifreeze.PropyleneGlycolWater">Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.</p>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Media_Antifreeze_PropyleneGlycolWater.html#Buildings.Media.Antifreeze.PropyleneGlycolWater">Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.</p>
 <p>Consider the flow circuit shown in <a class="reference internal" href="#fig-flow-cir"><span class="std std-numref">Fig. 2.4</span></a> that consists of a pump or fan,
 a flow resistance and a volume.</p>
 <figure class="align-default" id="id12">
@@ -575,7 +550,7 @@ The number of scalar Real equation elements are 58.
 </pre></div>
 </div>
 <p>Similarly, if the medium model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity">Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>,
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity">Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>,
 which models density as a function of pressure and enthalpy, is used, then
 the model is well-defined, but the pressure increases the longer the pump runs.
 The reason is that the pump adds heat to the water. When the water temperature
@@ -584,7 +559,7 @@ the pressure increases from <span class="math notranslate nohighlight">\(1 \, \m
 <p>To avoid this singularity or increase in pressure,
 use a model that imposes a pressure source and that accounts for the expansion of the fluid.
 For example, use
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>
 to form the system model shown in <a class="reference internal" href="#fig-flow-cir-wit-bou"><span class="std std-numref">Fig. 2.5</span></a>.</p>
 <figure class="align-default" id="id13">
 <span id="fig-flow-cir-wit-bou"></span><a class="reference internal image-reference" href="_images/flowCircuitWithBoundary.svg"><img alt="_images/flowCircuitWithBoundary.svg" src="_images/flowCircuitWithBoundary.svg" style="width: 400pt;" />
@@ -595,24 +570,24 @@ provides a reference presssure.</span><a class="headerlink" href="#id13" title="
 </figcaption>
 </figure>
 <p>Alternatively, you may use
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>,
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>,
 but
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>
 usually leads to simpler equations than
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>.
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>.
 Note that the medium that flows out of the fluid port of
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>
 is at a fixed temperature, while the model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>
 conserves energy.
 However, since the thermal expansion of the fluid is usually small,
 this effect can be neglected in most building HVAC applications.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In each water circuit, there must be exactly on instance of
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>,
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT">Buildings.Fluid.Sources.Boundary_pT</a>,
 or instance of
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>.</p>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>.</p>
 <p>If there is more than one such device, then there are multiple
 points in the system that set the reference static pressure.
 This will affect the distribution of the mass flow rate.</p>
@@ -662,7 +637,7 @@ parameters in various model to help the user understand how they are used.</p>
 <td><p>These parameters may be used to define a point on the flow rate
 versus pressure drop curve. For other mass flow rates, the pressure drop
 is typically adjusted using similarity laws.
-See <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">PressureDrop</a>.</p></td>
+See <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.PressureDrop">PressureDrop</a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">m_flow_nominal</span></code>
 <code class="docutils literal notranslate"><span class="pre">m_flow_small</span></code></p></td>
@@ -714,7 +689,7 @@ gives the specified time response. For most components,
 engineering experience can be used to estimate a
 reasonable value for <code class="docutils literal notranslate"><span class="pre">tau</span></code>, and where generally applicable values
 can be used, components already set a default value for <code class="docutils literal notranslate"><span class="pre">tau.</span></code>
-See for example <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilDiscretized">WetCoilDiscretized</a>.</p>
+See for example <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.WetCoilDiscretized">WetCoilDiscretized</a>.</p>
 </td>
 </tr>
 </tbody>
@@ -838,7 +813,6 @@ These start values can be overwritten in the model.</p>
     </p>
   </div>
 </footer>
-  <script type="text/javascript" src="_static/dropdown-fix.js"></script>
 
   </body>
 </html>
