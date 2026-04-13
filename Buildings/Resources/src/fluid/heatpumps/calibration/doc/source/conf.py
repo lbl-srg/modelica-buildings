@@ -28,7 +28,9 @@ sys.path.append(os.path.abspath('.'))
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.autodoc', 'sphinx.ext.pngmath']
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.mathjax']
+extensions = ['sphinx.ext.autodoc',
+              'sphinx.ext.mathjax',
+              'sphinxcontrib.jquery']
 # mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
 mathjax_path = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
@@ -143,7 +145,7 @@ html_theme_options = {
     'navbar_sidebarrel': True,
 
     # Render the current pages TOC in the navbar. (Default: true)
-    'navbar_pagenav': True,
+    'navbar_pagenav': False,
 
     # Tab name for the current pages TOC. (Default: "Page")
     'navbar_pagenav_name': "Page",
@@ -230,8 +232,10 @@ html_css_files = [
 # typographically correct entities.
 #html_use_smartypants = True
 
-# Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+# Remove the sidebars on all pages
+#html_sidebars = {
+#    '**': []
+#}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
