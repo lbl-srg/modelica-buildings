@@ -63,14 +63,6 @@ body{
   vertical-align: middle;
 }
 
-/* Scale down logo on narrow screens */
-@media (max-width: 768px) {
-  .navbar-logo {
-    max-height: 45px;
-    height: 45px;
-    margin-right: 15px;
-  }
-}
 
 .navbar .navbar-nav{
   background: #f8f8f8;
@@ -377,3 +369,13 @@ table.citation{
 }
 /* End stylesheet from main web site -------------------- */
 /* ------------------------------------------------------ */
+
+
+/* Fix mobile dropdown expansion for globaltoc's nested <ul> */
+@media (max-width: 767px) {
+  .navbar-logo {
+    max-height: 45px;
+    height: 45px;
+    margin-right: 15px;
+  }
+}
