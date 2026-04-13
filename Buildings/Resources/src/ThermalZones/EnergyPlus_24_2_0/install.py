@@ -138,10 +138,10 @@ def replace_table_in_mo(html, varType, moFile, spawn_dir):
 
     mo_name = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
-        os.pardir, 
-        os.pardir, 
-        os.pardir, 
-        os.pardir
+        os.pardir,
+        os.pardir,
+        os.pardir,
+        os.pardir,
         "ThermalZones",
         "EnergyPlus_{}".format(energyPlus_version_dash),
         moFile,
