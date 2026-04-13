@@ -22,9 +22,10 @@ model MixingVolumeZeroFlow
         Medium) "Sink"
     annotation (Placement(transformation(extent={{40,-44},{20,-24}})));
   Modelica.Blocks.Sources.Ramp ramp_m_flow(
-    height=-1,
+    height(unit="kg/s") = -1,
     duration=1,
-    offset=1) "Mass flow rate ramp input"
+    offset(unit="kg/s") = 1,
+    y(unit="kg/s")) "Mass flow rate ramp input"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea2
     "Prescribed heat flow"
@@ -103,16 +104,16 @@ model MixingVolumeZeroFlow
     use_T_in=true) "Source"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Math.Gain reaPasThr(
-    final k=1,
+    final k(unit="W.s/kg")=1,
     u(unit="kg/s"),
     y(unit="W"))
     "Real pass through for unit conversion"
     annotation (Placement(transformation(extent={{-66,74},{-54,86}})));
 equation
   connect(sou2.ports[1], volNonLinSys.ports[1]) annotation (Line(points={{-40,-22},
-          {-40,-20},{-2,-20}}, color={0,127,255}));
-  connect(volNonLinSys.ports[2], sin.ports[1]) annotation (Line(points={{2,-20},
-          {2,-20},{20,-20},{20,-31}},
+          {-40,-20},{-1,-20}}, color={0,127,255}));
+  connect(volNonLinSys.ports[2], sin.ports[1]) annotation (Line(points={{1,-20},
+          {1,-20},{20,-20},{20,-35.5}},
                                     color={0,127,255}));
   connect(reaExp.y, preHea2.Q_flow) annotation (Line(points={{-45.4,60},{-45.4,
           60},{-40,60}},
@@ -120,16 +121,17 @@ equation
   connect(preTem.T, cos1.y) annotation (Line(points={{-57.2,40},{-57.2,40},{
           -63.4,40}}, color={0,0,127}));
   connect(volT.ports[1],sou3. ports[1])
-    annotation (Line(points={{-2,-50},{-2,-50},{-40,-50}}, color={0,127,255}));
+    annotation (Line(points={{-1,-50},{-1,-50},{-40,-50}}, color={0,127,255}));
   connect(volT.ports[2], sin.ports[2])
-    annotation (Line(points={{2,-50},{20,-50},{20,-33}}, color={0,127,255}));
+    annotation (Line(points={{1,-50},{20,-50},{20,-34.5}},
+                                                         color={0,127,255}));
   connect(volT.heatPort, preTem.port) annotation (Line(points={{-10,-40},{-18,
           -40},{-18,40},{-44,40}},
                               color={191,0,0}));
   connect(sou4.ports[1], volLinSys.ports[1])
-    annotation (Line(points={{-40,-90},{-2,-90}}, color={0,127,255}));
-  connect(volLinSys.ports[2], sin.ports[3]) annotation (Line(points={{2,-90},{
-          20,-90},{20,-35}},   color={0,127,255}));
+    annotation (Line(points={{-40,-90},{-1,-90}}, color={0,127,255}));
+  connect(volLinSys.ports[2], sin.ports[3]) annotation (Line(points={{1,-90},{20,
+          -90},{20,-33.5}},    color={0,127,255}));
   connect(theRes.port_a, volLinSys.heatPort)
     annotation (Line(points={{-22,-74},{-22,-80},{-10,-80}}, color={191,0,0}));
   connect(theRes.port_b, preTem.port)
@@ -139,10 +141,11 @@ equation
                                               color={191,0,0}));
   connect(volQflow.heatPort, preHea1.port)
     annotation (Line(points={{-10,20},{-10,80},{-20,80}}, color={191,0,0}));
-  connect(sou1.ports[1], volQflow.ports[1]) annotation (Line(points={{-40,10},{
-          -28,10},{-2,10}},      color={0,127,255}));
+  connect(sou1.ports[1], volQflow.ports[1]) annotation (Line(points={{-40,10},{-1,
+          10},{-1,10}},          color={0,127,255}));
   connect(volQflow.ports[2], sin.ports[4])
-    annotation (Line(points={{2,10},{20,10},{20,-37}}, color={0,127,255}));
+    annotation (Line(points={{1,10},{20,10},{20,-32.5}},
+                                                       color={0,127,255}));
   connect(ramp_m_flow.y, sou1.m_flow_in) annotation (Line(points={{-79,-10},{
           -72,-10},{-72,18},{-62,18}},
                                    color={0,0,127}));
