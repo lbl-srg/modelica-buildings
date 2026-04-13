@@ -100,7 +100,7 @@ model AirToWater
     have_senTHeaWatPriRet_select=false,
     have_senTChiWatPriRet_select=false,
     nHp=2,
-    have_fouPip=true,
+    have_HpShc=true,
     nPumChiWatPri=ctl1.nHp,
     have_senDpHeaWatRemWir=false,
     nSenDpHeaWatRem=1,
@@ -684,23 +684,21 @@ equation
   connect(y1Hp_actual1[1:ctl1.nHp].y1_actual, ctl1.u1Hp_actual) annotation (
       Line(points={{232,60},{240,60},{240,76},{140,76},{140,46},{146,46}},
         color={255,0,255}));
-  connect(y1Hp_actual1[ctl1.nHp + 1].y1_actual, ctl1.u1HpFouPip_actual)
+  connect(y1Hp_actual1[ctl1.nHp + 1].y1_actual, ctl1.u1HpShc_actual)
     annotation (Line(points={{232,60},{240,60},{240,76},{140,76},{140,44},{146,44}},
-                color={255,0,255}));
-  connect(ctl1.y1HpFouPip, y1Hp_actual1[ctl1.nHpTot].y1) annotation (Line(
-        points={{190,55},{200,55},{200,60},{210,60}}, color={255,0,255}));
-  connect(ctl1.y1PumHeaWatPriFouPip, y1PumHeaWatPriFouPip_actual1.y1)
-    annotation (Line(points={{190,-25},{208,-25},{208,-50},{218,-50}}, color={
-          255,0,255}));
-  connect(ctl1.y1PumChiWatPriFouPip, y1PumChiWatPriFouPip_actual1.y1)
-    annotation (Line(points={{190,-27},{206,-27},{206,-80},{218,-80}}, color={
-          255,0,255}));
-  connect(y1PumHeaWatPriFouPip_actual1.y1_actual, ctl1.u1PumHeaWatPriFouPip_actual)
-    annotation (Line(points={{242,-50},{280,-50},{280,96},{128,96},{128,38},{
-          146,38}}, color={255,0,255}));
-  connect(y1PumChiWatPriFouPip_actual1.y1_actual, ctl1.u1PumChiWatPriFouPip_actual)
-    annotation (Line(points={{242,-80},{284,-80},{284,100},{116,100},{116,36},{
-          146,36}}, color={255,0,255}));
+        color={255,0,255}));
+  connect(ctl1.y1HpShc, y1Hp_actual1[ctl1.nHpTot].y1) annotation (Line(points={{
+          190,55},{200,55},{200,60},{210,60}}, color={255,0,255}));
+  connect(ctl1.y1PumHeaWatPriShc, y1PumHeaWatPriFouPip_actual1.y1) annotation (
+      Line(points={{190,-25},{208,-25},{208,-50},{218,-50}}, color={255,0,255}));
+  connect(ctl1.y1PumChiWatPriShc, y1PumChiWatPriFouPip_actual1.y1) annotation (
+      Line(points={{190,-27},{206,-27},{206,-80},{218,-80}}, color={255,0,255}));
+  connect(y1PumHeaWatPriFouPip_actual1.y1_actual, ctl1.u1PumHeaWatPriShc_actual)
+    annotation (Line(points={{242,-50},{280,-50},{280,96},{128,96},{128,38},{146,
+          38}}, color={255,0,255}));
+  connect(y1PumChiWatPriFouPip_actual1.y1_actual, ctl1.u1PumChiWatPriShc_actual)
+    annotation (Line(points={{242,-80},{284,-80},{284,100},{116,100},{116,36},{146,
+          36}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=

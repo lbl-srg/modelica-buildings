@@ -74,7 +74,7 @@ model HybridAirToWater "Validation of AWHP plant template"
       origin={-210,-20})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
-    cfg(have_fouPip=true),
+    cfg(have_HpShc=true),
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     typTanHeaWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
     typTanChiWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -260,7 +260,7 @@ model HybridAirToWater "Validation of AWHP plant template"
     dp_nominal={0,0,0})
     "Primary CHW return junction between 2-pipe and 4-pipe ASHPs"
     annotation (Placement(transformation(extent={{-90,-50},{-110,-30}})));
-  Buildings.Templates.Components.Pumps.Single pumHWFouPip(
+  Buildings.Templates.Components.Pumps.Single pumHWHpShc(
     have_var=false,
     have_valChe=true,
     redeclare package Medium = Medium,
@@ -269,9 +269,9 @@ model HybridAirToWater "Validation of AWHP plant template"
       dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
       per=datAll.pla.pumHeaWatPri.per[1]),
     dpValChe_nominal=3.25*Buildings.Templates.Data.Defaults.dpValChe)
-                                           "HW primary pump for 4-pipe ASHP"
+    "HW primary pump for SHC HP"
     annotation (Placement(transformation(extent={{-130,-200},{-110,-180}})));
-  Buildings.Templates.Components.Pumps.Single pumCHWFouPip(
+  Buildings.Templates.Components.Pumps.Single pumCHWHpShc(
     have_var=false,
     have_valChe=true,
     redeclare package Medium = Medium,
@@ -280,7 +280,7 @@ model HybridAirToWater "Validation of AWHP plant template"
       dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
       per=datAll.pla.pumHeaWatPri.per[1]),
     dpValChe_nominal=12*Buildings.Templates.Data.Defaults.dpValChe)
-                                           "CHW primary pump for 4-pipe ASHP"
+    "CHW primary pump for SHC HP"
     annotation (Placement(transformation(extent={{-60,-210},{-80,-190}})));
   Fluid.FixedResistances.Junction junCHWBypSup(
     redeclare package Medium = Medium,
@@ -493,48 +493,22 @@ equation
       points={{-200,-20},{-190,-20},{-190,-146},{-100,-146},{-100,-180}},
       color={255,204,51},
       thickness=0.5));
-  connect(busPla.hpFouPip, hpSHC.bus) annotation (Line(
-      points={{-180,0},{-180,-42},{-186,-42},{-186,-136},{-94,-136},{-94,-180}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(pla.port_bChiWat, junCHWPriSup.port_1) annotation (Line(points={{-140,
           -56},{-134,-56},{-134,0},{-110,0}},    color={0,127,255}));
   connect(hpSHC.port_bSou, junCHWPriSup.port_3) annotation (Line(points={{-104,-200},
           {-136,-200},{-136,-20},{-100,-20},{-100,-10}},     color={0,127,255}));
   connect(junCHWPriRet.port_2, pla.port_aChiWat) annotation (Line(points={{-110,
           -40},{-130,-40},{-130,-64},{-140,-64}}, color={0,127,255}));
-  connect(hpSHC.port_a, pumHWFouPip.port_b)
-    annotation (Line(points={{-104,-190},{-110,-190}},
-                                                     color={0,127,255}));
-  connect(junHWPriRet.port_3, pumHWFouPip.port_a) annotation (Line(points={{-100,
-          -130},{-130,-130},{-130,-190}},            color={0,127,255}));
+  connect(hpSHC.port_a, pumHWHpShc.port_b)
+    annotation (Line(points={{-104,-190},{-110,-190}}, color={0,127,255}));
+  connect(junHWPriRet.port_3, pumHWHpShc.port_a) annotation (Line(points={{-100,
+          -130},{-130,-130},{-130,-190}}, color={0,127,255}));
   connect(hpSHC.port_b, junHWPriSup.port_3) annotation (Line(points={{-84,-190},
           {-78,-190},{-78,-100},{-100,-100},{-100,-90}},color={0,127,255}));
-  connect(hpSHC.port_aSou, pumCHWFouPip.port_b)
+  connect(hpSHC.port_aSou, pumCHWHpShc.port_b)
     annotation (Line(points={{-84,-200},{-80,-200}}, color={0,127,255}));
-  connect(pumCHWFouPip.port_a, junCHWPriRet.port_3) annotation (Line(points={{-60,
-          -200},{0,-200},{0,-56},{-100,-56},{-100,-50}},         color={0,127,
-          255}));
-  connect(busPla.pumFouPipHeaWatPri, pumHWFouPip.bus) annotation (Line(
-      points={{-180,0},{-180,-42},{-186,-42},{-186,-136},{-120,-136},{-120,-180}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(busPla.pumFouPipChiWatPri, pumCHWFouPip.bus) annotation (Line(
-      points={{-180,0},{-180,-42},{-186,-42},{-186,-136},{-70,-136},{-70,-190}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(pumCHWHpShc.port_a, junCHWPriRet.port_3) annotation (Line(points={{-60,
+          -200},{0,-200},{0,-56},{-100,-56},{-100,-50}}, color={0,127,255}));
   connect(junCHWBypRet.port_3, junCHWBypSup.port_3)
     annotation (Line(points={{-14,-30},{-14,-20},{-24,-20},{-24,-10}},
                                                color={0,127,255}));
@@ -630,6 +604,30 @@ equation
         color={0,0,127}), Text(
       string="%second",
       index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busPla.hpShc, hpSHC.bus) annotation (Line(
+      points={{-180,0},{-180,-42},{-186,-42},{-186,-140},{-94,-140},{-94,-180}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busPla.pumShcHeaWatPri, pumHWHpShc.bus) annotation (Line(
+      points={{-180,0},{-180,-42},{-186,-42},{-186,-140},{-120,-140},{-120,-180}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busPla.pumShcChiWatPri, pumCHWHpShc.bus) annotation (Line(
+      points={{-180,0},{-180,-42},{-186,-42},{-186,-140},{-70,-140},{-70,-190}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (

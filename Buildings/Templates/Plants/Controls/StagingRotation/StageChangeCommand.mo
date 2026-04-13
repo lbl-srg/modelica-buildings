@@ -3,7 +3,7 @@ block StageChangeCommand "Generate stage change command"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
-  parameter Boolean have_fouPip=false
+  parameter Boolean have_HpShc=false
     "True: The logic block is used in a hybrid heat pump plant"
     annotation (Evaluate=true);
   parameter Boolean have_pumSec
@@ -27,7 +27,7 @@ block StageChangeCommand "Generate stage change command"
     start=fill(0,nSta,nEqu))
     "Staging matrix for non-hybrid plant – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=not have_fouPip));
+      Dialog(enable=not have_HpShc));
 
   parameter Real staEquSinMod[nSta,nEqu](
     each unit="1",
@@ -36,7 +36,7 @@ block StageChangeCommand "Generate stage change command"
     start=fill(0,nSta,nEqu))
     "Staging matrix for hybrid plant in single-operation mode – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=have_fouPip));
+      Dialog(enable=have_HpShc));
 
   parameter Real staEquDouMod[nSta,nEqu](
     each unit="1",
@@ -45,7 +45,7 @@ block StageChangeCommand "Generate stage change command"
     start=fill(0,nSta,nEqu))
     "Staging matrix for hybrid plant in heating-cooling mode – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=have_fouPip));
+      Dialog(enable=have_HpShc));
 
   final parameter Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix for non-hybrid plant"
@@ -248,22 +248,27 @@ block StageChangeCommand "Generate stage change command"
     final rho_default=rho_default,
     final dtMea=dtMea) "Compute required capacity"
     annotation (Placement(transformation(extent={{-170,-110},{-150,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPriSup(final unit="K",
-      displayUnit="degC") "Primary supply temperature" annotation (Placement(
-        transformation(extent={{-240,-40},{-200,0}}), iconTransformation(extent={{-140,
-            -40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecSup(final unit="K",
-      displayUnit="degC") if have_pumSec
-                          "Secondary supply temperature" annotation (Placement(
-        transformation(extent={{-240,-60},{-200,-20}}), iconTransformation(
-          extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPriSup(
+    final unit="K",
+    displayUnit="degC")
+    "Primary supply temperature"
+    annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecSup(
+    final unit="K",
+    displayUnit="degC") if have_pumSec
+    "Secondary supply temperature"
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   FailsafeCondition faiSaf(
     final typ=typ,
     final have_pumSec=have_pumSec,
     final dT=dT,
     final dtPri=dtPri,
-    final dtSec=dtSec) "Failsafe stage up condition "
+    final dtSec=dtSec)
+    "Failsafe stage up condition "
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or  effOrFaiSaf
     "Efficiency OR failsafe condition met"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
@@ -274,31 +279,31 @@ block StageChangeCommand "Generate stage change command"
     "Efficiency condition met AND failsafe stage up condition is not true"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
-    final k=traStaEquDouMod) if have_fouPip
+    final k=traStaEquDouMod) if have_HpShc
     "Constant signal for tranverse of staging equation matrix in heating-cooling mode"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
-    final k=traStaEquSinMod) if have_fouPip
+    final k=traStaEquSinMod) if have_HpShc
     "Constant signal for tranverse of staging equation matrix in single-operation mode"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta] if have_fouPip
+  Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta] if have_HpShc
     "Switch between transverse matrices for heating-cooling mode and single-operation mode"
     annotation (Placement(transformation(extent={{32,20},{52,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
-    final k=traStaEqu) if not have_fouPip
+    final k=traStaEqu) if not have_HpShc
     "Constant signal for tranverse of staging equation matrix in non-hybrid plants"
     annotation (Placement(transformation(extent={{32,-20},{52,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_fouPip
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_HpShc
     "Detect plant switching to heating-cooling mode"
     annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCol(
-    final nout=nSta) if have_fouPip
+    final nout=nSta) if have_HpShc
     "Replicate heating-cooling signal to match number of columns"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
     final nin=nSta,
-    final nout=nEqu) if have_fouPip
+    final nout=nEqu) if have_HpShc
     "Replicate heating-cooling signal vector to match number of rows"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 equation

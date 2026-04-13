@@ -1,5 +1,5 @@
-within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
-model HybridPlantControlModule
+within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
+model HybridOperation
   "Validation model for 4-pipe ASHP integration block"
 
   Buildings.Templates.Plants.Controls.StagingRotation.HybridOperation
@@ -7,9 +7,9 @@ model HybridPlantControlModule
     final have_heaWat=true,
     final have_chiWat=true,
     final nHp=3,
-    final is_fouPip={false,false,true},
-    final staEquCooHea=[0,0,1; 1/2,1/2,1; 1,1,1],
-    final staEquOneMod=[1/2,1/2,0; 1,1,0; 1,1,1],
+    final is_HpShc=[false; false; true],
+    final staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1],
+    final staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1],
     final idxEquAlt={1,2})
     "Integration block"
     annotation (Placement(transformation(extent={{-10,-14},{10,14}})));
@@ -42,30 +42,27 @@ protected
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
 equation
-  connect(booPul.y, ctl.u1Hp[3]) annotation (Line(points={{-58,-40},{-26,-40},{
-          -26,0},{-22,0},{-22,2.66667},{-12,2.66667}},
-                                                   color={255,0,255}));
+  connect(booPul.y, ctl.u1Hp[3]) annotation (Line(points={{-58,-40},{-26,-40},{-26,
+          0},{-22,0},{-22,2.66667},{-12,2.66667}}, color={255,0,255}));
   connect(con.y, ctl.u1Hp[1]) annotation (Line(points={{-58,-10},{-22,-10},{-22,
           1.33333},{-12,1.33333}},
                     color={255,0,255}));
   connect(con.y, ctl.uMod[1]) annotation (Line(points={{-58,-10},{-26,-10},{-26,
           -2.66667},{-12,-2.66667}},color={255,0,255}));
-  connect(con.y, ctl.u1EnaHea) annotation (Line(points={{-58,-10},{-22,-10},{
-          -22,2},{-20,2},{-20,6},{-12,6}},
-                                       color={255,0,255}));
+  connect(con.y, ctl.u1EnaHea) annotation (Line(points={{-58,-10},{-16,-10},{-16,
+          6},{-12,6}},                 color={255,0,255}));
   connect(booPul.y, not1.u) annotation (Line(points={{-58,-40},{-50,-40},{-50,
           -60},{-42,-60}},
                       color={255,0,255}));
   connect(not1.y, ctl.uMod[2]) annotation (Line(points={{-18,-60},{-10,-60},{-10,
           -18},{-20,-18},{-20,-2},{-12,-2}}, color={255,0,255}));
-  connect(booPul.y, ctl.uMod[3]) annotation (Line(points={{-58,-40},{-26,-40},{
-          -26,-1.33333},{-12,-1.33333}},
-                                     color={255,0,255}));
+  connect(booPul.y, ctl.uMod[3]) annotation (Line(points={{-58,-40},{-26,-40},{-26,
+          -1.33333},{-12,-1.33333}}, color={255,0,255}));
   connect(con.y, ctl.u1PumPriHea[1]) annotation (Line(points={{-58,-10},{-22,
           -10},{-22,-10.6667},{-12,-10.6667}},
                                           color={255,0,255}));
-  connect(booPul.y, ctl.u1PumPriHea[3]) annotation (Line(points={{-58,-40},{-24,
-          -40},{-24,-9.33333},{-12,-9.33333}}, color={255,0,255}));
+  connect(booPul.y, ctl.u1PumPriHea[3]) annotation (Line(points={{-58,-40},{-26,
+          -40},{-26,-9.33333},{-12,-9.33333}}, color={255,0,255}));
   connect(not1.y, ctl.u1Hp[2]) annotation (Line(points={{-18,-60},{-10,-60},{-10,
           -18},{-20,-18},{-20,2},{-12,2}}, color={255,0,255}));
   connect(not1.y, ctl.u1PumPriHea[2]) annotation (Line(points={{-18,-60},{-10,-60},
@@ -79,7 +76,7 @@ equation
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Validation/HybridPlantControlModule.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/HybridOperation.mos"
         "Simulate and plot"),
     experiment(
       StopTime=3600,
@@ -132,13 +129,13 @@ into simultaneous heating and cooling.
 <li>
 In the first plot, when the 4-pipe ASHP is initially enabled <code>u1Hp[3]</code> in
 heating mode, as indicated by <code>uMod[3]</code>, it is operated in heating-only
-mode and the appropriate integer signal is output by <code>yMod[3]=2</code>. At that
+mode and the appropriate integer signal is output by <code>yMod[3]=1</code>. At that
 instant, the 4-pipe ASHP is no longer available for future staging in heating mode
-(<code>yAvaFouPipHea[3]=false</code>), but continues to be available for future cooling
-mode staging (<code>yAvaFouPipCoo[3]=true</code>). When the cooling plant is finally
+(<code>yAvaHpShcHea[3]=false</code>), but continues to be available for future cooling
+mode staging (<code>yAvaHpShcCoo[3]=true</code>). When the cooling plant is finally
 enabled (<code>u1EnaCoo=true</code>), the 4-pipe ASHP is ooperated in heating-cooling mode
 <code>yMod[3]=3</code> and is no longer available for cooling mode staging
-(<code>yAvaFouPipCoo[3]=false</code>).
+(<code>yAvaHpShcCoo[3]=false</code>).
 </li>
 <li>
 Similarly, in the second plot, the primary chilled water pump is enabled alongwith
@@ -147,4 +144,4 @@ operates in simultaneous heating and cooling mode (<code>yHeaCoo=true</code>).
 </li>
 </ul>
 </html>"));
-end HybridPlantControlModule;
+end HybridOperation;

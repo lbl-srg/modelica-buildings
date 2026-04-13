@@ -4,7 +4,7 @@ block EquipmentEnable
   parameter Boolean is_pumApp
     "Is the equipment enable block used for a pump control module application?";
 
-  parameter Boolean have_fouPip=false
+  parameter Boolean have_HpShc=false
     "True: The logic block is used in a hybrid heat pump plant"
     annotation (Evaluate=true);
 
@@ -27,7 +27,7 @@ block EquipmentEnable
     start=fill(0,nSta,nEqu))
     "Staging matrix for non-hybrid plant – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=not have_fouPip));
+      Dialog(enable=not have_HpShc));
 
   parameter Real staEquSinMod[nSta,nEqu](
     each unit="1",
@@ -36,7 +36,7 @@ block EquipmentEnable
     start=fill(0,nSta,nEqu))
     "Staging matrix for hybrid plant in single-operation mode – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=have_fouPip));
+      Dialog(enable=have_HpShc));
 
   parameter Real staEquDouMod[nSta,nEqu](
     each unit="1",
@@ -45,7 +45,7 @@ block EquipmentEnable
     start=fill(0,nSta,nEqu))
     "Staging matrix for hybrid plant in heating-cooling mode – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=have_fouPip));
+      Dialog(enable=have_HpShc));
 
   final parameter Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix for non-hybrid plant"
@@ -200,22 +200,22 @@ block EquipmentEnable
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta]
-    if have_fouPip and not is_pumApp
+    if have_HpShc and not is_pumApp
     "Switch between transverse matrices for heating-cooling mode and single-operation mode"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
-    final k=traStaEquDouMod) if have_fouPip
+    final k=traStaEquDouMod) if have_HpShc
     "Constant signal for tranverse of staging equation matrix in heating-cooling mode"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
-    final k=traStaEquSinMod) if have_fouPip
+    final k=traStaEquSinMod) if have_HpShc
     "Constant signal for tranverse of staging equation matrix in single-operation mode"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
-    final k=traStaEqu) if not have_fouPip
+    final k=traStaEqu) if not have_HpShc
     "Constant signal for tranverse of staging equation matrix in non-hybrid plants"
     annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
 
@@ -389,7 +389,9 @@ signal <code>u1Ava</code> and the indices of lead/lag alternate
 equipment, sorted by increasing staging runtime.
 </p>
 <p>
-A staging matrix <code>staEqu</code> is required as a parameter.
+Staging matrices <code>staEqu</code>, <code>staEquSinMod</code> and
+<code>staEquDouMod</code> are required parameters. The following description holds
+true for all three parameters.
 </p>
 <ul>
 <li>Each row of this matrix corresponds to a given stage.</li>

@@ -304,29 +304,26 @@ protected
     if cfg.have_valChiWatMinByp "CHW minimum flow bypass valve control bus"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
         iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busHpFouPip if cfg.have_fouPip
-    "Four-pipe heat pump control bus" annotation (Placement(transformation(
-          extent={{-260,280},{-220,320}}), iconTransformation(extent={{-466,50},
-            {-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumFouPipHeaWatPri
-    if cfg.have_fouPip
-    "Primary HW pump control bus" annotation (Placement(transformation(extent={{
-            -180,60},{-140,100}}), iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumFouPipChiWatPri
-    if cfg.have_fouPip
-    "Primary CHW pump control bus" annotation (Placement(transformation(extent={
-            {-180,-180},{-140,-140}}), iconTransformation(extent={{-466,50},{-426,
-            90}})));
+  Buildings.Templates.Components.Interfaces.Bus busHpShc if cfg.have_HpShc
+    "SHC heat pump control bus" annotation (Placement(transformation(extent={{-260,
+            280},{-220,320}}), iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumShcHeaWatPri
+    if cfg.have_HpShc "Primary SHC HP HW pump control bus" annotation (
+      Placement(transformation(extent={{-180,60},{-140,100}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumShcChiWatPri
+    if cfg.have_HpShc "Primary SHC HP CHW pump control bus" annotation (
+      Placement(transformation(extent={{-180,-180},{-140,-140}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
   connect(busPumHeaWatPri, bus.pumHeaWatPri);
   connect(busPumChiWatPri, bus.pumChiWatPri);
-  connect(busPumFouPipHeaWatPri, bus.pumFouPipHeaWatPri);
-  connect(busPumFouPipChiWatPri, bus.pumFouPipChiWatPri);
+  connect(busPumShcHeaWatPri, bus.pumShcHeaWatPri);
+  connect(busPumShcChiWatPri, bus.pumShcChiWatPri);
   connect(busPumChiWatSec, bus.pumChiWatSec);
   connect(busPumHeaWatSec, bus.pumHeaWatSec);
   connect(busHp, bus.hp);
-  connect(busHpFouPip, bus.hpFouPip);
   connect(busValHeaWatHpInlIso, bus.valHeaWatHpInlIso);
   connect(busValHeaWatHpOutIso, bus.valHeaWatHpOutIso);
   connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso);
@@ -336,6 +333,7 @@ equation
   connect(busHrc, bus.hrc);
   connect(busPumChiWatHrc, bus.pumChiWatHrc);
   connect(busPumHeaWatHrc, bus.pumHeaWatHrc);
+  connect(busHpShc, bus.hpShc);
   /* Control point connection - stop */
 annotation (
     Icon(

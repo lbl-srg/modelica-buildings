@@ -7,7 +7,7 @@ model HybridAirToWater "Controller for AWHP plant"
   final parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")=if cfg.have_fouPip then dat.staEquSinMod else dat.staEqu
+    each final unit="1")=if cfg.have_HpShc then dat.staEquSinMod else dat.staEqu
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
 
@@ -30,7 +30,7 @@ model HybridAirToWater "Controller for AWHP plant"
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
     final is_priOnl=if is_typDis_override then (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) else (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
     final have_hrc_select=cfg.have_hrc,
-    final have_fouPip=cfg.have_fouPip,
+    final have_HpShc=cfg.have_HpShc,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -185,7 +185,7 @@ model HybridAirToWater "Controller for AWHP plant"
     "Local CHW DP reset"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2[cfg.nPumHeaWatPri]
-    if cfg.have_fouPip
+    if cfg.have_HpShc
     "Combine primary pump signals for heating and cooling mode"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 equation
@@ -214,11 +214,11 @@ equation
   connect(bus.dpHeaWatRem, resDpHeaWatLoc.dpRem);
   connect(busHp.y1_actual, ctl.u1Hp_actual);
   connect(busPumChiWatPri.y1_actual, ctl.u1PumChiWatPri_actual);
-  connect(busPumFouPipChiWatPri.y1_actual, ctl.u1PumChiWatPriFouPip_actual);
-  connect(busPumFouPipHeaWatPri.y1_actual, ctl.u1PumHeaWatPriFouPip_actual);
+  connect(busPumShcChiWatPri.y1_actual, ctl.u1PumChiWatPriShc_actual);
+  connect(busPumShcHeaWatPri.y1_actual, ctl.u1PumHeaWatPriShc_actual);
   connect(busPumChiWatSec.y1_actual, ctl.u1PumChiWatSec_actual);
   connect(busPumHeaWatPri.y1_actual, ctl.u1PumHeaWatPri_actual);
-  if cfg.have_fouPip then
+  if cfg.have_HpShc then
     connect(busPumHeaWatPri.y1_actual, ctl.u1PumChiWatPri_actual);
   end if;
   connect(busPumHeaWatSec.y1_actual, ctl.u1PumHeaWatSec_actual);
@@ -237,7 +237,7 @@ equation
   connect(ctl.y1Hp, busHp.y1);
   connect(ctl.y1PumChiWatPri, busPumChiWatPri.y1);
   connect(ctl.y1PumChiWatSec, busPumChiWatSec.y1);
-  if cfg.have_fouPip then
+  if cfg.have_HpShc then
     connect(or2.y, busPumHeaWatPri.y1);
   else
   connect(ctl.y1PumHeaWatPri, busPumHeaWatPri.y1);
@@ -347,15 +347,14 @@ equation
   connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={{22,-5},
           {34,-5},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
         color={0,0,127}));
-  connect(ctl.u1HpFouPip_actual, busHpFouPip.y1_actual);
-  connect(ctl.y1HpFouPip, busHpFouPip.y1);
-  connect(ctl.TSupSetFouPip, busHpFouPip.TSet);
-  connect(ctl.THeaWatSupSet, busHpFouPip.THeaWatSupSet);
-  connect(ctl.TChiWatSupSet, busHpFouPip.TChiWatSupSet);
-  connect(ctl.yMod, busHpFouPip.yMod);
-  connect(ctl.y1PumHeaWatPriFouPip, busPumFouPipHeaWatPri.y1);
-  connect(ctl.y1PumChiWatPriFouPip, busPumFouPipChiWatPri.y1);
-  connect(busHpFouPip, bus.hpFouPip);
+  connect(ctl.u1HpShc_actual, busHpShc.y1_actual);
+  connect(ctl.y1HpShc, busHpShc.y1);
+  connect(ctl.TSupSetHpShc, busHpShc.TSet);
+  connect(ctl.THeaWatSupSet, busHpShc.THeaWatSupSet);
+  connect(ctl.TChiWatSupSet, busHpShc.TChiWatSupSet);
+  connect(ctl.yMod, busHpShc.yMod);
+  connect(ctl.y1PumHeaWatPriShc, busPumShcHeaWatPri.y1);
+  connect(ctl.y1PumChiWatPriShc, busPumShcChiWatPri.y1);
   connect(ctl.y1PumHeaWatPri, or2.u1) annotation (Line(points={{22,27},{52,27},{
           52,10},{58,10}}, color={255,0,255}));
   connect(ctl.y1PumChiWatPri, or2.u2) annotation (Line(points={{22,25},{44,25},{
