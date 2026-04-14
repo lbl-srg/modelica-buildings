@@ -4,32 +4,32 @@ model CoolingCoilValve
   extends Modelica.Icons.Example;
 
   parameter Real TOutCooCut(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature") = 283.15
     "Lower outdoor air temperature limit for enabling cooling";
 
   parameter Real TSup(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature") = 293.15
     "Supply air temperature";
 
   parameter Real TSupSet(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature") = 289.15
     "Supply air temperature setpoint";
 
   parameter Real TSetMinLowLim(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature") = 278.71
     "Minimum supply air temperature for defining the upper limit of the valve position";
 
   parameter Real TSetMaxLowLim(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature") = 283.15
     "Maximum supply air temperature for defining the upper limit of the valve position";
 
   parameter Real LowTSupSet(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature") = 280.37
     "Supply air temeprature setpoint to check the limiter functionality";
 
@@ -270,6 +270,11 @@ in B33 on the main LBNL campus.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 February 19, 2019, by Michael Wetter:<br/>
 Revised example.
