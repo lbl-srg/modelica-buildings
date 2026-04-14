@@ -42,14 +42,18 @@ equation
       Interval=60,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"), Documentation(info="<html>
-<p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange\">
-Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.</p>
+<p>
+This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange\">
+Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.
+</p>
+
 <p>This validation test uses two constant temperature values as the baseline temperature setpoint
 and the target temperature setpoint. It uses a boolean pulse signal to represent the \"enable\" 
 signal. It also uses a delay block to represent
 the behavior of a temperature setpoint within a typical zone temperature setpoint controller.
 This validation test forms a close loop between the temperature setpoint in the 
-zone temperature setpoint controller and the <code>SingleStepSetpointChange</code> block.</p>
+zone temperature setpoint controller and the <code>SingleStepSetpointChange</code> block.
+</p>
 </html>",
         revisions="<html>
 <ul>
@@ -57,7 +61,6 @@ zone temperature setpoint controller and the <code>SingleStepSetpointChange</cod
 April 03, 2026, by Weiping Huang:<br/>
 First implementation.
 </li>
-
 </ul>
 </html>"));
 end SingleStepSetpointChange;

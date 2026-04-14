@@ -9,13 +9,13 @@ the demand flexibility control sequence package.
 </p>
 </html>",
       revisions="<html>
-        <ul>
-        <li>
-        February 19, 2025, by Weiping Huang:<br/>
-        First implementation.
-        </li>
-        </ul>
-        </html>"),
+<ul>
+<li>
+April 03, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}}),
