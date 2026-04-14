@@ -75,7 +75,7 @@ model PumpsPrimaryDedicated
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumPriComHp=true),
+      have_pumChiWatDedHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -134,7 +134,7 @@ model PumpsPrimaryDedicated
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumPriComHp=false),
+      have_pumChiWatDedHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -193,7 +193,7 @@ model PumpsPrimaryDedicated
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumPriComHp=false),
+      have_pumChiWatDedHp=true),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(
@@ -252,7 +252,7 @@ model PumpsPrimaryDedicated
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumPriComHp=false),
+      have_pumChiWatDedHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     dpChiWatRemSet_max=fill(
       Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,

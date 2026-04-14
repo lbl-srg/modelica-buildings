@@ -63,7 +63,7 @@ model HeatPumpGroupAirToWater
       final nShc=hpAwNrv.nShc,
       have_valShcInlIso=false,
       have_valShcOutIso=false,
-      have_pumPriComHp=true),
+      have_pumChiWatDedHp=false),
     THeaWatSup_nominal=datHpAwNrv.THeaWatSupHp_nominal,
     dpChiWatRemSet_max=fill(
       Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -121,7 +121,7 @@ model HeatPumpGroupAirToWater
       final nShc=hpAw.nShc,
       have_valShcInlIso=false,
       have_valShcOutIso=false,
-      have_pumPriComHp=true),
+      have_pumChiWatDedHp=false),
     THeaWatSup_nominal=datHpAw.THeaWatSupHp_nominal,
     TChiWatSup_nominal=datHpAw.TChiWatSupHp_nominal,
     dpChiWatRemSet_max=fill(

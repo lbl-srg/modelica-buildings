@@ -36,7 +36,7 @@ model PartialHeatPumpGroup
     "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_shc=false
+  parameter Boolean have_shc = false
     "Set to true for plants with polyvalent (SHC) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -44,7 +44,7 @@ model PartialHeatPumpGroup
     "Number of heat pumps (excluding SHC units)"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Integer nShc=0
+  parameter Integer nShc = 0
     "Number of polyvalent (SHC) units"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -54,6 +54,12 @@ model PartialHeatPumpGroup
       Dialog(group="Configuration"));
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
+    annotation(Evaluate=true,
+      Dialog(group="Configuration"));
+  // Parameter typArrPumPri only required for icon configuration, not used in equations
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri =
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    "Type of primary pump arrangement"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup dat(
@@ -429,35 +435,32 @@ equation
 annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-2400,-400},{2400,400}}),
-    graphics={Bitmap(
-          extent={{1880,160},{1960,240}},
-          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-          visible=nHp + nShc >= 1),
-    Rectangle(
-          extent={{2240,400},{1960,0}},
-          visible=nHp + nShc >= 1,
-          lineThickness=1),
-    Text( extent={{1960,250},{2240,150}},
-          textColor={0,0,0},
-          visible=nHp >= 1,
-          textString="HP-1"),
-    Bitmap(
-          extent={{1080,160},{1160,240}},
-          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-          visible=nHp + nShc >= 2),
-    Rectangle(
-          extent={{1440,400},{1160,0}},
-          visible=nHp + nShc >= 2,
-          lineThickness=1),
-    Text( extent={{1160,250},{1440,150}},
-          textColor={0,0,0},
-          visible=nHp >= 2,
-          textString="HP-2"),
-    Bitmap(
-          extent={{280,160},{360,240}},
-          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-          visible=nHp + nShc >= 3),
-    Rectangle(extent={{640,400},{360,0}}, visible=nHp + nShc >= 3, lineThickness=1),
+    graphics={Bitmap(extent={{1880,160},{1960,240}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+      visible=nHp + nShc >= 1),
+    Rectangle(extent={{2240,400},{1960,0}},
+      visible=nHp + nShc >= 1,
+      lineThickness=1),
+    Text(extent={{1960,250},{2240,150}},
+      textColor={0,0,0},
+      visible=nHp >= 1,
+      textString="HP-1"),
+    Bitmap(extent={{1080,160},{1160,240}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+      visible=nHp + nShc >= 2),
+    Rectangle(extent={{1440,400},{1160,0}},
+      visible=nHp + nShc >= 2,
+      lineThickness=1),
+    Text(extent={{1160,250},{1440,150}},
+      textColor={0,0,0},
+      visible=nHp >= 2,
+      textString="HP-2"),
+    Bitmap(extent={{280,160},{360,240}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+      visible=nHp + nShc >= 3),
+    Rectangle(extent={{640,400},{360,0}},
+      visible=nHp + nShc >= 3,
+      lineThickness=1),
     Text(extent={{360,250},{640,150}},
       textColor={0,0,0},
       visible=nHp >= 3,
@@ -495,89 +498,102 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
       textColor={0,0,0},
       visible=nHp >= 6,
       textString="HP-6"),
-    Text( extent={{1960,250},{2240,150}},
-          textColor={0,0,0},
-          visible=nShc + nHp >= 1 and nHp < 1,
-          textString="HR-" + String(1 - nHp)),
-    Text( extent={{1160,250},{1440,150}},
-          textColor={0,0,0},
-          visible=nShc + nHp >= 2 and nHp < 2,
-          textString="HR-" + String(2 - nHp)),
-    Text( extent={{360,250},{640,150}},
-          textColor={0,0,0},
-          visible=nShc + nHp >= 3 and nHp < 3,
-          textString="HR-" + String(3 - nHp)),
-    Text( extent={{-440,250},{-160,150}},
-          textColor={0,0,0},
-          visible=nShc + nHp >= 4 and nHp < 4,
-          textString="HR-" + String(4 - nHp)),
-    Text( extent={{-1240,250},{-960,150}},
-          textColor={0,0,0},
-          visible=nShc + nHp >= 5 and nHp < 5,
-          textString="HR-" + String(5 - nHp)),
-    Text( extent={{-2040,250},{-1760,150}},
-          textColor={0,0,0},
-          visible=nShc + nHp >= 6 and nHp < 6,
-          textString="HR-" + String(6 - nHp)),
-    Line( points={{2400,400},{2400,-80},{2200,-80},{2200,0}},
-          color={0,0,0},
-          thickness=5,
-          pattern=LinePattern.Dash,
-          visible=nHp + nShc >= 1 and nHp < 1),
-    Line( points={{1600,400},{1600,-80},{1400,-80},{1400,0}},
-          color={0,0,0},
-          thickness=5,
-          pattern=LinePattern.Dash,
-          visible=nHp + nShc >= 2 and nHp < 2),
-    Line( points={{800,400},{800,-80},{600,-80},{600,0}},
-          color={0,0,0},
-          thickness=5,
-          pattern=LinePattern.Dash,
-          visible=nHp + nShc >= 3 and nHp < 3),
-    Line( points={{0,400},{0,-80},{-200,-80},{-200,0}},
-          color={0,0,0},
-          thickness=5,
-          pattern=LinePattern.Dash,
-          visible=nHp + nShc >= 4 and nHp < 4),
-    Line( points={{-800,400},{-800,-80},{-1000,-80},{-1000,0}},
-          color={0,0,0},
-          thickness=5,
-          pattern=LinePattern.Dash,
-          visible=nHp + nShc >= 5 and nHp < 5),
-    Line( points={{-1600,400},{-1600,-80},{-1800,-80},{-1800,0}},
-          color={0,0,0},
-          thickness=5,
-          pattern=LinePattern.Dash,
-          visible=nHp + nShc >= 6 and nHp < 6),
-    Line( points={{1000,400},{1000,-80},{1200,-80},{1200,0}},
-          color={0,0,0},
-          thickness=5,
-          visible=nHp + nShc >= 2 and nHp < 2),
-    Line(
-          points={{1800,400},{1800,-80},{2000,-80},{2000,0}},
-          color={0,0,0},
-          thickness=5,
-          visible=nHp + nShc >= 1 and nHp < 1),
-    Line(
-          points={{200,400},{200,-80},{400,-80},{400,0}},
-          color={0,0,0},
-          thickness=5,
-          visible=nHp + nShc >= 3 and nHp < 3),
-    Line(
-          points={{-600,400},{-600,-80},{-400,-80},{-400,0}},
-          color={0,0,0},
-          thickness=5,
-          visible=nHp + nShc >= 4 and nHp < 4),
-    Line(
-          points={{-1400,400},{-1400,-80},{-1200,-80},{-1200,0}},
-          color={0,0,0},
-          thickness=5,
-          visible=nHp + nShc >= 5 and nHp < 5),
-    Line(
-          points={{-2200,400},{-2200,-80},{-2000,-80},{-2000,0}},
-          color={0,0,0},
-          thickness=5,
-          visible=nHp + nShc >= 6 and nHp < 6)}),
+    Text(extent={{1960,250},{2240,150}},
+      textColor={0,0,0},
+      visible=nShc + nHp >= 1 and nHp < 1,
+      textString="HR-" + String(1 - nHp)),
+    Text(extent={{1160,250},{1440,150}},
+      textColor={0,0,0},
+      visible=nShc + nHp >= 2 and nHp < 2,
+      textString="HR-" + String(2 - nHp)),
+    Text(extent={{360,250},{640,150}},
+      textColor={0,0,0},
+      visible=nShc + nHp >= 3 and nHp < 3,
+      textString="HR-" + String(3 - nHp)),
+    Text(extent={{-440,250},{-160,150}},
+      textColor={0,0,0},
+      visible=nShc + nHp >= 4 and nHp < 4,
+      textString="HR-" + String(4 - nHp)),
+    Text(extent={{-1240,250},{-960,150}},
+      textColor={0,0,0},
+      visible=nShc + nHp >= 5 and nHp < 5,
+      textString="HR-" + String(5 - nHp)),
+    Text(extent={{-2040,250},{-1760,150}},
+      textColor={0,0,0},
+      visible=nShc + nHp >= 6 and nHp < 6,
+      textString="HR-" + String(6 - nHp)),
+    Line(points={{2400,400},{2400,-80},{2200,-80},{2200,0}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 1 and nHp < 1),
+    Line(points={{1600,400},{1600,-80},{1400,-80},{1400,0}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 2 and nHp < 2),
+    Line(points={{800,400},{800,-80},{600,-80},{600,0}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 3 and nHp < 3),
+    Line(points={{0,400},{0,-80},{-200,-80},{-200,0}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 4 and nHp < 4),
+    Line(points={{-800,400},{-800,-80},{-1000,-80},{-1000,0}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 5 and nHp < 5),
+    Line(points={{-1600,400},{-1600,-80},{-1800,-80},{-1800,0}},
+      color={0,0,0},
+      thickness=5,
+      pattern=LinePattern.Dash,
+      visible=nHp + nShc >= 6 and nHp < 6),
+    Line(points=if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      then {{1000,400},{1000,-80},{1200,-80},{1200,0}}
+      else {{1020,400},{1020,-80},{1200,-80},{1200,0}},
+      color={0,0,0},
+      thickness=5,
+      visible=nHp + nShc >= 2 and nHp < 2),
+    Line(points=if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      then {{1800,400},{1800,-80},{2000,-80},{2000,0}}
+      else {{1820,400},{1820,-80},{2000,-80},{2000,0}},
+      color={0,0,0},
+      thickness=5,
+      visible=nHp + nShc >= 1 and nHp < 1),
+    Line(points=if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      then {{200,400},{200,-80},{400,-80},{400,0}}
+      else {{220,400},{220,-80},{400,-80},{400,0}},
+      color={0,0,0},
+      thickness=5,
+      visible=nHp + nShc >= 3 and nHp < 3),
+    Line(points=if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      then {{-600,400},{-600,-80},{-400,-80},{-400,0}}
+      else {{-580,400},{-580,-80},{-400,-80},{-400,0}},
+      color={0,0,0},
+      thickness=5,
+      visible=nHp + nShc >= 4 and nHp < 4),
+    Line(points=if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      then {{-1400,400},{-1400,-80},{-1200,-80},{-1200,0}}
+      else {{-1380,400},{-1380,-80},{-1200,-80},{-1200,0}},
+      color={0,0,0},
+      thickness=5,
+      visible=nHp + nShc >= 5 and nHp < 5),
+    Line(points=if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      then {{-2200,400},{-2200,-80},{-2000,-80},{-2000,0}}
+      else {{-2180,400},{-2180,-80},{-2000,-80},{-2000,0}},
+      color={0,0,0},
+      thickness=5,
+      visible=nHp + nShc >= 6 and nHp < 6)}),
   Documentation(
     info="<html>
 <p>

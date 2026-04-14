@@ -54,7 +54,8 @@ block OpenLoop
     "Heat pump heating mode command"
     annotation(Placement(transformation(extent={{-100,290},{-120,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPri[cfg.nPumHeaWatPri](
-    each table=if cfg.have_pumChiWatDedHp or not cfg.have_chiWat then [0,0; 1, 1; 3,0; 5,0]
+    each table=if cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+    or cfg.have_pumChiWatDedHp or not cfg.have_chiWat then [0,0; 1, 1; 3,0; 5,0]
     else [0,0; 1,1; 3,0; 3.1,1; 5,0],
     each timeScale=1000,
     each period=5000) if cfg.have_heaWat

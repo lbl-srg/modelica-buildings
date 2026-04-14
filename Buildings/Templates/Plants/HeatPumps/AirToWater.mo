@@ -158,6 +158,7 @@ model AirToWater
     final nHp=nHp,
     final nShc=nShc,
     final is_rev=is_rev,
+    final typArrPumPri=typArrPumPri,
     final energyDynamics=energyDynamics,
     final have_dpChiHeaWat=false,
     final have_dpSou=false,
