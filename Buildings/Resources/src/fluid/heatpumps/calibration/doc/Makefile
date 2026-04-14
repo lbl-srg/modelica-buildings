@@ -36,10 +36,12 @@ clean:
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	rm -rf $(BUILDDIR)/doctrees
+	rm -f $(BUILDDIR)/html/.buildinfo
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
-regressiontest: clean html
+regressiontest: clean
 	@echo "Verify whether all files compile and no uncommitted changes exist"
 	@rm -rf virEnv
 	python -m venv virEnv

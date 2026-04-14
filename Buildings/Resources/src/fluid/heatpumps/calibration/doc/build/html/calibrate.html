@@ -2,24 +2,23 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Calibrate heat pump models &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a6255d24" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=6f15799e" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap.css?v=0cb5a744" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css?v=18a45976" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css?v=b7c6d2d5" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=15f31cae" />
+    <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css?v=eb9de370" />
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Compressor models" href="compressors.html" />
@@ -28,10 +27,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -44,7 +43,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+        <a class="navbar-brand" href="index.html">
            </a>
         <span class="navbar-text navbar-version pull-left"><b></b></span>
       </div>
@@ -65,14 +64,39 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Calibrate heat pump models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calibrate heat pump models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData"><code class="docutils literal notranslate"><span class="pre">ManufacturerData</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.calibrate.SimulationResults"><code class="docutils literal notranslate"><span class="pre">SimulationResults</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.calibrate.calibrate_model"><code class="docutils literal notranslate"><span class="pre">calibrate_model()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.calibrate.compare_data_sets"><code class="docutils literal notranslate"><span class="pre">compare_data_sets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.calibrate.cost_function"><code class="docutils literal notranslate"><span class="pre">cost_function()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.calibrate.simulate"><code class="docutils literal notranslate"><span class="pre">simulate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.calibrate.simulate_in_dymola"><code class="docutils literal notranslate"><span class="pre">simulate_in_dymola()</span></code></a></li>
+</ul>
+</li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fluids.html">Thermodynamic properties of heat carrier fluids</a></li>
-<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="heatpumps.html">Heat pump models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html#PythonModel.compressors.ReciprocatingCompressor"><code class="docutils literal notranslate"><span class="pre">ReciprocatingCompressor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html#PythonModel.compressors.ScrollCompressor"><code class="docutils literal notranslate"><span class="pre">ScrollCompressor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fluids.html">Thermodynamic properties of heat carrier fluids</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fluids.html#PythonModel.fluids.ConstantPropertyWater"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="heatexchangers.html#PythonModel.heatexchangers.EvaporatorCondenser"><code class="docutils literal notranslate"><span class="pre">EvaporatorCondenser</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="heatpumps.html">Heat pump models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="heatpumps.html#PythonModel.heatpumps.SingleStageHeatPump"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refrigerants.html#PythonModel.refrigerants.R410A"><code class="docutils literal notranslate"><span class="pre">R410A</span></code></a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dummy_performance_data.html">Generate performance data from heat pump model</a></li>
@@ -90,7 +114,22 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Calibrate heat pump models</a></li>
+<li><a class="reference internal" href="#">Calibrate heat pump models</a><ul>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData"><code class="docutils literal notranslate"><span class="pre">ManufacturerData</span></code></a><ul>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData.add_data_point"><code class="docutils literal notranslate"><span class="pre">ManufacturerData.add_data_point()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData.calibration_data_16_points"><code class="docutils literal notranslate"><span class="pre">ManufacturerData.calibration_data_16_points()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData.calibration_data_min_max_temp"><code class="docutils literal notranslate"><span class="pre">ManufacturerData.calibration_data_min_max_temp()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData.write_modelica_combiTimeTable"><code class="docutils literal notranslate"><span class="pre">ManufacturerData.write_modelica_combiTimeTable()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#PythonModel.calibrate.SimulationResults"><code class="docutils literal notranslate"><span class="pre">SimulationResults</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.calibrate_model"><code class="docutils literal notranslate"><span class="pre">calibrate_model()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.compare_data_sets"><code class="docutils literal notranslate"><span class="pre">compare_data_sets()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.cost_function"><code class="docutils literal notranslate"><span class="pre">cost_function()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.simulate"><code class="docutils literal notranslate"><span class="pre">simulate()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.simulate_in_dymola"><code class="docutils literal notranslate"><span class="pre">simulate_in_dymola()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -132,17 +171,54 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Calibrate heat pump models</a><ul>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData"><code class="docutils literal notranslate"><span class="pre">ManufacturerData</span></code></a><ul>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData.add_data_point"><code class="docutils literal notranslate"><span class="pre">ManufacturerData.add_data_point()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData.calibration_data_16_points"><code class="docutils literal notranslate"><span class="pre">ManufacturerData.calibration_data_16_points()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData.calibration_data_min_max_temp"><code class="docutils literal notranslate"><span class="pre">ManufacturerData.calibration_data_min_max_temp()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.ManufacturerData.write_modelica_combiTimeTable"><code class="docutils literal notranslate"><span class="pre">ManufacturerData.write_modelica_combiTimeTable()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#PythonModel.calibrate.SimulationResults"><code class="docutils literal notranslate"><span class="pre">SimulationResults</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.calibrate_model"><code class="docutils literal notranslate"><span class="pre">calibrate_model()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.compare_data_sets"><code class="docutils literal notranslate"><span class="pre">compare_data_sets()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.cost_function"><code class="docutils literal notranslate"><span class="pre">cost_function()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.simulate"><code class="docutils literal notranslate"><span class="pre">simulate()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.calibrate.simulate_in_dymola"><code class="docutils literal notranslate"><span class="pre">simulate_in_dymola()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="index.html" title="Previous Chapter: Heat Pump Calibration User Guide"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Heat Pump Cal...</span>
+    </a>
+  </li>
+  <li>
+    <a href="compressors.html" title="Next Chapter: Compressor models"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Compressor models &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <section id="module-PythonModel.calibrate">
-<span id="calibrate-heat-pump-models"></span><h1>Calibrate heat pump models<a class="headerlink" href="#module-PythonModel.calibrate" title="Permalink to this headline">¶</a></h1>
+<span id="calibrate-heat-pump-models"></span><h1>Calibrate heat pump models<a class="headerlink" href="#module-PythonModel.calibrate" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PythonModel.calibrate.ManufacturerData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">ManufacturerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CoolingMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">ManufacturerData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manufacturer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CoolingMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Heat pump performance data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>manufacturer</strong> – Name of the manufacturer.</p></li>
 <li><p><strong>model</strong> – Name of the heat pump model.</p></li>
@@ -157,10 +233,10 @@ mode.</p></li>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.calibrate.ManufacturerData.add_data_point">
-<span class="sig-name descname"><span class="pre">add_data_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Capacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Power</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.add_data_point" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_data_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Capacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Power</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.add_data_point" title="Link to this definition">¶</a></dt>
 <dd><p>Add a data point to the heat pump performance data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>EWT_Source</strong> – Entering water temperature on the source side (K).</p></li>
 <li><p><strong>EWT_Load</strong> – Entering water temperature on the load side (K).</p></li>
@@ -176,10 +252,10 @@ mode.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.calibrate.ManufacturerData.calibration_data_16_points">
-<span class="sig-name descname"><span class="pre">calibration_data_16_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.calibration_data_16_points" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">calibration_data_16_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.calibration_data_16_points" title="Link to this definition">¶</a></dt>
 <dd><p>Find the 16 min/max data points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Performance data for calibration (object).</p>
 </dd>
 </dl>
@@ -194,13 +270,13 @@ source and load sides.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.calibrate.ManufacturerData.calibration_data_min_max_temp">
-<span class="sig-name descname"><span class="pre">calibration_data_min_max_temp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.calibration_data_min_max_temp" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">calibration_data_min_max_temp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.calibration_data_min_max_temp" title="Link to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Find the data points that correspond to the minimum and maximum</dt><dd><p>inlet water temperature on the source and load sides.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Performance data for calibration (object).</p>
 </dd>
 </dl>
@@ -214,13 +290,13 @@ the inlet water temperatures on the source and load sides.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.calibrate.ManufacturerData.write_modelica_combiTimeTable">
-<span class="sig-name descname"><span class="pre">write_modelica_combiTimeTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tableName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tableTempDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tableFileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CoolingMode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.write_modelica_combiTimeTable" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">write_modelica_combiTimeTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tableName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tableTempDir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tableFileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CoolingMode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.write_modelica_combiTimeTable" title="Link to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Write the combiTimeTable for use by the calibration model in</dt><dd><p>Modelica.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tableName</strong> – Name of the combiTimeTable.</p></li>
 <li><p><strong>tableTempDir</strong> – Temporary directory to write the table file.</p></li>
@@ -237,11 +313,11 @@ cooling mode.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PythonModel.calibrate.SimulationResults">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">SimulationResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Capacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Power</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.SimulationResults" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">SimulationResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">EWT_Source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EWT_Load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowSource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flowLoad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Capacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Power</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.SimulationResults" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Results from the simulation model.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>EWT_Source</strong> – Array of entering water temperature on the source
 side (K).</p></li>
@@ -262,10 +338,10 @@ side (kg/s).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PythonModel.calibrate.calibrate_model">
-<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">calibrate_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heaPum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.calibrate_model" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">calibrate_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heaPum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.calibrate_model" title="Link to this definition">¶</a></dt>
 <dd><p>Manages the calibration of heat pump models.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heaPum</strong> – Heat pump model (object).</p></li>
 <li><p><strong>calData</strong> – Subsampled data used for calibration (object).</p></li>
@@ -273,7 +349,7 @@ side (kg/s).</p></li>
 <li><p><strong>plot</strong> – Boolean, set to True to draw and save results.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of calibrated parameters,
 Results from the calibrated model,
 Results using the initial guess parameters.</p>
@@ -283,10 +359,10 @@ Results using the initial guess parameters.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PythonModel.calibrate.compare_data_sets">
-<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">compare_data_sets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ComparedDataSets'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.compare_data_sets" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">compare_data_sets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ComparedDataSets'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.compare_data_sets" title="Link to this definition">¶</a></dt>
 <dd><p>Compare two sets of data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – Performance data (object).</p></li>
 <li><p><strong>refData</strong> – Reference performance data (object).</p></li>
@@ -294,7 +370,7 @@ Results using the initial guess parameters.</p>
 <li><p><strong>fname</strong> – Name of the output figure file (no extension).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Sum of normalized square errors between data sets.</p>
 </dd>
 </dl>
@@ -302,10 +378,10 @@ Results using the initial guess parameters.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PythonModel.calibrate.cost_function">
-<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">cost_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heaPum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.cost_function" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">cost_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heaPum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.cost_function" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the cost function for optimization.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scale</strong> – Array of normalized parameters.</p></li>
 <li><p><strong>guess</strong> – Array of guess parameters.</p></li>
@@ -313,7 +389,7 @@ Results using the initial guess parameters.</p>
 <li><p><strong>data</strong> – Reference performance data (object).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Sum of normalized square errors between model and reference data.</p>
 </dd>
 </dl>
@@ -326,16 +402,16 @@ normalized parameter with its guess value.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PythonModel.calibrate.simulate">
-<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heaPum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.simulate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heaPum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.simulate" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the heat pump performance from the model.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heaPum</strong> – Heat pump model (object).</p></li>
 <li><p><strong>data</strong> – Reference performance data (object).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Performance data of the modeled heat pump (object).</p>
 </dd>
 </dl>
@@ -349,10 +425,10 @@ rates at the source and load sides) as in the reference data.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PythonModel.calibrate.simulate_in_dymola">
-<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">simulate_in_dymola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heaPum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tableName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tableFileName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.simulate_in_dymola" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PythonModel.calibrate.</span></span><span class="sig-name descname"><span class="pre">simulate_in_dymola</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heaPum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tableName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tableFileName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.simulate_in_dymola" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the heat pump performance from the model in Dymola.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heaPum</strong> – Heat pump model (object).</p></li>
 <li><p><strong>data</strong> – Reference performance data (object).</p></li>
@@ -360,7 +436,7 @@ rates at the source and load sides) as in the reference data.</p>
 <li><p><strong>tableFileName</strong> – Name of the text file containing the combiTimeTable.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Performance data of the modeled heat pump (object).</p>
 </dd>
 </dl>
@@ -391,7 +467,7 @@ rates at the source and load sides) as in the reference data.</p>
     </p>
     <p>
         &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
     </p>
   </div>
 </footer>
