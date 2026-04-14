@@ -9,25 +9,29 @@ block SingleStepSetpointChange "Single-step setpoint change"
     "Setpoint change mode; true to go to the target setpoint value, false to go to the baseline setpoint value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTarSet
     "Target setpoint: the setpoint under load-shed or load-increase scenarios"
-    annotation (Placement(transformation(extent={{-200,-60},{-160,-20}})));
+    annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
+        iconTransformation(extent={{-140,-38},{-100,2}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBasSet
     "Baseline setpoint: the setpoint under normal conditions"
-    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}})));
+    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCurSet "Current setpoint"
-    annotation (Placement(transformation(extent={{-200,20},{-160,60}})));
+    annotation (Placement(transformation(extent={{-200,22},{-160,62}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "\"Enable\" signal for the setpoint change"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
-      iconTransformation(extent={{-200,100},{-160,140}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSet
     "Command setpoint output: the setpoint that an external controller should change to"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}})));
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uTarSet "Reached the target setpoint"
-    annotation (Placement(transformation(extent={{160,100},{200,140}}),
-      iconTransformation(extent={{160,100},{200,140}})));
+    annotation (Placement(transformation(extent={{160,70},{200,110}}),
+      iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uBasSet "Reached the baseline setpoint" annotation (Placement(
-    transformation(extent={{160,-140},{200,-100}}),iconTransformation(extent={{160,
-            -140},{200,-100}})));
+    transformation(extent={{160,-110},{200,-70}}), iconTransformation(extent={{100,-70},
+            {140,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between the baseline setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
@@ -51,21 +55,21 @@ block SingleStepSetpointChange "Single-step setpoint change"
   Buildings.Controls.OBC.CDL.Reals.Max max2
     "Current setpoint should be no larger than the maximum of the baseline setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealNumberEqual
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealEqual
     reaNumEquTarSet(alwDev=alwDev)
     "Check if the current setpoint and the target setpoint are equal to each other"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealNumberEqual
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealEqual
     reaNumEquBasSet(alwDev=alwDev)
     "Check if the current setpoint and the baseline setpoint are equal to each other"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 equation
-  connect(uBasSet,max1. u2) annotation (Line(points={{-180,-120},{-76,-120},{-76,
-          -6},{-2,-6}},
+  connect(uBasSet,max1. u2) annotation (Line(points={{-180,-120},{-76,-120},{
+          -76,-6},{-2,-6}},
                      color={0,0,127}));
-  connect(uEna,swi. u2) annotation (Line(points={{-180,120},{-104,120},{-104,-70},
-          {-2,-70}},                      color={255,0,255}));
-  connect(uCurSet,swi. u3) annotation (Line(points={{-180,40},{-56,40},{-56,-78},
+  connect(uEna,swi. u2) annotation (Line(points={{-180,120},{-104,120},{-104,
+          -70},{-2,-70}},                 color={255,0,255}));
+  connect(uCurSet,swi. u3) annotation (Line(points={{-180,42},{-56,42},{-56,-78},
           {-2,-78}},  color={0,0,127}));
   connect(max1.y,min2. u1) annotation (Line(points={{22,0},{30,0},{30,6},{38,6}},
         color={0,0,127}));
@@ -83,40 +87,42 @@ equation
   connect(con.y, swi1.u2) annotation (Line(points={{-118,-170},{-48,-170},{-48,-30},
           {-42,-30}},
         color={255,0,255}));
-  connect(uTarSet, swi1.u1) annotation (Line(points={{-180,-40},{-110,-40},{-110,
-          -22},{-42,-22}},           color={0,0,127}));
-  connect(uBasSet, swi1.u3) annotation (Line(points={{-180,-120},{-76,-120},{-76,
-          -38},{-42,-38}},           color={0,0,127}));
+  connect(uTarSet, swi1.u1) annotation (Line(points={{-180,-40},{-110,-40},{
+          -110,-22},{-42,-22}},      color={0,0,127}));
+  connect(uBasSet, swi1.u3) annotation (Line(points={{-180,-120},{-76,-120},{
+          -76,-38},{-42,-38}},       color={0,0,127}));
   connect(swi1.y, swi.u1) annotation (Line(points={{-18,-30},{-12,-30},{-12,-62},
           {-2,-62}},color={0,0,127}));
   connect(min1.u2,uBasSet)  annotation (Line(points={{-2,64},{-76,64},{-76,-120},
           {-180,-120}},                    color={0,0,127}));
-  connect(uTarSet, max1.u1) annotation (Line(points={{-180,-40},{-92,-40},{-92,6},
-          {-2,6}},    color={0,0,127}));
-  connect(uTarSet, min1.u1) annotation (Line(points={{-180,-40},{-92,-40},{-92,76},
-          {-2,76}},     color={0,0,127}));
-  connect(reaNumEquTarSet.yEquFla, reach_uTarSet) annotation (Line(points={{2,
-          150.2},{80,150.2},{80,120},{180,120}}, color={255,0,255}));
-  connect(uCurSet, reaNumEquTarSet.u1) annotation (Line(points={{-180,40},{-132,
-          40},{-132,156},{-22,156}}, color={0,0,127}));
-  connect(uTarSet, reaNumEquTarSet.u2) annotation (Line(points={{-180,-40},{-124,
-          -40},{-124,144},{-22,144}}, color={0,0,127}));
-  connect(uCurSet, reaNumEquBasSet.u1) annotation (Line(points={{-180,40},{-56,
-          40},{-56,-144},{-22,-144}}, color={0,0,127}));
-  connect(uBasSet, reaNumEquBasSet.u2) annotation (Line(points={{-180,-120},{-64,
-          -120},{-64,-156},{-22,-156}}, color={0,0,127}));
-  connect(reaNumEquBasSet.yEquFla, reach_uBasSet) annotation (Line(points={{2,-149.8},
-          {80,-149.8},{80,-120},{180,-120}}, color={255,0,255}));
+  connect(uTarSet, max1.u1) annotation (Line(points={{-180,-40},{-92,-40},{-92,
+          6},{-2,6}}, color={0,0,127}));
+  connect(uTarSet, min1.u1) annotation (Line(points={{-180,-40},{-92,-40},{-92,
+          76},{-2,76}}, color={0,0,127}));
+  connect(reaNumEquTarSet.y, reach_uTarSet) annotation (Line(points={{2,150},{
+          80,150},{80,90},{180,90}}, color={255,0,255}));
+  connect(uCurSet, reaNumEquTarSet.u1) annotation (Line(points={{-180,42},{-132,
+          42},{-132,156},{-22,156}}, color={0,0,127}));
+  connect(uTarSet, reaNumEquTarSet.u2) annotation (Line(points={{-180,-40},{
+          -136,-40},{-136,144},{-22,144}},
+                                      color={0,0,127}));
+  connect(uCurSet, reaNumEquBasSet.u1) annotation (Line(points={{-180,42},{-56,
+          42},{-56,-144},{-22,-144}}, color={0,0,127}));
+  connect(uBasSet, reaNumEquBasSet.u2) annotation (Line(points={{-180,-120},{
+          -64,-120},{-64,-156},{-22,-156}},
+                                        color={0,0,127}));
+  connect(reaNumEquBasSet.y, reach_uBasSet) annotation (Line(points={{2,-150},{
+          80,-150},{80,-90},{180,-90}}, color={255,0,255}));
   annotation (defaultComponentName="sinSteSetCha",
         Icon(coordinateSystem(preserveAspectRatio=false,
-        extent={{-160,-200},{160,200}},
+        extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={Rectangle(
-          extent={{-160,200},{160,-200}},
+          extent={{-100,-100},{100,100}},
           lineColor={0,0,0},
           radius=0,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-98,280},{98,212}},
+          extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false,

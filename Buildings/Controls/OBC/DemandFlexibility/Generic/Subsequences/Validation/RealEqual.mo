@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.Validation;
-model RealNumberEqual "Exact equal block for real numbers"
+model RealEqual "Exact equal block for real numbers"
   extends Modelica.Icons.Example;
-  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealNumberEqual
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealEqual
     reaNumEqu(alwDev=1) "Real number equal block"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
@@ -22,7 +22,7 @@ equation
       Interval=60,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"), Documentation(info="<html>
-<p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealNumberEqual\">
+<p>This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealEqual\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealNumberEqual</a> by
 providing a sine waves input and a constant real number input.</p>
 </html>",
@@ -35,4 +35,4 @@ First implementation.
 
 </ul>
 </html>"));
-end RealNumberEqual;
+end RealEqual;
