@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.Validation.RealNumberEqual", method="Cvode", tolerance=1e-06, stopTime=172800, resultFile="RealNumberEqual");
+createPlot(id=1, position={7, 18, 521, 235}, y={"reaNumEqu.u1", "reaNumEqu.u2", "reaNumEqu.yEquFla"}, range={0.0, 50.0, 285.0, 310.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, range2={-0.2, 1.2000000000000002}, axes={1, 1, 2}, timeUnit="h");
