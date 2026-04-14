@@ -10,6 +10,10 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
+- model_name: Buildings.DHC.ETS.Combined.Examples.ChillerBorefield
+  openmodelica:
+    comment: Simulation fails on travis.
+    simulate: false
 - model_name: Buildings.DHC.ETS.Combined.Validation.ChillerBorefield
   openmodelica:
     comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
@@ -199,6 +203,10 @@
   optimica:
     translate: false
     comment: Not enough memory on travis
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
+  openmodelica:
+    comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics_simulate.mos'']'' timed out after 300 seconds'
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 600
