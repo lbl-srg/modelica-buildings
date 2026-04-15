@@ -9,9 +9,7 @@ model PartialHeatPumpGroup
   replaceable package MediumChiWat = MediumHeaWat
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
-    annotation(Dialog(
-      enable=typMod ==
-        Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent),
+    annotation(Dialog(enable=have_shc),
       __ctrlFlow(enable=false));
 
   /*
@@ -22,14 +20,15 @@ model PartialHeatPumpGroup
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
     annotation(Dialog(
-      enable=typ == Buildings.Templates.Components.Types.HeatPump.WaterToWater),
+      enable=typHp ==
+        Buildings.Templates.Components.Types.HeatPump.WaterToWater),
       __ctrlFlow(enable=false));
 
   replaceable package MediumAir = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
     annotation(Dialog(
-      enable=typ == Buildings.Templates.Components.Types.HeatPump.AirToWater),
+      enable=typHp == Buildings.Templates.Components.Types.HeatPump.AirToWater),
       __ctrlFlow(enable=false));
 
   parameter Boolean have_hp = true
@@ -54,12 +53,6 @@ model PartialHeatPumpGroup
       Dialog(group="Configuration"));
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-  // Parameter typArrPumPri only required for icon configuration, not used in equations
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri =
-    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-    "Type of primary pump arrangement"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup dat(
@@ -190,7 +183,8 @@ model PartialHeatPumpGroup
   parameter Boolean allowFlowReversalSou = true
     "Source side flow reversal: false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions",
-      enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater),
+      enable=typHp ==
+        Buildings.Templates.Components.Types.HeatPump.WaterToWater),
       Evaluate=true);
   parameter Boolean have_dpChiHeaWat = true
     "Set to true for CHW/HW pressure drop computed by this model, false for external computation"
@@ -200,7 +194,18 @@ model PartialHeatPumpGroup
     "Set to true for source fluid pressure drop computed by this model, false for external computation"
     annotation(Evaluate=true,
       Dialog(tab="Assumptions",
-        enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+        enable=typHp ==
+          Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+  parameter String idEqu[nHp + nShc] =
+    (if typHp == Buildings.Templates.Components.Types.HeatPump.AirToWater
+    then "AW"
+    elseif typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater
+    then "WW"
+    else "") .+
+      {if i > nHp
+      then "HR-" + String(i - nHp) else "HP-" + String(i) for i in 1:nHp + nShc}
+    "Equipment identifier"
+    annotation(Dialog(tab="Advanced"));
   final parameter MediumHeaWat.SpecificHeatCapacity cpHeaWat_default =
     MediumHeaWat.specificHeatCapacityCp(staHeaWat_default)
     "HW default specific heat capacity";
@@ -443,8 +448,8 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
       lineThickness=1),
     Text(extent={{1960,250},{2240,150}},
       textColor={0,0,0},
-      visible=nHp >= 1,
-      textString="HP-1"),
+      visible=nHp + nShc >= 1,
+      textString=idEqu[1]),
     Bitmap(extent={{1080,160},{1160,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
       visible=nHp + nShc >= 2),
@@ -453,8 +458,8 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
       lineThickness=1),
     Text(extent={{1160,250},{1440,150}},
       textColor={0,0,0},
-      visible=nHp >= 2,
-      textString="HP-2"),
+      visible=nHp + nShc >= 2,
+      textString=idEqu[2]),
     Bitmap(extent={{280,160},{360,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
       visible=nHp + nShc >= 3),
@@ -463,8 +468,8 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
       lineThickness=1),
     Text(extent={{360,250},{640,150}},
       textColor={0,0,0},
-      visible=nHp >= 3,
-      textString="HP-3"),
+      visible=nHp + nShc >= 3,
+      textString=idEqu[3]),
     Bitmap(extent={{-520,160},{-440,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
       visible=nHp + nShc >= 4),
@@ -474,8 +479,8 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
       visible=nHp + nShc >= 4),
     Text(extent={{-440,250},{-160,150}},
       textColor={0,0,0},
-      visible=nHp >= 4,
-      textString="HP-4"),
+      visible=nHp + nShc >= 4,
+      textString=idEqu[4]),
     Bitmap(extent={{-1320,160},{-1240,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
       visible=nHp + nShc >= 5),
@@ -485,8 +490,8 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
       visible=nHp + nShc >= 5),
     Text(extent={{-1240,250},{-960,150}},
       textColor={0,0,0},
-      visible=nHp >= 5,
-      textString="HP-5"),
+      visible=nHp + nShc >= 5,
+      textString=idEqu[5]),
     Bitmap(extent={{-2120,160},{-2040,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
       visible=nHp + nShc >= 6),
@@ -496,32 +501,8 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
       visible=nHp + nShc >= 6),
     Text(extent={{-2040,250},{-1760,150}},
       textColor={0,0,0},
-      visible=nHp >= 6,
-      textString="HP-6"),
-    Text(extent={{1960,250},{2240,150}},
-      textColor={0,0,0},
-      visible=nShc + nHp >= 1 and nHp < 1,
-      textString="HR-" + String(1 - nHp)),
-    Text(extent={{1160,250},{1440,150}},
-      textColor={0,0,0},
-      visible=nShc + nHp >= 2 and nHp < 2,
-      textString="HR-" + String(2 - nHp)),
-    Text(extent={{360,250},{640,150}},
-      textColor={0,0,0},
-      visible=nShc + nHp >= 3 and nHp < 3,
-      textString="HR-" + String(3 - nHp)),
-    Text(extent={{-440,250},{-160,150}},
-      textColor={0,0,0},
-      visible=nShc + nHp >= 4 and nHp < 4,
-      textString="HR-" + String(4 - nHp)),
-    Text(extent={{-1240,250},{-960,150}},
-      textColor={0,0,0},
-      visible=nShc + nHp >= 5 and nHp < 5,
-      textString="HR-" + String(5 - nHp)),
-    Text(extent={{-2040,250},{-1760,150}},
-      textColor={0,0,0},
-      visible=nShc + nHp >= 6 and nHp < 6,
-      textString="HR-" + String(6 - nHp)),
+      visible=nHp + nShc >= 6,
+      textString=idEqu[6]),
     Line(points={{2400,400},{2400,-80},{2200,-80},{2200,0}},
       color={0,0,0},
       thickness=5,
@@ -552,45 +533,27 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
       thickness=5,
       pattern=LinePattern.Dash,
       visible=nHp + nShc >= 6 and nHp < 6),
-    Line(points=if typArrPumPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then {{1000,400},{1000,-80},{1200,-80},{1200,0}}
-      else {{1020,400},{1020,-80},{1200,-80},{1200,0}},
+    Line(points={{1000,400},{1000,-80},{1200,-80},{1200,0}},
       color={0,0,0},
       thickness=5,
       visible=nHp + nShc >= 2 and nHp < 2),
-    Line(points=if typArrPumPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then {{1800,400},{1800,-80},{2000,-80},{2000,0}}
-      else {{1820,400},{1820,-80},{2000,-80},{2000,0}},
+    Line(points={{1800,400},{1800,-80},{2000,-80},{2000,0}},
       color={0,0,0},
       thickness=5,
       visible=nHp + nShc >= 1 and nHp < 1),
-    Line(points=if typArrPumPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then {{200,400},{200,-80},{400,-80},{400,0}}
-      else {{220,400},{220,-80},{400,-80},{400,0}},
+    Line(points={{200,400},{200,-80},{400,-80},{400,0}},
       color={0,0,0},
       thickness=5,
       visible=nHp + nShc >= 3 and nHp < 3),
-    Line(points=if typArrPumPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then {{-600,400},{-600,-80},{-400,-80},{-400,0}}
-      else {{-580,400},{-580,-80},{-400,-80},{-400,0}},
+    Line(points={{-600,400},{-600,-80},{-400,-80},{-400,0}},
       color={0,0,0},
       thickness=5,
       visible=nHp + nShc >= 4 and nHp < 4),
-    Line(points=if typArrPumPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then {{-1400,400},{-1400,-80},{-1200,-80},{-1200,0}}
-      else {{-1380,400},{-1380,-80},{-1200,-80},{-1200,0}},
+    Line(points={{-1400,400},{-1400,-80},{-1200,-80},{-1200,0}},
       color={0,0,0},
       thickness=5,
       visible=nHp + nShc >= 5 and nHp < 5),
-    Line(points=if typArrPumPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then {{-2200,400},{-2200,-80},{-2000,-80},{-2000,0}}
-      else {{-2180,400},{-2180,-80},{-2000,-80},{-2000,0}},
+    Line(points={{-2200,400},{-2200,-80},{-2000,-80},{-2000,0}},
       color={0,0,0},
       thickness=5,
       visible=nHp + nShc >= 6 and nHp < 6)}),

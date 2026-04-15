@@ -7,7 +7,8 @@ model AirToWaterSHC
       nShc_select=2,
       typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      have_pumPriComHp_select=true));
+      have_pumPriComHp_select=false)
+                                   );
 
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterSHC.mos"

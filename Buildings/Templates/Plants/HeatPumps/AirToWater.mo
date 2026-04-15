@@ -59,9 +59,9 @@ model AirToWater
       then Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=hp.mHeaWatHp_flow_nominal,
         dp_nominal=hp.dpHeaWatHp_nominal + max(
-          valIso.dpValveHeaWat_nominal[1:nHp]) *
-          ((if have_valHpInlIso then 1 else 0) + (if have_valHpOutIso
-          then 1 else 0)) + dpValCheHeaWatHp_nominal,
+          valIso.dpValveHeaWat_nominal[1:nHp]) * ((if have_valHpInlIso
+          then 1 else 0) + (if have_valHpOutIso then 1 else 0)) +
+          dpValCheHeaWatHp_nominal,
         datPum=dat.pumHeaWatPriSin[1])
       else dat.dpBalHeaWatHp_nominal)
     else 0
@@ -158,7 +158,6 @@ model AirToWater
     final nHp=nHp,
     final nShc=nShc,
     final is_rev=is_rev,
-    final typArrPumPri=typArrPumPri,
     final energyDynamics=energyDynamics,
     final have_dpChiHeaWat=false,
     final have_dpSou=false,
@@ -172,10 +171,10 @@ model AirToWater
     redeclare final package Medium=MediumHeaWat,
     final have_hp=have_hp,
     final have_shc=have_shc,
-    final have_pumHeaWatPriVar=
-    typPumPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-    final have_pumChiWatPriVar=
-    typPumPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+    final have_pumHeaWatPriVar=typPumPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+    final have_pumChiWatPriVar=typPumPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     final nHp=nHp,
     final nShc=nShc,
     final nPumHeaWat=if typArrPumPri ==
@@ -190,12 +189,10 @@ model AirToWater
     final datPumChiWat=dat.pumChiWatPri,
     final dpValCheHeaWat_nominal=if typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      then dat.dpValCheHeaWat_nominal
-      else fill(0, 0),
+      then dat.dpValCheHeaWat_nominal else fill(0, 0),
     final dpValCheChiWat_nominal=if typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      then dat.dpValCheChiWat_nominal
-      else fill(0, 0),
+      then dat.dpValCheChiWat_nominal else fill(0, 0),
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Dedicated primary pumps"
@@ -213,17 +210,23 @@ model AirToWater
     final have_valShcInlIso=have_valShcInlIso,
     final have_valShcOutIso=have_valShcOutIso,
     final have_pumChiWatDedHp=have_pumChiWatDedHp,
-    final mHeaWatUni_flow_nominal=cat(1, fill(dat.hp.mHeaWatHp_flow_nominal,
-        nHp), fill(dat.hp.mHeaWatShc_flow_nominal, nShc)),
-    final dpHeaWatUni_nominal=cat(1, fill(dat.hp.dpHeaWatHp_nominal, nHp), fill(
-         dat.hp.dpHeaWatShc_nominal, nShc)),
-    final dpBalHeaWatUni_nominal=cat(1, fill(dpBalHeaWatHp_nominal, nHp), fill(
-        dpBalHeaWatShc_nominal, nShc)),
-    final mChiWatUni_flow_nominal=cat(1, fill(dat.hp.mChiWatHp_flow_nominal,
-      nHp), fill(dat.hp.mChiWatShc_flow_nominal, nShc)),
+    final mHeaWatUni_flow_nominal=cat(
+      1,
+      fill(dat.hp.mHeaWatHp_flow_nominal, nHp),
+      fill(dat.hp.mHeaWatShc_flow_nominal, nShc)),
+    final dpHeaWatUni_nominal=cat(
+      1,
+      fill(dat.hp.dpHeaWatHp_nominal, nHp),
+      fill(dat.hp.dpHeaWatShc_nominal, nShc)),
+    final dpBalHeaWatUni_nominal=cat(
+      1, fill(dpBalHeaWatHp_nominal, nHp), fill(dpBalHeaWatShc_nominal, nShc)),
+    final mChiWatUni_flow_nominal=cat(
+      1,
+      fill(dat.hp.mChiWatHp_flow_nominal, nHp),
+      fill(dat.hp.mChiWatShc_flow_nominal, nShc)),
     final dpChiWatShc_nominal=fill(dat.hp.dpChiWatShc_nominal, nShc),
-    final dpBalChiWatUni_nominal=cat(1, fill(dpBalChiWatHp_nominal, nHp), fill(
-        dpBalChiWatShc_nominal, nShc)),
+    final dpBalChiWatUni_nominal=cat(
+      1, fill(dpBalChiWatHp_nominal, nHp), fill(dpBalChiWatShc_nominal, nShc)),
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     linearized=linearized)
@@ -236,7 +239,8 @@ model AirToWater
     final dat=dat.pumChiWatPri,
     final dpValChe_nominal=dat.dpValCheChiWat_nominal,
     final nPum=nPumChiWatPri,
-    final have_var=typPumPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+    final have_var=typPumPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     final have_varCom=true,
     final allowFlowReversal=allowFlowReversal)
     if have_chiWat
@@ -506,7 +510,8 @@ model AirToWater
     final dat=dat.pumHeaWatPri,
     final dpValChe_nominal=dat.dpValCheHeaWat_nominal,
     final nPum=nPumHeaWatPri,
-    final have_var=typPumPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+    final have_var=typPumPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     final have_varCom=true,
     final allowFlowReversal=allowFlowReversal)
     if have_heaWat
@@ -865,38 +870,42 @@ model AirToWater
   Fluid.Sources.Boundary_pT bouHeaWat(
     redeclare final package Medium=MediumHeaWat,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
-    nPorts=1) if have_heaWat
+    nPorts=1)
+    if have_heaWat
     "Pressure boundary condition mimicking expansion tank"
     annotation(Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
       origin={0,-340})));
   Fluid.Sources.Boundary_pT bouChiWat(
-    redeclare final package Medium = MediumChiWat,
+    redeclare final package Medium=MediumChiWat,
     p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
     nPorts=1)
     if typ == Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent
-    "Pressure boundary condition mimicking expansion tank" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-22})));
+    "Pressure boundary condition mimicking expansion tank"
+    annotation(Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={0,-22})));
 initial equation
   // Calculation of pump speed providing design flow
   if have_heaWat then
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
-      yPumHeaWatPriHdrSet = 0; // Not used
+    if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then
+      yPumHeaWatPriHdrSet = 0;
+      // Not used
       if have_hp then
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
             m_flow_nominal=dat.hp.mHeaWatHp_flow_nominal,
-            dp_nominal=max(valIso.dpHeaWat_nominal[1:nHp]) + dpValCheHeaWatHp_nominal,
+            dp_nominal=max(valIso.dpHeaWat_nominal[1:nHp]) +
+              dpValCheHeaWatHp_nominal,
             datPum=dat.pumHeaWatPriSin[1],
             r_N=yPumHeaWatPriHpSet);
           assert(
             yPumHeaWatPriHpSet >= 0.1 and yPumHeaWatPriHpSet <= 2,
             "In " + getInstanceName() + ": " +
               "The calculated primary pump speed to provide the design HW flow is out of bounds, " +
-            "indicating that the primary pump curve needs to be revised.");
+              "indicating that the primary pump curve needs to be revised.");
         else // Pump speed not calculated: assign value from data record
           yPumHeaWatPriHpSet = dat.ctl.yPumHeaWatPriHpSet;
         end if;
@@ -907,7 +916,7 @@ initial equation
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
             m_flow_nominal=dat.hp.mHeaWatShc_flow_nominal,
-            dp_nominal=max(valIso.dpHeaWat_nominal[nHp+1:nHp+nShc]) +
+            dp_nominal=max(valIso.dpHeaWat_nominal[nHp + 1:nHp + nShc]) +
               dat.dpValCheHeaWat_nominal[nPumHeaWatPri],
             datPum=dat.pumHeaWatPriSin[nPumHeaWatPri],
             r_N=yPumHeaWatPriShcSet);
@@ -915,7 +924,7 @@ initial equation
             yPumHeaWatPriShcSet >= 0.1 and yPumHeaWatPriShcSet <= 2,
             "In " + getInstanceName() + ": " +
               "The calculated primary pump speed to provide the SHC unit design HW flow is out of bounds, " +
-            "indicating that the primary pump curve needs to be revised.");
+              "indicating that the primary pump curve needs to be revised.");
         else // Pump speed not calculated: assign value from data record
           yPumHeaWatPriShcSet = dat.ctl.yPumHeaWatPriShcSet;
         end if;
@@ -923,36 +932,45 @@ initial equation
         yPumHeaWatPriShcSet = 0; // Not used
       end if;
     else // Headered pumps
-      yPumHeaWatPriHpSet = 0; // Not used
-      yPumHeaWatPriShcSet = 0; // Not used
+      yPumHeaWatPriHpSet = 0;
+      // Not used
+      yPumHeaWatPriShcSet = 0;
+      // Not used
       if is_yPumSetCal then
         0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
           m_flow_nominal=dat.pumHeaWatPriSin[1].m_flow_nominal,
-          dp_nominal=max(valIso.dpHeaWat_nominal) + max(dat.dpValCheHeaWat_nominal),
+          dp_nominal=max(valIso.dpHeaWat_nominal) + max(
+            dat.dpValCheHeaWat_nominal),
           datPum=dat.pumHeaWatPriSin[1],
           r_N=yPumHeaWatPriHdrSet);
         assert(
           yPumHeaWatPriHdrSet >= 0.1 and yPumHeaWatPriHdrSet <= 2,
           "In " + getInstanceName() + ": " +
             "The calculated primary pump speed to provide the design HW flow is out of bounds, " +
-          "indicating that the primary pump curve needs to be revised.");
+            "indicating that the primary pump curve needs to be revised.");
       else // Pump speed not calculated: assign value from data record
         yPumHeaWatPriHdrSet = dat.ctl.yPumHeaWatPriHdrSet;
       end if;
     end if;
   else // No HW circuit
-    yPumHeaWatPriHdrSet = 0; // Not used
-    yPumHeaWatPriHpSet = 0; // Not used
+    yPumHeaWatPriHdrSet = 0;
+    // Not used
+    yPumHeaWatPriHpSet = 0;
+    // Not used
     yPumHeaWatPriShcSet = 0; // Not used
   end if;
   if have_chiWat then
-    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
-      yPumChiWatPriHdrSet = 0; // Not used
+    if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then
+      yPumChiWatPriHdrSet = 0;
+      // Not used
       if have_hp then
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
             m_flow_nominal=dat.hp.mChiWatHp_flow_nominal,
-            dp_nominal=max(valIso.dpChiWat_nominal[1:nHp]) + dpValCheChiWatHp_nominal,
+            dp_nominal=max(valIso.dpChiWat_nominal[1:nHp]) +
+              dpValCheChiWatHp_nominal,
             datPum=if have_pumPriComHp
               then dat.pumHeaWatPriSin[1] else dat.pumChiWatPriSin[1],
             r_N=yPumChiWatPriHpSet);
@@ -971,7 +989,7 @@ initial equation
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
             m_flow_nominal=dat.hp.mChiWatShc_flow_nominal,
-            dp_nominal=max(valIso.dpChiWat_nominal[nHp+1:nHp+nShc]) +
+            dp_nominal=max(valIso.dpChiWat_nominal[nHp + 1:nHp + nShc]) +
               dat.dpValCheChiWat_nominal[nPumChiWatPri],
             datPum=dat.pumChiWatPriSin[nPumChiWatPri],
             r_N=yPumChiWatPriShcSet);
@@ -987,26 +1005,31 @@ initial equation
         yPumChiWatPriShcSet = 0; // Not used
       end if;
     else // Headered pumps
-      yPumChiWatPriHpSet = 0; // Not used
-      yPumChiWatPriShcSet = 0; // Not used
+      yPumChiWatPriHpSet = 0;
+      // Not used
+      yPumChiWatPriShcSet = 0;
+      // Not used
       if is_yPumSetCal then
         0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
           m_flow_nominal=dat.pumChiWatPriSin[1].m_flow_nominal,
-          dp_nominal=max(valIso.dpChiWat_nominal) + max(dat.dpValCheChiWat_nominal),
+          dp_nominal=max(valIso.dpChiWat_nominal) + max(
+            dat.dpValCheChiWat_nominal),
           datPum=dat.pumChiWatPriSin[1],
           r_N=yPumChiWatPriHdrSet);
         assert(
           yPumChiWatPriHdrSet >= 0.1 and yPumChiWatPriHdrSet <= 2,
           "In " + getInstanceName() + ": " +
             "The calculated primary pump speed to provide the design HW flow is out of bounds, " +
-          "indicating that the primary pump curve needs to be revised.");
+            "indicating that the primary pump curve needs to be revised.");
       else // Pump speed not calculated: assign value from data record
         yPumChiWatPriHdrSet = dat.ctl.yPumChiWatPriHdrSet;
       end if;
     end if;
   else // No CHW circuit
-    yPumChiWatPriHdrSet = 0; // Not used
-    yPumChiWatPriHpSet = 0; // Not used
+    yPumChiWatPriHdrSet = 0;
+    // Not used
+    yPumChiWatPriHpSet = 0;
+    // Not used
     yPumChiWatPriShcSet = 0; // Not used
   end if;
   if is_dpBalCal then
@@ -1239,9 +1262,10 @@ equation
       thickness=0.5,
       visible=have_heaWat
         and typPumHeaWatSec <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
+          Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   connect(bouChiWat.ports[1], TChiWatPriRet.port_b)
-    annotation (Line(points={{0,-12},{0,0},{50,0}}, color={0,127,255}));
+    annotation(Line(points={{0,-12},{0,0},{50,0}},
+      color={0,127,255}));
   connect(TChiWatSecSup.port_b, supChiWatSec.port_a)
     annotation(Line(points={{230,80},{250,80}},
       color={0,0,0},
