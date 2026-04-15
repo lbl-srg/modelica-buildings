@@ -95,8 +95,8 @@ block Up "Sequence for control devices when there is stage-up command"
     displayUnit="s")=300
     "Threshold time to check after newly enabled chiller being operated"
     annotation (Dialog(group="Enable next chiller",enable=have_ponChi));
-  parameter Real relFloDif=0.05
-    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
+  parameter Real relFloThr=0.95
+    "Relative flow rate to check if the flow has achieved setpoint"
     annotation (Dialog(tab="Advanced", group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
@@ -269,7 +269,7 @@ protected
     minBypSet(
     final byPasSetTim=byPasSetTim,
     final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif)
+    final relFloThr=relFloThr)
     "Check if minium bypass has been reset"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableCWPump
@@ -317,8 +317,8 @@ protected
     final proOnTim=proOnTim,
     final minFloSet=minFloSet,
     final byPasSetTim=byPasSetTim,
-    final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif) "End stage-up process"
+    final aftByPasSetTim=aftByPasSetTim)
+                               "End stage-up process"
     annotation (Placement(transformation(extent={{20,-280},{40,-240}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
     "False constant"

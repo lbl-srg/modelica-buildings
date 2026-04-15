@@ -139,14 +139,14 @@ equation
     annotation (Line(points={{-298,-70},{-282,-70}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.TChiWatSupResReq) annotation (Line(points={{-258,
           -70},{-100,-70},{-100,-50},{-30,-50}}, color={255,127,0}));
-  connect(phi.y, chiPlaCon.phi) annotation (Line(points={{-278,60},{-150,60},{
-          -150,110},{-30,110}}, color={0,0,127}));
+  connect(phi.y, chiPlaCon.phi) annotation (Line(points={{-278,60},{-170,60},{
+          -170,110},{-30,110}}, color={0,0,127}));
   connect(TChiWatRet.y, chiPlaCon.TChiWatRet)
     annotation (Line(points={{-218,30},{-128,30},{-128,90},{-30,90}}, color={0,0,127}));
   connect(TChiWatSup.y, chiPlaCon.TChiWatSup)
     annotation (Line(points={{-278,10},{-144,10},{-144,60},{-30,60}}, color={0,0,127}));
   connect(TChiWatRetDow.y, chiPlaCon.TChiWatRetDow) annotation (Line(points={{-278,
-          -130},{-170,-130},{-170,100},{-30,100}}, color={0,0,127}));
+          -130},{-160,-130},{-160,100},{-30,100}}, color={0,0,127}));
   connect(TConWatSup.y, chiPlaCon.TConWatSup) annotation (Line(points={{-238,
           -220},{-120,-220},{-120,-115},{-30,-115}}, color={0,0,127}));
   connect(watLev.y, chiPlaCon.watLev) annotation (Line(points={{-238,-260},{-90,

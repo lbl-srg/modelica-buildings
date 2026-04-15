@@ -34,9 +34,6 @@ block UpEnd "Sequence for ending stage-up process"
   parameter Real aftByPasSetTim(unit="s")=60
     "Time after minimum bypass flow being resetted to new setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Real relFloDif=0.05
-    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
-    annotation (Dialog(tab="Advanced", group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"

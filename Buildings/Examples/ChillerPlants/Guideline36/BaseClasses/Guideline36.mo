@@ -9,18 +9,18 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     chwIsoVal2(y_start=0),
     cwIsoVal1(y_start=0),
     cwIsoVal2(y_start=0),
-    cooTow1(yMin=0.1),
-    cooTow2(yMin=0.1)   );
+    cooTow2(yMin=0.05),
+    cooTow1(yMin=0.05)  );
 //   parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal = 10
 //     "Nominal mass flow rate in chilled water loop";
 //   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 10
 //     "Nominal mass flow rate in condenser water loop";
   parameter Modelica.Units.SI.TemperatureDifference dTChi = 7
     "Nominal chilled water supply and return temperature difference";
-  parameter Real speChe=0.005
+  parameter Real speChe=0.01
     "Lower threshold value to check fan or pump speed";
-  parameter Real loaChe=0.1
-    "Load threshold value to check if chiller or cooling tower is running";
+  parameter Real loaChe=1
+    "Threshold for checking the chiller power to decide if it is operating";
   parameter Real posChe=0.001
     "Position threshold value to check if the valve is open";
 
@@ -69,7 +69,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     chaTowCelIsoTim=120,
     watLevMin=0.7,
     watLevMax=1,
-    relFloDif=0.05,
     final speChe=speChe)
     "Chiller plant controller"
     annotation (Placement(transformation(extent={{-140,0},{-100,160}})));
@@ -109,11 +108,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     final h=fill(0.5*speChe, 2))
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{-400,-110},{-380,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold towSta[2](
-    final t=fill(loaChe, 2),
-    final h=fill(0.5*loaChe, 2))
-    "Cooling tower status"
-    annotation (Placement(transformation(extent={{-360,-30},{-340,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatLev(
     final k=0.9) "Constant cooling tower water level"
     annotation (Placement(transformation(extent={{-520,-10},{-500,10}})));
@@ -131,8 +125,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
   Buildings.Templates.Components.Controls.StatusEmulator pre4[2] "Break algebraic loop"
     annotation (Placement(transformation(extent={{-260,220},{-240,240}})));
-  Buildings.Templates.Components.Controls.StatusEmulator pre5[2] "Break algebraic loop"
-    annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
   Buildings.Templates.Components.Controls.StatusEmulator pre6[2] "Break algebraic loop"
     annotation (Placement(transformation(extent={{-360,-110},{-340,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
@@ -165,10 +157,13 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[2]
     "Convert chilled water pump status"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal           booToRea3[2](final
-      realTrue=fill(1, 2))
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3[2](
+    final realTrue=fill(1, 2))
     "Tower cell enabling status"
     annotation (Placement(transformation(extent={{140,320},{160,340}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre enaTow[2]
+    "Tower cell enabling status"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
   connect(chwIsoVal1.y_actual, chiWatIso[1].u) annotation (Line(points={{235,77},
@@ -197,10 +192,6 @@ equation
           -107},{207,-164},{-410,-164},{-410,-100},{-402,-100}}, color={0,0,127}));
   connect(chiWatPum2.y_actual, chiWatPumSta[2].u) annotation (Line(points={{267,
           -107},{267,-164},{-410,-164},{-410,-100},{-402,-100}}, color={0,0,127}));
-  connect(cooTow1.PFan, towSta[1].u) annotation (Line(points={{319,388},{-430,388},
-          {-430,-20},{-362,-20}},      color={0,0,127}));
-  connect(cooTow2.PFan, towSta[2].u) annotation (Line(points={{319,318},{300,318},
-          {300,388},{-430,388},{-430,-20},{-362,-20}},      color={0,0,127}));
   connect(conWatLev.y, chiPlaCon.watLev) annotation (Line(points={{-498,0},{
           -380,0},{-380,6},{-144,6}},       color={0,0,127}));
   connect(chiPlaCon.yConWatIsoVal[1], cwIsoVal1.y) annotation (Line(points={{-96,79},
@@ -240,13 +231,8 @@ equation
     annotation (Line(points={{-378,330},{-282,330}}, color={255,0,255}));
   connect(chiSta.y, pre4.y1)
     annotation (Line(points={{-378,230},{-262,230}}, color={255,0,255}));
-  connect(towSta.y, pre5.y1)
-    annotation (Line(points={{-338,-20},{-262,-20}}, color={255,0,255}));
   connect(chiWatRet.T, chiPlaCon.TChiWatRet) annotation (Line(points={{429,-180},
           {400,-180},{400,-50},{-470,-50},{-470,108},{-144,108}}, color={0,0,127}));
-  connect(pre5.y1_actual, chiPlaCon.uTowSta) annotation (Line(points={{-238,-20},
-          {-190,-20},{-190,2},{-144,2}},
-                                   color={255,0,255}));
   connect(conWatPumSta.y, chiPlaCon.uConWatPum) annotation (Line(points={{-378,
           150},{-340,150},{-340,44},{-144,44}}, color={255,0,255}));
   connect(pre2.y1_actual, chiPlaCon.uChiWatReq) annotation (Line(points={{-258,330},{-160,
@@ -340,6 +326,10 @@ equation
           -96,45},{60,45},{60,100},{240,100},{240,82}}, color={0,0,127}));
   connect(chiPlaCon.yChiWatIsoVal[2], chwIsoVal2.y) annotation (Line(points={{
           -96,47},{60,47},{60,10},{240,10},{240,-8}}, color={0,0,127}));
+  connect(chiPlaCon.yTowCelIsoVal, enaTow.u) annotation (Line(points={{-96,34},
+          {-10,34},{-10,0},{18,0}}, color={255,0,255}));
+  connect(enaTow.y, chiPlaCon.uTowSta) annotation (Line(points={{42,0},{50,0},{
+          50,-20},{-160,-20},{-160,2},{-144,2}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
             {160,-200}}), graphics={
         Rectangle(

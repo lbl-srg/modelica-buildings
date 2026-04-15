@@ -80,8 +80,8 @@ block Down
     displayUnit="s")=60
     "Time to allow loop to stabilize after resetting minimum chilled water flow setpoint"
     annotation (Dialog(group="Reset bypass"));
-  parameter Real relFloDif=0.05
-    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
+  parameter Real relFloThr=0.95
+    "Relative flow rate to check if the flow has achieved setpoint"
     annotation (Dialog(tab="Advanced", group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
@@ -249,7 +249,7 @@ protected
     final maxFloSet=maxFloSet,
     final aftByPasSetTim=aftByPasSetTim,
     final have_twoPosEndSwiChiVal=have_twoPosEndSwiChiVal,
-    final relFloDif=relFloDif,
+    final relFloThr=relFloThr,
     final byPasSetTim=byPasSetTim,
     final waiTim=waiTim,
     final chaChiWatIsoTim=chaChiWatIsoTim,

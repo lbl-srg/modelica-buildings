@@ -8,8 +8,8 @@ block ResetMinBypass
     final unit="s",
     final quantity="Time") = 60
     "Time after setpoint achieved";
-  parameter Real relFloDif=0.01
-    "Relative error to the setpoint for checking if it has achieved flow rate setpoint"
+  parameter Real relFloThr=0.95
+    "Relative flow rate to check if the flow has achieved setpoint"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uUpsDevSta
@@ -25,21 +25,21 @@ block ResetMinBypass
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured chilled water flow rate"
-    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
+    annotation (Placement(transformation(extent={{-200,-10},{-160,30}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinChiWat_setpoint(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Minimum chiller water flow setpoint"
-    annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
+    "Minimum chilled water flow setpoint"
+    annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSetChaPro
     "True: it is in the setpoint change process"
-    annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
+    annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMinBypRes
-    "True: minimum chilled water flow bypass valve has been resetted successfully"
+    "True: minimum chilled water flow bypass valve has been reset successfully"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -63,15 +63,12 @@ protected
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract floDif
-    "Find the flow rate difference"
-    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Logical and"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not notChaSet
     "Not in the setpoint changing process"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
+    annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And and6
     "Check if it is not in the setpoint changing process and the setpoint has been achieved"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -79,11 +76,11 @@ protected
     "Check if the valve is being changed"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Edge when the valve has been resetted successfully"
+    "Edge when the valve has been reset successfully"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg3
     "Edge when it starts changing the minimum bypass flow valve"
-    annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Logical.And and7 "Logical and"
@@ -92,11 +89,20 @@ protected
     final delayTime=byPasSetTim)
     "Check the flow setpoint after changing time"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=0.5*relFloDif,
-    final h=0.5*relFloDif)
-    "Check if chiller water flow rate achieves the minimum flow setpoint"
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold achSet(
+    final t=relFloThr,
+    final h=0.01)
+    "Check if chilled water flow rate achieves the minimum flow setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nonZerCon(
+    final k=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    "Non-zero constant"
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
+  Buildings.Controls.OBC.CDL.Reals.Divide relFlo "Relative flow rate"
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Max nonZer "Non zero output"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+
 equation
   connect(uUpsDevSta, and2.u1)
     annotation (Line(points={{-180,120},{-142,120}},color={255,0,255}));
@@ -114,27 +120,22 @@ equation
   connect(edg1.y, lat.clr)
     annotation (Line(points={{-78,60},{70,60},{70,74},{78,74}},
       color={255,0,255}));
-  connect(VChiWat_flow, floDif.u1)
-    annotation (Line(points={{-180,20},{-150,20},{-150,6},{-142,6}},
-      color={0,0,127}));
   connect(and2.y, and3.u1)
     annotation (Line(points={{-118,120},{-50,120},{-50,0},{-42,0}},
       color={255,0,255}));
-  connect(VMinChiWat_setpoint, floDif.u2) annotation (Line(points={{-180,-20},{-150,
-          -20},{-150,-6},{-142,-6}}, color={0,0,127}));
   connect(tim.passed, and4.u2)
     annotation (Line(points={{62,-8},{78,-8}}, color={255,0,255}));
   connect(uSetChaPro, notChaSet.u)
-    annotation (Line(points={{-180,-110},{-142,-110}}, color={255,0,255}));
-  connect(notChaSet.y, and6.u2) annotation (Line(points={{-118,-110},{-10,-110},
-          {-10,-8},{-2,-8}},  color={255,0,255}));
+    annotation (Line(points={{-180,-140},{-102,-140}}, color={255,0,255}));
+  connect(notChaSet.y, and6.u2) annotation (Line(points={{-78,-140},{-10,-140},{
+          -10,-8},{-2,-8}},   color={255,0,255}));
   connect(and1.y, and4.u1) annotation (Line(points={{142,120},{150,120},{150,40},
           {70,40},{70,0},{78,0}},   color={255,0,255}));
   connect(and4.y, edg.u)
     annotation (Line(points={{102,0},{118,0}},   color={255,0,255}));
-  connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-60,80},{-60,-140},
-          {-22,-140}},      color={255,0,255}));
-  connect(edg3.y, lat1.clr) annotation (Line(points={{2,-140},{70,-140},{70,-126},
+  connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-60,80},{-60,-120},
+          {18,-120}},       color={255,0,255}));
+  connect(edg3.y, lat1.clr) annotation (Line(points={{42,-120},{60,-120},{60,-126},
           {78,-126}},        color={255,0,255}));
   connect(lat1.y, and5.u2) annotation (Line(points={{102,-120},{110,-120},{110,-108},
           {118,-108}},color={255,0,255}));
@@ -148,10 +149,6 @@ equation
           -80},{100,-80},{100,-68},{118,-68}}, color={255,0,255}));
   connect(and7.y, yMinBypRes)
     annotation (Line(points={{142,-60},{180,-60}}, color={255,0,255}));
-  connect(floDif.y, greThr.u)
-    annotation (Line(points={{-118,0},{-102,0}}, color={0,0,127}));
-  connect(greThr.y, and3.u2) annotation (Line(points={{-78,0},{-70,0},{-70,-8},{
-          -42,-8}}, color={255,0,255}));
   connect(and3.y, and6.u1)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(and6.y, tim.u)
@@ -160,6 +157,18 @@ equation
         color={255,0,255}));
   connect(edg.y, lat1.u) annotation (Line(points={{142,0},{150,0},{150,-40},{70,
           -40},{70,-120},{78,-120}}, color={255,0,255}));
+  connect(VChiWat_flow, relFlo.u1) annotation (Line(points={{-180,10},{-150,10},
+          {-150,6},{-142,6}}, color={0,0,127}));
+  connect(relFlo.y, achSet.u)
+    annotation (Line(points={{-118,0},{-102,0}}, color={0,0,127}));
+  connect(nonZerCon.y, nonZer.u2) annotation (Line(points={{-118,-90},{-110,-90},
+          {-110,-76},{-102,-76}}, color={0,0,127}));
+  connect(VMinChiWat_setpoint, nonZer.u1) annotation (Line(points={{-180,-50},{-110,
+          -50},{-110,-64},{-102,-64}}, color={0,0,127}));
+  connect(nonZer.y, relFlo.u2) annotation (Line(points={{-78,-70},{-70,-70},{-70,
+          -32},{-150,-32},{-150,-6},{-142,-6}}, color={0,0,127}));
+  connect(achSet.y, and3.u2) annotation (Line(points={{-78,0},{-70,0},{-70,-8},{
+          -42,-8}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -214,8 +223,8 @@ When there is a stage-change command (<code>uStaPro</code> = true) and the upstr
 device has finished its adjustment process (<code>uUpsDevSta</code> = true), 
 like in the stage-up process the operating chillers have reduced the demand, 
 check if the minimum chilled water flow rate <code>VChiWat_flow</code> has achieved 
-its new set point <code>VMinChiWat_setpoint</code>. 
-After new setpoint is achieved, wait for 1 minute (<code>byPasSetTim</code>) to 
+its new setpoint <code>VMinChiWat_setpoint</code>. 
+After new setpoint is achieved, wait for 1 minute (<code>aftByPasSetTim</code>) to 
 allow loop to be stabilized. It will then set <code>yMinBypRes</code> to true.
 </p>
 </html>",
