@@ -35,7 +35,7 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-72,164},{76,104}},
+          extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),                           Diagram(
         coordinateSystem(preserveAspectRatio=false)),

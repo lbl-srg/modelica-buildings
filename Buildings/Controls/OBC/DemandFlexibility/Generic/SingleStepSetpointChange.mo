@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SingleStepSetpointChange "Single-step setpoint change"
 
-  parameter Real samPer(final unit="s",final quantity="Time")
-    "Sample period";
   parameter Real alwDev(min=1E-6)
     "Allowed deviation for equality";
   parameter Boolean setChaMod=true
@@ -35,9 +33,6 @@ block SingleStepSetpointChange "Single-step setpoint change"
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between the baseline setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler sam(final samplePeriod=samPer)
-    "Sample period for the single-step change"
-    annotation (Placement(transformation(extent={{116,-10},{136,10}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1
     "Minimum of baseline setpoint and target setpoint"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
@@ -80,10 +75,6 @@ equation
                     color={0,0,127}));
   connect(min1.y,max2. u1) annotation (Line(points={{22,70},{68,70},{68,6},{78,6}},
                           color={0,0,127}));
-  connect(sam.y,yComSet)  annotation (Line(points={{138,0},{180,0}},
-                             color={0,0,127}));
-  connect(max2.y,sam. u) annotation (Line(points={{102,0},{114,0}},
-                                color={0,0,127}));
   connect(con.y, swi1.u2) annotation (Line(points={{-118,-170},{-48,-170},{-48,-30},
           {-42,-30}},
         color={255,0,255}));
@@ -113,6 +104,8 @@ equation
                                         color={0,0,127}));
   connect(reaNumEquBasSet.y, reach_uBasSet) annotation (Line(points={{2,-150},{
           80,-150},{80,-90},{180,-90}}, color={255,0,255}));
+  connect(max2.y, yComSet)
+    annotation (Line(points={{102,0},{180,0}}, color={0,0,127}));
   annotation (defaultComponentName="sinSteSetCha",
         Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -155,8 +148,7 @@ expected to change when the occupancy mode is changed between the unoccupied mod
 <p>
 The parameter <code>setChaMod</code> specifies whether the current 
 setpoint <code>uCurSet</code> shall change to the <code>uBasSet</code> value or the 
-<code>uTarSet</code> value in a single step. The setpoint change operation 
-will be executed every <code>samPer</code> seconds. 
+<code>uTarSet</code> value in a single step. 
 The resultant setpoint will be outputted as the 
 <code>yComSet</code> output variable, which 
 represents the new setpoint that a zone or a piece of equipment shall have. 
