@@ -2,24 +2,23 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Thermodynamic properties of heat carrier fluids &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a6255d24" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=6f15799e" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap.css?v=0cb5a744" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css?v=18a45976" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css?v=b7c6d2d5" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=15f31cae" />
+    <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css?v=eb9de370" />
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Evaporator and condenser models" href="heatexchangers.html" />
@@ -28,10 +27,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -44,7 +43,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+        <a class="navbar-brand" href="index.html">
            </a>
         <span class="navbar-text navbar-version pull-left"><b></b></span>
       </div>
@@ -65,14 +64,39 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="calibrate.html">Calibrate heat pump models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibrate.html">Calibrate heat pump models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.ManufacturerData"><code class="docutils literal notranslate"><span class="pre">ManufacturerData</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.SimulationResults"><code class="docutils literal notranslate"><span class="pre">SimulationResults</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.calibrate_model"><code class="docutils literal notranslate"><span class="pre">calibrate_model()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.compare_data_sets"><code class="docutils literal notranslate"><span class="pre">compare_data_sets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.cost_function"><code class="docutils literal notranslate"><span class="pre">cost_function()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.simulate"><code class="docutils literal notranslate"><span class="pre">simulate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibrate.html#PythonModel.calibrate.simulate_in_dymola"><code class="docutils literal notranslate"><span class="pre">simulate_in_dymola()</span></code></a></li>
+</ul>
+</li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Thermodynamic properties of heat carrier fluids</a></li>
-<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="heatpumps.html">Heat pump models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compressors.html">Compressor models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html#PythonModel.compressors.ReciprocatingCompressor"><code class="docutils literal notranslate"><span class="pre">ReciprocatingCompressor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compressors.html#PythonModel.compressors.ScrollCompressor"><code class="docutils literal notranslate"><span class="pre">ScrollCompressor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Thermodynamic properties of heat carrier fluids</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="heatexchangers.html">Evaporator and condenser models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="heatexchangers.html#PythonModel.heatexchangers.EvaporatorCondenser"><code class="docutils literal notranslate"><span class="pre">EvaporatorCondenser</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="heatpumps.html">Heat pump models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="heatpumps.html#PythonModel.heatpumps.SingleStageHeatPump"><code class="docutils literal notranslate"><span class="pre">SingleStageHeatPump</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="refrigerants.html">Refrigerant thermodynamic properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="refrigerants.html#PythonModel.refrigerants.R410A"><code class="docutils literal notranslate"><span class="pre">R410A</span></code></a></li>
+</ul>
+</li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dummy_performance_data.html">Generate performance data from heat pump model</a></li>
@@ -90,7 +114,16 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Thermodynamic properties of heat carrier fluids</a></li>
+<li><a class="reference internal" href="#">Thermodynamic properties of heat carrier fluids</a><ul>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater</span></code></a><ul>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater.get_Density"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater.get_Density()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater.get_SpecificIsobaricHeatCapacity()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater.get_SpecificVolume()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater.modelicaModelPath"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater.modelicaModelPath()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -132,22 +165,53 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Thermodynamic properties of heat carrier fluids</a><ul>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater</span></code></a><ul>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater.get_Density"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater.get_Density()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater.get_SpecificIsobaricHeatCapacity()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater.get_SpecificVolume()</span></code></a></li>
+<li><a class="reference internal" href="#PythonModel.fluids.ConstantPropertyWater.modelicaModelPath"><code class="docutils literal notranslate"><span class="pre">ConstantPropertyWater.modelicaModelPath()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="compressors.html" title="Previous Chapter: Compressor models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Compressor models</span>
+    </a>
+  </li>
+  <li>
+    <a href="heatexchangers.html" title="Next Chapter: Evaporator and condenser models"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Evaporator an... &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <section id="module-PythonModel.fluids">
-<span id="thermodynamic-properties-of-heat-carrier-fluids"></span><h1>Thermodynamic properties of heat carrier fluids<a class="headerlink" href="#module-PythonModel.fluids" title="Permalink to this headline">¶</a></h1>
+<span id="thermodynamic-properties-of-heat-carrier-fluids"></span><h1>Thermodynamic properties of heat carrier fluids<a class="headerlink" href="#module-PythonModel.fluids" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.fluids.</span></span><span class="sig-name descname"><span class="pre">ConstantPropertyWater</span></span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.fluids.</span></span><span class="sig-name descname"><span class="pre">ConstantPropertyWater</span></span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object for the evaluation of thermal properties of heat transfer fluid
 Water.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater.get_Density">
-<span class="sig-name descname"><span class="pre">get_Density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_Density" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_Density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_Density" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the density of water.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Density of water at 20 C (kg/m3)</p>
 </dd>
 </dl>
@@ -163,10 +227,10 @@ Water.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity">
-<span class="sig-name descname"><span class="pre">get_SpecificIsobaricHeatCapacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_SpecificIsobaricHeatCapacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the specific isobaric heat capacity of water.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Specific isobaric heat capacity of water at 20 C (J/(kg.K))</p>
 </dd>
 </dl>
@@ -182,10 +246,10 @@ Water.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume">
-<span class="sig-name descname"><span class="pre">get_SpecificVolume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_SpecificVolume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the specific volume of water.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Specific volume of water at 20 C (m3/kg)</p>
 </dd>
 </dl>
@@ -201,10 +265,10 @@ Water.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater.modelicaModelPath">
-<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.modelicaModelPath" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the full path to the water model in the Buildings library.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Full path to the water model in the Buildings library.</p>
 </dd>
 </dl>
@@ -244,7 +308,7 @@ model from failing.</p>
     </p>
     <p>
         &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
     </p>
   </div>
 </footer>

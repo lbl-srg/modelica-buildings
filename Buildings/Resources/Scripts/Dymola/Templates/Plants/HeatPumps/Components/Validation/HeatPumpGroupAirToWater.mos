@@ -22,7 +22,7 @@ createPlot(
     id=2,
     position={310, 5, 300, 600},
     subPlot=1,
-    y={"TRet[1].T", "TSup[1].T", "hpAw.bus.hp[1].TSet", "hpAw.THeaWatRetHp_nominal", "hpAw.TChiWatRetHp_nominal"},
+    y={"TRet[1].T", "TSup[1].T", "hpAw.bus.hp[1].TChiWatSet", "hpAw.bus.hp[1].THeaWatSet", "hpAw.THeaWatRetHp_nominal", "hpAw.TChiWatRetHp_nominal"},
     autoscale=true,
     grid=true
 );
@@ -44,7 +44,7 @@ createPlot(
     id=3,
     position={615, 5, 300, 600},
     subPlot=1,
-    y={"TRet1[1].T", "TSup1[1].T", "hpAwNrv.bus.hp[1].TSet", "hpAwNrv.THeaWatRetHp_nominal"},
+    y={"TRet1[1].T", "TSup1[1].T", "hpAwNrv.bus.hp[1].THeaWatSet", "hpAwNrv.THeaWatRetHp_nominal"},
     autoscale=true,
     grid=true
 );

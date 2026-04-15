@@ -9,10 +9,7 @@ model TableData2DLoadDep_HeatRecovery
     sou1(
       nPorts=1),
     sou2(
-      nPorts=1),
-    TSet(
-      height=8,
-      offset=273.15 + 25));
+      nPorts=1));
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes per
     "Chiller performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
@@ -62,7 +59,7 @@ model TableData2DLoadDep_HeatRecovery
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
     final k=false)
     "Constant false signal"
-    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Modelica.Blocks.Sources.CombiTimeTable ref(
     tableOnFile=true,
     tableName="tab",
@@ -72,11 +69,15 @@ model TableData2DLoadDep_HeatRecovery
     timeEvents=Modelica.Blocks.Types.TimeEvents.NoTimeEvents)
     "Reference results"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
+  Modelica.Blocks.Sources.Ramp THwSet(
+    height=8,
+    offset=273.15 + 25,
+    duration=3600,
+    startTime=3*3600) "Set point for leaving hot water temperature"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 equation
   connect(greaterThreshold.y, chi.on)
-    annotation (Line(points={{-19,90},{-6,90},{-6,-10.5},{-2.31,-10.5}},color={255,0,255}));
-  connect(TSet.y, chi.TSet)
-    annotation (Line(points={{-59,60},{-12,60},{-12,-8.4},{-2.31,-8.4}},color={0,0,127}));
+    annotation (Line(points={{-19,90},{-6,90},{-6,-12.6},{-2.1,-12.6}}, color={255,0,255}));
   connect(sou1.ports[1], chi.port_a1)
     annotation (Line(points={{-40,16},{-20,16},{-20,-4.2},{0,-4.2}},color={0,127,255}));
   connect(sou2.ports[1], chi.port_a2)
@@ -87,7 +88,11 @@ equation
   connect(chi.port_b1, res1.port_a)
     annotation (Line(points={{21,-4.2},{26,-4.2},{26,40},{32,40}},color={0,127,255}));
   connect(fal.y, chi.coo)
-    annotation (Line(points={{-28,-60},{-6,-60},{-6,-12.6},{-2.31,-12.6}},color={255,0,255}));
+    annotation (Line(points={{-18,-60},{-6,-60},{-6,-14.7},{-2.1,-14.7}}, color={255,0,255}));
+  connect(TSet.y, chi.TChwSet) annotation (Line(points={{-59,60},{-8,60},{-8,-10.5},
+          {-2.1,-10.5}}, color={0,0,127}));
+  connect(THwSet.y, chi.THwSet) annotation (Line(points={{-19,40},{-10,40},{-10,
+          -6.3},{-2.1,-6.3}}, color={0,0,127}));
   annotation (
     experiment(
       Tolerance=1e-6,
@@ -148,6 +153,13 @@ resulting in a lower PLR and reduced power during this interval.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors 
+for CHW and HW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 March 21, 2025, by Antoine Gautier:<br/>
 First implementation.
