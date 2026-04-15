@@ -149,6 +149,35 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
 </html>"));
   end fusionTemperature_TX_a;
 
+  function volumeToMassFraction
+    "Returns the mass fraction of the mixture for a given volume fraction"
+    extends Modelica.Icons.Function;
+
+    input Real phi(
+      final unit="1") "Volume fraction of the mixture";
+    input Modelica.Units.SI.Temperature T
+      "Temperature of antifreeze-water mixture";
+    output Real y(
+      min=X_a_min,
+      max=X_a_max,
+      final unit="1") "Mass fraction of the mixture";
+
+  protected
+    Modelica.SI.Units.Density dWat "Mass density of water";
+    Modelica.SI.Units.Density phiRhoGly "Fraction of mass density of glycol";
+    Modelica.SI.Units.Density dMix "Mass density of the mixture";
+  algorithm
+    dWat = density_TX_a(T=T, X_a=0);
+    Modelica.Utilities.Streams.print("*** Mass density of water: " + String(dWat));
+    phiRhoGly = phi * density_TX_a(T=T, X_a=1);
+    Modelica.Utilities.Streams.print("*** fixme: Mass density of glycol (using extrapolation!): " + String(density_TX_a(T=T, X_a=1)));
+
+    dMix = phiRhoGly + (1-phi) * dWat; // fixme
+
+    y = phiRhoGly / dMix;
+  end function;
+
+
   function polynomialProperty
     "Evaluates thermophysical property from 2-variable polynomial"
     extends Modelica.Icons.Function;
