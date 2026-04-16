@@ -1,6 +1,6 @@
 within Buildings.Media.Antifreeze;
 package Functions "Medium packages of secondary working fluids"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>

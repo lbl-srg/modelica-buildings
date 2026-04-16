@@ -214,7 +214,7 @@ Buildings.Media.Antifreeze</a>.
 </html>"));
   end polynomialProperty;
 
-  replaceable function specificHeatCapacityCp_TX_a
+  function specificHeatCapacityCp_TX_a
     "Evaluate specific heat capacity of antifreeze-water mixture"
       extends Modelica.Icons.Function;
     input Modelica.Units.SI.Temperature T
@@ -253,7 +253,7 @@ Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
 </html>"));
   end specificHeatCapacityCp_TX_a;
 
-  replaceable function thermalConductivity_TX_a
+  function thermalConductivity_TX_a
     "Evaluate thermal conductivity of antifreeze-water mixture"
       extends Modelica.Icons.Function;
     input Modelica.Units.SI.Temperature T
@@ -291,6 +291,51 @@ Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
 </ul>
 </html>"));
   end thermalConductivity_TX_a;
+
+  function volumeToMassFraction
+    "Returns the mass fraction of the mixture for a given volume fraction"
+    extends Modelica.Icons.Function;
+
+    input Real phi(
+      final min=0,
+      max=1,
+      final unit="1") "Volume fraction of the mixture";
+    input Modelica.Units.SI.Temperature T
+      "Temperature of antifreeze-water mixture";
+    output Modelica.Units.SI.SpecificVolume y(
+      min=X_a_min,
+      max=X_a_max) "Mass fraction of the mixture";
+
+  protected
+    Modelica.Units.SI.Density dWat "Mass density of water";
+    Modelica.Units.SI.Density phiRhoGly "Fraction of mass density of glycol";
+    Modelica.Units.SI.Density dMix "Mass density of the mixture";
+
+  algorithm
+    dWat = density_TX_a(T=T, X_a=0);
+    Modelica.Utilities.Streams.print("*** Mass density of water: " + String(dWat));
+    phiRhoGly = phi * density_TX_a(T=T, X_a=1);
+    Modelica.Utilities.Streams.print("*** fixme: Mass density of glycol (using extrapolation!): " + String(density_TX_a(T=T, X_a=1)));
+
+    dMix = phiRhoGly + (1-phi) * dWat; // fixme
+
+    y = phiRhoGly / dMix;
+
+  annotation (
+  Documentation(info="<html>
+<p>
+Conversion from volume fraction to mass fraction of antifreeze-water mixture at specified temperature.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+April 16, 2026 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end volumeToMassFraction;
+
 annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models ethylene glycol - water mixtures.
