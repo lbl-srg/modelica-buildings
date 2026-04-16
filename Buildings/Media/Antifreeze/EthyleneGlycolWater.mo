@@ -4,13 +4,23 @@ package EthyleneGlycolWater
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="EthyleneGlycolWater(X_a = " + String(X_a) + ", property_T = "
          + String(property_T) + ")",
-    final cp_const=Functions.EthyleneGlycolWater.specificHeatCapacityCp_TX_a(T=property_T, X_a=X_a),
+    final cp_const=
+      Functions.EthyleneGlycolWater.specificHeatCapacityCp_TX_a(
+        T=property_T, X_a=X_a),
     final cv_const=cp_const,
-    final d_const=Functions.EthyleneGlycolWater.density_TX_a(T=property_T, X_a=X_a),
-    final eta_const=Functions.EthyleneGlycolWater.dynamicViscosity_TX_a(T=property_T, X_a=X_a),
-    final lambda_const=Functions.EthyleneGlycolWater.thermalConductivity_TX_a(T=property_T, X_a=X_a),
+    final d_const=
+      Functions.EthyleneGlycolWater.density_TX_a(
+        T=property_T, X_a=X_a),
+    final eta_const=
+      Functions.EthyleneGlycolWater.dynamicViscosity_TX_a(
+        T=property_T, X_a=X_a),
+    final lambda_const=
+      Functions.EthyleneGlycolWater.thermalConductivity_TX_a(
+        T=property_T, X_a=X_a),
     a_const=1484,
-    final T_min=Functions.EthyleneGlycolWater.fusionTemperature_TX_a(T=property_T, X_a=X_a),
+    final T_min=
+      Functions.EthyleneGlycolWater.fusionTemperature_TX_a(
+        T=property_T, X_a=X_a),
     T_max=Modelica.Units.Conversions.from_degC(100),
     T0=273.15,
     MM_const=(X_a/simpleEthyleneGlycolWaterConstants[1].molarMass + (1 - X_a)/
@@ -27,7 +37,7 @@ package EthyleneGlycolWater
   constant Modelica.Units.SI.Temperature property_T
     "Temperature for evaluation of constant fluid properties";
   constant Modelica.Units.SI.MassFraction X_a
-    "Mass fraction of propylene glycol in water";
+    "Mass fraction of ethylene glycol in water";
 
   redeclare model BaseProperties "Base properties"
     Temperature T(stateSelect=

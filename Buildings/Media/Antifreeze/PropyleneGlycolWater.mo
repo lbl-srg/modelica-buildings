@@ -4,13 +4,22 @@ package PropyleneGlycolWater
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="PropyleneGlycolWater(X_a = " + String(X_a) + ", property_T = "
          + String(property_T) + ")",
-    final cp_const=Functions.PropyleneGlycolWater.specificHeatCapacityCp_TX_a(T=property_T, X_a=X_a),
+    final cp_const=
+      Functions.PropyleneGlycolWater.specificHeatCapacityCp_TX_a(
+        T=property_T, X_a=X_a),
     final cv_const=cp_const,
-    final d_const=Functions.PropyleneGlycolWater.density_TX_a(T=property_T, X_a=X_a),
-    final eta_const=Functions.PropyleneGlycolWater.dynamicViscosity_TX_a(T=property_T, X_a=X_a),
-    final lambda_const=Functions.PropyleneGlycolWater.thermalConductivity_TX_a(T=property_T, X_a=X_a),
+    final d_const=
+      Functions.PropyleneGlycolWater.density_TX_a(
+        T=property_T, X_a=X_a),
+    final eta_const=
+      Functions.PropyleneGlycolWater.dynamicViscosity_TX_a(
+        T=property_T, X_a=X_a),
+    final lambda_const=
+      Functions.PropyleneGlycolWater.thermalConductivity_TX_a(T=property_T, X_a=X_a),
     a_const=1484,
-    final T_min=Functions.PropyleneGlycolWater.fusionTemperature_TX_a(T=property_T, X_a=X_a),
+    final T_min=
+      Functions.PropyleneGlycolWater.fusionTemperature_TX_a(
+        T=property_T, X_a=X_a),
     T_max=Modelica.Units.Conversions.from_degC(100),
     T0=273.15,
     MM_const=(X_a/simplePropyleneGlycolWaterConstants[1].molarMass + (1 - X_a)/
