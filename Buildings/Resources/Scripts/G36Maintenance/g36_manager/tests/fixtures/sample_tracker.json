@@ -1,0 +1,17 @@
+{
+  "base_version": 2021,
+  "modules": [
+    {
+      "modelica_path": "Buildings.Controls.OBC.G36.AHUs.MultiZone.VAV.Controller",
+      "changed_at": [2024],
+      "first_appeared": 2021,
+      "obsoleted_after": null
+    },
+    {
+      "modelica_path": "Buildings.Controls.OBC.G36.ZoneGroups.ZoneStatus",
+      "changed_at": [2021, 2024],
+      "first_appeared": 2018,
+      "obsoleted_after": null
+    }
+  ]
+}
