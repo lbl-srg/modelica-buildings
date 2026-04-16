@@ -43,7 +43,8 @@ package PropyleneGlycolWater
     d :=polynomialProperty(
         X_a,
         T,
-        proCoe.a_d)
+        proCoe.a_d);
+
     annotation (
     Documentation(info="<html>
   <p>
@@ -307,17 +308,22 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
       max=X_a_max) "Mass fraction of the mixture";
 
   protected
+    constant Real delta = 0.01 "Small increment for numerical differentiation";
     Modelica.Units.SI.Density dWat "Mass density of water";
+    Modelica.Units.SI.Density dGly "Mass density of glycol";
     Modelica.Units.SI.Density phiRhoGly "Fraction of mass density of glycol";
     Modelica.Units.SI.Density dMix "Mass density of the mixture";
 
   algorithm
     dWat = density_TX_a(T=T, X_a=0);
-    Modelica.Utilities.Streams.print("*** Mass density of water: " + String(dWat));
-    phiRhoGly = phi * density_TX_a(T=T, X_a=1);
-    Modelica.Utilities.Streams.print("*** fixme: Mass density of glycol (using extrapolation!): " + String(density_TX_a(T=T, X_a=1)));
 
-    dMix = phiRhoGly + (1-phi) * dWat; // fixme
+    // The density function is only valid for mass fractions up to X_a_max,
+    // so we use linear extrapolation to get the density of glycol at X_a=1
+    dGly = density_TX_a(T=T, X_a=X_a_max) + (1.0-X_a_max) * (density_TX_a(T=T, X_a=X_a_max)-density_TX_a(T=T, X_a=X_a_max-delta)) / delta;
+
+    phiRhoGly = phi * dGly;
+
+    dMix = phiRhoGly + (1-phi) * dWat;
 
     y = phiRhoGly / dMix;
 
@@ -325,6 +331,12 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
   Documentation(info="<html>
 <p>
 Conversion from volume fraction to mass fraction of antifreeze-water mixture at specified temperature.
+</p>
+<h4>Implementation</h4>
+<p>
+The density function is only valid for mass fractions up to <code>X_a_max</code>.
+Therefore, linear extrapolation, using the slope of the density function at <code>X_a_max</code>,
+is used to get the density of glycol at <code>X_a=1</code>.
 </p>
 </html>",   revisions="<html>
 <ul>

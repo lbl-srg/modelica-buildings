@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "phi",
+    "X_a_phi",
+    "d",
+    "eta",
+    "Tf",
+    "cp",
+    "lambda"
+  };
