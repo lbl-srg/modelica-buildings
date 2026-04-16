@@ -3,10 +3,7 @@ model PropyleneGlycolWater
   "Model that tests the implementation of propylene glycol-water properties"
   extends Modelica.Icons.Example;
   extends Buildings.Media.Antifreeze.Validation.BaseClasses.FluidProperties(
-    redeclare package Medium =
-        Buildings.Media.Antifreeze.Validation.BaseClasses.PropyleneGlycolWater (
-          property_T=300,
-          X_a=0.05),
+    redeclare package Medium = Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater,
     nX_a=7,
     X_a={0.05,0.10,0.20,0.30,0.40,0.50,0.60},
     T_min=223.15,
@@ -29,6 +26,10 @@ temperature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 16, 2026, by Michael Wetter:<br/>
+Revised implementation for to use functions from new property function package.
+</li>
 <li>
 March 14, 2018, by Massimo Cimmino:<br/>
 First implementation.
