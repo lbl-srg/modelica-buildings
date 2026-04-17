@@ -24,6 +24,10 @@
 #include "cfdCosimulation.h"
 
 #include <stdlib.h>
+
+/* Single definition of the global cosim pointer shared across all C-Source files */
+CosimulationData *cosim = NULL;
+
 /*
  * Start the cosimulation
  *
@@ -31,6 +35,8 @@
  *
  */
 void *cfdcosim() {
+
+  // CosimulationData *cosim = NULL;
 
   /****************************************************************************
   | return modelica error if more than one ffd instances are created
@@ -41,7 +47,6 @@ void *cfdcosim() {
   /****************************************************************************
   | Allocate memory for cosimulation variables
   ****************************************************************************/
-  cosim = NULL;
   cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
   if (cosim == NULL){
     ModelicaError("Failed to allocate memory for cosim in cfdcosim.c");
@@ -53,14 +58,16 @@ void *cfdcosim() {
   }
 
   cosim->modelica = NULL;
-  cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
-  if (cosim->para == NULL){
+  /* Use calloc to zero-initialize: ensures cosim->modelica->dt = 0.0 so that
+     FFD_solver() can detect it has not yet been set by Modelica */
+  cosim->modelica = (ModelicaSharedData *) calloc(1, sizeof(ModelicaSharedData));
+  if (cosim->modelica == NULL){
     ModelicaError("Failed to allocate memory for cosim->modelica in cfdcosim.c");
   }
 
   cosim->ffd = NULL;
   cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData));
-    if (cosim->para == NULL){
+  if (cosim->ffd == NULL){
     ModelicaError("Failed to allocate memory for cosim->ffd in cfdcosim.c");
   }
 
@@ -80,6 +87,7 @@ void *cfdcosim() {
   cosim->para->nXi = 0;
   cosim->ffd->msg = NULL;
   cosim->para->fileName = NULL;
+  cosim->para->filePath = NULL;
   cosim->para->are = NULL;
   cosim->para->til = NULL;
   cosim->para->bouCon = NULL;

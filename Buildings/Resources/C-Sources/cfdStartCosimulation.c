@@ -232,7 +232,15 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
   /****************************************************************************
   | Implicitly launch DLL module.
   ****************************************************************************/
-  ffd_dll(cosim);
+  {
+    /* ffd_dll() returns a heap-allocated pthread_t* on Linux (or HANDLE* on
+     * Windows). The thread is detached inside ffd_dll(), so we only need to
+     * free the handle pointer itself once it is no longer needed. */
+    void *threadHandle = ffd_dll(cosim);
+    if (threadHandle != NULL) {
+      free(threadHandle);
+    }
+  }
   cosim->started = 1;
 
   return 0;
