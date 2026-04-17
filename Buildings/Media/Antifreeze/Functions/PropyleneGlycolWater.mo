@@ -215,6 +215,40 @@ Buildings.Media.Antifreeze</a>.
 </html>"));
   end polynomialProperty;
 
+  function prandtlNumber_TX_a
+    "Evaluate Prandtl number of antifreeze-water mixture"
+      extends Modelica.Icons.Function;
+    input Modelica.Units.SI.Temperature T
+      "Temperature of antifreeze-water mixture";
+    input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
+    output Modelica.Units.SI.ThermalConductivity Pr
+      "Prandtl number of antifreeze-water mixture";
+  algorithm
+    Pr := dynamicViscosity_TX_a(T=T, X_a=X_a) * specificHeatCapacityCp_TX_a(T=T, X_a=X_a) /
+      thermalConductivity_TX_a(T=T, X_a=X_a);
+
+  annotation (
+  Documentation(info="<html>
+<p>
+Prandtl number of antifreeze-water mixture at specified mass fraction and
+temperature, based on Melinder (2010).
+</p>
+<h4>References</h4>
+<p>
+Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+IIR/IIF.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+April 17, 2026 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end prandtlNumber_TX_a;
+
   function specificHeatCapacityCp_TX_a
     "Evaluate specific heat capacity of antifreeze-water mixture"
       extends Modelica.Icons.Function;

@@ -6,5 +6,6 @@ compareVars :=
     "eta",
     "Tf",
     "cp",
-    "lambda"
+    "lambda",
+    "Pr"
   };

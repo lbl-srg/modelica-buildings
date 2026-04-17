@@ -25,6 +25,8 @@ model PropyleneGlycolWater "Validation model for antifreeze mixture"
     "Specific heat capacity of antifreeze-water mixture";
   Modelica.Units.SI.ThermalConductivity lambda
       "Thermal conductivity of antifreeze-water mixture";
+  Real Pr
+    "Prandtl number of antifreeze-water mixture";
 
 equation
   phi = conPhi*time;
@@ -47,6 +49,9 @@ equation
     T=T,
     X_a=X_a);
   lambda = Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.thermalConductivity_TX_a(
+    T=T,
+    X_a=X_a);
+  Pr = Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.prandtlNumber_TX_a(
     T=T,
     X_a=X_a);
 
