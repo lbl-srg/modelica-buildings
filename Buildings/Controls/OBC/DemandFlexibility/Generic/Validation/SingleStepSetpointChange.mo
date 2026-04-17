@@ -48,13 +48,28 @@ equation
 This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.
 </p>
-<p>This validation test uses two constant temperature values as the baseline temperature setpoint
-and the target temperature setpoint. It uses a boolean pulse signal to represent the \"enable\" 
-signal. It also uses a delay block to represent
-the behavior of a temperature setpoint within an external zone temperature setpoint controller.
-This validation test forms a close loop between the temperature setpoint in the 
-external zone temperature setpoint controller and <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange\">
-Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.
+<p>
+This validation test uses two constant temperature values, the baseline temperature setpoint <code>TBasSet</code>
+and the target temperature setpoint <code>TTarSet</code>, to represent the input variables
+<code>uBasSet</code> and <code>uTarSet</code>.
+It also uses a boolean pulse signal to represent the \"enable\" 
+signal input <code>uEna</code>. 
+</p>
+<p>
+A <code>UnitDelay</code> block represents the behavior of a temperature setpoint 
+within an external zone temperature setpoint controller.
+When this external zone temperature setpoint controller receives the 
+command setpoint <code>yComSet</code> from the <code>SingleStepSetpointChange</code> block at
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange\">
+Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>,
+the temperature setpoint within the external zone temperature setpoint controller will be changed to
+<code>yComSet</code> a small time delay later, and the new temperature setpoint value will be passed
+back to the <code>uCurSet</code> variable in the <code>SingleStepSetpointChange</code> block, 
+completing a full control loop.
+</p>
+<p>
+The setpoint change operation is executed every <code>300</code> seconds, which is represented by 
+a <code>Sampler</code> block.
 </p>
 </html>",
         revisions="<html>

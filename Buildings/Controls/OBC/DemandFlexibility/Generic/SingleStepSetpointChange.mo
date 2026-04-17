@@ -124,21 +124,34 @@ the baseline setpoint and the target setpoint in a single step when the \"enable
 </p>
 
 <p>
-The meaning of each input variable is described below: 
+Several input variables are defined as follows: 
 </p>
 
 <ul>
 <li>
-<code>uCurSet</code>: the current setpoint, which represents the current value of the setpoint that needs to be changed.
+<code>uCurSet</code>: the current setpoint, which represents the current value of the setpoint from an 
+external zone temperature controller or equipment controller.
+This is the setpoint that needs to be changed during load-shed or load-increase
+demand flexibility actions.
 </li>
 <li>
-<code>uBasSet</code>: the baseline setpoint, which represents the setpoint value during normal conditions without load-shed or load-increase 
-demand flexibility actions. The value of this setpoint is constant most of the time, and the value is 
-expected to change when the occupancy mode is changed between the unoccupied mode and the occupied mode.
+<code>uBasSet</code>: the baseline setpoint, which represents the 
+hypothetical setpoint value if a setpoint were to not participate in load-shed or load-increase
+demand flexibility actions. 
+The current setpoint <code>uCurSet</code> is expected to have the same value as the baseline setpoint when 
+the demand flexibility actions are not active.
+The baseline setpoint is constant most of the time, although its 
+value could change when the occupancy mode is switched between the unoccupied mode and the occupied mode.
+The baseline setpoint serves as either a lower limit or an upper limit for the current setpoint <code>uCurSet</code>.
 </li>
 <li>
-<code>uTarSet</code>: the target setpoint, which represents the setpoint value under demand flexibility needs such as load-shed or load-increase. The value of this setpoint is constant most of the time, and the value is 
-expected to change when the occupancy mode is changed between the unoccupied mode and the occupied mode.
+<code>uTarSet</code>: the target setpoint, which represents the setpoint value under 
+load-shed or load-increase demand flexibility actions.
+The current setpoint <code>uCurSet</code> is expected to have the same value as the target setpoint when 
+the demand flexibility actions are active.
+The target setpoint is constant most of the time, although its 
+value could change when the occupancy mode is switched between the unoccupied mode and the occupied mode. 
+The target setpoint serves as either a lower limit or an upper limit for the current setpoint <code>uCurSet</code>.
 </li>
 </ul>
 
@@ -146,8 +159,8 @@ expected to change when the occupancy mode is changed between the unoccupied mod
 The parameter <code>setChaMod</code> specifies whether the current 
 setpoint <code>uCurSet</code> shall change to the <code>uBasSet</code> value or the 
 <code>uTarSet</code> value in a single step. 
-The resultant setpoint will be outputted as the 
-<code>yComSet</code> output variable, which 
+The resultant setpoint will be outputted as the  command setpoint 
+<code>yComSet</code>, which 
 represents the new setpoint that a zone or a piece of equipment shall have. 
 The output variable <code>yComSet</code> is intended to be received by an external
 zone temperature controller or equipment controller, which will execute the setpoint change and pass the new setpoint
@@ -156,15 +169,15 @@ back to the input variable <code>uCurSet</code> in this block, completing a full
 
 <p>
 The <code>uEna</code> boolean input variable 
-specifies whether a setpoint has an \"enable\" signal to execute the single-step setpoint change operation.
-This is useful in multiple-zone or multiple-equipment scenarios where there is a need to prioritize 
-which zone or equipment will go through the setpoint change. When the 
+specifies whether a setpoint has an \"enable\" signal to execute the single-step setpoint change operation. When the 
 <code>uEna</code> input variable is set to <code>true</code>, either <code>uBasSet</code> or 
 <code>uTarSet</code> is passed to <code>yComSet</code>, depending on the parameter value of <code>setChaMod</code>.
 When <code>uEna</code> is changed to <code>false</code> from a previous 
 <code>true</code> value, <code>yComSet</code> will simply take the value <code>uCurSet</code> 
-and will not be reverted to the previous value before the setpoint change. Reversing this unidirectional 
-change to the current setpoint <code>uCurSet</code> needs to happen outside of this block. 
+and will not be reverted to the previous value,either <code>uBasSet</code> or <code>uTarSet</code>,
+before the setpoint change operation. 
+Reversing this unidirectional change to the current setpoint <code>uCurSet</code> needs to happen 
+outside of this block. 
 </p>
 
 <p>

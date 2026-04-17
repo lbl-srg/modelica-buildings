@@ -41,14 +41,19 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This block checks whether the values of two real input variables are close to equal. 
+This block checks whether the values of two real input variables are approximately equal. 
 </p>
 <p>
 The two real input variables are <code>u1</code> and <code>u2</code>.
-The allowed deviation is represented by the parameter <code>alwDev</code>. 
-If <code>u1 &lt; u2 + alwDev</code> and <code>u1 &gt; 
-u2 - alwDev</code>, then the output <code>yEuqFla</code> is <code>true</code>. 
-Otherwise, the output <code>yEuqFla</code> is <code>false</code>. 
+The allowed deviation is represented by the parameter <code>alwDev</code>.
+</p>
+<p>
+If the absolute value of the difference between <code>u1</code> and <code>u2</code> becomes less than 
+<code>alwDev</code>, the output <code>y</code> becomes <code>true</code>.
+</p>
+<p>
+If the absolute value of the difference between <code>u1</code> and <code>u2</code> becomes more than 
+<code>alwDev*1.5</code>, the output <code>y</code> becomes <code>false</code>.
 </p>
 </html>",
         revisions="<html>
