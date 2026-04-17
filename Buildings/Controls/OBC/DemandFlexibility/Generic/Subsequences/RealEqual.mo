@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences;
-block RealEqual "Check whether two real numbers are close to equal"
+block RealEqual "Check whether two real numbers are approximately equal"
   parameter Real alwDev(min=1E-6)
     "Allowed deviation for equality";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1 "Input real number 1"
@@ -29,7 +29,7 @@ equation
     annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));
   connect(lesThr.y, y)
     annotation (Line(points={{42,0},{120,0}}, color={255,0,255}));
-  annotation (defaultComponentName="reaNumEqu",
+  annotation (defaultComponentName="reaEqu",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -40,12 +40,16 @@ equation
           textString="%name")}),                           Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This block checks whether the values of two real input variables are close to equal. </p>
-<p>The two real input variables are <code>u1</code> and <code>u2</code>.
+<p>
+This block checks whether the values of two real input variables are close to equal. 
+</p>
+<p>
+The two real input variables are <code>u1</code> and <code>u2</code>.
 The allowed deviation is represented by the parameter <code>alwDev</code>. 
 If <code>u1 &lt; u2 + alwDev</code> and <code>u1 &gt; 
 u2 - alwDev</code>, then the output <code>yEuqFla</code> is <code>true</code>. 
-Otherwise, the output <code>yEuqFla</code> is <code>false</code>. </p>
+Otherwise, the output <code>yEuqFla</code> is <code>false</code>. 
+</p>
 </html>",
         revisions="<html>
 <ul>

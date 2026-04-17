@@ -7,7 +7,6 @@ This package contains validation models for the classes in
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic\">
 Buildings.Controls.OBC.DemandFlexibility.Generic</a>.
 </p>
-
 <p>
 Note that most validation models contain simple input data
 which may not be realistic, but for which the correct
