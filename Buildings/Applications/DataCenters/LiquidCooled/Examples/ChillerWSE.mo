@@ -7,7 +7,9 @@ model ChillerWSE
   package MediumRac = Buildings.Media.Antifreeze.PropyleneGlycolWater(
     T_default=303.15,
     property_T=303.15,
-    X_a=0.25)
+    X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
+        phi=0.25,
+        T=293.15))
     "Medium for rack";
   parameter Modelica.Units.SI.TemperatureDifference dTOffSet(max=0) = 0
     "Offset for cooling supply temperature (used to design model so it requires the chiller sometimes)";
@@ -581,14 +583,17 @@ model ChillerWSE
     m_flow_nominal=mCW_flow_nominal,
     tau=0) "Inlet water temperature of tower"
     annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
-  parameter CDUs.Data.Generic_2MW datCDU(redeclare package Medium1 = MediumChi,
-      redeclare package Medium2 = MediumRac,
+  parameter CDUs.Data.Generic_2MW datCDU(
+    glyPla = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU.Glycol.EthyleneGlycol,
+    phiGlyPla = 0,
+    glyRac = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU.Glycol.PropyleneGlycol,
+    phiGlyRac = 0.25,
     Q_flow_nominal=-PRac,
-    T_a1_nominal=TChiSup_nominal,
-    T_a2_nominal=TRacSup_nominal,
-    m1_flow_nominal=mChi_flow_nominal,
-    m2_flow_nominal=mRac_flow_nominal,
-    dpHex1_nominal=dpHexChi_nominal,
+    TPla_a_nominal=TChiSup_nominal,
+    TRac_a_nominal=TRacSup_nominal,
+    mPla_flow_nominal=mChi_flow_nominal,
+    mRac_flow_nominal=mRac_flow_nominal,
+    dpHexPla_nominal=dpHexChi_nominal,
     dpPum_nominal=dPRac_nominal) "Data record for CDU"
     annotation (Placement(transformation(extent={{60,62},{80,82}})));
 equation

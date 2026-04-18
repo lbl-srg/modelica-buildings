@@ -6,7 +6,9 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
   package MediumRac = Buildings.Media.Antifreeze.PropyleneGlycolWater(
     T_default=303.15,
     property_T=303.15,
-    X_a=0.25)
+    X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
+        phi=0.25,
+        T=293.15))
     "Medium for rack";
   parameter Modelica.Units.SI.Power PRac = 48*132000
     "Total rack design power";
@@ -28,15 +30,17 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
   parameter Modelica.Units.SI.PressureDifference dPRac_nominal = 60000
     "Rack design pressure drop";
   parameter Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU datCDU(
-    redeclare package Medium1 = MediumChi,
-    redeclare package Medium2 = MediumRac,
     Q_flow_nominal=-PRac,
-    T_a1_nominal=TChi_b,
-    T_a2_nominal=TRac_b,
-    m1_flow_nominal=mChi_flow_nominal,
-    m2_flow_nominal=mRac_flow_nominal,
-    dpHex1_nominal=dpHexChi_nominal,
-    dpPum_nominal=dPRac_nominal) "Data performance record for CDU"
+    TPla_a_nominal=TChi_b,
+    TRac_a_nominal=TRac_b,
+    mPla_flow_nominal=mChi_flow_nominal,
+    mRac_flow_nominal=mRac_flow_nominal,
+    dpHexPla_nominal=dpHexChi_nominal,
+    dpPum_nominal=dPRac_nominal,
+    glyPla = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU.Glycol.PropyleneGlycol,
+    phiGlyPla = 0,
+    glyRac = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU.Glycol.PropyleneGlycol,
+    phiGlyRac = 0.25) "Data performance record for CDU"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.OCP_1kW_OAM_PG25 datTheRes
     "Thermal resistance data"

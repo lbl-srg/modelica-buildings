@@ -1,8 +1,8 @@
 within Buildings.Applications.DataCenters.LiquidCooled.CDUs;
 model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final m1_flow_nominal=dat.m1_flow_nominal,
-    final m2_flow_nominal=dat.m2_flow_nominal);
+    final m1_flow_nominal=dat.mPla_flow_nominal,
+    final m2_flow_nominal=dat.mRac_flow_nominal);
 
   parameter Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU dat
     "Data record for performance characterization"
@@ -12,10 +12,10 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     "Ratio between convective heat transfer coefficients at nominal conditions, r_nominal = hA1_nominal/hA2_nominal"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
-  final parameter Real n1(min=0, max=1)=dat.n1
+  final parameter Real n1(min=0, max=1)=dat.nPla
     "Exponent for convective heat transfer coefficient, h1~m1_flow^n1"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
-  final parameter Real n2(min=0, max=1)=dat.n1
+  final parameter Real n2(min=0, max=1)=dat.nRac
    "Exponent for convective heat transfer coefficient, h2~m2_flow^n2"
    annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
@@ -27,10 +27,10 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
     "Nominal heat flow rate (negative as it is for cooling)"
     annotation (Dialog(group="Nominal thermal performance"));
-  final parameter Modelica.Units.SI.Temperature T_a1_nominal = dat.T_a1_nominal
+  final parameter Modelica.Units.SI.Temperature T_a1_nominal = dat.TPla_a_nominal
     "Nominal temperature at port a1" annotation (Dialog(group=
           "Nominal thermal performance"));
-  final parameter Modelica.Units.SI.Temperature T_a2_nominal = dat.T_a2_nominal
+  final parameter Modelica.Units.SI.Temperature T_a2_nominal = dat.TRac_a_nominal
     "Nominal temperature at port a2" annotation (Dialog(group=
           "Nominal thermal performance"));
 
@@ -44,7 +44,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
                 tab="Flow resistance", group="Medium 1"));
   final parameter Modelica.Units.SI.PressureDifference dpHex1_nominal(
     min=0,
-    displayUnit="Pa")=dat.dpHex1_nominal "Heat exchanger design pressure drop"
+    displayUnit="Pa")=dat.dpHexPla_nominal "Heat exchanger design pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -64,7 +64,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
                 tab="Flow resistance", group="Medium 2"));
   final parameter Modelica.Units.SI.PressureDifference dpHex2_nominal(
     min=0,
-    displayUnit="Pa") = dat.dpHex2_nominal "Pressure difference"
+    displayUnit="Pa") = dat.dpHexRac_nominal "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
