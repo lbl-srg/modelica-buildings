@@ -349,17 +349,17 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
     Modelica.Units.SI.Density dMix "Mass density of the mixture";
 
   algorithm
-    dWat = density_TX_a(T=T, X_a=0);
+    dWat := density_TX_a(T=T, X_a=0);
 
     // The density function is only valid for mass fractions up to X_a_max,
     // so we use linear extrapolation to get the density of glycol at X_a=1
-    dGly = density_TX_a(T=T, X_a=X_a_max) + (1.0-X_a_max) * (density_TX_a(T=T, X_a=X_a_max)-density_TX_a(T=T, X_a=X_a_max-delta)) / delta;
+    dGly := density_TX_a(T=T, X_a=X_a_max) + (1.0-X_a_max) * (density_TX_a(T=T, X_a=X_a_max)-density_TX_a(T=T, X_a=X_a_max-delta)) / delta;
 
-    phiRhoGly = phi * dGly;
+    phiRhoGly := phi * dGly;
 
-    dMix = phiRhoGly + (1-phi) * dWat;
+    dMix := phiRhoGly + (1-phi) * dWat;
 
-    y = phiRhoGly / dMix;
+    y := phiRhoGly / dMix;
 
   annotation (
   Documentation(info="<html>
