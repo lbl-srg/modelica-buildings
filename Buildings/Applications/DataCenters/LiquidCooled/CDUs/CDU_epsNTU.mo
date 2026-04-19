@@ -41,7 +41,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Boolean from_dpPla=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable=computeFlowResistance1,
+    annotation (Evaluate=true, Dialog(enable=computeFlowResistancePla,
                 tab="Flow resistance", group="Medium 1"));
   final parameter Modelica.Units.SI.PressureDifference dpHexPla_nominal(
     min=0,
@@ -50,12 +50,12 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistancePla=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable=computeFlowResistance1,
+    annotation(Dialog(enable=computeFlowResistancePla,
                tab="Flow resistance", group="Medium 1"));
   final parameter Real deltaMPla=dat.deltaMPla
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(
-      enable=computeFlowResistance1,
+      enable=computeFlowResistancePla,
       tab="Flow resistance",
       group="Medium 1"));
   parameter Boolean computeFlowResistanceRac=true
@@ -64,7 +64,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
 
   parameter Boolean from_dpRac=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable=computeFlowResistance2,
+    annotation (Evaluate=true, Dialog(enable=computeFlowResistanceRac,
                 tab="Flow resistance", group="Medium 2"));
   final parameter Modelica.Units.SI.PressureDifference dpHexRac_nominal(
     min=0,
@@ -73,12 +73,12 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistanceRac=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable=computeFlowResistance2,
+    annotation(Dialog(enable=computeFlowResistanceRac,
                tab="Flow resistance", group="Medium 2"));
   final parameter Real deltaMRac=dat.deltaMRac
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(
-      enable=computeFlowResistance2,
+      enable=computeFlowResistanceRac,
       tab="Flow resistance",
       group="Medium 2"));
 
