@@ -5,9 +5,9 @@ record PropertyCoefficients
 
   Modelica.Units.SI.MassFraction X_a_ref "Reference mass fraction";
   Modelica.Units.SI.Temperature T_ref "Reference temperature";
-  parameter Integer nX_a "Order of polynomial in x";
+  Integer nX_a "Order of polynomial in x";
   Integer nT[nX_a] "Order of polynomial in y";
-  parameter Integer nTot "Total number of coefficients";
+  Integer nTot "Total number of coefficients";
   Real a_d[nTot] "Polynomial coefficients for density";
   Real a_eta[nTot] "Polynomial coefficients for dynamic viscosity";
   Real a_Tf[nTot] "Polynomial coefficients for fusion temperature";
@@ -18,7 +18,7 @@ record PropertyCoefficients
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-Record that is used by media packages in 
+Record that is used by media packages in
 <a href=\"modelica://Buildings.Media.Antifreeze\">
 Buildings.Media.Antifreeze</a> to implement the thermophysical properties
 based on Melinder (2010).
