@@ -37,9 +37,9 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     mRac_flow_nominal=mRac_flow_nominal,
     dpHexPla_nominal=dpHexChi_nominal,
     dpPum_nominal=dPRac_nominal,
-    glyPla = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU.Glycol.PropyleneGlycol,
+    glyPla = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.PropyleneGlycol,
     phiGlyPla = 0,
-    glyRac = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU.Glycol.PropyleneGlycol,
+    glyRac = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.PropyleneGlycol,
     phiGlyRac = 0.25) "Data performance record for CDU"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.OCP_1kW_OAM_PG25 datTheRes

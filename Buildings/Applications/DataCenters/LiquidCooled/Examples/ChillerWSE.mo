@@ -35,6 +35,10 @@ model ChillerWSE
     "Supply chilled water temperature to CDU at design conditions";
   parameter Modelica.Units.SI.Temperature TChiRet_nominal=TChiSup_nominal-dTChw_nominal
     "Return chilled temperature from CDU at design conditions";
+  parameter Modelica.Units.SI.Temperature TTowSup_nominal=TChiSup_nominal+5
+    "Supply temperature to cooling tower";
+  parameter Modelica.Units.SI.Temperature TTowRet_nominal=TTowSup_nominal+dTTow_nominal
+    "Supply temperature to cooling tower";
 
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal=PRac/(
       TRacRet_nominal - TRacSup_nominal)/MediumRac.cp_const
@@ -63,7 +67,7 @@ model ChillerWSE
     "Effectiveness of water side economizer";
 
   parameter Modelica.Units.SI.Temperature TSetCooTowOut_nominal =
-    TChiRet_nominal - (TChiRet_nominal-TChiSup_nominal)/epsWSE_nominal
+    TChiRet_nominal - (TChiRet_nominal-TChiSup_nominal)/epsWSE_nominal - 3
     "Set point for cooling tower outlet temperature to meet design load with WSE";
 
   parameter Modelica.Units.SI.MassFlowRate mCW_flow_nominal=
@@ -168,14 +172,15 @@ model ChillerWSE
     dp1_nominal=dpHexChi_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Chiller"
     annotation (Placement(transformation(extent={{-120,321},{-140,341}})));
-  Fluid.HeatExchangers.CoolingTowers.Merkel cooTow(
+  Fluid.HeatExchangers.CoolingTowers.DryCooler
+                                            cooTow(
     redeclare package Medium = MediumChi,
     m_flow_nominal=mCW_flow_nominal,
-    show_T=true,
-    dp_nominal=dpHexChi_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    TWatIn_nominal=TSetCooTowOut_nominal + 5,
-    TWatOut_nominal=TSetCooTowOut_nominal)
+    dp_nominal=80000,
+    TAirIn_nominal=303.15,
+    TCooIn_nominal=TTowSup_nominal,
+    TCooOut_nominal=TTowRet_nominal,
+    ratCooAir_nominal=0.5)
     "Cooling tower"
     annotation (Placement(
         transformation(
@@ -356,7 +361,7 @@ model ChillerWSE
       displayUnit="degC") = TSetCooTowOut_nominal)
     "Tower water outlet temperature"
     annotation (Placement(transformation(extent={{-140,690},{-120,710}})));
-  Controls.OBC.CDL.Reals.AddParameter TAppOff(p=10)
+  Controls.OBC.CDL.Reals.AddParameter TAppOff(p=8)
     "Offset for approach temperature"
     annotation (Placement(transformation(extent={{-140,650},{-120,670}})));
   Controls.OBC.CDL.Reals.Max TCooLvgSet
@@ -584,9 +589,9 @@ model ChillerWSE
     tau=0) "Inlet water temperature of tower"
     annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
   parameter CDUs.Data.Generic_2MW datCDU(
-    glyPla = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU.Glycol.EthyleneGlycol,
+    glyPla = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol,
     phiGlyPla = 0,
-    glyRac = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU.Glycol.PropyleneGlycol,
+    glyRac = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.PropyleneGlycol,
     phiGlyRac = 0.25,
     Q_flow_nominal=-PRac,
     TPla_a_nominal=TChiSup_nominal,
@@ -678,19 +683,6 @@ equation
       index=-1,
       extent={{2,2},{2,5}},
       horizontalAlignment=TextAlignment.Left));
-  connect(cooTow.TAir, weaBus.TWetBul) annotation (Line(points={{-11.9,623.3},{
-          -34,623.3},{-34,640},{-179.95,640},{-179.95,660.05}},
-                                  color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-2,2},{-2,5}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(TAppOff.u, weaBus.TWetBul) annotation (Line(points={{-142,660},{-179.95,
-          660},{-179.95,660.05}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-2,2},{-2,5}},
-      horizontalAlignment=TextAlignment.Right));
   connect(TTowOut.y, TCooLvgSet.u1) annotation (Line(points={{-118,700},{-110,700},
           {-110,686},{-102,686}}, color={0,0,127}));
   connect(TAppOff.y, TCooLvgSet.u2) annotation (Line(points={{-118,660},{-110,660},
@@ -773,8 +765,6 @@ equation
           {-130,472}}, color={0,0,127}));
   connect(invValSig.u, conPIDCon.y) annotation (Line(points={{-322,480},{-330,480},
           {-330,430},{-338,430}}, color={0,0,127}));
-  connect(TTowOut.y, conTowFan.u_s) annotation (Line(points={{-118,700},{-70,700},
-          {-70,680},{-62,680}}, color={0,0,127}));
   connect(conTowFan.y, cooTow.y) annotation (Line(points={{-38,680},{-26,680},{-26,
           627.1},{-11.9,627.1}},
                            color={0,0,127}));
@@ -818,6 +808,21 @@ equation
           -220,620},{-220,610}}, color={0,127,255}));
   connect(uti.y, rac.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,-54},{
           -1,-54}}, color={0,0,127}));
+  connect(TAppOff.u, weaBus.TDryBul) annotation (Line(points={{-142,660},{-160,660},
+          {-160,660.05},{-179.95,660.05}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-2,2},{-2,5}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(cooTow.TAir, weaBus.TDryBul) annotation (Line(points={{-11.9,623.3},{-40,
+          623.3},{-40,640},{-179.95,640},{-179.95,660.05}}, color={0,0,127}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{-2,2},{-2,5}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TCooLvgSet.y, conTowFan.u_s)
+    annotation (Line(points={{-78,680},{-62,680}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,740}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),

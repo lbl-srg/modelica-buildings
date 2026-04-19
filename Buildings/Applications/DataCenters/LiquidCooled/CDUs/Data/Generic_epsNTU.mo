@@ -3,10 +3,10 @@ record Generic_epsNTU
   "Generic data record for a CDU that uses the epsilon-NTU method to compute the thermal performance"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration =
-   Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
-   "Heat exchanger configuration"
-    annotation (Evaluate=true);
+//  parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration =
+//   Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
+//   "Heat exchanger configuration"
+//    annotation (Evaluate=true);
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
     "Nominal heat flow rate (negative as it is for cooling)"
@@ -41,9 +41,8 @@ record Generic_epsNTU
     annotation(Dialog(tab="Flow resistance", group="Medium 2"));
 
   // Volume fractions
-  type Glycol = enumeration(EthyleneGlycol, PropyleneGlycol)
-    "Type of glycol solution";
-  parameter Glycol glyPla "Type of glycol solution for which performance data are specified"
+  parameter Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol glyPla
+    "Type of glycol solution for which performance data are specified"
     annotation(Dialog(group="Plant-side medium for performance data"));
   parameter Real phiGlyPla
     "Glycol volume fraction for which performance data are specified"
@@ -68,7 +67,7 @@ record Generic_epsNTU
     "Glycol volume fraction for which performance data are specified"
     annotation(Dialog(group="Rack-side medium for performance data"));
   final parameter Modelica.Units.SI.MassFraction XGlyRac =
-    if glyRac == Glycol.EthyleneGlycol then
+    if glyRac == Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.volumeToMassFraction(
         phi=phiGlyRac,
         T=TRac_a_nominal)
@@ -81,7 +80,7 @@ record Generic_epsNTU
 
   // Plant-side fluid propertiesf
   final parameter Modelica.Units.SI.DynamicViscosity etaPla_default =
-    if glyPla == Glycol.EthyleneGlycol then
+    if glyPla == Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.dynamicViscosity_TX_a(
         X_a=XGlyPla,
         T=TPla_a_nominal)
@@ -91,7 +90,7 @@ record Generic_epsNTU
         T=TPla_a_nominal)
     "Dynamic viscosity for plant-side performance data";
   final parameter Modelica.Units.SI.ThermalConductivity kPla_default =
-    if glyPla == Glycol.EthyleneGlycol then
+    if glyPla == Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.thermalConductivity_TX_a(
         X_a=XGlyPla,
         T=TPla_a_nominal)
@@ -101,7 +100,7 @@ record Generic_epsNTU
         T=TPla_a_nominal)
     "Thermal conductivity for plant-side performance data";
   final parameter Modelica.Units.SI.PrandtlNumber PrPla_default =
-    if glyPla == Glycol.EthyleneGlycol then
+    if glyPla == Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.prandtlNumber_TX_a(
         X_a=XGlyPla,
         T=TPla_a_nominal)
@@ -113,7 +112,7 @@ record Generic_epsNTU
 
   // Rack-side fluid properties
   final parameter Modelica.Units.SI.DynamicViscosity etaRac_default =
-    if glyRac == Glycol.EthyleneGlycol then
+    if glyRac == Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.dynamicViscosity_TX_a(
         X_a=XGlyRac,
         T=TRac_a_nominal)
@@ -123,7 +122,7 @@ record Generic_epsNTU
         T=TRac_a_nominal)
     "Dynamic viscosity for rack-side performance data";
   final parameter Modelica.Units.SI.ThermalConductivity kRac_default =
-    if glyRac == Glycol.EthyleneGlycol then
+    if glyRac == Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.thermalConductivity_TX_a(
         X_a=XGlyRac,
         T=TRac_a_nominal)
@@ -133,7 +132,7 @@ record Generic_epsNTU
         T=TRac_a_nominal)
     "Thermal conductivity for rack-side performance data";
   final parameter Modelica.Units.SI.PrandtlNumber PrRac_default =
-    if glyRac == Glycol.EthyleneGlycol then
+    if glyRac == Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.prandtlNumber_TX_a(
         X_a=XGlyRac,
         T=TRac_a_nominal)

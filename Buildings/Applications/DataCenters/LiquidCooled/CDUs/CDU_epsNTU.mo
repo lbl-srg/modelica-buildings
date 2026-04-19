@@ -19,11 +19,6 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
    "Exponent for convective heat transfer coefficient, h2~m2_flow^n2"
    annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
-  final parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration =
-   dat.configuration
-   "Heat exchanger configuration"
-    annotation (Evaluate=true);
-
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
     "Nominal heat flow rate (negative as it is for cooling)"
     annotation (Dialog(group="Nominal thermal performance"));
@@ -155,7 +150,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     final dp2_nominal=dpHex2_nominal,
     final linearizeFlowResistance2=linearizeFlowResistance2,
     final deltaM2=deltaM2,
-    final configuration=configuration,
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final use_Q_flow_nominal=true,
     final Q_flow_nominal=Q_flow_nominal,
     final T_a1_nominal=T_a1_nominal,
