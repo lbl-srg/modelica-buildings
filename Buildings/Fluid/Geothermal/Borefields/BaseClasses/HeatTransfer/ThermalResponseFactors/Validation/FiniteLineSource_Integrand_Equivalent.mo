@@ -18,13 +18,14 @@ model FiniteLineSource_Integrand_Equivalent
   parameter Integer nBor2=3 "Number of receiving lines";
   parameter Integer n_dis=2 "Number of unique distances";
 
-  Real u "Integration variable";
+  Real u(unit="1/m") "Integration variable";
   Real yRea "Finite line source integrand (Real part)";
   Real yMir "Finite line source integrand (Mirror part)";
   Real y "Finite line source integrand";
+  constant Real con(unit="1/(m.s)") = 1 "Unit conversion factor";
 
 equation
-  u = time;
+  u = con*time;
   yRea =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_Equivalent(
     u=u,
@@ -75,6 +76,11 @@ with coordinates (x,y) = {(0,0), (0,7), (7,0)}.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 June 9, 2022, by Massimo Cimmino:<br/>
 First implementation.

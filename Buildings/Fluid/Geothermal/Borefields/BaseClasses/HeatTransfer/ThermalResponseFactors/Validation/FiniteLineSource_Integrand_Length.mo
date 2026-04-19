@@ -12,14 +12,16 @@ model FiniteLineSource_Integrand_Length
   parameter Modelica.Units.SI.Height len1=1.0 "Length of emitting borehole";
   parameter Modelica.Units.SI.Height burDep=4.
     "Buried depth of emitting borehole";
-  Real u "Integration variable";
+  Real u(unit="1/m") "Integration variable";
+  constant Real con(unit="1/(m.s)") = 1 "Unit conversion factor";
+
   Real logy150 "Logarithm of finite line source integrand";
   Real logy75 "Logarithm of finite line source integrand";
   Real logy25 "Logarithm of finite line source integrand";
   Real logy5 "Logarithm of finite line source integrand";
   Real logy1 "Logarithm of finite line source integrand";
 equation
-  u = time;
+  u = con*time;
   logy150 = log10(max(small,
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
       u=u,
@@ -73,6 +75,11 @@ finite line source integrand function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 September 15, 2025, by Michael Wetter:<br/>
 Changed value of small number that bounds log10.<br/>
