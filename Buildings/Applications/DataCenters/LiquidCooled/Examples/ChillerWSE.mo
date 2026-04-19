@@ -11,8 +11,6 @@ model ChillerWSE
         phi=0.25,
         T=293.15))
     "Medium for rack";
-  parameter Modelica.Units.SI.TemperatureDifference dTOffSet(max=0) = 0
-    "Offset for cooling supply temperature (used to design model so it requires the chiller sometimes)";
 
   parameter Modelica.Units.SI.Power PRac = 1E6
     "Total rack design power";
@@ -27,7 +25,7 @@ model ChillerWSE
   final parameter Modelica.Units.SI.TemperatureDifference dTTow_nominal(max=0) = dTChw_nominal
     "Temperature difference tower water loop (same as chilled water loop, as it is assumed for TSetCooTowOut_nominal";
 
-  parameter Modelica.Units.SI.Temperature TRacSup_nominal=273.15 + 45 + dTOffSet
+  parameter Modelica.Units.SI.Temperature TRacSup_nominal=273.15 + 45
     "Supply coolant temperature to rack at design conditions";
   parameter Modelica.Units.SI.Temperature TRacRet_nominal=TRacSup_nominal-dTRac_nominal
     "Return coolant temperature from rack at design conditions";
