@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
-model Merkel "Cooling tower model based on Merkel's theory"
+model DryCooler "Cooling tower model based on epsilon-NTU relation"
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
   final fanRelPowDer=
@@ -8,32 +8,23 @@ model Merkel "Cooling tower model based on Merkel's theory"
       y=fanRelPow.r_P,
       ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
         x=fanRelPow.r_P,
-        strict=false)));
+          strict=false)),
+    final yMin=0.05 "Forced vs free convection is not used in this model");
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-      m_flow_nominal/ratWatAir_nominal "Nominal mass flow rate of air"
+      m_flow_nominal/ratCooAir_nominal "Nominal mass flow rate of air"
     annotation (Dialog(group="Fan"));
-  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
-    "Nominal outdoor (air inlet) wetbulb temperature"
+  parameter Modelica.Units.SI.Temperature TAirIn_nominal=273.15 + 25.55
+    "Nominal outdoor (air inlet) drybulb temperature"
     annotation (Dialog(group="Heat transfer"));
-
-  parameter Modelica.Units.SI.Temperature TWatIn_nominal
-    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TWatOut_nominal
-    "Nominal water outlet temperature"
-      annotation (Dialog(group="Heat transfer"));
-
-  parameter Real ratWatAir_nominal(min=0, unit="1") = 1.2
+  parameter Modelica.Units.SI.Temperature TCooIn_nominal
+    "Cooling loop inlet temperature" annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.Temperature TCooOut_nominal
+    "Cooling loop outlet temperature"
+    annotation (Dialog(group="Heat transfer"));
+  parameter Real ratCooAir_nominal(min=0, unit="1") = 1.2
     "Water-to-air mass flow rate ratio at design condition"
     annotation (Dialog(group="Nominal condition"));
-
-  replaceable parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel UACor
-    constrainedby Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel
-    "Coefficients for UA correction"
-    annotation (
-      Dialog(group="Heat transfer"),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{18,70},{38,90}})));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = per.Q_flow_nominal
     "Nominal heat transfer, (negative)";
@@ -45,28 +36,27 @@ model Merkel "Cooling tower model based on Merkel's theory"
     "Nominal number of transfer units";
 
 protected
-  Modelica.Blocks.Sources.RealExpression TWatIn(
+  Modelica.Blocks.Sources.RealExpression TCooIn(
     final y=Medium.temperature(
       Medium.setState_phX(
         p=port_a.p,
         h=inStream(port_a.h_outflow),
         X=inStream(port_a.Xi_outflow))))
-    "Water inlet temperature"
+    "Cooling loop fluid inlet temperature"
     annotation (Placement(transformation(extent={{-70,36},{-50,54}})));
-  Modelica.Blocks.Sources.RealExpression mWat_flow(final y=port_a.m_flow)
-    "Water mass flow rate"
+  Modelica.Blocks.Sources.RealExpression mCoo_flow(final y=port_a.m_flow)
+    "Cooling fluid mass flow rate"
     annotation (Placement(transformation(extent={{-70,20},{-50,38}})));
 
-  Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Merkel per(
+  Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.DryCooler per(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final ratWatAir_nominal=ratWatAir_nominal,
-    final TAirInWB_nominal=TAirInWB_nominal,
-    final TWatIn_nominal=TWatIn_nominal,
-    final TWatOut_nominal=TWatOut_nominal,
-    final fraFreCon=fraFreCon,
-    final UACor = UACor,
-    final yMin=yMin) "Model for thermal performance"
+    final ratCooAir_nominal=ratCooAir_nominal,
+    final TAirIn_nominal=TAirIn_nominal,
+    final TCooIn_nominal=TCooIn_nominal,
+    final TCooOut_nominal=TCooOut_nominal,
+    final yMin=yMin)
+    "Model for thermal performance"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
 equation
@@ -78,10 +68,10 @@ equation
                 color={0,0,127}));
   connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{12,50},{
           12,12},{-80,12},{-80,-60},{-40,-60}},color={0,0,127}));
-  connect(per.m_flow, mWat_flow.y) annotation (Line(points={{-22,42},{-34,42},{
+  connect(per.m_flow, mCoo_flow.y) annotation (Line(points={{-22,42},{-34,42},{
           -34,29},{-49,29}},
                          color={0,0,127}));
-  connect(TWatIn.y, per.TWatIn) annotation (Line(points={{-49,45},{-40,45},{-40,
+  connect(TCooIn.y, per.TCooIn) annotation (Line(points={{-49,45},{-40,45},{-40,
           46},{-22,46}},        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
@@ -138,11 +128,12 @@ equation
     Documentation(
 info="<html>
 <p>
-Model for a steady-state or dynamic cooling tower with a variable speed fan
-using Merkel's calculation method.
+Model for a steady-state or dynamic dryy cooling tower with a variable speed fan
+using epsilon-NTU method for heat transfer.
 </p>
 <h4>Thermal performance</h4>
 <p>
+<b>fixme: update documentation</b>
 To compute the thermal performance, this model takes as parameters the nominal water
 mass flow rate, the water-to-air mass flow ratio at nominal condition,
 the nominal inlet air wetbulb temperature,
@@ -275,4 +266,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Merkel;
+end DryCooler;

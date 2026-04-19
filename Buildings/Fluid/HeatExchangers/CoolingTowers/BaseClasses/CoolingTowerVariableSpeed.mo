@@ -5,14 +5,9 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
-  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
-    "Nominal outdoor (air inlet) wetbulb temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TWatIn_nominal
-    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TWatOut_nominal
-    "Nominal water outlet temperature"
-    annotation (Dialog(group="Heat transfer"));
+//  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
+//    "Nominal outdoor (air inlet) wetbulb temperature"
+//   annotation (Dialog(group="Heat transfer"));
 
   parameter Real fraFreCon(min=0, max=1, final unit="1") = 0.125
     "Fraction of tower capacity in free convection regime"
@@ -143,6 +138,11 @@ This base model is used for both the Merkel and York calculation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 18, 2026, by Michael Wetter:<br/>
+Moved <code>TAirInWB_nominal</code> to parent classes to allow this model to also
+be used for a dry cooler.
+</li>
 <li>
 August 26, 2021, by Baptiste Ravache:<br/>
 First implementation.

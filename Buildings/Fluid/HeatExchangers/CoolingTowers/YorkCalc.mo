@@ -13,6 +13,14 @@ model YorkCalc
   parameter Modelica.Units.SI.TemperatureDifference TRan_nominal(displayUnit=
         "K") = 5.56 "Design range temperature (water in - water out)"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
+    "Nominal outdoor (air inlet) wetbulb temperature"
+    annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.Temperature TWatIn_nominal
+    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.Temperature TWatOut_nominal
+    "Nominal water outlet temperature"
+    annotation (Dialog(group="Heat transfer"));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
@@ -74,7 +82,7 @@ protected
     "Heat input into water"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 initial equation
-  TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
+//--  TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
   TRan_nominal = TWatIn_nominal - TWatOut_nominal; // by definition of the range temp.
   TApp_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
                    TRan=TRan_nominal, TWetBul=TAirInWB_nominal,
