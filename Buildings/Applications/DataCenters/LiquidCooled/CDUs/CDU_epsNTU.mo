@@ -12,63 +12,75 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     "Ratio between convective heat transfer coefficients at nominal conditions, r_nominal = hA1_nominal/hA2_nominal"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
-  final parameter Real n1(min=0, max=1)=dat.nPla
-    "Exponent for convective heat transfer coefficient, h1~m1_flow^n1"
+  final parameter Real nPla(
+    min=0,
+    max=1) = dat.nPla
+    "Exponent for convective heat transfer coefficient, h~m_flow^n"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
-  final parameter Real n2(min=0, max=1)=dat.nRac
-   "Exponent for convective heat transfer coefficient, h2~m2_flow^n2"
+  final parameter Real nRac(
+    min=0,
+    max=1) = dat.nRac
+    "Exponent for convective heat transfer coefficient, h~m_flow^n"
    annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
     "Nominal heat flow rate (negative as it is for cooling)"
     annotation (Dialog(group="Nominal thermal performance"));
-  final parameter Modelica.Units.SI.Temperature T_a1_nominal = dat.TPla_a_nominal
-    "Nominal temperature at port a1" annotation (Dialog(group=
+  final parameter Modelica.Units.SI.Temperature TPla_a_nominal=dat.TPla_a_nominal
+    "Nominal temperature at inlet port from cooling plant"
+                                     annotation (Dialog(group=
           "Nominal thermal performance"));
-  final parameter Modelica.Units.SI.Temperature T_a2_nominal = dat.TRac_a_nominal
-    "Nominal temperature at port a2" annotation (Dialog(group=
+  final parameter Modelica.Units.SI.Temperature TRac_a_nominal=dat.TRac_a_nominal
+    "Nominal temperature at inlet port from IT rack"
+                                     annotation (Dialog(group=
           "Nominal thermal performance"));
 
   // Flow resistance parameters
-  parameter Boolean computeFlowResistance1 = true
+  parameter Boolean computeFlowResistancePla=true
     "=true, compute flow resistance. Set to false to assume no friction"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
-  parameter Boolean from_dp1 = false
+  parameter Boolean from_dpPla=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
+    annotation (Evaluate=true, Dialog(enable=computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
-  final parameter Modelica.Units.SI.PressureDifference dpHex1_nominal(
+  final parameter Modelica.Units.SI.PressureDifference dpHexPla_nominal(
     min=0,
-    displayUnit="Pa")=dat.dpHexPla_nominal "Heat exchanger design pressure drop"
+    displayUnit="Pa") = dat.dpHexPla_nominal
+    "Heat exchanger design pressure drop on cooling plant side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Boolean linearizeFlowResistance1 = false
+  parameter Boolean linearizeFlowResistancePla=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable = computeFlowResistance1,
+    annotation(Dialog(enable=computeFlowResistance1,
                tab="Flow resistance", group="Medium 1"));
-  final parameter Real deltaM1 = dat.deltaM1
+  final parameter Real deltaMPla=dat.deltaMPla
     "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation(Dialog(enable = computeFlowResistance1,
-                      tab="Flow resistance", group="Medium 1"));
-  parameter Boolean computeFlowResistance2 = true
+    annotation (Dialog(
+      enable=computeFlowResistance1,
+      tab="Flow resistance",
+      group="Medium 1"));
+  parameter Boolean computeFlowResistanceRac=true
     "=true, compute flow resistance. Set to false to assume no friction"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
 
-  parameter Boolean from_dp2 = false
+  parameter Boolean from_dpRac=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
+    annotation (Evaluate=true, Dialog(enable=computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
-  final parameter Modelica.Units.SI.PressureDifference dpHex2_nominal(
+  final parameter Modelica.Units.SI.PressureDifference dpHexRac_nominal(
     min=0,
-    displayUnit="Pa") = dat.dpHexRac_nominal "Pressure difference"
+    displayUnit="Pa") = dat.dpHexRac_nominal
+    "Pressure difference on IT rack side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Boolean linearizeFlowResistance2 = false
+  parameter Boolean linearizeFlowResistanceRac=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable = computeFlowResistance2,
+    annotation(Dialog(enable=computeFlowResistance2,
                tab="Flow resistance", group="Medium 2"));
-  final parameter Real deltaM2 = dat.deltaM2
+  final parameter Real deltaMRac=dat.deltaMRac
     "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation(Dialog(enable = computeFlowResistance2,
-                      tab="Flow resistance", group="Medium 2"));
+    annotation (Dialog(
+      enable=computeFlowResistance2,
+      tab="Flow resistance",
+      group="Medium 2"));
 
 //  final parameter Medium1.DynamicViscosity eta1_default = Medium1.dynamicViscosity(sta1_default) "Dynamic viscosity";
 //  final parameter Medium1.ThermalConductivity k1_default = Medium1.thermalConductivity(sta1_default) "Thermal conductivity";
@@ -142,38 +154,38 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     final m1_flow_nominal=m1_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
     final show_T=show_T,
-    final from_dp1=from_dp1,
-    final dp1_nominal=dpHex1_nominal,
-    final linearizeFlowResistance1=linearizeFlowResistance1,
-    final deltaM1=deltaM1,
-    final from_dp2=from_dp2,
-    final dp2_nominal=dpHex2_nominal,
-    final linearizeFlowResistance2=linearizeFlowResistance2,
-    final deltaM2=deltaM2,
+    final from_dp1=from_dpPla,
+    final dp1_nominal=dpHexPla_nominal,
+    final linearizeFlowResistance1=linearizeFlowResistancePla,
+    final deltaM1=deltaMPla,
+    final from_dp2=from_dpRac,
+    final dp2_nominal=dpHexRac_nominal,
+    final linearizeFlowResistance2=linearizeFlowResistanceRac,
+    final deltaM2=deltaMRac,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final use_Q_flow_nominal=true,
     final Q_flow_nominal=Q_flow_nominal,
-    final T_a1_nominal=T_a1_nominal,
-    final T_a2_nominal=T_a2_nominal,
+    final T_a1_nominal=TPla_a_nominal,
+    final T_a2_nominal=TRac_a_nominal,
     final r_nominal=r_nominal,
-    final n1=n1,
-    final n2=n2)
-    "Heat exchanger"
+    final n1=nPla,
+    final n2=nRac) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
     final m_flow_nominal=m1_flow_nominal,
-    final from_dp=from_dp1,
-    final linearized=linearizeFlowResistance1,
+    final from_dp=from_dpPla,
+    final linearized=linearizeFlowResistancePla,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final dpValve_nominal=dpValve_nominal,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=initVal,
-    final y_start=yVal_start) "Control valve on chilled water side"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+    final y_start=yVal_start) "Control valve on chilled water side" annotation
+    (Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-40,20})));
 
@@ -186,8 +198,9 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     riseTime=riseTime,
     y_start=yPum_start,
     m_flow_nominal=m2_flow_nominal,
-    dp_nominal=dpPum_nominal+dpHex2_nominal) "Pump on IT side"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    dp_nominal=dpPum_nominal + dpHexRac_nominal) "Pump on IT side" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,-20})));
 

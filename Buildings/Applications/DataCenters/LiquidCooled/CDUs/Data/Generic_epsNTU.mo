@@ -29,15 +29,15 @@ record Generic_epsNTU
     min=0,
     displayUnit="Pa") "Heat exchanger design pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real deltaM1 = 0.1
-    "Fraction of nominal flow rate where flow transitions to laminar"
+  parameter Real deltaMPla=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar on cooling plant side"
     annotation(Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.PressureDifference dpHexRac_nominal(
     min=0,
     displayUnit="Pa") = dpHexPla_nominal "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real deltaM2 = 0.1
-    "Fraction of nominal flow rate where flow transitions to laminar"
+  parameter Real deltaMRac=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar on rack side"
     annotation(Dialog(tab="Flow resistance", group="Medium 2"));
 
   // Volume fractions
