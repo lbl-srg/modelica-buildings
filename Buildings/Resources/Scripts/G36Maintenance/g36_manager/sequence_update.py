@@ -39,7 +39,7 @@ def run_sequence_update(
 ) -> SequenceUpdateReport:
     log = logger or logging.getLogger(__name__)
     root = Path(library_root)
-    obc_dir = root / "Buildings" / "Controls" / "OBC"
+    obc_dir = root / "Buildings" / "Controls" / "OBC"  / "ASHRAE"
 
     versions = discover_versions(obc_dir)
     if not versions:
