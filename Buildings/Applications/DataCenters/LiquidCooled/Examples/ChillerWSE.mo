@@ -175,6 +175,7 @@ model ChillerWSE
     redeclare package Medium = MediumChi,
     m_flow_nominal=mCW_flow_nominal,
     dp_nominal=80000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TAirIn_nominal=303.15,
     TCooIn_nominal=TTowSup_nominal,
     TCooOut_nominal=TTowRet_nominal,
