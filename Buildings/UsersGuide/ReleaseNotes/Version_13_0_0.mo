@@ -80,13 +80,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.PID<br/>
-                       Buildings.Controls.OBC.CDL.Reals.PIDWithReset
-    </td>
-    <td valign=\"top\">Added value for <code>nominal</code> attribute for integrator state <code>I.y</code><br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2106\">IBPSA, issue 2106</a>.
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
     </td>
     <td valign=\"top\">Reformulated initalization to avoid non-linear equations in <code>when</code> blocks.<br/>
