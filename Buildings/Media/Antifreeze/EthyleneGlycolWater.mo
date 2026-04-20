@@ -27,7 +27,7 @@ package EthyleneGlycolWater
   constant Modelica.Units.SI.Temperature property_T
     "Temperature for evaluation of constant fluid properties";
   constant Modelica.Units.SI.MassFraction X_a
-    "Mass fraction of propylene glycol in water";
+    "Mass fraction of ethylene glycol in water";
 
   redeclare model BaseProperties "Base properties"
     Temperature T(stateSelect=
@@ -107,7 +107,7 @@ protected
   constant Modelica.Units.SI.MassFraction X_a_min=0.
     "Minimum allowed mass fraction of ethylene glycol in water";
   constant Modelica.Units.SI.MassFraction X_a_max=0.6
-    "Maximum allowed mass fraction of propylene glycol in water";
+    "Maximum allowed mass fraction of ethylene glycol in water";
 
   // Fluid constants based on pure Ethylene Glycol
   constant Modelica.Media.Interfaces.Types.Basic.FluidConstants[1]
@@ -157,7 +157,7 @@ protected
     annotation (
     Documentation(info="<html>
   <p>
-  Density of propylene antifreeze-water mixture at specified mass fraction
+  Density of ethylene antifreeze-water mixture at specified mass fraction
   and temperature, based on Melinder (2010).
   </p>
   <h4>References</h4>
@@ -169,6 +169,10 @@ protected
   </html>",
   revisions="<html>
   <ul>
+  <li>
+  April 14, 2026, by Michael Wetter:<br/>
+  Corrected typo in documentation.
+  </li>
   <li>
   May 2, 2018 by Massimo Cimmino:<br/>
   First implementation.
@@ -464,6 +468,10 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2026, by Michael Wetter:<br/>
+Corrected typo in documentation.
+</li>
 <li>
 August 05, 2020, by Wen HU:<br/>
 First implementation.
