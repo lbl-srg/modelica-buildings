@@ -37,7 +37,7 @@ int assign_parameter(PARA_DATA *para, char *string) {
   /* tmp2 needs to be initialized to avoid crash*/
   /* when the input for tmp2 is empty*/
   char tmp2[100] = "";
-  int senId = -1;
+  static int senId = -1;
 
 
   /****************************************************************************
@@ -427,8 +427,36 @@ int assign_parameter(PARA_DATA *para, char *string) {
 
     /*------------------------------------------------------------------------
     | Copy the sensor name
+    | Read the full rest-of-line after "sensor.name " to support multi-word
+    | names such as "Occupied zone air temperature".
+    | Also strip inline // comments (used in .ffd files) and trailing whitespace.
     ------------------------------------------------------------------------*/
-    sscanf(string, "%s%s", tmp, tmp2);
+    {
+      const char *keyword = "sensor.name";
+      size_t kwLen = strlen(keyword);
+      char *nameStart = string + kwLen;
+      char *commentPos;
+      int nameLen;
+      /* Skip any spaces or tabs between keyword and name */
+      while(*nameStart == ' ' || *nameStart == '\t') nameStart++;
+      /* Truncate at inline // comment if present */
+      commentPos = strstr(nameStart, "//");
+      if(commentPos != NULL) {
+        nameLen = (int)(commentPos - nameStart);
+      } else {
+        nameLen = (int)strlen(nameStart);
+      }
+      /* Strip trailing whitespace (spaces, tabs, newlines, carriage returns) */
+      while(nameLen > 0 && (nameStart[nameLen-1] == '\n' ||
+                             nameStart[nameLen-1] == '\r' ||
+                             nameStart[nameLen-1] == ' '  ||
+                             nameStart[nameLen-1] == '\t')) {
+        nameLen--;
+      }
+      if(nameLen >= (int)sizeof(tmp2)) nameLen = (int)sizeof(tmp2) - 1;
+      strncpy(tmp2, nameStart, (size_t)nameLen);
+      tmp2[nameLen] = '\0';
+    }
     senId++;
     para->sens->sensorName[senId] = (char *) malloc((strlen(tmp2)+5)*sizeof(char));
     if(para->sens->sensorName[senId]==NULL) {
@@ -479,21 +507,35 @@ int read_parameter(PARA_DATA *para) {
   ---------------------------------------------------------------------------*/
   else {
     if((file_para=fopen(para->cosim->para->fileName,"r"))==NULL) {
-      sprintf(msg, "read_parameter(): Could not open the FFD parameter file %s",
-              para->cosim->para->fileName);
+      sprintf(msg, "read_parameter(): Could not open the FFD parameter file \"%s\"",
+              para->cosim->para->fileName == NULL ? "(null)" : para->cosim->para->fileName);
       ffd_log(msg, FFD_ERROR);
       return 1;
     }
     else {
       char *lastSlash = strrchr(para->cosim->para->fileName, DIR_SEP);
-      int nPath = strlen(para->cosim->para->fileName) - (strlen(lastSlash) - 1);
-
-      para->cosim->para->filePath = (char*) calloc(nPath+1, sizeof(char));
-      if(para->cosim->para->filePath==NULL) {
-        ffd_log("read_parameter(): Could not allocate memory for the path to the FFD files", FFD_ERROR);
-        return 1;
+      if(lastSlash == NULL) {
+        /* No directory separator found: the .ffd file has no directory component.
+         * Use an empty filePath so that the auxiliary .cfd/.dat files are
+         * looked up relative to the current working directory. */
+        para->cosim->para->filePath = (char*) calloc(1, sizeof(char));
+        if(para->cosim->para->filePath == NULL) {
+          ffd_log("read_parameter(): Could not allocate memory for the path to the FFD files", FFD_ERROR);
+          return 1;
+        }
+        para->cosim->para->filePath[0] = '\0';
+        sprintf(msg, "read_parameter(): Opened file %s for FFD parameters (current directory)",
+              para->cosim->para->fileName);
+        ffd_log(msg, FFD_NORMAL);
       }
       else {
+        int nPath = (int)(strlen(para->cosim->para->fileName) - (strlen(lastSlash) - 1));
+
+        para->cosim->para->filePath = (char*) calloc(nPath+1, sizeof(char));
+        if(para->cosim->para->filePath==NULL) {
+          ffd_log("read_parameter(): Could not allocate memory for the path to the FFD files", FFD_ERROR);
+          return 1;
+        }
         strncpy(para->cosim->para->filePath, para->cosim->para->fileName, nPath);
         sprintf(msg, "read_parameter(): Opened file %s for FFD parameters with base directory %s",
               para->cosim->para->fileName, para->cosim->para->filePath);

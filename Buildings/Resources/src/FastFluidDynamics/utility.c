@@ -755,29 +755,32 @@ void free_para(PARA_DATA *para) {
   | Free memory for Species
   ****************************************************************************/
   if(para->bc->nb_port>0&&para->bc->nb_Xi>0) {
-    if(para->bc->XiPort) free(para->bc->XiPort);
-    if(para->bc->XiPortAve) free(para->bc->XiPortAve);
-    if(para->bc->XiPortMean) free(para->bc->XiPortMean);
-
+    /* Free individual elements first, then the pointer array.
+     * Freeing the array before its elements would make XiPort[i] a
+     * use-after-free, reading glibc's tcache safe-link pointer and
+     * passing it to free(), which corrupts the heap. */
     for(i=0; i<para->bc->nb_port; i++) {
       if(para->bc->XiPort[i]) free(para->bc->XiPort[i]);
       if(para->bc->XiPortAve[i]) free(para->bc->XiPortAve[i]);
       if(para->bc->XiPortMean[i]) free(para->bc->XiPortMean[i]);
     }
+    if(para->bc->XiPort) free(para->bc->XiPort);
+    if(para->bc->XiPortAve) free(para->bc->XiPortAve);
+    if(para->bc->XiPortMean) free(para->bc->XiPortMean);
   }
   /****************************************************************************
   | Free memory for Substances
   ****************************************************************************/
   if(para->bc->nb_port>0&&para->bc->nb_C>0) {
-    if(para->bc->CPort) free(para->bc->CPort);
-    if(para->bc->CPortAve) free(para->bc->CPortAve);
-    if(para->bc->CPortMean) free(para->bc->CPortMean);
-
+    /* Same fix: free individual elements before freeing the pointer array. */
     for(i=0; i<para->bc->nb_port; i++) {
       if(para->bc->CPort[i]) free(para->bc->CPort[i]);
       if(para->bc->CPortAve[i]) free(para->bc->CPortAve[i]);
       if(para->bc->CPortMean[i]) free(para->bc->CPortMean[i]);
     }
+    if(para->bc->CPort) free(para->bc->CPort);
+    if(para->bc->CPortAve) free(para->bc->CPortAve);
+    if(para->bc->CPortMean) free(para->bc->CPortMean);
   }
   /*------------------------------------------------------------------------
   | Free memory for para->sens->sensorName
