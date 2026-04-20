@@ -8,69 +8,6 @@ package EthyleneGlycolWater
   constant Modelica.Units.SI.MassFraction X_a_max=0.6
     "Maximum allowed mass fraction of ethylene glycol in water";
 
-record PropertyCoefficients
-  "Polynomial coefficients to evaluate fluid properties"
-  extends Modelica.Icons.Record;
-
-  Modelica.Units.SI.MassFraction X_a_ref "Reference mass fraction";
-  Modelica.Units.SI.Temperature T_ref "Reference temperature";
-  parameter Integer nX_a "Order of polynomial in x";
-  Integer nT[nX_a] "Order of polynomial in y";
-  parameter Integer nTot "Total number of coefficients";
-  Real a_d[nTot] "Polynomial coefficients for density";
-  Real a_eta[nTot] "Polynomial coefficients for dynamic viscosity";
-  Real a_Tf[nTot] "Polynomial coefficients for fusion temperature";
-  Real a_cp[nTot] "Polynomial coefficients for specific heat capacity";
-  Real a_lambda[nTot] "Polynomial coefficients for thermal conductivity";
-
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
-<p>
-Record that is used by media packages in
-<a href=\"modelica://Buildings.Media.Antifreeze\">
-Buildings.Media.Antifreeze</a> to implement the thermophysical properties
-based on Melinder (2010).
-</p>
-<h4>References</h4>
-<p>
-Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
-Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
-IIR/IIF.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-May 11, 2018, by Michael Wetter:
-Added documentation.
-</li>
-</ul>
-</html>"));
-end PropertyCoefficients;
-  // Coefficients for evaluation of physical properties
-  constant PropertyCoefficients proCoe(
-    X_a_ref=0.308462,
-    T_ref=Modelica.Units.Conversions.from_degC(31.728),
-    nX_a=6,
-    nT={4,4,4,3,2,1},
-    nTot=18,
-    a_d={1.034e3,-4.781e-1,-2.692e-3,4.725e-6,1.311e0,-6.876e-3,4.805e-5,
-        1.690e-8,7.490e-5,7.855e-5,-3.995e-7,4.982e-9,-1.062e-4,1.229e-6,-1.153e-8,
-        -9.623e-7,-7.221e-8,4.891e-8},
-    a_eta={4.705e-1,-2.550e-2,1.782e-4,-7.669e-7,2.471e-2,-1.171e-4,1.052e-6,-1.634e-8,
-        3.328e-6,-1.086e-6,-1.051e-8,-6.475e-10,1.695e-6,3.157e-9,4.063e-10,
-        3.089e-8,1.831e-10,-1.865e-9},
-    a_Tf={-1.525e1,-1.566e-6,-2.278e-7,2.169e-9,-8.080e-1,-1.339e-6,2.047e-08,-2.717e-11,
-        -1.334e-2,6.332e-8,2.373e-10,-2.183e-12,-7.293e-5,-1.764e-9,-2.442e-11,
-        1.006e-6,-7.662e-11,1.140e-9},
-    a_cp={3.737e3,2.930e0,-4.675e-3,-1.389e-5,-1.799e1,1.046e-1,-4.147e-4,
-        1.847e-7,-9.933e-2,3.516e-4,5.109e-6,-7.138e-8,2.610e-3,-1.189e-6,-1.643e-7,
-        1.537e-5,-4.272e-7,-1.618e-6},
-    a_lambda={4.720e-1,8.903e-4,-1.058e-6,-2.789e-9,-4.286e-3,-1.473e-5,
-        1.059e-7,-1.142e-10,1.747e-5,6.814e-8,-3.612e-9,2.365e-12,3.017e-8,-2.412e-9,
-        4.004e-11,-1.322e-09,2.555e-11,2.678e-11})
-    "Coefficients for evaluation of thermo-physical properties";
-
   function density_TX_a
     "Evaluate density of antifreeze-water mixture"
     extends Modelica.Icons.Function;
@@ -420,6 +357,63 @@ First implementation.
 </ul>
 </html>"));
   end volumeToMassFraction;
+
+protected
+  record proCoe "Coefficients for evaluation of thermo-physical properties"
+    extends Modelica.Icons.Record;
+
+    constant Modelica.Units.SI.MassFraction X_a_ref=0.308462 "Reference mass fraction";
+    constant Modelica.Units.SI.Temperature T_ref=Modelica.Units.Conversions.from_degC(31.728)
+      "Reference temperature";
+    constant Integer nX_a=6 "Order of polynomial in x";
+    constant Integer nT[nX_a]={4,4,4,3,2,1} "Order of polynomial in y";
+    constant Integer nTot=18 "Total number of coefficients";
+
+    constant Real a_d[nTot]=
+      {1.034e3,-4.781e-1,-2.692e-3,4.725e-6,1.311e0,-6.876e-3,4.805e-5,
+        1.690e-8,7.490e-5,7.855e-5,-3.995e-7,4.982e-9,-1.062e-4,1.229e-6,-1.153e-8,
+        -9.623e-7,-7.221e-8,4.891e-8} "Polynomial coefficients for density";
+    constant Real a_eta[nTot]=
+      {4.705e-1,-2.550e-2,1.782e-4,-7.669e-7,2.471e-2,-1.171e-4,1.052e-6,-1.634e-8,
+        3.328e-6,-1.086e-6,-1.051e-8,-6.475e-10,1.695e-6,3.157e-9,4.063e-10,
+        3.089e-8,1.831e-10,-1.865e-9} "Polynomial coefficients for dynamic viscosity";
+    constant Real a_Tf[nTot]=
+      {-1.525e1,-1.566e-6,-2.278e-7,2.169e-9,-8.080e-1,-1.339e-6,2.047e-08,-2.717e-11,
+        -1.334e-2,6.332e-8,2.373e-10,-2.183e-12,-7.293e-5,-1.764e-9,-2.442e-11,
+      1.006e-6,-7.662e-11,1.140e-9} "Polynomial coefficients for fusion temperature";
+    constant Real a_cp[nTot]=
+      {3.737e3,2.930e0,-4.675e-3,-1.389e-5,-1.799e1,1.046e-1,-4.147e-4,
+        1.847e-7,-9.933e-2,3.516e-4,5.109e-6,-7.138e-8,2.610e-3,-1.189e-6,-1.643e-7,
+      1.537e-5,-4.272e-7,-1.618e-6} "Polynomial coefficients for specific heat capacity";
+    constant Real a_lambda[nTot]=
+      {4.720e-1,8.903e-4,-1.058e-6,-2.789e-9,-4.286e-3,-1.473e-5,
+        1.059e-7,-1.142e-10,1.747e-5,6.814e-8,-3.612e-9,2.365e-12,3.017e-8,-2.412e-9,
+      4.004e-11,-1.322e-09,2.555e-11,2.678e-11} "Polynomial coefficients for thermal conductivity";
+
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+Record that is used by media packages in
+<a href=\"modelica://Buildings.Media.Antifreeze\">
+Buildings.Media.Antifreeze</a> to implement the thermophysical properties
+based on Melinder (2010).
+</p>
+<h4>References</h4>
+<p>
+Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
+Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
+IIR/IIF.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 11, 2018, by Michael Wetter:
+Added documentation.
+</li>
+</ul>
+</html>"));
+  end proCoe;
 
 annotation(preferredView="info", Documentation(info="<html>
 <p>
