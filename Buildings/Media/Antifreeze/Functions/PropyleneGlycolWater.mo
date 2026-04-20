@@ -406,7 +406,11 @@ IIR/IIF.
 </html>", revisions="<html>
 <ul>
 <li>
-May 11, 2018, by Michael Wetter:
+April 20, 2026, by Michael Wetter:<br/>
+Refactored implementation.
+</li>
+<li>
+May 11, 2018, by Michael Wetter:<br/>
 Added documentation.
 </li>
 </ul>
