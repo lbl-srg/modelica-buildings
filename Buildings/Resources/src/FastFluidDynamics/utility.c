@@ -784,8 +784,35 @@ void free_para(PARA_DATA *para) {
   }
   /*------------------------------------------------------------------------
   | Free memory for para->sens->sensorName
+  | Free individual strings first, then the pointer array (same pattern as
+  | XiPort/CPort: freeing the array first corrupts the heap because the
+  | freed tcache next-pointer is then passed to free() for each element).
   ------------------------------------------------------------------------*/
-    if(para->sens->sensorName) free(para->sens->sensorName);
+  if(para->sens->sensorName) {
+    int iSen;
+    for(iSen = 0; iSen < para->sens->nb_sensor; iSen++) {
+      if(para->sens->sensorName[iSen]) {
+        free(para->sens->sensorName[iSen]);
+        para->sens->sensorName[iSen] = NULL;
+      }
+    }
+    free(para->sens->sensorName);
+    para->sens->sensorName = NULL;
+  }
+
+  /*------------------------------------------------------------------------
+  | Zero out other freed sensor pointers so a second call is safe
+  ------------------------------------------------------------------------*/
+  para->sens->senVal     = NULL;
+  para->sens->senValMean = NULL;
+
+  /*------------------------------------------------------------------------
+  | Free the path string allocated in read_parameter()
+  ------------------------------------------------------------------------*/
+  if(para->cosim->para->filePath) {
+    free(para->cosim->para->filePath);
+    para->cosim->para->filePath = NULL;
+  }
 
     /* if(para->cosim) free(para->cosim); */
 

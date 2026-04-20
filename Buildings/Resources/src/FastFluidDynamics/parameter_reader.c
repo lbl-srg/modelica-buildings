@@ -423,7 +423,12 @@ int assign_parameter(PARA_DATA *para, char *string) {
         }
       } /* End of else*/
 
-    } /* End of if(para->sens->nb_sensor==0)*/
+      /* Reset senId whenever we (re)allocate sensorName so that a second
+       * simulation run within the same process starts counting from 0
+       * rather than carrying over the counter from the previous run. */
+      senId = -1;
+
+    } /* End of if(sensorName==NULL)*/
 
     /*------------------------------------------------------------------------
     | Copy the sensor name
