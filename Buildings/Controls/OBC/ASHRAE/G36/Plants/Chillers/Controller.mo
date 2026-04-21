@@ -1202,6 +1202,9 @@ block Controller "Chiller plant controller"
     final have_parChi=have_parChi,
     final nChi=nChi,
     final nSta=nSta,
+    final chiIsoValTyp=chiIsoValTyp,
+    final have_modPosChiVal=have_modPosChiVal,
+    final chaChiWatIsoTim=chaChiWatIsoTim,
     final holdPeriod=holdPeriod,
     final delDis=delDis,
     final TOffsetEna=TOffsetEna,
@@ -1724,9 +1727,10 @@ protected
     "Duplicate real input"
     annotation (Placement(transformation(extent={{-280,-400},{-260,-380}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply chiIso[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply chiIso[nChi] if have_modPosChiVal
+     and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chilled water isolation valve"
-    annotation (Placement(transformation(extent={{-240,-184},{-220,-164}})));
+    annotation (Placement(transformation(extent={{-240,-180},{-220,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
     "False constant"
@@ -2241,10 +2245,12 @@ equation
     annotation (Line(points={{-418,-390},{-322,-390}}, color={255,0,255}));
   connect(booToRea1.y, reaScaRep.u)
     annotation (Line(points={{-298,-390},{-282,-390}}, color={0,0,127}));
-  connect(reaScaRep.y, chiIso.u2) annotation (Line(points={{-258,-390},{-250,-390},
-          {-250,-180},{-242,-180}}, color={0,0,127}));
-  connect(chiIso.y, wseSta.uChiIsoVal) annotation (Line(points={{-218,-174},{-180,
-          -174},{-180,-88},{-766,-88},{-766,302},{-704,302}},   color={0,0,127}));
+  connect(reaScaRep.y, chiIso.u2) annotation (Line(points={{-258,-390},{-250,
+          -390},{-250,-176},{-242,-176}},
+                                    color={0,0,127}));
+  connect(chiIso.y, wseSta.uChiIsoVal) annotation (Line(points={{-218,-170},{
+          -180,-170},{-180,-88},{-766,-88},{-766,302},{-704,302}},
+                                                                color={0,0,127}));
   connect(u1TowInlIsoValOpe, towCon.u1InlIsoValOpe) annotation (Line(points={{-920,-660},
           {-350,-660},{-350,-688},{-268,-688}}, color={255,0,255}));
   connect(u1TowOutIsoValOpe, towCon.u1OutIsoValOpe) annotation (Line(points={{-920,
@@ -2312,10 +2318,12 @@ equation
           {670,-52},{670,-467},{738,-467}}, color={0,0,127}));
   connect(disChi.yChiWatIsoVal, yChiWatIsoVal) annotation (Line(points={{762,-468},
           {814,-468},{814,-60},{940,-60}}, color={0,0,127}));
-  connect(uChiWatIsoVal, chiIso.u1) annotation (Line(points={{-920,-170},{-260,-170},
-          {-260,-168},{-242,-168}}, color={0,0,127}));
-  connect(gai3.y, chiIso.u1) annotation (Line(points={{-398,-230},{-260,-230},{-260,
-          -168},{-242,-168}}, color={0,0,127}));
+  connect(uChiWatIsoVal, chiIso.u1) annotation (Line(points={{-920,-170},{-260,
+          -170},{-260,-164},{-242,-164}},
+                                    color={0,0,127}));
+  connect(gai3.y, chiIso.u1) annotation (Line(points={{-398,-230},{-260,-230},{
+          -260,-164},{-242,-164}},
+                              color={0,0,127}));
   connect(dowProCon.yChiWatIsoVal, gai3.u) annotation (Line(points={{268,-200},{
           306,-200},{306,-310},{-440,-310},{-440,-230},{-422,-230}}, color={0,0,
           127}));
