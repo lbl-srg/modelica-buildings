@@ -4,13 +4,13 @@ block SingleStepSetpointChange "Single-step setpoint change"
   parameter Real alwDev(min=1E-6)
     "Allowed deviation for equality";
   parameter Boolean setChaMod=true
-    "Setpoint change mode; true to go to the target setpoint value, false to go to the baseline setpoint value";
+    "Setpoint change mode; true to go to the target setpoint value, false to go to the default setpoint value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTarSet
     "Target setpoint: the setpoint under load-shed or load-increase scenarios"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
         iconTransformation(extent={{-140,-38},{-100,2}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uBasSet
-    "Baseline setpoint: the setpoint under normal conditions"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uDefSet
+    "Default setpoint: the setpoint under normal conditions"
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCurSet "Current setpoint"
@@ -27,17 +27,17 @@ block SingleStepSetpointChange "Single-step setpoint change"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uTarSet "Reached the target setpoint"
     annotation (Placement(transformation(extent={{160,70},{200,110}}),
       iconTransformation(extent={{100,30},{140,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uBasSet "Reached the baseline setpoint" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_uDefSet "Reached the default setpoint" annotation (Placement(
     transformation(extent={{160,-110},{200,-70}}), iconTransformation(extent={{100,-70},
             {140,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiBasTar
-    "Switch between the baseline setpoint and the target setpoint"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiDefTar
+    "Switch between the default setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Min minBasTar
-    "Minimum of baseline setpoint and target setpoint"
+  Buildings.Controls.OBC.CDL.Reals.Min minDefTar
+    "Minimum of default setpoint and target setpoint"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Max maxBasTar
-    "Maximum of baseline setpoint and target setpoint"
+  Buildings.Controls.OBC.CDL.Reals.Max maxDefTar
+    "Maximum of default setpoint and target setpoint"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant setChaModCon(final k=
         setChaMod) "Setpoint change mode boolean constant"
@@ -46,59 +46,59 @@ block SingleStepSetpointChange "Single-step setpoint change"
     "Switch for the \"enable\" signal"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Min uCurSetLimMin
-    "Current setpoint should be no smaller than the minimum of the baseline setpoint and the target setpoint"
+    "Current setpoint should be no smaller than the minimum of the default setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Max uCurSetLimMax
-    "Current setpoint should be no larger than the maximum of the baseline setpoint and the target setpoint"
+    "Current setpoint should be no larger than the maximum of the default setpoint and the target setpoint"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealEqual reaEquTarSet(alwDev=
         alwDev)
     "Check if the current setpoint and the target setpoint are equal to each other"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealEqual reaEquBasSet(alwDev=
+  Buildings.Controls.OBC.DemandFlexibility.Generic.Subsequences.RealEqual reaEquDefSet(alwDev=
         alwDev)
-    "Check if the current setpoint and the baseline setpoint are equal to each other"
+    "Check if the current setpoint and the default setpoint are equal to each other"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 equation
-  connect(uBasSet, maxBasTar.u2) annotation (Line(points={{-180,-120},{-76,-120},
+  connect(uDefSet, maxDefTar.u2) annotation (Line(points={{-180,-120},{-76,-120},
           {-76,-6},{-2,-6}}, color={0,0,127}));
   connect(uEna, swiEna.u2) annotation (Line(points={{-180,120},{-104,120},{-104,
           -70},{-2,-70}}, color={255,0,255}));
   connect(uCurSet, swiEna.u3) annotation (Line(points={{-180,40},{-56,40},{-56,
           -78},{-2,-78}}, color={0,0,127}));
-  connect(maxBasTar.y, uCurSetLimMin.u1)
+  connect(maxDefTar.y, uCurSetLimMin.u1)
     annotation (Line(points={{22,0},{30,0},{30,6},{38,6}}, color={0,0,127}));
   connect(swiEna.y, uCurSetLimMin.u2) annotation (Line(points={{22,-70},{26,-70},
           {26,-6},{38,-6}}, color={0,0,127}));
   connect(uCurSetLimMin.y, uCurSetLimMax.u2)
     annotation (Line(points={{62,0},{70,0},{70,-6},{78,-6}}, color={0,0,127}));
-  connect(minBasTar.y, uCurSetLimMax.u1)
+  connect(minDefTar.y, uCurSetLimMax.u1)
     annotation (Line(points={{22,70},{68,70},{68,6},{78,6}}, color={0,0,127}));
-  connect(setChaModCon.y, swiBasTar.u2) annotation (Line(points={{-118,-170},{-48,
+  connect(setChaModCon.y, swiDefTar.u2) annotation (Line(points={{-118,-170},{-48,
           -170},{-48,-30},{-42,-30}}, color={255,0,255}));
-  connect(uTarSet, swiBasTar.u1) annotation (Line(points={{-180,-40},{-110,-40},
+  connect(uTarSet, swiDefTar.u1) annotation (Line(points={{-180,-40},{-110,-40},
           {-110,-22},{-42,-22}}, color={0,0,127}));
-  connect(uBasSet, swiBasTar.u3) annotation (Line(points={{-180,-120},{-76,-120},
+  connect(uDefSet, swiDefTar.u3) annotation (Line(points={{-180,-120},{-76,-120},
           {-76,-38},{-42,-38}}, color={0,0,127}));
-  connect(swiBasTar.y, swiEna.u1) annotation (Line(points={{-18,-30},{-12,-30},
+  connect(swiDefTar.y, swiEna.u1) annotation (Line(points={{-18,-30},{-12,-30},
           {-12,-62},{-2,-62}}, color={0,0,127}));
-  connect(minBasTar.u2, uBasSet) annotation (Line(points={{-2,64},{-76,64},{-76,
+  connect(minDefTar.u2, uDefSet) annotation (Line(points={{-2,64},{-76,64},{-76,
           -120},{-180,-120}}, color={0,0,127}));
-  connect(uTarSet, maxBasTar.u1) annotation (Line(points={{-180,-40},{-92,-40},
+  connect(uTarSet, maxDefTar.u1) annotation (Line(points={{-180,-40},{-92,-40},
           {-92,6},{-2,6}}, color={0,0,127}));
-  connect(uTarSet, minBasTar.u1) annotation (Line(points={{-180,-40},{-92,-40},
+  connect(uTarSet, minDefTar.u1) annotation (Line(points={{-180,-40},{-92,-40},
           {-92,76},{-2,76}}, color={0,0,127}));
   connect(reaEquTarSet.y, reach_uTarSet) annotation (Line(points={{2,150},{80,
           150},{80,90},{180,90}}, color={255,0,255}));
-  connect(uCurSet, reaEquTarSet.u1) annotation (Line(points={{-180,40},{-132,40},
-          {-132,156},{-22,156}}, color={0,0,127}));
+  connect(uCurSet, reaEquTarSet.u1) annotation (Line(points={{-180,40},{-122,40},
+          {-122,156},{-22,156}}, color={0,0,127}));
   connect(uTarSet, reaEquTarSet.u2) annotation (Line(points={{-180,-40},{-136,-40},
           {-136,144},{-22,144}}, color={0,0,127}));
-  connect(uCurSet, reaEquBasSet.u1) annotation (Line(points={{-180,40},{-56,40},
+  connect(uCurSet, reaEquDefSet.u1) annotation (Line(points={{-180,40},{-56,40},
           {-56,-144},{-22,-144}}, color={0,0,127}));
-  connect(uBasSet, reaEquBasSet.u2) annotation (Line(points={{-180,-120},{-64,-120},
+  connect(uDefSet, reaEquDefSet.u2) annotation (Line(points={{-180,-120},{-64,-120},
           {-64,-156},{-22,-156}}, color={0,0,127}));
-  connect(reaEquBasSet.y, reach_uBasSet) annotation (Line(points={{2,-150},{80,
+  connect(reaEquDefSet.y, reach_uDefSet) annotation (Line(points={{2,-150},{80,
           -150},{80,-90},{180,-90}}, color={255,0,255}));
   connect(uCurSetLimMax.y, yComSet)
     annotation (Line(points={{102,0},{180,0}}, color={0,0,127}));
@@ -119,8 +119,8 @@ equation
     grid={2,2})),
     Documentation(info="<html>
 <p>
-This block changes the value of a setpoint between 
-the baseline setpoint and the target setpoint in a single step when the \"enable\" signal becomes <code>true</code>.
+This block changes a setpoint from one setpoint value to another setpoint value
+in a single step when the \"enable\" signal becomes <code>true</code>.
 </p>
 
 <p>
@@ -135,14 +135,14 @@ This is the setpoint that needs to be changed during load-shed or load-increase
 demand flexibility actions.
 </li>
 <li>
-<code>uBasSet</code>: the baseline setpoint, which represents the 
+<code>uDefSet</code>: the default setpoint, which represents the 
 hypothetical setpoint value if a setpoint were to not participate in load-shed or load-increase
 demand flexibility actions. 
-The current setpoint <code>uCurSet</code> is expected to have the same value as the baseline setpoint when 
+The current setpoint <code>uCurSet</code> is expected to have the same value as the default setpoint when 
 the demand flexibility actions are not active.
-The baseline setpoint is constant most of the time, although its 
+The default setpoint is constant most of the time, although its 
 value could change when the occupancy mode is switched between the unoccupied mode and the occupied mode.
-The baseline setpoint serves as either a lower limit or an upper limit for the current setpoint <code>uCurSet</code>.
+The default setpoint serves as either a lower limit or an upper limit for the current setpoint <code>uCurSet</code>.
 </li>
 <li>
 <code>uTarSet</code>: the target setpoint, which represents the setpoint value under 
@@ -157,7 +157,7 @@ The target setpoint serves as either a lower limit or an upper limit for the cur
 
 <p>
 The parameter <code>setChaMod</code> specifies whether the current 
-setpoint <code>uCurSet</code> shall change to the <code>uBasSet</code> value or the 
+setpoint <code>uCurSet</code> shall change to the <code>uDefSet</code> value or the 
 <code>uTarSet</code> value in a single step. 
 The resultant setpoint will be outputted as the  command setpoint 
 <code>yComSet</code>, which 
@@ -170,11 +170,11 @@ back to the input variable <code>uCurSet</code> in this block, completing a full
 <p>
 The <code>uEna</code> boolean input variable 
 specifies whether a setpoint has an \"enable\" signal to execute the single-step setpoint change operation. When the 
-<code>uEna</code> input variable is set to <code>true</code>, either <code>uBasSet</code> or 
+<code>uEna</code> input variable is set to <code>true</code>, either <code>uDefSet</code> or 
 <code>uTarSet</code> is passed to <code>yComSet</code>, depending on the parameter value of <code>setChaMod</code>.
 When <code>uEna</code> is changed to <code>false</code> from a previous 
 <code>true</code> value, <code>yComSet</code> will simply take the value <code>uCurSet</code> 
-and will not be reverted to the previous value,either <code>uBasSet</code> or <code>uTarSet</code>,
+and will not be reverted to the previous value,either <code>uDefSet</code> or <code>uTarSet</code>,
 before the setpoint change operation. 
 Reversing this unidirectional change to the current setpoint <code>uCurSet</code> needs to happen 
 outside of this block. 
@@ -182,7 +182,7 @@ outside of this block.
 
 <p>
 Output variables also include boolean flags that specify whether the current 
-setpoint has reached the baseline setpoint <code>uBasSet</code> or the target setpoint 
+setpoint has reached the default setpoint <code>uDefSet</code> or the target setpoint 
 <code>uTarSet</code>. 
 </p>
 

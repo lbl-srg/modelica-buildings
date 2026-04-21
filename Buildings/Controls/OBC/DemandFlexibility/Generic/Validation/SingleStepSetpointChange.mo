@@ -7,8 +7,8 @@ model SingleStepSetpointChange "Single-step setpoint change"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=86400, shift=
         43200) "Boolean value for the \"enable\" signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TBasSet(k=273.15 + 19)
-    "Baseline temperature setpoint example value"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDefSet(k=273.15 + 19)
+    "Default temperature setpoint example value"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSet(samplePeriod=10,
       y_start=273.15 + 20)
@@ -24,7 +24,7 @@ model SingleStepSetpointChange "Single-step setpoint change"
     "Sample period for the single-step change"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 equation
-  connect(TBasSet.y, sinSteSetCha.uBasSet) annotation (Line(points={{-58,-70},{
+  connect(TDefSet.y, sinSteSetCha.uDefSet) annotation (Line(points={{-58,-70},{
           -38,-70},{-38,24},{-22,24}}, color={0,0,127}));
   connect(uniDelTSet.y, sinSteSetCha.uCurSet) annotation (Line(points={{82,30},
           {90,30},{90,-12},{-28,-12},{-28,32},{-22,32}}, color={0,0,127}));
@@ -49,9 +49,9 @@ This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibi
 Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.
 </p>
 <p>
-This validation test uses two constant temperature values, the baseline temperature setpoint <code>TBasSet</code>
+This validation test uses two constant temperature values, the default temperature setpoint <code>TDefSet</code>
 and the target temperature setpoint <code>TTarSet</code>, to represent the input variables
-<code>uBasSet</code> and <code>uTarSet</code>.
+<code>uDefSet</code> and <code>uTarSet</code>.
 It also uses a boolean pulse signal to represent the \"enable\" 
 signal input <code>uEna</code>. 
 </p>
