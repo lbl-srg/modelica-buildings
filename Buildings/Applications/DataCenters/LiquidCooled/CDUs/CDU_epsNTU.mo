@@ -1,8 +1,8 @@
 within Buildings.Applications.DataCenters.LiquidCooled.CDUs;
 model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
-  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final m1_flow_nominal=dat.mPla_flow_nominal,
-    final m2_flow_nominal=dat.mRac_flow_nominal);
+  extends Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialFourPortInterface(
+    final mPla_flow_nominal=dat.mPla_flow_nominal,
+    final mRac_flow_nominal=dat.mRac_flow_nominal);
 
   parameter Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU dat
     "Data record for performance characterization"
@@ -147,12 +147,12 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
         iconTransformation(extent={{90,70},{110,90}})));
 
   Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
-    redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2,
-    final allowFlowReversal1=allowFlowReversal1,
-    final allowFlowReversal2=allowFlowReversal2,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
+    redeclare final package Medium1 = MediumPla,
+    redeclare final package Medium2 = MediumRac,
+    final allowFlowReversal1=allowFlowReversalPla,
+    final allowFlowReversal2=allowFlowReversalRac,
+    final m1_flow_nominal=mPla_flow_nominal,
+    final m2_flow_nominal=mRac_flow_nominal,
     final show_T=show_T,
     final from_dp1=from_dpPla,
     final dp1_nominal=dpHexPla_nominal,
@@ -173,9 +173,9 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
-    redeclare final package Medium = Medium1,
-    final allowFlowReversal=allowFlowReversal1,
-    final m_flow_nominal=m1_flow_nominal,
+    redeclare final package Medium = MediumPla,
+    final allowFlowReversal=allowFlowReversalPla,
+    final m_flow_nominal=mPla_flow_nominal,
     final from_dp=from_dpPla,
     final linearized=linearizeFlowResistancePla,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -190,14 +190,14 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
         origin={-40,20})));
 
   Fluid.Movers.Preconfigured.SpeedControlled_y pum(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = MediumRac,
     energyDynamics=energyDynamics,
-    allowFlowReversal=allowFlowReversal2,
+    allowFlowReversal=allowFlowReversalRac,
     tau=tau,
     use_riseTime=use_riseTime,
     riseTime=riseTime,
     y_start=yPum_start,
-    m_flow_nominal=m2_flow_nominal,
+    m_flow_nominal=mRac_flow_nominal,
     dp_nominal=dpPum_nominal + dpHexRac_nominal) "Pump on IT side" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -214,17 +214,17 @@ protected
 //      p=Medium2.p_default,
 //      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 equation
-  connect(port_a1, val.port_a)
+  connect(port_aPla, val.port_a)
     annotation (Line(points={{-100,60},{-40,60},{-40,30}}, color={0,127,255}));
   connect(val.port_b, hex.port_a1)
     annotation (Line(points={{-40,10},{-40,6},{-10,6}}, color={0,127,255}));
-  connect(hex.port_b1, port_b1) annotation (Line(points={{10,6},{40,6},{40,60},{
+  connect(hex.port_b1, port_bPla) annotation (Line(points={{10,6},{40,6},{40,60},{
           100,60}}, color={0,127,255}));
-  connect(port_b2,pum. port_b) annotation (Line(points={{-100,-60},{-40,-60},{-40,
+  connect(port_bRac,pum. port_b) annotation (Line(points={{-100,-60},{-40,-60},{-40,
           -30}}, color={0,127,255}));
   connect(pum.port_a, hex.port_b2)
     annotation (Line(points={{-40,-10},{-40,-6},{-10,-6}}, color={0,127,255}));
-  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{40,-6},{40,-60},
+  connect(hex.port_a2, port_aRac) annotation (Line(points={{10,-6},{40,-6},{40,-60},
           {100,-60}}, color={0,127,255}));
   connect(pum.y, yPum)
     annotation (Line(points={{-52,-20},{-120,-20}}, color={0,0,127}));

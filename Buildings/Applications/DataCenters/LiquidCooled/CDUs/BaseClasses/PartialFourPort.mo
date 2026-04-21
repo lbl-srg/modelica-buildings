@@ -64,20 +64,9 @@ this model to treat flow reversal.
 </p>
 <p>
 This model is identical to
-<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
-Modelica.Fluid.Interfaces.PartialTwoPort</a>, except for the
-fowllowing:
-</p>
-<ol>
-<li>it has four ports, and
-</li>
-<li>
-the parameters <code>port_a_exposesState</code>,
-<code>port_b_exposesState</code> and
-<code>showDesignFlowDirection</code>
-are not implemented.
-</li>
-</ol>
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPort\">
+Buildings.Fluid.Interfaces.PartialFourPort</a>, except that instances
+have been renamed for use with CDUs.
 </html>", revisions="<html>
 <ul>
 <li>

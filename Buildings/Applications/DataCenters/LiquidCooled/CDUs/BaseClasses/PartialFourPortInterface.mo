@@ -1,7 +1,7 @@
 within Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses;
 partial model PartialFourPortInterface
-  "Partial model with four ports and declaration of quantities that are used by many models"
-  extends Buildings.Fluid.Interfaces.PartialFourPort;
+  "Partial model with four ports and declaration of quantities that are used by CDU models"
+  extends Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialFourPort;
   parameter Modelica.Units.SI.MassFlowRate mPla_flow_nominal(min=0)
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal(min=0)
@@ -92,13 +92,9 @@ protected
 This component defines the interface for models with four fluid ports
 and two fluid streams.
 It is similar to
-<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
-Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>,
-but it has four ports instead of two.
-</p>
-<p>
-The model is used by other models in this package that add heat transfer,
-mass transfer and pressure drop equations.
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPortInterface\">
+Buildings.Fluid.Interfaces.PartialFourPortInterface</a>,
+but it has four ports instead of two, and the ports are renamed for CDUs.
 </p>
 </html>", revisions="<html>
 <ul>

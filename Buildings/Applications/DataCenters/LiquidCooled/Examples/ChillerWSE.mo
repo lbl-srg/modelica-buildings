@@ -96,11 +96,11 @@ model ChillerWSE
     annotation (Placement(transformation(extent={{-50,110},{-30,130}})));
 
   Buildings.Applications.DataCenters.LiquidCooled.CDUs.CDU_epsNTU cdu(
-    redeclare package Medium1 = MediumChi,
-    redeclare package Medium2 = MediumRac,
+    redeclare package MediumPla = MediumChi,
+    redeclare package MediumRac = MediumRac,
     final dat=datCDU,
-    allowFlowReversal1=false,
-    allowFlowReversal2=false,
+    allowFlowReversalPla=false,
+    allowFlowReversalRac=false,
     yPum_start=1) "CDU, modeled for simplicity as one large CDU"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Fluid.Sensors.TemperatureTwoPort senTCDU_b(
@@ -601,9 +601,9 @@ model ChillerWSE
     dpPum_nominal=dPRac_nominal) "Data record for CDU"
     annotation (Placement(transformation(extent={{60,62},{80,82}})));
 equation
-  connect(senTCDU_a.port_b, cdu.port_a1) annotation (Line(points={{-30,120},{-20,
+  connect(senTCDU_a.port_b, cdu.port_aPla) annotation (Line(points={{-30,120},{-20,
           120},{-20,46},{-10,46}},color={0,127,255}));
-  connect(cdu.port_b1, senTCDU_b.port_a) annotation (Line(points={{10,46},{20,46},
+  connect(cdu.port_bPla, senTCDU_b.port_a) annotation (Line(points={{10,46},{20,46},
           {20,120},{30,120}},
                             color={0,127,255}));
   connect(senTCDU_b.port_b, bou.ports[1])
@@ -617,13 +617,13 @@ equation
     annotation (Line(points={{-40,45},{-40,58}},  color={0,0,127}));
   connect(conVal.y, cdu.yVal) annotation (Line(points={{-28,70},{-16,70},{-16,49},
           {-12,49}}, color={0,0,127}));
-  connect(cdu.port_b2, senTRac_a.port_a)
+  connect(cdu.port_bRac, senTRac_a.port_a)
     annotation (Line(points={{-10,34},{-30,34}}, color={0,127,255}));
   connect(senTRac_a.port_b, rac.port_a) annotation (Line(points={{-50,34},{-72,34},
           {-72,-60},{0,-60}}, color={0,127,255}));
   connect(rac.port_b, senTRac_b.port_a) annotation (Line(points={{20,-60},{70,-60},
           {70,34},{50,34}}, color={0,127,255}));
-  connect(senTRac_b.port_b, cdu.port_a2) annotation (Line(points={{30,34},{22,34},
+  connect(senTRac_b.port_b, cdu.port_aRac) annotation (Line(points={{30,34},{22,34},
           {22,34},{10,34}}, color={0,127,255}));
   connect(rac.port_b, preSou.ports[1])
     annotation (Line(points={{20,-60},{90,-60}}, color={0,127,255}));
