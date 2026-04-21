@@ -35,7 +35,7 @@ def log(msg):
 def get_bin_directory():
     file_path = os.path.dirname(os.path.realpath(__file__))
     return os.path.abspath(
-        os.path.join(file_path, "..", "..", "..", "..", "Resources", "bin")
+        os.path.join(file_path, os.pardir, os.pardir, os.pardir, os.pardir, "Resources", "bin")
     )
 
 
@@ -138,10 +138,10 @@ def replace_table_in_mo(html, varType, moFile, spawn_dir):
 
     mo_name = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
-        "..",
-        "..",
-        "..",
-        "..",
+        os.pardir,
+        os.pardir,
+        os.pardir,
+        os.pardir,
         "ThermalZones",
         "EnergyPlus_{}".format(energyPlus_version_dash),
         moFile,
@@ -176,8 +176,8 @@ def _getEnergyPlusVersion(spawn_dir):
     spawn_name = "spawn-{}-{}".format(version, commit[0:10])
     idd = os.path.abspath( \
             os.path.join(__file__, \
-                os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
-                "Buildings", "Resources", "bin", spawn_dir, "linux64", "etc", "Energy+.idd"))
+                os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
+                "Resources", "bin", spawn_dir, "linux64", "etc", "Energy+.idd"))
 
     prefix="!IDD_Version "
     with open(idd, 'r') as f:
@@ -197,15 +197,15 @@ def update_version_in_modelica_files(spawn_dir, spawn_exe, build_type):
     ep_package = "EnergyPlus_{}".format(energyPlus_version).replace('.', '_')
 
     for rel_file in [\
-        os.path.join("Buildings", "ThermalZones", ep_package, "Building.mo"),
-        os.path.join("Buildings", "ThermalZones", ep_package, "package.mo"),
-        os.path.join("Buildings", "ThermalZones", ep_package, "UsersGuide.mo"),
-        os.path.join("Buildings", "Resources", "Scripts", "travis", "pyfmi", "runSpawnFromOtherDirectory.py")
+        os.path.join("ThermalZones", ep_package, "Building.mo"),
+        os.path.join("ThermalZones", ep_package, "package.mo"),
+        os.path.join("ThermalZones", ep_package, "UsersGuide.mo"),
+        os.path.join("Resources", "Scripts", "travis", "pyfmi", "runSpawnFromOtherDirectory.py")
         ]:
         # Path to Building.mo
         abs_file = os.path.abspath( \
             os.path.join(__file__, \
-                os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
+                os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
                 rel_file))
 
         with open (abs_file, 'r' ) as f:
@@ -254,7 +254,7 @@ def update_actuator_output_tables(spawn_dir, spawn_exe):
 #            os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, ".git"))
 #    repo = Repo(git_folder)
 #
-#    # Get the old Spawn executuables
+#    # Get the old Spawn executables
 #    for file in glob.glob(os.path.join("Buildings", "Resources", "bin", "**/spawn-?.?.?-*"), recursive=True):
 #        if spawn_exe in file:
 #            # Add to git
