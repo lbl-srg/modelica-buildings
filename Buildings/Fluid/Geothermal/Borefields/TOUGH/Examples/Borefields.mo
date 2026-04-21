@@ -63,7 +63,7 @@ model Borefields
 equation
   // Delete the TOUGH temporary working folder
   // Note that the working folder path is specified in the Python function.
-  when {terminal()} then
+  when {initial(), terminal()} then
     Modelica.Utilities.Files.remove("Resources/Python-Sources/tmp-tou-work");
   end when;
   connect(floRat.y, sou.m_flow_in) annotation (Line(points={{-98,20},{-80,20},{-80,

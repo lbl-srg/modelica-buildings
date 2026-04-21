@@ -26,7 +26,7 @@ model GroundResponse
 equation
   // Delete the TOUGH temporary working folder
   // Note that the working folder path is specified in the Python function.
-  when {terminal()} then
+  when {initial(), terminal()} then
     Modelica.Utilities.Files.remove("Resources/Python-Sources/tmp-tou-work");
   end when;
   connect(sin.y, touRes.QBor_flow)
