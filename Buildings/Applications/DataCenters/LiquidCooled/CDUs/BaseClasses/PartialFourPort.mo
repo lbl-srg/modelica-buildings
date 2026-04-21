@@ -4,7 +4,6 @@ partial model PartialFourPort "Partial model with four ports"
   replaceable package MediumPla =
     Modelica.Media.Interfaces.PartialMedium "Medium in the plant-side component"
       annotation (choices(
-        choice(redeclare package MediumPla = Buildings.Media.Air "Moist air"),
         choice(redeclare package MediumPla = Buildings.Media.Water "Water"),
         choice(redeclare package MediumPla =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
@@ -14,7 +13,6 @@ partial model PartialFourPort "Partial model with four ports"
   replaceable package MediumRac =
     Modelica.Media.Interfaces.PartialMedium "Medium in the rack-side component"
       annotation (choices(
-        choice(redeclare package MediumRac = Buildings.Media.Air "Moist air"),
         choice(redeclare package MediumRac = Buildings.Media.Water "Water"),
         choice(redeclare package MediumRac =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
