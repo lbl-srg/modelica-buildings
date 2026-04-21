@@ -1,58 +1,58 @@
 within Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses;
 partial model PartialFourPort "Partial model with four ports"
 
-  replaceable package Medium1 =
-    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+  replaceable package MediumPla =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the plant-side component"
       annotation (choices(
-        choice(redeclare package Medium1 = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium1 = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium1 =
+        choice(redeclare package MediumPla = Buildings.Media.Air "Moist air"),
+        choice(redeclare package MediumPla = Buildings.Media.Water "Water"),
+        choice(redeclare package MediumPla =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
-  replaceable package Medium2 =
-    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+  replaceable package MediumRac =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the rack-side component"
       annotation (choices(
-        choice(redeclare package Medium2 = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium2 = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium2 =
+        choice(redeclare package MediumRac = Buildings.Media.Air "Moist air"),
+        choice(redeclare package MediumRac = Buildings.Media.Water "Water"),
+        choice(redeclare package MediumRac =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
 
-  parameter Boolean allowFlowReversal1 = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
+  parameter Boolean allowFlowReversalPla = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for plant-side medium"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal2 = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
+  parameter Boolean allowFlowReversalRac = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for rack-side medium"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-                     redeclare final package Medium = Medium1,
-                     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
-    "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
+  Modelica.Fluid.Interfaces.FluidPort_a port_aPla(
+                     redeclare final package Medium = MediumPla,
+                     m_flow(min=if allowFlowReversalPla then -Modelica.Constants.inf else 0),
+                     h_outflow(start = MediumPla.h_default, nominal = MediumPla.h_default))
+    "Fluid connector aPla (positive design flow direction is from port_aPla to port_bPla)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-                     redeclare final package Medium = Medium1,
-                     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
-    "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
+  Modelica.Fluid.Interfaces.FluidPort_b port_bPla(
+                     redeclare final package Medium = MediumPla,
+                     m_flow(max=if allowFlowReversalPla then +Modelica.Constants.inf else 0),
+                     h_outflow(start = MediumPla.h_default, nominal = MediumPla.h_default))
+    "Fluid connector bPla (positive design flow direction is from port_aPla to port_bPla)"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-                     redeclare final package Medium = Medium2,
-                     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
-    "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
+  Modelica.Fluid.Interfaces.FluidPort_a port_aRac(
+                     redeclare final package Medium = MediumRac,
+                     m_flow(min=if allowFlowReversalRac then -Modelica.Constants.inf else 0),
+                     h_outflow(start = MediumRac.h_default, nominal = MediumRac.h_default))
+    "Fluid connector aRac (positive design flow direction is from port_aRac to port_bRac)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-                     redeclare final package Medium = Medium2,
-                     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
-    "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
+  Modelica.Fluid.Interfaces.FluidPort_b port_bRac(
+                     redeclare final package Medium = MediumRac,
+                     m_flow(max=if allowFlowReversalRac then +Modelica.Constants.inf else 0),
+                     h_outflow(start = MediumRac.h_default, nominal = MediumRac.h_default))
+    "Fluid connector bRac (positive design flow direction is from port_aRac to port_bRac)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (
@@ -60,8 +60,8 @@ partial model PartialFourPort "Partial model with four ports"
     Documentation(info="<html>
 <p>
 This model defines an interface for components with four ports.
-The parameters <code>allowFlowReversal1</code> and
-<code>allowFlowReversal2</code> may be used by models that extend
+The parameters <code>allowFlowReversalPla</code> and
+<code>allowFlowReversalRac</code> may be used by models that extend
 this model to treat flow reversal.
 </p>
 <p>
@@ -83,69 +83,8 @@ are not implemented.
 </html>", revisions="<html>
 <ul>
 <li>
-August 27, 2024, by Jianjun Hu:<br/>
-Corrected dropdown media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">IBPSA #1924</a>.
-</li>
-<li>
-April 6, 2020, by Filip Jorissen:<br/>
-Added arrows to the icon indicating the intended flow direction
-when <code>allowFlowReversal=false</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1336\">IBPSA #1336</a>.
-</li>
-<li>
-January 18, 2019, by Jianjun Hu:<br/>
-Limited the media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">IBPSA #1050</a>.
-</li>
-<li>
-July 8, 2018, by Filip Jorissen:<br/>
-Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">IBPSA #977</a>.
-</li>
-<li>
-November 12, 2015, by Michael Wetter:<br/>
-Renamed model from <code>FourPort</code> to
-<code>PartialFourPort</code>.
-Removed parameters
-<code>h_outflow_a1_start</code>,
-<code>h_outflow_b1_start</code>,
-<code>h_outflow_a2_start</code> and
-<code>h_outflow_b2_start</code>.
-This is for issue
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/299\">IBPSA #299</a>.
-</li>
-<li>
-October 30, 2015, by Matthis Thorade:<br/>
-Added <code>partial</code> keyword to model declaration.
-</li>
-<li>
-October 6, 2014, by Michael Wetter:<br/>
-Changed medium declaration in ports to be final.
-</li>
-<li>
-October 3, 2014, by Michael Wetter:<br/>
-Changed assignment of nominal value to avoid in OpenModelica the warning
-alias set with different nominal values.
-</li>
-<li>
-November 12, 2013, by Michael Wetter:<br/>
-Removed <code>import Modelica.Constants</code> statement.
-</li>
-<li>
-September 26, 2013 by Michael Wetter:<br/>
-Added missing <code>each</code> keyword in declaration of nominal value for
-<code>Xi_outflow</code>.
-</li>
-<li>
-September 17, 2010 by Michael Wetter:<br/>
-Fixed bug: The start value for <code>port_b1.h_outflow</code>
-was set to <code>h_outflow_b2_start</code> instead of <code>h_outflow_b1_start</code>.
-</li>
-<li>
-February 26, 2010 by Michael Wetter:<br/>
-Added start values for outflowing enthalpy because they
-are often iteration variables in nonlinear equation systems.
+April 21, 2026, by Michael Wetter:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),
@@ -162,7 +101,7 @@ are often iteration variables in nonlinear equation systems.
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
-          visible=not allowFlowReversal1,
+          visible=not allowFlowReversalPla,
           origin={75,50},
           rotation=360),
       Polygon(
@@ -170,7 +109,7 @@ are often iteration variables in nonlinear equation systems.
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
-          visible=not allowFlowReversal2,
+          visible=not allowFlowReversalRac,
           origin={-79,-50},
           rotation=360)}));
 end PartialFourPort;
