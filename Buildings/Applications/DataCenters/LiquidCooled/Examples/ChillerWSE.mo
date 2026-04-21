@@ -309,7 +309,7 @@ model ChillerWSE
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,370})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y     pumWSECW(
+  Fluid.Movers.Preconfigured.SpeedControlled_y pumWSECW(
     redeclare package Medium = MediumChi,
     addPowerToMedium=false,
     m_flow_nominal=fraWSE*mCW_flow_nominal,
@@ -588,10 +588,10 @@ model ChillerWSE
     tau=0) "Inlet water temperature of tower"
     annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
   parameter CDUs.Data.Generic_2MW datCDU(
-    glyPla = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.EthyleneGlycol,
-    phiGlyPla = 0,
-    glyRac = Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Glycol.PropyleneGlycol,
-    phiGlyRac = 0.25,
+    medPla=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water,
+    phiGlyPla=0,
+    medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
+    phiGlyRac=0.25,
     Q_flow_nominal=-PRac,
     TPla_a_nominal=TChiSup_nominal,
     TRac_a_nominal=TRacSup_nominal,
