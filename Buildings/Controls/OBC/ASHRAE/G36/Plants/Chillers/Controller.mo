@@ -1056,7 +1056,7 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1WseChiWatBypVal
     if have_WSE and have_priOnl and have_parChi and not have_airCoo
-    "Ecnomizer-only chiller water bypass valve enable command"
+    "Economizer-only chiller water bypass valve enable command"
     annotation (Placement(transformation(extent={{920,640},{960,680}}),
         iconTransformation(extent={{100,270},{140,310}})));
 
