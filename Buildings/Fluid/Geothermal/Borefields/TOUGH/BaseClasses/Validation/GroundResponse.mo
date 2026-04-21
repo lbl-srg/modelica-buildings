@@ -24,6 +24,11 @@ model GroundResponse
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
 equation
+  // Delete the TOUGH temporary working folder
+  // Note that the working folder path is specified in the Python function.
+  when {terminal()} then
+    Modelica.Utilities.Files.remove("Resources/Python-Sources/tmp-tou-work");
+  end when;
   connect(sin.y, touRes.QBor_flow)
     annotation (Line(points={{-38,50},{0,50},{0,6},{39,6}}, color={0,0,127}));
   connect(con.y, touRes.TBorWal_start)

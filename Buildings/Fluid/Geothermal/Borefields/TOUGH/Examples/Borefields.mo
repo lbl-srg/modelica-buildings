@@ -61,6 +61,11 @@ model Borefields
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
 equation
+  // Delete the TOUGH temporary working folder
+  // Note that the working folder path is specified in the Python function.
+  when {terminal()} then
+    Modelica.Utilities.Files.remove("Resources/Python-Sources/tmp-tou-work");
+  end when;
   connect(floRat.y, sou.m_flow_in) annotation (Line(points={{-98,20},{-80,20},{-80,
           8},{-62,8}}, color={0,0,127}));
   connect(watTem.y, sou.T_in) annotation (Line(points={{-98,-40},{-80,-40},{-80,

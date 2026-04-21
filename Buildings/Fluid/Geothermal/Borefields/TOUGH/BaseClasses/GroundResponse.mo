@@ -75,12 +75,6 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
-  // Delete the TOUGH temporary working folder
-  // Note that the working folder path is specified in the Python function.
-  when {terminal()} then
-    Modelica.Utilities.Files.remove("Resources/Python-Sources/tmp-tou-work");
-  end when;
-
   connect(pyt.yR[1:nSeg], TBorWal)
     annotation (Line(points={{61,0},{80,0},{80,60},{120,60}}, color={0,0,127}));
   connect(mul.y, pyt.uR)
