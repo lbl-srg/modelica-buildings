@@ -14,7 +14,7 @@
   openmodelica:
     comment: Simulation fails on travis.
     simulate: false
-- model_name: Buildings.DHC.ETS.Combined.SubsystemsValidation.ChillerBorefield
+- model_name: Buildings.DHC.ETS.Combined.Subsystems.Validation.Borefield
   openmodelica:
     comment: Simulation fails on travis, exit status 255
     simulate: false
