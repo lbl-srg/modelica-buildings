@@ -17,16 +17,16 @@ record DryCooler "Performance data record for a dry cooler"
     "Nominal cooling loop outlet temperature"
     annotation (Dialog(group="Nominal thermal performance"));
 
-  parameter Modelica.Units.SI.Temperature TAirIn_nominal=273.15 + 25.55
+  parameter Modelica.Units.SI.Temperature TAirIn_nominal=273.15 + 35
     "Nominal outdoor (air inlet) drybulb temperature"
     annotation (Dialog(group="Nominal thermal performance"));
 
   parameter Real ratCooAir_nominal(min=0, unit="1") = 1.2
-    "Water-to-air mass flow rate ratio at design condition"
+    "Water-to-air mass flow rate ratio at design condition, used to compute air flow for UA_value"
     annotation (Dialog(group="Nominal thermal performance"));
 
   parameter Real PFan_QCoo_nominal(min=0, max=0.1, unit="1") = 0.05
-    "Ratio of fan power to provided cooling"
+    "Ratio of fan power to provided cooling at full load"
     annotation (Dialog(group="Nominal condition"));
 
   final parameter Modelica.Units.SI.Power PFan_nominal=
