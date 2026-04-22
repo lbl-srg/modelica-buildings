@@ -213,6 +213,42 @@ protected
 //      T=Medium2.T_default,
 //      p=Medium2.p_default,
 //      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
+initial equation
+  // Assert that the media are consistent with the medium types declared in the parameter record
+  assert(
+    (dat.medPla == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water and
+      Modelica.Utilities.Strings.find(MediumPla.mediumName, "Water") > 0) or
+    (dat.medPla == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.EthyleneGlycol and
+      Modelica.Utilities.Strings.find(MediumPla.mediumName, "EthyleneGlycol") > 0) or
+    (dat.medPla == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol and
+      Modelica.Utilities.Strings.find(MediumPla.mediumName, "PropyleneGlycol") > 0),
+    "In " + getInstanceName() + ": The plant-side medium '" + MediumPla.mediumName
+    + "' does not match the medium type dat.medPla = "
+    + String(dat.medPla) + " declared in the parameter record.");
+  assert(
+    dat.medPla == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water or
+    abs(MediumPla.X[1] - dat.XGlyPla) <= 0.01,
+    "In " + getInstanceName() + ": The plant-side medium mass fraction X_a = "
+    + String(MediumPla.X[1])
+    + " differs by more than 0.01 from dat.XGlyPla = "
+    + String(dat.XGlyPla) + ".");
+  assert(
+    (dat.medRac == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water and
+      Modelica.Utilities.Strings.find(MediumRac.mediumName, "Water") > 0) or
+    (dat.medRac == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.EthyleneGlycol and
+      Modelica.Utilities.Strings.find(MediumRac.mediumName, "EthyleneGlycol") > 0) or
+    (dat.medRac == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol and
+      Modelica.Utilities.Strings.find(MediumRac.mediumName, "PropyleneGlycol") > 0),
+    "In " + getInstanceName() + ": The rack-side medium '" + MediumRac.mediumName
+    + "' does not match the medium type dat.medRac = "
+    + String(dat.medRac) + " declared in the parameter record.");
+  assert(
+    dat.medRac == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water or
+    abs(MediumRac.X[1] - dat.XGlyRac) <= 0.01,
+    "In " + getInstanceName() + ": The rack-side medium mass fraction X_a = "
+    + String(MediumRac.X[1])
+    + " differs by more than 0.01 from dat.XGlyRac = "
+    + String(dat.XGlyRac) + ".");
 equation
   connect(port_aPla, val.port_a)
     annotation (Line(points={{-100,60},{-40,60},{-40,30}}, color={0,127,255}));
