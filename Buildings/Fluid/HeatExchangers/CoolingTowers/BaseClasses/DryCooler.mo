@@ -12,51 +12,39 @@ block DryCooler "Model for thermal performance of dry cooling tower"
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
+  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat
+    "Performance data record"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of water"
     annotation (Dialog(group="Nominal condition"));
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-      m_flow_nominal/ratCooAir_nominal "Nominal mass flow rate of air"
+      m_flow_nominal/dat.ratCooAir_nominal "Nominal mass flow rate of air"
     annotation (Dialog(group="Fan"));
-
-  parameter Real ratCooAir_nominal(min=0, unit="1")
-    "Chilled water loop fluid to air mass flow rate ratio at design condition"
-    annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.Units.SI.Temperature TAirIn_nominal
-    "Nominal outdoor (air inlet) drybulb temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TCooIn_nominal
-    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TCooOut_nominal
-    "Nominal water outlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-
-//  parameter Real fraFreCon(min=0, max=1, final unit="1")
-//    "Fraction of tower capacity in free convection regime"
-//    annotation (Dialog(group="Heat transfer"));
 
   parameter Real yMin(min=0.01, max=1, final unit="1")
     "Minimum control signal until fan is switched off (used for smoothing
     between forced and free convection regime)"
     annotation (Dialog(group="Fan"));
 
-  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = -
-    m_flow_nominal*cpCoo_nominal*(TCooIn_nominal - TCooOut_nominal)
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
     "Nominal heat transfer, (negative)";
-  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=NTU_nominal*
-      CMin_flow_nominal
+
+  final parameter Modelica.Units.SI.Power PFan_nominal = dat.PFan_nominal
+    "Fan power at full speed";
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=NTU_nominal*CMin_flow_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal=
-    Q_flow_nominal/((TAirIn_nominal - TCooIn_nominal) * CMin_flow_nominal)
+    Q_flow_nominal/((dat.TAirIn_nominal - dat.TCooIn_nominal) * CMin_flow_nominal)
     "Nominal heat transfer effectiveness";
   final parameter Real NTU_nominal(min=0)=
       Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
       eps=min(1, max(0, eps_nominal)),
       Z=Z_nominal,
       flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow))
-    "Nominal number of transfer units";
+    "Nominal number of transfer units. Fixme: should be cross-flow.";
 
   Modelica.Blocks.Interfaces.RealInput y(unit="1") "Fan control signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -103,12 +91,12 @@ protected
   final package Air = Buildings.Media.Air "Package of medium air";
 
   final parameter Air.ThermodynamicState staAir_default=Air.setState_pTX(
-      T=TAirIn_nominal,
+      T=dat.TAirIn_nominal,
       p=Air.p_default,
       X=Air.X_default[1:Air.nXi]) "Default state for air";
   final parameter Medium.ThermodynamicState
     staCoo_default=Medium.setState_pTX(
-      T=TCooIn_nominal,
+      T=dat.TCooIn_nominal,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Default state for water";
 
@@ -140,7 +128,7 @@ protected
 
 initial equation
   // Heat transferred from air to water at nominal condition
-  Q_flow_nominal = CAir_flow_nominal*(TAirIn_nominal - TAirOut_nominal);
+  Q_flow_nominal = CAir_flow_nominal*(dat.TAirIn_nominal - TAirOut_nominal);
 
   assert(eps_nominal > 0 and eps_nominal < 1,
     "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
@@ -149,8 +137,8 @@ initial equation
     "\n  or increase flow rates. The current parameters result in " +
     "\n  CMin_flow_nominal  = " + String(CMin_flow_nominal) +
     "\n  CMax_flow_nominal  = " + String(CMax_flow_nominal) +
-    "\n with TAirIn_nominal = " + String(TAirIn_nominal) + " (" + String(TAirIn_nominal-273.15) + " degC)" +
-    "\n      TCooIn_nominal = " + String(TCooIn_nominal) + " (" + String(TCooIn_nominal-273.15) + " degC).");
+    "\n with TAirIn_nominal = " + String(dat.TAirIn_nominal) + " (" + String(dat.TAirIn_nominal-273.15) + " degC)" +
+    "\n      TCooIn_nominal = " + String(dat.TCooIn_nominal) + " (" + String(dat.TCooIn_nominal-273.15) + " degC).");
 
 equation
    // For cp water, we use the inlet temperatures because the effect is small
@@ -222,6 +210,13 @@ Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 21, 2026, by Michael Wetter:<br/>
+Moved <code>ratCooAir_nominal</code> to the data record
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler</a>.
+Added data record <code>dat</code> and use its parameters instead of individual parameters.
+</li>
 <li>
 April 17, 2025, by Michael Wetter:<br/>
 Corrected computation of nominal UA value, which also needs to include the correction for <code>cpEqu_nominal</code>.<br/>

@@ -1,132 +1,41 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
+
 model DryCooler "Cooling tower model based on epsilon-NTU relation"
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
-  final fanRelPowDer=
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=fanRelPow.r_V,
-      y=fanRelPow.r_P,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-        x=fanRelPow.r_P,
-          strict=false)),
-    final yMin=0.05 "Forced vs free convection is not used in this model");
-
-  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-      m_flow_nominal/ratCooAir_nominal "Nominal mass flow rate of air"
-    annotation (Dialog(group="Fan"));
-  parameter Modelica.Units.SI.Temperature TAirIn_nominal=273.15 + 25.55
-    "Nominal outdoor (air inlet) drybulb temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TCooIn_nominal
-    "Cooling loop inlet temperature" annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TCooOut_nominal
-    "Cooling loop outlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Real ratCooAir_nominal(min=0, unit="1") = 1.2
-    "Water-to-air mass flow rate ratio at design condition"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = per.Q_flow_nominal
-    "Nominal heat transfer, (negative)";
-  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=per.UA_nominal
-    "Thermal conductance at nominal flow, used to compute heat capacity";
-  final parameter Real eps_nominal=per.eps_nominal
-    "Nominal heat transfer effectiveness";
-  final parameter Real NTU_nominal(min=0)=per.NTU_nominal
-    "Nominal number of transfer units";
-
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+    final fanRelPow = dat.fanRelPow,
+    final fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = dat.fanRelPow.r_V, y = dat.fanRelPow.r_P, ensureMonotonicity = Buildings.Utilities.Math.Functions.isMonotonic(x = dat.fanRelPow.r_P, strict = false)),
+      final yMin = 0.05 "Forced vs free convection is not used in this model");
+  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat "Performance data record" annotation(
+    Placement(transformation(extent = {{20, 80}, {40, 100}})));
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = m_flow_nominal/dat.ratCooAir_nominal "Nominal mass flow rate of air" annotation(
+    Dialog(group = "Fan"));
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max = 0) = per.Q_flow_nominal "Nominal heat transfer, (negative)";
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal = per.UA_nominal "Thermal conductance at nominal flow, used to compute heat capacity";
+  final parameter Real eps_nominal = per.eps_nominal "Nominal heat transfer effectiveness";
+  final parameter Real NTU_nominal(min = 0) = per.NTU_nominal "Nominal number of transfer units";
 protected
-  Modelica.Blocks.Sources.RealExpression TCooIn(
-    final y=Medium.temperature(
-      Medium.setState_phX(
-        p=port_a.p,
-        h=inStream(port_a.h_outflow),
-        X=inStream(port_a.Xi_outflow))))
-    "Cooling loop fluid inlet temperature"
-    annotation (Placement(transformation(extent={{-70,36},{-50,54}})));
-  Modelica.Blocks.Sources.RealExpression mCoo_flow(final y=port_a.m_flow)
-    "Cooling fluid mass flow rate"
-    annotation (Placement(transformation(extent={{-70,20},{-50,38}})));
-
-  Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.DryCooler per(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final ratCooAir_nominal=ratCooAir_nominal,
-    final TAirIn_nominal=TAirIn_nominal,
-    final TCooIn_nominal=TCooIn_nominal,
-    final TCooOut_nominal=TCooOut_nominal,
-    final yMin=yMin)
-    "Model for thermal performance"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-
+  Modelica.Blocks.Sources.RealExpression TCooIn(final y = Medium.temperature(Medium.setState_phX(p = port_a.p, h = inStream(port_a.h_outflow), X = inStream(port_a.Xi_outflow)))) "Cooling loop fluid inlet temperature" annotation(
+    Placement(transformation(extent = {{-70, 36}, {-50, 54}})));
+  Modelica.Blocks.Sources.RealExpression mCoo_flow(final y = port_a.m_flow) "Cooling fluid mass flow rate" annotation(
+    Placement(transformation(extent = {{-70, 20}, {-50, 38}})));
+  Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.DryCooler per(redeclare final package Medium = Medium, final dat = dat, final m_flow_nominal = m_flow_nominal, final yMin = yMin) "Model for thermal performance" annotation(
+    Placement(transformation(extent = {{-20, 40}, {0, 60}})));
 equation
-  connect(per.y, y) annotation (Line(points={{-22,58},{-40,58},{-40,80},{-120,
-          80}},
-        color={0,0,127}));
-  connect(per.TAir, TAir) annotation (Line(points={{-22,54},{-80,54},{-80,40},{
-          -120,40}},
-                color={0,0,127}));
-  connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{12,50},{
-          12,12},{-80,12},{-80,-60},{-40,-60}},color={0,0,127}));
-  connect(per.m_flow, mCoo_flow.y) annotation (Line(points={{-22,42},{-34,42},{
-          -34,29},{-49,29}},
-                         color={0,0,127}));
-  connect(TCooIn.y, per.TCooIn) annotation (Line(points={{-49,45},{-40,45},{-40,
-          46},{-22,46}},        color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Text(
-          extent={{-98,100},{-86,84}},
-          textColor={0,0,127},
-          textString="y"),
-        Text(
-          extent={{-104,70},{-70,32}},
-          textColor={0,0,127},
-          textString="TWB"),
-        Rectangle(
-          extent={{-100,81},{-70,78}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-54,6},{58,-114}},
-          textColor={255,255,255},
-          textString="Merkel"),
-        Ellipse(
-          extent={{-54,62},{0,50}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{0,62},{54,50}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{78,82},{100,78}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{70,56},{82,52}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{78,54},{82,80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{64,114},{98,76}},
-          textColor={0,0,127},
-          textString="PFan")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(
-info="<html>
+  connect(per.y, y) annotation(
+    Line(points = {{-22, 58}, {-40, 58}, {-40, 80}, {-120, 80}}, color = {0, 0, 127}));
+  connect(per.TAir, TAir) annotation(
+    Line(points = {{-22, 54}, {-80, 54}, {-80, 40}, {-120, 40}}, color = {0, 0, 127}));
+  connect(per.Q_flow, preHea.Q_flow) annotation(
+    Line(points = {{1, 50}, {12, 50}, {12, 12}, {-80, 12}, {-80, -60}, {-40, -60}}, color = {0, 0, 127}));
+  connect(per.m_flow, mCoo_flow.y) annotation(
+    Line(points = {{-22, 42}, {-34, 42}, {-34, 29}, {-49, 29}}, color = {0, 0, 127}));
+  connect(TCooIn.y, per.TCooIn) annotation(
+    Line(points = {{-49, 45}, {-40, 45}, {-40, 46}, {-22, 46}}, color = {0, 0, 127}));
+  annotation(
+    Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(textColor = {0, 0, 127}, extent = {{-98, 100}, {-86, 84}}, textString = "y"), Text(textColor = {0, 0, 127}, extent = {{-104, 70}, {-70, 32}}, textString = "TWB"), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, 81}, {-70, 78}}), Text(origin = {-2, 0},textColor = {255, 255, 255}, extent = {{-54, 6}, {58, -114}}, textString = "DryCooler"), Ellipse(lineColor = {255, 255, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-54, 62}, {0, 50}}), Ellipse(lineColor = {255, 255, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{0, 62}, {54, 50}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{78, 82}, {100, 78}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{70, 56}, {82, 52}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{78, 54}, {82, 80}}), Text(textColor = {0, 0, 127}, extent = {{64, 114}, {98, 76}}, textString = "PFan")}),
+    Diagram(coordinateSystem(preserveAspectRatio = false)),
+    Documentation(info = "<html>
 <p>
 Model for a steady-state or dynamic dryy cooling tower with a variable speed fan
 using epsilon-NTU method for heat transfer.
@@ -243,9 +152,15 @@ Cycle losses are not taken into account.
 <h4>References</h4>
 <p><a href=\"https://energyplus.net/sites/all/modules/custom/nrel_custom/pdfs/pdfs_v8.9.0/EngineeringReference.pdf\">
 EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. </p>
-</html>",
-revisions="<html>
+</html>", revisions = "<html>
 <ul>
+<li>
+April 21, 2026, by Michael Wetter:<br/>
+Refactored to use a data record <code>dat</code> of type
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler</a>
+for the performance parameters, including <code>fanRelPow</code>.
+</li>
 <li>
 April 17, 2025, by Michael Wetter:<br/>
 Corrected computation of nominal UA value, which also needs to include the correction for <code>cpEqu_nominal</code>.<br/>
