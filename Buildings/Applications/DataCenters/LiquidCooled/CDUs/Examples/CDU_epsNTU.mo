@@ -39,7 +39,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     mRac_flow_nominal=mRac_flow_nominal,
     dpHexPla_nominal=dpHexChi_nominal,
     dpPum_nominal=dPRac_nominal,
-    medPla=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
+    medPla=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water,
     phiGlyPla=0,
     medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
     phiGlyRac=0.25) "Data performance record for CDU"
@@ -65,7 +65,8 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Rack with cold plate heat exchangers, modeled for simplicity as one large rack"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium = MediumChi,
+  Buildings.Fluid.Sources.Boundary_pT bou(
+    redeclare package Medium = MediumChi,
     p(displayUnit="Pa") = 300000,
     T=TChi_b,
       nPorts=1) "Pressure boundary condition"
@@ -85,7 +86,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     allowFlowReversalRac=false,
     yPum_start=1)
     "CDU, modeled for simplicity as one large CDU"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    annotation (Placement(transformation(extent = {{-10, 30}, {10, 50}})));
   Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumChi,
     p=300000 + 2*dpHexChi_nominal,
     T=TChi_a,
@@ -145,7 +146,7 @@ equation
     annotation (Line(points={{-80,120},{-50,120}},
                                                  color={0,127,255}));
   connect(senTCDU_a.port_b, cdu.port_aPla) annotation (Line(points={{-30,120},{-20,
-          120},{-20,46},{-10,46}},color={0,127,255}));
+          120},{-20,46}, {-10, 46}},color={0,127,255}));
   connect(cdu.port_bPla, senTCDU_b.port_a) annotation (Line(points={{10,46},{20,46},
           {20,120},{30,120}},
                             color={0,127,255}));
