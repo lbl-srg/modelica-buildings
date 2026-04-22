@@ -28,7 +28,10 @@ model ResistanceVolumeFlowReversal
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Modelica.Blocks.Sources.Pulse pulse(period=1000) "Pulse input"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Math.Gain gain(k=m_flow_nominal) "Gain for m_flow_nominal"
+  Modelica.Blocks.Math.Gain gain(
+    k=m_flow_nominal,
+    u(unit="1"),
+    y(unit="kg/s")) "Gain for m_flow_nominal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Medium,
@@ -59,6 +62,13 @@ model ResistanceVolumeFlowReversal
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each allowFlowReversal=true) "Mixing volumes for enthalpy circuit"
     annotation (Placement(transformation(extent={{60,-66},{40,-46}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem[nRes.k](
+    redeclare final package Medium = Medium,
+    each final m_flow_nominal=m_flow_nominal/nRes.k,
+    each initType=Modelica.Blocks.Types.Init.SteadyState) "Temperature sensor"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={20,-70})));
 equation
   connect(bou.ports[1],hea. port_a) annotation (Line(
       points={{-60,-20},{-40,-20}},
@@ -89,12 +99,15 @@ equation
         points={{40,-20},{56,-20}},
         color={0,127,255}));
     connect(res[i].port_b, vol[i].ports[1]) annotation (Line(
-      points={{76,-20},{80,-20},{80,-70},{52,-70},{52,-66}},
+      points={{76,-20},{80,-20},{80,-70},{51,-70},{51,-66}},
       color={0,127,255}));
-    connect(vol[i].ports[2], val.port_3) annotation (Line(
-      points={{48,-66},{48,-70},{0,-70},{0,-30}},
-      color={0,127,255}));
+    connect(vol[i].ports[2], senTem[i].port_a) annotation (Line(
+       points={{49,-66},{49,-70},{30,-70}},
+                                          color={0,127,255}));
+    connect(senTem[i].port_b, val.port_3) annotation (Line(
+       points={{10,-70},{0,-70},{0,-30}}, color={0,127,255}));
   end for;
+
   annotation (experiment(
       Tolerance=1e-6, StopTime=10000),
        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos"
@@ -152,6 +165,18 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
+<li>
+July 18, 2025, by Hongxiang Fu:<br/>
+Added two-port temperature sensors to replace <code>vol[:].T</code>
+from reference results.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
+</li>
 <li>
 September 21, 2017, by Michael Wetter:<br/>
 Corrected parameterization to be independent of <code>k</code>.<br/>
