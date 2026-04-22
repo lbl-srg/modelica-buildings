@@ -2,6 +2,11 @@
 //  from: Version 12
 //  to:   Version 13.0.0
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4443
+// Replaced by PEle_Q_flow_nominal.
+convertModifiers("Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel", {"fraPFan_nominal"}, fill("", 0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc", {"fraPFan_nominal"}, fill("", 0), true);
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4354
 convertClass("Buildings.DHC.ETS.Combined.ChillerBorefield",
              "Buildings.Obsolete.DHC.ETS.Combined.ChillerBorefield");

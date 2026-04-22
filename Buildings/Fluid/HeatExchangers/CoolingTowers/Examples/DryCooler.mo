@@ -9,11 +9,10 @@ model DryCooler
       final computeWetBulbTemperature=false));
 
   parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat(
-    Q_flow_nominal=-m_flow_nominal*4200*(35 - 18),
-    TCooIn_nominal=273.15 + 35,
-    TCooOut_nominal=273.15 + 18,
-    TAirIn_nominal=273.15 + 25.55,
-    ratCooAir_nominal=1.2)
+    Q_flow_nominal=-m_flow_nominal*4200*(35 - 30),
+    TCooIn_nominal=308.15,
+    TCooOut_nominal=303.15,
+    TAirIn_nominal=298.15)
     "Performance data for dry cooler"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 

@@ -12,6 +12,12 @@ Version X.Y.Z is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Fluid.AirFilters
+    </td>
+    <td valign=\"top\">Package of models for air filters.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buidings.Utilities.IO.Python_3_12
     </td>
     <td valign=\"top\">Package to call Python 3.12 modules from a Modelica block.<br/>
@@ -37,20 +43,14 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.CoolingTowers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.DryCooler
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Model of dry cooler.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.AirFilters
-    </td>
-    <td valign=\"top\">Package of models for air filters.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
-    </td>
-</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -267,6 +267,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Refactored with two separate connectors for HW and CHW temperature setpoints.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel<br/>
+                       Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc
+    </td>
+    <td valign=\"top\">Removed parameter <code>fraPFan_nominal</code> and introduced instead the non-dimensional
+                       parameter <code>PEle_Q_flow_nominal</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4443\">#4443</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC<br/>

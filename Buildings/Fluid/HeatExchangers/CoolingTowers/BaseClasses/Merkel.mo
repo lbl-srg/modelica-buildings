@@ -173,11 +173,11 @@ initial equation
 
   assert(eps_nominal > 0 and eps_nominal < 1,
     "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
-    "\n  To achieve the required heat transfer rate at epsilon=0.8, set |TAirInWB_nominal-TWatIn_nominal| = "
+    "\n  To achieve a heat transfer rate at epsilon=0.8, set |TAirInWB_nominal-TWatIn_nominal| = "
      + String(abs(Q_flow_nominal/0.8*CMin_flow_nominal)) +
     "\n  or increase flow rates. The current parameters result in " +
-    "\n  CMin_flow_nominal = " + String(CMin_flow_nominal) +
-    "\n  CMax_flow_nominal = " + String(CMax_flow_nominal));
+    "\n  CAir_flow_nominal = " + String(CAir_flow_nominal) +
+    "\n  CCoo_flow_nominal = " + String(CCoo_flow_nominal));
 
 equation
    // For cp water, we use the inlet temperatures because the effect is small

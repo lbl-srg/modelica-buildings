@@ -1,13 +1,16 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
-
 model DryCooler "Cooling tower model based on epsilon-NTU relation"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+    final PFan_nominal=dat.PFan_nominal,
     final fanRelPow = dat.fanRelPow,
     final fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
-      x = dat.fanRelPow.r_V, y = dat.fanRelPow.r_P, ensureMonotonicity = Buildings.Utilities.Math.Functions.isMonotonic(x = dat.fanRelPow.r_P, strict = false)),
-      final yMin = 0.05 "Forced vs free convection is not used in this model");
+      x = dat.fanRelPow.r_V,
+      y = dat.fanRelPow.r_P,
+      ensureMonotonicity = Buildings.Utilities.Math.Functions.isMonotonic(x = dat.fanRelPow.r_P, strict = false)),
+    final yMin = 0.05 "Forced vs free convection is not used in this model");
+
   parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat "Performance data record" annotation(
-    Placement(transformation(extent = {{20, 80}, {40, 100}})));
+    Placement(transformation(extent={{20,70},{40,90}})));
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = m_flow_nominal/dat.ratCooAir_nominal "Nominal mass flow rate of air" annotation(
     Dialog(group = "Fan"));
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max = 0) = per.Q_flow_nominal "Nominal heat transfer, (negative)";
@@ -19,7 +22,11 @@ protected
     Placement(transformation(extent = {{-70, 36}, {-50, 54}})));
   Modelica.Blocks.Sources.RealExpression mCoo_flow(final y = port_a.m_flow) "Cooling fluid mass flow rate" annotation(
     Placement(transformation(extent = {{-70, 20}, {-50, 38}})));
-  Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.DryCooler per(redeclare final package Medium = Medium, final dat = dat, final m_flow_nominal = m_flow_nominal, final yMin = yMin) "Model for thermal performance" annotation(
+  Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.DryCooler per(
+    redeclare final package Medium = Medium,
+    final dat = dat,
+    final m_flow_nominal = m_flow_nominal,
+    final yMin = yMin) "Model for thermal performance" annotation(
     Placement(transformation(extent = {{-20, 40}, {0, 60}})));
 equation
   connect(per.y, y) annotation(

@@ -1,14 +1,14 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model Merkel "Cooling tower model based on Merkel's theory"
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
-  final fanRelPowDer=
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=fanRelPow.r_V,
-      y=fanRelPow.r_P,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-        x=fanRelPow.r_P,
-        strict=false)));
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+    final PFan_nominal = PFan_Q_flow_nominal*Q_flow_nominal,
+    final fanRelPowDer=
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+        x=fanRelPow.r_V,
+        y=fanRelPow.r_P,
+        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+          x=fanRelPow.r_P,
+          strict=false)));
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
       m_flow_nominal/ratWatAir_nominal "Nominal mass flow rate of air"
@@ -255,6 +255,13 @@ EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 22, 2026, by Michael Wetter:<br/>
+Removed parameter <code>fraPFan_nominal</code> and introduced instead the non-dimensional
+parameter <code>dat.PEle_Q_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4443\">#4443</a>.
+</li>
 <li>
 April 17, 2025, by Michael Wetter:<br/>
 Corrected computation of nominal UA value, which also needs to include the correction for <code>cpEqu_nominal</code>.<br/>

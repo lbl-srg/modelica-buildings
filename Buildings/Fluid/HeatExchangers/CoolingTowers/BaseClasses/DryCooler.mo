@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses;
 block DryCooler "Model for thermal performance of dry cooling tower"
   extends Modelica.Blocks.Icons.Block;
 
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Water "Water"),
         choice(redeclare package Medium =
@@ -32,16 +31,14 @@ block DryCooler "Model for thermal performance of dry cooling tower"
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
     "Nominal heat transfer, (negative)";
 
-  final parameter Modelica.Units.SI.Power PFan_nominal = dat.PFan_nominal
-    "Fan power at full speed";
   final parameter Modelica.Units.SI.ThermalConductance UA_nominal=NTU_nominal*CMin_flow_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal=
-    Q_flow_nominal/((dat.TAirIn_nominal - dat.TCooIn_nominal) * CMin_flow_nominal)
+    dat.Q_flow_nominal/((dat.TAirIn_nominal - dat.TCooIn_nominal) * CMin_flow_nominal)
     "Nominal heat transfer effectiveness";
   final parameter Real NTU_nominal(min=0)=
       Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
-      eps=min(1, max(0, eps_nominal)),
+      eps=min(0.99999, max(1E-6, eps_nominal)),
       Z=Z_nominal,
       flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow))
     "Nominal number of transfer units. Fixme: should be cross-flow.";
@@ -123,20 +120,19 @@ protected
     max=1) = CMin_flow_nominal/CMax_flow_nominal
     "Ratio of capacity flow rate at nominal condition";
 
-  parameter Modelica.Units.SI.Temperature TAirOut_nominal(fixed=false)
+  parameter Modelica.Units.SI.Temperature TAirOut_nominal =
+    dat.TAirIn_nominal - abs(dat.Q_flow_nominal) / CAir_flow_nominal
     "Nominal leaving air drybulb temperature";
 
 initial equation
-  // Heat transferred from air to water at nominal condition
-  Q_flow_nominal = CAir_flow_nominal*(dat.TAirIn_nominal - TAirOut_nominal);
-
   assert(eps_nominal > 0 and eps_nominal < 1,
     "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
-    "\n  To achieve the required heat transfer rate at epsilon=0.8, set |TAirIn_nominal-TCooIn_nominal| = "
+    "\n  To achieve a heat transfer rate at epsilon=0.8, set |TAirIn_nominal-TCooIn_nominal| = "
      + String(abs(Q_flow_nominal/0.8*CMin_flow_nominal)) +
     "\n  or increase flow rates. The current parameters result in " +
-    "\n  CMin_flow_nominal  = " + String(CMin_flow_nominal) +
-    "\n  CMax_flow_nominal  = " + String(CMax_flow_nominal) +
+    "\n  CAir_flow_nominal  = " + String(CAir_flow_nominal) +
+    "\n  CCoo_flow_nominal  = " + String(CCoo_flow_nominal) +
+    "\n  TAirOut_nominal    = " + String(TAirOut_nominal)    + " (" + String(TAirOut_nominal-273.15) + " degC)" +
     "\n with TAirIn_nominal = " + String(dat.TAirIn_nominal) + " (" + String(dat.TAirIn_nominal-273.15) + " degC)" +
     "\n      TCooIn_nominal = " + String(dat.TCooIn_nominal) + " (" + String(dat.TCooIn_nominal-273.15) + " degC).");
 

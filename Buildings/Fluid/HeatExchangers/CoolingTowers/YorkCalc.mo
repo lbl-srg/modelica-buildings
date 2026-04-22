@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+    final PFan_nominal = PFan_Q_flow_nominal*Q_flow_nominal,
     TWatIn_nominal(fixed=false),
     TWatOut_nominal(fixed=false),
     fanRelPowDer(each fixed=false));
@@ -21,6 +21,10 @@ model YorkCalc
   parameter Modelica.Units.SI.Temperature TWatOut_nominal
     "Nominal water outlet temperature"
     annotation (Dialog(group="Heat transfer"));
+
+  parameter Real PFan_Q_flow_nominal(min=0, max=0.1, unit="1") = 0.05
+    "Ratio of fan power to provided cooling at full load"
+    annotation (Dialog(group="Nominal condition"));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
@@ -291,6 +295,13 @@ instead of
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 22, 2026, by Michael Wetter:<br/>
+Removed parameter <code>fraPFan_nominal</code> and introduced instead the non-dimensional
+parameter <code>PEle_Q_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4443\">#4443</a>.
+</li>
 <li>
 August 26, 2021, by Baptiste Ravache:<br/>
 Renamed parameter TWatIn0 to TWatIn_nominal.

@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Data;
 record DryCooler "Performance data record for a dry cooler"
   extends Modelica.Icons.Record;
 
-  import cha =
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
+  import cha = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
     "Nominal heat flow rate (negative, as heat is removed from the fluid)"
@@ -21,16 +20,18 @@ record DryCooler "Performance data record for a dry cooler"
     "Nominal outdoor (air inlet) drybulb temperature"
     annotation (Dialog(group="Nominal thermal performance"));
 
-  parameter Real ratCooAir_nominal(min=0, unit="1") = 1.2
+  parameter Real ratCooAir_nominal(min=0, unit="1") =
+    Buildings.Utilities.Psychrometrics.Constants.cpAir /
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Water-to-air mass flow rate ratio at design condition, used to compute air flow for UA_value"
     annotation (Dialog(group="Nominal thermal performance"));
 
-  parameter Real PFan_QCoo_nominal(min=0, max=0.1, unit="1") = 0.05
+  parameter Real PFan_Q_flow_nominal(min=0, max=0.1, unit="1") = 0.05
     "Ratio of fan power to provided cooling at full load"
     annotation (Dialog(group="Nominal condition"));
 
   final parameter Modelica.Units.SI.Power PFan_nominal=
-    PFan_QCoo_nominal*abs(Q_flow_nominal)
+    PFan_Q_flow_nominal*abs(Q_flow_nominal)
     "Fan power at full speed";
 
   replaceable parameter cha.fan fanRelPow(

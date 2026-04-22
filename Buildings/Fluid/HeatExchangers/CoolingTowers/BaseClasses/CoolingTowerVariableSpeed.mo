@@ -13,10 +13,7 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
     "Fraction of tower capacity in free convection regime"
     annotation (Dialog(group="Heat transfer"));
 
-  parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
-    "Fan power divided by water mass flow rate at design condition"
-    annotation (Dialog(group="Fan"));
-  parameter Modelica.Units.SI.Power PFan_nominal=fraPFan_nominal*m_flow_nominal
+  parameter Modelica.Units.SI.Power PFan_nominal
     "Fan power" annotation (Dialog(group="Fan"));
 
   parameter Real yMin(min=0.01, max=1, final unit="1") = 0.3
@@ -31,7 +28,7 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
     annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{58,70},{78,90}})),
+    Placement(transformation(extent={{22,70},{42,90}})),
     Dialog(group="Fan"));
 
   Modelica.Blocks.Interfaces.RealInput TAir(
@@ -46,12 +43,7 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
 
   Modelica.Blocks.Interfaces.RealOutput PFan(
     final quantity="Power",
-    final unit="W")=
-    Buildings.Utilities.Math.Functions.spliceFunction(
-        pos=cha.normalizedPower(per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal,
-        neg=0,
-        x=y-yMin+yMin/20,
-        deltax=yMin/20)
+    final unit="W")
     "Electric power consumed by fan"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
@@ -61,6 +53,17 @@ protected
     "Coefficients for fan relative power consumption as a function
     of control signal";
 
+  Modelica.Blocks.Sources.RealExpression PFan_y(
+    y(
+    final quantity="Power",
+      final unit="W") =
+      Buildings.Utilities.Math.Functions.spliceFunction(
+        pos=cha.normalizedPower(per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal,
+        neg=0,
+        x=y-yMin+yMin/20,
+        deltax=yMin/20))
+      "Electricity use of fan"
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
 initial equation
   // Check validity of relative fan power consumption at y=yMin and y=1
   assert(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
@@ -72,9 +75,11 @@ initial equation
   "The fan relative power consumption must be one for y=1."
   + "\n   Obtained fanRelPow(1) = "
   + String(cha.normalizedPower(per=fanRelPow, r_V=1, d=fanRelPowDer))
-  + "\n   You need to choose different values for the parameter fanRelPow."
-  + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
+  + "\n   You need to choose different values for the parameter fanRelPow.");
 
+equation
+  connect(PFan_y.y, PFan)
+    annotation (Line(points={{81,80},{110,80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},

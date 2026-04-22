@@ -32,6 +32,9 @@ record UAMerkel "UA correction factors for Merkel cooling towers"
     displayUnit="K") = 25
     "Maximum value for leaving evaporator temperature difference"
     annotation (Dialog(group="Performance curves"));
+  parameter Real PFan_Q_flow_nominal(min=0, max=0.1, unit="1") = 0.05
+    "Ratio of fan power to provided cooling at full load"
+    annotation (Dialog(group="Nominal condition"));
 
   annotation (
 defaultComponentName="UACor",
@@ -100,6 +103,12 @@ Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 22, 2026, by Michael Wetter:<br/>
+Introduced the non-dimensional parameter <code>PEle_Q_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4443\">#4443</a>.
+</li>
 <li>
 October 22, 2019, by Yangyang Fu:<br/>
 First implementation.
