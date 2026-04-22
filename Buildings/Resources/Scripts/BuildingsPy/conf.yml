@@ -14,13 +14,13 @@
   openmodelica:
     comment: Simulation fails on travis.
     simulate: false
-- model_name: Buildings.DHC.ETS.Combined.Validation.ChillerBorefield
-  openmodelica:
-    comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
-    simulate: false
 - model_name: Buildings.DHC.ETS.Combined.SubsystemsValidation.ChillerBorefield
   openmodelica:
     comment: Simulation fails on travis, exit status 255
+    simulate: false
+- model_name: Buildings.DHC.ETS.Combined.Validation.ChillerBorefield
+  openmodelica:
+    comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
     simulate: false
 - model_name: Buildings.DHC.Examples.Combined.SeriesConstantFlow
   openmodelica:
