@@ -29,9 +29,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     "Chilled water mass flow rate at design conditions";
   parameter Modelica.Units.SI.PressureDifference dPRac_nominal = 60000
     "Rack design pressure drop";
-  parameter
-    Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU
-    datCDU(
+  parameter Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU datCDU(
     Q_flow_nominal=-PRac,
     TPla_a_nominal=TChi_b,
     TRac_a_nominal=TRac_b,

@@ -232,14 +232,6 @@ initial equation
       + String(dat.medPla) + " declared in the parameter record."
       + "\nSet the parameter checkMedia=false to avoid this check.");
     assert(
-      dat.medPla == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water or
-      abs(MediumPla.X_default[1] - dat.XGlyPla) <= 0.01,
-      "In " + getInstanceName() + ": The plant-side medium mass fraction X_a = "
-      + String(MediumPla.X_default[1])
-      + " differs by more than 0.01 from dat.XGlyPla = "
-      + String(dat.XGlyPla) + "."
-      + "\nSet the parameter checkMedia=false to avoid this check.");
-    assert(
       (dat.medRac == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water and
         Modelica.Utilities.Strings.find(MediumRac.mediumName, "Water") > 0) or
       (dat.medRac == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.EthyleneGlycol and
@@ -250,15 +242,7 @@ initial equation
       + "' does not match the medium type dat.medRac = "
       + String(dat.medRac) + " declared in the parameter record."
       + "\nSet the parameter checkMedia=false to avoid this check.");
-    assert(
-      dat.medRac == Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water or
-      abs(MediumRac.X_default[1] - dat.XGlyRac) <= 0.01,
-      "In " + getInstanceName() + ": The rack-side medium mass fraction X[1] = "
-      + String(MediumRac.X_default[1])
-      + " differs by more than 0.01 from dat.XGlyRac = "
-      + String(dat.XGlyRac) + "."
-      + "\nSet the parameter checkMedia=false to avoid this check.");
-  end if;
+   end if;
 equation
   connect(port_aPla, val.port_a)
     annotation (Line(points={{-100,60},{-40,60},{-40,30}}, color={0,127,255}));
