@@ -1,6 +1,6 @@
 within Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples;
 model Borefields
-  "Example model of single u-tube borefield with ground responses calculated by g-function and TOUGH simulation"
+  "Example model of single u-tube borefield with ground responses calculated by TOUGH simulation"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water;
@@ -88,7 +88,7 @@ is used to imitate the ground response calculated by TOUGH simulator.
 </p>
 <p>
 Note the dummy function cannot run the ground modeling as TOUGH. It assumes the
-response temperature increased by 0.1 &deg;C everytime when invoking the Python
+response temperature increased by 0.1 K everytime when invoking the Python
 interface. It is created to show the coupling workflow.
 </p>
 </html>",

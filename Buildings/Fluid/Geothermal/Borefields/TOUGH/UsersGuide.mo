@@ -122,10 +122,10 @@ It inclues:
 </p>
 <ul>
 <li>
-<code>nSeg</code>: The total number of borehole segments.
+<code>nSeg</code>: The total number of borehole segments specified in Modelica.
 </li>
 <li>
-<code>nTouSeg</code>: In TOUGH mesh, the total number of mesh points that covers
+<code>nTouSeg</code>: In TOUGH mesh, the total number of grids that covers
 the entire borehole length.
 </li>
 <li>
@@ -179,7 +179,7 @@ from Modelica to initialize the Python object. It does not start the TOUGH simul
 </li>
 <li>
 Before each TOUGH simulation, the function <code>write_incon()</code> edits the following
-TOUGH input files in
+TOUGH input files, like followings in the folder
 <<code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/TOUGH</code>>:
 <ul>
 <li>
