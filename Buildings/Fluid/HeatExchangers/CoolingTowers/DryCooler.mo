@@ -57,34 +57,19 @@ The cooling tower performance is
 modeled using the effectiveness-NTU relationships.
 </p>
 <p>
-For off-design conditions, the change in convection coefficients is
-computed as a function of the flow rates.
+Changes in convective heat transfer coefficient on the coolant-side and
+the air-side due to change in flow rate and temperature are taken into account
+using the model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil</a>.
+This correction can be configured in the data record
+<a href=\"Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic</a>.
 </p>
 </html>", revisions = "<html>
 <ul>
 <li>
 April 21, 2026, by Michael Wetter:<br/>
-Refactored to use a data record <code>dat</code> of type
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler</a>
-for the performance parameters, including <code>fanRelPow</code>.
-</li>
-<li>
-April 17, 2025, by Michael Wetter:<br/>
-Corrected computation of nominal UA value, which also needs to include the correction for <code>cpEqu_nominal</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4189\">#4189</a>.
-</li>
-<li>
-January 16, 2020, by Michael Wetter:<br/>
-Revised model to put the thermal performance in a separate block.
-</li>
-<li>
-January 10, 2020, by Michael Wetter:<br/>
-Revised model, changed parameters to make model easier to use with design data.
-</li>
-<li>
-October 22, 2019, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

@@ -126,6 +126,21 @@ protected
 
   Real corUAFreCon "Correction for UA value in free convection regime";
 
+  Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
+    final UA_nominal=UA_nominal,
+    final m_flow_nominal_w=m_flow_nominal,
+    final m_flow_nominal_a=mAir_flow_nominal,
+    final r_nominal=dat.UACor.r_nominal,
+    final n_w=dat.UACor.n_w,
+    final n_a=dat.UACor.n_a,
+    final T0_w=dat.TCooIn_nominal,
+    final T0_a=dat.TAirIn_nominal)
+    "Convective heat transfer correction for flow rate and temperatures"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Modelica.Blocks.Sources.RealExpression mAirIn_flow(
+    y(final unit="kg/s")=mAir_flow)
+    "Air mass flow rate"
+    annotation (Placement(transformation(extent={{-76,-64},{-56,-44}})));
 initial equation
   assert(eps_nominal > 0 and eps_nominal < 1,
     "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
@@ -150,7 +165,8 @@ equation
   // Determine the airflow based on fan speed signal
   mAir_flow = y*mAir_flow_nominal;
 
-  UA = UA_nominal*corUAFreCon;
+  // UA value, for correction, simplified to be dominated by convection
+  UA = corUAFreCon / (1/hA.hA_1+1/hA.hA_2);
   // Reduction of UA value in free convection regime
   corUAFreCon = Buildings.Utilities.Math.Functions.spliceFunction(
     pos=1,
@@ -181,6 +197,15 @@ equation
 
   Q_flow = -eps * QMax_flow;
 
+  connect(hA.m1_flow, m_flow) annotation (Line(points={{-41,-23},{-90,-23},{-90,
+          -80},{-120,-80}},                     color={0,0,127}));
+  connect(hA.T_1, TCooIn) annotation (Line(points={{-41,-27},{-94,-27},{-94,-40},
+          {-120,-40}}, color={0,0,127}));
+  connect(hA.T_2, TAir) annotation (Line(points={{-41,-33},{-96,-33},{-96,40},{-120,
+          40}}, color={0,0,127}));
+  connect(hA.m2_flow, mAirIn_flow.y)
+    annotation (Line(points={{-41,-37},{-48,-37},{-48,-54},{-55,-54}},
+                                                             color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-66,78},{68,-38}},
