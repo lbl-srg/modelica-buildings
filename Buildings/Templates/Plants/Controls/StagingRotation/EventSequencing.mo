@@ -44,7 +44,7 @@ block EventSequencing "Staging event sequencing"
     "Heat pump internal shutdown cycle timing";
   parameter Real dtFil(
     min=0,
-    unit="s") = 5
+    unit="s") = 1e-3
     "Time delay for filtering out random enable signals from upstream"
     annotation(Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
