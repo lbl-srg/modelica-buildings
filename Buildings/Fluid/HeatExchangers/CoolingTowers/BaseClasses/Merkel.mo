@@ -12,7 +12,7 @@ block Merkel "Model for thermal performance of Merkel cooling tower"
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
-  parameter Data.Merkel dat "Performance data"
+  parameter Data.Merkel.Generic dat "Performance data"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   final parameter Modelica.Units.SI.MassFlowRate mCoo_flow_nominal =

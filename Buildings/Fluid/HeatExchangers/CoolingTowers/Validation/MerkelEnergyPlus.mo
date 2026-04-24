@@ -63,7 +63,7 @@ model MerkelEnergyPlus
     "Cooling capacity at design conditions";
 
 
-  parameter Data.Merkel dat(
+  parameter Data.Merkel.Generic dat(
     Q_flow_nominal=Q_flow_nominal,
     TCooIn_nominal=TWatIn_nominal,
     TCooOut_nominal=TWatOut_nominal,
@@ -72,8 +72,7 @@ model MerkelEnergyPlus
     PFan_Q_flow_nominal=-PFan_nominal/Q_flow_nominal,
     fanRelPow(r_V=r_VEnePlu, r_P=r_PEnePlu),
     TAirInWB_nominal=TAirInWB_nominal,
-    fraFreCon=0.1)
-    "Cooling tower performance data"
+    fraFreCon=0.1) "Cooling tower performance data"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
@@ -185,7 +184,7 @@ outlet are equal to the state variables of the model.
 <ul>
 <li>
 April 30, 2025, by Kathryn Hinkelman:<br/>
-Corrected the wetbulb value <code>TAirInWB_nominal</code> and 
+Corrected the wetbulb value <code>TAirInWB_nominal</code> and
 added intermediate equations from E+ to model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4189\">#4189</a>.

@@ -18,9 +18,8 @@ model YorkCalc
     initType=Modelica.Blocks.Types.Init.InitialState)
     "Controller for tower fan"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  parameter Data.YorkCalc dat(
-    Q_flow_nominal=-m_flow_nominal*4200*(35 - 29.44), dp_nominal=6000)
-    "Performance data for cooling tower"
+  parameter Data.YorkCalc.Generic dat(Q_flow_nominal=-m_flow_nominal*4200*(35
+         - 29.44), dp_nominal=6000) "Performance data for cooling tower"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 equation
   connect(TSetLea.y, conFan.u_s) annotation (Line(

@@ -11,8 +11,8 @@ block DryCooler "Model for thermal performance of dry cooling tower"
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
-  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat
-    "Performance data record"
+  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+    dat "Performance data record"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
@@ -217,8 +217,8 @@ revisions="<html>
 <li>
 April 21, 2026, by Michael Wetter:<br/>
 Moved <code>ratCooAir_nominal</code> to the data record
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler</a>.
 Added data record <code>dat</code> and use its parameters instead of individual parameters.
 </li>
 <li>

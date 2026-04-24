@@ -7,8 +7,8 @@ model YorkCalc
     final dp_nominal = dat.dp_nominal,
     final fanRelPow=dat.fanRelPow);
 
-  parameter Data.YorkCalc dat "Performance data"
-    annotation (Placement(transformation(extent={{-12,70},{8,90}})));
+  parameter Data.YorkCalc.Generic dat "Performance data"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
   final parameter Modelica.Units.SI.TemperatureDifference TApp_nominal(
       displayUnit="K") = dat.TCooOut_nominal - dat.TAirInWB_nominal

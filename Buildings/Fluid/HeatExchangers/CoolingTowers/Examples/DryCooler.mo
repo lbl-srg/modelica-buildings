@@ -6,13 +6,13 @@ model DryCooler
     redeclare CoolingTowers.DryCooler tow(dat=dat),
     weaDat(final computeWetBulbTemperature=false));
 
-  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat(
+  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+    dat(
     Q_flow_nominal=-m_flow_nominal*4200*(35 - 30),
     TCooIn_nominal=308.15,
     TCooOut_nominal=303.15,
     dp_nominal=6000,
-    TAirIn_nominal=298.15)
-    "Performance data for dry cooler"
+    TAirIn_nominal=298.15) "Performance data for dry cooler"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
@@ -65,8 +65,8 @@ switches the cooling loop water pump on or off based on the temperature of
 this volume.
 The dry cooler outlet temperature is controlled to track a fixed temperature.
 The thermal performance of the dry cooler is specified through the data record
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler</a>.
 </p>
 </html>", revisions="<html>
 <ul>

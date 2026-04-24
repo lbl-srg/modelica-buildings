@@ -22,7 +22,7 @@ record BaseCoolingTower
     annotation (Dialog(group="Nominal condition"));
   parameter Real ratCooAir_nominal(min=0, unit="1")
     "Coolant-to-air mass flow rate ratio at design condition, used to compute air flow rate for UA_value"
-    annotation (Dialog(group="Nominal thermal performance"));
+    annotation(Dialog(tab="Advanced"));
 
   parameter Real PFan_Q_flow_nominal(min=-0.1, max=0, unit="1") = -0.05
     "Ratio of fan power to provided cooling at full load (negative as Q_flow_nominal<0)";
@@ -34,13 +34,15 @@ record BaseCoolingTower
   parameter Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan fanRelPow(
     r_V={0, 0.1,   0.3,   0.6,   1},
     r_P={0, 0.1^3, 0.3^3, 0.6^3, 1})
-    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)";
+    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
+    annotation(Dialog(tab="Advanced"));
 
   parameter Real fraFreCon(
     min=0,
     max=1,
     final unit="1") = 0.125
-    "Fraction of tower capacity in free convection regime";
+    "Fraction of tower capacity in free convection regime"
+     annotation(Dialog(tab="Advanced"));
 
   annotation (
     defaultComponentName="dat",

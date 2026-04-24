@@ -5,8 +5,8 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(dat=dat),
     weaDat(final computeWetBulbTemperature=true));
 
-  parameter Data.Merkel dat(Q_flow_nominal=-m_flow_nominal*4200*5.56,
-      dp_nominal=6000)      "Cooling tower performance data"
+  parameter Data.Merkel.Generic dat(Q_flow_nominal=-m_flow_nominal*4200*5.56,
+      dp_nominal=6000) "Cooling tower performance data"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)

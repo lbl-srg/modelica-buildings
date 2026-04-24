@@ -5,8 +5,9 @@ model DryCooler "Cooling tower model based on epsilon-NTU relation"
     final m_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
     final dp_nominal = dat.dp_nominal,
     final fanRelPow = dat.fanRelPow);
-  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat "Performance data record" annotation(
-    Placement(transformation(extent={{-10,72},{10,92}})));
+  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+    dat "Performance data record"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = m_flow_nominal/dat.ratCooAir_nominal "Nominal mass flow rate of air" annotation(
     Dialog(group = "Fan"));
@@ -50,8 +51,8 @@ To compute the thermal performance, this model takes as parameters
 the nominal cooling capacity, air dry-bulb temperature, and
 cooling fluid (water or glycol) inlet and outlet temperatures
 as specified in the data record
-<a href=\"Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler</a>.
+<a href=\"Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler</a>.
 The cooling tower performance is
 modeled using the effectiveness-NTU relationships.
 </p>
@@ -64,8 +65,8 @@ computed as a function of the flow rates.
 <li>
 April 21, 2026, by Michael Wetter:<br/>
 Refactored to use a data record <code>dat</code> of type
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler</a>
 for the performance parameters, including <code>fanRelPow</code>.
 </li>
 <li>

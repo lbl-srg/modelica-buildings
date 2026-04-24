@@ -6,7 +6,7 @@ model Merkel "Cooling tower model based on Merkel's theory"
     final dp_nominal = dat.dp_nominal,
     final fanRelPow=dat.fanRelPow);
 
-  parameter Data.Merkel dat "Performance data"
+  parameter Data.Merkel.Generic dat "Performance data"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
@@ -179,8 +179,8 @@ for the respective adjustment factor, and the
 coefficients  <i>c<sub>x,0</sub></i>, <i>c<sub>x,1</sub></i>, <i>c<sub>x,2</sub></i>, and <i>c<sub>x,3</sub></i>
 are the user-defined
 values for the respective adjustment factor functions obtained from
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.BaseClasses.UAMerkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.Merkel.BaseClasses.UACorrection\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.Merkel.BaseClasses.UACorrection</a>.
 By changing the parameter <code>UACor</code>, the
 user can update the values in this record based on the performance characteristics of
 their specific cooling tower.

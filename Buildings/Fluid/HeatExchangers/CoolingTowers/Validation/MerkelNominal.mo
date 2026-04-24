@@ -14,10 +14,8 @@ model MerkelNominal
         Medium_W.T_default,
       Medium_W.X_default)) "Default density of water";
 
-  parameter Data.Merkel dat(
-    Q_flow_nominal=-m_flow_nominal*cp_W*5.56,
-    dp_nominal=6000)
-    "Performance data"
+  parameter Data.Merkel.Generic dat(Q_flow_nominal=-m_flow_nominal*cp_W*5.56,
+      dp_nominal=6000) "Performance data"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
