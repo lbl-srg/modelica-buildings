@@ -12,9 +12,10 @@ model DryCooler
     Q_flow_nominal=-m_flow_nominal*4200*(35 - 30),
     TCooIn_nominal=308.15,
     TCooOut_nominal=303.15,
+    dp_nominal=6000,
     TAirIn_nominal=298.15)
     "Performance data for dry cooler"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"

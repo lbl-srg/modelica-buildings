@@ -5,29 +5,19 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
   import cha =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
-//  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
-//    "Nominal outdoor (air inlet) wetbulb temperature"
-//   annotation (Dialog(group="Heat transfer"));
-
-  parameter Real fraFreCon(min=0, max=1, final unit="1") = 0.125
-    "Fraction of tower capacity in free convection regime"
-    annotation (Dialog(group="Heat transfer"));
-
   parameter Modelica.Units.SI.Power PFan_nominal
-    "Fan power" annotation (Dialog(group="Fan"));
+    "Fan power at full speed" annotation (Dialog(group="Fan"));
 
   parameter Real yMin(min=0.01, max=1, final unit="1") = 0.3
     "Minimum control signal until fan is switched off (used for smoothing
     between forced and free convection regime)"
     annotation (Dialog(group="Fan"));
 
-  replaceable parameter cha.fan fanRelPow(
+  parameter cha.fan fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
        r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
-    constrainedby cha.fan
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
     annotation (
-    choicesAllMatching=true,
     Placement(transformation(extent={{22,70},{42,90}})),
     Dialog(group="Fan"));
 
@@ -49,9 +39,14 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
         iconTransformation(extent={{100,70},{120,90}})));
 
 protected
-  parameter Real fanRelPowDer[size(fanRelPow.r_V,1)]
-    "Coefficients for fan relative power consumption as a function
-    of control signal";
+  parameter Real fanRelPowDer[size(fanRelPow.r_V,1)] =
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+        x=fanRelPow.r_V,
+        y=fanRelPow.r_P,
+        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+          x=fanRelPow.r_P,
+          strict=false))
+    "Coefficients for fan relative power consumption as a function of control signal";
 
   Modelica.Blocks.Sources.RealExpression PFan_y(
     y(

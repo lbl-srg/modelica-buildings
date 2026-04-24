@@ -12,8 +12,6 @@ partial model PartialStaticTwoPortCoolingTower
      constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
     redeclare package Medium = Medium_W,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{22,-60},{42,-40}})));

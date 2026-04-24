@@ -13,7 +13,7 @@ block DryCooler "Model for thermal performance of dry cooling tower"
 
   parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat
     "Performance data record"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of water"

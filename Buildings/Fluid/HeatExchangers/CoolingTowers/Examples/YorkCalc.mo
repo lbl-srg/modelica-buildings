@@ -3,7 +3,7 @@ model YorkCalc
   "Test model for cooling tower using the York performance correlation"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare CoolingTowers.YorkCalc tow,
+    redeclare CoolingTowers.YorkCalc tow(dat=dat),
     weaDat(
       final computeWetBulbTemperature=true));
 
@@ -18,6 +18,10 @@ model YorkCalc
     initType=Modelica.Blocks.Types.Init.InitialState)
     "Controller for tower fan"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  parameter Data.YorkCalc dat(
+    Q_flow_nominal=-m_flow_nominal*4200*(35 - 29.44), dp_nominal=6000)
+    "Performance data for cooling tower"
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 equation
   connect(TSetLea.y, conFan.u_s) annotation (Line(
       points={{-59,10},{-42,10}},
@@ -32,7 +36,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TWetBul, tow.TAir) annotation (Line(
-      points={{-60,50},{0,50},{0,-46},{20,-46}},
+      points={{-59.95,50.05},{0,50.05},{0,-46},{20,-46}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

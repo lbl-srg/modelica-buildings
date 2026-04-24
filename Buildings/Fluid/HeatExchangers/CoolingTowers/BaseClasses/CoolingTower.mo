@@ -11,6 +11,9 @@ partial model CoolingTower "Base class for cooling towers"
     "Heat input into water circuit";
 
 protected
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(sta_default)
+    "Specific heat capacity";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));

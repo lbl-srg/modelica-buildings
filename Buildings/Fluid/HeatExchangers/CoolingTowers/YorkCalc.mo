@@ -2,28 +2,21 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
-    final PFan_nominal = PFan_Q_flow_nominal*Q_flow_nominal,
-    TWatIn_nominal(fixed=false),
-    TWatOut_nominal(fixed=false),
-    fanRelPowDer(each fixed=false));
+    final PFan_nominal = dat.PFan_nominal,
+    final m_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
+    final dp_nominal = dat.dp_nominal,
+    final fanRelPow=dat.fanRelPow);
 
-  parameter Modelica.Units.SI.TemperatureDifference TApp_nominal(displayUnit=
-        "K") = 3.89 "Design approach temperature"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference TRan_nominal(displayUnit=
-        "K") = 5.56 "Design range temperature (water in - water out)"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
-    "Nominal outdoor (air inlet) wetbulb temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TWatIn_nominal
-    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TWatOut_nominal
-    "Nominal water outlet temperature"
-    annotation (Dialog(group="Heat transfer"));
+  parameter Data.YorkCalc dat "Performance data"
+    annotation (Placement(transformation(extent={{-12,70},{8,90}})));
 
-  parameter Real PFan_Q_flow_nominal(min=0, max=0.1, unit="1") = 0.05
-    "Ratio of fan power to provided cooling at full load"
+  final parameter Modelica.Units.SI.TemperatureDifference TApp_nominal(
+      displayUnit="K") = dat.TCooOut_nominal - dat.TAirInWB_nominal
+        "Design approach temperature (coolant out - air out)"
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.TemperatureDifference TRan_nominal(
+    displayUnit="K") = dat.TCooIn_nominal - dat.TCooOut_nominal
+        "Design range temperature (coolant in - coolant out)"
     annotation (Dialog(group="Nominal condition"));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
@@ -43,7 +36,7 @@ model YorkCalc
     "Ratio actual over design air mass flow ratio";
 
 protected
-  package Water =  Buildings.Media.Water "Medium package for water";
+  package Water = Buildings.Media.Water "Medium package for water";
   parameter Real FRWat0(min=0, start=1, fixed=false)
     "Ratio actual over design water mass flow ratio at nominal condition";
   parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(
@@ -66,16 +59,17 @@ protected
       deltaX=0.01)) "Approach temperature for forced convection";
   Modelica.Units.SI.TemperatureDifference TAppFreCon(
     min=0,
-    displayUnit="K") = (1 - fraFreCon)*dTMax + fraFreCon*
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-    TRan=TRan,
-    TWetBul=TAir,
-    FRWat=FRWat,
-    FRAir=1) "Approach temperature for free convection";
+    displayUnit="K") = (1 - dat.fraFreCon)*dTMax + dat.fraFreCon*
+      Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+        TRan=TRan,
+        TWetBul=TAir,
+        FRWat=FRWat,
+        FRAir=1) "Approach temperature for free convection";
 
   Modelica.Units.SI.Temperature T_a "Temperature in port_a";
   Modelica.Units.SI.Temperature T_b "Temperature in port_b";
 
+protected
   Modelica.Blocks.Sources.RealExpression QWat_flow(
     y = m_flow*(
       Medium.specificEnthalpy(Medium.setState_pTX(
@@ -86,19 +80,10 @@ protected
     "Heat input into water"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 initial equation
-//--  TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
-  TRan_nominal = TWatIn_nominal - TWatOut_nominal; // by definition of the range temp.
   TApp_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-                   TRan=TRan_nominal, TWetBul=TAirInWB_nominal,
+                   TRan=TRan_nominal, TWetBul=dat.TAirInWB_nominal,
                    FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
   mWat_flow_nominal = m_flow_nominal/FRWat0;
-
-  // Derivatives for spline that interpolates the fan relative power
-  fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
-            x=fanRelPow.r_V,
-            y=fanRelPow.r_P,
-            ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=fanRelPow.r_P,
-                                                                              strict=false));
 
   // Check that a medium is used that has the same definition of enthalpy vs. temperature.
   // This is needed because below, T_a=Water.temperature needed to be hard-coded to use
@@ -206,9 +191,10 @@ approach temperature at off-design conditions.
 <h4>Thermal performance</h4>
 <p>
 To compute the thermal performance, this model takes as parameters
-the approach temperature, the range temperature and the inlet air wet bulb temperature
-at the design condition. Since the design mass flow rate (of the chiller condenser loop)
-is also a parameter, these parameters define the rejected heat.
+the inlet and outlet temperatures of the cooling loop and the inlet air wet bulb temperature,
+and the rejected heat at the design condition.
+The design mass flow rate (of the chiller condenser loop)
+is then calculated based on these parameters.
 </p>
 <p>
 For off-design conditions, the model uses the actual range temperature and a polynomial

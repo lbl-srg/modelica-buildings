@@ -6,6 +6,8 @@
 // Replaced by PEle_Q_flow_nominal.
 convertModifiers("Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel", {"fraPFan_nominal"}, fill("", 0), true);
 convertModifiers("Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc", {"fraPFan_nominal"}, fill("", 0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Merkel",
+                 {"CWat_flow_nominal"}, {"CCoo_flow_nominal"}, true);
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4354
 convertClass("Buildings.DHC.ETS.Combined.ChillerBorefield",

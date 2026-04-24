@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.CoolingTowers.Data;
+within Buildings.Fluid.HeatExchangers.CoolingTowers.Data.BaseClasses;
 record UAMerkel "UA correction factors for Merkel cooling towers"
   extends Modelica.Icons.Record;
 
@@ -98,7 +98,7 @@ for the respective adjustment factor, and the
 coefficients  <i>c<sub>x,0</sub></i>, <i>c<sub>x,1</sub></i>, <i>c<sub>x,2</sub></i>, and <i>c<sub>x,3</sub></i>
 are the user-defined
 values for the respective adjustment factor functions obtained from
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.BaseClasses.UAMerkel\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
 </p>
 </html>", revisions="<html>
