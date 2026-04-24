@@ -164,7 +164,7 @@ createPlot(
     id=9,
     position={615, 5, 300, 500},
     subPlot=1,
-    y={"ctl1.y1Hp[1]", "ctl1.y1Hp[2]", "ctl1.y1Hp[3]"},
+    y={"ctl1.y1Hp[1]", "ctl1.y1Hp[2]", "ctl1.y1HpShc"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -172,7 +172,7 @@ createPlot(
 createPlot(
     id=9,
     subPlot=2,
-    y={"ctl1.y1HeaHp[1]", "ctl1.y1HeaHp[2]", "ctl1.y1HeaHp[3]"},
+    y={"ctl1.y1HeaHp[1]", "ctl1.y1HeaHp[2]", "ctl1.yMod"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -181,7 +181,7 @@ createPlot(
     id=10,
     position={920, 5, 300, 600},
     subPlot=1,
-    y={"ctl1.y1PumHeaWatPri[1]", "ctl1.y1PumHeaWatPri[2]", "ctl1.y1PumHeaWatPri[3]"},
+    y={"ctl1.y1PumHeaWatPri[1]", "ctl1.y1PumHeaWatPri[2]", "ctl1.y1PumHeaWatPriShc"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -197,7 +197,7 @@ createPlot(
 createPlot(
     id=10,
     subPlot=3,
-    y={"ctl1.y1PumChiWatPri[1]", "ctl1.y1PumChiWatPri[2]", "ctl1.y1PumChiWatPri[3]"},
+    y={"ctl1.y1PumChiWatPri[1]", "ctl1.y1PumChiWatPri[2]", "ctl1.y1PumChiWatPriShc"},
     autoscale=true,
     grid=true,
     timeUnit="h"
