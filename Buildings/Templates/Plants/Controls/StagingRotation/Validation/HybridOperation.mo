@@ -42,11 +42,10 @@ protected
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
 equation
-  connect(booPul.y, ctl.u1Hp[3]) annotation (Line(points={{-58,-40},{-26,-40},{-26,
-          0},{-22,0},{-22,2.66667},{-12,2.66667}}, color={255,0,255}));
-  connect(con.y, ctl.u1Hp[1]) annotation (Line(points={{-58,-10},{-22,-10},{-22,
-          1.33333},{-12,1.33333}},
-                    color={255,0,255}));
+  connect(booPul.y, ctl.u1HpAva[3]) annotation (Line(points={{-58,-40},{-26,-40},
+          {-26,0},{-22,0},{-22,2.66667},{-12,2.66667}}, color={255,0,255}));
+  connect(con.y, ctl.u1HpAva[1]) annotation (Line(points={{-58,-10},{-22,-10},{
+          -22,1.33333},{-12,1.33333}}, color={255,0,255}));
   connect(con.y, ctl.uMod[1]) annotation (Line(points={{-58,-10},{-26,-10},{-26,
           -2.66667},{-12,-2.66667}},color={255,0,255}));
   connect(con.y, ctl.u1EnaHea) annotation (Line(points={{-58,-10},{-16,-10},{-16,
@@ -63,8 +62,8 @@ equation
                                           color={255,0,255}));
   connect(booPul.y, ctl.u1PumPriHea[3]) annotation (Line(points={{-58,-40},{-26,
           -40},{-26,-9.33333},{-12,-9.33333}}, color={255,0,255}));
-  connect(not1.y, ctl.u1Hp[2]) annotation (Line(points={{-18,-60},{-10,-60},{-10,
-          -18},{-20,-18},{-20,2},{-12,2}}, color={255,0,255}));
+  connect(not1.y, ctl.u1HpAva[2]) annotation (Line(points={{-18,-60},{-10,-60},
+          {-10,-18},{-20,-18},{-20,2},{-12,2}}, color={255,0,255}));
   connect(not1.y, ctl.u1PumPriHea[2]) annotation (Line(points={{-18,-60},{-10,-60},
           {-10,-18},{-20,-18},{-20,-10},{-12,-10}}, color={255,0,255}));
   connect(booPul1.y, ctl.u1EnaCoo) annotation (Line(points={{-58,50},{-20,50},{

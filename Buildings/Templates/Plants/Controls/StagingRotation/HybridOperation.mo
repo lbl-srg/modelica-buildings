@@ -29,7 +29,7 @@ block HybridOperation
     Dialog(group="Plant configuration"));
 
   parameter Integer idxEquAlt[nEquAlt](final min=fill(1, nEquAlt))
-    "Indices of lead/lag alternate equipment"
+    "Indices of lead-lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
 
@@ -44,7 +44,7 @@ block HybridOperation
     each final max=1,
     each final min=0,
     each final unit="1")
-    "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
+    "Staging matrix for heating-only and cooling-only mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
 
   final parameter Integer nSta(
@@ -55,38 +55,38 @@ block HybridOperation
   final parameter Integer nEquAlt(
     final min=0)=if nHp==1 then 1 else
     max({sum({(if staEquDouMod[i, j] > 0 and staEquDouMod[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
-    "Number of lead/lag alternate equipment"
+    "Number of lead-lag alternate equipment"
     annotation (Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaHea
     "Heating plant enable"
-    annotation (Placement(transformation(extent={{-298,-10},{-258,30}}),
+    annotation (Placement(transformation(extent={{-298,70},{-258,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaCoo
     "Cooling plant enable"
-    annotation (Placement(transformation(extent={{-300,-70},{-260,-30}}),
+    annotation (Placement(transformation(extent={{-300,10},{-260,50}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMod[nHp]
     if have_heaWat and have_chiWat
     "Binary mode signal indicating if 2-pipe HP is in heating mode or cooling mode"
-    annotation (Placement(transformation(extent={{-300,-200},{-260,-160}}),
+    annotation (Placement(transformation(extent={{-300,-120},{-260,-80}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hp[nHp]
-    "HP enable signal vector"
-    annotation (Placement(transformation(extent={{-300,40},{-260,80}}),
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HpAva[nHp]
+    "HP availability signal vector"
+    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumPriHea[nHp]
-    "Primary pump enable for SHC HP"
-    annotation (Placement(transformation(extent={{-300,320},{-260,360}}),
+    "Primary pump enable for SHC HP heating loop"
+    annotation (Placement(transformation(extent={{-300,260},{-260,300}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumPriCoo[nHp]
-    "Primary pump enable for SHC HP"
-    annotation (Placement(transformation(extent={{-298,360},{-258,400}}),
+    "Primary pump enable for SHC HP cooling loop"
+    annotation (Placement(transformation(extent={{-298,300},{-258,340}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaHpShcHea[nHp]
@@ -96,28 +96,28 @@ block HybridOperation
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaHpShcCoo[nHp]
     "Availability vector of SHC HPs for cooling operation" annotation (
-      Placement(transformation(extent={{320,120},{360,160}}),
+      Placement(transformation(extent={{320,140},{360,180}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumPri[nHp]
     "Primary pump enable for SHC HP"
-    annotation (Placement(transformation(extent={{320,340},{360,380}}),
+    annotation (Placement(transformation(extent={{320,280},{360,320}}),
       iconTransformation(extent={{100,100},{140,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaCoo
     "Signal indicating heat pump plant is in heating-cooling mode"
-    annotation (Placement(transformation(extent={{320,-20},{360,20}}),
+    annotation (Placement(transformation(extent={{320,60},{360,100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHp]
     "Operation mode integer signal for each HP"
-    annotation (Placement(transformation(extent={{320,-110},{360,-70}}),
+    annotation (Placement(transformation(extent={{320,-30},{360,10}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdxSta[nEquAlt]
     if not have_sorRunTim
     "Staging index if runtime sorting is absent"
-    annotation (Placement(transformation(extent={{320,-380},{360,-340}}),
+    annotation (Placement(transformation(extent={{320,-300},{360,-260}}),
       iconTransformation(extent={{100,-140},{140,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaEqu[nSta,nHp](
@@ -125,384 +125,244 @@ block HybridOperation
     each min=0,
     each max=1)
     "Staging matrix – Equipment required for each stage"
-    annotation (Placement(transformation(extent={{320,-280},{360,-240}}),
+    annotation (Placement(transformation(extent={{320,-200},{360,-160}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conStaDouMod[nSta,nHp](
       final k=staEquDouMod) "Staging matrix for heating-cooling mode"
-    annotation (Placement(transformation(extent={{-10,-240},{10,-220}})));
+    annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conStaSinMod[nSta,nHp](
       final k=staEquSinMod)
     "Staging matrix for heating-only and cooling-only mode"
-    annotation (Placement(transformation(extent={{-10,-300},{10,-280}})));
+    annotation (Placement(transformation(extent={{-10,-220},{10,-200}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nSta,nHp]
     "Switch between staging matrices for heating-cooling mode, and the staging
     matrix for other modes"
-    annotation (Placement(transformation(extent={{28,-270},{48,-250}})));
+    annotation (Placement(transformation(extent={{28,-190},{48,-170}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if both heating plant and cooling plant are enabled"
-    annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
+    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
     final nout=nHp)
     "Generate vector with size equal to number of heat pumps"
-    annotation (Placement(transformation(extent={{-50,-270},{-30,-250}})));
+    annotation (Placement(transformation(extent={{-50,-190},{-30,-170}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRep(
     final nin=nHp,
     final nout=nSta)
     "Change into matrix with same dimensions as staging matrix"
-    annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
+    annotation (Placement(transformation(extent={{-10,-190},{10,-170}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nHp](
     final integerTrue=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,nHp),
     final integerFalse=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,nHp))
     "Convert binary mode signal to Integer mode signals"
-    annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi[nHp]
     "Output mode for 2-pipe and SHC HPs"
-    annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
+    annotation (Placement(transformation(extent={{200,-20},{220,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant isHpShc[nHp,1](
     final k=is_HpShc)
     "Is the heat pump an SHC HP?"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Output Integer signal 1 when both heating plant and cooling plant are enabled"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
     "Output mode signal only when heating-cooling mode is enabled"
-    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.HeatingCooling)
     "Constant Integer signal representing heating-cooling mode"
-    annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
+    annotation (Placement(transformation(extent={{-220,200},{-200,220}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if not in heating-cooling mode"
-    annotation (Placement(transformation(extent={{-114,-160},{-94,-140}})));
+    annotation (Placement(transformation(extent={{-114,-80},{-94,-60}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
     "Output Integer 1 when not in heating-cooling mode"
-    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt1
     "Output heating-only mode signal or cooling-only mode signal when not
     in heating-cooling mode"
-    annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
+    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt
     "Output non-zero mode signal"
-    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
     final nout=nHp)
     "Vectorize mode signal with dimension equal to number of heat pumps"
-    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not have_sorRunTim
     "Switch between two staging orders when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{30,-370},{50,-350}})));
+    annotation (Placement(transformation(extent={{30,-290},{50,-270}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntDir[nEquAlt](
       final k={i for i in 1:nEquAlt}) if not have_sorRunTim
     "Sort components in direct order when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
+    annotation (Placement(transformation(extent={{-10,-310},{10,-290}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntRev[nEquAlt](
       final k={i for i in nEquAlt:-1:1}) if not have_sorRunTim
     "Sort components in reverse order when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{-10,-350},{10,-330}})));
+    annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
     final nout=nEquAlt) if not have_sorRunTim
     "Generate vector with size equal to list of lead-lag equipment"
-    annotation (Placement(transformation(extent={{-50,-370},{-30,-350}})));
+    annotation (Placement(transformation(extent={{-50,-290},{-30,-270}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaModSig[nHp](
     final k=fill(true,nHp)) if have_heaWat and not have_chiWat
     "Constant heating mode signal"
-    annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooModSig[nHp](
     final k=fill(false,nHp)) if not have_heaWat and have_chiWat
     "Constant cooling mode signal"
-    annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nHp]
-    "Left-limit of command signal to break algebraic loop"
-    annotation (Placement(transformation(extent={{190,60},{210,80}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nHp]
-    "Check for HPs in heating-only mode"
-    annotation (Placement(transformation(extent={{-120,220},{-100,240}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre3[nHp]
-    "Left-limit of command signal to break algebraic loop"
-    annotation (Placement(transformation(extent={{20,220},{40,240}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Or or3[nHp]
-    "Check for HPs in heating-only and heating-cooling mode"
-    annotation (Placement(transformation(extent={{-60,220},{-40,240}})));
+    annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nHp]
     "Check for HPs in heating-cooling mode"
-    annotation (Placement(transformation(extent={{100,300},{120,320}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2[nHp]
-    "Check for HPs in cooling-only mode"
-    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Or or4[nHp]
-    "Check for HPs in cooling-only mode or heating-cooling mode"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2[nHp]
-    "Left-limit of command signal to break algebraic loop"
-    annotation (Placement(transformation(extent={{20,130},{40,150}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3[nHp](
-    final k=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,nHp))
-    "Constant Integer signal representing heating mode"
-    annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5[nHp](
-    final k=fill(Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,nHp))
-    "Constant Integer signal representing cooling mode"
-    annotation (Placement(transformation(extent={{-220,160},{-200,180}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and1[nHp]
-    "Check only HPs with simultaneous heating-cooling"
-    annotation (Placement(transformation(extent={{100,220},{120,240}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and3[nHp]
-    "Check only HPs with simultaneous heating-cooling"
-    annotation (Placement(transformation(extent={{100,130},{120,150}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and4[nHp]
-    "Check only enabled HPs"
-    annotation (Placement(transformation(extent={{-20,220},{0,240}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and5[nHp]
-    "Check only enabled HPs"
-    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch latHeaAva[nHp]
-    "Latch that gets enabled when SHC HP is in heating-only mode or heating-cooling mode"
-    annotation (Placement(transformation(extent={{170,210},{190,230}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not2[nHp]
-    "SHC HP is in cooling-only mode"
-    annotation (Placement(transformation(extent={{212,210},{232,230}})));
-
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nHp](
-    final pre_u_start=fill(true,nHp))
-    "Check when SHC HP is disabled"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch latCooAva[nHp]
-    "Latch that gets enabled when SHC HP is in cooling-only mode or heating-cooling mode"
-    annotation (Placement(transformation(extent={{170,130},{190,150}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not3[nHp]
-    "SHC HP is in heating-only mode"
-    annotation (Placement(transformation(extent={{212,130},{232,150}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and6[nHp]
-    "Check for heating-only status only in SHC HP, and output false for all other HPs"
-    annotation (Placement(transformation(extent={{260,130},{280,150}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and7[nHp]
-    "Check for cooling-only status only in SHC HP, and output false for all other HPs"
-    annotation (Placement(transformation(extent={{260,210},{280,230}})));
+    annotation (Placement(transformation(extent={{-80,200},{-60,220}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and8[nHp]
     "Identify heat recovery heat pumps in heating-cooling mode"
-    annotation (Placement(transformation(extent={{200,300},{220,320}})));
+    annotation (Placement(transformation(extent={{20,200},{40,220}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or5[nHp]
     "Check for primary heat pumps already enabled"
-    annotation (Placement(transformation(extent={{120,350},{140,370}})));
+    annotation (Placement(transformation(extent={{-20,290},{0,310}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and9[nHp]
     "Check if primary pump for 4 pipe ASHP is enabled"
-    annotation (Placement(transformation(extent={{260,350},{280,370}})));
+    annotation (Placement(transformation(extent={{260,290},{280,310}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep1(nout=nHp)
-    "Vectorize mode signal with dimnension equal to number of heat pumps"
-    annotation (Placement(transformation(extent={{-120,300},{-100,320}})));
+    "Vectorize mode signal with dimension equal to number of heat pumps"
+    annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and10[nHp]
+    "Extract availability signal for SHC HP"
+    annotation (Placement(transformation(extent={{260,180},{280,200}})));
 
 equation
   connect(and2.y, booScaRep.u)
-    annotation (Line(points={{-198,0},{-180,0},{-180,-260},{-52,-260}},
+    annotation (Line(points={{-198,80},{-180,80},{-180,-180},{-52,-180}},
                                                    color={255,0,255}));
   connect(booScaRep.y, booVecRep.u)
-    annotation (Line(points={{-28,-260},{-12,-260}},
+    annotation (Line(points={{-28,-180},{-12,-180}},
                                                    color={255,0,255}));
   connect(booVecRep.y, swi.u2)
-    annotation (Line(points={{12,-260},{26,-260}},color={255,0,255}));
+    annotation (Line(points={{12,-180},{26,-180}},color={255,0,255}));
 
-  connect(conStaDouMod.y, swi.u1) annotation (Line(points={{12,-230},{20,-230},{
-          20,-252},{26,-252}}, color={0,0,127}));
-  connect(conStaSinMod.y, swi.u3) annotation (Line(points={{12,-290},{20,-290},{
-          20,-268},{26,-268}}, color={0,0,127}));
+  connect(conStaDouMod.y, swi.u1) annotation (Line(points={{12,-150},{20,-150},{
+          20,-172},{26,-172}}, color={0,0,127}));
+  connect(conStaSinMod.y, swi.u3) annotation (Line(points={{12,-210},{20,-210},{
+          20,-188},{26,-188}}, color={0,0,127}));
   connect(booToInt.y, intSwi.u3)
-    annotation (Line(points={{-58,-180},{180,-180},{180,-98},{198,-98}},
+    annotation (Line(points={{-58,-100},{180,-100},{180,-18},{198,-18}},
                                                    color={255,127,0}));
-  connect(and2.y, booToInt1.u) annotation (Line(points={{-198,0},{-180,0},{-180,
-          -90},{-62,-90}},                     color={255,0,255}));
-  connect(and2.y, not1.u) annotation (Line(points={{-198,0},{-180,0},{-180,-150},
-          {-116,-150}},                  color={255,0,255}));
+  connect(and2.y, booToInt1.u) annotation (Line(points={{-198,80},{-180,80},{-180,
+          -10},{-62,-10}},                     color={255,0,255}));
+  connect(and2.y, not1.u) annotation (Line(points={{-198,80},{-180,80},{-180,-70},
+          {-116,-70}},                   color={255,0,255}));
   connect(not1.y, booToInt2.u)
-    annotation (Line(points={{-92,-150},{-82,-150}},
+    annotation (Line(points={{-92,-70},{-82,-70}},
                                                  color={255,0,255}));
   connect(booToInt2.y, mulInt1.u1)
-    annotation (Line(points={{-58,-150},{-40,-150},{-40,-144},{-12,-144}},
+    annotation (Line(points={{-58,-70},{-40,-70},{-40,-64},{-12,-64}},
                                                           color={255,127,0}));
-  connect(booToInt[nHp].y, mulInt1.u2) annotation (Line(points={{-58,-180},{-20,
-          -180},{-20,-156},{-12,-156}},          color={255,127,0}));
+  connect(booToInt[nHp].y, mulInt1.u2) annotation (Line(points={{-58,-100},{-20,
+          -100},{-20,-76},{-12,-76}},            color={255,127,0}));
   connect(addInt.y, intScaRep.u)
-    annotation (Line(points={{102,-80},{118,-80}}, color={255,127,0}));
-  connect(intScaRep.y, intSwi.u1) annotation (Line(points={{142,-80},{180,-80},{
-          180,-82},{198,-82}},                     color={255,127,0}));
-  connect(conIntRev.y, intSwi1.u1) annotation (Line(points={{12,-340},{12,-352},
-          {28,-352}}, color={255,127,0}));
-  connect(conIntDir.y, intSwi1.u3) annotation (Line(points={{12,-380},{12,-378},
-          {28,-378},{28,-368}}, color={255,127,0}));
+    annotation (Line(points={{102,0},{118,0}},     color={255,127,0}));
+  connect(intScaRep.y, intSwi.u1) annotation (Line(points={{142,0},{180,0},{180,
+          -2},{198,-2}},                           color={255,127,0}));
+  connect(conIntRev.y, intSwi1.u1) annotation (Line(points={{12,-260},{12,-272},
+          {28,-272}}, color={255,127,0}));
+  connect(conIntDir.y, intSwi1.u3) annotation (Line(points={{12,-300},{12,-298},
+          {28,-298},{28,-288}}, color={255,127,0}));
   connect(booScaRep1.y, intSwi1.u2)
-    annotation (Line(points={{-28,-360},{28,-360}},  color={255,0,255}));
-  connect(and2.y, booScaRep1.u) annotation (Line(points={{-198,0},{-180,0},{
-          -180,-360},{-52,-360}},                 color={255,0,255}));
-  connect(heaModSig.y, booToInt.u) annotation (Line(points={{-118,-200},{-100,-200},
-          {-100,-180},{-82,-180}},
+    annotation (Line(points={{-28,-280},{28,-280}},  color={255,0,255}));
+  connect(and2.y, booScaRep1.u) annotation (Line(points={{-198,80},{-180,80},{-180,
+          -280},{-52,-280}},                      color={255,0,255}));
+  connect(heaModSig.y, booToInt.u) annotation (Line(points={{-118,-120},{-100,-120},
+          {-100,-100},{-82,-100}},
                                 color={255,0,255}));
-  connect(cooModSig.y, booToInt.u) annotation (Line(points={{-118,-240},{-100,-240},
-          {-100,-180},{-82,-180}},                                      color={
+  connect(cooModSig.y, booToInt.u) annotation (Line(points={{-118,-160},{-100,-160},
+          {-100,-100},{-82,-100}},                                      color={
           255,0,255}));
-  connect(u1EnaHea, and2.u1) annotation (Line(points={{-278,10},{-230,10},{-230,
-          0},{-222,0}},
+  connect(u1EnaHea, and2.u1) annotation (Line(points={{-278,90},{-230,90},{-230,
+          80},{-222,80}},
         color={255,0,255}));
-  connect(u1EnaCoo, and2.u2) annotation (Line(points={{-280,-50},{-230,-50},{
-          -230,-8},{-222,-8}},                         color={255,0,255}));
-  connect(intEqu.y, or3.u1)
-    annotation (Line(points={{-98,230},{-62,230}}, color={255,0,255}));
-  connect(intEqu1.y, or3.u2) annotation (Line(points={{122,310},{132,310},{132,248},
-          {-72,248},{-72,222},{-62,222}},
-                           color={255,0,255}));
-  connect(intEqu2.y, or4.u1)
-    annotation (Line(points={{-98,160},{-68,160},{-68,140},{-62,140}},
-                                                   color={255,0,255}));
-  connect(pre1.y, and1.u2) annotation (Line(points={{212,70},{220,70},{220,52},{
-          92,52},{92,222},{98,222}},           color={255,0,255}));
-  connect(pre1.y, and3.u2) annotation (Line(points={{212,70},{220,70},{220,52},{
-          92,52},{92,132},{98,132}},           color={255,0,255}));
-  connect(or3.y, and4.u1)
-    annotation (Line(points={{-38,230},{-22,230}}, color={255,0,255}));
-  connect(and4.y, pre3.u)
-    annotation (Line(points={{2,230},{18,230}}, color={255,0,255}));
-  connect(or4.y, and5.u1)
-    annotation (Line(points={{-38,140},{-22,140}}, color={255,0,255}));
-  connect(and5.y, pre2.u)
-    annotation (Line(points={{2,140},{18,140}},    color={255,0,255}));
-  connect(pre3.y, and1.u1)
-    annotation (Line(points={{42,230},{98,230}}, color={255,0,255}));
-  connect(pre2.y, and3.u1) annotation (Line(points={{42,140},{98,140}},
-                 color={255,0,255}));
-  connect(latHeaAva.y, not2.u)
-    annotation (Line(points={{192,220},{210,220}}, color={255,0,255}));
-  connect(and1.y, latHeaAva.u) annotation (Line(points={{122,230},{156,230},{156,
-          220},{168,220}}, color={255,0,255}));
-  connect(falEdg.y, latHeaAva.clr) annotation (Line(points={{62,60},{140,60},{140,
-          214},{168,214}}, color={255,0,255}));
-  connect(latCooAva.y, not3.u)
-    annotation (Line(points={{192,140},{210,140}}, color={255,0,255}));
-  connect(and3.y, latCooAva.u)
-    annotation (Line(points={{122,140},{168,140}}, color={255,0,255}));
-  connect(falEdg.y, latCooAva.clr) annotation (Line(points={{62,60},{140,60},{140,
-          134},{168,134}}, color={255,0,255}));
-  connect(not3.y, and6.u1) annotation (Line(points={{234,140},{258,140}},
-                      color={255,0,255}));
-  connect(pre1.y, and6.u2) annotation (Line(points={{212,70},{250,70},{250,132},
-          {258,132}},  color={255,0,255}));
-  connect(not2.y, and7.u1) annotation (Line(points={{234,220},{258,220}},
-                                                  color={255,0,255}));
-  connect(pre1.y, and7.u2) annotation (Line(points={{212,70},{250,70},{250,212},
-          {258,212}},  color={255,0,255}));
-  connect(intEqu1.y, and8.u1) annotation (Line(points={{122,310},{198,310}},
+  connect(u1EnaCoo, and2.u2) annotation (Line(points={{-280,30},{-230,30},{-230,
+          72},{-222,72}},                              color={255,0,255}));
+  connect(intEqu1.y, and8.u1) annotation (Line(points={{-58,210},{18,210}},
                                                                    color={255,0,
           255}));
-  connect(intEqu1.y, or4.u2) annotation (Line(points={{122,310},{132,310},{132,248},
-          {-72,248},{-72,132},{-62,132}},
-                      color={255,0,255}));
-  connect(intScaRep1.y, intEqu1.u2)
-    annotation (Line(points={{-98,310},{80,310},{80,302},{98,302}},
-                                                   color={255,127,0}));
-  connect(conInt.y, intScaRep1.u) annotation (Line(points={{-198,130},{-170,130},
-          {-170,310},{-122,310}},
+  connect(conInt.y, intScaRep1.u) annotation (Line(points={{-198,210},{-142,210}},
                            color={255,127,0}));
-  connect(conInt3.y, intEqu.u1)
-    annotation (Line(points={{-198,230},{-122,230}},
-                                                   color={255,127,0}));
-  connect(swi.y, yStaEqu) annotation (Line(points={{50,-260},{340,-260}},
+  connect(swi.y, yStaEqu) annotation (Line(points={{50,-180},{340,-180}},
                       color={0,0,127}));
-  connect(mulInt1.y, addInt.u2) annotation (Line(points={{12,-150},{60,-150},{60,
-          -86},{78,-86}},  color={255,127,0}));
+  connect(mulInt1.y, addInt.u2) annotation (Line(points={{12,-70},{60,-70},{60,-6},
+          {78,-6}},        color={255,127,0}));
   connect(mulInt.y, addInt.u1)
-    annotation (Line(points={{12,-70},{12,-74},{78,-74}},  color={255,127,0}));
-  connect(uMod, booToInt.u) annotation (Line(points={{-280,-180},{-82,-180}},
+    annotation (Line(points={{12,10},{12,6},{78,6}},       color={255,127,0}));
+  connect(uMod, booToInt.u) annotation (Line(points={{-280,-100},{-82,-100}},
                                                            color={255,0,255}));
   connect(intSwi.y, yMod)
-    annotation (Line(points={{222,-90},{340,-90}}, color={255,127,0}));
-  connect(and7.y,yAvaHpShcHea)
-    annotation (Line(points={{282,220},{340,220}}, color={255,0,255}));
-  connect(u1Hp, falEdg.u)
-    annotation (Line(points={{-280,60},{38,60}},     color={255,0,255}));
-  connect(u1Hp, and5.u2) annotation (Line(points={{-280,60},{-30,60},{-30,132},{
-          -22,132}},              color={255,0,255}));
-  connect(u1Hp, and4.u2) annotation (Line(points={{-280,60},{-30,60},{-30,222},{
-          -22,222}},              color={255,0,255}));
-  connect(and6.y,yAvaHpShcCoo)
-    annotation (Line(points={{282,140},{340,140}}, color={255,0,255}));
-  connect(and9.y, y1PumPri) annotation (Line(points={{282,360},{340,360}},
+    annotation (Line(points={{222,-10},{340,-10}}, color={255,127,0}));
+  connect(and9.y, y1PumPri) annotation (Line(points={{282,300},{340,300}},
         color={255,0,255}));
   connect(and2.y, yHeaCoo)
-    annotation (Line(points={{-198,0},{340,0}},     color={255,0,255}));
+    annotation (Line(points={{-198,80},{340,80}},   color={255,0,255}));
   connect(intSwi1.y, yIdxSta)
-    annotation (Line(points={{52,-360},{340,-360}}, color={255,127,0}));
-  connect(u1PumPriCoo, or5.u1) annotation (Line(points={{-278,380},{100,380},{100,
-          360},{118,360}}, color={255,0,255}));
-  connect(u1PumPriHea, or5.u2) annotation (Line(points={{-280,340},{100,340},{100,
-          352},{118,352}}, color={255,0,255}));
-  connect(intSwi.y, intEqu1.u1) annotation (Line(points={{222,-90},{240,-90},{240,
-          270},{92,270},{92,310},{98,310}}, color={255,127,0}));
-  connect(intSwi.y, intEqu.u2) annotation (Line(points={{222,-90},{240,-90},{240,
-          270},{-148,270},{-148,222},{-122,222}}, color={255,127,0}));
-  connect(conInt5.y, intEqu2.u1) annotation (Line(points={{-198,170},{-132,170},
-          {-132,160},{-122,160}}, color={255,127,0}));
-  connect(intSwi.y, intEqu2.u2) annotation (Line(points={{222,-90},{240,-90},{240,
-          270},{-148,270},{-148,152},{-122,152}}, color={255,127,0}));
-  connect(booToInt1.y, mulInt.u2) annotation (Line(points={{-38,-90},{-32,-90},{
-          -32,-76},{-12,-76}}, color={255,127,0}));
-  connect(conInt.y, mulInt.u1) annotation (Line(points={{-198,130},{-170,130},{-170,
-          -64},{-12,-64}}, color={255,127,0}));
-  connect(and8.y, and9.u2) annotation (Line(points={{222,310},{240,310},{240,352},
-          {258,352}}, color={255,0,255}));
+    annotation (Line(points={{52,-280},{340,-280}}, color={255,127,0}));
+  connect(u1PumPriCoo, or5.u1) annotation (Line(points={{-278,320},{-32,320},{-32,
+          300},{-22,300}}, color={255,0,255}));
+  connect(u1PumPriHea, or5.u2) annotation (Line(points={{-280,280},{-30,280},{-30,
+          292},{-22,292}}, color={255,0,255}));
+  connect(booToInt1.y, mulInt.u2) annotation (Line(points={{-38,-10},{-32,-10},{
+          -32,4},{-12,4}},     color={255,127,0}));
+  connect(conInt.y, mulInt.u1) annotation (Line(points={{-198,210},{-170,210},{-170,
+          16},{-12,16}},   color={255,127,0}));
+  connect(and8.y, and9.u2) annotation (Line(points={{42,210},{80,210},{80,292},{
+          258,292}},  color={255,0,255}));
   connect(or5.y, and9.u1)
-    annotation (Line(points={{142,360},{258,360}}, color={255,0,255}));
-  connect(isHpShc[:, 1].y, intSwi.u2) annotation (Line(points={{82,-40},{160,-40},
-          {160,-90},{198,-90}}, color={255,0,255}));
-  connect(isHpShc[:, 1].y, pre1.u) annotation (Line(points={{82,-40},{160,-40},{
-          160,70},{188,70}}, color={255,0,255}));
-  connect(isHpShc[:, 1].y, and8.u2) annotation (Line(points={{82,-40},{160,-40},
-          {160,302},{198,302}}, color={255,0,255}));
+    annotation (Line(points={{2,300},{258,300}},   color={255,0,255}));
+  connect(isHpShc[:, 1].y, intSwi.u2) annotation (Line(points={{82,40},{160,40},
+          {160,-10},{198,-10}}, color={255,0,255}));
+  connect(isHpShc[:, 1].y, and8.u2) annotation (Line(points={{82,40},{160,40},{160,
+          190},{12,190},{12,202},{18,202}},
+                                color={255,0,255}));
+  connect(and10.y, yAvaHpShcHea) annotation (Line(points={{282,190},{308,190},{308,
+          220},{340,220}},     color={255,0,255}));
+  connect(and10.y, yAvaHpShcCoo) annotation (Line(points={{282,190},{308,190},{308,
+          160},{340,160}},   color={255,0,255}));
+  connect(intSwi.y, intEqu1.u2) annotation (Line(points={{222,-10},{232,-10},{232,
+          84},{-92,84},{-92,202},{-82,202}},   color={255,127,0}));
+  connect(intScaRep1.y, intEqu1.u1)
+    annotation (Line(points={{-118,210},{-82,210}}, color={255,127,0}));
+  connect(isHpShc[:, 1].y, and10.u1) annotation (Line(points={{82,40},{160,40},{
+          160,190},{258,190}},  color={255,0,255}));
+  connect(u1HpAva, and10.u2) annotation (Line(points={{-280,140},{240,140},{240,
+          182},{258,182}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctlPlaHyb",
     Icon(
@@ -521,51 +381,49 @@ equation
           textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
-        extent={{-260,-400},{320,400}})),
+        extent={{-260,-340},{320,340}})),
     Documentation(
       info="<html>
 <p>
-Block that manages custom calculations for integrating heat pump with simultaneous
-heating-cooling(SHC HP) with multiple modular single-mode heat pumps to create a
-hybrid heat pump plant.
+Block that manages custom calculations for integrating a simultaneous
+heating-cooling heat pump (SHC HP) with multiple modular single-mode heat pumps
+to create a hybrid heat pump plant.
 </p>
-<p>
 <ul>
 <li>
 In heating and cooling mode operation of the plant, the modular single-mode heat
-pumps shall nelead-lag controlled per the definitions in 
+pumps shall be lead-lag controlled as defined in 
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime\">
 Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime</a>.
 </li>
 <li>
 In simultaneous heating-cooling mode, the SHC HP shall operate in Stage 1 for both
 plants.  Else it shall operate in the highest capacity stage and the modular HPs
-shall operate in the lower capacity stages based on lead/lag order.
+shall operate in the lower capacity stages based on lead-lag order.
 </li>
 </ul>
 <h4>Details</h4>
 <p>
 The implemented module manages the following functions.
+</p>
 <ul>
 <li>
 Uses the heating plant enable <code>u1EnaHea</code> and cooling plant enable
 <code>u1EnaCoo</code> signals to determine operation mode <code>yMod</code>
 (heating-only, cooling-only, or heating-cooling) for the SHC HP. This also influences
-the staging order <code>yStaEqu</code> and the equipment rotation index signal
+the staging order <code>yStaEqu</code>, the equipment rotation index signal
 <code>yIdxSta</code>.
 </li>
 <li>
-Modifies the availability status vectors <code>yAvaHpShcCoo</code> and
-<code>yAvaHpShcHea</code> to indicate availability of heating-cooling mode in
-SHC HP, even if it is currently enabled in heating-only mode or cooling-only
-mode, respectively.
+Generates the availability status vectors <code>yAvaHpShcCoo</code> and
+<code>yAvaHpShcHea</code> to indicate availability of the SHC HP, which can operate
+without a cooldown period between mode changes.
 </li>
 <li>
 Identifies primary pump operation status for SHC HP, and manages enable status
 as required between the three operation modes.
 </li>
 </ul>
-</p>
 <p>
 The block first checks if both heating and cooling plants are enabled
 using an <i>and</i> gate (<code>and2</code>).
@@ -574,15 +432,13 @@ and selects the staging matrix <code>staEquDouMod</code> via a switch (<code>swi
 Otherwise, it uses <code>staEquSinMod</code> for single-mode operation.
 </p>
 <p>
-The latches (<code>latHeaAva</code> and <code>latCooAva</code>) are used to indicate
-whether the SHC HP is still made available to the cooling plant staging if
-its in heating-only mode, and vice versa. The primary pump enable <code>y1PumPri</code>
-activates when the SHC primary pump is enabled in heating-cooling mode (<code>and9</code>).
+The primary pump enable <code>y1PumPri</code> activates when the SHC primary pump
+is enabled in heating-cooling mode (<code>and9</code>).
 </p>
 <p>
 Staging indices <code>yIdxSta</code> are generated without sorting by switching
-between direct (<code>conInt1</code>) and reverse (<code>conInt2</code>) orders
-if <code>has_sort=false</code>.
+between direct (<code>conIntDir</code>) and reverse (<code>conIntRev</code>) orders
+if <code>have_sorRunTim=false</code>.
 The final staging matrix <code>yStaEqu</code> outputs the required staging order
 based on the plant operation mode.
 </p>
@@ -598,7 +454,7 @@ for the associated requirements.
 </html>", revisions="<html>
 <ul>
 <li>
-July 29, 2025, by Karthik Devaprasad:<br/>
+<i>July 29, 2025</i>, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
