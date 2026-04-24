@@ -61,7 +61,7 @@ createPlot(
 createPlot(
 	id=3,
 	position={615, 5, 300, 496},
-	y={"pla.ctl.ctl.y1Hp[1]", "pla.ctl.ctl.y1Hp[2]", "pla.ctl.ctl.y1HpFouPip"},
+	y={"pla.ctl.ctl.y1Hp[1]", "pla.ctl.ctl.y1Hp[2]", "pla.ctl.ctl.y1HpShc"},
 	range={0.0, 25.0, -0.5, 1.5},
 	grid=true,
 	subPlot=101,
@@ -90,7 +90,7 @@ createPlot(id=3,
 createPlot(
 	id=4,
 	position={920, 5, 300, 596},
-	y={"pla.ctl.ctl.y1PumHeaWatPri[1]", "pla.ctl.ctl.y1PumHeaWatPri[2]", "pla.ctl.ctl.y1PumHeaWatPriFouPip", "pla.ctl.ctl.y1PumChiWatPriFouPip"},
+	y={"pla.ctl.ctl.y1PumHeaWatPri[1]", "pla.ctl.ctl.y1PumHeaWatPri[2]", "pla.ctl.ctl.y1PumHeaWatPriShc", "pla.ctl.ctl.y1PumChiWatPriShc"},
 	range={0.0, 25.0, -0.5, 1.5},
 	grid=true,
 	subPlot=101,
