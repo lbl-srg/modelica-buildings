@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Data;
-record YorkCalc "Performance data record for a dry cooler"
+record YorkCalc "Performance data record for a wet cooling cooler using the York calculation method"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.Data.BaseClasses.BaseCoolingTower(
     TCooIn_nominal = 273.15 + 35,
     TCooOut_nominal = 273.15 + 29.44,
