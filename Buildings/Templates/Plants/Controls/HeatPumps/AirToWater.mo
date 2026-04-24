@@ -486,7 +486,7 @@ block AirToWater
     each final max=1,
     each final min=0,
     each final unit="1")=staEqu
-    "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
+    "Staging matrix for heating-only and cooling-only mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
   final parameter Real staEquTem[:,:]=if have_HpShc then staEquSinMod else staEqu
@@ -2219,9 +2219,6 @@ equation
           100},{-80,-40},{36,-40},{36,-90},{58,-90}}, color={255,0,255}));
   connect(enaHea.y1, ctlPlaHyb.u1EnaHea) annotation (Line(points={{-88,360},{-84,
           360},{-84,-94},{58,-94}}, color={255,0,255}));
-  connect(y1HpPre.y, ctlPlaHyb.u1Hp) annotation (Line(points={{178,380},{-160,380},
-          {-160,-8},{-64,-8},{-64,-98},{58,-98}},
-                                                color={255,0,255}));
   connect(seqEve.y1Hea, ctlPlaHyb.uMod) annotation (Line(points={{162,308},{176,
           308},{176,-44},{124,-44},{124,-104},{92,-104},{92,-124},{52,-124},{52,
           -102},{58,-102}}, color={255,0,255}));
@@ -2359,6 +2356,8 @@ end if;
           {232,200},{232,20},{212,20}}, color={255,0,255}));
   connect(pasPumHeaWatPri.y, ctlPumPri.u1PumHeaWatPri) annotation (Line(points={
           {188,20},{172,20},{172,96},{188,96}}, color={255,0,255}));
+  connect(u1AvaHp.y, ctlPlaHyb.u1HpAva) annotation (Line(points={{-198,220},{
+          -176,220},{-176,130},{-64,130},{-64,-98},{58,-98}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl",
     Icon(
@@ -2384,12 +2383,13 @@ end if;
 This block implements the sequence of operation for plants with
 air-to-water heat pumps.
 Most parts of the sequence of operation are similar to that
-described in ASHRAE, 2021 for chiller plants.
+described in <a href=\"#ASHRAE2021\">ASHRAE, 2021</a> for chiller plants.
 </p>
 <p>
-The supported plant configurations are enumerated in the table below.<br/>
+The supported plant configurations are enumerated in the table below.
 </p>
-<table summary=\"summary\" border=\"1\">
+<table summary=\"Supported plant configurations for air-to-water heat pump plants\"
+border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
 <tr><td>Function</td>
 <td>
@@ -2398,6 +2398,7 @@ Heating-only<br/>
 Cooling-only
 </td>
 <td>
+-
 </td>
 </tr>
 <tr><td>Heat recovery</td>
@@ -2411,6 +2412,19 @@ When selected, the plant controller incorporates logic to manage a chiller
 and its associated dedicated primary CHW and CW pumps.
 The chiller is considered connected in a sidestream configuration to both
 the CHW return and the HW return.
+</td>
+</tr>
+<tr><td>Hybrid plant</td>
+<td>
+Without simultaneous heating-cooling heat pump (SHC HP)<br/>
+With SHC HP
+</td>
+<td>
+This option is only available for heating and cooling plants.
+When selected, the plant controller incorporates logic to manage a heat pump with
+simultaneous heating-cooling operation and its associated dedicated primary CHW
+and HW pumps. The SHC HP is considered connected to both the CHW supply and the
+HW supply.
 </td>
 </tr>
 <tr><td>Type of distribution</td>
@@ -2484,7 +2498,8 @@ Constant speed
 </table>
 <h4>Details</h4>
 <p>
-A staging matrix <code>staEqu</code> is required as a parameter.
+Staging matrices <code>staEqu</code>, <code>staEquSinMod</code> and <code>staEquDouMod</code>
+are required parameters, with the latter two being required for a hybrid plant.
 See the documentation of
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
@@ -2506,26 +2521,30 @@ It is therefore assumed that any equipment is available at all times.
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2021\">
-ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
-for HVAC Systems. Atlanta, GA.
+ASHRAE, 2021. <i>Guideline 36-2021, High-Performance Sequences of Operation for
+HVAC Systems</i>. Atlanta, GA.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-January 23, 2025, by Antoine Gautier:<br/>
+<i>April 22, 2026</i>, by Karthik Devaprasad:<br/>
+Integrated module for hybrid plant operation and added interfaces and parameters as required.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4304\">#4304</a>.
+</li>
+<i>January 23, 2025</i>, by Antoine Gautier:<br/>
 Refactored to use \"required to run\" conditions in the equipment availability logic.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">#4432</a>.
 </li>
 <li>
-May 31, 2024, by Antoine Gautier:<br/>
+<i>May 31, 2024</i>, by Antoine Gautier:<br/>
 Added sidestream heat recovery chiller, primary-only pumping and
 failsafe staging conditions.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
 </li>
 <li>
-March 29, 2024, by Antoine Gautier:<br/>
+<i>March 29, 2024</i>, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

@@ -206,17 +206,17 @@ block EquipmentEnable
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
     final k=traStaEquDouMod) if have_HpShc
-    "Constant signal for tranverse of staging equation matrix in heating-cooling mode"
+    "Constant signal for transverse of staging equation matrix in heating-cooling mode"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
     final k=traStaEquSinMod) if have_HpShc
-    "Constant signal for tranverse of staging equation matrix in single-operation mode"
+    "Constant signal for transverse of staging equation matrix in single-operation mode"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
     final k=traStaEqu) if not have_HpShc
-    "Constant signal for tranverse of staging equation matrix in non-hybrid plants"
+    "Constant signal for transverse of staging equation matrix in non-hybrid plants"
     annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
@@ -390,8 +390,8 @@ equipment, sorted by increasing staging runtime.
 </p>
 <p>
 Staging matrices <code>staEqu</code>, <code>staEquSinMod</code> and
-<code>staEquDouMod</code> are required parameters. The following description holds
-true for all three parameters.
+<code>staEquDouMod</code> are required parameters. The following rules apply to
+all three of them.
 </p>
 <ul>
 <li>Each row of this matrix corresponds to a given stage.</li>
@@ -425,19 +425,89 @@ is required for all <code>i &lt; size(staEqu, 1)</code>.
 </li>
 </ul>
 <p>
-The state of the enable signals is only updated at stage change, or
-if the number of previously enabled equipment that is available is
-strictly less than the number of equipment required to run.
+The state of the enable signals is only updated at stage change, or if the plant
+enters simultaneous heating-cooling operation (valid only for heat pump staging
+operations in plants with heating and cooling), or if the number of previously
+enabled equipment that is available is strictly less than the number of equipment
+required to run.
 This avoids hot swapping equipment, e.g., an equipment would not be started
 and another stopped during operation just to fulfill the priority order.
 However, when a lead/lag alternate equipment becomes unavailable and another
 lead/lag alternate equipment can be enabled to meet the number of required
 equipment, then the state of the enable signals is updated.
 </p>
+<h4>Details</h4>
+<p>
+For each equipment item <i>i</i>, the enable command is determined as
+follows.
+</p>
+<p>
+The staging matrix (or its transpose) encodes which equipment items are
+required at each stage. From the extracted row for the current stage, three Boolean
+conditions are derived for each equipment item <i>i</i>:
+</p>
+<ul>
+<li>
+<code>isReq</code>: the staging row value equals exactly 1, meaning equipment
+<i>i</i> is required without a lead/lag alternate.
+</li>
+<li>
+<code>isReqPosAlt</code>: the staging row value is greater than zero, meaning
+equipment <i>i</i> is required either directly or as a potential
+lead/lag alternate.
+</li>
+<li>
+<code>isNotReqNoAlt</code>: the staging row value is less than 1, meaning
+equipment <i>i</i> is either not required or is only a candidate
+lead/lag alternate.
+</li>
+</ul>
+<p>
+Equipment that is directly required (<code>isReq</code> is true) and available
+(<code>u1Ava</code> is true) is enabled via <code>isReqAva</code>.
+</p>
+<p>
+For lead/lag alternate equipment, the number of alternates needed to
+satisfy the stage requirement is computed as:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+n<sub>alt,req</sub> = n<sub>equ,sta</sub> &minus; n<sub>req</sub>
+</p>
+<p>
+where <i>n<sub>equ,sta</sub></i> is the total number of equipment
+required at the current stage (summed from the staging row via
+<code>nEquStaRea</code> and converted by <code>nEquSta</code>) and
+<i>n<sub>req</sub></i> is the count of equipment directly required
+without a lead/lag alternate (counted by <code>nReq</code>).
+The block <code>truArrCon</code>
+(<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional\">
+Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional</a>)
+then generates a Boolean array that marks the
+first <i>n<sub>alt,req</sub></i> available lead/lag alternate equipment
+items according to the sorted runtime order supplied by
+<code>uIdxAltSor</code>.
+An alternate equipment item is enabled when it is a candidate
+(<i>isReqPosAlt</i> and <i>isNotReqNoAlt</i>), available
+(<code>u1Ava</code>), and selected by <code>truArrCon</code>; this
+combined condition is evaluated by <code>isReqAltAva</code> and
+<code>isReqAltAvaNee</code>.
+</p>
+<p>
+The final enable command for each equipment item is the logical OR of
+the two paths:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+y1<sub>i</sub> = isReqAva<sub>i</sub> or isReqAltAvaNee<sub>i</sub>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2024, by Antoine Gautier:<br/>
+<i>April 22, 2026</i>, by Karthik Devaprasad:<br/>
+Adapted for heat pump staging in hybrid plants. Added details about module logic.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4304\">#4304</a>.
+</li>
+<li>
+<i>March 29, 2024</i>, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

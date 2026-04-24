@@ -479,12 +479,10 @@ The plant equipment is staged in part based on required capacity, <i>Qrequired</
 relative to nominal capacity of a given stage, <i>Qstage</i>. 
 This ratio is the operative part load ratio, <i>OPLR</i>.
 </p>
+<p align=\"center\" style=\"font-style:italic;\">OPLR = Qrequired / Qstage</p>
 <p>
-<i>OPLR = Qrequired / Qstage</i>
-</p>
-<p>
-If both primary and secondary hot water temperatures and flow rates are available, 
-the sensors in the primary loop are used for calculating <i>Qrequired</i>. 
+If both primary-loop and secondary-loop hot water temperature and flow rate sensors
+are available, the sensors in the primary loop are used for calculating <i>Qrequired</i>.
 If a heat recovery chiller is piped into the secondary return, the sensors in the 
 primary loop are used.
 (These conditions are implemented in
@@ -510,6 +508,24 @@ and the duration <code>dtRun</code>.
 <p>
 The nominal capacity of a given stage, <i>Qstage</i>, is calculated 
 as the sum of the design capacities of all units enabled in a given stage.
+</p>
+<p>
+The staging order will use one of <code>staEqu</code>, <code>staEquSinMod</code>
+and <code>staEquDouMod</code> as follows:
+<ul>
+<li>
+<code>staEqu</code> is used in plants with no simultaneous heating-cooling heat
+pump (SHC HP).
+</li>
+<li>
+<code>staEquSinMod</code> is used in plants with an SHC HP when it is operating in
+heating-only mode or cooling-only mode.
+</li>
+<li>
+<code>staEquDouMod</code> is used in plants with an SHC HP when it is operating in
+heating-cooling mode.
+</li>
+</ul>
 </p>
 <p>
 Staging is executed per the conditions below subject to the following requirements.
@@ -542,7 +558,8 @@ The availability condition is not subject to the minimum stage runtime requireme
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.)
 </li>
 <li>
-Efficiency condition: Current stage <i>OPLR &gt; plrSta</i> for a duration of <code>dtRun</code>.
+Efficiency condition: Current stage <i>OPLR</i> &gt; <code>plrSta</code> for a
+duration of <code>dtRun</code>.
 </li>
 <li>
 Failsafe condition: see 
@@ -555,7 +572,8 @@ A stage down command is triggered if both of the following are true:
 </p>
 <ul>
 <li>
-Next available lower stage <i>OPLR &lt; plrSta</i> for a duration of <code>dtRun</code>.
+Next available lower stage <i>OPLR</i> &lt; <code>plrSta</code> for a duration of
+<code>dtRun</code>.
 </li>
 <li>
 The failsafe stage up condition is not true.
@@ -565,11 +583,12 @@ The failsafe stage up condition is not true.
 Details
 </h4>
 <p>
-A staging matrix <code>staEqu</code> is required as a parameter. 
+Staging matrices <code>staEqu</code>, <code>staEquSinMod</code> and <code>staEquDouMod</code>
+are required parameters. 
 See the documentation of 
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
-for the associated definition and requirements.
+for the associated definitions and requirements.
 </p>
 <p>
 An \"if\" condition is used to generate the stage up and down command as opposed
@@ -585,11 +604,16 @@ of <code>dtRun</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 31, 2024, by Antoine Gautier:<br/>
+<i>April 23, 2026</i>, by Karthik Devaprasad:<br/>
+Adapted for hybrid heat pump plant operation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4304\">#4304</a>.
+</li>
+<li>
+<i>May 31, 2024</i>, by Antoine Gautier:<br/>
 Refactored using <code>LoadAverage</code> block and added failsafe condition.
 </li>
 <li>
-March 29, 2024, by Antoine Gautier:<br/>
+<i>March 29, 2024</i>, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

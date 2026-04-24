@@ -10,10 +10,10 @@ block EventSequencing "Staging event sequencing"
     "Is the plant a hybrid heat pump plant?"
     annotation (Evaluate=true);
   parameter Boolean have_valInlIso
-    "Set to true if the system as inlet isolation valves"
+    "Set to true if the system has inlet isolation valves"
     annotation (Evaluate=true);
   parameter Boolean have_valOutIso
-    "Set to true if the system as outlet isolation valves"
+    "Set to true if the system has outlet isolation valves"
     annotation (Evaluate=true);
   parameter Boolean have_pumHeaWatPri(start=false)
     "Set to true for plants with primary HW pumps"
@@ -395,7 +395,7 @@ The heat pump is disabled.
 </li>
 <li>
 After the time required for the internal shutdown cycle to time out 
-(<code>dtOff</code> to be determined empirically, defaulting to <i>3</i>&nbsp;min),
+(<code>dtOff</code> to be determined empirically, defaulting to 3&nbsp;min),
 all isolation valves are commanded closed.
 </li>
 <li>
@@ -410,10 +410,20 @@ The headered primary pumps are commanded off as described in
 Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered</a>.
 </li>
 </ul>
+<h4>Details</h4>
+<p>Filters <code>truDelHea</code> and <code>truDelCoo</code> have been added to
+filter errant stage change signals that have been observed to sometimes coincide
+with the plant entering heating-cooling mode, which results in modular HP isolation
+valves openign incorrecty.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2024, by Antoine Gautier:<br/>
+<i>April 23, 2026</i>, by Karthik Devaprasad:<br/>
+Adapted for hybrid heat pump plant operation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4304\">#4304</a>.
+</li>
+<li>
+<i>March 29, 2024</i>, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
