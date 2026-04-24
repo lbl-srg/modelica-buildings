@@ -124,6 +124,8 @@ protected
     dat.TAirIn_nominal - abs(dat.Q_flow_nominal) / CAir_flow_nominal
     "Nominal leaving air drybulb temperature";
 
+  Real corUAFreCon "Correction for UA value in free convection regime";
+
 initial equation
   assert(eps_nominal > 0 and eps_nominal < 1,
     "eps_nominal out of bounds, eps_nominal = " + String(eps_nominal) +
@@ -148,7 +150,13 @@ equation
   // Determine the airflow based on fan speed signal
   mAir_flow = y*mAir_flow_nominal;
 
-  UA = UA_nominal;
+  UA = UA_nominal*corUAFreCon;
+  // Reduction of UA value in free convection regime
+  corUAFreCon = Buildings.Utilities.Math.Functions.spliceFunction(
+    pos=1,
+    neg=dat.fraFreCon,
+    x=y - yMin + yMin/20,
+    deltax=yMin/20);
 
   // Capacity for air and water
   CAir_flow =abs(mAir_flow)*cpAir_nominal;

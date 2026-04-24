@@ -34,11 +34,13 @@ record BaseCoolingTower
   parameter Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan fanRelPow(
     r_V={0, 0.1,   0.3,   0.6,   1},
     r_P={0, 0.1^3, 0.3^3, 0.6^3, 1})
-    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
-    annotation (
-    choicesAllMatching=true,
-    Placement(transformation(extent={{58,70},{78,90}})),
-    Dialog(group="Fan"));
+    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)";
+
+  parameter Real fraFreCon(
+    min=0,
+    max=1,
+    final unit="1") = 0.125
+    "Fraction of tower capacity in free convection regime";
 
   annotation (
     defaultComponentName="dat",

@@ -12,13 +12,6 @@ record YorkCalc "Performance data record for a dry cooler"
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Nominal thermal performance"));
 
-  parameter Real fraFreCon(
-    min=0,
-    max=1,
-    final unit="1") = 0.125
-    "Fraction of tower capacity in free convection regime";
-
-
   annotation (
     defaultComponentName="dat",
     defaultComponentPrefixes="parameter",

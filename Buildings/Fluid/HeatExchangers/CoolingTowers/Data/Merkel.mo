@@ -16,11 +16,6 @@ record Merkel
   parameter BaseClasses.UAMerkel UACor
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  parameter Real fraFreCon(
-    min=0,
-    max=1,
-    final unit="1") = 0.125 "Fraction of tower capacity in free convection regime";
-
   annotation (
     defaultComponentName="dat",
     defaultComponentPrefixes="parameter",

@@ -3,10 +3,8 @@ model DryCooler
   "Test model for dry cooler using epsilon-NTU heat transfer correlation"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare CoolingTowers.DryCooler tow(
-      dat=dat),
-    weaDat(
-      final computeWetBulbTemperature=false));
+    redeclare CoolingTowers.DryCooler tow(dat=dat),
+    weaDat(final computeWetBulbTemperature=false));
 
   parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat(
     Q_flow_nominal=-m_flow_nominal*4200*(35 - 30),

@@ -4,8 +4,7 @@ model DryCooler "Cooling tower model based on epsilon-NTU relation"
     final PFan_nominal=dat.PFan_nominal,
     final m_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
     final dp_nominal = dat.dp_nominal,
-    final fanRelPow = dat.fanRelPow,
-    final yMin = 0.05 "Forced vs free convection is not used in this model");
+    final fanRelPow = dat.fanRelPow);
   parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler dat "Performance data record" annotation(
     Placement(transformation(extent={{-14,68},{6,88}})));
 
