@@ -20,9 +20,11 @@ record YorkCalc "Performance data record for a dry cooler"
 Performance data record for a wet cooling cooler using the York calculation methods.
 </p>
 <p>
-The default settings are for a cooler with a design approach temperature (cooling out - air wet bulb in) of <i>3.89</i> K and
+The default settings are for a cooler with a design approach temperature
+(cooling out - air wet bulb in) of <i>3.89</i> K and
 a design range temperature (cooling in - cooling out) of <i>5.56</i> K.
-This corresponds to a nominal water inlet temperature of <i>35</i> &deg;C and a nominal water outlet temperature of <i>29.44</i> &deg;C.
+This corresponds to a nominal water inlet temperature of <i>35</i> &deg;C and
+a nominal water outlet temperature of <i>29.44</i> &deg;C.
 </p>
 </html>", revisions="<html>
 <ul>

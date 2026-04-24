@@ -21,7 +21,7 @@ record BaseCoolingTower
     "Pressure difference at design mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Real ratCooAir_nominal(min=0, unit="1")
-    "Water-to-air mass flow rate ratio at design condition, used to compute air flow for UA_value"
+    "Coolant-to-air mass flow rate ratio at design condition, used to compute air flow rate for UA_value"
     annotation (Dialog(group="Nominal thermal performance"));
 
   parameter Real PFan_Q_flow_nominal(min=-0.1, max=0, unit="1") = -0.05
