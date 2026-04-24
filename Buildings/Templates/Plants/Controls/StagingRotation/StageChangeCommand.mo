@@ -3,6 +3,9 @@ block StageChangeCommand "Generate stage change command"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
+  parameter Boolean have_HpShc=false
+    "True: The logic block is used in a hybrid heat pump plant"
+    annotation (Evaluate=true);
   parameter Boolean have_pumSec
     "Set to true for primary-secondary distribution, false for primary-only"
     annotation (Evaluate=true);
@@ -16,8 +19,45 @@ block StageChangeCommand "Generate stage change command"
     unit="1")=0.9
     "Staging part load ratio"
     annotation (Dialog(enable=not have_inpPlrSta));
-  final Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
-    "Transpose of staging matrix";
+
+  parameter Real staEqu[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for non-hybrid plant – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=not have_HpShc));
+
+  parameter Real staEquSinMod[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for hybrid plant in single-operation mode – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=have_HpShc));
+
+  parameter Real staEquDouMod[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for hybrid plant in heating-cooling mode – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=have_HpShc));
+
+  final parameter Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for non-hybrid plant"
+    annotation (Evaluate=true);
+
+  final parameter Real traStaEquSinMod[nEqu, nSta]= {{staEquSinMod[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for hybrid plant in single-operation mode"
+    annotation (Evaluate=true);
+
+  final parameter Real traStaEquDouMod[nEqu, nSta]= {{staEquDouMod[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for hybrid plant in heating-cooling mode"
+    annotation (Evaluate=true);
 
   parameter Integer nSta
     "Number of stages"
@@ -71,14 +111,6 @@ block StageChangeCommand "Generate stage change command"
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   // We allow the stage index to be zero, e.g., when the plant is disabled.
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
-    each final max=1,
-    each final min=0,
-    each final unit="1")
-    "Staging matrix – Equipment required for each stage"
-    annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
     final min=0,
     final max=nSta)
@@ -95,7 +127,7 @@ block StageChangeCommand "Generate stage change command"
     displayUnit="degC")
     "Active supply temperature setpoint used to compute required capacity"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s") "Volume flow rate used to compute required capacity"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
@@ -108,9 +140,6 @@ block StageChangeCommand "Generate stage change command"
     "Stage down command"
     annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
-  Modelica.Blocks.Sources.RealExpression traMatStaEqu[nEqu, nSta](y=traStaEqu)
-    "Transpose of staging matrix"
-    annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor reqEquSta[nEqu](
     each final nin=nSta)
     "Extract equipment required at given stage"
@@ -219,22 +248,27 @@ block StageChangeCommand "Generate stage change command"
     final rho_default=rho_default,
     final dtMea=dtMea) "Compute required capacity"
     annotation (Placement(transformation(extent={{-170,-110},{-150,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPriSup(final unit="K",
-      displayUnit="degC") "Primary supply temperature" annotation (Placement(
-        transformation(extent={{-240,-40},{-200,0}}), iconTransformation(extent={{-140,
-            -40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecSup(final unit="K",
-      displayUnit="degC") if have_pumSec
-                          "Secondary supply temperature" annotation (Placement(
-        transformation(extent={{-240,-60},{-200,-20}}), iconTransformation(
-          extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPriSup(
+    final unit="K",
+    displayUnit="degC")
+    "Primary supply temperature"
+    annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecSup(
+    final unit="K",
+    displayUnit="degC") if have_pumSec
+    "Secondary supply temperature"
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   FailsafeCondition faiSaf(
     final typ=typ,
     final have_pumSec=have_pumSec,
     final dT=dT,
     final dtPri=dtPri,
-    final dtSec=dtSec) "Failsafe stage up condition "
+    final dtSec=dtSec)
+    "Failsafe stage up condition "
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or  effOrFaiSaf
     "Efficiency OR failsafe condition met"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
@@ -244,11 +278,37 @@ block StageChangeCommand "Generate stage change command"
   Buildings.Controls.OBC.CDL.Logical.And effAndNotFaiSaf
     "Efficiency condition met AND failsafe stage up condition is not true"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
+    final k=traStaEquDouMod) if have_HpShc
+    "Constant signal for tranverse of staging equation matrix in heating-cooling mode"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
+    final k=traStaEquSinMod) if have_HpShc
+    "Constant signal for tranverse of staging equation matrix in single-operation mode"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta] if have_HpShc
+    "Switch between transverse matrices for heating-cooling mode and single-operation mode"
+    annotation (Placement(transformation(extent={{32,20},{52,40}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
+    final k=traStaEqu) if not have_HpShc
+    "Constant signal for tranverse of staging equation matrix in non-hybrid plants"
+    annotation (Placement(transformation(extent={{32,-20},{52,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_HpShc
+    "Detect plant switching to heating-cooling mode"
+    annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCol(
+    final nout=nSta) if have_HpShc
+    "Replicate heating-cooling signal to match number of columns"
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
+    final nin=nSta,
+    final nout=nEqu) if have_HpShc
+    "Replicate heating-cooling signal vector to match number of rows"
+    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-88,200},{0,200},{0,208}},color={255,127,0}));
-  connect(traMatStaEqu.y, reqEquSta.u)
-    annotation (Line(points={{-59,220},{-12,220}},color={0,0,127}));
   connect(reqEquSta.y, capEquSta.u1)
     annotation (Line(points={{12,220},{20,220},{20,226},{28,226}},color={0,0,127}));
   connect(capEquPar.y, capEquSta.u2)
@@ -281,8 +341,6 @@ equation
     annotation (Line(points={{-158,180},{-150,180},{-150,194},{-142,194}},color={255,127,0}));
   connect(intScaRep2.y, reqEquStaLow.index)
     annotation (Line(points={{32,120},{40,120},{40,140},{0,140},{0,168}},color={255,127,0}));
-  connect(traMatStaEqu.y, reqEquStaLow.u)
-    annotation (Line(points={{-59,220},{-20,220},{-20,180},{-12,180}},color={0,0,127}));
   connect(reqEquStaLow.y, capEquStaLow.u2)
     annotation (Line(points={{12,180},{16,180},{16,174},{28,174}},color={0,0,127}));
   connect(capEquPar.y, capEquStaLow.u1)
@@ -372,11 +430,28 @@ equation
           {-56,-40},{-52,-40}}, color={255,0,255}));
   connect(timDow.passed, effAndNotFaiSaf.u2)
     annotation (Line(points={{-28,-148},{8,-148}}, color={255,0,255}));
-  connect(notFaiSaf.y, effAndNotFaiSaf.u1) annotation (Line(points={{-28,-40},{
-          -20,-40},{-20,-140},{8,-140}},
-                                     color={255,0,255}));
+  connect(notFaiSaf.y, effAndNotFaiSaf.u1) annotation (Line(points={{-28,-40},{-20,
+          -40},{-20,-140},{8,-140}}, color={255,0,255}));
   connect(effAndNotFaiSaf.y, y1Dow) annotation (Line(points={{32,-140},{180,
           -140},{180,-80},{220,-80}}, color={255,0,255}));
+  connect(conTraMatStaEquSinMod.y, swiMod.u3) annotation (Line(points={{-18,10},
+          {20,10},{20,22},{30,22}}, color={0,0,127}));
+  connect(conTraMatStaEquDouMod.y, swiMod.u1) annotation (Line(points={{-18,50},
+          {20,50},{20,38},{30,38}}, color={0,0,127}));
+  connect(swiMod.y, reqEquSta.u) annotation (Line(points={{54,30},{60,30},{60,236},
+          {-20,236},{-20,220},{-12,220}}, color={0,0,127}));
+  connect(conTraMatStaEqu.y, reqEquSta.u) annotation (Line(points={{54,-10},{60,
+          -10},{60,236},{-20,236},{-20,220},{-12,220}}, color={0,0,127}));
+  connect(swiMod.y, reqEquStaLow.u) annotation (Line(points={{54,30},{60,30},{60,
+          236},{-20,236},{-20,180},{-12,180}}, color={0,0,127}));
+  connect(conTraMatStaEqu.y, reqEquStaLow.u) annotation (Line(points={{54,-10},{
+          60,-10},{60,236},{-20,236},{-20,180},{-12,180}}, color={0,0,127}));
+  connect(u1HeaCoo, booScaRepCol.u)
+    annotation (Line(points={{-220,50},{-162,50}}, color={255,0,255}));
+  connect(booScaRepCol.y, booVecRepRow.u)
+    annotation (Line(points={{-138,50},{-122,50}}, color={255,0,255}));
+  connect(booVecRepRow.y, swiMod.u2) annotation (Line(points={{-98,50},{-60,50},
+          {-60,30},{30,30}}, color={255,0,255}));
   annotation (
     defaultComponentName="chaSta",
     Icon(
@@ -404,12 +479,10 @@ The plant equipment is staged in part based on required capacity, <i>Qrequired</
 relative to nominal capacity of a given stage, <i>Qstage</i>. 
 This ratio is the operative part load ratio, <i>OPLR</i>.
 </p>
+<p align=\"center\" style=\"font-style:italic;\">OPLR = Qrequired / Qstage</p>
 <p>
-<i>OPLR = Qrequired / Qstage</i>
-</p>
-<p>
-If both primary and secondary hot water temperatures and flow rates are available, 
-the sensors in the primary loop are used for calculating <i>Qrequired</i>. 
+If both primary-loop and secondary-loop hot water temperature and flow rate sensors
+are available, the sensors in the primary loop are used for calculating <i>Qrequired</i>.
 If a heat recovery chiller is piped into the secondary return, the sensors in the 
 primary loop are used.
 (These conditions are implemented in
@@ -435,6 +508,24 @@ and the duration <code>dtRun</code>.
 <p>
 The nominal capacity of a given stage, <i>Qstage</i>, is calculated 
 as the sum of the design capacities of all units enabled in a given stage.
+</p>
+<p>
+The staging order will use one of <code>staEqu</code>, <code>staEquSinMod</code>
+and <code>staEquDouMod</code> as follows:
+<ul>
+<li>
+<code>staEqu</code> is used in plants with no simultaneous heating-cooling heat
+pump (SHC HP).
+</li>
+<li>
+<code>staEquSinMod</code> is used in plants with an SHC HP when it is operating in
+heating-only mode or cooling-only mode.
+</li>
+<li>
+<code>staEquDouMod</code> is used in plants with an SHC HP when it is operating in
+heating-cooling mode.
+</li>
+</ul>
 </p>
 <p>
 Staging is executed per the conditions below subject to the following requirements.
@@ -467,7 +558,8 @@ The availability condition is not subject to the minimum stage runtime requireme
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.)
 </li>
 <li>
-Efficiency condition: Current stage <i>OPLR &gt; plrSta</i> for a duration of <code>dtRun</code>.
+Efficiency condition: Current stage <i>OPLR</i> &gt; <code>plrSta</code> for a
+duration of <code>dtRun</code>.
 </li>
 <li>
 Failsafe condition: see 
@@ -480,7 +572,8 @@ A stage down command is triggered if both of the following are true:
 </p>
 <ul>
 <li>
-Next available lower stage <i>OPLR &lt; plrSta</i> for a duration of <code>dtRun</code>.
+Next available lower stage <i>OPLR</i> &lt; <code>plrSta</code> for a duration of
+<code>dtRun</code>.
 </li>
 <li>
 The failsafe stage up condition is not true.
@@ -490,11 +583,12 @@ The failsafe stage up condition is not true.
 Details
 </h4>
 <p>
-A staging matrix <code>staEqu</code> is required as a parameter. 
+Staging matrices <code>staEqu</code>, <code>staEquSinMod</code> and <code>staEquDouMod</code>
+are required parameters. 
 See the documentation of 
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
-for the associated definition and requirements.
+for the associated definitions and requirements.
 </p>
 <p>
 An \"if\" condition is used to generate the stage up and down command as opposed
@@ -510,11 +604,16 @@ of <code>dtRun</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 31, 2024, by Antoine Gautier:<br/>
+<i>April 23, 2026</i>, by Karthik Devaprasad:<br/>
+Adapted for hybrid heat pump plant operation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4304\">#4304</a>.
+</li>
+<li>
+<i>May 31, 2024</i>, by Antoine Gautier:<br/>
 Refactored using <code>LoadAverage</code> block and added failsafe condition.
 </li>
 <li>
-March 29, 2024, by Antoine Gautier:<br/>
+<i>March 29, 2024</i>, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

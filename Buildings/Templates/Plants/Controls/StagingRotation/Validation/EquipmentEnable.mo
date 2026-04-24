@@ -17,7 +17,8 @@ model EquipmentEnable "Validation model for equipment enable logic"
     is_pumApp=true,
     nEquAlt=2,
     nSta=5,
-    nEqu=3)
+    nEqu=3,
+    staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1])
     "Compute array of enabled equipment – One small equipment, two large equally sized equipment"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uSta(
@@ -35,7 +36,8 @@ model EquipmentEnable "Validation model for equipment enable logic"
     is_pumApp=true,
     nEquAlt=3,
     nSta=3,
-    nEqu=3)
+    nEqu=3,
+    staEqu={fill(i/3, 3) for i in 1:3})
     "Compute array of enabled equipment – Equally sized units"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uSta1(
@@ -67,15 +69,6 @@ model EquipmentEnable "Validation model for equipment enable logic"
     each final p=1)
     "Restore indices with respect to original vector u1AvaEqu"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staMat[3,3](
-    final k={fill(i/3, 3) for i in 1:3})
-    "Staging matrix"
-    annotation (Placement(transformation(extent={{30,10},{50,30}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staMat1[5,3](
-    final k=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1])
-    "Staging matrix"
-    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
 
 equation
   connect(u1AvaEqu.y, equEnaOneTwo.u1Ava)
@@ -100,10 +93,6 @@ equation
     annotation (Line(points={{22,-86},{26,-86},{26,-80},{28,-80}},color={255,127,0}));
   connect(addPar.y, equEnaOneTwo.uIdxAltSor)
     annotation (Line(points={{52,-80},{60,-80},{60,-32},{68,-32}},color={255,127,0}));
-  connect(staMat.y, equEnaEqu.staEqu) annotation (Line(points={{52,20},{60,20},{
-          60,44},{68,44}}, color={0,0,127}));
-  connect(staMat1.y, equEnaOneTwo.staEqu) annotation (Line(points={{52,-20},{58,
-          -20},{58,-36},{68,-36}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=

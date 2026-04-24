@@ -1,0 +1,192 @@
+simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.HybridAirToWater",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0.0,
+    stopTime=86400.0,
+    resultFile="AirToWaterHybridPlant"
+);
+createPlot(
+	id=1,
+	position={0, 0, 1639, 962},
+	y={"pla.ctl.ctl.TOut", "pla.ctl.ctl.TOutChiWatLck", "pla.ctl.ctl.TOutHeaWatLck"},
+	range={0.0, 25.0, -5.0, 25.0},
+	grid=true,
+	subPlot=101,
+	colors={{28,108,200},{238,46,47},{0,140,72}},
+	timeUnit="h",
+	displayUnits={"degC", "degC", "degC"}
+);
+createPlot(
+	id=1,
+	position={0, 0, 1639, 962},
+	y={"pla.ctl.ctl.chaStaHea.capReq.QReq_flow", "pla.ctl.ctl.chaStaCoo.capReq.QReq_flow","pla.capHea_nominal", "pla.capCoo_nominal"},
+	range={0.0, 25.0, -6000000.0, 16000000.0},
+	grid=true,
+	subPlot=102,
+	colors={{28,108,200},{238,46,47},{0,140,72},{217,67,180}},
+	timeUnit="h",
+	displayUnits={"W", "W", "W", "W"}
+);
+createPlot(
+	id=1,
+	position={0, 0, 1639, 962},
+	y={"loaHea.u", "loaHea.yLoa_actual","loaCoo.u","loaCoo.yLoa_actual"},
+	range={0.0, 25.0, -0.2, 1.2},
+	grid=true,
+	subPlot=103,
+	colors={{28,108,200},{238,46,47},{0,140,72},{217,67,180}},
+	timeUnit="h",
+	displayUnits={"", "1", "", "1"}
+);
+createPlot(
+	id=2,
+	position={310, 5, 300, 496},
+	y={"pla.ctl.ctl.nReqPlaHeaWat", "pla.ctl.ctl.nReqPlaChiWat", "pla.ctl.ctl.enaHea.y1","pla.ctl.ctl.enaCoo.y1"},
+	range={0.0, 25.0, -2.0, 12.0},
+	grid=true,
+	subPlot=101,
+	colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}},
+	timeUnit="h"
+);
+createPlot(
+	id=2,
+	position={310, 5, 300, 496},
+	y={"pla.ctl.ctl.idxStaHea.y", "pla.ctl.ctl.idxStaCoo.y"},
+	range={0.0, 25.0, -1.0, 4.0},
+	grid=true,
+	subPlot=102,
+	colors={{28,108,200},{28,108,200}},
+	timeUnit="h"
+);
+createPlot(
+	id=3,
+	position={615, 5, 300, 496},
+	y={"pla.ctl.ctl.y1Hp[1]", "pla.ctl.ctl.y1Hp[2]", "pla.ctl.ctl.y1HpShc"},
+	range={0.0, 25.0, -0.5, 1.5},
+	grid=true,
+	subPlot=101,
+	colors={{28,108,200},{28,108,200},{28,108,200}},
+	timeUnit="h"
+);
+createPlot(
+	id=3,
+	position={615, 5, 300, 496},
+	y={"pla.ctl.ctl.y1HeaHp[1]", "pla.ctl.ctl.y1HeaHp[2]"},
+	range={0.0, 25.0, -0.5, 1.5},
+	grid=true,
+	subPlot=102,
+	colors={{28,108,200},{28,108,200}},
+	timeUnit="h"
+);
+createPlot(id=3,
+	position={615, 5, 300, 496},
+	y={"pla.ctl.ctl.yMod"},
+	range={0.0, 25.0, 0.0, 4.0},
+	grid=true,
+	subPlot=103,
+	colors={{28,108,200}},
+	timeUnit="h"
+);
+createPlot(
+	id=4,
+	position={920, 5, 300, 596},
+	y={"pla.ctl.ctl.y1PumHeaWatPri[1]", "pla.ctl.ctl.y1PumHeaWatPri[2]", "pla.ctl.ctl.y1PumHeaWatPriShc", "pla.ctl.ctl.y1PumChiWatPriShc"},
+	range={0.0, 25.0, -0.5, 1.5},
+	grid=true,
+	subPlot=101,
+	colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}},
+	timeUnit="h"
+);
+createPlot(
+	id=4,
+	position={920, 5, 300, 596},
+	y={"pla.ctl.ctl.y1PumHeaWatSec[1]", "pla.ctl.ctl.y1PumHeaWatSec[2]"},
+	range={0.0, 25.0, -0.5, 1.5},
+	grid=true,
+	subPlot=102,
+	colors={{28,108,200},{28,108,200}},
+	timeUnit="h"
+);
+createPlot(
+	id=4,
+	position={920, 5, 300, 596},
+	y={"pla.ctl.ctl.y1PumChiWatSec[1]", "pla.ctl.ctl.y1PumChiWatSec[2]"},
+	range={0.0, 25.0, -0.5, 1.5},
+	grid=true,
+	subPlot=103,
+	colors={{28,108,200},{28,108,200}},
+	timeUnit="h"
+);
+createPlot(
+	id=5,
+	position={1225, 5, 300, 496},
+	y={"pla.ctl.ctl.nReqResHeaWat", "pla.ctl.ctl.nReqResChiWat"},
+	range={0.0, 25.0, -2.0, 12.0},
+	grid=true,
+	subPlot=101,
+	colors={{28,108,200},{28,108,200}},
+	timeUnit="h"
+);
+createPlot(
+	id=5,
+	position={1225, 5, 300, 496},
+	y={"pla.bus.dpHeaWatRem[1]", "pla.bus.dpHeaWatRemSet[1]", "pla.bus.dpChiWatRem[1]", "pla.bus.dpChiWatRemSet[1]"},
+	range={0.0, 25.0, -100000.0, 400000.0},
+	grid=true,
+	subPlot=102,
+	colors={{28,108,200},{238,46,47},{0,140,72},{217,67,180}},
+	timeUnit="h", displayUnits={"Pa", "Pa", "Pa", "Pa"}
+);
+createPlot(
+	id=6,
+	position={40, 40, 300, 596},
+	y={"VHeaWatPri_flow.V_flow", "VHeaWatSec_flow.V_flow", "datAll.pla.ctl.VHeaWatPri_flow_nominal", "datAll.pla.ctl.VHeaWatSec_flow_nominal"},
+	range={0.0, 25.0, -0.1, 0.4},
+	grid=true,
+	subPlot=101,
+	colors={{28,108,200},{238,46,47},{0,140,72},{217,67,180}},
+	timeUnit="h",
+	displayUnits={"m3/s", "m3/s", "m3/s", "m3/s"}
+);
+createPlot(
+	id=6,
+	position={40, 40, 300, 596},
+	y={"VChiWatPri_flow.V_flow", "VChiWatSec_flow.V_flow", "datAll.pla.ctl.VChiWatPri_flow_nominal", "datAll.pla.ctl.VChiWatSec_flow_nominal"},
+	range={0.0, 25.0, -0.1, 0.30000000000000004},
+	grid=true,
+	subPlot=102,
+	colors={{28,108,200},{238,46,47},{0,140,72},{217,67,180}},
+	timeUnit="h",
+	displayUnits={"m3/s", "m3/s", "m3/s", "m3/s"}
+);
+createPlot(
+	id=6,
+	position={40, 40, 300, 596},
+	y={"pla.hp.hp[1].hp.PLR", "pla.hp.hp[2].hp.PLR"},
+	range={0.0, 25.0, -0.5, 1.5},
+	grid=true,
+	subPlot=103,
+	colors={{28,108,200},{238,46,47}},
+	timeUnit="h",
+	displayUnits={"1", "1"}
+);
+createPlot(
+	id=7,
+	position={345, 40, 300, 496},
+	y={"pla.bus.THeaWatSupSet", "senTemHeaWatPriSup.T", "senTemHeaWatSecSup.T", "senTemHeaWatPriRet.T", "senTemHeaWatSecRet.T"},
+	range={0.0, 25.0, 10.0, 60.0},
+	grid=true,
+	subPlot=101,
+	colors={{28,108,200},{238,46,47},{0,140,72},{217,67,180},{0,0,0}},
+	timeUnit="h", displayUnits={"degC", "degC", "degC", "degC", "degC"}
+);
+createPlot(
+	id=7,
+	position={345, 40, 300, 496},
+	y={"pla.bus.TChiWatSupSet", "senTemChiWatPriSup.T", "senTemChiWatSecSup.T", "senTemChiWatPriRet.T", "senTemChiWatSecRet.T"},
+	range={0.0, 25.0, 5.0, 35.0},
+	grid=true,
+	subPlot=102,
+	colors={{28,108,200},{238,46,47},{0,140,72},{217,67,180},{0,0,0}},
+	timeUnit="h", displayUnits={"degC", "degC", "degC", "degC", "degC"}
+);

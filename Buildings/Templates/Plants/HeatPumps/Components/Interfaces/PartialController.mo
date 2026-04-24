@@ -6,6 +6,37 @@ block PartialController "Interface for heat pump plant controller"
   All other configuration parameters (e.g. nHp) are propagated *down*
   from the plant configuration record to the controller.
   */
+  parameter Boolean is_typDis_override=false
+    "Is the type of CHW/HW distribution system being overridden?"
+    annotation (Evaluate=true,
+      Dialog(tab="Temporary overrides"));
+  parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis_override=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    "Type of CHW/HW distribution system; Default value is what most of the logical
+    comparisons use for ease of conditional enable duplication"
+    annotation (Evaluate=true,
+      Dialog(tab="Temporary overrides"));
+  parameter Boolean have_PumHeaWatSec_override=false
+    "HW secondary pump enable override used in hybrid plant; Default value is
+    opposite of condition required for hybrid plant"
+    annotation(Evaluate=true,
+      Dialog(tab="Temporary overrides"));
+  parameter Boolean have_senTHeaWatPriRet_override=true
+    "HW primary return temperature sensor override used in hybrid plant"
+    annotation(Evaluate=true,
+      Dialog(tab="Temporary overrides"));
+  parameter Boolean have_senTChiWatPriRet_override=true
+    "CHW primary return temperature sensor override used in hybrid plant"
+    annotation(Evaluate=true,
+      Dialog(tab="Temporary overrides"));
+  parameter Integer nPumHeaWatSec_override=0
+    "Number of secondary HW pumps override used in hybrid plant"
+    annotation(Evaluate=true,
+      Dialog(tab="Temporary overrides"));
+  parameter Integer nPumChiWatSec_override=0
+    "Number of secondary CHW pumps override used in hybrid plant"
+    annotation(Evaluate=true,
+      Dialog(tab="Temporary overrides"));
+
   parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg(
     typCtl=typ,
     nAirHan=nAirHan,
@@ -51,16 +82,19 @@ block PartialController "Interface for heat pump plant controller"
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
       cfg.have_heaWat and not cfg.have_hrc and have_senVHeaWatSec
-      and cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
+      and (if is_typDis_override then typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+           else cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)));
   final parameter Boolean have_senVHeaWatPri=cfg.have_heaWat and
     (if cfg.have_hrc or not have_senVHeaWatSec
-    or cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    or (if is_typDis_override then typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+        else cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)
     then true else have_senVHeaWatPri_select)
     "Set to true for plants with primary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // Secondary flow sensor required for secondary HW pump staging.
   final parameter Boolean have_senVHeaWatSec=
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    or have_PumHeaWatSec_override
     "Set to true for plants with secondary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_senVChiWatPri_select(start=false)=have_senVHeaWatPri_select
@@ -69,16 +103,19 @@ block PartialController "Interface for heat pump plant controller"
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
       cfg.have_chiWat and not cfg.have_hrc and have_senVChiWatSec
-      and cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
+      and (if is_typDis_override then typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+           else cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)));
   final parameter Boolean have_senVChiWatPri=cfg.have_chiWat and
     (if cfg.have_hrc or not have_senVChiWatSec
-     or cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+     or (if is_typDis_override then typDis_override<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+         else cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)
      then true else have_senVChiWatPri_select)
     "Set to true for plants with primary CHW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // Secondary flow sensor required for secondary CHW pump staging.
   final parameter Boolean have_senVChiWatSec=
     cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    or have_PumHeaWatSec_override
     "Set to true for plants with secondary CHW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_senTHeaWatPriRet_select(start=false)=false
@@ -88,7 +125,9 @@ block PartialController "Interface for heat pump plant controller"
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
       cfg.have_heaWat and not cfg.have_hrc and have_senTHeaWatSecRet));
   final parameter Boolean have_senTHeaWatPriRet=cfg.have_heaWat and
-    (if cfg.have_hrc or not have_senTHeaWatSecRet then true else have_senTHeaWatPriRet_select)
+    (if not have_senTHeaWatPriRet_override then false
+     elseif cfg.have_hrc or not have_senTHeaWatSecRet then true
+     else have_senTHeaWatPriRet_select)
     "Set to true for plants with primary HW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_senTChiWatPriRet_select(start=false)=have_senTHeaWatPriRet_select
@@ -98,7 +137,9 @@ block PartialController "Interface for heat pump plant controller"
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
       cfg.have_chiWat and not cfg.have_hrc and have_senTChiWatSecRet));
   final parameter Boolean have_senTChiWatPriRet=cfg.have_chiWat and
-    (if cfg.have_hrc or not have_senTChiWatSecRet then true else have_senTChiWatPriRet_select)
+    (if not have_senTChiWatPriRet_override then false
+     elseif cfg.have_hrc or not have_senTChiWatSecRet then true
+     else have_senTChiWatPriRet_select)
     "Set to true for plants with primary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // For primary-secondary plants, SHWST sensor is required for plant staging.
@@ -119,23 +160,27 @@ block PartialController "Interface for heat pump plant controller"
     "Set to true for plants with secondary HW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Sensors",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
-    cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    (cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    or have_PumHeaWatSec_override)
     and not cfg.have_hrc));
   parameter Boolean have_senTChiWatSecRet_select(start=false)=have_senTHeaWatSecRet_select
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Sensors",
     enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
-    cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    (cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    or have_PumHeaWatSec_override)
     and not cfg.have_hrc));
   final parameter Boolean have_senTHeaWatSecRet=
     if cfg.have_hrc then true
-    elseif cfg.typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then false
+    elseif cfg.typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    or have_PumHeaWatSec_override then false
     else have_senTHeaWatSecRet_select
     "Set to true for plants with secondary HW return temperature sensor"
     annotation (Evaluate=true);
   final parameter Boolean have_senTChiWatSecRet(start=false)=
     if cfg.have_hrc then true
-    elseif cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then false
+    elseif cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    or have_PumHeaWatSec_override then false
     else have_senTChiWatSecRet_select
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation (Evaluate=true);
@@ -200,13 +245,13 @@ protected
     "Heat pump control bus"
     annotation (Placement(transformation(extent={{-260,320},{-220,360}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri
-    if cfg.typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+  Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri if cfg.typPumHeaWatPri
+     <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Primary HW pump control bus"
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatSec if cfg.typPumHeaWatSec
-     == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+     == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized or have_PumHeaWatSec_override
     "Secondary HW pump control bus"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
@@ -216,7 +261,7 @@ protected
     annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatSec if cfg.typPumHeaWatSec
-     == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+     == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized or have_PumHeaWatSec_override
     "Secondary CHW pump control bus"
     annotation (Placement(transformation(extent={{-260,-220},{-220,-180}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
@@ -259,10 +304,23 @@ protected
     if cfg.have_valChiWatMinByp "CHW minimum flow bypass valve control bus"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
         iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busHpShc if cfg.have_HpShc
+    "SHC heat pump control bus" annotation (Placement(transformation(extent={{-260,
+            280},{-220,320}}), iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumShcHeaWatPri
+    if cfg.have_HpShc "Primary SHC HP HW pump control bus" annotation (
+      Placement(transformation(extent={{-180,60},{-140,100}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumShcChiWatPri
+    if cfg.have_HpShc "Primary SHC HP CHW pump control bus" annotation (
+      Placement(transformation(extent={{-180,-180},{-140,-140}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
   connect(busPumHeaWatPri, bus.pumHeaWatPri);
   connect(busPumChiWatPri, bus.pumChiWatPri);
+  connect(busPumShcHeaWatPri, bus.pumShcHeaWatPri);
+  connect(busPumShcChiWatPri, bus.pumShcChiWatPri);
   connect(busPumChiWatSec, bus.pumChiWatSec);
   connect(busPumHeaWatSec, bus.pumHeaWatSec);
   connect(busHp, bus.hp);
@@ -275,6 +333,7 @@ equation
   connect(busHrc, bus.hrc);
   connect(busPumChiWatHrc, bus.pumChiWatHrc);
   connect(busPumHeaWatHrc, bus.pumHeaWatHrc);
+  connect(busHpShc, bus.hpShc);
   /* Control point connection - stop */
 annotation (
     Icon(
