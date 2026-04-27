@@ -74,7 +74,9 @@ equation
                          color={0,0,127}));
   connect(TWatIn.y, per.TWatIn) annotation (Line(points={{-49,45},{-40,45},{-40,
           46},{-22,46}},        color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (
+    obsolete = "Obsolete model - use models from Buildings.Fluid.HeatExhangers.CoolingTowers instead",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},
           textColor={0,0,127},

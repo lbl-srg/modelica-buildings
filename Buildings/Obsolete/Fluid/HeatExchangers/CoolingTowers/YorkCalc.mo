@@ -134,7 +134,9 @@ equation
 
   connect(QWat_flow.y, preHea.Q_flow)
     annotation (Line(points={{-59,-60},{-40,-60}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  obsolete = "Obsolete model - use models from Buildings.Fluid.HeatExhangers.CoolingTowers instead",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Text(
           extent={{-104,70},{-70,32}},
