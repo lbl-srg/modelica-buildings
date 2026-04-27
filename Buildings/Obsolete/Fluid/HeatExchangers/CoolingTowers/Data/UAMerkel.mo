@@ -104,7 +104,7 @@ Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
 April 27, 2026, by Michael Wetter:<br/>
 Moved to <code>Obsolete</code> package due to new cooling tower implementation.<br/>
 This is for
-<a href="https://github.com/lbl-srg/modelica-buildings/issues/4567">issue 4567</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
 </li>
 <li>
 October 22, 2019, by Yangyang Fu:<br/>

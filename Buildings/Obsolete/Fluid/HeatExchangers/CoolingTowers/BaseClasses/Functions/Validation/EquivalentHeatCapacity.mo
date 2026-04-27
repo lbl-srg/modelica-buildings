@@ -54,7 +54,7 @@ variable changes in temperature between inlet and outlet airflows.
 April 27, 2026, by Michael Wetter:<br/>
 Moved to <code>Obsolete</code> package due to new cooling tower implementation.<br/>
 This is for
-<a href="https://github.com/lbl-srg/modelica-buildings/issues/4567">issue 4567</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
 </li>
 <li>
 January 6, 2020, by Kathryn Hinkelman:<br/>

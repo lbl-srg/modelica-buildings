@@ -294,7 +294,7 @@ revisions="<html>
 April 27, 2026, by Michael Wetter:<br/>
 Moved to <code>Obsolete</code> package due to new cooling tower implementation.<br/>
 This is for
-<a href="https://github.com/lbl-srg/modelica-buildings/issues/4567">issue 4567</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
 </li>
 <li>
 April 17, 2025, by Michael Wetter:<br/>
