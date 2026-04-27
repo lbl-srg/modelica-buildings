@@ -21,12 +21,6 @@ This data record contains the bounds for the YorkCalc cooling tower correlations
 revisions="<html>
 <ul>
 <li>
-April 27, 2026, by Michael Wetter:<br/>
-Refactored for new cooling tower implementation.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
-</li>
-<li>
 May 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
