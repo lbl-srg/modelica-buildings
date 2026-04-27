@@ -93,9 +93,6 @@ block DryCoolerUA
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
 
-  Modelica.Units.SI.Temperature TAirOut(displayUnit="degC")
-    "Outlet air temperature";
-
   Real eps(min=0, max=1, unit="1") "Heat exchanger effectiveness";
 
   Modelica.Units.SI.SpecificHeatCapacity cpCoo
@@ -204,7 +201,6 @@ equation
 
   // QMax_flow is maximum heat transfer into medium air: positive means heating
   QMax_flow =CMin_flow*(TCooIn - TAirIn);
-  eps*QMax_flow =CAir_flow*(TAirOut - TAirIn);
 
   Q_flow = -eps*QMax_flow;
 
