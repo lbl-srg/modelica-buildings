@@ -51,6 +51,14 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.DryCooler
+    </td>
+    <td valign=\"top\">Added model for a dry cooler that uses the epsilon-NTU relation,
+                       with convection coefficients as a function of the flow rate,
+                       to compute the heat transfer.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4489\">issue 4489</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
