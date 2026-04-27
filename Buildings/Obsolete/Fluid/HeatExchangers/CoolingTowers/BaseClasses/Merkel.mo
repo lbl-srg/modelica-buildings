@@ -1,5 +1,6 @@
 within Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.BaseClasses;
 block Merkel "Model for thermal performance of Merkel cooling tower"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
@@ -264,8 +265,6 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,-10},{58,-130}},
-          textColor={0,0,0},
-          fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="Merkel"),
         Ellipse(
