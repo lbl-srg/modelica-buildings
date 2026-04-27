@@ -183,6 +183,12 @@ outlet are equal to the state variables of the model.
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
+<li>
 April 30, 2025, by Kathryn Hinkelman:<br/>
 Corrected the wetbulb value <code>TAirInWB_nominal</code> and
 added intermediate equations from E+ to model.<br/>

@@ -53,12 +53,18 @@ algorithm
   smoothOrder=1,
 Documentation(info="<html>
 <p>
-This function computes the equivalent specific heat of moist air 
-as the ratio of change in enthalpy relative to the change in 
-temperature of the air entering and leaving the tower. 
+This function computes the equivalent specific heat of moist air
+as the ratio of change in enthalpy relative to the change in
+temperature of the air entering and leaving the tower.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
 <li>
 January 3, 2020, by Michael Wetter:<br/>
 Revised implementation to make it once continuously differentiable, which avoids a numerical Jacobian

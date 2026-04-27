@@ -37,6 +37,12 @@ for a varying fan control signal.
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
+<li>
 December 23, 2019, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for

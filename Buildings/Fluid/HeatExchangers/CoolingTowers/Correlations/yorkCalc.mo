@@ -70,6 +70,12 @@ Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples.YorkCalc</a> 
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
+<li>
 July 12, 2011, by Michael Wetter:<br/>
 Added <code>smoothMax</code> function to prevent division by zero.
 </li>

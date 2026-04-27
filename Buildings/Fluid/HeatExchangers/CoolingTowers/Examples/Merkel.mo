@@ -64,6 +64,12 @@ The cooling tower outlet temperature is controlled to track a fixed temperature.
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
+<li>
 October 22, 2019, by Yangyang Fu:<br/>
 First implementation.
 </li>
