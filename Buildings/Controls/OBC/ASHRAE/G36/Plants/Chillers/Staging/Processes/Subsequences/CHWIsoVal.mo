@@ -327,7 +327,7 @@ equation
     annotation (Line(points={{22,120},{38,120}}, color={255,0,255}));
   connect(not2.y, enaVal.u)
     annotation (Line(points={{62,120},{78,120}}, color={255,0,255}));
-  connect(isoValCha.y, and5.u1) annotation (Line(points={{162,80},{170,80},{170,
+  connect(isoValCha.y, and5.u1) annotation (Line(points={{162,80},{166,80},{166,
           -200},{178,-200}}, color={255,0,255}));
   connect(intEqu.y, and1.u1) annotation (Line(points={{-58,250},{-30,250},{-30,120},
           {-2,120}},color={255,0,255}));

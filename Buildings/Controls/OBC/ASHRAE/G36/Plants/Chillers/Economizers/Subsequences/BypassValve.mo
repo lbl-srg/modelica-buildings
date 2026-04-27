@@ -123,7 +123,7 @@ When economizer is enabled, start next condenser pump and (or) adjust the pump s
 (see <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller</a>),
 open the condenser water isolation valve to the heat exchanger (<code>yConWatIsoVal=true</code>),
-and enable the economizer in-line chilled water return line valve (<code>yRetVal=1</code>).
+and enable the economizer in-line chilled water return line valve.
 </p>
 <p>
 When the in-line chilled water return valve is enabled, it shall be modulated by a direct-acting PID

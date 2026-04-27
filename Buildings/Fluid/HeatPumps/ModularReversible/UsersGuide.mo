@@ -40,7 +40,7 @@ package UsersGuide
   They may be on/off and inverter driven;
 </li>
 <li>
-  They are able to reverse the operation between heating and cooling, 
+  They are able to reverse the operation between heating and cooling,
   and some systems even provide simultaneous heating and cooling capabilities;
 </li>
 <li>
@@ -117,8 +117,8 @@ to the section <b>Refrigerant cycle models</b>.
 <ul>
 <li>
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
-  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>: 
-  This is the recommended model for energy simulation and any use case where detailed 
+  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>:
+  This is the recommended model for energy simulation and any use case where detailed
   modeling of the heat pump onboard controls is not required.
 </li>
 <li>
@@ -168,8 +168,8 @@ to the section <b>Refrigerant cycle models</b>.
 <ul>
 <li>
   <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep\">
-  Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>: 
-  This is the recommended model for energy simulation and any use case where detailed 
+  Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>:
+  This is the recommended model for energy simulation and any use case where detailed
   modeling of the chiller onboard controls is not required.
 </li>
 <li>
@@ -300,7 +300,7 @@ The following table summarizes the possible options.
 
 <p>
 Prefatory note: This section only applies to the models that do not include
-onboard controls. The models that include onboard controls, such as 
+onboard controls. The models that include onboard controls, such as
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>,
 rather expose a connector <code>THwSet</code> or <code>TChwSet</code> representing
@@ -382,11 +382,11 @@ the HW or CHW temperature setpoint.
   the third dimension of the performance sensitivity is captured using
   the part load ratio as a proxy variable for the actual capacity modulation observable.
   This allows a unified modeling of various technologies such as
-  modulating the compressor speed, throttling the inlet guide vanes 
+  modulating the compressor speed, throttling the inlet guide vanes
   or staging a varying number of compressors.
   This approach does not rely on any third-party dependency and is fully
   supported by the existing classes from the Modelica Standard Library.
-  It is implemented in the modular heat pump and chiller models named 
+  It is implemented in the modular heat pump and chiller models named
   <code>TableData2DLoadDep</code>.
 </p>
 
