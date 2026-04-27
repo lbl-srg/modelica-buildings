@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers;
+within Buildings.Obsolete.Fluid.HeatExchangers;
 package CoolingTowers "Package with obsolete cooling tower models"
   extends Modelica.Icons.VariantsPackage;
 
