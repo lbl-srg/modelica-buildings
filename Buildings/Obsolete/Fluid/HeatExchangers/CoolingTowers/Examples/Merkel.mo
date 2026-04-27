@@ -50,7 +50,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,
       extent={{-140,-260},{140,100}})),
-experiment(StartTime=15552000, Tolerance=1e-06, StopTime=15724800),
+experiment(StartTime=15552000, StopTime=15638400, Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/HeatExchangers/CoolingTowers/Examples/Merkel.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=true,
