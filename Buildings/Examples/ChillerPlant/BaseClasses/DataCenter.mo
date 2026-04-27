@@ -612,7 +612,7 @@ Buildings.Examples.ChillerPlant</a>.
 April 27, 2026, by Michael Wetter:<br/>
 Refactored for new cooling tower implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4489\">issue 4489</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
 </li>
 <li>
 December 6, 2021, by Michael Wetter:<br/>
