@@ -78,7 +78,7 @@ model MerkelEnergyPlus
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings//Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus/CoolingTower_VariableSpeed_Merkel.dat"),
+      "modelica://Buildings/Resources/Data/Fluid/HeatExchangers/CoolingTowers/Validation/MerkelEnergyPlus/CoolingTower_VariableSpeed_Merkel.dat"),
     verboseRead=false,
     columns=2:10,
     tableName="EnergyPlus",

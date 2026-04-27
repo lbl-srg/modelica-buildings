@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData;
-block ReaderTMY3 "Reader for TMY3 weather data"
+model ReaderTMY3 "Reader for TMY3 weather data"
 
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
@@ -1613,6 +1613,11 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.
+</li>
 <li>
 May 28, 2025, by Fabian Wuellhorst:<br/>
 Added information on AixWeather to documentation.<br/>

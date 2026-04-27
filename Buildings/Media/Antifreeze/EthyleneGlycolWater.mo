@@ -117,7 +117,7 @@ protected
   constant Modelica.Units.SI.MassFraction X_a_min=Functions.EthyleneGlycolWater.X_a_min
     "Minimum allowed mass fraction of ethylene glycol in water";
   constant Modelica.Units.SI.MassFraction X_a_max=Functions.EthyleneGlycolWater.X_a_max
-    "Maximum allowed mass fraction of propylene glycol in water";
+    "Maximum allowed mass fraction of ethylene glycol in water";
 
   // Fluid constants based on pure Ethylene Glycol
   constant Modelica.Media.Interfaces.Types.Basic.FluidConstants[1]
@@ -196,6 +196,8 @@ April 15, 2026, by Michael Wetter:<br/>
 Refactored implementation to use media properties from function calls in the package
 <a href=\"modelica://Buildings.Media.Antifreeze.Functions\">
 Buildings.Media.Antifreeze.Functions</a> while avoiding code dublication.
+April 14, 2026, by Michael Wetter:<br/>
+Corrected typo in documentation.
 </li>
 <li>
 August 05, 2020, by Wen HU:<br/>
