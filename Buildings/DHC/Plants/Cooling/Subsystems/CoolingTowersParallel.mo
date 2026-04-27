@@ -59,20 +59,25 @@ model CoolingTowersParallel
     displayUnit="degC")
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
+
+  replaceable parameter Fluid.HeatExchangers.CoolingTowers.Data.Merkel.Generic dat(
+    Q_flow_nominal=-m_flow_nominal*cp_default*dT_nominal,
+    TCooIn_nominal=TWatIn_nominal,
+    TCooOut_nominal=TWatIn_nominal-dT_nominal,
+    TAirInWB_nominal=TAirInWB_nominal,
+    dp_nominal=0,
+    PFan_Q_flow_nominal=-PFan_nominal/(m_flow_nominal*cp_default*dT_nominal),
+    ratCooAir_nominal=ratWatAir_nominal) "Performance data record"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+
   replaceable Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num](
+    each final dat=dat,
     each final allowFlowReversal=allowFlowReversal,
-    each final m_flow_small=m_flow_small,
-    each final ratWatAir_nominal=ratWatAir_nominal,
-    each final TAirInWB_nominal=TAirInWB_nominal,
-    each final TWatIn_nominal=TWatIn_nominal,
-    each final TWatOut_nominal=TWatIn_nominal-dT_nominal,
-    each final PFan_nominal=PFan_nominal,
-    each final dp_nominal=0)
+    each final m_flow_small=m_flow_small)
     constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
       redeclare each final package Medium=Medium,
       each final show_T=show_T,
-      each final m_flow_nominal=m_flow_nominal,
       each final energyDynamics=energyDynamics)
     "Cooling tower type"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -97,6 +102,13 @@ model CoolingTowersParallel
     final T_start=Medium.T_default)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
+protected
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(sta_default)
+    "Specific heat capacity";
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+    T=Medium.T_default, p=Medium.p_default, X=Medium.X_default)
+    "Default medium state";
 equation
   for i in 1:num loop
     connect(port_a,val[i].port_a)
