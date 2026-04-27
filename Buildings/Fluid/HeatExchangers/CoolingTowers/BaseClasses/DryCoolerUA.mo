@@ -83,12 +83,12 @@ block DryCoolerUA
       Placement(transformation(extent={{-120,0},{-100,20}}), iconTransformation(
           extent={{-120,0},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealInput hA_1(final unit="W/K")
-    "Convective heat transfer coefficient times area on the fluid (water) side"
+  Modelica.Blocks.Interfaces.RealInput hACoo(final unit="W/K")
+    "Convective heat transfer coefficient times area on the coolant side"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}}),
         iconTransformation(extent={{-120,-60},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput hA_2(final unit="W/K")
+  Modelica.Blocks.Interfaces.RealInput hAAir(final unit="W/K")
     "Convective heat transfer coefficient times area on the air side"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
@@ -145,11 +145,11 @@ protected
   parameter Modelica.Units.SI.ThermalConductance CCoo_flow_nominal=
       m_flow_nominal*cpCoo_nominal
     "Nominal capacity flow rate of water";
-  parameter Modelica.Units.SI.ThermalConductance CMin_flow_nominal=min(
-      CAir_flow_nominal, CCoo_flow_nominal)
+  parameter Modelica.Units.SI.ThermalConductance CMin_flow_nominal=
+    min(CAir_flow_nominal, CCoo_flow_nominal)
     "Minimal capacity flow rate at nominal condition";
-  parameter Modelica.Units.SI.ThermalConductance CMax_flow_nominal=max(
-      CAir_flow_nominal, CCoo_flow_nominal)
+  parameter Modelica.Units.SI.ThermalConductance CMax_flow_nominal=
+    max(CAir_flow_nominal, CCoo_flow_nominal)
     "Maximum capacity flow rate at nominal condition";
 
   Real corUAFreCon "Correction for UA value in free convection regime";
@@ -182,7 +182,7 @@ equation
     x=y - yMin + yMin/20,
     deltax=yMin/20);
   // UA value, for correction, simplified to be dominated by convection
-  UA = corUAFreCon/(1/hA_1 + 1/hA_2);
+  UA =corUAFreCon/(1/hACoo + 1/hAAir);
 
   // Capacity for air and water
   CAir_flow = abs(mAir_flow)*cpAir_nominal;
@@ -240,11 +240,11 @@ for a dry cooler.
 <h4>Main relationships</h4>
 <p>
 The overall conductance is computed from the
-convective heat transfer coefficients on the water side
-<code>hA_1</code> and the air side <code>hA_2</code> as
+convective heat transfer coefficients on the coolant side
+<code>hACoo</code> and the air side <code>hAAir</code> as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-UA = corUA &frasl; (1 &frasl; hA<sub>1</sub> + 1 &frasl; hA<sub>2</sub>),
+UA = corUA &frasl; (1 &frasl; hA<sub>coo</sub> + 1 &frasl; hA<sub>air</sub>),
 </p>
 <p>
 where <i>corUA</i> is a correction factor that reduces <i>UA</i>

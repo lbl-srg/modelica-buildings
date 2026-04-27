@@ -87,7 +87,7 @@ equation
           -80},{-120,-80}},                     color={0,0,127}));
   connect(hA.T_1, TCooIn) annotation (Line(points={{-1,-27},{-60,-27},{-60,-40},
           {-120,-40}}, color={0,0,127}));
-  connect(hA.T_2, TAir) annotation (Line(points={{-1,-33},{-96,-33},{-96,40},{
+  connect(hA.T_2, TAir) annotation (Line(points={{-1,-33},{-88,-33},{-88,40},{
           -120,40}},
                 color={0,0,127}));
   connect(mAirFlo.u, y)
@@ -102,12 +102,13 @@ equation
           {-120,-80}}, color={0,0,127}));
   connect(UA.TCooIn, TCooIn) annotation (Line(points={{59,-2},{-60,-2},{-60,-40},
           {-120,-40}}, color={0,0,127}));
-  connect(UA.TAirIn, TAir) annotation (Line(points={{59,1},{-96,1},{-96,40},{-120,
-          40}}, color={0,0,127}));
-  connect(UA.hA_1, hA.hA_1) annotation (Line(points={{59,-5},{30,-5},{30,-23},{21,
-          -23}}, color={0,0,127}));
-  connect(UA.hA_2, hA.hA_2) annotation (Line(points={{59,-8},{40,-8},{40,-37},{21,
-          -37}}, color={0,0,127}));
+  connect(UA.TAirIn, TAir) annotation (Line(points={{59,1},{-88,1},{-88,40},{
+          -120,40}},
+                color={0,0,127}));
+  connect(UA.hACoo, hA.hA_1) annotation (Line(points={{59,-5},{30,-5},{30,-23},
+          {21,-23}}, color={0,0,127}));
+  connect(UA.hAAir, hA.hA_2) annotation (Line(points={{59,-8},{40,-8},{40,-37},
+          {21,-37}}, color={0,0,127}));
   connect(UA.Q_flow, Q_flow)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
 
