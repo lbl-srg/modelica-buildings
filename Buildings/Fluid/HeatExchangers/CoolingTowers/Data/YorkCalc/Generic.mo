@@ -2,14 +2,14 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Data.YorkCalc;
 record Generic
   "Performance data record for a wet cooling cooler using the York calculation method"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.Data.BaseClasses.BaseCoolingTower(
-    TCooIn_nominal = 273.15 + 35,
-    TCooOut_nominal = 273.15 + 29.44,
+    TCooIn_nominal = 308.15,
+    TCooOut_nominal = 302.59,
     ratCooAir_nominal =
       Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
       TIn=TAirInWB_nominal, TOut=TAirInWB_nominal+5) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq);
 
-  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=298.7
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Nominal thermal performance"));
 

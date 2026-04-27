@@ -5,7 +5,7 @@ record Generic "Performance data record for a dry cooler"
       Buildings.Utilities.Psychrometrics.Constants.cpAir /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq);
 
-  parameter Modelica.Units.SI.Temperature TAirIn_nominal=273.15 + 35
+  parameter Modelica.Units.SI.Temperature TAirIn_nominal=308.15
     "Nominal outdoor (air inlet) drybulb temperature"
     annotation (Dialog(group="Nominal thermal performance"));
 

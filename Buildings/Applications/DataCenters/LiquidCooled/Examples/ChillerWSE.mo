@@ -38,6 +38,14 @@ model ChillerWSE
   parameter Modelica.Units.SI.Temperature TTowRet_nominal=TTowSup_nominal+dTTow_nominal
     "Supply temperature to cooling tower";
 
+  parameter Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic datDryCoo(
+    Q_flow_nominal=-mCW_flow_nominal*MediumChi.cp_const*(TTowSup_nominal - TTowRet_nominal),
+      TCooIn_nominal=TTowSup_nominal, TCooOut_nominal=TTowRet_nominal,
+    dp_nominal=80000)
+    "Cooling tower performance record"
+    annotation (Placement(transformation(extent={{20,660},{40,680}})));
+
+
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal=PRac/(
       TRacRet_nominal - TRacSup_nominal)/MediumRac.cp_const
     "Rack mass flow rate at design conditions";
@@ -170,16 +178,10 @@ model ChillerWSE
     dp1_nominal=dpHexChi_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Chiller"
     annotation (Placement(transformation(extent={{-120,321},{-140,341}})));
-  Fluid.HeatExchangers.CoolingTowers.DryCooler
-                                            cooTow(
+  Fluid.HeatExchangers.CoolingTowers.DryCooler cooTow(
     redeclare package Medium = MediumChi,
-    m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=80000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    TAirIn_nominal=303.15,
-    TCooIn_nominal=TTowSup_nominal,
-    TCooOut_nominal=TTowRet_nominal,
-    ratCooAir_nominal=0.5)
+    dat=datDryCoo,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling tower"
     annotation (Placement(
         transformation(
@@ -600,6 +602,7 @@ model ChillerWSE
     dpHexPla_nominal=dpHexChi_nominal,
     dpPum_nominal=dPRac_nominal) "Data record for CDU"
     annotation (Placement(transformation(extent={{60,62},{80,82}})));
+
 equation
   connect(senTCDU_a.port_b, cdu.port_aPla) annotation (Line(points={{-30,120},{-20,
           120},{-20,46},{-10,46}},color={0,127,255}));
