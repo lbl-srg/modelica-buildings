@@ -41,7 +41,7 @@ block BypassValve
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatIsoVal
     "Economizer condenser water isolation valve commanded status"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetVal(
     final min=0,
@@ -58,48 +58,67 @@ block BypassValve
     final Td=Td,
     final reverseActing=false,
     final y_reset=1) "Chilled water return line valve controller"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=1) "Constant one"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=dpDes)
     "Design static pressure difference across waterside economizer in chilled water side"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Normalize the measured value"
-    annotation (Placement(transformation(extent={{-40,-56},{-20,-36}})));
+    annotation (Placement(transformation(extent={{-20,-56},{0,-36}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Return line valve position"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Waterside economizer commanded on"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Not disWse
+    "Disabled economizer"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=1) "Delay disable"
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Not enaWse
+    "Economizer is enabled"
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+
 equation
   connect(dpChiWat, div1.u1)
-    annotation (Line(points={{-120,-40},{-42,-40}}, color={0,0,127}));
-  connect(con1.y, div1.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,-52},
-          {-42,-52}}, color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-22,-40}}, color={0,0,127}));
+  connect(con1.y, div1.u2) annotation (Line(points={{-58,-80},{-40,-80},{-40,-52},
+          {-22,-52}}, color={0,0,127}));
   connect(con.y, conPID.u_s)
-    annotation (Line(points={{-58,0},{-12,0}},   color={0,0,127}));
+    annotation (Line(points={{-58,10},{-2,10}},  color={0,0,127}));
   connect(div1.y, conPID.u_m)
-    annotation (Line(points={{-18,-46},{0,-46},{0,-12}}, color={0,0,127}));
-  connect(conPID.y, swi.u1) annotation (Line(points={{12,0},{20,0},{20,-12},{58,
-          -12}},color={0,0,127}));
-  connect(con.y, swi.u3) annotation (Line(points={{-58,0},{-50,0},{-50,-28},{58,
-          -28}},color={0,0,127}));
+    annotation (Line(points={{2,-46},{10,-46},{10,-2}},  color={0,0,127}));
+  connect(conPID.y, swi.u1) annotation (Line(points={{22,10},{40,10},{40,-12},{
+          58,-12}},
+                color={0,0,127}));
+  connect(con.y, swi.u3) annotation (Line(points={{-58,10},{-40,10},{-40,-28},{
+          58,-28}},
+                color={0,0,127}));
   connect(swi.y, yRetVal) annotation (Line(points={{82,-20},{120,-20}},
                 color={0,0,127}));
-  connect(uWSE, and1.u1)
-    annotation (Line(points={{-120,40},{-82,40}}, color={255,0,255}));
-  connect(uPla, and1.u2) annotation (Line(points={{-120,80},{-90,80},{-90,32},{-82,
-          32}}, color={255,0,255}));
-  connect(and1.y, swi.u2) annotation (Line(points={{-58,40},{-40,40},{-40,-20},{
-          58,-20}}, color={255,0,255}));
-  connect(and1.y, yConWatIsoVal)
-    annotation (Line(points={{-58,40},{120,40}}, color={255,0,255}));
-  connect(and1.y, conPID.uEna) annotation (Line(points={{-58,40},{-40,40},{-40,-20},
-          {-4,-20},{-4,-12}}, color={255,0,255}));
+  connect(uPla, and1.u1)
+    annotation (Line(points={{-120,80},{-82,80}}, color={255,0,255}));
+  connect(uWSE, and1.u2) annotation (Line(points={{-120,40},{-90,40},{-90,72},{-82,
+          72}}, color={255,0,255}));
+  connect(and1.y, disWse.u)
+    annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
+  connect(disWse.y, truDel.u)
+    annotation (Line(points={{-18,80},{-2,80}}, color={255,0,255}));
+  connect(truDel.y, enaWse.u)
+    annotation (Line(points={{22,80},{38,80}}, color={255,0,255}));
+  connect(enaWse.y, yConWatIsoVal)
+    annotation (Line(points={{62,80},{120,80}}, color={255,0,255}));
+  connect(enaWse.y, conPID.uEna) annotation (Line(points={{62,80},{80,80},{80,
+          40},{-20,40},{-20,-20},{6,-20},{6,-2}},
+                                               color={255,0,255}));
+  connect(enaWse.y, swi.u2) annotation (Line(points={{62,80},{80,80},{80,40},{-20,
+          40},{-20,-20},{58,-20}}, color={255,0,255}));
 annotation (defaultComponentName = "wseVal",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

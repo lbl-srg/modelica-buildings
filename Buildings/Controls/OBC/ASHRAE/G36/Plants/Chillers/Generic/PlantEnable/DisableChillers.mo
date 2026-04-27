@@ -25,11 +25,11 @@ block DisableChillers
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller commanded on"
-    annotation (Placement(transformation(extent={{-240,230},{-200,270}}),
+    annotation (Placement(transformation(extent={{-240,260},{-200,300}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
     "Chilled water requst status for each chiller"
-    annotation (Placement(transformation(extent={{-240,200},{-200,240}}),
+    annotation (Placement(transformation(extent={{-240,230},{-200,270}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoVal[nChi]
     "Chilled water isolation valve position"
@@ -45,19 +45,19 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
     if not have_airCoo
     "Condenser water requst status for each chiller"
-    annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
     final unit=fill("1", nChi)) if not have_airCoo
     "Chiller condenser water isolation valve position"
-    annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
+    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ConWatIsoVal[nChi]
     if not have_airCoo
     "Condenser water isolation valve commanded setpoint"
-    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
+    annotation (Placement(transformation(extent={{-240,10},{-200,50}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nChiWatPum]
     "Chilled water pump commanded status"
@@ -139,11 +139,11 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=180)
     "Threshold time after chiller being disabled"
-    annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
+    annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nChi)
     "Check if there is any chilled water request"
-    annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
+    annotation (Placement(transformation(extent={{-180,240},{-160,260}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
     final nout=nChi)
     "Replicate boolean input"
@@ -151,7 +151,7 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
     final nin=nChi) if not have_airCoo
     "Check if there is any condenser water request"
-    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep2(
     final nout=nChi) if not have_airCoo
     "Replicate boolean input"
@@ -162,21 +162,21 @@ block DisableChillers
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not noChi
     "No enabled chiller"
-    annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
+    annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
   Buildings.Controls.OBC.CDL.Logical.Not noChiWatReq
     "No chilled water request"
-    annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
+    annotation (Placement(transformation(extent={{-40,240},{-20,260}})));
   Buildings.Controls.OBC.CDL.Logical.Or cloChiIsoVal
     "Close all chilled water isolation valve"
-    annotation (Placement(transformation(extent={{-40,240},{-20,260}})));
+    annotation (Placement(transformation(extent={{0,270},{20,290}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi] "Close valve"
     annotation (Placement(transformation(extent={{140,240},{160,260}})));
   Buildings.Controls.OBC.CDL.Logical.Or cloConIsoVal if not have_airCoo
     "Close all condenser water isolation valve"
-    annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
+    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Buildings.Controls.OBC.CDL.Logical.Not noConWatReq if not have_airCoo
     "No condenser water request"
-    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] if not have_airCoo
     "Close valve"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
@@ -202,7 +202,7 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Logical.MultiOr chiMod(
     final nin=nChi)
     "True: the plant has chiller mode"
-    annotation (Placement(transformation(extent={{-180,240},{-160,260}})));
+    annotation (Placement(transformation(extent={{-180,270},{-160,290}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nChi](
     final k=fill(0, nChi)) "Constant zero"
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
@@ -260,31 +260,43 @@ block DisableChillers
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Close valve"
     annotation (Placement(transformation(extent={{160,200},{180,220}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Latch enaIsoVal
+    "Enable isolation valve"
+    annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
+  Buildings.Controls.OBC.CDL.Logical.Change chiWatReqCha
+    "Any change on the chilled water request"
+    annotation (Placement(transformation(extent={{-180,194},{-160,214}})));
+  Buildings.Controls.OBC.CDL.Logical.Or enaChiIsoVal
+    "Enable chilled water isolation valve"
+    annotation (Placement(transformation(extent={{-80,240},{-60,260}})));
+  Buildings.Controls.OBC.CDL.Logical.Change conWatReqCha if not have_airCoo
+    "Any change on the condenser water request"
+    annotation (Placement(transformation(extent={{-180,124},{-160,144}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch enaIsoVal1 if not have_airCoo
+    "Enable isolation valve"
+    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Or enaConIsoVal if not have_airCoo
+    "Enable condenser water isolation valve"
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
 equation
   connect(uChiWatReq, mulOr.u)
-    annotation (Line(points={{-220,220},{-182,220}}, color={255,0,255}));
-  connect(mulOr.y, noChiWatReq.u)
-    annotation (Line(points={{-158,220},{-142,220}}, color={255,0,255}));
+    annotation (Line(points={{-220,250},{-182,250}}, color={255,0,255}));
   connect(truDel.y, cloChiIsoVal.u1)
-    annotation (Line(points={{-78,250},{-42,250}},color={255,0,255}));
-  connect(noChiWatReq.y, cloChiIsoVal.u2) annotation (Line(points={{-118,220},{-50,
-          220},{-50,242},{-42,242}}, color={255,0,255}));
+    annotation (Line(points={{-78,280},{-2,280}}, color={255,0,255}));
+  connect(noChiWatReq.y, cloChiIsoVal.u2) annotation (Line(points={{-18,250},{-10,
+          250},{-10,272},{-2,272}},  color={255,0,255}));
   connect(booScaRep1.y, logSwi.u2)
     annotation (Line(points={{102,250},{138,250}}, color={255,0,255}));
-  connect(truDel.y, cloConIsoVal.u1) annotation (Line(points={{-78,250},{-60,250},
-          {-60,140},{-42,140}}, color={255,0,255}));
-  connect(mulOr1.y, noConWatReq.u)
-    annotation (Line(points={{-158,120},{-102,120}}, color={255,0,255}));
+  connect(truDel.y, cloConIsoVal.u1) annotation (Line(points={{-78,280},{-50,280},
+          {-50,140},{-22,140}}, color={255,0,255}));
   connect(uConWatReq, mulOr1.u)
-    annotation (Line(points={{-220,120},{-182,120}}, color={255,0,255}));
-  connect(noConWatReq.y, cloConIsoVal.u2) annotation (Line(points={{-78,120},{
-          -60,120},{-60,132},{-42,132}},
-                                     color={255,0,255}));
+    annotation (Line(points={{-220,100},{-182,100}}, color={255,0,255}));
+  connect(noConWatReq.y, cloConIsoVal.u2) annotation (Line(points={{-38,120},{-30,
+          120},{-30,132},{-22,132}}, color={255,0,255}));
   connect(booScaRep2.y, swi1.u2)
     annotation (Line(points={{82,140},{100,140},{100,120},{138,120}},
           color={255,0,255}));
-  connect(uConWatIsoVal, swi1.u3) annotation (Line(points={{-220,90},{60,90},{60,
+  connect(uConWatIsoVal, swi1.u3) annotation (Line(points={{-220,60},{60,60},{60,
           112},{138,112}}, color={0,0,127}));
   connect(uChiWatPumSpe, swi2.u3) annotation (Line(points={{-220,-70},{140,-70},
           {140,-58},{158,-58}}, color={0,0,127}));
@@ -293,21 +305,21 @@ equation
   connect(and2.y, booScaRep1.u)
     annotation (Line(points={{62,250},{78,250}}, color={255,0,255}));
   connect(cloChiIsoVal.y, and2.u1)
-    annotation (Line(points={{-18,250},{38,250}}, color={255,0,255}));
+    annotation (Line(points={{22,280},{30,280},{30,250},{38,250}}, color={255,0,255}));
   connect(and1.y, booScaRep2.u)
     annotation (Line(points={{42,140},{58,140}}, color={255,0,255}));
   connect(cloConIsoVal.y, and1.u1)
-    annotation (Line(points={{-18,140},{18,140}}, color={255,0,255}));
+    annotation (Line(points={{2,140},{18,140}}, color={255,0,255}));
   connect(chaPro, not4.u)
     annotation (Line(points={{-220,-100},{-82,-100}}, color={255,0,255}));
-  connect(not4.y, and1.u2) annotation (Line(points={{-58,-100},{0,-100},{0,132},
+  connect(not4.y, and1.u2) annotation (Line(points={{-58,-100},{10,-100},{10,132},
           {18,132}}, color={255,0,255}));
-  connect(not4.y, and2.u2) annotation (Line(points={{-58,-100},{0,-100},{0,242},
+  connect(not4.y, and2.u2) annotation (Line(points={{-58,-100},{10,-100},{10,242},
           {38,242}}, color={255,0,255}));
-  connect(not4.y, disChi.u2) annotation (Line(points={{-58,-100},{0,-100},{0,-138},
+  connect(not4.y, disChi.u2) annotation (Line(points={{-58,-100},{10,-100},{10,-138},
           {18,-138}}, color={255,0,255}));
-  connect(not4.y, disChi1.u2) annotation (Line(points={{-58,-100},{0,-100},{0,-58},
-          {18,-58}}, color={255,0,255}));
+  connect(not4.y, disChi1.u2) annotation (Line(points={{-58,-100},{10,-100},{10,
+          -58},{18,-58}}, color={255,0,255}));
   connect(swi3.y, yConWatPumSpe)
     annotation (Line(points={{182,-130},{220,-130}}, color={0,0,127}));
   connect(swi2.y, yChiWatPumSpe)
@@ -315,9 +327,9 @@ equation
   connect(swi1.y, yConWatIsoVal)
     annotation (Line(points={{162,120},{220,120}}, color={0,0,127}));
   connect(uChi, chiMod.u)
-    annotation (Line(points={{-220,250},{-182,250}}, color={255,0,255}));
+    annotation (Line(points={{-220,280},{-182,280}}, color={255,0,255}));
   connect(chiMod.y, noChi.u)
-    annotation (Line(points={{-158,250},{-142,250}}, color={255,0,255}));
+    annotation (Line(points={{-158,280},{-142,280}}, color={255,0,255}));
   connect(con.y, swi1.u1) annotation (Line(points={{122,170},{130,170},{130,128},
           {138,128}}, color={0,0,127}));
   connect(con1.y, swi2.u1) annotation (Line(points={{42,-20},{100,-20},{100,-42},
@@ -341,7 +353,7 @@ equation
           -58},{58,-58}}, color={255,0,255}));
   connect(con3.y, disPla.u2) annotation (Line(points={{-58,-180},{50,-180},{50,
           -138},{58,-138}}, color={255,0,255}));
-  connect(chiMod.y, disTow.u1) annotation (Line(points={{-158,250},{-150,250},{-150,
+  connect(chiMod.y, disTow.u1) annotation (Line(points={{-158,280},{-150,280},{-150,
           -250},{78,-250}}, color={255,0,255}));
   connect(disTow.y, yTowCel)
     annotation (Line(points={{102,-250},{220,-250}}, color={255,0,255}));
@@ -350,8 +362,8 @@ equation
   connect(con4.y, disTow.u2) annotation (Line(points={{2,-280},{60,-280},{60,-258},
           {78,-258}}, color={255,0,255}));
   connect(noChi.y, truDel.u)
-    annotation (Line(points={{-118,250},{-102,250}}, color={255,0,255}));
-  connect(u1ConWatIsoVal, and7.u2) annotation (Line(points={{-220,60},{80,60},{80,
+    annotation (Line(points={{-118,280},{-102,280}}, color={255,0,255}));
+  connect(u1ConWatIsoVal, and7.u2) annotation (Line(points={{-220,30},{70,30},{70,
           72},{138,72}}, color={255,0,255}));
   connect(booScaRep2.y, and7.u1) annotation (Line(points={{82,140},{100,140},{100,
           80},{138,80}}, color={255,0,255}));
@@ -375,8 +387,6 @@ equation
           {150,20},{150,32},{158,32}}, color={255,0,255}));
   connect(booScaRep3.y, not3.u)
     annotation (Line(points={{122,0},{138,0}}, color={255,0,255}));
-  connect(uChiWatPum, chiWatPum1.u1) annotation (Line(points={{-220,0},{-20,0},{
-          -20,40},{158,40}}, color={255,0,255}));
   connect(chiWatPum1.y, yChiWatPum)
     annotation (Line(points={{182,40},{220,40}}, color={255,0,255}));
   connect(logSwi.y, y1ChiWatIsoVal)
@@ -391,12 +401,38 @@ equation
           210},{158,210}}, color={255,0,255}));
   connect(con.y, swi4.u1) annotation (Line(points={{122,170},{130,170},{130,218},
           {158,218}}, color={0,0,127}));
-  connect(uChiWatIsoVal, swi4.u3) annotation (Line(points={{-220,170},{-20,170},
-          {-20,202},{158,202}}, color={0,0,127}));
-  connect(noChi.y, disChi1.u1) annotation (Line(points={{-118,250},{-110,250},{
-          -110,-50},{18,-50}}, color={255,0,255}));
-  connect(noChi.y, disChi.u1) annotation (Line(points={{-118,250},{-110,250},{
-          -110,-130},{18,-130}}, color={255,0,255}));
+  connect(uChiWatIsoVal, swi4.u3) annotation (Line(points={{-220,170},{40,170},{
+          40,202},{158,202}},   color={0,0,127}));
+  connect(noChi.y, disChi1.u1) annotation (Line(points={{-118,280},{-110,280},{-110,
+          -50},{18,-50}},      color={255,0,255}));
+  connect(noChi.y, disChi.u1) annotation (Line(points={{-118,280},{-110,280},{-110,
+          -130},{18,-130}},      color={255,0,255}));
+  connect(mulOr.y, enaChiIsoVal.u1)
+    annotation (Line(points={{-158,250},{-82,250}}, color={255,0,255}));
+  connect(enaIsoVal.y, enaChiIsoVal.u2) annotation (Line(points={{-118,210},{-100,
+          210},{-100,242},{-82,242}}, color={255,0,255}));
+  connect(enaChiIsoVal.y, noChiWatReq.u)
+    annotation (Line(points={{-58,250},{-42,250}}, color={255,0,255}));
+  connect(chiMod.y, enaIsoVal.u) annotation (Line(points={{-158,280},{-150,280},
+          {-150,210},{-142,210}}, color={255,0,255}));
+  connect(chiWatReqCha.y, enaIsoVal.clr)
+    annotation (Line(points={{-158,204},{-142,204}}, color={255,0,255}));
+  connect(mulOr.y, chiWatReqCha.u) annotation (Line(points={{-158,250},{-140,250},
+          {-140,230},{-190,230},{-190,204},{-182,204}}, color={255,0,255}));
+  connect(enaConIsoVal.y, noConWatReq.u)
+    annotation (Line(points={{-78,120},{-62,120}}, color={255,0,255}));
+  connect(enaIsoVal1.y, enaConIsoVal.u1) annotation (Line(points={{-118,140},{-114,
+          140},{-114,120},{-102,120}}, color={255,0,255}));
+  connect(mulOr1.y, enaConIsoVal.u2) annotation (Line(points={{-158,100},{-120,100},
+          {-120,112},{-102,112}}, color={255,0,255}));
+  connect(conWatReqCha.y, enaIsoVal1.clr)
+    annotation (Line(points={{-158,134},{-142,134}}, color={255,0,255}));
+  connect(mulOr1.y, conWatReqCha.u) annotation (Line(points={{-158,100},{-120,100},
+          {-120,120},{-190,120},{-190,134},{-182,134}}, color={255,0,255}));
+  connect(chiMod.y, enaIsoVal1.u) annotation (Line(points={{-158,280},{-150,280},
+          {-150,140},{-142,140}}, color={255,0,255}));
+  connect(uChiWatPum, chiWatPum1.u1) annotation (Line(points={{-220,0},{80,0},{80,
+          40},{158,40}}, color={255,0,255}));
 annotation (defaultComponentName = "disChi",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,160}}),
     graphics={
