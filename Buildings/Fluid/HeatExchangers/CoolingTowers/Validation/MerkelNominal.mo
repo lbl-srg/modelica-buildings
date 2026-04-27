@@ -6,37 +6,41 @@ model MerkelNominal
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.5
     "Design water flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real ratWatAir_nominal = 0.625
-    "Design water-to-air ratio"
-    annotation (Dialog(group="Nominal condition"));
+
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_W=Medium_W.specificHeatCapacityCp(
+      Medium_W.setState_pTX(
+        Medium_W.p_default,
+        Medium_W.T_default,
+      Medium_W.X_default)) "Default density of water";
+
+  parameter Data.Merkel.Generic dat(Q_flow_nominal=-m_flow_nominal*cp_W*5.56,
+      dp_nominal=6000) "Performance data"
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+
   Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
-  redeclare package Medium = Medium_W,
-  ratWatAir_nominal=ratWatAir_nominal,
-  TAirInWB_nominal=273.15 + 25.55,
-  TWatIn_nominal=273.15 + 35,
-  TWatOut_nominal=273.15 + 35 - 5.56,
-  PFan_nominal=4800,
-  m_flow_nominal=m_flow_nominal,
-  dp_nominal=6000,
-  energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-  show_T=true)
+    redeclare package Medium = Medium_W,
+    dat=dat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    show_T=true)
   "Cooling tower"
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFan(k=1) "Fan speed"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWetBul(k=tow.TAirInWB_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWetBul(k=dat.TAirInWB_nominal)
     "Wetbulb temperature"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare final package Medium = Medium_W,
     m_flow=m_flow_nominal,
-    T=tow.TWatIn_nominal,
+    T=dat.TCooIn_nominal,
     nPorts=1) "Water source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium_W,
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{82,-10},{62,10}})));
+
 equation
   connect(sou.ports[1], tow.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));

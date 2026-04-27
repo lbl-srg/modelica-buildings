@@ -4,7 +4,7 @@ model FixedApproachWetBulb
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare CoolingTowers.FixedApproach tow(
-      m_flow_nominal=m_flow_nominal),
+      m_flow_nominal=m_flow_nominal, dp_nominal=6000),
     weaDat(
       final computeWetBulbTemperature=true));
 equation

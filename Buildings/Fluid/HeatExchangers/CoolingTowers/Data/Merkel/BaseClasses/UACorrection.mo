@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers.CoolingTowers.Data;
-record UAMerkel "UA correction factors for Merkel cooling towers"
+within Buildings.Fluid.HeatExchangers.CoolingTowers.Data.Merkel.BaseClasses;
+record UACorrection "UA correction factors for Merkel cooling towers"
   extends Modelica.Icons.Record;
 
   parameter Real cDifWB[3]={1,0.0081,0}
@@ -106,4 +106,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end UAMerkel;
+end UACorrection;

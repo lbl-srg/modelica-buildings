@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "tow.TWatIn_nominal",
-    "tow.TWatOut_nominal",
+    "tow.dat.TCooIn_nominal",
+    "tow.dat.TCooOut_nominal",
     "tow.sta_a.T",
     "tow.sta_b.T"
   };

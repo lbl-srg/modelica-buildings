@@ -2,17 +2,12 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model Merkel "Test model for cooling tower using the Merkel theory"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
-      ratWatAir_nominal=ratWatAir_nominal,
-      TAirInWB_nominal=273.15 + 25.55,
-      TWatIn_nominal=273.15 + 35,
-      TWatOut_nominal=273.15 + 35 - 5.56,
-      PFan_nominal=4800),
+    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(dat=dat),
     weaDat(final computeWetBulbTemperature=true));
 
-  parameter Real ratWatAir_nominal = 0.625
-    "Design water-to-air ratio"
-    annotation (Dialog(group="Nominal condition"));
+  parameter Data.Merkel.Generic dat(Q_flow_nominal=-m_flow_nominal*4200*5.56,
+      dp_nominal=6000) "Cooling tower performance data"
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
@@ -26,6 +21,7 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC")) "Controller for tower fan"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+
 
 equation
   connect(TSetLea.y, conFan.u_s)
@@ -41,7 +37,7 @@ equation
       points={{43,-56},{50,-56},{50,-20},{-30,-20},{-30,-2}},
       color={0,0,127}));
   connect(weaBus.TWetBul, tow.TAir) annotation (Line(
-      points={{-60,50},{0,50},{0,-46},{20,-46}},
+      points={{-59.95,50.05},{0,50.05},{0,-46},{20,-46}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
