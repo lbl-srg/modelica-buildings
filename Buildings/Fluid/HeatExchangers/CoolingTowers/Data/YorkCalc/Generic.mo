@@ -14,7 +14,7 @@ record Generic
     annotation (Dialog(group="Nominal thermal performance"));
 
   annotation (
-    defaultComponentName="dat",
+    defaultComponentName="datCooTow",
     defaultComponentPrefixes="parameter",
     Documentation(info="<html>
 <p>

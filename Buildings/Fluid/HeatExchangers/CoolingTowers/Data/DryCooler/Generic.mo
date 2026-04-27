@@ -14,7 +14,7 @@ record Generic "Performance data record for a dry cooler"
     "Correction factor for UA value due to change in mass flow rate and temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   annotation (
-    defaultComponentName="datDryCoo",
+    defaultComponentName="datCooTow",
     defaultComponentPrefixes="parameter",
     Documentation(info="<html>
 <p>

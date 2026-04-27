@@ -9,7 +9,7 @@ record BAC_Trillium_TDFS1238N_C60ET40B
     TCooOut_nominal=313.7);
 
   annotation (
-    defaultComponentName="datDryCoo",
+    defaultComponentName="datCooTow",
     defaultComponentPrefixes="parameter",
     Documentation(info="<html>
 <p>

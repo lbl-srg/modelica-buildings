@@ -18,7 +18,7 @@ record Generic
       Dialog(tab="Advanced"),
       Placement(transformation(extent={{60,60},{80,80}})));
   annotation (
-    defaultComponentName="dat",
+    defaultComponentName="datCooTow",
     defaultComponentPrefixes="parameter",
     Documentation(info="<html>
 <p>
