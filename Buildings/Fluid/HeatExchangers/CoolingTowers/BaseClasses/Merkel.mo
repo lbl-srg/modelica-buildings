@@ -108,8 +108,9 @@ protected
 
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEqu_nominal=
       Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
-      TIn=dat.TAirInWB_nominal, TOut=TAirOutWB_nominal)
-      "Specific heat capacity of the equivalent medium on medium 1 side fixme";
+      TIn=dat.TAirInWB_nominal,
+      TOut=TAirOutWB_nominal)
+      "Specific heat capacity of the equivalent medium on the air side at nominal condition";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=
       Air.specificHeatCapacityCp(staAir_default)
     "Specific heat capacity of air at nominal condition";
