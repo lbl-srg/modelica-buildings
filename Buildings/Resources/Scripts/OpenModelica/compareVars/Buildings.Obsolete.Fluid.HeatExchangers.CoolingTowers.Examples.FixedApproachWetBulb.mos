@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "tow.TAir",
-    "tow.vol.heatPort.Q_flow",
-    "tow.m_flow",
-    "onOffCon.u",
-    "onOffCon.reference"
-  };

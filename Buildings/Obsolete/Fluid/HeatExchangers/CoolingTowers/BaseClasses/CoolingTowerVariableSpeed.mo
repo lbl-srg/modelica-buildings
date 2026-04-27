@@ -3,7 +3,7 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
   extends Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
 
   import cha =
-    Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
   parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
     "Nominal outdoor (air inlet) wetbulb temperature"

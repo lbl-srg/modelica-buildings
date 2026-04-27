@@ -2,6 +2,21 @@
 //  from: Version 12
 //  to:   Version 13.0.0
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4489
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower",
+             "Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower");
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed",
+             "Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed");
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Merkel",
+             "Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Merkel");
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel",
+             "Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel");
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel",
+             "Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Merkel");
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc",
+             "Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.YorkCalc");
+
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4354
 convertClass("Buildings.DHC.ETS.Combined.ChillerBorefield",
              "Buildings.Obsolete.DHC.ETS.Combined.ChillerBorefield");

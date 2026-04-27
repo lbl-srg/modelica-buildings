@@ -14,7 +14,7 @@ model YorkCalc
         "K") = 5.56 "Design range temperature (water in - water out)"
     annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
+  Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
 
   Modelica.Units.SI.TemperatureDifference TRan(displayUnit="K") = T_a - T_b
@@ -44,7 +44,7 @@ protected
   Modelica.Units.SI.TemperatureDifference TAppCor(
     min=0,
     displayUnit="K")=
-    Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+    Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
     TRan=TRan,
     TWetBul=TAir,
     FRWat=FRWat,
@@ -55,7 +55,7 @@ protected
   Modelica.Units.SI.TemperatureDifference TAppFreCon(
     min=0,
     displayUnit="K") = (1 - fraFreCon)*dTMax + fraFreCon*
-    Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+    Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
     TRan=TRan,
     TWetBul=TAir,
     FRWat=FRWat,
@@ -76,7 +76,7 @@ protected
 initial equation
   TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
   TRan_nominal = TWatIn_nominal - TWatOut_nominal; // by definition of the range temp.
-  TApp_nominal = Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+  TApp_nominal = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
                    TRan=TRan_nominal, TWetBul=TAirInWB_nominal,
                    FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
   mWat_flow_nominal = m_flow_nominal/FRWat0;

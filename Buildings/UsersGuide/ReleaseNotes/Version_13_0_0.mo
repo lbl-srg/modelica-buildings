@@ -268,6 +268,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers
+    </td>
+    <td valign=\"top\">Refactored models to use a data record for the performance data.<br/>
+                       The old models were moved to the <code>Buildings.Obsolete</code> package,
+                       and a conversion script updates old models to the new ones.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4489\">#4489</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep<br/>
                        Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep<br/>
                        Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DLoadDep<br/>
