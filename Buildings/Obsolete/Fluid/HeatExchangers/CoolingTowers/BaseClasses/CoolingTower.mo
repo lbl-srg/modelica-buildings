@@ -79,6 +79,12 @@ For a wet cooling tower, this is equal to the wet-bulb temperature.
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Moved to <code>Obsolete</code> package due to new cooling tower implementation.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4567">issue 4567</a>.
+</li>
+<li>
 January 16, 2020, by Michael Wetter:<br/>
 Refactored model to avoid mixing textual equations and connect statements.
 </li>

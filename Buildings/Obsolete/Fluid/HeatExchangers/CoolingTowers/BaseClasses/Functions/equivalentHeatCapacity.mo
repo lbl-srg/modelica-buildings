@@ -60,6 +60,12 @@ temperature of the air entering and leaving the tower.
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Moved to <code>Obsolete</code> package due to new cooling tower implementation.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4567">issue 4567</a>.
+</li>
+<li>
 January 3, 2020, by Michael Wetter:<br/>
 Revised implementation to make it once continuously differentiable, which avoids a numerical Jacobian
 in <a href=\"modelica://Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Validation.MerkelEnergyPlus\">

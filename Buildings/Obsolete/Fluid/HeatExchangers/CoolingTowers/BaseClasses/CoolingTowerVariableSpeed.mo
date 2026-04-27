@@ -144,6 +144,12 @@ This base model is used for both the Merkel and York calculation.
 revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Moved to <code>Obsolete</code> package due to new cooling tower implementation.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4567">issue 4567</a>.
+</li>
+<li>
 August 26, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>

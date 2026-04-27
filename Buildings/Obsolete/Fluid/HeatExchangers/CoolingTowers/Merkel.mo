@@ -251,6 +251,12 @@ EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. </p>
 revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Moved to <code>Obsolete</code> package due to new cooling tower implementation.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4567">issue 4567</a>.
+</li>
+<li>
 April 17, 2025, by Michael Wetter:<br/>
 Corrected computation of nominal UA value, which also needs to include the correction for <code>cpEqu_nominal</code>.<br/>
 This is for
