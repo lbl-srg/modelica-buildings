@@ -197,7 +197,7 @@ equation
     UA=UA,
     C1_flow=CAir_flow,
     C2_flow=CCoo_flow,
-    flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow),
+    flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed),
     CMin_flow_nominal=CMin_flow_nominal,
     CMax_flow_nominal=CMax_flow_nominal,
     delta=delta);
@@ -257,8 +257,7 @@ heat flow rate transferred from water to air.
 <h4>Assumptions</h4>
 <ul>
 <li>
-The heat exchanger flow configuration is treated as cross-flow
-(Fixme: should be cross-flow).
+The heat exchanger flow configuration is treated as cross-flow with both streams unmixed.
 </li>
 <li>
 The specific heat capacity of air is evaluated at nominal conditions.
