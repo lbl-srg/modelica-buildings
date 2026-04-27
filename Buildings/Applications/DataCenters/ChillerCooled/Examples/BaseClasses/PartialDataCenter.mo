@@ -56,6 +56,16 @@ partial model PartialDataCenter
   parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
+  parameter Fluid.HeatExchangers.CoolingTowers.Data.YorkCalc.Generic datCooTow(
+    TCooIn_nominal=294.71,
+    PFan_Q_flow_nominal = -18000/(0.785*m1_flow_chi_nominal*4200*6),
+    Q_flow_nominal = -0.785*m1_flow_chi_nominal*4200*6,
+    TCooOut_nominal=289.15,
+    TAirInWB_nominal=283.15,
+    dp_nominal=30000)
+    "Cooling tower performance data"
+    annotation (Placement(transformation(extent={{80,160},{100,180}})));
+
   replaceable
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE
     chiWSE(
@@ -86,12 +96,8 @@ partial model PartialDataCenter
         origin={131,140.5})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[numChi](
     redeclare each replaceable package Medium = MediumW,
-    each TAirInWB_nominal(displayUnit="degC") = 283.15,
-    each TApp_nominal=6,
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    each dp_nominal=30000,
-    each m_flow_nominal=0.785*m1_flow_chi_nominal,
-    each PFan_nominal=18000)
+    each dat=datCooTow,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Cooling tower"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       origin={10,140})));
@@ -294,6 +300,7 @@ partial model PartialDataCenter
   Modelica.Blocks.MathBoolean.Or chiOnSta(nu=numChi)
     "Output true if at least one chiller is on"
     annotation (Placement(transformation(extent={{-102,122},{-90,134}})));
+
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
@@ -568,6 +575,12 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4489\">issue 4489</a>.
+</li>
 <li>
 September 3, 2024, by Jianjun Hu:<br/>
 Added plant on signal to control the pump speed.

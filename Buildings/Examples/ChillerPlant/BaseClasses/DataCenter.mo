@@ -20,6 +20,16 @@ partial model DataCenter
 
   parameter Modelica.Units.SI.PressureDifference dp_nominal=500
     "Nominal pressure difference";
+  parameter Fluid.HeatExchangers.CoolingTowers.Data.YorkCalc.Generic datTow(
+    PFan_Q_flow_nominal=-6000/(mCW_flow_nominal*4200*6),
+    Q_flow_nominal=-mCW_flow_nominal*4200*6,
+    TCooIn_nominal=289.15+6,
+    TCooOut_nominal=289.15,
+    dp_nominal=14930 + 14930 + 74650,
+    TAirInWB_nominal(displayUnit="degC") = 283.15)
+    "Performance data for cooling tower"
+    annotation (Placement(transformation(extent={{300,260},{320,280}})));
+
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
@@ -75,12 +85,8 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{248,-147},{268,-127}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
     redeclare package Medium = MediumW,
-    m_flow_nominal=mCW_flow_nominal,
-    PFan_nominal=6000,
-    TAirInWB_nominal(displayUnit="degC") = 283.15,
-    TApp_nominal=6,
-    dp_nominal=14930 + 14930 + 74650,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dat=datTow)
     "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -275,6 +281,7 @@ partial model DataCenter
   Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
       y_start=0) "Energy consumed by IT"
     annotation (Placement(transformation(extent={{-240,-290},{-220,-270}})));
+
 equation
   connect(expVesCHW.port_a, cooCoi.port_b1) annotation (Line(
       points={{258,-147},{258,-164},{280,-164}},
@@ -601,6 +608,12 @@ Buildings.Examples.ChillerPlant</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4489\">issue 4489</a>.
+</li>
 <li>
 December 6, 2021, by Michael Wetter:<br/>
 Changed initialization from steady-state initial to fixed initial.<br/>
