@@ -69,7 +69,7 @@ class AllSystemsWaterCooled
       yPumChiWatPriSta_min=fill(0.3, pla.ctl.nSta),
       yPumChiWatPri_min=0.1,
       yPumChiWatSec_min=0.1,
-      yFanCoo_min=0,
+      yFanCoo_min=0.1,
       staChi=[1, 0; 1, 1],
       staPumConWat=if pla.cfg.typEco <>
         Buildings.Templates.Plants.Chillers.Types.Economizer.None
