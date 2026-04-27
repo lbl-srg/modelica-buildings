@@ -9,11 +9,10 @@ model DryCooler "Cooling tower model based on epsilon-NTU relation"
     dat "Performance data record"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
-  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = m_flow_nominal/dat.ratCooAir_nominal "Nominal mass flow rate of air" annotation(
-    Dialog(group = "Fan"));
-  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max = 0) = per.Q_flow_nominal "Nominal heat transfer, (negative)";
-  final parameter Modelica.Units.SI.ThermalConductance UA_nominal = per.UA_nominal "Thermal conductance at nominal flow, used to compute heat capacity";
-  final parameter Real eps_nominal = per.eps_nominal "Nominal heat transfer effectiveness";
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal = per.UA_nominal
+    "Thermal conductance at nominal flow, used to compute heat capacity";
+  final parameter Real eps_nominal = per.eps_nominal
+    "Nominal heat transfer effectiveness";
   final parameter Real NTU_nominal(min = 0) = per.NTU_nominal "Nominal number of transfer units";
 protected
   Modelica.Blocks.Sources.RealExpression TCooIn(final y = Medium.temperature(Medium.setState_phX(p = port_a.p, h = inStream(port_a.h_outflow), X = inStream(port_a.Xi_outflow)))) "Cooling loop fluid inlet temperature" annotation(
@@ -38,7 +37,18 @@ equation
   connect(TCooIn.y, per.TCooIn) annotation(
     Line(points = {{-49, 45}, {-40, 45}, {-40, 46}, {-22, 46}}, color = {0, 0, 127}));
   annotation(
-    Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(textColor = {0, 0, 127}, extent = {{-98, 100}, {-86, 84}}, textString = "y"), Text(textColor = {0, 0, 127}, extent = {{-104, 70}, {-70, 32}}, textString = "TWB"), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, 81}, {-70, 78}}), Text(origin = {-2, 0},textColor = {255, 255, 255}, extent = {{-54, 6}, {58, -114}}, textString = "DryCooler"), Ellipse(lineColor = {255, 255, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-54, 62}, {0, 50}}), Ellipse(lineColor = {255, 255, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{0, 62}, {54, 50}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{78, 82}, {100, 78}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{70, 56}, {82, 52}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{78, 54}, {82, 80}}), Text(textColor = {0, 0, 127}, extent = {{64, 114}, {98, 76}}, textString = "PFan")}),
+    Icon(coordinateSystem(preserveAspectRatio = false),
+      graphics = {
+        Text(textColor = {0, 0, 127}, extent = {{-98, 100}, {-86, 84}}, textString = "y"),
+        Text(textColor = {0, 0, 127}, extent = {{-104, 70}, {-70, 32}}, textString = "TDryBul"),
+        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, 81}, {-70, 78}}),
+        Text(origin = {-2, 0},textColor = {255, 255, 255}, extent = {{-54, 6}, {58, -114}}, textString = "DryCooler"),
+        Ellipse(lineColor = {255, 255, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-54, 62}, {0, 50}}),
+        Ellipse(lineColor = {255, 255, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{0, 62}, {54, 50}}),
+        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{78, 82}, {100, 78}}),
+        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{70, 56}, {82, 52}}),
+        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{78, 54}, {82, 80}}),
+        Text(textColor = {0, 0, 127}, extent = {{64, 114}, {98, 76}}, textString = "PFan")}),
     Diagram(coordinateSystem(preserveAspectRatio = false)),
     Documentation(info="<html>
 <p>
@@ -51,7 +61,7 @@ To compute the thermal performance, this model takes as parameters
 the nominal cooling capacity, air dry-bulb temperature, and
 cooling fluid (water or glycol) inlet and outlet temperatures
 as specified in the data record
-<a href=\"Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler</a>.
 The cooling tower performance is
 modeled using the effectiveness-NTU relationships.
@@ -63,7 +73,7 @@ using the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil</a>.
 This correction can be configured in the data record
-<a href=\"Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic</a>.
 </p>
 </html>", revisions = "<html>
