@@ -71,7 +71,7 @@ protected
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=4) "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
+    annotation (Placement(transformation(extent={{-210,-90},{-190,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-320,200},{-300,220}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
@@ -109,7 +109,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2[2]
   "Logical not"
     annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    k=false) "Plant is not just enabled"
+    annotation (Placement(transformation(extent={{-240,-310},{-220,-290}})));
 equation
   connect(ram2.y,add1. u2)
     annotation (Line(points={{-338,-280},{-320,-280},{-320,-266},{-302,-266}},
@@ -124,7 +126,7 @@ equation
     annotation (Line(points={{-338,-190},{-320,-190},{-320,-186},{-302,-186}},
       color={0,0,127}));
   connect(or3.y, booRep.u)
-    annotation (Line(points={{-238,-140},{-220,-140},{-220,-80},{-202,-80}},
+    annotation (Line(points={{-238,-140},{-220,-140},{-220,-80},{-212,-80}},
       color={255,0,255}));
   connect(chiSta1.y, not1.u)
     annotation (Line(points={{-338,210},{-322,210}}, color={255,0,255}));
@@ -175,7 +177,7 @@ equation
   connect(hpTowSpe2.y, cloCouWitWse.uMaxSpeSet[2]) annotation (Line(points={{-338,
           -60},{-140,-60},{-140,298},{-82,298}}, color={0,0,127}));
   connect(booRep.y, cloCouWitWse.uTow)
-    annotation (Line(points={{-178,-80},{-130,-80},{-130,295},{-82,295}},
+    annotation (Line(points={{-188,-80},{-130,-80},{-130,295},{-82,295}},
       color={255,0,255}));
   connect(or3.y, cloCouWitWse.uPla)
     annotation (Line(points={{-238,-140},{-120,-140},{-120,289},{-82,289}},
@@ -206,7 +208,7 @@ equation
   connect(hpTowSpe2.y, lesCouWitWse.uMaxSpeSet[2]) annotation (Line(points={{-338,
           -60},{40,-60},{40,298},{98,298}}, color={0,0,127}));
   connect(booRep.y, lesCouWitWse.uTow)
-    annotation (Line(points={{-178,-80},{50,-80},{50,295},{98,295}},
+    annotation (Line(points={{-188,-80},{50,-80},{50,295},{98,295}},
       color={255,0,255}));
   connect(or3.y, lesCouWitWse.uPla)
     annotation (Line(points={{-238,-140},{60,-140},{60,289},{98,289}},
@@ -234,7 +236,7 @@ equation
   connect(hpTowSpe2.y, cloCouNoWse.uMaxSpeSet[2]) annotation (Line(points={{-338,
           -60},{180,-60},{180,298},{278,298}}, color={0,0,127}));
   connect(booRep.y, cloCouNoWse.uTow)
-    annotation (Line(points={{-178,-80},{190,-80},{190,295},{278,295}},
+    annotation (Line(points={{-188,-80},{190,-80},{190,295},{278,295}},
       color={255,0,255}));
   connect(or3.y, cloCouNoWse.uPla)
     annotation (Line(points={{-238,-140},{200,-140},{200,289},{278,289}},
@@ -262,6 +264,12 @@ equation
           {80,-220},{80,283},{98,283}}, color={255,0,255}));
   connect(not2.y, cloCouNoWse.uConWatPum) annotation (Line(points={{-218,-220},
           {220,-220},{220,283},{278,283}}, color={255,0,255}));
+  connect(con.y, cloCouWitWse.uEnaPla) annotation (Line(points={{-218,-300},{-180,
+          -300},{-180,310},{-82,310}}, color={255,0,255}));
+  connect(con.y, lesCouWitWse.uEnaPla) annotation (Line(points={{-218,-300},{0,-300},
+          {0,310},{98,310}}, color={255,0,255}));
+  connect(con.y, cloCouNoWse.uEnaPla) annotation (Line(points={{-218,-300},{152,
+          -300},{152,310},{278,310}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/Validation/Controller.mos"
     "Simulate and plot"),
