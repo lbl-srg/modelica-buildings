@@ -61,10 +61,11 @@ To compute the thermal performance, this model takes as parameters
 the nominal cooling capacity, air dry-bulb temperature, and
 cooling fluid (water or glycol) inlet and outlet temperatures
 as specified in the data record
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic</a>.
 The cooling tower performance is
-modeled using the effectiveness-NTU relationships.
+modeled using the effectiveness-NTU relationship for
+a crossflow configuration.
 </p>
 <p>
 Changes in convective heat transfer coefficient on the coolant-side and

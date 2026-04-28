@@ -8,15 +8,15 @@ This package contains obsolete components models for cooling towers.
 </p>
 <p>
 The model
-<a href=\"modelica://Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.FixedApproach\">
-Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.FixedApproach</a>
-computes a fixed approach temperature.
+<a href=\"modelica://Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Merkel\">
+Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Merkel</a>
+computes the performance using Merkel's approach.
 </p>
 <p>
 The model
 <a href=\"modelica://Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">
 Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
-computes the cooling tower performance based the York formula.
+computes the performance using York's formula.
 </p>
 </html>"));
 end CoolingTowers;

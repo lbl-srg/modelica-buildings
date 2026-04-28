@@ -95,8 +95,8 @@ for the respective adjustment factor, and the
 coefficients  <i>c<sub>x,0</sub></i>, <i>c<sub>x,1</sub></i>, <i>c<sub>x,2</sub></i>, and <i>c<sub>x,3</sub></i>
 are the user-defined
 values for the respective adjustment factor functions obtained from
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.Merkel.Generic\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.Merkel.Generic</a>.
 </p>
 </html>", revisions="<html>
 <ul>
