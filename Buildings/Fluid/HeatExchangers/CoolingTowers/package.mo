@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers;
 package CoolingTowers "Package with cooling tower models"
-  extends Modelica.Icons.VariantsPackage;
+  extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -38,5 +38,31 @@ Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>
 computes the performance of a wet, open cooling tower using the Merkel formula.
 It uses the wet bulb temperature as an input.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-80,80},{80,-80}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-74,68},{-4,44}},
+          lineColor={255,255,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-4,70},{68,44}},
+          lineColor={255,255,255},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-70,32},{-30,-68},{-18,-62},{-58,38},{-70,32}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Polygon(
+          points={{68,30},{28,-70},{16,-64},{56,36},{68,30}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None)}));
 end CoolingTowers;
