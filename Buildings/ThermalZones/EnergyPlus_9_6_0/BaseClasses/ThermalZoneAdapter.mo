@@ -270,7 +270,7 @@ equation
         if m_flow[i] > 0 then
           TInlet[i]*m_flow[i]
         else
-          0 for i in 1:nFluPor)+m_flow_small*pre(TAveInlet)/(mInlet_flow+m_flow_small));
+          0 for i in 1:nFluPor)+m_flow_small*pre(TAveInlet))/(mInlet_flow+m_flow_small);
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
     QGaiRadAve_flow = (EGaiRadLast-pre(EGaiRadLast))/dtLast;
 
@@ -313,6 +313,12 @@ of its class <code>adapter</code>, of EnergyPlus.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 22, 2026, by Michael Wetter:<br/>
+Corrected miss-placed bracket in the computation of the average inlet temperature to the zone.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4559\">#4559</a>.
+</li>
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
