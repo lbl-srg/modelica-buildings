@@ -46,8 +46,8 @@ equation
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
   connect(tow.port_b,sin. ports[1])
     annotation (Line(points={{10,0},{62,0}}, color={0,127,255}));
-  connect(TWetBul.y, tow.TAir) annotation (Line(points={{-38,40},{-28,40},{-28,4},
-          {-12,4}}, color={0,0,127}));
+  connect(TWetBul.y, tow.TWetBul) annotation (Line(points={{-38,40},{-28,40},{-28,
+          4},{-12,4}}, color={0,0,127}));
   connect(yFan.y, tow.y) annotation (Line(points={{-38,80},{-20,80},{-20,8},{-12,
           8}}, color={0,0,127}));
 annotation (

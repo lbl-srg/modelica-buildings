@@ -18,6 +18,12 @@ model Merkel "Cooling tower model based on Merkel's theory"
   final parameter Real NTU_nominal(min=0)=per.NTU_nominal
     "Nominal number of transfer units";
 
+  Modelica.Blocks.Interfaces.RealInput TWetBul(
+    final min=0,
+    final unit="K",
+    displayUnit="degC") "Entering air wet bulb temperature"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
 protected
   Modelica.Blocks.Sources.RealExpression TCooIn(
     final y=Medium.temperature(
@@ -25,10 +31,10 @@ protected
         p=port_a.p,
         h=inStream(port_a.h_outflow),
         X=inStream(port_a.Xi_outflow)))) "Inlet temperature of cooled fluid"
-    annotation (Placement(transformation(extent={{-70,36},{-50,54}})));
+    annotation (Placement(transformation(extent={{-70,30},{-50,48}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(final y=port_a.m_flow)
     "Water mass flow rate"
-    annotation (Placement(transformation(extent={{-70,20},{-50,38}})));
+    annotation (Placement(transformation(extent={{-70,12},{-50,30}})));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Merkel per(
     redeclare final package Medium = Medium,
@@ -40,16 +46,16 @@ equation
   connect(per.y, y) annotation (Line(points={{-22,58},{-40,58},{-40,80},{-120,
           80}},
         color={0,0,127}));
-  connect(per.TAir, TAir) annotation (Line(points={{-22,54},{-80,54},{-80,40},{
-          -120,40}},
-                color={0,0,127}));
+  connect(per.TWetBul, TWetBul) annotation (Line(points={{-22,54},{-80,54},{-80,
+          40},{-120,40}}, color={0,0,127}));
   connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{12,50},{
           12,12},{-80,12},{-80,-60},{-40,-60}},color={0,0,127}));
   connect(per.m_flow, mWat_flow.y) annotation (Line(points={{-22,42},{-34,42},{
-          -34,29},{-49,29}},
+          -34,21},{-49,21}},
                          color={0,0,127}));
-  connect(TCooIn.y, per.TCooIn) annotation (Line(points={{-49,45},{-35.5,45},{-35.5,
-          46},{-22,46}}, color={0,0,127}));
+  connect(TCooIn.y, per.TCooIn) annotation (Line(points={{-49,39},{-35.5,39},{
+          -35.5,46},{-22,46}},
+                         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},

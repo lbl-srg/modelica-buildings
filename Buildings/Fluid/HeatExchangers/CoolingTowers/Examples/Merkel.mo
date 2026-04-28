@@ -36,7 +36,7 @@ equation
     annotation (Line(
       points={{43,-56},{50,-56},{50,-20},{-30,-20},{-30,-2}},
       color={0,0,127}));
-  connect(weaBus.TWetBul, tow.TAir) annotation (Line(
+  connect(weaBus.TWetBul, tow.TWetBul) annotation (Line(
       points={{-59.95,50.05},{0,50.05},{0,-46},{20,-46}},
       color={255,204,51},
       thickness=0.5), Text(

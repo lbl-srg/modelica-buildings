@@ -39,7 +39,7 @@ equation
       points={{43,-56},{50,-56},{50,-20},{-30,-20},{-30,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.TDryBul, tow.TAir) annotation (Line(
+  connect(weaBus.TDryBul, tow.TDryBul) annotation (Line(
       points={{-60,50},{0,50},{0,-46},{20,-46}},
       color={255,204,51},
       thickness=0.5), Text(

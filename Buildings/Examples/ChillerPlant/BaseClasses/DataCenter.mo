@@ -468,7 +468,7 @@ equation
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(cooTow.TAir, weaBus.TWetBul) annotation (Line(
+  connect(cooTow.TWetBul, weaBus.TWetBul) annotation (Line(
       points={{257,243},{82,243},{82,268},{-321.95,268},{-321.95,-87.95}},
       color={0,0,127},
       smooth=Smooth.None,

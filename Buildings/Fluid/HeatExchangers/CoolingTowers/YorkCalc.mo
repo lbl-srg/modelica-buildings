@@ -19,6 +19,12 @@ model YorkCalc
         "Design range temperature (coolant in - coolant out)"
     annotation (Dialog(group="Nominal condition"));
 
+  Modelica.Blocks.Interfaces.RealInput TWetBul(
+    final min=0,
+    final unit="K",
+    displayUnit="degC") "Entering air wet bulb temperature"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
 
@@ -44,14 +50,14 @@ protected
     start=m_flow_nominal,
     fixed=false) "Nominal water mass flow rate";
 
-  Modelica.Units.SI.TemperatureDifference dTMax(displayUnit="K") = T_a - TAir
-    "Maximum possible temperature difference";
+  Modelica.Units.SI.TemperatureDifference dTMax(displayUnit="K") = T_a -
+    TWetBul "Maximum possible temperature difference";
   Modelica.Units.SI.TemperatureDifference TAppCor(
     min=0,
-    displayUnit="K")=
+    displayUnit="K") =
     Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
     TRan=TRan,
-    TWetBul=TAir,
+    TWetBul=TWetBul,
     FRWat=FRWat,
     FRAir=Buildings.Utilities.Math.Functions.smoothMax(
       x1=FRWat/bou.liqGasRat_max,
@@ -60,23 +66,22 @@ protected
   Modelica.Units.SI.TemperatureDifference TAppFreCon(
     min=0,
     displayUnit="K") = (1 - dat.fraFreCon)*dTMax + dat.fraFreCon*
-      Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
-        TRan=TRan,
-        TWetBul=TAir,
-        FRWat=FRWat,
-        FRAir=1) "Approach temperature for free convection";
+    Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
+    TRan=TRan,
+    TWetBul=TWetBul,
+    FRWat=FRWat,
+    FRAir=1) "Approach temperature for free convection";
 
   Modelica.Units.SI.Temperature T_a "Temperature in port_a";
   Modelica.Units.SI.Temperature T_b "Temperature in port_b";
 
 protected
-  Modelica.Blocks.Sources.RealExpression QWat_flow(
-    y = m_flow*(
-      Medium.specificEnthalpy(Medium.setState_pTX(
-        p=port_b.p,
-        T=TAir + TAppAct,
-        X=inStream(port_b.Xi_outflow))) -
-      inStream(port_a.h_outflow)))
+  Modelica.Blocks.Sources.RealExpression QWat_flow(y=m_flow*(
+        Medium.specificEnthalpy(
+        Medium.setState_pTX(
+          p=port_b.p,
+          T=TWetBul + TAppAct,
+          X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow)))
     "Heat input into water"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 initial equation

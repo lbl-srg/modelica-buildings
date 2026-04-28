@@ -14,6 +14,13 @@ model DryCooler "Cooling tower model based on epsilon-NTU relation"
   final parameter Real eps_nominal = per.eps_nominal
     "Nominal heat transfer effectiveness";
   final parameter Real NTU_nominal(min = 0) = per.NTU_nominal "Nominal number of transfer units";
+
+  Modelica.Blocks.Interfaces.RealInput TDryBul(
+    final min=0,
+    final unit="K",
+    displayUnit="degC") "Entering air dry bulb temperature"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
 protected
   Modelica.Blocks.Sources.RealExpression TCooIn(final y = Medium.temperature(Medium.setState_phX(p = port_a.p, h = inStream(port_a.h_outflow), X = inStream(port_a.Xi_outflow)))) "Cooling loop fluid inlet temperature" annotation(
     Placement(transformation(extent = {{-70, 36}, {-50, 54}})));
@@ -28,8 +35,8 @@ protected
 equation
   connect(per.y, y) annotation(
     Line(points = {{-22, 58}, {-40, 58}, {-40, 80}, {-120, 80}}, color = {0, 0, 127}));
-  connect(per.TAir, TAir) annotation(
-    Line(points = {{-22, 54}, {-80, 54}, {-80, 40}, {-120, 40}}, color = {0, 0, 127}));
+  connect(per.TDryBul, TDryBul) annotation (Line(points={{-22,54},{-80,54},{-80,
+          40},{-120,40}}, color={0,0,127}));
   connect(per.Q_flow, preHea.Q_flow) annotation(
     Line(points = {{1, 50}, {12, 50}, {12, 12}, {-80, 12}, {-80, -60}, {-40, -60}}, color = {0, 0, 127}));
   connect(per.m_flow, mCoo_flow.y) annotation(

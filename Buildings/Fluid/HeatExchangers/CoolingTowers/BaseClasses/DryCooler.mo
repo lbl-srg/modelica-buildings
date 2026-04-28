@@ -46,11 +46,10 @@ block DryCooler "Model for thermal performance of dry cooling tower"
     "Inlet water temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-  Modelica.Blocks.Interfaces.RealInput TAir(
+  Modelica.Blocks.Interfaces.RealInput TDryBul(
     final min=0,
     final unit="K",
-    displayUnit="degC")
-    "Entering air wet bulb temperature"
+    displayUnit="degC") "Entering air dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow "Heat removed from water"
@@ -87,9 +86,8 @@ equation
           -80},{-120,-80}},                     color={0,0,127}));
   connect(hA.T_1, TCooIn) annotation (Line(points={{-1,-27},{-60,-27},{-60,-40},
           {-120,-40}}, color={0,0,127}));
-  connect(hA.T_2, TAir) annotation (Line(points={{-1,-33},{-88,-33},{-88,40},{
-          -120,40}},
-                color={0,0,127}));
+  connect(hA.T_2, TDryBul) annotation (Line(points={{-1,-33},{-88,-33},{-88,40},
+          {-120,40}}, color={0,0,127}));
   connect(mAirFlo.u, y)
     annotation (Line(points={{-62,80},{-120,80}},                    color={0,0,127}));
   connect(hA.m2_flow, mAirFlo.y)
@@ -102,9 +100,8 @@ equation
           {-120,-80}}, color={0,0,127}));
   connect(UA.TCooIn, TCooIn) annotation (Line(points={{59,-2},{-60,-2},{-60,-40},
           {-120,-40}}, color={0,0,127}));
-  connect(UA.TAirIn, TAir) annotation (Line(points={{59,1},{-88,1},{-88,40},{
-          -120,40}},
-                color={0,0,127}));
+  connect(UA.TAirIn, TDryBul) annotation (Line(points={{59,1},{-88,1},{-88,40},
+          {-120,40}}, color={0,0,127}));
   connect(UA.hACoo, hA.hA_1) annotation (Line(points={{59,-5},{30,-5},{30,-23},
           {21,-23}}, color={0,0,127}));
   connect(UA.hAAir, hA.hA_2) annotation (Line(points={{59,-8},{40,-8},{40,-37},

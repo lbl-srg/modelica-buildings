@@ -232,8 +232,8 @@ partial model PartialDataCenter
     k=0.1)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-170,170},{-150,186}})));
-  Modelica.Blocks.Sources.RealExpression TCWSupSet(
-    y=min(29.44 + 273.15, max(273.15 + 15.56, cooTow[1].TAir + 3)))
+  Modelica.Blocks.Sources.RealExpression TCWSupSet(y=min(29.44 + 273.15, max(
+        273.15 + 15.56, cooTow[1].TWetBul + 3)))
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-260,176},{-240,196}})));
 
@@ -327,14 +327,15 @@ equation
             60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
-  connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
-      points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,144}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+    connect(weaBus.TWetBul, cooTow[i].TWetBul) annotation (Line(
+        points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,
+            144}},
+        color={255,204,51},
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{6,3},{6,3}},
+        horizontalAlignment=TextAlignment.Left));
   end for;
   connect(senRelPre.port_b, ahu.port_b1)
     annotation (Line(points={{18,-96},{30,-96},{30,-114},{20,-114}},

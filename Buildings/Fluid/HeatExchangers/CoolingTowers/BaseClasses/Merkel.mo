@@ -55,11 +55,10 @@ block Merkel "Model for thermal performance of Merkel cooling tower"
     "Inlet water temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-  Modelica.Blocks.Interfaces.RealInput TAir(
+  Modelica.Blocks.Interfaces.RealInput TWetBul(
     final min=0,
     final unit="K",
-    displayUnit="degC")
-    "Entering air wet bulb temperature"
+    displayUnit="degC") "Entering air wet bulb temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Units.SI.Temperature TAirOut(displayUnit="degC")
     "Outlet air temperature";
@@ -192,7 +191,7 @@ equation
     xMax=dat.UACor.FRWatMax)
     "UA correction factor as function of water flow fraction";
   UA_DifWB =Buildings.Fluid.Utilities.extendedPolynomial(
-    x=dat.TAirInWB_nominal - TAir,
+    x=dat.TAirInWB_nominal - TWetBul,
     c=dat.UACor.cDifWB,
     xMin=dat.UACor.TDiffWBMin,
     xMax=dat.UACor.TDiffWBMax)
@@ -226,13 +225,12 @@ equation
     CMax_flow_nominal=CMax_flow_nominal,
     delta=delta);
   // QMax_flow is maximum heat transfer into medium air: positive means heating
-  QMax_flow = CMin_flow*(TCooIn - TAir);
-  eps*QMax_flow =CAir_flow*(TAirOut - TAir);
+  QMax_flow =CMin_flow*(TCooIn - TWetBul);
+  eps*QMax_flow =CAir_flow*(TAirOut - TWetBul);
 
   cpEqu =
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
-      TIn=TAir,
-      TOut=TAirOut);
+    TIn=TWetBul, TOut=TAirOut);
 
   Q_flow = -eps * QMax_flow;
 

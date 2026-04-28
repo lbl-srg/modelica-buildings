@@ -151,7 +151,7 @@ equation
                                              color={0,127,255}));
   connect(coo.port_b, mulOut.port_a)
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
-  connect(weaBus.TWetBul, coo.TAir) annotation (Line(
+  connect(weaBus.TWetBul, coo.TWetBul) annotation (Line(
       points={{100,-40},{-20,-40},{-20,4},{-12,4}},
       color={255,204,51},
       thickness=0.5), Text(

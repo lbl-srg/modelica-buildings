@@ -21,13 +21,6 @@ model CoolingTowerVariableSpeed "Base class for cooling towers with variable spe
     Placement(transformation(extent={{22,70},{42,90}})),
     Dialog(group="Fan"));
 
-  Modelica.Blocks.Interfaces.RealInput TAir(
-    final min=0,
-    final unit="K",
-    displayUnit="degC")
-    "Entering air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
   Modelica.Blocks.Interfaces.RealInput y(unit="1") "Fan control signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
@@ -80,10 +73,6 @@ equation
           extent={{-98,100},{-86,84}},
           textColor={0,0,127},
           textString="y"),
-        Text(
-          extent={{-104,70},{-70,32}},
-          textColor={0,0,127},
-          textString="TWB"),
         Rectangle(
           extent={{-100,81},{-70,78}},
           lineColor={0,0,255},

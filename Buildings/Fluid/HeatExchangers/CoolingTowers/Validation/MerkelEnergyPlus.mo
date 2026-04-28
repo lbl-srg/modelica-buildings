@@ -128,9 +128,8 @@ model MerkelEnergyPlus
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
 equation
-  connect(tow.TAir, TAirWB.y)
-    annotation (Line(points={{38,-46},{20,-46},{20,10},{-38,10}},
-      color={0,0,127}));
+  connect(tow.TWetBul, TAirWB.y) annotation (Line(points={{38,-46},{20,-46},{20,
+          10},{-38,10}}, color={0,0,127}));
   connect(souWat.ports[1], tow.port_a)
     annotation (Line(points={{0,-50},{40,-50}}, color={0,127,255}));
   connect(tow.port_b, sinWat.ports[1])
