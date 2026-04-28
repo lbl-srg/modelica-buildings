@@ -117,7 +117,7 @@ equation
       annotation (Line(points={{-40,0},{-10,0}},color={0,127,255}));
     connect(uFanSpe,cooTow[i].y)
       annotation (Line(points={{-120,20},{-20,20},{-20,8},{-12,8}},color={0,0,127}));
-    connect(TWetBul,cooTow[i].TAir)
+    connect(TWetBul,cooTow[i].TWetBul)
       annotation (Line(points={{-120,-60},{-20,-60},{-20,4},{-12,4}},color={0,0,127}));
     connect(cooTow[i].PFan,PFan[i])
       annotation (Line(points={{11,8},{20,8},{20,60},{110,60}},color={0,0,127}));

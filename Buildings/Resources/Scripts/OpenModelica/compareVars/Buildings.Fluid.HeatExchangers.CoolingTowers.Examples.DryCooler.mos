@@ -2,7 +2,7 @@ compareVars :=
   {
     "TEnt.T",
     "tow.TLvg",
-    "tow.TAir",
+    "tow.TDryBul",
     "tow.PFan",
     "conFan.u_s",
     "conFan.u_m",
