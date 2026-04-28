@@ -42,7 +42,7 @@ block DryCoolerUA
         eps=min(0.99999, max(1E-6, eps_nominal)),
         Z=Z_nominal,
         flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow))
-    "Nominal number of transfer units. Fixme: should be cross-flow.";
+    "Nominal number of transfer units";
 
   final parameter Real Z_nominal(
     min=0,
