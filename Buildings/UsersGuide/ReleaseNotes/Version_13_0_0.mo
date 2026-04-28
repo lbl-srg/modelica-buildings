@@ -37,20 +37,24 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.AirFilters
     </td>
     <td valign=\"top\">Package of models for air filters.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Media.Antifreeze</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater<br/>
+                       Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater
+    </td>
+    <td valign=\"top\">Packages that allows function calls of media properties without
+                       having to instantiate a package. This allows calling the
+                       functions from a Modelica <code>record</code>.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">IBPSA, issue 2115</a>.
+    </td>
+    </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
