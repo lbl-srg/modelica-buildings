@@ -60,7 +60,7 @@ model CoolingTowersParallel
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
-  replaceable parameter Fluid.HeatExchangers.CoolingTowers.Data.Merkel.Generic dat(
+  parameter Fluid.HeatExchangers.CoolingTowers.Data.Merkel.Generic dat(
     Q_flow_nominal=-m_flow_nominal*cp_default*dT_nominal,
     TCooIn_nominal=TWatIn_nominal,
     TCooOut_nominal=TWatIn_nominal-dT_nominal,
@@ -68,19 +68,18 @@ model CoolingTowersParallel
     dp_nominal=0,
     PFan_Q_flow_nominal=-PFan_nominal/(m_flow_nominal*cp_default*dT_nominal),
     ratCooAir_nominal=ratWatAir_nominal) "Performance data record"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  replaceable Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num](
+  Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel cooTow[num](
+    redeclare each final package Medium=Medium,
     each final dat=dat,
     each final allowFlowReversal=allowFlowReversal,
-    each final m_flow_small=m_flow_small)
-    constrainedby
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
-      redeclare each final package Medium=Medium,
-      each final show_T=show_T,
-      each final energyDynamics=energyDynamics)
+    each final m_flow_small=m_flow_small,
+    each final show_T=show_T,
+    each final energyDynamics=energyDynamics)
     "Cooling tower type"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](
     redeclare each final package Medium=Medium,
     each final allowFlowReversal=allowFlowReversal,
@@ -120,7 +119,7 @@ equation
     connect(TWetBul,cooTow[i].TWetBul)
       annotation (Line(points={{-120,-60},{-20,-60},{-20,4},{-12,4}},color={0,0,127}));
     connect(cooTow[i].PFan,PFan[i])
-      annotation (Line(points={{11,8},{20,8},{20,60},{110,60}},color={0,0,127}));
+      annotation (Line(points={{11,8},{32,8},{32,60},{110,60}},color={0,0,127}));
     connect(cooTow[i].port_b, senTem.port_a)
       annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
   end for;
@@ -273,6 +272,14 @@ equation
       revisions="<html>
 <ul>
 <li>
+April 29, 2026, by Michael Wetter:<br/>
+Refactored to no longer allow the cooling tower model and its data record to be replaceable.
+This was done since the input connector for the Merkel cooling tower has been renamed to
+<code>TWetBul</code>, and its base class has no longer this input connector.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
+<li>
 November 16, 2022, by Michael Wetter:<br/>
 Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps.
 </li>
@@ -285,10 +292,10 @@ First implementation.
       info="<html>
 <p>This model implements a parallel cooling tower system with <code>num</code>
 identical cooling towers. </p>
-<p>The cooling tower type is replaceable.
+<p>The cooling tower model is an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in
-this model. </p>
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>.
+</p>
 </html>"),
     __Dymola_Commands);
 end CoolingTowersParallel;
