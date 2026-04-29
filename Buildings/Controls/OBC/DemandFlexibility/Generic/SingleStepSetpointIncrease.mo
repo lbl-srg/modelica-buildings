@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
-block SingleStepSetpointChange "Single-step setpoint change"
+block SingleStepSetpointIncrease "Single-step setpoint increase"
 
-  parameter Boolean setChaMod
-    "Setpoint change mode; true to set the command setpoint to the maximum setpoint value, false to set the command setpoint to the minimum setpoint value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSet
     "Maximum setpoint input"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
@@ -15,23 +13,17 @@ block SingleStepSetpointChange "Single-step setpoint change"
     "Current setpoint input; the setpoint that an external setpoint controller currently has"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSetChaEna
-    "The signal to enable setpoint change"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
+    "The signal to enable setpoint increase"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSet
     "Command setpoint output; the setpoint that an external setpoint controller should change to"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiMinMax
-    "Switch between the minimum setpoint input and the maximum setpoint input"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant setChaModCon(final k=
-        setChaMod) "Setpoint change mode boolean constant"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiEna
-    "Switch for enabling the setpoint change signal"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    "Switch for enabling the setpoint increase signal"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Min uCurSetLimMin
     "Current setpoint should be no smaller than the minimum setpoint input"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
@@ -39,31 +31,26 @@ block SingleStepSetpointChange "Single-step setpoint change"
     "Current setpoint should be no larger than the maximum setpoint input"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
-  connect(uSetChaEna, swiEna.u2) annotation (Line(points={{-180,120},{-100,120},{-100,
-          -70},{18,-70}}, color={255,0,255}));
+  connect(uEna, swiEna.u2) annotation (Line(points={{-180,120},{-100,120},
+          {-100,-70},{-2,-70}},
+                          color={255,0,255}));
   connect(uCurSet, swiEna.u3) annotation (Line(points={{-180,40},{-80,40},{-80,-78},
-          {18,-78}},      color={0,0,127}));
-  connect(setChaModCon.y,swiMinMax. u2) annotation (Line(points={{-38,30},{-30,30},
-          {-30,-30},{-22,-30}},       color={255,0,255}));
-  connect(uMaxSet,swiMinMax. u1) annotation (Line(points={{-180,-40},{-140,-40},
-          {-140,-22},{-22,-22}}, color={0,0,127}));
-  connect(uMinSet,swiMinMax. u3) annotation (Line(points={{-180,-120},{-120,-120},
-          {-120,-38},{-22,-38}},color={0,0,127}));
-  connect(swiMinMax.y, swiEna.u1) annotation (Line(points={{2,-30},{10,-30},{10,
-          -62},{18,-62}},      color={0,0,127}));
+          {-2,-78}},      color={0,0,127}));
   connect(uMaxSet, uCurSetLimMin.u1) annotation (Line(points={{-180,-40},{-140,-40},
           {-140,80},{100,80},{100,6},{118,6}},
                                             color={0,0,127}));
   connect(uMinSet, uCurSetLimMax.u1) annotation (Line(points={{-180,-120},{-120,
           -120},{-120,60},{40,60},{40,6},{58,6}}, color={0,0,127}));
-  connect(swiEna.y, uCurSetLimMax.u2) annotation (Line(points={{42,-70},{50,-70},
-          {50,-6},{58,-6}}, color={0,0,127}));
+  connect(swiEna.y, uCurSetLimMax.u2) annotation (Line(points={{22,-70},{40,-70},
+          {40,-6},{58,-6}}, color={0,0,127}));
   connect(uCurSetLimMax.y, uCurSetLimMin.u2)
     annotation (Line(points={{82,0},{100,0},{100,-6},{118,-6}},
                                                              color={0,0,127}));
   connect(uCurSetLimMin.y, yComSet)
     annotation (Line(points={{142,0},{180,0}}, color={0,0,127}));
-  annotation (defaultComponentName="sinSteSetCha",
+  connect(uMaxSet, swiEna.u1) annotation (Line(points={{-180,-40},{-40,-40},{-40,
+          -62},{-2,-62}}, color={0,0,127}));
+  annotation (defaultComponentName="sinSteSetInc",
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(
@@ -80,15 +67,19 @@ equation
     grid={2,2})),
     Documentation(info="<html>
 <p>
-This block changes a setpoint to either the minimum setpoint value or the maximum setpoint value
-in a single step when the signal to enable setpoint change becomes <code>true</code>.
+This block changes a setpoint to the maximum setpoint value
+in a single step when the signal to enable setpoint increase becomes <code>true</code>.
 </p>
 
 <p>
-Several input and output variables are defined as follows: 
+All input and output variables are defined as follows: 
 </p>
 
 <ul>
+<li>
+<code>uEna</code>: a boolean input variable, which  
+specifies whether to enable the single-step setpoint increase operation or not.
+</li>
 <li>
 <code>uCurSet</code>: the current setpoint, which represents the current setpoint value from an 
 external setpoint controller.
@@ -110,28 +101,15 @@ maximum setpoint can change dynamically.
 </ul>
 
 <p>
-The <code>uSetChaEna</code> boolean input variable 
-specifies whether to enable the single-step setpoint change operation or not, and 
-the parameter <code>setChaMod</code> specifies whether a setpoint shall change to the 
-<code>uMinSet</code> value or the <code>uMaxSet</code> value in a single step. 
-</p>
-
-<p>
 When 
-<code>uSetChaEna</code> is <code>true</code> and <code>setChaMod</code> is <code>true</code>,
+<code>uEna</code> is <code>true</code>,
 the <code>uMaxSet</code> value is passed to <code>yComSet</code>.
 </p>
 
 <p>
 When 
-<code>uSetChaEna</code> is <code>true</code> and <code>setChaMod</code> is <code>false</code>,
-the <code>uMinSet</code> value is passed to <code>yComSet</code>.
-</p>
-
-<p>
-When 
-<code>uSetChaEna</code> is <code>false</code>, regardless of what value <code>setChaMod</code> has,
-the <code>uCurSet</code> value is passed to <code>yComSet</code> if <code>uCurSet</code> is within
+<code>uEna</code> is <code>false</code>, the <code>uCurSet</code> value is passed 
+to <code>yComSet</code> if <code>uCurSet</code> is within
 the limits of <code>uMinSet</code> and <code>uMaxSet</code>. If <code>uCurSet</code> is less than
 <code>uMinSet</code>, <code>uMinSet</code> is passed to <code>yComSet</code>. 
 If <code>uCurSet</code> is more than
@@ -140,7 +118,7 @@ If <code>uCurSet</code> is more than
 
 <p>
 The output variable <code>yComSet</code> is intended to be received by an external
-setpoint controller, which will execute the setpoint change and pass the new setpoint
+setpoint controller, which will execute the setpoint increase and pass the new setpoint
 back to the input variable <code>uCurSet</code> in this block, completing a full control loop.
 </p>
 
@@ -153,4 +131,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleStepSetpointChange;
+end SingleStepSetpointIncrease;
