@@ -77,7 +77,7 @@ model CoolingTowersParallel
     each final m_flow_small=m_flow_small,
     each final show_T=show_T,
     each final energyDynamics=energyDynamics)
-    "Cooling tower type"
+    "Cooling tower"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val[num](

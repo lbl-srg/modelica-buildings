@@ -37,14 +37,6 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.AirFilters
     </td>
     <td valign=\"top\">Package of models for air filters.<br/>
@@ -242,7 +234,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.DCH</b>
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>

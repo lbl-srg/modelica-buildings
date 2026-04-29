@@ -22,7 +22,12 @@ model DryCooler "Cooling tower model based on epsilon-NTU relation"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
 protected
-  Modelica.Blocks.Sources.RealExpression TCooIn(final y = Medium.temperature(Medium.setState_phX(p = port_a.p, h = inStream(port_a.h_outflow), X = inStream(port_a.Xi_outflow)))) "Cooling loop fluid inlet temperature" annotation(
+  Modelica.Blocks.Sources.RealExpression TCooIn(
+    final y = Medium.temperature(
+      Medium.setState_phX(
+        p = port_a.p,
+        h = inStream(port_a.h_outflow),
+        X = inStream(port_a.Xi_outflow)))) "Cooling loop fluid inlet temperature" annotation(
     Placement(transformation(extent = {{-70, 36}, {-50, 54}})));
   Modelica.Blocks.Sources.RealExpression mCoo_flow(final y = port_a.m_flow) "Cooling fluid mass flow rate" annotation(
     Placement(transformation(extent = {{-70, 20}, {-50, 38}})));

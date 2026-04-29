@@ -7,7 +7,6 @@ model MerkelNominal
     "Design water flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_W=Medium_W.specificHeatCapacityCp(
       Medium_W.setState_pTX(
         Medium_W.p_default,

@@ -9,7 +9,6 @@ record Generic "Performance data record for a dry cooler"
     "Nominal outdoor (air inlet) drybulb temperature"
     annotation (Dialog(group="Nominal thermal performance"));
 
-
   BaseClasses.UACorrection UACor
     "Correction factor for UA value due to change in mass flow rate and temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
