@@ -38,11 +38,11 @@ model Analytic_20Years
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Modelica.Blocks.Sources.CombiTimeTable timTabQ(
-    tableOnFile=true,
-    tableName="tab1",
-    columns={2},
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    fileName=Modelica.Utilities.Files.loadResource(
+    final tableOnFile=true,
+    final tableName="tab1",
+    final columns={2},
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    final fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Analytic_20Years.txt"))
         "Table for heat injected, using constant segments"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -111,6 +111,12 @@ M.A.Sc. Thesis, &Eacute;cole Polytechnique de Montr&eacute;al.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
 <li>
 March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
