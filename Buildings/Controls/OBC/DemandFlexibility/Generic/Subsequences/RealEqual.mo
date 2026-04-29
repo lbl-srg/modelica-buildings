@@ -11,24 +11,26 @@ block RealEqual "Check whether two real numbers are approximately equal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract                        sub
     "Input u1 minus input u2"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold                                      lesThr(t=alwDev, h=alwDev
         *0.5)
     "Whether the difference is less than the allowed deviation"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs1 "Absolute value of the difference between u1 and u2"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
-  connect(u1, sub.u1) annotation (Line(points={{-120,60},{-90,60},{-90,6},{-82,6}},
+  connect(u1, sub.u1) annotation (Line(points={{-120,60},{-80,60},{-80,6},{-42,
+          6}},
         color={0,0,127}));
-  connect(u2, sub.u2) annotation (Line(points={{-120,-60},{-90,-60},{-90,-6},{-82,
-          -6}}, color={0,0,127}));
+  connect(u2, sub.u2) annotation (Line(points={{-120,-60},{-80,-60},{-80,-6},{
+          -42,-6}},
+                color={0,0,127}));
   connect(sub.y, abs1.u)
-    annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{-2,0}},  color={0,0,127}));
   connect(abs1.y, lesThr.u)
-    annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{22,0},{38,0}},  color={0,0,127}));
   connect(lesThr.y, y)
-    annotation (Line(points={{42,0},{120,0}}, color={255,0,255}));
+    annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
   annotation (defaultComponentName="reaEqu",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Rectangle(
           extent={{-100,100},{100,-100}},

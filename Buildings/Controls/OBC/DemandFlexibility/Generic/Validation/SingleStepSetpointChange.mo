@@ -2,36 +2,37 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model SingleStepSetpointChange "Single-step setpoint change"
   extends Modelica.Icons.Example;
   Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(
-             alwDev=0.01) "Single-step setpoint change block"
+                          setChaMod=true)
+                          "Single-step setpoint change block"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=86400, shift=
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uSetChaEna(period=86400, shift=
         43200) "Boolean value for the \"enable\" signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDefSet(k=273.15 + 19)
-    "Default temperature setpoint example value"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMinSet(k=273.15 + 16)
+    "Minimum temperature setpoint example value"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSet(samplePeriod=10,
-      y_start=273.15 + 20)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSet(samplePeriod=10, y_start=
+        273.15 + 17)
     "Represent a time delay of the temperature setpoint actually changes after the temperature setpoint is asked to change"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,30})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TTarSet(k=273.15 + 16)
-    "Target temperature setpoint example value"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMaxSet(k=273.15 + 19)
+    "Maximum temperature setpoint example value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam(final samplePeriod=300)
     "Sample period for the single-step change"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 equation
-  connect(TDefSet.y, sinSteSetCha.uDefSet) annotation (Line(points={{-58,-70},{
-          -38,-70},{-38,24},{-22,24}}, color={0,0,127}));
+  connect(TMinSet.y, sinSteSetCha.uMinSet) annotation (Line(points={{-58,-70},{-40,
+          -70},{-40,24},{-22,24}},     color={0,0,127}));
   connect(uniDelTSet.y, sinSteSetCha.uCurSet) annotation (Line(points={{82,30},
-          {90,30},{90,-12},{-28,-12},{-28,32},{-22,32}}, color={0,0,127}));
-  connect(uEna.y, sinSteSetCha.uEna) annotation (Line(points={{-58,70},{-30,70},
+          {90,30},{90,-20},{-30,-20},{-30,32},{-22,32}}, color={0,0,127}));
+  connect(uSetChaEna.y, sinSteSetCha.uSetChaEna) annotation (Line(points={{-58,70},{-30,70},
           {-30,36},{-22,36}}, color={255,0,255}));
-  connect(TTarSet.y, sinSteSetCha.uTarSet) annotation (Line(points={{-58,10},{-54,
-          10},{-54,28.2},{-22,28.2}}, color={0,0,127}));
+  connect(TMaxSet.y, sinSteSetCha.uMaxSet) annotation (Line(points={{-58,10},{-50,
+          10},{-50,28.2},{-22,28.2}}, color={0,0,127}));
   connect(sinSteSetCha.yComSet, sam.u)
     annotation (Line(points={{2,30},{18,30}}, color={0,0,127}));
   connect(sam.y, uniDelTSet.u)
@@ -48,25 +49,28 @@ equation
 This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.
 </p>
+
 <p>
-This validation test uses two constant temperature values, the default temperature setpoint <code>TDefSet</code>
-and the target temperature setpoint <code>TTarSet</code>, to represent the input variables
-<code>uDefSet</code> and <code>uTarSet</code>.
-It also uses a boolean pulse signal to represent the \"enable\" 
-signal input <code>uEna</code>. 
+This validation test uses two constant temperature values, the minimum temperature setpoint <code>TMinSet</code>
+and the maximum temperature setpoint <code>TMaxSet</code>, to represent the input variables
+<code>uMinSet</code> and <code>uMaxSet</code>.
+It also uses a boolean pulse signal to represent the 
+signal input <code>uSetChaEna</code> to enable single-step setpoint change. 
 </p>
+
 <p>
-A <code>UnitDelay</code> block represents the behavior of a temperature setpoint 
+A <code>UnitDelay</code> block emulates the behavior of a temperature setpoint 
 within an external zone temperature setpoint controller.
 When this external zone temperature setpoint controller receives the 
 command setpoint <code>yComSet</code> from the <code>SingleStepSetpointChange</code> block at
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>,
 the temperature setpoint within the external zone temperature setpoint controller will be changed to
-<code>yComSet</code> a small time delay later, and the new temperature setpoint value will be passed
+<code>yComSet</code> a small time delay later, such as <code>10</code> seconds, and the new temperature setpoint value will be passed
 back to the <code>uCurSet</code> variable in the <code>SingleStepSetpointChange</code> block, 
 completing a full control loop.
 </p>
+
 <p>
 The setpoint change operation is executed every <code>300</code> seconds, which is represented by 
 a <code>Sampler</code> block.
