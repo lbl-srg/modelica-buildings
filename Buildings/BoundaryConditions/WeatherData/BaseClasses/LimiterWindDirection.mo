@@ -1,7 +1,8 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block LimiterWindDirection "Block that limits the wind direction"
   extends PartialLimiter(
-    final uMax=2*Modelica.Constants.pi);
+    final uMax=4*Modelica.Constants.pi,
+    final uMin=-4*Modelica.Constants.pi);
 
   Modelica.Blocks.Interfaces.RealOutput winDir(
     final unit="rad") "Wind direction"
@@ -23,6 +24,12 @@ negative values.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 7, 2026, by Ettore Zanetti:<br/>
+Updated limit to from [0,360] to [-720,720].<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 First implementation.

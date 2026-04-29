@@ -1258,13 +1258,13 @@ To use new weather data, there are two supported ways:
 You can use the Python tool AixWeather
 (<a href=\"https://github.com/RWTH-EBC/AixWeather\">https://github.com/RWTH-EBC/AixWeather</a>),
 which is installable via <code>pip</code> or accessible via a WebApp (<a href=\"https://aixweather.eonerc.rwth-aachen.de/\">https://aixweather.eonerc.rwth-aachen.de/</a>).
-Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data 
+Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data
 to the desired <code>mos</code> format is supported.
 </p>
 </li>
 <li>
 <p>
-You can use a Java application to convert <code>epw</code> to <code>mos</code> format by following these steps:
+You can use a Python application to convert <code>epw</code> to <code>mos</code> format by following these steps:
 </p>
 <ol>
 <li>
@@ -1284,20 +1284,25 @@ for which you have write permission).
 <p>
 On a console window, type</p><pre>
   cd Buildings/Resources/weatherdata
-  java -jar ../bin/ConvertWeatherData.jar inputFile.epw
+  python ../bin/convert_weather_data.py inputFile.epw
 </pre>
 <p>
 or if <code>inputFile.epw</code> contains space in the name:
 </p>
 <pre>
-  java -jar ../bin/ConvertWeatherData.jar \"inputFile .epw\"
+  python ../bin/convert_weather_data.py \"inputFile .epw\"
 </pre>
 <p>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+To see the script options use the help argument:
 </p>
+<pre>
+  python ../bin/convert_weather_data.py -h
+</pre>
+
 </li>
 </ol>
 </ul>
@@ -1574,8 +1579,8 @@ midnight at December 31 as the value for <i>t=0</i>. Rather, the
 value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
 To maintain a data record with <i>8760</i> hours, the weather data record from
 midnight at December 31 is deleted.
-These changes in the weather data file are done in the Java program
-<code>Buildings/Resources/bin/ConvertWeatherData.jar</code> that converts
+These changes in the weather data file are done in the python script
+<code>Buildings/Resources/bin/convert_weather_data.py</code> that converts
 EnergyPlus weather data file to Modelica weather data files, and which is described
 above.
 The length of the weather data is calculated as the
@@ -1617,6 +1622,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 April 8, 2026, by Jianjun Hu:<br/>
 Changed the class type from block to model.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.
+</li>
+<li>
+April 7, 2026, by Ettore Zanetti:<br/>
+Update documentation on weather script.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
 </li>
 <li>
 May 28, 2025, by Fabian Wuellhorst:<br/>

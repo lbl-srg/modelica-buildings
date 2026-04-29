@@ -3826,7 +3826,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonthsP
 Buildings/Resources/Scripts/JModelica/buildingspy_to_csv.py
 Buildings/Resources/Scripts/travis/dymola/dymola
 Buildings/Resources/Scripts/travis/omc/omc
-Buildings/Resources/bin/ConvertWeatherData.jar
+Buildings/Resources/bin/convert_weather_data.py
 Buildings/Resources/src/ThermalZones/ISO13790/Validation/BESTEST/ASHRAE140_data.dat
 Buildings/Resources/src/ThermalZones/ISO13790/Validation/BESTEST/simulateAndPlot.py
 Buildings/Resources/src/convertEPW/Makefile

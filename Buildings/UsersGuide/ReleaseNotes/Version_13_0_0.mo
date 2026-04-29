@@ -7,6 +7,15 @@ class Version_13_0_0 "Version 13.0.0"
 Version X.Y.Z is ... xxx
 </p>
 </div>
+<p>
+This version also changes the weather data conversion from using Java to Python.
+This change was made when correcting an issue that caused a discontinuity in wind
+direction interpolation when the direction changes between 0 and 360 degrees.
+Users should update their existing weather files by running the Python script
+<code>Buildings/Resources/bin/convert_weather_data.py</code> as
+this requires a conversion of the wind direction data.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
+</p>
 <!-- New libraries -->
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
@@ -65,7 +74,9 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
     </td>
     <td valign=\"top\">Changed the class type from block to model.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.<br/>
+                       Changed weather data interpolation to avoid a discontinuity in wind directory when it switches between 0 and 360 degrees.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
