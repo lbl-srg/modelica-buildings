@@ -6,14 +6,14 @@ model SingleStepSetpointChange "Single-step setpoint change"
                           "Single-step setpoint change block"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uSetChaEna(period=86400, shift=
-        43200) "Boolean value for the \"enable\" signal"
+        43200)
+    "Boolean value for the signal to enable single-step setpoint change"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMinSet(k=273.15 + 16)
     "Minimum temperature setpoint example value"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSet(samplePeriod=10, y_start=
-        273.15 + 17)
-    "Represent a time delay of the temperature setpoint actually changes after the temperature setpoint is asked to change"
+        273.15 + 17) "Emulates an external setpoint controller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
