@@ -6,6 +6,9 @@ record Generic_epsNTU
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
     "Nominal heat flow rate (negative as it is for cooling)"
     annotation (Dialog(group="Nominal thermal performance"));
+  parameter Modelica.Units.SI.TemperatureDifference TApp_nominal(min=0)
+    "Approach temperature at nominal conditions" annotation (Dialog(group=
+          "Nominal thermal performance"));
   parameter Modelica.Units.SI.Temperature TPla_a_nominal
     "Nominal temperature at port a1 (from cooling plant)" annotation (Dialog(group=
           "Nominal thermal performance"));
@@ -149,6 +152,20 @@ record Generic_epsNTU
   parameter Real nRac(min=0, max=1)=nPla
    "Exponent for convective heat transfer coefficient, h~m_flow^n"
    annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
+
+  final parameter Modelica.Units.SI.HeatCapacityFlowRate CPla_flow_nominal=
+    mPla_flow_nominal * cpPla_default
+    "Capacity flow rate at nominal conditions on cooling plant side";
+  final parameter Modelica.Units.SI.HeatCapacityFlowRate CRac_flow_nominal=
+    mRac_flow_nominal * cpRac_default
+    "Capacity flow rate at nominal conditions on rack side";
+
+  final parameter Modelica.Units.SI.TemperatureDifference dTPla_nominal=
+    Q_flow_nominal / CPla_flow_nominal
+    "Fluid temperature difference at nominal conditions on cooling plant side";
+  final parameter Modelica.Units.SI.TemperatureDifference dTRac_nominal=
+    Q_flow_nominal / CRac_flow_nominal
+    "Fluid temperature difference at nominal conditions on rack side";
 
   annotation (
   defaultComponentName="datCDU",
