@@ -60,11 +60,11 @@ record Generic_epsNTU
     then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.volumeToMassFraction(
         phi=phiGlyPla,
-        T=TPla_a_nominal)
+        T=TFac_b_nominal)
     else
       Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
         phi=phiGlyPla,
-        T=TPla_a_nominal)
+        T=TFac_b_nominal)
     "Glycol mass fraction for which performance data are specified"
     annotation(Dialog(group="Plant-side medium for performance data"));
 
@@ -95,37 +95,37 @@ record Generic_epsNTU
   // Plant-side fluid properties
   final parameter Modelica.Units.SI.DynamicViscosity etaPla_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.dynamicViscosity_TX_a(
-      medium=medPla, X_a=XGlyPla, T=TPla_a_nominal)
+      medium=medPla, X_a=XGlyPla, T=TFac_b_nominal)
     "Dynamic viscosity for plant-side performance data";
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpPla_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.specificHeatCapacityCp_TX_a(
-      medium=medPla, X_a=XGlyPla, T=TPla_a_nominal)
+      medium=medPla, X_a=XGlyPla, T=TFac_b_nominal)
     "Specific heat capacity at constant pressure for plant-side performance data";
   final parameter Modelica.Units.SI.ThermalConductivity kPla_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.thermalConductivity_TX_a(
-      medium=medPla, X_a=XGlyPla, T=TPla_a_nominal)
+      medium=medPla, X_a=XGlyPla, T=TFac_b_nominal)
     "Thermal conductivity for plant-side performance data";
   final parameter Modelica.Units.SI.PrandtlNumber PrPla_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.prandtlNumber_TX_a(
-      medium=medPla, X_a=XGlyPla, T=TPla_a_nominal)
+      medium=medPla, X_a=XGlyPla, T=TFac_b_nominal)
     "Prandtl number for plant-side performance data";
 
   // Rack-side fluid properties
   final parameter Modelica.Units.SI.DynamicViscosity etaRac_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.dynamicViscosity_TX_a(
-      medium=medRac, X_a=XGlyRac, T=TRac_a_nominal)
+      medium=medRac, X_a=XGlyRac, T=TFac_b_nominal)
     "Dynamic viscosity for rack-side performance data";
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpRac_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.specificHeatCapacityCp_TX_a(
-      medium=medRac, X_a=XGlyRac, T=TRac_a_nominal)
+      medium=medRac, X_a=XGlyRac, T=TFac_b_nominal)
     "Specific heat capacity at constant pressure for rack-side performance data";
   final parameter Modelica.Units.SI.ThermalConductivity kRac_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.thermalConductivity_TX_a(
-      medium=medRac, X_a=XGlyRac, T=TRac_a_nominal)
+      medium=medRac, X_a=XGlyRac, T=TFac_b_nominal)
     "Thermal conductivity for rack-side performance data";
   final parameter Modelica.Units.SI.PrandtlNumber PrRac_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.prandtlNumber_TX_a(
-      medium=medRac, X_a=XGlyRac, T=TRac_a_nominal)
+      medium=medRac, X_a=XGlyRac, T=TFac_b_nominal)
     "Prandtl number for rack-side performance data";
 
   // Valve
