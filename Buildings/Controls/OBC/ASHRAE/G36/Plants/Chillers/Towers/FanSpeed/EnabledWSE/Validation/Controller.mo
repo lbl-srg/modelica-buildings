@@ -44,7 +44,9 @@ model Controller
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
+    "Plant is not just enabled"
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 equation
   connect(booPul1.y, chiSta1.u)
     annotation (Line(points={{-78,40},{-42,40}}, color={255,0,255}));
@@ -59,13 +61,15 @@ equation
   connect(chiSta1.y, wseOpe.uChi[1])
     annotation (Line(points={{-18,40},{70,40},{70,5},{98,5}}, color={255,0,255}));
   connect(wseSta.y, wseOpe.uWse)
-    annotation (Line(points={{-18,-30},{40,-30},{40,0},{98,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,-30},{40,-30},{40,2.2},{98,2.2}}, color={255,0,255}));
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
     annotation (Line(points={{-78,-130},{70,-130},{70,-9},{98,-9}},  color={0,0,127}));
   connect(timTab.y[1], wseOpe.TChiWatSup) annotation (Line(points={{-38,-100},{
           60,-100},{60,-5},{98,-5}}, color={0,0,127}));
   connect(swi1.y, wseOpe.uChiLoa) annotation (Line(points={{42,110},{80,110},{
           80,9},{98,9}}, color={0,0,127}));
+  connect(con.y, wseOpe.uEnaPla) annotation (Line(points={{-78,-60},{50,-60},{50,
+          -1},{98,-1}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/EnabledWSE/Validation/Controller.mos"
     "Simulate and plot"),

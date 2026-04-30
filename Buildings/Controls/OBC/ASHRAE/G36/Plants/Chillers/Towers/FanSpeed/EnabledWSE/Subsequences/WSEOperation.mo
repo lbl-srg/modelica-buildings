@@ -35,15 +35,23 @@ block WSEOperation
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final unit="1") "Measured tower fan speed"
-    annotation (Placement(transformation(extent={{-280,106},{-240,146}}),
+    annotation (Placement(transformation(extent={{-280,126},{-240,166}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
+    "Waterside economizer enabling status: true=ON"
+    annotation (Placement(transformation(extent={{-280,0},{-240,40}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
+    "True: plant is just enabled"
+    annotation(Placement(transformation(extent={{-280,-40},{-240,0}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-280,-54},{-240,-14}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-280,-74},{-240,-34}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC",
@@ -56,46 +64,46 @@ block WSEOperation
     final max=1,
     final unit="1")
     "Tower fan speed setpoint when WSE is enabled and there is any chiller running"
-    annotation (Placement(transformation(extent={{240,140},{280,180}}),
+    annotation (Placement(transformation(extent={{240,160},{280,200}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch fanCycOff "Cycle off fan"
-    annotation (Placement(transformation(extent={{100,150},{120,170}})));
+    annotation (Placement(transformation(extent={{100,170},{120,190}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if the fan is at minimum speed and the chiller water supply temperature is lower than the setpoint"
-    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
+    annotation (Placement(transformation(extent={{-20,170},{0,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTowSpe(
     final k=fanSpeMin) "Minimum tower speed"
-    annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
+    annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dFanSpe
     "Different between measured fan speed and the minimum fan speed"
-    annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
+    annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=fanSpeChe,
     final uHigh=fanSpeChe + 0.005)
     "Check if tower fan speed is greater than minimum speed"
-    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
+    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dTChiSup
     "Difference between chilled water supply temperature and its setpoint"
-    annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
+    annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=-0.1,
     final uHigh=0.1)
     "Check if chilled water supply temperature is greater than setpoint"
-    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
+    annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{200,150},{220,170}})));
+    annotation (Placement(transformation(extent={{200,170},{220,190}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final uLow=0.5*5/9,
     final uHigh=1.5*5/9)
     "Check if chilled water supply temperature is greater than setpoint by a threshold delta"
-    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   Buildings.Controls.OBC.Utilities.PIDWithEnable chiWatTemCon(
     final controllerType=chiWatCon,
     final k=k,
@@ -110,7 +118,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=yMin)
     "Minimum output from chilled water supply temperature control loop, default to be zero"
-    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
+    annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=yMax)
     "Maximum output from chilled water supply temperature control loop"
@@ -121,54 +129,53 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Line lin
     "Output the value of the input x along a line specified by two points"
     annotation (Placement(transformation(extent={{160,-150},{180,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4(
-    final uLow=fanSpeChe,
-    final uHigh=fanSpeChe + 0.005)
-    "Check if tower fan speed is greater than zero"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Not fanOff
-    "Check if the fan cycles off"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Logical.And cycOn
     "Check if the fan should be turned on"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=cheCycOffTim)
     "Check if the fan should cycle off"
-    annotation (Placement(transformation(extent={{60,150},{80,170}})));
+    annotation (Placement(transformation(extent={{60,170},{80,190}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay cycOffTim(
     final delayTime=minCycOffTim)
     "Check if the fan has been cycled off for threshold time"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Break loop"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Break loop"
-    annotation (Placement(transformation(extent={{20,150},{40,170}})));
+    annotation (Placement(transformation(extent={{20,170},{40,190}})));
+  Buildings.Controls.OBC.CDL.Logical.And enaInWse
+    "Plant enabled in WSE mode"
+    annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Or cycOn1
+    "Cycle fan on"
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+
 equation
   connect(uFanSpe, dFanSpe.u1)
-    annotation (Line(points={{-260,126},{-162,126}},color={0,0,127}));
+    annotation (Line(points={{-260,146},{-162,146}},color={0,0,127}));
   connect(dFanSpe.y, hys2.u)
-    annotation (Line(points={{-138,120},{-122,120}}, color={0,0,127}));
+    annotation (Line(points={{-138,140},{-122,140}}, color={0,0,127}));
   connect(hys2.y, not2.u)
-    annotation (Line(points={{-98,120},{-82,120}},color={255,0,255}));
+    annotation (Line(points={{-98,140},{-82,140}},color={255,0,255}));
   connect(TChiWatSup, dTChiSup.u1)
-    annotation (Line(points={{-260,-34},{-202,-34}}, color={0,0,127}));
+    annotation (Line(points={{-260,-54},{-202,-54}}, color={0,0,127}));
   connect(hys1.y, not1.u)
-    annotation (Line(points={{-98,160},{-82,160}},color={255,0,255}));
+    annotation (Line(points={{-98,180},{-82,180}},color={255,0,255}));
   connect(dTChiSup.y, hys1.u)
-    annotation (Line(points={{-178,-40},{-170,-40},{-170,160},{-122,160}},
+    annotation (Line(points={{-178,-60},{-170,-60},{-170,180},{-122,180}},
       color={0,0,127}));
   connect(not1.y, and2.u1)
-    annotation (Line(points={{-58,160},{-22,160}}, color={255,0,255}));
+    annotation (Line(points={{-58,180},{-22,180}}, color={255,0,255}));
   connect(not2.y, and2.u2)
-    annotation (Line(points={{-58,120},{-40,120},{-40,152},{-22,152}},
+    annotation (Line(points={{-58,140},{-40,140},{-40,172},{-22,172}},
       color={255,0,255}));
   connect(dTChiSup.y, hys3.u)
-    annotation (Line(points={{-178,-40},{-162,-40}}, color={0,0,127}));
+    annotation (Line(points={{-178,-60},{-162,-60}}, color={0,0,127}));
   connect(zer.y, lin.x1)
-    annotation (Line(points={{102,-100},{140,-100},{140,-132},{158,-132}},
+    annotation (Line(points={{122,-100},{140,-100},{140,-132},{158,-132}},
       color={0,0,127}));
   connect(chiWatTemCon.y, lin.u)
     annotation (Line(points={{-118,-140},{158,-140}}, color={0,0,127}));
@@ -179,53 +186,55 @@ equation
     annotation (Line(points={{102,-180},{140,-180},{140,-148},{158,-148}},
       color={0,0,127}));
   connect(lin.y, swi.u3)
-    annotation (Line(points={{182,-140},{190,-140},{190,152},{198,152}},
+    annotation (Line(points={{182,-140},{190,-140},{190,172},{198,172}},
       color={0,0,127}));
   connect(swi.y,ySpeSet)
-    annotation (Line(points={{222,160},{260,160}}, color={0,0,127}));
+    annotation (Line(points={{222,180},{260,180}}, color={0,0,127}));
   connect(minTowSpe.y, dFanSpe.u2)
-    annotation (Line(points={{-198,40},{-180,40},{-180,114},{-162,114}},
+    annotation (Line(points={{-198,60},{-180,60},{-180,134},{-162,134}},
       color={0,0,127}));
   connect(minTowSpe.y, lin.f1)
-    annotation (Line(points={{-198,40},{-100,40},{-100,-136},{158,-136}},
+    annotation (Line(points={{-198,60},{-100,60},{-100,-136},{158,-136}},
       color={0,0,127}));
   connect(zer.y, swi.u1)
-    annotation (Line(points={{102,-100},{140,-100},{140,168},{198,168}},
+    annotation (Line(points={{122,-100},{160,-100},{160,188},{198,188}},
       color={0,0,127}));
   connect(TChiWatSupSet, chiWatTemCon.u_s)
     annotation (Line(points={{-260,-140},{-142,-140}},color={0,0,127}));
   connect(TChiWatSup, chiWatTemCon.u_m)
-    annotation (Line(points={{-260,-34},{-230,-34},{-230,-172},{-130,-172},
-      {-130,-152}}, color={0,0,127}));
+    annotation (Line(points={{-260,-54},{-230,-54},{-230,-172},{-130,-172},{-130,
+          -152}},   color={0,0,127}));
   connect(TChiWatSupSet, dTChiSup.u2)
-    annotation (Line(points={{-260,-140},{-220,-140},{-220,-46},{-202,-46}},
+    annotation (Line(points={{-260,-140},{-220,-140},{-220,-66},{-202,-66}},
       color={0,0,127}));
   connect(truDel.y, fanCycOff.u)
-    annotation (Line(points={{82,160},{98,160}}, color={255,0,255}));
-  connect(hys4.y, fanOff.u)
-    annotation (Line(points={{-138,70},{-122,70}}, color={255,0,255}));
+    annotation (Line(points={{82,180},{98,180}}, color={255,0,255}));
   connect(hys3.y, cycOn.u2)
-    annotation (Line(points={{-138,-40},{-50,-40},{-50,62},{-22,62}}, color={255,0,255}));
-  connect(uFanSpe, hys4.u)
-    annotation (Line(points={{-260,126},{-210,126},{-210,70},{-162,70}},
-      color={0,0,127}));
-  connect(fanOff.y, cycOffTim.u)
-    annotation (Line(points={{-98,70},{-82,70}}, color={255,0,255}));
+    annotation (Line(points={{-138,-60},{-80,-60},{-80,82},{-62,82}}, color={255,0,255}));
   connect(cycOffTim.y, cycOn.u1)
-    annotation (Line(points={{-58,70},{-22,70}}, color={255,0,255}));
-  connect(cycOn.y, pre.u)
-    annotation (Line(points={{2,70},{38,70}}, color={255,0,255}));
-  connect(pre.y, fanCycOff.clr) annotation (Line(points={{62,70},{90,70},{90,
-          154},{98,154}}, color={255,0,255}));
-  connect(pre.y, chiWatTemCon.uEna) annotation (Line(points={{62,70},{90,70},{
-          90,-80},{-160,-80},{-160,-160},{-134,-160},{-134,-152}}, color={255,0,
-          255}));
+    annotation (Line(points={{-98,90},{-62,90}}, color={255,0,255}));
+  connect(pre.y, fanCycOff.clr) annotation (Line(points={{62,90},{90,90},{90,174},
+          {98,174}},      color={255,0,255}));
   connect(fanCycOff.y, swi.u2)
-    annotation (Line(points={{122,160},{198,160}}, color={255,0,255}));
+    annotation (Line(points={{122,180},{198,180}}, color={255,0,255}));
   connect(and2.y, pre1.u)
-    annotation (Line(points={{2,160},{18,160}}, color={255,0,255}));
+    annotation (Line(points={{2,180},{18,180}}, color={255,0,255}));
   connect(pre1.y, truDel.u)
-    annotation (Line(points={{42,160},{58,160}}, color={255,0,255}));
+    annotation (Line(points={{42,180},{58,180}}, color={255,0,255}));
+  connect(pre.y, chiWatTemCon.uEna) annotation (Line(points={{62,90},{90,90},{90,
+          -100},{-160,-100},{-160,-160},{-134,-160},{-134,-152}}, color={255,0,255}));
+  connect(uWse, enaInWse.u1)
+    annotation (Line(points={{-260,20},{-202,20}}, color={255,0,255}));
+  connect(uEnaPla, enaInWse.u2) annotation (Line(points={{-260,-20},{-220,-20},{
+          -220,12},{-202,12}}, color={255,0,255}));
+  connect(cycOn.y, cycOn1.u1)
+    annotation (Line(points={{-38,90},{-2,90}}, color={255,0,255}));
+  connect(cycOn1.y, pre.u)
+    annotation (Line(points={{22,90},{38,90}}, color={255,0,255}));
+  connect(enaInWse.y, cycOn1.u2) annotation (Line(points={{-178,20},{-20,20},{-20,
+          82},{-2,82}}, color={255,0,255}));
+  connect(fanCycOff.y, cycOffTim.u) annotation (Line(points={{122,180},{140,180},
+          {140,120},{-140,120},{-140,90},{-122,90}}, color={255,0,255}));
 annotation (
   defaultComponentName="wseTowSpeWSEOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
