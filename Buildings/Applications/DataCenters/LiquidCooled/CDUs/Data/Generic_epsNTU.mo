@@ -87,6 +87,10 @@ record Generic_epsNTU
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.dynamicViscosity_TX_a(
       medium=medPla, X_a=XGlyPla, T=TPla_a_nominal)
     "Dynamic viscosity for plant-side performance data";
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpPla_default =
+    Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.specificHeatCapacityCp_TX_a(
+      medium=medPla, X_a=XGlyPla, T=TPla_a_nominal)
+    "Specific heat capacity at constant pressure for plant-side performance data";
   final parameter Modelica.Units.SI.ThermalConductivity kPla_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.thermalConductivity_TX_a(
       medium=medPla, X_a=XGlyPla, T=TPla_a_nominal)
@@ -101,6 +105,10 @@ record Generic_epsNTU
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.dynamicViscosity_TX_a(
       medium=medRac, X_a=XGlyRac, T=TRac_a_nominal)
     "Dynamic viscosity for rack-side performance data";
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpRac_default =
+    Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.specificHeatCapacityCp_TX_a(
+      medium=medRac, X_a=XGlyRac, T=TRac_a_nominal)
+    "Specific heat capacity at constant pressure for rack-side performance data";
   final parameter Modelica.Units.SI.ThermalConductivity kRac_default =
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.thermalConductivity_TX_a(
       medium=medRac, X_a=XGlyRac, T=TRac_a_nominal)
