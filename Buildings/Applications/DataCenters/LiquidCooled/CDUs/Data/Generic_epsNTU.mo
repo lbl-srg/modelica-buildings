@@ -12,8 +12,15 @@ record Generic_epsNTU
   parameter Modelica.Units.SI.Temperature TPla_a_nominal
     "Nominal temperature at port a1 (from cooling plant)" annotation (Dialog(group=
           "Nominal thermal performance"));
+  parameter Modelica.Units.SI.Temperature TPla_b_nominal
+    "Nominal temperature at port b1 (to cooling plant)" annotation (Dialog(group=
+          "Nominal thermal performance"));
+
   parameter Modelica.Units.SI.Temperature TRac_a_nominal
     "Nominal temperature at port a2 (from rack)" annotation (Dialog(group=
+          "Nominal thermal performance"));
+  parameter Modelica.Units.SI.Temperature TRac_b_nominal
+    "Nominal temperature at port b2 (to rack)" annotation (Dialog(group=
           "Nominal thermal performance"));
 
   // Design mass flow rates
@@ -160,10 +167,10 @@ record Generic_epsNTU
     mRac_flow_nominal * cpRac_default
     "Capacity flow rate at nominal conditions on rack side";
 
-  final parameter Modelica.Units.SI.TemperatureDifference dTPla_nominal=
-    Q_flow_nominal / CPla_flow_nominal
+  final parameter Modelica.Units.SI.TemperatureDifference dTPla_nominal(min=0)=
+    -Q_flow_nominal / CPla_flow_nominal
     "Fluid temperature difference at nominal conditions on cooling plant side";
-  final parameter Modelica.Units.SI.TemperatureDifference dTRac_nominal=
+  final parameter Modelica.Units.SI.TemperatureDifference dTRac_nominal(max=0)=
     Q_flow_nominal / CRac_flow_nominal
     "Fluid temperature difference at nominal conditions on rack side";
 
