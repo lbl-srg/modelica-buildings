@@ -34,13 +34,13 @@ block MappingWithWSE
     final unit="1",
     final min=0,
     final max=1) "Maximum cooling tower speed setpoint"
-    annotation (Placement(transformation(extent={{180,120},{220,160}}),
+    annotation (Placement(transformation(extent={{180,160},{220,200}}),
       iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpeSet(
     final unit="1",
     final min=0,
     final max=1) "Condenser water pump speed setpoint"
-    annotation (Placement(transformation(extent={{180,20},{220,60}}),
+    annotation (Placement(transformation(extent={{180,40},{220,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final unit="1",
@@ -80,41 +80,41 @@ protected
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one3(final k=1)
     "Constant one"
-    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one4(final k=1)
     "Constant one"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=minHeaPreValPos)
     "Minimum head pressure control valve position"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0)
     "Constant value"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Line heaPreConVal
     "Head pressure control valve position"
-    annotation (Placement(transformation(extent={{0,-78},{20,-58}})));
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch the maximum tower speed setpoint based on the economizer status"
-    annotation (Placement(transformation(extent={{60,170},{80,190}})));
+    annotation (Placement(transformation(extent={{80,120},{100,140}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch the condenser water pump speed setpoint based on the economizer status"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Switch the head pressure control valve setpoint based on the economizer status"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi3
     "Switch the valve setpoint to 0 when the head pressure control  is disabled"
     annotation (Placement(transformation(extent={{140,-170},{160,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(final k=0)
     "Constant value"
-    annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
+    annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "Switch the pump speed setpoint to 0 when the head pressure control  is disabled"
-    annotation (Placement(transformation(extent={{140,30},{160,50}})));
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi5
     "Switch the maximum tower speed setpoint to 0 when the head pressure control  is disabled"
-    annotation (Placement(transformation(extent={{140,130},{160,150}})));
+    annotation (Placement(transformation(extent={{140,170},{160,190}})));
 
 equation
   connect(zer.y, maxCooTowSpeSet.x1)
@@ -139,71 +139,67 @@ equation
     annotation (Line(points={{-200,130},{-140,130},{-140,30},{-2,30}},
       color={0,0,127}));
   connect(zer1.y, heaPreConVal.x1)
-    annotation (Line(points={{-38,-40},{-20,-40},{-20,-60},{-2,-60}}, color={0,0,127}));
+    annotation (Line(points={{-38,-50},{-20,-50},{-20,-72},{-2,-72}}, color={0,0,127}));
   connect(one3.y, heaPreConVal.f1)
-    annotation (Line(points={{-98,-40},{-80,-40},{-80,-64},{-2,-64}},
+    annotation (Line(points={{-98,-50},{-80,-50},{-80,-76},{-2,-76}},
       color={0,0,127}));
   connect(one4.y, heaPreConVal.x2)
-    annotation (Line(points={{-98,-90},{-80,-90},{-80,-72},{-2,-72}},
+    annotation (Line(points={{-98,-110},{-80,-110},{-80,-84},{-2,-84}},
       color={0,0,127}));
   connect(con1.y, heaPreConVal.f2)
-    annotation (Line(points={{-38,-90},{-20,-90},{-20,-76},{-2,-76}}, color={0,0,127}));
+    annotation (Line(points={{-38,-110},{-20,-110},{-20,-88},{-2,-88}}, color={0,0,127}));
   connect(uHeaPreCon, heaPreConVal.u)
-    annotation (Line(points={{-200,130},{-140,130},{-140,-68},{-2,-68}},
+    annotation (Line(points={{-200,130},{-140,130},{-140,-80},{-2,-80}},
       color={0,0,127}));
-  connect(maxCooTowSpeSet.y, swi.u3)
-    annotation (Line(points={{22,130},{40,130},{40,172},{58,172}},
-      color={0,0,127}));
-  connect(desConWatPumSpe, swi1.u1)
-    annotation (Line(points={{-200,60},{-120,60},{-120,78},{58,78}}, color={0,0,127}));
-  connect(conWatPumSpe.y, swi1.u3)
-    annotation (Line(points={{22,30},{40,30},{40,62},{58,62}},
-      color={0,0,127}));
-  connect(uWSE, swi2.u2)
-    annotation (Line(points={{-200,-20},{-160,-20},{-160,-120},{58,-120}},
-      color={255,0,255}));
   connect(zer2.y, swi3.u3)
-    annotation (Line(points={{62,-180},{110,-180},{110,-168},{138,-168}},
+    annotation (Line(points={{22,-180},{60,-180},{60,-168},{138,-168}},
       color={0,0,127}));
   connect(uHeaPreEna, swi3.u2)
     annotation (Line(points={{-200,-160},{138,-160}},color={255,0,255}));
   connect(swi2.y, swi3.u1)
-    annotation (Line(points={{82,-120},{120,-120},{120,-152},{138,-152}},
+    annotation (Line(points={{102,-130},{120,-130},{120,-152},{138,-152}},
       color={0,0,127}));
   connect(swi3.y, yHeaPreConVal)
     annotation (Line(points={{162,-160},{200,-160}}, color={0,0,127}));
-  connect(one.y, swi.u1)
-    annotation (Line(points={{-98,160},{-80,160},{-80,188},{58,188}},
-      color={0,0,127}));
   connect(desConWatPumSpe, conWatPumSpe.f1)
     annotation (Line(points={{-200,60},{-120,60},{-120,34},{-2,34}},
       color={0,0,127}));
   connect(one4.y, swi2.u3)
-    annotation (Line(points={{-98,-90},{-80,-90},{-80,-128},{58,-128}},
+    annotation (Line(points={{-98,-110},{-80,-110},{-80,-138},{78,-138}},
       color={0,0,127}));
   connect(heaPreConVal.y, swi2.u1)
-    annotation (Line(points={{22,-68},{40,-68},{40,-112},{58,-112}},
+    annotation (Line(points={{22,-80},{40,-80},{40,-122},{78,-122}},
       color={0,0,127}));
-  connect(uWSE, swi.u2) annotation (Line(points={{-200,-20},{-160,-20},{-160,180},
-          {58,180}}, color={255,0,255}));
-  connect(uWSE, swi1.u2) annotation (Line(points={{-200,-20},{-160,-20},{-160,70},
-          {58,70}}, color={255,0,255}));
-  connect(uHeaPreEna, swi4.u2) annotation (Line(points={{-200,-160},{100,-160},{
-          100,40},{138,40}}, color={255,0,255}));
-  connect(swi1.y, swi4.u1) annotation (Line(points={{82,70},{120,70},{120,48},{138,
-          48}}, color={0,0,127}));
-  connect(zer2.y, swi4.u3) annotation (Line(points={{62,-180},{110,-180},{110,32},
-          {138,32}}, color={0,0,127}));
   connect(swi4.y, yConWatPumSpeSet)
-    annotation (Line(points={{162,40},{200,40}}, color={0,0,127}));
-  connect(swi.y, swi5.u1) annotation (Line(points={{82,180},{120,180},{120,148},
-          {138,148}}, color={0,0,127}));
-  connect(zer2.y, swi5.u3) annotation (Line(points={{62,-180},{110,-180},{110,132},
-          {138,132}}, color={0,0,127}));
-  connect(uHeaPreEna, swi5.u2) annotation (Line(points={{-200,-160},{100,-160},{
-          100,140},{138,140}}, color={255,0,255}));
+    annotation (Line(points={{162,60},{200,60}}, color={0,0,127}));
   connect(swi5.y, yMaxTowSpeSet)
-    annotation (Line(points={{162,140},{200,140}}, color={0,0,127}));
+    annotation (Line(points={{162,180},{200,180}}, color={0,0,127}));
+  connect(zer2.y, swi1.u3) annotation (Line(points={{22,-180},{60,-180},{60,22},
+          {78,22}}, color={0,0,127}));
+  connect(zer2.y, swi.u3) annotation (Line(points={{22,-180},{60,-180},{60,122},
+          {78,122}}, color={0,0,127}));
+  connect(uHeaPreEna, swi.u2) annotation (Line(points={{-200,-160},{50,-160},{
+          50,130},{78,130}}, color={255,0,255}));
+  connect(uHeaPreEna, swi1.u2) annotation (Line(points={{-200,-160},{50,-160},{
+          50,30},{78,30}}, color={255,0,255}));
+  connect(maxCooTowSpeSet.y, swi.u1) annotation (Line(points={{22,130},{40,130},
+          {40,138},{78,138}}, color={0,0,127}));
+  connect(conWatPumSpe.y, swi1.u1) annotation (Line(points={{22,30},{40,30},{40,
+          38},{78,38}}, color={0,0,127}));
+  connect(uWSE, swi5.u2) annotation (Line(points={{-200,-20},{120,-20},{120,180},
+          {138,180}}, color={255,0,255}));
+  connect(uWSE, swi4.u2) annotation (Line(points={{-200,-20},{120,-20},{120,60},
+          {138,60}}, color={255,0,255}));
+  connect(swi.y, swi5.u3) annotation (Line(points={{102,130},{130,130},{130,172},
+          {138,172}}, color={0,0,127}));
+  connect(one.y, swi5.u1) annotation (Line(points={{-98,160},{-80,160},{-80,188},
+          {138,188}}, color={0,0,127}));
+  connect(desConWatPumSpe, swi4.u1) annotation (Line(points={{-200,60},{-120,60},
+          {-120,68},{138,68}}, color={0,0,127}));
+  connect(swi1.y, swi4.u3) annotation (Line(points={{102,30},{130,30},{130,52},
+          {138,52}}, color={0,0,127}));
+  connect(uWSE, swi2.u2) annotation (Line(points={{-200,-20},{-160,-20},{-160,
+          -130},{78,-130}}, color={255,0,255}));
 annotation (
   defaultComponentName= "heaPreConEqu",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
