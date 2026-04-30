@@ -20,6 +20,11 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4347\">issue 4347</a>.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Plants
+    </td>
+    <td valign=\"top\">Package of sequences for chiller and boiler plants
+    </td>
+    </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>

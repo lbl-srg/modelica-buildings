@@ -10,6 +10,32 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.Validation.EnableLag_primary_dP 
+  optimica:
+    comment: initialization system is structurally singular
+    translate: false
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.Validation.CHWIsoVal
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    time_out: 600
+  optimica:
+    comment: initialization system is structurally singular
+    translate: false
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Validation.SetpointController_WSE
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    time_out: 600
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Validation.SetpointController_noWSE
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    time_out: 600
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Validation.Controller
+  openmodelica:
+    comment: 'Non-linear equations within when-equations is not supported'
+    translate: false
+  optimica:
+    comment: initialization system is structurally singular
+    translate: false
 - model_name: Buildings.DHC.ETS.Combined.Examples.HeatRecoveryHeatPump
   openmodelica:
     comment: Internal error NFCeval.evalBinaryDiv failed to evaluate datHeaPum.QCooAct_flow_nominal / 5.0
