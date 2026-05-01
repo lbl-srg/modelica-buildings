@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.CoolingTowers.Data;
+within Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Data;
 record UAMerkel "UA correction factors for Merkel cooling towers"
   extends Modelica.Icons.Record;
 
@@ -38,8 +38,8 @@ defaultComponentName="UACor",
     Documentation(info="<html>
 <p>
 This data record contains the cooling tower performance data for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>.
+<a href=\"modelica://Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Merkel\">
+Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Merkel</a>.
 Similar to the <code>CoolingTower:VariableSpeed:Merkel</code> model in EnergyPlus,
 Merkel's theory is modified to include Scheier's adjustment factors that
 adjust <i>UA</i> values at off-design conditions. The three factors are:
@@ -95,11 +95,17 @@ for the respective adjustment factor, and the
 coefficients  <i>c<sub>x,0</sub></i>, <i>c<sub>x,1</sub></i>, <i>c<sub>x,2</sub></i>, and <i>c<sub>x,3</sub></i>
 are the user-defined
 values for the respective adjustment factor functions obtained from
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
+<a href=\"modelica://Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
+Buildings.Obsolete.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2026, by Michael Wetter:<br/>
+Moved to <code>Obsolete</code> package due to new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
 <li>
 October 22, 2019, by Yangyang Fu:<br/>
 First implementation.
