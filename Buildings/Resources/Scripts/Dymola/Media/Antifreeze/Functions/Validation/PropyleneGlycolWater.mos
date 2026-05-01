@@ -1,0 +1,8 @@
+simulateModel("Buildings.Media.Antifreeze.Functions.Validation.PropyleneGlycolWater", method="Cvode", tolerance=1e-06, resultFile="PropyleneGlycolWater");
+createPlot(id=1, position={55, 55, 569, 439}, x="phi", y={"phi", "X_a_phi"}, range={0.0, 1.0, -0.2, 1.2}, grid=true, colors={{238,46,47}, {0,140,72}}, timeUnit="1", displayUnits={"1", "1"});
+createPlot(id=2, position={644, 58, 624, 646}, x="X_a", y={"d"}, range={0.0, 0.6, 950.0, 1100.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="1", displayUnits={"kg/m3"});
+createPlot(id=2, position={644, 58, 624, 646}, x="X_a", y={"eta"}, range={0.0, 0.6, 0.0, 0.006}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="1", displayUnits={"Pa.s"});
+createPlot(id=2, position={644, 58, 624, 646}, x="X_a", y={"Tf"}, range={0.0, 0.6, -60.0, 20.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="1", displayUnits={"degC"});
+createPlot(id=3, position={1293, 65, 592, 635}, x="X_a", y={"cp"}, range={0.0, 0.6, 3000.0, 4500.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="1", displayUnits={"J/(kg.K)"});
+createPlot(id=3, position={1293, 65, 592, 635}, x="X_a", y={"lambda"}, range={0.0, 0.6, 0.30000000000000004, 0.7000000000000001}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="1", displayUnits={"W/(m.K)"});
+createPlot(id=3, position={1293, 65, 592, 635}, y={"Pr"}, range={0.0, 0.6, 5.0, 25.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"W/(m.K)"});
