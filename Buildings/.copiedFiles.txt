@@ -2447,9 +2447,7 @@ Buildings/Media/Antifreeze/Functions/Validation/package.order
 Buildings/Media/Antifreeze/Functions/package.mo
 Buildings/Media/Antifreeze/Functions/package.order
 Buildings/Media/Antifreeze/PropyleneGlycolWater.mo
-Buildings/Media/Antifreeze/Validation/BaseClasses/EthyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/FluidProperties.mo
-Buildings/Media/Antifreeze/Validation/BaseClasses/PropyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/package.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/package.order
 Buildings/Media/Antifreeze/Validation/EthyleneGlycolWater.mo
