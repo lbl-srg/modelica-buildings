@@ -439,6 +439,7 @@ This version removes the packages
 <li>
 <code>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</code>
 </li>
+<li>
 <code>Buildings.Obsolete.Fluid.Movers.Validation</code>
 </li>
 <li>
