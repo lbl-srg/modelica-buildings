@@ -429,5 +429,21 @@ that can lead to wrong simulation results):
 </tr>
 </table>
 <!-- Uncritical errors -->
+<p>
+Note:
+</p>
+<p>
+This version removes the packages
+</p>
+<ul>
+<li>
+<code>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</code>
+</li>
+<code>Buildings.Obsolete.Fluid.Movers.Validation</code>
+</li>
+<li>
+<code>Buildings.Obsolete.Fluid.SolarCollectors</code>
+</li>
+</ul>
 </html>"));
 end Version_13_0_0;
