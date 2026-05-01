@@ -5,7 +5,9 @@ model WeeklySchedule "Weekly schedule"
     "Columns of the schedule to be produced at the output y. First column is time, hence value must be 2 or larger";
   parameter Boolean tableOnFile=false
     "= true, if table is defined on file; false if defined through parameter data"
-    annotation(Dialog(group="Data source"));
+    annotation(
+      Evaluate=true,
+      Dialog(group="Data source"));
   parameter String fileName = ""
     "Filename"
     annotation(Dialog(group="Data source", enable=tableOnFile));
@@ -53,6 +55,12 @@ protected
       Documentation(
         revisions="<html>
 <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
 <li>
 March 30 2024, by Filip Jorissen:<br/>
 Avoiding memory leaks for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1861\">IBPSA, #1860</a>.

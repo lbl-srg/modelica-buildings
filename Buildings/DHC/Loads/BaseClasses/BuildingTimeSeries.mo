@@ -142,14 +142,14 @@ model BuildingTimeSeries
     annotation (Placement(transformation(extent={{300,-20},{340,20}}),
       iconTransformation(extent={{-40,-40},{40,40}},rotation=-90,origin={240,-340})));
   Modelica.Blocks.Sources.CombiTimeTable loa(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(
+    final tableOnFile=true,
+    final tableName="tab1",
+    final fileName=Modelica.Utilities.Files.loadResource(
       filNam),
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(each unit="W"),
-    offset={0,0,0},
-    columns={2,3,4},
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final y(each unit="W"),
+    final offset={0,0,0},
+    final columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is space heating load, y[3] is domestic water heat load)"
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
