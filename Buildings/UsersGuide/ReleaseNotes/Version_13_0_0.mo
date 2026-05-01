@@ -4,13 +4,55 @@ class Version_13_0_0 "Version 13.0.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 13.0.0 is a major release. xxx
+Version 13.0.0 is a major release that adds various new packages and models.
 </p>
 <p>
 The library has been tested with
 Dymola 2026x,
 OpenModelica 1.26.3,
 OPTIMICA 1.66 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 12.0.0:
+</p>
+<ul>
+<li>
+The package <code>Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit</code>
+has been added with control sequences for fan coil units.
+</li>
+<li>
+The package <code>Buildings.DHC.ETS.Combined</code> has been replaced with improved models,
+and the old models have been moved to the <code>Buildings.Obsolete</code> package.
+</li>
+<li>
+The package <code>Buildings.Templates</code> has been refactored to use load-dependent 2D table data for
+chiller and heat pump models.
+</li>
+<li>
+The package <code>Buildings.Fluid.AirFilters</code> has been added with models for air filters.
+</li>
+<li>
+The package <code>Buildings.Fluid.HeatExchangers.ThermalWheels</code>
+has been added with models for heat recovery and enthalpy recovery wheels.
+</li>
+<li>
+The package <code>Buildings.Media.Antifreeze.Functions</code> has been added to enable
+calling glycol property functions without instantiating a package.
+</li>
+<li>
+The package <code>Buildings.Utilities.IO.Python_3_12</code>
+has been added with models to call Python 3.12 modules from a Modelica block.
+This package replaces <code>Buildings.Utilities.IO.Python_3_8</code>
+which has been moved to the <code>Buildings.Obsolete</code> package.
+</li>
+<li>
+The models of cooling towers in <code>Buildings.Fluid.HeatExchangers.CoolingTowers</code>
+have been refactored to use a data record for the performance data,
+and a new model of a dry cooler that uses the epsilon-NTU relation has been added.
+</li>
+</ul>
+<p>
+Also, many models have been updated to improve performance, to improve compliance with the Modelica Language Standard and to correct model errors.
 </p>
 </div>
 <!-- New libraries -->
