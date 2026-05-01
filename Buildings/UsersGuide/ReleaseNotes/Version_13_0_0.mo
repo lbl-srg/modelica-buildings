@@ -118,6 +118,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">IBPSA, issue 2035</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete.Utilities.IO.Python_3_8</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+    </td>
+    <td valign=\"top\">Added missing header file.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
@@ -137,19 +146,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">issue 3319</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_12</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
-    </td>
-    <td valign=\"top\">Added missing header file.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_12.Functions.BaseClasses.exchange
     </td>
     <td valign=\"top\">Added missing header file.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
