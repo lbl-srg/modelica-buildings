@@ -4,7 +4,13 @@ class Version_13_0_0 "Version 13.0.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version X.Y.Z is ... xxx
+Version 13.0.0 is a major release. xxx
+</p>
+<p>
+The library has been tested with
+Dymola 2026x,
+OpenModelica 1.26.3,
+OPTIMICA 1.66 and recent versions of Impact.
 </p>
 </div>
 <!-- New libraries -->
@@ -208,14 +214,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">#3538</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -373,28 +371,5 @@ that can lead to wrong simulation results):
 </tr>
 </table>
 <!-- Uncritical errors -->
-<p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
 end Version_13_0_0;
