@@ -7,7 +7,7 @@ annotation (
 preferredView="info",
 version="11.1.1",
 versionDate="2025-03-17",
-dateModified="2025-03-17",
+dateModified="2026-05-04",
 uses(Modelica(version="4.1.0")),
 conversion(
   noneFromVersion="11.1.0",
