@@ -206,6 +206,7 @@ Buildings/BoundaryConditions/WeatherData/ReaderTMY3.mo
 Buildings/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mo
 Buildings/BoundaryConditions/WeatherData/Validation/OverAYear_usingOneYearData.mo
 Buildings/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mo
+Buildings/BoundaryConditions/WeatherData/Validation/ReaderTMY3WindDirection.mo
 Buildings/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearData.mo
 Buildings/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearDataNegativeStart.mo
 Buildings/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearDataPositiveStart.mo
@@ -2447,9 +2448,7 @@ Buildings/Media/Antifreeze/Functions/Validation/package.order
 Buildings/Media/Antifreeze/Functions/package.mo
 Buildings/Media/Antifreeze/Functions/package.order
 Buildings/Media/Antifreeze/PropyleneGlycolWater.mo
-Buildings/Media/Antifreeze/Validation/BaseClasses/EthyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/FluidProperties.mo
-Buildings/Media/Antifreeze/Validation/BaseClasses/PropyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/package.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/package.order
 Buildings/Media/Antifreeze/Validation/EthyleneGlycolWater.mo
@@ -2991,6 +2990,7 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/Reade
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/DecemberToJanuary.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/OverAYear_usingOneYearData.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ReaderTMY3WindDirection.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearData.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearDataNegativeStart.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ThreeYears_usingTwoYearDataPositiveStart.mos
@@ -3836,10 +3836,6 @@ Buildings/Resources/Scripts/travis/omc/omc
 Buildings/Resources/bin/convert_weather_data.py
 Buildings/Resources/src/ThermalZones/ISO13790/Validation/BESTEST/ASHRAE140_data.dat
 Buildings/Resources/src/ThermalZones/ISO13790/Validation/BESTEST/simulateAndPlot.py
-Buildings/Resources/src/convertEPW/Makefile
-Buildings/Resources/src/convertEPW/src/ConvertWeatherData.java
-Buildings/Resources/src/convertEPW/src/Makefile
-Buildings/Resources/src/convertEPW/src/Manifest.txt
 Buildings/Resources/src/fluid/heatpumps/calibration/Examples/SomeManufacturer_ABC060_70kW_4_0COP_R410A.mo
 Buildings/Resources/weatherdata/DRYCOLD.TMY
 Buildings/Resources/weatherdata/DRYCOLD.mos

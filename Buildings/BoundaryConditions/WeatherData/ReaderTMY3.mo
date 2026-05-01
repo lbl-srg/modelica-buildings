@@ -801,8 +801,9 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
 
-  connect(limWinDir.winDir, weaBus.winDir) annotation (Line(points={{181,-270},{280,
-          -270},{280,0},{300,0}}, color={0,0,127}), Text(
+  connect(limWinDir.winDir, weaBus.winDir) annotation (Line(points={{181,-270},
+          {300.05,-270},{300.05,0.05}},
+                                  color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
