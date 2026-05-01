@@ -2437,10 +2437,15 @@ Buildings/Fluid/Storage/package.order
 Buildings/Fluid/Types.mo
 Buildings/Fluid/package.order
 Buildings/Media/Air.mo
-Buildings/Media/Antifreeze/BaseClasses/PropertyCoefficients.mo
-Buildings/Media/Antifreeze/BaseClasses/package.mo
-Buildings/Media/Antifreeze/BaseClasses/package.order
 Buildings/Media/Antifreeze/EthyleneGlycolWater.mo
+Buildings/Media/Antifreeze/Functions/EthyleneGlycolWater.mo
+Buildings/Media/Antifreeze/Functions/PropyleneGlycolWater.mo
+Buildings/Media/Antifreeze/Functions/Validation/EthyleneGlycolWater.mo
+Buildings/Media/Antifreeze/Functions/Validation/PropyleneGlycolWater.mo
+Buildings/Media/Antifreeze/Functions/Validation/package.mo
+Buildings/Media/Antifreeze/Functions/Validation/package.order
+Buildings/Media/Antifreeze/Functions/package.mo
+Buildings/Media/Antifreeze/Functions/package.order
 Buildings/Media/Antifreeze/PropyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/EthyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Validation/BaseClasses/FluidProperties.mo
@@ -3655,6 +3660,8 @@ Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamic
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerLocation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedNonUniformInitial.mos
+Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Functions/Validation/EthyleneGlycolWater.mos
+Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Functions/Validation/PropyleneGlycolWater.mos
 Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Validation/EthyleneGlycolWater.mos
 Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Validation/PropyleneGlycolWater.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos

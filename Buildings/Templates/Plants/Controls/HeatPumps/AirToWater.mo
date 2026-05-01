@@ -1233,20 +1233,6 @@ block AirToWater
     annotation (Placement(transformation(extent={{300,20},{340,60}}),
       iconTransformation(extent={{200,30},{240,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet[nHp](
-    each final unit="K",
-    each final quantity="ThermodynamicTemperature",
-    each displayUnit="degC") "Active HP supply temperature setpoint"
-    annotation (Placement(transformation(extent={{300,-140},{340,-100}}),
-      iconTransformation(extent={{200,-150},{240,-110}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSetHrc(
-    final unit="K",
-    displayUnit="degC") if have_hrc
-    "Sidestream HRC active supply temperature setpoint"
-    annotation (Placement(transformation(extent={{300,-340},{340,-300}}),
-      iconTransformation(extent={{200,-310},{240,-270}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp(
     final unit="1") if have_heaWat and is_priOnl and not have_HpShc
     "HW minimum flow bypass valve command"
@@ -1264,6 +1250,29 @@ block AirToWater
     "Heat pump available signal – Block does not handle faulted equipment yet"
     annotation (Placement(transformation(extent={{-220,210},{-200,230}}),
         iconTransformation(extent={{-240,220},{-200,260}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupHpSet[nHp](
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC") if have_heaWat "HP HW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{260,-120},{300,-80}}),
+        iconTransformation(extent={{200,-160},{240,-120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupHrcSet(final unit=
+        "K", displayUnit="degC") if have_hrc
+    "Sidestream HRC HW supply temperature setpoint" annotation (Placement(
+        transformation(extent={{260,-340},{300,-300}}), iconTransformation(
+          extent={{200,-340},{240,-300}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHpSet[nHp](
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC") if have_chiWat
+    "HP CHW supply temperature setpoint" annotation (Placement(transformation(
+          extent={{260,-140},{300,-100}}), iconTransformation(extent={{200,-180},
+            {240,-140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHrcSet(final unit=
+        "K", displayUnit="degC") if have_hrc
+    "Sidestream HRC CHW supply temperature setpoint" annotation (Placement(
+        transformation(extent={{260,-360},{300,-320}}), iconTransformation(
+          extent={{200,-360},{240,-320}})));
 
   Enabling.Enable enaHea(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
@@ -2532,7 +2541,14 @@ HVAC Systems</i>. Atlanta, GA.
 Integrated module for hybrid plant operation and added interfaces and parameters as required.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4304\">#4304</a>.
 </li>
-<i>January 23, 2025</i>, by Antoine Gautier:<br/>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored HP and HRC points with two separate outputs
+for HW and CHW supply temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
+<li>
+January 23, 2025, by Antoine Gautier:<br/>
 Refactored to use \"required to run\" conditions in the equipment availability logic.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">#4432</a>.
 </li>

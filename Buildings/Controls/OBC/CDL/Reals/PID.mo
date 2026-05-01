@@ -60,6 +60,7 @@ block PID
     "Gain for proportional control action"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset I(
+    y(nominal=max(abs(yMax), abs(yMin))),
     final k=k/Ti,
     final y_start=xi_start) if with_I
     "Integral term"
@@ -478,6 +479,12 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 13, 2026, by Michael Wetter:<br/>
+Added value for <code>nominal</code> attribute for integrator state <code>I.y</code><br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2106\">IBPSA, issue 2106</a>.
+</li>
 <li>
 October 23, 2023, by Michael Wetter:<br/>
 Added value of control output <code>y</code> to icon.
