@@ -13,8 +13,8 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
       configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
       final use_Q_flow_nominal=true,
       final Q_flow_nominal=Q_flow_nominal,
-      final T_a1_nominal=TPla_a_nominal,
-      final T_a2_nominal=TRac_a_nominal,
+      final T_a1_nominal=TPlaIn_nominal,
+      final T_a2_nominal=TRacIn_nominal,
       final r_nominal=r_nominal,
       final n1=nPla,
       final n2=nRac)

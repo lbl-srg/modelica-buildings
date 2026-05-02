@@ -29,9 +29,11 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     "Chilled water mass flow rate at design conditions";
   parameter Modelica.Units.SI.PressureDifference dPRac_nominal = 60000
     "Rack design pressure drop";
-  parameter Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU datCDU(
+  parameter
+    Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU
+    datCDU(
     Q_flow_nominal=-PRac,
-    TRac_b_nominal=TRac_a,
+    TRacOut_nominal=TRac_a,
     mPla_flow_nominal=mChi_flow_nominal,
     mRac_flow_nominal=mRac_flow_nominal,
     dpHexPla_nominal=dpHexChi_nominal,
@@ -40,7 +42,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     phiGlyPla=0,
     medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
     phiGlyRac=0.25,
-    TApp_nominal = 6) "Data performance record for CDU"
+    TApp_nominal=6) "Data performance record for CDU"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.OCP_1kW_OAM_PG25 datTheRes
     "Thermal resistance data"

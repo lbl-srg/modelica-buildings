@@ -30,14 +30,10 @@ model PartialCDU "Partial model for a CDU"
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
     "Nominal heat flow rate (negative as it is for cooling)"
     annotation (Dialog(group="Nominal thermal performance"));
-  final parameter Modelica.Units.SI.Temperature TPla_a_nominal=dat.TPla_a_nominal
-    "Nominal temperature at inlet port from cooling plant"
-                                     annotation (Dialog(group=
-          "Nominal thermal performance"));
-  final parameter Modelica.Units.SI.Temperature TRac_a_nominal=dat.TRac_a_nominal
-    "Nominal temperature at inlet port from IT rack"
-                                     annotation (Dialog(group=
-          "Nominal thermal performance"));
+  final parameter Modelica.Units.SI.Temperature TPlaIn_nominal=dat.TPlaIn_nominal
+    "Temperature from cooling plant loop" annotation (Dialog(group="Nominal thermal performance"));
+  final parameter Modelica.Units.SI.Temperature TRacIn_nominal=dat.TRacIn_nominal
+    "Temperature from IT rack loop"  annotation (Dialog(group="Nominal thermal performance"));
 
   // Flow resistance parameters
   parameter Boolean computeFlowResistancePla=true
