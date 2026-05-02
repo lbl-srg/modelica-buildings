@@ -1,41 +1,15 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model Merkel "Cooling tower model based on Merkel's theory"
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
-  final fanRelPowDer=
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=fanRelPow.r_V,
-      y=fanRelPow.r_P,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-        x=fanRelPow.r_P,
-        strict=false)));
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+    final PFan_nominal = dat.PFan_nominal,
+    final m_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
+    final dp_nominal = dat.dp_nominal,
+    final fanRelPow=dat.fanRelPow);
 
-  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
-      m_flow_nominal/ratWatAir_nominal "Nominal mass flow rate of air"
-    annotation (Dialog(group="Fan"));
-  parameter Modelica.Units.SI.Temperature TAirInWB_nominal=273.15 + 25.55
-    "Nominal outdoor (air inlet) wetbulb temperature"
-    annotation (Dialog(group="Heat transfer"));
+  parameter Data.Merkel.Generic dat "Performance data"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
-  parameter Modelica.Units.SI.Temperature TWatIn_nominal
-    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.Units.SI.Temperature TWatOut_nominal
-    "Nominal water outlet temperature"
-      annotation (Dialog(group="Heat transfer"));
-
-  parameter Real ratWatAir_nominal(min=0, unit="1") = 1.2
-    "Water-to-air mass flow rate ratio at design condition"
-    annotation (Dialog(group="Nominal condition"));
-
-  replaceable parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel UACor
-    constrainedby Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel
-    "Coefficients for UA correction"
-    annotation (
-      Dialog(group="Heat transfer"),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{18,70},{38,90}})));
-
-  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = per.Q_flow_nominal
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
     "Nominal heat transfer, (negative)";
   final parameter Modelica.Units.SI.ThermalConductance UA_nominal=per.UA_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
@@ -44,28 +18,27 @@ model Merkel "Cooling tower model based on Merkel's theory"
   final parameter Real NTU_nominal(min=0)=per.NTU_nominal
     "Nominal number of transfer units";
 
+  Modelica.Blocks.Interfaces.RealInput TWetBul(
+    final min=0,
+    final unit="K",
+    displayUnit="degC") "Entering air wet bulb temperature"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
 protected
-  Modelica.Blocks.Sources.RealExpression TWatIn(
+  Modelica.Blocks.Sources.RealExpression TCooIn(
     final y=Medium.temperature(
       Medium.setState_phX(
         p=port_a.p,
         h=inStream(port_a.h_outflow),
-        X=inStream(port_a.Xi_outflow))))
-    "Water inlet temperature"
-    annotation (Placement(transformation(extent={{-70,36},{-50,54}})));
+        X=inStream(port_a.Xi_outflow)))) "Inlet temperature of cooled fluid"
+    annotation (Placement(transformation(extent={{-70,30},{-50,48}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(final y=port_a.m_flow)
     "Water mass flow rate"
-    annotation (Placement(transformation(extent={{-70,20},{-50,38}})));
+    annotation (Placement(transformation(extent={{-70,12},{-50,30}})));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Merkel per(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final ratWatAir_nominal=ratWatAir_nominal,
-    final TAirInWB_nominal=TAirInWB_nominal,
-    final TWatIn_nominal=TWatIn_nominal,
-    final TWatOut_nominal=TWatOut_nominal,
-    final fraFreCon=fraFreCon,
-    final UACor = UACor,
+    dat=dat,
     final yMin=yMin) "Model for thermal performance"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
@@ -73,16 +46,16 @@ equation
   connect(per.y, y) annotation (Line(points={{-22,58},{-40,58},{-40,80},{-120,
           80}},
         color={0,0,127}));
-  connect(per.TAir, TAir) annotation (Line(points={{-22,54},{-80,54},{-80,40},{
-          -120,40}},
-                color={0,0,127}));
+  connect(per.TWetBul, TWetBul) annotation (Line(points={{-22,54},{-80,54},{-80,
+          40},{-120,40}}, color={0,0,127}));
   connect(per.Q_flow, preHea.Q_flow) annotation (Line(points={{1,50},{12,50},{
           12,12},{-80,12},{-80,-60},{-40,-60}},color={0,0,127}));
   connect(per.m_flow, mWat_flow.y) annotation (Line(points={{-22,42},{-34,42},{
-          -34,29},{-49,29}},
+          -34,21},{-49,21}},
                          color={0,0,127}));
-  connect(TWatIn.y, per.TWatIn) annotation (Line(points={{-49,45},{-40,45},{-40,
-          46},{-22,46}},        color={0,0,127}));
+  connect(TCooIn.y, per.TCooIn) annotation (Line(points={{-49,39},{-35.5,39},{
+          -35.5,46},{-22,46}},
+                         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},
@@ -212,8 +185,8 @@ for the respective adjustment factor, and the
 coefficients  <i>c<sub>x,0</sub></i>, <i>c<sub>x,1</sub></i>, <i>c<sub>x,2</sub></i>, and <i>c<sub>x,3</sub></i>
 are the user-defined
 values for the respective adjustment factor functions obtained from
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.Merkel.BaseClasses.UACorrection\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.Merkel.BaseClasses.UACorrection</a>.
 By changing the parameter <code>UACor</code>, the
 user can update the values in this record based on the performance characteristics of
 their specific cooling tower.
@@ -255,6 +228,13 @@ EnergyPlus 8.9.0 Engineering Reference</a>, March 23, 2018. </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 22, 2026, by Michael Wetter:<br/>
+Removed parameter <code>fraPFan_nominal</code> and introduced instead the non-dimensional
+parameter <code>dat.PEle_Q_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4443\">#4443</a>.
+</li>
 <li>
 April 17, 2025, by Michael Wetter:<br/>
 Corrected computation of nominal UA value, which also needs to include the correction for <code>cpEqu_nominal</code>.<br/>

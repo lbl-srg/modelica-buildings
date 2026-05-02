@@ -433,7 +433,9 @@ See therefore the documentation of that package.
 April 15, 2026, by Michael Wetter:<br/>
 First implementation based on
 <a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
-Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
+Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">#2115</a>.
 </li>
 </ul>
 </html>"));

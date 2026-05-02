@@ -12,9 +12,28 @@ Version X.Y.Z is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit
+    </td>
+    <td valign=\"top\">Package with control sequences for fan coil units.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.AirFilters
+    </td>
+    <td valign=\"top\">Package with models for air filters.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
+    </td>
+    <td valign=\"top\">Package with models for heat recovery and enthalpy recovery wheels.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">#3538</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buidings.Utilities.IO.Python_3_12
     </td>
-    <td valign=\"top\">Package to call Python 3.12 modules from a Modelica block.<br/>
+    <td valign=\"top\">Package with models to call Python 3.12 modules from a Modelica block.<br/>
                        This package replaces <code>Buidings.Utilities.IO.Python_3_8</code> which has
                        been moved to the <code>Buildings.Obsolete</code> package.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4347\">issue 4347</a>.
@@ -27,30 +46,28 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.DryCooler
     </td>
-    <td valign=\"top\">Control sequences for fan coil units.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+    <td valign=\"top\">Model of a dry cooler that uses the epsilon-NTU relation,
+                       with convection coefficients varying with flow rates and temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
-    <td valign=\"top\">xxx.
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater<br/>
+                       Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater
+    </td>
+    <td valign=\"top\">Packages that allows function calls of media properties without
+                       having to instantiate a package. This allows calling the
+                       functions from a Modelica <code>record</code>.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">IBPSA, issue 2115</a>.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.AirFilters
-    </td>
-    <td valign=\"top\">Package of models for air filters.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
-    </td>
-</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -86,7 +103,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2064\">IBPSA, issue 2064</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Examples.ResistanceVolumeFlowReversal
+    </td>
+    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[.].T</code>
+                       from reference results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe<br/>
@@ -100,6 +127,36 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed stray <code>Line</code> annotation. Added <code>if-then</code> to conditional connections.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2071\">IBPSA, #2071</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.FiniteLineSource_Erfint
+    </td>
+    <td valign=\"top\">Added an assert-statement for <code>err</code>
+                       and removed it from reference results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse<br/>
+                       Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse
+    </td>
+    <td valign=\"top\">Reformulated <code>when</code> block to avoid continuous and discrete variable assignment in the same block.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4321\">#4321</a>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
+    </td>
+    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible
@@ -127,19 +184,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">issue 3319</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete.Utilities.IO.Python_3_8</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
-    </td>
-    <td valign=\"top\">Added missing header file.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
     </td>
     <td valign=\"top\">Added missing header file.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
@@ -154,62 +202,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Utilities.Math.Functions.smoothHeaviside<br/>
                        Buildings.Utilities.Math.Functions.smoothLimit
     </td>
-    <td valign=\"top\">Made the functions inlined.<br/>
+    <td valign=\"top\">Declared the functions to be inlined.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4278\">issue 4278</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
-    </td>
-    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Examples.ResistanceVolumeFlowReversal
-    </td>
-    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[.].T</code>
-                       from reference results.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.FiniteLineSource_Erfint
-    </td>
-    <td valign=\"top\">Added an assert-statement for <code>err</code>
-                       and removed it from reference results.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse<br/>
-                       Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse
-    </td>
-    <td valign=\"top\">Reformulated <code>when</code> block to avoid continuous and discrete variable assignment in the same block.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4321\">#4321</a>
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
-    </td>
-    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">#3538</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
@@ -234,7 +228,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.DCH</b>
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
@@ -266,6 +260,15 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers
+    </td>
+    <td valign=\"top\">Refactored models to use a data record for the performance data.<br/>
+                       The old models were moved to the <code>Buildings.Obsolete</code> package,
+                       and a conversion script updates old models to the new ones.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4489\">#4489</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep<br/>
@@ -369,28 +372,5 @@ that can lead to wrong simulation results):
 </tr>
 </table>
 <!-- Uncritical errors -->
-<p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
 end Version_13_0_0;

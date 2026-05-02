@@ -195,7 +195,11 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 April 15, 2026, by Michael Wetter:<br/>
 Refactored implementation to use media properties from function calls in the package
 <a href=\"modelica://Buildings.Media.Antifreeze.Functions\">
-Buildings.Media.Antifreeze.Functions</a> while avoiding code dublication.
+Buildings.Media.Antifreeze.Functions</a> while avoiding code duplication.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">#2115</a>.
+</li>
+<li>
 April 14, 2026, by Michael Wetter:<br/>
 Corrected typo in documentation.
 </li>

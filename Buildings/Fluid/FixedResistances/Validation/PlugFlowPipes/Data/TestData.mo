@@ -5,10 +5,10 @@ replaceable PipeDataAIT151218 pipeDataToBeRead constrainedby
     BaseClasses.PipeDataBaseDefinition "Measurement dataset from AIT"
     annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
     Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
-    tableOnFile=true,
-    tableName="dat",
-    fileName=pipeDataToBeRead.filNam,
-    columns=2:pipeDataToBeRead.nCol)
+    final tableOnFile=true,
+    final tableName="dat",
+    final fileName=pipeDataToBeRead.filNam,
+    final columns=2:pipeDataToBeRead.nCol)
       annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 equation
 
@@ -18,6 +18,12 @@ equation
     <p>Model used to visualize and check data of district heating networks</p>
 </html>",   revisions="<html>
 <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
 <li>
 March 7, 2020, by Michael Wetter:<br/>
 Replaced measured data from specification in Modelica file to external table,

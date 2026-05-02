@@ -72,7 +72,9 @@ The model plots the fluid properties for different volume and mass conctentratio
 <ul>
 <li>
 April 16, 2026, by Michael Wetter:<br/>
-First implementation.
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">#2115</a>.
 </li>
 </ul>
 </html>"));
