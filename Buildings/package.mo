@@ -2,18 +2,17 @@ within ;
 package Buildings "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
 
-
 annotation (
 preferredView="info",
 version="12.1.1",
 versionDate="2025-05-29",
-dateModified="2025-05-29",
+dateModified="2026-05-04",
 uses(Modelica(version="4.1.0")),
 conversion(
   noneFromVersion="12.1.0",
   noneFromVersion="12.0.0",
   from(
-    version={"11.0.0", "11.1.0"},
+    version={"11.0.0", "11.1.0", "11.1.1"},
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_11_to_12.0.0.mos"),
   from(
     version={"10.0.0", "10.1.0", "10.1.1"},
