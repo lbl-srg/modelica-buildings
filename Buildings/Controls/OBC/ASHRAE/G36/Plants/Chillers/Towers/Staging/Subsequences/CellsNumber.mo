@@ -52,9 +52,6 @@ block CellsNumber
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
-    "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{220,100},{240,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
@@ -81,14 +78,14 @@ protected
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=nPlaSta) "Sun of input vector "
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor celOnNum(
+  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor celOnNum(
     final nin=nPlaSta)
     "Number of cells should be enabled at current plant stage"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant con5[nPlaSta](
     final k=towCelOnSet)
     "Number of enabling cells at each stage"
-    annotation (Placement(transformation(extent={{20,140},{40,160}})));
+    annotation (Placement(transformation(extent={{80,140},{100,160}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     "Convert integer input to real"
     annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
@@ -118,17 +115,14 @@ protected
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if it is greater than 0"
     annotation (Placement(transformation(extent={{200,-50},{220,-30}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul "Product of the inputs"
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt "Product of the inputs"
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
   Buildings.Controls.OBC.CDL.Logical.And anyPumOn
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nPlaSta]
-    "Convert to real"
-    annotation (Placement(transformation(extent={{80,140},{100,160}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1 "Logical or"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
 equation
@@ -168,12 +162,9 @@ equation
   connect(intToRea1.y, swi1.u3) annotation (Line(points={{-198,140},{-150,140},{
           -150,32},{-142,32}},  color={0,0,127}));
   connect(swi1.y, swi.u3) annotation (Line(points={{-118,40},{-100,40},{-100,60},
-          {-130,60},{-130,92},{-122,92}},
-                      color={0,0,127}));
+          {-130,60},{-130,92},{-122,92}}, color={0,0,127}));
   connect(swi.y, add3.u1) annotation (Line(points={{-98,100},{-90,100},{-90,-14},
           {-82,-14}}, color={0,0,127}));
-  connect(reaToInt.y, yNumCel)
-    annotation (Line(points={{242,110},{280,110}}, color={255,127,0}));
   connect(uEnaPla, or2.u1)
     annotation (Line(points={{-280,-90},{198,-90}}, color={255,0,255}));
   connect(or2.y, yLeaCel)
@@ -194,31 +185,28 @@ equation
           {78,22}}, color={255,127,0}));
   connect(intSwi.y, celOnNum.index)
     annotation (Line(points={{102,30},{130,30},{130,138}}, color={255,127,0}));
-  connect(intGreThr.y, booToRea.u) annotation (Line(points={{222,-40},{230,-40},
+  connect(intGreThr.y, booToInt1.u) annotation (Line(points={{222,-40},{230,-40},
           {230,-10},{60,-10},{60,70},{78,70}}, color={255,0,255}));
-  connect(celOnNum.y, mul.u1) annotation (Line(points={{142,150},{160,150},{160,
-          116},{178,116}}, color={0,0,127}));
-  connect(booToRea.y, mul.u2) annotation (Line(points={{102,70},{160,70},{160,
-          104},{178,104}}, color={0,0,127}));
-  connect(mul.y, reaToInt.u)
-    annotation (Line(points={{202,110},{218,110}}, color={0,0,127}));
   connect(uPla, anyPumOn.u1)
     annotation (Line(points={{-280,-130},{-62,-130}}, color={255,0,255}));
   connect(anyPumOn.y, or2.u2) annotation (Line(points={{-38,-130},{180,-130},{
           180,-98},{198,-98}}, color={255,0,255}));
-  connect(con5.y, intToRea.u)
-    annotation (Line(points={{42,150},{78,150}}, color={255,127,0}));
-  connect(intToRea.y, celOnNum.u)
-    annotation (Line(points={{102,150},{118,150}}, color={0,0,127}));
   connect(uAnyConWatPum, anyPumOn.u2) annotation (Line(points={{-280,-160},{-80,
           -160},{-80,-138},{-62,-138}}, color={255,0,255}));
   connect(uEnaPla, or1.u2) annotation (Line(points={{-280,-90},{-240,-90},{-240,
           12},{-222,12}}, color={255,0,255}));
   connect(or1.y, swi1.u2)
-    annotation (Line(points={{-198,20},{-160,20},{-160,40},{-142,40}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-198,20},{-160,20},{-160,40},{-142,40}}, color={255,0,255}));
   connect(uTowStaCha, or1.u1)
     annotation (Line(points={{-280,20},{-222,20}}, color={255,0,255}));
+  connect(con5.y, celOnNum.u)
+    annotation (Line(points={{102,150},{118,150}}, color={255,127,0}));
+  connect(booToInt1.y, mulInt.u2) annotation (Line(points={{102,70},{160,70},{160,
+          104},{178,104}}, color={255,127,0}));
+  connect(celOnNum.y, mulInt.u1) annotation (Line(points={{142,150},{160,150},{160,
+          116},{178,116}}, color={255,127,0}));
+  connect(mulInt.y, yNumCel)
+    annotation (Line(points={{202,110},{280,110}}, color={255,127,0}));
 annotation (
   defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

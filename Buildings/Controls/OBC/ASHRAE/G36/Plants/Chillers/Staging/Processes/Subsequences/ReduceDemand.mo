@@ -11,13 +11,13 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDemLim
     "Demand limit: true=limit chiller demand"
-    annotation (Placement(transformation(extent={{-200,170},{-160,210}}),
+    annotation (Placement(transformation(extent={{-200,180},{-160,220}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa(
     final quantity="HeatFlowRate",
     final unit="W")
     "Current chiller load"
-    annotation (Placement(transformation(extent={{-200,140},{-160,180}}),
+    annotation (Placement(transformation(extent={{-200,150},{-160,190}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
     final min=0,
@@ -42,21 +42,21 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     final quantity="HeatFlowRate",
     final unit="W")
     "Chiller demand setpoint"
-    annotation (Placement(transformation(extent={{160,100},{200,140}}),
+    annotation (Placement(transformation(extent={{160,120},{200,160}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiDemRed
     "Flag: true if it is not requiring reducing demand or the chiller demand reduction process has finished"
-    annotation (Placement(transformation(extent={{160,60},{200,100}}),
+    annotation (Placement(transformation(extent={{160,80},{200,120}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam(
     final y_start=1e-6)
     "Triggered sampler to sample current chiller demand"
-    annotation (Placement(transformation(extent={{0,150},{20,170}})));
+    annotation (Placement(transformation(extent={{0,160},{20,180}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "Current setpoint to chillers"
-    annotation (Placement(transformation(extent={{120,110},{140,130}})));
+    annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0.2)
     "Constant value to avoid zero as the denominator"
@@ -76,10 +76,10 @@ protected
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-100,180},{-80,200}})));
+    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Logical.And finRedDem
     "Demand reducing process is done"
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
@@ -96,7 +96,7 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Percentage of the current load"
-    annotation (Placement(transformation(extent={{80,150},{100,170}})));
+    annotation (Placement(transformation(extent={{80,160},{100,180}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(final p=1e-6)
     "Add a small value to avoid potentially zero denominator"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
@@ -108,22 +108,29 @@ protected
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Not requiring reducing demand"
-    annotation (Placement(transformation(extent={{120,70},{140,90}})));
+    annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Logical.Not notReqRed
     "Not requiring reduce demand"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Or notRed
-    "Not requiring reducing demand"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+  Buildings.Controls.OBC.CDL.Logical.Or notRed "Not requiring reducing demand"
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nChi) "Check if any chiller is enabled"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Not noEnaChi "No enabled chiller"
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+  Buildings.Controls.OBC.CDL.Logical.And upFroZer
+    "Staging up from 0 enabled chiller"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Buildings.Controls.OBC.CDL.Logical.Or endRed
+    "True: finished reduction"
+    annotation (Placement(transformation(extent={{120,90},{140,110}})));
 
 equation
   connect(uChiLoa, triSam.u)
-    annotation (Line(points={{-180,160},{-2,160}}, color={0,0,127}));
+    annotation (Line(points={{-180,170},{-2,170}}, color={0,0,127}));
   connect(uChiLoa, swi4.u3)
-    annotation (Line(points={{-180,160},{-140,160},{-140,112},{118,112}}, color={0,0,127}));
+    annotation (Line(points={{-180,170},{-140,170},{-140,132},{118,132}}, color={0,0,127}));
   connect(con.y, swi.u3)
     annotation (Line(points={{-118,-200},{-100,-200},{-100,-168},{-82,-168}},
       color={0,0,127}));
@@ -131,18 +138,18 @@ equation
     annotation (Line(points={{-58,-160},{-50,-160},{-50,-146},{-42,-146}},
       color={0,0,127}));
   connect(uChiLoa, div.u1)
-    annotation (Line(points={{-180,160},{-140,160},{-140,-110},{-50,-110},{-50,-134},
+    annotation (Line(points={{-180,170},{-140,170},{-140,-110},{-50,-110},{-50,-134},
           {-42,-134}}, color={0,0,127}));
   connect(div.y, hys.u)
     annotation (Line(points={{-18,-140},{-2,-140}}, color={0,0,127}));
   connect(hys.y, not1.u)
     annotation (Line(points={{22,-140},{38,-140}},  color={255,0,255}));
   connect(swi4.y,yChiDem)
-    annotation (Line(points={{142,120},{180,120}}, color={0,0,127}));
+    annotation (Line(points={{142,140},{180,140}}, color={0,0,127}));
   connect(uDemLim, edg.u)
-    annotation (Line(points={{-180,190},{-102,190}}, color={255,0,255}));
-  connect(uDemLim, finRedDem.u1) annotation (Line(points={{-180,190},{-120,190},
-          {-120,30},{118,30}}, color={255,0,255}));
+    annotation (Line(points={{-180,200},{-102,200}}, color={255,0,255}));
+  connect(uDemLim, finRedDem.u1) annotation (Line(points={{-180,200},{-120,200},
+          {-120,30},{78,30}},  color={255,0,255}));
   connect(uStaDow, and1.u1)
     annotation (Line(points={{-180,-30},{-102,-30}}, color={255,0,255}));
   connect(uOnOff, and1.u2)
@@ -162,49 +169,59 @@ equation
     annotation (Line(points={{-18,10},{-10,10},{-10,6},{-2,6}},
       color={0,0,127}));
   connect(triSam.y, pro.u1)
-    annotation (Line(points={{22,160},{40,160},{40,166},{78,166}},
+    annotation (Line(points={{22,170},{40,170},{40,176},{78,176}},
       color={0,0,127}));
   connect(pro.y, swi4.u1)
-    annotation (Line(points={{102,160},{110,160},{110,128},{118,128}},
+    annotation (Line(points={{102,170},{110,170},{110,148},{118,148}},
       color={0,0,127}));
   connect(triSam.y, addPar.u)
-    annotation (Line(points={{22,160},{40,160},{40,-50},{58,-50}},
+    annotation (Line(points={{22,170},{40,170},{40,-50},{58,-50}},
       color={0,0,127}));
   connect(addPar.y, swi.u1)
     annotation (Line(points={{82,-50},{100,-50},{100,-80},{-100,-80},{-100,-152},
           {-82,-152}}, color={0,0,127}));
   connect(uDemLim, tim.u)
-    annotation (Line(points={{-180,190},{-120,190},{-120,-100},{-42,-100}},
+    annotation (Line(points={{-180,200},{-120,200},{-120,-100},{-42,-100}},
       color={255,0,255}));
   connect(or2.y, finRedDem.u2) annotation (Line(points={{142,-100},{150,-100},{150,
-          -30},{100,-30},{100,22},{118,22}}, color={255,0,255}));
+          -20},{60,-20},{60,22},{78,22}},    color={255,0,255}));
   connect(tim.passed, or2.u1)
     annotation (Line(points={{-18,-108},{40,-108},{40,-100},{118,-100}},
       color={255,0,255}));
-  connect(edg.y, lat.clr) annotation (Line(points={{-78,190},{-70,190},{-70,74},
-          {118,74}}, color={255,0,255}));
-  connect(uDemLim, notReqRed.u) annotation (Line(points={{-180,190},{-120,190},{
-          -120,90},{-62,90}}, color={255,0,255}));
+  connect(edg.y, lat.clr) annotation (Line(points={{-78,200},{-40,200},{-40,94},
+          {78,94}},  color={255,0,255}));
+  connect(uDemLim, notReqRed.u) annotation (Line(points={{-180,200},{-120,200},{
+          -120,110},{-102,110}}, color={255,0,255}));
   connect(notReqRed.y, notRed.u1)
-    annotation (Line(points={{-38,90},{-2,90}}, color={255,0,255}));
-  connect(finRedDem.y, notRed.u2) annotation (Line(points={{142,30},{150,30},{150,
-          50},{-20,50},{-20,82},{-2,82}}, color={255,0,255}));
-  connect(notRed.y, lat.u) annotation (Line(points={{22,90},{60,90},{60,80},{118,
-          80}}, color={255,0,255}));
-  connect(lat.y, yChiDemRed)
-    annotation (Line(points={{142,80},{180,80}}, color={255,0,255}));
+    annotation (Line(points={{-78,110},{-2,110}}, color={255,0,255}));
+  connect(finRedDem.y, notRed.u2) annotation (Line(points={{102,30},{110,30},{110,
+          50},{-10,50},{-10,102},{-2,102}}, color={255,0,255}));
+  connect(notRed.y, lat.u) annotation (Line(points={{22,110},{60,110},{60,100},{
+          78,100}}, color={255,0,255}));
   connect(uChi, mulOr.u)
     annotation (Line(points={{-180,-160},{-142,-160}}, color={255,0,255}));
   connect(not1.y, or2.u2) annotation (Line(points={{62,-140},{100,-140},{100,-108},
           {118,-108}}, color={255,0,255}));
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{-118,-160},{-82,-160}}, color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-78,190},{-70,190},{-70,
-          140},{10,140},{10,148}}, color={255,0,255}));
-  connect(max.y, pro.u2) annotation (Line(points={{22,0},{50,0},{50,154},{78,154}},
+  connect(edg.y, triSam.trigger) annotation (Line(points={{-78,200},{-40,200},{-40,
+          150},{10,150},{10,158}}, color={255,0,255}));
+  connect(max.y, pro.u2) annotation (Line(points={{22,0},{50,0},{50,164},{78,164}},
         color={0,0,127}));
-  connect(uDemLim, swi4.u2) annotation (Line(points={{-180,190},{-120,190},{-120,
-          120},{118,120}}, color={255,0,255}));
+  connect(uDemLim, swi4.u2) annotation (Line(points={{-180,200},{-120,200},{-120,
+          140},{118,140}}, color={255,0,255}));
+  connect(mulOr.y, noEnaChi.u) annotation (Line(points={{-118,-160},{-110,-160},
+          {-110,50},{-102,50}}, color={255,0,255}));
+  connect(uDemLim, upFroZer.u1) annotation (Line(points={{-180,200},{-120,200},{
+          -120,70},{-42,70}}, color={255,0,255}));
+  connect(noEnaChi.y, upFroZer.u2) annotation (Line(points={{-78,50},{-60,50},{-60,
+          62},{-42,62}}, color={255,0,255}));
+  connect(lat.y, endRed.u1)
+    annotation (Line(points={{102,100},{118,100}}, color={255,0,255}));
+  connect(endRed.y, yChiDemRed)
+    annotation (Line(points={{142,100},{180,100}}, color={255,0,255}));
+  connect(upFroZer.y, endRed.u2) annotation (Line(points={{-18,70},{110,70},{110,
+          92},{118,92}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiDemRed",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
