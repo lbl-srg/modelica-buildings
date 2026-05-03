@@ -109,6 +109,9 @@
   openmodelica:
     comment: Timeout after 300 seconds.
     simulate: false
+  optimica:
+    comment: Slow computation with tolerance 1E-6
+    rtol: 1.0e-7
 - model_name: Buildings.Examples.FanCoils.FourPipe
   optimica:
     comment: Solves six times faster if tolerance is set to 1e-07
