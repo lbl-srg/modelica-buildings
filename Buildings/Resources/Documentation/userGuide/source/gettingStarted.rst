@@ -58,7 +58,7 @@ are easier to understand than fluid flow models because;
 
 To get started with Spawn of EnergyPlus, we recommend to first familiarize yourself with Modelica, as described above.
 Next, read the
-`user guide for the Spawn models <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_ThermalZones_EnergyPlus_9_6_0_UsersGuide.html>`_
+`user guide for the Spawn models <https://simulationresearch.lbl.gov/modelica/releases/v13.0.0/help/Buildings_ThermalZones_EnergyPlus_24_2_0_UsersGuide.html>`_
 which provides step-by-step instructions and points to various examples.
 
 

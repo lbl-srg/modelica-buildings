@@ -3,24 +3,6 @@ Glossary
 
 .. glossary::
 
-   2nd order low pass filter
-      A second order low pass filter is an input-output block that computes
-
-      .. math::
-
-       \dot x(t) = \begin{pmatrix} r & 0 \\ -r & r \end{pmatrix} \, x(t) + \begin{pmatrix} -r \\ 0 \end{pmatrix} \, u(t)
-
-      and
-
-      .. math::
-
-          y(t) = (0, \, 1) \, x(t),
-
-      where :math:`r` is a positive real number.
-      This causes the input signal :math:`u(\cdot)` to be converted to
-      an output signal :math:`y(\cdot)` that is differentiable in time.
-      See the :ref:`plot of a filtered step response <FigureFilteredResponse>`.
-
    compressible flow
       The opposite of :term:`incompressible flow`.
 

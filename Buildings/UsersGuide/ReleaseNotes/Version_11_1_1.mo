@@ -1,14 +1,14 @@
 within Buildings.UsersGuide.ReleaseNotes;
-class Version_12_1_1 "Version 12.1.1"
+class Version_11_1_1 "Version 11.1.1"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 12.1.1 is backward compatible with 12.1.0.
+Version 11.1.1 is backward compatible with 11.1.0.
 </p>
 <p>
 The library has been tested with
-Dymola 2025x,
+Dymola 2024x Refresh 1,
 OpenModelica 1.26.3,
 OPTIMICA 1.66 and recent versions of Impact.
 </p>
@@ -26,15 +26,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.PID<br/>
-                       Buildings.Controls.OBC.CDL.Reals.PIDWithReset
+<tr><td valign=\"top\">Buildings.Electrical.BaseClasses.WindTurbine.PartialWindTurbine
     </td>
-    <td valign=\"top\">Added value for <code>nominal</code> attribute of integrator state variable <code>I.y</code>.
-                       This was done to improve robustness in some models.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2106\">IBPSA #2106</a>.
+    <td valign=\"top\">Changed model to avoid a rounding error that occurs due to the revised definition of <code>eps</code>
+                       in the development version of the Modelica Standard Library 4.1.0.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1996\">IBPSA, #1996</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DXSystems</b>
@@ -63,6 +62,35 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Filling.Template
+    </td>
+    <td valign=\"top\">Guarded against division by zero for steady-state simulations.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2041\">IBPSA, #2041</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b><br/>
+                      <b>Buildings.Utilities.Clustering</b>
+<tr><td valign=\"top\">Buildings.Utilities.Clustering.KMeans
+    </td>
+    <td valign=\"top\">Improved code to avoid an error during initialization of certain borefield geometries.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">IBPSA, #1985</a> and
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1976\">IBPSA, #1976</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u
+    </td>
+    <td valign=\"top\">Reformulated model to avoid warning about binding equation not being a parameter expression.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4215\">#4215</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.FiniteLineSource_Erfint
     </td>
     <td valign=\"top\">Added an assert-statement for <code>err</code>
@@ -70,26 +98,12 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse<br/>
-                       Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse
-    </td>
-    <td valign=\"top\">Reformulated <code>when</code> block to avoid continuous and discrete variable assignment in the same block.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4321\">#4321</a>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.Data.Filling.Template
-    </td>
-    <td valign=\"top\">Guarded against division by zero for steady-state simulations.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2041\">IBPSA, #2041</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Examples.ResistanceVolumeFlowReversal
     </td>
-    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[:].T</code>
+    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[.].T</code>
                        from reference results.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
     </td>
@@ -102,25 +116,15 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter
     </td>
     <td valign=\"top\">Corrected misplaced bracket in the computation of the average inlet temperature to the zone.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4559\">#4559</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter
-    </td>
-    <td valign=\"top\">Corrected misplaced bracket in the computation of the average inlet temperature to the zone.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4559\">#4559</a>.
-    </td>
-</tr>
-
 </table>
 <!-- Uncritical errors -->
 <p>
@@ -156,4 +160,4 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </html>"));
-end Version_12_1_1;
+end Version_11_1_1;
