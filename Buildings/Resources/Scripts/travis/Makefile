@@ -32,13 +32,6 @@ test-energyplus-validations:
 	   echo "*** Testing `pwd`/run.sh" && \
 	   ./run.sh'
 	@echo "*********************************************************"
-	@echo "*** Testing idf files for $(ENERGYPLUS_9_6_0)"
-	@export PATH=$(ROOT)/$(ENERGYPLUS_9_6_0):$(PATH); \
-	 find $(ROOT)/Buildings/Resources/Data/Obsolete/ThermalZones/EnergyPlus_9_6_0 -name run.sh | xargs -I {} sh -c \
-	  'cd `dirname {}` && \
-	   echo "*********************************************************" && \
-	   echo "*** Testing `pwd`/run.sh" && \
-	   ./run.sh'
 	@echo "*** Verify that all files in repository are up to date"
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data
 	@echo "    Target $@ successful."

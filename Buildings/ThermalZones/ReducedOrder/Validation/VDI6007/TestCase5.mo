@@ -36,22 +36,22 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    table=[0,0,0,0; 3600,0,0,0; 7200,0,0,0; 10800,0,0,0; 14400,0,0,0; 18000,0,0,
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final table=[0,0,0,0; 3600,0,0,0; 7200,0,0,0; 10800,0,0,0; 14400,0,0,0; 18000,0,0,
         0; 21600,0,0,0; 25200,0,0,0; 25200,80,80,200; 28800,80,80,200; 32400,80,
         80,200; 36000,80,80,200; 39600,80,80,200; 43200,80,80,200; 46800,80,80,
         200; 50400,80,80,200; 54000,80,80,200; 57600,80,80,200; 61200,80,80,200;
         61200,0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,
         0,0,0; 86400,0,0,0],
-    columns={2,3,4})
+    final columns={2,3,4})
     "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
-    tableOnFile=false,
-    columns={2},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,22; 3600,22; 7200,22; 10800,21.9; 14400,21.9; 18000,22; 21600,22.2;
+    final tableOnFile=false,
+    final columns={2},
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    final table=[0,22; 3600,22; 7200,22; 10800,21.9; 14400,21.9; 18000,22; 21600,22.2;
         25200,22.4; 28800,24.4; 32400,24.1; 36000,24.4; 39600,24.7; 43200,24.9;
         46800,25.1; 50400,25.2; 54000,25.3; 57600,26; 61200,25.9; 64800,24.3;
         68400,24.2; 72000,24.1; 75600,24.1; 79200,24.1; 82800,24.1; 86400,24.1;
@@ -65,7 +65,7 @@ model TestCase5 "VDI 6007 Test Case 5 model"
         5148000,47; 5151600,47; 5155200,47.6; 5158800,47.5; 5162400,45.8;
         5166000,45.6; 5169600,45.4; 5173200,45.4; 5176800,45.3; 5180400,45.2;
         5184000,45.1],
-    offset={273.15})
+    final offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
@@ -79,9 +79,9 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     rotation=90,
     origin={30,-18})));
   Modelica.Blocks.Sources.CombiTimeTable outdoorTemp(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    columns={2},
-    table=[0,291.95; 3600,291.95; 3600,290.25; 7200,290.25; 7200,289.65; 10800,
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final columns={2},
+    final table=[0,291.95; 3600,291.95; 3600,290.25; 7200,290.25; 7200,289.65; 10800,
         289.65; 10800,289.25; 14400,289.25; 14400,289.65; 18000,289.65; 18000,
         290.95; 21600,290.95; 21600,293.45; 25200,293.45; 25200,295.95; 28800,
         295.95; 28800,297.95; 32400,297.95; 32400,299.85; 36000,299.85; 36000,
@@ -100,15 +100,15 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    tableOnFile=false,
-    table=[0,0; 3600,0; 10800,0; 14400,0; 14400,17; 18000,17; 18000,38; 21600,
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final tableOnFile=false,
+    final table=[0,0; 3600,0; 10800,0; 14400,0; 14400,17; 18000,17; 18000,38; 21600,
         38; 21600,59; 25200,59; 25200,98; 28800,98; 28800,186; 32400,186; 32400,
         287; 36000,287; 36000,359; 39600,359; 39600,385; 43200,385; 43200,359;
         46800,359; 46800,287; 50400,287; 50400,186; 54000,186; 54000,98; 57600,
         98; 57600,59; 61200,59; 61200,38; 64800,38; 64800,17; 68400,17; 68400,0;
         72000,0; 82800,0; 86400,0],
-    columns={2})
+    final columns={2})
     "Solar radiation"
     annotation (Placement(transformation(extent={{-84,66},{-70,80}})));
   Modelica.Blocks.Sources.Constant g_sunblind(k=0.15)
@@ -226,6 +226,12 @@ equation
   temperature at mixed internal gains and outdoor impacts.</p>
   </html>", revisions="<html>
   <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>

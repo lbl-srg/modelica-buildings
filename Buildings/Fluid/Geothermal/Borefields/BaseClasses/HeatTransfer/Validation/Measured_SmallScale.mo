@@ -17,13 +17,13 @@ model Measured_SmallScale
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable meaDat(
-    tableOnFile=true,
-    timeScale=sizFac^2,
-    fileName=Modelica.Utilities.Files.loadResource(
+    final tableOnFile=true,
+    final timeScale=sizFac^2,
+    final fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt"),
-    columns={2,3,4,5,6,7,8,9},
-    tableName="data",
-    offset={0,0,0,273.15,273.15,273.15,273.15,273.15})
+    final columns={2,3,4,5,6,7,8,9},
+    final tableName="data",
+    final offset={0,0,0,273.15,273.15,273.15,273.15,273.15})
                      "Measurement data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
@@ -88,6 +88,12 @@ g-functions of a small-scale geothermal borehole</i>. Geothermics 56: 60-71.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
 <li>
 July 18, 2018, by Massimo Cimmino:<br/>
 First implementation.
