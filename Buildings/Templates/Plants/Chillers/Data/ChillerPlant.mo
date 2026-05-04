@@ -63,7 +63,8 @@ record ChillerPlant
       cfg.nCoo),
     TWetBulEnt_nominal=ctl.TWetBulCooEnt_nominal,
     TConWatRet_nominal=max(ctl.TConWatRetChi_nominal),
-    TConWatSup_nominal=min(ctl.TConWatSupChi_nominal))
+    TConWatSup_nominal=min(ctl.TConWatSupChi_nominal),
+    y_min=ctl.yFanCoo_min)
     "Cooler group"
     annotation(Dialog(group="CW loop",
       enable=cfg.typChi ==

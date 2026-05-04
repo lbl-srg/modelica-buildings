@@ -70,6 +70,8 @@ record CoolerGroup
       mConWatCoo_flow_nominal)
     "Fan power"
     annotation(Dialog(group="Nominal condition"));
+  parameter Real y_min(final unit="1", final min=0, final max=1) = 0.3
+    "Minimum fan speed";
 annotation(defaultComponentName="datCoo",
   Documentation(
     info="<html>

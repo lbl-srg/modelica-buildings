@@ -72,7 +72,8 @@ partial model PartialCoolerGroup
     final TWetBulEnt_nominal=fill(dat.TWetBulEnt_nominal, nCoo),
     final TConWatRet_nominal=fill(dat.TConWatRet_nominal, nCoo),
     final TConWatSup_nominal=fill(dat.TConWatSup_nominal, nCoo),
-    final PFan_nominal=dat.PFanCoo_nominal)
+    final PFan_nominal=dat.PFanCoo_nominal,
+    final y_min=fill(dat.y_min, nCoo))
     "Parameter record - Each cooler unit";
   final parameter Buildings.Templates.Components.Data.Valve datValCooInlIso[nCoo](
     final typ=fill(typValCooInlIso, nCoo),

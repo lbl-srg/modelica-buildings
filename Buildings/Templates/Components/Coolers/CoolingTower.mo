@@ -13,14 +13,15 @@ model CoolingTower "Cooling tower model using Merkel method"
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
     redeclare final package Medium = MediumConWat,
-    final m_flow_nominal=mConWat_flow_nominal,
-    final ratWatAir_nominal=mConWat_flow_nominal/mAir_flow_nominal,
-    final TAirInWB_nominal=dat.TWetBulEnt_nominal,
-    final TWatIn_nominal=dat.TConWatRet_nominal,
-    final TWatOut_nominal=dat.TConWatSup_nominal,
-    final PFan_nominal=dat.PFan_nominal,
-    final dp_nominal=dpConWatFri_nominal,
-    final fraPFan_nominal=dat.PFan_nominal/mConWat_flow_nominal,
+    dat(
+      final Q_flow_nominal=mConWat_flow_nominal * cpConWat_default * (dat.TConWatSup_nominal - dat.TConWatRet_nominal),
+      final ratCooAir_nominal=mConWat_flow_nominal/mAir_flow_nominal,
+      final TAirInWB_nominal=dat.TWetBulEnt_nominal,
+      final TCooIn_nominal=dat.TConWatRet_nominal,
+      final TCooOut_nominal=dat.TConWatSup_nominal,
+      final PFan_Q_flow_nominal=dat.PFan_nominal / tow.dat.Q_flow_nominal,
+      final dp_nominal=dpConWatFri_nominal),
+    final yMin=dat.y_min,
     final show_T=show_T,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
@@ -57,7 +58,7 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(yCom.y, tow.y)
     annotation (Line(points={{-20,-32},{-20,-52},{-12,-52}}, color={0,0,127}));
-  connect(busWea.TWetBul, tow.TAir) annotation (Line(
+  connect(busWea.TWetBul, tow.TWetBul) annotation (Line(
       points={{-59.9,100.1},{-59.9,-56},{-12,-56}},
       color={255,204,51},
       thickness=0.5), Text(
