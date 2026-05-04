@@ -54,6 +54,18 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
   size_t nBou;
 
   /****************************************************************************
+  | Guard: if the FFD co-simulation has already been started (e.g., because
+  | OpenModelica calls this function multiple times during homotopy
+  | initialization), return immediately without re-initializing.
+  | Calling this function more than once would launch additional FFD threads
+  | that all share the same cosim data structure, causing data races and
+  | heap corruption ("free(): unaligned chunk detected in tcache 2").
+  ****************************************************************************/
+  if (cosim->started == 1) {
+    return 0;
+  }
+
+  /****************************************************************************
   | allocate the memory and assign the data
   ****************************************************************************/
   cosim->para->fileName = (char *) malloc(sizeof(char)*(strlen(cfdFilNam)+1));
