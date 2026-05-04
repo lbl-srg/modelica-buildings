@@ -4,9 +4,66 @@ class Version_13_0_0 "Version 13.0.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version X.Y.Z is ... xxx
+Version 13.0.0 is a major release that adds various new packages and models.
+</p>
+<p>
+The library has been tested with
+Dymola 2026x,
+OpenModelica 1.26.3,
+OPTIMICA 1.66 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 12.0.0:
+</p>
+<ul>
+<li>
+The package <code>Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit</code>
+has been added with control sequences for fan coil units.
+</li>
+<li>
+The package <code>Buildings.DHC.ETS.Combined</code> has been replaced with improved models,
+and the old models have been moved to the <code>Buildings.Obsolete</code> package.
+</li>
+<li>
+The package <code>Buildings.Templates</code> has been refactored to use load-dependent 2D table data for
+chiller and heat pump models.
+</li>
+<li>
+The package <code>Buildings.Fluid.AirFilters</code> has been added with models for air filters.
+</li>
+<li>
+The package <code>Buildings.Fluid.HeatExchangers.ThermalWheels</code>
+has been added with models for heat recovery and enthalpy recovery wheels.
+</li>
+<li>
+The package <code>Buildings.Media.Antifreeze.Functions</code> has been added to enable
+calling glycol property functions without instantiating a package.
+</li>
+<li>
+The package <code>Buildings.Utilities.IO.Python_3_12</code>
+has been added with models to call Python 3.12 modules from a Modelica block.
+This package replaces <code>Buildings.Utilities.IO.Python_3_8</code>
+which has been moved to the <code>Buildings.Obsolete</code> package.
+</li>
+<li>
+The models of cooling towers in <code>Buildings.Fluid.HeatExchangers.CoolingTowers</code>
+have been refactored to use a data record for the performance data,
+and a new model of a dry cooler that uses the epsilon-NTU relation has been added.
+</li>
+</ul>
+<p>
+Also, many models have been updated to improve performance, to improve compliance with the Modelica Language Standard and to correct model errors.
 </p>
 </div>
+<p>
+This version also changes the weather data conversion from using Java to Python.
+This change was made when correcting an issue that caused a discontinuity in wind
+direction interpolation when the direction changes between 0 and 360 degrees.
+Users should update their existing weather files by running the Python script
+<code>Buildings/Resources/bin/convert_weather_data.py</code> as
+this requires a conversion of the wind direction data.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
+</p>
 <!-- New libraries -->
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
@@ -87,7 +144,9 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
     </td>
     <td valign=\"top\">Changed the class type from block to model.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.<br/>
+                       Changed weather data interpolation to avoid a discontinuity in wind directory when it switches between 0 and 360 degrees.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
@@ -170,6 +229,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">IBPSA, issue 2035</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete.Utilities.IO.Python_3_8</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+    </td>
+    <td valign=\"top\">Added missing header file.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
@@ -189,10 +257,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">issue 3319</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Obsolete.Utilities.IO.Python_3_8</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_12</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_12.Functions.BaseClasses.exchange
     </td>
     <td valign=\"top\">Added missing header file.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
@@ -377,5 +445,22 @@ that can lead to wrong simulation results):
 </tr>
 </table>
 <!-- Uncritical errors -->
+<p>
+Note:
+</p>
+<p>
+This version removes the packages
+</p>
+<ul>
+<li>
+<code>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</code>
+</li>
+<li>
+<code>Buildings.Obsolete.Fluid.Movers.Validation</code>
+</li>
+<li>
+<code>Buildings.Obsolete.Fluid.SolarCollectors</code>
+</li>
+</ul>
 </html>"));
 end Version_13_0_0;

@@ -1,0 +1,2 @@
+simulateModel("Buildings.BoundaryConditions.WeatherData.Validation.ReaderTMY3WindDirection", stopTime=8640000, tolerance=1e-06, resultFile="ReaderTMY3WindDirection");
+createPlot(id=1, position={55, 55, 1714, 741}, x="winDir.y", y={"weaDatInpCon.weaBus.winDir"}, range={-1100.0, 1100.0, -50.0, 400.0}, grid=true, colors={{28,108,200}}, timeUnit="deg", displayUnits={"deg"});

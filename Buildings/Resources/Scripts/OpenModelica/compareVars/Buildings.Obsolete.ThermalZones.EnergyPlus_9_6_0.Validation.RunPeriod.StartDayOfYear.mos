@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "sunEle.y",
-    "monEle.y"
-  };

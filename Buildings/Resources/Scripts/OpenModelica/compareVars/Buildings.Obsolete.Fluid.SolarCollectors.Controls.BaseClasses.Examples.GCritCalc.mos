@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "criSol.G_TC",
-    "criSol.TEnv",
-    "criSol.TIn"
-  };
