@@ -37,20 +37,20 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2})
+    final columns={2})
     "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-96},{22,-80}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
-    tableOnFile=false,
-    columns={2},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 25200,500;
+    final tableOnFile=false,
+    final columns={2},
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    final table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 25200,500;
         28800,500; 32400,500; 36000,500; 39600,500; 43200,481; 46800,426; 50400,
         374; 54000,324; 57600,276; 61200,230; 64800,186; 68400,-500; 72000,-500;
         75600,-500; 79200,-500; 82800,-500; 86400,-500; 781200,-500; 784800,-500;
@@ -82,10 +82,10 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     "Ideal heater/cooler with limit"
     annotation (Placement(transformation(extent={{44,-46},{64,-26}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    columns={2},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final columns={2},
+    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    final table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
         21600.1,27; 28800,27; 32400,27; 36000,27; 39600,27; 43200,27; 46800,27;
         50400,27; 54000,27; 57600,27; 61200,27; 64800,27; 64800.1,22; 72000,22;
         75600,22; 79200,22; 82800,22; 86400,22])
@@ -178,6 +178,12 @@ equation
   maximum heating power.</p>
   </html>", revisions="<html>
   <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>

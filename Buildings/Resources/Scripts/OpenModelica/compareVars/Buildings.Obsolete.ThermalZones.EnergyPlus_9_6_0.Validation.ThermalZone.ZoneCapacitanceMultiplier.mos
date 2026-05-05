@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "defCap.zon.TAir",
-    "mulCap.zon.TAir"
-  };
