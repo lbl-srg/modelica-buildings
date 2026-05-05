@@ -400,7 +400,7 @@ model ChillerWSE
     "Pressure setpoint for chilled water pump"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   Controls.OBC.CDL.Reals.Hysteresis hysChi(
-    uLow=1,
+    uLow=1.1,
     uHigh=1.2,
     u(final unit="K")) "Hysteresis for chiller staging"
     annotation (Placement(transformation(extent={{-400,250},{-380,270}})));
@@ -577,9 +577,6 @@ model ChillerWSE
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={110,540})));
-  Controls.OBC.CDL.Reals.AddParameter offPum(p=-1)
-    "Offset for pump control signal"
-    annotation (Placement(transformation(extent={{-440,590},{-420,610}})));
   Controls.OBC.CDL.Reals.Limiter yPumTow(uMax=1, uMin=0.1)
     "Pump control signal"
     annotation (Placement(transformation(extent={{-400,590},{-380,610}})));
@@ -745,8 +742,8 @@ equation
     annotation (Line(points={{-80,380},{-80,410}}, color={0,127,255}));
   connect(senTChi_a1.T, conPIDCon.u_m) annotation (Line(points={{-91,370},{-100,
           370},{-100,388},{-350,388},{-350,418}}, color={0,0,127}));
-  connect(senTEvaIn.T, TLifMin.u) annotation (Line(points={{-10,231},{-10,240},
-          {-470,240},{-470,430},{-402,430}},color={0,0,127}));
+  connect(senTEvaIn.T, TLifMin.u) annotation (Line(points={{-10,231},{-10,240},{
+          -470,240},{-470,430},{-402,430}}, color={0,0,127}));
   connect(hysChi.y, conPIDCon.trigger) annotation (Line(points={{-378,260},{-356,
           260},{-356,418}}, color={255,0,255}));
   connect(TLifMin.y, conPIDCon.u_s)
@@ -790,8 +787,6 @@ equation
     annotation (Line(points={{222,270},{238,270}}, color={0,0,127}));
   connect(conEcoPla.y, pumWSEChi.y) annotation (Line(points={{262,270},{280,270},
           {280,290},{172,290}}, color={0,0,127}));
-  connect(offPum.y, yPumTow.u)
-    annotation (Line(points={{-418,600},{-402,600}}, color={0,0,127}));
   connect(yPumTow.y, pumTow.y)
     annotation (Line(points={{-378,600},{-232,600}}, color={0,0,127}));
   connect(jun6.port_1, senMasFlo3.port_b)
@@ -802,8 +797,8 @@ equation
     annotation (Line(points={{202,470},{218,470}}, color={0,0,127}));
   connect(conEcoTow.y, pumWSECW.y) annotation (Line(points={{242,470},{248,470},
           {248,420},{172,420}}, color={0,0,127}));
-  connect(conEcoTow.u_m, senMasFlo3.m_flow) annotation (Line(points={{230,458},
-          {230,448},{212,448},{212,560},{110,560},{110,551}}, color={0,0,127}));
+  connect(conEcoTow.u_m, senMasFlo3.m_flow) annotation (Line(points={{230,458},{
+          230,448},{212,448},{212,560},{110,560},{110,551}}, color={0,0,127}));
   connect(jun8.port_2, pumTow.port_a) annotation (Line(points={{-190,540},{-220,
           540},{-220,590}}, color={0,127,255}));
   connect(jun6.port_3, senTWSE_b1.port_b)
@@ -816,19 +811,19 @@ equation
     annotation (Line(points={{70,698},{70,631}}, color={0,0,127}));
   connect(TSetTowRet.y, TOffSetWSE.u)
     annotation (Line(points={{2,710},{18,710}}, color={0,0,127}));
-  connect(conTow.y, cooTow.y) annotation (Line(points={{82,710},{88,710},{88,
-          670},{-28,670},{-28,627.1},{-11.9,627.1}}, color={0,0,127}));
-  connect(conPumTow.u_s, TOffSet.y) annotation (Line(points={{-482,600},{-494,
-          600},{-494,350},{-508,350}}, color={0,0,127}));
+  connect(conTow.y, cooTow.y) annotation (Line(points={{82,710},{88,710},{88,670},
+          {-28,670},{-28,627.1},{-11.9,627.1}}, color={0,0,127}));
+  connect(conPumTow.u_s, TOffSet.y) annotation (Line(points={{-482,600},{-494,600},
+          {-494,350},{-508,350}}, color={0,0,127}));
   connect(conPumTow.u_m, senTEvaIn.T) annotation (Line(points={{-470,588},{-470,
           240},{-10,240},{-10,231}}, color={0,0,127}));
-  connect(conPumTow.y, offPum.u)
-    annotation (Line(points={{-458,600},{-442,600}}, color={0,0,127}));
   connect(conPumTow.y, hysChi.u) annotation (Line(points={{-458,600},{-450,600},
           {-450,260},{-402,260}}, color={0,0,127}));
+  connect(conPumTow.y, yPumTow.u)
+    annotation (Line(points={{-458,600},{-402,600}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
-        coordinateSystem(extent={{-580,-120},{540,780}})),
+        coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(
       StopTime=31536000,
       Tolerance=1e-06,
