@@ -179,6 +179,251 @@ record Generic_epsNTU
 <p>
 Generic record for a CDU that models the heat transfer using the epsilon-NTU method.
 </p>
+<p>
+This is the base record that is used to characterize the performance data of CDU.
+The data record is structured as follows.
+</p>
+    <h4>Required Parameters</h4>
+    <p>These parameters have no default values and must be provided by the user.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Description</th>
+                <th>Type / Unit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>Q_flow_nominal</code></td>
+                <td>Nominal heat flow rate (negative as it is for cooling).</td>
+                <td><code>[W]</code></td>
+            </tr>
+            <tr>
+                <td><code>TApp_nominal</code></td>
+                <td>Approach temperature on IT loop size (to cooling minus from rack).</td>
+                <td><code>[K]</code></td>
+            </tr>
+            <tr>
+                <td><code>TRacOut_nominal</code></td>
+                <td>Outlet temperature to IT rack loop.</td>
+                <td><code>[K]</code></td>
+            </tr>
+            <tr>
+                <td><code>mPla_flow_nominal</code></td>
+                <td>Nominal mass flow rate on cooling plant side.</td>
+                <td><code>[kg/s]</code></td>
+            </tr>
+            <tr>
+                <td><code>mRac_flow_nominal</code></td>
+                <td>Nominal mass flow rate on rack side.</td>
+                <td><code>[kg/s]</code></td>
+            </tr>
+            <tr>
+                <td><code>dpHexPla_nominal</code></td>
+                <td>Heat exchanger design pressure drop (plant side).</td>
+                <td><code>[Pa]</code></td>
+            </tr>
+            <tr>
+                <td><code>medRac</code></td>
+                <td>Type of glycol solution for which rack-side performance data are specified.</td>
+                <td><code>Types.Media</code></td>
+            </tr>
+            <tr>
+                <td><code>phiGlyRac</code></td>
+                <td>Glycol volume fraction for which rack-side performance data are specified.</td>
+                <td><code>[1]</code></td>
+            </tr>
+            <tr>
+                <td><code>dpPum_nominal</code></td>
+                <td>Nominal pressure head of pump for configuration of pressure curve, after subtracting <code>dpHexRac_nominal</code>
+                   (head for resistances external to the CDU).</td>
+                <td><code>[Pa]</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Defaulted Parameters (Overridable)</h4>
+    <p>These parameters are pre-configured with default values or initial equations, but may be overridden by the user.
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Description</th>
+                <th>Type / Unit</th>
+                <th>Default Value / Equation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>deltaMPla</code></td>
+                <td>Fraction of nominal flow rate where flow transitions to laminar on cooling plant side.</td>
+                <td><code>[1]</code></td>
+                <td><code>0.1</code></td>
+            </tr>
+            <tr>
+                <td><code>dpHexRac_nominal</code></td>
+                <td>Heat exchanger design pressure drop (rack side).</td>
+                <td><code>[Pa]</code></td>
+                <td><code>dpHexPla_nominal</code></td>
+            </tr>
+            <tr>
+                <td><code>deltaMRac</code></td>
+                <td>Fraction of nominal flow rate where flow transitions to laminar on rack side.</td>
+                <td><code>[1]</code></td>
+                <td><code>0.1</code></td>
+            </tr>
+            <tr>
+                <td><code>medPla</code></td>
+                <td>Media for which performance data are specified (plant side).</td>
+                <td><code>Types.Media</code></td>
+            </tr>
+            <tr>
+                <td><code>phiGlyPla</code></td>
+                <td>Glycol volume fraction for which performance data are specified (plant side).</td>
+                <td><code>[1]</code></td>
+                <td><code>0</code></td>
+            </tr>
+            <tr>
+                <td><code>dpValve_nominal</code></td>
+                <td>Nominal pressure drop of fully open valve on chiller plant side.</td>
+                <td><code>[Pa]</code></td>
+                <td><code>dpHexPla_nominal</code></td>
+            </tr>
+            <tr>
+                <td><code>strokeTime</code></td>
+                <td>Time needed to fully open or close actuator.</td>
+                <td><code>[s]</code></td>
+                <td><code>120</code></td>
+            </tr>
+            <tr>
+                <td><code>riseTime</code></td>
+                <td>Time needed to change motor speed between zero and full speed.</td>
+                <td><code>[s]</code></td>
+                <td><code>30</code></td>
+            </tr>
+            <tr>
+                <td><code>r_nominal</code></td>
+                <td>Ratio between convective heat transfer coefficients at nominal conditions (hAPla_nominal/hARac_nominal).</td>
+                <td><code>[1]</code></td>
+                <td><code>(kPla_default * (mPla_flow_nominal/etaPla_default)^nPla * PrPla_default^(1/3)) / (kRac_default * (mRac_flow_nominal/etaRac_default)^nRac * PrRac_default^(1/3))</code></td>
+            </tr>
+            <tr>
+                <td><code>nPla</code></td>
+                <td>Exponent for convective heat transfer coefficient (<i>h~m_flow<sup>n</sup></i>) on plant side.</td>
+                <td><code>[1]</code></td>
+                <td><code>0.8</code></td>
+            </tr>
+            <tr>
+                <td><code>nRac</code></td>
+                <td>Exponent for convective heat transfer coefficient (<i>h~m_flow<sup>n</sup></i>) on rack side.</td>
+                <td><code>[1]</code></td>
+                <td><code>nPla</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>Derived Parameters</h4>
+    <p>These parameters are calculated by the model based on the above parameters and cannot be changed by the user.
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Description</th>
+                <th>Type / Unit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>TPlaIn_nominal</code></td>
+                <td>Inlet temperature from cooling plant loop.</td>
+                <td><code>[K]</code></td>
+            </tr>
+            <tr>
+                <td><code>TPlaOut_nominal</code></td>
+                <td>Outlet temperature to cooling plant loop.</td>
+                <td><code>[K]</code></td>
+            </tr>
+            <tr>
+                <td><code>TRacIn_nominal</code></td>
+                <td>Inlet temperature from IT rack loop.</td>
+                <td><code>[K]</code></td>
+            </tr>
+            <tr>
+                <td><code>XGlyPla</code></td>
+                <td>Glycol mass fraction for performance data (plant side).</td>
+                <td><code>[1]</code></td>
+            </tr>
+            <tr>
+                <td><code>XGlyRac</code></td>
+                <td>Glycol mass fraction for performance data (rack side).</td>
+                <td><code>[1]</code></td>
+            </tr>
+            <tr>
+                <td><code>etaPla_default</code></td>
+                <td>Dynamic viscosity for plant-side performance data.</td>
+                <td><code>[Pa.s]</code></td>
+            </tr>
+            <tr>
+                <td><code>cpPla_default</code></td>
+                <td>Specific heat capacity at constant pressure for plant-side performance data.</td>
+                <td><code>[J/(kg.K)]</code></td>
+            </tr>
+            <tr>
+                <td><code>kPla_default</code></td>
+                <td>Thermal conductivity for plant-side performance data.</td>
+                <td><code>[W/(m.K)]</code></td>
+            </tr>
+            <tr>
+                <td><code>PrPla_default</code></td>
+                <td>Prandtl number for plant-side performance data.</td>
+                <td><code>[1]</code></td>
+            </tr>
+            <tr>
+                <td><code>etaRac_default</code></td>
+                <td>Dynamic viscosity for rack-side performance data.</td>
+                <td><code>[Pa.s]</code></td>
+            </tr>
+            <tr>
+                <td><code>cpRac_default</code></td>
+                <td>Specific heat capacity at constant pressure for rack-side performance data.</td>
+                <td><code>[J/(kg.K)]</code></td>
+            </tr>
+            <tr>
+                <td><code>kRac_default</code></td>
+                <td>Thermal conductivity for rack-side performance data.</td>
+                <td><code>[W/(m.K)]</code></td>
+            </tr>
+            <tr>
+                <td><code>PrRac_default</code></td>
+                <td>Prandtl number for rack-side performance data.</td>
+                <td><code>[1]</code></td>
+            </tr>
+            <tr>
+                <td><code>CPla_flow_nominal</code></td>
+                <td>Capacity flow rate at nominal conditions on cooling plant side.</td>
+                <td><code>[W/K]</code></td>
+            </tr>
+            <tr>
+                <td><code>CRac_flow_nominal</code></td>
+                <td>Capacity flow rate at nominal conditions on rack side.</td>
+                <td><code>[W/K]</code></td>
+            </tr>
+            <tr>
+                <td><code>dTPla_nominal</code></td>
+                <td>Fluid temperature difference at nominal conditions on cooling plant side.</td>
+                <td><code>[K]</code></td>
+            </tr>
+            <tr>
+                <td><code>dTRac_nominal</code></td>
+                <td>Fluid temperature difference at nominal conditions on rack side.</td>
+                <td><code>[K]</code></td>
+            </tr>
+        </tbody>
+    </table>
+
 </html>", revisions="<html>
 <ul>
 <li>

@@ -13,7 +13,8 @@ record GoogleProjectDeschutes
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>
-This unit is specified as for the following data:
+This data record is for the 5th generation CDU unit of Google, named
+\"Project Deschutes\". This unit is specified for the following data (OCP, 2026):
 </p>
 <p>
 <table>
@@ -46,11 +47,6 @@ This unit is specified as for the following data:
       <td style=\"text-align: left;\">psid<br>Pa</td>
     </tr>
     <tr>
-      <td style=\"text-align: left;\">Operating pressure</td>
-      <td style=\"text-align: right;\">0-130<br>0 - 896,319</td>
-      <td style=\"text-align: left;\">psig<br>Pa</td>
-    </tr>
-    <tr>
       <td style=\"text-align: left;\">Thermal load</td>
       <td style=\"text-align: right;\">2000</td>
       <td style=\"text-align: left;\">kW</td>
@@ -66,51 +62,21 @@ This unit is specified as for the following data:
       <td style=\"text-align: left;\">°C</td>
     </tr>
     <tr>
-      <td style=\"text-align: left;\">CDU weight, wet</td>
-      <td style=\"text-align: right;\">6910<br>3134</td>
-      <td style=\"text-align: left;\">lbs<br>kg</td>
-    </tr>
-    <tr>
-      <td style=\"text-align: left;\">CDU weight, dry</td>
-      <td style=\"text-align: right;\">5310<br>2409</td>
-      <td style=\"text-align: left;\">lbs<br>kg</td>
-    </tr>
-    <tr>
       <td style=\"text-align: left;\">Power consumption</td>
       <td style=\"text-align: right;\">74</td>
       <td style=\"text-align: left;\">kW</td>
-    </tr>
-    <tr>
-      <td style=\"text-align: left;\">Pump voltage</td>
-      <td style=\"text-align: right;\">380-416 (480 is doable)</td>
-      <td style=\"text-align: left;\">Vac</td>
-    </tr>
-    <tr>
-      <td style=\"text-align: left;\">Heat exchanger</td>
-      <td style=\"text-align: right;\">Liquid to liquid<br>(dual pass recommended)</td>
-      <td style=\"text-align: left;\"></td>
     </tr>
     <tr>
       <td style=\"text-align: left;\">Liquids</td>
       <td style=\"text-align: right;\">DI water, PG25</td>
       <td style=\"text-align: left;\"></td>
     </tr>
-    <tr>
-      <td style=\"text-align: left;\">CDU dimensions<br>W x H x D</td>
-      <td style=\"text-align: right;\">65.25 x 91.44 x 42.29<br>1.657 x 2.323 x 1.074</td>
-      <td style=\"text-align: left;\">inches<br>m</td>
-    </tr>
   </tbody>
 </table>
-<div>
-  <strong>Assumptions &amp; Calculations:</strong>
-  <ul>
-    <li><strong>Volume to Mass Conversion:</strong> 500 GPM is equivalent to 0.031545 m&sup3;/s.</li>
-    <li><strong>IT Loop (DI Water):</strong> Density at 20 &deg;C is assumed to be <strong>998 kg/m&sup3;</strong>, resulting in a mass flow of 31.48 kg/s. Specific heat capacity (c<sub>p</sub>) is assumed to be <strong>4.18 kJ/(kg&middot;K)</strong>.</li>
-    <li><strong>Facility Loop (PG25):</strong> Density of 25% Propylene Glycol at 20 &deg;C is assumed to be <strong>1024 kg/m&sup3;</strong>, resulting in a mass flow of 32.30 kg/s.</li>
-    <li><strong>Temperature Calculation:</strong> Assuming the 45 &deg;C \"from the IT loop\" refers to the hot return fluid entering the CDU from the servers. To dissipate the 2000 kW thermal load at 31.48 kg/s flow, the water must cool by 15.2 &deg;C (&Delta;T = 2000 / (31.48 &times; 4.18)). This makes the IT loop supply temperature 29.8 &deg;C. Applying the 3 K approach temperature (T<sub>IT,supply</sub> - T<sub>Facility,entering</sub>), the required entering temperature from the facility loop is <strong>26.8 &deg;C</strong>. <em>(Note: If the 45 &deg;C was meant as the supply temperature to the IT loop, the facility entering temperature would simply be 42 &deg;C).</em></li>
-  </ul>
-</div>
+</p>
+<h4>References</h4>
+<p>
+OCP 2026. Open Compute Project meeting, CDU Information WP. March 24, 2026.
 </p>
 </html>", revisions="<html>
 <ul>
