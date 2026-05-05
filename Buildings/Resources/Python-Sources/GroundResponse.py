@@ -56,10 +56,10 @@ def doStep(dblInp, state):
         T_toModelica = T_start
         ToModelica = T_toModelica + p_Int + x_Int + T_Int
     else:
-        # retrieve state of last invoke, including
+        # retrieve state of last invocation, including
         #   -- the path of working directory
-        #   -- the end time of the lat TOUGH simulation,
-        #   -- the heat flow on the borehole wall that was measured in Modelica at last invoke,
+        #   -- the end time of the last TOUGH simulation,
+        #   -- the heat flow on the borehole wall that was measured in Modelica at last invocation,
         #   -- the borehole wall temperature at the end of last TOUGH simulation.
         tou_tmp = state['work_dir']
         tLast = state['tLast']
@@ -105,7 +105,7 @@ def doStep(dblInp, state):
                     os.remove('newINFILE')
 
                 # Update `writeincon.inp` file. The `Q` is the measured heat flow from
-                # each borehole segment to ground, from Modeica in previous call.
+                # each borehole segment to ground, from Modelica in previous call.
                 # The `T_tough` is the wall temperature of each borehole segment from
                 # last TOUGH simulation
                 update_writeincon('writeincon.inp', tLast, tim, T_stored, Q_toTough, T_out)
@@ -121,7 +121,7 @@ def doStep(dblInp, state):
             # The TOUGH simulation requires:
             #   -- the INCON as the initial condition, including temperature, pressure at the mesh points
             #   -- the INFILE for specifying the ground properties and the initial and end simulation time,
-            #   -- the GENER file for the heat flux bounday condition at the borehole wall
+            #   -- the GENER file for the heat flux boundary condition at the borehole wall
             # The simulation will generate a SAVE file.
             # os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
             # Dummy code to imitate the TOUGH simulation. It is to demonstrate the
@@ -359,7 +359,7 @@ def mesh_to_mesh(layers, modelicaLayers, variables, flag):
     return values
 
 ''' Update the `writeincon.inp` file with the current time and state values that are
-    seem as initial values of current TOUGH simulation
+    seen as initial values of current TOUGH simulation
 '''
 def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux, T_out):
     fin = open(infile)
@@ -449,7 +449,7 @@ def write_incon():
                 print(' ERROR t_final= {} is too big '.format(t_final))
                 print(' Max allowable t_final=999999999. STOP')
                 exit()
-        # initial borehole temperatures (C) form Modelica (top to bottom)
+        # initial borehole temperatures (C) from Modelica (top to bottom)
         elif (count > 9 and count <= 9 + nModGri):
             T_Bor.append(float(line.strip()))
         # borehole heat fluxes (W) from Modelica (top to bottom)

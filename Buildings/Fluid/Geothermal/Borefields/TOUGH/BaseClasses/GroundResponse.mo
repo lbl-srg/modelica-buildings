@@ -17,7 +17,7 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     final unit=fill("K", nSeg),
     displayUnit=fill("degC", nSeg),
     quantity=fill("ThermodynamicTemperature", nSeg))
-    "Initial borehole outer wall temperature at the begining of the simulation"
+    "Initial borehole outer wall temperature at the beginning of the simulation"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput TOut(
@@ -39,7 +39,7 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
       iconTransformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput xInt[nInt]
-    "Satuation of the interested points in the ground"
+    "Saturation of the interested points in the ground"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TInt[nInt](

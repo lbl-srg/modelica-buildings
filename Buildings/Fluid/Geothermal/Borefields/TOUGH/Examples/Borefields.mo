@@ -88,7 +88,7 @@ is used to imitate the ground response calculated by TOUGH simulator.
 </p>
 <p>
 Note the dummy function cannot run the ground modeling as TOUGH. It assumes the
-response temperature increased by 0.1 K everytime when invoking the Python
+response temperature increased by 0.1 K every time when invoking the Python
 interface. It is created to show the coupling workflow.
 </p>
 </html>",
