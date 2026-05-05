@@ -97,7 +97,7 @@ model ChillerWSE
     TCooOut_nominal=TTowRet_nominal,
     dp_nominal=80000)
     "Performance data for cooling tower"
-    annotation (Placement(transformation(extent={{20,662},{40,682}})));
+    annotation (Placement(transformation(extent={{20,580},{40,600}})));
 
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
@@ -209,9 +209,9 @@ model ChillerWSE
         origin={-0.5,619.5})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
         ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    annotation (Placement(transformation(extent={{-240,650},{-220,670}})));
+    annotation (Placement(transformation(extent={{-240,680},{-220,700}})));
   BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-190,650},{-170,670}}),
+    annotation (Placement(transformation(extent={{-190,680},{-170,700}}),
         iconTransformation(extent={{-176,140},{-156,160}})));
   Fluid.Movers.Preconfigured.SpeedControlled_y pumEva(
     redeclare package Medium = MediumChi,
@@ -381,16 +381,16 @@ model ChillerWSE
       final unit="K",
       displayUnit="degC") = TSetCooTowOut_nominal)
     "Tower water outlet temperature"
-    annotation (Placement(transformation(extent={{-140,690},{-120,710}})));
+    annotation (Placement(transformation(extent={{-20,720},{0,740}})));
   Controls.OBC.CDL.Reals.AddParameter TAppOff(p=8, y(final unit="K",
         displayUnit="degC"))
     "Offset for approach temperature"
-    annotation (Placement(transformation(extent={{-140,650},{-120,670}})));
+    annotation (Placement(transformation(extent={{-20,680},{0,700}})));
   Controls.OBC.CDL.Reals.Max TCooLvgSet
     "Set point for cooling tower leaving water temperature"
-    annotation (Placement(transformation(extent={{-100,670},{-80,690}})));
+    annotation (Placement(transformation(extent={{20,700},{40,720}})));
   Controls.OBC.CDL.Reals.PID conTowFan(
-    yMin=0.1,
+    yMax=2,
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -398,24 +398,7 @@ model ChillerWSE
     r=1,
     xi_start=1,
     reverseActing=false) "Controller for tower fan"
-    annotation (Placement(transformation(extent={{-60,670},{-40,690}})));
-  Controls.OBC.CDL.Reals.Hysteresis hysWSE(
-    uLow=2,
-    uHigh=4,
-    u(final unit="K")) "Hysteresis for water side economizer"
-    annotation (Placement(transformation(extent={{320,460},{340,480}})));
-  Controls.OBC.CDL.Reals.Subtract TAppWSE(
-   u1(final unit="K",
-      displayUnit="degC"),
-   u2(final unit="K",
-      displayUnit="degC"),
-   y(final unit="K"))
-   "Approach temperature for economizer"
-    annotation (Placement(transformation(extent={{280,460},{300,480}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal yWSESet(
-    y(final unit="kg/s"), realTrue(final unit="kg/s"))
-    "Pump signal for water side economizer"
-    annotation (Placement(transformation(extent={{360,460},{380,480}})));
+    annotation (Placement(transformation(extent={{60,700},{80,720}})));
   Controls.OBC.CDL.Reals.Sources.Constant TSetEva(y(final unit="K", displayUnit
         ="degC"), k(
       final unit="K",
@@ -442,9 +425,6 @@ model ChillerWSE
       realTrue(final unit="kg/s"))
     "Control signal for chiller circulation pumps"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
-  Controls.OBC.CDL.Reals.Max mTowSet
-    "Mass flow rate set point for tower loop pump"
-    annotation (Placement(transformation(extent={{-320,590},{-300,610}})));
   Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = MediumChi,
     p(displayUnit="Pa") = 300000,
@@ -462,17 +442,17 @@ model ChillerWSE
     annotation (Placement(transformation(extent={{-560,282},{-540,302}})));
   Modelica.Blocks.Sources.RealExpression PFan(y(final unit="W") = cooTow.PFan)
     "Power consumption of tower fans"
-    annotation (Placement(transformation(extent={{360,410},{380,430}})));
+    annotation (Placement(transformation(extent={{360,48},{380,68}})));
   Modelica.Blocks.Sources.RealExpression PPum(y(final unit="W") = cdu.P +
       pumWSEChi.P + pumWSECW.P + pumEva.P + pumCon.P + pumTow.P)
     "Power consumption of pumps"
-    annotation (Placement(transformation(extent={{360,370},{380,390}})));
+    annotation (Placement(transformation(extent={{360,8},{380,28}})));
   Modelica.Blocks.Sources.RealExpression PChi(y(final unit="W") = chi.P)
     "Power consumption of chiller"
-    annotation (Placement(transformation(extent={{360,330},{380,350}})));
+    annotation (Placement(transformation(extent={{360,-32},{380,-12}})));
   Modelica.Blocks.Sources.RealExpression PIT(y(final unit="W") = rac.P)
     "Power consumption of IT"
-    annotation (Placement(transformation(extent={{360,290},{380,310}})));
+    annotation (Placement(transformation(extent={{360,-72},{380,-52}})));
   model ElectricalEnergyMeter
     extends Modelica.Blocks.Continuous.Integrator(
       u(final unit="W"),
@@ -484,19 +464,19 @@ model ChillerWSE
       y_start=0);
   end ElectricalEnergyMeter;
   ElectricalEnergyMeter EFan "Energy meter"
-    annotation (Placement(transformation(extent={{400,410},{420,430}})));
+    annotation (Placement(transformation(extent={{400,48},{420,68}})));
   ElectricalEnergyMeter EPum "Energy meter"
-    annotation (Placement(transformation(extent={{400,370},{420,390}})));
+    annotation (Placement(transformation(extent={{400,8},{420,28}})));
   ElectricalEnergyMeter EChi "Energy meter"
-    annotation (Placement(transformation(extent={{400,330},{420,350}})));
+    annotation (Placement(transformation(extent={{400,-32},{420,-12}})));
   ElectricalEnergyMeter EPIT(y_start=1E-10)
                              "Energy meter"
-    annotation (Placement(transformation(extent={{400,290},{420,310}})));
+    annotation (Placement(transformation(extent={{400,-72},{420,-52}})));
   Modelica.Blocks.Math.MultiSum EFac(nu=4) "Electricity for facility"
-    annotation (Placement(transformation(extent={{454,374},{466,386}})));
+    annotation (Placement(transformation(extent={{454,12},{466,24}})));
   Modelica.Blocks.Math.Division PUE
     "Power use effectiveness (not taking into account electrical losses)"
-    annotation (Placement(transformation(extent={{500,320},{520,340}})));
+    annotation (Placement(transformation(extent={{500,-42},{520,-22}})));
   Fluid.Sensors.TemperatureTwoPort senTWSEMix(
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
@@ -580,30 +560,6 @@ model ChillerWSE
     duration(displayUnit="d") = 31536000,
     offset=1)
     annotation (Placement(transformation(extent={{-140,-6},{-120,14}})));
-  Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = MediumChi)
-    "Mass flow rate sensor" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-180,420})));
-  Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium = MediumChi)
-    "Mass flow rate sensor" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={60,420})));
-  Controls.OBC.CDL.Reals.PID conPumTow(
-    yMin=0.1,
-    u_s(final unit="kg/s"),
-    u_m(final unit="kg/s"),
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti=10,
-    r=mWSE_flow_nominal,
-    xi_start=1)          "Controller for tower pump"
-    annotation (Placement(transformation(extent={{-280,590},{-260,610}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumChi)
-    "Mass flow rate sensor" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-220,560})));
   Fluid.Sensors.TemperatureTwoPort senTTow_a(
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
@@ -625,6 +581,53 @@ model ChillerWSE
     xi_start=1,
     reverseActing=false) "Controller for tower fan"
     annotation (Placement(transformation(extent={{-490,380},{-470,400}})));
+  Fluid.Sensors.MassFlowRate senMasFloByEco(redeclare package Medium =
+        MediumChi) "Mass flow rate sensor in economizer bypass" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={108,220})));
+  Controls.OBC.CDL.Reals.PID conEcoPla(
+    k=0.1,
+    yMin=0.1,
+    u_s(final unit="kg/s"),
+    u_m(final unit="kg/s"),
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=60,
+    r=mWSE_flow_nominal,
+    xi_start=1,
+    reverseActing=false) "Controller for economizer pump on facility level"
+    annotation (Placement(transformation(extent={{240,260},{260,280}})));
+  Controls.OBC.CDL.Reals.Sources.Constant zer(
+      k = 0) "Zero as a set point"
+    annotation (Placement(transformation(extent={{200,260},{220,280}})));
+  Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium = MediumChi)
+    "Mass flow rate sensor" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={110,540})));
+  Controls.OBC.CDL.Reals.Limiter yFan(uMax=1, uMin=0.1) "Fan control signal"
+    annotation (Placement(transformation(extent={{140,670},{160,690}})));
+  Controls.OBC.CDL.Reals.AddParameter offPum(p=-1)
+    "Offset for pump control signal"
+    annotation (Placement(transformation(extent={{100,700},{120,720}})));
+  Controls.OBC.CDL.Reals.Limiter yPumTow(uMax=1, uMin=0.1)
+    "Pump control signal"
+    annotation (Placement(transformation(extent={{140,700},{160,720}})));
+  Controls.OBC.CDL.Reals.Sources.Constant zer1(k=0)
+             "Zero as a set point"
+    annotation (Placement(transformation(extent={{180,460},{200,480}})));
+  Controls.OBC.CDL.Reals.PID conEcoTow(
+    k=0.1,
+    yMin=0.1,
+    u_s(final unit="kg/s"),
+    u_m(final unit="kg/s"),
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=60,
+    r=mWSE_flow_nominal,
+    xi_start=1,
+    reverseActing=false) "Controller for economizer pump on tower loop"
+    annotation (Placement(transformation(extent={{220,460},{240,480}})));
 equation
   connect(senTCDU_a.port_b, cdu.port_aPla) annotation (Line(points={{-30,120},{-20,
           120},{-20,46},{-10,46}},color={0,127,255}));
@@ -656,8 +659,6 @@ equation
           120},{220,160}}, color={0,127,255}));
   connect(pumCDU.port_b, jun3.port_1) annotation (Line(points={{220,180},{220,220},
           {170,220}}, color={0,127,255}));
-  connect(jun3.port_2, jun2.port_1)
-    annotation (Line(points={{150,220},{70,220}}, color={0,127,255}));
   connect(jun2.port_2, senTEvaIn.port_a)
     annotation (Line(points={{50,220},{0,220}}, color={0,127,255}));
   connect(senTEvaIn.port_b, jun4.port_1)
@@ -692,31 +693,25 @@ equation
     annotation (Line(points={{160,530},{160,430}}, color={0,127,255}));
   connect(jun8.port_1, jun7.port_2)
     annotation (Line(points={{-170,540},{-90,540}}, color={0,127,255}));
-  connect(jun6.port_1, jun1.port_2)
-    annotation (Line(points={{70,540},{150,540}}, color={0,127,255}));
   connect(cooTow.port_b, senTTow_b.port_a) annotation (Line(points={{9,619.5},{28.5,
           619.5},{28.5,620},{60,620}},
                                      color={0,127,255}));
   connect(senTTow_b.port_b, jun1.port_1) annotation (Line(points={{80,620},{180,
           620},{180,540},{170,540}}, color={0,127,255}));
   connect(weaBus, weaData.weaBus) annotation (Line(
-      points={{-180,660},{-220,660}},
+      points={{-180,690},{-220,690}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{2,2},{2,5}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TTowOut.y, TCooLvgSet.u1) annotation (Line(points={{-118,700},{-110,700},
-          {-110,686},{-102,686}}, color={0,0,127}));
-  connect(TAppOff.y, TCooLvgSet.u2) annotation (Line(points={{-118,660},{-110,660},
-          {-110,674},{-102,674}}, color={0,0,127}));
-  connect(senTTow_b.T, conTowFan.u_m) annotation (Line(points={{70,631},{70,650},
-          {-50,650},{-50,668}}, color={0,0,127}));
-  connect(hysWSE.u, TAppWSE.y)
-    annotation (Line(points={{318,470},{302,470}}, color={0,0,127}));
-  connect(hysWSE.y,yWSESet. u)
-    annotation (Line(points={{342,470},{358,470}}, color={255,0,255}));
+  connect(TTowOut.y, TCooLvgSet.u1) annotation (Line(points={{2,730},{10,730},{
+          10,716},{18,716}},      color={0,0,127}));
+  connect(TAppOff.y, TCooLvgSet.u2) annotation (Line(points={{2,690},{10,690},{
+          10,704},{18,704}},      color={0,0,127}));
+  connect(senTTow_b.T, conTowFan.u_m) annotation (Line(points={{70,631},{70,698}},
+                                color={0,0,127}));
   connect(pSetChiWatPum.y, pumCDU.dp_in)
     annotation (Line(points={{182,170},{208,170}}, color={0,0,127}));
   connect(hysChi.u, TAppWSE1.y)
@@ -725,34 +720,30 @@ equation
     annotation (Line(points={{-378,260},{-302,260}}, color={255,0,255}));
   connect(senTTow_b.port_b, bou1.ports[1])
     annotation (Line(points={{80,620},{228,620}}, color={0,127,255}));
-  connect(senTCDU_b.T, TAppWSE.u1) annotation (Line(points={{40,131},{40,140},{260,
-          140},{260,476},{278,476}}, color={0,0,127}));
-  connect(senTTow_b.T, TAppWSE.u2) annotation (Line(points={{70,631},{70,650},{272,
-          650},{272,464},{278,464}}, color={0,0,127}));
   connect(TOffSet.y, chi.TSet) annotation (Line(points={{-508,350},{-108,350},{-108,
           340},{-118,340}}, color={0,0,127}));
   connect(TOffSet.u, TSetEva.y)
     annotation (Line(points={{-532,350},{-538,350}}, color={0,0,127}));
   connect(PFan.y, EFan.u)
-    annotation (Line(points={{381,420},{398,420}}, color={0,0,127}));
+    annotation (Line(points={{381,58},{398,58}},   color={0,0,127}));
   connect(PPum.y, EPum.u)
-    annotation (Line(points={{381,380},{398,380}}, color={0,0,127}));
+    annotation (Line(points={{381,18},{398,18}},   color={0,0,127}));
   connect(PChi.y, EChi.u)
-    annotation (Line(points={{381,340},{398,340}}, color={0,0,127}));
+    annotation (Line(points={{381,-22},{398,-22}}, color={0,0,127}));
   connect(PIT.y, EPIT.u)
-    annotation (Line(points={{381,300},{398,300}}, color={0,0,127}));
-  connect(EChi.y, EFac.u[1]) annotation (Line(points={{421,340},{438,340},{438,378.425},
-          {454,378.425}}, color={0,0,127}));
-  connect(EPum.y, EFac.u[2]) annotation (Line(points={{421,380},{438,380},{438,379.475},
-          {454,379.475}}, color={0,0,127}));
-  connect(EFan.y, EFac.u[3]) annotation (Line(points={{421,420},{438,420},{438,380.525},
-          {454,380.525}}, color={0,0,127}));
-  connect(EFac.y, PUE.u1) annotation (Line(points={{467.02,380},{482,380},{482,336},
-          {498,336}}, color={0,0,127}));
-  connect(EPIT.y, PUE.u2) annotation (Line(points={{421,300},{458.5,300},{458.5,
-          324},{498,324}}, color={0,0,127}));
-  connect(EPIT.y, EFac.u[4]) annotation (Line(points={{421,300},{438,300},{438,380},
-          {454,380},{454,381.575}}, color={0,0,127}));
+    annotation (Line(points={{381,-62},{398,-62}}, color={0,0,127}));
+  connect(EChi.y, EFac.u[1]) annotation (Line(points={{421,-22},{438,-22},{438,16.425},
+          {454,16.425}},  color={0,0,127}));
+  connect(EPum.y, EFac.u[2]) annotation (Line(points={{421,18},{438,18},{438,17.475},
+          {454,17.475}},  color={0,0,127}));
+  connect(EFan.y, EFac.u[3]) annotation (Line(points={{421,58},{438,58},{438,18.525},
+          {454,18.525}},  color={0,0,127}));
+  connect(EFac.y, PUE.u1) annotation (Line(points={{467.02,18},{482,18},{482,-26},
+          {498,-26}}, color={0,0,127}));
+  connect(EPIT.y, PUE.u2) annotation (Line(points={{421,-62},{458.5,-62},{458.5,
+          -38},{498,-38}}, color={0,0,127}));
+  connect(EPIT.y, EFac.u[4]) annotation (Line(points={{421,-62},{438,-62},{438,18},
+          {454,18},{454,19.575}},   color={0,0,127}));
   connect(jun7.port_1,senTWSEMix. port_b)
     annotation (Line(points={{-70,540},{-20,540}}, color={0,127,255}));
   connect(senTWSEMix.port_a, jun6.port_2)
@@ -793,52 +784,27 @@ equation
           {-444,240},{-444,266},{-442,266}}, color={0,0,127}));
   connect(TOffSet.y, TAppWSE1.u2) annotation (Line(points={{-508,350},{-500,350},
           {-500,254},{-442,254}}, color={0,0,127}));
-  connect(yWSESet.y, pumWSECW.y) annotation (Line(points={{382,470},{398,470},{398,
-          468},{400,468},{400,520},{180,520},{180,420},{172,420}}, color={0,0,127}));
-  connect(yWSESet.y, pumWSEChi.y) annotation (Line(points={{382,470},{400,470},{
-          400,520},{180,520},{180,290},{172,290}}, color={0,0,127}));
   connect(pumEva.y, yPumChi.y) annotation (Line(points={{-68,290},{-60,290},{-60,
           260},{-278,260}}, color={0,0,127}));
   connect(pumCon.y, yPumChi.y) annotation (Line(points={{-68,420},{-60,420},{-60,
           260},{-278,260}}, color={0,0,127}));
-  connect(jun10.port_2, senMasFlo1.port_b)
-    annotation (Line(points={{-180,450},{-180,430}}, color={0,127,255}));
-  connect(senMasFlo1.port_a, senTChi_b1.port_b)
-    annotation (Line(points={{-180,410},{-180,380}}, color={0,127,255}));
-  connect(jun6.port_3, senMasFlo2.port_b)
-    annotation (Line(points={{60,530},{60,430}}, color={0,127,255}));
-  connect(senMasFlo2.port_a, senTWSE_b1.port_b)
-    annotation (Line(points={{60,410},{60,380}}, color={0,127,255}));
-  connect(senMasFlo1.m_flow, mTowSet.u1) annotation (Line(points={{-191,420},{-240,
-          420},{-240,520},{-352,520},{-352,606},{-322,606}}, color={0,0,127}));
-  connect(senMasFlo2.m_flow, mTowSet.u2) annotation (Line(points={{49,420},{40,420},
-          {40,524},{-348,524},{-348,594},{-322,594}}, color={0,0,127}));
-  connect(mTowSet.y, conPumTow.u_s)
-    annotation (Line(points={{-298,600},{-282,600}}, color={0,0,127}));
-  connect(jun8.port_2, senMasFlo.port_a) annotation (Line(points={{-190,540},{-220,
-          540},{-220,550}}, color={0,127,255}));
-  connect(senMasFlo.port_b, pumTow.port_a)
-    annotation (Line(points={{-220,570},{-220,590}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, conPumTow.u_m) annotation (Line(points={{-231,560},{
-          -270,560},{-270,588}}, color={0,0,127}));
-  connect(conPumTow.y, pumTow.y)
-    annotation (Line(points={{-258,600},{-232,600}}, color={0,0,127}));
   connect(cooTow.port_a, senTTow_a.port_b) annotation (Line(points={{-10,619.5},
           {-35,619.5},{-35,620},{-60,620}}, color={0,127,255}));
   connect(senTTow_a.port_a, pumTow.port_b) annotation (Line(points={{-80,620},{
           -220,620},{-220,610}}, color={0,127,255}));
   connect(uti.y, rac.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,-54},{
           -1,-54}}, color={0,0,127}));
-  connect(TAppOff.u, weaBus.TDryBul) annotation (Line(points={{-142,660},{-160,660},
-          {-160,660.05},{-179.95,660.05}}, color={0,0,127}), Text(
+  connect(TAppOff.u, weaBus.TDryBul) annotation (Line(points={{-22,690},{-40,
+          690},{-40,690.05},{-179.95,690.05}},
+                                           color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-2,2},{-2,5}},
       horizontalAlignment=TextAlignment.Right));
   connect(TCooLvgSet.y, conTowFan.u_s)
-    annotation (Line(points={{-78,680},{-62,680}}, color={0,0,127}));
+    annotation (Line(points={{42,710},{58,710}},   color={0,0,127}));
   connect(cooTow.TDryBul, weaBus.TDryBul) annotation (Line(points={{-11.9,623.3},
-          {-40,623.3},{-40,640},{-179.95,640},{-179.95,660.05}}, color={0,0,127}),
+          {-40,623.3},{-40,690},{-179.95,690},{-179.95,690.05}}, color={0,0,127}),
       Text(
       string="%second",
       index=1,
@@ -850,13 +816,47 @@ equation
     annotation (Line(points={{-508,390},{-492,390}}, color={0,0,127}));
   connect(senTEvaIn.T, conTow.u_m) annotation (Line(points={{-10,231},{-10,240},
           {-480,240},{-480,378}}, color={0,0,127}));
-  connect(conTowFan.y, cooTow.y) annotation (Line(points={{-38,680},{-24,680},{
-          -24,627.1},{-11.9,627.1}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,740}})),
+  connect(jun3.port_2, senMasFloByEco.port_a)
+    annotation (Line(points={{150,220},{118,220}}, color={0,127,255}));
+  connect(senMasFloByEco.port_b, jun2.port_1)
+    annotation (Line(points={{98,220},{70,220}}, color={0,127,255}));
+  connect(senMasFloByEco.m_flow, conEcoPla.u_m) annotation (Line(points={{108,231},
+          {108,240},{250,240},{250,258}},                     color={0,0,127}));
+  connect(zer.y, conEcoPla.u_s)
+    annotation (Line(points={{222,270},{238,270}}, color={0,0,127}));
+  connect(conEcoPla.y, pumWSEChi.y) annotation (Line(points={{262,270},{280,270},
+          {280,290},{172,290}}, color={0,0,127}));
+  connect(yFan.y, cooTow.y) annotation (Line(points={{162,680},{180,680},{180,
+          660},{-26,660},{-26,627.1},{-11.9,627.1}}, color={0,0,127}));
+  connect(conTowFan.y, offPum.u)
+    annotation (Line(points={{82,710},{98,710}}, color={0,0,127}));
+  connect(offPum.y, yPumTow.u)
+    annotation (Line(points={{122,710},{138,710}}, color={0,0,127}));
+  connect(yFan.u, conTowFan.y) annotation (Line(points={{138,680},{88,680},{88,
+          710},{82,710}}, color={0,0,127}));
+  connect(yPumTow.y, pumTow.y) annotation (Line(points={{162,710},{180,710},{
+          180,760},{-250,760},{-250,600},{-232,600}}, color={0,0,127}));
+  connect(jun6.port_1, senMasFlo3.port_b)
+    annotation (Line(points={{70,540},{100,540}}, color={0,127,255}));
+  connect(senMasFlo3.port_a, jun1.port_2)
+    annotation (Line(points={{120,540},{150,540}}, color={0,127,255}));
+  connect(zer1.y, conEcoTow.u_s)
+    annotation (Line(points={{202,470},{218,470}}, color={0,0,127}));
+  connect(conEcoTow.y, pumWSECW.y) annotation (Line(points={{242,470},{248,470},
+          {248,420},{172,420}}, color={0,0,127}));
+  connect(conEcoTow.u_m, senMasFlo3.m_flow) annotation (Line(points={{230,458},
+          {230,448},{212,448},{212,560},{110,560},{110,551}}, color={0,0,127}));
+  connect(jun8.port_2, pumTow.port_a) annotation (Line(points={{-190,540},{-220,
+          540},{-220,590}}, color={0,127,255}));
+  connect(jun6.port_3, senTWSE_b1.port_b)
+    annotation (Line(points={{60,530},{60,380}}, color={0,127,255}));
+  connect(jun10.port_2, senTChi_b1.port_b)
+    annotation (Line(points={{-180,450},{-180,380}}, color={0,127,255}));
+  annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})),
+        coordinateSystem(extent={{-580,-120},{540,780}})),
     experiment(
-      StopTime=86400,
+      StopTime=31536000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
       __Dymola_Commands(
