@@ -109,9 +109,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2[2]
   "Logical not"
     annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    k=false) "Plant is not just enabled"
-    annotation (Placement(transformation(extent={{-240,-310},{-220,-290}})));
 equation
   connect(ram2.y,add1. u2)
     annotation (Line(points={{-338,-280},{-320,-280},{-320,-266},{-302,-266}},
@@ -264,12 +261,6 @@ equation
           {80,-220},{80,283},{98,283}}, color={255,0,255}));
   connect(not2.y, cloCouNoWse.uConWatPum) annotation (Line(points={{-218,-220},
           {220,-220},{220,283},{278,283}}, color={255,0,255}));
-  connect(con.y, cloCouWitWse.uEnaPla) annotation (Line(points={{-218,-300},{-180,
-          -300},{-180,310},{-82,310}}, color={255,0,255}));
-  connect(con.y, lesCouWitWse.uEnaPla) annotation (Line(points={{-218,-300},{0,-300},
-          {0,310},{98,310}}, color={255,0,255}));
-  connect(con.y, cloCouNoWse.uEnaPla) annotation (Line(points={{-218,-300},{152,
-          -300},{152,310},{278,310}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/Validation/Controller.mos"
     "Simulate and plot"),

@@ -17,7 +17,8 @@ model YorkCalc
 equation
   connect(actSpe.y, yFanSpe)
     annotation (Line(points={{82,40},{110,40}}, color={0,0,127}));
-  connect(y, actSpe.u1) annotation (Line(points={{-120,80},{40,80},{40,46},{58,46}},
+  connect(y, actSpe.u1) annotation (Line(points={{-120,80},{-20,80},{-20,46},{
+          58,46}},
         color={0,0,127}));
   connect(minFanSpe.y, actSpe.u2)
     annotation (Line(points={{-38,34},{58,34}}, color={0,0,127}));
