@@ -231,8 +231,9 @@ equation
     annotation (Line(points={{-378,330},{-282,330}}, color={255,0,255}));
   connect(chiSta.y, pre4.y1)
     annotation (Line(points={{-378,230},{-262,230}}, color={255,0,255}));
-  connect(chiWatRet.T, chiPlaCon.TChiWatRet) annotation (Line(points={{429,-180},
-          {400,-180},{400,-50},{-470,-50},{-470,108},{-144,108}}, color={0,0,127}));
+  connect(chiWatRet.T, chiPlaCon.TChiWatEntChi) annotation (Line(points={{429,
+          -180},{400,-180},{400,-50},{-470,-50},{-470,70},{-144,70}},
+                                                                  color={0,0,127}));
   connect(conWatPumSta.y, chiPlaCon.uConWatPum) annotation (Line(points={{-378,
           150},{-340,150},{-340,44},{-144,44}}, color={255,0,255}));
   connect(pre2.y1_actual, chiPlaCon.uChiWatReq) annotation (Line(points={{-258,330},{-160,
