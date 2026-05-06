@@ -349,8 +349,6 @@ equation
           -140},{-64,-140},{-64,-55},{-2,-55}}, color={255,0,255}));
   connect(con1.y, assMes.u)
     annotation (Line(points={{2,110},{18,110}}, color={255,0,255}));
-  connect(uPla, fanSpeWse.uPla) annotation (Line(points={{-120,-90},{-72,-90},{
-          -72,49},{-42,49}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),

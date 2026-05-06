@@ -113,7 +113,7 @@ protected
 
 equation
   connect(intOpe.uChi, uChi)
-    annotation (Line(points={{-42,88},{-80,88},{-80,40},{-120,40}}, color={255,0,255}));
+    annotation (Line(points={{-42,88},{-70,88},{-70,40},{-120,40}}, color={255,0,255}));
   connect(intOpe.uChiLoa, uChiLoa)
     annotation (Line(points={{-42,80},{-120,80}}, color={0,0,127}));
   connect(wseOpe.TChiWatSup, TChiWatSup)
@@ -137,12 +137,12 @@ equation
   connect(uChi, mulOr.u)
     annotation (Line(points={{-120,40},{-42,40}}, color={255,0,255}));
   connect(uWse, intOpe.uWse)
-    annotation (Line(points={{-120,0},{-70,0},{-70,72},{-42,72}}, color={255,0,255}));
+    annotation (Line(points={{-120,0},{-80,0},{-80,72},{-42,72}}, color={255,0,255}));
   connect(swi1.y, wseOpe.uFanSpe) annotation (Line(points={{82,0},{90,0},{90,
           -40},{-50,-40},{-50,-63},{-42,-63}}, color={0,0,127}));
-  connect(uChi, wseOpe.uChi) annotation (Line(points={{-120,40},{-80,40},{-80,
+  connect(uChi, wseOpe.uChi) annotation (Line(points={{-120,40},{-70,40},{-70,
           -56},{-42,-56}}, color={255,0,255}));
-  connect(uWse, wseOpe.uWse) annotation (Line(points={{-120,0},{-70,0},{-70,-59},
+  connect(uWse, wseOpe.uWse) annotation (Line(points={{-120,0},{-80,0},{-80,-59},
           {-42,-59}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpeWse",
