@@ -31,29 +31,24 @@ model WSEOperation
     samplePeriod=1)
     "Current fan speed"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
-    "Plant is not just enabled"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(k=true)
-    "Waterside economizer enabling status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(k=true)
+    "Plant enabling status"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
-    annotation (Line(points={{42,-70},{50,-70},{50,22},{58,22}}, color={0,0,127}));
+    annotation (Line(points={{42,-70},{50,-70},{50,38},{58,38}}, color={0,0,127}));
   connect(chiSup.y, add2.u1)
     annotation (Line(points={{-58,-20},{-40,-20},{-40,-34},{-22,-34}}, color={0,0,127}));
   connect(ram1.y, add2.u2)
     annotation (Line(points={{-58,-60},{-40,-60},{-40,-46},{-22,-46}}, color={0,0,127}));
   connect(add2.y, wseOpe.TChiWatSup)
-    annotation (Line(points={{2,-40},{40,-40},{40,26},{58,26}}, color={0,0,127}));
+    annotation (Line(points={{2,-40},{40,-40},{40,22},{58,22}}, color={0,0,127}));
   connect(wseOpe.ySpeSet, fanSpe.u) annotation (Line(points={{82,30},{90,30},{90,
           90},{-30,90},{-30,70},{-22,70}}, color={0,0,127}));
   connect(fanSpe.y, wseOpe.uFanSpe) annotation (Line(points={{2,70},{40,70},{40,
-          38},{58,38}}, color={0,0,127}));
-  connect(wseSta.y, wseOpe.uWse) annotation (Line(points={{-58,40},{30,40},{30,34},
-          {58,34}}, color={255,0,255}));
-  connect(con.y, wseOpe.uEnaPla) annotation (Line(points={{2,10},{30,10},{30,30},
-          {58,30}}, color={255,0,255}));
+          27},{58,27}}, color={0,0,127}));
+  connect(plaSta.y, wseOpe.uPla) annotation (Line(points={{-58,40},{-20,40},{
+          -20,33},{58,33}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/EnabledWSE/Subsequences/Validation/WSEOperation.mos"
     "Simulate and plot"),

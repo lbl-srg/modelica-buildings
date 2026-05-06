@@ -151,10 +151,6 @@ block Controller "Tower fan speed control"
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,90},{-100,130}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
-    "True: plant is just enabled"
-    annotation(Placement(transformation(extent={{-140,70},{-100,110}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     displayUnit="degC",
@@ -324,19 +320,19 @@ equation
       color={0,0,127}));
   connect(fanSpeRetTem.uMaxSpeSet, uMaxSpeSet) annotation (Line(points={{-2,-34},
           {-80,-34},{-80,-30},{-120,-30}}, color={0,0,127}));
-  connect(fanSpeRetTem.uTow, uTow) annotation (Line(points={{-2,-40},{-68,-40},{
-          -68,-60},{-120,-60}}, color={255,0,255}));
+  connect(fanSpeRetTem.uTow, uTow) annotation (Line(points={{-2,-40},{-76,-40},
+          {-76,-60},{-120,-60}},color={255,0,255}));
   connect(TChiWatSupSet, fanSpeRetTem.TChiWatSupSet)
     annotation (Line(points={{-120,30},{-60,30},{-60,-46},{-2,-46}},
       color={0,0,127}));
   connect(fanSpeRetTem.uPla, uPla)
-    annotation (Line(points={{-2,-49},{-60,-49},{-60,-90},{-120,-90}},
+    annotation (Line(points={{-2,-49},{-72,-49},{-72,-90},{-120,-90}},
       color={255,0,255}));
   connect(fanSpeRetTem.TConWatRet, TConWatRet)
-    annotation (Line(points={{-2,-52},{-56,-52},{-56,-120},{-120,-120}},
+    annotation (Line(points={{-2,-52},{-68,-52},{-68,-120},{-120,-120}},
       color={0,0,127}));
   connect(fanSpeRetTem.TConWatSup, TConWatSup)
-    annotation (Line(points={{-2,-58},{-48,-58},{-48,-170},{-120,-170}},
+    annotation (Line(points={{-2,-58},{-60,-58},{-60,-170},{-120,-170}},
       color={0,0,127}));
   connect(fanSpeRetTem.ySpeSet,ySpeSet)
     annotation (Line(points={{42,-40},{120,-40}},
@@ -350,11 +346,11 @@ equation
   connect(fanSpeRetTem.TConWatSupSet, TConWatSupSet) annotation (Line(points={{42,-59},
           {60,-59},{60,-170},{120,-170}},      color={0,0,127}));
   connect(uConWatPum, fanSpeRetTem.uConWatPum) annotation (Line(points={{-120,
-          -140},{-52,-140},{-52,-55},{-2,-55}}, color={255,0,255}));
+          -140},{-64,-140},{-64,-55},{-2,-55}}, color={255,0,255}));
   connect(con1.y, assMes.u)
     annotation (Line(points={{2,110},{18,110}}, color={255,0,255}));
-  connect(uEnaPla, fanSpeWse.uEnaPla) annotation (Line(points={{-120,90},{-72,90},
-          {-72,49},{-42,49}}, color={255,0,255}));
+  connect(uPla, fanSpeWse.uPla) annotation (Line(points={{-120,-90},{-72,-90},{
+          -72,49},{-42,49}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
@@ -442,11 +438,7 @@ annotation (
           extent={{30,-180},{98,-198}},
           textColor={0,0,127},
           textString="TConWatSupSet",
-          visible=have_conWatRetCon and not closeCoupledPlant),
-        Text(
-          extent={{-96,112},{-50,92}},
-          textColor={255,0,255},
-          textString="uEnaPla")}),
+          visible=have_conWatRetCon and not closeCoupledPlant)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,160}})),
 Documentation(info="<html>
 <p>

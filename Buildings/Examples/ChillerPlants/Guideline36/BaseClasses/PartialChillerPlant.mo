@@ -10,20 +10,27 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     "Nominal mass flow rate in condenser water loop";
   final parameter Modelica.Units.SI.PressureDifference dpCon_nominal=50000+15000+75000
     "Nominal pressure difference in condenser water loop";
+  parameter Fluid.HeatExchangers.CoolingTowers.Data.YorkCalc.Generic datTow(
+    PFan_Q_flow_nominal=-6000/(mCon_flow_nominal*4200*6),
+    Q_flow_nominal=-mCon_flow_nominal*4200*6,
+    TCooIn_nominal=289.15 + 6,
+    TCooOut_nominal=289.15,
+    dp_nominal=15000 + 75000,
+    TAirInWB_nominal(displayUnit="degC") = 283.15)
+    "Performance data for cooling tower"
+    annotation (Placement(transformation(extent={{500,400},{520,420}})));
 
   Buildings.Examples.ChillerPlants.Guideline36.BaseClasses.YorkCalc cooTow1(
     redeclare package Medium = MediumW,
-    final m_flow_nominal=mCon_flow_nominal,
+    final dat=datTow,
     final show_T=true,
-    final dp_nominal=15000 + 75000,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling tower"
     annotation (Placement(transformation(extent={{340,370},{320,390}})));
   Buildings.Examples.ChillerPlants.Guideline36.BaseClasses.YorkCalc cooTow2(
     redeclare package Medium = MediumW,
-    final m_flow_nominal=mCon_flow_nominal,
+    final dat=datTow,
     final show_T=true,
-    final dp_nominal=15000 + 75000,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling tower"
     annotation (Placement(transformation(extent={{340,300},{320,320}})));

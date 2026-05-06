@@ -498,8 +498,6 @@ equation
           -210},{-32,-210},{-32,-62.2},{-2,-62.2}}, color={255,0,255}));
   connect(u1OutIsoValClo, towSta.u1OutIsoValClo) annotation (Line(points={{-120,
           -230},{-28,-230},{-28,-64.2},{-2,-64.2}}, color={255,0,255}));
-  connect(uEnaPla, towFanSpe.uEnaPla) annotation (Line(points={{-120,-60},{-52,
-          -60},{-52,50},{-22,50}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={

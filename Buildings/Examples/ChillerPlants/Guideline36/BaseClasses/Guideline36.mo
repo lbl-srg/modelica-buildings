@@ -186,7 +186,7 @@ equation
           {-440,36},{-144,36}},   color={0,0,127}));
   connect(weaBus.TWetBul, TWetBul.u) annotation (Line(points={{-559.95,40.05},{
           -540,40.05},{-540,80},{-522,80}}, color={255,204,51},thickness=0.5));
-  connect(TWetBul.y, cooTow2.TAir) annotation (Line(points={{-499,80},{-490,80},
+  connect(TWetBul.y, cooTow2.TWetBul) annotation (Line(points={{-499,80},{-490,80},
           {-490,350},{360,350},{360,314},{342,314}},      color={0,0,127}));
   connect(chiWatPum1.y_actual, chiWatPumSta[1].u) annotation (Line(points={{207,
           -107},{207,-164},{-410,-164},{-410,-100},{-402,-100}}, color={0,0,127}));
@@ -203,7 +203,7 @@ equation
           0,0,127}));
   connect(conWatSupTem.T, chiPlaCon.TConWatSup) annotation (Line(points={{271,280},
           {280,280},{280,260},{-330,260},{-330,26},{-144,26}}, color={0,0,127}));
-  connect(TWetBul.y, cooTow1.TAir) annotation (Line(points={{-499,80},{-490,80},
+  connect(TWetBul.y, cooTow1.TWetBul) annotation (Line(points={{-499,80},{-490,80},
           {-490,350},{360,350},{360,384},{342,384}}, color={0,0,127}));
   connect(chiPlaCon.yMinValPosSet, valByp.y) annotation (Line(points={{-96,40},
           {0,40},{0,-200},{330,-200},{330,-208}},       color={0,0,127}));
@@ -231,8 +231,9 @@ equation
     annotation (Line(points={{-378,330},{-282,330}}, color={255,0,255}));
   connect(chiSta.y, pre4.y1)
     annotation (Line(points={{-378,230},{-262,230}}, color={255,0,255}));
-  connect(chiWatRet.T, chiPlaCon.TChiWatRet) annotation (Line(points={{429,-180},
-          {400,-180},{400,-50},{-470,-50},{-470,108},{-144,108}}, color={0,0,127}));
+  connect(chiWatRet.T, chiPlaCon.TChiWatEntChi) annotation (Line(points={{429,
+          -180},{400,-180},{400,-50},{-470,-50},{-470,70},{-144,70}},
+                                                                  color={0,0,127}));
   connect(conWatPumSta.y, chiPlaCon.uConWatPum) annotation (Line(points={{-378,
           150},{-340,150},{-340,44},{-144,44}}, color={255,0,255}));
   connect(pre2.y1_actual, chiPlaCon.uChiWatReq) annotation (Line(points={{-258,330},{-160,
