@@ -279,12 +279,8 @@ equation
   connect(busChi.TConWatRet, ctl.TConWatRet);
   connect(busChi.y1_actual, ctl.uChi);
   connect(bus.TChiWatEcoAft, ctl.TChiWatRetDow);
-  if cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-  then
-    connect(bus.TChiWatEcoBef, ctl.TChiWatRet);
-  else
-    connect(bus.TChiWatPlaRet, ctl.TChiWatRet);
-  end if;
+  connect(bus.TChiWatEcoBef, ctl.TChiWatRetUp);
+  connect(bus.TChiWatPlaRet, ctl.TChiWatEntChi);
   connect(bus.TConWatSup, ctl.TConWatSup);
   connect(bus.TChiWatPriSup, ctl.TChiWatSup);
   connect(bus.dpChiWatEco, ctl.dpChiWat);
