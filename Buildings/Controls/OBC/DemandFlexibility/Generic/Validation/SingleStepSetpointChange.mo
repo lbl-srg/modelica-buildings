@@ -1,29 +1,36 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model SingleStepSetpointChange "Single-step setpoint change"
   extends Modelica.Icons.Example;
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange
-    sinSteSetCha(reverseActing=false)
-                                 "Single-step setpoint change block"
+
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(reverseActing=false)
+    "Single-step setpoint change block"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=86400, shift=
         43200)
     "Boolean value for the signal to enable single-step setpoint change"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMinSet(k=273.15 + 16)
     "Minimum temperature setpoint example value"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSet(samplePeriod=10, y_start=
-        273.15 + 17) "Emulates an external setpoint controller"
+        273.15 + 17)
+    "Emulates an external setpoint controller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,30})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMaxSet(k=273.15 + 19)
     "Maximum temperature setpoint example value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam(final samplePeriod=300)
     "Sample period for the single-step change"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
 equation
   connect(TMinSet.y,sinSteSetCha. uMinSet) annotation (Line(points={{-58,-70},{-40,
           -70},{-40,24},{-22,24}},     color={0,0,127}));

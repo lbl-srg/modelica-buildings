@@ -2,42 +2,54 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SingleStepSetpointChange "Single-step setpoint change"
 
   parameter Boolean reverseActing
-    "Set to true for reverse acting; true to decrease the commanded setpoint to the minimum setpoint value, false to increase the commanded setpoint to the maximum setpoint value";
+    "True to decrease the commanded setpoint to the minimum setpoint value, false to increase the commanded setpoint to the maximum setpoint value";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSet
     "Maximum setpoint input"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
         iconTransformation(extent={{-140,-38},{-100,2}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinSet
     "Minimum setpoint input"
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCurSet
     "Current setpoint input; the setpoint that an external setpoint controller currently has"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "The signal to enable setpoint change"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSet
     "Commanded setpoint output; the setpoint that an external setpoint controller should change to"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+
   Buildings.Controls.OBC.CDL.Reals.Switch swiMinMax
     "Switch between the minimum setpoint input and the maximum setpoint input"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant reverseActingCon(final k=
-        reverseActing) "Boolean constant for reverse acting"
+        reverseActing)
+    "Boolean constant for reverse acting"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+
   Buildings.Controls.OBC.CDL.Reals.Switch swiEna
     "Switch for enabling the setpoint change signal"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+
   Buildings.Controls.OBC.CDL.Reals.Min uCurSetLimMin
-    "Current setpoint should be no smaller than the minimum setpoint input"
+    "Current setpoint should not be smaller than the minimum setpoint input"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+
   Buildings.Controls.OBC.CDL.Reals.Max uCurSetLimMax
-    "Current setpoint should be no larger than the maximum setpoint input"
+    "Current setpoint should not be larger than the maximum setpoint input"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
 equation
   connect(uEna, swiEna.u2) annotation (Line(points={{-180,120},{-100,120},{-100,
           -70},{18,-70}}, color={255,0,255}));
@@ -91,7 +103,7 @@ All input and output variables are defined as follows:
 <ul>
 <li>
 <code>uEna</code>: a boolean input variable, which  
-specifies whether to enable the single-step setpoint increase operation or not.
+specifies whether to enable the single-step setpoint change operation or not.
 </li>
 <li>
 <code>uCurSet</code>: the current setpoint, which represents the setpoint value that an 
@@ -99,13 +111,11 @@ external setpoint controller currently has.
 </li>
 <li>
 <code>uMinSet</code>: the minimum setpoint, which represents the lowest setpoint value
-that the commanded setpoint <code>yComSet</code> is allowed to have. The value of the 
-minimum setpoint can change dynamically.
+that the commanded setpoint <code>yComSet</code> is allowed to have.
 </li>
 <li>
 <code>uMaxSet</code>: the maximum setpoint, which represents the highest setpoint value
-that the commanded setpoint <code>yComSet</code> is allowed to have. The value of the 
-maximum setpoint can change dynamically.
+that the commanded setpoint <code>yComSet</code> is allowed to have.
 </li>
 <li>
 <code>yComSet</code>: the commanded setpoint, which represents the setpoint value 
@@ -146,7 +156,7 @@ then <code>yComSet = uCurSet</code>.
 
 <p>
 The output variable <code>yComSet</code> is intended to be received by an external
-setpoint controller, which will execute the setpoint increase and pass the new setpoint
+setpoint controller, which will execute the setpoint change and pass the new setpoint
 back to the input variable <code>uCurSet</code> in this block, completing a full control loop.
 </p>
 
