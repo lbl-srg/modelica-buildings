@@ -34,7 +34,10 @@
 #endif
 
 #ifndef _MSC_VER /*Linux*/
-#define Sleep(x) sleep(x/1000)
+/* Use usleep (microseconds) to avoid integer division truncation.
+ * The original sleep(x/1000) truncates to sleep(0) for x < 1000,
+ * turning the polling loop into a busy-wait. */
+#define Sleep(x) usleep((unsigned int)((x) * 1000U))
 #endif
 /*
 	* Read the coupled simulation parameters defined by Modelica

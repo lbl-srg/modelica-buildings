@@ -54,6 +54,18 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
   size_t nBou;
 
   /****************************************************************************
+  | Guard: if the FFD co-simulation has already been started (e.g., because
+  | OpenModelica calls this function multiple times during homotopy
+  | initialization), return immediately without re-initializing.
+  | Calling this function more than once would launch additional FFD threads
+  | that all share the same cosim data structure, causing data races and
+  | heap corruption ("free(): unaligned chunk detected in tcache 2").
+  ****************************************************************************/
+  if (cosim->started == 1) {
+    return 0;
+  }
+
+  /****************************************************************************
   | allocate the memory and assign the data
   ****************************************************************************/
   cosim->para->fileName = (char *) malloc(sizeof(char)*(strlen(cfdFilNam)+1));
@@ -232,7 +244,15 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
   /****************************************************************************
   | Implicitly launch DLL module.
   ****************************************************************************/
-  ffd_dll(cosim);
+  {
+    /* ffd_dll() returns a heap-allocated pthread_t* on Linux (or HANDLE* on
+     * Windows). The thread is detached inside ffd_dll(), so we only need to
+     * free the handle pointer itself once it is no longer needed. */
+    void *threadHandle = ffd_dll(cosim);
+    if (threadHandle != NULL) {
+      free(threadHandle);
+    }
+  }
   cosim->started = 1;
 
   return 0;

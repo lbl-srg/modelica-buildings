@@ -15,7 +15,9 @@
 	*
 	*/
 
+#include <string.h>
 #include "sci_reader.h"
+FILE *file_params;
 
 /*
 	* Read the basic index information from input.cfd
@@ -225,7 +227,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
-      para->bc->inletName[i] = (char*)malloc((j+1)*sizeof(char));
+      para->bc->inletName[i] = (char*) malloc((j+1)*sizeof(char));
       if(para->bc->inletName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory for "
                 "para->bc->inletName[%d].", i);
@@ -323,7 +325,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
-      para->bc->outletName[i] = (char*)malloc((j+1)*sizeof(char));
+      para->bc->outletName[i] = (char*) malloc((j+1)*sizeof(char));
       if(para->bc->outletName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory "
           "for para->bc->outletName[%d].", i);
@@ -416,7 +418,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     for(i=0; i<para->bc->nb_inlet; i++) {
       /* Allocate memory for inlet name*/
       para->bc->portName[i] =
-        (char*) malloc(sizeof(char)*(sizeof(para->bc->inletName[i])+1));
+        (char*) malloc(sizeof(char)*(strlen(para->bc->inletName[i])+1));
 
       if(para->bc->portName[i]==NULL) {
         ffd_log("read_sci_input():"
@@ -436,11 +438,11 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     | Copy the outlet names to ports' names
     --------------------------------------------------------------------------*/
     j = para->bc->nb_inlet;
-    for(i=0; i<para->bc->nb_outlet; i++) {
-      /* Allocate memory for outlet name*/
-      para->bc->portName[i+j] =
-        (char*) malloc(sizeof(char)*(sizeof(para->bc->outletName[i])+1));
-      if(para->bc->portName[i+j]==NULL) {
+     for(i=0; i<para->bc->nb_outlet; i++) {
+       /* Allocate memory for outlet name*/
+       para->bc->portName[i+j] =
+         (char*) malloc(sizeof(char)*(strlen(para->bc->outletName[i])+1));
+       if(para->bc->portName[i+j]==NULL) {
         ffd_log("read_sci_input(): "
                 "Could not allocate memory for para->bc->portName.",
         FFD_ERROR);
@@ -566,7 +568,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
-      para->bc->blockName[i] = (char*)malloc((j+1)*sizeof(char));
+      para->bc->blockName[i] = (char*) malloc((j+1)*sizeof(char));
       if(para->bc->blockName[i]==NULL) {
         sprintf(msg,"read_sci_input(): Could not allocate memory for "
           "para->bc->blockName[%d].", i);
@@ -660,14 +662,14 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*-------------------------------------------------------------------------
     | Allocate the memory for bc name and id
     -------------------------------------------------------------------------*/
-    para->bc->wallName = (char**)malloc(para->bc->nb_wall*sizeof(char*));
+    para->bc->wallName = (char**) malloc(para->bc->nb_wall*sizeof(char*));
     if(para->bc->wallName==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
       "para->bc->wallName.", FFD_ERROR);
       return 1;
     }
 
-    para->bc->wallId = (int *)malloc(sizeof(int)*para->bc->nb_wall);
+    para->bc->wallId = (int *) malloc(sizeof(int)*para->bc->nb_wall);
     if(para->bc->wallId==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
       "para->bc->wallId.", FFD_ERROR);
@@ -718,7 +720,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
-      para->bc->wallName[i] = (char*)malloc((j+1)*sizeof(char));
+      para->bc->wallName[i] = (char*) malloc((j+1)*sizeof(char));
       if(para->bc->wallName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory for "
                 "para->bc->wallName[%d].", i);
@@ -916,6 +918,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   /* Free the filePath allocated in parameter_reader.c*/
   if (para->cosim->para->filePath != NULL){
     free(para->cosim->para->filePath);
+    para->cosim->para->filePath = NULL;
   }
   return 0;
 } /* End of read_sci_input()*/
@@ -968,7 +971,7 @@ int read_sci_zeroone(PARA_DATA *para, REAL **var, int **BINDEX) {
         }
         delcount++;
 
-        if(delcount==25) {
+        if(delcount==imax) {
           fscanf(file_params,"\n");
           delcount=0;
         }

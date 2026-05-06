@@ -38,8 +38,18 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
   double t_cosim;
   int flag, next;
 
-  if(para->solv->cosimulation == 1)
+  if(para->solv->cosimulation == 1) {
+    /* Wait until Modelica provides the first synchronization time step (dt).
+     * cosim->modelica->dt is zero-initialized in cfdcosim.c (calloc).
+     * Modelica sets dt when cfdExchangeData() is called for the first time.
+     * Without this wait, FFD_solver() reads an uninitialized (garbage) dt,
+     * which causes the synchronization point t_cosim to be wrong, making the
+     * FFD thread run indefinitely without ever synchronizing with Modelica. */
+    while(para->cosim->modelica->dt <= 0.0 && para->cosim->para->flag != 0) {
+      Sleep(10);
+    }
     t_cosim = para->mytime->t + para->cosim->modelica->dt;
+  }
 
   /***************************************************************************
   | Solver Loop

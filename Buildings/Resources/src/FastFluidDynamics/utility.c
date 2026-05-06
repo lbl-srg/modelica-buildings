@@ -16,6 +16,7 @@
 	*/
 
 #include "utility.h"
+FILE *file_log;
 
 	/*
 		* Check the residual of equation
@@ -564,6 +565,8 @@ void free_index(int **BINDEX) {
   if(BINDEX[0]) free(BINDEX[0]);
   if(BINDEX[1]) free(BINDEX[1]);
   if(BINDEX[2]) free(BINDEX[2]);
+  if(BINDEX[3]) free(BINDEX[3]);
+  if(BINDEX[4]) free(BINDEX[4]);
 } /* End of free_index ()*/
 
 	/*
@@ -730,3 +733,87 @@ REAL V_global_min(PARA_DATA *para, REAL **var) {
 
   return sqrt(Vmin);
 } /* End of V_global_min()*/
+
+
+/*
+		* Free memory for FFD simulation variables
+		*
+		* @param var Pointer to FFD simulation variables
+		*
+		* @return 0 if no error occurred
+		*/
+void free_para(PARA_DATA *para) {
+  int i;
+  /****************************************************************************
+  | Free memory for sensor data if there is at least one sensor
+  ****************************************************************************/
+  if(para->sens->nb_sensor>0) {
+    if(para->sens->senVal) free(para->sens->senVal);
+    if(para->sens->senValMean) free(para->sens->senValMean);
+  }
+  /****************************************************************************
+  | Free memory for Species
+  ****************************************************************************/
+  if(para->bc->nb_port>0&&para->bc->nb_Xi>0) {
+    /* Free individual elements first, then the pointer array.
+     * Freeing the array before its elements would make XiPort[i] a
+     * use-after-free, reading glibc's tcache safe-link pointer and
+     * passing it to free(), which corrupts the heap. */
+    for(i=0; i<para->bc->nb_port; i++) {
+      if(para->bc->XiPort[i]) free(para->bc->XiPort[i]);
+      if(para->bc->XiPortAve[i]) free(para->bc->XiPortAve[i]);
+      if(para->bc->XiPortMean[i]) free(para->bc->XiPortMean[i]);
+    }
+    if(para->bc->XiPort) free(para->bc->XiPort);
+    if(para->bc->XiPortAve) free(para->bc->XiPortAve);
+    if(para->bc->XiPortMean) free(para->bc->XiPortMean);
+  }
+  /****************************************************************************
+  | Free memory for Substances
+  ****************************************************************************/
+  if(para->bc->nb_port>0&&para->bc->nb_C>0) {
+    /* Same fix: free individual elements before freeing the pointer array. */
+    for(i=0; i<para->bc->nb_port; i++) {
+      if(para->bc->CPort[i]) free(para->bc->CPort[i]);
+      if(para->bc->CPortAve[i]) free(para->bc->CPortAve[i]);
+      if(para->bc->CPortMean[i]) free(para->bc->CPortMean[i]);
+    }
+    if(para->bc->CPort) free(para->bc->CPort);
+    if(para->bc->CPortAve) free(para->bc->CPortAve);
+    if(para->bc->CPortMean) free(para->bc->CPortMean);
+  }
+  /*------------------------------------------------------------------------
+  | Free memory for para->sens->sensorName
+  | Free individual strings first, then the pointer array (same pattern as
+  | XiPort/CPort: freeing the array first corrupts the heap because the
+  | freed tcache next-pointer is then passed to free() for each element).
+  ------------------------------------------------------------------------*/
+  if(para->sens->sensorName) {
+    int iSen;
+    for(iSen = 0; iSen < para->sens->nb_sensor; iSen++) {
+      if(para->sens->sensorName[iSen]) {
+        free(para->sens->sensorName[iSen]);
+        para->sens->sensorName[iSen] = NULL;
+      }
+    }
+    free(para->sens->sensorName);
+    para->sens->sensorName = NULL;
+  }
+
+  /*------------------------------------------------------------------------
+  | Zero out other freed sensor pointers so a second call is safe
+  ------------------------------------------------------------------------*/
+  para->sens->senVal     = NULL;
+  para->sens->senValMean = NULL;
+
+  /*------------------------------------------------------------------------
+  | Free the path string allocated in read_parameter()
+  ------------------------------------------------------------------------*/
+  if(para->cosim->para->filePath) {
+    free(para->cosim->para->filePath);
+    para->cosim->para->filePath = NULL;
+  }
+
+    /* if(para->cosim) free(para->cosim); */
+
+} /* End of free_para()*/
