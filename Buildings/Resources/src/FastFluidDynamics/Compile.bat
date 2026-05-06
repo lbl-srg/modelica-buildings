@@ -3,10 +3,10 @@
 ::*******************************************************************
 ::Set the Output Directory, Compile Mode and MSbuild File Name
 ::*******************************************************************
-set DIR=..\..\Library\win32
+set DIR=..\..\Library\win64
 set MSbuildName=ffd
 set BuildConfiguration=Release
-set Platform=Win32
+set Platform=Win64
 ::Note: Two build mode, Debug or Release
 
 ::*******************************************************************
@@ -44,15 +44,15 @@ if exist "%DIR%\%MSbuildName%.lib" (
 ::      Toolset: V160 for VC 2019
 ::set VCVersion=14.0
 ::set Toolset=v140
-set VCVersion=2019
-set Toolset=v142
+set VCVersion=18
+set Toolset=v145
 
 ::-------------------------------------------------------------------
 ::Call vcvarsall.bat (Not user editable)
 ::-------------------------------------------------------------------
 ::Check Processor Architecture
 if %PROCESSOR_ARCHITECTURE%==x86 set VCDIR=C:\Program Files\Microsoft Visual Studio
-if %PROCESSOR_ARCHITECTURE%==AMD64 set VCDIR=C:\Program Files (x86)\Microsoft Visual Studio
+if %PROCESSOR_ARCHITECTURE%==AMD64 set VCDIR=C:\Program Files\Microsoft Visual Studio
 ::Note: IA64 is not supported
 
 ::Set Environment Variable
