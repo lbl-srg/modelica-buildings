@@ -9,11 +9,11 @@ model SingleStepSetpointChange "Single-step setpoint change"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=86400, shift=
         43200)
     "Boolean value for the signal to enable single-step setpoint change"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMinSet(k=273.15 + 16)
     "Minimum temperature setpoint example value"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSet(samplePeriod=10, y_start=
         273.15 + 17)
@@ -25,21 +25,21 @@ model SingleStepSetpointChange "Single-step setpoint change"
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMaxSet(k=273.15 + 19)
     "Maximum temperature setpoint example value"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam(final samplePeriod=300)
     "Sample period for the single-step change"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
 equation
-  connect(TMinSet.y,sinSteSetCha. uMinSet) annotation (Line(points={{-58,-70},{-40,
-          -70},{-40,24},{-22,24}},     color={0,0,127}));
-  connect(uniDelTSet.y,sinSteSetCha. uCurSet) annotation (Line(points={{82,30},
-          {90,30},{90,-20},{-30,-20},{-30,32},{-22,32}}, color={0,0,127}));
-  connect(uEna.y,sinSteSetCha. uEna) annotation (Line(points={{-58,70},{-30,70},
-          {-30,36},{-22,36}}, color={255,0,255}));
-  connect(TMaxSet.y,sinSteSetCha. uMaxSet) annotation (Line(points={{-58,10},{-50,
-          10},{-50,28.2},{-22,28.2}}, color={0,0,127}));
+  connect(TMinSet.y,sinSteSetCha. uMinSet) annotation (Line(points={{-98,-70},{-60,
+          -70},{-60,24},{-22,24}},     color={0,0,127}));
+  connect(uniDelTSet.y,sinSteSetCha. uCurSet) annotation (Line(points={{82,30},{
+          100,30},{100,-20},{-40,-20},{-40,32},{-22,32}},color={0,0,127}));
+  connect(uEna.y,sinSteSetCha. uEna) annotation (Line(points={{-98,70},{-40,70},
+          {-40,36},{-22,36}}, color={255,0,255}));
+  connect(TMaxSet.y,sinSteSetCha. uMaxSet) annotation (Line(points={{-98,10},{-80,
+          10},{-80,28.2},{-22,28.2}}, color={0,0,127}));
   connect(sinSteSetCha.yComSet, sam.u)
     annotation (Line(points={{2,30},{18,30}}, color={0,0,127}));
   connect(sam.y, uniDelTSet.u)
@@ -90,5 +90,7 @@ April 03, 2026, by Weiping Huang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-140,-100},{120,100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}})));
 end SingleStepSetpointChange;
