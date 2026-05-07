@@ -1212,14 +1212,14 @@ block AirToWater
     displayUnit="degC") if have_chiWat
     "CHW supply temperature setpoint"
     annotation (Placement(transformation(extent={{300,-200},{340,-160}}),
-      iconTransformation(extent={{200,-190},{240,-150}})));
+      iconTransformation(extent={{200,-210},{240,-170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
     final unit="K",
     displayUnit="degC") if have_heaWat
     "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{300,-180},{340,-140}}),
-      iconTransformation(extent={{200,-170},{240,-130}})));
+      iconTransformation(extent={{200,-190},{240,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri](
     each final unit="1") if have_pumHeaWatPriVar and not have_pumPriHdr
@@ -1254,24 +1254,24 @@ block AirToWater
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
     each displayUnit="degC") if have_heaWat "HP HW supply temperature setpoint"
-    annotation (Placement(transformation(extent={{260,-120},{300,-80}}),
-        iconTransformation(extent={{200,-160},{240,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupHrcSet(final unit=
+    annotation (Placement(transformation(extent={{300,-120},{340,-80}}),
+        iconTransformation(extent={{200,-150},{240,-110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatHrcSupSet(final unit=
         "K", displayUnit="degC") if have_hrc
     "Sidestream HRC HW supply temperature setpoint" annotation (Placement(
-        transformation(extent={{260,-340},{300,-300}}), iconTransformation(
+        transformation(extent={{300,-340},{340,-300}}), iconTransformation(
           extent={{200,-340},{240,-300}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHpSet[nHp](
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
     each displayUnit="degC") if have_chiWat
     "HP CHW supply temperature setpoint" annotation (Placement(transformation(
-          extent={{260,-140},{300,-100}}), iconTransformation(extent={{200,-180},
-            {240,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHrcSet(final unit=
+          extent={{300,-140},{340,-100}}), iconTransformation(extent={{200,-170},
+            {240,-130}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatHrcSupSet(final unit=
         "K", displayUnit="degC") if have_hrc
     "Sidestream HRC CHW supply temperature setpoint" annotation (Placement(
-        transformation(extent={{260,-360},{300,-320}}), iconTransformation(
+        transformation(extent={{300,-360},{340,-320}}), iconTransformation(
           extent={{200,-360},{240,-320}})));
 
   Enabling.Enable enaHea(
@@ -1611,10 +1611,6 @@ block AirToWater
     final Ti=TiCtlDpChiWat) if have_pumChiWatSec and have_pumSecCtlDp
     "Secondary CHW pump speed control"
     annotation (Placement(transformation(extent={{190,-30},{210,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiTSupSet[nHpTot]
-    if have_heaWat and have_chiWat
-    "Select supply temperature setpoint based on operating mode"
-    annotation (Placement(transformation(extent={{190,-130},{210,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTChiWatSupSet(
     final nout=nHpTot) if have_chiWat
     "Replicate CHWST setpoint"
@@ -1623,16 +1619,6 @@ block AirToWater
     final nout=nHpTot) if have_heaWat
     "Replicate HWST setpoint"
     annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasTHeaWatSupSet(
-    final nin=nHpTot,
-    final nout=nHpTot) if have_heaWat and not have_chiWat
-    "Direct pass through for HWST setpoint"
-    annotation (Placement(transformation(extent={{214,-110},{234,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasTChiWatSupSet(
-    final nin=nHpTot,
-    final nout=nHpTot) if have_chiWat and not have_heaWat
-    "Direct pass through for CHWST setpoint"
-    annotation (Placement(transformation(extent={{214,-150},{234,-130}})));
   HeatRecoveryChillers.Controller hrc(
     final COPHea_nominal=COPHeaHrc_nominal,
     final TChiWatSup_min=TChiWatSupHrc_min,
@@ -1711,12 +1697,6 @@ block AirToWater
     final staEquSinMod=staEquSinMod,
     final idxEquAlt=idxEquAlt) if have_HpShc "Hybrid plant control module"
     annotation (Placement(transformation(extent={{60,-114},{80,-86}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu if have_HpShc
-    "Check status of 4-pipe ASHP"
-    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating)
-    if have_HpShc "Constant Integer signal indicating heating-only mode"
-    annotation (Placement(transformation(extent={{50,-170},{70,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant staMat[nSta,nHpTot](k=staEqu)
     if not have_HpShc "Staging matrix signal"
     annotation (Placement(transformation(extent={{-220,250},{-200,270}})));
@@ -1779,13 +1759,13 @@ block AirToWater
     final nout=nPumChiWatPriTot) if have_pumChiWatPri or have_HpShc
     "Pass-through block for actual primary CHW pump status"
     annotation (Placement(transformation(extent={{-208,170},{-188,190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSetHpShc(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSetHpShc(
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
     each displayUnit="degC") if have_HpShc
-    "Active supply temperature setpoint for SHC HP"
-    annotation (Placement(transformation(extent={{300,-580},{340,-540}}),
-      iconTransformation(extent={{200,-450},{240,-410}})));
+    "Active HW supply temperature setpoint for SHC HP" annotation (Placement(
+        transformation(extent={{300,-580},{340,-540}}), iconTransformation(
+          extent={{200,-450},{240,-410}})));
   Buildings.Controls.OBC.CDL.Logical.Or or3[nPumHeaWatPriTot] if have_HpShc
     "Pump speed calculation enable signal in hybrid plant"
     annotation (Placement(transformation(extent={{210,40},{190,60}})));
@@ -1794,6 +1774,13 @@ block AirToWater
     final nout=nPumHeaWatPriTot) if not have_HpShc
     "Pass-through block for primary HW pump enable signal"
     annotation (Placement(transformation(extent={{210,10},{190,30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSetHpShc(
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC") if have_HpShc
+    "Active CHW supply temperature setpoint for SHC HP" annotation (Placement(
+        transformation(extent={{300,-600},{340,-560}}), iconTransformation(
+          extent={{200,-470},{240,-430}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));
@@ -2017,26 +2004,10 @@ equation
                                                                        color={0,0,127}));
   connect(u1AvaHp.y, avaEquHeaCoo.u1Ava) annotation (Line(points={{-198,220},{
           -152,220}},                       color={255,0,255}));
-  connect(repTChiWatSupSet.y, swiTSupSet.u3) annotation (Line(points={{172,-140},
-          {178,-140},{178,-128},{188,-128}}, color={0,0,127}));
-  connect(repTHeaWatSupSet.y, swiTSupSet.u1) annotation (Line(points={{172,-100},
-          {178,-100},{178,-112},{188,-112}}, color={0,0,127}));
   connect(resChiWat.TSupSet, repTChiWatSupSet.u) annotation (Line(points={{72,-46},
           {120,-46},{120,-140},{148,-140}}, color={0,0,127}));
   connect(resHeaWat.TSupSet, repTHeaWatSupSet.u) annotation (Line(points={{72,234},
           {118,234},{118,-100},{148,-100}}, color={0,0,127}));
-  connect(seqEve[1:nHp].y1Hea, swiTSupSet[1:nHp].u2) annotation (Line(points={{162,308},{174,
-          308},{174,-120},{188,-120}}, color={255,0,255}));
-  connect(swiTSupSet[1:nHp].y, TSupSet) annotation (Line(points={{212,-120},{320,-120}},
-                                  color={0,0,127}));
-  connect(pasTChiWatSupSet.y, TSupSet) annotation (Line(points={{236,-140},{290,
-          -140},{290,-120},{320,-120}}, color={0,0,127}));
-  connect(pasTHeaWatSupSet.y, TSupSet) annotation (Line(points={{236,-100},{290,
-          -100},{290,-120},{320,-120}}, color={0,0,127}));
-  connect(repTChiWatSupSet.y, pasTChiWatSupSet.u)
-    annotation (Line(points={{172,-140},{212,-140}}, color={0,0,127}));
-  connect(repTHeaWatSupSet.y, pasTHeaWatSupSet.u)
-    annotation (Line(points={{172,-100},{212,-100}}, color={0,0,127}));
   connect(resChiWat.TSupSet, TChiWatSupSet) annotation (Line(points={{72,-46},{
           142,-46},{142,-180},{320,-180}},  color={0,0,127}));
   connect(resHeaWat.TSupSet, THeaWatSupSet) annotation (Line(points={{72,234},{
@@ -2045,8 +2016,6 @@ equation
           {320,-280}}, color={255,0,255}));
   connect(hrc.y1Coo, y1CooHrc)
     annotation (Line(points={{222,-300},{320,-300}}, color={255,0,255}));
-  connect(hrc.TSupSet, TSupSetHrc) annotation (Line(points={{222,-304},{280,-304},
-          {280,-320},{320,-320}}, color={0,0,127}));
   connect(hrc.y1PumChiWat, y1PumChiWatHrc) annotation (Line(points={{222,-308},{
           276,-308},{276,-360},{320,-360}}, color={255,0,255}));
   connect(hrc.y1PumHeaWat, y1PumHeaWatHrc) annotation (Line(points={{222,-312},{
@@ -2262,14 +2231,7 @@ equation
   connect(ctlPlaHyb.yIdxSta, enaEquCoo.uIdxAltSor) annotation (Line(points={{82,-112},
           {84,-112},{84,-120},{26,-120},{26,106},{38,106}},       color={255,127,
           0}));
-  connect(ctlPlaHyb.yMod[nHpTot], intEqu.u1) annotation (Line(points={{82,-104},
-          {90,-104},{90,-132},{72,-132},{72,-150},{78,-150}},
-                                                          color={255,127,0}));
-  connect(conInt.y, intEqu.u2) annotation (Line(points={{72,-160},{72,-158},{78,
-          -158}}, color={255,127,0}));
 if have_HpShc then
-  connect(intEqu.y, swiTSupSet[nHpTot].u2) annotation (Line(points={{102,-150},{110,
-          -150},{110,-120},{188,-120}}, color={255,0,255}));
 end if;
   connect(staMat.y, avaStaHea.staEqu) annotation (Line(points={{-198,260},{-164,
           260},{-164,326},{-112,326}},                       color={0,0,127}));
@@ -2341,8 +2303,6 @@ end if;
     annotation (Line(points={{-280,-480},{-210,-480},{-210,180}}, color={255,0,255}));
   connect(u1PumHeaWatPriShc_actual, pasPumHeaWatPriSta.u[nPumHeaWatPriTot])
     annotation (Line(points={{-280,-460},{-242,-460},{-242,200}}, color={255,0,255}));
-  connect(swiTSupSet[nHpTot].y, TSupSetHpShc) annotation (Line(points={{212,-120},
-          {260,-120},{260,-560},{320,-560}}, color={0,0,127}));
   connect(ctlPumPri.yPumHeaWatPriDed[1:nPumHeaWatPri], yPumHeaWatPriDed)
     annotation (Line(points={{212,76},{270,76},{270,60},{320,60}}, color={0,0,
           127}));
@@ -2367,6 +2327,20 @@ end if;
           {188,20},{172,20},{172,96},{188,96}}, color={255,0,255}));
   connect(u1AvaHp.y, ctlPlaHyb.u1HpAva) annotation (Line(points={{-198,220},{
           -176,220},{-176,130},{-64,130},{-64,-98},{58,-98}}, color={255,0,255}));
+  connect(repTHeaWatSupSet.y[1:nHp], THeaWatSupHpSet)
+    annotation (Line(points={{172,-100},{320,-100}}, color={0,0,127}));
+  connect(repTChiWatSupSet.y[1:nHp], TChiWatSupHpSet) annotation (Line(points={
+          {172,-140},{284,-140},{284,-120},{320,-120}}, color={0,0,127}));
+  connect(repTHeaWatSupSet.y[nHpTot], THeaWatSupSetHpShc) annotation (Line(
+        points={{172,-100},{238,-100},{238,-560},{320,-560}}, color={0,0,127}));
+  connect(repTChiWatSupSet.y[nHpTot], TChiWatSupSetHpShc) annotation (Line(
+        points={{172,-140},{242,-140},{242,-580},{320,-580}}, color={0,0,127}));
+  connect(THeaWatSupSet, THeaWatHrcSupSet) annotation (Line(points={{320,-160},
+          {186,-160},{186,-326},{260,-326},{260,-320},{320,-320}}, color={0,0,
+          127}));
+  connect(TChiWatSupSet, TChiWatHrcSupSet) annotation (Line(points={{320,-180},
+          {188,-180},{188,-332},{260,-332},{260,-340},{320,-340}}, color={0,0,
+          127}));
   annotation (
     defaultComponentName="ctl",
     Icon(

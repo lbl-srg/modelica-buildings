@@ -228,7 +228,8 @@ equation
   connect(bus.TChiWatRetUpsHrc, ctl.TChiWatRetUpsHrc);
   connect(bus.THeaWatRetUpsHrc, ctl.THeaWatRetUpsHrc);
   // Outputs to plant control bus
-  connect(ctl.TSupSet, busHp.TSet);
+  connect(ctl.THeaWatSupHpSet, busHp.THeaWatSet);
+  connect(ctl.TChiWatSupHpSet, busHp.TChiWatSet);
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.THeaWatSupSet, bus.THeaWatSupSet);
   connect(ctl.dpChiWatRemSet, bus.dpChiWatRemSet);
@@ -257,7 +258,8 @@ equation
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
   connect(ctl.y1Hrc, busHrc.y1);
   connect(ctl.y1CooHrc, busHrc.y1Coo);
-  connect(ctl.TSupSetHrc, busHrc.TSet);
+  connect(ctl.THeaWatHrcSupSet, busHrc.THeaWatSet);
+  connect(ctl.TChiWatHrcSupSet, busHrc.TChiWatSet);
   connect(ctl.y1PumChiWatHrc, busPumChiWatHrc.y1);
   connect(ctl.y1PumHeaWatHrc, busPumHeaWatHrc.y1);
   /* Control point connection - stop */
@@ -349,7 +351,7 @@ equation
         color={0,0,127}));
   connect(ctl.u1HpShc_actual, busHpShc.y1_actual);
   connect(ctl.y1HpShc, busHpShc.y1);
-  connect(ctl.TSupSetHpShc, busHpShc.TSet);
+  connect(ctl.THeaWatSupSetHpShc, busHpShc.TSet);
   connect(ctl.THeaWatSupSet, busHpShc.THeaWatSupSet);
   connect(ctl.TChiWatSupSet, busHpShc.TChiWatSupSet);
   connect(ctl.yMod, busHpShc.yMod);

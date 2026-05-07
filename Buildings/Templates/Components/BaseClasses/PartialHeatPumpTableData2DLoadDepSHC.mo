@@ -76,6 +76,49 @@ partial model PartialHeatPumpTableData2DLoadDepSHC
     "Heat pump"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
 
+  Buildings.Controls.OBC.CDL.Integers.Equal intEquCoo
+    "Check for cooling-only mode" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-110,106})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEquHea
+    "Check for heating-only mode" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-80,106})));
+  Buildings.Controls.OBC.CDL.Integers.Equal intEquHeaCoo
+    "Check for simultaneous heating-cooling mode" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-50,106})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant modSig[3](k={Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Heating,
+        Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.Cooling,
+        Buildings.Templates.Plants.Controls.HeatPumps.Types.OperationModes.HeatingCooling})
+    "Operation mode signals"
+    annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
+  Buildings.Controls.OBC.CDL.Logical.Or orHea "Heating-mode signal" annotation
+    (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-100,66})));
+  Buildings.Controls.OBC.CDL.Logical.Or orCoo "Cooling-mode signal" annotation
+    (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-60,66})));
+  Buildings.Controls.OBC.CDL.Logical.And andHeaEna
+    "Check for heating mode operation and enable signal" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-100,30})));
+  Buildings.Controls.OBC.CDL.Logical.And andCooEna
+    "Check for cooling mode operation and enable signal" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-60,30})));
 equation
   connect(port_a, mChiHeaWat_flow.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
@@ -97,10 +140,6 @@ equation
   connect(y1_actual.y1_actual, bus.y1_actual)
     annotation (Line(points={{40,132},{40,156},{0,156},{0,160}},
                                                          color={255,0,255}));
-  connect(bus.y1, hp.on) annotation (Line(
-      points={{0,160},{0,20},{-20,20},{-20,-8},{-12,-8}},
-      color={255,204,51},
-      thickness=0.5));
   connect(bus.THeaWatSupSet, hp.THwSet) annotation (Line(
       points={{0,160},{0,20},{-20,20},{-20,-2},{-12,-2}},
       color={255,204,51},
@@ -109,12 +148,6 @@ equation
       points={{0,160},{0,20},{-20,20},{-20,-6},{-12,-6}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.yMod, hp.mode) annotation (Line(
-      points={{0,160},{0,20},{-20,20},{-20,-10},{-12,-10}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(hp.on, y1_actual.y1) annotation (Line(points={{-12,-8},{-14,-8},{-14,
-          12},{40,12},{40,108}}, color={255,0,255}));
   connect(busWea, hp.weaBus) annotation (Line(
       points={{-40,-140},{-40,22},{0,22},{0,4}},
       color={255,204,51},
@@ -136,6 +169,77 @@ equation
   connect(hp.nUniHea, bus.nUniHea) annotation (Line(points={{3,-18},{2,-18},{2,
           -32},{16,-32},{16,116},{0,116},{0,160}},
                                               color={255,127,0}));
+  connect(modSig[2].y, intEquCoo.u2) annotation (Line(points={{-118,150},{-112,
+          150},{-112,126},{-118,126},{-118,118}},
+                                             color={255,127,0}));
+  connect(modSig[1].y, intEquHea.u2) annotation (Line(points={{-118,150},{-112,
+          150},{-112,126},{-88,126},{-88,118}},      color={255,127,0}));
+  connect(modSig[3].y, intEquHeaCoo.u2) annotation (Line(points={{-118,150},{
+          -112,150},{-112,126},{-58,126},{-58,118}},      color={255,127,0}));
+  connect(bus.yMod, intEquCoo.u1) annotation (Line(
+      points={{0,160},{0,150},{-110,150},{-110,118}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(bus.yMod, intEquHea.u1) annotation (Line(
+      points={{0,160},{0,150},{-80,150},{-80,118}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(bus.yMod, intEquHeaCoo.u1) annotation (Line(
+      points={{0,160},{0,150},{-50,150},{-50,118}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(intEquHeaCoo.y, orHea.u1) annotation (Line(points={{-50,94},{-50,86},{
+          -100,86},{-100,78}}, color={255,0,255}));
+  connect(intEquHeaCoo.y, orCoo.u1) annotation (Line(points={{-50,94},{-50,86},{
+          -60,86},{-60,78}}, color={255,0,255}));
+  connect(intEquHea.y, orHea.u2) annotation (Line(points={{-80,94},{-80,88},{-108,
+          88},{-108,78}}, color={255,0,255}));
+  connect(intEquCoo.y, orCoo.u2) annotation (Line(points={{-110,94},{-110,84},{-68,
+          84},{-68,78}}, color={255,0,255}));
+  connect(orHea.y, andHeaEna.u1)
+    annotation (Line(points={{-100,54},{-100,42}}, color={255,0,255}));
+  connect(orCoo.y, andCooEna.u1)
+    annotation (Line(points={{-60,54},{-60,42}}, color={255,0,255}));
+  connect(bus.y1, andHeaEna.u2) annotation (Line(
+      points={{0,160},{0,50},{-108,50},{-108,42}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(bus.y1, andCooEna.u2) annotation (Line(
+      points={{0,160},{0,50},{-68,50},{-68,42}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(andCooEna.y, hp.onCoo) annotation (Line(points={{-60,18},{-60,16},{
+          -16,16},{-16,-10},{-12,-10}}, color={255,0,255}));
+  connect(andHeaEna.y, hp.onHea) annotation (Line(points={{-100,18},{-100,14},{
+          -22,14},{-22,-8},{-12,-8}}, color={255,0,255}));
+  connect(bus.y1, y1_actual.y1) annotation (Line(
+      points={{0,160},{0,100},{40,100},{40,108}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>
