@@ -31,8 +31,11 @@ model WSEOperation
     samplePeriod=1)
     "Current fan speed"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaSta(k=true)
-    "Plant enabling status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(k=true)
+    "WSE enabling status"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  CDL.Logical.Sources.Constant chiSta[2](final k=fill(false, 2))
+    "Chillers enabling status"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
@@ -47,8 +50,10 @@ equation
           90},{-30,90},{-30,70},{-22,70}}, color={0,0,127}));
   connect(fanSpe.y, wseOpe.uFanSpe) annotation (Line(points={{2,70},{40,70},{40,
           27},{58,27}}, color={0,0,127}));
-  connect(plaSta.y, wseOpe.uPla) annotation (Line(points={{-58,40},{-20,40},{
-          -20,33},{58,33}}, color={255,0,255}));
+  connect(wseSta.y, wseOpe.uWse) annotation (Line(points={{2,10},{20,10},{20,31},
+          {58,31}}, color={255,0,255}));
+  connect(chiSta.y, wseOpe.uChi) annotation (Line(points={{-58,40},{0,40},{0,34},
+          {58,34}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/EnabledWSE/Subsequences/Validation/WSEOperation.mos"
     "Simulate and plot"),

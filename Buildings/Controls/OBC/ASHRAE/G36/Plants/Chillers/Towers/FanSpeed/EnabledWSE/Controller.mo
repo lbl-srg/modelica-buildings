@@ -56,16 +56,12 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,2},{-100,42}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
-    "True: plant is enabled"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-140,-84},{-100,-44}}),
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
@@ -96,6 +92,7 @@ protected
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation
     wseOpe(
+    final nChi=nChi,
     final fanSpeMin=fanSpeMin,
     final fanSpeChe=fanSpeChe,
     final chiWatCon=chiWatCon,
@@ -116,13 +113,13 @@ protected
 
 equation
   connect(intOpe.uChi, uChi)
-    annotation (Line(points={{-42,88},{-80,88},{-80,40},{-120,40}}, color={255,0,255}));
+    annotation (Line(points={{-42,88},{-70,88},{-70,40},{-120,40}}, color={255,0,255}));
   connect(intOpe.uChiLoa, uChiLoa)
     annotation (Line(points={{-42,80},{-120,80}}, color={0,0,127}));
   connect(wseOpe.TChiWatSup, TChiWatSup)
-    annotation (Line(points={{-42,-68},{-80,-68},{-80,-64},{-120,-64}}, color={0,0,127}));
+    annotation (Line(points={{-42,-68},{-80,-68},{-80,-60},{-120,-60}}, color={0,0,127}));
   connect(wseOpe.TChiWatSupSet, TChiWatSupSet)
-    annotation (Line(points={{-42,-52},{-70,-52},{-70,-90},{-120,-90}}, color={0,0,127}));
+    annotation (Line(points={{-42,-52},{-60,-52},{-60,-90},{-120,-90}}, color={0,0,127}));
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));
   connect(intOpe.ySpeSet, swi.u1)
@@ -140,11 +137,13 @@ equation
   connect(uChi, mulOr.u)
     annotation (Line(points={{-120,40},{-42,40}}, color={255,0,255}));
   connect(uWse, intOpe.uWse)
-    annotation (Line(points={{-120,0},{-70,0},{-70,72},{-42,72}}, color={255,0,255}));
-  connect(swi1.y, wseOpe.uFanSpe) annotation (Line(points={{82,0},{90,0},{90,-40},
-          {-60,-40},{-60,-63},{-42,-63}},      color={0,0,127}));
-  connect(uPla, wseOpe.uPla) annotation (Line(points={{-120,-30},{-80,-30},{-80,
-          -57},{-42,-57}}, color={255,0,255}));
+    annotation (Line(points={{-120,0},{-80,0},{-80,72},{-42,72}}, color={255,0,255}));
+  connect(swi1.y, wseOpe.uFanSpe) annotation (Line(points={{82,0},{90,0},{90,
+          -40},{-50,-40},{-50,-63},{-42,-63}}, color={0,0,127}));
+  connect(uChi, wseOpe.uChi) annotation (Line(points={{-120,40},{-70,40},{-70,
+          -56},{-42,-56}}, color={255,0,255}));
+  connect(uWse, wseOpe.uWse) annotation (Line(points={{-120,0},{-80,0},{-80,-59},
+          {-42,-59}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpeWse",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

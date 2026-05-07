@@ -51,12 +51,12 @@ block IntegratedOperation
     final max=1,
     final unit="1")
     "Tower fan speed setpoint when WSE is enabled and there is any chiller running"
-    annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
+    annotation (Placement(transformation(extent={{160,-88},{200,-48}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch fanSpe
     "Switch from the holding maximum speed to regulated speed"
-    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
+    annotation (Placement(transformation(extent={{120,-78},{140,-58}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiMinCycLoa[nChi](
@@ -93,7 +93,7 @@ protected
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr chiOn(final nin=nChi)
     "Check if there is any chiller running"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Buildings.Controls.OBC.CDL.Reals.Line regFanSpe "Regulated fan speed"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
@@ -111,27 +111,27 @@ protected
     "Maximum tower fan speed"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Output true at the moment when input becomes true"
-    annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
+    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.And froWseOnl
     "Check if it switches from WSE only mode to integrated operation mode"
-    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Timer intOpeTim(
     final t=intModTim)
     "Count the time after plant switching from WSE-only mode to integrated operation mode"
-    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Output true when input becomes false"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Breaks algebraic loops by an infinitesimal small time delay"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Logical and"
+    annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.And intOpeMod
+    "Enable integrated operation mode"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notSwi "Not just switch"
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
 
 equation
   connect(uChi, swi.u2)
@@ -161,52 +161,50 @@ equation
   connect(one.y, regFanSpe.x2) annotation (Line(points={{-18,-60},{-10,-60},{-10,
           -44},{58,-44}}, color={0,0,127}));
   connect(chiOn.y, edg.u)
-    annotation (Line(points={{-98,20},{-90,20},{-90,-140},{-62,-140}}, color={255,0,255}));
-  connect(uWse, and1.u1)
-    annotation (Line(points={{-180,0},{-70,0},{-70,-110},{-2,-110}}, color={255,0,255}));
-  connect(edg.y, and1.u2)
-    annotation (Line(points={{-38,-140},{-20,-140},{-20,-118},{-2,-118}}, color={255,0,255}));
-  connect(and1.y, lat.u)
-    annotation (Line(points={{22,-110},{38,-110}}, color={255,0,255}));
+    annotation (Line(points={{-98,30},{-90,30},{-90,-140},{-82,-140}}, color={255,0,255}));
+  connect(uWse, froWseOnl.u1) annotation (Line(points={{-180,0},{-80,0},{-80,-110},
+          {-42,-110}}, color={255,0,255}));
+  connect(edg.y, froWseOnl.u2) annotation (Line(points={{-58,-140},{-50,-140},{-50,
+          -118},{-42,-118}}, color={255,0,255}));
+  connect(froWseOnl.y, lat.u)
+    annotation (Line(points={{-18,-110},{18,-110}}, color={255,0,255}));
   connect(lat.y, intOpeTim.u)
-    annotation (Line(points={{62,-110},{78,-110}}, color={255,0,255}));
+    annotation (Line(points={{42,-110},{60,-110},{60,-140},{118,-140}}, color={255,0,255}));
   connect(lat.y, fanSpe.u2)
-    annotation (Line(points={{62,-110},{70,-110},{70,-80},{118,-80}}, color={255,0,255}));
+    annotation (Line(points={{42,-110},{60,-110},{60,-68},{118,-68}}, color={255,0,255}));
   connect(regFanSpe.y, fanSpe.u3)
-    annotation (Line(points={{82,-40},{100,-40},{100,-88},{118,-88}}, color={0,0,127}));
+    annotation (Line(points={{82,-40},{100,-40},{100,-76},{118,-76}}, color={0,0,127}));
   connect(maxTowSpe.y, fanSpe.u1)
-    annotation (Line(points={{22,-60},{30,-60},{30,-72},{118,-72}}, color={0,0,127}));
+    annotation (Line(points={{22,-60},{118,-60}}, color={0,0,127}));
   connect(fanSpe.y,ySpeSet)
-    annotation (Line(points={{142,-80},{180,-80}}, color={0,0,127}));
+    annotation (Line(points={{142,-68},{180,-68}}, color={0,0,127}));
   connect(chiMinCycLoa.y, minCycLoa.u)
     annotation (Line(points={{-98,140},{-22,140}}, color={0,0,127}));
   connect(swi.y, totMinCycLoa.u)
     annotation (Line(points={{-38,100},{-22,100}}, color={0,0,127}));
   connect(uChi,chiOn. u)
-    annotation (Line(points={{-180,100},{-140,100},{-140,20},{-122,20}},
+    annotation (Line(points={{-180,100},{-140,100},{-140,30},{-122,30}},
       color={255,0,255}));
-  connect(lat.y, falEdg.u)
-    annotation (Line(points={{62,-110},{70,-110},{70,-80},{-140,-80},{-140,-60},
-      {-122,-60}}, color={255,0,255}));
   connect(chiOn.y, and3.u1)
-    annotation (Line(points={{-98,20},{-62,20}}, color={255,0,255}));
-  connect(falEdg.y, and3.u2)
-    annotation (Line(points={{-98,-60},{-80,-60},{-80,12},{-62,12}},
-      color={255,0,255}));
+    annotation (Line(points={{-98,30},{-62,30}}, color={255,0,255}));
   connect(pre.y, lat.clr)
-    annotation (Line(points={{22,-140},{30,-140},{30,-116},{38,-116}},
+    annotation (Line(points={{2,-140},{10,-140},{10,-116},{18,-116}},
       color={255,0,255}));
   connect(intOpeTim.passed, pre.u)
-    annotation (Line(points={{102,-118},{120,-118},{120,-154},{-10,-154},
-      {-10,-140},{-2,-140}}, color={255,0,255}));
-  connect(and3.y, and2.u1)
-    annotation (Line(points={{-38,20},{-2,20}}, color={255,0,255}));
-  connect(uWse, and2.u2)
-    annotation (Line(points={{-180,0},{-20,0},{-20,12},{-2,12}}, color={255,0,255}));
-  connect(and2.y, loaCon.uEna)
+    annotation (Line(points={{142,-148},{150,-148},{150,-154},{-40,-154},{-40,-140},
+          {-22,-140}}, color={255,0,255}));
+  connect(and3.y, intOpeMod.u1) annotation (Line(points={{-38,30},{-20,30},{-20,
+          20},{-2,20}}, color={255,0,255}));
+  connect(uWse, intOpeMod.u2) annotation (Line(points={{-180,0},{-80,0},{-80,12},
+          {-2,12}}, color={255,0,255}));
+  connect(intOpeMod.y, loaCon.uEna)
     annotation (Line(points={{22,20},{86,20},{86,88}}, color={255,0,255}));
   connect(uChiLoa, div1.u1) annotation (Line(points={{-180,60},{0,60},{0,66},{38,
           66}}, color={0,0,127}));
+  connect(lat.y, notSwi.u)
+    annotation (Line(points={{42,-110},{78,-110}}, color={255,0,255}));
+  connect(notSwi.y, and3.u2) annotation (Line(points={{102,-110},{120,-110},{120,
+          -90},{-70,-90},{-70,22},{-62,22}}, color={255,0,255}));
 annotation (
   defaultComponentName="wseTowSpeIntOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

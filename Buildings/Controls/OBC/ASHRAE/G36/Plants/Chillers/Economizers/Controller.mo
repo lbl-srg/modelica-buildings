@@ -416,19 +416,19 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyComOpe(
     final nin=nChi) if have_priOnl and have_parChi
     "Check if there is any commanded open valve"
-    annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
+    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not notOpe if have_priOnl and have_parChi
     "All valves are commanded close"
-    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+    annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch valCom if have_priOnl and have_parChi
     "Economizer-only chiller water bypass valve commanded setpoint"
-    annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
+    annotation (Placement(transformation(extent={{140,-170},{160,-150}})));
 
   Buildings.Controls.OBC.CDL.Logical.And opeVal if have_priOnl and have_parChi
     "Check if the economizer-only bypass valve should open"
-    annotation (Placement(transformation(extent={{-40,-170},{-20,-150}})));
+    annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold valOpe[nChi](
     final t=fill(0.25, nChi),
@@ -445,13 +445,27 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.And cloVal if have_priOnl and have_parChi
     "Check if the economizer-only bypass valve should close"
-    annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
+    annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=0.25*chaChiWatIsoTim)
     if have_priOnl and have_parChi and not (have_modPosChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating)
     "Valve being open by more than 25%"
-    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
+    annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not notOpe1 if have_priOnl and have_parChi
+    "All valves are commanded close"
+    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not anyOpe if have_priOnl and have_parChi
+    "True: there is valve open"
+    annotation (Placement(transformation(extent={{-40,-170},{-20,-150}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=1)
+    if have_priOnl and have_parChi
+    "False delay to avoid falling edge"
+    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
 
 equation
   connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,100},
@@ -554,25 +568,21 @@ equation
   connect(truFalHol.y, enaWSE.u1) annotation (Line(points={{162,230},{168,230},{
           168,170},{0,170},{0,100},{18,100}}, color={255,0,255}));
   connect(u1ChiIsoVal, anyComOpe.u)
-    annotation (Line(points={{-200,-160},{-142,-160}}, color={255,0,255}));
-  connect(anyComOpe.y, notOpe.u)
-    annotation (Line(points={{-118,-160},{-102,-160}}, color={255,0,255}));
+    annotation (Line(points={{-200,-160},{-162,-160}}, color={255,0,255}));
   connect(notOpe.y, opeVal.u1)
-    annotation (Line(points={{-78,-160},{-42,-160}}, color={255,0,255}));
+    annotation (Line(points={{42,-160},{78,-160}},   color={255,0,255}));
   connect(opeVal.y, valCom.u)
-    annotation (Line(points={{-18,-160},{118,-160}}, color={255,0,255}));
+    annotation (Line(points={{102,-160},{138,-160}}, color={255,0,255}));
   connect(valCom.y, y1ChiWatBypVal)
-    annotation (Line(points={{142,-160},{200,-160}}, color={255,0,255}));
-  connect(enaEco.y, opeVal.u2) annotation (Line(points={{142,60},{150,60},{150,40},
-          {110,40},{110,-140},{-60,-140},{-60,-168},{-42,-168}}, color={255,0,255}));
+    annotation (Line(points={{162,-160},{200,-160}}, color={255,0,255}));
+  connect(enaEco.y, opeVal.u2) annotation (Line(points={{142,60},{150,60},{150,
+          40},{110,40},{110,-140},{60,-140},{60,-168},{78,-168}},color={255,0,255}));
   connect(uChiIsoVal, valOpe.u)
     annotation (Line(points={{-200,-240},{-162,-240}}, color={0,0,127}));
-  connect(anyComOpe.y, cloVal.u1) annotation (Line(points={{-118,-160},{-110,-160},
-          {-110,-180},{58,-180}}, color={255,0,255}));
   connect(valOpe.y, anyOpeVal.u)
     annotation (Line(points={{-138,-240},{-122,-240}}, color={255,0,255}));
-  connect(cloVal.y, valCom.clr) annotation (Line(points={{82,-180},{100,-180},{100,
-          -166},{118,-166}}, color={255,0,255}));
+  connect(cloVal.y, valCom.clr) annotation (Line(points={{122,-190},{130,-190},{
+          130,-166},{138,-166}}, color={255,0,255}));
   connect(uStaPro, wsePum.uStaPro) annotation (Line(points={{-200,-110},{90,-110},
           {90,-91},{118,-91}},   color={255,0,255}));
   connect(wseVal.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-44},
@@ -583,12 +593,22 @@ equation
           {-62,52}}, color={255,0,255}));
   connect(and1.y, lat.u)
     annotation (Line(points={{-38,60},{18,60}}, color={255,0,255}));
-  connect(anyComOpe.y, truDel.u) annotation (Line(points={{-118,-160},{-110,-160},
-          {-110,-200},{-82,-200}}, color={255,0,255}));
-  connect(truDel.y, cloVal.u2) annotation (Line(points={{-58,-200},{40,-200},{40,
-          -188},{58,-188}}, color={255,0,255}));
-  connect(anyOpeVal.y, cloVal.u2) annotation (Line(points={{-98,-240},{40,-240},
-          {40,-188},{58,-188}}, color={255,0,255}));
+  connect(truDel.y, cloVal.u2) annotation (Line(points={{62,-210},{80,-210},{80,
+          -198},{98,-198}}, color={255,0,255}));
+  connect(anyOpeVal.y, cloVal.u2) annotation (Line(points={{-98,-240},{80,-240},
+          {80,-198},{98,-198}}, color={255,0,255}));
+  connect(anyComOpe.y, notOpe1.u)
+    annotation (Line(points={{-138,-160},{-122,-160}}, color={255,0,255}));
+  connect(notOpe1.y, truDel1.u)
+    annotation (Line(points={{-98,-160},{-82,-160}}, color={255,0,255}));
+  connect(truDel1.y, anyOpe.u)
+    annotation (Line(points={{-58,-160},{-42,-160}}, color={255,0,255}));
+  connect(anyOpe.y, notOpe.u)
+    annotation (Line(points={{-18,-160},{18,-160}}, color={255,0,255}));
+  connect(anyOpe.y, cloVal.u1) annotation (Line(points={{-18,-160},{0,-160},{0,
+          -190},{98,-190}}, color={255,0,255}));
+  connect(anyOpe.y, truDel.u) annotation (Line(points={{-18,-160},{0,-160},{0,
+          -210},{38,-210}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
              graphics={

@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences;
 block WSEOperation
   "Tower fan speed control when the waterside economizer is running alone"
-
+  parameter Integer nChi=2 "Total number of chillers";
   parameter Real fanSpeMin(unit="1")=0.1 "Minimum tower fan speed";
   parameter Real fanSpeMax(unit="1")=1 "Maximum tower fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatCon=
@@ -42,10 +42,14 @@ block WSEOperation
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-280,110},{-240,150}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
-    "True: plant is enabled"
-    annotation (Placement(transformation(extent={{-280,10},{-240,50}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
+    "Chiller enabling status: true=ON"
+    annotation (Placement(transformation(extent={{-280,20},{-240,60}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
+    "True: WSE is enabled"
+    annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
+        iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final unit="1") "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-280,-74},{-240,-34}}),
@@ -154,6 +158,14 @@ protected
     annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Fan should not off"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyEnaChi(
+    final nin=nChi)
+    "True: there is chiller being enabled"
+    annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Not noChi "True: no enabled chiller"
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
+  Buildings.Controls.OBC.CDL.Logical.And onlWse "True: WSE only"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
 equation
   connect(uFanSpe, dFanSpe.u1)
@@ -216,8 +228,6 @@ equation
           {-140,-90},{-140,-120},{-122,-120}},       color={255,0,255}));
   connect(cycOn.y, pre.u)
     annotation (Line(points={{-38,-120},{-22,-120}}, color={255,0,255}));
-  connect(uPla, enaFan.u1)
-    annotation (Line(points={{-260,30},{138,30}}, color={255,0,255}));
   connect(enaFan.y, swi.u2)
     annotation (Line(points={{162,30},{198,30}}, color={255,0,255}));
   connect(enaFan.y, chiWatTemCon.uEna) annotation (Line(points={{162,30},{170,30},
@@ -232,6 +242,16 @@ equation
     annotation (Line(points={{82,0},{98,0}}, color={255,0,255}));
   connect(not3.y, enaFan.u2) annotation (Line(points={{122,0},{130,0},{130,22},{
           138,22}}, color={255,0,255}));
+  connect(uChi, anyEnaChi.u)
+    annotation (Line(points={{-260,40},{-202,40}}, color={255,0,255}));
+  connect(anyEnaChi.y, noChi.u)
+    annotation (Line(points={{-178,40},{-162,40}}, color={255,0,255}));
+  connect(uWse, onlWse.u2) annotation (Line(points={{-260,0},{-200,0},{-200,22},
+          {-62,22}}, color={255,0,255}));
+  connect(noChi.y, onlWse.u1) annotation (Line(points={{-138,40},{-80,40},{-80,30},
+          {-62,30}}, color={255,0,255}));
+  connect(onlWse.y, enaFan.u1)
+    annotation (Line(points={{-38,30},{138,30}}, color={255,0,255}));
 annotation (
   defaultComponentName="wseTowSpeWSEOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
