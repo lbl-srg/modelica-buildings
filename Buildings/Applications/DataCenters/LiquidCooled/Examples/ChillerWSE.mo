@@ -149,11 +149,6 @@ model ChillerWSE
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack outlet temperature"
     annotation (Placement(transformation(extent={{50,24},{30,44}})));
-  Fluid.Sources.Boundary_pT preSou(
-    redeclare package Medium = MediumRac,
-    nPorts=1)
-    "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
   Controls.OBC.CDL.Reals.Sources.Constant yPum(k=1)
     "Pump control signal"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -637,8 +632,6 @@ equation
           {70,34},{50,34}}, color={0,127,255}));
   connect(senTRac_b.port_b, cdu.port_aRac) annotation (Line(points={{30,34},{22,34},
           {22,34},{10,34}}, color={0,127,255}));
-  connect(rac.port_b, preSou.ports[1])
-    annotation (Line(points={{20,-60},{90,-60}}, color={0,127,255}));
   connect(senTCDU_b.port_b, pumCDU.port_a) annotation (Line(points={{50,120},{220,
           120},{220,160}}, color={0,127,255}));
   connect(pumCDU.port_b, jun3.port_1) annotation (Line(points={{220,180},{220,220},

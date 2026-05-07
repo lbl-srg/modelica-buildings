@@ -172,6 +172,10 @@ record Generic_epsNTU
     Q_flow_nominal / CRac_flow_nominal
     "Fluid temperature difference at nominal conditions on rack side";
 
+  parameter Modelica.Units.SI.Volume VExp = -0.056/2E6*Q_flow_nominal
+    "Size of expansion vessel on IT loop side"
+    annotation(Dialog(tab="Advanced", group="Expansion vessel"));
+
   annotation (
   defaultComponentName="datCDU",
   defaultComponentPrefixes="parameter",
@@ -321,9 +325,20 @@ The data record is structured as follows.
                 <td><code>[1]</code></td>
                 <td><code>nPla</code></td>
             </tr>
+            <tr>
+                <td><code>VExp</code></td>
+                <td>Size of expansion vessel on rack side.</td>
+                <td><code>[m3]</code></td>
+                <td><code>0.056/2E6*Q_flow_nominal</code></td>
+            </tr>
         </tbody>
     </table>
-
+<p>
+The size of the expansion vessel <code>VExp</code> is by default set to the size used for the CDU
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.GoogleProjectDeschutes\">
+Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.GoogleProjectDeschutes</a>, which is
+<i>0.056</i> m<sup>3</sup> for a cooling capacity of <i>2</i> MW.
+</p>
     <h4>Derived Parameters</h4>
     <p>These parameters are calculated by the model based on the above parameters and cannot be changed by the user.
     </p>

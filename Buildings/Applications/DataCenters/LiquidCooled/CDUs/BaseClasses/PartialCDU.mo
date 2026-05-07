@@ -125,7 +125,7 @@ model PartialCDU "Partial model for a CDU"
   parameter Real yPum_start=0 "Initial value of speed"
     annotation (Dialog(tab="Dynamics", group="Pump"));
 
-  //Connectors
+  // Connectors
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yVal(
     min=0,
     max=1,
@@ -146,6 +146,7 @@ model PartialCDU "Partial model for a CDU"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
+  // Components
   replaceable Buildings.Fluid.Interfaces.PartialFourPortInterface hex
     constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(
       redeclare final package Medium1 = MediumPla,
@@ -171,8 +172,8 @@ model PartialCDU "Partial model for a CDU"
     final y_start=yVal_start) "Control valve on chilled water side" annotation
     (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={-40,20})));
+        rotation=0,
+        origin={-50,60})));
 
   Fluid.Movers.Preconfigured.SpeedControlled_y pum(
     redeclare package Medium = MediumRac,
@@ -186,9 +187,13 @@ model PartialCDU "Partial model for a CDU"
     dp_nominal=dpPum_nominal + dpHexRac_nominal) "Pump on IT side" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-40,-20})));
+        rotation=0,
+        origin={-50,-60})));
 
+  Fluid.Storage.ExpansionVessel exp(
+    redeclare package Medium = MediumRac,
+    final V_start=dat.VExp) "Expansion vessel"
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 initial equation
   if checkMedia then
     // Assert that the media are consistent with the medium types declared in the parameter record
@@ -217,23 +222,30 @@ initial equation
    end if;
 equation
   connect(port_aPla, val.port_a)
-    annotation (Line(points={{-100,60},{-40,60},{-40,30}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{-60,60}},          color={0,127,255}));
   connect(val.port_b, hex.port_a1)
-    annotation (Line(points={{-40,10},{-40,6},{-10,6}}, color={0,127,255}));
+    annotation (Line(points={{-40,60},{-20,60},{-20,6},{-10,6}},
+                                                        color={0,127,255}));
   connect(hex.port_b1, port_bPla) annotation (Line(points={{10,6},{40,6},{40,60},{
           100,60}}, color={0,127,255}));
-  connect(port_bRac,pum. port_b) annotation (Line(points={{-100,-60},{-40,-60},{-40,
-          -30}}, color={0,127,255}));
+  connect(port_bRac,pum. port_b) annotation (Line(points={{-100,-60},{-60,-60}},
+                 color={0,127,255}));
   connect(pum.port_a, hex.port_b2)
-    annotation (Line(points={{-40,-10},{-40,-6},{-10,-6}}, color={0,127,255}));
+    annotation (Line(points={{-40,-60},{-20,-60},{-20,-6},{-10,-6}},
+                                                           color={0,127,255}));
   connect(hex.port_a2, port_aRac) annotation (Line(points={{10,-6},{40,-6},{40,-60},
           {100,-60}}, color={0,127,255}));
   connect(pum.y, yPum)
-    annotation (Line(points={{-52,-20},{-120,-20}}, color={0,0,127}));
+    annotation (Line(points={{-50,-48},{-80,-48},{-80,-20},{-120,-20}},
+                                                    color={0,0,127}));
   connect(val.y, yVal)
-    annotation (Line(points={{-52,20},{-120,20}}, color={0,0,127}));
-  connect(pum.P, P) annotation (Line(points={{-49,-31},{-49,-40},{60,-40},{60,90},
-          {110,90}}, color={0,0,127}));
+    annotation (Line(points={{-50,48},{-50,20},{-120,20}},
+                                                  color={0,0,127}));
+  connect(pum.P, P) annotation (Line(points={{-61,-51},{-61,-50},{-68,-50},{-68,
+          -20},{60,-20},{60,90},{110,90}},
+                     color={0,0,127}));
+  connect(pum.port_a, exp.port_a)
+    annotation (Line(points={{-40,-60},{0,-60},{0,-50}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -379,7 +391,7 @@ the heat transfer is calculated using epsilon-NTU correlations with convection c
 that are a function of the flow rate.
 </p>
 <p>
-On the chilled water side, denoted with index <i>1</i>, is a three-way valve with equal-percentage
+On the chilled water side is a three-way valve with equal-percentage
 opening characteristics. By default, the valve pressure drop is set to the same value
 as the heat exchanger pressure drop, achieving a valve authority of <i>0.5</i>.
 The valve is modeled using an instance of
@@ -387,7 +399,7 @@ The valve is modeled using an instance of
 Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage</a>.
 </p>
 <p>
-On the IT water side, denoted with index <i>2</i>, is a circulation pump with
+On the IT side is a circulation pump with
 pre-configured head. Note that the head, specified through the parameter <code>dpPum_nominal</code>,
 which is the head of the pump. Hence, to specify the head available for the flow resistance
 of the network connected to the CDU, add the CDU's heat exchanger flow resistance <code>dpHex_nominal</code>
@@ -395,6 +407,18 @@ to the pump head.
 The pump is modeled using an instance of
 <a href=\"modelica://Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y\">
 Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y</a>.
+</p>
+<p>
+On the IT side, there is also an expansion vessel, modeled using an instance of
+<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\">
+Buildings.Fluid.Storage.ExpansionVessel</a>.
+This component sets a reference static pressure, and if the medium model computes
+density as a function of temperature during the simulation, it provides a volume for the
+medium's thermal expansion.
+Note however that to improve computing performance, the medium
+<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
+Buildings.Media.Antifreeze.PropyleneGlycolWater</a>
+assumes density as constant during the simulation.
 </p>
 </html>", revisions="<html>
 <ul>
