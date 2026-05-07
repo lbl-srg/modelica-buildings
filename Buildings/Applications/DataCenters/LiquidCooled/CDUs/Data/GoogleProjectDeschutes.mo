@@ -1,12 +1,15 @@
 within Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data;
 record GoogleProjectDeschutes
   "Data record for a Google Project Deschutes CDU"
-  extends
-    Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU(
+  extends Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.Generic_epsNTU(
     Q_flow_nominal=2E6,
+    TApp_nominal=3,
     TRacOut_nominal=273.15 + 45,
     dpHexPla_nominal=80000,
-    dpPum_nominal=60000);
+    dpPum_nominal=60000,
+    medPla=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water,
+    medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
+    phiGlyRac=0.25);
 
   annotation (
   defaultComponentName="datCDU",

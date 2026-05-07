@@ -31,7 +31,18 @@ counter-flow heat exchanger that uses the epsilon-NTU correlations.
 <p>
 This model configures the heat exchanger that is used in
 <a href=\"Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU\">
-Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU</a>.
+Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU</a>
+with a counter-flow heat exchanger that uses the &epsilon;-NTU relations, using an instance of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>, and hence
+the heat transfer is calculated with convection coefficients
+that are a function of the mass flow rate.
+</p>
+<p>
+See
+<a href=\"Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU\">
+Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU</a>
+for a description of the CDU model.
 </p>
 </html>", revisions="<html>
 <ul>

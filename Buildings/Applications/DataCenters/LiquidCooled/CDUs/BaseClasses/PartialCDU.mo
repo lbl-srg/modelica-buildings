@@ -384,11 +384,7 @@ water side and pump on the IT side as shown in the figure below.
          style=\"width: 100%; height: auto;\">
 </p>
 <p>
-This CDU models a plate heat exchanger using an instance of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU</a>, and hence
-the heat transfer is calculated using epsilon-NTU correlations with convection coefficients
-that are a function of the flow rate.
+The two fluid streams are separated by a heat exchanger.
 </p>
 <p>
 On the chilled water side is a three-way valve with equal-percentage

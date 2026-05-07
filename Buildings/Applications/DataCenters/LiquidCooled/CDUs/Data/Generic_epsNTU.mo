@@ -63,16 +63,16 @@ record Generic_epsNTU
       Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
         phi=phiGlyPla,
         T=TRacOut_nominal)
-    "Glycol mass fraction for which performance data are specified"
+      "Glycol mass fraction for which performance data are specified. Set to 0 if only water is used."
     annotation(Dialog(group="Plant-side medium for performance data"));
 
   parameter Types.Media medRac
-    "Type of glycol solution for which performance data are specified"
+    "Media for which performance data are specified"
     annotation (Dialog(group="Rack-side medium for performance data"));
   parameter Real phiGlyRac(
     min=0,
     final unit="1")
-    "Glycol volume fraction for which performance data are specified"
+    "Glycol volume fraction for which performance data are specified. Set to 0 if only water is used."
     annotation(Dialog(group="Rack-side medium for performance data"));
   final parameter Modelica.Units.SI.MassFraction XGlyRac =
     if medRac ==Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water
@@ -230,12 +230,13 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>medRac</code></td>
-                <td>Type of glycol solution for which rack-side performance data are specified.</td>
+                <td>Media for which performance data are specified.</td>
                 <td><code>Types.Media</code></td>
             </tr>
             <tr>
                 <td><code>phiGlyRac</code></td>
-                <td>Glycol volume fraction for which rack-side performance data are specified.</td>
+                <td>Glycol volume fraction for which rack-side performance data are specified.
+                    Set to 0 if only water is used.</td>
                 <td><code>[1]</code></td>
             </tr>
             <tr>
@@ -285,7 +286,8 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>phiGlyPla</code></td>
-                <td>Glycol volume fraction for which performance data are specified (plant side).</td>
+                <td>Glycol volume fraction for which performance data are specified (plant side).
+                    Set to 0 if only water is used.</td>
                 <td><code>[1]</code></td>
                 <td><code>0</code></td>
             </tr>
