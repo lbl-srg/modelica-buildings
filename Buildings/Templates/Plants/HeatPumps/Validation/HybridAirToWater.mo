@@ -13,9 +13,7 @@ model HybridAirToWater "Validation of AWHP plant template"
       ctl(
         yPumHeaWatPriSet=1,
         yPumChiWatPriSet=1,
-        staEqu=datAll.pla.ctl.staEquSinMod,
-        staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1],
-        staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1]),
+        staEqu=datAll.pla.ctl.staEquSinMod),
       hp(
         mHeaWatHp_flow_nominal=0.5*datAll.pla.hp.capHeaHp_nominal/abs(datAll.pla.ctl.THeaWatSup_nominal
              - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
@@ -74,7 +72,7 @@ model HybridAirToWater "Validation of AWHP plant template"
       origin={-210,-20})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
-    cfg(have_HpShc=true),
+    cfg(nHpShc=1),
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     typTanHeaWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
     typTanChiWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,

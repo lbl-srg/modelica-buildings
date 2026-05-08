@@ -18,7 +18,7 @@ block HybridOperation
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  parameter Boolean is_HpShc[nHp,1]=fill(false,nHp)
+  parameter Boolean is_HpShc[nHp]=fill(false,nHp)
     "Vector indicating if each HP is an SHC HP; True=Is SHC HP;False=Not SHC HP"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
@@ -168,7 +168,7 @@ protected
     "Output mode for 2-pipe and SHC HPs"
     annotation (Placement(transformation(extent={{200,-20},{220,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isHpShc[nHp,1](
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isHpShc[nHp](
     final k=is_HpShc)
     "Is the heat pump an SHC HP?"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
@@ -346,11 +346,6 @@ equation
           258,292}},  color={255,0,255}));
   connect(or5.y, and9.u1)
     annotation (Line(points={{2,300},{258,300}},   color={255,0,255}));
-  connect(isHpShc[:, 1].y, intSwi.u2) annotation (Line(points={{82,40},{160,40},
-          {160,-10},{198,-10}}, color={255,0,255}));
-  connect(isHpShc[:, 1].y, and8.u2) annotation (Line(points={{82,40},{160,40},{160,
-          190},{12,190},{12,202},{18,202}},
-                                color={255,0,255}));
   connect(and10.y, yAvaHpShcHea) annotation (Line(points={{282,190},{308,190},{308,
           220},{340,220}},     color={255,0,255}));
   connect(and10.y, yAvaHpShcCoo) annotation (Line(points={{282,190},{308,190},{308,
@@ -359,10 +354,14 @@ equation
           84},{-92,84},{-92,202},{-82,202}},   color={255,127,0}));
   connect(intScaRep1.y, intEqu1.u1)
     annotation (Line(points={{-118,210},{-82,210}}, color={255,127,0}));
-  connect(isHpShc[:, 1].y, and10.u1) annotation (Line(points={{82,40},{160,40},{
-          160,190},{258,190}},  color={255,0,255}));
   connect(u1HpAva, and10.u2) annotation (Line(points={{-280,140},{240,140},{240,
           182},{258,182}}, color={255,0,255}));
+  connect(isHpShc.y, intSwi.u2) annotation (Line(points={{82,40},{160,40},{160,
+          -10},{198,-10}}, color={255,0,255}));
+  connect(isHpShc.y, and10.u1) annotation (Line(points={{82,40},{160,40},{160,
+          190},{258,190}}, color={255,0,255}));
+  connect(isHpShc.y, and8.u2) annotation (Line(points={{82,40},{160,40},{160,
+          190},{12,190},{12,202},{18,202}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctlPlaHyb",
     Icon(

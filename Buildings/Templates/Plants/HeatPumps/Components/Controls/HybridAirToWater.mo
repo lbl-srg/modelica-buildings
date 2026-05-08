@@ -30,7 +30,7 @@ model HybridAirToWater "Controller for AWHP plant"
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
     final is_priOnl=if is_typDis_override then (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) else (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
     final have_hrc_select=cfg.have_hrc,
-    final have_HpShc=cfg.have_HpShc,
+    final nHpShc=cfg.nHpShc,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -88,7 +88,6 @@ model HybridAirToWater "Controller for AWHP plant"
     final rho_default=if cfg.have_heaWat then cfg.rhoHeaWat_default else cfg.rhoChiWat_default,
     final schCoo=dat.schCoo,
     final schHea=dat.schHea,
-    final staEqu=dat.staEqu,
     final yPumChiWatPri_min=dat.yPumChiWatPri_min,
     yPumChiWatPriSet=dat.yPumChiWatPriSet,
     final yPumChiWatSec_min=dat.yPumChiWatSec_min,

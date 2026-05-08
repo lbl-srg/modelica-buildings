@@ -170,22 +170,27 @@ block AirToWater
     annotation (Evaluate=true);
 
   parameter Integer nHp(min=1)
-    "Number of heat pumps. If this is a hybrid plant, this is the number of 2-pipe
-    heat pumps"
+    "Number of heat pumps with heating-only and cooling-only modes"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  final parameter Integer nHpTot=if have_HpShc then nHp+1 else nHp
+  parameter Integer nHpShc(min=0)
+    "Number of heat pumps with simultaneous heating-cooling mode"
+    annotation (Evaluate=true,
+    Dialog(group="Plant configuration"));
+
+  final parameter Integer nHpTot=nHp+nHpShc
     "Number of heat pumps calculation used for internal logic blocks"
     annotation (Evaluate=true);
 
-  parameter Boolean have_HpShc=false
-    "True: The plant is a hybrid heat pump plant with a four-pipe heat pump"
+  final parameter Boolean have_HpShc=nHpShc>0
+    "True: The plant is a hybrid heat pump plant with simultaneous heating-cooling"
     annotation (Evaluate=true,
       Dialog(group="Plant configuration"));
 
-  final parameter Boolean is_HpShc[nHpTot,1]=if have_HpShc then [fill(false,nHp);have_HpShc] else [fill(false,nHp)]
-    "Vector of flag for each heat pump: true - the heat pump is a 4-pipe heat pump";
+  final parameter Boolean is_HpShc[nHpTot]=if have_HpShc then cat(1,fill(false,nHp),fill(true,nHpShc)) else fill(false,nHp)
+    "Vector of flag for each heat pump: true - the heat pump is a heat pump with
+    simultaneous heating-cooling";
 
   parameter Integer nPumHeaWatPri(
     min=if have_pumHeaWatPri then 1 else 0,
@@ -195,7 +200,7 @@ block AirToWater
     Dialog(group="Plant configuration",
       enable=have_pumHeaWatPri));
 
-  final parameter Integer nPumHeaWatPriTot = if have_HpShc then nPumHeaWatPri+1 else nPumHeaWatPri
+  final parameter Integer nPumHeaWatPriTot = nPumHeaWatPri+nHpShc
     "Total number of HW primary pumps to assume for internal logic processing";
 
   parameter Integer nPumChiWatPri(
@@ -468,24 +473,38 @@ block AirToWater
     "Runtime with low number of request before disabling"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
 
-  parameter Real staEqu[:, nHpTot](
+  parameter Real staHp[:, nHp](
     each final max=1,
     each final min=0,
-    each final unit="1")
+    each final unit="1")={fill(i/nHp,nHp) for i in 1:nHp}
+    "Staging matrix for heat pumps with single-mode operation – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation"));
+
+  parameter Real staHpShc[:, nHpShc](
+    each final max=1,
+    each final min=0,
+    each final unit="1")={fill(i/nHpShc,nHpShc) for i in 1:nHpShc}
+    "Staging matrix for heat pumps with simultaneous heating-cooling – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation"));
+
+  final parameter Real staEqu[:, nHpTot](
+    each final max=1,
+    each final min=0,
+    each final unit="1")=if have_HpShc then staEquSinMod else staHp
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=not have_HpShc));
 
   parameter Real staEquDouMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")=staEqu
-   "Staging matrix for heating-cooling mode – Equipment required for each stage"
+    each final unit="1")=if have_HpShc then cat(1,cat(2,fill(fill(0,nHp),size(staHpShc,1)),staHpShc),cat(2,staHp,fill(fill(1,nHpShc),size(staHp,1)))) else staHp
+    "Staging matrix for heating-cooling mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
   parameter Real staEquSinMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")=staEqu
+    each final unit="1")=if have_HpShc then cat(1,cat(2,staHp,fill(fill(0,nHpShc),size(staHp,1))),cat(2,fill(fill(1,nHp),size(staHpShc,1)),staHpShc)) else staHp
     "Staging matrix for heating-only and cooling-only mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
@@ -503,7 +522,7 @@ block AirToWater
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
 
-  parameter Integer idxEquAlt[nEquAlt](final min=fill(1, nEquAlt))
+  parameter Integer idxEquAlt[:]
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
@@ -2029,7 +2048,7 @@ equation
   connect(enaHea.y1, hrc.u1Hea) annotation (Line(points={{-88,360},{-82,360},{-82,
           -292},{198,-292}}, color={255,0,255}));
   connect(TChiWatRetUpsHrc, hrc.TChiWatRetUpsHrc) annotation (Line(points={{-280,
-          -140},{-242,-140},{-242,-306},{198,-306}}, color={0,0,127}));
+          -140},{-236,-140},{-236,-306},{198,-306}}, color={0,0,127}));
   connect(THeaWatRetUpsHrc, hrc.THeaWatRetUpsHrc) annotation (Line(points={{-280,
           -60},{-246,-60},{-246,-316},{198,-316}}, color={0,0,127}));
   connect(THeaWatSecRet, hrc.THeaWatHrcLvg) annotation (Line(points={{-280,-40},
@@ -2042,8 +2061,8 @@ equation
           {192,-320},{192,-296},{198,-296}}, color={255,0,255}));
   connect(u1ReqFloConWat, hrc.u1ReqFloConWat) annotation (Line(points={{-280,-340},
           {194,-340},{194,-298},{198,-298}}, color={255,0,255}));
-  connect(TChiWatPriSup, chaStaCoo.TPriSup) annotation (Line(points={{-280,40},{
-          -242,40},{-242,60},{-42,60}}, color={0,0,127}));
+  connect(TChiWatPriSup, chaStaCoo.TPriSup) annotation (Line(points={{-280,40},
+          {-252,40},{-252,60},{-42,60}},color={0,0,127}));
   connect(THeaWatSecSup, chaStaHea.TSecSup) annotation (Line(points={{-280,-20},
           {-250,-20},{-250,316},{-42,316}}, color={0,0,127}));
   connect(TChiWatSecSup, chaStaCoo.TSecSup) annotation (Line(points={{-280,-100},

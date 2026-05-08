@@ -54,6 +54,7 @@ model AirToWater
     have_senTHeaWatPriRet_select=false,
     have_senTChiWatPriRet_select=false,
     nHp=3,
+    nHpShc=0,
     have_senDpHeaWatRemWir=false,
     nSenDpHeaWatRem=1,
     have_senDpChiWatRemWir=false,
@@ -74,7 +75,6 @@ model AirToWater
     yPumHeaWatPriSet=0.8,
     yPumChiWatPriSet=0.7,
     dpChiWatRemSet_max={5E4},
-    staEqu=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1],
     idxEquAlt={1, 2, 3},
     TChiWatSupHrc_min=277.15,
     THeaWatSupHrc_max=333.15,
@@ -100,7 +100,7 @@ model AirToWater
     have_senTHeaWatPriRet_select=false,
     have_senTChiWatPriRet_select=false,
     nHp=2,
-    have_HpShc=true,
+    nHpShc=1,
     nPumChiWatPri=ctl1.nHp,
     have_senDpHeaWatRemWir=false,
     nSenDpHeaWatRem=1,
@@ -127,10 +127,7 @@ model AirToWater
     THeaWatSupHrc_max=333.15,
     COPHeaHrc_nominal=2.8,
     capCooHrc_min=ctl.capHeaHrc_min *(1 - 1 / ctl.COPHeaHrc_nominal),
-    capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal),
-    staEqu=ctl1.staEquSinMod,
-    staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1],
-    staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1])
+    capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal))
     "Plant controller-2"
     annotation (Placement(transformation(extent={{148,-22},{188,50}})));
 
@@ -511,30 +508,30 @@ equation
     annotation (Line(points={{52,-40},{72,-40},{72,90},{-84,90},{-84,30},{-72,30}},
       color={255,0,255}));
   connect(ctl.TChiWatSupSet, ctl.TChiWatSecSup)
-    annotation (Line(points={{-28,-3},{-26,-3},{-26,-30},{-102,-30},{-102,-6.2},
+    annotation (Line(points={{-28,-5},{-26,-5},{-26,-30},{-102,-30},{-102,-6.2},
           {-72,-6.2}},
       color={0,0,127}));
   connect(ctl.TChiWatSupSet, ctl.TChiWatPriSup)
-    annotation (Line(points={{-28,-3},{-26,-3},{-26,-30},{-102,-30},{-102,7.8},{
+    annotation (Line(points={{-28,-5},{-26,-5},{-26,-30},{-102,-30},{-102,7.8},{
           -72,7.8}},
       color={0,0,127}));
   connect(ctl.THeaWatSupSet, ctl.THeaWatPriSup)
-    annotation (Line(points={{-28,-1},{-24,-1},{-24,-32},{-104,-32},{-104,13.8},
+    annotation (Line(points={{-28,-3},{-24,-3},{-24,-32},{-104,-32},{-104,13.8},
           {-72,13.8}},
       color={0,0,127}));
   connect(ctl.THeaWatSupSet, ctl.THeaWatSecSup)
-    annotation (Line(points={{-28,-1},{-24,-1},{-24,-32},{-104,-32},{-104,1.8},{
+    annotation (Line(points={{-28,-3},{-24,-3},{-24,-32},{-104,-32},{-104,1.8},{
           -72,1.8}},
       color={0,0,127}));
   connect(ctl.THeaWatSupSet, THeaWatRet.u1)
-    annotation (Line(points={{-28,-1},{-24,-1},{-24,176},{-156,176},{-156,166},{
+    annotation (Line(points={{-28,-3},{-24,-3},{-24,176},{-156,176},{-156,166},{
           -152,166}},
       color={0,0,127}));
   connect(dTHeaWat.y, THeaWatRet.u2)
     annotation (Line(points={{-238,160},{-156,160},{-156,154},{-152,154}},
                                                                        color={0,0,127}));
   connect(ctl.TChiWatSupSet, TChiWatRet.u2)
-    annotation (Line(points={{-28,-3},{-26,-3},{-26,126},{-190,126},{-190,134},{
+    annotation (Line(points={{-28,-5},{-26,-5},{-26,126},{-190,126},{-190,134},{
           -182,134}},
       color={0,0,127}));
   connect(dTChiWat.y, TChiWatRet.u1)
@@ -542,12 +539,12 @@ equation
   connect(dTChiWatUpsHrc.y, TChiWatRetUpsHrc.u1)
     annotation (Line(points={{-198,180},{-194,180},{-194,186},{-182,186}},color={0,0,127}));
   connect(TChiWatRetUpsHrc.u2, ctl.TChiWatSupSet)
-    annotation (Line(points={{-182,174},{-190,174},{-190,126},{-26,126},{-26,-3},
-          {-28,-3}},
+    annotation (Line(points={{-182,174},{-190,174},{-190,126},{-26,126},{-26,-5},
+          {-28,-5}},
       color={0,0,127}));
   connect(THeaWatRetUpsHrc.u2, ctl.THeaWatSupSet)
-    annotation (Line(points={{-152,194},{-156,194},{-156,176},{-24,176},{-24,-1},
-          {-28,-1}},
+    annotation (Line(points={{-152,194},{-156,194},{-156,176},{-24,176},{-24,-3},
+          {-28,-3}},
       color={0,0,127}));
   connect(dTHeaWatUpsHrc.y, THeaWatRetUpsHrc.u1)
     annotation (Line(points={{-238,200},{-170,200},{-170,206},{-152,206}},
@@ -607,22 +604,22 @@ equation
   connect(reqResChiWat.y, ctl1.nReqResChiWat) annotation (Line(points={{-128,10},
           {-110,10},{-110,-52},{110,-52},{110,17.8},{146,17.8}},   color={255,127,
           0}));
-  connect(ctl1.THeaWatSupSet, ctl1.THeaWatPriSup) annotation (Line(points={{190,-1},
-          {194,-1},{194,-28},{140,-28},{140,13.8},{146,13.8}},         color={0,
+  connect(ctl1.THeaWatSupSet, ctl1.THeaWatPriSup) annotation (Line(points={{190,-3},
+          {194,-3},{194,-28},{140,-28},{140,13.8},{146,13.8}},         color={0,
           0,127}));
-  connect(ctl1.TChiWatSupSet, ctl1.TChiWatPriSup) annotation (Line(points={{190,-3},
-          {196,-3},{196,-30},{138,-30},{138,7.8},{146,7.8}},
+  connect(ctl1.TChiWatSupSet, ctl1.TChiWatPriSup) annotation (Line(points={{190,-5},
+          {196,-5},{196,-30},{138,-30},{138,7.8},{146,7.8}},
         color={0,0,127}));
-  connect(ctl1.THeaWatSupSet, ctl1.THeaWatSecSup) annotation (Line(points={{190,-1},
-          {194,-1},{194,-28},{140,-28},{140,1.8},{146,1.8}},         color={0,0,
+  connect(ctl1.THeaWatSupSet, ctl1.THeaWatSecSup) annotation (Line(points={{190,-3},
+          {194,-3},{194,-28},{140,-28},{140,1.8},{146,1.8}},         color={0,0,
           127}));
   connect(TOut.y, ctl1.TOut) annotation (Line(points={{-238,92},{98,92},{98,15.8},
           {146,15.8}},     color={0,0,127}));
-  connect(ctl1.THeaWatSupSet, THeaWatRet1.u1) annotation (Line(points={{190,-1},
-          {196,-1},{196,8},{200,8},{200,64},{124,64},{124,232},{72,232},{72,216},
+  connect(ctl1.THeaWatSupSet, THeaWatRet1.u1) annotation (Line(points={{190,-3},
+          {196,-3},{196,8},{200,8},{200,64},{124,64},{124,232},{72,232},{72,216},
           {78,216}},            color={0,0,127}));
-  connect(ctl1.TChiWatSupSet, TChiWatRet1.u2) annotation (Line(points={{190,-3},
-          {196,-3},{196,-32},{94,-32},{94,132},{40,132},{40,164},{48,164}},
+  connect(ctl1.TChiWatSupSet, TChiWatRet1.u2) annotation (Line(points={{190,-5},
+          {196,-5},{196,-32},{94,-32},{94,132},{40,132},{40,164},{48,164}},
                                      color={0,0,127}));
   connect(THeaWatRet1.y, ctl1.THeaWatPriRet) annotation (Line(points={{102,210},
           {112,210},{112,12},{146,12},{146,11.8}},
@@ -631,8 +628,8 @@ equation
           100,170},{100,5.8},{146,5.8}},                   color={0,0,127}));
   connect(VHeaWat_flow.y, ctl1.VHeaWatSec_flow) annotation (Line(points={{-158,-20},
           {-4,-20},{-4,-4.2},{146,-4.2}},   color={0,0,127}));
-  connect(ctl1.TChiWatSupSet, ctl1.TChiWatSecSup) annotation (Line(points={{190,-3},
-          {196,-3},{196,-30},{138,-30},{138,-6.2},{146,-6.2}},
+  connect(ctl1.TChiWatSupSet, ctl1.TChiWatSecSup) annotation (Line(points={{190,-5},
+          {196,-5},{196,-30},{138,-30},{138,-6.2},{146,-6.2}},
         color={0,0,127}));
   connect(VChiWat_flow.y, ctl1.VChiWatSec_flow) annotation (Line(points={{-128,-40},
           {-94,-40},{-94,-58},{114,-58},{114,-12.2},{146,-12.2}},
