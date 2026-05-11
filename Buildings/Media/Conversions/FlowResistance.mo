@@ -45,18 +45,38 @@ package FlowResistance
     extends Modelica.Icons.Function;
     input Real ratio_m_flow(min=0, unit="1")
       "Ratio of mass flow rates, m_flow_new/m_flow_ori";
-    input Real q(min=-1, max=0, unit="1")
-      "Flow coefficient q, q=-1 for laminar, q=-0.312 for turbulent";
+    input Real n(min=1, max=2, unit="1")
+      "Flow coefficient n, n=1 for laminar, n=2 for fully turbulent";
     output Real ratio_dp(min=0, unit="1")
       "Ratio of pressures, dp_new/dp_ori";
   algorithm
-  ratio_dp := ratio_m_flow^(2+q) * (etaOri/etaNew)^q * (rhoOri/rhoNew);
+  ratio_dp := ratio_m_flow^n * (etaOri/etaNew)^(n-2) * (rhoOri/rhoNew);
     annotation (Documentation(info="<html>
 <p>
 Function that converts a mass flow rate ratio to a pressure drop ratio
-due to a change in medium properties. The flow coefficient <i>q=-1</i> for laminar
-and <i>q=-0.312</i> for turbulent flow. The function assumes that the flow geometry and
+due to a change in medium properties.
+</p>
+<p>
+The flow coefficient is <i>n=1</i> for laminar and <i>n=1.688</i> for turbulent flow.
+Note that typical textbook equations use <i>n=2</i>.
+The value <i>n=1.688</i> is based on a friction coefficient for a Reynolds number of
+<i>Re=2,300...10,000</i>, in which case the friction coefficient can be approximated as
+<i>f<sub>1</sub> = 0.2767 Re<sup>-0.312</sup></i>
+with a maximum error or <i>0.8%</i> (Melinder, 2010),
+and hence the pressure drop is proportional to <i>v<sup>1.688</sup></i>,
+where <i>v</i> is the flow velocity.
+</p>
+<p>
+The function assumes that the flow geometry and
 the flow regime (laminar or turbulent) do not change when the medium changes.
+</p>
+<h4>References</h4>
+<p>
+Melinder, Åke (2010a).
+<i>Handbook on Indirect Refrigeration and Heat Pump Systems</i>. 
+Kullavik, Sverige: Svenska Kyltekniska Föreningen.
+<a href=\"https://varmtochkallt.se/wp-content/uploads/Projekt/Effsys2/P02/ke-Melinder-engelsk-handbok.pdf\">
+https://varmtochkallt.se/wp-content/uploads/Projekt/Effsys2/P02/ke-Melinder-engelsk-handbok.pdf</a>
 </p>
 </html>",
 revisions="<html>
@@ -74,8 +94,8 @@ First implementation.
     extends Modelica.Icons.Function;
     input Real ratio_V_flow(min=0, unit="1")
       "Ratio of volume flow rates";
-    input Real q(min=-1, max=0, unit="1")
-      "Flow coefficient q, q=-1 for laminar, q=-0.312 for turbulent";
+    input Real n(min=1, max=2, unit="1")
+      "Flow coefficient n, n=1 for laminar, n=2 for fully turbulent";
     output Real ratio_dp(min=0, unit="1")
       "Ratio of pressures";
   protected
@@ -85,13 +105,33 @@ First implementation.
     ratio_m_flow := ratio_V_flow * rhoNew / rhoOri;
     ratio_dp := pressureDrop_massFlowRate(
       ratio_m_flow=ratio_m_flow,
-      q=q);
+      n=n);
     annotation (Documentation(info="<html>
 <p>
 Function that converts a volume flow rate ratio to a pressure drop ratio
-due to a change in medium properties. The flow coefficient <i>q=-1</i> for laminar
-and <i>q=-0.312</i> for turbulent flow. The function assumes that the flow geometry and
+due to a change in medium properties.
+</p>
+<p>
+The flow coefficient is <i>n=1</i> for laminar and <i>n=1.688</i> for turbulent flow.
+Note that typical textbook equations use <i>n=2</i>.
+The value <i>n=1.688</i> is based on a friction coefficient for a Reynolds number of
+<i>Re=2,300...10,000</i>, in which case the friction coefficient can be approximated as
+<i>f<sub>1</sub> = 0.2767 Re<sup>-0.312</sup></i>
+with a maximum error or <i>0.8%</i> (Melinder, 2010),
+and hence the pressure drop is proportional to <i>v<sup>1.688</sup></i>,
+where <i>v</i> is the flow velocity.
+</p>
+<p>
+The function assumes that the flow geometry and
 the flow regime (laminar or turbulent) do not change when the medium changes.
+</p>
+<h4>References</h4>
+<p>
+Melinder, Åke (2010a).
+<i>Handbook on Indirect Refrigeration and Heat Pump Systems</i>. 
+Kullavik, Sverige: Svenska Kyltekniska Föreningen.
+<a href=\"https://varmtochkallt.se/wp-content/uploads/Projekt/Effsys2/P02/ke-Melinder-engelsk-handbok.pdf\">
+https://varmtochkallt.se/wp-content/uploads/Projekt/Effsys2/P02/ke-Melinder-engelsk-handbok.pdf</a>
 </p>
 </html>", revisions="<html>
 <ul>
@@ -106,8 +146,8 @@ First implementation.
   function pressureDrop_equalHeatFlowRate
     "Function that returns the pressure drop ratio for equal heat flow rate"
     extends Modelica.Icons.Function;
-    input Real q(min=-1, max=0, unit="1")
-      "Flow coefficient q, q=-1 for laminar, q=-0.312 for turbulent";
+    input Real n(min=1, max=2, unit="1")
+      "Flow coefficient n, n=1 for laminar, n=2 for fully turbulent";
     output Real ratio_dp(min=0, unit="1")
       "Ratio of pressures";
   protected
@@ -118,7 +158,7 @@ First implementation.
   algorithm
     ratio_dp := pressureDrop_massFlowRate(
       ratio_m_flow=ratio_cp,
-      q=q);
+      n=n);
   
     annotation (Documentation(info="<html>
 <p>
@@ -141,9 +181,28 @@ m&#775; &frasl; m&#775;<sub>0</sub> = c<sub>p,0</sub> &frasl; c<sub>p</sub>.
 <p>
 This function uses these equations to compute the ratio of the pressure drop that
 results in a change in medium properties for the same heat flow rate.
-The flow coefficient <i>q=-1</i> for laminar and <i>q=-0.312</i> for turbulent flow.
+</p>
+<p>
+The flow coefficient is <i>n=1</i> for laminar and <i>n=1.688</i> for turbulent flow.
+Note that typical textbook equations use <i>n=2</i>.
+The value <i>n=1.688</i> is based on a friction coefficient for a Reynolds number of
+<i>Re=2,300...10,000</i>, in which case the friction coefficient can be approximated as
+<i>f<sub>1</sub> = 0.2767 Re<sup>-0.312</sup></i>
+with a maximum error or <i>0.8%</i> (Melinder, 2010),
+and hence the pressure drop is proportional to <i>v<sup>1.688</sup></i>,
+where <i>v</i> is the flow velocity.
+</p>
+<p>
 The function assumes that the flow geometry and
 the flow regime (laminar or turbulent) do not change when the medium changes.
+</p>
+<h4>References</h4>
+<p>
+Melinder, Åke (2010a).
+<i>Handbook on Indirect Refrigeration and Heat Pump Systems</i>. 
+Kullavik, Sverige: Svenska Kyltekniska Föreningen.
+<a href=\"https://varmtochkallt.se/wp-content/uploads/Projekt/Effsys2/P02/ke-Melinder-engelsk-handbok.pdf\">
+https://varmtochkallt.se/wp-content/uploads/Projekt/Effsys2/P02/ke-Melinder-engelsk-handbok.pdf</a>
 </p>
 </html>", revisions="<html>
 <ul>
