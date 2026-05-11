@@ -169,6 +169,74 @@ First implementation.
 </html>"));
   end pressureDrop_volumeFlowRate;
 
+  function flowWork_equalHeatFlowRate
+    "Function that returns the flow work ratio for equal heat flow rate"
+    extends Modelica.Icons.Function;
+    input Real n(min=1, max=2, unit="1")
+      "Flow coefficient n, n=1 for laminar, n=2 for fully turbulent";
+    output Real ratio_WFlo(min=0, unit="1")
+      "Ratio of flow work";
+
+  algorithm
+    ratio_WFlo := rhoOri / rhoNew * cpOri / cpNew * pressureDrop_equalHeatFlowRate(n=n);
+  
+    annotation (Documentation(info="<html>
+<p>
+Function that returns the ratio of flow work for equal heat flow rate.
+</p>
+<p>
+If we want to operate the device such that the same amount of heat
+is transferred with the same inlet temperature, resulting in the same outlet temperatures,
+we can use for the same heat flow rate
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Q&#775; = m&#775; c<sub>p</sub> &Delta;T,
+</p>
+<p>
+adjust the mass flow rate according to
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+m&#775; &frasl; m&#775;<sub>0</sub> = c<sub>p,0</sub> &frasl; c<sub>p</sub>,
+</p>
+<p>
+and use for the flow work the equation <i>W = V&#775; &Delta;p / rho</i>.
+</p>
+<p>
+This function uses these equations to compute the ratio of the the flow work that
+results from a change in medium properties for the same heat flow rate.
+</p>
+<p>
+The flow coefficient is <i>n=1</i> for laminar and <i>n=1.688</i> for turbulent flow.
+Note that typical textbook equations use <i>n=2</i>.
+The value <i>n=1.688</i> is based on a friction coefficient for a Reynolds number of
+<i>Re=2,300...10,000</i>, in which case the friction coefficient can be approximated as
+<i>f<sub>1</sub> = 0.2767 Re<sup>-0.312</sup></i>
+with a maximum error or <i>0.8%</i> (Melinder, 2010),
+and hence the pressure drop is proportional to <i>v<sup>1.688</sup></i>,
+where <i>v</i> is the flow velocity.
+</p>
+<p>
+The function assumes that the flow geometry and
+the flow regime (laminar or turbulent) do not change when the medium changes.
+</p>
+<h4>References</h4>
+<p>
+Melinder, Åke (2010a).
+<i>Handbook on Indirect Refrigeration and Heat Pump Systems</i>. 
+Kullavik, Sverige: Svenska Kyltekniska Föreningen.
+<a href=\"https://varmtochkallt.se/wp-content/uploads/Projekt/Effsys2/P02/ke-Melinder-engelsk-handbok.pdf\">
+https://varmtochkallt.se/wp-content/uploads/Projekt/Effsys2/P02/ke-Melinder-engelsk-handbok.pdf</a>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 11, 2026, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end flowWork_equalHeatFlowRate;
+
   function pressureDrop_equalHeatFlowRate
     "Function that returns the pressure drop ratio for equal heat flow rate"
     extends Modelica.Icons.Function;
@@ -202,7 +270,7 @@ m&#775; &frasl; m&#775;<sub>0</sub> = c<sub>p,0</sub> &frasl; c<sub>p</sub>.
 </p>
 <p>
 This function uses these equations to compute the ratio of the pressure drop that
-results in a change in medium properties for the same heat flow rate.
+results from a change in medium properties for the same heat flow rate.
 </p>
 <p>
 The flow coefficient is <i>n=1</i> for laminar and <i>n=1.688</i> for turbulent flow.

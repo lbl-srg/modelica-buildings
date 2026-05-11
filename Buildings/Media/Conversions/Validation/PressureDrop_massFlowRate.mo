@@ -41,6 +41,11 @@ model PressureDrop_massFlowRate
       n=n)
     "Pressure drop ratio for equal heat flow rate at turbulent flow";
 
+  parameter Real dWFloRat_equalHeatFlowRate(min=0, unit="1") =
+    FloRes.flowWork_equalHeatFlowRate(
+      n=n)
+    "Flow work ratio for equal heat flow rate at turbulent flow";
+
   annotation (
     experiment(
       Tolerance=1e-06,

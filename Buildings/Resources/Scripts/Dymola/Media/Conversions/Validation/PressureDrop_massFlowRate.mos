@@ -1,4 +1,4 @@
 simulateModel("Buildings.Media.Conversions.Validation.PressureDrop_massFlowRate", method="CVode", stopTime=1.5, tolerance=1e-06, resultFile="PressureDrop_massFlowRate");
-createPlot(id=1, position={15, 15, 592, 417}, x="ratio_m_flow", y={"dpRat_m_flow"}, range={0.5, 2.0, 0.0, 6.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="1", displayUnits={"1"});
-createPlot(id=1, position={15, 15, 592, 417}, x="ratio_V_flow", y={"dpRat_V_flow"}, range={0.5, 2.0, 0.0, 6.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="1", displayUnits={"1"});
-createPlot(id=1, position={15, 15, 592, 417}, y={"dpRat_equalHeatFlowRate"}, range={0.5, 2.0, 0.0, 6.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={15, 15, 592, 420}, x="ratio_m_flow", y={"dpRat_m_flow"}, range={0.5, 2.0, 0.0, 6.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="1", displayUnits={"1"});
+createPlot(id=1, position={15, 15, 592, 420}, x="ratio_V_flow", y={"dpRat_V_flow"}, range={0.5, 2.0, 0.0, 6.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="1", displayUnits={"1"});
+createPlot(id=1, position={15, 15, 592, 420}, y={"dpRat_equalHeatFlowRate", "dWFloRat_equalHeatFlowRate"}, range={0.0, 1.5, 1.4500000000000002, 1.5500000000000003}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
