@@ -52,6 +52,8 @@ model HybridAirToWater "Controller for AWHP plant"
     final dpChiWatRemSet_min=dat.dpChiWatRemSet_min,
     final dpHeaWatRemSet_max=dat.dpHeaWatRemSet_max,
     final dpHeaWatRemSet_min=dat.dpHeaWatRemSet_min,
+    staHp=dat.staHp,
+    staHpShc=dat.staHpShc,
     final staEquDouMod=dat.staEquDouMod,
     final staEquSinMod=dat.staEquSinMod,
     final capCooHrc_min=dat.capCooHrc_min,

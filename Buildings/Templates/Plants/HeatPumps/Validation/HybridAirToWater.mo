@@ -13,7 +13,8 @@ model HybridAirToWater "Validation of AWHP plant template"
       ctl(
         yPumHeaWatPriSet=1,
         yPumChiWatPriSet=1,
-        staEqu=datAll.pla.ctl.staEquSinMod),
+        staEquDouMod={{0,0,1},{0.5,0.5,1},{1,1,1}},
+        staEquSinMod={{0.5,0.5,0},{1,1,0},{1,1,1}}),
       hp(
         mHeaWatHp_flow_nominal=0.5*datAll.pla.hp.capHeaHp_nominal/abs(datAll.pla.ctl.THeaWatSup_nominal
              - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,

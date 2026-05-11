@@ -12,7 +12,8 @@ model AirToWater
   inner parameter UserProject.Data.AllSystems datAll(pla(final cfg=pla.cfg, ctl(
         yPumHeaWatPriSet=1,
         yPumChiWatPriSet=1,
-        staEqu={fill(i/pla.nHp, pla.nHp) for i in 1:pla.nHp})))
+        staEquDouMod={{1/3,1/3,1/3},{2/3,2/3,2/3},{1,1,1}},
+        staEquSinMod={{1/3,1/3,1/3},{2/3,2/3,2/3},{1,1,1}})))
                           "Plant parameters"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
@@ -38,6 +39,7 @@ model AirToWater
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
     have_hrc_select=true,
+    cfg(nHpShc=0),
     ctl(
       is_typDis_override=false,
       nAirHan=1,
