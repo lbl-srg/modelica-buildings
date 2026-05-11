@@ -10,33 +10,33 @@ package FlowResistance
     "New medium for which flow resistances will be computed"
     annotation (choicesAllMatching=true);
 
-  final parameter MediumOri.ThermodynamicState staOri_default=
+  constant MediumOri.ThermodynamicState staOri_default=
     MediumOri.setState_pTX(
       T=MediumOri.T_default,
       p=MediumOri.p_default,
       X=MediumOri.X_default)
     "Default thermodynamic state of original medium";
 
-  final parameter Modelica.Units.SI.DynamicViscosity etaOri=
+  constant Modelica.Units.SI.DynamicViscosity etaOri=
     MediumOri.dynamicViscosity(staOri_default)
     "Dynamic viscosity of original medium at default state";
 
-  final parameter Modelica.Units.SI.Density rhoOri=
+  constant Modelica.Units.SI.Density rhoOri=
     MediumOri.density(staOri_default)
     "Mass density of original medium at default state";
 
-  final parameter MediumNew.ThermodynamicState staNew_default=
+  constant MediumNew.ThermodynamicState staNew_default=
     MediumNew.setState_pTX(
       T=MediumNew.T_default,
       p=MediumNew.p_default,
       X=MediumNew.X_default)
     "Default thermodynamic state of new medium";
 
-  final parameter Modelica.Units.SI.DynamicViscosity etaNew=
+  constant Modelica.Units.SI.DynamicViscosity etaNew=
     MediumNew.dynamicViscosity(staNew_default)
     "Dynamic viscosity of new medium at default state";
 
-  final parameter Modelica.Units.SI.Density rhoNew=
+  constant Modelica.Units.SI.Density rhoNew=
     MediumNew.density(staNew_default)
     "Mass density of new medium at default state";
 
@@ -50,7 +50,7 @@ package FlowResistance
     output Real ratio_dp(min=0, unit="1")
       "Ratio of pressures, dp_new/dp_ori";
   algorithm
-  ration_dp := ratio_m_flow^(2+q) * (etaOri/etaNew)^q * (rhoOri/rhoNew);
+  ratio_dp := ratio_m_flow^(2+q) * (etaOri/etaNew)^q * (rhoOri/rhoNew);
     annotation (Documentation(info="<html>
 <p>
 Function that converts a mass flow rate ratio to a pressure drop ratio
@@ -110,7 +110,16 @@ First implementation.
       "Flow coefficient q, q=-1 for laminar, q=-0.312 for turbulent";
     output Real ratio_dp(min=0, unit="1")
       "Ratio of pressures";
+  protected
+    Real ratio_cp(unit="1") =
+      MediumOri.specificHeatCapacityCp(staOri_default) /
+      MediumNew.specificHeatCapacityCp(staNew_default)
+      "Ratio of specific heat capacities";
   algorithm
+    ratio_dp := pressureDrop_massFlowRate(
+      ratio_m_flow=ratio_cp,
+      q=q);
+  
     annotation (Documentation(info="<html>
 <p>
 Function that returns the pressure drop ratio for equal heat flow rate.

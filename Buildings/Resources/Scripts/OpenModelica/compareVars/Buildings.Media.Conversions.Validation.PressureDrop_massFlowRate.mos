@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "dpRat_m_flow",
+    "dpRat_V_flow",
+    "dpRat_equalHeatFlowRate"
+  };
