@@ -1,5 +1,5 @@
 within Buildings.Media.Conversions;
-package FlowResistance
+package FlowResistanceFlowWork
   "Package with functions that convert between flow resistance coefficients"
 
   replaceable package MediumOri = Modelica.Media.Interfaces.PartialMedium
@@ -34,10 +34,6 @@ package FlowResistance
     MediumOri.density(staOri_default)
     "Mass density of original medium at default state";
 
-  constant Modelica.Units.SI.SpecificHeatCapacity cpOri=
-    MediumOri.specificHeatCapacityCp(staOri_default)
-    "Specific heat capacity of original medium at default state";
-
   constant Modelica.Units.SI.Temperature TNew=MediumNew.T_default
     "Temperature of new medium at default state";
 
@@ -61,6 +57,10 @@ package FlowResistance
   constant Modelica.Units.SI.Density rhoNew=
     MediumNew.density(staNew_default)
     "Mass density of new medium at default state";
+
+  constant Modelica.Units.SI.SpecificHeatCapacity cpOri=
+    MediumOri.specificHeatCapacityCp(staOri_default)
+    "Specific heat capacity of original medium at default state";
 
   constant Modelica.Units.SI.SpecificHeatCapacity cpNew=
     MediumNew.specificHeatCapacityCp(staNew_default)
@@ -250,4 +250,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FlowResistance;
+end FlowResistanceFlowWork;

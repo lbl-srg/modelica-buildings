@@ -3,7 +3,7 @@ model PressureDrop_massFlowRate
   "Validation model for Buildings.Media.Conversions.FlowResistance.pressureDrop_massFlowRate"
   extends Modelica.Icons.Example;
 
-  package FloRes = Buildings.Media.Conversions.FlowResistance(
+  package FloRes = Buildings.Media.Conversions.FlowResistanceFlowWork(
     TOri=T,
     TNew=T,
     redeclare package MediumOri = Modelica.Media.Water.WaterIF97OnePhase_ph,
@@ -50,8 +50,8 @@ model PressureDrop_massFlowRate
     Documentation(info="<html>
 <p>
 Validation model for
-<a href=\"modelica://Buildings.Media.Conversions.FlowResistance.pressureDrop_massFlowRate\">
-Buildings.Media.Conversions.FlowResistance.pressureDrop_massFlowRate</a>.
+<a href=\"modelica://Buildings.Media.Conversions.FlowResistanceFlowWork.pressureDrop_massFlowRate\">
+Buildings.Media.Conversions.FlowResistanceFlowWork.pressureDrop_massFlowRate</a>.
 </p>
 <p>
 The model computes the ratio of pressure drops <code>dpRat_m_flow</code>
