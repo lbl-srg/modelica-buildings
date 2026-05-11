@@ -4,13 +4,16 @@ model PressureDrop_massFlowRate
   extends Modelica.Icons.Example;
 
   package FloRes = Buildings.Media.Conversions.FlowResistance(
-    redeclare package MediumOri = Buildings.Media.Water,
+    redeclare package MediumOri = Buildings.Media.Water(),
     redeclare package MediumNew =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
+          property_T=T,
           X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
-            T=293.15,
+            T=T,
             phi=0.25)));
+
+  constant Modelica.Units.SI.Temperature T=293.15
+    "Temperature at which the properties of the media are evaluated";
 
   parameter Real n=1.688
     "Flow coefficient n, n=1 for laminar, n=1.688 for turbulent flow";
