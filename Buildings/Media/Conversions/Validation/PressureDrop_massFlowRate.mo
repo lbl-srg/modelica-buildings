@@ -4,7 +4,9 @@ model PressureDrop_massFlowRate
   extends Modelica.Icons.Example;
 
   package FloRes = Buildings.Media.Conversions.FlowResistance(
-    redeclare package MediumOri = Buildings.Media.Water(),
+    TOri=T,
+    TNew=T,
+    redeclare package MediumOri = Modelica.Media.Water.WaterIF97OnePhase_ph,
     redeclare package MediumNew =
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=T,

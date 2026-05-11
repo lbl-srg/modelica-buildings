@@ -10,11 +10,20 @@ package FlowResistance
     "New medium for which flow resistances will be computed"
     annotation (choicesAllMatching=true);
 
+  constant Modelica.Units.SI.Temperature TOri=MediumOri.T_default
+    "Temperature of original medium at default state";
+
+  constant Modelica.Units.SI.AbsolutePressure pOri=MediumOri.p_default
+    "Pressure of original medium at default state";
+
+  constant MediumOri.MassFraction XOri[MediumOri.nX]=MediumOri.X_default
+    "Mass fractions of original medium at default state";
+
   constant MediumOri.ThermodynamicState staOri_default=
     MediumOri.setState_pTX(
-      T=MediumOri.T_default,
-      p=MediumOri.p_default,
-      X=MediumOri.X_default)
+      T=TOri,
+      p=pOri,
+      X=XOri)
     "Default thermodynamic state of original medium";
 
   constant Modelica.Units.SI.DynamicViscosity etaOri=
@@ -25,11 +34,24 @@ package FlowResistance
     MediumOri.density(staOri_default)
     "Mass density of original medium at default state";
 
+  constant Modelica.Units.SI.SpecificHeatCapacity cpOri=
+    MediumOri.specificHeatCapacityCp(staOri_default)
+    "Specific heat capacity of original medium at default state";
+
+  constant Modelica.Units.SI.Temperature TNew=MediumNew.T_default
+    "Temperature of new medium at default state";
+
+  constant Modelica.Units.SI.AbsolutePressure pNew=MediumNew.p_default
+    "Pressure of new medium at default state";
+
+  constant MediumNew.MassFraction XNew[MediumNew.nX]=MediumNew.X_default
+    "Mass fractions of new medium at default state";
+
   constant MediumNew.ThermodynamicState staNew_default=
     MediumNew.setState_pTX(
-      T=MediumNew.T_default,
-      p=MediumNew.p_default,
-      X=MediumNew.X_default)
+      T=TNew,
+      p=pNew,
+      X=XNew)
     "Default thermodynamic state of new medium";
 
   constant Modelica.Units.SI.DynamicViscosity etaNew=
@@ -39,6 +61,10 @@ package FlowResistance
   constant Modelica.Units.SI.Density rhoNew=
     MediumNew.density(staNew_default)
     "Mass density of new medium at default state";
+
+  constant Modelica.Units.SI.SpecificHeatCapacity cpNew=
+    MediumNew.specificHeatCapacityCp(staNew_default)
+    "Specific heat capacity of new medium at default state";
 
   function pressureDrop_massFlowRate
     "Function that returns the pressure drop ratio due to a change in medium properties for a given mass flow rate ratio"
@@ -150,14 +176,10 @@ First implementation.
       "Flow coefficient n, n=1 for laminar, n=2 for fully turbulent";
     output Real ratio_dp(min=0, unit="1")
       "Ratio of pressures";
-  protected
-    Real ratio_cp(unit="1") =
-      MediumOri.specificHeatCapacityCp(staOri_default) /
-      MediumNew.specificHeatCapacityCp(staNew_default)
-      "Ratio of specific heat capacities";
+
   algorithm
     ratio_dp := pressureDrop_massFlowRate(
-      ratio_m_flow=ratio_cp,
+      ratio_m_flow=cpOri / cpNew,
       n=n);
   
     annotation (Documentation(info="<html>
