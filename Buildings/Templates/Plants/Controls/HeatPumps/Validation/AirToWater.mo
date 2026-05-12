@@ -360,10 +360,10 @@ protected
     if ctl.have_chiWat
     "Differential pressure local to the plant"
     annotation (Placement(transformation(extent={{90,-222},{110,-202}})));
-  Components.Controls.StatusEmulator y1PumChiWatPriFouPip_actual1
+  Components.Controls.StatusEmulator y1PumChiWatPriFouPip_actual1[1]
     if ctl.have_chiWat and ctl.have_pumChiWatPri "Primary CHW pump status"
     annotation (Placement(transformation(extent={{220,-90},{240,-70}})));
-  Components.Controls.StatusEmulator y1PumHeaWatPriFouPip_actual1
+  Components.Controls.StatusEmulator y1PumHeaWatPriFouPip_actual1[1]
     if ctl.have_chiWat and ctl.have_pumChiWatPri "Primary HW pump status"
     annotation (Placement(transformation(extent={{220,-60},{240,-40}})));
 equation
@@ -681,10 +681,10 @@ equation
   connect(y1Hp_actual1[1:ctl1.nHp].y1_actual, ctl1.u1Hp_actual) annotation (
       Line(points={{232,60},{240,60},{240,76},{140,76},{140,46},{146,46}},
         color={255,0,255}));
-  connect(y1Hp_actual1[ctl1.nHp + 1].y1_actual, ctl1.u1HpShc_actual)
+  connect(y1Hp_actual1[ctl1.nHp + 1].y1_actual, ctl1.u1HpShc_actual[1])
     annotation (Line(points={{232,60},{240,60},{240,76},{140,76},{140,44},{146,44}},
         color={255,0,255}));
-  connect(ctl1.y1HpShc, y1Hp_actual1[ctl1.nHpTot].y1) annotation (Line(points={{
+  connect(ctl1.y1HpShc[1], y1Hp_actual1[ctl1.nHpTot].y1) annotation (Line(points={{
           190,55},{200,55},{200,60},{210,60}}, color={255,0,255}));
   connect(ctl1.y1PumHeaWatPriShc, y1PumHeaWatPriFouPip_actual1.y1) annotation (
       Line(points={{190,-25},{208,-25},{208,-50},{218,-50}}, color={255,0,255}));
