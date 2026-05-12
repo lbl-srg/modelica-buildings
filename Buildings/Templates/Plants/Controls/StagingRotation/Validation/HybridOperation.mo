@@ -7,7 +7,7 @@ model HybridOperation
     final have_heaWat=true,
     final have_chiWat=true,
     final nHp=3,
-    final is_HpShc=[false; false; true],
+    final is_HpShc={false,false,true},
     final staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1],
     final staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1],
     final idxEquAlt={1,2})
