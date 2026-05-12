@@ -13,6 +13,7 @@ model ValvesIsolation
     Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Data.Controller datCtl(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
@@ -63,6 +64,7 @@ model ValvesIsolation
     annotation (Placement(transformation(extent={{-80,370},{-60,390}})));
   parameter Data.Controller datCtlHeaInl(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
@@ -112,6 +114,7 @@ model ValvesIsolation
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   parameter Data.Controller datCtlSep(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=false,
       have_inpSch=false,

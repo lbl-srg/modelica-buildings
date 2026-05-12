@@ -11,8 +11,9 @@ model HeatPumpGroupAirToWater
     Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Data.Controller datCtlPlaAwNrv(
     cfg(
-      have_hrc = false,
-      have_inpSch = false,
+      have_hrc=false,
+      nHpShc=0,
+      have_inpSch=false,
       have_chiWat=false,
       typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
@@ -59,8 +60,9 @@ model HeatPumpGroupAirToWater
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
   parameter Data.Controller datCtlPlaAw(
     cfg(
-      have_hrc = false,
-      have_inpSch = false,
+      have_hrc=false,
+      nHpShc=0,
+      have_inpSch=false,
       have_chiWat=true,
       typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,

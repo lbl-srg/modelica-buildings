@@ -24,6 +24,7 @@ model PumpsPrimaryDedicated
     "Default value for relative revolution, r_N=N/N_nominal";
   parameter Data.Controller datCtl(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=false,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
@@ -73,6 +74,7 @@ model PumpsPrimaryDedicated
     annotation (Placement(transformation(extent={{-160,290},{-140,310}})));
   parameter Data.Controller datCtlNoDed(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=false,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
@@ -122,6 +124,7 @@ model PumpsPrimaryDedicated
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
   parameter Data.Controller datCtlSep(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=false,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
@@ -171,6 +174,7 @@ model PumpsPrimaryDedicated
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   parameter Data.Controller datCtlHea(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
