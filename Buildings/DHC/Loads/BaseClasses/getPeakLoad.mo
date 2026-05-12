@@ -41,7 +41,8 @@ protected
         endOfFile) annotation (
       IncludeDirectory="modelica://Modelica/Resources/C-Sources",
       Include="#include \"ModelicaInternal.h\"",
-      Library="ModelicaExternalC");
+      Library="ModelicaExternalC",
+      LibraryDirectory="modelica://Modelica/Resources/Library");
   annotation (Documentation(info="<html>
 <p>
 This function implements
