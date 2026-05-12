@@ -259,28 +259,32 @@ model HybridAirToWater "Validation of AWHP plant template"
     dp_nominal={0,0,0})
     "Primary CHW return junction between 2-pipe and 4-pipe ASHPs"
     annotation (Placement(transformation(extent={{-90,-50},{-110,-30}})));
-  Buildings.Templates.Components.Pumps.Single pumHWHpShc(
+  Buildings.Templates.Components.Pumps.Multiple
+                                              pumHWHpShc(
     have_var=false,
     have_valChe=true,
     redeclare package Medium = Medium,
+    nPum=1,
     dat(
-      m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
-      dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
-      per=datAll.pla.pumHeaWatPri.per[1]),
-    dpValChe_nominal=3.25*Buildings.Templates.Data.Defaults.dpValChe)
+      m_flow_nominal={datAll.pla.pumHeaWatPri.m_flow_nominal[1]},
+      dp_nominal={datAll.pla.pumHeaWatPri.dp_nominal[1]},
+      per={datAll.pla.pumHeaWatPri.per[1]}),
+    dpValChe_nominal=3.25*{Buildings.Templates.Data.Defaults.dpValChe})
     "HW primary pump for SHC HP"
-    annotation (Placement(transformation(extent={{-130,-200},{-110,-180}})));
-  Buildings.Templates.Components.Pumps.Single pumCHWHpShc(
+    annotation (Placement(transformation(extent={{-180,-200},{-160,-180}})));
+  Buildings.Templates.Components.Pumps.Multiple
+                                              pumCHWHpShc(
     have_var=false,
     have_valChe=true,
     redeclare package Medium = Medium,
+    nPum=1,
     dat(
-      m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
-      dp_nominal=datAll.pla.pumHeaWatPri.dp_nominal[1],
-      per=datAll.pla.pumHeaWatPri.per[1]),
-    dpValChe_nominal=12*Buildings.Templates.Data.Defaults.dpValChe)
+      m_flow_nominal={datAll.pla.pumHeaWatPri.m_flow_nominal[1]},
+      dp_nominal={datAll.pla.pumHeaWatPri.dp_nominal[1]},
+      per={datAll.pla.pumHeaWatPri.per[1]}),
+    dpValChe_nominal=12*{Buildings.Templates.Data.Defaults.dpValChe})
     "CHW primary pump for SHC HP"
-    annotation (Placement(transformation(extent={{-60,-210},{-80,-190}})));
+    annotation (Placement(transformation(extent={{-20,-210},{-40,-190}})));
   Fluid.FixedResistances.Junction junCHWBypSup(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -403,6 +407,30 @@ model HybridAirToWater "Validation of AWHP plant template"
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-48,-80})));
+  Buildings.Templates.Components.Routing.SingleToMultiple pumHeaWatShcInl(
+    redeclare package Medium = Medium,
+    nPorts=pumHWHpShc.nPum,
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1])
+    "Inlet to SHC HW primary pump"
+    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
+  Buildings.Templates.Components.Routing.MultipleToSingle pumHeaWatShcOut(
+    redeclare package Medium = Medium,
+    nPorts=pumHWHpShc.nPum,
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1])
+    "Outlet from SHC HW primary pumps"
+    annotation (Placement(transformation(extent={{-150,-200},{-130,-180}})));
+  Buildings.Templates.Components.Routing.SingleToMultiple pumChiWatShcInl(
+    redeclare package Medium = Medium,
+    nPorts=pumCHWHpShc.nPum,
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1])
+    "Inlet to SHC CHW primary pumps"
+    annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
+  Buildings.Templates.Components.Routing.MultipleToSingle pumChiWatShcOut(
+    redeclare package Medium = Medium,
+    nPorts=pumCHWHpShc.nPum,
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1])
+    "Outlet from SHC CHW primary pumps"
+    annotation (Placement(transformation(extent={{-50,-210},{-70,-190}})));
 equation
   if have_chiWat then
     connect(mulInt[3].y, busAirHan.reqResChiWat)
@@ -488,26 +516,15 @@ equation
   connect(junHWPriRet.port_2, pla.port_aHeaWat) annotation (Line(points={{-110,-120},
           {-134,-120},{-134,-78},{-140,-78}},
                                             color={0,127,255}));
-  connect(weaDat.weaBus, hpSHC.busWea) annotation (Line(
-      points={{-200,-20},{-190,-20},{-190,-146},{-100,-146},{-100,-180}},
-      color={255,204,51},
-      thickness=0.5));
   connect(pla.port_bChiWat, junCHWPriSup.port_1) annotation (Line(points={{-140,
           -56},{-134,-56},{-134,0},{-110,0}},    color={0,127,255}));
-  connect(hpSHC.port_bSou, junCHWPriSup.port_3) annotation (Line(points={{-104,-200},
-          {-136,-200},{-136,-20},{-100,-20},{-100,-10}},     color={0,127,255}));
+  connect(hpSHC.port_bSou, junCHWPriSup.port_3) annotation (Line(points={{-104,
+          -200},{-122,-200},{-122,-20},{-100,-20},{-100,-10}},
+                                                             color={0,127,255}));
   connect(junCHWPriRet.port_2, pla.port_aChiWat) annotation (Line(points={{-110,
           -40},{-130,-40},{-130,-64},{-140,-64}}, color={0,127,255}));
-  connect(hpSHC.port_a, pumHWHpShc.port_b)
-    annotation (Line(points={{-104,-190},{-110,-190}}, color={0,127,255}));
-  connect(junHWPriRet.port_3, pumHWHpShc.port_a) annotation (Line(points={{-100,
-          -130},{-130,-130},{-130,-190}}, color={0,127,255}));
   connect(hpSHC.port_b, junHWPriSup.port_3) annotation (Line(points={{-84,-190},
           {-78,-190},{-78,-100},{-100,-100},{-100,-90}},color={0,127,255}));
-  connect(hpSHC.port_aSou, pumCHWHpShc.port_b)
-    annotation (Line(points={{-84,-200},{-80,-200}}, color={0,127,255}));
-  connect(pumCHWHpShc.port_a, junCHWPriRet.port_3) annotation (Line(points={{-60,
-          -200},{0,-200},{0,-56},{-100,-56},{-100,-50}}, color={0,127,255}));
   connect(junCHWBypRet.port_3, junCHWBypSup.port_3)
     annotation (Line(points={{-14,-30},{-14,-20},{-24,-20},{-24,-10}},
                                                color={0,127,255}));
@@ -605,16 +622,9 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(busPla.hpShc, hpSHC.bus) annotation (Line(
-      points={{-180,0},{-180,-42},{-186,-42},{-186,-140},{-94,-140},{-94,-180}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(busPla.pumShcHeaWatPri, pumHWHpShc.bus) annotation (Line(
-      points={{-180,0},{-180,-42},{-186,-42},{-186,-140},{-120,-140},{-120,-180}},
+      points={{-180,0},{-180,-26},{-192,-26},{-192,-120},{-194,-120},{-194,-170},
+          {-170,-170},{-170,-180}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -622,7 +632,38 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(busPla.pumShcChiWatPri, pumCHWHpShc.bus) annotation (Line(
-      points={{-180,0},{-180,-42},{-186,-42},{-186,-140},{-70,-140},{-70,-190}},
+      points={{-180,0},{-180,-42},{-186,-42},{-186,-140},{-30,-140},{-30,-190}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(pumHeaWatShcInl.ports_b, pumHWHpShc.ports_a)
+    annotation (Line(points={{-200,-190},{-180,-190}}, color={0,127,255}));
+  connect(pumHeaWatShcOut.ports_a, pumHWHpShc.ports_b)
+    annotation (Line(points={{-150,-190},{-160,-190}}, color={0,127,255}));
+  connect(pumHeaWatShcOut.port_b, hpSHC.port_a)
+    annotation (Line(points={{-130,-190},{-104,-190}}, color={0,127,255}));
+  connect(junHWPriRet.port_3, pumHeaWatShcInl.port_a) annotation (Line(points={
+          {-100,-130},{-100,-136},{-226,-136},{-226,-190},{-220,-190}}, color={
+          0,127,255}));
+  connect(pumCHWHpShc.ports_b, pumChiWatShcOut.ports_a)
+    annotation (Line(points={{-40,-200},{-50,-200}}, color={0,127,255}));
+  connect(pumChiWatShcOut.port_b, hpSHC.port_aSou)
+    annotation (Line(points={{-70,-200},{-84,-200}}, color={0,127,255}));
+  connect(pumChiWatShcInl.ports_b, pumCHWHpShc.ports_a)
+    annotation (Line(points={{-10,-200},{-20,-200}}, color={0,127,255}));
+  connect(pumChiWatShcInl.port_a, junCHWPriRet.port_3) annotation (Line(points=
+          {{10,-200},{60,-200},{60,-54},{-100,-54},{-100,-50}}, color={0,127,
+          255}));
+  connect(weaDat.weaBus, hpSHC.busWea) annotation (Line(
+      points={{-200,-20},{-132,-20},{-132,-170},{-100,-170},{-100,-180}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.hpShc[1], hpSHC.bus) annotation (Line(
+      points={{-180,0},{-180,-28},{-186,-28},{-186,-34},{-188,-34},{-188,-144},
+          {-94,-144},{-94,-180}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

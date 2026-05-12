@@ -353,8 +353,8 @@ equation
   connect(ctl.u1HpShc_actual, busHpShc.y1_actual);
   connect(ctl.y1HpShc, busHpShc.y1);
   connect(ctl.THeaWatSupSetHpShc, busHpShc.TSet);
-  connect(ctl.THeaWatSupSet, busHpShc.THeaWatSupSet);
-  connect(ctl.TChiWatSupSet, busHpShc.TChiWatSupSet);
+  connect(ctl.THeaWatSupSetHpShc, busHpShc.THeaWatSupSet);
+  connect(ctl.TChiWatSupSetHpShc, busHpShc.TChiWatSupSet);
   connect(ctl.yMod, busHpShc.yMod);
   connect(ctl.y1PumHeaWatPriShc, busPumShcHeaWatPri.y1);
   connect(ctl.y1PumChiWatPriShc, busPumShcChiWatPri.y1);

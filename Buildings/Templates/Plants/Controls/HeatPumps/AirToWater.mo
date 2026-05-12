@@ -1182,10 +1182,10 @@ block AirToWater
     annotation (Placement(transformation(extent={{300,-300},{340,-260}}),
       iconTransformation(extent={{200,-230},{240,-190}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod if have_HpShc
-    "Operation mode integer signal for each HP"
-    annotation (Placement(transformation(extent={{300,320},{340,360}}),
-      iconTransformation(extent={{200,330},{240,370}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHpShc] if
+    have_HpShc "Operation mode integer signal for each HP" annotation (
+      Placement(transformation(extent={{300,320},{340,360}}),
+        iconTransformation(extent={{200,330},{240,370}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpHeaWatRemSet[nSenDpHeaWatRem](
     each final min=0,
@@ -1739,35 +1739,31 @@ block AirToWater
     final nout=nHpTot)
     "Pass-through block for actual heat pump status"
     annotation (Placement(transformation(extent={{-220,290},{-200,310}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HpShc_actual
-    if have_HpShc
-    "SHC HP status"
-    annotation (Placement(transformation(extent={{-300,210},{-260,250}}),
-      iconTransformation(extent={{-240,280},{-200,320}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpShc if have_HpShc
-    "SHC HP enable command"
-    annotation (Placement(transformation(extent={{300,410},{340,450}}),
-      iconTransformation(extent={{200,390},{240,430}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriShc
-    if have_HpShc
-    "Start command for primary HW pump on SHC HP"
-    annotation (Placement(transformation(extent={{300,-540},{340,-500}}),
-      iconTransformation(extent={{200,-410},{240,-370}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriShc
-    if have_HpShc
-    "Enable command for primary CHW pump on SHC HP"
-    annotation (Placement(transformation(extent={{300,-560},{340,-520}}),
-      iconTransformation(extent={{200,-430},{240,-390}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPriShc_actual
-    if have_HpShc
-    "Primary CHW pump status for SHC HP in hybrid plant"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HpShc_actual[nHpShc]
+    if have_HpShc "SHC HP status" annotation (Placement(transformation(extent={
+            {-300,210},{-260,250}}), iconTransformation(extent={{-240,280},{-200,
+            320}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpShc[nHpShc]
+    if have_HpShc "SHC HP enable command" annotation (Placement(transformation(
+          extent={{300,410},{340,450}}), iconTransformation(extent={{200,390},{240,
+            430}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriShc[nHpShc]
+    if have_HpShc "Start command for primary HW pump on SHC HP" annotation (
+      Placement(transformation(extent={{300,-540},{340,-500}}),
+        iconTransformation(extent={{200,-410},{240,-370}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriShc[nHpShc]
+    if have_HpShc "Enable command for primary CHW pump on SHC HP" annotation (
+      Placement(transformation(extent={{300,-560},{340,-520}}),
+        iconTransformation(extent={{200,-430},{240,-390}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPriShc_actual[nHpShc]
+    if have_HpShc "Primary CHW pump status for SHC HPs in hybrid plant"
     annotation (Placement(transformation(extent={{-300,-500},{-260,-460}}),
-      iconTransformation(extent={{-240,200},{-200,240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriShc_actual
+        iconTransformation(extent={{-240,200},{-200,240}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriShc_actual[nHpShc]
     if have_pumHeaWatPri and have_HpShc
-    "Primary HW pump status for SHC HP in hybrid plant"
-    annotation (Placement(transformation(extent={{-300,-480},{-260,-440}}),
-      iconTransformation(extent={{-240,220},{-200,260}})));
+    "Primary HW pump status for SHC HPs in hybrid plant" annotation (Placement(
+        transformation(extent={{-300,-480},{-260,-440}}), iconTransformation(
+          extent={{-240,220},{-200,260}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal pasPumHeaWatPriSta(
     final nin=nPumHeaWatPriTot,
     final nout=nPumHeaWatPriTot) if have_pumHeaWatPri
@@ -1778,7 +1774,7 @@ block AirToWater
     final nout=nPumChiWatPriTot) if have_pumChiWatPri or have_HpShc
     "Pass-through block for actual primary CHW pump status"
     annotation (Placement(transformation(extent={{-208,170},{-188,190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSetHpShc(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSetHpShc[nHpShc](
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
     each displayUnit="degC") if have_HpShc
@@ -1793,7 +1789,7 @@ block AirToWater
     final nout=nPumHeaWatPriTot) if not have_HpShc
     "Pass-through block for primary HW pump enable signal"
     annotation (Placement(transformation(extent={{210,10},{190,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSetHpShc(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSetHpShc[nHpShc](
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
     each displayUnit="degC") if have_HpShc
@@ -2290,18 +2286,12 @@ end if;
           300},{-60,300},{-60,36},{-42,36}}, color={255,0,255}));
   connect(pasHeaPumSta.y, comStaCoo.u1_actual) annotation (Line(points={{-198,
           300},{-60,300},{-60,-4},{-42,-4}}, color={255,0,255}));
-  connect(seqEve[nHpTot].y1, y1HpShc) annotation (Line(points={{162,310},{276,310},
-          {276,430},{320,430}}, color={255,0,255}));
   connect(seqEve.y1, y1HpPre.u) annotation (Line(points={{162,310},{276,310},{276,
           380},{202,380}},     color={255,0,255}));
   connect(seqEve.y1Hea, y1HeaPre.u) annotation (Line(points={{162,308},{272,308},
           {272,360},{232,360}}, color={255,0,255}));
-  connect(u1HpShc_actual, pasHeaPumSta.u[nHpTot]) annotation (Line(points={{-280,
-          230},{-236,230},{-236,300},{-222,300}}, color={255,0,255}));
   connect(u1Hp_actual, pasHeaPumSta.u[1:nHp])
     annotation (Line(points={{-280,300},{-222,300}}, color={255,0,255}));
-  connect(ctlPlaHyb.yMod[nHpTot], yMod) annotation (Line(points={{82,-104},{86,-104},
-          {86,340},{320,340}}, color={255,127,0}));
   connect(seqEve[1:nHp].y1, y1Hp) annotation (Line(points={{162,310},{276,310},{
           276,380},{320,380}}, color={255,0,255}));
   connect(seqEve[1:nHp].y1Hea, y1HeaHp) annotation (Line(points={{162,308},{272,
@@ -2310,18 +2300,10 @@ end if;
     annotation (Line(points={{162,200},{320,200}}, color={255,0,255}));
   connect(staPumChiWatPri.y1[1:nPumChiWatPri], y1PumChiWatPri)
     annotation (Line(points={{212,180},{320,180}}, color={255,0,255}));
-  connect(or6[nHpTot].y, y1PumHeaWatPriShc) annotation (Line(points={{-58,-410},
-          {150,-410},{150,-520},{320,-520}}, color={255,0,255}));
-  connect(or7[nHpTot].y, y1PumChiWatPriShc) annotation (Line(points={{-58,-440},
-          {160,-440},{160,-540},{320,-540}}, color={255,0,255}));
   connect(u1PumHeaWatPri_actual, pasPumHeaWatPriSta.u[1:nPumHeaWatPri])
     annotation (Line(points={{-280,200},{-242,200}}, color={255,0,255}));
   connect(u1PumChiWatPri_actual, pasPumChiWatPriSta.u[1:nPumChiWatPri])
     annotation (Line(points={{-280,180},{-210,180}}, color={255,0,255}));
-  connect(u1PumChiWatPriShc_actual, pasPumChiWatPriSta.u[nPumChiWatPriTot])
-    annotation (Line(points={{-280,-480},{-210,-480},{-210,180}}, color={255,0,255}));
-  connect(u1PumHeaWatPriShc_actual, pasPumHeaWatPriSta.u[nPumHeaWatPriTot])
-    annotation (Line(points={{-280,-460},{-242,-460},{-242,200}}, color={255,0,255}));
   connect(ctlPumPri.yPumHeaWatPriDed[1:nPumHeaWatPri], yPumHeaWatPriDed)
     annotation (Line(points={{212,76},{270,76},{270,60},{320,60}}, color={0,0,
           127}));
@@ -2350,16 +2332,35 @@ end if;
     annotation (Line(points={{172,-100},{320,-100}}, color={0,0,127}));
   connect(repTChiWatSupSet.y[1:nHp], TChiWatSupHpSet) annotation (Line(points={
           {172,-140},{284,-140},{284,-120},{320,-120}}, color={0,0,127}));
-  connect(repTHeaWatSupSet.y[nHpTot], THeaWatSupSetHpShc) annotation (Line(
-        points={{172,-100},{238,-100},{238,-560},{320,-560}}, color={0,0,127}));
-  connect(repTChiWatSupSet.y[nHpTot], TChiWatSupSetHpShc) annotation (Line(
-        points={{172,-140},{242,-140},{242,-580},{320,-580}}, color={0,0,127}));
   connect(THeaWatSupSet, THeaWatHrcSupSet) annotation (Line(points={{320,-160},
           {186,-160},{186,-326},{260,-326},{260,-320},{320,-320}}, color={0,0,
           127}));
   connect(TChiWatSupSet, TChiWatHrcSupSet) annotation (Line(points={{320,-180},
           {188,-180},{188,-332},{260,-332},{260,-340},{320,-340}}, color={0,0,
           127}));
+  connect(seqEve[(nHp + 1):(nHp+nHpShc)].y1, y1HpShc) annotation (Line(points={{162,310},
+          {234,310},{234,430},{320,430}}, color={255,0,255}));
+  connect(ctlPlaHyb.yMod[(nHp + 1):(nHp+nHpShc)], yMod) annotation (Line(points={{82,-104},
+          {86,-104},{86,340},{320,340}},             color={255,127,0}));
+  connect(or6[nHp + 1:nHp + nHpShc].y, y1PumHeaWatPriShc) annotation (Line(
+        points={{-58,-410},{120,-410},{120,-520},{320,-520}}, color={255,0,255}));
+  connect(or7[nHp + 1:nHp + nHpShc].y, y1PumChiWatPriShc) annotation (Line(
+        points={{-58,-440},{100,-440},{100,-540},{320,-540}}, color={255,0,255}));
+  connect(repTHeaWatSupSet.y[nHp + 1:nHp + nHpShc], THeaWatSupSetHpShc)
+    annotation (Line(points={{172,-100},{244,-100},{244,-560},{320,-560}},
+        color={0,0,127}));
+  connect(repTChiWatSupSet.y[nHp + 1:nHp + nHpShc], TChiWatSupSetHpShc)
+    annotation (Line(points={{172,-140},{242,-140},{242,-580},{320,-580}},
+        color={0,0,127}));
+  connect(u1HpShc_actual, pasHeaPumSta.u[nHp + 1:nHp + nHpShc]) annotation (
+      Line(points={{-280,230},{-240,230},{-240,300},{-222,300}}, color={255,0,
+          255}));
+  connect(u1PumHeaWatPriShc_actual, pasPumHeaWatPriSta.u[nHp + 1:nHp + nHpShc])
+    annotation (Line(points={{-280,-460},{-260,-460},{-260,200},{-242,200}},
+        color={255,0,255}));
+  connect(u1PumChiWatPriShc_actual, pasPumChiWatPriSta.u[nHp + 1:nHp + nHpShc])
+    annotation (Line(points={{-280,-480},{-210,-480},{-210,180}}, color={255,0,
+          255}));
   annotation (
     defaultComponentName="ctl",
     Icon(
