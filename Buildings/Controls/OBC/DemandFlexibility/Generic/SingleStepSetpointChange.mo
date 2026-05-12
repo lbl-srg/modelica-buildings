@@ -2,20 +2,17 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SingleStepSetpointChange "Single-step setpoint change"
 
   parameter Boolean reverseActing
-    "True to decrease the commanded setpoint to the minimum setpoint value, false to increase the commanded setpoint to the maximum setpoint value";
+    "True: command the setpoint to the minimum; False: command the setpoint to the maximum";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSet
-    "Maximum setpoint input"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMaxSet "Maximum setpoint"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
         iconTransformation(extent={{-140,-38},{-100,2}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinSet
-    "Minimum setpoint input"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinSet "Minimum setpoint"
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCurSet
-    "Current setpoint input; the setpoint that an external setpoint controller currently has"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCurSet "Current setpoint"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
 
@@ -24,13 +21,12 @@ block SingleStepSetpointChange "Single-step setpoint change"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSet
-    "Commanded setpoint output; the setpoint that an external setpoint controller should change to"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSet "Commanded setpoint"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swiMinMax
-    "Switch between the minimum setpoint input and the maximum setpoint input"
+    "Switch between the minimum and maximum setpoint"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant reverseActingCon(final k=
@@ -124,38 +120,23 @@ that an external setpoint controller should change to.
 </ul>
 
 <p>
-The parameter <code>reverseActing</code> specifies the direction of the setpoint change: 
-whether the commanded setpoint shall increase to the maximum setpoint (direct acting) 
-or decrease to the minimum setpoint (reverse acting) in a single step.
+This block conducts a single-step setpoint change as below:
 </p>
 
-<p>
-If <code>uEna = true</code> and <code>reverseActing = false</code>,
-then <code>yComSet = uMaxSet</code>.
-</p>
+<ul>
+<li>
+If the enabling setpoint limits input (<code>uEna</code>) is true, the new setpoint (<code>yComSet</code>) 
+equals the allowed minimum setpoint <code>uMinSet</code> if reverseActing is set to <code>true</code>, or 
+equals the allowed maximum setpoint if <code>reverseActing</code> is <code>false</code>.
+</li>
+<li>
+If the enabling setpoint limits input (<code>uEna</code>) is <code>false</code>, the new setpoint (<code>yComSet</code>) 
+equals <code>min(uMaxSet,max(uMinSet,uCurSet))</code>.
+</li>
+</ul>
 
 <p>
-If <code>uEna = true</code> and <code>reverseActing = true</code>,
-then <code>yComSet = uMinSet</code>.
-</p>
-
-<p>
-If <code>uEna = false</code> and <code>uCurSet &gt; uMaxSet</code>,
-then <code>yComSet = uMaxSet</code>.
-</p>
-
-<p>
-If <code>uEna = false</code> and <code>uCurSet &lt; uMinSet</code>,
-then <code>yComSet = uMinSet</code>.
-</p>
-
-<p>
-If <code>uEna = false</code> and <code>uMinSet &lt;= uCurSet &lt;= uMaxSet</code>,
-then <code>yComSet = uCurSet</code>.
-</p>
-
-<p>
-The output variable <code>yComSet</code> is intended to be received by an external
+Note that the output variable <code>yComSet</code> is intended to be received by an external
 setpoint controller, which will execute the setpoint change and pass the new setpoint
 back to the input variable <code>uCurSet</code> in this block, completing a full control loop.
 </p>
