@@ -78,7 +78,7 @@ where only the major sections are illustrated:
 </p>
 <pre>
   def doStep(dblInp, state):
-    # retrieve state of last invocation, including
+    # Retrieve state of last invocation, including
     #   -- the path of TOUGH working directory
     #   -- the end clock time of the last TOUGH simulation,
     #   -- the heat flow on the borehole wall that was measured in Modelica at last invocation,
@@ -92,15 +92,15 @@ where only the major sections are illustrated:
     # to the TOUGH boundary mesh point
     Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, Q_stored, 'Q_Mo2To')
 
-    # update TOUGH input files for each TOUGH call:
+    # Update TOUGH input files for each TOUGH call:
     #   -- update the INFILE to specify beginning and ending TOUGH simulation time
     #   -- update the GENER for specifying the heat flow boundary condition
     write_incon()
 
-    # conduct one step TOUGH simulation
+    # Conduct one step TOUGH simulation
     os.system(\"/.../tough3-install/bin/tough3-eos1\")
 
-    # extract borehole wall temperature from TOUGH simulation result, for Modelica simulation
+    # Extract borehole wall temperature from TOUGH simulation result, for Modelica simulation
     read_save()
 
     data = extract_data('out.txt', nTouSeg, nInt)
@@ -113,7 +113,7 @@ where only the major sections are illustrated:
     # Outputs to Modelica, including the results of the interested ground points
     ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
 
-    # update state
+    # Update state
     state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
   return [ToModelica, state]
 </pre>
