@@ -1,4 +1,4 @@
 simulateModel("Buildings.Controls.OBC.DemandFlexibility.Generic.Validation.SingleStepSetpointChange", method="Cvode", tolerance=1e-06, stopTime=172800, resultFile="SingleStepSetpointChange");
-createPlot(id=1, position={37, 7, 521, 281}, y={"sinSteSetCha.yComSet", "uniDelTSet.y", "TMinSet.y", "TMaxSet.y"}, range={0.0, 50.0, 289.0, 293.0}, grid=true, legends={"commandSetpoint", "actualControllerSetpoint", "", ""}, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h");
-createPlot(id=1, position={45, -5, 521, 259}, y={"sinSteSetCha.uEna"}, range={0.0, 50.0, -0.5, 1.5}, grid=true, legends={"enableSignal"}, subPlot=102, colors={{28,108,200}}, timeUnit="h");
+createPlot(id=1, position={37, 7, 521, 281}, y={"sinSteSetCha.yComSet", "uniDelTSet.y", "TMinSet.y", "TMaxSet.y"}, range={0.0, 50.0, 289.0, 293.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h");
+createPlot(id=1, position={45, -5, 521, 259}, y={"sinSteSetCha.uEnaLim"}, range={0.0, 50.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="h");
 

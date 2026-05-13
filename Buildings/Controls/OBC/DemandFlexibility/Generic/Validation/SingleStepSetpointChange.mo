@@ -2,11 +2,12 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model SingleStepSetpointChange "Single-step setpoint change"
 
 
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(reverseActing=false)
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(setMinMax
+      =true)
     "Single-step setpoint change block"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=86400, shift=
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEnaLim(period=86400, shift=
         43200)
     "Boolean value for the signal to enable single-step setpoint change"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
@@ -36,7 +37,7 @@ equation
           -70},{-60,24},{-22,24}},     color={0,0,127}));
   connect(uniDelTSet.y,sinSteSetCha. uCurSet) annotation (Line(points={{82,30},{
           100,30},{100,-20},{-40,-20},{-40,32},{-22,32}},color={0,0,127}));
-  connect(uEna.y,sinSteSetCha. uEna) annotation (Line(points={{-98,70},{-40,70},
+  connect(uEnaLim.y,sinSteSetCha. uEnaLim) annotation (Line(points={{-98,70},{-40,70},
           {-40,36},{-22,36}}, color={255,0,255}));
   connect(TMaxSet.y,sinSteSetCha. uMaxSet) annotation (Line(points={{-98,10},{-80,
           10},{-80,28.2},{-22,28.2}}, color={0,0,127}));
@@ -62,7 +63,7 @@ This validation test uses two constant temperature values, the minimum temperatu
 and the maximum temperature setpoint <code>TMaxSet</code>, to represent the input variables
 <code>uMinSet</code> and <code>uMaxSet</code>.
 It also uses a boolean pulse signal to represent the 
-signal input <code>uEna</code> to enable single-step setpoint change. 
+signal input <code>uEnaLim</code> to enable single-step setpoint change. 
 </p>
 
 <p>
