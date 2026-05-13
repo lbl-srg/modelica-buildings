@@ -159,7 +159,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature upstream of the WSE"
-    annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
+    annotation (Placement(transformation(extent={{-220,160},{-180,200}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
@@ -167,7 +167,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature downstream of the WSE"
-    annotation (Placement(transformation(extent={{-220,170},{-180,210}}),
+    annotation (Placement(transformation(extent={{-220,190},{-180,230}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax(
@@ -181,7 +181,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Measured chilled water volume flow rate"
-    annotation (Placement(transformation(extent={{-220,140},{-180,180}}),
+    annotation (Placement(transformation(extent={{-220,130},{-180,170}}),
     iconTransformation(extent={{-140,50},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal"
@@ -291,16 +291,15 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Placement(transformation(extent={{180,-180},{220,-140}}),
         iconTransformation(extent={{100,-130},{140,-90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold enaTChiWatRet(
-    final t=delDis)
-    "Enable condition based on chilled water return temperature upstream and downstream WSE"
-    annotation (Placement(transformation(extent={{60,180},{80,200}})));
-
   Buildings.Controls.OBC.CDL.Reals.Hysteresis enaTWet(
     final uLow = TOffsetEna - hysDt/2,
     final uHigh = TOffsetEna + hysDt/2)
     "Enable condition based on the outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{20,220},{40,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not notDisWse
+    "Economizer does not need being disabled"
+    annotation (Placement(transformation(extent={{60,180},{80,200}})));
 
 protected
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.Tuning wseTun(
@@ -321,7 +320,8 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2 "Subtract"
     annotation (Placement(transformation(extent={{-20,220},{0,240}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Subtract"
+  Buildings.Controls.OBC.CDL.Reals.Subtract temDif
+    "Find temperature difference"
     annotation (Placement(transformation(extent={{-100,180},{-80,200}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
@@ -334,28 +334,10 @@ protected
     annotation (Placement(transformation(extent={{100,220},{120,240}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
-    final uLow = TOffsetDis - hysDt/2,
-    final uHigh = TOffsetDis + hysDt/2)
+    final uLow=-hysDt/2,
+    final uHigh=hysDt/2)
     "Hysteresis comparing CHW temperatures upstream and downstream WSE"
     annotation (Placement(transformation(extent={{-60,180},{-40,200}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer timer
-    "Measures the disable condition satisfied time "
-    annotation (Placement(transformation(extent={{20,180},{40,200}})));
-
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    "Falling edge to indicate the moment of disable"
-    annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
-
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
-    final trueHoldDuration=holdPeriod,
-    final falseHoldDuration=0)
-    "Holds a true signal for a period of time right after disable"
-    annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Nor nor
-    "Not either of the inputs"
-    annotation (Placement(transformation(extent={{-20,180},{0,200}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.BypassValve wseVal(
     final dpDes=dpDes,
@@ -467,6 +449,24 @@ protected
     "False delay to avoid falling edge"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
 
+  Buildings.Controls.OBC.CDL.Logical.And disWse
+    "Disable economizer"
+    annotation (Placement(transformation(extent={{20,180},{40,200}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
+    final delayTime=delDis)
+    "Check if it has been true for sufficient time"
+    annotation (Placement(transformation(extent={{-20,180},{0,200}})));
+
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addDif(
+    final p=TOffsetDis) "Add threshold difference"
+    annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay sufEna(
+    final delayTime=holdPeriod)
+    "Check if the economizer has been true for sufficient time"
+    annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
+
 equation
   connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,100},
           {-150,100},{-150,105},{-142,105}}, color={0,0,127}));
@@ -474,44 +474,23 @@ equation
     annotation (Line(points={{-200,250},{-120,250},{-120,232},{-102,232}},
     color={0,0,127}));
   connect(VChiWat_flow, wseTOut.VChiWat_flow)
-    annotation (Line(points={{-200,160},{-120,160},{-120,224},{-102,224}},
+    annotation (Line(points={{-200,150},{-120,150},{-120,224},{-102,224}},
     color={0,0,127}));
-  connect(TChiWatRet, sub1.u1)
-    annotation (Line(points={{-200,220},{-170,220},{-170,196},{-102,196}},
-          color={0,0,127}));
   connect(enaTWet.y, and2.u1)
     annotation (Line(points={{42,230},{98,230}}, color={255,0,255}));
-  connect(truFalHol.u, and2.y)
-    annotation (Line(points={{138,230},{122,230}},
-    color={255,0,255}));
-  connect(timer.y, enaTChiWatRet.u)
-    annotation (Line(points={{42,190},{58,190}}, color={0,0,127}));
-  connect(TChiWatRetDow, sub1.u2)
-    annotation (Line(points={{-200,190},{-160,190},{-160,184},{-102,184}},
-    color={0,0,127}));
-  connect(sub1.y, hys.u)
-    annotation (Line(points={{-78,190},{-62,190}},color={0,0,127}));
-  connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,190},{90,190},{
-          90,222},{98,222}}, color={255,0,255}));
+  connect(temDif.y, hys.u)
+    annotation (Line(points={{-78,190},{-62,190}}, color={0,0,127}));
   connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-118,110},{-110,110},
           {-110,216},{-102,216}}, color={0,0,127}));
   connect(wseTOut.y, sub2.u2) annotation (Line(points={{-78,224},{-22,224}},
           color={0,0,127}));
-  connect(TChiWatRet, sub2.u1) annotation (Line(points={{-200,220},{-170,220},{-170,
+  connect(TChiWatRet, sub2.u1) annotation (Line(points={{-200,180},{-170,180},{-170,
           244},{-60,244},{-60,236},{-22,236}}, color={0,0,127}));
   connect(sub2.y, enaTWet.u)
     annotation (Line(points={{2,230},{18,230}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
     annotation (Line(points={{-118,110},{-110,110},{-110,120},{200,120}}, color={0,0,127}));
-  connect(nor.y, timer.u)
-    annotation (Line(points={{2,190},{18,190}}, color={255,0,255}));
-  connect(hys.y, nor.u1)
-    annotation (Line(points={{-38,190},{-22,190}}, color={255,0,255}));
-  connect(truHol.y, nor.u2) annotation (Line(points={{-38,150},{-30,150},{-30,182},
-          {-22,182}},color={255,0,255}));
-  connect(falEdg.y, truHol.u)
-    annotation (Line(points={{-78,150},{-62,150}}, color={255,0,255}));
-  connect(wseTOut.y, TWsePre) annotation (Line(points={{-78,224},{-40,224},{-40,
+  connect(wseTOut.y, TWsePre) annotation (Line(points={{-78,224},{-70,224},{-70,
           250},{200,250}}, color={0,0,127}));
   connect(uIni, intEqu.u1)
     annotation (Line(points={{-200,30},{-102,30}},   color={255,127,0}));
@@ -537,8 +516,8 @@ equation
     annotation (Line(points={{142,-90},{200,-90}},   color={255,0,255}));
   connect(wsePum.yPumSpe, yPumSpe) annotation (Line(points={{142,-96},{160,-96},
           {160,-120},{200,-120}}, color={0,0,127}));
-  connect(TChiWatRet, wsePum.TEntWSE) annotation (Line(points={{-200,220},{-170,
-          220},{-170,-94},{118,-94}},   color={0,0,127}));
+  connect(TChiWatRet, wsePum.TEntWSE) annotation (Line(points={{-200,180},{-170,
+          180},{-170,-94},{118,-94}},   color={0,0,127}));
   connect(uPla, wseVal.uPla) annotation (Line(points={{-200,60},{-154,60},{-154,
           -44},{118,-44}}, color={255,0,255}));
   connect(uPla, wsePum.uPla) annotation (Line(points={{-200,60},{-154,60},{-154,
@@ -551,8 +530,6 @@ equation
           40},{110,40},{110,-50},{118,-50}},     color={255,0,255}));
   connect(enaEco.y, wsePum.uWSE) annotation (Line(points={{142,60},{150,60},{150,
           40},{110,40},{110,-85},{118,-85}},     color={255,0,255}));
-  connect(enaEco.y, falEdg.u) annotation (Line(points={{142,60},{160,60},{160,130},
-          {-120,130},{-120,150},{-102,150}},color={255,0,255}));
   connect(enaEco.y, wseTun.uWseSta) annotation (Line(points={{142,60},{150,60},{
           150,80},{-160,80},{-160,115},{-142,115}}, color={255,0,255}));
   connect(pre2.y, enaEco.u2) annotation (Line(points={{82,60},{100,60},{100,52},
@@ -565,8 +542,8 @@ equation
     annotation (Line(points={{42,100},{58,100}}, color={255,0,255}));
   connect(pre1.y, enaEco.u1) annotation (Line(points={{82,100},{110,100},{110,60},
           {118,60}},  color={255,0,255}));
-  connect(truFalHol.y, enaWSE.u1) annotation (Line(points={{162,230},{168,230},{
-          168,170},{0,170},{0,100},{18,100}}, color={255,0,255}));
+  connect(truFalHol.y, enaWSE.u1) annotation (Line(points={{162,230},{170,230},{
+          170,150},{0,150},{0,100},{18,100}}, color={255,0,255}));
   connect(u1ChiIsoVal, anyComOpe.u)
     annotation (Line(points={{-200,-160},{-162,-160}}, color={255,0,255}));
   connect(notOpe.y, opeVal.u1)
@@ -609,6 +586,26 @@ equation
           -190},{98,-190}}, color={255,0,255}));
   connect(anyOpe.y, truDel.u) annotation (Line(points={{-18,-160},{0,-160},{0,
           -210},{38,-210}}, color={255,0,255}));
+  connect(hys.y, truDel2.u)
+    annotation (Line(points={{-38,190},{-22,190}}, color={255,0,255}));
+  connect(TChiWatRetDow,addDif. u)
+    annotation (Line(points={{-200,210},{-162,210}}, color={0,0,127}));
+  connect(TChiWatRet, temDif.u2) annotation (Line(points={{-200,180},{-170,180},
+          {-170,184},{-102,184}}, color={0,0,127}));
+  connect(addDif.y, temDif.u1) annotation (Line(points={{-138,210},{-130,210},{-130,
+          196},{-102,196}}, color={0,0,127}));
+  connect(truDel2.y, disWse.u1)
+    annotation (Line(points={{2,190},{18,190}}, color={255,0,255}));
+  connect(disWse.y, notDisWse.u)
+    annotation (Line(points={{42,190},{58,190}}, color={255,0,255}));
+  connect(notDisWse.y, and2.u2) annotation (Line(points={{82,190},{90,190},{90,222},
+          {98,222}}, color={255,0,255}));
+  connect(enaEco.y, sufEna.u) annotation (Line(points={{142,60},{150,60},{150,130},
+          {-70,130},{-70,160},{-62,160}}, color={255,0,255}));
+  connect(sufEna.y, disWse.u2) annotation (Line(points={{-38,160},{10,160},{10,182},
+          {18,182}}, color={255,0,255}));
+  connect(and2.y, truFalHol.u)
+    annotation (Line(points={{122,230},{138,230}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-140},{100,140}}),
              graphics={
