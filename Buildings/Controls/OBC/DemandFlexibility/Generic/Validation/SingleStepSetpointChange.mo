@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model SingleStepSetpointChange "Single-step setpoint change"
-  extends Modelica.Icons.Example;
+
 
   Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(reverseActing=false)
     "Single-step setpoint change block"
@@ -91,6 +91,16 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-140,-100},{120,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
+        graphics={
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent = {{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-140,-100},{120,100}})));
 end SingleStepSetpointChange;
