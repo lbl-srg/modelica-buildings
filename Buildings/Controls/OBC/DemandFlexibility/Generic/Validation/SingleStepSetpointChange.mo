@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model SingleStepSetpointChange "Single-step setpoint change"
 
 
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(setMinMax
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(ascending
       =true)
     "Single-step setpoint change block"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -62,8 +62,8 @@ Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.
 This validation test uses two constant temperature values, the minimum temperature setpoint <code>TMinSet</code>
 and the maximum temperature setpoint <code>TMaxSet</code>, to represent the input variables
 <code>uMinSet</code> and <code>uMaxSet</code>.
-It also uses a boolean pulse signal to represent the 
-signal input <code>uEnaLim</code> to enable single-step setpoint change. 
+It also uses a boolean pulse signal to represent the
+input <code>uEnaLim</code> to enable single-step setpoint change. 
 </p>
 
 <p>
