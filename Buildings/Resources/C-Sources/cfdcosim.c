@@ -36,7 +36,7 @@ CosimulationData *cosim = NULL;
  */
 void *cfdcosim() {
 
-  // CosimulationData *cosim = NULL;
+  /* CosimulationData *cosim = NULL; */
 
   /****************************************************************************
   | return modelica error if more than one ffd instances are created
