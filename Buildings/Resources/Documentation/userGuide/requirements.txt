@@ -38,4 +38,4 @@ sphinxcontrib-plantuml==0.28
 sphinxcontrib-qthelp==1.0.7
 sphinxcontrib-serializinghtml==1.1.10
 sphinxcontrib-jquery==4.1.0
-urllib3==2.6.3
+urllib3==2.7.0
