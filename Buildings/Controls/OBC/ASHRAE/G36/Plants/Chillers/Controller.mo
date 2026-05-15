@@ -1712,7 +1712,8 @@ protected
     "Dummy block"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi] if not need_heaPreCon
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
+    if not need_heaPreCon and not have_airCoo
     "Dummy block"
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
 
@@ -2055,8 +2056,8 @@ equation
           -410},{-720,-428},{-542,-428}}, color={255,0,255}));
   connect(uChiWatPum, enaDev.uChiWatPum) annotation (Line(points={{-920,574},{-790,
           574},{-790,-424},{-542,-424}}, color={255,0,255}));
-  connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-500},{
-          -580,-500},{-580,542.357},{414,542.357}}, color={255,0,255}));
+  connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-500},
+          {-580,-500},{-580,542.357},{414,542.357}},color={255,0,255}));
   connect(enaDev.yLeaConPum, upProCon.uEnaPlaConPum) annotation (Line(points={{-518,
           -423},{-110,-423},{-110,364},{172,364}}, color={255,0,255}));
   connect(enaDev.yConWatIsoVal, upProCon.uEnaPlaConIso) annotation (Line(points={{-518,
@@ -2107,13 +2108,10 @@ equation
           -580},{820,-668},{838,-668}}, color={255,0,255}));
   connect(booScaRep3.y, logSwi.u2) annotation (Line(points={{802,-580},{820,-580},
           {820,-620},{878,-620}}, color={255,0,255}));
-  connect(chiHeaCon.y, heaPreCon.uChiHeaCon) annotation (Line(points={{542,280},
-          {570,280},{570,266},{-528,266},{-528,220},{-504,220}}, color={255,0,
-          255}));
   connect(wseSta.y, disChi.uWSE) annotation (Line(points={{-656,334},{-630,334},
           {-630,-490},{738,-490}}, color={255,0,255}));
-  connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,334},{-630,
-          334},{-630,510.214},{414,510.214}},      color={255,0,255}));
+  connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,334},{
+          -630,334},{-630,510.214},{414,510.214}}, color={255,0,255}));
   connect(staSetCon.yChiSet, upProCon.uChiConIsoVal) annotation (Line(points={{
           -172,4},{-130,4},{-130,380},{172,380}}, color={255,0,255}));
   connect(staSetCon.yChiSet, dowProCon.uChiConIsoVal) annotation (Line(points={{-172,4},
@@ -2126,8 +2124,8 @@ equation
           364},{-862,364}}, color={0,0,127}));
   connect(conInt1.y, chiWatPumCon.uPumLeaLag) annotation (Line(points={{382,640},
           {400,640},{400,548.786},{414,548.786}}, color={255,127,0}));
-  connect(uChiWatPum, chiWatPumCon.uChiWatPum) annotation (Line(points={{-920,574},
-          {-790,574},{-790,535.929},{414,535.929}},      color={255,0,255}));
+  connect(uChiWatPum, chiWatPumCon.uChiWatPum) annotation (Line(points={{-920,
+          574},{-790,574},{-790,535.929},{414,535.929}}, color={255,0,255}));
   connect(disChi.y1ChiWatIsoVal, wseSta.u1ChiIsoVal) annotation (Line(points={{762,
           -466},{800,-466},{800,-340},{-746,-340},{-746,306},{-704,306}},
         color={255,0,255}));
@@ -2219,8 +2217,6 @@ equation
           200},{520,228},{-100,228},{-100,200},{-82,200}}, color={0,0,127}));
   connect(gai2.y, disChi.uConWatPumSpe) annotation (Line(points={{-58,200},{0,200},
           {0,-485},{738,-485}}, color={0,0,127}));
-  connect(chiHeaCon.y, booToRea.u) annotation (Line(points={{542,280},{560,280},
-          {560,260},{-280,260},{-280,220},{-262,220}}, color={255,0,255}));
   connect(booToRea.y, pro4.u2) annotation (Line(points={{-238,220},{-160,220},{-160,
           234},{658,234}}, color={0,0,127}));
   connect(TChiWatSupChi, heaPreCon.TChiWatSup) annotation (Line(points={{-920,
@@ -2268,7 +2264,8 @@ equation
   connect(plaEna.yPla, upProCon.uPla) annotation (Line(points={{-658,-500},{
           -580,-500},{-580,284},{172,284}}, color={255,0,255}));
   connect(disChi.y1ChiWatIsoVal, chiWatPumCon.u1ChiWatIsoVal) annotation (Line(
-        points={{762,-466},{800,-466},{800,-340},{20,-340},{20,500.571},{414,500.571}},
+        points={{762,-466},{800,-466},{800,-340},{20,-340},{20,500.571},{414,
+          500.571}},
         color={255,0,255}));
   connect(u1ChiWatIsoValOpe, upProCon.u1ChiWatIsoValOpe) annotation (Line(
         points={{-920,-210},{50,-210},{50,312},{172,312}}, color={255,0,255}));
@@ -2372,6 +2369,12 @@ equation
           {-850,-534},{-502,-534}}, color={0,0,127}));
   connect(TChiWatEntChi, staSetCon.TChiWatRet) annotation (Line(points={{-920,-98},
           {-850,-98},{-850,-48},{-268,-48}}, color={0,0,127}));
+  connect(pre.y, booToRea.u) annotation (Line(points={{602,320},{740,320},{740,
+          0},{120,0},{120,260},{-280,260},{-280,220},{-262,220}}, color={255,0,
+          255}));
+  connect(pre.y, heaPreCon.uChiHeaCon) annotation (Line(points={{602,320},{740,
+          320},{740,0},{120,0},{120,260},{-530,260},{-530,220},{-504,220}},
+        color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
