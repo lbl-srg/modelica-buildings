@@ -7,7 +7,8 @@ annotation(Documentation(
 <p>
   This package contains models validating the templates within
   <a href=\"modelica://Buildings.Templates.Plants.Chillers\">
-    Buildings.Templates.Plants.Chillers</a> for various system configurations.
+    Buildings.Templates.Plants.Chillers</a> for various system
+  configurations.
 </p>
 <p>
   The models also illustrate parameter propagation from a top-level HVAC

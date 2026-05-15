@@ -8,15 +8,17 @@ partial block PartialController
     "Plant configuration parameters";
   parameter Integer nAirHan(
     final min=if typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and nEquZon == 0 then 1 else 0,
-      start=0)
+      and nEquZon == 0
+      then 1 else 0,
+    start=0)
     "Number of air handling units served by the plant"
     annotation(Dialog(group="Plant configuration",
       enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36),
       Evaluate=true);
   parameter Integer nEquZon(
     final min=if typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and nAirHan == 0 then 1 else 0,
+      and nAirHan == 0
+      then 1 else 0,
     start=0)
     "Number of terminal units (zone equipment) served by the plant"
     annotation(Dialog(group="Plant configuration",
@@ -29,7 +31,7 @@ partial block PartialController
       Dialog(group="Chiller configuration",
         enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
           and cfg.typChi ==
-        Buildings.Templates.Components.Types.Chiller.WaterCooled));
+            Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Boolean is_clsCpl = true
     "Set to true if the plant is close coupled (pipe length from chillers to coolers under 30 m)"
     annotation(Evaluate=true,

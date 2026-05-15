@@ -120,7 +120,8 @@ annotation(experiment(StartTime=19612800,
 <p>
   This is a validation model for the water-cooled chiller plant model
   <a href=\"modelica://Buildings.Templates.Plants.Chillers.WaterCooled\">
-    Buildings.Templates.Plants.Chillers.WaterCooled</a> with open-loop controls.
+    Buildings.Templates.Plants.Chillers.WaterCooled</a> with open-loop
+  controls.
 </p>
 <p>
   It is intended to check that the plant model is well-defined for various

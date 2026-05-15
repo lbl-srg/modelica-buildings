@@ -6,7 +6,9 @@ record ChillerPlant
   parameter Buildings.Templates.Components.Types.Chiller typChi
     "Type of chiller"
     annotation(Evaluate=true);
-  parameter Integer nChi "Number of chillers" annotation(Evaluate=true);
+  parameter Integer nChi
+    "Number of chillers"
+    annotation(Evaluate=true);
   parameter Buildings.Templates.Plants.Chillers.Types.ChillerArrangement typArrChi
     "Type of chiller arrangement"
     annotation(Evaluate=true);
@@ -91,7 +93,9 @@ record ChillerPlant
     "Type of WSE"
     annotation(Evaluate=true);
   // CW pumps
-  parameter Integer nPumConWat "Number of CW pumps" annotation(Evaluate=true);
+  parameter Integer nPumConWat
+    "Number of CW pumps"
+    annotation(Evaluate=true);
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumConWat
     "Type of CW pump arrangement"
     annotation(Evaluate=true);
@@ -105,7 +109,9 @@ record ChillerPlant
   parameter Buildings.Templates.Components.Types.Cooler typCoo
     "Condenser water cooling equipment"
     annotation(Evaluate=true);
-  parameter Integer nCoo "Number of cooler units" annotation(Evaluate=true);
+  parameter Integer nCoo
+    "Number of cooler units"
+    annotation(Evaluate=true);
   parameter Boolean have_senLevCoo
     "Set to true if cooling towers have level sensor for makeup water control"
     annotation(Evaluate=true);

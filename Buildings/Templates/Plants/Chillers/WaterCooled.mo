@@ -146,8 +146,8 @@ annotation(Documentation(
   Options shown in <font color=\"gray\"><em>gray italics</em></font> are not
   currently supported by the plant controller
   <a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\\\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a> and cannot
-  be selected. The user may refer to ASHRAE (2021) for further details.
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a> and
+  cannot be selected. The user may refer to ASHRAE (2021) for further details.
 </p>
 <table summary=\"summary\" border=\"1\">
   <tr>

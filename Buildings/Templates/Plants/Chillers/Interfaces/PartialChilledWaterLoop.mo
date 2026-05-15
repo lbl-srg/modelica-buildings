@@ -530,8 +530,8 @@ annotation(Documentation(
     Those options are automatically selected based on the CHW distribution
     type, as specified by an instance of
     <a href=\"modelica://Buildings.Templates.Plants.Chillers.Types.Distribution\">
-      Buildings.Templates.Plants.Chillers.Types.Distribution</a>. A bypass pipe
-    is modeled for any configuration other than constant primary-only. A
+      Buildings.Templates.Plants.Chillers.Types.Distribution</a>. A bypass
+    pipe is modeled for any configuration other than constant primary-only. A
     modulating valve is modeled only for variable primary-only systems. All
     other configurations are modeled with a fixed bypass, or so-called common
     leg.

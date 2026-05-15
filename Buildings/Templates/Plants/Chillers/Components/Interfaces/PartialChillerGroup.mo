@@ -1227,8 +1227,8 @@ annotation(Diagram(coordinateSystem(extent={{-200,-240},{200,200}})),
       <li>
         See the class
         <a href=\"modelica://Buildings.Templates.Components.Chillers.Compression\">
-          Buildings.Templates.Components.Chillers.Compression</a> for the
-        control signals typically included in this sub-bus.
+          Buildings.Templates.Components.Chillers.Compression</a> for
+        the control signals typically included in this sub-bus.
       </li>
     </ul>
   </li>

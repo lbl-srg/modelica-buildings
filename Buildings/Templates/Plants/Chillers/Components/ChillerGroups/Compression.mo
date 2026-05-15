@@ -178,8 +178,8 @@ annotation(defaultComponentName="chi",
     different from one unit to another. Modeling different performance curves
     is also possible, see the documentation of
     <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup\">
-      Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup</a> for
-    further details.
+      Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup</a>
+    for further details.
   </li>
   <li>
     Same type of cooling fluid (air or water) for all chillers. This is a hard

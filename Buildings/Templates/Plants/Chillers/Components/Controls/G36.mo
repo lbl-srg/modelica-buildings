@@ -10,9 +10,10 @@ block G36
     cfg.typArrChi ==
       Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
     "Flag: true means that the plant has parallel chillers";
-  parameter Boolean have_ponChi=false
+  parameter Boolean have_ponChi = false
     "True: have pony chiller"
-    annotation (Evaluate=true, Dialog(group="Chiller configuration"));
+    annotation(Evaluate=true,
+      Dialog(group="Chiller configuration"));
   parameter Boolean use_loadShed = false
     "Set to true if a load shed logic is used"
     annotation(Dialog(group="Plant configuration",
@@ -120,20 +121,23 @@ block G36
     dat.TChiWatSup_max
     "Maximum chilled water supply temperature setpoint used in plant reset logic";
   // ---- Staging up and down process ----
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp=
-    if cfg.typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp =
+    if cfg.typValChiWatChiIso ==
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     then Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     else Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chilled water isolation valve type"
     annotation(Evaluate=true);
-  parameter Boolean have_twoPosEndSwiChiVal=false
+  parameter Boolean have_twoPosEndSwiChiVal = false
     "True for chiller CHW isolation valves with end switch status feedback"
-    annotation (Dialog(group="Chiller configuration",
-      enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
-  parameter Boolean have_modPosChiVal=false
+    annotation(Dialog(group="Chiller configuration",
+      enable=chiIsoValTyp ==
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition));
+  parameter Boolean have_modPosChiVal = false
     "True for chiller CHW isolation valves with position feedback"
-    annotation (Dialog(group="Chiller configuration",
-      enable=chiIsoValTyp==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating));
+    annotation(Dialog(group="Chiller configuration",
+      enable=chiIsoValTyp ==
+        Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating));
   // ---- Cooling tower: fan speed ----
   final parameter Real fanSpeMin(unit="1") = dat.yFanCoo_min
     "Minimum tower fan speed";
@@ -147,20 +151,27 @@ block G36
     each displayUnit="degC") = dat.TConWatRetChi_nominal
     "Condenser water return temperature (condenser leaving) of each chiller";
   // ---- Cooling tower: staging ----
-  parameter Boolean have_towInlIsoVal= cfg.typValCooInlIso ==
+  parameter Boolean have_towInlIsoVal =
+    cfg.typValCooInlIso ==
       Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "True: tower cells have the inlet isolation valve"
-    annotation(Evaluate=true, Dialog(group="Cooling tower configuration"));
-  parameter Boolean have_towOutIsoVal=cfg.typValCooOutIso ==
+    annotation(Evaluate=true,
+      Dialog(group="Cooling tower configuration"));
+  parameter Boolean have_towOutIsoVal =
+    cfg.typValCooOutIso ==
       Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "True: tower cells have the outlet isolation valve"
-    annotation(Evaluate=true, Dialog(group="Cooling tower configuration"));
-  parameter Boolean have_towIsoValEndSwi=false
+    annotation(Evaluate=true,
+      Dialog(group="Cooling tower configuration"));
+  parameter Boolean have_towIsoValEndSwi = false
     "True: tower cells isolation valves have end switch status feedback"
     annotation(Dialog(group="Cooling tower configuration",
-      enable=cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-           and (cfg.typValCooInlIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
-           or cfg.typValCooOutIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)));
+      enable=cfg.typChi ==
+        Buildings.Templates.Components.Types.Chiller.WaterCooled
+        and (cfg.typValCooInlIso ==
+          Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+          or cfg.typValCooOutIso ==
+            Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)));
   // ---- Cooling tower: Water level control ----
   final parameter Real watLevMin(unit="1") = dat.hLevCoo_min
     "Minimum cooling tower water level recommended by manufacturer";
@@ -377,10 +388,10 @@ equation
   connect(RFE_watLev.y, ctl.watLev)
     annotation(Line(points={{-88,-180},{-18,-180},{-18,-37},{-2,-37}},
       color={0,0,127}));
-  connect(ctl.dpChiWatSet, resDpChiWatLoc.dpChiWatSet_remote) annotation
-    (Line(points={{22,22.8},{40,22.8},{40,60},{-80,60},{-80,21},{-62,21}},
-                                                                       color={0,
-          0,127}));
+  connect(ctl.dpChiWatSet, resDpChiWatLoc.dpChiWatSet_remote)
+    annotation(Line(
+      points={{22,22.8},{40,22.8},{40,60},{-80,60},{-80,21},{-62,21}},
+      color={0,0,127}));
 annotation(Documentation(
   info="<html>
 <h4>Description</h4>
