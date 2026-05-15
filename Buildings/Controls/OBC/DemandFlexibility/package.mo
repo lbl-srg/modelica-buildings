@@ -4,8 +4,9 @@ package DemandFlexibility "Demand flexibility control sequences"
     Documentation(
       info="<html>
 <p>
-This package contains demand flexibility control sequences, including zone temperature setpoint control, chiller 
-supply water temperature reset, supply fan and air handling unit (AHU) cooling coil valve limiting.
+This package contains demand flexibility control sequences, including zone temperature 
+setpoint control, chiller chilled water supply temperature reset, and air handling unit 
+(AHU) supply fan speed control and cooling coil valve limiting.
 </p>
 </html>",
       revisions="<html>

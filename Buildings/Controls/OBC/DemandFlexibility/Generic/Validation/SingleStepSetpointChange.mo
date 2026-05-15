@@ -2,18 +2,18 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model SingleStepSetpointChange "Single-step setpoint change"
 
 
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(ascending
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(ascSet
       =true)
     "Single-step setpoint change block"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEnaLim(period=86400, shift=
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=86400, shift=
         43200)
     "Boolean value for the signal to enable single-step setpoint change"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMinSet(k=273.15 + 16)
-    "Minimum temperature setpoint example value"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAllMinSet(k=273.15 + 16)
+    "Allowed minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSet(samplePeriod=10, y_start=
@@ -24,23 +24,23 @@ model SingleStepSetpointChange "Single-step setpoint change"
         rotation=0,
         origin={70,30})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMaxSet(k=273.15 + 19)
-    "Maximum temperature setpoint example value"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAllMaxSet(k=273.15 + 19)
+    "Allowed maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Discrete.Sampler sam(final samplePeriod=300)
-    "Sample period for the single-step change"
+    "Sample period for the single-step setpoint change"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
 equation
-  connect(TMinSet.y,sinSteSetCha. uMinSet) annotation (Line(points={{-98,-70},{-60,
-          -70},{-60,24},{-22,24}},     color={0,0,127}));
+  connect(TAllMinSet.y, sinSteSetCha.uAllMinSet) annotation (Line(points={{-98,-70},
+          {-60,-70},{-60,24},{-22,24}}, color={0,0,127}));
   connect(uniDelTSet.y,sinSteSetCha. uCurSet) annotation (Line(points={{82,30},{
           100,30},{100,-20},{-40,-20},{-40,32},{-22,32}},color={0,0,127}));
-  connect(uEnaLim.y,sinSteSetCha. uEnaLim) annotation (Line(points={{-98,70},{-40,70},
+  connect(uEna.y,sinSteSetCha. uEna) annotation (Line(points={{-98,70},{-40,70},
           {-40,36},{-22,36}}, color={255,0,255}));
-  connect(TMaxSet.y,sinSteSetCha. uMaxSet) annotation (Line(points={{-98,10},{-80,
-          10},{-80,28.2},{-22,28.2}}, color={0,0,127}));
+  connect(TAllMaxSet.y, sinSteSetCha.uAllMaxSet) annotation (Line(points={{-98,10},
+          {-80,10},{-80,28.2},{-22,28.2}}, color={0,0,127}));
   connect(sinSteSetCha.yComSet, sam.u)
     annotation (Line(points={{2,30},{18,30}}, color={0,0,127}));
   connect(sam.y, uniDelTSet.u)
@@ -59,11 +59,11 @@ Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.
 </p>
 
 <p>
-This validation test uses two constant temperature values, the minimum temperature setpoint <code>TMinSet</code>
-and the maximum temperature setpoint <code>TMaxSet</code>, to represent the input variables
-<code>uMinSet</code> and <code>uMaxSet</code>.
+This validation test uses two constant temperature values, the minimum temperature setpoint <code>TAllMinSet</code>
+and the maximum temperature setpoint <code>TAllMaxSet</code>, to represent the input variables
+<code>uAllMinSet</code> and <code>uAllMaxSet</code>.
 It also uses a boolean pulse signal to represent the
-input <code>uEnaLim</code> to enable single-step setpoint change. 
+input <code>uEna</code> to enable single-step setpoint change. 
 </p>
 
 <p>

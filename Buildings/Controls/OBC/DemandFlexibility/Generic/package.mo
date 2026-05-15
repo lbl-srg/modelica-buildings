@@ -4,8 +4,7 @@ package Generic "Generic control sequences"
     Documentation(
       info="<html>
 <p>
-This package contains generic control sequences that are used in various places within 
-the demand flexibility control sequence package.
+This package contains generic control sequences that are used for demand flexibility control.
 </p>
 </html>",
       revisions="<html>
