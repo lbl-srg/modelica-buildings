@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Plants.Chillers.Components.Validation.Economizers",
+  method="cvode",
+  tolerance=1e-6,
+  stopTime=2000.0,
+  resultFile="Economizers");
+createPlot(id=1,
+  position={5, 5, 300, 400},
+  y={"ecoVal.bus.valConWatEcoIso.y1", "ecoVal.bus.valChiWatEcoByp.y"},
+  subPlot=101,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"ecoVal.hex.m1_flow", "ecoVal.hex.m2_flow", "ecoVal.mConWat_flow_nominal", "ecoVal.mChiWat_flow_nominal"},
+  subPlot=102,
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  position={315, 5, 300, 400},
+  y={"ecoPum.bus.valConWatEcoIso.y1", "ecoPum.bus.pumChiWatEco.y1", "ecoPum.bus.pumChiWatEco.y"},
+  subPlot=101,
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  y={"ecoPum.hex.m1_flow", "ecoPum.hex.m2_flow", "ecoPum.mConWat_flow_nominal", "ecoPum.mChiWat_flow_nominal"},
+  subPlot=102,
+  autoscale=true,
+  grid=true);

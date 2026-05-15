@@ -21,7 +21,7 @@ equation
     //scenario = 1
     y=if clr then false else u;
       elsewhen
-	(not clr) and change(u) and
+ (not clr) and change(u) and
         (pre(u) == false) and
         (pre(y) == false)
       then

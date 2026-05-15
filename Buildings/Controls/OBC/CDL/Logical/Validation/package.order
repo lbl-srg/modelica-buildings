@@ -15,6 +15,7 @@ Timer
 TimerAccumulating
 TimerAccumulatingNegativeStartTime
 TimerNegativeStartTime
+TimerWithReset
 Toggle
 TrueDelay
 TrueFalseHold
