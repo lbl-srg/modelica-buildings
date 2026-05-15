@@ -480,12 +480,18 @@ block AirToWater
     "Staging matrix for heat pumps with single-mode operation – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
 
+  final parameter Integer staHpRow = size(staHp,1)
+    "Number of rows in the single-mode heat pump staging matrix";
+
   parameter Real staHpShc[:, nHpShc](
     each final max=1,
     each final min=0,
     each final unit="1")={fill(i/nHpShc,nHpShc) for i in 1:nHpShc}
     "Staging matrix for heat pumps with simultaneous heating-cooling – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
+
+  final parameter Integer staHpShcRow = size(staHpShc,1)
+    "Number of rows in the simultaneous heating-cooling heat pump staging matrix";
 
   final parameter Real staEqu[:, nHpTot](
     each final max=1,
@@ -497,14 +503,14 @@ block AirToWater
   parameter Real staEquDouMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")=if have_HpShc then cat(1,cat(2,fill(fill(0,nHp),size(staHpShc,1)),staHpShc),cat(2,staHp,fill(fill(1,nHpShc),size(staHp,1)))) else staHp
+    each final unit="1")=if have_HpShc then cat(1,cat(2,fill(0,staHpShcRow,nHp),staHpShc),cat(2,staHp,fill(1,staHpRow,nHpShc))) else staHp
     "Staging matrix for heating-cooling mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
   parameter Real staEquSinMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")=if have_HpShc then cat(1,cat(2,staHp,fill(fill(0,nHpShc),size(staHp,1))),cat(2,fill(fill(1,nHp),size(staHpShc,1)),staHpShc)) else staHp
+    each final unit="1")=if have_HpShc then cat(1,cat(2,staHp,fill(0,staHpRow,nHpShc)),cat(2,fill(1,staHpShcRow,nHp),staHpShc)) else staHp
     "Staging matrix for heating-only and cooling-only mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
@@ -1070,7 +1076,7 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriSup(
     final unit="K",
     displayUnit="degC") if have_chiWat
-    "Primary CHW return temperature"
+    "Primary CHW supply temperature"
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
       iconTransformation(extent={{-240,-82},{-200,-42}})));
 
@@ -1084,7 +1090,7 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSecSup(
     final unit="K",
     displayUnit="degC") if have_chiWat and have_senTChiWatSecSup
-    "Secondary CHW return temperature"
+    "Secondary CHW supply temperature"
     annotation (Placement(transformation(extent={{-300,-120},{-260,-80}}),
       iconTransformation(extent={{-240,-222},{-200,-182}})));
 

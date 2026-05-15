@@ -294,12 +294,18 @@ record Controller
     "Staging matrix for heat pumps with single-mode operation – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
 
+  final parameter Integer staHpRow = size(staHp,1)
+    "Number of rows in the single-mode heat pump staging matrix";
+
   parameter Real staHpShc[:, :](
     each final max=1,
     each final min=0,
     each final unit="1")={fill(i/cfg.nHpShc,cfg.nHpShc) for i in 1:cfg.nHpShc}
     "Staging matrix for heat pumps with simultaneous heating-cooling – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
+
+  final parameter Integer staHpShcRow = size(staHpShc,1)
+    "Number of rows in the simultaneous heating-cooling heat pump staging matrix";
 
   parameter Real staEqu[:, :](
     each final max=1,
@@ -311,13 +317,13 @@ record Controller
   parameter Real staEquDouMod[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,fill(fill(0,cfg.nHp),size(staHpShc,1)),staHpShc),cat(2,staHp,fill(fill(1,cfg.nHpShc),size(staHp,1)))) else staHp
+    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,fill(0,staHpShcRow,cfg.nHp),staHpShc),cat(2,staHp,fill(1,staHpRow,cfg.nHpShc))) else staHp
     "Staging matrix for heating-cooling mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real staEquSinMod[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,staHp,fill(fill(0,cfg.nHpShc),size(staHp,1))),cat(2,fill(fill(1,cfg.nHp),size(staHpShc,1)),staHpShc)) else staHp
+    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,staHp,fill(0,staHpRow,cfg.nHpShc)),cat(2,fill(1,staHpShcRow,cfg.nHp),staHpShc)) else staHp
     "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real plrSta(
