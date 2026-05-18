@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model SingleStepSetpointChange "Single-step setpoint change"
 
-
   Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange sinSteSetCha(ascSet
       =true)
     "Single-step setpoint change block"
@@ -45,14 +44,10 @@ equation
     annotation (Line(points={{2,30},{18,30}}, color={0,0,127}));
   connect(sam.y, uniDelTSet.u)
     annotation (Line(points={{42,30},{58,30}}, color={0,0,127}));
-   annotation (experiment(
-      StopTime=172800,
-      Interval=60,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
-       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SingleStepSetpointChange.mos"
-        "Simulate and plot"),
-       Documentation(info="<html>
+annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SingleStepSetpointChange.mos"
+    "Simulate and plot"),
+  Documentation(info="<html>
 <p>
 This example validates <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.SingleStepSetpointChange</a>.
