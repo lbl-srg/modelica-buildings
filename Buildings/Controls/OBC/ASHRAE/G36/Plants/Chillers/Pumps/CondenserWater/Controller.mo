@@ -226,7 +226,7 @@ the setpoint.
 revisions="<html>
 <ul>
 <li>
-Febuary 4, 2019, by Jianjun Hu:<br/>
+February 4, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

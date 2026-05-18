@@ -146,7 +146,7 @@ becomes lower than the lockout temperature <code>TChiLocOut</code> by 0.556
 &deg;C. The plant becomes disabled.
 </li>
 <li>
-For instance <code>disPlaSch</code>, the chiller enabing schedule specifies
+For instance <code>disPlaSch</code>, the chiller enabling schedule specifies
 that the plant should be enabled at 600 seconds. However, the plant becomes
 enabled at 900 seconds as it allows the plant being disabled for 15 minutes.
 The plant becomes disabled at 68400 seconds, which is specified in the

@@ -2880,7 +2880,7 @@ However, they have not yet been implemented in this library.
 </p>
 <ul>
 <li>
-Primary-only sytem serving a single large load, e.g. large AHU,
+Primary-only system serving a single large load, e.g. large AHU,
 </li>
 <li>
 Primary-secondary systems where there are any coil pumps,
@@ -3040,7 +3040,7 @@ However, they have not yet been implemented in this library.
 </p>
 <ul>
 <li>
-Plants with cooling tower fan speed control, for controling the condenser water supply
+Plants with cooling tower fan speed control, for controlling the condenser water supply
 temperature, section 5.20.12.2.b.
 </li>
 </ul>

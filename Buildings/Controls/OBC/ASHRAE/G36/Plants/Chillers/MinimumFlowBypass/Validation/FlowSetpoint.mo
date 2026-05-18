@@ -207,7 +207,7 @@ It stages up from chiller 1 and 2, to also enable chiller 3.
 When in the staging process, all the up devices have been controlled
 <code>uUpsDevSta=true</code> at 1.2 seconds, the minimum flow
 setpoint changes from 0.01 m3/s (sum of minimum flow of chiller 1 and 2)
-to 0.015 m3/s (sum of the minium flow of all chillers). The staging process
+to 0.015 m3/s (sum of the minimum flow of all chillers). The staging process
 takes 1.5 seconds (<code>byPasSetTim</code>).
 </li>
 <li>
@@ -216,7 +216,7 @@ It enables chiller 3 and disables chiller 2.
 When in the staging process, all the up devices have been controlled
 <code>uUpsDevSta=true</code> at 1.2 seconds, the minimum flow
 setpoint changes from 0.01 m3/s (sum of minimum flow of chiller 1 and 2)
-to 0.015 m3/s (sum of the minium flow of all chillers) at 2.7 seconds.
+to 0.015 m3/s (sum of the minimum flow of all chillers) at 2.7 seconds.
 When the chiller staging process are done (<code>uSubCha=true</code>), the
 minimum flow setpoint changes back to 0.01 m3/s (sum of minimum flow of
 chiller 1 and 3).
@@ -227,7 +227,7 @@ It stages down from chiller 1 and 2, to disable chiller 2.
 When in the staging process, all the up devices have been controlled
 <code>uUpsDevSta=true</code> at 1.2 seconds, the minimum flow
 setpoint changes from 0.01 m3/s (sum of minimum flow of chiller 1 and 2)
-to 0.005 m3/s (the minium flow of chiller 1). The staging process
+to 0.005 m3/s (the minimum flow of chiller 1). The staging process
 takes 1.5 seconds (<code>byPasSetTim</code>).
 </li>
 </ul>

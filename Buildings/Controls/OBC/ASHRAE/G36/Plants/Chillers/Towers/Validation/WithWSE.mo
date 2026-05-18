@@ -224,12 +224,12 @@ annotation (experiment(StopTime=3500.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.Controller</a>.
-It demonstates the cooling tower control of a less coupled chiller plant that has
+It demonstrates the cooling tower control of a less coupled chiller plant that has
 two chillers with waterside economizer.
 </p>
 <ul>
 <li>
-At begining, the water level is lower than the minimum thus the tower starts to
+At beginning, the water level is lower than the minimum thus the tower starts to
 adding water (<code>yMakUp</code>). When the water level becomes greater than the
 maximum, it stops adding water at 1500 seconds.
 </li>
