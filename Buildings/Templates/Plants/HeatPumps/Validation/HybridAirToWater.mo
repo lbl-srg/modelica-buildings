@@ -226,14 +226,14 @@ model HybridAirToWater "Validation of AWHP plant template"
     annotation (Placement(transformation(extent={{110,0},{130,-20}})));
   Fluid.FixedResistances.Junction junHWPriSup(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=energyDynamics,
     m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,pla.mHeaWat_flow_nominal},
     dp_nominal={0,0,0})
     "Primary supply junction between 2-pipe and 4-pipe ASHPs"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Fluid.FixedResistances.Junction junHWPriRet(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=energyDynamics,
     m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal},
     dp_nominal={0,0,0})
     "Primary return junction between 2-pipe and 4-pipe ASHPs"
@@ -247,14 +247,14 @@ model HybridAirToWater "Validation of AWHP plant template"
     annotation (Placement(transformation(extent={{-104,-200},{-84,-180}})));
   Fluid.FixedResistances.Junction junCHWPriSup(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=energyDynamics,
     m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,pla.mChiWat_flow_nominal},
     dp_nominal={0,0,0})
     "Primary CHW supply junction between 2-pipe and 4-pipe ASHPs"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Fluid.FixedResistances.Junction junCHWPriRet(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=energyDynamics,
     m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal},
     dp_nominal={0,0,0})
     "Primary CHW return junction between 2-pipe and 4-pipe ASHPs"
@@ -287,13 +287,13 @@ model HybridAirToWater "Validation of AWHP plant template"
     annotation (Placement(transformation(extent={{-20,-210},{-40,-190}})));
   Fluid.FixedResistances.Junction junCHWBypSup(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=energyDynamics,
     m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal},
     dp_nominal={0,0,0}) "CHW supply bypass leg junction"
     annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
   Fluid.FixedResistances.Junction junCHWBypRet(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=energyDynamics,
     m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,pla.mChiWat_flow_nominal},
     dp_nominal={0,0,0}) "CHW return bypass leg junction" annotation (Placement(
         transformation(
@@ -302,13 +302,13 @@ model HybridAirToWater "Validation of AWHP plant template"
         origin={-14,-40})));
   Fluid.FixedResistances.Junction junHWBypSup(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=energyDynamics,
     m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal},
     dp_nominal={0,0,0}) "HW supply bypass leg junction"
     annotation (Placement(transformation(extent={{-34,-90},{-14,-70}})));
   Fluid.FixedResistances.Junction junHWBypRet(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=energyDynamics,
     m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,pla.mHeaWat_flow_nominal},
     dp_nominal={0,0,0}) "HW return bypass leg junction" annotation (Placement(
         transformation(
