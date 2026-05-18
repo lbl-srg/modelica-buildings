@@ -375,43 +375,6 @@
   openmodelica:
     comment: Time out after 300 s.
     translate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.NaturalConvectionWithControl
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyConstructionBoundary
-  openmodelica:
-    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyExteriorWallNoWindow
-  openmodelica:
-    comment: Timeout after 300 s
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlySurfaceBoundary
-  openmodelica:
-    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
-  dymola:
-    time_out: 600
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.NaturalConvection
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithShade
-  dymola:
-    comment: Timeout on jenkins
-    time_out: 600
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithoutShade
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor
   openmodelica:
     comment: 'TimeoutExpired: translation timed out after 300 seconds'
