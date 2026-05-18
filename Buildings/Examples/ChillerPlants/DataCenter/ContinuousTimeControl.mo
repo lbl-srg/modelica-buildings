@@ -32,8 +32,8 @@ Buildings.Examples.ChillerPlants.DataCenter</a>.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl\">
-Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl</a>
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter.DiscreteTimeControl\">
+Buildings.Examples.ChillerPlants.DataCenter.DiscreteTimeControl</a>
 for an implementation with the discrete time trim and respond logic.
 </p>
 </html>", revisions="<html>
@@ -41,8 +41,8 @@ for an implementation with the discrete time trim and respond logic.
 <li>
 January 13, 2015, by Michael Wetter:<br/>
 Moved base model to
-<a href=\"modelica://Buildings.Examples.ChillerPlant.BaseClasses.DataCenter\">
-Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a>.
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.DataCenter\">
+Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.DataCenter</a>.
 </li>
 <li>
 December 5, 2012, by Michael Wetter:<br/>

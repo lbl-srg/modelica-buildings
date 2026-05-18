@@ -80,14 +80,14 @@ The control strategy is as follows:
 </li>
 </ul>
 <p>
-where <i>T<sub>chw,ent</sub></i> is the tempearture of chilled water entering the
+where <i>T<sub>chw,ent</sub></i> is the temperature of chilled water entering the
 chiller, <i>T<sub>chi,set</sub></i> is the setpoint temperature of the chilled water
 leaving the chiller, and <i>&Delta;T<sub>chi,ban</sub></i> is the dead-band to prevent
 short cycling.
 </p>
 <h4>Setpoint Reset</h4>
 <p>
-The setpoint reset strategy is to first increase the different pressure, <i>&Delta;p</i>,
+The setpoint reset strategy is to first increase the differential pressure, <i>&Delta;p</i>,
 of the chilled water loop to increase the mass flow rate.
 If <i>&Delta;p</i> reaches the maximum value and further cooling is still needed,
 the chiller temperature setpoint, <i>T<sub>chi,set</sub></i>, is reduced.
@@ -105,7 +105,7 @@ implements a discrete time trim and respond logic as follows:
 </p>
 <ul>
 <li>A cooling request is triggered if the input signal, <i>y</i>, is larger than 0.
-<i>y</i> is the difference between the actual and set temperature of the suppuly air
+<i>y</i> is the difference between the actual and set temperature of the supply air
 to the data center room.</li>
 <li>The request is sampled every 2 minutes. If there is a cooling request, the control
 signal <i>u</i> is increased by <i>0.03</i>, where <i>0 &le; u &le; 1</i>.

@@ -3,7 +3,7 @@ model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature and output the actual fan speed"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc;
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe "Actual fan speed"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFanSpe(
@@ -30,7 +30,7 @@ Documentation(info="<HTML>
 <p>
 This model extends <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">
 Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>, with the output of the
-actual fan speed, which is the lower value between <code>y</code> and the tower
+actual fan speed, which is the higher value between <code>y</code> and the tower
 minimum speed <code>yMin</code>.
 </p>
 </html>", revisions="<html>

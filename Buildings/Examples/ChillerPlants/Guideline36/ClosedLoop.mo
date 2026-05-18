@@ -285,7 +285,7 @@ The return room air temperature is 28 &deg;C.
 </li>
 <li>
 The room air supply temperature is controlled by a direct acting PID controller. It
-modulates the valve that controlles the chilled water flow into the cooling coil.
+modulates the valve that controls the chilled water flow into the cooling coil.
 </li>
 <li>
 The chilled water reset request is generated as below:
