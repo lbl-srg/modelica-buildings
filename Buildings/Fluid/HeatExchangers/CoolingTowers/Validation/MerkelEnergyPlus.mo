@@ -17,6 +17,12 @@ model MerkelEnergyPlus
         MediumAir.T_default,
         MediumAir.X_default)) "Default density of air";
 
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpWat=MediumWat.specificHeatCapacityCp(
+      MediumWat.setState_pTX(
+        MediumWat.p_default,
+        MediumWat.T_default,
+      MediumWat.X_default)) "Default density of water";
+
   // Cooling tower parameters - values quoted from EnergyPlus
   parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
     "Nominal pressure difference of cooling tower";
@@ -53,6 +59,21 @@ model MerkelEnergyPlus
     "Nominal water inlet temperature";
   final parameter Modelica.Units.SI.Temperature TWatOut_nominal=TAirInWB_nominal + TApp
     "Nominal water outlet temperature, 29.5 in EnergyPlus";
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = mWat_flow_nominal * cpWat * (TWatOut_nominal-TWatIn_nominal)
+    "Cooling capacity at design conditions";
+
+
+  parameter Data.Merkel.Generic dat(
+    Q_flow_nominal=Q_flow_nominal,
+    TCooIn_nominal=TWatIn_nominal,
+    TCooOut_nominal=TWatOut_nominal,
+    dp_nominal=6000,
+    ratCooAir_nominal=mWat_flow_nominal/mAir_flow_nominal,
+    PFan_Q_flow_nominal=-PFan_nominal/Q_flow_nominal,
+    fanRelPow(r_V=r_VEnePlu, r_P=r_PEnePlu),
+    TAirInWB_nominal=TAirInWB_nominal,
+    fraFreCon=0.1) "Cooling tower performance data"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
@@ -67,19 +88,10 @@ model MerkelEnergyPlus
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel tow(
     redeclare package Medium = MediumWat,
-    dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=TWatOut_initial,
-    m_flow_nominal=mWat_flow_nominal,
-    ratWatAir_nominal=ratWatAir_nominal,
-    TAirInWB_nominal=TAirInWB_nominal,
-    TWatIn_nominal=TWatIn_nominal,
-    TWatOut_nominal=TWatOut_nominal,
-    PFan_nominal=PFan_nominal,
-    yMin=0.1,
-    fraFreCon=0.1,
-    fanRelPow(r_V=r_VEnePlu, r_P=r_PEnePlu),
-    UACor(FRAirMin=0.2)) "Merkel-theory based cooling tower"
+    dat=dat,
+    yMin=0.1) "Merkel-theory based cooling tower"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Sources.MassFlowSource_T souWat(
@@ -116,9 +128,8 @@ model MerkelEnergyPlus
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
 equation
-  connect(tow.TAir, TAirWB.y)
-    annotation (Line(points={{38,-46},{20,-46},{20,10},{-38,10}},
-      color={0,0,127}));
+  connect(tow.TWetBul, TAirWB.y) annotation (Line(points={{38,-46},{20,-46},{20,
+          10},{-38,10}}, color={0,0,127}));
   connect(souWat.ports[1], tow.port_a)
     annotation (Line(points={{0,-50},{40,-50}}, color={0,127,255}));
   connect(tow.port_b, sinWat.ports[1])
@@ -171,8 +182,14 @@ outlet are equal to the state variables of the model.
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
+<li>
 April 30, 2025, by Kathryn Hinkelman:<br/>
-Corrected the wetbulb value <code>TAirInWB_nominal</code> and 
+Corrected the wetbulb value <code>TAirInWB_nominal</code> and
 added intermediate equations from E+ to model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4189\">#4189</a>.

@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "zon.TAir",
-    "TSet.y",
-    "conPID.y",
-    "hea.m_flow",
-    "hea.TSet"
-  };
