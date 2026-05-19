@@ -53,7 +53,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.FFD
     </td>
-    <td valign=\"top\">Improved C source codes and regenerated FFD compiled library to allow the examples being simulated with OpenModelica.<br/>
+    <td valign=\"top\">Improved C source codes and recompiled FFD library to allow the examples being simulated with OpenModelica.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4015\">Buildings, #4015</a>.<br/>
     </td>
 </tr>
