@@ -207,6 +207,20 @@
   openmodelica:
     comment: Timeout after 300 s
     time_out: 600
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Validation.GroundResponse
+  openmodelica:
+    translate: false
+    comment: python incompatible with docker image
+  optimica:
+    comment: Optimica uses Python 3.11, while the examples use Python 3.12
+    translate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields
+  openmodelica:
+    translate: false
+    comment: python incompatible with docker image
+  optimica:
+    translate: false
+    comment: Optimica uses Python 3.11, while the examples use Python 3.12
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
     comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones_simulate.mos'']'' timed out after 300 seconds'
