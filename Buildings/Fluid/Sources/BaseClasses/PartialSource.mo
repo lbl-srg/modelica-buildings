@@ -27,7 +27,12 @@ partial model PartialSource
     each h_outflow(nominal=Medium.h_default),
     each Xi_outflow(each nominal=0.01))
     "Fluid ports"
-    annotation (Placement(transformation(extent={{90,40},{110,-40}})));
+    annotation (mayOnlyConnectOnce = "
+Each ports[i] of boundary shall at most be connected to one component.
+If two or more connections are present, ideal mixing takes
+place in these connections, which is usually not the intention
+of the modeller. Increase nPorts to add an additional port.
+", Placement(transformation(extent={{90,40},{110,-40}})));
 
 protected
   parameter Modelica.Fluid.Types.PortFlowDirection flowDirection=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -44,18 +49,6 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
-
-
-initial equation
-  // Only one connection allowed to a port to avoid unwanted ideal mixing
-  for i in 1:nPorts loop
-    assert(cardinality(ports[i]) <= 1,"
-Each ports[i] of boundary shall at most be connected to one component.
-If two or more connections are present, ideal mixing takes
-place in these connections, which is usually not the intention
-of the modeller. Increase nPorts to add an additional port.
-");
-  end for;
 
 equation
   connect(medium.p, p_in_internal);
