@@ -12,6 +12,8 @@ model AirToWater
   inner parameter UserProject.Data.AllSystems datAll(pla(final cfg=pla.cfg, ctl(
         yPumHeaWatPriSet=1,
         yPumChiWatPriSet=1,
+        staHp={{1/3,1/3,1/3},{2/3,2/3,2/3},{1,1,1}},
+        staEqu={{1/3,1/3,1/3},{2/3,2/3,2/3},{1,1,1}},
         staEquDouMod={{1/3,1/3,1/3},{2/3,2/3,2/3},{1,1,1}},
         staEquSinMod={{1/3,1/3,1/3},{2/3,2/3,2/3},{1,1,1}})))
                           "Plant parameters"

@@ -22,7 +22,7 @@ model HybridAirToWater "Controller for AWHP plant"
   final parameter Integer idxEquAlt[ctl.nEquAlt]=Modelica.Math.BooleanVectors.index(
     {Modelica.Math.BooleanVectors.anyTrue({
       nHp==1 or staEqu[i,j] > 0 and staEqu[i,j] < 1 for i in 1:nSta})
-      for j in 1:nHp})
+      for j in 1:nHpTot})
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));

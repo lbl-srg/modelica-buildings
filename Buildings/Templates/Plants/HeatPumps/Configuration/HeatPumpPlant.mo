@@ -26,7 +26,7 @@ record HeatPumpPlant
     "Number of heat pumps with simultaneous heating-cooling operation"
     annotation (Evaluate=true);
 
-  final parameter Integer nHpTot=if have_HpShc then nHp+1 else nHp
+  final parameter Integer nHpTot=nHp+nHpShc
     "Number of heat pumps calculation used for internal logic blocks in controller module"
     annotation(Evaluate=true);
 

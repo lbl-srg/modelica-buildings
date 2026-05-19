@@ -208,21 +208,24 @@ model HybridAirToWater "Validation of AWHP plant template"
     final dpBal1_nominal=datAll.pla.ctl.dpHeaWatRemSet_max[1] - dpTer_nominal - dpValve_nominal,
     final TLiqEnt_nominal=pla.THeaWatSup_nominal,
     final TLiqLvg_nominal=pla.THeaWatRet_nominal,
-    con(val(y_start=0)))                          "Heating load"
+    con(val(y_start=0)))
+    "Heating load"
     annotation (Placement(transformation(extent={{180,-90},{200,-70}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volHeaWat(
     energyDynamics=energyDynamics,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.capHea_nominal,
     redeclare package Medium = Medium,
-    nPorts=2)                          "Fluid volume in distribution system"
+    nPorts=2)
+    "Fluid volume in distribution system"
     annotation (Placement(transformation(extent={{110,-80},{130,-100}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volChiWat(
     energyDynamics=energyDynamics,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
     V=Buildings.Templates.Data.Defaults.ratVLiqByCap*pla.capCoo_nominal,
     redeclare package Medium = Medium,
-    nPorts=2) if have_chiWat           "Fluid volume in distribution system"
+    nPorts=2) if have_chiWat
+    "Fluid volume in distribution system"
     annotation (Placement(transformation(extent={{110,0},{130,-20}})));
   Fluid.FixedResistances.Junction junHWPriSup(
     redeclare package Medium = Medium,
@@ -242,7 +245,8 @@ model HybridAirToWater "Validation of AWHP plant template"
     redeclare package MediumHeaWat = Medium,
     redeclare package MediumSou = Medium,
     is_rev=true,
-    dat=datHpSHC)
+    dat=datHpSHC,
+    energyDynamics=energyDynamics)
     "4-pipe ASHP with simultaneous HW and CHW supply"
     annotation (Placement(transformation(extent={{-104,-200},{-84,-180}})));
   Fluid.FixedResistances.Junction junCHWPriSup(
@@ -263,6 +267,7 @@ model HybridAirToWater "Validation of AWHP plant template"
                                               pumHWHpShc(
     have_var=false,
     have_valChe=true,
+    energyDynamics=energyDynamics,
     redeclare package Medium = Medium,
     nPum=1,
     dat(
@@ -276,6 +281,7 @@ model HybridAirToWater "Validation of AWHP plant template"
                                               pumCHWHpShc(
     have_var=false,
     have_valChe=true,
+    energyDynamics=energyDynamics,
     redeclare package Medium = Medium,
     nPum=1,
     dat(
@@ -289,13 +295,16 @@ model HybridAirToWater "Validation of AWHP plant template"
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal},
-    dp_nominal={0,0,0}) "CHW supply bypass leg junction"
+    dp_nominal={0,0,0})
+    "CHW supply bypass leg junction"
     annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
   Fluid.FixedResistances.Junction junCHWBypRet(
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     m_flow_nominal={pla.mChiWat_flow_nominal,-pla.mChiWat_flow_nominal,pla.mChiWat_flow_nominal},
-    dp_nominal={0,0,0}) "CHW return bypass leg junction" annotation (Placement(
+    dp_nominal={0,0,0})
+    "CHW return bypass leg junction"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -304,18 +313,22 @@ model HybridAirToWater "Validation of AWHP plant template"
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal},
-    dp_nominal={0,0,0}) "HW supply bypass leg junction"
+    dp_nominal={0,0,0})
+    "HW supply bypass leg junction"
     annotation (Placement(transformation(extent={{-34,-90},{-14,-70}})));
   Fluid.FixedResistances.Junction junHWBypRet(
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     m_flow_nominal={pla.mHeaWat_flow_nominal,-pla.mHeaWat_flow_nominal,pla.mHeaWat_flow_nominal},
-    dp_nominal={0,0,0}) "HW return bypass leg junction" annotation (Placement(
+    dp_nominal={0,0,0})
+    "HW return bypass leg junction"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-24,-120})));
   Buildings.Templates.Components.Pumps.Multiple pumChiWatSec(
+    energyDynamics=energyDynamics,
     redeclare package Medium = Medium,
     nPum=2,
     dat(m_flow_nominal=fill(pla.mChiWat_flow_nominal/pumChiWatSec.dat.nPum,
@@ -324,6 +337,7 @@ model HybridAirToWater "Validation of AWHP plant template"
     "CHW secondary pumps"
     annotation (Placement(transformation(extent={{18,-10},{38,10}})));
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatSec(
+    energyDynamics=energyDynamics,
     redeclare package Medium = Medium,
     nPum=2,
     dat(m_flow_nominal=fill(pla.mHeaWat_flow_nominal/pumHeaWatSec.dat.nPum,
@@ -334,22 +348,30 @@ model HybridAirToWater "Validation of AWHP plant template"
   Buildings.Templates.Components.Routing.SingleToMultiple pumChiWatSecInl(
     redeclare package Medium = Medium,
     nPorts=pumChiWatSec.nPum,
-    m_flow_nominal=pla.mChiWat_flow_nominal) "Inlet to CHW secondary pumps"
+    m_flow_nominal=pla.mChiWat_flow_nominal,
+    energyDynamics=energyDynamics)
+    "Inlet to CHW secondary pumps"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Templates.Components.Routing.MultipleToSingle pumChiWatSecOut(
     redeclare package Medium = Medium,
     nPorts=pumChiWatSec.nPum,
-    m_flow_nominal=pla.mChiWat_flow_nominal) "Outlet from CHW secondary pumps"
+    m_flow_nominal=pla.mChiWat_flow_nominal,
+    energyDynamics=energyDynamics)
+    "Outlet from CHW secondary pumps"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
   Buildings.Templates.Components.Routing.SingleToMultiple pumHeaWatSecInl(
     redeclare package Medium = Medium,
     nPorts=pumHeaWatSec.nPum,
-    m_flow_nominal=pla.mHeaWat_flow_nominal) "Inlet to HW secondary pumps"
+    m_flow_nominal=pla.mHeaWat_flow_nominal,
+    energyDynamics=energyDynamics)
+    "Inlet to HW secondary pumps"
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
   Buildings.Templates.Components.Routing.MultipleToSingle pumHeaWatSecOut(
     redeclare package Medium = Medium,
     nPorts=pumHeaWatSec.nPum,
-    m_flow_nominal=pla.mHeaWat_flow_nominal) "Outlet from HW secondary pumps"
+    m_flow_nominal=pla.mHeaWat_flow_nominal,
+    energyDynamics=energyDynamics)
+    "Outlet from HW secondary pumps"
     annotation (Placement(transformation(extent={{46,-90},{66,-70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemChiWatPriSup(
     redeclare package Medium= Medium,
@@ -410,25 +432,29 @@ model HybridAirToWater "Validation of AWHP plant template"
   Buildings.Templates.Components.Routing.SingleToMultiple pumHeaWatShcInl(
     redeclare package Medium = Medium,
     nPorts=pumHWHpShc.nPum,
-    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1])
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
+    energyDynamics=energyDynamics)
     "Inlet to SHC HW primary pump"
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
   Buildings.Templates.Components.Routing.MultipleToSingle pumHeaWatShcOut(
     redeclare package Medium = Medium,
     nPorts=pumHWHpShc.nPum,
-    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1])
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
+    energyDynamics=energyDynamics)
     "Outlet from SHC HW primary pumps"
     annotation (Placement(transformation(extent={{-150,-200},{-130,-180}})));
   Buildings.Templates.Components.Routing.SingleToMultiple pumChiWatShcInl(
     redeclare package Medium = Medium,
     nPorts=pumCHWHpShc.nPum,
-    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1])
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
+    energyDynamics=energyDynamics)
     "Inlet to SHC CHW primary pumps"
     annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
   Buildings.Templates.Components.Routing.MultipleToSingle pumChiWatShcOut(
     redeclare package Medium = Medium,
     nPorts=pumCHWHpShc.nPum,
-    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1])
+    m_flow_nominal=datAll.pla.pumHeaWatPri.m_flow_nominal[1],
+    energyDynamics=energyDynamics)
     "Outlet from SHC CHW primary pumps"
     annotation (Placement(transformation(extent={{-50,-210},{-70,-190}})));
 equation

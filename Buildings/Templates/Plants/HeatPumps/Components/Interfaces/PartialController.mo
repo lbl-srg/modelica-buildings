@@ -63,6 +63,11 @@ block PartialController "Interface for heat pump plant controller"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
 
+  final parameter Integer nHpTot=cfg.nHpTot
+    "Total number of heat pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
+
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true,
