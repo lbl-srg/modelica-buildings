@@ -22,6 +22,7 @@
 	*/
 
 #include "cosimulation.h"
+#include <string.h>
 
 /*
 	* Read the coupled simulation parameters defined by Modelica
