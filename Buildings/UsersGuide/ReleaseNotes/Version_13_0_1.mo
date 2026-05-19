@@ -58,12 +58,13 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">xxx.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.FFD
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Improved C source codes and recompiled FFD library to allow the examples being simulated with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4015\">Buildings, #4015</a>.<br/>
     </td>
 </tr>
 </table>
