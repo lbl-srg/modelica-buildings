@@ -684,8 +684,8 @@ equation
   connect(y1Hp_actual1[ctl1.nHp + 1].y1_actual, ctl1.u1HpShc_actual[1])
     annotation (Line(points={{232,60},{240,60},{240,76},{140,76},{140,44},{146,44}},
         color={255,0,255}));
-  connect(ctl1.y1HpShc[1], y1Hp_actual1[ctl1.nHpTot].y1) annotation (Line(points={{
-          190,55},{200,55},{200,60},{210,60}}, color={255,0,255}));
+  connect(ctl1.y1HpShcHea[1], y1Hp_actual1[ctl1.nHpTot].y1) annotation (Line(
+        points={{190,55},{200,55},{200,60},{210,60}}, color={255,0,255}));
   connect(ctl1.y1PumHeaWatPriShc, y1PumHeaWatPriFouPip_actual1.y1) annotation (
       Line(points={{190,-25},{208,-25},{208,-50},{218,-50}}, color={255,0,255}));
   connect(ctl1.y1PumChiWatPriShc, y1PumChiWatPriFouPip_actual1.y1) annotation (

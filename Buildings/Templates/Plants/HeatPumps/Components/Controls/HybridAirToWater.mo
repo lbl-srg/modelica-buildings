@@ -351,7 +351,8 @@ equation
           {34,-5},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
         color={0,0,127}));
   connect(ctl.u1HpShc_actual, busHpShc.y1_actual);
-  connect(ctl.y1HpShc, busHpShc.y1);
+  connect(ctl.y1HpShcHea, busHpShc.y1HeaOn);
+  connect(ctl.y1HpShcCoo, busHpShc.y1CooOn);
   connect(ctl.THeaWatSupSetHpShc, busHpShc.TSet);
   connect(ctl.THeaWatSupSetHpShc, busHpShc.THeaWatSupSet);
   connect(ctl.TChiWatSupSetHpShc, busHpShc.TChiWatSupSet);

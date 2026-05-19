@@ -164,7 +164,7 @@ createPlot(
     id=9,
     position={615, 5, 300, 500},
     subPlot=1,
-    y={"ctl1.y1Hp[1]", "ctl1.y1Hp[2]", "ctl1.y1HpShc[1]"},
+    y={"ctl1.y1Hp[1]", "ctl1.y1Hp[2]", "ctl1.y1HpShcHea[1]", "ctl1.y1HpShcCoo[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
