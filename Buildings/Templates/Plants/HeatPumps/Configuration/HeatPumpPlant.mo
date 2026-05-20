@@ -19,8 +19,21 @@ record HeatPumpPlant
     "Set to true for plants with a sidestream heat recovery chiller"
     annotation (Evaluate=true);
   parameter Integer nHp
-    "Number of heat pumps"
+    "Number of heat pumps with single operation mode"
     annotation (Evaluate=true);
+
+  parameter Integer nHpShc
+    "Number of heat pumps with simultaneous heating-cooling operation"
+    annotation (Evaluate=true);
+
+  final parameter Integer nHpTot=nHp+nHpShc
+    "Number of heat pumps calculation used for internal logic blocks in controller module"
+    annotation(Evaluate=true);
+
+  final parameter Boolean have_HpShc=nHpShc>0
+    "True: The plant is a hybrid heat pump plant with a four-pipe heat pump"
+    annotation(Evaluate=true);
+
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true);
