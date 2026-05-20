@@ -29,7 +29,10 @@ partial model Example1 "Example 1 partial model"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.Pulse pulse(period=1000) "Pulse input"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Modelica.Blocks.Math.Gain gain(k=m_flow_nominal) "Gain for m_flow_nominal"
+  Modelica.Blocks.Math.Gain gain(
+    k=m_flow_nominal,
+    u(unit="1"),
+    y(unit="kg/s")) "Gain for m_flow_nominal"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Medium,
@@ -108,6 +111,11 @@ and is created to avoid errors in the implementation of the two depending exampl
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 May 8, 2017, by Michael Wetter:<br/>
 Updated heater model.<br/>

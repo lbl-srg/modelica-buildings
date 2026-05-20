@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "kalFil.uR[1]",
+    "kalFil.yR[1]",
+    "sine.y"
+  };

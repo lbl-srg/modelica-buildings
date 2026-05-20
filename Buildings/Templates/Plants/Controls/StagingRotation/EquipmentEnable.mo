@@ -4,6 +4,10 @@ block EquipmentEnable
   parameter Boolean is_pumApp
     "Is the equipment enable block used for a pump control module application?";
 
+  parameter Boolean have_HpShc=false
+    "True: The logic block is used in a hybrid heat pump plant"
+    annotation (Evaluate=true);
+
   parameter Integer nEquAlt
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
@@ -16,249 +20,347 @@ block EquipmentEnable
     "Number of equipment"
     annotation (Evaluate=true);
 
-  final Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
-    "Transpose of staging matrix";
+  parameter Real staEqu[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for non-hybrid plant – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=not have_HpShc));
+
+  parameter Real staEquSinMod[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for hybrid plant in single-operation mode – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=have_HpShc));
+
+  parameter Real staEquDouMod[nSta,nEqu](
+    each unit="1",
+    each min=0,
+    each max=1,
+    start=fill(0,nSta,nEqu))
+    "Staging matrix for hybrid plant in heating-cooling mode – Equipment required for each stage"
+    annotation (Evaluate=true,
+      Dialog(enable=have_HpShc));
+
+  final parameter Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for non-hybrid plant"
+    annotation (Evaluate=true);
+
+  final parameter Real traStaEquSinMod[nEqu, nSta]= {{staEquSinMod[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for hybrid plant in single-operation mode"
+    annotation (Evaluate=true);
+
+  final parameter Real traStaEquDouMod[nEqu, nSta]= {{staEquDouMod[i, j] for i in 1:nSta} for j in 1:nEqu}
+    "Transpose of staging matrix for hybrid plant in heating-cooling mode"
+    annotation (Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
     "Equipment available signal"
-    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if not is_pumApp
     "Detect plant switching to heating-cooling mode"
-    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
     "Indices of lead/lag alternate equipment sorted by increasing runtime"
-    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
     "Stage index"
-    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput staEqu[nSta,nEqu](
-    each unit="1",
-    each min=0,
-    each max=1)
-    "Staging matrix – Equipment required for each stage"
-    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
-
-  Modelica.Blocks.Sources.RealExpression traMatStaEqu[nEqu, nSta](y=traStaEqu)
-    "Transpose of staging matrix"
-    annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1[nEqu]
     "Equipment enable command"
-    annotation (Placement(transformation(extent={{200,-20},{240,20}}),
+    annotation (Placement(transformation(extent={{200,-40},{240,0}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor reqEquSta[nEqu](
     each final nin=nSta)
     "Extract equipment required at given stage"
-    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
+    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
     final nout=nEqu)
     "Replicate signal"
-    annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
+    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum nEquStaRea(
     nin=nEqu)
     "Return the number of equipment required"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isReq[nEqu](
     each final t=0.99)
     "Return true if equipment required without lead/lag alternate"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And isReqAva[nEqu]
     "Return true if equipment required without lead/lag alternate and available"
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isReqPosAlt[nEqu](
-      each final t=1E-4)
+    each final t=1E-4)
     "Return true if equipment required (with or without lead/lag alternate)"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold isNotReqNoAlt[nEqu](
-      each final t=0.9999)
+    each final t=0.9999)
     "Return true if equipment not required or required with lead/lag alternate"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd isReqAltAva[nEqu](
     each final nin=3)
     "Return true if lead/lag alternate equipment required and available"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Or ena[nEqu]
-    "Enable equipment required without lead/lag alternate and available or lead/lag alternate equipment to meet stage requirement"
-    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
+    "Enable equipment required without lead/lag alternate and available or lead/lag
+    alternate equipment to meet stage requirement"
+    annotation (Placement(transformation(extent={{110,-30},{130,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger nEquSta
     "Number of equipment required"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Integers.Subtract nAltReq
     "Number of lead/lag alternate equipment to run to meet stage requirement"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+
   Buildings.Controls.OBC.CDL.Logical.And isReqAltAvaNee[nEqu]
     "Return true if equipment required with lead/lag alternate and available and needed to meet stage requirement"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+
   Buildings.Controls.OBC.CDL.Integers.Change cha
     "Detect stage index change"
-    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
+    annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
+
   Buildings.Controls.OBC.CDL.Logical.Pre y1Pre[nEqu]
     "Left limit of signal in discrete time"
-    annotation (Placement(transformation(extent={{180,-70},{160,-50}})));
+    annotation (Placement(transformation(extent={{180,-90},{160,-70}})));
+
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nEqu]
     "Switch to newly computed value at stage change"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+    annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
+
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
     final nout=nEqu)
     "Replicate signal"
-    annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
-  Utilities.CountTrue nReq(
+    annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
+
+  Buildings.Templates.Plants.Controls.Utilities.CountTrue nReq(
     nin=nEqu)
     "Count the number of required equipment without lead/lag alternate, not necessarily available"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Utilities.CountTrue nEnaAvaPre(
+    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+
+  Buildings.Templates.Plants.Controls.Utilities.CountTrue nEnaAvaPre(
     nin=nEqu)
     "Count the number of previously enabled equipment that are available"
-    annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
+    annotation (Placement(transformation(extent={{100,-130},{80,-110}})));
+
   Buildings.Controls.OBC.CDL.Integers.Less intLes
     "Compare to required number of equipment"
-    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
+    annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr swiEna(
     final nin=if is_pumApp then 2 else 3)
     "Evaluate condition to switch to newly computed enable signal"
-    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
     "Return true if equipment previously enabled and available"
-    annotation (Placement(transformation(extent={{130,-110},{110,-90}})));
-  Utilities.TrueArrayConditional truArrCon(
+    annotation (Placement(transformation(extent={{130,-130},{110,-110}})));
+  Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional truArrCon(
     final nout=nEqu,
     final nin=nEquAlt)
     "Generate array of size nEqu with nAltReq true elements at uIdxAltSor indices "
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
     final k=1)
     "Constant"
-    annotation (Placement(transformation(extent={{-190,10},{-170,30}})));
+    annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
     "Maximum between stage index and 1"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+    annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold greZer(
     final t=0)
     "Check if stage index is greater than zero"
-    annotation (Placement(transformation(extent={{-170,-50},{-150,-30}})));
+    annotation (Placement(transformation(extent={{-170,-70},{-150,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=1,
     final realFalse=0)
     "Cast to real"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
     final nout=nEqu)
     "Replicate signal"
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply voiStaZer[nEqu]
     "Void if stage is equal to zero"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha1 if not is_pumApp
     "Detect if plant enters simultaneous heating and cooling operation"
-    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+    annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta]
+    if have_HpShc and not is_pumApp
+    "Switch between transverse matrices for heating-cooling mode and single-operation mode"
+    annotation (Placement(transformation(extent={{-8,110},{12,130}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
+    final k=traStaEquDouMod) if have_HpShc
+    "Constant signal for transverse of staging equation matrix in heating-cooling mode"
+    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
+    final k=traStaEquSinMod) if have_HpShc
+    "Constant signal for transverse of staging equation matrix in single-operation mode"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
+    final k=traStaEqu) if not have_HpShc
+    "Constant signal for transverse of staging equation matrix in non-hybrid plants"
+    annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
+    final nin=nSta,
+    final nout=nEqu) if not is_pumApp
+    "Replicate heating-cooling signal vector to match number of rows"
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCol(
+    final nout=nSta) if not is_pumApp
+    "Replicate heating-cooling signal to match number of columns"
+    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
 equation
   connect(intScaRep.y, reqEquSta.index)
-    annotation (Line(points={{-108,0},{-100,0},{-100,60},{-150,60},{-150,68}},
+    annotation (Line(points={{-108,-20},{-100,-20},{-100,40},{-150,40},{-150,48}},
       color={255,127,0}));
-  connect(traMatStaEqu.y, reqEquSta.u)
-    annotation (Line(points={{-169,80},{-162,80}},color={0,0,127}));
   connect(isReq.y, isReqAva.u1)
-    annotation (Line(points={{-38,-40},{-12,-40}},color={255,0,255}));
+    annotation (Line(points={{-38,-60},{-12,-60}},color={255,0,255}));
   connect(u1Ava, isReqAva.u2)
-    annotation (Line(points={{-220,-80},{-30,-80},{-30,-48},{-12,-48}},color={255,0,255}));
+    annotation (Line(points={{-220,-100},{-24,-100},{-24,-68},{-12,-68}},
+                                                                       color={255,0,255}));
   connect(isReqPosAlt.y, isReqAltAva.u[1])
-    annotation (Line(points={{-38,40},{-30,40},{-30,37.6667},{-12,37.6667}},
+    annotation (Line(points={{-38,20},{-36,20},{-36,17.6667},{-12,17.6667}},
       color={255,0,255}));
   connect(isNotReqNoAlt.y, isReqAltAva.u[2])
-    annotation (Line(points={{-38,0},{-32,0},{-32,40},{-12,40}},color={255,0,255}));
+    annotation (Line(points={{-38,-20},{-26,-20},{-26,20},{-12,20}},
+                                                                color={255,0,255}));
   connect(u1Ava, isReqAltAva.u[3])
-    annotation (Line(points={{-220,-80},{-30,-80},{-30,42.3333},{-12,42.3333}},
+    annotation (Line(points={{-220,-100},{-24,-100},{-24,22.3333},{-12,22.3333}},
       color={255,0,255}));
   connect(isReqAva.y, ena.u2)
-    annotation (Line(points={{12,-40},{104,-40},{104,-8},{108,-8}},color={255,0,255}));
+    annotation (Line(points={{12,-60},{104,-60},{104,-28},{108,-28}},
+                                                                   color={255,0,255}));
   connect(nEquStaRea.y, nEquSta.u)
-    annotation (Line(points={{-38,80},{-12,80}},color={0,0,127}));
+    annotation (Line(points={{-38,60},{-12,60}},color={0,0,127}));
   connect(nEquSta.y, nAltReq.u1)
-    annotation (Line(points={{12,80},{50,80},{50,46},{58,46}},color={255,127,0}));
+    annotation (Line(points={{12,60},{50,60},{50,26},{58,26}},color={255,127,0}));
   connect(isReqAltAva.y, isReqAltAvaNee.u2)
-    annotation (Line(points={{12,40},{30,40},{30,-8},{78,-8}},color={255,0,255}));
+    annotation (Line(points={{12,20},{30,20},{30,-28},{78,-28}},
+                                                              color={255,0,255}));
   connect(isReqAltAvaNee.y, ena.u1)
-    annotation (Line(points={{102,0},{108,0}},color={255,0,255}));
+    annotation (Line(points={{102,-20},{108,-20}},
+                                              color={255,0,255}));
   connect(uSta, cha.u)
-    annotation (Line(points={{-220,0},{-190,0},{-190,-60},{28,-60}},color={255,127,0}));
+    annotation (Line(points={{-220,-20},{-190,-20},{-190,-80},{28,-80}},
+                                                                    color={255,127,0}));
   connect(logSwi.y, y1)
-    annotation (Line(points={{182,0},{220,0}},color={255,0,255}));
+    annotation (Line(points={{182,-20},{220,-20}},
+                                              color={255,0,255}));
   connect(y1, y1Pre.u)
-    annotation (Line(points={{220,0},{190,0},{190,-60},{182,-60}},color={255,0,255}));
+    annotation (Line(points={{220,-20},{190,-20},{190,-80},{182,-80}},
+                                                                  color={255,0,255}));
   connect(y1Pre.y, logSwi.u3)
-    annotation (Line(points={{158,-60},{150,-60},{150,-8},{158,-8}},color={255,0,255}));
+    annotation (Line(points={{158,-80},{150,-80},{150,-28},{158,-28}},
+                                                                    color={255,0,255}));
   connect(ena.y, logSwi.u1)
-    annotation (Line(points={{132,0},{138,0},{138,8},{158,8}},color={255,0,255}));
+    annotation (Line(points={{132,-20},{138,-20},{138,-12},{158,-12}},
+                                                              color={255,0,255}));
   connect(booScaRep.y, logSwi.u2)
-    annotation (Line(points={{132,-60},{144,-60},{144,0},{158,0}},color={255,0,255}));
+    annotation (Line(points={{132,-80},{144,-80},{144,-20},{158,-20}},
+                                                                  color={255,0,255}));
   connect(nReq.y, nAltReq.u2)
-    annotation (Line(points={{12,0},{50,0},{50,34},{58,34}},color={255,127,0}));
+    annotation (Line(points={{12,-20},{50,-20},{50,14},{58,14}},
+                                                            color={255,127,0}));
   connect(isReq.y, nReq.u1)
-    annotation (Line(points={{-38,-40},{-20,-40},{-20,0},{-12,0}},color={255,0,255}));
+    annotation (Line(points={{-38,-60},{-20,-60},{-20,-20},{-12,-20}},
+                                                                  color={255,0,255}));
   connect(nEnaAvaPre.y, intLes.u1)
-    annotation (Line(points={{78,-100},{70,-100},{70,-84},{24,-84},{24,-100},{28,-100}},
+    annotation (Line(points={{78,-120},{70,-120},{70,-104},{24,-104},{24,-120},{
+          28,-120}},
       color={255,127,0}));
   connect(nEquSta.y, intLes.u2)
-    annotation (Line(points={{12,80},{20,80},{20,-108},{28,-108}},color={255,127,0}));
+    annotation (Line(points={{12,60},{20,60},{20,-128},{28,-128}},color={255,127,0}));
   connect(swiEna.y, booScaRep.u)
-    annotation (Line(points={{102,-60},{108,-60}},color={255,0,255}));
+    annotation (Line(points={{102,-80},{108,-80}},color={255,0,255}));
   connect(isEnaPreAva.y, nEnaAvaPre.u1)
-    annotation (Line(points={{108,-100},{102,-100}},color={255,0,255}));
+    annotation (Line(points={{108,-120},{102,-120}},color={255,0,255}));
   connect(y1Pre.y, isEnaPreAva.u2)
-    annotation (Line(points={{158,-60},{150,-60},{150,-108},{132,-108}},color={255,0,255}));
+    annotation (Line(points={{158,-80},{150,-80},{150,-128},{132,-128}},color={255,0,255}));
   connect(u1Ava, isEnaPreAva.u1)
-    annotation (Line(points={{-220,-80},{140,-80},{140,-100},{132,-100}},color={255,0,255}));
+    annotation (Line(points={{-220,-100},{140,-100},{140,-120},{132,-120}},
+                                                                         color={255,0,255}));
   connect(nAltReq.y, truArrCon.u)
-    annotation (Line(points={{82,40},{98,40}},color={255,127,0}));
+    annotation (Line(points={{82,20},{98,20}},color={255,127,0}));
   connect(uIdxAltSor, truArrCon.uIdx)
-    annotation (Line(points={{-220,100},{90,100},{90,34},{98,34}},color={255,127,0}));
+    annotation (Line(points={{-220,80},{90,80},{90,14},{98,14}},  color={255,127,0}));
   connect(truArrCon.y1, isReqAltAvaNee.u1)
-    annotation (Line(points={{122,40},{130,40},{130,20},{70,20},{70,0},{78,0}},
+    annotation (Line(points={{122,20},{130,20},{130,0},{70,0},{70,-20},{78,-20}},
       color={255,0,255}));
   connect(one.y, maxInt.u1)
-    annotation (Line(points={{-168,20},{-166,20},{-166,6},{-162,6}},color={255,127,0}));
+    annotation (Line(points={{-168,0},{-166,0},{-166,-14},{-162,-14}},
+                                                                    color={255,127,0}));
   connect(uSta, maxInt.u2)
-    annotation (Line(points={{-220,0},{-166,0},{-166,-6},{-162,-6}},color={255,127,0}));
+    annotation (Line(points={{-220,-20},{-166,-20},{-166,-26},{-162,-26}},
+                                                                    color={255,127,0}));
   connect(maxInt.y, intScaRep.u)
-    annotation (Line(points={{-138,0},{-132,0}},color={255,127,0}));
+    annotation (Line(points={{-138,-20},{-132,-20}},
+                                                color={255,127,0}));
   connect(uSta, greZer.u)
-    annotation (Line(points={{-220,0},{-190,0},{-190,-40},{-172,-40}},color={255,127,0}));
+    annotation (Line(points={{-220,-20},{-190,-20},{-190,-60},{-172,-60}},
+                                                                      color={255,127,0}));
   connect(greZer.y, booToRea.u)
-    annotation (Line(points={{-148,-40},{-142,-40}},color={255,0,255}));
+    annotation (Line(points={{-148,-60},{-142,-60}},color={255,0,255}));
   connect(booToRea.y, reaScaRep.u)
-    annotation (Line(points={{-118,-40},{-112,-40}},color={0,0,127}));
+    annotation (Line(points={{-118,-60},{-112,-60}},color={0,0,127}));
   connect(reqEquSta.y, voiStaZer.u1)
-    annotation (Line(points={{-138,80},{-120,80},{-120,86},{-102,86}},color={0,0,127}));
+    annotation (Line(points={{-138,60},{-120,60},{-120,66},{-102,66}},color={0,0,127}));
   connect(reaScaRep.y, voiStaZer.u2)
-    annotation (Line(points={{-88,-40},{-80,-40},{-80,64},{-110,64},{-110,74},{-102,74}},
+    annotation (Line(points={{-88,-60},{-80,-60},{-80,44},{-110,44},{-110,54},{-102,
+          54}},
       color={0,0,127}));
   connect(voiStaZer.y, nEquStaRea.u)
-    annotation (Line(points={{-78,80},{-62,80}},color={0,0,127}));
+    annotation (Line(points={{-78,60},{-62,60}},color={0,0,127}));
   connect(voiStaZer.y, isReqPosAlt.u)
-    annotation (Line(points={{-78,80},{-70,80},{-70,40},{-62,40}},color={0,0,127}));
+    annotation (Line(points={{-78,60},{-70,60},{-70,20},{-62,20}},color={0,0,127}));
   connect(voiStaZer.y, isNotReqNoAlt.u)
-    annotation (Line(points={{-78,80},{-70,80},{-70,0},{-62,0}},color={0,0,127}));
+    annotation (Line(points={{-78,60},{-70,60},{-70,-20},{-62,-20}},
+                                                                color={0,0,127}));
   connect(voiStaZer.y, isReq.u)
-    annotation (Line(points={{-78,80},{-70,80},{-70,-40},{-62,-40}},color={0,0,127}));
-  connect(cha.y, swiEna.u[1]) annotation (Line(points={{52,-60},{66,-60},{66,-60},
-          {78,-60}},                color={255,0,255}));
-  connect(intLes.y, swiEna.u[2]) annotation (Line(points={{52,-100},{62,-100},{
-          62,-60},{78,-60}}, color={255,0,255}));
-  connect(u1HeaCoo, cha1.u) annotation (Line(points={{-220,-120},{-180,-120},{
-          -180,-100},{-142,-100}}, color={255,0,255}));
-  connect(cha1.y, swiEna.u[3]) annotation (Line(points={{-118,-100},{-40,-100},{
-          -40,-116},{62,-116},{62,-58},{78,-58},{78,-60}},       color={255,0,
+    annotation (Line(points={{-78,60},{-70,60},{-70,-60},{-62,-60}},color={0,0,127}));
+  connect(cha.y, swiEna.u[1]) annotation (Line(points={{52,-80},{78,-80}},
+                                    color={255,0,255}));
+  connect(intLes.y, swiEna.u[2]) annotation (Line(points={{52,-120},{62,-120},{62,
+          -80},{78,-80}},    color={255,0,255}));
+  connect(u1HeaCoo, cha1.u) annotation (Line(points={{-220,-140},{-22,-140}},
+                                   color={255,0,255}));
+  connect(cha1.y, swiEna.u[3]) annotation (Line(points={{2,-140},{60,-140},{60,-106},
+          {62,-106},{62,-80},{78,-80}},                          color={255,0,
           255}));
+  connect(conTraMatStaEquDouMod.y, swiMod.u1) annotation (Line(points={{-58,140},
+          {-20,140},{-20,128},{-10,128}}, color={0,0,127}));
+  connect(conTraMatStaEquSinMod.y, swiMod.u3) annotation (Line(points={{-58,100},
+          {-20,100},{-20,112},{-10,112}}, color={0,0,127}));
+  connect(swiMod.y, reqEquSta.u) annotation (Line(points={{14,120},{20,120},{20,
+          84},{-164,84},{-164,60},{-162,60}}, color={0,0,127}));
+  connect(conTraMatStaEqu.y, reqEquSta.u) annotation (Line(points={{-168,60},{-162,
+          60}},                                          color={0,0,127}));
+  connect(booScaRepCol.y, booVecRepRow.u)
+    annotation (Line(points={{-98,-120},{-82,-120}}, color={255,0,255}));
+  connect(u1HeaCoo, booScaRepCol.u) annotation (Line(points={{-220,-140},{-132,-140},
+          {-132,-120},{-122,-120}}, color={255,0,255}));
+  connect(booVecRepRow.y, swiMod.u2) annotation (Line(points={{-58,-120},{-32,-120},
+          {-32,120},{-10,120}}, color={255,0,255}));
   annotation (
     defaultComponentName="enaEqu",
     Icon(
@@ -277,7 +379,7 @@ equation
           textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
-        extent={{-200,-120},{200,120}})),
+        extent={{-200,-160},{200,160}})),
     Documentation(
       info="<html>
 <p>
@@ -287,7 +389,9 @@ signal <code>u1Ava</code> and the indices of lead/lag alternate
 equipment, sorted by increasing staging runtime.
 </p>
 <p>
-A staging matrix <code>staEqu</code> is required as a parameter.
+Staging matrices <code>staEqu</code>, <code>staEquSinMod</code> and
+<code>staEquDouMod</code> are required parameters. The following rules apply to
+all three of them.
 </p>
 <ul>
 <li>Each row of this matrix corresponds to a given stage.</li>
@@ -321,19 +425,89 @@ is required for all <code>i &lt; size(staEqu, 1)</code>.
 </li>
 </ul>
 <p>
-The state of the enable signals is only updated at stage change, or
-if the number of previously enabled equipment that is available is
-strictly less than the number of equipment required to run.
+The state of the enable signals is only updated at stage change, or if the plant
+enters simultaneous heating-cooling operation (valid only for heat pump staging
+operations in plants with heating and cooling), or if the number of previously
+enabled equipment that is available is strictly less than the number of equipment
+required to run.
 This avoids hot swapping equipment, e.g., an equipment would not be started
 and another stopped during operation just to fulfill the priority order.
 However, when a lead/lag alternate equipment becomes unavailable and another
 lead/lag alternate equipment can be enabled to meet the number of required
 equipment, then the state of the enable signals is updated.
 </p>
+<h4>Details</h4>
+<p>
+For each equipment item <i>i</i>, the enable command is determined as
+follows.
+</p>
+<p>
+The staging matrix (or its transpose) encodes which equipment items are
+required at each stage. From the extracted row for the current stage, three Boolean
+conditions are derived for each equipment item <i>i</i>:
+</p>
+<ul>
+<li>
+<code>isReq</code>: the staging row value equals exactly 1, meaning equipment
+<i>i</i> is required without a lead/lag alternate.
+</li>
+<li>
+<code>isReqPosAlt</code>: the staging row value is greater than zero, meaning
+equipment <i>i</i> is required either directly or as a potential
+lead/lag alternate.
+</li>
+<li>
+<code>isNotReqNoAlt</code>: the staging row value is less than 1, meaning
+equipment <i>i</i> is either not required or is only a candidate
+lead/lag alternate.
+</li>
+</ul>
+<p>
+Equipment that is directly required (<code>isReq</code> is true) and available
+(<code>u1Ava</code> is true) is enabled via <code>isReqAva</code>.
+</p>
+<p>
+For lead/lag alternate equipment, the number of alternates needed to
+satisfy the stage requirement is computed as:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+n<sub>alt,req</sub> = n<sub>equ,sta</sub> &minus; n<sub>req</sub>
+</p>
+<p>
+where <i>n<sub>equ,sta</sub></i> is the total number of equipment
+required at the current stage (summed from the staging row via
+<code>nEquStaRea</code> and converted by <code>nEquSta</code>) and
+<i>n<sub>req</sub></i> is the count of equipment directly required
+without a lead/lag alternate (counted by <code>nReq</code>).
+The block <code>truArrCon</code>
+(<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional\">
+Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional</a>)
+then generates a Boolean array that marks the
+first <i>n<sub>alt,req</sub></i> available lead/lag alternate equipment
+items according to the sorted runtime order supplied by
+<code>uIdxAltSor</code>.
+An alternate equipment item is enabled when it is a candidate
+(<i>isReqPosAlt</i> and <i>isNotReqNoAlt</i>), available
+(<code>u1Ava</code>), and selected by <code>truArrCon</code>; this
+combined condition is evaluated by <code>isReqAltAva</code> and
+<code>isReqAltAvaNee</code>.
+</p>
+<p>
+The final enable command for each equipment item is the logical OR of
+the two paths:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+y1<sub>i</sub> = isReqAva<sub>i</sub> or isReqAltAvaNee<sub>i</sub>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2024, by Antoine Gautier:<br/>
+<i>April 22, 2026</i>, by Karthik Devaprasad:<br/>
+Adapted for heat pump staging in hybrid plants. Added details about module logic.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4304\">#4304</a>.
+</li>
+<li>
+<i>March 29, 2024</i>, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

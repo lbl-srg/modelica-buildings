@@ -2,6 +2,7 @@ EquipmentAvailability
 EquipmentEnable
 EventSequencing
 FailsafeCondition
+HybridOperation
 LoadAverage
 SortRuntime
 StageAvailability

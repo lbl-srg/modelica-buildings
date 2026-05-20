@@ -49,6 +49,7 @@ model StageChangeCommand
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
     have_pumSec=false,
     plrSta=0.9,
+    staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1],
     nSta=5,
     nEqu=3,
     capEqu=1E3*{100,450,450},
@@ -92,7 +93,8 @@ model StageChangeCommand
     is_pumApp=true,
     nEquAlt=2,
     nSta=5,
-    nEqu=3)
+    nEqu=3,
+    staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1])
     "Enable equipment"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquLeaLag[2](
@@ -111,14 +113,11 @@ model StageChangeCommand
     nin=3)
     "Check completion of stage change"
     annotation (Placement(transformation(extent={{-30,50},{-50,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[5,3](k=[1,0,0; 0,1/2,1/2;
-        1,1/2,1/2; 0,1,1; 1,1,1])
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 equation
   connect(TRet.y, chaSta.TRet)
     annotation (Line(points={{-108,0},{-104,0},{-104,-6},{-52,-6}},color={0,0,127}));
   connect(TSupSet.y, chaSta.TSupSet)
-    annotation (Line(points={{-108,40},{-100,40},{-100,0},{-52,0}},  color={0,0,127}));
+    annotation (Line(points={{-108,40},{-100,40},{-100,2},{-52,2}},  color={0,0,127}));
   connect(chaSta.y1Up, idxSta.u1Up)
     annotation (Line(points={{-28,4},{-20,4},{-20,2},{-2,2}},color={255,0,255}));
   connect(chaSta.y1Dow, idxSta.u1Dow)
@@ -141,9 +140,10 @@ equation
   connect(V_flow.y, chaSta.V_flow)
     annotation (Line(points={{-78,-40},{-56,-40},{-56,-8},{-52,-8}},color={0,0,127}));
   connect(idxSta.y, enaEqu.uSta)
-    annotation (Line(points={{22,0},{58,0}},color={255,127,0}));
+    annotation (Line(points={{22,0},{40,0},{40,2},{58,2}},
+                                            color={255,127,0}));
   connect(u1AvaEqu.y, enaEqu.u1Ava)
-    annotation (Line(points={{-78,-100},{54,-100},{54,-4},{58,-4}},color={255,0,255}));
+    annotation (Line(points={{-78,-100},{54,-100},{54,-2},{58,-2}},color={255,0,255}));
   connect(enaEqu.y1, staEqu.y1)
     annotation (Line(points={{82,0},{98,0}},color={255,0,255}));
   connect(comSta.y1, chaSta.u1StaPro)
@@ -156,12 +156,8 @@ equation
     annotation (Line(points={{22,0},{40,0},{40,64},{-28,64}},color={255,127,0}));
   connect(TSupSet.y, chaSta.TPriSup) annotation (Line(points={{-108,40},{-100,
           40},{-100,-2},{-52,-2}}, color={0,0,127}));
-  connect(con.y, chaSta.staEqu) annotation (Line(points={{-78,60},{-64,60},{-64,
-          6},{-52,6}}, color={0,0,127}));
   connect(idxEquLeaLag.y, enaEqu.uIdxAltSor) annotation (Line(points={{-78,100},
-          {42,100},{42,8},{58,8}}, color={255,127,0}));
-  connect(con.y, enaEqu.staEqu) annotation (Line(points={{-78,60},{-64,60},{-64,
-          22},{38,22},{38,4},{58,4}}, color={0,0,127}));
+          {42,100},{42,6},{58,6}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file=
