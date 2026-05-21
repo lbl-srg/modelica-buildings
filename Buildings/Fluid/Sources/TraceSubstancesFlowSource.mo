@@ -25,12 +25,11 @@ model TraceSubstancesFlowSource
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
     redeclare each package Medium = Medium)
     "Connector for fluid ports"
-    annotation (mayOnlyConnectOnce = "
-Each ports[i] of boundary shall at most be connected to one component.
+    annotation (mayOnlyConnectOnce = "Each ports[i] of boundary shall at most be connected to one component.
 If two or more connections are present, ideal mixing takes
 place in these connections, which is usually not the intention
-of the modeller. Increase nPorts to add an additional port.
-", Placement(transformation(extent={{90,40},{110,-40}})));
+of the modeller. Increase nPorts to add an additional port.",
+      Placement(transformation(extent={{90,40},{110,-40}})));
 
 protected
   parameter Medium.ExtraProperty C_in_internal[Medium.nC](
