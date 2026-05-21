@@ -99,6 +99,12 @@ which is more efficient than using this model.
 </html>", revisions="<html>
 <ul>
 <li>
+May 21, 2026, by Michael Wetter:<br/>
+Replaced deprecated <code>cardinality</code> function with the annotation
+<code>mayOnlyConnectOnce</code>.<br/>
+This is for <a href=\"http://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+</li>
+<li>
 March 11, 2024, by Michael Wetter:<br/>
 Corrected use of <code>HideResult</code>.<br/>
 This is for
