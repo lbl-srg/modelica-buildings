@@ -14,23 +14,12 @@ partial model PartialAirSource
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
     redeclare each package Medium = Medium,
-    each m_flow(max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
-                    then 0 else +Modelica.Constants.inf,
-                min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
-                    then 0 else -Modelica.Constants.inf),
     each h_outflow(nominal=Medium.h_default),
     each Xi_outflow(each nominal=0.01))
     "Fluid ports"
-    annotation (mayOnlyConnectOnce = "
-Each ports[i] of boundary shall at most be connected to one component.
-If two or more connections are present, ideal mixing takes
-place in these connections, which is usually not the intention
-of the modeller. Increase nPorts to add an additional port.
-", Placement(transformation(extent={{90,40},{110,-40}})));
+    annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 
 protected
-  parameter Modelica.Fluid.Types.PortFlowDirection flowDirection=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    "Allowed flow direction" annotation (Evaluate=true, Dialog(tab="Advanced"));
   Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
     "Needed to connect to conditional connector";
   Medium.BaseProperties medium(
@@ -77,6 +66,13 @@ Buildings.Fluid.Sources.BaseClasses.PartialSource</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 21, 2026, by Michael Wetter:<br/>
+Removed deprecated <code>cardinality</code> function.<br/>
+Removed protected parameter <code>flowDirection</code> as it was set to <code>Birectional</code>
+and had no effect on the model.<br/>
+This is for <a href=\"http://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+</li>
 <li>
 June 18, 2024, by Michael Wetter:<br/>
 Added <code>start</code> and <code>nominal</code> attributes
