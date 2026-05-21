@@ -290,7 +290,7 @@ fan speed setpoint equals to the <code>uTowSpeWSE</code>.
 </li>
 <li>
 in the period when the chiller runs only (after 1320 seconds), the
-speed setpoint is minium of the <code>plrTowMaxSpeSet</code>,
+speed setpoint is minimum of the <code>plrTowMaxSpeSet</code>,
 <code>uMaxTowSpeSet</code> and the mapped setpoint.
 </li>
 </ul>

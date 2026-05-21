@@ -128,7 +128,7 @@ partial model DataCenter
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     use_strokeTime=false)
-    "Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer"
+    "Bypass control valve for economizer. 1: disable economizer, 0: enable economizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -184,7 +184,7 @@ partial model DataCenter
     "Set temperature for air supply to the room" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-230,170})));
-  Modelica.Blocks.Math.BooleanToReal chiCon "Contorl signal for chiller"
+  Modelica.Blocks.Math.BooleanToReal chiCon "Control signal for chiller"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumW,
@@ -218,7 +218,7 @@ partial model DataCenter
         extent={{10,-10},{-10,10}},
         origin={330,119})));
   Modelica.Blocks.Sources.Constant cooTowFanCon(k=1)
-    "Control singal for cooling tower fan" annotation (Placement(transformation(
+    "Control signal for cooling tower fan" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={230,271})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
@@ -238,7 +238,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=59720 + 1000,
     use_strokeTime=false)
-    "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
+    "Control valve for economizer. 0: disable economizer, 1: enable economizer"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}}, origin={
             118,-60})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLeaCoi(redeclare package
@@ -629,8 +629,8 @@ This is for
 September 21, 2017, by Michael Wetter:<br/>
 Set <code>from_dp = true</code> in <code>val6</code> and in <code>valByp</code>
 which is needed for Dymola 2018FD01 beta 2 for
-<a href=\"modelica://Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl\">
-Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</a>
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter.DiscreteTimeControl\">
+Buildings.Examples.ChillerPlants.DataCenter.DiscreteTimeControl</a>
 to converge.
 </li>
 <li>

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences;
-block Setpoint "Calculate condener return water temperature setpoint"
+block Setpoint "Calculate condenser return water temperature setpoint"
 
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Real minChiLif[nChi](

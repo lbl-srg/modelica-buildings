@@ -40,7 +40,7 @@ equation
     defaultComponentName="linPieTwo",
     Documentation(info="<HTML>
 <p>
-This component calcuates the output according to two piecewise linear function as
+This component calculates the output according to two piecewise linear function as
 </p>
 <table>
 <tr>

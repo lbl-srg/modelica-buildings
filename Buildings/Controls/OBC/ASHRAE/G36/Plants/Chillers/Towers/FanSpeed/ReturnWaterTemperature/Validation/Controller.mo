@@ -263,7 +263,7 @@ if the economizer is enabled, the fan speed setpoint equals the
 </li>
 <li>
 in the period when the chiller runs only, the speed setpoint
-is minium of the <code>plrTowMaxSpeSet</code>, <code>uMaxTowSpeSet</code>
+is minimum of the <code>plrTowMaxSpeSet</code>, <code>uMaxTowSpeSet</code>
 and the mapped setpoint.
 </li>
 </ul>

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Validation;
 model Setpoint
-  "Validation sequence of specifying condener return water temperature setpoint"
+  "Validation sequence of specifying condenser return water temperature setpoint"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Setpoint
     conWatRetSet(

@@ -48,8 +48,8 @@ logic by a continuous time controller.
 <li>
 January 13, 2015, by Michael Wetter:<br/>
 Moved base model to
-<a href=\"modelica://Buildings.Examples.ChillerPlant.BaseClasses.DataCenter\">
-Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a>.
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.DataCenter\">
+Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.DataCenter</a>.
 </li>
 <li>
 December 5, 2012, by Michael Wetter:<br/>

@@ -21,7 +21,7 @@ algorithm
   annotation (
     defaultComponentName="reqCou",
     Documentation(info="<html>
-   This model counts the number of requests sent by actuators. A request is triggerred when an input singal <code>uAct[i]</code> is larger than <code>uTri</code>.
+   This model counts the number of requests sent by actuators. A request is triggered when an input signal <code>uAct[i]</code> is larger than <code>uTri</code>.
    </html>", revisions="<html>
 <ul>
 <li>

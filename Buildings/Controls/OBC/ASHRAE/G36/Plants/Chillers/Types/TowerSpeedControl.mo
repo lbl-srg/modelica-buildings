@@ -6,7 +6,7 @@ type TowerSpeedControl  = enumeration(
  annotation (
 Documentation(info="<html>
 <p>
-It provides constants that indicate the tower fan speed control stategies.
+It provides constants that indicate the tower fan speed control strategies.
 The control types are enumerated per
 ASHRAE Guideline 36-2021, section 5.20.12.2.
 </p>

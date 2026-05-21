@@ -244,7 +244,7 @@ annotation (
           visible=have_inlIsoVal)}),
 Documentation(info="<html>
 <p>
-Block controls cooling tower fan staging. This is implemented accoding to 
+Block controls cooling tower fan staging. This is implemented according to 
 ASHRAE Guideline 36-2021, section 5.20.12.1, 
 which specifies tower fan staging process. It includes two subsequences:
 </p>
@@ -271,7 +271,7 @@ for a description.
 <p>
 Note that in this implementation, input <code>uTowStaCha</code>
 is from chiller staging process sequence. The input is also used for the 
-condenser water pump staging. Thus, the tower stage changes are initiated concurrentlyl
+condenser water pump staging. Thus, the tower stage changes are initiated concurrently
 with condenser water pump stage.
 </p>
 <p>

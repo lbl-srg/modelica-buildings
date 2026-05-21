@@ -82,8 +82,8 @@ setpoint change and the enabling-disabling waterside economizer.
 </p>
 <ul>
 <li>
-At begining, the current chiller stage is 1 and it starts to staging up tower cell 1.
-During the begining stage, according to the vector <code>staVec</code> current plant
+At beginning, the current chiller stage is 1 and it starts to staging up tower cell 1.
+During the beginning stage, according to the vector <code>staVec</code> current plant
 stage is 1 (the 3rd element of vector <code>staVec</code>). Thus according to the
 vector <code>towCelOnSet</code>,
 the total number of cell is 1. It takes 90 seconds to fully open the isolation

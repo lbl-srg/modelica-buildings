@@ -512,8 +512,8 @@ This is a partial model for a primary-only chiller plant with two parallel chill
 It has two headed variable speed chilled water pumps, two headed constant speed
 condenser water pumps, and two cooling tower units.
 Detailed description can be found in
-<a href=\"modelica://Buildings.Examples.ChillerPlants.Guideline36\">
-Buildings.Examples.ChillerPlants.RP1711</a>.
+<a href=\"modelica://Buildings.Examples.ChillerPlants.Guideline36.ClosedLoop\">
+Buildings.Examples.ChillerPlants.Guideline36.ClosedLoop</a>.
 </p>
 </html>", revisions="<html>
 <ul>

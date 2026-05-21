@@ -270,7 +270,7 @@ protected
     final byPasSetTim=byPasSetTim,
     final aftByPasSetTim=aftByPasSetTim,
     final relFloThr=relFloThr)
-    "Check if minium bypass has been reset"
+    "Check if minimum bypass has been reset"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.EnableCWPump
     enaNexCWP if not have_airCoo
