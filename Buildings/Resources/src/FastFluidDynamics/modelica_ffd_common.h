@@ -13,7 +13,7 @@
 	*/
 #define REAL double
 typedef struct {
-  int flag; /* Flag for coupled simulation: 0-> Stop; 1->Continue*/
+  volatile int flag; /* Flag for coupled simulation: 0-> Stop; 1->Continue*/
   int ffdError; /* 0: FFD had no error;*/
   int nSur; /* Number of surfaces*/
   int nSen; /* Number of sensors*/
@@ -38,7 +38,7 @@ typedef struct {
 typedef struct {
   REAL t; /* Current time of integration*/
 	REAL lt; /* Last time of integration*/
-  int flag; /* To control the data exchange. 0: old data, 1: new data; -1: Stop coupled simulation*/
+  volatile int flag; /* To control the data exchange. 0: old data, 1: new data; -1: Stop coupled simulation*/
   REAL dt; /* Time step size for next synchronization*/
   REAL *temHea; /* temHea[nSur]: Temperature or heat flow rate depending on surBou.bouCon*/
   REAL sensibleHeat; /* Convective sensible heat input into the room*/
@@ -58,7 +58,7 @@ typedef struct {
 
 typedef struct {
   REAL t; /* Current time of integration*/
-  int flag; /* To control the data exchange. 0: old data, 1: new data*/
+  volatile int flag; /* To control the data exchange. 0: old data, 1: new data*/
   REAL *temHea; /* temHea[nSur]: Temperature or heat flow rate depending on surBou.bouCon*/
                  /* 1: Return heat flow; 2: Return temperature*/
   REAL TRoo; /* Averaged room air temperature*/
