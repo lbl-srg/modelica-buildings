@@ -1,5 +1,5 @@
 within Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses;
-block ZoneWithAHUG36
+model ZoneWithAHUG36
   "A single zone building with a VAV system and a Guideline36 controller"
 
   package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"})
@@ -240,6 +240,11 @@ Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 19, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4606\">4606</a>.
+</li>
 <li>
 June 24, 2022, by Jianjun Hu:<br/>
 Replaced the AHU controller with the one based official release version.
