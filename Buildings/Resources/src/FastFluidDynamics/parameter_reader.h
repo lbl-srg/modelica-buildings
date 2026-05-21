@@ -23,8 +23,7 @@
 
 #include "utility.h"
 
-FILE *file_para;
-FILE *file_log;
+extern FILE *file_para;
 
 /*
 	* Assign the FFD parameters
