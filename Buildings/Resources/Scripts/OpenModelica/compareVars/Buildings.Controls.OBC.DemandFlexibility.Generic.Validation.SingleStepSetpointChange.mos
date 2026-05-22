@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "sinSteSetCha.yComSet",
+    "sinSteSetCha.y",
     "uniDelTSet.y",
     "TAllMinSet.y",
     "TAllMaxSet.y",

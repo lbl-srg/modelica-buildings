@@ -14,13 +14,6 @@ The examples plot various outputs, which have been verified against these
 solutions. These model outputs are stored as reference data and
 used for continuous validation whenever models in the library change.
 </p>
-</html>", revisions="<html>
-<ul>
-<li>
-April 03, 2026, by Weiping Huang:<br/>
-First implementation.
-</li>
-</ul>
 </html>"),
   Icon(graphics={
         Rectangle(
