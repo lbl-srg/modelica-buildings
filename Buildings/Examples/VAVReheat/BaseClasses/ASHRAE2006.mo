@@ -24,7 +24,7 @@ model ASHRAE2006
     have_reset=true,
     have_frePro=true,
     VOut_flow_min=Vot_flow_nominal)
-           "Controller for economizer"
+    "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
     final THeaOn=THeaOn,
@@ -33,7 +33,7 @@ model ASHRAE2006
     final TCooOff=TCooOff)
     annotation (Placement(transformation(extent={{-300,-358},{-280,-338}})));
   Controls.DuctStaticPressureSetpoint pSetDuc(
-    nin=5,
+    nin=numZon,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.RoomVAV conVAV[numZon](
@@ -54,7 +54,7 @@ model ASHRAE2006
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     from_dp=false,
-    riseTime=15,
+    strokeTime=15,
     dpFixed_nominal=5,
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
@@ -360,6 +360,13 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 22, 2026, by Michael Wetter:<br/>
+Changed hardcoded value for number of inputs in <code>pSetDuc</code> to use
+parameter <code>numZon</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4609\">issue #4609</a>.
+</li>
 <li>
 March 4, 2024, by Michael Wetter:<br/>
 Corrected wrong use of <code>displayUnit</code>.
