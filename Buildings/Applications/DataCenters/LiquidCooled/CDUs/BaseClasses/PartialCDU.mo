@@ -12,29 +12,6 @@ model PartialCDU "Partial model for a CDU"
     "Set to false to disable media consistency check"
     annotation(Dialog(tab="Advanced", group="Diagnostics"));
 
-  final parameter Real r_nominal(min=0)=dat.r_nominal
-    "Ratio between convective heat transfer coefficients at nominal conditions, r_nominal = hA1_nominal/hA2_nominal"
-    annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
-
-  final parameter Real nPla(
-    min=0,
-    max=1) = dat.nPla
-    "Exponent for convective heat transfer coefficient, h~m_flow^n"
-    annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
-  final parameter Real nRac(
-    min=0,
-    max=1) = dat.nRac
-    "Exponent for convective heat transfer coefficient, h~m_flow^n"
-   annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
-
-  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = dat.Q_flow_nominal
-    "Nominal heat flow rate (negative as it is for cooling)"
-    annotation (Dialog(group="Nominal thermal performance"));
-  final parameter Modelica.Units.SI.Temperature TPlaIn_nominal=dat.TPlaIn_nominal
-    "Temperature from cooling plant loop" annotation (Dialog(group="Nominal thermal performance"));
-  final parameter Modelica.Units.SI.Temperature TRacIn_nominal=dat.TRacIn_nominal
-    "Temperature from IT rack loop"  annotation (Dialog(group="Nominal thermal performance"));
-
   // Flow resistance parameters
   parameter Boolean computeFlowResistancePla=true
     "=true, compute flow resistance. Set to false to assume no friction"
@@ -43,21 +20,10 @@ model PartialCDU "Partial model for a CDU"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable=computeFlowResistancePla,
                 tab="Flow resistance", group="Medium 1"));
-  final parameter Modelica.Units.SI.PressureDifference dpHexPla_nominal(
-    min=0,
-    displayUnit="Pa") = dat.dpHexPla_nominal
-    "Heat exchanger design pressure drop on cooling plant side"
-    annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistancePla=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable=computeFlowResistancePla,
                tab="Flow resistance", group="Medium 1"));
-  final parameter Real deltaMPla=dat.deltaMPla
-    "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation (Dialog(
-      enable=computeFlowResistancePla,
-      tab="Flow resistance",
-      group="Medium 1"));
   parameter Boolean computeFlowResistanceRac=true
     "=true, compute flow resistance. Set to false to assume no friction"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
@@ -66,39 +32,14 @@ model PartialCDU "Partial model for a CDU"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable=computeFlowResistanceRac,
                 tab="Flow resistance", group="Medium 2"));
-  final parameter Modelica.Units.SI.PressureDifference dpHexRac_nominal(
-    min=0,
-    displayUnit="Pa") = dat.dpHexRac_nominal
-    "Pressure difference on IT rack side"
-    annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistanceRac=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable=computeFlowResistanceRac,
-               tab="Flow resistance", group="Medium 2"));
-  final parameter Real deltaMRac=dat.deltaMRac
-    "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation (Dialog(
-      enable=computeFlowResistanceRac,
-      tab="Flow resistance",
-      group="Medium 2"));
-
-//  final parameter Medium1.DynamicViscosity eta1_default = Medium1.dynamicViscosity(sta1_default) "Dynamic viscosity";
-//  final parameter Medium1.ThermalConductivity k1_default = Medium1.thermalConductivity(sta1_default) "Thermal conductivity";
-//  final parameter Medium1.PrandtlNumber Pr1_default = Medium1.prandtlNumber(sta1_default) "Prandtl number";
-//  final parameter Medium2.DynamicViscosity eta2_default = Medium2.dynamicViscosity(sta2_default) "Dynamic viscosity";
-//  final parameter Medium2.ThermalConductivity k2_default = Medium2.thermalConductivity(sta2_default) "Thermal conductivity";
-//  final parameter Medium2.PrandtlNumber Pr2_default = Medium2.prandtlNumber(sta2_default) "Prandtl number";
+      tab="Flow resistance", group="Medium 2"));
 
   // Valve
-  final parameter Modelica.Units.SI.PressureDifference dpValve_nominal = dat.dpValve_nominal
-    "Nominal pressure drop of fully open valve, used if val.CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
-    annotation (Dialog(group="Valve"));
-
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close valve using strokeTime from instance dat"
-    annotation (Dialog(tab="Dynamics", group="Valve"));
-  final parameter Modelica.Units.SI.Time strokeTime=dat.strokeTime
-    "Time needed to fully open or close actuator"
     annotation (Dialog(tab="Dynamics", group="Valve"));
   parameter Modelica.Blocks.Types.Init initVal=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
@@ -107,9 +48,6 @@ model PartialCDU "Partial model for a CDU"
     annotation (Dialog(tab="Dynamics", group="Valve"));
 
   // Pump
-  final parameter Modelica.Units.SI.PressureDifference dpPum_nominal = dat.dpPum_nominal
-    "Nominal pressure head of pump for configuration of pressure curve, after subtracting dpHex2_nominal. I.e., this is the head for resistances external to the CDU"
-    annotation (Dialog(group="Pump"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics", group="Pump"));
@@ -119,27 +57,51 @@ model PartialCDU "Partial model for a CDU"
   parameter Boolean use_riseTime=true
     "Set to true to continuously change motor speed using risetime from instance dat"
     annotation (Dialog(tab="Dynamics", group="Pump"));
-  final parameter Modelica.Units.SI.Time riseTime=dat.riseTime
-    "Time needed to change motor speed between zero and full speed"
-    annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Real yPum_start=0 "Initial value of speed"
     annotation (Dialog(tab="Dynamics", group="Pump"));
 
+  // Valve controller parameters
+  parameter Controls.OBC.CDL.Types.SimpleController controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller for valve"
+    annotation(Dialog(group="Valve controller"));
+  parameter Real kVal=1 "Gain of controller for valve"
+    annotation(Dialog(group="Valve controller"));
+  parameter Real TiVal=120
+    "Time constant of integrator block of valve controller"
+    annotation(Dialog(group="Valve controller",
+      enable=controllerTypeVal<>Buildings.Controls.OBC.CDL.Types.SimpleController.P));
+  parameter Real TdVal=0.1
+    "Time constant of derivative block for valve controller"
+    annotation(Dialog(group="Valve controller",
+      enable=controllerTypeVal==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  // Pump controller parameters
+  parameter Controls.OBC.CDL.Types.SimpleController controllerTypePum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller for pump"
+    annotation(Dialog(group="Pump controller"));
+  parameter Real kPum=1 "Gain of controller for pump"
+    annotation(Dialog(group="Pump controller"));
+  parameter Real TiPum=120
+    "Time constant of integrator block of pump controller"
+    annotation(Dialog(group="Pump controller",
+      enable=controllerTypePum<>Buildings.Controls.OBC.CDL.Types.SimpleController.P));
+  parameter Real TdPum=0.1
+    "Time constant of derivative block for pump controller"
+    annotation(Dialog(group="Pump controller",
+      enable=controllerTypePum==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
   // Connectors
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yVal(
-    min=0,
-    max=1,
-    final unit="1")
-    "Valve position (0: closed, 1: open)" annotation (Placement(transformation(
-          extent={{-140,0},{-100,40}}), iconTransformation(extent={{-140,70},{-100,
-            110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yPum(
-    min=0,
-    max=1,
-    final unit="1")
-    "Normalized rotational speed of pump" annotation (Placement(
-        transformation(extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-140,
-            -110},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
+    final unit="K",
+    displayUnit="degC")
+    "Set point temperature for water leaving to the IT rack"
+   annotation (Placement(transformation(
+      extent={{-140,80},{-100,120}}),
+     iconTransformation(extent={{-140,0},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpSet(min=0, final unit="Pa")
+    "Set point for static pressure provided by CDU" annotation (Placement(
+        transformation(extent={{-140,-120},{-100,-80}}), iconTransformation(
+          extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealOutput P(
     final unit="W")
     "Electrical power consumed by pump"
@@ -147,6 +109,30 @@ model PartialCDU "Partial model for a CDU"
         iconTransformation(extent={{100,80},{120,100}})));
 
   // Components
+  Controls.OBC.CDL.Reals.PID conVal(
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
+    final controllerType=controllerTypeVal,
+    final k=kVal,
+    final Ti=TiVal,
+    final Td=TdVal,
+    final reverseActing=false,
+    r=10,
+    xi_start=1)
+    "Controller for valve"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+  Controls.OBC.CDL.Reals.PID conPum(
+    u_s(final unit="Pa"),
+    u_m(final unit="Pa"),
+    final controllerType=controllerTypePum,
+    final k=kPum,
+    final Ti=TiPum,
+    final Td=TdPum,
+    final reverseActing=true,
+    r=dat.dpHeaExt_nominal,
+    xi_start=1)
+    "Controller for pump"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   replaceable Buildings.Fluid.Interfaces.PartialFourPortInterface hex
     constrainedby Buildings.Fluid.Interfaces.PartialFourPortInterface(
       redeclare final package Medium1 = MediumPla,
@@ -161,39 +147,52 @@ model PartialCDU "Partial model for a CDU"
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = MediumPla,
     final allowFlowReversal=allowFlowReversalPla,
-    final m_flow_nominal=mPla_flow_nominal,
+    m_flow_nominal=dat.mPla_flow_nominal,
     final from_dp=from_dpPla,
     final linearized=linearizeFlowResistancePla,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final dpValve_nominal=dpValve_nominal,
+    dpValve_nominal=dat.dpValve_nominal,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=strokeTime,
+    final strokeTime=dat.strokeTime,
     final init=initVal,
     final y_start=yVal_start) "Control valve on chilled water side" annotation
     (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,60})));
 
   Fluid.Movers.Preconfigured.SpeedControlled_y pum(
-    redeclare package Medium = MediumRac,
+    redeclare final package Medium = MediumRac,
     energyDynamics=energyDynamics,
-    allowFlowReversal=allowFlowReversalRac,
-    tau=tau,
-    use_riseTime=use_riseTime,
-    riseTime=riseTime,
-    y_start=yPum_start,
-    m_flow_nominal=mRac_flow_nominal,
-    dp_nominal=dpPum_nominal + dpHexRac_nominal) "Pump on IT side" annotation (
+    final allowFlowReversal=allowFlowReversalRac,
+    final tau=tau,
+    final use_riseTime=use_riseTime,
+    final riseTime=dat.riseTime,
+    final y_start=yPum_start,
+    m_flow_nominal=dat.mRac_flow_nominal,
+    dp_nominal=dat.dpHeaExt_nominal + dat.dpHexRac_nominal)
+                                                 "Pump on IT side" annotation (
       Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-50,-60})));
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={-20,-40})));
 
   Fluid.Storage.ExpansionVessel exp(
     redeclare package Medium = MediumRac,
     final V_start=dat.VExp) "Expansion vessel"
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    annotation (Placement(transformation(extent={{-60,-8},{-40,12}})));
+
+  Fluid.Sensors.RelativePressure senRelPre(
+    redeclare package Medium = MediumRac)
+    "Differential pressure sensor"
+    annotation (Placement(transformation(extent={{-10,-130},{10,-150}})));
+  Fluid.Sensors.TemperatureTwoPort senTemRacSup(
+    redeclare final package Medium = MediumRac,
+    final allowFlowReversal=allowFlowReversalRac,
+    final m_flow_nominal=mRac_flow_nominal)
+    "Temperature sensor for medium leaving towards IT racks"
+    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
+
 initial equation
   if checkMedia then
     // Assert that the media are consistent with the medium types declared in the parameter record
@@ -228,25 +227,39 @@ equation
                                                         color={0,127,255}));
   connect(hex.port_b1, port_bPla) annotation (Line(points={{10,6},{40,6},{40,60},{
           100,60}}, color={0,127,255}));
-  connect(port_bRac,pum. port_b) annotation (Line(points={{-100,-60},{-60,-60}},
-                 color={0,127,255}));
   connect(pum.port_a, hex.port_b2)
-    annotation (Line(points={{-40,-60},{-20,-60},{-20,-6},{-10,-6}},
-                                                           color={0,127,255}));
+    annotation (Line(points={{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
   connect(hex.port_a2, port_aRac) annotation (Line(points={{10,-6},{40,-6},{40,-60},
           {100,-60}}, color={0,127,255}));
-  connect(pum.y, yPum)
-    annotation (Line(points={{-50,-48},{-80,-48},{-80,-20},{-120,-20}},
-                                                    color={0,0,127}));
-  connect(val.y, yVal)
-    annotation (Line(points={{-50,48},{-50,20},{-120,20}},
-                                                  color={0,0,127}));
-  connect(pum.P, P) annotation (Line(points={{-61,-51},{-61,-50},{-68,-50},{-68,
-          -20},{60,-20},{60,90},{110,90}},
-                     color={0,0,127}));
+  connect(pum.P, P) annotation (Line(points={{-11,-51},{-11,-80},{68,-80},{68,90},
+          {110,90}}, color={0,0,127}));
   connect(pum.port_a, exp.port_a)
-    annotation (Line(points={{-40,-60},{0,-60},{0,-50}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    annotation (Line(points={{-20,-30},{-20,-20},{-50,-20},{-50,-8}},
+                                                         color={0,127,255}));
+  connect(senRelPre.port_b, port_aRac) annotation (Line(points={{10,-140},{80,-140},
+          {80,-60},{100,-60}}, color={0,127,255}));
+  connect(senRelPre.port_a, port_bRac) annotation (Line(points={{-10,-140},{-88,
+          -140},{-88,-60},{-100,-60}}, color={0,127,255}));
+  connect(dpSet, conPum.u_s)
+    annotation (Line(points={{-120,-100},{-12,-100}}, color={0,0,127}));
+  connect(senRelPre.p_rel, conPum.u_m) annotation (Line(points={{0,-131},{0,-112}},
+                                  color={0,0,127}));
+  connect(TSet, conVal.u_s)
+    annotation (Line(points={{-120,100},{-82,100}}, color={0,0,127}));
+  connect(senTemRacSup.T, conVal.u_m)
+    annotation (Line(points={{-70,-49},{-70,88}}, color={0,0,127}));
+  connect(conVal.y, val.y)
+    annotation (Line(points={{-58,100},{-50,100},{-50,72}}, color={0,0,127}));
+  connect(conPum.y, pum.y) annotation (Line(points={{12,-100},{20,-100},{20,-40},
+          {-8,-40}}, color={0,0,127}));
+  connect(pum.port_b, senTemRacSup.port_a) annotation (Line(points={{-20,-50},{
+          -20,-60},{-60,-60}}, color={0,127,255}));
+  connect(senTemRacSup.port_b, port_bRac)
+    annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
+  annotation (Icon(
+    coordinateSystem(
+      extent={{-100,-100},{100,100}}),
+    graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,127},
@@ -271,16 +284,16 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-14,-1.71451e-15},{3.74941e-32,-6.12325e-16}},
+          points={{-14,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
-          origin={-60,60},
+          origin={-60,46},
           rotation=270),
         Rectangle(
           extent={{-10,10},{10,-10}},
           lineColor={0,0,0},
           lineThickness=0.5,
-          origin={-60,84},
+          origin={-60,36},
           rotation=90),
         Polygon(
           points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
@@ -354,27 +367,33 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-30,0},{0,0}},
+          points={{-40,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
-          origin={-70,90},
+          origin={-60,20},
           rotation=360),
         Line(
           points={{-40,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
-          origin={-60,-90},
+          origin={-60,-20},
           rotation=360),
         Line(
-          points={{-10,0},{0,0}},
+          points={{-20,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
-          origin={-60,-90},
+          origin={-60,-40},
+          rotation=270),
+        Line(
+          points={{-6,0},{0,0}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={-60,20},
           rotation=270)}),
   defaultComponentName="cdu",
   Documentation(
     info="<html>
-<p>fixme:
+<p>
 Model of a coolant distribution unit (CDU) with built in two-way valve on the chilled
 water side and pump on the IT side as shown in the figure below.
 </p>
@@ -387,7 +406,10 @@ water side and pump on the IT side as shown in the figure below.
 The two fluid streams are separated by a heat exchanger.
 </p>
 <p>
-On the chilled water side is a three-way valve with equal-percentage
+On the chilled water side is a two-way valve that controls the mass flow rate
+to track to set point for the leaving fluid temperature that goes to the IT racks.
+By default, the controller is configured as a PI-controller.
+The valve has an equal-percentage
 opening characteristics. By default, the valve pressure drop is set to the same value
 as the heat exchanger pressure drop, achieving a valve authority of <i>0.5</i>.
 The valve is modeled using an instance of
@@ -395,11 +417,20 @@ The valve is modeled using an instance of
 Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage</a>.
 </p>
 <p>
-On the IT side is a circulation pump with
-pre-configured head. Note that the head, specified through the parameter <code>dpPum_nominal</code>,
-which is the head of the pump. Hence, to specify the head available for the flow resistance
-of the network connected to the CDU, add the CDU's heat exchanger flow resistance <code>dpHex_nominal</code>
-to the pump head.
+On the IT side is a circulation pump that is controlled to track a set point for
+the head between the two fluid ports.
+Note that this head is not the pump head, but rather the head between the fluid ports
+of the CDU, and hence it takes into account the flow resistance of the heat exchanger.
+The controller for the pump is configured by default as a PI-controller.
+</p>
+<p>
+Note that the head, specified through the parameter <code>dpPum_nominal</code>,
+is the head of the CDU.
+To properly size the pump, set <code>dpPum_nominal</code> to the flow resistance that is
+external to the CDU, plus the flow resistance of the heat exchanger <code>dpHex_nominal</code>
+and the filter.
+</p>
+<p>
 The pump is modeled using an instance of
 <a href=\"modelica://Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y\">
 Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y</a>.
@@ -423,5 +454,6 @@ December 23, 2025, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-160},{100,140}})));
 end PartialCDU;

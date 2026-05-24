@@ -4,7 +4,7 @@ model ChillerWSE
   extends Modelica.Icons.Example;
 
   package MediumChi = Buildings.Media.Water "Medium for chilled water loop";
-  package MediumRac = Buildings.Media.Antifreeze.PropyleneGlycolWater(
+  replaceable package MediumRac = Buildings.Media.Antifreeze.PropyleneGlycolWater(
     T_default=303.15,
     property_T=303.15,
     X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
@@ -89,8 +89,8 @@ model ChillerWSE
     mPla_flow_nominal=mPla_flow_nominal,
     mRac_flow_nominal=mRac_flow_nominal,
     dpHexPla_nominal=dpHexChi_nominal,
-    dpPum_nominal=dPRac_nominal) "Data record for CDU"
-    annotation (Placement(transformation(extent={{60,62},{80,82}})));
+    dpHeaExt_nominal=50000)      "Data record for CDU"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic datCooTow(
     Q_flow_nominal=-PRac,
     TCooIn_nominal=TTowSup_nominal,
@@ -101,7 +101,7 @@ model ChillerWSE
 
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
@@ -110,7 +110,7 @@ model ChillerWSE
     datTheRes=datTheRes,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Rack with cold plate heat exchangers, modeled for simplicity as one large rack"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = MediumChi,
     p(displayUnit="Pa") = 300000,
@@ -142,33 +142,21 @@ model ChillerWSE
     allowFlowReversal=false,
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack inlet temperature"
-    annotation (Placement(transformation(extent={{-30,24},{-50,44}})));
+    annotation (Placement(transformation(extent={{-40,24},{-60,44}})));
   Fluid.Sensors.TemperatureTwoPort senTRac_b(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack outlet temperature"
-    annotation (Placement(transformation(extent={{50,24},{30,44}})));
-  Controls.OBC.CDL.Reals.Sources.Constant yPum(k=1)
-    "Pump control signal"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Controls.OBC.CDL.Reals.PID conVal(
-    u_s(final unit="K",
-        displayUnit="degC"),
-    u_m(final unit="K",
-        displayUnit="degC"),
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    Ti=120,
-    r=10,
-    xi_start=1,
-    reverseActing=false) "Controller for valve"
-    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
+    annotation (Placement(transformation(extent={{60,24},{40,44}})));
+  Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=50000) "Set point for head"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn(y(final unit="K",
         displayUnit="degC"), k(
       final unit="K",
       displayUnit="degC") = TRacSup_nominal)
     "Set point for rack inlet temperature"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Fluid.HeatExchangers.ConstantEffectiveness wse(
     redeclare package Medium1 = MediumChi,
     redeclare package Medium2 = MediumChi,
@@ -202,8 +190,9 @@ model ChillerWSE
         transformation(
         extent={{-9.5,-9.5},{9.5,9.5}},
         origin={-0.5,619.5})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
-        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+      computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{-122,640},{-102,660}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-72,640},{-52,660}}),
@@ -608,30 +597,25 @@ model ChillerWSE
     reverseActing=false) "Controller for tower pump"
     annotation (Placement(transformation(extent={{-480,590},{-460,610}})));
 equation
-  connect(senTCDU_a.port_b, cdu.port_aPla) annotation (Line(points={{-30,120},{-20,
-          120},{-20,46},{-10,46}},color={0,127,255}));
-  connect(cdu.port_bPla, senTCDU_b.port_a) annotation (Line(points={{10,46},{20,46},
-          {20,120},{30,120}},
+  connect(senTCDU_a.port_b, cdu.port_aPla) annotation (Line(points={{-30,120},{
+          -20,120},{-20,46},{-10,46}},
+                                  color={0,127,255}));
+  connect(cdu.port_bPla, senTCDU_b.port_a) annotation (Line(points={{10,46},{20,
+          46},{20,120},{30,120}},
                             color={0,127,255}));
   connect(senTCDU_b.port_b, bou.ports[1])
     annotation (Line(points={{50,120},{272,120}},
                                                color={0,127,255}));
-  connect(yPum.y, cdu.yPum) annotation (Line(points={{-28,0},{-20,0},{-20,31},{-12,
-          31}},      color={0,0,127}));
-  connect(TSetRacIn.y, conVal.u_s)
-    annotation (Line(points={{-78,70},{-52,70}}, color={0,0,127}));
-  connect(senTRac_a.T, conVal.u_m)
-    annotation (Line(points={{-40,45},{-40,58}},  color={0,0,127}));
-  connect(conVal.y, cdu.yVal) annotation (Line(points={{-28,70},{-16,70},{-16,49},
-          {-12,49}}, color={0,0,127}));
   connect(cdu.port_bRac, senTRac_a.port_a)
-    annotation (Line(points={{-10,34},{-30,34}}, color={0,127,255}));
-  connect(senTRac_a.port_b, rac.port_a) annotation (Line(points={{-50,34},{-72,34},
-          {-72,-60},{0,-60}}, color={0,127,255}));
-  connect(rac.port_b, senTRac_b.port_a) annotation (Line(points={{20,-60},{70,-60},
-          {70,34},{50,34}}, color={0,127,255}));
-  connect(senTRac_b.port_b, cdu.port_aRac) annotation (Line(points={{30,34},{22,34},
-          {22,34},{10,34}}, color={0,127,255}));
+    annotation (Line(points={{-10,34},{-40,34}}, color={0,127,255}));
+  connect(senTRac_a.port_b, rac.port_a) annotation (Line(points={{-60,34},{-80,
+          34},{-80,-60},{-10,-60}},
+                              color={0,127,255}));
+  connect(rac.port_b, senTRac_b.port_a) annotation (Line(points={{10,-60},{80,
+          -60},{80,34},{60,34}},
+                            color={0,127,255}));
+  connect(senTRac_b.port_b, cdu.port_aRac) annotation (Line(points={{40,34},{10,
+          34}},             color={0,127,255}));
   connect(senTCDU_b.port_b, pumCDU.port_a) annotation (Line(points={{50,120},{220,
           120},{220,160}}, color={0,127,255}));
   connect(pumCDU.port_b, jun3.port_1) annotation (Line(points={{220,180},{220,220},
@@ -675,7 +659,7 @@ equation
                                      color={0,127,255}));
   connect(senTTow_b.port_b, jun1.port_1) annotation (Line(points={{80,620},{180,
           620},{180,540},{170,540}}, color={0,127,255}));
-  connect(weaBus, weaData.weaBus) annotation (Line(
+  connect(weaBus, weaDat.weaBus) annotation (Line(
       points={{-62,650},{-102,650}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -761,8 +745,9 @@ equation
           {-35,619.5},{-35,620},{-60,620}}, color={0,127,255}));
   connect(senTTow_a.port_a, pumTow.port_b) annotation (Line(points={{-80,620},{
           -220,620},{-220,610}}, color={0,127,255}));
-  connect(uti.y, rac.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,-54},{
-          -1,-54}}, color={0,0,127}));
+  connect(uti.y, rac.u) annotation (Line(points={{-38,-40},{-20,-40},{-20,-54},
+          {-11,-54}},
+                    color={0,0,127}));
   connect(cooTow.TDryBul, weaBus.TDryBul) annotation (Line(points={{-11.9,623.3},
           {-40,623.3},{-40,650},{-61.95,650},{-61.95,650.05}},   color={0,0,127}),
       Text(
@@ -814,13 +799,17 @@ equation
           {-450,260},{-402,260}}, color={0,0,127}));
   connect(conPumTow.y, yPumTow.u)
     annotation (Line(points={{-458,600},{-402,600}}, color={0,0,127}));
+  connect(dpSet.y, cdu.dpSet) annotation (Line(points={{-78,60},{-28,60},{-28,
+          38},{-12,38}},
+                     color={0,0,127}));
+  connect(TSetRacIn.y, cdu.TSet) annotation (Line(points={{-78,90},{-24,90},{
+          -24,42},{-12,42}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(
       StopTime=31536000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
       __Dymola_Commands(
        file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Examples/ChillerWSE.mos" "Simulate and plot"),
     Documentation(info="<html>

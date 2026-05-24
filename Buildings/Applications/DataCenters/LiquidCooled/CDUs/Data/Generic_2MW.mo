@@ -6,7 +6,7 @@ record Generic_2MW
     Q_flow_nominal=2E6,
     TRacOut_nominal=273.15 + 45,
     dpHexPla_nominal=80000,
-    dpPum_nominal=60000);
+    dpHeaExt_nominal=60000);
 
   annotation (
   defaultComponentName="datCDU",

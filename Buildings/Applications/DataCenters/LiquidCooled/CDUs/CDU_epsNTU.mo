@@ -3,21 +3,21 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
   extends Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU(
     redeclare Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
       final from_dp1=from_dpPla,
-      final dp1_nominal=dpHexPla_nominal,
+      final dp1_nominal=dat.dpHexPla_nominal,
       final linearizeFlowResistance1=linearizeFlowResistancePla,
-      final deltaM1=deltaMPla,
+      final deltaM1=dat.deltaMPla,
       final from_dp2=from_dpRac,
-      final dp2_nominal=dpHexRac_nominal,
+      final dp2_nominal=dat.dpHexRac_nominal,
       final linearizeFlowResistance2=linearizeFlowResistanceRac,
-      final deltaM2=deltaMRac,
+      final deltaM2=dat.deltaMRac,
       configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
       final use_Q_flow_nominal=true,
-      final Q_flow_nominal=Q_flow_nominal,
-      final T_a1_nominal=TPlaIn_nominal,
-      final T_a2_nominal=TRacIn_nominal,
-      final r_nominal=r_nominal,
-      final n1=nPla,
-      final n2=nRac)
+      final Q_flow_nominal=dat.Q_flow_nominal,
+      final T_a1_nominal=dat.TPlaIn_nominal,
+      final T_a2_nominal=dat.TRacIn_nominal,
+      final r_nominal=dat.r_nominal,
+      final n1=dat.nPla,
+      final n2=dat.nRac)
     );
 
   annotation (
@@ -30,7 +30,7 @@ counter-flow heat exchanger that uses the epsilon-NTU correlations.
 </p>
 <p>
 This model configures the heat exchanger that is used in
-<a href=\"Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU\">
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU\">
 Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU</a>
 with a counter-flow heat exchanger that uses the &epsilon;-NTU relations, using an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU\">
@@ -40,7 +40,7 @@ that are a function of the mass flow rate.
 </p>
 <p>
 See
-<a href=\"Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU\">
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU\">
 Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU</a>
 for a description of the CDU model.
 </p>

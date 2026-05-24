@@ -71,7 +71,7 @@ model ColdPlateR_P
     final unit="W")
     "Electrical power consumed by IT"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{90,70},{110,90}})));
+        iconTransformation(extent={{100,70},{120,90}})));
 
   Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature casTem(
     final datTheRes=datTheRes,
@@ -80,6 +80,7 @@ model ColdPlateR_P
 
   Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res(
     redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final m=m)
@@ -95,6 +96,10 @@ model ColdPlateR_P
     final prescribedHeatFlowRate=true,
     final nPorts=2) "Fluid control volume"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
+
+  Modelica.Units.SI.MassFlowRate m_flow = port_a.m_flow
+    "Mass flow rate from port_a to port_b";
+
   Modelica.Units.SI.PressureDifference dp(
     displayUnit="Pa") = res.dp
     "Pressure difference between port_a and port_b";
@@ -309,5 +314,9 @@ First implementation.
           color={0,0,0},
           thickness=0.5,
           origin={-40,60},
-          rotation=360)}));
+          rotation=360),
+        Text(
+          extent={{78,90},{92,70}},
+          textColor={0,0,127},
+          textString="P")}));
 end ColdPlateR_P;

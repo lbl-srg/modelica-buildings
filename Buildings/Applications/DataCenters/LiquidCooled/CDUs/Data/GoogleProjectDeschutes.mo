@@ -6,7 +6,7 @@ record GoogleProjectDeschutes
     TApp_nominal=3,
     TRacOut_nominal=273.15 + 45,
     dpHexPla_nominal=80000,
-    dpPum_nominal=60000,
+    dpHeaExt_nominal=60000,
     medPla=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water,
     medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
     phiGlyRac=0.25);

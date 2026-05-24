@@ -136,10 +136,10 @@ record Generic_epsNTU
     "Time needed to fully open or close actuator"
     annotation (Dialog(tab="Dynamics", group="Valve"));
 
-  // Pump
-  parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
+  // Pump configuration
+  parameter Modelica.Units.SI.PressureDifference dpHeaExt_nominal(
     displayUnit="Pa")
-    "Nominal pressure head of pump for configuration of pressure curve, after subtracting dpHexRac_nominal. I.e., this is the head for resistances external to the CDU"
+    "Nominal head for pressure available at the CDU's fluid ports. I.e., this is the head for resistances external to the CDU"
     annotation (Dialog(group="Pump"));
   parameter Modelica.Units.SI.Time riseTime=30
     "Time needed to change motor speed between zero and full speed"
@@ -240,9 +240,9 @@ The data record is structured as follows.
                 <td><code>[1]</code></td>
             </tr>
             <tr>
-                <td><code>dpPum_nominal</code></td>
-                <td>Nominal pressure head of pump for configuration of pressure curve, after subtracting <code>dpHexRac_nominal</code>
-                   (head for resistances external to the CDU).</td>
+                <td><code>dpHeaExt_nominal</code></td>
+                <td>Nominal pressure head at the fluid flanges of the CDU.
+                    The nominal pump head is set to <code>dpHeaExt_nominal+dpHexRac_nominal</code> for the configuration of the pressure curve.</td>
                 <td><code>[Pa]</code></td>
             </tr>
         </tbody>
