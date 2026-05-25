@@ -9,7 +9,8 @@ model ChillerWSEDesignConditionsWater
     fraWSE=0.9999,
     datCDU(
       medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water,
-      phiGlyRac=0)
+      phiGlyRac=0),
+    yPumChi(realTrue=0)
     );
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBul_nominal(
     y(final unit="K",
