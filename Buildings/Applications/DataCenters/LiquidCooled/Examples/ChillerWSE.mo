@@ -5,11 +5,11 @@ model ChillerWSE
 
   package MediumChi = Buildings.Media.Water "Medium for chilled water loop";
   replaceable package MediumRac = Buildings.Media.Antifreeze.PropyleneGlycolWater(
-    T_default=303.15,
     property_T=303.15,
     X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
         phi=0.25,
-        T=293.15))
+      T=293.15))
+    constrainedby Modelica.Media.Interfaces.PartialSimpleMedium(T_default=303.15)
     "Medium for rack";
 
   parameter Modelica.Units.SI.Power PRac = 1E6
@@ -22,22 +22,21 @@ model ChillerWSE
 
   parameter Modelica.Units.SI.TemperatureDifference dTPla_nominal(max=0) = -5
     "Temperature difference cooling plant loop";
-  final parameter Modelica.Units.SI.TemperatureDifference dTTow_nominal(max=0) =
-    dTPla_nominal
-    "Temperature difference tower water loop (same as chilled water loop, as it is assumed for TSetCooTowOut_nominal";
+  final parameter Modelica.Units.SI.TemperatureDifference dTTow_nominal(max=0) = dTPla_nominal
+    "Temperature difference tower water loop";
 
   parameter Modelica.Units.SI.Temperature TRacSup_nominal=273.15 + 45
     "Supply coolant temperature to rack at design conditions";
   parameter Modelica.Units.SI.Temperature TRacRet_nominal=TRacSup_nominal-dTRac_nominal
     "Return coolant temperature from rack at design conditions";
-  parameter Modelica.Units.SI.Temperature TPlaSup_nominal=TRacSup_nominal - 6
+  parameter Modelica.Units.SI.TemperatureDifference TApp_nominal = 3 "Approach temperature at heat exchangers";
+  parameter Modelica.Units.SI.Temperature TPlaSup_nominal=TRacSup_nominal - TApp_nominal
     "Temperature from cooling plant to CDU at design conditions";
-  parameter Modelica.Units.SI.Temperature TPlaRet_nominal=TPlaSup_nominal -
-      dTPla_nominal
+  parameter Modelica.Units.SI.Temperature TPlaRet_nominal=TPlaSup_nominal - dTPla_nominal
     "Temperature from CDU to cooling plant at design conditions";
-  parameter Modelica.Units.SI.Temperature TTowSup_nominal=TPlaSup_nominal+5
-    "Supply temperature to cooling tower";
-  parameter Modelica.Units.SI.Temperature TTowRet_nominal=TTowSup_nominal+dTTow_nominal
+  parameter Modelica.Units.SI.Temperature TTowRet_nominal=TPlaSup_nominal - TApp_nominal
+    "Return temperature from cooling tower";
+  parameter Modelica.Units.SI.Temperature TTowSup_nominal=TTowRet_nominal - dTTow_nominal
     "Supply temperature to cooling tower";
 
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal=PRac/(
@@ -60,18 +59,18 @@ model ChillerWSE
     annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
 
   parameter Real COPc_nominal=5 "Chiller COP";
-  parameter Real epsWSE_nominal(min=0.5, max=0.95) = 0.9
+  parameter Real epsWSE_nominal(min=0.5, max=0.95) = QWSE_flow_nominal / (mWSE_flow_nominal*MediumChi.cp_const*(TPlaRet_nominal-TTowRet_nominal))
     "Effectiveness of water side economizer";
 
-  parameter Modelica.Units.SI.Temperature TSetCooTowOut_nominal =
-      TPlaRet_nominal - (TPlaRet_nominal-TPlaSup_nominal)/epsWSE_nominal - 3
-    "Set point for cooling tower outlet temperature to meet design load with WSE";
+//  parameter Modelica.Units.SI.Temperature TSetCooTowOut_nominal =
+//      TPlaRet_nominal - (TPlaRet_nominal-TPlaSup_nominal)/epsWSE_nominal - 3
+//    "Set point for cooling tower outlet temperature to meet design load with WSE";
 
   final parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal =
     (1-fraWSE) * PRac * (1/COPc_nominal+1)
     "Design heat flow rate of condenser";
-  final parameter Modelica.Units.SI.HeatFlowRate QWSE_flow_nominal = PRac
-    "Design heat flow rate of condenser, designed for full load (when temperatures allow)";
+  final parameter Modelica.Units.SI.HeatFlowRate QWSE_flow_nominal = fraWSE*PRac
+    "Design heat flow rate of economizer";
   final parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal(min=0)=mPla_flow_nominal
     "Nominal mass flow rate at condenser water, sized to circulate all water through it to meet set point when trim chiller is needed";
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal(min=0)=mWSE_flow_nominal
@@ -79,7 +78,7 @@ model ChillerWSE
   final parameter Modelica.Units.SI.MassFlowRate mWSE_flow_nominal(min=0)=mPla_flow_nominal
     "Nominal mass flow rate at condenser water";
   parameter CDUs.Data.Generic_2MW datCDU(
-    TApp_nominal=TRacSup_nominal - TPlaRet_nominal,
+    TApp_nominal=TApp_nominal,
     TRacOut_nominal=TRacSup_nominal,
     medPla=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water,
     phiGlyPla=0,
@@ -379,8 +378,7 @@ model ChillerWSE
     "Set point temperature for evaporator outlet temperature"
     annotation (Placement(transformation(extent={{-560,340},{-540,360}})));
   Controls.OBC.CDL.Reals.Sources.Constant pSetChiWatPum(
-    y(final unit="Pa"),
-    k(final unit="Pa") = dpHexChi_nominal)
+    y(final unit="Pa"), k(final unit="Pa") = datCDU.dpHexPla_nominal + datCDU.dpValve_nominal)
     "Pressure setpoint for chilled water pump"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   Controls.OBC.CDL.Reals.Hysteresis hysChi(
@@ -533,7 +531,7 @@ model ChillerWSE
     tau=0) "Inlet water temperature of tower"
     annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
 
-  Controls.OBC.CDL.Reals.AddParameter TOffSetWSE(p=-2)
+  Controls.OBC.CDL.Reals.AddParameter TOffSetWSE(p=0)
     "Offset for set point for WSE control"
     annotation (Placement(transformation(extent={{20,700},{40,720}})));
   Fluid.Sensors.MassFlowRate senMasFloByEco(redeclare package Medium =
