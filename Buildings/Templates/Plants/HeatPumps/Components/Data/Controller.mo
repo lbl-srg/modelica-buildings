@@ -317,13 +317,13 @@ record Controller
   parameter Real staEquDouMod[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,fill(0,staHpShcRow,cfg.nHp),staHpShc),cat(2,staHp,fill(1,staHpRow,cfg.nHpShc))) else staHp
-    "Staging matrix for heating-cooling mode – Equipment required for each stage"
+    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,fill(0,staHpShcRow,cfg.nHp),staHpShc),cat(2,staHp,fill(staHpShc[staHpShcRow], staHpRow))) else staHp
+    "Staging matrix when both heating and cooling are enabled – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real staEquSinMod[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,staHp,fill(0,staHpRow,cfg.nHpShc)),cat(2,fill(1,staHpShcRow,cfg.nHp),staHpShc)) else staHp
+    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,staHp,fill(0,staHpRow,cfg.nHpShc)),cat(2,fill(staHp[staHpRow], staHpShcRow),staHpShc)) else staHp
     "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real plrSta(

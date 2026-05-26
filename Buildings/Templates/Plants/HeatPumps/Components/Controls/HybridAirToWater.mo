@@ -329,26 +329,27 @@ equation
   connect(phReqResChiWatEquZon.y, reqResChiWat.u2) annotation (Line(points={{148,
           -200},{134,-200},{134,68},{112,68}}, color={255,127,0}));
   connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat) annotation (Line(points={{88,194},{
-          -40,194},{-40,13.8},{-22,13.8}},
-                                       color={255,127,0}));
-  connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},{
-          -38,154},{-38,11.8},{-22,11.8}},
+          -40,194},{-40,13},{-22,13}}, color={255,127,0}));
+  connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},
+          {-38,154},{-38,11.3636},{-22,11.3636}},
                                        color={255,127,0}));
   connect(reqResHeaWat.y,ctl.nReqResHeaWat)  annotation (Line(points={{88,114},{
-          -36,114},{-36,9.8},{-22,9.8}},
+          -36,114},{-36,9.72727},{-22,9.72727}},
                                        color={255,127,0}));
   connect(reqResChiWat.y,ctl.nReqResChiWat)  annotation (Line(points={{88,74},{-34,
-          74},{-34,7.8},{-22,7.8}},
+          74},{-34,8.09091},{-22,8.09091}},
                                   color={255,127,0}));
   connect(resDpHeaWatLoc.dpLocSet, ctl.dpHeaWatLocSet) annotation (Line(points={{-48.2,0},
-          {-40,0},{-40,-26.2},{-22,-26.2}},       color={0,0,127}));
+          {-40,0},{-40,-19.7273},{-22,-19.7273}}, color={0,0,127}));
   connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet) annotation (Line(points={{-48.2,
-          -40},{-40,-40},{-40,-32.2},{-22,-32.2}},    color={0,0,127}));
-  connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet) annotation (Line(points={{22,-7},
-          {40,-7},{40,-60},{-80,-60},{-80,-34},{-72,-34}},           color={0,0,
+          -40},{-40,-40},{-40,-24.6364},{-22,-24.6364}},
+                                                      color={0,0,127}));
+  connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet) annotation (Line(points={{22,-5},
+          {40,-5},{40,-60},{-80,-60},{-80,-34},{-72,-34}},           color={0,0,
           127}));
-  connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={{22,-5},
-          {34,-5},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
+  connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={{22,
+          -3.36364},{34,-3.36364},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{
+          -72,6}},
         color={0,0,127}));
   connect(ctl.u1HpShc_actual, busHpShc.y1_actual);
   connect(ctl.y1HpShcHea, busHpShc.y1HeaOn);
@@ -356,13 +357,14 @@ equation
   connect(ctl.THeaWatSupSetHpShc, busHpShc.TSet);
   connect(ctl.THeaWatSupSetHpShc, busHpShc.THeaWatSupSet);
   connect(ctl.TChiWatSupSetHpShc, busHpShc.TChiWatSupSet);
-  connect(ctl.yMod, busHpShc.yMod);
   connect(ctl.y1PumHeaWatPriShc, busPumShcHeaWatPri.y1);
   connect(ctl.y1PumChiWatPriShc, busPumShcChiWatPri.y1);
-  connect(ctl.y1PumHeaWatPri, or2.u1) annotation (Line(points={{22,27},{52,27},{
-          52,10},{58,10}}, color={255,0,255}));
-  connect(ctl.y1PumChiWatPri, or2.u2) annotation (Line(points={{22,25},{44,25},{
-          44,2},{58,2}}, color={255,0,255}));
+  connect(ctl.y1PumHeaWatPri, or2.u1) annotation (Line(points={{22,21.1818},{52,
+          21.1818},{52,10},{58,10}},
+                           color={255,0,255}));
+  connect(ctl.y1PumChiWatPri, or2.u2) annotation (Line(points={{22,19.5455},{44,
+          19.5455},{44,2},{58,2}},
+                         color={255,0,255}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

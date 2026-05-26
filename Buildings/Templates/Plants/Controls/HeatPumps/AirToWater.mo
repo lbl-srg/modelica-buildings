@@ -494,19 +494,19 @@ block AirToWater
     each final min=0,
     each final unit="1")=if have_HpShc then staEquSinMod else staHp
     "Staging matrix – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation", enable=not have_HpShc));
+    annotation (Dialog(group="Equipment staging and rotation"));
 
   parameter Real staEquDouMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")=if have_HpShc then cat(1,cat(2,fill(0,staHpShcRow,nHp),staHpShc),cat(2,staHp,fill(1,staHpRow,nHpShc))) else staHp
-    "Staging matrix for heating-cooling mode – Equipment required for each stage"
+    each final unit="1")=if have_HpShc then cat(1,cat(2,fill(0,staHpShcRow,nHp),staHpShc),cat(2,staHp,fill(staHpShc[staHpShcRow],staHpRow))) else staHp
+    "Staging matrix when both heating and cooling are enabled – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
   parameter Real staEquSinMod[:, nHpTot](
     each final max=1,
     each final min=0,
-    each final unit="1")=if have_HpShc then cat(1,cat(2,staHp,fill(0,staHpRow,nHpShc)),cat(2,fill(1,staHpShcRow,nHp),staHpShc)) else staHp
+    each final unit="1")=if have_HpShc then cat(1,cat(2,staHp,fill(0,staHpRow,nHpShc)),cat(2,fill(staHp[staHpRow],staHpShcRow),staHpShc)) else staHp
     "Staging matrix for heating-only and cooling-only mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
@@ -2501,8 +2501,9 @@ Constant speed
 </table>
 <h4>Details</h4>
 <p>
-Staging matrices <code>staEqu</code>, <code>staEquSinMod</code> and <code>staEquDouMod</code>
-are required parameters, with the latter two being required for a hybrid plant.
+Staging matrices <code>staHp</code> and <code>staHpShc</code>
+are required parameters. The other staging matrices can be defined if the plant
+requires a complex staging order.
 See the documentation of
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
