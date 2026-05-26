@@ -130,5 +130,8 @@ in both the CHW and HW loops based on the valve position,
 staging the secondary pumps.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+      StopTime=86400.0,
+      Tolerance=1e-06));
 end AirToWaterPolyvalent;
