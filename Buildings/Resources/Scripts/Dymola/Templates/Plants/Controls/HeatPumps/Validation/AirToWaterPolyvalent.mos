@@ -47,7 +47,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=2,
-    y={"ctl.y1HeaHp[1]", "ctl.y1HeaHp[2]", "ctl.yMod[1]"},
+    y={"ctl.y1HeaHp[1]", "ctl.y1HeaHp[2]", "ctl.y1HpShcHea[1]", "ctl.y1HpShcCoo[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
