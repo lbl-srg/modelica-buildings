@@ -90,14 +90,14 @@ block HybridOperation
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaHpShcHea[nHp]
-    "Availability vector of SHC HPs for heating operation" annotation (
-      Placement(transformation(extent={{320,200},{360,240}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+    "Availability vector of SHC HPs for heating operation"
+    annotation (Placement(transformation(extent={{320,200},{360,240}}),
+      iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaHpShcCoo[nHp]
-    "Availability vector of SHC HPs for cooling operation" annotation (
-      Placement(transformation(extent={{320,140},{360,180}}),
-        iconTransformation(extent={{100,100},{140,140}})));
+    "Availability vector of SHC HPs for cooling operation"
+    annotation (Placement(transformation(extent={{320,140},{360,180}}),
+      iconTransformation(extent={{100,100},{140,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumPri[nHp]
     "Primary pump enable for SHC HP"
@@ -134,11 +134,12 @@ block HybridOperation
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conStaDouMod[nSta,nHp](
-      final k=staEquDouMod) "Staging matrix for heating-cooling mode"
+    final k=staEquDouMod)
+    "Staging matrix for heating-cooling mode"
     annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conStaSinMod[nSta,nHp](
-      final k=staEquSinMod)
+    final k=staEquSinMod)
     "Staging matrix for heating-only and cooling-only mode"
     annotation (Placement(transformation(extent={{-10,-220},{10,-200}})));
 
