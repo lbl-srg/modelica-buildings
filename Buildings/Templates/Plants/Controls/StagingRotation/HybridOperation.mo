@@ -13,11 +13,6 @@ block HybridOperation
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  parameter Boolean have_sorRunTim=true
-    "Are the lead-lag equipment rotated based on runtime?"
-    annotation (Evaluate=true,
-    Dialog(group="Plant configuration"));
-
   parameter Boolean is_HpShc[nHp]=fill(false,nHp)
     "Vector indicating if each HP is an SHC HP; True=Is SHC HP;False=Not SHC HP"
     annotation (Evaluate=true,
@@ -129,12 +124,6 @@ block HybridOperation
     annotation (Placement(transformation(extent={{320,-30},{360,10}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdxSta[nEquAlt]
-    if not have_sorRunTim
-    "Staging index if runtime sorting is absent"
-    annotation (Placement(transformation(extent={{320,-300},{360,-260}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaEqu[nSta,nHp](
     each unit="1",
     each min=0,
@@ -222,25 +211,6 @@ protected
     final nout=nHp)
     "Vectorize mode signal with dimension equal to number of heat pumps"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1[nEquAlt] if not have_sorRunTim
-    "Switch between two staging orders when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{30,-290},{50,-270}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntDir[nEquAlt](
-      final k={i for i in 1:nEquAlt}) if not have_sorRunTim
-    "Sort components in direct order when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{-10,-310},{10,-290}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntRev[nEquAlt](
-      final k={i for i in nEquAlt:-1:1}) if not have_sorRunTim
-    "Sort components in reverse order when runtime sorting is not used"
-    annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
-
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
-    final nout=nEquAlt) if not have_sorRunTim
-    "Generate vector with size equal to list of lead-lag equipment"
-    annotation (Placement(transformation(extent={{-50,-290},{-30,-270}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant heaModSig[nHp](
     final k=fill(true,nHp)) if have_heaWat and not have_chiWat
@@ -371,14 +341,6 @@ equation
     annotation (Line(points={{102,0},{118,0}},     color={255,127,0}));
   connect(intScaRep.y, intSwi.u1) annotation (Line(points={{142,0},{180,0},{180,
           -2},{198,-2}},                           color={255,127,0}));
-  connect(conIntRev.y, intSwi1.u1) annotation (Line(points={{12,-260},{12,-272},
-          {28,-272}}, color={255,127,0}));
-  connect(conIntDir.y, intSwi1.u3) annotation (Line(points={{12,-300},{12,-298},
-          {28,-298},{28,-288}}, color={255,127,0}));
-  connect(booScaRep1.y, intSwi1.u2)
-    annotation (Line(points={{-28,-280},{28,-280}},  color={255,0,255}));
-  connect(and2.y, booScaRep1.u) annotation (Line(points={{-198,80},{-180,80},{-180,
-          -280},{-52,-280}},                      color={255,0,255}));
   connect(heaModSig.y, booToInt.u) annotation (Line(points={{-118,-120},{-100,-120},
           {-100,-100},{-82,-100}},
                                 color={255,0,255}));
@@ -408,8 +370,6 @@ equation
         color={255,0,255}));
   connect(and2.y, yHeaCoo)
     annotation (Line(points={{-198,80},{340,80}},   color={255,0,255}));
-  connect(intSwi1.y, yIdxSta)
-    annotation (Line(points={{52,-280},{340,-280}}, color={255,127,0}));
   connect(u1PumPriCoo, or5.u1) annotation (Line(points={{-278,320},{-32,320},{-32,
           300},{-22,300}}, color={255,0,255}));
   connect(u1PumPriHea, or5.u2) annotation (Line(points={{-280,280},{-30,280},{-30,
@@ -545,9 +505,6 @@ The primary pump enable <code>y1PumPri</code> activates when the SHC primary pum
 is enabled in heating-cooling mode (<code>and9</code>).
 </p>
 <p>
-Staging indices <code>yIdxSta</code> are generated without sorting by switching
-between direct (<code>conIntDir</code>) and reverse (<code>conIntRev</code>) orders
-if <code>have_sorRunTim=false</code>.
 The final staging matrix <code>yStaEqu</code> outputs the required staging order
 based on the plant operation mode.
 </p>

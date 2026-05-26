@@ -2,10 +2,6 @@ within Buildings.Templates.Plants.Controls.HeatPumps;
 block AirToWater
   "Controller for AWHP plant"
 
-  final parameter Boolean have_sorRunTim=true
-    "Set to true if the staging order algorithm includes the sequence of sorting
-    runtime for equipment rotation";
-
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
     annotation (Evaluate=true,
@@ -1372,7 +1368,7 @@ block AirToWater
     annotation (Placement(transformation(extent={{-40,308},{-20,332}})));
   StagingRotation.SortRuntime sorRunTimHea(
     final idxEquAlt=idxEquAlt,
-    final nin=nHpTot) if have_heaWat and have_sorRunTim
+    final nin=nHpTot) if have_heaWat
     "Sort lead/lag alternate equipment by staging runtime – Heating mode"
     annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
   Enabling.Enable enaCoo(
@@ -1436,7 +1432,7 @@ block AirToWater
     "Left-limit of command signal to break algebraic loop"
     annotation (Placement(transformation(extent={{230,350},{210,370}})));
   StagingRotation.SortRuntime sorRunTimCoo(
-    final idxEquAlt=idxEquAlt, nin=nHpTot) if have_chiWat and have_sorRunTim
+    final idxEquAlt=idxEquAlt, nin=nHpTot) if have_chiWat
     "Sort lead/lag alternate equipment by staging runtime – Cooling mode"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Pumps.Generic.StagingHeadered staPumHeaWatPri(
@@ -1709,7 +1705,6 @@ block AirToWater
     annotation (Placement(transformation(extent={{-80,-450},{-60,-430}})));
   StagingRotation.HybridOperation ctlPlaHyb(
     final have_heaWat=have_heaWat,
-    final have_sorRunTim=have_sorRunTim,
     final have_chiWat=have_chiWat,
     final nHp=nHpTot,
     final is_HpShc=is_HpShc,
@@ -1742,8 +1737,8 @@ block AirToWater
     annotation (Placement(transformation(extent={{-220,290},{-200,310}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HpShc_actual[nHpShc]
     if have_HpShc "SHC HP status" annotation (Placement(transformation(extent={
-            {-300,210},{-260,250}}), iconTransformation(extent={{-240,292},{
-            -200,332}})));
+            {-300,210},{-260,250}}), iconTransformation(extent={{-240,292},{-200,
+            332}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpShcHea[nHpShc]
     if have_HpShc "SHC HP heating enable command" annotation (Placement(
         transformation(extent={{300,420},{340,460}}), iconTransformation(extent
@@ -2245,12 +2240,6 @@ equation
   connect(ctlPlaHyb.yStaEqu, avaStaHea.staEqu) annotation (Line(points={{82,-100},
           {88,-100},{88,-128},{-72,-128},{-72,290},{-128,290},{-128,326},{-112,326}},
         color={0,0,127}));
-  connect(ctlPlaHyb.yIdxSta, enaEquHea.uIdxAltSor) annotation (Line(points={{82,-104},
-          {84,-104},{84,-120},{26,-120},{26,366},{38,366}},       color={255,127,
-          0}));
-  connect(ctlPlaHyb.yIdxSta, enaEquCoo.uIdxAltSor) annotation (Line(points={{82,-104},
-          {84,-104},{84,-120},{26,-120},{26,106},{38,106}},       color={255,127,
-          0}));
 if have_HpShc then
 end if;
   connect(staMat.y, avaStaHea.staEqu) annotation (Line(points={{-198,260},{-164,
@@ -2343,8 +2332,6 @@ end if;
   connect(TChiWatSupSet, TChiWatHrcSupSet) annotation (Line(points={{320,-180},
           {188,-180},{188,-332},{260,-332},{260,-340},{320,-340}}, color={0,0,
           127}));
-  connect(ctlPlaHyb.yMod[(nHp + 1):(nHp+nHpShc)], yMod) annotation (Line(points={{82,-96},
-          {86,-96},{86,340},{320,340}},              color={255,127,0}));
   connect(or6[nHp + 1:nHp + nHpShc].y, y1PumHeaWatPriShc) annotation (Line(
         points={{-58,-410},{-52,-410},{-52,-428},{288,-428},{288,-430},{320,-430}},
                                                               color={255,0,255}));
