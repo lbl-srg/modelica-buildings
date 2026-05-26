@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater",
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWaterPolyvalent",
     method="cvode",
     tolerance=1e-6,
     stopTime=86400.0,
-    resultFile="AirToWaterControls");
+    resultFile="AirToWaterControlsPolyvalent");
 createPlot(
     id=1,
     position={5, 5, 300, 500},
@@ -39,7 +39,7 @@ createPlot(
     id=3,
     position={615, 5, 300, 500},
     subPlot=1,
-    y={"ctl.y1Hp[1]", "ctl.y1Hp[2]", "ctl.y1Hp[3]"},
+    y={"ctl.y1Hp[1]", "ctl.y1Hp[2]", "ctl.y1HpShcHea[1]", "ctl.y1HpShcCoo[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -47,7 +47,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=2,
-    y={"ctl.y1HeaHp[1]", "ctl.y1HeaHp[2]", "ctl.y1HeaHp[3]"},
+    y={"ctl.y1HeaHp[1]", "ctl.y1HeaHp[2]", "ctl.yMod[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -56,7 +56,7 @@ createPlot(
     id=4,
     position={920, 5, 300, 600},
     subPlot=1,
-    y={"ctl.y1PumHeaWatPri[1]", "ctl.y1PumHeaWatPri[2]", "ctl.y1PumHeaWatPri[3]"},
+    y={"ctl.y1PumHeaWatPri[1]", "ctl.y1PumHeaWatPri[2]", "ctl.y1PumHeaWatPriShc[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -72,7 +72,7 @@ createPlot(
 createPlot(
     id=4,
     subPlot=3,
-    y={"ctl.y1PumChiWatPri[1]", "ctl.y1PumChiWatPri[2]", "ctl.y1PumChiWatPri[3]"},
+    y={"ctl.y1PumChiWatPri[1]", "ctl.y1PumChiWatPri[2]", "ctl.y1PumChiWatPriShc[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -106,23 +106,6 @@ createPlot(
     id=5,
     subPlot=3,
     y={"ctl.dpHeaWatRemSet[1]", "ctl.dpChiWatRemSet[1]", "ctl.dpHeaWatRemSet_max[1]", "ctl.dpHeaWatRemSet_min", "ctl.dpChiWatRemSet_max[1]", "ctl.dpChiWatRemSet_min"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
-);
-createPlot(
-    id=6,
-    position={15, 15, 300, 400},
-    subPlot=1,
-    y={"ctl.y1Hrc", "ctl.y1CooHrc", "ctl.y1PumChiWatHrc", "ctl.y1PumHeaWatHrc"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
-);
-createPlot(
-    id=6,
-    subPlot=2,
-    y={"ctl.hrc.loaChiWat.QReq_flow", "ctl.hrc.loaHeaWat.QReq_flow", "ctl.capCooHrc_min", "ctl.capHeaHrc_min", "ctl.hrc.setMod.QEvaHea_flow.y"},
     autoscale=true,
     grid=true,
     timeUnit="h"
