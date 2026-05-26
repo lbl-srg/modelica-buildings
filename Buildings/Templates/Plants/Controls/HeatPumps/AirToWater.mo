@@ -510,17 +510,14 @@ block AirToWater
     "Staging matrix for heating-only and cooling-only mode – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
-  final parameter Real staEquTem[:,:]=if have_HpShc then staEquSinMod else staEqu
-    "Temporary placeholder";
-
   final parameter Integer nSta(
-    final min=1)=size(staEquTem, 1)
+    final min=1)=size(staEqu, 1)
     "Number of stages"
     annotation (Evaluate=true);
 
   final parameter Integer nEquAlt(
     final min=0)=if nHpTot==1 then 1 else
-    max({sum({(if staEquTem[i, j] > 0 and staEquTem[i, j] < 1 then 1 else 0) for j in 1:nHpTot}) for i in 1:nSta})
+    max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nHpTot}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
 
