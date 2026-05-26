@@ -1119,7 +1119,7 @@ block AirToWater
     annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
       iconTransformation(extent={{-240,-170},{-200,-130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpShcHea[nHpShc]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaHpShc[nHpShc]
     if have_HpShc
     "SHC HP heating enable command"
     annotation (Placement(transformation(extent={{300,420},{340,460}}),
@@ -1217,7 +1217,7 @@ block AirToWater
     annotation (Placement(transformation(extent={{300,-300},{340,-260}}),
       iconTransformation(extent={{200,-250},{240,-210}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpShcCoo[nHpShc]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1CooHpShc[nHpShc]
     if have_HpShc
     "SHC HP cooling enable command"
     annotation (Placement(transformation(extent={{300,390},{340,430}}),
@@ -2380,9 +2380,9 @@ end if;
   connect(seqEve.y1, ctlPlaHyb.u1Hp) annotation (Line(points={{162,310},{250,310},
           {250,-154},{48,-154},{48,-108},{58,-108}},               color={255,0,
           255}));
-  connect(ctlPlaHyb.yHpShcHeaOn[nHp+1:nHpTot], y1HpShcHea) annotation (Line(points={{82,-108},
+      connect(ctlPlaHyb.yHpShcHeaOn[nHp+1:nHpTot], y1HeaHpShc) annotation (Line(points={{82,-108},
           {100,-108},{100,-114},{252,-114},{252,440},{320,440}}, color={255,0,255}));
-  connect(ctlPlaHyb.yHpShcCooOn[nHp+1:nHpTot], y1HpShcCoo) annotation (Line(points={{82,-112},
+      connect(ctlPlaHyb.yHpShcCooOn[nHp+1:nHpTot], y1CooHpShc) annotation (Line(points={{82,-112},
           {96,-112},{96,-120},{254,-120},{254,410},{320,410}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl",
