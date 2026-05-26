@@ -39,7 +39,7 @@ createPlot(
     id=3,
     position={615, 5, 300, 500},
     subPlot=1,
-    y={"ctl.y1Hp[1]", "ctl.y1Hp[2]", "ctl.y1HpShcHea[1]", "ctl.y1HpShcCoo[1]"},
+    y={"ctl.y1Hp[1]", "ctl.y1Hp[2]", "ctl.y1HeaHpShc[1]", "ctl.y1CooHpShc[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -47,7 +47,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=2,
-    y={"ctl.y1HeaHp[1]", "ctl.y1HeaHp[2]", "ctl.y1HpShcHea[1]", "ctl.y1HpShcCoo[1]"},
+    y={"ctl.y1HeaHp[1]", "ctl.y1HeaHp[2]", "ctl.y1HeaHpShc[1]", "ctl.y1CooHpShc[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
