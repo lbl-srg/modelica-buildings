@@ -26,7 +26,7 @@ block ControllerDualMode
     "Number of enable signals for HW loop – Valve command or pump status"
     annotation (Evaluate=true,
     Dialog(connectorSizing=true),HideResult=true);
-  parameter Integer nEnaChiWat=nEnaHeaWat
+  parameter Integer nEnaChiWat=0
     "Number of enable signals for CHW loop – Valve command or pump status"
     annotation (Evaluate=true,
     Dialog(connectorSizing=true),HideResult=true);
