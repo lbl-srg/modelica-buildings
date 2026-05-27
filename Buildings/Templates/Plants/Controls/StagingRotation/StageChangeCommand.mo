@@ -280,18 +280,18 @@ block StageChangeCommand "Generate stage change command"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
     final k=traStaEquDouMod) if have_HpShc
-    "Constant signal for tranverse of staging equation matrix in heating-cooling mode"
+    "Constant signal for transpose of staging equation matrix in heating-cooling mode"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
     final k=traStaEquSinMod) if have_HpShc
-    "Constant signal for tranverse of staging equation matrix in single-operation mode"
+    "Constant signal for transpose of staging equation matrix in single-operation mode"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta] if have_HpShc
-    "Switch between transverse matrices for heating-cooling mode and single-operation mode"
+    "Switch between transpose matrices for heating-cooling mode and single-operation mode"
     annotation (Placement(transformation(extent={{32,20},{52,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
     final k=traStaEqu) if not have_HpShc
-    "Constant signal for tranverse of staging equation matrix in non-hybrid plants"
+    "Constant signal for transpose of staging equation matrix in non-hybrid plants"
     annotation (Placement(transformation(extent={{32,-20},{52,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_HpShc
     "Detect plant switching to heating-cooling mode"

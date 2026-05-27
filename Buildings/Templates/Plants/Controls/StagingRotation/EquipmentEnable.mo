@@ -201,22 +201,22 @@ block EquipmentEnable
 
   Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta]
     if have_HpShc and not is_pumApp
-    "Switch between transverse matrices for heating-cooling mode and single-operation mode"
+    "Switch between transpose matrices for heating-cooling mode and single-operation mode"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
     final k=traStaEquDouMod) if have_HpShc
-    "Constant signal for transverse of staging equation matrix in heating-cooling mode"
+    "Constant signal for transpose of staging equation matrix in heating-cooling mode"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
     final k=traStaEquSinMod) if have_HpShc
-    "Constant signal for transverse of staging equation matrix in single-operation mode"
+    "Constant signal for transpose of staging equation matrix in single-operation mode"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
     final k=traStaEqu) if not have_HpShc
-    "Constant signal for transverse of staging equation matrix in non-hybrid plants"
+    "Constant signal for transpose of staging equation matrix in non-hybrid plants"
     annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
